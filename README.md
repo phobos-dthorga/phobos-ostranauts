@@ -32,6 +32,7 @@ with a smaller setup appropriate to this project's current scope.
 
 - [Project direction](docs/project-direction.md)
 - [Medical-system vision](docs/medical-system-vision.md)
+- [Health, injury and drug reference](docs/health-reference.md)
 - [Medical and portable-power research](docs/medical-research.md)
 - [Medical and power runtime findings](docs/medical-runtime-findings.md)
 - [Next experiments and decisions](docs/medical-next-steps.md)

@@ -1,5 +1,10 @@
 # Medical and portable-power research
 
+For the broader condition catalogue, progression, prevention and treatment limits,
+start with the [health, injury and drug reference](health-reference.md). Its
+companion pages cover chronic ailments/scars, medicines and substances, and the
+source/version record. This page remains the earlier device-focused investigation.
+
 Research updated 2026-09-20. Local game session reports **1.0.1.4**. The
 [environment record](modding-notes.md#environment-recheck-2026-09-20) lists the
 installed plugin versions and configured mods.
