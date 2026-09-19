@@ -1,0 +1,36 @@
+# Local tools, research, test saves and machine configuration.
+/.local/
+/.tools/
+/work/
+/artifacts/
+/dist/
+/captures/
+/saves/
+/decompiled/
+*.local.json
+.env
+.env.*
+!.env.example
+*.log
+*.zip
+*.sav
+*.dmp
+*.pfx
+*.p12
+*.key
+*.pem
+
+# Compiled game dependencies and build products are resolved locally.
+**/bin/
+**/obj/
+*.dll
+*.exe
+*.pdb
+*.nupkg
+node_modules/
+__pycache__/
+*.pyc
+.vs/
+.idea/
+.DS_Store
+Thumbs.db
