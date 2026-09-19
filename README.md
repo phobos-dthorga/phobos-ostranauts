@@ -1,6 +1,7 @@
 # Phobos Ostranauts
 
-Experimental furniture, machinery and gameplay extensions for **Ostranauts**.
+Experimental portable equipment, furniture, machinery and gameplay extensions
+for **Ostranauts**.
 
 This is a private development workspace. It may become public later, once there
 is something worthwhile to share. No playable mod has been implemented yet.
@@ -11,7 +12,10 @@ is something worthwhile to share. No playable mod has been implemented yet.
 - Production, recycling and life-support machinery.
 - Comfort, recreation and crew behaviour.
 
-Start with one useful, playable experiment and build from there. Use native
+The leading direction is a broad medical system spanning portable field equipment
+and installed shipboard facilities. Handheld devices, realistic battery management
+and their relationship with more capable medical facilities are central interests.
+Build it through focused research and useful, playable experiments. Use native
 game data where it fits and C# plugins where new behaviour needs them.
 
 ## Working approach
@@ -27,13 +31,19 @@ with a smaller setup appropriate to this project's current scope.
 ## Start here
 
 - [Project direction](docs/project-direction.md)
+- [Medical-system vision](docs/medical-system-vision.md)
+- [Medical and portable-power research](docs/medical-research.md)
+- [Medical and power runtime findings](docs/medical-runtime-findings.md)
+- [Next experiments and decisions](docs/medical-next-steps.md)
 - [Modding findings](docs/modding-notes.md)
+- [Earlier first-object investigation](docs/first-furniture-experiment.md)
 - [Contributor guide](CONTRIBUTING.md)
 - [Agent instructions](AGENTS.md)
 
-Next: choose one furniture concept, prove its basic interaction in-game, and
-record what works before expanding it. Add build tools and automated checks
-alongside the first implementation that needs them.
+Next: compare the existing health interface with a useful field-care decision and
+measure the native battery loop in a separate test save. Then choose the first
+device using the documented shortlist and acceptance checks. Add build tools and
+automated checks alongside the first implementation that needs them.
 
 ## Licence and attribution
 

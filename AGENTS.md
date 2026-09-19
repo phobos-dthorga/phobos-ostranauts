@@ -6,6 +6,9 @@
   speculative framework or extensive process.
 - Use observed progress to plan rounds; do not invent hour estimates.
 - Explain what works, what was checked and what remains uncertain.
+- For any Ostranauts mod idea, candidly recommend simplifying, setting it aside
+  or changing direction when gameplay value, engine limits or maintenance costs
+  make further work unconvincing. Do not continue merely because effort was spent.
 - Repository visibility stays private until the owner explicitly requests a change.
 
 ## Architecture
