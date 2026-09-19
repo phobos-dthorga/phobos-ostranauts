@@ -1,19 +1,20 @@
 # Limited autopilot nav module
 
-Research and proposed design, 2026-09-20. The owner requested a deliberately
-limited, "pseudo autopilot" nav module. **Feasible in principle; no Phobos
-autopilot has been implemented or tested in-game.**
+**Selected as the project's first mod by the owner on 2026-09-20.** Working name:
+**Phobos Approach Assist**. This document combines researched extension points
+with the intended design for a deliberately limited, "pseudo autopilot" module.
+No Phobos autopilot has been implemented or tested in-game yet.
 
-## Recommendation
+## Selected direction
 
 Build a **Phobos Approach Assist** module: the pilot chooses a nearby contact,
 clears the departure area and engages one cautious RCS approach. The module
 accelerates, coasts and brakes, then hands control back outside docking range.
 The pilot remains responsible for traffic, final alignment and docking.
 
-Approach-and-brake is the recommended first function, pending the owner's
-preference between that, velocity matching and a timed burn. The specific limits
-below are design proposals, not approved balance values or existing behaviour.
+Approach-and-brake is the initial implementation target. Native sensors and later
+expansion through shipboard hardware are part of the selected direction. Exact
+balance values and individual expansion devices remain proposals to validate.
 
 The useful distinction is limited capability with predictable operation. Avoid
 random steering errors or deliberately late braking as balance mechanics.
@@ -27,6 +28,20 @@ should still work by itself with the ship's existing propulsion and nav console.
 The owner also asked to reuse the game's existing sensor system. **Native ship
 sensors are the intended sensing foundation**, rather than a new compulsory
 Phobos sensor family. The baseline still requires adequate native sensing.
+
+## First playable milestone
+
+One installable nav module supports one nearby, firmly detected ship or station.
+It performs a capped RCS approach, brakes outside the docking clearance envelope
+and returns control to the pilot. The pilot chooses the route and handles docking.
+It uses actual fuel and native sensor state, and responds to manual takeover,
+lost tracking, hardware/power failure and insufficient braking fuel.
+
+Start with the short-burn integration proof described below, then add guidance.
+The milestone is complete only after the connected behaviour works in a separate
+test save, including pause, fast-forward, UI closure and save/reload. A compiled
+plugin or a visible panel alone does not meet it. Extra processing hardware and
+advanced manoeuvres follow after this basic loop proves useful.
 
 ## Player interaction
 

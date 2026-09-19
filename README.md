@@ -6,13 +6,19 @@ for **Ostranauts**.
 This is a private development workspace. It may become public later, once there
 is something worthwhile to share. No playable mod has been implemented yet.
 
+Our first selected mod is **[Phobos Approach Assist](docs/limited-autopilot.md)**
+(working name): a physical nav module for cautious RCS approaches using native
+ship sensors. It accelerates, coasts and brakes, leaving final docking to the
+pilot. Later capabilities can depend on additional equipment aboard the ship.
+
 ## Scope
 
 - Medical equipment, diagnostics and treatments.
 - Production, recycling and life-support machinery.
 - Comfort, recreation and crew behaviour.
+- Navigation assistance and supporting shipboard equipment.
 
-The leading direction is a broad medical system spanning portable field equipment
+The medical ambition is a broad system spanning portable field equipment
 and installed shipboard facilities. Handheld devices, realistic battery management
 and their relationship with more capable medical facilities are central interests.
 Build it through focused research and useful, playable experiments. Use native
@@ -42,10 +48,10 @@ with a smaller setup appropriate to this project's current scope.
 - [Contributor guide](CONTRIBUTING.md)
 - [Agent instructions](AGENTS.md)
 
-Next: compare the existing health interface with a useful field-care decision and
-measure the native battery loop in a separate test save. Then choose the first
-device using the documented shortlist and acceptance checks. Add build tools and
-automated checks alongside the first implementation that needs them.
+Next: implement and verify the first Approach Assist loop in a separate test save,
+starting with module integration, native sensing and a short controlled RCS burn.
+Medical research remains documented separately. Add build tools and useful checks
+with the first implementation.
 
 ## Licence and attribution
 
