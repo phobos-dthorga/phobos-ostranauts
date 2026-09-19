@@ -7,22 +7,23 @@ using UnityEngine;
 
 namespace PhobosApproachAssist;
 
-[BepInPlugin(Id, "Phobos Approach Assist (prototype)", "0.1.0")]
+[BepInPlugin(Id, "Phobos Approach Assist (prototype)", Version)]
 [BepInProcess("Ostranauts.exe")]
 public sealed class Plugin : BaseUnityPlugin
 {
     public const string Id = "phobosgekko.ostranauts.approachassist";
+    public const string Version = "0.1.1";
     internal static ApproachService Service { get; private set; } = null!;
     private Harmony? harmony;
     private bool showTestTools;
-    private Rect toolsRect = new Rect(30, 100, 460, 210);
+    private Rect toolsRect = new Rect(30, 100, 460, 260);
 
     private void Awake()
     {
         Service = new ApproachService(message => Logger.LogInfo(message));
         harmony = new Harmony(Id);
         harmony.PatchAll(typeof(Plugin).Assembly);
-        Logger.LogInfo("Prototype loaded. F8 opens test tools. Burns and item creation require a PhobosApproachAssistTest save.");
+        Logger.LogInfo("Prototype loaded. F3: phobosapproach help. F8 opens test tools. Burns and item creation require a PhobosApproachAssistTest save.");
     }
 
     private void Update()
@@ -39,8 +40,10 @@ public sealed class Plugin : BaseUnityPlugin
     {
         GUILayout.Label("Integration prototype: a two-second RCS pulse. No automatic approach or braking yet.");
         GUILayout.Label("Use a separate test world saved as PhobosApproachAssistTest. Open its nav console.");
+        GUILayout.Label("F3 console: phobosapproach help / status / spawn / pulse / stop");
         GUILayout.Label(Service.Status);
         if (GUILayout.Button("Add test module to this console")) Service.AddTestModule();
+        if (GUILayout.Button("Add damaged test module to this console")) Service.AddTestModule(damaged: true);
         if (GUILayout.Button("Disengage")) Service.Disengage("Disengaged by pilot");
         GUI.DragWindow(new Rect(0, 0, 460, 24));
     }

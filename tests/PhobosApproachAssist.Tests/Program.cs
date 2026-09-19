@@ -60,4 +60,22 @@ Check(!ThrustDirection.TryCreate(0, 0, 0, out _), "Reject zero separation");
 Check(!ThrustDirection.TryCreate(double.NaN, 1, 0, out _), "Reject invalid position");
 Check(!ThrustDirection.TryCreate(1, 0, double.PositiveInfinity, out _), "Reject invalid rotation");
 Check(!ThrustDirection.TryCreate(double.MaxValue, 0, 0, out _), "Reject overflow");
-Console.WriteLine($"{passed} controller and test-save checks passed. These are not in-game tests.");
+foreach (var (input, expected) in new (string, DebugAction)[]
+{
+    ("phobosapproach", DebugAction.Help),
+    ("phobosapproach help", DebugAction.Help),
+    ("phobosapproach status", DebugAction.Status),
+    ("phobosapproach spawn", DebugAction.Spawn),
+    ("phobosapproach spawn damaged", DebugAction.SpawnDamaged),
+    ("phobosapproach pulse", DebugAction.Pulse),
+    ("phobosapproach stop", DebugAction.Stop),
+    ("  PHOBOSAPPROACH\tSpAwN   DAMAGED  ", DebugAction.SpawnDamaged),
+    ("\tPhobosApproach  STATUS\t", DebugAction.Status)
+}) Check(DebugCommands.Parse(input) == expected, "Route command: " + input);
+foreach (string? input in new[] { null, "", " \t", "help", "spawn PhobosNavModApproachAssist", "stop", "phobosapproachother spawn", "echo phobosapproach spawn" })
+    Check(DebugCommands.Parse(input) == DebugAction.Foreign, "Leave native/other commands untouched: " + input);
+foreach (string input in new[] { "phobosapproach unknown", "phobosapproach spawn normal", "phobosapproach spawn 100", "phobosapproach spawn damaged extra",
+    "phobosapproach spawn broken", "phobosapproach stop all", "phobosapproach pulse 20", "phobosapproach status extra", "phobosapproach help extra",
+    "phobosapproach spawn damaged; phobosapproach pulse" })
+    Check(DebugCommands.Parse(input) == DebugAction.Invalid, "No action for malformed arguments: " + input);
+Console.WriteLine($"{passed} controller, test-save and command checks passed. These are not in-game tests.");

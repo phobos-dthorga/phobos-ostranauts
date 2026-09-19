@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using HarmonyLib;
 using Ostranauts.Core;
 using Ostranauts.Core.Models;
@@ -32,31 +33,119 @@ internal sealed class ApproachService
     internal ApproachService(Action<string> log) { this.log = log; }
     internal bool Active => pulse?.Active == true;
     private static bool InTestSave => TestSavePolicy.Allows((SaveField?.GetValue(null) as SaveInfo)?.SaveName);
+    private static CondOwner? OpenConsole => GUIOrbitDraw.IsOpen() ? GUIOrbitDraw.Instance.COSelfBase() : null;
     private static bool PropOn(CondOwner co, string key) => co.mapGUIPropMaps.TryGetValue("Panel A", out var props)
         && props.TryGetValue(key, out var value) && string.Equals(value, "true", StringComparison.OrdinalIgnoreCase);
 
-    internal void AddTestModule()
+    internal bool RunDebugCommand(DebugAction action, out string response)
     {
-        var nav = GUIOrbitDraw.Instance;
-        var co = nav == null ? null : nav.COSelfBase();
-        if (!InTestSave || co == null) { Status = "Open a nav console in a named test save first"; return; }
-        if (co.GetCOsSafe(true).Any(IsModule)) { Status = "Module already present; use nav Edit to place it"; return; }
-        if (DataHandler.GetCOOverlay(ModuleId) == null) { Status = "Native Approach Assist data package is not loaded"; return; }
-        var item = DataHandler.GetCondOwner(ModuleId);
-        if (item == null) { Status = "Could not create test module"; return; }
-        var remainder = co.AddCO(item, false, false, false);
-        if (remainder != null)
+        bool success = true;
+        try
         {
-            remainder.Destroy();
-            Status = "Console has no room for the test module";
-            return;
+            switch (action)
+            {
+                case DebugAction.Help: response = DebugCommands.Help; break;
+                case DebugAction.Status: response = ReadDiagnostics(); break;
+                case DebugAction.Spawn:
+                case DebugAction.SpawnDamaged:
+                    success = AddTestModule(action == DebugAction.SpawnDamaged);
+                    response = Status;
+                    break;
+                case DebugAction.Pulse:
+                    if (Active) { success = false; response = "A pulse is already active; use phobosapproach stop first"; break; }
+                    var co = OpenConsole;
+                    if (co == null) { success = false; response = "Open the ship's nav console first (not PDA navigation)"; break; }
+                    Engage(co);
+                    success = Active;
+                    response = Status;
+                    break;
+                case DebugAction.Stop:
+                    Disengage("Approach Assist disengaged by debug command; no braking applied");
+                    response = Status;
+                    break;
+                default:
+                    success = false;
+                    response = "Unknown command or extra arguments. Use phobosapproach help";
+                    break;
+            }
         }
-        Status = "Test module added. Close/reopen the console, then use Edit to place it.";
-        log(Status);
+        catch (Exception ex)
+        {
+            success = false;
+            response = "Approach Assist command failed: " + ex.GetType().Name + ". See the BepInEx log.";
+            log(ex.ToString());
+        }
+        log(response);
+        return success;
     }
 
-    private static bool IsModule(CondOwner co) => co != null && !co.bDestroyed
-        && (co.strName == ModuleId || co.strCODef == ModuleId || co.strName == DamagedId || co.strCODef == DamagedId);
+    private string ReadDiagnostics()
+    {
+        var report = new StringBuilder("Phobos Approach Assist " + Plugin.Version);
+        report.Append("\nTest-save gate: ").Append(InTestSave ? "allowed" : "blocked (use PhobosApproachAssistTest)");
+        report.Append("\nWorld: ").Append(CrewSim.objInstance != null && CrewSim.objInstance.FinishedLoading ? "loaded" : "not ready");
+        report.Append("\nNative definitions: normal=").Append(DataHandler.GetCOOverlay(ModuleId) != null)
+            .Append(", damaged=").Append(DataHandler.GetCOOverlay(DamagedId) != null);
+        report.Append("\nController: ").Append(Active ? "armed" : "idle").Append("; ").Append(Status);
+        if (pulse != null) report.Append("\nPulse: ").Append(pulse.Elapsed.ToString("F3")).Append(" / 2 s; commanded delta-v ")
+            .Append(pulse.CommandedDeltaV.ToString("F4")).Append(" / 0.1 m/s");
+        var co = OpenConsole;
+        if (co == null) return report.Append("\nOpen the ship's nav console for hardware and contact checks (not PDA navigation).").ToString();
+        report.Append("\nConsole: installed=").Append(co.HasCond("IsInstalled")).Append(", powered=").Append(co.HasCond("IsPowered"))
+            .Append(", off=").Append(co.HasCond("IsOff")).Append(", damaged=").Append(co.HasCond("IsDamaged"));
+        var modules = co.GetCOsSafe(true).Where(IsModule).ToArray();
+        report.Append("\nModules: normal=").Append(modules.Count(c => HasModuleId(c, ModuleId)))
+            .Append(", damaged=").Append(modules.Count(c => HasModuleId(c, DamagedId)));
+        if (co.ship != null && CrewSim.coPlayer != null && co.ship == CrewSim.coPlayer.ship)
+            report.Append("\nShip: RCS units=").Append(co.ship.RCSCount).Append(", fuel=").Append(co.ship.GetRCSRemain().ToString("F3"))
+                .Append(" kg; any sensor on=").Append(co.ship.ElectronicSystems?.HasAnySensorOn() == true);
+        var contact = Active && console == co ? target : GUIOrbitDraw.CrossHairTarget?.Ship;
+        report.Append("\nPulse check: ").Append(Validate(co, contact, out _) ?? "ready; pulse has no automatic braking");
+        return report.ToString();
+    }
+
+    internal bool AddTestModule(bool damaged = false)
+    {
+        var co = OpenConsole;
+        if (!InTestSave) { Status = "Test-save restriction: use PhobosApproachAssistTest"; return false; }
+        if (CrewSim.objInstance == null || !CrewSim.objInstance.FinishedLoading) { Status = "Game is loading"; return false; }
+        if (co == null || co.bDestroyed || co.ship == null || CrewSim.coPlayer == null || co.ship != CrewSim.coPlayer.ship
+            || !co.HasCond("IsInstalled"))
+        { Status = "Open an installed nav console on the player's current ship (not PDA navigation)"; return false; }
+        if (co.HasCond("IsLocked")) { Status = "Unlock the nav console before adding a test module"; return false; }
+        string moduleId = damaged ? DamagedId : ModuleId;
+        if (co.GetCOsSafe(true).Any(c => HasModuleId(c, moduleId)))
+        { Status = "That module variant is already present; use nav Edit to place it"; return false; }
+        if (DataHandler.GetCOOverlay(moduleId) == null) { Status = "Native Approach Assist data package is not loaded"; return false; }
+        CondOwner? item = null;
+        try
+        {
+            item = DataHandler.GetCondOwner(moduleId);
+            if (item == null) { Status = "Could not create test module"; return false; }
+            // Native bOverflow must be true to continue past stacking into the container.
+            // It still respects capacity and locks, and does not drop anything onto the floor.
+            var remainder = co.AddCO(item, bEquip: false, bOverflow: true, bIgnoreLocks: false);
+            if (remainder != null)
+            {
+                item.Destroy();
+                Status = "Console cannot accept the test module (full, locked or incompatible)";
+                return false;
+            }
+        }
+        catch (Exception ex)
+        {
+            if (item != null && !item.bDestroyed && item.objCOParent == null && item.ship == null) item.Destroy();
+            Status = "Module creation failed: " + ex.GetType().Name + ". Check the console and BepInEx log before retrying.";
+            log(ex.ToString());
+            return false;
+        }
+        Status = (damaged ? "Damaged test module" : "Test module") + " added. Close/reopen the console, then use Edit to place it.";
+        log(Status);
+        return true;
+    }
+
+    private static bool HasModuleId(CondOwner co, string id) => co != null && !co.bDestroyed && (co.strName == id || co.strCODef == id);
+    private static bool IsModule(CondOwner co) => HasModuleId(co, ModuleId) || HasModuleId(co, DamagedId);
 
     internal string ReadPanel(CondOwner co)
     {

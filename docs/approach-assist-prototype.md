@@ -1,6 +1,6 @@
 # Approach Assist P0: integration prototype
 
-Version **0.1.0**, prepared 2026-09-20 against Ostranauts **1.0.1.4** and the
+Version **0.1.1**, prepared 2026-09-20 against Ostranauts **1.0.1.4** and the
 installed BepInEx **5.4.23.5**. This is the first implementation of the
 [selected mod](limited-autopilot.md), not the completed approach assistant.
 
@@ -22,6 +22,8 @@ installed BepInEx **5.4.23.5**. This is the first implementation of the
   That command continues through the native path without being overwritten by
   the prototype's cleanup.
 - Disarmed operation after loading. The pulse is deliberately not saved.
+- F3 console commands for help, diagnostics, normal/damaged item creation, the
+  existing test pulse and disengagement. F8 remains an alternative for spawning.
 
 The service applies its demand before the native star-system physics update and
 clears its own demand afterward. The controller scales a fractional final pulse
@@ -72,9 +74,10 @@ The build script does not install anything or edit game configuration or saves.
    Both the native package and the plugin are required.
 4. Restart the game, create a separate test world, and save it under the required
    test name. Confirm the plugin's startup message in the BepInEx log.
-5. Open an installed, powered nav console. Press **F8**, then choose **Add test
-   module to this console**. This is the prototype's only distribution route;
-   ordinary salvage, shops and crafting are not changed.
+5. Open an installed, powered nav console on the player's ship, press **F3** to
+   open the game's debug console, and enter **`phobosapproach spawn`**. Close the
+   debug console with F3. Alternatively, press **F8** and choose **Add test module
+   to this console**. Ordinary salvage, shops and crafting are not changed.
 6. Close and reopen the console, choose its native **Edit** control, and drag
    **Approach Assist P0** onto free pegboard space. Its initial position is only
    a suggestion; occupied space must not displace existing modules.
@@ -86,14 +89,60 @@ The build script does not install anything or edit game configuration or saves.
 Remove the test module before unloading its native data package from a test
 save. No removal migration for persisted mod objects is implemented yet.
 
+## Debug command reference
+
+Use the game's **F3** console (the input action is named **Toggle Debug Console**).
+These commands do not require `unlockdebug`. Enter one command and press Enter.
+Commands and their arguments are case-insensitive; extra arguments are rejected.
+The prefix is `phobosapproach`, with no leading slash.
+
+| Command | Result |
+| --- | --- |
+| `phobosapproach` or `phobosapproach help` | Show the command list; usable without a loaded world. |
+| `phobosapproach status` | Report plugin version, test-save gate, loaded native definitions, controller state, console power/damage, module counts, RCS fuel, sensor availability and the first pulse blocker. Read-only; does not arm the controller or enable sensors. Open the ship's nav console for hardware/contact checks. |
+| `phobosapproach spawn` | Add one `PhobosNavModApproachAssist` to the open ship nav console. |
+| `phobosapproach spawn damaged` | Add one `PhobosNavModApproachAssistDmg` for damaged-panel and repair checks. |
+| `phobosapproach pulse` | Run the same capped two-second pulse as the panel, toward the selected firm contact. All existing hardware, contact, distance, speed and fuel checks apply. Refuses to restart an already active pulse. |
+| `phobosapproach stop` | Disengage Approach Assist immediately, including with the nav panel closed. Does **not** brake the ship or cancel unrelated flight systems. |
+
+Spawning requires a loaded, named test save and an installed nav console on the
+player's current ship. PDA navigation is not a destination. Each command adds
+one item, and refuses another copy of the same variant while it is in that
+console. Normal and damaged variants can coexist for inspection. To test the
+damaged-only refusal, move the normal module out using the game's inventory UI.
+Locks, capacity and item compatibility remain enforced. Failed placement removes
+only the newly created item; there is no floor-spawn fallback or bulk spawn.
+Close/reopen the nav console and use **Edit** after adding either variant.
+
+All command replies also go to `BepInEx/LogOutput.log`. When reporting a problem,
+include the `phobosapproach status` reply and the relevant log entries. The status
+command reports one snapshot, and its pulse check stops at the first unmet
+requirement; fix that requirement and run it again. It reports no hidden-contact
+positions or velocities.
+
+If the game says it cannot recognise `phobosapproach`, confirm the **0.1.1** plugin
+was copied and the game restarted, then check the startup log for patch errors.
+If the command works but says native definitions are missing, enable the native
+`PhobosApproachAssist` package too. A full or locked console must be cleared or
+unlocked through normal gameplay before retrying.
+
+The integration intercepts only `phobosapproach` in `ConsoleResolver.ResolveString`;
+other console commands continue unchanged. Inspection of the installed 1.0.1.4
+assembly established that the player's F3 console uses this resolver, rather
+than the separate `DevConsole.commands` dictionary. Version 0.1.1 also corrects
+the original F8 spawner's native inventory call: insertion must proceed beyond
+stacking into the console container. These are code findings, pending runtime
+confirmation in the owner's test world.
+
 ## Verification record
 
 | Check | Result |
 | --- | --- |
 | Compile against installed game, Unity and BepInEx assemblies | Passed with zero warnings/errors |
-| Controller checks | 86 passed: timestep variation/final-step impulse, pause, weak thrust, cancellation, invalid inputs, test-save names, coordinate rotation and aggregate throttle limits |
+| Controller and command checks | 113 passed: the original 86 controller/test-save checks plus 27 command cases covering routing, case/whitespace, malformed arguments and non-interference with native command names |
 | Native content/reference checks | All JSON parsed; 16 installed-game resource references resolved; normal/damaged GUI mappings agree; package contains no game binaries or images |
 | Plugin startup in the game | Pending |
+| F3 help/status/spawn/pulse/stop, rejected arguments and unchanged native commands | Pending |
 | Physical item creation, pegboard placement and damaged state | Pending |
 | Actual fuel use, motion and manual takeover | Pending |
 | Power interruption, module removal, lost contact and competing automation | Pending |
@@ -112,6 +161,15 @@ Test manual input both early and on the pulse's last update. Test paused
 engagement, UI closure and a reload during an armed pulse. Compare ordinary speed
 and fast-forward, and confirm that a timestep beyond the prototype limit ends
 the pulse without continuing thrust.
+
+For commands, check help/status before loading a world, then spawn each variant
+in the test world. Confirm duplicate and full/locked-console attempts do not add
+items. Check that `phobosapproach spawn damaged extra` refuses without creating
+anything and native `help` still works. Test `pulse` with no selected contact,
+with damaged-only hardware, with a valid setup and while already armed. Test
+`stop` both during a pulse and after closing the nav panel. Record observed item
+counts, output messages and motion, rather than treating the parser checks as
+proof that spawning or Harmony patches work in the game.
 
 ## Graphics checkpoint and provenance
 
