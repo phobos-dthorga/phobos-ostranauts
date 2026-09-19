@@ -1,0 +1,28 @@
+[
+  {
+    "strName": "PhobosNavModApproachAssist",
+    "strNameFriendly": "Phobos Approach Assist (Prototype)",
+    "strNameShort": "Approach Assist P0",
+    "strDesc": "An experimental navigation control module. Integration testing only: a brief RCS pulse toward a firm sensor contact. Does not brake or dock. Test-save use only.",
+    "strCOBase": "ItmNavModMobo",
+    "strImg": "navmod/ItmNavModCoursePlot",
+    "strImgNorm": "navmod/ItmNavModCoursePlotn",
+    "strPortraitImg": "navmod/ItmNavModCoursePlot",
+    "mapGUIPropMaps": ["NavMod", "PhobosNavModApproachAssist"],
+    "mapSlotEffects": ["heldL", "HeldItmDefaultL", "heldR", "HeldItmDefaultR"],
+    "mapModeSwitches": ["ItmNavModMobo", "PhobosNavModApproachAssist", "ItmNavModMoboDmg", "PhobosNavModApproachAssistDmg"]
+  },
+  {
+    "strName": "PhobosNavModApproachAssistDmg",
+    "strNameFriendly": "Phobos Approach Assist (Prototype, Damaged)",
+    "strNameShort": "Approach Assist P0 (Damaged)",
+    "strDesc": "A damaged Approach Assist prototype. Repair before use.",
+    "strCOBase": "ItmNavModMoboDmg",
+    "strImg": "navmod/ItmNavModCoursePlotDmg",
+    "strImgNorm": "navmod/ItmNavModCoursePlotDmgn",
+    "strPortraitImg": "navmod/ItmNavModCoursePlotDmg",
+    "mapGUIPropMaps": ["NavMod", "PhobosNavModApproachAssist"],
+    "mapSlotEffects": ["heldL", "HeldItmDefaultL", "heldR", "HeldItmDefaultR"],
+    "mapModeSwitches": ["ItmNavModMobo", "PhobosNavModApproachAssist", "ItmNavModMoboDmg", "PhobosNavModApproachAssistDmg"]
+  }
+]

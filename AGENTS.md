@@ -22,6 +22,15 @@
   can contain them. Document migrations for incompatible changes.
 - Distinguish observed engine behaviour from proposed designs and untested assumptions.
 
+## Approach Assist artwork
+
+- The owner selected Approach Assist as the first mod and asked to pause and
+  discuss graphics before generating custom artwork. Use Ostranauts' original
+  visual style as the reference when that stage arrives.
+- Plain UI placeholders and runtime references to existing game resources are
+  acceptable for the behaviour prototype. Do not distribute the game's sprites
+  or treat placeholders as final artwork.
+
 ## Game and repository boundaries
 
 - Develop in mod folders; do not overwrite the game's original files.
@@ -36,6 +45,9 @@
 
 ## Verification
 
+- The owner chose to perform Approach Assist's in-game tests personally. Prepare
+  builds and test instructions; leave the running game and test execution to the
+  owner unless they later request hands-on assistance.
 - Scale checks to the change. Add useful tests for gameplay rules and persistence;
   do not create tests that merely repeat static documentation.
 - For new machinery, check relevant power, interruption, save/reload and

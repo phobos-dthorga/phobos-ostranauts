@@ -1,0 +1,10 @@
+[
+  {
+    "strName": "Phobos Approach Assist (Prototype)",
+    "strAuthor": "phobosgekko",
+    "strModURL": "https://github.com/phobos-dthorga/phobos-ostranauts",
+    "strGameVersion": "1.0.1.4",
+    "strModVersion": "0.1.0",
+    "strNotes": "Private integration prototype. Requires the accompanying BepInEx 5 plugin. A short test pulse, not automatic approach. Restricted to PhobosApproachAssistTest saves. Uses existing game artwork by reference as temporary placeholders."
+  }
+]

@@ -4,7 +4,8 @@ Experimental portable equipment, furniture, machinery and gameplay extensions
 for **Ostranauts**.
 
 This is a private development workspace. It may become public later, once there
-is something worthwhile to share. No playable mod has been implemented yet.
+is something worthwhile to share. An initial test-only prototype is available;
+automatic approach and braking are not implemented yet.
 
 Our first selected mod is **[Phobos Approach Assist](docs/limited-autopilot.md)**
 (working name): a physical nav module for cautious RCS approaches using native
@@ -40,6 +41,7 @@ with a smaller setup appropriate to this project's current scope.
 - [Medical-system vision](docs/medical-system-vision.md)
 - [Health, injury and drug reference](docs/health-reference.md)
 - [Limited autopilot module: feasibility and proposed behaviour](docs/limited-autopilot.md)
+- [Approach Assist prototype: build, installation and testing](docs/approach-assist-prototype.md)
 - [Medical and portable-power research](docs/medical-research.md)
 - [Medical and power runtime findings](docs/medical-runtime-findings.md)
 - [Next experiments and decisions](docs/medical-next-steps.md)
@@ -48,8 +50,8 @@ with a smaller setup appropriate to this project's current scope.
 - [Contributor guide](CONTRIBUTING.md)
 - [Agent instructions](AGENTS.md)
 
-Next: implement and verify the first Approach Assist loop in a separate test save,
-starting with module integration, native sensing and a short controlled RCS burn.
+Next: the owner will test the Approach Assist prototype in a separate test world,
+checking module integration, native sensing and a short controlled RCS burn.
 Medical research remains documented separately. Add build tools and useful checks
 with the first implementation.
 

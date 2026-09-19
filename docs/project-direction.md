@@ -41,8 +41,10 @@ fuel explicitly. Exact speeds, distances and acceleration limits require testing
 Begin with a test-console integration and a short controlled native RCS burn.
 Prove sensing, control ownership, fuel use and interruption before adding the
 full approach sequence. Verify the connected loop in a separate test save,
-including pause, fast-forward, UI closure and save/reload. No playable
-implementation or in-game verification exists yet.
+including pause, fast-forward, UI closure and save/reload. The
+[P0 integration prototype](approach-assist-prototype.md) now builds and passes
+controller checks; the owner will perform its in-game tests. Full approach and
+braking remain outstanding.
 
 Use placeholder artwork until behaviour works. Introduce extra hardware and
 shared services as working features establish the need. No custom sensor family

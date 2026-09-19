@@ -3,7 +3,9 @@
 **Selected as the project's first mod by the owner on 2026-09-20.** Working name:
 **Phobos Approach Assist**. This document combines researched extension points
 with the intended design for a deliberately limited, "pseudo autopilot" module.
-No Phobos autopilot has been implemented or tested in-game yet.
+An [initial integration prototype](approach-assist-prototype.md) now contains the
+module, sensor checks and a short RCS test pulse. Full approach/braking behaviour
+and in-game verification remain outstanding.
 
 ## Selected direction
 
