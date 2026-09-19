@@ -10,6 +10,10 @@
   or changing direction when gameplay value, engine limits or maintenance costs
   make further work unconvincing. Do not continue merely because effort was spent.
 - Repository visibility stays private until the owner explicitly requests a change.
+- Create or extend reusable scripts when repeated work makes them worthwhile,
+  especially builds, packaging, installation and verification. Prefer existing
+  scripts over repeating ad hoc commands; keep automation proportional to the
+  task. Support safe repeat runs and keep local paths/configuration out of Git.
 
 ## Architecture
 

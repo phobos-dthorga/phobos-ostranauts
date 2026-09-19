@@ -64,6 +64,45 @@ README.md
 The build script does not install anything or edit game configuration or saves.
 `dist/`, compiled outputs and local game references remain outside Git.
 
+## Repeatable installation and verification
+
+Use **PowerShell 7 or later** and the existing build script above, then run:
+
+```powershell
+./scripts/install-approach-assist.ps1 -OstranautsPath '<your Ostranauts folder>' -LoadOrderPath '<configured Mods folder>/loading_order.json'
+```
+
+Supply the load-order file configured in the game's mod manager, rather than
+assuming its Mods folder is next to the executable. An alternate unpacked package
+can be supplied with `-PackagePath`; by default the installer uses the build
+script's `dist/PhobosApproachAssist-P0` output.
+
+- Add `-WhatIf` to preview an installation without writing files.
+- Add `-VerifyOnly` to compare installed files with the package and check its
+  enabled load-order entry, without changing anything. Verification can run while
+  the game is open; installation requires it to be closed.
+- Repeating installation skips files that already match and does not add another
+  load-order entry. Existing entries keep their order; a disabled Approach Assist
+  entry is enabled in place. A new entry is appended after existing mods.
+- Changed files and the prior load order are backed up under
+  `.local/installations/`, with a receipt. Unexpected extra files in either mod
+  folder, duplicate registrations and placement before core require inspection
+  instead of being silently deleted or rearranged.
+
+The installer checks matching plugin/native versions, required JSON files and
+SHA-256 file hashes. It installs only the packaged plugin and native definitions;
+it never launches the game, handles saves or runs gameplay tests. If installation
+fails after copying begins, it reports the backup location: keep the game closed,
+inspect the error, and restore the affected files from that backup or correct the
+problem and rerun. It does not promise automatic rollback.
+
+Installer checks use synthetic installation folders and do not operate on the
+real game. After building a package, run them with:
+
+```powershell
+./tests/install-approach-assist.tests.ps1
+```
+
 ## Test installation and use
 
 1. Finish the current play session and exit normally before installing the plugin.
@@ -141,6 +180,8 @@ confirmation in the owner's test world.
 | Compile against installed game, Unity and BepInEx assemblies | Passed with zero warnings/errors |
 | Controller and command checks | 113 passed: the original 86 controller/test-save checks plus 27 command cases covering routing, case/whitespace, malformed arguments and non-interference with native command names |
 | Native content/reference checks | All JSON parsed; 16 installed-game resource references resolved; normal/damaged GUI mappings agree; package contains no game binaries or images |
+| Local installation | 0.1.1 plugin and native package installed; four file hashes match; existing mod order preserved. Native mod was enabled at installation and observed disabled during a later owner session; that setting was left unchanged. |
+| Installer checks | 23 passed using synthetic installations: preview, verification, repeat runs, updates/backups, load-order preservation, disabled/absolute/duplicate entries, and running-game refusal |
 | Plugin startup in the game | Pending |
 | F3 help/status/spawn/pulse/stop, rejected arguments and unchanged native commands | Pending |
 | Physical item creation, pegboard placement and damaged state | Pending |
@@ -151,8 +192,12 @@ confirmation in the owner's test world.
 The game was inspected read-only and had the owner's existing session open at
 its save screen. That session was not used for experiments. A successful build
 does not establish runtime compatibility or complete the first playable milestone.
-The owner chose to perform in-game testing personally. The package has not been
-installed into the game or added to its load order by this task.
+The owner chose to perform in-game testing personally. After the owner's later
+installation approval, version 0.1.1 was installed and enabled with the game
+closed. The reusable install script's initial verification matched; a later
+read-only check found the native entry disabled while the game was running. No
+changes were made to that session. Startup and gameplay results remain unverified
+until the owner reports them.
 
 For each in-game check, record the exact game/plugin versions, test world,
 steps and observed result. Measure fuel before/after and native relative velocity;
