@@ -15,8 +15,10 @@ the [dependency contingency plan](docs/dependency-contingencies.md). Prefer a
 narrow fix or maintained successor and plan saved-content transitions before
 removing a required provider.
 
-Feature branches and pull requests are available when useful; no review ceremony
-is required merely to run a local experiment. Public releases and a change of
+While this repository is private, requested checkpoints use ordinary commits and
+direct pushes to `main`. Pull requests and their review/merge workflows are
+deferred until the project is public, unless the owner explicitly requests one.
+Keep relevant checks and normal Git protections. Public releases and a change of
 repository visibility remain separate decisions for the owner.
 
 Keep game data and local research outside tracked source. Use small synthetic

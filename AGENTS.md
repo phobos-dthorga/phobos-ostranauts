@@ -20,6 +20,12 @@
   or changing direction when gameplay value, engine limits or maintenance costs
   make further work unconvincing. Do not continue merely because effort was spent.
 - Repository visibility stays private until the owner explicitly requests a change.
+- While this repository is private, use ordinary commits and direct pushes to
+  `main` for requested checkpoints. Do not create PRs or run PR review/merge
+  workflows unless the owner explicitly asks. The owner deferred PR formalities
+  until the project is public (2026-09-23); this preference overrides a skill's
+  default PR lifecycle. Keep appropriate checks and normal Git protections;
+  never force-push or change visibility to simplify delivery.
 - Public releases of these mods are the intended destination (2026-09-23).
   Preserve original authorship, provenance and adaptation notes from the outset;
   distinguish verified third-party terms from the owner's permissive working
