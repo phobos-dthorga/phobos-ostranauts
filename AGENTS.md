@@ -34,6 +34,17 @@
   test them. Current priority: powered shipbreaking, onboard processing first,
   external cutting and its positioning/autopilot needs later. See
   `docs/fusion-industry-roadmap.md` and `docs/powered-shipbreaking-research.md`.
+- The owner expanded industrial research on 2026-09-24 to shredders, material
+  recyclers and asteroid feedstocks, including new ore types that replenish life
+  support. Use native tethered asteroid mining as the acquisition baseline; do
+  not assume purchased ore or add a second mining system. Reuse native water ice,
+  methane ice, hydrates and carbon-bearing ore first. Investigate new nitrogen-
+  and phosphate/salt-bearing feeds where they fill a concrete endurance gap.
+  Keep proposed assays/yields distinct from native evidence, preserve existing
+  residue and saved-job meaning, and account for every product and remainder.
+  See `docs/shipbreaking-material-processing-research.md` and
+  `docs/asteroid-life-support-research.md`; these machines/resources are research,
+  not implemented features or verified integrations.
 - Prefer extending existing mods over duplicating their systems. Steam Workshop
   dependencies are welcome. Refresh the inventory when it matters; see
   `docs/mod-extension-survey.md`. Use permissive mod licensing as the owner's
@@ -49,7 +60,7 @@
   replacement systems or recurring version monitors (owner preference, 2026-09-23).
 - Implement concrete low-cost dependency safeguards early, before saves rely on
   our content (owner follow-up, 2026-09-23). Keep Shipbreaker's provider contract and
-  translation in `WorkshopAdapter`/`DependencyContract`, prepare definitions before
+  native checks in `NativeAdapter`/`DependencyContract`, prepare definitions before
   publication, and preserve rollback plus startup recipe checks. This is not a
   promise of save recovery when a required provider or the loader is absent.
 - Create or extend reusable scripts when repeated work makes them worthwhile,
@@ -71,6 +82,20 @@
 - UI code presents state and delegates actions; gameplay services own mutations.
 - Extract shared code when concrete features establish a shared need. Avoid
   duplicated business logic and premature generalisation.
+- The owner selected our own shareable Ostranauts framework **instead of OCF**
+  on 2026-09-24, explicitly correcting an earlier misuse of "in lieu of".
+  Follow `docs/phobos-framework.md`: reusable services belong in Phobos Framework;
+  machines, artwork and balance remain content mods. Other authors should be
+  able to use the framework without Shipbreaker. Framework/Shipbreaker 0.2.0
+  implement independent construction and native machinery; OCF/SWB are optional.
+  Use native Bar/Dining Tables for obtainable assembly surfaces; the native
+  Workbench has unconfirmed normal acquisition. Support an existing Workshop
+  bench optionally. Preserve IDs and queued-job meaning, prevent duplicate recipe
+  ownership, and retain attribution. The empty legacy OCF recipe file is an
+  intentional migration stub; active recipes live in `framework/recipes.json`.
+  Do not uninstall foreign providers from the owner's save or claim crash-atomic
+  native construction. In-game migration remains owner-tested work.
+  Conveyor transport is a planned shared service, not an existing implementation.
 - Prefix new game identifiers with `Phobos` and keep them stable once saved games
   can contain them. Document migrations for incompatible changes.
 - Distinguish observed engine behaviour from proposed designs and untested assumptions.
@@ -92,8 +117,37 @@
   Installed machinery needs its own reference set; do not simply enlarge the
   AutoNav faceplate or assume all equipment is blue-grey. Plan the 4 x 4 fixture
   around a 64 x 64 world texture, a matching normal map and appropriate damage
-  and loose forms. Final lighting/detail calibration awaits owner screenshots.
+  and loose forms. The six owner screenshots reviewed on 2026-09-23 are sufficient
+  for an initial concept; final appearance still needs checking in-game.
   Game-derived research sheets stay in ignored `.local/`, never in mod packages.
+- In screenshot analysis, distinguish view obscuration from lighting. The owner
+  clarified that dark regions generally mean areas obscured from view, not absent
+  electrical lighting; non-electric sources such as fires also illuminate areas.
+  Do not infer power state from brightness or bake visibility wedges into artwork.
+- Keep machinery and separately placed ship infrastructure distinct in artwork.
+  The owner identified the yellow/striped conduit surrounding the fusion core as
+  a separately built and placed entity needed for electrical input/output
+  (2026-09-23). Do not copy
+  that network as integral machine framing or paint a connected conduit loop into
+  Shipbreaker; provide readable connection points for native conduit instead.
+- Prefer simple shapes, deliberate contrast and purposeful details over dense
+  surface detail (owner clarification, 2026-09-23). Well-matched community-mod
+  equipment is also useful visual reference; record origins where known without
+  requiring the owner to classify every screenshot. Both cramped ship scenes and
+  spacious station scenes are useful; do not ask for rearrangement or staged damage.
+- The owner liked Shipbreaker concept v1's design but requested much more
+  pixelation to match the game (2026-09-23). Preserve the layout while using coarse
+  pixel clusters, stepped edges and simpler shading. Do not treat a smooth large
+  concept or a blurred reduction as the final pixel-art target; inspect at 64 x 64.
+- The owner subsequently approved pixelated Shipbreaker v2 as shown in the
+  64 x 64 preview enlarged without smoothing (2026-09-23). Preserve its layout,
+  palette and pixel scale for matching artwork. The unchanged master and previews
+  are recorded in `assets/phobos-shipbreaker/README.md`. Shipbreaker 0.1.4 now
+  includes the six colour/normal/portrait sets, exported by
+  `scripts/export-shipbreaker-art.ps1` with source hashes and exact prompts retained.
+  Remaining forms were authorised for production, not individually approved.
+  In-game appearance and lighting remain pending owner testing. Preserve the
+  separate conduit and full-size footprint when revising this family.
 
 - The owner approved the exact slate-grey Phobos Auto Nav faceplate at
   `mods/PhobosAutoNav/images/phobos/autonav/PhobosAutoNavPanel.png` on 2026-09-23.

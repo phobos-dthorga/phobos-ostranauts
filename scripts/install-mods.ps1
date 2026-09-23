@@ -2,7 +2,7 @@
 # Prepared packages are installed locally; this script never builds, downloads or launches anything.
 [CmdletBinding(SupportsShouldProcess)]
 param(
-    [ValidateSet('AutoNav', 'Shipbreaker', 'ApproachAssist')]
+    [ValidateSet('AutoNav', 'Shipbreaker', 'ApproachAssist', 'Framework')]
     [string[]]$Mods = @('AutoNav', 'Shipbreaker'),
     [string]$OstranautsPath,
     [string]$LoadOrderPath,
@@ -22,6 +22,24 @@ if ($Mods.Count -eq 0 -or @($Mods | Select-Object -Unique).Count -ne $Mods.Count
     throw 'Choose at least one mod, without duplicates.'
 }
 if ($PackagePath -and $Mods.Count -ne 1) { throw 'PackagePath requires exactly one selected mod.' }
+$overrideMod = if ($PackagePath) { $Mods[0] } else { $null }
+# Shipbreaker 0.1.5+ uses one separately installed Phobos Framework provider.
+# A package override selects the requested mod only; dependencies use PackageRoot.
+$needsPhobosFramework = $false
+$independentShipbreaker = $false
+$minimumPhobosFramework = [version]'0.1.0'
+if ('Shipbreaker' -in $Mods) {
+    $shipPackage = if ($overrideMod -eq 'Shipbreaker') { $PackagePath } else { Join-Path $PackageRoot 'PhobosShipbreaker-P0' }
+    $shipMetadata = Join-Path $shipPackage 'Mods/PhobosShipbreaker/mod_info.json'
+    if (Test-Path -LiteralPath $shipMetadata -PathType Leaf) {
+        $shipInfo = @(Get-Content -LiteralPath $shipMetadata -Raw | ConvertFrom-Json)
+        if ($shipInfo.Count -ne 1) { throw 'Expected exactly one native mod metadata entry for PhobosShipbreaker.' }
+        $needsPhobosFramework = [version]$shipInfo[0].strModVersion -ge [version]'0.1.5'
+        $independentShipbreaker = [version]$shipInfo[0].strModVersion -ge [version]'0.2.0'
+        if ($independentShipbreaker) { $minimumPhobosFramework = [version]'0.2.0' }
+        if ($needsPhobosFramework) { $Mods = @('Framework') + @($Mods | Where-Object { $_ -ne 'Framework' }) }
+    }
+}
 $locations = Resolve-InstallLocations $OstranautsPath $LoadOrderPath $settingsFile
 $gameRoot = $locations.OstranautsPath
 $orderFile = $locations.LoadOrderPath
@@ -50,8 +68,8 @@ $plans = @()
 $changeOrder = $false
 foreach ($mod in $Mods) {
     $id = 'Phobos' + $mod
-    $label = switch ($mod) { 'AutoNav' { 'Auto Nav' } 'Shipbreaker' { 'Shipbreaker' } 'ApproachAssist' { 'Approach Assist' } }
-    $package = if ($PackagePath) { $PackagePath } else { Join-Path $PackageRoot ($id + '-P0') }
+    $label = switch ($mod) { 'AutoNav' { 'Auto Nav' } 'Shipbreaker' { 'Shipbreaker' } 'ApproachAssist' { 'Approach Assist' } 'Framework' { 'Framework' } }
+    $package = if ($overrideMod -eq $mod) { $PackagePath } else { Join-Path $PackageRoot ($id + '-P0') }
     if (-not (Test-Path -LiteralPath $package -PathType Container)) {
         throw "Prepared package missing: $package. Run the corresponding build script first."
     }
@@ -78,7 +96,26 @@ foreach ($mod in $Mods) {
         throw "Plugin and native package versions differ or wrong assembly for $id. Rebuild the package first."
     }
     if (@(Get-ChildItem -LiteralPath $pluginSource -Recurse -File -Force).Count -ne 1) { throw "Unexpected plugin package files for $id." }
+    if ($mod -eq 'Framework') {
+        if ($needsPhobosFramework -and $version -lt $minimumPhobosFramework) { throw "Shipbreaker requires Phobos Framework $minimumPhobosFramework or later." }
+        $intendedDll = Join-Path $pluginTarget 'PhobosFramework.dll'
+        $plugins = Join-Path $gameRoot 'BepInEx/plugins'
+        if (Test-Path -LiteralPath $plugins) {
+            $copies = @(Get-ChildItem -LiteralPath $plugins -Recurse -Filter 'PhobosFramework.dll' -File)
+            if (@($copies | Where-Object { $_.FullName -ne $intendedDll }).Count -gt 0) {
+                throw 'Duplicate Phobos Framework provider outside its shared folder. Inspect it before updating.'
+            }
+        }
+        if (Test-Path -LiteralPath $intendedDll -PathType Leaf) {
+            $installedFramework = [Reflection.AssemblyName]::GetAssemblyName($intendedDll)
+            if ($installedFramework.Name -ne $id) { throw 'Installed Phobos Framework has an unexpected assembly identity.' }
+            if ($installedFramework.Version -gt $assembly.Version) {
+                throw 'A newer Phobos Framework is installed. Supply an equal or newer prepared framework package; shared dependencies are not downgraded automatically.'
+            }
+        }
+    }
     $required = switch ($mod) {
+        'Framework' { 'data/conditions/phobos_framework.json' }
         'ApproachAssist' { 'data/cooverlays/phobos_approach_assist.json'; 'data/guipropmaps/phobos_approach_assist.json' }
         'AutoNav' {
             'data/cooverlays/phobos_approach_assist.json'; 'data/guipropmaps/phobos_approach_assist.json'
@@ -86,10 +123,29 @@ foreach ($mod in $Mods) {
                 "images/phobos/autonav/PhobosAutoNav$image.png"
             }
         }
-        'Shipbreaker' { 'crafting/recipes.json'; 'data/conditions/phobos_shipbreaker.json'; 'data/condtrigs/phobos_shipbreaker.json' }
+        'Shipbreaker' {
+            'crafting/recipes.json'; 'data/conditions/phobos_shipbreaker.json'; 'data/condtrigs/phobos_shipbreaker.json'
+            if ($version -ge [version]'0.2.0') { 'framework/recipes.json' }
+            if ($version -ge [version]'0.1.4') {
+                foreach ($state in @('Installed', 'InstalledDmg', 'Loose', 'LooseDmg', 'Section', 'Residue')) {
+                    foreach ($suffix in @('', 'Normal', 'Portrait')) {
+                        "images/phobos/shipbreaker/PhobosShipbreaker$state$suffix.png"
+                    }
+                }
+            }
+        }
     }
     foreach ($relative in $required) {
         if (-not (Test-Path -LiteralPath (Join-Path $nativeSource $relative) -PathType Leaf)) { throw "Package is incomplete: $id/$relative" }
+    }
+    if ($mod -eq 'Shipbreaker' -and $version -ge [version]'0.2.0') {
+        # Overwrite our former recipe file with an inert pack, using the normal
+        # backup/receipt path. This safely retires old OCF ownership on upgrades.
+        $retired = Get-Content -LiteralPath (Join-Path $nativeSource 'crafting/recipes.json') -Raw | ConvertFrom-Json
+        if ($retired.schemaVersion -ne 1 -or $null -eq $retired.recipes -or @($retired.recipes).Count -ne 0 -or
+            $null -eq $retired.stockAdditions -or @($retired.stockAdditions).Count -ne 0) {
+            throw 'Independent Shipbreaker must retire its old Crafting Framework recipe pack.'
+        }
     }
     $modFiles = @([pscustomobject]@{ Source = $dllSource; Target = (Join-Path $pluginTarget "$id.dll"); Backup = "$id/plugin/$id.dll" })
     foreach ($file in Get-ChildItem -LiteralPath $nativeSource -Recurse -File -Force) {
@@ -137,7 +193,7 @@ foreach ($mod in $Mods) {
     $files += $modFiles
     $plans += [pscustomobject]@{ Id = $id; Version = "$version"; Index = $index; LoadOrderStatus = $loadOrderStatus }
 }
-if ('Shipbreaker' -in $Mods) { Assert-ShipbreakerDependencies $entries $modRoot $gameRoot $coreIndex }
+if ('Shipbreaker' -in $Mods -and -not $independentShipbreaker) { Assert-ShipbreakerDependencies $entries $modRoot $gameRoot $coreIndex }
 $record.aLoadOrder = $entries
 $changedFiles = @($files | Where-Object {
     -not (Test-Path -LiteralPath $_.Target -PathType Leaf) -or (Get-FileHash -LiteralPath $_.Target -Algorithm SHA256).Hash -ne $_.Hash

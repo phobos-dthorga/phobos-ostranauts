@@ -62,7 +62,7 @@ $before = InstalledFiles $fresh
 Check ((InstalledFiles $fresh) -eq $before) 'Preview mutated installation'
 Fails { & $installer @fresh -VerifyOnly | Out-Null } 'Installation differs'
 $backup = BackupPath (& $installer @fresh)
-Check (((ReadOrder $fresh).aLoadOrder -join ',') -eq 'core,OCF,SWB,AutoNavigate|disabled,PhobosApproachAssist|disabled,PhobosAutoNav,PhobosShipbreaker') 'Unrelated load order changed'
+Check (((ReadOrder $fresh).aLoadOrder -join ',') -eq 'core,OCF,SWB,AutoNavigate|disabled,PhobosApproachAssist|disabled,PhobosFramework,PhobosAutoNav,PhobosShipbreaker') 'Unrelated load order changed'
 Check ((ReadOrder $fresh).aIgnorePatterns[0] -eq 'KeepMe') 'Other configuration lost'
 & $installer @fresh -VerifyOnly | Out-Null
 Check $true 'Combined install verification'
@@ -74,7 +74,9 @@ foreach ($image in $artwork) {
     Check ((Get-FileHash -LiteralPath $image.FullName).Hash -eq (Get-FileHash -LiteralPath (Join-Path $PackageRoot "PhobosAutoNav-P0/Mods/PhobosAutoNav/$relative")).Hash) 'Artwork changed during installation'
 }
 $receipt = Get-Content -LiteralPath (Join-Path $backup 'receipt.json') -Raw | ConvertFrom-Json
-Check ($receipt.Status -eq 'Verified files and load order' -and $receipt.Mods.Count -eq 2) 'Receipt incomplete'
+$expectedRecoveryFiles = @($receipt.Files | ForEach-Object { "$($_.Backup):$($_.Hash)" } | Sort-Object) -join "`n"
+Check (@(Get-ChildItem -LiteralPath (Join-Path $nativeRoot 'PhobosShipbreaker/images') -Recurse -Filter '*.png').Count -eq 18) 'Shipbreaker artwork missing from installation'
+Check ($receipt.Status -eq 'Verified files and load order' -and $receipt.Mods.Count -eq 3) 'Receipt incomplete'
 Check (@($receipt.ChangedFiles | Where-Object ExistedBefore).Count -eq 0) 'Fresh files not marked for recovery'
 $stamp = (Get-Item -LiteralPath $fresh.LoadOrderPath).LastWriteTimeUtc
 $dll = Join-Path $fresh.OstranautsPath 'BepInEx/plugins/PhobosAutoNav/PhobosAutoNav.dll'
@@ -94,29 +96,85 @@ $autoOnly = Fixture 'autonav-only' @('core', 'OCF|disabled', 'SWB|disabled')
 & $installer @autoOnly -Mods AutoNav | Out-Null
 Check (-not (Test-Path -LiteralPath (Join-Path $autoOnly.OstranautsPath 'BepInEx/plugins/PhobosShipbreaker'))) 'Single selection installed Shipbreaker'
 Check (((ReadOrder $autoOnly).aLoadOrder -join ',') -eq 'core,OCF|disabled,SWB|disabled,PhobosAutoNav') 'AutoNav enabled other mods'
+Check (-not (Test-Path -LiteralPath (Join-Path $autoOnly.OstranautsPath 'BepInEx/plugins/PhobosFramework'))) 'AutoNav acquired an unnecessary framework dependency'
+
+$libraryOnly = Fixture 'framework-only' @('core', 'OCF|disabled', 'SWB|disabled')
+& $installer @libraryOnly -Mods Framework | Out-Null
+& $installer @libraryOnly -Mods Framework -VerifyOnly | Out-Null
+Check (((ReadOrder $libraryOnly).aLoadOrder -join ',') -eq 'core,OCF|disabled,SWB|disabled,PhobosFramework') 'Framework requires or enables upstream crafting content'
+Check (@(Get-ChildItem -LiteralPath (Join-Path $libraryOnly.OstranautsPath 'BepInEx/plugins') -Recurse -Filter PhobosFramework.dll).Count -eq 1) 'Framework installs one shared provider'
+
+$duplicate = Fixture 'duplicate-phobos-provider'
+$extraProvider = Join-Path $duplicate.OstranautsPath 'BepInEx/plugins/ForeignCopy'
+New-Item -ItemType Directory -Path $extraProvider -Force | Out-Null
+Copy-Item -LiteralPath (Join-Path $PackageRoot 'PhobosFramework-P0/BepInEx/plugins/PhobosFramework/PhobosFramework.dll') -Destination $extraProvider
+$before = InstalledFiles $duplicate
+Fails { & $installer @duplicate | Out-Null } 'Duplicate Phobos Framework provider'
+Check ((InstalledFiles $duplicate) -eq $before) 'Duplicate-provider preflight partially installed content'
+
+# Represent a newer provider used by another mod: never replace it with our older
+# prepared package. This inert fixture assembly is inspected, not loaded as a mod.
+$newerLibrary = Fixture 'newer-phobos-provider'
+$newerDirectory = Join-Path $newerLibrary.OstranautsPath 'BepInEx/plugins/PhobosFramework'
+New-Item -ItemType Directory -Path $newerDirectory -Force | Out-Null
+$fixtureSource = Join-Path $fixtures 'newer-provider-source'
+New-Item -ItemType Directory -Path $fixtureSource -Force | Out-Null
+Set-Content -LiteralPath (Join-Path $fixtureSource 'Fixture.csproj') -Value '<Project Sdk="Microsoft.NET.Sdk"><PropertyGroup><TargetFramework>net10.0</TargetFramework><AssemblyName>PhobosFramework</AssemblyName><Version>9.0.0</Version></PropertyGroup></Project>'
+Set-Content -LiteralPath (Join-Path $fixtureSource 'Fixture.cs') -Value 'public sealed class NewerFrameworkFixture { }'
+& dotnet build (Join-Path $fixtureSource 'Fixture.csproj') -c Release -o $newerDirectory --nologo -v quiet | Out-Null
+if ($LASTEXITCODE -ne 0) { throw 'Could not build the inert newer-provider fixture.' }
+$before = InstalledFiles $newerLibrary
+Fails { & $installer @newerLibrary | Out-Null } 'newer Phobos Framework is installed'
+Check ((InstalledFiles $newerLibrary) -eq $before) 'Shared-provider downgrade guard partially changed an installation'
+
+$missingLibraryPackages = Join-Path $fixtures 'without-framework-package'
+New-Item -ItemType Directory -Path $missingLibraryPackages -Force | Out-Null
+foreach ($name in @('PhobosAutoNav-P0', 'PhobosShipbreaker-P0')) {
+    Copy-Item -LiteralPath (Join-Path $PackageRoot $name) -Destination $missingLibraryPackages -Recurse
+}
+$missingLibrary = Fixture 'missing-phobos-package'
+$missingLibrary.PackageRoot = $missingLibraryPackages
+$before = InstalledFiles $missingLibrary
+Fails { & $installer @missingLibrary | Out-Null } 'Prepared package missing'
+Check ((InstalledFiles $missingLibrary) -eq $before) 'Missing framework package partially installed a consumer'
 
 $disabled = Fixture 'disabled' @('core', 'OCF', 'SWB', 'PhobosAutoNav|disabled', 'PhobosShipbreaker|disabled', 'Keep|edit')
 & $installer @disabled | Out-Null
-Check (((ReadOrder $disabled).aLoadOrder -join ',') -eq 'core,OCF,SWB,PhobosAutoNav,PhobosShipbreaker,Keep|edit') 'Selected mods not enabled in place'
+Check (((ReadOrder $disabled).aLoadOrder -join ',') -eq 'core,OCF,SWB,PhobosAutoNav,PhobosShipbreaker,Keep|edit,PhobosFramework') 'Selected mods not enabled in place'
 
-$missing = Fixture 'missing-dependency' @('core', 'OCF|disabled', 'SWB')
-$before = InstalledFiles $missing
-Fails { & $installer @missing | Out-Null } 'enabled Crafting Framework and Salvage Workshop'
-Check ((InstalledFiles $missing) -eq $before) 'Multi-mod preflight failure partially installed AutoNav'
-$wrong = Fixture 'wrong-order' @('core', 'OCF', 'PhobosShipbreaker', 'SWB')
-Fails { & $installer @wrong | Out-Null } 'Shipbreaker load order'
-$old = Fixture 'old-framework'
+$independent = Fixture 'independent' @('core')
+Remove-Item -LiteralPath (Join-Path $independent.OstranautsPath 'BepInEx/plugins/Framework/CraftingFramework.dll')
+& $installer @independent -Mods Shipbreaker | Out-Null
+& $installer @independent -Mods Shipbreaker -VerifyOnly | Out-Null
+Check (((ReadOrder $independent).aLoadOrder -join ',') -eq 'core,PhobosFramework,PhobosShipbreaker') 'Independent Shipbreaker acquired Workshop requirements'
+$optionalDisabled = Fixture 'optional-disabled' @('core', 'OCF|disabled', 'SWB|disabled')
+& $installer @optionalDisabled -Mods Shipbreaker | Out-Null
+Check (((ReadOrder $optionalDisabled).aLoadOrder -join ',') -eq 'core,OCF|disabled,SWB|disabled,PhobosFramework,PhobosShipbreaker') 'Optional mods were enabled'
+$wrong = Fixture 'legacy-wrong-order' @('core', 'OCF', 'PhobosShipbreaker', 'SWB')
+# Retain the legacy preflight for users explicitly installing a pre-0.2 package.
+Fails { Assert-ShipbreakerDependencies (ReadOrder $wrong).aLoadOrder (Split-Path -Parent $wrong.LoadOrderPath) $wrong.OstranautsPath 0 } 'Shipbreaker load order'
+& $installer @wrong -Mods Shipbreaker | Out-Null
+Check $true 'Independent version does not depend on optional Workshop load order'
+$old = Fixture 'old-optional-framework' @('core', 'OCF', 'SWB', 'PhobosShipbreaker')
 $metadataFile = Join-Path (Split-Path -Parent $old.LoadOrderPath) 'OCF/mod_info.json'
 (Get-Content -LiteralPath $metadataFile -Raw).Replace('0.8.71', '0.8.70') | Set-Content -LiteralPath $metadataFile
-Fails { & $installer @old | Out-Null } 'requires Crafting Framework 0.8.71'
-$badDll = Fixture 'wrong-framework-dll'
-Copy-Item -LiteralPath (Join-Path $PackageRoot 'PhobosAutoNav-P0/BepInEx/plugins/PhobosAutoNav/PhobosAutoNav.dll') -Destination (Join-Path $badDll.OstranautsPath 'BepInEx/plugins/Framework/CraftingFramework.dll') -Force
-Fails { & $installer @badDll | Out-Null } 'unexpected assembly'
+Fails { Assert-ShipbreakerDependencies (ReadOrder $old).aLoadOrder (Split-Path -Parent $old.LoadOrderPath) $old.OstranautsPath 0 } 'requires Crafting Framework 0.8.71'
+& $installer @old -Mods Shipbreaker | Out-Null
+Check $true 'Independent Shipbreaker tolerates unrelated older OCF metadata'
 
+# Retire our old OCF recipe pack using normal backed-up replacement, not deletion.
+$oldPackPath = Join-Path (Split-Path -Parent $independent.LoadOrderPath) 'PhobosShipbreaker/crafting/recipes.json'
+$legacyPack = '{"schemaVersion":1,"recipes":[{"id":"PhobosBuildShipbreaker"}],"stockAdditions":[]}'
+Set-Content -LiteralPath $oldPackPath -Value $legacyPack
+$backup = BackupPath (& $installer @independent -Mods Shipbreaker)
+Check ((Get-Content -LiteralPath (Join-Path $backup 'PhobosShipbreaker/native/crafting/recipes.json') -Raw).Trim() -eq $legacyPack) 'Retired recipe pack was not backed up'
+$retired = Get-Content -LiteralPath $oldPackPath -Raw | ConvertFrom-Json
+Check (@($retired.recipes).Count -eq 0 -and @($retired.stockAdditions).Count -eq 0) 'Old OCF recipe ownership was not retired'
+Check (Test-Path -LiteralPath (Join-Path (Split-Path -Parent $independent.LoadOrderPath) 'PhobosShipbreaker/framework/recipes.json')) 'New provider recipe pack missing'
 # A second broken selected package must prevent the first from being installed.
 $badPackages = Join-Path $fixtures 'packages'
 New-Item -ItemType Directory -Path $badPackages -Force | Out-Null
-foreach ($name in @('PhobosAutoNav-P0', 'PhobosShipbreaker-P0')) { Copy-Item -LiteralPath (Join-Path $PackageRoot $name) -Destination $badPackages -Recurse }
+foreach ($name in @('PhobosAutoNav-P0', 'PhobosShipbreaker-P0', 'PhobosFramework-P0')) { Copy-Item -LiteralPath (Join-Path $PackageRoot $name) -Destination $badPackages -Recurse }
 $badVersion = Join-Path $badPackages 'PhobosShipbreaker-P0/Mods/PhobosShipbreaker/mod_info.json'
 $json = @(Get-Content -LiteralPath $badVersion -Raw | ConvertFrom-Json)
 $json[0].strModVersion = '9.9.9'
@@ -126,6 +184,33 @@ $incomplete.PackageRoot = $badPackages
 $before = InstalledFiles $incomplete
 Fails { & $installer @incomplete | Out-Null } 'versions differ'
 Check ((InstalledFiles $incomplete) -eq $before) 'Bad second package partially installed first'
+
+# Missing shader input is also an incomplete package, before any mod is copied.
+Copy-Item -LiteralPath (Join-Path $PackageRoot 'PhobosShipbreaker-P0/Mods/PhobosShipbreaker/mod_info.json') -Destination $badVersion -Force
+# Regression: a DLL-only framework can load while the native menu reports Missing.
+# Keep a tracked empty definitions file so packaging and file-only installation
+# actually deliver the data directory required by the native loader.
+$frameworkData = Join-Path $badPackages 'PhobosFramework-P0/Mods/PhobosFramework/data/conditions/phobos_framework.json'
+Remove-Item -LiteralPath $frameworkData
+$before = InstalledFiles $incomplete
+Fails { & $installer @incomplete | Out-Null } 'PhobosFramework/data/conditions/phobos_framework.json'
+Check ((InstalledFiles $incomplete) -eq $before) 'Missing Framework data partially installed packages'
+Copy-Item -LiteralPath (Join-Path $PackageRoot 'PhobosFramework-P0/Mods/PhobosFramework/data/conditions/phobos_framework.json') -Destination $frameworkData
+Check (Test-Path -LiteralPath (Join-Path (Split-Path -Parent $libraryOnly.LoadOrderPath) 'PhobosFramework/data/conditions/phobos_framework.json')) 'Framework native data missing after installation'
+$badLegacyPack = Join-Path $badPackages 'PhobosShipbreaker-P0/Mods/PhobosShipbreaker/crafting/recipes.json'
+Set-Content -LiteralPath $badLegacyPack -Value $legacyPack
+Fails { & $installer @incomplete | Out-Null } 'must retire its old Crafting Framework recipe pack'
+Check ((InstalledFiles $incomplete) -eq $before) 'Duplicate recipe ownership preflight partially installed content'
+Copy-Item -LiteralPath (Join-Path $PackageRoot 'PhobosShipbreaker-P0/Mods/PhobosShipbreaker/crafting/recipes.json') -Destination $badLegacyPack -Force
+$actualPack = Join-Path $badPackages 'PhobosShipbreaker-P0/Mods/PhobosShipbreaker/framework/recipes.json'
+Remove-Item -LiteralPath $actualPack
+Fails { & $installer @incomplete | Out-Null } 'framework/recipes.json'
+Check ((InstalledFiles $incomplete) -eq $before) 'Missing active construction pack partially installed content'
+Copy-Item -LiteralPath (Join-Path $PackageRoot 'PhobosShipbreaker-P0/Mods/PhobosShipbreaker/framework/recipes.json') -Destination $actualPack
+$missingNormal = Join-Path $badPackages 'PhobosShipbreaker-P0/Mods/PhobosShipbreaker/images/phobos/shipbreaker/PhobosShipbreakerInstalledNormal.png'
+Remove-Item -LiteralPath $missingNormal
+Fails { & $installer @incomplete | Out-Null } 'PhobosShipbreakerInstalledNormal.png'
+Check ((InstalledFiles $incomplete) -eq $before) 'Missing artwork partially installed first mod'
 
 $running = Fixture 'running'
 $global:PhobosInstallerTestGameRunning = $true
@@ -180,7 +265,8 @@ finally { Remove-Item Function:/Copy-Item }
 Check ($failure -match 'backups in (.+?)\. Simulated copy failure') 'Interrupted copy did not report recovery directory'
 $recovery = $Matches[1]
 $receipt = Get-Content -LiteralPath (Join-Path $recovery 'receipt.json') -Raw | ConvertFrom-Json
-Check ($receipt.Status -eq 'Copying' -and $receipt.ChangedFiles.Count -eq 16) 'Interrupted installation lacks recovery manifest'
+$actualRecoveryFiles = @($receipt.ChangedFiles | ForEach-Object { "$($_.Backup):$($_.Hash)" } | Sort-Object) -join "`n"
+Check ($receipt.Status -eq 'Copying' -and $actualRecoveryFiles -eq $expectedRecoveryFiles) 'Interrupted installation lacks complete recovery manifest'
 Check ((Get-FileHash -LiteralPath $interrupted.LoadOrderPath).Hash -eq $beforeOrderHash) 'Incomplete packages were enabled'
 Check ((Get-FileHash -LiteralPath (Join-Path $recovery 'loading_order.before.json')).Hash -eq $beforeOrderHash) 'Recovery load-order backup missing'
 & $installer @interrupted | Out-Null

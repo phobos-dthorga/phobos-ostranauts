@@ -2,16 +2,17 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using PhobosShipbreaker.Core;
+using Phobos.Ostranauts.Framework.Registration;
 
 internal static class DependencyChecks
 {
     internal static void Run(Action<bool, string> check, Action<Action, string> throws)
     {
-        check(DependencyContract.FrameworkProblem(null, true) != null, "Missing loaded framework is reported");
-        check(DependencyContract.FrameworkProblem(new Version(0, 8, 70), true) != null, "Too-old API baseline is blocked");
-        check(DependencyContract.FrameworkProblem(new Version(0, 8, 71), false) != null, "Plugin presence does not substitute for enabled native data");
-        foreach (var version in new[] { new Version(0, 8, 71), new Version(0, 8, 72), new Version(1, 0, 0) })
-            check(DependencyContract.FrameworkProblem(version, true) == null, "No invented upper version or age cutoff: " + version);
+        check(DependencyContract.FrameworkProblem(null) != null, "Missing loaded framework is reported");
+        check(DependencyContract.FrameworkProblem(new Version(0, 1, 9)) != null, "Too-old API baseline is blocked");
+        check(DependencyContract.FrameworkProblem(new Version(0, 1, 0)) != null, "An old Phobos provider cannot satisfy new construction APIs");
+        foreach (var version in new[] { new Version(0, 2, 0), new Version(0, 2, 1), new Version(1, 0, 0) })
+            check(DependencyContract.FrameworkProblem(version) == null, "No invented upper version or age cutoff: " + version);
 
         var tables = DependencyContract.Required.ToDictionary(g => g.Table, g => g.Names.ToHashSet());
         bool Contains(string table, string id) => tables.TryGetValue(table, out var entries) && entries.Contains(id);
@@ -25,20 +26,6 @@ internal static class DependencyChecks
             tables[group.Table].Add(id);
         }
 
-        const string installed = "SWB_SorterInstalled";
-        foreach (string variant in DependencyContract.Variants)
-        {
-            string id = "SWB_Sorter" + variant;
-            bool powered = id == installed;
-            check(DependencyContract.MachineProblems(id, id, "SWB_SorterCompartments", new[] { "SWB_SorterInput" },
-                powered ? "SWB_SorterPower" : null, powered ? new[] { "Power" } : null, true).Count == 0,
-                "Baseline machine variant passes: " + id);
-        }
-        check(DependencyContract.MachineProblems(installed, "ChangedItem", "ChangedCompartments", new[] { "SWB_SorterInput", "ExtraSlot" },
-            "ChangedPower", new[] { "Power", "NewAutomation" }, false).Count == 6,
-            "Changed item, storage, power, tickers and container relationships are all reported");
-        check(DependencyContract.MachineProblems(installed, installed, "SWB_SorterCompartments", null, null, null, true).Count == 3,
-            "Missing input, power and ticker are rejected before cloning");
         check(DependencyContract.MissingRecipes(_ => false).Count == 2, "Neither registered construction recipe is accepted as ready");
         check(DependencyContract.MissingRecipes(id => id == DependencyContract.Recipes[0]).Count == 1, "A partially registered construction chain is blocked");
         check(DependencyContract.MissingRecipes(id => DependencyContract.Recipes.Contains(id)).Count == 0, "Both construction stages are required");

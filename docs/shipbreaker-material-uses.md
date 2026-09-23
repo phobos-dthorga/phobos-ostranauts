@@ -6,6 +6,13 @@ conduit, battery or thruster crafting system would duplicate installed content.
 This review also found and led to a fix for our construction recipe's input-count
 limit; see [the 0.1.1 build guide](shipbreaker-first-build.md).
 
+**2026-09-24 follow-up:** the owner has now requested research into shredders,
+recyclers and ore, including life-support replenishment. See [the processing study](shipbreaking-material-processing-research.md)
+and [asteroid resource plan](asteroid-life-support-research.md). This advances the
+research scope beyond the deferral below; it does not change the existing panel
+recipe, assign an assay to saved residue or implement refining. The current
+[0.2.0 framework candidate](phobos-framework.md) makes OCF/SWB optional.
+
 ## Evidence and boundaries
 
 Refreshed the installed inventory: 31 known packages, 29 enabled and two disabled

@@ -34,7 +34,7 @@ internal sealed class FixturePanel
             " seconds, " + options.WorkingKW + " kW while working.");
         GUILayout.Label("Open the fixture's Inventory to load panels and collect products. Stand beside it to use these controls.");
         if (!Content.Ready) GUILayout.Label(Content.Status);
-        else if (machines.Length == 0) GUILayout.Label("No fixture on this ship. Build one at a Salvage Workshop workbench, then install it.");
+        else if (machines.Length == 0) GUILayout.Label("No fixture on this ship. Build one at an installed Bar Table or Dining Table, then install it. A Salvage Workshop workbench also works when available.");
         scroll = GUILayout.BeginScrollView(scroll);
         foreach (var machine in machines)
         {

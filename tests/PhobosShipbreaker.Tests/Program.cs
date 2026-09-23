@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text.Json;
 using PhobosShipbreaker.Core;
+using Phobos.Ostranauts.Framework.Inventory;
 
 int checks = 0;
 void Check(bool condition, string message)
@@ -25,7 +26,7 @@ Check(!ProcessRules.Balanced(24, masses.Concat(new[] { 0.5 })), "Extra product m
 Check(!ProcessRules.Balanced(24, new[] { double.NaN }), "Invalid mass rejected");
 Check(!ProcessRules.Balanced(24, new[] { 25.0, -1 }), "Negative waste cannot hide excess output");
 
-// Check the shipped recipe data against OCF 0.8.71's external craft-size limit.
+// Check the shipped recipe data against Phobos Framework's craft-size limit.
 // This catches registration failures which compiling our own plugin cannot find.
 using var recipePack = JsonDocument.Parse(File.ReadAllText(Path.Combine(AppContext.BaseDirectory, "shipbreaker-recipes.json")));
 var constructionRecipes = recipePack.RootElement.GetProperty("recipes").EnumerateArray().ToArray();
@@ -34,7 +35,7 @@ foreach (string side in new[] { "ingredients", "outputs" })
 {
     var counts = recipe.GetProperty(side).EnumerateArray().Select(p => p.GetProperty("count").GetInt32()).ToArray();
     Check(counts.All(c => c > 0) && counts.Sum() <= 100,
-        recipe.GetProperty("id").GetString() + " exceeds OCF's 100-unit " + side + " limit");
+        recipe.GetProperty("id").GetString() + " exceeds Phobos Framework's 100-unit " + side + " limit");
 }
 
 var sectionRecipe = constructionRecipes.Single(r => r.GetProperty("id").GetString() == "PhobosBuildShipbreakerSection");

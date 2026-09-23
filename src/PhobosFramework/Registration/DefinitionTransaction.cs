@@ -1,15 +1,15 @@
 using System;
 using System.Collections.Generic;
 
-namespace PhobosShipbreaker.Core;
+namespace Phobos.Ostranauts.Framework.Registration;
 
 /// <summary>Publish prepared definitions synchronously, restoring prior entries on failure.</summary>
-internal sealed class DefinitionTransaction
+public sealed class DefinitionTransaction
 {
     private readonly List<Action<Stack<Action>>> writes = new List<Action<Stack<Action>>>();
     private bool attempted;
 
-    internal void Stage<T>(IDictionary<string, T> target, IEnumerable<KeyValuePair<string, T>> prepared)
+    public void Stage<T>(IDictionary<string, T> target, IEnumerable<KeyValuePair<string, T>> prepared)
     {
         if (attempted) throw new InvalidOperationException("Registration already attempted.");
         foreach (var entry in prepared)
@@ -25,7 +25,7 @@ internal sealed class DefinitionTransaction
         }
     }
 
-    internal void Commit()
+    public void Commit()
     {
         if (attempted) throw new InvalidOperationException("Registration already attempted.");
         attempted = true;

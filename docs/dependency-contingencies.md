@@ -1,11 +1,12 @@
 # Dependency maintenance and fallback plan
 
-Owner preference, **2026-09-23**: prepare for dependencies that stay out-of-date,
-using documentation instead of speculative replacement code where sufficient.
-Replacement and migration options below remain plans. Shipbreaker **0.1.2** now
-implements the early compatibility checks and staged registration described below;
-it does not implement a missing-dependency save-recovery mode.
+**24 September 2026:** Framework and Shipbreaker 0.2.0 implement the authorised
+independent construction/machinery candidate. OCF/SWB are no longer required by
+this version. See [migration and verification limits](phobos-framework.md).
 
+Owner preference: plan for extended dependency incompatibility, documenting
+inexpensive fallbacks before implementing speculative replacement systems. The
+0.2.0 architecture change was explicitly requested, not triggered by release age.
 ## When to act
 
 An old release that still works is usable. Release age alone must not disable
@@ -51,47 +52,41 @@ instructions.
 
 ## Current dependencies and specific alternatives
 
-Reference versions: Ostranauts **1.0.1.4**, BepInEx **5.4.23.5**, Crafting Framework
-and Salvage Workshop **0.8.71**. Phobos Auto Nav **0.1.1** and Shipbreaker **0.1.2** have build
-and offline-check evidence, **not an in-game-verified rollback baseline**.
+Reference build: Ostranauts **1.0.1.4**, BepInEx **5.4.23.5**. Current candidate:
+Phobos Framework/Shipbreaker **0.2.0**; owner-installed Shipbreaker **0.1.4** had
+successful startup/art feedback. Neither is an in-game-verified processing or
+rollback baseline. OCF/SWB **0.8.71** supplied inspected precedent and licensed
+construction code, but are optional companions now.
 
-| Dependency | What we need | Contingency if the relevant functionality remains broken |
+| Dependency | Current role | Concrete fallback |
 | --- | --- | --- |
-| Crafting Framework: required by Shipbreaker | Recipe registration, ingredient handling and construction outputs | Adapt our recipe/API use first, then prefer a compatible continuation. If construction is the only irreparable dependency, assess a small native construction path for our sections and fixture. Deleting the current hard dependency alone would not provide construction. |
-| Salvage Workshop: required by Shipbreaker | Workbench and runtime-cloned sorter, slots, power, installation and repair templates | Adapt the changed templates first. If necessary, author only the fixture definitions and construction-station integration we need, keeping Phobos IDs stable. Do not reproduce its wider sorting, crafting or battery systems. |
-| Common Sense hauling/manifest: optional companions | Crew transport and inventory visibility; no Phobos assembly dependency | Retain manual loading, unloading and native inventory access. Disable or revise a failing optional integration when one exists; no replacement hauling framework is required. |
-| Ship's Water: optional upstream Workshop integration | Existing water-consuming workshop recipes; our panel process uses no water | Retain the upstream water-ration path where supported. Do not treat an absent provider as free water/cooling. Any future Phobos coolant feature needs its own dependency decision. |
-| Auto Navigate: adapted provenance, **not a runtime dependency** | Selected guidance already belongs to our standalone adaptation | Upstream inactivity does not prevent our package loading. Maintain the adapted code against game changes, track useful upstream fixes and preserve attribution. Existing terms uncertainty remains in `THIRD_PARTY_NOTICES.md`; no new fork is needed solely because upstream is inactive. |
-| Game APIs and BepInEx/Harmony: required foundations | Loading, patches, inventory, power and navigation | Address the specific changed signatures/behaviour, or retain a verified compatible installation where possible. Suspend an unsupported feature release if necessary; changing a version requirement alone cannot restore functionality. |
+| Phobos Framework 0.2.0+ | Required: construction, definition publication, inventory/delivery helpers | Maintain a single compatible provider, preserve APIs or migrate consumers together. No silent downgrade. Fix common faults once. |
+| OCF / Salvage Workshop | Optional bench and other installed content; required by our legacy pre-0.2 versions | Our independent path uses native tables and Phobos definitions. Keep these providers for foreign objects/other consumers in existing saves. Do not broadly remap foreign IDs. |
+| Common Sense hauling/manifest | Optional crew handling/visibility | Manual loading and native inventories remain available. |
+| Ship's Water | Optional upstream Workshop recipes; unused by this panel process | Any future Phobos coolant path must define real inputs, not assume free water. |
+| Auto Navigate | Provenance for our separate adaptation, not a runtime requirement | Maintain our adapted guidance against native changes and preserve attribution. |
+| Game/BepInEx/Harmony | Required native APIs and loading | Repair the changed integration or retain an available verified combination. Changing version declarations does not restore functionality. |
 
-## Existing safeguards and their limits
+## Existing safeguards and limits
 
-- Shipbreaker declares Crafting Framework **0.8.71 minimum**. This is not an upper
-  compatibility bound or certification of every later version. If the loader
-  rejects the dependency, our plugin and its diagnostic UI may never start;
-  the loader log is then the available diagnostic.
-- `WorkshopAdapter` is the explicit dependency boundary: it identifies the loaded
-  providers, checks required definitions and the machine/storage/power relationships
-  used by this version, and translates private copies into Phobos definitions.
-  `Content.Register` modifies those copies before a single publication transaction.
-  A preparation failure changes no game dictionary; a publication failure restores
-  old entries and removes new entries. Recovery errors are surfaced explicitly and
-  processing remains disabled. This does not roll back the game's subsequent
-  native generation or arbitrary changes made by another mod.
-- Both Phobos construction recipes must be present after the Framework/native
-  loading phase before `Content.Ready` allows processing. Complete item definitions
-  remain registered if this later recipe check fails. That check does not remove
-  partially registered upstream crafting actions or implement alternative crafting.
-- `phobosshipbreaker dependencies` reports the startup version/data/template and
-  recipe checks without selecting a machine or mutating game state. It does not
-  hot-reload dependencies. Offline checks cover changed/missing contracts, partial
-  recipe registration and publication rollback; live compatibility is still pending.
-  Definition checks cannot certify every behavioural change in a future release.
-- An independent inert-content loader, automatic dependency substitution and
-  missing-dependency save recovery **do not exist**. Our runtime-generated fixture
-  definitions need the plugin and Workshop. Preventing processing does not ensure
-  an existing save can load safely without its content providers.
-
+- BepInEx enforces Phobos Framework's minimum version. If dependency loading fails,
+  the loader log is the diagnostic path; Shipbreaker's commands may not start.
+- `NativeAdapter` / `DependencyContract` check the native interfaces used, while
+  `MachineDefinitions` authors our content with stable IDs. Private preparation
+  precedes publication; definition transactions restore prior entries on failure
+  and report recovery faults. They cannot roll back arbitrary later game/mod work.
+- Construction packs publish atomically, validate masses and exact items, retain
+  optional station menus, and reject competing ownership of our historical actions.
+  Native crafting effects themselves are not atomic; replay protection is in memory.
+  A partial native failure or crash requires inspection, not an automatic retry.
+- Both construction stages and provider readiness must pass before processing is
+  enabled. If recipe registration fails, complete item definitions stay available,
+  but this is not a missing-provider save-recovery guarantee.
+- `phobosshipbreaker dependencies` reports provider/native/recipe status without
+  mutating game state. It does not hot-reload mods or certify future versions.
+- Machinery still needs our plugin and shared provider to recreate its native
+  definitions. An inert compatibility loader does not exist. Removing required
+  content from a save is not supported.
 ## Preserve saved ships during a transition
 
 Do not recommend removing a required provider and loading an affected save as a

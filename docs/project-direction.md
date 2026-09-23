@@ -68,6 +68,15 @@ Keep features independently useful and build connections where they solve a
 concrete need. The current shipbreaker work remains the immediate priority;
 the wider endurance direction guides later choices as the owner encounters them.
 
+On **2026-09-24**, the owner also requested asteroid resource types that can
+replenish life support. The [asteroid endurance research](asteroid-life-support-research.md)
+prioritises existing water ice/hydrates, then oxygen recovery, with new
+nitrogen-bearing and phosphate/salt-bearing feeds where useful. Acquisition stays
+with native tethered asteroid mining. These are proposed replenishment routes,
+not a claim that food, atmosphere or all maintenance supplies are already closed
+loops. The [processing study](shipbreaking-material-processing-research.md) connects
+them to shredding, separation, finite transport and retained waste.
+
 ## First milestone
 
 The owner selected **[Phobos Approach Assist](limited-autopilot.md)** as the first
@@ -155,14 +164,22 @@ power, resources, persistence, crew use and artwork as each selected idea requir
 
 ## Structure as implementation arrives
 
+On **2026-09-24**, the owner selected **Phobos Framework as our own replacement
+foundation for Ostranauts Crafting Framework**, with common services reusable by
+other authors, especially material transport. Framework/Shipbreaker 0.2.0 now
+implement independent construction/machinery; migration limits are recorded in the
+[framework decision](phobos-framework.md). This supersedes retaining OCF as our
+long-term foundation; optional integrations and reuse of suitably licensed code
+remain welcome. It does not expand the project into an entire factory simulation.
+
 - `mods/`: independently usable native data packages and distributable sprites.
 - `src/`: C# plugins and shared services where required.
 - `assets/`: original artwork sources and provenance.
 - `scripts/` and `tests/`: tooling and checks justified by actual implementation.
 - `.local/`: ignored game references, extracted research and test material.
 
-These directories are created when needed. No runtime stack, framework dependency,
-release date or implementation time budget is fixed by this initial repository.
+These directories are created when needed. Current framework decisions are recorded
+above and in the implementation guides; no release date or time budget is fixed.
 
 ## Decisions already made
 

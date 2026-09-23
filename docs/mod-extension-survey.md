@@ -4,6 +4,13 @@ Snapshot: **2026-09-23, Australia/Sydney**. This supersedes the 2026-09-20
 five-package inventory for current planning. Refresh before implementation if
 the owner's subscriptions or enabled mods change.
 
+**Follow-up, 2026-09-24:** the [processing research](shipbreaking-material-processing-research.md#what-is-already-present)
+refreshes the inventory to 33 known packages (29 configured enabled, 4 disabled)
+and reviews reuse for solids processing and life support. The owner's subsequent
+[Phobos Framework decision](phobos-framework.md) supersedes this snapshot's
+recommendation to require OCF/SWB. Keep the dated evidence below as historical;
+it does not describe every current package or current dependency requirement.
+
 ## Owner preferences
 
 - Extend worthwhile community work instead of repeatedly implementing equivalent

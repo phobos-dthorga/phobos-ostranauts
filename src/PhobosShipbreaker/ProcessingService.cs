@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using Ostranauts.Inventory;
 using PhobosShipbreaker.Core;
+using Phobos.Ostranauts.Framework.Inventory;
 
 namespace PhobosShipbreaker;
 

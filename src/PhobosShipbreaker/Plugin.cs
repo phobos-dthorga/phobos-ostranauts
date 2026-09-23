@@ -5,17 +5,17 @@ using System.Reflection;
 using BepInEx;
 using HarmonyLib;
 using UnityEngine;
+using Phobos.Ostranauts.Framework;
 
 namespace PhobosShipbreaker;
 
 [BepInPlugin(Id, "Phobos Shipbreaker", Version)]
 [BepInProcess("Ostranauts.exe")]
-[BepInDependency(FrameworkId, Core.DependencyContract.MinimumFramework)]
+[BepInDependency(FrameworkInfo.PluginId, Core.DependencyContract.MinimumFramework)]
 public sealed class Plugin : BaseUnityPlugin
 {
     public const string Id = "phobosgekko.ostranauts.shipbreaker";
-    public const string Version = "0.1.2";
-    public const string FrameworkId = "community.ostranauts.craftingframework";
+    public const string Version = "0.2.0";
     internal static ProcessingService Service { get; private set; } = null!;
     internal static Action<string> Log { get; private set; } = null!;
     internal static Settings Options { get; private set; } = null!;
@@ -30,20 +30,19 @@ public sealed class Plugin : BaseUnityPlugin
         panel = new FixturePanel(Service, Options);
         harmony = new Harmony(Id);
         harmony.PatchAll(typeof(Plugin).Assembly);
-        Log("Shipbreaker loaded. Requires enabled Phobos Shipbreaker and Salvage Workshop data. " + Options.ControlsKey + ": fixture controls.");
+        FrameworkLifecycle.ContentLoading += LoadContent;
+        FrameworkLifecycle.ContentLoaded += ConfirmContent;
+        Log("Shipbreaker loaded with independent Phobos Framework construction and machinery. " + Options.ControlsKey + ": fixture controls.");
     }
     private void Update() => panel.Update();
     private void OnGUI() => panel.Draw();
-    private void OnDestroy() { Service?.Reset(); harmony?.UnpatchSelf(); }
-}
-
-[HarmonyPatch(typeof(DataHandler), "PostModLoadMainThread")]
-[HarmonyBefore(Plugin.FrameworkId)]
-internal static class ContentPatch
-{
-    private static void Prefix() { Plugin.Service.Reset(); Content.Register(Plugin.Log); }
-    // OCF registers recipes in its prefix; the native method then finishes loading.
-    private static void Postfix() => Content.ConfirmRecipes(Plugin.Log);
+    private static void LoadContent() { Service.Reset(); Content.Register(Log); }
+    private static void ConfirmContent() => Content.ConfirmRecipes(Log);
+    private void OnDestroy()
+    {
+        FrameworkLifecycle.ContentLoading -= LoadContent; FrameworkLifecycle.ContentLoaded -= ConfirmContent;
+        Service?.Reset(); harmony?.UnpatchSelf();
+    }
 }
 
 [HarmonyPatch(typeof(Powered), "UsePower", new[] { typeof(CondOwner), typeof(double) })]

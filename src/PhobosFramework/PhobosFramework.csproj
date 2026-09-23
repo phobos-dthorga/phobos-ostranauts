@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <Version>0.2.1</Version>
+    <GameManaged>$(OstranautsPath)/Ostranauts_Data/Managed</GameManaged>
+    <BepInExCore>$(OstranautsPath)/BepInEx/core</BepInExCore>
+  </PropertyGroup>
+  <Target Name="RequireLocalLoader" BeforeTargets="ResolveReferences">
+    <Error Condition="!Exists('$(GameManaged)/Assembly-CSharp.dll')" Text="Supply OstranautsPath for a local game installation." />
+    <Error Condition="!Exists('$(BepInExCore)/BepInEx.dll')" Text="Supply OstranautsPath for a local installation with BepInEx 5." />
+  </Target>
+  <ItemGroup>
+    <Reference Include="Assembly-CSharp" HintPath="$(GameManaged)/Assembly-CSharp.dll" Private="false" />
+    <Reference Include="Assembly-CSharp-firstpass" HintPath="$(GameManaged)/Assembly-CSharp-firstpass.dll" Private="false" />
+    <Reference Include="Newtonsoft.Json" HintPath="$(GameManaged)/Newtonsoft.Json.dll" Private="false" />
+    <Reference Include="0Harmony" HintPath="$(BepInExCore)/0Harmony.dll" Private="false" />
+    <Reference Include="BepInEx" HintPath="$(BepInExCore)/BepInEx.dll" Private="false" />
+    <Reference Include="UnityEngine" HintPath="$(GameManaged)/UnityEngine.dll" Private="false" />
+    <Reference Include="UnityEngine.CoreModule" HintPath="$(GameManaged)/UnityEngine.CoreModule.dll" Private="false" />
+  </ItemGroup>
+</Project>

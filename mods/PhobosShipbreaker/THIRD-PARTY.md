@@ -4,19 +4,27 @@ Phobos Shipbreaker's original code and documentation use the repository's MIT
 licence. The distribution contains Phobos code, metadata and its construction
 recipe; no game or dependency DLLs, extracted sprites or copied native definitions.
 
-- [Ostranauts Crafting Framework](https://steamcommunity.com/sharedfiles/filedetails/?id=3798573443),
-  inspected version 0.8.71: required plugin/data dependency. Phobos uses its JSON
-  recipe interface and follows its native powered-tick integration pattern.
-- [Salvage Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=3798573453),
-  inspected version 0.8.71: required native dependency. Phobos makes private runtime
-  copies of sorter machine/container, installation, repair and power templates,
-  then changes IDs, physical footprint, capacity, labels and processing demand.
-  It does not replace the original sorter or its automation recipe.
-- **Ostranauts**, Blue Bottle Games: native object/material definitions and a
-  `ItmFloorGrate4x401` work-deck appearance are referenced from the user's installation
-  at runtime. Mixed residue uses the native trash item's appearance with its own
-  definition, mass and eligibility. These references are temporary artwork, not
-  redistributed sprites or a claim of ownership over game content.
+- **Phobos Framework 0.2.0+**: required separate shared provider for construction,
+  definition publication, inventory planning and production delivery. Its notices
+  include the credited OCF construction-code adaptation; install one provider.
+- [Ostranauts Crafting Framework](https://steamcommunity.com/sharedfiles/filedetails/?id=3798573443)
+  and [Salvage Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=3798573453),
+  inspected at 0.8.71: optional companions and earlier implementation references.
+  Shipbreaker 0.2.0 replaces the previous runtime sorter-template adapter with
+  Phobos-authored native machinery definitions, preserving our saved identities.
+  No SWB definitions are looked up for the standalone path. An existing Workshop
+  bench is an optional construction surface; its original definitions stay owned
+  by Workshop. Native power/installation patterns informed this implementation.
+- **Ostranauts**, Blue Bottle Games: native object/material behaviours are
+  referenced from the user's installation at runtime. No game artwork is bundled.
+- **Phobos artwork**, generated with ChatGPT's built-in Imagegen tool: original
+  installed, damaged, transport, unfinished-section and mixed-residue colour art.
+  The owner approved the installed v2 pixel-art direction on 23 September 2026.
+  A user-supplied game screenshot informed that v2 edit as a style reference;
+  it is not bundled. Derivatives, mechanical exports and original technical normal
+  maps are included under the repository's MIT scope, without claiming exclusive
+  rights in generated imagery or rights over Ostranauts art. Masters, exact prompts
+  and hashes are preserved in the repository's `assets/phobos-shipbreaker/` folder.
 - **BepInEx 5 / Harmony** and the game's **Newtonsoft.Json**: used from the existing
   installation; none is redistributed in the package.
 

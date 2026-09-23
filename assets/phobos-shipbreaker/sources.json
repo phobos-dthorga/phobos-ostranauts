@@ -1,0 +1,38 @@
+[
+  {
+    "State": "Installed",
+    "Source": "PhobosShipbreakerInstalled-concept-v2.png",
+    "Sha256": "AEF03A9CBB28501B24BF40DD424DFA769398388308E859C8ECE5AF0AF0ED79EE",
+    "Size": 64
+  },
+  {
+    "State": "InstalledDmg",
+    "Source": "PhobosShipbreakerInstalledDmg-v1.png",
+    "Sha256": "5DF0F34CD252CEB84418E27C141251640CE7BF7BFD80C7BDF36731240C8A76DB",
+    "Size": 64
+  },
+  {
+    "State": "Loose",
+    "Source": "PhobosShipbreakerLoose-v1.png",
+    "Sha256": "E22CED4F130394A937283FD6A784387C1EFFA4F1D26C154657D2BAF9A1E4E7C5",
+    "Size": 64
+  },
+  {
+    "State": "LooseDmg",
+    "Source": "PhobosShipbreakerLooseDmg-v1.png",
+    "Sha256": "3D9A3C0915B2F9BAF039454B8BD91B66B09F61BB71A6406AFCFA423E720C1055",
+    "Size": 64
+  },
+  {
+    "State": "Section",
+    "Source": "PhobosShipbreakerSection-v1.png",
+    "Sha256": "2F7320B7AD862FF100ADBCDE014024FE5E13F0C987ECABD7979A1B8F101D0641",
+    "Size": 64
+  },
+  {
+    "State": "Residue",
+    "Source": "PhobosShipbreakerResidue-v1.png",
+    "Sha256": "EF8BF1C847B9A0C37E5111CF56C94127BE19AEB0ED0861719D131BFA8BD2FE36",
+    "Size": 16
+  }
+]

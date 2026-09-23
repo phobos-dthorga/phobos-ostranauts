@@ -4,7 +4,7 @@
     "strAuthor": "phobosgekko",
     "strModURL": "https://github.com/phobos-dthorga/phobos-ostranauts",
     "strGameVersion": "1.0.1.4",
-    "strModVersion": "0.1.2",
-    "strNotes": "Requires Crafting Framework 0.8.71+, Salvage Workshop and the accompanying Phobos Shipbreaker BepInEx plugin. Load after Salvage Workshop. 4 x 4 powered wall-panel processing fixture. Original placeholder artwork is referenced at runtime, not included. Use a separate test save for this initial development build."
+    "strModVersion": "0.2.0",
+    "strNotes": "Requires Phobos Framework 0.2.0+ and the accompanying Phobos Shipbreaker plugin. Independent of Crafting Framework and Salvage Workshop. Build at installed Bar/Dining Tables; existing Workshop benches are optional. Original 4 x 4 fixture artwork and mass-balanced processing. Use a separate test save; in-game migration pending owner verification."
   }
 ]

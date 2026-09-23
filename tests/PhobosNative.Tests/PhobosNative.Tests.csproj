@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType><TargetFramework>net10.0</TargetFramework>
+    <GameManaged>$(OstranautsPath)/Ostranauts_Data/Managed</GameManaged>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../../src/PhobosFramework/PhobosFramework.csproj" />
+    <ProjectReference Include="../../src/PhobosShipbreaker/PhobosShipbreaker.csproj" />
+    <Reference Include="Assembly-CSharp" HintPath="$(GameManaged)/Assembly-CSharp.dll" />
+    <Reference Include="Assembly-CSharp-firstpass" HintPath="$(GameManaged)/Assembly-CSharp-firstpass.dll" />
+    <Reference Include="Newtonsoft.Json" HintPath="$(GameManaged)/Newtonsoft.Json.dll" />
+    <Reference Include="UnityEngine" HintPath="$(GameManaged)/UnityEngine.dll" />
+    <Reference Include="UnityEngine.CoreModule" HintPath="$(GameManaged)/UnityEngine.CoreModule.dll" />
+    <Reference Include="BepInEx" HintPath="$(OstranautsPath)/BepInEx/core/BepInEx.dll" />
+    <Reference Include="0Harmony" HintPath="$(OstranautsPath)/BepInEx/core/0Harmony.dll" />
+  </ItemGroup>
+</Project>

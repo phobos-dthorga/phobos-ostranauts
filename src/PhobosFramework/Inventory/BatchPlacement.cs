@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace PhobosShipbreaker.Core;
+namespace Phobos.Ostranauts.Framework.Inventory;
 
 public readonly struct ItemSize
 {

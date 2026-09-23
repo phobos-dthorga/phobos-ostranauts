@@ -1,0 +1,10 @@
+[
+  {
+    "strName": "Phobos Framework",
+    "strAuthor": "phobosgekko",
+    "strModURL": "https://github.com/phobos-dthorga/phobos-ostranauts",
+    "strGameVersion": "1.0.1.4",
+    "strModVersion": "0.2.1",
+    "strNotes": "Shared native definition registration, mass-balanced construction recipes and inventory services. Requires BepInEx 5 and the accompanying PhobosFramework plugin. No Crafting Framework or Salvage Workshop dependency. Conveyor simulation is planned, not implemented."
+  }
+]

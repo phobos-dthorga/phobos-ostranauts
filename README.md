@@ -51,12 +51,16 @@ with a smaller setup appropriate to this project's current scope.
 - [One-command mod installation and updates](docs/installing-mods.md) — or double-click
   `Install or Update Mods.cmd` after closing the game.
 - [Project direction](docs/project-direction.md)
+- [Phobos Framework: shared services and OCF independence plan](docs/phobos-framework.md)
+- [Phobos Framework: author API guide](docs/framework-author-guide.md)
 - [Fusion-powered industry: five ideas and research triggers](docs/fusion-industry-roadmap.md)
 - [Powered shipbreaking: feasibility and first observations](docs/powered-shipbreaking-research.md)
 - [Shipbreaking follow-up: power, mass balance and the first experiment](docs/powered-shipbreaking-design-findings.md)
 - [Shipbreaker first build: installation, settings and console commands](docs/shipbreaker-first-build.md)
 - [Ship equipment art study and Shipbreaker visual direction](docs/ship-equipment-art-study.md)
 - [Shipbreaker outputs: existing repair and construction uses](docs/shipbreaker-material-uses.md)
+- [Shipbreaker expansion: shredding, recycling and asteroid feedstocks](docs/shipbreaking-material-processing-research.md)
+- [Asteroid resources for water, oxygen, nitrogen and nutrients](docs/asteroid-life-support-research.md)
 - [Current mod inventory and extension opportunities](docs/mod-extension-survey.md)
 - [Dependency maintenance and fallback plan](docs/dependency-contingencies.md)
 - [Medical-system vision](docs/medical-system-vision.md)
@@ -79,8 +83,15 @@ with a smaller setup appropriate to this project's current scope.
 
 The locator proposal was set aside because an existing mod already meets the
 owner's immediate need and is being used now.
-Current development priority: powered shipbreaking, beginning with onboard processing
-and extending existing Crafting Framework/Salvage Workshop systems where useful.
+Current development priority: powered shipbreaking and a reusable **Phobos Framework**
+that replaces our OCF/Salvage Workshop requirements. Framework and Shipbreaker
+0.2.0 provide independent construction at native tables, Phobos machinery
+definitions, shared registration and inventory services. Conveyor transport is
+planned; it is not implemented. Framework/Shipbreaker 0.2.0 and Auto Nav 0.1.1
+were installed and file/load-order verified on 2026-09-24. In-game startup and
+behaviour testing remain with the owner.
+Framework 0.2.1 subsequently fixes its false Missing status in the native mod
+menu; the owner confirmed the correction after restart on 2026-09-24.
 The first 4 x 4 fixture build includes a mass-balanced panel recipe, user settings
 and F3 console controls. Build and offline checks pass; owner gameplay checks remain.
 External cutting and its positioning/autopilot needs follow later. Other industrial

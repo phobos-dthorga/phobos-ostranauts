@@ -1,13 +1,34 @@
 # Phobos Shipbreaker: first playable build
 
-Version **0.1.2**, built against Ostranauts **1.0.1.4**, BepInEx **5.4.23.5**,
-Crafting Framework **0.8.71** and Salvage Workshop **0.8.71**.
-Build and offline logic checks passed. **In-game behaviour has not yet been tested.**
-The owner's game, installed packages, load order and saves were not changed.
+Current candidate: **Shipbreaker 0.2.0 + Phobos Framework 0.2.0**. Construction and
+machinery now work through our provider and native definitions without OCF/SWB.
+Framework **0.2.1** subsequently fixes the native menu's false Missing status;
+the owner confirmed that correction in-game on 2026-09-24. Shipbreaker stays 0.2.0.
+Offline checks passed. On 2026-09-24 the shared installer installed and verified
+Framework 0.2.0, Shipbreaker 0.2.0 and Auto Nav 0.1.1: 39 matching files and enabled
+native load-order entries. In-game startup and behaviour remain owner-tested work.
+Saved Phobos IDs, progress, dimensions, material bill and artwork are
+preserved. See the [migration details](phobos-framework.md).
+The previous **0.1.4** baseline was built against Ostranauts **1.0.1.4**, BepInEx
+**5.4.23.5**, Crafting Framework **0.8.71** and Salvage Workshop **0.8.71**.
+Its build and offline logic checks passed, and installation was verified on
+24 September 2026. The owner subsequently confirmed successful dependency/template checks,
+both construction recipes registered, and a good initial visual match in-game.
+**Processing and interruption behaviour remain unverified.** The attempted
+exterior-wall placement conflicts with this build's floor-mount rules; see the
+[mounting review and proposed hull attachment](shipbreaker-hull-mounting.md).
+
+Version 0.1.4 replaces the temporary art with the approved pixelated machine design
+and matching installed/damaged, transport/damaged, unfinished-section and residue
+forms. Machinery uses 64-pixel world textures; residue uses 16 pixels. All six
+have their own lighting maps and pixel-preserving inspection portraits. Existing
+saved object IDs, masses, footprints, recipes and progress are unchanged; no save
+rewrite is needed by design, but loading an older test save remains untested.
 
 ## What this build provides
 
-A powered dismantling fixture, built at the existing Salvage Workshop workbench.
+A powered dismantling fixture, built at an installed native Bar Table or Dining Table.
+An existing Salvage Workshop workbench is also supported, optionally.
 Its **4 x 4 tile footprint and storage capacity are the working design**, not a
 smaller diagnostic stand-in. The owner clarified that intended physical size and
 capacity should be used from the outset; this build adopts the following baseline.
@@ -56,7 +77,7 @@ use. We do not rebalance the game's or other mods' salvage recipes.
 
 Construction uses **100 steel, 48 aluminium, 20 mechanical parts and
 4 electronic parts** in total, totalling 160 kg at the inspected native masses.
-At the existing workbench, make **two Dismantling Fixture Assembly Sections**,
+At an installed table or supported workbench, make **two Dismantling Fixture Assembly Sections**,
 then combine them with **Powered Dismantling Fixture**:
 
 | Stage | Inputs | Result | Work |
@@ -67,13 +88,13 @@ then combine them with **Powered Dismantling Fixture**:
 Total work remains 300 game seconds. Each section is a separate, unstackable
 physical item; arrange room for both near the workbench. It has no powered
 processing, installation or generic scrap role of its own. Native install, uninstall,
-damage and repair behaviours are adapted from Salvage Workshop's machinery.
+damage and repair use our definitions and native game installation templates.
 
 This fixes a registration problem found during the material-use review:
-Crafting Framework 0.8.71 caps a craft at 100 input units; the earlier one-step
+Historically, Crafting Framework 0.8.71 capped a craft at 100 input units; the earlier one-step
 recipe requested 172. The new stages use 86, 86 and 2 units. Existing fixture
 identities, processing recipes, saved progress, footprint and capacity are
-unchanged; the new section uses `PhobosShipbreakerSection`. No existing save
+unchanged; the section uses `PhobosShipbreakerSection`. No existing save
 needs conversion for this added construction item. No in-game migration was tested.
 
 The [material-use review](shipbreaker-material-uses.md) maps these outputs into
@@ -82,31 +103,36 @@ and the limits of their mass accounting.
 
 ## Install the prepared package
 
-Required existing dependencies: **BepInEx 5**, **Crafting Framework 0.8.71 or later**,
-and **Salvage Workshop**. Later upstream versions are not automatically certified;
-the current reference versions are listed above. Common Sense hauling is optional.
-
+Required dependencies: **BepInEx 5** and **Phobos Framework 0.2.0 or later**.
+OCF, Salvage Workshop, Auto Nav and Common Sense hauling are optional for this
+onboard processor. Keep other mods installed if the existing save contains their
+objects or other consumers require them; independence is not foreign-object
+save recovery. Test the mod-free case using a new separate save.
 From this repository, close the game and run
-`./scripts/install-mods.ps1 -Mods Shipbreaker`. It handles both destinations,
-dependency preflight, enabling the native entry and backing up updated files.
+`./scripts/install-mods.ps1 -Mods Shipbreaker`. It includes the prepared Phobos
+Framework package automatically and handles both destinations, dependency
+preflight, enabling the native entries and backing up updated files.
 See [one-command installation](installing-mods.md) for the double-click launcher
 and options. The manual steps below are for a standalone ZIP without the installer.
 
 1. Exit Ostranauts normally before copying the package.
-2. From the ZIP, copy `BepInEx/plugins/PhobosShipbreaker/` into the game's matching
+2. Install the separate **PhobosFramework-P0.zip** package first: its own plugin
+   folder and native metadata folder, each in the matching game directory. Keep
+   one shared framework provider rather than copies inside individual mods.
+3. From the Shipbreaker ZIP, copy `BepInEx/plugins/PhobosShipbreaker/` into the game's matching
    plugin directory. Do not copy other mods' libraries or overwrite original game
    data.
-3. Copy `Mods/PhobosShipbreaker/` into `Ostranauts_Data/Mods/`.
-4. Enable the native data mod after Crafting Framework and Salvage Workshop in
+4. Copy `Mods/PhobosShipbreaker/` into `Ostranauts_Data/Mods/`.
+5. Enable the Phobos native data packages after core in
    the game's mod list. Both the plugin and the native data package are needed.
-5. Start a **separate test save**. Do not use the player's real save for this first
-   build. Retain both packages when loading any save that contains the fixture
+6. Start a **separate test save**. Do not use the player's real save for this first
+   build. Retain the content packages and required providers when loading any save that contains the fixture
    or residue; removing a content mod from such a save is not a supported migration.
 
 At startup the BepInEx log should include `Shipbreaker definitions ready`.
-Version 0.1.2 checks the loaded Framework version, enabled native dependencies,
-required definitions and the template relationships used for storage and power.
-It prepares private copies before publishing any Phobos definitions; a failure
+Version 0.2.0 checks the loaded Phobos Framework version, our enabled native data,
+and the native definitions used by the independent machinery/construction path.
+It prepares definitions before publishing them; a failure
 during publication restores previous dictionary entries and removes new ones.
 Processing stays disabled until both construction recipes have registered too.
 The upstream game/native generation phase remains outside that transaction.
@@ -124,7 +150,25 @@ a supported transition exists. See the [dependency contingency plan](dependency-
 
 ## Try the useful loop
 
-1. At an installed Salvage Workshop workbench, build two **Dismantling Fixture
+For the 0.2.0 independence candidate, the new integration checks are:
+
+1. In a separate new save with OCF/SWB disabled, run `phobosframework status`
+   and `phobosshipbreaker dependencies`. Both construction stages should be ready.
+2. Use an installed Bar Table or Dining Table to make the two sections and final
+   fixture, then install and use it through the normal loop below. Native menus
+   show input/output quantities; normal material stacks should be accepted.
+3. In a separate copy of an older test save, keep providers needed by foreign
+   equipment. Check Phobos fixtures, feed/output contents and partial panel work
+   survive loading and remain paused. If there was queued Phobos construction,
+   check its original bench/material references and that it completes only once.
+4. With OCF/SWB present, their other recipes should remain available and each
+   Phobos construction stage should appear once. Do not remove those providers
+   from the player's real save to prove independence.
+
+These are targeted migration checks, not a request to repeat isolated ordinary
+power-consumption tests. Report the version and the failing action if one fails.
+
+1. At an installed **Bar Table** or **Dining Table**, build two **Dismantling Fixture
    Assembly Sections**, then join them with **Powered Dismantling Fixture**.
    To skip gathering construction stock in the test save, the existing F3 console
    accepts `spawn PhobosShipbreakerLoose`; use the normal Install action to place it.
@@ -197,6 +241,16 @@ commands do not add a separate item-spawning system.
 
 ## Focused owner checks
 
+For this artwork update, first look at the loose fixture, install it, and inspect
+its portrait. Check the outline and lighting against nearby equipment at normal
+zoom, including with the fixture rotated. The rear sockets are connection cues;
+build and place electrical conduit separately. There is no painted conduit loop.
+Inspect a section during construction and the residue from the first batch.
+If convenient, use `spawn PhobosShipbreakerLooseDmg` in the separate test save to
+see the damaged form; no need to damage machinery in a real save. Send a screenshot
+if a sprite is missing, moves noticeably between states, clips or lights oddly.
+The displayed lamps and transport restraints are static art, not new mechanics.
+
 Try a normal processing batch first. Compare its convenience and crew effort with
 ordinary dismantling. No separate demonstration of native power consumption is
 required; the native/OCF patterns are the precedent.
@@ -222,7 +276,9 @@ hauling orders if they expose a specific issue in normal use.
 - Uses native active/idle power coefficients and the powered-tick pattern already
   used by OCF. It adds no independent electrical network and does not debit power
   a second time.
-- Crafting Framework owns construction recipe registration and ingredient handling.
+- Phobos Framework owns construction registration and native ingredient integration.
+  Queued legacy Phobos action names translate at lookup; see the migration guide.
+  Native construction effects are not crash-atomic; faults require inspection.
   Our service owns processing progress, input binding and multi-output completion.
 - Progress, chosen cycle duration and recipe revision use native saved conditions on the input object.
   Session clocks and run permission are transient. Long unobserved gaps pause work;
@@ -233,9 +289,11 @@ hauling orders if they expose a specific issue in normal use.
   irreversible input cleanup pauses processing and is logged rather than retried.
 - Output masses are checked at runtime. Changed material definitions that invalidate
   this recipe stop processing instead of silently creating or losing material.
-- The work deck artwork is a temporary runtime reference to an existing native
-  4 x 4 asset. Machine templates are derived at runtime from the installed Salvage
-  Workshop package. Neither game's nor dependency's assets/definitions are bundled.
+- Artwork is original Phobos imagery with modest geometric normal maps. Runtime
+  machinery definitions are authored by Phobos against native game interfaces.
+  Neither game's nor dependency's artwork/definitions are bundled. The invisible
+  feed container remains native behaviour; the 8 x 8 output is inventory capacity,
+  not an 8 x 8 physical extension to the machine. The owner approved the 0.1.4 in-game artwork; new behaviour remains unverified.
 - This is an electrical processing implementation, not a complete thermal model.
   Dedicated coolant circulation, heat rejection, tool wear and consumable gas are
   not implemented. The 30 kW / 60 s rating is a gameplay design value, not a claimed
@@ -248,8 +306,11 @@ Do not silently change saved progress meanings or rename item IDs in later build
 ## Build and offline checks
 
 Run `scripts/build-shipbreaker.ps1 -OstranautsPath <local-game-folder>`.
-It compiles against locally installed assemblies, runs the focused logic checks
-and creates `dist/PhobosShipbreaker-P0/` plus a ZIP. It never writes to the game,
+It verifies art-master hashes, exports the world/normal/portrait set without
+smoothing, compiles against locally installed assemblies, runs the focused logic checks
+and creates `dist/PhobosShipbreaker-P0/` plus a ZIP. It also builds, checks and
+packages Phobos Framework independently at `dist/PhobosFramework-P0/` and ZIP.
+The consumer tests reference the actual framework assembly. It never writes to the game,
 load order or saves. The tests exercise dependency version/data gates, missing and
 changed template contracts, construction registration completeness, definition
 publication rollback and repeat registration, construction recipe limits and total
@@ -257,11 +318,10 @@ material/work accounting, material balance, blackout accounting,
 input identity, saved-state validation, console command routing, batch placement and insertion-failure
 recovery. They do not claim an in-game test or re-test ordinary upstream power use.
 
-The 0.1.2 offline source audit found all 51 required definitions and the four
-expected machine relationships in the installed enabled dependency files plus
-our proposed native data. That is not a live-game registration result. During
-the owner's next fixture test, the new console report should confirm both
-construction stages registered. There is no need to uninstall dependencies from
-an existing save to demonstrate the error handling.
+The 0.2.0 offline integration check loads local native game definitions, publishes
+our machine family and invokes native installable generation with no OCF/SWB
+data or plugin loaded. It also checks queued-name migration, optional bench menus,
+changed material masses, partial registration failure and competing providers.
+That does not run Unity gameplay or verify every third-party interaction.
 
 See `THIRD-PARTY.md` in the package for dependencies and asset provenance.

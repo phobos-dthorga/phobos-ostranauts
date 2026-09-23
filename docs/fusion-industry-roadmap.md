@@ -13,6 +13,13 @@ An onboard [first fixture build](shipbreaker-first-build.md) is now prepared:
 4 x 4 footprint, four-panel feed, one mass-balanced recipe and player settings.
 Build/offline checks passed; in-game use remains to be checked by the owner.
 
+**2026-09-24 expansion:** [shredders, material recyclers and asteroid processing](shipbreaking-material-processing-research.md)
+are now researched, together with [mineral replenishment of life support](asteroid-life-support-research.md).
+Native water ice is the recommended first endurance feed; new nitrogen-bearing
+and phosphate/salt-bearing resources are candidates where existing ore leaves a
+gap. These additions are not implemented. The current 0.2.0 candidate uses our
+[independent Phobos Framework](phobos-framework.md); OCF/SWB are optional.
+
 The earlier suggestion to start with a furnace is superseded by this choice.
 Approach Assist remains an existing prototype with owner testing outstanding;
 selecting industrial research does not claim that its guidance is complete.
@@ -40,8 +47,9 @@ selecting industrial research does not claim that its guidance is complete.
   prerequisite. [NASA's thermal-control overview](https://www.nasa.gov/smallsat-institute/sst-soa/thermal-control/)
   explains spacecraft heat transport and rejection.
 - Prefer native systems and installed mods. Steam Workshop dependencies are
-  explicitly welcome; do not rebuild crafting, logistics, tank filling or
-  manifests merely to keep every feature under the Phobos name.
+  explicitly welcome. The owner selected Phobos Framework for shared construction
+  and future transport; continue reusing worthwhile tank filling, manifests,
+  hauling and other existing systems through appropriate integrations.
 
 ## 1. Salvage remelting and refining
 
@@ -74,8 +82,12 @@ oxygen and metal production from molten simulated lunar regolith at about
 shipboard installation. [NASA experiment](https://www.nasa.gov/centers-and-facilities/kennedy/nasa-kennedy-breathes-life-into-moon-soil-testing/).
 
 **Research trigger:** mineral cargo/mining becomes relevant and the owner has
-oxygen storage and an observable gas-use or sales loop. Purchased feedstock may
-support an early experiment without implementing asteroid mining.
+oxygen storage and an observable gas-use or sales loop. Use native tethered
+asteroid mining and real retrieved cargo as the acquisition baseline, following
+the owner's 2026-09-24 clarification. Do not assume a purchased-ore shortcut or
+implement a second mining system. The [endurance branch](asteroid-life-support-research.md)
+starts with water ice and later oxygen from recovered water before hotter mineral
+electrolysis; nitrogen and nutrient sources are also now in research scope.
 
 **Useful experiment:** a characterised batch with bounded oxygen yield, storage
 capacity, electrode wear and residual material. Reuse gas handling where suitable.
@@ -97,7 +109,7 @@ Water become familiar enough to compare losses and handling effort.
 **Useful experiment:** one compatible gas family with explicit input/output
 accounting. Confirm the game's cryo consumable identity before proposing to
 manufacture it. Reuse Testudo's filling role and Ship's Water's water economy;
-the crafting framework already has an optional water adapter. Boil-off and
+OCF's optional water adapter is precedent, not an implemented Phobos adapter. Boil-off and
 contamination are candidate additions, not established engine features.
 
 ## 4. Powered shipbreaking workshop — research now

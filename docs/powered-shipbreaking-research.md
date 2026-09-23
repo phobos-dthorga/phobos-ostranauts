@@ -3,6 +3,11 @@
 Research date: **2026-09-23**. Owner-selected sequence: **onboard processing first,
 external cutting later**. Part of the [fusion-industry ideas](fusion-industry-roadmap.md).
 
+**Current status, 2026-09-24:** the historical OCF/SWB dependency recommendation
+below is superseded by the owner's [independent Phobos Framework decision](phobos-framework.md).
+For new downstream machines and ore, see [shredding and material processing](shipbreaking-material-processing-research.md)
+and [asteroid life-support replenishment](asteroid-life-support-research.md).
+
 Follow-up: [power, material accounting and the first bounded experiment](powered-shipbreaking-design-findings.md)
 records the second round's native power hooks, input-identity concern and calculated
 definition-level salvage balances. It refines the prototype proposed below.
