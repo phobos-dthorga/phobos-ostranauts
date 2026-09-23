@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "recipes": [
+    {
+      "id": "PhobosBuildShipbreakerSection",
+      "name": "Dismantling Fixture Assembly Section",
+      "description": "Build one 80 kg, 4 x 4 assembly section. Two sections make a complete powered dismantling fixture. Sections are unpowered construction stock, not working machinery.",
+      "stationIds": ["SWB_WorkbenchInstalled"],
+      "stationTrigger": "SWB_TInstalled",
+      "ingredients": [
+        {"trigger": "TIsScrapSteel", "item": "ItmScrapSteel", "count": 50},
+        {"trigger": "TIsScrapAluminum", "item": "ItmScrapAluminum", "count": 24},
+        {"trigger": "TIsPartsMechSmall", "item": "ItmPartsMechSmall01", "count": 10},
+        {"trigger": "TIsPartsElecSmall", "item": "ItmPartsElecSmall01", "count": 2}
+      ],
+      "outputs": [{"item": "PhobosShipbreakerSection", "count": 1}],
+      "workSeconds": 120,
+      "range": 2
+    },
+    {
+      "id": "PhobosBuildShipbreaker",
+      "name": "Powered Dismantling Fixture",
+      "description": "Join two 80 kg assembly sections into a 160 kg, 4 x 4 industrial fixture. Accepts up to four ordinary loose wall panels and recovers parts, scrap and retained residue. Controls: F9 by default while beside the installed fixture, or F3: phobosshipbreaker help.",
+      "stationIds": ["SWB_WorkbenchInstalled"],
+      "stationTrigger": "SWB_TInstalled",
+      "ingredients": [
+        {"trigger": "PhobosShipbreakerTSection", "item": "PhobosShipbreakerSection", "count": 2, "requireEmpty": true}
+      ],
+      "outputs": [{"item": "PhobosShipbreakerLoose", "count": 1}],
+      "workSeconds": 60,
+      "range": 2
+    }
+  ],
+  "stockAdditions": []
+}

@@ -259,18 +259,40 @@ updates by the fast-forward setting.
 
 ## Existing mods and whether this is worth making
 
+The [2026-09-23 Auto Navigate reuse review](auto-navigate-reuse-review.md)
+checks current public metadata, source availability, permissions and community
+precedents. It is the current reference for evaluating that dependency before
+extending our guidance; its runtime compatibility remains unverified. The owner
+subsequently requested the [standalone adaptation](auto-navigate-adaptation.md),
+which uses selected upstream guidance without an Auto Navigate dependency.
+
 The author's description of [Auto Navigate](https://steamcommunity.com/sharedfiles/filedetails/?id=3745533691)
 already offers a physical nav module for automated RCS travel, with configurable
 speed and arrival behaviour. [Approach Autopilot](https://www.nexusmods.com/ostranauts/mods/20)
 also describes automatic approaches with speed and acceleration controls. These
 are author-described capabilities, checked on 2026-09-20, not compatibility tests
-by this project. Neither mod was installed or used for this investigation.
+by this project. Auto Navigate was later downloaded by the owner, kept disabled,
+and inspected as recorded in the reuse review; neither was tested in-game here.
 
 If the aim is simply less manual piloting, evaluating an existing mod is the
 smaller job. A Phobos version is worth pursuing if its restricted operating
 envelope, equipment requirements and explicit handoff are the desired gameplay.
-The novelty is not the existence of autopilot. Avoid copying another mod's code
-or artwork; any later reuse requires a separate licence check.
+The novelty is not the existence of autopilot. The owner's 2026-09-23 preference
+is to extend existing mods, including Workshop dependencies, with permissive
+licensing assumed unless restrictions are directly noted. Follow explicit terms
+and preserve attribution; game assets remain outside that assumption. See the
+[current extension survey](mod-extension-survey.md).
+
+## Later connection: external shipbreaking
+
+On 2026-09-23 the owner chose onboard salvage processing first and external
+cutting later, and raised a possible autopilot requirement. The
+[shipbreaking analysis](powered-shipbreaking-research.md#autopilot-and-external-cutting)
+separates approach, continuous work-position control and cutting authorisation.
+This is a later research connection, not an expansion of the current test-pulse
+prototype's demonstrated capabilities. Native station keeping is not yet proven
+to meet the distance, attitude and control-ownership requirements. Prefer
+mechanically secured testing before attempting free-flying close work.
 
 ## Evidence still needed before calling it playable
 

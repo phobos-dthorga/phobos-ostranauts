@@ -6,14 +6,57 @@
   speculative framework or extensive process.
 - Use observed progress to plan rounds; do not invent hour estimates.
 - Explain what works, what was checked and what remains uncertain.
+- Do not control the owner's mouse or keyboard. Inspect files and use command-line
+  tools; give the owner instructions for interactive steps unless they explicitly
+  request hands-on control again.
+- The owner's overarching direction is longer-term habitation and survival in
+  hostile space, potentially indefinitely (clarified 2026-09-23). Prefer features
+  that extend endurance, support crew health and make the ship maintainable away
+  from stations. Judge industrial outputs by their usefulness to those needs.
+  Treat indefinite operation as an ambition supported by recovery, maintenance
+  and replenishment of losses, not a claim of perfect recycling or unlimited
+  matter. Research each need as it arises in play; reuse existing mods first.
 - For any Ostranauts mod idea, candidly recommend simplifying, setting it aside
   or changing direction when gameplay value, engine limits or maintenance costs
   make further work unconvincing. Do not continue merely because effort was spent.
 - Repository visibility stays private until the owner explicitly requests a change.
+- Public releases of these mods are the intended destination (2026-09-23).
+  Preserve original authorship, provenance and adaptation notes from the outset;
+  distinguish verified third-party terms from the owner's permissive working
+  assumption. This future intent does not authorise changing visibility today.
+- Research industrial ideas as the owner encounters relevant gameplay and can
+  test them. Current priority: powered shipbreaking, onboard processing first,
+  external cutting and its positioning/autopilot needs later. See
+  `docs/fusion-industry-roadmap.md` and `docs/powered-shipbreaking-research.md`.
+- Prefer extending existing mods over duplicating their systems. Steam Workshop
+  dependencies are welcome. Refresh the inventory when it matters; see
+  `docs/mod-extension-survey.md`. Use permissive mod licensing as the owner's
+  working assumption unless restrictions are explicitly stated; record verified
+  terms separately, follow them and preserve attribution. Game assets remain
+  subject to the game/repository boundaries below.
+- Plan for dependencies that remain incompatible or unavailable without treating
+  release age alone as failure. Follow `docs/dependency-contingencies.md`: prefer
+  a working combination, a narrow compatibility fix or a maintained successor;
+  fork only where justified, preserving provenance and applicable terms. Protect
+  saved identities, inventories and progress before removing a required provider.
+  Document inexpensive contingencies now rather than building speculative
+  replacement systems or recurring version monitors (owner preference, 2026-09-23).
+- Implement concrete low-cost dependency safeguards early, before saves rely on
+  our content (owner follow-up, 2026-09-23). Keep Shipbreaker's provider contract and
+  translation in `WorkshopAdapter`/`DependencyContract`, prepare definitions before
+  publication, and preserve rollback plus startup recipe checks. This is not a
+  promise of save recovery when a required provider or the loader is absent.
 - Create or extend reusable scripts when repeated work makes them worthwhile,
   especially builds, packaging, installation and verification. Prefer existing
   scripts over repeating ad hoc commands; keep automation proportional to the
   task. Support safe repeat runs and keep local paths/configuration out of Git.
+- Use `scripts/install-mods.ps1` for local installation and updates, including
+  agent-run delivery. The owner requested a reusable installer usable by both
+  them and Codex (2026-09-23). Build the selected package first when its source
+  changes; use `-WhatIf` for previews and `-VerifyOnly` for installed-file checks.
+  Default selection is AutoNav and Shipbreaker; the older Approach Assist is
+  opt-in. Keep the game-closed guard and leave gameplay tests to the owner.
+  See `docs/installing-mods.md`; do not repeat manual file-copy/load-order edits.
 
 ## Architecture
 
@@ -25,15 +68,42 @@
 - Prefix new game identifiers with `Phobos` and keep them stable once saved games
   can contain them. Document migrations for incompatible changes.
 - Distinguish observed engine behaviour from proposed designs and untested assumptions.
+- Build machinery at its intended physical footprint and storage capacity from the
+  first usable implementation. Shipbreaker's current baseline is 4 x 4 tiles,
+  one active panel, a four-panel feed and a separate 8 x 8 output tray.
+- Expose reasonable player preferences and balance adjustments as documented
+  settings. Preserve saved-job meaning when settings change; keep item identities,
+  physical dimensions and mass-balanced recipes stable rather than making every
+  internal value configurable.
+- Provide useful F3 console commands alongside the normal controls, following
+  Approach Assist's ConsoleResolver integration. Route gameplay actions through
+  the same service and report actionable status; do not bypass gameplay checks.
 
-## Approach Assist artwork
+## Artwork
 
-- The owner selected Approach Assist as the first mod and asked to pause and
-  discuss graphics before generating custom artwork. Use Ostranauts' original
-  visual style as the reference when that stage arrives.
-- Plain UI placeholders and runtime references to existing game resources are
-  acceptable for the behaviour prototype. Do not distribute the game's sprites
-  or treat placeholders as final artwork.
+- Before generating Shipbreaker artwork, follow
+  `docs/ship-equipment-art-study.md` (owner-requested equipment study, 2026-09-23).
+  Installed machinery needs its own reference set; do not simply enlarge the
+  AutoNav faceplate or assume all equipment is blue-grey. Plan the 4 x 4 fixture
+  around a 64 x 64 world texture, a matching normal map and appropriate damage
+  and loose forms. Final lighting/detail calibration awaits owner screenshots.
+  Game-derived research sheets stay in ignored `.local/`, never in mod packages.
+
+- The owner approved the exact slate-grey Phobos Auto Nav faceplate at
+  `mods/PhobosAutoNav/images/phobos/autonav/PhobosAutoNavPanel.png` on 2026-09-23.
+  Earlier apparently conflicting feedback was clarified as crossed replies:
+  this specific image is approved, including its subtle edges and fasteners.
+  Do not replace it with the weathered concept or redesign it as flat geometry.
+- Match the original game's restrained navigation-panel language. Keep labels
+  and controls live; Phobos identity comes through the name and layout. Preserve
+  the approved faceplate's proportions. See `assets/phobos-autonav/README.md`.
+- The owner also approved both pickup/item images on 2026-09-23: the intact
+  cassette and its cracked, scorched damaged version. Their unchanged masters are
+  `assets/phobos-autonav/source/PhobosAutoNavModule-approved.png` and
+  `PhobosAutoNavModuleDmg-approved.png`. Use the shared crop in
+  `scripts/export-autonav-art.ps1` for game-sized exports; keep the two states
+  registered and preserve the original masters. Do not redesign these selections
+  or distribute the game's sprites.
 
 ## Game and repository boundaries
 
@@ -54,6 +124,17 @@
   owner unless they later request hands-on assistance.
 - Scale checks to the change. Add useful tests for gameplay rules and persistence;
   do not create tests that merely repeat static documentation.
-- For new machinery, check relevant power, interruption, save/reload and
-  fast-forward behaviour. Record the game and plugin versions tested.
+- Treat well-established patterns in existing mods as sufficient evidence for
+  reusing that behaviour, especially when corroborated across multiple reputable,
+  widely used mods. Do not require isolated proof tests such as observing basic
+  module power consumption, or a diagnostic-only prototype, before building a
+  useful feature. Briefly record the relevant precedent and proceed.
+- Focus verification on our new logic, meaningful integration differences and
+  concrete suspected failures. Revisit an established pattern only when a relevant
+  change, conflicting evidence or an actual fault warrants it; do not turn reuse
+  into another prerequisite research or testing phase.
+- For new machinery, check our material accounting, progress, interruption and
+  persistence where we introduce or change that behaviour. Cover power or
+  fast-forward interactions when they pose a specific integration risk. Record
+  the game and plugin versions tested.
 - Never call a successful build an in-game test. Do not claim untested compatibility.

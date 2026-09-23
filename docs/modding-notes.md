@@ -53,6 +53,10 @@ Its application stack and save-observer architecture are not dependencies here.
 
 ## Environment recheck: 2026-09-20
 
+Historical snapshot. The [2026-09-23 mod survey](mod-extension-survey.md)
+supersedes the inventory below for current planning and records 29 configured
+Workshop packages, runtime loading evidence and useful extension candidates.
+
 Read-only inspection while the owner's game was already running. No game files,
 load order, plugin configuration or saves were changed. No gameplay experiment
 was performed.
@@ -120,3 +124,25 @@ The [first furniture investigation](first-furniture-experiment.md) is historical
 The current [medical and portable-power evidence map](medical-research.md),
 [runtime findings](medical-runtime-findings.md) and
 [next-step decision brief](medical-next-steps.md) reflect the broader direction.
+
+## PDA and locator follow-up: 2026-09-20
+
+The [locator research](locator-research.md) records native PDA icon generation,
+fixed app dispatch, spatial and visibility APIs, installed power references and
+existing-mod overlap. The [experiment brief](locator-next-steps.md) proposes a
+bounded sensor/app proof with explicit information limits. Local assembly and
+startup-log checks match the environment above. No gameplay test or game change
+was made in this follow-up.
+
+## Industrial research follow-up: 2026-09-23
+
+The [powered-shipbreaking research](powered-shipbreaking-research.md) records
+native cutting/removal references and Crafting Framework 0.8.71's recipe,
+automation, power and persistence limits. The owner chose onboard processing
+first and external cutting later, with positioning/autopilot research for the
+latter. The [industry roadmap](fusion-industry-roadmap.md) preserves all five
+ideas and ties further research to opportunities for owner testing.
+
+This round inspected installed files, selected implementation paths and startup
+logs only. It produced documentation and a reusable read-only mod inventory
+script; no machinery, artwork, game installation changes or gameplay tests.

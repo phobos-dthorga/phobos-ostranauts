@@ -72,6 +72,10 @@ Use **PowerShell 7 or later** and the existing build script above, then run:
 ./scripts/install-approach-assist.ps1 -OstranautsPath '<your Ostranauts folder>' -LoadOrderPath '<configured Mods folder>/loading_order.json'
 ```
 
+This command now delegates to the [shared multi-mod installer](installing-mods.md).
+Alternatively use `./scripts/install-mods.ps1 -Mods ApproachAssist`; the default
+multi-mod selection is AutoNav and Shipbreaker, not this older pulse prototype.
+
 Supply the load-order file configured in the game's mod manager, rather than
 assuming its Mods folder is next to the executable. An alternate unpacked package
 can be supplied with `-PackagePath`; by default the installer uses the build

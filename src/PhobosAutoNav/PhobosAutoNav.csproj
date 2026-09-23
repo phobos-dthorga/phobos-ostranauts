@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <Version>0.1.1</Version>
+    <GameManaged>$(OstranautsPath)/Ostranauts_Data/Managed</GameManaged>
+    <BepInExCore>$(OstranautsPath)/BepInEx/core</BepInExCore>
+  </PropertyGroup>
+  <Target Name="RequireLocalGame" BeforeTargets="ResolveReferences">
+    <Error Condition="!Exists('$(GameManaged)/Assembly-CSharp.dll')" Text="Set OstranautsPath to the local game installation." />
+  </Target>
+  <ItemGroup>
+    <Reference Include="Assembly-CSharp" HintPath="$(GameManaged)/Assembly-CSharp.dll" Private="false" />
+    <Reference Include="Assembly-CSharp-firstpass" HintPath="$(GameManaged)/Assembly-CSharp-firstpass.dll" Private="false" />
+    <Reference Include="UnityEngine" HintPath="$(GameManaged)/UnityEngine.dll" Private="false" />
+    <Reference Include="UnityEngine.CoreModule" HintPath="$(GameManaged)/UnityEngine.CoreModule.dll" Private="false" />
+    <Reference Include="UnityEngine.UI" HintPath="$(GameManaged)/UnityEngine.UI.dll" Private="false" />
+    <Reference Include="UnityEngine.UIModule" HintPath="$(GameManaged)/UnityEngine.UIModule.dll" Private="false" />
+    <Reference Include="Unity.TextMeshPro" HintPath="$(GameManaged)/Unity.TextMeshPro.dll" Private="false" />
+    <Reference Include="BepInEx" HintPath="$(BepInExCore)/BepInEx.dll" Private="false" />
+    <Reference Include="0Harmony" HintPath="$(BepInExCore)/0Harmony.dll" Private="false" />
+  </ItemGroup>
+</Project>

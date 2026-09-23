@@ -1,5 +1,10 @@
 MIT License
 
+Scope: This grant covers Phobos-authored work. It does not relicense the
+upstream-derived files in src/PhobosAutoNav/Adapted or their contribution to
+compiled binaries. See THIRD_PARTY_NOTICES.md for provenance and unverified
+upstream terms. Game assets and other third-party materials are excluded.
+
 Copyright (c) 2026 Phobos A. D'thorga
 
 Permission is hereby granted, free of charge, to any person obtaining a copy

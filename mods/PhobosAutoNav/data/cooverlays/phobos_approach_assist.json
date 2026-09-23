@@ -1,0 +1,28 @@
+[
+  {
+    "strName": "PhobosNavModAutoNav",
+    "strNameFriendly": "Phobos Auto Nav (Prototype)",
+    "strNameShort": "Phobos Auto Nav P0",
+    "strDesc": "An experimental RCS approach and braking module. Flies toward a selected ship or station. Does not dock, avoid obstacles or maintain a working position. Test-save use only.",
+    "strCOBase": "ItmNavModMobo",
+    "strImg": "phobos/autonav/PhobosAutoNavModule",
+    "strImgNorm": "phobos/autonav/PhobosAutoNavModuleNormal",
+    "strPortraitImg": "phobos/autonav/PhobosAutoNavModulePortrait",
+    "mapGUIPropMaps": ["NavMod", "PhobosNavModAutoNav"],
+    "mapSlotEffects": ["heldL", "HeldItmDefaultL", "heldR", "HeldItmDefaultR"],
+    "mapModeSwitches": ["ItmNavModMobo", "PhobosNavModAutoNav", "ItmNavModMoboDmg", "PhobosNavModAutoNavDmg"]
+  },
+  {
+    "strName": "PhobosNavModAutoNavDmg",
+    "strNameFriendly": "Phobos Auto Nav (Prototype, Damaged)",
+    "strNameShort": "Phobos Auto Nav P0 (Damaged)",
+    "strDesc": "A damaged Phobos Auto Nav prototype. Repair before use.",
+    "strCOBase": "ItmNavModMoboDmg",
+    "strImg": "phobos/autonav/PhobosAutoNavModuleDmg",
+    "strImgNorm": "phobos/autonav/PhobosAutoNavModuleNormal",
+    "strPortraitImg": "phobos/autonav/PhobosAutoNavModuleDmgPortrait",
+    "mapGUIPropMaps": ["NavMod", "PhobosNavModAutoNav"],
+    "mapSlotEffects": ["heldL", "HeldItmDefaultL", "heldR", "HeldItmDefaultR"],
+    "mapModeSwitches": ["ItmNavModMobo", "PhobosNavModAutoNav", "ItmNavModMoboDmg", "PhobosNavModAutoNavDmg"]
+  }
+]

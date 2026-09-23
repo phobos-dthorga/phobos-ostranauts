@@ -1,0 +1,12 @@
+[
+  {
+    "strName": "PhobosShipbreakerTSection",
+    "strCondName": "",
+    "fChance": 1.0,
+    "fCount": 1.0,
+    "aReqs": ["PhobosShipbreakerIsSection"],
+    "aForbids": [],
+    "aTriggers": [],
+    "bAND": true
+  }
+]

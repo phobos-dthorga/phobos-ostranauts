@@ -1,0 +1,16 @@
+[
+  {
+    "strName": "PhobosShipbreakerContent",
+    "strNameFriendly": "Phobos Shipbreaker content marker",
+    "strColor": "Neutral",
+    "nDisplaySelf": 2,
+    "nDisplayOther": 2
+  },
+  {
+    "strName": "PhobosShipbreakerIsSection",
+    "strNameFriendly": "Dismantling fixture assembly section",
+    "strColor": "Neutral",
+    "nDisplaySelf": 2,
+    "nDisplayOther": 2
+  }
+]

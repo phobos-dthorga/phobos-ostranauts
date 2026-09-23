@@ -6,6 +6,15 @@ Keep changes focused on a useful, demonstrable result. For a new feature, descri
 the player action, required resources, resulting behaviour and any unresolved
 limits. Record actual in-game checks separately from builds or data validation.
 
+Reuse established mod patterns without isolated tests to prove them again.
+Concentrate checks on our new behaviour and concrete integration risks; see the
+[verification preferences](AGENTS.md#verification).
+
+For dependency breakage or prolonged lack of compatible upstream releases, follow
+the [dependency contingency plan](docs/dependency-contingencies.md). Prefer a
+narrow fix or maintained successor and plan saved-content transitions before
+removing a required provider.
+
 Feature branches and pull requests are available when useful; no review ceremony
 is required merely to run a local experiment. Public releases and a change of
 repository visibility remain separate decisions for the owner.

@@ -1,0 +1,10 @@
+[
+  {
+    "strName": "Phobos Auto Nav (Prototype)",
+    "strAuthor": "phobosgekko; guidance adapted from Gravy/mrkmg's Auto Navigate",
+    "strModURL": "https://github.com/phobos-dthorga/phobos-ostranauts",
+    "strGameVersion": "1.0.1.4",
+    "strModVersion": "0.1.1",
+    "strNotes": "Standalone RCS approach prototype, restricted to PhobosAutoNavTest saves. Requires its accompanying PhobosAutoNav BepInEx 5 plugin, not Auto Navigate. Uses approved original Phobos faceplate and intact/damaged item artwork created with ChatGPT Imagegen. Labels and controls remain live. Adaptation provenance and unverified upstream licensing are recorded in THIRD_PARTY_NOTICES.md. Not yet tested in-game."
+  }
+]

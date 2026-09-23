@@ -1,0 +1,211 @@
+#requires -Version 7.0
+# Prepared packages are installed locally; this script never builds, downloads or launches anything.
+[CmdletBinding(SupportsShouldProcess)]
+param(
+    [ValidateSet('AutoNav', 'Shipbreaker', 'ApproachAssist')]
+    [string[]]$Mods = @('AutoNav', 'Shipbreaker'),
+    [string]$OstranautsPath,
+    [string]$LoadOrderPath,
+    [string]$PackageRoot = (Join-Path (Split-Path -Parent $PSScriptRoot) 'dist'),
+    # Override an unpacked package only when installing one mod.
+    [string]$PackagePath,
+    [switch]$VerifyOnly,
+    [switch]$NoRememberPaths
+)
+$ErrorActionPreference = 'Stop'
+Set-StrictMode -Version Latest
+$repoRoot = Split-Path -Parent $PSScriptRoot
+$settingsFile = Join-Path $repoRoot '.local/install-settings.json'
+. (Join-Path $PSScriptRoot 'installer-support.ps1')
+
+if ($Mods.Count -eq 0 -or @($Mods | Select-Object -Unique).Count -ne $Mods.Count) {
+    throw 'Choose at least one mod, without duplicates.'
+}
+if ($PackagePath -and $Mods.Count -ne 1) { throw 'PackagePath requires exactly one selected mod.' }
+$locations = Resolve-InstallLocations $OstranautsPath $LoadOrderPath $settingsFile
+$gameRoot = $locations.OstranautsPath
+$orderFile = $locations.LoadOrderPath
+$modRoot = Split-Path -Parent $orderFile
+Assert-NoLinks $orderFile
+if (-not (Test-Path -LiteralPath (Join-Path $gameRoot 'BepInEx/core/BepInEx.dll') -PathType Leaf)) {
+    throw 'BepInEx 5 must already be installed in OstranautsPath.'
+}
+if (-not $VerifyOnly -and -not $WhatIfPreference -and (Get-Process -Name Ostranauts -ErrorAction SilentlyContinue)) {
+    throw 'Exit Ostranauts normally before installing. No files were changed.'
+}
+
+$orderHash = (Get-FileHash -LiteralPath $orderFile -Algorithm SHA256).Hash
+$order = Get-Content -LiteralPath $orderFile -Raw | ConvertFrom-Json -AsHashtable -NoEnumerate
+$records = @($order | Where-Object { $_.strName -eq 'Mod Loading Order' })
+if ($records.Count -ne 1 -or -not $records[0].ContainsKey('aLoadOrder')) { throw 'Invalid loading_order.json structure.' }
+$record = $records[0]
+$entries = @($record.aLoadOrder)
+$coreIndex = [Array]::IndexOf($entries, 'core')
+if ($coreIndex -lt 0) { throw 'Load order must include enabled core.' }
+if (@($entries | Where-Object { $_.Split('|')[0] -eq 'core' }).Count -ne 1) { throw 'Duplicate core entries.' }
+
+# Preflight every selected package before making any installation changes.
+$files = @()
+$plans = @()
+$changeOrder = $false
+foreach ($mod in $Mods) {
+    $id = 'Phobos' + $mod
+    $label = switch ($mod) { 'AutoNav' { 'Auto Nav' } 'Shipbreaker' { 'Shipbreaker' } 'ApproachAssist' { 'Approach Assist' } }
+    $package = if ($PackagePath) { $PackagePath } else { Join-Path $PackageRoot ($id + '-P0') }
+    if (-not (Test-Path -LiteralPath $package -PathType Container)) {
+        throw "Prepared package missing: $package. Run the corresponding build script first."
+    }
+    $package = (Resolve-Path -LiteralPath $package).Path
+    $nativeSource = Join-Path $package "Mods/$id"
+    $pluginSource = Join-Path $package "BepInEx/plugins/$id"
+    $nativeTarget = Join-Path $modRoot $id
+    $pluginTarget = Join-Path $gameRoot "BepInEx/plugins/$id"
+    if ((Test-Within $nativeTarget $pluginTarget) -or (Test-Within $pluginTarget $nativeTarget)) {
+        throw 'Native and plugin destinations must be separate folders. Check LoadOrderPath.'
+    }
+    foreach ($folder in @($nativeSource, $pluginSource, $nativeTarget, $pluginTarget)) { Assert-NoLinks $folder -Tree }
+    foreach ($source in @($nativeSource, $pluginSource)) {
+        foreach ($target in @($nativeTarget, $pluginTarget)) {
+            if ((Test-Within $source $target) -or (Test-Within $target $source)) { throw 'PackagePath must be separate from the installed files.' }
+        }
+    }
+    $metadata = @(Get-Content -LiteralPath (Join-Path $nativeSource 'mod_info.json') -Raw | ConvertFrom-Json)
+    if ($metadata.Count -ne 1) { throw "Expected exactly one native mod metadata entry for $id." }
+    $version = [version]$metadata[0].strModVersion
+    $dllSource = Join-Path $pluginSource "$id.dll"
+    $assembly = [System.Reflection.AssemblyName]::GetAssemblyName($dllSource)
+    if ($assembly.Name -ne $id -or $assembly.Version.ToString(3) -ne $version.ToString(3)) {
+        throw "Plugin and native package versions differ or wrong assembly for $id. Rebuild the package first."
+    }
+    if (@(Get-ChildItem -LiteralPath $pluginSource -Recurse -File -Force).Count -ne 1) { throw "Unexpected plugin package files for $id." }
+    $required = switch ($mod) {
+        'ApproachAssist' { 'data/cooverlays/phobos_approach_assist.json'; 'data/guipropmaps/phobos_approach_assist.json' }
+        'AutoNav' {
+            'data/cooverlays/phobos_approach_assist.json'; 'data/guipropmaps/phobos_approach_assist.json'
+            foreach ($image in @('Panel', 'Module', 'ModuleDmg', 'ModulePortrait', 'ModuleDmgPortrait', 'ModuleNormal')) {
+                "images/phobos/autonav/PhobosAutoNav$image.png"
+            }
+        }
+        'Shipbreaker' { 'crafting/recipes.json'; 'data/conditions/phobos_shipbreaker.json'; 'data/condtrigs/phobos_shipbreaker.json' }
+    }
+    foreach ($relative in $required) {
+        if (-not (Test-Path -LiteralPath (Join-Path $nativeSource $relative) -PathType Leaf)) { throw "Package is incomplete: $id/$relative" }
+    }
+    $modFiles = @([pscustomobject]@{ Source = $dllSource; Target = (Join-Path $pluginTarget "$id.dll"); Backup = "$id/plugin/$id.dll" })
+    foreach ($file in Get-ChildItem -LiteralPath $nativeSource -Recurse -File -Force) {
+        if ($file.Extension -notin @('.json', '.png', '.md')) { throw "Unexpected native package file: $($file.FullName)" }
+        if ($file.Extension -eq '.json') { $null = Get-Content -LiteralPath $file.FullName -Raw | ConvertFrom-Json }
+        $relative = [IO.Path]::GetRelativePath($nativeSource, $file.FullName)
+        $modFiles += [pscustomobject]@{ Source = $file.FullName; Target = (Join-Path $nativeTarget $relative); Backup = "$id/native/$relative" }
+    }
+    foreach ($file in $modFiles) {
+        if (Test-Path -LiteralPath $file.Target -PathType Container) { throw "A directory occupies an intended file destination: $($file.Target)" }
+        Add-Member -InputObject $file -NotePropertyName Hash -NotePropertyValue (Get-FileHash -LiteralPath $file.Source -Algorithm SHA256).Hash
+    }
+    foreach ($folder in @($pluginTarget, $nativeTarget)) {
+        if (Test-Path -LiteralPath $folder) {
+            foreach ($existing in Get-ChildItem -LiteralPath $folder -Recurse -File -Force) {
+                if ($existing.FullName -notin $modFiles.Target) { throw "Unmanaged installed file; inspect before updating: $($existing.FullName)" }
+            }
+        }
+    }
+    $moduleIndices = @()
+    for ($i = 0; $i -lt $entries.Count; $i++) {
+        $parts = $entries[$i].Split('|')
+        if ($parts[0] -eq 'core') { continue }
+        if ((Resolve-ModEntry $parts[0] $modRoot) -eq $nativeTarget) {
+            if ($parts.Count -gt 2 -or ($parts.Count -eq 2 -and $parts[1] -notin @('disabled', 'edit'))) { throw "Unrecognised $label load-order flags." }
+            $moduleIndices += $i
+        }
+    }
+    if ($moduleIndices.Count -gt 1) { throw "Duplicate $label load-order entries; resolve them before installing." }
+    $loadOrderStatus = 'missing'
+    if ($moduleIndices.Count -eq 1) {
+        $index = $moduleIndices[0]
+        if ($index -lt $coreIndex) { throw "$label must load after core." }
+        $loadOrderStatus = 'enabled'
+        if ($entries[$index].EndsWith('|disabled', [StringComparison]::Ordinal)) {
+            $loadOrderStatus = 'disabled'
+            $entries[$index] = $entries[$index].Split('|')[0]
+            $changeOrder = $true
+        }
+    } else {
+        $index = $entries.Count
+        $entries += $id
+        $changeOrder = $true
+    }
+    $files += $modFiles
+    $plans += [pscustomobject]@{ Id = $id; Version = "$version"; Index = $index; LoadOrderStatus = $loadOrderStatus }
+}
+if ('Shipbreaker' -in $Mods) { Assert-ShipbreakerDependencies $entries $modRoot $gameRoot $coreIndex }
+$record.aLoadOrder = $entries
+$changedFiles = @($files | Where-Object {
+    -not (Test-Path -LiteralPath $_.Target -PathType Leaf) -or (Get-FileHash -LiteralPath $_.Target -Algorithm SHA256).Hash -ne $_.Hash
+})
+$description = ($plans | ForEach-Object { "$($_.Id) $($_.Version)" }) -join ', '
+Write-Output "Selected: $description"
+Write-Output "Game: $gameRoot"
+Write-Output "Native mods: $modRoot"
+if ($VerifyOnly) {
+    if ($changedFiles.Count -gt 0 -or $changeOrder) {
+        $states = ($plans | ForEach-Object { "$($_.Id) load-order status: $($_.LoadOrderStatus)" }) -join '; '
+        throw "Installation differs: $($changedFiles.Count) missing/changed file(s); $states"
+    }
+    Write-Output "Verified $($files.Count) matching files and enabled load-order entries. In-game startup is not tested."
+    return
+}
+if ($changedFiles.Count -eq 0 -and -not $changeOrder) {
+    if (-not $NoRememberPaths -and $PSCmdlet.ShouldProcess($settingsFile, 'Remember verified installation paths')) {
+        Save-InstallLocations $locations $settingsFile
+    }
+    Write-Output 'Already installed and verified. No game files changed.'
+    return
+}
+if (-not $PSCmdlet.ShouldProcess($gameRoot, "Install/update $description; $($changedFiles.Count) files; update load order: $changeOrder")) { return }
+if (Get-Process -Name Ostranauts -ErrorAction SilentlyContinue) { throw 'Ostranauts started during preflight; installation stopped.' }
+if ((Get-FileHash -LiteralPath $orderFile -Algorithm SHA256).Hash -ne $orderHash) { throw 'Load order changed during preflight; retry.' }
+# Recheck sources before touching destinations (e.g. a build in another terminal).
+foreach ($file in $files) {
+    if ((Get-FileHash -LiteralPath $file.Source -Algorithm SHA256).Hash -ne $file.Hash) { throw 'Prepared package changed during preflight; retry.' }
+}
+$backupRoot = Join-Path $repoRoot ('.local/installations/' + (Get-Date -Format 'yyyyMMdd-HHmmss') + '-' + [guid]::NewGuid().ToString('N'))
+Assert-NoLinks $backupRoot
+New-Item -ItemType Directory -Path $backupRoot -Force | Out-Null
+Copy-Item -LiteralPath $orderFile -Destination (Join-Path $backupRoot 'loading_order.before.json')
+foreach ($file in $changedFiles) {
+    $existed = Test-Path -LiteralPath $file.Target -PathType Leaf
+    Add-Member -InputObject $file -NotePropertyName ExistedBefore -NotePropertyValue $existed
+    if ($existed) {
+        $backupFile = Join-Path $backupRoot $file.Backup
+        New-Item -ItemType Directory -Path (Split-Path -Parent $backupFile) -Force | Out-Null
+        Copy-Item -LiteralPath $file.Target -Destination $backupFile
+    }
+}
+# Write the recovery manifest BEFORE copying, so even an interrupted run is inspectable.
+$receipt = [ordered]@{ Mods = $plans; StartedAt = (Get-Date).ToString('o'); Status = 'Copying'; LoadOrderPath = $orderFile; ChangedFiles = $changedFiles; Files = $files; InGameVerification = 'Pending owner testing' }
+$receiptFile = Join-Path $backupRoot 'receipt.json'
+$receipt | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath $receiptFile -Encoding utf8
+try {
+    foreach ($file in $changedFiles) {
+        New-Item -ItemType Directory -Path (Split-Path -Parent $file.Target) -Force | Out-Null
+        Copy-Item -LiteralPath $file.Source -Destination $file.Target -Force
+    }
+    foreach ($file in $files) {
+        if ((Get-FileHash -LiteralPath $file.Target -Algorithm SHA256).Hash -ne $file.Hash) { throw "Installed file mismatch: $($file.Target)" }
+    }
+    if ((Get-FileHash -LiteralPath $orderFile -Algorithm SHA256).Hash -ne $orderHash) { throw 'Load order changed during copying; it was not overwritten.' }
+    if ($changeOrder) { ConvertTo-Json -InputObject $order -Depth 100 | Set-Content -LiteralPath $orderFile -Encoding utf8 }
+    $writtenOrder = Get-Content -LiteralPath $orderFile -Raw | ConvertFrom-Json -AsHashtable -NoEnumerate
+    if ((ConvertTo-Json -InputObject $writtenOrder -Depth 100 -Compress) -ne (ConvertTo-Json -InputObject $order -Depth 100 -Compress)) {
+        throw 'Load-order readback does not match the intended configuration.'
+    }
+    $receipt.Status = 'Verified files and load order'
+    $receipt | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath $receiptFile -Encoding utf8
+} catch {
+    throw "Installation incomplete. Keep the game closed and inspect backups in $backupRoot. $($_.Exception.Message)"
+}
+if (-not $NoRememberPaths) {
+    Save-InstallLocations $locations $settingsFile
+}
+Write-Output "Installed and verified $description. Backups and receipt: $backupRoot"
+Write-Output 'Game not launched. Saves and player settings not accessed. In-game testing remains with the owner.'

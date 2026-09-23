@@ -2,7 +2,13 @@
 
 ## Intent
 
-Build useful portable equipment, furniture and machinery for Ostranauts. The owner clarified on
+The owner clarified on **2026-09-23** that the overarching ambition is equipment
+and systems that let a crew **live in the nastiness of space for longer,
+potentially indefinitely**. Extended habitation and the ability to maintain a
+ship away from stations give the project's medical, industrial, life-support
+and navigation interests a shared purpose.
+
+Build useful equipment and meaningful interactions for Ostranauts. The owner clarified on
 2026-09-20 that the medical ambition is a broad collection of health devices,
 not a single diagnostic appliance. The medical ambition is an integrated shipboard
 system: equipment for assessment, stabilisation,
@@ -24,6 +30,43 @@ to medical supplies, life support and rehabilitation.
 The [medical-system vision](medical-system-vision.md) develops this direction.
 Its individual devices, new physiological mechanics and first connected group
 are proposals, not selected features or verified engine capabilities.
+
+## Long-term habitation and endurance
+
+Use this question when choosing work: **what currently forces the crew to return
+to port, abandon a ship or die, and how would this feature extend their options?**
+The answer should identify a practical need and a useful improvement the owner
+can encounter and assess during play. Longer independent voyages, recoverable
+failures and a habitable ship are the intended benefits.
+
+The following are design areas to investigate as those needs arise, not verified
+engine capabilities or a commitment to implement every system:
+
+| Area | Contribution to continued habitation |
+| --- | --- |
+| Air and water | Recover usable supplies, service treatment equipment and replenish losses. |
+| Materials and maintenance | Recover useful stock from salvage, repair equipment and make appropriate replacement parts or consumables. |
+| Energy and heat | Supply useful work while accounting for fuel, storage and a path for waste heat. |
+| Crew health and daily life | Support food supply, treatment, recovery, rest and the social needs of a long voyage. |
+| Damage and safe operation | Detect problems, manage leaks or failures, and reduce avoidable damage through useful controls and assistance. |
+
+For design purposes, indefinite operation means the possibility of continuing
+through maintenance and access to replenishment, including scavenged or acquired
+feedstocks. Recovery processes must retain material accounting; energy cannot
+replace missing material. Losses, worn components and unavailable ingredients
+can remain meaningful constraints. The ambition does not establish that the
+current game or these prototypes support indefinite survival.
+
+Shipbreaking contributes by supplying the maintenance and fabrication chain.
+Its next useful outputs should address actual repair or life-support needs in
+the owner's installed game. The first panel-processing recipe is an initial
+material-recovery step; it does not yet provide a complete self-maintenance loop.
+Existing mods may already supply much of the downstream use, so inspect and
+extend them before adding parallel systems.
+
+Keep features independently useful and build connections where they solve a
+concrete need. The current shipbreaker work remains the immediate priority;
+the wider endurance direction guides later choices as the owner encounters them.
 
 ## First milestone
 
@@ -52,11 +95,63 @@ or shipwide network framework is required for this milestone.
 
 ## Other research and later ideas
 
-Medical and portable-power research remains available for later features.
+On **2026-09-23**, the owner selected **powered shipbreaking for immediate
+research**, while retaining all five [fusion-industry ideas](fusion-industry-roadmap.md).
+Research should follow relevant encounters during play so the owner can test
+what is proposed. The selected sequence is onboard processing first, external
+cutting later, including research into the latter's autopilot/positioning needs.
+This does not mark Approach Assist's unfinished guidance as complete or authorise
+changes to the running game. See the [shipbreaking findings](powered-shipbreaking-research.md).
+The owner subsequently authorised the [first shipbreaker build](shipbreaker-first-build.md),
+using its intended physical footprint and capacity from the outset, with reasonable
+end-user settings and console commands. Its build and offline checks pass;
+gameplay verification remains outstanding.
+
+The refreshed [mod inventory](mod-extension-survey.md) finds installed Crafting
+Framework, Salvage Workshop and Common Sense logistics, among other useful
+foundations. Prefer dependent add-ons and optional integrations over repeated
+implementations. The owner explicitly welcomes Steam Workshop dependencies and
+sets permissive licensing as the working assumption unless restrictions are
+directly noted. Follow explicit terms and distinguish an assumption from a
+verified licence; preserve upstream attribution.
+
+The owner set aside the **locator app and sensor network** on 2026-09-20 because
+the existing cargo manifest solves the immediate need and is already being used.
+Its immediate availability is the main benefit; our realism additions do not
+currently justify developing another solution. This is not a blanket rejection
+of overlapping mods. Preserve the [research](locator-research.md) and
+[historical experiment brief](locator-next-steps.md); do not resume that proposal
+without a new decision. [Alternative PDA cartridges](pda-cartridge-ideas.md)
+remain possible connections to medical, portable-power and machinery interests.
+
+A later possibility is a [terminal social network](terminal-social-network.md).
+The owner means the installed computer used to study Software Engineering and
+wants social interactions, new contacts, friends/enemies and quests. Investigate
+how online exchanges could affect persistent people and encounters in the game
+world. No first conversation, quest or implementation has been selected.
+
+Before implementing that social idea, establish terminal entry points and safe
+contact and relationship integration, then select a playable social experiment.
+The earlier medical work maps existing health and portable-power behaviour,
+extension points and unknowns, and what needs in-game testing.
 The [research evidence map](medical-research.md) records native definitions;
 [runtime findings](medical-runtime-findings.md) trace selected implementation
-paths, and [next steps](medical-next-steps.md) preserve outstanding experiments.
-Handheld and installed equipment remain part of the broader project direction.
+paths, and [next steps](medical-next-steps.md) define the remaining experiments.
+Research rounds should resolve concrete design or implementation
+questions; they do not need to produce a new device every time.
+
+For these later ideas, one working interaction in a test save is a useful checkpoint;
+it may extend an existing object such as the terminal. A handheld is equally
+valid for equipment experiments and reflects the owner's
+portable-equipment priority. This does not define the scope of the intended product.
+Choose that checkpoint for its role in a coherent gameplay loop, then prove
+the connected devices needed to make that loop useful. For medical equipment this
+means a care loop; for instrument software it means useful tests or observations;
+for social software it means an exchange with a lasting consequence.
+
+These concepts remain available for later work; they are not the first mod.
+Design the relationships between devices before implementing them and expand
+power, resources, persistence, crew use and artwork as each selected idea requires.
 
 ## Structure as implementation arrives
 
@@ -71,7 +166,10 @@ release date or implementation time budget is fixed by this initial repository.
 
 ## Decisions already made
 
-- Private GitHub repository initially; publication requires an explicit decision.
+- Private GitHub repository initially; public mod releases are the intended
+  destination (clarified 2026-09-23). Changing visibility still requires an
+  explicit decision. Preserve third-party provenance and distinguish verified
+  terms from working assumptions throughout development.
 - MIT licence for original code and documentation, following Republic Observatory.
 - Data and code can coexist; choose the smallest maintainable implementation.
 - AI-assisted artwork is welcome, with in-game visual checks and recorded provenance.

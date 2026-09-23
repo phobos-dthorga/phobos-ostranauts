@@ -28,6 +28,7 @@ function Fixture([string]$Name, [string[]]$Entries = @('core', 'ExistingMod|disa
     $mods = Join-Path $root 'configured-mods'
     New-Item -ItemType Directory -Path (Join-Path $game 'BepInEx/core'), $mods -Force | Out-Null
     Set-Content -LiteralPath (Join-Path $game 'BepInEx/core/BepInEx.dll') -Value 'fixture prerequisite only'
+    Set-Content -LiteralPath (Join-Path $game 'Ostranauts.exe') -Value 'fixture executable marker'
     $order = Join-Path $mods 'loading_order.json'
     $data = @(@{ strName = 'Mod Loading Order'; aLoadOrder = $Entries; CORE_MOD_NAME = 'core'; aIgnorePatterns = @('KeepMe') })
     ConvertTo-Json -InputObject $data -Depth 10 | Set-Content -LiteralPath $order
@@ -60,7 +61,7 @@ Fails { & $installer @fresh -VerifyOnly | Out-Null } 'Installation differs'
 $output = & $installer @fresh
 $backupLine = $output | Where-Object { $_ -like '*Backups and receipt:*' }
 $backupPath = ($backupLine -split 'Backups and receipt: ', 2)[1]
-Check ((Get-Content -LiteralPath (Join-Path $backupPath 'native/mod_info.json') -Raw).Trim() -eq 'previous installed contents') 'Update did not back up overwritten file'
+Check ((Get-Content -LiteralPath (Join-Path $backupPath 'PhobosApproachAssist/native/mod_info.json') -Raw).Trim() -eq 'previous installed contents') 'Update did not back up overwritten file'
 & $installer @fresh -VerifyOnly | Out-Null
 Check $true 'Updated file verified'
 
