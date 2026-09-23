@@ -27,3 +27,8 @@ it excludes game-derived definitions, artwork and binaries. No game source,
 extracted artwork, game definitions, upstream DLLs, BepInEx or Harmony binaries
 are distributed. Ostranauts/Unity, Newtonsoft.Json, BepInEx and Harmony remain
 separately supplied by the user's installation under their respective terms.
+
+Version 0.5.0 material-port pairing is independently authored Phobos code. Its
+native property-map persistence approach was checked against the locally installed
+game's electrical connection and item-save behaviour. It contains no copied game
+source and does not replace or modify the native electrical connection records.

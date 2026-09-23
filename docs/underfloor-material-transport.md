@@ -1,5 +1,13 @@
 # Underfloor material transport — discussion proposal
 
+**Implementation follow-up:** the owner subsequently authorised the first
+[Residue Collector](residue-collector.md), implemented in 0.4.0. It reuses
+Framework transfers, filters, clocks and grid search for one processor-to-port
+structural-floor route. Version 0.5.0 adds [saved one-to-one endpoint pairing](material-port-pairing.md)
+with Link/Unlink controls at both ends, using the native signal persistence pattern.
+The broader network below remains a proposal. Persistent
+ejection remains unimplemented; collection retains cargo aboard.
+
 The later [hull-intake proposal](shipbreaker-hull-intake.md) introduces a separate
 1 x 4 chute and four-tile-wide exterior grabber. That direct intake is distinct
 from the provisional 2 x 2 underfloor parts ports described here.
@@ -7,8 +15,9 @@ from the provisional 2 x 2 underfloor parts ports described here.
 24 September 2026. Owner idea following the exterior Shipbreaker mounting review:
 show conveyors emerging from beneath the floor and returning beneath it, implying
 material logistics in a lower service space. The owner compares this abstraction
-to the game's RCS gas supply. This note proposes a design; no transport code or
-new dependencies have been implemented or approved for release. A later owner
+to the game's RCS gas supply. Routed underfloor transport remains a proposal.
+The later 0.3.0 candidate implements direct grabber-to-processor item transfer,
+without a conveyor network. A later owner
 request authorised [port concept artwork](../assets/phobos-material-transport/README.md)
 while testing continues; those provisional 2 x 2 designs do not settle the final
 hardware or transport behaviour.
@@ -63,8 +72,9 @@ Decide those small hardware requirements before producing final port artwork.
 The owner subsequently selected [Phobos Framework](phobos-framework.md) as the
 shared home for material-transport behaviour (24 September 2026). Reusable endpoint
 and transfer services belong there; physical ports, artwork and balance belong
-in a content mod. The initial framework release has inventory/registration
-helpers only. It does not implement conveyors or settle the physical design below.
+in a content mod. Framework 0.3.0 adds same-ship physical-item transfer and recovery
+helpers to its inventory/registration services. Reuse those helpers for finite
+ports; they do not implement routed conveyors or settle the physical design below.
 
 The existing Shipbreaker feed and output containers provide concrete endpoints.
 Its material accounting and processing service stay separate from transport.
@@ -85,3 +95,9 @@ should target our transfers, item preservation, blocking, save/load and competin
 crew access, using established container/power patterns without re-proving them.
 
 Related: [exterior mounting proposal](shipbreaker-hull-mounting.md).
+
+The subsequent [disposal-port research](material-disposal-port-research.md) proposes
+a two-wide hull outlet and finite external collector. Native jettison destroys
+items, so recoverable release needs a separate persistent-cargo implementation.
+An attached collector remains ship cargo. Begin with an exact residue filter;
+keep unsupported inputs intact rather than inventing dismantling yields.

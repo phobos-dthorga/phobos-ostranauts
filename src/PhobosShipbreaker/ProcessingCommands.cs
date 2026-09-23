@@ -31,6 +31,8 @@ internal sealed partial class ProcessingService
                     + "CycleSeconds=" + options.CycleSeconds + "; ContinueQueue=" + options.ContinueQueue
                     + "\nWorkingKilowatts=" + options.WorkingKW + "; IdleKilowatts=" + options.IdleKW
                     + "; WindowKey=" + options.ControlsKey
+                    + "; TransferSeconds=" + options.TransferSeconds
+                    + "\nCollector.TransferSeconds=" + options.CollectorSeconds + "; WorkingKilowatts=" + options.CollectorKW + "; ContinueQueue=" + options.CollectorContinue
                     + "\nBepInEx/config/" + Plugin.Id + ".cfg\nStarted panels retain their saved cycle duration.";
                 return true;
             }
@@ -44,6 +46,7 @@ internal sealed partial class ProcessingService
                 response = "Phobos Shipbreaker " + Plugin.Version + ": " + Content.Status + "\n"
                     + (machines.Length == 0 ? "No matching fixture on the selected crew member's loaded ship." :
                         string.Join("\n\n", machines.Select(m => m.strID + " - " + m.strNameFriendly + "\n" + Describe(m)
+                            + "\n" + DescribeIntake(m) + "\n" + CollectorService.DescribeLink(m) + "\n" + CollectorService.LinkIds(m)
                             + "\nControl check: " + (AccessProblem(m) ?? MachineProblem(m) ?? "ready"))));
                 return true;
             }
@@ -60,9 +63,11 @@ internal sealed partial class ProcessingService
                 case CommandAction.Start: success = Start(machine); break;
                 case CommandAction.Pause: success = Pause(machine, false); break;
                 case CommandAction.Cancel: success = Pause(machine, true); break;
+                case CommandAction.Feed: success = OpenInventory(machine, true); break;
+                case CommandAction.Products: success = OpenInventory(machine, false); break;
                 default: response = "Use phobosshipbreaker help."; return false;
             }
-            response = machine.strID + "\n" + Describe(machine);
+            response = machine.strID + "\n" + Describe(machine) + "\n" + DescribeIntake(machine);
             return success;
         }
         catch (Exception ex)

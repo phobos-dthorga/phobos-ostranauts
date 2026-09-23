@@ -15,6 +15,7 @@ internal sealed partial class ProcessingService
         internal ProcessJob? Job;
         internal CondOwner? Input;
         internal double Last;
+        internal IntakeSession? Intake;
         internal string Status = "Paused. Load panels and start the queue.";
     }
     private ConditionalWeakTable<CondOwner, Session> sessions = new ConditionalWeakTable<CondOwner, Session>();
@@ -34,6 +35,15 @@ internal sealed partial class ProcessingService
         bin.objContainer != null && (bin.objContainer.ContainedCOs.Contains(panel) ||
         bin.objContainer.ContainedCOs.Count < ProcessRules.FeedCapacity);
 
+    private static string PanelProblem(CondOwner panel)
+    {
+        if (panel.strCODef != ProcessRules.Wall) return panel.strNameFriendly + " is not a supported ordinary wall (" + panel.strCODef + ").";
+        if (panel.HasCond("IsInstalled")) return "Detach the wall first.";
+        if (panel.coStackHead != null || panel.aStack.Count != 0) return "Separate the wall stack first.";
+        if (panel.GetCOsSafe(true).Count != 0) return "Remove anything attached to or stored in the wall.";
+        return "Expected a 24 kg wall; actual mass is " + panel.GetTotalMass().ToString("F2") + " kg.";
+    }
+
     private static string? MachineProblem(CondOwner machine)
     {
         if (!Content.Ready) return Content.Status;
@@ -47,7 +57,7 @@ internal sealed partial class ProcessingService
         return null;
     }
 
-    private static string? AccessProblem(CondOwner machine)
+    internal static string? AccessProblem(CondOwner machine)
     {
         var actor = CrewSim.GetSelectedCrew();
         if (actor == null || actor.bDestroyed || actor.HasCond("IsDead") || actor.HasCond("Unconscious"))
@@ -62,8 +72,16 @@ internal sealed partial class ProcessingService
         var state = sessions.GetValue(machine, _ => new Session());
         string? problem = AccessProblem(machine) ?? MachineProblem(machine);
         if (problem != null) { state.Status = problem; return false; }
-        if (state.Job?.Running == true) return true;
-        try { return StartNext(machine, state); }
+        try
+        {
+            bool connected = ArmIntake(machine, out string intakeMessage);
+            if (state.Job?.Running == true) return true;
+            if (Feed(machine)!.objContainer.ContainedCOs.Count == 0)
+            { state.Status = connected ? "Pipeline started; waiting for the grabber." : intakeMessage + " Use Manual feed for standalone processing."; return connected; }
+            bool started = StartNext(machine, state);
+            if (!started) DisarmIntake(machine);
+            return started;
+        }
         catch (Exception ex) { Fault(machine, ex); return false; }
     }
 
@@ -72,10 +90,10 @@ internal sealed partial class ProcessingService
         SetWorking(machine, false);
         state.Job = null; state.Input = null;
         var inputs = Feed(machine)?.objContainer?.ContainedCOs;
-        if (inputs == null || inputs.Count == 0) { state.Status = "Feed empty: load an ordinary loose wall into Wall-panel feed (small grid), then start."; return false; }
+        if (inputs == null || inputs.Count == 0) { state.Status = "Feed empty; waiting for the grabber, or use Manual feed and Start."; return false; }
         // A saved, partly processed panel resumes before fresh stock. Never transfer its progress.
         var input = inputs.OrderByDescending(c => c.GetCondAmount(ProcessRules.Progress)).First();
-        if (!ValidPanel(input)) { state.Status = "Feed requires separate, empty 24 kg ordinary wall panels."; return false; }
+        if (!ValidPanel(input)) { state.Status = PanelProblem(input); return false; }
         if (!CanFitBatch(machine)) { state.Status = "Output tray needs space for a complete batch."; return false; }
         double progress = input.GetCondAmount(ProcessRules.Progress);
         double savedRevision = input.GetCondAmount(ProcessRules.Revision);
@@ -115,9 +133,10 @@ internal sealed partial class ProcessingService
 
     private static void SetWorking(CondOwner machine, bool value) => machine.SetCondAmount(ProcessRules.Working, value ? 1 : 0);
 
-    private static void Stop(CondOwner machine, Session state, string message)
+    private void Stop(CondOwner machine, Session state, string message)
     {
         state.Job?.Pause(); state.Status = message; SetWorking(machine, false);
+        DisarmIntake(machine);
     }
 
     internal bool BeforePower(CondOwner machine)
@@ -168,7 +187,7 @@ internal sealed partial class ProcessingService
         log("Completed panel " + state.Job!.InputId + ": 24 kg -> 11 kg recovered + 13 kg residue.");
         state.Job = null; state.Input = null;
         if (options.ContinueQueue) StartNext(machine, state);
-        else state.Status = "Panel complete. Start again for the next panel.";
+        else { DisarmIntake(machine); state.Status = "Panel complete. Start again for the next panel."; }
         return true;
     }
 
@@ -189,6 +208,7 @@ internal sealed partial class ProcessingService
     {
         // Per-object numeric progress is native save data; clocks and run permission are deliberately not.
         sessions = new ConditionalWeakTable<CondOwner, Session>();
+        intakes = new ConditionalWeakTable<CondOwner, IntakeSession>();
     }
 
     internal void Fault(CondOwner machine, Exception ex)

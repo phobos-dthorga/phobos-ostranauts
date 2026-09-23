@@ -39,7 +39,7 @@ internal static class Content
                 log(Status + "\n" + DependencyStatus);
                 return;
             }
-            var prepared = Prepare(Plugin.Options.ControlsKey.ToString(), Plugin.Options.CycleSeconds, Plugin.Options.IdleKW, Plugin.Options.WorkingKW);
+            var prepared = Prepare(Plugin.Options.ControlsKey.ToString(), Plugin.Options.CycleSeconds, Plugin.Options.IdleKW, Plugin.Options.WorkingKW, Plugin.Options.CollectorKW);
             prepared.Publish();
             ConstructionRegistry.RegisterPack(Plugin.Id, NativeAdapter.RecipePath);
             definitionsRegistered = true;
@@ -54,7 +54,7 @@ internal static class Content
         }
     }
 
-    internal static NativeDefinitions Prepare(string controlsKey = "F9", double cycleSeconds = 60, double idleKW = 0.12, double workingKW = 30)
+    internal static NativeDefinitions Prepare(string controlsKey = "F9", double cycleSeconds = 60, double idleKW = 0.12, double workingKW = 30, double collectorKW = CollectorRules.WorkingKW)
     {
         var prepared = MachineDefinitions.Create();
 
@@ -70,7 +70,7 @@ internal static class Content
             co.strDesc = "4 x 4 industrial fixture; 160 kg. Feed up to four ordinary loose wall panels. " +
                 controlsKey + " opens controls while nearby. A new batch takes " + cycleSeconds +
                 " seconds at " + workingKW + " kW and recovers 11 kg of parts/scrap " +
-                "plus 13 kg of retained mixed residue. Separate 8 x 8 output tray. Reload paused.";
+                "plus 13 kg of retained mixed residue. Inventory is the product tray. Load walls at a connected exterior grabber, or use Manual feed in controls. Reload paused.";
             co.nContainerWidth = co.nContainerHeight = ProcessRules.OutputSize;
             co.inventoryWidth = co.inventoryHeight = ProcessRules.Footprint;
             co.nStackLimit = 1;
@@ -95,6 +95,7 @@ internal static class Content
         bin.strNameFriendly = bin.strNameShort = "Wall-panel feed (4 panels / 96 kg)";
         bin.strDesc = "Ordinary loose wall panels only. Up to four separate, empty panels; no stacks.";
         prepared.Slots[InputSlot].strNameFriendly = "Wall-panel feed";
+        prepared.Slots[InputSlot].bHide = true;
         var power = prepared.Power[Prefix + "Power"];
         power.fAmount = idleKW / 3600;
         power.strOverrideCond = ProcessRules.Working;
@@ -108,7 +109,7 @@ internal static class Content
         residueItem.strName = residue.strItemDef;
         residue.strNameFriendly = residue.strNameShort = "Mixed panel residue (13 kg)";
         residue.strDesc = "Retained panel material not recovered as useful stock. Not ordinary sortable trash. " +
-            "Keep, haul or jettison as a physical item; no refining recipe yet.";
+            "Keep, haul or collect with the Phobos Residue Collector. No refining or recoverable ejection yet.";
         residue.aStartingConds = new[] { "IsSolid=1.0x1", "StatMass=1.0x13", "StatBasePrice=1.0x0" };
         residue.aUpdateCommands = Array.Empty<string>();
         residue.nStackLimit = 1;
@@ -116,6 +117,9 @@ internal static class Content
         ApplyArtwork(residue, residueItem, ProcessRules.Residue);
         prepared.Items[residueItem.strName] = residueItem;
         prepared.Objects[residue.strName] = residue;
+        IntakeDefinitions.Add(prepared);
+        CollectorDefinitions.Add(prepared, collectorKW);
+        EquipmentEconomy.Apply(prepared);
         return prepared;
     }
 
@@ -126,7 +130,7 @@ internal static class Content
         Ready = missing.Count == 0 && ConstructionRegistry.Ready(Plugin.Id);
         Status = Ready ? "Shipbreaker definitions ready" :
             "Construction registration incomplete; processing disabled. Use phobosshipbreaker dependencies.";
-        DependencyStatus += "\n" + (Ready ? "Both construction recipes registered. In-game compatibility remains unverified."
+        DependencyStatus += "\n" + (Ready ? "All five construction recipes registered. In-game compatibility remains unverified."
             : string.Join("\n", missing) + "\n" + ConstructionRegistry.Status(Plugin.Id) + "\nInspect the Phobos Framework log and matching Phobos plugin/data package.");
         log(Status + "\n" + DependencyStatus);
     }
@@ -159,7 +163,7 @@ internal static class Content
         prepared.Objects[section.strName] = section;
     }
 
-    private static void ApplyArtwork(JsonCondOwner owner, JsonItemDef item, string name, string damaged = "blank")
+    internal static void ApplyArtwork(JsonCondOwner owner, JsonItemDef item, string name, string damaged = "blank")
     {
         const string path = "phobos/shipbreaker/";
         item.strImg = path + name;
@@ -168,7 +172,7 @@ internal static class Content
         owner.strPortraitImg = path + name + "Portrait";
     }
 
-    private static void SetStat(JsonCondOwner co, string name, double value) => co.aStartingConds =
+    internal static void SetStat(JsonCondOwner co, string name, double value) => co.aStartingConds =
         co.aStartingConds.Where(s => !s.StartsWith(name + "=", StringComparison.Ordinal))
             .Concat(new[] { name + "=1.0x" + value.ToString(CultureInfo.InvariantCulture) }).ToArray();
 

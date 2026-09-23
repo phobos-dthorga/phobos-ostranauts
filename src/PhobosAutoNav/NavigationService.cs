@@ -3,8 +3,6 @@ using System.Globalization;
 using System.Linq;
 using BepInEx.Bootstrap;
 using HarmonyLib;
-using Ostranauts.Core;
-using Ostranauts.Core.Models;
 using PhobosAutoNav.Core;
 
 namespace PhobosAutoNav;
@@ -16,10 +14,8 @@ internal sealed class NavigationService
     private readonly Action<string> log;
     private CondOwner? console;
     private bool issuing;
-    private string status = "Idle; test-save use only";
+    private string status = "Idle";
     private static CondOwner? OpenConsole => GUIOrbitDraw.IsOpen() ? GUIOrbitDraw.Instance.COSelfBase() : null;
-    private static bool InTestSave => ArrivalBrake.TestSaveAllowed(
-        (AccessTools.Field(typeof(LoadManager), "_loadedSave")?.GetValue(null) as SaveInfo)?.SaveName);
     internal NavigationService(Action<string> log) { this.log = log; }
 
     internal float Throttle
@@ -48,7 +44,7 @@ internal sealed class NavigationService
         if (co.ship.IsUsingTorchDrive || co.ship.shipStationKeepingTarget != null || (co.ship.aWPs != null && co.ship.aWPs.Count > 0)
             || PropOn(co, "chkStationKeeping") || PropOn(co, "chkHoldThrust") || PropOn(co, "chkEngage")
             || AIShipManager.GetAIShipByRegID(co.ship.strRegID) != null) return "Disengage other flight automation first";
-        if (CrewSim.system == null || CrewSim.system.IsInAtmo(co.ship)) return "Free-space testing only";
+        if (CrewSim.system == null || CrewSim.system.IsInAtmo(co.ship)) return "Free-space flight only";
         if (co.ship.RCSCount <= 0 || co.ship.GetRCSRemain() <= 0) return "Working RCS and fuel required";
         if (co.ship.objSS == null || !ArrivalBrake.Finite(co.ship.RCSAccelMax) || co.ship.RCSAccelMax <= 0) return "RCS acceleration unavailable";
         return null;
@@ -59,7 +55,6 @@ internal sealed class NavigationService
         if (AutoNavCore.Engaged) { status = "Already engaged; stop before changing the flight"; return; }
         try
         {
-            if (!InTestSave) { status = "Use a separate save named PhobosAutoNavTest or PhobosAutoNavTest-..."; return; }
             if (!Plugin.Enabled.Value) { status = "Mod disabled in settings"; return; }
             if (CrewSim.objInstance == null || !CrewSim.objInstance.FinishedLoading) { status = "World is loading"; return; }
             // No upstream dependency. Refuse this prototype alongside the original flight plugin.
@@ -100,7 +95,7 @@ internal sealed class NavigationService
         if (!AutoNavCore.Engaged || AutoNavCore.EngagedPlayer?.objSS != situ || ignoreAcceleration || dt == 0) return;
         try
         {
-            string? problem = !Plugin.Enabled.Value ? "Mod disabled" : !InTestSave ? "Test-save gate closed" : HardwareProblem(console);
+            string? problem = !Plugin.Enabled.Value ? "Mod disabled" : HardwareProblem(console);
             if (problem == null && (!ArrivalBrake.Finite(dt) || dt < 0 || dt > Plugin.MaximumStepSeconds.Value)) problem = "Simulation step too large or invalid; reduce time compression";
             if (problem == null && Throttle <= 0) problem = "Throttle zero or unavailable";
             if (problem == null && AutoNavCore.AutoDockBusy()) problem = "Auto Dock took control";
@@ -141,8 +136,8 @@ internal sealed class NavigationService
             if (words.Length > 2) { response = "No extra arguments accepted. Use phobosnav help."; return false; }
             switch (verb)
             {
-                case "help": response = "phobosnav help | status | settings | fly | stop | spawn\nFly/spawn require PhobosAutoNavTest saves. Stop clears thrust; it does not brake. Config changes apply on the next launch; cruise/arrival settings are captured per flight."; return true;
-                case "status": response = $"Phobos Auto Nav {Plugin.Version}; standalone; test save={InTestSave}; engaged={AutoNavCore.Engaged}\n{status}"; return true;
+                case "help": response = "phobosnav help | status | settings | fly | stop | spawn\nOrdinary saves supported. Spawn is an explicit debug grant; normal acquisition uses merchants or assembly. Stop clears thrust; it does not brake. Config changes apply on the next launch; cruise/arrival settings are captured per flight."; return true;
+                case "status": response = $"Phobos Auto Nav {Plugin.Version}; engaged={AutoNavCore.Engaged}\n{status}\n{EquipmentContent.Status}"; return true;
                 case "settings": response = $"Cruise {Plugin.DefaultCruiseMS.Value} m/s; arrival {Plugin.DefaultArriveSpeedMS.Value} m/s at {Plugin.DefaultArriveKM.Value} km; tolerance {Plugin.ArrivalSpeedTolerance.Value} m/s; max step {Plugin.MaximumStepSeconds.Value} s.\nBepInEx/config/{Plugin.Id}.cfg"; return true;
                 case "fly": Engage(OpenConsole); response = status; return AutoNavCore.Engaged;
                 case "stop": Disengage("Stopped by pilot; coasting"); response = status; return true;
@@ -156,8 +151,8 @@ internal sealed class NavigationService
     private bool Spawn(out string response)
     {
         var co = OpenConsole;
-        if (!InTestSave || CrewSim.objInstance == null || !CrewSim.objInstance.FinishedLoading)
-        { response = "Load a separate PhobosAutoNavTest save first"; return false; }
+        if (CrewSim.objInstance == null || !CrewSim.objInstance.FinishedLoading)
+        { response = "Finish loading a game first"; return false; }
         if (co == null || co.bDestroyed || !co.HasCond("IsInstalled") || co.HasCond("IsLocked") || co.ship != CrewSim.coPlayer?.ship)
         { response = "Open an installed, unlocked nav console aboard your ship"; return false; }
         if (co.GetCOsSafe(true).Any(item => HasId(item, ModuleId))) { response = "Module already present"; return false; }

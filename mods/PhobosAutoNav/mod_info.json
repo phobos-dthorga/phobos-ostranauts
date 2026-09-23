@@ -1,10 +1,10 @@
 [
   {
-    "strName": "Phobos Auto Nav (Prototype)",
+    "strName": "Phobos Auto Nav",
     "strAuthor": "phobosgekko; guidance adapted from Gravy/mrkmg's Auto Navigate",
     "strModURL": "https://github.com/phobos-dthorga/phobos-ostranauts",
     "strGameVersion": "1.0.1.4",
-    "strModVersion": "0.1.1",
-    "strNotes": "Standalone RCS approach prototype, restricted to PhobosAutoNavTest saves. Requires its accompanying PhobosAutoNav BepInEx 5 plugin, not Auto Navigate. Uses approved original Phobos faceplate and intact/damaged item artwork created with ChatGPT Imagegen. Labels and controls remain live. Adaptation provenance and unverified upstream licensing are recorded in THIRD_PARTY_NOTICES.md. Not yet tested in-game."
+    "strModVersion": "0.2.0",
+    "strNotes": "RCS approach and braking for ordinary saves. Requires BepInEx 5, the accompanying PhobosAutoNav plugin and Phobos Framework 0.6.0+. Available from traders or table assembly, with repair, Restore and mass-balanced dismantling. No Auto Navigate dependency. Does not dock or avoid obstacles. Original Phobos artwork; adaptation provenance in THIRD_PARTY_NOTICES.md. Economy integration awaits in-game testing."
   }
 ]

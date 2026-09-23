@@ -4,6 +4,7 @@ $ErrorActionPreference = 'Stop'
 Set-StrictMode -Version Latest
 $repoRoot = Split-Path -Parent $PSScriptRoot
 $gameRoot = (Resolve-Path -LiteralPath $OstranautsPath).Path
+& (Join-Path $PSScriptRoot 'build-framework.ps1') -OstranautsPath $gameRoot
 & (Join-Path $PSScriptRoot 'export-autonav-art.ps1')
 & dotnet build (Join-Path $repoRoot 'src/PhobosAutoNav/PhobosAutoNav.csproj') -c Release "-p:OstranautsPath=$gameRoot"
 if ($LASTEXITCODE -ne 0) { throw 'Auto Nav build failed.' }
@@ -68,6 +69,9 @@ $artwork = $artwork.Replace('(prompts.md)', '(ARTWORK-PROMPTS.md)')
 Set-Content -LiteralPath (Join-Path $package 'ARTWORK.md') -Value $artwork -Encoding utf8
 Copy-Item -LiteralPath (Join-Path $repoRoot 'assets/phobos-autonav/prompts.md') -Destination (Join-Path $package 'ARTWORK-PROMPTS.md')
 Copy-Item -LiteralPath (Join-Path $repoRoot 'LICENSE') -Destination $package
+Copy-Item -LiteralPath (Join-Path $repoRoot 'docs/equipment-economy.md') -Destination $package
+Copy-Item -LiteralPath (Join-Path $repoRoot 'docs/equipment-value-audit.md') -Destination $package
+Copy-Item -LiteralPath (Join-Path $repoRoot 'docs/vanilla-economy-audit.md') -Destination $package
 Compress-Archive -Path (Join-Path $package '*') -DestinationPath "$package.zip" -Force
 Write-Output "Standalone prototype: $package.zip"
 Write-Output 'No game files, load order or saves were changed. No in-game tests performed.'

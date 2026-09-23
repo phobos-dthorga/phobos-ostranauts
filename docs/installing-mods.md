@@ -7,7 +7,7 @@ updates. PowerShell 7 is required; the launcher leaves its result visible.
 
 Shipbreaker **0.1.5+ also selects Phobos Framework automatically**. Its prepared
 package must be available beside the content packages. Building Shipbreaker
-prepares both packages. Shipbreaker 0.2.0 requires Framework 0.2.0+ and is
+prepares both packages. Shipbreaker 0.6.0 and Auto Nav 0.2.0 require Framework 0.6.0+ and are
 independent of OCF/SWB; see the [migration guide](phobos-framework.md).
 
 The installer finds Ostranauts through Steam's library records and remembers
@@ -61,10 +61,10 @@ Navigate. AutoNav still enforces its runtime navigation-conflict checks.
 - Maintains one shared Phobos Framework provider. Extra copies outside its own
   folder stop the update. A newer installed framework is not automatically
   downgraded: supply an equal or newer prepared framework package before retrying.
-  Framework alone has no OCF/SWB requirement; AutoNav does not require it.
+  Framework alone has no OCF/SWB requirement. Auto Nav 0.2.0+ also selects it.
 - Enables selected native entries in place or appends new entries. Existing
   unrelated entries, disabled mods and other load-order settings stay intact.
-- For Shipbreaker 0.2.0+, requires our Framework 0.2.0+ and both current native
+- For Shipbreaker 0.6.0+ and Auto Nav 0.2.0+, requires our Framework 0.6.0+ and both current native
   packages. OCF/SWB presence, age or load order do not gate this version. Legacy
   packages before 0.2.0 retain their original dependency checks.
 - Backs up and replaces our former OCF recipe file with an empty migration stub;

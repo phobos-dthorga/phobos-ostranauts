@@ -37,6 +37,7 @@ public sealed class Recipe
     public string[] stationIds = Array.Empty<string>();
     public string[] optionalStationIds = Array.Empty<string>();
     public string[] legacyActionIds = Array.Empty<string>();
+    public string[] toolTriggers = Array.Empty<string>();
     public Ingredient[] ingredients = Array.Empty<Ingredient>();
     public Product[] outputs = Array.Empty<Product>();
     public double workSeconds;
@@ -61,6 +62,9 @@ public static class RecipeRules
     {
         if (recipe == null) throw new ArgumentNullException(nameof(recipe));
         Identifier(recipe.id);
+        if (recipe.toolTriggers == null || recipe.toolTriggers.Length > 8 || recipe.toolTriggers.Distinct().Count() != recipe.toolTriggers.Length)
+            throw new ArgumentException("Use up to eight distinct reusable tool triggers.");
+        foreach (string tool in recipe.toolTriggers) Identifier(tool);
         if (string.IsNullOrWhiteSpace(recipe.name) || recipe.name.Length > 160)
             throw new ArgumentException("A recipe needs a readable name of at most 160 characters.");
         if (!IsPositive(recipe.workSeconds) || recipe.workSeconds > 86400 ||

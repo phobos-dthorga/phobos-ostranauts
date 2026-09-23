@@ -36,3 +36,15 @@ the integration changes to include any upstream source or assets.
 
 Common Sense Salvage and Storage is an optional hauling companion; this package
 does not copy its code or promise untested compatibility.
+
+Shipbreaker 0.4.0 adds an original Imagegen residue-collector sprite, using our own
+receiving-port concept as the style reference. The unchanged master, exact prompt,
+hash and mechanical exports are documented in `assets/phobos-residue-collector/`.
+No community art or game textures were copied for this family. The new collector
+art is prepared for owner testing, not yet owner-approved.
+
+Shipbreaker 0.3.0 also includes the owner-approved original hull chute and exterior
+grabber generated with built-in Imagegen. Masters, prompts, SHA-256 hashes and crop
+coordinates are in `assets/phobos-hull-intake/`. Runtime colour exports use mechanical
+nearest-neighbour sampling and binary alpha; flat normals are technical shader data.
+The same provenance and MIT-scope qualifications above apply. No game artwork is included.

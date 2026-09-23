@@ -5,15 +5,17 @@ using System.Reflection;
 using BepInEx;
 using BepInEx.Configuration;
 using HarmonyLib;
+using Phobos.Ostranauts.Framework;
 
 namespace PhobosAutoNav;
 
-[BepInPlugin(Id, "Phobos Auto Nav (prototype)", Version)]
+[BepInPlugin(Id, "Phobos Auto Nav", Version)]
 [BepInProcess("Ostranauts.exe")]
+[BepInDependency(FrameworkInfo.PluginId, "0.6.0")]
 public sealed class Plugin : BaseUnityPlugin
 {
     public const string Id = "phobosgekko.ostranauts.autonav";
-    public const string Version = "0.1.1";
+    public const string Version = "0.2.0";
     internal static NavigationService Service { get; private set; } = null!;
     internal static ConfigEntry<bool> Enabled = null!, VerboseLogging = null!, FuelCheck = null!,
         AbortOnManualThrust = null!, UseThrusterRotation = null!;
@@ -43,13 +45,14 @@ public sealed class Plugin : BaseUnityPlugin
         Service = new NavigationService(log);
         harmony = new Harmony(Id);
         harmony.PatchAll(typeof(Plugin).Assembly);
-        Logger.LogInfo("Standalone adaptation of Auto Navigate by Gravy/mrkmg. F3: phobosnav help. Test saves only; no upstream mod dependency.");
+        FrameworkLifecycle.ContentLoading += EquipmentContent.Register;
+        Logger.LogInfo("Adaptation of Auto Navigate by Gravy/mrkmg. F3: phobosnav help. Ordinary saves supported; Phobos Framework required; no upstream mod dependency.");
     }
 
     private ConfigEntry<float> Number(string section, string key, float value, float min, float max, string description) =>
         Config.Bind(section, key, value, new ConfigDescription(description, new AcceptableValueRange<float>(min, max)));
     internal static void Verbose(string message) { if (VerboseLogging.Value) log?.Invoke(message); }
-    private void OnDestroy() { Service?.Disengage("Plugin unloaded"); harmony?.UnpatchSelf(); }
+    private void OnDestroy() { FrameworkLifecycle.ContentLoading -= EquipmentContent.Register; Service?.Disengage("Plugin unloaded"); harmony?.UnpatchSelf(); }
 }
 
 [HarmonyPatch(typeof(GUIOrbitDraw), "LoadModules")]

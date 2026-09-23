@@ -1,5 +1,4 @@
 using System;
-using System.Text.RegularExpressions;
 
 namespace PhobosAutoNav.Core;
 
@@ -39,6 +38,4 @@ public static class ArrivalBrake
         return true;
     }
 
-    public static bool TestSaveAllowed(string? name) => name != null && Regex.IsMatch(name,
-        @"^(?:autosave_\d+_)?PhobosAutoNavTest(?:$|-)", RegexOptions.CultureInvariant);
 }

@@ -1,11 +1,13 @@
 #requires -Version 7.0
 # Mechanical concept scale checks; original Imagegen masters stay unchanged.
+param([switch]$Runtime)
 $ErrorActionPreference = 'Stop'
 Set-StrictMode -Version Latest
 Add-Type -AssemblyName System.Drawing
 $repoRoot = Split-Path -Parent $PSScriptRoot
 $artRoot = Join-Path $repoRoot 'assets/phobos-hull-intake'
 $previewRoot = Join-Path $artRoot 'previews'
+$runtimeRoot = Join-Path $repoRoot 'mods/PhobosShipbreaker/images/phobos/shipbreaker'
 $entries = @(Get-Content -LiteralPath (Join-Path $artRoot 'sources.json') -Raw | ConvertFrom-Json)
 foreach ($entry in $entries) {
     if ((Get-FileHash -LiteralPath (Join-Path $artRoot ('source/' + $entry.Source))).Hash -ne $entry.Sha256) {
@@ -29,7 +31,7 @@ $canvas = [Drawing.Graphics]::FromImage($sheet)
 $font = [Drawing.Font]::new('Consolas', 11)
 try {
     $canvas.Clear([Drawing.Color]::FromArgb(255, 52, 55, 59))
-    $canvas.DrawString('HULL INTAKE | concept scale check | not installed', $font, [Drawing.Brushes]::White, 16, 10)
+    $canvas.DrawString('HULL INTAKE | approved art | gameplay test pending', $font, [Drawing.Brushes]::White, 16, 10)
     foreach ($entry in $entries) {
         $master = [Drawing.Bitmap]::new((Join-Path $artRoot ('source/' + $entry.Source)))
         $small = $null; $zoom = $null
@@ -44,6 +46,30 @@ try {
                 }
             }
             $small = Sample-Pixels $master $crop $entry.Size[0] $entry.Size[1]
+            if ($Runtime) {
+                # Same binary-alpha mechanical export as the accepted processor.
+                for ($y = 0; $y -lt $small.Height; $y++) {
+                    for ($x = 0; $x -lt $small.Width; $x++) {
+                        $pixel = $small.GetPixel($x, $y)
+                        $small.SetPixel($x, $y, $(if ($pixel.A -ge 128) { [Drawing.Color]::FromArgb(255, $pixel.R, $pixel.G, $pixel.B) } else { [Drawing.Color]::Transparent }))
+                    }
+                }
+                $name = 'Phobos' + $entry.State
+                $small.Save((Join-Path $runtimeRoot "$name.png"), [Drawing.Imaging.ImageFormat]::Png)
+                # Flat technical normals retain the approved paint without inventing relief.
+                $normal = [Drawing.Bitmap]::new($small.Width, $small.Height)
+                $ng = [Drawing.Graphics]::FromImage($normal)
+                $portrait = [Drawing.Bitmap]::new(256, 256, [Drawing.Imaging.PixelFormat]::Format32bppArgb)
+                $pg = [Drawing.Graphics]::FromImage($portrait)
+                $large = Sample-Pixels $small ([Drawing.Rectangle]::new(0, 0, $small.Width, $small.Height)) 256 ($small.Height * 4)
+                try {
+                    $ng.Clear([Drawing.Color]::FromArgb(128, 128, 255))
+                    $normal.Save((Join-Path $runtimeRoot ($name + 'Normal.png')), [Drawing.Imaging.ImageFormat]::Png)
+                    $pg.Clear([Drawing.Color]::Transparent)
+                    $pg.DrawImageUnscaled($large, 0, [int]((256 - $large.Height) / 2))
+                    $portrait.Save((Join-Path $runtimeRoot ($name + 'Portrait.png')), [Drawing.Imaging.ImageFormat]::Png)
+                } finally { $ng.Dispose(); $normal.Dispose(); $pg.Dispose(); $portrait.Dispose(); $large.Dispose() }
+            }
             $small.Save((Join-Path $previewRoot ($entry.State + '-v1-world.png')), [Drawing.Imaging.ImageFormat]::Png)
             $zoom = Sample-Pixels $small ([Drawing.Rectangle]::new(0, 0, $small.Width, $small.Height)) ($small.Width * 8) ($small.Height * 8)
             $zoom.Save((Join-Path $previewRoot ($entry.State + '-v1-zoom.png')), [Drawing.Imaging.ImageFormat]::Png)
@@ -64,7 +90,7 @@ try {
         $canvas.DrawImageUnscaled($machineZoom, 16, 658)
         $canvas.DrawString("INTERIOR`nExisting fixture`n4 x 4 tiles`nMouth toward hull`n64 x 64 px", $font, [Drawing.Brushes]::White, 540, 658)
     } finally { $machine.Dispose(); if ($null -ne $machineZoom) { $machineZoom.Dispose() } }
-    $canvas.DrawString('Same scale, spaced apart for inspection; connections are not implemented.', $font, [Drawing.Brushes]::White, 16, 42)
+    $canvas.DrawString('Same scale, spaced apart for inspection; install components without gaps.', $font, [Drawing.Brushes]::White, 16, 42)
     $sheet.Save((Join-Path $previewRoot 'hull-intake-scale-comparison.png'), [Drawing.Imaging.ImageFormat]::Png)
 } finally { $font.Dispose(); $canvas.Dispose(); $sheet.Dispose() }
-Write-Output 'Exported 64x16 chute and 64x48 grabber previews, 8x enlargements and existing-fixture comparison. No runtime assets changed.'
+Write-Output "Exported chute/grabber previews. Runtime export: $Runtime (colour, flat normals and square padded portraits)."

@@ -65,8 +65,8 @@ Check(sectionOutput.GetProperty("item").GetString() == ProcessRules.AssemblySect
 var machineOutput = finalRecipe.GetProperty("outputs").EnumerateArray().Single();
 Check(machineOutput.GetProperty("item").GetString() == "PhobosShipbreakerLoose" && machineOutput.GetProperty("count").GetInt32() == 1,
     "Final assembly produces one fixture with its existing saved identity");
-Check(sectionRecipe.GetProperty("workSeconds").GetInt32() * 2 + finalRecipe.GetProperty("workSeconds").GetInt32() == 300,
-    "Assembly stages retain 300 seconds of work in total");
+Check(sectionRecipe.GetProperty("workSeconds").GetInt32() * 2 + finalRecipe.GetProperty("workSeconds").GetInt32() == 9000,
+    "Full equipment fabrication includes both sections and final assembly: 150 minutes");
 
 var job = new ProcessJob("panel-A", 0, 1);
 job.Advance("panel-A", 15, true, true);
@@ -153,6 +153,8 @@ Check(Command.Parse("phobosshipbreaker pause").TargetId == null, "Omitted target
 foreach (string invalidCommand in new[] { "phobosshipbreaker cancel A B", "phobosshipbreaker settings 20", "phobosshipbreaker help A", "phobosshipbreaker typo" })
     Check(Command.Parse(invalidCommand).Action == CommandAction.Invalid, "Reject malformed command without unintended action: " + invalidCommand);
 DependencyChecks.Run(Check, Throws);
+IntakeChecks.Run(Check, Throws, constructionRecipes);
+CollectorChecks.Run(Check, constructionRecipes);
 Console.WriteLine($"PASS: {checks} checks of dependency contracts/registration rollback, construction limits/mass, material balance, work identity, interruption, batch placement, completion recovery and console routing.");
 
 sealed class FakeDelivery : IBatchDelivery

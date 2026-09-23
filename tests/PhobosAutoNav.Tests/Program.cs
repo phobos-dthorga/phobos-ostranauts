@@ -39,8 +39,4 @@ foreach (double dt in new[] { 0d, -1d }) Check(!ArrivalBrake.TryCommand(1, 2, 0,
 foreach (double throttle in new[] { 0d, -1d, 1.1d }) Check(!ArrivalBrake.TryCommand(1, 2, 0, 1, throttle, 0, 1, out _), "Reject unavailable throttle");
 Check(!ArrivalBrake.TryCommand(double.MaxValue, 1, 0, 1, .25, 0, 1, out _), "Reject overflow");
 Check(ArrivalBrake.TryCommand(0, 0, 0, 1, .25, 0, 1, out var zero) && zero.X == 0 && zero.Y == 0, "No burn when stopped");
-foreach (string? name in new[] { null, "", "pg21", "PhobosAutoNavTestReal", "autosave_bad_PhobosAutoNavTest", "xPhobosAutoNavTest" })
-    Check(!ArrivalBrake.TestSaveAllowed(name), "Reject live/non-test save name");
-foreach (string name in new[] { "PhobosAutoNavTest", "PhobosAutoNavTest-P0", "autosave_12_PhobosAutoNavTest-P0" })
-    Check(ArrivalBrake.TestSaveAllowed(name), "Allow explicit test save name");
-Console.WriteLine($"{checks} numerical and save-gate assertions passed. These are not in-game tests.");
+Console.WriteLine($"{checks} numerical assertions passed. These are not in-game tests.");

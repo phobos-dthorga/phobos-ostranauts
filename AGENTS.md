@@ -95,7 +95,17 @@
   intentional migration stub; active recipes live in `framework/recipes.json`.
   Do not uninstall foreign providers from the owner's save or claim crash-atomic
   native construction. In-game migration remains owner-tested work.
-  Conveyor transport is a planned shared service, not an existing implementation.
+  Framework 0.4.0 adds exact-ID filters, transfer clocks and bounded grid search;
+  Framework 0.5.0 adds reciprocal saved sender/receiver pairing in namespaced
+  native property maps. Use full object IDs plus stable logical port IDs, not
+  nearest-machine matching or short display IDs. Keep routing configuration
+  distinct from permission to resume work after reload. See `docs/material-port-pairing.md`.
+  Shipbreaker's collector is one paired floor route, not a general conveyor network.
+  Framework/Shipbreaker 0.6.0 and Auto Nav 0.2.0 add ordinary merchant acquisition,
+  maintenance, tool requirements and save-compatible economy upgrades. Reuse the
+  shared additive stock and native maintenance helpers; keep balance in content
+  mods. Follow `docs/equipment-economy.md`; retain actual repair waste mass and
+  protect cargo from dismantling.
 - Prefix new game identifiers with `Phobos` and keep them stable once saved games
   can contain them. Document migrations for incompatible changes.
 - Distinguish observed engine behaviour from proposed designs and untested assumptions.
@@ -120,10 +130,12 @@
 
 - Owner requested a separate 1 x 4 hull chute between the existing feeder and a
   matching-width exterior grabber (2026-09-24). Read this as four tiles along the
-  hull, one deep; a 4-wide x 3-deep grabber is a proposed proportion. Use two static
+  hull, one deep; the 0.3.0 connected candidate uses a 4-wide x 3-deep grabber. Use two static
   side clamps and a restrained central cutting head, with coarse readable pixel
-  art. See `docs/shipbreaker-hull-intake.md`; new concepts do not implement exterior
-  mounting, pressure sealing or material transfer. Preserve the existing fixture.
+  art. See `docs/shipbreaker-hull-intake.md`; the connected candidate implements
+  wall-supported exterior mounting and detached-panel transfer. Backing walls
+  provide the native pressure barrier; attached-hull cutting and a simulated
+  airlock remain future work. Preserve the existing fixture.
   The owner approved the generated intact visual direction on 2026-09-24; retain
   the masters and pixel scale when deriving subsequent production forms.
 
@@ -183,8 +195,10 @@
 ## Game and repository boundaries
 
 - Develop in mod folders; do not overwrite the game's original files.
-- Use a separate test save for gameplay experiments. Do not directly edit, replace
-  or delete the player's real saves without explicit authorisation.
+- Ordinary saves are the baseline for current equipment, including Auto Nav
+  (owner direction, 2026-09-24). Do not reintroduce named-test-save gates or require
+  disposable saves for normal play. The owner runs gameplay checks. Do not directly
+  edit, replace or delete save files without explicit authorisation.
 - Do not commit saves, decompiled game source, game assemblies, extracted game
   assets, credentials or personal machine paths.
 - Resolve game references from a local path or configuration, not a committed
@@ -193,6 +207,28 @@
   instructions to the owner; do not automate it or inspect populated secret fields.
 
 ## Verification
+
+- Shipbreaker 0.3.0's first connected intake moves already-detached ordinary walls:
+  4 x 3 exterior grabber -> 4 x 1 chute over intact supporting walls -> existing
+  4 x 4 processor. The backing walls remain the native pressure barrier; no open
+  portal or simulated airlock cycle. External cutting and routed conveyors remain
+  future work. Normal grabber Inventory is input, normal processor Inventory is
+  products. Preserve the saved internal feed as an explicit F9/console fallback.
+  Framework 0.3.0 supplies shared physical-item transfer; Shipbreaker owns layout,
+  eligibility, power and timing. Reuse those paths rather than duplicating them.
+
+- The owner authorised research of a reusable hull disposal port with future
+  filters on 2026-09-24. See `docs/material-disposal-port-research.md`. Native
+  jettison destroys items, and bare exterior drops do not establish persistent
+  independent cargo. The owner then authorised implementation: Framework and
+  Shipbreaker 0.4.0 provide a 2 x 1, 20 kg wall collector, four-packet inventory,
+  exact residue filter and one explicit processor link over structural flooring.
+  See `docs/residue-collector.md`. This is an intermediate transport endpoint,
+  not completed disposal or reduced ship mass. Unsupported inputs stay intact.
+  Version 0.5.0 retains cargo and the selected pair after reload, resets the short
+  timer and pauses. Link/Unlink is available from either endpoint; a missing or
+  mismatched peer blocks transfer. Recoverable
+  release needs separate ownership/motion/save handling and remains unimplemented.
 
 - The owner chose to perform Approach Assist's in-game tests personally. Prepare
   builds and test instructions; leave the running game and test execution to the
@@ -208,6 +244,13 @@
   concrete suspected failures. Revisit an established pattern only when a relevant
   change, conflicting evidence or an actual fault warrants it; do not turn reuse
   into another prerequisite research or testing phase.
+- Equipment dismantling should lose monetary value against selling the whole
+  item (owner clarification, 2026-09-24). Audit actual native material prices,
+  damaged definitions and wear tiers; show combined output value alongside whole
+  value rather than presenting material counts alone. Distinguish definition
+  value from merchant quotes and do not claim every regional market is identical.
+  Use `docs/equipment-value-audit.md` and `docs/vanilla-economy-audit.md`; preserve
+  mass without assuming it implies conservation of monetary value.
 - For new machinery, check our material accounting, progress, interruption and
   persistence where we introduce or change that behaviour. Cover power or
   fast-forward interactions when they pose a specific integration risk. Record

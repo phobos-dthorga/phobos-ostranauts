@@ -24,6 +24,11 @@ public static class FrameworkLifecycle
     internal static void Begin()
     {
         ConstructionRegistry.BeginLoad();
+        Trading.MarketStock.BeginLoad();
+        Registration.MaintenanceSafety.Actions.Clear();
+        Registration.EquipmentSaveUpgrade.BeginLoad();
+        Registration.MaintenanceSafety.Repairs.Clear();
+        Registration.MaintenanceSafety.LegacyFinishes.Clear();
         Notify(ContentLoading);
     }
     internal static void Complete()

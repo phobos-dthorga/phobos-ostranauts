@@ -9,6 +9,12 @@ internal static class ConsoleCommands
 {
     private static bool Prefix(ref string strInput, ref bool __result)
     {
+        var collector = CollectorCommand.Parse(strInput);
+        if (collector.Action != CollectorAction.Foreign)
+        {
+            __result = CollectorCommands.Run(collector, out string collectorResponse);
+            strInput += "\n" + collectorResponse; return false;
+        }
         var command = Command.Parse(strInput);
         if (command.Action == CommandAction.Foreign) return true;
         __result = Plugin.Service.RunCommand(command, out string response);

@@ -1,17 +1,18 @@
 # Hull chute and exterior grabber
 
-24 September 2026. Owner-requested equipment design and original concept art.
-These are proposed additional components, not installed machinery or working
-transport/cutting features. Shipbreaker's pending 0.2.1 feed fix is independent.
-The owner approved the generated chute/grabber visual direction on 24 September.
+24 September 2026. **Shipbreaker 0.3.0 + Framework 0.3.0 testing candidate.**
+The owner approved these designs and requested the connected implementation.
+Mounting definitions, physical transfers, construction and runtime sprites are now
+implemented and checked offline. Unity placement, crew access and operation still
+need owner testing. Attached-hull cutting remains future work.
 
 ## Arrangement and dimensions
 
 The owner requests a wall-mounted **1 x 4 chute** between the existing feeder
 and an exterior grabber, with matching widths. Interpret this as **four tiles
 along the hull and one tile across it**. The proposed grabber is **four tiles
-wide and three tiles deep**, extending into space. Depth is a recommendation,
-not a confirmed owner selection. Rotate the whole arrangement for other hull edges.
+wide and three tiles deep**, extending into space. This implements the proposed
+depth accepted for the first connected test. Rotate the whole arrangement for other hull edges.
 
 ```text
                         SPACE
@@ -54,8 +55,10 @@ be implemented merely to illustrate this directly adjoining intake.
 - **Static presentation:** a parked, slightly open gripping pose; no animation,
   sparks or continuous beam required. Runtime text can communicate activity.
   This is an art decision, not a verified claim that the engine cannot animate
-  furniture. Damaged/loose forms, normal maps and final texture exports follow
-  after the intact design is selected.
+  furniture. The approved static assembly serves both installed and loose states;
+  damaged states use the same art with native damage tint and a damaged name.
+  Separate damaged/transport drawings can follow testing. Flat normal maps and
+  padded portraits are included; no original-game artwork is packaged.
 - **Infrastructure:** native electrical conduit remains separately placed. Do
   not bake connected cabling, a ship wall, floor, atmosphere, visibility wedges
   or lighting effects into these sprites.
@@ -70,29 +73,85 @@ It is a precedent for supported exterior geometry, not an arbitrary-wall mountin
 API and not a required dependency for our equipment. No native sprite or source
 definition is included in the concept assets.
 
-Before implementing the new hull assembly:
+The implementation also follows native wall-mounted pump/sensor patterns:
+rectangular socket arrays, padded requirements and distinct exterior/decorative
+tile conditions. It does not copy the towing brace's docking-airlock restriction.
 
-1. Define its structural mounting cells and service side from native placement
-   patterns. Existing floor-only fixtures must retain their old placement rules.
-2. Establish a real pressure boundary using suitable native wall/hatch behaviour.
-   A one-tile-deep graphic does not itself prove a usable transfer lock. Define
-   aperture, allowable panel size, seal states, and damage/uninstall consequences.
-   If two sequential closures cannot fit or be represented reliably, change the
-   transfer arrangement rather than imply an airtight open hole.
-3. Start with physical, detached eligible panels retained by the grabber, then
-   moved through a valid chute into the existing finite feed. Keep item identity,
-   contents and mass; a disconnected/full/unpowered destination retains cargo at
-   its source. Avoid new virtual matter stores or duplicated processing yields.
-4. Attached-hull cutting is a later acquisition step. It needs explicit target
-   eligibility, finite reach, relative-motion limits and ownership of the released
-   piece. The static cutting-head drawing does not promise that functionality.
-   AutoNav/positioning becomes relevant here, without making the indoor processor
-   depend on an autopilot merely to run a batch.
+**The chute overlays four intact installed walls. Do not remove those walls.**
+They remain the game's actual pressure barrier. The sealed solids transfer is an
+abstraction across that barrier: no portal opens, no atmosphere is moved, and no
+gas-lock chamber/pump cycle is simulated. Removing or damaging a backing wall
+stops new transfers; native hull leaks remain native behaviour. Uninstalling the
+chute leaves the walls in place. This intentionally avoids a new pressure-hull
+implementation for the first connected slice.
 
-Reusable physical-item transfer logic belongs in Phobos Framework when implemented;
-mounting, grabber rules, artwork and machine balance remain content-specific.
-Focus future checks on sealing, rotated installation, transfer interruption and
-item preservation rather than re-proving established power/container patterns.
+The grabber occupies twelve exterior fixture tiles and requires four wall cells
+immediately behind its rear edge. The chute occupies those four wall cells as
+wall decoration. The processor retains its existing floor-only 4 x 4 placement.
+With the grabber arms pointing north, its centre is two tiles north of the chute;
+the processor centre is 2.5 tiles south of the chute and rotated 180 degrees from
+the grabber. No gaps or lateral offsets. All four cardinal rotations use the same
+geometry; the symmetric chute can be reversed. Conduit is separately built; the
+grabber's two power contacts reach the outer cells of the supporting wall row.
+
+## Operation and construction
+
+- **Grabber Inventory:** normal 4 x 4 native solid storage accepting cumbersome
+  items and smaller solids. Only separate, empty ordinary 24 kg walls are moved.
+  Unsupported cargo remains untouched, with a reason in the status panel.
+- **Chute:** no user inventory. It is the connection between the two machines.
+- **Processor Inventory:** 8 x 8 products tray. Its existing four-panel internal
+  feed remains saved and accessible through F9 **Manual feed (fallback)** or
+  `phobosshipbreaker feed`; ordinary Inventory no longer opens the second grid.
+- **Start / resume pipeline:** validates the layout and arms transfer plus
+  processing. An empty feed can wait for the grabber. Start while beside the
+  processor; loading the exterior grabber uses the game's ordinary nearby/EVA
+  inventory access. There is no remote pickup or crew teleportation.
+- One transfer takes **5 powered game seconds at 2 kW**, with **0.05 kW idle**.
+  `Intake / TransferSeconds` allows 1–60 seconds after restart. Processing keeps
+  its separate default 60 seconds / 30 kW and complete 24 kg material accounting.
+- Pause/cancel disarms intake. Reload leaves it paused; pending motion loses only
+  its short delay and retains the actual wall in the grabber. Processing progress
+  remains on that wall. Full feed waits; missing/damaged/locked connections stop.
+  Native transfer faults pause and log the issue; do not blindly retry an ambiguous
+  ownership failure. No frame-interleaved or crash-atomic transaction is promised.
+
+| New recipe | Steel | Aluminium | Mechanical parts | Electronic parts | Result | Work |
+| --- | ---: | ---: | ---: | ---: | --- | ---: |
+| Sealed Hull Chute | 24 | 10 | 10 | 2 | One 40 kg chute | 90 s |
+| Exterior Panel Grabber | 50 | 20 | 16 | 4 | One 80 kg grabber | 120 s |
+
+Native steel/aluminium units are 1 kg; these parts are 0.5 kg. Both recipes conserve
+mass and fit the construction service's 100-input limit. They use the same native
+tables and optional benches as the processor. All three parts have native install,
+uninstall, damage and repair definitions. Test-save spawn IDs:
+`PhobosHullChuteLoose`, `PhobosExteriorGrabberLoose`, `PhobosShipbreakerLoose`.
+
+Framework 0.3.0 exposes physical-item transfer separately from recipes and machine
+rules. A move reuses the actual object, with its ID and saved conditions. It does
+not create output definitions, erase the source object, merge stacks or invent
+virtual cargo. Shipbreaker owns layout, timing, eligibility and power.
+
+## First owner test
+
+1. Use a separate test save. Make a clear four-wall strip, a 4 x 3 empty exterior
+   area and a 4 x 4 interior floor area. Install the chute **over the walls**, the
+   grabber immediately outside with arms outward, and the processor immediately
+   inside with its loading mouth facing the chute. Keep side access for crew.
+2. Connect native conduit power to the grabber and processor. F9/status should say
+   the intake is connected; wrong placement should produce an explanation.
+3. Through the grabber's normal Inventory, load one detached ordinary wall. If
+   needed, `spawn ItmWall1x1Loose` supplies a comparison in the test save. Stand
+   beside the processor and Start. The wall should move once, then become 11 kg
+   useful products plus one 13 kg residue item in the processor's Inventory.
+4. During ordinary use, check pause/reload leaves material present and waits for
+   Start. Try another hull orientation or disconnect a component only if convenient.
+   Any rejection, missing sprite or wrong alignment: send a screenshot plus
+   `phobosshipbreaker status`. No separate power-consumption proof is required.
+
+Attached-hull cutting still needs finite reach, target eligibility, relative-motion
+limits and ownership of released material. Auto Nav remains optional for that later
+work. Underfloor routing, shredder/recycler and ore machinery remain separate work.
 
 Concept files and exact built-in Imagegen prompts:
 [hull-intake artwork](../assets/phobos-hull-intake/README.md).

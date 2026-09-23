@@ -13,6 +13,14 @@ internal static class MachineDefinitions
     internal static NativeDefinitions Create()
     {
         var d = new NativeDefinitions();
+        AddFamily(d, P);
+        AddFeed(d);
+        return d;
+    }
+
+    // The same native install/repair/damage contract serves all three machines.
+    internal static void AddFamily(NativeDefinitions d, string P)
+    {
         d.Conditions.Add(P + "Machine", new JsonCond { strName = P + "Machine", strNameFriendly = "Dismantling fixture",
             strColor = "Neutral", nDisplaySelf = 2, nDisplayOther = 2 });
         foreach (string state in new[] { "Installed", "Loose", "InstalledDmg", "LooseDmg" })
@@ -50,9 +58,13 @@ internal static class MachineDefinitions
                 d.Loot.Add(P + "Damage" + state, new Loot { strName = P + "Damage" + state,
                     strType = "interaction", aCOs = new[] { damage + "=1.0x1" }, aLoots = Array.Empty<string>() });
             }
-            AddInstallable(d, state, installed ? "Uninstall" : "Install");
-            if (damaged) AddInstallable(d, state, "Repair");
+            AddInstallable(d, P, state, installed ? "Uninstall" : "Install");
+            if (damaged) AddInstallable(d, P, state, "Repair");
         }
+    }
+
+    private static void AddFeed(NativeDefinitions d)
+    {
         // Native ordinary walls are cumbersome. Keep native containment exclusions,
         // then narrow acceptance to wall panels; FeedPatch enforces identity/mass/count.
         d.Triggers.Add(P + "TFeed", new CondTrigger { strName = P + "TFeed", fChance = 1, fCount = 1,
@@ -71,11 +83,10 @@ internal static class MachineDefinitions
             strIntPowerOn = P + "PowerChange", strIntPowerOff = P + "PowerChange" });
         d.Interactions.Add(P + "PowerChange", new JsonInteraction { strName = P + "PowerChange", strThemType = "Self",
             bIgnoreFeelings = true, aLootItms = Array.Empty<string>() });
-        return d;
     }
     private static Loot ItemLoot(string id, string item) => new Loot { strName = id, strType = "item",
         aCOs = new[] { item + "=1.0x1" }, aLoots = Array.Empty<string>() };
-    private static void AddInstallable(NativeDefinitions d, string state, string job)
+    private static void AddInstallable(NativeDefinitions d, string P, string state, string job)
     {
         bool repair = job == "Repair", install = job == "Install";
         string source = P + state, intact = state.Replace("Dmg", ""), id = P + (repair ? intact : state) + job;

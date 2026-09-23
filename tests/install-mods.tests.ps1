@@ -75,7 +75,7 @@ foreach ($image in $artwork) {
 }
 $receipt = Get-Content -LiteralPath (Join-Path $backup 'receipt.json') -Raw | ConvertFrom-Json
 $expectedRecoveryFiles = @($receipt.Files | ForEach-Object { "$($_.Backup):$($_.Hash)" } | Sort-Object) -join "`n"
-Check (@(Get-ChildItem -LiteralPath (Join-Path $nativeRoot 'PhobosShipbreaker/images') -Recurse -Filter '*.png').Count -eq 18) 'Shipbreaker artwork missing from installation'
+Check (@(Get-ChildItem -LiteralPath (Join-Path $nativeRoot 'PhobosShipbreaker/images') -Recurse -Filter '*.png').Count -eq 27) 'Shipbreaker artwork missing from installation'
 Check ($receipt.Status -eq 'Verified files and load order' -and $receipt.Mods.Count -eq 3) 'Receipt incomplete'
 Check (@($receipt.ChangedFiles | Where-Object ExistedBefore).Count -eq 0) 'Fresh files not marked for recovery'
 $stamp = (Get-Item -LiteralPath $fresh.LoadOrderPath).LastWriteTimeUtc
@@ -95,8 +95,8 @@ Check $true 'Repaired installation verified'
 $autoOnly = Fixture 'autonav-only' @('core', 'OCF|disabled', 'SWB|disabled')
 & $installer @autoOnly -Mods AutoNav | Out-Null
 Check (-not (Test-Path -LiteralPath (Join-Path $autoOnly.OstranautsPath 'BepInEx/plugins/PhobosShipbreaker'))) 'Single selection installed Shipbreaker'
-Check (((ReadOrder $autoOnly).aLoadOrder -join ',') -eq 'core,OCF|disabled,SWB|disabled,PhobosAutoNav') 'AutoNav enabled other mods'
-Check (-not (Test-Path -LiteralPath (Join-Path $autoOnly.OstranautsPath 'BepInEx/plugins/PhobosFramework'))) 'AutoNav acquired an unnecessary framework dependency'
+Check (((ReadOrder $autoOnly).aLoadOrder -join ',') -eq 'core,OCF|disabled,SWB|disabled,PhobosFramework,PhobosAutoNav') 'AutoNav selected only its own framework dependency'
+Check (Test-Path -LiteralPath (Join-Path $autoOnly.OstranautsPath 'BepInEx/plugins/PhobosFramework')) 'AutoNav shared economy provider missing'
 
 $libraryOnly = Fixture 'framework-only' @('core', 'OCF|disabled', 'SWB|disabled')
 & $installer @libraryOnly -Mods Framework | Out-Null
@@ -187,6 +187,23 @@ Check ((InstalledFiles $incomplete) -eq $before) 'Bad second package partially i
 
 # Missing shader input is also an incomplete package, before any mod is copied.
 Copy-Item -LiteralPath (Join-Path $PackageRoot 'PhobosShipbreaker-P0/Mods/PhobosShipbreaker/mod_info.json') -Destination $badVersion -Force
+# A coherent older provider package must still be rejected before any copying.
+# Only inert synthetic assemblies are built here; the installed game is untouched.
+$olderOutput = Join-Path $fixtures 'older-provider-output'
+& dotnet build (Join-Path $fixtureSource 'Fixture.csproj') -c Release -p:Version=0.4.99 -o $olderOutput --nologo -v quiet | Out-Null
+if ($LASTEXITCODE -ne 0) { throw 'Could not build the inert older-provider fixture.' }
+$frameworkMetadataRelative = 'PhobosFramework-P0/Mods/PhobosFramework/mod_info.json'
+$frameworkDllRelative = 'PhobosFramework-P0/BepInEx/plugins/PhobosFramework/PhobosFramework.dll'
+$olderMetadata = Join-Path $badPackages $frameworkMetadataRelative
+$olderInfo = @(Get-Content -LiteralPath $olderMetadata -Raw | ConvertFrom-Json)
+$olderInfo[0].strModVersion = '0.4.99'
+ConvertTo-Json -InputObject $olderInfo | Set-Content -LiteralPath $olderMetadata
+Copy-Item -LiteralPath (Join-Path $olderOutput 'PhobosFramework.dll') -Destination (Join-Path $badPackages $frameworkDllRelative) -Force
+Fails { & $installer @incomplete | Out-Null } 'Selected equipment requires Phobos Framework 0.6.0'
+Check ((InstalledFiles $incomplete) -eq $before) 'Old pairing provider partially installed packages'
+foreach ($relative in @($frameworkMetadataRelative, $frameworkDllRelative)) {
+    Copy-Item -LiteralPath (Join-Path $PackageRoot $relative) -Destination (Join-Path $badPackages $relative) -Force
+}
 # Regression: a DLL-only framework can load while the native menu reports Missing.
 # Keep a tracked empty definitions file so packaging and file-only installation
 # actually deliver the data directory required by the native loader.
@@ -208,6 +225,14 @@ Fails { & $installer @incomplete | Out-Null } 'framework/recipes.json'
 Check ((InstalledFiles $incomplete) -eq $before) 'Missing active construction pack partially installed content'
 Copy-Item -LiteralPath (Join-Path $PackageRoot 'PhobosShipbreaker-P0/Mods/PhobosShipbreaker/framework/recipes.json') -Destination $actualPack
 $missingNormal = Join-Path $badPackages 'PhobosShipbreaker-P0/Mods/PhobosShipbreaker/images/phobos/shipbreaker/PhobosShipbreakerInstalledNormal.png'
+foreach ($component in @('PhobosHullChute', 'PhobosExteriorGrabber', 'PhobosResidueCollector')) {
+    $relative = "PhobosShipbreaker-P0/Mods/PhobosShipbreaker/images/phobos/shipbreaker/$($component)Normal.png"
+    $missingHullNormal = Join-Path $badPackages $relative
+    Remove-Item -LiteralPath $missingHullNormal
+    Fails { & $installer @incomplete | Out-Null } "$($component)Normal.png"
+    Check ((InstalledFiles $incomplete) -eq $before) 'Missing machinery artwork partially installed packages'
+    Copy-Item -LiteralPath (Join-Path $PackageRoot $relative) -Destination $missingHullNormal
+}
 Remove-Item -LiteralPath $missingNormal
 Fails { & $installer @incomplete | Out-Null } 'PhobosShipbreakerInstalledNormal.png'
 Check ((InstalledFiles $incomplete) -eq $before) 'Missing artwork partially installed first mod'

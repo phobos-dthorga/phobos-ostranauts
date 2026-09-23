@@ -5,7 +5,25 @@ Decision: 24 September 2026. The owner selected our own shareable framework
 The purpose is reusable services for equipment and future material transport,
 not reproducing every feature of OCF or turning Ostranauts into a factory game.
 
-## Current candidate: Framework and Shipbreaker 0.2.0
+## Current candidate: Framework and Shipbreaker 0.6.0
+
+The [residue collector](residue-collector.md) adds a finite wall-mounted receiving
+chamber linked to one processor through structural flooring. Framework owns the
+existing same-object move plus small filter, clock, grid-search and saved-pair helpers;
+Shipbreaker owns physical rules and machinery. Five construction recipes register.
+The installer requires Framework 0.6.0 and verifies collector/intake artwork.
+Players choose one sender/receiver pair from either endpoint's controls. Pairing
+uses full object IDs in native saved property maps, following signal connections.
+Offline checks pass; gameplay and old-save loading remain owner tests. The earlier
+[connected intake](shipbreaker-hull-intake.md) is included unchanged in scope.
+
+Auto Nav 0.2.0 is now a second consumer. Shared merchant offers, stock condition,
+maintenance definitions, actual repair-lot residue and equipment save upgrades are
+implemented in 0.6.0; recipe packs can require reusable tools. See the current
+[economy and maintenance report](equipment-economy.md). Historical timings below
+describe the earlier prototype; the current report supersedes them.
+
+## Earlier independent construction baseline
 
 Framework packaging hotfix **0.2.1** (2026-09-24): the first game startup loaded
 Framework 0.2.0 and registered both Shipbreaker construction recipes, but the
@@ -95,16 +113,19 @@ notice in the Framework package. No upstream binary, game-derived definition blo
 or extracted artwork is distributed. See the [author guide](framework-author-guide.md)
 and the packages' `THIRD-PARTY.md` files.
 
-## Next shared feature: physical material transport
+## Current material transport boundary
 
-Conveyor/underfloor transport is **not implemented**. The first useful connection
-is one Shipbreaker output and one receiving port on the same ship. Move the
-actual item, retaining identity, mass, conditions and contents; do not destroy it
-and spawn a replacement. Keep pending cargo in the sender, reserve against crew
-handling, revalidate route/power/capacity at completion, and release reservations
-on interruption or reload. Full storage and invalid links must pause safely.
+The collector implements one explicitly selected output-to-port connection.
+Actual residue remains in the sender during its short clock; the checked move
+preserves identity and mass. Full storage waits and a broken route pauses.
+Competing crew removal invalidates the pending item, rather than imposing a
+global crew reservation. Reload retains physical cargo and endpoint pairs, clears
+the short timer and requires the player to press Start. Invalid/missing endpoints
+pause the route without reassignment. Explicit Unlink is available at either end.
+See [saved material-port pairing](material-port-pairing.md).
 
-Matching ship IDs alone does not establish structural continuity across severed
-hull sections. Define that rule and finite port capacity/transfer rate before
-implementation. Port concept artwork does not establish a pressure boundary or
-an implemented conveyor network. See [underfloor transport](underfloor-material-transport.md).
+The structural-floor route checks continuity across the ship; walls, gaps and
+exterior webbing cannot bridge it. This is an abstract underfloor service route,
+not placed belt segments or a general conveyor network. Collection remains ship
+cargo. Persistent release into space is still research. See
+[underfloor transport](underfloor-material-transport.md).

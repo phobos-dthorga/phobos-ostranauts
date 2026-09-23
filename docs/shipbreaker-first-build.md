@@ -1,46 +1,33 @@
 # Phobos Shipbreaker: first playable build
 
-Current candidate: **Shipbreaker 0.2.1 + Phobos Framework 0.2.1**. Construction and
-machinery now work through our provider and native definitions without OCF/SWB.
-Framework **0.2.1** subsequently fixes the native menu's false Missing status;
-the owner confirmed that correction in-game on 2026-09-24.
+Current candidate: **Shipbreaker 0.6.0 + Phobos Framework 0.6.0**, built against
+Ostranauts **1.0.1.4** and BepInEx **5.4.23.5**. Offline checks pass; installation
+and connected gameplay testing are pending the owner closing the running game.
 
-Shipbreaker **0.2.1** fixes the feed rejecting ordinary walls: the native wall is
-`IsCumbersome`, which the old solid-container filter forbade. A dedicated feed
-trigger now requires a wall panel and uses the native cumbersome-compatible
-container filter. Existing exact identity, mass, stack and four-panel checks still
-apply; installed and oversized items remain excluded. The separate 4 x 4 feed
-opens with its native title instead of appearing as an unlabeled child grid.
-F9 explains which grid accepts inputs and reports an empty feed explicitly.
-Floors may fit the 8 x 8 output storage but are not supported processing inputs.
+The approved **4 x 3 exterior grabber + 4 x 1 wall chute + 4 x 4 processor** now
+form a connected intake. Load detached walls at the grabber; the chute carries
+the same objects to the processor. Collect products from the processor's normal
+Inventory. The internal feed remains saved, but opens only through the explicit
+**Manual feed (fallback)** control. See the [placement and first-test guide](shipbreaker-hull-intake.md).
 
-The native data-only trigger evaluator reproduces the old rejection and accepts
-the ordinary wall with the corrected filter; it also rejects native loose floors,
-machinery, installed and oversized panels. This is an offline regression check,
-not an in-game success claim. After installing 0.2.1 and restarting, retry one
-ordinary loose wall in **Wall-panel feed**, then start the queue. Existing saved
-IDs, dimensions, contents and recipes are unchanged; no save editing is required.
+The 0.2.1 cumbersome-filter correction passed the native data check, but the owner
+still reported a grey inventory and rejected walls. No successful in-game feed or
+processing test is claimed. This version removes the two-grid ambiguity and adds a
+separate native loading inventory which accepts both cumbersome and small solids.
+Only eligible ordinary walls are processed; other cargo remains untouched.
 
-Offline checks passed. On 2026-09-24 the shared installer installed and verified
-Framework 0.2.0, Shipbreaker 0.2.0 and Auto Nav 0.1.1: 39 matching files and enabled
-native load-order entries. In-game startup and behaviour remain owner-tested work.
-Saved Phobos IDs, progress, dimensions, material bill and artwork are
-preserved. See the [migration details](phobos-framework.md).
-The previous **0.1.4** baseline was built against Ostranauts **1.0.1.4**, BepInEx
-**5.4.23.5**, Crafting Framework **0.8.71** and Salvage Workshop **0.8.71**.
-Its build and offline logic checks passed, and installation was verified on
-24 September 2026. The owner subsequently confirmed successful dependency/template checks,
-both construction recipes registered, and a good initial visual match in-game.
-**Processing and interruption behaviour remain unverified.** The attempted
-exterior-wall placement conflicts with this build's floor-mount rules; see the
-[mounting review and proposed hull attachment](shipbreaker-hull-mounting.md).
+Existing fixture IDs, dimensions, material bill and panel progress are preserved.
+The owner previously confirmed Framework's Missing-label fix and the processor's
+visual match. Migration and the connected machine behaviour remain unverified.
 
-Version 0.1.4 replaces the temporary art with the approved pixelated machine design
-and matching installed/damaged, transport/damaged, unfinished-section and residue
-forms. Machinery uses 64-pixel world textures; residue uses 16 pixels. All six
-have their own lighting maps and pixel-preserving inspection portraits. Existing
-saved object IDs, masses, footprints, recipes and progress are unchanged; no save
-rewrite is needed by design, but loading an older test save remains untested.
+The new [Residue Collector](residue-collector.md) adds a two-wide wall port with
+a four-packet inventory, saved sender/receiver pairing, structural-floor route and
+right-click controls. Choose a partner from either end; pairs survive reload and
+collection resumes manually. Material stays aboard; ejection is not implemented.
+
+Buy equipment from its intended merchants, repair second-hand stock, or build it
+with tools at a table. See [equipment economy and maintenance](equipment-economy.md)
+for prices, stock chances, material bills, work times and upgrade handling.
 
 ## What this build provides
 
@@ -62,7 +49,7 @@ capacity should be used from the outset; this build adopts the following baselin
 | Controls | F9 by default, or F3 console commands; selected crew must be beside the fixture to start, pause or cancel |
 | Save/load | Panel progress and chosen duration are saved; queue resumes only when started by the player |
 
-The output tray can retain prior results. New batches reserve space for every
+The output tray can retain prior results. New batches check space for every
 product, without merging existing stacks during completion. Available space
 therefore depends on actual item footprints and how the tray is arranged.
 Feed limits are enforced separately from its inventory grid size. Additional
@@ -99,10 +86,10 @@ then combine them with **Powered Dismantling Fixture**:
 
 | Stage | Inputs | Result | Work |
 | --- | --- | --- | --- |
-| Make a section, twice | 50 steel, 24 aluminium, 10 mechanical parts, 2 electronic parts per section | One unpowered 80 kg, 4 x 4 section per craft | 120 seconds each |
-| Finish the fixture | Two sections | One 160 kg, 4 x 4 fixture | 60 seconds |
+| Make a section, twice | 50 steel, 24 aluminium, 10 mechanical parts, 2 electronic parts per section | One unpowered 80 kg, 4 x 4 section per craft | 60 minutes each |
+| Finish the fixture | Two sections | One 160 kg, 4 x 4 fixture | 30 minutes |
 
-Total work remains 300 game seconds. Each section is a separate, unstackable
+Total assembly work is 150 game minutes, plus fetching and interruptions. Each section is a separate, unstackable
 physical item; arrange room for both near the workbench. It has no powered
 processing, installation or generic scrap role of its own. Native install, uninstall,
 damage and repair use our definitions and native game installation templates.
@@ -120,7 +107,7 @@ and the limits of their mass accounting.
 
 ## Install the prepared package
 
-Required dependencies: **BepInEx 5** and **Phobos Framework 0.2.0 or later**.
+Required dependencies: **BepInEx 5** and **Phobos Framework 0.6.0 or later**.
 OCF, Salvage Workshop, Auto Nav and Common Sense hauling are optional for this
 onboard processor. Keep other mods installed if the existing save contains their
 objects or other consumers require them; independence is not foreign-object
@@ -142,8 +129,7 @@ and options. The manual steps below are for a standalone ZIP without the install
 4. Copy `Mods/PhobosShipbreaker/` into `Ostranauts_Data/Mods/`.
 5. Enable the Phobos native data packages after core in
    the game's mod list. Both the plugin and the native data package are needed.
-6. Start a **separate test save**. Do not use the player's real save for this first
-   build. Retain the content packages and required providers when loading any save that contains the fixture
+6. Load your ordinary save. Retain the content packages and required providers when loading any save that contains the fixture
    or residue; removing a content mod from such a save is not a supported migration.
 
 At startup the BepInEx log should include `Shipbreaker definitions ready`.
@@ -151,7 +137,7 @@ Version 0.2.0 checks the loaded Phobos Framework version, our enabled native dat
 and the native definitions used by the independent machinery/construction path.
 It prepares definitions before publishing them; a failure
 during publication restores previous dictionary entries and removes new ones.
-Processing stays disabled until both construction recipes have registered too.
+Processing stays disabled until all five construction recipes have registered too.
 The upstream game/native generation phase remains outside that transaction.
 
 Use **`phobosshipbreaker dependencies`** for the startup snapshot: dependency
@@ -167,46 +153,43 @@ a supported transition exists. See the [dependency contingency plan](dependency-
 
 ## Try the useful loop
 
-For the 0.2.0 independence candidate, the new integration checks are:
+Follow the [hull intake placement and test steps](shipbreaker-hull-intake.md#first-owner-test).
+The chute mounts **over four intact walls**; leave the walls in place. The grabber
+sits outside, the processor inside, with all three touching and aligned.
 
-1. In a separate new save with OCF/SWB disabled, run `phobosframework status`
-   and `phobosshipbreaker dependencies`. Both construction stages should be ready.
-2. Use an installed Bar Table or Dining Table to make the two sections and final
-   fixture, then install and use it through the normal loop below. Native menus
-   show input/output quantities; normal material stacks should be accepted.
-3. In a separate copy of an older test save, keep providers needed by foreign
-   equipment. Check Phobos fixtures, feed/output contents and partial panel work
-   survive loading and remain paused. If there was queued Phobos construction,
-   check its original bench/material references and that it completes only once.
-4. With OCF/SWB present, their other recipes should remain available and each
-   Phobos construction stage should appear once. Do not remove those providers
-   from the player's real save to prove independence.
+At an installed Bar Table or Dining Table, the two original assembly recipes
+build the processor. **Sealed Hull Chute** and **Exterior Panel Grabber** build the
+new components. In a separate test save, native spawn commands can skip gathering
+construction stock:
 
-These are targeted migration checks, not a request to repeat isolated ordinary
-power-consumption tests. Report the version and the failing action if one fails.
+```text
+spawn PhobosShipbreakerLoose
+spawn PhobosHullChuteLoose
+spawn PhobosExteriorGrabberLoose
+spawn ItmWall1x1Loose
+```
 
-1. At an installed **Bar Table** or **Dining Table**, build two **Dismantling Fixture
-   Assembly Sections**, then join them with **Powered Dismantling Fixture**.
-   To skip gathering construction stock in the test save, the existing F3 console
-   accepts `spawn PhobosShipbreakerLoose`; use the normal Install action to place it.
-   `spawn ItmWall1x1Loose` supplies a comparison panel if needed. These are the
-   game's existing commands, not a Phobos diagnostic mode.
-2. Install on a clear 4 x 4 floor area with the normal electrical connection.
-3. Open its **Inventory** and place ordinary loose panels in the named **Wall-panel
-   feed** window (4 x 4). The larger fixture inventory (8 x 8) is output storage;
-   items placed there are not processing inputs. Floor panels are unsupported.
-4. Stand beside it, press **F9** (or your configured key), and choose **Start / resume queue**.
-5. Collect products from the separate output tray. When blocked, clear sufficient
-   space and resume. A blocked fixture stops cutting demand and keeps progress.
+Install normally, connect conduit, and load the detached wall through the
+**grabber's Inventory** while nearby (ordinary exterior/EVA access applies).
+Then stand beside the processor, press F9, check the connection status and choose
+**Start / resume pipeline**. Collect the full result from the processor's Inventory.
+A small solid may fit in the grabber without being a supported processing input.
 
-Pausing retains work on the actual panel. Cancelling clears queued panel progress
-and keeps the panels; spent energy is not refunded. Removing the active panel
-pauses the queue. Putting a different panel in its place does not inherit work.
-A partly processed original panel can resume its own work if returned.
+For standalone processing, use **Manual feed (fallback)** in F9 or
+`phobosshipbreaker feed`, put a wall in that explicitly named window, then Start.
+The usual processor Inventory is output storage. Its saved internal feed and the
+8 x 8 output tray retain their original identities and capacities.
 
-The interface uses the selected crew member's proximity; it does not remotely
-start a machine elsewhere on the ship or fetch panels automatically. Existing
-hauling orders can supply material, subject to the fixture's feed restrictions.
+Pause disarms intake and preserves panel processing progress. Cancel also clears
+work on queued panels already inside the processor; it does not erase work on
+panels still at the grabber. Reload waits for Start. Pending transfers retain their
+physical cargo at the sender and restart only their short motion delay.
+
+Check one complete batch before exploring interruptions. A blocked output retains
+the panel and processing progress; clear space and resume. Report any failure with
+`phobosshipbreaker status` and a screenshot. The targeted checks concern our new
+layout, transfers, saved state and material accounting, not an isolated proof of
+native power use. Older provider migration notes are in [Phobos Framework](phobos-framework.md).
 
 ## End-user settings
 
@@ -240,6 +223,7 @@ Each entry includes a description and, for numbers, an accepted range.
 | `Processing / ContinueQueue` | `true` | `false` processes one panel per Start command |
 | `Power / WorkingKilowatts` | `30` | 1–1000 kW total active demand; cannot be below idle demand |
 | `Power / IdleKilowatts` | `0.12` | 0.01–5 kW; remains positive for native power control |
+| `Intake / TransferSeconds` | `5` | 1–60 powered seconds per transfer; pending cargo stays in the grabber across reload |
 | `Controls / WindowKey` | `F9` | Unity key name such as `F10`; choose an unused key |
 
 Changing cycle duration affects panels that have not started. A started panel
@@ -264,9 +248,11 @@ checks as the panel.
 | `phobosshipbreaker status [fixture-ID]` | List fixtures on the selected crew member's ship, their IDs, progress and control blockers |
 | `phobosshipbreaker settings` | Show effective settings and the config filename |
 | `phobosshipbreaker dependencies` | Read-only startup dependency versions, template checks and construction registration; no fixture selection needed |
-| `phobosshipbreaker start [fixture-ID]` | Start or resume the queue |
-| `phobosshipbreaker pause [fixture-ID]` | Pause and retain progress |
-| `phobosshipbreaker cancel [fixture-ID]` | Clear work on all queued panels; keep panels; spent energy is not refunded |
+| `phobosshipbreaker start [fixture-ID]` | Start/resume connected intake and processing, or standalone manual-feed work |
+| `phobosshipbreaker pause [fixture-ID]` | Pause intake and processing, retaining material and panel progress |
+| `phobosshipbreaker cancel [fixture-ID]` | Pause intake; clear work on panels inside the processor; keep material, no energy refund |
+| `phobosshipbreaker feed [fixture-ID]` | Open the manual feed fallback explicitly |
+| `phobosshipbreaker products [fixture-ID]` | Open the output tray |
 
 Square brackets mean optional arguments; do not type the brackets. Omit the ID
 when only one fixture is aboard. With multiple fixtures, copy the exact ID from
@@ -302,7 +288,7 @@ Check the behaviour we added while using the fixture:
 - A tray that cannot hold the complete batch keeps the input and progress. Clearing
   it and resuming produces one batch, not a duplicate or partial result.
 - Save/reload a partly completed job. Progress should remain on that panel, and the
-  fixture should wait for Start / resume queue. If changing the cycle setting,
+  fixture should wait for Start / resume pipeline. If changing the cycle setting,
   check that this panel keeps its old duration and fresh panels use the new one.
 
 Report the visible result and any Phobos error in the BepInEx log. There is no need
@@ -337,7 +323,7 @@ hauling orders if they expose a specific issue in normal use.
   not implemented. The 30 kW / 60 s rating is a gameplay design value, not a claimed
   measured cutting rate. External cutting and autopilot remain later work.
 
-New IDs are prefixed `PhobosShipbreaker`. Recipe revision 1 is saved on a panel
+New IDs are prefixed `Phobos`; existing `PhobosShipbreaker` IDs remain unchanged. Recipe revision 1 is saved on a panel
 when work starts; unknown revisions are rejected and can be cancelled explicitly.
 Do not silently change saved progress meanings or rename item IDs in later builds.
 

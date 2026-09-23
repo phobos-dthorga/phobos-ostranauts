@@ -31,6 +31,9 @@ catch (AggregateException ex) { aggregate = ex.InnerExceptions.Count == 2; }
 Check(aggregate, "Initial write and recovery failures are both reported");
 Check(first.Count == 1 && first["existing"] == 10, "Other tables recover despite a rollback failure");
 ConstructionChecks.Run(Check);
+TransferChecks.Run(Check);
+RoutingChecks.Run(Check);
+PairingChecks.Run(Check);
 Console.WriteLine($"PASS: {checks} public-assembly and recovery checks. Shipbreaker tests also exercise this compiled provider.");
 
 sealed class FailingDictionary : Dictionary<string, int>, IDictionary<string, int>

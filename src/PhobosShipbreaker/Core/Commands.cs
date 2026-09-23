@@ -2,7 +2,7 @@ using System;
 
 namespace PhobosShipbreaker.Core;
 
-public enum CommandAction { Foreign, Invalid, Help, Status, Settings, Start, Pause, Cancel, Dependencies }
+public enum CommandAction { Foreign, Invalid, Help, Status, Settings, Start, Pause, Cancel, Dependencies, Feed, Products }
 
 public readonly struct Command
 {
@@ -18,7 +18,10 @@ public readonly struct Command
         + "phobosshipbreaker start [fixture-ID] - start or resume processing\n"
         + "phobosshipbreaker pause [fixture-ID] - pause, keeping progress\n"
         + "phobosshipbreaker cancel [fixture-ID] - clear queued work; keep panels, no energy refund\n"
+        + "phobosshipbreaker feed [fixture-ID] - open the manual feed fallback\n"
+        + "phobosshipbreaker products [fixture-ID] - open the product tray\n"
         + "Omit the ID only when there is one fixture on the selected crew member's ship. Stand beside it for controls.\n"
+        + "Residue collector controls: phoboscollector help\n"
         + "Test-save setup uses native commands: spawn PhobosShipbreakerLoose / spawn ItmWall1x1Loose. Install normally.";
 
     public static Command Parse(string? input)
@@ -38,6 +41,8 @@ public readonly struct Command
             case "start": action = CommandAction.Start; break;
             case "pause": action = CommandAction.Pause; break;
             case "cancel": action = CommandAction.Cancel; break;
+            case "feed": action = CommandAction.Feed; break;
+            case "products": action = CommandAction.Products; break;
             default: return new Command(CommandAction.Invalid);
         }
         if (words.Length == 3 && (action == CommandAction.Help || action == CommandAction.Settings || action == CommandAction.Dependencies))

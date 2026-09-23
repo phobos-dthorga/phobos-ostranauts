@@ -11,7 +11,10 @@ internal static class DependencyChecks
         check(DependencyContract.FrameworkProblem(null) != null, "Missing loaded framework is reported");
         check(DependencyContract.FrameworkProblem(new Version(0, 1, 9)) != null, "Too-old API baseline is blocked");
         check(DependencyContract.FrameworkProblem(new Version(0, 1, 0)) != null, "An old Phobos provider cannot satisfy new construction APIs");
-        foreach (var version in new[] { new Version(0, 2, 0), new Version(0, 2, 1), new Version(1, 0, 0) })
+        check(DependencyContract.FrameworkProblem(new Version(0, 2, 1)) != null, "Previous framework lacks the physical transfer API");
+        check(DependencyContract.FrameworkProblem(new Version(0, 3, 0)) != null, "Collector needs shared filter, clock and route helpers");
+        check(DependencyContract.FrameworkProblem(new Version(0, 4, 0)) != null, "Saved pairing needs the shared port API");
+        foreach (var version in new[] { new Version(0, 6, 0), new Version(0, 6, 1), new Version(1, 0, 0) })
             check(DependencyContract.FrameworkProblem(version) == null, "No invented upper version or age cutoff: " + version);
 
         var tables = DependencyContract.Required.ToDictionary(g => g.Table, g => g.Names.ToHashSet());
@@ -26,9 +29,9 @@ internal static class DependencyChecks
             tables[group.Table].Add(id);
         }
 
-        check(DependencyContract.MissingRecipes(_ => false).Count == 2, "Neither registered construction recipe is accepted as ready");
-        check(DependencyContract.MissingRecipes(id => id == DependencyContract.Recipes[0]).Count == 1, "A partially registered construction chain is blocked");
-        check(DependencyContract.MissingRecipes(id => DependencyContract.Recipes.Contains(id)).Count == 0, "Both construction stages are required");
+        check(DependencyContract.MissingRecipes(_ => false).Count == 5, "All five construction recipes must register");
+        check(DependencyContract.MissingRecipes(id => id == DependencyContract.Recipes[0]).Count == 4, "A partially registered construction chain is blocked");
+        check(DependencyContract.MissingRecipes(id => DependencyContract.Recipes.Contains(id)).Count == 0, "All construction stages are available");
 
         var first = new Dictionary<string, int> { ["existing"] = 10, ["foreign"] = 20 };
         var second = new FaultingDictionary { ["existing"] = 30 };

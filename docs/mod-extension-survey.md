@@ -11,6 +11,11 @@ and reviews reuse for solids processing and life support. The owner's subsequent
 recommendation to require OCF/SWB. Keep the dated evidence below as historical;
 it does not describe every current package or current dependency requirement.
 
+**Later 2026-09-24 refresh:** [disposal-port research](material-disposal-port-research.md)
+records 34 known packages (29 configured enabled, 5 disabled). It confirms the
+installed Common Sense Salvage and Storage 0.12.14 package's MIT licence and
+physical-hauling/filter precedent; no reusable conveyor/ejection API was verified.
+
 ## Owner preferences
 
 - Extend worthwhile community work instead of repeatedly implementing equivalent

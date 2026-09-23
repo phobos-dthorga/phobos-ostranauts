@@ -2,11 +2,11 @@
 
 **Visual direction approved by the owner on 24 September 2026.** Preserve these
 intact designs when deriving production forms. Approval concerns appearance;
-mounting, sealing and transfer behaviour still need implementation and testing.
+mounting and transfer behaviour now have a 0.3.0 implementation awaiting gameplay testing.
 
 24 September 2026. Original concepts generated with ChatGPT's built-in Imagegen
-tool for the owner's hull-intake proposal. These are review artwork, not installed
-content or a claim that mounting, pressure transfer or external cutting works.
+tool for the owner's hull-intake proposal. Shipbreaker 0.3.0 packages mechanical
+exports of these approved masters. This is not a claim of verified in-game operation.
 
 ![Both concepts at game pixel scale beside the existing fixture](previews/hull-intake-scale-comparison.png)
 
@@ -33,15 +33,20 @@ is not a verified assembly screenshot or exact socket alignment.
 Run `scripts/export-hull-intake-concepts.ps1`. It checks master SHA-256 hashes from
 [sources.json](sources.json), exports two rectangular previews and their eightfold
 enlargements, and composes the comparison using our existing fixture sprite.
-It changes no mod package, installed file or saved object.
+Without arguments it changes only previews. `-Runtime` also exports six files into
+the mod: a colour texture, flat technical normal map and padded 256 x 256 portrait
+per component. The build calls this mode. Neither mode modifies installed files or saves.
 
 The chute's square master is cropped to the recorded central 1254 x 314 region
 before nearest-neighbour reduction. This removes surrounding empty canvas and
 35 faint generated alpha specks (all below 128); no pixels with alpha >=128 lie
 outside that crop. Its painted silhouette is shallower than the full one-tile
 canvas. The grabber uses its complete 4:3 canvas. Generated alpha within both
-regions is retained. Final opacity cleanup, normal maps, damaged/loose states
-and connection registration remain production work after design selection.
+regions is retained in preview-only mode. Runtime mode thresholds alpha at 128,
+retains RGB and uses nearest-neighbour scaling. Installed/loose/damaged definitions
+currently share each approved static assembly; native damage tint and names identify
+damage. Bespoke damage/transport forms remain future art work. Flat normals avoid
+inventing geometry from paint brightness.
 
 ## Provenance
 

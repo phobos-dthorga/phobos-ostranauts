@@ -1,8 +1,10 @@
 # Phobos Auto Nav: standalone adaptation
 
-**0.1.1 prototype; compiled against Ostranauts 1.0.1.4 / BepInEx 5.4.23.5 on
-2026-09-23. Not tested in-game or installed by this task.** Auto Navigate remains
-disabled in the owner's loading order. No game session or save was changed.
+**0.2.0 candidate; built against Ostranauts 1.0.1.4 / BepInEx 5.4.23.5.**
+Ordinary saves are the baseline from 2026-09-24. Phobos Framework 0.6.0+ now
+provides shared construction, merchant and maintenance services. No original Auto
+Navigate dependency. See [prices, acquisition and service bills](equipment-economy.md).
+In-game validation of this update remains pending.
 
 The owner requested a standalone adaptation instead of a Workshop dependency,
 with original-author credit, and clarified that public releases are the intended
@@ -15,7 +17,7 @@ That note has not been sent. No blanket community reuse grant is claimed.
 
 - Standalone `PhobosAutoNav.dll`, separate `PhobosNavModAutoNav` native module and
   damaged variant. **No AutoNavigate.dll reference or runtime dependency.** Uses
-  BepInEx 5 and native motherboard behaviour, with the owner's approved original
+  BepInEx 5, Phobos Framework and private Phobos board definitions, with the owner's approved original
   Phobos faceplate and intact/damaged item artwork.
 - Reuses Gravy/mrkmg's guidance and target prediction rather than building another
   approach controller. No inherited vendor/loot injection or artwork is included.
@@ -41,9 +43,9 @@ That note has not been sent. No blanket community reuse grant is claimed.
   third-party autopilot arbitration system.
 - Loading/new games disarm. No automatic resumption or persistent active-flight
   state is implemented. **Stop means clear commanded thrust and coast, not brake.**
-- This first version only flies or creates items in saves named
-  `PhobosAutoNavTest` or `PhobosAutoNavTest-...` (including their numbered autosaves).
-  No switch bypasses that prototype restriction.
+- Ordinary saves can fly and use the explicit debug spawn command. There is no
+  save-name restriction. Merchants and table assembly are the normal acquisition
+  paths; hardware, power, fuel and conflicting-control checks still apply.
 
 ## Settings and commands
 
@@ -66,10 +68,10 @@ F3 commands:
 
 | Command | Purpose |
 | --- | --- |
-| `phobosnav help` | Command list and test-save restriction |
-| `phobosnav status` | Version, engagement, test-save gate and last result |
+| `phobosnav help` | Command list and ordinary-save usage |
+| `phobosnav status` | Version, engagement, economy registration and last result |
 | `phobosnav settings` | Effective flight defaults and config filename |
-| `phobosnav spawn` | Add one module to an open compatible test console |
+| `phobosnav spawn` | Add one module to an open compatible console (debug grant) |
 | `phobosnav fly` | Engage through the same checks as the panel |
 | `phobosnav stop` | Clear commanded thrust and coast |
 
@@ -100,22 +102,23 @@ For a later owner-run test, close the game and use
 updates and previews. Keep original Auto Navigate disabled and confirm it does
 not load. Installation is separate from the owner-run gameplay test.
 
-For a standalone ZIP without this repository's installer, copy the package's
+For a standalone ZIP without this repository's installer, install the separate
+PhobosFramework-P0 package first (plugin and native metadata), then copy the package's
 `BepInEx/plugins/PhobosAutoNav` directory into the game's corresponding plugins
 directory and `Mods/PhobosAutoNav` into `Ostranauts_Data/Mods`. Enable that native
 data package through the normal game mod controls. Keep original Auto Navigate
 disabled and confirm it does not load.
 
-Create a separate named test save, open a powered nav console, use `phobosnav spawn`,
-reopen the console and place the module using Edit. Select another ship/station
+In an ordinary save, buy or assemble a module and fit it to a powered nav console.
+The explicit `phobosnav spawn` command remains available for debugging. Reopen the
+console and place the module using Edit. Select another ship/station
 with ample clearance and set a nonzero throttle before using Fly.
 
 ## Verification and remaining checks
 
 Build passed without warnings. Offline numerical checks exercised braking from
 100 m/s to 0 or 20 m/s across five headings and five time steps: bounded aggregate
-throttle, decreasing speed, no reversal, invalid-data rejection and correct test-save
-gating. This verifies our new calculation, not the inherited guidance in-game.
+throttle, decreasing speed, no reversal and invalid-data rejection. This verifies our new calculation, not the inherited guidance in-game.
 Package checks parse native JSON, verify artwork paths, dimensions, transparency
 and the approved faceplate hash, and ensure Auto Navigate is neither referenced
 nor bundled. Established module/UI and native RCS patterns are reused without

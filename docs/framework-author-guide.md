@@ -1,9 +1,10 @@
-# Phobos Framework 0.2.0 — author guide
+# Phobos Framework 0.6.0 — author guide
 
 This experimental Ostranauts library supplies definition registration, native
-mass-balanced construction, grid placement planning and production completion.
-It is independent of OCF/SWB, but is not a drop-in reader for OCF packs. Conveyors,
-machine scheduling and transport persistence are not implemented.
+mass-balanced construction, grid placement, production completion and physical transfers,
+with exact-ID filters, item-bound transfer clocks and bounded grid route search.
+It is independent of OCF/SWB, but is not a drop-in reader for OCF packs. A general
+conveyor network, machine scheduling and saved transport jobs are not implemented.
 ## Build and install
 
 From the repository root, with PowerShell 7 and the .NET SDK used by this project:
@@ -41,7 +42,7 @@ not distribute another provider copy. Declare a BepInEx dependency:
 using BepInEx;
 using Phobos.Ostranauts.Framework;
 
-[BepInDependency(FrameworkInfo.PluginId, "0.2.0")]
+[BepInDependency(FrameworkInfo.PluginId, "0.6.0")]
 // Other normal BepInPlugin/BepInProcess attributes belong on your plugin here.
 public sealed class MyPlugin : BaseUnityPlugin { }
 ```
@@ -161,6 +162,30 @@ It cannot make a faulty engine adapter safe, enforce recipe mass, lock concurren
 consumers, restore items after a crash, or move cargo. See Shipbreaker's
 `ProcessingService.NativeDelivery` for the current engine integration.
 
+## Physical item transfers (0.3.0)
+
+`PhysicalTransfer.Commit(IPhysicalTransfer)` moves one existing object on the game
+thread. It returns false for a blocked preflight, true when delivered (including
+an already-delivered call), and throws on a fault. Adapters report actual source,
+destination and detached ownership; implement `Prepare`, `Detach`, `Place` and
+`Restore`. A failed move restores a detached item where possible. If placement
+already succeeded, it never creates another copy at the source. Ambiguous ownership
+or failed recovery raises an error requiring inspection; callers must stop.
+
+`NativeItemTransfer(sourceContainer, destinationContainer, item)` supplies the
+native adapter for one unstacked item between finite containers on the same loaded
+ship. It checks same-ship ownership, containment filters and grid space, uses native removal/insertion
+and retains the object identity and its conditions. Call `Redraw()` after a
+successful commit. It does not merge, clone, consume or split items.
+
+The consumer must check its own permissions, item eligibility, machinery layout,
+power, timing and capacity rules immediately before committing. The adapter is a
+low-level operation, not a conveyor network or authority to move arbitrary cargo.
+Native methods can throw after partial side effects; this helper cannot make them
+database-atomic or crash-safe. A failure is a pause-and-inspect event, not an automatic
+retry loop. See Shipbreaker's intake service for a bounded use with actual cargo
+retained at the sender during the powered transfer delay.
+
 ## Definition registration
 
 ```csharp
@@ -182,6 +207,66 @@ and recovery errors. Stop startup/production and require correction/restart;
 do not treat that result as a clean rollback. A committed transaction cannot be
 undone through this API. It does not recover missing providers in existing saves.
 
+## Small transport helpers (0.4.0)
+
+All three are in `Phobos.Ostranauts.Framework.Inventory` and contain no game-world
+mutations:
+
+- `ItemDefinitionFilter(IEnumerable<string>)` snapshots an exact, case-sensitive
+  allowlist. `Allows(string)` rejects null/unknown IDs. An empty list accepts
+  nothing. It does not infer categories, names, value, dimensions or recipe yields.
+- `TransferClock(itemId, duration)` binds 1–60 seconds of work to an item.
+  `Advance(itemId, elapsed, powered)` rejects changed identities, invalid deltas
+  and gaps over 60 seconds; unpowered calls earn nothing. Progress caps at Duration.
+  The owner manages pause/reload, checks current ownership and binds credit to an
+  actual paid power interval. This class neither charges electricity nor saves itself.
+- `GridRoute.Find(columns, rows, starts, goals, allowed, visitLimit = 4096)` returns
+  an array of row-major cell indices, including both endpoints, or null. It uses
+  cardinal neighbours, never wraps row boundaries, and bounds discovered cells.
+  A null result can mean disconnected topology or a reached search limit. The
+  caller supplies traversability, validates the current path again before a move,
+  and owns physical infrastructure, costs and cross-ship policy.
+
+Shipbreaker uses these helpers for a finite residue collector. Floor sockets,
+wall support, filters' chosen IDs, timing/balance and UI remain consumer concerns.
+Other mods need neither Shipbreaker nor its recipes. There is no global route
+registry, endpoint discovery, lock manager or automatic native-power patch here.
+
+## Saved material ports (0.5.0)
+
+`MaterialPort(objectId, portId, propertyMaps)` wraps one stable logical endpoint
+in the object's native `mapGUIPropMaps` dictionary. Use the full persistent
+`CondOwner.strID` and a namespaced port ID that remains stable across releases.
+Constructing a wrapper does not create a link. No separate data registration,
+save patch or outside save file is required.
+
+```csharp
+var sender = new MaterialPort(source.strID, "Example.MaterialOut", source.mapGUIPropMaps);
+var receiver = new MaterialPort(destination.strID, "Example.MaterialIn", destination.mapGUIPropMaps);
+// Perform your access, equipment and route checks first.
+bool linked = PortPairing.TryLink(sender, receiver, out string problem);
+bool stillPaired = PortPairing.Matches(sender, receiver);
+PortLink snapshot = PortPairing.Read(receiver);
+// Explicit user action; resolve the saved peer first if it is available.
+PortPairing.Unlink(receiver, sender);
+```
+
+`Read` returns `Unlinked`, `Linked` or `Invalid`. `Linked` means a well-formed
+local record, not a resolved or usable route: always require `Matches` on both
+resolved endpoints before moving cargo. It checks full addresses, direction and
+pair token. `TryLink` refuses occupied/invalid endpoints and is idempotent for an
+existing exact pair. `Unlink` clears only its endpoint and an exact reciprocal
+peer, permitting safe orphan cleanup. Call these helpers on the game's main
+thread, after consumer access checks. They mutate only their namespaced maps.
+
+`ShortId` is presentation only. Persist/resolve full IDs. Native property-map
+saves and mode switches preserve the records; missing or malformed links block
+use. Preserve unknown-version records until explicit user cleanup. A consumer
+must still decide whether a peer is loaded, local, installed, unlocked and valid,
+and must invalidate in-flight work when its pair changes. Never treat a saved
+link as automatic permission to run. Shipbreaker's first use resumes manually.
+See [native precedent, format and tests](material-port-pairing.md).
+
 ## Validation and provenance
 
 The framework's consumer tests reference its built DLL. Shipbreaker's existing
@@ -189,3 +274,39 @@ checks exercise that same DLL for mixed inventory placement, interrupted deliver
 and registration rollback. They do not load the game or prove engine compatibility.
 Original code/documentation and adapted construction portions carry MIT notices; retain all included notices
 when reusing them. See `THIRD-PARTY.md` for scope and exclusions.
+
+
+## Equipment economy and maintenance (0.6.0)
+
+`Trading.MarketStock.Add(definitions, merchantLoot, offerId, itemId, probability,
+condition)` appends one namespaced offer, retaining native/other-mod entries. Call
+during `ContentLoading`, then publish the prepared definitions. Use a unique Phobos
+offer ID and a probability in (0,1]. The framework availability setting scales it
+and caps it at one. Each offer yields at most one item. Conditions are Pristine,
+Refurbished, Worn (15% wear), or Broken (supply a damaged definition). Native
+merchant stock updates normally; registration never forces restocking.
+
+`Registration.MaintenanceDefinitions` supplies native Restore/Dismantle builders,
+stat replacement, and a runtime-referenced remainder item helper. Supply your
+own balance and output arrays. Restore reduces wear in place. Dismantling
+registers shared cargo/repair-lot guards; `emptyInternalBin` permits only a named,
+empty, zero-mass system slot, removed at completion. `ReturnRepairMaterials`
+registers a repair finish action to return actual lot mass in 0.5 kg spent packs.
+No new world artwork or game data files are copied. Native finish actions remain
+responsible for replacement, placement and lot consumption.
+`LegacyFinish(savedDefinition, oldAction, newAction)` redirects an explicitly
+known queued finish for that object only; Auto Nav uses it to keep old board jobs
+mass-balanced without changing generic vanilla jobs.
+
+`EquipmentSaveUpgrade.Register(definitions, savedId, definitionId, legacyMount,
+legacyRepair)` opts an item into the first-economy migration. It clones incoming
+save DTOs, refreshes price/missing work limits and preserves busy progress limits;
+it never opens save files. Use it only for coordinated migrations with known old
+thresholds. It is not a generic save-recovery or arbitrary-version migration API.
+
+Recipe schema 1 optionally accepts `toolTriggers`, up to eight distinct native
+tool selectors. They are reusable tools fetched through native `Use` handling,
+not mass-bearing ingredients. Existing packs omitting the field still work.
+Output overlays are supported only when their base defines explicit mass and they
+have no arbitrary condition loot. Consumer prices, repair bills, yields and stock
+locations belong in the consumer. See [current consumer balance](equipment-economy.md).

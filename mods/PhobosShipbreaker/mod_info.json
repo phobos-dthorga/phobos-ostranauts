@@ -4,7 +4,7 @@
     "strAuthor": "phobosgekko",
     "strModURL": "https://github.com/phobos-dthorga/phobos-ostranauts",
     "strGameVersion": "1.0.1.4",
-    "strModVersion": "0.2.1",
-    "strNotes": "Requires Phobos Framework 0.2.0+ and the accompanying Phobos Shipbreaker plugin. Independent of Crafting Framework and Salvage Workshop. Build at installed Bar/Dining Tables; existing Workshop benches are optional. Original 4 x 4 fixture artwork and mass-balanced processing. Use a separate test save; in-game migration pending owner verification."
+    "strModVersion": "0.6.0",
+    "strNotes": "Requires Phobos Framework 0.6.0+ and the Shipbreaker plugin. Build the processor, wall chute, exterior grabber and residue collector at installed tables. Load detached walls at the grabber; F9 controls processing. Link one sender to one receiver from either endpoint's routing controls. Pairs survive reload; collection resumes manually over structural flooring. Residue remains aboard; no ejection or external hull cutting yet. In-game testing pending. Equipment economy: additive merchant stock, condition-aware offers, construction tools, mass-balanced service and dismantling. Ordinary saves supported; economy integration awaits gameplay validation."
   }
 ]

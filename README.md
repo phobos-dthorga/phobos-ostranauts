@@ -12,7 +12,7 @@ See the [endurance direction](docs/project-direction.md#long-term-habitation-and
 This is a private development workspace with public mod releases intended later.
 The original Approach Assist prototype provides a short test pulse. A separate
 [Phobos Auto Nav standalone adaptation](docs/auto-navigate-adaptation.md) now
-implements approach and braking for owner-run test-save evaluation; it is not yet
+implements approach and braking for ordinary saves and owner-run evaluation; it is not yet
 tested in-game. Attribution and upstream licensing uncertainty are recorded in
 [third-party notices](THIRD_PARTY_NOTICES.md).
 
@@ -48,6 +48,7 @@ with a smaller setup appropriate to this project's current scope.
 
 ## Start here
 
+- [Equipment prices, merchants, maintenance and salvage](docs/equipment-economy.md)
 - [One-command mod installation and updates](docs/installing-mods.md) — or double-click
   `Install or Update Mods.cmd` after closing the game.
 - [Project direction](docs/project-direction.md)
@@ -60,6 +61,8 @@ with a smaller setup appropriate to this project's current scope.
 - [Ship equipment art study and Shipbreaker visual direction](docs/ship-equipment-art-study.md)
 - [Shipbreaker outputs: existing repair and construction uses](docs/shipbreaker-material-uses.md)
 - [Shipbreaker expansion: shredding, recycling and asteroid feedstocks](docs/shipbreaking-material-processing-research.md)
+- [Hull disposal port: filters, external collection and persistent ejecta](docs/material-disposal-port-research.md)
+- [Residue Collector: placement, controls and testing](docs/residue-collector.md)
 - [Asteroid resources for water, oxygen, nitrogen and nutrients](docs/asteroid-life-support-research.md)
 - [Current mod inventory and extension opportunities](docs/mod-extension-survey.md)
 - [Dependency maintenance and fallback plan](docs/dependency-contingencies.md)
@@ -85,11 +88,17 @@ The locator proposal was set aside because an existing mod already meets the
 owner's immediate need and is being used now.
 Current development priority: powered shipbreaking and a reusable **Phobos Framework**
 that replaces our OCF/Salvage Workshop requirements. Framework and Shipbreaker
-0.2.0 provide independent construction at native tables, Phobos machinery
-definitions, shared registration and inventory services. Conveyor transport is
-planned; it is not implemented. Framework/Shipbreaker 0.2.0 and Auto Nav 0.1.1
-were installed and file/load-order verified on 2026-09-24. In-game startup and
-behaviour testing remain with the owner.
+**0.6.0** include physical-item transfers and the approved exterior grabber / wall
+chute / indoor processor layout, alongside independent construction at native
+tables. The [connected intake](docs/shipbreaker-hull-intake.md) is packaged for
+owner gameplay testing. The new [residue collector](docs/residue-collector.md)
+receives four residue packets through a checked structural-floor route, with its
+own Control Panel and console commands. [Saved endpoint pairing](docs/material-port-pairing.md)
+lets players choose one sender and receiver from either end; pairs survive reload
+and collection resumes manually. Cargo remains aboard; persistent ejection
+and a general conveyor network remain future work.
+The economy update adds merchant offers, mass-balanced maintenance and ordinary-save
+Auto Nav 0.2.0 using Framework 0.6.0. Installation awaits the game closing. Existing 0.2.1 files remain installed.
 Framework 0.2.1 subsequently fixes its false Missing status in the native mod
 menu; the owner confirmed the correction after restart on 2026-09-24.
 The first 4 x 4 fixture build includes a mass-balanced panel recipe, user settings

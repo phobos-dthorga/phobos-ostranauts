@@ -12,12 +12,24 @@ internal sealed class Settings
     internal double WorkingKW { get; }
     internal double IdleKW { get; }
     internal bool ContinueQueue { get; }
+    internal double TransferSeconds { get; }
+    internal double CollectorSeconds { get; }
+    internal double CollectorKW { get; }
+    internal bool CollectorContinue { get; }
     internal KeyCode ControlsKey { get; }
 
     internal Settings(ConfigFile config)
     {
         CycleSeconds = Number(config, "Processing", "CycleSeconds", ProcessRules.CycleSeconds, 10, 3600,
             "Seconds of powered work for a NEW panel. Started panels keep their saved duration. Restart the game after editing.");
+        TransferSeconds = Number(config, "Intake", "TransferSeconds", IntakeRules.TransferSeconds, 1, 60,
+            "Powered seconds to move one detached wall through the chute. Pending moves stay in the grabber; reload resets only this short delay. Restart after editing.");
+        CollectorSeconds = Number(config, "Collector", "TransferSeconds", CollectorRules.CycleSeconds, 1, 60,
+            "Powered seconds per residue packet. Pausing retains this short clock in-session; reload resets the clock and pauses; saved endpoint links remain. Restart after editing.");
+        CollectorKW = Number(config, "Collector", "WorkingKilowatts", CollectorRules.WorkingKW, CollectorRules.IdleKW, 100,
+            "Total collector operating power in kW; idle is 0.05 kW. Restart after editing.");
+        CollectorContinue = config.Bind("Collector", "ContinueQueue", true,
+            "Continue collecting residue after each transfer. False collects one packet per Start. Always paused after reload. Restart after editing.").Value;
         IdleKW = Number(config, "Power", "IdleKilowatts", ProcessRules.IdleKW, 0.01, 5,
             "Idle electrical demand in kW. Must remain positive for native power control. Restart after editing.");
         WorkingKW = Math.Max(IdleKW, Number(config, "Power", "WorkingKilowatts", ProcessRules.ActiveKW, 1, 1000,

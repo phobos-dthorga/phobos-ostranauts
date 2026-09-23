@@ -37,7 +37,24 @@ if ('Shipbreaker' -in $Mods) {
         $needsPhobosFramework = [version]$shipInfo[0].strModVersion -ge [version]'0.1.5'
         $independentShipbreaker = [version]$shipInfo[0].strModVersion -ge [version]'0.2.0'
         if ($independentShipbreaker) { $minimumPhobosFramework = [version]'0.2.0' }
+        if ([version]$shipInfo[0].strModVersion -ge [version]'0.3.0') { $minimumPhobosFramework = [version]'0.3.0' }
+        if ([version]$shipInfo[0].strModVersion -ge [version]'0.4.0') { $minimumPhobosFramework = [version]'0.4.0' }
+        if ([version]$shipInfo[0].strModVersion -ge [version]'0.5.0') { $minimumPhobosFramework = [version]'0.5.0' }
+        if ([version]$shipInfo[0].strModVersion -ge [version]'0.6.0') { $minimumPhobosFramework = [version]'0.6.0' }
         if ($needsPhobosFramework) { $Mods = @('Framework') + @($Mods | Where-Object { $_ -ne 'Framework' }) }
+    }
+}
+if ('AutoNav' -in $Mods) {
+    $navPackage = if ($overrideMod -eq 'AutoNav') { $PackagePath } else { Join-Path $PackageRoot 'PhobosAutoNav-P0' }
+    $navMetadata = Join-Path $navPackage 'Mods/PhobosAutoNav/mod_info.json'
+    if (Test-Path -LiteralPath $navMetadata -PathType Leaf) {
+        $navInfo = @(Get-Content -LiteralPath $navMetadata -Raw | ConvertFrom-Json)
+        if ($navInfo.Count -ne 1) { throw 'Expected exactly one native mod metadata entry for PhobosAutoNav.' }
+        if ([version]$navInfo[0].strModVersion -ge [version]'0.2.0') {
+            $needsPhobosFramework = $true
+            if ($minimumPhobosFramework -lt [version]'0.6.0') { $minimumPhobosFramework = [version]'0.6.0' }
+            $Mods = @('Framework') + @($Mods | Where-Object { $_ -ne 'Framework' })
+        }
     }
 }
 $locations = Resolve-InstallLocations $OstranautsPath $LoadOrderPath $settingsFile
@@ -97,7 +114,7 @@ foreach ($mod in $Mods) {
     }
     if (@(Get-ChildItem -LiteralPath $pluginSource -Recurse -File -Force).Count -ne 1) { throw "Unexpected plugin package files for $id." }
     if ($mod -eq 'Framework') {
-        if ($needsPhobosFramework -and $version -lt $minimumPhobosFramework) { throw "Shipbreaker requires Phobos Framework $minimumPhobosFramework or later." }
+        if ($needsPhobosFramework -and $version -lt $minimumPhobosFramework) { throw "Selected equipment requires Phobos Framework $minimumPhobosFramework or later." }
         $intendedDll = Join-Path $pluginTarget 'PhobosFramework.dll'
         $plugins = Join-Path $gameRoot 'BepInEx/plugins'
         if (Test-Path -LiteralPath $plugins) {
@@ -118,12 +135,21 @@ foreach ($mod in $Mods) {
         'Framework' { 'data/conditions/phobos_framework.json' }
         'ApproachAssist' { 'data/cooverlays/phobos_approach_assist.json'; 'data/guipropmaps/phobos_approach_assist.json' }
         'AutoNav' {
+            if ($version -ge [version]'0.2.0') { 'framework/recipes.json' }
             'data/cooverlays/phobos_approach_assist.json'; 'data/guipropmaps/phobos_approach_assist.json'
             foreach ($image in @('Panel', 'Module', 'ModuleDmg', 'ModulePortrait', 'ModuleDmgPortrait', 'ModuleNormal')) {
                 "images/phobos/autonav/PhobosAutoNav$image.png"
             }
         }
         'Shipbreaker' {
+            if ($version -ge [version]'0.4.0') {
+                foreach ($suffix in @('', 'Normal', 'Portrait')) { "images/phobos/shipbreaker/PhobosResidueCollector$suffix.png" }
+            }
+            if ($version -ge [version]'0.3.0') {
+                foreach ($hardware in @('PhobosHullChute', 'PhobosExteriorGrabber')) {
+                    foreach ($suffix in @('', 'Normal', 'Portrait')) { "images/phobos/shipbreaker/$hardware$suffix.png" }
+                }
+            }
             'crafting/recipes.json'; 'data/conditions/phobos_shipbreaker.json'; 'data/condtrigs/phobos_shipbreaker.json'
             if ($version -ge [version]'0.2.0') { 'framework/recipes.json' }
             if ($version -ge [version]'0.1.4') {

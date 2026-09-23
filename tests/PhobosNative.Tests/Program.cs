@@ -14,6 +14,7 @@ string native = Path.Combine(game, "Ostranauts_Data", "StreamingAssets", "data")
 int checks = 0;
 void Check(bool condition, string message) { if (!condition) throw new Exception(message); checks++; }
 void Throws(Action call, string message) { bool threw = false; try { call(); } catch { threw = true; } Check(threw, message); }
+PairingSaveChecks.Run(Check);
 void Load<T>(string folder, Dictionary<string,T> destination, Func<T,string> key)
 {
     foreach (string file in Directory.GetFiles(folder, "*.json", SearchOption.AllDirectories))
@@ -22,6 +23,7 @@ void Load<T>(string folder, Dictionary<string,T> destination, Func<T,string> key
 DataHandler.dictCOs = new(); DataHandler.dictItemDefs = new(); DataHandler.dictConds = new();
 DataHandler.dictCTs = new(); DataHandler.dictInteractions = new(); DataHandler.dictLoot = new();
 DataHandler.dictSlots = new(); DataHandler.dictPowerInfo = new(); DataHandler.dictInstallables = new();
+DataHandler.dictCOOverlays = new();
 Load(Path.Combine(native, "condowners"), DataHandler.dictCOs, x => x.strName);
 Load(Path.Combine(native, "items"), DataHandler.dictItemDefs, x => x.strName);
 Load(Path.Combine(native, "conditions"), DataHandler.dictConds, x => x.strName);
@@ -66,7 +68,39 @@ foreach (string forbidden in new[] { "IsInstalled", "IsOversized" })
 Check(!feedTrigger.TriggeredDataCO(new DataCO(DataHandler.dictCOs[Content.Loose]), false), "Cumbersome machinery cannot enter the wall feed");
 foreach (var machine in prepared.Objects.Values.Where(x => Content.IsMachine(x.strName)))
     Check(!machine.dictSlotsLayout.ContainsKey(Content.InputSlot), "Native feed window retains its title on " + machine.strName);
-Check(prepared.Objects.Count == 7 && prepared.Installables.Count == 6, "Complete independent machine family");
+Check(prepared.Objects.Count == 20 && prepared.Installables.Count == 49, "Four complete machine families plus section salvage and full maintenance");
+Check(prepared.Slots[Content.InputSlot].bHide, "Ordinary processor Inventory no longer exposes two grids");
+var grabber = prepared.Objects[IntakeRules.Grabber + "Installed"];
+var grabberTrigger = DataHandler.dictCTs[grabber.strContainerCT];
+Check(grabberTrigger.TriggeredDataCO(wallData, false), "Native grabber inventory accepts the cumbersome wall");
+Check(grabberTrigger.TriggeredDataCO(new DataCO(DataHandler.dictCOs["ItmScrapSteel"]), false), "Cumbersome-capable grabber also accepts small solids");
+var chuteItem = prepared.Items[IntakeRules.Chute + "Installed"];
+var grabberItem = prepared.Items[IntakeRules.Grabber + "Installed"];
+Check(chuteItem.nCols == 4 && chuteItem.aSocketAdds.Length == 4 && chuteItem.aSocketReqs.Length == 18, "Chute is one row of four native tiles");
+Check(grabberItem.nCols == 4 && grabberItem.aSocketAdds.Length == 12 && grabberItem.aSocketReqs.Length == 30, "Grabber is four by three with native padding");
+Check(chuteItem.aSocketReqs.Count(x => x == "TILWall") == 4 && chuteItem.aSocketAdds.All(x => x == "TILWallDecoAdds"), "Chute requires existing walls and cannot create its own pressure boundary");
+Check(grabberItem.aSocketReqs.Skip(25).Take(4).All(x => x == "TILWall") && !grabberItem.aSocketReqs.Contains("TILFloor"), "Exterior grabber requires the adjacent rear wall row, not interior flooring");
+Check(!prepared.Loot["PhobosHullChuteForbids"].aCOs.Any(x => x.StartsWith("IsWall=") || x.StartsWith("IsConduit=")), "Chute does not forbid its wall support or separate electrical conduit");
+foreach (var item in prepared.Items.Values)
+foreach (string socket in (item.aSocketAdds ?? Array.Empty<string>()).Concat(item.aSocketReqs ?? Array.Empty<string>()).Concat(item.aSocketForbids ?? Array.Empty<string>()))
+    Check(DataHandler.dictLoot.ContainsKey(socket), "Native placement socket resolves: " + item.strName + " / " + socket);
+foreach (var item in prepared.Items.Values.Where(i => i.strName.StartsWith(IntakeRules.Chute) || i.strName.StartsWith(IntakeRules.Grabber)))
+    Check(File.Exists(Path.Combine(repo, "mods/PhobosShipbreaker/images", item.strImg + ".png")) && File.Exists(Path.Combine(repo, "mods/PhobosShipbreaker/images", item.strImgNorm + ".png")), "Runtime hull artwork exists: " + item.strName);
+var collector = prepared.Objects[CollectorRules.Installed];
+var collectorItem = prepared.Items[collector.strItemDef];
+Check(collector.nContainerWidth == 2 && collector.nContainerHeight == 2, "Finite four-cell collection chamber");
+Check(collectorItem.nCols == 2 && collectorItem.aSocketAdds.Length == 2 && collectorItem.aSocketReqs.Length == 12, "Collector full intended 2 x 1 footprint and padded sockets");
+Check(collectorItem.aSocketReqs.Count(s=>s=="TILWall")==2 && collectorItem.aSocketAdds.All(s=>s=="TILWallDecoAdds"), "Collector mounts over intact walls without creating floor or pressure portal");
+Check(collector.aInteractions.Contains(CollectorRules.Controls) && prepared.Interactions[CollectorRules.Controls].strRaiseUI == null, "Own control-panel action does not accidentally open native inventory UI");
+var residueData = new DataCO(prepared.Objects[ProcessRules.Residue]);
+Check(DataHandler.dictCTs[collector.strContainerCT].TriggeredDataCO(residueData,false), "Native container accepts residue before the runtime exact filter");
+var residueItem = prepared.Items[ProcessRules.Residue];
+int residueWidth = prepared.Objects[ProcessRules.Residue].inventoryWidth;
+int residueHeight = prepared.Objects[ProcessRules.Residue].inventoryHeight;
+if (residueWidth == 0) residueWidth = residueItem.nCols;
+if (residueHeight == 0) residueHeight = residueItem.aSocketAdds.Length / residueItem.nCols;
+Check(residueWidth == 1 && residueHeight == 1, "Four actual residue footprints fit the collection chamber");
+Check(File.Exists(Path.Combine(repo,"mods/PhobosShipbreaker/images",collectorItem.strImg+".png")), "Collector runtime art packaged");
 foreach (var co in prepared.Objects.Values)
 {
     Check(DataHandler.dictItemDefs.ContainsKey(co.strItemDef), "Resolvable item: " + co.strName);
@@ -78,8 +112,11 @@ foreach (var definition in prepared.Installables.Values)
 {
     Installables.Create(definition);
     Check(DataHandler.dictInteractions.ContainsKey("ACT" + definition.strName), "Native action generated: " + definition.strName);
-    Check(DataHandler.dictLoot["Output" + definition.strName].aCOs.All(x => x.Split('=').Length == 2 && DataHandler.dictCOs.ContainsKey(x.Split('=')[0])), "Install/repair output resolves to our existing identity");
-    Check(DataHandler.dictCOs[definition.strActionCO].aUpdateCommands.Any(x => x.StartsWith("Destructable," + definition.strProgressStat + ",MS" + definition.strName + ",")), "Progress switches use native save-compatible identities");
+    if (!definition.bNoDestructable)
+    {
+        Check(DataHandler.dictLoot["Output" + definition.strName].aCOs.All(x => x.Split('=').Length == 2 && DataHandler.dictCOs.ContainsKey(x.Split('=')[0])), "Maintenance output resolves to an existing identity");
+        Check(DataHandler.dictCOs[definition.strActionCO].aUpdateCommands.Any(x => x.StartsWith("Destructable," + definition.strProgressStat + ",MS" + definition.strName + ",")), "Progress switches use native save-compatible identities");
+    }
 }
 FrameworkLifecycle.Begin();
 var filePath = Path.Combine(repo, "mods/PhobosShipbreaker/framework/recipes.json");
@@ -143,4 +180,7 @@ ConstructionRegistry.RegisterPack("ConflictAfter", filePath);
 DataHandler.dictInteractions["OCF_Craft_PhobosBuildShipbreaker"] = new JsonInteraction();
 FrameworkLifecycle.Complete();
 Check(!ConstructionRegistry.Ready("ConflictAfter") && ConstructionRegistry.Status("ConflictAfter").Contains("Competing provider"), "A provider registering later still blocks completion");
+ClearConstruction();
+EconomyChecks.Run(repo, Check, Throws);
+EquipmentValueAudit.Run(repo, Check, args.Length > 2 ? args[2] : null);
 Console.WriteLine($"PASS: {checks} native-definition/registration checks with no OCF or Workshop loaded. No game session was run.");

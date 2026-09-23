@@ -121,6 +121,8 @@ public static class ConstructionRegistry
                     VerifyMass(ingredient.item, ingredient.unitMassKg);
                 }
                 foreach (var product in recipe.outputs) VerifyMass(product.item, product.unitMassKg);
+                foreach (string tool in recipe.toolTriggers)
+                    if (!DataHandler.dictCTs.ContainsKey(tool)) throw new ArgumentException("Missing construction tool trigger: " + tool);
                 var entry = new Registered { Owner = owner, Recipe = recipe, Stations = new HashSet<string>(available, StringComparer.Ordinal) };
                 registered.Add(action, entry); stationSelectors.Add(stationTrigger, entry);
                 native.Triggers.Add(stationTrigger, Trigger(stationTrigger, new[] { "IsInstalled" }, new[] { "IsDamaged" }));
@@ -138,6 +140,14 @@ public static class ConstructionRegistry
                 native.Loot.Add(inputLoot, new Loot { strName = inputLoot, strType = "trigger", aCOs = requirements.ToArray(), aLoots = Array.Empty<string>() });
                 native.Loot.Add(outputLoot, new Loot { strName = outputLoot, strType = "item", aCOs = recipe.outputs.Select(p =>
                     p.item + "=1.0x" + p.count.ToString(CultureInfo.InvariantCulture)).ToArray(), aLoots = Array.Empty<string>() });
+                string toolLoot = "PhobosCraftTools_" + recipe.id;
+                var itemEffects = new List<string> { "removeus," + inputLoot + ",true,true,false", "addus," + outputLoot };
+                if (recipe.toolTriggers.Length > 0)
+                {
+                    native.Loot.Add(toolLoot, new Loot { strName = toolLoot, strType = "trigger",
+                        aCOs = recipe.toolTriggers.Select(t => t + "=1x1").ToArray(), aLoots = Array.Empty<string>() });
+                    itemEffects.Add("Use," + toolLoot + ",true");
+                }
                 native.Interactions.Add(action, new JsonInteraction {
                     strName = action, strTitle = "Craft: " + recipe.name,
                     strDesc = "[us] [crafts] " + recipe.name + " at [them].",
@@ -149,7 +159,7 @@ public static class ConstructionRegistry
                     strAnim = "Tooling", strIdleAnim = "Idle", strUseCase = "Normal", strMapIcon = "IcoInstall",
                     strThemType = "Other", fDuration = recipe.workSeconds / 3600, bIgnoreFeelings = true,
                     bHumanOnly = true, nLogging = 1, CTTestThem = stationTrigger,
-                    aLootItms = new[] { "removeus," + inputLoot + ",true,true,false", "addus," + outputLoot }
+                    aLootItms = itemEffects.ToArray()
                 });
             }
             foreach (string key in native.Triggers.Keys)
@@ -174,13 +184,21 @@ public static class ConstructionRegistry
         strName = id, fChance = 1, fCount = 1, bAND = true,
         aReqs = require, aForbids = forbid, aTriggers = Array.Empty<string>()
     };
-    private static string ItemLabel(string id) => string.IsNullOrWhiteSpace(DataHandler.dictCOs[id].strNameFriendly)
-        ? id : DataHandler.dictCOs[id].strNameFriendly;
+    private static string ItemLabel(string id) => (DataHandler.dictCOOverlays.TryGetValue(id, out var overlay) ? overlay.strNameFriendly : null) ??
+        (DataHandler.dictCOs.TryGetValue(id, out var co) ? co.strNameFriendly : id);
     internal static bool HasInitialCondition(JsonCondOwner co, string id) =>
         co.aStartingConds?.Any(c => c == id + "=1.0x1" || c == id + "=1.0x1.0" || c == id + "=1x1") == true;
     private static void VerifyMass(string id, double expected)
     {
-        if (!DataHandler.dictCOs.TryGetValue(id, out var definition)) throw new ArgumentException("Missing material: " + id);
+        if (!DataHandler.dictCOs.TryGetValue(id, out var definition))
+        {
+            DataHandler.dictCOOverlays.TryGetValue(id, out var overlay);
+            // Only base-mass-preserving overlays are supported. Do not silently
+            // ignore arbitrary condition loot that might change the actual mass.
+            if (overlay == null || !string.IsNullOrEmpty(overlay.strCondLoot) && overlay.strCondLoot != "Blank" ||
+                !DataHandler.dictCOs.TryGetValue(overlay.strCOBase, out definition))
+                throw new ArgumentException("Missing material or unsupported mass overlay: " + id);
+        }
         var values = (definition.aStartingConds ?? Array.Empty<string>()).Where(c => c.StartsWith("StatMass=", StringComparison.Ordinal)).ToArray();
         if (values.Length != 1) throw new ArgumentException("Expected one explicit native mass for " + id);
         var parts = values[0].Substring("StatMass=".Length).Split('x');
