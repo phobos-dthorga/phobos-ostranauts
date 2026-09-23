@@ -1,0 +1,16 @@
+[
+  {
+    "State": "HullChute",
+    "Source": "PhobosHullChute-concept-v1.png",
+    "Sha256": "A64A70FA399551C1ECF0C4D18A4FC33BDE4D6706562E065B1EE88CADDF571FDA",
+    "Crop": [0, 470, 1254, 314],
+    "Size": [64, 16]
+  },
+  {
+    "State": "ExteriorGrabber",
+    "Source": "PhobosExteriorGrabber-concept-v1.png",
+    "Sha256": "F99ACE89871B45C2195A2B43E605DF24AE3ACA32B85F560C418592A36C4ECEAC",
+    "Crop": [0, 0, 1448, 1086],
+    "Size": [64, 48]
+  }
+]

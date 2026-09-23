@@ -53,9 +53,14 @@ internal static class MachineDefinitions
             AddInstallable(d, state, installed ? "Uninstall" : "Install");
             if (damaged) AddInstallable(d, state, "Repair");
         }
+        // Native ordinary walls are cumbersome. Keep native containment exclusions,
+        // then narrow acceptance to wall panels; FeedPatch enforces identity/mass/count.
+        d.Triggers.Add(P + "TFeed", new CondTrigger { strName = P + "TFeed", fChance = 1, fCount = 1,
+            bAND = true, aReqs = new[] { "IsWall1x1" }, aForbids = Array.Empty<string>(),
+            aTriggers = new[] { "TIsFitContainerSolidCumbersome" } });
         d.Objects.Add(P + "InputBin", new JsonCondOwner { strName = P + "InputBin", strNameFriendly = "Wall-panel feed",
             strNameShort = "Wall-panel feed", strType = "Item", strItemDef = "Blank", strPortraitImg = "blank",
-            strContainerCT = "TIsFitContainerSolid", nStackLimit = 1, bSlotLocked = true,
+            strContainerCT = P + "TFeed", nStackLimit = 1, bSlotLocked = true,
             nContainerWidth = 4, nContainerHeight = 4, aInteractions = Array.Empty<string>(),
             aStartingConds = new[] { "IsContainer=1.0x1", "IsSystem=1.0x1" }, mapSlotEffects = new[] { P + "Input", "Blank" } });
         d.Slots.Add(P + "Input", new JsonSlot { strName = P + "Input", strNameFriendly = "Wall-panel feed",

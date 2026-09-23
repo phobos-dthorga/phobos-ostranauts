@@ -10,13 +10,13 @@ internal static class DependencyContract
     internal static readonly string[] Materials = { "ItmScrapTrash", "ItmScrapSteel", "ItmScrapAluminum",
         "ItmScrapCarbonFiber", "ItmPartsMechSmall01", "ItmPartsElecSmall01" };
     internal static readonly (string Table, string[] Names)[] Required = {
-        ("objects", Materials.Concat(new[] { "ItmTable01", "ItmTable02" }).ToArray()),
+        ("objects", Materials.Concat(new[] { "ItmTable01", "ItmTable02", ProcessRules.Wall }).ToArray()),
         ("items", new[] { "Blank" }),
         ("conditions", new[] { "PhobosShipbreakerContent", "PhobosShipbreakerIsSection", "IsInstalled", "IsDamaged",
             "IsContainer", "IsSystem", "IsSolid", "IsMechanical", "IsCategoryIndustrialProducts", "IsCumbersome",
-            "IsRigid", "IsSalvageValueHigh", "StatMass", "StatBasePrice", "StatInstallProgressMax",
+            "IsWall1x1", "IsRigid", "IsSalvageValueHigh", "StatMass", "StatBasePrice", "StatInstallProgressMax",
             "StatUninstallProgressMax", "StatRepairProgressMax", "StatDamageMax", "IsToolMortorq", "StatInstallRateMISC" }),
-        ("triggers", new[] { "PhobosShipbreakerTSection", "TIsFitContainerSolid", "TIsReadyUsePower",
+        ("triggers", new[] { "PhobosShipbreakerTSection", "TIsFitContainerSolid", "TIsFitContainerSolidCumbersome", "TIsReadyUsePower",
             "TIsScrapSteel", "TIsScrapAluminum", "TIsPartsMechSmall", "TIsPartsElecSmall", "TIsRepairableNotContained",
             "TIsToolMortorq" }),
         ("interactions", new[] { "Inventory", "ACTRepairTEMP", "ACTRepairTEMPAllow",

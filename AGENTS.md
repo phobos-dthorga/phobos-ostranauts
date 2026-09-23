@@ -109,8 +109,23 @@
 - Provide useful F3 console commands alongside the normal controls, following
   Approach Assist's ConsoleResolver integration. Route gameplay actions through
   the same service and report actionable status; do not bypass gameplay checks.
+- After the current Shipbreaker gameplay testing concludes, make the fixture's
+  right-click **Control Panel** action the primary interface, with original artwork
+  matching Ostranauts' equipment interfaces (owner request, 2026-09-24). Retain
+  F9 as a fallback and F3 commands for diagnostics. Target the clicked fixture and
+  reuse the existing gameplay service/checks. Record this as planned work; do not
+  replace the active test build or generate panel art before that testing concludes.
 
 ## Artwork
+
+- Owner requested a separate 1 x 4 hull chute between the existing feeder and a
+  matching-width exterior grabber (2026-09-24). Read this as four tiles along the
+  hull, one deep; a 4-wide x 3-deep grabber is a proposed proportion. Use two static
+  side clamps and a restrained central cutting head, with coarse readable pixel
+  art. See `docs/shipbreaker-hull-intake.md`; new concepts do not implement exterior
+  mounting, pressure sealing or material transfer. Preserve the existing fixture.
+  The owner approved the generated intact visual direction on 2026-09-24; retain
+  the masters and pixel scale when deriving subsequent production forms.
 
 - Before generating Shipbreaker artwork, follow
   `docs/ship-equipment-art-study.md` (owner-requested equipment study, 2026-09-23).

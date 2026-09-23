@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Newtonsoft.Json;
+using Ostranauts.Trading;
 using Phobos.Ostranauts.Framework;
 using Phobos.Ostranauts.Framework.Construction;
 using PhobosShipbreaker;
@@ -47,6 +48,24 @@ Check(missing.Count == 0, string.Join("\n", missing));
 Check(!DataHandler.dictCOs.ContainsKey("SWB_SorterInstalled"), "No Workshop templates loaded");
 var prepared = Content.Prepare();
 prepared.Publish();
+// Exercise the game's own data-only trigger evaluator against its actual wall
+// definition: the ordinary solid-container filter caused the grey inventory bug.
+var wallData = new DataCO(DataHandler.dictCOs[ProcessRules.Wall]);
+var feedTrigger = DataHandler.dictCTs[prepared.Objects[Content.InputBin].strContainerCT];
+Check(wallData.HasCond("IsCumbersome"), "Native ordinary wall is cumbersome");
+Check(!DataHandler.dictCTs["TIsFitContainerSolid"].TriggeredDataCO(wallData, false), "Reproduce the former native wall rejection");
+Check(feedTrigger.TriggeredDataCO(wallData, false), "Feed accepts native ordinary loose wall despite cumbersome flag");
+var floorDefinitions = DataHandler.dictCOs.Values.Where(x => x.strName.StartsWith("ItmFloor", StringComparison.Ordinal) &&
+    x.strName.EndsWith("Loose", StringComparison.Ordinal)).ToArray();
+Check(floorDefinitions.Length > 0 && floorDefinitions.All(x => !feedTrigger.TriggeredDataCO(new DataCO(x), false)), "Native loose floors are not panel-feed inputs");
+foreach (string forbidden in new[] { "IsInstalled", "IsOversized" })
+{
+    var modifiedWall = new JsonCondOwner { aStartingConds = DataHandler.dictCOs[ProcessRules.Wall].aStartingConds.Concat(new[] { forbidden + "=1.0x1" }).ToArray() };
+    Check(!feedTrigger.TriggeredDataCO(new DataCO(modifiedWall), false), "Feed preserves native exclusion: " + forbidden);
+}
+Check(!feedTrigger.TriggeredDataCO(new DataCO(DataHandler.dictCOs[Content.Loose]), false), "Cumbersome machinery cannot enter the wall feed");
+foreach (var machine in prepared.Objects.Values.Where(x => Content.IsMachine(x.strName)))
+    Check(!machine.dictSlotsLayout.ContainsKey(Content.InputSlot), "Native feed window retains its title on " + machine.strName);
 Check(prepared.Objects.Count == 7 && prepared.Installables.Count == 6, "Complete independent machine family");
 foreach (var co in prepared.Objects.Values)
 {

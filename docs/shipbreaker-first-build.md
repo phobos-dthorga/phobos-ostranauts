@@ -1,9 +1,26 @@
 # Phobos Shipbreaker: first playable build
 
-Current candidate: **Shipbreaker 0.2.0 + Phobos Framework 0.2.0**. Construction and
+Current candidate: **Shipbreaker 0.2.1 + Phobos Framework 0.2.1**. Construction and
 machinery now work through our provider and native definitions without OCF/SWB.
 Framework **0.2.1** subsequently fixes the native menu's false Missing status;
-the owner confirmed that correction in-game on 2026-09-24. Shipbreaker stays 0.2.0.
+the owner confirmed that correction in-game on 2026-09-24.
+
+Shipbreaker **0.2.1** fixes the feed rejecting ordinary walls: the native wall is
+`IsCumbersome`, which the old solid-container filter forbade. A dedicated feed
+trigger now requires a wall panel and uses the native cumbersome-compatible
+container filter. Existing exact identity, mass, stack and four-panel checks still
+apply; installed and oversized items remain excluded. The separate 4 x 4 feed
+opens with its native title instead of appearing as an unlabeled child grid.
+F9 explains which grid accepts inputs and reports an empty feed explicitly.
+Floors may fit the 8 x 8 output storage but are not supported processing inputs.
+
+The native data-only trigger evaluator reproduces the old rejection and accepts
+the ordinary wall with the corrected filter; it also rejects native loose floors,
+machinery, installed and oversized panels. This is an offline regression check,
+not an in-game success claim. After installing 0.2.1 and restarting, retry one
+ordinary loose wall in **Wall-panel feed**, then start the queue. Existing saved
+IDs, dimensions, contents and recipes are unchanged; no save editing is required.
+
 Offline checks passed. On 2026-09-24 the shared installer installed and verified
 Framework 0.2.0, Shipbreaker 0.2.0 and Auto Nav 0.1.1: 39 matching files and enabled
 native load-order entries. In-game startup and behaviour remain owner-tested work.
@@ -175,7 +192,9 @@ power-consumption tests. Report the version and the failing action if one fails.
    `spawn ItmWall1x1Loose` supplies a comparison panel if needed. These are the
    game's existing commands, not a Phobos diagnostic mode.
 2. Install on a clear 4 x 4 floor area with the normal electrical connection.
-3. Open its **Inventory** and place ordinary loose panels in **Wall-panel feed**.
+3. Open its **Inventory** and place ordinary loose panels in the named **Wall-panel
+   feed** window (4 x 4). The larger fixture inventory (8 x 8) is output storage;
+   items placed there are not processing inputs. Floor panels are unsupported.
 4. Stand beside it, press **F9** (or your configured key), and choose **Start / resume queue**.
 5. Collect products from the separate output tray. When blocked, clear sufficient
    space and resume. A blocked fixture stops cutting demand and keeps progress.
@@ -190,6 +209,25 @@ start a machine elsewhere on the ship or fetch panels automatically. Existing
 hauling orders can supply material, subject to the fixture's feed restrictions.
 
 ## End-user settings
+
+### Planned interface after the current tests
+
+Owner request, 2026-09-24: open a dedicated, illustrated Shipbreaker interface
+through **right-click fixture -> Control Panel**, following the game's equipment
+interaction convention. This will become the primary entry point; retain F9 as
+a fallback and the F3 commands for diagnostics. It is not in the current build.
+
+Bind the panel to the clicked fixture, show its feed, output, progress and blockers,
+and route actions through the existing processing service with the same proximity
+and eligibility rules. Use original artwork consistent with the approved game
+interface references: simple faceplate, restrained colour, clear contrast and
+readable runtime labels. Inspect a native Control Panel interaction when this work
+starts; the exact integration has not been established by this request.
+
+Finish the current gameplay tests before implementing this change or generating
+the panel artwork, so the build under test stays stable.
+
+### Current configuration
 
 BepInEx creates `BepInEx/config/phobosgekko.ostranauts.shipbreaker.cfg` in the game
 folder on the first launch with this plugin. Exit the game, edit that text file,

@@ -72,7 +72,7 @@ internal sealed partial class ProcessingService
         SetWorking(machine, false);
         state.Job = null; state.Input = null;
         var inputs = Feed(machine)?.objContainer?.ContainedCOs;
-        if (inputs == null || inputs.Count == 0) { state.Status = "Queue finished; load another panel."; return false; }
+        if (inputs == null || inputs.Count == 0) { state.Status = "Feed empty: load an ordinary loose wall into Wall-panel feed (small grid), then start."; return false; }
         // A saved, partly processed panel resumes before fresh stock. Never transfer its progress.
         var input = inputs.OrderByDescending(c => c.GetCondAmount(ProcessRules.Progress)).First();
         if (!ValidPanel(input)) { state.Status = "Feed requires separate, empty 24 kg ordinary wall panels."; return false; }

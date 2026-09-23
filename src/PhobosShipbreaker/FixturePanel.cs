@@ -32,7 +32,7 @@ internal sealed class FixturePanel
     {
         GUILayout.Label("4 x 4 fixture | 4-panel feed | 8 x 8 output tray\nNew panel: " + options.CycleSeconds +
             " seconds, " + options.WorkingKW + " kW while working.");
-        GUILayout.Label("Open the fixture's Inventory to load panels and collect products. Stand beside it to use these controls.");
+        GUILayout.Label("Open Inventory: load ordinary loose walls into the named Wall-panel feed (4 x 4). The larger fixture grid (8 x 8) holds outputs; items there are not processed. Floors are unsupported. Stand beside the fixture to use these controls.");
         if (!Content.Ready) GUILayout.Label(Content.Status);
         else if (machines.Length == 0) GUILayout.Label("No fixture on this ship. Build one at an installed Bar Table or Dining Table, then install it. A Salvage Workshop workbench also works when available.");
         scroll = GUILayout.BeginScrollView(scroll);

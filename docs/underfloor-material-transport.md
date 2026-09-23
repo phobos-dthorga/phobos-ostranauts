@@ -1,5 +1,9 @@
 # Underfloor material transport — discussion proposal
 
+The later [hull-intake proposal](shipbreaker-hull-intake.md) introduces a separate
+1 x 4 chute and four-tile-wide exterior grabber. That direct intake is distinct
+from the provisional 2 x 2 underfloor parts ports described here.
+
 24 September 2026. Owner idea following the exterior Shipbreaker mounting review:
 show conveyors emerging from beneath the floor and returning beneath it, implying
 material logistics in a lower service space. The owner compares this abstraction

@@ -1,5 +1,10 @@
 # Shipbreaker exterior mounting: owner feedback and design proposal
 
+**Latest owner direction:** a separate 1 x 4 hull chute and matching-width exterior
+grabber, retaining the existing feeder/body inside. See the
+[hull-intake design](shipbreaker-hull-intake.md). The recommendation below to move
+the whole processing body outside is historical and superseded by that arrangement.
+
 24 September 2026. Installed build: Phobos Shipbreaker 0.1.4, game 1.0.1.4.
 This records findings and a proposed direction; no mounting or gameplay changes
 have been made for this review.

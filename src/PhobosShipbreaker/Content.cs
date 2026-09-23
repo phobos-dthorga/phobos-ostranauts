@@ -77,8 +77,9 @@ internal static class Content
             SetStat(co, "StatMass", ProcessRules.MachineKg);
             SetStat(co, "StatBasePrice", variant.EndsWith("Dmg", StringComparison.Ordinal) ? 400 : 1600);
             co.mapPoints = new[] { "use,0,-40", "PowerA,-24,24", "PowerB,24,24" };
-            co.dictSlotsLayout = new Dictionary<string, Vector3> {
-                ["self"] = Vector3.zero, [InputSlot] = new Vector3(-112, 0, 0) };
+            // A positioned child slot loses its native title/tab. Let Inventory open
+            // the feed as a named window instead of an unlabeled grid behind the crew.
+            co.dictSlotsLayout = new Dictionary<string, Vector3> { ["self"] = Vector3.zero };
 
             var item = prepared.Items[variant];
             string intact = variant.StartsWith(Installed, StringComparison.Ordinal) ? Installed : Loose;
@@ -93,7 +94,6 @@ internal static class Content
         var bin = prepared.Objects[InputBin];
         bin.strNameFriendly = bin.strNameShort = "Wall-panel feed (4 panels / 96 kg)";
         bin.strDesc = "Ordinary loose wall panels only. Up to four separate, empty panels; no stacks.";
-        bin.strContainerCT = "TIsFitContainerSolid";
         prepared.Slots[InputSlot].strNameFriendly = "Wall-panel feed";
         var power = prepared.Power[Prefix + "Power"];
         power.fAmount = idleKW / 3600;
