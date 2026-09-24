@@ -1,4 +1,28 @@
-# Phobos Framework 0.10.0 — author guide
+# Phobos Framework 0.11.0 — author guide
+
+## Versioned object state (0.11.0)
+
+`Persistence.ObjectStateStore` wraps one namespaced entry in an object's native
+`mapGUIPropMaps`. Construct it with the maps, a stable consumer name, the full
+object ID and a positive schema version. `Read(out fields)` returns Missing,
+Ready, Invalid, DifferentOwner or UnsupportedVersion. Validate the consumer's
+payload even when the envelope is Ready. `TryWrite(fields)` publishes a detached
+replacement only for Missing/Ready envelopes; it never repairs unreadable or
+different-version data by overwriting it. `Clear()` is an explicit reset, not an
+automatic recovery policy. Reads return detached, read-only snapshots.
+
+Use on the native main thread. Keys allow letters/digits/dot/underscore/hyphen;
+nonempty values exclude control characters, commas and equals signs because the
+native property-map serializer uses string fields. Store stable IDs and invariant
+numbers, not translated labels. No file I/O, timers, live-object cache, movement
+authority, schema migration or automatic resumption is supplied by Framework.
+The native save owns the record; consumers own validation and lifecycle decisions.
+
+Auto Nav 0.5.0 is the first consumer. See [its saved-flight contract](auto-nav-persistence.md)
+for an example of hardware/ship binding, captured parameters, cumulative progress
+and revalidation before controls resume. Existing material-port records keep
+their original schema and pause behaviour. Consumers using this new API must
+declare Framework **0.11.0** or later.
 
 ## Industrial controls (0.10.0)
 

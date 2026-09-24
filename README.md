@@ -106,9 +106,10 @@ so started panels retain their recipe outputs and duration through later updates
 Version 0.8.0 starts new panels on revision 2, supplying the new scrap reclaimer;
 already-started revision-1 jobs retain their original outputs.
 The economy update adds merchant offers, mass-balanced maintenance and ordinary-save
-operation. Auto Nav 0.4.3 includes short-range approaches below 5,000 km with closer
+operation. Auto Nav 0.5.0 includes short-range approaches below 5,000 km with closer
 arrival settings, improved coasting and corrected panel dragging/sizing. The current
-suite uses Framework 0.10.0. These are prepared versions; use installer
+suite uses Framework 0.11.0. Auto Nav now supports
+[validated saved-flight restoration](docs/auto-nav-persistence.md). These are prepared versions; use installer
 verification and in-game status commands to determine what is actually installed.
 Framework 0.2.1 subsequently fixes its false Missing status in the native mod
 menu; the owner confirmed the correction after restart on 2026-09-24.

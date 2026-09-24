@@ -54,6 +54,22 @@ internal static class AutoNavCore
 	private static bool _coasting;
 
     public static CoastSettings FlightCoastSettings { get; private set; }
+    internal static double ElapsedSeconds => _elapsedSim;
+    internal static bool Coasting => _coasting;
+
+    // Loading restores intent only. The first real physics step recomputes
+    // guidance from native position/velocity; no old thrust is replayed.
+    internal static void RestoreFlight(Ship ship, TargetRef target, FlightSnapshot snapshot)
+    {
+        EngagedPlayer = ship; EngagedTarget = target;
+        CruiseAU = snapshot.CruiseMS * M_TO_AU;
+        ArrSpdAU = snapshot.ArrivalMS * M_TO_AU;
+        ArriveAU = snapshot.ArrivalKM * KM_TO_AU;
+        _elapsedSim = snapshot.ElapsedSeconds; _coasting = snapshot.Coasting;
+        FlightCoastSettings = snapshot.Coast; _logAccum = 0;
+        LastResult = null; CurrentPhase = _coasting ? Phase.Coast : Phase.Align;
+        Engaged = true;
+    }
 
 	public static string PhaseName => CurrentPhase switch
 	{
@@ -426,7 +442,7 @@ internal static class AutoNavCore
     public static double EffectiveArriveAU(Ship player, TargetRef target) =>
         TryReadApproach(player, target, ArriveAU / KM_TO_AU, out var plan, out _)
             ? plan.EffectiveArrivalKM * KM_TO_AU : double.NaN;
-	public static bool HasFuelForFlight(Ship player, TargetRef target)
+	public static bool HasFuelForFlight(Ship player, TargetRef target, bool readOnly = false)
 	{
 		if (player?.objSS == null || target == null)
 		{
@@ -438,7 +454,14 @@ internal static class AutoNavCore
 			{
 				return false;
 			}
-			if (!target.Resolve(out var px, out var py, out var vx, out var vy))
+			double px, py, vx, vy;
+            if (readOnly)
+            {
+                var situ = target.TargetSitu;
+                if (situ == null) return false;
+                px = situ.vPosx; py = situ.vPosy; vx = situ.vVelX; vy = situ.vVelY;
+            }
+            else if (!target.Resolve(out px, out py, out vx, out vy))
 			{
 				return false;
 			}

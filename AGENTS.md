@@ -152,7 +152,10 @@
   object-hauling component. Bind `NavModBase.DraggableRef`; the package build
   checks the compiled references. See the Auto Nav 0.4.1 Edit-mode fix notes.
 - Match navigation placement bounds to visible artwork. Auto Nav 0.4.2 uses the
-  native 20% board-height row and a physical 2:1 container; normalize saved/default
+  native 20% board-height row; owner follow-up confirmed its 2:1 width was too narrow.
+  Auto Nav 0.5.0 uses the native 25% column width with that same 20% height and
+  sliced rendering of the unchanged approved PNG to preserve corner/screw shapes.
+  Normalize saved/default
   sizes before native fit checks without moving other modules or bypassing overlap
   rules. See `docs/auto-nav-panel-layout-audit.md` for the vanilla measurements.
 - Use C# extensions for behaviour the native data system cannot express cleanly.
@@ -267,7 +270,9 @@
   Do not replace it with the weathered concept or redesign it as flat geometry.
 - Match the original game's restrained navigation-panel language. Keep labels
   and controls live; Phobos identity comes through the name and layout. Preserve
-  the approved faceplate's proportions. See `assets/phobos-autonav/README.md`.
+  the approved artwork and its corner/screw proportions. The 0.5.0 panel uses
+  sliced rendering to fill the native column, per the owner's width correction.
+  See `assets/phobos-autonav/README.md`.
 - The owner also approved both pickup/item images on 2026-09-23: the intact
   cassette and its cracked, scorched damaged version. Their unchanged masters are
   `assets/phobos-autonav/source/PhobosAutoNavModule-approved.png` and
@@ -355,3 +360,20 @@
   all or selected-machine view, reusable snapshot/pair services. No PDA controls
   or overlays were authorised for implementation yet. See
   `docs/industrial-console-player-guide.md` and the original text mockups.
+
+## Auto Nav persistence (2026-09-24)
+
+- Owner requested flight state across saves/reloads and shared Framework support.
+  Auto Nav 0.5.0 uses Framework 0.11.0 `Persistence.ObjectStateStore`; native object
+  property maps keep each save isolated. Framework owns versioned storage and
+  envelope protection; Auto Nav owns flight fields and authority to resume.
+- Preserve target/console/module/ship/player IDs, captured flight/coast profile,
+  elapsed timeout budget, coasting latch and active/suspended/stopped/arrived mode.
+  Never replay saved thrust or substitute crosshair/nearest hardware. Active
+  flights resume by default only after load completion and validation; failed
+  validation suspends for explicit Resume. `ResumeAfterLoad=false` opts out.
+- Keep future/corrupt records intact unless explicitly forgotten. Old saves with
+  no flight record remain idle; no retroactive recovery. Native physics serialization
+  removes only our active ship's actuator commands in the copied DTO, never live
+  velocity/spin/gravity. See `docs/auto-nav-persistence.md`. Do not change the
+  independent industrial pause-on-reload policy. Owner gameplay testing is pending.

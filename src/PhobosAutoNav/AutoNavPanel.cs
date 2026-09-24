@@ -12,10 +12,14 @@ namespace PhobosAutoNav;
 public sealed class AutoNavPanel : NavModBase
 {
     private const string FaceplatePath = "phobos/autonav/PhobosAutoNavPanel.png";
+    private const float FaceplatePixelsPerUnit = 100, CornerFractionOfSourceHeight = 0.12f;
     private static readonly Color LabelColor = new Color32(180, 183, 184, 255);
     private TMP_Text status = null!;
+    private TMP_Text flyLabel = null!;
     private bool damaged;
     private RectTransform placement = null!;
+    private Image faceplateImage = null!;
+    private Sprite? faceplateSprite;
 
     internal static void Ensure(GUIOrbitDraw nav)
     {
@@ -34,28 +38,39 @@ public sealed class AutoNavPanel : NavModBase
         rect.offsetMin = rect.offsetMax = Vector2.zero;
         var container = Rect("Container", rect,
             new Vector2(PanelLayoutRules.DefaultLeft, PanelLayoutRules.DefaultTop - PanelLayoutRules.RowHeight),
-            new Vector2(PanelLayoutRules.DefaultLeft + PanelLayoutRules.RowHeight, PanelLayoutRules.DefaultTop));
+            new Vector2(PanelLayoutRules.DefaultLeft + PanelLayoutRules.ColumnWidth, PanelLayoutRules.DefaultTop));
         container.gameObject.AddComponent<CanvasGroup>();
         container.gameObject.AddComponent<Image>().color = new Color(0.1f, 0.3f, 0.4f, 0.4f);
         var background = Rect("bg", container, Vector2.zero, Vector2.one);
         // Draggable expects Container/bg to have an Image for its edit-mode tint.
         background.gameObject.AddComponent<Image>().color = Color.clear;
         var faceplate = Rect("Faceplate", background, Vector2.zero, Vector2.one);
-        var art = faceplate.gameObject.AddComponent<RawImage>();
-        art.texture = DataHandler.LoadPNG(FaceplatePath, bNorm: false);
+        var art = faceplate.gameObject.AddComponent<Image>();
+        var texture = DataHandler.LoadPNG(FaceplatePath, bNorm: false);
         art.color = Color.white;
-        // Draw the supplied PNG unchanged. All text and interaction remain live UI.
+        // Reuse the approved PNG with sliced borders, as on our industrial panel.
+        // The centre widens; fasteners and corners retain uniform scaling.
         art.raycastTarget = true;
         var font = nav.GetComponentsInChildren<TMP_Text>(true).FirstOrDefault(t => t.font != null)?.font;
         var panel = root.AddComponent<AutoNavPanel>();
         panel.damaged = damaged;
         panel.placement = container;
+        panel.faceplateImage = art;
+        if (texture != null)
+        {
+            float border = texture.height * CornerFractionOfSourceHeight;
+            panel.faceplateSprite = Sprite.Create(texture, new UnityEngine.Rect(0, 0, texture.width, texture.height),
+                new Vector2(.5f, .5f), FaceplatePixelsPerUnit, 0, SpriteMeshType.FullRect,
+                new Vector4(border, border, border, border));
+            art.sprite = panel.faceplateSprite;
+            art.type = Image.Type.Sliced;
+        }
         panel.NormalizePlacementBounds();
         Label(faceplate, Text.Get("AutoNavPanel.phobos_auto_nav"), new Vector2(0.12f, 0.83f), new Vector2(0.88f, 0.97f), font, 18).alignment = TextAlignmentOptions.Center;
         Label(faceplate, Text.Get("AutoNavPanel.rcs_approach"), new Vector2(0.065f, 0.70f), new Vector2(0.935f, 0.77f), font, 12);
         panel.status = Label(faceplate, Text.Get("AutoNavPanel.waiting_for_console"), new Vector2(0.065f, 0.395f), new Vector2(0.935f, 0.685f), font, 16);
-        Button(faceplate, Text.Get("AutoNavPanel.fly"), 0.065f, 0.515f, font, () => Plugin.Service.Engage(panel.COSelf));
-        Button(faceplate, Text.Get("AutoNavPanel.disengage"), 0.555f, 0.935f, font, () => Plugin.Service.Disengage(Text.Get("AutoNavPanel.disengaged_by_pilot")));
+        panel.flyLabel = Button(faceplate, Text.Get("AutoNavPanel.fly"), 0.065f, 0.515f, font, () => Plugin.Service.FlyOrResume(panel.COSelf));
+        Button(faceplate, Text.Get("AutoNavPanel.disengage"), 0.555f, 0.935f, font, () => Plugin.Service.Stop(panel.COSelf, Text.Get("AutoNavPanel.disengaged_by_pilot")));
         // The game also has a global Draggable for hauling world objects.
         // An unqualified name binds to that unrelated type and the edit-menu
         // wrapper cannot find its navigation drag handler ("can't find mod").
@@ -75,13 +90,27 @@ public sealed class AutoNavPanel : NavModBase
         placement.anchorMin = new Vector2(bounds.Left, bounds.Bottom);
         placement.anchorMax = new Vector2(bounds.Right, bounds.Top);
         placement.offsetMin = placement.offsetMax = Vector2.zero;
+        if (faceplateSprite != null && faceplateImage != null)
+        {
+            // Preserve the previous height-based scale for both corner axes.
+            // Image.pixelsPerUnit includes the owning canvas's reference scale.
+            faceplateImage.pixelsPerUnitMultiplier = faceplateSprite.rect.height /
+                (board.rect.height * PanelLayoutRules.RowHeight * faceplateImage.pixelsPerUnit);
+        }
     }
 
     private void OnRectTransformDimensionsChange() => NormalizePlacementBounds();
 
+    private new void OnDestroy()
+    {
+        base.OnDestroy();
+        if (faceplateSprite != null) Destroy(faceplateSprite);
+    }
+
     protected override void UpdateUI()
     {
         if (status == null) return;
+        if (flyLabel != null) flyLabel.text = Text.Get(COSelf != null && Plugin.Service.HasResumableFlight(COSelf) ? "Persistence.resume_button" : "AutoNavPanel.fly");
         status.text = damaged ? Text.Get("AutoNavPanel.module_damaged_repair_required") :
             COSelf == null ? Text.Get("AutoNavPanel.waiting_for_console") : Plugin.Service.ReadPanel(COSelf);
         foreach (var button in GetComponentsInChildren<Button>()) button.interactable = !damaged;
@@ -107,7 +136,7 @@ public sealed class AutoNavPanel : NavModBase
         return label;
     }
 
-    private static void Button(Transform parent, string text, float min, float max, TMP_FontAsset? font, UnityEngine.Events.UnityAction click)
+    private static TMP_Text Button(Transform parent, string text, float min, float max, TMP_FontAsset? font, UnityEngine.Events.UnityAction click)
     {
         var rect = Rect(text, parent, new Vector2(min, 0.115f), new Vector2(max, 0.275f));
         // Transparent hit area over the painted button; tint the label for feedback.
@@ -124,5 +153,6 @@ public sealed class AutoNavPanel : NavModBase
         colors.disabledColor = new Color(0.45f, 0.45f, 0.45f, 1);
         button.colors = colors;
         button.onClick.AddListener(click);
+        return label;
     }
 }

@@ -42,6 +42,15 @@ internal sealed class TargetRef
 
 	public BodyOrbit Body => _body;
 
+    // Phobos: reconnect by registration ID in the newly loaded world, never by display name.
+    public string ShipId => _shipRegID;
+    public static TargetRef FromShipId(string id)
+    {
+        var ship = CrewSim.system?.GetShipByRegID(id);
+        return ship == null || ship.bDestroyed || ship.HideFromSystem || ship.IsStationHidden() ? null :
+            new TargetRef { _ship = ship, _shipRegID = id, DisplayName = string.IsNullOrEmpty(ship.publicName) ? id : ship.publicName };
+    }
+
 	public static TargetRef FromCrossHair()
 	{
 		NavPOI crossHairTarget = GUIOrbitDraw.CrossHairTarget;

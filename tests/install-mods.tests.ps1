@@ -231,8 +231,8 @@ $olderInfo = @(Get-Content -LiteralPath $olderMetadata -Raw | ConvertFrom-Json)
 $olderInfo[0].strModVersion = '0.9.99'
 ConvertTo-Json -InputObject $olderInfo | Set-Content -LiteralPath $olderMetadata
 Copy-Item -LiteralPath (Join-Path $olderOutput 'PhobosFramework.dll') -Destination (Join-Path $badPackages $frameworkDllRelative) -Force
-Fails { & $installer @incomplete | Out-Null } 'Selected equipment requires Phobos Framework 0.10.0'
-Check ((InstalledFiles $incomplete) -eq $before) 'Auto Nav selection weakened the reclaimer provider minimum'
+Fails { & $installer @incomplete | Out-Null } 'Selected equipment requires Phobos Framework 0.11.0'
+Check ((InstalledFiles $incomplete) -eq $before) 'Auto Nav persistence provider minimum was not enforced'
 foreach ($relative in @($frameworkMetadataRelative, $frameworkDllRelative)) {
     Copy-Item -LiteralPath (Join-Path $PackageRoot $relative) -Destination (Join-Path $badPackages $relative) -Force
 }

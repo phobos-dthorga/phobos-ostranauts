@@ -12,14 +12,14 @@ namespace PhobosAutoNav;
 
 [BepInPlugin(Id, "Phobos Auto Nav", Version)]
 [BepInProcess("Ostranauts.exe")]
-[BepInDependency(FrameworkInfo.PluginId, "0.7.0")]
+[BepInDependency(FrameworkInfo.PluginId, "0.11.0")]
 public sealed class Plugin : BaseUnityPlugin
 {
     public const string Id = "phobosgekko.ostranauts.autonav";
-    public const string Version = "0.4.3";
+    public const string Version = "0.5.0";
     internal static NavigationService Service { get; private set; } = null!;
     internal static ConfigEntry<bool> Enabled = null!, VerboseLogging = null!, FuelCheck = null!,
-        AbortOnManualThrust = null!, UseThrusterRotation = null!;
+        AbortOnManualThrust = null!, UseThrusterRotation = null!, ResumeAfterLoad = null!;
     internal static ConfigEntry<float> DefaultCruiseMS = null!, DefaultArriveSpeedMS = null!,
         DefaultArriveKM = null!, ArrivalSpeedTolerance = null!, MaxFlightSimHours = null!,
         CoastTolerance = null!, CoastSpeedTolerancePercent = null!, CoastEnterFraction = null!,
@@ -53,6 +53,8 @@ public sealed class Plugin : BaseUnityPlugin
         AbortOnManualThrust = Config.Bind("Flight", "AbortOnManualThrust", true, Text.Get("Plugin.legacy_guidance_check_phobos_always_yields_to"));
         UseThrusterRotation = Config.Bind("Flight", "UseThrusterRotation", true, Text.Get("Plugin.use_rcs_turning_false_retains_upstream_s"));
         Service = new NavigationService(log);
+        ResumeAfterLoad = Config.Bind("Persistence", "ResumeAfterLoad", true, Text.Get("Persistence.resume_setting"));
+        CrewSim.OnGameFinishedLoading.AddListener(Service.WorldLoaded);
         harmony = new Harmony(Id);
         harmony.PatchAll(typeof(Plugin).Assembly);
         FrameworkLifecycle.ContentLoading += EquipmentContent.Register;
@@ -64,7 +66,13 @@ public sealed class Plugin : BaseUnityPlugin
     internal static CoastSettings ReadCoastSettings() => new CoastSettings(CoastTolerance.Value,
         CoastSpeedTolerancePercent.Value, CoastEnterFraction.Value, BurnHeadingToleranceDegrees.Value);
     internal static void Verbose(string message) { if (VerboseLogging.Value) log?.Invoke(message); }
-    private void OnDestroy() { FrameworkLifecycle.ContentLoading -= EquipmentContent.Register; Service?.Disengage(Text.Get("Plugin.plugin_unloaded")); harmony?.UnpatchSelf(); }
+    private void Update() => Service?.UpdatePersistence();
+    private void OnDestroy()
+    {
+        FrameworkLifecycle.ContentLoading -= EquipmentContent.Register;
+        if (Service != null) CrewSim.OnGameFinishedLoading.RemoveListener(Service.WorldLoaded);
+        Service?.Disengage(Text.Get("Plugin.plugin_unloaded")); harmony?.UnpatchSelf();
+    }
 }
 
 [HarmonyPatch(typeof(GUIOrbitDraw), "LoadModules")]
@@ -103,12 +111,21 @@ internal static class ExternalControlPatch
     private static void Prefix(Ship __instance, float fX, float fY, float fR) => Plugin.Service.ExternalControl(__instance, fX, fY, fR);
 }
 
+// Native ShipSitu saves include the last RCS acceleration. That is an actuator
+// command, not flight intent: omit it in the fresh DTO for our active ship only.
+// Preserve velocity, angular momentum, gravity and other controllers' saves.
+[HarmonyPatch(typeof(ShipSitu), nameof(ShipSitu.GetJSON))]
+internal static class SavedThrustPatch
+{
+    private static void Postfix(ShipSitu __instance, JsonShipSitu __result) => NavigationService.PrepareSavedPhysics(__instance, __result);
+}
+
 [HarmonyPatch]
 internal static class LifecyclePatch
 {
     private static IEnumerable<MethodBase> TargetMethods() => typeof(CrewSim).GetMethods()
         .Where(method => method.Name == nameof(CrewSim.LoadGame) || method.Name == nameof(CrewSim.NewGame));
-    private static void Prefix() => Plugin.Service.Disengage(Text.Get("Plugin.world_change_rearm_explicitly"));
+    private static void Prefix() => Plugin.Service.WorldChanging();
 }
 
 [HarmonyPatch]

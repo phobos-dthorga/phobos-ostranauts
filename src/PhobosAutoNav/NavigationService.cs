@@ -7,7 +7,7 @@ using PhobosAutoNav.Core;
 
 namespace PhobosAutoNav;
 
-internal sealed class NavigationService
+internal sealed partial class NavigationService
 {
     internal const string ModuleId = "PhobosNavModAutoNav";
     internal const string DamagedId = ModuleId + "Dmg";
@@ -62,16 +62,14 @@ internal sealed class NavigationService
             { status = Text.Get("NavigationService.disable_original_auto_navigate_and_restart_before"); return; }
             string? problem = HardwareProblem(co);
             if (problem != null) { status = problem; return; }
+            if (!CanReplaceFlight(co!)) return;
             console = co;
+            savedFlight = null;
             if (Throttle <= 0) { status = Text.Get("NavigationService.set_the_nav_console_throttle_above_zero"); return; }
             var contact = GUIOrbitDraw.CrossHairTarget;
             if (contact?.Ship == null || contact.Ship == co!.ship || contact.Ship.bDestroyed || contact.Ship.HideFromSystem || contact.Ship.IsStationHidden())
             { status = Text.Get("NavigationService.select_another_ship_or_station_planetary_travel"); return; }
-            if (AutoNavCore.AutoDockBusy()) { status = Text.Get("NavigationService.auto_dock_already_controls_flight"); return; }
-            Type? approach = AccessTools.TypeByName("PhobosApproachAssist.Plugin");
-            object? approachService = approach == null ? null : AccessTools.Property(approach, "Service")?.GetValue(null);
-            if (approachService != null && (bool)(AccessTools.Property(approachService.GetType(), "Active")?.GetValue(approachService) ?? false))
-            { status = Text.Get("NavigationService.stop_approach_assist_s_test_pulse_first"); return; }
+            if (OtherControllerBusy()) { status = Text.Get("NavigationService.disengage_other_flight_automation_first"); return; }
             var target = TargetRef.FromCrossHair();
             if (target == null) { status = Text.Get("NavigationService.target_unavailable"); return; }
             float cruise = Plugin.DefaultCruiseMS.Value, arrival = Plugin.DefaultArriveSpeedMS.Value,
@@ -89,7 +87,9 @@ internal sealed class NavigationService
             { status = Text.Get("NavigationService.insufficient_estimated_delta_v"); return; }
             issuing = true;
             try { AutoNavCore.BeginFlight(co!.ship, target, coastSettings); } finally { issuing = false; }
-            status = Text.Get("NavigationService.flight_engaged");
+            savedFlight = CaptureFlight(co!, target, cruise, Math.Min(arrival, cruise), distance);
+            PersistProgress();
+            if (AutoNavCore.Engaged) status = Text.Get("NavigationService.flight_engaged");
         }
         catch (Exception ex) { log(ex.ToString()); Disengage(Text.Get("NavigationService.engagement_failed_see_log")); }
         log(status);
@@ -97,10 +97,12 @@ internal sealed class NavigationService
 
     internal void Tick(ShipSitu situ, double dt, bool ignoreAcceleration)
     {
+        if (CrewSim.objInstance == null || !CrewSim.objInstance.FinishedLoading || CrewSim.Paused) return;
         if (!AutoNavCore.Engaged || AutoNavCore.EngagedPlayer?.objSS != situ || ignoreAcceleration || dt == 0) return;
         try
         {
             string? problem = !Plugin.Enabled.Value ? Text.Get("NavigationService.mod_disabled") : HardwareProblem(console);
+            if (problem == null && !FlightBindingValid()) problem = Text.Get("Persistence.binding_changed");
             if (problem == null && (!ArrivalBrake.Finite(dt) || dt < 0 || dt > Plugin.MaximumStepSeconds.Value)) problem = Text.Get("NavigationService.simulation_step_too_large_or_invalid_reduce");
             if (problem == null && Throttle <= 0) problem = Text.Get("NavigationService.throttle_zero_or_unavailable");
             if (problem == null && AutoNavCore.AutoDockBusy()) problem = Text.Get("NavigationService.auto_dock_took_control");
@@ -110,6 +112,7 @@ internal sealed class NavigationService
             try { AutoNavCore.SteerFlight(AutoNavCore.EngagedPlayer, AutoNavCore.EngagedTarget, dt); }
             finally { issuing = false; }
             status = AutoNavCore.Engaged ? AutoNavCore.PhaseName : DescribeResult(AutoNavCore.LastResult);
+            PersistProgress();
         }
         catch (Exception ex) { log(ex.ToString()); Disengage(Text.Get("NavigationService.flight_error_see_log")); }
     }
@@ -138,10 +141,11 @@ internal sealed class NavigationService
 
     internal void Disengage(string reason)
     {
+        FinishSavedFlight(SavedFlightMode.Stopped);
         issuing = true;
         try { if (AutoNavCore.Engaged) AutoNavCore.EndFlight(AutoNavCore.EngagedPlayer, reason); }
         catch (Exception ex) { log(Text.Get("NavigationService.stop_failed", ex)); }
-        finally { AutoNavCore.ResetStatics(); issuing = false; console = null; status = reason; }
+        finally { AutoNavCore.ResetStatics(); issuing = false; status = reason; }
         log(reason);
     }
 
@@ -149,10 +153,13 @@ internal sealed class NavigationService
         (AutoNavCore.Engaged ? Text.Get("NavigationService.target", AutoNavCore.EngagedTarget.DisplayName) : HardwareProblem(co) ?? Text.Get("NavigationService.ready_to_select_target"))
         + "\n" + ApproachSummary(co, detailed: false);
 
-    private static string ApproachSummary(CondOwner? co, bool detailed)
+    private string ApproachSummary(CondOwner? co, bool detailed)
     {
-        double requested = AutoNavCore.Engaged ? AutoNavCore.ArriveAU / AutoNavCore.KM_TO_AU : Plugin.DefaultArriveKM.Value;
+        co ??= console;
+        var snapshot = DisplaySnapshot(co);
+        double requested = AutoNavCore.Engaged ? AutoNavCore.ArriveAU / AutoNavCore.KM_TO_AU : snapshot?.ArrivalKM ?? Plugin.DefaultArriveKM.Value;
         var target = AutoNavCore.Engaged ? AutoNavCore.EngagedTarget :
+            snapshot != null ? TargetRef.FromShipId(snapshot.TargetId) :
             GUIOrbitDraw.IsOpen() && GUIOrbitDraw.CrossHairTarget?.Ship != null ? TargetRef.FromCrossHair() : null;
         var ship = AutoNavCore.Engaged ? AutoNavCore.EngagedPlayer : co?.ship;
         if (ship != null && target != null && AutoNavCore.TryReadApproach(ship, target, requested, out var plan, out var speed))
@@ -174,12 +181,14 @@ internal sealed class NavigationService
                 case "status": response = Text.Get("NavigationService.phobos_auto_nav_engaged", Plugin.Version, AutoNavCore.Engaged, status, EquipmentContent.Status)
                     + "\n" + ApproachSummary(OpenConsole, detailed: true); return true;
                 case "settings":
-                    var coast = AutoNavCore.Engaged ? AutoNavCore.FlightCoastSettings : Plugin.ReadCoastSettings();
-                    response = Text.Get("NavigationService.cruise_m_s_arrival_m_s_at", Plugin.DefaultCruiseMS.Value, Plugin.DefaultArriveSpeedMS.Value, Plugin.DefaultArriveKM.Value, Plugin.ArrivalSpeedTolerance.Value, Plugin.MaximumStepSeconds.Value, Plugin.Id)
+                    var snapshot = DisplaySnapshot(OpenConsole ?? console);
+                    var coast = snapshot?.Coast ?? Plugin.ReadCoastSettings();
+                    response = Text.Get("NavigationService.cruise_m_s_arrival_m_s_at", snapshot?.CruiseMS ?? Plugin.DefaultCruiseMS.Value, snapshot?.ArrivalMS ?? Plugin.DefaultArriveSpeedMS.Value, snapshot?.ArrivalKM ?? Plugin.DefaultArriveKM.Value, Plugin.ArrivalSpeedTolerance.Value, Plugin.MaximumStepSeconds.Value, Plugin.Id)
                         + "\n" + Text.Get("NavigationService.coast_settings", coast.MinimumToleranceMS, coast.SpeedTolerancePercent,
                             coast.EnterFraction * 100, coast.BurnHeadingToleranceDegrees, CoastRules.DriftLookaheadSeconds,
                             CoastRules.DriftRadiusFraction * 100,
-                            Text.Get(AutoNavCore.Engaged ? "NavigationService.active_flight" : "NavigationService.next_flight"));
+                            Text.Get(snapshot != null ? "Persistence.saved_profile" : "NavigationService.next_flight"))
+                        + "\n" + Text.Get("Persistence.settings", Plugin.ResumeAfterLoad.Value);
                     return true;
                 case "fly":
                     float? requested = null;
@@ -200,7 +209,9 @@ internal sealed class NavigationService
                     Plugin.DefaultArriveKM.ConfigFile.Save();
                     response = Text.Get("NavigationService.arrival_default_saved", newDefault);
                     return true;
-                case "stop": Disengage(Text.Get("NavigationService.stopped_by_pilot_coasting")); response = status; return true;
+                case "stop": Stop(OpenConsole ?? console, Text.Get("NavigationService.stopped_by_pilot_coasting")); response = status; return true;
+                case "resume": ResumeSaved(OpenConsole ?? console); response = status; return AutoNavCore.Engaged;
+                case "forget": ForgetSaved(OpenConsole ?? console); response = status; return true;
                 case "spawn": return Spawn(out response);
                 default: response = Text.Get("NavigationService.unknown_command_use_phobosnav_help"); return false;
             }

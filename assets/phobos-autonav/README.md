@@ -40,8 +40,10 @@ masters and creates neutral shader data; it does not repaint their design.
   margin. These retain the finer detail that cannot survive a tiny ground icon.
 - Normal map: one shared 16 x 16 flat tangent-space image, RGB 128,128,255.
   It is generated technical data, with no borrowed normal-map artwork.
-- Faceplate: unchanged 1774 x 887 texture, fitted at its original 2:1 ratio inside
-  the native draggable panel. Labels and hit areas follow that fitted texture.
+- Faceplate: unchanged 1774 x 887 texture. Auto Nav 0.5.0 uses sliced rendering
+  in a native 25%-wide, 20%-high panel, following the owner's screenshot correction.
+  The centre widens; corner/screw regions keep their height-based uniform scale.
+  Labels and hit areas share the visible panel. No bitmap pixels are changed.
 
 Exports live under `mods/PhobosAutoNav/images/phobos/autonav/`. Native module
 definitions point to the intact/damaged images and portraits. The native

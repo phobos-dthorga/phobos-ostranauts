@@ -11,6 +11,7 @@ void Check(bool condition, string message)
 }
 
 LocalizationChecks.Run(Check);
+SavedStateChecks.Run(Check);
 ConsoleAccessChecks.Run(Check);
 
 // Consume the built public assembly, without compiling private copies of its code.

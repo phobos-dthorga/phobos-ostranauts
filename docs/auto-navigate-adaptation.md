@@ -1,7 +1,7 @@
 # Phobos Auto Nav: standalone adaptation
 
-**0.4.3 candidate; built against Ostranauts 1.0.1.5 / BepInEx 5.4.23.5.**
-Ordinary saves are the baseline from 2026-09-24. Phobos Framework 0.7.0+ now
+**0.5.0 candidate; built against Ostranauts 1.0.1.5 / BepInEx 5.4.23.5.**
+Ordinary saves are the baseline from 2026-09-24. Phobos Framework 0.11.0+ now
 provides shared construction, merchant and maintenance services. No original Auto
 Navigate dependency. See [prices, acquisition and service bills](equipment-economy.md).
 In-game validation of this update remains pending. See the
@@ -43,13 +43,16 @@ That note has not been sent. No blanket community reuse grant is claimed.
   until stopped. Closing the console does not intentionally cancel the flight.
   Missing/zero throttle stops the controller, rather than applying upstream's
   minimum 1% or fallback 25% throttle. Console removal, damage or power loss,
-  invalid data, world changes and conflicting native navigation stop it too.
+  invalid data and conflicting native navigation stop it too. World changes clear
+  runtime references; 0.5.0 restores validated saved flights after loading.
 - Nonzero external maneuver commands release control before the incoming command
   executes. Original Auto Navigate being loaded blocks engagement; an active
   Approach Assist pulse or Auto Dock also blocks it. This is not a universal
   third-party autopilot arbitration system.
-- Loading/new games disarm. No automatic resumption or persistent active-flight
-  state is implemented. **Stop means clear commanded thrust and coast, not brake.**
+- Version 0.5.0 preserves flight intent through native saves, using Framework
+  0.11.0 versioned object storage. Active flights resume after validation by default;
+  blocked flights remain suspended for explicit Resume. See
+  [saved flights](auto-nav-persistence.md). **Stop clears thrust and coasts, not brakes.**
 - Ordinary saves can fly and use the explicit debug spawn command. There is no
   save-name restriction. Merchants and table assembly are the normal acquisition
   paths; hardware, power, fuel and conflicting-control checks still apply.
@@ -85,6 +88,12 @@ native fit checks, retaining the panel's top-left position. Artwork and item IDs
 are unchanged. Native overlap rules still require a clear space on the board.
 Build and geometry checks cover this correction; owner placement/reopen testing
 remains pending.
+
+Owner screenshots of 0.4.3 confirmed the height but showed that the 2:1 constraint
+left the panel too narrow. Version 0.5.0 keeps the 20% height and uses the full
+native 25% column width. Sliced rendering of the unchanged faceplate preserves
+the corner/screw shapes as the centre widens. The updated geometry checks pass;
+this width correction still needs an in-game look after installation.
 
 ## Short-range approach goal (2026-09-24)
 
@@ -211,8 +220,9 @@ F3 commands:
 ## Approved artwork
 
 Version 0.1.1 integrates the selected neutral slate-grey faceplate, intact cassette
-and cracked/scorched damaged cassette. The faceplate retains its original 2:1
-proportions; title, status, Fly and Disengage are live controls. Native panel
+and cracked/scorched damaged cassette. The source faceplate remains the original
+2:1 PNG; 0.5.0 slices it into a native column with undistorted corners and screws.
+Title, status, Fly/Resume and Disengage are live controls. Native panel
 placement still uses the game's Edit mode. Item images use the native 16-pixel
 size, with 256-pixel inspection portraits. The exact approved masters, prompts
 and export decisions are recorded in [artwork provenance](../assets/phobos-autonav/README.md).
@@ -259,7 +269,7 @@ requiring separate proof tests for basic behaviour.
 
 The useful next owner checks concern changed behaviour: arrival inside the ring
 while still moving fast; closing/reopening the panel; manual handover; removing
-or depowering the controlling equipment during flight; save/load disarming; and
+or depowering the controlling equipment during flight; save/load restoration and blocked-resume behaviour; and
 normal versus accelerated time. During that same test, check panel labels/button
 alignment and intact/damaged item appearance at the owner's usual UI scale;
 no separate basic module proof test is needed. Record versions and outcomes. Do not call the

@@ -53,7 +53,8 @@ into Phobos Auto Nav, a standalone experimental mod for longer-duration living
 and salvage operations in Ostranauts. Your original work is credited in the
 source, package metadata, documentation and this notice. Our changes add a stricter
 arrival-speed check, console and equipment interlocks, F3 commands and explicit
-disarming across world changes, with separate Phobos item identities and UI.
+world-change isolation and (0.5.0) validated saved-flight restoration through
+original Phobos Framework storage, with separate Phobos item identities and UI.
 We did not include your artwork or present this as an official continuation.
 The owner reports successful flight guidance in private in-game testing; broader
 validation and the latest UI/coasting changes remain pending. We have not found an explicit

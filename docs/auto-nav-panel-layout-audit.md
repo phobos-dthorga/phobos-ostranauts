@@ -1,8 +1,10 @@
 # Auto Nav panel layout audit
 
 Inspected **Ostranauts 1.0.1.5** after the owner's **Auto Nav 0.4.1** screenshot
-showed an oversized panel with placement margins. **Auto Nav 0.4.2** implements
-the correction below. Native runtime placement remains owner-tested work.
+showed an oversized panel with placement margins. Auto Nav 0.4.2 corrected its
+height; follow-up screenshots of 0.4.3 confirmed it remained too narrow.
+**Auto Nav 0.5.0** now matches the standard native column width as described below.
+The latest runtime correction remains owner-tested work.
 
 ## Vanilla evidence
 
@@ -43,14 +45,28 @@ rectangle was about 2.36:1: visible artwork and native placement bounds disagree
 The old panel was also taller than the common 20% native row. Fixing the drag
 component in 0.4.1 exposed this separate geometry problem.
 
-Version 0.4.2 uses **20% board height**, derives width from that physical height
+Version 0.4.2 used **20% board height**, deriving width from that physical height
 and the approved **2:1 faceplate**, and stretches the artwork across that exact
 container. On the inspected board the resulting width is about **20.34%**. The
 faceplate, buttons and native placement rectangle share the same bounds; there
 is no child aspect fitter or artwork resampling. Labels remain localized live
 text with automatic sizing. Approved image files are unchanged.
 
-The actual board dimensions determine size. The native rounded-anchor boundary
+The owner subsequently confirmed that this height was right but the width did
+not fill the standard column: the 2:1 bitmap constraint produced about 20.34%
+width beside vanilla's 25%. This was an incorrect choice of layout constraint,
+not a screenshot-resolution problem.
+
+Version **0.5.0** uses **25% board width × 20% board height**, exactly the common
+native footprint. It keeps the approved PNG byte-for-byte unchanged and uses a
+runtime sliced Image: corner regions (including screws) retain uniform scaling
+based on the existing height, while the centre and horizontal edges widen. This
+uses the same Unity sliced-image mechanism as our industrial panel. The overall
+panel aspect now follows the native column; it is no longer forced to 2:1.
+Live labels and button hit areas remain within the same visible rectangle. The
+runtime-created sprite is destroyed with the panel; the shared texture is retained.
+
+The board-relative row and column determine size. The native rounded-anchor boundary
 normalizes only `AutoNavPanel` instances before fit checking and saving. This is
 necessary because the loader overwrites prefab sizes with saved/default anchors.
 It handles both intact and damaged modules and old instance defaults. It keeps
@@ -68,13 +84,13 @@ board needs rearrangement or removal of another panel before Polaris will fit.
 
 Geometry checks cover measured board proportions at multiple scales, other
 parent aspect ratios, legacy footprint reduction, preserved top-left position,
-2:1 physical bounds, repeat reload rounding without drift and invalid dimensions.
+25% × 20% bounds, repeat reload rounding without drift and invalid dimensions.
 The package's compiled-component check rejects a child aspect fitter and requires
 the bounds hook as well as the correct native navigation drag component. These
 checks do not execute Unity's UI/event lifecycle.
 
 Owner check after installation: use Edit to place Polaris in a clear area; compare
-its height with Time / Zoom or Display Controls; leave Edit, reopen the console
+both its width and height with Time / Zoom or Display Controls; leave Edit, reopen the console
 and confirm size and position persist. Check text readability at the usual UI
 scale and normal interaction after leaving Edit. No new module needs spawning
 solely for this update.

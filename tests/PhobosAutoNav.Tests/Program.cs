@@ -6,6 +6,9 @@ int checks = 0;
 void Check(bool condition, string name) { if (!condition) throw new Exception(name); checks++; }
 void Near(double value, double expected, string name) => Check(Math.Abs(value - expected) < 1e-8, name);
 
+PersistenceChecks.Run(Check);
+PersistenceRuntimeChecks.Run(Check);
+
 Check(ArrivalBrake.NeedsBrake(4900, 5000, 100, 0, 0.5), "Crossing arrival ring at speed must still brake");
 Check(ArrivalBrake.NeedsBrake(5100, 5000, 4, 0, 0.5), "Do not inherit upstream's looser zero-speed completion");
 Check(ArrivalBrake.NeedsBrake(4900, 5000, 100, 20, 0.5), "Nonzero arrival request still requires braking");
@@ -88,8 +91,7 @@ foreach (var board in new[] { (1440d, 732d), (2419d, 1230d), (720d, 366d), (1280
     Check(PanelLayoutRules.TryBounds(board.Item1, board.Item2, .35f, .3f, out var bounds), "Old panel can be resized");
     Check(bounds.Left == .35f && bounds.Top == .3f, "Keep existing top-left placement");
     Check(Math.Abs(bounds.Top - bounds.Bottom - .2) < 1e-6, "Use vanilla row height");
-    double ratio = (bounds.Right - bounds.Left) * board.Item1 / ((bounds.Top - bounds.Bottom) * board.Item2);
-    Check(Math.Abs(ratio - 2) < 1e-5, "Artwork and collision rectangle share the approved 2:1 ratio");
+    Check(Math.Abs(bounds.Right - bounds.Left - .25) < 1e-6, "Match the full vanilla column, not the bitmap aspect ratio");
     Check(bounds.Right <= .650001f && bounds.Bottom > .05f, "Reduce the legacy footprint on supported board proportions");
     for (int reload = 0; reload < 3; reload++)
     {
@@ -104,7 +106,8 @@ foreach (double invalid in new[] { 0d, -1d, double.NaN, double.PositiveInfinity 
     Check(!PanelLayoutRules.TryBounds(invalid, 720, 0, 1, out _), "Wait for valid board width");
     Check(!PanelLayoutRules.TryBounds(1440, invalid, 0, 1, out _), "Wait for valid board height");
 }
-Check(!PanelLayoutRules.TryBounds(1, 100, 0, 1, out _), "Do not make a panel wider than its board");
+Check(PanelLayoutRules.TryBounds(1, 100, 0, 1, out var narrow) && narrow.Right == .25f,
+    "Normalized footprint remains one native column even with an unusual parent aspect");
 Check(!PanelLayoutRules.TryBounds(1440, 720, float.NaN, 1, out _), "Reject corrupt position");
 Check(PanelLayoutRules.TryBounds(1440, 720, .9f, 1.1f, out var outside) && outside.Right > 1 && outside.Top > 1,
     "Native fit checks retain responsibility for rejecting off-board drops");

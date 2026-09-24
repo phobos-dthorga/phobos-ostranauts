@@ -111,7 +111,8 @@ Code findings relevant to adaptation:
 
 These are static findings, not observed player-session incidents. The standalone
 prototype changes arrival validation, throttle access, equipment checks, error
-handling and controls. It preserves explicit disarming on world changes. It does
+handling and controls. It originally disarmed on world changes; Auto Nav 0.5.0 adds
+[validated saved-flight restoration](auto-nav-persistence.md). It does
 not claim obstacle avoidance, work-position holding or verified fuel sufficiency.
 
 ## Game rules and observed community practice

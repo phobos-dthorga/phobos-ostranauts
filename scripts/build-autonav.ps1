@@ -8,7 +8,7 @@ $gameRoot = (Resolve-Path -LiteralPath $OstranautsPath).Path
 & (Join-Path $PSScriptRoot 'export-autonav-art.ps1')
 & dotnet build (Join-Path $repoRoot 'src/PhobosAutoNav/PhobosAutoNav.csproj') -c Release "-p:OstranautsPath=$gameRoot"
 if ($LASTEXITCODE -ne 0) { throw 'Auto Nav build failed.' }
-& dotnet run --project (Join-Path $repoRoot 'tests/PhobosAutoNav.Tests') -c Release
+& dotnet run --project (Join-Path $repoRoot 'tests/PhobosAutoNav.Tests') -c Release "-p:OstranautsPath=$gameRoot"
 if ($LASTEXITCODE -ne 0) { throw 'Auto Nav flight and layout checks failed.' }
 $source = Join-Path $repoRoot 'mods/PhobosAutoNav'
 foreach ($file in Get-ChildItem -LiteralPath $source -Recurse -Filter '*.json' -File) {
