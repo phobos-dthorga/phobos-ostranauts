@@ -43,14 +43,14 @@ needs no mandatory extra shredding stage.
 ## Finite destinations
 
 - Legacy residue: processor → collector or ordinary storage; no recovery recipe.
-- Identified residue: manually haul from processor/collector to reclaimer feed.
+- Identified residue: paired automatic transfer or manual hauling from processor/collector to reclaimer feed.
 - Useful metal: native repair/construction or trade where accepted.
 - Terminal rejects: reclaimer output → paired collector or ordinary storage.
 
 Collectors explicitly accept these three IDs with their actual expected masses,
 retain four slots / 52 kg maximum and preserve saved pair identities. They do not
-create cargo space, cross to docked ships or remove ship mass. Automatic reclaimer
-feeding is a later concrete endpoint extension; manual hauling is implemented.
+create cargo space, cross to docked ships or remove ship mass. Framework/Shipbreaker 0.9.0 adds [automatic reclaimer feeding](automatic-material-routing.md)
+with explicit endpoint pairs and saved filters. Manual hauling remains available.
 
 Recoverable external release remains separate future work. Native jettison can
 destroy payload, so it is not substituted for physical cargo. A future carrier

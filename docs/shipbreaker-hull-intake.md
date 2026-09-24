@@ -1,6 +1,6 @@
 # Hull chute and exterior grabber
 
-Current prepared candidate: **Shipbreaker 0.8.0 + Framework 0.8.0**, 24 September
+Current prepared candidate: **Shipbreaker 0.9.0 + Framework 0.9.0**, 24 September
 2026. Connected intake was introduced in 0.3.0. Use the
 [current player guide](player-guide.md) for the complete operating sequence.
 The owner approved these designs and requested the connected implementation.

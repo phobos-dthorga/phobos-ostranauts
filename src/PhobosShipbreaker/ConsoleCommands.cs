@@ -9,6 +9,12 @@ internal static class ConsoleCommands
 {
     private static bool Prefix(ref string strInput, ref bool __result)
     {
+        var route = RoutingCommand.Parse(strInput);
+        if (route.Action != "foreign")
+        {
+            __result = RoutingCommands.Run(route, out string routeResponse);
+            strInput += "\n" + routeResponse; return false;
+        }
         if (ReclaimerPanel.Command(strInput, out bool reclaimerResult, out string reclaimerResponse))
         { __result = reclaimerResult; strInput += "\n" + reclaimerResponse; return false; }
         var collector = CollectorCommand.Parse(strInput);

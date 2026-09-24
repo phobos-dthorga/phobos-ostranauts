@@ -1,7 +1,7 @@
 # Phobos Shipbreaker: first playable build
 
-Current candidate: **Shipbreaker 0.8.0 + Phobos Framework 0.8.0**, built against
-Ostranauts **1.0.1.4** and BepInEx **5.4.23.5**. Offline checks pass; connected
+Current candidate: **Shipbreaker 0.9.0 + Phobos Framework 0.9.0**, built against
+Ostranauts **1.0.1.5** and BepInEx **5.4.23.5**. Offline checks pass; connected
 gameplay validation remains pending. These are prepared-package versions, not
 an assertion about the currently installed files. Start with the
 [current player guide](player-guide.md) for acquisition and normal operation.
@@ -115,7 +115,7 @@ and the limits of their mass accounting.
 
 ## Install the prepared package
 
-Required dependencies: **BepInEx 5** and **Phobos Framework 0.8.0 or later**.
+Required dependencies: **BepInEx 5** and **Phobos Framework 0.9.0 or later**.
 OCF, Salvage Workshop, Auto Nav and Common Sense hauling are optional for this
 onboard processor. Keep other mods installed if the existing save contains their
 objects or other consumers require them; independence is not foreign-object

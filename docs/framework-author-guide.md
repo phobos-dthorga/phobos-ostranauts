@@ -1,4 +1,4 @@
-# Phobos Framework 0.8.0 — author guide
+# Phobos Framework 0.9.0 — author guide
 
 This experimental Ostranauts library supplies definition registration, native
 mass-balanced construction, grid placement, production completion and physical transfers,
@@ -328,3 +328,20 @@ Keep historic recipes immutable. Opt into `legacySeconds` only for a revision
 actually shipped without saved duration. Do not assume a different machine's
 revision 1 shares that exception. Content owns cooling, power, eligibility, art
 and balance; this is not a universal process scheduler or fluid system.
+
+## Saved port filters (0.9.0)
+
+`Inventory.SavedPortFilter.Read(MaterialPort)` returns Default, Configured or
+Invalid. Default delegates to the consumer's explicit `ItemDefinitionFilter`;
+Configured contains exact immutable definition IDs; Invalid allows nothing.
+`Set(port, ids)` validates a bounded unique list before replacing the namespaced
+filter record. An explicit empty list blocks everything, not a fallback. Native
+property-map conversion and owner remapping follow the existing pair model.
+
+Pairing and filters are separate. Multiple logical ports on one object keep
+independent records; unlinking a pair does not erase its filter. Consumer code
+must reject IDs incompatible with the equipment, validate access, pause/reset
+any active transfer when settings change, and require explicit resume after load.
+No filter grants transfer permission or replaces real container capacity, mass,
+route or ownership checks. Shipbreaker's reclaimer and collector receivers are
+the two concrete consumers; see [automatic routing](automatic-material-routing.md).

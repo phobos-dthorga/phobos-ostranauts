@@ -208,16 +208,16 @@ Check ((InstalledFiles $incomplete) -eq $before) 'Missing English catalog partia
 # A coherent older provider package must still be rejected before any copying.
 # Only inert synthetic assemblies are built here; the installed game is untouched.
 $olderOutput = Join-Path $fixtures 'older-provider-output'
-& dotnet build (Join-Path $fixtureSource 'Fixture.csproj') -c Release -p:Version=0.7.99 -o $olderOutput --nologo -v quiet | Out-Null
+& dotnet build (Join-Path $fixtureSource 'Fixture.csproj') -c Release -p:Version=0.8.99 -o $olderOutput --nologo -v quiet | Out-Null
 if ($LASTEXITCODE -ne 0) { throw 'Could not build the inert older-provider fixture.' }
 $frameworkMetadataRelative = 'PhobosFramework-P0/Mods/PhobosFramework/mod_info.json'
 $frameworkDllRelative = 'PhobosFramework-P0/BepInEx/plugins/PhobosFramework/PhobosFramework.dll'
 $olderMetadata = Join-Path $badPackages $frameworkMetadataRelative
 $olderInfo = @(Get-Content -LiteralPath $olderMetadata -Raw | ConvertFrom-Json)
-$olderInfo[0].strModVersion = '0.7.99'
+$olderInfo[0].strModVersion = '0.8.99'
 ConvertTo-Json -InputObject $olderInfo | Set-Content -LiteralPath $olderMetadata
 Copy-Item -LiteralPath (Join-Path $olderOutput 'PhobosFramework.dll') -Destination (Join-Path $badPackages $frameworkDllRelative) -Force
-Fails { & $installer @incomplete | Out-Null } 'Selected equipment requires Phobos Framework 0.8.0'
+Fails { & $installer @incomplete | Out-Null } 'Selected equipment requires Phobos Framework 0.9.0'
 Check ((InstalledFiles $incomplete) -eq $before) 'Auto Nav selection weakened the reclaimer provider minimum'
 foreach ($relative in @($frameworkMetadataRelative, $frameworkDllRelative)) {
     Copy-Item -LiteralPath (Join-Path $PackageRoot $relative) -Destination (Join-Path $badPackages $relative) -Force

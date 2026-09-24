@@ -13,7 +13,7 @@ internal static class ReclaimerDefinitions
         string p = ReclaimerRules.Prefix;
         MachineDefinitions.AddFamily(d, p);
         MachineDefinitions.AddFeed(d, p, ReclaimerRules.FeedCondition);
-        foreach (string id in new[] { ReclaimerRules.FeedCondition, ReclaimerRules.SectionCondition })
+        foreach (string id in new[] { ReclaimerRules.FeedCondition, ReclaimerRules.SectionCondition, RoutingRules.Feeding })
             d.Conditions[id] = new JsonCond { strName = id, strNameFriendly = id, strColor = "Neutral", nDisplaySelf = 2, nDisplayOther = 2 };
         foreach (string state in new[] { "Installed", "Loose", "InstalledDmg", "LooseDmg" })
         {

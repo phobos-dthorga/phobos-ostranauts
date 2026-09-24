@@ -48,6 +48,7 @@ with a smaller setup appropriate to this project's current scope.
 ## Start here
 
 - [Current player guide: acquire, install, load, run and collect](docs/player-guide.md)
+- [Automatic material routing: machine inputs, buffers and reject destinations](docs/automatic-material-routing.md)
 - [Residue composition, destinations and the next processing stage](docs/residue-material-contract.md)
 - [Equipment prices, merchants, maintenance and salvage](docs/equipment-economy.md)
 - [One-command mod installation and updates](docs/installing-mods.md) — or double-click
@@ -89,8 +90,8 @@ with a smaller setup appropriate to this project's current scope.
 The locator proposal was set aside because an existing mod already meets the
 owner's immediate need and is being used now.
 Current development priority: powered shipbreaking and a reusable **Phobos Framework**
-that replaces our OCF/Salvage Workshop requirements. Framework **0.8.0** and
-Shipbreaker **0.8.0** include physical-item transfers and the approved exterior grabber / wall
+that replaces our OCF/Salvage Workshop requirements. Framework **0.9.0** and
+Shipbreaker **0.9.0** include physical-item transfers and the approved exterior grabber / wall
 chute / indoor processor layout, alongside independent construction at native
 tables. The [connected intake](docs/shipbreaker-hull-intake.md) is packaged for
 owner gameplay testing. The new [residue collector](docs/residue-collector.md)
@@ -104,7 +105,7 @@ so started panels retain their recipe outputs and duration through later updates
 Version 0.8.0 starts new panels on revision 2, supplying the new scrap reclaimer;
 already-started revision-1 jobs retain their original outputs.
 The economy update adds merchant offers, mass-balanced maintenance and ordinary-save
-Auto Nav 0.3.0 using Framework 0.8.0. These are prepared versions; use installer
+Auto Nav 0.3.0 using Framework 0.9.0. These are prepared versions; use installer
 verification and in-game status commands to determine what is actually installed.
 Framework 0.2.1 subsequently fixes its false Missing status in the native mod
 menu; the owner confirmed the correction after restart on 2026-09-24.

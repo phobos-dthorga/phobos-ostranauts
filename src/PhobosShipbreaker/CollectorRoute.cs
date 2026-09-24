@@ -37,6 +37,8 @@ internal sealed class CollectorRoute
     }
     internal static string? MountProblem(CondOwner port)
     {
+        if (ProcessingService.IsReclaimer(port))
+            return port.Item != null && IntakeRules.SameAngle(Angle(port), 0, 90) ? null : Text.Get("Routing.grid_alignment");
         if (port.Item == null || !IntakeRules.SameAngle(Angle(port), 0, 90)) return Text.Get("CollectorRoute.collector_must_align_with_the_hull_grid");
         var ship = port.ship;
         for (int col = 0; col < CollectorRules.Width; col++)
@@ -66,18 +68,23 @@ internal sealed class CollectorRoute
     internal static CollectorRoute? Find(CondOwner port, CondOwner source)
     {
         var ship = port.ship;
-        if (source.ship != ship || source.Item == null) return null;
-        var starts = new List<int>();
-        for (int y = 0; y < ProcessRules.Footprint; y++)
-        for (int x = 0; x < ProcessRules.Footprint; x++)
-            starts.Add(ship.GetTileIndexAtWorldCoords1(Point(source, x - 1.5, y - 1.5)));
-        var goals = new HashSet<int>();
-        for (int x = 0; x < CollectorRules.Width; x++)
-            goals.Add(ship.GetTileIndexAtWorldCoords1(Point(port, x - 0.5, -1)));
+        if (source.ship != ship || source.Item == null || CollectorRules.IsFamily(source.strCODef) && MountProblem(source) != null) return null;
+        var starts = Cells(source);
+        var goals = new HashSet<int>(Cells(port));
         int[]? path = GridRoute.Find(ship.nCols, ship.nRows, starts, goals, i => Floor(ship, i));
         return path == null ? null : new CollectorRoute(port, source, path);
     }
+    private static int[] Cells(CondOwner co)
+    {
+        var cells = new List<int>(); var ship = co.ship;
+        if (CollectorRules.IsFamily(co.strCODef))
+            for (int x = 0; x < CollectorRules.Width; x++) cells.Add(ship.GetTileIndexAtWorldCoords1(Point(co, x - 0.5, -1)));
+        else
+            for (int y = 0; y < ProcessRules.Footprint; y++)
+            for (int x = 0; x < ProcessRules.Footprint; x++) cells.Add(ship.GetTileIndexAtWorldCoords1(Point(co, x - 1.5, y - 1.5)));
+        return cells.ToArray();
+    }
     internal bool Valid(CondOwner port, CondOwner source) => port.ship == ship && source.ship == ship &&
-        columns == ship.nCols && rows == ship.nRows && portPosition == port.GetPos() && sourcePosition == source.GetPos() &&
+        (!CollectorRules.IsFamily(source.strCODef) || MountProblem(source) == null) && columns == ship.nCols && rows == ship.nRows && portPosition == port.GetPos() && sourcePosition == source.GetPos() &&
         IntakeRules.SameAngle(portAngle, Angle(port)) && IntakeRules.SameAngle(sourceAngle, Angle(source)) && cells.All(i => Floor(ship, i));
 }

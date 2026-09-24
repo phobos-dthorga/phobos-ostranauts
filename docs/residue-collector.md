@@ -1,14 +1,17 @@
-# Residue Collector — Shipbreaker 0.8.0 candidate
+# Residue Collector — Shipbreaker 0.9.0 candidate
 
-24 September 2026. Current prepared versions: **Phobos Framework 0.8.0** and
-Shipbreaker **0.8.0**. Saved pairing was introduced in 0.5.0; the current versions
+24 September 2026. Current prepared versions: **Phobos Framework 0.9.0** and
+Shipbreaker **0.9.0**. Saved pairing was introduced in 0.5.0; the current versions
 also include merchant stock and maintenance. Start with the
 [current player guide](player-guide.md) for the complete equipment workflow.
-Implemented and checked offline against the local 1.0.1.4 installation; in-game
+Implemented and checked offline against the local 1.0.1.5 installation; in-game
 mounting, controls and transfers await owner testing. This adds to the connected
 grabber/chute/processor candidate without changing its saved item IDs or recipes.
 
-The collector moves existing mixed-panel residue from a selected processor to a
+Version 0.9.0 adds saved receiving filters and a separate output port for feeding
+a reclaimer from this collector as a buffer. See [automatic routing](automatic-material-routing.md).
+
+The collector moves existing panel residue from a selected processor to a
 finite wall-mounted inventory. **Material remains aboard and still weighs on the
 ship.** There is no jettison button, automatic destruction or persistent-space
 release in this build. [Research and later release options](material-disposal-port-research.md).
@@ -54,12 +57,12 @@ cannot enter. Existing residue remains unclassified; see the
    collector and select **Control Panel**. F3 `phoboscollector controls` opens the
    same window when there is one collector on the ship.
 2. Use **Link** beside the chosen source processor. Alternatively, at the processor
-   open F9 → **Residue destination / unlink**, and choose a receiving collector.
+   open F9 → **Output routing**, and choose a receiving collector.
    Both ends must be installed, undamaged and unlocked on the same loaded ship.
    The pair is saved: one processor residue output to one collector input. Names
    and short IDs distinguish equipment; hovering over a Link button shows its full ID.
    An occupied endpoint refuses another partner until explicitly unlinked.
-3. Press **Collect residue**. Default operation moves one available packet in five
+3. Press **Start transfers**. Default operation moves one available packet in five
    powered game seconds at 2 kW, then waits for more. Useful parts remain in the
    processor's normal product tray. The processor may keep working independently.
 4. Use **Inventory** to empty the collector, or **Pause** to suspend it. A full
@@ -113,9 +116,10 @@ form; damage/uninstallation still blocks use until repaired/reinstalled. Runtime
 sessions never grant automatic restart. See [pairing research and API](material-port-pairing.md).
 Existing pre-0.5.0 collectors have no saved links: link them once after upgrading.
 
-The first filter is fixed to our exact residue definition. Framework's reusable
-allowlist is available to other mods, but category editing, arbitrary exports and
-native/common-mod filter synchronization are future features. Leave third-party
+The inventory accepts only our three residue types. In 0.9.0 the player can
+further narrow automated receipt with saved filters. Framework's reusable saved
+allowlist is available to other mods. Arbitrary exports, category filters and
+native/common-mod filter synchronization remain future features. Leave third-party
 AUTO hauling off for the collector unless intentionally arranging crew delivery;
 we do not alter another mod's settings or crew jobs.
 
@@ -194,4 +198,5 @@ are recorded in [the art notes](../assets/phobos-residue-collector/README.md).
 In 0.8.0 the [reclaimer](scrap-reclaimer.md) is also a supported output sender.
 The collector accepts legacy 13 kg residue, identified R2 13 kg residue and R2
 9 kg rejects, with four slots and a 52 kg maximum. Old saved pairs remain intact.
-Reclaimer feed still requires manual hauling; collection is never disposal.
+Version 0.9.0 also lets a collector output feed a reclaimer automatically through
+a separate explicit pair. Collection remains aboard and is never disposal.

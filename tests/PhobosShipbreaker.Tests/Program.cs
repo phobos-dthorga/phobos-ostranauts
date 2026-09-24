@@ -157,6 +157,7 @@ Check(Command.Parse("phobosshipbreaker pause").TargetId == null, "Omitted target
 foreach (string invalidCommand in new[] { "phobosshipbreaker cancel A B", "phobosshipbreaker settings 20", "phobosshipbreaker help A", "phobosshipbreaker typo" })
     Check(Command.Parse(invalidCommand).Action == CommandAction.Invalid, "Reject malformed command without unintended action: " + invalidCommand);
 DependencyChecks.Run(Check, Throws);
+PortRoutingChecks.Run(Check);
 IntakeChecks.Run(Check, Throws, constructionRecipes);
 CollectorChecks.Run(Check, constructionRecipes);
 Console.WriteLine($"PASS: {checks} checks of dependency contracts/registration rollback, construction limits/mass, material balance, work identity, interruption, batch placement, completion recovery and console routing.");

@@ -1,7 +1,7 @@
-# Scrap reclaimer — prepared 0.8.0 candidate
+# Scrap reclaimer — prepared 0.9.0 candidate
 
-Framework and Shipbreaker **0.8.0**, built against the installed Ostranauts
-1.0.1.4 baseline. This is implemented and checked offline, not yet tested in a
+Framework and Shipbreaker **0.9.0**, built against the installed Ostranauts
+1.0.1.5 baseline. The reclaimer was introduced in 0.8.0. This is implemented and checked offline, not yet tested in a
 game session. Auto Nav remains 0.3.0 and is optional for this processing chain.
 
 ## Buying and building
@@ -54,10 +54,11 @@ a **four-packet / 52 kg feed**, and a separate **8 x 8 output inventory**.
 4. Collect products through ordinary **Inventory** or the panel's product button.
    Each packet gives **3 kg steel + 1 kg aluminium + 9 kg terminal rejects**.
 5. Store or haul the rejects, or pair the reclaimer's output to a collector through
-   the existing routing controls. One sender per collector remains the rule.
+   **Output routing**, and select the collector's **Terminal rejects only** filter. One sender per collector remains the rule.
 
-Manual hauling supplies the reclaimer in this first version. There is no automatic
-collector-to-reclaimer feed route. The collector now explicitly accepts legacy
+Version 0.9.0 adds [automatic feeding](automatic-material-routing.md) from the
+fixture or a collector buffer, with independent input/output pairs and saved
+filters. Manual hauling remains available. The collector explicitly accepts legacy
 13 kg residue, identified 13 kg residue and 9 kg terminal rejects. It retains its
 four-slot limit and 52 kg maximum; existing pair IDs are unchanged. Collection
 does not eject material or reduce ship mass.
@@ -78,7 +79,9 @@ phobosreclaimer start|pause|cancel|feed|products [full machine ID]
 Supply a full ID when several reclaimers are present. Pause retains work; Cancel
 retains the input but discards credited work, with no energy or cooling refund.
 Reload retains recipe, duration, input and progress and waits for manual Start.
-Full output, changed input or unavailable machinery stops without deleting feed.
+Starting an empty queue waits for arriving feed; processing and transfer Start
+are separate permissions. Full output, changed input or unavailable machinery
+stops without deleting feed.
 There is no processing while the ship is unloaded.
 
 ## Heat and operating cost
@@ -104,7 +107,9 @@ Native mixing, environmental loss, cooling equipment and accidents remain native
 Live timing, room selection and interaction with other thermal mods need gameplay
 verification; offline arithmetic is not a claim of complete thermodynamic realism.
 
-The nominal full cycle adds **1.44 MJ** to the room. For example, 10,000 mol of
+Automatic feeding adds its own 2 kW while active and shares these cooling checks;
+see the [routing operating budget](automatic-material-routing.md).
+The nominal processing cycle adds **1.44 MJ** to the room. For example, 10,000 mol of
 gas gains about **6.96 K** before native cooling. Several appliances share the
 pending heat budget, so one cannot ignore another's unprocessed temperature rise.
 
@@ -173,7 +178,7 @@ Offline checks cover native construction/maintenance and stock eligibility, gros
 and constituent budgets, legacy continuation, native job-save round trips,
 output space, shared rollback/duplicate delivery rules, exact feed exclusions,
 heat headroom, invalid intervals, brownout accounting hooks and saved heat fields.
-Installer checks require the new art and Framework 0.8.0 before copying files.
+Installer checks require the new art and Framework 0.9.0 before copying files.
 The owner supplies the real gameplay check; no running-game or save manipulation
 is part of preparing this build.
 

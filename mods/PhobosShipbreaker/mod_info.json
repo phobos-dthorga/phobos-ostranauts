@@ -3,8 +3,8 @@
     "strName": "Phobos Shipbreaker",
     "strAuthor": "phobosgekko",
     "strModURL": "https://github.com/phobos-dthorga/phobos-ostranauts",
-    "strGameVersion": "1.0.1.4",
-    "strModVersion": "0.8.0",
-    "strNotes": "Requires Phobos Framework 0.8.0+ and the Shipbreaker plugin. Includes wall processing, grabber, chute, paired residue collection and a 4 x 4 scrap reclaimer. New wall jobs produce identified residue; the reclaimer recovers steel/aluminium and retains rejects. Old jobs and unclassified residue keep their original meaning. Reclaimer Control Panel and phobosreclaimer commands open feed and controls; room atmosphere receives process heat. Native station stock, construction and maintenance included. No ejection or attached-hull cutting. Ordinary saves supported; in-game compatibility remains subject to testing. Translation catalogs use Framework language selection."
+    "strGameVersion": "1.0.1.5",
+    "strModVersion": "0.9.0",
+    "strNotes": "Requires Phobos Framework 0.9.0+ and the Shipbreaker plugin. Includes wall processing, grabber, chute, paired residue collection and a 4 x 4 scrap reclaimer. New wall jobs produce identified residue; the reclaimer recovers steel/aluminium and retains rejects. Old jobs and unclassified residue keep their original meaning. Reclaimer Control Panel and phobosreclaimer commands open feed and controls; room atmosphere receives process heat. Native station stock, construction and maintenance included. No ejection or attached-hull cutting. Ordinary saves supported; in-game compatibility remains subject to testing. Translation catalogs use Framework language selection. Version 0.9.0 adds explicit automatic reclaimer feeding from processors or collector buffers, separate input/output pairs, saved receiving filters and phobosroute commands. Routing and processing require separate Start and pause after reload."
   }
 ]

@@ -5,6 +5,7 @@
 Framework transfers, filters, clocks and grid search for one processor-to-port
 structural-floor route. Version 0.5.0 adds [saved one-to-one endpoint pairing](material-port-pairing.md)
 with Link/Unlink controls at both ends, using the native signal persistence pattern.
+Version 0.9.0 adds [paired reclaimer feeding and saved filters](automatic-material-routing.md).
 The broader network below remains a proposal. Persistent
 ejection remains unimplemented; collection retains cargo aboard.
 

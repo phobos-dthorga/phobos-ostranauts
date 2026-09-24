@@ -17,6 +17,7 @@ internal sealed partial class ProcessingService
         internal CondOwner? Input;
         internal double Last;
         internal IntakeSession? Intake;
+        internal bool AwaitingFeed;
         internal string Status = Text.Get("ProcessingService.paused_load_panels_and_start_the_queue");
     }
     private ConditionalWeakTable<CondOwner, Session> sessions = new ConditionalWeakTable<CondOwner, Session>();
@@ -53,14 +54,14 @@ internal sealed partial class ProcessingService
         return Text.Get("ProcessingService.expected_a_kg_wall_actual_mass_is", panel.GetTotalMass(), ProcessRules.InputKg);
     }
 
-    private static string? MachineProblem(CondOwner machine)
+    internal static string? MachineProblem(CondOwner machine)
     {
         if (!Content.Ready) return Content.Status;
         if (machine == null || machine.bDestroyed || !IsInstalledProcessor(machine) ||
             !machine.HasCond("IsInstalled")) return Text.Get("ProcessingService.install_the_undamaged_fixture_first");
         if (machine.HasCond("IsDamaged")) return Text.Get("ProcessingService.repair_the_fixture_first");
         if (machine.ship == null || (int)machine.ship.LoadState < 2) return Text.Get("ProcessingService.ship_is_not_loaded");
-        if (machine.HasCond("IsLocked") || Feed(machine)?.HasCond("IsLocked") == true) return Text.Get("ProcessingService.unlock_the_fixture_and_feed");
+        if (machine.HasCond("IsLocked") || Feed(machine)?.HasCond("IsLocked") == true || machine.objContainer?.Locked == true || Feed(machine)?.objContainer?.Locked == true) return Text.Get("ProcessingService.unlock_the_fixture_and_feed");
         if (machine.HasCond("IsOverrideOff") || machine.HasCond("IsSignalOff")) return Text.Get("ProcessingService.fixture_is_switched_off");
         if (machine.objContainer == null || Feed(machine)?.objContainer == null) return Text.Get("ProcessingService.missing_feed_or_output_tray");
         return null;
@@ -83,13 +84,14 @@ internal sealed partial class ProcessingService
         if (problem != null) { state.Status = problem; return false; }
         try
         {
+            if (IsReclaimer(machine)) state.AwaitingFeed = true;
             string intakeMessage = "";
             bool connected = !IsReclaimer(machine) && ArmIntake(machine, out intakeMessage);
             if (state.Job?.Running == true) return true;
             if (Feed(machine)!.objContainer.ContainedCOs.Count == 0)
-            { state.Status = IsReclaimer(machine) ? Text.Get("Reclaimer.load_feed") : connected ? Text.Get("ProcessingService.pipeline_started_waiting_for_the_grabber") : Text.Get("ProcessingService.use_manual_feed_for_standalone_processing", intakeMessage); return connected; }
+            { state.Status = IsReclaimer(machine) ? Text.Get("Routing.queue_waiting") : connected ? Text.Get("ProcessingService.pipeline_started_waiting_for_the_grabber") : Text.Get("ProcessingService.use_manual_feed_for_standalone_processing", intakeMessage); return connected || IsReclaimer(machine); }
             bool started = StartNext(machine, state);
-            if (!started) DisarmIntake(machine);
+            if (!started) { state.AwaitingFeed = false; DisarmIntake(machine); }
             return started;
         }
         catch (Exception ex) { Fault(machine, ex); return false; }
@@ -153,13 +155,14 @@ internal sealed partial class ProcessingService
 
     private void Stop(CondOwner machine, Session state, string message)
     {
-        state.Job?.Pause(); state.Status = message; SetWorking(machine, false);
+        state.AwaitingFeed = false; state.Job?.Pause(); state.Status = message; SetWorking(machine, false);
         DisarmIntake(machine);
     }
 
     internal bool BeforePower(CondOwner machine)
     {
         if (!IsProcessor(machine.strCODef)) return false;
+        FeedArrived(machine);
         if (!sessions.TryGetValue(machine, out var state) || state.Job?.Running != true)
         { SetWorking(machine, false); return false; }
         if (IsReclaimer(machine))
@@ -178,6 +181,17 @@ internal sealed partial class ProcessingService
         if (!CanFitBatch(machine, state.Job.Recipe))
         { Stop(machine, state, Text.Get("ProcessingService.output_blocked_progress_retained_clear_space_and")); return false; }
         return machine.HasCond(ProcessRules.Working);
+    }
+
+    // Feeding never grants permission to process. Start arms this session only;
+    // Pause, faults and reload clear permission independently of the saved pair.
+    internal void FeedArrived(CondOwner machine)
+    {
+        if (!IsReclaimer(machine) || !sessions.TryGetValue(machine, out var state) || !state.AwaitingFeed || state.Job?.Running == true) return;
+        var problem = MachineProblem(machine);
+        if (problem != null) { Stop(machine, state, problem); return; }
+        if (Feed(machine)?.objContainer?.ContainedCOs.Count == 0) { state.Status = Text.Get("Routing.queue_waiting"); return; }
+        if (!StartNext(machine, state)) state.AwaitingFeed = false;
     }
 
     internal void AfterPower(CondOwner machine, bool workingRequest, double? poweredSeconds = null)
@@ -212,8 +226,11 @@ internal sealed partial class ProcessingService
         { Stop(machine, state, Text.Get("ProcessingService.output_changed_progress_retained_clear_space_and")); return false; }
         log(Text.Get("ProcessingService.completed_panel_with_recipe_revision_total_kg", state.Job!.InputId, state.Job.Recipe.Revision, string.Join(", ", state.Job.Recipe.Products.Select(p => Text.Get("ProcessingService.x", p.Count, p.Id)))));
         state.Job = null; state.Input = null;
-        if (options.ContinueQueue) StartNext(machine, state);
-        else { DisarmIntake(machine); state.Status = Text.Get("ProcessingService.panel_complete_start_again_for_the_next"); }
+        if (options.ContinueQueue)
+        {
+            if (!StartNext(machine, state) && Feed(machine)?.objContainer?.ContainedCOs.Count > 0) state.AwaitingFeed = false;
+        }
+        else { state.AwaitingFeed = false; DisarmIntake(machine); state.Status = Text.Get("ProcessingService.panel_complete_start_again_for_the_next"); }
         return true;
     }
 

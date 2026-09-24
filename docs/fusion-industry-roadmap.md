@@ -23,8 +23,9 @@ Shipbreaker **0.6.1** now provides [version-aware processing jobs](processing-jo
 Framework/Shipbreaker **0.8.0** now adds the [combined scrap reclaimer](scrap-reclaimer.md),
 its station stock and construction, and revision 2 for new wall jobs. Shared jobs
 live in Framework. Existing panels and residue retain their original meaning.
-Next: owner gameplay evaluation of the connected chain and reclaimer cooling;
-processor right-click controls follow that evaluation.
+Version **0.9.0** connects the stages through [paired automatic feeding](automatic-material-routing.md)
+and saved filters. Next: owner gameplay evaluation of the connected chain and
+reclaimer cooling; processor right-click controls follow that evaluation.
 
 **2026-09-24 future idea:** [chemical storage, process fluids and industrial
 hazards](chemical-storage-and-process-fluids.md) records the owner's installable

@@ -84,5 +84,6 @@
   "ProcessRules.invalid_saved_progress_or_duration_panel_retained": "Invalid saved progress or duration; input retained. Cancel work explicitly to restart from zero.",
   "ProcessRules.unsupported_saved_recipe_revision_panel_retained_restore": "Unsupported saved recipe revision {0}; input retained. Restore a supporting mod version, or explicitly cancel work to restart from zero.",
   "ProcessRules.saved_duration_is_missing_panel_retained_cancel": "Saved duration is missing; input retained. Cancel work explicitly to restart from zero.",
-  "ProcessRules.incomplete_saved_job_panel_retained_cancel_work": "Incomplete saved job; input retained. Cancel work explicitly to restart from zero."
+  "ProcessRules.incomplete_saved_job_panel_retained_cancel_work": "Incomplete saved job; input retained. Cancel work explicitly to restart from zero.",
+  "SavedPortFilter.invalid_definitions": "Use a bounded list of unique, valid item definition IDs."
 }

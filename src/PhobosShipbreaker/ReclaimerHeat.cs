@@ -24,13 +24,16 @@ internal static class ReclaimerHeat
         pending.Remove(power);
         var room = machine.ship?.GetRoomAtWorldCoords1(machine.GetPos("use"), false)?.CO;
         var gas = room?.GasContainer;
-        double seconds = amount * Units.SecondsPerHour / Plugin.Options.ReclaimerKW;
+        double demand = RoutingRules.DemandKW(machine.HasCond(ProcessRules.Working), machine.HasCond(RoutingRules.Feeding),
+            Plugin.Options.ReclaimerKW, Plugin.Options.FeederKW);
+        double seconds = amount * Units.SecondsPerHour / demand;
         double mols = 0;
         if (gas == null || !gas.mapGasMols1.TryGetValue("StatGasMolTotal", out mols) ||
             !ReclaimerRules.CoolingBudget(mols, room!.GetCondAmount("StatGasTemp"), gas.fDGasTemp,
-                room.GetCondAmount("StatGasPressure"), Plugin.Options.ReclaimerKW, seconds, out _))
+                room.GetCondAmount("StatGasPressure"), demand, seconds, out _))
         {
             Plugin.Service.Block(machine, Text.Get("Reclaimer.cooling_block", ReclaimerRules.MinPressureKPa, ReclaimerRules.MaxRoomKelvin - Phobos.Ostranauts.Framework.Units.CelsiusToKelvin));
+            Plugin.Collectors.Block(machine, Text.Get("Reclaimer.cooling_block", ReclaimerRules.MinPressureKPa, ReclaimerRules.MaxRoomKelvin - Phobos.Ostranauts.Framework.Units.CelsiusToKelvin));
             machine.ZeroCondAmount("IsPowered");
             return false;
         }

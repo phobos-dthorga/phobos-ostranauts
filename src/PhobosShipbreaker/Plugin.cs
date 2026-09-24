@@ -15,7 +15,7 @@ namespace PhobosShipbreaker;
 public sealed class Plugin : BaseUnityPlugin
 {
     public const string Id = "phobosgekko.ostranauts.shipbreaker";
-    public const string Version = "0.8.0";
+    public const string Version = "0.9.0";
     internal static ProcessingService Service { get; private set; } = null!;
     internal static Action<string> Log { get; private set; } = null!;
     internal static Settings Options { get; private set; } = null!;
@@ -55,22 +55,32 @@ public sealed class Plugin : BaseUnityPlugin
 [HarmonyPatch(typeof(Powered), "UsePower", new[] { typeof(CondOwner), typeof(double) })]
 internal static class PowerPatch
 {
-    internal sealed class PowerState { internal bool Working; internal ReclaimerHeat.Transfer? Heat; }
-    private static bool Prefix(Powered __instance, CondOwner __0, double __1, out PowerState __state)
+    internal sealed class PowerState { internal bool Working, Feeding; internal ReclaimerHeat.Transfer? Heat; }
+    private static bool Prefix(Powered __instance, CondOwner __0, ref double __1, out PowerState __state)
     {
         __state = new PowerState { Working = __0 != null && (ProcessingService.IsProcessor(__0.strCODef) && __0.HasCond(Core.ProcessRules.Working) ||
             ProcessingService.IsGrabber(__0) && __0.HasCond(Core.IntakeRules.Working) ||
             Core.CollectorRules.IsFamily(__0.strCODef) && __0.HasCond(Core.CollectorRules.Working)) };
+        __state.Feeding = __0 != null && ProcessingService.IsReclaimer(__0) && __0.HasCond(Core.RoutingRules.Feeding);
+        if (__state.Feeding)
+        {
+            double baseKW = __state.Working ? Plugin.Options.ReclaimerKW : Core.ReclaimerRules.IdleKW;
+            __1 *= Core.RoutingRules.DemandKW(__state.Working, true, Plugin.Options.ReclaimerKW, Plugin.Options.FeederKW) / baseKW;
+        }
         return __0 == null || ReclaimerHeat.Begin(__instance, __0, __1, out __state.Heat);
     }
     private static void Postfix(Powered __instance, CondOwner __0, PowerState __state)
     {
         if (__0 == null) return;
         try { ReclaimerHeat.Finish(__instance, __0, __state.Heat); }
-        catch (Exception ex) { Plugin.Service.Fault(__0, ex); return; }
+        catch (Exception ex) { Plugin.Service.Fault(__0, ex); Plugin.Collectors.Fault(__0, ex); return; }
         if (Core.CollectorRules.IsFamily(__0.strCODef)) Plugin.Collectors.AfterPower(__0, __state.Working);
         else if (ProcessingService.IsGrabber(__0)) Plugin.Service.AfterIntakePower(__0, __state.Working);
-        else Plugin.Service.AfterPower(__0, __state.Working, __state.Heat?.WorkSeconds);
+        else
+        {
+            Plugin.Service.AfterPower(__0, __state.Working, __state.Heat?.WorkSeconds);
+            if (ProcessingService.IsReclaimer(__0)) Plugin.Collectors.AfterPower(__0, __state.Feeding, __state.Heat?.WorkSeconds);
+        }
     }
     private static void Finalizer(Powered __instance) => ReclaimerHeat.Forget(__instance);
 }
@@ -96,8 +106,13 @@ internal static class PowerDemandPatch
             return;
         }
         if (!ProcessingService.IsProcessor(machine.strCODef)) return;
-        try { Plugin.Service.BeforePower(machine); }
-        catch (Exception ex) { Plugin.Service.Fault(machine, ex); }
+        try
+        {
+            Plugin.Service.BeforePower(machine);
+            if (ProcessingService.IsReclaimer(machine)) Plugin.Collectors.BeforePower(machine);
+        }
+        catch (Exception ex)
+        { Plugin.Service.Fault(machine, ex); if (ProcessingService.IsReclaimer(machine)) Plugin.Collectors.Fault(machine, ex); }
     }
 }
 

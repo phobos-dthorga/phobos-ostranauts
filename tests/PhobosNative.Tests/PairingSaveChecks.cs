@@ -22,6 +22,15 @@ internal static class PairingSaveChecks
             return loaded.aGPMSettings.ToDictionary(m=>m.strName,m=>DataHandler.ConvertStringArrayToDict(m.dictGUIPropMap));
         }
         var loadedA = RoundTrip(a); var loadedB = RoundTrip(b);
+        SavedPortFilter.Set(receiver, new[] { "PhobosPanelRejectR2" });
+        var savedFilter = SavedPortFilter.Read(new MaterialPort(receiver.ObjectId, receiver.PortId, RoundTrip(b)));
+        check(savedFilter.State == PortFilterState.Configured && savedFilter.DefinitionIds.SequenceEqual(new[] { "PhobosPanelRejectR2" }),
+            "Exact filter IDs survive the game's actual property-map serialization");
+        var input = new MaterialPort(sender.ObjectId, "PhobosShipbreaker.ReclaimerFeed", a);
+        var upstream = new MaterialPort("upstream-id", "PhobosShipbreaker.ResidueOut", new());
+        check(PortPairing.TryLink(upstream, input, out _) && PortPairing.Matches(new MaterialPort(input.ObjectId, input.PortId, RoundTrip(a)),
+            upstream) == false && PortPairing.Matches(upstream, new MaterialPort(input.ObjectId, input.PortId, RoundTrip(a))),
+            "Native maps retain independent incoming/outgoing port direction on one machine");
         check(PortPairing.Matches(new MaterialPort(sender.ObjectId,sender.PortId,loadedA),
             new MaterialPort(receiver.ObjectId,receiver.PortId,loadedB)), "Real native property-map save format preserves both endpoints and pair token");
         // Native ship cloning remaps whole property values equal to an object ID.

@@ -1,7 +1,7 @@
 # Current player guide
 
-**Prepared versions:** Phobos Framework **0.8.0**, Shipbreaker **0.8.0**, Auto Nav
-**0.3.0**, built against Ostranauts **1.0.1.4** / BepInEx **5.4.23.5**.
+**Prepared versions:** Phobos Framework **0.9.0**, Shipbreaker **0.9.0**, Auto Nav
+**0.3.0**, built against Ostranauts **1.0.1.5** / BepInEx **5.4.23.5**.
 These versions support ordinary saves. Builds and offline checks do not establish
 in-game compatibility. This guide describes the prepared packages, not a claim
 that those packages are already installed or that merchants have restocked.
@@ -89,14 +89,17 @@ the processor. It does not cross gaps, cargo webbing or a docked ship.
    six steel scraps and one 13 kg identified R2 residue packet. Total mass is 24 kg.
    Started revision-1 jobs still yield the old unclassified mixed residue.
 4. To collect residue automatically, right-click the collector → **Control Panel**,
-   select the processor with **Link**, then **Collect residue**. Alternatively
-   choose the collector through F9 → **Residue destination / unlink**, then start
+   select the processor with **Link**, then **Start transfers**. Alternatively
+   choose the collector through F9 → **Output routing**, then start
    collection at the collector. Linking alone does not start it.
 5. Empty the collector through its **Inventory**. Four packets fill it (52 kg).
-   Collected residue remains aboard and counts toward ship mass. Haul identified
-   R2 packets to the [scrap reclaimer](scrap-reclaimer.md) for 3 kg steel + 1 kg
-   aluminium + 9 kg retained rejects each. Legacy packets remain unclassified
-   storage cargo. A collector can also receive reclaimer rejects; it never ejects.
+   Collected residue remains aboard and counts toward ship mass. Link the fixture
+   directly to the [scrap reclaimer](scrap-reclaimer.md), or link the collector
+   output to its feed. Start input transfers and processing separately at the
+   reclaimer. Each identified R2 packet returns 3 kg steel, 1 kg aluminium and
+   9 kg rejects; link its output to a collector with the rejects filter. See
+   [automatic routing](automatic-material-routing.md) for the controls. Legacy
+   packets remain unclassified storage cargo; collection never ejects material.
 
 **The processor's normal Inventory is output.** For standalone operation, F9 →
 **Manual feed (fallback)** opens its separate wall feed; load there and Start.

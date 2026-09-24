@@ -11,7 +11,7 @@ internal sealed class ReclaimerPanel
 {
     private const int WindowId = 847294;
     private CondOwner? target;
-    private Rect bounds = new Rect(160, 100, 610, 390);
+    private Rect bounds = new Rect(160, 100, 640, 470);
     internal void Reset() => target = null;
     internal bool Show(CondOwner machine)
     {
@@ -40,8 +40,13 @@ internal sealed class ReclaimerPanel
         if (GUILayout.Button(Text.Get("Reclaimer.feed"))) service.OpenInventory(machine, true);
         if (GUILayout.Button(Text.Get("FixturePanel.collect_products"))) service.OpenInventory(machine, false);
         GUILayout.EndHorizontal();
-        GUILayout.Label(CollectorService.DescribeLink(machine));
-        if (GUILayout.Button(Text.Get("FixturePanel.residue_destination_unlink"))) Plugin.CollectorControls.ShowSource(machine);
+        GUILayout.Label(CollectorService.DescribeLink(machine, false));
+        GUILayout.Label(CollectorService.DescribeLink(machine, true));
+        GUILayout.BeginHorizontal();
+        if (GUILayout.Button(Text.Get("Routing.input_port"))) Plugin.CollectorControls.Show(machine);
+        if (GUILayout.Button(Text.Get("Routing.output_port"))) Plugin.CollectorControls.ShowSource(machine);
+        GUILayout.EndHorizontal();
+        GUILayout.Label(Text.Get("Routing.queue_hint"));
         if (GUILayout.Button(Text.Get("FixturePanel.close"))) target = null;
         GUI.DragWindow(new Rect(0, 0, bounds.width, 24));
     }

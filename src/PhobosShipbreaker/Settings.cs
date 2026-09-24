@@ -18,10 +18,16 @@ internal sealed class Settings
     internal double CollectorSeconds { get; }
     internal double CollectorKW { get; }
     internal bool CollectorContinue { get; }
+    internal double FeederSeconds { get; }
+    internal double FeederKW { get; }
+    internal bool FeederContinue { get; }
     internal KeyCode ControlsKey { get; }
 
     internal Settings(ConfigFile config)
     {
+        FeederSeconds = Number(config, "Routing", "FeedSeconds", RoutingRules.FeedSeconds, 1, 60, Text.Get("Routing.setting_seconds"));
+        FeederKW = Number(config, "Routing", "FeedKilowatts", RoutingRules.FeedKW, .1, 100, Text.Get("Routing.setting_kw"));
+        FeederContinue = config.Bind("Routing", "ContinueFeeding", true, Text.Get("Routing.setting_continue")).Value;
         ReclaimerSeconds = Number(config, "Reclaimer", "CycleSeconds", ReclaimerRules.CycleSeconds, 30, ProcessRules.MaxJobSeconds, Text.Get("Reclaimer.setting_seconds"));
         ReclaimerKW = Number(config, "Reclaimer", "WorkingKilowatts", ReclaimerRules.WorkingKW, 1, 100, Text.Get("Reclaimer.setting_power"));
         CycleSeconds = Number(config, "Processing", "CycleSeconds", ProcessRules.CycleSeconds, ProcessRules.MinimumConfiguredCycleSeconds, ProcessRules.MaxJobSeconds,

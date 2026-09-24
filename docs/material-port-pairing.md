@@ -2,7 +2,8 @@
 
 24 September 2026. Framework and Shipbreaker **0.5.0**. Requested by the owner:
 explicit sender/receiver selection by unique ID, borrowing the native PDA/nav or
-signal-linking approach. Current consumer: processor residue output → collector.
+signal-linking approach. Introduced in 0.5.0; version **0.9.0** adds reclaimer
+inputs and collector-buffer outputs. See [automatic routing](automatic-material-routing.md).
 
 ## Native precedent inspected
 
@@ -31,7 +32,7 @@ not patch signal routing or write into the native `Electrical` property map.
   token, owner, role, peer object and peer port on both endpoints. Short display
   IDs are never accepted as substitute routing identities.
 - One sender per receiver and one receiver per sending port. Separate logical
-  ports on future equipment may have independent pairs. No broadcasting,
+  input/output ports on reclaimers and collector buffers have independent pairs. No broadcasting,
   priorities, fan-in, fan-out or cycle scheduler in this slice.
 - Both endpoints must reciprocate the same addresses, opposite roles and token
   before work is allowed. Matching only a human-entered channel label is insufficient.
@@ -53,7 +54,7 @@ unlinked. No migration modifies game save files outside the running game.
 ## Controls and scope
 
 The collector's **Control Panel** offers Link/Unlink; the processor's F9 panel
-opens **Residue destination / unlink** for the opposite perspective. Names and
+opens **Output routing** for the opposite perspective. Names and
 short IDs are shown together, with full IDs in button tooltips and console status.
 Linking is permitted beside either endpoint; starting collection is performed
 beside the collector. Console operations use the same service and gameplay checks.
@@ -62,7 +63,7 @@ The grabber/chute/processor's direct mechanical intake still requires its physic
 alignment. Pairing selects a material destination and does not replace that mount
 or the structural-floor route. Electrical signals may enable/disable machinery
 through the existing native conditions; they do not carry items. Persistent
-space ejection, arbitrary filters and standalone conveyor endpoint equipment
+space ejection, arbitrary-material filters and standalone conveyor endpoint equipment
 remain later work.
 
 ## Verification

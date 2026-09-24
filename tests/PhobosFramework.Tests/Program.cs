@@ -36,6 +36,7 @@ ConstructionChecks.Run(Check);
 TransferChecks.Run(Check);
 RoutingChecks.Run(Check);
 PairingChecks.Run(Check);
+PortFilterChecks.Run(Check);
 Console.WriteLine($"PASS: {checks} public-assembly and recovery checks. Shipbreaker tests also exercise this compiled provider.");
 
 sealed class FailingDictionary : Dictionary<string, int>, IDictionary<string, int>

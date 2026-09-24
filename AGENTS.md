@@ -86,7 +86,11 @@
   content owns native keys, identities and balance. Default reclaimer operation
   is 120 seconds / 12 kW, delivering heat into native room gas. Require enough
   atmosphere/thermal headroom; do not treat vacuum as free cooling. Use explicit
-  paired output collectors; automatic reclaimer feed remains future work.
+  paired output collectors. Version 0.9.0 adds automatic reclaimer feed from
+  fixtures or collector buffers, independent input/output pairs and saved exact-ID
+  filters through Framework. Follow `docs/automatic-material-routing.md`. Keep
+  receiving and processing permissions separate and paused after reload. Full
+  destinations retain cargo at the sender; no virtual inventories or silent disposal.
   Preserve shared staged delivery and the native powered-job pause on reload.
 - Prefer extending existing mods over duplicating their systems. Steam Workshop
   dependencies are welcome. Refresh the inventory when it matters; see

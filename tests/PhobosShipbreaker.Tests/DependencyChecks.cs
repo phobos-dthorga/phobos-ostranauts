@@ -15,7 +15,8 @@ internal static class DependencyChecks
         check(DependencyContract.FrameworkProblem(new Version(0, 3, 0)) != null, "Collector needs shared filter, clock and route helpers");
         check(DependencyContract.FrameworkProblem(new Version(0, 4, 0)) != null, "Saved pairing needs the shared port API");
         check(DependencyContract.FrameworkProblem(new Version(0, 6, 0)) != null, "Translation-aware equipment requires the shared localization API");
-        foreach (var version in new[] { new Version(0, 8, 0), new Version(0, 8, 1), new Version(1, 0, 0) })
+        check(DependencyContract.FrameworkProblem(new Version(0, 8, 0)) != null, "Saved routing filters require Framework 0.9");
+        foreach (var version in new[] { new Version(0, 9, 0), new Version(0, 9, 1), new Version(1, 0, 0) })
             check(DependencyContract.FrameworkProblem(version) == null, "No invented upper version or age cutoff: " + version);
 
         var tables = DependencyContract.Required.ToDictionary(g => g.Table, g => g.Names.ToHashSet());
