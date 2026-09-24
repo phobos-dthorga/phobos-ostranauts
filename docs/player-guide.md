@@ -1,7 +1,7 @@
 # Current player guide
 
 **Prepared versions:** Phobos Framework **0.10.0**, Shipbreaker **0.10.0**, Auto Nav
-**0.3.0**, built against Ostranauts **1.0.1.5** / BepInEx **5.4.23.5**.
+**0.4.0**, built against Ostranauts **1.0.1.5** / BepInEx **5.4.23.5**.
 These versions support ordinary saves. Builds and offline checks do not establish
 in-game compatibility. This guide describes the prepared packages, not a claim
 that those packages are already installed or that merchants have restocked.
@@ -146,8 +146,18 @@ connected workflow, retained materials and any actual failure you encounter.
 
 ## Auto Nav and current limits
 
+Look for **Phobos Polaris Auto Nav Module** in shops or table construction.
+The [Auto Nav economy guide](auto-nav-economy.md) lists sellers, conditions,
+prices, repair materials, Restore and dismantling. Its package is still Phobos Auto Nav.
+
 Install the module in a compatible navigation console and use its **Fly** and
 **Disengage** controls. F3 equivalents are `phobosnav fly` and `phobosnav stop`.
+Short-range approaches below **5,000 km** are the current goal; Auto Nav has no
+minimum engagement range. New configurations stop at **1 km**, adjustable down
+to **100 m** subject to larger hull clearance. Existing settings stay unchanged:
+while disengaged, `phobosnav arrival 1` saves a 1 km default. `phobosnav fly 0.5`
+requests 500 m for one flight. These distances are centre-to-centre, and arrival
+is a band rather than an exact docking position. Status reports effective range.
 Choose a ship/station target and use the [Auto Nav guide](auto-navigate-adaptation.md)
 for settings and integration limits. Stopping clears commanded thrust: the ship
 coasts. This is not emergency braking, automatic docking, obstacle avoidance or

@@ -20,8 +20,8 @@ All dollar figures below are **whole-object values**, not prices per kilogram or
 | Phobos Residue Collector (Damaged) | $600.00 | $150.00 | $41.45 | 6.91% | $60.00 / $20.72 |
 | Dismantling Fixture Assembly Section | $4,800.00 | $4,800.00 | $257.05 | 5.36% | $1,920.00 / $128.52 |
 | Scrap reclaimer assembly section | $6,000.00 | $6,000.00 | $318.80 | 5.31% | $2,400.00 / $159.40 |
-| Phobos Auto Nav | $3,600.00 | $900.00 | $0.01 | 0.00% | $360.00 / $0.00 |
-| Phobos Auto Nav (Damaged) | $900.00 | $225.00 | $0.01 | 0.00% | $90.00 / $0.00 |
+| Phobos Polaris Auto Nav Module | $3,600.00 | $900.00 | $0.01 | 0.00% | $360.00 / $0.00 |
+| Phobos Polaris Auto Nav Module (Damaged) | $900.00 | $225.00 | $0.01 | 0.00% | $90.00 / $0.00 |
 
 The VORB column compares the **lowest whole-item value at the lowest native buyer multiplier** against **fresh output at the highest buyer multiplier**. It excludes supply/demand, negotiation, travel and labour. An assembly section has no wear stat. Broken equipment has its own lower base price; additional wear can reduce that again.
 
@@ -39,7 +39,7 @@ This is a conservative vanilla baseline, not a guarantee across different region
 | Scrap Reclaimer Assembly Section | $348.20 | $318.80 |
 | Scrap Reclaimer | $12,000.00 | $637.60 |
 | Industrial Control Console | $241.20 | $164.90 |
-| Phobos Auto Nav | $29.00 | $0.01 |
+| Phobos Polaris Auto Nav Module | $29.00 | $0.01 |
 
 The processor's final assembly consumes two priced sections. Raw materials for both sections total $570.80; its $514.10 dismantling yield is also below that original raw-material bill. Construction creates a usable machine through labour; this is separate from the dismantling comparison.
 
@@ -51,6 +51,6 @@ The processor's final assembly consumes two priced sections. Raw materials for b
 | Phobos Sealed Hull Chute | $18.30 |
 | Phobos Scrap Reclaimer | $104.60 |
 | Phobos Residue Collector | $40.10 |
-| Phobos Auto Nav | $29.00 |
+| Phobos Polaris Auto Nav Module | $29.00 |
 
 Repair values exclude purchasing markups, reusable tools, work and subsequent Restore. Repair returns equal-mass spent material; it does not mint fresh valuable components.

@@ -50,7 +50,7 @@ internal sealed class NavigationService
         return null;
     }
 
-    internal void Engage(CondOwner? co)
+    internal void Engage(CondOwner? co, float? arrivalKM = null)
     {
         if (AutoNavCore.Engaged) { status = Text.Get("NavigationService.already_engaged_stop_before_changing_the_flight"); return; }
         try
@@ -74,9 +74,13 @@ internal sealed class NavigationService
             { status = Text.Get("NavigationService.stop_approach_assist_s_test_pulse_first"); return; }
             var target = TargetRef.FromCrossHair();
             if (target == null) { status = Text.Get("NavigationService.target_unavailable"); return; }
-            float cruise = Plugin.DefaultCruiseMS.Value, arrival = Plugin.DefaultArriveSpeedMS.Value, distance = Plugin.DefaultArriveKM.Value;
-            if (!ArrivalBrake.Finite(cruise) || !ArrivalBrake.Finite(arrival) || !ArrivalBrake.Finite(distance))
+            float cruise = Plugin.DefaultCruiseMS.Value, arrival = Plugin.DefaultArriveSpeedMS.Value,
+                distance = arrivalKM ?? Plugin.DefaultArriveKM.Value;
+            if (!ArrivalBrake.Finite(cruise) || !ArrivalBrake.Finite(arrival) || !ApproachRules.ValidArrival(distance))
             { status = Text.Get("NavigationService.invalid_flight_settings"); return; }
+            if (!target.Resolve(out _, out _, out _, out _)
+                || !AutoNavCore.TryReadApproach(co!.ship, target, distance, out _, out _))
+            { status = Text.Get("NavigationService.approach_data_unavailable"); return; }
             AutoNavCore.CruiseAU = cruise * AutoNavCore.M_TO_AU;
             AutoNavCore.ArrSpdAU = Math.Min(arrival, cruise) * AutoNavCore.M_TO_AU;
             AutoNavCore.ArriveAU = distance * AutoNavCore.KM_TO_AU;
@@ -141,20 +145,53 @@ internal sealed class NavigationService
     }
 
     internal string ReadPanel(CondOwner co) => status + "\n" +
-        (AutoNavCore.Engaged ? Text.Get("NavigationService.target", AutoNavCore.EngagedTarget.DisplayName) : HardwareProblem(co) ?? Text.Get("NavigationService.ready_to_select_target"));
+        (AutoNavCore.Engaged ? Text.Get("NavigationService.target", AutoNavCore.EngagedTarget.DisplayName) : HardwareProblem(co) ?? Text.Get("NavigationService.ready_to_select_target"))
+        + "\n" + ApproachSummary(co, detailed: false);
+
+    private static string ApproachSummary(CondOwner? co, bool detailed)
+    {
+        double requested = AutoNavCore.Engaged ? AutoNavCore.ArriveAU / AutoNavCore.KM_TO_AU : Plugin.DefaultArriveKM.Value;
+        var target = AutoNavCore.Engaged ? AutoNavCore.EngagedTarget :
+            GUIOrbitDraw.IsOpen() && GUIOrbitDraw.CrossHairTarget?.Ship != null ? TargetRef.FromCrossHair() : null;
+        var ship = AutoNavCore.Engaged ? AutoNavCore.EngagedPlayer : co?.ship;
+        if (ship != null && target != null && AutoNavCore.TryReadApproach(ship, target, requested, out var plan, out var speed))
+            return Text.Get(detailed ? "NavigationService.approach_details" : "NavigationService.approach_range",
+                plan.RangeKM, plan.EffectiveArrivalKM, speed, plan.RequestedArrivalKM);
+        return Text.Get("NavigationService.arrival_default", requested);
+    }
 
     internal bool Command(string[] words, out string response)
     {
         try
         {
             string verb = words.Length == 1 ? "help" : words[1].ToLowerInvariant();
-            if (words.Length > 2) { response = Text.Get("NavigationService.no_extra_arguments_accepted_use_phobosnav_help"); return false; }
+            if (words.Length > (verb == "fly" || verb == "arrival" ? 3 : 2))
+            { response = Text.Get("NavigationService.no_extra_arguments_accepted_use_phobosnav_help"); return false; }
             switch (verb)
             {
                 case "help": response = Text.Get("NavigationService.phobosnav_help_status_settings_fly_stop_spawn"); return true;
-                case "status": response = Text.Get("NavigationService.phobos_auto_nav_engaged", Plugin.Version, AutoNavCore.Engaged, status, EquipmentContent.Status); return true;
+                case "status": response = Text.Get("NavigationService.phobos_auto_nav_engaged", Plugin.Version, AutoNavCore.Engaged, status, EquipmentContent.Status)
+                    + "\n" + ApproachSummary(OpenConsole, detailed: true); return true;
                 case "settings": response = Text.Get("NavigationService.cruise_m_s_arrival_m_s_at", Plugin.DefaultCruiseMS.Value, Plugin.DefaultArriveSpeedMS.Value, Plugin.DefaultArriveKM.Value, Plugin.ArrivalSpeedTolerance.Value, Plugin.MaximumStepSeconds.Value, Plugin.Id); return true;
-                case "fly": Engage(OpenConsole); response = status; return AutoNavCore.Engaged;
+                case "fly":
+                    float? requested = null;
+                    if (words.Length == 3)
+                    {
+                        if (!ApproachRules.TryParseArrival(words[2], out float km)) { response = ArrivalUsage(); return false; }
+                        requested = km;
+                    }
+                    Engage(OpenConsole, requested);
+                    response = status + "\n" + ApproachSummary(OpenConsole, detailed: true);
+                    return AutoNavCore.Engaged;
+                case "arrival":
+                    if (words.Length != 3 || !ApproachRules.TryParseArrival(words[2], out float newDefault))
+                    { response = ArrivalUsage(); return false; }
+                    if (AutoNavCore.Engaged)
+                    { response = Text.Get("NavigationService.already_engaged_stop_before_changing_the_flight"); return false; }
+                    Plugin.DefaultArriveKM.Value = newDefault;
+                    Plugin.DefaultArriveKM.ConfigFile.Save();
+                    response = Text.Get("NavigationService.arrival_default_saved", newDefault);
+                    return true;
                 case "stop": Disengage(Text.Get("NavigationService.stopped_by_pilot_coasting")); response = status; return true;
                 case "spawn": return Spawn(out response);
                 default: response = Text.Get("NavigationService.unknown_command_use_phobosnav_help"); return false;
@@ -162,6 +199,9 @@ internal sealed class NavigationService
         }
         catch (Exception ex) { log(ex.ToString()); response = Text.Get("NavigationService.command_failed_see_bepinex_log"); return false; }
     }
+
+    private static string ArrivalUsage() => Text.Get("NavigationService.arrival_usage",
+        ApproachRules.MinimumArrivalKM, ApproachRules.MaximumArrivalKM);
 
     private bool Spawn(out string response)
     {

@@ -15,7 +15,7 @@ public static class ArrivalBrake
     public static bool Finite(double x) => !double.IsNaN(x) && !double.IsInfinity(x);
 
     public static bool NeedsBrake(double range, double radius, double speed, double arrival, double tolerance) =>
-        range <= radius * 1.05 && speed > arrival + tolerance;
+        range <= radius * ApproachRules.ArrivalBandMultiplier && speed > arrival + tolerance;
 
     public static bool TryCommand(double vx, double vy, double rotation, double fullAcceleration,
         double throttle, double arrival, double dt, out BrakeCommand command)

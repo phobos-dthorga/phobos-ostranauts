@@ -124,6 +124,22 @@
 
 ## Architecture
 
+- Auto Nav's immediate goal is short-range ship/station approach **below 5,000 km**
+  (owner direction, 2026-09-24; vanilla threshold owner-reported). Do not confuse
+  starting range with arrival distance or add an artificial engagement minimum.
+  The owner selected **1 km default arrival**, adjustable closer. Version 0.4.0
+  accepts 0.1–100 km arrival requests with native hull clearance; preserve existing
+  preferences and capture overrides per flight. Keep diagnostics and panel/F3
+  actions on the same service. Docking, obstacle avoidance and continuous working
+  position control remain separate future features. See `docs/auto-navigate-adaptation.md`.
+- The owner requests Polaris in Auto Nav's equipment name to identify its
+  navigation-station use. Use **Phobos Polaris Auto Nav Module** for the item,
+  localized damaged form, construction and panel branding. Retain saved IDs and
+  the Phobos Auto Nav package identity. Follow `docs/auto-nav-economy.md` for its
+  native trade, repair, Restore and mass-balanced salvage. Reuse Framework services;
+  do not invent extra scrap mass or duplicate economic machinery. Existing approved
+  sprites/faceplate remain suitable because names are rendered as live text.
+
 - Use native JSON definitions for suitable content and existing behaviours.
 - Use C# extensions for behaviour the native data system cannot express cleanly.
 - UI code presents state and delegates actions; gameplay services own mutations.

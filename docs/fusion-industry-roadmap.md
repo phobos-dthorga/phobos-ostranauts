@@ -36,6 +36,12 @@ Control is restricted to the console's player-owned host ship. See the
 offline; game rendering, seating and connected operation still need owner tests.
 A future PDA/visor logical-connection view is documented only.
 
+**Auto Nav direction (2026-09-24):** serve the owner's short-range gap below
+5,000 km. Version 0.4.0 prepares closer arrival settings, a 1 km new-config
+default and per-flight distance commands. There is no minimum engagement range.
+See the [Auto Nav guide](auto-navigate-adaptation.md); relative work-position
+holding and external cutting remain future work, not implied by arrival.
+
 **2026-09-24 future idea:** [chemical storage, process fluids and industrial
 hazards](chemical-storage-and-process-fluids.md) records the owner's installable
 solvent/reagent reservoirs, quantity-based station refuelling, optional process

@@ -96,7 +96,39 @@ internal static class EconomyChecks
         {
             check(Stat(id,"StatMass") == .4 && Sum(nav.Installables[id+"Dismantle"].aLootCOs,"StatMass") == .4, "Auto Nav disassembly cannot manufacture native half-kg electronics");
             check(!nav.Objects[id].aUpdateCommands.Any(c => c.Contains("ACTNavModMoboDamage")), "Auto Nav never falls back to a generic damaged board");
+            var data = new DataCO(nav.Objects[id]);
+            check(data.HasCond("IsPolaris") && data.HasCond("IsNavMod") && data.HasCond("IsCategoryControlSystems"),
+                "Polaris compatibility and native trade categories survive the private board definition");
+            foreach (string trigger in new[] { "TIsBarterSanDiegoPolarisBuy", "TIsBarterSanDiegoPolarisSell",
+                "TIsBarterOKLGSupplyKiosk", "TIsBarterOKLGSupplyKioskSell", "TIsBarterVORBScrapKiosk", "TIsBarterVORBScrapKioskSell" })
+                check(DataHandler.dictCTs[trigger].TriggeredDataCO(data, false), "Auto Nav can be traded through native filter: " + trigger + "/" + id);
+            var slotted = NativeDefinitions.Clone(nav.Objects[id]);
+            MaintenanceDefinitions.SetStat(slotted, "IsSlotted", 1);
+            check(!DataHandler.dictCTs["TIsBarterSanDiegoPolarisSell"].TriggeredDataCO(new DataCO(slotted), false),
+                "Polaris stock preserves the native slotted-equipment restriction");
+            var dismantle = nav.Installables[id + "Dismantle"];
+            check(MaintenanceSafety.Actions.ContainsKey("ACT" + id + "DismantleAllow") && MaintenanceSafety.Actions.ContainsKey("MS" + id + "Dismantle"),
+                "Auto Nav dismantle guards cover work and finish");
+            check(dismantle.aToolCTsUse.Contains("TIsToolMortorq") && dismantle.aToolCTsUse.Contains("TIsToolSoldering"),
+                "Auto Nav native salvage requires the service tools");
         }
+        var navRepair = nav.Installables[PhobosAutoNav.EquipmentContent.Base + "DmgRepair"];
+        check(navRepair.aInputs.SequenceEqual(new[] { "TIsPartsElecSmall=1x2" }) && navRepair.aLootCOs.SequenceEqual(new[] { "PhobosNavModAutoNav" }),
+            "Repair consumes the electronics bill and restores the same module family without extra whole-item loot");
+        check(MaintenanceSafety.Repairs["MS" + navRepair.strName] == "PhobosNavModAutoNav"
+            && MaintenanceSafety.SpentPartUnits(2 * Stat("ItmPartsElecSmall01", "StatMass")) * .5 == 1,
+            "Repair returns the actual one-kg bill as spent parts");
+        var navRestore = nav.Installables[PhobosAutoNav.EquipmentContent.Base + "Restore"];
+        check(navRestore.bNoDestructable && navRestore.aInputs.Length == 0 && navRestore.strAllowLootCTsThem == "CONDUndamageProgress",
+            "Restore remains in-place wear maintenance without a material bill");
+        var navOffers = nav.Loot.Values.Where(l => l.strName.StartsWith("PhobosAutoNavStock_", StringComparison.Ordinal)).ToArray();
+        check(navOffers.Length == 4 && navOffers.All(l => l.aCOs.Length == 1 && l.aCOs[0].EndsWith("x1", StringComparison.Ordinal)),
+            "Four acquisition routes each generate at most one module");
+        var polarisStock = DataHandler.dictLoot["ItmTraderSanDiegoPolarisInv"];
+        var repeatNav = PhobosAutoNav.EquipmentContent.Prepare(); repeatNav.Publish();
+        check(DataHandler.dictLoot["ItmTraderSanDiegoPolarisInv"].aCOs.SequenceEqual(polarisStock.aCOs)
+            && DataHandler.dictLoot["ItmTraderSanDiegoPolarisInv"].aLoots.SequenceEqual(polarisStock.aLoots),
+            "Registering Auto Nav again preserves native Polaris stock without duplicating its branch");
         var pack = JsonConvert.DeserializeObject<RecipePack>(File.ReadAllText(Path.Combine(repo,"mods/PhobosAutoNav/framework/recipes.json")))!;
         ConstructionRegistry.Register("AutoNavEconomyTest",pack.recipes);
         check(DataHandler.dictInteractions["PhobosCraft_PhobosBuildAutoNav"].aLootItms.Any(s=>s.StartsWith("Use,")), "Assembly requires reusable tools through native fetching");

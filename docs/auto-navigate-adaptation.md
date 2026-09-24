@@ -1,11 +1,17 @@
 # Phobos Auto Nav: standalone adaptation
 
-**0.3.0 candidate; built against Ostranauts 1.0.1.4 / BepInEx 5.4.23.5.**
+**0.4.0 candidate; built against Ostranauts 1.0.1.5 / BepInEx 5.4.23.5.**
 Ordinary saves are the baseline from 2026-09-24. Phobos Framework 0.7.0+ now
 provides shared construction, merchant and maintenance services. No original Auto
 Navigate dependency. See [prices, acquisition and service bills](equipment-economy.md).
 In-game validation of this update remains pending. See the
 [current player guide](player-guide.md) for the suite's installation and operating sequence.
+
+The equipment is now named **Phobos Polaris Auto Nav Module** to identify its
+navigation-station use. The package remains Phobos Auto Nav; saved item IDs are
+unchanged. Buying, selling, salvage and service details are in the
+[Auto Nav economy guide](auto-nav-economy.md). Existing artwork is retained, with
+the new Polaris panel title rendered as localized text.
 
 The owner requested a standalone adaptation instead of a Workshop dependency,
 with original-author credit, and clarified that public releases are the intended
@@ -48,11 +54,43 @@ That note has not been sent. No blanket community reuse grant is claimed.
   save-name restriction. Merchants and table assembly are the normal acquisition
   paths; hardware, power, fuel and conflicting-control checks still apply.
 
+## Short-range approach goal (2026-09-24)
+
+The owner identifies **below 5,000 km** as the gap left by vanilla autopilot and
+sets that as Auto Nav's immediate goal. This threshold is owner-reported; this
+round did not independently verify the vanilla gate. Our controller already had
+no minimum engagement range. Its old **5 km arrival setting** was a stopping
+distance, not a 5,000 km starting requirement. No new maximum engagement range is
+imposed, and native long-range navigation is unchanged.
+
+Version 0.4.0 makes closer approaches configurable: the owner chose **1 km** for
+new configurations, adjustable from **0.1 to 100 km**. These are centre-to-centre
+distances. Effective arrival distance is the greater of the requested setting and
+**1.5 times the native hull-contact distance**. Unknown/invalid hull geometry
+blocks engagement rather than silently using the smallest clearance. Arrival
+retains the existing 5% approach band and speed tolerance, so the setting is not
+an exact positioning guarantee.
+
+Panel status shows current range and effective arrival distance. F3 status also
+shows the requested distance and relative speed. Reading these values does not
+advance target physics. Starting within the arrival band brakes excess relative
+speed or completes if already slow enough; it does not move the ship outward to
+the requested distance. This is approach assistance, not a docking or position-hold
+controller. A fast approach can still overshoot; there is no obstacle avoidance
+or stopping-distance admission guarantee.
+
+Existing configuration values, including the old 5 km default, remain intact.
+With Auto Nav disengaged, use `phobosnav arrival 1` once to save the new preferred
+default. Use `phobosnav fly 0.5` for a single flight requesting 500 m without
+changing the saved default. Both commands validate distance before changing
+anything; an active flight retains its captured settings until stopped. Module
+identities and saved items are unchanged.
+
 ## Settings and commands
 
 The first launch creates `BepInEx/config/phobosgekko.ostranauts.autonav.cfg`.
 Edit it with the game closed. Defaults: cruise **100 m/s**, arrival **0 m/s**,
-arrival distance **5 km**, tolerance **0.5 m/s**, timeout **48 simulation hours**,
+arrival distance **1 km** for new configurations, tolerance **0.5 m/s**, timeout **48 simulation hours**,
 maximum simulation step **10 seconds**. Range/speed are relative to the target;
 arrival distance is centre-to-centre and also floored by the inherited hull check.
 Larger simulation steps abort and return to normal speed; they are not subdivided.
@@ -73,7 +111,9 @@ F3 commands:
 | `phobosnav status` | Version, engagement, economy registration and last result |
 | `phobosnav settings` | Effective flight defaults and config filename |
 | `phobosnav spawn` | Add one module to an open compatible console (debug grant) |
-| `phobosnav fly` | Engage through the same checks as the panel |
+| `phobosnav fly` | Engage using the saved default through the same checks as the panel |
+| `phobosnav fly 0.5` | Request a 500 m arrival for this flight; larger hull clearance still applies |
+| `phobosnav arrival 1` | Save a 1 km default while disengaged; no restart required |
 | `phobosnav stop` | Clear commanded thrust and coast |
 
 ## Approved artwork
@@ -132,6 +172,16 @@ normal versus accelerated time. During that same test, check panel labels/button
 alignment and intact/damaged item appearance at the owner's usual UI scale;
 no separate basic module proof test is needed. Record versions and outcomes. Do not call the
 prototype suitable for unattended travel or external cutting before these checks.
+
+The 0.4.0 numerical checks additionally cover approach planning at sub-kilometre,
+1–100 km, 1,000 km and either side of 5,000 km, large-hull overrides, invalid
+geometry, close arrival braking and locale-independent distance parsing. They
+exercise the policy used by engagement and runtime clearance, not the native
+flight simulation. Owner checks: select a clear target within 5,000 km, save
+`phobosnav arrival 1`, approach from outside that stopping distance, then try
+`phobosnav fly 0.5` with adequate clearance. Compare requested/effective arrival
+in `status`; verify that the one-flight override leaves the default unchanged.
+Near-target or high-relative-speed behaviour still needs supervised game testing.
 
 Longer-term work should address sensor-qualified target tracking, stopping-distance
 admission, obstacles and a deliberate handover into a separately designed work

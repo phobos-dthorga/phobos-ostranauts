@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 using PhobosAutoNav.Core;
 
 int checks = 0;
@@ -39,4 +40,43 @@ foreach (double dt in new[] { 0d, -1d }) Check(!ArrivalBrake.TryCommand(1, 2, 0,
 foreach (double throttle in new[] { 0d, -1d, 1.1d }) Check(!ArrivalBrake.TryCommand(1, 2, 0, 1, throttle, 0, 1, out _), "Reject unavailable throttle");
 Check(!ArrivalBrake.TryCommand(double.MaxValue, 1, 0, 1, .25, 0, 1, out _), "Reject overflow");
 Check(ArrivalBrake.TryCommand(0, 0, 0, 1, .25, 0, 1, out var zero) && zero.X == 0 && zero.Y == 0, "No burn when stopped");
+
+foreach (double range in new[] { 0d, .12, .5, 1, 2, 4.9, 5, 10, 100, 1000, 4999, 5000, 5001 })
+foreach (double arrival in new[] { .1, .5, 1, 5 })
+{
+    Check(ApproachRules.TryPlan(range, arrival, .04, out var plan), "No vanilla-style minimum engagement range");
+    Near(plan.EffectiveArrivalKM, arrival, "Small hull retains requested centre-to-centre stop");
+    Near(plan.RangeKM, range, "Range is measured independently of stopping distance");
+    if (plan.InsideArrivalBand)
+    {
+        Check(ArrivalBrake.NeedsBrake(range * 1000, plan.EffectiveArrivalKM * 1000, 50, 0, .5),
+            "Starting inside the selected arrival band with relative speed must brake");
+        Check(!ArrivalBrake.NeedsBrake(range * 1000, plan.EffectiveArrivalKM * 1000, 0, 0, .5),
+            "Already stopped inside the band needs no braking");
+    }
+}
+Check(ApproachRules.TryPlan(3, .1, .8, out var largeHull), "Large target clearance is available");
+Near(largeHull.EffectiveArrivalKM, 1.2, "Hull clearance overrides close arrival request");
+Check(ApproachRules.TryPlan(10, 5, .8, out var wideStop), "Existing 5 km preference stays usable");
+Near(wideStop.EffectiveArrivalKM, 5, "Small clearance does not override larger preference");
+foreach (double invalid in new[] { double.NaN, double.PositiveInfinity, double.NegativeInfinity, -1d })
+{
+    Check(!ApproachRules.TryPlan(invalid, 1, .02, out _), "Invalid range cannot engage");
+    Check(!ApproachRules.TryPlan(2, 1, invalid, out _), "Unknown hull clearance cannot silently use tiny radius");
+    Check(!ApproachRules.TryPlan(2, invalid, .02, out _), "Invalid arrival request cannot engage");
+}
+Check(!ApproachRules.TryPlan(1, .099, .01, out _), "Too-close request rejected");
+Check(!ApproachRules.TryPlan(1, 100.01, .01, out _), "Out-of-range request rejected");
+Check(!ApproachRules.TryPlan(1, 1, double.MaxValue, out _), "Hull clearance overflow rejected");
+var previousCulture = CultureInfo.CurrentCulture;
+try
+{
+    CultureInfo.CurrentCulture = CultureInfo.GetCultureInfo("fr-FR");
+    foreach (string value in new[] { "0.1", "0.5", "1", "5", "100" })
+        Check(ApproachRules.TryParseArrival(value, out _), "F3 accepts invariant km values under another locale");
+    Check(ApproachRules.TryParseArrival("0.5", out float half) && half == .5f, "500 metre command retains units");
+    foreach (string value in new[] { "NaN", "Infinity", "-1", "0", "0.099999999", "100.000000001", "0,5", "5000", "hello", "" })
+        Check(!ApproachRules.TryParseArrival(value, out _), "Reject malformed/out-of-bounds stop distance");
+}
+finally { CultureInfo.CurrentCulture = previousCulture; }
 Console.WriteLine($"{checks} numerical assertions passed. These are not in-game tests.");

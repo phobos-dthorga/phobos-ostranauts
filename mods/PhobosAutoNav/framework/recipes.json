@@ -3,8 +3,8 @@
   "recipes": [
     {
       "id": "PhobosBuildAutoNav",
-      "name": "Phobos Auto Nav",
-      "description": "Assemble and calibrate a 0.4 kg RCS guidance module from 1 kg of electronics; retain 0.6 kg of offcuts. Does not dock or avoid obstacles.",
+      "name": "Phobos Polaris Auto Nav Module",
+      "description": "Assemble and calibrate a 0.4 kg Phobos Polaris Auto Nav Module for a Polaris navigation station from 1 kg of electronics; retain 0.6 kg of offcuts. Does not dock or avoid obstacles.",
       "stationIds": [
         "ItmTable01",
         "ItmTable02"

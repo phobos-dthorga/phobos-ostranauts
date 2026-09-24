@@ -6,6 +6,7 @@ using BepInEx;
 using BepInEx.Configuration;
 using HarmonyLib;
 using Phobos.Ostranauts.Framework;
+using PhobosAutoNav.Core;
 
 namespace PhobosAutoNav;
 
@@ -15,7 +16,7 @@ namespace PhobosAutoNav;
 public sealed class Plugin : BaseUnityPlugin
 {
     public const string Id = "phobosgekko.ostranauts.autonav";
-    public const string Version = "0.3.0";
+    public const string Version = "0.4.0";
     internal static NavigationService Service { get; private set; } = null!;
     internal static ConfigEntry<bool> Enabled = null!, VerboseLogging = null!, FuelCheck = null!,
         AbortOnManualThrust = null!, UseThrusterRotation = null!;
@@ -32,7 +33,9 @@ public sealed class Plugin : BaseUnityPlugin
         VerboseLogging = Config.Bind("Diagnostics", "VerboseLogging", false, Text.Get("Plugin.detailed_flight_diagnostics"));
         DefaultCruiseMS = Number("Flight", "CruiseMS", 100, 10, 5000, Text.Get("Plugin.cruise_speed_relative_to_target_captured_on"));
         DefaultArriveSpeedMS = Number("Flight", "ArrivalMS", 0, 0, 1000, Text.Get("Plugin.arrival_relative_speed_zero_requests_braking_to"));
-        DefaultArriveKM = Number("Flight", "ArrivalKM", 5, 1, 100, Text.Get("Plugin.centre_to_centre_arrival_distance_also_floored"));
+        DefaultArriveKM = Number("Flight", "ArrivalKM", ApproachRules.DefaultArrivalKM,
+            (float)ApproachRules.MinimumArrivalKM, (float)ApproachRules.MaximumArrivalKM,
+            Text.Get("Plugin.centre_to_centre_arrival_distance_also_floored"));
         ArrivalSpeedTolerance = Number("Flight", "ArrivalToleranceMS", 0.5f, 0.05f, 5, Text.Get("Plugin.allowed_speed_error_at_arrival_not_a"));
         MaxFlightSimHours = Number("Limits", "MaximumFlightHours", 48, 0.01f, 168, Text.Get("Plugin.simulation_time_timeout_aborts_and_coasts"));
         MaximumStepSeconds = Number("Limits", "MaximumStepSeconds", 10, 0.1f, 60, Text.Get("Plugin.abort_on_larger_simulation_updates_avoids_commanding"));

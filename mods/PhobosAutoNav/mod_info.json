@@ -4,7 +4,7 @@
     "strAuthor": "phobosgekko; guidance adapted from Gravy/mrkmg's Auto Navigate",
     "strModURL": "https://github.com/phobos-dthorga/phobos-ostranauts",
     "strGameVersion": "1.0.1.5",
-    "strModVersion": "0.3.0",
-    "strNotes": "Translation catalogs with English fallback; language selection through Phobos Framework. RCS approach and braking for ordinary saves. Requires BepInEx 5, the accompanying PhobosAutoNav plugin and Phobos Framework 0.6.0+. Available from traders or table assembly, with repair, Restore and mass-balanced dismantling. No Auto Navigate dependency. Does not dock or avoid obstacles. Original Phobos artwork; adaptation provenance in THIRD_PARTY_NOTICES.md. Economy integration awaits in-game testing."
+    "strModVersion": "0.4.0",
+    "strNotes": "Includes the Phobos Polaris Auto Nav Module for Polaris navigation stations. Translation catalogs with English fallback; language selection through Phobos Framework. Short-range RCS approach below 5,000 km; 1 km default stopping distance, adjustable to 100 m subject to hull clearance. Ordinary saves supported. Requires BepInEx 5, the accompanying PhobosAutoNav plugin and Phobos Framework 0.7.0+. Available from traders or table assembly, with repair, Restore and mass-balanced dismantling. No Auto Navigate dependency. Does not dock or avoid obstacles. Original Phobos artwork; adaptation provenance in THIRD_PARTY_NOTICES.md. Economy integration awaits in-game testing."
   }
 ]

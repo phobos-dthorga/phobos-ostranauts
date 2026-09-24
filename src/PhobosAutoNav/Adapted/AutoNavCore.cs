@@ -45,7 +45,7 @@ internal static class AutoNavCore
 
 	public static double ArrSpdAU = 1.336917424453689E-10;
 
-	public static double ArriveAU = 3.342293561134222E-08;
+	public static double ArriveAU = ApproachRules.DefaultArrivalKM * KM_TO_AU;
 
 	private static double _elapsedSim;
 
@@ -238,7 +238,7 @@ internal static class AutoNavCore
                 player.Maneuver((float)command.X, (float)command.Y, 0f, 0, (float)fTime);
                 return;
             }
-            if (num7 <= num11 || (num3 <= num4 && num7 <= num11 * 1.05 && num10 <= num4))
+            if (num7 <= num11 || (num3 <= num4 && num7 <= num11 * ApproachRules.ArrivalBandMultiplier && num10 <= num4))
 			{
 				EndFlight(player, "ARRIVED");
 				return;
@@ -391,42 +391,31 @@ internal static class AutoNavCore
 		return Math.Max(0.0, num3 - v0) / aMax + Math.Max(0.0, num3 - arrSpd) / aMax;
 	}
 
-	public static double EffectiveArriveAU(Ship player, TargetRef target)
-	{
-		double num = Math.Max(ArriveAU, 6.684587122268445E-10);
-		try
-		{
-			ShipSitu targetSitu = target.TargetSitu;
-			if (targetSitu != null && player?.objSS != null)
-			{
-				return Math.Max(num, (double)CollisionManager.GetCollisionDistanceAU(player.objSS, targetSitu) * 1.5);
-			}
-			if (target.Body != null)
-			{
-				return Math.Max(num, target.Body.fRadius * 1.1);
-			}
-		}
-		catch
-		{
-		}
-		return num;
-	}
+    // Read-only snapshot: panel refreshes must not advance target physics.
+    public static bool TryReadApproach(Ship player, TargetRef target, double requestedKM,
+        out ApproachPlan plan, out double relativeSpeedMS)
+    {
+        plan = default;
+        relativeSpeedMS = 0;
+        try
+        {
+            var own = player?.objSS;
+            var other = target?.TargetSitu;
+            if (own == null || other == null) return false;
+            double dx = other.vPosx - own.vPosx, dy = other.vPosy - own.vPosy;
+            double vx = (own.vVelX - other.vVelX) / M_TO_AU;
+            double vy = (own.vVelY - other.vVelY) / M_TO_AU;
+            relativeSpeedMS = Math.Sqrt(vx * vx + vy * vy);
+            return ArrivalBrake.Finite(relativeSpeedMS) && ApproachRules.TryPlan(
+                Math.Sqrt(dx * dx + dy * dy) / KM_TO_AU, requestedKM,
+                CollisionManager.GetCollisionDistanceAU(own, other) / KM_TO_AU, out plan);
+        }
+        catch { return false; }
+    }
 
-	public static double RangeKM(Ship player, TargetRef target)
-	{
-		if (player?.objSS == null || target == null)
-		{
-			return 0.0;
-		}
-		if (!target.Resolve(out var px, out var py, out var _, out var _))
-		{
-			return 0.0;
-		}
-		double num = px - player.objSS.vPosx;
-		double num2 = py - player.objSS.vPosy;
-		return Math.Sqrt(num * num + num2 * num2) / KM_TO_AU;
-	}
-
+    public static double EffectiveArriveAU(Ship player, TargetRef target) =>
+        TryReadApproach(player, target, ArriveAU / KM_TO_AU, out var plan, out _)
+            ? plan.EffectiveArrivalKM * KM_TO_AU : double.NaN;
 	public static bool HasFuelForFlight(Ship player, TargetRef target)
 	{
 		if (player?.objSS == null || target == null)

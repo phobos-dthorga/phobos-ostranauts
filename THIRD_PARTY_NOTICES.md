@@ -17,8 +17,8 @@ and adapted from that distributed binary, not an author-supplied source checkout
 They retain the upstream approach/coast/brake guidance, target prediction,
 approximate fuel budgeting and RCS turning. Original authorship is credited above.
 Phobos lifecycle and orbit-lock integration also follows the inspected upstream
-patching pattern; the new arrival-brake calculation, service, console routing,
-test-save gates and UI come from Phobos work. See the
+patching pattern; the new arrival-brake calculation, short-range arrival policy,
+range diagnostics, service, console routing and UI come from Phobos work. See the
 [adaptation record](docs/auto-navigate-adaptation.md) for specific changes.
 
 No licence file, embedded licence resource or express reuse grant was found in

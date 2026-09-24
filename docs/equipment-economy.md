@@ -5,6 +5,12 @@ BepInEx **5.4.23.5**. Candidate: Framework **0.8.0**, Shipbreaker **0.8.0**, Aut
 These are implemented balance choices informed by local game/mod definitions;
 they are not measured gameplay outcomes. Gameplay validation remains pending.
 
+Auto Nav 0.4.0 rechecks the retained balance against **1.0.1.5** and names the
+equipment **Phobos Polaris Auto Nav Module**. Its dedicated
+[acquisition and service guide](auto-nav-economy.md) covers native buy/sell
+filters, materials, timing and naming compatibility. The full value audit is
+regenerated from the current definitions below.
+
 ## Dismantling value audit (owner clarification, 2026-09-24)
 
 The owner clarified that the concern was **dismantling our machines**, based on

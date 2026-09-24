@@ -1,9 +1,9 @@
 [
   {
     "strName": "PhobosNavModAutoNav",
-    "strNameFriendly": "Phobos Auto Nav",
-    "strNameShort": "Phobos Auto Nav",
-    "strDesc": "A repairable RCS approach and braking module for ordinary saves. Does not dock, avoid obstacles or maintain a working position.",
+    "strNameFriendly": "Phobos Polaris Auto Nav Module",
+    "strNameShort": "Phobos Polaris Auto Nav Module",
+    "strDesc": "An aftermarket module for a Polaris navigation station. Short-range RCS approach and braking, including below 5,000 km, with adjustable stopping distance and hull clearance. Repair and Restore for reuse, or dismantle into retained board residue. Does not dock, avoid obstacles or hold position.",
     "strCOBase": "PhobosAutoNavBoard",
     "strImg": "phobos/autonav/PhobosAutoNavModule",
     "strImgNorm": "phobos/autonav/PhobosAutoNavModuleNormal",
@@ -31,9 +31,9 @@
   },
   {
     "strName": "PhobosNavModAutoNavDmg",
-    "strNameFriendly": "Phobos Auto Nav (Damaged)",
-    "strNameShort": "Phobos Auto Nav (Damaged)",
-    "strDesc": "A repairable RCS approach and braking module for ordinary saves. Does not dock, avoid obstacles or maintain a working position.",
+    "strNameFriendly": "Phobos Polaris Auto Nav Module (Damaged)",
+    "strNameShort": "Phobos Polaris Auto Nav Module (Damaged)",
+    "strDesc": "A damaged Phobos Polaris Auto Nav Module. Repair with two small electronic parts, then Restore its remaining wear before use. Fits a Polaris navigation station. Dismantling retains 0.4 kg of board residue.",
     "strCOBase": "PhobosAutoNavBoardDmg",
     "strImg": "phobos/autonav/PhobosAutoNavModuleDmg",
     "strImgNorm": "phobos/autonav/PhobosAutoNavModuleNormal",
