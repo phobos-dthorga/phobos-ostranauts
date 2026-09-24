@@ -31,14 +31,16 @@ internal sealed partial class ProcessingService
         return IntakeRules.Connected(gp.x, gp.y, Angle(g), cp.x, cp.y, Angle(c), pp.x, pp.y, Angle(p));
     }
 
-    private static bool FindIntake(CondOwner processor, out IntakeSession? link, out string problem)
+    private static bool FindIntake(CondOwner processor, out IntakeSession? link, out string problem, IEnumerable<CondOwner>? knownEquipment = null)
     {
         link = null;
         problem = Text.Get("IntakeService.no_aligned_intake_place_a_x_chute");
         if (processor.ship == null) return false;
-        var objects = processor.ship.GetCOs(null, bSubObjects: false, bAllowDocked: false, bAllowLocked: true)
-            .Where(c => c != null && !c.bDestroyed && c.HasCond("IsInstalled") && IntakeRules.IsHardware(c.strCODef)).ToArray();
-        foreach (var g in objects.Where(c => c.strCODef.StartsWith(IntakeRules.Grabber, StringComparison.Ordinal)))
+        var objects = (knownEquipment ?? processor.ship.GetCOs(null, bSubObjects: false, bAllowDocked: false, bAllowLocked: true))
+            .Where(c => c != null && !c.bDestroyed && c.ship == processor.ship && c.HasCond("IsInstalled") && IntakeRules.IsHardware(c.strCODef)).ToArray();
+        // Broad geometric bound before the precise alignment check. Include both-axis tolerance.
+        foreach (var g in objects.Where(c => c.strCODef.StartsWith(IntakeRules.Grabber, StringComparison.Ordinal) &&
+            IntakeRules.CouldReachProcessor(c.GetPos().x, c.GetPos().y, processor.GetPos().x, processor.GetPos().y)))
         foreach (var c in objects.Where(c => c.strCODef.StartsWith(IntakeRules.Chute, StringComparison.Ordinal)))
         {
             if (!Aligned(g, c, processor)) continue;
@@ -104,7 +106,7 @@ internal sealed partial class ProcessingService
         var intake = state.Intake;
         intake.Armed = false; intake.Clock = null; intake.Panel = null;
         intake.Status = Text.Get("IntakeService.intake_paused_panels_retained");
-        if (!intake.Grabber.bDestroyed) intake.Grabber.ZeroCondAmount(IntakeRules.Working);
+        if (!intake.Grabber.bDestroyed && intake.Grabber.ship == processor.ship) intake.Grabber.ZeroCondAmount(IntakeRules.Working);
     }
 
     internal bool BeforeIntakePower(CondOwner grabber)
@@ -171,6 +173,10 @@ internal sealed partial class ProcessingService
     internal string DescribeIntake(CondOwner processor)
     {
         if (!FindIntake(processor, out var found, out string problem)) return problem;
+        return DescribeIntake(found!);
+    }
+    private string DescribeIntake(IntakeSession found)
+    {
         string? invalid = LinkProblem(found!);
         if (invalid != null) return invalid;
         string status = intakes.TryGetValue(found!.Grabber, out var s) ? s.Status : Text.Get("IntakeService.intake_connected_paused_after_loading");

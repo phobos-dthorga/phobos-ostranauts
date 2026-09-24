@@ -19,6 +19,7 @@ definitions and runs offline checks; it neither launches nor modifies the game.
 
 | Machine | Functional whole / recovered parts | Broken whole / recovered parts |
 |---|---:|---:|
+| Industrial console (0.10.0) | $5,200 / $164.90 | $1,300 / $70.80 |
 | Processor | $12,000 / $514.10 | $3,000 / $365.40 |
 | Exterior grabber | $6,400 / $258.55 | $1,600 / $167.15 |
 | Hull chute | $1,800 / $150.15 | $450 / $85.00 |

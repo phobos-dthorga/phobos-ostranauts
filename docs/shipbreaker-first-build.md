@@ -1,10 +1,11 @@
 # Phobos Shipbreaker: first playable build
 
-Current candidate: **Shipbreaker 0.9.0 + Phobos Framework 0.9.0**, built against
+Current candidate: **Shipbreaker 0.10.0 + Phobos Framework 0.10.0**, built against
 Ostranauts **1.0.1.5** and BepInEx **5.4.23.5**. Offline checks pass; connected
 gameplay validation remains pending. These are prepared-package versions, not
 an assertion about the currently installed files. Start with the
 [current player guide](player-guide.md) for acquisition and normal operation.
+Version 0.10.0 adds [local and central industrial control panels](industrial-console-player-guide.md), including original console artwork and ship-scoped remote commands.
 
 The approved **4 x 3 exterior grabber + 4 x 1 wall chute + 4 x 4 processor** now
 form a connected intake. Load detached walls at the grabber; the chute carries

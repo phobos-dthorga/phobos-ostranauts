@@ -115,6 +115,7 @@ internal static class Content
         IntakeDefinitions.Add(prepared);
         CollectorDefinitions.Add(prepared, collectorKW);
         ReclaimerDefinitions.Add(prepared, reclaimerKW);
+        IndustrialDefinitions.Add(prepared);
         EquipmentEconomy.Apply(prepared);
         return prepared;
     }

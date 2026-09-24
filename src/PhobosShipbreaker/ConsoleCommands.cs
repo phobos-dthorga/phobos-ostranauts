@@ -9,6 +9,8 @@ internal static class ConsoleCommands
 {
     private static bool Prefix(ref string strInput, ref bool __result)
     {
+        if (IndustryCommands.Handle(strInput, out bool industryResult, out string industryResponse))
+        { __result = industryResult; strInput += "\n" + industryResponse; return false; }
         var route = RoutingCommand.Parse(strInput);
         if (route.Action != "foreign")
         {

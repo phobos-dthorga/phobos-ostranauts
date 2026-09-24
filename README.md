@@ -49,6 +49,7 @@ with a smaller setup appropriate to this project's current scope.
 
 - [Current player guide: acquire, install, load, run and collect](docs/player-guide.md)
 - [Automatic material routing: machine inputs, buffers and reject destinations](docs/automatic-material-routing.md)
+- [Industrial console and equipment panels: research and text mockups](docs/industrial-control-console.md) — proposed next interface, not yet implemented.
 - [Residue composition, destinations and the next processing stage](docs/residue-material-contract.md)
 - [Equipment prices, merchants, maintenance and salvage](docs/equipment-economy.md)
 - [One-command mod installation and updates](docs/installing-mods.md) — or double-click
@@ -132,3 +133,7 @@ Translation catalogs, language settings and contributor guidance: [Localization]
 Framework/Shipbreaker 0.8.0 adds the [scrap reclaimer](docs/scrap-reclaimer.md):
 new identified residue, useful recovered metals, retained rejects, room heat,
 normal merchant acquisition and shared saved-job handling. Prepared, not yet gameplay verified.
+
+## Industrial controls (0.10.0)
+
+[Console and equipment panel guide](docs/industrial-console-player-guide.md): a 3 x 3 ship-bound workstation, local Control Panels, automatic grouping, search, Attention and routing. Requires Framework 0.10.0. Prepared for owner testing; no in-game validation claimed.

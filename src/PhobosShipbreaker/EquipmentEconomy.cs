@@ -24,6 +24,7 @@ internal static class EquipmentEconomy
     internal static readonly string[] Materials = { "ItmScrapSteel", "ItmScrapAluminum", "ItmPartsMechSmall01", "ItmPartsElecSmall01", "ItmScrapTrash" };
     private static readonly string[] Triggers = { "TIsScrapSteel", "TIsScrapAluminum", "TIsPartsMechSmall", "TIsPartsElecSmall" };
     internal static readonly Spec[] Machines = {
+        new Spec(IndustrialRules.Prefix, price: 5200, install: 1000, uninstall: 800, repair: 2400, dismantle: 500, new[]{1,1,2,4}, new[]{16,8,8,4,10}, new[]{12,6,4,0,20}),
         new Spec(Content.Prefix, price: 12000, install: 1500, uninstall: 1000, repair: 3600, dismantle: 1000, new[]{4,2,4,4}, new[]{92,40,16,4,18}, new[]{80,32,8,0,44}),
         new Spec(IntakeRules.Grabber, price: 6400, install: 1000, uninstall: 800, repair: 2400, dismantle: 650, new[]{2,1,4,2}, new[]{42,16,12,2,15}, new[]{34,12,6,0,31}),
         new Spec(IntakeRules.Chute, price: 1800, install: 500, uninstall: 500, repair: 1500, dismantle: 300, new[]{2,1,2,0}, new[]{20,8,8,2,7}, new[]{16,6,4,0,16}),

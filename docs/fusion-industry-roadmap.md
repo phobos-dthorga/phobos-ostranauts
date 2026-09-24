@@ -24,8 +24,17 @@ Framework/Shipbreaker **0.8.0** now adds the [combined scrap reclaimer](scrap-re
 its station stock and construction, and revision 2 for new wall jobs. Shared jobs
 live in Framework. Existing panels and residue retain their original meaning.
 Version **0.9.0** connects the stages through [paired automatic feeding](automatic-material-routing.md)
-and saved filters. Next: owner gameplay evaluation of the connected chain and
-reclaimer cooling; processor right-click controls follow that evaluation.
+and saved filters. Owner gameplay evaluation of the connected chain and reclaimer
+cooling remains outstanding. The owner has now requested a
+[central industrial console and proper equipment panels](industrial-control-console.md),
+with [text mockups](industrial-control-mockups.md) before finished artwork.
+Version **0.10.0** implements the console and local panels, shared frame and
+four console sprite states. Independent scrolling, narrow-screen navigation,
+automatic type groups, name/ID search and Attention support larger installations.
+Control is restricted to the console's player-owned host ship. See the
+[console player guide](industrial-console-player-guide.md). Builds/checks are
+offline; game rendering, seating and connected operation still need owner tests.
+A future PDA/visor logical-connection view is documented only.
 
 **2026-09-24 future idea:** [chemical storage, process fluids and industrial
 hazards](chemical-storage-and-process-fluids.md) records the owner's installable

@@ -52,6 +52,7 @@ var prepared = Content.Prepare();
 prepared.Publish();
 ProcessingSaveChecks.Run(Check, Throws);
 ReclaimerNativeChecks.Run(prepared, Check);
+IndustrialNativeChecks.Run(prepared, repo, Check);
 // Exercise the game's own data-only trigger evaluator against its actual wall
 // definition: the ordinary solid-container filter caused the grey inventory bug.
 var wallData = new DataCO(DataHandler.dictCOs[ProcessRules.Wall]);
@@ -70,7 +71,7 @@ foreach (string forbidden in new[] { "IsInstalled", "IsOversized" })
 Check(!feedTrigger.TriggeredDataCO(new DataCO(DataHandler.dictCOs[Content.Loose]), false), "Cumbersome machinery cannot enter the wall feed");
 foreach (var machine in prepared.Objects.Values.Where(x => Content.IsMachine(x.strName)))
     Check(!machine.dictSlotsLayout.ContainsKey(Content.InputSlot), "Native feed window retains its title on " + machine.strName);
-Check(prepared.Objects.Count == 28 && prepared.Installables.Count == 62, "Five complete machine families, two sections and three residue streams");
+Check(prepared.Objects.Count == 32 && prepared.Installables.Count == 74, "Six complete machine families, two sections and three residue streams");
 Check(prepared.Slots[Content.InputSlot].bHide, "Ordinary processor Inventory no longer exposes two grids");
 var grabber = prepared.Objects[IntakeRules.Grabber + "Installed"];
 var grabberTrigger = DataHandler.dictCTs[grabber.strContainerCT];
@@ -93,7 +94,7 @@ var collectorItem = prepared.Items[collector.strItemDef];
 Check(collector.nContainerWidth == 2 && collector.nContainerHeight == 2, "Finite four-cell collection chamber");
 Check(collectorItem.nCols == 2 && collectorItem.aSocketAdds.Length == 2 && collectorItem.aSocketReqs.Length == 12, "Collector full intended 2 x 1 footprint and padded sockets");
 Check(collectorItem.aSocketReqs.Count(s=>s=="TILWall")==2 && collectorItem.aSocketAdds.All(s=>s=="TILWallDecoAdds"), "Collector mounts over intact walls without creating floor or pressure portal");
-Check(collector.aInteractions.Contains(CollectorRules.Controls) && prepared.Interactions[CollectorRules.Controls].strRaiseUI == null, "Own control-panel action does not accidentally open native inventory UI");
+Check(collector.aInteractions.Contains(IndustrialRules.LocalControls) && prepared.Interactions[CollectorRules.Controls].strRaiseUI == null, "Own control-panel action does not accidentally open native inventory UI");
 var residueData = new DataCO(prepared.Objects[ProcessRules.Residue]);
 Check(DataHandler.dictCTs[collector.strContainerCT].TriggeredDataCO(residueData,false), "Native container accepts residue before the runtime exact filter");
 var residueItem = prepared.Items[ProcessRules.Residue];

@@ -20,7 +20,7 @@ internal static class ReclaimerNativeChecks
         var machine = d.Objects[ReclaimerRules.Installed]; var item = d.Items[machine.strItemDef];
         check(item.nCols == 4 && item.aSocketAdds.Length == 16 && machine.nContainerWidth == 8 && machine.nContainerHeight == 8,
             "Reclaimer starts with full 4x4 footprint and separate 8x8 output");
-        check(machine.aInteractions.Contains(ReclaimerRules.Controls) && machine.aSlotsWeHave.Contains(ReclaimerRules.InputSlot), "Reclaimer has ordinary control panel and private feed");
+        check(machine.aInteractions.Contains(IndustrialRules.LocalControls) && machine.aSlotsWeHave.Contains(ReclaimerRules.InputSlot), "Reclaimer has ordinary control panel and private feed");
         var feed = d.Objects[ReclaimerRules.InputBin]; var trigger = DataHandler.dictCTs[feed.strContainerCT];
         check(feed.nContainerWidth * feed.nContainerHeight == 4 && d.Slots[ReclaimerRules.InputSlot].bHide, "Feed holds four actual packets and keeps ordinary Inventory for output");
         check(trigger.TriggeredDataCO(new DataCO(d.Objects[ReclaimerRules.Feedstock]), false), "Native trigger accepts identified R2 feed");

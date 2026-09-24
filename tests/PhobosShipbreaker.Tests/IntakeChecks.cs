@@ -8,6 +8,14 @@ internal static class IntakeChecks
 {
     internal static void Run(Action<bool, string> check, Action<Action, string> throws, JsonElement[] recipes)
     {
+        for (int angle = 0; angle < 360; angle++)
+        {
+            var p = IntakeRules.Rotate(0, -4.5, angle);
+            foreach (double dx in new[] { -.059, 0, .059 })
+            foreach (double dy in new[] { -.059, 0, .059 })
+                check(IntakeRules.CouldReachProcessor(50, -20, 50 + p.X + dx, -20 + p.Y + dy), "Broad discovery retains valid rotation/tolerance: " + angle);
+        }
+        check(!IntakeRules.CouldReachProcessor(0,0,0,8), "Distant machinery is excluded before alignment scans");
         foreach (double a in new[] { 0.0, 90, 180, 270, -90 })
         {
             var c = IntakeRules.Rotate(0, -2, a); var p = IntakeRules.Rotate(0, -4.5, a);

@@ -1,0 +1,62 @@
+[
+  {
+    "state": "Installed",
+    "file": "PhobosIndustrialConsoleInstalled.png",
+    "sha256": "a2902067f7a2452eb83f7441e63e8729fc08ef13c33f7f76db92dc60088406b7",
+    "generatedFile": "exec-28d82a78-5fc0-4020-acc8-aaf14b182d16.png",
+    "crop": [
+      140,
+      130,
+      980,
+      980
+    ]
+  },
+  {
+    "state": "InstalledDmg",
+    "file": "PhobosIndustrialConsoleInstalledDmg.png",
+    "sha256": "6669da9c1d7a81cbd64a61664a292861e87d71684b2883d63c0e5877ef8557eb",
+    "generatedFile": "exec-eef8e8fb-b5d3-4211-8dca-37cf1e5c00d7.png",
+    "crop": [
+      140,
+      130,
+      980,
+      980
+    ]
+  },
+  {
+    "state": "Loose",
+    "file": "PhobosIndustrialConsoleLoose.png",
+    "sha256": "c39b85f634e4ce588b8cae2d8e1dfd4c50837ac4fbc7f04dae21f592c6294c9e",
+    "generatedFile": "exec-b229fdff-6c8e-4da3-aac7-9dde143887f7.png",
+    "crop": [
+      140,
+      130,
+      980,
+      980
+    ]
+  },
+  {
+    "state": "LooseDmg",
+    "file": "PhobosIndustrialConsoleLooseDmg.png",
+    "sha256": "5766cdafbbec428067f8ed1f7efea834f3d3a7013ecb07674cc7c09e7cc11f4e",
+    "generatedFile": "exec-c2497318-2d67-4773-b14f-2bd2bd10f421.png",
+    "crop": [
+      140,
+      130,
+      980,
+      980
+    ]
+  },
+  {
+    "state": "Panel",
+    "file": "PhobosIndustrialPanel.png",
+    "sha256": "c8a0f35fa6aab47228918dad99dbcfd8ab39b6d7d0b293ec7d674456fe77852a",
+    "generatedFile": "exec-bbb7612f-aaab-4b09-8d1a-2c27d9ab5640.png",
+    "crop": [
+      0,
+      0,
+      1536,
+      1024
+    ]
+  }
+]

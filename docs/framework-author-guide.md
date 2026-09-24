@@ -1,4 +1,21 @@
-# Phobos Framework 0.9.0 — author guide
+# Phobos Framework 0.10.0 — author guide
+
+## Industrial controls (0.10.0)
+
+`Controls.ConsoleBinding` stores session-only console, ship and operator IDs.
+Call `Check` with freshly resolved native identities, current player/owner and
+hardware/operator readiness on **every action**. Identity changes permanently
+end that binding; temporary power loss does not. The helper does not discover
+ships, grant ownership or override a machine interlock. Shipbreaker illustrates
+the native adapter in `ControlAuthority` and shared UI/F3 dispatch in
+`IndustryService`. Keep cargo manipulation behind ordinary local access.
+
+`EquipmentActivity` carries a typed status and display detail; never parse
+translations to decide whether a device needs attention. `PanelWidgets` supplies
+small runtime Unity UI/TMP label, button, search and vertical-scroll primitives.
+The caller owns hosting, layout and disposal; button callbacks delegate to its
+gameplay service. Framework does not depend on Shipbreaker artwork. There is no
+universal third-party equipment registry, remote inventory or PDA overlay yet.
 
 This experimental Ostranauts library supplies definition registration, native
 mass-balanced construction, grid placement, production completion and physical transfers,

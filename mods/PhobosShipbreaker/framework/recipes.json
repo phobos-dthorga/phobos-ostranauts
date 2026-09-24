@@ -352,6 +352,61 @@
       ],
       "nameKey": "Recipe.PhobosBuildReclaimer.name",
       "descriptionKey": "Recipe.PhobosBuildReclaimer.description"
+    },
+    {
+      "id": "PhobosBuildIndustrialConsole",
+      "name": "Industrial Control Console",
+      "description": "Build a 40 kg, 3 x 3 seated workstation. Controls installed industrial equipment on its own player-owned ship. Separate 80 W electrical connection required. Inventory handling and maintenance stay local.",
+      "stationIds": [
+        "ItmTable01",
+        "ItmTable02"
+      ],
+      "ingredients": [
+        {
+          "trigger": "TIsScrapSteel",
+          "item": "ItmScrapSteel",
+          "count": 20,
+          "unitMassKg": 1
+        },
+        {
+          "trigger": "TIsScrapAluminum",
+          "item": "ItmScrapAluminum",
+          "count": 12,
+          "unitMassKg": 1
+        },
+        {
+          "trigger": "TIsPartsMechSmall",
+          "item": "ItmPartsMechSmall01",
+          "count": 8,
+          "unitMassKg": 0.5
+        },
+        {
+          "trigger": "TIsPartsElecSmall",
+          "item": "ItmPartsElecSmall01",
+          "count": 8,
+          "unitMassKg": 0.5
+        }
+      ],
+      "outputs": [
+        {
+          "item": "PhobosIndustrialConsoleLoose",
+          "count": 1,
+          "unitMassKg": 40
+        }
+      ],
+      "workSeconds": 2700,
+      "range": 2,
+      "optionalStationIds": [
+        "ItmWorkbench01",
+        "SWB_WorkbenchInstalled"
+      ],
+      "legacyActionIds": [],
+      "toolTriggers": [
+        "TIsToolMortorq",
+        "TIsToolSoldering"
+      ],
+      "nameKey": "Recipe.PhobosBuildIndustrialConsole.name",
+      "descriptionKey": "Recipe.PhobosBuildIndustrialConsole.description"
     }
   ]
 }

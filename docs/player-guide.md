@@ -1,6 +1,6 @@
 # Current player guide
 
-**Prepared versions:** Phobos Framework **0.9.0**, Shipbreaker **0.9.0**, Auto Nav
+**Prepared versions:** Phobos Framework **0.10.0**, Shipbreaker **0.10.0**, Auto Nav
 **0.3.0**, built against Ostranauts **1.0.1.5** / BepInEx **5.4.23.5**.
 These versions support ordinary saves. Builds and offline checks do not establish
 in-game compatibility. This guide describes the prepared packages, not a claim
@@ -159,3 +159,7 @@ processing and persistent cargo release remain future work. See the
 [residue contract and next processing stage](residue-material-contract.md).
 
 Translation catalogs, language settings and contributor guidance: [Localization](localization.md).
+
+## Industrial controls (0.10.0)
+
+[Console and equipment panel guide](industrial-console-player-guide.md): a 3 x 3 ship-bound workstation, local Control Panels, automatic grouping, search, Attention and routing. Requires Framework 0.10.0. Prepared for owner testing; no in-game validation claimed.

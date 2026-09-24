@@ -44,6 +44,7 @@ if ('Shipbreaker' -in $Mods) {
         if ([version]$shipInfo[0].strModVersion -ge [version]'0.7.0') { $minimumPhobosFramework = [version]'0.7.0' }
         if ([version]$shipInfo[0].strModVersion -ge [version]'0.8.0') { $minimumPhobosFramework = [version]'0.8.0' }
         if ([version]$shipInfo[0].strModVersion -ge [version]'0.9.0') { $minimumPhobosFramework = [version]'0.9.0' }
+        if ([version]$shipInfo[0].strModVersion -ge [version]'0.10.0') { $minimumPhobosFramework = [version]'0.10.0' }
         if ($needsPhobosFramework) { $Mods = @('Framework') + @($Mods | Where-Object { $_ -ne 'Framework' }) }
     }
 }
@@ -151,6 +152,12 @@ foreach ($mod in $Mods) {
             }
         }
         'Shipbreaker' {
+            if ($version -ge [version]'0.10.0') {
+                'images/phobos/shipbreaker/PhobosIndustrialPanel.png'
+                foreach ($state in @('Installed', 'InstalledDmg', 'Loose', 'LooseDmg')) {
+                    foreach ($suffix in @('', 'Normal', 'Portrait')) { "images/phobos/shipbreaker/PhobosIndustrialConsole$state$suffix.png" }
+                }
+            }
             if ($version -ge [version]'0.8.0') {
                 foreach ($suffix in @('', 'Normal', 'Portrait')) { "images/phobos/shipbreaker/PhobosScrapReclaimer$suffix.png" }
             }

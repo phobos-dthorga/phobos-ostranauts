@@ -41,7 +41,7 @@ internal static class EquipmentValueAudit
         var buyer = DataHandler.dictCTs["TIsBarterVORBScrapKiosk"];
         var rows = new List<string> {
             "# Phobos equipment value audit", "",
-            "Generated from current Phobos candidate definitions and Ostranauts 1.0.1.4's `DataCO.GetBasePrice` (2026-09-24). Includes every implemented equipment family, both functional and broken forms, and the assembly section. No game session or live merchant quote was sampled.", "",
+            "Generated from current Phobos candidate definitions and Ostranauts 1.0.1.5's `DataCO.GetBasePrice` (2026-09-24). Includes every implemented equipment family, both functional and broken forms, and the assembly section. No game session or live merchant quote was sampled.", "",
             "All dollar figures below are **whole-object values**, not prices per kilogram or shop purchase quotes. Recovered parts are valued at full condition without a retail pristine flag. Work, power and tool costs are excluded.", "",
             "| Item/state | Whole base | Whole at maximum wear tier | All dismantling outputs | Output / whole base | VORB adverse comparison: whole / scrap |",
             "|---|---:|---:|---:|---:|---:|" };

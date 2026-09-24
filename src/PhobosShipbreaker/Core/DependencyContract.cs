@@ -6,7 +6,7 @@ namespace PhobosShipbreaker.Core;
 
 internal static class DependencyContract
 {
-    internal const string MinimumFramework = "0.9.0";
+    internal const string MinimumFramework = "0.10.0";
     internal static readonly string[] Materials = { "ItmScrapTrash", "ItmScrapSteel", "ItmScrapAluminum",
         "ItmScrapCarbonFiber", "ItmPartsMechSmall01", "ItmPartsElecSmall01" };
     internal static readonly (string Table, string[] Names)[] Required = {
@@ -15,13 +15,13 @@ internal static class DependencyContract
         ("conditions", new[] { "PhobosShipbreakerContent", "PhobosShipbreakerIsSection", "IsInstalled", "IsDamaged",
             "IsContainer", "IsSystem", "IsSolid", "IsMechanical", "IsCategoryIndustrialProducts", "IsCumbersome",
             "IsWall1x1", "IsWall", "IsWallDeco", "IsFixture", "IsFixtureExt", "IsRigid", "IsSalvageValueHigh", "StatMass", "StatBasePrice", "StatInstallProgressMax",
-            "StatUninstallProgressMax", "StatRepairProgressMax", "StatDismantleProgressMax", "StatDamageMax", "IsPristine", "IsToolMortorq", "StatInstallRateMISC" }),
+            "StatUninstallProgressMax", "StatRepairProgressMax", "StatDismantleProgressMax", "StatDamageMax", "IsChair", "IsSignalable", "IsPristine", "IsToolMortorq", "StatInstallRateMISC" }),
         ("triggers", new[] { "PhobosShipbreakerTSection", "TIsFitContainerSolid", "TIsFitContainerSolidCumbersome", "TIsReadyUsePower",
             "TIsScrapSteel", "TIsScrapAluminum", "TIsPartsMechSmall", "TIsPartsElecSmall", "TIsRepairableNotContained",
-            "TIsToolMortorq", "TIsToolSoldering", "TCanBeDismantled", "TIsUndamageableNotContained" }),
+            "TIsToolMortorq", "TIsToolSoldering", "TCanBeDismantled", "TIsUndamageableNotContained", "TIsChairFree" }),
         ("interactions", new[] { "Inventory", "ACTRepairTEMP", "ACTRepairTEMPAllow",
             "ACTInstallNoSparksTEMP", "ACTInstallNoSparksTEMPAllow", "ACTUninstallNoSparksTEMP", "ACTUninstallNoSparksTEMPAllow",
-            "ACTUndamageTEMP", "ACTUndamageTEMPAllow", "ACTDismantleTEMP", "ACTDismantleTEMPAllow" }),
+            "ACTUndamageTEMP", "ACTUndamageTEMPAllow", "ACTDismantleTEMP", "ACTDismantleTEMPAllow", "ACTChairSitShim" }),
         ("loot", new[] { "ACTDefaultDestroy", "CTWorkProgressMISC", "CONDRepairProgressx5", "CONDInstallProgressx5", "CONDUninstallProgressx5",
             "CONDUndamageProgress", "CONDDismantleProgress", "ItmOKLGSupplyKioskInv", "ItmOKLGFixer", "ItmTraderSanDiegoHalvorsonInv", "ItmVORBScrapKioskInv",
             "Blank", "TILWall", "TILWallDecoAdds", "TILExtFixtureAdds", "TILFixtureAdds", "TILItemAdds", "TILItemForbids", "TILObstruction", "TILFloor" })
@@ -32,7 +32,7 @@ internal static class DependencyContract
         .SelectMany(group => group.Names.Where(name => !contains(group.Table, name))
             .Select(name => Text.Get("DependencyContract.missing", group.Table, name))).ToList();
     internal static readonly string[] Recipes = { "PhobosCraft_PhobosBuildShipbreakerSection", "PhobosCraft_PhobosBuildShipbreaker",
-        "PhobosCraft_PhobosBuildHullChute", "PhobosCraft_PhobosBuildExteriorGrabber", "PhobosCraft_PhobosBuildResidueCollector", "PhobosCraft_PhobosBuildReclaimerSection", "PhobosCraft_PhobosBuildReclaimer" };
+        "PhobosCraft_PhobosBuildHullChute", "PhobosCraft_PhobosBuildExteriorGrabber", "PhobosCraft_PhobosBuildResidueCollector", "PhobosCraft_PhobosBuildReclaimerSection", "PhobosCraft_PhobosBuildReclaimer", "PhobosCraft_PhobosBuildIndustrialConsole" };
     internal static List<string> MissingRecipes(Func<string, bool> contains) => Recipes
         .Where(id => !contains(id)).Select(id => Text.Get("DependencyContract.missing_registered_recipe", id)).ToList();
 }

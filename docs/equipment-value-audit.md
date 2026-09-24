@@ -1,11 +1,13 @@
 # Phobos equipment value audit
 
-Generated from current Phobos candidate definitions and Ostranauts 1.0.1.4's `DataCO.GetBasePrice` (2026-09-24). Includes every implemented equipment family, both functional and broken forms, and the assembly section. No game session or live merchant quote was sampled.
+Generated from current Phobos candidate definitions and Ostranauts 1.0.1.5's `DataCO.GetBasePrice` (2026-09-24). Includes every implemented equipment family, both functional and broken forms, and the assembly section. No game session or live merchant quote was sampled.
 
 All dollar figures below are **whole-object values**, not prices per kilogram or shop purchase quotes. Recovered parts are valued at full condition without a retail pristine flag. Work, power and tool costs are excluded.
 
 | Item/state | Whole base | Whole at maximum wear tier | All dismantling outputs | Output / whole base | VORB adverse comparison: whole / scrap |
 |---|---:|---:|---:|---:|---:|
+| Phobos Industrial Control Console | $5,200.00 | $1,300.00 | $164.90 | 3.17% | $520.00 / $82.45 |
+| Phobos Industrial Control Console (Damaged) | $1,300.00 | $325.00 | $70.80 | 5.45% | $130.00 / $35.40 |
 | Phobos Powered Dismantling Fixture | $12,000.00 | $3,000.00 | $514.10 | 4.28% | $1,200.00 / $257.05 |
 | Phobos Powered Dismantling Fixture (Damaged) | $3,000.00 | $750.00 | $365.40 | 12.18% | $300.00 / $182.70 |
 | Phobos Exterior Panel Grabber | $6,400.00 | $1,600.00 | $258.55 | 4.04% | $640.00 / $129.27 |
@@ -36,12 +38,14 @@ This is a conservative vanilla baseline, not a guarantee across different region
 | Residue Collector | $106.60 | $88.50 |
 | Scrap Reclaimer Assembly Section | $348.20 | $318.80 |
 | Scrap Reclaimer | $12,000.00 | $637.60 |
+| Industrial Control Console | $241.20 | $164.90 |
 | Phobos Auto Nav | $29.00 | $0.01 |
 
 The processor's final assembly consumes two priced sections. Raw materials for both sections total $570.80; its $514.10 dismantling yield is also below that original raw-material bill. Construction creates a usable machine through labour; this is separate from the dismantling comparison.
 
 | Repair target | Replacement inputs, base value |
 |---|---:|
+| Phobos Industrial Control Console | $72.70 |
 | Phobos Powered Dismantling Fixture | $94.60 |
 | Phobos Exterior Panel Grabber | $57.30 |
 | Phobos Sealed Hull Chute | $18.30 |

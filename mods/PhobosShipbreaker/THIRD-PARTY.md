@@ -4,9 +4,16 @@ Phobos Shipbreaker's original code and documentation use the repository's MIT
 licence. The distribution contains Phobos code, metadata and its construction
 recipe; no game or dependency DLLs, extracted sprites or copied native definitions.
 
-- **Phobos Framework 0.2.0+**: required separate shared provider for construction,
+- **Phobos Framework 0.10.0+**: required separate shared provider for construction,
   definition publication, inventory planning and production delivery. Its notices
   include the credited OCF construction-code adaptation; install one provider.
+
+Shipbreaker 0.10.0 includes original Imagegen industrial console artwork in four
+states and a shared faceplate based on our approved Auto Nav plate. Prompts,
+hashes and retained masters are in `assets/phobos-industrial-console/` in the
+repository. Mechanical exports use a 48 x 48 world sprite and flat normal maps.
+These assets are prepared for owner testing; no new in-game artwork approval is
+claimed and no game sprites were copied.
 - [Ostranauts Crafting Framework](https://steamcommunity.com/sharedfiles/filedetails/?id=3798573443)
   and [Salvage Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=3798573453),
   inspected at 0.8.71: optional companions and earlier implementation references.

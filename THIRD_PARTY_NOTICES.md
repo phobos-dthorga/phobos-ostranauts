@@ -57,3 +57,10 @@ licence or source release and have recorded that uncertainty rather than assigni
 our own licence to your contribution.
 
 This note has **not** been sent to the author. No author approval is claimed.
+
+## Industrial console artwork
+
+Original 0.10.0 console sprites and shared control faceplate were created with
+the built-in Imagegen tool. The faceplate references our approved Auto Nav art.
+[Prompts, sources and export provenance](assets/phobos-industrial-console/README.md)
+are retained; no extracted game graphics are included.

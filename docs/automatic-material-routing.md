@@ -1,5 +1,9 @@
 # Automatic material routing — 0.9.0
 
+The transport contract below remains current. UI names in the 0.9.0 walkthrough
+describe the earlier fallback panels. For 0.10.0 local and central controls, use
+the [industrial console player guide](industrial-console-player-guide.md).
+
 Prepared Framework **0.9.0**, Shipbreaker **0.9.0**, Auto Nav **0.3.0**.
 Built and checked offline against installed Ostranauts **1.0.1.5**. Gameplay
 verification remains with the owner. This extends existing equipment and uses
@@ -34,7 +38,9 @@ nearest-machine selection.
 For the buffered variant, use the first collector's **Output routing** to link
 the reclaimer. Start incoming transfers at each receiving endpoint. The fixture's
 F9 **Output routing** opens the same controls from its end. The original processor
-Control Panel artwork remains deferred until its current gameplay evaluation.
+Control Panel artwork was not included in 0.9.0. Version 0.10.0 implements the
+[industrial console and equipment panels](industrial-console-player-guide.md),
+including a shared faceplate and checked same-ship commands.
 
 Linking is allowed beside either endpoint. Starting, pausing and changing a
 receiver's filter require access to that receiver. All console actions use the

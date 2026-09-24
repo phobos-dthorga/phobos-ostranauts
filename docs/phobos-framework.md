@@ -5,13 +5,13 @@ Decision: 24 September 2026. The owner selected our own shareable framework
 The purpose is reusable services for equipment and future material transport,
 not reproducing every feature of OCF or turning Ostranauts into a factory game.
 
-## Current candidate: Framework and Shipbreaker 0.9.0
+## Current candidate: Framework and Shipbreaker 0.10.0
 
 The [residue collector](residue-collector.md) adds a finite wall-mounted receiving
 chamber linked to one processor through structural flooring. Framework owns the
 existing same-object move plus small filter, clock, grid-search and saved-pair helpers;
-Shipbreaker owns physical rules and machinery. Seven construction recipes register.
-The installer requires Framework 0.9.0 and verifies collector/intake artwork.
+Shipbreaker owns physical rules and machinery. Eight construction recipes register, including the industrial console.
+The installer requires Framework 0.10.0 and verifies all console/intake artwork.
 Version 0.9.0 adds [automatic reclaimer feeding](automatic-material-routing.md),
 collector buffer outputs and shared saved exact-ID filters. Players choose one
 sender/receiver pair per logical port from either endpoint's controls. Pairing
@@ -139,3 +139,12 @@ cargo. Persistent release into space is still research. See
 Version 0.8.0 also supplies shared immutable processing recipes and saved-job
 binding for the wall fixture and [scrap reclaimer](scrap-reclaimer.md). Content
 keeps material identities, heat handling, artwork and balance.
+
+Version 0.10.0 supplies `Controls.ConsoleBinding`, typed `EquipmentActivity`
+and `PanelWidgets` for the [industrial console](industrial-console-player-guide.md)
+and local equipment panels. Binding checks use freshly resolved console, ship,
+operator and ownership facts on each command. Movement or changed operator ends
+the session; temporarily unavailable power does not grant permission or erase work.
+Shipbreaker owns native access resolution, snapshots, discovery and command rules.
+No generic third-party equipment registry or new control network is claimed.
+Physical inventories remain local. PDA/visor connections are documented only.

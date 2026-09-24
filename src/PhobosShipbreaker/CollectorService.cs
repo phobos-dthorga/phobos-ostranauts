@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using Phobos.Ostranauts.Framework.Inventory;
+using Phobos.Ostranauts.Framework.Controls;
 using PhobosShipbreaker.Core;
 
 namespace PhobosShipbreaker;
@@ -14,6 +15,7 @@ internal sealed partial class CollectorService
         internal CollectorRoute? Route;
         internal TransferClock? Clock;
         internal bool Armed;
+        internal bool NeedsAttention;
         internal double Last;
         internal string PairId = "";
         internal string FilterSignature = "";
@@ -29,7 +31,7 @@ internal sealed partial class CollectorService
         .OrderBy(c => c.strID, StringComparer.Ordinal).ToArray() ?? Array.Empty<CondOwner>();
     internal static CondOwner[] Receivers() => Find().Concat(ProcessingService.FindMachines(true).Where(m => m.strCODef == ReclaimerRules.Installed)).ToArray();
     internal static CondOwner[] Sources() => Find().Concat(ProcessingService.FindMachines(true).Where(ProcessingService.IsInstalledProcessor)).ToArray();
-    internal static string? EndpointAccess(CondOwner port) => (CollectorRules.IsFamily(port.strCODef) ? AccessProblem(port) : ProcessingService.AccessProblem(port)) ??
+    internal static string? EndpointAccess(CondOwner port, ConsoleBinding? console = null) => (console != null ? ControlAuthority.Check(port, console) : CollectorRules.IsFamily(port.strCODef) ? AccessProblem(port) : ProcessingService.AccessProblem(port)) ??
         (port.HasCond("IsLocked") ? Text.Get("CollectorLinks.unlock_this_endpoint") : null);
     private static Container? Destination(CondOwner port) => ProcessingService.IsReclaimer(port) ? ProcessingService.Feed(port)?.objContainer : port.objContainer;
     private static string WorkingCondition(CondOwner port) => ProcessingService.IsReclaimer(port) ? RoutingRules.Feeding : CollectorRules.Working;
@@ -56,11 +58,11 @@ internal sealed partial class CollectorService
         !RoutingRules.CanConnect(source.strCODef, port.strCODef) || !source.HasCond("IsInstalled") || source.HasCond("IsDamaged") || source.objCOParent != null ? Text.Get("Routing.invalid_source") :
         source.ship != port.ship ? Text.Get("Routing.same_ship") :
         source.objContainer == null || source.objContainer.Locked || source.HasCond("IsLocked") ? Text.Get("Routing.source_locked") : null;
-    internal bool Bind(CondOwner port, CondOwner source)
+    internal bool Bind(CondOwner port, CondOwner source, ConsoleBinding? console = null)
     {
         var s = sessions.GetValue(port, _ => new Session());
-        string? problem = EndpointAccess(port) == null || EndpointAccess(source) == null ? null :
-            Text.Get("CollectorService.stand_beside_either_endpoint_to_link_this");
+        string? problem = console != null ? EndpointAccess(port, console) ?? EndpointAccess(source, console) :
+            EndpointAccess(port) == null || EndpointAccess(source) == null ? null : Text.Get("CollectorService.stand_beside_either_endpoint_to_link_this");
         if (problem != null) { s.Status = problem; return false; }
         problem = MachineProblem(port) ?? SourceProblem(port, source) ?? FilterProblem(port) ?? CollectorRoute.MountProblem(port);
         if (problem != null) { s.Status = problem; return false; }
@@ -74,10 +76,10 @@ internal sealed partial class CollectorService
         s.Status = Text.Get("Routing.linked");
         return true;
     }
-    internal bool Start(CondOwner port)
+    internal bool Start(CondOwner port, ConsoleBinding? console = null)
     {
         var s = sessions.GetValue(port, _ => new Session());
-        string? problem = EndpointAccess(port) ?? MachineProblem(port);
+        string? problem = EndpointAccess(port, console) ?? MachineProblem(port);
         if (problem != null) { s.Status = problem; return false; }
         problem = PairProblem(port, out var source, out var link) ?? SourceProblem(port, source) ?? FilterProblem(port) ?? CollectorRoute.MountProblem(port);
         if (problem != null) { s.Status = problem; return false; }
@@ -86,15 +88,15 @@ internal sealed partial class CollectorService
         s.Route = CollectorRoute.Find(port, s.Source!);
         if (s.Route == null) { s.Status = Text.Get("CollectorService.no_structural_floor_route_restore_flooring_or"); Disarm(port, s); return false; }
         s.FilterSignature = FilterSignature(port);
-        s.Armed = true; s.Last = StarSystem.fEpoch; s.Status = Text.Get("CollectorService.collection_enabled_waiting_for_residue");
+        s.NeedsAttention = false; s.Armed = true; s.Last = StarSystem.fEpoch; s.Status = Text.Get("CollectorService.collection_enabled_waiting_for_residue");
         return true;
     }
-    internal bool Pause(CondOwner port)
+    internal bool Pause(CondOwner port, ConsoleBinding? console = null)
     {
         var s = sessions.GetValue(port, _ => new Session());
-        string? problem = EndpointAccess(port);
+        string? problem = EndpointAccess(port, console);
         if (problem != null) { s.Status = problem; return false; }
-        Disarm(port, s); s.Status = Text.Get("CollectorService.collection_paused_material_retained"); return true;
+        Disarm(port, s); s.NeedsAttention = false; s.Status = Text.Get("CollectorService.collection_paused_material_retained"); return true;
     }
     private static void Disarm(CondOwner port, Session s) { s.Armed = false; if (!port.bDestroyed) port.ZeroCondAmount(WorkingCondition(port)); }
     internal bool BeforePower(CondOwner port)
@@ -107,7 +109,7 @@ internal sealed partial class CollectorService
         problem = problem ?? MachineProblem(port) ?? SourceProblem(port, s.Source) ?? FilterProblem(port) ?? CollectorRoute.MountProblem(port);
         if (problem == null && s.FilterSignature != FilterSignature(port)) problem = Text.Get("Routing.filter_changed");
         if (problem != null || s.Route == null || !s.Route.Valid(port, s.Source!))
-        { s.Status = problem ?? Text.Get("CollectorService.floor_route_changed_restore_it_and_resume"); Disarm(port, s); return false; }
+        { s.NeedsAttention = true; s.Status = problem ?? Text.Get("CollectorService.floor_route_changed_restore_it_and_resume"); Disarm(port, s); return false; }
         if (s.Clock != null && !TransferClock.ValidStep(StarSystem.fEpoch - s.Last))
         { s.Status = Text.Get("CollectorService.time_gap_collection_paused_material_retained_resume"); Disarm(port, s); return false; }
         var source = s.Source!.objContainer;
@@ -151,10 +153,12 @@ internal sealed partial class CollectorService
         }
         catch (Exception ex) { Fault(port, ex); }
     }
-    internal void Block(CondOwner port, string status) => ClearTransfer(port, status);
+    internal void Block(CondOwner port, string status)
+    { ClearTransfer(port, status); sessions.GetValue(port, _ => new Session()).NeedsAttention = true; }
     internal void Fault(CondOwner port, Exception ex)
     {
         var s = sessions.GetValue(port, _ => new Session()); Disarm(port, s);
+        s.NeedsAttention = true;
         s.Status = Text.Get("CollectorService.collection_fault_paused_inspect_the_log_before"); log(ex.ToString());
     }
     internal string Describe(CondOwner port)

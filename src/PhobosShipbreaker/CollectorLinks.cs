@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using Phobos.Ostranauts.Framework.Inventory;
+using Phobos.Ostranauts.Framework.Controls;
 using PhobosShipbreaker.Core;
 
 namespace PhobosShipbreaker;
@@ -50,14 +51,16 @@ internal sealed partial class CollectorService
         return Text.Get("CollectorLinks.object_id_port", endpoint.strID, port.PortId, link.State == PortLinkState.Linked ?
             Text.Get("CollectorLinks.peer_object_id_peer_port_pair", link.PeerObjectId, link.PeerPortId, link.PairId) : "");
     }
-    internal bool Unlink(CondOwner endpoint, out string message, bool? sending = null)
+    internal bool Unlink(CondOwner endpoint, out string message, bool? sending = null, ConsoleBinding? console = null)
     {
         bool sender = sending ?? DefaultSender(endpoint);
         if (!(sender ? RoutingRules.IsSender(endpoint.strCODef) : RoutingRules.IsReceiver(endpoint.strCODef)))
         { message = Text.Get("CollectorLinks.not_a_material_endpoint"); return false; }
-        string? problem = EndpointAccess(endpoint);
+        string? problem = EndpointAccess(endpoint, console);
         if (problem != null) { message = problem; return false; }
         var port = Endpoint(endpoint, sender); var link = PortPairing.Read(port); var peer = Peer(endpoint, link, sender);
+        // Moving a paired object must not let its old counterpart mutate another ship.
+        if (peer != null && (peer.ship != endpoint.ship || console != null && ControlAuthority.Check(peer, console) != null)) peer = null;
         bool reciprocates = peer != null && (sender ? PortPairing.Matches(Sender(endpoint), Receiver(peer)) : PortPairing.Matches(Sender(peer), Receiver(endpoint)));
         PortPairing.Unlink(port, peer == null ? null : Endpoint(peer, !sender));
         var receiver = sender ? (reciprocates ? peer : null) : endpoint;
@@ -78,9 +81,9 @@ internal sealed partial class CollectorService
         var ids = filter.State == PortFilterState.Default ? RoutingRules.FilterIds(ProcessingService.IsReclaimer(port) ? "feed" : "all") : filter.DefinitionIds;
         return Text.Get("Routing.filter", string.Join(", ", ids.Select(id => DataHandler.GetCondOwnerDef(id)?.strNameFriendly ?? id)));
     }
-    internal bool SetFilter(CondOwner port, string choice, out string message)
+    internal bool SetFilter(CondOwner port, string choice, out string message, ConsoleBinding? console = null)
     {
-        string? problem = EndpointAccess(port);
+        string? problem = EndpointAccess(port, console);
         if (problem != null) { message = problem; return false; }
         if (!RoutingRules.IsReceiver(port.strCODef) || !RoutingRules.ValidChoice(ProcessingService.IsReclaimer(port), choice))
         { message = Text.Get("Routing.filter_choices"); return false; }

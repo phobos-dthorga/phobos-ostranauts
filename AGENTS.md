@@ -166,12 +166,19 @@
 - Provide useful F3 console commands alongside the normal controls, following
   Approach Assist's ConsoleResolver integration. Route gameplay actions through
   the same service and report actionable status; do not bypass gameplay checks.
-- After the current Shipbreaker gameplay testing concludes, make the fixture's
-  right-click **Control Panel** action the primary interface, with original artwork
-  matching Ostranauts' equipment interfaces (owner request, 2026-09-24). Retain
-  F9 as a fallback and F3 commands for diagnostics. Target the clicked fixture and
-  reuse the existing gameplay service/checks. Record this as planned work; do not
-  replace the active test build or generate panel art before that testing concludes.
+- The owner now requests equipment **Control Panel** interfaces and a central
+  industrial console, with research/text mockups before finished graphics
+  (2026-09-24). This supersedes the earlier wait-for-testing instruction for that
+  design work. Follow `docs/industrial-control-console.md` and its text mockups;
+  the 0.10.0 implementation follows these designs. Use a shared panel family and
+  current machinery portraits; the recommended new workstation is 3 x 3 with a
+  seat. Target clicked objects by full ID, retain local controls, F9 and F3, and
+  route all actions through checked services. Remote console commands must keep
+  machine interlocks and same-authorized-ship access; physical inventory handling
+  and maintenance stay local. Preserve separate processing/receiving permissions.
+  Use Framework for concrete shared access/snapshot/dispatch/UI needs; keep item
+  art and balance content-owned. Do not inherit nav flight behaviour, simulate
+  telemetry we do not have, or present passive chutes as powered machinery.
 
 ## Artwork
 
@@ -303,3 +310,18 @@
   fast-forward interactions when they pose a specific integration risk. Record
   the game and plugin versions tested.
 - Never call a successful build an in-game test. Do not claim untested compatibility.
+
+## Industrial control direction (2026-09-24)
+
+- The owner approved implementation of screen overflow, strict per-console ship
+  scope and management of large equipment lists. Use automatic type grouping,
+  independent scroll areas, name/ID search, status filters and Attention.
+- Shipbreaker/Framework 0.10.0 implements a 3 x 3, 40 kg seated console and local
+  equipment panels. Remote commands require the console's player-owned host ship;
+  docked/moored/towed neighbours remain separate. Check fresh facts per command.
+  Physical inventory access and maintenance remain local. Do not add a console
+  dependency to existing autonomous jobs or resume jobs merely by viewing them.
+- PDA/visor connection display is an idea only this round: logical saved links,
+  all or selected-machine view, reusable snapshot/pair services. No PDA controls
+  or overlays were authorised for implementation yet. See
+  `docs/industrial-console-player-guide.md` and the original text mockups.

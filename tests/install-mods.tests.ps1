@@ -86,7 +86,14 @@ foreach ($image in $artwork) {
 }
 $receipt = Get-Content -LiteralPath (Join-Path $backup 'receipt.json') -Raw | ConvertFrom-Json
 $expectedRecoveryFiles = @($receipt.Files | ForEach-Object { "$($_.Backup):$($_.Hash)" } | Sort-Object) -join "`n"
-Check (@(Get-ChildItem -LiteralPath (Join-Path $nativeRoot 'PhobosShipbreaker/images') -Recurse -Filter '*.png').Count -eq 30) 'Shipbreaker artwork missing from installation'
+$shipArtSource = Join-Path $PackageRoot 'PhobosShipbreaker-P0/Mods/PhobosShipbreaker/images'
+$shipArtTarget = Join-Path $nativeRoot 'PhobosShipbreaker/images'
+$expectedShipArt = @(Get-ChildItem -LiteralPath $shipArtSource -Recurse -Filter '*.png' -File)
+Check (@(Get-ChildItem -LiteralPath $shipArtTarget -Recurse -Filter '*.png' -File).Count -eq $expectedShipArt.Count) 'Shipbreaker artwork missing from installation'
+foreach ($image in $expectedShipArt) {
+    $installedImage = Join-Path $shipArtTarget ([IO.Path]::GetRelativePath($shipArtSource, $image.FullName))
+    Check ((Get-FileHash -LiteralPath $installedImage).Hash -eq (Get-FileHash -LiteralPath $image.FullName).Hash) 'Shipbreaker artwork changed during installation'
+}
 Check ($receipt.Status -eq 'Verified files and load order' -and $receipt.Mods.Count -eq 3) 'Receipt incomplete'
 Check (@($receipt.ChangedFiles | Where-Object ExistedBefore).Count -eq 0) 'Fresh files not marked for recovery'
 $stamp = (Get-Item -LiteralPath $fresh.LoadOrderPath).LastWriteTimeUtc
@@ -205,19 +212,26 @@ Remove-Item -LiteralPath $missingCatalog
 Fails { & $installer @incomplete | Out-Null } 'PhobosShipbreaker/translations/en.json'
 Check ((InstalledFiles $incomplete) -eq $before) 'Missing English catalog partially installed a package'
 [IO.File]::WriteAllBytes($missingCatalog, $catalogContents)
+# The new panel cannot be released as a DLL-only update with missing artwork.
+$missingFaceplate = Join-Path $badPackages 'PhobosShipbreaker-P0/Mods/PhobosShipbreaker/images/phobos/shipbreaker/PhobosIndustrialPanel.png'
+$faceplateBytes = [IO.File]::ReadAllBytes($missingFaceplate)
+Remove-Item -LiteralPath $missingFaceplate
+Fails { & $installer @incomplete | Out-Null } 'PhobosIndustrialPanel.png'
+Check ((InstalledFiles $incomplete) -eq $before) 'Missing console faceplate partially installed a package'
+[IO.File]::WriteAllBytes($missingFaceplate, $faceplateBytes)
 # A coherent older provider package must still be rejected before any copying.
 # Only inert synthetic assemblies are built here; the installed game is untouched.
 $olderOutput = Join-Path $fixtures 'older-provider-output'
-& dotnet build (Join-Path $fixtureSource 'Fixture.csproj') -c Release -p:Version=0.8.99 -o $olderOutput --nologo -v quiet | Out-Null
+& dotnet build (Join-Path $fixtureSource 'Fixture.csproj') -c Release -p:Version=0.9.99 -o $olderOutput --nologo -v quiet | Out-Null
 if ($LASTEXITCODE -ne 0) { throw 'Could not build the inert older-provider fixture.' }
 $frameworkMetadataRelative = 'PhobosFramework-P0/Mods/PhobosFramework/mod_info.json'
 $frameworkDllRelative = 'PhobosFramework-P0/BepInEx/plugins/PhobosFramework/PhobosFramework.dll'
 $olderMetadata = Join-Path $badPackages $frameworkMetadataRelative
 $olderInfo = @(Get-Content -LiteralPath $olderMetadata -Raw | ConvertFrom-Json)
-$olderInfo[0].strModVersion = '0.8.99'
+$olderInfo[0].strModVersion = '0.9.99'
 ConvertTo-Json -InputObject $olderInfo | Set-Content -LiteralPath $olderMetadata
 Copy-Item -LiteralPath (Join-Path $olderOutput 'PhobosFramework.dll') -Destination (Join-Path $badPackages $frameworkDllRelative) -Force
-Fails { & $installer @incomplete | Out-Null } 'Selected equipment requires Phobos Framework 0.9.0'
+Fails { & $installer @incomplete | Out-Null } 'Selected equipment requires Phobos Framework 0.10.0'
 Check ((InstalledFiles $incomplete) -eq $before) 'Auto Nav selection weakened the reclaimer provider minimum'
 foreach ($relative in @($frameworkMetadataRelative, $frameworkDllRelative)) {
     Copy-Item -LiteralPath (Join-Path $PackageRoot $relative) -Destination (Join-Path $badPackages $relative) -Force

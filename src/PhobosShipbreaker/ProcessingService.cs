@@ -1,4 +1,5 @@
 using Phobos.Ostranauts.Framework.Processing;
+using Phobos.Ostranauts.Framework.Controls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +19,7 @@ internal sealed partial class ProcessingService
         internal double Last;
         internal IntakeSession? Intake;
         internal bool AwaitingFeed;
+        internal bool NeedsAttention;
         internal string Status = Text.Get("ProcessingService.paused_load_panels_and_start_the_queue");
     }
     private ConditionalWeakTable<CondOwner, Session> sessions = new ConditionalWeakTable<CondOwner, Session>();
@@ -67,8 +69,9 @@ internal sealed partial class ProcessingService
         return null;
     }
 
-    internal static string? AccessProblem(CondOwner machine)
+    internal static string? AccessProblem(CondOwner machine, ConsoleBinding? console = null)
     {
+        if (console != null) return ControlAuthority.Check(machine, console);
         var actor = CrewSim.GetSelectedCrew();
         if (actor == null || actor.bDestroyed || actor.HasCond("IsDead") || actor.HasCond("Unconscious"))
             return Text.Get("ProcessingService.select_an_awake_crew_member");
@@ -77,13 +80,14 @@ internal sealed partial class ProcessingService
         return null;
     }
 
-    internal bool Start(CondOwner machine)
+    internal bool Start(CondOwner machine, ConsoleBinding? console = null)
     {
         var state = sessions.GetValue(machine, _ => new Session());
-        string? problem = AccessProblem(machine) ?? MachineProblem(machine);
+        string? problem = AccessProblem(machine, console) ?? MachineProblem(machine);
         if (problem != null) { state.Status = problem; return false; }
         try
         {
+            state.NeedsAttention = false;
             if (IsReclaimer(machine)) state.AwaitingFeed = true;
             string intakeMessage = "";
             bool connected = !IsReclaimer(machine) && ArmIntake(machine, out intakeMessage);
@@ -133,12 +137,13 @@ internal sealed partial class ProcessingService
         input.GetCondAmount(ProcessRules.Progress), input.GetCondAmount(ProcessRules.Revision),
         input.GetCondAmount(ProcessRules.Duration));
 
-    internal bool Pause(CondOwner machine, bool cancel)
+    internal bool Pause(CondOwner machine, bool cancel, ConsoleBinding? console = null)
     {
         var state = sessions.GetValue(machine, _ => new Session());
-        string? problem = AccessProblem(machine);
+        string? problem = AccessProblem(machine, console);
         if (problem != null) { state.Status = problem; return false; }
-        Stop(machine, state, cancel ? Text.Get("ProcessingService.work_cancelled_panel_retained_spent_energy_is") : Text.Get("ProcessingService.paused_progress_retained"));
+        state.NeedsAttention = false;
+        Stop(machine, state, cancel ? Text.Get("ProcessingService.work_cancelled_panel_retained_spent_energy_is") : Text.Get("ProcessingService.paused_progress_retained"), needsAttention: false);
         if (!cancel) return true;
         // Include saved jobs after reload, when no session binding exists yet.
         foreach (var input in Feed(machine)?.objContainer?.ContainedCOs ?? Array.Empty<CondOwner>())
@@ -153,8 +158,9 @@ internal sealed partial class ProcessingService
 
     private static void SetWorking(CondOwner machine, bool value) => machine.SetCondAmount(ProcessRules.Working, value ? 1 : 0);
 
-    private void Stop(CondOwner machine, Session state, string message)
+    private void Stop(CondOwner machine, Session state, string message, bool needsAttention = true)
     {
+        state.NeedsAttention = needsAttention;
         state.AwaitingFeed = false; state.Job?.Pause(); state.Status = message; SetWorking(machine, false);
         DisarmIntake(machine);
     }
@@ -267,6 +273,7 @@ internal sealed partial class ProcessingService
     {
         var state = sessions.GetValue(machine, _ => new Session());
         Stop(machine, state, Text.Get("ProcessingService.processing_fault_queue_paused_check_the_log"));
+        state.NeedsAttention = true;
         log(ex.ToString());
     }
 

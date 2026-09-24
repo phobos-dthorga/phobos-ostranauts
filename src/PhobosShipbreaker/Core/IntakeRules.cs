@@ -14,6 +14,14 @@ public static class IntakeRules
         id == Grabber + "Installed" || id == Grabber + "Loose" ||
         id == Grabber + "InstalledDmg" || id == Grabber + "LooseDmg";
 
+    // Broad 2D bound; render depth must not affect physical adjacency.
+    public static bool CouldReachProcessor(double gx, double gy, double px, double py)
+    {
+        double radius = GrabberDepth / 2.0 + ChuteDepth + ProcessRules.Footprint / 2.0 + 2 * PositionToleranceTiles;
+        double dx = gx - px, dy = gy - py;
+        return dx * dx + dy * dy <= radius * radius;
+    }
+
     // Positive angle follows Unity's counter-clockwise Z rotation. One world unit
     // is one native tile. An outward-facing grabber has its arms at local +Y.
     public static (double X, double Y) Rotate(double x, double y, double degrees)
