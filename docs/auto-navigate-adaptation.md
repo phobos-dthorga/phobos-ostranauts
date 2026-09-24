@@ -1,6 +1,6 @@
 # Phobos Auto Nav: standalone adaptation
 
-**0.5.0 candidate; built against Ostranauts 1.0.1.5 / BepInEx 5.4.23.5.**
+**0.6.0 candidate; built against Ostranauts 1.0.1.5 / BepInEx 5.4.23.5.**
 Ordinary saves are the baseline from 2026-09-24. Phobos Framework 0.11.0+ now
 provides shared construction, merchant and maintenance services. No original Auto
 Navigate dependency. See [prices, acquisition and service bills](equipment-economy.md).
@@ -22,6 +22,10 @@ That note has not been sent. No blanket community reuse grant is claimed.
 
 ## Implemented slice
 
+- Version 0.6.0 prefers a running torch for acceleration and approach braking
+  where native zones permit it, with RCS for turning, small corrections and
+  restricted zones. A conservative RCS braking envelope remains available.
+  See [torch operation, settings and engine evidence](auto-nav-torch.md).
 - Standalone `PhobosAutoNav.dll`, separate `PhobosNavModAutoNav` native module and
   damaged variant. **No AutoNavigate.dll reference or runtime dependency.** Uses
   BepInEx 5, Phobos Framework and private Phobos board definitions, with the owner's approved original
@@ -202,7 +206,9 @@ approximate departure fuel check, detailed logging and the master switch.
 Rotation's instantaneous comparison mode is inherited and nonphysical; leave
 `UseThrusterRotation=true` for ordinary testing. The fuel estimate is not proof
 that turning, damaged thrusters and changing trajectories fit its reserve.
-Actual fuel use goes through native `Ship.Maneuver`.
+RCS fuel use goes through native `Ship.Maneuver`; torch fuel, heat and wear
+remain native `FusionIC` behaviour. The `[Torch]` settings default to a 1 g
+ceiling and 5 m/s minimum useful correction. Native no-wake rules remain active.
 
 F3 commands:
 
@@ -215,6 +221,7 @@ F3 commands:
 | `phobosnav fly` | Engage using the saved default through the same checks as the panel |
 | `phobosnav fly 0.5` | Request a 500 m arrival for this flight; larger hull clearance still applies |
 | `phobosnav arrival 1` | Save a 1 km default while disengaged; no restart required |
+| `phobosnav torch on` / `phobosnav torch off` | Save torch preference; off cuts the current torch burn while RCS guidance continues |
 | `phobosnav stop` | Clear commanded thrust and coast |
 
 ## Approved artwork

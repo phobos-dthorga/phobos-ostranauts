@@ -1,7 +1,7 @@
 # Current player guide
 
 **Prepared versions:** Phobos Framework **0.11.0**, Shipbreaker **0.10.0**, Auto Nav
-**0.5.0**, built against Ostranauts **1.0.1.5** / BepInEx **5.4.23.5**.
+**0.6.0**, built against Ostranauts **1.0.1.5** / BepInEx **5.4.23.5**.
 These versions support ordinary saves. Builds and offline checks do not establish
 in-game compatibility. This guide describes the prepared packages, not a claim
 that those packages are already installed or that merchants have restocked.
@@ -145,6 +145,12 @@ There is no prerequisite isolated test of ordinary power draw. Focus on the
 connected workflow, retained materials and any actual failure you encounter.
 
 ## Auto Nav and current limits
+
+Auto Nav 0.6.0 adds [torch-preferred travel and approach braking](auto-nav-torch.md).
+Start the reactor normally, then begin a new flight. Native no-wake zones,
+alignment and braking room determine when the torch is useful; RCS handles
+turns, fine corrections and restricted approaches. Use **phobosnav torch off**
+for RCS-only operation. Existing saved RCS-only flights retain that choice.
 
 Look for **Phobos Polaris Auto Nav Module** in shops or table construction.
 The [Auto Nav economy guide](auto-nav-economy.md) lists sellers, conditions,

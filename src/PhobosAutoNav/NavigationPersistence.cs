@@ -18,7 +18,7 @@ internal sealed partial class NavigationService
     // world's snapshot or send a maneuver into a world being torn down.
     internal void WorldChanging()
     {
-        AutoNavCore.ResetStatics(); console = null; savedFlight = null;
+        Torch.Reset(); AutoNavCore.ResetStatics(); console = null; savedFlight = null;
         issuing = false; restorePending = false; status = Text.Get("Persistence.loading");
     }
     internal void WorldLoaded() => restorePending = true;
@@ -27,6 +27,7 @@ internal sealed partial class NavigationService
     {
         if (!AutoNavCore.Engaged || AutoNavCore.EngagedPlayer?.objSS != situ) return;
         saved.vAccRCS = UnityEngine.Vector2.zero;
+        saved.vAccIn = UnityEngine.Vector2.zero;
         saved.fA = 0;
     }
 
@@ -90,7 +91,7 @@ internal sealed partial class NavigationService
         ConsoleId = co.strID, ModuleId = co.GetCOsSafe(true).First(item => HasId(item, ModuleId) && !item.HasCond("IsDamaged")).strID,
         ShipId = co.ship.strRegID, PlayerId = CrewSim.coPlayer.strID, TargetId = target.ShipId,
         CruiseMS = cruise, ArrivalMS = arrival,
-        ArrivalKM = distance, Coast = AutoNavCore.FlightCoastSettings, Mode = SavedFlightMode.Active
+        ArrivalKM = distance, Coast = AutoNavCore.FlightCoastSettings, PreferTorch = AutoNavCore.FlightPrefersTorch, Mode = SavedFlightMode.Active
     };
 
     private bool FlightBindingValid() => savedFlight != null && console != null &&

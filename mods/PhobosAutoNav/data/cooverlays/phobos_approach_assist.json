@@ -3,7 +3,7 @@
     "strName": "PhobosNavModAutoNav",
     "strNameFriendly": "Phobos Polaris Auto Nav Module",
     "strNameShort": "Phobos Polaris Auto Nav Module",
-    "strDesc": "An aftermarket module for a Polaris navigation station. Short-range RCS approach and braking, including below 5,000 km, with adjustable stopping distance and hull clearance. Repair and Restore for reuse, or dismantle into retained board residue. Does not dock, avoid obstacles or hold position.",
+    "strDesc": "An aftermarket module for a Polaris navigation station. Torch-preferred approach and braking with RCS fallback and native no-wake protection, including below 5,000 km, with adjustable stopping distance and hull clearance. Repair and Restore for reuse, or dismantle into retained board residue. Does not dock, avoid obstacles or hold position.",
     "strCOBase": "PhobosAutoNavBoard",
     "strImg": "phobos/autonav/PhobosAutoNavModule",
     "strImgNorm": "phobos/autonav/PhobosAutoNavModuleNormal",

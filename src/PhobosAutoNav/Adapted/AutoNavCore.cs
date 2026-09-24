@@ -54,6 +54,7 @@ internal static class AutoNavCore
 	private static bool _coasting;
 
     public static CoastSettings FlightCoastSettings { get; private set; }
+    internal static bool FlightPrefersTorch { get; private set; }
     internal static double ElapsedSeconds => _elapsedSim;
     internal static bool Coasting => _coasting;
 
@@ -67,6 +68,7 @@ internal static class AutoNavCore
         ArriveAU = snapshot.ArrivalKM * KM_TO_AU;
         _elapsedSim = snapshot.ElapsedSeconds; _coasting = snapshot.Coasting;
         FlightCoastSettings = snapshot.Coast; _logAccum = 0;
+        FlightPrefersTorch = snapshot.PreferTorch;
         LastResult = null; CurrentPhase = _coasting ? Phase.Coast : Phase.Align;
         Engaged = true;
     }
@@ -99,7 +101,7 @@ internal static class AutoNavCore
 		return TargetRef.FromCrossHair();
 	}
 
-	public static void BeginFlight(Ship player, TargetRef target, CoastSettings coastSettings)
+	public static void BeginFlight(Ship player, TargetRef target, CoastSettings coastSettings, bool preferTorch)
 	{
 		ShipSitu shipSitu = player?.objSS;
 		if (shipSitu != null && (shipSitu.bOrbitLocked || shipSitu.bBOLocked || shipSitu.bIsBO))
@@ -124,6 +126,7 @@ internal static class AutoNavCore
 		_logAccum = 0.0;
 		_coasting = false;
         FlightCoastSettings = coastSettings;
+        FlightPrefersTorch = preferTorch;
 		LastResult = null;
 		CurrentPhase = Phase.Align;
 		Engaged = true;
@@ -132,6 +135,7 @@ internal static class AutoNavCore
 
 	public static void EndFlight(Ship player, string result)
 	{
+        Plugin.Service.Torch.Release();
 		Engaged = false;
 		EngagedPlayer = null;
 		EngagedTarget = null;
@@ -160,6 +164,7 @@ internal static class AutoNavCore
 
 	public static void ResetStatics()
 	{
+        FlightPrefersTorch = false;
 		Engaged = false;
         _coasting = false;
 		EngagedPlayer = null;
@@ -247,6 +252,7 @@ internal static class AutoNavCore
 			// Phobos: crossing a distance boundary is not proof of completed braking.
             if (ArrivalBrake.NeedsBrake(num7, num11, num10, num3, num4))
             {
+                Plugin.Service.Torch.Cut();
                 if (!ArrivalBrake.TryCommand(num8 / M_TO_AU, num9 / M_TO_AU, shipSitu.fRot,
                     player.RCSAccelMax / M_TO_AU, ReadShipThrottle(player), num3 / M_TO_AU, fTime,
                     out var command))
@@ -299,6 +305,7 @@ internal static class AutoNavCore
 			double num23 = Math.Sqrt(num21 * num21 + num22 * num22);
 			if (num23 < 1E-15)
 			{
+                Plugin.Service.Torch.Cut();
 				return;
 			}
 			double num24 = num21 / num23;
@@ -323,6 +330,19 @@ internal static class AutoNavCore
                 v / M_TO_AU, num3 / M_TO_AU, num13 / M_TO_AU, fTime, out double brakingSpeedMS))
             { EndFlight(player, "INVALID FLIGHT DATA"); return; }
             num33 = Math.Min(num33, brakingSpeedMS * M_TO_AU);
+            double minimumTorchCorrection = Plugin.TorchMinimumCorrectionMS.Value;
+            if (!ArrivalBrake.Finite(minimumTorchCorrection) || minimumTorchCorrection < 0.5 || minimumTorchCorrection > 100)
+            { EndFlight(player, "INVALID FLIGHT DATA"); return; }
+            double rawErrorX = num24 * num33 - num8, rawErrorY = num25 * num33 - num9;
+            double remainingCorrection = Math.Max(Math.Sqrt(rawErrorX * rawErrorX + rawErrorY * rawErrorY),
+                num33 < num2 ? Math.Max(0, num10 - num3) : 0);
+            if (FlightPrefersTorch && Plugin.PreferTorch.Value && remainingCorrection >= minimumTorchCorrection * M_TO_AU)
+            {
+                double safe = TorchRules.SafeSpeed(Math.Max(0, num7 - num11 * ApproachRules.ArrivalBandMultiplier) / M_TO_AU,
+                    num10 / M_TO_AU, num3 / M_TO_AU, num13 / M_TO_AU, fTime);
+                if (!ArrivalBrake.Finite(safe)) { EndFlight(player, "INVALID FLIGHT DATA"); return; }
+                num33 = Math.Min(num33, safe * M_TO_AU);
+            }
             bool braking = num33 < num2 || num10 > brakingSpeedMS * M_TO_AU;
 			double num34 = num28 - num30 * num24;
 			double num35 = num29 - num30 * num25;
@@ -372,9 +392,55 @@ internal static class AutoNavCore
 			{
 				CurrentPhase = Phase.Accel;
 			}
-            float fR = _coasting
-                ? (float)CoastRules.CoastRotation(shipSitu.fW, fTime, Plugin.RotAccelMax.Value)
-                : ComputeRotInput(shipSitu, num27, fTime, FlightCoastSettings.BurnHeadingToleranceDegrees * CoastRules.DegreesToRadians);
+            float fR = 0;
+            var torch = Plugin.Service.Torch;
+            double errorX = (num24 * num33 - num8) * coast.CorrectionFraction / M_TO_AU;
+            double errorY = (num25 * num33 - num9) * coast.CorrectionFraction / M_TO_AU;
+            double correction = Math.Sqrt(errorX * errorX + errorY * errorY);
+            // A sustained braking leg can need a substantial total delta-v even
+            // though each individual guidance correction is small.
+            double torchWork = braking ? Math.Max(correction, (num10 - num3) / M_TO_AU) : correction;
+            if (!_coasting && correction > 0 && torchWork >= minimumTorchCorrection &&
+                torch.Available(player, FlightPrefersTorch, fTime, out double torchAcceleration))
+            {
+                double torchHeading = -Math.Atan2(errorX, errorY);
+                double torchError = WrapPi(torchHeading - shipSitu.fRot);
+                if (TorchRules.Aligned(torchError, shipSitu.fW, fTime + TorchRules.ZoneRefreshSeconds))
+                {
+                    double demand = TorchRules.BurnAcceleration(errorX, errorY, shipSitu.fRot, torchAcceleration, fTime);
+                    bool burning = torch.Burn(player, demand, fTime);
+                    if (burning || (!braking && torch.HasPendingBurn))
+                    {
+                        // No translational RCS alongside torch; no attitude change
+                        // during a burn. Native reactor fuel/heat logic supplies thrust.
+                        player.Maneuver(0, 0, 0, 0, (float)fTime);
+                        CurrentPhase = braking ? Phase.Decel : Phase.Accel;
+                        return;
+                    }
+                }
+                else
+                {
+                    torch.Align();
+                    fR = Math.Abs(torchError) <= TorchRules.MaximumHeadingRadians / 2
+                        ? (float)CoastRules.CoastRotation(shipSitu.fW, fTime, Plugin.RotAccelMax.Value)
+                        : ComputeRotInput(shipSitu, torchError, fTime, TorchRules.MaximumHeadingRadians / 2);
+                    if (!braking)
+                    {
+                        player.Maneuver(0, 0, fR, 0, (float)fTime);
+                        CurrentPhase = Phase.Align;
+                        return;
+                    }
+                    // Brake with RCS immediately while rotating toward a possible
+                    // retrograde torch burn; never coast through a braking demand.
+                }
+            }
+            else
+            {
+                torch.Cut();
+                fR = _coasting
+                    ? (float)CoastRules.CoastRotation(shipSitu.fW, fTime, Plugin.RotAccelMax.Value)
+                    : ComputeRotInput(shipSitu, num27, fTime, FlightCoastSettings.BurnHeadingToleranceDegrees * CoastRules.DegreesToRadians);
+            }
 			double num49 = Math.Cos(shipSitu.fRot);
 			double num50 = Math.Sin(shipSitu.fRot);
 			double num51 = (num40 * num49 + num41 * num50) / rCSAccelMax;

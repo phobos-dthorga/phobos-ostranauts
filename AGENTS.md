@@ -124,6 +124,13 @@
 
 ## Architecture
 
+- Auto Nav 0.6.0 adds the owner's requested torch preference, including approach
+  braking where native zones permit it (2026-09-24). Do not impose a blanket
+  short-range torch ban. Keep native fuel/heat/wear, running-reactor readiness,
+  the safety limiter, no-wake checks and conservative RCS braking room. Clear
+  thrust before turning/coasting and on control loss. Save idle reactor actuator
+  state, not a live burn; old flights without explicit torch preference remain
+  RCS-only. See docs/auto-nav-torch.md. Gameplay validation remains pending.
 - Auto Nav's immediate goal is short-range ship/station approach **below 5,000 km**
   (owner direction, 2026-09-24; vanilla threshold owner-reported). Do not confuse
   starting range with arrival distance or add an artificial engagement minimum.

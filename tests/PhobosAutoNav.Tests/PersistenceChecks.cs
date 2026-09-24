@@ -15,12 +15,13 @@ internal static class PersistenceChecks
             CultureInfo.CurrentCulture = CultureInfo.GetCultureInfo("de-DE");
             foreach (var mode in Enum.GetValues<SavedFlightMode>())
             foreach (bool coast in new[] { true, false })
+            foreach (bool torch in new[] { true, false })
             {
                 var original = new FlightSnapshot
                 {
                     ConsoleId = "console-1", ModuleId = "module-2", ShipId = "ship-3", PlayerId = "player-4", TargetId = "ship-5",
                     CruiseMS = 123.5, ArrivalMS = 0.25, ArrivalKM = 0.1, ElapsedSeconds = 8765.4321,
-                    Coast = new CoastSettings(3.5, 12.5, .75, 2.5), Coasting = coast, Mode = mode
+                    Coast = new CoastSettings(3.5, 12.5, .75, 2.5), Coasting = coast, Mode = mode, PreferTorch = torch
                 };
                 var maps = new Dictionary<string, Dictionary<string, string>>();
                 var store = new ObjectStateStore(maps, FlightSnapshot.StoreName, original.ConsoleId, FlightSnapshot.Schema);
@@ -32,7 +33,7 @@ internal static class PersistenceChecks
                 FlightSnapshot.TryDecode(fields, out var restored);
                 check(restored.TargetId == original.TargetId && restored.CruiseMS == original.CruiseMS &&
                     restored.ArrivalMS == original.ArrivalMS && restored.ArrivalKM == original.ArrivalKM &&
-                    restored.ElapsedSeconds == original.ElapsedSeconds && restored.Coasting == coast && restored.Mode == mode,
+                    restored.ElapsedSeconds == original.ElapsedSeconds && restored.Coasting == coast && restored.Mode == mode && restored.PreferTorch == torch,
                     "Reload retains intent, completion state, timeout budget and hysteresis");
                 check(restored.Coast.MinimumToleranceMS == 3.5 && restored.Coast.SpeedTolerancePercent == 12.5 &&
                     restored.Coast.EnterFraction == .75 && restored.Coast.BurnHeadingToleranceDegrees == 2.5, "Coast profile remains captured per flight");
@@ -44,6 +45,11 @@ internal static class PersistenceChecks
                 foreach (string key in original.Encode().Keys)
                 {
                     var missing = original.Encode(); missing.Remove(key);
+                    if (key == "preferTorch")
+                    {
+                        check(FlightSnapshot.TryDecode(missing, out var legacy) && !legacy.PreferTorch, "Schema-1 RCS flights do not acquire new torch permission");
+                        continue;
+                    }
                     check(!FlightSnapshot.TryDecode(missing, out _), "Missing fields cannot silently default: " + key);
                 }
                 foreach (string value in new[] { "NaN", "Infinity", "-1", "1,5" })
@@ -55,6 +61,8 @@ internal static class PersistenceChecks
                 check(!FlightSnapshot.TryDecode(selfTarget, out _), "Cannot reload a self-target");
                 var invalidMode = original.Encode(); invalidMode["mode"] = "999";
                 check(!FlightSnapshot.TryDecode(invalidMode, out _), "Unknown lifecycle states are not resumed");
+                invalidMode = original.Encode(); invalidMode["preferTorch"] = "maybe";
+                check(!FlightSnapshot.TryDecode(invalidMode, out _), "Invalid torch permission is not accepted");
             }
         }
         finally { CultureInfo.CurrentCulture = culture; }

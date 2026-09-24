@@ -1,4 +1,4 @@
-# Auto Nav saved flights (0.5.0)
+# Auto Nav saved flights (introduced 0.5.0; torch addition 0.6.0)
 
 Prepared against Ostranauts 1.0.1.5 and BepInEx 5.4.23.5, with Phobos Framework
 0.11.0. Builds and automated checks are not in-game validation.
@@ -17,6 +17,13 @@ checks pass. Guidance is recomputed from the game's restored position and
 velocity on the next unpaused simulation step. It does not restore an old thrust
 command, select the current crosshair as a replacement, or restart the timeout.
 The transient steering phase is recalculated; the cruise hysteresis latch persists.
+
+Version 0.6.0 adds optional preferTorch to this same compatible payload.
+Missing means false, preserving old RCS-only flights. A new flight captures the
+current torch preference; invalid values are rejected. Torch burn permissions,
+alignment and legality are recomputed after loading. Reactor save DTOs contain
+idle flight controls and controlled-ship physics omits vAccIn; live state is
+untouched. See [torch persistence and operation](auto-nav-torch.md).
 
 Set `Persistence.ResumeAfterLoad = false` to restore active flights suspended.
 A blocked flight also becomes suspended, with a reason in the panel/status.
@@ -60,7 +67,7 @@ The engine's `OnGameFinishedLoading` event precedes the coroutine's final
 `FinishedLoading = true`; restoration waits for both. Load/NewGame entry clears
 session references without modifying the departing world's snapshot or ship.
 
-Native `ShipSitu.GetJSON` also saves `vAccRCS` and angular acceleration. For our
+Native `ShipSitu.GetJSON` also saves `vAccIn`, `vAccRCS` and angular acceleration. For our
 currently active ship only, a postfix zeros those actuator fields in the newly
 created save DTO. It does not alter live physics, velocity, spin, gravity or other
 ships. This prevents a saved burn from continuing if restoration is suspended or

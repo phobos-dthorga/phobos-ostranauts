@@ -45,7 +45,7 @@ internal static class PersistenceRuntimeChecks
         NavigationService.PrepareSavedPhysics(new ShipSitu(), nativeSave);
         check(nativeSave.fA == 2 && nativeSave.vAccRCS.x == 3, "Other ships retain their own saved actuator data");
         NavigationService.PrepareSavedPhysics(f.Console.ship.objSS, nativeSave);
-        check(nativeSave.fA == 0 && nativeSave.vAccRCS.x == 0 && nativeSave.fW == 4 && nativeSave.velocity == 5,
+        check(nativeSave.fA == 0 && nativeSave.vAccRCS.x == 0 && nativeSave.vAccIn.x == 0 && nativeSave.fW == 4 && nativeSave.velocity == 5,
             "Active ship save omits stale actuators while retaining motion");
         check(f.Console.ship.objSS.Acceleration == 6, "Sanitizing a saved copy never changes live acceleration");
         AutoNavCore.ElapsedSeconds += 7; f.Service.SaveProgressForTest();
@@ -126,6 +126,7 @@ internal sealed class ShipSitu { internal double Acceleration = 6; }
 internal sealed class JsonShipSitu
 {
     internal UnityEngine.Vector2 vAccRCS = new() { x = 3 };
+    internal UnityEngine.Vector2 vAccIn = new() { x = 7 };
     internal float fA = 2, fW = 4;
     internal double velocity = 5;
 }
@@ -172,6 +173,7 @@ namespace PhobosAutoNav
         internal static string? LastResult;
         internal static double ElapsedSeconds;
         internal static CoastSettings FlightCoastSettings = new(3,10,.75,2);
+        internal static bool FlightPrefersTorch => false;
         internal static void ResetStatics() { Engaged = false; EngagedPlayer = null; }
         internal static void EndFlight(Ship? ship, string result) { LastResult = result; Engaged = false; }
         internal static void RestoreFlight(Ship ship, TargetRef target, FlightSnapshot snapshot)
@@ -182,6 +184,7 @@ namespace PhobosAutoNav
     }
     internal sealed partial class NavigationService
     {
+        internal TorchDouble Torch { get; } = new();
         internal const string ModuleId = "PhobosNavModAutoNav";
         private CondOwner? console;
         private bool issuing;
@@ -197,4 +200,5 @@ namespace PhobosAutoNav
         // Read these production-private fields to ensure test compilation also checks their use.
         internal string Diagnostic => status + issuing;
     }
+    internal sealed class TorchDouble { internal void Reset() { } }
 }

@@ -9,7 +9,7 @@ function Copy-PhobosPlayerGuides {
     foreach ($name in @(
         'player-guide', 'installing-mods', 'equipment-economy', 'equipment-value-audit',
         'vanilla-economy-audit', 'shipbreaker-first-build', 'shipbreaker-hull-intake',
-        'residue-collector', 'auto-navigate-adaptation', 'auto-nav-economy', 'auto-nav-panel-layout-audit', 'auto-nav-persistence', 'residue-material-contract',
+        'residue-collector', 'auto-navigate-adaptation', 'auto-nav-economy', 'auto-nav-panel-layout-audit', 'auto-nav-persistence', 'auto-nav-torch', 'residue-material-contract',
         'shipbreaking-material-processing-research', 'material-disposal-port-research',
         'processing-job-compatibility', 'localization', 'scrap-reclaimer', 'automatic-material-routing', 'material-port-pairing',
         'industrial-console-player-guide', 'industrial-control-console', 'industrial-control-mockups'

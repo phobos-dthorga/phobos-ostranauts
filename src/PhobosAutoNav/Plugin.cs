@@ -16,14 +16,15 @@ namespace PhobosAutoNav;
 public sealed class Plugin : BaseUnityPlugin
 {
     public const string Id = "phobosgekko.ostranauts.autonav";
-    public const string Version = "0.5.0";
+    public const string Version = "0.6.0";
     internal static NavigationService Service { get; private set; } = null!;
     internal static ConfigEntry<bool> Enabled = null!, VerboseLogging = null!, FuelCheck = null!,
-        AbortOnManualThrust = null!, UseThrusterRotation = null!, ResumeAfterLoad = null!;
+        AbortOnManualThrust = null!, UseThrusterRotation = null!, ResumeAfterLoad = null!, PreferTorch = null!;
     internal static ConfigEntry<float> DefaultCruiseMS = null!, DefaultArriveSpeedMS = null!,
         DefaultArriveKM = null!, ArrivalSpeedTolerance = null!, MaxFlightSimHours = null!,
         CoastTolerance = null!, CoastSpeedTolerancePercent = null!, CoastEnterFraction = null!,
-        BurnHeadingToleranceDegrees = null!, RotAccelMax = null!, RotSpeedMax = null!, MaximumStepSeconds = null!;
+        BurnHeadingToleranceDegrees = null!, RotAccelMax = null!, RotSpeedMax = null!, MaximumStepSeconds = null!,
+        TorchMaximumG = null!, TorchMinimumCorrectionMS = null!;
     private Harmony? harmony;
     private static Action<string>? log;
 
@@ -52,6 +53,9 @@ public sealed class Plugin : BaseUnityPlugin
         FuelCheck = Config.Bind("Flight", "FuelCheck", true, Text.Get("Plugin.check_the_inherited_approximate_delta_v_budget"));
         AbortOnManualThrust = Config.Bind("Flight", "AbortOnManualThrust", true, Text.Get("Plugin.legacy_guidance_check_phobos_always_yields_to"));
         UseThrusterRotation = Config.Bind("Flight", "UseThrusterRotation", true, Text.Get("Plugin.use_rcs_turning_false_retains_upstream_s"));
+        PreferTorch = Config.Bind("Torch", "PreferTorch", true, Text.Get("Torch.setting_prefer"));
+        TorchMaximumG = Number("Torch", "MaximumAccelerationG", 1, 0.05f, 2, Text.Get("Torch.setting_acceleration"));
+        TorchMinimumCorrectionMS = Number("Torch", "MinimumCorrectionMS", 5, 0.5f, 100, Text.Get("Torch.setting_correction"));
         Service = new NavigationService(log);
         ResumeAfterLoad = Config.Bind("Persistence", "ResumeAfterLoad", true, Text.Get("Persistence.resume_setting"));
         CrewSim.OnGameFinishedLoading.AddListener(Service.WorldLoaded);
@@ -111,7 +115,26 @@ internal static class ExternalControlPatch
     private static void Prefix(Ship __instance, float fX, float fY, float fR) => Plugin.Service.ExternalControl(__instance, fX, fY, fR);
 }
 
-// Native ShipSitu saves include the last RCS acceleration. That is an actuator
+[HarmonyPatch(typeof(Ship), nameof(Ship.SetReactorGPMValue))]
+internal static class ReactorControlPatch
+{
+    private static void Prefix(Ship __instance, string strName, string strValue) =>
+        Plugin.Service.ExternalReactorControl(__instance, strName, strValue);
+}
+
+[HarmonyPatch(typeof(Ship), nameof(Ship.SetThrust))]
+internal static class TorchThrustPatch
+{
+    private static void Prefix(Ship __instance, ref double fAmount) => Plugin.Service.Torch.FilterThrust(__instance, ref fAmount);
+}
+
+[HarmonyPatch(typeof(Ship), nameof(Ship.GetJsonItem))]
+internal static class SavedReactorPatch
+{
+    private static void Postfix(CondOwner co, JsonItem __result) => Plugin.Service.Torch.PrepareSavedControls(co, __result);
+}
+
+// Native ShipSitu saves include the last torch/RCS acceleration. That is an actuator
 // command, not flight intent: omit it in the fresh DTO for our active ship only.
 // Preserve velocity, angular momentum, gravity and other controllers' saves.
 [HarmonyPatch(typeof(ShipSitu), nameof(ShipSitu.GetJSON))]

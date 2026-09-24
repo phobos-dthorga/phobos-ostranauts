@@ -16,7 +16,7 @@ internal sealed class FlightSnapshot
     internal string ConsoleId = "", ModuleId = "", ShipId = "", PlayerId = "", TargetId = "";
     internal double CruiseMS, ArrivalMS, ArrivalKM, ElapsedSeconds;
     internal CoastSettings Coast;
-    internal bool Coasting;
+    internal bool Coasting, PreferTorch;
     internal SavedFlightMode Mode;
 
     internal bool Valid => ObjectStateStore.SafeValue(ConsoleId) && ObjectStateStore.SafeValue(ModuleId) &&
@@ -33,6 +33,7 @@ internal sealed class FlightSnapshot
         ["console"] = ConsoleId, ["module"] = ModuleId, ["ship"] = ShipId, ["player"] = PlayerId, ["target"] = TargetId,
         ["cruiseMS"] = Number(CruiseMS), ["arrivalMS"] = Number(ArrivalMS), ["arrivalKM"] = Number(ArrivalKM),
         ["elapsedSeconds"] = Number(ElapsedSeconds), ["coasting"] = Coasting ? "1" : "0", ["mode"] = Mode.ToString(),
+        ["preferTorch"] = PreferTorch ? "1" : "0",
         ["coastMinimumMS"] = Number(Coast.MinimumToleranceMS), ["coastPercent"] = Number(Coast.SpeedTolerancePercent),
         ["coastEnter"] = Number(Coast.EnterFraction), ["burnHeadingDegrees"] = Number(Coast.BurnHeadingToleranceDegrees)
     };
@@ -46,10 +47,11 @@ internal sealed class FlightSnapshot
             ConsoleId = Value("console"), ModuleId = Value("module"), ShipId = Value("ship"), PlayerId = Value("player"), TargetId = Value("target"),
             CruiseMS = Parse("cruiseMS"), ArrivalMS = Parse("arrivalMS"), ArrivalKM = Parse("arrivalKM"), ElapsedSeconds = Parse("elapsedSeconds"),
             Coast = new CoastSettings(Parse("coastMinimumMS"), Parse("coastPercent"), Parse("coastEnter"), Parse("burnHeadingDegrees")),
-            Coasting = Value("coasting") == "1"
+            Coasting = Value("coasting") == "1", PreferTorch = Value("preferTorch") == "1"
         };
         if (!Enum.TryParse(Value("mode"), out snapshot.Mode) || Value("mode") != snapshot.Mode.ToString() ||
-            (Value("coasting") != "1" && Value("coasting") != "0")) return false;
+            (Value("coasting") != "1" && Value("coasting") != "0") ||
+            (fields.ContainsKey("preferTorch") && Value("preferTorch") != "1" && Value("preferTorch") != "0")) return false;
         return snapshot.Valid;
     }
     private static string Number(double value) => value.ToString("R", CultureInfo.InvariantCulture);

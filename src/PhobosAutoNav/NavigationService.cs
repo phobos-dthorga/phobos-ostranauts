@@ -14,6 +14,7 @@ internal sealed partial class NavigationService
     private readonly Action<string> log;
     private CondOwner? console;
     private bool issuing;
+    internal TorchDriveController Torch { get; } = new();
     private string status = Text.Get("NavigationService.idle");
     private static CondOwner? OpenConsole => GUIOrbitDraw.IsOpen() ? GUIOrbitDraw.Instance.COSelfBase() : null;
     internal NavigationService(Action<string> log) { this.log = log; }
@@ -41,7 +42,7 @@ internal sealed partial class NavigationService
         if (co.ship == null || co.ship.bDestroyed || CrewSim.coPlayer == null || CrewSim.coPlayer.ship != co.ship) return Text.Get("NavigationService.player_must_be_aboard_the_controlled_ship");
         if (co.ship.IsDocked()) return Text.Get("NavigationService.undock_before_engagement");
         if (co.ship.bCheckPower) return Text.Get("NavigationService.power_network_is_updating");
-        if (co.ship.IsUsingTorchDrive || co.ship.shipStationKeepingTarget != null || (co.ship.aWPs != null && co.ship.aWPs.Count > 0)
+        if ((TorchDriveController.ThrustRequested(co.ship) && !Plugin.Service.Torch.Owns(co.ship)) || co.ship.shipStationKeepingTarget != null || (co.ship.aWPs != null && co.ship.aWPs.Count > 0)
             || PropOn(co, "chkStationKeeping") || PropOn(co, "chkHoldThrust") || PropOn(co, "chkEngage")
             || AIShipManager.GetAIShipByRegID(co.ship.strRegID) != null) return Text.Get("NavigationService.disengage_other_flight_automation_first");
         if (CrewSim.system == null || CrewSim.system.IsInAtmo(co.ship)) return Text.Get("NavigationService.free_space_flight_only");
@@ -86,7 +87,7 @@ internal sealed partial class NavigationService
             if (Plugin.FuelCheck.Value && !AutoNavCore.HasFuelForFlight(co!.ship, target))
             { status = Text.Get("NavigationService.insufficient_estimated_delta_v"); return; }
             issuing = true;
-            try { AutoNavCore.BeginFlight(co!.ship, target, coastSettings); } finally { issuing = false; }
+            try { AutoNavCore.BeginFlight(co!.ship, target, coastSettings, Plugin.PreferTorch.Value); } finally { issuing = false; }
             savedFlight = CaptureFlight(co!, target, cruise, Math.Min(arrival, cruise), distance);
             PersistProgress();
             if (AutoNavCore.Engaged) status = Text.Get("NavigationService.flight_engaged");
@@ -103,6 +104,7 @@ internal sealed partial class NavigationService
         {
             string? problem = !Plugin.Enabled.Value ? Text.Get("NavigationService.mod_disabled") : HardwareProblem(console);
             if (problem == null && !FlightBindingValid()) problem = Text.Get("Persistence.binding_changed");
+            if (problem == null && Torch.ControlsChanged) problem = Text.Get("Torch.manual");
             if (problem == null && (!ArrivalBrake.Finite(dt) || dt < 0 || dt > Plugin.MaximumStepSeconds.Value)) problem = Text.Get("NavigationService.simulation_step_too_large_or_invalid_reduce");
             if (problem == null && Throttle <= 0) problem = Text.Get("NavigationService.throttle_zero_or_unavailable");
             if (problem == null && AutoNavCore.AutoDockBusy()) problem = Text.Get("NavigationService.auto_dock_took_control");
@@ -139,6 +141,15 @@ internal sealed partial class NavigationService
             Disengage(Text.Get("NavigationService.external_maneuver_command_pilot_other_controller_has"));
     }
 
+    internal void ExternalReactorControl(Ship ship, string key, string value)
+    {
+        if (AutoNavCore.Engaged && Torch.ChangedByPilot(ship, key, value))
+        {
+            Torch.YieldToPilot();
+            Disengage(Text.Get("Torch.manual"));
+        }
+    }
+
     internal void Disengage(string reason)
     {
         FinishSavedFlight(SavedFlightMode.Stopped);
@@ -149,7 +160,7 @@ internal sealed partial class NavigationService
         log(reason);
     }
 
-    internal string ReadPanel(CondOwner co) => status + "\n" +
+    internal string ReadPanel(CondOwner co) => status + (AutoNavCore.Engaged ? " / " + Text.Get(Torch.Reason) : "") + "\n" +
         (AutoNavCore.Engaged ? Text.Get("NavigationService.target", AutoNavCore.EngagedTarget.DisplayName) : HardwareProblem(co) ?? Text.Get("NavigationService.ready_to_select_target"))
         + "\n" + ApproachSummary(co, detailed: false);
 
@@ -173,13 +184,13 @@ internal sealed partial class NavigationService
         try
         {
             string verb = words.Length == 1 ? "help" : words[1].ToLowerInvariant();
-            if (words.Length > (verb == "fly" || verb == "arrival" ? 3 : 2))
+            if (words.Length > (verb == "fly" || verb == "arrival" || verb == "torch" ? 3 : 2))
             { response = Text.Get("NavigationService.no_extra_arguments_accepted_use_phobosnav_help"); return false; }
             switch (verb)
             {
                 case "help": response = Text.Get("NavigationService.phobosnav_help_status_settings_fly_stop_spawn"); return true;
                 case "status": response = Text.Get("NavigationService.phobos_auto_nav_engaged", Plugin.Version, AutoNavCore.Engaged, status, EquipmentContent.Status)
-                    + "\n" + ApproachSummary(OpenConsole, detailed: true); return true;
+                    + "\n" + ApproachSummary(OpenConsole, detailed: true) + "\n" + Text.Get(Torch.Reason); return true;
                 case "settings":
                     var snapshot = DisplaySnapshot(OpenConsole ?? console);
                     var coast = snapshot?.Coast ?? Plugin.ReadCoastSettings();
@@ -188,7 +199,9 @@ internal sealed partial class NavigationService
                             coast.EnterFraction * 100, coast.BurnHeadingToleranceDegrees, CoastRules.DriftLookaheadSeconds,
                             CoastRules.DriftRadiusFraction * 100,
                             Text.Get(snapshot != null ? "Persistence.saved_profile" : "NavigationService.next_flight"))
-                        + "\n" + Text.Get("Persistence.settings", Plugin.ResumeAfterLoad.Value);
+                        + "\n" + Text.Get("Persistence.settings", Plugin.ResumeAfterLoad.Value)
+                        + "\n" + Text.Get("Torch.settings", snapshot?.PreferTorch ?? Plugin.PreferTorch.Value,
+                            Plugin.TorchMaximumG.Value, Plugin.TorchMinimumCorrectionMS.Value);
                     return true;
                 case "fly":
                     float? requested = null;
@@ -208,6 +221,14 @@ internal sealed partial class NavigationService
                     Plugin.DefaultArriveKM.Value = newDefault;
                     Plugin.DefaultArriveKM.ConfigFile.Save();
                     response = Text.Get("NavigationService.arrival_default_saved", newDefault);
+                    return true;
+                case "torch":
+                    if (words.Length != 3 || (words[2] != "on" && words[2] != "off"))
+                    { response = Text.Get("Torch.usage"); return false; }
+                    Plugin.PreferTorch.Value = words[2] == "on";
+                    if (!Plugin.PreferTorch.Value) Torch.Cut();
+                    Plugin.PreferTorch.ConfigFile.Save();
+                    response = Text.Get("Torch.preference_saved", Plugin.PreferTorch.Value);
                     return true;
                 case "stop": Stop(OpenConsole ?? console, Text.Get("NavigationService.stopped_by_pilot_coasting")); response = status; return true;
                 case "resume": ResumeSaved(OpenConsole ?? console); response = status; return AutoNavCore.Engaged;
