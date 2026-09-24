@@ -25,7 +25,7 @@ internal sealed class TargetRef
 
 	private bool _isFixed;
 
-	public string DisplayName { get; private set; } = "TARGET";
+	public string DisplayName { get; private set; } = Text.Get("Flight.target");
 
 	public ShipSitu TargetSitu
 	{

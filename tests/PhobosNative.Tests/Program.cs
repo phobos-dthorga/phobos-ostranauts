@@ -50,6 +50,7 @@ Check(missing.Count == 0, string.Join("\n", missing));
 Check(!DataHandler.dictCOs.ContainsKey("SWB_SorterInstalled"), "No Workshop templates loaded");
 var prepared = Content.Prepare();
 prepared.Publish();
+ProcessingSaveChecks.Run(Check, Throws);
 // Exercise the game's own data-only trigger evaluator against its actual wall
 // definition: the ordinary solid-container filter caused the grey inventory bug.
 var wallData = new DataCO(DataHandler.dictCOs[ProcessRules.Wall]);
@@ -120,9 +121,14 @@ foreach (var definition in prepared.Installables.Values)
 }
 FrameworkLifecycle.Begin();
 var filePath = Path.Combine(repo, "mods/PhobosShipbreaker/framework/recipes.json");
+var frameworkText = Phobos.Ostranauts.Framework.Localization.Translations.Register(FrameworkInfo.PluginId,
+    typeof(FrameworkInfo).Assembly, "PhobosFramework.en.json");
+frameworkText.Select("fr", "{\"ConstructionRegistry.ready\":\"Prêt\",\"ConstructionRegistry.registered\":\"Enregistré\"}");
 ConstructionRegistry.RegisterPack(Plugin.Id, filePath);
 FrameworkLifecycle.Complete();
 Check(ConstructionRegistry.Ready(Plugin.Id), ConstructionRegistry.Status(Plugin.Id));
+Check(ConstructionRegistry.Status(Plugin.Id) == "Prêt", "Translated construction status cannot change readiness logic");
+frameworkText.Select("en");
 foreach (var recipe in ConstructionRegistry.Recipes.Values)
 {
     Check(recipe.Stations.Contains("ItmTable01") && recipe.Stations.Contains("ItmTable02") && !recipe.Stations.Contains("SWB_WorkbenchInstalled"), "Obtainable native assembly surfaces without Workshop");

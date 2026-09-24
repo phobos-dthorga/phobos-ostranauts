@@ -10,19 +10,29 @@ namespace PhobosAutoNav;
 internal static class EquipmentContent
 {
     internal const string Base = "PhobosAutoNavBoard", Residue = "PhobosAutoNavBoardResidue", Offcut = "PhobosAutoNavBoardOffcut";
-    internal static string Status { get; private set; } = "Awaiting content registration";
+    internal static string Status { get; private set; } = Text.Get("EquipmentContent.awaiting_content_registration");
     internal static void Register()
     {
         try
         {
+            Text.EnsureLoaded();
+            foreach (string id in new[] { NavigationService.ModuleId, NavigationService.DamagedId })
+            {
+                if (!DataHandler.dictCOOverlays.TryGetValue(id, out var overlay)) continue;
+                var localized = NativeDefinitions.Clone(overlay);
+                localized.strNameFriendly = Text.Get("Overlay." + id + ".name");
+                localized.strNameShort = localized.strNameFriendly;
+                localized.strDesc = Text.Get("Overlay." + id + ".description");
+                DataHandler.dictCOOverlays[id] = localized;
+            }
             Prepare().Publish();
             var mod = DataHandler.dictModInfos.Values.FirstOrDefault(m => m.strName == "Phobos Auto Nav" && !m.GetIsDisabled());
-            if (mod == null) throw new InvalidOperationException("Enable the matching Phobos Auto Nav native package.");
+            if (mod == null) throw new InvalidOperationException(Text.Get("EquipmentContent.enable_the_matching_phobos_auto_nav_native"));
             string path = Path.Combine(mod.GetDirectory(), "framework", "recipes.json");
             ConstructionRegistry.RegisterPack(Plugin.Id, path);
-            Status = "Economy and maintenance definitions registered";
+            Status = Text.Get("EquipmentContent.economy_and_maintenance_definitions_registered");
         }
-        catch (Exception ex) { Status = "Economy registration failed: " + ex.Message; throw; }
+        catch (Exception ex) { Status = Text.Get("EquipmentContent.economy_registration_failed", ex.Message); throw; }
     }
 
     internal static NativeDefinitions Prepare()
@@ -33,7 +43,7 @@ internal static class EquipmentContent
             string id = Base + (damaged ? "Dmg" : ""), module = NavigationService.ModuleId + (damaged ? "Dmg" : "");
             var co = NativeDefinitions.Clone(DataHandler.dictCOs[damaged ? "ItmNavModMoboDmg" : "ItmNavModMobo"]);
             co.strName = id;
-            co.strNameFriendly = co.strNameShort = damaged ? "Phobos Auto Nav (Damaged)" : "Phobos Auto Nav";
+            co.strNameFriendly = co.strNameShort = damaged ? Text.Get("EquipmentContent.phobos_auto_nav_damaged") : "Phobos Auto Nav";
             co.aInteractions = new[] { "DropItem", "PickupItem" };
             MaintenanceDefinitions.SetStat(co, "StatBasePrice", damaged ? 900 : 3600);
             MaintenanceDefinitions.SetStat(co, "StatRepairProgressMax", 900);
@@ -61,8 +71,8 @@ internal static class EquipmentContent
             strThemType = "Self", bIgnoreFeelings = true, objLootModeSwitch = NavigationService.DamagedId, aLootItms = Array.Empty<string>() });
         d.Loot.Add("PhobosAutoNavDamage", new Loot { strName = "PhobosAutoNavDamage", strType = "interaction",
             aCOs = new[] { "PhobosAutoNavModeDamage=1x1" }, aLoots = Array.Empty<string>() });
-        MaintenanceDefinitions.Remainder(d, Residue, "Auto Nav board residue (0.4 kg)", .4);
-        MaintenanceDefinitions.Remainder(d, Offcut, "Auto Nav assembly offcuts (0.6 kg)", .6);
+        MaintenanceDefinitions.Remainder(d, Residue, Text.Get("EquipmentContent.auto_nav_board_residue_kg"), .4);
+        MaintenanceDefinitions.Remainder(d, Offcut, Text.Get("EquipmentContent.auto_nav_assembly_offcuts_kg"), .6);
         Offer("ItmOKLGFixer", "Used", NavigationService.ModuleId, .30, StockCondition.Worn);
         Offer("ItmOKLGSupplyKioskInv", "Broken", NavigationService.DamagedId, .25, StockCondition.Broken);
         Offer("ItmTraderSanDiegoPolarisInv", "New", NavigationService.ModuleId, .60, StockCondition.Pristine);

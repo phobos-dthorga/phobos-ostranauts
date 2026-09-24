@@ -1,5 +1,10 @@
 using BepInEx;
 using HarmonyLib;
+using System;
+using System.Globalization;
+using System.Linq;
+using BepInEx.Configuration;
+using Phobos.Ostranauts.Framework.Localization;
 
 namespace Phobos.Ostranauts.Framework;
 
@@ -7,7 +12,7 @@ namespace Phobos.Ostranauts.Framework;
 public static class FrameworkInfo
 {
     public const string PluginId = "phobosgekko.ostranauts.framework";
-    public const string Version = "0.6.0";
+    public const string Version = "0.7.0";
 }
 
 [BepInPlugin(FrameworkInfo.PluginId, "Phobos Framework", FrameworkInfo.Version)]
@@ -15,15 +20,34 @@ public static class FrameworkInfo
 public sealed class FrameworkPlugin : BaseUnityPlugin
 {
     private Harmony? harmony;
+    private static ConfigEntry<string>? language;
+    internal static void RefreshLanguage()
+    {
+        if (language == null) return;
+        string selected = language.Value.Trim();
+        if (string.Equals(selected, "auto", StringComparison.OrdinalIgnoreCase))
+        {
+            string native = Localisation.Get();
+            selected = CultureInfo.GetCultures(CultureTypes.AllCultures).FirstOrDefault(c =>
+                string.Equals(c.EnglishName, native, StringComparison.OrdinalIgnoreCase) ||
+                string.Equals(c.NativeName, native, StringComparison.OrdinalIgnoreCase))?.Name ?? native;
+        }
+        Translations.Select(selected);
+    }
     private void Awake()
     {
+        Translations.Log = message => Logger.LogWarning(message);
+        Translations.UserDirectory = System.IO.Path.Combine(Paths.ConfigPath, "PhobosTranslations");
+        language = Config.Bind("Localization", "Language", "auto",
+            Text.Get("Plugin.language_tag_such_as_en_fr_or"));
+        RefreshLanguage();
         Trading.MarketStock.AvailabilityMultiplier = Config.Bind("Economy", "StockAvailabilityMultiplier", 1d,
-            new BepInEx.Configuration.ConfigDescription("Chance multiplier for registered equipment offers, 0.25 to 4. Each offer remains at most one item. Requires restart and normal trader restock.",
+            new BepInEx.Configuration.ConfigDescription(Text.Get("Plugin.chance_multiplier_for_registered_equipment_offers_to"),
                 new BepInEx.Configuration.AcceptableValueRange<double>(.25, 4))).Value;
         FrameworkLifecycle.Log = message => Logger.LogInfo(message);
         harmony = new Harmony(FrameworkInfo.PluginId);
         harmony.PatchAll(typeof(FrameworkPlugin).Assembly);
-        Logger.LogInfo("Phobos Framework " + FrameworkInfo.Version + ": construction, registration, physical transfers, filters, clocks, grid routing and saved port pairing loaded. Machine rules remain in content mods.");
+        Logger.LogInfo(Text.Get("Plugin.phobos_framework_construction_registration_physical_transfers_filters", FrameworkInfo.Version));
     }
     private void OnDestroy() => harmony?.UnpatchSelf();
 }

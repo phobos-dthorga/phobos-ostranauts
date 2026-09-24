@@ -34,6 +34,8 @@ public sealed class Recipe
     public string id = "";
     public string name = "";
     public string description = "";
+    public string nameKey = "";
+    public string descriptionKey = "";
     public string[] stationIds = Array.Empty<string>();
     public string[] optionalStationIds = Array.Empty<string>();
     public string[] legacyActionIds = Array.Empty<string>();
@@ -48,63 +50,65 @@ public sealed class Recipe
 public static class RecipeRules
 {
     public const int MaxUnits = 100;
+    public const int MaxTools = 8, MaxNameCharacters = 160, MaxStations = 32, MaxAliases = 16;
+    public const double MaxWorkSeconds = 86400, MaxAccessTiles = 8, MaxUnitMassKg = 1000000;
     public const string ActionPrefix = "PhobosCraft_";
     public static string ActionId(string recipeId) => ActionPrefix + recipeId;
     public static bool MassMatches(double actual, double expected) =>
-        IsPositive(actual) && IsPositive(expected) && Math.Abs(actual - expected) <= 0.000001;
+        IsPositive(actual) && IsPositive(expected) && Math.Abs(actual - expected) <= Units.MassToleranceKg;
     private static bool IsPositive(double value) => !double.IsNaN(value) && !double.IsInfinity(value) && value > 0;
     public static void Identifier(string value)
     {
         if (value == null || !Regex.IsMatch(value, "^[A-Za-z][A-Za-z0-9_]{0,95}$"))
-            throw new ArgumentException("Use an author-prefixed identifier containing letters, digits and underscores.");
+            throw new ArgumentException(Text.Get("Recipe.use_an_author_prefixed_identifier_containing_letters"));
     }
     public static void Validate(Recipe recipe)
     {
         if (recipe == null) throw new ArgumentNullException(nameof(recipe));
         Identifier(recipe.id);
-        if (recipe.toolTriggers == null || recipe.toolTriggers.Length > 8 || recipe.toolTriggers.Distinct().Count() != recipe.toolTriggers.Length)
-            throw new ArgumentException("Use up to eight distinct reusable tool triggers.");
+        if (recipe.toolTriggers == null || recipe.toolTriggers.Length > MaxTools || recipe.toolTriggers.Distinct().Count() != recipe.toolTriggers.Length)
+            throw new ArgumentException(Text.Get("Recipe.use_up_to_eight_distinct_reusable_tool", MaxTools));
         foreach (string tool in recipe.toolTriggers) Identifier(tool);
-        if (string.IsNullOrWhiteSpace(recipe.name) || recipe.name.Length > 160)
-            throw new ArgumentException("A recipe needs a readable name of at most 160 characters.");
-        if (!IsPositive(recipe.workSeconds) || recipe.workSeconds > 86400 ||
-            !IsPositive(recipe.range) || recipe.range > 8)
-            throw new ArgumentException("Work must take 0..86400 seconds and access range must be 0..8 tiles (exclusive of zero).");
-        if (recipe.stationIds == null || recipe.stationIds.Length == 0 || recipe.stationIds.Length > 32 ||
-            recipe.optionalStationIds == null || recipe.optionalStationIds.Length > 32 || recipe.legacyActionIds == null || recipe.legacyActionIds.Length > 16)
-            throw new ArgumentException("Provide required stations, with bounded optional stations and legacy aliases.");
+        if (string.IsNullOrWhiteSpace(recipe.name) || recipe.name.Length > MaxNameCharacters)
+            throw new ArgumentException(Text.Get("Recipe.a_recipe_needs_a_readable_name_of", MaxNameCharacters));
+        if (!IsPositive(recipe.workSeconds) || recipe.workSeconds > MaxWorkSeconds ||
+            !IsPositive(recipe.range) || recipe.range > MaxAccessTiles)
+            throw new ArgumentException(Text.Get("Recipe.work_must_take_seconds_and_access_range", MaxWorkSeconds, MaxAccessTiles));
+        if (recipe.stationIds == null || recipe.stationIds.Length == 0 || recipe.stationIds.Length > MaxStations ||
+            recipe.optionalStationIds == null || recipe.optionalStationIds.Length > MaxStations || recipe.legacyActionIds == null || recipe.legacyActionIds.Length > MaxAliases)
+            throw new ArgumentException(Text.Get("Recipe.provide_required_stations_with_bounded_optional_stations"));
         var stations = recipe.stationIds.Concat(recipe.optionalStationIds).ToArray();
         foreach (string id in stations.Concat(recipe.legacyActionIds)) Identifier(id);
         if (stations.Distinct(StringComparer.Ordinal).Count() != stations.Length ||
             recipe.legacyActionIds.Distinct(StringComparer.Ordinal).Count() != recipe.legacyActionIds.Length ||
             recipe.legacyActionIds.Any(id => id.StartsWith(ActionPrefix, StringComparison.Ordinal)))
-            throw new ArgumentException("Duplicate station/alias or an alias using the current action namespace.");
+            throw new ArgumentException(Text.Get("Recipe.duplicate_station_alias_or_an_alias_using"));
         if (recipe.ingredients == null || recipe.ingredients.Length == 0 || recipe.ingredients.Length > MaxUnits ||
             recipe.outputs == null || recipe.outputs.Length == 0 || recipe.outputs.Length > MaxUnits)
-            throw new ArgumentException("A recipe needs bounded, nonempty inputs and outputs.");
+            throw new ArgumentException(Text.Get("Recipe.a_recipe_needs_bounded_nonempty_inputs_and"));
         foreach (var ingredient in recipe.ingredients)
         {
-            if (ingredient == null) throw new ArgumentException("Null ingredient.");
+            if (ingredient == null) throw new ArgumentException(Text.Get("Recipe.null_ingredient"));
             Identifier(ingredient.item); Identifier(ingredient.trigger);
             CheckAmount(ingredient.count, ingredient.unitMassKg);
         }
         foreach (var product in recipe.outputs)
         {
-            if (product == null) throw new ArgumentException("Null output.");
+            if (product == null) throw new ArgumentException(Text.Get("Recipe.null_output"));
             Identifier(product.item); CheckAmount(product.count, product.unitMassKg);
         }
         if (recipe.ingredients.Select(i => i.item).Distinct(StringComparer.Ordinal).Count() != recipe.ingredients.Length ||
             recipe.outputs.Select(p => p.item).Distinct(StringComparer.Ordinal).Count() != recipe.outputs.Length)
-            throw new ArgumentException("Combine repeated ingredient/output identities into one entry.");
+            throw new ArgumentException(Text.Get("Recipe.combine_repeated_ingredient_output_identities_into_one"));
         if (recipe.ingredients.Sum(i => i.count) > MaxUnits || recipe.outputs.Sum(p => p.count) > MaxUnits)
-            throw new ArgumentException("Construction is limited to 100 input/output units per job.");
+            throw new ArgumentException(Text.Get("Recipe.construction_is_limited_to_input_output_units", MaxUnits));
         if (!MassMatches(recipe.ingredients.Sum(i => i.unitMassKg * i.count), recipe.outputs.Sum(p => p.unitMassKg * p.count)))
-            throw new ArgumentException("Construction inputs and outputs must conserve mass, including any residue.");
+            throw new ArgumentException(Text.Get("Recipe.construction_inputs_and_outputs_must_conserve_mass"));
     }
     private static void CheckAmount(int count, double mass)
     {
-        if (count < 1 || count > MaxUnits || !IsPositive(mass) || mass > 1000000)
-            throw new ArgumentException("Invalid count or unit mass.");
+        if (count < 1 || count > MaxUnits || !IsPositive(mass) || mass > MaxUnitMassKg)
+            throw new ArgumentException(Text.Get("Recipe.invalid_count_or_unit_mass"));
     }
 
     /// <summary>One snapshot per unit in the native removal contract, including units from stacks.</summary>

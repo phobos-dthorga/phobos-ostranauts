@@ -10,11 +10,7 @@ public readonly struct CollectorCommand
     public string? SourceId { get; }
     private CollectorCommand(CollectorAction action, string? port = null, string? source = null)
     { Action = action; PortId = port; SourceId = source; }
-    public const string Help = "phoboscollector status [collector-ID]\nphoboscollector controls [collector-ID]\n"
-        + "phoboscollector link <collector-ID> <processor-ID>\nphoboscollector unlink [endpoint-ID]\nphoboscollector start [collector-ID]\nphoboscollector pause [collector-ID]\n"
-        + "Use full IDs from phoboscollector status or phobosshipbreaker status. Link/unlink beside either endpoint; Start beside the collector.\n"
-        + "Unlink accepts a collector or processor ID. Without an ID, commands require one collector. Links survive reload; press Start to resume.\n"
-        + "Test-save setup: spawn PhobosResidueCollectorLoose; install over two exterior walls, pocket outward.";
+    public static string Help => Text.Get("CollectorCommand.phoboscollector_status_collector_id_phoboscollector_controls_collector");
     public static CollectorCommand Parse(string? input)
     {
         var w = (input ?? "").Split((char[]?)null, StringSplitOptions.RemoveEmptyEntries);

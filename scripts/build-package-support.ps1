@@ -1,4 +1,22 @@
 # Shared packaging for our own assemblies and native mod folders only.
+function Copy-PhobosPlayerGuides {
+    param(
+        [Parameter(Mandatory)][string]$RepoRoot,
+        [Parameter(Mandatory)][string]$Package
+    )
+    # Every suite package has the same entry point and its directly linked guides.
+    # Keep their filenames as well as the mod-specific README so links remain usable.
+    foreach ($name in @(
+        'player-guide', 'installing-mods', 'equipment-economy', 'equipment-value-audit',
+        'vanilla-economy-audit', 'shipbreaker-first-build', 'shipbreaker-hull-intake',
+        'residue-collector', 'auto-navigate-adaptation', 'residue-material-contract',
+        'shipbreaking-material-processing-research', 'material-disposal-port-research',
+        'processing-job-compatibility', 'localization'
+    )) {
+        Copy-Item -LiteralPath (Join-Path $RepoRoot "docs/$name.md") -Destination $Package
+    }
+}
+
 function New-PhobosPackage {
     param(
         [Parameter(Mandatory)][string]$RepoRoot,
@@ -32,9 +50,11 @@ function New-PhobosPackage {
     $nativeTarget = Join-Path $package 'Mods'
     New-Item -ItemType Directory -Force -Path $pluginTarget, $nativeTarget | Out-Null
     Copy-Item -LiteralPath (Join-Path $RepoRoot "src/$Id/bin/Release/netstandard2.1/$Id.dll") -Destination $pluginTarget
+    Copy-Item -LiteralPath (Join-Path $RepoRoot "translations/$Id") -Destination (Join-Path $pluginTarget 'translations') -Recurse
     Copy-Item -LiteralPath $source -Destination $nativeTarget -Recurse
     Copy-Item -LiteralPath (Join-Path $RepoRoot $Readme) -Destination (Join-Path $package 'README.md')
     foreach ($document in $ExtraDocs) { Copy-Item -LiteralPath (Join-Path $RepoRoot $document) -Destination $package }
+    Copy-PhobosPlayerGuides -RepoRoot $RepoRoot -Package $package
     Copy-Item -LiteralPath (Join-Path $source 'THIRD-PARTY.md') -Destination $package
     if (Test-Path -LiteralPath (Join-Path $source 'licenses') -PathType Container) {
         Copy-Item -LiteralPath (Join-Path $source 'licenses') -Destination $package -Recurse

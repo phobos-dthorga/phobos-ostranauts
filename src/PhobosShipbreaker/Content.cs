@@ -17,8 +17,8 @@ internal static class Content
     internal const string InputBin = Prefix + "InputBin";
     internal const string InputSlot = Prefix + "Input";
     internal static bool Ready { get; private set; }
-    internal static string Status { get; private set; } = "Waiting for mod data";
-    internal static string DependencyStatus { get; private set; } = "Dependency inspection awaits native data loading.";
+    internal static string Status { get; private set; } = Text.Get("Content.waiting_for_mod_data");
+    internal static string DependencyStatus { get; private set; } = Text.Get("Content.dependency_inspection_awaits_native_data_loading");
     private static bool definitionsRegistered;
 
     internal static bool IsMachine(string? id) => id == Installed || id == Loose ||
@@ -28,14 +28,14 @@ internal static class Content
     {
         Ready = false;
         definitionsRegistered = false;
-        DependencyStatus = "Dependency inspection did not complete.";
+        DependencyStatus = Text.Get("Content.dependency_inspection_did_not_complete");
         try
         {
             var problems = NativeAdapter.Inspect(out string versions);
-            DependencyStatus = versions + "\n" + (problems.Count == 0 ? "Native definition precheck passed." : string.Join("\n", problems));
+            DependencyStatus = versions + "\n" + (problems.Count == 0 ? Text.Get("Content.native_definition_precheck_passed") : string.Join("\n", problems));
             if (problems.Count != 0)
             {
-                Status = "Dependency check failed: " + problems[0] + " Use phobosshipbreaker dependencies for details.";
+                Status = Text.Get("Content.dependency_check_failed_use_phobosshipbreaker_dependencies_for", problems[0]);
                 log(Status + "\n" + DependencyStatus);
                 return;
             }
@@ -43,14 +43,14 @@ internal static class Content
             prepared.Publish();
             ConstructionRegistry.RegisterPack(Plugin.Id, NativeAdapter.RecipePath);
             definitionsRegistered = true;
-            Status = "Shipbreaker definitions registered; awaiting construction recipe checks.";
+            Status = Text.Get("Content.shipbreaker_definitions_registered_awaiting_construction_recipe_checks");
             log(Status + "\n" + DependencyStatus);
         }
         catch (Exception ex)
         {
-            Status = "Shipbreaker registration failed: " + ex.Message;
+            Status = Text.Get("Content.shipbreaker_registration_failed", ex.Message);
             DependencyStatus += "\n" + Status;
-            log("Shipbreaker disabled: " + ex);
+            log(Text.Get("Content.shipbreaker_disabled", ex));
         }
     }
 
@@ -65,12 +65,8 @@ internal static class Content
         foreach (string variant in new[] { Installed, Loose, Installed + "Dmg", Loose + "Dmg" })
         {
             var co = prepared.Objects[variant];
-            co.strNameFriendly = co.strNameShort = "Phobos Powered Dismantling Fixture" +
-                (variant.EndsWith("Dmg", StringComparison.Ordinal) ? " (Damaged)" : "");
-            co.strDesc = "4 x 4 industrial fixture; 160 kg. Feed up to four ordinary loose wall panels. " +
-                controlsKey + " opens controls while nearby. A new batch takes " + cycleSeconds +
-                " seconds at " + workingKW + " kW and recovers 11 kg of parts/scrap " +
-                "plus 13 kg of retained mixed residue. Inventory is the product tray. Load walls at a connected exterior grabber, or use Manual feed in controls. Reload paused.";
+            co.strNameFriendly = co.strNameShort = Text.Get("Content.phobos_powered_dismantling_fixture", (variant.EndsWith("Dmg", StringComparison.Ordinal) ? Text.Get("Content.damaged") : ""));
+            co.strDesc = Text.Get("Content.x_industrial_fixture_kg_feed_up_to", controlsKey, cycleSeconds, workingKW, ProcessRules.Footprint, ProcessRules.MachineKg, ProcessRules.FeedCapacity, ProcessRules.InputKg - ProcessRules.LegacyResidueKg, ProcessRules.LegacyResidueKg);
             co.nContainerWidth = co.nContainerHeight = ProcessRules.OutputSize;
             co.inventoryWidth = co.inventoryHeight = ProcessRules.Footprint;
             co.nStackLimit = 1;
@@ -92,14 +88,14 @@ internal static class Content
             item.aSocketReqs = Border(installed ? "TILFloor" : "Blank");
         }
         var bin = prepared.Objects[InputBin];
-        bin.strNameFriendly = bin.strNameShort = "Wall-panel feed (4 panels / 96 kg)";
-        bin.strDesc = "Ordinary loose wall panels only. Up to four separate, empty panels; no stacks.";
-        prepared.Slots[InputSlot].strNameFriendly = "Wall-panel feed";
+        bin.strNameFriendly = bin.strNameShort = Text.Get("Content.wall_panel_feed_panels_kg", ProcessRules.FeedCapacity, ProcessRules.FeedCapacity * ProcessRules.InputKg);
+        bin.strDesc = Text.Get("Content.ordinary_loose_wall_panels_only_up_to", ProcessRules.FeedCapacity);
+        prepared.Slots[InputSlot].strNameFriendly = Text.Get("Content.wall_panel_feed");
         prepared.Slots[InputSlot].bHide = true;
         var power = prepared.Power[Prefix + "Power"];
-        power.fAmount = idleKW / 3600;
+        power.fAmount = idleKW / Phobos.Ostranauts.Framework.Units.SecondsPerHour;
         power.strOverrideCond = ProcessRules.Working;
-        power.fOverrideAmount = workingKW / 3600;
+        power.fOverrideAmount = workingKW / Phobos.Ostranauts.Framework.Units.SecondsPerHour;
 
         RegisterAssemblySection(prepared);
         var residue = NativeDefinitions.Clone(DataHandler.dictCOs["ItmScrapTrash"]);
@@ -107,9 +103,8 @@ internal static class Content
         var residueItem = NativeDefinitions.Clone(DataHandler.dictItemDefs[residue.strItemDef]);
         residue.strName = residue.strItemDef = ProcessRules.Residue;
         residueItem.strName = residue.strItemDef;
-        residue.strNameFriendly = residue.strNameShort = "Mixed panel residue (13 kg)";
-        residue.strDesc = "Retained panel material not recovered as useful stock. Not ordinary sortable trash. " +
-            "Keep, haul or collect with the Phobos Residue Collector. No refining or recoverable ejection yet.";
+        residue.strNameFriendly = residue.strNameShort = Text.Get("Content.mixed_panel_residue_kg", ProcessRules.LegacyResidueKg);
+        residue.strDesc = Text.Get("Content.retained_panel_material_not_recovered_as_useful");
         residue.aStartingConds = new[] { "IsSolid=1.0x1", "StatMass=1.0x13", "StatBasePrice=1.0x0" };
         residue.aUpdateCommands = Array.Empty<string>();
         residue.nStackLimit = 1;
@@ -128,10 +123,10 @@ internal static class Content
         if (!definitionsRegistered) return;
         var missing = DependencyContract.MissingRecipes(id => DataHandler.dictInteractions?.ContainsKey(id) == true);
         Ready = missing.Count == 0 && ConstructionRegistry.Ready(Plugin.Id);
-        Status = Ready ? "Shipbreaker definitions ready" :
-            "Construction registration incomplete; processing disabled. Use phobosshipbreaker dependencies.";
-        DependencyStatus += "\n" + (Ready ? "All five construction recipes registered. In-game compatibility remains unverified."
-            : string.Join("\n", missing) + "\n" + ConstructionRegistry.Status(Plugin.Id) + "\nInspect the Phobos Framework log and matching Phobos plugin/data package.");
+        Status = Ready ? Text.Get("Content.shipbreaker_definitions_ready") :
+            Text.Get("Content.construction_registration_incomplete_processing_disabled_use_phobosshipbreaker");
+        DependencyStatus += "\n" + (Ready ? Text.Get("Content.all_five_construction_recipes_registered_in_game")
+            : Text.Get("Content.inspect_the_phobos_framework_log_and_matching", string.Join("\n", missing), ConstructionRegistry.Status(Plugin.Id)));
         log(Status + "\n" + DependencyStatus);
     }
 
@@ -142,9 +137,8 @@ internal static class Content
         var section = NativeDefinitions.Clone(DataHandler.dictCOs["ItmScrapSteel"]);
         var item = NativeDefinitions.Clone(DataHandler.dictItemDefs[section.strItemDef]);
         section.strName = section.strItemDef = ProcessRules.AssemblySection;
-        section.strNameFriendly = section.strNameShort = "Dismantling Fixture Assembly Section";
-        section.strDesc = "An unpowered 80 kg, 4 x 4 assembly section. Combine two at an installed table " +
-            "or supported workbench to finish one powered dismantling fixture. Not ordinary scrap; cannot process panels by itself.";
+        section.strNameFriendly = section.strNameShort = Text.Get("Content.dismantling_fixture_assembly_section");
+        section.strDesc = Text.Get("Content.an_unpowered_kg_x_assembly_section_combine", ProcessRules.AssemblySectionKg, ProcessRules.Footprint);
         section.inventoryWidth = section.inventoryHeight = ProcessRules.Footprint;
         section.nStackLimit = 1;
         section.aStartingConds = new[] { "IsSolid=1.0x1", "IsRigid=1.0x1",

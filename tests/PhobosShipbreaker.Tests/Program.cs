@@ -19,7 +19,8 @@ void Throws(Action action, string message)
     Check(failed, message);
 }
 
-var masses = ProcessRules.Products.SelectMany(p => Enumerable.Repeat(p.Kg, p.Count)).ToArray();
+var recipeV1 = ProcessRecipes.WallPanels.Current;
+var masses = recipeV1.Products.SelectMany(p => Enumerable.Repeat(p.Kg, p.Count)).ToArray();
 Check(ProcessRules.Balanced(24, masses), "Recipe conserves all 24 kg including residue");
 Check(!ProcessRules.Balanced(24, masses.Take(masses.Length - 1)), "Missing residue is not silently discarded");
 Check(!ProcessRules.Balanced(24, masses.Concat(new[] { 0.5 })), "Extra product mass rejected");
@@ -68,7 +69,7 @@ Check(machineOutput.GetProperty("item").GetString() == "PhobosShipbreakerLoose" 
 Check(sectionRecipe.GetProperty("workSeconds").GetInt32() * 2 + finalRecipe.GetProperty("workSeconds").GetInt32() == 9000,
     "Full equipment fabrication includes both sections and final assembly: 150 minutes");
 
-var job = new ProcessJob("panel-A", 0, 1);
+var job = new ProcessJob("panel-A", 0, recipeV1);
 job.Advance("panel-A", 15, true, true);
 job.Advance("panel-A", 20, false, true);
 Check(job.Progress == 15, "Blackout time earns no work");
@@ -76,31 +77,32 @@ job.Advance("panel-A", 15, true, true);
 Check(job.Progress == 30, "Restoration does not credit the blackout");
 job.Advance("panel-B", 10, true, true);
 Check(!job.Running && job.Progress == 30, "Swapping the input pauses without transferring work");
-var resumed = new ProcessJob("panel-A", job.Progress, 1);
+var resumed = new ProcessJob("panel-A", job.Progress, recipeV1);
 Check(resumed.Advance("panel-A", 40, true, true) == 30 && resumed.Complete, "Resume uses saved progress and caps final credit");
 Check(resumed.Advance("panel-A", 5, true, true) == 0, "Finished work cannot earn more progress");
-var fresh = new ProcessJob("panel-B", 0, 1);
+var fresh = new ProcessJob("panel-B", 0, recipeV1);
 Check(fresh.Progress == 0, "Different panel begins at zero");
 fresh.Pause();
 fresh.Advance("panel-B", 10, true, true);
 Check(fresh.Progress == 0, "Manual pause prevents work");
 foreach (double delta in new[] { -1.0, 61, double.NaN, double.PositiveInfinity })
 {
-    var invalid = new ProcessJob("A", 12, 1);
+    var invalid = new ProcessJob("A", 12, recipeV1);
     invalid.Advance("A", delta, true, true);
     Check(invalid.Progress == 12 && !invalid.Running, "Unobserved time gap pauses: " + delta);
 }
-Throws(() => new ProcessJob("A", 12, 2), "Unknown saved recipe revision rejected");
-Throws(() => new ProcessJob("A", 61, 1), "Invalid saved progress rejected");
-var customDuration = new ProcessJob("custom", 45, 1, 90);
+Throws(() => ProcessJob.CreateOrResume(ProcessRecipes.WallPanels, "A", 12, 2, 60, 60), "Unknown saved recipe revision rejected");
+Throws(() => new ProcessJob("A", 61, recipeV1), "Invalid saved progress rejected");
+var customDuration = new ProcessJob("custom", 45, recipeV1, 90);
 customDuration.Advance("custom", 20, true, true);
 Check(customDuration.Progress == 65 && !customDuration.Complete, "Custom job does not complete at the default 60 seconds");
-var customResumed = new ProcessJob("custom", customDuration.Progress, 1, customDuration.Duration);
+var customResumed = new ProcessJob("custom", customDuration.Progress, recipeV1, customDuration.Duration);
 Check(customResumed.Duration == 90 && customResumed.Progress == 65, "Saved duration and progress survive resume independently of new-job settings");
 customResumed.Advance("custom", 30, true, true);
 Check(customResumed.Progress == 90 && customResumed.Complete, "Custom duration caps completion correctly");
-Throws(() => new ProcessJob("A", 0, 1, double.NaN), "Corrupt saved duration rejected");
-Throws(() => new ProcessJob("A", 0, 1, 0), "Zero-duration job rejected");
+Throws(() => new ProcessJob("A", 0, recipeV1, double.NaN), "Corrupt saved duration rejected");
+Throws(() => new ProcessJob("A", 0, recipeV1, 0), "Zero-duration job rejected");
+RecipeChecks.Run(Check, Throws);
 
 var empty = new bool[8, 8];
 var outputSizes = masses.Select(_ => new ItemSize(1, 1)).ToArray();
@@ -159,17 +161,26 @@ Console.WriteLine($"PASS: {checks} checks of dependency contracts/registration r
 
 sealed class FakeDelivery : IBatchDelivery
 {
+    public ProcessRecipe Recipe = ProcessRecipes.WallPanels.Current;
+    public readonly List<string> ProductIds = new();
+    private string[] stagedIds = Array.Empty<string>();
     public bool Fits = true, InputPresent = true, FailAfterConsume;
     public int FailAtProduct = -1, Products, Staged, PrepareCount;
     public bool InputConsumed => !InputPresent;
-    public bool Prepare() { PrepareCount++; Staged = ProcessRules.Products.Sum(p => p.Count); return Fits; }
+    public bool Prepare()
+    {
+        PrepareCount++;
+        stagedIds = Recipe.Products.SelectMany(p => Enumerable.Repeat(p.Id, p.Count)).ToArray();
+        Staged = stagedIds.Length;
+        return Fits;
+    }
     public void PlaceProducts()
     {
         int count = Staged;
         for (int i = 0; i < count; i++)
         {
             if (i == FailAtProduct) throw new InvalidOperationException("Injected insertion fault");
-            Products++; Staged--;
+            ProductIds.Add(stagedIds[i]); Products++; Staged--;
         }
     }
     public void ConsumeInput()
@@ -177,5 +188,5 @@ sealed class FakeDelivery : IBatchDelivery
         InputPresent = false;
         if (FailAfterConsume) throw new InvalidOperationException("Injected late fault");
     }
-    public void RollbackProducts() { Products = 0; Staged = 0; }
+    public void RollbackProducts() { Products = 0; Staged = 0; ProductIds.Clear(); }
 }

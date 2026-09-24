@@ -7,6 +7,8 @@ namespace PhobosShipbreaker;
 /// <summary>Presentation only. All gameplay changes are delegated to the service.</summary>
 internal sealed class FixturePanel
 {
+    private const int WindowId = 847292;
+    private const float TitleBarHeight = 24;
     private readonly ProcessingService service;
     private readonly Settings options;
     private bool visible;
@@ -14,6 +16,7 @@ internal sealed class FixturePanel
     private Vector2 scroll;
     private CondOwner[] machines = Array.Empty<CondOwner>();
     private readonly Dictionary<string, string> intakeDescriptions = new Dictionary<string, string>();
+    private const float RefreshSeconds = 0.5f;
     private float refresh;
     internal FixturePanel(ProcessingService service, Settings options) { this.service = service; this.options = options; }
     internal void Update()
@@ -22,7 +25,7 @@ internal sealed class FixturePanel
         if (CrewSim.objInstance == null || !CrewSim.objInstance.FinishedLoading)
         { machines = Array.Empty<CondOwner>(); return; }
         if (!visible || Time.unscaledTime < refresh) return;
-        refresh = Time.unscaledTime + 0.5f;
+        refresh = Time.unscaledTime + RefreshSeconds;
         machines = ProcessingService.FindMachines();
         intakeDescriptions.Clear();
         foreach (var machine in machines) intakeDescriptions[machine.strID] = service.DescribeIntake(machine);
@@ -30,15 +33,14 @@ internal sealed class FixturePanel
     internal void Draw()
     {
         if (visible && CrewSim.objInstance != null && CrewSim.objInstance.FinishedLoading)
-            bounds = GUI.Window(847292, bounds, Window, "Phobos Shipbreaker");
+            bounds = GUI.Window(WindowId, bounds, Window, "Phobos Shipbreaker");
     }
     private void Window(int id)
     {
-        GUILayout.Label("4 x 4 fixture | 4-panel feed | 8 x 8 output tray\nNew panel: " + options.CycleSeconds +
-            " seconds, " + options.WorkingKW + " kW while working.");
-        GUILayout.Label("Load detached ordinary walls at the exterior grabber using Inventory. Start here to move them through the wall chute and process them. Collect products from this fixture's Inventory. Stand beside the fixture for controls.");
+        GUILayout.Label(Text.Get("FixturePanel.x_fixture_panel_feed_x_output_tray", options.CycleSeconds, options.WorkingKW, Core.ProcessRules.Footprint, Core.ProcessRules.FeedCapacity, Core.ProcessRules.OutputSize));
+        GUILayout.Label(Text.Get("FixturePanel.load_detached_ordinary_walls_at_the_exterior"));
         if (!Content.Ready) GUILayout.Label(Content.Status);
-        else if (machines.Length == 0) GUILayout.Label("No fixture on this ship. Build one at an installed Bar Table or Dining Table, then install it. A Salvage Workshop workbench also works when available.");
+        else if (machines.Length == 0) GUILayout.Label(Text.Get("FixturePanel.no_fixture_on_this_ship_build_one"));
         scroll = GUILayout.BeginScrollView(scroll);
         foreach (var machine in machines)
         {
@@ -48,22 +50,22 @@ internal sealed class FixturePanel
             GUILayout.Label(service.Describe(machine));
             if (intakeDescriptions.TryGetValue(machine.strID, out string intakeDescription)) GUILayout.Label(intakeDescription);
             GUILayout.BeginHorizontal();
-            if (GUILayout.Button("Start / resume pipeline")) service.Start(machine);
-            if (GUILayout.Button("Pause")) service.Pause(machine, false);
-            if (GUILayout.Button("Cancel work")) service.Pause(machine, true);
+            if (GUILayout.Button(Text.Get("FixturePanel.start_resume_pipeline"))) service.Start(machine);
+            if (GUILayout.Button(Text.Get("FixturePanel.pause"))) service.Pause(machine, false);
+            if (GUILayout.Button(Text.Get("FixturePanel.cancel_work"))) service.Pause(machine, true);
             GUILayout.EndHorizontal();
             GUILayout.BeginHorizontal();
-            if (GUILayout.Button("Collect products")) service.OpenInventory(machine, false);
-            if (GUILayout.Button("Manual feed (fallback)")) service.OpenInventory(machine, true);
+            if (GUILayout.Button(Text.Get("FixturePanel.collect_products"))) service.OpenInventory(machine, false);
+            if (GUILayout.Button(Text.Get("FixturePanel.manual_feed_fallback"))) service.OpenInventory(machine, true);
             GUILayout.EndHorizontal();
             GUILayout.Label(CollectorService.DescribeLink(machine));
-            if (GUILayout.Button("Residue destination / unlink")) Plugin.CollectorControls.ShowSource(machine);
+            if (GUILayout.Button(Text.Get("FixturePanel.residue_destination_unlink"))) Plugin.CollectorControls.ShowSource(machine);
             GUILayout.EndVertical();
         }
         GUILayout.EndScrollView();
-        GUILayout.Label("Per panel: 2 mechanical parts, 2 aluminium, 2 carbon-fibre, 6 steel, and one 13 kg residue item. Total: 24 kg.");
-        GUILayout.Label("Queue continuation: " + (options.ContinueQueue ? "automatic" : "one panel per Start"));
-        if (GUILayout.Button("Close")) visible = false;
-        GUI.DragWindow(new Rect(0, 0, bounds.width, 24));
+        GUILayout.Label(Text.Get("FixturePanel.per_panel_mechanical_parts_aluminium_carbon_fibre", ProcessingService.NewPanelProducts(), Core.ProcessRules.InputKg));
+        GUILayout.Label(Text.Get("FixturePanel.queue_continuation", (options.ContinueQueue ? Text.Get("FixturePanel.automatic") : Text.Get("FixturePanel.one_panel_per_start"))));
+        if (GUILayout.Button(Text.Get("FixturePanel.close"))) visible = false;
+        GUI.DragWindow(new Rect(0, 0, bounds.width, TitleBarHeight));
     }
 }

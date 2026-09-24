@@ -29,9 +29,9 @@ public sealed class NativeItemTransfer : IPhysicalTransfer
     public void Place()
     {
         if (!destination.AllowedCO(item) || !destination.CanAddSimple(item, out target))
-            throw new InvalidOperationException("Destination changed during transfer.");
+            throw new InvalidOperationException(Text.Get("NativeItemTransfer.destination_changed_during_transfer"));
         destination.AddCOSimple(item, target);
-        if (item.GetTotalMass() != mass) throw new InvalidOperationException("Item mass changed during transfer.");
+        if (item.GetTotalMass() != mass) throw new InvalidOperationException(Text.Get("NativeItemTransfer.item_mass_changed_during_transfer"));
     }
     public void Restore()
     {

@@ -55,6 +55,7 @@ $pluginTarget = Join-Path $package 'BepInEx/plugins/PhobosAutoNav'
 $nativeTarget = Join-Path $package 'Mods'
 New-Item -ItemType Directory -Force -Path $pluginTarget, $nativeTarget | Out-Null
 Copy-Item -LiteralPath $plugin -Destination $pluginTarget
+Copy-Item -LiteralPath (Join-Path $repoRoot 'translations/PhobosAutoNav') -Destination (Join-Path $pluginTarget 'translations') -Recurse
 Copy-Item -LiteralPath $source -Destination $nativeTarget -Recurse
 $guide = Get-Content -LiteralPath (Join-Path $repoRoot 'docs/auto-navigate-adaptation.md') -Raw
 $guide = $guide.Replace('(../THIRD_PARTY_NOTICES.md)', '(THIRD_PARTY_NOTICES.md)')
@@ -69,9 +70,8 @@ $artwork = $artwork.Replace('(prompts.md)', '(ARTWORK-PROMPTS.md)')
 Set-Content -LiteralPath (Join-Path $package 'ARTWORK.md') -Value $artwork -Encoding utf8
 Copy-Item -LiteralPath (Join-Path $repoRoot 'assets/phobos-autonav/prompts.md') -Destination (Join-Path $package 'ARTWORK-PROMPTS.md')
 Copy-Item -LiteralPath (Join-Path $repoRoot 'LICENSE') -Destination $package
-Copy-Item -LiteralPath (Join-Path $repoRoot 'docs/equipment-economy.md') -Destination $package
-Copy-Item -LiteralPath (Join-Path $repoRoot 'docs/equipment-value-audit.md') -Destination $package
-Copy-Item -LiteralPath (Join-Path $repoRoot 'docs/vanilla-economy-audit.md') -Destination $package
+. (Join-Path $PSScriptRoot 'build-package-support.ps1')
+Copy-PhobosPlayerGuides -RepoRoot $repoRoot -Package $package
 Compress-Archive -Path (Join-Path $package '*') -DestinationPath "$package.zip" -Force
 Write-Output "Standalone prototype: $package.zip"
 Write-Output 'No game files, load order or saves were changed. No in-game tests performed.'

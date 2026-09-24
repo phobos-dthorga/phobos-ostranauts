@@ -16,23 +16,21 @@ internal static class NativeAdapter
         var version = Chainloader.PluginInfos.TryGetValue(FrameworkInfo.PluginId, out var info) && info.Instance != null
             ? info.Metadata.Version : null;
         var data = DataHandler.dictModInfos.Values.FirstOrDefault(m => m.strName == "Phobos Shipbreaker" && !m.GetIsDisabled());
-        versions = "Phobos Framework plugin: " + (version?.ToString() ?? "not loaded") +
-            " (minimum " + DependencyContract.MinimumFramework + ")\nConstruction and machinery use Phobos Framework and native game definitions.\n" +
-            "Crafting Framework and Salvage Workshop are optional. Auto Nav is optional for future positioning.";
+        versions = Text.Get("NativeAdapter.phobos_framework_plugin_minimum_construction_and_machinery", (version?.ToString() ?? Text.Get("NativeAdapter.not_loaded")), DependencyContract.MinimumFramework);
         var problems = DependencyContract.MissingDefinitions(Contains);
         string? frameworkProblem = DependencyContract.FrameworkProblem(version);
         if (frameworkProblem != null) problems.Insert(0, frameworkProblem);
         RecipePath = "";
-        if (data == null) problems.Insert(0, "Enable the Phobos Shipbreaker native data package.");
+        if (data == null) problems.Insert(0, Text.Get("NativeAdapter.enable_the_phobos_shipbreaker_native_data_package"));
         else
         {
             RecipePath = Path.Combine(data.GetDirectory(), "framework", "recipes.json");
-            if (!File.Exists(RecipePath)) problems.Add("Phobos construction pack missing. Update the plugin and native data together.");
+            if (!File.Exists(RecipePath)) problems.Add(Text.Get("NativeAdapter.phobos_construction_pack_missing_update_the_plugin"));
         }
         foreach (string id in DependencyContract.Materials)
             if (DataHandler.dictCOs.TryGetValue(id, out var co) &&
                 (string.IsNullOrEmpty(co.strItemDef) || !DataHandler.dictItemDefs.ContainsKey(co.strItemDef)))
-                problems.Add(id + ": missing native item definition.");
+                problems.Add(Text.Get("NativeAdapter.missing_native_item_definition", id));
         return problems;
     }
     private static bool Contains(string table, string id)
@@ -45,7 +43,7 @@ internal static class NativeAdapter
             case "triggers": return DataHandler.dictCTs.ContainsKey(id);
             case "loot": return DataHandler.dictLoot.ContainsKey(id);
             case "interactions": return DataHandler.dictInteractions.ContainsKey(id);
-            default: throw new ArgumentException("Unknown native table: " + table);
+            default: throw new ArgumentException(Text.Get("NativeAdapter.unknown_native_table", table));
         }
     }
 }

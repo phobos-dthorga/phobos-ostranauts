@@ -42,7 +42,14 @@ flowchart TD
 Edges describe proposed compatible recipes, not universal item acceptance. Useful
 scrap already produced by Shipbreaker does not need to be shredded again.
 
-## What is already present
+## Inventory snapshot from the original research
+
+The inventory and versions below are **historical observations from this research
+pass**, not today's installation status. Current prepared Framework/Shipbreaker
+0.6.0 include direct intake and one paired residue route; the
+[player guide](player-guide.md) describes that implemented scope. The
+[residue contract](residue-material-contract.md) now selects a future characterised
+feed and one combined reclaimer, preserving existing unclassified packets.
 
 The fresh inventory found **33 known native packages: 29 configured enabled and
 4 disabled**. OCF and Salvage Workshop are both 0.8.71; Common Sense Salvage and
@@ -222,17 +229,20 @@ and remain stable once saved objects exist. Keep electrical conduits separate.
 The framework should own reusable registration, eligibility, reservation,
 accounting and delivery mechanisms as concrete machines need them. Content mods
 own recipes, sprites, physical dimensions and balance. There is currently no
-generic chemical process engine, shared heat network or working conveyor service.
+generic chemical process engine, shared heat network or general conveyor network.
+One paired processor-to-collector structural-floor route is now implemented.
 Build one useful process rather than pre-implementing all of those systems.
 
 ## Next work and validation
 
 1. Complete the existing Framework/Shipbreaker candidate's owner-run integration
    check when convenient. This research does not require another basic power test.
-2. Develop the first actual-object transport connection already scoped in the
-   framework plan. It remains useful whichever processing machine comes next.
-3. Specify one characterised salvage feed and a useful recovery destination before
-   building the shredder/recycler pair. Preserve the old wall recipe and residue.
+2. Use the implemented intake and paired collector route; extend shared transport
+   only when another concrete machine needs a new endpoint.
+3. Implement the [selected residue/reclaimer contract](residue-material-contract.md)
+   with a useful consumer before enabling its new feed. Version-aware jobs are
+   implemented in Shipbreaker 0.6.1; machine operating budgets remain to be settled. Combine
+   shredding and separation in one appliance; preserve the old wall recipe and residue.
 4. In parallel design terms, take native water ice through a single useful water
    recovery batch. Confirm a supported storage handoff before implementing it.
 5. Add meteoric-iron processing, nitrogen-bearing feed or further refining when

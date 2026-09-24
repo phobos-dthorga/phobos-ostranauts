@@ -23,9 +23,9 @@ public static class PhysicalTransfer
         try
         {
             move.Detach();
-            if (!move.Detached) throw new InvalidOperationException("Transfer did not detach its item.");
+            if (!move.Detached) throw new InvalidOperationException(Text.Get("PhysicalTransfer.transfer_did_not_detach_its_item"));
             move.Place();
-            if (!move.AtDestination) throw new InvalidOperationException("Transfer did not reach its destination.");
+            if (!move.AtDestination) throw new InvalidOperationException(Text.Get("PhysicalTransfer.transfer_did_not_reach_its_destination"));
             return true;
         }
         catch (Exception original)
@@ -36,11 +36,11 @@ public static class PhysicalTransfer
             {
                 try
                 {
-                    if (!move.Detached) throw new InvalidOperationException("Transfer ownership is ambiguous.");
+                    if (!move.Detached) throw new InvalidOperationException(Text.Get("PhysicalTransfer.transfer_ownership_is_ambiguous"));
                     move.Restore();
-                    if (!move.AtSource) throw new InvalidOperationException("Transfer recovery did not restore its source.");
+                    if (!move.AtSource) throw new InvalidOperationException(Text.Get("PhysicalTransfer.transfer_recovery_did_not_restore_its_source"));
                 }
-                catch (Exception recovery) { throw new AggregateException("Transfer and recovery failed; inspect the retained item before retrying.", original, recovery); }
+                catch (Exception recovery) { throw new AggregateException(Text.Get("PhysicalTransfer.transfer_and_recovery_failed_inspect_the_retained"), original, recovery); }
             }
             throw;
         }

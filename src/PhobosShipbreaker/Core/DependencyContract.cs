@@ -6,7 +6,7 @@ namespace PhobosShipbreaker.Core;
 
 internal static class DependencyContract
 {
-    internal const string MinimumFramework = "0.6.0";
+    internal const string MinimumFramework = "0.7.0";
     internal static readonly string[] Materials = { "ItmScrapTrash", "ItmScrapSteel", "ItmScrapAluminum",
         "ItmScrapCarbonFiber", "ItmPartsMechSmall01", "ItmPartsElecSmall01" };
     internal static readonly (string Table, string[] Names)[] Required = {
@@ -26,13 +26,13 @@ internal static class DependencyContract
             "CONDUndamageProgress", "CONDDismantleProgress", "ItmOKLGSupplyKioskInv", "ItmOKLGFixer", "ItmTraderSanDiegoHalvorsonInv", "ItmVORBScrapKioskInv",
             "Blank", "TILWall", "TILWallDecoAdds", "TILExtFixtureAdds", "TILFixtureAdds", "TILItemAdds", "TILItemForbids", "TILObstruction", "TILFloor" })
     };
-    internal static string? FrameworkProblem(Version? loaded) => loaded == null ? "Phobos Framework plugin is not loaded." :
-        loaded < new Version(MinimumFramework) ? "Phobos Framework " + loaded + " is below required " + MinimumFramework + "." : null;
+    internal static string? FrameworkProblem(Version? loaded) => loaded == null ? Text.Get("DependencyContract.phobos_framework_plugin_is_not_loaded") :
+        loaded < new Version(MinimumFramework) ? Text.Get("DependencyContract.phobos_framework_is_below_required", loaded, MinimumFramework) : null;
     internal static List<string> MissingDefinitions(Func<string, string, bool> contains) => Required
         .SelectMany(group => group.Names.Where(name => !contains(group.Table, name))
-            .Select(name => "Missing " + group.Table + ": " + name)).ToList();
+            .Select(name => Text.Get("DependencyContract.missing", group.Table, name))).ToList();
     internal static readonly string[] Recipes = { "PhobosCraft_PhobosBuildShipbreakerSection", "PhobosCraft_PhobosBuildShipbreaker",
         "PhobosCraft_PhobosBuildHullChute", "PhobosCraft_PhobosBuildExteriorGrabber", "PhobosCraft_PhobosBuildResidueCollector" };
     internal static List<string> MissingRecipes(Func<string, bool> contains) => Recipes
-        .Where(id => !contains(id)).Select(id => "Missing registered recipe: " + id).ToList();
+        .Where(id => !contains(id)).Select(id => Text.Get("DependencyContract.missing_registered_recipe", id)).ToList();
 }

@@ -4,7 +4,7 @@
     "strAuthor": "phobosgekko",
     "strModURL": "https://github.com/phobos-dthorga/phobos-ostranauts",
     "strGameVersion": "1.0.1.4",
-    "strModVersion": "0.6.0",
-    "strNotes": "Shared native definitions, mass-balanced construction, inventory and physical item transfers, filters, clocks, grid routes and saved sender/receiver pairing. Requires BepInEx 5 and the PhobosFramework plugin. No Crafting Framework, Salvage Workshop or Shipbreaker dependency. Links persist in native saves; transport progress and scheduling remain the equipment mod's responsibility. Equipment economy: additive merchant stock, condition-aware offers, construction tools, mass-balanced service and dismantling. Ordinary saves supported; economy integration awaits gameplay validation."
+    "strModVersion": "0.7.0",
+    "strNotes": "Translation catalogs with English fallback; language selection through Phobos Framework. Shared native definitions, mass-balanced construction, inventory and physical item transfers, filters, clocks, grid routes and saved sender/receiver pairing. Requires BepInEx 5 and the PhobosFramework plugin. No Crafting Framework, Salvage Workshop or Shipbreaker dependency. Links persist in native saves; transport progress and scheduling remain the equipment mod's responsibility. Equipment economy: additive merchant stock, condition-aware offers, construction tools, mass-balanced service and dismantling. Ordinary saves supported; economy integration awaits gameplay validation."
   }
 ]

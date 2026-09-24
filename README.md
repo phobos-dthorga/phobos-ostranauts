@@ -16,10 +16,9 @@ implements approach and braking for ordinary saves and owner-run evaluation; it 
 tested in-game. Attribution and upstream licensing uncertainty are recorded in
 [third-party notices](THIRD_PARTY_NOTICES.md).
 
-Our first selected mod is **[Phobos Approach Assist](docs/limited-autopilot.md)**
-(working name): a physical nav module for cautious RCS approaches using native
-ship sensors. It accelerates, coasts and brakes, leaving final docking to the
-pilot. Later capabilities can depend on additional equipment aboard the ship.
+The current equipment suite is **Phobos Framework, Shipbreaker and Auto Nav**.
+Approach Assist was the earlier pulse-only experiment and is not installed by
+default. Its longer navigation proposal remains historical design material.
 
 ## Scope
 
@@ -38,7 +37,7 @@ game data where it fits and C# plugins where new behaviour needs them.
 
 ## Working approach
 
-Work in small, practical rounds: implement, try it in a test game, then refine.
+Work in small, practical rounds: implement, evaluate during owner-run play, then refine.
 Keep UI and artwork separate from gameplay logic. Extract shared functionality
 when real features need it, and keep unrelated experiments independently usable.
 
@@ -48,6 +47,8 @@ with a smaller setup appropriate to this project's current scope.
 
 ## Start here
 
+- [Current player guide: acquire, install, load, run and collect](docs/player-guide.md)
+- [Residue composition, destinations and the next processing stage](docs/residue-material-contract.md)
 - [Equipment prices, merchants, maintenance and salvage](docs/equipment-economy.md)
 - [One-command mod installation and updates](docs/installing-mods.md) — or double-click
   `Install or Update Mods.cmd` after closing the game.
@@ -64,6 +65,7 @@ with a smaller setup appropriate to this project's current scope.
 - [Hull disposal port: filters, external collection and persistent ejecta](docs/material-disposal-port-research.md)
 - [Residue Collector: placement, controls and testing](docs/residue-collector.md)
 - [Asteroid resources for water, oxygen, nitrogen and nutrients](docs/asteroid-life-support-research.md)
+- [Future chemical tanks, station replenishment and industrial hazards](docs/chemical-storage-and-process-fluids.md)
 - [Current mod inventory and extension opportunities](docs/mod-extension-survey.md)
 - [Dependency maintenance and fallback plan](docs/dependency-contingencies.md)
 - [Medical-system vision](docs/medical-system-vision.md)
@@ -87,8 +89,8 @@ with a smaller setup appropriate to this project's current scope.
 The locator proposal was set aside because an existing mod already meets the
 owner's immediate need and is being used now.
 Current development priority: powered shipbreaking and a reusable **Phobos Framework**
-that replaces our OCF/Salvage Workshop requirements. Framework and Shipbreaker
-**0.6.0** include physical-item transfers and the approved exterior grabber / wall
+that replaces our OCF/Salvage Workshop requirements. Framework **0.7.0** and
+Shipbreaker **0.7.0** include physical-item transfers and the approved exterior grabber / wall
 chute / indoor processor layout, alongside independent construction at native
 tables. The [connected intake](docs/shipbreaker-hull-intake.md) is packaged for
 owner gameplay testing. The new [residue collector](docs/residue-collector.md)
@@ -97,16 +99,20 @@ own Control Panel and console commands. [Saved endpoint pairing](docs/material-p
 lets players choose one sender and receiver from either end; pairs survive reload
 and collection resumes manually. Cargo remains aboard; persistent ejection
 and a general conveyor network remain future work.
+Shipbreaker 0.6.1 adds [version-aware processing jobs](docs/processing-job-compatibility.md)
+so started panels retain their recipe outputs and duration through later updates.
+Revision 1 remains the only enabled panel recipe; the reclaimer is still planned.
 The economy update adds merchant offers, mass-balanced maintenance and ordinary-save
-Auto Nav 0.2.0 using Framework 0.6.0. Installation awaits the game closing. Existing 0.2.1 files remain installed.
+Auto Nav 0.3.0 using Framework 0.7.0. These are prepared versions; use installer
+verification and in-game status commands to determine what is actually installed.
 Framework 0.2.1 subsequently fixes its false Missing status in the native mod
 menu; the owner confirmed the correction after restart on 2026-09-24.
 The first 4 x 4 fixture build includes a mass-balanced panel recipe, user settings
 and F3 console controls. Build and offline checks pass; owner gameplay checks remain.
 External cutting and its positioning/autopilot needs follow later. Other industrial
 ideas advance as the owner encounters relevant gameplay and can test them.
-Approach Assist prototype testing remains with the owner in a separate test world,
-checking module integration, native sensing and a short controlled RCS burn.
+Historical Approach Assist instructions describe its original isolated pulse
+experiment; they are not prerequisites or save restrictions for the current suite.
 Medical experiments, terminal social interactions and alternative PDA cartridges
 remain documented as other directions.
 
@@ -118,3 +124,5 @@ Game files, saves and extracted assets are not distributed in this repository.
 
 Independent community project by Phobos A. D'thorga (phobos-dthorga).
 Not affiliated with or endorsed by Blue Bottle Games or Kitfox Games.
+
+Translation catalogs, language settings and contributor guidance: [Localization](docs/localization.md).

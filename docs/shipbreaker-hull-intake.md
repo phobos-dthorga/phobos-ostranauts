@@ -1,6 +1,8 @@
 # Hull chute and exterior grabber
 
-24 September 2026. **Shipbreaker 0.3.0 + Framework 0.3.0 testing candidate.**
+Current prepared candidate: **Shipbreaker 0.7.0 + Framework 0.7.0**, 24 September
+2026. Connected intake was introduced in 0.3.0. Use the
+[current player guide](player-guide.md) for the complete operating sequence.
 The owner approved these designs and requested the connected implementation.
 Mounting definitions, physical transfers, construction and runtime sprites are now
 implemented and checked offline. Unity placement, crew access and operation still
@@ -118,13 +120,13 @@ grabber's two power contacts reach the outer cells of the supporting wall row.
 
 | New recipe | Steel | Aluminium | Mechanical parts | Electronic parts | Result | Work |
 | --- | ---: | ---: | ---: | ---: | --- | ---: |
-| Sealed Hull Chute | 24 | 10 | 10 | 2 | One 40 kg chute | 90 s |
-| Exterior Panel Grabber | 50 | 20 | 16 | 4 | One 80 kg grabber | 120 s |
+| Sealed Hull Chute | 24 | 10 | 10 | 2 | One 40 kg chute | 30 min |
+| Exterior Panel Grabber | 50 | 20 | 16 | 4 | One 80 kg grabber | 60 min |
 
 Native steel/aluminium units are 1 kg; these parts are 0.5 kg. Both recipes conserve
 mass and fit the construction service's 100-input limit. They use the same native
 tables and optional benches as the processor. All three parts have native install,
-uninstall, damage and repair definitions. Test-save spawn IDs:
+uninstall, damage and repair definitions. Optional debug spawn IDs:
 `PhobosHullChuteLoose`, `PhobosExteriorGrabberLoose`, `PhobosShipbreakerLoose`.
 
 Framework 0.3.0 exposes physical-item transfer separately from recipes and machine
@@ -134,14 +136,14 @@ virtual cargo. Shipbreaker owns layout, timing, eligibility and power.
 
 ## First owner test
 
-1. Use a separate test save. Make a clear four-wall strip, a 4 x 3 empty exterior
+1. During ordinary play, make a clear four-wall strip, a 4 x 3 empty exterior
    area and a 4 x 4 interior floor area. Install the chute **over the walls**, the
    grabber immediately outside with arms outward, and the processor immediately
    inside with its loading mouth facing the chute. Keep side access for crew.
 2. Connect native conduit power to the grabber and processor. F9/status should say
    the intake is connected; wrong placement should produce an explanation.
 3. Through the grabber's normal Inventory, load one detached ordinary wall. If
-   needed, `spawn ItmWall1x1Loose` supplies a comparison in the test save. Stand
+   using deliberate debug grants, `spawn ItmWall1x1Loose` supplies a comparison. Stand
    beside the processor and Start. The wall should move once, then become 11 kg
    useful products plus one 13 kg residue item in the processor's Inventory.
 4. During ordinary use, check pause/reload leaves material present and waits for
@@ -151,7 +153,9 @@ virtual cargo. Shipbreaker owns layout, timing, eligibility and power.
 
 Attached-hull cutting still needs finite reach, target eligibility, relative-motion
 limits and ownership of released material. Auto Nav remains optional for that later
-work. Underfloor routing, shredder/recycler and ore machinery remain separate work.
+work. One paired residue route is implemented; a general conveyor network,
+shredder/recycler and ore machinery remain future work. See the
+[residue composition and destination decisions](residue-material-contract.md).
 
 Concept files and exact built-in Imagegen prompts:
 [hull-intake artwork](../assets/phobos-hull-intake/README.md).

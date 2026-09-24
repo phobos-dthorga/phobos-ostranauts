@@ -11,7 +11,10 @@ recyclers and ore, including life-support replenishment. See [the processing stu
 and [asteroid resource plan](asteroid-life-support-research.md). This advances the
 research scope beyond the deferral below; it does not change the existing panel
 recipe, assign an assay to saved residue or implement refining. The current
-[0.2.0 framework candidate](phobos-framework.md) makes OCF/SWB optional.
+[framework candidate](phobos-framework.md) makes OCF/SWB optional. This document's
+mod inventory is a dated research snapshot. For current operation use the
+[player guide](player-guide.md); the [residue contract](residue-material-contract.md)
+selects future material recovery while preserving existing unclassified packets.
 
 ## Evidence and boundaries
 

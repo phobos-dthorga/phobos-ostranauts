@@ -11,11 +11,11 @@ namespace PhobosAutoNav;
 
 [BepInPlugin(Id, "Phobos Auto Nav", Version)]
 [BepInProcess("Ostranauts.exe")]
-[BepInDependency(FrameworkInfo.PluginId, "0.6.0")]
+[BepInDependency(FrameworkInfo.PluginId, "0.7.0")]
 public sealed class Plugin : BaseUnityPlugin
 {
     public const string Id = "phobosgekko.ostranauts.autonav";
-    public const string Version = "0.2.0";
+    public const string Version = "0.3.0";
     internal static NavigationService Service { get; private set; } = null!;
     internal static ConfigEntry<bool> Enabled = null!, VerboseLogging = null!, FuelCheck = null!,
         AbortOnManualThrust = null!, UseThrusterRotation = null!;
@@ -28,31 +28,31 @@ public sealed class Plugin : BaseUnityPlugin
     private void Awake()
     {
         log = message => Logger.LogInfo(message);
-        Enabled = Config.Bind("General", "Enabled", true, "Master switch; switching off aborts an active flight.");
-        VerboseLogging = Config.Bind("Diagnostics", "VerboseLogging", false, "Detailed flight diagnostics.");
-        DefaultCruiseMS = Number("Flight", "CruiseMS", 100, 10, 5000, "Cruise speed relative to target. Captured on engagement.");
-        DefaultArriveSpeedMS = Number("Flight", "ArrivalMS", 0, 0, 1000, "Arrival relative speed. Zero requests braking to a stop. Captured on engagement.");
-        DefaultArriveKM = Number("Flight", "ArrivalKM", 5, 1, 100, "Centre-to-centre arrival distance, also floored by hull size. Captured on engagement.");
-        ArrivalSpeedTolerance = Number("Flight", "ArrivalToleranceMS", 0.5f, 0.05f, 5, "Allowed speed error at arrival; not a station-keeping guarantee.");
-        MaxFlightSimHours = Number("Limits", "MaximumFlightHours", 48, 0.01f, 168, "Simulation-time timeout; aborts and coasts.");
-        MaximumStepSeconds = Number("Limits", "MaximumStepSeconds", 10, 0.1f, 60, "Abort on larger simulation updates; avoids commanding a long unobserved burn.");
-        CoastTolerance = Number("Flight", "CoastToleranceMS", 3, 0.1f, 20, "Velocity error before a cruise correction.");
-        RotAccelMax = Number("Flight", "RotationAcceleration", 0.5f, 0.01f, 0.5f, "Maximum rotation command.");
-        RotSpeedMax = Number("Flight", "RotationSpeed", 0.6f, 0.01f, 0.6f, "Maximum requested spin rate.");
-        FuelCheck = Config.Bind("Flight", "FuelCheck", true, "Check the inherited approximate delta-v budget before departure; not a fuel guarantee.");
-        AbortOnManualThrust = Config.Bind("Flight", "AbortOnManualThrust", true, "Legacy guidance check. Phobos always yields to external maneuver commands regardless of this value.");
-        UseThrusterRotation = Config.Bind("Flight", "UseThrusterRotation", true, "Use RCS turning. False retains upstream's instantaneous heading change for comparisons.");
+        Enabled = Config.Bind("General", "Enabled", true, Text.Get("Plugin.master_switch_switching_off_aborts_an_active"));
+        VerboseLogging = Config.Bind("Diagnostics", "VerboseLogging", false, Text.Get("Plugin.detailed_flight_diagnostics"));
+        DefaultCruiseMS = Number("Flight", "CruiseMS", 100, 10, 5000, Text.Get("Plugin.cruise_speed_relative_to_target_captured_on"));
+        DefaultArriveSpeedMS = Number("Flight", "ArrivalMS", 0, 0, 1000, Text.Get("Plugin.arrival_relative_speed_zero_requests_braking_to"));
+        DefaultArriveKM = Number("Flight", "ArrivalKM", 5, 1, 100, Text.Get("Plugin.centre_to_centre_arrival_distance_also_floored"));
+        ArrivalSpeedTolerance = Number("Flight", "ArrivalToleranceMS", 0.5f, 0.05f, 5, Text.Get("Plugin.allowed_speed_error_at_arrival_not_a"));
+        MaxFlightSimHours = Number("Limits", "MaximumFlightHours", 48, 0.01f, 168, Text.Get("Plugin.simulation_time_timeout_aborts_and_coasts"));
+        MaximumStepSeconds = Number("Limits", "MaximumStepSeconds", 10, 0.1f, 60, Text.Get("Plugin.abort_on_larger_simulation_updates_avoids_commanding"));
+        CoastTolerance = Number("Flight", "CoastToleranceMS", 3, 0.1f, 20, Text.Get("Plugin.velocity_error_before_a_cruise_correction"));
+        RotAccelMax = Number("Flight", "RotationAcceleration", 0.5f, 0.01f, 0.5f, Text.Get("Plugin.maximum_rotation_command"));
+        RotSpeedMax = Number("Flight", "RotationSpeed", 0.6f, 0.01f, 0.6f, Text.Get("Plugin.maximum_requested_spin_rate"));
+        FuelCheck = Config.Bind("Flight", "FuelCheck", true, Text.Get("Plugin.check_the_inherited_approximate_delta_v_budget"));
+        AbortOnManualThrust = Config.Bind("Flight", "AbortOnManualThrust", true, Text.Get("Plugin.legacy_guidance_check_phobos_always_yields_to"));
+        UseThrusterRotation = Config.Bind("Flight", "UseThrusterRotation", true, Text.Get("Plugin.use_rcs_turning_false_retains_upstream_s"));
         Service = new NavigationService(log);
         harmony = new Harmony(Id);
         harmony.PatchAll(typeof(Plugin).Assembly);
         FrameworkLifecycle.ContentLoading += EquipmentContent.Register;
-        Logger.LogInfo("Adaptation of Auto Navigate by Gravy/mrkmg. F3: phobosnav help. Ordinary saves supported; Phobos Framework required; no upstream mod dependency.");
+        Logger.LogInfo(Text.Get("Plugin.adaptation_of_auto_navigate_by_gravy_mrkmg"));
     }
 
     private ConfigEntry<float> Number(string section, string key, float value, float min, float max, string description) =>
         Config.Bind(section, key, value, new ConfigDescription(description, new AcceptableValueRange<float>(min, max)));
     internal static void Verbose(string message) { if (VerboseLogging.Value) log?.Invoke(message); }
-    private void OnDestroy() { FrameworkLifecycle.ContentLoading -= EquipmentContent.Register; Service?.Disengage("Plugin unloaded"); harmony?.UnpatchSelf(); }
+    private void OnDestroy() { FrameworkLifecycle.ContentLoading -= EquipmentContent.Register; Service?.Disengage(Text.Get("Plugin.plugin_unloaded")); harmony?.UnpatchSelf(); }
 }
 
 [HarmonyPatch(typeof(GUIOrbitDraw), "LoadModules")]
@@ -68,7 +68,7 @@ internal static class NavigationTickPatch
         Plugin.Service.Tick(__instance, fTime, bIgnoreAccel);
     private static Exception? Finalizer(Exception? __exception)
     {
-        if (__exception != null) Plugin.Service.Disengage("Physics interrupted");
+        if (__exception != null) Plugin.Service.Disengage(Text.Get("Plugin.physics_interrupted"));
         return __exception;
     }
 }
@@ -84,7 +84,7 @@ internal static class LifecyclePatch
 {
     private static IEnumerable<MethodBase> TargetMethods() => typeof(CrewSim).GetMethods()
         .Where(method => method.Name == nameof(CrewSim.LoadGame) || method.Name == nameof(CrewSim.NewGame));
-    private static void Prefix() => Plugin.Service.Disengage("World change; rearm explicitly");
+    private static void Prefix() => Plugin.Service.Disengage(Text.Get("Plugin.world_change_rearm_explicitly"));
 }
 
 [HarmonyPatch]

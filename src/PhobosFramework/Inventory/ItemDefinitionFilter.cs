@@ -12,7 +12,7 @@ public sealed class ItemDefinitionFilter
         if (definitionIds == null) throw new ArgumentNullException(nameof(definitionIds));
         foreach (string id in definitionIds)
         {
-            if (string.IsNullOrWhiteSpace(id)) throw new ArgumentException("Filter IDs must be nonempty.");
+            if (string.IsNullOrWhiteSpace(id)) throw new ArgumentException(Text.Get("ItemDefinitionFilter.filter_ids_must_be_nonempty"));
             ids.Add(id);
         }
     }

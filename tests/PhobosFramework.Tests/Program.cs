@@ -10,6 +10,8 @@ void Check(bool condition, string message)
     checks++;
 }
 
+LocalizationChecks.Run(Check);
+
 // Consume the built public assembly, without compiling private copies of its code.
 Check(typeof(BatchPlacement).Assembly.GetName().Name == "PhobosFramework", "Consumer uses the shared assembly");
 Check(typeof(DefinitionTransaction).Assembly == typeof(BatchPlacement).Assembly, "Both services have one provider");

@@ -59,11 +59,11 @@ internal static class RepairRemainderPatch
         // not a guessed bill. Reject unfamiliar fractional/huge lots before effects.
         var lot = item.GetLotCOs(false);
         if (lot.Any(co => co == null || co.bDestroyed || !Construction.ConstructionHooks.HasNoContents(co) || co.GetLotCOs(true).Count != 0))
-        { FrameworkLifecycle.Log("Repair paused: service material contains cargo for " + item.strID); return false; }
+        { FrameworkLifecycle.Log(Text.Get("MaintenanceSafety.repair_paused_service_material_contains_cargo_for", item.strID)); return false; }
         double kg = lot.Sum(co => co.GetTotalMass());
         int units = MaintenanceSafety.SpentPartUnits(kg);
         if (units < 0)
-        { FrameworkLifecycle.Log("Repair paused: unsupported service-material mass for " + item.strID); return false; }
+        { FrameworkLifecycle.Log(Text.Get("MaintenanceSafety.repair_paused_unsupported_service_material_mass_for", item.strID)); return false; }
         __instance.objLootModeSwitch = new Loot { strName = "PhobosRepairReturn", strType = "item",
             aCOs = new[] { output + "=1x1" }.Concat(Enumerable.Repeat(MaintenanceDefinitions.SpentParts + "=1x1", units)).ToArray(),
             aLoots = Array.Empty<string>() };
@@ -79,7 +79,7 @@ internal static class DismantleEligibilityPatch
         if (!__result || !MaintenanceSafety.Actions.TryGetValue(__instance.strName, out var bin)) return;
         var item = __instance.strName.StartsWith("MS", StringComparison.Ordinal) ? objUs : objThem;
         if (MaintenanceSafety.Empty(item, bin)) return;
-        __instance.AddFailReason("main", "Empty the equipment, its feed and any unfinished repair materials before dismantling.");
+        __instance.AddFailReason("main", Text.Get("MaintenanceSafety.empty_the_equipment_its_feed_and_any"));
         __result = false;
     }
 }

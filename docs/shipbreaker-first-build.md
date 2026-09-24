@@ -1,8 +1,10 @@
 # Phobos Shipbreaker: first playable build
 
-Current candidate: **Shipbreaker 0.6.0 + Phobos Framework 0.6.0**, built against
-Ostranauts **1.0.1.4** and BepInEx **5.4.23.5**. Offline checks pass; installation
-and connected gameplay testing are pending the owner closing the running game.
+Current candidate: **Shipbreaker 0.7.0 + Phobos Framework 0.7.0**, built against
+Ostranauts **1.0.1.4** and BepInEx **5.4.23.5**. Offline checks pass; connected
+gameplay validation remains pending. These are prepared-package versions, not
+an assertion about the currently installed files. Start with the
+[current player guide](player-guide.md) for acquisition and normal operation.
 
 The approved **4 x 3 exterior grabber + 4 x 1 wall chute + 4 x 4 processor** now
 form a connected intake. Load detached walls at the grabber; the chute carries
@@ -16,7 +18,9 @@ processing test is claimed. This version removes the two-grid ambiguity and adds
 separate native loading inventory which accepts both cumbersome and small solids.
 Only eligible ordinary walls are processed; other cargo remains untouched.
 
-Existing fixture IDs, dimensions, material bill and panel progress are preserved.
+Existing fixture IDs, dimensions, construction material bill and panel progress
+are preserved. Equipment prices and maintenance changed in 0.6.0 as documented
+in the economy guide; historical construction timings are superseded there.
 The owner previously confirmed Framework's Missing-label fix and the processor's
 visual match. Migration and the connected machine behaviour remain unverified.
 
@@ -75,9 +79,11 @@ a verified bill of materials for its fictional manufacturer. The operation is
 disassembly and separation; it does not melt the panel or purify mixed alloys.
 The residue remains a real inventory item with mass, rather than disappearing.
 It is a distinct definition without native trash/salvage category flags; the
-existing trash sorter does not consume it. Haul, retain or jettison it using normal
-item handling. Refining that material is a later feature, not an existing output
-use. We do not rebalance the game's or other mods' salvage recipes.
+existing trash sorter does not consume it. Retain, haul or move it to the paired
+Residue Collector. It remains aboard; refining and recoverable release are not
+implemented. The [residue contract](residue-material-contract.md) preserves these
+unclassified packets and defines a separate future characterised stream. We do
+not rebalance the game's or other mods' salvage recipes.
 
 Construction uses **100 steel, 48 aluminium, 20 mechanical parts and
 4 electronic parts** in total, totalling 160 kg at the inspected native masses.
@@ -107,7 +113,7 @@ and the limits of their mass accounting.
 
 ## Install the prepared package
 
-Required dependencies: **BepInEx 5** and **Phobos Framework 0.6.0 or later**.
+Required dependencies: **BepInEx 5** and **Phobos Framework 0.7.0 or later**.
 OCF, Salvage Workshop, Auto Nav and Common Sense hauling are optional for this
 onboard processor. Keep other mods installed if the existing save contains their
 objects or other consumers require them; independence is not foreign-object
@@ -159,8 +165,8 @@ sits outside, the processor inside, with all three touching and aligned.
 
 At an installed Bar Table or Dining Table, the two original assembly recipes
 build the processor. **Sealed Hull Chute** and **Exterior Panel Grabber** build the
-new components. In a separate test save, native spawn commands can skip gathering
-construction stock:
+new components. Buying or crafting is the ordinary-save route. If intentionally
+using debug grants, native spawn commands can skip gathering construction stock:
 
 ```text
 spawn PhobosShipbreakerLoose
@@ -244,7 +250,7 @@ checks as the panel.
 
 | Command | Result |
 | --- | --- |
-| `phobosshipbreaker` or `phobosshipbreaker help` | Command help, including native test-save spawn commands |
+| `phobosshipbreaker` or `phobosshipbreaker help` | Command help, including optional native debug spawn commands |
 | `phobosshipbreaker status [fixture-ID]` | List fixtures on the selected crew member's ship, their IDs, progress and control blockers |
 | `phobosshipbreaker settings` | Show effective settings and the config filename |
 | `phobosshipbreaker dependencies` | Read-only startup dependency versions, template checks and construction registration; no fixture selection needed |
@@ -259,21 +265,17 @@ when only one fixture is aboard. With multiple fixtures, copy the exact ID from
 `status`; an ambiguous action is rejected. The selected crew member must be beside
 that fixture for start, pause and cancel. Status/settings/help do not start work.
 
-For test-save setup, use the game's existing `spawn PhobosShipbreakerLoose` and
+For deliberate debug setup, use the game's existing `spawn PhobosShipbreakerLoose` and
 `spawn ItmWall1x1Loose` commands, then install the fixture normally. The Phobos
 commands do not add a separate item-spawning system.
 
 ## Focused owner checks
 
-For this artwork update, first look at the loose fixture, install it, and inspect
-its portrait. Check the outline and lighting against nearby equipment at normal
-zoom, including with the fixture rotated. The rear sockets are connection cues;
-build and place electrical conduit separately. There is no painted conduit loop.
-Inspect a section during construction and the residue from the first batch.
-If convenient, use `spawn PhobosShipbreakerLooseDmg` in the separate test save to
-see the damaged form; no need to damage machinery in a real save. Send a screenshot
-if a sprite is missing, moves noticeably between states, clips or lights oddly.
-The displayed lamps and transport restraints are static art, not new mechanics.
+The owner already approved the processor's visual fit in-game. Check new intake
+or collector artwork during ordinary use; there is no need to repeat that approval
+as a prerequisite. Send a screenshot if a sprite is missing, clips, changes scale
+between states or lights oddly. Conduit is separately built; displayed lamps and
+transport restraints are static art, not new mechanics.
 
 Try a normal processing batch first. Compare its convenience and crew effort with
 ordinary dismantling. No separate demonstration of native power consumption is
@@ -323,8 +325,12 @@ hauling orders if they expose a specific issue in normal use.
   not implemented. The 30 kW / 60 s rating is a gameplay design value, not a claimed
   measured cutting rate. External cutting and autopilot remain later work.
 
-New IDs are prefixed `Phobos`; existing `PhobosShipbreaker` IDs remain unchanged. Recipe revision 1 is saved on a panel
-when work starts; unknown revisions are rejected and can be cancelled explicitly.
+New IDs are prefixed `Phobos`; existing `PhobosShipbreaker` IDs remain unchanged.
+Version 0.6.1 binds each job's output definitions and space checks to its saved
+recipe revision. Only revision 1 is currently enabled. Unknown revisions stop
+without changing the panel; cancellation is explicit. Historical revision-1
+jobs without a duration retain the original 60 seconds. F9/F3 status reports the
+selected revision. See [job compatibility](processing-job-compatibility.md).
 Do not silently change saved progress meanings or rename item IDs in later builds.
 
 ## Build and offline checks

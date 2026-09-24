@@ -8,6 +8,7 @@ public static class IntakeRules
     public const string Working = "PhobosShipbreakerIntakeWorking";
     public const double ChuteKg = 40, GrabberKg = 80, TransferSeconds = 5, WorkingKW = 2, IdleKW = 0.05;
     public const int Width = 4, ChuteDepth = 1, GrabberDepth = 3;
+    public const double PositionToleranceTiles = 0.06, AngleToleranceDegrees = 0.1;
     public static bool IsHardware(string? id) => id == Chute + "Installed" || id == Chute + "Loose" ||
         id == Chute + "InstalledDmg" || id == Chute + "LooseDmg" ||
         id == Grabber + "Installed" || id == Grabber + "Loose" ||
@@ -21,9 +22,9 @@ public static class IntakeRules
         return (x * Math.Cos(radians) - y * Math.Sin(radians), x * Math.Sin(radians) + y * Math.Cos(radians));
     }
     public static bool Near(double x, double y, double expectedX, double expectedY) =>
-        Math.Abs(x - expectedX) < 0.06 && Math.Abs(y - expectedY) < 0.06;
+        Math.Abs(x - expectedX) < PositionToleranceTiles && Math.Abs(y - expectedY) < PositionToleranceTiles;
     public static bool SameAngle(double a, double b, double period = 360) =>
-        Math.Abs(Math.IEEERemainder(a - b, period)) < 0.1;
+        Math.Abs(Math.IEEERemainder(a - b, period)) < AngleToleranceDegrees;
     public static bool Connected(double gx, double gy, double ga, double cx, double cy, double ca,
         double px, double py, double pa)
     {

@@ -47,11 +47,11 @@ public sealed class AutoNavPanel : NavModBase
         var font = nav.GetComponentsInChildren<TMP_Text>(true).FirstOrDefault(t => t.font != null)?.font;
         var panel = root.AddComponent<AutoNavPanel>();
         panel.damaged = damaged;
-        Label(faceplate, "PHOBOS AUTO NAV", new Vector2(0.12f, 0.83f), new Vector2(0.88f, 0.97f), font, 18).alignment = TextAlignmentOptions.Center;
-        Label(faceplate, "RCS APPROACH", new Vector2(0.065f, 0.70f), new Vector2(0.935f, 0.77f), font, 12);
-        panel.status = Label(faceplate, "Waiting for console", new Vector2(0.065f, 0.395f), new Vector2(0.935f, 0.685f), font, 16);
-        Button(faceplate, "FLY", 0.065f, 0.515f, font, () => Plugin.Service.Engage(panel.COSelf));
-        Button(faceplate, "DISENGAGE", 0.555f, 0.935f, font, () => Plugin.Service.Disengage("Disengaged by pilot"));
+        Label(faceplate, Text.Get("AutoNavPanel.phobos_auto_nav"), new Vector2(0.12f, 0.83f), new Vector2(0.88f, 0.97f), font, 18).alignment = TextAlignmentOptions.Center;
+        Label(faceplate, Text.Get("AutoNavPanel.rcs_approach"), new Vector2(0.065f, 0.70f), new Vector2(0.935f, 0.77f), font, 12);
+        panel.status = Label(faceplate, Text.Get("AutoNavPanel.waiting_for_console"), new Vector2(0.065f, 0.395f), new Vector2(0.935f, 0.685f), font, 16);
+        Button(faceplate, Text.Get("AutoNavPanel.fly"), 0.065f, 0.515f, font, () => Plugin.Service.Engage(panel.COSelf));
+        Button(faceplate, Text.Get("AutoNavPanel.disengage"), 0.555f, 0.935f, font, () => Plugin.Service.Disengage(Text.Get("AutoNavPanel.disengaged_by_pilot")));
         container.gameObject.AddComponent<Draggable>().enabled = false;
     }
 
@@ -60,8 +60,8 @@ public sealed class AutoNavPanel : NavModBase
     protected override void UpdateUI()
     {
         if (status == null) return;
-        status.text = damaged ? "Module damaged — repair required" :
-            COSelf == null ? "Waiting for console" : Plugin.Service.ReadPanel(COSelf);
+        status.text = damaged ? Text.Get("AutoNavPanel.module_damaged_repair_required") :
+            COSelf == null ? Text.Get("AutoNavPanel.waiting_for_console") : Plugin.Service.ReadPanel(COSelf);
         foreach (var button in GetComponentsInChildren<Button>()) button.interactable = !damaged;
     }
 

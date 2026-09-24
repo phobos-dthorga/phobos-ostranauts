@@ -10,19 +10,7 @@ public readonly struct Command
     public string? TargetId { get; }
     private Command(CommandAction action, string? targetId = null) { Action = action; TargetId = targetId; }
 
-    public const string Help = "Phobos Shipbreaker commands:\n"
-        + "phobosshipbreaker help - show commands\n"
-        + "phobosshipbreaker status [fixture-ID] - show fixtures, IDs and processing state\n"
-        + "phobosshipbreaker settings - show active settings and the config filename\n"
-        + "phobosshipbreaker dependencies - show loaded versions, template checks and recipe registration\n"
-        + "phobosshipbreaker start [fixture-ID] - start or resume processing\n"
-        + "phobosshipbreaker pause [fixture-ID] - pause, keeping progress\n"
-        + "phobosshipbreaker cancel [fixture-ID] - clear queued work; keep panels, no energy refund\n"
-        + "phobosshipbreaker feed [fixture-ID] - open the manual feed fallback\n"
-        + "phobosshipbreaker products [fixture-ID] - open the product tray\n"
-        + "Omit the ID only when there is one fixture on the selected crew member's ship. Stand beside it for controls.\n"
-        + "Residue collector controls: phoboscollector help\n"
-        + "Test-save setup uses native commands: spawn PhobosShipbreakerLoose / spawn ItmWall1x1Loose. Install normally.";
+    public static string Help => Text.Get("Commands.phobos_shipbreaker_commands_phobosshipbreaker_help_show_commands");
 
     public static Command Parse(string? input)
     {

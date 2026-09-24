@@ -1,7 +1,7 @@
 # Equipment economy and maintenance
 
 Research and implementation baseline: **2026-09-24**, Ostranauts **1.0.1.4**,
-BepInEx **5.4.23.5**. Candidate: Framework/Shipbreaker **0.6.0**, Auto Nav **0.2.0**.
+BepInEx **5.4.23.5**. Candidate: Framework **0.7.0**, Shipbreaker **0.7.0**, Auto Nav **0.3.0**.
 These are implemented balance choices informed by local game/mod definitions;
 they are not measured gameplay outcomes. Gameplay validation remains pending.
 
@@ -62,7 +62,10 @@ recipe is distinct from dismantling the processor. It has **not** been silently
 changed in this machine-focused review: changing its output mass distribution
 requires a versioned recipe and preservation of existing 13 kg residue/jobs.
 Native wall salvage also sometimes increases value, so copying it is insufficient
-as an economic justification. This remains a recorded processing-balance issue.
+as an economic justification. This remains a separate processing-balance decision:
+powered processing may add value, but that is not evidence of a machine-dismantling
+exploit. The [residue contract](residue-material-contract.md) keeps this recipe
+unchanged and states the additional value of its future recovery design explicitly.
 
 ## Acquisition and prices
 

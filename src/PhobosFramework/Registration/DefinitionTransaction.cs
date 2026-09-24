@@ -11,7 +11,7 @@ public sealed class DefinitionTransaction
 
     public void Stage<T>(IDictionary<string, T> target, IEnumerable<KeyValuePair<string, T>> prepared)
     {
-        if (attempted) throw new InvalidOperationException("Registration already attempted.");
+        if (attempted) throw new InvalidOperationException(Text.Get("DefinitionTransaction.registration_already_attempted"));
         foreach (var entry in prepared)
         {
             string key = entry.Key;
@@ -27,7 +27,7 @@ public sealed class DefinitionTransaction
 
     public void Commit()
     {
-        if (attempted) throw new InvalidOperationException("Registration already attempted.");
+        if (attempted) throw new InvalidOperationException(Text.Get("DefinitionTransaction.registration_already_attempted"));
         attempted = true;
         var undo = new Stack<Action>();
         try { foreach (var write in writes) write(undo); }
@@ -40,7 +40,7 @@ public sealed class DefinitionTransaction
                 catch (Exception recovery) { errors.Add(recovery); }
             }
             if (errors.Count > 1)
-                throw new AggregateException("Definition rollback failed. Restart with compatible dependencies before loading an affected save.", errors);
+                throw new AggregateException(Text.Get("DefinitionTransaction.definition_rollback_failed_restart_with_compatible_dependencies"), errors);
             throw;
         }
         finally { writes.Clear(); }

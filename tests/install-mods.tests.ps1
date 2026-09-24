@@ -57,6 +57,11 @@ function InstalledFiles($Fixture) {
 }
 
 $fresh = Fixture 'both'
+$overrideDirectory = Join-Path $fresh.OstranautsPath 'BepInEx/config/PhobosTranslations/phobosgekko.ostranauts.shipbreaker'
+New-Item -ItemType Directory -Path $overrideDirectory -Force | Out-Null
+$overrideFile = Join-Path $overrideDirectory 'fr.json'
+Set-Content -LiteralPath $overrideFile -Value '{"community":"Preserve my translation"}' -Encoding utf8
+$overrideHash = (Get-FileHash -LiteralPath $overrideFile).Hash
 $before = InstalledFiles $fresh
 & $installer @fresh -WhatIf | Out-Null
 Check ((InstalledFiles $fresh) -eq $before) 'Preview mutated installation'
@@ -66,6 +71,12 @@ Check (((ReadOrder $fresh).aLoadOrder -join ',') -eq 'core,OCF,SWB,AutoNavigate|
 Check ((ReadOrder $fresh).aIgnorePatterns[0] -eq 'KeepMe') 'Other configuration lost'
 & $installer @fresh -VerifyOnly | Out-Null
 Check $true 'Combined install verification'
+foreach ($mod in @('PhobosFramework', 'PhobosShipbreaker', 'PhobosAutoNav')) {
+    $catalog = Join-Path $fresh.OstranautsPath "BepInEx/plugins/$mod/translations/en.json"
+    $sourceCatalog = Join-Path $PackageRoot "$mod-P0/BepInEx/plugins/$mod/translations/en.json"
+    Check ((Get-FileHash -LiteralPath $catalog).Hash -eq (Get-FileHash -LiteralPath $sourceCatalog).Hash) 'Translation catalog was not delivered unchanged'
+}
+Check ((Get-FileHash -LiteralPath $overrideFile).Hash -eq $overrideHash) 'Installation changed a community translation override'
 $nativeRoot = Split-Path -Parent $fresh.LoadOrderPath
 $artwork = @(Get-ChildItem -LiteralPath (Join-Path $nativeRoot 'PhobosAutoNav/images') -Recurse -File)
 Check ($artwork.Count -eq 6) 'Approved artwork missing'
@@ -83,6 +94,7 @@ $dll = Join-Path $fresh.OstranautsPath 'BepInEx/plugins/PhobosAutoNav/PhobosAuto
 $dllStamp = (Get-Item -LiteralPath $dll).LastWriteTimeUtc
 & $installer @fresh | Out-Null
 Check ((Get-Item -LiteralPath $fresh.LoadOrderPath).LastWriteTimeUtc -eq $stamp -and (Get-Item -LiteralPath $dll).LastWriteTimeUtc -eq $dllStamp) 'Repeat rewrote unchanged files'
+Check ((Get-FileHash -LiteralPath $overrideFile).Hash -eq $overrideHash) 'Repeat installation changed a community translation override'
 
 $panel = Join-Path $nativeRoot 'PhobosAutoNav/images/phobos/autonav/PhobosAutoNavPanel.png'
 Set-Content -LiteralPath $panel -Value 'previous image'
@@ -187,6 +199,12 @@ Check ((InstalledFiles $incomplete) -eq $before) 'Bad second package partially i
 
 # Missing shader input is also an incomplete package, before any mod is copied.
 Copy-Item -LiteralPath (Join-Path $PackageRoot 'PhobosShipbreaker-P0/Mods/PhobosShipbreaker/mod_info.json') -Destination $badVersion -Force
+$missingCatalog = Join-Path $badPackages 'PhobosShipbreaker-P0/BepInEx/plugins/PhobosShipbreaker/translations/en.json'
+$catalogContents = [IO.File]::ReadAllBytes($missingCatalog)
+Remove-Item -LiteralPath $missingCatalog
+Fails { & $installer @incomplete | Out-Null } 'PhobosShipbreaker/translations/en.json'
+Check ((InstalledFiles $incomplete) -eq $before) 'Missing English catalog partially installed a package'
+[IO.File]::WriteAllBytes($missingCatalog, $catalogContents)
 # A coherent older provider package must still be rejected before any copying.
 # Only inert synthetic assemblies are built here; the installed game is untouched.
 $olderOutput = Join-Path $fixtures 'older-provider-output'
@@ -199,7 +217,7 @@ $olderInfo = @(Get-Content -LiteralPath $olderMetadata -Raw | ConvertFrom-Json)
 $olderInfo[0].strModVersion = '0.4.99'
 ConvertTo-Json -InputObject $olderInfo | Set-Content -LiteralPath $olderMetadata
 Copy-Item -LiteralPath (Join-Path $olderOutput 'PhobosFramework.dll') -Destination (Join-Path $badPackages $frameworkDllRelative) -Force
-Fails { & $installer @incomplete | Out-Null } 'Selected equipment requires Phobos Framework 0.6.0'
+Fails { & $installer @incomplete | Out-Null } 'Selected equipment requires Phobos Framework 0.7.0'
 Check ((InstalledFiles $incomplete) -eq $before) 'Old pairing provider partially installed packages'
 foreach ($relative in @($frameworkMetadataRelative, $frameworkDllRelative)) {
     Copy-Item -LiteralPath (Join-Path $PackageRoot $relative) -Destination (Join-Path $badPackages $relative) -Force

@@ -11,7 +11,7 @@ internal static class IntakeDefinitions
     internal static void Add(NativeDefinitions d)
     {
         d.Conditions[IntakeRules.Working] = new JsonCond { strName = IntakeRules.Working,
-            strNameFriendly = "Intake moving", strColor = "Neutral", nDisplaySelf = 2, nDisplayOther = 2 };
+            strNameFriendly = Text.Get("IntakeDefinitions.intake_moving"), strColor = "Neutral", nDisplaySelf = 2, nDisplayOther = 2 };
         d.Loot["PhobosHullChuteForbids"] = new Loot { strName = "PhobosHullChuteForbids", strType = "condition",
             aCOs = new[] { "IsFixture=1.0x1", "IsFixtureExt=1.0x1", "IsWallDeco=1.0x1" }, aLoots = Array.Empty<string>() };
         foreach (string prefix in new[] { IntakeRules.Chute, IntakeRules.Grabber })
@@ -24,9 +24,9 @@ internal static class IntakeDefinitions
                 string id = prefix + state;
                 bool installed = state.StartsWith("Installed", StringComparison.Ordinal), damaged = state.EndsWith("Dmg", StringComparison.Ordinal);
                 var co = d.Objects[id]; var item = d.Items[id];
-                co.strNameFriendly = co.strNameShort = (grabber ? "Phobos Exterior Panel Grabber" : "Phobos Sealed Hull Chute") + (damaged ? " (Damaged)" : "");
-                co.strDesc = grabber ? "4 wide x 3 deep; 80 kg. Arms face space, rear against a 4 x 1 wall chute. Inventory is the loading point for detached ordinary 24 kg walls. Small solids may be stored but are not processed. Start from the processor controls. No cutting of installed hull yet."
-                    : "4 wide x 1 deep; 40 kg. Install OVER four intact wall tiles, between the exterior grabber and interior processor. Keep those walls: this sealed transfer connection does not replace the pressure hull. No inventory or door to operate.";
+                co.strNameFriendly = co.strNameShort = (grabber ? Text.Get("IntakeDefinitions.phobos_exterior_panel_grabber") : Text.Get("IntakeDefinitions.phobos_sealed_hull_chute")) + (damaged ? Text.Get("IntakeDefinitions.damaged") : "");
+                co.strDesc = grabber ? Text.Get("IntakeDefinitions.wide_x_deep_kg_arms_face_space", IntakeRules.Width, IntakeRules.GrabberDepth, IntakeRules.GrabberKg, IntakeRules.ChuteDepth, ProcessRules.InputKg)
+                    : Text.Get("IntakeDefinitions.wide_x_deep_kg_install_over_four", IntakeRules.Width, IntakeRules.ChuteDepth, IntakeRules.ChuteKg);
                 co.strLoot = "Blank";
                 co.aSlotsWeHave = Array.Empty<string>();
                 co.aStartingConds = co.aStartingConds.Where(x => grabber || !x.StartsWith("IsContainer=", StringComparison.Ordinal)).ToArray();
@@ -56,7 +56,7 @@ internal static class IntakeDefinitions
                 d.Power[prefix + "Power"] = new JsonPowerInfo { strName = prefix + "Power", strUsePowerCT = "TIsReadyUsePower",
                     aInputPts = new[] { "PowerA", "PowerB" }, bAllowExtPower = true,
                     strIntPowerOn = Content.Prefix + "PowerChange", strIntPowerOff = Content.Prefix + "PowerChange",
-                    fAmount = IntakeRules.IdleKW / 3600, strOverrideCond = IntakeRules.Working, fOverrideAmount = IntakeRules.WorkingKW / 3600 };
+                    fAmount = IntakeRules.IdleKW / Phobos.Ostranauts.Framework.Units.SecondsPerHour, strOverrideCond = IntakeRules.Working, fOverrideAmount = IntakeRules.WorkingKW / Phobos.Ostranauts.Framework.Units.SecondsPerHour };
             }
         }
     }

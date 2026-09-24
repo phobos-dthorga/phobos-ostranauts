@@ -1,5 +1,17 @@
 # Phobos Ostranauts contributor instructions
 
+## Localization and constants
+
+- Keep player-facing text in per-mod UTF-8 translation catalogs, with embedded
+  English fallbacks and Framework's shared lookup. See `docs/localization.md`.
+- Use stable translation keys and complete messages with placeholders. Never
+  translate native IDs, saved-state keys, command names or configuration keys,
+  and never use translated status text to drive gameplay decisions.
+- Name meaningful limits, unit conversions and tolerances; derive displayed
+  capacities and yields from authoritative rules. Keep balance in the owning
+  content mod and preserve historic recipe contracts. Do not generalize every
+  layout coordinate or expose every constant as a setting.
+
 ## Working style
 
 - Keep this a practical, small-team project. Prefer a working slice over a
@@ -45,6 +57,38 @@
   See `docs/shipbreaking-material-processing-research.md` and
   `docs/asteroid-life-support-research.md`; these machines/resources are research,
   not implemented features or verified integrations.
+- Future industrial chemical storage is documented in
+  `docs/chemical-storage-and-process-fluids.md` (owner direction, 2026-09-24).
+  Preserve solvent/reagent reservoirs, quantity-based station refuelling like
+  Ship's Water, required inputs for suitable chemical processes, optional salvage
+  improvements and contents-driven leaks/ruptures/hazards as later ideas, not current
+  features. Use native gases first; custom species need code-level mass, atmosphere
+  and persistence research. Shared storage/accounting, fluid transfers, station
+  services, optional adapters and diagnostics belong in Phobos Framework as
+  concrete consumers need them; chemistry, equipment art, balance and specific
+  hazards remain content-owned. Preserve other providers' terminal entries and
+  potable-water state. Existing solid transfers and equipment-stock helpers are
+  not already fluid/refuelling APIs. Do not impose chemical dependencies on current
+  mechanical processing or build a speculative parallel atmosphere simulation.
+- Use `docs/player-guide.md` as the current player-facing starting point and
+  `docs/equipment-economy.md` for current prices, bills and work times. Label older
+  inventory/build snapshots as historical; do not turn them into ordinary-save
+  restrictions or claim prepared packages are installed. Include the player guide
+  and its direct equipment links through the shared packaging helper.
+- Follow `docs/residue-material-contract.md` for the selected next processing
+  design (2026-09-24). Existing 13 kg residue stays unclassified and revision-1
+  jobs keep their original outputs. Reserved future residue/reject IDs are not
+  registered runtime content. The chosen future 13 kg feed contains 4 kg steel
+  class, 1 kg aluminium class and 8 kg unclassified matrix; one combined reclaimer
+  would recover 3 kg steel + 1 kg aluminium and retain 9 kg terminal rejects.
+  These are authored gameplay budgets, not a native assay. Add the consumer and
+  version-aware job handling before enabling that feed. Prefer one combined
+  shred/separation appliance unless separate stages create a useful choice.
+  Shipbreaker 0.6.1 implements version-aware wall jobs; see
+  `docs/processing-job-compatibility.md`. Keep published recipe entries immutable
+  and use the job's selected outputs for planning and completion. Only revision 1
+  is enabled until the reclaimer is ready. Reuse Framework's staged delivery;
+  extract shared job mechanics when a second real processor needs them.
 - Prefer extending existing mods over duplicating their systems. Steam Workshop
   dependencies are welcome. Refresh the inventory when it matters; see
   `docs/mod-extension-survey.md`. Use permissive mod licensing as the owner's

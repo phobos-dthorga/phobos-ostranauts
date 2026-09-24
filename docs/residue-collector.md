@@ -1,6 +1,9 @@
-# Residue Collector — 0.5.0 testing candidate
+# Residue Collector — Shipbreaker 0.7.0 candidate
 
-24 September 2026. Requires **Phobos Framework 0.5.0** and Shipbreaker **0.5.0**.
+24 September 2026. Current prepared versions: **Phobos Framework 0.7.0** and
+Shipbreaker **0.7.0**. Saved pairing was introduced in 0.5.0; the current versions
+also include merchant stock and maintenance. Start with the
+[current player guide](player-guide.md) for the complete equipment workflow.
 Implemented and checked offline against the local 1.0.1.4 installation; in-game
 mounting, controls and transfers await owner testing. This adds to the connected
 grabber/chute/processor candidate without changing its saved item IDs or recipes.
@@ -13,7 +16,9 @@ release in this build. [Research and later release options](material-disposal-po
 ## Build and placement
 
 Build a **Residue Collector** at an installed Bar Table or Dining Table, or at an
-already available supported workbench. It takes 60 seconds and consumes:
+already available supported workbench. It takes **40 game minutes** of configured
+assembly work and consumes the following materials. Mortorq and soldering tools
+are also required; hauling, skills and interruptions affect elapsed time.
 
 | Material | Units | Mass |
 | --- | ---: | ---: |
@@ -39,6 +44,9 @@ four separate 13 kg `PhobosShipbreakerResidue` packets, **52 kg payload maximum*
 Both installed and loose forms retain that finite storage/filter. Other items,
 stacks, modified-mass residue and items with contents are refused. This collector
 cannot take whole wall panels, ordinary trash or valuable recovered parts.
+Existing residue remains unclassified. The [material contract](residue-material-contract.md)
+describes future separate feed/reject identities; the current collector does not
+accept those unimplemented types merely because they are also called residue.
 
 ## Use
 
@@ -146,8 +154,10 @@ definition and mass are fixed. The nominal operating cost per default cycle is
 
 ## Focused owner test
 
-Use the separate test save. Obtain the collector through its recipe or the native
-test command `spawn PhobosResidueCollectorLoose`, then install normally.
+Obtain the collector through ordinary merchant stock or its recipe, then install
+normally. If intentionally using debug grants, the native command is
+`spawn PhobosResidueCollectorLoose`. Ordinary saves are supported; no named test
+save is required.
 
 - Use a processor with recovered parts and at least one residue packet. Link it
   through the collector's Control Panel and start collection. Only residue should

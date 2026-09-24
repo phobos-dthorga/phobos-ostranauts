@@ -41,6 +41,7 @@ if ('Shipbreaker' -in $Mods) {
         if ([version]$shipInfo[0].strModVersion -ge [version]'0.4.0') { $minimumPhobosFramework = [version]'0.4.0' }
         if ([version]$shipInfo[0].strModVersion -ge [version]'0.5.0') { $minimumPhobosFramework = [version]'0.5.0' }
         if ([version]$shipInfo[0].strModVersion -ge [version]'0.6.0') { $minimumPhobosFramework = [version]'0.6.0' }
+        if ([version]$shipInfo[0].strModVersion -ge [version]'0.7.0') { $minimumPhobosFramework = [version]'0.7.0' }
         if ($needsPhobosFramework) { $Mods = @('Framework') + @($Mods | Where-Object { $_ -ne 'Framework' }) }
     }
 }
@@ -53,6 +54,7 @@ if ('AutoNav' -in $Mods) {
         if ([version]$navInfo[0].strModVersion -ge [version]'0.2.0') {
             $needsPhobosFramework = $true
             if ($minimumPhobosFramework -lt [version]'0.6.0') { $minimumPhobosFramework = [version]'0.6.0' }
+            if ([version]$navInfo[0].strModVersion -ge [version]'0.3.0') { $minimumPhobosFramework = [version]'0.7.0' }
             $Mods = @('Framework') + @($Mods | Where-Object { $_ -ne 'Framework' })
         }
     }
@@ -112,7 +114,12 @@ foreach ($mod in $Mods) {
     if ($assembly.Name -ne $id -or $assembly.Version.ToString(3) -ne $version.ToString(3)) {
         throw "Plugin and native package versions differ or wrong assembly for $id. Rebuild the package first."
     }
-    if (@(Get-ChildItem -LiteralPath $pluginSource -Recurse -File -Force).Count -ne 1) { throw "Unexpected plugin package files for $id." }
+    foreach ($pluginFile in Get-ChildItem -LiteralPath $pluginSource -Recurse -File -Force) {
+        $relativePluginFile = [IO.Path]::GetRelativePath($pluginSource, $pluginFile.FullName).Replace('\', '/')
+        if ($relativePluginFile -ne "$id.dll" -and $relativePluginFile -notmatch '^translations/[a-zA-Z]{2,8}(-[a-zA-Z0-9]{2,8})*\.json$') {
+            throw "Unexpected plugin package files for $id."
+        }
+    }
     if ($mod -eq 'Framework') {
         if ($needsPhobosFramework -and $version -lt $minimumPhobosFramework) { throw "Selected equipment requires Phobos Framework $minimumPhobosFramework or later." }
         $intendedDll = Join-Path $pluginTarget 'PhobosFramework.dll'
@@ -174,6 +181,21 @@ foreach ($mod in $Mods) {
         }
     }
     $modFiles = @([pscustomobject]@{ Source = $dllSource; Target = (Join-Path $pluginTarget "$id.dll"); Backup = "$id/plugin/$id.dll" })
+    $translationSource = Join-Path (Split-Path -Parent $dllSource) 'translations'
+    $needsTranslations = ($mod -eq 'AutoNav' -and $version -ge [version]'0.3.0') -or
+        ($mod -in @('Framework', 'Shipbreaker') -and $version -ge [version]'0.7.0')
+    if ($needsTranslations -and -not (Test-Path -LiteralPath (Join-Path $translationSource 'en.json') -PathType Leaf)) {
+        throw "Package is incomplete: $id/translations/en.json"
+    }
+    if (Test-Path -LiteralPath $translationSource) {
+        foreach ($file in Get-ChildItem -LiteralPath $translationSource -Recurse -File -Force) {
+            if ($file.DirectoryName -ne $translationSource -or $file.Name -notmatch '^[a-zA-Z]{2,8}(-[a-zA-Z0-9]{2,8})*\.json$') {
+                throw "Unexpected translation package file: $($file.FullName)"
+            }
+            $null = Get-Content -LiteralPath $file.FullName -Raw | ConvertFrom-Json
+            $modFiles += [pscustomobject]@{ Source = $file.FullName; Target = (Join-Path $pluginTarget "translations/$($file.Name)"); Backup = "$id/plugin/translations/$($file.Name)" }
+        }
+    }
     foreach ($file in Get-ChildItem -LiteralPath $nativeSource -Recurse -File -Force) {
         if ($file.Extension -notin @('.json', '.png', '.md')) { throw "Unexpected native package file: $($file.FullName)" }
         if ($file.Extension -eq '.json') { $null = Get-Content -LiteralPath $file.FullName -Raw | ConvertFrom-Json }

@@ -98,16 +98,16 @@ internal static class ConstructionCompletion
         {
             bool result = ConstructionHooks.Completions.GetOrCreateValue(__instance)
                 .TryBegin(isCancelIa, () => ConstructionHooks.Validate(__instance, entry));
-            if (!result && !isCancelIa) FrameworkLifecycle.Log("Construction blocked or already applied: " + __instance.strName + ". Check station, arrived materials, contents and unit mass.");
+            if (!result && !isCancelIa) FrameworkLifecycle.Log(Text.Get("ConstructionHooks.construction_blocked_or_already_applied_check_station", __instance.strName));
             return result;
         }
-        catch (Exception ex) { FrameworkLifecycle.Log("Construction blocked before native effects: " + ex); return false; }
+        catch (Exception ex) { FrameworkLifecycle.Log(Text.Get("ConstructionHooks.construction_blocked_before_native_effects", ex)); return false; }
     }
 
     private static Exception? Finalizer(Interaction __instance, Exception? __exception)
     {
         if (__exception != null && __instance.strName?.StartsWith(RecipeRules.ActionPrefix, StringComparison.Ordinal) == true)
-            FrameworkLifecycle.Log("Native construction failed after effects may have started; replay is blocked. Inspect the test save before retrying: " + __exception);
+            FrameworkLifecycle.Log(Text.Get("ConstructionHooks.native_construction_failed_after_effects_may_have", __exception));
         return __exception;
     }
 }

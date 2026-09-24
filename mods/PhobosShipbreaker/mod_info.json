@@ -4,7 +4,7 @@
     "strAuthor": "phobosgekko",
     "strModURL": "https://github.com/phobos-dthorga/phobos-ostranauts",
     "strGameVersion": "1.0.1.4",
-    "strModVersion": "0.6.0",
-    "strNotes": "Requires Phobos Framework 0.6.0+ and the Shipbreaker plugin. Build the processor, wall chute, exterior grabber and residue collector at installed tables. Load detached walls at the grabber; F9 controls processing. Link one sender to one receiver from either endpoint's routing controls. Pairs survive reload; collection resumes manually over structural flooring. Residue remains aboard; no ejection or external hull cutting yet. In-game testing pending. Equipment economy: additive merchant stock, condition-aware offers, construction tools, mass-balanced service and dismantling. Ordinary saves supported; economy integration awaits gameplay validation."
+    "strModVersion": "0.7.0",
+    "strNotes": "Translation catalogs with English fallback; language selection through Phobos Framework. Requires Phobos Framework 0.7.0+ and the Shipbreaker plugin. Build the processor, wall chute, exterior grabber and residue collector at installed tables. Load detached walls at the grabber; F9 controls processing. Link one sender to one receiver from either endpoint's routing controls. Pairs survive reload; collection resumes manually over structural flooring. Residue remains aboard; no ejection or external hull cutting yet. In-game testing pending. Equipment economy: additive merchant stock, condition-aware offers, construction tools, mass-balanced service and dismantling. Ordinary saves supported; economy integration awaits gameplay validation."
   }
 ]

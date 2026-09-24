@@ -6,4 +6,7 @@
   <ItemGroup>
     <ProjectReference Include="../../src/PhobosFramework/PhobosFramework.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json" HintPath="$(OstranautsPath)/Ostranauts_Data/Managed/Newtonsoft.Json.dll" />
+  </ItemGroup>
 </Project>

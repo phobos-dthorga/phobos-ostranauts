@@ -6,6 +6,8 @@ namespace PhobosShipbreaker;
 /// <summary>Presentation only; collection and access checks belong to the service.</summary>
 internal sealed class CollectorPanel
 {
+    private const int WindowId = 847293;
+    private const float TitleBarHeight = 24;
     private readonly CollectorService service;
     private CondOwner? target;
     private bool sourceMode;
@@ -27,7 +29,7 @@ internal sealed class CollectorPanel
     internal void Draw()
     {
         if (target == null || target.bDestroyed || CrewSim.objInstance == null || !CrewSim.objInstance.FinishedLoading) return;
-        bounds = GUI.Window(847293, bounds, Window, sourceMode ? "Phobos Material Routing" : "Phobos Residue Collector");
+        bounds = GUI.Window(WindowId, bounds, Window, sourceMode ? Text.Get("CollectorPanel.phobos_material_routing") : Text.Get("CollectorPanel.phobos_residue_collector"));
     }
     private void Window(int id)
     {
@@ -38,18 +40,18 @@ internal sealed class CollectorPanel
         GUILayout.BeginHorizontal();
         if (!sourceMode)
         {
-            if (GUILayout.Button("Collect residue")) { message = ""; service.Start(port); }
-            if (GUILayout.Button("Pause")) { message = ""; service.Pause(port); }
-            if (GUILayout.Button("Inventory")) { message = ""; service.OpenInventory(port); }
+            if (GUILayout.Button(Text.Get("CollectorPanel.collect_residue"))) { message = ""; service.Start(port); }
+            if (GUILayout.Button(Text.Get("CollectorPanel.pause"))) { message = ""; service.Pause(port); }
+            if (GUILayout.Button(Text.Get("CollectorPanel.inventory"))) { message = ""; service.OpenInventory(port); }
         }
-        if (GUILayout.Button("Unlink")) service.Unlink(port, out message);
+        if (GUILayout.Button(Text.Get("CollectorPanel.unlink"))) service.Unlink(port, out message);
         GUILayout.EndHorizontal();
-        GUILayout.Label(sourceMode ? "Link this sender to a receiving collector:" : "Link this receiver to a sending processor:");
+        GUILayout.Label(sourceMode ? Text.Get("CollectorPanel.link_this_sender_to_a_receiving_collector") : Text.Get("CollectorPanel.link_this_receiver_to_a_sending_processor"));
         scroll = GUILayout.BeginScrollView(scroll);
         var candidates = sourceMode ? CollectorService.Find() : ProcessingService.FindMachines().Where(p => p.strCODef == Content.Installed);
         foreach (var candidate in candidates)
         {
-            if (GUILayout.Button(new GUIContent("Link: " + CollectorService.Label(candidate), candidate.strID)))
+            if (GUILayout.Button(new GUIContent(Text.Get("CollectorPanel.link", CollectorService.Label(candidate)), candidate.strID)))
             {
                 var receiver = sourceMode ? candidate : port;
                 service.Bind(receiver, sourceMode ? port : candidate);
@@ -58,8 +60,8 @@ internal sealed class CollectorPanel
             GUILayout.Label(CollectorService.DescribeLink(candidate));
         }
         GUILayout.EndScrollView();
-        GUILayout.Label("One sender per receiver. Unlink before changing partners. Saved pairs survive reload; press Collect at the receiver to resume. Residue only; useful products stay aboard.");
-        if (GUILayout.Button("Close")) target = null;
-        GUI.DragWindow(new Rect(0, 0, bounds.width, 24));
+        GUILayout.Label(Text.Get("CollectorPanel.one_sender_per_receiver_unlink_before_changing"));
+        if (GUILayout.Button(Text.Get("CollectorPanel.close"))) target = null;
+        GUI.DragWindow(new Rect(0, 0, bounds.width, TitleBarHeight));
     }
 }

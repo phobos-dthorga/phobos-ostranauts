@@ -55,12 +55,12 @@ internal static class AutoNavCore
 
 	public static string PhaseName => CurrentPhase switch
 	{
-		Phase.Align => "ALIGN",
-		Phase.Accel => "ACCEL",
-		Phase.Cruise => "CRUISE",
-		Phase.Coast => "COAST",
-		Phase.Decel => "DECEL",
-		Phase.Arrive => "ARRIVE",
+		Phase.Align => Text.Get("Flight.phase.ALIGN"),
+		Phase.Accel => Text.Get("Flight.phase.ACCEL"),
+		Phase.Cruise => Text.Get("Flight.phase.CRUISE"),
+		Phase.Coast => Text.Get("Flight.phase.COAST"),
+		Phase.Decel => Text.Get("Flight.phase.DECEL"),
+		Phase.Arrive => Text.Get("Flight.phase.ARRIVE"),
 		_ => "—",
 	};
 
@@ -189,7 +189,7 @@ internal static class AutoNavCore
 			}
 			_elapsedSim += fTime;
 			float num = ((Plugin.MaxFlightSimHours != null) ? Plugin.MaxFlightSimHours.Value : 48f);
-			if (num > 0f && _elapsedSim > (double)num * 3600.0)
+			if (num > 0f && _elapsedSim > (double)num * Phobos.Ostranauts.Framework.Units.SecondsPerHour)
 			{
 				EndFlight(player, "TIMEOUT");
 				return;
@@ -212,9 +212,9 @@ internal static class AutoNavCore
             {
                 if (!ArrivalBrake.Finite(value)) { EndFlight(player, "INVALID FLIGHT DATA"); return; }
             }
-			double num2 = Math.Max(CruiseAU, 6.684587122268445E-12);
+			double num2 = Math.Max(CruiseAU, M_TO_AU);
 			double num3 = Math.Max(0.0, Math.Min(ArrSpdAU, num2));
-			double num4 = (double)((Plugin.ArrivalSpeedTolerance != null) ? Plugin.ArrivalSpeedTolerance.Value : 5f) * 6.684587122268445E-12;
+			double num4 = (double)((Plugin.ArrivalSpeedTolerance != null) ? Plugin.ArrivalSpeedTolerance.Value : 5f) * M_TO_AU;
 			double num5 = px - vx * fTime - shipSitu.vPosx;
 			double num6 = py - vy * fTime - shipSitu.vPosy;
 			double num7 = Math.Sqrt(num5 * num5 + num6 * num6);
@@ -300,7 +300,7 @@ internal static class AutoNavCore
 			double num36 = Math.Sqrt(num34 * num34 + num35 * num35);
 			double num37 = num33 - num30;
 			double num38 = Math.Sqrt(num37 * num37 + num36 * num36);
-			double num39 = Math.Max(0.1, (Plugin.CoastTolerance != null) ? Plugin.CoastTolerance.Value : 3f) * 6.684587122268445E-12;
+			double num39 = Math.Max(0.1, (Plugin.CoastTolerance != null) ? Plugin.CoastTolerance.Value : 3f) * M_TO_AU;
 			if (_coasting && num38 > num39)
 			{
 				_coasting = false;
@@ -324,9 +324,9 @@ internal static class AutoNavCore
 				num40 += num24 * num44;
 				num41 += num25 * num44;
 			}
-			double num45 = num36 / 6.684587122268445E-12;
-			double num46 = num30 / 6.684587122268445E-12;
-			double num47 = num2 / 6.684587122268445E-12;
+			double num45 = num36 / M_TO_AU;
+			double num46 = num30 / M_TO_AU;
+			double num47 = num2 / M_TO_AU;
 			double num48 = Math.Abs(num27) * 57.2957795;
 			if (_coasting)
 			{
@@ -360,7 +360,7 @@ internal static class AutoNavCore
 				if (_logAccum >= 5.0)
 				{
 					_logAccum = 0.0;
-					Plugin.Verbose("steer[" + PhaseName + "]: range=" + (num7 / 6.684587122268445E-09).ToString("0.#") + "km tGo=" + num16.ToString("0") + "s lead=" + (num19 / 6.684587122268445E-09).ToString("0.##") + "km in=" + (num30 / 6.684587122268445E-12).ToString("0.#") + " cross=" + (num36 / 6.684587122268445E-12).ToString("0.#") + " vDes=" + (num33 / 6.684587122268445E-12).ToString("0.#") + "m/s");
+					Plugin.Verbose("steer[" + PhaseName + "]: range=" + (num7 / KM_TO_AU).ToString("0.#") + "km tGo=" + num16.ToString("0") + "s lead=" + (num19 / KM_TO_AU).ToString("0.##") + "km in=" + (num30 / M_TO_AU).ToString("0.#") + " cross=" + (num36 / M_TO_AU).ToString("0.#") + " vDes=" + (num33 / M_TO_AU).ToString("0.#") + "m/s");
 				}
 			}
 		}
@@ -424,7 +424,7 @@ internal static class AutoNavCore
 		}
 		double num = px - player.objSS.vPosx;
 		double num2 = py - player.objSS.vPosy;
-		return Math.Sqrt(num * num + num2 * num2) / 6.684587122268445E-09;
+		return Math.Sqrt(num * num + num2 * num2) / KM_TO_AU;
 	}
 
 	public static bool HasFuelForFlight(Ship player, TargetRef target)
@@ -449,12 +449,12 @@ internal static class AutoNavCore
 			double num4 = player.objSS.vVelX - vx;
 			double num5 = player.objSS.vVelY - vy;
 			double num6 = Math.Sqrt(num4 * num4 + num5 * num5);
-			double num7 = Math.Max(CruiseAU, 6.684587122268445E-12);
+			double num7 = Math.Max(CruiseAU, M_TO_AU);
 			double num8 = Math.Max(0.0, Math.Min(ArrSpdAU, num7));
 			double num9 = Math.Min(num7, Math.Sqrt(Math.Max(0.0, player.RCSAccelMax * 0.85 * num3)));
 			double num10 = num6 + num9 + Math.Max(0.0, num9 - num8);
 			bool result = player.DeltaVRemainingRCS >= num10 * 1.05;
-			Plugin.Verbose("fuel: have=" + (player.DeltaVRemainingRCS / 6.684587122268445E-12).ToString("0.#") + "m/s dV, need~" + (num10 / 6.684587122268445E-12).ToString("0.#") + "m/s -> " + result);
+			Plugin.Verbose("fuel: have=" + (player.DeltaVRemainingRCS / M_TO_AU).ToString("0.#") + "m/s dV, need~" + (num10 / M_TO_AU).ToString("0.#") + "m/s -> " + result);
 			return result;
 		}
 		catch (Exception ex)

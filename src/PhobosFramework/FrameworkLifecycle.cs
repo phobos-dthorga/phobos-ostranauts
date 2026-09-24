@@ -17,12 +17,13 @@ public static class FrameworkLifecycle
         foreach (Action handler in handlers.GetInvocationList())
         {
             try { handler(); }
-            catch (Exception ex) { Log("Content registration callback failed: " + ex); }
+            catch (Exception ex) { Log(Text.Get("FrameworkLifecycle.content_registration_callback_failed", ex)); }
         }
     }
 
     internal static void Begin()
     {
+        FrameworkPlugin.RefreshLanguage();
         ConstructionRegistry.BeginLoad();
         Trading.MarketStock.BeginLoad();
         Registration.MaintenanceSafety.Actions.Clear();

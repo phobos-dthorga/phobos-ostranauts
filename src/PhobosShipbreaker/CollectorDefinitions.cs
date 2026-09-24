@@ -12,11 +12,11 @@ internal static class CollectorDefinitions
         string p = CollectorRules.Prefix;
         MachineDefinitions.AddFamily(d, p);
         d.Conditions[CollectorRules.Working] = new JsonCond { strName = CollectorRules.Working,
-            strNameFriendly = "Collecting residue", strColor = "Neutral", nDisplaySelf = 2, nDisplayOther = 2 };
+            strNameFriendly = Text.Get("CollectorDefinitions.collecting_residue"), strColor = "Neutral", nDisplaySelf = 2, nDisplayOther = 2 };
         var controls = NativeDefinitions.Clone(DataHandler.dictInteractions["Inventory"]);
-        controls.strName = CollectorRules.Controls; controls.strTitle = "Control Panel";
-        controls.strDesc = "[us] [checks] the residue collector's controls.";
-        controls.strTooltip = "Choose a processor and collect its residue. Material remains aboard.";
+        controls.strName = CollectorRules.Controls; controls.strTitle = Text.Get("CollectorDefinitions.control_panel");
+        controls.strDesc = Text.Get("CollectorDefinitions.us_checks_the_residue_collector_s_controls");
+        controls.strTooltip = Text.Get("CollectorDefinitions.choose_a_processor_and_collect_its_residue");
         controls.strRaiseUI = null; controls.fTargetPointRange = 2;
         d.Interactions[controls.strName] = controls;
         // Reuse the wall-chute support contract. Neither fixture creates/removes walls.
@@ -25,10 +25,8 @@ internal static class CollectorDefinitions
             string id = p + state; bool installed = state.StartsWith("Installed", StringComparison.Ordinal);
             bool damaged = state.EndsWith("Dmg", StringComparison.Ordinal);
             var co = d.Objects[id]; var item = d.Items[id];
-            co.strNameFriendly = co.strNameShort = "Phobos Residue Collector" + (damaged ? " (Damaged)" : "");
-            co.strDesc = "2 wide x 1 deep; 20 kg. Mount OVER two intact exterior walls, dark pocket facing space. " +
-                "Control Panel selects a processor connected by structural flooring. Inventory holds four 13 kg residue packets. " +
-                "Requires separate conduit power. Collection keeps material aboard; no ejection. Saved pairs survive reload; resume collection manually.";
+            co.strNameFriendly = co.strNameShort = Text.Get("CollectorDefinitions.phobos_residue_collector", (damaged ? Text.Get("CollectorDefinitions.damaged") : ""));
+            co.strDesc = Text.Get("CollectorDefinitions.wide_x_deep_kg_mount_over_two", CollectorRules.Width, CollectorRules.Depth, CollectorRules.MachineKg, CollectorRules.Capacity, CollectorRules.PayloadKg);
             co.strLoot = "Blank"; co.aSlotsWeHave = Array.Empty<string>();
             co.nContainerWidth = co.nContainerHeight = CollectorRules.StorageSide;
             co.inventoryWidth = CollectorRules.Width; co.inventoryHeight = CollectorRules.Depth;
@@ -46,7 +44,7 @@ internal static class CollectorDefinitions
         d.Power[p + "Power"] = new JsonPowerInfo { strName = p + "Power", strUsePowerCT = "TIsReadyUsePower",
             aInputPts = new[] { "PowerA", "PowerB" }, bAllowExtPower = true,
             strIntPowerOn = Content.Prefix + "PowerChange", strIntPowerOff = Content.Prefix + "PowerChange",
-            fAmount = CollectorRules.IdleKW / 3600, strOverrideCond = CollectorRules.Working, fOverrideAmount = workingKW / 3600 };
+            fAmount = CollectorRules.IdleKW / Phobos.Ostranauts.Framework.Units.SecondsPerHour, strOverrideCond = CollectorRules.Working, fOverrideAmount = workingKW / Phobos.Ostranauts.Framework.Units.SecondsPerHour };
     }
     private static string[] Padded(string interior) => Enumerable.Range(0, 12)
         .Select(i => i == 5 || i == 6 ? interior : "Blank").ToArray();

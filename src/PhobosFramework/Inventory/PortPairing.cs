@@ -17,9 +17,9 @@ public sealed class MaterialPort
     public string PortId { get; }
     public MaterialPort(string objectId, string portId, Dictionary<string, Dictionary<string, string>> propertyMaps)
     {
-        if (!SafeValue(objectId)) throw new ArgumentException("A persistent object ID is required.", nameof(objectId));
+        if (!SafeValue(objectId)) throw new ArgumentException(Text.Get("PortPairing.a_persistent_object_id_is_required"), nameof(objectId));
         if (!SafePortId(portId))
-            throw new ArgumentException("Use a stable namespaced port ID containing letters, digits, dots, underscores or hyphens.", nameof(portId));
+            throw new ArgumentException(Text.Get("PortPairing.use_a_stable_namespaced_port_id_containing"), nameof(portId));
         ObjectId = objectId; PortId = portId; Maps = propertyMaps ?? throw new ArgumentNullException(nameof(propertyMaps));
     }
     // Keep identities usable in console commands and native property-change strings too.
@@ -74,10 +74,10 @@ public static class PortPairing
     {
         problem = "";
         if (sender.ObjectId == receiver.ObjectId || ReferenceEquals(sender.Maps, receiver.Maps))
-        { problem = "A material route needs two different objects."; return false; }
+        { problem = Text.Get("PortPairing.a_material_route_needs_two_different_objects"); return false; }
         if (Matches(sender, receiver)) return true;
         if (Read(sender).State != PortLinkState.Unlinked || Read(receiver).State != PortLinkState.Unlinked)
-        { problem = "An endpoint already has a saved link. Unlink it before choosing a new pair."; return false; }
+        { problem = Text.Get("PortPairing.an_endpoint_already_has_a_saved_link"); return false; }
         string pair = Guid.NewGuid().ToString("N");
         var send = Record(sender, receiver, pair, "send");
         var receive = Record(receiver, sender, pair, "receive");

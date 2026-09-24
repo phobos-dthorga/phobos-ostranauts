@@ -8,4 +8,9 @@
     <Compile Include="../../src/PhobosShipbreaker/Core/*.cs" Link="%(Filename)%(Extension)" />
     <Content Include="../../mods/PhobosShipbreaker/framework/recipes.json" Link="shipbreaker-recipes.json" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json" HintPath="$(OstranautsPath)/Ostranauts_Data/Managed/Newtonsoft.Json.dll" />
+    <Compile Include="../../src/PhobosShipbreaker/Text.cs" Link="Text.cs" />
+    <EmbeddedResource Include="../../translations/PhobosShipbreaker/en.json" LogicalName="PhobosShipbreaker.en.json" />
+  </ItemGroup>
 </Project>

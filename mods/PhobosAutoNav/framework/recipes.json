@@ -38,7 +38,9 @@
       "toolTriggers": [
         "TIsToolMortorq",
         "TIsToolSoldering"
-      ]
+      ],
+      "nameKey": "Recipe.PhobosBuildAutoNav.name",
+      "descriptionKey": "Recipe.PhobosBuildAutoNav.description"
     }
   ]
 }

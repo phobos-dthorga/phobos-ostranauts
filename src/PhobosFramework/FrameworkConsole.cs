@@ -14,8 +14,8 @@ internal static class FrameworkConsole
         if (words.Length == 0 || !string.Equals(words[0], "phobosframework", StringComparison.OrdinalIgnoreCase)) return true;
         string command = words.Length == 1 ? "help" : words[1].ToLowerInvariant();
         __result = words.Length <= 2 && (command == "help" || command == "status" || command == "recipes");
-        string response = "Phobos Framework " + FrameworkInfo.Version + "\n";
-        if (!__result || command == "help") response += "Commands: phobosframework status | recipes | help. Read-only diagnostics; no hot reload. Conveyor transport is not implemented.";
+        string response = Text.Get("FrameworkConsole.phobos_framework", FrameworkInfo.Version);
+        if (!__result || command == "help") response += Text.Get("FrameworkConsole.commands_phobosframework_status_recipes_help_read_only");
         else response += ConstructionRegistry.Describe(command == "recipes");
         strInput += "\n" + response;
         return false;

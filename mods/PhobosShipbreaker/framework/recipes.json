@@ -54,7 +54,9 @@
       "toolTriggers": [
         "TIsToolMortorq",
         "TIsToolSoldering"
-      ]
+      ],
+      "nameKey": "Recipe.PhobosBuildShipbreakerSection.name",
+      "descriptionKey": "Recipe.PhobosBuildShipbreakerSection.description"
     },
     {
       "id": "PhobosBuildShipbreaker",
@@ -92,7 +94,9 @@
       "toolTriggers": [
         "TIsToolMortorq",
         "TIsToolSoldering"
-      ]
+      ],
+      "nameKey": "Recipe.PhobosBuildShipbreaker.name",
+      "descriptionKey": "Recipe.PhobosBuildShipbreaker.description"
     },
     {
       "id": "PhobosBuildHullChute",
@@ -144,7 +148,9 @@
       "toolTriggers": [
         "TIsToolMortorq",
         "TIsToolSoldering"
-      ]
+      ],
+      "nameKey": "Recipe.PhobosBuildHullChute.name",
+      "descriptionKey": "Recipe.PhobosBuildHullChute.description"
     },
     {
       "id": "PhobosBuildExteriorGrabber",
@@ -196,7 +202,9 @@
       "toolTriggers": [
         "TIsToolMortorq",
         "TIsToolSoldering"
-      ]
+      ],
+      "nameKey": "Recipe.PhobosBuildExteriorGrabber.name",
+      "descriptionKey": "Recipe.PhobosBuildExteriorGrabber.description"
     },
     {
       "id": "PhobosBuildResidueCollector",
@@ -248,7 +256,9 @@
       "toolTriggers": [
         "TIsToolMortorq",
         "TIsToolSoldering"
-      ]
+      ],
+      "nameKey": "Recipe.PhobosBuildResidueCollector.name",
+      "descriptionKey": "Recipe.PhobosBuildResidueCollector.description"
     }
   ]
 }

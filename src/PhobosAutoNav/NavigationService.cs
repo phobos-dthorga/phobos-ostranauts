@@ -14,7 +14,7 @@ internal sealed class NavigationService
     private readonly Action<string> log;
     private CondOwner? console;
     private bool issuing;
-    private string status = "Idle";
+    private string status = Text.Get("NavigationService.idle");
     private static CondOwner? OpenConsole => GUIOrbitDraw.IsOpen() ? GUIOrbitDraw.Instance.COSelfBase() : null;
     internal NavigationService(Action<string> log) { this.log = log; }
 
@@ -35,58 +35,58 @@ internal sealed class NavigationService
         && props.TryGetValue(key, out var value) && string.Equals(value, "true", StringComparison.OrdinalIgnoreCase);
     private static string? HardwareProblem(CondOwner? co)
     {
-        if (co == null || co.bDestroyed || !co.HasCond("IsInstalled")) return "Installed nav console required";
-        if (co.HasCond("IsOff") || !co.HasCond("IsPowered") || co.HasCond("IsDamaged")) return "Console is off, unpowered or damaged";
-        if (!co.GetCOsSafe(true).Any(item => HasId(item, ModuleId) && !item.HasCond("IsDamaged"))) return "Working Phobos Auto Nav module required";
-        if (co.ship == null || co.ship.bDestroyed || CrewSim.coPlayer == null || CrewSim.coPlayer.ship != co.ship) return "Player must be aboard the controlled ship";
-        if (co.ship.IsDocked()) return "Undock before engagement";
-        if (co.ship.bCheckPower) return "Power network is updating";
+        if (co == null || co.bDestroyed || !co.HasCond("IsInstalled")) return Text.Get("NavigationService.installed_nav_console_required");
+        if (co.HasCond("IsOff") || !co.HasCond("IsPowered") || co.HasCond("IsDamaged")) return Text.Get("NavigationService.console_is_off_unpowered_or_damaged");
+        if (!co.GetCOsSafe(true).Any(item => HasId(item, ModuleId) && !item.HasCond("IsDamaged"))) return Text.Get("NavigationService.working_phobos_auto_nav_module_required");
+        if (co.ship == null || co.ship.bDestroyed || CrewSim.coPlayer == null || CrewSim.coPlayer.ship != co.ship) return Text.Get("NavigationService.player_must_be_aboard_the_controlled_ship");
+        if (co.ship.IsDocked()) return Text.Get("NavigationService.undock_before_engagement");
+        if (co.ship.bCheckPower) return Text.Get("NavigationService.power_network_is_updating");
         if (co.ship.IsUsingTorchDrive || co.ship.shipStationKeepingTarget != null || (co.ship.aWPs != null && co.ship.aWPs.Count > 0)
             || PropOn(co, "chkStationKeeping") || PropOn(co, "chkHoldThrust") || PropOn(co, "chkEngage")
-            || AIShipManager.GetAIShipByRegID(co.ship.strRegID) != null) return "Disengage other flight automation first";
-        if (CrewSim.system == null || CrewSim.system.IsInAtmo(co.ship)) return "Free-space flight only";
-        if (co.ship.RCSCount <= 0 || co.ship.GetRCSRemain() <= 0) return "Working RCS and fuel required";
-        if (co.ship.objSS == null || !ArrivalBrake.Finite(co.ship.RCSAccelMax) || co.ship.RCSAccelMax <= 0) return "RCS acceleration unavailable";
+            || AIShipManager.GetAIShipByRegID(co.ship.strRegID) != null) return Text.Get("NavigationService.disengage_other_flight_automation_first");
+        if (CrewSim.system == null || CrewSim.system.IsInAtmo(co.ship)) return Text.Get("NavigationService.free_space_flight_only");
+        if (co.ship.RCSCount <= 0 || co.ship.GetRCSRemain() <= 0) return Text.Get("NavigationService.working_rcs_and_fuel_required");
+        if (co.ship.objSS == null || !ArrivalBrake.Finite(co.ship.RCSAccelMax) || co.ship.RCSAccelMax <= 0) return Text.Get("NavigationService.rcs_acceleration_unavailable");
         return null;
     }
 
     internal void Engage(CondOwner? co)
     {
-        if (AutoNavCore.Engaged) { status = "Already engaged; stop before changing the flight"; return; }
+        if (AutoNavCore.Engaged) { status = Text.Get("NavigationService.already_engaged_stop_before_changing_the_flight"); return; }
         try
         {
-            if (!Plugin.Enabled.Value) { status = "Mod disabled in settings"; return; }
-            if (CrewSim.objInstance == null || !CrewSim.objInstance.FinishedLoading) { status = "World is loading"; return; }
+            if (!Plugin.Enabled.Value) { status = Text.Get("NavigationService.mod_disabled_in_settings"); return; }
+            if (CrewSim.objInstance == null || !CrewSim.objInstance.FinishedLoading) { status = Text.Get("NavigationService.world_is_loading"); return; }
             // No upstream dependency. Refuse this prototype alongside the original flight plugin.
             if (Chainloader.PluginInfos.ContainsKey("com.mrkmg.ostranauts.autonavigate"))
-            { status = "Disable original Auto Navigate and restart before using the standalone adaptation"; return; }
+            { status = Text.Get("NavigationService.disable_original_auto_navigate_and_restart_before"); return; }
             string? problem = HardwareProblem(co);
             if (problem != null) { status = problem; return; }
             console = co;
-            if (Throttle <= 0) { status = "Set the nav console throttle above zero"; return; }
+            if (Throttle <= 0) { status = Text.Get("NavigationService.set_the_nav_console_throttle_above_zero"); return; }
             var contact = GUIOrbitDraw.CrossHairTarget;
             if (contact?.Ship == null || contact.Ship == co!.ship || contact.Ship.bDestroyed || contact.Ship.HideFromSystem || contact.Ship.IsStationHidden())
-            { status = "Select another ship or station; planetary travel is outside this prototype"; return; }
-            if (AutoNavCore.AutoDockBusy()) { status = "Auto Dock already controls flight"; return; }
+            { status = Text.Get("NavigationService.select_another_ship_or_station_planetary_travel"); return; }
+            if (AutoNavCore.AutoDockBusy()) { status = Text.Get("NavigationService.auto_dock_already_controls_flight"); return; }
             Type? approach = AccessTools.TypeByName("PhobosApproachAssist.Plugin");
             object? approachService = approach == null ? null : AccessTools.Property(approach, "Service")?.GetValue(null);
             if (approachService != null && (bool)(AccessTools.Property(approachService.GetType(), "Active")?.GetValue(approachService) ?? false))
-            { status = "Stop Approach Assist's test pulse first"; return; }
+            { status = Text.Get("NavigationService.stop_approach_assist_s_test_pulse_first"); return; }
             var target = TargetRef.FromCrossHair();
-            if (target == null) { status = "Target unavailable"; return; }
+            if (target == null) { status = Text.Get("NavigationService.target_unavailable"); return; }
             float cruise = Plugin.DefaultCruiseMS.Value, arrival = Plugin.DefaultArriveSpeedMS.Value, distance = Plugin.DefaultArriveKM.Value;
             if (!ArrivalBrake.Finite(cruise) || !ArrivalBrake.Finite(arrival) || !ArrivalBrake.Finite(distance))
-            { status = "Invalid flight settings"; return; }
+            { status = Text.Get("NavigationService.invalid_flight_settings"); return; }
             AutoNavCore.CruiseAU = cruise * AutoNavCore.M_TO_AU;
             AutoNavCore.ArrSpdAU = Math.Min(arrival, cruise) * AutoNavCore.M_TO_AU;
             AutoNavCore.ArriveAU = distance * AutoNavCore.KM_TO_AU;
             if (Plugin.FuelCheck.Value && !AutoNavCore.HasFuelForFlight(co!.ship, target))
-            { status = "Insufficient estimated delta-v"; return; }
+            { status = Text.Get("NavigationService.insufficient_estimated_delta_v"); return; }
             issuing = true;
             try { AutoNavCore.BeginFlight(co!.ship, target); } finally { issuing = false; }
-            status = "Flight engaged";
+            status = Text.Get("NavigationService.flight_engaged");
         }
-        catch (Exception ex) { log(ex.ToString()); Disengage("Engagement failed; see log"); }
+        catch (Exception ex) { log(ex.ToString()); Disengage(Text.Get("NavigationService.engagement_failed_see_log")); }
         log(status);
     }
 
@@ -95,81 +95,96 @@ internal sealed class NavigationService
         if (!AutoNavCore.Engaged || AutoNavCore.EngagedPlayer?.objSS != situ || ignoreAcceleration || dt == 0) return;
         try
         {
-            string? problem = !Plugin.Enabled.Value ? "Mod disabled" : HardwareProblem(console);
-            if (problem == null && (!ArrivalBrake.Finite(dt) || dt < 0 || dt > Plugin.MaximumStepSeconds.Value)) problem = "Simulation step too large or invalid; reduce time compression";
-            if (problem == null && Throttle <= 0) problem = "Throttle zero or unavailable";
-            if (problem == null && AutoNavCore.AutoDockBusy()) problem = "Auto Dock took control";
-            if (problem == null && (!ArrivalBrake.Finite(Plugin.ArrivalSpeedTolerance.Value) || !ArrivalBrake.Finite(Plugin.MaximumStepSeconds.Value))) problem = "Invalid safety settings";
+            string? problem = !Plugin.Enabled.Value ? Text.Get("NavigationService.mod_disabled") : HardwareProblem(console);
+            if (problem == null && (!ArrivalBrake.Finite(dt) || dt < 0 || dt > Plugin.MaximumStepSeconds.Value)) problem = Text.Get("NavigationService.simulation_step_too_large_or_invalid_reduce");
+            if (problem == null && Throttle <= 0) problem = Text.Get("NavigationService.throttle_zero_or_unavailable");
+            if (problem == null && AutoNavCore.AutoDockBusy()) problem = Text.Get("NavigationService.auto_dock_took_control");
+            if (problem == null && (!ArrivalBrake.Finite(Plugin.ArrivalSpeedTolerance.Value) || !ArrivalBrake.Finite(Plugin.MaximumStepSeconds.Value))) problem = Text.Get("NavigationService.invalid_safety_settings");
             if (problem != null) { Disengage(problem); return; }
             issuing = true;
             try { AutoNavCore.SteerFlight(AutoNavCore.EngagedPlayer, AutoNavCore.EngagedTarget, dt); }
             finally { issuing = false; }
-            status = AutoNavCore.Engaged ? AutoNavCore.PhaseName : AutoNavCore.LastResult ?? "Stopped";
+            status = AutoNavCore.Engaged ? AutoNavCore.PhaseName : DescribeResult(AutoNavCore.LastResult);
         }
-        catch (Exception ex) { log(ex.ToString()); Disengage("Flight error; see log"); }
+        catch (Exception ex) { log(ex.ToString()); Disengage(Text.Get("NavigationService.flight_error_see_log")); }
     }
+
+    private static string DescribeResult(string? result) => result switch
+    {
+        "ARRIVED" => Text.Get("Flight.result.ARRIVED"),
+        "ABORTED" => Text.Get("Flight.result.ABORTED"),
+        "DOCKED" => Text.Get("Flight.result.DOCKED"),
+        "MANUAL" => Text.Get("Flight.result.MANUAL"),
+        "TIMEOUT" => Text.Get("Flight.result.TIMEOUT"),
+        "TGT LOST" => Text.Get("Flight.result.TGT_LOST"),
+        "NO FUEL" => Text.Get("Flight.result.NO_FUEL"),
+        "INVALID FLIGHT DATA" => Text.Get("Flight.result.INVALID_FLIGHT_DATA"),
+        "BRAKE UNAVAILABLE" => Text.Get("Flight.result.BRAKE_UNAVAILABLE"),
+        "THROTTLE ZERO" => Text.Get("Flight.result.THROTTLE_ZERO"),
+        _ => result ?? Text.Get("NavigationService.stopped")
+    };
 
     internal void ExternalControl(Ship ship, float x, float y, float rotation)
     {
         // Closing the native console emits a zero command; it must not cancel off-console travel.
         if (!issuing && (x != 0 || y != 0 || rotation != 0) && AutoNavCore.Engaged && AutoNavCore.EngagedPlayer == ship)
-            Disengage("External maneuver command; pilot/other controller has control");
+            Disengage(Text.Get("NavigationService.external_maneuver_command_pilot_other_controller_has"));
     }
 
     internal void Disengage(string reason)
     {
         issuing = true;
         try { if (AutoNavCore.Engaged) AutoNavCore.EndFlight(AutoNavCore.EngagedPlayer, reason); }
-        catch (Exception ex) { log("Stop failed: " + ex); }
+        catch (Exception ex) { log(Text.Get("NavigationService.stop_failed", ex)); }
         finally { AutoNavCore.ResetStatics(); issuing = false; console = null; status = reason; }
         log(reason);
     }
 
     internal string ReadPanel(CondOwner co) => status + "\n" +
-        (AutoNavCore.Engaged ? "Target: " + AutoNavCore.EngagedTarget.DisplayName : HardwareProblem(co) ?? "Ready to select target");
+        (AutoNavCore.Engaged ? Text.Get("NavigationService.target", AutoNavCore.EngagedTarget.DisplayName) : HardwareProblem(co) ?? Text.Get("NavigationService.ready_to_select_target"));
 
     internal bool Command(string[] words, out string response)
     {
         try
         {
             string verb = words.Length == 1 ? "help" : words[1].ToLowerInvariant();
-            if (words.Length > 2) { response = "No extra arguments accepted. Use phobosnav help."; return false; }
+            if (words.Length > 2) { response = Text.Get("NavigationService.no_extra_arguments_accepted_use_phobosnav_help"); return false; }
             switch (verb)
             {
-                case "help": response = "phobosnav help | status | settings | fly | stop | spawn\nOrdinary saves supported. Spawn is an explicit debug grant; normal acquisition uses merchants or assembly. Stop clears thrust; it does not brake. Config changes apply on the next launch; cruise/arrival settings are captured per flight."; return true;
-                case "status": response = $"Phobos Auto Nav {Plugin.Version}; engaged={AutoNavCore.Engaged}\n{status}\n{EquipmentContent.Status}"; return true;
-                case "settings": response = $"Cruise {Plugin.DefaultCruiseMS.Value} m/s; arrival {Plugin.DefaultArriveSpeedMS.Value} m/s at {Plugin.DefaultArriveKM.Value} km; tolerance {Plugin.ArrivalSpeedTolerance.Value} m/s; max step {Plugin.MaximumStepSeconds.Value} s.\nBepInEx/config/{Plugin.Id}.cfg"; return true;
+                case "help": response = Text.Get("NavigationService.phobosnav_help_status_settings_fly_stop_spawn"); return true;
+                case "status": response = Text.Get("NavigationService.phobos_auto_nav_engaged", Plugin.Version, AutoNavCore.Engaged, status, EquipmentContent.Status); return true;
+                case "settings": response = Text.Get("NavigationService.cruise_m_s_arrival_m_s_at", Plugin.DefaultCruiseMS.Value, Plugin.DefaultArriveSpeedMS.Value, Plugin.DefaultArriveKM.Value, Plugin.ArrivalSpeedTolerance.Value, Plugin.MaximumStepSeconds.Value, Plugin.Id); return true;
                 case "fly": Engage(OpenConsole); response = status; return AutoNavCore.Engaged;
-                case "stop": Disengage("Stopped by pilot; coasting"); response = status; return true;
+                case "stop": Disengage(Text.Get("NavigationService.stopped_by_pilot_coasting")); response = status; return true;
                 case "spawn": return Spawn(out response);
-                default: response = "Unknown command. Use phobosnav help."; return false;
+                default: response = Text.Get("NavigationService.unknown_command_use_phobosnav_help"); return false;
             }
         }
-        catch (Exception ex) { log(ex.ToString()); response = "Command failed; see BepInEx log."; return false; }
+        catch (Exception ex) { log(ex.ToString()); response = Text.Get("NavigationService.command_failed_see_bepinex_log"); return false; }
     }
 
     private bool Spawn(out string response)
     {
         var co = OpenConsole;
         if (CrewSim.objInstance == null || !CrewSim.objInstance.FinishedLoading)
-        { response = "Finish loading a game first"; return false; }
+        { response = Text.Get("NavigationService.finish_loading_a_game_first"); return false; }
         if (co == null || co.bDestroyed || !co.HasCond("IsInstalled") || co.HasCond("IsLocked") || co.ship != CrewSim.coPlayer?.ship)
-        { response = "Open an installed, unlocked nav console aboard your ship"; return false; }
-        if (co.GetCOsSafe(true).Any(item => HasId(item, ModuleId))) { response = "Module already present"; return false; }
-        if (DataHandler.GetCOOverlay(ModuleId) == null) { response = "Native Phobos Auto Nav package is not loaded"; return false; }
+        { response = Text.Get("NavigationService.open_an_installed_unlocked_nav_console_aboard"); return false; }
+        if (co.GetCOsSafe(true).Any(item => HasId(item, ModuleId))) { response = Text.Get("NavigationService.module_already_present"); return false; }
+        if (DataHandler.GetCOOverlay(ModuleId) == null) { response = Text.Get("NavigationService.native_phobos_auto_nav_package_is_not"); return false; }
         var item = DataHandler.GetCondOwner(ModuleId);
-        if (item == null) { response = "Could not create module"; return false; }
+        if (item == null) { response = Text.Get("NavigationService.could_not_create_module"); return false; }
         try
         {
             var remainder = co.AddCO(item, bEquip: false, bOverflow: true, bIgnoreLocks: false);
-            if (remainder != null) { item.Destroy(); response = "Console has no compatible free capacity"; return false; }
+            if (remainder != null) { item.Destroy(); response = Text.Get("NavigationService.console_has_no_compatible_free_capacity"); return false; }
         }
         catch
         {
             if (!item.bDestroyed && item.objCOParent == null && item.ship == null) item.Destroy();
             throw;
         }
-        response = "Module added. Reopen the console and place it using Edit.";
+        response = Text.Get("NavigationService.module_added_reopen_the_console_and_place");
         return true;
     }
 }

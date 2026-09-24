@@ -21,7 +21,7 @@ internal static class MachineDefinitions
     // The same native install/repair/damage contract serves all three machines.
     internal static void AddFamily(NativeDefinitions d, string P)
     {
-        d.Conditions.Add(P + "Machine", new JsonCond { strName = P + "Machine", strNameFriendly = "Dismantling fixture",
+        d.Conditions.Add(P + "Machine", new JsonCond { strName = P + "Machine", strNameFriendly = Text.Get("MachineDefinitions.dismantling_fixture"),
             strColor = "Neutral", nDisplaySelf = 2, nDisplayOther = 2 });
         foreach (string state in new[] { "Installed", "Loose", "InstalledDmg", "LooseDmg" })
         {
@@ -33,7 +33,7 @@ internal static class MachineDefinitions
             conditions.Add(installed ? "IsInstalled=1.0x1" : "IsCumbersome=1.0x1");
             if (damaged) conditions.AddRange(new[] { "IsDamaged=1.0x1", "StatRepairProgressMax=1.0x100" });
             d.Objects.Add(id, new JsonCondOwner {
-                strName = id, strNameFriendly = "Phobos Powered Dismantling Fixture", strNameShort = "Dismantling Fixture",
+                strName = id, strNameFriendly = Text.Get("MachineDefinitions.phobos_powered_dismantling_fixture"), strNameShort = Text.Get("MachineDefinitions.dismantling_fixture_2"),
                 strType = "Item", strItemDef = id, strLoot = P + "Compartments", strContainerCT = "TIsFitContainerSolid",
                 nStackLimit = 1, nContainerWidth = 8, nContainerHeight = 8, inventoryWidth = 4, inventoryHeight = 4,
                 aInteractions = new[] { "Inventory" }, aStartingConds = conditions.ToArray(),
@@ -70,12 +70,12 @@ internal static class MachineDefinitions
         d.Triggers.Add(P + "TFeed", new CondTrigger { strName = P + "TFeed", fChance = 1, fCount = 1,
             bAND = true, aReqs = new[] { "IsWall1x1" }, aForbids = Array.Empty<string>(),
             aTriggers = new[] { "TIsFitContainerSolidCumbersome" } });
-        d.Objects.Add(P + "InputBin", new JsonCondOwner { strName = P + "InputBin", strNameFriendly = "Wall-panel feed",
-            strNameShort = "Wall-panel feed", strType = "Item", strItemDef = "Blank", strPortraitImg = "blank",
+        d.Objects.Add(P + "InputBin", new JsonCondOwner { strName = P + "InputBin", strNameFriendly = Text.Get("MachineDefinitions.wall_panel_feed"),
+            strNameShort = Text.Get("MachineDefinitions.wall_panel_feed"), strType = "Item", strItemDef = "Blank", strPortraitImg = "blank",
             strContainerCT = P + "TFeed", nStackLimit = 1, bSlotLocked = true,
             nContainerWidth = 4, nContainerHeight = 4, aInteractions = Array.Empty<string>(),
             aStartingConds = new[] { "IsContainer=1.0x1", "IsSystem=1.0x1" }, mapSlotEffects = new[] { P + "Input", "Blank" } });
-        d.Slots.Add(P + "Input", new JsonSlot { strName = P + "Input", strNameFriendly = "Wall-panel feed",
+        d.Slots.Add(P + "Input", new JsonSlot { strName = P + "Input", strNameFriendly = Text.Get("MachineDefinitions.wall_panel_feed"),
             strHitboxImage = "blank", nItems = 1, nDepth = 15, bCarried = true });
         d.Loot.Add(P + "Compartments", ItemLoot(P + "Compartments", P + "InputBin"));
         d.Power.Add(P + "Power", new JsonPowerInfo { strName = P + "Power", strUsePowerCT = "TIsReadyUsePower",

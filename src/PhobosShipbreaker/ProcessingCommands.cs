@@ -21,39 +21,29 @@ internal sealed partial class ProcessingService
             if (command.Action == CommandAction.Help) { response = Command.Help; return true; }
             if (command.Action == CommandAction.Dependencies)
             {
-                response = "Phobos Shipbreaker " + Plugin.Version + ": " + Content.Status + "\n" + Content.DependencyStatus
-                    + "\nThese are startup checks, not missing-dependency save recovery. Keep required content installed.";
+                response = Text.Get("ProcessingCommands.phobos_shipbreaker_these_are_startup_checks_not", Plugin.Version, Content.Status, Content.DependencyStatus);
                 return true;
             }
             if (command.Action == CommandAction.Settings)
             {
-                response = "Active settings (restart after config edits):\n"
-                    + "CycleSeconds=" + options.CycleSeconds + "; ContinueQueue=" + options.ContinueQueue
-                    + "\nWorkingKilowatts=" + options.WorkingKW + "; IdleKilowatts=" + options.IdleKW
-                    + "; WindowKey=" + options.ControlsKey
-                    + "; TransferSeconds=" + options.TransferSeconds
-                    + "\nCollector.TransferSeconds=" + options.CollectorSeconds + "; WorkingKilowatts=" + options.CollectorKW + "; ContinueQueue=" + options.CollectorContinue
-                    + "\nBepInEx/config/" + Plugin.Id + ".cfg\nStarted panels retain their saved cycle duration.";
+                response = Text.Get("ProcessingCommands.active_settings_restart_after_config_edits_cycleseconds", options.CycleSeconds, options.ContinueQueue, options.WorkingKW, options.IdleKW, options.ControlsKey, options.TransferSeconds, options.CollectorSeconds, options.CollectorKW, options.CollectorContinue, Plugin.Id);
                 return true;
             }
             if (command.Action == CommandAction.Invalid || command.Action == CommandAction.Foreign)
-            { response = "Unknown command or extra arguments. Use phobosshipbreaker help."; return false; }
+            { response = Text.Get("ProcessingCommands.unknown_command_or_extra_arguments_use_phobosshipbreaker"); return false; }
             var machines = FindMachines();
             if (command.TargetId != null)
                 machines = machines.Where(m => string.Equals(m.strID, command.TargetId, StringComparison.OrdinalIgnoreCase)).ToArray();
             if (command.Action == CommandAction.Status)
             {
-                response = "Phobos Shipbreaker " + Plugin.Version + ": " + Content.Status + "\n"
-                    + (machines.Length == 0 ? "No matching fixture on the selected crew member's loaded ship." :
-                        string.Join("\n\n", machines.Select(m => m.strID + " - " + m.strNameFriendly + "\n" + Describe(m)
-                            + "\n" + DescribeIntake(m) + "\n" + CollectorService.DescribeLink(m) + "\n" + CollectorService.LinkIds(m)
-                            + "\nControl check: " + (AccessProblem(m) ?? MachineProblem(m) ?? "ready"))));
+                response = Text.Get("ProcessingCommands.phobos_shipbreaker", Plugin.Version, Content.Status, (machines.Length == 0 ? Text.Get("ProcessingCommands.no_matching_fixture_on_the_selected_crew") :
+                        string.Join("\n\n", machines.Select(m => Text.Get("ProcessingCommands.control_check", m.strID, m.strNameFriendly, Describe(m), DescribeIntake(m), CollectorService.DescribeLink(m), CollectorService.LinkIds(m), (AccessProblem(m) ?? MachineProblem(m) ?? Text.Get("ProcessingCommands.ready")))))));
                 return true;
             }
             if (machines.Length != 1)
             {
-                response = machines.Length == 0 ? "No matching fixture. Select crew aboard its ship and use phobosshipbreaker status." :
-                    "Multiple fixtures. Use phobosshipbreaker status, then supply the exact fixture ID.";
+                response = machines.Length == 0 ? Text.Get("ProcessingCommands.no_matching_fixture_select_crew_aboard_its") :
+                    Text.Get("ProcessingCommands.multiple_fixtures_use_phobosshipbreaker_status_then_supply");
                 return false;
             }
             var machine = machines[0];
@@ -65,7 +55,7 @@ internal sealed partial class ProcessingService
                 case CommandAction.Cancel: success = Pause(machine, true); break;
                 case CommandAction.Feed: success = OpenInventory(machine, true); break;
                 case CommandAction.Products: success = OpenInventory(machine, false); break;
-                default: response = "Use phobosshipbreaker help."; return false;
+                default: response = Text.Get("ProcessingCommands.use_phobosshipbreaker_help"); return false;
             }
             response = machine.strID + "\n" + Describe(machine) + "\n" + DescribeIntake(machine);
             return success;
@@ -73,7 +63,7 @@ internal sealed partial class ProcessingService
         catch (Exception ex)
         {
             log(ex.ToString());
-            response = "Shipbreaker command failed: " + ex.GetType().Name + ". See the BepInEx log.";
+            response = Text.Get("ProcessingCommands.shipbreaker_command_failed_see_the_bepinex_log", ex.GetType().Name);
             return false;
         }
     }

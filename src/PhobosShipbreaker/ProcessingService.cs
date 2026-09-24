@@ -16,7 +16,7 @@ internal sealed partial class ProcessingService
         internal CondOwner? Input;
         internal double Last;
         internal IntakeSession? Intake;
-        internal string Status = "Paused. Load panels and start the queue.";
+        internal string Status = Text.Get("ProcessingService.paused_load_panels_and_start_the_queue");
     }
     private ConditionalWeakTable<CondOwner, Session> sessions = new ConditionalWeakTable<CondOwner, Session>();
     private readonly Action<string> log;
@@ -37,23 +37,23 @@ internal sealed partial class ProcessingService
 
     private static string PanelProblem(CondOwner panel)
     {
-        if (panel.strCODef != ProcessRules.Wall) return panel.strNameFriendly + " is not a supported ordinary wall (" + panel.strCODef + ").";
-        if (panel.HasCond("IsInstalled")) return "Detach the wall first.";
-        if (panel.coStackHead != null || panel.aStack.Count != 0) return "Separate the wall stack first.";
-        if (panel.GetCOsSafe(true).Count != 0) return "Remove anything attached to or stored in the wall.";
-        return "Expected a 24 kg wall; actual mass is " + panel.GetTotalMass().ToString("F2") + " kg.";
+        if (panel.strCODef != ProcessRules.Wall) return Text.Get("ProcessingService.is_not_a_supported_ordinary_wall", panel.strNameFriendly, panel.strCODef);
+        if (panel.HasCond("IsInstalled")) return Text.Get("ProcessingService.detach_the_wall_first");
+        if (panel.coStackHead != null || panel.aStack.Count != 0) return Text.Get("ProcessingService.separate_the_wall_stack_first");
+        if (panel.GetCOsSafe(true).Count != 0) return Text.Get("ProcessingService.remove_anything_attached_to_or_stored_in");
+        return Text.Get("ProcessingService.expected_a_kg_wall_actual_mass_is", panel.GetTotalMass(), ProcessRules.InputKg);
     }
 
     private static string? MachineProblem(CondOwner machine)
     {
         if (!Content.Ready) return Content.Status;
         if (machine == null || machine.bDestroyed || machine.strCODef != Content.Installed ||
-            !machine.HasCond("IsInstalled")) return "Install the undamaged fixture first.";
-        if (machine.HasCond("IsDamaged")) return "Repair the fixture first.";
-        if (machine.ship == null || (int)machine.ship.LoadState < 2) return "Ship is not loaded.";
-        if (machine.HasCond("IsLocked") || Feed(machine)?.HasCond("IsLocked") == true) return "Unlock the fixture and feed.";
-        if (machine.HasCond("IsOverrideOff") || machine.HasCond("IsSignalOff")) return "Fixture is switched off.";
-        if (machine.objContainer == null || Feed(machine)?.objContainer == null) return "Missing feed or output tray.";
+            !machine.HasCond("IsInstalled")) return Text.Get("ProcessingService.install_the_undamaged_fixture_first");
+        if (machine.HasCond("IsDamaged")) return Text.Get("ProcessingService.repair_the_fixture_first");
+        if (machine.ship == null || (int)machine.ship.LoadState < 2) return Text.Get("ProcessingService.ship_is_not_loaded");
+        if (machine.HasCond("IsLocked") || Feed(machine)?.HasCond("IsLocked") == true) return Text.Get("ProcessingService.unlock_the_fixture_and_feed");
+        if (machine.HasCond("IsOverrideOff") || machine.HasCond("IsSignalOff")) return Text.Get("ProcessingService.fixture_is_switched_off");
+        if (machine.objContainer == null || Feed(machine)?.objContainer == null) return Text.Get("ProcessingService.missing_feed_or_output_tray");
         return null;
     }
 
@@ -61,9 +61,9 @@ internal sealed partial class ProcessingService
     {
         var actor = CrewSim.GetSelectedCrew();
         if (actor == null || actor.bDestroyed || actor.HasCond("IsDead") || actor.HasCond("Unconscious"))
-            return "Select an awake crew member.";
-        if (actor.ship != machine.ship || TileUtils.TileRange(actor.tf.position, machine.tf.position) > 4)
-            return "Move the selected crew member beside the fixture.";
+            return Text.Get("ProcessingService.select_an_awake_crew_member");
+        if (actor.ship != machine.ship || TileUtils.TileRange(actor.tf.position, machine.tf.position) > ProcessRules.AccessRangeTiles)
+            return Text.Get("ProcessingService.move_the_selected_crew_member_beside_the");
         return null;
     }
 
@@ -77,7 +77,7 @@ internal sealed partial class ProcessingService
             bool connected = ArmIntake(machine, out string intakeMessage);
             if (state.Job?.Running == true) return true;
             if (Feed(machine)!.objContainer.ContainedCOs.Count == 0)
-            { state.Status = connected ? "Pipeline started; waiting for the grabber." : intakeMessage + " Use Manual feed for standalone processing."; return connected; }
+            { state.Status = connected ? Text.Get("ProcessingService.pipeline_started_waiting_for_the_grabber") : Text.Get("ProcessingService.use_manual_feed_for_standalone_processing", intakeMessage); return connected; }
             bool started = StartNext(machine, state);
             if (!started) DisarmIntake(machine);
             return started;
@@ -90,35 +90,43 @@ internal sealed partial class ProcessingService
         SetWorking(machine, false);
         state.Job = null; state.Input = null;
         var inputs = Feed(machine)?.objContainer?.ContainedCOs;
-        if (inputs == null || inputs.Count == 0) { state.Status = "Feed empty; waiting for the grabber, or use Manual feed and Start."; return false; }
+        if (inputs == null || inputs.Count == 0) { state.Status = Text.Get("ProcessingService.feed_empty_waiting_for_the_grabber_or"); return false; }
         // A saved, partly processed panel resumes before fresh stock. Never transfer its progress.
-        var input = inputs.OrderByDescending(c => c.GetCondAmount(ProcessRules.Progress)).First();
+        var input = NextInput(inputs)!;
         if (!ValidPanel(input)) { state.Status = PanelProblem(input); return false; }
-        if (!CanFitBatch(machine)) { state.Status = "Output tray needs space for a complete batch."; return false; }
-        double progress = input.GetCondAmount(ProcessRules.Progress);
-        double savedRevision = input.GetCondAmount(ProcessRules.Revision);
-        double savedDuration = input.GetCondAmount(ProcessRules.Duration);
-        if (savedRevision != 0 && savedRevision != ProcessRules.RecipeRevision || progress != 0 && savedRevision == 0)
-        { state.Status = "Unsupported saved recipe; cancel its work before restarting."; return false; }
-        // Pre-release revision-1 panels without a duration used the original 60 seconds.
-        double duration = savedRevision == 0 ? options.CycleSeconds : savedDuration == 0 ? ProcessRules.CycleSeconds : savedDuration;
-        try { state.Job = new ProcessJob(input.strID, progress, ProcessRules.RecipeRevision, duration); }
-        catch (ArgumentException) { state.Status = "Invalid saved progress; cancel its work before restarting."; return false; }
+        ProcessJob job;
+        try { job = ReadJob(input); }
+        catch (ArgumentException ex) { state.Status = ex.Message; return false; }
+        if (!CanFitBatch(machine, job.Recipe)) { state.Status = Text.Get("ProcessingService.output_tray_needs_space_for_recipe_revision", job.Recipe.Revision); return false; }
+        state.Job = job;
         state.Input = input; state.Last = StarSystem.fEpoch;
-        input.SetCondAmount(ProcessRules.Revision, ProcessRules.RecipeRevision);
-        input.SetCondAmount(ProcessRules.Duration, duration);
-        state.Status = "Processing wall panel";
+        input.SetCondAmount(ProcessRules.Revision, job.Recipe.Revision);
+        input.SetCondAmount(ProcessRules.Duration, job.Duration);
+        state.Status = Text.Get("ProcessingService.processing_wall_panel");
         if (state.Job.Complete) return Finish(machine, state);
         SetWorking(machine, true);
         return true;
     }
+
+    private static CondOwner? NextInput(IEnumerable<CondOwner>? inputs) => inputs?
+        .OrderByDescending(c => c.GetCondAmount(ProcessRules.Revision) != 0 ||
+            c.GetCondAmount(ProcessRules.Progress) != 0 || c.GetCondAmount(ProcessRules.Duration) != 0)
+        .ThenByDescending(c => c.GetCondAmount(ProcessRules.Progress)).FirstOrDefault();
+
+    private ProcessJob ReadJob(CondOwner input) => ProcessJob.CreateOrResume(ProcessRecipes.WallPanels,
+        input.strID, input.GetCondAmount(ProcessRules.Progress), input.GetCondAmount(ProcessRules.Revision),
+        input.GetCondAmount(ProcessRules.Duration), options.CycleSeconds);
+
+    private static bool MatchesJob(CondOwner input, ProcessJob job) => job.MatchesSaved(input.strID,
+        input.GetCondAmount(ProcessRules.Progress), input.GetCondAmount(ProcessRules.Revision),
+        input.GetCondAmount(ProcessRules.Duration));
 
     internal bool Pause(CondOwner machine, bool cancel)
     {
         var state = sessions.GetValue(machine, _ => new Session());
         string? problem = AccessProblem(machine);
         if (problem != null) { state.Status = problem; return false; }
-        Stop(machine, state, cancel ? "Work cancelled; panel retained. Spent energy is not refunded." : "Paused; progress retained.");
+        Stop(machine, state, cancel ? Text.Get("ProcessingService.work_cancelled_panel_retained_spent_energy_is") : Text.Get("ProcessingService.paused_progress_retained"));
         if (!cancel) return true;
         // Include saved jobs after reload, when no session binding exists yet.
         foreach (var input in Feed(machine)?.objContainer?.ContainedCOs ?? Array.Empty<CondOwner>())
@@ -148,9 +156,11 @@ internal sealed partial class ProcessingService
         bool bound = state.Input != null && bin?.objContainer?.ContainedCOs.Contains(state.Input) == true;
         string? problem = MachineProblem(machine);
         if (!bound || !ValidPanel(state.Input) || problem != null)
-        { Stop(machine, state, problem ?? "Input changed or was removed; queue paused."); return false; }
-        if (!CanFitBatch(machine))
-        { Stop(machine, state, "Output blocked; progress retained. Clear space and resume."); return false; }
+        { Stop(machine, state, problem ?? Text.Get("ProcessingService.input_changed_or_was_removed_queue_paused")); return false; }
+        if (!MatchesJob(state.Input!, state.Job))
+        { Stop(machine, state, Text.Get("ProcessingService.saved_job_changed_queue_paused_without_overwriting")); return false; }
+        if (!CanFitBatch(machine, state.Job.Recipe))
+        { Stop(machine, state, Text.Get("ProcessingService.output_blocked_progress_retained_clear_space_and")); return false; }
         return machine.HasCond(ProcessRules.Working);
     }
 
@@ -166,14 +176,14 @@ internal sealed partial class ProcessingService
             bool powered = workingRequest && machine.HasCond("IsPowered");
             state.Job.Advance(input.strID, elapsed, powered, true);
             input.SetCondAmount(ProcessRules.Progress, state.Job.Progress);
-            if (!state.Job.Running) { Stop(machine, state, "Time gap; progress retained. Resume when ready."); return; }
-            state.Status = powered ? "Processing wall panel" : "Waiting for power; progress retained.";
+            if (!state.Job.Running) { Stop(machine, state, Text.Get("ProcessingService.time_gap_progress_retained_resume_when_ready")); return; }
+            state.Status = powered ? Text.Get("ProcessingService.processing_wall_panel") : Text.Get("ProcessingService.waiting_for_power_progress_retained");
             if (!state.Job.Complete || !powered) return;
             Finish(machine, state);
         }
         catch (Exception ex)
         {
-            Stop(machine, state, "Processing fault; queue paused. Check the log before resuming.");
+            Stop(machine, state, Text.Get("ProcessingService.processing_fault_queue_paused_check_the_log"));
             log(ex.ToString());
         }
     }
@@ -181,13 +191,13 @@ internal sealed partial class ProcessingService
     private bool Finish(CondOwner machine, Session state)
     {
         SetWorking(machine, false);
-        var delivery = new NativeDelivery(machine, state.Input!);
+        var delivery = new NativeDelivery(machine, state.Input!, state.Job!);
         if (BatchDelivery.Commit(delivery) == DeliveryResult.Blocked)
-        { Stop(machine, state, "Output changed; progress retained. Clear space and resume."); return false; }
-        log("Completed panel " + state.Job!.InputId + ": 24 kg -> 11 kg recovered + 13 kg residue.");
+        { Stop(machine, state, Text.Get("ProcessingService.output_changed_progress_retained_clear_space_and")); return false; }
+        log(Text.Get("ProcessingService.completed_panel_with_recipe_revision_total_kg", state.Job!.InputId, state.Job.Recipe.Revision, string.Join(", ", state.Job.Recipe.Products.Select(p => Text.Get("ProcessingService.x", p.Count, p.Id)))));
         state.Job = null; state.Input = null;
         if (options.ContinueQueue) StartNext(machine, state);
-        else { DisarmIntake(machine); state.Status = "Panel complete. Start again for the next panel."; }
+        else { DisarmIntake(machine); state.Status = Text.Get("ProcessingService.panel_complete_start_again_for_the_next"); }
         return true;
     }
 
@@ -195,14 +205,21 @@ internal sealed partial class ProcessingService
     {
         var state = sessions.GetValue(machine, _ => new Session());
         var inputs = Feed(machine)?.objContainer?.ContainedCOs;
-        double progress = state.Input != null && !state.Input.bDestroyed ? state.Input.GetCondAmount(ProcessRules.Progress) :
-            inputs?.Select(i => i.GetCondAmount(ProcessRules.Progress)).DefaultIfEmpty(0).Max() ?? 0;
-        double duration = state.Job?.Duration ?? inputs?.OrderByDescending(i => i.GetCondAmount(ProcessRules.Progress))
-            .FirstOrDefault()?.GetCondAmount(ProcessRules.Duration) ?? options.CycleSeconds;
-        if (duration <= 0) duration = options.CycleSeconds;
-        return state.Status + "\nFeed: " + (inputs?.Count ?? 0) + "/4 panels; work: " +
-            progress.ToString("F0") + "/" + duration.ToString("F0") + " s. " + (machine.HasCond("IsPowered") ? "Powered." : "No power.");
+        var input = state.Input != null && !state.Input.bDestroyed && inputs?.Contains(state.Input) == true
+            ? state.Input : NextInput(inputs);
+        string work;
+        try
+        {
+            // Read without stamping conditions or granting permission to run after reload.
+            var job = input == null ? null : ReadJob(input);
+            work = Text.Get("ProcessingService.recipe_revision_work_s", (job?.Recipe.Revision ?? ProcessRecipes.WallPanels.Current.Revision), (job?.Progress ?? 0), (job?.Duration ?? options.CycleSeconds));
+        }
+        catch (ArgumentException ex) { work = ex.Message; }
+        return Text.Get("ProcessingService.feed_panels", state.Status, (inputs?.Count ?? 0), work, (machine.HasCond("IsPowered") ? Text.Get("ProcessingService.powered") : Text.Get("ProcessingService.no_power")), ProcessRules.FeedCapacity);
     }
+
+    internal static string NewPanelProducts() => string.Join(", ", ProcessRecipes.WallPanels.Current.Products.Select(p =>
+        Text.Get("ProcessingService.product_count", p.Count, DataHandler.GetCondOwnerDef(p.Id)?.strNameFriendly ?? p.Id)));
 
     internal void Reset()
     {
@@ -214,7 +231,7 @@ internal sealed partial class ProcessingService
     internal void Fault(CondOwner machine, Exception ex)
     {
         var state = sessions.GetValue(machine, _ => new Session());
-        Stop(machine, state, "Processing fault; queue paused. Check the log before resuming.");
+        Stop(machine, state, Text.Get("ProcessingService.processing_fault_queue_paused_check_the_log"));
         log(ex.ToString());
     }
 
@@ -228,46 +245,55 @@ internal sealed partial class ProcessingService
         return result;
     }
 
-    private static bool CanFitBatch(CondOwner machine)
+    internal static IReadOnlyList<ItemSize>? OutputSizes(ProcessRecipe recipe)
     {
-        if (machine.objContainer == null) return false;
         var sizes = new List<ItemSize>();
-        foreach (var product in ProcessRules.Products)
+        foreach (var product in recipe.Products)
         {
             var co = DataHandler.GetCondOwnerDef(product.Id);
-            if (co == null || !DataHandler.dictItemDefs.TryGetValue(co.strItemDef, out var item)) return false;
+            if (co == null || !DataHandler.dictItemDefs.TryGetValue(co.strItemDef, out var item)) return null;
             int width = co.inventoryWidth != 0 ? co.inventoryWidth : item.nCols;
-            if (item.nCols <= 0) return false;
+            if (item.nCols <= 0) return null;
             int height = co.inventoryHeight != 0 ? co.inventoryHeight : item.aSocketAdds.Length / item.nCols;
             for (int n = 0; n < product.Count; n++) sizes.Add(new ItemSize(width, height));
         }
-        return BatchPlacement.Plan(Occupancy(machine.objContainer), sizes) != null;
+        return sizes;
+    }
+
+    private static bool CanFitBatch(CondOwner machine, ProcessRecipe recipe)
+    {
+        var sizes = OutputSizes(recipe);
+        return machine.objContainer != null && sizes != null &&
+            BatchPlacement.Plan(Occupancy(machine.objContainer), sizes) != null;
     }
 
     private sealed class NativeDelivery : IBatchDelivery
     {
         private readonly CondOwner machine, input;
+        private readonly ProcessJob job;
         private readonly List<CondOwner> products = new List<CondOwner>();
         private Position[]? plan;
         private bool retired;
-        internal NativeDelivery(CondOwner machine, CondOwner input) { this.machine = machine; this.input = input; }
+        internal NativeDelivery(CondOwner machine, CondOwner input, ProcessJob job)
+        { this.machine = machine; this.input = input; this.job = job; }
         public bool InputConsumed => retired || input == null || input.bDestroyed;
         public bool Prepare()
         {
-            if (!ValidPanel(input) || input.objCOParent != Feed(machine) || MachineProblem(machine) != null) return false;
-            foreach (var spec in ProcessRules.Products)
+            if (!job.Complete || !MatchesJob(input, job) || !ValidPanel(input) ||
+                input.objCOParent != Feed(machine) || MachineProblem(machine) != null) return false;
+            foreach (var spec in job.Recipe.Products)
             for (int n = 0; n < spec.Count; n++)
             {
                 var product = DataHandler.GetCondOwner(spec.Id);
-                if (product == null) throw new InvalidOperationException("Missing output " + spec.Id);
+                if (product == null) throw new InvalidOperationException(Text.Get("ProcessingService.missing_output", spec.Id));
                 products.Add(product);
                 if (product.coStackHead != null || product.aStack.Count != 0 || product.GetCOsSafe(true).Count != 0 ||
                     !ProcessRules.MassMatches(product.GetTotalMass(), spec.Kg))
-                    throw new InvalidOperationException("Output definition changed: " + spec.Id);
+                    throw new InvalidOperationException(Text.Get("ProcessingService.output_definition_changed", spec.Id));
                 if (!machine.objContainer.AllowedCO(product)) return false;
             }
             if (!ProcessRules.Balanced(input.GetTotalMass(), products.Select(p => p.GetTotalMass())))
-                throw new InvalidOperationException("Batch would violate material balance");
+                throw new InvalidOperationException(Text.Get("ProcessingService.batch_would_violate_material_balance"));
             var sizes = products.Select(p => GUIInventoryItem.GetWidthHeightForCO(p))
                 .Select(s => new ItemSize(s.x, s.y)).ToArray();
             plan = BatchPlacement.Plan(Occupancy(machine.objContainer), sizes);
@@ -276,13 +302,13 @@ internal sealed partial class ProcessingService
 
         public void PlaceProducts()
         {
-            if (plan == null) throw new InvalidOperationException("Unprepared batch");
+            if (plan == null) throw new InvalidOperationException(Text.Get("ProcessingService.unprepared_batch"));
             for (int i = 0; i < products.Count; i++)
             {
                 var p = products[i];
                 machine.objContainer.AddCOSimple(p, new PairXY(plan[i].X, plan[i].Y));
                 if (p.objCOParent != machine || !machine.objContainer.ContainedCOs.Contains(p))
-                    throw new InvalidOperationException("Output placement failed");
+                    throw new InvalidOperationException(Text.Get("ProcessingService.output_placement_failed"));
             }
         }
 
@@ -290,8 +316,8 @@ internal sealed partial class ProcessingService
         {
             // Unity executes this synchronous commit without yielding to another gameplay order.
             // Never destroy the input before all products have been placed successfully.
-            if (input.objCOParent != Feed(machine) || !ValidPanel(input))
-                throw new InvalidOperationException("Input changed during completion");
+            if (!job.Complete || !MatchesJob(input, job) || input.objCOParent != Feed(machine) || !ValidPanel(input))
+                throw new InvalidOperationException(Text.Get("ProcessingService.input_changed_during_completion"));
             try { input.RemoveFromCurrentHome(bForce: true); }
             finally
             {
@@ -299,7 +325,7 @@ internal sealed partial class ProcessingService
                 // even if native destruction subsequently fails partway through cleanup.
                 retired = input.objCOParent == null && input.ship == null;
             }
-            if (!retired) throw new InvalidOperationException("Input could not be removed");
+            if (!retired) throw new InvalidOperationException(Text.Get("ProcessingService.input_could_not_be_removed"));
             input.Destroy();
             machine.objContainer.Redraw();
             Feed(machine)?.objContainer?.Redraw();

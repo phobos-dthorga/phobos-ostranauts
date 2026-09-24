@@ -1,10 +1,11 @@
 # Phobos Auto Nav: standalone adaptation
 
-**0.2.0 candidate; built against Ostranauts 1.0.1.4 / BepInEx 5.4.23.5.**
-Ordinary saves are the baseline from 2026-09-24. Phobos Framework 0.6.0+ now
+**0.3.0 candidate; built against Ostranauts 1.0.1.4 / BepInEx 5.4.23.5.**
+Ordinary saves are the baseline from 2026-09-24. Phobos Framework 0.7.0+ now
 provides shared construction, merchant and maintenance services. No original Auto
 Navigate dependency. See [prices, acquisition and service bills](equipment-economy.md).
-In-game validation of this update remains pending.
+In-game validation of this update remains pending. See the
+[current player guide](player-guide.md) for the suite's installation and operating sequence.
 
 The owner requested a standalone adaptation instead of a Workshop dependency,
 with original-author credit, and clarified that public releases are the intended

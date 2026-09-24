@@ -6,11 +6,12 @@ namespace Phobos.Ostranauts.Framework.Inventory;
 /// <summary>Bounded cardinal route on a rectangular grid. Caller owns topology and revalidation.</summary>
 public static class GridRoute
 {
+    public const int DefaultVisitLimit = 4096;
     public static int[]? Find(int columns, int rows, IEnumerable<int> starts, ISet<int> goals,
-        Func<int, bool> allowed, int visitLimit = 4096)
+        Func<int, bool> allowed, int visitLimit = DefaultVisitLimit)
     {
         if (columns <= 0 || rows <= 0 || (long)columns * rows > int.MaxValue || visitLimit < 1)
-            throw new ArgumentException("Invalid route bounds.");
+            throw new ArgumentException(Text.Get("GridRoute.invalid_route_bounds"));
         int count = columns * rows;
         var parents = new Dictionary<int, int>();
         var queue = new Queue<int>();

@@ -19,7 +19,7 @@ public static class EquipmentSaveUpgrade
     internal static void BeginLoad() => Rules.Clear();
     public static void Register(NativeDefinitions d, string savedId, string definitionId, double legacyMount = 100, double legacyRepair = 100)
     {
-        d.Conditions[Marker] = new JsonCond { strName = Marker, strNameFriendly = "Equipment economy revision", strColor = "Neutral", nDisplaySelf = 2, nDisplayOther = 2 };
+        d.Conditions[Marker] = new JsonCond { strName = Marker, strNameFriendly = Text.Get("EquipmentSaveUpgrade.equipment_economy_revision"), strColor = "Neutral", nDisplaySelf = 2, nDisplayOther = 2 };
         var definition = d.Objects[definitionId];
         MaintenanceDefinitions.SetStat(definition, Marker, 1);
         Rules[savedId] = new Rule { Definition = definition, LegacyMount = legacyMount, LegacyRepair = legacyRepair };

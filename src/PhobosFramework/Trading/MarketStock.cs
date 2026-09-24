@@ -27,11 +27,11 @@ public static class MarketStock
         double probability, StockCondition condition)
     {
         if (string.IsNullOrWhiteSpace(offerId) || !offerId.StartsWith("Phobos", StringComparison.Ordinal) ||
-            double.IsNaN(probability) || probability <= 0 || probability > 1) throw new ArgumentException("Invalid merchant offer.");
+            double.IsNaN(probability) || probability <= 0 || probability > 1) throw new ArgumentException(Text.Get("MarketStock.invalid_merchant_offer"));
         if (!d.Loot.TryGetValue(merchantLoot, out var merchant))
         {
             if (!DataHandler.dictLoot.TryGetValue(merchantLoot, out var original))
-                throw new ArgumentException("Missing native merchant loot: " + merchantLoot);
+                throw new ArgumentException(Text.Get("MarketStock.missing_native_merchant_loot", merchantLoot));
             merchant = NativeDefinitions.Clone(original);
             d.Loot.Add(merchantLoot, merchant);
         }

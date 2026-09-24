@@ -1,4 +1,4 @@
-# Phobos Framework 0.6.0 — author guide
+# Phobos Framework 0.7.0 — author guide
 
 This experimental Ostranauts library supplies definition registration, native
 mass-balanced construction, grid placement, production completion and physical transfers,
@@ -42,7 +42,7 @@ not distribute another provider copy. Declare a BepInEx dependency:
 using BepInEx;
 using Phobos.Ostranauts.Framework;
 
-[BepInDependency(FrameworkInfo.PluginId, "0.6.0")]
+[BepInDependency(FrameworkInfo.PluginId, "0.7.0")]
 // Other normal BepInPlugin/BepInProcess attributes belong on your plugin here.
 public sealed class MyPlugin : BaseUnityPlugin { }
 ```
@@ -310,3 +310,5 @@ not mass-bearing ingredients. Existing packs omitting the field still work.
 Output overlays are supported only when their base defines explicit mass and they
 have no arbitrary condition loot. Consumer prices, repair bills, yields and stock
 locations belong in the consumer. See [current consumer balance](equipment-economy.md).
+
+Translation catalogs, language settings and contributor guidance: [Localization](localization.md).

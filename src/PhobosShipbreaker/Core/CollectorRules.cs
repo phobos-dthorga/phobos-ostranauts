@@ -8,7 +8,9 @@ public static class CollectorRules
     public const string Installed = Prefix + "Installed", Working = Prefix + "Working";
     public const string Controls = Prefix + "Controls";
     public const int Width = 2, Depth = 1, Capacity = 4, StorageSide = 2;
-    public const double MachineKg = 20, PayloadKg = 13, CycleSeconds = 5, WorkingKW = 2, IdleKW = 0.05;
+    public const double MachineKg = 20, PayloadKg = ProcessRules.LegacyResidueKg, CycleSeconds = 5, WorkingKW = 2, IdleKW = 0.05;
+    public const int AccessRangeTiles = 2;
+    public const double MaxPayloadKg = Capacity * PayloadKg;
     public static readonly ItemDefinitionFilter Filter = new ItemDefinitionFilter(new[] { ProcessRules.Residue });
     public static bool IsFamily(string? id) => id == Installed || id == Prefix + "Loose" ||
         id == Installed + "Dmg" || id == Prefix + "LooseDmg";

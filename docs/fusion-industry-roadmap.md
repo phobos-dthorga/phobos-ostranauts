@@ -17,8 +17,21 @@ Build/offline checks passed; in-game use remains to be checked by the owner.
 are now researched, together with [mineral replenishment of life support](asteroid-life-support-research.md).
 Native water ice is the recommended first endurance feed; new nitrogen-bearing
 and phosphate/salt-bearing resources are candidates where existing ore leaves a
-gap. These additions are not implemented. The current 0.2.0 candidate uses our
+gap. These additions are not implemented. The prepared suite uses our
 [independent Phobos Framework](phobos-framework.md); OCF/SWB are optional.
+Shipbreaker **0.6.1** now provides [version-aware processing jobs](processing-job-compatibility.md).
+The next implementation priority is the combined reclaimer's operating budget
+and useful consumer, following the [selected residue contract](residue-material-contract.md).
+Existing panels and residue retain their original recipe meaning.
+
+**2026-09-24 future idea:** [chemical storage, process fluids and industrial
+hazards](chemical-storage-and-process-fluids.md) records the owner's installable
+solvent/reagent reservoirs, quantity-based station refuelling, optional process
+improvements, required chemical inputs and consequential leaks/ruptures. Use
+Framework for shared storage, transfer and terminal integration where concrete
+features justify it. Native gases and Ship's Water provide inspected precedents;
+custom species need further code research. This is documentation only, not new
+runtime content or a change to current mechanical salvage requirements.
 
 The earlier suggestion to start with a furnace is superseded by this choice.
 Approach Assist remains an existing prototype with owner testing outstanding;

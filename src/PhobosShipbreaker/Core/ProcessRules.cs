@@ -12,7 +12,6 @@ public static class ProcessRules
     public const string Revision = "PhobosShipbreakerRecipeRevision";
     public const string Duration = "PhobosShipbreakerJobSeconds";
     public const string Working = "PhobosShipbreakerWorking";
-    public const int RecipeRevision = 1;
     public const double InputKg = 24;
     public const double CycleSeconds = 60;
     public const double ActiveKW = 30;
@@ -24,15 +23,11 @@ public static class ProcessRules
     public const string AssemblySection = "PhobosShipbreakerSection";
     public const string AssemblySectionCondition = "PhobosShipbreakerIsSection";
     public const double AssemblySectionKg = MachineKg / 2;
-    public const double MassTolerance = 0.000001;
-
-    public static readonly IReadOnlyList<ProductSpec> Products = new[] {
-        new ProductSpec("ItmPartsMechSmall01", 2, 0.5),
-        new ProductSpec("ItmScrapAluminum", 2, 1),
-        new ProductSpec("ItmScrapCarbonFiber", 2, 1),
-        new ProductSpec("ItmScrapSteel", 6, 1),
-        new ProductSpec(Residue, 1, 13)
-    };
+    public const double MassTolerance = Phobos.Ostranauts.Framework.Units.MassToleranceKg;
+    public const double MinJobSeconds = 1, MaxJobSeconds = 3600;
+    public const double MinimumConfiguredCycleSeconds = 10;
+    public const int AccessRangeTiles = 4;
+    public const double LegacyResidueKg = 13;
 
     public static bool MassMatches(double actual, double expected) =>
         !double.IsNaN(actual) && !double.IsInfinity(actual) &&
@@ -57,16 +52,43 @@ public sealed class ProcessJob
     public double Progress { get; private set; }
     public bool Running { get; private set; } = true;
     public double Duration { get; }
+    public ProcessRecipe Recipe { get; }
     public bool Complete => Progress >= Duration;
 
-    public ProcessJob(string inputId, double progress, int revision, double duration = ProcessRules.CycleSeconds)
+    public ProcessJob(string inputId, double progress, ProcessRecipe recipe, double duration = ProcessRules.CycleSeconds)
     {
-        if (string.IsNullOrWhiteSpace(inputId) || revision != ProcessRules.RecipeRevision ||
+        if (string.IsNullOrWhiteSpace(inputId) || recipe == null ||
             double.IsNaN(progress) || double.IsInfinity(progress) || progress < 0 || progress > duration ||
-            double.IsNaN(duration) || double.IsInfinity(duration) || duration < 1 || duration > 3600)
-            throw new ArgumentException("Unsupported saved job");
-        InputId = inputId; Progress = progress; Duration = duration;
+            double.IsNaN(duration) || double.IsInfinity(duration) || duration < ProcessRules.MinJobSeconds || duration > ProcessRules.MaxJobSeconds)
+            throw new ArgumentException(Text.Get("ProcessRules.invalid_saved_progress_or_duration_panel_retained"));
+        InputId = inputId; Progress = progress; Duration = duration; Recipe = recipe;
     }
+
+    // Native numeric conditions are the complete saved contract. Zero revision is
+    // fresh stock only when the other fields are zero too; never round a revision
+    // or reinterpret an unknown/partial record as a new job.
+    public static ProcessJob CreateOrResume(ProcessRecipeCatalog recipes, string inputId,
+        double progress, double revision, double duration, double newJobSeconds)
+    {
+        if (revision == 0)
+        {
+            if (progress != 0 || duration != 0)
+                throw new ArgumentException(Text.Get("ProcessRules.incomplete_saved_job_panel_retained_cancel_work"));
+            return new ProcessJob(inputId, 0, recipes.Current, newJobSeconds);
+        }
+        if (!recipes.TryGet(revision, out var recipe))
+            throw new ArgumentException(Text.Get("ProcessRules.unsupported_saved_recipe_revision_panel_retained_restore", revision));
+        if (duration == 0)
+        {
+            if (!recipe!.LegacySeconds.HasValue)
+                throw new ArgumentException(Text.Get("ProcessRules.saved_duration_is_missing_panel_retained_cancel"));
+            duration = recipe.LegacySeconds.Value;
+        }
+        return new ProcessJob(inputId, progress, recipe!, duration);
+    }
+
+    public bool MatchesSaved(string inputId, double progress, double revision, double duration) =>
+        inputId == InputId && progress == Progress && revision == Recipe.Revision && duration == Duration;
 
     public double Advance(string currentInputId, double seconds, bool powered, bool ready)
     {

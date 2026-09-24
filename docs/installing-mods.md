@@ -1,5 +1,8 @@
 # Installing and updating our mods
 
+For acquisition and operation after installation, use the
+[current player guide](player-guide.md).
+
 Close Ostranauts, then double-click **`Install or Update Mods.cmd`** in the
 repository root. It installs or updates the latest **prepared packages** for
 Phobos Auto Nav and Phobos Shipbreaker. Use the same launcher for subsequent
@@ -7,7 +10,7 @@ updates. PowerShell 7 is required; the launcher leaves its result visible.
 
 Shipbreaker **0.1.5+ also selects Phobos Framework automatically**. Its prepared
 package must be available beside the content packages. Building Shipbreaker
-prepares both packages. Shipbreaker 0.6.0 and Auto Nav 0.2.0 require Framework 0.6.0+ and are
+prepares both packages. Shipbreaker 0.6.1 and Auto Nav 0.2.0 require Framework 0.6.0+ and are
 independent of OCF/SWB; see the [migration guide](phobos-framework.md).
 
 The installer finds Ostranauts through Steam's library records and remembers
@@ -97,6 +100,9 @@ rollback versions; see [dependency contingencies](dependency-contingencies.md).
 
 Packages are read from `dist/PhobosAutoNav-P0`, `dist/PhobosShipbreaker-P0` and,
 when required or selected, `dist/PhobosFramework-P0`.
+Each prepared package includes `player-guide.md` and the equipment/material guides
+it links directly, alongside the mod-specific `README.md`. These describe the
+prepared versions; the status commands establish what is loaded in the game.
 The installer does not rebuild source code, download releases or alter Workshop
 subscriptions. After code or artwork changes, Codex should run the corresponding
 existing build script, then this installer. A missing package reports that step.

@@ -37,29 +37,29 @@ internal sealed class CollectorRoute
     }
     internal static string? MountProblem(CondOwner port)
     {
-        if (port.Item == null || !IntakeRules.SameAngle(Angle(port), 0, 90)) return "Collector must align with the hull grid.";
+        if (port.Item == null || !IntakeRules.SameAngle(Angle(port), 0, 90)) return Text.Get("CollectorRoute.collector_must_align_with_the_hull_grid");
         var ship = port.ship;
         for (int col = 0; col < CollectorRules.Width; col++)
         {
             var wallPos = Point(port, col - 0.5, 0);
             var wallTile = ship.GetTileAtWorldCoords1(wallPos.x, wallPos.y, false);
-            if (wallTile?.coProps == null || !wallTile.coProps.HasCond("IsWall")) return "Restore the two supporting hull walls.";
+            if (wallTile?.coProps == null || !wallTile.coProps.HasCond("IsWall")) return Text.Get("CollectorRoute.restore_the_two_supporting_hull_walls");
             var objects = new List<CondOwner>();
             ship.GetCOsAtWorldCoords1(wallPos, null, false, true, objects);
             if (!objects.Any(w => !w.bDestroyed && w.HasCond("IsInstalled") && w.HasCond("IsWall") && !w.HasCond("IsDamaged")))
-                return "Repair the two supporting hull walls.";
+                return Text.Get("CollectorRoute.repair_the_two_supporting_hull_walls");
             var outside = Point(port, col - 0.5, 1);
             // Include docked neighbours: a vacated room or docking collar is not a clear exterior mouth.
             foreach (var neighbour in ship.GetAllDockedShips().Concat(new[] { ship }).Distinct())
             {
                 var tile = neighbour.GetTileAtWorldCoords1(outside.x, outside.y, false);
-                if (tile?.IsShipTileOrSub == true) return "Collector pocket must face clear exterior space; turn it or clear its mouth.";
+                if (tile?.IsShipTileOrSub == true) return Text.Get("CollectorRoute.collector_pocket_must_face_clear_exterior_space");
                 objects.Clear(); neighbour.GetCOsAtWorldCoords1(outside, null, false, true, objects);
                 if (objects.Any(o => o != port && !o.bDestroyed && o.Item != null && o.objCOParent == null && o.HasCond("IsSolid")))
-                    return "Collector exterior mouth is obstructed.";
+                    return Text.Get("CollectorRoute.collector_exterior_mouth_is_obstructed");
             }
             var inside = Point(port, col - 0.5, -1);
-            if (!Floor(ship, ship.GetTileIndexAtWorldCoords1(inside))) return "Both inboard collector tiles need structural flooring.";
+            if (!Floor(ship, ship.GetTileIndexAtWorldCoords1(inside))) return Text.Get("CollectorRoute.both_inboard_collector_tiles_need_structural_flooring");
         }
         return null;
     }

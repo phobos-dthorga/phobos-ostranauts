@@ -19,14 +19,15 @@ internal static class EquipmentEconomy
         { Prefix = prefix; Price = price; Install = install; Uninstall = uninstall; Repair = repair;
           Dismantle = dismantle; RepairBill = repairBill; Salvage = salvage; BrokenSalvage = brokenSalvage; }
     }
-    // Bills are steel, aluminium, mechanical parts, electronic parts, retained trash.
+    // Native work-progress targets, not wall-clock seconds. Bills below are steel,
+    // aluminium, mechanical parts, electronic parts, retained trash.
     internal static readonly string[] Materials = { "ItmScrapSteel", "ItmScrapAluminum", "ItmPartsMechSmall01", "ItmPartsElecSmall01", "ItmScrapTrash" };
     private static readonly string[] Triggers = { "TIsScrapSteel", "TIsScrapAluminum", "TIsPartsMechSmall", "TIsPartsElecSmall" };
     internal static readonly Spec[] Machines = {
-        new Spec(Content.Prefix, 12000, 1500, 1000, 3600, 1000, new[]{4,2,4,4}, new[]{92,40,16,4,18}, new[]{80,32,8,0,44}),
-        new Spec(IntakeRules.Grabber, 6400, 1000, 800, 2400, 650, new[]{2,1,4,2}, new[]{42,16,12,2,15}, new[]{34,12,6,0,31}),
-        new Spec(IntakeRules.Chute, 1800, 500, 500, 1500, 300, new[]{2,1,2,0}, new[]{20,8,8,2,7}, new[]{16,6,4,0,16}),
-        new Spec(CollectorRules.Prefix, 2400, 600, 500, 1800, 350, new[]{0,1,2,2}, new[]{10,3,4,2,4}, new[]{8,2,2,0,9})
+        new Spec(Content.Prefix, price: 12000, install: 1500, uninstall: 1000, repair: 3600, dismantle: 1000, new[]{4,2,4,4}, new[]{92,40,16,4,18}, new[]{80,32,8,0,44}),
+        new Spec(IntakeRules.Grabber, price: 6400, install: 1000, uninstall: 800, repair: 2400, dismantle: 650, new[]{2,1,4,2}, new[]{42,16,12,2,15}, new[]{34,12,6,0,31}),
+        new Spec(IntakeRules.Chute, price: 1800, install: 500, uninstall: 500, repair: 1500, dismantle: 300, new[]{2,1,2,0}, new[]{20,8,8,2,7}, new[]{16,6,4,0,16}),
+        new Spec(CollectorRules.Prefix, price: 2400, install: 600, uninstall: 500, repair: 1800, dismantle: 350, new[]{0,1,2,2}, new[]{10,3,4,2,4}, new[]{8,2,2,0,9})
     };
 
     internal static string[] Products(int[] bill) => bill.SelectMany((count, i) => Enumerable.Repeat(Materials[i], count)).ToArray();
@@ -59,7 +60,7 @@ internal static class EquipmentEconomy
             var mount = d.Installables[spec.Prefix + state + (state.StartsWith("Installed") ? "Uninstall" : "Install")];
             mount.aToolCTsUse = new[] { "TIsToolMortorq" };
             mount.strCTThemMultCondTools = "IsToolMortorq";
-            co.strDesc += " Empty the machine and feed before dismantling. Repair replaces failed parts; Restore treats wear using tools.";
+            co.strDesc += Text.Get("EquipmentEconomy.empty_the_machine_and_feed_before_dismantling");
             EquipmentSaveUpgrade.Register(d, id, id);
         }
         var section = d.Objects[ProcessRules.AssemblySection];

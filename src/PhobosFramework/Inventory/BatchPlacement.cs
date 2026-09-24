@@ -68,7 +68,7 @@ public static class BatchDelivery
             { delivery.RollbackProducts(); return DeliveryResult.Blocked; }
             delivery.PlaceProducts();
             delivery.ConsumeInput();
-            if (!delivery.InputConsumed) throw new InvalidOperationException("Input was not consumed");
+            if (!delivery.InputConsumed) throw new InvalidOperationException(Text.Get("BatchPlacement.input_was_not_consumed"));
             return DeliveryResult.Completed;
         }
         catch

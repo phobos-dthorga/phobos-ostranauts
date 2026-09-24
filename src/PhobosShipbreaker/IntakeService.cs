@@ -17,7 +17,7 @@ internal sealed partial class ProcessingService
         internal CondOwner? Panel;
         internal TransferClock? Clock;
         internal double Last;
-        internal string Status = "Intake paused.";
+        internal string Status = Text.Get("IntakeService.intake_paused");
         internal readonly CondOwner?[] Walls = new CondOwner?[IntakeRules.Width];
     }
     private ConditionalWeakTable<CondOwner, IntakeSession> intakes = new ConditionalWeakTable<CondOwner, IntakeSession>();
@@ -34,7 +34,7 @@ internal sealed partial class ProcessingService
     private static bool FindIntake(CondOwner processor, out IntakeSession? link, out string problem)
     {
         link = null;
-        problem = "No aligned intake: place a 4 x 1 chute over four walls, a 4 x 3 grabber outside, and this 4 x 4 processor immediately inside with its mouth toward the chute.";
+        problem = Text.Get("IntakeService.no_aligned_intake_place_a_x_chute");
         if (processor.ship == null) return false;
         var objects = processor.ship.GetCOs(null, bSubObjects: false, bAllowDocked: false, bAllowLocked: true)
             .Where(c => c != null && !c.bDestroyed && c.HasCond("IsInstalled") && IntakeRules.IsHardware(c.strCODef)).ToArray();
@@ -42,11 +42,11 @@ internal sealed partial class ProcessingService
         foreach (var c in objects.Where(c => c.strCODef.StartsWith(IntakeRules.Chute, StringComparison.Ordinal)))
         {
             if (!Aligned(g, c, processor)) continue;
-            if (link != null) { problem = "Ambiguous intake layout. Leave one aligned grabber and chute per processor."; link = null; return false; }
+            if (link != null) { problem = Text.Get("IntakeService.ambiguous_intake_layout_leave_one_aligned_grabber"); link = null; return false; }
             link = new IntakeSession { Grabber = g, Chute = c, Processor = processor };
         }
         if (link == null) return false;
-        problem = LinkProblem(link) ?? "Intake connected.";
+        problem = LinkProblem(link) ?? Text.Get("IntakeService.intake_connected");
         return true;
     }
 
@@ -55,16 +55,16 @@ internal sealed partial class ProcessingService
         if (!Content.Ready) return Content.Status;
         if (s.Grabber.bDestroyed || s.Chute.bDestroyed || s.Processor.bDestroyed ||
             s.Grabber.strCODef != IntakeRules.Grabber + "Installed" || s.Chute.strCODef != IntakeRules.Chute + "Installed" ||
-            s.Grabber.HasCond("IsDamaged") || s.Chute.HasCond("IsDamaged")) return "Install and repair all three intake components.";
+            s.Grabber.HasCond("IsDamaged") || s.Chute.HasCond("IsDamaged")) return Text.Get("IntakeService.install_and_repair_all_three_intake_components");
         var ship = s.Processor.ship;
         if (ship == null || (int)ship.LoadState < 2 || s.Grabber.ship != ship || s.Chute.ship != ship || !Aligned(s.Grabber, s.Chute, s.Processor))
-            return "Intake connection changed; align all three components on this ship and start again.";
+            return Text.Get("IntakeService.intake_connection_changed_align_all_three_components");
         for (int col = 0; col < IntakeRules.Width; col++)
         {
             var offset = IntakeRules.Rotate(col - 1.5, 0, Angle(s.Grabber));
             var pos = s.Chute.GetPos();
             var tile = ship.GetTileAtWorldCoords1((float)(pos.x + offset.X), (float)(pos.y + offset.Y), false);
-            if (tile?.coProps == null || !tile.coProps.HasCond("IsWall")) return "Restore all four supporting hull walls. Intake paused.";
+            if (tile?.coProps == null || !tile.coProps.HasCond("IsWall")) return Text.Get("IntakeService.restore_all_four_supporting_hull_walls_intake");
             if (s.Walls[col] == null)
             {
                 var supports = new List<CondOwner>();
@@ -74,11 +74,11 @@ internal sealed partial class ProcessingService
             var wall = s.Walls[col];
             if (wall == null || wall.bDestroyed || wall.ship != ship || !wall.HasCond("IsWall") || !wall.HasCond("IsInstalled") || wall.HasCond("IsDamaged") ||
                 !IntakeRules.Near(wall.GetPos().x, wall.GetPos().y, pos.x + offset.X, pos.y + offset.Y))
-                return "Repair all four supporting hull walls before using the intake.";
+                return Text.Get("IntakeService.repair_all_four_supporting_hull_walls_before");
         }
-        if (s.Grabber.HasCond("IsLocked") || s.Chute.HasCond("IsLocked")) return "Unlock the grabber and chute.";
-        if (s.Grabber.HasCond("IsOverrideOff") || s.Grabber.HasCond("IsSignalOff")) return "Grabber is switched off.";
-        if (s.Grabber.objContainer == null) return "Grabber loading inventory is missing.";
+        if (s.Grabber.HasCond("IsLocked") || s.Chute.HasCond("IsLocked")) return Text.Get("IntakeService.unlock_the_grabber_and_chute");
+        if (s.Grabber.HasCond("IsOverrideOff") || s.Grabber.HasCond("IsSignalOff")) return Text.Get("IntakeService.grabber_is_switched_off");
+        if (s.Grabber.objContainer == null) return Text.Get("IntakeService.grabber_loading_inventory_is_missing");
         return MachineProblem(s.Processor);
     }
 
@@ -89,7 +89,7 @@ internal sealed partial class ProcessingService
         if (problem != null) { message = problem; return false; }
         // Rebinding clears the short transfer clock; the physical panel stays put.
         intakes.Remove(found!.Grabber);
-        found.Armed = true; found.Last = StarSystem.fEpoch; found.Status = "Waiting for a detached ordinary wall in the grabber.";
+        found.Armed = true; found.Last = StarSystem.fEpoch; found.Status = Text.Get("IntakeService.waiting_for_a_detached_ordinary_wall_in");
         intakes.Add(found.Grabber, found);
         sessions.GetValue(processor, _ => new Session()).Intake = found;
         message = found.Status;
@@ -103,7 +103,7 @@ internal sealed partial class ProcessingService
         if (!sessions.TryGetValue(processor, out var state) || state.Intake == null) return;
         var intake = state.Intake;
         intake.Armed = false; intake.Clock = null; intake.Panel = null;
-        intake.Status = "Intake paused; panels retained.";
+        intake.Status = Text.Get("IntakeService.intake_paused_panels_retained");
         if (!intake.Grabber.bDestroyed) intake.Grabber.ZeroCondAmount(IntakeRules.Working);
     }
 
@@ -115,14 +115,14 @@ internal sealed partial class ProcessingService
         if (problem != null) { state.Status = problem; state.Armed = false; return false; }
         var source = grabber.objContainer;
         if (state.Panel != null && (!source.Contains(state.Panel) || !ValidPanel(state.Panel)))
-        { state.Clock = null; state.Panel = null; state.Status = "Loading item changed; selecting a new panel."; }
+        { state.Clock = null; state.Panel = null; state.Status = Text.Get("IntakeService.loading_item_changed_selecting_a_new_panel"); }
         if (state.Panel == null)
         {
             state.Panel = source.ContainedCOs.FirstOrDefault(ValidPanel);
             if (state.Panel == null)
             {
-                state.Status = source.ContainedCOs.Count == 0 ? "Waiting for a detached ordinary wall in the grabber." :
-                    "No supported wall in grabber. " + PanelProblem(source.ContainedCOs.First());
+                state.Status = source.ContainedCOs.Count == 0 ? Text.Get("IntakeService.waiting_for_a_detached_ordinary_wall_in") :
+                    Text.Get("IntakeService.no_supported_wall_in_grabber", PanelProblem(source.ContainedCOs.First()));
                 state.Last = StarSystem.fEpoch; return false;
             }
             state.Clock = new TransferClock(state.Panel.strID, options.TransferSeconds);
@@ -130,7 +130,7 @@ internal sealed partial class ProcessingService
         }
         var destination = Feed(state.Processor)!.objContainer;
         if (!CanFeed(destination.CO, state.Panel) || !destination.AllowedCO(state.Panel) || !destination.CanAddSimple(state.Panel, out _))
-        { state.Status = "Processor feed full or blocked; panel remains in grabber."; state.Last = StarSystem.fEpoch; return false; }
+        { state.Status = Text.Get("IntakeService.processor_feed_full_or_blocked_panel_remains"); state.Last = StarSystem.fEpoch; return false; }
         grabber.SetCondAmount(IntakeRules.Working, 1);
         return true;
     }
@@ -147,16 +147,16 @@ internal sealed partial class ProcessingService
             if (!ReferenceEquals(previousClock, state.Clock)) elapsed = 0;
             bool powered = requested && grabber.HasCond("IsPowered");
             if (!state.Clock.Advance(state.Panel.strID, elapsed, powered))
-            { state.Status = "Intake time gap; start again. Panel retained."; state.Armed = false; grabber.ZeroCondAmount(IntakeRules.Working); return; }
-            state.Status = powered ? "Moving panel: " + state.Clock.Progress.ToString("F0") + "/" + state.Clock.Duration.ToString("F0") + " s." : "Grabber waiting for power.";
+            { state.Status = Text.Get("IntakeService.intake_time_gap_start_again_panel_retained"); state.Armed = false; grabber.ZeroCondAmount(IntakeRules.Working); return; }
+            state.Status = powered ? Text.Get("IntakeService.moving_panel_s", state.Clock.Progress.ToString("F0"), state.Clock.Duration.ToString("F0")) : Text.Get("IntakeService.grabber_waiting_for_power");
             if (!powered || !state.Clock.Complete) return;
             var transfer = new NativeItemTransfer(grabber.objContainer, Feed(state.Processor)!.objContainer, state.Panel);
-            if (!PhysicalTransfer.Commit(transfer)) { state.Status = "Transfer blocked; panel retained."; return; }
+            if (!PhysicalTransfer.Commit(transfer)) { state.Status = Text.Get("IntakeService.transfer_blocked_panel_retained"); return; }
             transfer.Redraw();
             state.Clock = null; state.Panel = null; grabber.ZeroCondAmount(IntakeRules.Working);
             var processor = sessions.GetValue(state.Processor, _ => new Session());
             if (processor.Job?.Running != true && !StartNext(state.Processor, processor))
-            { state.Status = "Processor needs attention: " + processor.Status; state.Armed = false; }
+            { state.Status = Text.Get("IntakeService.processor_needs_attention", processor.Status); state.Armed = false; }
         }
         catch (Exception ex) { IntakeFault(grabber, ex); }
     }
@@ -164,7 +164,7 @@ internal sealed partial class ProcessingService
     internal void IntakeFault(CondOwner grabber, Exception ex)
     {
         grabber.ZeroCondAmount(IntakeRules.Working);
-        if (intakes.TryGetValue(grabber, out var s)) { s.Armed = false; s.Status = "Intake fault; paused. Check the log before resuming."; }
+        if (intakes.TryGetValue(grabber, out var s)) { s.Armed = false; s.Status = Text.Get("IntakeService.intake_fault_paused_check_the_log_before"); }
         log(ex.ToString());
     }
 
@@ -173,9 +173,8 @@ internal sealed partial class ProcessingService
         if (!FindIntake(processor, out var found, out string problem)) return problem;
         string? invalid = LinkProblem(found!);
         if (invalid != null) return invalid;
-        string status = intakes.TryGetValue(found!.Grabber, out var s) ? s.Status : "Intake connected; paused after loading.";
-        return status + "\nGrabber contains " + found.Grabber.objContainer.ContainedCOs.Count + " item(s). " +
-            (found.Grabber.HasCond("IsPowered") ? "Grabber powered." : "Grabber needs conduit power.");
+        string status = intakes.TryGetValue(found!.Grabber, out var s) ? s.Status : Text.Get("IntakeService.intake_connected_paused_after_loading");
+        return Text.Get("IntakeService.grabber_contains_item_s", status, found.Grabber.objContainer.ContainedCOs.Count, (found.Grabber.HasCond("IsPowered") ? Text.Get("IntakeService.grabber_powered") : Text.Get("IntakeService.grabber_needs_conduit_power")));
     }
 
     internal bool OpenInventory(CondOwner processor, bool manualFeed)
@@ -184,10 +183,10 @@ internal sealed partial class ProcessingService
         string? problem = AccessProblem(processor) ?? MachineProblem(processor);
         if (problem != null) { state.Status = problem; return false; }
         var target = manualFeed ? Feed(processor) : processor;
-        if (target?.objContainer == null || CrewSim.inventoryGUI == null) { state.Status = "Inventory is unavailable."; return false; }
+        if (target?.objContainer == null || CrewSim.inventoryGUI == null) { state.Status = Text.Get("IntakeService.inventory_is_unavailable"); return false; }
         // Explicitly opens the hidden internal feed as its own titled window.
         CrewSim.inventoryGUI.SpawnInventoryWindow(target, InventoryWindowType.Container, null);
-        state.Status = manualFeed ? "Manual feed opened: load separate 24 kg ordinary walls, then Start." : "Product tray opened.";
+        state.Status = manualFeed ? Text.Get("IntakeService.manual_feed_opened_load_separate_kg_ordinary") : Text.Get("IntakeService.product_tray_opened");
         return true;
     }
 }

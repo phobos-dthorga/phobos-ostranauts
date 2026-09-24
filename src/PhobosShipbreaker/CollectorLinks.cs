@@ -24,35 +24,33 @@ internal sealed partial class CollectorService
     private static string? PairProblem(CondOwner receiver, out CondOwner? source, out PortLink link)
     {
         link = PortPairing.Read(Receiver(receiver)); source = Peer(receiver, link);
-        if (link.State == PortLinkState.Unlinked) return "No sender linked. Choose a processor.";
-        if (link.State == PortLinkState.Invalid) return "Saved link is invalid or from a newer version. Unlink before making a new pair.";
-        if (source == null) return "Saved sender is unavailable. Restore that equipment or unlink this endpoint.";
+        if (link.State == PortLinkState.Unlinked) return Text.Get("CollectorLinks.no_sender_linked_choose_a_processor");
+        if (link.State == PortLinkState.Invalid) return Text.Get("CollectorLinks.saved_link_is_invalid_or_from_a");
+        if (source == null) return Text.Get("CollectorLinks.saved_sender_is_unavailable_restore_that_equipment");
         return PortPairing.Matches(Sender(source), Receiver(receiver)) ? null :
-            "Sender no longer reciprocates this pair. Unlink before selecting a destination.";
+            Text.Get("CollectorLinks.sender_no_longer_reciprocates_this_pair_unlink");
     }
     internal static string DescribeLink(CondOwner endpoint)
     {
         var link = PortPairing.Read(Endpoint(endpoint));
-        string direction = IsSource(endpoint) ? "Receiver: " : "Sender: ";
-        if (link.State == PortLinkState.Unlinked) return direction + "not linked.";
-        if (link.State == PortLinkState.Invalid) return direction + "invalid saved link; use Unlink.";
+        string direction = IsSource(endpoint) ? Text.Get("CollectorLinks.receiver") : Text.Get("CollectorLinks.sender");
+        if (link.State == PortLinkState.Unlinked) return Text.Get("CollectorLinks.not_linked", direction);
+        if (link.State == PortLinkState.Invalid) return Text.Get("CollectorLinks.invalid_saved_link_use_unlink", direction);
         var peer = Peer(endpoint, link);
         bool matched = peer != null && (IsSource(endpoint) ? PortPairing.Matches(Sender(endpoint), Receiver(peer)) :
             PortPairing.Matches(Sender(peer), Receiver(endpoint)));
-        return direction + (peer == null ? link.PeerObjectId + " (unavailable)" : Label(peer)) +
-            " | Pair " + PortPairing.ShortId(link.PairId) + (matched ? " (saved)." : " (broken; no transfer).");
+        return Text.Get("CollectorLinks.pair", direction, (peer == null ? Text.Get("CollectorLinks.unavailable", link.PeerObjectId) : Label(peer)), PortPairing.ShortId(link.PairId), (matched ? Text.Get("CollectorLinks.saved") : Text.Get("CollectorLinks.broken_no_transfer")));
     }
     internal static string LinkIds(CondOwner endpoint)
     {
         var link = PortPairing.Read(Endpoint(endpoint));
-        return "Object ID: " + endpoint.strID + "\nPort: " + Endpoint(endpoint).PortId +
-            (link.State == PortLinkState.Linked ? "\nPeer object ID: " + link.PeerObjectId + "\nPeer port: " + link.PeerPortId + "\nPair: " + link.PairId : "");
+        return Text.Get("CollectorLinks.object_id_port", endpoint.strID, Endpoint(endpoint).PortId, (link.State == PortLinkState.Linked ? Text.Get("CollectorLinks.peer_object_id_peer_port_pair", link.PeerObjectId, link.PeerPortId, link.PairId) : ""));
     }
     internal bool Unlink(CondOwner endpoint, out string message)
     {
-        if (!IsSource(endpoint) && !CollectorRules.IsFamily(endpoint.strCODef)) { message = "Not a material endpoint."; return false; }
+        if (!IsSource(endpoint) && !CollectorRules.IsFamily(endpoint.strCODef)) { message = Text.Get("CollectorLinks.not_a_material_endpoint"); return false; }
         string? problem = IsSource(endpoint) ? ProcessingService.AccessProblem(endpoint) : AccessProblem(endpoint);
-        if (problem != null || endpoint.HasCond("IsLocked")) { message = problem ?? "Unlock this endpoint."; return false; }
+        if (problem != null || endpoint.HasCond("IsLocked")) { message = problem ?? Text.Get("CollectorLinks.unlock_this_endpoint"); return false; }
         var link = PortPairing.Read(Endpoint(endpoint));
         var peer = Peer(endpoint, link);
         bool reciprocates = peer != null && (IsSource(endpoint) ? PortPairing.Matches(Sender(endpoint), Receiver(peer)) :
@@ -63,9 +61,9 @@ internal sealed partial class CollectorService
         if (receiver != null && sessions.TryGetValue(receiver, out var s))
         {
             Disarm(receiver, s); s.Source = null; s.PairId = ""; s.Route = null; s.Clock = null; s.Item = null;
-            s.Status = "Unlinked and paused; all cargo retained.";
+            s.Status = Text.Get("CollectorLinks.unlinked_and_paused_all_cargo_retained");
         }
-        message = "Unlinked; cargo retained. Choose a new pair when ready.";
+        message = Text.Get("CollectorLinks.unlinked_cargo_retained_choose_a_new_pair");
         return true;
     }
 }

@@ -16,7 +16,7 @@ public static class MaintenanceDefinitions
         MaintenanceSafety.LegacyFinishes[(savedDefinition, oldAction)] = newAction;
     public static void ReturnRepairMaterials(NativeDefinitions d, JsonInstallable repair)
     {
-        if (!d.Objects.ContainsKey(SpentParts)) Remainder(d, SpentParts, "Spent service parts (0.5 kg)", .5);
+        if (!d.Objects.ContainsKey(SpentParts)) Remainder(d, SpentParts, Text.Get("MaintenanceDefinitions.spent_service_parts_kg"), .5);
         MaintenanceSafety.Repairs["MS" + repair.strName] = repair.aLootCOs[0];
         // Material quantity comes from the real repair lot, also for a job begun
         // under an older material bill. The machine itself keeps its saved ID.
@@ -58,7 +58,7 @@ public static class MaintenanceDefinitions
     {
         var item = NativeDefinitions.Clone(DataHandler.dictCOs["ItmScrapTrash"]);
         item.strName = id; item.strNameFriendly = item.strNameShort = title;
-        item.strDesc = "Retained mixed material. No refining recipe yet; not a native parts bundle or sortable trash.";
+        item.strDesc = Text.Get("MaintenanceDefinitions.retained_mixed_material_no_refining_recipe_yet");
         item.nStackLimit = 1;
         item.aStartingConds = new[] { "IsSolid=1x1", "IsCategoryTrash=1x1", "StatMass=1x" + mass.ToString(CultureInfo.InvariantCulture), "StatBasePrice=1x0.01" };
         item.aUpdateCommands = Array.Empty<string>();

@@ -12,7 +12,7 @@ public sealed class TransferClock
     public TransferClock(string itemId, double duration)
     {
         if (string.IsNullOrEmpty(itemId) || double.IsNaN(duration) || double.IsInfinity(duration) || duration < 1 || duration > 60)
-            throw new ArgumentException("Invalid transfer cycle.");
+            throw new ArgumentException(Text.Get("TransferClock.invalid_transfer_cycle"));
         ItemId = itemId; Duration = duration;
     }
     public bool Advance(string itemId, double elapsed, bool powered)

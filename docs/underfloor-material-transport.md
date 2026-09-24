@@ -15,7 +15,8 @@ from the provisional 2 x 2 underfloor parts ports described here.
 24 September 2026. Owner idea following the exterior Shipbreaker mounting review:
 show conveyors emerging from beneath the floor and returning beneath it, implying
 material logistics in a lower service space. The owner compares this abstraction
-to the game's RCS gas supply. Routed underfloor transport remains a proposal.
+to the game's RCS gas supply. The general network below remains a proposal; the
+single paired residue route described above is implemented.
 The later 0.3.0 candidate implements direct grabber-to-processor item transfer,
 without a conveyor network. A later owner
 request authorised [port concept artwork](../assets/phobos-material-transport/README.md)

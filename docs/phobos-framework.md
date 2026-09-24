@@ -5,13 +5,13 @@ Decision: 24 September 2026. The owner selected our own shareable framework
 The purpose is reusable services for equipment and future material transport,
 not reproducing every feature of OCF or turning Ostranauts into a factory game.
 
-## Current candidate: Framework and Shipbreaker 0.6.0
+## Current candidate: Framework and Shipbreaker 0.7.0
 
 The [residue collector](residue-collector.md) adds a finite wall-mounted receiving
 chamber linked to one processor through structural flooring. Framework owns the
 existing same-object move plus small filter, clock, grid-search and saved-pair helpers;
 Shipbreaker owns physical rules and machinery. Five construction recipes register.
-The installer requires Framework 0.6.0 and verifies collector/intake artwork.
+The installer requires Framework 0.7.0 and verifies collector/intake artwork.
 Players choose one sender/receiver pair from either endpoint's controls. Pairing
 uses full object IDs in native saved property maps, following signal connections.
 Offline checks pass; gameplay and old-save loading remain owner tests. The earlier
@@ -60,14 +60,18 @@ Shipbreaker was updated to 0.2.0 alongside Framework 0.2.0 and Auto Nav 0.1.1 on
 2026-09-24. The shared installer verified 39 matching files and enabled native
 entries; the game was not launched and no saves or player settings were accessed.
 New construction, optional-bench coexistence and loading old Phobos
-objects/queues still need owner-run testing in a separate save.
+objects/queues still need owner-run gameplay evaluation. The current suite uses
+ordinary saves; the historical test-save wording is not a current restriction.
 
 ## Saved identity and construction ownership
 
 Fixture variants, section/residue IDs, feed slot/bin IDs, six installable IDs,
 footprints, storage sizes, masses, damage limits and processing revision/progress
-remain stable. The two construction stages retain their input bill and work
-requirements (120 seconds per section, then 60 seconds for assembly).
+remain stable. The input bill is unchanged. The original independent prototype
+used 120 seconds per section and 60 seconds for assembly; **0.6.0 supersedes those
+timings with 60 minutes per section and 30 minutes for final assembly**. See
+[current equipment work times](equipment-economy.md) and the
+[player guide](player-guide.md).
 
 Active recipes live in `framework/recipes.json`, explicitly loaded by Shipbreaker.
 The former `crafting/recipes.json` remains as an **empty migration stub**. The
@@ -101,7 +105,7 @@ arrived-material validation and explicit mass checks. Its completion gate blocks
 repeated effects on the same live interaction after effects begin. Native effects
 are **not transactional**: a crash or exception after material removal may leave
 partial results. The gate is session state, not a persistent crash journal. Stop
-and inspect the test save on a reported native completion fault; do not claim
+and inspect the reported state on a native completion fault; do not claim
 crash-safe construction or missing-provider recovery.
 
 Processing delivery remains Shipbreaker's existing staged output/input handling,
