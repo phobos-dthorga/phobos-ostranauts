@@ -1,5 +1,11 @@
 # Industrial control console and equipment panels
 
+**Future furnace instruments:** the owner's reactor-panel reference and the
+[fusion furnace feasibility report](fusion-smelter-research.md) propose an
+expanded instrument view within this same local/central control architecture.
+It adds no current machine, gauges or heat-transfer service. Retain C1's ship
+scope, fleet navigation and checked service actions when that view is implemented.
+
 24 September 2026. Research baseline: Framework/Shipbreaker 0.9.0,
 Auto Nav 0.3.0, Ostranauts 1.0.1.5. The owner approved the
 [text mockups](industrial-control-mockups.md), then implementation of overflow,

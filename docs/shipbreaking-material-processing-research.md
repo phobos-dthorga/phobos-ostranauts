@@ -235,6 +235,13 @@ Build one useful process rather than pre-implementing all of those systems.
 
 ## Next work and validation
 
+**Later owner direction, 2026-09-24:** the
+[fusion furnace and instrument-panel report](fusion-smelter-research.md) now
+develops the downstream melting/casting stage as the intended centrepiece.
+It preserves this report's separation of dismantling, sorting, remelting and
+ore chemistry. A useful casting consumer, accounted reactor coupling and finite
+cooling must accompany the furnace; existing scrap recipes remain usable.
+
 1. Complete the existing Framework/Shipbreaker candidate's owner-run integration
    check when convenient. This research does not require another basic power test.
 2. Use the implemented intake and paired collector route; extend shared transport

@@ -84,6 +84,19 @@
   `docs/asteroid-life-support-research.md`. The combined scrap reclaimer is now
   implemented as described below; ore and life-support processing remain research,
   not implemented features or verified integrations.
+- The owner requested a direct-fusion furnace as Shipbreaker's centrepiece with
+  a tactile reactor-like control panel (2026-09-24). Follow
+  `docs/fusion-smelter-research.md`: meaningful live gauges, bounded process
+  controls, automatic recipes plus manual sequencing, local/C1/F3 service access,
+  finite heat rejection and preserved hot-state saves. An electromagnetic
+  alternative remains a later option. The proposed F6 name, 6 x 6 footprint,
+  50 kg charge and 250 kW delivered-heat limit are design candidates, not approved
+  or implemented equipment. Raw fusion heat has no established native outlet;
+  prove source allocation/debit without double-counting electrical or propulsion
+  output and yield to flight authority. Do not silently substitute electrical
+  heating or grant free heat merely because a reactor is running. Reuse Framework
+  for concrete shared state, accounting, controls and endpoint needs; content owns
+  furnace recipes, art and balance. The current round is research/documentation.
 - Future industrial chemical storage is documented in
   `docs/chemical-storage-and-process-fluids.md` (owner direction, 2026-09-24).
   Preserve solvent/reagent reservoirs, quantity-based station refuelling like

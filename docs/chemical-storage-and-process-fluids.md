@@ -188,6 +188,7 @@ SHA-256 snapshot, 2026-09-24:
 | explosions.json | `f0f9f8e71675d6a40d9fdf8910b7a27ec0ce0a0ebb1a278ebb59f7be391e1e77` |
 
 Related: [industry roadmap](fusion-industry-roadmap.md),
+[fusion furnace and chamber controls](fusion-smelter-research.md),
 [processing expansion](shipbreaking-material-processing-research.md),
 [asteroid life-support resources](asteroid-life-support-research.md),
 [explicit material-port pairing](material-port-pairing.md).

@@ -51,7 +51,15 @@ features justify it. Native gases and Ship's Water provide inspected precedents;
 custom species need further code research. This is documentation only, not new
 runtime content or a change to current mechanical salvage requirements.
 
-The earlier suggestion to start with a furnace is superseded by this choice.
+**2026-09-24 furnace direction:** the owner now selects a direct-fusion furnace
+as Shipbreaker's eventual centrepiece, with a reactor-like instrument panel and
+an electromagnetic alternative potentially later. See the
+[feasibility report and control mockup](fusion-smelter-research.md). The UI has
+clear native precedents; accounted raw-energy extraction and finite cooling
+still need implementation. This is research only. The original decision to
+start with onboard dismantling remains the history of the implemented chain;
+it no longer excludes developing the furnace downstream of that chain.
+
 Approach Assist remains an existing prototype with owner testing outstanding;
 selecting industrial research does not claim that its guidance is complete.
 
@@ -88,8 +96,10 @@ selecting industrial research does not claim that its guidance is complete.
 cast usable stock, and use or sell the output. Begin with known, reasonably
 homogeneous metal streams. Mixed alloys require different processing routes.
 
-**Energy:** induction/arc heating from electricity; a dedicated high-temperature
-reactor heat interface is a later engineering proposal. Crucibles, furnace
+**Energy:** the owner's current preference is a dedicated direct-fusion energy
+interface, with electrical induction as a later alternative. The
+[furnace research](fusion-smelter-research.md) distinguishes that proposed
+interface from existing native electrical delivery. Crucibles, furnace
 linings, batch cooling and contamination can provide maintenance and quality
 tradeoffs.
 
