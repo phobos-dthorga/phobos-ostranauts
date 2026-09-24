@@ -1,6 +1,6 @@
 # Phobos Auto Nav: standalone adaptation
 
-**0.7.0 candidate; built against Ostranauts 1.0.1.5 / BepInEx 5.4.23.5.**
+**0.8.0 candidate; built against Ostranauts 1.0.1.5 / BepInEx 5.4.23.5.**
 Ordinary saves are the baseline from 2026-09-24. Phobos Framework 0.11.0+ now
 provides shared construction, merchant and maintenance services. No original Auto
 Navigate dependency. See [prices, acquisition and service bills](equipment-economy.md).
@@ -23,6 +23,10 @@ That note has not been sent. No blanket community reuse grant is claimed.
 
 ## Implemented slice
 
+- Version 0.8.0 adds deliberate [RCS docking](auto-nav-docking.md) within 10 km
+  of the hull after native Comms clearance. Details has a Dock button; F3 has
+  `phobosnav dock`. Reload suspends docking for explicit Resume.
+
 - Version 0.7.0 provides propulsion and stopping-distance dials, phase, destination,
   range and total relative-speed readouts, Fly/Resume, Stop/Coast and scrollable
   Details. It retains the corrected native panel footprint and saved-flight rules.
@@ -38,7 +42,7 @@ That note has not been sent. No blanket community reuse grant is claimed.
   approach controller. No inherited vendor/loot injection or artwork is included.
 - The panel's **Fly** and **Disengage** buttons and F3 commands share one service.
   Current scope is selected ships/stations in free space. Planetary travel,
-  docking, collision avoidance and continuous working-position control are not
+  collision avoidance and continuous working-position control are not
   offered. Inherited target resolution still tracks engine objects rather than
   enforcing Approach Assist's full live sensor-contact policy; that is a known
   integration difference, not a claim of sensor realism.

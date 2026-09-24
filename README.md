@@ -107,7 +107,8 @@ so started panels retain their recipe outputs and duration through later updates
 Version 0.8.0 starts new panels on revision 2, supplying the new scrap reclaimer;
 already-started revision-1 jobs retain their original outputs.
 The economy update adds merchant offers, mass-balanced maintenance and ordinary-save
-operation. Auto Nav 0.7.0 adds a [rotary instrument panel](docs/auto-nav-instruments.md)
+operation. Auto Nav 0.8.0 adds [RCS docking](docs/auto-nav-docking.md).
+Version 0.7.0 added a [rotary instrument panel](docs/auto-nav-instruments.md)
 and includes short-range approaches below 5,000 km with closer
 arrival settings, improved coasting and corrected panel dragging/sizing. The current
 suite uses Framework 0.11.0. Auto Nav now supports

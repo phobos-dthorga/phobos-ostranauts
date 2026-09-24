@@ -137,7 +137,7 @@
   The owner selected **1 km default arrival**, adjustable closer. Version 0.4.0
   accepts 0.1–100 km arrival requests with native hull clearance; preserve existing
   preferences and capture overrides per flight. Keep diagnostics and panel/F3
-  actions on the same service. Docking, obstacle avoidance and continuous working
+  actions on the same service. Obstacle avoidance and continuous working
   position control remain separate future features. See `docs/auto-navigate-adaptation.md`.
 - The owner reports successful Auto Nav flight behaviour but wants less RCS waste
   from excessive precision (2026-09-24). Version 0.4.3 captures configurable cruise
@@ -392,6 +392,14 @@
   `docs/industrial-console-player-guide.md` and the original text mockups.
 
 ## Auto Nav persistence (2026-09-24)
+
+- Owner authorised docking on 2026-09-24. Auto Nav 0.8.0 adds a separate Dock
+  action within 10 km of hull contact distance, using RCS and existing native
+  clearance, compatible ports and attachment. Ordinary Fly still stops short.
+  Capture the assigned port pair and retain it through saves. Docking always
+  suspends after reload for explicit Resume; do not weaken ordinary Fly's own
+  resume policy. Reuse Framework storage/controls, keep flight policy in Auto Nav.
+  See `docs/auto-nav-docking.md`; gameplay verification remains with the owner.
 
 - Owner requested flight state across saves/reloads and shared Framework support.
   Auto Nav 0.5.0 uses Framework 0.11.0 `Persistence.ObjectStateStore`; native object

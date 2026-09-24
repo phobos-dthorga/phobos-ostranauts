@@ -44,14 +44,14 @@ internal sealed partial class NavigationService
                 .Where(co => !co.bDestroyed && Store(co).Read(out _) != SavedStateStatus.Missing)
                 .OrderBy(co => co.strID, StringComparer.Ordinal).ToArray();
             var resumable = candidates.Where(co => Store(co).Read(out var fields) == SavedStateStatus.Ready &&
-                FlightSnapshot.TryDecode(fields, out var flight) && flight.Mode == SavedFlightMode.Active).ToArray();
+                FlightSnapshot.TryDecode(fields, out var flight) && flight.IsActive).ToArray();
             if (resumable.Length > 1)
             {
                 // Persist the suspension so another reload cannot silently pick a winner.
                 foreach (var co in resumable)
                 {
                     Store(co).Read(out var fields); FlightSnapshot.TryDecode(fields, out var flight);
-                    flight.Mode = SavedFlightMode.Suspended; Store(co).TryWrite(flight.Encode());
+                    flight.Mode = flight.SuspendedMode; Store(co).TryWrite(flight.Encode());
                 }
                 status = Text.Get("Persistence.multiple_flights"); return;
             }
@@ -63,7 +63,7 @@ internal sealed partial class NavigationService
             if (snapshot.Mode == SavedFlightMode.Active && Plugin.ResumeAfterLoad.Value) ResumeSaved(selected);
             else
             {
-                if (snapshot.Mode == SavedFlightMode.Active) FinishSavedFlight(SavedFlightMode.Suspended);
+                if (snapshot.IsActive) FinishSavedFlight(snapshot.SuspendedMode);
                 status = SavedDescription(snapshot);
             }
         }
@@ -84,7 +84,7 @@ internal sealed partial class NavigationService
 
     private FlightSnapshot? DisplaySnapshot(CondOwner? co) => co != null && Store(co).Read(out var fields) == SavedStateStatus.Ready &&
         FlightSnapshot.TryDecode(fields, out var snapshot) && snapshot.ConsoleId == co.strID &&
-        (snapshot.Mode == SavedFlightMode.Active || snapshot.Mode == SavedFlightMode.Suspended) ? snapshot : null;
+        snapshot.IsResumable ? snapshot : null;
 
     private FlightSnapshot CaptureFlight(CondOwner co, TargetRef target, double cruise, double arrival, double distance) => new FlightSnapshot
     {
@@ -131,7 +131,7 @@ internal sealed partial class NavigationService
         try
         {
             if (!ReadSaved(co, out var snapshot)) return;
-            if (snapshot.Mode != SavedFlightMode.Active && snapshot.Mode != SavedFlightMode.Suspended)
+            if (!snapshot.IsResumable)
             { status = SavedDescription(snapshot); return; }
             console = co; savedFlight = snapshot;
             string? problem = !Plugin.Enabled.Value ? Text.Get("NavigationService.mod_disabled") : HardwareProblem(co);
@@ -146,9 +146,10 @@ internal sealed partial class NavigationService
                 problem = Text.Get("NavigationService.target_unavailable");
             if (problem != null)
             {
-                FinishSavedFlight(SavedFlightMode.Suspended);
+                FinishSavedFlight(snapshot.SuspendedMode);
                 status = Text.Get("Persistence.suspended_reason", problem); log(status); return;
             }
+            if (snapshot.IsDocking) { ResumeDocking(co, target!, snapshot); return; }
             // No Resolve/BeginFlight here: those can advance target physics or
             // reset native navigation. All actual guidance waits for TimeAdvance.
             AutoNavCore.RestoreFlight(co.ship, target!, snapshot);
@@ -163,7 +164,7 @@ internal sealed partial class NavigationService
         }
         catch (Exception ex)
         {
-            log(ex.ToString()); FinishSavedFlight(SavedFlightMode.Suspended);
+            log(ex.ToString()); FinishSavedFlight(savedFlight?.SuspendedMode ?? SavedFlightMode.Suspended);
             AutoNavCore.ResetStatics(); status = Text.Get("Persistence.restore_error");
         }
     }

@@ -57,6 +57,8 @@ internal static class AutoNavCore
     internal static bool FlightPrefersTorch { get; private set; }
     internal static double ElapsedSeconds => _elapsedSim;
     internal static bool Coasting => _coasting;
+    internal static void AdvanceDockingClock(double dt)
+    { _elapsedSim += dt; _coasting = false; CurrentPhase = Phase.Align; }
 
     // Loading restores intent only. The first real physics step recomputes
     // guidance from native position/velocity; no old thrust is replayed.

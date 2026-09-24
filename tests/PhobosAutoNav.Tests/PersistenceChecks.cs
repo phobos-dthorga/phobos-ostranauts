@@ -17,6 +17,7 @@ internal static class PersistenceChecks
             foreach (bool coast in new[] { true, false })
             foreach (bool torch in new[] { true, false })
             {
+                if (mode == SavedFlightMode.Docking || mode == SavedFlightMode.DockingSuspended || mode == SavedFlightMode.Docked) continue; // Docking harness covers its stricter contract.
                 var original = new FlightSnapshot
                 {
                     ConsoleId = "console-1", ModuleId = "module-2", ShipId = "ship-3", PlayerId = "player-4", TargetId = "ship-5",

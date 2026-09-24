@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><OutputType>Exe</OutputType><TargetFramework>net10.0</TargetFramework></PropertyGroup>
+  <ItemGroup>
+    <Compile Include="../../src/PhobosAutoNav/Core/*.cs" Link="%(Filename)%(Extension)" />
+    <Compile Include="../../src/PhobosAutoNav/DockingAdapter.cs" Link="DockingAdapter.cs" />
+    <Compile Include="../../src/PhobosAutoNav/NavigationDocking.cs" Link="NavigationDocking.cs" />
+    <Compile Include="../../src/PhobosAutoNav/NavigationPersistence.cs" Link="NavigationPersistence.cs" />
+    <ProjectReference Include="../../src/PhobosFramework/PhobosFramework.csproj" />
+  </ItemGroup>
+</Project>

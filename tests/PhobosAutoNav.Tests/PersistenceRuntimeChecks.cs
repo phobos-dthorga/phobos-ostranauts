@@ -203,6 +203,7 @@ namespace PhobosAutoNav
         private static bool HasId(CondOwner item, string id) => item.Kind == id;
         private static string? HardwareProblem(CondOwner? co) => co?.Problem;
         internal void Engage(CondOwner co) => throw new NotSupportedException();
+        private void ResumeDocking(CondOwner co, TargetRef target, FlightSnapshot snapshot) => throw new NotSupportedException();
         internal void Disengage(string reason) { FinishSavedFlight(SavedFlightMode.Stopped); AutoNavCore.ResetStatics(); }
         internal void SaveProgressForTest() => PersistProgress();
         internal void ForgetForTest(CondOwner co) => ForgetSaved(co);

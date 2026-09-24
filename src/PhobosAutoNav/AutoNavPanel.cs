@@ -22,7 +22,7 @@ public sealed class AutoNavPanel : NavModBase
     private CanvasGroup controls = null!;
     private TMP_Text heading = null!, target = null!, range = null!, speed = null!, notice = null!, details = null!;
     private TMP_Text arrival = null!, propulsion = null!, flyLabel = null!, detailLabel = null!;
-    private Button fly = null!, stop = null!;
+    private Button fly = null!, stop = null!, dock = null!;
     private RotarySelector arrivalDial = null!, propulsionDial = null!;
     private ScrollRect detailScroll = null!;
     private Sprite? faceplateSprite;
@@ -72,6 +72,7 @@ public sealed class AutoNavPanel : NavModBase
         var content = PanelWidgets.Scroll(scrollHost, "FlightDetails", out panel.detailScroll);
         PanelWidgets.Fill((RectTransform)panel.detailScroll.transform);
         panel.detailsRoot = scrollHost;
+        panel.dock = PanelWidgets.Button(content, Text.Get("Docking.button"), () => panel.Dock());
         panel.details = PanelWidgets.Label(content, "", flowing: false);
         if (font != null) panel.details.font = font;
         panel.details.fontSize = 14; panel.details.color = Ink; panel.details.richText = false;
@@ -103,6 +104,11 @@ public sealed class AutoNavPanel : NavModBase
     {
         if (!CanInteract) return;
         Plugin.Service.Stop(COSelf, Text.Get("NavigationService.stopped_by_pilot_coasting")); UpdateUI();
+    }
+    private void Dock()
+    {
+        if (!CanInteract) return;
+        Plugin.Service.Dock(COSelf); UpdateUI();
     }
     private void ChangeArrival(int direction)
     {
@@ -150,12 +156,13 @@ public sealed class AutoNavPanel : NavModBase
         target.text = view.Target; range.text = view.Range; speed.text = view.RelativeSpeed;
         notice.text = damaged ? Text.Get("AutoNavPanel.module_damaged_repair_required") : view.Notice;
         details.text = damaged ? Text.Get("AutoNavPanel.module_damaged_repair_required") : view.Details;
-        arrival.text = Text.Get("Instruments.arrival_value", view.ArrivalKM);
+        arrival.text = view.Docking ? Text.Get("Docking.clamps") : Text.Get("Instruments.arrival_value", view.ArrivalKM);
         propulsion.text = Text.Get(view.TorchPreferred ? "Instruments.auto" : "Torch.rcs");
         arrivalDial.SetAngle(InstrumentRules.ArrivalAngle(view.ArrivalKM)); propulsionDial.SetAngle(view.TorchPreferred ? -55 : 55);
         arrivalDial.interactable = !damaged && view.CanAdjustArrival; propulsionDial.interactable = !damaged && view.CanAdjustPropulsion;
         arrival.color = arrivalDial.interactable ? Ink : Amber; propulsion.color = propulsionDial.interactable ? Ink : Amber;
         fly.interactable = !damaged && view.CanFly; stop.interactable = !damaged && view.CanStop;
+        dock.interactable = !damaged && view.CanDock;
         flyLabel.text = Text.Get(view.Resumable ? "Persistence.resume_button" : "AutoNavPanel.fly");
         detailLabel.text = Text.Get(detailsOpen ? "Instruments.overview" : "Instruments.details_button");
     }

@@ -100,6 +100,7 @@ internal sealed partial class NavigationService
     {
         if (CrewSim.objInstance == null || !CrewSim.objInstance.FinishedLoading || CrewSim.Paused) return;
         if (!AutoNavCore.Engaged || AutoNavCore.EngagedPlayer?.objSS != situ || ignoreAcceleration || dt == 0) return;
+        if (DockingActive) return; // Docking samples both ships at the system boundary.
         try
         {
             string? problem = !Plugin.Enabled.Value ? Text.Get("NavigationService.mod_disabled") : HardwareProblem(console);
@@ -164,6 +165,7 @@ internal sealed partial class NavigationService
     {
         co ??= console;
         var snapshot = DisplaySnapshot(co);
+        if (snapshot?.IsDocking == true) return Text.Get("Docking.binding", snapshot.OwnPort, snapshot.TargetPort);
         double requested = AutoNavCore.Engaged ? AutoNavCore.ArriveAU / AutoNavCore.KM_TO_AU : snapshot?.ArrivalKM ?? Plugin.DefaultArriveKM.Value;
         var target = AutoNavCore.Engaged ? AutoNavCore.EngagedTarget :
             snapshot != null ? TargetRef.FromShipId(snapshot.TargetId) :
@@ -209,6 +211,7 @@ internal sealed partial class NavigationService
                     Engage(OpenConsole, requested);
                     response = status + "\n" + ApproachSummary(OpenConsole, detailed: true);
                     return AutoNavCore.Engaged;
+                case "dock": Dock(OpenConsole); response = status; return AutoNavCore.Engaged;
                 case "arrival":
                     if (words.Length != 3 || !ApproachRules.TryParseArrival(words[2], out float newDefault))
                     { response = ArrivalUsage(); return false; }

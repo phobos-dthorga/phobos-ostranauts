@@ -16,7 +16,7 @@ namespace PhobosAutoNav;
 public sealed class Plugin : BaseUnityPlugin
 {
     public const string Id = "phobosgekko.ostranauts.autonav";
-    public const string Version = "0.7.0";
+    public const string Version = "0.8.0";
     internal static NavigationService Service { get; private set; } = null!;
     internal static ConfigEntry<bool> Enabled = null!, VerboseLogging = null!, FuelCheck = null!,
         AbortOnManualThrust = null!, UseThrusterRotation = null!, ResumeAfterLoad = null!, PreferTorch = null!;
@@ -76,6 +76,18 @@ public sealed class Plugin : BaseUnityPlugin
         FrameworkLifecycle.ContentLoading -= EquipmentContent.Register;
         if (Service != null) CrewSim.OnGameFinishedLoading.RemoveListener(Service.WorldLoaded);
         Service?.Disengage(Text.Get("Plugin.plugin_unloaded")); harmony?.UnpatchSelf();
+    }
+}
+
+[HarmonyPatch(typeof(StarSystem), nameof(StarSystem.Update))]
+internal static class DockingTickPatch
+{
+    private static void Prefix(StarSystem __instance, double fTimeDelta) => Plugin.Service.TickDocking(__instance, fTimeDelta, false);
+    private static void Postfix(StarSystem __instance, double fTimeDelta) => Plugin.Service.TickDocking(__instance, fTimeDelta, true);
+    private static Exception? Finalizer(Exception? __exception)
+    {
+        if (__exception != null) Plugin.Service.Disengage(Text.Get("Plugin.physics_interrupted"));
+        return __exception;
     }
 }
 

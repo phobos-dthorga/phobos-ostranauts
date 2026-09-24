@@ -7,7 +7,7 @@ internal sealed class InstrumentSnapshot
 {
     internal string Heading = "", Target = "", Range = "", RelativeSpeed = "", Notice = "", Details = "";
     internal double ArrivalKM;
-    internal bool TorchPreferred, CanFly, CanStop, CanAdjustArrival, CanAdjustPropulsion, Resumable, Warning;
+    internal bool TorchPreferred, CanFly, CanStop, CanAdjustArrival, CanAdjustPropulsion, Resumable, Warning, CanDock, Docking;
 }
 
 internal sealed partial class NavigationService
@@ -63,6 +63,7 @@ internal sealed partial class NavigationService
         if (previousDestination && problem == null && !view.Resumable)
             view.Heading = Text.Get(stored!.Mode == SavedFlightMode.Arrived ? "Instruments.arrived" : "Instruments.stopped");
         view.CanFly = !AutoNavCore.Engaged && problem == null && approachReady;
+        view.CanDock = view.CanFly && !view.Resumable;
         view.CanStop = !otherFlight && (ownsFlight || view.Resumable);
         view.Notice = problem ?? (ownsFlight ? Text.Get(AutoNavCore.CurrentPhase == AutoNavCore.Phase.Coast ? "Instruments.coast_hint" : Torch.Reason) :
             view.Resumable ? Text.Get("Instruments.resume_hint") : Text.Get(target != null ? "Instruments.ready_hint" : "Instruments.select_hint"));
@@ -72,6 +73,16 @@ internal sealed partial class NavigationService
             Plugin.TorchMaximumG.Value, Plugin.ResumeAfterLoad.Value ? Text.Get("Instruments.on") : Text.Get("Instruments.off")) +
             "\n\n" + Text.Get(captured ? "Instruments.captured_hint" : "Instruments.default_hint") +
             "\n\n" + Text.Get("Instruments.help");
+        view.Details += "\n\n" + Text.Get("Docking.help");
+        if (snapshot?.IsDocking == true)
+        {
+            view.Docking = true;
+            view.Heading = Text.Get(problem != null ? "Instruments.blocked" : ownsFlight ? "Docking.heading" : "Docking.suspended_heading");
+            view.Notice = problem ?? (ownsFlight ? status : Text.Get("Docking.resume_hint"));
+            view.Details = Text.Get("Docking.details", view.Target, status, view.Notice, view.Range, view.RelativeSpeed) +
+                "\n\n" + Text.Get("Docking.binding", snapshot.OwnPort, snapshot.TargetPort) +
+                "\n\n" + Text.Get("Docking.help");
+        }
         return view;
     }
 

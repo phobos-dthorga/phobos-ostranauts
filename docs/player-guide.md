@@ -1,7 +1,7 @@
 # Current player guide
 
 **Prepared versions:** Phobos Framework **0.11.0**, Shipbreaker **0.10.0**, Auto Nav
-**0.7.0**, built against Ostranauts **1.0.1.5** / BepInEx **5.4.23.5**.
+**0.8.0**, built against Ostranauts **1.0.1.5** / BepInEx **5.4.23.5**.
 These versions support ordinary saves. Builds and offline checks do not establish
 in-game compatibility. This guide describes the prepared packages, not a claim
 that those packages are already installed or that merchants have restocked.
@@ -146,6 +146,11 @@ connected workflow, retained materials and any actual failure you encounter.
 
 ## Auto Nav and current limits
 
+Auto Nav 0.8.0 adds [automatic RCS docking](auto-nav-docking.md) as a separate
+maneuver within 10 km of the hull. Request Comms clearance, select that target,
+then use Details → Dock or `phobosnav dock`. Keep Comms/docking controls open for
+final attachment. Reload suspends docking for explicit Resume.
+
 Auto Nav 0.7.0 adds the [Polaris instrument panel](auto-nav-instruments.md):
 rotary AUTO/RCS preference and stopping distance, clear live flight readings,
 Fly/Resume, Stop/Coast and scrollable Details. AUTO prefers a usable running torch;
@@ -190,8 +195,8 @@ requests 500 m for one flight. These distances are centre-to-centre, and arrival
 is a band rather than an exact docking position. Status reports effective range.
 Choose a ship/station target and use the [Auto Nav guide](auto-navigate-adaptation.md)
 for settings and integration limits. Stopping clears commanded thrust: the ship
-coasts. This is not emergency braking, automatic docking, obstacle avoidance or
-continuous relative-position holding.
+coasts. Stop is not emergency braking. Fly does not dock; obstacle avoidance and
+continuous relative-position holding remain unimplemented.
 
 The grabber currently receives manually loaded detached walls. It does not cut
 attached hull. The combined scrap reclaimer is now available; asteroid-water

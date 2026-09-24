@@ -1,5 +1,11 @@
 # Auto Nav saved flights (introduced 0.5.0; torch addition 0.6.0)
 
+Auto Nav 0.8.0 additionally saves [docking intent and exact port pairs](auto-nav-docking.md).
+Docking always suspends after reload for explicit Resume, with current clearance
+and port checks. Its new lifecycle names prevent an earlier plugin from treating
+a docking record as an ordinary approach. The automatic restoration described
+below continues to apply to ordinary Fly missions.
+
 Prepared against Ostranauts 1.0.1.5 and BepInEx 5.4.23.5, with Phobos Framework
 0.11.0. Builds and automated checks are not in-game validation.
 

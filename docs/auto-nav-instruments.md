@@ -1,5 +1,11 @@
 # Polaris instrument panel — Auto Nav 0.7.0
 
+**0.8.0 addition:** Details now includes **Dock with selected target**, using the
+same service as `phobosnav dock`. During active/suspended docking the stopping
+distance reads CLAMPS; docking uses its own capture limits and RCS. See the
+[docking guide](auto-nav-docking.md) for clearance, ports and explicit Resume
+after reload. The linked artwork preview illustrates the original 0.7.0 layout.
+
 Prepared against Ostranauts 1.0.1.5 and Framework 0.11.0. The owner authorised a
 substantial redesign on 24 September 2026. This is a prepared candidate, not an
 installed update or an in-game validation claim.
