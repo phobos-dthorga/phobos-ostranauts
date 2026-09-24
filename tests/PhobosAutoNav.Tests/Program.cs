@@ -79,4 +79,34 @@ try
         Check(!ApproachRules.TryParseArrival(value, out _), "Reject malformed/out-of-bounds stop distance");
 }
 finally { CultureInfo.CurrentCulture = previousCulture; }
+
+// Actual container bounds, including native two-decimal save/load rounding.
+// The board is aspect-fitted by vanilla even on ultrawide screens; include both
+// measured board proportions and other parent sizes to catch pixel assumptions.
+foreach (var board in new[] { (1440d, 732d), (2419d, 1230d), (720d, 366d), (1280d, 720d), (1024d, 768d) })
+{
+    Check(PanelLayoutRules.TryBounds(board.Item1, board.Item2, .35f, .3f, out var bounds), "Old panel can be resized");
+    Check(bounds.Left == .35f && bounds.Top == .3f, "Keep existing top-left placement");
+    Check(Math.Abs(bounds.Top - bounds.Bottom - .2) < 1e-6, "Use vanilla row height");
+    double ratio = (bounds.Right - bounds.Left) * board.Item1 / ((bounds.Top - bounds.Bottom) * board.Item2);
+    Check(Math.Abs(ratio - 2) < 1e-5, "Artwork and collision rectangle share the approved 2:1 ratio");
+    Check(bounds.Right <= .650001f && bounds.Bottom > .05f, "Reduce the legacy footprint on supported board proportions");
+    for (int reload = 0; reload < 3; reload++)
+    {
+        Check(PanelLayoutRules.TryBounds(board.Item1, board.Item2,
+            (float)Math.Round(bounds.Left, 2), (float)Math.Round(bounds.Top, 2), out var restored), "Saved anchors restore");
+        Check(restored.Equals(bounds), "Reopening does not accumulate layout drift");
+        bounds = restored;
+    }
+}
+foreach (double invalid in new[] { 0d, -1d, double.NaN, double.PositiveInfinity })
+{
+    Check(!PanelLayoutRules.TryBounds(invalid, 720, 0, 1, out _), "Wait for valid board width");
+    Check(!PanelLayoutRules.TryBounds(1440, invalid, 0, 1, out _), "Wait for valid board height");
+}
+Check(!PanelLayoutRules.TryBounds(1, 100, 0, 1, out _), "Do not make a panel wider than its board");
+Check(!PanelLayoutRules.TryBounds(1440, 720, float.NaN, 1, out _), "Reject corrupt position");
+Check(PanelLayoutRules.TryBounds(1440, 720, .9f, 1.1f, out var outside) && outside.Right > 1 && outside.Top > 1,
+    "Native fit checks retain responsibility for rejecting off-board drops");
+checks += CoastChecks.Run();
 Console.WriteLine($"{checks} numerical assertions passed. These are not in-game tests.");

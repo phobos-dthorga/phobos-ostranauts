@@ -76,7 +76,8 @@ internal sealed class NavigationService
             if (target == null) { status = Text.Get("NavigationService.target_unavailable"); return; }
             float cruise = Plugin.DefaultCruiseMS.Value, arrival = Plugin.DefaultArriveSpeedMS.Value,
                 distance = arrivalKM ?? Plugin.DefaultArriveKM.Value;
-            if (!ArrivalBrake.Finite(cruise) || !ArrivalBrake.Finite(arrival) || !ApproachRules.ValidArrival(distance))
+            var coastSettings = Plugin.ReadCoastSettings();
+            if (!ArrivalBrake.Finite(cruise) || !ArrivalBrake.Finite(arrival) || !ApproachRules.ValidArrival(distance) || !coastSettings.IsValid)
             { status = Text.Get("NavigationService.invalid_flight_settings"); return; }
             if (!target.Resolve(out _, out _, out _, out _)
                 || !AutoNavCore.TryReadApproach(co!.ship, target, distance, out _, out _))
@@ -87,7 +88,7 @@ internal sealed class NavigationService
             if (Plugin.FuelCheck.Value && !AutoNavCore.HasFuelForFlight(co!.ship, target))
             { status = Text.Get("NavigationService.insufficient_estimated_delta_v"); return; }
             issuing = true;
-            try { AutoNavCore.BeginFlight(co!.ship, target); } finally { issuing = false; }
+            try { AutoNavCore.BeginFlight(co!.ship, target, coastSettings); } finally { issuing = false; }
             status = Text.Get("NavigationService.flight_engaged");
         }
         catch (Exception ex) { log(ex.ToString()); Disengage(Text.Get("NavigationService.engagement_failed_see_log")); }
@@ -172,7 +173,14 @@ internal sealed class NavigationService
                 case "help": response = Text.Get("NavigationService.phobosnav_help_status_settings_fly_stop_spawn"); return true;
                 case "status": response = Text.Get("NavigationService.phobos_auto_nav_engaged", Plugin.Version, AutoNavCore.Engaged, status, EquipmentContent.Status)
                     + "\n" + ApproachSummary(OpenConsole, detailed: true); return true;
-                case "settings": response = Text.Get("NavigationService.cruise_m_s_arrival_m_s_at", Plugin.DefaultCruiseMS.Value, Plugin.DefaultArriveSpeedMS.Value, Plugin.DefaultArriveKM.Value, Plugin.ArrivalSpeedTolerance.Value, Plugin.MaximumStepSeconds.Value, Plugin.Id); return true;
+                case "settings":
+                    var coast = AutoNavCore.Engaged ? AutoNavCore.FlightCoastSettings : Plugin.ReadCoastSettings();
+                    response = Text.Get("NavigationService.cruise_m_s_arrival_m_s_at", Plugin.DefaultCruiseMS.Value, Plugin.DefaultArriveSpeedMS.Value, Plugin.DefaultArriveKM.Value, Plugin.ArrivalSpeedTolerance.Value, Plugin.MaximumStepSeconds.Value, Plugin.Id)
+                        + "\n" + Text.Get("NavigationService.coast_settings", coast.MinimumToleranceMS, coast.SpeedTolerancePercent,
+                            coast.EnterFraction * 100, coast.BurnHeadingToleranceDegrees, CoastRules.DriftLookaheadSeconds,
+                            CoastRules.DriftRadiusFraction * 100,
+                            Text.Get(AutoNavCore.Engaged ? "NavigationService.active_flight" : "NavigationService.next_flight"));
+                    return true;
                 case "fly":
                     float? requested = null;
                     if (words.Length == 3)

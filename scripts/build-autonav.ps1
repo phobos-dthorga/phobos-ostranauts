@@ -9,7 +9,7 @@ $gameRoot = (Resolve-Path -LiteralPath $OstranautsPath).Path
 & dotnet build (Join-Path $repoRoot 'src/PhobosAutoNav/PhobosAutoNav.csproj') -c Release "-p:OstranautsPath=$gameRoot"
 if ($LASTEXITCODE -ne 0) { throw 'Auto Nav build failed.' }
 & dotnet run --project (Join-Path $repoRoot 'tests/PhobosAutoNav.Tests') -c Release
-if ($LASTEXITCODE -ne 0) { throw 'Arrival braking checks failed.' }
+if ($LASTEXITCODE -ne 0) { throw 'Auto Nav flight and layout checks failed.' }
 $source = Join-Path $repoRoot 'mods/PhobosAutoNav'
 foreach ($file in Get-ChildItem -LiteralPath $source -Recurse -Filter '*.json' -File) {
     $null = Get-Content -LiteralPath $file.FullName -Raw | ConvertFrom-Json
@@ -35,6 +35,7 @@ Add-Type -Path (Join-Path $gameRoot 'BepInEx/core/Mono.Cecil.dll')
 $module = [Mono.Cecil.ModuleDefinition]::ReadModule($plugin)
 try {
     if ($module.AssemblyReferences.Name -contains 'AutoNavigate') { throw 'Standalone build unexpectedly references AutoNavigate.' }
+    & (Join-Path $PSScriptRoot 'assert-autonav-panel.ps1') -Module $module
 } finally { $module.Dispose() }
 
 $distRoot = [IO.Path]::GetFullPath((Join-Path $repoRoot 'dist'))

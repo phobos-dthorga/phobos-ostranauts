@@ -1,10 +1,11 @@
 # Phobos Polaris Auto Nav Module: acquisition and servicing
 
-Prepared with **Auto Nav 0.4.0**, Ostranauts **1.0.1.5**, BepInEx **5.4.23.5**
+Prepared with **Auto Nav 0.4.3**, Ostranauts **1.0.1.5**, BepInEx **5.4.23.5**
 and Framework **0.10.0**. Auto Nav requires Framework 0.7.0 or newer. The economy
 already existed before this round; 0.4.0 names the equipment for its Polaris
 navigation-station use, centralizes its balance constants and expands the native
-trade/maintenance checks. Prices, mass and existing work thresholds are retained.
+trade/maintenance checks. Versions 0.4.1–0.4.3 fix panel dragging/layout and improve coasting; prices, mass
+and existing work thresholds are retained.
 No game session or live shop quote was used for this audit.
 
 The item and its damaged form are **Phobos Polaris Auto Nav Module** and

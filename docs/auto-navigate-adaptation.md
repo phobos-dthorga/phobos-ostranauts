@@ -1,6 +1,6 @@
 # Phobos Auto Nav: standalone adaptation
 
-**0.4.0 candidate; built against Ostranauts 1.0.1.5 / BepInEx 5.4.23.5.**
+**0.4.3 candidate; built against Ostranauts 1.0.1.5 / BepInEx 5.4.23.5.**
 Ordinary saves are the baseline from 2026-09-24. Phobos Framework 0.7.0+ now
 provides shared construction, merchant and maintenance services. No original Auto
 Navigate dependency. See [prices, acquisition and service bills](equipment-economy.md).
@@ -54,6 +54,38 @@ That note has not been sent. No blanket community reuse grant is claimed.
   save-name restriction. Merchants and table assembly are the normal acquisition
   paths; hardware, power, fuel and conflicting-control checks still apply.
 
+## Navigation Edit mode fix (0.4.1)
+
+The owner reported that the module appeared but could not be dragged from the
+Edit menu, with a native "can't find mod" message. The compiled 0.4.0 panel had
+attached the game's global `Draggable` (world-object hauling), rather than
+`Ostranauts.ShipGUIs.NavStation.Draggable` (navigation-panel placement). Version
+0.4.1 explicitly uses the latter and binds `NavModBase.DraggableRef` for both
+intact and damaged panels. Existing module IDs, artwork and saved layout data
+are unchanged; native placement and overlap rules still apply.
+
+The owner confirmed that leaving Edit mode restored normal interaction. Native
+Edit mode locks the simulation paused until closed; this was not evidence of a
+hung game process. No pause-lock override is added.
+
+A compiled-component regression check rejects the installed 0.4.0 assembly and
+passes the corrected 0.4.1 build. It runs in the normal package build. In-game
+verification remains pending: drag Polaris to available space in Edit mode,
+leave Edit, then reopen the console and confirm its placement persists and
+normal interaction works.
+
+## Panel sizing correction (0.4.2)
+
+The follow-up screenshot exposed oversized placement bounds around the fitted
+faceplate. The [vanilla layout audit](auto-nav-panel-layout-audit.md) records the
+prefab measurements and native placement rules. Version 0.4.2 uses a normal 20%
+board-height row, calculates the container width for the approved 2:1 artwork
+and removes the child aspect fitter. Saved/default sizes are normalized before
+native fit checks, retaining the panel's top-left position. Artwork and item IDs
+are unchanged. Native overlap rules still require a clear space on the board.
+Build and geometry checks cover this correction; owner placement/reopen testing
+remains pending.
+
 ## Short-range approach goal (2026-09-24)
 
 The owner identifies **below 5,000 km** as the gap left by vanilla autopilot and
@@ -85,6 +117,66 @@ default. Use `phobosnav fly 0.5` for a single flight requesting 500 m without
 changing the saved default. Both commands validate distance before changing
 anything; an active flight retains its captured settings until stopped. Module
 identities and saved items are unchanged.
+
+## Fuel-conscious coasting (0.4.3)
+
+The owner reports that autopilot guidance works well in ordinary play, but burns
+too much RCS fuel chasing unnecessary precision. That feedback concerns the
+installed 0.4.1 flight behaviour; the 0.4.2 UI changes had not yet been tested.
+It does not establish compatibility of every flight mode or validate this update.
+
+The old cruise hysteresis resumed corrections above 3 m/s error and continued
+until below 0.6 m/s. Its burns targeted zero error, and even coasting continued
+to chase heading. Version 0.4.3 introduces a separate Phobos cruise policy:
+
+- Resume correction above the greater of `CoastToleranceMS` and
+  `CoastSpeedTolerancePercent` of requested cruise speed. Begin coasting at
+  `CoastEnterFraction` of that threshold. Defaults at 100 m/s cruise are
+  **10 m/s resume / 7.5 m/s stop correcting**. Small course errors between those
+  limits retain the previous state; corrective burns aim for the inner band,
+  not perfect agreement with a continually changing target velocity.
+- Bound sideways drift separately: no more than one quarter of effective
+  arrival radius projected over 30 seconds. At a 1 km arrival radius this limits
+  cross-track velocity to about 8.33 m/s; at 100 m it is about 0.83 m/s. The inner
+  hysteresis fraction also applies to this limit. This is a short-horizon guard,
+  not a complete trajectory or obstacle simulation.
+- While coasting, stop chasing target heading. Damp significant existing spin
+  through native RCS commands; do not magically reset angular velocity. During
+  powered course corrections, use a configurable 2-degree heading tolerance
+  instead of the inherited approximately 0.1-degree tolerance.
+- Braking overrides both cruise bands. Cap approach speed using actual remaining
+  range to the arrival band, the next simulation step and conservative available
+  braking acceleration (85% reserve and the arrival brake's two-axis aggregate
+  throttle allowance). This can start slowing earlier than the inherited lead-point
+  estimate. The final arrival-speed tolerance, hull clearance, manual handover and
+  existing arrival-brake calculation are unchanged. An already unsafe approach
+  is not made collision-proof by this estimate.
+
+Useful `[Flight]` settings, captured when a flight begins:
+
+| Key | Default | Allowed range | Meaning |
+| --- | ---: | ---: | --- |
+| `CoastToleranceMS` | 3 | 0.1–20 | Existing absolute floor for the cruise error band |
+| `CoastSpeedTolerancePercent` | 10 | 0–25 | Cruise-relative error allowance; zero uses the absolute floor |
+| `CoastEnterFraction` | 0.75 | 0.2–0.9 | Fraction of the resume band at which corrections stop |
+| `BurnHeadingToleranceDegrees` | 2 | 0.1–10 | Heading tolerance during powered correction |
+
+Existing settings are retained. New keys receive defaults on launch, so the
+existing 3 m/s setting does not prevent the new relative allowance from helping.
+The installer does not edit the configuration. `phobosnav settings` labels its
+coasting settings as active-flight or next-flight values. Verbose steering logs
+include velocity error, resume/cross-track limits and braking state. Drift horizon,
+drift fraction and braking reserve are named policy constants rather than extra
+player settings. Looser cruising can take longer and follows a less exact path.
+
+Offline checks cover hysteresis, partial correction, cross-track limits, braking
+priority, spin damping and invalid inputs. A bounded varying-cruise scenario
+reduces corrective delta-v relative to the old policy; this is not a measurement
+of game fuel. Straight-line numerical approaches across distances, acceleration
+levels and time steps still reach the existing arrival-speed tolerance. In-game
+checks remain: compare RCS use and coast/correction frequency on similar routes,
+then confirm braking and arrival in a supervised short-range approach. No fixed
+fuel-saving percentage is claimed.
 
 ## Settings and commands
 

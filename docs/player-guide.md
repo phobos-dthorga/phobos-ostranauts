@@ -1,7 +1,7 @@
 # Current player guide
 
 **Prepared versions:** Phobos Framework **0.10.0**, Shipbreaker **0.10.0**, Auto Nav
-**0.4.0**, built against Ostranauts **1.0.1.5** / BepInEx **5.4.23.5**.
+**0.4.3**, built against Ostranauts **1.0.1.5** / BepInEx **5.4.23.5**.
 These versions support ordinary saves. Builds and offline checks do not establish
 in-game compatibility. This guide describes the prepared packages, not a claim
 that those packages are already installed or that merchants have restocked.
@@ -152,6 +152,17 @@ prices, repair materials, Restore and dismantling. Its package is still Phobos A
 
 Install the module in a compatible navigation console and use its **Fly** and
 **Disengage** controls. F3 equivalents are `phobosnav fly` and `phobosnav stop`.
+Use the console's **Edit** mode to drag the panel into available space, then
+leave Edit before flying; the game deliberately locks pause while editing.
+Auto Nav 0.4.1 corrects the failed dragging / "can't find mod" issue in 0.4.0.
+Version 0.4.2 corrects its oversized footprint and keeps the artwork and placement
+bounds aligned. Reopen the console after updating; existing modules are supported.
+If the board is full, rearrange or remove another panel to make space.
+Version 0.4.3 favours fuel-saving coasting: at the default 100 m/s cruise, stop
+correcting at 7.5 m/s velocity error and resume above 10 m/s, subject to tighter
+sideways-drift and braking checks. It no longer chases heading while coasting.
+Arrival-speed tolerance is unchanged. `phobosnav settings` shows the adjustable
+coasting values; see the [coasting policy](auto-navigate-adaptation.md#fuel-conscious-coasting-043).
 Short-range approaches below **5,000 km** are the current goal; Auto Nav has no
 minimum engagement range. New configurations stop at **1 km**, adjustable down
 to **100 m** subject to larger hull clearance. Existing settings stay unchanged:

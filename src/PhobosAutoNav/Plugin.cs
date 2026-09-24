@@ -16,13 +16,14 @@ namespace PhobosAutoNav;
 public sealed class Plugin : BaseUnityPlugin
 {
     public const string Id = "phobosgekko.ostranauts.autonav";
-    public const string Version = "0.4.0";
+    public const string Version = "0.4.3";
     internal static NavigationService Service { get; private set; } = null!;
     internal static ConfigEntry<bool> Enabled = null!, VerboseLogging = null!, FuelCheck = null!,
         AbortOnManualThrust = null!, UseThrusterRotation = null!;
     internal static ConfigEntry<float> DefaultCruiseMS = null!, DefaultArriveSpeedMS = null!,
         DefaultArriveKM = null!, ArrivalSpeedTolerance = null!, MaxFlightSimHours = null!,
-        CoastTolerance = null!, RotAccelMax = null!, RotSpeedMax = null!, MaximumStepSeconds = null!;
+        CoastTolerance = null!, CoastSpeedTolerancePercent = null!, CoastEnterFraction = null!,
+        BurnHeadingToleranceDegrees = null!, RotAccelMax = null!, RotSpeedMax = null!, MaximumStepSeconds = null!;
     private Harmony? harmony;
     private static Action<string>? log;
 
@@ -40,6 +41,12 @@ public sealed class Plugin : BaseUnityPlugin
         MaxFlightSimHours = Number("Limits", "MaximumFlightHours", 48, 0.01f, 168, Text.Get("Plugin.simulation_time_timeout_aborts_and_coasts"));
         MaximumStepSeconds = Number("Limits", "MaximumStepSeconds", 10, 0.1f, 60, Text.Get("Plugin.abort_on_larger_simulation_updates_avoids_commanding"));
         CoastTolerance = Number("Flight", "CoastToleranceMS", 3, 0.1f, 20, Text.Get("Plugin.velocity_error_before_a_cruise_correction"));
+        CoastSpeedTolerancePercent = Number("Flight", "CoastSpeedTolerancePercent", CoastRules.DefaultSpeedTolerancePercent,
+            0, 25, Text.Get("Plugin.coast_speed_tolerance_percent"));
+        CoastEnterFraction = Number("Flight", "CoastEnterFraction", CoastRules.DefaultEnterFraction,
+            0.2f, 0.9f, Text.Get("Plugin.coast_enter_fraction"));
+        BurnHeadingToleranceDegrees = Number("Flight", "BurnHeadingToleranceDegrees", CoastRules.DefaultBurnHeadingToleranceDegrees,
+            0.1f, 10, Text.Get("Plugin.burn_heading_tolerance_degrees"));
         RotAccelMax = Number("Flight", "RotationAcceleration", 0.5f, 0.01f, 0.5f, Text.Get("Plugin.maximum_rotation_command"));
         RotSpeedMax = Number("Flight", "RotationSpeed", 0.6f, 0.01f, 0.6f, Text.Get("Plugin.maximum_requested_spin_rate"));
         FuelCheck = Config.Bind("Flight", "FuelCheck", true, Text.Get("Plugin.check_the_inherited_approximate_delta_v_budget"));
@@ -54,6 +61,8 @@ public sealed class Plugin : BaseUnityPlugin
 
     private ConfigEntry<float> Number(string section, string key, float value, float min, float max, string description) =>
         Config.Bind(section, key, value, new ConfigDescription(description, new AcceptableValueRange<float>(min, max)));
+    internal static CoastSettings ReadCoastSettings() => new CoastSettings(CoastTolerance.Value,
+        CoastSpeedTolerancePercent.Value, CoastEnterFraction.Value, BurnHeadingToleranceDegrees.Value);
     internal static void Verbose(string message) { if (VerboseLogging.Value) log?.Invoke(message); }
     private void OnDestroy() { FrameworkLifecycle.ContentLoading -= EquipmentContent.Register; Service?.Disengage(Text.Get("Plugin.plugin_unloaded")); harmony?.UnpatchSelf(); }
 }
@@ -62,6 +71,18 @@ public sealed class Plugin : BaseUnityPlugin
 internal static class PanelPatch
 {
     private static void Prefix(GUIOrbitDraw __instance) => AutoNavPanel.Ensure(__instance);
+}
+
+// LoadModules applies stored/default anchors before asking whether each panel
+// fits. Normalize only our rectangle at that shared boundary, including native
+// drag validation and saving; do not patch the game's global placement rules.
+[HarmonyPatch(typeof(Ostranauts.ShipGUIs.NavStation.NavModBase), "GetRoundedAnchors")]
+internal static class PanelBoundsPatch
+{
+    private static void Prefix(Ostranauts.ShipGUIs.NavStation.NavModBase __instance)
+    {
+        if (__instance is AutoNavPanel panel) panel.NormalizePlacementBounds();
+    }
 }
 
 [HarmonyPatch(typeof(ShipSitu), "TimeAdvance")]

@@ -132,6 +132,12 @@
   preferences and capture overrides per flight. Keep diagnostics and panel/F3
   actions on the same service. Docking, obstacle avoidance and continuous working
   position control remain separate future features. See `docs/auto-navigate-adaptation.md`.
+- The owner reports successful Auto Nav flight behaviour but wants less RCS waste
+  from excessive precision (2026-09-24). Version 0.4.3 captures configurable cruise
+  hysteresis per flight, corrects only to the acceptable band and stops chasing
+  heading during coasting. Preserve sideways-drift and braking overrides plus the
+  separate final-arrival tolerance. Numerical delta-v comparisons are not measured
+  game fuel savings; UI 0.4.2 and coasting 0.4.3 still need owner validation.
 - The owner requests Polaris in Auto Nav's equipment name to identify its
   navigation-station use. Use **Phobos Polaris Auto Nav Module** for the item,
   localized damaged form, construction and panel branding. Retain saved IDs and
@@ -141,6 +147,14 @@
   sprites/faceplate remain suitable because names are rendered as live text.
 
 - Use native JSON definitions for suitable content and existing behaviours.
+- Navigation panels must explicitly use
+  `Ostranauts.ShipGUIs.NavStation.Draggable`, not the game's same-named global
+  object-hauling component. Bind `NavModBase.DraggableRef`; the package build
+  checks the compiled references. See the Auto Nav 0.4.1 Edit-mode fix notes.
+- Match navigation placement bounds to visible artwork. Auto Nav 0.4.2 uses the
+  native 20% board-height row and a physical 2:1 container; normalize saved/default
+  sizes before native fit checks without moving other modules or bypassing overlap
+  rules. See `docs/auto-nav-panel-layout-audit.md` for the vanilla measurements.
 - Use C# extensions for behaviour the native data system cannot express cleanly.
 - UI code presents state and delegates actions; gameplay services own mutations.
 - Extract shared code when concrete features establish a shared need. Avoid

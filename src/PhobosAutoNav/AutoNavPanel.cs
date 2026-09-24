@@ -1,8 +1,10 @@
 using System.Linq;
+using PhobosAutoNav.Core;
 using Ostranauts.ShipGUIs.NavStation;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using NavPanelDraggable = Ostranauts.ShipGUIs.NavStation.Draggable;
 
 namespace PhobosAutoNav;
 
@@ -13,6 +15,7 @@ public sealed class AutoNavPanel : NavModBase
     private static readonly Color LabelColor = new Color32(180, 183, 184, 255);
     private TMP_Text status = null!;
     private bool damaged;
+    private RectTransform placement = null!;
 
     internal static void Ensure(GUIOrbitDraw nav)
     {
@@ -29,16 +32,15 @@ public sealed class AutoNavPanel : NavModBase
         rect.SetParent(nav.transform, false);
         rect.anchorMin = Vector2.zero; rect.anchorMax = Vector2.one;
         rect.offsetMin = rect.offsetMax = Vector2.zero;
-        var container = Rect("Container", rect, new Vector2(0.35f, 0.05f), new Vector2(0.65f, 0.3f));
+        var container = Rect("Container", rect,
+            new Vector2(PanelLayoutRules.DefaultLeft, PanelLayoutRules.DefaultTop - PanelLayoutRules.RowHeight),
+            new Vector2(PanelLayoutRules.DefaultLeft + PanelLayoutRules.RowHeight, PanelLayoutRules.DefaultTop));
         container.gameObject.AddComponent<CanvasGroup>();
         container.gameObject.AddComponent<Image>().color = new Color(0.1f, 0.3f, 0.4f, 0.4f);
         var background = Rect("bg", container, Vector2.zero, Vector2.one);
         // Draggable expects Container/bg to have an Image for its edit-mode tint.
         background.gameObject.AddComponent<Image>().color = Color.clear;
         var faceplate = Rect("Faceplate", background, Vector2.zero, Vector2.one);
-        var fit = faceplate.gameObject.AddComponent<AspectRatioFitter>();
-        fit.aspectMode = AspectRatioFitter.AspectMode.FitInParent;
-        fit.aspectRatio = 2f;
         var art = faceplate.gameObject.AddComponent<RawImage>();
         art.texture = DataHandler.LoadPNG(FaceplatePath, bNorm: false);
         art.color = Color.white;
@@ -47,15 +49,35 @@ public sealed class AutoNavPanel : NavModBase
         var font = nav.GetComponentsInChildren<TMP_Text>(true).FirstOrDefault(t => t.font != null)?.font;
         var panel = root.AddComponent<AutoNavPanel>();
         panel.damaged = damaged;
+        panel.placement = container;
+        panel.NormalizePlacementBounds();
         Label(faceplate, Text.Get("AutoNavPanel.phobos_auto_nav"), new Vector2(0.12f, 0.83f), new Vector2(0.88f, 0.97f), font, 18).alignment = TextAlignmentOptions.Center;
         Label(faceplate, Text.Get("AutoNavPanel.rcs_approach"), new Vector2(0.065f, 0.70f), new Vector2(0.935f, 0.77f), font, 12);
         panel.status = Label(faceplate, Text.Get("AutoNavPanel.waiting_for_console"), new Vector2(0.065f, 0.395f), new Vector2(0.935f, 0.685f), font, 16);
         Button(faceplate, Text.Get("AutoNavPanel.fly"), 0.065f, 0.515f, font, () => Plugin.Service.Engage(panel.COSelf));
         Button(faceplate, Text.Get("AutoNavPanel.disengage"), 0.555f, 0.935f, font, () => Plugin.Service.Disengage(Text.Get("AutoNavPanel.disengaged_by_pilot")));
-        container.gameObject.AddComponent<Draggable>().enabled = false;
+        // The game also has a global Draggable for hauling world objects.
+        // An unqualified name binds to that unrelated type and the edit-menu
+        // wrapper cannot find its navigation drag handler ("can't find mod").
+        panel.DraggableRef = container.gameObject.AddComponent<NavPanelDraggable>();
+        panel.DraggableRef.enabled = false;
     }
 
     protected override void Init() => UpdateUI();
+
+    internal void NormalizePlacementBounds()
+    {
+        if (placement == null || !(placement.parent is RectTransform board)) return;
+        // Resize the actual native placement rectangle, not a fitted child.
+        // Old/default/saved sizes all pass through this before native fit checks.
+        if (!PanelLayoutRules.TryBounds(board.rect.width, board.rect.height,
+            placement.anchorMin.x, placement.anchorMax.y, out var bounds)) return;
+        placement.anchorMin = new Vector2(bounds.Left, bounds.Bottom);
+        placement.anchorMax = new Vector2(bounds.Right, bounds.Top);
+        placement.offsetMin = placement.offsetMax = Vector2.zero;
+    }
+
+    private void OnRectTransformDimensionsChange() => NormalizePlacementBounds();
 
     protected override void UpdateUI()
     {

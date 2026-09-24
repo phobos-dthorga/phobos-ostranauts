@@ -14,8 +14,11 @@ The owner supplied the downloaded Workshop package on 2026-09-23. Its DLL:
 
 `src/PhobosAutoNav/Adapted/AutoNavCore.cs` and `TargetRef.cs` are reconstructed
 and adapted from that distributed binary, not an author-supplied source checkout.
-They retain the upstream approach/coast/brake guidance, target prediction,
-approximate fuel budgeting and RCS turning. Original authorship is credited above.
+They retain upstream approach/brake guidance, target prediction, approximate fuel
+budgeting and RCS turning, with Phobos changes. Version 0.4.3 replaces the cruise
+coasting thresholds and correction target with `Core/CoastRules.cs`, adds a
+conservative actual-range braking cap and stops chasing heading while coasting.
+Original authorship is credited above.
 Phobos lifecycle and orbit-lock integration also follows the inspected upstream
 patching pattern; the new arrival-brake calculation, short-range arrival policy,
 range diagnostics, service, console routing and UI come from Phobos work. See the
@@ -52,7 +55,8 @@ source, package metadata, documentation and this notice. Our changes add a stric
 arrival-speed check, console and equipment interlocks, F3 commands and explicit
 disarming across world changes, with separate Phobos item identities and UI.
 We did not include your artwork or present this as an official continuation.
-The prototype has not yet been tested in-game. We have not found an explicit
+The owner reports successful flight guidance in private in-game testing; broader
+validation and the latest UI/coasting changes remain pending. We have not found an explicit
 licence or source release and have recorded that uncertainty rather than assigning
 our own licence to your contribution.
 

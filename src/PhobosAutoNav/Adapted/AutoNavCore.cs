@@ -53,6 +53,8 @@ internal static class AutoNavCore
 
 	private static bool _coasting;
 
+    public static CoastSettings FlightCoastSettings { get; private set; }
+
 	public static string PhaseName => CurrentPhase switch
 	{
 		Phase.Align => Text.Get("Flight.phase.ALIGN"),
@@ -81,7 +83,7 @@ internal static class AutoNavCore
 		return TargetRef.FromCrossHair();
 	}
 
-	public static void BeginFlight(Ship player, TargetRef target)
+	public static void BeginFlight(Ship player, TargetRef target, CoastSettings coastSettings)
 	{
 		ShipSitu shipSitu = player?.objSS;
 		if (shipSitu != null && (shipSitu.bOrbitLocked || shipSitu.bBOLocked || shipSitu.bIsBO))
@@ -105,6 +107,7 @@ internal static class AutoNavCore
 		_elapsedSim = 0.0;
 		_logAccum = 0.0;
 		_coasting = false;
+        FlightCoastSettings = coastSettings;
 		LastResult = null;
 		CurrentPhase = Phase.Align;
 		Engaged = true;
@@ -142,6 +145,7 @@ internal static class AutoNavCore
 	public static void ResetStatics()
 	{
 		Engaged = false;
+        _coasting = false;
 		EngagedPlayer = null;
 		EngagedTarget = null;
 		CurrentPhase = Phase.Idle;
@@ -207,7 +211,7 @@ internal static class AutoNavCore
 
             foreach (double value in new[] { px, py, vx, vy, shipSitu.vPosx, shipSitu.vPosy,
                 shipSitu.vVelX, shipSitu.vVelY, shipSitu.fRot, shipSitu.fW, CruiseAU, ArrSpdAU, ArriveAU,
-                (double)Plugin.ArrivalSpeedTolerance.Value, Plugin.CoastTolerance.Value,
+                (double)Plugin.ArrivalSpeedTolerance.Value,
                 Plugin.RotAccelMax.Value, Plugin.RotSpeedMax.Value, Plugin.MaxFlightSimHours.Value })
             {
                 if (!ArrivalBrake.Finite(value)) { EndFlight(player, "INVALID FLIGHT DATA"); return; }
@@ -289,38 +293,42 @@ internal static class AutoNavCore
 			double num29 = num9;
 			double num30 = num28 * num24 + num29 * num25;
 			double num31 = Math.Max(0.0, num23 - num11);
-			double num32 = Math.Sqrt(num3 * num3 + 2.0 * num13 * 0.85 * num31);
+			double num32 = Math.Sqrt(num3 * num3 + 2.0 * num13 * SAFETY * num31);
 			double num33 = Math.Min(num2, num32);
 			if ((num33 - num3) * fTime > num31)
 			{
 				num33 = num3 + num31 / fTime;
 			}
+            // Phobos: a looser cruise band must not delay braking. Use actual
+            // remaining range and reserve the next coast step, independent of
+            // the inherited prediction's potentially farther intercept point.
+            if (!CoastRules.TryBrakingSpeedLimit(
+                Math.Max(0, num7 - num11 * ApproachRules.ArrivalBandMultiplier) / M_TO_AU,
+                v / M_TO_AU, num3 / M_TO_AU, num13 / M_TO_AU, fTime, out double brakingSpeedMS))
+            { EndFlight(player, "INVALID FLIGHT DATA"); return; }
+            num33 = Math.Min(num33, brakingSpeedMS * M_TO_AU);
+            bool braking = num33 < num2 || num10 > brakingSpeedMS * M_TO_AU;
 			double num34 = num28 - num30 * num24;
 			double num35 = num29 - num30 * num25;
 			double num36 = Math.Sqrt(num34 * num34 + num35 * num35);
 			double num37 = num33 - num30;
 			double num38 = Math.Sqrt(num37 * num37 + num36 * num36);
-			double num39 = Math.Max(0.1, (Plugin.CoastTolerance != null) ? Plugin.CoastTolerance.Value : 3f) * M_TO_AU;
-			if (_coasting && num38 > num39)
-			{
-				_coasting = false;
-			}
-			else if (!_coasting && num38 < num39 * 0.2)
-			{
-				_coasting = true;
-			}
+            if (!CoastRules.TryDecide(_coasting, num2 / M_TO_AU, num38 / M_TO_AU,
+                num36 / M_TO_AU, num11 / M_TO_AU, braking, FlightCoastSettings, out var coast))
+            { EndFlight(player, "INVALID FLIGHT DATA"); return; }
+            _coasting = coast.Coasting;
 			double num40 = 0.0;
 			double num41 = 0.0;
 			if (!_coasting)
 			{
-				double num42 = Math.Min(num13, num36 / fTime);
+				double num42 = Math.Min(num13, num36 * coast.CorrectionFraction / fTime);
 				if (num36 > 1E-18)
 				{
 					num40 = (0.0 - num34) / num36 * num42;
 					num41 = (0.0 - num35) / num36 * num42;
 				}
 				double num43 = Math.Sqrt(Math.Max(0.0, num13 * num13 - num42 * num42));
-				double num44 = Math.Max(0.0 - num43, Math.Min(num43, (num33 - num30) / fTime));
+				double num44 = Math.Max(0.0 - num43, Math.Min(num43, (num33 - num30) * coast.CorrectionFraction / fTime));
 				num40 += num24 * num44;
 				num41 += num25 * num44;
 			}
@@ -332,7 +340,7 @@ internal static class AutoNavCore
 			{
 				CurrentPhase = Phase.Coast;
 			}
-			else if (num32 < num2)
+			else if (braking)
 			{
 				CurrentPhase = Phase.Decel;
 			}
@@ -348,7 +356,9 @@ internal static class AutoNavCore
 			{
 				CurrentPhase = Phase.Accel;
 			}
-			float fR = ComputeRotInput(shipSitu, num27, fTime, _coasting ? 0.087 : 0.0017);
+            float fR = _coasting
+                ? (float)CoastRules.CoastRotation(shipSitu.fW, fTime, Plugin.RotAccelMax.Value)
+                : ComputeRotInput(shipSitu, num27, fTime, FlightCoastSettings.BurnHeadingToleranceDegrees * CoastRules.DegreesToRadians);
 			double num49 = Math.Cos(shipSitu.fRot);
 			double num50 = Math.Sin(shipSitu.fRot);
 			double num51 = (num40 * num49 + num41 * num50) / rCSAccelMax;
@@ -360,7 +370,7 @@ internal static class AutoNavCore
 				if (_logAccum >= 5.0)
 				{
 					_logAccum = 0.0;
-					Plugin.Verbose("steer[" + PhaseName + "]: range=" + (num7 / KM_TO_AU).ToString("0.#") + "km tGo=" + num16.ToString("0") + "s lead=" + (num19 / KM_TO_AU).ToString("0.##") + "km in=" + (num30 / M_TO_AU).ToString("0.#") + " cross=" + (num36 / M_TO_AU).ToString("0.#") + " vDes=" + (num33 / M_TO_AU).ToString("0.#") + "m/s");
+						Plugin.Verbose("steer[" + PhaseName + "]: range=" + (num7 / KM_TO_AU).ToString("0.#") + "km tGo=" + num16.ToString("0") + "s lead=" + (num19 / KM_TO_AU).ToString("0.##") + "km in=" + (num30 / M_TO_AU).ToString("0.#") + " cross=" + (num36 / M_TO_AU).ToString("0.#") + " vDes=" + (num33 / M_TO_AU).ToString("0.#") + "m/s cruiseError=" + (num38 / M_TO_AU).ToString("0.##") + " resume=" + coast.ResumeToleranceMS.ToString("0.##") + " crossLimit=" + coast.CrossTrackToleranceMS.ToString("0.##") + " braking=" + braking);
 				}
 			}
 		}
@@ -504,7 +514,7 @@ internal static class AutoNavCore
 		return a;
 	}
 
-	private static float ComputeRotInput(ShipSitu ps, double headErr, double fTime, double deadband = 0.0017)
+	private static float ComputeRotInput(ShipSitu ps, double headErr, double fTime, double deadband)
 	{
 		if (Plugin.UseThrusterRotation != null && !Plugin.UseThrusterRotation.Value)
 		{
