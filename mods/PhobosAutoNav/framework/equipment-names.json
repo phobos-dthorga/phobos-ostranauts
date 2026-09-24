@@ -1,0 +1,34 @@
+{
+  "Instruments.title": {
+    "brand": "Asterel",
+    "model": "N1"
+  },
+  "Overlay.PhobosNavModAutoNav.name": {
+    "brand": "Asterel",
+    "model": "N1"
+  },
+  "Overlay.PhobosNavModAutoNavDmg.name": {
+    "brand": "Asterel",
+    "model": "N1"
+  },
+  "EquipmentContent.phobos_auto_nav_damaged": {
+    "brand": "Asterel",
+    "model": "N1"
+  },
+  "Recipe.PhobosBuildAutoNav.name": {
+    "brand": "Asterel",
+    "model": "N1"
+  },
+  "EquipmentContent.auto_nav_assembly_offcuts_kg": {
+    "brand": "Asterel",
+    "model": "N1"
+  },
+  "EquipmentContent.auto_nav_board_residue_kg": {
+    "brand": "Asterel",
+    "model": "N1"
+  },
+  "AutoNavPanel.phobos_auto_nav": {
+    "brand": "Asterel",
+    "model": "N1"
+  }
+}

@@ -33,7 +33,7 @@ internal sealed class FixturePanel
     internal void Draw()
     {
         if (visible && CrewSim.objInstance != null && CrewSim.objInstance.FinishedLoading)
-            bounds = GUI.Window(WindowId, bounds, Window, "Phobos Shipbreaker");
+            bounds = GUI.Window(WindowId, bounds, Window, Text.Get("FixturePanel.title"));
     }
     private void Window(int id)
     {

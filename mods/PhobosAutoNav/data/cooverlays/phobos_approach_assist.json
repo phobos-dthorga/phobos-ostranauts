@@ -1,9 +1,9 @@
 [
   {
     "strName": "PhobosNavModAutoNav",
-    "strNameFriendly": "Phobos Polaris Auto Nav Module",
-    "strNameShort": "Phobos Polaris Auto Nav Module",
-    "strDesc": "An aftermarket module for a Polaris navigation station. Torch-preferred approach and braking with RCS fallback and native no-wake protection, including below 5,000 km, with adjustable stopping distance and hull clearance. Repair and Restore for reuse, or dismantle into retained board residue. Does not dock, avoid obstacles or hold position.",
+    "strNameFriendly": "Phobos' Asterel N1 Polaris Auto Nav Module",
+    "strNameShort": "Phobos' Asterel N1 Polaris Auto Nav Module",
+    "strDesc": "An aftermarket module for a Polaris navigation station. Torch-preferred approach and braking with RCS fallback and native no-wake protection, including below 5,000 km, with adjustable stopping distance and hull clearance. Repair and Restore for reuse, or dismantle into retained board residue. Docking requires a separate Dock action and native clearance. Does not avoid obstacles or hold position.",
     "strCOBase": "PhobosAutoNavBoard",
     "strImg": "phobos/autonav/PhobosAutoNavModule",
     "strImgNorm": "phobos/autonav/PhobosAutoNavModuleNormal",
@@ -31,9 +31,9 @@
   },
   {
     "strName": "PhobosNavModAutoNavDmg",
-    "strNameFriendly": "Phobos Polaris Auto Nav Module (Damaged)",
-    "strNameShort": "Phobos Polaris Auto Nav Module (Damaged)",
-    "strDesc": "A damaged Phobos Polaris Auto Nav Module. Repair with two small electronic parts, then Restore its remaining wear before use. Fits a Polaris navigation station. Dismantling retains 0.4 kg of board residue.",
+    "strNameFriendly": "Phobos' Asterel N1 Polaris Auto Nav Module (Damaged)",
+    "strNameShort": "Phobos' Asterel N1 Polaris Auto Nav Module (Damaged)",
+    "strDesc": "A damaged Phobos' Asterel N1 Polaris Auto Nav Module. Repair with two small electronic parts, then Restore its remaining wear before use. Fits a Polaris navigation station. Dismantling retains 0.4 kg of board residue.",
     "strCOBase": "PhobosAutoNavBoardDmg",
     "strImg": "phobos/autonav/PhobosAutoNavModuleDmg",
     "strImgNorm": "phobos/autonav/PhobosAutoNavModuleNormal",

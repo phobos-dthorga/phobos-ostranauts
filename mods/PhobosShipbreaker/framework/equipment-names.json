@@ -1,0 +1,122 @@
+{
+  "Content.phobos_powered_dismantling_fixture": {
+    "brand": "Rivetline",
+    "model": "D4"
+  },
+  "MachineDefinitions.phobos_powered_dismantling_fixture": {
+    "brand": "Rivetline",
+    "model": "D4"
+  },
+  "MachineDefinitions.dismantling_fixture_2": {
+    "brand": "Rivetline",
+    "model": "D4"
+  },
+  "Recipe.PhobosBuildShipbreaker.name": {
+    "brand": "Rivetline",
+    "model": "D4"
+  },
+  "Content.wall_panel_feed": {
+    "brand": "Rivetline",
+    "model": "D4"
+  },
+  "Content.wall_panel_feed_panels_kg": {
+    "brand": "Rivetline",
+    "model": "D4"
+  },
+  "MachineDefinitions.wall_panel_feed": {
+    "brand": "Rivetline",
+    "model": "D4"
+  },
+  "FixturePanel.title": {
+    "brand": "Rivetline",
+    "model": "D4"
+  },
+  "Content.dismantling_fixture_assembly_section": {
+    "brand": "Rivetline",
+    "model": "D4-S"
+  },
+  "Recipe.PhobosBuildShipbreakerSection.name": {
+    "brand": "Rivetline",
+    "model": "D4-S"
+  },
+  "IntakeDefinitions.phobos_exterior_panel_grabber": {
+    "brand": "Rivetline",
+    "model": "G4"
+  },
+  "Recipe.PhobosBuildExteriorGrabber.name": {
+    "brand": "Rivetline",
+    "model": "G4"
+  },
+  "IntakeDefinitions.phobos_sealed_hull_chute": {
+    "brand": "Rivetline",
+    "model": "H4"
+  },
+  "Recipe.PhobosBuildHullChute.name": {
+    "brand": "Rivetline",
+    "model": "H4"
+  },
+  "CollectorDefinitions.phobos_residue_collector": {
+    "brand": "Rivetline",
+    "model": "C2"
+  },
+  "CollectorPanel.phobos_residue_collector": {
+    "brand": "Rivetline",
+    "model": "C2"
+  },
+  "CollectorCommands.phobos_residue_collector": {
+    "brand": "Rivetline",
+    "model": "C2"
+  },
+  "Recipe.PhobosBuildResidueCollector.name": {
+    "brand": "Rivetline",
+    "model": "C2"
+  },
+  "Reclaimer.name": {
+    "brand": "Rivetline",
+    "model": "R4"
+  },
+  "Recipe.PhobosBuildReclaimer.name": {
+    "brand": "Rivetline",
+    "model": "R4"
+  },
+  "Reclaimer.feed": {
+    "brand": "Rivetline",
+    "model": "R4"
+  },
+  "Reclaimer.section_name": {
+    "brand": "Rivetline",
+    "model": "R4-S"
+  },
+  "Recipe.PhobosBuildReclaimerSection.name": {
+    "brand": "Rivetline",
+    "model": "R4-S"
+  },
+  "Content.mixed_panel_residue_kg": {
+    "brand": "Rivetline",
+    "model": ""
+  },
+  "Reclaimer.residue_name": {
+    "brand": "Rivetline",
+    "model": ""
+  },
+  "Reclaimer.reject_name": {
+    "brand": "Rivetline",
+    "model": ""
+  },
+  "CollectorPanel.phobos_material_routing": {
+    "brand": "Rivetline",
+    "model": ""
+  },
+  "Industry.console_name": {
+    "brand": "Asterel",
+    "model": "C1"
+  },
+  "Industry.title": {
+    "brand": "Asterel",
+    "model": "C1"
+  },
+  "Recipe.PhobosBuildIndustrialConsole.name": {
+    "brand": "Asterel",
+    "model": "C1"
+  }
+}

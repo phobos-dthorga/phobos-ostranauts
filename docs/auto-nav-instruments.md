@@ -1,5 +1,8 @@
 # Polaris instrument panel — Auto Nav 0.7.0
 
+**0.8.1 naming:** the live title is now **Phobos' Asterel N1 Polaris Auto Nav**,
+using Framework 0.12.0. The plate artwork and control positions are unchanged.
+
 **0.8.0 addition:** Details now includes **Dock with selected target**, using the
 same service as `phobosnav dock`. During active/suspended docking the stopping
 distance reads CLAMPS; docking uses its own capture limits and RCS. See the

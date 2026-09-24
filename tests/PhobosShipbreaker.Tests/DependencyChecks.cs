@@ -17,7 +17,8 @@ internal static class DependencyChecks
         check(DependencyContract.FrameworkProblem(new Version(0, 6, 0)) != null, "Translation-aware equipment requires the shared localization API");
         check(DependencyContract.FrameworkProblem(new Version(0, 8, 0)) != null, "Saved routing filters require Framework 0.9");
         check(DependencyContract.FrameworkProblem(new Version(0, 9, 0)) != null, "Industrial controls require Framework 0.10");
-        foreach (var version in new[] { new Version(0, 10, 0), new Version(0, 10, 1), new Version(1, 0, 0) })
+        check(DependencyContract.FrameworkProblem(new Version(0, 11, 0)) != null, "Branded equipment needs Framework 0.12 naming patterns");
+        foreach (var version in new[] { new Version(0, 12, 0), new Version(0, 12, 1), new Version(1, 0, 0) })
             check(DependencyContract.FrameworkProblem(version) == null, "No invented upper version or age cutoff: " + version);
 
         var tables = DependencyContract.Required.ToDictionary(g => g.Table, g => g.Names.ToHashSet());

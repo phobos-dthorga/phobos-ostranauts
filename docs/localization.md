@@ -56,6 +56,17 @@ Native definition IDs, save keys, commands and config keys are stable contracts.
 Brand names, technical diagnostics and bootstrap configuration descriptions may
 remain English. This does not promise translation of every loader or game message.
 
+The owner's equipment-branding memorandum requires full equipment names to start
+with the literal `Phobos'` prefix and use original in-world brands and model
+families where appropriate. Preserve that prefix, brand and model across
+translations; translate the functional equipment type and description. Registered
+name entries now contain only the type/variant: Framework adds the maker/model
+from the content-owned embedded `equipment-names.json`. Leave numbered
+placeholders intact. Existing full-name overrides for these keys need conversion;
+obsolete prefixes fall back to the English descriptor. See the
+[equipment naming guide](equipment-branding.md) for the shared API and examples.
+Translation keys and saved identifiers remain stable.
+
 Use named constants for shared unit conversions, gameplay limits and meaningful
 tolerances. Derive displayed capacities and yields from their authoritative
 rules. Keep content balance in its owning mod; avoid turning every coordinate or

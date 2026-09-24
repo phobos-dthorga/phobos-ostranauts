@@ -12,5 +12,6 @@
     <Reference Include="Newtonsoft.Json" HintPath="$(OstranautsPath)/Ostranauts_Data/Managed/Newtonsoft.Json.dll" />
     <Compile Include="../../src/PhobosShipbreaker/Text.cs" Link="Text.cs" />
     <EmbeddedResource Include="../../translations/PhobosShipbreaker/en.json" LogicalName="PhobosShipbreaker.en.json" />
+    <EmbeddedResource Include="../../mods/PhobosShipbreaker/framework/equipment-names.json" LogicalName="PhobosShipbreaker.equipment-names.json" />
   </ItemGroup>
 </Project>

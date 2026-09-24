@@ -6,7 +6,7 @@ game session. Auto Nav remains 0.3.0 and is optional for this processing chain.
 
 ## Buying and building
 
-The **Phobos Scrap Reclaimer** has a $14,800 refurbished base value; broken
+The **Phobos' Rivetline R4 Scrap Reclaimer** has a $14,800 refurbished base value; broken
 equipment is $3,700. A pristine offer has the native 25% premium ($18,500), and
 lightly worn stock uses the native 75% tier ($11,100). Actual merchant quotes
 also depend on market and trading modifiers.

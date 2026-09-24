@@ -111,7 +111,7 @@ operation. Auto Nav 0.8.0 adds [RCS docking](docs/auto-nav-docking.md).
 Version 0.7.0 added a [rotary instrument panel](docs/auto-nav-instruments.md)
 and includes short-range approaches below 5,000 km with closer
 arrival settings, improved coasting and corrected panel dragging/sizing. The current
-suite uses Framework 0.11.0. Auto Nav now supports
+suite uses Framework 0.12.0. Auto Nav now supports
 [validated saved-flight restoration](docs/auto-nav-persistence.md) and
 [torch-preferred travel and braking](docs/auto-nav-torch.md) with native no-wake
 protection and RCS fallback. These are prepared versions; use installer
@@ -136,6 +136,8 @@ Game files, saves and extracted assets are not distributed in this repository.
 Independent community project by Phobos A. D'thorga (phobos-dthorga).
 Not affiliated with or endorsed by Blue Bottle Games or Kitfox Games.
 
+Original equipment brands and current model names: [Equipment branding](docs/equipment-branding.md).
+
 Translation catalogs, language settings and contributor guidance: [Localization](docs/localization.md).
 
 Framework/Shipbreaker 0.8.0 adds the [scrap reclaimer](docs/scrap-reclaimer.md):
@@ -144,4 +146,4 @@ normal merchant acquisition and shared saved-job handling. Prepared, not yet gam
 
 ## Industrial controls (0.10.0)
 
-[Console and equipment panel guide](docs/industrial-console-player-guide.md): a 3 x 3 ship-bound workstation, local Control Panels, automatic grouping, search, Attention and routing. Requires Framework 0.10.0. Prepared for owner testing; no in-game validation claimed.
+[Console and equipment panel guide](docs/industrial-console-player-guide.md): a 3 x 3 ship-bound workstation, local Control Panels, automatic grouping, search, Attention and routing. Current packages require Framework 0.12.0. Prepared for owner testing; no in-game validation claimed.

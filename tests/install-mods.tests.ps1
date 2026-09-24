@@ -79,7 +79,8 @@ foreach ($mod in @('PhobosFramework', 'PhobosShipbreaker', 'PhobosAutoNav')) {
 Check ((Get-FileHash -LiteralPath $overrideFile).Hash -eq $overrideHash) 'Installation changed a community translation override'
 $nativeRoot = Split-Path -Parent $fresh.LoadOrderPath
 $artwork = @(Get-ChildItem -LiteralPath (Join-Path $nativeRoot 'PhobosAutoNav/images') -Recurse -File)
-Check ($artwork.Count -eq 6) 'Approved artwork missing'
+$expectedAutoArt = @(Get-ChildItem -LiteralPath (Join-Path $PackageRoot 'PhobosAutoNav-P0/Mods/PhobosAutoNav/images') -Recurse -File)
+Check ($artwork.Count -eq $expectedAutoArt.Count) 'Approved artwork missing'
 foreach ($image in $artwork) {
     $relative = [IO.Path]::GetRelativePath((Join-Path $nativeRoot 'PhobosAutoNav'), $image.FullName)
     Check ((Get-FileHash -LiteralPath $image.FullName).Hash -eq (Get-FileHash -LiteralPath (Join-Path $PackageRoot "PhobosAutoNav-P0/Mods/PhobosAutoNav/$relative")).Hash) 'Artwork changed during installation'
@@ -222,20 +223,36 @@ Check ((InstalledFiles $incomplete) -eq $before) 'Missing console faceplate part
 # A coherent older provider package must still be rejected before any copying.
 # Only inert synthetic assemblies are built here; the installed game is untouched.
 $olderOutput = Join-Path $fixtures 'older-provider-output'
-& dotnet build (Join-Path $fixtureSource 'Fixture.csproj') -c Release -p:Version=0.9.99 -o $olderOutput --nologo -v quiet | Out-Null
+& dotnet build (Join-Path $fixtureSource 'Fixture.csproj') -c Release -p:Version=0.11.99 -o $olderOutput --nologo -v quiet | Out-Null
 if ($LASTEXITCODE -ne 0) { throw 'Could not build the inert older-provider fixture.' }
 $frameworkMetadataRelative = 'PhobosFramework-P0/Mods/PhobosFramework/mod_info.json'
 $frameworkDllRelative = 'PhobosFramework-P0/BepInEx/plugins/PhobosFramework/PhobosFramework.dll'
 $olderMetadata = Join-Path $badPackages $frameworkMetadataRelative
 $olderInfo = @(Get-Content -LiteralPath $olderMetadata -Raw | ConvertFrom-Json)
-$olderInfo[0].strModVersion = '0.9.99'
+$olderInfo[0].strModVersion = '0.11.99'
 ConvertTo-Json -InputObject $olderInfo | Set-Content -LiteralPath $olderMetadata
 Copy-Item -LiteralPath (Join-Path $olderOutput 'PhobosFramework.dll') -Destination (Join-Path $badPackages $frameworkDllRelative) -Force
-Fails { & $installer @incomplete | Out-Null } 'Selected equipment requires Phobos Framework 0.11.0'
-Check ((InstalledFiles $incomplete) -eq $before) 'Auto Nav persistence provider minimum was not enforced'
+Fails { & $installer @incomplete | Out-Null } 'Selected equipment requires Phobos Framework 0.12.0'
+Fails { & $installer @incomplete -Mods AutoNav | Out-Null } 'Selected equipment requires Phobos Framework 0.12.0'
+Fails { & $installer @incomplete -Mods Shipbreaker | Out-Null } 'Selected equipment requires Phobos Framework 0.12.0'
+Check ((InstalledFiles $incomplete) -eq $before) 'Equipment naming provider minimum was not enforced'
 foreach ($relative in @($frameworkMetadataRelative, $frameworkDllRelative)) {
     Copy-Item -LiteralPath (Join-Path $PackageRoot $relative) -Destination (Join-Path $badPackages $relative) -Force
 }
+foreach ($id in @('PhobosFramework', 'PhobosAutoNav', 'PhobosShipbreaker')) {
+    $relative = "$id-P0/Mods/$id/framework/equipment-names.json"
+    $missingNames = Join-Path $badPackages $relative
+    Remove-Item -LiteralPath $missingNames
+    Fails { & $installer @incomplete | Out-Null } "$id/framework/equipment-names.json"
+    Check ((InstalledFiles $incomplete) -eq $before) 'Missing naming manifest partially installed equipment'
+    Copy-Item -LiteralPath (Join-Path $PackageRoot $relative) -Destination $missingNames
+}
+$instrumentRelative = 'PhobosAutoNav-P0/Mods/PhobosAutoNav/images/phobos/autonav/PhobosAutoNavInstruments.png'
+$missingInstruments = Join-Path $badPackages $instrumentRelative
+Remove-Item -LiteralPath $missingInstruments
+Fails { & $installer @incomplete | Out-Null } 'PhobosAutoNavInstruments.png'
+Check ((InstalledFiles $incomplete) -eq $before) 'Missing navigation instruments partially installed equipment'
+Copy-Item -LiteralPath (Join-Path $PackageRoot $instrumentRelative) -Destination $missingInstruments
 # Regression: a DLL-only framework can load while the native menu reports Missing.
 # Keep a tracked empty definitions file so packaging and file-only installation
 # actually deliver the data directory required by the native loader.

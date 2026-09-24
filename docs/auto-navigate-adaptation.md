@@ -1,13 +1,13 @@
 # Phobos Auto Nav: standalone adaptation
 
-**0.8.0 candidate; built against Ostranauts 1.0.1.5 / BepInEx 5.4.23.5.**
-Ordinary saves are the baseline from 2026-09-24. Phobos Framework 0.11.0+ now
+**0.8.1 candidate; built against Ostranauts 1.0.1.5 / BepInEx 5.4.23.5.**
+Ordinary saves are the baseline from 2026-09-24. Phobos Framework 0.12.0+ now
 provides shared construction, merchant and maintenance services. No original Auto
 Navigate dependency. See [prices, acquisition and service bills](equipment-economy.md).
 In-game validation of this update remains pending. See the
 [current player guide](player-guide.md) for the suite's installation and operating sequence.
 
-The equipment is now named **Phobos Polaris Auto Nav Module** to identify its
+The equipment is now named **Phobos' Asterel N1 Polaris Auto Nav Module** to identify its
 navigation-station use. The package remains Phobos Auto Nav; saved item IDs are
 unchanged. Buying, selling, salvage and service details are in the
 [Auto Nav economy guide](auto-nav-economy.md). Pickup artwork is retained; the

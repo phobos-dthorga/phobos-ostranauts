@@ -20,14 +20,22 @@ public sealed class TranslationCatalog
     private readonly Dictionary<string, string> selected = new Dictionary<string, string>(StringComparer.Ordinal);
     private readonly HashSet<string> reported = new HashSet<string>(StringComparer.Ordinal);
     private readonly Action<string> log;
+    private readonly EquipmentNames? equipment;
     public CultureInfo Culture { get; private set; } = CultureInfo.GetCultureInfo("en");
     public bool Contains(string key) => english.ContainsKey(key);
 
-    public TranslationCatalog(string englishJson, Action<string>? log = null)
+    public TranslationCatalog(string englishJson, Action<string>? log = null) : this(englishJson, log, null) { }
+
+    public TranslationCatalog(string englishJson, Action<string>? log, EquipmentNames? equipment)
     {
         this.log = log ?? (_ => { });
+        this.equipment = equipment;
         english = Parse(englishJson);
         foreach (string message in english.Values) Signature(message);
+        if (equipment != null)
+        foreach (string key in equipment.Keys)
+            if (!english.TryGetValue(key, out var description) || !equipment.IsDescription(key, description))
+                throw new FormatException("Equipment key needs an unbranded English description: " + key);
     }
 
     public static Dictionary<string, string> Parse(string json)
@@ -98,6 +106,8 @@ public sealed class TranslationCatalog
                 try
                 {
                     if (Signature(original) != Signature(entry.Value)) throw new FormatException("Argument set differs.");
+                    if (equipment != null && !equipment.IsDescription(entry.Key, entry.Value))
+                        throw new FormatException("Equipment translations contain the type/variant, not the maker prefix.");
                     var tokens = Regex.Matches(original, @"\[(us|them|crafts|checks)\]").Cast<Match>().Select(m => m.Value).OrderBy(s => s);
                     var translatedTokens = Regex.Matches(entry.Value, @"\[(us|them|crafts|checks)\]").Cast<Match>().Select(m => m.Value).OrderBy(s => s);
                     if (!tokens.SequenceEqual(translatedTokens)) throw new FormatException("Native grammar tokens differ.");
@@ -113,12 +123,13 @@ public sealed class TranslationCatalog
         if (!english.TryGetValue(key, out string original))
         { Warn(key, "Missing English translation key: " + key); return "[" + key + "]"; }
         string format = selected.TryGetValue(key, out var translated) ? translated : original;
-        try { return string.Format(Culture, format, args); }
+        string Name(string value) => equipment?.Format(key, value) ?? value;
+        try { return Name(string.Format(Culture, format, args)); }
         catch (FormatException)
         {
             Warn(key, "Translation formatting failed; using English: " + key);
-            try { return string.Format(CultureInfo.GetCultureInfo("en"), original, args); }
-            catch (FormatException) { return original; }
+            try { return Name(string.Format(CultureInfo.GetCultureInfo("en"), original, args)); }
+            catch (FormatException) { return Name(original); }
         }
     }
 
@@ -135,12 +146,22 @@ public static class Translations
     public static string? UserDirectory { get; set; }
 
     public static TranslationCatalog Register(string owner, Assembly assembly, string resource)
+        => Register(owner, assembly, resource, null);
+
+    public static TranslationCatalog Register(string owner, Assembly assembly, string resource, string? equipmentResource)
     {
         if (!Regex.IsMatch(owner, "^[A-Za-z][A-Za-z0-9_.-]{0,199}$")) throw new ArgumentException("Invalid translation owner.");
         if (catalogs.TryGetValue(owner, out var found)) return found;
         using var stream = assembly.GetManifestResourceStream(resource) ?? throw new InvalidOperationException("Missing English resource: " + resource);
         using var reader = new StreamReader(stream);
-        var catalog = new TranslationCatalog(reader.ReadToEnd(), message => Log(owner + ": " + message));
+        EquipmentNames? equipment = null;
+        if (equipmentResource != null)
+        {
+            using var names = assembly.GetManifestResourceStream(equipmentResource) ?? throw new InvalidOperationException("Missing equipment names: " + equipmentResource);
+            using var nameReader = new StreamReader(names);
+            equipment = new EquipmentNames(nameReader.ReadToEnd());
+        }
+        var catalog = new TranslationCatalog(reader.ReadToEnd(), message => Log(owner + ": " + message), equipment);
         catalogs.Add(owner, catalog);
         directories.Add(owner, Path.Combine(Path.GetDirectoryName(assembly.Location)!, "translations"));
         Load(owner, catalog);

@@ -5,10 +5,12 @@ BepInEx **5.4.23.5**. Candidate: Framework **0.8.0**, Shipbreaker **0.8.0**, Aut
 These are implemented balance choices informed by local game/mod definitions;
 they are not measured gameplay outcomes. Gameplay validation remains pending.
 
-Auto Nav 0.4.0 rechecks the retained balance against **1.0.1.5** and names the
-equipment **Phobos Polaris Auto Nav Module**. Its dedicated
+Auto Nav 0.4.0 rechecked the retained balance against **1.0.1.5**. Version 0.8.1
+now names the equipment **Phobos' Asterel N1 Polaris Auto Nav Module**. Its dedicated
 [acquisition and service guide](auto-nav-economy.md) covers native buy/sell
-filters, materials, timing and naming compatibility. The full value audit is
+filters, materials, timing and naming compatibility. Display names follow the [equipment brand directory](equipment-branding.md);
+role labels below are shorthand. This naming pass changes no prices or bills.
+The full value audit is
 regenerated from the current definitions below.
 
 ## Dismantling value audit (owner clarification, 2026-09-24)

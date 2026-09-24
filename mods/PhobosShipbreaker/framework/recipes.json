@@ -3,7 +3,7 @@
   "recipes": [
     {
       "id": "PhobosBuildShipbreakerSection",
-      "name": "Dismantling Fixture Assembly Section",
+      "name": "Phobos' Rivetline D4-S Dismantling Fixture Assembly Section",
       "description": "Build one 80 kg, 4 x 4 assembly section. Two sections make a complete powered dismantling fixture. Sections are unpowered construction stock, not working machinery.",
       "stationIds": [
         "ItmTable01",
@@ -60,7 +60,7 @@
     },
     {
       "id": "PhobosBuildShipbreaker",
-      "name": "Powered Dismantling Fixture",
+      "name": "Phobos' Rivetline D4 Dismantling Fixture",
       "description": "Join two 80 kg assembly sections into a 160 kg, 4 x 4 industrial fixture. Accepts up to four ordinary loose wall panels and recovers parts, scrap and retained residue. Controls: F9 by default while beside the installed fixture, or F3: phobosshipbreaker help.",
       "stationIds": [
         "ItmTable01",
@@ -100,7 +100,7 @@
     },
     {
       "id": "PhobosBuildHullChute",
-      "name": "Sealed Hull Chute",
+      "name": "Phobos' Rivetline H4 Sealed Hull Chute",
       "description": "Build a 40 kg, 4 wide x 1 deep transfer chute. Mount OVER four intact hull walls between a Phobos grabber outside and processor inside. Retain the walls; the chute does not replace them.",
       "stationIds": [
         "ItmTable01",
@@ -154,7 +154,7 @@
     },
     {
       "id": "PhobosBuildExteriorGrabber",
-      "name": "Exterior Panel Grabber",
+      "name": "Phobos' Rivetline G4 Exterior Grabber",
       "description": "Build an 80 kg, 4 wide x 3 deep exterior loading cradle. Place its rear against a Phobos wall chute; connect conduit power. Load already-detached ordinary walls through Inventory. Static jaws and cutter housing; cutting installed hull is not implemented.",
       "stationIds": [
         "ItmTable01",
@@ -208,7 +208,7 @@
     },
     {
       "id": "PhobosBuildResidueCollector",
-      "name": "Residue Collector",
+      "name": "Phobos' Rivetline C2 Residue Collector",
       "description": "Build a 20 kg, 2 wide x 1 deep collector over two intact exterior walls. Control Panel links a processor through structural flooring. Inventory holds four 13 kg residue packets; collected cargo remains aboard. Separate conduit power required.",
       "stationIds": [
         "ItmTable01",
@@ -262,7 +262,7 @@
     },
     {
       "id": "PhobosBuildReclaimerSection",
-      "name": "Scrap Reclaimer Assembly Section",
+      "name": "Phobos' Rivetline R4-S Scrap Reclaimer Assembly Section",
       "description": "Build one 90 kg, 4 x 4 unpowered section. Two sections make a complete enclosed scrap reclaimer.",
       "stationIds": [
         "ItmTable01",
@@ -317,7 +317,7 @@
     },
     {
       "id": "PhobosBuildReclaimer",
-      "name": "Scrap Reclaimer",
+      "name": "Phobos' Rivetline R4 Scrap Reclaimer",
       "description": "Join two 90 kg sections into a 180 kg, 4 x 4 reclaimer. Processes identified panel residue into steel, aluminium and retained rejects. Control Panel opens the feed and controls; ordinary Inventory holds products. Requires a cool room atmosphere and separate electrical conduit.",
       "stationIds": [
         "ItmTable01",
@@ -355,7 +355,7 @@
     },
     {
       "id": "PhobosBuildIndustrialConsole",
-      "name": "Industrial Control Console",
+      "name": "Phobos' Asterel C1 Industrial Control Console",
       "description": "Build a 40 kg, 3 x 3 seated workstation. Controls installed industrial equipment on its own player-owned ship. Separate 80 W electrical connection required. Inventory handling and maintenance stay local.",
       "stationIds": [
         "ItmTable01",

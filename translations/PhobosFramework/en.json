@@ -45,7 +45,7 @@
   "GridRoute.invalid_route_bounds": "Invalid route bounds.",
   "ItemDefinitionFilter.filter_ids_must_be_nonempty": "Filter IDs must be nonempty.",
   "MaintenanceDefinitions.retained_mixed_material_no_refining_recipe_yet": "Retained mixed material. No refining recipe yet; not a native parts bundle or sortable trash.",
-  "MaintenanceDefinitions.spent_service_parts_kg": "Spent service parts (0.5 kg)",
+  "MaintenanceDefinitions.spent_service_parts_kg": "Spent Service Parts (0.5 kg)",
   "MaintenanceSafety.empty_the_equipment_its_feed_and_any": "Empty the equipment, its feed and any unfinished repair materials before dismantling.",
   "MaintenanceSafety.repair_paused_service_material_contains_cargo_for": "Repair paused: service material contains cargo for {0}",
   "MaintenanceSafety.repair_paused_unsupported_service_material_mass_for": "Repair paused: unsupported service-material mass for {0}",

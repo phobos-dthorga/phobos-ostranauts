@@ -89,6 +89,8 @@ internal static class EconomyChecks
         foreach (var overlay in JsonConvert.DeserializeObject<JsonCOOverlay[]>(File.ReadAllText(Path.Combine(repo,"mods/PhobosAutoNav/data/cooverlays/phobos_approach_assist.json")))!)
             DataHandler.dictCOOverlays[overlay.strName] = overlay;
         var nav = PhobosAutoNav.EquipmentContent.Prepare(); nav.Publish();
+        foreach (var equipment in nav.Objects.Values)
+            check(equipment.strNameFriendly.StartsWith("Phobos' ", StringComparison.Ordinal), "Navigation module and retained material use branded native names");
         check(MaintenanceSafety.ResolveFinish("PhobosNavModAutoNavDmg", "MSNavModMoboRepair") == "MSPhobosAutoNavBoardDmgRepair", "Saved Auto Nav repair uses actual waste accounting");
         check(MaintenanceSafety.ResolveFinish("PhobosNavModAutoNav", "MSNavModMoboDismantle") == "MSPhobosAutoNavBoardDismantle", "Saved Auto Nav dismantle uses the 0.4 kg output");
         check(MaintenanceSafety.ResolveFinish("ItmNavModMobo", "MSNavModMoboDismantle") == "MSNavModMoboDismantle", "Generic vanilla job is not globally redirected");

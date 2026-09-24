@@ -12,11 +12,11 @@ namespace PhobosAutoNav;
 
 [BepInPlugin(Id, "Phobos Auto Nav", Version)]
 [BepInProcess("Ostranauts.exe")]
-[BepInDependency(FrameworkInfo.PluginId, "0.11.0")]
+[BepInDependency(FrameworkInfo.PluginId, "0.12.0")]
 public sealed class Plugin : BaseUnityPlugin
 {
     public const string Id = "phobosgekko.ostranauts.autonav";
-    public const string Version = "0.8.0";
+    public const string Version = "0.8.1";
     internal static NavigationService Service { get; private set; } = null!;
     internal static ConfigEntry<bool> Enabled = null!, VerboseLogging = null!, FuelCheck = null!,
         AbortOnManualThrust = null!, UseThrusterRotation = null!, ResumeAfterLoad = null!, PreferTorch = null!;

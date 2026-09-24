@@ -12,7 +12,7 @@ namespace PhobosApproachAssist;
 public sealed class Plugin : BaseUnityPlugin
 {
     public const string Id = "phobosgekko.ostranauts.approachassist";
-    public const string Version = "0.1.1";
+    public const string Version = "0.1.2";
     internal static ApproachService Service { get; private set; } = null!;
     private Harmony? harmony;
     private bool showTestTools;

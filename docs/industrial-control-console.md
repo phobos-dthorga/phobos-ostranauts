@@ -20,7 +20,7 @@ it. Research and text mockups come before finished artwork. This supersedes the
 earlier instruction to wait until gameplay evaluation concludes before planning
 the fixture's Control Panel. It does not make any outstanding gameplay checks pass.
 
-Build a **Phobos Industrial Console**, a dedicated seated 3 x 3 workstation,
+Build a **Phobos' Asterel C1 Industrial Control Console**, a dedicated seated 3 x 3 workstation,
 with a shared equipment screen also reachable through each machine's right-click
 **Control Panel** action. Use the navigation station as an ergonomic and visual
 reference. Give the industrial console its own definition and interaction;

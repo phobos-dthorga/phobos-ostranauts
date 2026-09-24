@@ -1,6 +1,6 @@
 # Phobos Shipbreaker: first playable build
 
-Current candidate: **Shipbreaker 0.10.0 + Phobos Framework 0.10.0**, built against
+Current candidate: **Shipbreaker 0.10.1 + Phobos Framework 0.12.0**, built against
 Ostranauts **1.0.1.5** and BepInEx **5.4.23.5**. Offline checks pass; connected
 gameplay validation remains pending. These are prepared-package versions, not
 an assertion about the currently installed files. Start with the

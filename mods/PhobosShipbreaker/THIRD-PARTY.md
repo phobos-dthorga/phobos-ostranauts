@@ -4,7 +4,7 @@ Phobos Shipbreaker's original code and documentation use the repository's MIT
 licence. The distribution contains Phobos code, metadata and its construction
 recipe; no game or dependency DLLs, extracted sprites or copied native definitions.
 
-- **Phobos Framework 0.10.0+**: required separate shared provider for construction,
+- **Phobos Framework 0.12.0+**: required separate shared provider for construction,
   definition publication, inventory planning and production delivery. Its notices
   include the credited OCF construction-code adaptation; install one provider.
 

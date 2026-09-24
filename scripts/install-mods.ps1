@@ -45,6 +45,7 @@ if ('Shipbreaker' -in $Mods) {
         if ([version]$shipInfo[0].strModVersion -ge [version]'0.8.0') { $minimumPhobosFramework = [version]'0.8.0' }
         if ([version]$shipInfo[0].strModVersion -ge [version]'0.9.0') { $minimumPhobosFramework = [version]'0.9.0' }
         if ([version]$shipInfo[0].strModVersion -ge [version]'0.10.0') { $minimumPhobosFramework = [version]'0.10.0' }
+        if ([version]$shipInfo[0].strModVersion -ge [version]'0.10.1') { $minimumPhobosFramework = [version]'0.12.0' }
         if ($needsPhobosFramework) { $Mods = @('Framework') + @($Mods | Where-Object { $_ -ne 'Framework' }) }
     }
 }
@@ -59,6 +60,7 @@ if ('AutoNav' -in $Mods) {
             if ($minimumPhobosFramework -lt [version]'0.6.0') { $minimumPhobosFramework = [version]'0.6.0' }
             if ([version]$navInfo[0].strModVersion -ge [version]'0.3.0' -and $minimumPhobosFramework -lt [version]'0.7.0') { $minimumPhobosFramework = [version]'0.7.0' }
             if ([version]$navInfo[0].strModVersion -ge [version]'0.5.0' -and $minimumPhobosFramework -lt [version]'0.11.0') { $minimumPhobosFramework = [version]'0.11.0' }
+            if ([version]$navInfo[0].strModVersion -ge [version]'0.8.1' -and $minimumPhobosFramework -lt [version]'0.12.0') { $minimumPhobosFramework = [version]'0.12.0' }
             $Mods = @('Framework') + @($Mods | Where-Object { $_ -ne 'Framework' })
         }
     }
@@ -147,6 +149,7 @@ foreach ($mod in $Mods) {
         'ApproachAssist' { 'data/cooverlays/phobos_approach_assist.json'; 'data/guipropmaps/phobos_approach_assist.json' }
         'AutoNav' {
             if ($version -ge [version]'0.2.0') { 'framework/recipes.json' }
+            if ($version -ge [version]'0.7.0') { 'images/phobos/autonav/PhobosAutoNavInstruments.png' }
             'data/cooverlays/phobos_approach_assist.json'; 'data/guipropmaps/phobos_approach_assist.json'
             foreach ($image in @('Panel', 'Module', 'ModuleDmg', 'ModulePortrait', 'ModuleDmgPortrait', 'ModuleNormal')) {
                 "images/phobos/autonav/PhobosAutoNav$image.png"
@@ -183,6 +186,12 @@ foreach ($mod in $Mods) {
     }
     foreach ($relative in $required) {
         if (-not (Test-Path -LiteralPath (Join-Path $nativeSource $relative) -PathType Leaf)) { throw "Package is incomplete: $id/$relative" }
+    }
+    $needsEquipmentNames = ($mod -eq 'Framework' -and $version -ge [version]'0.12.0') -or
+        ($mod -eq 'Shipbreaker' -and $version -ge [version]'0.10.1') -or
+        ($mod -eq 'AutoNav' -and $version -ge [version]'0.8.1')
+    if ($needsEquipmentNames -and -not (Test-Path -LiteralPath (Join-Path $nativeSource 'framework/equipment-names.json') -PathType Leaf)) {
+        throw "Package is incomplete: $id/framework/equipment-names.json"
     }
     if ($mod -eq 'Shipbreaker' -and $version -ge [version]'0.2.0') {
         # Overwrite our former recipe file with an inert pack, using the normal

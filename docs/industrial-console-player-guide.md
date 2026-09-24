@@ -1,12 +1,12 @@
 # Industrial controls — 0.10.0
 
-Requires Shipbreaker and Phobos Framework **0.10.0**. Auto Nav remains optional.
+Current packages: Shipbreaker **0.10.1**, requiring Phobos Framework **0.12.0**. Auto Nav remains optional.
 Built against Ostranauts **1.0.1.5** / BepInEx **5.4.23.5**. Automated checks
 passed; the new native panel/seating integration awaits the owner's game test.
 
 ## Use
 
-Install a **Phobos Industrial Control Console** on a clear **3 x 3** area inside
+Install a **Phobos' Asterel C1 Industrial Control Console** on a clear **3 x 3** area inside
 a player-owned ship and connect separate electrical conduit. It weighs **40 kg**
 and draws **80 W**. Right-click **Control Panel** to sit at it. The operator must
 remain awake at that console. Multiple consoles may control the same ship; each

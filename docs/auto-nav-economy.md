@@ -1,15 +1,16 @@
-# Phobos Polaris Auto Nav Module: acquisition and servicing
+# Phobos' Asterel N1 Polaris Auto Nav Module: acquisition and servicing
 
-Prepared with **Auto Nav 0.4.3**, Ostranauts **1.0.1.5**, BepInEx **5.4.23.5**
-and Framework **0.10.0**. Auto Nav requires Framework 0.7.0 or newer. The economy
+Original economy audit prepared with **Auto Nav 0.4.3**, Ostranauts **1.0.1.5**, BepInEx **5.4.23.5**
+and Framework **0.10.0**. That build required Framework 0.7.0 or newer. The economy
 already existed before this round; 0.4.0 names the equipment for its Polaris
 navigation-station use, centralizes its balance constants and expands the native
 trade/maintenance checks. Versions 0.4.1–0.4.3 fix panel dragging/layout and improve coasting; prices, mass
 and existing work thresholds are retained.
 No game session or live shop quote was used for this audit.
 
-The item and its damaged form are **Phobos Polaris Auto Nav Module** and
-**Phobos Polaris Auto Nav Module (Damaged)**. The mod manager/package remains
+Current naming update: **Auto Nav 0.8.1 requires Framework 0.12.0**.
+The item and its damaged form are **Phobos' Asterel N1 Polaris Auto Nav Module** and
+**Phobos' Asterel N1 Polaris Auto Nav Module (Damaged)**. The mod manager/package remains
 **Phobos Auto Nav**. Internal item IDs, module slots, load-order folder, console
 commands and configuration filename are unchanged. Existing items are not
 replaced by the naming change. User-assigned names may remain user-assigned.

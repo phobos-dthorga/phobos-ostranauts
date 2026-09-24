@@ -1,4 +1,15 @@
-# Phobos Framework 0.11.0 — author guide
+# Phobos Framework 0.12.0 — author guide
+
+## Equipment name patterns (0.12.0)
+
+Use `Localization.EquipmentNames` with content-owned brand/model metadata and
+translated type/variant catalog entries. The four-argument `Translations.Register`
+overload accepts an embedded naming-resource name. Normal UI and construction
+lookups then receive the same formatted name, beginning with `Phobos'`. The
+original registration overload and unregistered messages are unchanged.
+See [equipment branding](equipment-branding.md) for the format and migration of
+older full-name overrides. Consumers using this API require **0.12.0**.
+
 
 ## Versioned object state (0.11.0)
 

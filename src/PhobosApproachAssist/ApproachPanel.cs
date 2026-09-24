@@ -35,7 +35,7 @@ public sealed class ApproachPanel : NavModBase
         var font = nav.GetComponentsInChildren<TMP_Text>(true).FirstOrDefault(t => t.font != null)?.font;
         var panel = root.AddComponent<ApproachPanel>();
         panel.damaged = damaged;
-        Label(container, "Approach Assist P0", new Vector2(0.04f, 0.79f), new Vector2(0.96f, 0.97f), font, 19);
+        Label(container, DataHandler.GetCOFriendlyName(name), new Vector2(0.04f, 0.79f), new Vector2(0.96f, 0.97f), font, 19);
         panel.status = Label(container, "Test pulse only — no automatic braking", new Vector2(0.04f, 0.33f), new Vector2(0.96f, 0.78f), font, 15);
         Button(container, "Run 2-second test", 0.04f, 0.57f, font, () => Plugin.Service.Engage(panel.COSelf));
         Button(container, "Disengage", 0.6f, 0.96f, font, () => Plugin.Service.Disengage("Disengaged by pilot"));

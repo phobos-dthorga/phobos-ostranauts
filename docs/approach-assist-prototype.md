@@ -1,5 +1,9 @@
 # Approach Assist P0: integration prototype
 
+Naming update 0.1.2: the equipment is **Phobos' Asterel N0 Approach Assist
+(Prototype)**. Package/command identifiers and prototype behaviour are unchanged.
+
+
 Version **0.1.1**, prepared 2026-09-20 against Ostranauts **1.0.1.4** and the
 installed BepInEx **5.4.23.5**. This is the first implementation of the
 [selected mod](limited-autopilot.md), not the completed approach assistant.
@@ -122,7 +126,7 @@ real game. After building a package, run them with:
    debug console with F3. Alternatively, press **F8** and choose **Add test module
    to this console**. Ordinary salvage, shops and crafting are not changed.
 6. Close and reopen the console, choose its native **Edit** control, and drag
-   **Approach Assist P0** onto free pegboard space. Its initial position is only
+   **Phobos' Asterel N0 Approach Assist (Prototype)** onto free pegboard space. Its initial position is only
    a suggestion; occupied space must not displace existing modules.
 7. In open space, select a firm nearby contact and reduce relative speed. The
    panel explains unmet requirements. Choose **Run 2-second test**, then observe

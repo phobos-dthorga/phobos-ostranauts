@@ -39,6 +39,27 @@ internal static class LocalizationChecks
         check(catalog.Get("work") == "{0}: {1:F1} kg", "Caller argument error does not throw into gameplay");
         check(Translations.Get("absent.provider", "recipe.key", "English recipe") == "English recipe", "Optional translation provider preserves recipe fallback");
 
+        var makers = new EquipmentNames("{\"item\":{\"brand\":\"Asterel\",\"model\":\"N1\"},\"waste\":{\"brand\":\"\",\"model\":\"\"}}");
+        var branded = new TranslationCatalog("{\"item\":\"Module{0}\",\"waste\":\"Spent Parts\",\"status\":\"Ready\"}", warnings.Add, makers);
+        branded.Select("fr", "{\"item\":\"Module de navigation{0}\"}");
+        check(branded.Get("item", " (endommagé)") == "Phobos' Asterel N1 Module de navigation (endommagé)", "Brand/model stay fixed while type and damage suffix translate");
+        check(branded.Get("waste") == "Phobos' Spent Parts" && branded.Get("status") == "Ready", "Unmodelled material names and ordinary messages use their own paths");
+        branded.Select("en", "{\"item\":\"Phobos Polaris Module{0}\"}");
+        check(branded.Get("item", "") == "Phobos' Asterel N1 Module", "Old full-name override falls back without duplicating the maker prefix");
+        branded.Select("en", "{\"item\":\"Asterel N1 Module{0}\"}");
+        check(branded.Get("item", "") == "Phobos' Asterel N1 Module", "An embedded maker/model is not doubled");
+        branded.Select("ja", "{\"item\":\"航法装置{0}\"}");
+        check(branded.Get("item", "") == "Phobos' Asterel N1 航法装置", "Name formatting survives repeated language changes");
+        foreach (string invalid in new[] { "{\"x\":{\"brand\":\"\",\"model\":\"N1\"}}", "{\"x\":{\"brand\":\"A\",\"model\":\"N1\",\"typo\":1}}", "{\"x\":{\"brand\":\"A\",\"model\":\"<b>\"}}", "{} {}" })
+        {
+            bool rejected = false;
+            try { _ = new EquipmentNames(invalid); } catch (Exception ex) when (ex is FormatException || ex is Newtonsoft.Json.JsonException) { rejected = true; }
+            check(rejected, "Malformed naming metadata fails during author registration");
+        }
+        bool missingName = false;
+        try { _ = new TranslationCatalog("{\"other\":\"Ready\"}", null, makers); } catch (FormatException) { missingName = true; }
+        check(missingName, "A misspelled name key cannot silently lose branding");
+
         // Only our own temporary files; no game directory or save is touched.
         string root = Path.Combine(Path.GetTempPath(), "PhobosTranslationChecks-" + Guid.NewGuid().ToString("N"));
         const string owner = "phobos.tests.localization";
@@ -74,6 +95,9 @@ internal static class LocalizationChecks
         {
             string translations = Path.Combine(repo, "translations", mod);
             var baseline = TranslationCatalog.Parse(File.ReadAllText(Path.Combine(translations, "en.json")));
+            string namingFile = Path.Combine(repo, "mods", mod, "framework", "equipment-names.json");
+            var equipment = File.Exists(namingFile) ? new EquipmentNames(File.ReadAllText(namingFile)) : null;
+            var english = new TranslationCatalog(File.ReadAllText(Path.Combine(translations, "en.json")), null, equipment);
             foreach (var entry in baseline) { TranslationCatalog.Signature(entry.Value); check(true, "Valid English template: " + entry.Key); }
             foreach (string file in Directory.GetFiles(Path.Combine(repo, "src", mod), "*.cs", SearchOption.AllDirectories))
             foreach (Match key in Regex.Matches(File.ReadAllText(file), "Text\\.Get\\(\"([^\"]+)\"\\s*[,)]"))
@@ -82,7 +106,7 @@ internal static class LocalizationChecks
             {
                 var entries = TranslationCatalog.Parse(File.ReadAllText(file));
                 var errors = new List<string>();
-                var verifier = new TranslationCatalog(File.ReadAllText(Path.Combine(translations, "en.json")), errors.Add);
+                var verifier = new TranslationCatalog(File.ReadAllText(Path.Combine(translations, "en.json")), errors.Add, equipment);
                 verifier.Select(Path.GetFileNameWithoutExtension(file), File.ReadAllText(file));
                 check(errors.Count == 0 && entries.Keys.All(baseline.ContainsKey), "Valid contributed catalog: " + file + " " + string.Join("; ", errors));
             }
@@ -90,11 +114,11 @@ internal static class LocalizationChecks
             if (File.Exists(recipeFile))
             foreach (var recipe in Newtonsoft.Json.Linq.JObject.Parse(File.ReadAllText(recipeFile))["recipes"]!)
             foreach (string field in new[] { "name", "description" })
-                check(baseline[(string)recipe[field + "Key"]!] == (string)recipe[field]!, "Construction key and English fallback agree: " + recipe["id"]);
+                check(english.Get((string)recipe[field + "Key"]!) == (string)recipe[field]!, "Construction key and English fallback agree: " + recipe["id"]);
             if (mod == "PhobosAutoNav")
             foreach (var overlay in Newtonsoft.Json.Linq.JArray.Parse(File.ReadAllText(Path.Combine(repo, "mods", mod, "data/cooverlays/phobos_approach_assist.json"))))
             {
-                check(baseline["Overlay." + overlay["strName"] + ".name"] == (string)overlay["strNameFriendly"]!, "Overlay name has a translation key");
+                check(english.Get("Overlay." + overlay["strName"] + ".name") == (string)overlay["strNameFriendly"]!, "Overlay name has a translation key");
                 check(baseline["Overlay." + overlay["strName"] + ".description"] == (string)overlay["strDesc"]!, "Overlay description has a translation key");
             }
         }

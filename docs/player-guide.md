@@ -1,7 +1,7 @@
 # Current player guide
 
-**Prepared versions:** Phobos Framework **0.11.0**, Shipbreaker **0.10.0**, Auto Nav
-**0.8.0**, built against Ostranauts **1.0.1.5** / BepInEx **5.4.23.5**.
+**Prepared versions:** Phobos Framework **0.12.0**, Shipbreaker **0.10.1**, Auto Nav
+**0.8.1**, built against Ostranauts **1.0.1.5** / BepInEx **5.4.23.5**.
 These versions support ordinary saves. Builds and offline checks do not establish
 in-game compatibility. This guide describes the prepared packages, not a claim
 that those packages are already installed or that merchants have restocked.
@@ -50,6 +50,11 @@ does not force new inventory. Broken equipment needs **Repair**; functional worn
 equipment uses **Restore**. Fetching, skills and interruptions affect elapsed
 work. [Prices, bills, stock conditions and maintenance times](equipment-economy.md)
 are the authoritative balance reference.
+
+Equipment now uses **Phobos' Asterel** electronics and **Phobos' Rivetline**
+industrial model names. See the [equipment name directory](equipment-branding.md)
+for the names to look for in shops and construction menus. The role names below
+remain shorthand; commands and saved IDs are unchanged.
 
 ## Install the connected Shipbreaker
 
@@ -163,7 +168,7 @@ alignment and braking room determine when the torch is useful; RCS handles
 turns, fine corrections and restricted approaches. Use **phobosnav torch off**
 for RCS-only operation. Existing saved RCS-only flights retain that choice.
 
-Look for **Phobos Polaris Auto Nav Module** in shops or table construction.
+Look for **Phobos' Asterel N1 Polaris Auto Nav Module** in shops or table construction.
 The [Auto Nav economy guide](auto-nav-economy.md) lists sellers, conditions,
 prices, repair materials, Restore and dismantling. Its package is still Phobos Auto Nav.
 
@@ -207,4 +212,4 @@ Translation catalogs, language settings and contributor guidance: [Localization]
 
 ## Industrial controls (0.10.0)
 
-[Console and equipment panel guide](industrial-console-player-guide.md): a 3 x 3 ship-bound workstation, local Control Panels, automatic grouping, search, Attention and routing. Requires Framework 0.10.0. Prepared for owner testing; no in-game validation claimed.
+[Console and equipment panel guide](industrial-console-player-guide.md): a 3 x 3 ship-bound workstation, local Control Panels, automatic grouping, search, Attention and routing. Current packages require Framework 0.12.0. Prepared for owner testing; no in-game validation claimed.

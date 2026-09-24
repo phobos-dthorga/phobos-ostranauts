@@ -12,6 +12,32 @@
   content mod and preserve historic recipe contracts. Do not generalize every
   layout coordinate or expose every constant as a setting.
 
+## Equipment branding and model names
+
+- Owner memorandum (2026-09-24): all our objects, machines and other equipment
+  must use world-appropriate branding and model names invented for this project.
+  Share brands and model families across related equipment where appropriate;
+  keep names plausible for Ostranauts' utilitarian industrial setting.
+- Every full equipment display name must begin with the literal `Phobos'`
+  prefix, including the apostrophe. Preferred structure:
+  `Phobos' <original brand> <model> <equipment type>`. Keep the functional type
+  clear so players can identify the item's purpose. Assign model designations
+  where meaningful; ordinary materials need no artificial machine model number.
+- This policy covers existing equipment as well as future additions. The
+  current implementation uses Asterel for electronics and Rivetline for industrial
+  equipment. See `docs/equipment-branding.md` for assigned models.
+  When applying a name, update item/damaged forms, construction, shop labels,
+  control-panel titles and current player documentation together. Historical
+  reports may retain their original names when clearly identified as historical.
+- Keep branding and model designations consistent across translations; localize
+  equipment types and descriptions through the existing catalogs. Retain the
+  `Phobos'` prefix in full translated equipment names too.
+- Renaming is presentation only: preserve native definition IDs, saved-state
+  keys, translation keys, recipe IDs, console commands and mod/package identities.
+  Brand/model selection belongs to content mods. Framework 0.12.0 owns the shared
+  `Localization.EquipmentNames` pattern, with content-owned embedded naming maps
+  and translated type/variant descriptors. Retain existing translation keys.
+
 ## Working style
 
 - Keep this a practical, small-team project. Prefer a working slice over a
@@ -146,8 +172,10 @@
   separate final-arrival tolerance. Numerical delta-v comparisons are not measured
   game fuel savings; UI 0.4.2 and coasting 0.4.3 still need owner validation.
 - The owner requests Polaris in Auto Nav's equipment name to identify its
-  navigation-station use. Use **Phobos Polaris Auto Nav Module** for the item,
-  localized damaged form, construction and panel branding. Retain saved IDs and
+  navigation-station use. The name is now **Phobos' Asterel N1 Polaris Auto Nav
+  Module**, retaining Polaris as a compatibility cue, not our invented brand.
+  Apply the chosen name to the item, localized damaged form, construction and
+  panel branding. Retain saved IDs and
   the Phobos Auto Nav package identity. Follow `docs/auto-nav-economy.md` for its
   native trade, repair, Restore and mass-balanced salvage. Reuse Framework services;
   do not invent extra scrap mass or duplicate economic machinery. Existing approved

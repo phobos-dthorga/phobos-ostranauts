@@ -49,6 +49,8 @@ var missing = DependencyContract.MissingDefinitions((table,id) => table switch {
 Check(missing.Count == 0, string.Join("\n", missing));
 Check(!DataHandler.dictCOs.ContainsKey("SWB_SorterInstalled"), "No Workshop templates loaded");
 var prepared = Content.Prepare();
+foreach (var equipment in prepared.Objects.Values)
+    Check(equipment.strNameFriendly.StartsWith("Phobos' ", StringComparison.Ordinal), "Branded native machine, section or material: " + equipment.strName);
 prepared.Publish();
 ProcessingSaveChecks.Run(Check, Throws);
 ReclaimerNativeChecks.Run(prepared, Check);
