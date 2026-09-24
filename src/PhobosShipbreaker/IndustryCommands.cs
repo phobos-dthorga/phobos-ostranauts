@@ -33,6 +33,11 @@ internal static class IndustryCommands
             case "status":
                 response = string.Join("\n\n", IndustryService.SnapshotShip(console.ship).Select(card => card.Name + "\n" + card.Id + "\n" + card.Detail));
                 success = true; break;
+            case "observations":
+                success = IndustryObservations.TryRead(binding!, out var observations, out response);
+                if (success) response = observations.Length == 0 ? Text.Get("Observations.none") :
+                    string.Join("\n\n", observations.Select(card => card.Detail));
+                break;
             case "pause-all": response = IndustryService.PauseAll(binding!); success = true; break;
             default:
                 if (words.Length >= 4) success = IndustryService.Run(binding, words[3], words[1], words.Length > 4 ? words[4] : null, out response);

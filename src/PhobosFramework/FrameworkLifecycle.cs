@@ -23,6 +23,7 @@ public static class FrameworkLifecycle
 
     internal static void Begin()
     {
+        Observations.NativeRoomAlarms.Reset();
         FrameworkPlugin.RefreshLanguage();
         ConstructionRegistry.BeginLoad();
         Trading.MarketStock.BeginLoad();

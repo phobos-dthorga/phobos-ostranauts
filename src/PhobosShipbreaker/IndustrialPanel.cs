@@ -99,10 +99,10 @@ public sealed class IndustrialPanel : GUIData
         if (Central)
         {
             search = W.Search(list, Text.Get("Industry.search"), text => { query = text; RebuildRows(); });
-            foreach (var key in new[] { "overview", "equipment", "routing", "attention" })
+            foreach (var key in new[] { "overview", "equipment", "routing", "observations", "attention" })
             {
                 string captured = key;
-                W.Button(list, Text.Get("Industry.tab_" + key), () => { tab = captured; detailPage = captured == "overview"; roster = ""; RebuildRows(); ShowDetail(); });
+                W.Button(list, Text.Get("Industry.tab_" + key), () => { tab = captured; selected = ""; detailPage = captured == "overview"; roster = ""; RebuildRows(); ShowDetail(); });
             }
             W.Button(list, Text.Get("Industry.cycle_state"), () => { stateFilter = (stateFilter + 1) % (Enum.GetValues(typeof(EquipmentState)).Length + 1); RebuildRows(); });
         }
@@ -148,23 +148,33 @@ public sealed class IndustrialPanel : GUIData
         header.text = Text.Get("Industry.header", Central ? Text.Get("Industry.title") : COSelf.strNameFriendly, hostId,
             problem ?? Text.Get("Industry.connected"));
         pause.interactable = problem == null;
+        // Losing console/operator access must stop observation reads as well as commands.
+        if (problem != null)
+        {
+            cards = Array.Empty<EquipmentCard>(); roster = ""; RebuildRows(); ShowDetail();
+            return;
+        }
         cards = Central ? IndustryService.SnapshotShip(COSelf.ship) : new[] { IndustryService.Snapshot(COSelf) };
+        if (Central && IndustryObservations.TryRead(binding!, out var instruments, out _)) cards = cards.Concat(instruments).ToArray();
         // Stable rows while status text changes; rebuild only when membership changes.
-        string signature = string.Join("|", cards.Select(c => c.Id + (tab == "attention" ? ":" + c.Attention : "") + (stateFilter != 0 ? ":" + c.State : "")));
+        string signature = string.Join("|", cards.Select(c => c.Id + (tab == "attention" ? ":" + c.Attention : "") + (stateFilter != 0 ? ":" + c.State : "") + (query.Length != 0 ? ":" + MatchesQuery(c) : "")));
         if (signature != roster) { roster = signature; RebuildRows(); }
         foreach (var card in cards) if (rows.TryGetValue(card.Id, out var row)) row.text = RowText(card);
-        if (readout == null) ShowDetail(); else RefreshReadout();
+        if (readout == null || commands == null && cards.Any(c => c.Id == selected && !c.Instrument)) ShowDetail(); else RefreshReadout();
         if (commands != null) commands.interactable = problem == null;
         Layout();
     }
-    private static string RowText(EquipmentCard c) => c.Name + "\n" + IndustryService.StateName(c.State) + (c.Attention ? " — " + Text.Get("Industry.tab_attention") : "");
+    private static string RowText(EquipmentCard c) => c.Name + "\n" + (c.Instrument ? c.InstrumentStatus : IndustryService.StateName(c.State)) + (c.Attention ? " — " + Text.Get("Industry.tab_attention") : "");
+    private bool MatchesQuery(EquipmentCard c) => query.Length == 0 || c.Name.IndexOf(query, StringComparison.OrdinalIgnoreCase) >= 0 ||
+        c.Id.IndexOf(query, StringComparison.OrdinalIgnoreCase) >= 0 || c.SearchScope.IndexOf(query, StringComparison.OrdinalIgnoreCase) >= 0;
     private void RebuildRows()
     {
         if (list == null) return;
         float scroll = listScroll.verticalNormalizedPosition;
         W.Clear(RowsRoot); rows.Clear();
         W.Label(RowsRoot, Text.Get("Industry.filter_state", stateFilter == 0 ? Text.Get("Industry.all") : IndustryService.StateName((EquipmentState)(stateFilter - 1))));
-        var visible = cards.Where(c => (query.Length == 0 || c.Name.IndexOf(query, StringComparison.OrdinalIgnoreCase) >= 0 || c.Id.IndexOf(query, StringComparison.OrdinalIgnoreCase) >= 0) &&
+        var visible = cards.Where(c => MatchesQuery(c) &&
+            (tab == "attention" || c.Instrument == (tab == "observations")) &&
             (tab != "attention" || c.Attention) && (stateFilter == 0 || (int)c.State == stateFilter - 1));
         foreach (var group in visible.GroupBy(c => c.Group))
         {
@@ -178,26 +188,28 @@ public sealed class IndustrialPanel : GUIData
                 rows[id] = button.GetComponentInChildren<TMP_Text>();
             }
         }
-        if (!visible.Any()) W.Label(RowsRoot, Text.Get("Industry.none"));
+        if (!visible.Any()) W.Label(RowsRoot, Text.Get(tab == "observations" ? "Observations.no_match" : "Industry.none"));
         listScroll.verticalNormalizedPosition = scroll;
     }
     private void RefreshReadout()
     {
+        var problem = Access();
+        if (problem != null) { readout.text = problem; return; }
         if (tab == "overview" && Central)
-            readout.text = Text.Get("Industry.overview", cards.Length, cards.Count(c => c.State == EquipmentState.Running), cards.Count(c => c.Attention)) + "\n\n" + Text.Get("Industry.scope_help") + (result.Length == 0 ? "" : "\n\n" + result);
+            readout.text = Text.Get("Industry.overview", cards.Count(c => !c.Instrument), cards.Count(c => !c.Instrument && c.State == EquipmentState.Running), cards.Count(c => !c.Instrument && c.Attention)) +
+                "\n\n" + Text.Get("Observations.overview", cards.Count(c => c.Instrument), cards.Count(c => c.Instrument && c.Attention)) +
+                "\n\n" + Text.Get("Industry.scope_help") + (result.Length == 0 ? "" : "\n\n" + result);
         else
         {
             var card = cards.FirstOrDefault(c => c.Id == selected);
             readout.text = card == null ? Text.Get("Industry.select") : card.Name + "\n" + card.Id + "\n\n" + card.Detail + (result.Length == 0 ? "" : "\n\n" + result);
         }
-        var problem = Access();
-        if (problem != null) readout.text = problem + "\n\n" + readout.text;
     }
     private void ShowDetail()
     {
         W.Clear(details); commands = null!;
         readout = W.Label(details, ""); RefreshReadout();
-        var target = cards.Any(c => c.Id == selected) ? CollectorService.Resolve(selected) : null;
+        var target = cards.Any(c => c.Id == selected && !c.Instrument) ? CollectorService.Resolve(selected) : null;
         if (target == null || tab == "overview" && Central) { Layout(); return; }
         var actions = W.Rect(details, "Commands");
         var layout = actions.gameObject.AddComponent<VerticalLayoutGroup>(); layout.spacing = W.Gap;

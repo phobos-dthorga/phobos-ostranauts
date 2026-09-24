@@ -14,6 +14,8 @@ $gameRoot = (Resolve-Path -LiteralPath $OstranautsPath).Path
 if ($LASTEXITCODE -ne 0) { throw 'Shipbreaker build failed.' }
 & dotnet run --project (Join-Path $repoRoot 'tests/PhobosShipbreaker.Tests') -c Release "-p:OstranautsPath=$gameRoot"
 if ($LASTEXITCODE -ne 0) { throw 'Shipbreaker processing checks failed.' }
+& dotnet run --project (Join-Path $repoRoot 'tests/PhobosObservations.Tests') -c Release
+if ($LASTEXITCODE -ne 0) { throw 'Shared observation adapter/access checks failed.' }
 & dotnet run --project (Join-Path $repoRoot 'tests/PhobosNative.Tests') -c Release "-p:OstranautsPath=$gameRoot" -- $gameRoot $repoRoot
 if ($LASTEXITCODE -ne 0) { throw 'Independent construction/native-definition checks failed.' }
 

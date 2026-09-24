@@ -22,6 +22,10 @@ Inventory planning, production delivery and definition rollback services are
 Phobos-authored, moved from Shipbreaker into the shared provider. The native
 registration helper references the player's game at runtime.
 
+The observation value contract and native room-alarm adapter added in 0.13.0
+are Phobos-authored. Native sensor/room API and data were inspected locally;
+no decompiled source, alarm artwork or game definitions are distributed here.
+
 The upstream licence covers newly authored framework code/documentation only;
 it excludes game-derived definitions, artwork and binaries. No game source,
 extracted artwork, game definitions, upstream DLLs, BepInEx or Harmony binaries

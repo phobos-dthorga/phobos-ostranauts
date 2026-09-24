@@ -9,8 +9,11 @@ future work; inspected code and definitions are not in-game validation.
 the first priority. [Auto Nav 0.9.0](auto-nav-sensors.md) now implements native
 contact qualification, suspension on loss, explicit recovery and unknown
 readouts. The baseline/gap findings below describe the inspected 0.8.1 release;
-console observations, furnace probes and the proposed shared API remain future
-work. Offline implementation checks are not gameplay validation.
+Framework **0.13.0** and Shipbreaker **0.11.0** now add
+[shared console observations](shared-console-observations.md): native alarm-output
+validity, R4 cooling probes, source/scope diagnostics and session stop evidence.
+Furnace and specialist instrumentation remain future work. Offline implementation
+checks are not gameplay validation; the research baseline below is historical.
 
 ## Owner direction
 

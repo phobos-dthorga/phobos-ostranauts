@@ -87,6 +87,7 @@ internal sealed partial class ProcessingService
         if (problem != null) { state.Status = problem; return false; }
         try
         {
+            IndustryObservations.ClearStop(machine);
             state.NeedsAttention = false;
             if (IsReclaimer(machine)) state.AwaitingFeed = true;
             string intakeMessage = "";
@@ -160,6 +161,7 @@ internal sealed partial class ProcessingService
 
     private void Stop(CondOwner machine, Session state, string message, bool needsAttention = true)
     {
+        IndustryObservations.RecordStop(machine, message);
         state.NeedsAttention = needsAttention;
         state.AwaitingFeed = false; state.Job?.Pause(); state.Status = message; SetWorking(machine, false);
         DisarmIntake(machine);

@@ -1,5 +1,10 @@
 # Fusion-powered industry: ideas and research sequence
 
+**25 September 2026:** [shared console observations](shared-console-observations.md)
+are prepared in Framework 0.13.0 / Shipbreaker 0.11.0. Native room alarms, R4
+cooling probes and session stop evidence provide the first industrial instruments;
+furnace/specialist instrumentation is still future work.
+
 Decision record: **2026-09-23**. The owner wants all five ideas retained and
 researched as relevant equipment and activities arise during play, so experiments
 can be grounded in something they can actually test. This is an opportunity list,

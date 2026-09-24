@@ -5,19 +5,22 @@ Decision: 24 September 2026. The owner selected our own shareable framework
 The purpose is reusable services for equipment and future material transport,
 not reproducing every feature of OCF or turning Ostranauts into a factory game.
 
-## Current candidate: Framework 0.12.0, Shipbreaker 0.10.1
+## Current candidate: Framework 0.13.0, Shipbreaker 0.11.0
+
+Framework 0.13.0 adds [shared observations](shared-console-observations.md):
+an immutable evidence/validity contract and a narrow native room-alarm adapter.
+Shipbreaker 0.11.0 uses them for the C1 console, built-in R4 cooling probes and
+session stop evidence. Furnace instruments and specialist packages remain future
+work. No saved schema or material/heat accounting changes are introduced.
 
 Framework 0.12.0 adds shared [equipment name formatting](equipment-branding.md),
 with brands/models owned by content and type/variant descriptions translated.
 Auto Nav 0.8.1 and Shipbreaker 0.10.1 use it without changing saved IDs.
 
-**Proposed sensor services (25 September 2026):** the
-[sensor report](sensor-integration-research.md) documents a shared observation
-concept: source/subject identity, kind, units/value, time, validity and capability
-scope. Existing state, pairing and access helpers are reusable foundations, not
-an already implemented telemetry API. Extract shared services as concrete
-consumers need them; content owns instruments and process responses. This round
-adds no public API, saved schema or runtime behaviour.
+The [sensor report](sensor-integration-research.md) remains the wider research
+direction. Extract further shared services as concrete consumers need them;
+content owns instruments and process responses. Numeric process telemetry is
+not inferred from native alarm outputs.
 
 Framework 0.11.0 adds shared versioned object-state envelopes, detached snapshots,
 owner checks and protection of unreadable/unsupported state. Auto Nav 0.5.0 uses
@@ -28,7 +31,8 @@ The [residue collector](residue-collector.md) adds a finite wall-mounted receivi
 chamber linked to one processor through structural flooring. Framework owns the
 existing same-object move plus small filter, clock, grid-search and saved-pair helpers;
 Shipbreaker owns physical rules and machinery. Eight construction recipes register, including the industrial console.
-Current Shipbreaker and Auto Nav packages require Framework 0.12.0. The installer enforces these requirements and verifies all console/intake artwork.
+Current Shipbreaker requires Framework 0.13.0; Auto Nav requires 0.12.0 or later.
+The installer enforces these requirements and verifies all console/intake artwork.
 Version 0.9.0 adds [automatic reclaimer feeding](automatic-material-routing.md),
 collector buffer outputs and shared saved exact-ID filters. Players choose one
 sender/receiver pair per logical port from either endpoint's controls. Pairing

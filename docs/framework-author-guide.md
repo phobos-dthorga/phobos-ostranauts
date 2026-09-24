@@ -1,4 +1,32 @@
-# Phobos Framework 0.12.0 — author guide
+# Phobos Framework 0.13.0 — author guide
+
+## Shared observations (0.13.0)
+
+`Observations.Observation` carries immutable source, ship and subject IDs,
+kind/capability, units, a numeric value **or** `AlarmState`, native simulation
+timestamp, validity and reason. `Assess(shipId, subjectId, now, maximumAgeSeconds)`
+marks aged evidence stale and removes its value if scope or time moves backwards.
+Unknown is nullable, not zero. Consumers must check `Validity == Current` before
+using readings for automation; a retained stale/faulty value is historical only.
+
+`NativeRoomAlarms.Kind(source)` recognises the supported native room alarm flags.
+`Read(source)` observes native outputs without toggling signals or supplying
+new concentrations. Its witnesses come from real native sensor updates and are
+reset on world/content loading. Power, damage, ambiguous foreign sampling geometry,
+unknown output and missing updates fail closed. The declared five-second age
+limit uses simulation time. `HardwareProblem` and `MonitoredRoom` are available
+for concrete built-in probes. Native queued lamp changes can lag an environment;
+this is an output adapter, not an independent gas analyser.
+
+These APIs confer no ownership or control authority. Check a captured
+`Controls.ConsoleBinding` (with fresh native facts) or equivalent local access
+before exposing values, and validate source/subject identities every read.
+Read only the relevant host ship; avoid polling the whole world. Keep process
+semantics, hardware capabilities, recipes and automatic responses in content
+mods. Shipbreaker provides the first real consumer and source-linked stop evidence.
+See [console observations](shared-console-observations.md) for behaviour,
+limitations and tests. No generic provider bus, saved history or telemetry wiring
+protocol is part of this initial API.
 
 ## Equipment name patterns (0.12.0)
 

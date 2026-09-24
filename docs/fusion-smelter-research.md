@@ -11,6 +11,11 @@ built-in basic furnace instruments and modular specialists; native ship IR does
 not measure this chamber. Missing readings remain unknown while stored heat and
 pressure continue to evolve. This follow-up adds no furnace or sensor behaviour.
 
+The subsequent [shared console observations](shared-console-observations.md)
+implementation establishes native alarm-output validity and the existing R4's
+cooling probes. It supplies reusable evidence/diagnostic patterns for a future
+furnace; it does not yet supply its chamber or cooling-loop instrumentation.
+
 ## Recommendation
 
 Build a **sealed, batch-operated fusion furnace** as Shipbreaker's industrial

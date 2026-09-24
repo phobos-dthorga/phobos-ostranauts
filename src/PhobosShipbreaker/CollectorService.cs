@@ -154,12 +154,13 @@ internal sealed partial class CollectorService
         catch (Exception ex) { Fault(port, ex); }
     }
     internal void Block(CondOwner port, string status)
-    { ClearTransfer(port, status); sessions.GetValue(port, _ => new Session()).NeedsAttention = true; }
+    { IndustryObservations.RecordStop(port, status); ClearTransfer(port, status); sessions.GetValue(port, _ => new Session()).NeedsAttention = true; }
     internal void Fault(CondOwner port, Exception ex)
     {
         var s = sessions.GetValue(port, _ => new Session()); Disarm(port, s);
         s.NeedsAttention = true;
         s.Status = Text.Get("CollectorService.collection_fault_paused_inspect_the_log_before"); log(ex.ToString());
+        IndustryObservations.RecordStop(port, s.Status);
     }
     internal string Describe(CondOwner port)
     {

@@ -1,0 +1,9 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><OutputType>Exe</OutputType><TargetFramework>net10.0</TargetFramework></PropertyGroup>
+  <ItemGroup>
+    <Compile Include="../../src/PhobosFramework/Observations/*.cs" Link="%(Filename)%(Extension)" />
+    <Compile Include="../../src/PhobosFramework/Controls/ConsoleBinding.cs" Link="ConsoleBinding.cs" />
+    <Compile Include="../../src/PhobosShipbreaker/IndustryObservations.cs" Link="IndustryObservations.cs" />
+    <Compile Include="../../src/PhobosShipbreaker/ControlAuthority.cs" Link="ControlAuthority.cs" />
+  </ItemGroup>
+</Project>

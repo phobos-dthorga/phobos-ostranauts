@@ -46,6 +46,7 @@ if ('Shipbreaker' -in $Mods) {
         if ([version]$shipInfo[0].strModVersion -ge [version]'0.9.0') { $minimumPhobosFramework = [version]'0.9.0' }
         if ([version]$shipInfo[0].strModVersion -ge [version]'0.10.0') { $minimumPhobosFramework = [version]'0.10.0' }
         if ([version]$shipInfo[0].strModVersion -ge [version]'0.10.1') { $minimumPhobosFramework = [version]'0.12.0' }
+        if ([version]$shipInfo[0].strModVersion -ge [version]'0.11.0') { $minimumPhobosFramework = [version]'0.13.0' }
         if ($needsPhobosFramework) { $Mods = @('Framework') + @($Mods | Where-Object { $_ -ne 'Framework' }) }
     }
 }

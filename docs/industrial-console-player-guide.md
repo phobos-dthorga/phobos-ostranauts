@@ -1,6 +1,6 @@
-# Industrial controls — 0.10.0
+# Industrial controls — 0.11.0
 
-Current packages: Shipbreaker **0.10.1**, requiring Phobos Framework **0.12.0**. Auto Nav remains optional.
+Current packages: Shipbreaker **0.11.0**, requiring Phobos Framework **0.13.0**. Auto Nav remains optional.
 Built against Ostranauts **1.0.1.5** / BepInEx **5.4.23.5**. Automated checks
 passed; the new native panel/seating integration awaits the owner's game test.
 
@@ -20,7 +20,7 @@ the console or changing selected crew ends the open session. Losing power or
 ownership disables commands. Closing a screen or losing console power does not
 cancel autonomous machinery work. Work and receiving still pause after reload.
 
-Use **Overview**, **Equipment**, **Routing** and **Attention**. Equipment groups
+Use **Overview**, **Equipment**, **Routing**, **Observations** and **Attention**. Equipment groups
 collapse by type; search accepts a name or full object ID. **Change status filter**
 cycles statuses. Both columns scroll independently, with visible scrollbars.
 Narrow layouts show the list and details separately; **Equipment list** returns
@@ -75,6 +75,17 @@ Dismantling intact returns 16 steel, 8 aluminium, 8 mechanical parts, 4 electron
 and 10 trash; broken returns 12 steel, 6 aluminium, 4 mechanical parts and 20 trash.
 Both retain **40 kg**. Output value is audited against the native whole-item value
 and wear tiers, not assumed equal to mass. See [economy policy](equipment-value-audit.md).
+
+## Observations
+
+**Observations** shows native room-alarm outputs and the R4's built-in cooling-air
+probes, with instrument ID, monitored compartment and validity. Missing readings
+are unknown; stale values are explicitly historical. Attention includes instrument
+problems. Equipment details retain the last recorded processing stop or collector
+fault/block and available probe evidence for this session. See
+[shared observations](shared-console-observations.md) for scope, limitations and
+the focused test sequence. Use `phobosindustry observations <console-ID>` for
+the same readings through F3. Losing console access also stops observation reads.
 
 ## Console commands
 

@@ -6,12 +6,12 @@ expanded instrument view within this same local/central control architecture.
 It adds no current machine, gauges or heat-transfer service. Retain C1's ship
 scope, fleet navigation and checked service actions when that view is implemented.
 
-**Future sensor observations (25 September 2026):** the
-[sensor integration report](sensor-integration-research.md) proposes native room
-alarm reporting, source/compartment identity, reading validity and **Why did this
-stop?** details. Numeric telemetry requires suitable instruments; an alarm state
-alone does not supply it. Preserve host-ship access and service-owned actions.
-This research adds no current alarm adapter, probes or console controls.
+**Shared observations (25 September 2026):** Framework 0.13.0 / Shipbreaker 0.11.0
+now implement native room-alarm outputs, built-in R4 cooling probes and session
+stop evidence through the console and F3. See [shared console observations](shared-console-observations.md).
+The [sensor research](sensor-integration-research.md) remains the wider direction;
+an alarm state alone supplies no numeric telemetry. Host-ship access and
+service-owned actions are preserved.
 
 24 September 2026. Research baseline: Framework/Shipbreaker 0.9.0,
 Auto Nav 0.3.0, Ostranauts 1.0.1.5. The owner approved the

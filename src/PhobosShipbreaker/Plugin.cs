@@ -15,7 +15,7 @@ namespace PhobosShipbreaker;
 public sealed class Plugin : BaseUnityPlugin
 {
     public const string Id = "phobosgekko.ostranauts.shipbreaker";
-    public const string Version = "0.10.1";
+    public const string Version = "0.11.0";
     internal static ProcessingService Service { get; private set; } = null!;
     internal static Action<string> Log { get; private set; } = null!;
     internal static Settings Options { get; private set; } = null!;
@@ -42,13 +42,13 @@ public sealed class Plugin : BaseUnityPlugin
     }
     private void Update() => panel.Update();
     private void OnGUI() { panel.Draw(); CollectorControls.Draw(); ReclaimerControls.Draw(); }
-    internal static void ResetServices() { Service.Reset(); Collectors.Reset(); CollectorControls.Reset(); ReclaimerControls.Reset(); }
+    internal static void ResetServices() { Service.Reset(); Collectors.Reset(); CollectorControls.Reset(); ReclaimerControls.Reset(); IndustryObservations.Reset(); }
     private static void LoadContent() { ResetServices(); Content.Register(Log); }
     private static void ConfirmContent() => Content.ConfirmRecipes(Log);
     private void OnDestroy()
     {
         FrameworkLifecycle.ContentLoading -= LoadContent; FrameworkLifecycle.ContentLoaded -= ConfirmContent;
-        Service?.Reset(); Collectors?.Reset(); harmony?.UnpatchSelf();
+        Service?.Reset(); Collectors?.Reset(); IndustryObservations.Reset(); harmony?.UnpatchSelf();
     }
 }
 
@@ -132,6 +132,6 @@ internal static class FeedPatch
 internal static class ReloadPatch
 {
     private static IEnumerable<MethodBase> TargetMethods() =>
-        typeof(CrewSim).GetMethods().Where(m => m.Name == nameof(CrewSim.LoadGame));
+        typeof(CrewSim).GetMethods().Where(m => m.Name == nameof(CrewSim.LoadGame) || m.Name == nameof(CrewSim.NewGame));
     private static void Prefix() => Plugin.ResetServices();
 }

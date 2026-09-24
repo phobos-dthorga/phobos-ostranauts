@@ -8,9 +8,9 @@ namespace PhobosShipbreaker;
 
 internal sealed class EquipmentCard
 {
-    internal string Id = "", Name = "", Group = "", Detail = "";
+    internal string Id = "", Name = "", Group = "", Detail = "", InstrumentStatus = "", SearchScope = "";
     internal EquipmentState State;
-    internal bool Attention;
+    internal bool Attention, Instrument;
 }
 
 /// <summary>One command boundary for local panels, central console and F3. No ambient remote bypass.</summary>
@@ -36,8 +36,7 @@ internal static class IndustryService
         {
             var receiving = Plugin.Collectors.Activity(co); attention |= receiving.NeedsAttention;
             detail += "\n\n" + Text.Get("Industry.receiving") + ": " + StateName(receiving.State) + "\n" + receiving.Detail;
-            var room = co.ship?.GetRoomAtWorldCoords1(co.GetPos("use"), false)?.CO;
-            detail += "\n\n" + (room?.GasContainer == null ? Text.Get("Industry.no_room") : Text.Get("Industry.room", room.GetCondAmount("StatGasTemp") - Phobos.Ostranauts.Framework.Units.CelsiusToKelvin, room.GetCondAmount("StatGasPressure")));
+            detail += "\n\n" + IndustryObservations.ProbeDetails(co);
         }
         if (group == "fixture") detail += "\n\n" + (intake?.Detail ?? Plugin.Service.DescribeIntake(co));
         double demand = group == "fixture" ? Plugin.Options.WorkingKW : group == "reclaimer" ? Plugin.Options.ReclaimerKW : group == "collector" ? Plugin.Options.CollectorKW : group == "grabber" ? IntakeRules.WorkingKW : 0;
@@ -46,7 +45,7 @@ internal static class IndustryService
         if (RoutingRules.IsSender(co.strCODef)) detail += "\n\n" + CollectorService.DescribeLink(co, true);
         if (RoutingRules.IsReceiver(co.strCODef)) detail += "\n\n" + CollectorService.DescribeLink(co, false) + "\n" + CollectorService.FilterLabel(co);
         return new EquipmentCard { Id = co.strID, Name = co.strNameFriendly + " [" + Phobos.Ostranauts.Framework.Inventory.PortPairing.ShortId(co.strID) + "]",
-            Group = group, State = process.State, Attention = attention, Detail = detail };
+            Group = group, State = process.State, Attention = attention, Detail = detail + IndustryObservations.ExplainStop(co) };
     }
     internal static string StateName(EquipmentState state) => Text.Get("Industry.state_" + state);
     internal static bool Run(ConsoleBinding? binding, string targetId, string action, string? value, out string message)

@@ -55,6 +55,7 @@ prepared.Publish();
 ProcessingSaveChecks.Run(Check, Throws);
 ReclaimerNativeChecks.Run(prepared, Check);
 IndustrialNativeChecks.Run(prepared, repo, Check);
+ObservationNativeChecks.Run(Check);
 // Exercise the game's own data-only trigger evaluator against its actual wall
 // definition: the ordinary solid-container filter caused the grey inventory bug.
 var wallData = new DataCO(DataHandler.dictCOs[ProcessRules.Wall]);

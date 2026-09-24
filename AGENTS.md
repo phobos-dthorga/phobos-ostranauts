@@ -211,8 +211,15 @@
   suspends on loss, retaining intent for explicit Resume. Recheck before steering,
   clamping and restoring a saved flight; UI reads stay read-only, and missing
   range/speed stay unknown. Keep selected-operator thresholds fresh with the
-  panel closed. See `docs/auto-nav-sensors.md`. Shared observations, furnace
-  instruments and a public observation API remain future work.
+  panel closed. See `docs/auto-nav-sensors.md`. Framework 0.13.0 and Shipbreaker
+  0.11.0 add shared observations: native room-alarm outputs, built-in R4 cooling
+  probes, source/compartment/validity diagnostics and session-only stop evidence.
+  See `docs/shared-console-observations.md`. Panel/F3 reads use the same checked
+  console boundary; native output witnesses require a fresh evaluation after
+  reload, and dock-inclusive ambiguous sampling fails closed. Retain historic
+  values only as historic, never erase physical heat when an instrument fails,
+  and do not infer that an unrelated alarm caused a machine to stop. Furnace
+  and specialist instrumentation remain future work.
 - Navigation panels must explicitly use
   `Ostranauts.ShipGUIs.NavStation.Draggable`, not the game's same-named global
   object-hauling component. Bind `NavModBase.DraggableRef`; the package build

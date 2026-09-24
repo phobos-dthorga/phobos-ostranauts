@@ -1,6 +1,6 @@
 # Current player guide
 
-**Prepared versions:** Phobos Framework **0.12.0**, Shipbreaker **0.10.1**, Auto Nav
+**Prepared versions:** Phobos Framework **0.13.0**, Shipbreaker **0.11.0**, Auto Nav
 **0.9.0**, built against Ostranauts **1.0.1.5** / BepInEx **5.4.23.5**.
 These versions support ordinary saves. Builds and offline checks do not establish
 in-game compatibility. This guide describes the prepared packages, not a claim
@@ -217,4 +217,4 @@ Translation catalogs, language settings and contributor guidance: [Localization]
 
 ## Industrial controls (0.10.0)
 
-[Console and equipment panel guide](industrial-console-player-guide.md): a 3 x 3 ship-bound workstation, local Control Panels, automatic grouping, search, Attention and routing. Current packages require Framework 0.12.0. Prepared for owner testing; no in-game validation claimed.
+[Console and equipment panel guide](industrial-console-player-guide.md): a 3 x 3 ship-bound workstation, local Control Panels, automatic grouping, search, Attention and routing. Shipbreaker now requires Framework 0.13.0 and adds [shared observations](shared-console-observations.md). Prepared for owner testing; no in-game validation claimed.
