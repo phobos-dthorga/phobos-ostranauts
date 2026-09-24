@@ -1,7 +1,7 @@
 # Current player guide
 
 **Prepared versions:** Phobos Framework **0.11.0**, Shipbreaker **0.10.0**, Auto Nav
-**0.6.0**, built against Ostranauts **1.0.1.5** / BepInEx **5.4.23.5**.
+**0.7.0**, built against Ostranauts **1.0.1.5** / BepInEx **5.4.23.5**.
 These versions support ordinary saves. Builds and offline checks do not establish
 in-game compatibility. This guide describes the prepared packages, not a claim
 that those packages are already installed or that merchants have restocked.
@@ -146,6 +146,12 @@ connected workflow, retained materials and any actual failure you encounter.
 
 ## Auto Nav and current limits
 
+Auto Nav 0.7.0 adds the [Polaris instrument panel](auto-nav-instruments.md):
+rotary AUTO/RCS preference and stopping distance, clear live flight readings,
+Fly/Resume, Stop/Coast and scrollable Details. AUTO prefers a usable running torch;
+it does not start a cold reactor or override no-wake restrictions. Arrival remains
+locked for active/suspended flights; stop before choosing a new distance.
+
 Auto Nav 0.6.0 adds [torch-preferred travel and approach braking](auto-nav-torch.md).
 Start the reactor normally, then begin a new flight. Native no-wake zones,
 alignment and braking room determine when the torch is useful; RCS handles
@@ -157,7 +163,7 @@ The [Auto Nav economy guide](auto-nav-economy.md) lists sellers, conditions,
 prices, repair materials, Restore and dismantling. Its package is still Phobos Auto Nav.
 
 Install the module in a compatible navigation console and use its **Fly** and
-**Disengage** controls. F3 equivalents are `phobosnav fly` and `phobosnav stop`.
+**Stop / Coast** controls. F3 equivalents are `phobosnav fly` and `phobosnav stop`.
 Use the console's **Edit** mode to drag the panel into available space, then
 leave Edit before flying; the game deliberately locks pause while editing.
 Auto Nav 0.4.1 corrects the failed dragging / "can't find mod" issue in 0.4.0.

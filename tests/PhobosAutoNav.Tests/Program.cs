@@ -8,6 +8,7 @@ void Near(double value, double expected, string name) => Check(Math.Abs(value - 
 
 PersistenceChecks.Run(Check);
 PersistenceRuntimeChecks.Run(Check);
+InstrumentChecks.Run(Check);
 
 Check(ArrivalBrake.NeedsBrake(4900, 5000, 100, 0, 0.5), "Crossing arrival ring at speed must still brake");
 Check(ArrivalBrake.NeedsBrake(5100, 5000, 4, 0, 0.5), "Do not inherit upstream's looser zero-speed completion");

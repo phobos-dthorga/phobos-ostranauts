@@ -32,6 +32,12 @@ foreach ($overlay in $overlays) {
 $faceplate = Join-Path $source 'images/phobos/autonav/PhobosAutoNavPanel.png'
 if ((Get-FileHash -LiteralPath $faceplate -Algorithm SHA256).Hash -ne 'A5D5A01FA3460A255D7E7A8830495141E8EBC02168683749D23B7E882252185E') { throw 'Approved faceplate changed.' }
 $plugin = Join-Path $repoRoot 'src/PhobosAutoNav/bin/Release/netstandard2.1/PhobosAutoNav.dll'
+$instruments = Join-Path $source 'images/phobos/autonav/PhobosAutoNavInstruments.png'
+if ((Get-FileHash -LiteralPath $instruments -Algorithm SHA256).Hash -ne '0143EDB294795C466FC397DE981F50859CC54FF51A04E03D181B5E0AABECE674') { throw 'Instrument artwork changed; review dimensions and control registration.' }
+$bitmap = [Drawing.Bitmap]::new($instruments)
+try {
+    if ($bitmap.Width -lt 1200 -or $bitmap.Height -lt 500) { throw 'Instrument artwork must meet 2x the 600 x 250 reference display size.' }
+} finally { $bitmap.Dispose() }
 # Read metadata without loading or executing the plugin.
 Add-Type -Path (Join-Path $gameRoot 'BepInEx/core/Mono.Cecil.dll')
 $module = [Mono.Cecil.ModuleDefinition]::ReadModule($plugin)
@@ -70,8 +76,11 @@ $notices = $notices.Replace('(assets/phobos-autonav/README.md)', '(ARTWORK.md)')
 Set-Content -LiteralPath (Join-Path $package 'THIRD_PARTY_NOTICES.md') -Value $notices -Encoding utf8
 $artwork = Get-Content -LiteralPath (Join-Path $repoRoot 'assets/phobos-autonav/README.md') -Raw
 $artwork = $artwork.Replace('(prompts.md)', '(ARTWORK-PROMPTS.md)')
+$artwork = $artwork.Replace('(instruments-prompt.md)', '(INSTRUMENTS-PROMPT.md)').Replace('(../../docs/artwork-resolution-policy.md)', '(artwork-resolution-policy.md)').Replace('(../../docs/auto-nav-instruments.md)', '(auto-nav-instruments.md)')
+$artwork = $artwork.Replace('(previews/instruments.html)', '(polaris-instruments-preview.html)')
 Set-Content -LiteralPath (Join-Path $package 'ARTWORK.md') -Value $artwork -Encoding utf8
 Copy-Item -LiteralPath (Join-Path $repoRoot 'assets/phobos-autonav/prompts.md') -Destination (Join-Path $package 'ARTWORK-PROMPTS.md')
+Copy-Item -LiteralPath (Join-Path $repoRoot 'assets/phobos-autonav/instruments-prompt.md') -Destination (Join-Path $package 'INSTRUMENTS-PROMPT.md')
 Copy-Item -LiteralPath (Join-Path $repoRoot 'LICENSE') -Destination $package
 . (Join-Path $PSScriptRoot 'build-package-support.ps1')
 Copy-PhobosPlayerGuides -RepoRoot $repoRoot -Package $package

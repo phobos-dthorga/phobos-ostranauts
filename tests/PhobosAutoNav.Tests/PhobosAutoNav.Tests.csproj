@@ -3,4 +3,5 @@
   <ItemGroup><Compile Include="../../src/PhobosAutoNav/Core/*.cs" Link="%(Filename)%(Extension)" /></ItemGroup>
   <ItemGroup><ProjectReference Include="../../src/PhobosFramework/PhobosFramework.csproj" /></ItemGroup>
   <ItemGroup><Compile Include="../../src/PhobosAutoNav/NavigationPersistence.cs" Link="NavigationPersistence.cs" /></ItemGroup>
+  <ItemGroup><Compile Include="../../src/PhobosAutoNav/NavigationInstruments.cs" Link="NavigationInstruments.cs" /></ItemGroup>
 </Project>

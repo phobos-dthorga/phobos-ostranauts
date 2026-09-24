@@ -7,7 +7,7 @@ function Copy-PhobosPlayerGuides {
     # Every suite package has the same entry point and its directly linked guides.
     # Keep their filenames as well as the mod-specific README so links remain usable.
     foreach ($name in @(
-        'player-guide', 'installing-mods', 'equipment-economy', 'equipment-value-audit',
+        'player-guide', 'installing-mods', 'equipment-economy', 'equipment-value-audit', 'auto-nav-instruments', 'artwork-resolution-policy',
         'vanilla-economy-audit', 'shipbreaker-first-build', 'shipbreaker-hull-intake',
         'residue-collector', 'auto-navigate-adaptation', 'auto-nav-economy', 'auto-nav-panel-layout-audit', 'auto-nav-persistence', 'auto-nav-torch', 'residue-material-contract',
         'shipbreaking-material-processing-research', 'material-disposal-port-research',
@@ -16,6 +16,16 @@ function Copy-PhobosPlayerGuides {
     )) {
         Copy-Item -LiteralPath (Join-Path $RepoRoot "docs/$name.md") -Destination $Package
     }
+    # The shared instrument guide links a preview; keep it usable offline in every suite package.
+    Copy-Item -LiteralPath (Join-Path $RepoRoot 'assets/phobos-autonav/instruments-prompt.md') -Destination (Join-Path $Package 'INSTRUMENTS-PROMPT.md')
+    Copy-Item -LiteralPath (Join-Path $RepoRoot 'mods/PhobosAutoNav/images/phobos/autonav/PhobosAutoNavInstruments.png') -Destination $Package
+    $preview = Get-Content -LiteralPath (Join-Path $RepoRoot 'assets/phobos-autonav/previews/instruments.html') -Raw
+    $preview = $preview.Replace('../../../mods/PhobosAutoNav/images/phobos/autonav/PhobosAutoNavInstruments.png', 'PhobosAutoNavInstruments.png')
+    Set-Content -LiteralPath (Join-Path $Package 'polaris-instruments-preview.html') -Value $preview -Encoding utf8
+    $instrumentGuidePath = Join-Path $Package 'auto-nav-instruments.md'
+    $instrumentGuide = Get-Content -LiteralPath $instrumentGuidePath -Raw
+    $instrumentGuide = $instrumentGuide.Replace('../assets/phobos-autonav/instruments-prompt.md', 'INSTRUMENTS-PROMPT.md').Replace('../assets/phobos-autonav/previews/instruments.html', 'polaris-instruments-preview.html')
+    Set-Content -LiteralPath $instrumentGuidePath -Value $instrumentGuide -Encoding utf8
 }
 
 function New-PhobosPackage {

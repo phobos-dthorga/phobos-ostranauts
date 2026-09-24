@@ -1,5 +1,23 @@
 # Phobos Auto Nav artwork
 
+New artwork and visual revisions follow the
+[2x/4x resolution policy](../../docs/artwork-resolution-policy.md). The approved
+masters and existing export dimensions recorded below remain unchanged.
+
+## Current instrument panel — 0.7.0
+
+The owner requested a substantial redesign with rotary controls on 24 September
+2026. `PhobosAutoNavInstruments.png` is the new runtime faceplate: **1942 x 809**,
+exceeding 2x the **600 x 250** reference display. Its controls and text are live;
+the entire layout scales into the existing native 25%-column / 20%-row bounds.
+The pickup sprites and former approved faceplate below remain unchanged.
+This candidate needs owner visual and interaction testing in-game.
+
+See the [instrument guide](../../docs/auto-nav-instruments.md),
+[exact built-in Imagegen prompt and hash](instruments-prompt.md), and
+[interactive browser preview](previews/instruments.html). The preview uses sample
+data and a system font; it is not a Unity or gameplay test.
+
 The owner approved the neutral slate-grey faceplate and both item states on
 2026-09-23. These are original images generated for this project with ChatGPT's
 built-in Imagegen. The game supplied a visual reference, not source pixels for

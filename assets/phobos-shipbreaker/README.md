@@ -1,5 +1,9 @@
 # Phobos Shipbreaker artwork
 
+New artwork and visual revisions follow the
+[2x/4x resolution policy](../../docs/artwork-resolution-policy.md). The approved
+masters and existing export dimensions recorded below remain unchanged.
+
 ## Production set — 24 September 2026, Shipbreaker 0.1.4
 
 The approved v2 installed master now supplies the game's intact colour texture.

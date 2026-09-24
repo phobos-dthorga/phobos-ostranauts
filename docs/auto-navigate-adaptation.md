@@ -1,6 +1,6 @@
 # Phobos Auto Nav: standalone adaptation
 
-**0.6.0 candidate; built against Ostranauts 1.0.1.5 / BepInEx 5.4.23.5.**
+**0.7.0 candidate; built against Ostranauts 1.0.1.5 / BepInEx 5.4.23.5.**
 Ordinary saves are the baseline from 2026-09-24. Phobos Framework 0.11.0+ now
 provides shared construction, merchant and maintenance services. No original Auto
 Navigate dependency. See [prices, acquisition and service bills](equipment-economy.md).
@@ -10,8 +10,9 @@ In-game validation of this update remains pending. See the
 The equipment is now named **Phobos Polaris Auto Nav Module** to identify its
 navigation-station use. The package remains Phobos Auto Nav; saved item IDs are
 unchanged. Buying, selling, salvage and service details are in the
-[Auto Nav economy guide](auto-nav-economy.md). Existing artwork is retained, with
-the new Polaris panel title rendered as localized text.
+[Auto Nav economy guide](auto-nav-economy.md). Pickup artwork is retained; the
+owner-authorised [instrument-panel redesign](auto-nav-instruments.md) adds live
+rotary controls and separates flight state from detailed explanations.
 
 The owner requested a standalone adaptation instead of a Workshop dependency,
 with original-author credit, and clarified that public releases are the intended
@@ -22,6 +23,9 @@ That note has not been sent. No blanket community reuse grant is claimed.
 
 ## Implemented slice
 
+- Version 0.7.0 provides propulsion and stopping-distance dials, phase, destination,
+  range and total relative-speed readouts, Fly/Resume, Stop/Coast and scrollable
+  Details. It retains the corrected native panel footprint and saved-flight rules.
 - Version 0.6.0 prefers a running torch for acceleration and approach braking
   where native zones permit it, with RCS for turning, small corrections and
   restricted zones. A conservative RCS braking envelope remains available.

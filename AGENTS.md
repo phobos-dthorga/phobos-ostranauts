@@ -222,6 +222,29 @@
 
 ## Artwork
 
+- Owner authorised a substantial Auto Nav instrument redesign on 2026-09-24,
+  superseding the earlier instruction to retain the original faceplate as the
+  active UI. Keep that approved master and pickup sprites unchanged. Version
+  0.7.0 introduces a separate faceplate, live rotary propulsion/arrival controls,
+  phase/target/range/relative-speed readouts and scrollable Details within the
+  same native 25% x 20% placement bounds. See `docs/auto-nav-instruments.md`.
+  Preserve captured flight settings and command authority in the service;
+  display reads must not advance physics or rewrite saves. AUTO is preference,
+  not an assertion of torch clearance. The new design awaits owner evaluation.
+
+- Owner's resolution memorandum (2026-09-24): all newly created or visually
+  revised artwork uses at least 2x its intended display dimensions, or 4x for
+  very small artwork. Working convention: use 4x when the intended short side
+  is 32 pixels or less. These are per-axis multipliers, not increased physical
+  footprints. Preserve larger original masters. Keep pixel art crisp with
+  integer scaling and nearest-neighbour sampling; enlargement alone adds no
+  detail. See `docs/artwork-resolution-policy.md` for examples and export rules.
+  Native world sprites currently derive size from texture dimensions, so use
+  explicit rendering-scale support or code-generated native-size derivatives.
+  Do not silently ship larger world PNGs at the old native scale. Preserve
+  matching colour/normal/damage alignment, UI bounds and approved designs.
+  Existing unchanged assets and reproducible exports need no bulk migration.
+
 - Owner requested a separate 1 x 4 hull chute between the existing feeder and a
   matching-width exterior grabber (2026-09-24). Read this as four tiles along the
   hull, one deep; the 0.3.0 connected candidate uses a 4-wide x 3-deep grabber. Use two static

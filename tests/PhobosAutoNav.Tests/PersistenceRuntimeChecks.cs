@@ -153,18 +153,21 @@ namespace HarmonyLib
 }
 namespace PhobosAutoNav
 {
-    internal sealed class Setting<T> { internal T Value; internal Setting(T value) { Value = value; } }
+    internal sealed class Setting<T> { internal T Value; internal FakeConfig ConfigFile = new(); internal Setting(T value) { Value = value; } }
+    internal sealed class FakeConfig { internal int Saves; internal void Save() { Saves++; } }
     internal static class Plugin
     {
         internal static Setting<bool> ResumeAfterLoad = new(true), Enabled = new(true), FuelCheck = new(true);
         internal static Setting<double> MaxFlightSimHours = new(48);
+        internal static Setting<bool> PreferTorch = new(true);
+        internal static Setting<float> DefaultArriveKM = new(1), DefaultCruiseMS = new(100), TorchMaximumG = new(1);
     }
     internal static class Text { internal static string Get(string key, params object[] values) => key; }
     internal sealed class TargetRef
     {
         internal static bool Available = true;
         internal string ShipId = "target", DisplayName = "target";
-        internal static TargetRef? FromShipId(string id) => Available ? new TargetRef { ShipId = id } : null;
+        internal static TargetRef? FromShipId(string id) => Available ? new TargetRef { ShipId = id, DisplayName = id } : null;
     }
     internal static class AutoNavCore
     {
@@ -173,13 +176,19 @@ namespace PhobosAutoNav
         internal static string? LastResult;
         internal static double ElapsedSeconds;
         internal static CoastSettings FlightCoastSettings = new(3,10,.75,2);
-        internal static bool FlightPrefersTorch => false;
+        internal static bool FlightPrefersTorch;
+        internal const double KM_TO_AU = 6.684587122268445E-09;
+        internal static double ArriveAU = KM_TO_AU;
+        internal enum Phase { Idle, Align, Accel, Cruise, Coast, Decel, Arrive }
+        internal static Phase CurrentPhase;
+        internal static TargetRef EngagedTarget = new();
         internal static void ResetStatics() { Engaged = false; EngagedPlayer = null; }
         internal static void EndFlight(Ship? ship, string result) { LastResult = result; Engaged = false; }
         internal static void RestoreFlight(Ship ship, TargetRef target, FlightSnapshot snapshot)
         { Engaged = true; EngagedPlayer = ship; ElapsedSeconds = snapshot.ElapsedSeconds; Coasting = snapshot.Coasting; }
         internal static bool AutoDockBusy() => false;
-        internal static bool TryReadApproach(Ship ship, TargetRef target, double km, out double plan, out double speed) { plan = speed = 0; return true; }
+        internal static bool TryReadApproach(Ship ship, TargetRef target, double km, out ApproachPlan plan, out double speed)
+        { speed = 10; return ApproachRules.TryPlan(80, km, 0, out plan); }
         internal static bool HasFuelForFlight(Ship ship, TargetRef target, bool readOnly) { FuelReadOnly = readOnly; return FuelAvailable; }
     }
     internal sealed partial class NavigationService
@@ -197,8 +206,23 @@ namespace PhobosAutoNav
         internal void Disengage(string reason) { FinishSavedFlight(SavedFlightMode.Stopped); AutoNavCore.ResetStatics(); }
         internal void SaveProgressForTest() => PersistProgress();
         internal void ForgetForTest(CondOwner co) => ForgetSaved(co);
+        internal void BindForTest(CondOwner co) => console = co;
+        private static string ArrivalUsage() => "invalid arrival";
         // Read these production-private fields to ensure test compilation also checks their use.
         internal string Diagnostic => status + issuing;
     }
-    internal sealed class TorchDouble { internal void Reset() { } }
+    internal sealed class TorchDouble
+    {
+        internal string Reason => "Torch.rcs";
+        internal int Cuts;
+        internal void Reset() { }
+        internal void Cut() { Cuts++; }
+    }
+}
+
+internal static class GUIOrbitDraw
+{
+    internal sealed class Contact { internal Ship? Ship; }
+    internal static Contact? CrossHairTarget;
+    internal static bool IsOpen() => true;
 }

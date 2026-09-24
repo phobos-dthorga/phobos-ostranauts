@@ -160,10 +160,6 @@ internal sealed partial class NavigationService
         log(reason);
     }
 
-    internal string ReadPanel(CondOwner co) => status + (AutoNavCore.Engaged ? " / " + Text.Get(Torch.Reason) : "") + "\n" +
-        (AutoNavCore.Engaged ? Text.Get("NavigationService.target", AutoNavCore.EngagedTarget.DisplayName) : HardwareProblem(co) ?? Text.Get("NavigationService.ready_to_select_target"))
-        + "\n" + ApproachSummary(co, detailed: false);
-
     private string ApproachSummary(CondOwner? co, bool detailed)
     {
         co ??= console;
@@ -218,17 +214,14 @@ internal sealed partial class NavigationService
                     { response = ArrivalUsage(); return false; }
                     if (AutoNavCore.Engaged)
                     { response = Text.Get("NavigationService.already_engaged_stop_before_changing_the_flight"); return false; }
-                    Plugin.DefaultArriveKM.Value = newDefault;
-                    Plugin.DefaultArriveKM.ConfigFile.Save();
-                    response = Text.Get("NavigationService.arrival_default_saved", newDefault);
+                    SetArrivalDefault(newDefault);
+                    response = status;
                     return true;
                 case "torch":
                     if (words.Length != 3 || (words[2] != "on" && words[2] != "off"))
                     { response = Text.Get("Torch.usage"); return false; }
-                    Plugin.PreferTorch.Value = words[2] == "on";
-                    if (!Plugin.PreferTorch.Value) Torch.Cut();
-                    Plugin.PreferTorch.ConfigFile.Save();
-                    response = Text.Get("Torch.preference_saved", Plugin.PreferTorch.Value);
+                    SetTorchPreference(words[2] == "on");
+                    response = status;
                     return true;
                 case "stop": Stop(OpenConsole ?? console, Text.Get("NavigationService.stopped_by_pilot_coasting")); response = status; return true;
                 case "resume": ResumeSaved(OpenConsole ?? console); response = status; return AutoNavCore.Engaged;

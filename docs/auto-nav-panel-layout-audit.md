@@ -1,5 +1,9 @@
 # Auto Nav panel layout audit
 
+Auto Nav 0.7.0 retains the 0.5.0 native bounds below. Its separately generated
+instrument faceplate and live controls scale together from a 600 x 250 reference
+canvas; it no longer slices the former artwork. See [current instruments](auto-nav-instruments.md).
+
 Inspected **Ostranauts 1.0.1.5** after the owner's **Auto Nav 0.4.1** screenshot
 showed an oversized panel with placement margins. Auto Nav 0.4.2 corrected its
 height; follow-up screenshots of 0.4.3 confirmed it remained too narrow.

@@ -88,6 +88,12 @@ brightness and saturation in a ship cannot be calibrated from these figures.
 
 ### Scale and pixels
 
+For newly created or revised artwork, follow the subsequent
+[resolution memorandum](artwork-resolution-policy.md): retain at least 2x
+production dimensions, or 4x for small graphics, and preserve intended world
+bounds through explicit scaling or a native-size export. The measurements below
+describe the inspected native rendering path and existing exports.
+
 All 22 sampled texture sizes match **16 pixels per grid-bound tile**. The
 inspected ordinary item path also calculates visual scale from texture size
 divided by 16, and the PNG loader selects point filtering.

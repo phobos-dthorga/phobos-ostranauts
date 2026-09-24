@@ -62,6 +62,7 @@ with a smaller setup appropriate to this project's current scope.
 - [Shipbreaking follow-up: power, mass balance and the first experiment](docs/powered-shipbreaking-design-findings.md)
 - [Shipbreaker first build: installation, settings and console commands](docs/shipbreaker-first-build.md)
 - [Ship equipment art study and Shipbreaker visual direction](docs/ship-equipment-art-study.md)
+- [Artwork resolution policy: 2x production assets, 4x for small graphics](docs/artwork-resolution-policy.md)
 - [Shipbreaker outputs: existing repair and construction uses](docs/shipbreaker-material-uses.md)
 - [Shipbreaker expansion: shredding, recycling and asteroid feedstocks](docs/shipbreaking-material-processing-research.md)
 - [Hull disposal port: filters, external collection and persistent ejecta](docs/material-disposal-port-research.md)
@@ -106,7 +107,8 @@ so started panels retain their recipe outputs and duration through later updates
 Version 0.8.0 starts new panels on revision 2, supplying the new scrap reclaimer;
 already-started revision-1 jobs retain their original outputs.
 The economy update adds merchant offers, mass-balanced maintenance and ordinary-save
-operation. Auto Nav 0.6.0 includes short-range approaches below 5,000 km with closer
+operation. Auto Nav 0.7.0 adds a [rotary instrument panel](docs/auto-nav-instruments.md)
+and includes short-range approaches below 5,000 km with closer
 arrival settings, improved coasting and corrected panel dragging/sizing. The current
 suite uses Framework 0.11.0. Auto Nav now supports
 [validated saved-flight restoration](docs/auto-nav-persistence.md) and
