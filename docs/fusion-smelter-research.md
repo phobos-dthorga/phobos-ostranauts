@@ -5,6 +5,12 @@ No furnace, heat connection, recipe, hazard, artwork or installation is added by
 this document. The owner's reactor screenshot supplies the visual direction;
 local code inspection establishes game capabilities, not an in-game test.
 
+**25 September instrumentation direction:** the [suite sensor report](sensor-integration-research.md)
+distinguishes native ship sensing, room alarms and proposed process probes. Use
+built-in basic furnace instruments and modular specialists; native ship IR does
+not measure this chamber. Missing readings remain unknown while stored heat and
+pressure continue to evolve. This follow-up adds no furnace or sensor behaviour.
+
 ## Recommendation
 
 Build a **sealed, batch-operated fusion furnace** as Shipbreaker's industrial

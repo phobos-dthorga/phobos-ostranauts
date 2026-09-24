@@ -8,6 +8,7 @@ void Check(bool result, string label) { if (!result) throw new Exception(label);
 double Metres(double au) => au / AutoNavCore.M_TO_AU;
 Ship Setup()
 {
+    NativeContactReader.State = ContactState.Ready;
     AutoNavCore.ResetStatics(); Plugin.Service = new NavigationService();
     CrewSim.system = new StarSystem(); CrewSim.objInstance = new CrewSim(); StarSystem.fEpoch = 100;
     Plugin.PreferTorch.Value = true; Plugin.TorchMaximumG.Value = 1;
@@ -151,4 +152,18 @@ var manualFlow = own.Reactor.Props["slidFlow"]; torch.YieldToPilot();
 Check(!own.IsUsingTorchDrive && own.Reactor.Props["slidCycle"] == "0" &&
     own.Reactor.Props["knobRatio"] == "1" && own.Reactor.Props["slidFlow"] == manualFlow && !torch.Owns(own),
     "Incoming native manual cycle can take over without Auto Nav undoing its mode/flow");
+own = Setup(); torch = Plugin.Service.Torch; Check(torch.Burn(own, 2, 1), "Contact fixture begins with native torch delivery");
+NativeContactReader.State = ContactState.Weak; force = 10000; torch.FilterThrust(own, ref force);
+Check(force == 0 && torch.Reason == "Sensors.Weak", "Native fusion update cannot deliver an earlier burn after contact loss");
+NativeContactReader.State = ContactState.Ready; force = 10000; torch.FilterThrust(own, ref force);
+Check(force == 0 && torch.ContactLoss?.State == ContactState.Weak, "Brief reacquisition cannot revive the old burn before suspension is recorded");
+Check(!torch.Burn(own, 2, 1), "Lost contact cannot acquire a fresh torch burn");
+AutoNavCore.EndFlight(own, "CONTACT LOST");
+Check(!AutoNavCore.Engaged && own.objSS.vAccRCS.magnitude == 0 && !own.IsUsingTorchDrive,
+    "Contact-loss stop releases native torch and RCS commands");
+own = Setup(); torch = Plugin.Service.Torch; torch.Burn(own, 2, 1);
+own.Maneuver(1,0,0,0,1); own.Reactor.FailControlWrite = true;
+AutoNavCore.EndFlight(own, "CONTACT LOST");
+Check(!AutoNavCore.Engaged && own.objSS.vAccRCS.magnitude == 0 && !own.IsUsingTorchDrive,
+    "A failed reactor-control write cannot skip the independent RCS stop");
 Console.WriteLine($"{checks} torch policy, native-boundary and guidance assertions passed. No in-game tests performed.");

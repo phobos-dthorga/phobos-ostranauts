@@ -63,6 +63,16 @@ it no longer excludes developing the furnace downstream of that chain.
 Approach Assist remains an existing prototype with owner testing outstanding;
 selecting industrial research does not claim that its guidance is complete.
 
+**2026-09-25 sensor direction:** [native sensing and instrumentation](sensor-integration-research.md)
+records full instrumentation realism with built-in basic probes and modular
+specialists. Prioritize sensor-aware Auto Nav, then shared console observations
+and furnace instruments. Later assay, asteroid survey and endurance diagnostics
+must reveal credible information without creating material or bypassing native
+acquisition. [Auto Nav 0.9.0](auto-nav-sensors.md) implements the first contact
+qualification slice, awaiting owner gameplay checks. Shared console observations
+and furnace instrumentation come next; current industrial machines gain no new
+sensor dependency in this round.
+
 ## Common design principles
 
 - Support the owner's [long-term habitation ambition](project-direction.md#long-term-habitation-and-endurance).

@@ -24,7 +24,7 @@ internal sealed partial class NavigationService
         get
         {
             if (console != null && console.mapGUIPropMaps.TryGetValue("Panel A", out var props)
-                && props.TryGetValue("slidThrottle", out string value)
+                && props.TryGetValue("slidThrottle", out var value)
                 && float.TryParse(value, NumberStyles.Float, CultureInfo.InvariantCulture, out float throttle)
                 && ArrivalBrake.Finite(throttle)) return Math.Max(0, Math.Min(1, throttle));
             return 0; // Missing throttle state must not silently become a burn.
@@ -41,7 +41,8 @@ internal sealed partial class NavigationService
         if (!co.GetCOsSafe(true).Any(item => HasId(item, ModuleId) && !item.HasCond("IsDamaged"))) return Text.Get("NavigationService.working_phobos_auto_nav_module_required");
         if (co.ship == null || co.ship.bDestroyed || CrewSim.coPlayer == null || CrewSim.coPlayer.ship != co.ship) return Text.Get("NavigationService.player_must_be_aboard_the_controlled_ship");
         if (co.ship.IsDocked()) return Text.Get("NavigationService.undock_before_engagement");
-        if (co.ship.bCheckPower) return Text.Get("NavigationService.power_network_is_updating");
+        // Pending power/sensor refresh is a contact suspension, not a discarded
+        // destination. Every guidance entry point checks NativeContactReader.
         if ((TorchDriveController.ThrustRequested(co.ship) && !Plugin.Service.Torch.Owns(co.ship)) || co.ship.shipStationKeepingTarget != null || (co.ship.aWPs != null && co.ship.aWPs.Count > 0)
             || PropOn(co, "chkStationKeeping") || PropOn(co, "chkHoldThrust") || PropOn(co, "chkEngage")
             || AIShipManager.GetAIShipByRegID(co.ship.strRegID) != null) return Text.Get("NavigationService.disengage_other_flight_automation_first");
@@ -73,6 +74,8 @@ internal sealed partial class NavigationService
             if (OtherControllerBusy()) { status = Text.Get("NavigationService.disengage_other_flight_automation_first"); return; }
             var target = TargetRef.FromCrossHair();
             if (target == null) { status = Text.Get("NavigationService.target_unavailable"); return; }
+            var sensing = ReadContact(co, target);
+            if (!sensing.Usable) { status = Text.Get(sensing.MessageKey); return; }
             float cruise = Plugin.DefaultCruiseMS.Value, arrival = Plugin.DefaultArriveSpeedMS.Value,
                 distance = arrivalKM ?? Plugin.DefaultArriveKM.Value;
             var coastSettings = Plugin.ReadCoastSettings();
@@ -111,6 +114,8 @@ internal sealed partial class NavigationService
             if (problem == null && AutoNavCore.AutoDockBusy()) problem = Text.Get("NavigationService.auto_dock_took_control");
             if (problem == null && (!ArrivalBrake.Finite(Plugin.ArrivalSpeedTolerance.Value) || !ArrivalBrake.Finite(Plugin.MaximumStepSeconds.Value))) problem = Text.Get("NavigationService.invalid_safety_settings");
             if (problem != null) { Disengage(problem); return; }
+            var sensing = Torch.ContactLoss ?? ReadContact(console, AutoNavCore.EngagedTarget);
+            if (!sensing.Usable) { SuspendForContact(sensing); return; }
             issuing = true;
             try { AutoNavCore.SteerFlight(AutoNavCore.EngagedPlayer, AutoNavCore.EngagedTarget, dt); }
             finally { issuing = false; }
@@ -165,15 +170,18 @@ internal sealed partial class NavigationService
     {
         co ??= console;
         var snapshot = DisplaySnapshot(co);
-        if (snapshot?.IsDocking == true) return Text.Get("Docking.binding", snapshot.OwnPort, snapshot.TargetPort);
         double requested = AutoNavCore.Engaged ? AutoNavCore.ArriveAU / AutoNavCore.KM_TO_AU : snapshot?.ArrivalKM ?? Plugin.DefaultArriveKM.Value;
         var target = AutoNavCore.Engaged ? AutoNavCore.EngagedTarget :
             snapshot != null ? TargetRef.FromShipId(snapshot.TargetId) :
             GUIOrbitDraw.IsOpen() && GUIOrbitDraw.CrossHairTarget?.Ship != null ? TargetRef.FromCrossHair() : null;
         var ship = AutoNavCore.Engaged ? AutoNavCore.EngagedPlayer : co?.ship;
+        var sensing = NativeContactReader.Read(ship, target?.ShipId);
+        if (snapshot?.IsDocking == true) return Text.Get("Docking.binding", snapshot.OwnPort, snapshot.TargetPort)
+            + "\n" + Text.Get(sensing.MessageKey);
+        if (!sensing.Usable) return Text.Get(sensing.MessageKey);
         if (ship != null && target != null && AutoNavCore.TryReadApproach(ship, target, requested, out var plan, out var speed))
             return Text.Get(detailed ? "NavigationService.approach_details" : "NavigationService.approach_range",
-                plan.RangeKM, plan.EffectiveArrivalKM, speed, plan.RequestedArrivalKM);
+                plan.RangeKM, plan.EffectiveArrivalKM, speed, plan.RequestedArrivalKM) + "\n" + Text.Get(sensing.MessageKey);
         return Text.Get("NavigationService.arrival_default", requested);
     }
 

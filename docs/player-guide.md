@@ -1,13 +1,18 @@
 # Current player guide
 
 **Prepared versions:** Phobos Framework **0.12.0**, Shipbreaker **0.10.1**, Auto Nav
-**0.8.1**, built against Ostranauts **1.0.1.5** / BepInEx **5.4.23.5**.
+**0.9.0**, built against Ostranauts **1.0.1.5** / BepInEx **5.4.23.5**.
 These versions support ordinary saves. Builds and offline checks do not establish
 in-game compatibility. This guide describes the prepared packages, not a claim
 that those packages are already installed or that merchants have restocked.
 
 Use this page for the current operating sequence. The linked equipment guides
 provide details; dated research reports describe the evidence available then.
+
+Auto Nav now requires [live native sensor contact](auto-nav-sensors.md).
+Contact loss suspends and clears owned thrust; the ship coasts until manual
+control or an explicit Resume after contact returns. Emitting sensors remain
+under player control. A known station marker alone does not authorize guidance.
 
 ## Install or update
 

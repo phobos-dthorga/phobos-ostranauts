@@ -38,8 +38,9 @@ internal sealed partial class NavigationService
                 ? TargetRef.FromShipId(GUIOrbitDraw.CrossHairTarget.Ship.strRegID) : null;
         if (target != null) view.Target = target.DisplayName;
         bool approachReady = false;
+        var sensing = ReadContact(co, target);
         string clearance = Text.Get("Instruments.clearance_unknown");
-        if (target != null && AutoNavCore.TryReadApproach(co!.ship, target, view.ArrivalKM, out var plan, out var speed))
+        if (sensing.Usable && target != null && AutoNavCore.TryReadApproach(co!.ship, target, view.ArrivalKM, out var plan, out var speed))
         {
             approachReady = true;
             view.Range = Text.Get("Instruments.range", plan.RangeKM);
@@ -55,6 +56,7 @@ internal sealed partial class NavigationService
             FlightSnapshot.TryDecode(fields, out stored) && stored.ConsoleId == co!.strID;
         if (!validRecord) problem = Text.Get("Persistence.invalid_state");
         if (problem == null && OtherControllerBusy()) problem = Text.Get("NavigationService.disengage_other_flight_automation_first");
+        if (problem == null && (target != null || captured) && !sensing.Usable) problem = Text.Get(sensing.MessageKey);
         view.Warning = problem != null;
         view.Heading = ownsFlight ? Text.Get("Instruments.phase." + AutoNavCore.CurrentPhase) :
             problem != null ? Text.Get("Instruments.blocked") : view.Resumable ? Text.Get("Instruments.suspended") :
@@ -83,6 +85,7 @@ internal sealed partial class NavigationService
                 "\n\n" + Text.Get("Docking.binding", snapshot.OwnPort, snapshot.TargetPort) +
                 "\n\n" + Text.Get("Docking.help");
         }
+        view.Details += "\n\n" + Text.Get(sensing.MessageKey) + "\n" + Text.Get("Sensors.help");
         return view;
     }
 

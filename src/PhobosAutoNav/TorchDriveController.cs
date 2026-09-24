@@ -18,6 +18,7 @@ internal sealed class TorchDriveController
     private double forceLimit, leaseUntil, commandHeading;
     private bool writing;
     internal string Reason { get; private set; } = "Torch.rcs";
+    internal ContactReading? ContactLoss { get; private set; }
     internal bool HasPendingBurn => forceLimit > 0;
     internal void Align() { Cut(); Reason = "Torch.aligning"; }
     internal bool Owns(Ship? other) => ship != null && ship == other;
@@ -36,6 +37,7 @@ internal sealed class TorchDriveController
     {
         acceleration = 0;
         Reason = "Torch.rcs";
+        if (ContactLoss is ContactReading lost) { Reason = lost.MessageKey; return false; }
         if (!preferred || !Plugin.PreferTorch.Value) return false;
         var core = candidate.Reactor;
         Reason = "Torch.unavailable";
@@ -107,6 +109,14 @@ internal sealed class TorchDriveController
     private void CheckThrust(Ship candidate, ref double force)
     {
         if (candidate.objSS == null || candidate.bDestroyed) { force = 0; return; }
+        var sensing = ContactLoss ?? NativeContactReader.Read(candidate, AutoNavCore.EngagedTarget?.ShipId);
+        if (!sensing.Usable)
+        {
+            // Do not allow a brief reacquisition to revive an earlier burn.
+            // The navigation update consumes this loss and records suspension.
+            ContactLoss = sensing; force = forceLimit = leaseUntil = 0;
+            Reason = sensing.MessageKey; return;
+        }
         double horizon = leaseUntil - StarSystem.fEpoch;
         double maxG = Plugin.TorchMaximumG.Value;
         double headingError = Math.Atan2(Math.Sin(candidate.objSS.fRot - commandHeading), Math.Cos(candidate.objSS.fRot - commandHeading));
@@ -149,6 +159,7 @@ internal sealed class TorchDriveController
     internal void Reset()
     {
         ship = null; reactor = null; idle.Clear(); commanded.Clear(); forceLimit = leaseUntil = 0;
+        ContactLoss = null;
         Reason = "Torch.rcs";
     }
 

@@ -151,7 +151,7 @@ namespace PhobosAutoNav
         internal static bool FlightPrefersTorch = false;
         internal static string? LastResult;
         internal static void ResetStatics() { Engaged = false; EngagedPlayer = null; }
-        internal static void EndFlight(Ship? own, string result) { Engaged = false; LastResult = result; }
+        internal static void EndFlight(Ship? own, string result) { own?.Maneuver(0,0,0,0,1); Engaged = false; LastResult = result; }
         internal static void RestoreFlight(Ship own, TargetRef target, FlightSnapshot snapshot)
         { EngagedPlayer = own; Engaged = true; ElapsedSeconds = snapshot.ElapsedSeconds; }
         internal static bool HasFuelForFlight(Ship own, TargetRef target, bool readOnly) => FuelAvailable;

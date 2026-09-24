@@ -11,6 +11,13 @@ Framework 0.12.0 adds shared [equipment name formatting](equipment-branding.md),
 with brands/models owned by content and type/variant descriptions translated.
 Auto Nav 0.8.1 and Shipbreaker 0.10.1 use it without changing saved IDs.
 
+**Proposed sensor services (25 September 2026):** the
+[sensor report](sensor-integration-research.md) documents a shared observation
+concept: source/subject identity, kind, units/value, time, validity and capability
+scope. Existing state, pairing and access helpers are reusable foundations, not
+an already implemented telemetry API. Extract shared services as concrete
+consumers need them; content owns instruments and process responses. This round
+adds no public API, saved schema or runtime behaviour.
 
 Framework 0.11.0 adds shared versioned object-state envelopes, detached snapshots,
 owner checks and protection of unreadable/unsupported state. Auto Nav 0.5.0 uses

@@ -72,6 +72,7 @@ internal sealed class CondOwner
     internal double Temperature = TorchRules.NativeCoreTemperature;
     internal Dictionary<string, string> Props = new() { ["slidCycle"] = "0", ["slidFlow"] = "0.2", ["knobRatio"] = "0", ["bNWZ"] = "false" };
     internal FusionIC Fusion;
+    internal bool FailControlWrite;
     internal CondOwner(Ship owner) { ship = owner; Fusion = new FusionIC(this); }
     internal bool HasCond(string key) => Conditions.Contains(key);
     internal double GetCondAmount(string key) => key == "StatICCoreTemp" ? Temperature : 8;
@@ -79,6 +80,7 @@ internal sealed class CondOwner
     internal T GetComponent<T>() where T : class => (Fusion as T)!;
     internal void ApplyGPMChanges(string[] changes)
     {
+        if (FailControlWrite) throw new InvalidOperationException("Native control write failed");
         foreach (var change in changes) { var parts = change.Split(','); Props[parts[1]] = parts[2]; }
     }
 }
@@ -173,6 +175,7 @@ namespace PhobosAutoNav
     internal static class Text { internal static string Get(string key) => key; }
     internal sealed class TargetRef
     {
+        internal string ShipId = "target";
         internal ShipSitu TargetSitu = new();
         internal string DisplayName = "target";
         internal static TargetRef? FromCrossHair() => null;

@@ -19,6 +19,9 @@ budgeting and RCS turning, with Phobos changes. Version 0.4.3 replaces the cruis
 coasting thresholds and correction target with `Core/CoastRules.cs`, adds a
 conservative actual-range braking cap and stops chasing heading while coasting.
 Original authorship is credited above.
+Version 0.9.0 adds original Phobos native-contact qualification, suspension and
+readout policy around that guidance. Target references resolve against the
+current world each time; stopping still releases RCS if torch release fails.
 Phobos lifecycle and orbit-lock integration also follows the inspected upstream
 patching pattern; the new arrival-brake calculation, short-range arrival policy,
 range diagnostics, service, console routing and UI come from Phobos work. See the

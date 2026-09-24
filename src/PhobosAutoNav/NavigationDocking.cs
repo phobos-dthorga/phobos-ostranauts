@@ -23,8 +23,11 @@ internal sealed partial class NavigationService
             if (OtherControllerBusy()) { status = Text.Get("NavigationService.disengage_other_flight_automation_first"); return; }
             if (!CanReplaceFlight(co!)) return;
             if (DisplaySnapshot(co) != null) { status = Text.Get("Docking.stop_first"); return; }
-            var target = GUIOrbitDraw.CrossHairTarget?.Ship;
+            var selected = GUIOrbitDraw.CrossHairTarget?.Ship;
+            var target = selected == null ? null : CrewSim.system?.GetShipByRegID(selected.strRegID);
             if (target == null || target == co!.ship) { status = Text.Get("Docking.select"); return; }
+            var sensing = NativeContactReader.Read(co!.ship, target.strRegID);
+            if (!sensing.Usable) { status = Text.Get(sensing.MessageKey); return; }
             problem = DockingAdapter.SelectPorts(co!.ship, target, out string ownPort, out string targetPort);
             if (problem != null) { status = Text.Get(problem); return; }
             console = co;
@@ -44,6 +47,8 @@ internal sealed partial class NavigationService
     private string? DockingResumeProblem(CondOwner co, FlightSnapshot snapshot)
     {
         if (co.HasCond("IsDamagedSoftware")) return Text.Get("Docking.software");
+        var sensing = NativeContactReader.Read(co.ship, snapshot.TargetId);
+        if (!sensing.Usable) return Text.Get(sensing.MessageKey);
         var target = CrewSim.system?.GetShipByRegID(snapshot.TargetId);
         var problem = DockingAdapter.Check(co.ship, target, snapshot.OwnPort, snapshot.TargetPort, checkFit: true);
         if (problem != null) return Text.Get(problem);
@@ -82,6 +87,11 @@ internal sealed partial class NavigationService
             if (problem == null && (!FlightBindingValid() || OtherControllerBusy())) problem = Text.Get("Persistence.binding_changed");
             if (problem == null && (!ArrivalBrake.Finite(dt) || dt <= 0 || dt > DockingRules.MaximumStep)) problem = Text.Get("Docking.step");
             if (problem == null && AutoNavCore.ElapsedSeconds >= DockingRules.MaximumSeconds) problem = Text.Get("Docking.timeout");
+            if (problem == null)
+            {
+                var sensing = NativeContactReader.Read(own, flight.TargetId);
+                if (!sensing.Usable) { SuspendForContact(sensing); return; }
+            }
             if (problem == null)
             {
                 bool checkFit = !afterPhysics && AutoNavCore.ElapsedSeconds >= nextDockFitCheck;

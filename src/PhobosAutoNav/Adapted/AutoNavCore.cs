@@ -137,7 +137,9 @@ internal static class AutoNavCore
 
 	public static void EndFlight(Ship player, string result)
 	{
-        Plugin.Service.Torch.Release();
+        // A reactor-control failure must not skip releasing RCS/navigation.
+        try { Plugin.Service.Torch.Release(); }
+        catch (Exception ex) { Plugin.Verbose("torch release failed: " + ex.Message); }
 		Engaged = false;
 		EngagedPlayer = null;
 		EngagedTarget = null;

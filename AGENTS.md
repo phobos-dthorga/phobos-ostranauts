@@ -195,6 +195,24 @@
   sprites/faceplate remain suitable because names are rendered as live text.
 
 - Use native JSON definitions for suitable content and existing behaviours.
+- Owner sensor direction (2026-09-25): use native sensing where appropriate,
+  with full instrumentation realism, built-in basic probes and modular specialist
+  instruments. Follow `docs/sensor-integration-research.md`. Measurements need a
+  credible source and scope; unavailable/stale/faulty readings are not zero.
+  Native ship IR is not a furnace thermometer, and contact silhouettes do not
+  establish grabber clearance. Do not silently enable emitting sensors or use
+  hidden exact target state to bypass weak contact. Prioritize sensor-aware
+  Auto Nav, then console observations and furnace instrumentation. Shared access,
+  observation validity, pairing and diagnostics belong in Framework as concrete
+  consumers need them; instrument semantics, balance and process responses stay
+  content-owned. Preserve ship isolation, saved-state protections, material
+  contracts and optional providers. Physical heat/matter continues to exist when
+  a probe fails. Auto Nav 0.9.0 implements native live-contact qualification and
+  suspends on loss, retaining intent for explicit Resume. Recheck before steering,
+  clamping and restoring a saved flight; UI reads stay read-only, and missing
+  range/speed stay unknown. Keep selected-operator thresholds fresh with the
+  panel closed. See `docs/auto-nav-sensors.md`. Shared observations, furnace
+  instruments and a public observation API remain future work.
 - Navigation panels must explicitly use
   `Ostranauts.ShipGUIs.NavStation.Draggable`, not the game's same-named global
   object-hauling component. Bind `NavModBase.DraggableRef`; the package build

@@ -1,5 +1,10 @@
 # Auto Nav saved flights (introduced 0.5.0; torch addition 0.6.0)
 
+Auto Nav 0.9.0 adds [fresh sensor validation](auto-nav-sensors.md) before any
+resume. Contact loss suspends without discarding the destination or elapsed
+budget, and requires explicit Resume after recovery. No saved reading is trusted
+as current; the existing schema and Framework envelope are unchanged.
+
 Auto Nav 0.8.0 additionally saves [docking intent and exact port pairs](auto-nav-docking.md).
 Docking always suspends after reload for explicit Resume, with current clearance
 and port checks. Its new lifecycle names prevent an earlier plugin from treating

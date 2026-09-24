@@ -4,4 +4,8 @@
   <ItemGroup><ProjectReference Include="../../src/PhobosFramework/PhobosFramework.csproj" /></ItemGroup>
   <ItemGroup><Compile Include="../../src/PhobosAutoNav/NavigationPersistence.cs" Link="NavigationPersistence.cs" /></ItemGroup>
   <ItemGroup><Compile Include="../../src/PhobosAutoNav/NavigationInstruments.cs" Link="NavigationInstruments.cs" /></ItemGroup>
+  <ItemGroup>
+    <Compile Include="../../src/PhobosAutoNav/NavigationSensors.cs" Link="NavigationSensors.cs" />
+    <Compile Include="../Support/AutoNavContactDouble.cs" Link="AutoNavContactDouble.cs" />
+  </ItemGroup>
 </Project>

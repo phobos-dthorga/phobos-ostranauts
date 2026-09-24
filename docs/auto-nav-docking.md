@@ -1,5 +1,9 @@
 # Polaris docking — Auto Nav 0.8.0
 
+**0.9.0 follow-up:** [live contact](auto-nav-sensors.md) is required to engage,
+resume, guide and clamp. Contact loss suspends, clears owned thrust and preserves
+the assigned pair for explicit Resume; it does not provide emergency braking.
+
 Prepared on 2026-09-24 against Ostranauts **1.0.1.5**, BepInEx **5.4.23.5**
 and Phobos Framework **0.11.0**. Built and checked offline; **not yet tested in
 game or installed**. No new item, dependency, price change or raster artwork.

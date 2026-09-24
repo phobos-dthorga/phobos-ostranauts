@@ -1,5 +1,10 @@
 # Polaris instrument panel — Auto Nav 0.7.0
 
+**0.9.0 sensing:** range and relative speed are unknown without a
+[usable native contact](auto-nav-sensors.md). Details and F3 status explain
+blocked or suspended tracking. Existing artwork and control positions suffice;
+the new messages use translation keys and the existing scrollable Details view.
+
 **0.8.1 naming:** the live title is now **Phobos' Asterel N1 Polaris Auto Nav**,
 using Framework 0.12.0. The plate artwork and control positions are unchanged.
 

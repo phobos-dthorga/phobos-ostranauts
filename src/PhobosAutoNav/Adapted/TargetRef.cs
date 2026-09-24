@@ -94,11 +94,10 @@ internal sealed class TargetRef
 		{
 			return null;
 		}
-		if (_ship == null || _ship.bDestroyed)
-		{
-			_ship = ((CrewSim.system != null) ? CrewSim.system.GetShipByRegID(_shipRegID) : null);
-		}
-		if (_ship == null || _ship.bDestroyed)
+        // Phobos: the qualified ID must resolve in the current world, never
+        // a cached object from a removed/replaced ship or a previous save.
+        _ship = CrewSim.system?.GetShipByRegID(_shipRegID);
+		if (_ship == null || _ship.bDestroyed || _ship.HideFromSystem || _ship.IsStationHidden())
 		{
 			return null;
 		}

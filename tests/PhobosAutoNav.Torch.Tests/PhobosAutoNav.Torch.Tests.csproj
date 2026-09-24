@@ -3,6 +3,7 @@
   <ItemGroup>
     <ProjectReference Include="../../src/PhobosFramework/PhobosFramework.csproj" />
     <Compile Include="../../src/PhobosAutoNav/Core/*.cs" Link="%(Filename)%(Extension)" />
+    <Compile Include="../Support/AutoNavContactDouble.cs" Link="AutoNavContactDouble.cs" />
     <Compile Include="../../src/PhobosAutoNav/Adapted/AutoNavCore.cs" Link="AutoNavCore.cs" />
     <Compile Include="../../src/PhobosAutoNav/TorchDriveController.cs" Link="TorchDriveController.cs" />
   </ItemGroup>

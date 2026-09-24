@@ -39,6 +39,7 @@ Check(!DockingRules.TryGuide(0,double.NaN,0,0,0,0,200,1,1,1,out _), "Nonfinite m
 
 (NavigationService Service, CondOwner Console, Ship Target) Setup(double metres = 1000)
 {
+    NativeContactReader.State = ContactState.Ready;
     AutoNavCore.ResetStatics(); AutoNavCore.Busy = false; AutoNavCore.FuelAvailable = true;
     HarmonyLib.AccessTools.MethodsAvailable = true;
     CrewSim.system = new(); CrewSim.AttachCalls = 0; CrewSim.DuringAttach = null; CrewSim.Paused = false; CrewSim.objInstance.FinishedLoading = true;
@@ -126,5 +127,22 @@ CrewSim.DuringAttach = () => f.Service.TickDocking(CrewSim.system,.1,true);
 f.Service.TickDocking(CrewSim.system,.1,true);
 Check(CrewSim.AttachCalls == 1, "Reentrant native callback cannot attach twice");
 
+f = Setup(); NativeContactReader.State = ContactState.Weak; f.Service.Dock(f.Console);
+Check(!AutoNavCore.Engaged && CrewSim.AttachCalls == 0 && f.Service.Diagnostic.Contains("Sensors.Weak"), "Docking requires a current contact before port selection");
+f = Setup(); f.Service.Dock(f.Console); Tick(f.Service);
+double elapsed = AutoNavCore.ElapsedSeconds;
+NativeContactReader.State = ContactState.Occluded; Tick(f.Service);
+var lost = Read(f.Console);
+Check(!AutoNavCore.Engaged && lost.Mode == SavedFlightMode.DockingSuspended && lost.OwnPort == "own" &&
+    lost.TargetPort == "assigned" && lost.ElapsedSeconds == elapsed, "Track loss preserves docking pair and budget for manual resume");
+Check(f.Console.ship.LastX == 0 && f.Console.ship.LastY == 0 && f.Console.ship.LastTurn == 0, "Suspension calls the docking actuator stop boundary");
+NativeContactReader.State = ContactState.Ready; Tick(f.Service);
+Check(!AutoNavCore.Engaged, "Docking does not automatically restart on reacquisition");
+f.Service.ResumeSaved(f.Console); Check(AutoNavCore.Engaged, "Explicit docking resume checks the recovered contact");
+f = Setup(210); f.Service.Dock(f.Console); NativeContactReader.State = ContactState.Weak;
+f.Service.TickDocking(CrewSim.system,.1,true);
+Check(CrewSim.AttachCalls == 0 && !AutoNavCore.Engaged && Read(f.Console).Mode == SavedFlightMode.DockingSuspended,
+    "Contact lost between physics and clamping prevents attachment");
+f.Service.ResumeSaved(f.Console); Check(!AutoNavCore.Engaged, "Manual docking resume cannot bypass weak contact");
 Console.WriteLine($"{count} docking assertions passed. Numerical and native-boundary doubles; no in-game testing.");
 internal enum LegacyMode { Active, Suspended, Stopped, Arrived }

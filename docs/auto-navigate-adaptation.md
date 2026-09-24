@@ -1,6 +1,6 @@
 # Phobos Auto Nav: standalone adaptation
 
-**0.8.1 candidate; built against Ostranauts 1.0.1.5 / BepInEx 5.4.23.5.**
+**0.9.0 candidate; built against Ostranauts 1.0.1.5 / BepInEx 5.4.23.5.**
 Ordinary saves are the baseline from 2026-09-24. Phobos Framework 0.12.0+ now
 provides shared construction, merchant and maintenance services. No original Auto
 Navigate dependency. See [prices, acquisition and service bills](equipment-economy.md).
@@ -23,6 +23,11 @@ That note has not been sent. No blanket community reuse grant is claimed.
 
 ## Implemented slice
 
+- Version 0.9.0 requires [live native sensor contact](auto-nav-sensors.md) for
+  Fly, Resume and Dock. Losing contact suspends and clears owned thrust while
+  preserving intent; reacquisition requires explicit Resume. Unavailable range
+  and speed remain unknown. Tracking works with the panel closed and never
+  enables emitting sensors. Existing Framework storage handles saved suspension.
 - Version 0.8.0 adds deliberate [RCS docking](auto-nav-docking.md) within 10 km
   of the hull after native Comms clearance. Details has a Dock button; F3 has
   `phobosnav dock`. Reload suspends docking for explicit Resume.
@@ -43,9 +48,9 @@ That note has not been sent. No blanket community reuse grant is claimed.
 - The panel's **Fly** and **Disengage** buttons and F3 commands share one service.
   Current scope is selected ships/stations in free space. Planetary travel,
   collision avoidance and continuous working-position control are not
-  offered. Inherited target resolution still tracks engine objects rather than
-  enforcing Approach Assist's full live sensor-contact policy; that is a known
-  integration difference, not a claim of sensor realism.
+  offered. Current-world target resolution is now gated by native combined
+  sensing and celestial occlusion. This is contact qualification, not a precision
+  survey or collision-clearance measurement.
 - Arrival no longer succeeds solely because the distance boundary was crossed:
   within the arrival band, excessive relative speed commands braking first. The
   new calculation respects an aggregate RCS throttle cap and cannot deliberately

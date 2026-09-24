@@ -118,6 +118,12 @@ gameplay service; the panel continues to display state and delegate actions.
 
 ## Reuse the native sensor system
 
+The [suite sensor report](sensor-integration-research.md) rechecks this foundation
+against 1.0.1.5 and extends the owner's direction to industrial instrumentation.
+Current Auto Nav is the first planned consumer of stricter live tracking; this
+older prototype is a precedent, not a required dependency or a reason to restore
+its historical flight/save restrictions. The report is documentation only.
+
 The local runtime contains `Ostranauts.Ships.Sensors.ElectronicSystems`,
 `ShipSensor`, `ShipSignature` and concrete `Optical`, `IR`, `EM`, `Radar` and
 `Lidar` implementations. These are ship/contact sensors. The unrelated interior

@@ -114,13 +114,21 @@ internal sealed partial class NavigationService
         }
     }
 
-    private void FinishSavedFlight(SavedFlightMode mode)
+    private bool FinishSavedFlight(SavedFlightMode mode)
     {
-        if (savedFlight == null || console == null || console.bDestroyed || savedFlight.ConsoleId != console.strID) return;
-        if (AutoNavCore.Engaged)
-        { savedFlight.ElapsedSeconds = AutoNavCore.ElapsedSeconds; savedFlight.Coasting = AutoNavCore.Coasting; }
-        savedFlight.Mode = mode;
-        if (savedFlight.Valid) Store(console).TryWrite(savedFlight.Encode());
+        try
+        {
+            if (savedFlight == null || console == null || console.bDestroyed || savedFlight.ConsoleId != console.strID) return false;
+            if (AutoNavCore.Engaged)
+            { savedFlight.ElapsedSeconds = AutoNavCore.ElapsedSeconds; savedFlight.Coasting = AutoNavCore.Coasting; }
+            savedFlight.Mode = mode;
+            return savedFlight.Valid && Store(console).TryWrite(savedFlight.Encode());
+        }
+        catch (Exception ex)
+        {
+            // Losing the save boundary must never skip the following actuator stop.
+            log(ex.ToString()); return false;
+        }
     }
 
     internal void ResumeSaved(CondOwner? co)
@@ -142,6 +150,11 @@ internal sealed partial class NavigationService
                 snapshot.ElapsedSeconds >= Plugin.MaxFlightSimHours.Value * Phobos.Ostranauts.Framework.Units.SecondsPerHour))
                 problem = Text.Get("Flight.result.TIMEOUT");
             var target = TargetRef.FromShipId(snapshot.TargetId);
+            if (problem == null)
+            {
+                var sensing = ReadContact(co, target);
+                if (!sensing.Usable) problem = Text.Get(sensing.MessageKey);
+            }
             if (problem == null && (target == null || !AutoNavCore.TryReadApproach(co.ship, target, snapshot.ArrivalKM, out _, out _)))
                 problem = Text.Get("NavigationService.target_unavailable");
             if (problem != null)

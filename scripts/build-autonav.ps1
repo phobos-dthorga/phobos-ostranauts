@@ -14,6 +14,8 @@ if ($LASTEXITCODE -ne 0) { throw 'Auto Nav flight and layout checks failed.' }
 if ($LASTEXITCODE -ne 0) { throw 'Auto Nav torch control checks failed.' }
 & dotnet run --project (Join-Path $repoRoot 'tests/PhobosAutoNav.Docking.Tests') -c Release "-p:OstranautsPath=$gameRoot"
 if ($LASTEXITCODE -ne 0) { throw 'Auto Nav docking checks failed.' }
+& dotnet run --project (Join-Path $repoRoot 'tests/PhobosAutoNav.Sensors.Tests') -c Release "-p:OstranautsPath=$gameRoot"
+if ($LASTEXITCODE -ne 0) { throw 'Auto Nav live-contact checks failed.' }
 $source = Join-Path $repoRoot 'mods/PhobosAutoNav'
 foreach ($file in Get-ChildItem -LiteralPath $source -Recurse -Filter '*.json' -File) {
     $null = Get-Content -LiteralPath $file.FullName -Raw | ConvertFrom-Json

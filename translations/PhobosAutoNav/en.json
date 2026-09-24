@@ -221,5 +221,14 @@
   "Torch.setting_correction": "Minimum remaining velocity correction (m/s) worth lining up a torch burn. Smaller corrections use RCS. Applies to acceleration and braking.",
   "Torch.settings": "Torch preference for this profile: {0}; maximum {1:0.##} g; corrections from {2:0.##} m/s. Native no-wake zones and RCS braking reserve always apply.",
   "Torch.usage": "Usage: phobosnav torch on | off",
-  "Torch.preference_saved": "Torch preference: {0}. Enabling applies to new flights and saved flights already permitted to use torch; disabling also cuts the current Auto Nav burn. RCS guidance continues."
+  "Torch.preference_saved": "Torch preference: {0}. Enabling applies to new flights and saved flights already permitted to use torch; disabling also cuts the current Auto Nav burn. RCS guidance continues.",
+  "Sensors.Unavailable": "No current ship or station contact available",
+  "Sensors.Updating": "Sensor or power network updating; live track unavailable",
+  "Sensors.NoSensors": "No operating ship sensors; install or enable suitable native sensors",
+  "Sensors.Occluded": "Target obscured by a celestial body",
+  "Sensors.Weak": "Signal too weak for guidance; a map marker alone is not a live track",
+  "Sensors.Fault": "Sensor data unreadable; check the ship's sensors before resuming",
+  "Sensors.Ready": "Live native sensor contact available",
+  "Sensors.suspended": "Flight suspended; Auto Nav thrust cleared and ship coasting. {0}. Restore contact, then choose Resume. Coasting does not guarantee collision clearance.",
+  "Sensors.help": "Fly, Dock and Resume require live native sensing. Weak or lost contact suspends guidance and clears Auto Nav thrust; it does not brake blindly or resume automatically when the signal returns. Destination and progress are retained. Radar and LiDAR are never enabled automatically. Range and speed are unknown without a usable track. Sensor Operations skill uses the currently selected crew member aboard this ship, including with the panel closed."
 }
