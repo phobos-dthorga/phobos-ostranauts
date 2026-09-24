@@ -6,11 +6,11 @@ namespace PhobosShipbreaker;
 
 internal sealed partial class ProcessingService
 {
-    internal static CondOwner[] FindMachines()
+    internal static CondOwner[] FindMachines(bool includeReclaimers = false)
     {
         if (CrewSim.objInstance == null || !CrewSim.objInstance.FinishedLoading) return Array.Empty<CondOwner>();
         return CrewSim.GetSelectedCrew()?.ship?.GetCOs(null, bSubObjects: false, bAllowDocked: false, bAllowLocked: true)
-            .Where(c => c != null && !c.bDestroyed && Content.IsMachine(c.strCODef))
+            .Where(c => c != null && !c.bDestroyed && (Content.IsMachine(c.strCODef) || includeReclaimers && ReclaimerRules.IsFamily(c.strCODef)))
             .OrderBy(c => c.strID, StringComparer.Ordinal).ToArray() ?? Array.Empty<CondOwner>();
     }
 

@@ -1,6 +1,6 @@
 # Current player guide
 
-**Prepared versions:** Phobos Framework **0.7.0**, Shipbreaker **0.7.0**, Auto Nav
+**Prepared versions:** Phobos Framework **0.8.0**, Shipbreaker **0.8.0**, Auto Nav
 **0.3.0**, built against Ostranauts **1.0.1.4** / BepInEx **5.4.23.5**.
 These versions support ordinary saves. Builds and offline checks do not establish
 in-game compatibility. This guide describes the prepared packages, not a claim
@@ -39,6 +39,7 @@ Mortorq tool and soldering tool, plus materials; it does not consume those tools
 | Equipment | Unmodified assembly work | Ordinary acquisition |
 | --- | ---: | --- |
 | Dismantling fixture | Two sections at 60 min each, then 30 min assembly | Broken stock at K-Leg/VORB scrap suppliers; occasional usable stock at K-Leg's fixer; new at San Diego's Halvorson |
+| Scrap reclaimer | Two sections at 75 min each, then 45 min assembly | K-Leg/VORB scrap, K-Leg fixer, San Diego Halvorson; [reclaimer guide](scrap-reclaimer.md) |
 | Exterior grabber | 60 min | K-Leg/VORB scrap, K-Leg fixer, San Diego Halvorson |
 | Hull chute | 30 min | Same industrial suppliers |
 | Residue collector | 40 min | Same industrial suppliers |
@@ -85,14 +86,17 @@ the processor. It does not cross gaps, cargo webbing or a docked ship.
    processing handles one at a time.
 3. Right-click the processor and choose **Inventory** to collect its products:
    two small mechanical parts, two aluminium scraps, two carbon-fibre scraps,
-   six steel scraps and one 13 kg mixed-residue packet. Total mass is 24 kg.
+   six steel scraps and one 13 kg identified R2 residue packet. Total mass is 24 kg.
+   Started revision-1 jobs still yield the old unclassified mixed residue.
 4. To collect residue automatically, right-click the collector → **Control Panel**,
    select the processor with **Link**, then **Collect residue**. Alternatively
    choose the collector through F9 → **Residue destination / unlink**, then start
    collection at the collector. Linking alone does not start it.
 5. Empty the collector through its **Inventory**. Four packets fill it (52 kg).
-   Collected residue remains aboard and counts toward ship mass. It has no current
-   refining or recoverable-ejection action. Retain or haul it as ordinary cargo.
+   Collected residue remains aboard and counts toward ship mass. Haul identified
+   R2 packets to the [scrap reclaimer](scrap-reclaimer.md) for 3 kg steel + 1 kg
+   aluminium + 9 kg retained rejects each. Legacy packets remain unclassified
+   storage cargo. A collector can also receive reclaimer rejects; it never ejects.
 
 **The processor's normal Inventory is output.** For standalone operation, F9 →
 **Manual feed (fallback)** opens its separate wall feed; load there and Start.
@@ -147,8 +151,8 @@ coasts. This is not emergency braking, automatic docking, obstacle avoidance or
 continuous relative-position holding.
 
 The grabber currently receives manually loaded detached walls. It does not cut
-attached hull. Shredders, recycling, asteroid-water processing and persistent
-cargo release are not present in these versions. See the
+attached hull. The combined scrap reclaimer is now available; asteroid-water
+processing and persistent cargo release remain future work. See the
 [residue contract and next processing stage](residue-material-contract.md).
 
 Translation catalogs, language settings and contributor guidance: [Localization](localization.md).

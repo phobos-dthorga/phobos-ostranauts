@@ -20,9 +20,11 @@ and phosphate/salt-bearing resources are candidates where existing ore leaves a
 gap. These additions are not implemented. The prepared suite uses our
 [independent Phobos Framework](phobos-framework.md); OCF/SWB are optional.
 Shipbreaker **0.6.1** now provides [version-aware processing jobs](processing-job-compatibility.md).
-The next implementation priority is the combined reclaimer's operating budget
-and useful consumer, following the [selected residue contract](residue-material-contract.md).
-Existing panels and residue retain their original recipe meaning.
+Framework/Shipbreaker **0.8.0** now adds the [combined scrap reclaimer](scrap-reclaimer.md),
+its station stock and construction, and revision 2 for new wall jobs. Shared jobs
+live in Framework. Existing panels and residue retain their original meaning.
+Next: owner gameplay evaluation of the connected chain and reclaimer cooling;
+processor right-click controls follow that evaluation.
 
 **2026-09-24 future idea:** [chemical storage, process fluids and industrial
 hazards](chemical-storage-and-process-fluids.md) records the owner's installable

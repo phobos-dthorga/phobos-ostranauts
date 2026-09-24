@@ -1,6 +1,6 @@
 # Phobos Shipbreaker: first playable build
 
-Current candidate: **Shipbreaker 0.7.0 + Phobos Framework 0.7.0**, built against
+Current candidate: **Shipbreaker 0.8.0 + Phobos Framework 0.8.0**, built against
 Ostranauts **1.0.1.4** and BepInEx **5.4.23.5**. Offline checks pass; connected
 gameplay validation remains pending. These are prepared-package versions, not
 an assertion about the currently installed files. Start with the
@@ -71,7 +71,7 @@ Inputs must be separate, empty, uninstalled objects with the expected actual mas
 | Aluminium scrap | 2 | 2 kg |
 | Carbon-fibre scrap | 2 | 2 kg |
 | Steel scrap | 6 | 6 kg |
-| Mixed panel residue | 1 | 13 kg |
+| Identified R2 panel residue (legacy mixed residue for started R1 jobs) | 1 | 13 kg |
 | **Total** | | **24 kg** |
 
 These are explicit design yields using the native wall's material families, not
@@ -82,8 +82,10 @@ It is a distinct definition without native trash/salvage category flags; the
 existing trash sorter does not consume it. Retain, haul or move it to the paired
 Residue Collector. It remains aboard; refining and recoverable release are not
 implemented. The [residue contract](residue-material-contract.md) preserves these
-unclassified packets and defines a separate future characterised stream. We do
-not rebalance the game's or other mods' salvage recipes.
+unclassified packets. Fresh 0.8.0 jobs produce a separate identified R2 stream,
+with a useful [reclaimer](scrap-reclaimer.md) consumer now implemented. Started
+R1 jobs retain the original outputs. Reclaimer rejects remain physical cargo;
+there is no delete-waste action.
 
 Construction uses **100 steel, 48 aluminium, 20 mechanical parts and
 4 electronic parts** in total, totalling 160 kg at the inspected native masses.
@@ -113,7 +115,7 @@ and the limits of their mass accounting.
 
 ## Install the prepared package
 
-Required dependencies: **BepInEx 5** and **Phobos Framework 0.7.0 or later**.
+Required dependencies: **BepInEx 5** and **Phobos Framework 0.8.0 or later**.
 OCF, Salvage Workshop, Auto Nav and Common Sense hauling are optional for this
 onboard processor. Keep other mods installed if the existing save contains their
 objects or other consumers require them; independence is not foreign-object
@@ -355,3 +357,7 @@ changed material masses, partial registration failure and competing providers.
 That does not run Unity gameplay or verify every third-party interaction.
 
 See `THIRD-PARTY.md` in the package for dependencies and asset provenance.
+
+Version 0.8.0 adds the [scrap reclaimer](scrap-reclaimer.md), R2 output for fresh
+wall jobs and explicit collector support for identified residue and terminal
+rejects. Historic revision-1 jobs remain unchanged; see the current player guide.

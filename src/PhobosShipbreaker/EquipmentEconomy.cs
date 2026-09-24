@@ -27,6 +27,7 @@ internal static class EquipmentEconomy
         new Spec(Content.Prefix, price: 12000, install: 1500, uninstall: 1000, repair: 3600, dismantle: 1000, new[]{4,2,4,4}, new[]{92,40,16,4,18}, new[]{80,32,8,0,44}),
         new Spec(IntakeRules.Grabber, price: 6400, install: 1000, uninstall: 800, repair: 2400, dismantle: 650, new[]{2,1,4,2}, new[]{42,16,12,2,15}, new[]{34,12,6,0,31}),
         new Spec(IntakeRules.Chute, price: 1800, install: 500, uninstall: 500, repair: 1500, dismantle: 300, new[]{2,1,2,0}, new[]{20,8,8,2,7}, new[]{16,6,4,0,16}),
+        new Spec(ReclaimerRules.Prefix, price: 14800, install: 1800, uninstall: 1200, repair: 4200, dismantle: 1200, new[]{4,2,6,4}, new[]{104,42,20,8,20}, new[]{92,34,10,2,48}),
         new Spec(CollectorRules.Prefix, price: 2400, install: 600, uninstall: 500, repair: 1800, dismantle: 350, new[]{0,1,2,2}, new[]{10,3,4,2,4}, new[]{8,2,2,0,9})
     };
 
@@ -56,7 +57,7 @@ internal static class EquipmentEconomy
             }
             else MaintenanceDefinitions.Restore(d, id);
             MaintenanceDefinitions.Dismantle(d, id, spec.Dismantle, Products(damaged ? spec.BrokenSalvage : spec.Salvage),
-                emptyInternalBin: spec.Prefix == Content.Prefix ? Content.InputBin : null);
+                emptyInternalBin: spec.Prefix == Content.Prefix ? Content.InputBin : spec.Prefix == ReclaimerRules.Prefix ? ReclaimerRules.InputBin : null);
             var mount = d.Installables[spec.Prefix + state + (state.StartsWith("Installed") ? "Uninstall" : "Install")];
             mount.aToolCTsUse = new[] { "TIsToolMortorq" };
             mount.strCTThemMultCondTools = "IsToolMortorq";
@@ -70,6 +71,11 @@ internal static class EquipmentEconomy
         MaintenanceDefinitions.SetStat(d.Objects[ProcessRules.Residue], "StatBasePrice", .01);
         EquipmentSaveUpgrade.Register(d, section.strName, section.strName);
         EquipmentSaveUpgrade.Register(d, ProcessRules.Residue, ProcessRules.Residue);
+        var reclaimSection = d.Objects[ReclaimerRules.Section];
+        reclaimSection.aStartingConds = reclaimSection.aStartingConds.Concat(new[] { "IsCategoryIndustrialProducts=1x1", "IsSalvageValueHigh=1x1" }).ToArray();
+        MaintenanceDefinitions.SetStat(reclaimSection, "StatBasePrice", 6000);
+        MaintenanceDefinitions.Dismantle(d, ReclaimerRules.Section, 500, Products(new[]{52,21,10,4,10}));
+        EquipmentSaveUpgrade.Register(d, ReclaimerRules.Section, ReclaimerRules.Section);
         AddStock(d);
     }
 
@@ -90,6 +96,10 @@ internal static class EquipmentEconomy
         // Modest repaired stock at K-Leg offers a usable path without requiring a
         // journey to a specific system. Separate chances can produce both offers.
         Offer("ItmOKLGFixer", "Refurb", Content.Loose, .10, StockCondition.Refurbished);
+
+        Offer("ItmOKLGSupplyKioskInv", "ReclaimSection", ReclaimerRules.Section, .20, StockCondition.Refurbished);
+        Offer("ItmTraderSanDiegoHalvorsonInv", "ReclaimSection", ReclaimerRules.Section, .40, StockCondition.Refurbished);
+        Offer("ItmOKLGFixer", "ReclaimRefurb", ReclaimerRules.Prefix + "Loose", .10, StockCondition.Refurbished);
 
         void Offer(string merchant, string tag, string item, double chance, StockCondition condition) =>
             MarketStock.Add(d, merchant, "PhobosStock_" + tag + "_" + merchant + "_" + item, item, chance, condition);

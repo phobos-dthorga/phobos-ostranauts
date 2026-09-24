@@ -8,6 +8,7 @@ $gameRoot = (Resolve-Path -LiteralPath $OstranautsPath).Path
 & (Join-Path $PSScriptRoot 'export-shipbreaker-art.ps1')
 & (Join-Path $PSScriptRoot 'export-hull-intake-concepts.ps1') -Runtime
 & (Join-Path $PSScriptRoot 'export-collector-art.ps1')
+& (Join-Path $PSScriptRoot 'export-reclaimer-art.ps1')
 & dotnet build (Join-Path $repoRoot 'src/PhobosShipbreaker/PhobosShipbreaker.csproj') -c Release "-p:OstranautsPath=$gameRoot"
 if ($LASTEXITCODE -ne 0) { throw 'Shipbreaker build failed.' }
 & dotnet run --project (Join-Path $repoRoot 'tests/PhobosShipbreaker.Tests') -c Release "-p:OstranautsPath=$gameRoot"

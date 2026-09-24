@@ -86,7 +86,7 @@ foreach ($image in $artwork) {
 }
 $receipt = Get-Content -LiteralPath (Join-Path $backup 'receipt.json') -Raw | ConvertFrom-Json
 $expectedRecoveryFiles = @($receipt.Files | ForEach-Object { "$($_.Backup):$($_.Hash)" } | Sort-Object) -join "`n"
-Check (@(Get-ChildItem -LiteralPath (Join-Path $nativeRoot 'PhobosShipbreaker/images') -Recurse -Filter '*.png').Count -eq 27) 'Shipbreaker artwork missing from installation'
+Check (@(Get-ChildItem -LiteralPath (Join-Path $nativeRoot 'PhobosShipbreaker/images') -Recurse -Filter '*.png').Count -eq 30) 'Shipbreaker artwork missing from installation'
 Check ($receipt.Status -eq 'Verified files and load order' -and $receipt.Mods.Count -eq 3) 'Receipt incomplete'
 Check (@($receipt.ChangedFiles | Where-Object ExistedBefore).Count -eq 0) 'Fresh files not marked for recovery'
 $stamp = (Get-Item -LiteralPath $fresh.LoadOrderPath).LastWriteTimeUtc
@@ -208,17 +208,17 @@ Check ((InstalledFiles $incomplete) -eq $before) 'Missing English catalog partia
 # A coherent older provider package must still be rejected before any copying.
 # Only inert synthetic assemblies are built here; the installed game is untouched.
 $olderOutput = Join-Path $fixtures 'older-provider-output'
-& dotnet build (Join-Path $fixtureSource 'Fixture.csproj') -c Release -p:Version=0.4.99 -o $olderOutput --nologo -v quiet | Out-Null
+& dotnet build (Join-Path $fixtureSource 'Fixture.csproj') -c Release -p:Version=0.7.99 -o $olderOutput --nologo -v quiet | Out-Null
 if ($LASTEXITCODE -ne 0) { throw 'Could not build the inert older-provider fixture.' }
 $frameworkMetadataRelative = 'PhobosFramework-P0/Mods/PhobosFramework/mod_info.json'
 $frameworkDllRelative = 'PhobosFramework-P0/BepInEx/plugins/PhobosFramework/PhobosFramework.dll'
 $olderMetadata = Join-Path $badPackages $frameworkMetadataRelative
 $olderInfo = @(Get-Content -LiteralPath $olderMetadata -Raw | ConvertFrom-Json)
-$olderInfo[0].strModVersion = '0.4.99'
+$olderInfo[0].strModVersion = '0.7.99'
 ConvertTo-Json -InputObject $olderInfo | Set-Content -LiteralPath $olderMetadata
 Copy-Item -LiteralPath (Join-Path $olderOutput 'PhobosFramework.dll') -Destination (Join-Path $badPackages $frameworkDllRelative) -Force
-Fails { & $installer @incomplete | Out-Null } 'Selected equipment requires Phobos Framework 0.7.0'
-Check ((InstalledFiles $incomplete) -eq $before) 'Old pairing provider partially installed packages'
+Fails { & $installer @incomplete | Out-Null } 'Selected equipment requires Phobos Framework 0.8.0'
+Check ((InstalledFiles $incomplete) -eq $before) 'Auto Nav selection weakened the reclaimer provider minimum'
 foreach ($relative in @($frameworkMetadataRelative, $frameworkDllRelative)) {
     Copy-Item -LiteralPath (Join-Path $PackageRoot $relative) -Destination (Join-Path $badPackages $relative) -Force
 }

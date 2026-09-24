@@ -55,7 +55,8 @@
   Keep proposed assays/yields distinct from native evidence, preserve existing
   residue and saved-job meaning, and account for every product and remainder.
   See `docs/shipbreaking-material-processing-research.md` and
-  `docs/asteroid-life-support-research.md`; these machines/resources are research,
+  `docs/asteroid-life-support-research.md`. The combined scrap reclaimer is now
+  implemented as described below; ore and life-support processing remain research,
   not implemented features or verified integrations.
 - Future industrial chemical storage is documented in
   `docs/chemical-storage-and-process-fluids.md` (owner direction, 2026-09-24).
@@ -75,20 +76,18 @@
   inventory/build snapshots as historical; do not turn them into ordinary-save
   restrictions or claim prepared packages are installed. Include the player guide
   and its direct equipment links through the shared packaging helper.
-- Follow `docs/residue-material-contract.md` for the selected next processing
-  design (2026-09-24). Existing 13 kg residue stays unclassified and revision-1
-  jobs keep their original outputs. Reserved future residue/reject IDs are not
-  registered runtime content. The chosen future 13 kg feed contains 4 kg steel
-  class, 1 kg aluminium class and 8 kg unclassified matrix; one combined reclaimer
-  would recover 3 kg steel + 1 kg aluminium and retain 9 kg terminal rejects.
-  These are authored gameplay budgets, not a native assay. Add the consumer and
-  version-aware job handling before enabling that feed. Prefer one combined
-  shred/separation appliance unless separate stages create a useful choice.
-  Shipbreaker 0.6.1 implements version-aware wall jobs; see
-  `docs/processing-job-compatibility.md`. Keep published recipe entries immutable
-  and use the job's selected outputs for planning and completion. Only revision 1
-  is enabled until the reclaimer is ready. Reuse Framework's staged delivery;
-  extract shared job mechanics when a second real processor needs them.
+- Follow `docs/residue-material-contract.md` and `docs/scrap-reclaimer.md` for
+  the implemented 0.8.0 chain. Legacy 13 kg residue remains unclassified, and
+  started revision-1 wall jobs keep their exact outputs. Fresh revision-2 wall
+  jobs produce identified 13 kg feed; the combined 4 x 4 reclaimer returns
+  3 kg steel + 1 kg aluminium + 9 kg terminal rejects. These are authored
+  budgets, not native chemical assays. Never reroll rejects or convert old cargo.
+  Framework now owns shared immutable recipes, saved-job binding and mass checks;
+  content owns native keys, identities and balance. Default reclaimer operation
+  is 120 seconds / 12 kW, delivering heat into native room gas. Require enough
+  atmosphere/thermal headroom; do not treat vacuum as free cooling. Use explicit
+  paired output collectors; automatic reclaimer feed remains future work.
+  Preserve shared staged delivery and the native powered-job pause on reload.
 - Prefer extending existing mods over duplicating their systems. Steam Workshop
   dependencies are welcome. Refresh the inventory when it matters; see
   `docs/mod-extension-survey.md`. Use permissive mod licensing as the owner's

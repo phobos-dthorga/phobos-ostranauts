@@ -48,3 +48,9 @@ grabber generated with built-in Imagegen. Masters, prompts, SHA-256 hashes and c
 coordinates are in `assets/phobos-hull-intake/`. Runtime colour exports use mechanical
 nearest-neighbour sampling and binary alpha; flat normals are technical shader data.
 The same provenance and MIT-scope qualifications above apply. No game artwork is included.
+
+Shipbreaker 0.8.0 adds an original built-in Imagegen reclaimer sprite. The unchanged
+master, exact prompt, source hash and mechanical export details are retained in
+`assets/phobos-reclaimer/README.md`. No game or community art is bundled. The same
+MIT-scope and generated-art qualifications above apply. In-game visuals remain
+subject to owner review; installed/loose/damaged forms currently share a sprite.

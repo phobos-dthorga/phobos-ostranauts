@@ -1,7 +1,7 @@
 # Equipment economy and maintenance
 
 Research and implementation baseline: **2026-09-24**, Ostranauts **1.0.1.4**,
-BepInEx **5.4.23.5**. Candidate: Framework **0.7.0**, Shipbreaker **0.7.0**, Auto Nav **0.3.0**.
+BepInEx **5.4.23.5**. Candidate: Framework **0.8.0**, Shipbreaker **0.8.0**, Auto Nav **0.3.0**.
 These are implemented balance choices informed by local game/mod definitions;
 they are not measured gameplay outcomes. Gameplay validation remains pending.
 
@@ -23,6 +23,7 @@ definitions and runs offline checks; it neither launches nor modifies the game.
 | Exterior grabber | $6,400 / $258.55 | $1,600 / $167.15 |
 | Hull chute | $1,800 / $150.15 | $450 / $85.00 |
 | Residue collector | $2,400 / $88.50 | $600 / $41.45 |
+| Scrap reclaimer | $14,800 / $637.60 | $3,700 / $450.00 |
 | Auto Nav | $3,600 / $0.01 | $900 / $0.01 |
 
 These are **base values per complete object/batch**, not merchant quotes and not
@@ -83,6 +84,8 @@ Repair restores functionality, not the pristine designation.
 | Hull chute | 40 kg | $1,800 | $2,250 | $1,350 | $450 |
 | Residue collector | 20 kg | $2,400 | $3,000 | $1,800 | $600 |
 | Fixture assembly section | 80 kg | $4,800 | — | — | — |
+| Scrap reclaimer | 180 kg | $14,800 | $18,500 | $11,100 | $3,700 |
+| Reclaimer assembly section | 90 kg | $6,000 | — | — | — |
 | Auto Nav module | 0.4 kg | $3,600 | $4,500 | $2,700 | $900 |
 
 Installed and loose forms have the same base price. Uninstall before trading.
@@ -98,8 +101,8 @@ Native scrap and useful parts produced by the processor retain native prices.
 The hidden zero-mass feed is an internal system, not an item for sale.
 
 The legacy pulse-only Approach Assist stays an opt-in historical prototype; it
-does not get duplicate retail offers. Research-only shredders, recyclers, ores
-and transport concepts are not advertised as purchasable implemented equipment.
+does not get duplicate retail offers. The combined scrap reclaimer is implemented in 0.8.0. Research-only ore and
+chemical systems are not advertised as purchasable equipment.
 
 ## Merchants and rarity
 
@@ -331,3 +334,17 @@ in-game catalogue explaining stock locations and bills. We deliberately do not
 invent a second currency, universal retailer or new faction unlock for this first
 ordinary-play slice. Actual shop delivery space, repair-lot handling and crowded
 salvage output placement are the specific integration uncertainties to watch.
+
+## Reclaimer addition (0.8.0)
+
+The [reclaimer guide](scrap-reclaimer.md) contains its complete station offers,
+section/construction bills, 195-minute assembly work, service times, repair bill
+and mass-balanced dismantling rows. The generated value audit now includes this
+machine and its 90 kg sections. Its operating budget is a nominal 0.4 kWh / batch
+at default settings with 1.44 MJ delivered into native room atmosphere.
+
+New wall jobs produce identified R2 residue; old jobs and unclassified residue
+keep their original meaning. Identified residue and terminal rejects each cost
+$0.01 at definition level and are not retail products. The reclaimer recovers
+$11.90 of native metal per packet; process value addition is separate from the
+machine-dismantling loss requirement. Full details are in the material contract.

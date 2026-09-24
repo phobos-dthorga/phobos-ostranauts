@@ -78,5 +78,11 @@
   "Recipe.use_an_author_prefixed_identifier_containing_letters": "Use an author-prefixed identifier containing letters, digits and underscores.",
   "Recipe.use_up_to_eight_distinct_reusable_tool": "Use up to {0} distinct reusable tool triggers.",
   "Recipe.work_must_take_seconds_and_access_range": "Work must take 0..{0} seconds and access range must be 0..{1} tiles (exclusive of zero).",
-  "TransferClock.invalid_transfer_cycle": "Invalid transfer cycle."
+  "TransferClock.invalid_transfer_cycle": "Invalid transfer cycle.",
+  "ProcessRecipes.current_wall_recipe_is_not_registered": "Current process recipe is not registered",
+  "ProcessRecipes.invalid_wall_recipe_or_material_balance": "Invalid process recipe or material balance",
+  "ProcessRules.invalid_saved_progress_or_duration_panel_retained": "Invalid saved progress or duration; input retained. Cancel work explicitly to restart from zero.",
+  "ProcessRules.unsupported_saved_recipe_revision_panel_retained_restore": "Unsupported saved recipe revision {0}; input retained. Restore a supporting mod version, or explicitly cancel work to restart from zero.",
+  "ProcessRules.saved_duration_is_missing_panel_retained_cancel": "Saved duration is missing; input retained. Cancel work explicitly to restart from zero.",
+  "ProcessRules.incomplete_saved_job_panel_retained_cancel_work": "Incomplete saved job; input retained. Cancel work explicitly to restart from zero."
 }

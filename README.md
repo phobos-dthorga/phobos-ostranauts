@@ -89,8 +89,8 @@ with a smaller setup appropriate to this project's current scope.
 The locator proposal was set aside because an existing mod already meets the
 owner's immediate need and is being used now.
 Current development priority: powered shipbreaking and a reusable **Phobos Framework**
-that replaces our OCF/Salvage Workshop requirements. Framework **0.7.0** and
-Shipbreaker **0.7.0** include physical-item transfers and the approved exterior grabber / wall
+that replaces our OCF/Salvage Workshop requirements. Framework **0.8.0** and
+Shipbreaker **0.8.0** include physical-item transfers and the approved exterior grabber / wall
 chute / indoor processor layout, alongside independent construction at native
 tables. The [connected intake](docs/shipbreaker-hull-intake.md) is packaged for
 owner gameplay testing. The new [residue collector](docs/residue-collector.md)
@@ -101,9 +101,10 @@ and collection resumes manually. Cargo remains aboard; persistent ejection
 and a general conveyor network remain future work.
 Shipbreaker 0.6.1 adds [version-aware processing jobs](docs/processing-job-compatibility.md)
 so started panels retain their recipe outputs and duration through later updates.
-Revision 1 remains the only enabled panel recipe; the reclaimer is still planned.
+Version 0.8.0 starts new panels on revision 2, supplying the new scrap reclaimer;
+already-started revision-1 jobs retain their original outputs.
 The economy update adds merchant offers, mass-balanced maintenance and ordinary-save
-Auto Nav 0.3.0 using Framework 0.7.0. These are prepared versions; use installer
+Auto Nav 0.3.0 using Framework 0.8.0. These are prepared versions; use installer
 verification and in-game status commands to determine what is actually installed.
 Framework 0.2.1 subsequently fixes its false Missing status in the native mod
 menu; the owner confirmed the correction after restart on 2026-09-24.
@@ -126,3 +127,7 @@ Independent community project by Phobos A. D'thorga (phobos-dthorga).
 Not affiliated with or endorsed by Blue Bottle Games or Kitfox Games.
 
 Translation catalogs, language settings and contributor guidance: [Localization](docs/localization.md).
+
+Framework/Shipbreaker 0.8.0 adds the [scrap reclaimer](docs/scrap-reclaimer.md):
+new identified residue, useful recovered metals, retained rejects, room heat,
+normal merchant acquisition and shared saved-job handling. Prepared, not yet gameplay verified.

@@ -11,9 +11,9 @@ public static class CollectorRules
     public const double MachineKg = 20, PayloadKg = ProcessRules.LegacyResidueKg, CycleSeconds = 5, WorkingKW = 2, IdleKW = 0.05;
     public const int AccessRangeTiles = 2;
     public const double MaxPayloadKg = Capacity * PayloadKg;
-    public static readonly ItemDefinitionFilter Filter = new ItemDefinitionFilter(new[] { ProcessRules.Residue });
+    public static readonly ItemDefinitionFilter Filter = new ItemDefinitionFilter(new[] { ProcessRules.Residue, ReclaimerRules.Feedstock, ReclaimerRules.Reject });
     public static bool IsFamily(string? id) => id == Installed || id == Prefix + "Loose" ||
         id == Installed + "Dmg" || id == Prefix + "LooseDmg";
     public static bool Accepts(string? id, double kg, bool detached, bool empty, bool unstacked) =>
-        Filter.Allows(id) && ProcessRules.MassMatches(kg, PayloadKg) && detached && empty && unstacked;
+        Filter.Allows(id) && ProcessRules.MassMatches(kg, id == ReclaimerRules.Reject ? ReclaimerRules.RejectKg : PayloadKg) && detached && empty && unstacked;
 }

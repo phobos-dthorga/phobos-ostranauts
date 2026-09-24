@@ -48,7 +48,7 @@ internal sealed class CollectorPanel
         GUILayout.EndHorizontal();
         GUILayout.Label(sourceMode ? Text.Get("CollectorPanel.link_this_sender_to_a_receiving_collector") : Text.Get("CollectorPanel.link_this_receiver_to_a_sending_processor"));
         scroll = GUILayout.BeginScrollView(scroll);
-        var candidates = sourceMode ? CollectorService.Find() : ProcessingService.FindMachines().Where(p => p.strCODef == Content.Installed);
+        var candidates = sourceMode ? CollectorService.Find() : ProcessingService.FindMachines(true).Where(ProcessingService.IsInstalledProcessor);
         foreach (var candidate in candidates)
         {
             if (GUILayout.Button(new GUIContent(Text.Get("CollectorPanel.link", CollectorService.Label(candidate)), candidate.strID)))

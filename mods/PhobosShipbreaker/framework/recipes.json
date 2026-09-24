@@ -259,6 +259,99 @@
       ],
       "nameKey": "Recipe.PhobosBuildResidueCollector.name",
       "descriptionKey": "Recipe.PhobosBuildResidueCollector.description"
+    },
+    {
+      "id": "PhobosBuildReclaimerSection",
+      "name": "Scrap Reclaimer Assembly Section",
+      "description": "Build one 90 kg, 4 x 4 unpowered section. Two sections make a complete enclosed scrap reclaimer.",
+      "stationIds": [
+        "ItmTable01",
+        "ItmTable02"
+      ],
+      "ingredients": [
+        {
+          "trigger": "TIsScrapSteel",
+          "item": "ItmScrapSteel",
+          "count": 56,
+          "unitMassKg": 1
+        },
+        {
+          "trigger": "TIsScrapAluminum",
+          "item": "ItmScrapAluminum",
+          "count": 26,
+          "unitMassKg": 1
+        },
+        {
+          "trigger": "TIsPartsMechSmall",
+          "item": "ItmPartsMechSmall01",
+          "count": 12,
+          "unitMassKg": 0.5
+        },
+        {
+          "trigger": "TIsPartsElecSmall",
+          "item": "ItmPartsElecSmall01",
+          "count": 4,
+          "unitMassKg": 0.5
+        }
+      ],
+      "outputs": [
+        {
+          "item": "PhobosScrapReclaimerSection",
+          "count": 1,
+          "unitMassKg": 90
+        }
+      ],
+      "workSeconds": 4500,
+      "range": 2,
+      "optionalStationIds": [
+        "ItmWorkbench01",
+        "SWB_WorkbenchInstalled"
+      ],
+      "legacyActionIds": [],
+      "toolTriggers": [
+        "TIsToolMortorq",
+        "TIsToolSoldering"
+      ],
+      "nameKey": "Recipe.PhobosBuildReclaimerSection.name",
+      "descriptionKey": "Recipe.PhobosBuildReclaimerSection.description"
+    },
+    {
+      "id": "PhobosBuildReclaimer",
+      "name": "Scrap Reclaimer",
+      "description": "Join two 90 kg sections into a 180 kg, 4 x 4 reclaimer. Processes identified panel residue into steel, aluminium and retained rejects. Control Panel opens the feed and controls; ordinary Inventory holds products. Requires a cool room atmosphere and separate electrical conduit.",
+      "stationIds": [
+        "ItmTable01",
+        "ItmTable02"
+      ],
+      "ingredients": [
+        {
+          "trigger": "PhobosScrapReclaimerTSection",
+          "item": "PhobosScrapReclaimerSection",
+          "count": 2,
+          "requireEmpty": true,
+          "unitMassKg": 90
+        }
+      ],
+      "outputs": [
+        {
+          "item": "PhobosScrapReclaimerLoose",
+          "count": 1,
+          "unitMassKg": 180
+        }
+      ],
+      "workSeconds": 2700,
+      "range": 2,
+      "optionalStationIds": [
+        "ItmWorkbench01",
+        "SWB_WorkbenchInstalled"
+      ],
+      "legacyActionIds": [],
+      "toolTriggers": [
+        "TIsToolMortorq",
+        "TIsToolSoldering"
+      ],
+      "nameKey": "Recipe.PhobosBuildReclaimer.name",
+      "descriptionKey": "Recipe.PhobosBuildReclaimer.description"
     }
   ]
 }

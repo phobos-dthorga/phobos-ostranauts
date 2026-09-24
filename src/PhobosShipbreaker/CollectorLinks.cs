@@ -10,7 +10,7 @@ internal sealed partial class CollectorService
     internal const string ReceivePort = "PhobosShipbreaker.ResidueIn";
     private static MaterialPort Sender(CondOwner co) => new MaterialPort(co.strID, SendPort, co.mapGUIPropMaps);
     private static MaterialPort Receiver(CondOwner co) => new MaterialPort(co.strID, ReceivePort, co.mapGUIPropMaps);
-    private static bool IsSource(CondOwner co) => Content.IsMachine(co.strCODef);
+    private static bool IsSource(CondOwner co) => ProcessingService.IsProcessor(co.strCODef);
     private static MaterialPort Endpoint(CondOwner co) => IsSource(co) ? Sender(co) : Receiver(co);
     private static CondOwner? Resolve(string id) => DataHandler.mapCOs != null && DataHandler.mapCOs.TryGetValue(id, out var co) &&
         co != null && !co.bDestroyed ? co : null;

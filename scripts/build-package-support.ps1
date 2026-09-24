@@ -11,7 +11,7 @@ function Copy-PhobosPlayerGuides {
         'vanilla-economy-audit', 'shipbreaker-first-build', 'shipbreaker-hull-intake',
         'residue-collector', 'auto-navigate-adaptation', 'residue-material-contract',
         'shipbreaking-material-processing-research', 'material-disposal-port-research',
-        'processing-job-compatibility', 'localization'
+        'processing-job-compatibility', 'localization', 'scrap-reclaimer'
     )) {
         Copy-Item -LiteralPath (Join-Path $RepoRoot "docs/$name.md") -Destination $Package
     }

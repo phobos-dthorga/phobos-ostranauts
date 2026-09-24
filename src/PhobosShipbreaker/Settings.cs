@@ -9,6 +9,8 @@ namespace PhobosShipbreaker;
 internal sealed class Settings
 {
     internal double CycleSeconds { get; }
+    internal double ReclaimerSeconds { get; }
+    internal double ReclaimerKW { get; }
     internal double WorkingKW { get; }
     internal double IdleKW { get; }
     internal bool ContinueQueue { get; }
@@ -20,6 +22,8 @@ internal sealed class Settings
 
     internal Settings(ConfigFile config)
     {
+        ReclaimerSeconds = Number(config, "Reclaimer", "CycleSeconds", ReclaimerRules.CycleSeconds, 30, ProcessRules.MaxJobSeconds, Text.Get("Reclaimer.setting_seconds"));
+        ReclaimerKW = Number(config, "Reclaimer", "WorkingKilowatts", ReclaimerRules.WorkingKW, 1, 100, Text.Get("Reclaimer.setting_power"));
         CycleSeconds = Number(config, "Processing", "CycleSeconds", ProcessRules.CycleSeconds, ProcessRules.MinimumConfiguredCycleSeconds, ProcessRules.MaxJobSeconds,
             Text.Get("Settings.seconds_of_powered_work_for_a_new"));
         TransferSeconds = Number(config, "Intake", "TransferSeconds", IntakeRules.TransferSeconds, 1, 60,

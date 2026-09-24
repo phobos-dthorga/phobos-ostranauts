@@ -1,9 +1,10 @@
 # Processing jobs across recipe updates
 
 Implemented in **Shipbreaker 0.6.1**, using **Phobos Framework 0.6.0**.
-New wall jobs still use **revision 1** and produce the same 11 kg of recovered
-stock plus the existing 13 kg mixed residue. No new feedstock or reclaimer is
-enabled by this update.
+This document records the original compatibility mechanism. **Current 0.8.0**
+adds the [reclaimer](scrap-reclaimer.md) and revision 2 for new wall jobs. Started
+revision-1 jobs still produce their original 11 kg recovered stock and 13 kg
+unclassified residue. Reclaimer jobs use their own revision catalog.
 
 ## Saved contract
 
@@ -45,15 +46,16 @@ Start.
 
 ## Scope and ownership
 
-Recipe selection is currently a wall-processing concern in Shipbreaker. The
+Recipe identities remain a Shipbreaker concern. Framework 0.8.0 now owns the
+shared immutable catalog, job recovery and material checks used by both processors. The
 existing Framework batch placement and staged delivery services remain shared;
 products are placed before the original panel is retired, with rollback while
 the input survives. This is not crash-atomic game saving.
 
-Extract the common job mechanics into Framework when the reclaimer supplies the
-second actual consumer. Keep revision identities, input rules and material
-budgets in the content mod. This round adds no generic process registry, new
-Framework dependency version, chemical system or heat simulation.
+The second actual consumer now shares those mechanics through Framework. Keep
+revision identities, input rules and material budgets in the content mod.
+Version 0.8.0 requires Framework 0.8.0 and adds the reclaimer's native room-heat
+adapter. It adds no generic process registry or chemical system.
 
 Duration is job-specific. Electrical demand still follows the documented
 startup settings for all panels; this update does not promise that every balance
@@ -64,7 +66,8 @@ setting is saved with each job.
 The logic checks simulate a newer default alongside revision 1, then exercise
 fresh/started selection, zero-progress jobs, old missing durations, corrupt and
 unknown records, interruption, blocked output, original residue delivery and
-duplicate-completion prevention. The second recipe exists only in test fixtures.
+duplicate-completion prevention. Version 0.8.0 also checks the actual revision-2
+panel recipe and the reclaimer's separate recipe catalog.
 
 Native integration checks round-trip the game's `JsonItem` condition overrides
 and use real output definitions for recipe-specific footprint planning. These
@@ -74,8 +77,5 @@ game assembly SHA-256 on 2026-09-24:
 The owner's earlier screenshots report game 1.0.1.4; that is not a fresh runtime
 version check.
 
-Next, settle the combined reclaimer's machine mass, construction/service bills,
-price, duration, power and heat destination. Follow the
-[residue material contract](residue-material-contract.md): add the characterised
-feed and its useful consumer together, preserve revision-1 jobs and legacy
-residue, and enable a new producer only when its consumer is usable.
+The operating budget and implementation are now in the [reclaimer guide](scrap-reclaimer.md).
+Live connected-workflow and thermal checks remain owner-run work.

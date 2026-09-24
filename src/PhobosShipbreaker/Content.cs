@@ -39,7 +39,7 @@ internal static class Content
                 log(Status + "\n" + DependencyStatus);
                 return;
             }
-            var prepared = Prepare(Plugin.Options.ControlsKey.ToString(), Plugin.Options.CycleSeconds, Plugin.Options.IdleKW, Plugin.Options.WorkingKW, Plugin.Options.CollectorKW);
+            var prepared = Prepare(Plugin.Options.ControlsKey.ToString(), Plugin.Options.CycleSeconds, Plugin.Options.IdleKW, Plugin.Options.WorkingKW, Plugin.Options.CollectorKW, Plugin.Options.ReclaimerKW);
             prepared.Publish();
             ConstructionRegistry.RegisterPack(Plugin.Id, NativeAdapter.RecipePath);
             definitionsRegistered = true;
@@ -54,7 +54,7 @@ internal static class Content
         }
     }
 
-    internal static NativeDefinitions Prepare(string controlsKey = "F9", double cycleSeconds = 60, double idleKW = 0.12, double workingKW = 30, double collectorKW = CollectorRules.WorkingKW)
+    internal static NativeDefinitions Prepare(string controlsKey = "F9", double cycleSeconds = 60, double idleKW = 0.12, double workingKW = 30, double collectorKW = CollectorRules.WorkingKW, double reclaimerKW = ReclaimerRules.WorkingKW)
     {
         var prepared = MachineDefinitions.Create();
 
@@ -114,6 +114,7 @@ internal static class Content
         prepared.Objects[residue.strName] = residue;
         IntakeDefinitions.Add(prepared);
         CollectorDefinitions.Add(prepared, collectorKW);
+        ReclaimerDefinitions.Add(prepared, reclaimerKW);
         EquipmentEconomy.Apply(prepared);
         return prepared;
     }
@@ -125,7 +126,7 @@ internal static class Content
         Ready = missing.Count == 0 && ConstructionRegistry.Ready(Plugin.Id);
         Status = Ready ? Text.Get("Content.shipbreaker_definitions_ready") :
             Text.Get("Content.construction_registration_incomplete_processing_disabled_use_phobosshipbreaker");
-        DependencyStatus += "\n" + (Ready ? Text.Get("Content.all_five_construction_recipes_registered_in_game")
+        DependencyStatus += "\n" + (Ready ? Text.Get("Content.all_construction_recipes_registered_in_game", DependencyContract.Recipes.Length)
             : Text.Get("Content.inspect_the_phobos_framework_log_and_matching", string.Join("\n", missing), ConstructionRegistry.Status(Plugin.Id)));
         log(Status + "\n" + DependencyStatus);
     }

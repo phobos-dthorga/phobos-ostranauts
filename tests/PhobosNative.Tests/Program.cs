@@ -51,6 +51,7 @@ Check(!DataHandler.dictCOs.ContainsKey("SWB_SorterInstalled"), "No Workshop temp
 var prepared = Content.Prepare();
 prepared.Publish();
 ProcessingSaveChecks.Run(Check, Throws);
+ReclaimerNativeChecks.Run(prepared, Check);
 // Exercise the game's own data-only trigger evaluator against its actual wall
 // definition: the ordinary solid-container filter caused the grey inventory bug.
 var wallData = new DataCO(DataHandler.dictCOs[ProcessRules.Wall]);
@@ -69,7 +70,7 @@ foreach (string forbidden in new[] { "IsInstalled", "IsOversized" })
 Check(!feedTrigger.TriggeredDataCO(new DataCO(DataHandler.dictCOs[Content.Loose]), false), "Cumbersome machinery cannot enter the wall feed");
 foreach (var machine in prepared.Objects.Values.Where(x => Content.IsMachine(x.strName)))
     Check(!machine.dictSlotsLayout.ContainsKey(Content.InputSlot), "Native feed window retains its title on " + machine.strName);
-Check(prepared.Objects.Count == 20 && prepared.Installables.Count == 49, "Four complete machine families plus section salvage and full maintenance");
+Check(prepared.Objects.Count == 28 && prepared.Installables.Count == 62, "Five complete machine families, two sections and three residue streams");
 Check(prepared.Slots[Content.InputSlot].bHide, "Ordinary processor Inventory no longer exposes two grids");
 var grabber = prepared.Objects[IntakeRules.Grabber + "Installed"];
 var grabberTrigger = DataHandler.dictCTs[grabber.strContainerCT];

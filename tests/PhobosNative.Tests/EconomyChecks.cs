@@ -58,7 +58,7 @@ internal static class EconomyChecks
         check(updated.aLoots.Length == original.aLoots.Length, "Repeat stock registration does not grow merchant table");
         foreach (var offer in repeat.Loot.Values.Where(l => l.strName.StartsWith("PhobosStock_")))
             check(offer.aCOs.Length == 1 && offer.aCOs[0].EndsWith("x1"), "Each merchant offer is bounded to one object");
-        foreach (string id in EquipmentEconomy.Machines.Select(s => s.Prefix + "Loose").Concat(new[]{ProcessRules.AssemblySection}))
+        foreach (string id in EquipmentEconomy.Machines.Select(s => s.Prefix + "Loose").Concat(new[]{ProcessRules.AssemblySection, ReclaimerRules.Section}))
         {
             var item = new DataCO(DataHandler.dictCOs[id]);
             check(DataHandler.dictCTs["TIsBarterSanDiegoHalvorsonSell"].TriggeredDataCO(item,false), "Industrial seller permits the stocked equipment: " + id);

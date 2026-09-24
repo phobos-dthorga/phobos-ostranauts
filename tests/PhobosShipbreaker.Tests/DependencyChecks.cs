@@ -15,7 +15,7 @@ internal static class DependencyChecks
         check(DependencyContract.FrameworkProblem(new Version(0, 3, 0)) != null, "Collector needs shared filter, clock and route helpers");
         check(DependencyContract.FrameworkProblem(new Version(0, 4, 0)) != null, "Saved pairing needs the shared port API");
         check(DependencyContract.FrameworkProblem(new Version(0, 6, 0)) != null, "Translation-aware equipment requires the shared localization API");
-        foreach (var version in new[] { new Version(0, 7, 0), new Version(0, 7, 1), new Version(1, 0, 0) })
+        foreach (var version in new[] { new Version(0, 8, 0), new Version(0, 8, 1), new Version(1, 0, 0) })
             check(DependencyContract.FrameworkProblem(version) == null, "No invented upper version or age cutoff: " + version);
 
         var tables = DependencyContract.Required.ToDictionary(g => g.Table, g => g.Names.ToHashSet());
@@ -30,8 +30,8 @@ internal static class DependencyChecks
             tables[group.Table].Add(id);
         }
 
-        check(DependencyContract.MissingRecipes(_ => false).Count == 5, "All five construction recipes must register");
-        check(DependencyContract.MissingRecipes(id => id == DependencyContract.Recipes[0]).Count == 4, "A partially registered construction chain is blocked");
+        check(DependencyContract.MissingRecipes(_ => false).Count == 7, "All seven construction recipes must register");
+        check(DependencyContract.MissingRecipes(id => id == DependencyContract.Recipes[0]).Count == 6, "A partially registered construction chain is blocked");
         check(DependencyContract.MissingRecipes(id => DependencyContract.Recipes.Contains(id)).Count == 0, "All construction stages are available");
 
         var first = new Dictionary<string, int> { ["existing"] = 10, ["foreign"] = 20 };

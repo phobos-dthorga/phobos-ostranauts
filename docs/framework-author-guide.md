@@ -1,4 +1,4 @@
-# Phobos Framework 0.7.0 — author guide
+# Phobos Framework 0.8.0 — author guide
 
 This experimental Ostranauts library supplies definition registration, native
 mass-balanced construction, grid placement, production completion and physical transfers,
@@ -42,7 +42,7 @@ not distribute another provider copy. Declare a BepInEx dependency:
 using BepInEx;
 using Phobos.Ostranauts.Framework;
 
-[BepInDependency(FrameworkInfo.PluginId, "0.7.0")]
+[BepInDependency(FrameworkInfo.PluginId, "0.8.0")]
 // Other normal BepInPlugin/BepInProcess attributes belong on your plugin here.
 public sealed class MyPlugin : BaseUnityPlugin { }
 ```
@@ -312,3 +312,19 @@ have no arbitrary condition loot. Consumer prices, repair bills, yields and stoc
 locations belong in the consumer. See [current consumer balance](equipment-economy.md).
 
 Translation catalogs, language settings and contributor guidance: [Localization](localization.md).
+
+## Shared processing jobs (0.8.0)
+
+`Phobos.Ostranauts.Framework.Processing` provides `ProductSpec`, immutable
+`ProcessRecipe` (explicit input mass), `ProcessRecipeCatalog`, `ProcessJob` and
+`ProcessMaterial`. Both wall processing and the reclaimer use these. Each content
+consumer owns its catalog and stable native save keys. Only fresh inputs select
+Current; saved jobs resolve their exact revision and duration. No job is advanced
+merely by reading it. A restored job is a session object; content owns permission
+to resume after loading. Validate actual item identity, mass and readiness before
+advancing and committing through existing staged batch delivery.
+
+Keep historic recipes immutable. Opt into `legacySeconds` only for a revision
+actually shipped without saved duration. Do not assume a different machine's
+revision 1 shares that exception. Content owns cooling, power, eligibility, art
+and balance; this is not a universal process scheduler or fluid system.

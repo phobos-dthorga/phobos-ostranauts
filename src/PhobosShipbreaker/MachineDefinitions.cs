@@ -63,12 +63,12 @@ internal static class MachineDefinitions
         }
     }
 
-    private static void AddFeed(NativeDefinitions d)
+    internal static void AddFeed(NativeDefinitions d, string P = "PhobosShipbreaker", string feedCondition = "IsWall1x1")
     {
         // Native ordinary walls are cumbersome. Keep native containment exclusions,
         // then narrow acceptance to wall panels; FeedPatch enforces identity/mass/count.
         d.Triggers.Add(P + "TFeed", new CondTrigger { strName = P + "TFeed", fChance = 1, fCount = 1,
-            bAND = true, aReqs = new[] { "IsWall1x1" }, aForbids = Array.Empty<string>(),
+            bAND = true, aReqs = new[] { feedCondition }, aForbids = Array.Empty<string>(),
             aTriggers = new[] { "TIsFitContainerSolidCumbersome" } });
         d.Objects.Add(P + "InputBin", new JsonCondOwner { strName = P + "InputBin", strNameFriendly = Text.Get("MachineDefinitions.wall_panel_feed"),
             strNameShort = Text.Get("MachineDefinitions.wall_panel_feed"), strType = "Item", strItemDef = "Blank", strPortraitImg = "blank",

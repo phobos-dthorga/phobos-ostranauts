@@ -186,7 +186,7 @@ internal sealed partial class ProcessingService
         if (target?.objContainer == null || CrewSim.inventoryGUI == null) { state.Status = Text.Get("IntakeService.inventory_is_unavailable"); return false; }
         // Explicitly opens the hidden internal feed as its own titled window.
         CrewSim.inventoryGUI.SpawnInventoryWindow(target, InventoryWindowType.Container, null);
-        state.Status = manualFeed ? Text.Get("IntakeService.manual_feed_opened_load_separate_kg_ordinary") : Text.Get("IntakeService.product_tray_opened");
+        state.Status = manualFeed && IsReclaimer(processor) ? Text.Get("Reclaimer.load_feed") : manualFeed ? Text.Get("IntakeService.manual_feed_opened_load_separate_kg_ordinary") : Text.Get("IntakeService.product_tray_opened");
         return true;
     }
 }

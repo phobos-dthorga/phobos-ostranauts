@@ -241,8 +241,9 @@ Build one useful process rather than pre-implementing all of those systems.
    only when another concrete machine needs a new endpoint.
 3. Implement the [selected residue/reclaimer contract](residue-material-contract.md)
    with a useful consumer before enabling its new feed. Version-aware jobs are
-   implemented in Shipbreaker 0.6.1; machine operating budgets remain to be settled. Combine
-   shredding and separation in one appliance; preserve the old wall recipe and residue.
+   implemented in Shipbreaker 0.6.1. The [combined reclaimer](scrap-reclaimer.md) and
+   its operating budget are implemented in 0.8.0; preserve legacy jobs and residue.
+   Owner gameplay evaluation is now the next evidence needed.
 4. In parallel design terms, take native water ice through a single useful water
    recovery batch. Confirm a supported storage handoff before implementing it.
 5. Add meteoric-iron processing, nitrogen-bearing feed or further refining when

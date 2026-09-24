@@ -1,3 +1,4 @@
+using Phobos.Ostranauts.Framework.Processing;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,17 +24,25 @@ internal sealed partial class ProcessingService
     private readonly Settings options;
     internal ProcessingService(Action<string> log, Settings options) { this.log = log; this.options = options; }
 
+    internal static bool IsProcessor(string? id) => Content.IsMachine(id) || ReclaimerRules.IsFamily(id);
+    internal static bool IsReclaimer(CondOwner machine) => ReclaimerRules.IsFamily(machine.strCODef);
+    internal static bool IsInstalledProcessor(CondOwner machine) => machine.strCODef == Content.Installed || machine.strCODef == ReclaimerRules.Installed;
+    private static string InputDefinition(CondOwner machine) => IsReclaimer(machine) ? ReclaimerRules.Feedstock : ProcessRules.Wall;
+    private static ProcessRecipeCatalog Recipes(CondOwner machine) => IsReclaimer(machine) ? ReclaimerRules.Recipes : ProcessRecipes.WallPanels;
+    private double Cycle(CondOwner machine) => IsReclaimer(machine) ? options.ReclaimerSeconds : options.CycleSeconds;
     internal static CondOwner? Feed(CondOwner machine) => machine.compSlots?
-        .GetCOs(Content.InputSlot, true, null)?.FirstOrDefault(c => c != null && c.strCODef == Content.InputBin);
-
-    internal static bool ValidPanel(CondOwner? panel) => panel != null && !panel.bDestroyed &&
-        panel.strCODef == ProcessRules.Wall && !panel.HasCond("IsInstalled") &&
-        panel.coStackHead == null && (panel.aStack == null || panel.aStack.Count == 0) &&
-        panel.GetCOsSafe(true).Count == 0 && ProcessRules.MassMatches(panel.GetTotalMass(), ProcessRules.InputKg);
-
-    internal static bool CanFeed(CondOwner bin, CondOwner panel) => ValidPanel(panel) &&
-        bin.objContainer != null && (bin.objContainer.ContainedCOs.Contains(panel) ||
-        bin.objContainer.ContainedCOs.Count < ProcessRules.FeedCapacity);
+        .GetCOs(IsReclaimer(machine) ? ReclaimerRules.InputSlot : Content.InputSlot, true, null)?
+        .FirstOrDefault(c => c != null && c.strCODef == (IsReclaimer(machine) ? ReclaimerRules.InputBin : Content.InputBin));
+    private static bool ValidInput(CondOwner? input, string id, double kg) => input != null && !input.bDestroyed &&
+        input.strCODef == id && !input.HasCond("IsInstalled") && input.coStackHead == null &&
+        (input.aStack == null || input.aStack.Count == 0) && input.GetCOsSafe(true).Count == 0 &&
+        ProcessRules.MassMatches(input.GetTotalMass(), kg);
+    internal static bool ValidPanel(CondOwner? input) => ValidInput(input, ProcessRules.Wall, ProcessRules.InputKg);
+    private static bool ValidInput(CondOwner machine, CondOwner? input) => ValidInput(input, InputDefinition(machine), Recipes(machine).Current.InputKg);
+    internal static bool CanFeed(CondOwner bin, CondOwner input) =>
+        ValidInput(input, bin.strCODef == ReclaimerRules.InputBin ? ReclaimerRules.Feedstock : ProcessRules.Wall,
+            bin.strCODef == ReclaimerRules.InputBin ? ReclaimerRules.InputKg : ProcessRules.InputKg) &&
+        bin.objContainer != null && (bin.objContainer.ContainedCOs.Contains(input) || bin.objContainer.ContainedCOs.Count < ProcessRules.FeedCapacity);
 
     private static string PanelProblem(CondOwner panel)
     {
@@ -47,7 +56,7 @@ internal sealed partial class ProcessingService
     private static string? MachineProblem(CondOwner machine)
     {
         if (!Content.Ready) return Content.Status;
-        if (machine == null || machine.bDestroyed || machine.strCODef != Content.Installed ||
+        if (machine == null || machine.bDestroyed || !IsInstalledProcessor(machine) ||
             !machine.HasCond("IsInstalled")) return Text.Get("ProcessingService.install_the_undamaged_fixture_first");
         if (machine.HasCond("IsDamaged")) return Text.Get("ProcessingService.repair_the_fixture_first");
         if (machine.ship == null || (int)machine.ship.LoadState < 2) return Text.Get("ProcessingService.ship_is_not_loaded");
@@ -74,10 +83,11 @@ internal sealed partial class ProcessingService
         if (problem != null) { state.Status = problem; return false; }
         try
         {
-            bool connected = ArmIntake(machine, out string intakeMessage);
+            string intakeMessage = "";
+            bool connected = !IsReclaimer(machine) && ArmIntake(machine, out intakeMessage);
             if (state.Job?.Running == true) return true;
             if (Feed(machine)!.objContainer.ContainedCOs.Count == 0)
-            { state.Status = connected ? Text.Get("ProcessingService.pipeline_started_waiting_for_the_grabber") : Text.Get("ProcessingService.use_manual_feed_for_standalone_processing", intakeMessage); return connected; }
+            { state.Status = IsReclaimer(machine) ? Text.Get("Reclaimer.load_feed") : connected ? Text.Get("ProcessingService.pipeline_started_waiting_for_the_grabber") : Text.Get("ProcessingService.use_manual_feed_for_standalone_processing", intakeMessage); return connected; }
             bool started = StartNext(machine, state);
             if (!started) DisarmIntake(machine);
             return started;
@@ -93,9 +103,9 @@ internal sealed partial class ProcessingService
         if (inputs == null || inputs.Count == 0) { state.Status = Text.Get("ProcessingService.feed_empty_waiting_for_the_grabber_or"); return false; }
         // A saved, partly processed panel resumes before fresh stock. Never transfer its progress.
         var input = NextInput(inputs)!;
-        if (!ValidPanel(input)) { state.Status = PanelProblem(input); return false; }
+        if (!ValidInput(machine, input)) { state.Status = IsReclaimer(machine) ? Text.Get("Reclaimer.invalid_feed") : PanelProblem(input); return false; }
         ProcessJob job;
-        try { job = ReadJob(input); }
+        try { job = ReadJob(machine, input); }
         catch (ArgumentException ex) { state.Status = ex.Message; return false; }
         if (!CanFitBatch(machine, job.Recipe)) { state.Status = Text.Get("ProcessingService.output_tray_needs_space_for_recipe_revision", job.Recipe.Revision); return false; }
         state.Job = job;
@@ -113,9 +123,9 @@ internal sealed partial class ProcessingService
             c.GetCondAmount(ProcessRules.Progress) != 0 || c.GetCondAmount(ProcessRules.Duration) != 0)
         .ThenByDescending(c => c.GetCondAmount(ProcessRules.Progress)).FirstOrDefault();
 
-    private ProcessJob ReadJob(CondOwner input) => ProcessJob.CreateOrResume(ProcessRecipes.WallPanels,
+    private ProcessJob ReadJob(CondOwner machine, CondOwner input) => ProcessJob.CreateOrResume(Recipes(machine),
         input.strID, input.GetCondAmount(ProcessRules.Progress), input.GetCondAmount(ProcessRules.Revision),
-        input.GetCondAmount(ProcessRules.Duration), options.CycleSeconds);
+        input.GetCondAmount(ProcessRules.Duration), Cycle(machine));
 
     private static bool MatchesJob(CondOwner input, ProcessJob job) => job.MatchesSaved(input.strID,
         input.GetCondAmount(ProcessRules.Progress), input.GetCondAmount(ProcessRules.Revision),
@@ -131,7 +141,7 @@ internal sealed partial class ProcessingService
         // Include saved jobs after reload, when no session binding exists yet.
         foreach (var input in Feed(machine)?.objContainer?.ContainedCOs ?? Array.Empty<CondOwner>())
         {
-            if (input.strCODef != ProcessRules.Wall) continue;
+            if (input.strCODef != InputDefinition(machine)) continue;
             input.ZeroCondAmount(ProcessRules.Progress); input.ZeroCondAmount(ProcessRules.Revision);
             input.ZeroCondAmount(ProcessRules.Duration);
         }
@@ -149,13 +159,19 @@ internal sealed partial class ProcessingService
 
     internal bool BeforePower(CondOwner machine)
     {
-        if (!Content.IsMachine(machine.strCODef)) return false;
+        if (!IsProcessor(machine.strCODef)) return false;
         if (!sessions.TryGetValue(machine, out var state) || state.Job?.Running != true)
         { SetWorking(machine, false); return false; }
+        if (IsReclaimer(machine))
+        {
+            double step = StarSystem.fEpoch - state.Last;
+            if (double.IsNaN(step) || double.IsInfinity(step) || step < 0 || step > state.Job.Duration)
+            { Stop(machine, state, Text.Get("ProcessingService.time_gap_progress_retained_resume_when_ready")); return false; }
+        }
         var bin = Feed(machine);
         bool bound = state.Input != null && bin?.objContainer?.ContainedCOs.Contains(state.Input) == true;
         string? problem = MachineProblem(machine);
-        if (!bound || !ValidPanel(state.Input) || problem != null)
+        if (!bound || !ValidInput(machine, state.Input) || problem != null)
         { Stop(machine, state, problem ?? Text.Get("ProcessingService.input_changed_or_was_removed_queue_paused")); return false; }
         if (!MatchesJob(state.Input!, state.Job))
         { Stop(machine, state, Text.Get("ProcessingService.saved_job_changed_queue_paused_without_overwriting")); return false; }
@@ -164,9 +180,9 @@ internal sealed partial class ProcessingService
         return machine.HasCond(ProcessRules.Working);
     }
 
-    internal void AfterPower(CondOwner machine, bool workingRequest)
+    internal void AfterPower(CondOwner machine, bool workingRequest, double? poweredSeconds = null)
     {
-        if (!Content.IsMachine(machine.strCODef) || !sessions.TryGetValue(machine, out var state) || state.Job?.Running != true) return;
+        if (!IsProcessor(machine.strCODef) || !sessions.TryGetValue(machine, out var state) || state.Job?.Running != true) return;
         try
         {
             double now = StarSystem.fEpoch, elapsed = now - state.Last;
@@ -174,7 +190,7 @@ internal sealed partial class ProcessingService
             if (!BeforePower(machine)) return;
             var input = state.Input!;
             bool powered = workingRequest && machine.HasCond("IsPowered");
-            state.Job.Advance(input.strID, elapsed, powered, true);
+            state.Job.Advance(input.strID, poweredSeconds.HasValue ? Math.Min(elapsed, poweredSeconds.Value) : elapsed, powered, true);
             input.SetCondAmount(ProcessRules.Progress, state.Job.Progress);
             if (!state.Job.Running) { Stop(machine, state, Text.Get("ProcessingService.time_gap_progress_retained_resume_when_ready")); return; }
             state.Status = powered ? Text.Get("ProcessingService.processing_wall_panel") : Text.Get("ProcessingService.waiting_for_power_progress_retained");
@@ -211,8 +227,8 @@ internal sealed partial class ProcessingService
         try
         {
             // Read without stamping conditions or granting permission to run after reload.
-            var job = input == null ? null : ReadJob(input);
-            work = Text.Get("ProcessingService.recipe_revision_work_s", (job?.Recipe.Revision ?? ProcessRecipes.WallPanels.Current.Revision), (job?.Progress ?? 0), (job?.Duration ?? options.CycleSeconds));
+            var job = input == null ? null : ReadJob(machine, input);
+            work = Text.Get("ProcessingService.recipe_revision_work_s", (job?.Recipe.Revision ?? Recipes(machine).Current.Revision), (job?.Progress ?? 0), (job?.Duration ?? Cycle(machine)));
         }
         catch (ArgumentException ex) { work = ex.Message; }
         return Text.Get("ProcessingService.feed_panels", state.Status, (inputs?.Count ?? 0), work, (machine.HasCond("IsPowered") ? Text.Get("ProcessingService.powered") : Text.Get("ProcessingService.no_power")), ProcessRules.FeedCapacity);
@@ -227,6 +243,8 @@ internal sealed partial class ProcessingService
         sessions = new ConditionalWeakTable<CondOwner, Session>();
         intakes = new ConditionalWeakTable<CondOwner, IntakeSession>();
     }
+
+    internal void Block(CondOwner machine, string reason) => Stop(machine, sessions.GetValue(machine, _ => new Session()), reason);
 
     internal void Fault(CondOwner machine, Exception ex)
     {
@@ -279,7 +297,7 @@ internal sealed partial class ProcessingService
         public bool InputConsumed => retired || input == null || input.bDestroyed;
         public bool Prepare()
         {
-            if (!job.Complete || !MatchesJob(input, job) || !ValidPanel(input) ||
+            if (!job.Complete || !MatchesJob(input, job) || !ValidInput(machine, input) ||
                 input.objCOParent != Feed(machine) || MachineProblem(machine) != null) return false;
             foreach (var spec in job.Recipe.Products)
             for (int n = 0; n < spec.Count; n++)
@@ -316,7 +334,7 @@ internal sealed partial class ProcessingService
         {
             // Unity executes this synchronous commit without yielding to another gameplay order.
             // Never destroy the input before all products have been placed successfully.
-            if (!job.Complete || !MatchesJob(input, job) || input.objCOParent != Feed(machine) || !ValidPanel(input))
+            if (!job.Complete || !MatchesJob(input, job) || input.objCOParent != Feed(machine) || !ValidInput(machine, input))
                 throw new InvalidOperationException(Text.Get("ProcessingService.input_changed_during_completion"));
             try { input.RemoveFromCurrentHome(bForce: true); }
             finally

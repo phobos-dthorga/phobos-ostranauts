@@ -48,7 +48,7 @@ internal static class EquipmentValueAudit
         check(Price(Content.Loose, 0, true) > Price(Content.Loose), "Pristine premium is distinct from ordinary full condition");
         check(Price(Content.Loose, .99) < Price(Content.Loose), "Native wear reduces whole-equipment value");
         var items = EquipmentEconomy.Machines.SelectMany(s => new[] { s.Prefix + "Loose", s.Prefix + "LooseDmg" })
-            .Concat(new[] { ProcessRules.AssemblySection, PhobosAutoNav.EquipmentContent.Base, PhobosAutoNav.EquipmentContent.Base + "Dmg" });
+            .Concat(new[] { ProcessRules.AssemblySection, ReclaimerRules.Section, PhobosAutoNav.EquipmentContent.Base, PhobosAutoNav.EquipmentContent.Base + "Dmg" });
         foreach (string id in items)
         {
             string[] outputs = DataHandler.dictInstallables[id + "Dismantle"].aLootCOs;

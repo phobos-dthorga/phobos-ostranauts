@@ -9,6 +9,8 @@ internal static class ConsoleCommands
 {
     private static bool Prefix(ref string strInput, ref bool __result)
     {
+        if (ReclaimerPanel.Command(strInput, out bool reclaimerResult, out string reclaimerResponse))
+        { __result = reclaimerResult; strInput += "\n" + reclaimerResponse; return false; }
         var collector = CollectorCommand.Parse(strInput);
         if (collector.Action != CollectorAction.Foreign)
         {

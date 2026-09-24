@@ -1,3 +1,4 @@
+using Phobos.Ostranauts.Framework.Processing;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -69,7 +70,7 @@ Check(machineOutput.GetProperty("item").GetString() == "PhobosShipbreakerLoose" 
 Check(sectionRecipe.GetProperty("workSeconds").GetInt32() * 2 + finalRecipe.GetProperty("workSeconds").GetInt32() == 9000,
     "Full equipment fabrication includes both sections and final assembly: 150 minutes");
 
-var job = new ProcessJob("panel-A", 0, recipeV1);
+var job = new ProcessJob("panel-A", 0, recipeV1, ProcessRules.CycleSeconds);
 job.Advance("panel-A", 15, true, true);
 job.Advance("panel-A", 20, false, true);
 Check(job.Progress == 15, "Blackout time earns no work");
@@ -77,22 +78,22 @@ job.Advance("panel-A", 15, true, true);
 Check(job.Progress == 30, "Restoration does not credit the blackout");
 job.Advance("panel-B", 10, true, true);
 Check(!job.Running && job.Progress == 30, "Swapping the input pauses without transferring work");
-var resumed = new ProcessJob("panel-A", job.Progress, recipeV1);
+var resumed = new ProcessJob("panel-A", job.Progress, recipeV1, ProcessRules.CycleSeconds);
 Check(resumed.Advance("panel-A", 40, true, true) == 30 && resumed.Complete, "Resume uses saved progress and caps final credit");
 Check(resumed.Advance("panel-A", 5, true, true) == 0, "Finished work cannot earn more progress");
-var fresh = new ProcessJob("panel-B", 0, recipeV1);
+var fresh = new ProcessJob("panel-B", 0, recipeV1, ProcessRules.CycleSeconds);
 Check(fresh.Progress == 0, "Different panel begins at zero");
 fresh.Pause();
 fresh.Advance("panel-B", 10, true, true);
 Check(fresh.Progress == 0, "Manual pause prevents work");
 foreach (double delta in new[] { -1.0, 61, double.NaN, double.PositiveInfinity })
 {
-    var invalid = new ProcessJob("A", 12, recipeV1);
+    var invalid = new ProcessJob("A", 12, recipeV1, ProcessRules.CycleSeconds);
     invalid.Advance("A", delta, true, true);
     Check(invalid.Progress == 12 && !invalid.Running, "Unobserved time gap pauses: " + delta);
 }
-Throws(() => ProcessJob.CreateOrResume(ProcessRecipes.WallPanels, "A", 12, 2, 60, 60), "Unknown saved recipe revision rejected");
-Throws(() => new ProcessJob("A", 61, recipeV1), "Invalid saved progress rejected");
+Throws(() => ProcessJob.CreateOrResume(ProcessRecipes.WallPanels, "A", 12, 99, 60, 60), "Unknown saved recipe revision rejected");
+Throws(() => new ProcessJob("A", 61, recipeV1, ProcessRules.CycleSeconds), "Invalid saved progress rejected");
 var customDuration = new ProcessJob("custom", 45, recipeV1, 90);
 customDuration.Advance("custom", 20, true, true);
 Check(customDuration.Progress == 65 && !customDuration.Complete, "Custom job does not complete at the default 60 seconds");
@@ -103,6 +104,7 @@ Check(customResumed.Progress == 90 && customResumed.Complete, "Custom duration c
 Throws(() => new ProcessJob("A", 0, recipeV1, double.NaN), "Corrupt saved duration rejected");
 Throws(() => new ProcessJob("A", 0, recipeV1, 0), "Zero-duration job rejected");
 RecipeChecks.Run(Check, Throws);
+ReclaimerChecks.Run(Check, Throws);
 
 var empty = new bool[8, 8];
 var outputSizes = masses.Select(_ => new ItemSize(1, 1)).ToArray();

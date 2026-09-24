@@ -30,7 +30,7 @@ internal sealed partial class CollectorService
         CollectorRules.Accepts(item.strCODef, item.GetTotalMass(), !item.HasCond("IsInstalled"),
             item.GetCOsSafe(true).Count == 0 && item.Crew == null, item.coStackHead == null && item.aStack.Count == 0);
     internal static bool CanAccept(CondOwner collector, CondOwner item) => ValidPayload(item) && collector.objContainer != null &&
-        (collector.objContainer.Contains(item) || collector.objContainer.ContainedCOs.Count < CollectorRules.Capacity);
+        (collector.objContainer.Contains(item) || collector.objContainer.ContainedCOs.Count < CollectorRules.Capacity && collector.objContainer.ContainedCOs.Sum(c => c.GetTotalMass()) + item.GetTotalMass() <= CollectorRules.MaxPayloadKg + ProcessRules.MassTolerance);
     internal static string? AccessProblem(CondOwner port)
     {
         var crew = CrewSim.GetSelectedCrew();
@@ -45,7 +45,7 @@ internal sealed partial class CollectorService
         port.objContainer == null || port.objContainer.Locked || port.HasCond("IsLocked") ? Text.Get("CollectorService.collector_inventory_missing_or_locked") :
         port.HasCond("IsOverrideOff") || port.HasCond("IsSignalOff") ? Text.Get("CollectorService.collector_is_switched_off") : null;
     private static string? SourceProblem(CondOwner port, CondOwner? source) => source == null || source.bDestroyed ||
-        source.strCODef != Content.Installed || !source.HasCond("IsInstalled") || source.HasCond("IsDamaged") || source.objCOParent != null ? Text.Get("CollectorService.choose_an_installed_undamaged_processor") :
+        !ProcessingService.IsInstalledProcessor(source) || !source.HasCond("IsInstalled") || source.HasCond("IsDamaged") || source.objCOParent != null ? Text.Get("CollectorService.choose_an_installed_undamaged_processor") :
         source.ship != port.ship ? Text.Get("CollectorService.processor_must_be_on_this_ship") :
         source.objContainer == null || source.objContainer.Locked || source.HasCond("IsLocked") ? Text.Get("CollectorService.unlock_the_processor_product_tray") : null;
     internal bool Bind(CondOwner port, CondOwner source)

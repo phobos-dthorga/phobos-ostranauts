@@ -1,7 +1,7 @@
-# Residue Collector — Shipbreaker 0.7.0 candidate
+# Residue Collector — Shipbreaker 0.8.0 candidate
 
-24 September 2026. Current prepared versions: **Phobos Framework 0.7.0** and
-Shipbreaker **0.7.0**. Saved pairing was introduced in 0.5.0; the current versions
+24 September 2026. Current prepared versions: **Phobos Framework 0.8.0** and
+Shipbreaker **0.8.0**. Saved pairing was introduced in 0.5.0; the current versions
 also include merchant stock and maintenance. Start with the
 [current player guide](player-guide.md) for the complete equipment workflow.
 Implemented and checked offline against the local 1.0.1.4 installation; in-game
@@ -40,13 +40,13 @@ pressure barrier. The collector is a sealed-transfer abstraction, not an open
 door, replacement hull or simulated airlock.
 
 Its normal **Inventory** is the only collector inventory: a 2 x 2 grid accepting
-four separate 13 kg `PhobosShipbreakerResidue` packets, **52 kg payload maximum**.
-Both installed and loose forms retain that finite storage/filter. Other items,
-stacks, modified-mass residue and items with contents are refused. This collector
-cannot take whole wall panels, ordinary trash or valuable recovered parts.
-Existing residue remains unclassified. The [material contract](residue-material-contract.md)
-describes future separate feed/reject identities; the current collector does not
-accept those unimplemented types merely because they are also called residue.
+four separate packets, **52 kg payload maximum**. Version 0.8.0 accepts original
+13 kg unclassified residue, 13 kg identified R2 residue and 9 kg terminal R2
+rejects. These have distinct identities and expected masses. Both installed and
+loose forms keep the finite storage/filter. Stacks, modified-mass packets and
+items with contents are refused. Whole walls, ordinary trash and valuable parts
+cannot enter. Existing residue remains unclassified; see the
+[material contract](residue-material-contract.md).
 
 ## Use
 
@@ -190,3 +190,8 @@ New saved IDs are the `PhobosResidueCollector` installed/loose/damaged family.
 Keep Shipbreaker and Framework installed once saves contain this equipment.
 Original graphics, source hash, exact built-in Imagegen prompt and export script
 are recorded in [the art notes](../assets/phobos-residue-collector/README.md).
+
+In 0.8.0 the [reclaimer](scrap-reclaimer.md) is also a supported output sender.
+The collector accepts legacy 13 kg residue, identified R2 13 kg residue and R2
+9 kg rejects, with four slots and a 52 kg maximum. Old saved pairs remain intact.
+Reclaimer feed still requires manual hauling; collection is never disposal.

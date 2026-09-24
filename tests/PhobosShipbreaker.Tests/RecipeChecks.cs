@@ -1,3 +1,4 @@
+using Phobos.Ostranauts.Framework.Processing;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +10,9 @@ internal static class RecipeChecks
     internal static void Run(Action<bool, string> check, Action<Action, string> throws)
     {
         var live = ProcessRecipes.WallPanels;
-        check(live.Current.Revision == 1 && live.Recipes.Count == 1,
-            "No new producer enabled before the reclaimer exists");
-        var v1 = live.Current;
+        check(live.Current.Revision == 2 && live.Recipes.Count == 2,
+            "R2 producer enabled alongside the usable reclaimer; R1 remains registered");
+        var v1 = live.Recipes.Single(r => r.Revision == 1);
         // Historical save contract, independent of whichever revision becomes current later.
         check(v1.Products.Select(p => (p.Id, p.Count, p.Kg)).SequenceEqual(new[] {
             ("ItmPartsMechSmall01", 2, .5), ("ItmScrapAluminum", 2, 1.0),
@@ -21,16 +22,16 @@ internal static class RecipeChecks
 
         // Synthetic revision: only test code knows these outputs. Not a gameplay recipe.
         var source = new[] { new ProductSpec("TestOnlyNewResidue", 1, 13), new ProductSpec("ItmScrapSteel", 11, 1) };
-        var v2 = new ProcessRecipe(2, source);
+        var v2 = new ProcessRecipe(2, ProcessRules.InputKg, source);
         var future = new ProcessRecipeCatalog(2, new[] { v1, v2 });
         source[0] = new ProductSpec("MutatedResidue", 1, 13);
         check(v2.Products[0].Id == "TestOnlyNewResidue", "Caller cannot mutate a published recipe through its source array");
         throws(() => ((IList<ProductSpec>)v2.Products)[0] = source[0], "Published product collection is read-only");
         throws(() => new ProcessRecipeCatalog(2, new[] { v1 }), "Missing active revision is a registration error");
         throws(() => new ProcessRecipeCatalog(1, new[] { v1, v1 }), "Duplicate revisions cannot overwrite historical outputs");
-        throws(() => new ProcessRecipe(2, new[] { new ProductSpec("X", 1, 23) }), "Recipe rejects lost mass");
-        throws(() => new ProcessRecipe(2, new[] { new ProductSpec("X", 1, 25) }), "Recipe rejects invented mass");
-        throws(() => new ProcessRecipe(2, new[] { new ProductSpec("X", -1, -24) }), "Negative counts and masses cannot balance a recipe");
+        throws(() => new ProcessRecipe(2, ProcessRules.InputKg, new[] { new ProductSpec("X", 1, 23) }), "Recipe rejects lost mass");
+        throws(() => new ProcessRecipe(2, ProcessRules.InputKg, new[] { new ProductSpec("X", 1, 25) }), "Recipe rejects invented mass");
+        throws(() => new ProcessRecipe(2, ProcessRules.InputKg, new[] { new ProductSpec("X", -1, -24) }), "Negative counts and masses cannot balance a recipe");
 
         ProcessJob Restore(double progress, double revision, double duration, double newSeconds = 180) =>
             ProcessJob.CreateOrResume(future, "old-panel", progress, revision, duration, newSeconds);

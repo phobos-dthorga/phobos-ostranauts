@@ -24,7 +24,7 @@ internal static class CollectorCommands
                 // Also permit clearing an orphaned sender when its old receiver no longer exists.
                 var endpoint = DataHandler.mapCOs?.Values.SingleOrDefault(p => p != null && !p.bDestroyed &&
                     p.strID.Equals(command.PortId, StringComparison.OrdinalIgnoreCase) &&
-                    (Content.IsMachine(p.strCODef) || CollectorRules.IsFamily(p.strCODef)));
+                    (ProcessingService.IsProcessor(p.strCODef) || CollectorRules.IsFamily(p.strCODef)));
                 if (endpoint == null) { response = Text.Get("CollectorCommands.no_loaded_material_endpoint_with_that_full"); return false; }
                 return Plugin.Collectors.Unlink(endpoint, out response);
             }
@@ -33,7 +33,7 @@ internal static class CollectorCommands
             switch (command.Action)
             {
                 case CollectorAction.Link:
-                    var source = ProcessingService.FindMachines().SingleOrDefault(p => p.strID.Equals(command.SourceId, StringComparison.OrdinalIgnoreCase));
+                    var source = ProcessingService.FindMachines(true).SingleOrDefault(p => p.strID.Equals(command.SourceId, StringComparison.OrdinalIgnoreCase));
                     if (source == null) { response = Text.Get("CollectorCommands.processor_not_found_on_this_ship_use"); return false; }
                     success = Plugin.Collectors.Bind(port, source); break;
                 case CollectorAction.Start: success = Plugin.Collectors.Start(port); break;

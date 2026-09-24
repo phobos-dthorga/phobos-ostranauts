@@ -5,13 +5,13 @@ Decision: 24 September 2026. The owner selected our own shareable framework
 The purpose is reusable services for equipment and future material transport,
 not reproducing every feature of OCF or turning Ostranauts into a factory game.
 
-## Current candidate: Framework and Shipbreaker 0.7.0
+## Current candidate: Framework and Shipbreaker 0.8.0
 
 The [residue collector](residue-collector.md) adds a finite wall-mounted receiving
 chamber linked to one processor through structural flooring. Framework owns the
 existing same-object move plus small filter, clock, grid-search and saved-pair helpers;
 Shipbreaker owns physical rules and machinery. Five construction recipes register.
-The installer requires Framework 0.7.0 and verifies collector/intake artwork.
+The installer requires Framework 0.8.0 and verifies collector/intake artwork.
 Players choose one sender/receiver pair from either endpoint's controls. Pairing
 uses full object IDs in native saved property maps, following signal connections.
 Offline checks pass; gameplay and old-save loading remain owner tests. The earlier
@@ -133,3 +133,7 @@ exterior webbing cannot bridge it. This is an abstract underfloor service route,
 not placed belt segments or a general conveyor network. Collection remains ship
 cargo. Persistent release into space is still research. See
 [underfloor transport](underfloor-material-transport.md).
+
+Version 0.8.0 also supplies shared immutable processing recipes and saved-job
+binding for the wall fixture and [scrap reclaimer](scrap-reclaimer.md). Content
+keeps material identities, heat handling, artwork and balance.

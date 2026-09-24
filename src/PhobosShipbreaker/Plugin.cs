@@ -15,12 +15,13 @@ namespace PhobosShipbreaker;
 public sealed class Plugin : BaseUnityPlugin
 {
     public const string Id = "phobosgekko.ostranauts.shipbreaker";
-    public const string Version = "0.7.0";
+    public const string Version = "0.8.0";
     internal static ProcessingService Service { get; private set; } = null!;
     internal static Action<string> Log { get; private set; } = null!;
     internal static Settings Options { get; private set; } = null!;
     internal static CollectorService Collectors { get; private set; } = null!;
     internal static CollectorPanel CollectorControls { get; private set; } = null!;
+    internal static ReclaimerPanel ReclaimerControls { get; private set; } = null!;
     private Harmony? harmony;
     private FixturePanel panel = null!;
 
@@ -31,6 +32,7 @@ public sealed class Plugin : BaseUnityPlugin
         Service = new ProcessingService(Log, Options);
         Collectors = new CollectorService(Log, Options);
         CollectorControls = new CollectorPanel(Collectors);
+        ReclaimerControls = new ReclaimerPanel();
         panel = new FixturePanel(Service, Options);
         harmony = new Harmony(Id);
         harmony.PatchAll(typeof(Plugin).Assembly);
@@ -39,8 +41,8 @@ public sealed class Plugin : BaseUnityPlugin
         Log(Text.Get("Plugin.shipbreaker_loaded_with_independent_phobos_framework_construction", Options.ControlsKey));
     }
     private void Update() => panel.Update();
-    private void OnGUI() { panel.Draw(); CollectorControls.Draw(); }
-    internal static void ResetServices() { Service.Reset(); Collectors.Reset(); CollectorControls.Reset(); }
+    private void OnGUI() { panel.Draw(); CollectorControls.Draw(); ReclaimerControls.Draw(); }
+    internal static void ResetServices() { Service.Reset(); Collectors.Reset(); CollectorControls.Reset(); ReclaimerControls.Reset(); }
     private static void LoadContent() { ResetServices(); Content.Register(Log); }
     private static void ConfirmContent() => Content.ConfirmRecipes(Log);
     private void OnDestroy()
@@ -53,17 +55,24 @@ public sealed class Plugin : BaseUnityPlugin
 [HarmonyPatch(typeof(Powered), "UsePower", new[] { typeof(CondOwner), typeof(double) })]
 internal static class PowerPatch
 {
-    private static void Prefix(CondOwner __0, out bool __state) => __state =
-        __0 != null && (Content.IsMachine(__0.strCODef) && __0.HasCond(Core.ProcessRules.Working) ||
+    internal sealed class PowerState { internal bool Working; internal ReclaimerHeat.Transfer? Heat; }
+    private static bool Prefix(Powered __instance, CondOwner __0, double __1, out PowerState __state)
+    {
+        __state = new PowerState { Working = __0 != null && (ProcessingService.IsProcessor(__0.strCODef) && __0.HasCond(Core.ProcessRules.Working) ||
             ProcessingService.IsGrabber(__0) && __0.HasCond(Core.IntakeRules.Working) ||
-            Core.CollectorRules.IsFamily(__0.strCODef) && __0.HasCond(Core.CollectorRules.Working));
-    private static void Postfix(CondOwner __0, bool __state)
+            Core.CollectorRules.IsFamily(__0.strCODef) && __0.HasCond(Core.CollectorRules.Working)) };
+        return __0 == null || ReclaimerHeat.Begin(__instance, __0, __1, out __state.Heat);
+    }
+    private static void Postfix(Powered __instance, CondOwner __0, PowerState __state)
     {
         if (__0 == null) return;
-        if (Core.CollectorRules.IsFamily(__0.strCODef)) Plugin.Collectors.AfterPower(__0, __state);
-        else if (ProcessingService.IsGrabber(__0)) Plugin.Service.AfterIntakePower(__0, __state);
-        else Plugin.Service.AfterPower(__0, __state);
+        try { ReclaimerHeat.Finish(__instance, __0, __state.Heat); }
+        catch (Exception ex) { Plugin.Service.Fault(__0, ex); return; }
+        if (Core.CollectorRules.IsFamily(__0.strCODef)) Plugin.Collectors.AfterPower(__0, __state.Working);
+        else if (ProcessingService.IsGrabber(__0)) Plugin.Service.AfterIntakePower(__0, __state.Working);
+        else Plugin.Service.AfterPower(__0, __state.Working, __state.Heat?.WorkSeconds);
     }
+    private static void Finalizer(Powered __instance) => ReclaimerHeat.Forget(__instance);
 }
 
 // Clear stale work demand before the native path selects its active/idle coefficient.
@@ -86,7 +95,7 @@ internal static class PowerDemandPatch
             catch (Exception ex) { Plugin.Service.IntakeFault(machine, ex); }
             return;
         }
-        if (!Content.IsMachine(machine.strCODef)) return;
+        if (!ProcessingService.IsProcessor(machine.strCODef)) return;
         try { Plugin.Service.BeforePower(machine); }
         catch (Exception ex) { Plugin.Service.Fault(machine, ex); }
     }
@@ -97,7 +106,7 @@ internal static class FeedPatch
 {
     private static void Postfix(Container __instance, CondOwner coIn, ref bool __result)
     {
-        if (__result && __instance.CO != null && __instance.CO.strCODef == Content.InputBin)
+        if (__result && __instance.CO != null && (__instance.CO.strCODef == Content.InputBin || __instance.CO.strCODef == Core.ReclaimerRules.InputBin))
             __result = ProcessingService.CanFeed(__instance.CO, coIn);
         if (__result && __instance.CO != null && Core.CollectorRules.IsFamily(__instance.CO.strCODef))
             __result = CollectorService.CanAccept(__instance.CO, coIn);

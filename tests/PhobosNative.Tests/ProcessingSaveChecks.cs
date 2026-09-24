@@ -1,3 +1,4 @@
+using Phobos.Ostranauts.Framework.Processing;
 using System;
 using System.Linq;
 using Newtonsoft.Json;
@@ -8,10 +9,10 @@ internal static class ProcessingSaveChecks
 {
     internal static void Run(Action<bool, string> check, Action<Action, string> throws)
     {
-        var v1 = ProcessRecipes.WallPanels.Current;
+        var v1 = ProcessRecipes.WallPanels.Recipes.Single(r => r.Revision == 1);
         // Local-only synthetic revision, using real scrap definitions to exercise
         // native output dimensions without registering another runtime recipe.
-        var v2 = new ProcessRecipe(2, new[] { new ProductSpec("ItmScrapSteel", 24, 1) });
+        var v2 = new ProcessRecipe(2, ProcessRules.InputKg, new[] { new ProductSpec("ItmScrapSteel", 24, 1) });
         var future = new ProcessRecipeCatalog(2, new[] { v1, v2 });
         var saved = new JsonItem { strName = ProcessRules.Wall, strID = "saved-panel-123" };
         saved.SetCondAmount(ProcessRules.Progress, 22.25);
