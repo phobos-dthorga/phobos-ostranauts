@@ -132,7 +132,7 @@
     "AutoNav.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.14.0",
+      "value": "0.14.1",
       "description": "PhobosAutoNav published source/package version.",
       "targets": [
         {

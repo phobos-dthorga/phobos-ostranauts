@@ -56,6 +56,9 @@ if ('Shipbreaker' -in $Mods) {
         if ([version]$shipInfo[0].strModVersion -ge [version]'0.14.0') { $minimumPhobosFramework = [version]'0.17.0' }
         if ([version]$shipInfo[0].strModVersion -ge [version]'0.16.0') { $minimumPhobosFramework = [version]'0.19.0' }
         if ([version]$shipInfo[0].strModVersion -ge [version]'0.17.0') { $minimumPhobosFramework = [version]'0.20.0' }
+        if ([version]$shipInfo[0].strModVersion -ge [version]'0.19.0') { $minimumPhobosFramework = [version]'0.21.0' }
+        if ([version]$shipInfo[0].strModVersion -ge [version]'0.19.1') { $minimumPhobosFramework = [version]'0.21.1' }
+        if ([version]$shipInfo[0].strModVersion -ge [version]'0.20.0') { $minimumPhobosFramework = [version]'0.22.0' }
         if ($needsPhobosFramework) { $Mods = @('Framework') + @($Mods | Where-Object { $_ -ne 'Framework' }) }
     }
 }
@@ -74,6 +77,8 @@ if ('AutoNav' -in $Mods) {
             if ([version]$navInfo[0].strModVersion -ge [version]'0.10.0' -and $minimumPhobosFramework -lt [version]'0.14.0') { $minimumPhobosFramework = [version]'0.14.0' }
             if ([version]$navInfo[0].strModVersion -ge [version]'0.10.1' -and $minimumPhobosFramework -lt [version]'0.15.0') { $minimumPhobosFramework = [version]'0.15.0' }
             if ([version]$navInfo[0].strModVersion -ge [version]'0.11.1' -and $minimumPhobosFramework -lt [version]'0.17.0') { $minimumPhobosFramework = [version]'0.17.0' }
+            if ([version]$navInfo[0].strModVersion -ge [version]'0.14.0' -and $minimumPhobosFramework -lt [version]'0.21.0') { $minimumPhobosFramework = [version]'0.21.0' }
+            if ([version]$navInfo[0].strModVersion -ge [version]'0.14.1' -and $minimumPhobosFramework -lt [version]'0.21.2') { $minimumPhobosFramework = [version]'0.21.2' }
             $Mods = @('Framework') + @($Mods | Where-Object { $_ -ne 'Framework' })
         }
     }
@@ -89,6 +94,8 @@ if ('Agriculture' -in $Mods) {
         if ([version]$farmInfo[0].strModVersion -ge [version]'0.4.0' -and $minimumPhobosFramework -lt [version]'0.18.0') { $minimumPhobosFramework = [version]'0.18.0' }
         if ([version]$farmInfo[0].strModVersion -ge [version]'0.5.0' -and $minimumPhobosFramework -lt [version]'0.19.0') { $minimumPhobosFramework = [version]'0.19.0' }
         if ([version]$farmInfo[0].strModVersion -ge [version]'0.6.0' -and $minimumPhobosFramework -lt [version]'0.20.0') { $minimumPhobosFramework = [version]'0.20.0' }
+        if ([version]$farmInfo[0].strModVersion -ge [version]'0.8.0' -and $minimumPhobosFramework -lt [version]'0.21.0') { $minimumPhobosFramework = [version]'0.21.0' }
+        if ([version]$farmInfo[0].strModVersion -ge [version]'0.9.0' -and $minimumPhobosFramework -lt [version]'0.22.0') { $minimumPhobosFramework = [version]'0.22.0' }
     }
     $Mods = @('Framework') + @($Mods | Where-Object { $_ -ne 'Framework' })
 }

@@ -75,6 +75,7 @@ if (args.Length > 2 && args[2] == "--agriculture-only")
     return;
 }
 var prepared = Content.Prepare();
+PlaceholderLoadChecks.Run(prepared, Check);
 foreach (var equipment in prepared.Objects.Values)
     Check(equipment.strNameFriendly.StartsWith("Phobos' ", StringComparison.Ordinal), "Branded native machine, section or material: " + equipment.strName);
 prepared.Publish();

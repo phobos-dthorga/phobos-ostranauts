@@ -74,12 +74,16 @@ Framework is built/prepared separately; its DLL is not copied into this content
 package. Game, Unity, BepInEx and foreign mod binaries are not distributed.
 Framework's own adaptation/licensing notices remain with that dependency.
 
-**No installation is part of this round.** The current shared installer does not
-select Manufacturing. Before delivering operational content, add an explicit
-`Manufacturing` selection with Framework 0.17.0 minimum, required-file checks,
-backup/load-order handling and installer tests. Keep existing defaults and the
-game-closed guard. Use `install-mods.ps1` for that later delivery; do not copy
-the scaffold into the game manually. Agriculture remains excluded from installation.
+The shared installer already supports explicit `-Mods Manufacturing` selection,
+includes its Framework dependency, checks required files, preserves backups and
+load order, and enforces the game-closed guard. The scaffold's minimum Framework
+version remains 0.17.0. This delivery support is implemented, not outstanding work.
+
+Manufacturing remains a **held research scaffold**, with no operational machinery,
+recipes or stock; installer support does not make it a playable machining mod.
+When operational content is delivered, extend the existing selection's required
+files and dependency checks as needed. Keep default selections unchanged and use
+`install-mods.ps1` for authorized delivery rather than manual copying.
 
 ## Physical layout proposal
 

@@ -1,6 +1,11 @@
 # Phobos Framework 0.15.0 — author guide
 
-Current extension: Framework 0.21.0 owns [shared completion cues](shared-completion-cues.md).
+Framework 0.21.0 introduced [shared completion cues](shared-completion-cues.md).
+Framework 0.21.1 adds `Persistence.SavedGridBounds.TryPlan`: a pure, bounded
+expansion calculation for [saved-grid restoration](shipbreaker-room-load-mitigation.md).
+It rejects shrinking, fractional offsets and geometry outside the saved bounds.
+Content owns activation and native application before room/zone loading;
+Framework installs no general room-loading patch.
 Content owns a transient `Audio.CompletionWatch`, arms it after access checks with
 actor/ship IDs, and calls `Audio.CompletionCues.Complete` only after a real committed
 result. Cancel on stop, suspension, faults and reload. Use `CompletionCues.VolumeLabel`
@@ -495,6 +500,17 @@ diagnostic and a null result for the caller's existing control fallback. Never
 clone the reactor controller, mutate shared sprite/font assets or distribute them.
 Consumers still own authority, localization, numeric formatting and physical
 measurements; absent data must stay Unknown.
+
+Framework 0.21.2 resolves a byte-loaded game assembly's empty `Location` through
+BepInEx's managed directory before applying the same pinned hash. Missing or
+changed files still fail the audit. `PanelWidgets.FitFixedText` is for text inside
+a caller-owned fixed-field mask: keep its font size, center visible glyphs and
+normalize baseline spacing to 1.12 em using the selected font's face metrics.
+It generates overflowing glyphs for the mask to clip, avoiding TMP's vertical
+ellipsis erasing an entire short field. Explicit line breaks remain supported;
+long names clip and complete explanations should remain in a scrollable view.
+Callers can restore normal wrapping for prose. Do not apply this to unmasked
+fixed fields or mutate shared font assets to achieve compact spacing.
 
 ### Native control additions (0.17.0)
 

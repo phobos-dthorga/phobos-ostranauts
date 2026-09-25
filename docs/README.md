@@ -72,7 +72,7 @@ Manufacturing/medical/asteroid concepts are not delivered gameplay systems.
 - [F6 electrical heating: selected direction](furnace-electrical-direction.md)
 - [F6 first processing cycle: research specification](furnace-first-cycle.md)
 - [F6 material routing: operation and safeguards](furnace-material-routing.md)
-- [F6 electric furnace: first implementation](furnace-player-guide.md)
+- [F6 electric furnace: operating guide](furnace-player-guide.md)
 - [F6 sealed coolant conduits](furnace-coolant-conduits.md)
 - [F6 repair casting: replacement heat sinks](furnace-repair-castings.md)
 - [F6 vanilla UI reuse, layouts and graphics brief](furnace-ui-and-art.md)

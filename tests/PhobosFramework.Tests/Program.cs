@@ -13,9 +13,11 @@ void Check(bool condition, string message)
 LocalizationChecks.Run(Check);
 CompletionCueChecks.Run(Check, (action, message) => { bool failed = false; try { action(); } catch { failed = true; } Check(failed, message); });
 SavedStateChecks.Run(Check);
+SavedGridBoundsChecks.Run(Check);
 ConsoleAccessChecks.Run(Check);
 ObservationChecks.Run(Check);
 InstrumentNumberChecks.Run(Check);
+PanelPresentationChecks.Run(Check);
 LiquidDeliveryChecks.Run(Check);
 MixtureChecks.Run(Check);
 FluidNetworkChecks.Run(Check);

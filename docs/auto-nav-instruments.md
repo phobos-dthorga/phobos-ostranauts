@@ -1,7 +1,7 @@
-# Polaris flight hub — Auto Nav 0.14.0
+# Polaris flight hub — Auto Nav 0.14.1
 
-Prepared 25 September 2026 for Blue Bottle Games' Ostranauts 1.0.1.5 and
-Phobos Framework 0.21.0 or newer. Offline checks and packaging are separate from
+Prepared 26 September 2026 for Blue Bottle Games' Ostranauts 1.0.1.5 and
+Phobos Framework 0.21.2 or newer. Offline checks and packaging are separate from
 owner-run gameplay evaluation. Preparing this version does not install or publish it.
 
 Details offers an optional [arrival watch](shared-completion-cues.md) after engaging
@@ -30,11 +30,11 @@ flight hub, not a replacement for every specialist instrument or reactor panel.
 
 The header always shows navigation target, operation, contact condition and the
 current highest-priority restriction. With N3 it also shows the separate offensive target and
-qualified contact condition, even before Engage. Long names can wrap/truncate; Details retains the full
+qualified contact condition, even before Engage. Long names clip within their fields; Details retains the full
 diagnostic explanation. Missing or stale readings show an unavailable mark.
 Header content and tabs are inset within the raster's actual display recesses.
 Telemetry and settings have separate live display wells, padded inside their
-bezels. Short contact/operation labels stay on one line; names can occupy two.
+bezels. Fixed fields keep one line unless the message explicitly includes line breaks.
 Five compact tabs use **Nav**, **Track**, **Fire**, **Sys** and **Info**.
 
 | Page | Controls and readings |
@@ -109,7 +109,12 @@ are reflowed within the generated plate's usable fields rather than shrinking te
 Named safe fields register the header, tabs, main body and bottom strips to the
 faceplate. Verification checks containment in those fields and readout padding;
 overall panel bounds alone are insufficient. Unity text also has local clipping
-at its designated field, without reducing critical font size.
+at its designated field, without reducing critical font size. Version 0.14.1
+uses glyph-centered text and 1.12-em baseline spacing derived from the actual
+font metrics. It bypasses TMP's vertical ellipsis, which could erase a whole
+short field with the native Noto Sans SC font. Decrease buttons use ASCII `-`;
+the owner's log confirms that the former mathematical minus was replaced by a space.
+The browser preview is schematic and cannot establish native glyph visibility.
 
 The [faceplate provenance](../assets/phobos-autonav/hub-prompt.md) retains both
 992 × 1586 Imagegen outputs and the approved compact N1/N2 masters. With explicit

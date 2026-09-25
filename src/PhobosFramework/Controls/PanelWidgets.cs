@@ -30,6 +30,22 @@ public static class PanelWidgets
         if (flowing) { var le = rect.gameObject.AddComponent<LayoutElement>(); le.minHeight = FontSize * 1.5f; }
         return label;
     }
+    /// <summary>Fixed instrument text inside a caller-owned mask, at its existing font size.</summary>
+    public static void FitFixedText(TMP_Text label)
+    {
+        // Ellipsis can discard the entire first line when the font's ascender/descender
+        // box exceeds a short field, even though the visible glyphs fit. Generate the
+        // glyphs and let the field mask clip long text. Never mutate the shared font.
+        label.enableAutoSizing = false;
+        label.overflowMode = TextOverflowModes.Overflow;
+        label.textWrappingMode = TextWrappingModes.NoWrap;
+        label.verticalAlignment = VerticalAlignmentOptions.Geometry;
+        if (label.font != null)
+        {
+            var face = label.font.faceInfo;
+            label.lineSpacing = FixedTextMetrics.LineSpacing(face.pointSize, face.scale, face.lineHeight);
+        }
+    }
     public static Button Button(Transform parent, string title, Action click)
     {
         var rect = Rect(parent, "Button"); var image = rect.gameObject.AddComponent<Image>(); image.color = ButtonColor;

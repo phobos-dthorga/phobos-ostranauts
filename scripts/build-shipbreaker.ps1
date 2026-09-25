@@ -15,6 +15,8 @@ $gameRoot = (Resolve-Path -LiteralPath $OstranautsPath).Path
 if ($LASTEXITCODE -ne 0) { throw 'Shipbreaker build failed.' }
 & dotnet run --project (Join-Path $repoRoot 'tests/PhobosShipbreaker.Tests') -c Release "-p:OstranautsPath=$gameRoot"
 if ($LASTEXITCODE -ne 0) { throw 'Shipbreaker processing checks failed.' }
+& dotnet run --project (Join-Path $repoRoot 'tests/PhobosShipbreaker.Loading.Tests') -c Release "-p:OstranautsPath=$gameRoot"
+if ($LASTEXITCODE -ne 0) { throw 'Shipbreaker saved-grid loader checks failed.' }
 & dotnet run --project (Join-Path $repoRoot 'tests/PhobosObservations.Tests') -c Release
 if ($LASTEXITCODE -ne 0) { throw 'Shared observation adapter/access checks failed.' }
 & dotnet run --project (Join-Path $repoRoot 'tests/PhobosNative.Tests') -c Release "-p:OstranautsPath=$gameRoot" -- $gameRoot $repoRoot
@@ -22,7 +24,7 @@ if ($LASTEXITCODE -ne 0) { throw 'Independent construction/native-definition che
 
 . (Join-Path $PSScriptRoot 'build-package-support.ps1')
 $package = New-PhobosPackage -RepoRoot $repoRoot -Id PhobosShipbreaker -Readme 'docs/shipbreaker-first-build.md' -ExtraDocs @(
-    'docs/dependency-contingencies.md', 'docs/shipbreaker-material-uses.md', 'docs/shipbreaker-hull-mounting.md',
+    'docs/dependency-contingencies.md', 'docs/shipbreaker-material-uses.md', 'docs/shipbreaker-hull-mounting.md', 'docs/shipbreaker-room-load-mitigation.md',
     'docs/underfloor-material-transport.md', 'docs/installing-mods.md', 'docs/phobos-framework.md', 'docs/framework-author-guide.md',
     'docs/shipbreaker-hull-intake.md', 'docs/residue-collector.md', 'docs/material-disposal-port-research.md', 'docs/material-port-pairing.md', 'docs/equipment-economy.md',
     'docs/equipment-value-audit.md', 'docs/vanilla-economy-audit.md', 'docs/industrial-control-console.md', 'docs/industrial-control-mockups.md', 'docs/industrial-console-player-guide.md'

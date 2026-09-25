@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.IO;
-using System.Security.Cryptography;
 using System.Reflection;
 using Phobos.Ostranauts.Framework.Processing;
 using TMPro;
@@ -19,11 +17,7 @@ public static class NativeInstruments
     private const int DigitCount = 7;
     private const string AuditedAssembly = "91b50f45cacd64de39b9bcc30ec7b4542f3e3976ac3bc5589b346976a262425e";
     private static readonly Lazy<bool> compatible = new(() =>
-    {
-        using var source = File.OpenRead(typeof(GUIKnob).Assembly.Location);
-        using var hash = SHA256.Create();
-        return BitConverter.ToString(hash.ComputeHash(source)).Replace("-", "").ToLowerInvariant() == AuditedAssembly;
-    });
+        NativeAssemblyAudit.Matches(typeof(GUIKnob).Assembly, BepInEx.Paths.ManagedPath, AuditedAssembly));
     public static T? Clone<T>(Transform parent, string path, Action<string> diagnostic) where T : Component
     {
         GameObject? root = null;

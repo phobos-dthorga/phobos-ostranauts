@@ -1,4 +1,42 @@
-# Flight hub validation — Auto Nav 0.13.0
+# Flight hub validation — Auto Nav 0.14.1
+
+## Display correction, 26 September 2026
+
+The owner's 0.12.1 screenshot shows blank compact labels, absent decrease signs,
+truncated telemetry and a missing propulsion knob. Local `Player.log` confirms
+that Noto Sans SC replaces U+2212 with a space and that the knob, guard and slider
+donors fail with `Path is empty`. Framework used `Assembly.Location`, which is
+empty for BepInEx's byte-loaded game assembly. The source already contained all
+these controls; the browser preview had not exercised the native text renderer.
+
+The locally inspected Blue Bottle Games font assets and TextMeshPro implementation
+explain the typography mismatch: the Noto Sans SC face uses 45.88 units of line
+height at 32 points (about 1.434 em), exceeding the preview's 1.12-em assumption.
+TMP's vertical ellipsis can discard even the first line in short fields.
+These are local implementation observations, not a claim of live validation.
+
+Auto Nav 0.14.1 / Framework 0.21.2 retain the font size, use geometry-centered
+glyphs with compact baseline spacing, and leave clipping to existing field masks.
+ASCII minus avoids the missing glyph. The donor audit uses the loader's managed
+directory when needed and still verifies the original pinned game hash.
+Regressions exercise actual byte-loaded assemblies, tampered/missing donor files
+and native-font baseline calculations. The current five-tab hub is retained.
+
+Offline validation passed: both package builds with no warnings/errors; 8,131
+Framework checks; 852,299 flight, 48,337 torch, 437,246 docking, 290 sensor/hub
+and 69 fire-control assertions; 7,322 native definition/registration checks;
+36 source and 36 packaged schematic layout cases; and 219 synthetic installer
+checks. Item-reference coverage, constants, Workshop records and documentation
+links also passed. The installer preview selects Auto Nav 0.14.1 and Framework
+0.21.2 without changing load-order entries. These checks do not establish native
+glyph visibility or live control interaction.
+
+Owner acceptance after installing both packages and restarting: confirm the title,
+Nav/Track/Fire/Sys/Info labels, operation/contact/restriction, footer, all three
+telemetry lines, Approach & Dock and decrease buttons. Verify the propulsion knob
+and Systems sliders/guards are visible and work, with no `Path is empty` warnings.
+Check Fire's guard when N3 is fitted. Native interaction and font rendering remain
+owner-run checks; no screenshot of a browser preview proves those results.
 
 ## N3 candidate, 25 September 2026
 

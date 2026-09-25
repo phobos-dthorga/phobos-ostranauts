@@ -80,7 +80,7 @@
       ]
     },
     "PhobosShipbreaker": {
-      "intro": "Rivetline machinery recovers material and casts rough industrial products. Asterel C1 provides optional central controls. Obtain loose equipment, place it through the indicated native INSTALL tab, supply electricity where required, and keep service approaches accessible. Local panels remain usable without C1. Receiving, processing and hot-furnace controls are separate permissions.",
+      "intro": "Rivetline machinery recovers material and casts rough industrial products. Asterel C1 provides optional central controls. Obtain loose equipment, place it through the indicated native INSTALL tab, supply electricity where required, and keep service approaches accessible. Local panels remain usable without C1. Receiving, processing and hot-furnace controls are separate permissions. Pending-equipment reloads include a bounded room-grid mitigation; see [evidence and limits](shipbreaker-room-load-mitigation.md). It cannot recover atmosphere already lost before saving.",
       "groups": [
         {
           "key": "d4",
@@ -179,7 +179,7 @@
           "function": "Electrically heats an exact aluminium charge to cast a rough machinery housing.",
           "use": "Build or buy the furnace, install it with a compatible cooling endpoint and power. Use the local panel to load, seal, heat and cast, then cool, equalize and release products. Follow the complete cycle guide.",
           "find": "Buy machinery or assemble three F6-S sections.",
-          "notes": "Requires finite cooling and a valid gas receiver. Automatic material receipt never authorizes Seal, Start or Release. Hot machinery retains heat across saves.",
+          "notes": "Requires finite cooling and a valid gas receiver. Direct coupling can transfer heat without power; piped circulation requires pump electricity. Automatic material receipt never authorizes Seal, Start or Release. Hot machinery retains heat across saves.",
           "guide": "furnace-player-guide.md",
           "internal": false,
           "labels": {}
@@ -196,7 +196,7 @@
           "function": "Rejects furnace heat through a finite exterior cooling assembly.",
           "use": "Install in the documented exterior location and pair with the F6. Direct coupling or the optional dedicated coolant route is supported.",
           "find": "Buy from equipment offers or build at a supported table.",
-          "notes": "One cooling endpoint per furnace. It is not an unlimited heat sink; do not switch pairs or modes while hot.",
+          "notes": "One cooling endpoint per furnace. Direct coupling is passive; a remote piped installation needs powered circulation. A disconnected exposed radiator still rejects heat already in its own store. It is not an unlimited heat sink; do not switch pairs or modes while hot.",
           "guide": "furnace-player-guide.md",
           "internal": false,
           "labels": {}

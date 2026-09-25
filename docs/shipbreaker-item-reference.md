@@ -4,7 +4,7 @@
 
 Current source candidate: **0.20.0**. Game target: **1.0.1.5**. Values below come from offline definitions; they do not establish installation, gameplay validation or a live merchant quote.
 
-Rivetline machinery recovers material and casts rough industrial products. Asterel C1 provides optional central controls. Obtain loose equipment, place it through the indicated native INSTALL tab, supply electricity where required, and keep service approaches accessible. Local panels remain usable without C1. Receiving, processing and hot-furnace controls are separate permissions.
+Rivetline machinery recovers material and casts rough industrial products. Asterel C1 provides optional central controls. Obtain loose equipment, place it through the indicated native INSTALL tab, supply electricity where required, and keep service approaches accessible. Local panels remain usable without C1. Receiving, processing and hot-furnace controls are separate permissions. Pending-equipment reloads include a bounded room-grid mitigation; see [evidence and limits](shipbreaker-room-load-mitigation.md). It cannot recover atmosphere already lost before saving.
 
 **Reading prices:** credits per complete object at the stated condition, before shop margins, market effects, negotiation and extra wear. Pristine retail can cost more. Mass is the empty/dry definition or fresh commodity template; saved contents and variable recovery packets can weigh differently. Dismantle value is the sum of all listed outputs at base value, excluding labour and tools.
 
@@ -237,7 +237,7 @@ Electrically heats an exact aluminium charge to cast a rough machinery housing.
 
 **Placement:** INSTALL → APPS. Obtain the loose item first; the menu does not manufacture it.
 
-Requires finite cooling and a valid gas receiver. Automatic material receipt never authorizes Seal, Start or Release. Hot machinery retains heat across saves.
+Requires finite cooling and a valid gas receiver. Direct coupling can transfer heat without power; piped circulation requires pump electricity. Automatic material receipt never authorizes Seal, Start or Release. Hot machinery retains heat across saves.
 
 Full operating instructions: [F6 Electric Furnace guide](furnace-player-guide.md).
 
@@ -274,7 +274,7 @@ Rejects furnace heat through a finite exterior cooling assembly.
 
 **Placement:** INSTALL → HVAC. Obtain the loose item first; the menu does not manufacture it.
 
-One cooling endpoint per furnace. It is not an unlimited heat sink; do not switch pairs or modes while hot.
+One cooling endpoint per furnace. Direct coupling is passive; a remote piped installation needs powered circulation. A disconnected exposed radiator still rejects heat already in its own store. It is not an unlimited heat sink; do not switch pairs or modes while hot.
 
 Full operating instructions: [F6-R Exterior Radiator guide](furnace-player-guide.md).
 

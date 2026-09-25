@@ -25,6 +25,7 @@ internal static class DependencyChecks
         check(DependencyContract.FrameworkProblem(new Version(0, 18, 0)) != null, "Thermal route endpoint support requires Framework 0.19");
         check(DependencyContract.FrameworkProblem(new Version(0, 19, 0)) != null, "Combined fluid and material release requires Framework 0.20");
         check(DependencyContract.FrameworkProblem(new Version(0, 20, 0)) != null, "Shared completion cues require Framework 0.21");
+        check(DependencyContract.FrameworkProblem(new Version(0, 21, 0)) != null, "Saved-grid mitigation requires Framework 0.21.1");
         check(DependencyContract.FrameworkProblem(new Version(0, 21, 1)) != null, "Optional collector admission and reject reservations require Framework 0.22");
         foreach (var version in new[] { new Version(0, 22, 0), new Version(0, 22, 1), new Version(1, 0, 0) })
             check(DependencyContract.FrameworkProblem(version) == null, "No invented upper version or age cutoff: " + version);

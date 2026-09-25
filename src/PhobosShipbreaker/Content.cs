@@ -20,6 +20,8 @@ internal static class Content
     internal static string Status { get; private set; } = Text.Get("Content.waiting_for_mod_data");
     internal static string DependencyStatus { get; private set; } = Text.Get("Content.dependency_inspection_awaits_native_data_loading");
     private static bool definitionsRegistered;
+    private static readonly HashSet<string> installedDefinitions = new HashSet<string>(StringComparer.Ordinal);
+    internal static bool OwnsInstalledDefinition(string? id) => id != null && installedDefinitions.Contains(id);
 
     internal static bool IsMachine(string? id) => id == Installed || id == Loose ||
         id == Installed + "Dmg" || id == Loose + "Dmg";
@@ -28,6 +30,7 @@ internal static class Content
     {
         Ready = false;
         definitionsRegistered = false;
+        installedDefinitions.Clear();
         DependencyStatus = Text.Get("Content.dependency_inspection_did_not_complete");
         try
         {
@@ -41,6 +44,8 @@ internal static class Content
             }
             var prepared = Prepare(Plugin.Options.ControlsKey.ToString(), Plugin.Options.CycleSeconds, Plugin.Options.IdleKW, Plugin.Options.WorkingKW, Plugin.Options.CollectorKW, Plugin.Options.ReclaimerKW);
             prepared.Publish();
+            foreach (var job in prepared.Installables.Values)
+                if (!string.IsNullOrEmpty(job.strStartInstall)) installedDefinitions.Add(job.strStartInstall);
             ConstructionRegistry.RegisterPack(Plugin.Id, NativeAdapter.RecipePath);
             definitionsRegistered = true;
             Status = Text.Get("Content.shipbreaker_definitions_registered_awaiting_construction_recipe_checks");

@@ -117,6 +117,10 @@ Phobos plugin assemblies and native metadata must have matching versions.
 BepInEx enforces the declared minimum provider version; startup checks validate
 the native definitions actually used. A successful install is not an in-game
 compatibility test.
+The installer enforces Framework 0.22.0 or newer for Shipbreaker 0.20.0+ and
+Agriculture 0.9.0+, and Framework 0.21.2 or newer for Auto Nav 0.14.1+.
+Older package versions retain their historical dependency thresholds.
+
 The installer refuses actual updates while Ostranauts is running. Close it
 normally and run again. It never stops the game, launches it, accesses saves,
 changes player settings, removes files, or overwrites original game data.

@@ -1,10 +1,16 @@
-# F6 electric furnace: first implementation
+# F6 electric furnace: operating guide
 
-**25 September 2026 — Shipbreaker 0.17.0, Framework 0.20.0.** This is a prepared
-implementation candidate. Automated checks are separate from in-game evaluation.
-The previous Shipbreaker 0.16.0 / Framework 0.19.0 installation was verified
-(86 selected files and load order); the 0.17.0 changes require a later update.
-Ordinary saves remain supported.
+This guide describes the implemented furnace in the current source candidate.
+See the [current player guide](player-guide.md) for maintained package versions
+and the [Shipbreaker item reference](shipbreaker-item-reference.md) for current
+acquisition, INSTALL categories and service values. Version notes below identify
+when features were introduced, not the version to install today.
+
+Ordinary saves remain supported. Prepared packages, verified local installation
+and in-game evaluation are separate states; this public guide does not assert
+which version is installed on a reader's computer. Use the
+[installer verification](installing-mods.md) to check local files and load order.
+Automated checks do not establish gameplay validation.
 
 Version 0.17.0 adds [automatic material routing](furnace-material-routing.md):
 R4 aluminium to the F6 charge bin and released cold furnace products to a hull
@@ -105,10 +111,26 @@ links and hot saves need no conversion; adding this update does not replace them
 
 Connect the F6's two front power points to ordinary native electrical supply.
 There is no reactor-side coupler, fuel debit or free reactor-running heat.
-Peak demand is approximately **279.8 kW**: 250 kW useful heat at 90% efficiency,
-plus 2 kW auxiliaries. At rest, a connected unit requests **50 W** for instruments;
-this energy also enters its finite cooling store. Active cooling auxiliaries use
-up to 1 kW. The one-way passive thermal path remains available without power.
+At the full heating rating, direct coupling requests approximately **279.8 kW**:
+250 kW useful heat at 90% efficiency plus 2 kW process auxiliaries. Piped cooling
+adds up to **1 kW** for circulation, giving approximately **280.8 kW** during
+full-rate heating. Actual demand is bounded by the selected process settings,
+thermal need and cooling-store headroom; these are ratings, not continuous loads.
+
+At rest, a connected direct installation requests **50 W** for instruments.
+An eligible piped installation additionally requests up to **1 kW** for its pump,
+including while heating is paused. Active process cooling auxiliaries can request
+up to **1 kW**, separately from that circulation pump. Cold automatic receiving
+adds the configured feed motor demand (**2 kW** by default); it cannot run during
+a sealed casting cycle. All received auxiliary, pump and motor electricity is
+accounted as heat in the finite cooling store. See
+[material-routing power accounting](furnace-material-routing.md#power-heat-and-backpressure).
+
+Direct F6-R and F6-P coupling retains a passive furnace-to-sink path without
+power. **Piped circulation requires measured pump electricity**; it has no
+unpowered thermosiphon. On power loss, the radiator can still reject heat already
+in its own store, and the furnace can still leak bounded heat to an accepting
+room, but new heat does not circulate from the furnace through the pipes.
 At 700 C with a 25 C cabin, insulation leakage is approximately **675 W**; the
 250 kW process load is stored in the charge/lining and later rejected through the
 selected cooling assembly. Conversion losses also enter that finite store.
@@ -163,14 +185,15 @@ substantial infrastructure for sustained independent maintenance.
 | Melt | 660.3 C latent plateau | Melt fraction through enthalpy |
 | Hold | 700 C ±0.5 C, chamber ≤0.5 kPa, valid probes, 60 continuous seconds | Heat remains; interruption resets uncompleted hold |
 | Solidify | Qualified product or aborted charge stays captive | Latent heat must still leave |
-| Cool | Connected finite sink and accepting room leakage | No power is required for the passive path |
+| Cool | Connected finite sink and accepting room leakage | Direct coupling can transfer heat passively; piped transfer requires powered circulation. Sink radiation and bounded room leakage remain independent. |
 | Gas return | ≤50 C, same ship, authorized adjacent room, accepting gas | Receiver stays full until return succeeds |
 | Release | All outputs fit; residual charge heat fits radiator | Blocked output leaves inputs intact |
 
 The 30 kJ/K lining and 80 kJ/K cooling assembly are separate stores. The radiator
 uses a 12 m² effective area, emissivity 0.85 and a 200 K background; its 250 C
-operating limit is checked before demand. Passive transfer is limited to 100 kW
-and 0.30 kW/K. Room leakage uses 1 W/K with actual native gas heat capacity and
+operating limit is checked before demand. Furnace-to-sink transfer is bounded by
+100 kW and 0.30 kW/K; direct coupling is passive, while piped transfer is also
+bounded by actual pump power and, if enabled, serviced-coolant flow. Room leakage uses 1 W/K with actual native gas heat capacity and
 a 60 C accepting-room ceiling. Vacuum supplies no convective cooling. These are
 authored lumped thermal parameters, not measurements of vanilla equipment.
 
@@ -195,10 +218,12 @@ Uninstallation, dismantling and disconnection require a cool, empty furnace.
 Repair/Restore requires cool hardware, but may service a still-sealed cold charge;
 this allows a failed probe to be repaired before gas return. Native damage mode
 switches retain persistent maps and cargo; damaged probes display **Unknown**.
-The cooling assembly's local thermometer is passive. Damaged probes do not disable physical
-heat transfer: either damaged cooling assembly retains 25% of its nominal
-radiating area while its rejection path remains available; heating is blocked
-until repaired. Removing or damaging the port's supporting floor stops its
+The cooling assembly's local thermometer is passive. Probe failure alone does not erase heat or disable otherwise available cooling.
+Either damaged cooling assembly retains 25% of its nominal radiating area while
+its rejection path remains available; heating is blocked until repaired. An
+actually damaged furnace cannot operate its circulation pump. Piped installations
+then retain heat until the remaining radiation/room paths or restored circulation
+can remove it. Removing or damaging the port's supporting floor stops its
 modeled heat rejection and disconnects the furnace; both thermal stores remain. Losing its supporting wall disconnects
 the furnace while an exposed fin bank still rejects its own heat. Absolute destruction remains the
 game's destructive machinery path; this release does not add explosions, rupture
@@ -255,8 +280,10 @@ support have separate messages. Painted pipe details are not a routable network.
 
 ## Owner review on return
 
-- Install the prepared packages with the existing installer after closing the
-  game; confirm Framework 0.17.0 and Shipbreaker 0.14.0 in the loaded status/log.
+- After closing the game, install the intended prepared packages using the shared
+  installer. Verify their files/load order, then compare the loaded versions with
+  the [current player guide](player-guide.md); do not use the historical feature
+  versions above as installation targets.
 - Check both cooling installations in all rotations, including both port side
   sockets, visible alignment and collision bounds. Review the port at normal game
   scale, including damage tint. Verify cabin pressure is unaffected by installation.
@@ -272,6 +299,6 @@ support have separate messages. Painted pipe details are not a routable network.
   guard, enable/stop, drag each slider and Apply, then change a value through F3.
   Verify unsubmitted edits are retained and refresh causes no new commands.
 
-These gameplay checks have **not** been run by the agent. The 0.14.0 installation
-was verified separately as described above. The historical research and mockup
-are background, not runtime proof.
+These gameplay checks have **not** been run by the agent. File/load-order
+verification does not establish a successful in-game cycle. Historical research,
+installation records and mockups are background, not runtime proof.

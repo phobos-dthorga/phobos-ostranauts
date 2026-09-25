@@ -1,0 +1,10 @@
+[h1]Phobos Framework 0.21.2[/h1]
+[b]Draft - not published | 2026-09-26[/b]
+
+[h2]Fixed[/h2]
+
+[list]
+[*]Resolve native instrument donor audits from BepInEx's managed directory when its byte-loaded game assembly has an empty Location. Keep the pinned SHA-256 check and component/callback isolation; changed or missing donors remain unavailable.
+[*]Supply fixed-field text layout that preserves glyph size, normalizes native-font baseline spacing and delegates clipping to the owning mask. Auto Nav uses it to correct blank compact labels and clipped telemetry without modifying shared font assets.
+[*]Add regressions for memory-loaded assemblies, mismatched/missing donor files and native font metrics. No saved-state changes; native interaction and visual confirmation remain owner checks.
+[/list]

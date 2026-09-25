@@ -8,6 +8,8 @@ Dates on Draft entries record preparation, not Steam publication.
 
 ### Documentation
 
+- Correct the F6 operating guide's direct versus powered-pipe cooling behavior, circulation/feed demand and damaged-pump limits. Point current-version checks to maintained references rather than historical installation notes.
+- Clarify that Manufacturing and autonomous G4 reclamation are separate future implementation tracks; current material receipt does not authorize repeated furnace batches or replace motion interlocks.
 - Added a maintained per-mod item reference covering function, use, acquisition and applicable economic/service data; generated tables and coverage checks share a one-click updater.
 
 ### Research and planning
@@ -28,6 +30,17 @@ Dates on Draft entries record preparation, not Steam publication.
 ### Requirements
 
 Phobos Framework 0.22.0 or newer. Agriculture and [Valtora's Ship's Water](https://steamcommunity.com/sharedfiles/filedetails/?id=3757331189) remain optional. No new Shipbreaker equipment artwork or industrial recipe; live attachment behavior awaits owner testing.
+
+## [0.19.1] - 2026-09-26 - Draft
+
+### Fixed
+
+- Mitigate saved-room misassignment triggered by pending Shipbreaker construction at a ship's grid edge. Restore checked saved grid bounds before native room and zone loading; retain native construction restoration, saved atmosphere, identities and progress.
+- The owner's G4 marker explains the observed 63-to-62-column mismatch and all four wrong tile indices. Apply only with spawned Shipbreaker installation markers; unrelated ships, matching grids and unsupported geometry are left unchanged.
+
+### Requirements
+
+Phobos Framework 0.21.1 or newer. No saved-state migration or save-file editing. This cannot recover gas already lost before saving. Offline regression and native loader-contract checks passed; the owner reported a successful affected-save reload on 26 September 2026. Broader save/reload coverage remains unverified. See the [investigation and owner check](https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/shipbreaker-room-load-mitigation.md).
 
 ## [0.19.0] - 2026-09-25 - Draft
 

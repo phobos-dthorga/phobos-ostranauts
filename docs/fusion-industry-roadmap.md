@@ -26,9 +26,20 @@ existing transfer services and is implemented in the Shipbreaker 0.17.0 candidat
 Replacement heat-sink casting and machining remain future Manufacturing work.
 Material routing reuses existing artwork without generation costs.
 
-**Implementation update (25 September 2026):** Shipbreaker 0.14.0 / Framework 0.17.0
-now prepare the electrical casting candidate described in the [F6 operating guide](furnace-player-guide.md).
-Read that guide for current dimensions, acquisition, controls and owner checks.
+**Current implementation and separate follow-ups:** the electrical furnace,
+finite direct/piped cooling and paired R4/F6 material routes are implemented.
+Read the [F6 operating guide](furnace-player-guide.md) for operation and the
+[current player guide](player-guide.md) for maintained package versions.
+
+Manufacturing's first mill and autonomous G4 reclamation are distinct follow-ups.
+Manufacturing first needs a working standalone machining job and an agreed
+preform contract before Shipbreaker adds its optional matching casting. G4
+reclamation follows the selected identity/geometry, Auto Nav authority and finite
+processing-chain sequence in its own handover. Neither proposal is delivered by
+the current material route, and neither justifies changing existing furnace
+recipes or motion interlocks before its implementation is validated.
+
+**Historical feature milestones:**
 Version 0.13.0 adds the optional 1 x 1 side-mounted F6-P underside cooling
 assembly alongside the existing exterior radiator; each furnace selects one.
 Version 0.14.0 completes the [attachment and native-instrument follow-up](furnace-connections-and-instruments.md).

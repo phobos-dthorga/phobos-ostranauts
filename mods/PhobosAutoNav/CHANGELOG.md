@@ -16,6 +16,19 @@ Dates on Draft entries record preparation, not Steam publication.
 - Document required Shipbreaker-to-Auto-Nav dependency direction, exact bindings, active tool-relative positioning and advancement, optional docking/capture, interruption and explicit industrial resume. Collision-compatible reach remains unresolved; existing flight behaviour, requirements, versions and provenance limits remain unchanged.
 - Attribute sensing context to [NASA Goddard's Raven research](https://www.nasa.gov/general/nasas-hybrid-computer-enables-ravens-autonomous-rendezvous-capability/) and [ESA's LIRIS experiment by Airbus, Jena Optronik and Sodern](https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/ATV/ATV_views_Space_Station_as_never_before); these do not validate or endorse Phobos gameplay. See the [research](https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/shipbreaker-autopilot-research.md) and [handover](https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/shipbreaker-autopilot-handover.md).
 
+## [0.14.1] - 2026-09-26 - Draft
+
+### Fixed
+
+- Correct blank flight-hub title, tabs, status/footer fields and truncated telemetry with the native font: retain full-size glyphs inside each field's mask, use compact baseline spacing and clip long lines without allowing vertical ellipsis to erase short fields.
+- Use a native-font-supported minus sign for decreasing cruise speed, arrival speed and separation. Keep explicit two-line Approach & Dock labels and all three range/speed readings.
+- Require Framework 0.21.2 for the shared text correction and native knob/switch/slider donor audit when BepInEx loads the game assembly from memory. The pinned game hash and isolated widget checks remain enforced.
+
+### Compatibility and limits
+
+- Preserve flight behavior, save identities, module placement and approved artwork. Prepared from the current five-tab N1/N2/N3 hub; the reported screenshot and installed game were using 0.12.1's four-tab hub.
+- Offline regression/build checks are separate from owner-run visual and gameplay confirmation. No installation or publication is implied.
+
 ## [0.14.0] - 2026-09-25 - Draft
 
 ### Added

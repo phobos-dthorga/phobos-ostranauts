@@ -1,4 +1,7 @@
 [h1]Phobos Shipbreaker[/h1]
+[h2]Pending-construction room-load mitigation in 0.19.1[/h2]
+Requires Phobos Framework 0.21.1 or newer. When pending Shipbreaker equipment reduces the initial loading grid, restore checked saved bounds before native room/zone assignments. Retain saved atmosphere and construction progress. This cannot recover gas already lost before saving. The owner reported a successful affected-save reload on 26 September 2026; broader save/reload coverage remains unverified.
+[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/shipbreaker-room-load-mitigation.md]Evidence, limits and reload check[/url]
 [h2]Shared completion cues in 0.19.0[/h2]
 Requires Phobos Framework 0.22.0 or newer. D4/R4 watches now use the shared Phobos volume/mute and one audio channel across mods. Existing one-batch meaning and original sound remain; no new furnace, transfer or ambient cues. Gameplay/listening review pending.
 [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/shared-completion-cues.md]Shared controls and limits[/url]
@@ -24,7 +27,7 @@ Recover useful shipbuilding materials and manage onboard industry with Phobos' R
 [*]No attached-hull cutting, persistent cargo ejection or perfect recycling. Recipe yields are authored gameplay budgets.
 [*]Processing and receiving are separate permissions and pause after reload. Saved links are retained.
 [*]Completion watches are session-only and clear on processing Pause/Cancel, fault or reload. Audio is restricted to the requesting selected crew on the same ship. Muted or suppressed events are never replayed. Listening evaluation is pending; no guaranteed native alarm suppression.
-[*]Cooling uses a simplified thermal model with optional finite coolant servicing. Existing direct and legacy sealed installations retain their saved meaning.
+[*]Cooling uses a simplified thermal model with optional finite coolant servicing. Direct coupling can transfer furnace heat without power; piped circulation requires electricity. On power loss, the radiator still rejects its own stored heat and the furnace retains bounded room leakage. Piped circulation adds up to 1 kW; cold feed motors use 2 kW by default. Existing direct and legacy sealed installations retain their saved meaning.
 [/list]
 
 [h2]Original trial in 0.18.0[/h2]

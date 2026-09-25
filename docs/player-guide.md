@@ -8,6 +8,12 @@ quiet volume/mute setting and never replay old events after loading.
 
 For equipment placement, see the [native INSTALL catalogue and tab locations](install-catalogue.md).
 
+Shipbreaker 0.19.1 requires Framework 0.21.1 and includes a
+[pending-construction room-load mitigation](shipbreaker-room-load-mitigation.md).
+It preserves checked saved grid bounds before room assignments; it cannot restore
+atmosphere already lost before saving. The owner reported a successful
+affected-save reload on 26 September 2026; broader coverage remains unverified.
+
 New here? Read [getting started](getting-started.md) for download availability,
 prerequisites and experimental status. Need help? See [support](../SUPPORT.md).
 
@@ -15,7 +21,7 @@ Agriculture is a prepared candidate with visible crop growth, cooking equipment 
 
 
 **Prepared versions:** Phobos Framework **0.22.0**, Shipbreaker **0.20.0**, Auto Nav
-**0.14.0**, built against Ostranauts **1.0.1.5** / BepInEx **5.4.23.5**.
+**0.14.1**, built against Ostranauts **1.0.1.5** / BepInEx **5.4.23.5**.
 These versions support ordinary saves. Builds and offline checks do not establish
 in-game compatibility. This guide describes the prepared packages, not a claim
 that those packages are already installed or that merchants have restocked.
@@ -225,6 +231,6 @@ publication is implied by this prepared redesign.
 
 ## Industrial controls (0.10.0)
 
-[Console and equipment panel guide](industrial-console-player-guide.md): a 3 x 3 ship-bound workstation, local Control Panels, automatic grouping, search, Attention and routing. The current Shipbreaker 0.20.0 requires Framework 0.21.0 and includes [shared observations](shared-console-observations.md) and optional [shared completion cues](shared-completion-cues.md). Prepared for owner testing; no in-game validation claimed.
+[Console and equipment panel guide](industrial-console-player-guide.md): a 3 x 3 ship-bound workstation, local Control Panels, automatic grouping, search, Attention and routing. The current Shipbreaker 0.20.0 requires Framework 0.22.0 and includes [shared observations](shared-console-observations.md) and optional [shared completion cues](shared-completion-cues.md). Prepared for owner testing; no in-game validation claimed.
 
 Agriculture now supports [finite potato and lettuce nutrient-solution piping](agriculture-nutrient-solutions.md) through its W2 supply and irrigation conduits.

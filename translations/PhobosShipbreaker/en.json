@@ -1,4 +1,6 @@
 {
+  "PlaceholderLoadRepair.restored": "Ship {0}: restored saved grid bounds from {1}x{2} to {3}x{4} before room and zone loading (pending Shipbreaker construction). Saved atmosphere and construction records are unchanged.",
+  "PlaceholderLoadRepair.unsupported": "Ship {0}: pending Shipbreaker construction detected, but the loading grid cannot safely expand to its saved bounds. Room-load mitigation was not applied; inspect this save before continuing.",
   "Audio.volume_help": "Quiet completion cue level (0 to 1; 0 mutes). Also follows the game's sound-effects volume. Each D4/R4 batch must be explicitly watched. No replay after loading.",
   "Audio.volume_label": "Completion cue: {0}% (change volume / mute)",
   "Audio.watching": "Watching the next batch completion once. Pause, fault or reload cancels this watch.",

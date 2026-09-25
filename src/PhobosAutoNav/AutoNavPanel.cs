@@ -114,7 +114,7 @@ public sealed class AutoNavPanel : NavModBase
         var cueVolume = PanelWidgets.Button(content, "", () => Phobos.Ostranauts.Framework.Audio.CompletionCues.CycleVolume());
         labels["cue-volume"] = cueVolume.GetComponentInChildren<TMP_Text>();
         labels["details"] = PanelWidgets.Label(content, "", flowing: false);
-        Style(labels["details"], 24); labels["details"].overflowMode = TextOverflowModes.Overflow;
+        Style(labels["details"], 24); labels["details"].textWrappingMode = TextWrappingModes.Normal;
         var sizing = labels["details"].gameObject.AddComponent<LayoutElement>(); sizing.minHeight = HubLayout.Data["body"].h;
     }
 
@@ -152,6 +152,7 @@ public sealed class AutoNavPanel : NavModBase
         Setting(parent, "pursuit.cruise", "pursuitCruise", () => Plugin.Service.StepPanelSpeed(COSelf, false, -1), () => Plugin.Service.StepPanelSpeed(COSelf, false, 1));
         Setting(parent, "pursuit.separation", "pursuitSeparation", () => Plugin.Service.StepPanelArrival(COSelf, -1), () => Plugin.Service.StepPanelArrival(COSelf, 1));
         labels["pursuitHelp"] = Readout(Box(parent, "pursuit.help"), 24);
+        labels["pursuitHelp"].textWrappingMode = TextWrappingModes.Normal;
         labels["pursuitHelp"].text = Text.Get("FCS.pursuit_help");
     }
     private void BuildFire(RectTransform parent)
@@ -175,9 +176,9 @@ public sealed class AutoNavPanel : NavModBase
     {
         labels["systems"] = Readout(Box(parent, "systems.metrics"), 24);
         foreach (string id in new[] { "flow", "cycle", "safety", "cycleEnable" })
-            Label(Box(parent, "systems." + id + "Label"), Text.Get("Hub." + id), 24).alignment = TextAlignmentOptions.Center;
+            Label(Box(parent, "systems." + id + "Label"), Text.Get("Hub." + id), 24).alignment = TextAlignmentOptions.Midline;
         foreach (string id in new[] { "flowValue", "cycleValue", "safetyValue", "enabledValue" })
-        { labels[id] = Readout(Box(parent, "systems." + id), 24, 2); labels[id].alignment = TextAlignmentOptions.Center; }
+        { labels[id] = Readout(Box(parent, "systems." + id), 24, 2); labels[id].alignment = TextAlignmentOptions.Midline; }
         flowSlider = Slider(Box(parent, "systems.flow"), value => Plugin.Service.ManualPropulsionAction(COSelf, ManualPropulsion.Flow, value));
         cycleSlider = Slider(Box(parent, "systems.cycle"), value => Plugin.Service.ManualPropulsionAction(COSelf, ManualPropulsion.Cycle, value));
         safetyGuard = Guard(Box(parent, "systems.safety"), on => Plugin.Service.ManualPropulsionAction(COSelf, ManualPropulsion.Safety, on ? 1 : 0));
@@ -189,7 +190,7 @@ public sealed class AutoNavPanel : NavModBase
     {
         var row = Box(parent, box);
         labels[id] = Readout(Rect(row, 0, 0, 344, 56), 24, 2);
-        settings.Add(AddButton(Rect(row, 356, 0, 80, 56), id + "-", "−", minus));
+        settings.Add(AddButton(Rect(row, 356, 0, 80, 56), id + "-", "-", minus));
         settings.Add(AddButton(Rect(row, 448, 0, 80, 56), id + "+", "+", plus));
     }
 
@@ -324,8 +325,8 @@ public sealed class AutoNavPanel : NavModBase
     {
         if (font != null) label.font = font;
         label.fontSize = size; label.enableAutoSizing = false; label.color = Ink; label.richText = false;
-        label.textWrappingMode = TextWrappingModes.Normal; label.overflowMode = TextOverflowModes.Ellipsis;
         label.alignment = TextAlignmentOptions.MidlineLeft; label.raycastTarget = false;
+        PanelWidgets.FitFixedText(label);
     }
     private Button AddButton(RectTransform rect, string id, string text, Action action, bool compact = false)
     {
@@ -345,7 +346,7 @@ public sealed class AutoNavPanel : NavModBase
         var donor = Resources.Load<GameObject>("GUIShip/GUIAirPump")?.transform.Find("pnlInside/btnDone")?.GetComponent<Button>();
         if (donor?.targetGraphic is Image source && source.sprite != null)
         { image.sprite = source.sprite; image.type = source.type; button.transition = donor.transition; button.spriteState = donor.spriteState; button.colors = donor.colors; }
-        var label = Label(face, text, 24); PanelWidgets.Fill((RectTransform)label.transform, 6, 2, 6, 2); label.alignment = TextAlignmentOptions.Center;
+        var label = Label(face, text, 24); PanelWidgets.Fill((RectTransform)label.transform, 6, 2, 6, 2); label.alignment = TextAlignmentOptions.Midline;
         button.onClick.AddListener(() => Invoke(action)); buttons[id] = button; return button;
     }
     private GUISafetyToggle? Guard(RectTransform host, Action<bool> action)
