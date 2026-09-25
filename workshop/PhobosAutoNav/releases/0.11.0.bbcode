@@ -1,0 +1,40 @@
+[h1]Phobos Auto Nav 0.11.0[/h1]
+[b]Draft - not published | 2026-09-25[/b]
+
+[h2]Pursuit and fire control[/h2]
+
+[list]
+[*]Add Phobos' Asterel N2 Polaris Pursuit Module in the Auto Nav package, with Rendezvous, continuous Follow, separate offensive target and native weapon-group selection, and explicit Engage / Cease Fire. One shared service owns navigation across N1 and N2.
+[*]Replace long acceleration extrapolation with bounded position-and-velocity replanning from qualified relative observations at a shared simulation boundary. Account for turning, native torch delivery and RCS braking handoff.
+[*]Preserve selected aggregate RCS throttle and native torch protections. All turning now uses physical RCS, including configurations that previously requested instantaneous rotation.
+[*]Give navigation/braking priority over firing. Retain native arcs, aiming time, manual/defensive settings, ammunition, jams, reload, projectile lead and consequences; prevent duplicate automatic salvos against pursuit targets.
+[*]Add a checked hold/retreat phase for manoeuvring docking targets. Dock remains a separate native-clearance-checked RCS command.
+[/list]
+
+[h2]Economy and saves[/h2]
+
+[list]
+[*]Add the 0.4 kg N2 at an authored $5,400 base value, a 60% pristine Polaris merchant offer and a 30-minute two-electronics construction recipe retaining 0.6 kg offcuts. Repair, Restore and dismantling reuse the existing board-material contracts.
+[*]Preserve N1 identities, salvage chances and ordinary flight preferences. Save N2 mission intent and console weapon-group preference; always suspend pursuit and docking on reload. Never save prediction history, aim or automatic-fire permission.
+[*]Add new native N2 item identities; avoid removing or downgrading the provider from saves containing them. No new mandatory mod dependency.
+[/list]
+
+[h2]Validation and limits[/h2]
+
+[list]
+[*]Offline comparisons cover accelerating, reversing, crossing and burst-dodging targets; aggregate RCS thrust reversals fell from eight to four in the specified benchmark. The individual reversing case rose from two to three. Follow mean separation error was about 14 m at 1 km in the tested burst scenario.
+[*]Check shared velocity/gravity, reversed update order, propulsion restrictions, sensor loss, saved suspension, native clearance and explicit firing interlocks. Numerical boundary doubles are not gameplay validation or measured fuel savings.
+[*]No general obstacle avoidance, guaranteed catch, intact boarding guarantee or automatic docking after combat. Native missile fire requires the open native display and its completed lock. Automatic fire is held above a one-second simulation step.
+[*]Package remains an unpublished draft held for upstream provenance review. Reuse approved casing artwork; gameplay and N2 layout await owner evaluation.
+[/list]
+
+[h2]References[/h2]
+
+[list]
+[*][url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/auto-nav-pursuit.md]Pursuit operation, benchmark conditions and implementation[/url]
+[*][url=https://ntrs.nasa.gov/citations/20120014309]Zhou, NASA Langley: manoeuvring-target relative feedback (2012)[/url]
+[*][url=https://eprints.whiterose.ac.uk/id/eprint/90483/1/orcsatpaper_final.pdf]Hartley, Trodden, Richards and Maciejowski: ESA ORCSAT rendezvous control (2012)[/url]
+[*][url=https://www.esa.int/Enabling_Support/Operations/ATV_i_Jules_Verne_i]ESA: ATV Jules Verne checked approach, holding and retreat[/url]
+[*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=3745533691]Auto Navigate by Gravy / mrkmg[/url]
+[*][url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/THIRD_PARTY_NOTICES.md]Authorship, game evidence and licence limits[/url]
+[/list]

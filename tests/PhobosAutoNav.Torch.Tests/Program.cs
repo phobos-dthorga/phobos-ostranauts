@@ -200,3 +200,4 @@ admissionTarget.TargetSitu.vPosy = 500 * AutoNavCore.M_TO_AU; own.objSS.vVelY = 
 Check(AutoNavCore.TryReadAdmission(own, admissionTarget, 1, 0, .1, 10, out room) && room.Safe,
     "Production target adapter permits a slow approach inside the selected arrival band");
 Console.WriteLine($"{checks} torch policy, native-boundary and guidance assertions passed. No in-game tests performed.");
+PursuitChecks.Run(Check);

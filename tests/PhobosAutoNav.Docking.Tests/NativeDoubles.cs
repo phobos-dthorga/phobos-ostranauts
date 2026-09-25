@@ -21,6 +21,7 @@ internal sealed class CrewSim
 }
 internal sealed class StarSystem
 {
+    internal static double fEpoch;
     internal Dictionary<string, Ship> Ships = new();
     internal Ship? GetShipByRegID(string id) => Ships.TryGetValue(id, out var ship) ? ship : null;
     internal bool IsInAtmo(Ship ship) => ship.Atmosphere;
@@ -57,6 +58,7 @@ internal sealed class Ship
 }
 internal sealed class ShipSitu
 {
+    internal UnityEngine.Vector2 vAccRCS = default;
     internal double vPosx = 0, vPosy = 0, vVelX = 0, vVelY = 0;
     internal float fRot = 0, fW = 0;
     internal void ResetNavData() { }
@@ -80,7 +82,7 @@ internal sealed class JsonShipSitu
     internal UnityEngine.Vector2 vAccRCS, vAccIn;
     internal float fA;
 }
-namespace UnityEngine { internal struct Vector2 { internal static Vector2 zero => default; } }
+namespace UnityEngine { internal struct Vector2 { internal double x = 0, y = 0; public Vector2() {} internal static Vector2 zero => default; } }
 internal sealed class GUIDockSys
 {
     internal static GUIDockSys? instance;
@@ -163,6 +165,8 @@ namespace PhobosAutoNav
     internal sealed class TorchDouble { internal void Release() { } internal void Reset() { } }
     internal sealed partial class NavigationService
     {
+        internal const string PursuitId = "PhobosNavModPursuit";
+        internal FireControlController Fire = new();
         internal const string ModuleId = "PhobosNavModAutoNav";
         internal TorchDouble Torch { get; } = new();
         private readonly Action<string> log = _ => { };

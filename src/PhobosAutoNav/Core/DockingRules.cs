@@ -14,17 +14,18 @@ internal static class DockingRules
     internal static double Wrap(double angle) => Math.Atan2(Math.Sin(angle), Math.Cos(angle));
 
     internal static bool TryGuide(double dx, double dy, double vx, double vy, double rotation, double spin,
-        double contactM, double acceleration, double throttle, double dt, out DockingCommand command)
+        double contactM, double acceleration, double throttle, double dt, out DockingCommand command, NavVector targetAcceleration = default)
     {
         command = default;
         foreach (double value in new[] { dx, dy, vx, vy, rotation, spin, contactM, acceleration, throttle, dt })
             if (!ArrivalBrake.Finite(value)) return false;
+        if (!targetAcceleration.Finite) return false;
         if (contactM <= 0 || acceleration <= 0 || throttle <= 0 || throttle > 1 || dt <= 0 || dt > MaximumStep) return false;
         double range = Math.Sqrt(dx * dx + dy * dy), speed = Math.Sqrt(vx * vx + vy * vy);
         if (!ArrivalBrake.Finite(range) || !ArrivalBrake.Finite(speed) || range < contactM * MinimumRadius || range - contactM > MaximumHullGapM) return false;
         double nx = dx / range, ny = dy / range, closing = vx * nx + vy * ny;
         double heading = Wrap(-Math.Atan2(dx, dy) - rotation);
-        double available = acceleration * throttle * BrakingReserve;
+        double available = Math.Max(acceleration * throttle * .05, acceleration * throttle * BrakingReserve - Math.Max(0, -targetAcceleration.Dot(new NavVector(nx, ny))));
         // Refuse an already unsafe intercept; this controller does not promise recovery or obstacle avoidance.
         if (closing > 0 && closing * closing / (2 * available) + closing * dt >= range - contactM) return false;
         bool ready = range <= contactM * NativeClampRadius && speed <= ClampSpeedMS &&
@@ -36,7 +37,7 @@ internal static class DockingRules
         // Brake sideways drift and face the target before advancing, rather than sweeping across it.
         double lateral = Math.Abs(vx * ny - vy * nx);
         if (Math.Abs(heading) > .15 || lateral > Math.Max(1, desired * .25)) desired = 0;
-        double ex = nx * desired - vx, ey = ny * desired - vy;
+        double ex = nx * desired - vx + targetAcceleration.X * dt, ey = ny * desired - vy + targetAcceleration.Y * dt;
         double cos = Math.Cos(rotation), sin = Math.Sin(rotation);
         double x = (ex * cos + ey * sin) / (acceleration * dt), y = (-ex * sin + ey * cos) / (acceleration * dt);
         if (Math.Sqrt(ex * ex + ey * ey) < VelocityDeadbandMS) x = y = 0;
@@ -49,6 +50,26 @@ internal static class DockingRules
         command = new DockingCommand(bounded.X, bounded.Y, bounded.Turn, ready, range - contactM, speed, heading);
         return true;
     }
+    internal static bool TryHold(NavVector offset, NavVector velocity, NavVector targetAcceleration,
+        double rotation, double spin, double hull, double acceleration, double throttle, double dt, out DockingCommand command)
+    {
+        command = default;
+        if (!offset.Finite || !velocity.Finite || !targetAcceleration.Finite ||
+            !TorchRules.Finite(rotation, spin, hull, acceleration, throttle, dt) || acceleration <= 0 || throttle <= 0 ||
+            throttle > 1 || hull <= 0 || dt <= 0 || dt > MaximumStep) return false;
+        NavVector demand;
+        double separation = Math.Max(hull * 1.5, hull + 100);
+        if (PredictiveGuidance.TryPlan(offset, velocity, targetAcceleration, default, acceleration * throttle,
+            CruiseMS, 0, separation, hull, dt, 2, true, out var plan)) demand = plan.Acceleration;
+        else demand = (targetAcceleration - velocity / dt).Limit(acceleration * throttle * .5);
+        double cos = Math.Cos(rotation), sin = Math.Sin(rotation);
+        double turn = Math.Max(-RotationAcceleration, Math.Min(RotationAcceleration, -spin / (2 * dt)));
+        if (!RcsBudget.TryLimit((demand.X * cos + demand.Y * sin) / acceleration,
+            (-demand.X * sin + demand.Y * cos) / acceleration, turn, throttle, RcsBudget.CombinedRotationShare, out var bounded)) return false;
+        command = new DockingCommand(bounded.X, bounded.Y, bounded.Turn, false, offset.Length - hull, velocity.Length, 0);
+        return true;
+    }
+
 }
 
 internal readonly struct DockingCommand

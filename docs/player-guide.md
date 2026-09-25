@@ -7,7 +7,7 @@ Agriculture is a prepared candidate with visible crop growth, cooking equipment 
 
 
 **Prepared versions:** Phobos Framework **0.20.0**, Shipbreaker **0.17.0**, Auto Nav
-**0.10.1**, built against Ostranauts **1.0.1.5** / BepInEx **5.4.23.5**.
+**0.11.0**, built against Ostranauts **1.0.1.5** / BepInEx **5.4.23.5**.
 These versions support ordinary saves. Builds and offline checks do not establish
 in-game compatibility. This guide describes the prepared packages, not a claim
 that those packages are already installed or that merchants have restocked.
@@ -60,6 +60,7 @@ Mortorq tool and soldering tool, plus materials; it does not consume those tools
 | Exterior grabber | 60 min | K-Leg/VORB scrap, K-Leg fixer, San Diego Halvorson |
 | Hull chute | 30 min | Same industrial suppliers |
 | Residue collector | 40 min | Same industrial suppliers |
+| N2 Pursuit module | 30 min | Polaris pristine merchant offer or table construction; same electronics bill as N1 |
 | Auto Nav module | 30 min | Navigation offers in the economy guide; rare native module salvage |
 
 Stock is probabilistic and appears through normal merchant restocking. Restarting
@@ -168,6 +169,13 @@ connected workflow, retained materials and any actual failure you encounter.
 
 ## Auto Nav and current limits
 
+The [N2 Polaris Pursuit instrument](auto-nav-pursuit.md) adds Rendezvous, continuous
+Follow and separately selected offensive targets/native weapon groups with explicit
+Engage / Cease Fire. It shares predictive RCS/torch guidance with N1. Cease Fire
+retains Follow; Dock remains separate. Pursuit always suspends after load, and fire
+permission never resumes automatically. Build the N2 or look for it at the Polaris
+merchant. The new control behaviour and panel await owner-run gameplay evaluation.
+
 Auto Nav 0.10.0 adds [console-specific flight settings and safer starts](auto-nav-flight-profiles.md).
 Set cruise and arrival speed in **Details**, and stopping distance with the
 existing dial. F3 accepts `phobosnav cruise <m/s>`, `phobosnav arrivalspeed <m/s>`
@@ -226,8 +234,8 @@ requests 500 m for one flight. These distances are centre-to-centre, and arrival
 is a band rather than an exact docking position. Status reports effective range.
 Choose a ship/station target and use the [Auto Nav guide](auto-navigate-adaptation.md)
 for settings and integration limits. Stopping clears commanded thrust: the ship
-coasts. Stop is not emergency braking. Fly does not dock; obstacle avoidance and
-continuous relative-position holding remain unimplemented.
+coasts. Stop is not emergency braking. Fly does not dock. General obstacle avoidance remains unimplemented; continuous
+distance holding is now available through N2 Follow.
 
 The grabber currently receives manually loaded detached walls. It does not cut
 attached hull. The combined scrap reclaimer is now available; asteroid-water

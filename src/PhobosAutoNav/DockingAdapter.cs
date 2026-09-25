@@ -39,17 +39,22 @@ internal static class DockingAdapter
         return Check(own, target, ownPort, targetPort, checkFit: false);
     }
 
-    internal static bool Read(Ship own, Ship target, float throttle, double dt, out DockingCommand command)
+    internal static bool Read(Ship own, Ship target, float throttle, double dt, out DockingCommand command, NavVector targetAcceleration = default, bool hold = false)
     {
         var a = own.objSS; var b = target.objSS;
         command = default;
         if (a == null || b == null) return false;
+        if (hold) return DockingRules.TryHold(new NavVector((b.vPosx - a.vPosx) / AutoNavCore.M_TO_AU,
+            (b.vPosy - a.vPosy) / AutoNavCore.M_TO_AU), new NavVector((a.vVelX - b.vVelX) / AutoNavCore.M_TO_AU,
+            (a.vVelY - b.vVelY) / AutoNavCore.M_TO_AU), targetAcceleration, a.fRot, a.fW,
+            CollisionManager.GetCollisionDistanceAU(own, target) / AutoNavCore.M_TO_AU,
+            own.RCSAccelMax / AutoNavCore.M_TO_AU, throttle, dt, out command);
         // Called at the StarSystem.Update boundary, never between individual ships' updates.
         return DockingRules.TryGuide((b.vPosx - a.vPosx) / AutoNavCore.M_TO_AU,
             (b.vPosy - a.vPosy) / AutoNavCore.M_TO_AU,
             (a.vVelX - b.vVelX) / AutoNavCore.M_TO_AU, (a.vVelY - b.vVelY) / AutoNavCore.M_TO_AU,
             a.fRot, a.fW, CollisionManager.GetCollisionDistanceAU(own, target) / AutoNavCore.M_TO_AU,
-            own.RCSAccelMax / AutoNavCore.M_TO_AU, throttle, dt, out command);
+            own.RCSAccelMax / AutoNavCore.M_TO_AU, throttle, dt, out command, targetAcceleration);
     }
 
     internal static bool ConsoleOpen(CondOwner console) => GUIDockSys.instance != null &&

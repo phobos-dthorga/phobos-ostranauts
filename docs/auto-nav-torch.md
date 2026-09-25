@@ -1,5 +1,10 @@
 # Auto Nav torch propulsion (0.6.0)
 
+Current follow-up: [Polaris pursuit and fire control](auto-nav-pursuit.md) adds the
+N2 instrument, shared predictive guidance and moving-target docking hold. Its
+pursuit modes always suspend after reload; fire authority is never saved. Earlier
+version descriptions below remain useful background where not superseded.
+
 Prepared against Ostranauts **1.0.1.5**, BepInEx **5.4.23.5** and Phobos
 Framework **0.11.0**. Native code was inspected on 24 September 2026. Compilation
 and automated checks pass; the new reactor integration awaits owner gameplay

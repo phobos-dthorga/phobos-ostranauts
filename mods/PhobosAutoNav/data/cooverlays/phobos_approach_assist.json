@@ -58,5 +58,65 @@
       "ItmNavModMoboDmg",
       "PhobosNavModAutoNavDmg"
     ]
+  },
+  {
+    "strName": "PhobosNavModPursuit",
+    "strNameFriendly": "Phobos' Asterel N2 Polaris Pursuit Module",
+    "strNameShort": "Phobos' Asterel N2 Polaris Pursuit Module",
+    "strDesc": "Predictive rendezvous and continuous following for Polaris. Explicit Engage permits the selected native weapon group; Cease Fire retains following. Dock is a separate clearance-checked RCS manoeuvre. Automation suspends on reload. Does not avoid other traffic or guarantee intact capture.",
+    "strCOBase": "PhobosPursuitBoard",
+    "strImg": "phobos/autonav/PhobosAutoNavModule",
+    "strImgNorm": "phobos/autonav/PhobosAutoNavModuleNormal",
+    "strPortraitImg": "phobos/autonav/PhobosAutoNavModulePortrait",
+    "mapGUIPropMaps": [
+      "NavMod",
+      "PhobosNavModPursuit"
+    ],
+    "mapSlotEffects": [
+      "heldL",
+      "HeldItmDefaultL",
+      "heldR",
+      "HeldItmDefaultR"
+    ],
+    "mapModeSwitches": [
+      "PhobosPursuitBoard",
+      "PhobosNavModPursuit",
+      "PhobosPursuitBoardDmg",
+      "PhobosNavModPursuitDmg",
+      "ItmNavModMobo",
+      "PhobosNavModPursuit",
+      "ItmNavModMoboDmg",
+      "PhobosNavModPursuitDmg"
+    ]
+  },
+  {
+    "strName": "PhobosNavModPursuitDmg",
+    "strNameFriendly": "Phobos' Asterel N2 Polaris Pursuit Module (Damaged)",
+    "strNameShort": "Phobos' Asterel N2 Polaris Pursuit Module (Damaged)",
+    "strDesc": "A damaged Phobos' Asterel N2 Polaris Pursuit Module. Repair with two small electronic parts, then Restore its remaining wear before use. Fits a Polaris navigation station. Dismantling retains 0.4 kg of board residue.",
+    "strCOBase": "PhobosPursuitBoardDmg",
+    "strImg": "phobos/autonav/PhobosAutoNavModuleDmg",
+    "strImgNorm": "phobos/autonav/PhobosAutoNavModuleNormal",
+    "strPortraitImg": "phobos/autonav/PhobosAutoNavModuleDmgPortrait",
+    "mapGUIPropMaps": [
+      "NavMod",
+      "PhobosNavModPursuit"
+    ],
+    "mapSlotEffects": [
+      "heldL",
+      "HeldItmDefaultL",
+      "heldR",
+      "HeldItmDefaultR"
+    ],
+    "mapModeSwitches": [
+      "PhobosPursuitBoard",
+      "PhobosNavModPursuit",
+      "PhobosPursuitBoardDmg",
+      "PhobosNavModPursuitDmg",
+      "ItmNavModMobo",
+      "PhobosNavModPursuit",
+      "ItmNavModMoboDmg",
+      "PhobosNavModPursuitDmg"
+    ]
   }
 ]

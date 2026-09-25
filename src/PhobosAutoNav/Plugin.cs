@@ -16,7 +16,7 @@ namespace PhobosAutoNav;
 public sealed class Plugin : BaseUnityPlugin
 {
     public const string Id = "phobosgekko.ostranauts.autonav";
-    public const string Version = "0.10.1";
+    public const string Version = "0.11.0";
     internal static NavigationService Service { get; private set; } = null!;
     internal static ConfigEntry<bool> Enabled = null!, VerboseLogging = null!, FuelCheck = null!,
         AbortOnManualThrust = null!, UseThrusterRotation = null!, ResumeAfterLoad = null!, PreferTorch = null!, SalvageEnabled = null!;
@@ -85,7 +85,12 @@ public sealed class Plugin : BaseUnityPlugin
 [HarmonyPatch(typeof(StarSystem), nameof(StarSystem.Update))]
 internal static class DockingTickPatch
 {
-    private static void Prefix(StarSystem __instance, double fTimeDelta) => Plugin.Service.TickDocking(__instance, fTimeDelta, false);
+    private static void Prefix(StarSystem __instance, double fTimeDelta)
+    {
+        if (__instance != CrewSim.system) return;
+        Plugin.Service.TickDocking(__instance, fTimeDelta, false);
+        if (AutoNavCore.EngagedPlayer?.objSS != null) Plugin.Service.Tick(AutoNavCore.EngagedPlayer.objSS, fTimeDelta, false);
+    }
     private static void Postfix(StarSystem __instance, double fTimeDelta) => Plugin.Service.TickDocking(__instance, fTimeDelta, true);
     private static Exception? Finalizer(Exception? __exception)
     {
@@ -100,6 +105,40 @@ internal static class PanelPatch
     private static void Prefix(GUIOrbitDraw __instance) => AutoNavPanel.Ensure(__instance);
 }
 
+// The native panel queues salvos independently of navigation. Suppress its queue
+// for our Follow target; leave manual buttons and unrelated defensive PDC shots alone.
+[HarmonyPatch(typeof(Ostranauts.ShipGUIs.NavStation.NavModWeaponsControl), "TargetLockHandler")]
+internal static class PursuitWeaponAimPatch
+{
+    private static bool Prefix(Ostranauts.ShipGUIs.NavStation.NavModWeaponsControl __instance,
+        List<CondOwner> ____weaponsToFire, CondOwner ___COSelf)
+    {
+        var ship = ___COSelf?.ship;
+        if (ship == null || Plugin.Service.Fire.AllowsNative(ship.WeaponsSystem, ship.shipCombatTarget?.objSS)) return true;
+        ____weaponsToFire.Clear(); return false;
+    }
+}
+[HarmonyPatch(typeof(Ostranauts.ShipGUIs.NavStation.NavModWeaponsControl), "KeyHandler")]
+internal static class PursuitWeaponQueuePatch
+{
+    private static void Prefix(Ostranauts.ShipGUIs.NavStation.NavModWeaponsControl __instance,
+        List<CondOwner> ____weaponsToFire, CondOwner ___COSelf)
+    {
+        var ship = ___COSelf?.ship;
+        if (ship != null && !Plugin.Service.Fire.AllowsNative(ship.WeaponsSystem, ship.shipCombatTarget?.objSS))
+            ____weaponsToFire.Clear();
+    }
+}
+[HarmonyPatch(typeof(Ostranauts.Ships.WeaponsSystem), nameof(Ostranauts.Ships.WeaponsSystem.ShootAuto))]
+internal static class PursuitWeaponFirePatch
+{
+    private static bool Prefix(Ostranauts.Ships.WeaponsSystem __instance, ShipSitu target, ref bool __result)
+    {
+        if (Plugin.Service.Fire.AllowsNative(__instance, target)) return true;
+        __result = false; return false;
+    }
+}
+
 // LoadModules applies stored/default anchors before asking whether each panel
 // fits. Normalize only our rectangle at that shared boundary, including native
 // drag validation and saving; do not patch the game's global placement rules.
@@ -109,18 +148,6 @@ internal static class PanelBoundsPatch
     private static void Prefix(Ostranauts.ShipGUIs.NavStation.NavModBase __instance)
     {
         if (__instance is AutoNavPanel panel) panel.NormalizePlacementBounds();
-    }
-}
-
-[HarmonyPatch(typeof(ShipSitu), "TimeAdvance")]
-internal static class NavigationTickPatch
-{
-    private static void Prefix(ShipSitu __instance, double fTime, bool bIgnoreAccel) =>
-        Plugin.Service.Tick(__instance, fTime, bIgnoreAccel);
-    private static Exception? Finalizer(Exception? __exception)
-    {
-        if (__exception != null) Plugin.Service.Disengage(Text.Get("Plugin.physics_interrupted"));
-        return __exception;
     }
 }
 

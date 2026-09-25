@@ -4,6 +4,7 @@ namespace PhobosAutoNav.Core;
 // the construction bill and its duration remain in framework/recipes.json.
 internal static class EquipmentRules
 {
+    internal const double PursuitPrice = 5400, PursuitBrokenPrice = 1350;
     internal const double FunctionalPrice = 3600, BrokenPrice = 900;
     internal const double ModuleMassKg = 0.4, AssemblyOffcutKg = 0.6;
     internal const double RepairProgress = 900, DismantleProgress = 100;

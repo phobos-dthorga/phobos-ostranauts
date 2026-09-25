@@ -9,7 +9,7 @@ function Copy-PhobosPlayerGuides {
     foreach ($name in @(
         'agriculture-player-guide', 'agriculture-implementation', 'agriculture-research', 'agriculture-first-slice', 'agriculture-roadmap', 'agriculture-living-visuals', 'agriculture-economy-review', 'agriculture-economy-evidence', 'asset-generation-policy',
         'performance-captures', 'furnace-player-guide', 'furnace-coolant-conduits', 'furnace-connections-and-instruments', 'furnace-first-cycle', 'furnace-repair-castings', 'furnace-material-routing', 'manufacturing-handover',
-        'getting-started', 'building', 'player-guide', 'equipment-branding', 'installing-mods', 'equipment-economy', 'equipment-value-audit', 'auto-nav-instruments', 'auto-nav-docking', 'auto-nav-sensors', 'auto-nav-flight-profiles', 'artwork-resolution-policy',
+        'getting-started', 'building', 'player-guide', 'equipment-branding', 'installing-mods', 'equipment-economy', 'equipment-value-audit', 'auto-nav-instruments', 'auto-nav-docking', 'auto-nav-sensors', 'auto-nav-flight-profiles', 'auto-nav-pursuit', 'artwork-resolution-policy',
         'vanilla-economy-audit', 'shipbreaker-first-build', 'shipbreaker-hull-intake',
         'residue-collector', 'auto-navigate-adaptation', 'auto-nav-economy', 'auto-nav-panel-layout-audit', 'auto-nav-persistence', 'auto-nav-torch', 'residue-material-contract',
         'shipbreaking-material-processing-research', 'material-disposal-port-research',

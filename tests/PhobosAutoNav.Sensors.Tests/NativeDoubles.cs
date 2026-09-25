@@ -26,6 +26,7 @@ internal sealed class StarSystem
 internal sealed class BodyOrbit { internal bool Blocks, IsAsteroidField; internal int nDrawFlagsBody; }
 internal sealed class Ship
 {
+    internal bool IsUsingTorchDrive => false;
     internal string strRegID = "", publicName = "";
     internal ShipSitu objSS = new();
     internal bool bDestroyed, HideFromSystem, Hidden, bCheckPower, bCheckSensors;
@@ -159,7 +160,10 @@ namespace PhobosAutoNav
         internal enum Phase { Idle, Align, Accel, Cruise, Coast, Decel, Arrive }
         internal static Phase CurrentPhase = Phase.Idle;
         internal static string PhaseName => "phase";
-        internal static bool Engaged, Coasting;
+        internal static bool Engaged, Coasting, Following, FaceTarget;
+        internal static bool ControlLimited => false;
+        internal static double PredictionHorizon => 2;
+        internal static double PredictionError => 0;
         internal static Ship? EngagedPlayer;
         internal static TargetRef? EngagedTarget;
         internal static string? LastResult;
@@ -178,7 +182,7 @@ namespace PhobosAutoNav
         internal static void BeginFlight(Ship own, TargetRef target, CoastSettings coast, bool torch)
         { Engaged = true; EngagedPlayer = own; EngagedTarget = target; ElapsedSeconds = 0; FlightCoastSettings = coast; FlightPrefersTorch = torch; }
         internal static void RestoreFlight(Ship own, TargetRef target, FlightSnapshot flight)
-        { BeginFlight(own,target,flight.Coast,flight.PreferTorch); ElapsedSeconds = flight.ElapsedSeconds; Coasting = flight.Coasting; }
+        { BeginFlight(own,target,flight.Coast,flight.PreferTorch); ElapsedSeconds = flight.ElapsedSeconds; Coasting = flight.Coasting; Following = flight.IsFollowing; }
         internal static void EndFlight(Ship? own, string result)
         { Plugin.Service.Torch.Release(); if (own != null) own.Thrust = 0; LastResult = result; Engaged = false; }
         internal static void SteerFlight(Ship? own, TargetRef? target, double dt)

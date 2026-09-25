@@ -9,6 +9,7 @@ namespace PhobosAutoNav;
 
 internal sealed partial class NavigationService
 {
+    partial void ResetPursuit();
     private FlightSnapshot? savedFlight;
     private bool restorePending;
     private static ObjectStateStore Store(CondOwner co) => new ObjectStateStore(co.mapGUIPropMaps,
@@ -18,7 +19,7 @@ internal sealed partial class NavigationService
     // world's snapshot or send a maneuver into a world being torn down.
     internal void WorldChanging()
     {
-        Torch.Reset(); AutoNavCore.ResetStatics(); console = null; savedFlight = null;
+        ResetPursuit(); Fire.Reset(); Torch.Reset(); AutoNavCore.ResetStatics(); console = null; savedFlight = null;
         issuing = false; restorePending = false; status = Text.Get("Persistence.loading");
     }
     internal void WorldLoaded() => restorePending = true;
@@ -86,17 +87,17 @@ internal sealed partial class NavigationService
         FlightSnapshot.TryDecode(fields, out var snapshot) && snapshot.ConsoleId == co.strID &&
         snapshot.IsResumable ? snapshot : null;
 
-    private FlightSnapshot CaptureFlight(CondOwner co, TargetRef target, double cruise, double arrival, double distance) => new FlightSnapshot
+    private FlightSnapshot CaptureFlight(CondOwner co, TargetRef target, double cruise, double arrival, double distance, SavedFlightMode mode = SavedFlightMode.Active) => new FlightSnapshot
     {
-        ConsoleId = co.strID, ModuleId = co.GetCOsSafe(true).First(item => HasId(item, ModuleId) && !item.HasCond("IsDamaged")).strID,
+        ConsoleId = co.strID, ModuleId = co.GetCOsSafe(true).First(item => (mode != SavedFlightMode.Active ? HasId(item, PursuitId) : (HasId(item, ModuleId) || HasId(item, PursuitId))) && !item.HasCond("IsDamaged")).strID,
         ShipId = co.ship.strRegID, PlayerId = CrewSim.coPlayer.strID, TargetId = target.ShipId,
         CruiseMS = cruise, ArrivalMS = arrival,
-        ArrivalKM = distance, Coast = AutoNavCore.FlightCoastSettings, PreferTorch = AutoNavCore.FlightPrefersTorch, Mode = SavedFlightMode.Active
+        ArrivalKM = distance, Coast = AutoNavCore.FlightCoastSettings, PreferTorch = AutoNavCore.FlightPrefersTorch, Mode = mode
     };
 
     private bool FlightBindingValid() => savedFlight != null && console != null &&
         savedFlight.Matches(console.strID, console.GetCOsSafe(true).FirstOrDefault(item => item.strID == savedFlight.ModuleId &&
-            HasId(item, ModuleId) && !item.HasCond("IsDamaged"))?.strID ?? "", console.ship?.strRegID ?? "", CrewSim.coPlayer?.strID ?? "");
+            (savedFlight.IsPursuit ? HasId(item, PursuitId) : (HasId(item, ModuleId) || HasId(item, PursuitId))) && !item.HasCond("IsDamaged"))?.strID ?? "", console.ship?.strRegID ?? "", CrewSim.coPlayer?.strID ?? "");
 
     private void PersistProgress()
     {
@@ -107,7 +108,7 @@ internal sealed partial class NavigationService
         if (!savedFlight.Valid || !Store(console).TryWrite(savedFlight.Encode()))
         {
             // A persistence failure cannot leave unrecorded automation running.
-            issuing = true;
+            Fire.Cease(); issuing = true;
             try { if (AutoNavCore.Engaged) AutoNavCore.EndFlight(AutoNavCore.EngagedPlayer, "ABORTED"); }
             finally { AutoNavCore.ResetStatics(); issuing = false; }
             status = Text.Get("Persistence.write_failed");
@@ -170,10 +171,10 @@ internal sealed partial class NavigationService
             AutoNavCore.RestoreFlight(co.ship, target!, snapshot);
             if (Plugin.FuelCheck.Value && !AutoNavCore.HasFuelForFlight(co.ship, target!, readOnly: true))
             {
-                FinishSavedFlight(SavedFlightMode.Suspended); AutoNavCore.ResetStatics();
+                FinishSavedFlight(snapshot.SuspendedMode); AutoNavCore.ResetStatics();
                 status = Text.Get("Persistence.suspended_reason", Text.Get("NavigationService.insufficient_estimated_delta_v")); return;
             }
-            savedFlight.Mode = SavedFlightMode.Active; PersistProgress();
+            savedFlight.Mode = snapshot.ActiveMode; Fire.Reset(); PersistProgress();
             if (AutoNavCore.Engaged) status = Text.Get("Persistence.resumed", target!.DisplayName);
             log(status);
         }

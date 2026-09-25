@@ -12,6 +12,7 @@ internal sealed partial class NavigationService
     {
         // Keep intent, assigned ports, elapsed budget and coast settings. No
         // blind braking/prediction, automatic reacquisition or saved telemetry.
+        Fire.Cease();
         bool persisted = FinishSavedFlight(savedFlight?.SuspendedMode ?? SavedFlightMode.Suspended);
         issuing = true;
         try { if (AutoNavCore.Engaged) AutoNavCore.EndFlight(AutoNavCore.EngagedPlayer, "CONTACT LOST"); }

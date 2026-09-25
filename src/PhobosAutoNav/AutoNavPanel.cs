@@ -17,7 +17,9 @@ public sealed class AutoNavPanel : NavModBase
     private static readonly Color Ink = new Color32(198, 204, 204, 255);
     private static readonly Color Green = new Color32(144, 211, 169, 255);
     private static readonly Color Amber = new Color32(234, 196, 102, 255);
-    private bool damaged, detailsOpen;
+    private bool damaged, detailsOpen, pursuit;
+    private TMP_Text? pursuitDetails;
+    private Button? follow, fire, cease, selectWeapons, selectFireTarget;
     private RectTransform placement = null!, design = null!, overview = null!, detailsRoot = null!;
     private CanvasGroup controls = null!;
     private TMP_Text heading = null!, target = null!, range = null!, speed = null!, notice = null!, details = null!;
@@ -33,8 +35,10 @@ public sealed class AutoNavPanel : NavModBase
     {
         Build(nav, NavigationService.ModuleId, false);
         Build(nav, NavigationService.DamagedId, true);
+        Build(nav, NavigationService.PursuitId, false, true);
+        Build(nav, NavigationService.PursuitDamagedId, true, true);
     }
-    private static void Build(GUIOrbitDraw nav, string name, bool damaged)
+    private static void Build(GUIOrbitDraw nav, string name, bool damaged, bool pursuit = false)
     {
         if (nav.transform.Find(name) != null) return;
         var root = new GameObject(name, typeof(RectTransform)); root.SetActive(false);
@@ -47,7 +51,7 @@ public sealed class AutoNavPanel : NavModBase
         var background = Region(container, "bg", 0, 0, 1, 1);
         background.gameObject.AddComponent<Image>().color = Color.clear;
         var panel = root.AddComponent<AutoNavPanel>();
-        panel.damaged = damaged; panel.placement = container;
+        panel.damaged = damaged; panel.pursuit = pursuit; panel.placement = container;
         panel.design = Region(background, "Faceplate", 0, 0, 1, 1);
         panel.design.anchorMin = panel.design.anchorMax = new Vector2(.5f, .5f);
         panel.design.sizeDelta = new Vector2(ReferenceWidth, ReferenceHeight);
@@ -62,7 +66,7 @@ public sealed class AutoNavPanel : NavModBase
         var layer = Region(panel.design, "Controls", 0, 0, 1, 1);
         panel.controls = layer.gameObject.AddComponent<CanvasGroup>();
         var font = nav.GetComponentsInChildren<TMP_Text>(true).FirstOrDefault(t => t.font != null)?.font;
-        Label(layer, Text.Get("Instruments.title"), .10f, .025f, .8f, .095f, font, 18, true);
+        Label(layer, Text.Get(pursuit ? "Pursuit.title" : "Instruments.title"), .10f, .025f, .8f, .095f, font, 18, true);
         panel.overview = Region(layer, "Overview", 0, 0, 1, 1);
         panel.heading = Label(panel.overview, "", .049f, .174f, .507f, .11f, font, 21);
         panel.target = Label(panel.overview, "", .049f, .292f, .507f, .08f, font, 14);
@@ -75,6 +79,15 @@ public sealed class AutoNavPanel : NavModBase
         PanelWidgets.Fill((RectTransform)panel.detailScroll.transform);
         panel.detailsRoot = scrollHost;
         panel.detailNotice = PanelWidgets.Label(content, "");
+        if (pursuit)
+        {
+            panel.pursuitDetails = PanelWidgets.Label(content, "");
+            panel.follow = PanelWidgets.Button(content, Text.Get("Pursuit.follow_button"), () => panel.Follow());
+            panel.selectFireTarget = PanelWidgets.Button(content, Text.Get("Pursuit.target_button"), () => panel.FireTarget());
+            panel.selectWeapons = PanelWidgets.Button(content, Text.Get("Pursuit.group_button"), () => panel.Weapons());
+            panel.fire = PanelWidgets.Button(content, Text.Get("Pursuit.engage_button"), () => panel.EngageFire());
+            panel.cease = PanelWidgets.Button(content, Text.Get("Pursuit.cease_button"), () => panel.Cease());
+        }
         panel.dock = PanelWidgets.Button(content, Text.Get("Docking.button"), () => panel.Dock());
         panel.cruiseSetting = PanelWidgets.Label(content, "");
         panel.cruiseDown = PanelWidgets.Button(content, Text.Get("Preferences.cruise_down"), () => panel.ChangeSpeed(false, -1));
@@ -109,10 +122,15 @@ public sealed class AutoNavPanel : NavModBase
     private void Fly()
     {
         if (!CanInteract) return;
-        Plugin.Service.FlyOrResume(COSelf);
+        if (pursuit) Plugin.Service.PursuitOrResume(COSelf); else Plugin.Service.FlyOrResume(COSelf);
         if (!AutoNavCore.Engaged) { detailsOpen = true; detailScroll.verticalNormalizedPosition = 1; }
         UpdateUI();
     }
+    private void Follow() { if (CanInteract) Plugin.Service.StartPursuit(COSelf, true); UpdateUI(); }
+    private void FireTarget() { if (CanInteract) Plugin.Service.SelectFireTarget(COSelf); UpdateUI(); }
+    private void Weapons() { if (CanInteract) Plugin.Service.StepWeapons(COSelf); UpdateUI(); }
+    private void EngageFire() { if (CanInteract) Plugin.Service.EngageWeapons(COSelf); UpdateUI(); }
+    private void Cease() { if (CanInteract) Plugin.Service.CeaseFire(); UpdateUI(); }
     private void Stop()
     {
         if (!CanInteract) return;
@@ -165,7 +183,7 @@ public sealed class AutoNavPanel : NavModBase
     {
         if (heading == null) return;
         NormalizePlacementBounds();
-        var view = Plugin.Service.ReadInstruments(COSelf);
+        var view = Plugin.Service.ReadInstruments(COSelf, pursuit);
         bool editing = DraggableRef != null && DraggableRef.enabled;
         controls.interactable = !editing; controls.blocksRaycasts = !editing;
         overview.gameObject.SetActive(!detailsOpen); detailsRoot.gameObject.SetActive(detailsOpen);
@@ -186,7 +204,16 @@ public sealed class AutoNavPanel : NavModBase
         arrivalSetting.text = view.ArrivalMS == 0 ? Text.Get("Preferences.arrival_zero") : Text.Get("Preferences.arrival_value", view.ArrivalMS);
         cruiseDown.interactable = cruiseUp.interactable = arrivalDown.interactable = arrivalUp.interactable =
             !damaged && view.CanAdjustArrival;
-        flyLabel.text = Text.Get(view.Resumable ? "Persistence.resume_button" : "AutoNavPanel.fly");
+        if (pursuit) arrivalDown.interactable = arrivalUp.interactable = false;
+        flyLabel.text = Text.Get(view.Resumable ? "Persistence.resume_button" : pursuit ? "Pursuit.rendezvous_button" : "AutoNavPanel.fly");
+        if (pursuit && pursuitDetails != null)
+        {
+            pursuitDetails.text = Plugin.Service.PursuitSummary(COSelf);
+            follow!.interactable = !damaged && view.CanFly && !view.Resumable;
+            fire!.interactable = !damaged && view.CanStop && AutoNavCore.Following;
+            cease!.interactable = !damaged && Plugin.Service.Fire.Permitted;
+            selectWeapons!.interactable = selectFireTarget!.interactable = !damaged;
+        }
         detailLabel.text = Text.Get(detailsOpen ? "Instruments.overview" : "Instruments.details_button");
     }
     private static RectTransform Region(Transform parent, string name, float x, float y, float width, float height)

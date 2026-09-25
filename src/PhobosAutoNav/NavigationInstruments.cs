@@ -16,7 +16,7 @@ internal sealed partial class NavigationService
         co.HasCond("IsInstalled") && !co.HasCond("IsLocked") && co.ship != null && co.ship == CrewSim.coPlayer?.ship;
 
     // UI reads only. Never Resolve a target or touch actuator/save state when drawing a panel.
-    internal InstrumentSnapshot ReadInstruments(CondOwner? co)
+    internal InstrumentSnapshot ReadInstruments(CondOwner? co, bool matchMotion = false)
     {
         var view = new InstrumentSnapshot { ArrivalKM = Plugin.DefaultArriveKM.Value,
             Heading = Text.Get("Instruments.waiting"), Target = Text.Get("Instruments.no_target"),
@@ -32,7 +32,7 @@ internal sealed partial class NavigationService
         bool permitsTorch = ownsFlight ? AutoNavCore.FlightPrefersTorch : snapshot?.PreferTorch ?? Plugin.PreferTorch.Value;
         view.ArrivalKM = ownsFlight ? AutoNavCore.ArriveAU / AutoNavCore.KM_TO_AU : snapshot?.ArrivalKM ?? preferences.ArrivalKM;
         view.CruiseMS = snapshot?.CruiseMS ?? preferences.CruiseMS;
-        view.ArrivalMS = snapshot?.ArrivalMS ?? preferences.ArrivalMS;
+        view.ArrivalMS = snapshot?.ArrivalMS ?? (matchMotion ? 0 : preferences.ArrivalMS);
         view.TorchPreferred = permitsTorch && Plugin.PreferTorch.Value;
         view.CanAdjustArrival = validPreferences && SettingsHardwareReady(co) &&
             !otherFlight && InstrumentRules.CanSetArrival(AutoNavCore.Engaged, snapshot != null);
@@ -94,6 +94,13 @@ internal sealed partial class NavigationService
                 "\n\n" + Text.Get("Docking.binding", snapshot.OwnPort, snapshot.TargetPort) +
                 "\n\n" + Text.Get("Docking.help");
         }
+        if (ownsFlight && snapshot?.IsPursuit == true)
+        {
+            view.Heading = Text.Get(Fire.Permitted ? "Pursuit.engaging" : snapshot.IsFollowing ? "Pursuit.following" : "Pursuit.rendezvous");
+            view.Notice = Text.Get(Fire.Reason);
+        }
+        if (ownsFlight && AutoNavCore.ControlLimited)
+        { view.Notice = Text.Get("Pursuit.control_limited"); view.Warning = true; }
         view.Details += "\n\n" + Text.Get(sensing.MessageKey) + "\n" + Text.Get("Sensors.help");
         return view;
     }

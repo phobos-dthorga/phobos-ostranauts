@@ -23,7 +23,7 @@ internal sealed partial class NavigationService
 
     private static bool SettingsHardwareReady(CondOwner? co) => IsLocalConsole(co) &&
         CrewSim.objInstance != null && CrewSim.objInstance.FinishedLoading && !co!.HasCond("IsDamaged") &&
-        co.GetCOsSafe(true).Any(item => HasId(item, ModuleId) && !item.HasCond("IsDamaged"));
+        co.GetCOsSafe(true).Any(item => (HasId(item, ModuleId) || HasId(item, PursuitId)) && !item.HasCond("IsDamaged"));
 
     private bool CanChangePreferences(CondOwner? co)
     {

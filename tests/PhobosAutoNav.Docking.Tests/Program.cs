@@ -42,7 +42,7 @@ Check(!DockingRules.TryGuide(0,double.NaN,0,0,0,0,200,1,1,1,out _), "Nonfinite m
     NativeContactReader.State = ContactState.Ready;
     AutoNavCore.ResetStatics(); AutoNavCore.Busy = false; AutoNavCore.FuelAvailable = true;
     HarmonyLib.AccessTools.MethodsAvailable = true;
-    CrewSim.system = new(); CrewSim.AttachCalls = 0; CrewSim.DuringAttach = null; CrewSim.Paused = false; CrewSim.objInstance.FinishedLoading = true;
+    StarSystem.fEpoch = 0; CrewSim.system = new(); CrewSim.AttachCalls = 0; CrewSim.DuringAttach = null; CrewSim.Paused = false; CrewSim.objInstance.FinishedLoading = true;
     var own = new Ship { strRegID = "own" }; own.Ports.Add("own"); own.Comms.Clearance = new();
     var target = new Ship { strRegID = "target" }; target.objSS.vPosy = metres * AutoNavCore.M_TO_AU;
     target.Ports.Add("assigned"); target.Pairs.Add(("assigned", "own"));
@@ -58,7 +58,9 @@ FlightSnapshot Read(CondOwner co)
     Check(new ObjectStateStore(co.mapGUIPropMaps, FlightSnapshot.StoreName, co.strID, FlightSnapshot.Schema).Read(out var fields) == SavedStateStatus.Ready, "Framework record readable");
     Check(FlightSnapshot.TryDecode(fields, out var record), "Saved docking contract decodes"); return record;
 }
-void Tick(NavigationService service, double dt = .1) => service.TickDocking(CrewSim.system, dt, false);
+void Tick(NavigationService service, double dt = .1)
+{ service.TickDocking(CrewSim.system, dt, false); StarSystem.fEpoch += dt; }
+void Settle(NavigationService service) { for (int i = 0; i < 55; i++) Tick(service); }
 var f = Setup(); f.Console.ship.Comms.Clearance = null; f.Service.Dock(f.Console);
 Check(!AutoNavCore.Engaged && CrewSim.AttachCalls == 0, "No clearance cannot engage");
 f = Setup(); f.Console.ship.Comms.Clearance!.ClearanceType = "PUSHBACK & TAXI"; f.Service.Dock(f.Console);
@@ -79,11 +81,11 @@ Check(!AutoNavCore.Engaged && Read(f.Console).Mode == SavedFlightMode.DockingSus
 f.Service.ResumeSaved(f.Console); Check(AutoNavCore.Engaged, "Resume revalidates and keeps original docking intent");
 f.Service.WorldChanging(); f.Service.WorldLoaded(); f.Service.UpdatePersistence(); f.Target.Ports.Clear(); f.Service.ResumeSaved(f.Console);
 Check(!AutoNavCore.Engaged && Read(f.Console).TargetPort == "assigned", "Unavailable saved port stays suspended without replacement");
-f = Setup(210); f.Service.Dock(f.Console); f.Service.TickDocking(CrewSim.system,.1,true);
+f = Setup(210); f.Service.Dock(f.Console); Settle(f.Service); f.Service.TickDocking(CrewSim.system,.1,true);
 Check(CrewSim.AttachCalls == 1 && !AutoNavCore.Engaged && Read(f.Console).Mode == SavedFlightMode.Docked, "Clamps attach once through native boundary");
 Check(CrewSim.LastOwnPort == "own" && CrewSim.LastTargetPort == "assigned", "Native attachment uses captured pair");
 f.Service.TickDocking(CrewSim.system,.1,true); Check(CrewSim.AttachCalls == 1, "No repeated attachment");
-f = Setup(210); f.Service.Dock(f.Console); GUIDockSys.instance = null; f.Service.TickDocking(CrewSim.system,.1,true);
+f = Setup(210); f.Service.Dock(f.Console); Settle(f.Service); GUIDockSys.instance = null; f.Service.TickDocking(CrewSim.system,.1,true);
 Check(CrewSim.AttachCalls == 0 && AutoNavCore.Engaged, "Closed console holds instead of bypassing native UI legal check");
 GUIDockSys.instance = new() { COSelf = f.Console }; f.Target.Pairs.Clear(); f.Service.TickDocking(CrewSim.system,.1,true);
 Check(CrewSim.AttachCalls == 0, "Final clamp rechecks fit even between periodic checks");
@@ -111,9 +113,9 @@ Check(!AutoNavCore.Engaged, "A secured towing brace cancels the maneuver");
 f = Setup(); f.Target.Atmosphere = true; f.Service.Dock(f.Console); Check(!AutoNavCore.Engaged, "Atmospheric target refused");
 f = Setup(); f.Target.Pairs.Insert(0,("wrong", "own")); f.Service.Dock(f.Console);
 Check(AutoNavCore.Engaged && Read(f.Console).TargetPort == "assigned", "First unassigned port cannot replace Comms assignment");
-f = Setup(210); f.Target.Station = true; f.Service.Dock(f.Console); f.Service.TickDocking(CrewSim.system,.1,true);
+f = Setup(210); f.Target.Station = true; f.Service.Dock(f.Console); Settle(f.Service); f.Service.TickDocking(CrewSim.system,.1,true);
 Check(CrewSim.AttachCalls == 1 && GUIDockSys.instance!.BrokenLocks == 1, "Station docking preserves native AI target-lock cleanup");
-f = Setup(210); f.Target.Station = true; HarmonyLib.AccessTools.MethodsAvailable = false; f.Service.Dock(f.Console); f.Service.TickDocking(CrewSim.system,.1,true);
+f = Setup(210); f.Target.Station = true; HarmonyLib.AccessTools.MethodsAvailable = false; f.Service.Dock(f.Console); Settle(f.Service); f.Service.TickDocking(CrewSim.system,.1,true);
 Check(CrewSim.AttachCalls == 0 && !AutoNavCore.Engaged, "Changed native station integration refuses attachment");
 f = Setup(); f.Console.ship.objSS.vVelX = f.Target.objSS.vVelX = 25000 * AutoNavCore.M_TO_AU;
 Check(DockingAdapter.Read(f.Console.ship,f.Target,1,.1,out var orbit) && orbit.SpeedMS == 0, "Shared orbital motion is not relative motion");
@@ -123,7 +125,7 @@ Check(AutoNavCore.ElapsedSeconds == moment, "Other system updates cannot steer t
 f = Setup(210); f.Service.Dock(f.Console); f.Console.SoftwareDamaged = true; f.Service.TickDocking(CrewSim.system,.1,true);
 Check(!AutoNavCore.Engaged && CrewSim.AttachCalls == 0, "Native damaged-software restriction is retained");
 f = Setup(210); f.Service.Dock(f.Console);
-CrewSim.DuringAttach = () => f.Service.TickDocking(CrewSim.system,.1,true);
+Settle(f.Service); CrewSim.DuringAttach = () => f.Service.TickDocking(CrewSim.system,.1,true);
 f.Service.TickDocking(CrewSim.system,.1,true);
 Check(CrewSim.AttachCalls == 1, "Reentrant native callback cannot attach twice");
 
@@ -144,5 +146,19 @@ f.Service.TickDocking(CrewSim.system,.1,true);
 Check(CrewSim.AttachCalls == 0 && !AutoNavCore.Engaged && Read(f.Console).Mode == SavedFlightMode.DockingSuspended,
     "Contact lost between physics and clamping prevents attachment");
 f.Service.ResumeSaved(f.Console); Check(!AutoNavCore.Engaged, "Manual docking resume cannot bypass weak contact");
+
+f=Setup(210); f.Service.Dock(f.Console); f.Service.TickDocking(CrewSim.system,.1,true);
+Check(CrewSim.AttachCalls==0 && AutoNavCore.Engaged,"New docking mission holds until motion is observed");
+Settle(f.Service); f.Target.objSS.vVelX += .1*AutoNavCore.M_TO_AU; StarSystem.fEpoch += .1;
+f.Service.TickDocking(CrewSim.system,.1,true);
+Check(CrewSim.AttachCalls==0 && AutoNavCore.Engaged,"New burn before clamp blocks capture even below native speed threshold");
+f=Setup(); f.Service.Dock(f.Console); Tick(f.Service);
+for (int i=0;i<100;i++) { f.Target.objSS.vVelY += .1*AutoNavCore.M_TO_AU; Tick(f.Service); }
+Check(AutoNavCore.Engaged && CrewSim.AttachCalls==0 && f.Service.Diagnostic.Contains("Docking.holding"),"Unattainable terminal target stays in hold/brake instead of repeated dives");
+Check(DockingRules.TryHold(new(0,250),new(0,2),new(0,.5),0,0,200,1,.5,.1,out var hold) && !hold.Ready &&
+    Math.Abs(hold.X)+Math.Abs(hold.Y)+Math.Abs(hold.Turn)<=.500001,"Hold remains bounded and cannot authorize clamps");
+f=Setup(210); f.Service.Dock(f.Console); Settle(f.Service); f.Target.objSS.fW=.01f;
+f.Service.TickDocking(CrewSim.system,.1,true);
+Check(CrewSim.AttachCalls==0 && AutoNavCore.Engaged,"Rotating target holds final capture despite matched translation");
 Console.WriteLine($"{count} docking assertions passed. Numerical and native-boundary doubles; no in-game testing.");
 internal enum LegacyMode { Active, Suspended, Stopped, Arrived }

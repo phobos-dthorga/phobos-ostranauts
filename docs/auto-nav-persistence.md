@@ -1,5 +1,10 @@
 # Auto Nav saved flights (introduced 0.5.0; torch addition 0.6.0)
 
+Current follow-up: [Polaris pursuit and fire control](auto-nav-pursuit.md) adds the
+N2 instrument, shared predictive guidance and moving-target docking hold. Its
+pursuit modes always suspend after reload; fire authority is never saved. Earlier
+version descriptions below remain useful background where not superseded.
+
 Auto Nav 0.10.0 also checks [current braking room](auto-nav-flight-profiles.md)
 before ordinary resume, including restoration after loading. Numeric console
 preferences use a separate saved record; they never replace a captured profile.

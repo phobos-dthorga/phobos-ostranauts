@@ -210,4 +210,21 @@ f.Service.Engage(f.Console); Signal(f.Own, .1); f.Service.Tick(f.Own.objSS, 1, f
 Signal(f.Own, 1);
 Check(!f.Service.Command(new[] { "phobosnav", "fly" }, out _) && Read(f.Console).Mode == SavedFlightMode.Suspended,
     "Direct F3 Fly cannot silently replace suspended intent; Resume or Stop is required");
+
+f = Setup(); f.Service.StartPursuit(f.Console,true);
+Check(!AutoNavCore.Engaged,"N1 alone cannot grant pursuit instrument commands");
+f.Console.Items.Add(new CondOwner { strID = "pursuit-module", strName = NavigationService.PursuitId, ship = f.Own });
+f.Service.StartPursuit(f.Console,true);
+Check(AutoNavCore.Engaged && Read(f.Console).Mode == SavedFlightMode.Following && Read(f.Console).ArrivalMS == 0,
+    "Follow captures zero arrival speed and its dedicated module");
+f.Service.EngageWeapons(f.Console); Check(!f.Service.Fire.Permitted,"Follow target is not implicitly an offensive target");
+f.Service.SelectFireTarget(f.Console); f.Service.EngageWeapons(f.Console); Check(f.Service.Fire.Permitted,"Separate target selection and Engage grant fire authority");
+f.Service.CeaseFire(); Check(AutoNavCore.Engaged && AutoNavCore.Following && !f.Service.Fire.Permitted,"Cease Fire preserves Follow");
+f.Service.EngageWeapons(f.Console); f.Service.WorldChanging(); f.Service.WorldLoaded(); f.Service.UpdatePersistence();
+Check(!AutoNavCore.Engaged && !f.Service.Fire.Permitted && Read(f.Console).Mode == SavedFlightMode.FollowingSuspended,
+    "Follow always suspends on load, even with ordinary auto-resume enabled");
+f.Service.ResumeSaved(f.Console); Check(AutoNavCore.Engaged && Read(f.Console).Mode == SavedFlightMode.Following && !f.Service.Fire.Permitted,
+    "Resume restores Follow without restoring automatic-fire authority");
+Signal(f.Own,.1);f.Service.Tick(f.Own.objSS,1,false);
+Check(!AutoNavCore.Engaged && Read(f.Console).Mode==SavedFlightMode.FollowingSuspended,"Follow contact loss preserves mission mode");
 Console.WriteLine($"{checks} sensor-boundary, guidance, display and persistence assertions passed. No in-game tests performed.");

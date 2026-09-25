@@ -1,11 +1,14 @@
 [h1]Phobos Auto Nav[/h1]
-[b]Version:[/b] 0.10.1
+[b]Version:[/b] 0.11.0
 [b]Publication status:[/b] Not published - held for upstream provenance review
 
-The Phobos' Asterel N1 Polaris Auto Nav Module assists ship and station approaches, braking and separate RCS docking while retaining native fuel, heat and thrust constraints.
+The Phobos' Asterel N1 Polaris Auto Nav Module assists approaches and braking. The new Phobos' Asterel N2 Polaris Pursuit Module adds Rendezvous, Follow and explicitly permitted native fire control. Both share one guidance service and separate checked RCS docking.
 
 [h2]Current features[/h2]
 [list]
+[*]Predict motion over a short horizon and replan from qualified observations of both ships. Preserve RCS throttle, torch protections and braking handoff.
+[*]N2: Rendezvous finishes at a chosen separation; Follow maintains a band. Select an offensive target and weapon group separately, then Engage. Cease Fire retains following.
+[*]N2: Polaris merchant or two-electronics/30-minute construction; repair, Restore and retained board offcuts/residue.
 [*]Choose cruise speed, arrival speed and stopping distance at each console.
 [*]Use live native sensor contact, torch preference with RCS fallback, and bounded RCS throttle.
 [*]Preserve flight intent and captured preferences across saves, subject to validation before resuming.
@@ -15,11 +18,16 @@ The Phobos' Asterel N1 Polaris Auto Nav Module assists ship and station approach
 [h2]Limits and save behaviour[/h2]
 [list]
 [*]Stop / Coast clears thrust; it is not emergency braking. Fly stops short; Dock is a separate action.
-[*]No obstacle avoidance or continuous relative-position holding. Sensor loss suspends guidance.
-[*]Docking suspends after reload. Ordinary flight restoration follows its own validation and preference policy.
-[*]Earlier guidance has owner-reported gameplay success; current features and integration need further evaluation.
+[*]No general obstacle avoidance, guaranteed catch or intact capture. Sensor loss suspends guidance. N1 Fly remains a one-shot approach; N2 Follow supplies continuous distance holding.
+[*]Rendezvous, Follow and Docking suspend after reload. Fire permission and prediction history are never restored. Native manual/defensive settings remain in force; missile fire requires the open native display and completed lock. Automatic fire is held above a one-second simulation step. Ordinary flight restoration follows its own validation and preference policy.
+[*]Offline manoeuvring-target and fire-interlock checks pass; N2 pursuit, combat coordination and moving-target docking require owner gameplay evaluation. Numerical results are not measured game fuel savings.
 [*]Upstream-derived guidance reuse terms remain unresolved. This draft is held for provenance review before Workshop publication.
 [/list]
+
+[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/auto-nav-pursuit.md]Pursuit controls, tested conditions, research and limits[/url]
+
+[h2]Research attribution[/h2]
+[url=https://ntrs.nasa.gov/citations/20120014309]Zhou, NASA Langley (2012)[/url] supports relative-motion feedback; [url=https://eprints.whiterose.ac.uk/id/eprint/90483/1/orcsatpaper_final.pdf]Hartley, Trodden, Richards and Maciejowski, ESA ORCSAT (2012)[/url] motivates constrained repeated planning for a passive target; [url=https://www.esa.int/Enabling_Support/Operations/ATV_i_Jules_Verne_i]ESA ATV operations[/url] motivates separate checked approach/hold/capture phases. Our game controller, thresholds and equipment balance are authored choices; these sources neither validate nor endorse this mod or hostile capture.
 
 [h2]Requirements and installation[/h2]
 Ostranauts 1.0.1.5, BepInEx 5 and Phobos Framework 0.15.0 or newer. Original Auto Navigate is not a dependency and must be disabled for Phobos Auto Nav to engage.

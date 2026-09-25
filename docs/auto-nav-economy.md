@@ -1,5 +1,10 @@
 # Phobos' Asterel N1 Polaris Auto Nav Module: acquisition and servicing
 
+Current follow-up: [Polaris pursuit and fire control](auto-nav-pursuit.md) adds the
+N2 instrument, shared predictive guidance and moving-target docking hold. Its
+pursuit modes always suspend after reload; fire authority is never saved. Earlier
+version descriptions below remain useful background where not superseded.
+
 Original economy audit prepared with **Auto Nav 0.4.3**, Ostranauts **1.0.1.5**, BepInEx **5.4.23.5**
 and Framework **0.10.0**. That build required Framework 0.7.0 or newer. The economy
 already existed before this round; 0.4.0 names the equipment for its Polaris

@@ -137,3 +137,10 @@ shared equipment catalog and remain independent of native saved IDs.
 Shipbreaker 0.16.0 adds **Phobos' Rivetline F6-C Sealed Coolant Conduit** to the
 F6 family. It is a twin-channel industrial thermal connection, distinct from
 Groundwork irrigation despite reusing the project's original fitting artwork.
+
+## Polaris pursuit follow-up (25 September 2026)
+
+**Phobos' Asterel N2 Polaris Pursuit Module** is the dedicated pursuit instrument
+in the existing Auto Nav package. N2 shares Asterel branding and the Polaris
+compatibility cue with N1. It reuses the approved casing artwork with distinct
+live panel/item names. See [operation and authored economy](auto-nav-pursuit.md).

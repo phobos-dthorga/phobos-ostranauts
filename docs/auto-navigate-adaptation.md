@@ -1,7 +1,7 @@
 # Phobos Auto Nav: standalone adaptation
 
-**0.10.0 candidate; built against Ostranauts 1.0.1.5 / BepInEx 5.4.23.5.**
-Ordinary saves are the baseline from 2026-09-24. Phobos Framework 0.14.0+ now
+**Current source candidate; built against Ostranauts 1.0.1.5 / BepInEx 5.4.23.5.**
+Ordinary saves are the baseline from 2026-09-24. Phobos Framework 0.15.0+ now
 provides shared construction, merchant and maintenance services. No original Auto
 Navigate dependency. See [prices, acquisition and service bills](equipment-economy.md).
 In-game validation of this update remains pending. See the
@@ -16,12 +16,18 @@ rotary controls and separates flight state from detailed explanations.
 
 The owner requested a standalone adaptation instead of a Workshop dependency,
 with original-author credit, and clarified that public releases are the intended
-destination. The repository remains private until explicitly changed. The
+destination. The repository is public; binary/Workshop publication remains held for upstream provenance review. The
 [third-party notice](../THIRD_PARTY_NOTICES.md) records attribution, exact binary
 provenance, the adapted files, a note for the original author and unverified terms.
 That note has not been sent. No blanket community reuse grant is claimed.
 
 ## Implemented slice
+
+- Current predictive guidance and the new N2 instrument implement the approved
+  [Polaris pursuit and fire-control plan](auto-nav-pursuit.md): Rendezvous, Follow,
+  explicit offensive selection/Engage/Cease Fire and a separate moving-target
+  docking hold. The linked guide supersedes older guidance/pursuit limitations
+  below; prior version descriptions remain historical context.
 
 - Version 0.10.0 applies the console throttle to translation plus turning, checks
   braking room before ordinary Fly/Resume, saves console-specific numeric defaults

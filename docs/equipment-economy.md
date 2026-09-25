@@ -437,3 +437,12 @@ $7,200 intact / $1,800 damaged; installation 1,200, uninstallation 900, repair
 3,000 and dismantling 800 work-progress units. Repair and retained salvage bills
 match the F6-R exactly. Native value audits include both forms. The choice changes
 installation geometry, not capacity, construction mass or operating yield.
+
+## N2 Polaris Pursuit (25 September 2026)
+
+The [N2 pursuit module](auto-nav-pursuit.md) has an authored $5,400 pristine base
+value, $1,350 damaged value and 0.4 kg mass. Its Polaris pristine merchant offer is
+60%. Construction uses two 0.5 kg small electronics parts over 30 minutes and retains
+0.6 kg existing board offcuts; repair consumes two electronics parts and dismantling
+retains 0.4 kg existing board residue. N1 stock, salvage and old saved IDs are unchanged.
+These are game balance choices, not actual electronics manufacturing yields.

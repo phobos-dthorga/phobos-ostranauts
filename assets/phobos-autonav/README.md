@@ -85,3 +85,11 @@ These Phobos-created assets and export code follow the repository's MIT scope;
 no exclusivity in generated imagery or rights over the game's art are claimed.
 The separate uncertainty about Auto Navigate-derived code is documented in the
 repository/package's `THIRD_PARTY_NOTICES.md` and is not an artwork dependency.
+
+## N2 pursuit casing reuse (25 September 2026)
+
+Auto Nav's N2 pursuit instrument reuses the existing module, damaged module,
+portrait, normal map and instrument faceplate exports unchanged. It is identified
+by its localized live N2 title and pursuit controls. No new artwork generation,
+third-party raster extraction or new artwork licence is implied. The N2 controls
+require owner evaluation in the actual native panel layout.

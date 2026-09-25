@@ -51,7 +51,7 @@ internal static class EquipmentValueAudit
         check(Price(Content.Loose, 0, true) > Price(Content.Loose), "Pristine premium is distinct from ordinary full condition");
         check(Price(Content.Loose, .99) < Price(Content.Loose), "Native wear reduces whole-equipment value");
         var items = EquipmentEconomy.Machines.SelectMany(s => new[] { s.Prefix + "Loose", s.Prefix + "LooseDmg" })
-            .Concat(new[] { ProcessRules.AssemblySection, ReclaimerRules.Section, FurnaceRules.Section, PhobosAutoNav.EquipmentContent.Base, PhobosAutoNav.EquipmentContent.Base + "Dmg" });
+            .Concat(new[] { ProcessRules.AssemblySection, ReclaimerRules.Section, FurnaceRules.Section, PhobosAutoNav.EquipmentContent.Base, PhobosAutoNav.EquipmentContent.Base + "Dmg", "PhobosPursuitBoard", "PhobosPursuitBoardDmg" });
         foreach (string id in items)
         {
             string[] outputs = DataHandler.dictInstallables[id + "Dismantle"].aLootCOs;
@@ -80,7 +80,7 @@ internal static class EquipmentValueAudit
             foreach (var recipe in pack.recipes)
             {
                 string id = recipe.outputs[0].item;
-                if (id == "PhobosNavModAutoNav") id = PhobosAutoNav.EquipmentContent.Base;
+                if (DataHandler.dictCOOverlays.TryGetValue(id, out var overlay)) id = overlay.strCOBase;
                 double inputs = recipe.ingredients.Sum(i => i.count * Price(i.item));
                 if (recipe.id == "PhobosRecoverFurnaceHousingBlank" || recipe.id == "PhobosRecoverFurnaceHousing")
                 {

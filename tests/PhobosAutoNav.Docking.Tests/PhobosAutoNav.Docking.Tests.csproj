@@ -10,4 +10,5 @@
     <Compile Include="../Support/AutoNavContactDouble.cs" Link="AutoNavContactDouble.cs" />
     <ProjectReference Include="../../src/PhobosFramework/PhobosFramework.csproj" />
   </ItemGroup>
+  <ItemGroup><Compile Include="../Support/AutoNavFireDouble.cs" Link="AutoNavFireDouble.cs" /></ItemGroup>
 </Project>

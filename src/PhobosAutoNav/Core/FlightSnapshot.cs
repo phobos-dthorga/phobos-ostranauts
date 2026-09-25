@@ -5,7 +5,7 @@ using Phobos.Ostranauts.Framework.Persistence;
 
 namespace PhobosAutoNav.Core;
 
-internal enum SavedFlightMode { Active, Suspended, Stopped, Arrived, Docking, DockingSuspended, Docked }
+internal enum SavedFlightMode { Active, Suspended, Stopped, Arrived, Docking, DockingSuspended, Docked, Rendezvous, RendezvousSuspended, Following, FollowingSuspended }
 
 // Original Phobos save contract. Units are metres/second, kilometres and seconds.
 // No cached positions, thrust commands, translated strings or Unity references.
@@ -20,15 +20,18 @@ internal sealed class FlightSnapshot
     internal SavedFlightMode Mode;
     internal string OwnPort = "", TargetPort = "";
     internal bool IsDocking => Mode == SavedFlightMode.Docking || Mode == SavedFlightMode.DockingSuspended || Mode == SavedFlightMode.Docked;
-    internal bool IsActive => Mode == SavedFlightMode.Active || Mode == SavedFlightMode.Docking;
-    internal bool IsResumable => IsActive || Mode == SavedFlightMode.Suspended || Mode == SavedFlightMode.DockingSuspended;
-    internal SavedFlightMode SuspendedMode => IsDocking ? SavedFlightMode.DockingSuspended : SavedFlightMode.Suspended;
+    internal bool IsPursuit => Mode == SavedFlightMode.Rendezvous || Mode == SavedFlightMode.RendezvousSuspended || IsFollowing;
+    internal bool IsFollowing => Mode == SavedFlightMode.Following || Mode == SavedFlightMode.FollowingSuspended;
+    internal bool IsActive => Mode == SavedFlightMode.Active || Mode == SavedFlightMode.Docking || Mode == SavedFlightMode.Rendezvous || Mode == SavedFlightMode.Following;
+    internal bool IsResumable => IsActive || Mode == SavedFlightMode.Suspended || Mode == SavedFlightMode.DockingSuspended || Mode == SavedFlightMode.RendezvousSuspended || Mode == SavedFlightMode.FollowingSuspended;
+    internal SavedFlightMode SuspendedMode => IsDocking ? SavedFlightMode.DockingSuspended : IsFollowing ? SavedFlightMode.FollowingSuspended : IsPursuit ? SavedFlightMode.RendezvousSuspended : SavedFlightMode.Suspended;
+    internal SavedFlightMode ActiveMode => IsDocking ? SavedFlightMode.Docking : IsFollowing ? SavedFlightMode.Following : IsPursuit ? SavedFlightMode.Rendezvous : SavedFlightMode.Active;
 
     internal bool Valid => ObjectStateStore.SafeValue(ConsoleId) && ObjectStateStore.SafeValue(ModuleId) &&
         ObjectStateStore.SafeValue(ShipId) && ObjectStateStore.SafeValue(PlayerId) && ObjectStateStore.SafeValue(TargetId) &&
         ShipId != TargetId && InRange(CruiseMS, FlightPreferences.MinimumCruiseMS, FlightPreferences.MaximumCruiseMS) && InRange(ArrivalMS, 0, Math.Min(FlightPreferences.MaximumArrivalMS, CruiseMS)) &&
         ApproachRules.ValidArrival(ArrivalKM) && InRange(ElapsedSeconds, 0, double.MaxValue) && Coast.IsValid &&
-        Enum.IsDefined(typeof(SavedFlightMode), Mode) && (!IsDocking ||
+        Enum.IsDefined(typeof(SavedFlightMode), Mode) && (!IsPursuit || ArrivalMS == 0) && (!IsDocking ||
             (ObjectStateStore.SafeValue(OwnPort) && ObjectStateStore.SafeValue(TargetPort) && !PreferTorch &&
              CruiseMS == DockingRules.CruiseMS && ArrivalMS == 0));
 

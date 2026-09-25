@@ -1,5 +1,10 @@
 # Polaris instrument panel — Auto Nav 0.10.0
 
+Current follow-up: [Polaris pursuit and fire control](auto-nav-pursuit.md) adds the
+N2 instrument, shared predictive guidance and moving-target docking hold. Its
+pursuit modes always suspend after reload; fire authority is never saved. Earlier
+version descriptions below remain useful background where not superseded.
+
 **0.10.0 controls:** Details adds cruise and arrival-speed minus/plus controls.
 Numeric speed/distance defaults now belong to each console; Fly readiness also
 checks braking room. See [flight profiles and safety](auto-nav-flight-profiles.md).

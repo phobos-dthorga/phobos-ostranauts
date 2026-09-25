@@ -171,6 +171,7 @@ namespace PhobosAutoNav
     }
     internal static class AutoNavCore
     {
+        internal static bool ControlLimited => false;
         internal static bool Engaged, Coasting, FuelAvailable = true, FuelReadOnly;
         internal static Ship? EngagedPlayer;
         internal static string? LastResult;
@@ -195,6 +196,8 @@ namespace PhobosAutoNav
     }
     internal sealed partial class NavigationService
     {
+        internal const string PursuitId = "PhobosNavModPursuit";
+        internal FireControlController Fire = new();
         internal TorchDouble Torch { get; } = new();
         internal const string ModuleId = "PhobosNavModAutoNav";
         private CondOwner? console;

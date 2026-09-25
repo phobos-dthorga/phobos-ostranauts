@@ -1,5 +1,10 @@
 # Auto Nav 0.10.0: flight controls, braking room and salvage
 
+Current follow-up: [Polaris pursuit and fire control](auto-nav-pursuit.md) adds the
+N2 instrument, shared predictive guidance and moving-target docking hold. Its
+pursuit modes always suspend after reload; fire authority is never saved. Earlier
+version descriptions below remain useful background where not superseded.
+
 Prepared on 25 September 2026 for Ostranauts **1.0.1.5** / BepInEx **5.4.23.5**,
 requiring **Phobos Framework 0.14.0**. This implements the four recommendations
 from the earlier Auto Navigate comparison. Offline checks are complete; installation

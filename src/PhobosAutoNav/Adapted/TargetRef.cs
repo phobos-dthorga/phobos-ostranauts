@@ -129,7 +129,7 @@ internal sealed class TargetRef
 			{
 				return false;
 			}
-			targetSitu.UpdateTime(StarSystem.fEpoch, ignoreAccel: false, includeDockGroup: false);
+
 			px = targetSitu.vPosx;
 			py = targetSitu.vPosy;
 			vx = targetSitu.vVelX;
@@ -175,7 +175,7 @@ internal sealed class TargetRef
 			{
 				return false;
 			}
-			targetSitu.UpdateTime(StarSystem.fEpoch, ignoreAccel: false, includeDockGroup: false);
+
 			Point predictedPosition = targetSitu.GetPredictedPosition(dtAhead);
 			Point predictedPosition2 = targetSitu.GetPredictedPosition(dtAhead + 0.5);
 			Point predictedPosition3 = targetSitu.GetPredictedPosition(Math.Max(0.0, dtAhead - 0.5));

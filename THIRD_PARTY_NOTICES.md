@@ -13,6 +13,11 @@ as `licenses/PhobosScope-MIT.md`.
 
 ## Auto Navigate guidance adaptation
 
+The pursuit benchmark retains a frozen copy of the earlier adapted controller in
+`tests/PhobosAutoNav.Torch.Tests/LegacyAutoNavCore.cs`. It has the same provenance
+and MIT exclusion as the adapted production files and is never packaged in the
+mod. New original prediction/fire-control policies do not relicense this fixture.
+
 Original work: **Auto Navigate 1.2.0**, by **Gravy / mrkmg**.
 [Original Steam Workshop item 3745533691](https://steamcommunity.com/sharedfiles/filedetails/?id=3745533691).
 The Workshop display name is Gravy; package and assembly authorship identify mrkmg.

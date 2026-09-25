@@ -7,8 +7,11 @@ internal sealed partial class NavigationService
 {
     private bool DockingActive => AutoNavCore.Engaged && savedFlight?.Mode == SavedFlightMode.Docking;
     private double nextDockFitCheck;
+    private readonly MotionTrack dockTrack = new();
+    private double dockStableSeconds;
+    private bool dockHolding;
     private bool dockingAttachmentPending;
-    private const double FitCheckSeconds = 2;
+    private const double FitCheckSeconds = 2, StableMotionSeconds = 5, TerminalAuthorityShare = .35, MaximumResidualMS = .05;
 
     internal void Dock(CondOwner? co)
     {
@@ -61,6 +64,7 @@ internal sealed partial class NavigationService
     {
         string? problem = DockingResumeProblem(co, snapshot);
         if (problem != null) { FinishSavedFlight(SavedFlightMode.DockingSuspended); status = problem; return; }
+        Fire.Cease(); dockTrack.Reset(); dockStableSeconds = 0; dockHolding = true;
         AutoNavCore.RestoreFlight(co.ship, target, snapshot);
         if (Plugin.FuelCheck.Value && !DockingAdapter.HasFuel(co.ship, CrewSim.system.GetShipByRegID(snapshot.TargetId)!, Throttle))
         { AutoNavCore.ResetStatics(); FinishSavedFlight(SavedFlightMode.DockingSuspended); status = Text.Get("NavigationService.insufficient_estimated_delta_v"); return; }
@@ -101,11 +105,26 @@ internal sealed partial class NavigationService
                 if (checkFit) nextDockFitCheck = AutoNavCore.ElapsedSeconds + FitCheckSeconds;
             }
             if (problem != null) { Disengage(problem); return; }
-            if (!DockingAdapter.Read(own, target!, Throttle, dt, out var command))
-            { Disengage(Text.Get("Docking.unsafe")); return; }
+            // Relative samples cancel common orbital acceleration; compensate only our known RCS input.
+            dockTrack.Observe(new NavVector((target!.objSS.vVelX - own.objSS.vVelX) / AutoNavCore.M_TO_AU,
+                (target.objSS.vVelY - own.objSS.vVelY) / AutoNavCore.M_TO_AU), StarSystem.fEpoch,
+                new NavVector(own.objSS.vAccRCS.x / AutoNavCore.M_TO_AU, own.objSS.vAccRCS.y / AutoNavCore.M_TO_AU));
+            double authority = own.RCSAccelMax / AutoNavCore.M_TO_AU * Throttle * TerminalAuthorityShare;
+            bool stable = dockTrack.Samples >= 2 && dockTrack.Acceleration.Length < authority && dockTrack.ErrorMS < MaximumResidualMS &&
+                ArrivalBrake.Finite(target.objSS.fW) && Math.Abs(target.objSS.fW) <= DockingRules.ClampSpinRadians;
+            if (!stable) dockStableSeconds = 0;
+            else if (!afterPhysics) dockStableSeconds += dt;
+            dockHolding = dockStableSeconds < StableMotionSeconds;
+            if (!DockingAdapter.Read(own, target!, Throttle, dt, out var command, dockTrack.Acceleration, dockHolding))
+            {
+                // Keep braking an already running manoeuvre; preflight admission remains conservative.
+                dockHolding = true; dockStableSeconds = 0;
+                if (!DockingAdapter.Read(own, target!, Throttle, dt, out command, dockTrack.Acceleration, true))
+                { Disengage(Text.Get("Docking.unsafe")); return; }
+            }
             if (afterPhysics)
             {
-                if (!command.Ready) return;
+                if (dockHolding || !command.Ready) return;
                 if (!DockingAdapter.ConsoleOpen(console)) { status = Text.Get("Docking.open_console"); return; }
                 // Never attach during a ship's physics iteration. Recheck actual motion after all ships advance.
                 issuing = true; dockingAttachmentPending = true;
@@ -127,7 +146,7 @@ internal sealed partial class NavigationService
             try { own.Maneuver((float)command.X, (float)command.Y, (float)command.Turn, 0, (float)dt); }
             finally { issuing = false; }
             AutoNavCore.AdvanceDockingClock(dt);
-            status = Text.Get("Docking.progress", command.HullGapM, command.SpeedMS);
+            status = Text.Get(dockHolding ? "Docking.holding" : "Docking.progress", command.HullGapM, command.SpeedMS);
             PersistProgress();
         }
         catch (Exception ex) { log(ex.ToString()); Disengage(Text.Get("Docking.error")); }

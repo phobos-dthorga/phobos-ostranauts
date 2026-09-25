@@ -1,3 +1,4 @@
+// Frozen 0.10.1 comparison fixture; never shipped.
 // Adapted from Auto Navigate 1.2.0 by Gravy / mrkmg (Workshop 3745533691).
 // Reconstructed from the author's distributed binary; source repository and licence unverified.
 // See THIRD_PARTY_NOTICES.md and docs/auto-navigate-adaptation.md. Not covered by our MIT grant.
@@ -10,7 +11,7 @@ using PhobosAutoNav.Core;
 
 namespace PhobosAutoNav;
 
-internal static class AutoNavCore
+internal static class LegacyAutoNavCore
 {
 	public enum Phase
 	{
@@ -27,16 +28,9 @@ internal static class AutoNavCore
 
 	public const double KM_TO_AU = 6.684587122268445E-09;
 
-	private static readonly MotionTrack Track = new MotionTrack();
-    private static NavVector lastAcceleration;
-    internal static bool Following;
-    internal static bool FaceTarget;
-    internal static double? WeaponHeading;
-    internal static bool ControlLimited { get; private set; }
-    internal static double PredictionHorizon => Track.Horizon;
-    internal static double PredictionError => Track.ErrorMS;
+	private const double SAFETY = 0.85;
 
-
+	private const double MAX_TGO = 2592000.0;
 
 	public static volatile Phase CurrentPhase = Phase.Idle;
 
@@ -72,7 +66,6 @@ internal static class AutoNavCore
     internal static void RestoreFlight(Ship ship, TargetRef target, FlightSnapshot snapshot)
     {
         EngagedPlayer = ship; EngagedTarget = target;
-        Track.Reset(); lastAcceleration = default; Following = snapshot.IsFollowing; FaceTarget = false; WeaponHeading = null;
         CruiseAU = snapshot.CruiseMS * M_TO_AU;
         ArrSpdAU = snapshot.ArrivalMS * M_TO_AU;
         ArriveAU = snapshot.ArrivalKM * KM_TO_AU;
@@ -135,7 +128,6 @@ internal static class AutoNavCore
 		_elapsedSim = 0.0;
 		_logAccum = 0.0;
 		_coasting = false;
-        Track.Reset(); lastAcceleration = default; Following = FaceTarget = ControlLimited = false; WeaponHeading = null;
         FlightCoastSettings = coastSettings;
         FlightPrefersTorch = preferTorch;
 		LastResult = null;
@@ -177,7 +169,6 @@ internal static class AutoNavCore
 
 	public static void ResetStatics()
 	{
-        Track.Reset(); lastAcceleration = default; Following = FaceTarget = ControlLimited = false; WeaponHeading = null;
         FlightPrefersTorch = false;
 		Engaged = false;
         _coasting = false;
@@ -251,92 +242,251 @@ internal static class AutoNavCore
             {
                 if (!ArrivalBrake.Finite(value)) { EndFlight(player, "INVALID FLIGHT DATA"); return; }
             }
-            double cruise = Math.Max(CruiseAU / M_TO_AU, 1), arrival = Math.Min(ArrSpdAU / M_TO_AU, cruise);
-            double stop = EffectiveArriveAU(player, target) / M_TO_AU;
-            var offset = new NavVector((px - shipSitu.vPosx) / M_TO_AU, (py - shipSitu.vPosy) / M_TO_AU);
-            var velocity = new NavVector((shipSitu.vVelX - vx) / M_TO_AU, (shipSitu.vVelY - vy) / M_TO_AU);
-            double tolerance = Plugin.ArrivalSpeedTolerance.Value;
-            if (!Following && offset.Length <= stop * ApproachRules.ArrivalBandMultiplier && velocity.Length <= arrival + tolerance)
-            { EndFlight(player, "ARRIVED"); return; }
-            double throttle = ReadShipThrottle(player), full = player.RCSAccelMax / M_TO_AU;
-            if (throttle <= 0) { EndFlight(player, "THROTTLE ZERO"); return; }
-            if (!Track.Observe(-velocity, StarSystem.fEpoch, lastAcceleration))
+			double num2 = Math.Max(CruiseAU, M_TO_AU);
+			double num3 = Math.Max(0.0, Math.Min(ArrSpdAU, num2));
+			double num4 = (double)((Plugin.ArrivalSpeedTolerance != null) ? Plugin.ArrivalSpeedTolerance.Value : 5f) * M_TO_AU;
+			double num5 = px - vx * fTime - shipSitu.vPosx;
+			double num6 = py - vy * fTime - shipSitu.vPosy;
+			double num7 = Math.Sqrt(num5 * num5 + num6 * num6);
+			double num8 = shipSitu.vVelX - vx;
+			double num9 = shipSitu.vVelY - vy;
+			double num10 = Math.Sqrt(num8 * num8 + num9 * num9);
+			double num11 = EffectiveArriveAU(player, target);
+            if (!ArrivalBrake.Finite(num7) || !ArrivalBrake.Finite(num10) || !ArrivalBrake.Finite(num11))
             { EndFlight(player, "INVALID FLIGHT DATA"); return; }
-            // Relative observations cancel common gravity; subtract our known delivered control.
-            var acceleration = Track.Acceleration;
-            double hull = CollisionManager.GetCollisionDistanceAU(player.objSS, target.TargetSitu) / M_TO_AU;
-            if (!PredictiveGuidance.TryPlan(offset, velocity, acceleration, lastAcceleration, full * throttle,
-                cruise, arrival, stop, hull, fTime, Track.Horizon, Following, out var plan))
-            { EndFlight(player, "INVALID FLIGHT DATA"); return; }
-            ControlLimited = plan.Limited;
-            double error = plan.Correction.Length;
-            double lateral = Math.Abs(velocity.X * offset.Unit.Y - velocity.Y * offset.Unit.X);
-            if (!CoastRules.TryDecide(_coasting, cruise, error, lateral, stop, plan.Braking,
-                FlightCoastSettings, out var coast)) { EndFlight(player, "INVALID FLIGHT DATA"); return; }
-            _coasting = coast.Coasting && acceleration.Length < .001 && !Following;
-            var demand = _coasting ? default : plan.Acceleration;
-            var correction = plan.Correction;
-            var torch = Plugin.Service.Torch;
-            double available = 0;
-            bool useTorch = !_coasting && torch.Available(player, FlightPrefersTorch, fTime, out available);
-            // Do not rely on a future torch burn to recover from today's closing speed.
-            double safe = TorchRules.SafeSpeed(Math.Max(0, offset.Length - stop * ApproachRules.ArrivalBandMultiplier),
-                velocity.Length, arrival, full * throttle, fTime);
-            if (useTorch && !plan.Braking && velocity.Length >= safe) useTorch = false;
-            var legCorrection = plan.Braking ? correction.Unit * Math.Max(correction.Length, velocity.Length - arrival) : correction;
-            if (useTorch && PredictiveGuidance.TorchWorthwhile(legCorrection, shipSitu.fRot, shipSitu.fW,
-                Plugin.RotAccelMax.Value * throttle, Plugin.RotSpeedMax.Value, available, full * throttle,
-                plan.Horizon, Plugin.TorchMinimumCorrectionMS.Value, out var delay) &&
-                PredictiveGuidance.TorchSequenceSafe(offset, velocity, acceleration, plan.RequestedAcceleration,
-                    hull, full * throttle, available, delay, fTime))
+			// Phobos: crossing a distance boundary is not proof of completed braking.
+            if (ArrivalBrake.NeedsBrake(num7, num11, num10, num3, num4))
             {
-                double torchHeading = -Math.Atan2(correction.X, correction.Y);
+                Plugin.Service.Torch.Cut();
+                if (!ArrivalBrake.TryCommand(num8 / M_TO_AU, num9 / M_TO_AU, shipSitu.fRot,
+                    player.RCSAccelMax / M_TO_AU, ReadShipThrottle(player), num3 / M_TO_AU, fTime,
+                    out var command))
+                {
+                    EndFlight(player, "BRAKE UNAVAILABLE");
+                    return;
+                }
+                CurrentPhase = Phase.Decel;
+                ApplyRcs(player, command.X, command.Y, 0, fTime);
+                return;
+            }
+            if (num7 <= num11 || (num3 <= num4 && num7 <= num11 * ApproachRules.ArrivalBandMultiplier && num10 <= num4))
+			{
+				EndFlight(player, "ARRIVED");
+				return;
+			}
+			float num12 = ReadShipThrottle(player);
+			if (num12 <= 0f)
+			{
+				EndFlight(player, "THROTTLE ZERO");
+                return;
+			}
+			double rCSAccelMax = player.RCSAccelMax;
+			if (rCSAccelMax <= 0.0)
+			{
+				return;
+			}
+			double num13 = (double)num12 * rCSAccelMax;
+			double num14 = num5 / num7;
+			double num15 = num6 / num7;
+			double v = Math.Max(0.0, num8 * num14 + num9 * num15);
+			double num16 = Math.Min(2592000.0, EstimateTGo(num7 - num11, v, num2, num3, num13));
+			if (!target.ResolveAt(num16, out var px2, out var py2, out var _, out var _))
+			{
+				EndFlight(player, "TGT LOST");
+				return;
+			}
+			double num17 = px2 - (px + vx * num16);
+			double num18 = py2 - (py + vy * num16);
+			double num19 = Math.Sqrt(num17 * num17 + num18 * num18);
+			double num20 = 0.5 * num7;
+			if (num19 > num20 && num19 > 0.0)
+			{
+				num17 *= num20 / num19;
+				num18 *= num20 / num19;
+				num19 = num20;
+			}
+			double num21 = num5 + num17;
+			double num22 = num6 + num18;
+			double num23 = Math.Sqrt(num21 * num21 + num22 * num22);
+			if (num23 < 1E-15)
+			{
+                Plugin.Service.Torch.Cut();
+				return;
+			}
+			double num24 = num21 / num23;
+			double num25 = num22 / num23;
+			float num26 = (float)(0.0 - Math.Atan2(num21, num22));
+			double num27 = WrapPi(num26 - shipSitu.fRot);
+			double num28 = num8;
+			double num29 = num9;
+			double num30 = num28 * num24 + num29 * num25;
+			double num31 = Math.Max(0.0, num23 - num11);
+			double num32 = Math.Sqrt(num3 * num3 + 2.0 * num13 * SAFETY * num31);
+			double num33 = Math.Min(num2, num32);
+			if ((num33 - num3) * fTime > num31)
+			{
+				num33 = num3 + num31 / fTime;
+			}
+            // Phobos: a looser cruise band must not delay braking. Use actual
+            // remaining range and reserve the next coast step, independent of
+            // the inherited prediction's potentially farther intercept point.
+            if (!CoastRules.TryBrakingSpeedLimit(
+                Math.Max(0, num7 - num11 * ApproachRules.ArrivalBandMultiplier) / M_TO_AU,
+                v / M_TO_AU, num3 / M_TO_AU, num13 / M_TO_AU, fTime, out double brakingSpeedMS))
+            { EndFlight(player, "INVALID FLIGHT DATA"); return; }
+            num33 = Math.Min(num33, brakingSpeedMS * M_TO_AU);
+            double minimumTorchCorrection = Plugin.TorchMinimumCorrectionMS.Value;
+            if (!ArrivalBrake.Finite(minimumTorchCorrection) || minimumTorchCorrection < 0.5 || minimumTorchCorrection > 100)
+            { EndFlight(player, "INVALID FLIGHT DATA"); return; }
+            double rawErrorX = num24 * num33 - num8, rawErrorY = num25 * num33 - num9;
+            double remainingCorrection = Math.Max(Math.Sqrt(rawErrorX * rawErrorX + rawErrorY * rawErrorY),
+                num33 < num2 ? Math.Max(0, num10 - num3) : 0);
+            if (FlightPrefersTorch && Plugin.PreferTorch.Value && remainingCorrection >= minimumTorchCorrection * M_TO_AU)
+            {
+                double safe = TorchRules.SafeSpeed(Math.Max(0, num7 - num11 * ApproachRules.ArrivalBandMultiplier) / M_TO_AU,
+                    num10 / M_TO_AU, num3 / M_TO_AU, num13 / M_TO_AU, fTime);
+                if (!ArrivalBrake.Finite(safe)) { EndFlight(player, "INVALID FLIGHT DATA"); return; }
+                num33 = Math.Min(num33, safe * M_TO_AU);
+            }
+            bool braking = num33 < num2 || num10 > brakingSpeedMS * M_TO_AU;
+			double num34 = num28 - num30 * num24;
+			double num35 = num29 - num30 * num25;
+			double num36 = Math.Sqrt(num34 * num34 + num35 * num35);
+			double num37 = num33 - num30;
+			double num38 = Math.Sqrt(num37 * num37 + num36 * num36);
+            if (!CoastRules.TryDecide(_coasting, num2 / M_TO_AU, num38 / M_TO_AU,
+                num36 / M_TO_AU, num11 / M_TO_AU, braking, FlightCoastSettings, out var coast))
+            { EndFlight(player, "INVALID FLIGHT DATA"); return; }
+            _coasting = coast.Coasting;
+			double num40 = 0.0;
+			double num41 = 0.0;
+			if (!_coasting)
+			{
+				double num42 = Math.Min(num13, num36 * coast.CorrectionFraction / fTime);
+				if (num36 > 1E-18)
+				{
+					num40 = (0.0 - num34) / num36 * num42;
+					num41 = (0.0 - num35) / num36 * num42;
+				}
+				double num43 = Math.Sqrt(Math.Max(0.0, num13 * num13 - num42 * num42));
+				double num44 = Math.Max(0.0 - num43, Math.Min(num43, (num33 - num30) * coast.CorrectionFraction / fTime));
+				num40 += num24 * num44;
+				num41 += num25 * num44;
+			}
+			double num45 = num36 / M_TO_AU;
+			double num46 = num30 / M_TO_AU;
+			double num47 = num2 / M_TO_AU;
+			double num48 = Math.Abs(num27) * 57.2957795;
+			if (_coasting)
+			{
+				CurrentPhase = Phase.Coast;
+			}
+			else if (braking)
+			{
+				CurrentPhase = Phase.Decel;
+			}
+			else if (num48 > 15.0 || (num45 > 2.0 && num46 < num47 * 0.5))
+			{
+				CurrentPhase = Phase.Align;
+			}
+			else if (num30 >= num33 * 0.9)
+			{
+				CurrentPhase = Phase.Cruise;
+			}
+			else
+			{
+				CurrentPhase = Phase.Accel;
+			}
+            float fR = 0;
+            var torch = Plugin.Service.Torch;
+            double errorX = (num24 * num33 - num8) * coast.CorrectionFraction / M_TO_AU;
+            double errorY = (num25 * num33 - num9) * coast.CorrectionFraction / M_TO_AU;
+            double correction = Math.Sqrt(errorX * errorX + errorY * errorY);
+            // A sustained braking leg can need a substantial total delta-v even
+            // though each individual guidance correction is small.
+            double torchWork = braking ? Math.Max(correction, (num10 - num3) / M_TO_AU) : correction;
+            if (!_coasting && correction > 0 && torchWork >= minimumTorchCorrection &&
+                torch.Available(player, FlightPrefersTorch, fTime, out double torchAcceleration))
+            {
+                double torchHeading = -Math.Atan2(errorX, errorY);
                 double torchError = WrapPi(torchHeading - shipSitu.fRot);
                 if (TorchRules.Aligned(torchError, shipSitu.fW, fTime + TorchRules.ZoneRefreshSeconds))
                 {
-                    double burn = TorchRules.BurnAcceleration(plan.RequestedAcceleration.X * fTime, plan.RequestedAcceleration.Y * fTime, shipSitu.fRot, available, fTime);
-                    if (!plan.Braking) burn = Math.Min(burn, Math.Max(0, safe - velocity.Length) / fTime);
-                    if (burn > 0 && torch.Burn(player, burn, fTime))
+                    double demand = TorchRules.BurnAcceleration(errorX, errorY, shipSitu.fRot, torchAcceleration, fTime);
+                    bool burning = torch.Burn(player, demand, fTime);
+                    if (burning || (!braking && torch.HasPendingBurn))
                     {
+                        // No translational RCS alongside torch; no attitude change
+                        // during a burn. Native reactor fuel/heat logic supplies thrust.
                         player.Maneuver(0, 0, 0, 0, (float)fTime);
-                        lastAcceleration = new NavVector(shipSitu.vAccIn.x / M_TO_AU, shipSitu.vAccIn.y / M_TO_AU);
-                        CurrentPhase = plan.Braking ? Phase.Decel : Phase.Accel;
+                        CurrentPhase = braking ? Phase.Decel : Phase.Accel;
                         return;
                     }
                 }
                 else
                 {
                     torch.Align();
-                    float turning = ComputeRotInput(shipSitu, torchError, fTime, TorchRules.MaximumHeadingRadians / 2);
-                    // RCS keeps correcting while torch turns; a target cannot make us coast indefinitely by changing heading.
-                    ApplyPredictiveRcs(player, demand, turning, full, fTime);
-                    CurrentPhase = plan.Braking ? Phase.Decel : Phase.Align;
-                    return;
+                    fR = Math.Abs(torchError) <= TorchRules.MaximumHeadingRadians / 2
+                        ? (float)CoastRules.CoastRotation(shipSitu.fW, fTime, Plugin.RotAccelMax.Value)
+                        : ComputeRotInput(shipSitu, torchError, fTime, TorchRules.MaximumHeadingRadians / 2);
+                    if (!braking)
+                    {
+                        ApplyRcs(player, 0, 0, fR, fTime);
+                        CurrentPhase = Phase.Align;
+                        return;
+                    }
+                    // Brake with RCS immediately while rotating toward a possible
+                    // retrograde torch burn; never coast through a braking demand.
                 }
             }
-            torch.Cut();
-            double desiredHeading = FaceTarget && WeaponHeading.HasValue ? WeaponHeading.Value : -Math.Atan2(offset.X, offset.Y);
-            double face = WrapPi(desiredHeading - shipSitu.fRot);
-            float turn = _coasting && !FaceTarget ? (float)CoastRules.CoastRotation(shipSitu.fW, fTime, Plugin.RotAccelMax.Value) :
-                ComputeRotInput(shipSitu, face, fTime, FlightCoastSettings.BurnHeadingToleranceDegrees * CoastRules.DegreesToRadians);
-            ApplyPredictiveRcs(player, demand, turn, full, fTime);
-            CurrentPhase = _coasting || plan.Holding ? Phase.Coast : plan.Braking ? Phase.Decel : Phase.Accel;
-            _logAccum += fTime;
-            if (_logAccum >= 5)
+            else
             {
-                _logAccum = 0;
-                Plugin.Verbose($"predictive range={offset.Length:0.0}m relative={velocity.Length:0.00}m/s horizon={plan.Horizon:0.0}s error={Track.ErrorMS:0.00}m/s limited={plan.Limited}");
+                torch.Cut();
+                fR = _coasting
+                    ? (float)CoastRules.CoastRotation(shipSitu.fW, fTime, Plugin.RotAccelMax.Value)
+                    : ComputeRotInput(shipSitu, num27, fTime, FlightCoastSettings.BurnHeadingToleranceDegrees * CoastRules.DegreesToRadians);
             }
-        }
-    }
+			double num49 = Math.Cos(shipSitu.fRot);
+			double num50 = Math.Sin(shipSitu.fRot);
+			double num51 = (num40 * num49 + num41 * num50) / rCSAccelMax;
+			double num52 = ((0.0 - num40) * num50 + num41 * num49) / rCSAccelMax;
+            ApplyRcs(player, num51, num52, fR, fTime);
+			if (Plugin.VerboseLogging != null && Plugin.VerboseLogging.Value)
+			{
+				_logAccum += fTime;
+				if (_logAccum >= 5.0)
+				{
+					_logAccum = 0.0;
+						Plugin.Verbose("steer[" + PhaseName + "]: range=" + (num7 / KM_TO_AU).ToString("0.#") + "km tGo=" + num16.ToString("0") + "s lead=" + (num19 / KM_TO_AU).ToString("0.##") + "km in=" + (num30 / M_TO_AU).ToString("0.#") + " cross=" + (num36 / M_TO_AU).ToString("0.#") + " vDes=" + (num33 / M_TO_AU).ToString("0.#") + "m/s cruiseError=" + (num38 / M_TO_AU).ToString("0.##") + " resume=" + coast.ResumeToleranceMS.ToString("0.##") + " crossLimit=" + coast.CrossTrackToleranceMS.ToString("0.##") + " braking=" + braking);
+				}
+			}
+		}
+	}
 
-    private static void ApplyPredictiveRcs(Ship player, NavVector acceleration, float turn, double full, double dt)
-    {
-        double cos = Math.Cos(player.objSS.fRot), sin = Math.Sin(player.objSS.fRot);
-        ApplyRcs(player, (acceleration.X * cos + acceleration.Y * sin) / full,
-            (-acceleration.X * sin + acceleration.Y * cos) / full, turn, dt);
-        lastAcceleration = new NavVector(player.objSS.vAccRCS.x / M_TO_AU, player.objSS.vAccRCS.y / M_TO_AU);
-    }
+	private static double EstimateTGo(double d, double v0, double cruise, double arrSpd, double aMax)
+	{
+		if (d <= 0.0)
+		{
+			return 0.0;
+		}
+		if (aMax <= 0.0)
+		{
+			return d / Math.Max(v0, 1E-12);
+		}
+		if (v0 > cruise)
+		{
+			v0 = cruise;
+		}
+		double num = Math.Max(0.0, (cruise * cruise - v0 * v0) / (2.0 * aMax));
+		double num2 = Math.Max(0.0, (cruise * cruise - arrSpd * arrSpd) / (2.0 * aMax));
+		if (num + num2 <= d)
+		{
+			return (cruise - v0) / aMax + (cruise - arrSpd) / aMax + (d - num - num2) / cruise;
+		}
+		double val = (2.0 * aMax * d + v0 * v0 + arrSpd * arrSpd) / 2.0;
+		double num3 = Math.Sqrt(Math.Max(val, Math.Max(v0 * v0, arrSpd * arrSpd)));
+		return Math.Max(0.0, num3 - v0) / aMax + Math.Max(0.0, num3 - arrSpd) / aMax;
+	}
 
     // Read-only snapshot: panel refreshes must not advance target physics.
     public static bool TryReadApproach(Ship player, TargetRef target, double requestedKM,
@@ -488,6 +638,13 @@ internal static class AutoNavCore
 
 	private static float ComputeRotInput(ShipSitu ps, double headErr, double fTime, double deadband)
 	{
+		if (Plugin.UseThrusterRotation != null && !Plugin.UseThrusterRotation.Value)
+		{
+			ps.fRot = (float)((double)ps.fRot + headErr);
+			ps.fW = 0f;
+			ps.fA = 0f;
+			return 0f;
+		}
 		double num = ((Plugin.RotAccelMax != null) ? ((double)Plugin.RotAccelMax.Value) : 0.5);
 		double val = ((Plugin.RotSpeedMax != null) ? ((double)Plugin.RotSpeedMax.Value) : 0.6);
 		if (num <= 0.0 || fTime <= 0.0)
@@ -498,7 +655,9 @@ internal static class AutoNavCore
 		double num3 = Math.Abs(headErr);
 		if (num3 < deadband && Math.Abs(num2) < 0.002)
 		{
-            return (float)Math.Max(-num, Math.Min(num, -num2 / (2 * fTime)));
+			ps.fW = 0f;
+			ps.fA = 0f;
+			return 0f;
 		}
 		double val2 = Math.Sqrt(2.0 * num * 0.8 * num3);
 		double num4 = (double)Math.Sign(headErr) * Math.Min(val, val2);

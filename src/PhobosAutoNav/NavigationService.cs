@@ -11,6 +11,9 @@ internal sealed partial class NavigationService
 {
     internal const string ModuleId = "PhobosNavModAutoNav";
     internal const string DamagedId = ModuleId + "Dmg";
+    internal const string PursuitId = "PhobosNavModPursuit";
+    internal const string PursuitDamagedId = PursuitId + "Dmg";
+    internal FireControlController Fire { get; } = new();
     private readonly Action<string> log;
     private CondOwner? console;
     private bool issuing;
@@ -28,7 +31,7 @@ internal sealed partial class NavigationService
     {
         if (co == null || co.bDestroyed || !co.HasCond("IsInstalled")) return Text.Get("NavigationService.installed_nav_console_required");
         if (co.HasCond("IsOff") || !co.HasCond("IsPowered") || co.HasCond("IsDamaged")) return Text.Get("NavigationService.console_is_off_unpowered_or_damaged");
-        if (!co.GetCOsSafe(true).Any(item => HasId(item, ModuleId) && !item.HasCond("IsDamaged"))) return Text.Get("NavigationService.working_phobos_auto_nav_module_required");
+        if (!co.GetCOsSafe(true).Any(item => (HasId(item, ModuleId) || HasId(item, PursuitId)) && !item.HasCond("IsDamaged"))) return Text.Get("NavigationService.working_phobos_auto_nav_module_required");
         if (co.ship == null || co.ship.bDestroyed || CrewSim.coPlayer == null || CrewSim.coPlayer.ship != co.ship) return Text.Get("NavigationService.player_must_be_aboard_the_controlled_ship");
         if (co.ship.IsDocked()) return Text.Get("NavigationService.undock_before_engagement");
         // Pending power/sensor refresh is a contact suspension, not a discarded
@@ -42,7 +45,7 @@ internal sealed partial class NavigationService
         return null;
     }
 
-    internal void Engage(CondOwner? co, float? arrivalKM = null)
+    internal void Engage(CondOwner? co, float? arrivalKM = null, SavedFlightMode mode = SavedFlightMode.Active)
     {
         if (AutoNavCore.Engaged) { status = Text.Get("NavigationService.already_engaged_stop_before_changing_the_flight"); return; }
         try
@@ -53,6 +56,7 @@ internal sealed partial class NavigationService
             if (Chainloader.PluginInfos.ContainsKey("com.mrkmg.ostranauts.autonavigate"))
             { status = Text.Get("NavigationService.disable_original_auto_navigate_and_restart_before"); return; }
             string? problem = HardwareProblem(co);
+            if (problem == null && mode != SavedFlightMode.Active && !HasPursuit(co)) problem = Text.Get("Pursuit.module_required");
             if (problem != null) { status = problem; return; }
             if (!CanReplaceFlight(co!)) return;
             if (DisplaySnapshot(co) != null) { status = Text.Get("Preferences.captured"); return; }
@@ -68,7 +72,7 @@ internal sealed partial class NavigationService
             var sensing = ReadContact(co, target);
             if (!sensing.Usable) { status = Text.Get(sensing.MessageKey); return; }
             if (!ReadPreferences(co!, out var preferences)) { status = Text.Get("Preferences.invalid"); return; }
-            double cruise = preferences.CruiseMS, arrival = preferences.ArrivalMS,
+            double cruise = preferences.CruiseMS, arrival = mode == SavedFlightMode.Active ? preferences.ArrivalMS : 0,
                 distance = arrivalKM ?? preferences.ArrivalKM;
             var coastSettings = Plugin.ReadCoastSettings();
             if (!ArrivalBrake.Finite(cruise) || !ArrivalBrake.Finite(arrival) || !ApproachRules.ValidArrival(distance) || !coastSettings.IsValid)
@@ -86,7 +90,9 @@ internal sealed partial class NavigationService
             if (!PreferenceStore(co!).TryWrite(preferences.Encode())) { status = Text.Get("Preferences.invalid"); return; }
             issuing = true;
             try { AutoNavCore.BeginFlight(co!.ship, target, coastSettings, Plugin.PreferTorch.Value); } finally { issuing = false; }
-            savedFlight = CaptureFlight(co!, target, cruise, Math.Min(arrival, cruise), distance);
+            savedFlight = CaptureFlight(co!, target, cruise, Math.Min(arrival, cruise), distance, mode);
+            AutoNavCore.Following = mode == SavedFlightMode.Following;
+            Fire.Reset();
             PersistProgress();
             if (AutoNavCore.Engaged) status = Text.Get("NavigationService.flight_engaged");
         }
@@ -116,6 +122,10 @@ internal sealed partial class NavigationService
             try { AutoNavCore.SteerFlight(AutoNavCore.EngagedPlayer, AutoNavCore.EngagedTarget, dt); }
             finally { issuing = false; }
             status = AutoNavCore.Engaged ? AutoNavCore.PhaseName : DescribeResult(AutoNavCore.LastResult);
+            if (AutoNavCore.ControlLimited) status = Text.Get("Pursuit.control_limited");
+            if (AutoNavCore.Engaged) Fire.Tick(AutoNavCore.EngagedPlayer, AutoNavCore.EngagedTarget, dt,
+                AutoNavCore.CurrentPhase != AutoNavCore.Phase.Decel && !AutoNavCore.ControlLimited && !AutoNavCore.EngagedPlayer.IsUsingTorchDrive);
+            else Fire.Cease();
             PersistProgress();
         }
         catch (Exception ex) { log(ex.ToString()); Disengage(Text.Get("NavigationService.flight_error_see_log")); }
@@ -154,6 +164,7 @@ internal sealed partial class NavigationService
 
     internal void Disengage(string reason)
     {
+        Fire.Cease();
         FinishSavedFlight(SavedFlightMode.Stopped);
         issuing = true;
         try { if (AutoNavCore.Engaged) AutoNavCore.EndFlight(AutoNavCore.EngagedPlayer, reason); }
@@ -187,7 +198,7 @@ internal sealed partial class NavigationService
         try
         {
             string verb = words.Length == 1 ? "help" : words[1].ToLowerInvariant();
-            if (words.Length > (verb == "fly" || verb == "arrival" || verb == "cruise" || verb == "arrivalspeed" || verb == "torch" ? 3 : 2))
+            if (words.Length > (verb == "fly" || verb == "arrival" || verb == "cruise" || verb == "arrivalspeed" || verb == "torch" || verb == "weapons" || verb == "rendezvous" || verb == "follow" ? 3 : 2))
             { response = Text.Get("NavigationService.no_extra_arguments_accepted_use_phobosnav_help"); return false; }
             switch (verb)
             {
@@ -221,6 +232,23 @@ internal sealed partial class NavigationService
                     Engage(OpenConsole, requested);
                     response = status + "\n" + ApproachSummary(OpenConsole, detailed: true);
                     return AutoNavCore.Engaged;
+                case "rendezvous":
+                case "follow":
+                    float? separation = null;
+                    if (words.Length == 3)
+                    {
+                        if (!ApproachRules.TryParseArrival(words[2], out float km)) { response = ArrivalUsage(); return false; }
+                        separation = km;
+                    }
+                    StartPursuit(OpenConsole, verb == "follow", separation); response = status; return AutoNavCore.Engaged;
+                case "weapons":
+                    if (words.Length != 3 || !int.TryParse(words[2], out int group) || group < 1 || group > 9)
+                    { response = Text.Get("Pursuit.weapon_usage"); return false; }
+                    SelectWeapons(OpenConsole, group); response = status; return true;
+                case "firetarget": SelectFireTarget(OpenConsole); response = status; return true;
+                case "engage": EngageWeapons(OpenConsole); response = status; return Fire.Permitted;
+                case "ceasefire": CeaseFire(); response = status; return true;
+                case "spawnpursuit": return Spawn(out response, PursuitId);
                 case "dock": Dock(OpenConsole); response = status; return AutoNavCore.Engaged;
                 case "arrival":
                 case "cruise":
@@ -251,16 +279,16 @@ internal sealed partial class NavigationService
     private static string ArrivalUsage() => Text.Get("NavigationService.arrival_usage",
         ApproachRules.MinimumArrivalKM, ApproachRules.MaximumArrivalKM);
 
-    private bool Spawn(out string response)
+    private bool Spawn(out string response, string module = ModuleId)
     {
         var co = OpenConsole;
         if (CrewSim.objInstance == null || !CrewSim.objInstance.FinishedLoading)
         { response = Text.Get("NavigationService.finish_loading_a_game_first"); return false; }
         if (co == null || co.bDestroyed || !co.HasCond("IsInstalled") || co.HasCond("IsLocked") || co.ship != CrewSim.coPlayer?.ship)
         { response = Text.Get("NavigationService.open_an_installed_unlocked_nav_console_aboard"); return false; }
-        if (co.GetCOsSafe(true).Any(item => HasId(item, ModuleId))) { response = Text.Get("NavigationService.module_already_present"); return false; }
-        if (DataHandler.GetCOOverlay(ModuleId) == null) { response = Text.Get("NavigationService.native_phobos_auto_nav_package_is_not"); return false; }
-        var item = DataHandler.GetCondOwner(ModuleId);
+        if (co.GetCOsSafe(true).Any(item => HasId(item, module))) { response = Text.Get("NavigationService.module_already_present"); return false; }
+        if (DataHandler.GetCOOverlay(module) == null) { response = Text.Get("NavigationService.native_phobos_auto_nav_package_is_not"); return false; }
+        var item = DataHandler.GetCondOwner(module);
         if (item == null) { response = Text.Get("NavigationService.could_not_create_module"); return false; }
         try
         {

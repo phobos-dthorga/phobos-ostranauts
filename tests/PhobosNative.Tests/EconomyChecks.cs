@@ -128,7 +128,7 @@ internal static class EconomyChecks
         check(MaintenanceSafety.ResolveFinish("PhobosNavModAutoNavDmg", "MSNavModMoboRepair") == "MSPhobosAutoNavBoardDmgRepair", "Saved Auto Nav repair uses actual waste accounting");
         check(MaintenanceSafety.ResolveFinish("PhobosNavModAutoNav", "MSNavModMoboDismantle") == "MSPhobosAutoNavBoardDismantle", "Saved Auto Nav dismantle uses the 0.4 kg output");
         check(MaintenanceSafety.ResolveFinish("ItmNavModMobo", "MSNavModMoboDismantle") == "MSNavModMoboDismantle", "Generic vanilla job is not globally redirected");
-        foreach (string id in new[]{PhobosAutoNav.EquipmentContent.Base,PhobosAutoNav.EquipmentContent.Base+"Dmg"})
+        foreach (string id in new[]{PhobosAutoNav.EquipmentContent.Base,PhobosAutoNav.EquipmentContent.Base+"Dmg", "PhobosPursuitBoard", "PhobosPursuitBoardDmg"})
         {
             check(Stat(id,"StatMass") == .4 && Sum(nav.Installables[id+"Dismantle"].aLootCOs,"StatMass") == .4, "Auto Nav disassembly cannot manufacture native half-kg electronics");
             check(!nav.Objects[id].aUpdateCommands.Any(c => c.Contains("ACTNavModMoboDamage")), "Auto Nav never falls back to a generic damaged board");
@@ -158,8 +158,14 @@ internal static class EconomyChecks
         check(navRestore.bNoDestructable && navRestore.aInputs.Length == 0 && navRestore.strAllowLootCTsThem == "CONDUndamageProgress",
             "Restore remains in-place wear maintenance without a material bill");
         var navOffers = nav.Loot.Values.Where(l => l.strName.StartsWith("PhobosAutoNavStock_", StringComparison.Ordinal)).ToArray();
-        check(navOffers.Length == 4 && navOffers.All(l => l.aCOs.Length == 1 && l.aCOs[0].EndsWith("x1", StringComparison.Ordinal)),
-            "Four acquisition routes each generate at most one module");
+        check(navOffers.Length == 5 && navOffers.All(l => l.aCOs.Length == 1 && l.aCOs[0].EndsWith("x1", StringComparison.Ordinal)),
+            "Four N1 offers and one N2 offer each generate at most one module");
+        check(Stat("PhobosPursuitBoard", "StatBasePrice") == 5400 && Stat("PhobosPursuitBoardDmg", "StatBasePrice") == 1350,
+            "N2 authored economy is distinct from retained N1 values");
+        check(nav.Installables["PhobosPursuitBoardDmgRepair"].aLootCOs.SequenceEqual(new[]{"PhobosNavModPursuit"}),
+            "N2 repair restores the pursuit family");
+        check(nav.Interactions["PhobosPursuitModeDamage"].objLootModeSwitch == "PhobosNavModPursuitDmg",
+            "N2 damage retains the pursuit family");
         var polarisStock = DataHandler.dictLoot["ItmTraderSanDiegoPolarisInv"];
         var repeatNav = PhobosAutoNav.EquipmentContent.Prepare(); repeatNav.Publish();
         check(DataHandler.dictLoot["ItmTraderSanDiegoPolarisInv"].aCOs.SequenceEqual(polarisStock.aCOs)
@@ -171,6 +177,10 @@ internal static class EconomyChecks
         check(DataHandler.dictInteractions["PhobosCraft_PhobosBuildAutoNav"].aLootItms.Any(s=>s.StartsWith("Use,")), "Assembly requires reusable tools through native fetching");
         check(Math.Abs(pack.recipes[0].ingredients.Sum(i=>i.count*i.unitMassKg)-pack.recipes[0].outputs.Sum(i=>i.count*i.unitMassKg))<.000001, "Auto Nav construction retains exact offcut mass");
         check(DataHandler.dictInteractions.ContainsKey("PhobosCraft_PhobosBuildAutoNav"), "Native overlay output works through shared construction registry");
+        var pursuitRecipe = pack.recipes.Single(r => r.id == "PhobosBuildPursuit");
+        RecipeRules.Validate(pursuitRecipe);
+        check(DataHandler.dictInteractions.ContainsKey("PhobosCraft_PhobosBuildPursuit") &&
+            pursuitRecipe.outputs.Any(o => o.item == "PhobosNavModPursuit"), "N2 native overlay is constructible with balanced retained offcuts");
         // Inspect generated native jobs too; no game session or Unity object creation.
         foreach (var job in nav.Installables.Values)
         {

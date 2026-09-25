@@ -1,5 +1,10 @@
 # Polaris docking — Auto Nav 0.8.0
 
+Current follow-up: [Polaris pursuit and fire control](auto-nav-pursuit.md) adds the
+N2 instrument, shared predictive guidance and moving-target docking hold. Its
+pursuit modes always suspend after reload; fire authority is never saved. Earlier
+version descriptions below remain useful background where not superseded.
+
 **0.9.0 follow-up:** [live contact](auto-nav-sensors.md) is required to engage,
 resume, guide and clamp. Contact loss suspends, clears owned thrust and preserves
 the assigned pair for explicit Resume; it does not provide emergency braking.

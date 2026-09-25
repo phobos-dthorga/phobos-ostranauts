@@ -30,5 +30,21 @@
   "AutoNavPanel.phobos_auto_nav": {
     "brand": "Asterel",
     "model": "N1"
+  },
+  "Pursuit.title": {
+    "brand": "Asterel",
+    "model": "N2"
+  },
+  "Overlay.PhobosNavModPursuit.name": {
+    "brand": "Asterel",
+    "model": "N2"
+  },
+  "Overlay.PhobosNavModPursuitDmg.name": {
+    "brand": "Asterel",
+    "model": "N2"
+  },
+  "Recipe.PhobosBuildPursuit.name": {
+    "brand": "Asterel",
+    "model": "N2"
   }
 }

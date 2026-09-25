@@ -58,7 +58,7 @@ internal sealed class ShipSitu
     internal void UnlockFromBO() { }
     internal void Integrate(double dt)
     {
-        double ax = vAccIn.x + vAccRCS.x, ay = vAccIn.y + vAccRCS.y;
+        double ax = vAccIn.x + vAccRCS.x + vAccEx.x, ay = vAccIn.y + vAccRCS.y + vAccEx.y;
         vPosx += vVelX * dt + ax * dt * dt / 2; vPosy += vVelY * dt + ay * dt * dt / 2;
         vVelX += ax * dt; vVelY += ay * dt;
         fRot += (float)(fW * dt + fA * dt * dt / 2);
@@ -184,6 +184,6 @@ namespace PhobosAutoNav
         internal bool Resolve(out double x, out double y, out double vx, out double vy)
         { x = TargetSitu.vPosx; y = TargetSitu.vPosy; vx = TargetSitu.vVelX; vy = TargetSitu.vVelY; return true; }
         internal bool ResolveAt(double dt, out double x, out double y, out double vx, out double vy)
-        { Resolve(out x, out y, out vx, out vy); x += vx * dt; y += vy * dt; return true; }
+        { Resolve(out x, out y, out vx, out vy); double ax = TargetSitu.vAccIn.x, ay = TargetSitu.vAccIn.y; x += vx * dt + .5 * ax * dt * dt; y += vy * dt + .5 * ay * dt * dt; vx += ax * dt; vy += ay * dt; return true; }
     }
 }
