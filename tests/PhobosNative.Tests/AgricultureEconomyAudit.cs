@@ -73,6 +73,7 @@ internal static class AgricultureEconomyAudit
         rows.AddRange(new[] { "", "The ideal potato row assumes cooking all nominal whole portions. It excludes delayed-harvest respiration/rounding, electricity, cooker work, losses and equipment amortization. Retained potato seed is not both sold and replanted. Lettuce consumes only 5 g of a 40 g nutrient packet; unused nutrient remains inventory, not an eightfold recurring expense.", "",
             "Conclusions and proposed changes are in [Agriculture economy review](agriculture-economy-review.md). These prices are authored game balance; NASA/ESA research does not establish fictional prices, profit margins or repair bills.", "" });
         rows.Add($"New treatment jobs: {TreatmentCartridge.FullPrice:G} cr / {TreatmentCartridge.CapacityKg:G} kg drainage capacity = {TreatmentCartridge.FullPrice/TreatmentCartridge.CapacityKg:G} cr per kg at base value. A 0.25 kg batch uses {TreatmentCartridge.Mass(.25):G} kg medium and {TreatmentCartridge.Price(.25):G} cr of capacity; a 20 kg batch uses {TreatmentCartridge.Mass(20):G} kg and {TreatmentCartridge.Price(20):G} cr. Unused medium returns with proportional base value. Historic bound jobs retain whole-cartridge consumption. Electricity remains {DrainageRecovery.KWhPerKg:G} kWh/kg, excluding crew/equipment.\n");
+        AgricultureOperatingAudit.Append(rows, Price);
         File.WriteAllText(report, string.Join("\n", rows));
     }
 }

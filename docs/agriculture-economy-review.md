@@ -7,6 +7,11 @@ adds W2/pipe service comparisons, affordable pipe repairs and metered finite
 cartridges. [Lettuce seed production](agriculture-seed-production.md) is now a
 separate playable cycle. The [loot extension](agriculture-loot.md) remains enabled.
 
+The [nutrient-recovery research and specification](agriculture-nutrient-recovery.md)
+and expanded native audit now quantify electricity sensitivity, seed-sustaining
+rotations and a conservative residue-recovery ceiling. No runtime price changes
+were made before establishing an actual production recipe.
+
 Remaining: compare full operating costs in actual play (power, cooling, labour,
 losses, equipment and market quotes); investigate nutrient/media manufacturing
 and characterized crop-residue recovery when useful. Terminal rejects remain

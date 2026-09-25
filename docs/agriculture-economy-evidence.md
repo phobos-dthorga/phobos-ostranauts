@@ -84,3 +84,29 @@ The ideal potato row assumes cooking all nominal whole portions. It excludes del
 Conclusions and proposed changes are in [Agriculture economy review](agriculture-economy-review.md). These prices are authored game balance; NASA/ESA research does not establish fictional prices, profit margins or repair bills.
 
 New treatment jobs: 25 cr / 25 kg drainage capacity = 1 cr per kg at base value. A 0.25 kg batch uses 0.0005 kg medium and 0.25 cr of capacity; a 20 kg batch uses 0.04 kg and 20 cr. Unused medium returns with proportional base value. Historic bound jobs retain whole-cartridge consumption. Electricity remains 0.01 kWh/kg, excluding crew/equipment.
+
+
+## Cultivation cost sensitivity and propagation
+
+Computed from current crop rules and native base values. Groundwork irrigation, consumed portions only; retained potato seed is reused. Each lettuce sowing below buys its seed. These are ideal healthy cycles, not live profits.
+The 0, 0.25 and 1 cr/kWh columns are hypothetical marginal electricity costs, not game tariffs; zero does not mean the plant uses no energy. Add cooking, pumping, standby, cooling, crew, equipment, treatments, losses and trade adjustments separately. No climate-control or labour rate is invented.
+
+| Cycle | Water + nutrients + purchased seed | Cultivation kWh | At 0 cr/kWh | At 0.25 cr/kWh | At 1 cr/kWh |
+|---|---:|---:|---:|---:|---:|
+| potato | 106.24 | 72 | 106.24 | 124.24 | 178.24 |
+| lettuce | 25.158 | 19.2 | 25.158 | 29.958 | 44.358 |
+| lettuce-seed | 33.56 | 38.4 | 33.56 | 43.16 | 71.96 |
+
+A repeating lettuce rotation reserves one returned seed packet, grows 3 food cohorts and yields 12 edible servings over 240 rack-growth hours. It consumes 89.034 cr of water/nutrients and 96 kWh. Per food cohort: 29.678 cr and 32 kWh, before other costs. Initial stock is a one-off investment; no retained packet is simultaneously counted as sold or bought each rotation.
+
+## Proposed crop-residue recovery ceiling — not a recipe
+
+Illustrative conservative allocation: distribute only nutrients consumed by growth in proportion to final biomass; allocate the residue share, then recover 60% of that share. The 60% is an authored sensitivity assumption, not NASA's leaching yield. Seed nutrients receive no extra credit. Recovered material is an incomplete concentrate until formulation is defined.
+
+| Ideal crop | Wet residue kg | Allocated nutrient ceiling g | Candidate recovered equivalent g | Maximum avoided stock cost cr |
+|---|---:|---:|---:|---:|
+| potato | 0.8 | 6.4 | 3.84 | 5.76 |
+| lettuce | 0.2 | 0.833 | 0.5 | 0.75 |
+| lettuce-seed | 1.18 | 9.833 | 5.9 | 8.85 |
+
+Avoided stock cost is an upper bound, not sale value: subtract processing, make-up nutrients, consumables, labour and capital. Terminal rejects cannot be rerun. Larger batches can amortize setup work; no waste-processing recipe is registered by this audit. See [nutrient recovery direction](agriculture-nutrient-recovery.md).

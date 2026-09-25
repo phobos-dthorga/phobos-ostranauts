@@ -8,6 +8,9 @@ Dates on Draft entries record preparation, not Steam publication.
 
 ### Documentation
 
+- Research crop-residue nutrient recovery, optional Ship's Water reject capture, a proposed Groundwork workup bench and non-repairable progressive W2 mixtures. These are implementation plans, not delivered recipes or integrations.
+- Expand the native economic audit with electricity sensitivity, repeating seed-production costs and bounded illustrative residue recovery; runtime prices and yields are unchanged.
+
 - Added a maintained per-mod item reference covering function, use, acquisition and applicable economic/service data; generated tables and coverage checks share a one-click updater.
 
 ### Fixed

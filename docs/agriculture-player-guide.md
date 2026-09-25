@@ -221,3 +221,5 @@ actual offers; dismantle empty intact/broken units; load a charge with less than
 water is retained once. Check absent Ship's Water, full output inventory and
 queued work whose supply is removed before completion. Offline native checks do
 not establish merchant availability or crew interaction behavior in a running game.
+
+For the authorized next development direction, see [nutrient recovery and workup research](agriculture-nutrient-recovery.md). It describes proposed production and W2 consumable changes, not additional controls available in this build.

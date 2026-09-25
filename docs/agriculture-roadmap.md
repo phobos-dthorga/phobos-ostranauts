@@ -98,6 +98,13 @@ water and the existing provider integration until a better need appears.
 
 ## Round 3: characterized nutrients and asteroid replenishment
 
+Owner follow-up: nutrient production, crop-residue recovery and economic work
+are now authorized. The [nutrient recovery specification](agriculture-nutrient-recovery.md)
+records inspected Ship's Water constraints, collector reuse, a proposed workup
+bench and W2 progressive consumables. Its economic audit is delivered; the new
+production/capture/application features are not implemented by that checkpoint.
+
+
 Define complete nutrient requirements before implementing extraction. Characterize
 organic residues, contaminated water and prospective feeds; account for nutrient
 availability, impurities, counter-ions, finite storage and terminal waste. Treatment
