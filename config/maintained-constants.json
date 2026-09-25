@@ -31,11 +31,17 @@
           "path": "docs/player-guide.md",
           "pattern": "\\*\\*Prepared versions:\\*\\* Phobos Framework \\*\\*(?P<value>[0-9.]+)\\*\\*",
           "count": 1
+        },
+        {
+          "path": "workshop/PhobosFramework/page.bbcode",
+          "pattern": "^\\[b\\]Version:\\[/b\\] (?P<value>[0-9.]+)\\r?$",
+          "count": 1
         }
       ],
       "review": [
         "Run scripts/build-framework.ps1 with your game path.",
-        "Review release notes and version-specific prose; historical compatibility gates are intentionally unchanged."
+        "Review release notes and version-specific prose; historical compatibility gates are intentionally unchanged.",
+        "Author the new Draft changelog entry, review the Workshop page, and regenerate/check notes with scripts/workshop-release-notes.py."
       ]
     },
     "Framework.gameVersion": {
@@ -57,7 +63,7 @@
     "Shipbreaker.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.15.0",
+      "value": "0.16.0",
       "description": "PhobosShipbreaker published source/package version.",
       "targets": [
         {
@@ -94,11 +100,17 @@
           "path": "docs/player-guide.md",
           "pattern": "The current Shipbreaker (?P<value>[0-9.]+) requires Framework",
           "count": 1
+        },
+        {
+          "path": "workshop/PhobosShipbreaker/page.bbcode",
+          "pattern": "^\\[b\\]Version:\\[/b\\] (?P<value>[0-9.]+)\\r?$",
+          "count": 1
         }
       ],
       "review": [
         "Run scripts/build-shipbreaker.ps1 with your game path.",
-        "Review release notes and version-specific prose; historical compatibility gates are intentionally unchanged."
+        "Review release notes and version-specific prose; historical compatibility gates are intentionally unchanged.",
+        "Author the new Draft changelog entry, review the Workshop page, and regenerate/check notes with scripts/workshop-release-notes.py."
       ]
     },
     "Shipbreaker.gameVersion": {
@@ -147,11 +159,17 @@
           "path": "docs/player-guide.md",
           "pattern": "Shipbreaker \\*\\*[0-9.]+\\*\\*, Auto Nav\\s+\\*\\*(?P<value>[0-9.]+)\\*\\*",
           "count": 1
+        },
+        {
+          "path": "workshop/PhobosAutoNav/page.bbcode",
+          "pattern": "^\\[b\\]Version:\\[/b\\] (?P<value>[0-9.]+)\\r?$",
+          "count": 1
         }
       ],
       "review": [
         "Run scripts/build-autonav.ps1 with your game path.",
-        "Review release notes and version-specific prose; historical compatibility gates are intentionally unchanged."
+        "Review release notes and version-specific prose; historical compatibility gates are intentionally unchanged.",
+        "Author the new Draft changelog entry, review the Workshop page, and regenerate/check notes with scripts/workshop-release-notes.py."
       ]
     },
     "AutoNav.gameVersion": {
@@ -195,11 +213,17 @@
           "path": "README.md",
           "pattern": "\\|\\ \\*\\*Phobos\\ Agriculture\\*\\*\\ \\|\\ (?P<value>[0-9.]+) \\|",
           "count": 1
+        },
+        {
+          "path": "workshop/PhobosAgriculture/page.bbcode",
+          "pattern": "^\\[b\\]Version:\\[/b\\] (?P<value>[0-9.]+)\\r?$",
+          "count": 1
         }
       ],
       "review": [
         "Run scripts/build-agriculture.ps1 with your game path.",
-        "Review release notes and version-specific prose; historical compatibility gates are intentionally unchanged."
+        "Review release notes and version-specific prose; historical compatibility gates are intentionally unchanged.",
+        "Author the new Draft changelog entry, review the Workshop page, and regenerate/check notes with scripts/workshop-release-notes.py."
       ]
     },
     "Agriculture.gameVersion": {
@@ -243,11 +267,17 @@
           "path": "README.md",
           "pattern": "\\|\\ \\*\\*Phobos\\ Manufacturing\\*\\*\\ \\|\\ (?P<value>[0-9.]+) \\|",
           "count": 1
+        },
+        {
+          "path": "workshop/PhobosManufacturing/page.bbcode",
+          "pattern": "^\\[b\\]Version:\\[/b\\] (?P<value>[0-9.]+)\\r?$",
+          "count": 1
         }
       ],
       "review": [
         "Run scripts/build-manufacturing.ps1 with your game path.",
-        "Review release notes and version-specific prose; historical compatibility gates are intentionally unchanged."
+        "Review release notes and version-specific prose; historical compatibility gates are intentionally unchanged.",
+        "Author the new Draft changelog entry, review the Workshop page, and regenerate/check notes with scripts/workshop-release-notes.py."
       ]
     },
     "Manufacturing.gameVersion": {
@@ -286,11 +316,17 @@
           "path": "mods/PhobosApproachAssist/mod_info.json",
           "pattern": "\"strModVersion\"\\s*:\\s*\"(?P<value>[0-9.]+)\"",
           "count": 1
+        },
+        {
+          "path": "workshop/PhobosApproachAssist/page.bbcode",
+          "pattern": "^\\[b\\]Version:\\[/b\\] (?P<value>[0-9.]+)\\r?$",
+          "count": 1
         }
       ],
       "review": [
         "Run scripts/build-approach-assist.ps1 with your game path.",
-        "Review release notes and version-specific prose; historical compatibility gates are intentionally unchanged."
+        "Review release notes and version-specific prose; historical compatibility gates are intentionally unchanged.",
+        "Author the new Draft changelog entry, review the Workshop page, and regenerate/check notes with scripts/workshop-release-notes.py."
       ]
     },
     "ApproachAssist.gameVersion": {

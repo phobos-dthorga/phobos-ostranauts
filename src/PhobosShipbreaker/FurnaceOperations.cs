@@ -27,6 +27,8 @@ internal static partial class FurnaceService
             if (action == "status") { message = Describe(co); return true; }
             if (!Content.Ready || !Intact(co)) { message = Text.Get("Furnace.install"); return false; }
             if (co.HasCond("IsLocked")) { message = Text.Get("Furnace.locked"); return false; }
+            if (action == "cooling-direct" || action == "cooling-left" || action == "cooling-right")
+                return SetCoolingMode(co, action.Substring("cooling-".Length), out message);
             if (action == "pair")
             {
                 if (CrewSim.coPlayer == null || CrewSim.system?.GetShipOwner(co.ship.strRegID) != CrewSim.coPlayer.strID)
@@ -225,7 +227,8 @@ internal static partial class FurnaceService
     {
         var endpoint = SelectedCooling(furnace);
         if (endpoint == null || !FurnaceRules.Cooling(endpoint.strCODef)) return Text.Get("Furnace.no_cooling");
-        return CoolingMountStatus(endpoint) + "\n" + (ConnectionProblem(furnace, endpoint) ?? Text.Get("Furnace.socket_connected", Text.Get("Furnace.socket_" + SocketAt(furnace, endpoint))));
+        return CoolingMountStatus(endpoint) + "\n" + (ConnectionProblem(furnace, endpoint) ??
+            (Routed(furnace) ? Text.Get("Furnace.coolant_connected") : Text.Get("Furnace.socket_connected", Text.Get("Furnace.socket_" + SocketAt(furnace, endpoint)))));
     }
     internal static FurnaceCooling.Socket SocketAt(CondOwner furnace, CondOwner endpoint)
     {
@@ -256,6 +259,11 @@ internal static partial class FurnaceService
     {
         if (!FurnaceRules.Machine(furnace.strCODef) || furnace.ship == null || furnace.ship != endpoint.ship) return Text.Get("Furnace.connection_ship");
         if (!Mounted(furnace) || !Mounted(endpoint)) return Text.Get("Furnace.install");
+        if (Routed(furnace))
+        {
+            if (!CoolantRoute(furnace, endpoint, out _)) return Text.Get("Furnace.coolant_fault", FurnaceCooling.RouteLimit);
+            return PortPairing.Matches(Port(furnace), Port(endpoint)) ? null : Text.Get("Furnace.connection_unpaired");
+        }
         if (SocketAt(furnace, endpoint) == FurnaceCooling.Socket.None) return Text.Get("Furnace.connection_socket");
         if (!IntakeRules.SameAngle(furnace.tf.eulerAngles.z, endpoint.tf.eulerAngles.z)) return Text.Get("Furnace.connection_rotation");
         if (!CoolingMounted(endpoint)) return Text.Get(FurnaceRules.Underside(endpoint.strCODef) ? "Furnace.port_support" : "Furnace.radiator_mount_fault");
@@ -277,7 +285,8 @@ internal static partial class FurnaceService
             Reading(b.TemperatureK - 273.15, "F1"), Reading(b.PressureKPa, "F3"), Reading(b.ReceiverKPa, "F2"),
             Reading(s.DeliveredKW, "F1"), b.Hold.ToString("F1", CultureInfo.CurrentCulture),
             CoolingConnectionStatus(co), b.HeatCapKW, b.RampKPerSecond, b.CoolingCapKW,
-            b.StepMode ? Text.Get("Furnace.step") : Text.Get("Furnace.auto"), s.Notice) + "\n" + cooling;
+            b.StepMode ? Text.Get("Furnace.step") : Text.Get("Furnace.auto"), s.Notice) + "\n" + cooling + "\n" +
+            Text.Get("Furnace.coolant_mode", Text.Get("Furnace.coolant_" + s.CoolingMode));
     }
     internal static bool F3(string input, out bool success, out string response)
     {

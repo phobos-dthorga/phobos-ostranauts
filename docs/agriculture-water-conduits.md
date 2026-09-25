@@ -6,7 +6,8 @@ the first stage of the [shared-fluid research](fluid-conduits-and-irrigation-res
 This page records the water-only baseline. [Agriculture 0.5.0 nutrient-solution
 piping](agriculture-nutrient-solutions.md) extends the same W2 and pipes with
 finite mixed feed and shared liquid capacity. Multiple racks per pump and returns
-remain later stages; furnace cooling is a separate content-owned circuit.
+remain later stages; [F6 coolant conduits](furnace-coolant-conduits.md) use a
+separate content-owned thermal circuit.
 
 ## Equipment and operation
 

@@ -10,6 +10,18 @@ public static class FurnaceCooling
 {
     public enum Socket { None, Left, Right, Rear }
     public const double SideX = 3.5, SideY = .5;
+    public const double PumpKW = 1;
+    public const int RouteLimit = 64;
+    public const string Conduit = "PhobosFurnaceCoolantConduit";
+    public static (double X, double Y) CoolantOffset(bool furnace, string mode) => furnace
+        ? mode == "left" ? (-SideX, SideY) : mode == "right" ? (SideX, SideY) : throw new ArgumentException("Unknown coolant fitting.")
+        : (.5, -3.5);
+    public static bool TryReadMode(IReadOnlyDictionary<string, string> fields, out string mode)
+    {
+        mode = "direct";
+        if (fields.Count != 1 || !fields.TryGetValue("mode", out var value) || (value != "direct" && value != "left" && value != "right")) return false;
+        mode = value; return true;
+    }
     public static (double X, double Y) Offset(Socket socket) => socket switch
     {
         Socket.Left => (-SideX, SideY), Socket.Right => (SideX, SideY),

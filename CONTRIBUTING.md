@@ -45,6 +45,11 @@ machine paths. Use synthetic fixtures.
 
 ## Writing and translations
 
+Every mod change must maintain its [changelog and Workshop publication records](docs/workshop-publication.md).
+Update the owning changelog and page draft together, regenerate per-version Steam
+notes, and run `python scripts/workshop-release-notes.py --check --format json`.
+Draft records do not authorize publishing or imply a released mod.
+
 Player guides describe implemented behaviour; research distinguishes proposals,
 observations and assumptions. Use complete messages and stable keys in
 [translation catalogs](docs/localization.md), and follow the [brand register](docs/equipment-branding.md).

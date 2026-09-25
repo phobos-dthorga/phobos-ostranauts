@@ -581,3 +581,12 @@ alone does not reconcile a transfer. A failed/ambiguous write protects both ends
 Content owns the profile definitions, blending, reactions and consumption; this
 is not a general chemistry or pressure simulation. Share the existing delivery
 budget across mixing, transfer and intake rather than granting each a full budget.
+
+Framework 0.19.0 adds a world-point overload of `NativeFluidRoute.Find` for
+[F6 sealed coolant routing](furnace-coolant-conduits.md). It accepts explicit
+`allowLockedEndpoints` / `allowDamagedEndpoints` flags for physical thermal paths;
+segments always require intact, unlocked, owned installation. The one-argument
+`EndpointReady` and original named-point `Find` APIs retain their signatures and
+strict behaviour for already-built Agriculture consumers. Content still owns
+connection points, circuit exclusivity, pump demand and thermal accounting.
+Geometry supplies no heat, fluid, pump credit or authority to resume machinery.

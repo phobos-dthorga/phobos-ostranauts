@@ -22,7 +22,8 @@ internal static class DependencyChecks
         check(DependencyContract.FrameworkProblem(new Version(0, 14, 0)) != null, "Performance handles require Framework 0.15");
         check(DependencyContract.FrameworkProblem(new Version(0, 15, 0)) != null, "Furnace receipts and native instruments require Framework 0.16");
         check(DependencyContract.FrameworkProblem(new Version(0, 16, 0)) != null, "Guarded control and digit adapters require Framework 0.17");
-        foreach (var version in new[] { new Version(0, 17, 0), new Version(0, 17, 1), new Version(1, 0, 0) })
+        check(DependencyContract.FrameworkProblem(new Version(0, 18, 0)) != null, "Thermal route endpoint support requires Framework 0.19");
+        foreach (var version in new[] { new Version(0, 19, 0), new Version(0, 19, 1), new Version(1, 0, 0) })
             check(DependencyContract.FrameworkProblem(version) == null, "No invented upper version or age cutoff: " + version);
 
         var tables = DependencyContract.Required.ToDictionary(g => g.Table, g => g.Names.ToHashSet());
@@ -37,8 +38,8 @@ internal static class DependencyChecks
             tables[group.Table].Add(id);
         }
 
-        check(DependencyContract.MissingRecipes(_ => false).Count == 17, "All seventeen construction, finishing and recovery recipes must register");
-        check(DependencyContract.MissingRecipes(id => id == DependencyContract.Recipes[0]).Count == 16, "A partially registered construction chain is blocked");
+        check(DependencyContract.MissingRecipes(_ => false).Count == 18, "All eighteen construction, finishing and recovery recipes must register");
+        check(DependencyContract.MissingRecipes(id => id == DependencyContract.Recipes[0]).Count == 17, "A partially registered construction chain is blocked");
         check(DependencyContract.MissingRecipes(id => DependencyContract.Recipes.Contains(id)).Count == 0, "All construction stages are available");
 
         var first = new Dictionary<string, int> { ["existing"] = 10, ["foreign"] = 20 };

@@ -6,6 +6,10 @@ Add-Type -AssemblyName System.Drawing
 $root = Split-Path -Parent $PSScriptRoot
 $art = Join-Path $root 'assets/phobos-furnace'
 $runtime = Join-Path $root 'mods/PhobosShipbreaker/images/phobos/shipbreaker'
+# Reuse our original registered fitting exports unchanged, not a runtime Agriculture dependency.
+foreach ($suffix in @('', 'Normal', 'Sheet', 'SheetNormal')) {
+    Copy-Item -LiteralPath (Join-Path $root "mods/PhobosAgriculture/images/phobos/agriculture/WaterPipe$suffix.png") -Destination (Join-Path $runtime "FurnaceCoolantPipe$suffix.png") -Force
+}
 $preview = Join-Path $art 'previews'
 New-Item -ItemType Directory -Force -Path $preview | Out-Null
 $manifest = Get-Content -LiteralPath (Join-Path $art 'exports.json') -Raw | ConvertFrom-Json

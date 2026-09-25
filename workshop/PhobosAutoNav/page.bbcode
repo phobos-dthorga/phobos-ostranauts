@@ -1,0 +1,44 @@
+[h1]Phobos Auto Nav[/h1]
+[b]Version:[/b] 0.10.1
+[b]Publication status:[/b] Not published - held for upstream provenance review
+
+The Phobos' Asterel N1 Polaris Auto Nav Module assists ship and station approaches, braking and separate RCS docking while retaining native fuel, heat and thrust constraints.
+
+[h2]Current features[/h2]
+[list]
+[*]Choose cruise speed, arrival speed and stopping distance at each console.
+[*]Use live native sensor contact, torch preference with RCS fallback, and bounded RCS throttle.
+[*]Preserve flight intent and captured preferences across saves, subject to validation before resuming.
+[*]Obtain the module through merchants, construction or rare native module salvage.
+[/list]
+
+[h2]Limits and save behaviour[/h2]
+[list]
+[*]Stop / Coast clears thrust; it is not emergency braking. Fly stops short; Dock is a separate action.
+[*]No obstacle avoidance or continuous relative-position holding. Sensor loss suspends guidance.
+[*]Docking suspends after reload. Ordinary flight restoration follows its own validation and preference policy.
+[*]Earlier guidance has owner-reported gameplay success; current features and integration need further evaluation.
+[*]Upstream-derived guidance reuse terms remain unresolved. This draft is held for provenance review before Workshop publication.
+[/list]
+
+[h2]Requirements and installation[/h2]
+Ostranauts 1.0.1.5, BepInEx 5 and Phobos Framework 0.15.0 or newer. Original Auto Navigate is not a dependency and must be disabled for Phobos Auto Nav to engage.
+
+This is a maintained pre-publication page draft, not a download announcement. No Workshop item has been published for this draft. Use the installation guide for source/prepared-package availability and loader setup. Do not remove required providers from saves that contain their content.
+
+[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/getting-started.md]Getting started and download status[/url]
+[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/installing-mods.md]Installation and updates[/url]
+[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/auto-navigate-adaptation.md]Mod guide[/url]
+[url=https://steamcommunity.com/sharedfiles/filedetails/?id=3745533691]Auto Navigate by Gravy / mrkmg[/url]
+[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/THIRD_PARTY_NOTICES.md]Adaptation and unresolved upstream terms[/url]
+
+[h2]Support and credits[/h2]
+[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/SUPPORT.md]Help and bug reports[/url]
+[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/mods/PhobosAutoNav/CHANGELOG.md]Full changelog[/url]
+Guidance is adapted from Gravy / mrkmg's Auto Navigate 1.2.0. Its upstream-derived portions are excluded from our MIT grant; attribution does not establish permission or endorsement.
+
+Created by Phobos A. D'thorga (phobosgekko). Independent community work, not affiliated with or endorsed by Blue Bottle Games or Kitfox Games.
+[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/LICENSE]Licence and exclusions[/url]
+[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/THIRD_PARTY_NOTICES.md]Third-party notices[/url]
+Promotional illustrations and original equipment artwork use AI-assisted production; provenance records retain prompts and export details.
+[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/assets/workshop/README.md]Workshop artwork provenance[/url]

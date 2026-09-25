@@ -820,6 +820,42 @@
       ],
       "nameKey": "Recipe.PhobosRecoverFurnaceHousing.name",
       "descriptionKey": "Recipe.PhobosRecoverFurnaceHousing.description"
+    },
+    {
+      "id": "PhobosBuildFurnaceCoolantConduit",
+      "name": "Phobos' Rivetline F6-C Sealed Coolant Conduit",
+      "description": "Build a 1 kg twin-channel conduit jacket and sealed couplings from one aluminium scrap. Supply and return share the route; no loose water is produced.",
+      "stationIds": [
+        "ItmTable01",
+        "ItmTable02"
+      ],
+      "optionalStationIds": [
+        "ItmWorkbench01",
+        "SWB_WorkbenchInstalled"
+      ],
+      "ingredients": [
+        {
+          "trigger": "TIsScrapAluminum",
+          "item": "ItmScrapAluminum",
+          "count": 1,
+          "unitMassKg": 1
+        }
+      ],
+      "outputs": [
+        {
+          "item": "PhobosFurnaceCoolantConduitLoose",
+          "count": 1,
+          "unitMassKg": 1
+        }
+      ],
+      "workSeconds": 120,
+      "range": 2,
+      "toolTriggers": [
+        "TIsToolMortorq",
+        "TIsToolWelding"
+      ],
+      "nameKey": "Recipe.PhobosBuildFurnaceCoolantConduit.name",
+      "descriptionKey": "Recipe.PhobosBuildFurnaceCoolantConduit.description"
     }
   ]
 }

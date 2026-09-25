@@ -39,11 +39,11 @@ public sealed class FurnaceBatch
         if (Phase == FurnacePhase.Sealed) Phase = FurnacePhase.Evacuating;
     }
     public void AdvanceStep() { StepWaiting = false; }
-    public double RequestedKJ(double dt, bool coolingConnected)
+    public double RequestedKJ(double dt, bool coolingConnected, double reservedSinkKJ = 0)
     {
         if (!ThermalMath.Finite(dt) || dt <= 0 || dt > FurnaceRules.MaxIntervalSeconds) return 0;
         if (!Armed || StepWaiting || !coolingConnected || SinkK >= FurnaceRules.SinkMaxK || Phase >= FurnacePhase.Equalize) return 0;
-        double headroom = Math.Max(0, FurnaceRules.SinkCapacity * (FurnaceRules.SinkMaxK - SinkK));
+        double headroom = Math.Max(0, FurnaceRules.SinkCapacity * (FurnaceRules.SinkMaxK - SinkK) - reservedSinkKJ);
         double aux = Math.Min(headroom, (Heating || Phase == FurnacePhase.Evacuating ? FurnaceRules.HeatAuxKW : FurnaceRules.CoolAuxKW) * dt);
         if (!Heating || PressureKPa > FurnaceRules.HotPressureKPa) return aux;
         double need = Math.Max(0, FurnaceRules.Enthalpy(FurnaceRules.TargetK, 1, Chamber.Moles) - HotKJ);
@@ -51,6 +51,33 @@ public sealed class FurnaceBatch
         double heat = Math.Min(need, rate * dt);
         heat = Math.Min(heat, (headroom - aux) * FurnaceRules.Efficiency / (1 - FurnaceRules.Efficiency));
         return aux + heat / FurnaceRules.Efficiency;
+    }
+    /// <summary>Sealed-loop circulation, bounded by actual incremental pump energy.
+    /// Its electricity is retained in the cold node; no credit survives this interval.</summary>
+    public double Circulate(double seconds, double pumpKJ)
+    {
+        if (!ThermalMath.Finite(seconds) || seconds <= 0 || seconds > FurnaceRules.MaxIntervalSeconds ||
+            !ThermalMath.Finite(pumpKJ) || pumpKJ < 0 || pumpKJ > FurnaceCooling.PumpKW * seconds + 1e-7)
+            throw new ArgumentOutOfRangeException(nameof(pumpKJ));
+        SinkKJ += pumpKJ;
+        double fraction = Math.Min(1, pumpKJ / (FurnaceCooling.PumpKW * seconds)), moved = 0;
+        while (seconds > 1e-9)
+        {
+            double dt = Math.Min(seconds, FurnaceRules.MaxStepSeconds); seconds -= dt;
+            moved += CoolingStep(dt * fraction);
+        }
+        if (SinkK > FurnaceRules.SinkMaxK) Armed = false;
+        Chamber.SetTemperature(TemperatureK);
+        return moved;
+    }
+    private double CoolingStep(double seconds, double extraHeadroom = 0)
+    {
+        double cool = !Heating || !Armed ? Math.Max(0, Math.Min(CoolingCapKW, FurnaceRules.ConductanceKW * (TemperatureK - SinkK))) * seconds : 0;
+        double equilibrium = Phase == FurnacePhase.Idle ? FurnaceRules.LiningCapacity * (SinkK - FurnaceRules.ReferenceK) : FurnaceRules.Enthalpy(SinkK, 0, Chamber.Moles);
+        cool = Math.Min(cool, Math.Max(0, HotKJ - equilibrium));
+        cool = Math.Min(cool, Math.Max(0, FurnaceRules.SinkCapacity * (FurnaceRules.SinkMaxK - SinkK) + extraHeadroom));
+        HotKJ -= cool; SinkKJ += cool;
+        return cool;
     }
     /// <summary>Apply exactly a measured receipt after reserving capacity. Any unexpected excess
     /// remains stored and trips heating; energy is never silently clamped away.</summary>
@@ -91,11 +118,8 @@ public sealed class FurnaceBatch
             double t = TemperatureK, sink = SinkK;
             double loss = Math.Min(Math.Max(0, FurnaceRules.RoomLeakKW * (t - roomK)) * dt, roomCapacityKJ - room);
             double rad = exterior ? FurnaceRules.Radiation(sink) * dt : 0;
-            double sinkCapacity = Math.Max(0, FurnaceRules.SinkCapacity * (FurnaceRules.SinkMaxK - sink) + rad);
-            double cool = connected && (!Heating || !Armed) ? Math.Max(0, Math.Min(CoolingCapKW, FurnaceRules.ConductanceKW * (t - sink))) * dt : 0;
-            double equilibrium = Phase == FurnacePhase.Idle ? FurnaceRules.LiningCapacity * (sink - FurnaceRules.ReferenceK) : FurnaceRules.Enthalpy(sink, 0, Chamber.Moles);
-            cool = Math.Min(cool, Math.Max(0, HotKJ - equilibrium)); cool = Math.Min(cool, sinkCapacity);
-            HotKJ -= cool + loss; SinkKJ += cool - rad; radiated += rad; room += loss;
+            if (connected) CoolingStep(dt, rad);
+            HotKJ -= loss; SinkKJ -= rad; radiated += rad; room += loss;
             if (Heating && Armed && !StepWaiting && probeValid && PressureKPa <= FurnaceRules.HotPressureKPa && Math.Abs(TemperatureK - FurnaceRules.TargetK) <= FurnaceRules.HoldToleranceK)
             {
                 if (Phase != FurnacePhase.Hold) Transition(FurnacePhase.Hold);

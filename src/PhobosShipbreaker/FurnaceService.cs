@@ -22,10 +22,11 @@ internal static partial class FurnaceService
         internal double SinkKJ, SinkLast, DeliveredKW, LastReceiptEpoch = double.NegativeInfinity;
         internal bool Protected;
         internal string Notice = "";
+        internal string CoolingMode = "direct";
         internal ObjectStateStore Store = null!;
     }
     internal sealed class PowerTransfer
-    { internal Session Session = null!, Cooling = null!; internal EnergyReceipt Receipt = null!; internal double Seconds; }
+    { internal Session Session = null!, Cooling = null!; internal EnergyReceipt Receipt = null!; internal double Seconds; internal bool Routed; }
     private static readonly Dictionary<string, Session> sessions = new(StringComparer.Ordinal);
     private static float nextScan;
     internal static bool IsEquipment(CondOwner? co) => co != null && (FurnaceRules.Machine(co.strCODef) || FurnaceRules.Cooling(co.strCODef));
@@ -54,6 +55,7 @@ internal static partial class FurnaceService
         // Unobserved intervals cannot establish an intact radiator/room history.
         // Retain all heat and reset the time anchor; never simulate offline heating.
         s.State.LastEpoch = s.SinkLast = StarSystem.fEpoch;
+        ReadCoolingMode(s);
         sessions[co.strID] = s;
         return s;
     }
@@ -130,7 +132,8 @@ internal static partial class FurnaceService
     private static bool Geometry(CondOwner furnace, CondOwner endpoint)
     {
         if (furnace.ship == null || furnace.ship != endpoint.ship || !Mounted(furnace) || !CoolingMounted(endpoint)) return false;
-        return IntakeRules.SameAngle(furnace.tf.eulerAngles.z, endpoint.tf.eulerAngles.z) && SocketAt(furnace, endpoint) != FurnaceCooling.Socket.None;
+        return Routed(furnace) ? CoolantRoute(furnace, endpoint, out _) :
+            IntakeRules.SameAngle(furnace.tf.eulerAngles.z, endpoint.tf.eulerAngles.z) && SocketAt(furnace, endpoint) != FurnaceCooling.Socket.None;
     }
     private static CondOwner? SelectedCooling(CondOwner co)
     {
@@ -185,7 +188,7 @@ internal static partial class FurnaceService
         double capacity = accepting ? Math.Max(0, Math.Min(b.TemperatureK, FurnaceRules.MaxRoomK) - roomK) * moles * FurnaceRules.GasCv : 0;
         // Radiator advances separately, including when it is unpaired. This call only
         // moves hot-node energy into its finite store and the accepting native room.
-        var loss = b.Passive(dt, false, connected, accepting ? roomK : FurnaceRules.ReferenceK, capacity, probe);
+        var loss = b.Passive(dt, false, connected && !Routed(s.Object), accepting ? roomK : FurnaceRules.ReferenceK, capacity, probe);
         if (loss.Room > 0) room!.GasContainer.fDGasTemp += loss.Room / (moles * FurnaceRules.GasCv);
         if (connected) { sink!.SinkKJ = b.SinkKJ; Save(sink); }
         Save(s);
@@ -200,10 +203,13 @@ internal static partial class FurnaceService
             !ThermalMath.Finite(seconds) || seconds <= 0 || seconds > FurnaceRules.MaxIntervalSeconds) return false;
         if (Flight(co.ship) || radiator!.HasCond("IsDamaged")) { s.State.Batch.Armed = false; s.State.Batch.Hold = 0; }
         s.State.Batch.SinkKJ = sink.SinkKJ;
-        double instrumentation = Math.Min(FurnaceRules.InstrumentKW * seconds, Math.Max(0, FurnaceRules.SinkCapacity * (FurnaceRules.SinkMaxK - s.State.Batch.SinkK)));
-        amount = Math.Max(instrumentation, s.State.Batch.RequestedKJ(seconds, true)) / 3600;
+        double headroom = Math.Max(0, FurnaceRules.SinkCapacity * (FurnaceRules.SinkMaxK - s.State.Batch.SinkK));
+        double instrumentation = Math.Min(FurnaceRules.InstrumentKW * seconds, headroom);
+        bool routed = Routed(co);
+        double pump = routed ? Math.Min(FurnaceCooling.PumpKW * seconds, Math.Max(0, headroom - instrumentation)) : 0;
+        amount = (pump + Math.Max(instrumentation, s.State.Batch.RequestedKJ(seconds, true, pump))) / 3600;
         if (amount <= 0) return false;
-        transfer = new PowerTransfer { Session = s, Cooling = sink, Seconds = seconds, Receipt = NativeEnergyReceipts.Begin(power, co, amount) };
+        transfer = new PowerTransfer { Session = s, Cooling = sink, Seconds = seconds, Routed = routed, Receipt = NativeEnergyReceipts.Begin(power, co, amount) };
         return true;
     }
     internal static void FinishPower(Powered power, CondOwner co, PowerTransfer? transfer)
@@ -213,7 +219,17 @@ internal static partial class FurnaceService
         double kJ = NativeEnergyReceipts.Complete(power, co, transfer.Receipt) * 3600;
         if (kJ >= FurnaceRules.InstrumentKW * transfer.Seconds - 1e-9) s.LastReceiptEpoch = StarSystem.fEpoch;
         else s.LastReceiptEpoch = double.NegativeInfinity;
-        b.Receive(kJ, transfer.Seconds); transfer.Cooling.SinkKJ = b.SinkKJ; s.DeliveredKW = kJ / transfer.Seconds;
+        if (transfer.Routed && CoolingEndpoint(co) != transfer.Cooling.Object)
+        {
+            // A path lost after admission cannot transport heater losses to the old sink.
+            b.Armed = false; b.Hold = 0; b.HotKJ += kJ; s.LastReceiptEpoch = double.NegativeInfinity;
+            s.Notice = Text.Get("Furnace.coolant_fault", FurnaceCooling.RouteLimit); Save(s); return;
+        }
+        double pump = transfer.Routed ? Math.Min(FurnaceCooling.PumpKW * transfer.Seconds,
+            Math.Max(0, kJ - FurnaceRules.InstrumentKW * transfer.Seconds)) : 0;
+        b.Receive(kJ - pump, transfer.Seconds);
+        if (transfer.Routed) b.Circulate(transfer.Seconds, pump);
+        transfer.Cooling.SinkKJ = b.SinkKJ; s.DeliveredKW = kJ / transfer.Seconds;
         if (kJ <= 0) { b.Armed = false; b.Hold = 0; s.Notice = Text.Get("Furnace.power_lost"); }
         Save(transfer.Cooling); Save(s);
     }

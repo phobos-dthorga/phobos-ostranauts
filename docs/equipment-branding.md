@@ -133,3 +133,7 @@ Agriculture 0.4.0 adds **Phobos' Verdemorrow Groundwork W2 Water Supply Unit** a
 **Phobos' Verdemorrow Groundwork Irrigation Conduit**. W2 is the supply appliance
 model; the ordinary conduit has no artificial model designation. Names use the
 shared equipment catalog and remain independent of native saved IDs.
+
+Shipbreaker 0.16.0 adds **Phobos' Rivetline F6-C Sealed Coolant Conduit** to the
+F6 family. It is a twin-channel industrial thermal connection, distinct from
+Groundwork irrigation despite reusing the project's original fitting artwork.

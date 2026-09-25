@@ -60,7 +60,8 @@ def safe_path(root, name):
     relative = Path(name)
     if relative.is_absolute() or ".." in relative.parts or not relative.parts:
         raise UpdateError(f"Unsafe target path: {name}")
-    if relative.parts[0] not in ("src", "mods", "docs", "config") and name != "README.md":
+    workshop_page = len(relative.parts) == 3 and relative.parts[0] == "workshop" and relative.parts[2] == "page.bbcode"
+    if relative.parts[0] not in ("src", "mods", "docs", "config") and name != "README.md" and not workshop_page:
         raise UpdateError(f"Target outside maintained source/documentation: {name}")
     path = root / relative
     for component in (path, *path.parents):

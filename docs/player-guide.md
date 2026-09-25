@@ -6,7 +6,7 @@ prerequisites and experimental status. Need help? See [support](../SUPPORT.md).
 Agriculture is a prepared candidate with visible crop growth, cooking equipment and optional [water conduits](agriculture-water-conduits.md): see the [cultivation and cooking guide](agriculture-player-guide.md). Nutrient-solution piping requires Framework 0.19.0; optional C1 integration uses Shipbreaker 0.14.0 or later. Owner gameplay evaluation is pending.
 
 
-**Prepared versions:** Phobos Framework **0.19.0**, Shipbreaker **0.15.0**, Auto Nav
+**Prepared versions:** Phobos Framework **0.19.0**, Shipbreaker **0.16.0**, Auto Nav
 **0.10.1**, built against Ostranauts **1.0.1.5** / BepInEx **5.4.23.5**.
 These versions support ordinary saves. Builds and offline checks do not establish
 in-game compatibility. This guide describes the prepared packages, not a claim
@@ -236,6 +236,6 @@ Translation catalogs, language settings and contributor guidance: [Localization]
 
 ## Industrial controls (0.10.0)
 
-[Console and equipment panel guide](industrial-console-player-guide.md): a 3 x 3 ship-bound workstation, local Control Panels, automatic grouping, search, Attention and routing. The current Shipbreaker 0.15.0 requires Framework 0.17.0 and includes [shared observations](shared-console-observations.md). Prepared for owner testing; no in-game validation claimed.
+[Console and equipment panel guide](industrial-console-player-guide.md): a 3 x 3 ship-bound workstation, local Control Panels, automatic grouping, search, Attention and routing. The current Shipbreaker 0.16.0 requires Framework 0.17.0 and includes [shared observations](shared-console-observations.md). Prepared for owner testing; no in-game validation claimed.
 
 Agriculture now supports [finite potato and lettuce nutrient-solution piping](agriculture-nutrient-solutions.md) through its W2 supply and irrigation conduits.

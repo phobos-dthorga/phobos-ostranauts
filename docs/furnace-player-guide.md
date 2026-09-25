@@ -1,17 +1,21 @@
 # F6 electric furnace: first implementation
 
-**25 September 2026 — Shipbreaker 0.15.0, Framework 0.17.0.** This is a prepared
+**25 September 2026 — Shipbreaker 0.16.0, Framework 0.19.0.** This is a prepared
 implementation candidate. Automated physics and native-definition checks are
 separate from in-game evaluation; gameplay review remains with the owner.
-The owner's local 0.14.0 / Framework 0.17.0 installation was verified on
-25 September: 94 suite files and load order matched, with Auto Nav 0.10.1.
-That is an installation check, not a game-session test. Ordinary saves are
-supported; saves and player settings were not accessed by the installer.
+The owner's earlier Shipbreaker 0.15.0 / Framework 0.17.0 installation was
+verified on 25 September (80 selected files and load order). The 0.16.0 piped
+cooling candidate has not been installed. Installation checks are separate from
+game-session testing. Ordinary saves remain supported.
+
+Version 0.16.0 adds optional [sealed coolant conduits](furnace-coolant-conduits.md)
+for a remote F6-R radiator through shared Framework routes. Existing direct F6-R
+and F6-P attachments remain supported; Agriculture is not required.
 
 Version 0.15.0 adds equipment-specific restoration labour, F6-S merchant stock,
 rare engineering section salvage and explicit recovery of unused cold castings.
 See [equipment economy](equipment-economy.md#shipbreaker-0150-availability-and-casting-recovery)
-for values, work and acquisition details. This candidate has not been installed.
+for values, work and acquisition details.
 
 The next [repair-casting study](furnace-repair-castings.md) recommends replacement
 heat sinks. The [material-routing design](furnace-material-routing.md) specifies

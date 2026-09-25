@@ -8,7 +8,7 @@ function Copy-PhobosPlayerGuides {
     # Keep their filenames as well as the mod-specific README so links remain usable.
     foreach ($name in @(
         'agriculture-player-guide', 'agriculture-implementation', 'agriculture-research', 'agriculture-first-slice', 'agriculture-roadmap', 'agriculture-living-visuals', 'agriculture-economy-review', 'agriculture-economy-evidence', 'asset-generation-policy',
-        'performance-captures', 'furnace-player-guide', 'furnace-connections-and-instruments', 'furnace-first-cycle', 'furnace-repair-castings', 'furnace-material-routing', 'manufacturing-handover',
+        'performance-captures', 'furnace-player-guide', 'furnace-coolant-conduits', 'furnace-connections-and-instruments', 'furnace-first-cycle', 'furnace-repair-castings', 'furnace-material-routing', 'manufacturing-handover',
         'getting-started', 'building', 'player-guide', 'equipment-branding', 'installing-mods', 'equipment-economy', 'equipment-value-audit', 'auto-nav-instruments', 'auto-nav-docking', 'auto-nav-sensors', 'auto-nav-flight-profiles', 'artwork-resolution-policy',
         'vanilla-economy-audit', 'shipbreaker-first-build', 'shipbreaker-hull-intake',
         'residue-collector', 'auto-navigate-adaptation', 'auto-nav-economy', 'auto-nav-panel-layout-audit', 'auto-nav-persistence', 'auto-nav-torch', 'residue-material-contract',
@@ -33,6 +33,19 @@ function Copy-PhobosPlayerGuides {
     $waterGuide = Get-Content -LiteralPath $waterGuidePath -Raw
     $waterGuide = $waterGuide.Replace('../assets/phobos-agriculture/irrigation-generation-records.json', 'agriculture-irrigation-generation-records.json')
     Set-Content -LiteralPath $waterGuidePath -Value $waterGuide -Encoding utf8
+    Copy-Item -LiteralPath (Join-Path $RepoRoot 'assets/phobos-furnace/coolant-conduit-reuse.md') -Destination $Package
+    foreach ($name in @('irrigation-layers', 'irrigation-exports')) {
+        Copy-Item -LiteralPath (Join-Path $RepoRoot "assets/phobos-agriculture/$name.json") -Destination (Join-Path $Package "agriculture-$name.json")
+    }
+    foreach ($name in @('furnace-coolant-conduits.md', 'coolant-conduit-reuse.md')) {
+        $path = Join-Path $Package $name
+        $text = Get-Content -LiteralPath $path -Raw
+        $text = $text.Replace('../assets/phobos-furnace/coolant-conduit-reuse.md', 'coolant-conduit-reuse.md')
+        foreach ($asset in @('irrigation-generation-records', 'irrigation-layers', 'irrigation-exports')) {
+            $text = $text.Replace("../assets/phobos-agriculture/$asset.json", "agriculture-$asset.json").Replace("../phobos-agriculture/$asset.json", "agriculture-$asset.json")
+        }
+        Set-Content -LiteralPath $path -Value $text -Encoding utf8
+    }
     $furnaceGuidePath = Join-Path $Package 'furnace-connections-and-instruments.md'
     $furnaceGuide = Get-Content -LiteralPath $furnaceGuidePath -Raw
     $furnaceGuide = $furnaceGuide.Replace('../assets/phobos-furnace/coupling-provenance.json', 'coupling-provenance.json')

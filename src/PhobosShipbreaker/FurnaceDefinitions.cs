@@ -30,6 +30,7 @@ internal static class FurnaceDefinitions
             co.dictSlotsLayout = new Dictionary<string, Vector3> { ["self"] = Vector3.zero };
             co.mapPoints = new[] { "use,0,-56", "PowerA,-40,-40", "PowerB,40,-40" };
             if (furnace) co.mapPoints = co.mapPoints.Concat(new[] { "CoolingLeft,-56,8", "CoolingRight,56,8", "CoolingRear,0,96" }).ToArray();
+            if (!furnace && !port) co.mapPoints = co.mapPoints.Concat(new[] { "CoolantIn,8,-56" }).ToArray();
             if (port) co.mapPoints = new[] { "use,0,0" };
             if (!furnace)
             {

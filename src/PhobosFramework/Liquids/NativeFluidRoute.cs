@@ -9,15 +9,26 @@ namespace Phobos.Ostranauts.Framework.Liquids;
 /// Uses native named points, never native electrical flood state or dock-inclusive lookup.</summary>
 public static class NativeFluidRoute
 {
-    public static bool EndpointReady(CondOwner? co) => co != null && !co.bDestroyed && co.ship != null &&
+    public static bool EndpointReady(CondOwner? co) => EndpointReady(co, false, false);
+    public static bool EndpointReady(CondOwner? co, bool allowLocked, bool allowDamaged) => co != null && !co.bDestroyed && co.ship != null &&
         (int)co.ship.LoadState >= 2 && co.objCOParent == null && co.Item != null && co.HasCond("IsInstalled") &&
-        !co.HasCond("IsDamaged") && !co.HasCond("IsLocked") && co.objContainer?.Locked != true &&
+        (allowDamaged || !co.HasCond("IsDamaged")) && (allowLocked || !co.HasCond("IsLocked") && co.objContainer?.Locked != true) &&
         CrewSim.coPlayer != null && CrewSim.system?.GetShipOwner(co.ship.strRegID) == CrewSim.coPlayer.strID;
 
     public static int[]? Find(CondOwner source, string outlet, CondOwner destination, string inlet,
         Func<CondOwner, bool> compatibleSegment, int visitLimit = 4096)
     {
-        if (!EndpointReady(source) || !EndpointReady(destination) || source == destination || source.ship != destination.ship) return null;
+        if (!EndpointReady(source) || !EndpointReady(destination)) return null;
+        return Find(source, source.GetPos(outlet), destination, destination.GetPos(inlet), compatibleSegment, visitLimit);
+    }
+
+    // Explicit world points also support old saved equipment without newly authored mapPoints.
+    // Thermal consumers may retain a physical route through locked/damaged endpoints;
+    // segments always require intact installation and authorization.
+    public static int[]? Find(CondOwner source, UnityEngine.Vector2 outlet, CondOwner destination, UnityEngine.Vector2 inlet,
+        Func<CondOwner, bool> compatibleSegment, int visitLimit = 4096, bool allowLockedEndpoints = false, bool allowDamagedEndpoints = false)
+    {
+        if (!EndpointReady(source, allowLockedEndpoints, allowDamagedEndpoints) || !EndpointReady(destination, allowLockedEndpoints, allowDamagedEndpoints) || source == destination || source.ship != destination.ship) return null;
         var ship = source.ship;
         if (ship.nCols < 1 || ship.nRows < 1) return null;
         // Off-grid endpoints must never round into an apparently connected cell.
@@ -30,8 +41,8 @@ public static class NativeFluidRoute
             var tile = ship.GetTileByIndex(i);
             return tile != null && Math.Abs(tile.tf.position.x - point.x) < .01 && Math.Abs(tile.tf.position.y - point.y) < .01 ? i : -1;
         }
-        int start = CellAt(source.GetPos(outlet));
-        int goal = CellAt(destination.GetPos(inlet));
+        int start = CellAt(outlet);
+        int goal = CellAt(inlet);
         if (start < 0 || goal < 0) return null;
         var occupied = new HashSet<int>();
         foreach (var co in ship.GetCOs(null, false, false, true))

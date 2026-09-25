@@ -42,7 +42,7 @@ the expectation or omit it for an idempotent repeat.
 
 | Keys | Targets / meaning |
 | --- | --- |
-| `Framework.version`, `Shipbreaker.version`, `AutoNav.version`, `Agriculture.version`, `Manufacturing.version`, `ApproachAssist.version` | Plugin version, project version, native `strModVersion`; current README table where present, plus selected explicitly current player-guide summaries |
+| `Framework.version`, `Shipbreaker.version`, `AutoNav.version`, `Agriculture.version`, `Manufacturing.version`, `ApproachAssist.version` | Plugin version, project version, native `strModVersion`; current README table where present, selected explicitly current player-guide summaries, and the Workshop page version |
 | The same six mod names with `.gameVersion` | Native `strGameVersion` (four numeric components) |
 | `AutoNav.salvageChance` | Default eligible-roll chance, 0–1 |
 | `AutoNav.coastTolerancePercent` | Default cruise speed-error tolerance, 0–25 percent |
@@ -144,3 +144,5 @@ new target shape or constraint differs. Run `--check`, preview the new key, and
 run the updater tests before relying on it. Existing mods keep their normal
 compile/runtime files; this catalogue is a maintenance tool, not a new runtime
 configuration dependency.
+
+Workshop page version fields are maintained targets. Add a new changelog entry after a version bump, review the page content and regenerate Steam notes; see [Workshop publication](workshop-publication.md). The updater does not rewrite historical release entries. Only `workshop/<ModId>/page.bbcode` is allowed as a Workshop target, not generated release files.

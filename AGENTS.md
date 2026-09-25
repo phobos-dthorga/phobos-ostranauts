@@ -32,6 +32,38 @@
   content mod and preserve historic recipe contracts. Do not generalize every
   layout coordinate or expose every constant as a setting.
 
+## Changelogs and Steam Workshop publication records
+
+- Owner memorandum (2026-09-25), effective immediately for every Ostranauts mod:
+  maintain `mods/<ModId>/CHANGELOG.md` and `workshop/<ModId>/page.bbcode` as part
+  of each relevant change. This includes prototypes and scaffolds, whose drafts
+  must clearly say they are held rather than ready for publication. Phobos Scope
+  is a separate toolkit, not an Ostranauts Workshop mod.
+- Record player-visible features, fixes, balance, dependencies, save/migration
+  effects and known limits in the owning mod's changelog. Update its Workshop
+  page draft whenever capabilities, requirements, controls, installation, support,
+  links or limitations change. Keep this work in the same change/checkpoint;
+  do not defer documentation to the eventual upload or manufacture release history.
+- Main changelogs use the restricted Markdown format in
+  `docs/workshop-publication.md`, with Unreleased plus dated Draft/Released version
+  entries. Workshop page text uses Valve's Steam BBCode, not GitHub Markdown.
+  Keep direct research/author attribution, licence limits and gameplay caveats.
+- Generate `workshop/<ModId>/releases/<version>.bbcode` from each dated changelog
+  entry with `scripts/workshop-release-notes.py`. Maintain one document per
+  release/version in that separate folder; do not edit generated notes by hand.
+  Draft exports are allowed for preparation but must remain explicitly unpublished.
+  Mark Released only after actual publication is confirmed, with its real date.
+- Use the constants updater for versions (including Workshop page version fields),
+  then author the new changelog entry, review the page, regenerate release notes,
+  and run `python scripts/workshop-release-notes.py --check --format json`.
+  CI must reject missing records, stale current versions or stale generated notes.
+  Extend the scripts, catalogue, checks and documentation when formats evolve.
+- Publication records are mandatory maintenance, not authorization to upload,
+  subscribe, send announcements or change Steam visibility. Follow
+  `docs/workshop-publication.md` before publishing; preserve older releases and
+  correct their source entries explicitly when necessary. Build success is not
+  gameplay validation, and a page draft is not evidence that a Workshop item exists.
+
 ## Equipment branding and model names
 
 - Owner memorandum (2026-09-24): all our objects, machines and other equipment
@@ -109,9 +141,18 @@
   Agriculture 0.4.0 / Framework 0.18.0 prepare one W2 supply-to-rack water route,
   finite manual/provider inlet, local nutrients, independent pipe sockets and
   guarded receipts. Follow `docs/agriculture-water-conduits.md`. Receiving/pumping
-  pauses on reload; legacy refill remains explicit. Multi-rack allocation,
-  nutrient mixtures and furnace coolant loops remain future work. No installation
+  pauses on reload; legacy refill remains explicit. Multi-rack allocation remains
+  future work. Later nutrient/coolant stages have separate contracts. No installation
   or gameplay validation is implied by prepared packages.
+
+- Shipbreaker 0.16.0 / Framework 0.19.0 add optional F6-C sealed coolant conduits
+  to a remote F6-R, using shared `NativeFluidRoute` and measured electricity.
+  Follow `docs/furnace-coolant-conduits.md`: keep existing direct F6-R/F6-P pairs
+  and thermal saves; mode changes require cool/empty machinery. One circuit has
+  one furnace and one radiator, with distinct coolant/irrigation identities.
+  The lumped loop retains heat in existing nodes, neglects pipe hold-up and
+  requires incremental pump power. It is not a transferable water inventory or
+  a fill/drain/leak model. Do not impose water on D4/R4 without a real process need.
 
 - Agriculture has a separate fictional manufacturer: **Verdemorrow Agronomics**,
   evoking verdant growth and humanity's tomorrow in space. Use Verdemorrow on

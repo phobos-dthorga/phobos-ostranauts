@@ -101,14 +101,17 @@ internal static class EquipmentEconomy
     private static void Restore(NativeDefinitions d, string id, Spec spec)
     {
         MaintenanceDefinitions.Restore(d, id);
+        SetRestoreRate(d, id, spec.Prefix + "RestoreProgress", spec.RestoreMinutes);
+    }
+    internal static void SetRestoreRate(NativeDefinitions d, string id, string effect, int minutes)
+    {
         var job = d.Installables[id + "Restore"];
         // Native work duration is hours. Scale only our wear-removal effect;
         // damage capacity, saved wear, tool/skill modifiers and action identity stay intact.
         const double MinutesPerHour = 60;
         double maximum = double.Parse(d.Objects[id].aStartingConds.Single(s =>
             s.StartsWith("StatDamageMax=", StringComparison.Ordinal)).Split('x').Last(), CultureInfo.InvariantCulture);
-        double removal = maximum * job.fDuration * MinutesPerHour / spec.RestoreMinutes;
-        string effect = spec.Prefix + "RestoreProgress";
+        double removal = maximum * job.fDuration * MinutesPerHour / minutes;
         d.Loot[effect] = new Loot { strName = effect, strType = "trigger",
             aCOs = new[] { "TDnStatDamage=1x" + removal.ToString("R", CultureInfo.InvariantCulture) },
             aLoots = Array.Empty<string>() };

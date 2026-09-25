@@ -278,6 +278,11 @@ fluid temperature/energy, closed-loop return, actual pump accounting and a finit
 heat rejector. Irrigation is principally consumptive supply. Those different
 processes must not be conflated into one universal liquid behaviour.
 
+The later [Shipbreaker 0.16.0 F6-C implementation](furnace-coolant-conduits.md)
+uses this shared routing for a lumped sealed thermal loop, with supply/return
+channels in one jacket, measured pump electricity and existing finite hot/cold
+stores. It does not implement refillable coolant inventory, pipe hold-up or leaks.
+
 ## Implementation checks and remaining questions
 
 Use established native installation/power patterns directly; no separate diagnostic

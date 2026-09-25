@@ -478,7 +478,7 @@
   "Furnace.step": "STEP",
   "Furnace.auto": "AUTO",
   "Furnace.status": "Phase: {0}\nProcessing: {1}\nCharge: {2} C\nChamber: {3} kPa\nReceiver: {4} kPa\nLast electrical delivery: {5} kW\nQualified hold: {6} / 60 s\nCooling assembly: {7}\nHeat limit: {8} kW; ramp: {9} K/s; cooling limit: {10} kW\nSequence: {11}\n{12}",
-  "Furnace.help": "phobosfurnace list | controls <full-id> | status <full-id> | pair <furnace-id> <cooling-id> | unpair <full-id> | feed <furnace-id> | products <furnace-id> | seal <furnace-id> | resume <furnace-id> | next <furnace-id> | stop <furnace-id> | equalize <furnace-id> | release <furnace-id> | automatic <furnace-id> | step-mode <furnace-id> | heat <furnace-id> <1-250 kW> | ramp <furnace-id> <0.1-5 K/s> | cool <furnace-id> <1-100 kW>. Full IDs and normal access checks are required.",
+  "Furnace.help": "phobosfurnace list | controls <full-id> | status <full-id> | pair <furnace-id> <cooling-id> | unpair <full-id> | feed <furnace-id> | products <furnace-id> | seal <furnace-id> | resume <furnace-id> | next <furnace-id> | stop <furnace-id> | equalize <furnace-id> | release <furnace-id> | automatic <furnace-id> | step-mode <furnace-id> | heat <furnace-id> <1-250 kW> | ramp <furnace-id> <0.1-5 K/s> | cool <furnace-id> <1-100 kW>. Full IDs and normal access checks are required.\nphobosfurnace cooling-direct <furnace-ID>\nphobosfurnace cooling-left <furnace-ID>\nphobosfurnace cooling-right <furnace-ID>\nCooling mode changes require a cool, empty furnace and cool paired assembly. Piped modes require F6-C conduits to an F6-R radiator; pair using the existing command.",
   "Furnace.panel_heading": "F6 process instruments",
   "Furnace.guard_legend": "Guarded switch: enable/resume or isolate heat. The bottom STOP button remains available with the guard closed.",
   "Furnace.charge_reading": "Charge temperature: {0} C",
@@ -554,5 +554,17 @@
   "Recipe.PhobosRecoverFurnaceHousingBlank.name": "Recover aluminium from housing blank",
   "Recipe.PhobosRecoverFurnaceHousingBlank.description": "Cut one unused 19 kg housing blank into 19 kg of identified aluminium scrap. All cuttings are retained; this destroys the casting. Cold released castings only, never melt remainder or historic residue.",
   "Recipe.PhobosRecoverFurnaceHousing.name": "Recover aluminium from finished housing",
-  "Recipe.PhobosRecoverFurnaceHousing.description": "Cut one unused 18 kg finished housing into 18 kg of identified aluminium scrap. All cuttings are retained; this destroys the casting. Cold released castings only, never melt remainder or historic residue."
+  "Recipe.PhobosRecoverFurnaceHousing.description": "Cut one unused 18 kg finished housing into 18 kg of identified aluminium scrap. All cuttings are retained; this destroys the casting. Cold released castings only, never melt remainder or historic residue.",
+  "Furnace.coolant_pipe": "Phobos' Rivetline F6-C Sealed Coolant Conduit",
+  "Furnace.coolant_pipe_desc": "A 1 kg insulated twin-channel service conduit. Supply and return share one jacket. Connect an F6 side fitting to the interior service point behind an F6-R radiator mounting wall. Separate from irrigation and drinking water. Maximum route: {0} conduit tiles; one furnace and one radiator per circuit. The sealed loop uses the equipment thermal stores; pipe hold-up and pressure are not simulated.",
+  "Furnace.coolant_waste": "Phobos' Rivetline Retained Coolant Conduit Waste",
+  "Furnace.coolant_mode": "Cooling connection: {0}",
+  "Furnace.coolant_direct": "Direct cooling attachment",
+  "Furnace.coolant_left": "Piped cooling — left fitting",
+  "Furnace.coolant_right": "Piped cooling — right fitting",
+  "Furnace.coolant_connected": "Sealed coolant circuit connected. Supply and return share one jacket; circulation requires electricity.",
+  "Furnace.coolant_fault": "Coolant route unavailable. Use an exterior F6-R radiator, intact F6-C pipes on structural floor, at most {0} route tiles, and one furnace/radiator per circuit. Check rotations, supporting floor and both service points. Heat remains stored.",
+  "Recipe.PhobosBuildFurnaceCoolantConduit.name": "Phobos' Rivetline F6-C Sealed Coolant Conduit",
+  "Recipe.PhobosBuildFurnaceCoolantConduit.description": "Build a 1 kg twin-channel conduit jacket and sealed couplings from one aluminium scrap. Supply and return share the route; no loose water is produced.",
+  "Furnace.coolant_controls": "Cooling connection mode (change only when cool and empty). Piped modes use F6-C conduits and the F6-R interior service point; the diagram above shows direct mounting positions."
 }

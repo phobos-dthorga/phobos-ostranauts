@@ -116,6 +116,7 @@ internal static class Content
         CollectorDefinitions.Add(prepared, collectorKW);
         ReclaimerDefinitions.Add(prepared, reclaimerKW);
         FurnaceDefinitions.Add(prepared);
+        FurnaceConduitDefinitions.Add(prepared);
         IndustrialDefinitions.Add(prepared);
         EquipmentEconomy.Apply(prepared);
         return prepared;

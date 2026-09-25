@@ -232,6 +232,9 @@ public sealed class IndustrialPanel : GUIData
             { IndustryService.Run(binding, targetId, action, value, out result); RefreshReadout(); });
             if (!Central) { Add(actions, "feed"); Add(actions, "products"); }
             FurnaceInstallationView.Build(actions, target);
+            W.Label(actions, Text.Get("Furnace.coolant_controls"));
+            foreach (string mode in new[] { "direct", "left", "right" })
+                Add(actions, "cooling-" + mode, label: Text.Get("Furnace.coolant_" + mode));
             Add(actions, "unpair", label: Text.Get("Furnace.action_unpair"));
             foreach (var peer in IndustryService.Discover(target.ship).Where(c => FurnaceRules.Cooling(c.strCODef)))
                 Add(actions, "pair", peer.strID, Text.Get("Furnace.action_pair") + " " + CollectorService.Label(peer));

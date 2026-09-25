@@ -1,0 +1,34 @@
+[h1]Phobos Auto Nav 0.10.1[/h1]
+[b]Draft - not published | 2026-09-25[/b]
+
+[h2]Development baseline[/h2]
+
+[list]
+[*]Initial changelog baseline for the current source; this version has not been published to Steam.
+[*]Choose cruise speed, arrival speed and stopping distance at each console.
+[*]Use live native sensor contact, torch preference with RCS fallback, and bounded RCS throttle.
+[*]Preserve flight intent and captured preferences across saves, subject to validation before resuming.
+[*]Obtain the module through merchants, construction or rare native module salvage.
+[/list]
+
+[h2]Requirements[/h2]
+
+Ostranauts 1.0.1.5, BepInEx 5 and Phobos Framework 0.15.0 or newer. Original Auto Navigate is not a dependency and must be disabled for Phobos Auto Nav to engage.
+
+[h2]Known limits[/h2]
+
+[list]
+[*]Stop / Coast clears thrust; it is not emergency braking. Fly stops short; Dock is a separate action.
+[*]No obstacle avoidance or continuous relative-position holding. Sensor loss suspends guidance.
+[*]Docking suspends after reload. Ordinary flight restoration follows its own validation and preference policy.
+[*]Earlier guidance has owner-reported gameplay success; current features and integration need further evaluation.
+[*]Upstream-derived guidance reuse terms remain unresolved. This draft is held for provenance review before Workshop publication.
+[/list]
+
+[h2]References[/h2]
+
+[list]
+[*][url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/auto-navigate-adaptation.md]Current mod guide[/url]
+[*][url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/THIRD_PARTY_NOTICES.md]Authorship and third-party terms[/url]
+[*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=3745533691]Auto Navigate by Gravy / mrkmg[/url]
+[/list]

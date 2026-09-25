@@ -14,6 +14,37 @@ internal static class FurnaceCoolingNativeChecks
 {
     internal static void Run(NativeDefinitions prepared, string repo, Action<bool,string> check)
     {
+        foreach (string state in new[] { "Installed", "Loose", "InstalledDmg", "LooseDmg" })
+        {
+            var pipe = prepared.Objects[FurnaceCooling.Conduit + state]; var art = prepared.Items[pipe.strItemDef];
+            var data = new DataCO(pipe);
+            check(pipe.jsonPI == null && pipe.aTickers.Length == 0 && pipe.aInteractions.Length == 0 && pipe.nContainerWidth == 0,
+                "Coolant conduit is passive infrastructure, not an extra pump or virtual tank");
+            check(!data.HasCond("IsPowerPath") && !data.HasCond("IsPowerConduit") && !data.HasCond("PhobosWaterConduitPresent"),
+                "Coolant pipe cannot carry native electricity or Agriculture water");
+            var salvage = prepared.Installables[pipe.strName + "Dismantle"].aLootCOs;
+            check(EquipmentSaveUpgrade.Amount(pipe.aStartingConds, "StatMass") == 1 && salvage.Sum(id =>
+                EquipmentSaveUpgrade.Amount(prepared.Objects[id].aStartingConds, "StatMass")) == 1, "Conduit dismantling preserves all structural mass");
+            foreach (double wear in new[] { 0d, .15, .67, .99 })
+            {
+                var worn = NativeDefinitions.Clone(pipe); MaintenanceDefinitions.SetStat(worn, "StatDamage", wear * 20);
+                check(salvage.Sum(id => new DataCO(prepared.Objects[id]).GetBasePrice()) < new DataCO(worn).GetBasePrice(), "Conduit salvage loses value even when worn/broken");
+            }
+            if (state.StartsWith("Installed"))
+                check(art.bHasSpriteSheet && art.aSocketAdds.Single() == FurnaceCooling.Conduit + "Adds" && art.aSocketReqs[4] == "TILFloor",
+                    "Conduit uses independent cardinal sockets on existing floor");
+            if (!state.EndsWith("Dmg"))
+            {
+                var restore = prepared.Installables[pipe.strName + "Restore"];
+                double perTick = double.Parse(prepared.Loot[restore.strAllowLootCTsThem].aCOs.Single().Split('x').Last(), System.Globalization.CultureInfo.InvariantCulture);
+                check(Math.Abs(20 / perTick * restore.fDuration * 60 - 1) < 1e-6, "Small conduit restoration takes one full-bar minute, not a large-machine service budget");
+            }
+        }
+        check(!typeof(FurnaceService).Assembly.GetReferencedAssemblies().Any(a => a.Name == "PhobosAgriculture"), "Furnace piping has no Agriculture dependency");
+        foreach (string suffix in new[] { "", "Normal", "Sheet", "SheetNormal" })
+            check(File.ReadAllBytes(Path.Combine(repo, "mods/PhobosShipbreaker/images/phobos/shipbreaker/FurnaceCoolantPipe" + suffix + ".png"))
+                .SequenceEqual(File.ReadAllBytes(Path.Combine(repo, "mods/PhobosAgriculture/images/phobos/agriculture/WaterPipe" + suffix + ".png"))),
+                "Original shared fitting and normals are reused without resampling or game assets");
         var item = prepared.Items[FurnaceRules.ThermalPort + "Installed"];
         var furnace = prepared.Objects[FurnaceRules.Prefix + "Installed"];
         foreach (var socket in new[] { FurnaceCooling.Socket.Left, FurnaceCooling.Socket.Right, FurnaceCooling.Socket.Rear })
