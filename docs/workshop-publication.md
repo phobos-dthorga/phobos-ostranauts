@@ -1,5 +1,8 @@
 # Changelogs and Steam Workshop publication records
 
+For offline upload staging, private VDF drafts, saved item IDs and verification,
+see [Workshop upload preparation](workshop-upload-preparation.md).
+
 Owner memorandum, **25 September 2026**: every Ostranauts mod maintains its own
 changelog, current Workshop page draft and generated Steam-formatted notes for
 each dated release entry. This is required alongside feature and maintenance
