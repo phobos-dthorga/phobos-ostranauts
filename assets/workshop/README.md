@@ -4,6 +4,7 @@ Four coordinated cover illustrations for Phobos Framework, Auto Nav,
 Shipbreaker and Agriculture. These are promotional illustrations, not gameplay
 screenshots or a claim of release readiness. Approach Assist and Phobos Scope
 are deliberately outside this set, as selected by the owner on 25 September 2026.
+The owner approved the set and requested native-menu integration on the same day.
 
 The design connects each mod to the project's ambition of longer habitation in
 hostile space: shared dependable systems, careful navigation, material recovery
@@ -70,3 +71,25 @@ Only mechanical nearest-neighbour resizing is applied to the masters. Typography
 is baked into this English-language promotional artwork, separate from the live
 localized in-game interfaces. Future translated covers need separately reviewed
 artwork. No runtime equipment artwork, identifiers or gameplay has changed.
+
+## Native-menu integration
+
+The exporter also writes each 512px cover to `mods/<ModId>/preview.png`.
+Existing package builders copy the native folder, and the shared packaging helper
+checks that the cover matches its committed derivative. Packages include separate
+artwork provenance and exact prompts. Ordinary package builds do not fetch masters.
+
+Local inspection of **Blue Bottle Games' Ostranauts 1.0.1.5** confirms that
+`GUIModRow.SetupImage` loads a nonempty `strPreviewURL` first; otherwise it loads
+the mod directory's `preview.png`, using point filtering. `SteamWorkshopManager`
+uses that same local filename for `SteamUGC.SetItemPreview`. This is observed
+native code, not an in-game visual test. Reference: [the game's official listing](https://store.steampowered.com/app/1022980/Ostranauts/).
+Research copies of game code remain local and are not packaged or committed.
+No new metadata URL, runtime patch or Workshop ID is required for these local mods.
+
+After closing the game, `scripts/install-mods.ps1 -PreviewsOnly` applies only the
+selected installed mods' covers from prepared packages. It preserves DLLs, native
+definitions and the existing load order, including disabled entries. It uses the
+normal installer backups and hash verification. The mode refuses an uninstalled
+mod rather than creating an incomplete mod directory. Agriculture's cover ships
+with its complete package whenever that package is deliberately installed.

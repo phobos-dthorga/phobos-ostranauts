@@ -62,19 +62,22 @@ function Resize-Pixels([Drawing.Image]$Master, [int]$Size) {
     return $result
 }
 
-function Save-OrVerify([Drawing.Image]$Image, [string]$Name, [long]$MaxBytes) {
+function Save-OrVerify([Drawing.Image]$Image, [string]$Name, [long]$MaxBytes, [string]$Directory = $preview) {
     $buffer = [IO.MemoryStream]::new()
     try {
         $Image.Save($buffer, [Drawing.Imaging.ImageFormat]::Png)
         $bytes = $buffer.ToArray()
         if ($bytes.Length -ge $MaxBytes) { throw "Export exceeds byte budget: $Name" }
-        $path = Join-Path $preview $Name
+        $path = Join-Path $Directory $Name
         if ($VerifyOnly) {
             if (-not (Test-Path -LiteralPath $path)) { throw "Missing preview: $Name" }
             if ((Get-Sha256 ([IO.File]::ReadAllBytes($path))) -ne (Get-Sha256 $bytes)) {
                 throw "Preview differs from its pinned master/export rules: $Name"
             }
-        } else { [IO.File]::WriteAllBytes($path, $bytes) }
+        } else {
+            New-Item -ItemType Directory -Force -Path $Directory | Out-Null
+            [IO.File]::WriteAllBytes($path, $bytes)
+        }
         Write-Output ('{0}: {1} x {2}, {3:N0} bytes' -f $Name, $Image.Width, $Image.Height, $bytes.Length)
     } finally { $buffer.Dispose() }
 }
@@ -111,6 +114,8 @@ try {
                 try {
                     Save-OrVerify $resized "$($entry.id)-$size.png" $manifest.maxPreviewBytes
                     if ($size -eq $tile) {
+                        # Native mod-menu and Workshop uploader both look here.
+                        Save-OrVerify $resized 'preview.png' $manifest.maxPreviewBytes (Join-Path $root "mods/$($entry.id)")
                         $x = $gap + ($index % 2) * ($tile + $gap)
                         $y = $gap + [Math]::Floor($index / 2) * ($tile + $gap)
                         $sheetGraphics.DrawImageUnscaled($resized, [int]$x, [int]$y)

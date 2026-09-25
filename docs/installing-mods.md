@@ -47,9 +47,21 @@ directly without interacting with your mouse or opening a launcher window.
 
 # Compare installed files and enabled load-order entries with the packages.
 ./scripts/install-mods.ps1 -VerifyOnly
+
+# Apply just menu/Workshop cover images to already installed mods.
+# Defaults still select AutoNav, Shipbreaker and their Framework dependency.
+./scripts/install-mods.ps1 -PreviewsOnly -WhatIf
+./scripts/install-mods.ps1 -PreviewsOnly
+./scripts/install-mods.ps1 -PreviewsOnly -VerifyOnly
 ```
 
 The old pulse-only Approach Assist prototype is **not included by default**.
+The four selected suite covers are native `preview.png` files; their
+[artwork and integration notes](../assets/workshop/README.md) explain the shared
+mod-menu/Workshop path. `-PreviewsOnly` changes only covers, retains installed
+versions and disabled/enabled states, and refuses mods not already installed.
+It still requires Ostranauts to be closed for writes. Agriculture's prepared
+package includes its cover, but this option does not install Agriculture itself.
 Explicitly select `-Mods ApproachAssist` if wanted. Its previous
 `install-approach-assist.ps1` command remains supported through the same installer.
 Installing AutoNav does not remove that old plugin or enable original Auto

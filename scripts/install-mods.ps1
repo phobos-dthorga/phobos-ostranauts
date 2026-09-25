@@ -10,6 +10,8 @@ param(
     # Override an unpacked package only when installing one mod.
     [string]$PackagePath,
     [switch]$VerifyOnly,
+    # Update existing mods' menu/Workshop covers without changing gameplay or enabling mods.
+    [switch]$PreviewsOnly,
     [switch]$NoRememberPaths
 )
 $ErrorActionPreference = 'Stop'
@@ -118,6 +120,30 @@ foreach ($mod in $Mods) {
     }
     $metadata = @(Get-Content -LiteralPath (Join-Path $nativeSource 'mod_info.json') -Raw | ConvertFrom-Json)
     if ($metadata.Count -ne 1) { throw "Expected exactly one native mod metadata entry for $id." }
+    if ($PreviewsOnly) {
+        $installedInfo = Join-Path $nativeTarget 'mod_info.json'
+        if (-not (Test-Path -LiteralPath $installedInfo -PathType Leaf)) {
+            throw "Preview-only updates require an already installed mod: $id. Install its complete package separately."
+        }
+        $installedMetadata = @(Get-Content -LiteralPath $installedInfo -Raw | ConvertFrom-Json)
+        if ($installedMetadata.Count -ne 1 -or $installedMetadata[0].strName -ne $metadata[0].strName) {
+            throw "Installed mod identity differs for $id."
+        }
+        $previewSource = Join-Path $nativeSource 'preview.png'
+        $previewTarget = Join-Path $nativeTarget 'preview.png'
+        if (-not (Test-Path -LiteralPath $previewSource -PathType Leaf)) { throw "Package is missing $id/preview.png. Rebuild it first." }
+        if (Test-Path -LiteralPath $previewTarget -PathType Container) { throw "A directory occupies an intended file destination: $previewTarget" }
+        Add-Type -AssemblyName System.Drawing
+        $image = [Drawing.Bitmap]::new($previewSource)
+        try {
+            if ($image.Width -ne 512 -or $image.Height -ne 512 -or (Get-Item -LiteralPath $previewSource).Length -ge 1000000) {
+                throw "Expected a 512px PNG preview below 1,000,000 bytes for $id."
+            }
+        } finally { $image.Dispose() }
+        $files += [pscustomobject]@{ Source = $previewSource; Target = $previewTarget; Backup = "$id/native/preview.png"; Hash = (Get-FileHash -LiteralPath $previewSource -Algorithm SHA256).Hash }
+        $plans += [pscustomobject]@{ Id = $id; Version = $installedMetadata[0].strModVersion; Index = -1; LoadOrderStatus = 'preserved (preview only)' }
+        continue
+    }
     $version = [version]$metadata[0].strModVersion
     $dllSource = Join-Path $pluginSource "$id.dll"
     $assembly = [System.Reflection.AssemblyName]::GetAssemblyName($dllSource)
@@ -297,7 +323,7 @@ foreach ($mod in $Mods) {
     $files += $modFiles
     $plans += [pscustomobject]@{ Id = $id; Version = "$version"; Index = $index; LoadOrderStatus = $loadOrderStatus }
 }
-if ('Shipbreaker' -in $Mods -and -not $independentShipbreaker) { Assert-ShipbreakerDependencies $entries $modRoot $gameRoot $coreIndex }
+if (-not $PreviewsOnly -and 'Shipbreaker' -in $Mods -and -not $independentShipbreaker) { Assert-ShipbreakerDependencies $entries $modRoot $gameRoot $coreIndex }
 $record.aLoadOrder = $entries
 $changedFiles = @($files | Where-Object {
     -not (Test-Path -LiteralPath $_.Target -PathType Leaf) -or (Get-FileHash -LiteralPath $_.Target -Algorithm SHA256).Hash -ne $_.Hash
@@ -311,7 +337,7 @@ if ($VerifyOnly) {
         $states = ($plans | ForEach-Object { "$($_.Id) load-order status: $($_.LoadOrderStatus)" }) -join '; '
         throw "Installation differs: $($changedFiles.Count) missing/changed file(s); $states"
     }
-    Write-Output "Verified $($files.Count) matching files and enabled load-order entries. In-game startup is not tested."
+    Write-Output "Verified $($files.Count) matching files and load-order configuration. In-game startup is not tested."
     return
 }
 if ($changedFiles.Count -eq 0 -and -not $changeOrder) {

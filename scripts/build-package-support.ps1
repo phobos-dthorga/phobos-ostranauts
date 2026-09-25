@@ -27,6 +27,20 @@ function Copy-PhobosPlayerGuides {
     $instrumentGuide = Get-Content -LiteralPath $instrumentGuidePath -Raw
     $instrumentGuide = $instrumentGuide.Replace('../assets/phobos-autonav/instruments-prompt.md', 'INSTRUMENTS-PROMPT.md').Replace('../assets/phobos-autonav/previews/instruments.html', 'polaris-instruments-preview.html')
     Set-Content -LiteralPath $instrumentGuidePath -Value $instrumentGuide -Encoding utf8
+    # Covers are native preview.png files, copied with the native mod directory.
+    # Validate against the committed derivative; ordinary builds need no art branch.
+    $covers = Get-Content -LiteralPath (Join-Path $RepoRoot 'assets/workshop/exports.json') -Raw | ConvertFrom-Json
+    foreach ($cover in $covers.assets) {
+        $native = Join-Path $Package "Mods/$($cover.id)"
+        if (-not (Test-Path -LiteralPath $native -PathType Container)) { continue }
+        $expected = Join-Path $RepoRoot "assets/workshop/previews/$($cover.id)-512.png"
+        $actual = Join-Path $native 'preview.png'
+        if (-not (Test-Path -LiteralPath $actual -PathType Leaf) -or (Get-FileHash -LiteralPath $actual).Hash -ne (Get-FileHash -LiteralPath $expected).Hash) {
+            throw "Missing or stale mod-menu preview for $($cover.id). Run export-workshop-art.ps1."
+        }
+        Copy-Item -LiteralPath (Join-Path $RepoRoot 'assets/workshop/PACKAGE-ARTWORK.md') -Destination (Join-Path $Package 'WORKSHOP-ARTWORK.md')
+        Copy-Item -LiteralPath (Join-Path $RepoRoot 'assets/workshop/prompts.json') -Destination (Join-Path $Package 'WORKSHOP-ARTWORK-PROMPTS.json')
+    }
 }
 
 function New-PhobosPackage {

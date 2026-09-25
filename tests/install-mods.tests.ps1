@@ -369,5 +369,45 @@ Check ((Get-FileHash -LiteralPath (Join-Path $recovery 'loading_order.before.jso
 & $installer @interrupted -VerifyOnly | Out-Null
 Check $true 'Interrupted installation can be completed by rerunning'
 
+# Cover-only updates preserve gameplay files and intentionally disabled entries,
+# even when the prepared gameplay package is newer than the installed one.
+$covers = Fixture 'covers-only' @('core')
+& $installer @covers -Mods AutoNav | Out-Null
+$coversRoot = Split-Path -Parent $covers.LoadOrderPath
+$disabledOrder = @(Get-Content -LiteralPath $covers.LoadOrderPath -Raw | ConvertFrom-Json)
+$disabledOrder[0].aLoadOrder = @('core', 'PhobosFramework|disabled', 'PhobosAutoNav|disabled')
+ConvertTo-Json -InputObject $disabledOrder -Depth 10 | Set-Content -LiteralPath $covers.LoadOrderPath
+$olderInfoPath = Join-Path $coversRoot 'PhobosAutoNav/mod_info.json'
+$olderInfo = @(Get-Content -LiteralPath $olderInfoPath -Raw | ConvertFrom-Json)
+$olderInfo[0].strModVersion = '0.1.0'
+ConvertTo-Json -InputObject $olderInfo -Depth 10 | Set-Content -LiteralPath $olderInfoPath
+foreach ($id in @('PhobosFramework', 'PhobosAutoNav')) {
+    Set-Content -LiteralPath (Join-Path $coversRoot "$id/preview.png") -Value 'previous cover'
+}
+$nonCoverHashes = @(Get-ChildItem -LiteralPath $covers.OstranautsPath, $coversRoot -Recurse -File |
+    Where-Object Name -ne 'preview.png' | ForEach-Object { [pscustomobject]@{ Path = $_.FullName; Hash = (Get-FileHash -LiteralPath $_.FullName).Hash } })
+$beforeCovers = InstalledFiles $covers
+& $installer @covers -Mods AutoNav -PreviewsOnly -WhatIf | Out-Null
+Check ((InstalledFiles $covers) -eq $beforeCovers) 'Cover preview changed files'
+Fails { & $installer @covers -Mods AutoNav -PreviewsOnly -VerifyOnly | Out-Null } 'Installation differs'
+$coverBackup = BackupPath (& $installer @covers -Mods AutoNav -PreviewsOnly)
+& $installer @covers -Mods AutoNav -PreviewsOnly -VerifyOnly | Out-Null
+foreach ($unchanged in $nonCoverHashes) {
+    Check ((Get-FileHash -LiteralPath $unchanged.Path).Hash -eq $unchanged.Hash) 'Cover update changed gameplay files or load order'
+}
+$coverReceipt = Get-Content -LiteralPath (Join-Path $coverBackup 'receipt.json') -Raw | ConvertFrom-Json
+Check ($coverReceipt.ChangedFiles.Count -eq 2 -and @($coverReceipt.Files | Where-Object { [IO.Path]::GetFileName($_.Target) -ne 'preview.png' }).Count -eq 0) 'Cover receipt contains unrelated files'
+Check ((Get-Content -LiteralPath (Join-Path $coverBackup 'PhobosAutoNav/native/preview.png') -Raw).Trim() -eq 'previous cover') 'Old cover was not backed up'
+$coverStamp = (Get-Item -LiteralPath (Join-Path $coversRoot 'PhobosAutoNav/preview.png')).LastWriteTimeUtc
+& $installer @covers -Mods AutoNav -PreviewsOnly | Out-Null
+Check ((Get-Item -LiteralPath (Join-Path $coversRoot 'PhobosAutoNav/preview.png')).LastWriteTimeUtc -eq $coverStamp) 'Repeated cover update rewrote matching artwork'
+$global:PhobosInstallerTestGameRunning = $true
+Fails { & $installer @covers -Mods AutoNav -PreviewsOnly | Out-Null } 'Exit Ostranauts normally'
+$global:PhobosInstallerTestGameRunning = $false
+$uninstalled = Fixture 'covers-refuse-incomplete-mod' @('core')
+$uninstalledBefore = InstalledFiles $uninstalled
+Fails { & $installer @uninstalled -Mods AutoNav -PreviewsOnly | Out-Null } 'already installed mod'
+Check ((InstalledFiles $uninstalled) -eq $uninstalledBefore) 'Cover update created an incomplete mod'
+
 Write-Output "$script:passed multi-mod installer checks passed using synthetic installations. No gameplay tests performed."
 Remove-Variable -Name PhobosInstallerTestGameRunning -Scope Global
