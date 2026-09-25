@@ -1,6 +1,8 @@
 # Opt-in performance captures
 
-Framework **0.15.0**, Auto Nav **0.10.1** and Shipbreaker **0.11.1** integrate
+Performance recording was introduced in Framework **0.15.0**, Auto Nav **0.10.1**
+and Shipbreaker **0.11.1**. Current prepared versions are Framework **0.17.0**,
+Auto Nav **0.10.1** and Shipbreaker **0.14.0**. These integrate
 [Phobos Scope](https://github.com/phobos-dthorga/phobos-scope). Profiling is disabled
 by default. Enable a bounded capture through F3, reproduce a workload, stop and
 export, then analyse outside the game. A Rust process is not needed during play.
@@ -16,8 +18,8 @@ receipts and refuses to modify a running game. Its `-WhatIf` option previews and
 Framework's plugin directory contains both `PhobosFramework.dll` and one
 `Phobos.Scope.Recording.dll` (0.1.1). Consumer packages do not duplicate the recorder.
 The installer checks recorder identity/version and refuses missing, duplicate or
-newer conflicting shared copies. Check the BepInEx startup log for Framework 0.15.0,
-Auto Nav 0.10.1 and Shipbreaker 0.11.1 after the next launch.
+newer conflicting shared copies. Check the BepInEx startup log for the versions you installed; the current
+prepared suite is Framework 0.17.0, Auto Nav 0.10.1 and Shipbreaker 0.14.0.
 
 ## Capture a workload
 
