@@ -2,7 +2,7 @@
 # Prepared packages are installed locally; this script never builds, downloads or launches anything.
 [CmdletBinding(SupportsShouldProcess)]
 param(
-    [ValidateSet('AutoNav', 'Shipbreaker', 'ApproachAssist', 'Framework', 'Agriculture')]
+    [ValidateSet('AutoNav', 'Shipbreaker', 'ApproachAssist', 'Framework', 'Agriculture', 'Manufacturing')]
     [string[]]$Mods = @('AutoNav', 'Shipbreaker'),
     [string]$OstranautsPath,
     [string]$LoadOrderPath,
@@ -89,6 +89,11 @@ if ('Agriculture' -in $Mods) {
     }
     $Mods = @('Framework') + @($Mods | Where-Object { $_ -ne 'Framework' })
 }
+if ('Manufacturing' -in $Mods) {
+    $needsPhobosFramework = $true
+    if ($minimumPhobosFramework -lt [version]'0.17.0') { $minimumPhobosFramework = [version]'0.17.0' }
+    $Mods = @('Framework') + @($Mods | Where-Object { $_ -ne 'Framework' })
+}
 $locations = Resolve-InstallLocations $OstranautsPath $LoadOrderPath $settingsFile
 $gameRoot = $locations.OstranautsPath
 $orderFile = $locations.LoadOrderPath
@@ -117,7 +122,7 @@ $plans = @()
 $changeOrder = $false
 foreach ($mod in $Mods) {
     $id = 'Phobos' + $mod
-    $label = switch ($mod) { 'AutoNav' { 'Auto Nav' } 'Shipbreaker' { 'Shipbreaker' } 'ApproachAssist' { 'Approach Assist' } 'Framework' { 'Framework' } 'Agriculture' { 'Agriculture' } }
+    $label = switch ($mod) { 'AutoNav' { 'Auto Nav' } 'Shipbreaker' { 'Shipbreaker' } 'ApproachAssist' { 'Approach Assist' } 'Framework' { 'Framework' } 'Agriculture' { 'Agriculture' } 'Manufacturing' { 'Manufacturing' } }
     $package = if ($overrideMod -eq $mod) { $PackagePath } else { Join-Path $PackageRoot ($id + '-P0') }
     if (-not (Test-Path -LiteralPath $package -PathType Container)) {
         throw "Prepared package missing: $package. Run the corresponding build script first."
@@ -298,7 +303,7 @@ foreach ($mod in $Mods) {
         $modFiles += [pscustomobject]@{ Source = $scopeSource; Target = $scopeTarget; Backup = "$id/plugin/Phobos.Scope.Recording.dll" }
     }
     $translationSource = Join-Path (Split-Path -Parent $dllSource) 'translations'
-    $needsTranslations = ($mod -eq 'Agriculture') -or ($mod -eq 'AutoNav' -and $version -ge [version]'0.3.0') -or
+    $needsTranslations = ($mod -in @('Agriculture', 'Manufacturing')) -or ($mod -eq 'AutoNav' -and $version -ge [version]'0.3.0') -or
         ($mod -in @('Framework', 'Shipbreaker') -and $version -ge [version]'0.7.0')
     if ($needsTranslations -and -not (Test-Path -LiteralPath (Join-Path $translationSource 'en.json') -PathType Leaf)) {
         throw "Package is incomplete: $id/translations/en.json"

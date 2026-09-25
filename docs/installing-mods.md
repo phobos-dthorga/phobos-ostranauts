@@ -49,6 +49,14 @@ directly without interacting with your mouse or opening a launcher window.
 # Agriculture is opt-in and automatically includes Framework.
 ./scripts/install-mods.ps1 -Mods Agriculture
 
+# Manufacturing is an opt-in research scaffold, with no operational equipment.
+./scripts/install-mods.ps1 -Mods Manufacturing
+
+# Explicitly select all six, including the old Approach Assist prototype.
+./scripts/install-mods.ps1 -Mods Framework,AutoNav,Shipbreaker,Agriculture,Manufacturing,ApproachAssist -WhatIf
+./scripts/install-mods.ps1 -Mods Framework,AutoNav,Shipbreaker,Agriculture,Manufacturing,ApproachAssist
+./scripts/install-mods.ps1 -Mods Framework,AutoNav,Shipbreaker,Agriculture,Manufacturing,ApproachAssist -VerifyOnly
+
 # The shared library alone, for another consumer or development.
 ./scripts/install-mods.ps1 -Mods Framework
 

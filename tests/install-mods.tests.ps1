@@ -389,6 +389,17 @@ Check (((ReadOrder $farm).aLoadOrder -join ',') -eq 'core,PhobosFramework,Phobos
 & $installer @farm -Mods Agriculture -VerifyOnly | Out-Null
 Check $true 'Agriculture complete package verification'
 
+$manufacturing = Fixture 'manufacturing-only' @('core')
+$manufacturingBefore = InstalledFiles $manufacturing
+& $installer @manufacturing -Mods Manufacturing -WhatIf | Out-Null
+Check ((InstalledFiles $manufacturing) -eq $manufacturingBefore) 'Manufacturing preview changed files'
+& $installer @manufacturing -Mods Manufacturing | Out-Null
+Check (((ReadOrder $manufacturing).aLoadOrder -join ',') -eq 'core,PhobosFramework,PhobosManufacturing') 'Manufacturing must select Framework without optional providers'
+& $installer @manufacturing -Mods Manufacturing -VerifyOnly | Out-Null
+$manufacturingInstalled = InstalledFiles $manufacturing
+& $installer @manufacturing -Mods Manufacturing | Out-Null
+Check ((InstalledFiles $manufacturing) -eq $manufacturingInstalled) 'Manufacturing repeat install changed files'
+
 # Cover-only updates preserve gameplay files and intentionally disabled entries,
 # even when the prepared gameplay package is newer than the installed one.
 $covers = Fixture 'covers-only' @('core')
