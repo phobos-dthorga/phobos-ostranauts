@@ -1,9 +1,22 @@
 # Fusion furnace and instrument panel: feasibility and design
 
+**Superseding owner decision, 25 September:** [use electrical heating for the
+first F6](furnace-electrical-direction.md). The earlier direct-fusion-first language
+below records the original research direction and no longer constrains delivery.
+
 Research date: **24 September 2026**. Status: **research and proposed design only**.
 No furnace, heat connection, recipe, hazard, artwork or installation is added by
 this document. The owner's reactor screenshot supplies the visual direction;
 local code inspection establishes game capabilities, not an in-game test.
+
+**25 September first-cycle follow-up:** the [complete cycle specification](furnace-first-cycle.md)
+compares current construction and repair contracts and recommends a 20 kg aluminium
+batch for an optional D4/R4 housing. It includes finite gas recovery, thermal
+calculations, installation geometry and failure/save rules. The [native UI reuse
+audit and graphics brief](furnace-ui-and-art.md) and [interactive layouts](../assets/phobos-furnace/research/layouts.html)
+supersede the original assumption of newly drawn controls below. The 6 x 6,
+50 kg and 250 kW hardware baselines remain provisional; accounted native fusion
+delivery is still an explicitly unresolved implementation connection.
 
 **25 September instrumentation direction:** the [suite sensor report](sensor-integration-research.md)
 distinguishes native ship sensing, room alarms and proposed process probes. Use
@@ -273,7 +286,8 @@ edit to the chamber's actual environment.
 The reference succeeds through **grouping and repetition**: flat modular plates,
 narrow seams and fasteners, black instrument wells, matching LED segments,
 restrained highlights, consistent red switches and sparse hazard stripes.
-Borrow that visual language with original artwork. Do not distribute a cropped
+Prefer isolated native widgets or their runtime-referenced artwork, with original
+art only for documented gaps. Do not distribute a cropped
 reactor screenshot or reproduce its labels blindly. The furnace has no reason
 to display laser pellet alignment or a fusion ignition sequence of its own.
 
@@ -321,10 +335,15 @@ full — heating isolated; batch retained**, with details available separately.
 
 ### Artwork brief after the contracts are settled
 
-- One original charcoal/slate modular panel frame, not an image containing text.
-- Reusable LED off/on cells, lamp wells, switch states and covers, rotary base
-  and pointer, slider slot/handle, numeric-display well and alarm strip. The
-  active segments, values, labels and switch states are drawn live.
+The [25 September asset matrix](furnace-ui-and-art.md#original-artwork-remaining)
+now governs production. The earlier list below identifies visual needs, not a
+requirement to redraw vanilla controls.
+
+- Suitable native modular frame/fastener artwork referenced at runtime; a small
+  original frame only if native parts cannot fill a documented layout need.
+- Reuse vanilla LED cells, lamps, guarded switches, rotary states, slider parts
+  and digit artwork where suitable. Keep values, localized labels and state live;
+  the audit records initialization hazards and required adapters.
 - Optional startup lamp sweep and restrained audio clicks. Identify the sweep
   as a test; it cannot report readiness. Respect reduced flashing preferences.
 - A world sprite with a strong central sealed vessel silhouette, loading and
@@ -347,7 +366,7 @@ full — heating isolated; batch retained**, with details available separately.
 | Definition registration, construction, maintenance, merchant stock, translations and branded names | Thermal energy receipts/units and shared source allocation when the reactor adapter is implemented | Furnace/coupler/radiator definitions, dimensions, graphics and economic balance |
 | Versioned `ObjectStateStore` and protected unknown/corrupt records | A bounded thermal-state helper if furnace and sink share that need; explicit resource identity and conservation | Material properties, allowed recipes, phase rules, lining wear and hazard thresholds |
 | Solid-item `PortPairing`, checked transfers and immutable processing contracts | Heat/gas endpoint compatibility and actual transport checks; existing solid transfers are not fluid or energy pipes | Reactor-specific eligibility and native hook details until a second provider justifies extraction |
-| `ConsoleBinding`, typed views, service dispatch and clipped panel widgets | Extract Auto Nav's general `RotarySelector` when the furnace becomes its second consumer; add segmented gauges/guarded switches without gameplay logic | Furnace layout, control ranges, recipe presets and furnace-specific messages |
+| `ConsoleBinding`, typed views, service dispatch and clipped panel widgets | Small isolated-native-widget adapters; existing Phobos controls as a diagnosed fallback, with no gameplay logic in either | Furnace layout, control ranges, recipe presets and furnace-specific messages |
 
 If a shared reactor-control lease is needed, Framework can hold the small
 arbitration primitive used by both consumers; flight policy stays in Auto Nav
@@ -403,7 +422,7 @@ belong with the chemical research, not the first clean-metal recipe.
    reactor coupling cannot meet that contract with a maintainable patch, stop
    and revise that part explicitly rather than layering on decorative controls.
 3. **Build the instrument view on that service**, using a text/geometry layout
-   first, then original production artwork. Local, C1 and F3 controls all use
+   first, then suitable native widgets and original machine artwork. Local, C1 and F3 controls all use
    the same checked actions. Include diagnosis of source, heat receipt, chamber,
    cooling and output blocks; console commands do not bypass them.
 4. **Package the complete equipment** with construction, merchants, maintenance,

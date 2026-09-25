@@ -84,19 +84,32 @@
   `docs/asteroid-life-support-research.md`. The combined scrap reclaimer is now
   implemented as described below; ore and life-support processing remain research,
   not implemented features or verified integrations.
-- The owner requested a direct-fusion furnace as Shipbreaker's centrepiece with
-  a tactile reactor-like control panel (2026-09-24). Follow
+- The owner selected a furnace as Shipbreaker's centrepiece with a tactile
+  reactor-like control panel (2026-09-24), initially requesting direct fusion.
+  On 2026-09-25 the owner explicitly approved **electrical heating as the first
+  route**. Follow `docs/furnace-electrical-direction.md`; this supersedes the
+  direct-fusion-first constraint. Reuse native received-electricity accounting
+  and remove the reactor-side heat coupler requirement. Follow
   `docs/fusion-smelter-research.md`: meaningful live gauges, bounded process
   controls, automatic recipes plus manual sequencing, local/C1/F3 service access,
-  finite heat rejection and preserved hot-state saves. An electromagnetic
-  alternative remains a later option. The proposed F6 name, 6 x 6 footprint,
+  finite heat rejection and preserved hot-state saves. Induction is the researched
+  electrical-heater candidate, with hardware/efficiency still provisional.
+  The proposed F6 name, 6 x 6 footprint,
   50 kg charge and 250 kW delivered-heat limit are design candidates, not approved
-  or implemented equipment. Raw fusion heat has no established native outlet;
-  prove source allocation/debit without double-counting electrical or propulsion
-  output and yield to flight authority. Do not silently substitute electrical
-  heating or grant free heat merely because a reactor is running. Reuse Framework
+  or implemented equipment. Raw fusion heat has no established native outlet and
+  remains historical research, not a prerequisite for the electrical furnace.
+  Account actual electrical consumption once, including partial supply and losses;
+  never grant heat merely because a reactor is running. Yield to flight authority.
+  Reuse Framework
   for concrete shared state, accounting, controls and endpoint needs; content owns
   furnace recipes, art and balance. The current round is research/documentation.
+  The 2026-09-25 follow-up is `docs/furnace-first-cycle.md`: proposed 20 kg
+  aluminium housing batch, optional D4/R4 construction use, finite radiator and
+  gas receiver; its original direct-fusion source section is superseded. The owner explicitly
+  prefers vanilla UI reuse: follow `docs/furnace-ui-and-art.md`, first isolated
+  widgets, then native artwork with adapters, original UI art only for gaps.
+  Keep game-derived material local and reference native assets at runtime;
+  the browser layouts and offline calculations are not Unity/gameplay validation.
 - Future industrial chemical storage is documented in
   `docs/chemical-storage-and-process-fluids.md` (owner direction, 2026-09-24).
   Preserve solvent/reagent reservoirs, quantity-based station refuelling like
@@ -300,6 +313,18 @@
   telemetry we do not have, or present passive chutes as powered machinery.
 
 ## Artwork
+
+- Owner direction (2026-09-25): minimize future graphics rework. Follow the
+  production approach in `docs/furnace-ui-and-art.md`: compose panels from
+  reusable native controls, resizable framing and live localized text; centralize
+  donor mappings and keep full/compact views on the same presentation components.
+  Keep new machine art in editable registered source layers with stable canvas,
+  crop/pivot and connections, then export conventional flattened native assets.
+  Use manifests and small repeatable exporters as real masters become available.
+  Do not build a speculative asset framework or migrate unchanged approved art.
+  The owner conditions this on avoiding a drastic increase in ChatGPT charges:
+  keep added effort small, reuse existing tooling, and avoid extra image-generation
+  runs or broad refactors solely for hypothetical future graphics changes.
 
 - Owner authorised a substantial Auto Nav instrument redesign on 2026-09-24,
   superseding the earlier instruction to retain the original faceplate as the

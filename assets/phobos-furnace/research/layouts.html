@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>F6 furnace — installation and instrument study</title>
+<style>
+:root{color-scheme:dark;font-family:Arial,sans-serif;background:#15191b;color:#dce2df;--plate:#343d40;--edge:#697276;--well:#111818;--ink:#e4e9dd;--muted:#b9c2bc;--amber:#e0b765;--green:#91bc81;--red:#e68d76}
+*{box-sizing:border-box}body{margin:0;padding:24px}main{max-width:1240px;margin:auto}h1{font-size:25px;margin:4px 0 10px;font-weight:600}h2{font-size:13px;letter-spacing:.12em;margin:0 0 17px;text-transform:uppercase;color:#d4ddd5}p{line-height:1.5}a{color:#c2d9e3}.eyebrow{color:var(--amber);font-size:12px;letter-spacing:.13em;text-transform:uppercase}.intro{font-size:14px;color:var(--muted);max-width:850px;margin:0 0 20px}.toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:20px}.toolbar label{font-size:13px;color:var(--muted);margin-left:auto}button,select,input{font:inherit;color:var(--ink)}button,select{border:1px solid #798085;border-radius:2px;background:#3e494c;padding:10px 14px;cursor:pointer}button:hover,select:hover{background:#4e5b5e}button:focus-visible,select:focus-visible,input:focus-visible{outline:3px solid var(--amber);outline-offset:3px}button[aria-selected=true]{background:#bfc5b8;color:#202828;border-color:#e7eadd}button:disabled{opacity:.55;cursor:default}label{display:block}.study{border-top:1px solid #555f61;padding-top:20px}[hidden]{display:none!important}.plate{background:var(--plate);border:2px solid #697174;padding:22px;box-shadow:inset 0 0 0 5px #262e30;position:relative}.plate:before,.plate:after{content:'−';position:absolute;top:5px;font-size:15px;color:#b5b9af}.plate:before{left:8px}.plate:after{right:8px}.identity{display:flex;gap:16px;justify-content:space-between;align-items:center;border-bottom:2px solid #1a2426;padding:4px 0 16px}.identity strong{font-size:18px;letter-spacing:.05em}.sub{display:block;font-size:12px;color:var(--muted);margin-top:5px}.phase{background:#111918;padding:10px 14px;color:var(--amber);font:16px monospace;min-width:130px;text-align:center}.instruments{display:grid;grid-template-columns:1fr 1.2fr 1.1fr;gap:10px;margin:12px 0}.bay{background:#414b4e;border:1px solid #202c2e;padding:18px;min-width:0}.bay.sequence{grid-row:span 2}.checklist{list-style:none;padding:0;margin:0 0 26px;display:grid;gap:15px}.checklist li{display:flex;gap:10px;align-items:center;font-size:13px}.lamp{display:inline-block;width:14px;height:14px;background:#263025;border:2px solid #18221c;flex-shrink:0}.lamp.on{background:var(--green)}.lamp.unknown{background:var(--amber)}.lamp.off{background:#494d48}.rotary-set{display:flex;gap:20px;justify-content:space-around;margin-top:15px}.rotary-group{text-align:center}.rotary{display:block;border-radius:50%;width:58px;height:58px;margin:8px auto;background:#252d2e;border:5px solid #788184;position:relative;padding:0}.rotary:after{content:'';position:absolute;width:4px;height:19px;background:#e6e2c4;left:22px;top:4px;transform-origin:2px 20px;transform:rotate(var(--angle,-50deg))}.rotary-label{font:12px monospace;color:var(--amber)}.small{font-size:12px;color:var(--muted);line-height:1.5}.banks{display:flex;justify-content:space-around;gap:14px}.bank{text-align:center;min-width:65px}.leds{height:168px;width:36px;display:flex;flex-direction:column-reverse;gap:4px;background:#15201e;padding:8px;margin:0 auto 10px}.leds i{height:6px;width:100%;background:#29372d;display:block}.leds i.lit{background:var(--green)}.leds i.lit.high{background:var(--amber)}.bank strong{display:block;font:18px monospace;margin-bottom:4px}.bank span{display:block;font-size:10px;letter-spacing:.08em}.range-label{display:flex;justify-content:space-between;font-size:12px;margin:20px 0 8px}input[type=range]{width:100%;accent-color:#c9b58b}.digital{background:var(--well);padding:10px 12px;color:#d4dfb0;font:29px monospace;letter-spacing:.04em;display:flex;justify-content:space-between;align-items:baseline;gap:8px;min-height:55px}.digital small{font:12px Arial,sans-serif;letter-spacing:0;color:#c1ccbe}.reading-label{display:flex;justify-content:space-between;font-size:12px;margin:12px 0 5px}.readout-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.readout-grid .digital{font-size:23px}.line{height:8px;background:#25302d;margin:12px 0}.line i{height:100%;display:block;background:#91a880;width:40%}.spec{display:flex;justify-content:space-between;font-size:13px;padding:7px 0;gap:12px}.spec strong{font-family:monospace;color:#e3d7a6}.operations{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}.operations button{font-size:12px}.alarm-strip{background:#182222;padding:12px 14px;font-size:13px;color:var(--amber);line-height:1.45;min-height:44px}.footer{display:flex;gap:10px;justify-content:space-between;align-items:center;border-top:2px solid #1a2426;padding-top:13px;margin-top:12px;position:sticky;bottom:0;background:var(--plate);z-index:2}.footer .buttons{display:flex;gap:8px;flex-wrap:wrap}.stop{border-color:#d6bc7b}.isolate{background:#753e32;border-color:#bc7964}.cover{background:repeating-linear-gradient(130deg,#59452d,#59452d 7px,#3b3430 7px,#3b3430 14px);color:#ffe5b8}.caption{font-size:13px;color:var(--muted);line-height:1.5;margin-top:14px}.compact .instruments{grid-template-columns:1fr 1fr}.compact .bay.sequence{grid-column:span 2;grid-row:auto}.compact .checklist{grid-template-columns:1fr 1fr;margin-bottom:12px;gap:9px}.compact .rotary-set{justify-content:flex-start}.compact .cooling{grid-column:span 2}.compact{max-width:730px;margin:auto}.layout-container{display:grid;grid-template-columns:minmax(0,2.1fr) minmax(220px,1fr);gap:24px}.tile-map{display:grid;grid-template-columns:repeat(16,1fr);grid-template-rows:repeat(14,1fr);aspect-ratio:16/14;background-color:#20292b;background-image:linear-gradient(#3c4748 1px,transparent 1px),linear-gradient(90deg,#3c4748 1px,transparent 1px);background-size:6.25% 7.142857%;min-width:0;border:1px solid #596163;position:relative}.equipment{border:2px solid #8b9490;background:#4b5758;display:flex;align-items:center;justify-content:center;flex-direction:column;text-align:center;font-size:14px;padding:7px;z-index:1;min-width:0}.equipment small{font-size:11px;margin-top:6px;color:#e0e5dc}.rad{grid-area:1/8/5/14;background:repeating-linear-gradient(90deg,#596362,#596362 7px,#353f3e 7px,#353f3e 12px)}.hull{grid-area:5/1/6/17;background:repeating-linear-gradient(135deg,#8a805e,#8a805e 6px,#444b46 6px,#444b46 12px);border-block:2px solid #b6ad8c;font-size:11px;display:flex;align-items:center;justify-content:center;color:#fff9e5}.furnace{grid-area:6/8/12/14;background:#515b61}.furnace .vessel{border:3px solid #a2a598;border-radius:20%;background:#222d30;padding:16px 8px;margin:8px;max-width:100%}.coupler{grid-area:8/6/10/8;background:#a08b5f;color:#131e20;font-size:10px;padding:2px}.reactor{grid-area:7/3/11/6;border-left:3px dashed #adbbb2;font-size:12px;background:#304650}.aisle{grid-area:12/8/14/14;border:1px dashed #7d9587;color:#c4d8ca;display:flex;align-items:center;justify-content:center;font-size:12px}.outside{grid-area:2/1/4/7;align-self:center;justify-self:center;color:#b8c9c8;font-size:12px}.connection{grid-area:5/10/7/11;background:#b46b4b;z-index:2;margin:8px 10px;pointer-events:none}.legend{font-size:14px;line-height:1.55}.legend ul{padding-left:18px}.legend li{margin-bottom:12px}.legend strong{color:#e1d6af}.scale-note{font:12px monospace;color:#bfcac4;margin-top:10px}.notes{margin-top:28px;padding-top:15px;border-top:1px solid #4e585a;font-size:13px;line-height:1.6;color:var(--muted)}
+#panel{display:flex;flex-direction:column;height:min(940px,calc(100vh - 80px));min-height:560px}
+#panel.compact{height:min(820px,calc(100vh - 80px))}
+.identity,.alarm-strip,.footer{flex-shrink:0}
+.instruments{flex:1;min-height:0;overflow-y:auto;align-content:start;scrollbar-gutter:stable}
+.footer{position:static}
+.vessel small{display:block}
+.hull{justify-content:flex-start;padding-left:12px}
+@media(max-width:850px){body{padding:14px}.instruments{grid-template-columns:1fr 1fr}.bay.sequence{grid-column:span 2;grid-row:auto}.checklist{grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}.rotary-set{justify-content:flex-start}.cooling{grid-column:span 2}.layout-container{grid-template-columns:1fr}.toolbar label{margin-left:0}.plate{padding:16px}.identity strong{font-size:15px}}
+@media(max-width:520px){.instruments,.compact .instruments{grid-template-columns:1fr}.bay.sequence,.cooling,.compact .bay.sequence,.compact .cooling{grid-column:auto}.bay{padding:14px}.identity{align-items:flex-start;flex-direction:column;gap:10px}.phase{font-size:14px}.checklist,.compact .checklist{grid-template-columns:1fr}.footer{align-items:stretch;flex-direction:column}.footer .buttons{display:grid;grid-template-columns:1fr 1fr}.footer .buttons .isolate{grid-column:span 2}.equipment{font-size:10px;padding:2px}.equipment small{font-size:9px}.furnace .vessel{padding:7px 4px;margin:2px}.coupler{font-size:8px}.reactor{font-size:9px}.aisle,.outside,.hull{font-size:9px}.connection{margin:4px 5px}.digital{font-size:25px}.toolbar{gap:6px}.toolbar button{padding:9px;font-size:13px}.toolbar select{max-width:100%}}
+</style>
+</head>
+<body><main>
+<div class="eyebrow">Research layout / September 2026 / No live telemetry</div>
+<h1>F6 furnace · first-cycle study</h1>
+<p class="intro">Update: <a href="../../../docs/furnace-electrical-direction.md">electrical heating is now selected</a>. This study preserves the original direct-fusion installation concept; its reactor coupler is no longer required. The instrument layout remains the baseline.</p>
+<p class="intro">A captive aluminium casting cycle, with a separate reactor coupler and finite exterior cooling. Controls below are geometry placeholders for the vanilla elements identified in the reuse audit.</p>
+<div class="toolbar" role="tablist" aria-label="Study views">
+<button type="button" role="tab" data-view="installation" aria-selected="true">Installation</button>
+<button type="button" role="tab" data-view="full" aria-selected="false">Full panel</button>
+<button type="button" role="tab" data-view="compact" aria-selected="false">Compact panel</button>
+<label for="scenario">Illustrative state</label><select id="scenario"><option value="idle">Cold idle</option><option value="melt">Melting</option><option value="cool">Cooling</option><option value="blocked">Output blocked</option><option value="unknown">Probe unavailable</option></select>
+</div>
+<section id="installation" class="study" aria-label="Proposed installation">
+<div class="layout-container"><div>
+<div class="tile-map" role="img" aria-label="Tile-scale installation: six by four radiator outside intact hull, six by six furnace inside, two by two coupler beside a cropped reactor edge, two-tile operator aisle">
+<div class="outside">EXTERIOR / CLEAR EXPOSURE</div>
+<div class="equipment rad"><strong>Exterior radiator</strong><small>6 × 4 · fixed fin pack</small></div>
+<div class="hull">INTACT HULL</div><div class="connection" title="Sealed cooling connection"></div>
+<div class="equipment reactor">Native reactor<br>edge reference<small>Complete footprint<br>not shown</small></div>
+<div class="equipment coupler">COUPLER<br>2 × 2</div>
+<div class="equipment furnace"><div class="vessel"><strong>F6 sealed vessel</strong><small>6 × 6 · 50 kg rating</small></div><small>20 kg housing mould<br>Captive loading cassette</small></div>
+<div class="aisle">OPERATOR / CASSETTE ACCESS</div>
+</div><div class="scale-note">Grid: one cell = one game tile. Radiator surface area is a separate design parameter.</div>
+</div><aside class="legend"><h2>Proposed installation</h2><ul>
+<li><strong>Short heat connection.</strong> Coupler touches the furnace in this arrangement. No shared ship-wide heat network.</li>
+<li><strong>Finite radiator.</strong> Candidate 12 m² effective emitting area after surface/view losses; fin geometry still needs validation.</li>
+<li><strong>Hull stays sealed.</strong> Cooling fittings retain backing walls as the native pressure barrier.</li>
+<li><strong>Power is separate.</strong> Ordinary conduit supplies controls and pumps; it is not part of any machine sprite.</li>
+<li><strong>Access stays clear.</strong> Leave the loading edge and native reactor service clearances usable.</li>
+</ul><p class="small">Direct fusion allocation remains unresolved. This arrangement is a research candidate, not installed equipment.</p></aside></div>
+</section>
+<section id="panel-study" class="study" hidden aria-label="Illustrative furnace instrument panel">
+<div class="plate" id="panel">
+<header class="identity"><div><strong>PHOBOS' RIVETLINE F6 FUSION FURNACE</strong><span class="sub">C1 / Local panel · Example host ship · Furnace F6-01</span></div><div class="phase" id="phase">IDLE</div></header>
+<div class="instruments" tabindex="0" aria-label="Scrollable instruments">
+<section class="bay sequence"><h2>Sequence / authority</h2><ul class="checklist" id="checklist"></ul>
+<div class="rotary-set"><div class="rotary-group"><span class="small">Operating mode</span><button class="rotary" id="mode" aria-label="Cycle sample operating mode" style="--angle:0deg"></button><span class="rotary-label" id="mode-label">STANDBY</span></div><div class="rotary-group"><span class="small">Cooling</span><button class="rotary" id="cooling-mode" aria-label="Cycle sample cooling preference" style="--angle:0deg"></button><span class="rotary-label" id="cooling-label">AUTO</span></div></div>
+<div class="operations"><button id="sequence-mode" type="button">AUTO sequence</button><button type="button" id="next-step">Next step</button></div>
+<div class="operations" aria-label="Phase controls"><button type="button" data-action="Seal">Seal</button><button type="button" data-action="Evacuate">Evacuate</button><button type="button" data-action="Release">Release</button></div>
+<div class="operations"><button class="cover" id="heat-guard" type="button" aria-expanded="false">Open heat guard</button><button type="button" id="heat-enable" hidden>Enable heat</button></div>
+<p class="small" id="sequence-help">Sample controls only. Actual service interlocks determine eligible transitions.</p></section>
+<section class="bay"><h2>Heat delivery</h2><div class="banks">
+<div class="bank"><div class="leds" id="request-bank"></div><strong id="request">250</strong><span>REQUEST kW</span></div>
+<div class="bank"><div class="leds" id="received-bank"></div><strong id="received">0</strong><span>RECEIVED kW</span></div>
+<div class="bank"><div class="leds" id="reject-bank"></div><strong id="rejected">3.6</strong><span>REJECTED kW</span></div>
+</div><label class="range-label" for="power"><span>Delivered heat cap</span><span id="power-label">250 kW</span></label><input id="power" type="range" min="25" max="250" step="25" value="250"><p class="small">Source allocation and coupling losses are inspected in Connections.</p></section>
+<section class="bay"><h2>Chamber / instrument</h2><div class="reading-label"><span>Measured process temperature</span><span id="validity">EXAMPLE</span></div><div class="digital"><span id="temp">25.0</span><small>°C</small></div>
+<div class="readout-grid"><div><div class="reading-label">Pressure</div><div class="digital"><span id="pressure">100</span><small>kPa</small></div></div><div><div class="reading-label">Target</div><div class="digital">700<small>°C</small></div></div></div>
+<label class="range-label" for="ramp"><span>Solid preheat ramp</span><span id="ramp-label">2 K/s</span></label><input id="ramp" type="range" min="0.5" max="2" step="0.5" value="2"><div class="spec"><span>Hold requirement</span><strong>60 s</strong></div><div class="spec"><span>Cassette</span><strong id="latch">OPEN / COLD</strong></div></section>
+<section class="bay"><h2>Charge / casting</h2><div class="small">Non-pressure aluminium service housing</div><div class="spec"><span>Admitted charge</span><strong id="charge">0 / 20 kg</strong></div><div class="line"><i id="charge-bar"></i></div><div class="spec"><span>Expected rough casting</span><strong>19 kg</strong></div><div class="spec"><span>Retained melt remainder</span><strong>1 kg</strong></div><div class="spec"><span>Bench finishing</span><strong>18 kg + 1 kg offcut</strong></div><div class="small">50 kg hardware rating; this mould admits exactly 20 kg. Blank release requires cooling and pressure equalization.</div></section>
+<section class="bay cooling"><h2>Cooling / condition</h2><div class="reading-label"><span>Sink temperature</span><span>LIMIT 250 °C</span></div><div class="digital"><span id="sink">25.0</span><small>°C</small></div><div class="spec"><span>Remaining thermal headroom</span><strong id="headroom">18.0 MJ</strong></div><div class="spec"><span>Gas receiver</span><strong id="receiver">0.0 kPa</strong></div><div class="spec"><span>Probe status</span><strong id="probe">CURRENT EXAMPLE</strong></div><div class="small">Finite surface, finite storage. A full sink limits transfer; missing readings never erase physical heat.</div></section>
+</div>
+<div class="alarm-strip" id="reason" role="status">Load the selected 20 kg charge and verify the installation.</div>
+<footer class="footer"><span class="small">Illustrative controls · no game connection</span><div class="buttons"><button class="stop" id="stop" type="button">Stop &amp; cool</button><button class="cover" id="guard" type="button" aria-expanded="false">Open isolation guard</button><button class="isolate" id="isolate" type="button" hidden>ISOLATE HEAT</button></div></footer>
+</div><p class="caption">Scroll the instruments for more readings and controls. Vanilla-style geometry study: final UI should reference suitable native sprites, fonts and widgets at runtime. These placeholders do not represent a verified Unity rendering.</p>
+</section>
+<div class="notes">Design record: <a href="../../../docs/furnace-first-cycle.md">first processing cycle</a> · <a href="../../../docs/furnace-ui-and-art.md">vanilla UI reuse and artwork brief</a>. The 53.8-minute cold thermal estimate includes heating, hold and cooling; handling, evacuation and finishing are additional.</div>
+</main>
+<script>
+'use strict';
+const scenarios={
+idle:{phase:'IDLE',temp:'25.0',pressure:'100',sink:25,receiver:'0.0',charge:0,received:0,rejected:3.6,latch:'OPEN / COLD',checks:[0,0,1,0,0],reason:'Load the selected 20 kg charge and verify the installation.'},
+melt:{phase:'MELTING',temp:'660.3',pressure:'0.31',sink:72,receiver:'159.8',charge:20,received:125,rejected:7.4,latch:'SEALED',checks:[1,1,1,1,1],reason:'Illustrative partial delivery: 125 kW received. Actual energy, including latent heat, advances the melt.'},
+cool:{phase:'COOLING',temp:'180.0',pressure:'0.15',sink:150,receiver:'159.8',charge:20,received:0,rejected:17.6,latch:'SEALED',checks:[1,1,1,1,0],reason:'Heating isolated. Batch retained until temperature and pressure permit release.'},
+blocked:{phase:'OUTPUT BLOCKED',temp:'49.0',pressure:'100',sink:45,receiver:'0.0',charge:20,received:0,rejected:5.0,latch:'RELEASE LOCKED',checks:[1,1,1,1,0],reason:'Destination full — cooled casting and melt remainder remain in the cassette. Clear physical output space.'},
+unknown:{phase:'PROBE UNAVAILABLE',temp:'Unknown',pressure:'Unknown',sink:95,receiver:'159.8',charge:20,received:0,rejected:9.7,latch:'SEALED',checks:[1,1,1,-1,0],reason:'Process probe unavailable — heating isolated. Stored heat and cooling persist. Last-known values belong in History.'}
+};
+const $=id=>document.getElementById(id);let modeIndex=1,coolingIndex=1,step=false;
+function bank(id,fraction){const root=$(id);root.replaceChildren();for(let i=0;i<16;i++){const cell=document.createElement('i');if(i<Math.round(fraction*16))cell.className='lit'+(i>12?' high':'');root.append(cell)}}
+function render(){
+  const key=$('scenario').value,s=scenarios[key];
+  $('phase').textContent=s.phase;
+  for(const field of ['temp','pressure','latch','receiver'])$(field).textContent=s[field]+(field==='receiver'?' kPa':'');
+  $('sink').textContent=s.sink.toFixed(1);
+  $('charge').textContent=s.charge+' / 20 kg';
+  $('charge-bar').style.width=(s.charge/20*100)+'%';
+  $('headroom').textContent=((250-s.sink)*80/1000).toFixed(1)+' MJ';
+  const limit=Number($('power').value),request=s.received>0?limit:0;
+  $('request').textContent=request;
+  $('received').textContent=Math.min(request,s.received);
+  $('rejected').textContent=s.rejected;
+  $('power-label').textContent=limit+' kW';
+  bank('request-bank',request/250);
+  bank('received-bank',Math.min(request,s.received)/250);
+  bank('reject-bank',s.rejected/45);
+  $('reason').textContent=s.reason;
+  const unknown=key==='unknown';
+  $('validity').textContent=unknown?'UNAVAILABLE':'EXAMPLE';
+  $('probe').textContent=unknown?'UNAVAILABLE':'CURRENT EXAMPLE';
+  modeIndex=key==='melt'?2:key==='idle'?1:0;
+  $('mode-label').textContent=['OFF','STANDBY','RUN'][modeIndex];
+  $('mode').style.setProperty('--angle',[-50,0,50][modeIndex]+'deg');
+  $('checklist').replaceChildren();
+  ['Charge verified','Cassette sealed','Cooling connected','Process readings valid','Heat source available'].forEach((text,i)=>{
+    const li=document.createElement('li'),lamp=document.createElement('span');
+    lamp.className='lamp '+(s.checks[i]===1?'on':s.checks[i]===-1?'unknown':'off');
+    lamp.setAttribute('aria-hidden','true');
+    li.append(lamp,document.createTextNode(text+' · '+(s.checks[i]===1?'Ready':s.checks[i]===-1?'Unknown':'Pending')));
+    $('checklist').append(li);
+  });
+}
+document.querySelectorAll('[data-view]').forEach(button=>button.addEventListener('click',()=>{const view=button.dataset.view;document.querySelectorAll('[data-view]').forEach(b=>b.setAttribute('aria-selected',String(b===button)));$('installation').hidden=view!=='installation';$('panel-study').hidden=view==='installation';$('panel').classList.toggle('compact',view==='compact')}));
+$('scenario').addEventListener('change',render);$('power').addEventListener('input',render);
+$('mode').addEventListener('click',()=>{modeIndex=(modeIndex+1)%3;$('mode-label').textContent=['OFF','STANDBY','RUN'][modeIndex];$('mode').style.setProperty('--angle',[-50,0,50][modeIndex]+'deg');$('sequence-help').textContent='Sample mode request only; actual heat remains determined by the selected example state.'});
+$('cooling-mode').addEventListener('click',()=>{coolingIndex=(coolingIndex+1)%3;$('cooling-label').textContent=['LOW','AUTO','HIGH'][coolingIndex];$('cooling-mode').style.setProperty('--angle',[-50,0,50][coolingIndex]+'deg')});
+$('sequence-mode').addEventListener('click',()=>{step=!step;$('sequence-mode').textContent=step?'STEP sequence':'AUTO sequence'});
+$('next-step').addEventListener('click',()=>{$('sequence-help').textContent='An actual step would recheck recipe, source, cooling, pressure and ownership. This study does not advance a process.'});
+$('ramp').addEventListener('input',()=>{$('ramp-label').textContent=$('ramp').value+' K/s'});
+document.querySelectorAll('[data-action]').forEach(button=>button.addEventListener('click',()=>{$('sequence-help').textContent=button.dataset.action+' is a checked service request. The example state is unchanged; temperature, pressure and physical contents govern availability.'}));
+$('heat-guard').addEventListener('click',()=>{const open=$('heat-enable').hidden;$('heat-enable').hidden=!open;$('heat-guard').setAttribute('aria-expanded',String(open));$('heat-guard').textContent=open?'Close heat guard':'Open heat guard'});
+$('heat-enable').addEventListener('click',()=>{$('sequence-help').textContent='Heat permission requires a sealed verified batch, valid instruments, available source and finite cooling. This mockup grants no permission and changes no telemetry.'});
+$('stop').addEventListener('click',()=>{$('scenario').value='cool';render();$('reason').textContent='Sample stop request — heating isolated; cooling continues and contents stay captive.'});
+$('guard').addEventListener('click',()=>{const open=$('isolate').hidden;$('isolate').hidden=!open;$('guard').setAttribute('aria-expanded',String(open));$('guard').textContent=open?'Close isolation guard':'Open isolation guard'});
+$('isolate').addEventListener('click',()=>{$('scenario').value='cool';render();$('phase').textContent='ISOLATED';$('reason').textContent='Sample emergency isolation — heat and feed cut, protective cooling retained. Reactor controls untouched.'});
+render();
+</script>
+</body></html>

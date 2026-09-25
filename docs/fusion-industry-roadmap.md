@@ -1,9 +1,25 @@
 # Fusion-powered industry: ideas and research sequence
 
+**Latest furnace decision, 25 September:** [electrical heating is approved](furnace-electrical-direction.md)
+as the first implementation route. Native electrical accounting replaces the
+unresolved direct-fusion coupling requirement. Keep the casting cycle, finite
+radiator and vanilla-control design; omit the reactor-side heat coupler.
+
 **25 September 2026:** [shared console observations](shared-console-observations.md)
 are prepared in Framework 0.13.0 / Shipbreaker 0.11.0. Native room alarms, R4
 cooling probes and session stop evidence provide the first industrial instruments;
 furnace/specialist instrumentation is still future work.
+
+**25 September furnace first-cycle study:** [the recommended design](furnace-first-cycle.md)
+casts 20 kg of native aluminium into a 19 kg rough non-pressure housing and 1 kg
+terminal remainder; bench finishing yields an 18 kg optional D4/R4 construction
+input and 1 kg recoverable offcut. Existing repair/construction routes remain.
+The proposed F6/coupler/exterior-radiator installation has a finite thermal and
+gas budget, with a roughly 54-minute cold thermal cycle under the documented
+assumptions. [Vanilla UI reuse](furnace-ui-and-art.md) is the preferred route for
+controls, with [installation and panel mockups](../assets/phobos-furnace/research/layouts.html).
+This completes research/design only. Native fusion debit/allocation still needs a
+maintainable adapter; the current reactor's displayed split is not an energy receipt.
 
 Decision record: **2026-09-23**. The owner wants all five ideas retained and
 researched as relevant equipment and activities arise during play, so experiments
@@ -75,8 +91,8 @@ and furnace instruments. Later assay, asteroid survey and endurance diagnostics
 must reveal credible information without creating material or bypassing native
 acquisition. [Auto Nav 0.9.0](auto-nav-sensors.md) implements the first contact
 qualification slice, awaiting owner gameplay checks. Shared console observations
-and furnace instrumentation come next; current industrial machines gain no new
-sensor dependency in this round.
+are now implemented as linked above; furnace instrumentation is designed but not
+implemented. Current machinery retains its established basic probes.
 
 ## Common design principles
 
