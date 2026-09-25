@@ -168,3 +168,11 @@ Repair citations when the related research changes. Keep NASA, ESA, original
 researchers, game documentation and mod authors explicitly named beside relevant
 claims, and carry applicable references into design, player and release documents.
 Artwork and code provenance remain separate records with their own terms.
+
+## Delivered nutrient-production follow-up — 26 September 2026
+
+Agriculture 0.9.0 implements B2 crop-residue recovery/formulation, nonrepairable
+selected W2 charge consumption and optional measured Recycler wet rejects.
+See [current scope](agriculture-nutrient-production.md). Wastewater nutrient
+provenance, larger batched workup and detailed mineral formulations remain open.
+Earlier planning snapshots below are historical.

@@ -10,6 +10,7 @@
 | Phobos' Verdemorrow Hearth-2 Galley Cooker | 150.00 | 187.50 | 30.00 | 7.50 | 65.00 | 20 | 8.31 |
 | Phobos' Verdemorrow Groundwork W2 Water Supply Unit | 250.00 | 312.50 | 50.00 | 12.50 | 115.60 | 30 | 14.41 |
 | Phobos' Verdemorrow Groundwork Irrigation Conduit | 2.00 | 2.50 | 0.40 | 0.10 | 1.10 | 2 | 0.01 |
+| Phobos' Verdemorrow Groundwork B2 Workup Bench | 250.00 | 312.50 | 50.00 | 12.50 | 143.40 | 30 | 10.81 |
 
 Phobos' Verdemorrow Firstlight-4 Cultivation Rack: VORB endpoint illustration: pristine ingredients at the highest sell multiplier cost 594.75; a full-condition constructed machine at the lowest buy multiplier returns 280.00. Difference -314.75 before tools, labour, hauling, availability and market category effects.
 
@@ -18,6 +19,8 @@ Phobos' Verdemorrow Hearth-2 Galley Cooker: VORB endpoint illustration: pristine
 Phobos' Verdemorrow Groundwork W2 Water Supply Unit: VORB endpoint illustration: pristine ingredients at the highest sell multiplier cost 216.75; a full-condition constructed machine at the lowest buy multiplier returns 100.00. Difference -116.75 before tools, labour, hauling, availability and market category effects.
 
 Phobos' Verdemorrow Groundwork Irrigation Conduit: VORB endpoint illustration: pristine ingredients at the highest sell multiplier cost 2.06; a full-condition constructed machine at the lowest buy multiplier returns 0.80. Difference -1.26 before tools, labour, hauling, availability and market category effects.
+
+Phobos' Verdemorrow Groundwork B2 Workup Bench: VORB endpoint illustration: pristine ingredients at the highest sell multiplier cost 268.87; a full-condition constructed machine at the lowest buy multiplier returns 100.00. Difference -168.87 before tools, labour, hauling, availability and market category effects.
 
 
 ## Native service definitions
@@ -28,6 +31,7 @@ Phobos' Verdemorrow Groundwork Irrigation Conduit: VORB endpoint illustration: p
 | Phobos' Verdemorrow Hearth-2 Galley Cooker | TIsPartsMechSmall=1x1, TIsScrapAluminum=1x1 | PhobosVerdemorrowHearth2Loose + Framework actual spent materials | None; native in-place wear work | ItmScrapSteel, ItmScrapSteel, ItmScrapAluminum, PhobosVerdemorrowHearth2HousingWaste |
 | Phobos' Verdemorrow Groundwork W2 Water Supply Unit | TIsPartsMechSmall=1x1, TIsPartsElecSmall=1x1, TIsScrapAluminum=1x1 | PhobosVerdemorrowGroundworkW2Loose + Framework actual spent materials | None; native in-place wear work | ItmScrapSteel, ItmScrapSteel, ItmScrapSteel, ItmScrapSteel, PhobosVerdemorrowGroundworkW2HousingWaste |
 | Phobos' Verdemorrow Groundwork Irrigation Conduit | TIsScrapAluminum=1x1 | PhobosVerdemorrowWaterConduitLoose + Framework actual spent materials | None; native in-place wear work | PhobosVerdemorrowWaterConduitWaste |
+| Phobos' Verdemorrow Groundwork B2 Workup Bench | TIsPartsMechSmall=1x1, TIsPartsElecSmall=1x1, TIsScrapAluminum=1x1 | PhobosVerdemorrowGroundworkB2Loose + Framework actual spent materials | None; native in-place wear work | ItmScrapSteel, ItmScrapSteel, ItmScrapSteel, PhobosVerdemorrowGroundworkB2HousingWaste |
 
 Repair bills and work differ by machine; actual consumed repair mass returns as spent material. Restore removes wear in place and does not award pristine condition. See the current player guide for bills and timings.
 
@@ -49,6 +53,16 @@ These are native data-trigger results for empty loose definitions. 'Buy' means t
 | Phobos' Verdemorrow Groundwork Irrigation Conduit | 2.00 | IsCategoryIndustrialProducts | Yes | Yes | No | No |
 | Phobos' Verdemorrow Groundwork Irrigation Conduit (Damaged) | 0.40 | IsCategoryIndustrialProducts | Yes | Yes | No | No |
 | Phobos' Verdemorrow Agricultural Housing Waste | 0.01 | IsCategoryTrash | Yes | Yes | No | No |
+| Phobos' Verdemorrow Groundwork B2 Workup Bench | 250.00 | IsCategoryIndustrialProducts | Yes | Yes | No | No |
+| Phobos' Verdemorrow Groundwork B2 Workup Bench (Damaged) | 50.00 | IsCategoryIndustrialProducts | Yes | Yes | No | No |
+| Phobos' Verdemorrow Agricultural Housing Waste | 0.01 | IsCategoryTrash | Yes | Yes | No | No |
+| Phobos' Verdemorrow Agricultural Housing Waste | 0.01 | IsCategoryTrash | Yes | Yes | No | No |
+| Phobos' Verdemorrow Recorded Crop Residue | 0.01 |  | Yes | Yes | No | No |
+| Phobos' Verdemorrow Groundwork Recovered Nutrient Concentrate | 0.01 |  | Yes | Yes | No | No |
+| Phobos' Verdemorrow Spent Crop Biomass | 0.01 |  | Yes | Yes | No | No |
+| Phobos' Verdemorrow Groundwork Makeup Salts (40 g) | 30.00 |  | Yes | Yes | No | No |
+| Phobos' Verdemorrow Groundwork Recovered Crop Nutrient Mixture | 0.01 |  | Yes | Yes | No | No |
+| Phobos' Verdemorrow Recycler Wet Rejects | 0.01 |  | Yes | Yes | No | No |
 | Phobos' Verdemorrow Continuance Seed Potato (0.2 kg) | 40.00 | IsCategoryIndustrialProducts | Yes | Yes | No | No |
 | Phobos' Verdemorrow Continuance Lettuce Seeds (5 g) | 5.00 | IsCategoryIndustrialProducts | Yes | Yes | No | No |
 | Phobos' Verdemorrow Groundwork Formulated Crop Nutrients (40 g) | 60.00 | IsCategoryIndustrialProducts | Yes | Yes | No | No |
@@ -101,12 +115,12 @@ A repeating lettuce rotation reserves one returned seed packet, grows 3 food coh
 
 ## Proposed crop-residue recovery ceiling — not a recipe
 
-Illustrative conservative allocation: distribute only nutrients consumed by growth in proportion to final biomass; allocate the residue share, then recover 60% of that share. The 60% is an authored sensitivity assumption, not NASA's leaching yield. Seed nutrients receive no extra credit. Recovered material is an incomplete concentrate until formulation is defined.
+Authored allocation: distribute only nutrients consumed by growth in proportion to final biomass; allocate the residue share, then recover 60% of that share. The 60% is authored gameplay balance, not NASA's leaching yield. Seed nutrients receive no extra credit. B2 combines the concentrate with equal-mass purchased makeup salts. Spent biomass stays cargo; these values exclude workup electricity, crew and equipment.
 
-| Ideal crop | Wet residue kg | Allocated nutrient ceiling g | Candidate recovered equivalent g | Maximum avoided stock cost cr |
-|---|---:|---:|---:|---:|
-| potato | 0.8 | 6.4 | 3.84 | 5.76 |
-| lettuce | 0.2 | 0.833 | 0.5 | 0.75 |
-| lettuce-seed | 1.18 | 9.833 | 5.9 | 8.85 |
+| Ideal crop | Wet residue kg | Allocated nutrient ceiling g | Recovered concentrate g | Makeup cost cr | Finished mixture g | Avoided fresh-stock cost less makeup cr |
+|---|---:|---:|---:|---:|---:|---:|
+| potato | 0.8 | 6.4 | 3.84 | 2.88 | 7.68 | 8.64 |
+| lettuce | 0.2 | 0.833 | 0.5 | 0.375 | 1 | 1.125 |
+| lettuce-seed | 1.18 | 9.833 | 5.9 | 4.425 | 11.8 | 13.275 |
 
-Avoided stock cost is an upper bound, not sale value: subtract processing, make-up nutrients, consumables, labour and capital. Terminal rejects cannot be rerun. Larger batches can amortize setup work; no waste-processing recipe is registered by this audit. See [nutrient recovery direction](agriculture-nutrient-recovery.md).
+Avoided cost is a resupply comparison, not a sale profit. Subtract B2 energy, two one-minute crew setups, hauling and capital. Each stage uses 0.02 kWh/kg input with a 0.001 kWh minimum. Terminal rejects cannot be rerun. The executable audit reads content balance; it does not itself register recipes. See [nutrient production](agriculture-nutrient-production.md).

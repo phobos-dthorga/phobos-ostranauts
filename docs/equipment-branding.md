@@ -146,3 +146,9 @@ Groundwork irrigation despite reusing the project's original fitting artwork.
 in the existing Auto Nav package. N2 shares Asterel branding and the Polaris
 compatibility cue with N1. It reuses the approved casing artwork with distinct
 live panel/item names. See [operation and authored economy](auto-nav-pursuit.md).
+
+## Groundwork B2
+
+Agriculture 0.9.0 adds **Phobos' Verdemorrow Groundwork B2 Workup Bench**.
+Recovered concentrate, makeup salts and finished mixtures share Groundwork
+naming; variable crop biomass and wet rejects have no machine model number.

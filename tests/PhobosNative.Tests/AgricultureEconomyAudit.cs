@@ -27,7 +27,7 @@ internal static class AgricultureEconomyAudit
             "25 September 2026. Current Agriculture definitions plus installed Ostranauts 1.0.1.5, evaluated with Blue Bottle Games' native DataCO.GetBasePrice and trade triggers. Values are per object, in credits, before merchant/market adjustments. No game session or live quote was sampled; this report reflects the current authored economic balance.", "",
             "## Equipment and construction", "",
             "| Machine | Base | Pristine | Broken base | Worn broken | Raw construction inputs | Work minutes | Dismantle outputs |", "|---|---:|---:|---:|---:|---:|---:|---:|" };
-        foreach (string prefix in new[] { rack, cooker, PhobosAgriculture.IrrigationDefinitions.Supply, PhobosAgriculture.IrrigationDefinitions.Pipe })
+        foreach (string prefix in new[] { rack, cooker, PhobosAgriculture.IrrigationDefinitions.Supply, PhobosAgriculture.IrrigationDefinitions.Pipe, PhobosAgriculture.WorkupDefinitions.Bench })
         {
             string id = prefix + "Loose";
             var recipe = recipes.recipes.Single(r => r.outputs.Any(o => o.item == id));
@@ -40,7 +40,7 @@ internal static class AgricultureEconomyAudit
         }
         rows.Add(""); rows.AddRange(comparisons);
         rows.AddRange(new[] { "", "## Native service definitions", "", "| Target | Repair inputs | Repair outputs | Restore inputs | Dismantle outputs |", "|---|---|---|---|---|" });
-        foreach (string prefix in new[] { rack, cooker, PhobosAgriculture.IrrigationDefinitions.Supply, PhobosAgriculture.IrrigationDefinitions.Pipe })
+        foreach (string prefix in new[] { rack, cooker, PhobosAgriculture.IrrigationDefinitions.Supply, PhobosAgriculture.IrrigationDefinitions.Pipe, PhobosAgriculture.WorkupDefinitions.Bench })
         {
             var repair = definitions.Installables[prefix + "LooseDmgRepair"];
             var restore = definitions.Installables[prefix + "LooseRestore"];

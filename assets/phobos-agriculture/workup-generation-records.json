@@ -1,0 +1,11 @@
+{
+  "date": "2026-09-26",
+  "provider": "ChatGPT built-in image generation",
+  "prompt": "Use case: stylized-concept. Create one original production sprite master for a fictional Verdemorrow Groundwork B2 enclosed nutrient workup bench for an industrial spaceship survival game. Strict orthographic overhead top-down view, square 2x2-tile footprint, standalone compact square bench chassis, utilitarian muted olive green and warm grey metal, a sealed large circular processing chamber on the left and a narrow recessed supply cassette bay on the right, restrained orange latch accents. Coarse deliberate pixel-art clusters, few simple shaded surfaces, stepped edges, readable when reduced to 32x32 pixels. Entire silhouette inside canvas with a small even transparent margin. True transparent background, no floor, no scene, no text, no logos, no plants, no loose supplies, no external conduit. Chamber and enclosure are permanent hardware; no status graphics or contents painted into it. Neutral overhead lighting, no cast shadow outside object. Provide high-resolution square master at least 1024x1024, retain crisp pixel clusters.",
+  "master": "source/groundwork-b2-master-v1.png",
+  "job": "exec-76559fa5-6fae-4912-8a97-8a85de118154",
+  "inputImages": [],
+  "usage": "One generation; no monetary usage or model/seed disclosed by tool.",
+  "selection": "Selected for native-size export; owner in-game review pending.",
+  "terms": "Original generated equipment. No game textures or third-party images submitted. Provider terms and general asset policy remain as recorded in README.md."
+}

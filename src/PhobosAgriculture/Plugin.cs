@@ -13,11 +13,13 @@ using Phobos.Ostranauts.Framework.Construction;
 namespace PhobosAgriculture;
 
 [BepInPlugin(Id, "Phobos Agriculture", Version)]
-[BepInDependency(FrameworkInfo.PluginId, "0.21.0")]
+[BepInDependency(FrameworkInfo.PluginId, "0.22.0")]
+[BepInDependency("com.ostranauts.shipswater", BepInDependency.DependencyFlags.SoftDependency)]
+[BepInDependency("phobosgekko.ostranauts.shipbreaker", BepInDependency.DependencyFlags.SoftDependency)]
 [BepInProcess("Ostranauts.exe")]
 public sealed class Plugin : BaseUnityPlugin
 {
-    public const string Id = "phobosgekko.ostranauts.agriculture", Version = "0.8.0";
+    public const string Id = "phobosgekko.ostranauts.agriculture", Version = "0.9.0";
     internal static Action<string> Log = _ => { };
     internal static ConfigEntry<double> Pace = null!, ReserveLitres = null!;
     internal static ConfigEntry<bool> LootEnabled = null!;
@@ -32,13 +34,15 @@ public sealed class Plugin : BaseUnityPlugin
         LootEnabled = Config.Bind("Loot", "Enabled", true, Text.Get("loot_enabled_setting"));
         LootMultiplier = Config.Bind("Loot", "ChanceMultiplier", LootContent.DefaultMultiplier, new ConfigDescription(Text.Get("loot_multiplier_setting"), new AcceptableValueRange<double>(0, LootContent.MaximumMultiplier)));
         harmony = new Harmony(Id); harmony.PatchAll(typeof(Plugin).Assembly);
+        Phobos.Ostranauts.Framework.Inventory.CollectorCargo.Register(Id, RecyclerCapture.Cargo);
+        RecyclerCapture.Available = BepInEx.Bootstrap.Chainloader.PluginInfos.TryGetValue("phobosgekko.ostranauts.shipbreaker", out var shipbreaker) && shipbreaker.Metadata.Version >= new Version(0,20,0) && Phobos.Ostranauts.Framework.Liquids.ShipsWaterRejects.Install(harmony, RecyclerCapture.Instance);
         FrameworkLifecycle.ContentLoading += Load; FrameworkLifecycle.ContentLoaded += Confirm;
         EquipmentProviders.Register(new Provider());
     }
-    private static void Load() { Service.Reset(); try { Definitions.Load(); } catch (Exception e) { Definitions.Ready = false; Log(e.ToString()); } }
+    private static void Load() { Service.Reset(); RecyclerCapture.Reset(); try { Definitions.Load(); } catch (Exception e) { Definitions.Ready = false; Log(e.ToString()); } }
     private static void Confirm() => Definitions.Ready = ConstructionRegistry.Ready(Id);
     private void Update() { if (UnityEngine.Time.unscaledTime >= nextScan) { nextScan = UnityEngine.Time.unscaledTime + 2; Service.PassiveScan(); } }
-    private void OnDestroy() { FrameworkLifecycle.ContentLoading -= Load; FrameworkLifecycle.ContentLoaded -= Confirm; EquipmentProviders.Unregister(Id); harmony?.UnpatchSelf(); Service.Reset(); }
+    private void OnDestroy() { Phobos.Ostranauts.Framework.Inventory.CollectorCargo.Unregister(Id); Phobos.Ostranauts.Framework.Liquids.ShipsWaterRejects.Forget(RecyclerCapture.Instance); FrameworkLifecycle.ContentLoading -= Load; FrameworkLifecycle.ContentLoaded -= Confirm; EquipmentProviders.Unregister(Id); harmony?.UnpatchSelf(); Service.Reset(); }
 }
 
 [HarmonyPatch(typeof(Powered), "Run")]
@@ -76,6 +80,7 @@ internal static class EffectsPatch
     }
     private static void Postfix(Interaction __instance, bool isCancelIa)
     {
+        if (!isCancelIa && __instance.strName == RecyclerCapture.Controls && RecyclerCapture.IsRecycler(__instance.objThem)) { Panel.Show(__instance.objThem); return; }
         if (isCancelIa || !Definitions.Machine(__instance.objThem)) return;
         if (__instance.strName == Definitions.Controls) { if (__instance.objUs == CrewSim.GetSelectedCrew()) Panel.Show(__instance.objThem); return; }
         foreach (string action in Definitions.Work) if (__instance.strName == Definitions.WorkId(action)) Service.Work(__instance.objThem, __instance.objUs, action);
@@ -100,13 +105,13 @@ internal static class ConsolePatch
 internal static class ReloadPatch
 {
     private static IEnumerable<MethodBase> TargetMethods() => typeof(CrewSim).GetMethods().Where(m => m.Name == nameof(CrewSim.LoadGame) || m.Name == nameof(CrewSim.NewGame));
-    private static void Prefix() => Service.Reset();
+    private static void Prefix() { Service.Reset(); RecyclerCapture.Reset(); }
 }
 
 internal sealed class Provider : IEquipmentProvider
 {
     public string Id => Plugin.Id;
-    public IReadOnlyList<string> Definitions { get; } = Array.AsReadOnly(new[] { PhobosAgriculture.Definitions.Rack + "Installed", PhobosAgriculture.Definitions.Cooker + "Installed", IrrigationDefinitions.Supply + "Installed" });
+    public IReadOnlyList<string> Definitions { get; } = Array.AsReadOnly(new[] { PhobosAgriculture.Definitions.Rack + "Installed", PhobosAgriculture.Definitions.Cooker + "Installed", IrrigationDefinitions.Supply + "Installed", WorkupDefinitions.Bench + "Installed" });
     public EquipmentSnapshot Snapshot(CondOwner co)
     {
         var s = Service.Get(co); var b = s.State;
@@ -122,11 +127,13 @@ internal static class ContentsEligibilityPatch
     internal static bool Blocked(Interaction action, CondOwner? us, CondOwner? them)
     {
         var co = action.strName.StartsWith("MS", StringComparison.Ordinal) ? us : them;
+        bool supply = new[] { Definitions.Nutrient, WorkupDefinitions.Makeup, WorkupDefinitions.Mixture, WorkupDefinitions.Concentrate, Service.RecoveryCartridge }.Contains(co?.strCODef);
+        if (supply && (action.strName.Contains("Repair") || action.strName.Contains("Restore") || action.strName.Contains("Undamage"))) return true;
         return Definitions.Machine(co) && (action.strName.Contains("Dismantle") || action.strName.Contains("Uninstall")) &&
-            (Service.Get(co!).Protected || Service.WaterGuard(co!).Protected || Service.Get(co!).State.ContentsMass + Service.Get(co!).Solution.TotalKg + Service.Get(co!).Line.TotalKg > 1e-8 || Service.Get(co!).State.CookerProgress > 0);
+            (Service.Get(co!).Protected || Service.WaterGuard(co!).Protected || Service.Get(co!).State.ContentsMass + Service.Get(co!).Solution.TotalKg + Service.Get(co!).Line.TotalKg > 1e-8 || Service.Get(co!).State.CookerProgress > 0 || Service.Get(co!).Workup.Mode.Length > 0);
     }
     private static void Postfix(Interaction __instance, CondOwner objUs, CondOwner objThem, ref bool __result)
-    { if (__result && Blocked(__instance, objUs, objThem)) { __result = false; __instance.AddFailReason("main", Text.Get("unload_first")); } }
+    { if (__result && Blocked(__instance, objUs, objThem)) { __result = false; __instance.AddFailReason("main", Text.Get(Definitions.Machine(objUs) || Definitions.Machine(objThem) ? "unload_first" : "consumable_no_repair")); } }
 }
 [HarmonyPatch(typeof(Interaction), nameof(Interaction.ApplyEffects))]
 internal static class ContentsCompletionPatch
@@ -139,7 +146,7 @@ internal static class ModeChangePatch
 {
     private static void Prefix(CondOwner __instance, CondOwner coNew, out Service.Session? __state)
     {
-        __state = Definitions.Machine(__instance) && Definitions.Machine(coNew) && Definitions.IsCooker(__instance) == Definitions.IsCooker(coNew) && IrrigationDefinitions.IsSupply(__instance) == IrrigationDefinitions.IsSupply(coNew) ? Service.Get(__instance) : null;
+        __state = Definitions.Machine(__instance) && Definitions.Machine(coNew) && WorkupDefinitions.IsBench(__instance) == WorkupDefinitions.IsBench(coNew) && Definitions.IsCooker(__instance) == Definitions.IsCooker(coNew) && IrrigationDefinitions.IsSupply(__instance) == IrrigationDefinitions.IsSupply(coNew) ? Service.Get(__instance) : null;
     }
     private static void Postfix(CondOwner coNew, Service.Session? __state)
     {

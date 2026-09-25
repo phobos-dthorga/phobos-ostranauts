@@ -138,3 +138,14 @@ early/stressed stages reuse existing lettuce assets. The updated preview was
 inspected at native pixel scale and integer enlargement. In-game approval is pending.
 The pictures simplify morphology; scientific attribution and authored lifecycle
 limits are in [seed production](../../docs/agriculture-seed-production.md).
+
+## Groundwork B2 master — 26 September 2026
+
+The original ChatGPT built-in equipment master and exact prompt are retained in
+[workup-generation-records.json](workup-generation-records.json). Run
+`python scripts/export-workup-art.py` with Pillow for the registered 32 x 32
+export, flat normal, preview and [hash/registration record](workup-exports.json).
+The sealed chassis has no baked supply contents. New commodities reuse our
+existing residue/nutrient/reject sprites; no new PixelLab generation was needed.
+One built-in image request; monetary cost, model and seed were not disclosed.
+The candidate passed native-size visual inspection; in-game review is pending.

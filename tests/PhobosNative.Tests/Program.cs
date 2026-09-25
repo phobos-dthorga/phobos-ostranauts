@@ -55,6 +55,7 @@ Check(missing.Count == 0, string.Join("\n", missing));
 Check(!DataHandler.dictCOs.ContainsKey("SWB_SorterInstalled"), "No Workshop templates loaded");
 var agriculture = PhobosAgriculture.Definitions.Prepare();
 AgricultureNativeChecks.Run(agriculture, repo, Check, Throws);
+NutrientProductionNativeChecks.Run(agriculture, game, Check);
 if (args.Length > 3) AgricultureEconomyAudit.Write(agriculture, repo, args[3]);
 foreach (var co in agriculture.Objects.Values) {
     Check(co.strNameFriendly.StartsWith("Phobos' ", StringComparison.Ordinal), "Agriculture names are branded: " + co.strName);

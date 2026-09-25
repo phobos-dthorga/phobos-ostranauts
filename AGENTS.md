@@ -161,6 +161,15 @@
 
 ## Agriculture direction (2026-09-25)
 
+- Owner-approved nutrient-production follow-up (2026-09-26): Agriculture 0.9.0,
+  Framework 0.22.0 and Shipbreaker 0.20.0 implement recorded fresh crop residue,
+  the Groundwork B2 workup bench, finite makeup formulation, selected nonrepairable
+  W2 inventory charges and optional Ship’s Water 0.16.1 Recycler wet-reject capture.
+  Follow `docs/agriculture-nutrient-production.md`. Preserve old crops/waste,
+  measured receipts, exclusive collector inlet, finite physical outputs and
+  explicit resume after reload. Wastewater nutrients remain uncharacterized and
+  have no fertilizer recipe. Offline checks are not gameplay validation.
+
 - Owner authorized all outstanding fluid extensions. Agriculture 0.6.0 / Framework
   0.20.0 provide up to eight W2 rack pairs, retained endpoint-owned line parcels,
   authored resistance/transit, recorded drainage treatment and finite rejects.

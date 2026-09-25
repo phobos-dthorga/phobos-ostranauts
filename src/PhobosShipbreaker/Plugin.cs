@@ -15,7 +15,7 @@ namespace PhobosShipbreaker;
 public sealed class Plugin : BaseUnityPlugin
 {
     public const string Id = "phobosgekko.ostranauts.shipbreaker";
-    public const string Version = "0.19.0";
+    public const string Version = "0.20.0";
     internal static ProcessingService Service { get; private set; } = null!;
     internal static Action<string> Log { get; private set; } = null!;
     internal static Settings Options { get; private set; } = null!;
@@ -28,6 +28,7 @@ public sealed class Plugin : BaseUnityPlugin
     private void Awake()
     {
         Log = text => Logger.LogInfo(text);
+        Phobos.Ostranauts.Framework.Inventory.CollectorCargo.SetEndpointValidator(co => Core.CollectorRules.IsFamily(co.strCODef) && CollectorRoute.MountProblem(co) == null);
         PerformanceMetrics.Initialize();
         Options = new Settings(Config);
         Service = new ProcessingService(Log, Options);
@@ -48,6 +49,7 @@ public sealed class Plugin : BaseUnityPlugin
     private static void ConfirmContent() => Content.ConfirmRecipes(Log);
     private void OnDestroy()
     {
+        Phobos.Ostranauts.Framework.Inventory.CollectorCargo.SetEndpointValidator(null);
         FrameworkLifecycle.ContentLoading -= LoadContent; FrameworkLifecycle.ContentLoaded -= ConfirmContent;
         Service?.Reset(); Collectors?.Reset(); IndustryObservations.Reset(); harmony?.UnpatchSelf();
     }

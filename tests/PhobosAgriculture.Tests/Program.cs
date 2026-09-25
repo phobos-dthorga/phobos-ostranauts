@@ -68,6 +68,7 @@ Near(source.QuantityKg + dest.QuantityKg, total, "Failed destination returns unr
 dest.Fail = false; dest.Kg = 20; receipt = FiniteLiquidTransfer.Commit(source, dest, 1, 0); Near(receipt.DebitedKg, 0, "Full storage consumes nothing");
 SolutionChecks.Run(Check);
 RecoveryChecks.Run(Check);
+NutrientRecoveryChecks.Run(Check);
 Console.WriteLine($"Agriculture: {checks} checks passed (offline; not gameplay validation).");
 
 sealed class Reservoir : ILiquidReservoir

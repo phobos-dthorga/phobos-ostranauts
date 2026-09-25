@@ -1,6 +1,6 @@
 # Phobos Agriculture
 
-Agriculture 0.8.0 requires Framework 0.21.0. Optional
+Agriculture 0.9.0 requires Framework 0.22.0 and adds [nutrient production](agriculture-nutrient-production.md). Optional
 [meal/crop completion watches](shared-completion-cues.md) notify once after a meal
 is delivered or the whole cohort becomes harvest-ready. Start first, then choose
 Notify; crop readiness never harvests automatically.
@@ -223,3 +223,11 @@ queued work whose supply is removed before completion. Offline native checks do
 not establish merchant availability or crew interaction behavior in a running game.
 
 For the authorized next development direction, see [nutrient recovery and workup research](agriculture-nutrient-recovery.md). It describes proposed production and W2 consumable changes, not additional controls available in this build.
+
+## Nutrient production and gradual dosing
+
+Agriculture 0.9.0 adds the Groundwork B2 bench, recorded crop-residue recovery,
+finite makeup salts and selected physical W2 charges. Optional Ship’s Water
+Recycler attachments retain wet rejects without inventing nutrients. Follow the
+[nutrient-production guide](agriculture-nutrient-production.md) for controls,
+recipe budgets, compatibility, save behavior and owner gameplay checks.

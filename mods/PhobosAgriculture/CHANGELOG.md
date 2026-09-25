@@ -17,6 +17,28 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Fixed unreachable INSTALL entries; Firstlight-4, Hearth-2 and W2 appear under APPS, and irrigation conduit under MISC, including damaged forms. Existing inputs, placement and saved IDs are preserved.
 
+## [0.9.0] - 2026-09-26 - Draft
+
+### Added
+
+- Groundwork B2 Workup Bench with original registered artwork, native APPS placement, construction, stock, service and finite powered jobs.
+- Fresh crop-residue nutrient records, partial concentrate recovery, retained spent biomass and equal-mass purchased makeup formulation. Old cohorts and old residue keep their uncharacterized contract.
+- Explicitly selected W2 inventory charges deplete physical mass and value only during paid blending. Remaining grams/percent are visible; Repair and Restore cannot refill consumables. Existing dry inputs remain supported.
+- Optional Recycler-to-Residue-Collector attachment for [Valtora's Ship's Water 0.16.1](https://steamcommunity.com/sharedfiles/filedetails/?id=3757331189), requiring Shipbreaker 0.20.0. Finite wet rejects use measured tank changes; full/unavailable destinations stop linked processing before source consumption. Reload pauses permission.
+
+### Balance
+
+- B2 costs 250 cr; makeup salts cost 30 cr per 40 g. Recovery uses 60 percent of the recorded residue nutrient allocation; makeup contributes equal finite mass. Each stage uses 0.02 kWh/kg input with a 0.001 kWh minimum and one-minute crew setup. Existing crop budgets are unchanged.
+- These are authored aggregate chemistry and economic choices, not scientific extraction yields. [Jay Garland's NASA TM-107557 (1992)](https://ntrs.nasa.gov/citations/19930008922) supports separating recovered fractions from complete formulations; neither NASA nor the author endorses this equipment or balance.
+
+### Requirements
+
+Phobos Framework 0.22.0 or newer. Crop recovery works without Shipbreaker or Ship's Water. Recycler waste has no nutrient provenance and no fertilizer recipe. Unknown records and interrupted commits remain protected; gameplay, visuals and live provider hooks await owner testing.
+
+### Documentation
+
+- Updated the economic audit, item reference and [operating guide](https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/agriculture-nutrient-production.md), including actual controls, material budgets, optional dependency limits and artwork provenance.
+
 ## [0.8.0] - 2026-09-25 - Draft
 
 ### Added

@@ -144,3 +144,12 @@ Native evidence is attributed to Blue Bottle Games; provider behavior above is
 attributed to Valtora. The existing shared equipment audit previously omitted
 Agriculture, so its scope wording and the repeatable audit entry point now make
 that coverage explicit.
+
+## B2 production balance — 26 September 2026
+
+The [current nutrient-production chain](agriculture-nutrient-production.md) uses
+a 250 cr B2 bench and 30 cr / 40 g makeup salts. Recovery replaces part of
+resupply rather than granting fertilizer from wet waste mass. Regenerated
+evidence now includes the bench, all new supplies and avoided nutrient purchases
+after makeup costs. Crop water, feed, growth and historic repair contracts remain
+unchanged. In-game costs and usefulness still need owner evaluation.

@@ -1,6 +1,12 @@
 {
-  "water_supply": { "brand": "Verdemorrow", "model": "Groundwork W2" },
-  "water_pipe": { "brand": "Verdemorrow", "model": "Groundwork" },
+  "water_supply": {
+    "brand": "Verdemorrow",
+    "model": "Groundwork W2"
+  },
+  "water_pipe": {
+    "brand": "Verdemorrow",
+    "model": "Groundwork"
+  },
   "rack": {
     "brand": "Verdemorrow",
     "model": "Firstlight-4"
@@ -48,5 +54,33 @@
   "irrigation": {
     "brand": "Verdemorrow",
     "model": "Groundwork"
+  },
+  "workup_bench": {
+    "brand": "Verdemorrow",
+    "model": "Groundwork B2"
+  },
+  "recorded_residue": {
+    "brand": "Verdemorrow",
+    "model": ""
+  },
+  "concentrate": {
+    "brand": "Verdemorrow",
+    "model": "Groundwork"
+  },
+  "spent_biomass": {
+    "brand": "Verdemorrow",
+    "model": ""
+  },
+  "makeup": {
+    "brand": "Verdemorrow",
+    "model": "Groundwork"
+  },
+  "mixture": {
+    "brand": "Verdemorrow",
+    "model": "Groundwork"
+  },
+  "wet_rejects": {
+    "brand": "Verdemorrow",
+    "model": ""
   }
 }

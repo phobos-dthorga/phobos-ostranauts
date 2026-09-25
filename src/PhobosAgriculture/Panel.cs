@@ -23,7 +23,7 @@ public sealed class Panel : GUIData
     private float nextRefresh;
     internal static bool Show(CondOwner co)
     {
-        if (!Definitions.Machine(co) || Service.Access(co) != null || CrewSim.goIntUIPanel == null || CrewSim.bUILock ||
+        if (!(Definitions.Machine(co) || RecyclerCapture.IsRecycler(co)) || Service.Access(co) != null || CrewSim.goIntUIPanel == null || CrewSim.bUILock ||
             CrewSim.objInstance.coConnectMode != null || GUIInventory.instance?.Selected != null ||
             CanvasManager.instance.State == CanvasManager.GUIState.SOCIAL || CanvasManager.instance.State == CanvasManager.GUIState.GAMEOVER) return false;
         CrewSim.LowerUI(); if (CrewSim.goUI != null) return false;
@@ -48,10 +48,24 @@ public sealed class Panel : GUIData
         portrait = imageRect.gameObject.AddComponent<RawImage>(); portrait.raycastTarget = false;
         var aspect = imageRect.gameObject.AddComponent<AspectRatioFitter>(); aspect.aspectMode = AspectRatioFitter.AspectMode.HeightControlsWidth;
         readout = W.Label(content, "");
-        foreach (string action in Service.Actions(co)) AddButton(content, co, action);
-        if (!Definitions.IsCooker(co))
+        if (RecyclerCapture.IsRecycler(co))
         {
-            foreach (string action in IrrigationDefinitions.IsSupply(co) ? new[] { "load-water", "load-irrigation", "load-nutrients", "recover-solution", "drain" } : Definitions.Work.Where(a=>a!="recover-solution").ToArray()) AddButton(content, co, action);
+            foreach (string action in new[] { "capture-start", "capture-pause", "capture-unlink" }) W.Button(content, Text.Get(action), () => { RecyclerCapture.Command(co, action, out result); Refresh(co); });
+            foreach (var candidate in RecyclerCapture.Candidates(co))
+            {
+                string peer = candidate.strID;
+                W.Button(content, Text.Get("capture_link", candidate.strNameFriendly, peer), () => { RecyclerCapture.Command(co, "capture-link:" + peer, out result); Refresh(co); });
+            }
+            W.Button(content, Text.Get("close"), () => CrewSim.LowerUI()); Refresh(co); return;
+        }
+        foreach (string action in Service.Actions(co)) AddButton(content, co, action);
+        if(IrrigationDefinitions.IsSupply(co)) foreach(var charge in Service.DoseCandidates(Service.Get(co)))
+        {
+            string source=charge.strID; W.Button(content,Text.Get("dose_select",charge.strNameFriendly,source),()=>{Service.Command(co,null,"dose:"+source,out result);Refresh(co);});
+        }
+        if (!Definitions.IsCooker(co) && !WorkupDefinitions.IsBench(co))
+        {
+            foreach (string action in IrrigationDefinitions.IsSupply(co) ? new[] { "load-water", "load-irrigation", "load-nutrients", "recover-solution", "drain" } : Definitions.Work.Where(a=>a!="recover-solution" && a!="recover-crop" && a!="formulate-nutrients").ToArray()) AddButton(content, co, action);
             W.Label(content, Text.Get("water_pair_help"));
             foreach (var candidate in Service.WaterCandidates(co))
             {
@@ -71,6 +85,7 @@ public sealed class Panel : GUIData
     }
     private void Refresh(CondOwner co)
     {
+        if (RecyclerCapture.IsRecycler(co)) { readout.text = RecyclerCapture.Describe(co) + "\n" + result; return; }
         readout.text = Service.Describe(co) + "\n" + result;
         var session = Service.Get(co);
         string key = Artwork.Key(co, session.State, session.Protected);

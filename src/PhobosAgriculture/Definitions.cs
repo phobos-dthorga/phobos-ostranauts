@@ -1,4 +1,5 @@
 using System;
+using Ostranauts.Trading;
 using PhobosAgriculture.Core;
 using System.IO;
 using System.Linq;
@@ -15,12 +16,12 @@ internal static class Definitions
     internal const string Irrigation = "PhobosVerdemorrowGroundworkIrrigation";
     internal const double IrrigationKg = 5, IrrigationPrice = 50;
     internal static bool Ready;
-    internal static readonly string[] Work = { "plant-potato", "plant-lettuce", "plant-lettuce-seed", "load-water", "load-irrigation", "load-nutrients", "recover-solution", "harvest", "clear", "drain" };
+    internal static readonly string[] Work = { "recover-crop", "formulate-nutrients", "plant-potato", "plant-lettuce", "plant-lettuce-seed", "load-water", "load-irrigation", "load-nutrients", "recover-solution", "harvest", "clear", "drain" };
     internal static string WorkId(string action) => "PhobosAgricultureWork_" + action.Replace('-', '_');
-    private static readonly System.Collections.Generic.HashSet<string> Machines = new(new[] { Rack, Cooker, IrrigationDefinitions.Supply }.SelectMany(prefix => new[] { "Installed", "Loose", "InstalledDmg", "LooseDmg" }.Select(form => prefix + form)), StringComparer.Ordinal);
+    private static readonly System.Collections.Generic.HashSet<string> Machines = new(new[] { Rack, Cooker, IrrigationDefinitions.Supply, WorkupDefinitions.Bench }.SelectMany(prefix => new[] { "Installed", "Loose", "InstalledDmg", "LooseDmg" }.Select(form => prefix + form)), StringComparer.Ordinal);
     internal static bool Machine(CondOwner? co) => co != null && Machines.Contains(co.strCODef);
     internal static bool IsCooker(CondOwner co) => co.strCODef.StartsWith(Cooker, StringComparison.Ordinal);
-    internal static double DryMass(CondOwner co) => IrrigationDefinitions.IsSupply(co) ? IrrigationDefinitions.DryKg : IsCooker(co) ? 12 : 80;
+    internal static double DryMass(CondOwner co) => WorkupDefinitions.IsBench(co) ? WorkupDefinitions.DryKg : IrrigationDefinitions.IsSupply(co) ? IrrigationDefinitions.DryKg : IsCooker(co) ? 12 : 80;
     internal static void Load()
     {
         Ready = false;
@@ -34,10 +35,20 @@ internal static class Definitions
         var controls = NativeDefinitions.Clone(DataHandler.dictInteractions["Inventory"]);
         controls.strName = Controls; controls.strTitle = Text.Get("controls"); controls.strDesc = controls.strTooltip = Text.Get("controls"); controls.strRaiseUI = null; controls.fTargetPointRange = 2;
         d.Interactions[Controls] = controls;
+        if (RecyclerCapture.Available)
+        {
+            var capture = NativeDefinitions.Clone(controls); capture.strName = RecyclerCapture.Controls; capture.strTitle = capture.strTooltip = Text.Get("capture_controls");
+            d.Interactions[capture.strName] = capture;
+            var trigger = DataHandler.GetCondTrigger("TIsWaterRecyclerInstalled", true);
+            if (trigger != null) foreach (var original in DataHandler.dictCOs.Values.Where(c => trigger.TriggeredDataCO(new DataCO(c), false)).ToArray())
+            {
+                var recycler = NativeDefinitions.Clone(original); recycler.aInteractions = (recycler.aInteractions ?? Array.Empty<string>()).Concat(new[] { capture.strName }).Distinct().ToArray(); d.Objects[recycler.strName] = recycler;
+            }
+        }
         foreach (string action in Work)
         {
             var work = NativeDefinitions.Clone(controls); work.strName = WorkId(action); work.strTitle = work.strTooltip = Text.Get(action);
-            work.fDuration = action == "harvest" ? .5 : action.StartsWith("load-", StringComparison.Ordinal) ? 10d / 3600 : .25; work.strAnim = "Tablet"; work.strActionGroup = "Work";
+            work.fDuration = action == "recover-crop" || action == "formulate-nutrients" ? 1d / 60 : action == "harvest" ? .5 : action.StartsWith("load-", StringComparison.Ordinal) ? 10d / 3600 : .25; work.strAnim = "Tablet"; work.strActionGroup = "Work";
             d.Interactions[work.strName] = work;
         }
         ApplianceDefinitions.Add(d, Rack, Text.Get("rack"), Text.Get("rack_desc"), 4, 80, EquipmentEconomy.RackPrice, "phobos/agriculture/Rack", Controls, .02);
@@ -47,8 +58,10 @@ internal static class Definitions
         d.Triggers[Rack + "Supplies"] = new CondTrigger { strName = Rack + "Supplies", fChance = 1, fCount = 1, bAND = false,
             aReqs = Array.Empty<string>(), aForbids = new[] { "IsInstalled", "IsCumbersome", "IsOversized" }, aTriggers = new[] { "TIsFitContainerSolid", "TIsWater" } };
         foreach (var co in d.Objects.Values.Where(c => c.strName.StartsWith(Rack, StringComparison.Ordinal))) co.strContainerCT = Rack + "Supplies";
-        foreach (var co in d.Objects.Values.Where(c => c.strName.StartsWith(Rack) && c.strName.EndsWith("Installed"))) co.aInteractions = co.aInteractions.Concat(Work.Where(a=>a!="recover-solution").Select(WorkId)).ToArray();
+        foreach (var co in d.Objects.Values.Where(c => c.strName.StartsWith(Rack) && c.strName.EndsWith("Installed"))) co.aInteractions = co.aInteractions.Concat(Work.Where(a=>a!="recover-solution" && a!="recover-crop" && a!="formulate-nutrients").Select(WorkId)).ToArray();
         IrrigationDefinitions.Add(d);
+        WorkupDefinitions.Add(d);
+        Stock(d, RecyclerCapture.Wet, 13, .01, "wet_rejects", false, "recovery_reject");
         foreach (var co in d.Objects.Values.Where(c => c.strName.EndsWith("Dmg"))) co.strNameFriendly = co.strNameShort = Text.Get("damaged", co.strNameFriendly);
         Stock(d, PotatoSeed, .2, 40, "potato_seed", false); Stock(d, LettuceSeed, .005, EquipmentEconomy.LettuceSeedPrice, "lettuce_seed", false);
         Stock(d, Nutrient, .04, 60, "nutrients", false); Stock(d, Raw, .4, 12, "raw", false);
@@ -78,7 +91,7 @@ internal static class Definitions
         LootContent.Add(d, lootEnabled, lootMultiplier);
         return d;
     }
-    private static void Stock(NativeDefinitions d, string id, double kg, double price, string key, bool food)
+    internal static void Stock(NativeDefinitions d, string id, double kg, double price, string key, bool food, string? artKey = null)
     {
         var co = NativeDefinitions.Clone(DataHandler.dictCOs[food ? "ItmTrencherAcceptableAlgae" : "ItmScrapTrash"]);
         co.strName = id; co.strNameFriendly = co.strNameShort = Text.Get(key); co.strDesc = Text.Get(key + "_desc");
@@ -88,7 +101,7 @@ internal static class Definitions
         // Keep the donor's native item behavior and socket geometry, but give each
         // commodity its own registered image. Saved commodity identities stay fixed.
         var item = NativeDefinitions.Clone(DataHandler.dictItemDefs[co.strItemDef]);
-        string image = "phobos/agriculture/Stock-" + key;
+        string image = "phobos/agriculture/Stock-" + (artKey ?? key);
         co.strItemDef = item.strName = id;
         co.strPortraitImg = item.strImg = image;
         item.strImgNorm = image + "Normal";

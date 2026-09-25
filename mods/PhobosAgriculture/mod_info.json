@@ -4,7 +4,7 @@
     "strAuthor": "phobosgekko",
     "strModURL": "https://github.com/phobos-dthorga/phobos-ostranauts",
     "strGameVersion": "1.0.1.5",
-    "strModVersion": "0.8.0",
-    "strNotes": "Potato and lettuce cultivation with optional placed water conduits and a Groundwork W2 supply unit. Requires Phobos Framework 0.21.0. W2 supplies up to eight racks through finite delayed lines and treats recorded drainage using cartridges and power; manual stock remains supported. Optional Ship's Water; finite manual supply supported. Owner gameplay validation pending. Verdemorrow Agronomics supplies Firstlight cultivation, Hearth cooking, Continuance planting stock and Groundwork nutrients."
+    "strModVersion": "0.9.0",
+    "strNotes": "Potato and lettuce cultivation with optional placed water conduits and a Groundwork W2 supply unit. Requires Phobos Framework 0.22.0. W2 supplies up to eight racks through finite delayed lines and treats recorded drainage using cartridges and power; manual stock remains supported. Optional Ship's Water; finite manual supply supported. Owner gameplay validation pending. Verdemorrow Agronomics supplies Firstlight cultivation, Hearth cooking, Continuance planting stock and Groundwork nutrients."
   }
 ]

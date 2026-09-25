@@ -207,6 +207,63 @@
       ],
       "workSeconds": 120,
       "range": 2
+    },
+    {
+      "id": "PhobosVerdemorrowGroundworkB2Build",
+      "name": "Phobos' Verdemorrow Groundwork B2 Workup Bench",
+      "description": "Assemble an empty, loose appliance from physical materials.",
+      "nameKey": "workup_bench",
+      "descriptionKey": "build_desc",
+      "stationIds": [
+        "ItmTable01",
+        "ItmTable02"
+      ],
+      "optionalStationIds": [
+        "SWB_WorkbenchInstalled"
+      ],
+      "toolTriggers": [
+        "TIsToolMortorq",
+        "TIsToolSoldering"
+      ],
+      "ingredients": [
+        {
+          "item": "ItmScrapSteel",
+          "trigger": "TIsScrapSteel",
+          "count": 12,
+          "unitMassKg": 1,
+          "requireEmpty": true
+        },
+        {
+          "item": "ItmScrapAluminum",
+          "trigger": "TIsScrapAluminum",
+          "count": 2,
+          "unitMassKg": 1,
+          "requireEmpty": true
+        },
+        {
+          "item": "ItmPartsMechSmall01",
+          "trigger": "TIsPartsMechSmall",
+          "count": 8,
+          "unitMassKg": 0.5,
+          "requireEmpty": true
+        },
+        {
+          "item": "ItmPartsElecSmall01",
+          "trigger": "TIsPartsElecSmall",
+          "count": 4,
+          "unitMassKg": 0.5,
+          "requireEmpty": true
+        }
+      ],
+      "outputs": [
+        {
+          "item": "PhobosVerdemorrowGroundworkB2Loose",
+          "count": 1,
+          "unitMassKg": 20
+        }
+      ],
+      "workSeconds": 1800,
+      "range": 2
     }
   ]
 }

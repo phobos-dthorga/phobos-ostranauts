@@ -200,3 +200,10 @@ The collector accepts legacy 13 kg residue, identified R2 13 kg residue and R2
 9 kg rejects, with four slots and a 52 kg maximum. Old saved pairs remain intact.
 Version 0.9.0 also lets a collector output feed a reclaimer automatically through
 a separate explicit pair. Collection remains aboard and is never disposal.
+
+## Optional Agriculture attachment — Shipbreaker 0.20.0
+
+Agriculture 0.9.0 can bind the existing collector inlet to Valtora’s Ship’s Water
+0.16.1 Recycler for retained wet rejects. Hardware, mount, inventory and 52 kg
+payload are reused. Wet reject identities are separate from industrial residue,
+with no reclaimer recipe or nutrient assay. See the [attachment guide](agriculture-nutrient-production.md).

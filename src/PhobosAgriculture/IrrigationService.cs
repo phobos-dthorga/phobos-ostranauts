@@ -37,20 +37,20 @@ internal static partial class Service
         return link.State == PortLinkState.Linked ? Resolve(link.PeerObjectId) : null;
     }
     private static bool Paused(Session s) => !s.State.Running && !s.State.Receiving;
-    internal static string[] Actions(CondOwner co) => IrrigationDefinitions.IsSupply(co)
-        ? new[] { "start", "pause", "receive", "pause-receive", "unlink-water", "mix-potato", "mix-lettuce", "mix-lettuce-seed", "water-only", "cancel-recovery" }
+    internal static string[] Actions(CondOwner co) => WorkupDefinitions.IsBench(co) ? WorkupDefinitions.Actions : IrrigationDefinitions.IsSupply(co)
+        ? new[] { "start", "pause", "receive", "pause-receive", "unlink-water", "mix-potato", "mix-lettuce", "mix-lettuce-seed", "water-only", "cancel-recovery", "dose-inventory", "dose-off" }
         : Definitions.IsCooker(co) ? new[] { "start", "pause", "cancel", "watch", "unwatch", "cue-volume" }
         : new[] { "start", "pause", "receive", "pause-receive", "water-routed", "water-legacy", "unlink-water", "watch", "unwatch", "cue-volume" };
     internal static IEnumerable<CondOwner> WaterCandidates(CondOwner co) =>
         co.ship.GetCOs(null, false, false, true).Where(c => c != co && c.ship == co.ship && Definitions.Machine(c) &&
-            !Definitions.IsCooker(c) && IrrigationDefinitions.IsSupply(c) != IrrigationDefinitions.IsSupply(co) && NativeFluidRoute.EndpointReady(c));
+            !WorkupDefinitions.IsBench(c) && !Definitions.IsCooker(c) && IrrigationDefinitions.IsSupply(c) != IrrigationDefinitions.IsSupply(co) && NativeFluidRoute.EndpointReady(c));
 
     private static bool? WaterCommand(Session s, string action, out string message)
     {
         message = "";
         if (!action.StartsWith("link-water:", StringComparison.Ordinal) && action != "unlink-water" && action != "water-routed" && action != "water-legacy") return null;
         var co = s.Object;
-        if (Definitions.IsCooker(co) || !Paused(s) || !NativeFluidRoute.EndpointReady(co)) { message = Text.Get("water_pause"); return false; }
+        if (WorkupDefinitions.IsBench(co) || Definitions.IsCooker(co) || !Paused(s) || !NativeFluidRoute.EndpointReady(co)) { message = Text.Get("water_pause"); return false; }
         if (action == "water-routed" || action == "water-legacy")
         {
             if (IrrigationDefinitions.IsSupply(co)) { message = Text.Get("help"); return false; }
@@ -124,6 +124,7 @@ internal static partial class Service
         if(s.RecoveryInput.Length>0) return s.State.Running?DrainageRecovery.PowerKW:0;
         if (s.State.Receiving && ShipsWaterSupply.Available && ProviderHeadroom(s) > NutrientSolution.Tolerance) return IrrigationDefinitions.PumpKW;
         if (!s.State.Running) return 0;
+        if (NutrientCharge.DoseAllowance(s.State,s.Solution,1) > NutrientSolution.Tolerance && DosingCharge(s) != null) return IrrigationDefinitions.PumpKW;
         if (s.Solution.BlendAllowance(s.State, 1) > NutrientSolution.Tolerance) return IrrigationDefinitions.PumpKW;
         return Destinations(s,true).Any(t => Route(s,t)!=null && (CanDeliver(s,t)||!t.Line.Empty)) ? IrrigationDefinitions.PumpKW : 0;
     }
@@ -146,6 +147,7 @@ internal static partial class Service
             if(targets.Length==0) s.Notice=Text.Get("water_no_route");
             if (budget > NutrientSolution.Tolerance && s.Solution.Enabled)
             {
+                Dose(s,budget);
                 double mixed = s.Solution.Blend(s.State, budget); budget -= mixed;
                 if (mixed > 0) { Save(s); s.Notice = Text.Get("solution_mixed", mixed); }
             }
@@ -155,7 +157,7 @@ internal static partial class Service
     }
     private static string DescribeWaterRoute(Session s)
     {
-        if (Definitions.IsCooker(s.Object)) return "";
+        if (WorkupDefinitions.IsBench(s.Object) || Definitions.IsCooker(s.Object)) return "";
         var link = PortPairing.Read(WaterPort(s.Object));
         return Text.Get("water_route_status", Text.Get(s.Routed ? "water_routed_mode" : "water_legacy_mode"),
             link.State == PortLinkState.Linked ? link.PeerObjectId : Text.Get(link.State == PortLinkState.Invalid ? "protected" : "water_unlinked")) + "\n" + DescribeSolution(s) + "\n" + DescribeLine(s) + (s.RecoveryInput.Length>0?"\n"+Text.Get("recovery_status",s.RecoveryInput,s.RecoveryEnergy)+"\n"+DescribeCartridge(s):"");
@@ -167,6 +169,6 @@ internal static partial class Service
             Text.Get(s.State.Receiving ? "receiving" : "manual"), targets.Length==0 ? Text.Get("water_unlinked") : string.Join(", ",targets.Select(t=>t.Object.strID)),
             route == null ? Text.Get("water_no_route") : Text.Get("water_route_length", route.Length),
             s.Protected || WaterGuard(s.Object).Protected ? Text.Get("protected") : s.Notice) + "\n" +
-            (StarSystem.fEpoch - s.LastPower <= 5 ? Text.Get("power_reading", s.DeliveredKW) : Text.Get("power_unknown")) + "\n" + DescribeSolution(s) + "\n" + DescribeLine(s) + (s.RecoveryInput.Length>0?"\n"+Text.Get("recovery_status",s.RecoveryInput,s.RecoveryEnergy)+"\n"+DescribeCartridge(s):"");
+            (StarSystem.fEpoch - s.LastPower <= 5 ? Text.Get("power_reading", s.DeliveredKW) : Text.Get("power_unknown")) + "\n" + DescribeDose(s) + "\n" + DescribeSolution(s) + "\n" + DescribeLine(s) + (s.RecoveryInput.Length>0?"\n"+Text.Get("recovery_status",s.RecoveryInput,s.RecoveryEnergy)+"\n"+DescribeCartridge(s):"");
     }
 }

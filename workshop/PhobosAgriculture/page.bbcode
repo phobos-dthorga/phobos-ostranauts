@@ -1,8 +1,8 @@
 [h1]Phobos Agriculture[/h1]
 [h2]Optional completion cues in 0.8.0[/h2]
-Requires Phobos Framework 0.21.0 or newer. After starting a meal or crop, optionally watch its completion once through local controls, C1 or F3. A quiet tone means the meal was delivered or the whole cohort became harvest-ready; it never harvests automatically. Shared volume/mute, no replay after loading and no growth-stage or irrigation pings. Gameplay/listening review pending.
+Requires Phobos Framework 0.22.0 or newer. After starting a meal or crop, optionally watch its completion once through local controls, C1 or F3. A quiet tone means the meal was delivered or the whole cohort became harvest-ready; it never harvests automatically. Shared volume/mute, no replay after loading and no growth-stage or irrigation pings. Gameplay/listening review pending.
 [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/shared-completion-cues.md]Supported events, shared controls and original audio provenance[/url]
-[b]Version:[/b] 0.8.0
+[b]Version:[/b] 0.9.0
 [b]Publication status:[/b] Not published - development candidate
 
 Grow potatoes and lettuce and cook portions aboard your ship using Phobos' Verdemorrow Firstlight-4 Cultivation Racks and Hearth-2 Galley Cookers.
@@ -34,7 +34,7 @@ Grow potatoes and lettuce and cook portions aboard your ship using Phobos' Verde
 [/list]
 
 [h2]Requirements and installation[/h2]
-Ostranauts 1.0.1.5, BepInEx 5 and Phobos Framework 0.21.0 or newer. Shipbreaker C1 access is optional. The Ship's Water adapter is scoped to inspected version 0.16.1; manual supply remains available.
+Ostranauts 1.0.1.5, BepInEx 5 and Phobos Framework 0.22.0 or newer. Shipbreaker C1 access is optional. The Ship's Water adapter is scoped to inspected version 0.16.1; manual supply remains available.
 
 This is a maintained pre-publication page draft, not a download announcement. No Workshop item has been published for this draft. Use the installation guide for source/prepared-package availability and loader setup. Do not remove required providers from saves that contain their content.
 
@@ -63,4 +63,7 @@ One W2 can explicitly supply up to eight compatible racks using one shared pump 
 [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/agriculture-item-reference.md]Read this mod’s item reference[/url] for functions, use, acquisition and applicable base prices, repair and salvage. Generated tables follow the current source candidate; proposals and prototype limitations are labelled.
 
 [h2]Nutrient recovery research[/h2]
-[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/agriculture-nutrient-recovery.md]Read the researched nutrient-recovery and workup direction[/url]. Crop-residue extraction, a workup bench, Recycler residue capture and progressive W2 mixture packs are planned, not implemented features. Current recorded-drainage treatment remains separate.
+[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/agriculture-nutrient-recovery.md]Read the researched nutrient-recovery and workup direction[/url]. That research now supports the implemented 0.9.0 crop-residue chain and wet-reject capture described below. Wastewater nutrients remain uncharacterized; recorded-drainage treatment stays separate.
+
+[h2]Nutrient recovery and optional wet-reject collection[/h2]
+[b]Prepared, not yet gameplay-validated.[/b] Agriculture 0.9.0 adds the Groundwork B2 bench, recorded crop recovery and equal-mass makeup formulation. Select a physical nutrient charge in W2 for gradual consumption during blending; consumables cannot be repaired or restored. Old crop residue remains uncharacterized. Framework 0.22.0 and Shipbreaker 0.20.0 support measured wet-reject capture from [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3757331189]Valtora’s Ship’s Water 0.16.1[/url]. Full or unavailable linked collectors hold wastewater in its source tank. No wastewater-to-fertilizer recipe is claimed. [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/agriculture-nutrient-production.md]Operating guide, economic limits and research attribution[/url].

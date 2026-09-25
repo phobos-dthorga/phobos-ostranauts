@@ -4,11 +4,16 @@
 recovery and further economic balancing, including optional Ship's Water waste,
 reuse of the Residue Collector and gradually consumed W2 mixtures.
 
-**This checkpoint delivers research, an implementation specification and an
-expanded executable economic audit. It does not register nutrient-production
-recipes, change runtime prices, add a bench, attach a collector to Ship's Water
-or enable automatic W2 consumable dosing.** Existing cultivation, drainage
-treatment and industrial material contracts remain unchanged.
+**Implemented follow-up, 26 September 2026:** Agriculture 0.9.0 now provides
+recorded crop residue, the B2 bench, equal-mass makeup formulation, selected W2
+charge dosing and optional measured Recycler wet-reject capture. See the
+[current operating guide](agriculture-nutrient-production.md) and generated
+[economic evidence](agriculture-economy-evidence.md). Wastewater nutrient
+conversion remains unavailable without provenance. Gameplay testing is pending.
+
+The remainder of this document preserves the **25 September research and
+proposal**, including options superseded by the delivered guide. Its research
+attribution and provider observations still support the implemented boundaries.
 
 ## Recommended chain
 

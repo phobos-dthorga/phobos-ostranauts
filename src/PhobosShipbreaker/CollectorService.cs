@@ -43,7 +43,7 @@ internal sealed partial class CollectorService
         item != null && !item.bDestroyed && FurnaceMaterialRules.Product(item.strCODef, item.GetTotalMass()) && !item.HasCond("IsInstalled") &&
         item.Crew == null && item.GetCOsSafe(true).Count == 0 && item.GetLotCOs(true).Count == 0 && item.coStackHead == null && item.aStack.Count == 0;
     private static bool Payload(CondOwner port, CondOwner item) => FurnaceRules.Machine(port.strCODef) ? FurnaceService.ValidFeed(item) : ValidPayload(item);
-    internal static bool CanAccept(CondOwner collector, CondOwner item) => ValidPayload(item) && collector.objContainer != null &&
+    internal static bool CanAccept(CondOwner collector, CondOwner item) => (ValidPayload(item) || CollectorCargo.Accepts(item)) && collector.objContainer != null &&
         (collector.objContainer.Contains(item) || collector.objContainer.ContainedCOs.Count < CollectorRules.Capacity && collector.objContainer.ContainedCOs.Sum(c => c.GetTotalMass()) + item.GetTotalMass() <= CollectorRules.MaxPayloadKg + ProcessRules.MassTolerance);
     internal static string? AccessProblem(CondOwner port)
     {

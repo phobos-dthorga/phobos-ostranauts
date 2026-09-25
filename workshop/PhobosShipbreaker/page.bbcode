@@ -1,8 +1,8 @@
 [h1]Phobos Shipbreaker[/h1]
 [h2]Shared completion cues in 0.19.0[/h2]
-Requires Phobos Framework 0.21.0 or newer. D4/R4 watches now use the shared Phobos volume/mute and one audio channel across mods. Existing one-batch meaning and original sound remain; no new furnace, transfer or ambient cues. Gameplay/listening review pending.
+Requires Phobos Framework 0.22.0 or newer. D4/R4 watches now use the shared Phobos volume/mute and one audio channel across mods. Existing one-batch meaning and original sound remain; no new furnace, transfer or ambient cues. Gameplay/listening review pending.
 [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/shared-completion-cues.md]Shared controls and limits[/url]
-[b]Version:[/b] 0.19.0
+[b]Version:[/b] 0.20.0
 [b]Publication status:[/b] Not published - development candidate
 
 Recover useful shipbuilding materials and manage onboard industry with Phobos' Rivetline equipment and the Phobos' Asterel C1 Industrial Control Console.
@@ -34,7 +34,7 @@ First optional watched-batch audio trial: one original 280 ms tone after a D4/R4
 [h2]Requirements and installation[/h2]
 The following requirements describe the current prepared candidate. Future autonomous-reclamation work will require Auto Nav with an existing N1 or N2 module, as selected by the owner. That dependency change and the automation are not implemented yet.
 
-Ostranauts 1.0.1.5, BepInEx 5 and Phobos Framework 0.21.0 or newer. Auto Nav and Agriculture are optional. No Crafting Framework or Salvage Workshop dependency.
+Ostranauts 1.0.1.5, BepInEx 5 and Phobos Framework 0.22.0 or newer. Auto Nav and Agriculture are optional. No Crafting Framework or Salvage Workshop dependency.
 
 This is a maintained pre-publication page draft, not a download announcement. No Workshop item has been published for this draft. Use the installation guide for source/prepared-package availability and loader setup. Do not remove required providers from saves that contain their content.
 
@@ -62,3 +62,6 @@ Promotional illustrations and original equipment artwork use AI-assisted product
 
 [h2]Equipment and item reference[/h2]
 [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/shipbreaker-item-reference.md]Read this mod’s item reference[/url] for functions, use, acquisition and applicable base prices, repair and salvage. Generated tables follow the current source candidate; proposals and prototype limitations are labelled.
+
+[h2]Nutrient recovery and optional wet-reject collection[/h2]
+Optional Agriculture 0.9.0 integration reuses the original Residue Collector with finite capacity, exclusive pairing and its existing mount requirements. Framework 0.22.0 and Shipbreaker 0.20.0 support measured wet-reject capture from [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3757331189]Valtora’s Ship’s Water 0.16.1[/url]. Full or unavailable linked collectors hold wastewater in its source tank. No wastewater-to-fertilizer recipe is claimed. [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/agriculture-nutrient-production.md]Operating guide, economic limits and research attribution[/url].

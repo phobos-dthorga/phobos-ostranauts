@@ -23,6 +23,7 @@ public sealed class CropState
     public string CropId = "", Cohort = "", CookerInput = "";
     public double Progress, Health = 1, Water, Nutrients, Biomass, Carbon, Pace = 1, DarkHours, CookerProgress;
     public bool Running, Receiving;
+    public int RecoveryRevision; // Zero preserves pre-recovery cohorts without assigning them an assay.
     public const double ReservoirKg = 20, NutrientCapacityKg = .5, HeatPerCarbonKWh = 17 / 3.6;
     public double ContentsMass => Water + Nutrients + Biomass;
     public bool Ready => CropId.Length > 0 && Progress >= 1 - 1e-10 && Health > 0;
@@ -41,10 +42,10 @@ public sealed class CropState
     public void Plant(Crop profile, double pace)
     {
         if (CropId.Length > 0 || !Finite(pace) || pace < .5 || pace > 2) throw new InvalidOperationException("Rack is occupied or pace is invalid.");
-        CropId = profile.Id; Cohort = Guid.NewGuid().ToString("N"); Progress = 0; Health = 1; DarkHours = 0;
+        RecoveryRevision = 1; CropId = profile.Id; Cohort = Guid.NewGuid().ToString("N"); Progress = 0; Health = 1; DarkHours = 0;
         Biomass = profile.Seed; Carbon = profile.SeedCarbon; Pace = pace; Running = true;
     }
-    public void ClearCrop() { CropId = Cohort = ""; Progress = Biomass = Carbon = DarkHours = 0; Health = 1; Running = false; }
+    public void ClearCrop() { RecoveryRevision = 0; CropId = Cohort = ""; Progress = Biomass = Carbon = DarkHours = 0; Health = 1; Running = false; }
 
     // Effective continuously lit, NET healthy-growth surrogate. Dark/blocked time respires
     // explicitly; no oxygen timer and no bank of power credit. All quantities are kg/kWh.
@@ -85,6 +86,7 @@ public sealed class CropState
     {
         foreach (double x in new[] { Progress, Health, Water, Nutrients, Biomass, Carbon, Pace, DarkHours, CookerProgress })
             if (!Finite(x) || x < -1e-9) throw new ArgumentException("Invalid saved crop quantity.");
+        if (RecoveryRevision < 0 || RecoveryRevision > 1) throw new ArgumentException("Unknown crop recovery revision.");
         if (Progress > 1 || Health > 1 || Water > ReservoirKg + 1e-9 || Nutrients > NutrientCapacityKg + 1e-9 || Pace < .5 || Pace > 2 || Carbon > Biomass + 1e-9 || CookerProgress > .05 + 1e-9)
             throw new ArgumentException("Saved crop quantity exceeds its bound.");
         if (CropId.Length > 0) { var c = Crop.Get(CropId); if (Cohort.Length != 32 || Biomass > c.Final + 1e-8) throw new ArgumentException("Invalid saved cohort."); }
@@ -94,6 +96,7 @@ public sealed class CropState
     {
         Validate(); var d = new Dictionary<string, string> { ["crop"] = CropId.Length == 0 ? "empty" : CropId, ["cohort"] = Cohort.Length == 0 ? "none" : Cohort, ["cookerInput"] = CookerInput.Length == 0 ? "none" : CookerInput };
         foreach (var p in new Dictionary<string, double> { ["progress"] = Progress, ["health"] = Health, ["water"] = Water, ["nutrients"] = Nutrients, ["biomass"] = Biomass, ["carbon"] = Carbon, ["pace"] = Pace, ["dark"] = DarkHours, ["cooker"] = CookerProgress }) d[p.Key] = p.Value.ToString("R", CultureInfo.InvariantCulture);
+        d["recoveryRevision"] = RecoveryRevision.ToString(CultureInfo.InvariantCulture);
         return d; // Run/receive permission deliberately does not survive reload.
     }
     public static CropState Read(IReadOnlyDictionary<string, string> d)
@@ -101,7 +104,8 @@ public sealed class CropState
         double N(string k) => double.Parse(d[k], CultureInfo.InvariantCulture);
         var s = new CropState { CropId = d["crop"] == "empty" ? "" : d["crop"], Cohort = d["cohort"] == "none" ? "" : d["cohort"], Progress = N("progress"), Health = N("health"), Water = N("water"), Nutrients = N("nutrients"), Biomass = N("biomass"), Carbon = N("carbon"), Pace = N("pace"), DarkHours = N("dark"), CookerProgress = N("cooker") };
         s.CookerInput = d["cookerInput"] == "none" ? "" : d["cookerInput"];
-        if (d.Count != 12) throw new ArgumentException("Unknown crop fields.");
+        s.RecoveryRevision = d.TryGetValue("recoveryRevision", out var revision) ? int.Parse(revision, CultureInfo.InvariantCulture) : 0;
+        if (d.Count != (d.ContainsKey("recoveryRevision") ? 13 : 12)) throw new ArgumentException("Unknown crop fields.");
         s.Validate(); return s;
     }
     public static bool Finite(double x) => !double.IsNaN(x) && !double.IsInfinity(x);

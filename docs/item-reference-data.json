@@ -5,7 +5,7 @@
     {
       "id": "PhobosAgriculture",
       "name": "Phobos Agriculture",
-      "version": "0.8.0",
+      "version": "0.9.0",
       "gameTarget": "1.0.1.5",
       "items": [
         {
@@ -375,10 +375,320 @@
           "aliases": []
         },
         {
+          "id": "PhobosVerdemorrowGroundworkB2BrokenHousingWaste",
+          "name": "Phobos' Verdemorrow Agricultural Housing Waste",
+          "massKg": 19.0,
+          "baseValue": 0.009999999776482582,
+          "installed": false,
+          "installTab": null,
+          "jobs": [],
+          "aliases": []
+        },
+        {
+          "id": "PhobosVerdemorrowGroundworkB2HousingWaste",
+          "name": "Phobos' Verdemorrow Agricultural Housing Waste",
+          "massKg": 17.0,
+          "baseValue": 0.009999999776482582,
+          "installed": false,
+          "installTab": null,
+          "jobs": [],
+          "aliases": []
+        },
+        {
+          "id": "PhobosVerdemorrowGroundworkB2Installed",
+          "name": "Phobos' Verdemorrow Groundwork B2 Workup Bench",
+          "massKg": 20.0,
+          "baseValue": 250.0,
+          "installed": true,
+          "installTab": "APPS",
+          "jobs": [
+            {
+              "id": "PhobosVerdemorrowGroundworkB2InstalledDismantle",
+              "kind": "dismantle",
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 3,
+                  "baseValue": 10.799999713897705
+                },
+                {
+                  "id": "PhobosVerdemorrowGroundworkB2HousingWaste",
+                  "name": "Phobos' Verdemorrow Agricultural Housing Waste",
+                  "count": 1,
+                  "baseValue": 0.009999999776482582
+                }
+              ]
+            },
+            {
+              "id": "PhobosVerdemorrowGroundworkB2InstalledRestore",
+              "kind": "restore",
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "outputs": []
+            },
+            {
+              "id": "PhobosVerdemorrowGroundworkB2InstalledUninstall",
+              "kind": "uninstall",
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "outputs": [
+                {
+                  "id": "PhobosVerdemorrowGroundworkB2Loose",
+                  "name": "Phobos' Verdemorrow Groundwork B2 Workup Bench",
+                  "count": 1,
+                  "baseValue": 250.0
+                }
+              ]
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosVerdemorrowGroundworkB2InstalledDmg",
+          "name": "Phobos' Verdemorrow Groundwork B2 Workup Bench (Damaged)",
+          "massKg": 20.0,
+          "baseValue": 50.0,
+          "installed": true,
+          "installTab": "APPS",
+          "jobs": [
+            {
+              "id": "PhobosVerdemorrowGroundworkB2InstalledDmgDismantle",
+              "kind": "dismantle",
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 1,
+                  "baseValue": 3.5999999046325684
+                },
+                {
+                  "id": "PhobosVerdemorrowGroundworkB2BrokenHousingWaste",
+                  "name": "Phobos' Verdemorrow Agricultural Housing Waste",
+                  "count": 1,
+                  "baseValue": 0.009999999776482582
+                }
+              ]
+            },
+            {
+              "id": "PhobosVerdemorrowGroundworkB2InstalledDmgRepair",
+              "kind": "repair",
+              "inputs": [
+                "TIsPartsMechSmall=1x1",
+                "TIsPartsElecSmall=1x1",
+                "TIsScrapAluminum=1x1"
+              ],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "outputs": [
+                {
+                  "id": "PhobosVerdemorrowGroundworkB2Installed",
+                  "name": "Phobos' Verdemorrow Groundwork B2 Workup Bench",
+                  "count": 1,
+                  "baseValue": 250.0
+                }
+              ]
+            },
+            {
+              "id": "PhobosVerdemorrowGroundworkB2InstalledDmgUninstall",
+              "kind": "uninstall",
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "outputs": [
+                {
+                  "id": "PhobosVerdemorrowGroundworkB2LooseDmg",
+                  "name": "Phobos' Verdemorrow Groundwork B2 Workup Bench (Damaged)",
+                  "count": 1,
+                  "baseValue": 50.0
+                }
+              ]
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosVerdemorrowGroundworkB2Loose",
+          "name": "Phobos' Verdemorrow Groundwork B2 Workup Bench",
+          "massKg": 20.0,
+          "baseValue": 250.0,
+          "installed": false,
+          "installTab": null,
+          "jobs": [
+            {
+              "id": "PhobosVerdemorrowGroundworkB2LooseDismantle",
+              "kind": "dismantle",
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 3,
+                  "baseValue": 10.799999713897705
+                },
+                {
+                  "id": "PhobosVerdemorrowGroundworkB2HousingWaste",
+                  "name": "Phobos' Verdemorrow Agricultural Housing Waste",
+                  "count": 1,
+                  "baseValue": 0.009999999776482582
+                }
+              ]
+            },
+            {
+              "id": "PhobosVerdemorrowGroundworkB2LooseInstall",
+              "kind": "install",
+              "inputs": [
+                "PhobosVerdemorrowGroundworkB2LooseTest=1x1"
+              ],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "outputs": [
+                {
+                  "id": "PhobosVerdemorrowGroundworkB2Installed",
+                  "name": "Phobos' Verdemorrow Groundwork B2 Workup Bench",
+                  "count": 1,
+                  "baseValue": 250.0
+                }
+              ]
+            },
+            {
+              "id": "PhobosVerdemorrowGroundworkB2LooseRestore",
+              "kind": "restore",
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "outputs": []
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosVerdemorrowGroundworkB2LooseDmg",
+          "name": "Phobos' Verdemorrow Groundwork B2 Workup Bench (Damaged)",
+          "massKg": 20.0,
+          "baseValue": 50.0,
+          "installed": false,
+          "installTab": null,
+          "jobs": [
+            {
+              "id": "PhobosVerdemorrowGroundworkB2LooseDmgDismantle",
+              "kind": "dismantle",
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 1,
+                  "baseValue": 3.5999999046325684
+                },
+                {
+                  "id": "PhobosVerdemorrowGroundworkB2BrokenHousingWaste",
+                  "name": "Phobos' Verdemorrow Agricultural Housing Waste",
+                  "count": 1,
+                  "baseValue": 0.009999999776482582
+                }
+              ]
+            },
+            {
+              "id": "PhobosVerdemorrowGroundworkB2LooseDmgInstall",
+              "kind": "install",
+              "inputs": [
+                "PhobosVerdemorrowGroundworkB2LooseDmgTest=1x1"
+              ],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "outputs": [
+                {
+                  "id": "PhobosVerdemorrowGroundworkB2InstalledDmg",
+                  "name": "Phobos' Verdemorrow Groundwork B2 Workup Bench (Damaged)",
+                  "count": 1,
+                  "baseValue": 50.0
+                }
+              ]
+            },
+            {
+              "id": "PhobosVerdemorrowGroundworkB2LooseDmgRepair",
+              "kind": "repair",
+              "inputs": [
+                "TIsPartsMechSmall=1x1",
+                "TIsPartsElecSmall=1x1",
+                "TIsScrapAluminum=1x1"
+              ],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "outputs": [
+                {
+                  "id": "PhobosVerdemorrowGroundworkB2Loose",
+                  "name": "Phobos' Verdemorrow Groundwork B2 Workup Bench",
+                  "count": 1,
+                  "baseValue": 250.0
+                }
+              ]
+            }
+          ],
+          "aliases": []
+        },
+        {
           "id": "PhobosVerdemorrowGroundworkIrrigation",
           "name": "Phobos' Verdemorrow Groundwork Irrigation Charge (5 kg)",
           "massKg": 5.0,
           "baseValue": 50.0,
+          "installed": false,
+          "installTab": null,
+          "jobs": [],
+          "aliases": []
+        },
+        {
+          "id": "PhobosVerdemorrowGroundworkMakeup",
+          "name": "Phobos' Verdemorrow Groundwork Makeup Salts (40 g)",
+          "massKg": 0.04,
+          "baseValue": 30.0,
+          "installed": false,
+          "installTab": null,
+          "jobs": [],
+          "aliases": []
+        },
+        {
+          "id": "PhobosVerdemorrowGroundworkMixture",
+          "name": "Phobos' Verdemorrow Groundwork Recovered Crop Nutrient Mixture",
+          "massKg": 0.008,
+          "baseValue": 0.009999999776482582,
           "installed": false,
           "installTab": null,
           "jobs": [],
@@ -1035,6 +1345,46 @@
           "aliases": []
         },
         {
+          "id": "PhobosVerdemorrowRecordedCropResidue",
+          "name": "Phobos' Verdemorrow Recorded Crop Residue",
+          "massKg": 0.5,
+          "baseValue": 0.009999999776482582,
+          "installed": false,
+          "installTab": null,
+          "jobs": [],
+          "aliases": []
+        },
+        {
+          "id": "PhobosVerdemorrowRecoveredConcentrate",
+          "name": "Phobos' Verdemorrow Groundwork Recovered Nutrient Concentrate",
+          "massKg": 0.004,
+          "baseValue": 0.009999999776482582,
+          "installed": false,
+          "installTab": null,
+          "jobs": [],
+          "aliases": []
+        },
+        {
+          "id": "PhobosVerdemorrowRecyclerWetRejects",
+          "name": "Phobos' Verdemorrow Recycler Wet Rejects",
+          "massKg": 13.0,
+          "baseValue": 0.009999999776482582,
+          "installed": false,
+          "installTab": null,
+          "jobs": [],
+          "aliases": []
+        },
+        {
+          "id": "PhobosVerdemorrowSpentBiomass",
+          "name": "Phobos' Verdemorrow Spent Crop Biomass",
+          "massKg": 0.5,
+          "baseValue": 0.009999999776482582,
+          "installed": false,
+          "installTab": null,
+          "jobs": [],
+          "aliases": []
+        },
+        {
           "id": "PhobosVerdemorrowTreatmentRejects",
           "name": "Phobos' Verdemorrow Retained Treatment Rejects",
           "massKg": 0.25,
@@ -1349,6 +1699,20 @@
         },
         {
           "table": "ItmOKLGFixer",
+          "item": "PhobosVerdemorrowGroundworkB2Loose",
+          "condition": "Pristine",
+          "chance": 0.65,
+          "count": 1
+        },
+        {
+          "table": "ItmOKLGFixer",
+          "item": "PhobosVerdemorrowGroundworkMakeup",
+          "condition": "Pristine",
+          "chance": 0.65,
+          "count": 1
+        },
+        {
+          "table": "ItmOKLGFixer",
           "item": "PhobosVerdemorrowFirstlight4Loose",
           "condition": "Pristine",
           "chance": 0.65,
@@ -1422,6 +1786,20 @@
           "item": "PhobosVerdemorrowWaterConduitLoose",
           "condition": "Pristine",
           "chance": 1.0,
+          "count": 1
+        },
+        {
+          "table": "ItmOKLGSupplyKioskInv",
+          "item": "PhobosVerdemorrowGroundworkB2Loose",
+          "condition": "Pristine",
+          "chance": 0.65,
+          "count": 1
+        },
+        {
+          "table": "ItmOKLGSupplyKioskInv",
+          "item": "PhobosVerdemorrowGroundworkMakeup",
+          "condition": "Pristine",
+          "chance": 0.65,
           "count": 1
         },
         {
@@ -1527,6 +1905,20 @@
           "item": "PhobosVerdemorrowWaterConduitLoose",
           "condition": "Pristine",
           "chance": 1.0,
+          "count": 1
+        },
+        {
+          "table": "ItmTraderSanDiegoHalvorsonInv",
+          "item": "PhobosVerdemorrowGroundworkB2Loose",
+          "condition": "Pristine",
+          "chance": 0.65,
+          "count": 1
+        },
+        {
+          "table": "ItmTraderSanDiegoHalvorsonInv",
+          "item": "PhobosVerdemorrowGroundworkMakeup",
+          "condition": "Pristine",
+          "chance": 0.65,
           "count": 1
         },
         {
@@ -1814,6 +2206,63 @@
           ],
           "workSeconds": 120,
           "range": 2
+        },
+        {
+          "id": "PhobosVerdemorrowGroundworkB2Build",
+          "name": "Phobos' Verdemorrow Groundwork B2 Workup Bench",
+          "description": "Assemble an empty, loose appliance from physical materials.",
+          "nameKey": "workup_bench",
+          "descriptionKey": "build_desc",
+          "stationIds": [
+            "ItmTable01",
+            "ItmTable02"
+          ],
+          "optionalStationIds": [
+            "SWB_WorkbenchInstalled"
+          ],
+          "toolTriggers": [
+            "TIsToolMortorq",
+            "TIsToolSoldering"
+          ],
+          "ingredients": [
+            {
+              "item": "ItmScrapSteel",
+              "trigger": "TIsScrapSteel",
+              "count": 12,
+              "unitMassKg": 1,
+              "requireEmpty": true
+            },
+            {
+              "item": "ItmScrapAluminum",
+              "trigger": "TIsScrapAluminum",
+              "count": 2,
+              "unitMassKg": 1,
+              "requireEmpty": true
+            },
+            {
+              "item": "ItmPartsMechSmall01",
+              "trigger": "TIsPartsMechSmall",
+              "count": 8,
+              "unitMassKg": 0.5,
+              "requireEmpty": true
+            },
+            {
+              "item": "ItmPartsElecSmall01",
+              "trigger": "TIsPartsElecSmall",
+              "count": 4,
+              "unitMassKg": 0.5,
+              "requireEmpty": true
+            }
+          ],
+          "outputs": [
+            {
+              "item": "PhobosVerdemorrowGroundworkB2Loose",
+              "count": 1,
+              "unitMassKg": 20
+            }
+          ],
+          "workSeconds": 1800,
+          "range": 2
         }
       ],
       "recipeItemNames": {
@@ -1824,7 +2273,8 @@
         "PhobosVerdemorrowFirstlight4Loose": "Phobos' Verdemorrow Firstlight-4 Cultivation Rack",
         "PhobosVerdemorrowHearth2Loose": "Phobos' Verdemorrow Hearth-2 Galley Cooker",
         "PhobosVerdemorrowGroundworkW2Loose": "Phobos' Verdemorrow Groundwork W2 Water Supply Unit",
-        "PhobosVerdemorrowWaterConduitLoose": "Phobos' Verdemorrow Groundwork Irrigation Conduit"
+        "PhobosVerdemorrowWaterConduitLoose": "Phobos' Verdemorrow Groundwork Irrigation Conduit",
+        "PhobosVerdemorrowGroundworkB2Loose": "Phobos' Verdemorrow Groundwork B2 Workup Bench"
       }
     },
     {
@@ -2528,7 +2978,7 @@
     {
       "id": "PhobosFramework",
       "name": "Phobos Framework",
-      "version": "0.21.0",
+      "version": "0.22.0",
       "gameTarget": "1.0.1.5",
       "items": [
         {
@@ -2559,7 +3009,7 @@
     {
       "id": "PhobosShipbreaker",
       "name": "Phobos Shipbreaker",
-      "version": "0.19.0",
+      "version": "0.20.0",
       "gameTarget": "1.0.1.5",
       "items": [
         {
@@ -7280,9 +7730,9 @@
     }
   ],
   "sourceHashes": {
-    "mods/PhobosAgriculture/framework/equipment-names.json": "87f6a1544c193103cc40431c2cea289abe9cadf99c2ac574f27b609284fc3747",
-    "mods/PhobosAgriculture/framework/recipes.json": "6f5ae1fdee34654f4d1549b8bcce39414b33c1eec5b1cc5aeb2cd2a72b634fdc",
-    "mods/PhobosAgriculture/mod_info.json": "4e6b603ec49a6bc54db623a88a9c07637d678f020b3ba25eb3f684e19858e051",
+    "mods/PhobosAgriculture/framework/equipment-names.json": "7c8f30af60cbf4116208e5d35a9847d309a413927bd6e0efab69d86f385cd4f2",
+    "mods/PhobosAgriculture/framework/recipes.json": "3a8a1e8949e3fa5071464a84658bf4c43f3abc732dd2244cb379fb8359933ca6",
+    "mods/PhobosAgriculture/mod_info.json": "3c4c4d4c5043c368bc4d4bacfe55cc5e43f18cdca927a3301b29448ef2e2962d",
     "mods/PhobosApproachAssist/data/cooverlays/phobos_approach_assist.json": "f309b562807dd3b98de6152d7ca4635d9bb6cddcc65c575d533753d15d763086",
     "mods/PhobosApproachAssist/data/guipropmaps/phobos_approach_assist.json": "a65f4313445b7606daa0ce635afc60e3d960806e28efc4265ffad9e44432e34f",
     "mods/PhobosApproachAssist/mod_info.json": "d181c24ee0825cd841165bb45c20174271c4e3e47ad13a68bb47485cd89b9e35",
@@ -7293,7 +7743,7 @@
     "mods/PhobosAutoNav/mod_info.json": "faf2d8faf5001f258aff5d76496f3b82bd67c90f2de56c44db0957dece60db27",
     "mods/PhobosFramework/data/conditions/phobos_framework.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
     "mods/PhobosFramework/framework/equipment-names.json": "8d64a49207830ca57808d0de92ac82feaf95fb200dd550888e795bb7ed37afb7",
-    "mods/PhobosFramework/mod_info.json": "edce2ccedc3b014731f4652f5bf0261c46e25148d0b94140d5e3d4da703a0c02",
+    "mods/PhobosFramework/mod_info.json": "2ac801f528326a24199feea988201e93080b35cb0d4ffeb1afc363a76f33372a",
     "mods/PhobosManufacturing/data/conditions/phobos_manufacturing.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
     "mods/PhobosManufacturing/mod_info.json": "ca699100a8084899d77a65e2a54e6d94c9b67f808addfe5367ea2306d4fce21b",
     "mods/PhobosShipbreaker/crafting/recipes.json": "8b0f034a7c732fec44ac31585321347040ee2074cd330cd3e5ecb90bb4ab7df4",
@@ -7301,29 +7751,33 @@
     "mods/PhobosShipbreaker/data/condtrigs/phobos_shipbreaker.json": "c7d4104df596d3fd362d9a80f4703178eafc5d3151bd53907814732ec84d3585",
     "mods/PhobosShipbreaker/framework/equipment-names.json": "06ca1a5fe39812844c8f114303e7205b1d366f8466bd614966e39f5f57844db8",
     "mods/PhobosShipbreaker/framework/recipes.json": "fb28b45a6f6c35860cea3dbe7cdc9ec23f5fc1ec9cb346ffee71b53a1cafec75",
-    "mods/PhobosShipbreaker/mod_info.json": "8977d1db1c71b394fb1e55d2b91ff9e56c2106b09e8c9fce78b4e1df3c1ac922",
-    "src/PhobosAgriculture/Artwork.cs": "6aa026eaf0f43e4f6f07fd6311a91d24bc4415a41a3b7b1fb4cc6b918ef45772",
+    "mods/PhobosShipbreaker/mod_info.json": "e95b178ed5d3aeb1d0693dfe2c512432a4e0e36414e799f7e0f695dbef9ca8b7",
+    "src/PhobosAgriculture/Artwork.cs": "c0b0f215961a5e35aa0d7bd174a0c3edddbbcf1ed5e7238039cf9d940bfd38fd",
     "src/PhobosAgriculture/AssemblyInfo.cs": "441ebc13e73f63e15379d179bdcde910645df15d5847671cdfff7cd313fbf66b",
-    "src/PhobosAgriculture/Core/Crop.cs": "ada6a9a8f209fe9f175e93f02fc96393c359d1b1e99bc268db2353567fce3652",
+    "src/PhobosAgriculture/Core/Crop.cs": "78120af7ea8842c43e3fa7d154116209f637630a41dac5ccd4c79ae5a71bd4d9",
     "src/PhobosAgriculture/Core/CropAppearance.cs": "04a8210c253b3acca497b71f309f04af23a1fbd4e0c0094ae2aaef45e45d9bc0",
     "src/PhobosAgriculture/Core/DrainageRecovery.cs": "5763ebc1c9933620b1671c9fcbd5d3b3eccb28fa2354e7f791f72970068be047",
+    "src/PhobosAgriculture/Core/NutrientRecovery.cs": "569ec98b69ff01b48586a811754a24d428bde91e6d3aa6c7a316d349c88940eb",
     "src/PhobosAgriculture/Core/NutrientSolution.cs": "d59e4cb602b933364f6b992c64e32f38ea86ee67d5880a8520c32a1058625c04",
     "src/PhobosAgriculture/Core/RecoveryWork.cs": "3f4408e560add255d1f8f0320a8b0ea3814e52892e8d14487bad3b618f484efa",
     "src/PhobosAgriculture/Core/TreatmentCartridge.cs": "904486b97a333d4a193a7e6208637222dfe3b08e579d4d15dddca395043363d9",
-    "src/PhobosAgriculture/Definitions.cs": "54ee31531099c8a5660711b4482ecd48e67d789bf8d7199928bdf35e4b179ccd",
+    "src/PhobosAgriculture/Definitions.cs": "4e101521314ccdbead458eedbc63067ebb330529465f3756a07cf16ae1402f48",
     "src/PhobosAgriculture/EquipmentEconomy.cs": "8273cee6d1b4ff1633f690eb6cfbffc2810ed972f4f1f4b83944382dae96c340",
     "src/PhobosAgriculture/IrrigationDefinitions.cs": "1525e795ff75c6cfc19e84f88f32acdb073ad55aa6bc4d88cd5d51851cd38a7c",
-    "src/PhobosAgriculture/IrrigationService.cs": "dd34b9c12a49533deb7e6b07040d06e965387228a737613d003e3e7d036f2462",
+    "src/PhobosAgriculture/IrrigationService.cs": "a8f89c14dd8255e8ce9846ab870fef487e3d35fa587043206ff4b98a92e645cc",
     "src/PhobosAgriculture/LineService.cs": "ff3dcabc978cd2252b5ab328c5a2b634c5825231492f9f2d0873c8d4a877d4e3",
     "src/PhobosAgriculture/LootContent.cs": "30d5fe01e8b9f9f26c6100065bc752df6d54a86da283fff1812fd865f77d4a62",
-    "src/PhobosAgriculture/MaterialOperations.cs": "2019918790ab5c86225c98347819065d997f424cad2f8eecc8e0f573c3e5f905",
-    "src/PhobosAgriculture/Panel.cs": "72e6f0cc31bbc3418588fa2578f6e00ddc43d81881ca42e111975fac9920c82d",
-    "src/PhobosAgriculture/PhobosAgriculture.csproj": "3264032be0dd102818732f8b00bfa559b9f08c571a62b5d2ab2e12faab83f884",
-    "src/PhobosAgriculture/Plugin.cs": "1564810e73214ac160e7f5832632759738d27a83a2909f22d4e70d05bc0f39a3",
+    "src/PhobosAgriculture/MaterialOperations.cs": "fa2aef354216a963c5292ce022536b97e43a160b8ea5df3766972a1d90d675ec",
+    "src/PhobosAgriculture/Panel.cs": "226280002a20576179d13033d0812bef1654f65110c77ebf429c248ba9768944",
+    "src/PhobosAgriculture/PhobosAgriculture.csproj": "bbdbb59496e953d51d3f129e85879af589e855422882edc46b21a4af7b7401e7",
+    "src/PhobosAgriculture/Plugin.cs": "8d1a38a89106d78c437d9256cc5b602d32c1b3b03327b3aac3c676364e55e3bd",
     "src/PhobosAgriculture/RecoveryService.cs": "fa5bd63314d8c6abfe7f225a927c36d92203bd11f1bfdf8f7085a71615b92f6e",
-    "src/PhobosAgriculture/Service.cs": "74992de4c8df82209252c3aaa4d5aadbf9ff2226457fe333a9b6e6c49e972824",
+    "src/PhobosAgriculture/RecyclerCapture.cs": "5b421d0a40beaec3d92e1be5568d4be3de6fd814379e87060d91761d4b634485",
+    "src/PhobosAgriculture/Service.cs": "e69a8bbb4e1828495150ae79ae1de0e4aef5d5e43d8431396e44e556bcc3b4d2",
     "src/PhobosAgriculture/SolutionService.cs": "b0124863ac541413458ca930eb49d252e95e9c9a766245ac664f7ef23b5c0c33",
     "src/PhobosAgriculture/Text.cs": "46728b07c9ec483275df903c8c872474e08ee59e99ffa8638045cb5faf0bd18f",
+    "src/PhobosAgriculture/WorkupDefinitions.cs": "47a005d0a5181d96a651c26fc5000eab5d93325cd3c070809b149ced3d0198cd",
+    "src/PhobosAgriculture/WorkupService.cs": "db3b7d29fec02a7b973c70473baf71e5442d96d3b575aa0674be5349920aedcf",
     "src/PhobosApproachAssist/ApproachPanel.cs": "49a94c7f7a60e549bd50cc6daf66ff1b91c18712e10c4a3227891816975104bc",
     "src/PhobosApproachAssist/ApproachService.cs": "bbd2531ef35d1ca2bd4b444f0eaf441eda6686b53a4450fdeafa52f1aa9f53a2",
     "src/PhobosApproachAssist/ConsoleCommands.cs": "720139a12d20ddfeea5395ca4daa3b210104cb10a5b24560b3b2b0d7e4b179ea",
@@ -7391,6 +7845,7 @@
     "src/PhobosFramework/FrameworkConsole.cs": "75235e5905fd4944c692ca8feb90917a62c48b1fd598ba05f7dedc3a314a7dae",
     "src/PhobosFramework/FrameworkLifecycle.cs": "58322aa4465a6dc9ac0873faaac658776d71d265446c471260f3465501d9091d",
     "src/PhobosFramework/Inventory/BatchPlacement.cs": "2717d661636337f41b782aef9f3307dae27fa9b1ce3c403230ae8a7deff2bbcb",
+    "src/PhobosFramework/Inventory/CollectorCargo.cs": "6e08c64cbce9799d4e1d38d3e8a7bd03bbc7b1976ddca167985d1cefe9430ffb",
     "src/PhobosFramework/Inventory/GridRoute.cs": "9cb05c97bdd83ee2b4d27185f8a1beae9c0aabd7d3213ccccf35091bf1d62b28",
     "src/PhobosFramework/Inventory/ItemDefinitionFilter.cs": "5c57a856fe92cc28723f79562a7c87d21aaabf10e0ddfd6650537207137ae961",
     "src/PhobosFramework/Inventory/NativeItemTransfer.cs": "553909c82db6e463e4312fc02d729a8d17d6f361298b7e5f197913a2cce26a70",
@@ -7406,14 +7861,15 @@
     "src/PhobosFramework/Liquids/LiquidTransferGuard.cs": "705cee9017202afd3f23781242b65fe3d1fef60c9df4d7985154775aebd34dba",
     "src/PhobosFramework/Liquids/MixtureTransfer.cs": "ce5752c0f7a578e409bfb75cf211cf47f5a1904629e17d51aca9f881f45c423b",
     "src/PhobosFramework/Liquids/NativeFluidRoute.cs": "7cb639dc6379b9c0880bd415e456e610f77b11f1795a0ea2702e69bf70ba1a12",
+    "src/PhobosFramework/Liquids/ShipsWaterRejects.cs": "2583e4ddb5ce356923125067991b583ef0939e4f497635ad8160643aae78c090",
     "src/PhobosFramework/Liquids/ShipsWaterSupply.cs": "efe1270e5abdc52be903e8499de5270032b3ee9e1ce940b9d33c1c52e63fe3f1",
     "src/PhobosFramework/Localization/EquipmentNames.cs": "f2a1b562694330e16897c797b274248e0edef37d6b2def4b3688b83a0bea1445",
     "src/PhobosFramework/Localization/TranslationCatalog.cs": "6ec43200d5dba3be1c9d90a1550abad94043c90d60626b948c8c2072d5c59353",
     "src/PhobosFramework/Observations/NativeRoomAlarms.cs": "4466b92c4dcedc667a99599054826b67803281b858123e38388fc0192ff9d1f7",
     "src/PhobosFramework/Observations/Observation.cs": "a7e18264f2898f7f50199ac789f4863d94a70f01bc37f1a42fbf6cd4623ab399",
     "src/PhobosFramework/Persistence/ObjectStateStore.cs": "97a5cad6999e7d60baedb565d162f9cd1435b85ecda6ba814b4e564519d8fd01",
-    "src/PhobosFramework/PhobosFramework.csproj": "3c48146843654b79ffa06e21fbb691e66cc2ee5f3bd876e0da516153e91720f8",
-    "src/PhobosFramework/Plugin.cs": "7442344287a98b6c33a142d07922280c5f2611c891cd155faba0e835447522f9",
+    "src/PhobosFramework/PhobosFramework.csproj": "cddde360b012b697b8f5f9a0d1d5f323ff178e1c42239f1ea7a8392ed0159c6d",
+    "src/PhobosFramework/Plugin.cs": "c2d416bd4557b2e820f742706c7000cbebd5256712313cd80f842dd5cf0ac107",
     "src/PhobosFramework/Processing/EnergyReceipt.cs": "cb31cd45ea69ee8d182b0578f50540393bd70e63e918a161f04f2b6a290199b2",
     "src/PhobosFramework/Processing/GasParcel.cs": "814357580cf3b2f7257a67042454823b454437f1fda38488521b66621e081fa3",
     "src/PhobosFramework/Processing/NativeEnergyReceipts.cs": "ed52382413127a5acd3700070f5d19975aec54c953d2fb2fa09eef08836fbe5e",
@@ -7438,7 +7894,7 @@
     "src/PhobosShipbreaker/CollectorLinks.cs": "8343e88e1030a5c92845fe780d6f0cce43c5047ea9ed70a0435755f9afaf01a7",
     "src/PhobosShipbreaker/CollectorPanel.cs": "6f7c02384afd6d2f3f4572246a91c994291fba211190c15449d7aa5cbc21ae8f",
     "src/PhobosShipbreaker/CollectorRoute.cs": "7cf6ae3a0016b779f110196d7b0f2a17aa92fcf246f5948cddd895563c68a73e",
-    "src/PhobosShipbreaker/CollectorService.cs": "c64836c7ee892070d961fdba87595a28f72729aff15401890bd16b437f6f6ac1",
+    "src/PhobosShipbreaker/CollectorService.cs": "5d947c058ebea65b70bfdb7d90074e9c85360974178935aec83d3447e708edda",
     "src/PhobosShipbreaker/ConsoleCommands.cs": "a6a197cf3ce0646148c861549ae27dcd017aa45328d2cff596014cf3a72147c7",
     "src/PhobosShipbreaker/Content.cs": "e44053cc49d171b8cce8717607861257f6691ead68582e1ce40edbf94ac03cb5",
     "src/PhobosShipbreaker/ControlAuthority.cs": "1bad10780bc839976cd5becf865b51a5c056de92e0390e9242ed428c0feb1039",
@@ -7447,7 +7903,7 @@
     "src/PhobosShipbreaker/Core/CollectorRules.cs": "21349875b1be7f45ffe42ed10ce30f9f34b72f7257a51c983011f5348a2c0e6a",
     "src/PhobosShipbreaker/Core/Commands.cs": "6e4a786128d0f4f86b8401057a2f90df96628279d0eda360fece0a902d5b488f",
     "src/PhobosShipbreaker/Core/CoolantCharge.cs": "76339dc6670dff12e9d33da4480793bfc76d0961503d6c05975afc6d4ded4432",
-    "src/PhobosShipbreaker/Core/DependencyContract.cs": "ef74e93462c285374042e8872b3b79cf3510e581015f8b0628addd5d810e0c5d",
+    "src/PhobosShipbreaker/Core/DependencyContract.cs": "e4f95688448aa8eac0c9baaedc27d2f0429a6ffeb6e4977dcadd528a47aee012",
     "src/PhobosShipbreaker/Core/FurnaceBatch.cs": "a9fbc2a1f9be4c6f55dd7159e0202db6292f861f0704df6fb7ffd8dc19578f12",
     "src/PhobosShipbreaker/Core/FurnaceCooling.cs": "4c090e6c28b0cda7b2b646f4619dd9f3e139af9a4098912c590caeb45300842e",
     "src/PhobosShipbreaker/Core/FurnaceMaterialRules.cs": "9e875d11345f05a5d881bbf7bd84dc6e48713b459913ec81a525790bda52d307",
@@ -7483,8 +7939,8 @@
     "src/PhobosShipbreaker/MachineDefinitions.cs": "e8ac8cd1ef2cc058f946eaec2f2f45676d309731f64a80cba745d56e49feab92",
     "src/PhobosShipbreaker/NativeAdapter.cs": "949a4a9b16474958f6aaeb72558076fcb3ac5858cf9febcc8b99a760567f5a56",
     "src/PhobosShipbreaker/PerformanceMetrics.cs": "91708a5cf54eea0b2b70a0625556b466fb2ecdbdfb60346bd855c44a68f644f5",
-    "src/PhobosShipbreaker/PhobosShipbreaker.csproj": "ef57cc8b8f6dedaad04768790eee6af57dc7009708cd6140eeea1340468aeae0",
-    "src/PhobosShipbreaker/Plugin.cs": "ceecbc807f905dd9cd513fa54dbc09f9ce21921cd5d1864b661d0171dd67c30c",
+    "src/PhobosShipbreaker/PhobosShipbreaker.csproj": "62e98eeaf5dac6ebed4487f5c80a918c75bcaa4a2c7e2a617db6d9fdeb11160b",
+    "src/PhobosShipbreaker/Plugin.cs": "ab40849f7457d80d6cd2c47ca933c1f28049e741c4e50f1f42f41a51d0af32f3",
     "src/PhobosShipbreaker/ProcessingCommands.cs": "5c0a603a4e2ae406bc94d5fcf0d30bb01b40512f57e474ab9ef5f2ab470a7320",
     "src/PhobosShipbreaker/ProcessingService.cs": "016df90355b5eaacc1d104abed334dfdad26a04497f979abf902f1a21567de8a",
     "src/PhobosShipbreaker/ReclaimerDefinitions.cs": "876ee87e6a85180804cf8d697cd1ffa1873e082489929c191b6a29e3602618ab",
@@ -7495,8 +7951,8 @@
     "src/PhobosShipbreaker/Text.cs": "2a0b7890addcbb0f4f8f71c48373cf352d7af8379905b01b1bc48bd0f84f7846",
     "tests/PhobosNative.Tests/EquipmentValueAudit.cs": "cca95052803934b6ac8af32979f066ca064942ca79ac87e4ec94b8b183815cac",
     "tests/PhobosNative.Tests/ItemReferenceExport.cs": "de9a6922dc4e6008584e3486beb99ec8da086cdc145bf91de8139445bfc153cd",
-    "tests/PhobosNative.Tests/Program.cs": "23d338f0aec492bc3fe9b69ffafb1d74ace9f54ddbbe678879d0d424d9d51f28",
-    "translations/PhobosAgriculture/en.json": "4768718826f8c1683e3df16f7d0c1e2af6a66ad4d6da06b61dc6013a3edbdad1",
+    "tests/PhobosNative.Tests/Program.cs": "566ffe4e6150ba2663c5e68e64d18708efd76720fb4a50114abe999355f2e3ea",
+    "translations/PhobosAgriculture/en.json": "abb5001b0935b58939c4b5a14a5bf6668e2570456006a2216ec858a619231787",
     "translations/PhobosAutoNav/en.json": "e8ffc852f06b684479f0fd2a1b4dd27455471d7f0dccf5cf9fac16277461de6e",
     "translations/PhobosFramework/en.json": "9a348bbd1d778d15140d190739cb5576d9bfd2020ebb8ac1e785d0ab13e6f33a",
     "translations/PhobosManufacturing/en.json": "3b3f3aa7f3c8c1124e6452335a634cf6e591dbe99021b2ec24bc61ae5b0524c0",

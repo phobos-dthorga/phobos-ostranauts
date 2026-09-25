@@ -61,7 +61,7 @@ internal static class AgricultureNativeChecks
         check(DataHandler.dictCOs["LiquidWater"].aStartingConds.Any(c => c.StartsWith("StatMass=") && Math.Abs(double.Parse(c.Split('x').Last(), System.Globalization.CultureInfo.InvariantCulture) - .25) < 1e-7), "Manual water quantity matches installed native ration");
         JsonCondOwner Definition(string id) => d.Objects.TryGetValue(id, out var definition) ? definition : DataHandler.dictCOs[id];
         double Mass(string id) => double.Parse(Definition(id).aStartingConds.Single(c => c.StartsWith("StatMass=")).Split('x').Last(), System.Globalization.CultureInfo.InvariantCulture);
-        foreach (string prefix in new[] { PhobosAgriculture.Definitions.Rack, PhobosAgriculture.Definitions.Cooker, PhobosAgriculture.IrrigationDefinitions.Supply, PhobosAgriculture.IrrigationDefinitions.Pipe })
+        foreach (string prefix in new[] { PhobosAgriculture.Definitions.Rack, PhobosAgriculture.Definitions.Cooker, PhobosAgriculture.IrrigationDefinitions.Supply, PhobosAgriculture.IrrigationDefinitions.Pipe, PhobosAgriculture.WorkupDefinitions.Bench })
         foreach (string form in new[] { "Installed", "Loose", "InstalledDmg", "LooseDmg" })
         {
             string id = prefix + form;

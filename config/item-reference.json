@@ -485,7 +485,7 @@
             "PhobosVerdemorrowGroundworkW2InstalledDmg"
           ],
           "function": "Stores and supplies irrigation water or formulated nutrient solution; also treats recorded process solution.",
-          "use": "Install and power W2, load supplies locally, choose formulation, pair supported racks and explicitly enable receiving/distribution. Use treatment controls for recorded drainage and a cartridge.",
+          "use": "Install and power W2, load supplies locally, choose formulation, pair supported racks and explicitly enable receiving/distribution. Use treatment controls for recorded drainage and a cartridge. Select a physical nutrient charge while paused for gradual consumption during powered blending.",
           "find": "Buy supply/fixer/Halvorson stock or build at a supported table.",
           "notes": "Use separate circuits for incompatible formulations. Receiving pauses after reload. Optional [Valtora’s Ship’s Water](https://steamcommunity.com/sharedfiles/filedetails/?id=3757331189) integration is version-scoped and protects crew reserves; manual input remains available.",
           "guide": "fluid-network-operations.md",
@@ -544,7 +544,7 @@
             "PhobosVerdemorrowGroundworkNutrients"
           ],
           "function": "Dry finite nutrient input.",
-          "use": "Put packets in the rack or W2 and choose Load nutrients; W2 can blend the selected formulation.",
+          "use": "Put packets in the rack or W2 and choose Load nutrients; W2 can blend the selected formulation. Alternatively select the exact physical packet in W2 while paused for gradual dosing; no Repair or Restore.",
           "find": "Buy supplies or find eligible locked-crate loot.",
           "notes": "Not fertilizer produced from arbitrary trash; unused loaded nutrients remain finite stored stock.",
           "guide": "agriculture-player-guide.md",
@@ -615,8 +615,8 @@
           ],
           "function": "Retained nonfood crop biomass, including growth losses and rounding.",
           "use": "Remove it from rack storage as physical waste.",
-          "find": "Harvesting or clearing crop material.",
-          "notes": "Live packet mass varies; the template mass below is not a fixed yield. No compost-to-nutrient recipe is currently provided.",
+          "find": "Old harvests and cohorts planted before recovery recording.",
+          "notes": "Legacy unrecorded variable-mass residue. B2 preserves this identity and cannot infer nutrients from it.",
           "guide": "agriculture-player-guide.md",
           "internal": false,
           "labels": {}
@@ -687,7 +687,9 @@
             "PhobosVerdemorrowHearth2BrokenHousingWaste",
             "PhobosVerdemorrowGroundworkW2HousingWaste",
             "PhobosVerdemorrowGroundworkW2BrokenHousingWaste",
-            "PhobosVerdemorrowWaterConduitWaste"
+            "PhobosVerdemorrowWaterConduitWaste",
+            "PhobosVerdemorrowGroundworkB2HousingWaste",
+            "PhobosVerdemorrowGroundworkB2BrokenHousingWaste"
           ],
           "function": "Terminal housing remainders from equipment dismantling. Several different masses share this display name.",
           "use": "Use the origin and mass below to identify the packet; keep or trade it as waste.",
@@ -702,8 +704,111 @@
             "PhobosVerdemorrowHearth2BrokenHousingWaste": "Cooker: damaged dismantling",
             "PhobosVerdemorrowGroundworkW2HousingWaste": "W2: intact dismantling",
             "PhobosVerdemorrowGroundworkW2BrokenHousingWaste": "W2: damaged dismantling",
-            "PhobosVerdemorrowWaterConduitWaste": "Irrigation pipe: either state"
+            "PhobosVerdemorrowWaterConduitWaste": "Irrigation pipe: either state",
+            "PhobosVerdemorrowGroundworkB2HousingWaste": "B2: intact dismantling",
+            "PhobosVerdemorrowGroundworkB2BrokenHousingWaste": "B2: damaged dismantling"
           }
+        },
+        {
+          "key": "workup-bench",
+          "title": "Groundwork B2 Workup Bench",
+          "ids": [
+            "PhobosVerdemorrowGroundworkB2Loose",
+            "PhobosVerdemorrowGroundworkB2LooseDmg",
+            "PhobosVerdemorrowGroundworkB2Installed",
+            "PhobosVerdemorrowGroundworkB2InstalledDmg"
+          ],
+          "function": "Recovers recorded crop nutrients and formulates finite W2 mixtures.",
+          "use": "Install through APPS, power, load a recorded residue packet, prepare recovery and Start. Then prepare recovered concentrate plus equal-mass makeup salts and Start. Leave output room.",
+          "find": "Buy supply/fixer/Halvorson stock or construct at a supported table.",
+          "notes": "Each stage binds physical inputs, consumes power and pauses after reload. Damaged hardware is repairable; consumable contents are not.",
+          "guide": "agriculture-nutrient-production.md",
+          "internal": false,
+          "labels": {}
+        },
+        {
+          "key": "recorded-residue",
+          "title": "Recorded Crop Residue",
+          "ids": [
+            "PhobosVerdemorrowRecordedCropResidue"
+          ],
+          "function": "Retained wet crop matter with a bounded saved nutrient allocation.",
+          "use": "Process at B2; empty or unrecorded nutrient budgets are not eligible.",
+          "find": "Harvest or clear a cohort planted from Agriculture 0.9.0 onward.",
+          "notes": "Actual mass and allocation vary. Old residue and old cohorts are not reassayed.",
+          "guide": "agriculture-nutrient-production.md",
+          "internal": false,
+          "labels": {}
+        },
+        {
+          "key": "concentrate",
+          "title": "Recovered Nutrient Concentrate",
+          "ids": [
+            "PhobosVerdemorrowRecoveredConcentrate"
+          ],
+          "function": "Incomplete mineral surrogate recovered from crop residue.",
+          "use": "Formulate at B2 with equal-mass Groundwork makeup salts.",
+          "find": "B2 crop recovery only; a spawned unrecorded template is unusable.",
+          "notes": "Cannot feed plants directly. Saved composition must match physical mass.",
+          "guide": "agriculture-nutrient-production.md",
+          "internal": false,
+          "labels": {}
+        },
+        {
+          "key": "makeup",
+          "title": "Groundwork Makeup Salts",
+          "ids": [
+            "PhobosVerdemorrowGroundworkMakeup"
+          ],
+          "function": "Finite complementary input for recovered nutrient formulation.",
+          "use": "Place at B2 with concentrate; retain returned partial packets.",
+          "find": "Buy supply/fixer/Halvorson stock.",
+          "notes": "Full packet values below; partial mass and value decrease. Cannot Repair or Restore; not a complete nutrient substitute.",
+          "guide": "agriculture-nutrient-production.md",
+          "internal": false,
+          "labels": {}
+        },
+        {
+          "key": "mixture",
+          "title": "Recovered Crop Nutrient Mixture",
+          "ids": [
+            "PhobosVerdemorrowGroundworkMixture"
+          ],
+          "function": "Finished finite nutrient charge for W2 blending.",
+          "use": "Place in W2, pause operation and receiving, select this exact charge and desired formulation, then Start.",
+          "find": "B2 formulation from recorded concentrate plus makeup salts.",
+          "notes": "No automatic packet substitution. Mass and value decrease with actual blending; cannot Repair or Restore. Template value is not a usable unrecorded charge.",
+          "guide": "agriculture-nutrient-production.md",
+          "internal": false,
+          "labels": {}
+        },
+        {
+          "key": "spent-biomass",
+          "title": "Spent Crop Biomass",
+          "ids": [
+            "PhobosVerdemorrowSpentBiomass"
+          ],
+          "function": "All residue material remaining after concentrate recovery.",
+          "use": "Remove from B2 and retain as waste cargo.",
+          "find": "B2 recovery.",
+          "notes": "Variable mass includes water and unrecovered nutrients; cannot reroll for further recovery.",
+          "guide": "agriculture-nutrient-production.md",
+          "internal": false,
+          "labels": {}
+        },
+        {
+          "key": "wet-rejects",
+          "title": "Recycler Wet Rejects",
+          "ids": [
+            "PhobosVerdemorrowRecyclerWetRejects"
+          ],
+          "function": "Measured wet remainder from an optionally attached Ship’s Water Recycler.",
+          "use": "Collect from a linked powered Phobos Residue Collector; remove full packets manually.",
+          "find": "Opt-in attachment with Ship’s Water 0.16.1 and Shipbreaker 0.20.0.",
+          "notes": "Maximum 13 kg per packet and 52 kg per collector. Uncharacterized water remainder; no B2 fertilizer recipe or industrial reclaimer route.",
+          "guide": "agriculture-nutrient-production.md",
+          "internal": false,
+          "labels": {}
         }
       ]
     },

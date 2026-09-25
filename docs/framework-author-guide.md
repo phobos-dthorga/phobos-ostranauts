@@ -620,3 +620,14 @@ use transfer guards, block removal and offer a finite drain. Missing state start
 empty; never infer fluid from geometric pipe volume. `HydraulicRoute` supplies a
 bounded authored resistance fraction and equal budget shares, not pressure
 observations or a CFD solver. See [operating contracts](fluid-network-operations.md).
+
+## Recycler reject reservation — Framework 0.22.0
+
+`ShipsWaterRejects` provides a version-scoped opt-in reservation around Valtora’s
+[Ship’s Water 0.16.1](https://steamcommunity.com/sharedfiles/filedetails/?id=3757331189)
+private Recycler settlement. A content sink owns pairing, access, storage and
+journals. Framework bounds source processing and measures same-ship tank deltas;
+it supplies no nutrient assay. `CollectorCargo` admits registered physical cargo
+under Shipbreaker’s existing capacity and native container checks; its endpoint
+validator retains Shipbreaker’s mount rules. Neither API authorizes automatic
+industrial routing. See [the concrete consumer](agriculture-nutrient-production.md).

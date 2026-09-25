@@ -20,6 +20,8 @@ internal static partial class Service
         internal bool MealCommitted;
         internal ObjectStateStore Store = null!;
         internal CropState State = new();
+        internal WorkupJob Workup = new();
+        internal string DoseId = "";
         internal NutrientSolution Solution = new();
         internal FluidLine Line = new();
         internal string RecoveryInput="", RecoveryFilter="";
@@ -35,7 +37,7 @@ internal static partial class Service
     {
         // Native damage/repair modes retain ID/property maps, but rebuild dry mass.
         var next = new Session { Object = replacement, Store = new ObjectStateStore(replacement.mapGUIPropMaps, "Agriculture", Plugin.Id, 1),
-            State = previous.State.Copy(), Solution = previous.Solution.Copy(), Line=previous.Line.Copy(), RecoveryInput=previous.RecoveryInput, RecoveryFilter=previous.RecoveryFilter, RecoveryEnergy=previous.RecoveryEnergy, RecoveryMetered=previous.RecoveryMetered, Protected = previous.Protected, Routed = previous.Routed, Last = StarSystem.fEpoch, Notice = Text.Get("paused") };
+            DoseId = previous.DoseId, Workup = previous.Workup.Copy(), State = previous.State.Copy(), Solution = previous.Solution.Copy(), Line=previous.Line.Copy(), RecoveryInput=previous.RecoveryInput, RecoveryFilter=previous.RecoveryFilter, RecoveryEnergy=previous.RecoveryEnergy, RecoveryMetered=previous.RecoveryMetered, Protected = previous.Protected, Routed = previous.Routed, Last = StarSystem.fEpoch, Notice = Text.Get("paused") };
         next.State.Running = next.State.Receiving = false;
         sessions[replacement.strID] = next;
         if (!next.Protected) Save(next);
@@ -72,6 +74,7 @@ internal static partial class Service
             ReadWaterMode(s);
             ReadLine(s);
             ReadRecovery(s);
+            ReadWorkup(s);
             if (WaterGuard(co).Protected) s.Protected = true;
             if (IrrigationDefinitions.IsSupply(co) && (s.State.CropId.Length != 0 || s.State.CookerInput.Length != 0 || s.State.CookerProgress != 0)) s.Protected = true;
             if (Definitions.IsCooker(co) && s.Solution.Enabled) s.Protected = true;
@@ -85,6 +88,8 @@ internal static partial class Service
         if (s.Protected) throw new InvalidOperationException(Text.Get("protected"));
         var solutionFields = s.Solution.Save(s.State);
         SaveRecovery(s);
+        if (!DosingStore(s.Object).TryWrite(new Dictionary<string,string>{["source"]=s.DoseId})) throw new InvalidOperationException("Protected dosing binding.");
+        if (!WorkupStore(s.Object).TryWrite(s.Workup.Save())) throw new InvalidOperationException("Protected workup state.");
         if (!LineStore(s.Object).TryWrite(s.Line.Save())) { s.Protected=true; throw new InvalidOperationException(Text.Get("protected")); }
         if (!s.Store.TryWrite(s.State.Save())) { s.Protected = true; throw new InvalidOperationException(Text.Get("protected")); }
         if (!SolutionStore(s.Object).TryWrite(solutionFields)) { s.Protected = true; throw new InvalidOperationException(Text.Get("protected")); }
@@ -108,7 +113,7 @@ internal static partial class Service
     {
         var s = Get(co);
         if (s.Protected || WaterGuard(co).Protected || !RoomReady(co)) return 0;
-        double kw = IrrigationDefinitions.IsSupply(co) ? SupplyDemand(s) : Definitions.IsCooker(co) ? s.State.Running && CookerInput(s) != null ? 2 : .02 : s.State.DemandKW;
+        double kw = WorkupDefinitions.IsBench(co) ? s.State.Running && s.Workup.Mode.Length > 0 ? NutrientRecovery.PowerKW : 0 : IrrigationDefinitions.IsSupply(co) ? SupplyDemand(s) : Definitions.IsCooker(co) ? s.State.Running && CookerInput(s) != null ? 2 : .02 : s.State.DemandKW;
         return nativeAmount / .02 * kw;
     }
     internal static void Tick(CondOwner co)
@@ -131,13 +136,19 @@ internal static partial class Service
             }
             // Settle measured electricity even if a later liquid adapter fails.
             gas.fDGasTemp += received * 3600000 / (Moles(gas, "StatGasMolTotal") * 20.8);
-            if (s.State.Receiving && !s.Routed && !Definitions.IsCooker(co) && !IrrigationDefinitions.IsSupply(co) && received > 0 && co.HasCond("IsInstalled") && !co.HasCond("IsDamaged"))
+            if (s.State.Receiving && !s.Routed && !WorkupDefinitions.IsBench(co) && !Definitions.IsCooker(co) && !IrrigationDefinitions.IsSupply(co) && received > 0 && co.HasCond("IsInstalled") && !co.HasCond("IsDamaged"))
                 ShipsWaterSupply.Refill(co.ship, new Reservoir(s), Math.Min(.25 * elapsed, Math.Max(0, s.Solution.PlainWaterCapacity - s.State.Water)), Plugin.ReserveLitres.Value, WaterGuard(co));
             Exchange exchange;
             if (IrrigationDefinitions.IsSupply(co))
             {
                 exchange = new Exchange { RoomHeatKWh = received };
                 Pump(s, elapsed, received);
+            }
+            else if (WorkupDefinitions.IsBench(co))
+            {
+                exchange = new Exchange { RoomHeatKWh = received };
+                if (co.HasCond("IsInstalled") && !co.HasCond("IsDamaged")) WorkupTick(s, received);
+                else s.State.Running = false;
             }
             else if (Definitions.IsCooker(co))
             {
@@ -185,7 +196,7 @@ internal static partial class Service
         message = Access(co, binding) ?? ""; if (message.Length > 0) return false;
         if (action == "status") { message = Describe(co); return true; }
         var s = Get(co); if (s.Protected || WaterGuard(co).Protected || !Definitions.Ready) { message = Text.Get("protected"); return false; }
-        if (!IrrigationDefinitions.IsSupply(co) && (action == "watch" || action == "unwatch" || action == "cue-volume"))
+        if (!WorkupDefinitions.IsBench(co) && !IrrigationDefinitions.IsSupply(co) && (action == "watch" || action == "unwatch" || action == "cue-volume"))
         {
             if (action == "cue-volume") CompletionCues.CycleVolume();
             else if (action == "unwatch") s.Watch.Cancel();
@@ -197,6 +208,25 @@ internal static partial class Service
             }
             message = Describe(co); return true;
         }
+        if (IrrigationDefinitions.IsSupply(co) && (action.StartsWith("dose:",StringComparison.Ordinal) || action == "dose-inventory" || action == "dose-off"))
+        {
+            if(!Paused(s)) {message=Text.Get("water_pause");return false;}
+            var selected=action=="dose-inventory"?DoseCandidates(s).OrderBy(c=>c.strID,StringComparer.Ordinal).FirstOrDefault():action=="dose-off"?null:DoseCandidates(s).FirstOrDefault(c=>c.strID==action.Substring(5));
+            if(selected==null && action!="dose-off"){message=Text.Get("dose_empty");return false;}
+            s.DoseId=selected?.strID??"";Save(s);message=Describe(co);return true;
+        }
+        if (WorkupDefinitions.IsBench(co))
+        {
+            if (action == "cancel-workup" && Paused(s)) { s.Workup = new(); Save(s); message = Describe(co); return true; }
+            if (action == "recover-crop" || action == "formulate-nutrients")
+            {
+                if (binding != null) { message = Text.Get("local_work"); return false; }
+                CrewSim.GetSelectedCrew().QueueInteraction(co, DataHandler.GetInteraction(Definitions.WorkId(action))); message = Text.Get("queued"); return true;
+            }
+            if (action != "start" && action != "resume" && action != "pause") { message = Text.Get("help"); return false; }
+            if (action != "pause" && s.Workup.Mode.Length == 0) { message = Text.Get("workup_input"); return false; }
+        }
+        else if (action == "recover-crop" || action == "formulate-nutrients" || action == "cancel-workup") { message = Text.Get("help"); return false; }
         if(action=="cancel-recovery" && IrrigationDefinitions.IsSupply(co) && Paused(s)) {s.RecoveryInput=s.RecoveryFilter="";s.RecoveryEnergy=0;s.RecoveryMetered=false;Save(s);message=Describe(co);return true;}
         if (SolutionCommand(s, action, out message) is bool solutionHandled) return solutionHandled;
         if (WaterCommand(s, action, out message) is bool handled) return handled;
@@ -232,6 +262,7 @@ internal static partial class Service
     internal static string Describe(CondOwner co)
     {
         var s = Get(co); var b = s.State; var room = Room(co);
+        if (WorkupDefinitions.IsBench(co)) return DescribeWorkup(s);
         if (IrrigationDefinitions.IsSupply(co)) return DescribeSupply(s);
         string environment = room == null || room.GasContainer == null ? Text.Get("unknown") : Text.Get("environment", room.strID, room.GetCondAmount("StatGasTemp") - 273.15, room.GetCondAmount("StatGasPressure"));
         environment += "\n" + Text.Get(s.Watch.Armed ? "cue_watching" : s.Watch.Completed ? "cue_completed" : "cue_off") + "\n" + CompletionCues.VolumeLabel;

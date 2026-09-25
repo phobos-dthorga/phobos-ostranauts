@@ -1,0 +1,40 @@
+{
+  "source": "assets/phobos-agriculture/source/groundwork-b2-master-v1.png",
+  "sourceSize": [
+    1254,
+    1254
+  ],
+  "crop": [
+    0,
+    0,
+    1156,
+    1254
+  ],
+  "sourceSha256": "72e5f74bac9792882db202c4d36be9adc91015a63a210a70559028db9a67f1a4",
+  "outputSize": [
+    32,
+    32
+  ],
+  "origin": [
+    1,
+    1
+  ],
+  "composeSize": [
+    30,
+    30
+  ],
+  "pivot": [
+    16,
+    16
+  ],
+  "projection": "orthographic overhead",
+  "layers": [
+    "permanent sealed equipment chassis"
+  ],
+  "damage": "native appliance damage presentation; registered shared master, no generated damaged variant",
+  "supplies": "reuse original Stock-residue, Stock-nutrients and Stock-recovery_reject artwork; identities and localized descriptions differ",
+  "exports": {
+    "Workup.png": "a84d5e205f7e2e97ee12a9c4a75f919b8c9e8d5a4a2cdd4785d3bab4e2f0993e",
+    "WorkupNormal.png": "292cdfd29bcf2b484912a81b2d1fbd53b86b6439966c2a59b8ed43ecd378b306"
+  }
+}

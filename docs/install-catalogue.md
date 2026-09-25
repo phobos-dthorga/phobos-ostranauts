@@ -59,3 +59,9 @@ intact and damaged machine, rotate/place a valid outline, and let crew install
 it from matching loose stock. Check pipe placement on its supported floor,
 normal uninstall/reinstall and save/reload. Offline checks are not evidence of
 successful in-game rendering or crew pathfinding.
+
+## Groundwork B2 — Agriculture 0.9.0
+
+The implemented B2 Workup Bench joins APPS with intact and damaged placement
+forms. Recorded residue, concentrate, makeup salts, mixtures, spent biomass and
+wet rejects are loose supplies/byproducts, not floor fixtures.

@@ -18,6 +18,17 @@ Dates on Draft entries record preparation, not Steam publication.
 - Record [NASA Goddard's Raven research](https://www.nasa.gov/general/nasas-hybrid-computer-enables-ravens-autonomous-rendezvous-capability/) and [ESA's LIRIS experiment by Airbus, Jena Optronik and Sodern](https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/ATV/ATV_views_Space_Station_as_never_before) as sensing context, separate from Blue Bottle Games engine evidence and authored gameplay choices. No endorsement or gameplay validation is implied.
 - See the [research](https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/shipbreaker-autopilot-research.md) and [staged implementation handover](https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/shipbreaker-autopilot-handover.md). No installation or publication in this round.
 
+## [0.20.0] - 2026-09-26 - Draft
+
+### Added
+
+- Allow registered content-owned cargo in the existing Residue Collector under its unchanged four-slot and 52 kg limits. Expose the existing hull/exterior/floor mount check for optional attachments.
+- Agriculture 0.9.0 can attach Ship's Water 0.16.1 Recycler wet-reject capture to the same exclusive inlet. Collector hardware, industrial residue identities, default filters and automatic industrial routing retain their meaning. Remove wet packets manually.
+
+### Requirements
+
+Phobos Framework 0.22.0 or newer. Agriculture and [Valtora's Ship's Water](https://steamcommunity.com/sharedfiles/filedetails/?id=3757331189) remain optional. No new Shipbreaker equipment artwork or industrial recipe; live attachment behavior awaits owner testing.
+
 ## [0.19.0] - 2026-09-25 - Draft
 
 ### Changed

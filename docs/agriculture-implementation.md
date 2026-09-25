@@ -1,5 +1,7 @@
 # Agriculture implementation and validation
 
+Agriculture 0.9.0 implements the [B2 nutrient-production chain](agriculture-nutrient-production.md), selected W2 charge depletion and optional measured Recycler wet-reject capture. Offline validation covers finite accounting and persistence; live integration remains owner-tested.
+
 Agriculture 0.7.0 adds [lettuce seed production](agriculture-seed-production.md) and
 [maintenance/treatment economics](agriculture-treatment-economy.md). Existing food
 crops and already bound treatment jobs retain their previous contracts.

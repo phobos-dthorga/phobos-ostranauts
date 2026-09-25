@@ -37,17 +37,17 @@ internal static class AgricultureOperatingAudit
         double rotationHours = Crop.LettuceSeed.Hours + availableSeeds * Crop.Lettuce.Hours;
         rows.Add($"\nA repeating lettuce rotation reserves one returned seed packet, grows {availableSeeds} food cohorts and yields {availableSeeds * Harvest(Crop.Lettuce).Portions} edible servings over {N(rotationHours)} rack-growth hours. It consumes {N(rotationInputs)} cr of water/nutrients and {N(rotationEnergy)} kWh. Per food cohort: {N(rotationInputs / availableSeeds)} cr and {N(rotationEnergy / availableSeeds)} kWh, before other costs. Initial stock is a one-off investment; no retained packet is simultaneously counted as sold or bought each rotation.\n");
         rows.AddRange(new[] { "## Proposed crop-residue recovery ceiling — not a recipe", "",
-            "Illustrative conservative allocation: distribute only nutrients consumed by growth in proportion to final biomass; allocate the residue share, then recover 60% of that share. The 60% is an authored sensitivity assumption, not NASA's leaching yield. Seed nutrients receive no extra credit. Recovered material is an incomplete concentrate until formulation is defined.",
-            "", "| Ideal crop | Wet residue kg | Allocated nutrient ceiling g | Candidate recovered equivalent g | Maximum avoided stock cost cr |",
-            "|---|---:|---:|---:|---:|" });
+            "Authored allocation: distribute only nutrients consumed by growth in proportion to final biomass; allocate the residue share, then recover 60% of that share. The 60% is authored gameplay balance, not NASA's leaching yield. Seed nutrients receive no extra credit. B2 combines the concentrate with equal-mass purchased makeup salts. Spent biomass stays cargo; these values exclude workup electricity, crew and equipment.",
+            "", "| Ideal crop | Wet residue kg | Allocated nutrient ceiling g | Recovered concentrate g | Makeup cost cr | Finished mixture g | Avoided fresh-stock cost less makeup cr |",
+            "|---|---:|---:|---:|---:|---:|---:|" });
         foreach (var crop in new[] { Crop.Potato, Crop.Lettuce, Crop.LettuceSeed })
         {
             double residue = Harvest(crop).ResidueKg;
-            double allocated = crop.Nutrient * residue / crop.Final, recovered = allocated * .6;
+            double allocated = crop.Nutrient * residue / crop.Final, recovered = allocated * NutrientRecovery.Fraction;
             if (recovered < 0 || recovered > allocated || allocated > crop.Nutrient || recovered > residue)
-                throw new InvalidOperationException("Recovery proposal exceeds retained material or consumed nutrients.");
-            rows.Add($"| {crop.Id} | {N(residue)} | {N(allocated * 1000)} | {N(recovered * 1000)} | {N(recovered * nutrientPrice)} |");
+                throw new InvalidOperationException("Recovery exceeds retained material or consumed nutrients.");
+            rows.Add($"| {crop.Id} | {N(residue)} | {N(allocated * 1000)} | {N(recovered * 1000)} | {N(recovered * NutrientRecovery.MakeupPrice / NutrientRecovery.MakeupKg)} | {N(recovered * 2000)} | {N(recovered * 2 * nutrientPrice - recovered * NutrientRecovery.MakeupPrice / NutrientRecovery.MakeupKg)} |");
         }
-        rows.Add("\nAvoided stock cost is an upper bound, not sale value: subtract processing, make-up nutrients, consumables, labour and capital. Terminal rejects cannot be rerun. Larger batches can amortize setup work; no waste-processing recipe is registered by this audit. See [nutrient recovery direction](agriculture-nutrient-recovery.md).\n");
+        rows.Add("\nAvoided cost is a resupply comparison, not a sale profit. Subtract B2 energy, two one-minute crew setups, hauling and capital. Each stage uses 0.02 kWh/kg input with a 0.001 kWh minimum. Terminal rejects cannot be rerun. The executable audit reads content balance; it does not itself register recipes. See [nutrient production](agriculture-nutrient-production.md).\n");
     }
 }

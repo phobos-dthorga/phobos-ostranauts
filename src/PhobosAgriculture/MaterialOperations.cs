@@ -21,6 +21,8 @@ internal static partial class Service
         if (IrrigationDefinitions.IsSupply(co) && action != "load-water" && action != "load-irrigation" && action != "load-nutrients" && action != "drain" && action != "recover-solution") return false;
         try
         {
+            if (WorkupDefinitions.IsBench(co)) return action == "recover-crop" ? QueueWorkup(s,"recover") : action == "formulate-nutrients" && QueueWorkup(s,"formulate");
+            if (action == "recover-crop" || action == "formulate-nutrients") return false;
             if(action=="recover-solution") return QueueRecovery(s);
             if (action == "harvest" || action == "clear") return Harvest(s, action == "clear");
             if (action == "drain")
@@ -63,9 +65,10 @@ internal static partial class Service
         var specs = new List<(string Id, double Kg)>(); var harvest = b.Harvest(clear);
         if (harvest.SeedKg > 0) specs.Add((Definitions.PotatoSeed, harvest.SeedKg));
         for (int n = 0; n < harvest.Portions; n++) specs.Add((b.CropId == "potato" ? Definitions.Raw : b.CropId == "lettuce-seed" ? Definitions.LettuceSeed : Definitions.Leaves, harvest.PortionKg));
-        if (harvest.ResidueKg > 1e-8) specs.Add((Definitions.Residue, harvest.ResidueKg));
+        if (harvest.ResidueKg > 1e-8) specs.Add((b.RecoveryRevision == 1 ? WorkupDefinitions.Residue : Definitions.Residue, harvest.ResidueKg));
         var next = b.Copy(); next.ClearCrop();
-        return Deliver(s, specs, null, next);
+        double nutrient = NutrientRecovery.Allocation(b, harvest.ResidueKg);
+        return Deliver(s, specs, null, next, initialize:(p,id)=> { if(id==WorkupDefinitions.Residue) WriteResidue(p,nutrient); });
     }
     private static void Cook(Session s)
     {
@@ -80,7 +83,7 @@ internal static partial class Service
         return input != null && input.objCOParent == s.Object && input.strCODef == Definitions.Raw && input.coStackHead == null && input.aStack.Count == 0 &&
             input.GetCOsSafe(true).Count == 0 && Math.Abs(input.GetTotalMass() - .4) < 1e-7 ? input : null;
     }
-    private static bool Deliver(Session s, List<(string Id, double Kg)> specs, CondOwner? input, CropState next, NutrientSolution? nextSolution = null, FluidLine? nextLine=null, CondOwner? additionalInput=null, double cartridgeRemaining=0)
+    private static bool Deliver(Session s, List<(string Id, double Kg)> specs, CondOwner? input, CropState next, NutrientSolution? nextSolution = null, FluidLine? nextLine=null, CondOwner? additionalInput=null, double cartridgeRemaining=0, Action<CondOwner,string>? initialize=null)
     {
         var products = new List<CondOwner>(); bool committed = false;
         try
@@ -91,15 +94,17 @@ internal static partial class Service
             foreach (var spec in specs)
             {
                 var product = DataHandler.GetCondOwner(spec.Id); products.Add(product);
-                if (spec.Id == Definitions.Residue || spec.Id == Definitions.Drainage || spec.Id == CharacterizedDrainage || spec.Id == RecoveryReject) product.SetCondAmount("StatMass", spec.Kg);
+                if (spec.Id == Definitions.Residue || spec.Id == Definitions.Drainage || spec.Id == CharacterizedDrainage || spec.Id == RecoveryReject || spec.Id == WorkupDefinitions.Residue || spec.Id == WorkupDefinitions.Concentrate || spec.Id == WorkupDefinitions.Spent || spec.Id == WorkupDefinitions.Mixture || spec.Id == WorkupDefinitions.Makeup) product.SetCondAmount("StatMass", spec.Kg);
                 if(spec.Id==RecoveryCartridge) WriteCartridge(product,cartridgeRemaining);
                 if(spec.Id==CharacterizedDrainage) WriteDrainage(product,new(s.State.Water+s.Solution.Quantity.CarrierKg+s.Line.Quantity.CarrierKg,s.State.Nutrients+s.Solution.Quantity.SoluteKg+s.Line.Quantity.SoluteKg));
+                initialize?.Invoke(product,spec.Id);
                 if (Math.Abs(product.GetTotalMass() - spec.Kg) > 1e-7 || !s.Object.objContainer.AllowedCO(product)) throw new InvalidOperationException("Invalid agriculture product.");
             }
             var grid = s.Object.objContainer.gridLayout; var cells = new bool[grid.gridMaxX, grid.gridMaxY];
             for (int x = 0; x < grid.gridMaxX; x++) for (int y = 0; y < grid.gridMaxY; y++) cells[x, y] = grid.gridID[x, y] != null || grid.gridInventoryItem[x, y] != null;
             var plan = BatchPlacement.Plan(cells, products.Select(p => { var size = GUIInventoryItem.GetWidthHeightForCO(p); return new ItemSize(size.x, size.y); }).ToArray());
             if (plan == null) { s.Notice = Text.Get("full"); return false; }
+            if (!DeliveryStore(s.Object).TryWrite(new Dictionary<string,string>{["state"]="pending"})) throw new InvalidOperationException("Protected material delivery.");
             for (int n = 0; n < products.Count; n++)
             { s.Object.objContainer.AddCOSimple(products[n], new PairXY(plan[n].X, plan[n].Y)); if (products[n].objCOParent != s.Object) throw new InvalidOperationException("Agriculture placement failed."); }
             if (input != null)
@@ -113,6 +118,7 @@ internal static partial class Service
             s.State = next; s.Solution = nextSolution ?? s.Solution; s.Line=nextLine??s.Line; Save(s); committed = true;
             if (input != null) input.Destroy();
             if(additionalInput!=null) additionalInput.Destroy();
+            if (!DeliveryStore(s.Object).TryWrite(new Dictionary<string,string>{["state"]="clear"})) throw new InvalidOperationException("Material delivery journal failed.");
             s.Object.objContainer.Redraw(); s.Notice = Text.Get("done"); return true;
         }
         finally
