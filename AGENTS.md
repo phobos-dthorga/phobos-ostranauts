@@ -186,9 +186,16 @@
   make further work unconvincing. Do not continue merely because effort was spent.
 - Owner authorized public visibility and newcomer documentation on 2026-09-25,
   including the Phobos Scope dependency, and selected MIT for original Scope work.
-  Community contributions use the contributor guide and pull requests. This
-  publication checkpoint is authorized as an ordinary direct push to main.
   Never force-push or change other repositories' visibility implicitly.
+- Owner follow-up (2026-09-25): although this repository is public, Steam
+  publication has not happened yet. For the meantime, maintainer/agent work uses
+  ordinary commits and direct pushes to `main`; do not create PRs or initiate
+  PR review/merge workflows unless the owner explicitly requests one. This
+  supersedes the earlier public-repository PR requirement and skill defaults.
+  Keep appropriate checks and normal Git protections. Continue this policy until
+  the owner changes it; a future Steam release is a reason to revisit it, not
+  permission to silently switch workflows. External contributors may still use
+  forks and PRs as described in CONTRIBUTING.md.
 - Public source availability does not establish gameplay readiness or resolve
   third-party reuse terms. Preserve authorship, notices and provenance, including
   Auto Nav's unverified upstream terms and explicit MIT exclusions. Do not publish

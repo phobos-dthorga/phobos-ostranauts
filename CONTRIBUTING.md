@@ -4,6 +4,12 @@ Questions, documentation fixes, translations, reproducible bug reports and code
 are welcome. Start with [the player introduction](docs/getting-started.md) or
 [developer setup](docs/building.md), depending on what you want to do.
 
+**Temporary maintainer workflow (25 September 2026):** while preparing for Steam
+publication, owner-directed maintainer and agent changes use checked commits and
+ordinary direct pushes to `main`. PRs are not required for that work unless the
+owner asks. This policy remains in effect until the owner revises it. The fork
+and PR instructions below remain available to external contributors.
+
 ## A small, useful contribution
 
 1. Search [existing issues](https://github.com/phobos-dthorga/phobos-ostranauts/issues).
