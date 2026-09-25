@@ -21,6 +21,7 @@ internal static partial class Service
         internal FluidLine Line = new();
         internal string RecoveryInput="", RecoveryFilter="";
         internal double RecoveryEnergy;
+        internal bool RecoveryMetered;
         internal double Last, Received, DeliveredKW, LastPower = double.NegativeInfinity;
         internal bool Protected, Routed;
         internal string Notice = "";
@@ -31,7 +32,7 @@ internal static partial class Service
     {
         // Native damage/repair modes retain ID/property maps, but rebuild dry mass.
         var next = new Session { Object = replacement, Store = new ObjectStateStore(replacement.mapGUIPropMaps, "Agriculture", Plugin.Id, 1),
-            State = previous.State.Copy(), Solution = previous.Solution.Copy(), Line=previous.Line.Copy(), RecoveryInput=previous.RecoveryInput, RecoveryFilter=previous.RecoveryFilter, RecoveryEnergy=previous.RecoveryEnergy, Protected = previous.Protected, Routed = previous.Routed, Last = StarSystem.fEpoch, Notice = Text.Get("paused") };
+            State = previous.State.Copy(), Solution = previous.Solution.Copy(), Line=previous.Line.Copy(), RecoveryInput=previous.RecoveryInput, RecoveryFilter=previous.RecoveryFilter, RecoveryEnergy=previous.RecoveryEnergy, RecoveryMetered=previous.RecoveryMetered, Protected = previous.Protected, Routed = previous.Routed, Last = StarSystem.fEpoch, Notice = Text.Get("paused") };
         next.State.Running = next.State.Receiving = false;
         sessions[replacement.strID] = next;
         if (!next.Protected) Save(next);
@@ -174,7 +175,7 @@ internal static partial class Service
         message = Access(co, binding) ?? ""; if (message.Length > 0) return false;
         if (action == "status") { message = Describe(co); return true; }
         var s = Get(co); if (s.Protected || WaterGuard(co).Protected || !Definitions.Ready) { message = Text.Get("protected"); return false; }
-        if(action=="cancel-recovery" && IrrigationDefinitions.IsSupply(co) && Paused(s)) {s.RecoveryInput=s.RecoveryFilter="";s.RecoveryEnergy=0;Save(s);message=Describe(co);return true;}
+        if(action=="cancel-recovery" && IrrigationDefinitions.IsSupply(co) && Paused(s)) {s.RecoveryInput=s.RecoveryFilter="";s.RecoveryEnergy=0;s.RecoveryMetered=false;Save(s);message=Describe(co);return true;}
         if (SolutionCommand(s, action, out message) is bool solutionHandled) return solutionHandled;
         if (WaterCommand(s, action, out message) is bool handled) return handled;
         if (Definitions.Work.Contains(action))

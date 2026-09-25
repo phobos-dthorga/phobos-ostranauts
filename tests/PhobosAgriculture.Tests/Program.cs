@@ -6,7 +6,7 @@ int checks = 0;
 void Check(bool value, string message) { if (!value) throw new Exception(message); checks++; }
 void Near(double actual, double expected, string message) => Check(Math.Abs(actual - expected) < 1e-7, message + $": {actual} vs {expected}");
 CropState New(Crop c) { var s = new CropState { Water = 20, Nutrients = .5 }; s.Plant(c, 1); return s; }
-foreach (var crop in new[] { Crop.Potato, Crop.Lettuce })
+foreach (var crop in new[] { Crop.Potato, Crop.Lettuce, Crop.LettuceSeed })
 {
     var s = New(crop); double energy = 0, oxygen = 0;
     for (int hour = 0; hour < crop.Hours; hour++)
@@ -40,9 +40,9 @@ var savedFields = fine.Save(); savedFields["health"] = "NaN"; bool rejected = fa
 var savedCooker = new CropState { CookerInput = "exact-portion", CookerProgress = .025, Running = true };
 var loadedCooker = CropState.Read(savedCooker.Save()); Check(loadedCooker.CookerInput == "exact-portion" && loadedCooker.CookerProgress == .025 && !loadedCooker.Running, "Cooking reload retains exact input and partial energy, requiring Resume");
 var carbonLimited = New(Crop.Potato); var carbonExchange = carbonLimited.Step(1, .75, 0, 10, true); Near(carbonLimited.Progress, 0, "Missing atmospheric carbon prevents food production"); Check(carbonExchange.OxygenKg <= 0, "No photosynthetic oxygen from a timer");
-foreach (var crop in new[] { Crop.Potato, Crop.Lettuce })
+foreach (var crop in new[] { Crop.Potato, Crop.Lettuce, Crop.LettuceSeed })
 {
-    var visual = New(crop); string prefix = crop == Crop.Potato ? "Rack-Potato-" : "Rack-Lettuce-";
+    var visual = New(crop); string prefix = crop == Crop.Potato ? "Rack-Potato-" : crop == Crop.LettuceSeed ? "Rack-LettuceSeed-" : "Rack-Lettuce-";
     foreach (var stage in new[] { (0d, "sprout"), (.1499, "sprout"), (.15, "young"), (.4499, "young"), (.45, "mature"), (.999, "mature"), (1d, "harvest") })
     {
         visual.Progress = stage.Item1;

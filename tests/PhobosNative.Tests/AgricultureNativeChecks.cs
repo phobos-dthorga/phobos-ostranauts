@@ -47,7 +47,7 @@ internal static class AgricultureNativeChecks
             }
         }
         // Check assets selected by the shared panel/world policy, not just base definitions.
-        foreach (string crop in new[] { "Potato", "Lettuce" })
+        foreach (string crop in new[] { "Potato", "Lettuce", "LettuceSeed" })
         foreach (string stage in new[] { "sprout", "young", "mature", "harvest", "wilted", "dead" })
         foreach (string suffix in new[] { "", "Normal" })
         {
@@ -95,6 +95,12 @@ internal static class AgricultureNativeChecks
         check(Math.Abs(Mass(irrigation.strName) - PhobosAgriculture.Definitions.IrrigationKg) < 1e-7, "Irrigation transfer uses the physical commodity mass");
         check(!DataHandler.dictCTs["TIsWater"].TriggeredDataCO(new DataCO(irrigation), false), "Root-water charge cannot impersonate native drinking water");
         check(!irrigation.aStartingConds.Any(c => c.StartsWith("IsEdible=") || c.StartsWith("IsHydrator=")), "Irrigation cannot grant food or hydration");
+        foreach(string form in new[]{"InstalledDmg","LooseDmg"})
+        {
+            var bill=d.Installables[PhobosAgriculture.IrrigationDefinitions.Pipe+form+"Repair"].aInputs;
+            check(bill.Length==1 && bill[0]=="TIsScrapAluminum=1x1", "Pipe repair avoids a mechanical-part bill greater than replacement price");
+            check(d.Objects[PhobosAgriculture.Definitions.Rack+"Installed"].aInteractions.Contains(PhobosAgriculture.Definitions.WorkId("plant-lettuce-seed")), "Seed planting uses native local crew work");
+        }
         var pipe = d.Items[PhobosAgriculture.IrrigationDefinitions.Pipe + "Installed"];
         var pipeAdds = d.Loot[pipe.aSocketAdds.Single()];
         check(pipe.bHasSpriteSheet && d.Triggers.ContainsKey(pipe.ctSpriteSheet), "Pipe uses native cardinal auto-tiling with its own trigger");

@@ -7,7 +7,7 @@ internal static class SolutionChecks
     internal static void Run(Action<bool,string> check)
     {
         void Near(double a,double b,string message)=>check(Math.Abs(a-b)<1e-8,message);
-        foreach(var pair in new[]{(Crop.Potato,NutrientSolution.Potato),(Crop.Lettuce,NutrientSolution.Lettuce)})
+        foreach(var pair in new[]{(Crop.Potato,NutrientSolution.Potato),(Crop.Lettuce,NutrientSolution.Lettuce),(Crop.LettuceSeed,NutrientSolution.LettuceSeed)})
         {
             var c=pair.Item1; var stock=new CropState{Water=c.Water,Nutrients=c.Nutrient};
             var mix=new NutrientSolution{Profile=pair.Item2};

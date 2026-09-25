@@ -1,19 +1,57 @@
 {
-  "revision": 3,
+  "revision": 4,
   "registration": "Top-left pixel coordinates, whole source canvas, centered native pivot; all plant stages retain the same 64x64 source canvas. Four tray pictures represent one rack cohort, not four separately simulated crops.",
   "rack": {
     "source": "firstlight-rack-v2.png",
     "nativeSize": 64,
     "plantSize": 16,
-    "plantCenters": [[21, 21], [42, 21], [21, 42], [42, 42]],
-    "waterInlet": { "source": "groundwork-pipe-cross.png", "sourceCrop": [7,7,57,57], "part": [8,5,13,11], "origin": [0,21] }
+    "plantCenters": [
+      [
+        21,
+        21
+      ],
+      [
+        42,
+        21
+      ],
+      [
+        21,
+        42
+      ],
+      [
+        42,
+        42
+      ]
+    ],
+    "waterInlet": {
+      "source": "groundwork-pipe-cross.png",
+      "sourceCrop": [
+        7,
+        7,
+        57,
+        57
+      ],
+      "part": [
+        8,
+        5,
+        13,
+        11
+      ],
+      "origin": [
+        0,
+        21
+      ]
+    }
   },
   "cooker": {
     "source": "hearth-counter-v2.png",
     "nativeSize": 32,
     "applianceSource": "cookerRetry.png",
     "applianceSize": 16,
-    "applianceOrigin": [5, 5]
+    "applianceOrigin": [
+      5,
+      5
+    ]
   },
   "plants": {
     "Potato-sprout": "edit_sprout.png",
@@ -27,6 +65,12 @@
     "Lettuce-mature": "lettuce-mature.png",
     "Lettuce-harvest": "lettuce-harvest.png",
     "Lettuce-wilted": "lettuce-wilted-final.png",
-    "Lettuce-dead": "lettuce-dead.png"
+    "Lettuce-dead": "lettuce-dead.png",
+    "LettuceSeed-sprout": "lettuce-sprout.png",
+    "LettuceSeed-young": "lettuce-young.png",
+    "LettuceSeed-mature": "lettuce-bolting-v2.png",
+    "LettuceSeed-harvest": "lettuce-seed-v2.png",
+    "LettuceSeed-wilted": "lettuce-wilted-final.png",
+    "LettuceSeed-dead": "lettuce-dead.png"
   }
 }

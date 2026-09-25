@@ -713,6 +713,348 @@
     "normalSHA256": "a42d5669b29567becb36ec7c3d51b37753c1afd235501aae677b478be9f35c7c"
   },
   {
+    "name": "LettuceSeed-sprout",
+    "inputs": [
+      {
+        "source": "assets/phobos-agriculture/source/lettuce-sprout.png",
+        "sourceSHA256": "d8b568ccbccdc4c293952a6fba9a42dda498a2e5cdc1854da80e95d942d699f5",
+        "canvas": [
+          64,
+          64
+        ]
+      }
+    ],
+    "export": [
+      16,
+      16
+    ],
+    "sampling": "nearest; alpha composite registered layers",
+    "layout": "assets/phobos-agriculture/layers.json",
+    "exportSHA256": "fd152e5bf04ac916aede7214eefaf4cab01005cbf8448f5e14df3ae99bf5ed95"
+  },
+  {
+    "name": "Rack-LettuceSeed-sprout",
+    "inputs": [
+      {
+        "source": "assets/phobos-agriculture/source/firstlight-rack-v2.png",
+        "sourceSHA256": "300d78df654d45b8ca775415b3f3eecf8be5577f3f6d7f74cdcdfa9449a6cefa",
+        "canvas": [
+          1254,
+          1254
+        ]
+      },
+      {
+        "source": "assets/phobos-agriculture/source/groundwork-pipe-cross.png",
+        "sourceSHA256": "b01dfcbf7c1a80b61f06da1331a78734c5119b7ae175d0cc7697c5efe4411be1",
+        "canvas": [
+          64,
+          64
+        ]
+      },
+      {
+        "source": "assets/phobos-agriculture/source/lettuce-sprout.png",
+        "sourceSHA256": "d8b568ccbccdc4c293952a6fba9a42dda498a2e5cdc1854da80e95d942d699f5",
+        "canvas": [
+          64,
+          64
+        ]
+      }
+    ],
+    "export": [
+      64,
+      64
+    ],
+    "sampling": "nearest; alpha composite registered layers",
+    "layout": "assets/phobos-agriculture/layers.json",
+    "exportSHA256": "943e488f98195c1b2ea650a26270278e85237f27a8ff47579d8de95a26b564f1",
+    "normalSHA256": "78aed9f43fc1d88415b83bd177493314d8e50a87af571df756a5837931136492"
+  },
+  {
+    "name": "LettuceSeed-young",
+    "inputs": [
+      {
+        "source": "assets/phobos-agriculture/source/lettuce-young.png",
+        "sourceSHA256": "c573221bc32cbfd71d4db2162c071cc53d16df7bd9b10d851da39e92addbbb1f",
+        "canvas": [
+          64,
+          64
+        ]
+      }
+    ],
+    "export": [
+      16,
+      16
+    ],
+    "sampling": "nearest; alpha composite registered layers",
+    "layout": "assets/phobos-agriculture/layers.json",
+    "exportSHA256": "de63b21ae1b3982e64e4241316dd35ad7132d1331245abf4d1e57661d9b07759"
+  },
+  {
+    "name": "Rack-LettuceSeed-young",
+    "inputs": [
+      {
+        "source": "assets/phobos-agriculture/source/firstlight-rack-v2.png",
+        "sourceSHA256": "300d78df654d45b8ca775415b3f3eecf8be5577f3f6d7f74cdcdfa9449a6cefa",
+        "canvas": [
+          1254,
+          1254
+        ]
+      },
+      {
+        "source": "assets/phobos-agriculture/source/groundwork-pipe-cross.png",
+        "sourceSHA256": "b01dfcbf7c1a80b61f06da1331a78734c5119b7ae175d0cc7697c5efe4411be1",
+        "canvas": [
+          64,
+          64
+        ]
+      },
+      {
+        "source": "assets/phobos-agriculture/source/lettuce-young.png",
+        "sourceSHA256": "c573221bc32cbfd71d4db2162c071cc53d16df7bd9b10d851da39e92addbbb1f",
+        "canvas": [
+          64,
+          64
+        ]
+      }
+    ],
+    "export": [
+      64,
+      64
+    ],
+    "sampling": "nearest; alpha composite registered layers",
+    "layout": "assets/phobos-agriculture/layers.json",
+    "exportSHA256": "97b000dffdd3daed606fe5c94e72bb18d9f3816dba9d76b5adc09bfc068a54e6",
+    "normalSHA256": "53604527174b2a21c46b1d6770d00e58509a120a7eca17574dab68dcad38cdf5"
+  },
+  {
+    "name": "LettuceSeed-mature",
+    "inputs": [
+      {
+        "source": "assets/phobos-agriculture/source/lettuce-bolting-v2.png",
+        "sourceSHA256": "9c41f127d0ee492daeb19388312a3756d2ac934b961beaa4460764d681ef0849",
+        "canvas": [
+          64,
+          64
+        ]
+      }
+    ],
+    "export": [
+      16,
+      16
+    ],
+    "sampling": "nearest; alpha composite registered layers",
+    "layout": "assets/phobos-agriculture/layers.json",
+    "exportSHA256": "f1fa33acdc5c8a0b837879f87ffc1166b5907f4a191a59d9885a6d19596f5650"
+  },
+  {
+    "name": "Rack-LettuceSeed-mature",
+    "inputs": [
+      {
+        "source": "assets/phobos-agriculture/source/firstlight-rack-v2.png",
+        "sourceSHA256": "300d78df654d45b8ca775415b3f3eecf8be5577f3f6d7f74cdcdfa9449a6cefa",
+        "canvas": [
+          1254,
+          1254
+        ]
+      },
+      {
+        "source": "assets/phobos-agriculture/source/groundwork-pipe-cross.png",
+        "sourceSHA256": "b01dfcbf7c1a80b61f06da1331a78734c5119b7ae175d0cc7697c5efe4411be1",
+        "canvas": [
+          64,
+          64
+        ]
+      },
+      {
+        "source": "assets/phobos-agriculture/source/lettuce-bolting-v2.png",
+        "sourceSHA256": "9c41f127d0ee492daeb19388312a3756d2ac934b961beaa4460764d681ef0849",
+        "canvas": [
+          64,
+          64
+        ]
+      }
+    ],
+    "export": [
+      64,
+      64
+    ],
+    "sampling": "nearest; alpha composite registered layers",
+    "layout": "assets/phobos-agriculture/layers.json",
+    "exportSHA256": "933fe6feff0cb0851f0d9b908b417758565b6a74f70feb512bab904cd33bbc67",
+    "normalSHA256": "521bc3720657a2ddc9e131315a4eb83a7b812dca3258125689acefbb8123a831"
+  },
+  {
+    "name": "LettuceSeed-harvest",
+    "inputs": [
+      {
+        "source": "assets/phobos-agriculture/source/lettuce-seed-v2.png",
+        "sourceSHA256": "66da12b80d049d63b13409e01bcd67707d0037a4b1dc698931d931c895bf9399",
+        "canvas": [
+          64,
+          64
+        ]
+      }
+    ],
+    "export": [
+      16,
+      16
+    ],
+    "sampling": "nearest; alpha composite registered layers",
+    "layout": "assets/phobos-agriculture/layers.json",
+    "exportSHA256": "4f0043d3173f5b4d533d6dcfffa0b45996d3828c7ee22e572314c10499962ccc"
+  },
+  {
+    "name": "Rack-LettuceSeed-harvest",
+    "inputs": [
+      {
+        "source": "assets/phobos-agriculture/source/firstlight-rack-v2.png",
+        "sourceSHA256": "300d78df654d45b8ca775415b3f3eecf8be5577f3f6d7f74cdcdfa9449a6cefa",
+        "canvas": [
+          1254,
+          1254
+        ]
+      },
+      {
+        "source": "assets/phobos-agriculture/source/groundwork-pipe-cross.png",
+        "sourceSHA256": "b01dfcbf7c1a80b61f06da1331a78734c5119b7ae175d0cc7697c5efe4411be1",
+        "canvas": [
+          64,
+          64
+        ]
+      },
+      {
+        "source": "assets/phobos-agriculture/source/lettuce-seed-v2.png",
+        "sourceSHA256": "66da12b80d049d63b13409e01bcd67707d0037a4b1dc698931d931c895bf9399",
+        "canvas": [
+          64,
+          64
+        ]
+      }
+    ],
+    "export": [
+      64,
+      64
+    ],
+    "sampling": "nearest; alpha composite registered layers",
+    "layout": "assets/phobos-agriculture/layers.json",
+    "exportSHA256": "54cbf6ff6f7d8aaea79381a6778ffe6147e318fd01d7e5322d88aabd0150390b",
+    "normalSHA256": "2dc9dcfb05a5ba1ba5eefbb1687bf34a47154eb87005392ba7590201fafdbf25"
+  },
+  {
+    "name": "LettuceSeed-wilted",
+    "inputs": [
+      {
+        "source": "assets/phobos-agriculture/source/lettuce-wilted-final.png",
+        "sourceSHA256": "bb5b54a80e356eee6198f4a2c47b05fea1e4ef5eb3bfcdc677d431da72377b19",
+        "canvas": [
+          64,
+          64
+        ]
+      }
+    ],
+    "export": [
+      16,
+      16
+    ],
+    "sampling": "nearest; alpha composite registered layers",
+    "layout": "assets/phobos-agriculture/layers.json",
+    "exportSHA256": "681d38824469df9a852eb2a47c0fc633aabfdb3111d340155ddbf312b2cf8242"
+  },
+  {
+    "name": "Rack-LettuceSeed-wilted",
+    "inputs": [
+      {
+        "source": "assets/phobos-agriculture/source/firstlight-rack-v2.png",
+        "sourceSHA256": "300d78df654d45b8ca775415b3f3eecf8be5577f3f6d7f74cdcdfa9449a6cefa",
+        "canvas": [
+          1254,
+          1254
+        ]
+      },
+      {
+        "source": "assets/phobos-agriculture/source/groundwork-pipe-cross.png",
+        "sourceSHA256": "b01dfcbf7c1a80b61f06da1331a78734c5119b7ae175d0cc7697c5efe4411be1",
+        "canvas": [
+          64,
+          64
+        ]
+      },
+      {
+        "source": "assets/phobos-agriculture/source/lettuce-wilted-final.png",
+        "sourceSHA256": "bb5b54a80e356eee6198f4a2c47b05fea1e4ef5eb3bfcdc677d431da72377b19",
+        "canvas": [
+          64,
+          64
+        ]
+      }
+    ],
+    "export": [
+      64,
+      64
+    ],
+    "sampling": "nearest; alpha composite registered layers",
+    "layout": "assets/phobos-agriculture/layers.json",
+    "exportSHA256": "1649fb6faa450ad08f08bf50ff1d97f35cb34bec93d43622f89afc223bfeb6a6",
+    "normalSHA256": "06b401cf8d5efc053b2fe9bf057894f2aca86fa580a9977456d66e83c93b5a65"
+  },
+  {
+    "name": "LettuceSeed-dead",
+    "inputs": [
+      {
+        "source": "assets/phobos-agriculture/source/lettuce-dead.png",
+        "sourceSHA256": "9e6a5530aa68ba7e4906f8c323466782704037d3157b6ae29ae1ce0c55ab4010",
+        "canvas": [
+          64,
+          64
+        ]
+      }
+    ],
+    "export": [
+      16,
+      16
+    ],
+    "sampling": "nearest; alpha composite registered layers",
+    "layout": "assets/phobos-agriculture/layers.json",
+    "exportSHA256": "e242c9f833393c7af0757e22375a2821f87ec70e3d6ec025fc1b2fffce23acef"
+  },
+  {
+    "name": "Rack-LettuceSeed-dead",
+    "inputs": [
+      {
+        "source": "assets/phobos-agriculture/source/firstlight-rack-v2.png",
+        "sourceSHA256": "300d78df654d45b8ca775415b3f3eecf8be5577f3f6d7f74cdcdfa9449a6cefa",
+        "canvas": [
+          1254,
+          1254
+        ]
+      },
+      {
+        "source": "assets/phobos-agriculture/source/groundwork-pipe-cross.png",
+        "sourceSHA256": "b01dfcbf7c1a80b61f06da1331a78734c5119b7ae175d0cc7697c5efe4411be1",
+        "canvas": [
+          64,
+          64
+        ]
+      },
+      {
+        "source": "assets/phobos-agriculture/source/lettuce-dead.png",
+        "sourceSHA256": "9e6a5530aa68ba7e4906f8c323466782704037d3157b6ae29ae1ce0c55ab4010",
+        "canvas": [
+          64,
+          64
+        ]
+      }
+    ],
+    "export": [
+      64,
+      64
+    ],
+    "sampling": "nearest; alpha composite registered layers",
+    "layout": "assets/phobos-agriculture/layers.json",
+    "exportSHA256": "a1689bac26a235bfb4e43a95f23beb16c78e94699505396a7ffd90d89b9f7e01",
+    "normalSHA256": "a42d5669b29567becb36ec7c3d51b37753c1afd235501aae677b478be9f35c7c"
+  },
+  {
     "name": "Counter",
     "inputs": [
       {

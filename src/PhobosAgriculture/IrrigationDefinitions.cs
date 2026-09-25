@@ -11,6 +11,7 @@ internal static class IrrigationDefinitions
     internal const string Segment = "PhobosWaterConduitPresent", WorkingSegment = "PhobosWaterConduitIntact";
     internal const string Outlet = "PhobosWaterOut", Inlet = "PhobosWaterIn";
     internal const double DryKg = 20, CapacityKg = 20, Price = 250, PipeKg = 1, PipePrice = 2;
+    private const double SupplyRepairProgress = 1800, PipeRepairProgress = 120;
     internal const double RateKgPerSecond = .05, EnergyKWhPerKg = .001;
     internal const double PumpKW = RateKgPerSecond * EnergyKWhPerKg * 3600;
     internal static bool IsSupply(CondOwner co) => co.strCODef.StartsWith(Supply, StringComparison.Ordinal);
@@ -22,6 +23,11 @@ internal static class IrrigationDefinitions
             var co = d.Objects[Supply + form];
             co.mapPoints = co.mapPoints.Concat(new[] { Outlet + ",24,8" }).ToArray();
             co.strContainerCT = Definitions.Rack + "Supplies";
+            if (form.EndsWith("Dmg"))
+            {
+                d.Installables[co.strName + "Repair"].aInputs = new[] { "TIsPartsMechSmall=1x1", "TIsPartsElecSmall=1x1", "TIsScrapAluminum=1x1" };
+                MaintenanceDefinitions.SetStat(co, "StatRepairProgressMax", SupplyRepairProgress);
+            }
             if (form == "Installed") co.aInteractions = co.aInteractions.Concat(new[] { "load-water", "load-irrigation", "load-nutrients", "recover-solution", "drain" }.Select(Definitions.WorkId)).ToArray();
             string waste = Supply + (form.EndsWith("Dmg") ? "Broken" : "") + "HousingWaste";
             int scraps = form.EndsWith("Dmg") ? 1 : 4;
@@ -56,6 +62,11 @@ internal static class IrrigationDefinitions
         {
             bool installed = form.StartsWith("Installed"), damaged = form.EndsWith("Dmg");
             var co = d.Objects[Pipe + form]; var item = d.Items[co.strItemDef];
+            if (damaged)
+            {
+                d.Installables[co.strName + "Repair"].aInputs = new[] { "TIsScrapAluminum=1x1" };
+                MaintenanceDefinitions.SetStat(co, "StatRepairProgressMax", PipeRepairProgress);
+            }
             co.jsonPI = null; co.aTickers = Array.Empty<string>(); co.aInteractions = Array.Empty<string>();
             co.mapPoints = new[] { "use,0,-16" };
             co.aStartingConds = co.aStartingConds.Where(x => !x.StartsWith("IsContainer=") && !x.StartsWith("IsCumbersome=")).Concat(new[] { "IsPocketable=1x1" }).ToArray();

@@ -11,8 +11,10 @@ public sealed class Crop
     public readonly double Hours, KW, Seed, Final, Carbon, Nutrient, Water, Vapour, SeedCarbon;
     public Crop(string id, double hours, double kw, double seed, double final, double carbon, double nutrient, double water, double vapour, double seedCarbon)
     { Id = id; Hours = hours; KW = kw; Seed = seed; Final = final; Carbon = carbon; Nutrient = nutrient; Water = water; Vapour = vapour; SeedCarbon = seedCarbon; }
-    public static Crop Get(string id) => id == "potato" ? Potato : id == "lettuce" ? Lettuce : throw new ArgumentException("Unknown crop profile.");
+    public static Crop Get(string id) => id == "potato" ? Potato : id == "lettuce" ? Lettuce : id == "lettuce-seed" ? LettuceSeed : throw new ArgumentException("Unknown crop profile.");
     public static readonly Crop Potato = new("potato", 96, .75, .2, 5, .84, .04, 4.624, .2, .04);
+    // Authored seed-production cycle: separate from the historic food cohort.
+    public static readonly Crop LettuceSeed = new("lettuce-seed", 96, .4, .005, 1.2, .0725, .01, 1.356, .2, .0045);
     public static readonly Crop Lettuce = new("lettuce", 48, .4, .005, 1.2, .0605, .005, 1.2658, .1, .0045);
 }
 
@@ -30,9 +32,9 @@ public sealed class CropState
     {
         if (CropId.Length == 0 || !clear && !Ready) throw new InvalidOperationException("No harvestable cohort.");
         bool potato = CropId == "potato";
-        double edible = clear ? 0 : Biomass * (potato ? 4.2 / 5 : 1 / 1.2) * Health;
+        double edible = clear ? 0 : Biomass * (potato ? 4.2 / 5 : CropId == "lettuce-seed" ? .02 / 1.2 : 1 / 1.2) * Health;
         double seed = potato && edible >= .2 ? .2 : 0;
-        double portion = potato ? .4 : .25;
+        double portion = potato ? .4 : CropId == "lettuce-seed" ? Crop.LettuceSeed.Seed : .25;
         int count = (int)Math.Floor((edible - seed + 1e-8) / portion);
         return new HarvestBudget(seed, count, portion, Math.Max(0, Biomass - seed - count * portion));
     }

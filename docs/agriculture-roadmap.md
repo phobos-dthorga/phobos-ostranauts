@@ -1,5 +1,9 @@
 # Phobos Agriculture: endurance roadmap
 
+Agriculture 0.7.0 adds [lettuce seed production](agriculture-seed-production.md) and
+[maintenance/treatment economics](agriculture-treatment-economy.md). Existing food
+crops and already bound treatment jobs retain their previous contracts.
+
 Current extension: [fluid-network operations](fluid-network-operations.md) documents Agriculture 0.6.0 / Framework 0.20.0 fan-out, line contents, treatment and optional Shipbreaker 0.17.0 coolant servicing. Earlier version-specific sections below retain their baseline scope.
 
 **25 September 2026.** Round 1 now has an [implementation candidate](agriculture-implementation.md);

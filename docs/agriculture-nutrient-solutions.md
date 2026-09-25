@@ -32,7 +32,7 @@ one W2 to one Firstlight-4 rack. Keep one supply unit per connected circuit.
    water and dry nutrients remain usable at the rack.
 
 The local panel, F3 and optional C1 access call the same checked service. The
-formulation actions are `mix-potato`, `mix-lettuce` and `water-only`; existing
+formulation actions are `mix-potato`, `mix-lettuce`, `mix-lettuce-seed` and `water-only`; existing
 pairing, start/pause, receiving and drain actions retain their meanings. Operation
 and receiving remain paused after reload and require explicit resumption.
 
@@ -111,3 +111,5 @@ and full crop growth with original yields. Owner gameplay checks should cover
 both crop formulations, manual top-ups, a full destination, a broken pipe,
 power loss, drain/switch, and save/reload during an active circuit. Builds and
 offline checks do not establish Unity behavior or gameplay readiness.
+
+Agriculture 0.7.0 adds a separate [lettuce seed-production feed](agriculture-seed-production.md). It is incompatible with food-lettuce feed; existing profiles remain unchanged.

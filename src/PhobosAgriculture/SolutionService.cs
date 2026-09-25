@@ -18,11 +18,11 @@ internal static partial class Service
     private static bool? SolutionCommand(Session s, string action, out string message)
     {
         message = "";
-        if (action != "mix-potato" && action != "mix-lettuce" && action != "water-only") return null;
+        if (action != "mix-potato" && action != "mix-lettuce" && action != "mix-lettuce-seed" && action != "water-only") return null;
         if (!IrrigationDefinitions.IsSupply(s.Object) || !Paused(s) || !NativeFluidRoute.EndpointReady(s.Object) ||
             WaterBank(s.Object).Occupied || s.Solution.TotalKg > NutrientSolution.Tolerance)
         { message = Text.Get("solution_switch"); return false; }
-        string profile = action == "mix-potato" ? NutrientSolution.Potato : action == "mix-lettuce" ? NutrientSolution.Lettuce : NutrientSolution.None;
+        string profile = action == "mix-potato" ? NutrientSolution.Potato : action == "mix-lettuce" ? NutrientSolution.Lettuce : action == "mix-lettuce-seed" ? NutrientSolution.LettuceSeed : NutrientSolution.None;
         if (profile != NutrientSolution.None && s.State.Water > CropState.ReservoirKg - CropState.NutrientCapacityKg)
         { message = Text.Get("solution_headroom"); return false; }
         s.Solution.Profile = profile; Save(s); message = Describe(s.Object); return true;

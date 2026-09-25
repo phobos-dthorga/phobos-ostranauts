@@ -1,5 +1,9 @@
 # Phobos Agriculture
 
+Agriculture 0.7.0 adds [lettuce seed production](agriculture-seed-production.md) and
+[maintenance/treatment economics](agriculture-treatment-economy.md). Existing food
+crops and already bound treatment jobs retain their previous contracts.
+
 Current extension: [fluid-network operations](fluid-network-operations.md) documents Agriculture 0.6.0 / Framework 0.20.0 fan-out, line contents, treatment and optional Shipbreaker 0.17.0 coolant servicing. Earlier version-specific sections below retain their baseline scope.
 
 Agriculture **0.6.1** adds dedicated sprites for all twelve cultivation and treatment
@@ -10,11 +14,11 @@ are unchanged. The sprouted potato is planting stock; the unsprouted group is ra
 food. Green packets contain lettuce seeds and orange-banded packets nutrients.
 See the [item-art manifest](../assets/phobos-agriculture/stock-layers.json) and
 [artwork notes](../assets/phobos-agriculture/README.md). In-game appearance still
-needs owner evaluation. Lettuce harvests still do not produce replacement seed.
+needs owner evaluation. Food-lettuce harvests do not produce seed; choose the separate seed-production cycle.
 
 First gameplay candidate, prepared on 25 September 2026. Requires **Phobos
 Framework 0.20.0**. The offline checks pass; the owner still needs to evaluate
-the complete loop in Ostranauts. Packages are prepared, not installed.
+the complete loop in Ostranauts. Local installation status is reported separately; a successful build is not gameplay validation.
 
 Agriculture 0.4.0 adds the optional **Groundwork W2 water supply unit and placed
 irrigation conduits**. See the [water-conduit guide](agriculture-water-conduits.md)
@@ -99,8 +103,9 @@ Lettuce's harvest-ready image depicts food leaves, not seed production.
 
 Delays and respiration reduce biomass, and damage reduces edible output. Whole
 portion rounding can reduce a delayed harvest by one portion; the remainder stays
-in residue, never disappears. Lettuce harvests currently give **no replacement
-seed**. Buy more seed until its separate reproductive lifecycle is implemented.
+in residue, never disappears. Food lettuce gives no replacement seed. Select
+**Plant lettuce for seed** on an empty rack for the separate 96-hour reproductive
+cycle: four seed packets and retained residue at full health, with no food leaves.
 
 The Hearth-2 cooks **one 0.4 kg portion per Start**, at 2 kW for 90 seconds at full
 supply. Load raw potatoes, start, then collect the cooked portion. Partial supply
@@ -127,7 +132,7 @@ without Agriculture commanding flight.
 
 Local F3 equivalents: `phobosagriculture list`, then
 `phobosagriculture status <full object ID>`. Replace `status` with `start`, `pause`,
-`receive`, `pause-receive`, `plant-potato`, `plant-lettuce`, `load-water`,
+`receive`, `pause-receive`, `plant-potato`, `plant-lettuce`, `plant-lettuce-seed`, `load-water`,
 `load-nutrients`, `harvest`, `clear`, `drain` or cooker `cancel`.
 F3 uses ordinary access and resource checks.
 
@@ -141,7 +146,8 @@ Continuous shortages have a two-hour grace, then progressive stress. Restoring
 conditions stops further stress but does not magically restore lost health.
 
 Clear failed crops into retained residue; Drain unloads water plus unused nutrients
-as non-potable process solution. Neither has a recovery recipe yet. Empty physical
+as recorded non-potable process solution eligible for W2 treatment. Crop residue
+has no recovery recipe. Empty physical
 inventory and numeric contents before uninstalling/dismantling; cancel cooking
 progress first. Ordinary repair/Restore use native maintenance. Dismantling returns a bounded mix of native parts/materials and retained housing
 waste; see the condition-specific recovery bills below.

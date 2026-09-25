@@ -17,6 +17,26 @@ internal static class RecoveryChecks
             check(recovered.CarrierKg<=q.CarrierKg&&recovered.SoluteKg<=q.SoluteKg,"Neither recovered component exceeds measured stock");
             var second=DrainageRecovery.Recover(recovered);check(second.TotalKg<recovered.TotalKg,"Repeated eligible use cannot increase recovered matter");
         }
+        check(!job.Metered,"Historic treatment binding retains whole-cartridge consumption");
+        check(RecoveryWork.Read(RecoveryWork.Save("input","filter",.02,true)).Metered,"Metered contract survives reload");
+        double remaining=TreatmentCartridge.CapacityKg;
+        foreach(double batch in new[]{.25,4.75,10d,10d})
+        {
+            double before=remaining, mass=TreatmentCartridge.Mass(before);
+            remaining=TreatmentCartridge.Spend(before,batch);
+            var input=new LiquidMixture(batch*.99,batch*.01);
+            double returned=TreatmentCartridge.Mass(remaining), used=mass-returned;
+            double recovered=DrainageRecovery.Recover(input).TotalKg;
+            double rejects=input.TotalKg+used-recovered;
+            check(Math.Abs(recovered+rejects+returned-input.TotalKg-mass)<1e-9,"Partial treatment conserves water, nutrients and medium");
+            check(Math.Abs(used-batch*.002)<1e-9,"Treatment cost follows drainage quantity, not packet count");
+            if(remaining>0) check(TreatmentCartridge.Read(TreatmentCartridge.Save(remaining),returned)==remaining,"Partial physical cartridge reload retains capacity");
+            check(Math.Abs(TreatmentCartridge.Price(before)-TreatmentCartridge.Price(remaining)-batch)<1e-9,"Returned cartridge value scales with remaining capacity");
+        }
+        check(remaining==0,"Finite cartridge exhausts after its rated workload");
+        bool invalid=false;try{TreatmentCartridge.Spend(1,1.01);}catch(ArgumentException){invalid=true;}check(invalid,"Undersized cartridge cannot treat a whole batch");
+        invalid=false;try{TreatmentCartridge.Read(TreatmentCartridge.Save(5),.05);}catch(ArgumentException){invalid=true;}check(invalid,"Capacity and physical mass mismatch fails closed");
+        invalid=false;try{var future=RecoveryWork.Save("input","filter",0,true);future["mode"]="future";RecoveryWork.Read(future);}catch(ArgumentException){invalid=true;}check(invalid,"Unknown treatment contracts are protected");
         bool rejected=false;try{DrainageRecovery.Read(new System.Collections.Generic.Dictionary<string,string>(),1);}catch{rejected=true;}check(rejected,"Historic unrecorded drainage is never assigned an assay");
         rejected=false;try{DrainageRecovery.Read(DrainageRecovery.Save(new(1,.01)),5);}catch{rejected=true;}check(rejected,"Physical mass mismatch rejects treatment");
     }

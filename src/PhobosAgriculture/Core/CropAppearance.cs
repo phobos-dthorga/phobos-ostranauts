@@ -7,7 +7,7 @@ public static class CropAppearance
 
     public static string PlantKey(CropState state)
     {
-        string crop = state.CropId == "potato" ? "Potato" : state.CropId == "lettuce" ? "Lettuce" : "";
+        string crop = state.CropId == "potato" ? "Potato" : state.CropId == "lettuce" ? "Lettuce" : state.CropId == "lettuce-seed" ? "LettuceSeed" : "";
         if (crop.Length == 0) return "";
         string stage = state.Health <= 0 ? "dead" : state.Health < WiltedHealth ? "wilted" :
             state.Ready ? "harvest" : state.Progress < YoungProgress ? "sprout" :

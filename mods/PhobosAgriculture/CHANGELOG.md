@@ -8,6 +8,23 @@ Dates on Draft entries record preparation, not Steam publication.
 
 No additional changes recorded.
 
+## [0.7.0] - 2026-09-25 - Draft
+
+### Added
+
+- Separate lettuce seed-production planting cycle: 96 default game hours, finite feed and power, four seed packets plus residue at ideal harvest. Food-lettuce and potato budgets remain unchanged.
+- Matching seed-production nutrient solution and two original PixelLab flowering/seed-head layers, with retained masters and provenance.
+
+### Changed
+
+- Newly queued W2 treatment spends finite cartridge medium per kilogram of drainage and returns unused capacity with proportional mass/value. Existing bound jobs preserve their original whole-cartridge contract.
+- Pipe repair now uses one aluminium scrap; W2 repair includes mechanical/electrical parts and aluminium. Revised new repair timings and generated equipment/service comparisons include W2 and pipes.
+
+### Limits
+
+- Accelerated seed cycles, immediate seed readiness, yields and treatment capacity are authored gameplay. No edible leaves from seed cohorts, nutrient manufacturing, perfect recovery or terminal-reject recycling.
+- Offline build/accounting/persistence/native checks pass; owner gameplay, trade and appearance evaluation remains pending. No Steam release is implied.
+
 ## [0.6.2] - 2026-09-25 - Draft
 
 ### Added

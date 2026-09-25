@@ -15,7 +15,7 @@ internal static class Definitions
     internal const string Irrigation = "PhobosVerdemorrowGroundworkIrrigation";
     internal const double IrrigationKg = 5, IrrigationPrice = 50;
     internal static bool Ready;
-    internal static readonly string[] Work = { "plant-potato", "plant-lettuce", "load-water", "load-irrigation", "load-nutrients", "recover-solution", "harvest", "clear", "drain" };
+    internal static readonly string[] Work = { "plant-potato", "plant-lettuce", "plant-lettuce-seed", "load-water", "load-irrigation", "load-nutrients", "recover-solution", "harvest", "clear", "drain" };
     internal static string WorkId(string action) => "PhobosAgricultureWork_" + action.Replace('-', '_');
     private static readonly System.Collections.Generic.HashSet<string> Machines = new(new[] { Rack, Cooker, IrrigationDefinitions.Supply }.SelectMany(prefix => new[] { "Installed", "Loose", "InstalledDmg", "LooseDmg" }.Select(form => prefix + form)), StringComparer.Ordinal);
     internal static bool Machine(CondOwner? co) => co != null && Machines.Contains(co.strCODef);
@@ -56,7 +56,7 @@ internal static class Definitions
         Stock(d, Drainage, .25, .01, "drainage", false);
         Stock(d, Service.CharacterizedDrainage, .25, .01, "characterized_drainage", false);
         Stock(d, Service.RecoveryReject, .25, .01, "recovery_reject", false);
-        Stock(d, Service.RecoveryCartridge, DrainageRecovery.CartridgeKg, 25, "recovery_cartridge", false);
+        Stock(d, Service.RecoveryCartridge, DrainageRecovery.CartridgeKg, TreatmentCartridge.FullPrice, "recovery_cartridge", false);
         foreach (string food in new[] { Meal, Leaves })
             d.Loot[food + "Effects"] = new Loot { strName = food + "Effects", strType = "trigger", aCOs = new[] { "TDnFood=1x" + (food == Meal ? 5 : 1), "TUpSatiety=1x" + (food == Meal ? 3 : 1), "TDnTeethBrushed=1x1" }, aLoots = Array.Empty<string>() };
         Stock(d, Irrigation, IrrigationKg, IrrigationPrice, "irrigation", false);

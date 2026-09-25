@@ -1,0 +1,148 @@
+{
+  "date": "2026-09-25",
+  "tool": "PixelLab create_image_pixflux",
+  "usage": {
+    "includedGenerations": 4,
+    "usableSprites": 2,
+    "rejectedSprites": 2,
+    "paidCredits": 0,
+    "costPerUsableSprite": "2 included generations"
+  },
+  "license": "https://www.pixellab.ai/termsofservice",
+  "termsChecked": "2026-09-25; terms updated 2025-11-23; output use/modification/distribution permitted; model-training restriction and OpenRAIL-M reference retained.",
+  "review": "First pair rejected: soil and insufficient seed-head distinction. Selected v2 yellow flowers / pale ripe heads; authored abbreviated lifecycle, not botanical rendering accuracy.",
+  "records": [
+    {
+      "name": "bolting",
+      "jobId": "4f0f2a27-9ac2-420d-b562-d7260401ee16",
+      "accepted": false,
+      "request": {
+        "description": "Single lettuce plant for a tiny top-down space farming game sprite, green branching flower stems bearing tiny yellow lettuce flowers above a compact leafy green base. High overhead view, centered entire plant within 48 by 48 central area of 64 by 64 transparent canvas. Muted natural greens, crisp readable broad pixel clusters, no pot, no soil, no tray, no text, no border, no shadow outside plant. Must remain distinct reduced to 16 by 16 pixels.",
+        "width": 64,
+        "height": 64,
+        "seed": 925701,
+        "no_background": true,
+        "isometric": false,
+        "view": "high top-down",
+        "outline": "selective outline",
+        "shading": "basic shading",
+        "detail": "low detail"
+      },
+      "result": {
+        "job_id": "4f0f2a27-9ac2-420d-b562-d7260401ee16",
+        "status": "completed",
+        "frames": 1,
+        "download_url": "https://api.pixellab.ai/mcp/images/4f0f2a27-9ac2-420d-b562-d7260401ee16/download",
+        "download_urls": [
+          "https://api.pixellab.ai/mcp/images/4f0f2a27-9ac2-420d-b562-d7260401ee16/download"
+        ],
+        "asset": {
+          "id": "c560854b-2bf1-5fa9-91dc-c25102972b61",
+          "type": "image",
+          "status": "saved"
+        }
+      },
+      "source": "source/lettuce-bolting.png",
+      "sourceSHA256": "7473bb1193c6156a32ec14ea18e5bb6b364019a054ce5bbe21be0bf7cd0a3a99"
+    },
+    {
+      "name": "seed",
+      "jobId": "48c90dae-a340-412c-8fc3-3ded2054450d",
+      "accepted": false,
+      "request": {
+        "description": "Single lettuce plant for a tiny top-down space farming game sprite, branched olive green lettuce stalks bearing pale cream fluffy mature seed heads, a few dry tan leaves at the base. High overhead view, centered entire plant within 48 by 48 central area of 64 by 64 transparent canvas. Muted natural greens, crisp readable broad pixel clusters, no pot, no soil, no tray, no text, no border, no shadow outside plant. Must remain distinct reduced to 16 by 16 pixels.",
+        "width": 64,
+        "height": 64,
+        "seed": 925702,
+        "no_background": true,
+        "isometric": false,
+        "view": "high top-down",
+        "outline": "selective outline",
+        "shading": "basic shading",
+        "detail": "low detail"
+      },
+      "result": {
+        "job_id": "48c90dae-a340-412c-8fc3-3ded2054450d",
+        "status": "completed",
+        "frames": 1,
+        "download_url": "https://api.pixellab.ai/mcp/images/48c90dae-a340-412c-8fc3-3ded2054450d/download",
+        "download_urls": [
+          "https://api.pixellab.ai/mcp/images/48c90dae-a340-412c-8fc3-3ded2054450d/download"
+        ],
+        "asset": {
+          "id": "92a0086d-535b-5eaf-a35a-6b656c70d8b9",
+          "type": "image",
+          "status": "saved"
+        }
+      },
+      "source": "source/lettuce-seed.png",
+      "sourceSHA256": "1f3b56af01fd2d4cbe349b8d08c428b472cdab57aa9d3806b188739c9cc7adf1"
+    },
+    {
+      "name": "bolting-v2",
+      "jobId": "57e30f61-6518-48ee-8938-3d67146c881b",
+      "accepted": true,
+      "request": {
+        "description": "Botanical game sprite, bolted lettuce reproductive stalk: branching green stem with five tiny yellow daisy flowers and only three slender green basal leaves. NOT a lettuce head or cabbage. Direct overhead orthographic camera, spread branches form a small star shape, no visible soil, no container, no ground, no roots. Isolated on transparent background. All pixels inside centered 48x48 area of 64x64 canvas. Simple readable pixel art clusters for 16x16 reduction, muted colors, no text.",
+        "width": 64,
+        "height": 64,
+        "seed": 925703,
+        "no_background": true,
+        "isometric": false,
+        "view": "high top-down",
+        "outline": "selective outline",
+        "shading": "flat shading",
+        "detail": "low detail"
+      },
+      "result": {
+        "job_id": "57e30f61-6518-48ee-8938-3d67146c881b",
+        "status": "completed",
+        "frames": 1,
+        "download_url": "https://api.pixellab.ai/mcp/images/57e30f61-6518-48ee-8938-3d67146c881b/download",
+        "download_urls": [
+          "https://api.pixellab.ai/mcp/images/57e30f61-6518-48ee-8938-3d67146c881b/download"
+        ],
+        "asset": {
+          "id": "89efc5bf-e0a3-55ec-9ad8-57025d8bd745",
+          "type": "image",
+          "status": "saved"
+        }
+      },
+      "source": "source/lettuce-bolting-v2.png",
+      "sourceSHA256": "9c41f127d0ee492daeb19388312a3756d2ac934b961beaa4460764d681ef0849"
+    },
+    {
+      "name": "seed-v2",
+      "jobId": "1d6a88f9-3a01-4c36-9cdc-0097f9e14cf1",
+      "accepted": true,
+      "request": {
+        "description": "Botanical game sprite, bolted lettuce reproductive stalk: branching tan-green stem with five conspicuous round fluffy white pappus seed heads, resembling miniature dandelion seed balls, and only three slender olive basal leaves. NOT a lettuce head or cabbage. Direct overhead orthographic camera, spread branches form a small star shape, no visible soil, no container, no ground, no roots. Isolated on transparent background. All pixels inside centered 48x48 area of 64x64 canvas. Simple readable pixel art clusters for 16x16 reduction, muted colors, no text.",
+        "width": 64,
+        "height": 64,
+        "seed": 925704,
+        "no_background": true,
+        "isometric": false,
+        "view": "high top-down",
+        "outline": "selective outline",
+        "shading": "flat shading",
+        "detail": "low detail"
+      },
+      "result": {
+        "job_id": "1d6a88f9-3a01-4c36-9cdc-0097f9e14cf1",
+        "status": "completed",
+        "frames": 1,
+        "download_url": "https://api.pixellab.ai/mcp/images/1d6a88f9-3a01-4c36-9cdc-0097f9e14cf1/download",
+        "download_urls": [
+          "https://api.pixellab.ai/mcp/images/1d6a88f9-3a01-4c36-9cdc-0097f9e14cf1/download"
+        ],
+        "asset": {
+          "id": "be49a658-1707-5de3-bc57-1de70beeddcf",
+          "type": "image",
+          "status": "saved"
+        }
+      },
+      "source": "source/lettuce-seed-v2.png",
+      "sourceSHA256": "66da12b80d049d63b13409e01bcd67707d0037a4b1dc698931d931c895bf9399"
+    }
+  ]
+}

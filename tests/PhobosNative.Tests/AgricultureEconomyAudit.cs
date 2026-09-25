@@ -27,7 +27,7 @@ internal static class AgricultureEconomyAudit
             "25 September 2026. Current Agriculture definitions plus installed Ostranauts 1.0.1.5, evaluated with Blue Bottle Games' native DataCO.GetBasePrice and trade triggers. Values are per object, in credits, before merchant/market adjustments. No game session or live quote was sampled; this report reflects the current authored economic balance.", "",
             "## Equipment and construction", "",
             "| Machine | Base | Pristine | Broken base | Worn broken | Raw construction inputs | Work minutes | Dismantle outputs |", "|---|---:|---:|---:|---:|---:|---:|---:|" };
-        foreach (string prefix in new[] { rack, cooker })
+        foreach (string prefix in new[] { rack, cooker, PhobosAgriculture.IrrigationDefinitions.Supply, PhobosAgriculture.IrrigationDefinitions.Pipe })
         {
             string id = prefix + "Loose";
             var recipe = recipes.recipes.Single(r => r.outputs.Any(o => o.item == id));
@@ -40,7 +40,7 @@ internal static class AgricultureEconomyAudit
         }
         rows.Add(""); rows.AddRange(comparisons);
         rows.AddRange(new[] { "", "## Native service definitions", "", "| Target | Repair inputs | Repair outputs | Restore inputs | Dismantle outputs |", "|---|---|---|---|---|" });
-        foreach (string prefix in new[] { rack, cooker })
+        foreach (string prefix in new[] { rack, cooker, PhobosAgriculture.IrrigationDefinitions.Supply, PhobosAgriculture.IrrigationDefinitions.Pipe })
         {
             var repair = definitions.Installables[prefix + "LooseDmgRepair"];
             var restore = definitions.Installables[prefix + "LooseRestore"];
@@ -60,18 +60,19 @@ internal static class AgricultureEconomyAudit
         }
         rows.AddRange(new[] { "", "## Ideal crop economics with purchased native water", "",
             $"Native LiquidWater: {Money(Price("LiquidWater"))} per 0.25 kg = {Money(Price("LiquidWater") / .25)} per kg. Native acceptable algae meal: {Money(Price("ItmTrencherAcceptableAlgae"))} per portion. Water prices here describe native inventory rations, not Ship's Water tank-refill tariffs.", "",
-            "| Cycle | Consumed water value | Consumed nutrient value | Edible output value | Propagation stock |", "|---|---:|---:|---:|---:|" });
-        foreach (var crop in new[] { Crop.Potato, Crop.Lettuce })
+            "| Cycle | Consumed water value | Consumed nutrient value | Whole harvested output value | Propagation stock |", "|---|---:|---:|---:|---:|" });
+        foreach (var crop in new[] { Crop.Potato, Crop.Lettuce, Crop.LettuceSeed })
         {
             var state = new CropState { Water = 20, Nutrients = .5 }; state.Plant(crop, 1);
             for (int hour = 0; hour < crop.Hours; hour++) state.Step(1, crop.KW, 10, 10, true);
             var harvest = state.Harvest();
-            string food = crop == Crop.Potato ? PhobosAgriculture.Definitions.Meal : PhobosAgriculture.Definitions.Leaves;
-            rows.Add($"| {crop.Id} | {Money(crop.Water / .25 * Price("LiquidWater"))} | {Money(crop.Nutrient / .04 * Price(PhobosAgriculture.Definitions.Nutrient))} | {Money(harvest.Portions * Price(food))} | {(harvest.SeedKg > 0 ? Money(Price(PhobosAgriculture.Definitions.PotatoSeed)) + " retained seed potato" : "Consumes one " + Money(Price(PhobosAgriculture.Definitions.LettuceSeed)) + " packet; no seed return")} |");
+            string food = crop == Crop.Potato ? PhobosAgriculture.Definitions.Meal : crop == Crop.LettuceSeed ? PhobosAgriculture.Definitions.LettuceSeed : PhobosAgriculture.Definitions.Leaves;
+            rows.Add($"| {crop.Id} | {Money(crop.Water / .25 * Price("LiquidWater"))} | {Money(crop.Nutrient / .04 * Price(PhobosAgriculture.Definitions.Nutrient))} | {Money(harvest.Portions * Price(food))} | {(crop == Crop.LettuceSeed ? "Consumes one packet; harvests four seed packets, no edible leaves" : harvest.SeedKg > 0 ? Money(Price(PhobosAgriculture.Definitions.PotatoSeed)) + " retained seed potato" : "Consumes one " + Money(Price(PhobosAgriculture.Definitions.LettuceSeed)) + " packet; no seed return")} |");
         }
         rows.Add($"\nGroundwork irrigation charges: {Money(Price(PhobosAgriculture.Definitions.Irrigation))} per {PhobosAgriculture.Definitions.IrrigationKg:G} kg. Consumed root-water cost: potato {Money(Crop.Potato.Water / PhobosAgriculture.Definitions.IrrigationKg * Price(PhobosAgriculture.Definitions.Irrigation))}; lettuce {Money(Crop.Lettuce.Water / PhobosAgriculture.Definitions.IrrigationKg * Price(PhobosAgriculture.Definitions.Irrigation))}. Purchase whole charges; remaining water stays available. No potable conversion.\n");
         rows.AddRange(new[] { "", "The ideal potato row assumes cooking all nominal whole portions. It excludes delayed-harvest respiration/rounding, electricity, cooker work, losses and equipment amortization. Retained potato seed is not both sold and replanted. Lettuce consumes only 5 g of a 40 g nutrient packet; unused nutrient remains inventory, not an eightfold recurring expense.", "",
             "Conclusions and proposed changes are in [Agriculture economy review](agriculture-economy-review.md). These prices are authored game balance; NASA/ESA research does not establish fictional prices, profit margins or repair bills.", "" });
+        rows.Add($"New treatment jobs: {TreatmentCartridge.FullPrice:G} cr / {TreatmentCartridge.CapacityKg:G} kg drainage capacity = {TreatmentCartridge.FullPrice/TreatmentCartridge.CapacityKg:G} cr per kg at base value. A 0.25 kg batch uses {TreatmentCartridge.Mass(.25):G} kg medium and {TreatmentCartridge.Price(.25):G} cr of capacity; a 20 kg batch uses {TreatmentCartridge.Mass(20):G} kg and {TreatmentCartridge.Price(20):G} cr. Unused medium returns with proportional base value. Historic bound jobs retain whole-cartridge consumption. Electricity remains {DrainageRecovery.KWhPerKg:G} kWh/kg, excluding crew/equipment.\n");
         File.WriteAllText(report, string.Join("\n", rows));
     }
 }

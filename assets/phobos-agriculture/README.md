@@ -125,3 +125,16 @@ candidates were rejected for angled projection; they are retained but never
 exported. Three included PixelLab generations and one ChatGPT call produced the
 selected sources; no credits were purchased. Native-size previews were inspected;
 these assets have not been approved in-game by the owner.
+
+## Seed-production layers (0.7.0)
+
+Two selected PixelLab 64 x 64 masters show yellow flowers and pale ripe seed
+heads. Four included generations produced two usable layers; no paid credits.
+The first pair is retained but rejected (soil/insufficient reproductive detail).
+See [seed generation records](seed-generation-records.json) for prompts, seeds,
+job/gallery IDs, hashes, terms and usage. No extracted game art was uploaded.
+Unchanged masters export at 16 x 16 with registered four-tray composition;
+early/stressed stages reuse existing lettuce assets. The updated preview was
+inspected at native pixel scale and integer enlargement. In-game approval is pending.
+The pictures simplify morphology; scientific attribution and authored lifecycle
+limits are in [seed production](../../docs/agriculture-seed-production.md).

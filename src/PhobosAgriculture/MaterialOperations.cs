@@ -10,8 +10,10 @@ namespace PhobosAgriculture;
 
 internal static partial class Service
 {
-    internal static CondOwner? Input(CondOwner co, string id, double kg) => co.objContainer?.ContainedCOs.FirstOrDefault(x =>
-        x.strCODef == id && !x.bDestroyed && x.coStackHead == null && x.aStack.Count == 0 && !x.HasCond("IsInstalled") && x.GetCOsSafe(true).Count == 0 && x.GetLotCOs(true).Count == 0 && Math.Abs(x.GetTotalMass() - kg) < 1e-7);
+    private static bool IsInput(CondOwner owner, CondOwner item, string id, double kg) =>
+        item.objCOParent == owner && item.strCODef == id && !item.bDestroyed && item.coStackHead == null && item.aStack.Count == 0 &&
+        !item.HasCond("IsInstalled") && item.GetCOsSafe(true).Count == 0 && item.GetLotCOs(true).Count == 0 && Math.Abs(item.GetTotalMass() - kg) < 1e-7;
+    internal static CondOwner? Input(CondOwner co, string id, double kg) => co.objContainer?.ContainedCOs.FirstOrDefault(x => IsInput(co, x, id, kg));
     internal static bool Work(CondOwner co, CondOwner actor, string action)
     {
         var s = Get(co);
@@ -31,9 +33,9 @@ internal static partial class Service
                 return Deliver(s, new List<(string, double)> { (CharacterizedDrainage, kg) }, null, drained, solution,line);
             }
             var next = s.State.Copy(); CondOwner? input;
-            if (action == "plant-potato" || action == "plant-lettuce")
+            if (action == "plant-potato" || action == "plant-lettuce" || action == "plant-lettuce-seed")
             {
-                var crop = action == "plant-potato" ? Crop.Potato : Crop.Lettuce;
+                var crop = action == "plant-potato" ? Crop.Potato : action == "plant-lettuce-seed" ? Crop.LettuceSeed : Crop.Lettuce;
                 if (next.CropId.Length != 0) return false;
                 if (!s.Solution.CanPlant(crop.Id)) { s.Notice = Text.Get("solution_incompatible"); return false; }
                 input = Input(co, crop == Crop.Potato ? Definitions.PotatoSeed : Definitions.LettuceSeed, crop.Seed);
@@ -60,7 +62,7 @@ internal static partial class Service
         if (b.CropId.Length == 0 || !clear && !b.Ready) { s.Notice = Text.Get("not_ready"); return false; }
         var specs = new List<(string Id, double Kg)>(); var harvest = b.Harvest(clear);
         if (harvest.SeedKg > 0) specs.Add((Definitions.PotatoSeed, harvest.SeedKg));
-        for (int n = 0; n < harvest.Portions; n++) specs.Add((b.CropId == "potato" ? Definitions.Raw : Definitions.Leaves, harvest.PortionKg));
+        for (int n = 0; n < harvest.Portions; n++) specs.Add((b.CropId == "potato" ? Definitions.Raw : b.CropId == "lettuce-seed" ? Definitions.LettuceSeed : Definitions.Leaves, harvest.PortionKg));
         if (harvest.ResidueKg > 1e-8) specs.Add((Definitions.Residue, harvest.ResidueKg));
         var next = b.Copy(); next.ClearCrop();
         return Deliver(s, specs, null, next);
@@ -77,7 +79,7 @@ internal static partial class Service
         return input != null && input.objCOParent == s.Object && input.strCODef == Definitions.Raw && input.coStackHead == null && input.aStack.Count == 0 &&
             input.GetCOsSafe(true).Count == 0 && Math.Abs(input.GetTotalMass() - .4) < 1e-7 ? input : null;
     }
-    private static bool Deliver(Session s, List<(string Id, double Kg)> specs, CondOwner? input, CropState next, NutrientSolution? nextSolution = null, FluidLine? nextLine=null, CondOwner? additionalInput=null)
+    private static bool Deliver(Session s, List<(string Id, double Kg)> specs, CondOwner? input, CropState next, NutrientSolution? nextSolution = null, FluidLine? nextLine=null, CondOwner? additionalInput=null, double cartridgeRemaining=0)
     {
         var products = new List<CondOwner>(); bool committed = false;
         try
@@ -89,6 +91,7 @@ internal static partial class Service
             {
                 var product = DataHandler.GetCondOwner(spec.Id); products.Add(product);
                 if (spec.Id == Definitions.Residue || spec.Id == Definitions.Drainage || spec.Id == CharacterizedDrainage || spec.Id == RecoveryReject) product.SetCondAmount("StatMass", spec.Kg);
+                if(spec.Id==RecoveryCartridge) WriteCartridge(product,cartridgeRemaining);
                 if(spec.Id==CharacterizedDrainage) WriteDrainage(product,new(s.State.Water+s.Solution.Quantity.CarrierKg+s.Line.Quantity.CarrierKg,s.State.Nutrients+s.Solution.Quantity.SoluteKg+s.Line.Quantity.SoluteKg));
                 if (Math.Abs(product.GetTotalMass() - spec.Kg) > 1e-7 || !s.Object.objContainer.AllowedCO(product)) throw new InvalidOperationException("Invalid agriculture product.");
             }

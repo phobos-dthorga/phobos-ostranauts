@@ -62,9 +62,11 @@ item is potable. Existing residue/reject identities are not reassayed.
    **0.01 kWh per kilogram** of recorded drainage. All electricity heats native
    cabin gas. Power loss pauses progress without creating work credit.
 4. Completion recovers **90% of recorded water** into the nonpotable water
-   buffer and **80% of recorded nutrients** into dry nutrient stock. The entire
-   **0.05 kg cartridge**, unrecovered water and unrecovered nutrients become
-   **Retained Treatment Rejects**. These rejects cannot be treated again.
+   buffer and **80% of recorded nutrients** into dry nutrient stock. Agriculture
+   0.7.0 new jobs spend cartridge medium by batch mass, returning unused capacity;
+   [treatment economics](agriculture-treatment-economy.md) explains the 25 kg rating.
+   Older bound jobs still consume their whole 0.05 kg cartridge. Spent medium and
+   unrecovered matter become terminal **Retained Treatment Rejects**.
 5. If water/nutrient capacity or output space is insufficient, all bound inputs
    remain. Clear space and explicitly restart. A paused job can be cancelled;
    supplies remain physical, and spent electrical work stays heat. After reload,
