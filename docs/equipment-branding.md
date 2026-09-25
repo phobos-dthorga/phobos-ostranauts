@@ -16,6 +16,9 @@ has a related purpose; new brands should serve a distinct equipment identity.
 | Phobos' Rivetline G4 Exterior Grabber | Four-wide exterior panel intake |
 | Phobos' Rivetline H4 Sealed Hull Chute | Four-wide hull transfer connection |
 | Phobos' Rivetline R4 Scrap Reclaimer | Four-by-four residue reclaimer |
+| Phobos' Rivetline F6 Electric Furnace | Six-by-six electrical casting furnace |
+| Phobos' Rivetline F6-R Exterior Radiator | Separate six-by-four heat rejection equipment |
+| Phobos' Rivetline F6-S Furnace Assembly Section | Eighty-kilogram construction section |
 | Phobos' Rivetline C2 Residue Collector | Two-wide collecting endpoint |
 | Phobos' Rivetline D4-S Dismantling Fixture Assembly Section | Processor construction section |
 | Phobos' Rivetline R4-S Scrap Reclaimer Assembly Section | Reclaimer construction section |

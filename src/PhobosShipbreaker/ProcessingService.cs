@@ -281,7 +281,7 @@ internal sealed partial class ProcessingService
         log(ex.ToString());
     }
 
-    private static bool[,] Occupancy(Container tray)
+    internal static bool[,] Occupancy(Container tray)
     {
         var grid = tray.gridLayout;
         var result = new bool[grid.gridMaxX, grid.gridMaxY];

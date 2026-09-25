@@ -1,5 +1,11 @@
 # F6 electrical heating: selected direction
 
+**Implementation update (25 September 2026):** Shipbreaker 0.12.0 / Framework 0.16.0
+now prepare the electrical casting candidate described in the [F6 operating guide](furnace-player-guide.md).
+Read that guide for current dimensions, acquisition, controls and owner checks.
+The research and direct-fusion installation diagrams below retain their historical scope;
+they are not a record of an in-game test.
+
 **25 September 2026 — owner-approved change of energy source.** Electrical
 heating is now the first implementation route. This supersedes the earlier
 direct-fusion-first requirement in the furnace research and installation study.

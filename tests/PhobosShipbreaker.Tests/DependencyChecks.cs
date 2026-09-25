@@ -20,7 +20,8 @@ internal static class DependencyChecks
         check(DependencyContract.FrameworkProblem(new Version(0, 11, 0)) != null, "Branded equipment needs Framework 0.12 naming patterns");
         check(DependencyContract.FrameworkProblem(new Version(0, 12, 0)) != null, "Console observations require Framework 0.13");
         check(DependencyContract.FrameworkProblem(new Version(0, 14, 0)) != null, "Performance handles require Framework 0.15");
-        foreach (var version in new[] { new Version(0, 15, 0), new Version(0, 15, 1), new Version(1, 0, 0) })
+        check(DependencyContract.FrameworkProblem(new Version(0, 15, 0)) != null, "Furnace receipts and native instruments require Framework 0.16");
+        foreach (var version in new[] { new Version(0, 16, 0), new Version(0, 16, 1), new Version(1, 0, 0) })
             check(DependencyContract.FrameworkProblem(version) == null, "No invented upper version or age cutoff: " + version);
 
         var tables = DependencyContract.Required.ToDictionary(g => g.Table, g => g.Names.ToHashSet());
@@ -35,8 +36,8 @@ internal static class DependencyChecks
             tables[group.Table].Add(id);
         }
 
-        check(DependencyContract.MissingRecipes(_ => false).Count == 8, "All eight construction recipes must register");
-        check(DependencyContract.MissingRecipes(id => id == DependencyContract.Recipes[0]).Count == 7, "A partially registered construction chain is blocked");
+        check(DependencyContract.MissingRecipes(_ => false).Count == 14, "All fourteen construction and finishing recipes must register");
+        check(DependencyContract.MissingRecipes(id => id == DependencyContract.Recipes[0]).Count == 13, "A partially registered construction chain is blocked");
         check(DependencyContract.MissingRecipes(id => DependencyContract.Recipes.Contains(id)).Count == 0, "All construction stages are available");
 
         var first = new Dictionary<string, int> { ["existing"] = 10, ["foreign"] = 20 };

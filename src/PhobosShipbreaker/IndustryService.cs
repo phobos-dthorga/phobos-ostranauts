@@ -27,6 +27,13 @@ internal static class IndustryService
     }
     internal static EquipmentCard Snapshot(CondOwner co, EquipmentActivity? intake = null)
     {
+        if (FurnaceService.IsEquipment(co))
+        {
+            var s = FurnaceService.Get(co);
+            return new EquipmentCard { Id = co.strID, Name = co.strNameFriendly + " [" + Phobos.Ostranauts.Framework.Inventory.PortPairing.ShortId(co.strID) + "]",
+                Group = IndustrialRules.Group(co.strCODef), State = s.State.Batch.Armed ? EquipmentState.Running : EquipmentState.Paused,
+                Attention = s.Protected || s.Notice.Length > 0, Detail = FurnaceService.Describe(co) };
+        }
         var group = IndustrialRules.Group(co.strCODef);
         var process = ProcessingService.IsProcessor(co.strCODef) ? Plugin.Service.Activity(co) :
             group == "collector" ? Plugin.Collectors.Activity(co) : intake ?? Plugin.Service.IntakeActivity(co);
@@ -58,6 +65,7 @@ internal static class IndustryService
             message = ControlAuthority.Check(target, binding) ?? "";
             if (message.Length != 0) return false;
         }
+        if (FurnaceService.IsEquipment(target)) return FurnaceService.Command(binding, target, action, value, out message);
         bool processor = ProcessingService.IsProcessor(target.strCODef), receiver = RoutingRules.IsReceiver(target.strCODef);
         bool result;
         switch (action)
@@ -90,6 +98,7 @@ internal static class IndustryService
         var results = new List<string>();
         foreach (var target in Discover(console!.ship))
         {
+            if (FurnaceRules.Machine(target.strCODef)) { bool ok = Run(binding, target.strID, "stop", null, out string info); results.Add(target.strNameFriendly + ": " + Text.Get(ok ? "Industry.success" : "Industry.rejected", info)); }
             if (ProcessingService.IsProcessor(target.strCODef)) { bool ok = Run(binding, target.strID, "pause", null, out string info); results.Add(target.strNameFriendly + ": " + Text.Get(ok ? "Industry.success" : "Industry.rejected", info)); }
             if (RoutingRules.IsReceiver(target.strCODef)) { bool ok = Run(binding, target.strID, "pause-receive", null, out string info); results.Add(target.strNameFriendly + ": " + Text.Get(ok ? "Industry.success" : "Industry.rejected", info)); }
         }

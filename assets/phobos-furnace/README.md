@@ -1,44 +1,63 @@
-# F6 furnace research assets
+# F6 furnace artwork and layout study
 
-The owner has since [selected electrical heating](../../docs/furnace-electrical-direction.md).
-The installation's direct-fusion coupler is a historical concept, not required
-artwork for the electrical build. The instrument layout remains the design baseline.
+**25 September 2026 — implementation candidates, owner review pending.**
+The [electrical direction](../../docs/furnace-electrical-direction.md) supersedes
+the earlier reactor-side coupler. Use the [current operating guide](../../docs/furnace-player-guide.md)
+for the implemented tile layout and first-cycle controls.
 
-25 September 2026. Research and layout work only; no production furnace assets.
+Three original masters are retained unchanged in `source/`:
 
-Open [the interactive layout study](research/layouts.html) in a browser for the
-tile-scale installation, full instrument panel and compact panel. Select a sample
-state to inspect partial heat delivery, cooling, blocked output or missing probes.
-Scroll the instrument area; machine identity, alarm and stop controls remain fixed.
-All readings and gestures are illustrative and have no game connection.
+| Master | World export | Uses |
+|---|---|---|
+| `PhobosFurnace-v1.png` — 1254 x 1254 | 96 x 96 | F6 installed/loose; native damage tint |
+| `PhobosFurnaceRadiator-v1.png` — 1536 x 1024 | 96 x 64 | Separate radiator installed/loose; native damage tint |
+| `PhobosFurnaceHousing-v1.png` — 1254 x 1254 | 32 x 32 | Rough/finished casting, with live item names |
 
-The HTML uses original geometric placeholders and system fonts. It contains no
-extracted vanilla pixels. The intended native donors and remaining original art
-are specified in [the reuse/graphics brief](../../docs/furnace-ui-and-art.md).
-The physical design and assumptions are in [the cycle report](../../docs/furnace-first-cycle.md).
-No image-generation prompts, image masters or approval claims exist for this round.
+[Full prompts and provenance](prompts.md) record three built-in image_gen calls.
+The [export manifest](exports.json) pins source hashes, crops and sizes.
+Run `scripts/export-furnace-art.ps1` to regenerate nine runtime colour/flat-normal/
+portrait files and native-size/4x previews. Exports use nearest-neighbour sampling
+and a shared alpha threshold; portraits retain integer scaling and padding.
+This creates no enlargement of the physical footprint.
 
-Follow the [approach for inexpensive revisions](../../docs/furnace-ui-and-art.md#minimize-the-work-needed-for-later-changes):
-separate native controls/live labels from panel framing; retain editable registered
-machine layers; export ordinary flattened native assets with stable paths and one
-manifest. Create the manifest/exporter with the first actual masters, not empty
-placeholder art. The electrical build needs 12 colour forms, plus their derived
-normals/portraits; no reactor-coupler artwork is required.
+The F6 section reuses the existing original D4 section graphic. Terminal melt
+remainder reuses original Phobos residue artwork with a distinct saved identity,
+name and description. Construction uses the native unfinished-equipment display.
+There is no separately represented transport cassette or reactor coupler.
 
-Reproduce the research checks from the repository root:
+This small first set follows the existing reclaimer/intake practice. Distinct
+transport/damage silhouettes, richer normal maps and a dedicated F6 section sprite
+can follow owner feedback. No new sprite is claimed approved merely because the
+earlier layout study was liked.
 
-```text
-python scripts/calculate-furnace-cycle.py --output docs/research/furnace-cycle-calculations.json
-node scripts/verify-furnace-study.cjs
-python scripts/inspect-furnace-ui.py --game <local-game-directory> --output .local/research/furnace/ui-metadata.json
-```
+## Keeping changes inexpensive
 
-The calculation has no external dependencies. Browser verification requires
-Playwright and local Microsoft Edge; screenshots remain in ignored
-`.local/art-review/furnace/`. Native inspection requires UnityPy and the exact
-documented game assembly/serialization version. Supply local paths at invocation,
-never in committed configuration. Inspection exports metadata only, under `.local`.
+- Controls, measurements, labels, units, language and sequence are code/catalog
+  data, separate from artwork. No number or process state is painted into a panel.
+- The panel reuses installed native knobs, meters, lamps and font resources plus
+  the existing Phobos frame; no generated UI plate or native texture export.
+- The furnace, radiator and housing are independent transparent masters. A change
+  to one does not require regenerating the others.
+- Paths and world bounds remain stable. Revise the retained master, its provenance
+  and hash, and only if needed its manifest crop; then run the exporter. Derived
+  files are never edited independently.
+- These are flat transparent images, not layered source files. Future moving
+  covers or damage overlays should become separate registered layers only when
+  a concrete visual change requires them.
 
-Preserve Blue Bottle Games' ownership of native assets and source. Future mods
-reference suitable installed resources at runtime and distribute Phobos code and
-original artwork only. Native compatibility/isolation still needs in-game checking.
+## Earlier research
+
+The [interactive layout study](research/layouts.html) uses original geometric
+placeholders and system fonts; its sample states have no game connection. Its
+direct-fusion coupler installation is explicitly historical. The panel grouping
+informed the runtime view, but the study is not a screenshot of it.
+
+The [UI reuse brief](../../docs/furnace-ui-and-art.md) records native donor paths.
+The implementation uses isolated knob, LED and lamp donors; guarded-toggle,
+seven-segment and slider adapters remain follow-up work. In-game isolation, focus,
+scaling and appearance await owner checks.
+
+Research tools remain `scripts/calculate-furnace-cycle.py`,
+`scripts/verify-furnace-study.cjs` and `scripts/inspect-furnace-ui.py`. Game-derived
+metadata and screenshots stay in ignored `.local/`. Blue Bottle Games retains
+ownership of native resources; only Phobos code and original assets are distributed.

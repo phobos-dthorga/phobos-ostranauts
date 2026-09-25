@@ -118,5 +118,53 @@
   "Recipe.PhobosBuildIndustrialConsole.name": {
     "brand": "Asterel",
     "model": "C1"
+  },
+  "Furnace.name": {
+    "brand": "Rivetline",
+    "model": "F6"
+  },
+  "Furnace.radiator_name": {
+    "brand": "Rivetline",
+    "model": "F6-R"
+  },
+  "Furnace.section_name": {
+    "brand": "Rivetline",
+    "model": "F6-S"
+  },
+  "Recipe.PhobosBuildShipbreakerSectionCast.name": {
+    "brand": "Rivetline",
+    "model": "D4-S"
+  },
+  "Recipe.PhobosBuildReclaimerSectionCast.name": {
+    "brand": "Rivetline",
+    "model": "R4-S"
+  },
+  "Recipe.PhobosBuildFurnaceSection.name": {
+    "brand": "Rivetline",
+    "model": "F6-S"
+  },
+  "Recipe.PhobosBuildFurnace.name": {
+    "brand": "Rivetline",
+    "model": "F6"
+  },
+  "Recipe.PhobosBuildFurnaceRadiator.name": {
+    "brand": "Rivetline",
+    "model": "F6-R"
+  },
+  "Furnace.feed_name": {
+    "brand": "Rivetline",
+    "model": "F6"
+  },
+  "Furnace.blank_name": {
+    "brand": "Rivetline",
+    "model": ""
+  },
+  "Furnace.housing_name": {
+    "brand": "Rivetline",
+    "model": ""
+  },
+  "Furnace.remainder_name": {
+    "brand": "Rivetline",
+    "model": ""
   }
 }

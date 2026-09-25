@@ -4,7 +4,7 @@ Phobos Shipbreaker's original code and documentation use the repository's MIT
 licence. The distribution contains Phobos code, metadata and its construction
 recipe; no game or dependency DLLs, extracted sprites or copied native definitions.
 
-- **Phobos Framework 0.13.0+**: required separate shared provider for construction,
+- **Phobos Framework 0.16.0+**: required separate shared provider for construction,
   definition publication, inventory planning and production delivery. Its notices
   include the credited OCF construction-code adaptation; install one provider.
 
@@ -61,3 +61,11 @@ master, exact prompt, source hash and mechanical export details are retained in
 `assets/phobos-reclaimer/README.md`. No game or community art is bundled. The same
 MIT-scope and generated-art qualifications above apply. In-game visuals remain
 subject to owner review; installed/loose/damaged forms currently share a sprite.
+
+Shipbreaker 0.12.0 adds three original built-in Imagegen furnace, radiator and
+housing masters. Reproducible crops, hashes, full prompts and derived world/normal/
+portrait forms are recorded under `assets/phobos-furnace/`. New sprites remain
+owner-review candidates. Installed/loose forms share silhouettes, damaged forms
+use native tint, and the terminal melt remainder reuses original Phobos residue
+art. Native UI sprites/fonts are referenced from installed resource prefabs only;
+none are shipped or copied into these masters.

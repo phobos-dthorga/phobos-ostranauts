@@ -407,6 +407,303 @@
       ],
       "nameKey": "Recipe.PhobosBuildIndustrialConsole.name",
       "descriptionKey": "Recipe.PhobosBuildIndustrialConsole.description"
+    },
+    {
+      "id": "PhobosFinishFurnaceHousing",
+      "name": "Finish aluminium machinery housing",
+      "description": "Finish one 19 kg casting into an 18 kg housing and one 1 kg aluminium offcut.",
+      "stationIds": [
+        "ItmTable01",
+        "ItmTable02"
+      ],
+      "optionalStationIds": [
+        "ItmWorkbench01",
+        "SWB_WorkbenchInstalled"
+      ],
+      "ingredients": [
+        {
+          "trigger": "PhobosFurnaceHousingBlankTrigger",
+          "item": "PhobosFurnaceHousingBlank",
+          "count": 1,
+          "unitMassKg": 19,
+          "requireEmpty": true
+        }
+      ],
+      "outputs": [
+        {
+          "item": "PhobosFurnaceHousing",
+          "count": 1,
+          "unitMassKg": 18
+        },
+        {
+          "item": "ItmScrapAluminum",
+          "count": 1,
+          "unitMassKg": 1
+        }
+      ],
+      "workSeconds": 600,
+      "range": 2,
+      "toolTriggers": [
+        "TIsToolMortorq",
+        "TIsToolWelding"
+      ],
+      "nameKey": "Recipe.PhobosFinishFurnaceHousing.name",
+      "descriptionKey": "Recipe.PhobosFinishFurnaceHousing.description"
+    },
+    {
+      "id": "PhobosBuildShipbreakerSectionCast",
+      "name": "Phobos' Rivetline D4-S Dismantling Fixture Assembly Section",
+      "description": "Optional cast-housing route: one 18 kg housing supplements steel, aluminium, mechanisms and electronics. The existing recipe remains available.",
+      "stationIds": [
+        "ItmTable01",
+        "ItmTable02"
+      ],
+      "optionalStationIds": [
+        "ItmWorkbench01",
+        "SWB_WorkbenchInstalled"
+      ],
+      "ingredients": [
+        {
+          "trigger": "TIsScrapSteel",
+          "item": "ItmScrapSteel",
+          "count": 50,
+          "unitMassKg": 1
+        },
+        {
+          "trigger": "TIsScrapAluminum",
+          "item": "ItmScrapAluminum",
+          "count": 6,
+          "unitMassKg": 1
+        },
+        {
+          "trigger": "TIsPartsMechSmall",
+          "item": "ItmPartsMechSmall01",
+          "count": 10,
+          "unitMassKg": 0.5
+        },
+        {
+          "trigger": "TIsPartsElecSmall",
+          "item": "ItmPartsElecSmall01",
+          "count": 2,
+          "unitMassKg": 0.5
+        },
+        {
+          "trigger": "PhobosFurnaceHousingTrigger",
+          "item": "PhobosFurnaceHousing",
+          "count": 1,
+          "unitMassKg": 18,
+          "requireEmpty": true
+        }
+      ],
+      "outputs": [
+        {
+          "item": "PhobosShipbreakerSection",
+          "count": 1,
+          "unitMassKg": 80
+        }
+      ],
+      "workSeconds": 2400,
+      "range": 2,
+      "toolTriggers": [
+        "TIsToolMortorq",
+        "TIsToolWelding"
+      ],
+      "nameKey": "Recipe.PhobosBuildShipbreakerSectionCast.name",
+      "descriptionKey": "Recipe.PhobosBuildShipbreakerSectionCast.description"
+    },
+    {
+      "id": "PhobosBuildReclaimerSectionCast",
+      "name": "Phobos' Rivetline R4-S Scrap Reclaimer Assembly Section",
+      "description": "Optional cast-housing route: one 18 kg housing and native parts produce a 90 kg R4 section. The existing recipe remains available.",
+      "stationIds": [
+        "ItmTable01",
+        "ItmTable02"
+      ],
+      "optionalStationIds": [
+        "ItmWorkbench01",
+        "SWB_WorkbenchInstalled"
+      ],
+      "ingredients": [
+        {
+          "trigger": "TIsScrapSteel",
+          "item": "ItmScrapSteel",
+          "count": 56,
+          "unitMassKg": 1
+        },
+        {
+          "trigger": "TIsScrapAluminum",
+          "item": "ItmScrapAluminum",
+          "count": 8,
+          "unitMassKg": 1
+        },
+        {
+          "trigger": "TIsPartsMechSmall",
+          "item": "ItmPartsMechSmall01",
+          "count": 12,
+          "unitMassKg": 0.5
+        },
+        {
+          "trigger": "TIsPartsElecSmall",
+          "item": "ItmPartsElecSmall01",
+          "count": 4,
+          "unitMassKg": 0.5
+        },
+        {
+          "trigger": "PhobosFurnaceHousingTrigger",
+          "item": "PhobosFurnaceHousing",
+          "count": 1,
+          "unitMassKg": 18,
+          "requireEmpty": true
+        }
+      ],
+      "outputs": [
+        {
+          "item": "PhobosScrapReclaimerSection",
+          "count": 1,
+          "unitMassKg": 90
+        }
+      ],
+      "workSeconds": 3000,
+      "range": 2,
+      "toolTriggers": [
+        "TIsToolMortorq",
+        "TIsToolWelding"
+      ],
+      "nameKey": "Recipe.PhobosBuildReclaimerSectionCast.name",
+      "descriptionKey": "Recipe.PhobosBuildReclaimerSectionCast.description"
+    },
+    {
+      "id": "PhobosBuildFurnaceSection",
+      "name": "Phobos' Rivetline F6-S Furnace Assembly Section",
+      "description": "Build one 80 kg F6 section. Three sections make the full 240 kg furnace.",
+      "stationIds": [
+        "ItmTable01",
+        "ItmTable02"
+      ],
+      "optionalStationIds": [
+        "ItmWorkbench01",
+        "SWB_WorkbenchInstalled"
+      ],
+      "ingredients": [
+        {
+          "trigger": "TIsScrapSteel",
+          "item": "ItmScrapSteel",
+          "count": 48,
+          "unitMassKg": 1
+        },
+        {
+          "trigger": "TIsScrapAluminum",
+          "item": "ItmScrapAluminum",
+          "count": 22,
+          "unitMassKg": 1
+        },
+        {
+          "trigger": "TIsPartsMechSmall",
+          "item": "ItmPartsMechSmall01",
+          "count": 12,
+          "unitMassKg": 0.5
+        },
+        {
+          "trigger": "TIsPartsElecSmall",
+          "item": "ItmPartsElecSmall01",
+          "count": 8,
+          "unitMassKg": 0.5
+        }
+      ],
+      "outputs": [
+        {
+          "item": "PhobosFurnaceSection",
+          "count": 1,
+          "unitMassKg": 80
+        }
+      ],
+      "workSeconds": 4800,
+      "range": 2,
+      "toolTriggers": [
+        "TIsToolMortorq",
+        "TIsToolWelding"
+      ],
+      "nameKey": "Recipe.PhobosBuildFurnaceSection.name",
+      "descriptionKey": "Recipe.PhobosBuildFurnaceSection.description"
+    },
+    {
+      "id": "PhobosBuildFurnace",
+      "name": "Phobos' Rivetline F6 Electric Furnace",
+      "description": "Join three 80 kg F6 sections into a 240 kg, 6 x 6 electric furnace. A separate exterior radiator is required.",
+      "stationIds": [
+        "ItmTable01",
+        "ItmTable02"
+      ],
+      "optionalStationIds": [
+        "ItmWorkbench01",
+        "SWB_WorkbenchInstalled"
+      ],
+      "ingredients": [
+        {
+          "trigger": "PhobosFurnaceSectionTrigger",
+          "item": "PhobosFurnaceSection",
+          "count": 3,
+          "unitMassKg": 80,
+          "requireEmpty": true
+        }
+      ],
+      "outputs": [
+        {
+          "item": "PhobosFurnaceLoose",
+          "count": 1,
+          "unitMassKg": 240
+        }
+      ],
+      "workSeconds": 2400,
+      "range": 2,
+      "toolTriggers": [
+        "TIsToolMortorq",
+        "TIsToolWelding"
+      ],
+      "nameKey": "Recipe.PhobosBuildFurnace.name",
+      "descriptionKey": "Recipe.PhobosBuildFurnace.description"
+    },
+    {
+      "id": "PhobosBuildFurnaceRadiator",
+      "name": "Phobos' Rivetline F6-R Exterior Radiator",
+      "description": "Build the 100 kg, 6 x 4 exterior F6 radiator. Mount outside on six intact hull walls.",
+      "stationIds": [
+        "ItmTable01",
+        "ItmTable02"
+      ],
+      "optionalStationIds": [
+        "ItmWorkbench01",
+        "SWB_WorkbenchInstalled"
+      ],
+      "ingredients": [
+        {
+          "trigger": "TIsScrapSteel",
+          "item": "ItmScrapSteel",
+          "count": 40,
+          "unitMassKg": 1
+        },
+        {
+          "trigger": "TIsScrapAluminum",
+          "item": "ItmScrapAluminum",
+          "count": 60,
+          "unitMassKg": 1
+        }
+      ],
+      "outputs": [
+        {
+          "item": "PhobosFurnaceRadiatorLoose",
+          "count": 1,
+          "unitMassKg": 100
+        }
+      ],
+      "workSeconds": 3600,
+      "range": 2,
+      "toolTriggers": [
+        "TIsToolMortorq",
+        "TIsToolWelding"
+      ],
+      "nameKey": "Recipe.PhobosBuildFurnaceRadiator.name",
+      "descriptionKey": "Recipe.PhobosBuildFurnaceRadiator.description"
     }
   ]
 }

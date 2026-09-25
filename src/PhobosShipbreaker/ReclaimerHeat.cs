@@ -3,6 +3,7 @@ using System.Runtime.CompilerServices;
 using HarmonyLib;
 using Phobos.Ostranauts.Framework;
 using PhobosShipbreaker.Core;
+using Phobos.Ostranauts.Framework.Processing;
 
 namespace PhobosShipbreaker;
 
@@ -14,7 +15,8 @@ internal static class ReclaimerHeat
     internal sealed class Transfer
     {
         internal GasContainer Gas = null!;
-        internal double Mols, RequestedKWh, ReceivedKWh, StoredBefore, WorkSeconds;
+        internal double Mols, WorkSeconds;
+        internal EnergyReceipt Receipt = null!;
     }
     private static readonly ConditionalWeakTable<Powered, Transfer> pending = new ConditionalWeakTable<Powered, Transfer>();
     internal static bool Begin(Powered power, CondOwner machine, double amount, out Transfer? transfer)
@@ -37,31 +39,20 @@ internal static class ReclaimerHeat
             machine.ZeroCondAmount("IsPowered");
             return false;
         }
-        transfer = new Transfer { Gas = gas, Mols = mols, RequestedKWh = amount,
-            StoredBefore = machine.GetCondAmount("StatPower"), WorkSeconds = seconds };
+        transfer = new Transfer { Gas = gas, Mols = mols,
+            Receipt = NativeEnergyReceipts.Begin(power, machine, amount), WorkSeconds = seconds };
         pending.Add(power, transfer);
         return true;
-    }
-    internal static void Gathered(Powered power, double requested, double remaining)
-    {
-        if (pending.TryGetValue(power, out var transfer) && requested >= 0 && remaining >= 0 && remaining <= requested)
-            transfer.ReceivedKWh += requested - remaining;
     }
     internal static void Finish(Powered power, CondOwner machine, Transfer? transfer)
     {
         pending.Remove(power);
         if (transfer == null) return;
-        double supplied = Math.Max(0, transfer.ReceivedKWh + transfer.StoredBefore - machine.GetCondAmount("StatPower"));
+        double supplied = NativeEnergyReceipts.Complete(power, machine, transfer.Receipt);
         if (double.IsNaN(supplied) || double.IsInfinity(supplied)) throw new InvalidOperationException("Invalid reclaimer energy receipt.");
         // Native Heater and gas simulation own later mixing, cooling and persistence.
         transfer.Gas.fDGasTemp += supplied * Units.SecondsPerHour * ReclaimerRules.JoulesPerKilojoule /
             (transfer.Mols * ReclaimerRules.GasHeatCapacity);
     }
-    internal static void Forget(Powered power) => pending.Remove(power);
-}
-
-[HarmonyPatch(typeof(Powered), "GatherPower")]
-internal static class ReclaimerPowerReceiptPatch
-{
-    private static void Postfix(Powered __instance, double __0, double __result) => ReclaimerHeat.Gathered(__instance, __0, __result);
+    internal static void Forget(Powered power) { pending.Remove(power); NativeEnergyReceipts.Forget(power); }
 }

@@ -1,5 +1,11 @@
 # F6 first processing cycle: research specification
 
+**Implementation update (25 September 2026):** Shipbreaker 0.12.0 / Framework 0.16.0
+now prepare the electrical casting candidate described in the [F6 operating guide](furnace-player-guide.md).
+Read that guide for current dimensions, acquisition, controls and owner checks.
+The research and direct-fusion installation diagrams below retain their historical scope;
+they are not a record of an in-game test.
+
 **Direction updated:** the owner has now [approved electrical heating](furnace-electrical-direction.md)
 for the first furnace. That decision supersedes this report's original direct-fusion
 source and reactor-side coupler. The material, thermal, gas and operating design

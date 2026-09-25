@@ -13,6 +13,19 @@ role labels below are shorthand. This naming pass changes no prices or bills.
 The full value audit is
 regenerated from the current definitions below.
 
+## F6 electrical casting candidate (25 September 2026)
+
+Shipbreaker 0.12.0 adds the 240 kg F6 furnace ($24,000 functional / $6,000
+broken), 100 kg F6-R radiator ($7,200 / $1,800), and 80 kg F6-S construction
+sections ($6,500). Native maintenance and merchant routes reuse the existing
+economy services. Three sections build the furnace. The radiator uses 40 steel
+and 60 aluminium; its 100-unit bill stays within the construction limit.
+
+The [F6 guide](furnace-player-guide.md) describes the mass-balanced casting and
+optional D4/R4 section recipes. Existing recipes and historic residue retain their
+meaning. New furnace/radiator/section dismantling is included in the generated
+value audit, including broken condition and native wear/merchant multipliers.
+
 ## Dismantling value audit (owner clarification, 2026-09-24)
 
 The owner clarified that the concern was **dismantling our machines**, based on

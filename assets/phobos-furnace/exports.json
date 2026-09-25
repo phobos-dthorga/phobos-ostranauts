@@ -1,0 +1,9 @@
+{
+  "schemaVersion": 1,
+  "generator": "Built-in image_gen; original Phobos candidates, 2026-09-25",
+  "assets": [
+    { "id": "PhobosFurnace", "source": "PhobosFurnace-v1.png", "sha256": "2e55bf71ac00ed3a795e992d567a2f9b1e0c67d103dfdebf2f1746a700f226a0", "crop": [113, 103, 1030, 1030], "size": [96, 96] },
+    { "id": "PhobosFurnaceRadiator", "source": "PhobosFurnaceRadiator-v1.png", "sha256": "ae03f6bad75dafeb0f4b669d7bd031d398d46fff43bff90280e0d153e924ea8d", "crop": [10, 7, 1516, 1010], "size": [96, 64] },
+    { "id": "PhobosFurnaceHousing", "source": "PhobosFurnaceHousing-v1.png", "sha256": "0c0d42cb41f3915b2104720763e57bb554c1d42314b3e137a51e45ffe8212139", "crop": [206, 206, 842, 842], "size": [32, 32] }
+  ]
+}

@@ -11,6 +11,7 @@ public static class IndustrialRules
     public const int CompactWidth = 900;
     public static bool Console(string? id) => id == Prefix + "Installed" || id == Prefix + "InstalledDmg" || id == Prefix + "Loose" || id == Prefix + "LooseDmg";
     public static string Group(string? id) => Console(id) ? "console" :
+        FurnaceRules.Machine(id) ? "furnace" : FurnaceRules.Cooling(id) ? "radiator" :
         IntakeRules.IsHardware(id) && id!.StartsWith(IntakeRules.Grabber, StringComparison.Ordinal) ? "grabber" :
         IntakeRules.IsHardware(id) && id!.StartsWith(IntakeRules.Chute, StringComparison.Ordinal) ? "chute" :
         ReclaimerRules.IsFamily(id) ? "reclaimer" : CollectorRules.IsFamily(id) ? "collector" :

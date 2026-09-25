@@ -1,7 +1,7 @@
 # Current player guide
 
-**Prepared versions:** Phobos Framework **0.14.0**, Shipbreaker **0.11.0**, Auto Nav
-**0.10.0**, built against Ostranauts **1.0.1.5** / BepInEx **5.4.23.5**.
+**Prepared versions:** Phobos Framework **0.16.0**, Shipbreaker **0.12.0**, Auto Nav
+**0.10.1**, built against Ostranauts **1.0.1.5** / BepInEx **5.4.23.5**.
 These versions support ordinary saves. Builds and offline checks do not establish
 in-game compatibility. This guide describes the prepared packages, not a claim
 that those packages are already installed or that merchants have restocked.
@@ -13,6 +13,10 @@ Auto Nav now requires [live native sensor contact](auto-nav-sensors.md).
 Contact loss suspends and clears owned thrust; the ship coasts until manual
 control or an explicit Resume after contact returns. Emitting sensors remain
 under player control. A known station marker alone does not authorize guidance.
+
+The [F6 electric furnace](furnace-player-guide.md) is now a prepared casting candidate,
+with a separate exterior radiator, hot-state saves and local/C1/F3 controls. Its
+first in-game cycle and new artwork still await owner evaluation.
 
 ## Install or update
 
@@ -98,9 +102,9 @@ the processor. It does not cross gaps, cargo webbing or a docked ship.
    two small mechanical parts, two aluminium scraps, two carbon-fibre scraps,
    six steel scraps and one 13 kg identified R2 residue packet. Total mass is 24 kg.
    Started revision-1 jobs still yield the old unclassified mixed residue.
-4. To collect residue automatically, right-click the collector → **Control Panel**,
+4. To collect residue automatically, right-click the collector â†’ **Control Panel**,
    select the processor with **Link**, then **Start transfers**. Alternatively
-   choose the collector through F9 → **Output routing**, then start
+   choose the collector through F9 â†’ **Output routing**, then start
    collection at the collector. Linking alone does not start it.
 5. Empty the collector through its **Inventory**. Four packets fill it (52 kg).
    Collected residue remains aboard and counts toward ship mass. Link the fixture
@@ -111,7 +115,7 @@ the processor. It does not cross gaps, cargo webbing or a docked ship.
    [automatic routing](automatic-material-routing.md) for the controls. Legacy
    packets remain unclassified storage cargo; collection never ejects material.
 
-**The processor's normal Inventory is output.** For standalone operation, F9 →
+**The processor's normal Inventory is output.** For standalone operation, F9 â†’
 **Manual feed (fallback)** opens its separate wall feed; load there and Start.
 The chute has no inventory. This distinction explains why a wall cannot be fed
 through the processor's ordinary Inventory.
@@ -167,7 +171,7 @@ Rare module salvage joins the existing acquisition paths, using unchanged art.
 
 Auto Nav 0.8.0 adds [automatic RCS docking](auto-nav-docking.md) as a separate
 maneuver within 10 km of the hull. Request Comms clearance, select that target,
-then use Details → Dock or `phobosnav dock`. Keep Comms/docking controls open for
+then use Details â†’ Dock or `phobosnav dock`. Keep Comms/docking controls open for
 final attachment. Reload suspends docking for explicit Resume.
 
 Auto Nav 0.7.0 adds the [Polaris instrument panel](auto-nav-instruments.md):

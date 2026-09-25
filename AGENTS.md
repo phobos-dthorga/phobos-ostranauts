@@ -94,15 +94,17 @@
   controls, automatic recipes plus manual sequencing, local/C1/F3 service access,
   finite heat rejection and preserved hot-state saves. Induction is the researched
   electrical-heater candidate, with hardware/efficiency still provisional.
-  The proposed F6 name, 6 x 6 footprint,
-  50 kg charge and 250 kW delivered-heat limit are design candidates, not approved
-  or implemented equipment. Raw fusion heat has no established native outlet and
+  Shipbreaker 0.12.0 prepares the F6 electrical candidate at 6 x 6 tiles,
+  50 kg rating and 250 kW delivered heat, with a 20 kg first housing batch.
+  Follow `docs/furnace-player-guide.md`; gameplay and new art await owner review. Raw fusion heat has no established native outlet and
   remains historical research, not a prerequisite for the electrical furnace.
   Account actual electrical consumption once, including partial supply and losses;
   never grant heat merely because a reactor is running. Yield to flight authority.
   Reuse Framework
   for concrete shared state, accounting, controls and endpoint needs; content owns
-  furnace recipes, art and balance. The current round is research/documentation.
+  furnace recipes, art and balance. Framework 0.16.0 shares measured receipts,
+  thermal/gas primitives and isolated native instruments. Keep hot state, explicit
+  resume, exact physical charge, finite gas receiver and guarded output commits.
   The 2026-09-25 follow-up is `docs/furnace-first-cycle.md`: proposed 20 kg
   aluminium housing batch, optional D4/R4 construction use, finite radiator and
   gas receiver; its original direct-fusion source section is superseded. The owner explicitly

@@ -15,7 +15,7 @@ namespace PhobosShipbreaker;
 public sealed class Plugin : BaseUnityPlugin
 {
     public const string Id = "phobosgekko.ostranauts.shipbreaker";
-    public const string Version = "0.11.1";
+    public const string Version = "0.12.0";
     internal static ProcessingService Service { get; private set; } = null!;
     internal static Action<string> Log { get; private set; } = null!;
     internal static Settings Options { get; private set; } = null!;
@@ -41,9 +41,9 @@ public sealed class Plugin : BaseUnityPlugin
         FrameworkLifecycle.ContentLoaded += ConfirmContent;
         Log(Text.Get("Plugin.shipbreaker_loaded_with_independent_phobos_framework_construction", Options.ControlsKey));
     }
-    private void Update() => panel.Update();
+    private void Update() { panel.Update(); FurnaceService.Update(); }
     private void OnGUI() { panel.Draw(); CollectorControls.Draw(); ReclaimerControls.Draw(); }
-    internal static void ResetServices() { Service.Reset(); Collectors.Reset(); CollectorControls.Reset(); ReclaimerControls.Reset(); IndustryObservations.Reset(); }
+    internal static void ResetServices() { Service.Reset(); Collectors.Reset(); CollectorControls.Reset(); ReclaimerControls.Reset(); IndustryObservations.Reset(); FurnaceService.Reset(); }
     private static void LoadContent() { ResetServices(); Content.Register(Log); }
     private static void ConfirmContent() => Content.ConfirmRecipes(Log);
     private void OnDestroy()
@@ -56,13 +56,18 @@ public sealed class Plugin : BaseUnityPlugin
 [HarmonyPatch(typeof(Powered), "UsePower", new[] { typeof(CondOwner), typeof(double) })]
 internal static class PowerPatch
 {
-    internal sealed class PowerState { internal bool Working, Feeding; internal ReclaimerHeat.Transfer? Heat; }
+    internal sealed class PowerState { internal bool Working, Feeding, Finished; internal ReclaimerHeat.Transfer? Heat; internal FurnaceService.PowerTransfer? Furnace; }
     private static bool Prefix(Powered __instance, CondOwner __0, ref double __1, out PowerState __state)
     {
         __state = new PowerState { Working = __0 != null && (ProcessingService.IsProcessor(__0.strCODef) && __0.HasCond(Core.ProcessRules.Working) ||
             ProcessingService.IsGrabber(__0) && __0.HasCond(Core.IntakeRules.Working) ||
             Core.CollectorRules.IsFamily(__0.strCODef) && __0.HasCond(Core.CollectorRules.Working)) };
         __state.Feeding = __0 != null && ProcessingService.IsReclaimer(__0) && __0.HasCond(Core.RoutingRules.Feeding);
+        if (__0 != null && Core.FurnaceRules.Machine(__0.strCODef))
+        {
+            try { return FurnaceService.BeginPower(__instance, __0, ref __1, out __state.Furnace); }
+            catch (Exception ex) { FurnaceService.Fault(__0, ex); return false; }
+        }
         if (__state.Feeding)
         {
             double baseKW = __state.Working ? Plugin.Options.ReclaimerKW : Core.ReclaimerRules.IdleKW;
@@ -73,8 +78,16 @@ internal static class PowerPatch
     private static void Postfix(Powered __instance, CondOwner __0, PowerState __state)
     {
         if (__0 == null) return;
+        if (Core.FurnaceRules.Machine(__0.strCODef))
+        {
+            try { FurnaceService.FinishPower(__instance, __0, __state.Furnace); }
+            catch (Exception ex) { FurnaceService.Fault(__0, ex); }
+            finally { __state.Finished = true; }
+            return;
+        }
         try { ReclaimerHeat.Finish(__instance, __0, __state.Heat); }
         catch (Exception ex) { Plugin.Service.Fault(__0, ex); Plugin.Collectors.Fault(__0, ex); return; }
+        finally { __state.Finished = true; }
         if (Core.CollectorRules.IsFamily(__0.strCODef)) Plugin.Collectors.AfterPower(__0, __state.Working);
         else if (ProcessingService.IsGrabber(__0)) Plugin.Service.AfterIntakePower(__0, __state.Working);
         else
@@ -83,7 +96,22 @@ internal static class PowerPatch
             if (ProcessingService.IsReclaimer(__0)) Plugin.Collectors.AfterPower(__0, __state.Feeding, __state.Heat?.WorkSeconds);
         }
     }
-    private static void Finalizer(Powered __instance) => ReclaimerHeat.Forget(__instance);
+    private static void Finalizer(Powered __instance, CondOwner __0, PowerState? __state)
+    {
+        // An exceptional native call can already have debited electricity. Account
+        // its witnessed partial delivery once before discarding the session receipt.
+        try
+        {
+            if (__state != null && !__state.Finished && __0 != null)
+            {
+                if (Core.FurnaceRules.Machine(__0.strCODef))
+                { FurnaceService.FinishPower(__instance, __0, __state.Furnace); FurnaceService.Get(__0).State.Batch.Armed = false; }
+                else ReclaimerHeat.Finish(__instance, __0, __state.Heat);
+            }
+        }
+        catch (Exception ex) { if (__0 != null && Core.FurnaceRules.Machine(__0.strCODef)) FurnaceService.Fault(__0, ex); else Plugin.Log(ex.Message); }
+        finally { ReclaimerHeat.Forget(__instance); }
+    }
 }
 
 // Clear stale work demand before the native path selects its active/idle coefficient.
@@ -122,10 +150,22 @@ internal static class FeedPatch
 {
     private static void Postfix(Container __instance, CondOwner coIn, ref bool __result)
     {
+        if (__result && __instance.CO?.strCODef == Core.FurnaceRules.Feed) __result = FurnaceService.CanFeed(__instance.CO, coIn);
         if (__result && __instance.CO != null && (__instance.CO.strCODef == Content.InputBin || __instance.CO.strCODef == Core.ReclaimerRules.InputBin))
             __result = ProcessingService.CanFeed(__instance.CO, coIn);
         if (__result && __instance.CO != null && Core.CollectorRules.IsFamily(__instance.CO.strCODef))
             __result = CollectorService.CanAccept(__instance.CO, coIn);
+    }
+}
+
+// Native aluminium normally auto-stacks on insertion. Captive batches require
+// individual persistent identities, so disable stacking only across this bin.
+[HarmonyPatch(typeof(CondOwner), nameof(CondOwner.CanStackOnItem))]
+internal static class FurnaceFeedStackPatch
+{
+    private static void Postfix(CondOwner __instance, CondOwner objIncoming, ref int __result)
+    {
+        if (__instance.objCOParent?.strCODef == Core.FurnaceRules.Feed || objIncoming?.objCOParent?.strCODef == Core.FurnaceRules.Feed) __result = 0;
     }
 }
 

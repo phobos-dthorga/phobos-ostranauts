@@ -33,6 +33,7 @@ public sealed class IndustrialPanel : GUIData
     private TMP_Text header = null!, readout = null!;
     private CanvasGroup commands = null!;
     private Button pause = null!;
+    private Button furnaceStop = null!;
     private TMP_InputField search = null!;
     private Sprite? frame;
     private bool Central => binding != null;
@@ -93,6 +94,9 @@ public sealed class IndustrialPanel : GUIData
         W.Button(footer, Text.Get("Industry.back_list"), () => { detailPage = false; Layout(); }).gameObject.SetActive(Central);
         pause = W.Button(footer, Text.Get("Industry.pause_all"), () => { if (binding != null) { result = IndustryService.PauseAll(binding); ShowDetail(); } });
         pause.gameObject.SetActive(Central);
+        furnaceStop = W.Button(footer, Text.Get("Furnace.action_stop"), () =>
+        { IndustryService.Run(binding, selected, "stop", null, out result); RefreshReadout(); });
+        furnaceStop.gameObject.SetActive(false);
         W.Button(footer, Text.Get("Industry.close"), () => CrewSim.LowerUI());
 
         list = W.Scroll(plate, "Equipment", out listScroll); details = W.Scroll(plate, "Details", out detailScroll);
@@ -149,6 +153,8 @@ public sealed class IndustrialPanel : GUIData
         header.text = Text.Get("Industry.header", Central ? Text.Get("Industry.title") : COSelf.strNameFriendly, hostId,
             problem ?? Text.Get("Industry.connected"));
         pause.interactable = problem == null;
+        furnaceStop.gameObject.SetActive(FurnaceRules.Machine(CollectorService.Resolve(selected)?.strCODef));
+        furnaceStop.interactable = problem == null;
         // Losing console/operator access must stop observation reads as well as commands.
         if (problem != null)
         {
@@ -216,6 +222,16 @@ public sealed class IndustrialPanel : GUIData
         var layout = actions.gameObject.AddComponent<VerticalLayoutGroup>(); layout.spacing = W.Gap;
         layout.childControlHeight = layout.childControlWidth = true; layout.childForceExpandHeight = false;
         commands = actions.gameObject.AddComponent<CanvasGroup>(); commands.interactable = Access() == null;
+        if (FurnaceRules.Machine(target.strCODef))
+        {
+            string targetId = target.strID;
+            FurnaceInstrumentView.Build(actions, target, (action, value) =>
+            { IndustryService.Run(binding, targetId, action, value, out result); RefreshReadout(); });
+            if (!Central) { Add(actions, "feed"); Add(actions, "products"); }
+            Add(actions, "unpair", label: Text.Get("Furnace.action_unpair"));
+            foreach (var peer in IndustryService.Discover(target.ship).Where(c => FurnaceRules.Cooling(c.strCODef)))
+                Add(actions, "pair", peer.strID, Text.Get("Furnace.action_pair") + " " + CollectorService.Label(peer));
+        }
         if (ProcessingService.IsProcessor(target.strCODef))
         {
             W.Label(actions, Text.Get("Industry.processing"));

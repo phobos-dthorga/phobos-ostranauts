@@ -24,6 +24,8 @@ internal static class EquipmentEconomy
     internal static readonly string[] Materials = { "ItmScrapSteel", "ItmScrapAluminum", "ItmPartsMechSmall01", "ItmPartsElecSmall01", "ItmScrapTrash" };
     private static readonly string[] Triggers = { "TIsScrapSteel", "TIsScrapAluminum", "TIsPartsMechSmall", "TIsPartsElecSmall" };
     internal static readonly Spec[] Machines = {
+        new Spec(FurnaceRules.Prefix, price: 24000, install: 2400, uninstall: 1800, repair: 4800, dismantle: 1800, new[]{4,4,8,6}, new[]{140,50,24,12,32}, new[]{120,40,12,4,72}),
+        new Spec(FurnaceRules.Radiator, price: 7200, install: 1200, uninstall: 900, repair: 3000, dismantle: 800, new[]{2,4,4,0}, new[]{28,50,8,0,18}, new[]{20,38,4,0,40}),
         new Spec(IndustrialRules.Prefix, price: 5200, install: 1000, uninstall: 800, repair: 2400, dismantle: 500, new[]{1,1,2,4}, new[]{16,8,8,4,10}, new[]{12,6,4,0,20}),
         new Spec(Content.Prefix, price: 12000, install: 1500, uninstall: 1000, repair: 3600, dismantle: 1000, new[]{4,2,4,4}, new[]{92,40,16,4,18}, new[]{80,32,8,0,44}),
         new Spec(IntakeRules.Grabber, price: 6400, install: 1000, uninstall: 800, repair: 2400, dismantle: 650, new[]{2,1,4,2}, new[]{42,16,12,2,15}, new[]{34,12,6,0,31}),
@@ -58,7 +60,7 @@ internal static class EquipmentEconomy
             }
             else MaintenanceDefinitions.Restore(d, id);
             MaintenanceDefinitions.Dismantle(d, id, spec.Dismantle, Products(damaged ? spec.BrokenSalvage : spec.Salvage),
-                emptyInternalBin: spec.Prefix == Content.Prefix ? Content.InputBin : spec.Prefix == ReclaimerRules.Prefix ? ReclaimerRules.InputBin : null);
+                emptyInternalBin: spec.Prefix == Content.Prefix ? Content.InputBin : spec.Prefix == ReclaimerRules.Prefix ? ReclaimerRules.InputBin : spec.Prefix == FurnaceRules.Prefix ? FurnaceRules.Feed : null);
             var mount = d.Installables[spec.Prefix + state + (state.StartsWith("Installed") ? "Uninstall" : "Install")];
             mount.aToolCTsUse = new[] { "TIsToolMortorq" };
             mount.strCTThemMultCondTools = "IsToolMortorq";
@@ -77,6 +79,8 @@ internal static class EquipmentEconomy
         MaintenanceDefinitions.SetStat(reclaimSection, "StatBasePrice", 6000);
         MaintenanceDefinitions.Dismantle(d, ReclaimerRules.Section, 500, Products(new[]{52,21,10,4,10}));
         EquipmentSaveUpgrade.Register(d, ReclaimerRules.Section, ReclaimerRules.Section);
+        MaintenanceDefinitions.Dismantle(d, FurnaceRules.Section, 600, Products(new[]{44,20,12,4,8}));
+        EquipmentSaveUpgrade.Register(d, FurnaceRules.Section, FurnaceRules.Section);
         AddStock(d);
     }
 

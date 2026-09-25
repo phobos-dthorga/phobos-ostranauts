@@ -1,5 +1,11 @@
 # Fusion-powered industry: ideas and research sequence
 
+**Implementation update (25 September 2026):** Shipbreaker 0.12.0 / Framework 0.16.0
+now prepare the electrical casting candidate described in the [F6 operating guide](furnace-player-guide.md).
+Read that guide for current dimensions, acquisition, controls and owner checks.
+The research and direct-fusion installation diagrams below retain their historical scope;
+they are not a record of an in-game test.
+
 **Latest furnace decision, 25 September:** [electrical heating is approved](furnace-electrical-direction.md)
 as the first implementation route. Native electrical accounting replaces the
 unresolved direct-fusion coupling requirement. Keep the casting cycle, finite

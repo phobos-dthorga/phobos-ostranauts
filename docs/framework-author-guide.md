@@ -467,3 +467,25 @@ any active transfer when settings change, and require explicit resume after load
 No filter grants transfer permission or replaces real container capacity, mass,
 route or ownership checks. Shipbreaker's reclaimer and collector receivers are
 the two concrete consumers; see [automatic routing](automatic-material-routing.md).
+
+## Furnace-driven shared services (0.16.0)
+
+`Processing.NativeEnergyReceipts` witnesses an existing native `UsePower` call.
+Begin/Complete are one-use, per-powered-component sessions; do not save or replay
+a receipt or tick native power again to obtain one. `EnergyReceipt` accounts for
+external delivery plus appliance storage changes; unexpected over-debit remains
+real energy rather than being clamped away. Always Forget in final cleanup.
+
+`ThermalMath` supplies finite sensible/radiative calculations, and `GasParcel`
+retains finite named species and sensible energy. They do not simulate a ship
+atmosphere or choose recipes/limits. Shipbreaker owns F6 phase rules, gas transfers,
+endpoints, thermal settings and hot-state records using `ObjectStateStore`.
+
+`Controls.NativeInstruments` clones only audited knob/LED/lamp subtrees from
+installed prefabs under an inactive owned root. It checks the assembly fingerprint
+and component whitelist, validates sprite/row contracts, and suppresses native knob
+callbacks explicitly during refresh. A missing or changed donor produces one
+diagnostic and a null result for the caller's existing control fallback. Never
+clone the reactor controller, mutate shared sprite/font assets or distribute them.
+Consumers still own authority, localization, numeric formatting and physical
+measurements; absent data must stay Unknown.

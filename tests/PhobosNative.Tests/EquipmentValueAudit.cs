@@ -48,7 +48,7 @@ internal static class EquipmentValueAudit
         check(Price(Content.Loose, 0, true) > Price(Content.Loose), "Pristine premium is distinct from ordinary full condition");
         check(Price(Content.Loose, .99) < Price(Content.Loose), "Native wear reduces whole-equipment value");
         var items = EquipmentEconomy.Machines.SelectMany(s => new[] { s.Prefix + "Loose", s.Prefix + "LooseDmg" })
-            .Concat(new[] { ProcessRules.AssemblySection, ReclaimerRules.Section, PhobosAutoNav.EquipmentContent.Base, PhobosAutoNav.EquipmentContent.Base + "Dmg" });
+            .Concat(new[] { ProcessRules.AssemblySection, ReclaimerRules.Section, FurnaceRules.Section, PhobosAutoNav.EquipmentContent.Base, PhobosAutoNav.EquipmentContent.Base + "Dmg" });
         foreach (string id in items)
         {
             string[] outputs = DataHandler.dictInstallables[id + "Dismantle"].aLootCOs;
@@ -79,7 +79,13 @@ internal static class EquipmentValueAudit
                 string id = recipe.outputs[0].item;
                 if (id == "PhobosNavModAutoNav") id = PhobosAutoNav.EquipmentContent.Base;
                 double inputs = recipe.ingredients.Sum(i => i.count * Price(i.item));
-                if (id == ProcessRules.AssemblySection) sectionInputs = inputs;
+                if (id == FurnaceRules.Housing)
+                {
+                    check(!DataHandler.dictInstallables.ContainsKey(id + "Dismantle"), "Finished casting has no hidden scrap reroll recipe");
+                    rows.Add($"| {recipe.name} | ${inputs:N2} | No dismantling route (material finishing) |");
+                    continue;
+                }
+                if (recipe.id == "PhobosBuildShipbreakerSection") sectionInputs = inputs;
                 double scrap = DataHandler.dictInstallables[id + "Dismantle"].aLootCOs.Sum(p => Price(p));
                 // Includes unfinished section construction; no craft/scrap material loop.
                 check(scrap < inputs, "Construct then dismantle never increases ingredient value: " + recipe.id);

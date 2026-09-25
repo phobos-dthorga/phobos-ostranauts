@@ -1,5 +1,11 @@
 # Fusion furnace and instrument panel: feasibility and design
 
+**Implementation update (25 September 2026):** Shipbreaker 0.12.0 / Framework 0.16.0
+now prepare the electrical casting candidate described in the [F6 operating guide](furnace-player-guide.md).
+Read that guide for current dimensions, acquisition, controls and owner checks.
+The research and direct-fusion installation diagrams below retain their historical scope;
+they are not a record of an in-game test.
+
 **Superseding owner decision, 25 September:** [use electrical heating for the
 first F6](furnace-electrical-direction.md). The earlier direct-fusion-first language
 below records the original research direction and no longer constrains delivery.
