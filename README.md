@@ -111,7 +111,10 @@ operation. Auto Nav 0.8.0 adds [RCS docking](docs/auto-nav-docking.md).
 Version 0.7.0 added a [rotary instrument panel](docs/auto-nav-instruments.md)
 and includes short-range approaches below 5,000 km with closer
 arrival settings, improved coasting and corrected panel dragging/sizing. The current
-suite uses Framework 0.13.0. Auto Nav now supports
+suite uses Framework 0.14.0. Auto Nav 0.10.0 implements the four audit
+recommendations: combined RCS throttle budgeting, braking-room admission,
+console-specific speed/distance defaults and rare native module salvage. See
+[flight profiles and safety](docs/auto-nav-flight-profiles.md). Auto Nav supports
 [validated saved-flight restoration](docs/auto-nav-persistence.md) and
 [torch-preferred travel and braking](docs/auto-nav-torch.md) with native no-wake
 protection and RCS fallback. These are prepared versions; use installer

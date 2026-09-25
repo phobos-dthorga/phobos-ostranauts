@@ -33,7 +33,7 @@ foreach (double gap in new[] { 0, 1, 100, 1000, 85000, 4000000 })
 foreach (double speed in new[] { 0, 10, 100, 5000 })
 {
     double limit = TorchRules.SafeSpeed(gap, speed, 0, .5, dt);
-    double a = .5 * CoastRules.BrakingReserve / Math.Sqrt(2);
+    double a = CoastRules.BrakingAcceleration(.5);
     Check(limit * limit / (2 * a) + limit * dt <= Math.Max(0, gap - speed * dt) + 1e-6,
         "Torch end-speed budget always retains RCS stopping room");
 }
@@ -92,9 +92,10 @@ Check(!torch.Available(own, true, 10, out _), "Moving into a station's zone fall
 station.IsNotAFullStation = true;
 Check(torch.Available(own, true, 10, out _), "Station classification follows the native non-full-station exclusion");
 
-(Ship Ship, double Distance) Fly(bool prefer, bool restricted, double distanceM, double dt)
+(Ship Ship, double Distance) Fly(bool prefer, bool restricted, double distanceM, double dt, float throttle = 1, double heading = 0)
 {
     var ship = Setup(); CrewSim.system!.Restricted = restricted;
+    Plugin.Service.Throttle = throttle; ship.objSS.fRot = (float)heading;
     var target = new TargetRef(); target.TargetSitu.vPosy = distanceM * AutoNavCore.M_TO_AU;
     AutoNavCore.CruiseAU = 100 * AutoNavCore.M_TO_AU; AutoNavCore.ArrSpdAU = 0;
     AutoNavCore.ArriveAU = 1000 * AutoNavCore.M_TO_AU;
@@ -103,6 +104,8 @@ Check(torch.Available(own, true, 10, out _), "Station classification follows the
     {
         StarSystem.fEpoch += dt;
         AutoNavCore.SteerFlight(ship, target, dt);
+        Check(Math.Abs(ship.LastX) + Math.Abs(ship.LastY) + Math.Abs(ship.LastTurn) <= throttle + 1e-7,
+            "Every integrated flight command respects selected aggregate throttle");
         Check(TorchRules.Finite(ship.objSS.vAccIn.x, ship.objSS.vAccIn.y, ship.objSS.fRot, ship.objSS.fW), "Hybrid guidance remains finite");
         if (ship.IsUsingTorchDrive) Check(ship.objSS.vAccRCS.magnitude == 0 && ship.objSS.fA == 0, "Burn excludes translational RCS and turning");
         ship.objSS.Integrate(dt);
@@ -124,6 +127,8 @@ var prohibited = Fly(true, true, 3000, .25);
 Check(prohibited.Ship.PositiveThrusts == 0 && prohibited.Ship.RcsTranslation > 0, "Restricted approach remains fully usable with RCS");
 Fly(true, false, 85000, 1);
 Fly(true, false, 85000, 10);
+Fly(false, false, 3000, .25, .1f, Math.PI / 3);
+Fly(true, false, 3000, 1, .25f, -Math.PI / 2);
 
 own = Setup(); torch = Plugin.Service.Torch;
 torch.Burn(own, 2, 1); torch.Cut();
@@ -166,4 +171,32 @@ own.Maneuver(1,0,0,0,1); own.Reactor.FailControlWrite = true;
 AutoNavCore.EndFlight(own, "CONTACT LOST");
 Check(!AutoNavCore.Engaged && own.objSS.vAccRCS.magnitude == 0 && !own.IsUsingTorchDrive,
     "A failed reactor-control write cannot skip the independent RCS stop");
+// Production guidance regression: translation, turning, coasting spin damping and torch alignment
+// all pass through the same selected-throttle budget at the native boundary.
+foreach (float throttle in new[] { .01f, .1f, .25f, 1f })
+foreach (bool preferTorch in new[] { false, true })
+{
+    own = Setup(); Plugin.Service.Throttle = throttle;
+    var target = new TargetRef(); target.TargetSitu.vPosx = target.TargetSitu.vPosy = 85000 * AutoNavCore.M_TO_AU;
+    AutoNavCore.CruiseAU = 100 * AutoNavCore.M_TO_AU; AutoNavCore.ArrSpdAU = 0; AutoNavCore.ArriveAU = 1000 * AutoNavCore.M_TO_AU;
+    AutoNavCore.BeginFlight(own, target, new CoastSettings(3,10,.75,2), preferTorch);
+    AutoNavCore.SteerFlight(own, target, .25);
+    Check(Math.Abs(own.LastX) + Math.Abs(own.LastY) + Math.Abs(own.LastTurn) <= throttle + 1e-7,
+        "Diagonal guidance/torch alignment respects selected throttle including rotation");
+    if (!preferTorch) Check(Math.Abs(own.LastTurn) <= throttle * RcsBudget.CombinedRotationShare + 1e-7,
+        "Ordinary turn cannot consume the reserved braking budget");
+    own.objSS.vVelX = own.objSS.vVelY = 100 / Math.Sqrt(2) * AutoNavCore.M_TO_AU;
+    own.objSS.fW = .3f;
+    AutoNavCore.SteerFlight(own, target, .25);
+    Check(Math.Abs(own.LastX) + Math.Abs(own.LastY) + Math.Abs(own.LastTurn) <= throttle + 1e-7,
+        "Coasting spin correction respects low throttle");
+}
+own = Setup();
+var admissionTarget = new TargetRef(); admissionTarget.TargetSitu.vPosy = 2000 * AutoNavCore.M_TO_AU;
+own.objSS.vVelY = 100 * AutoNavCore.M_TO_AU;
+Check(AutoNavCore.TryReadAdmission(own, admissionTarget, 1, 0, 1, 10, out var room) && !room.Safe,
+    "Production target adapter rejects the audited unsafe intercept despite ample fuel");
+admissionTarget.TargetSitu.vPosy = 500 * AutoNavCore.M_TO_AU; own.objSS.vVelY = .1 * AutoNavCore.M_TO_AU;
+Check(AutoNavCore.TryReadAdmission(own, admissionTarget, 1, 0, .1, 10, out room) && room.Safe,
+    "Production target adapter permits a slow approach inside the selected arrival band");
 Console.WriteLine($"{checks} torch policy, native-boundary and guidance assertions passed. No in-game tests performed.");

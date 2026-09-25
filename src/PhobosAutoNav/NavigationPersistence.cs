@@ -157,6 +157,8 @@ internal sealed partial class NavigationService
             }
             if (problem == null && (target == null || !AutoNavCore.TryReadApproach(co.ship, target, snapshot.ArrivalKM, out _, out _)))
                 problem = Text.Get("NavigationService.target_unavailable");
+            if (problem == null && !snapshot.IsDocking)
+                problem = AdmissionProblem(co, target!, snapshot.ArrivalKM, snapshot.ArrivalMS);
             if (problem != null)
             {
                 FinishSavedFlight(snapshot.SuspendedMode);

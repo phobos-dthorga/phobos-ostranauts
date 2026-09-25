@@ -17,6 +17,7 @@ internal sealed class Ship
     internal double fShallowFusionRemain = 10000, Mass = 10000, RCSAccelMax = .5 * AutoNavCore.M_TO_AU,
         DeltaVRemainingRCS = 10000 * AutoNavCore.M_TO_AU, RcsFuel = 100, RcsTranslation, RcsRotation, LargestThrust;
     internal int PositiveThrusts, RetrogradeBurns;
+    internal float LastX, LastY, LastTurn;
     internal Ship() { Reactor = new CondOwner(this); }
     internal bool IsDocked() => Docked;
     internal void UnlockFromOrbit() { }
@@ -38,6 +39,7 @@ internal sealed class Ship
     }
     internal void Maneuver(float x, float y, float r, int noise, float dt)
     {
+        LastX = x; LastY = y; LastTurn = r;
         RcsTranslation += (Math.Abs(x) + Math.Abs(y)) * RCSAccelMax / AutoNavCore.M_TO_AU * dt;
         RcsRotation += Math.Abs(r) * dt;
         objSS.vAccRCS = new Vector2((x * Math.Cos(objSS.fRot) - y * Math.Sin(objSS.fRot)) * RCSAccelMax,
@@ -170,7 +172,7 @@ namespace PhobosAutoNav
     internal sealed class NavigationService
     {
         internal TorchDriveController Torch = new();
-        internal float Throttle => 1;
+        internal float Throttle { get; set; } = 1;
     }
     internal static class Text { internal static string Get(string key) => key; }
     internal sealed class TargetRef

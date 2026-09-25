@@ -8,4 +8,8 @@
     <Compile Include="../../src/PhobosAutoNav/NavigationSensors.cs" Link="NavigationSensors.cs" />
     <Compile Include="../Support/AutoNavContactDouble.cs" Link="AutoNavContactDouble.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Include="../../src/PhobosAutoNav/NavigationPreferences.cs" Link="NavigationPreferences.cs" />
+    <Compile Include="../../src/PhobosAutoNav/NavigationApproach.cs" Link="NavigationApproach.cs" />
+  </ItemGroup>
 </Project>

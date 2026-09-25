@@ -26,7 +26,7 @@ internal sealed class FlightSnapshot
 
     internal bool Valid => ObjectStateStore.SafeValue(ConsoleId) && ObjectStateStore.SafeValue(ModuleId) &&
         ObjectStateStore.SafeValue(ShipId) && ObjectStateStore.SafeValue(PlayerId) && ObjectStateStore.SafeValue(TargetId) &&
-        ShipId != TargetId && InRange(CruiseMS, 10, 5000) && InRange(ArrivalMS, 0, Math.Min(1000, CruiseMS)) &&
+        ShipId != TargetId && InRange(CruiseMS, FlightPreferences.MinimumCruiseMS, FlightPreferences.MaximumCruiseMS) && InRange(ArrivalMS, 0, Math.Min(FlightPreferences.MaximumArrivalMS, CruiseMS)) &&
         ApproachRules.ValidArrival(ArrivalKM) && InRange(ElapsedSeconds, 0, double.MaxValue) && Coast.IsValid &&
         Enum.IsDefined(typeof(SavedFlightMode), Mode) && (!IsDocking ||
             (ObjectStateStore.SafeValue(OwnPort) && ObjectStateStore.SafeValue(TargetPort) && !PreferTorch &&

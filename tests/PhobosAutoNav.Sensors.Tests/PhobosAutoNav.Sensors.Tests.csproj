@@ -9,4 +9,8 @@
     <Compile Include="../../src/PhobosAutoNav/NavigationPersistence.cs" Link="NavigationPersistence.cs" />
     <Compile Include="../../src/PhobosAutoNav/NavigationInstruments.cs" Link="NavigationInstruments.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Include="../../src/PhobosAutoNav/NavigationPreferences.cs" Link="NavigationPreferences.cs" />
+    <Compile Include="../../src/PhobosAutoNav/NavigationApproach.cs" Link="NavigationApproach.cs" />
+  </ItemGroup>
 </Project>

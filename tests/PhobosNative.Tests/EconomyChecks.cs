@@ -131,6 +131,7 @@ internal static class EconomyChecks
         check(DataHandler.dictLoot["ItmTraderSanDiegoPolarisInv"].aCOs.SequenceEqual(polarisStock.aCOs)
             && DataHandler.dictLoot["ItmTraderSanDiegoPolarisInv"].aLoots.SequenceEqual(polarisStock.aLoots),
             "Registering Auto Nav again preserves native Polaris stock without duplicating its branch");
+        SalvageChecks.Run(check, throws);
         var pack = JsonConvert.DeserializeObject<RecipePack>(File.ReadAllText(Path.Combine(repo,"mods/PhobosAutoNav/framework/recipes.json")))!;
         ConstructionRegistry.Register("AutoNavEconomyTest",pack.recipes);
         check(DataHandler.dictInteractions["PhobosCraft_PhobosBuildAutoNav"].aLootItms.Any(s=>s.StartsWith("Use,")), "Assembly requires reusable tools through native fetching");

@@ -10,6 +10,7 @@ void Check(bool ok, string message) { checks++; if (!ok) throw new Exception(mes
 {
     AutoNavCore.ResetStatics(); AutoNavCore.SteeringCalls = AutoNavCore.ApproachReads = TargetRef.Resolves = 0;
     AutoNavCore.ElapsedSeconds = 0; AutoNavCore.Coasting = false;
+    AutoNavCore.AdmissionSafe = true;
     CrewSim.system = new(); CrewSim.objInstance = new() { FinishedLoading = true }; CrewSim.Paused = false;
     Plugin.ResumeAfterLoad.Value = true;
     var own = new Ship { strRegID = "own", publicName = "Home" };
@@ -169,4 +170,44 @@ Check(docking.Valid && Store(f.Console).TryWrite(docking.Encode()), "Valid docki
 AutoNavCore.ResetStatics(); Signal(f.Own, .1);
 f.Service.Command(new[] { "phobosnav", "status" }, out response);
 Check(response.Contains("Sensors.Weak") && response.Contains("own-port"), "Docking diagnostics retain port binding and fresh contact state together");
+f = Setup(); AutoNavCore.AdmissionSafe = false;
+Check(!f.Service.ReadInstruments(f.Console).CanFly && f.Service.ReadInstruments(f.Console).CanDock,
+    "Unsafe Fly admission disables Fly while retaining separate Dock preflight");
+f.Service.Engage(f.Console);
+Check(!AutoNavCore.Engaged && Store(f.Console).Read(out _) == SavedStateStatus.Missing,
+    "Unsafe engagement never writes active intent or issues thrust");
+AutoNavCore.AdmissionSafe = true; f.Service.Engage(f.Console);
+AutoNavCore.AdmissionSafe = false; f.Service.Tick(f.Own.objSS, 1, false);
+Check(AutoNavCore.Engaged && f.Own.Thrust == 1, "Admission is not an in-flight abort that could discard ongoing braking");
+f.Service.WorldChanging(); f.Service.WorldLoaded(); f.Service.UpdatePersistence();
+Check(!AutoNavCore.Engaged && Read(f.Console).Mode == SavedFlightMode.Suspended,
+    "Automatic restoration suspends when current braking room is insufficient");
+f.Service.ResumeSaved(f.Console);
+Check(!AutoNavCore.Engaged, "Explicit Resume also rechecks braking room");
+AutoNavCore.AdmissionSafe = true; f.Service.ResumeSaved(f.Console);
+Check(AutoNavCore.Engaged, "Explicit Resume succeeds after restoring a safe approach");
+f.Service.Stop(f.Console, "test");
+Check(f.Service.Command(new[] { "phobosnav", "cruise", "200" }, out _) &&
+    f.Service.Command(new[] { "phobosnav", "arrivalspeed", "0.2" }, out _) &&
+    f.Service.Command(new[] { "phobosnav", "arrival", "0.5" }, out _), "F3 settings share checked service mutations");
+f.Service.Engage(f.Console, .75f);
+var capturedProfile = Read(f.Console);
+Check(capturedProfile.CruiseMS == 200 && capturedProfile.ArrivalMS == .2 && capturedProfile.ArrivalKM == .75,
+    "Flight captures console defaults with a one-flight distance override");
+Check(!f.Service.Command(new[] { "phobosnav", "cruise", "300" }, out _) &&
+    !f.Service.Command(new[] { "phobosnav", "defaults" }, out _), "F3 cannot replace an active profile");
+f.Service.Stop(f.Console, "test");
+Check(f.Service.ReadInstruments(f.Console).ArrivalKM == .5, "One-flight override does not replace console distance");
+f.Console.mapGUIPropMaps["PhobosState." + FlightPreferences.StoreName]["schema"] = "999";
+before = Raw(f.Console);
+Check(!f.Service.Command(new[] { "phobosnav", "cruise", "200" }, out _) && Raw(f.Console) == before,
+    "F3 preserves future preference records");
+var flightBeforeReset = Read(f.Console).Encode();
+Check(f.Service.Command(new[] { "phobosnav", "defaults" }, out _) &&
+    !f.Console.mapGUIPropMaps.ContainsKey("PhobosState." + FlightPreferences.StoreName) &&
+    Read(f.Console).Encode().SequenceEqual(flightBeforeReset), "Explicit preference reset leaves flight history intact");
+f.Service.Engage(f.Console); Signal(f.Own, .1); f.Service.Tick(f.Own.objSS, 1, false);
+Signal(f.Own, 1);
+Check(!f.Service.Command(new[] { "phobosnav", "fly" }, out _) && Read(f.Console).Mode == SavedFlightMode.Suspended,
+    "Direct F3 Fly cannot silently replace suspended intent; Resume or Stop is required");
 Console.WriteLine($"{checks} sensor-boundary, guidance, display and persistence assertions passed. No in-game tests performed.");

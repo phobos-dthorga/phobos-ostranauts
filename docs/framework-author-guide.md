@@ -1,4 +1,27 @@
-# Phobos Framework 0.13.0 — author guide
+# Phobos Framework 0.14.0 — author guide
+
+## Additive item loot (0.14.0)
+
+`Registration.AdditiveLoot.SetItemChoice(definitions, tableId, branchId, chances)`
+adds an optional, mutually exclusive item choice to an existing native item loot
+table. Supply a stable `Phobos`-prefixed branch ID and item-ID-to-probability map;
+finite nonnegative probabilities must sum to at most one. Zero choices disable
+the owned addition. Identifiers accept letters, digits, underscores and dots.
+The branch ID must differ from its parent table ID.
+
+The helper clones unstaged native definitions, keeps native/foreign entries,
+replaces only its own standalone branch, and creates one cumulative native
+choice expression. Each added branch yields at most one item. Publish using
+the existing `NativeDefinitions` transaction after all content has prepared.
+It never restocks merchants or rewrites inventories. Missing/non-item parent
+tables fail preparation rather than silently inventing a replacement pool.
+
+`MarketStock` now uses this same helper while retaining its condition hooks and
+availability scaling. Auto Nav 0.10.0 is the salvage consumer: content owns table
+selection, identities, balance and enablement. Prefer explicit native leaf pools
+to avoid adding a second chance to both a composite parent and its child. Shared
+pools can serve multiple generation contexts; do not promise derelict-only drops
+without checking those callers. Consumers of this API require **0.14.0**.
 
 ## Shared observations (0.13.0)
 

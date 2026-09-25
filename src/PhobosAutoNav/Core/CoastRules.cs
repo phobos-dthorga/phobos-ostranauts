@@ -47,14 +47,15 @@ internal static class CoastRules
     public const double DriftRadiusFraction = 0.25;
     public const double DegreesToRadians = Math.PI / 180;
     public const double BrakingReserve = 0.85;
-    private const double TwoAxisThrottleCost = 1.4142135623730951;
+    internal static double BrakingAcceleration(double throttledAcceleration) =>
+        throttledAcceleration * BrakingReserve * RcsBudget.MinimumTranslationShare / RcsBudget.TwoAxisCost;
     private const double SpinDeadbandRadiansPerSecond = 0.002;
     private const double RotationResponseSteps = 2;
     private const double BoundaryEpsilon = 1e-9;
 
     // Guard the next coast step using actual range, not the farther predicted
-    // intercept point. The /sqrt(2) allowance matches the arrival brake's
-    // aggregate two-axis throttle budget in its least favourable orientation.
+    // intercept point. Reserve turning authority and allow for the least
+    // favourable orientation under the native aggregate RCS throttle budget.
     public static bool TryBrakingSpeedLimit(double gapM, double closingMS, double arrivalMS,
         double accelerationMS2, double dt, out double speedMS)
     {
@@ -62,7 +63,7 @@ internal static class CoastRules
         if (!Nonnegative(gapM) || !ArrivalBrake.Finite(closingMS) || !Nonnegative(arrivalMS)
             || !Nonnegative(accelerationMS2) || accelerationMS2 == 0 || !Nonnegative(dt) || dt == 0) return false;
         double nextGap = Math.Max(0, gapM - Math.Max(0, closingMS) * dt);
-        double budget = arrivalMS * arrivalMS + 2 * accelerationMS2 * BrakingReserve / TwoAxisThrottleCost * nextGap;
+        double budget = arrivalMS * arrivalMS + 2 * BrakingAcceleration(accelerationMS2) * nextGap;
         if (!ArrivalBrake.Finite(budget)) return false;
         speedMS = Math.Sqrt(budget);
         return true;

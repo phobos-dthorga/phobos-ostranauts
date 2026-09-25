@@ -12,4 +12,14 @@ internal static class EquipmentRules
     internal const string ElectronicsTrigger = "TIsPartsElecSmall", ElectronicsItem = "ItmPartsElecSmall01";
     internal const double FixerWornChance = 0.30, KLegBrokenChance = 0.25,
         PolarisPristineChance = 0.60, VenusRefurbishedChance = 0.20;
+    internal const float SalvageChance = .03f;
+    internal const double DamagedSalvageShare = 2d / 3;
+    // Native leaf tables only: parent random tables choose one of these, avoiding nested bonus rolls.
+    internal static readonly string[] SalvageTables = {
+        "ItmNavStationModsAll", "ItmNavStationModsAllDmg", "ItmNavStationModsCombat",
+        "ItmNavStationModsTorchShip", "ItmNavStationModsTorchShip2", "ItmNavStationModsAtmo",
+        "ItmNavStationModsPod", "ItmNavStationModsTorchCombat", "ItmNavStationModsTorchCombat2",
+        "ItmNavStationModsRandomAll", "ItmNavStationModsRandomAllDmg", "ItmNavStationModsRandomPod",
+        "ItmNavStationModsRandomAtmoSub", "ItmNavStationModsRandomCombatSub", "ItmNavStationModsRandomTorchSub"
+    };
 }

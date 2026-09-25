@@ -8,7 +8,8 @@ trade/maintenance checks. Versions 0.4.1–0.4.3 fix panel dragging/layout and i
 and existing work thresholds are retained.
 No game session or live shop quote was used for this audit.
 
-Current naming update: **Auto Nav 0.8.1 requires Framework 0.12.0**.
+Current build: **Auto Nav 0.10.0 requires Framework 0.14.0**. The equipment naming
+introduced in 0.8.1 is unchanged.
 The item and its damaged form are **Phobos' Asterel N1 Polaris Auto Nav Module** and
 **Phobos' Asterel N1 Polaris Auto Nav Module (Damaged)**. The mod manager/package remains
 **Phobos Auto Nav**. Internal item IDs, module slots, load-order folder, console
@@ -49,6 +50,12 @@ onto this small control-system board.
 
 ## Build, repair, Restore and dismantle
 
+Version 0.10.0 also adds [rare native module salvage](auto-nav-flight-profiles.md):
+3% per eligible navigation-module leaf roll by default, biased toward damaged
+modules. Some shared pools feed merchants too. Existing inventories are retained;
+this adds future loot choices rather than rewriting ship layouts or guaranteeing
+an item aboard every derelict. The salvage chance has its own configuration.
+
 | Action | Materials and result | Baseline work |
 |---|---|---:|
 | Construct | 2 small electronic parts (1 kg) → module (0.4 kg) + offcuts (0.6 kg) | 30 min |
@@ -73,7 +80,7 @@ refining recipe. Zero would invoke the game's mass-based price fallback. A
 standard electronic-parts item weighs 0.5 kg, so returning one from this 0.4 kg
 module would create mass. Dismantling does not provide that output. Taking an
 intact module from salvage and reusing/repairing it is the useful recovery path;
-this round does not inject it into derelict ship layouts.
+the native loot registration above supplies a rare future-generation path.
 
 ## Balance evidence and checks
 

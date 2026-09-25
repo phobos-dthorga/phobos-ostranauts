@@ -39,7 +39,7 @@ internal static class TorchRules
     {
         if (!Finite(gap, currentSpeed, arrivalSpeed, rcsAcceleration, dt) || gap < 0 || currentSpeed < 0 ||
             arrivalSpeed < 0 || rcsAcceleration <= 0 || dt <= 0) return double.NaN;
-        double a = rcsAcceleration * CoastRules.BrakingReserve / Math.Sqrt(2);
+        double a = CoastRules.BrakingAcceleration(rcsAcceleration);
         double remaining = Math.Max(0, gap - currentSpeed * dt);
         // Reserve another end-speed step as well as the current-speed step.
         double at = a * dt;

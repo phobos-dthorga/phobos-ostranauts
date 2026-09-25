@@ -1,7 +1,7 @@
 # Phobos Auto Nav: standalone adaptation
 
-**0.9.0 candidate; built against Ostranauts 1.0.1.5 / BepInEx 5.4.23.5.**
-Ordinary saves are the baseline from 2026-09-24. Phobos Framework 0.12.0+ now
+**0.10.0 candidate; built against Ostranauts 1.0.1.5 / BepInEx 5.4.23.5.**
+Ordinary saves are the baseline from 2026-09-24. Phobos Framework 0.14.0+ now
 provides shared construction, merchant and maintenance services. No original Auto
 Navigate dependency. See [prices, acquisition and service bills](equipment-economy.md).
 In-game validation of this update remains pending. See the
@@ -23,6 +23,10 @@ That note has not been sent. No blanket community reuse grant is claimed.
 
 ## Implemented slice
 
+- Version 0.10.0 applies the console throttle to translation plus turning, checks
+  braking room before ordinary Fly/Resume, saves console-specific numeric defaults
+  with speed controls in Details, and adds rare native module salvage. See
+  [flight profiles, safety and salvage](auto-nav-flight-profiles.md).
 - Version 0.9.0 requires [live native sensor contact](auto-nav-sensors.md) for
   Fly, Resume and Dock. Losing contact suspends and clears owned thrust while
   preserving intent; reacquisition requires explicit Resume. Unavailable range
@@ -134,12 +138,12 @@ shows the requested distance and relative speed. Reading these values does not
 advance target physics. Starting within the arrival band brakes excess relative
 speed or completes if already slow enough; it does not move the ship outward to
 the requested distance. This is approach assistance, not a docking or position-hold
-controller. A fast approach can still overshoot; there is no obstacle avoidance
-or stopping-distance admission guarantee.
+controller. Version 0.10.0 now checks braking room before ordinary Fly/Resume;
+this is not obstacle avoidance or a collision guarantee.
 
 Existing configuration values, including the old 5 km default, remain intact.
-With Auto Nav disengaged, use `phobosnav arrival 1` once to save the new preferred
-default. Use `phobosnav fly 0.5` for a single flight requesting 500 m without
+With no active or suspended flight, use `phobosnav arrival 1` once to save that
+console's preferred default. Use `phobosnav fly 0.5` for a single flight requesting 500 m without
 changing the saved default. Both commands validate distance before changing
 anything; an active flight retains its captured settings until stopped. Module
 identities and saved items are unchanged.
@@ -214,6 +218,11 @@ arrival distance is centre-to-centre and also floored by the inherited hull chec
 Larger simulation steps abort and return to normal speed; they are not subdivided.
 After an abort the ship coasts, so this limit is not a collision guarantee.
 
+From 0.10.0, configuration supplies initial numeric preferences only. Each console
+then saves its own cruise/arrival-speed/distance through Details/F3 or its first
+successful Fly; display reads do not create records. See
+[flight profiles and salvage settings](auto-nav-flight-profiles.md).
+
 Other settings control coast corrections, bounded rotation, the inherited
 approximate departure fuel check, detailed logging and the master switch.
 Rotation's instantaneous comparison mode is inherited and nonphysical; leave
@@ -233,7 +242,12 @@ F3 commands:
 | `phobosnav spawn` | Add one module to an open compatible console (debug grant) |
 | `phobosnav fly` | Engage using the saved default through the same checks as the panel |
 | `phobosnav fly 0.5` | Request a 500 m arrival for this flight; larger hull clearance still applies |
-| `phobosnav arrival 1` | Save a 1 km default while disengaged; no restart required |
+| `phobosnav arrival 1` | Save this console's 1 km default with no active/suspended flight |
+| `phobosnav cruise 100` | Save this console's cruise speed in m/s |
+| `phobosnav arrivalspeed 0` | Save arrival relative speed in m/s; zero matches target motion |
+| `phobosnav defaults` | Explicitly clear only this console's numeric preferences |
+| `phobosnav resume` | Recheck and resume the saved destination/profile |
+| `phobosnav forget` | Explicitly discard a retained saved-flight record |
 | `phobosnav torch on` / `phobosnav torch off` | Save torch preference; off cuts the current torch burn while RCS guidance continues |
 | `phobosnav stop` | Clear commanded thrust and coast |
 

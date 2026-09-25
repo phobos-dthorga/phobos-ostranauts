@@ -85,5 +85,7 @@
   "ProcessRules.unsupported_saved_recipe_revision_panel_retained_restore": "Unsupported saved recipe revision {0}; input retained. Restore a supporting mod version, or explicitly cancel work to restart from zero.",
   "ProcessRules.saved_duration_is_missing_panel_retained_cancel": "Saved duration is missing; input retained. Cancel work explicitly to restart from zero.",
   "ProcessRules.incomplete_saved_job_panel_retained_cancel_work": "Incomplete saved job; input retained. Cancel work explicitly to restart from zero.",
-  "SavedPortFilter.invalid_definitions": "Use a bounded list of unique, valid item definition IDs."
+  "SavedPortFilter.invalid_definitions": "Use a bounded list of unique, valid item definition IDs.",
+  "AdditiveLoot.invalid_choice": "Invalid additive loot choice: use a Phobos branch ID, native item IDs and probabilities totaling at most one.",
+  "AdditiveLoot.missing_table": "Native item loot table unavailable: {0}"
 }

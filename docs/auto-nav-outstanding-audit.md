@@ -1,5 +1,11 @@
 # Auto Navigate comparison and current Auto Nav audit
 
+**Historical audit, implemented follow-up:** all four recommendations below are
+implemented in Auto Nav **0.10.0** / Framework **0.14.0**. See
+[flight profiles, safety, salvage and verification](auto-nav-flight-profiles.md).
+The original baseline and findings below are retained as evidence; they no longer
+describe outstanding implementation work. Owner gameplay evaluation remains pending.
+
 Assessed **25 September 2026** against committed revision
 `2a77e74df8762b36f005e0da53808ebc4db0e6c7`: **Phobos Auto Nav 0.9.0** and
 **Phobos Framework 0.12.0**. The installed game reference is Ostranauts **1.0.1.5**;

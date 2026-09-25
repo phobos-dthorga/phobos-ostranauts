@@ -163,6 +163,19 @@
 
 ## Architecture
 
+- Auto Nav 0.10.0 implements the four 2026-09-25 audit recommendations. All RCS
+  axes share the selected throttle, including turning; ordinary Fly/Resume uses
+  conservative current-motion RCS braking-room admission. Do not apply that
+  admission check as an abort of an already running brake. Dock retains its own
+  capture policy. Numeric cruise/arrival-speed/distance preferences use a separate
+  per-console Framework object store, seeded from configuration without display
+  writes; active/suspended profiles remain captured. Details/F3 share mutations.
+  Rare native nav-module salvage uses Framework 0.14.0 AdditiveLoot, also reused
+  by merchant stock. Content owns balance and leaf-table selection; native pools
+  may also feed merchants. Preserve inventories, other providers and stable IDs.
+  Existing artwork is unchanged. See `docs/auto-nav-flight-profiles.md`;
+  gameplay evaluation remains with the owner.
+
 - Auto Nav 0.6.0 adds the owner's requested torch preference, including approach
   braking where native zones permit it (2026-09-24). Do not impose a blanket
   short-range torch ban. Keep native fuel/heat/wear, running-reactor readiness,

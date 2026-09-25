@@ -62,6 +62,7 @@ if ('AutoNav' -in $Mods) {
             if ([version]$navInfo[0].strModVersion -ge [version]'0.3.0' -and $minimumPhobosFramework -lt [version]'0.7.0') { $minimumPhobosFramework = [version]'0.7.0' }
             if ([version]$navInfo[0].strModVersion -ge [version]'0.5.0' -and $minimumPhobosFramework -lt [version]'0.11.0') { $minimumPhobosFramework = [version]'0.11.0' }
             if ([version]$navInfo[0].strModVersion -ge [version]'0.8.1' -and $minimumPhobosFramework -lt [version]'0.12.0') { $minimumPhobosFramework = [version]'0.12.0' }
+            if ([version]$navInfo[0].strModVersion -ge [version]'0.10.0' -and $minimumPhobosFramework -lt [version]'0.14.0') { $minimumPhobosFramework = [version]'0.14.0' }
             $Mods = @('Framework') + @($Mods | Where-Object { $_ -ne 'Framework' })
         }
     }

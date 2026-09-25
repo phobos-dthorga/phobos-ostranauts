@@ -19,17 +19,7 @@ internal sealed partial class NavigationService
     private static CondOwner? OpenConsole => GUIOrbitDraw.IsOpen() ? GUIOrbitDraw.Instance.COSelfBase() : null;
     internal NavigationService(Action<string> log) { this.log = log; }
 
-    internal float Throttle
-    {
-        get
-        {
-            if (console != null && console.mapGUIPropMaps.TryGetValue("Panel A", out var props)
-                && props.TryGetValue("slidThrottle", out var value)
-                && float.TryParse(value, NumberStyles.Float, CultureInfo.InvariantCulture, out float throttle)
-                && ArrivalBrake.Finite(throttle)) return Math.Max(0, Math.Min(1, throttle));
-            return 0; // Missing throttle state must not silently become a burn.
-        }
-    }
+    internal float Throttle => ReadThrottle(console);
 
     private static bool HasId(CondOwner co, string id) => !co.bDestroyed && (co.strName == id || co.strCODef == id);
     private static bool PropOn(CondOwner co, string key) => co.mapGUIPropMaps.TryGetValue("Panel A", out var props)
@@ -65,6 +55,7 @@ internal sealed partial class NavigationService
             string? problem = HardwareProblem(co);
             if (problem != null) { status = problem; return; }
             if (!CanReplaceFlight(co!)) return;
+            if (DisplaySnapshot(co) != null) { status = Text.Get("Preferences.captured"); return; }
             console = co;
             savedFlight = null;
             if (Throttle <= 0) { status = Text.Get("NavigationService.set_the_nav_console_throttle_above_zero"); return; }
@@ -76,19 +67,23 @@ internal sealed partial class NavigationService
             if (target == null) { status = Text.Get("NavigationService.target_unavailable"); return; }
             var sensing = ReadContact(co, target);
             if (!sensing.Usable) { status = Text.Get(sensing.MessageKey); return; }
-            float cruise = Plugin.DefaultCruiseMS.Value, arrival = Plugin.DefaultArriveSpeedMS.Value,
-                distance = arrivalKM ?? Plugin.DefaultArriveKM.Value;
+            if (!ReadPreferences(co!, out var preferences)) { status = Text.Get("Preferences.invalid"); return; }
+            double cruise = preferences.CruiseMS, arrival = preferences.ArrivalMS,
+                distance = arrivalKM ?? preferences.ArrivalKM;
             var coastSettings = Plugin.ReadCoastSettings();
             if (!ArrivalBrake.Finite(cruise) || !ArrivalBrake.Finite(arrival) || !ApproachRules.ValidArrival(distance) || !coastSettings.IsValid)
             { status = Text.Get("NavigationService.invalid_flight_settings"); return; }
             if (!target.Resolve(out _, out _, out _, out _)
                 || !AutoNavCore.TryReadApproach(co!.ship, target, distance, out _, out _))
             { status = Text.Get("NavigationService.approach_data_unavailable"); return; }
+            problem = AdmissionProblem(co!, target, distance, arrival);
+            if (problem != null) { status = problem; return; }
             AutoNavCore.CruiseAU = cruise * AutoNavCore.M_TO_AU;
             AutoNavCore.ArrSpdAU = Math.Min(arrival, cruise) * AutoNavCore.M_TO_AU;
             AutoNavCore.ArriveAU = distance * AutoNavCore.KM_TO_AU;
             if (Plugin.FuelCheck.Value && !AutoNavCore.HasFuelForFlight(co!.ship, target))
             { status = Text.Get("NavigationService.insufficient_estimated_delta_v"); return; }
+            if (!PreferenceStore(co!).TryWrite(preferences.Encode())) { status = Text.Get("Preferences.invalid"); return; }
             issuing = true;
             try { AutoNavCore.BeginFlight(co!.ship, target, coastSettings, Plugin.PreferTorch.Value); } finally { issuing = false; }
             savedFlight = CaptureFlight(co!, target, cruise, Math.Min(arrival, cruise), distance);
@@ -169,8 +164,9 @@ internal sealed partial class NavigationService
     private string ApproachSummary(CondOwner? co, bool detailed)
     {
         co ??= console;
+        double defaultDistance = co != null && ReadPreferences(co, out var defaults) ? defaults.ArrivalKM : Plugin.DefaultArriveKM.Value;
         var snapshot = DisplaySnapshot(co);
-        double requested = AutoNavCore.Engaged ? AutoNavCore.ArriveAU / AutoNavCore.KM_TO_AU : snapshot?.ArrivalKM ?? Plugin.DefaultArriveKM.Value;
+        double requested = AutoNavCore.Engaged ? AutoNavCore.ArriveAU / AutoNavCore.KM_TO_AU : snapshot?.ArrivalKM ?? defaultDistance;
         var target = AutoNavCore.Engaged ? AutoNavCore.EngagedTarget :
             snapshot != null ? TargetRef.FromShipId(snapshot.TargetId) :
             GUIOrbitDraw.IsOpen() && GUIOrbitDraw.CrossHairTarget?.Ship != null ? TargetRef.FromCrossHair() : null;
@@ -190,7 +186,7 @@ internal sealed partial class NavigationService
         try
         {
             string verb = words.Length == 1 ? "help" : words[1].ToLowerInvariant();
-            if (words.Length > (verb == "fly" || verb == "arrival" || verb == "torch" ? 3 : 2))
+            if (words.Length > (verb == "fly" || verb == "arrival" || verb == "cruise" || verb == "arrivalspeed" || verb == "torch" ? 3 : 2))
             { response = Text.Get("NavigationService.no_extra_arguments_accepted_use_phobosnav_help"); return false; }
             switch (verb)
             {
@@ -199,8 +195,13 @@ internal sealed partial class NavigationService
                     + "\n" + ApproachSummary(OpenConsole, detailed: true) + "\n" + Text.Get(Torch.Reason); return true;
                 case "settings":
                     var snapshot = DisplaySnapshot(OpenConsole ?? console);
+                    var settingsConsole = OpenConsole ?? console;
+                    if (settingsConsole == null || !IsLocalConsole(settingsConsole))
+                    { response = Text.Get("Preferences.console_required"); return false; }
+                    if (!ReadPreferences(settingsConsole, out var preferences) && snapshot == null)
+                    { response = Text.Get("Preferences.invalid"); return false; }
                     var coast = snapshot?.Coast ?? Plugin.ReadCoastSettings();
-                    response = Text.Get("NavigationService.cruise_m_s_arrival_m_s_at", snapshot?.CruiseMS ?? Plugin.DefaultCruiseMS.Value, snapshot?.ArrivalMS ?? Plugin.DefaultArriveSpeedMS.Value, snapshot?.ArrivalKM ?? Plugin.DefaultArriveKM.Value, Plugin.ArrivalSpeedTolerance.Value, Plugin.MaximumStepSeconds.Value, Plugin.Id)
+                    response = Text.Get("NavigationService.cruise_m_s_arrival_m_s_at", snapshot?.CruiseMS ?? preferences.CruiseMS, snapshot?.ArrivalMS ?? preferences.ArrivalMS, snapshot?.ArrivalKM ?? preferences.ArrivalKM, Plugin.ArrivalSpeedTolerance.Value, Plugin.MaximumStepSeconds.Value, Plugin.Id)
                         + "\n" + Text.Get("NavigationService.coast_settings", coast.MinimumToleranceMS, coast.SpeedTolerancePercent,
                             coast.EnterFraction * 100, coast.BurnHeadingToleranceDegrees, CoastRules.DriftLookaheadSeconds,
                             CoastRules.DriftRadiusFraction * 100,
@@ -221,13 +222,15 @@ internal sealed partial class NavigationService
                     return AutoNavCore.Engaged;
                 case "dock": Dock(OpenConsole); response = status; return AutoNavCore.Engaged;
                 case "arrival":
-                    if (words.Length != 3 || !ApproachRules.TryParseArrival(words[2], out float newDefault))
-                    { response = ArrivalUsage(); return false; }
-                    if (AutoNavCore.Engaged)
-                    { response = Text.Get("NavigationService.already_engaged_stop_before_changing_the_flight"); return false; }
-                    SetArrivalDefault(newDefault);
-                    response = status;
-                    return true;
+                case "cruise":
+                case "arrivalspeed":
+                    if (words.Length != 3 || !double.TryParse(words[2], NumberStyles.Float, CultureInfo.InvariantCulture, out double requestedSetting))
+                    { response = Text.Get("Preferences.usage"); return false; }
+                    bool changed = SetFlightSetting(OpenConsole, verb == "arrival" ? FlightSetting.ArrivalDistance :
+                        verb == "cruise" ? FlightSetting.Cruise : FlightSetting.ArrivalSpeed, requestedSetting);
+                    response = status; return changed;
+                case "defaults":
+                    bool reset = ResetPreferences(OpenConsole); response = status; return reset;
                 case "torch":
                     if (words.Length != 3 || (words[2] != "on" && words[2] != "off"))
                     { response = Text.Get("Torch.usage"); return false; }

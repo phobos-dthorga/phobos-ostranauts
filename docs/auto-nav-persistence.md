@@ -1,5 +1,11 @@
 # Auto Nav saved flights (introduced 0.5.0; torch addition 0.6.0)
 
+Auto Nav 0.10.0 also checks [current braking room](auto-nav-flight-profiles.md)
+before ordinary resume, including restoration after loading. Numeric console
+preferences use a separate saved record; they never replace a captured profile.
+The current package requires Framework 0.14.0. The earlier baseline below records
+when saved flights were introduced.
+
 Auto Nav 0.9.0 adds [fresh sensor validation](auto-nav-sensors.md) before any
 resume. Contact loss suspends without discarding the destination or elapsed
 budget, and requires explicit Resume after recovery. No saved reading is trusted

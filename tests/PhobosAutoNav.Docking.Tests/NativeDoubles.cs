@@ -173,6 +173,7 @@ namespace PhobosAutoNav
         internal string? HardwareFailure;
         internal string Diagnostic => status + issuing;
         private string? HardwareProblem(CondOwner? co) => HardwareFailure;
+        private static string? AdmissionProblem(CondOwner co, TargetRef target, double km, double speed) => null;
         private static bool HasId(CondOwner co, string id) => co.Kind == id;
         internal void Engage(CondOwner? co) => throw new NotSupportedException();
         internal void Disengage(string reason)

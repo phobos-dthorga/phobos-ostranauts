@@ -1,7 +1,7 @@
 # Current player guide
 
-**Prepared versions:** Phobos Framework **0.13.0**, Shipbreaker **0.11.0**, Auto Nav
-**0.9.0**, built against Ostranauts **1.0.1.5** / BepInEx **5.4.23.5**.
+**Prepared versions:** Phobos Framework **0.14.0**, Shipbreaker **0.11.0**, Auto Nav
+**0.10.0**, built against Ostranauts **1.0.1.5** / BepInEx **5.4.23.5**.
 These versions support ordinary saves. Builds and offline checks do not establish
 in-game compatibility. This guide describes the prepared packages, not a claim
 that those packages are already installed or that merchants have restocked.
@@ -48,7 +48,7 @@ Mortorq tool and soldering tool, plus materials; it does not consume those tools
 | Exterior grabber | 60 min | K-Leg/VORB scrap, K-Leg fixer, San Diego Halvorson |
 | Hull chute | 30 min | Same industrial suppliers |
 | Residue collector | 40 min | Same industrial suppliers |
-| Auto Nav module | 30 min | See the navigation offers in the economy guide |
+| Auto Nav module | 30 min | Navigation offers in the economy guide; rare native module salvage |
 
 Stock is probabilistic and appears through normal merchant restocking. Restarting
 does not force new inventory. Broken equipment needs **Repair**; functional worn
@@ -156,6 +156,15 @@ connected workflow, retained materials and any actual failure you encounter.
 
 ## Auto Nav and current limits
 
+Auto Nav 0.10.0 adds [console-specific flight settings and safer starts](auto-nav-flight-profiles.md).
+Set cruise and arrival speed in **Details**, and stopping distance with the
+existing dial. F3 accepts `phobosnav cruise <m/s>`, `phobosnav arrivalspeed <m/s>`
+and `phobosnav arrival <km>`. These numeric defaults stay with that console;
+active/suspended flights retain their captured values. All RCS commands now
+respect the selected throttle including turning. Fly/Resume refuses an approach
+without enough conservative RCS braking room; Details explains the refusal.
+Rare module salvage joins the existing acquisition paths, using unchanged art.
+
 Auto Nav 0.8.0 adds [automatic RCS docking](auto-nav-docking.md) as a separate
 maneuver within 10 km of the hull. Request Comms clearance, select that target,
 then use Details → Dock or `phobosnav dock`. Keep Comms/docking controls open for
@@ -200,7 +209,7 @@ stopped after reload. Older saves without flight records remain idle.
 Short-range approaches below **5,000 km** are the current goal; Auto Nav has no
 minimum engagement range. New configurations stop at **1 km**, adjustable down
 to **100 m** subject to larger hull clearance. Existing settings stay unchanged:
-while disengaged, `phobosnav arrival 1` saves a 1 km default. `phobosnav fly 0.5`
+while disengaged, `phobosnav arrival 1` saves that console's 1 km default. `phobosnav fly 0.5`
 requests 500 m for one flight. These distances are centre-to-centre, and arrival
 is a band rather than an exact docking position. Status reports effective range.
 Choose a ship/station target and use the [Auto Nav guide](auto-navigate-adaptation.md)

@@ -1,4 +1,10 @@
-# Polaris instrument panel — Auto Nav 0.7.0
+# Polaris instrument panel — Auto Nav 0.10.0
+
+**0.10.0 controls:** Details adds cruise and arrival-speed minus/plus controls.
+Numeric speed/distance defaults now belong to each console; Fly readiness also
+checks braking room. See [flight profiles and safety](auto-nav-flight-profiles.md).
+The existing plate and pickup sprites are unchanged. The artwork preview below
+remains a historical illustration of the original 0.7.0 controls.
 
 **0.9.0 sensing:** range and relative speed are unknown without a
 [usable native contact](auto-nav-sensors.md). Details and F3 status explain
@@ -14,7 +20,7 @@ distance reads CLAMPS; docking uses its own capture limits and RCS. See the
 [docking guide](auto-nav-docking.md) for clearance, ports and explicit Resume
 after reload. The linked artwork preview illustrates the original 0.7.0 layout.
 
-Prepared against Ostranauts 1.0.1.5 and Framework 0.11.0. The owner authorised a
+Prepared against Ostranauts 1.0.1.5 and Framework 0.14.0. The owner authorised a
 substantial redesign on 24 September 2026. This is a prepared candidate, not an
 installed update or an in-game validation claim.
 
@@ -50,7 +56,8 @@ Focused arrow keys also step. Amber values indicate locked settings. Arrival is
 locked during active or suspended flights. An old RCS-only flight cannot acquire
 torch permission through the panel: stop and begin a new flight. A torch-permitted
 flight can switch between RCS inhibition and AUTO without changing saved intent.
-Defaults are shared configuration; active flight values are captured per flight.
+Numeric defaults are saved per console; active flight values are captured per
+flight. Propulsion preference retains its shared configuration behaviour.
 
 Damaged hardware disables flight/settings controls; Details remains readable.
 In native Edit mode the controls yield pointer events to placement and cannot

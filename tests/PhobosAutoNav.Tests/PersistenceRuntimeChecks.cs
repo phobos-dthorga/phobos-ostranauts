@@ -160,7 +160,7 @@ namespace PhobosAutoNav
         internal static Setting<bool> ResumeAfterLoad = new(true), Enabled = new(true), FuelCheck = new(true);
         internal static Setting<double> MaxFlightSimHours = new(48);
         internal static Setting<bool> PreferTorch = new(true);
-        internal static Setting<float> DefaultArriveKM = new(1), DefaultCruiseMS = new(100), TorchMaximumG = new(1);
+        internal static Setting<float> DefaultArriveKM = new(1), DefaultCruiseMS = new(100), TorchMaximumG = new(1), DefaultArriveSpeedMS = new(0), MaximumStepSeconds = new(10);
     }
     internal static class Text { internal static string Get(string key, params object[] values) => key; }
     internal sealed class TargetRef
@@ -187,6 +187,8 @@ namespace PhobosAutoNav
         internal static void RestoreFlight(Ship ship, TargetRef target, FlightSnapshot snapshot)
         { Engaged = true; EngagedPlayer = ship; ElapsedSeconds = snapshot.ElapsedSeconds; Coasting = snapshot.Coasting; }
         internal static bool AutoDockBusy() => false;
+        internal static bool TryReadAdmission(Ship own, TargetRef target, double km, double speed, double throttle, double step, out BrakingRoom room)
+        { room = new BrakingRoom(1, 100); return true; }
         internal static bool TryReadApproach(Ship ship, TargetRef target, double km, out ApproachPlan plan, out double speed)
         { speed = 10; return ApproachRules.TryPlan(80, km, 0, out plan); }
         internal static bool HasFuelForFlight(Ship ship, TargetRef target, bool readOnly) { FuelReadOnly = readOnly; return FuelAvailable; }

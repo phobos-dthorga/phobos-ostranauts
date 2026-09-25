@@ -168,6 +168,9 @@ namespace PhobosAutoNav
         internal static bool FlightPrefersTorch;
         internal static int SteeringCalls, ApproachReads;
         internal static void ResetStatics() { Engaged = false; EngagedPlayer = null; EngagedTarget = null; }
+        internal static bool AdmissionSafe = true;
+        internal static bool TryReadAdmission(Ship own, TargetRef target, double km, double speed, double throttle, double step, out BrakingRoom room)
+        { room = new BrakingRoom(AdmissionSafe ? 1 : 10000, 100); return true; }
         internal static bool AutoDockBusy() => false;
         internal static bool TryReadApproach(Ship own, TargetRef target, double requested, out ApproachPlan plan, out double speed)
         { ApproachReads++; speed = 10; return ApproachRules.TryPlan(80, requested, 0, out plan); }

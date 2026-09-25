@@ -25,6 +25,7 @@ internal static class InstrumentChecks
         CrewSim.coPlayer = new CondOwner { ship = ship };
         CrewSim.objInstance = new CrewSim { FinishedLoading = true };
         var co = new CondOwner { strID = "console", ship = ship };
+        co.Items.Add(new CondOwner { strID = "module", Kind = NavigationService.ModuleId, ship = ship });
         var service = new NavigationService(); service.BindForTest(co);
         GUIOrbitDraw.CrossHairTarget = new GUIOrbitDraw.Contact { Ship = new Ship { strRegID = "target" } };
         int saves = Plugin.DefaultArriveKM.ConfigFile.Saves;
@@ -32,7 +33,8 @@ internal static class InstrumentChecks
         check(view.ArrivalKM == .75 && view.CanAdjustArrival && view.CanFly, "Idle instrument keeps custom arrival value and ready target");
         check(co.mapGUIPropMaps.Count == 0 && Plugin.DefaultArriveKM.ConfigFile.Saves == saves, "Reading a panel creates no save or config changes");
         service.StepPanelArrival(co, 1);
-        check(Plugin.DefaultArriveKM.Value == 1 && Plugin.DefaultArriveKM.ConfigFile.Saves == saves + 1, "Dial saves the next legal default");
+        check(service.ReadInstruments(co).ArrivalKM == 1 && Plugin.DefaultArriveKM.Value == .75 && Plugin.DefaultArriveKM.ConfigFile.Saves == saves,
+            "Dial saves console preference without mutating configuration");
         var snapshot = new FlightSnapshot { ConsoleId = co.strID, ModuleId = "module", ShipId = "ship", PlayerId = "player",
             TargetId = "saved-target", CruiseMS = 100, ArrivalKM = .75, Coast = new CoastSettings(3, 10, .75, 2), Mode = SavedFlightMode.Suspended };
         var store = new ObjectStateStore(co.mapGUIPropMaps, FlightSnapshot.StoreName, co.strID, 1);
@@ -42,7 +44,7 @@ internal static class InstrumentChecks
             "Suspended RCS flight presents its captured profile instead of defaults");
         check(view.Target == "saved-target", "Saved destination takes precedence over crosshair selection");
         service.StepPanelArrival(co, 1); service.SetPanelTorch(co, true);
-        check(Plugin.DefaultArriveKM.Value == 1, "Suspended arrival is protected from dial input");
+        check(Plugin.DefaultArriveKM.Value == .75, "Suspended arrival is protected from dial input");
         store.Read(out var after); check(before.OrderBy(k => k.Key).SequenceEqual(after.OrderBy(k => k.Key)), "Panel interaction never rewrites saved intent");
         AutoNavCore.Engaged = true; AutoNavCore.EngagedPlayer = ship; AutoNavCore.FlightPrefersTorch = true;
         AutoNavCore.CurrentPhase = AutoNavCore.Phase.Coast;

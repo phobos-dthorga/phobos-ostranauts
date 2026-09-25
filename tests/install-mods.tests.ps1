@@ -232,8 +232,8 @@ $olderInfo = @(Get-Content -LiteralPath $olderMetadata -Raw | ConvertFrom-Json)
 $olderInfo[0].strModVersion = '0.11.99'
 ConvertTo-Json -InputObject $olderInfo | Set-Content -LiteralPath $olderMetadata
 Copy-Item -LiteralPath (Join-Path $olderOutput 'PhobosFramework.dll') -Destination (Join-Path $badPackages $frameworkDllRelative) -Force
-Fails { & $installer @incomplete | Out-Null } 'Selected equipment requires Phobos Framework 0.13.0'
-Fails { & $installer @incomplete -Mods AutoNav | Out-Null } 'Selected equipment requires Phobos Framework 0.12.0'
+Fails { & $installer @incomplete | Out-Null } 'Selected equipment requires Phobos Framework 0.14.0'
+Fails { & $installer @incomplete -Mods AutoNav | Out-Null } 'Selected equipment requires Phobos Framework 0.14.0'
 Fails { & $installer @incomplete -Mods Shipbreaker | Out-Null } 'Selected equipment requires Phobos Framework 0.13.0'
 Check ((InstalledFiles $incomplete) -eq $before) 'Equipment naming provider minimum was not enforced'
 foreach ($relative in @($frameworkMetadataRelative, $frameworkDllRelative)) {

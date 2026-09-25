@@ -6,7 +6,7 @@ namespace PhobosAutoNav;
 internal sealed class InstrumentSnapshot
 {
     internal string Heading = "", Target = "", Range = "", RelativeSpeed = "", Notice = "", Details = "";
-    internal double ArrivalKM;
+    internal double ArrivalKM, CruiseMS, ArrivalMS;
     internal bool TorchPreferred, CanFly, CanStop, CanAdjustArrival, CanAdjustPropulsion, Resumable, Warning, CanDock, Docking;
 }
 
@@ -26,12 +26,16 @@ internal sealed partial class NavigationService
         bool ownsFlight = AutoNavCore.Engaged && console == co;
         bool otherFlight = AutoNavCore.Engaged && !ownsFlight;
         var snapshot = DisplaySnapshot(co);
+        bool validPreferences = ReadPreferences(co!, out var preferences);
         view.Resumable = !AutoNavCore.Engaged && snapshot != null;
         bool captured = ownsFlight || snapshot != null;
         bool permitsTorch = ownsFlight ? AutoNavCore.FlightPrefersTorch : snapshot?.PreferTorch ?? Plugin.PreferTorch.Value;
-        view.ArrivalKM = ownsFlight ? AutoNavCore.ArriveAU / AutoNavCore.KM_TO_AU : snapshot?.ArrivalKM ?? Plugin.DefaultArriveKM.Value;
+        view.ArrivalKM = ownsFlight ? AutoNavCore.ArriveAU / AutoNavCore.KM_TO_AU : snapshot?.ArrivalKM ?? preferences.ArrivalKM;
+        view.CruiseMS = snapshot?.CruiseMS ?? preferences.CruiseMS;
+        view.ArrivalMS = snapshot?.ArrivalMS ?? preferences.ArrivalMS;
         view.TorchPreferred = permitsTorch && Plugin.PreferTorch.Value;
-        view.CanAdjustArrival = !otherFlight && InstrumentRules.CanSetArrival(AutoNavCore.Engaged, snapshot != null);
+        view.CanAdjustArrival = validPreferences && SettingsHardwareReady(co) &&
+            !otherFlight && InstrumentRules.CanSetArrival(AutoNavCore.Engaged, snapshot != null);
         view.CanAdjustPropulsion = !otherFlight && InstrumentRules.CanEnableTorch(captured, permitsTorch);
         var target = ownsFlight ? AutoNavCore.EngagedTarget : snapshot != null ? TargetRef.FromShipId(snapshot.TargetId) :
             GUIOrbitDraw.IsOpen() && GUIOrbitDraw.CrossHairTarget?.Ship != null && GUIOrbitDraw.CrossHairTarget.Ship != co!.ship
@@ -55,8 +59,14 @@ internal sealed partial class NavigationService
             recordStatus == Phobos.Ostranauts.Framework.Persistence.SavedStateStatus.Ready &&
             FlightSnapshot.TryDecode(fields, out stored) && stored.ConsoleId == co!.strID;
         if (!validRecord) problem = Text.Get("Persistence.invalid_state");
+        view.CanAdjustArrival &= validRecord;
+        if (!captured && !validPreferences) problem = Text.Get("Preferences.invalid");
         if (problem == null && OtherControllerBusy()) problem = Text.Get("NavigationService.disengage_other_flight_automation_first");
         if (problem == null && (target != null || captured) && !sensing.Usable) problem = Text.Get(sensing.MessageKey);
+        // Dock retains its own terminal admission policy and must not inherit Fly's arrival settings.
+        view.CanDock = !AutoNavCore.Engaged && problem == null && approachReady && !view.Resumable;
+        if (problem == null && !AutoNavCore.Engaged && target != null && snapshot?.IsDocking != true)
+            problem = AdmissionProblem(co!, target, view.ArrivalKM, view.ArrivalMS);
         view.Warning = problem != null;
         view.Heading = ownsFlight ? Text.Get("Instruments.phase." + AutoNavCore.CurrentPhase) :
             problem != null ? Text.Get("Instruments.blocked") : view.Resumable ? Text.Get("Instruments.suspended") :
@@ -65,16 +75,15 @@ internal sealed partial class NavigationService
         if (previousDestination && problem == null && !view.Resumable)
             view.Heading = Text.Get(stored!.Mode == SavedFlightMode.Arrived ? "Instruments.arrived" : "Instruments.stopped");
         view.CanFly = !AutoNavCore.Engaged && problem == null && approachReady;
-        view.CanDock = view.CanFly && !view.Resumable;
         view.CanStop = !otherFlight && (ownsFlight || view.Resumable);
         view.Notice = problem ?? (ownsFlight ? Text.Get(AutoNavCore.CurrentPhase == AutoNavCore.Phase.Coast ? "Instruments.coast_hint" : Torch.Reason) :
             view.Resumable ? Text.Get("Instruments.resume_hint") : Text.Get(target != null ? "Instruments.ready_hint" : "Instruments.select_hint"));
         if (previousDestination && problem == null && !view.Resumable) view.Notice = Text.Get("Instruments.guidance_off");
-        double cruise = snapshot?.CruiseMS ?? Plugin.DefaultCruiseMS.Value;
-        view.Details = Text.Get("Instruments.details", view.Target, status, view.Notice, clearance, cruise,
+        view.Details = Text.Get("Instruments.details", view.Target, status, view.Notice, clearance, view.CruiseMS,
             Plugin.TorchMaximumG.Value, Plugin.ResumeAfterLoad.Value ? Text.Get("Instruments.on") : Text.Get("Instruments.off")) +
             "\n\n" + Text.Get(captured ? "Instruments.captured_hint" : "Instruments.default_hint") +
             "\n\n" + Text.Get("Instruments.help");
+        view.Details += "\n\n" + Text.Get("Preferences.profile", view.CruiseMS, view.ArrivalMS);
         view.Details += "\n\n" + Text.Get("Docking.help");
         if (snapshot?.IsDocking == true)
         {
@@ -91,10 +100,9 @@ internal sealed partial class NavigationService
 
     internal void StepPanelArrival(CondOwner? co, int direction)
     {
-        if (!IsLocalConsole(co) || CrewSim.objInstance == null || !CrewSim.objInstance.FinishedLoading) return;
-        if (!InstrumentRules.CanSetArrival(AutoNavCore.Engaged, DisplaySnapshot(co) != null))
-        { status = Text.Get("Instruments.arrival_locked"); return; }
-        SetArrivalDefault((float)InstrumentRules.StepArrival(Plugin.DefaultArriveKM.Value, direction));
+        if (!CanChangePreferences(co)) return;
+        if (!ReadPreferences(co!, out var preferences)) { status = Text.Get("Preferences.invalid"); return; }
+        SetFlightSetting(co, FlightSetting.ArrivalDistance, InstrumentRules.StepArrival(preferences.ArrivalKM, direction));
     }
 
     internal void SetPanelTorch(CondOwner? co, bool preferred)
@@ -108,17 +116,6 @@ internal sealed partial class NavigationService
         SetTorchPreference(preferred);
     }
 
-    // One authoritative mutation path shared by F3 and the instrument controls.
-    private void SetArrivalDefault(float km)
-    {
-        if (!ApproachRules.ValidArrival(km)) { status = ArrivalUsage(); return; }
-        if (Plugin.DefaultArriveKM.Value != km)
-        {
-            Plugin.DefaultArriveKM.Value = km;
-            Plugin.DefaultArriveKM.ConfigFile.Save();
-        }
-        status = Text.Get("NavigationService.arrival_default_saved", km);
-    }
     private void SetTorchPreference(bool preferred)
     {
         bool changed = Plugin.PreferTorch.Value != preferred;

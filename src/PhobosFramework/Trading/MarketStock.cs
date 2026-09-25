@@ -28,18 +28,8 @@ public static class MarketStock
     {
         if (string.IsNullOrWhiteSpace(offerId) || !offerId.StartsWith("Phobos", StringComparison.Ordinal) ||
             double.IsNaN(probability) || probability <= 0 || probability > 1) throw new ArgumentException(Text.Get("MarketStock.invalid_merchant_offer"));
-        if (!d.Loot.TryGetValue(merchantLoot, out var merchant))
-        {
-            if (!DataHandler.dictLoot.TryGetValue(merchantLoot, out var original))
-                throw new ArgumentException(Text.Get("MarketStock.missing_native_merchant_loot", merchantLoot));
-            merchant = NativeDefinitions.Clone(original);
-            d.Loot.Add(merchantLoot, merchant);
-        }
-        // Preserve vanilla/foreign entries and replace only our exact branch.
-        merchant.aLoots = (merchant.aLoots ?? Array.Empty<string>())
-            .Where(s => !s.StartsWith(offerId + "=", StringComparison.Ordinal)).Concat(new[] { offerId + "=1x1" }).ToArray();
-        d.Loot[offerId] = new Loot { strName = offerId, strType = "item",
-            aCOs = new[] { itemId + "=" + Math.Min(1, probability * AvailabilityMultiplier).ToString(CultureInfo.InvariantCulture) + "x1" }, aLoots = Array.Empty<string>() };
+        AdditiveLoot.SetItemChoice(d, merchantLoot, offerId, new Dictionary<string, double>
+            { [itemId] = Math.Min(1, probability * AvailabilityMultiplier) });
         Offers[offerId] = new Offer { Item = itemId, Condition = condition };
     }
 

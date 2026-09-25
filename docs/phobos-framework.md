@@ -5,7 +5,13 @@ Decision: 24 September 2026. The owner selected our own shareable framework
 The purpose is reusable services for equipment and future material transport,
 not reproducing every feature of OCF or turning Ostranauts into a factory game.
 
-## Current candidate: Framework 0.13.0, Shipbreaker 0.11.0
+## Current candidate: Framework 0.14.0, Shipbreaker 0.11.0, Auto Nav 0.10.0
+
+Framework 0.14.0 adds a shared additive item-loot helper, used by existing
+merchant stock and Auto Nav's rare salvage choices. It preserves other entries
+and publishes through the existing transaction. Flight safety and preference
+policy remain in Auto Nav, using the existing object storage. See the
+[author guide](framework-author-guide.md) and [Auto Nav changes](auto-nav-flight-profiles.md).
 
 Framework 0.13.0 adds [shared observations](shared-console-observations.md):
 an immutable evidence/validity contract and a narrow native room-alarm adapter.
@@ -31,7 +37,7 @@ The [residue collector](residue-collector.md) adds a finite wall-mounted receivi
 chamber linked to one processor through structural flooring. Framework owns the
 existing same-object move plus small filter, clock, grid-search and saved-pair helpers;
 Shipbreaker owns physical rules and machinery. Eight construction recipes register, including the industrial console.
-Current Shipbreaker requires Framework 0.13.0; Auto Nav requires 0.12.0 or later.
+Current Shipbreaker requires Framework 0.13.0; Auto Nav requires 0.14.0 or later.
 The installer enforces these requirements and verifies all console/intake artwork.
 Version 0.9.0 adds [automatic reclaimer feeding](automatic-material-routing.md),
 collector buffer outputs and shared saved exact-ID filters. Players choose one

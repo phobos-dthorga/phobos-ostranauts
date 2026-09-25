@@ -23,6 +23,8 @@ public sealed class AutoNavPanel : NavModBase
     private TMP_Text heading = null!, target = null!, range = null!, speed = null!, notice = null!, details = null!;
     private TMP_Text arrival = null!, propulsion = null!, flyLabel = null!, detailLabel = null!;
     private Button fly = null!, stop = null!, dock = null!;
+    private Button cruiseDown = null!, cruiseUp = null!, arrivalDown = null!, arrivalUp = null!;
+    private TMP_Text detailNotice = null!, cruiseSetting = null!, arrivalSetting = null!;
     private RotarySelector arrivalDial = null!, propulsionDial = null!;
     private ScrollRect detailScroll = null!;
     private Sprite? faceplateSprite;
@@ -72,10 +74,21 @@ public sealed class AutoNavPanel : NavModBase
         var content = PanelWidgets.Scroll(scrollHost, "FlightDetails", out panel.detailScroll);
         PanelWidgets.Fill((RectTransform)panel.detailScroll.transform);
         panel.detailsRoot = scrollHost;
+        panel.detailNotice = PanelWidgets.Label(content, "");
         panel.dock = PanelWidgets.Button(content, Text.Get("Docking.button"), () => panel.Dock());
+        panel.cruiseSetting = PanelWidgets.Label(content, "");
+        panel.cruiseDown = PanelWidgets.Button(content, Text.Get("Preferences.cruise_down"), () => panel.ChangeSpeed(false, -1));
+        panel.cruiseUp = PanelWidgets.Button(content, Text.Get("Preferences.cruise_up"), () => panel.ChangeSpeed(false, 1));
+        panel.arrivalSetting = PanelWidgets.Label(content, "");
+        panel.arrivalDown = PanelWidgets.Button(content, Text.Get("Preferences.arrival_down"), () => panel.ChangeSpeed(true, -1));
+        panel.arrivalUp = PanelWidgets.Button(content, Text.Get("Preferences.arrival_up"), () => panel.ChangeSpeed(true, 1));
         panel.details = PanelWidgets.Label(content, "", flowing: false);
         if (font != null) panel.details.font = font;
         panel.details.fontSize = 14; panel.details.color = Ink; panel.details.richText = false;
+        // Keep readiness/refusal visible above the added controls and use the native nav font.
+        foreach (var label in content.GetComponentsInChildren<TMP_Text>(true))
+            if (font != null) label.font = font;
+        panel.detailNotice.fontSize = 14; panel.detailNotice.color = Amber;
 
         Label(layer, Text.Get("Instruments.propulsion"), .608f, .181f, .156f, .075f, font, 12, true);
         Label(layer, Text.Get("Instruments.arrival"), .801f, .181f, .156f, .075f, font, 12, true);
@@ -114,6 +127,11 @@ public sealed class AutoNavPanel : NavModBase
     {
         if (!CanInteract) return;
         Plugin.Service.StepPanelArrival(COSelf, direction); UpdateUI();
+    }
+    private void ChangeSpeed(bool arrivalSpeed, int direction)
+    {
+        if (!CanInteract) return;
+        Plugin.Service.StepPanelSpeed(COSelf, arrivalSpeed, direction); UpdateUI();
     }
     private void ChangePropulsion(int direction)
     {
@@ -163,6 +181,11 @@ public sealed class AutoNavPanel : NavModBase
         arrival.color = arrivalDial.interactable ? Ink : Amber; propulsion.color = propulsionDial.interactable ? Ink : Amber;
         fly.interactable = !damaged && view.CanFly; stop.interactable = !damaged && view.CanStop;
         dock.interactable = !damaged && view.CanDock;
+        detailNotice.text = view.Notice;
+        cruiseSetting.text = Text.Get("Preferences.cruise_value", view.CruiseMS);
+        arrivalSetting.text = view.ArrivalMS == 0 ? Text.Get("Preferences.arrival_zero") : Text.Get("Preferences.arrival_value", view.ArrivalMS);
+        cruiseDown.interactable = cruiseUp.interactable = arrivalDown.interactable = arrivalUp.interactable =
+            !damaged && view.CanAdjustArrival;
         flyLabel.text = Text.Get(view.Resumable ? "Persistence.resume_button" : "AutoNavPanel.fly");
         detailLabel.text = Text.Get(detailsOpen ? "Instruments.overview" : "Instruments.details_button");
     }

@@ -45,10 +45,8 @@ internal static class DockingRules
         double turn = Math.Max(-RotationAcceleration, Math.Min(RotationAcceleration, (wantedSpin - spin) / (2 * dt)));
         if (Math.Abs(heading) < ClampHeadingRadians * .5 && Math.Abs(spin) < ClampSpinRadians * .5) turn = 0;
         // Translation uses the native aggregate axis budget. Rotation consumes fuel too.
-        turn = Math.Max(-throttle * .25, Math.Min(throttle * .25, turn));
-        double budget = throttle - Math.Abs(turn), demand = Math.Abs(x) + Math.Abs(y);
-        if (demand > budget) { x *= budget / demand; y *= budget / demand; }
-        command = new DockingCommand(x, y, turn, ready, range - contactM, speed, heading);
+        if (!RcsBudget.TryLimit(x, y, turn, throttle, RcsBudget.CombinedRotationShare, out var bounded)) return false;
+        command = new DockingCommand(bounded.X, bounded.Y, bounded.Turn, ready, range - contactM, speed, heading);
         return true;
     }
 }

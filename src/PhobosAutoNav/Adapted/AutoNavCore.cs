@@ -265,7 +265,7 @@ internal static class AutoNavCore
                     return;
                 }
                 CurrentPhase = Phase.Decel;
-                player.Maneuver((float)command.X, (float)command.Y, 0f, 0, (float)fTime);
+                ApplyRcs(player, command.X, command.Y, 0, fTime);
                 return;
             }
             if (num7 <= num11 || (num3 <= num4 && num7 <= num11 * ApproachRules.ArrivalBandMultiplier && num10 <= num4))
@@ -430,7 +430,7 @@ internal static class AutoNavCore
                         : ComputeRotInput(shipSitu, torchError, fTime, TorchRules.MaximumHeadingRadians / 2);
                     if (!braking)
                     {
-                        player.Maneuver(0, 0, fR, 0, (float)fTime);
+                        ApplyRcs(player, 0, 0, fR, fTime);
                         CurrentPhase = Phase.Align;
                         return;
                     }
@@ -449,7 +449,7 @@ internal static class AutoNavCore
 			double num50 = Math.Sin(shipSitu.fRot);
 			double num51 = (num40 * num49 + num41 * num50) / rCSAccelMax;
 			double num52 = ((0.0 - num40) * num50 + num41 * num49) / rCSAccelMax;
-			player.Maneuver((float)num51, (float)num52, fR, 0, (float)fTime);
+            ApplyRcs(player, num51, num52, fR, fTime);
 			if (Plugin.VerboseLogging != null && Plugin.VerboseLogging.Value)
 			{
 				_logAccum += fTime;
@@ -507,6 +507,34 @@ internal static class AutoNavCore
                 CollisionManager.GetCollisionDistanceAU(own, other) / KM_TO_AU, out plan);
         }
         catch { return false; }
+    }
+
+    // Phobos: shared read-only preflight for Fly, Resume and panel readiness.
+    internal static bool TryReadAdmission(Ship player, TargetRef target, double requestedKM,
+        double arrivalMS, double throttle, double reactionSeconds, out BrakingRoom room)
+    {
+        room = default;
+        if (!TryReadApproach(player, target, requestedKM, out var plan, out _)) return false;
+        var own = player.objSS;
+        var other = target.TargetSitu;
+        try
+        {
+            return ApproachAdmission.TryEvaluate((other.vPosx - own.vPosx) / M_TO_AU,
+                (other.vPosy - own.vPosy) / M_TO_AU, (own.vVelX - other.vVelX) / M_TO_AU,
+                (own.vVelY - other.vVelY) / M_TO_AU,
+                CollisionManager.GetCollisionDistanceAU(own, other) / M_TO_AU,
+                plan.EffectiveArrivalKM * 1000, arrivalMS, player.RCSAccelMax / M_TO_AU,
+                throttle, reactionSeconds, out room);
+        }
+        catch { return false; }
+    }
+
+    private static void ApplyRcs(Ship ship, double x, double y, double turn, double dt)
+    {
+        double share = x == 0 && y == 0 ? 1 : RcsBudget.CombinedRotationShare;
+        if (!RcsBudget.TryLimit(x, y, turn, ReadShipThrottle(ship), share, out var command))
+        { EndFlight(ship, "INVALID FLIGHT DATA"); return; }
+        ship.Maneuver((float)command.X, (float)command.Y, (float)command.Turn, 0, (float)dt);
     }
 
     public static double EffectiveArriveAU(Ship player, TargetRef target) =>

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Phobos.Ostranauts.Framework.Construction;
@@ -26,7 +27,7 @@ internal static class EquipmentContent
                 localized.strDesc = Text.Get("Overlay." + id + ".description");
                 DataHandler.dictCOOverlays[id] = localized;
             }
-            Prepare().Publish();
+            Prepare(Plugin.SalvageEnabled.Value, Plugin.SalvageChance.Value).Publish();
             var mod = DataHandler.dictModInfos.Values.FirstOrDefault(m => m.strName == "Phobos Auto Nav" && !m.GetIsDisabled());
             if (mod == null) throw new InvalidOperationException(Text.Get("EquipmentContent.enable_the_matching_phobos_auto_nav_native"));
             string path = Path.Combine(mod.GetDirectory(), "framework", "recipes.json");
@@ -36,7 +37,7 @@ internal static class EquipmentContent
         catch (Exception ex) { Status = Text.Get("EquipmentContent.economy_registration_failed", ex.Message); throw; }
     }
 
-    internal static NativeDefinitions Prepare()
+    internal static NativeDefinitions Prepare(bool salvageEnabled = true, double salvageChance = EquipmentRules.SalvageChance)
     {
         var d = new NativeDefinitions();
         foreach (bool damaged in new[] { false, true })
@@ -80,6 +81,16 @@ internal static class EquipmentContent
         Offer("ItmOKLGSupplyKioskInv", "Broken", NavigationService.DamagedId, EquipmentRules.KLegBrokenChance, StockCondition.Broken);
         Offer("ItmTraderSanDiegoPolarisInv", "New", NavigationService.ModuleId, EquipmentRules.PolarisPristineChance, StockCondition.Pristine);
         Offer("ItmVORBScrapKioskInv", "Refurb", NavigationService.ModuleId, EquipmentRules.VenusRefurbishedChance, StockCondition.Refurbished);
+        foreach (string table in EquipmentRules.SalvageTables)
+        {
+            double chance = salvageEnabled ? salvageChance : 0;
+            double intact = table.EndsWith("Dmg", StringComparison.Ordinal) ? 0 : chance * (1 - EquipmentRules.DamagedSalvageShare);
+            AdditiveLoot.SetItemChoice(d, table, "PhobosAutoNavSalvage_" + table, new Dictionary<string, double>
+            {
+                [NavigationService.ModuleId] = intact,
+                [NavigationService.DamagedId] = chance - intact
+            });
+        }
         return d;
 
         void Offer(string merchant, string tag, string item, double chance, StockCondition condition) =>
