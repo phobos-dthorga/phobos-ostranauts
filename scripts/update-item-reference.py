@@ -111,6 +111,11 @@ def render(mod, notes, config):
         out += ['**Placement:** ' + ('INSTALL → ' + ', '.join(tabs) + '. Obtain the loose item first; the menu does not manufacture it.' if tabs else
                 'Built into its parent machine; not separately installable.' if group['internal'] else
                 'Inventory/module-slot item; no standalone INSTALL entry.'), '']
+        modes = [mode for item in covered for mode in item.get('operatingModes', [])]
+        if modes:
+            out += table(['Operating mode (functional, installed)', 'Powered seconds', 'Demand (kW)', 'Nominal work energy (kWh)'],
+                         [(m['name'], f"{m['seconds']:g}", f"{m['kw']:g}", f"{m['seconds'] * m['kw'] / 3600:.4f}") for m in modes])
+            out += ['Authored default work values. Cutting captures its duration and demand per started wall; partial delivered electricity earns proportional progress. Modes run sequentially. D4/R4 work and idle consumption are additional.', '']
         if group['notes']:
             out += [group['notes'], '']
         if group['guide']:

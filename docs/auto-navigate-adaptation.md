@@ -1,5 +1,10 @@
 # Phobos Auto Nav: standalone adaptation
 
+Current extension: Auto Nav 0.18.0 supplies [shared local avoidance and explicit
+departure](auto-nav-departure.md). Earlier version-specific exclusions of these
+features below are historical. Ordinary Fly still never disconnects the ship;
+tracking loss suspends automatic guidance.
+
 **Current 0.13.0:** use the [shared tall Polaris flight hub](auto-nav-instruments.md).
 Navigation, Pursuit and Systems expose routine controls without scrolling;
 Details contains diagnostics/help. Native Edit places the new layout identity

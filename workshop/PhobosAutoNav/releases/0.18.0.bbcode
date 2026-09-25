@@ -1,0 +1,18 @@
+[h1]Phobos Auto Nav 0.18.0[/h1]
+[b]Draft - not published | 2026-09-26[/b]
+
+[h2]Added[/h2]
+
+[list]
+[*]Add shared local obstacle avoidance to Fly, Rendezvous, Follow, docking and industrial approaches. Admit native sensed contacts before reading geometry; predict motion, retain passing side, bound route search and check the final swept path. Blocked routes brake/hold; lost tracking suspends for explicit Resume. Known celestial regions are excluded; field markers are not individual obstacles.
+[*]Add explicit Undock & Depart and Undock & Continue for one exact orbital station/ship/mooring connection. Require crew, sealed boundaries, native clearance, working RCS and an admitted exit; retain station neighbours. Depart to a 1 km hull gap and relative stop, with the destination/mode captured before detachment. Ordinary Fly never disconnects.
+[*]Extend IndustrialNavigation additively with egress, transit, capture approach, route cost and typed status for Shipbreaker. Manual takeover has priority. Departure and close industrial legs use RCS; torch burns require an admissible burn and braking corridor.
+[/list]
+
+[h2]Persistence and limits[/h2]
+
+[list]
+[*]Store departure intent and detachment journals separately on the console. Reload never replays live thrust or blindly repeats a pending native mutation. Ground stations, ambiguous groups and secured towing are excluded.
+[*]Retain N1/N2 identities, artwork, existing flight preferences and Framework 0.24.0 dependency. Local avoidance is not a promise about hidden contacts or long-distance voyage planning. Existing upstream attribution and binary-distribution hold remain.
+[*]Add the [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/auto-nav-departure.md]departure guide[/url] and [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/auto-nav-reclamation-validation.md]offline validation record[/url]. Builds and synthetic/native-boundary checks are not owner gameplay validation; Steam publication remains pending.
+[/list]

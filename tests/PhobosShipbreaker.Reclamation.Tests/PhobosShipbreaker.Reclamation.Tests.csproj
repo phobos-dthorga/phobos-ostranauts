@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><OutputType>Exe</OutputType><TargetFramework>net10.0</TargetFramework></PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../../src/PhobosFramework/PhobosFramework.csproj" />
+    <Compile Include="../../src/PhobosShipbreaker/ReclamationService.cs" Link="ReclamationService.cs" />
+    <Compile Include="../../src/PhobosShipbreaker/TargetWallTransfer.cs" Link="TargetWallTransfer.cs" />
+    <Compile Include="../../src/PhobosShipbreaker/Core/ReclamationRules.cs" Link="ReclamationRules.cs" />
+    <Compile Include="../../src/PhobosShipbreaker/Core/CaptureRules.cs" Link="CaptureRules.cs" />
+    <Compile Include="../../src/PhobosShipbreaker/Core/IntakeRules.cs" Link="IntakeRules.cs" />
+    <Compile Include="../../src/PhobosShipbreaker/Core/ProcessRules.cs" Link="ProcessRules.cs" />
+  </ItemGroup>
+</Project>

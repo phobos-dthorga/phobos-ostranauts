@@ -63,7 +63,7 @@
     "Shipbreaker.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.23.0",
+      "value": "0.24.0",
       "description": "PhobosShipbreaker published source/package version.",
       "targets": [
         {
@@ -132,7 +132,7 @@
     "AutoNav.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.17.0",
+      "value": "0.18.0",
       "description": "PhobosAutoNav published source/package version.",
       "targets": [
         {
@@ -639,6 +639,124 @@
       "review": [
         "Run native stock-quantity and regional checks, then affected builds.",
         "Run scripts/update-item-reference.ps1; inspect generated quantities. Existing merchant inventories wait for native restocking."
+      ]
+    },
+    "AutoNav.minimumFramework": {
+      "type": "version",
+      "parts": 3,
+      "value": "0.24.0",
+      "description": "Current AutoNav required Framework version, shared with local installer admission.",
+      "targets": [
+        {
+          "path": "src/PhobosAutoNav/Plugin.cs",
+          "pattern": "BepInDependency\\(FrameworkInfo.PluginId, \"(?P<value>[0-9.]+)\"",
+          "count": 1
+        },
+        {
+          "path": "config/mod-dependency-minimums.json",
+          "pattern": "\"AutoNav\\.Framework\":\\s*\\{\\s*\"since\": \"[0-9.]+\",\\s*\"value\": \"(?P<value>[0-9.]+)\"",
+          "count": 1
+        }
+      ],
+      "review": [
+        "Build affected mods and run installer checks. Current minimums are conservative for packages at/after their recorded compatibility floor; retain historic version gates."
+      ]
+    },
+    "Shipbreaker.minimumFramework": {
+      "type": "version",
+      "parts": 3,
+      "value": "0.24.0",
+      "description": "Current Shipbreaker required Framework version, shared with local installer admission.",
+      "targets": [
+        {
+          "path": "src/PhobosShipbreaker/Core/DependencyContract.cs",
+          "pattern": "MinimumFramework = \"(?P<value>[0-9.]+)\"",
+          "count": 1
+        },
+        {
+          "path": "config/mod-dependency-minimums.json",
+          "pattern": "\"Shipbreaker\\.Framework\":\\s*\\{\\s*\"since\": \"[0-9.]+\",\\s*\"value\": \"(?P<value>[0-9.]+)\"",
+          "count": 1
+        }
+      ],
+      "review": [
+        "Build affected mods and run installer checks. Current minimums are conservative for packages at/after their recorded compatibility floor; retain historic version gates."
+      ]
+    },
+    "Shipbreaker.minimumAutoNav": {
+      "type": "version",
+      "parts": 3,
+      "value": "0.18.0",
+      "description": "Current Shipbreaker required AutoNav version, shared with local installer admission.",
+      "targets": [
+        {
+          "path": "src/PhobosShipbreaker/Core/DependencyContract.cs",
+          "pattern": "MinimumAutoNav = \"(?P<value>[0-9.]+)\"",
+          "count": 1
+        },
+        {
+          "path": "config/mod-dependency-minimums.json",
+          "pattern": "\"Shipbreaker\\.AutoNav\":\\s*\\{\\s*\"since\": \"[0-9.]+\",\\s*\"value\": \"(?P<value>[0-9.]+)\"",
+          "count": 1
+        }
+      ],
+      "review": [
+        "Build affected mods and run installer checks. Current minimums are conservative for packages at/after their recorded compatibility floor; retain historic version gates."
+      ]
+    },
+    "Agriculture.minimumFramework": {
+      "type": "version",
+      "parts": 3,
+      "value": "0.24.0",
+      "description": "Current Agriculture required Framework version, shared with local installer admission.",
+      "targets": [
+        {
+          "path": "src/PhobosAgriculture/Plugin.cs",
+          "pattern": "BepInDependency\\(FrameworkInfo.PluginId, \"(?P<value>[0-9.]+)\"",
+          "count": 1
+        },
+        {
+          "path": "config/mod-dependency-minimums.json",
+          "pattern": "\"Agriculture\\.Framework\":\\s*\\{\\s*\"since\": \"[0-9.]+\",\\s*\"value\": \"(?P<value>[0-9.]+)\"",
+          "count": 1
+        }
+      ],
+      "review": [
+        "Build affected mods and run installer checks. Current minimums are conservative for packages at/after their recorded compatibility floor; retain historic version gates."
+      ]
+    },
+    "Shipbreaker.cuttingSeconds": {
+      "type": "number",
+      "value": "120",
+      "min": 0.1,
+      "max": 3600,
+      "description": "Authored G4 cutting default, captured on each started wall job.",
+      "targets": [
+        {
+          "path": "src/PhobosShipbreaker/Core/ReclamationRules.cs",
+          "pattern": "\\bCuttingSeconds\\s*=\\s*(?P<value>[0-9.]+)(?=;)",
+          "count": 1
+        }
+      ],
+      "review": [
+        "Run Shipbreaker core, reclamation-boundary and native checks; regenerate item-reference operating tables. Started paid jobs retain their captured duration and power."
+      ]
+    },
+    "Shipbreaker.cuttingKilowatts": {
+      "type": "number",
+      "value": "12",
+      "min": 0.1,
+      "max": 1000,
+      "description": "Authored G4 cutting default, captured on each started wall job.",
+      "targets": [
+        {
+          "path": "src/PhobosShipbreaker/Core/ReclamationRules.cs",
+          "pattern": "\\bCuttingKW\\s*=\\s*(?P<value>[0-9.]+)(?=;)",
+          "count": 1
+        }
+      ],
+      "review": [
+        "Run Shipbreaker core, reclamation-boundary and native checks; regenerate item-reference operating tables. Started paid jobs retain their captured duration and power."
       ]
     }
   }

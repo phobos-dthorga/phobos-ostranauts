@@ -1,0 +1,19 @@
+[h1]Phobos Shipbreaker 0.24.0[/h1]
+[b]Draft - not published | 2026-09-26[/b]
+
+[h2]Added[/h2]
+
+[list]
+[*]Add explicitly enabled G4 reclamation: choose an exposed work wall and separate protected anchor, capture, cut/feed, release, retreat, traverse and recapture another admissible work window. Reuse existing G4/H4/D4, N1/N2 and artwork; require Auto Nav 0.18.0 and Framework 0.24.0.
+[*]Cut only empty, unstacked, undamaged native 24 kg ordinary walls on the exact owned unoccupied target. Retain floors, anchor supports, other equipment and target registration. Unreachable remnants are reported; whole-wreck deletion and new structural recipes are excluded.
+[*]Capture authored 120 powered seconds / 12 kW defaults per started cut. Credit actual received electricity and reject its heat into the connected D4 service room, requiring 10 kPa and a 40 C ceiling. This cooling connection is an authored abstraction; vacuum is not free cooling. Cutting and existing 2 kW transfer run sequentially.
+[*]Add G4/C1/F3 Start, Resume, Pause, Stop and phase/blocker/completion/remnant status. Start authorizes the bound G4/D4 chain; full capacity waits under that same mission. Downstream permissions and furnace motion restrictions remain unchanged.
+[/list]
+
+[h2]Persistence and limits[/h2]
+
+[list]
+[*]Journal uninstall and transfer separately before mutation; re-resolve exact native item identity and resulting position. Preserve paid work and evidence on interruption, without reconstructing cargo or repeating outputs. Framework general transfers remain same-ship.
+[*]Reload, lost tracking and manual takeover suspend authority. Stop retains a current capture; Release stays explicit. Older captures remain releasable but require a newly planned protected support before automatic cutting.
+[*]Update maintained defaults/dependency minima, generated equipment operating tables and the [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/shipbreaker-reclamation.md]reclamation guide[/url]. Native API evidence is from Blue Bottle Games' locally inspected Ostranauts 1.0.1.5; offline checks are separate from owner gameplay evaluation. No repeated furnace batches or Steam publication.
+[/list]

@@ -35,7 +35,7 @@ foreach ($method in $refreshMethods) {
     foreach ($instruction in $method.Body.Instructions) {
         $call = $instruction.Operand
         if ($call -isnot [Mono.Cecil.MethodReference]) { continue }
-        if ($call.DeclaringType.FullName -eq 'PhobosAutoNav.NavigationService' -and $call.Name -notin @('ReadHub', 'PursuitSummary')) {
+        if ($call.DeclaringType.FullName -eq 'PhobosAutoNav.NavigationService' -and $call.Name -notin @('ReadHub', 'PursuitSummary', 'DepartureDescription')) {
             throw "Display refresh calls a service mutation: $call"
         }
         if ($call.DeclaringType.FullName -eq 'UnityEngine.UI.Slider' -and $call.Name -in @('set_value', 'set_maxValue', 'set_minValue')) {
@@ -43,11 +43,14 @@ foreach ($method in $refreshMethods) {
         }
     }
 }
-$hubRead = $Module.GetType('PhobosAutoNav.NavigationService').Methods | Where-Object Name -eq 'ReadHub'
-if ($null -eq $hubRead) { throw 'Shared read-only hub snapshot is missing.' }
-foreach ($instruction in $hubRead.Body.Instructions) {
+$hubRead = @($Module.GetType('PhobosAutoNav.NavigationService').Methods | Where-Object Name -in @('ReadHub', 'DepartureDescription'))
+if ($hubRead.Count -ne 2) { throw 'Shared read-only hub snapshot is missing.' }
+foreach ($read in $hubRead) {
+foreach ($instruction in $read.Body.Instructions) {
     $call = $instruction.Operand
     if ($call -is [Mono.Cecil.MethodReference] -and $call.Name -in @('TryWrite', 'SetReactorGPMValue', 'Maneuver', 'Authorize', 'DockShip', 'Attach')) {
         throw "Hub snapshot must not command or persist game state: $call"
     }
+}
+
 }

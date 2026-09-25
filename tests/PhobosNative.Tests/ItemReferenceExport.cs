@@ -69,6 +69,10 @@ internal static class ItemReferenceExport
                     massKg = EquipmentSaveUpgrade.Amount(co.aStartingConds, "StatMass"),
                     baseValue = EquipmentValueAudit.Price(co),
                     installed = co.aStartingConds.Any(s => s.Split('=')[0] == "IsInstalled"),
+                    operatingModes = co.strName == PhobosShipbreaker.Core.IntakeRules.Grabber + "Installed" ? new[] {
+                        new { name="Powered wall cutting", seconds=PhobosShipbreaker.Core.ReclamationRules.CuttingSeconds, kw=PhobosShipbreaker.Core.ReclamationRules.CuttingKW },
+                        new { name="Existing G4 intake transfer", seconds=PhobosShipbreaker.Core.IntakeRules.TransferSeconds, kw=PhobosShipbreaker.Core.IntakeRules.WorkingKW }
+                    } : Array.Empty<object>(),
                     installTab = d.Installables.Values.FirstOrDefault(j => j.strStartInstall == co.strName)?.strBuildType,
                     jobs = d.Installables.Values.Where(j => j.strActionCO == co.strName).OrderBy(j => j.strName).Select(Job).ToArray(),
                     aliases = mod == "PhobosAutoNav" ? DataHandler.dictCOOverlays.Values.Where(o => o.strCOBase == co.strName).Select(o => o.strName).OrderBy(x => x).ToArray() : Array.Empty<string>()

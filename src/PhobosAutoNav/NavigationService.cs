@@ -204,6 +204,7 @@ internal sealed partial class NavigationService
 
     internal void ExternalControl(Ship ship, float x, float y, float rotation)
     {
+        if (!issuing && (x != 0 || y != 0 || rotation != 0)) IndustrialNavigation.Yield(ship);
         if (!issuing && industrial?.Carrier == ship && (x != 0 || y != 0 || rotation != 0))
             EndIndustrial(Text.Get("NavigationService.external_maneuver_command_pilot_other_controller_has"));
         bool wasAiming = autoAim;
@@ -226,6 +227,7 @@ internal sealed partial class NavigationService
 
     internal void Disengage(string reason, bool keepWeapons = false)
     {
+        StopExtended(reason);
         EndIndustrial(reason);
         if (!keepWeapons) CeaseFire();
         FinishSavedFlight(SavedFlightMode.Stopped);
@@ -263,6 +265,8 @@ internal sealed partial class NavigationService
             string verb = words.Length == 1 ? "help" : words[1].ToLowerInvariant();
             if (words.Length > (verb == "fly" || verb == "arrival" || verb == "cruise" || verb == "arrivalspeed" || verb == "torch" || verb == "weapons" || verb == "rendezvous" || verb == "follow" ? 3 : 2))
             { response = Text.Get("NavigationService.no_extra_arguments_accepted_use_phobosnav_help"); return false; }
+            bool extended=false; ExtendedCommand(OpenConsole,verb,ref extended);
+            if(extended) { response=status; return true; }
             switch (verb)
             {
                 case "help": response = Text.Get("NavigationService.phobosnav_help_status_settings_fly_stop_spawn"); return true;

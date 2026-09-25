@@ -1,5 +1,10 @@
 # Polaris docking — Auto Nav 0.12.0
 
+Current extension: Auto Nav 0.18.0 supplies [shared local avoidance and explicit
+departure](auto-nav-departure.md). Earlier version-specific exclusions of these
+features below are historical. Ordinary Fly still never disconnects the ship;
+tracking loss suspends automatic guidance.
+
 Current operation uses the [shared flight hub](auto-nav-instruments.md), prepared
 against Blue Bottle Games' Ostranauts 1.0.1.5 with Framework 0.17.0 or newer.
 Offline verification is separate from owner-run gameplay evaluation; this round

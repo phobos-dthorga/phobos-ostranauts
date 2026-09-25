@@ -14,6 +14,7 @@
           "massKg": 0.25,
           "baseValue": 0.009999999776482582,
           "installed": false,
+          "operatingModes": [],
           "installTab": null,
           "jobs": [],
           "aliases": []
@@ -24,6 +25,7 @@
           "massKg": 0.005,
           "baseValue": 5.0,
           "installed": false,
+          "operatingModes": [],
           "installTab": null,
           "jobs": [],
           "aliases": []
@@ -34,6 +36,7 @@
           "massKg": 0.2,
           "baseValue": 40.0,
           "installed": false,
+          "operatingModes": [],
           "installTab": null,
           "jobs": [],
           "aliases": []
@@ -44,6 +47,7 @@
           "massKg": 0.5,
           "baseValue": 0.009999999776482582,
           "installed": false,
+          "operatingModes": [],
           "installTab": null,
           "jobs": [],
           "aliases": []
@@ -54,6 +58,7 @@
           "massKg": 74.0,
           "baseValue": 0.009999999776482582,
           "installed": false,
+          "operatingModes": [],
           "installTab": null,
           "jobs": [],
           "aliases": []
@@ -64,6 +69,7 @@
           "massKg": 59.0,
           "baseValue": 0.009999999776482582,
           "installed": false,
+          "operatingModes": [],
           "installTab": null,
           "jobs": [],
           "aliases": []
@@ -74,6 +80,7 @@
           "massKg": 80.0,
           "baseValue": 700.0,
           "installed": true,
+          "operatingModes": [],
           "installTab": "APPS",
           "jobs": [
             {
@@ -147,6 +154,7 @@
           "massKg": 80.0,
           "baseValue": 140.0,
           "installed": true,
+          "operatingModes": [],
           "installTab": "APPS",
           "jobs": [
             {
@@ -225,6 +233,7 @@
           "massKg": 80.0,
           "baseValue": 700.0,
           "installed": false,
+          "operatingModes": [],
           "installTab": null,
           "jobs": [
             {
@@ -300,6 +309,7 @@
           "massKg": 80.0,
           "baseValue": 140.0,
           "installed": false,
+          "operatingModes": [],
           "installTab": null,
           "jobs": [
             {
@@ -380,6 +390,7 @@
           "massKg": 19.0,
           "baseValue": 0.009999999776482582,
           "installed": false,
+          "operatingModes": [],
           "installTab": null,
           "jobs": [],
           "aliases": []
@@ -390,6 +401,7 @@
           "massKg": 17.0,
           "baseValue": 0.009999999776482582,
           "installed": false,
+          "operatingModes": [],
           "installTab": null,
           "jobs": [],
           "aliases": []
@@ -400,6 +412,7 @@
           "massKg": 20.0,
           "baseValue": 250.0,
           "installed": true,
+          "operatingModes": [],
           "installTab": "APPS",
           "jobs": [
             {
@@ -461,6 +474,7 @@
           "massKg": 20.0,
           "baseValue": 50.0,
           "installed": true,
+          "operatingModes": [],
           "installTab": "APPS",
           "jobs": [
             {
@@ -533,6 +547,7 @@
           "massKg": 20.0,
           "baseValue": 250.0,
           "installed": false,
+          "operatingModes": [],
           "installTab": null,
           "jobs": [
             {
@@ -596,6 +611,7 @@
           "massKg": 20.0,
           "baseValue": 50.0,
           "installed": false,
+          "operatingModes": [],
           "installTab": null,
           "jobs": [
             {
@@ -670,6 +686,7 @@
           "massKg": 5.0,
           "baseValue": 50.0,
           "installed": false,
+          "operatingModes": [],
           "installTab": null,
           "jobs": [],
           "aliases": []
@@ -680,6 +697,7 @@
           "massKg": 0.04,
           "baseValue": 30.0,
           "installed": false,
+          "operatingModes": [],
           "installTab": null,
           "jobs": [],
           "aliases": []
@@ -690,6 +708,7 @@
           "massKg": 0.008,
           "baseValue": 0.009999999776482582,
           "installed": false,
+          "operatingModes": [],
           "installTab": null,
           "jobs": [],
           "aliases": []
@@ -700,6 +719,7 @@
           "massKg": 0.04,
           "baseValue": 60.0,
           "installed": false,
+          "operatingModes": [],
           "installTab": null,
           "jobs": [],
           "aliases": []
@@ -710,6 +730,7 @@
           "massKg": 0.05,
           "baseValue": 25.0,
           "installed": false,
+          "operatingModes": [],
           "installTab": null,
           "jobs": [],
           "aliases": []
@@ -720,6 +741,7 @@
           "massKg": 19.0,
           "baseValue": 0.009999999776482582,
           "installed": false,
+          "operatingModes": [],
           "installTab": null,
           "jobs": [],
           "aliases": []
@@ -730,6 +752,7 @@
           "massKg": 16.0,
           "baseValue": 0.009999999776482582,
           "installed": false,
+          "operatingModes": [],
           "installTab": null,
           "jobs": [],
           "aliases": []
@@ -740,6 +763,7 @@
           "massKg": 20.0,
           "baseValue": 250.0,
           "installed": true,
+          "operatingModes": [],
           "installTab": "APPS",
           "jobs": [
             {
@@ -801,6 +825,7 @@
           "massKg": 20.0,
           "baseValue": 50.0,
           "installed": true,
+          "operatingModes": [],
           "installTab": "APPS",
           "jobs": [
             {
@@ -873,6 +898,7 @@
           "massKg": 20.0,
           "baseValue": 250.0,
           "installed": false,
+          "operatingModes": [],
           "installTab": null,
           "jobs": [
             {
@@ -936,6 +962,7 @@
           "massKg": 20.0,
           "baseValue": 50.0,
           "installed": false,
+          "operatingModes": [],
           "installTab": null,
           "jobs": [
             {
@@ -1010,6 +1037,7 @@
           "massKg": 11.0,
           "baseValue": 0.009999999776482582,
           "installed": false,
+          "operatingModes": [],
           "installTab": null,
           "jobs": [],
           "aliases": []
@@ -1020,6 +1048,7 @@
           "massKg": 9.0,
           "baseValue": 0.009999999776482582,
           "installed": false,
+          "operatingModes": [],
           "installTab": null,
           "jobs": [],
           "aliases": []
@@ -1030,6 +1059,7 @@
           "massKg": 12.0,
           "baseValue": 150.0,
           "installed": true,
+          "operatingModes": [],
           "installTab": "APPS",
           "jobs": [
             {
@@ -1097,6 +1127,7 @@
           "massKg": 12.0,
           "baseValue": 30.0,
           "installed": true,
+          "operatingModes": [],
           "installTab": "APPS",
           "jobs": [
             {
@@ -1168,6 +1199,7 @@
           "massKg": 12.0,
           "baseValue": 150.0,
           "installed": false,
+          "operatingModes": [],
           "installTab": null,
           "jobs": [
             {
@@ -1237,6 +1269,7 @@
           "massKg": 12.0,
           "baseValue": 30.0,
           "installed": false,
+          "operatingModes": [],
           "installTab": null,
           "jobs": [
             {
@@ -1310,6 +1343,7 @@
           "massKg": 0.4,
           "baseValue": 35.0,
           "installed": false,
+          "operatingModes": [],
           "installTab": null,
           "jobs": [],
           "aliases": []
@@ -1320,6 +1354,7 @@
           "massKg": 0.25,
           "baseValue": 8.0,
           "installed": false,
+          "operatingModes": [],
           "installTab": null,
           "jobs": [],
           "aliases": []
@@ -1330,6 +1365,7 @@
           "massKg": 0.25,
           "baseValue": 0.009999999776482582,
           "installed": false,
+          "operatingModes": [],
           "installTab": null,
           "jobs": [],
           "aliases": []
@@ -1340,6 +1376,7 @@
           "massKg": 0.4,
           "baseValue": 12.0,
           "installed": false,
+          "operatingModes": [],
           "installTab": null,
           "jobs": [],
           "aliases": []
@@ -1350,6 +1387,7 @@
           "massKg": 0.5,
           "baseValue": 0.009999999776482582,
           "installed": false,
+          "operatingModes": [],
           "installTab": null,
           "jobs": [],
           "aliases": []
@@ -1360,6 +1398,7 @@
           "massKg": 0.004,
           "baseValue": 0.009999999776482582,
           "installed": false,
+          "operatingModes": [],
           "installTab": null,
           "jobs": [],
           "aliases": []
@@ -1370,6 +1409,7 @@
           "massKg": 13.0,
           "baseValue": 0.009999999776482582,
           "installed": false,
+          "operatingModes": [],
           "installTab": null,
           "jobs": [],
           "aliases": []
@@ -1380,6 +1420,7 @@
           "massKg": 0.5,
           "baseValue": 0.009999999776482582,
           "installed": false,
+          "operatingModes": [],
           "installTab": null,
           "jobs": [],
           "aliases": []
@@ -1390,6 +1431,7 @@
           "massKg": 0.25,
           "baseValue": 0.009999999776482582,
           "installed": false,
+          "operatingModes": [],
           "installTab": null,
           "jobs": [],
           "aliases": []
@@ -1400,6 +1442,7 @@
           "massKg": 1.0,
           "baseValue": 2.0,
           "installed": true,
+          "operatingModes": [],
           "installTab": "MISC",
           "jobs": [
             {
@@ -1455,6 +1498,7 @@
           "massKg": 1.0,
           "baseValue": 0.4000000059604645,
           "installed": true,
+          "operatingModes": [],
           "installTab": "MISC",
           "jobs": [
             {
@@ -1519,6 +1563,7 @@
           "massKg": 1.0,
           "baseValue": 2.0,
           "installed": false,
+          "operatingModes": [],
           "installTab": null,
           "jobs": [
             {
@@ -1576,6 +1621,7 @@
           "massKg": 1.0,
           "baseValue": 0.4000000059604645,
           "installed": false,
+          "operatingModes": [],
           "installTab": null,
           "jobs": [
             {
@@ -1642,6 +1688,7 @@
           "massKg": 1.0,
           "baseValue": 0.009999999776482582,
           "installed": false,
+          "operatingModes": [],
           "installTab": null,
           "jobs": [],
           "aliases": []
@@ -3444,6 +3491,7 @@
           "massKg": 0.4,
           "baseValue": 767.0,
           "installed": false,
+          "operatingModes": [],
           "installTab": null,
           "jobs": [],
           "aliases": []
@@ -3454,6 +3502,7 @@
           "massKg": 0.4,
           "baseValue": 159.0,
           "installed": false,
+          "operatingModes": [],
           "installTab": null,
           "jobs": [],
           "aliases": []
@@ -3466,7 +3515,7 @@
     {
       "id": "PhobosAutoNav",
       "name": "Phobos Auto Nav",
-      "version": "0.17.0",
+      "version": "0.18.0",
       "gameTarget": "1.0.1.5",
       "items": [
         {
@@ -3475,6 +3524,7 @@
           "massKg": 0.4,
           "baseValue": 3600.0,
           "installed": false,
+          "operatingModes": [],
           "installTab": null,
           "jobs": [
             {
@@ -3515,6 +3565,7 @@
           "massKg": 0.4,
           "baseValue": 900.0,
           "installed": false,
+          "operatingModes": [],
           "installTab": null,
           "jobs": [
             {
@@ -3564,6 +3615,7 @@
           "massKg": 0.6,
           "baseValue": 0.009999999776482582,
           "installed": false,
+          "operatingModes": [],
           "installTab": null,
           "jobs": [],
           "aliases": []
@@ -3574,6 +3626,7 @@
           "massKg": 0.4,
           "baseValue": 0.009999999776482582,
           "installed": false,
+          "operatingModes": [],
           "installTab": null,
           "jobs": [],
           "aliases": []
@@ -3584,6 +3637,7 @@
           "massKg": 0.4,
           "baseValue": 5400.0,
           "installed": false,
+          "operatingModes": [],
           "installTab": null,
           "jobs": [
             {
@@ -3624,6 +3678,7 @@
           "massKg": 0.4,
           "baseValue": 1350.0,
           "installed": false,
+          "operatingModes": [],
           "installTab": null,
           "jobs": [
             {
@@ -3673,6 +3728,7 @@
           "massKg": 0.4,
           "baseValue": 5400.0,
           "installed": false,
+          "operatingModes": [],
           "installTab": null,
           "jobs": [
             {
@@ -3713,6 +3769,7 @@
           "massKg": 0.4,
           "baseValue": 1350.0,
           "installed": false,
+          "operatingModes": [],
           "installTab": null,
           "jobs": [
             {
@@ -4316,7 +4373,7 @@
         {
           "id": "PhobosBuildAutoNav",
           "name": "Phobos' Asterel N1 Polaris Auto Nav Module",
-          "description": "Assemble and calibrate a 0.4 kg Phobos' Asterel N1 Polaris Auto Nav Module for a Polaris navigation station from 1 kg of electronics; retain 0.6 kg of offcuts. Docking requires a separate Dock action and native clearance. Does not avoid obstacles.",
+          "description": "Assemble and calibrate a 0.4 kg Phobos' Asterel N1 Polaris Auto Nav Module for a Polaris navigation station from 1 kg of electronics; retain 0.6 kg of offcuts. Docking requires a separate Dock action and native clearance. Includes local avoidance of tracked contacts.",
           "stationIds": [
             "ItmTable01",
             "ItmTable02"
@@ -4457,6 +4514,7 @@
           "massKg": 0.5,
           "baseValue": 0.009999999776482582,
           "installed": false,
+          "operatingModes": [],
           "installTab": null,
           "jobs": [],
           "aliases": []
@@ -4479,7 +4537,7 @@
     {
       "id": "PhobosShipbreaker",
       "name": "Phobos Shipbreaker",
-      "version": "0.23.0",
+      "version": "0.24.0",
       "gameTarget": "1.0.1.5",
       "items": [
         {
@@ -4488,6 +4546,18 @@
           "massKg": 80.0,
           "baseValue": 6400.0,
           "installed": true,
+          "operatingModes": [
+            {
+              "name": "Powered wall cutting",
+              "seconds": 120.0,
+              "kw": 12.0
+            },
+            {
+              "name": "Existing G4 intake transfer",
+              "seconds": 5.0,
+              "kw": 2.0
+            }
+          ],
           "installTab": "APPS",
           "jobs": [
             {
@@ -4566,6 +4636,7 @@
           "massKg": 80.0,
           "baseValue": 1600.0,
           "installed": true,
+          "operatingModes": [],
           "installTab": "APPS",
           "jobs": [
             {
@@ -4650,6 +4721,7 @@
           "massKg": 80.0,
           "baseValue": 6400.0,
           "installed": false,
+          "operatingModes": [],
           "installTab": null,
           "jobs": [
             {
@@ -4730,6 +4802,7 @@
           "massKg": 80.0,
           "baseValue": 1600.0,
           "installed": false,
+          "operatingModes": [],
           "installTab": null,
           "jobs": [
             {
@@ -4816,6 +4889,7 @@
           "massKg": 1.0,
           "baseValue": 3.0,
           "installed": true,
+          "operatingModes": [],
           "installTab": "HVAC",
           "jobs": [
             {
@@ -4871,6 +4945,7 @@
           "massKg": 1.0,
           "baseValue": 0.6000000238418579,
           "installed": true,
+          "operatingModes": [],
           "installTab": "HVAC",
           "jobs": [
             {
@@ -4935,6 +5010,7 @@
           "massKg": 1.0,
           "baseValue": 3.0,
           "installed": false,
+          "operatingModes": [],
           "installTab": null,
           "jobs": [
             {
@@ -4992,6 +5068,7 @@
           "massKg": 1.0,
           "baseValue": 0.6000000238418579,
           "installed": false,
+          "operatingModes": [],
           "installTab": null,
           "jobs": [
             {
@@ -5058,6 +5135,7 @@
           "massKg": 1.0,
           "baseValue": 0.009999999776482582,
           "installed": false,
+          "operatingModes": [],
           "installTab": null,
           "jobs": [],
           "aliases": []
@@ -5068,6 +5146,7 @@
           "massKg": 18.0,
           "baseValue": 60.0,
           "installed": false,
+          "operatingModes": [],
           "installTab": null,
           "jobs": [],
           "aliases": []
@@ -5078,6 +5157,7 @@
           "massKg": 19.0,
           "baseValue": 55.0,
           "installed": false,
+          "operatingModes": [],
           "installTab": null,
           "jobs": [],
           "aliases": []
@@ -5088,6 +5168,7 @@
           "massKg": 0.0,
           "baseValue": 0.0,
           "installed": false,
+          "operatingModes": [],
           "installTab": null,
           "jobs": [],
           "aliases": []
@@ -5098,6 +5179,7 @@
           "massKg": 240.0,
           "baseValue": 24000.0,
           "installed": true,
+          "operatingModes": [],
           "installTab": "APPS",
           "jobs": [
             {
@@ -5176,6 +5258,7 @@
           "massKg": 240.0,
           "baseValue": 6000.0,
           "installed": true,
+          "operatingModes": [],
           "installTab": "APPS",
           "jobs": [
             {
@@ -5266,6 +5349,7 @@
           "massKg": 240.0,
           "baseValue": 24000.0,
           "installed": false,
+          "operatingModes": [],
           "installTab": null,
           "jobs": [
             {
@@ -5346,6 +5430,7 @@
           "massKg": 240.0,
           "baseValue": 6000.0,
           "installed": false,
+          "operatingModes": [],
           "installTab": null,
           "jobs": [
             {
@@ -5438,6 +5523,7 @@
           "massKg": 1.0,
           "baseValue": 0.009999999776482582,
           "installed": false,
+          "operatingModes": [],
           "installTab": null,
           "jobs": [],
           "aliases": []
@@ -5448,6 +5534,7 @@
           "massKg": 100.0,
           "baseValue": 7200.0,
           "installed": true,
+          "operatingModes": [],
           "installTab": "HVAC",
           "jobs": [
             {
@@ -5520,6 +5607,7 @@
           "massKg": 100.0,
           "baseValue": 1800.0,
           "installed": true,
+          "operatingModes": [],
           "installTab": "HVAC",
           "jobs": [
             {
@@ -5603,6 +5691,7 @@
           "massKg": 100.0,
           "baseValue": 7200.0,
           "installed": false,
+          "operatingModes": [],
           "installTab": null,
           "jobs": [
             {
@@ -5677,6 +5766,7 @@
           "massKg": 100.0,
           "baseValue": 1800.0,
           "installed": false,
+          "operatingModes": [],
           "installTab": null,
           "jobs": [
             {
@@ -5762,6 +5852,7 @@
           "massKg": 80.0,
           "baseValue": 6500.0,
           "installed": false,
+          "operatingModes": [],
           "installTab": null,
           "jobs": [
             {
@@ -5814,6 +5905,7 @@
           "massKg": 100.0,
           "baseValue": 7200.0,
           "installed": true,
+          "operatingModes": [],
           "installTab": "HVAC",
           "jobs": [
             {
@@ -5886,6 +5978,7 @@
           "massKg": 100.0,
           "baseValue": 1800.0,
           "installed": true,
+          "operatingModes": [],
           "installTab": "HVAC",
           "jobs": [
             {
@@ -5969,6 +6062,7 @@
           "massKg": 100.0,
           "baseValue": 7200.0,
           "installed": false,
+          "operatingModes": [],
           "installTab": null,
           "jobs": [
             {
@@ -6043,6 +6137,7 @@
           "massKg": 100.0,
           "baseValue": 1800.0,
           "installed": false,
+          "operatingModes": [],
           "installTab": null,
           "jobs": [
             {
@@ -6128,6 +6223,7 @@
           "massKg": 40.0,
           "baseValue": 1800.0,
           "installed": true,
+          "operatingModes": [],
           "installTab": "APPS",
           "jobs": [
             {
@@ -6206,6 +6302,7 @@
           "massKg": 40.0,
           "baseValue": 450.0,
           "installed": true,
+          "operatingModes": [],
           "installTab": "APPS",
           "jobs": [
             {
@@ -6289,6 +6386,7 @@
           "massKg": 40.0,
           "baseValue": 1800.0,
           "installed": false,
+          "operatingModes": [],
           "installTab": null,
           "jobs": [
             {
@@ -6369,6 +6467,7 @@
           "massKg": 40.0,
           "baseValue": 450.0,
           "installed": false,
+          "operatingModes": [],
           "installTab": null,
           "jobs": [
             {
@@ -6454,6 +6553,7 @@
           "massKg": 40.0,
           "baseValue": 5200.0,
           "installed": true,
+          "operatingModes": [],
           "installTab": "CTRL",
           "jobs": [
             {
@@ -6532,6 +6632,7 @@
           "massKg": 40.0,
           "baseValue": 1300.0,
           "installed": true,
+          "operatingModes": [],
           "installTab": "CTRL",
           "jobs": [
             {
@@ -6616,6 +6717,7 @@
           "massKg": 40.0,
           "baseValue": 5200.0,
           "installed": false,
+          "operatingModes": [],
           "installTab": null,
           "jobs": [
             {
@@ -6696,6 +6798,7 @@
           "massKg": 40.0,
           "baseValue": 1300.0,
           "installed": false,
+          "operatingModes": [],
           "installTab": null,
           "jobs": [
             {
@@ -6782,6 +6885,7 @@
           "massKg": 9.0,
           "baseValue": 0.009999999776482582,
           "installed": false,
+          "operatingModes": [],
           "installTab": null,
           "jobs": [],
           "aliases": []
@@ -6792,6 +6896,7 @@
           "massKg": 13.0,
           "baseValue": 0.009999999776482582,
           "installed": false,
+          "operatingModes": [],
           "installTab": null,
           "jobs": [],
           "aliases": []
@@ -6802,6 +6907,7 @@
           "massKg": 20.0,
           "baseValue": 2400.0,
           "installed": true,
+          "operatingModes": [],
           "installTab": "APPS",
           "jobs": [
             {
@@ -6880,6 +6986,7 @@
           "massKg": 20.0,
           "baseValue": 600.0,
           "installed": true,
+          "operatingModes": [],
           "installTab": "APPS",
           "jobs": [
             {
@@ -6963,6 +7070,7 @@
           "massKg": 20.0,
           "baseValue": 2400.0,
           "installed": false,
+          "operatingModes": [],
           "installTab": null,
           "jobs": [
             {
@@ -7043,6 +7151,7 @@
           "massKg": 20.0,
           "baseValue": 600.0,
           "installed": false,
+          "operatingModes": [],
           "installTab": null,
           "jobs": [
             {
@@ -7128,6 +7237,7 @@
           "massKg": 1.0,
           "baseValue": 20.0,
           "installed": false,
+          "operatingModes": [],
           "installTab": null,
           "jobs": [],
           "aliases": []
@@ -7138,6 +7248,7 @@
           "massKg": 1.0,
           "baseValue": 0.009999999776482582,
           "installed": false,
+          "operatingModes": [],
           "installTab": null,
           "jobs": [],
           "aliases": []
@@ -7148,6 +7259,7 @@
           "massKg": 0.0,
           "baseValue": 0.0,
           "installed": false,
+          "operatingModes": [],
           "installTab": null,
           "jobs": [],
           "aliases": []
@@ -7158,6 +7270,7 @@
           "massKg": 180.0,
           "baseValue": 14800.0,
           "installed": true,
+          "operatingModes": [],
           "installTab": "APPS",
           "jobs": [
             {
@@ -7236,6 +7349,7 @@
           "massKg": 180.0,
           "baseValue": 3700.0,
           "installed": true,
+          "operatingModes": [],
           "installTab": "APPS",
           "jobs": [
             {
@@ -7326,6 +7440,7 @@
           "massKg": 180.0,
           "baseValue": 14800.0,
           "installed": false,
+          "operatingModes": [],
           "installTab": null,
           "jobs": [
             {
@@ -7406,6 +7521,7 @@
           "massKg": 180.0,
           "baseValue": 3700.0,
           "installed": false,
+          "operatingModes": [],
           "installTab": null,
           "jobs": [
             {
@@ -7498,6 +7614,7 @@
           "massKg": 90.0,
           "baseValue": 6000.0,
           "installed": false,
+          "operatingModes": [],
           "installTab": null,
           "jobs": [
             {
@@ -7550,6 +7667,7 @@
           "massKg": 0.0,
           "baseValue": 0.0,
           "installed": false,
+          "operatingModes": [],
           "installTab": null,
           "jobs": [],
           "aliases": []
@@ -7560,6 +7678,7 @@
           "massKg": 160.0,
           "baseValue": 12000.0,
           "installed": true,
+          "operatingModes": [],
           "installTab": "APPS",
           "jobs": [
             {
@@ -7638,6 +7757,7 @@
           "massKg": 160.0,
           "baseValue": 3000.0,
           "installed": true,
+          "operatingModes": [],
           "installTab": "APPS",
           "jobs": [
             {
@@ -7722,6 +7842,7 @@
           "massKg": 160.0,
           "baseValue": 12000.0,
           "installed": false,
+          "operatingModes": [],
           "installTab": null,
           "jobs": [
             {
@@ -7802,6 +7923,7 @@
           "massKg": 160.0,
           "baseValue": 3000.0,
           "installed": false,
+          "operatingModes": [],
           "installTab": null,
           "jobs": [
             {
@@ -7888,6 +8010,7 @@
           "massKg": 13.0,
           "baseValue": 0.009999999776482582,
           "installed": false,
+          "operatingModes": [],
           "installTab": null,
           "jobs": [],
           "aliases": []
@@ -7898,6 +8021,7 @@
           "massKg": 80.0,
           "baseValue": 4800.0,
           "installed": false,
+          "operatingModes": [],
           "installTab": null,
           "jobs": [
             {
@@ -10676,11 +10800,11 @@
     "mods/PhobosApproachAssist/data/cooverlays/phobos_approach_assist.json": "f309b562807dd3b98de6152d7ca4635d9bb6cddcc65c575d533753d15d763086",
     "mods/PhobosApproachAssist/data/guipropmaps/phobos_approach_assist.json": "a65f4313445b7606daa0ce635afc60e3d960806e28efc4265ffad9e44432e34f",
     "mods/PhobosApproachAssist/mod_info.json": "d181c24ee0825cd841165bb45c20174271c4e3e47ad13a68bb47485cd89b9e35",
-    "mods/PhobosAutoNav/data/cooverlays/phobos_approach_assist.json": "83de5331767fa4f16fd4e8db2213253618676659c11d1df956af2ed098cc702f",
+    "mods/PhobosAutoNav/data/cooverlays/phobos_approach_assist.json": "7208e3ca5bdabc6cba5d89ea17e2fd5ca30667fcf2cd12e0d036c82fe96d284d",
     "mods/PhobosAutoNav/data/guipropmaps/phobos_approach_assist.json": "b58a900cf980995085aaf4db06e4dbf2d6bd7287762475662035d4947d7eac0b",
     "mods/PhobosAutoNav/framework/equipment-names.json": "478a9416b2eb043c18fd5aac3b1720d512fdc9aa363c8411f831fa2fc9dfbee2",
-    "mods/PhobosAutoNav/framework/recipes.json": "b6ed16da043b1fe7d6dd2a1226cffb1ded435765b0817e27a899b331896606d2",
-    "mods/PhobosAutoNav/mod_info.json": "9bd72120191782010a5b612f1c58dfe62b9a6dec53666d95d24f424b2a3c4634",
+    "mods/PhobosAutoNav/framework/recipes.json": "b03ff79d6c08b75c89b4bf30cd459e46de410366a505aa93ca5190b1ce1d90c4",
+    "mods/PhobosAutoNav/mod_info.json": "5662c2bbc828c2d604b35002f5312c262d04cfe0003f5b2c240a49e17b02aee1",
     "mods/PhobosFramework/data/conditions/phobos_framework.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
     "mods/PhobosFramework/framework/equipment-names.json": "8d64a49207830ca57808d0de92ac82feaf95fb200dd550888e795bb7ed37afb7",
     "mods/PhobosFramework/mod_info.json": "0504842d09ecf90825910343fe13d24113b8c332d1a66b78c8b3b9b972edee15",
@@ -10691,7 +10815,7 @@
     "mods/PhobosShipbreaker/data/condtrigs/phobos_shipbreaker.json": "c7d4104df596d3fd362d9a80f4703178eafc5d3151bd53907814732ec84d3585",
     "mods/PhobosShipbreaker/framework/equipment-names.json": "06ca1a5fe39812844c8f114303e7205b1d366f8466bd614966e39f5f57844db8",
     "mods/PhobosShipbreaker/framework/recipes.json": "fb28b45a6f6c35860cea3dbe7cdc9ec23f5fc1ec9cb346ffee71b53a1cafec75",
-    "mods/PhobosShipbreaker/mod_info.json": "ffae3440ce372d4bdbb15e5cb6b1e1d875ecba311d6ab9824efe964dc5897a56",
+    "mods/PhobosShipbreaker/mod_info.json": "f4b676d89763af2e892b99a8532158b5628c8a8f032e9cd7007f6f8a01a885a8",
     "src/PhobosAgriculture/Artwork.cs": "c0b0f215961a5e35aa0d7bd174a0c3edddbbcf1ed5e7238039cf9d940bfd38fd",
     "src/PhobosAgriculture/AssemblyInfo.cs": "441ebc13e73f63e15379d179bdcde910645df15d5847671cdfff7cd313fbf66b",
     "src/PhobosAgriculture/Core/Crop.cs": "78120af7ea8842c43e3fa7d154116209f637630a41dac5ccd4c79ae5a71bd4d9",
@@ -10728,21 +10852,23 @@
     "src/PhobosApproachAssist/Core/ThrustDirection.cs": "b0e20af1e4cf614f0b3b4167c5b1bbec3b2397db1a49c226ca3599f58711ccd7",
     "src/PhobosApproachAssist/PhobosApproachAssist.csproj": "5fa7baec55e621690067898a1c913aac2e96ec3a771afbcd9f69a39c34c670a2",
     "src/PhobosApproachAssist/Plugin.cs": "0c7a37cc6c68a7ef0f51e8d055b7ae8f6ff136b7804f93efab3c88ef43357d23",
-    "src/PhobosAutoNav/Adapted/AutoNavCore.cs": "5e1f229b58486411b5500f033cb2f2d2658a7699ad64326b7a4b26e448318545",
+    "src/PhobosAutoNav/Adapted/AutoNavCore.cs": "065b85aaa278249de26b6978ee9053605a100ca5840670349e8e2801787e52f0",
     "src/PhobosAutoNav/Adapted/TargetRef.cs": "f02c0687e083f16847d0c3857f2292cacd508b7b39be8631172fc746c3194206",
     "src/PhobosAutoNav/AssemblyInfo.cs": "a442448369b44ef8921362eea7215eab4e7fb557881cded3213f00b5d7600549",
-    "src/PhobosAutoNav/AutoNavPanel.cs": "0a7154efae70beb68cda118c75a6523ff7e7617220287780b23da081ade54ddf",
+    "src/PhobosAutoNav/AutoNavPanel.cs": "f01905a597673c935587994247a4f4e3f1c8a3943c20cad28c33576d819861a7",
     "src/PhobosAutoNav/Core/ApproachAdmission.cs": "91e5775a212e7b15d84af7039350dfbc65fb150efa67e3105961227008d1fd8d",
     "src/PhobosAutoNav/Core/ApproachRules.cs": "e46412ddcf82e5abe3060f0ccc7f813008fd14e288490e42182063b2d465154e",
     "src/PhobosAutoNav/Core/ArrivalBrake.cs": "a7e643b08c88966557d482799abd15bb77ddda701e05d822c0e672b5742922de",
     "src/PhobosAutoNav/Core/CoastRules.cs": "dabceed71f5f2d554a2103dffa9b30f145ffdbef59a5389391054c08fc96a932",
     "src/PhobosAutoNav/Core/ContactReading.cs": "a1801fef17c547b55e828062a78e910f34ae824a265c79e3883954db3c99ee91",
+    "src/PhobosAutoNav/Core/DepartureRules.cs": "22fcf6c6973b3e38738eaa540a8822e237fa4dde44acf4be5e98ce418c2e2eba",
     "src/PhobosAutoNav/Core/DockingRules.cs": "6f738c55cfb04147ff086b5b8eaa0588752edcbe817224e9028fd95ede5351c6",
     "src/PhobosAutoNav/Core/EquipmentRules.cs": "6f64eaaf106e71306b8c2a3bfc06de05f06c04104d1fe4dd54ef31eeb31b2345",
     "src/PhobosAutoNav/Core/FireRules.cs": "7489d272af070e12aa8b5eeb40b6f407575e5481030d3e791b785e6d11f4b037",
     "src/PhobosAutoNav/Core/FlightPreferences.cs": "a3cd54c6e71a7a658ccf5ba810dd5d0ade340b66c796519ead8b108c1387a829",
     "src/PhobosAutoNav/Core/FlightSnapshot.cs": "1c2e2bd86a117edc97ee37a8925507fef959b7f8e1c78ecf5ae8de4046341290",
     "src/PhobosAutoNav/Core/InstrumentRules.cs": "1079c557fed16a635d5ed5f6b6477e91269f4ec18d59db79fae1bba60e1c382f",
+    "src/PhobosAutoNav/Core/ObstacleRoute.cs": "da44c923fd72fcbe777a87a6acf88ed57c71c8b90ddccdf89cf830cc768c5053",
     "src/PhobosAutoNav/Core/PanelLayoutRules.cs": "563c9eeba0f239aa05a6d14b58b20c642cdfa8542e6859d2d5d3888b81762ac0",
     "src/PhobosAutoNav/Core/PredictiveGuidance.cs": "1686ab6963d022205b752bcd07e8688506df77dd66853de66d43d5331818ca7f",
     "src/PhobosAutoNav/Core/RcsBudget.cs": "2cb1dc7d37518ac55472c695cf4c1a56f3b6e886139576504659f653b8c03664",
@@ -10751,27 +10877,30 @@
     "src/PhobosAutoNav/EquipmentContent.cs": "0a5c6fc238d30dda7792f800da6bfabd961cb39c009782aca7e8ad88749f23bc",
     "src/PhobosAutoNav/FireControlController.cs": "61c2915e12eec75eeae9a2062761f9bf3d4879c28b10bc79087569ee5cdf6902",
     "src/PhobosAutoNav/HubLayout.cs": "9a47e76875d54016b1dd9b603ffc69b5485863bb3f867f9d1f3fc9e9c7682a3a",
-    "src/PhobosAutoNav/IndustrialNavigation.cs": "3a26d533977d743e0f269f5cc62a480baaa0090c6fbe76039175bb3f28d9d63f",
+    "src/PhobosAutoNav/IndustrialNavigation.cs": "3b1b4abe6aeb2dd67c45833068e561b9113580fdd179f78ad5c2b9ce829496a5",
     "src/PhobosAutoNav/NativeContactReader.cs": "7ec8b689a9d4001e894c1a2028cc23ffcf4ce8e309141d1543e5f6b15f31bcbc",
     "src/PhobosAutoNav/NativeFlightPanel.cs": "b82951f43284487874c3bcce58c7849696c20367dee607c29fd2dbddad1da484",
     "src/PhobosAutoNav/NavigationApproach.cs": "e5fb90f150aac4f18c57ba80956a77332967d6d902eebf11b7d5b19632b89485",
-    "src/PhobosAutoNav/NavigationApproachDock.cs": "f59252ef15baedeed1a285f8aa433d21cd00474b1c2ed2e8aa046d3c5032365d",
-    "src/PhobosAutoNav/NavigationDocking.cs": "edc385b6c0731303a19bace8c7c907143b435155738cb68ff017b20ee3f5936e",
+    "src/PhobosAutoNav/NavigationApproachDock.cs": "254c7b16b4a12b84a40b2c492203b6281e221629f44273c0955e30422a971ce6",
+    "src/PhobosAutoNav/NavigationAvoidance.cs": "b29faa454be61f0ed674b06d727c847f6c466a9c68a1a035031bfe82c78375a9",
+    "src/PhobosAutoNav/NavigationDeparture.cs": "ca530f427142fe10b010800be70bd34af07b75cd7419d767d386e4d3a5681945",
+    "src/PhobosAutoNav/NavigationDocking.cs": "2c476a0c32f64fc6871ef70a9697e72e43b1bafe9e5921eff658353a72882e38",
     "src/PhobosAutoNav/NavigationHub.cs": "26b09e39baf6247360870667db24903bb7b5f4edbc565f05aae5029e2ed7fed9",
     "src/PhobosAutoNav/NavigationInstruments.cs": "f072628e487052ae5af9a0da3823cc02a45ac21ef48663b1f2db6b7d381d2e73",
-    "src/PhobosAutoNav/NavigationPersistence.cs": "be79c867aaae8ef9af2d9db0094e54179fea41bd591f563cc7c6eb483317f0ce",
+    "src/PhobosAutoNav/NavigationPersistence.cs": "ef06e0c6d7b79ee7abebdb5c35ae72242b28ef6e1b1db8d40dbc672c7b851184",
     "src/PhobosAutoNav/NavigationPreferences.cs": "9676764c2d9a2ce480b33313585ea0bca7d3f3a58c3af371727516b8d1bb8d09",
     "src/PhobosAutoNav/NavigationPursuit.cs": "c6de5e35457d07bc0bbce8484e02a410674c9795b568ae847816ca2f454e9c23",
     "src/PhobosAutoNav/NavigationSensors.cs": "9b4818313ecd0f580f2716d9b44d74e1d944194c0dbb22ac2dfc8c578730f537",
-    "src/PhobosAutoNav/NavigationService.cs": "f3bbc1e852d13e78730cd07f9e84fd24f766e613529f3cb46b8e33cf8ee76803",
+    "src/PhobosAutoNav/NavigationService.cs": "7540fe7545198fc9ec256bcdb6208bb260749517bafdbe3bcf909020f88e8f5d",
     "src/PhobosAutoNav/PerformanceMetrics.cs": "349cfaef02af245464dc68235c368c0ba399f4e6c033b9b996f7cc74d5e979aa",
-    "src/PhobosAutoNav/PhobosAutoNav.csproj": "62c0ff386500e943c492561e09138f00ea4b60de3b618a0f353047a4335a5386",
-    "src/PhobosAutoNav/Plugin.cs": "733b8b65e683fb9b1b17f8aa1138a55b707cd31e4ca5354b215c2507bebc02dc",
+    "src/PhobosAutoNav/PhobosAutoNav.csproj": "a9b664b0be04c71959a8405f3dac8e68e3834f398e18bad111ea2fb91dd9a3b3",
+    "src/PhobosAutoNav/Plugin.cs": "335e26be5285362090fbc8265f43d26020bd5bd524f0fe8315d1e2d9b0641246",
     "src/PhobosAutoNav/RegionalEconomy.cs": "dc2973df21debf6d6a18b630981ba7a0edfba239969b488461114e89dcc80f0c",
     "src/PhobosAutoNav/RotarySelector.cs": "2e2005b2e02dc8a1ddd2080a4b127bc7c326e19ff17cb56f35ad567917580d3e",
     "src/PhobosAutoNav/StockQuantities.cs": "71ddfe767ea5060dc6f998f02c47046bcb4d9953a93582eace4c9781f0041173",
     "src/PhobosAutoNav/Text.cs": "6e7a22770d59134bdfc83f49bfec573f59e6036829676087435dcdb612cc1879",
-    "src/PhobosAutoNav/TorchDriveController.cs": "1756ce09ba4330ce21b37433abaa15c9286316313367b22e0b597dc292002e1c",
+    "src/PhobosAutoNav/TorchDriveController.cs": "c13fa68c432268f405746cf90c878f20b9fce6ae04e747787db317b60db62d5b",
+    "src/PhobosAutoNav/TorchObstacleGuard.cs": "2dad177747574cea8ded34df3f0f8bbe3d6c7233c34c0cad480170924bd5607c",
     "src/PhobosFramework/AssemblyInfo.cs": "071d38c332982d58557b4f9dc4cdc7ce797f2c883ab482e9d79aaf0c708f0531",
     "src/PhobosFramework/Audio/CompletionAudio.cs": "a10173474f60c9571a76e9eb422b7e8ba3f350b3ec2c172e1a8333784a9140a0",
     "src/PhobosFramework/Audio/CompletionCuePcm.cs": "2175b0462fc2a20c120fcd3cac01bfe1ee7ffd17b191d6ad419c7caab71b9f97",
@@ -10841,8 +10970,8 @@
     "src/PhobosManufacturing/PhobosManufacturing.csproj": "6669cb7319a67c1786e1d91c700ec7e1a24fc3cb6bd2585fcf7939711f9f00d5",
     "src/PhobosManufacturing/Plugin.cs": "145edfcafef1e1b0c4a53de5270298f6bb4c16a6e98080760b37a5efebd25642",
     "src/PhobosShipbreaker/AssemblyInfo.cs": "a442448369b44ef8921362eea7215eab4e7fb557881cded3213f00b5d7600549",
-    "src/PhobosShipbreaker/CaptureGeometry.cs": "134cb5e7bf8079759c0c9afa7cb192e7ae4c3a26ef9892eee9746d3011712608",
-    "src/PhobosShipbreaker/CaptureService.cs": "7a1e2efd171f7799b5a2b5582a3f50b667763ab556d19e63884ab8bf480c0c10",
+    "src/PhobosShipbreaker/CaptureGeometry.cs": "4abc22fa206dca3b4da97c5c576858a8745d037a11adab00f1fb59d59ff7eb9a",
+    "src/PhobosShipbreaker/CaptureService.cs": "b3bcaef156079cbd23fccab6995013a67966dd07debb0f0aad92482d0dcfd4a5",
     "src/PhobosShipbreaker/CollectorCommands.cs": "f12e22a0d651637c95f0fe3510deedbe56c73963f74efef45860a52350183878",
     "src/PhobosShipbreaker/CollectorDefinitions.cs": "b583fe9850b41e0f470fa0bbe76569750cde3cab7ebd3022b58db3350174534a",
     "src/PhobosShipbreaker/CollectorLinks.cs": "8343e88e1030a5c92845fe780d6f0cce43c5047ea9ed70a0435755f9afaf01a7",
@@ -10858,7 +10987,7 @@
     "src/PhobosShipbreaker/Core/CollectorRules.cs": "21349875b1be7f45ffe42ed10ce30f9f34b72f7257a51c983011f5348a2c0e6a",
     "src/PhobosShipbreaker/Core/Commands.cs": "6e4a786128d0f4f86b8401057a2f90df96628279d0eda360fece0a902d5b488f",
     "src/PhobosShipbreaker/Core/CoolantCharge.cs": "76339dc6670dff12e9d33da4480793bfc76d0961503d6c05975afc6d4ded4432",
-    "src/PhobosShipbreaker/Core/DependencyContract.cs": "1331ed41341facd2ac23c637fd0b6c8be416acfff713ab4549c42af0678b2a33",
+    "src/PhobosShipbreaker/Core/DependencyContract.cs": "be2b237074e74d993559aa4027a44ad59b281b786d46aed2b33f1f377bbaabcb",
     "src/PhobosShipbreaker/Core/FurnaceBatch.cs": "a9fbc2a1f9be4c6f55dd7159e0202db6292f861f0704df6fb7ffd8dc19578f12",
     "src/PhobosShipbreaker/Core/FurnaceCooling.cs": "4c090e6c28b0cda7b2b646f4619dd9f3e139af9a4098912c590caeb45300842e",
     "src/PhobosShipbreaker/Core/FurnaceMaterialRules.cs": "9e875d11345f05a5d881bbf7bd84dc6e48713b459913ec81a525790bda52d307",
@@ -10869,6 +10998,7 @@
     "src/PhobosShipbreaker/Core/ProcessRecipes.cs": "e55805ef96faae34b023a9c124c3c039f54a0d4183c3d12cfc7f47219c8b5e56",
     "src/PhobosShipbreaker/Core/ProcessRules.cs": "6e2427109d738fd134d8c3adf6e8d6710d49c23d90448ebecf48068b364c369c",
     "src/PhobosShipbreaker/Core/ReclaimerRules.cs": "909a436e37ec8ac20431125ba8bdbe8c087a6a8f883aaca4fd67c1b6a3b9c256",
+    "src/PhobosShipbreaker/Core/ReclamationRules.cs": "5c9605ff28d5ff05522d068e2e749b4d1fc981a9dc3aabbff34367af152f9a0d",
     "src/PhobosShipbreaker/Core/RoutingCommand.cs": "924cc9c0049eeec97f18d02e1c017949f9fa332b7d07a236102a97f116aed0a4",
     "src/PhobosShipbreaker/Core/RoutingRules.cs": "59c94a4559ecdf50b3f1932325d47eda0920dc44fd8adb62874ba0271d283b92",
     "src/PhobosShipbreaker/EconomySaveCompatibility.cs": "a90b282a12f38a0fac5451702717dbad24ed21824f5976914829809919aa50e3",
@@ -10885,35 +11015,39 @@
     "src/PhobosShipbreaker/FurnaceOperations.cs": "057548a6e6f44f64dc3e0776a1d07719002cb6565ea8f59196083ddfa2ea1dbf",
     "src/PhobosShipbreaker/FurnaceService.cs": "6075385f95169d3880e85e313d6b079a337c12af26b588e691a33734581288c2",
     "src/PhobosShipbreaker/IndustrialDefinitions.cs": "1d141044d9f37befe4e02e843955add810d37668e6146151da5ed7b41b04024b",
-    "src/PhobosShipbreaker/IndustrialPanel.cs": "74c932983814cc912b874f246d04752a4bed531943e6e01697ef8ea4880c6675",
+    "src/PhobosShipbreaker/IndustrialPanel.cs": "333c5bec5330ace5b190fc9e0309f984765f9f713d636ee5b7560226f03a8e51",
     "src/PhobosShipbreaker/IndustryCommands.cs": "3c7e24e1c0d5e6dc87f5c27e10cae0c67d040f4f6b0692132d1825013588a27b",
     "src/PhobosShipbreaker/IndustryObservations.cs": "a1dd16b7a9e1bd4eeac52b36962bd18188c6a61bcf7dd03ff58e7907b462d9e9",
-    "src/PhobosShipbreaker/IndustryService.cs": "231f30a04c23616b18f14445c445fc2a5aecb0b3d9914947dde3d6b580dd69ad",
+    "src/PhobosShipbreaker/IndustryService.cs": "5c2e6d9fc79dcf2447c86a39984dd866c4ad1bf6db53ee290dd59a7a4d8754c0",
     "src/PhobosShipbreaker/IntakeDefinitions.cs": "8a5d80ab7a82ba01688b2791d98693f77d9d999fe313c689d7e6c974eb12f69f",
-    "src/PhobosShipbreaker/IntakeService.cs": "660b9a4d84d85ce9a485d17a6dc36b29c8a6254f8b3bf47342ea546e84590f8c",
+    "src/PhobosShipbreaker/IntakeService.cs": "9acf700fb2fffdce295d6c955d2416ad6ba071661611f99e666aa80bd09a807e",
     "src/PhobosShipbreaker/MachineDefinitions.cs": "e8ac8cd1ef2cc058f946eaec2f2f45676d309731f64a80cba745d56e49feab92",
     "src/PhobosShipbreaker/NativeAdapter.cs": "8320c05ddf6667060af21a98218e4df82015aba7feaeb124623d5eb57428083b",
     "src/PhobosShipbreaker/PerformanceMetrics.cs": "91708a5cf54eea0b2b70a0625556b466fb2ecdbdfb60346bd855c44a68f644f5",
-    "src/PhobosShipbreaker/PhobosShipbreaker.csproj": "b5614530cf039eac61cb73062715416de6afc04fdb02f73657dda231195103e5",
+    "src/PhobosShipbreaker/PhobosShipbreaker.csproj": "83472108ab1d7b44d7f768e7d31f44736ea468035042007d738e1f38bab05efd",
     "src/PhobosShipbreaker/PlaceholderLoadRepair.cs": "8fdf6627ae35cd6d6c281a92a728e588f516ba7e4138e7204cc5c69549db44c4",
-    "src/PhobosShipbreaker/Plugin.cs": "e0ef383a1de7e55c750efd3276cd6655dbb9f84f0c0ce73382db41146d4d3f81",
+    "src/PhobosShipbreaker/Plugin.cs": "dd6765acc60d2bff12faed9b55235fb12746843868670c15b3681d2d7a1230af",
     "src/PhobosShipbreaker/ProcessingCommands.cs": "5c0a603a4e2ae406bc94d5fcf0d30bb01b40512f57e474ab9ef5f2ab470a7320",
-    "src/PhobosShipbreaker/ProcessingService.cs": "016df90355b5eaacc1d104abed334dfdad26a04497f979abf902f1a21567de8a",
+    "src/PhobosShipbreaker/ProcessingService.cs": "a2b2722e92c63ea64521c75bbf416998abb414b8bd584cab111696fd7a85a48e",
     "src/PhobosShipbreaker/ReclaimerDefinitions.cs": "876ee87e6a85180804cf8d697cd1ffa1873e082489929c191b6a29e3602618ab",
     "src/PhobosShipbreaker/ReclaimerHeat.cs": "4adf7c76f4189e41fa306b4c4e968d38fe324a7698d0840eeef5ffea70fe9fb1",
     "src/PhobosShipbreaker/ReclaimerPanel.cs": "56b3431f2834ab3c0de4a92a6647674d50c33bea4767fd8dccdd2518b755e4cd",
+    "src/PhobosShipbreaker/ReclamationGeometry.cs": "1b2d9c7f2bb479d5ec5d7d400253883a6153415eb20677776adfea68a501a8f9",
+    "src/PhobosShipbreaker/ReclamationPower.cs": "e9a86bf453bfce3b5b0ad9401814d441b2e8e7a8a2bf572b86637f8ba4ff8ca1",
+    "src/PhobosShipbreaker/ReclamationService.cs": "cf02ecdff204122bfbfbeb3ccae6a133dd2078126786c211635602570cdac07f",
     "src/PhobosShipbreaker/RegionalEconomy.cs": "b8aa0464a04dcd8016dab0021d11be5d07ecaa4122dfe2151fbed7e726125de9",
     "src/PhobosShipbreaker/RoutingCommands.cs": "916fd25376c8045ac3eaa357c45cc13e399101dcf0e7af98823bb1b1515b327c",
     "src/PhobosShipbreaker/Settings.cs": "c3d1ba974f74389895ca3c4f6a19c7be0abd6aeace45e5fe5cb6030139d422b8",
     "src/PhobosShipbreaker/StockQuantities.cs": "1ae56ff65ed8d64d534d922bcadf432c54a690b575172561197ce25c0d9c97cd",
+    "src/PhobosShipbreaker/TargetWallTransfer.cs": "674edc235e6b466056adc486b8063ebf1e3660697a1cf8a2ff8aae5eaa57a5ae",
     "src/PhobosShipbreaker/Text.cs": "2a0b7890addcbb0f4f8f71c48373cf352d7af8379905b01b1bc48bd0f84f7846",
     "tests/PhobosNative.Tests/EquipmentValueAudit.cs": "cca95052803934b6ac8af32979f066ca064942ca79ac87e4ec94b8b183815cac",
-    "tests/PhobosNative.Tests/ItemReferenceExport.cs": "de9a6922dc4e6008584e3486beb99ec8da086cdc145bf91de8139445bfc153cd",
-    "tests/PhobosNative.Tests/Program.cs": "61a92dfc7c237060772da7fdd053ab729183e483c126f85281a7cf6cdd295f3c",
+    "tests/PhobosNative.Tests/ItemReferenceExport.cs": "02ecdd4317fc335e5932f163c95d6915fd3089991f1b7a9a22d99f05414524eb",
+    "tests/PhobosNative.Tests/Program.cs": "b4d0046eb51f1d98e7e7e8c2ffe24b81276b877be0129e7815ccbc7be22074bf",
     "translations/PhobosAgriculture/en.json": "abb5001b0935b58939c4b5a14a5bf6668e2570456006a2216ec858a619231787",
-    "translations/PhobosAutoNav/en.json": "e3dcbe73c67379da32c3155e484f54c0cb2b5b05dfdc16d0a03d6a25eab34dbe",
+    "translations/PhobosAutoNav/en.json": "257655904e9888d3d944f2425b0bdab25e4a858d21cdf1da0354f921b01063fe",
     "translations/PhobosFramework/en.json": "112421a1155411a5f978bc3193ddad8e32fbc66a51039a2f808d548ba6b05cc1",
     "translations/PhobosManufacturing/en.json": "3b3f3aa7f3c8c1124e6452335a634cf6e591dbe99021b2ec24bc61ae5b0524c0",
-    "translations/PhobosShipbreaker/en.json": "03ad85068640a44c4e8308193d0df64789bca3a75c9a2e36ffb32be200972816"
+    "translations/PhobosShipbreaker/en.json": "4128c653437afe545994e1905da069cdc296a5a5d308953804aa14368975a390"
   }
 }

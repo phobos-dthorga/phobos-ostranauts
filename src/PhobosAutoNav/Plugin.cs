@@ -16,7 +16,7 @@ namespace PhobosAutoNav;
 public sealed class Plugin : BaseUnityPlugin
 {
     public const string Id = "phobosgekko.ostranauts.autonav";
-    public const string Version = "0.17.0";
+    public const string Version = "0.18.0";
     internal static NavigationService Service { get; private set; } = null!;
     internal static ConfigEntry<bool> Enabled = null!, VerboseLogging = null!, FuelCheck = null!,
         AbortOnManualThrust = null!, UseThrusterRotation = null!, ResumeAfterLoad = null!, PreferTorch = null!, SalvageEnabled = null!;
@@ -88,6 +88,8 @@ internal static class DockingTickPatch
     private static void Prefix(StarSystem __instance, double fTimeDelta)
     {
         if (__instance != CrewSim.system) return;
+        Plugin.Service.TickDeparture(fTimeDelta);
+        if (Plugin.Service.GuardNavigation(fTimeDelta)) return;
         Plugin.Service.TickIndustrial(fTimeDelta, false);
         Plugin.Service.TickFire(fTimeDelta, false);
         Plugin.Service.TickDocking(__instance, fTimeDelta, false);
@@ -96,6 +98,7 @@ internal static class DockingTickPatch
     }
     private static void Postfix(StarSystem __instance, double fTimeDelta)
     {
+        if (Plugin.Service.avoidanceActive) return;
         Plugin.Service.TickDocking(__instance, fTimeDelta, true);
         if (__instance == CrewSim.system) Plugin.Service.TickIndustrial(fTimeDelta, true);
     }
@@ -163,7 +166,8 @@ internal static class PanelBoundsPatch
 [HarmonyPatch(typeof(Ship), nameof(Ship.Maneuver))]
 internal static class ExternalControlPatch
 {
-    private static void Prefix(Ship __instance, float fX, float fY, float fR) => Plugin.Service.ExternalControl(__instance, fX, fY, fR);
+    private static void Prefix(Ship __instance, ref float fX, ref float fY, ref float fR, float __4)
+    { Plugin.Service.ExternalControl(__instance,fX,fY,fR); Plugin.Service.FilterAvoidanceCommand(__instance,ref fX,ref fY,ref fR,__4); }
 }
 
 [HarmonyPatch(typeof(Ship), nameof(Ship.SetReactorGPMValue))]
@@ -176,7 +180,11 @@ internal static class ReactorControlPatch
 [HarmonyPatch(typeof(Ship), nameof(Ship.SetThrust))]
 internal static class TorchThrustPatch
 {
-    private static void Prefix(Ship __instance, ref double fAmount) => Plugin.Service.Torch.FilterThrust(__instance, ref fAmount);
+    private static void Prefix(Ship __instance, ref double fAmount)
+    {
+        if(fAmount>0&&!Plugin.Service.Torch.Owns(__instance)) IndustrialNavigation.Yield(__instance);
+        Plugin.Service.Torch.FilterThrust(__instance, ref fAmount);
+    }
 }
 
 [HarmonyPatch(typeof(Ship), nameof(Ship.GetJsonItem))]

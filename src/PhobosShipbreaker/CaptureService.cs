@@ -22,7 +22,7 @@ internal static class CaptureService
     private static readonly Dictionary<string, Session> sessions = new(StringComparer.Ordinal);
     private static ObjectStateStore Store(CondOwner co) => new(co.mapGUIPropMaps, CaptureRecord.StoreName, co.strID, 1);
     private static bool Save(Session s) => s.Record.Valid && Store(s.Grabber).TryWrite(s.Record.Fields);
-    private static bool Read(CondOwner co, out CaptureRecord r)
+    internal static bool Read(CondOwner co, out CaptureRecord r)
     {
         r = null!;
         return Store(co).Read(out var fields) == SavedStateStatus.Ready && CaptureRecord.Read(fields, out r) && r["g4"] == co.strID;
@@ -41,7 +41,7 @@ internal static class CaptureService
         return text + "\n" + Text.Get("Capture.binding", r["target"], r["console"], r["module"], r["processor"], phase) +
             "\n" + (s?.Notice ?? "") + "\n" + Text.Get("Capture.scope");
     }
-    private static string? BindingProblem(CondOwner g, CaptureRecord r, bool attached = false)
+    internal static string? BindingProblem(CondOwner g, CaptureRecord r, bool attached = false)
     {
         if (g.bDestroyed || g.ship?.strRegID != r["ship"] || CrewSim.coPlayer?.strID != r["owner"] ||
             CrewSim.coPlayer.ship != g.ship || CrewSim.system.GetShipOwner(r["ship"]) != r["owner"])
@@ -139,12 +139,12 @@ internal static class CaptureService
             var target = CrewSim.system.GetShipByRegID(r["target"]);
             string? problem = BindingProblem(g, r, true);
             if (problem != null) { message = problem; return false; }
-            if (!CaptureGeometry.ExactAttachment(g.ship, target, r) || !CaptureGeometry.Contact(g, target, r["wall"])) return false;
+            if (!CaptureGeometry.ExactAttachment(g.ship, target, r) || !(r.Fields.ContainsKey("support")?ReclamationGeometry.Support(target,r):CaptureGeometry.Contact(g, target, r["wall"]))) return false;
             sessions[g.strID] = s; s.Notice = message = Text.Get("Capture.contact"); return true;
         }
         string? fault = BindingProblem(g, r);
         if (fault != null) { message = fault; return false; }
-        if (!CaptureGeometry.TryPlan(g, CrewSim.system.GetShipByRegID(r["target"]), out _))
+        if (!Plan(g, r, out _))
         { message = Text.Get("Capture.fit"); return false; }
         r.Phase = CapturePhase.Approaching;
         if (!Save(s)) { message = Text.Get("Capture.save"); return false; }
@@ -178,10 +178,11 @@ internal static class CaptureService
     private static void Capture(Session s)
     {
         var r = s.Record; var own = s.Grabber.ship; var target = CrewSim.system.GetShipByRegID(r["target"]);
-        if (!CaptureGeometry.TryPlan(s.Grabber, target, out var plan))
+        if (!Plan(s.Grabber, r, out var plan))
         { IndustrialNavigation.Release(r["permission"]); r.Phase = CapturePhase.Suspended; s.Notice = Text.Get("Capture.fit"); Save(s); return; }
         // The write-ahead record precedes every native mutation, including anchor creation.
-        r["wall"] = plan!.Wall; r["ownPort"] = "MP|" + DataHandler.GetNextID(); r["targetPort"] = "MP|I|" + DataHandler.GetNextID();
+        r["wall"] = plan!.Wall;
+        if (plan.Support.Length > 0) { r["support"] = plan.Support; r["floor"] = plan.Floor; } r["ownPort"] = "MP|" + DataHandler.GetNextID(); r["targetPort"] = "MP|I|" + DataHandler.GetNextID();
         r.Phase = CapturePhase.CapturePending;
         if (!Save(s)) { IndustrialNavigation.Release(r["permission"]); s.Notice = Text.Get("Capture.save"); return; }
         IndustrialNavigation.Release(r["permission"]);
@@ -221,7 +222,7 @@ internal static class CaptureService
             CrewSim.system.GetShipOwner(own.strRegID) != r["owner"] || CaptureGeometry.TargetProblem(own, target) != null) return false;
         if (CaptureGeometry.ExactAttachment(own, target, r))
         {
-            if (BindingProblem(s.Grabber, r, true) != null || !CaptureGeometry.Contact(s.Grabber, target, r["wall"])) return false;
+            if (BindingProblem(s.Grabber, r, true) != null || !(r.Fields.ContainsKey("support")?ReclamationGeometry.Support(target,r):CaptureGeometry.Contact(s.Grabber, target, r["wall"]))) return false;
             r.Phase = CapturePhase.Captured; message = Text.Get("Capture.contact");
         }
         else
@@ -236,6 +237,27 @@ internal static class CaptureService
         }
         s.Notice = message; sessions[s.Grabber.strID] = s;
         return Save(s);
+    }
+    private static bool Plan(CondOwner g, CaptureRecord r, out CapturePlan? plan) => CaptureGeometry.TryPlan(g,
+        CrewSim.system.GetShipByRegID(r["target"]),out plan,r.Fields.ContainsKey("workWall")?r["workWall"]:null,
+        int.TryParse(r["outward"],out var angle)?angle:(int?)null,r.Fields.ContainsKey("workWall"));
+    internal static bool SelectWork(CondOwner g,string wall,int outward,out string message)
+    {
+        message=Text.Get("Capture.uncertain");
+        if(!Read(g,out var r) || g.ship.IsDocked() || g.ship.IsMoored()) return false;
+        r["workWall"]=wall; r["outward"]=outward.ToString(CultureInfo.InvariantCulture);
+        if(!Plan(g,r,out _)) { message=Text.Get("Capture.fit"); return false; }
+        var s=new Session { Grabber=g,Record=r }; return Save(s) && Start(s,out message);
+    }
+    internal static bool MissionRelease(CondOwner g,out string message)
+    {
+        message=Text.Get("Capture.uncertain");
+        return Read(g,out var r) && Release(new Session { Grabber=g,Record=r },out message);
+    }
+    internal static bool MissionReconcile(CondOwner g,out string message)
+    {
+        message=Text.Get("Capture.uncertain");
+        return Read(g,out var r) && Reconcile(new Session { Grabber=g,Record=r },out message);
     }
     internal static void Reset() => sessions.Clear(); // Loading drops permissions; it never detaches ships.
     internal static void Shutdown()

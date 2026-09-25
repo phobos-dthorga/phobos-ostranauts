@@ -16,7 +16,7 @@ namespace PhobosShipbreaker;
 public sealed class Plugin : BaseUnityPlugin
 {
     public const string Id = "phobosgekko.ostranauts.shipbreaker";
-    public const string Version = "0.23.0";
+    public const string Version = "0.24.0";
     internal static ProcessingService Service { get; private set; } = null!;
     internal static Action<string> Log { get; private set; } = null!;
     internal static Settings Options { get; private set; } = null!;
@@ -30,6 +30,7 @@ public sealed class Plugin : BaseUnityPlugin
     {
         Log = text => Logger.LogInfo(text);
         Phobos.Ostranauts.Framework.Inventory.CollectorCargo.SetEndpointValidator(co => Core.CollectorRules.IsFamily(co.strCODef) && CollectorRoute.MountProblem(co) == null);
+        PhobosAutoNav.IndustrialNavigation.ManualTakeover += ReclamationService.ManualTakeover;
         PerformanceMetrics.Initialize();
         Options = new Settings(Config);
         Service = new ProcessingService(Log, Options);
@@ -43,14 +44,15 @@ public sealed class Plugin : BaseUnityPlugin
         FrameworkLifecycle.ContentLoaded += ConfirmContent;
         Log(Text.Get("Plugin.shipbreaker_loaded_with_independent_phobos_framework_construction", Options.ControlsKey));
     }
-    private void Update() { panel.Update(); FurnaceService.Update(); CaptureService.Update(); }
+    private void Update() { panel.Update(); FurnaceService.Update(); CaptureService.Update(); ReclamationService.Update(); }
     private void OnGUI() { panel.Draw(); CollectorControls.Draw(); ReclaimerControls.Draw(); }
-    internal static void ResetServices() { CaptureService.Reset(); Service.Reset(); Collectors.Reset(); CollectorControls.Reset(); ReclaimerControls.Reset(); IndustryObservations.Reset(); FurnaceService.Reset(); }
+    internal static void ResetServices() { ReclamationService.Reset(); CaptureService.Reset(); Service.Reset(); Collectors.Reset(); CollectorControls.Reset(); ReclaimerControls.Reset(); IndustryObservations.Reset(); FurnaceService.Reset(); }
     private static void LoadContent() { ResetServices(); Content.Register(Log); }
     private static void ConfirmContent() => Content.ConfirmRecipes(Log);
     private void OnDestroy()
     {
-        CaptureService.Shutdown();
+        PhobosAutoNav.IndustrialNavigation.ManualTakeover -= ReclamationService.ManualTakeover;
+        ReclamationService.Reset(); CaptureService.Shutdown();
         Phobos.Ostranauts.Framework.Inventory.CollectorCargo.SetEndpointValidator(null);
         FrameworkLifecycle.ContentLoading -= LoadContent; FrameworkLifecycle.ContentLoaded -= ConfirmContent;
         Service?.Reset(); Collectors?.Reset(); IndustryObservations.Reset(); harmony?.UnpatchSelf();
@@ -60,7 +62,7 @@ public sealed class Plugin : BaseUnityPlugin
 [HarmonyPatch(typeof(Powered), "UsePower", new[] { typeof(CondOwner), typeof(double) })]
 internal static class PowerPatch
 {
-    internal sealed class PowerState { internal bool Working, Feeding, Finished; internal ReclaimerHeat.Transfer? Heat; internal FurnaceService.PowerTransfer? Furnace; }
+    internal sealed class PowerState { internal bool Working, Feeding, Finished, Cutting; internal ReclamationService.PowerTransfer? Cutter; internal ReclaimerHeat.Transfer? Heat; internal FurnaceService.PowerTransfer? Furnace; }
     private static bool Prefix(Powered __instance, CondOwner __0, ref double __1, out PowerState __state)
     {
         __state = new PowerState { Working = __0 != null && (ProcessingService.IsProcessor(__0.strCODef) && __0.HasCond(Core.ProcessRules.Working) ||
@@ -72,6 +74,11 @@ internal static class PowerPatch
             try { return FurnaceService.BeginPower(__instance, __0, ref __1, out __state.Furnace); }
             catch (Exception ex) { FurnaceService.Fault(__0, ex); return false; }
         }
+        if (__0 != null && ProcessingService.IsGrabber(__0))
+        {
+            try { return ReclamationService.BeginPower(__instance,__0,ref __1,out __state.Cutter,out __state.Cutting); }
+            catch(Exception ex) { ReclamationService.Fault(__0,ex); return false; }
+        }
         if (__state.Feeding)
         {
             double baseKW = __state.Working ? Plugin.Options.ReclaimerKW : Core.ReclaimerRules.IdleKW;
@@ -82,6 +89,13 @@ internal static class PowerPatch
     private static void Postfix(Powered __instance, CondOwner __0, PowerState __state)
     {
         if (__0 == null) return;
+        if (__state.Cutting)
+        {
+            try { ReclamationService.FinishPower(__instance,__0,__state.Cutter); }
+            catch(Exception ex) { ReclamationService.Fault(__0,ex); }
+            finally { __state.Finished=true; }
+            return;
+        }
         if (Core.FurnaceRules.Machine(__0.strCODef))
         {
             try { FurnaceService.FinishPower(__instance, __0, __state.Furnace); }
@@ -110,6 +124,7 @@ internal static class PowerPatch
             {
                 if (Core.FurnaceRules.Machine(__0.strCODef))
                 { FurnaceService.FinishPower(__instance, __0, __state.Furnace); FurnaceService.Get(__0).State.Batch.Armed = false; }
+                else if (__state.Cutting) { ReclamationService.FinishPower(__instance,__0,__state.Cutter); ReclamationService.Fault(__0,new InvalidOperationException("Interrupted cutter power delivery.")); }
                 else ReclaimerHeat.Finish(__instance, __0, __state.Heat);
             }
         }
@@ -134,7 +149,7 @@ internal static class PowerDemandPatch
         }
         if (ProcessingService.IsGrabber(machine))
         {
-            try { Plugin.Service.BeforeIntakePower(machine); }
+            try { if (!ReclamationService.PreparePower(machine)) Plugin.Service.BeforeIntakePower(machine); }
             catch (Exception ex) { Plugin.Service.IntakeFault(machine, ex); }
             return;
         }

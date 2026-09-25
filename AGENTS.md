@@ -886,3 +886,30 @@
   coordinates, rotated with the 6 x 6 machine. Structural floor routes remain
   distinct from coolant and electrical conduit. Reuse existing artwork; no new
   generated assets are needed. Gameplay validation remains with the owner.
+
+
+## Local departure and reclamation direction (2026-09-26)
+
+- Auto Nav 0.18.0 / Shipbreaker 0.24.0 implement shared local avoidance, explicit
+  Undock & Depart/Continue and bounded G4 capture/cut/feed/release/traverse/recapture.
+  This supersedes earlier future-work exclusions of those operations. Follow
+  `docs/auto-nav-departure.md`, `docs/shipbreaker-reclamation.md` and their validation
+  record. Owner gameplay evaluation remains separate; do not claim whole-wreck
+  deletion, new structural recipes or repeated furnace operation.
+- Sensor/visibility admission precedes contact geometry. Never discard hazards on
+  planner exhaustion, enable sensors implicitly or resume after tracking loss.
+  Auto Nav owns flight; manual takeover cancels mission authority. Ordinary Fly
+  never undocks. Native departures bind exact attachments and persist intent before
+  mutation, without granting clearance, paying fees or repeating uncertain detachments.
+- G4 cuts only supported empty native 24 kg walls, preserving anchor supports and
+  floors. Reserve capacity, pay actual electricity, journal uninstall and transfer
+  independently, resolve the same physical ID and suspend uncertainty. Retain
+  Framework's generic same-ship transfer restriction. Cutting/transfer are sequential.
+- Cutter defaults are maintained constants, captured per job. Native D4 service-room
+  heat uses the existing 10 kPa/40 C industrial bounds; the cooling connection is an
+  authored abstraction. Full destinations may retry only within the same authorized
+  mission; Pause, manual takeover and reload revoke automatic authority.
+- Keep current runtime and installer minima together through the constants catalogue
+  and `config/mod-dependency-minimums.json`; preserve historical compatibility gates.
+  Update item-reference operating modes, per-mod guides, changelogs and Workshop drafts
+  whenever these features change. Install only through the guarded existing installer.

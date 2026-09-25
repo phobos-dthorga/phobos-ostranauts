@@ -1,5 +1,10 @@
 # Polaris pursuit — Auto Nav 0.13.0
 
+Current extension: Auto Nav 0.18.0 supplies [shared local avoidance and explicit
+departure](auto-nav-departure.md). Earlier version-specific exclusions of these
+features below are historical. Ordinary Fly still never disconnects the ship;
+tracking loss suspends automatic guidance.
+
 Prepared 25 September 2026 against Blue Bottle Games' Ostranauts 1.0.1.5.
 Implemented and checked offline; owner-run gameplay evaluation is still pending.
 The original reported flight has not been reproduced. No installation or save

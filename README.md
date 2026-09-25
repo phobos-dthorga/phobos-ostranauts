@@ -1,5 +1,11 @@
 # Phobos Ostranauts
 
+Auto Nav 0.18.0 adds [local obstacle avoidance and explicit departure](docs/auto-nav-departure.md).
+Shipbreaker 0.24.0 adds [powered G4 reclamation with automatic release, traversal
+and recapture](docs/shipbreaker-reclamation.md), requiring Framework 0.24.0.
+Existing equipment identities and artwork are retained. Owner gameplay evaluation
+is separate from the automated checks.
+
 [Per-mod equipment and item references](docs/item-references.md) cover use, acquisition, prices, repair and salvage.
 
 Community mods for making a ship a home: navigation, salvage, recycling,
@@ -31,14 +37,15 @@ published-release or installed-version claims. Current build baseline:
 | Mod | Version | What it does | Status / guide |
 | --- | --- | --- | --- |
 | **Phobos Framework** | 0.24.0 | Shared construction, inventory, controls and saved state | Required by content mods; [author guide](docs/framework-author-guide.md) |
-| **Phobos Shipbreaker** | 0.23.0 | Detached-wall processing, metal recovery, material routing, industrial console and electric furnace | Experimental; [player guide](docs/player-guide.md), [furnace](docs/furnace-player-guide.md) |
-| **Phobos Auto Nav** | 0.17.0 | Shared Polaris hub: N1 navigation/docking, N2 pursuit and N3 limited volleys/optional aiming | Earlier guidance has owner-reported gameplay success; current features need evaluation; [guide](docs/auto-navigate-adaptation.md) |
+| **Phobos Shipbreaker** | 0.24.0 | Captured-wall reclamation and detached-wall processing, metal recovery, material routing, industrial console and electric furnace | Experimental; [player guide](docs/player-guide.md), [furnace](docs/furnace-player-guide.md) |
+| **Phobos Auto Nav** | 0.18.0 | Shared Polaris hub: N1 navigation/docking, N2 pursuit and N3 limited volleys/optional aiming | Earlier guidance has owner-reported gameplay success; current features need evaluation; [guide](docs/auto-navigate-adaptation.md) |
 | **Phobos Agriculture** | 0.11.0 | Potato/lettuce cultivation, visible growth, nutrient-solution piping and galley cooking | First gameplay candidate; [guide](docs/agriculture-player-guide.md) |
 | **Phobos Manufacturing** | 0.0.1 | Research and buildable scaffold for future machining | **No operational machinery yet**; [scope](docs/manufacturing-implementation.md) |
 
 Approach Assist is a historical pulse-only prototype, excluded from the default
-installation. Medical systems, asteroid life-support processing and external
-hull cutting remain proposals. A successful build is not an in-game test.
+installation. Medical systems and asteroid life-support processing remain proposals.
+External hull cutting is bounded to supported ordinary walls; broader structural
+processing remains proposed. A successful build is not an in-game test.
 
 ```mermaid
 flowchart TD

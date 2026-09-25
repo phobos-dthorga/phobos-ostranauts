@@ -6,6 +6,8 @@ using Phobos.Ostranauts.Framework.Persistence;
 int count = 0;
 void Check(bool result, string message) { count++; if (!result) throw new Exception(message); }
 
+DepartureChecks.Run(Check);
+
 // Integrate the controller against translation and the native double rotation update.
 foreach (double dt in new[] { .02, .1, .5, 1d })
 foreach (double acceleration in new[] { .1, 1d, 5d })
@@ -281,5 +283,17 @@ var oldCarrier = f.Console.ship; var foreignCarrier = new Ship { strRegID = "for
 oldCarrier.LastX = .5; f.Console.ship = foreignCarrier; f.Service.TickIndustrial(.1, false);
 Check(oldCarrier.LastX == 0 && foreignCarrier.LastX == .7 && !IndustrialNavigation.Observe("lease", out _, out _),
     "Moving a bound console stops only the original carrier, never the new host ship");
+foreach(var mode in new[]{SavedFlightMode.Active,SavedFlightMode.Rendezvous,SavedFlightMode.Following,SavedFlightMode.Docking,SavedFlightMode.ApproachDock})
+{
+    f=Setup(4000);f.Console.Items.Add(new(){strID="n2",Kind=NavigationService.PursuitId,ship=f.Console.ship});
+    f.Service.BeginAvoidanceFlight(f.Console,mode);
+    var blocker=new Ship {strRegID="visible-blocker"};blocker.objSS.vPosy=1000*AutoNavCore.M_TO_AU;
+    CrewSim.system.Ships[blocker.strRegID]=blocker;
+    Check(f.Service.GuardNavigation(.5)&&f.Service.avoidanceActive&&AutoNavCore.Engaged,
+        "Shared detour precedes controller for "+mode+": "+f.Service.Diagnostic);
+    Check(!f.Service.ObstacleBurnAllowed(f.Console.ship,5,1),"Detours inhibit torch for "+mode);
+    NativeContactReader.State=ContactState.Weak;f.Service.GuardNavigation(.5);
+    Check(!AutoNavCore.Engaged&&f.Console.ship.LastX==0&&f.Console.ship.LastY==0,"Contact loss releases thrust for "+mode);
+}
 Console.WriteLine($"{count} docking/industrial assertions passed. Numerical and native-boundary doubles; no in-game testing.");
 internal enum LegacyMode { Active, Suspended, Stopped, Arrived }

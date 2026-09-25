@@ -64,6 +64,8 @@ internal static class AutoNavCore
     internal static bool FlightPrefersTorch { get; private set; }
     internal static double ElapsedSeconds => _elapsedSim;
     internal static bool Coasting => _coasting;
+    internal static void AvoidanceStep(double dt)
+    { AdvanceDockingClock(dt); Track.Reset(); lastAcceleration=default; }
     internal static void AdvanceDockingClock(double dt)
     { _elapsedSim += dt; _coasting = false; CurrentPhase = Phase.Align; }
 

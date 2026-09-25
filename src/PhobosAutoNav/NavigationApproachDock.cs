@@ -7,7 +7,7 @@ internal sealed partial class NavigationService
 {
     internal const double DockStagingMarginKM = 1;
 
-    internal void ApproachDock(CondOwner? co)
+    internal void ApproachDock(CondOwner? co, string? boundTarget = null)
     {
         if (AutoNavCore.Engaged) { status = Text.Get("NavigationService.already_engaged_stop_before_changing_the_flight"); return; }
         try
@@ -18,7 +18,7 @@ internal sealed partial class NavigationService
             if (problem != null) { status = problem; return; }
             if (OtherControllerBusy()) { status = Text.Get("NavigationService.disengage_other_flight_automation_first"); return; }
             if (!CanReplaceFlight(co!) || DisplaySnapshot(co) != null) { status = Text.Get("Docking.stop_first"); return; }
-            var selected = GUIOrbitDraw.CrossHairTarget?.Ship;
+            var selected = boundTarget == null ? GUIOrbitDraw.CrossHairTarget?.Ship : CrewSim.system.GetShipByRegID(boundTarget);
             var target = selected == null ? null : TargetRef.FromShipId(selected.strRegID);
             if (target == null || selected == co!.ship) { status = Text.Get("Docking.select"); return; }
             var sensing = ReadContact(co, target);

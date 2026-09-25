@@ -99,7 +99,7 @@ public sealed class AutoNavPanel : NavModBase
             labels[id].textWrappingMode = TextWrappingModes.NoWrap;
         labels["restriction"].color = Amber;
         var tabs = Box(layer, "tabs");
-        string[] names = { "navigation", "pursuit", "fire", "systems", "details" };
+        string[] names = { "navigation", "pursuit", "fire", "systems", "departure", "details" };
         for (int i = 0; i < names.Length; i++)
         {
             string name = names[i];
@@ -111,6 +111,13 @@ public sealed class AutoNavPanel : NavModBase
         AddButton(Cell(strip, 1, 3), "stop", Text.Get("Hub.disengage"), () => Plugin.Service.Stop(COSelf, Text.Get("NavigationService.stopped_by_pilot_coasting")));
         AddButton(Cell(strip, 2, 3), "cease", Text.Get("Hub.cease"), () => Plugin.Service.CeaseFire());
         BuildNavigation(pages["navigation"]); BuildPursuit(pages["pursuit"]); BuildFire(pages["fire"]); BuildSystems(pages["systems"]);
+        var dep = PanelWidgets.Scroll(pages["departure"], "Departure", out var depScroll);
+        PanelWidgets.Fill((RectTransform)depScroll.transform);
+        foreach (string action in new[] { "depart-mode", "depart", "depart-continue", "depart-resume", "depart-stop" })
+        { string command = action; var button=PanelWidgets.Button(dep, Text.Get("Departure." + action), () => Invoke(() => Plugin.Service.DepartureAction(COSelf, command)));
+          Style(button.GetComponentInChildren<TMP_Text>(),24); button.GetComponent<LayoutElement>().minHeight=64; }
+        labels["departure"] = PanelWidgets.Label(dep, "", flowing: true);
+        Style(labels["departure"],24); labels["departure"].textWrappingMode=TextWrappingModes.Normal;
         var content = PanelWidgets.Scroll(pages["details"], "Diagnostics", out detailScroll);
         PanelWidgets.Fill((RectTransform)detailScroll.transform);
         PanelWidgets.Button(content, Text.Get("Cue.watch"), () => Plugin.Service.WatchArrival(COSelf, true));
@@ -256,6 +263,7 @@ public sealed class AutoNavPanel : NavModBase
         labels["cycleValue"].text = Number(view.Cycle * 100, "0") + " %";
         labels["safetyValue"].text = State(view.Safety); labels["enabledValue"].text = State(view.CycleEnabled);
         labels["cue-volume"].text = Phobos.Ostranauts.Framework.Audio.CompletionCues.VolumeLabel;
+        labels["departure"].text = Plugin.Service.DepartureDescription(COSelf);
         labels["details"].text = view.CompletionCue + "\n\n" + nav.Details + "\n\n" + Text.Get("Hub.help") + "\n\n" + Plugin.Service.PursuitSummary(COSelf);
         buttons["resume"].interactable = nav.Resumable && view.WorkingNavigation;
         buttons["stop"].interactable = nav.CanStop || view.AutoAiming || view.FirePermitted;

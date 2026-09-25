@@ -1,5 +1,11 @@
 # Installing and updating our mods
 
+Current prepared Shipbreaker requires Auto Nav 0.18.0 and Framework 0.24.0.
+Current dependency minima come from `config/mod-dependency-minimums.json`,
+maintained with the constants updater and runtime requirements. Historical package
+compatibility floors remain supported. Build before installation; preview with
+`-WhatIf`, then use `-VerifyOnly` to compare installed files.
+
 **First visit?** Read [getting started](getting-started.md). This installer needs
 prepared packages; a GitHub source ZIP does not contain them. No installable
 GitHub release is published yet. Developers can [build the packages](building.md).

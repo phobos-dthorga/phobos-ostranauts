@@ -12,10 +12,22 @@ Dates on Draft entries record preparation, not Steam publication.
 
 ### Research and planning
 
-- Document the G4 geometry gate before industrial guidance: Blue Bottle Games' native collision circles and deck grids use different scales; matching relative velocity does not prove physical tool contact. The [operating-model decision](https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/shipbreaker-close-work-geometry.md) was resolved in favour of temporary native capture, implemented as the bounded 0.16.0 service below.
-- Specify a future narrow industrial-navigation service for Shipbreaker's selected-G4 reclamation missions, using N1 or N2 and preserving Auto Nav as the sole flight authority. No new API, industrial flight mode, mooring or automatic undocking is implemented in this research round.
-- Document required Shipbreaker-to-Auto-Nav dependency direction, exact bindings, active tool-relative positioning and advancement, optional docking/capture, interruption and explicit industrial resume. The new capture service uses native attached deck geometry. Free-flight cutting reach remains unresolved; provenance limits remain unchanged.
-- Attribute sensing context to [NASA Goddard's Raven research](https://www.nasa.gov/general/nasas-hybrid-computer-enables-ravens-autonomous-rendezvous-capability/) and [ESA's LIRIS experiment by Airbus, Jena Optronik and Sodern](https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/ATV/ATV_views_Space_Station_as_never_before); these do not validate or endorse Phobos gameplay. See the [research](https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/shipbreaker-autopilot-research.md) and [handover](https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/shipbreaker-autopilot-handover.md).
+- Earlier capture-only research is superseded for supported ordinary walls by the implementation below. Broader structural recipes, repeated furnace batches and whole-wreck completion remain outside this round.
+- Keep [NASA Goddard's Raven research](https://www.nasa.gov/general/nasas-hybrid-computer-enables-ravens-autonomous-rendezvous-capability/) and [ESA's LIRIS experiment by Airbus, Jena Optronik and Sodern](https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/ATV/ATV_views_Space_Station_as_never_before) as sensing context, separate from Blue Bottle Games native evidence and authored gameplay choices. No institutional endorsement or gameplay validation is implied.
+
+## [0.18.0] - 2026-09-26 - Draft
+
+### Added
+
+- Add shared local obstacle avoidance to Fly, Rendezvous, Follow, docking and industrial approaches. Admit native sensed contacts before reading geometry; predict motion, retain passing side, bound route search and check the final swept path. Blocked routes brake/hold; lost tracking suspends for explicit Resume. Known celestial regions are excluded; field markers are not individual obstacles.
+- Add explicit Undock & Depart and Undock & Continue for one exact orbital station/ship/mooring connection. Require crew, sealed boundaries, native clearance, working RCS and an admitted exit; retain station neighbours. Depart to a 1 km hull gap and relative stop, with the destination/mode captured before detachment. Ordinary Fly never disconnects.
+- Extend IndustrialNavigation additively with egress, transit, capture approach, route cost and typed status for Shipbreaker. Manual takeover has priority. Departure and close industrial legs use RCS; torch burns require an admissible burn and braking corridor.
+
+### Persistence and limits
+
+- Store departure intent and detachment journals separately on the console. Reload never replays live thrust or blindly repeats a pending native mutation. Ground stations, ambiguous groups and secured towing are excluded.
+- Retain N1/N2 identities, artwork, existing flight preferences and Framework 0.24.0 dependency. Local avoidance is not a promise about hidden contacts or long-distance voyage planning. Existing upstream attribution and binary-distribution hold remain.
+- Add the [departure guide](https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/auto-nav-departure.md) and [offline validation record](https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/auto-nav-reclamation-validation.md). Builds and synthetic/native-boundary checks are not owner gameplay validation; Steam publication remains pending.
 
 ## [0.17.0] - 2026-09-26 - Draft
 

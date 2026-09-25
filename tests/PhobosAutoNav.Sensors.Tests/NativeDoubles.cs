@@ -28,8 +28,9 @@ internal sealed class StarSystem
     internal static bool IsLOSBlockedByBO(BodyOrbit body, Ship observer, ShipSitu target) => body.Blocks;
 }
 internal sealed class BodyOrbit { internal bool Blocks, IsAsteroidField; internal int nDrawFlagsBody; }
-internal sealed class Ship
+public sealed class Ship
 {
+    internal double DeltaVRemainingRCS=100*PhobosAutoNav.AutoNavCore.M_TO_AU;
     internal void UnlockFromOrbit() { }
     internal CondOwner? Reactor;
     internal double fShallowFusionRemain = 3600;

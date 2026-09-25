@@ -15,6 +15,8 @@ $gameRoot = (Resolve-Path -LiteralPath $OstranautsPath).Path
 if ($LASTEXITCODE -ne 0) { throw 'Shipbreaker build failed.' }
 & dotnet run --project (Join-Path $repoRoot 'tests/PhobosShipbreaker.Tests') -c Release "-p:OstranautsPath=$gameRoot"
 if ($LASTEXITCODE -ne 0) { throw 'Shipbreaker processing checks failed.' }
+& dotnet run --project (Join-Path $repoRoot 'tests/PhobosShipbreaker.Reclamation.Tests') -c Release "-p:OstranautsPath=$gameRoot"
+if ($LASTEXITCODE -ne 0) { throw 'Reclamation state/transfer checks failed.' }
 & dotnet run --project (Join-Path $repoRoot 'tests/PhobosShipbreaker.Loading.Tests') -c Release "-p:OstranautsPath=$gameRoot"
 if ($LASTEXITCODE -ne 0) { throw 'Shipbreaker saved-grid loader checks failed.' }
 & dotnet run --project (Join-Path $repoRoot 'tests/PhobosObservations.Tests') -c Release

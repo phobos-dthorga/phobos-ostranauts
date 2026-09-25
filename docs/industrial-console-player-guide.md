@@ -1,5 +1,12 @@
 # Industrial controls
 
+G4 adds **Start reclamation**, **Resume reclamation**, **Pause** and **Stop**,
+with phase, blocker, completed-wall count and retained remnants. These actions
+are available locally and through C1; [the reclamation guide](shipbreaker-reclamation.md)
+explains preparation, cooling and recovery. F3 uses
+`phobosindustry reclaim-start <console-ID> <G4-ID>` and the matching
+`reclaim-resume`, `reclaim-pause`, `reclaim-stop`, `reclaim-status` verbs.
+
 Shipbreaker 0.19.0 requires Framework 0.21.0. The
 [shared cue controls](shared-completion-cues.md) cover D4/R4 and optional Agriculture
 equipment through C1, with one suite-wide volume/mute setting.
@@ -9,7 +16,7 @@ notification** and cue volume/mute. Watching is optional, never starts a job and
 clears on processing pause, fault or reload. See the
 [completion cue guide](shipbreaker-completion-cue.md) for scope and listening checks.
 
-Current packages: Shipbreaker **0.23.0**, requiring Phobos Framework **0.21.0**. Auto Nav remains optional.
+Current packages: Shipbreaker **0.24.0**, requiring Phobos Framework **0.21.0**. Auto Nav remains optional.
 Built against Ostranauts **1.0.1.5** / BepInEx **5.4.23.5**. Automated checks
 passed; the new native panel/seating integration awaits the owner's game test.
 

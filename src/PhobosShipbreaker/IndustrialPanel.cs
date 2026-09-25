@@ -261,6 +261,8 @@ public sealed class IndustrialPanel : GUIData
         {
             if (ProcessingService.IsGrabber(target))
             {
+                W.Label(actions, Text.Get("Reclamation.controls"));
+                foreach(string action in new[]{"reclaim-start","reclaim-resume","reclaim-pause","reclaim-stop"}) Add(actions,action,label:Text.Get("Reclamation.action_"+action));
                 W.Label(actions, Text.Get("Capture.controls"));
                 foreach (var nav in CaptureService.Consoles(target.ship))
                     Add(actions, "capture-bind", nav.strID, Text.Get("Capture.bind_button", nav.strNameFriendly, nav.strID));

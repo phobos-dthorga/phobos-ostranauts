@@ -20,7 +20,7 @@ internal sealed partial class ProcessingService
         internal double Last;
         internal IntakeSession? Intake;
         internal bool AwaitingFeed;
-        internal bool NeedsAttention;
+        internal bool NeedsAttention, CapacityWait;
         internal readonly CompletionWatch Watch = new CompletionWatch();
         internal string Status = Text.Get("ProcessingService.paused_load_panels_and_start_the_queue");
     }
@@ -107,7 +107,7 @@ internal sealed partial class ProcessingService
     private bool StartNext(CondOwner machine, Session state)
     {
         SetWorking(machine, false);
-        state.Job = null; state.Input = null;
+        state.Job = null; state.Input = null; state.CapacityWait=false;
         var inputs = Feed(machine)?.objContainer?.ContainedCOs;
         if (inputs == null || inputs.Count == 0) { state.Status = Text.Get("ProcessingService.feed_empty_waiting_for_the_grabber_or"); return false; }
         // A saved, partly processed panel resumes before fresh stock. Never transfer its progress.
@@ -116,7 +116,7 @@ internal sealed partial class ProcessingService
         ProcessJob job;
         try { job = ReadJob(machine, input); }
         catch (ArgumentException ex) { state.Status = ex.Message; return false; }
-        if (!CanFitBatch(machine, job.Recipe)) { state.Status = Text.Get("ProcessingService.output_tray_needs_space_for_recipe_revision", job.Recipe.Revision); return false; }
+        if (!CanFitBatch(machine, job.Recipe)) { state.CapacityWait=true; state.Status = Text.Get("ProcessingService.output_tray_needs_space_for_recipe_revision", job.Recipe.Revision); return false; }
         state.Job = job;
         state.Input = input; state.Last = StarSystem.fEpoch;
         input.SetCondAmount(ProcessRules.Revision, job.Recipe.Revision);
@@ -163,7 +163,7 @@ internal sealed partial class ProcessingService
 
     private void Stop(CondOwner machine, Session state, string message, bool needsAttention = true)
     {
-        state.Watch.Cancel();
+        state.Watch.Cancel(); state.CapacityWait=false;
         IndustryObservations.RecordStop(machine, message);
         state.NeedsAttention = needsAttention;
         state.AwaitingFeed = false; state.Job?.Pause(); state.Status = message; SetWorking(machine, false);
@@ -175,6 +175,13 @@ internal sealed partial class ProcessingService
         if (!IsProcessor(machine.strCODef)) return false;
         using var measurement = Phobos.Ostranauts.Framework.Diagnostics.Performance.Measure(PerformanceMetrics.ProcessCheck);
         FeedArrived(machine);
+        if(sessions.TryGetValue(machine,out var waiting)&&waiting.CapacityWait&&waiting.Intake?.Mission==true&&waiting.Intake.Armed)
+        {
+            var fault=MachineProblem(machine);
+            if(fault!=null) {Stop(machine,waiting,fault);return false;}
+            if(!StartNext(machine,waiting)&&!waiting.CapacityWait)
+                Stop(machine,waiting,waiting.Status);
+        }
         if (!sessions.TryGetValue(machine, out var state) || state.Job?.Running != true)
         { SetWorking(machine, false); return false; }
         if (IsReclaimer(machine))
@@ -191,7 +198,12 @@ internal sealed partial class ProcessingService
         if (!MatchesJob(state.Input!, state.Job))
         { Stop(machine, state, Text.Get("ProcessingService.saved_job_changed_queue_paused_without_overwriting")); return false; }
         if (!CanFitBatch(machine, state.Job.Recipe))
-        { Stop(machine, state, Text.Get("ProcessingService.output_blocked_progress_retained_clear_space_and")); return false; }
+        {
+            if(state.Intake?.Mission==true&&state.Intake.Armed)
+            {state.CapacityWait=true;state.Job.Pause();SetWorking(machine,false);state.Status=Text.Get("Reclamation.capacity");}
+            else Stop(machine, state, Text.Get("ProcessingService.output_blocked_progress_retained_clear_space_and"));
+            return false;
+        }
         return machine.HasCond(ProcessRules.Working);
     }
 
@@ -240,9 +252,10 @@ internal sealed partial class ProcessingService
         log(Text.Get("ProcessingService.completed_panel_with_recipe_revision_total_kg", state.Job!.InputId, state.Job.Recipe.Revision, string.Join(", ", state.Job.Recipe.Products.Select(p => Text.Get("ProcessingService.x", p.Count, p.Id)))));
         state.Job = null; state.Input = null;
         NotifyCommitted(machine, state, notify);
-        if (options.ContinueQueue)
+        if (options.ContinueQueue || state.Intake?.Mission==true&&state.Intake.Armed)
         {
-            if (!StartNext(machine, state) && Feed(machine)?.objContainer?.ContainedCOs.Count > 0) state.AwaitingFeed = false;
+            if (!StartNext(machine, state) && Feed(machine)?.objContainer?.ContainedCOs.Count > 0)
+            {state.AwaitingFeed=false;if(state.Intake?.Mission==true&&!state.CapacityWait) DisarmIntake(machine);}
         }
         else { state.AwaitingFeed = false; DisarmIntake(machine); state.Status = Text.Get("ProcessingService.panel_complete_start_again_for_the_next"); }
         return true;

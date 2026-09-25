@@ -9,8 +9,9 @@ namespace PhobosAutoNav;
 
 // Owns only an already-running native reactor's flight controls. FusionIC still
 // owns ignition, reactant use, heat, wear, power generation and actual thrust.
-internal sealed class TorchDriveController
+internal sealed partial class TorchDriveController
 {
+    partial void CheckObstacleBurn(Ship candidate,double acceleration,double dt,ref bool allowed);
     internal const string Panel = "Panel A", Cycle = "slidCycle", Flow = "slidFlow", Ratio = "knobRatio";
     private Ship? ship;
     private CondOwner? reactor;
@@ -69,6 +70,8 @@ internal sealed class TorchDriveController
             idle[Cycle] = "0";
         }
         acceleration = Math.Min(acceleration, maximum);
+        bool obstacleAllowed=true; CheckObstacleBurn(candidate,acceleration,dt,ref obstacleAllowed);
+        if(!obstacleAllowed) { Cut(); Reason="Avoidance.torch"; return false; }
         // Native limiter is nonlinear: invert it instead of treating CYCLE as
         // a linear throttle. Keep the native 2 g safety ceiling even if overridden manually.
         float low = 0, high = NavModTorchDrive.GetLimiterSafetyMax(candidate);
@@ -118,6 +121,8 @@ internal sealed class TorchDriveController
             Reason = sensing.MessageKey; return;
         }
         double horizon = leaseUntil - StarSystem.fEpoch;
+        bool obstacleAllowed=true; CheckObstacleBurn(candidate,force/candidate.Mass,Math.Max(.001,horizon),ref obstacleAllowed);
+        if(!obstacleAllowed) { force=0; Reason="Avoidance.torch"; return; }
         double maxG = Plugin.TorchMaximumG.Value;
         double headingError = Math.Atan2(Math.Sin(candidate.objSS.fRot - commandHeading), Math.Cos(candidate.objSS.fRot - commandHeading));
         if (!TorchRules.Finite(force, horizon, maxG, candidate.Mass) || maxG <= 0 || maxG > 2 || candidate.Mass <= 0 || forceLimit <= 0 || horizon <= 0 ||

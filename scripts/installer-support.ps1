@@ -129,3 +129,13 @@ function Assert-ShipbreakerDependencies([string[]]$Entries, [string]$ModRoot, [s
     # comes from its attribute, not AssemblyName. Leave that check to the loader.
     Write-Output "Dependency preflight: Crafting Framework data $($providers.Framework.Version), plugin present; Salvage Workshop $($providers.Workshop.Version). Runtime plugin version/compatibility checks remain in-game."
 }
+
+# The constants catalogue keeps these current minimums aligned with runtime attributes.
+# Existing historic gates remain in install-mods.ps1 for earlier package generations.
+function Get-MaintainedDependencyMinimum([string]$Key, [version]$PackageVersion, [version]$Fallback) {
+    $catalogue = Get-Content -LiteralPath (Join-Path (Split-Path -Parent $PSScriptRoot) 'config/mod-dependency-minimums.json') -Raw | ConvertFrom-Json -AsHashtable
+    if ($catalogue.schemaVersion -ne 1 -or -not $catalogue.minimums.ContainsKey($Key)) { throw "Missing maintained dependency rule: $Key" }
+    $entry = $catalogue.minimums[$Key]
+    if ($PackageVersion -ge [version]$entry.since -and ($null -eq $Fallback -or [version]$entry.value -gt $Fallback)) { return [version]$entry.value }
+    return $Fallback
+}

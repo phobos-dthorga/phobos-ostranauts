@@ -1,7 +1,14 @@
 [h1]Phobos Shipbreaker[/h1]
+[h2]Powered G4 reclamation in 0.24.0[/h2]
+Explicitly start one bound G4/H4/D4 mission: capture a supported ordinary wall, cut/feed, release, retreat, traverse outside the collision boundary and recapture. Existing equipment, artwork and manual 2 kW transfer remain. Requires Auto Nav 0.18.0 with N1/N2 and Framework 0.24.0.
+Authored cutter defaults are 120 powered seconds at 12 kW, credited from actual electricity. Heat enters the connected D4 service room, requiring 10 kPa and a 40 C ceiling. This cooling connection is a gameplay abstraction; vacuum supplies no free cooling. Cutting and transfer are sequential.
+Only exposed, undamaged, empty, unstacked native 24 kg ordinary walls on an owned, unoccupied, depressurized target qualify. Floors, protected anchor supports, other equipment and target registration remain. Separate native uninstall/transfer journals preserve exact physical identity and paid work. Uncertain mutation suspends; missing cargo is never reconstructed.
+Local G4, C1 and F3 provide Start, Resume, Pause, Stop and status. Full capacity waits while the same mission stays authorized. Manual movement, contact loss and loading suspend authority; Stop retains capture and Release is explicit. Older captures need a new protected-support plan before cutting. No whole-wreck deletion, new structural recipes or repeated furnace batches. Existing furnace motion restrictions remain. Prepared offline; gameplay evaluation and publication are pending.
+[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/shipbreaker-reclamation.md]Reclamation setup, cooling, limits and recovery[/url]
+
 [h2]Selected-G4 capture in 0.22.0[/h2]
 Bind one G4, its chute/D4 and an existing N1/N2 console/module to a selected owned, unoccupied target. Auto Nav approaches with exclusive propulsion control; separate native mooring anchors establish deck contact after a fit check. Local industrial panels, C1 and F3 offer Bind, Start/Resume, Stop and Release. Full saved IDs survive reload; live permission does not. Stop/release do not brake. All target cargo remains intact.
-Cutting, automatic repositioning, repeated furnace cycles and whole-wreck completion remain future work. Prepared offline; gameplay evaluation and publication remain pending.
+The 0.24.0 reclamation extension above adds bounded cutting and repositioning. Repeated furnace cycles and whole-wreck completion remain excluded. Prepared offline; gameplay evaluation and publication remain pending.
 [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/shipbreaker-capture.md]Capture controls, native evidence and limits[/url]
 [h2]Solar-system economy in 0.21.0[/h2]
 Industrial equipment, assembly sections, coolant conduits and finite coolant charges gain bounded offers at 15 additional placed vanilla retail markets. Industrial centres receive higher authored availability; Flotilla machinery is refurbished. Clean coolant now uses the industrial category and retained coolant uses trash, never potable water. Base values, material budgets and jobs are preserved.
@@ -13,7 +20,7 @@ The grid guard introduced with Framework 0.21.1 restores checked saved bounds be
 [h2]Shared completion cues in 0.19.0[/h2]
 Requires Phobos Framework 0.22.0 or newer. D4/R4 watches now use the shared Phobos volume/mute and one audio channel across mods. Existing one-batch meaning and original sound remain; no new furnace, transfer or ambient cues. Gameplay/listening review pending.
 [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/shared-completion-cues.md]Shared controls and limits[/url]
-[b]Version:[/b] 0.23.0
+[b]Version:[/b] 0.24.0
 [b]Publication status:[/b] Not published - development candidate
 
 Recover useful shipbuilding materials and manage onboard industry with Phobos' Rivetline equipment and the Phobos' Asterel C1 Industrial Control Console.
@@ -32,7 +39,7 @@ Recover useful shipbuilding materials and manage onboard industry with Phobos' R
 [h2]Limits and save behaviour[/h2]
 [list]
 [*]Experimental candidate; current machinery and artwork still need in-game evaluation.
-[*]No attached-hull cutting, persistent cargo ejection or perfect recycling. Recipe yields are authored gameplay budgets.
+[*]Attached cutting is restricted to supported ordinary walls. No persistent cargo ejection or perfect recycling. Recipe yields are authored gameplay budgets.
 [*]Processing and receiving are separate permissions and pause after reload. Saved links are retained.
 [*]Completion watches are session-only and clear on processing Pause/Cancel, fault or reload. Audio is restricted to the requesting selected crew on the same ship. Muted or suppressed events are never replayed. Listening evaluation is pending; no guaranteed native alarm suppression.
 [*]Cooling uses a simplified thermal model with optional finite coolant servicing. Direct coupling can transfer furnace heat without power; piped circulation requires electricity. On power loss, the radiator still rejects its own stored heat and the furnace retains bounded room leakage. Piped circulation adds up to 1 kW; cold feed motors use 2 kW by default. Existing direct and legacy sealed installations retain their saved meaning.
@@ -56,9 +63,9 @@ This is a maintained pre-publication page draft, not a download announcement. No
 [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/furnace-coolant-conduits.md]Coolant conduit scope[/url]
 
 [h2]Support and credits[/h2]
-[b]Research only, held from feature claims:[/b] autonomous reclamation is specified around one player-selected G4 after manual valuables recovery. The first proposed slice aligns and holds the G4, cuts/feeds one wall and advances along a short section. Docking/capture is optional. Collision-compatible reach and checked processing during gentle positioning remain unresolved; broader recipes, storage, repeated furnace operation and whole-wreck completion remain future work. No automatic cutting, invisible long reach or cargo disposal is supplied by this draft.
+[b]Reclamation operating model:[/b] the original free-flight cutting proposal was superseded by native capture. The current bounded implementation is described above; broader recipes and furnace batching remain outside scope.
 [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/shipbreaker-autopilot-research.md]Autonomous reclamation research[/url] | [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/shipbreaker-autopilot-handover.md]Implementation sequence[/url]
-[b]26 September geometry evidence:[/b] Blue Bottle Games' native deck dimensions and navigation collision circles use different scales. The owner selected temporary native capture. Its prepared implementation preserves bounded mouth contact; no cutting or repeated furnace operation is claimed. [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/shipbreaker-close-work-geometry.md]Evidence and selected arrangement[/url]
+[b]26 September geometry evidence:[/b] Blue Bottle Games' native deck dimensions and navigation collision circles use different scales. The owner selected temporary native capture. Its prepared implementation preserves bounded mouth contact; 0.24.0 adds supported-wall cutting while repeated furnace operation remains excluded. [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/shipbreaker-close-work-geometry.md]Evidence and selected arrangement[/url]
 [url=https://www.nasa.gov/general/nasas-hybrid-computer-enables-ravens-autonomous-rendezvous-capability/]NASA Goddard's Raven research[/url] and [url=https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/ATV/ATV_views_Space_Station_as_never_before]ESA's LIRIS experiment, developed by Airbus with Jena Optronik and Sodern[/url] inform the sensing proposal. Blue Bottle Games' inspected native engine determines game boundaries; finite reach, work rates and yields are authored gameplay choices. No institutional or author endorsement or mod validation is implied.
 
 [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/SUPPORT.md]Help and bug reports[/url]

@@ -1,5 +1,12 @@
 # Updating versions and maintained constants
 
+The catalogue also maintains `Shipbreaker.cuttingSeconds` and
+`Shipbreaker.cuttingKilowatts` for new G4 jobs (started jobs retain their captured values),
+and current runtime/installer dependency minima through
+`config/mod-dependency-minimums.json`. Use `--list` for exact keys. Historical
+compatibility version gates are not tuning knobs. Regenerate item references and
+build affected packages after changing cutter balance or dependencies.
+
 Use **`python scripts/update-constants.py`** from any working directory (give the
 script's path if outside the repository). Python **3.10+** is required; there are
 no third-party packages. The script locates its own repository and uses the

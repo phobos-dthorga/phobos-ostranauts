@@ -1,5 +1,11 @@
 # Selected-G4 native capture
 
+Current extension: Shipbreaker 0.24.0 / Auto Nav 0.18.0 / Framework 0.24.0 add
+[powered reclamation and automatic traversal](shipbreaker-reclamation.md).
+The original 0.22.0 capture-only scope below is retained as its operating history.
+Existing captures remain releasable; automatic cutting needs a freshly selected
+work wall and a distinct protected anchor support.
+
 26 September 2026. **Shipbreaker 0.22.0 / Auto Nav 0.16.0 development candidate.**
 The owner selected temporary native capture as the first operating arrangement.
 A finite deployed cutting head remains a possible later enhancement, using the

@@ -248,6 +248,12 @@ InstallMenuChecks.Run(agriculture, prepared, Check, Throws);
 AutoNavHubChecks.Run(repo, Check, Throws);
 FireNativeChecks.Run(Check);
 ShipbreakerGeometryChecks.Run(Check);
+var ordinaryUninstall=Directory.GetFiles(Path.Combine(native,"installables"),"*.json",SearchOption.AllDirectories)
+    .SelectMany(f=>JsonConvert.DeserializeObject<JsonInstallable[]>(File.ReadAllText(f))!).Single(i=>i.strName=="Wall1x1Uninstall");
+Installables.Create(ordinaryUninstall);
+Check(ReclamationGeometry.NativeWallContract(),"G4 uninstallation resolves exactly one native loose ordinary wall");
+var nativeManeuver=typeof(Ship).GetMethods().Single(m=>m.Name=="Maneuver");
+Check(nativeManeuver.GetParameters()[4].ParameterType==typeof(float),"Final swept-command guard binds native simulation interval at index four");
 RegionalEconomyChecks.Run(game, Check, Throws);
 StockQuantityChecks.Run(Check, Throws);
 Console.WriteLine($"PASS: {checks} native-definition/registration checks with no OCF or Workshop loaded. No game session was run.");

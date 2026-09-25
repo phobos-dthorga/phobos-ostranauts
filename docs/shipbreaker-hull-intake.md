@@ -1,5 +1,10 @@
 # Hull chute and exterior grabber
 
+The original manual-loading contract below remains available. Shipbreaker 0.24.0
+adds [automatic captured-wall acquisition](shipbreaker-reclamation.md), with
+sequential 12 kW cutting and existing 2 kW transfer. The original future-work
+statements describe the earlier intake-only release.
+
 Current prepared candidate: **Shipbreaker 0.9.0 + Framework 0.9.0**, 24 September
 2026. Connected intake was introduced in 0.3.0. Use the
 [current player guide](player-guide.md) for the complete operating sequence.

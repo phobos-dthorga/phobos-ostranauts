@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "minimums": {
+    "AutoNav.Framework": {
+      "since": "0.17.0",
+      "value": "0.24.0"
+    },
+    "Shipbreaker.Framework": {
+      "since": "0.23.0",
+      "value": "0.24.0"
+    },
+    "Shipbreaker.AutoNav": {
+      "since": "0.24.0",
+      "value": "0.18.0"
+    },
+    "Agriculture.Framework": {
+      "since": "0.11.0",
+      "value": "0.24.0"
+    }
+  }
+}

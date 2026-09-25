@@ -10,6 +10,14 @@ namespace PhobosAutoNav;
 internal sealed partial class NavigationService
 {
     partial void ResetPursuit();
+    partial void ResetExtended();
+    partial void StopExtended(string reason);
+    partial void ExtendedCommand(CondOwner? co, string action, ref bool handled);
+    partial void ReadIndustrialRouteCost(CondOwner co,string module,string targetId,double bearing,double gap,ref bool valid,ref double cost);
+    internal bool IndustrialRouteCost(CondOwner co,string module,string target,double bearing,double gap,out double cost)
+    { bool valid=false;cost=double.PositiveInfinity;ReadIndustrialRouteCost(co,module,target,bearing,gap,ref valid,ref cost);return valid; }
+    internal bool avoidanceActive, avoidanceBlocked;
+    internal string avoidanceNotice = "";
     private FlightSnapshot? savedFlight;
     private readonly Phobos.Ostranauts.Framework.Audio.CompletionWatch arrivalWatch = new();
     private bool restorePending;
@@ -21,6 +29,7 @@ internal sealed partial class NavigationService
     // world's snapshot or send a maneuver into a world being torn down.
     internal void WorldChanging()
     {
+        ResetExtended(); avoidanceActive = avoidanceBlocked = false;
         industrial = null; industrialNotice = Text.Get("Persistence.loading");
         arrivalWatch.Cancel(); ResetPursuit(); Fire.Reset(); Torch.Reset(); AutoNavCore.ResetStatics(); console = null; savedFlight = null;
         issuing = false; restorePending = false; combinedHandoffPending = false; status = Text.Get("Persistence.loading");

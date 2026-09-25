@@ -73,6 +73,15 @@ class ItemReferenceTests(unittest.TestCase):
                 self.assertEqual(reference.main(), 1)
             self.assertEqual(guide.read_text(), 'outdated price')
 
+    def test_cutter_energy_table_uses_authoritative_export(self):
+        mod = next(m for m in self.data['mods'] if m['id'] == 'PhobosShipbreaker')
+        item = next(i for i in mod['items'] if i['id'] == 'PhobosExteriorGrabberInstalled')
+        item['operatingModes'] = [{'name': 'Changed cutter', 'seconds': 180, 'kw': 8}]
+        result = reference.generate(ROOT, self.data, self.config)
+        text = result[Path('docs/shipbreaker-item-reference.md')]
+        self.assertIn('| Changed cutter | 180 | 8 | 0.4000 |', text)
+        self.assertIn('Modes run sequentially', text)
+
     def test_source_fingerprints_ignore_platform_newlines(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)

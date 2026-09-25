@@ -1,9 +1,15 @@
 [h1]Phobos Auto Nav[/h1]
+[h2]Local avoidance and explicit departure in 0.18.0[/h2]
+Fly, Rendezvous, Follow, docking and industrial flight share bounded obstacle planning and final path checks for admitted native sensor contacts. Blocked routes brake/hold; tracking loss requires explicit Resume. No sensors are silently enabled. Celestial boundaries are excluded; field markers are not individual rocks.
+The Departure page adds Undock & Depart, Undock & Continue and recovery controls. Release exactly one prepared station/ship/mooring connection, retreat to a 1 km hull gap and relative stop, then optionally continue to the captured destination and mode. Ordinary Fly never disconnects. Ground stations, towing, extra attachments, missing crew, open boundaries and missing native clearance are refused.
+Close detours, departure and industrial traversal use RCS. Torch cruise needs an admissible full burn and braking corridor. Manual takeover wins; loading never restores departure thrust. Requires Framework 0.24.0. Prepared offline; owner gameplay evaluation and existing provenance/distribution holds remain.
+[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/auto-nav-departure.md]Departure, avoidance and recovery guide[/url]
+
 [h2]Control recovery and Rescue display in 0.16.1[/h2]
 Native flight blockers now identify their cause. Disengage explicitly releases standard native autopilot, station-keeping, held thrust and torch-cycle requests even without a Phobos flight record. The reactor remains running and the ship coasts; this does not brake or override unrelated controllers. The hub hides on Rescue and restores its existing layout on Done. N2/N3 requirements remain. Prepared and checked offline; live UI/gameplay verification and distribution holds remain.
 
 [h2]Industrial flight service in 0.16.0[/h2]
-Shipbreaker 0.22.0 can request exclusive RCS approach and motion matching from an exact N1/N2 console/module. Tool-facing guidance supports all four mounting orientations. Tracking loss, manual takeover, changed equipment or reload ends permission. Native collision limits remain; no arbitrary G4 reach is granted. The capture stage does not yet cut or automatically traverse a wreck.
+Shipbreaker 0.22.0 can request exclusive RCS approach and motion matching from an exact N1/N2 console/module. Tool-facing guidance supports all four mounting orientations. Tracking loss, manual takeover, changed equipment or reload ends permission. Native collision limits remain; no arbitrary G4 reach is granted. This original capture stage is extended by 0.18.0 / Shipbreaker 0.24.0 reclamation above.
 [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/shipbreaker-capture.md]Capture integration and limits[/url]
 Prepared offline. Gameplay evaluation and existing distribution/provenance holds remain.
 [h2]Solar-system economy in 0.15.0[/h2]
@@ -15,7 +21,7 @@ Corrects missing compact labels, clipped range/speed readings and blank decrease
 [h2]Optional arrival cue in 0.14.0[/h2]
 Requires Phobos Framework 0.21.0 or newer. Engage Approach or Rendezvous, then opt into one arrival cue through Details or F3. Stop, suspension and reload clear watches. Shared volume/mute and burst suppression; native docking sound remains unchanged. No weapon, Follow or intermediate docking-stage cues. Gameplay/listening review pending.
 [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/shared-completion-cues.md]Shared controls, limits and original audio provenance[/url]
-[b]Version:[/b] 0.17.0
+[b]Version:[/b] 0.18.0
 [b]Publication status:[/b] Not published - held for upstream provenance review
 
 N1 supplies navigation/docking; N2 adds pursuit. Phobos' Asterel N3 Polaris Fire Control System independently supplies fire-control information, limited volleys and optional RCS aiming, including during manual flight without N1/N2. All combinations share one hub. Existing N2 owners now need N3 for automated firing; IDs, recipes and saved flights remain intact.
@@ -56,10 +62,10 @@ N1 supplies navigation/docking; N2 adds pursuit. Phobos' Asterel N3 Polaris Fire
 [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/auto-nav-fire-control.md]N3 controls, ownership, volley meaning and native restrictions[/url]
 
 [h2]Research attribution[/h2]
-[b]Shipbreaker industrial navigation:[/b] 0.16.0 supplies the exclusive approach/readiness service used by Shipbreaker 0.22.0 native capture. Cutting, automatic repositioning and repeated downstream work remain future stages. Existing N1/N2 identities are preserved.
+[b]Shipbreaker industrial navigation:[/b] 0.16.0 supplies the exclusive approach/readiness service used by Shipbreaker 0.22.0 native capture. The current service adds egress/transit for reclamation; repeated furnace work remains outside scope. Existing N1/N2 identities are preserved.
 [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/shipbreaker-autopilot-research.md]G4 research and limits[/url] | [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/shipbreaker-autopilot-handover.md]Implementation handover[/url]
 The [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/shipbreaker-close-work-geometry.md]26 September native geometry checks[/url] confirm separate deck and navigation scales. Temporary native capture was selected and is prepared in the 0.16.0 industrial service; native collision behaviour is preserved.
-[url=https://www.nasa.gov/general/nasas-hybrid-computer-enables-ravens-autonomous-rendezvous-capability/]NASA Goddard's Raven research[/url] and [url=https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/ATV/ATV_views_Space_Station_as_never_before]ESA's LIRIS experiment by Airbus, Jena Optronik and Sodern[/url] support the sensing research direction, not claims of implemented cutting or validated gameplay.
+[url=https://www.nasa.gov/general/nasas-hybrid-computer-enables-ravens-autonomous-rendezvous-capability/]NASA Goddard's Raven research[/url] and [url=https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/ATV/ATV_views_Space_Station_as_never_before]ESA's LIRIS experiment by Airbus, Jena Optronik and Sodern[/url] support the sensing research direction, not validation of the implemented cutter or gameplay.
 
 [url=https://store.steampowered.com/news/app/1022980/view/503954886346412815]Daniel Fedor, Blue Bottle Games, July 2025 combat preview[/url] provides historical weapon-role context. Locally inspected Ostranauts 1.0.1.5 code determines current firing restrictions; this is not endorsement or validation of our FCS.
 [url=https://ntrs.nasa.gov/citations/20120014309]Zhou, NASA Langley (2012)[/url] supports relative-motion feedback; [url=https://eprints.whiterose.ac.uk/id/eprint/90483/1/orcsatpaper_final.pdf]Hartley, Trodden, Richards and Maciejowski, ESA ORCSAT (2012)[/url] motivates constrained repeated planning for a passive target; [url=https://www.esa.int/Enabling_Support/Operations/ATV_i_Jules_Verne_i]ESA ATV operations[/url] motivates separate checked approach/hold/capture phases. Our game controller, thresholds and equipment balance are authored choices; these sources neither validate nor endorse this mod or hostile capture.

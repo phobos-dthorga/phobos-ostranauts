@@ -56,6 +56,10 @@ function InstalledFiles($Fixture) {
         Sort-Object FullName | ForEach-Object { "$($_.FullName):$((Get-FileHash -LiteralPath $_.FullName).Hash)" }) -join "`n"
 }
 
+Check ((Get-MaintainedDependencyMinimum 'Shipbreaker.AutoNav' ([version]'0.24.0') ([version]'0.16.0')) -ge [version]'0.18.0') 'Reclamation package requires the new movement API'
+Check ((Get-MaintainedDependencyMinimum 'Shipbreaker.AutoNav' ([version]'0.22.0') ([version]'0.16.0')) -eq [version]'0.16.0') 'Historic capture-only package retains its compatibility gate'
+Check ((Get-MaintainedDependencyMinimum 'AutoNav.Framework' ([version]'0.17.0') ([version]'0.23.0')) -ge [version]'0.24.0') 'Maintained minimum corrects stale installer dependency floor'
+
 $fresh = Fixture 'both'
 $overrideDirectory = Join-Path $fresh.OstranautsPath 'BepInEx/config/PhobosTranslations/phobosgekko.ostranauts.shipbreaker'
 New-Item -ItemType Directory -Path $overrideDirectory -Force | Out-Null
@@ -243,7 +247,7 @@ $navOriginal = [IO.File]::ReadAllBytes($staleNav)
 $navMetadata = @(Get-Content -LiteralPath $staleNav -Raw | ConvertFrom-Json)
 $navMetadata[0].strModVersion = '0.15.0'
 ConvertTo-Json -InputObject $navMetadata | Set-Content -LiteralPath $staleNav
-Fails { & $installer @incomplete -Mods Shipbreaker | Out-Null } 'Shipbreaker requires Phobos Auto Nav 0.16.0'
+Fails { & $installer @incomplete -Mods Shipbreaker | Out-Null } 'Shipbreaker requires Phobos Auto Nav'
 Check ((InstalledFiles $incomplete) -eq $before) 'Stale Auto Nav partially installed a capture consumer'
 [IO.File]::WriteAllBytes($staleNav, $navOriginal)
 $missingCatalog = Join-Path $badPackages 'PhobosShipbreaker-P0/BepInEx/plugins/PhobosShipbreaker/translations/en.json'
@@ -271,11 +275,11 @@ $olderInfo = @(Get-Content -LiteralPath $olderMetadata -Raw | ConvertFrom-Json)
 $olderInfo[0].strModVersion = '0.11.99'
 ConvertTo-Json -InputObject $olderInfo | Set-Content -LiteralPath $olderMetadata
 Copy-Item -LiteralPath (Join-Path $olderOutput 'PhobosFramework.dll') -Destination (Join-Path $badPackages $frameworkDllRelative) -Force
-Fails { & $installer @incomplete | Out-Null } 'Selected equipment requires Phobos Framework 0.23.0'
-Fails { & $installer @incomplete -Mods AutoNav | Out-Null } 'Selected equipment requires Phobos Framework 0.23.0'
-Fails { & $installer @incomplete -Mods Shipbreaker | Out-Null } 'Selected equipment requires Phobos Framework 0.23.0'
+Fails { & $installer @incomplete | Out-Null } 'Selected equipment requires Phobos Framework'
+Fails { & $installer @incomplete -Mods AutoNav | Out-Null } 'Selected equipment requires Phobos Framework'
+Fails { & $installer @incomplete -Mods Shipbreaker | Out-Null } 'Selected equipment requires Phobos Framework'
 Copy-Item -LiteralPath (Join-Path $PackageRoot 'PhobosAgriculture-P0') -Destination (Join-Path $badPackages 'PhobosAgriculture-P0') -Recurse
-Fails { & $installer @incomplete -Mods Agriculture | Out-Null } 'Selected equipment requires Phobos Framework 0.23.0'
+Fails { & $installer @incomplete -Mods Agriculture | Out-Null } 'Selected equipment requires Phobos Framework'
 Check ((InstalledFiles $incomplete) -eq $before) 'Equipment naming provider minimum was not enforced'
 foreach ($relative in @($frameworkMetadataRelative, $frameworkDllRelative)) {
     Copy-Item -LiteralPath (Join-Path $PackageRoot $relative) -Destination (Join-Path $badPackages $relative) -Force

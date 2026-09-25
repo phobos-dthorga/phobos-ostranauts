@@ -4,7 +4,7 @@
     {
       "id": "PhobosBuildAutoNav",
       "name": "Phobos' Asterel N1 Polaris Auto Nav Module",
-      "description": "Assemble and calibrate a 0.4 kg Phobos' Asterel N1 Polaris Auto Nav Module for a Polaris navigation station from 1 kg of electronics; retain 0.6 kg of offcuts. Docking requires a separate Dock action and native clearance. Does not avoid obstacles.",
+      "description": "Assemble and calibrate a 0.4 kg Phobos' Asterel N1 Polaris Auto Nav Module for a Polaris navigation station from 1 kg of electronics; retain 0.6 kg of offcuts. Docking requires a separate Dock action and native clearance. Includes local avoidance of tracked contacts.",
       "stationIds": [
         "ItmTable01",
         "ItmTable02"

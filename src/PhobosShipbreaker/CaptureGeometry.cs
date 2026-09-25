@@ -10,7 +10,8 @@ namespace PhobosShipbreaker;
 internal sealed class CapturePlan
 {
     internal JsonItem OwnPort = null!, TargetPort = null!;
-    internal string Wall = "";
+    internal string Wall = "", Support = "", Floor = "";
+    internal int Outward;
 }
 
 internal static class CaptureGeometry
@@ -27,7 +28,7 @@ internal static class CaptureGeometry
         return null;
     }
 
-    internal static bool TryPlan(CondOwner grabber, Ship target, out CapturePlan? plan)
+    internal static bool TryPlan(CondOwner grabber, Ship target, out CapturePlan? plan, string? selectedWall = null, int? selectedOutward = null, bool working = false)
     {
         plan = null;
         if (!DataHandler.dictCOs.TryGetValue("MooringPort", out var nativePort) || nativePort.strItemDef != "Blank" ||
@@ -43,9 +44,10 @@ internal static class CaptureGeometry
         int attempts = 0;
         // Existing native fit testing includes the two full ship grids. No collision exemptions.
         foreach (var wall in b.Where(c => c.Value != null && c.Value.DataCO.Name == "ItmWall1x1" &&
-            !string.IsNullOrEmpty(c.Value.ID)).OrderBy(c => c.Value.ID, StringComparer.Ordinal))
+            !string.IsNullOrEmpty(c.Value.ID) && (selectedWall == null || c.Value.ID == selectedWall)).OrderBy(c => c.Value.ID, StringComparer.Ordinal))
         foreach (int outward in new[] { 0, 90, 180, 270 })
         {
+            if (selectedOutward.HasValue && selectedOutward.Value != outward) continue;
             var direction = IntakeRules.Rotate(0, 1, outward);
             int nx = wall.Key.x + (int)Math.Round(direction.X), ny = wall.Key.y + (int)Math.Round(direction.Y);
             if (nx >= 0 && ny >= 0 && nx < b.Width && ny < b.Height && b[nx, ny] != null && b[nx, ny].DataCO.Name != "Blank") continue;
@@ -58,13 +60,42 @@ internal static class CaptureGeometry
                 if (!IntakeRules.Near(x, y, ax + ao.x, ay + ao.y)) continue;
                 if (++attempts > CaptureRules.MaximumFitAttempts) return false;
                 if (!GridUtils.CanOverlay(a, b, rotation, new GridPoint(ax, ay), wall.Key, new GridPoint(0, 0))) continue;
-                plan = new CapturePlan { Wall = wall.Value.ID,
+                plan = new CapturePlan { Wall = wall.Value.ID, Outward = outward,
                     OwnPort = new JsonItem { strName = "MooringPort", fX = (float)x, fY = (float)y, fRotation = (float)angle },
                     TargetPort = new JsonItem { strName = "MooringPort", fX = wall.Key.x + bo.x, fY = wall.Key.y + bo.y, fRotation = outward } };
+                if (working)
+                {
+                    var selected = plan;
+                    var parts = Parts(target);
+                    var support = parts.Where(c => c.strID != selected.Wall && DataHandler.GetDataCO(c.strName)?.HasCond("IsWall")==true &&
+                        DataHandler.GetDataCO(c.strName)?.HasCond("IsDamaged")!=true && Math.Abs(c.fX-selected.TargetPort.fX)+Math.Abs(c.fY-selected.TargetPort.fY)>=2)
+                        .OrderBy(c=>Math.Abs(c.fX-selected.TargetPort.fX)+Math.Abs(c.fY-selected.TargetPort.fY)).ThenBy(c=>c.strID,StringComparer.Ordinal)
+                        .FirstOrDefault(c=>parts.Any(f=>DataHandler.GetDataCO(f.strName)?.HasCond("IsFloor")==true &&
+                            DataHandler.GetDataCO(f.strName)?.HasCond("IsDamaged")!=true && IntakeRules.Near(c.fX,c.fY,f.fX,f.fY)));
+                    if(support==null) { plan=null;continue; }
+                    var floor=parts.First(f=>DataHandler.GetDataCO(f.strName)?.HasCond("IsFloor")==true&&IntakeRules.Near(support.fX,support.fY,f.fX,f.fY));
+                    var delta=IntakeRules.Rotate(support.fX-plan.TargetPort.fX,support.fY-plan.TargetPort.fY,rotation);
+                    plan.OwnPort.fX+=(float)delta.X;plan.OwnPort.fY+=(float)delta.Y;
+                    plan.TargetPort.fX=support.fX;plan.TargetPort.fY=support.fY;
+                    plan.Support=support.strID;plan.Floor=floor.strID;
+                }
                 return true;
             }
         }
         return false;
+    }
+    internal static JsonItem[] Parts(Ship target) => target.LoadState>=Ship.Loaded.Edit ? target.GetCOs(null,false,false,true)
+        .Where(c=>!c.bDestroyed&&c.objCOParent==null&&c.HasCond("IsInstalled")&&!c.HasCond("IsDamaged"))
+        .Select(c=>new JsonItem { strID=c.strID,strName=c.strCODef,fX=c.GetPos().x,fY=c.GetPos().y,fRotation=c.Item.TF.eulerAngles.z }).ToArray() : target.json.aItems;
+    internal static System.Collections.Generic.IEnumerable<(string Id,int Outward)> Windows(Ship target)
+    {
+        var grid=GridUtils.CreateFullGrid(target,target.GetDockedShipsAndPortIDs().Values.SingleOrDefault()?.strRegID);
+        foreach(var cell in grid.Where(c=>c.Value!=null&&c.Value.DataCO.Name=="ItmWall1x1"&&!string.IsNullOrEmpty(c.Value.ID)).OrderBy(c=>c.Value.ID,StringComparer.Ordinal))
+        foreach(int angle in new[]{0,90,180,270})
+        {
+            var delta=IntakeRules.Rotate(0,1,angle);int x=cell.Key.x+(int)Math.Round(delta.X),y=cell.Key.y+(int)Math.Round(delta.Y);
+            if(x<0||y<0||x>=grid.Width||y>=grid.Height||grid[x,y]==null||grid[x,y].DataCO.Name=="Blank") yield return (cell.Value.ID,angle);
+        }
     }
     internal static bool Contact(CondOwner grabber, Ship target, string wallId)
     {

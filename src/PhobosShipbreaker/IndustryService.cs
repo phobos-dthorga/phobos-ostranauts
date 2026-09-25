@@ -53,7 +53,7 @@ internal static class IndustryService
             detail += "\n\n" + IndustryObservations.ProbeDetails(co);
         }
         if (group == "fixture") detail += "\n\n" + (intake?.Detail ?? Plugin.Service.DescribeIntake(co));
-        if (group == "grabber") detail += "\n\n" + CaptureService.Describe(co);
+        if (group == "grabber") detail += "\n\n" + CaptureService.Describe(co) + "\n\n" + ReclamationService.Describe(co);
         double demand = group == "fixture" ? Plugin.Options.WorkingKW : group == "reclaimer" ? Plugin.Options.ReclaimerKW : group == "collector" ? Plugin.Options.CollectorKW : group == "grabber" ? IntakeRules.WorkingKW : 0;
         if (demand > 0) detail += "\n\n" + Text.Get("Industry.demand", demand) + (group == "reclaimer" ? Text.Get("Industry.feed_demand", Plugin.Options.FeederKW) : "");
         if (co.objContainer != null) detail += "\n" + Text.Get("Industry.stored", co.objContainer.ContainedCOs.Count, co.objContainer.ContainedCOs.Sum(c => c.GetTotalMass()));
@@ -74,6 +74,8 @@ internal static class IndustryService
             message = ControlAuthority.Check(target, binding) ?? "";
             if (message.Length != 0) return false;
         }
+        if (ProcessingService.IsGrabber(target) && action.StartsWith("reclaim-", StringComparison.Ordinal))
+            return ReclamationService.Command(binding,target,action,out message);
         if (ProcessingService.IsGrabber(target) && action.StartsWith("capture-", StringComparison.Ordinal))
             return CaptureService.Command(binding, target, action, value, out message);
         if (FurnaceService.IsEquipment(target) && !new[] { "receive", "pause-receive", "filter", "unlink-input", "unlink-output", "link-input", "link-output", "inventory" }.Contains(action)) return FurnaceService.Command(binding, target, action, value, out message);
@@ -114,7 +116,7 @@ internal static class IndustryService
         var results = new List<string>();
         foreach (var target in Discover(console!.ship))
         {
-            if (ProcessingService.IsGrabber(target)) Run(binding, target.strID, "capture-stop", null, out _);
+            if (ProcessingService.IsGrabber(target)) { Run(binding,target.strID,"reclaim-pause",null,out _); Run(binding, target.strID, "capture-stop", null, out _); }
             if (EquipmentProviders.For(target.strCODef) != null)
             {
                 bool ok = Run(binding, target.strID, "pause", null, out string info);

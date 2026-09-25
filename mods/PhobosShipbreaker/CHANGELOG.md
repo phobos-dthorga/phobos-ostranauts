@@ -10,17 +10,28 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Document the wear-related save-load recurrence and Framework 0.23.1 correction. Native marker rejection could remove the pending G4/H4 before Shipbreaker's grid guard ran; retain the existing grid protection and update Framework. The earlier successful owner test remains valid for its original save, not proof of all later reloads.
 - Correct the F6 operating guide's direct versus powered-pipe cooling behavior, circulation/feed demand and damaged-pump limits. Point current-version checks to maintained references rather than historical installation notes.
-- Clarify that Manufacturing and autonomous G4 reclamation are separate future implementation tracks; current material receipt does not authorize repeated furnace batches or replace motion interlocks.
+- Clarify that Manufacturing and autonomous G4 reclamation are separate implementation tracks; current material receipt does not authorize repeated furnace batches or replace motion interlocks.
 - Added a maintained per-mod item reference covering function, use, acquisition and applicable economic/service data; generated tables and coverage checks share a one-click updater.
 
 ### Research and planning
 
-- Record the 26 September implementation gate: Blue Bottle Games' native deck scale and navigation collision scale differ, and docking positions deck grids separately. Add offline native-boundary checks; the owner subsequently selected temporary native capture; a finite deployed head remains a possible enhancement. The new capture stage is documented below; cutting and repeated batches remain unfinished. See the [geometry findings](https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/shipbreaker-close-work-geometry.md).
-- Document selected-G4 autonomous reclamation after the player's manual valuables pass, with exact native IDs, supported leftover processing and finite storage/reject accounting. This is a specification, not delivered cutting or automation.
-- Select Auto Nav with existing N1/N2 hardware as a required dependency, delivered across loader, packaging and installer in 0.22.0; saved identities are preserved.
-- Supersede the initial free-flight positioning proposal with the owner's selected native-capture arrangement after investigating collision-compatible reach. Native uninstall/transfer, cutting and automatic movement along a wall remain future work. The proposed review of Phobos' any-thrust furnace pause remains separate; existing runtime policy is unchanged, and repeated batches and whole-wreck completion remain later gates.
-- Record [NASA Goddard's Raven research](https://www.nasa.gov/general/nasas-hybrid-computer-enables-ravens-autonomous-rendezvous-capability/) and [ESA's LIRIS experiment by Airbus, Jena Optronik and Sodern](https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/ATV/ATV_views_Space_Station_as_never_before) as sensing context, separate from Blue Bottle Games engine evidence and authored gameplay choices. No endorsement or gameplay validation is implied.
-- See the [research](https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/shipbreaker-autopilot-research.md) and [staged implementation handover](https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/shipbreaker-autopilot-handover.md). No installation or publication in this round.
+- Earlier capture-only research is superseded for supported ordinary walls by the implementation below. Broader structural recipes, repeated furnace batches and whole-wreck completion remain outside this round.
+- Keep [NASA Goddard's Raven research](https://www.nasa.gov/general/nasas-hybrid-computer-enables-ravens-autonomous-rendezvous-capability/) and [ESA's LIRIS experiment by Airbus, Jena Optronik and Sodern](https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/ATV/ATV_views_Space_Station_as_never_before) as sensing context, separate from Blue Bottle Games native evidence and authored gameplay choices. No institutional endorsement or gameplay validation is implied.
+
+## [0.24.0] - 2026-09-26 - Draft
+
+### Added
+
+- Add explicitly enabled G4 reclamation: choose an exposed work wall and separate protected anchor, capture, cut/feed, release, retreat, traverse and recapture another admissible work window. Reuse existing G4/H4/D4, N1/N2 and artwork; require Auto Nav 0.18.0 and Framework 0.24.0.
+- Cut only empty, unstacked, undamaged native 24 kg ordinary walls on the exact owned unoccupied target. Retain floors, anchor supports, other equipment and target registration. Unreachable remnants are reported; whole-wreck deletion and new structural recipes are excluded.
+- Capture authored 120 powered seconds / 12 kW defaults per started cut. Credit actual received electricity and reject its heat into the connected D4 service room, requiring 10 kPa and a 40 C ceiling. This cooling connection is an authored abstraction; vacuum is not free cooling. Cutting and existing 2 kW transfer run sequentially.
+- Add G4/C1/F3 Start, Resume, Pause, Stop and phase/blocker/completion/remnant status. Start authorizes the bound G4/D4 chain; full capacity waits under that same mission. Downstream permissions and furnace motion restrictions remain unchanged.
+
+### Persistence and limits
+
+- Journal uninstall and transfer separately before mutation; re-resolve exact native item identity and resulting position. Preserve paid work and evidence on interruption, without reconstructing cargo or repeating outputs. Framework general transfers remain same-ship.
+- Reload, lost tracking and manual takeover suspend authority. Stop retains a current capture; Release stays explicit. Older captures remain releasable but require a newly planned protected support before automatic cutting.
+- Update maintained defaults/dependency minima, generated equipment operating tables and the [reclamation guide](https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/shipbreaker-reclamation.md). Native API evidence is from Blue Bottle Games' locally inspected Ostranauts 1.0.1.5; offline checks are separate from owner gameplay evaluation. No repeated furnace batches or Steam publication.
 
 ## [0.23.0] - 2026-09-26 - Draft
 

@@ -13,7 +13,7 @@ function Copy-PhobosPlayerGuides {
         'vanilla-economy-audit', 'solar-system-economy', 'solar-system-economy-evidence', 'shipbreaker-first-build', 'shipbreaker-hull-intake', 'shipbreaker-completion-cue', 'animation-and-sound-direction', 'shared-completion-cues',
         'residue-collector', 'auto-navigate-adaptation', 'auto-nav-economy', 'auto-nav-panel-layout-audit', 'auto-nav-persistence', 'auto-nav-torch', 'residue-material-contract',
         'shipbreaking-material-processing-research', 'material-disposal-port-research',
-        'shipbreaker-capture', 'shipbreaker-close-work-geometry', 'shipbreaker-autopilot-research', 'shipbreaker-autopilot-handover',
+        'shipbreaker-capture', 'shipbreaker-reclamation', 'auto-nav-departure', 'auto-nav-reclamation-validation', 'shipbreaker-close-work-geometry', 'shipbreaker-autopilot-research', 'shipbreaker-autopilot-handover',
         'fluid-conduits-and-irrigation-research', 'agriculture-water-conduits', 'agriculture-nutrient-solutions', 'fluid-network-operations', 'chemical-storage-and-process-fluids', 'updating-constants',
         'processing-job-compatibility', 'localization', 'scrap-reclaimer', 'automatic-material-routing', 'material-port-pairing',
         'merchant-stock', 'item-references', 'item-reference-maintenance', 'auto-nav-item-reference', 'shipbreaker-item-reference', 'agriculture-item-reference', 'framework-item-reference', 'approach-assist-item-reference', 'manufacturing-item-reference',

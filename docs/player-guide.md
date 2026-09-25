@@ -1,5 +1,11 @@
 # Current player guide
 
+New in Auto Nav 0.18.0 / Shipbreaker 0.24.0: [explicit departure and shared local
+obstacle avoidance](auto-nav-departure.md), plus [G4 paid wall cutting, release,
+traversal and recapture](shipbreaker-reclamation.md). Requires Framework 0.24.0.
+Reload and manual takeover suspend these missions; gameplay evaluation remains
+separate from offline validation.
+
 Regional acquisition now covers the current vanilla solar system: see the
 [solar-system economy guide](solar-system-economy.md) for availability, native
 price factors and limits. The regional builds require Framework 0.23.0+.
@@ -26,8 +32,8 @@ prerequisites and experimental status. Need help? See [support](../SUPPORT.md).
 Agriculture is a prepared candidate with visible crop growth, cooking equipment and optional [water conduits](agriculture-water-conduits.md): see the [cultivation and cooking guide](agriculture-player-guide.md). Nutrient-solution piping requires Framework 0.19.0; optional C1 integration uses Shipbreaker 0.14.0 or later. Owner gameplay evaluation is pending.
 
 
-**Prepared versions:** Phobos Framework **0.24.0**, Shipbreaker **0.23.0**, Auto Nav
-**0.17.0**, built against Ostranauts **1.0.1.5** / BepInEx **5.4.23.5**.
+**Prepared versions:** Phobos Framework **0.24.0**, Shipbreaker **0.24.0**, Auto Nav
+**0.18.0**, built against Ostranauts **1.0.1.5** / BepInEx **5.4.23.5**.
 These versions support ordinary saves. Builds and offline checks do not establish
 in-game compatibility. This guide describes the prepared packages, not a claim
 that those packages are already installed or that merchants have restocked.
@@ -57,7 +63,7 @@ verification and build instructions. Building is separate from installing.
 Crafting Framework, Salvage Workshop and Auto Navigate are not dependencies.
 Retain other providers when your save or other mods use their content. Original
 Auto Navigate must be disabled for our Auto Nav to engage; installing ours does
-not disable it automatically. Shipbreaker 0.22.0 requires Auto Nav 0.16.0+; [selected-G4 capture](shipbreaker-capture.md) uses existing N1/N2 hardware.
+not disable it automatically. Shipbreaker 0.24.0 requires Auto Nav 0.18.0+; [selected-G4 capture](shipbreaker-capture.md) uses existing N1/N2 hardware.
 
 After launch, these F3 commands report the actual loaded versions and readiness:
 
@@ -237,6 +243,6 @@ publication is implied by this prepared redesign.
 
 ## Industrial controls (0.10.0)
 
-[Console and equipment panel guide](industrial-console-player-guide.md): a 3 x 3 ship-bound workstation, local Control Panels, automatic grouping, search, Attention and routing. The current Shipbreaker 0.23.0 requires Framework 0.23.0 and Auto Nav 0.16.0 and includes [shared observations](shared-console-observations.md) and optional [shared completion cues](shared-completion-cues.md). Prepared for owner testing; no in-game validation claimed.
+[Console and equipment panel guide](industrial-console-player-guide.md): a 3 x 3 ship-bound workstation, local Control Panels, automatic grouping, search, Attention and routing. The current Shipbreaker 0.24.0 requires Framework 0.24.0 and Auto Nav 0.18.0 and includes [shared observations](shared-console-observations.md) and optional [shared completion cues](shared-completion-cues.md). Prepared for owner testing; no in-game validation claimed.
 
 Agriculture now supports [finite potato and lettuce nutrient-solution piping](agriculture-nutrient-solutions.md) through its W2 supply and irrigation conduits.

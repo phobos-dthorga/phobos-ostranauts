@@ -13,7 +13,7 @@ internal sealed partial class ProcessingService
     private sealed class IntakeSession
     {
         internal CondOwner Grabber = null!, Chute = null!, Processor = null!;
-        internal bool Armed;
+        internal bool Armed, Mission;
         internal CondOwner? Panel;
         internal TransferClock? Clock;
         internal double Last;
@@ -109,6 +109,31 @@ internal sealed partial class ProcessingService
         if (!intake.Grabber.bDestroyed && intake.Grabber.ship == processor.ship) intake.Grabber.ZeroCondAmount(IntakeRules.Working);
     }
 
+    internal bool MissionIntakeActive(CondOwner g,string processor) => intakes.TryGetValue(g,out var intake)&&intake.Armed&&intake.Processor.strID==processor;
+    internal bool ArmMission(CondOwner g,string processor,out string message)
+    {
+        message=Text.Get("Reclamation.intake");
+        if(!CaptureIntake(g,out _,out var p,out message)||p!.strID!=processor) return false;
+        var state=sessions.GetValue(p,_=>new Session());state.NeedsAttention=false;
+        if(!ArmIntake(p,out message)) return false;
+        state.Intake!.Mission=true;
+        if(state.Job?.Running!=true&&Feed(p)!.objContainer.ContainedCOs.Count>0&&!StartNext(p,state)&&!state.CapacityWait) {DisarmIntake(p);message=state.Status;return false;}
+        return true;
+    }
+    internal bool MissionPendingFeed(CondOwner g,string processor,out bool capacity)
+    {
+        capacity=false;
+        if(!intakes.TryGetValue(g,out var intake)||intake.Processor.strID!=processor) return false;
+        if(sessions.TryGetValue(intake.Processor,out var state))capacity=state.CapacityWait;
+        return Feed(intake.Processor)?.objContainer.ContainedCOs.Count>0;
+    }
+    internal void StopMission(CondOwner g,string processor)
+    {
+        if(!intakes.TryGetValue(g,out var intake)||intake.Processor.strID!=processor) return;
+        var state=sessions.GetValue(intake.Processor,_=>new Session());
+        Stop(intake.Processor,state,Text.Get("Reclamation.suspended"),false);
+    }
+
     internal bool BeforeIntakePower(CondOwner grabber)
     {
         grabber.ZeroCondAmount(IntakeRules.Working);
@@ -158,7 +183,7 @@ internal sealed partial class ProcessingService
             state.Clock = null; state.Panel = null; grabber.ZeroCondAmount(IntakeRules.Working);
             var processor = sessions.GetValue(state.Processor, _ => new Session());
             if (processor.Job?.Running != true && !StartNext(state.Processor, processor))
-            { state.Status = Text.Get("IntakeService.processor_needs_attention", processor.Status); state.Armed = false; }
+            { state.Status = Text.Get("IntakeService.processor_needs_attention", processor.Status); if(!processor.CapacityWait||!state.Mission) state.Armed = false; }
         }
         catch (Exception ex) { IntakeFault(grabber, ex); }
     }

@@ -14,7 +14,7 @@
           "function": "Navigation, approach and docking assistance. It can stop short of a destination or use a separate docking command.",
           "use": "Fit a working board to Polaris, open its Phobos hub, select a supported sensor contact, set arrival preferences and choose Fly, Dock or Approach & Dock as appropriate. Use Stop to release flight control.",
           "find": "Build at a supported table, buy from the listed dealers, or find rare N1 boards in native navigation-module loot. Damaged salvage needs repair.",
-          "notes": "No obstacle avoidance or indefinite position holding is promised. Sensor quality, braking room, fuel and native restrictions still apply. Docking resumes only after an explicit post-load Resume.",
+          "notes": "No obstacle avoidance or indefinite position holding is promised. Sensor quality, braking room, fuel and native restrictions still apply. Docking resumes only after an explicit post-load Resume. Local obstacle avoidance uses tracked contacts; lost tracking requires Resume. Explicit Undock & Depart / Undock & Continue prepare a 1 km hull-gap departure. See [departure and avoidance](auto-nav-departure.md).",
           "guide": "auto-navigate-adaptation.md",
           "internal": false,
           "labels": {}
@@ -29,7 +29,7 @@
           "function": "Includes navigation/docking and adds Rendezvous and Follow for moving contacts.",
           "use": "Fit to Polaris and use the Pursuit page. Rendezvous approaches once; Follow maintains a distance band. Stop before changing flight modes.",
           "find": "Build at a supported table or buy the Polaris dealer offer below. The N1 salvage pool does not grant N2.",
-          "notes": "N2 does not authorize firing; use N3 for that. Pursuit suspends on reload and cannot guarantee catching a faster ship.",
+          "notes": "N2 does not authorize firing; use N3 for that. Pursuit suspends on reload and cannot guarantee catching a faster ship. Local obstacle avoidance uses tracked contacts; lost tracking requires Resume. Explicit Undock & Depart / Undock & Continue prepare a 1 km hull-gap departure. See [departure and avoidance](auto-nav-departure.md).",
           "guide": "auto-nav-pursuit.md",
           "internal": false,
           "labels": {}
@@ -108,11 +108,11 @@
             "PhobosExteriorGrabberInstalled",
             "PhobosExteriorGrabberInstalledDmg"
           ],
-          "function": "Collects detached wall panels for a connected D4.",
-          "use": "Position outside the hull aligned with the H4 chute and D4 as shown in the intake guide. Put eligible panels in the grabber Inventory and explicitly enable intake.",
+          "function": "Receives detached wall panels and, when explicitly enabled, cuts supported captured walls for the existing D4 chain.",
+          "use": "Install the G4/H4/D4 assembly with all four backing walls intact. Manual loading and intake still work. For automatic reclamation, bind the exact G4 and N1/N2 console to an owned, unoccupied wreck, then choose Start reclamation. Resume is required after loading or lost authority.",
           "find": "Buy from equipment offers or build at a supported table.",
-          "notes": "Not a mining head or an external hull cutter. Shipbreaker 0.22.0 adds exact-G4 native capture/release with mandatory Auto Nav 0.16.0+ and existing N1/N2 hardware. Owned, unoccupied targets only; no automatic cutting or repositioning. See [capture controls and limits](shipbreaker-capture.md).",
-          "guide": "shipbreaker-hull-intake.md",
+          "notes": "Requires Auto Nav 0.18.0+ and Framework 0.24.0+. Cutting, feeding, release, outward retreat, traversal and recapture are sequenced. Cutting rejects its delivered electrical energy as heat through the D4 interior service area (at least 10 kPa and headroom below 40 C); this is authored gameplay cooling, not a simulated physical coolant circuit. Only empty, unstacked, undamaged 24 kg ordinary walls with retained floors/supports qualify. Target pressure must be at most 0.1 kPa. Stop retains the capture; Release is separate. Floors, other equipment, cargo and final supports remain.",
+          "guide": "shipbreaker-reclamation.md",
           "internal": false,
           "labels": {}
         },

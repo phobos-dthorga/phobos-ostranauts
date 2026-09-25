@@ -6,6 +6,7 @@ int checks = 0;
 void Check(bool condition, string name) { if (!condition) throw new Exception(name); checks++; }
 void Near(double value, double expected, string name) => Check(Math.Abs(value - expected) < 1e-8, name);
 
+ObstacleChecks.Run(Check);
 PersistenceChecks.Run(Check);
 PersistenceRuntimeChecks.Run(Check);
 InstrumentChecks.Run(Check);
