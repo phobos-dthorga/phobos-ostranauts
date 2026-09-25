@@ -11,8 +11,9 @@ This does not move existing equipment or rewrite the current housing recipe.
 are the recommended second casting: native life-support repairs already consume
 them. [Furnace material routing](furnace-material-routing.md) defines a separate
 R4 metals outlet, cold F6 feeding and explicit released-product collection through
-existing transfer services. These studies are complete; their gameplay changes
-are not implemented. Neither requires new graphics generation during research.
+existing transfer services and is implemented in the Shipbreaker 0.17.0 candidate.
+Replacement heat-sink casting and machining remain future Manufacturing work.
+Material routing reuses existing artwork without generation costs.
 
 **Implementation update (25 September 2026):** Shipbreaker 0.14.0 / Framework 0.17.0
 now prepare the electrical casting candidate described in the [F6 operating guide](furnace-player-guide.md).

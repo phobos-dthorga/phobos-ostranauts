@@ -1,5 +1,7 @@
 # F6 sealed coolant conduits
 
+Current extension: [fluid-network operations](fluid-network-operations.md) documents Agriculture 0.6.0 / Framework 0.20.0 fan-out, line contents, treatment and optional Shipbreaker 0.17.0 coolant servicing. Earlier version-specific sections below retain their baseline scope.
+
 Shipbreaker **0.16.0**, Framework **0.19.0**. Prepared candidate; not installed
 or gameplay-validated. This extends the shared routing begun in
 [Agriculture](agriculture-water-conduits.md). Agriculture is not a dependency.

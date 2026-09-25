@@ -56,6 +56,19 @@ internal static class AgricultureNativeChecks
             check(outputs * .5 < inputs * 1.2, "New-material assembly does not profit even at favorable VORB discount endpoints: " + recipe.id);
         }
         var irrigation = Definition(PhobosAgriculture.Definitions.Irrigation);
+        foreach(string stock in new[]{PhobosAgriculture.Service.CharacterizedDrainage,PhobosAgriculture.Service.RecoveryCartridge,PhobosAgriculture.Service.RecoveryReject})
+        {
+            var item=Definition(stock);
+            check(!item.aStartingConds.Any(c=>c.StartsWith("IsEdible=")||c.StartsWith("IsHydrator=")),"Treatment stock cannot grant food or hydration");
+            check(item.nStackLimit==1,"Recorded/finite treatment stock cannot merge its state in a native stack");
+        }
+        var drainageMaps=new Dictionary<string,Dictionary<string,string>>();
+        var drainageStore=new Phobos.Ostranauts.Framework.Persistence.ObjectStateStore(drainageMaps,"AgricultureDrainage",PhobosAgriculture.Plugin.Id,1);
+        check(drainageStore.TryWrite(PhobosAgriculture.Core.DrainageRecovery.Save(new(5,.04))),"Measured drainage writes an additive record");
+        var encoded=Newtonsoft.Json.JsonConvert.SerializeObject(drainageMaps);
+        var decoded=Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string,Dictionary<string,string>>>(encoded)!;
+        var restored=new Phobos.Ostranauts.Framework.Persistence.ObjectStateStore(decoded,"AgricultureDrainage",PhobosAgriculture.Plugin.Id,1);
+        check(restored.Read(out var measured)==Phobos.Ostranauts.Framework.Persistence.SavedStateStatus.Ready&&Math.Abs(PhobosAgriculture.Core.DrainageRecovery.Read(measured,5.04).SoluteKg-.04)<1e-9,"Native-compatible property maps retain the nutrient assay");
         check(d.Objects[PhobosAgriculture.IrrigationDefinitions.Supply + "Installed"].aInteractions.Contains(PhobosAgriculture.Definitions.WorkId("load-nutrients")), "W2 exposes native crew nutrient loading");
         check(Math.Abs(Mass(irrigation.strName) - PhobosAgriculture.Definitions.IrrigationKg) < 1e-7, "Irrigation transfer uses the physical commodity mass");
         check(!DataHandler.dictCTs["TIsWater"].TriggeredDataCO(new DataCO(irrigation), false), "Root-water charge cannot impersonate native drinking water");

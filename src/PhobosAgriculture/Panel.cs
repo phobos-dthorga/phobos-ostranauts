@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using HarmonyLib;
 using UnityEngine;
@@ -50,7 +51,7 @@ public sealed class Panel : GUIData
         foreach (string action in Service.Actions(co)) AddButton(content, co, action);
         if (!Definitions.IsCooker(co))
         {
-            foreach (string action in IrrigationDefinitions.IsSupply(co) ? new[] { "load-water", "load-irrigation", "load-nutrients", "drain" } : Definitions.Work) AddButton(content, co, action);
+            foreach (string action in IrrigationDefinitions.IsSupply(co) ? new[] { "load-water", "load-irrigation", "load-nutrients", "recover-solution", "drain" } : Definitions.Work.Where(a=>a!="recover-solution").ToArray()) AddButton(content, co, action);
             W.Label(content, Text.Get("water_pair_help"));
             foreach (var candidate in Service.WaterCandidates(co))
             {

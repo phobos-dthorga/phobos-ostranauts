@@ -23,7 +23,8 @@ internal static class DependencyChecks
         check(DependencyContract.FrameworkProblem(new Version(0, 15, 0)) != null, "Furnace receipts and native instruments require Framework 0.16");
         check(DependencyContract.FrameworkProblem(new Version(0, 16, 0)) != null, "Guarded control and digit adapters require Framework 0.17");
         check(DependencyContract.FrameworkProblem(new Version(0, 18, 0)) != null, "Thermal route endpoint support requires Framework 0.19");
-        foreach (var version in new[] { new Version(0, 19, 0), new Version(0, 19, 1), new Version(1, 0, 0) })
+        check(DependencyContract.FrameworkProblem(new Version(0, 19, 0)) != null, "Combined fluid and material release requires Framework 0.20");
+        foreach (var version in new[] { new Version(0, 20, 0), new Version(0, 20, 1), new Version(1, 0, 0) })
             check(DependencyContract.FrameworkProblem(version) == null, "No invented upper version or age cutoff: " + version);
 
         var tables = DependencyContract.Required.ToDictionary(g => g.Table, g => g.Names.ToHashSet());

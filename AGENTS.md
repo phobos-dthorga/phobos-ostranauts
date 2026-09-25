@@ -123,6 +123,14 @@
 
 ## Agriculture direction (2026-09-25)
 
+- Owner authorized all outstanding fluid extensions. Agriculture 0.6.0 / Framework
+  0.20.0 provide up to eight W2 rack pairs, retained endpoint-owned line parcels,
+  authored resistance/transit, recorded drainage treatment and finite rejects.
+  Shipbreaker 0.17.0 adds optional finite coolant servicing with captured leaks.
+  Follow `docs/fluid-network-operations.md`; retain legacy sealed F6 mode,
+  original pair slot zero, old waste identities and component/heat conservation.
+  In-game testing remains owner-run and is not a prerequisite for useful work.
+
 - Nutrient-solution follow-up: Agriculture 0.5.0 / Framework 0.19.0 add finite
   potato/lettuce feed through the existing W2 and irrigation conduits. Follow
   `docs/agriculture-nutrient-solutions.md`: preserve schema-1 plain water/dry
@@ -743,3 +751,22 @@
   removes only our active ship's actuator commands in the copied DTO, never live
   velocity/spin/gravity. See `docs/auto-nav-persistence.md`. Do not change the
   independent industrial pause-on-reload policy. Owner gameplay testing is pending.
+
+## Furnace material routing (2026-09-25)
+
+- Shipbreaker 0.17.0 implements R4 MetalsOut -> F6 MaterialIn and F6 MaterialOut
+  -> hull collector, through the existing checked CollectorService and Framework
+  pairing/physical transfer. See `docs/furnace-material-routing.md`. Preserve R4
+  ResidueOut and F6 Cooling meanings; `send` on R4 stays residue, `metals` selects
+  aluminium. Default/all collector filters remain residue-only; furnace-products
+  is explicit. Never automate Seal, Start, Equalize or Release through receiving.
+- F6 feed motors share the measured F6 receipt, take remaining energy after probes
+  and cooling pump, and retain paid losses as sink heat. Receive only exact single
+  aluminium identities/masses into a cool idle unsealed bin; stop at twenty.
+  Protect hot/native-commit state, recheck routes/IDs at settlement and preserve
+  blocked cargo. Sealing cancels pending transfer clocks. Reload retains pairs,
+  filters and cargo but pauses receiving with zero transport credit.
+- Front input/output approaches are (-2.5,-2.5)/(+2.5,-2.5) in furnace-local tile
+  coordinates, rotated with the 6 x 6 machine. Structural floor routes remain
+  distinct from coolant and electrical conduit. Reuse existing artwork; no new
+  generated assets are needed. Gameplay validation remains with the owner.

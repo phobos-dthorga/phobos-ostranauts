@@ -1,5 +1,7 @@
 # Agriculture implementation and validation
 
+Current extension: [fluid-network operations](fluid-network-operations.md) documents Agriculture 0.6.0 / Framework 0.20.0 fan-out, line contents, treatment and optional Shipbreaker 0.17.0 coolant servicing. Earlier version-specific sections below retain their baseline scope.
+
 25 September 2026. **Implementation candidate; no game session has been run.**
 Read the [player guide](agriculture-player-guide.md) for the actual first version.
 The earlier [specification](agriculture-first-slice.md) retains broader design

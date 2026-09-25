@@ -24,6 +24,7 @@ internal static class RoutingCommands
             {
                 response = selected.Length == 0 ? Text.Get("Routing.none") : string.Join("\n\n", selected.Select(c =>
                     CollectorService.Label(c) + "\n" + (RoutingRules.IsSender(c.strCODef) ? CollectorService.LinkIds(c, true) + "\n" + CollectorService.DescribeLink(c, true) + "\n" : "") +
+                    (ProcessingService.IsReclaimer(c) ? Text.Get("Routing.metals_port") + "\n" + CollectorService.LinkIds(c, true, true) + "\n" + CollectorService.DescribeLink(c, true, true) + "\n" : "") +
                     (RoutingRules.IsReceiver(c.strCODef) ? CollectorService.LinkIds(c, false) + "\n" + Plugin.Collectors.Describe(c) : "")));
                 return true;
             }
@@ -36,10 +37,10 @@ internal static class RoutingCommands
                     if (receiver == null || receiver == target || !RoutingRules.CanConnect(target.strCODef, receiver.strCODef))
                     { response = Text.Get("Routing.invalid_source"); return false; }
                     success = Plugin.Collectors.Bind(receiver, target); response = Plugin.Collectors.Describe(receiver); return success;
-                case "unlink": return Plugin.Collectors.Unlink(target, out response, command.Argument == "send");
+                case "unlink": return Plugin.Collectors.Unlink(target, out response, command.Argument != "receive", metals: command.Argument == "metals");
                 case "filter": return Plugin.Collectors.SetFilter(target, command.Argument!, out response);
                 case "controls":
-                    success = command.Argument == "send" ? Plugin.CollectorControls.ShowSource(target) : Plugin.CollectorControls.Show(target);
+                    success = command.Argument != "receive" ? Plugin.CollectorControls.ShowSource(target, command.Argument == "metals") : Plugin.CollectorControls.Show(target);
                     response = success ? Text.Get("Routing.controls_open") : CollectorService.EndpointAccess(target) ?? Text.Get("Routing.invalid_source"); return success;
                 case "start":
                 case "pause":

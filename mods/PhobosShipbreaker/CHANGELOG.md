@@ -8,6 +8,32 @@ Dates on Draft entries record preparation, not Steam publication.
 
 No additional changes recorded.
 
+## [0.17.0] - 2026-09-25 - Draft
+
+### Added
+
+- Route exact aluminium feed from a separate R4 metals output to the F6. Stop at twenty pieces; receiving never starts or releases a batch.
+- Collect released, cold housing blanks and melt remainders with an explicit furnace-products collector filter. Existing residue routes, default filters and tray limits retain their meaning.
+- Account furnace feed motors through the existing electrical receipt, including partial supply and retained motor heat. Preserve cargo on full destinations and pause receiving on reload or failed interlocks.
+- Expose material pairing and receiving through local panels, C1 and F3, with rotated front-corner installation markers.
+- Add optional finite coolant servicing: fill/drain and captured leakage, with a conservative lumped heat model. Existing sealed cooling installations remain supported.
+
+### Requirements
+
+Ostranauts 1.0.1.5, BepInEx 5 and Phobos Framework 0.20.0 or newer. Agriculture and Auto Nav remain optional.
+
+### Known limits
+
+- Prepared candidate; owner gameplay and appearance checks remain outstanding.
+- Individual aluminium feed only; crew separate native stacks. No automatic Seal, Start, Equalize or Release.
+- A housing blank fills the existing collector grid; haul it away before the next item can fit.
+- No new finished-part recipe, arbitrary container routing or generated artwork. Manufacturing remains separate.
+
+### References
+
+- [Furnace routing guide](https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/furnace-material-routing.md)
+- [Cooling scope](https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/furnace-coolant-conduits.md)
+
 ## [0.16.0] - 2026-09-25 - Draft
 
 ### Development baseline

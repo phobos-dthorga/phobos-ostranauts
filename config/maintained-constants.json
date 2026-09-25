@@ -4,7 +4,7 @@
     "Framework.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.19.0",
+      "value": "0.20.0",
       "description": "PhobosFramework published source/package version.",
       "targets": [
         {
@@ -63,7 +63,7 @@
     "Shipbreaker.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.16.0",
+      "value": "0.17.0",
       "description": "PhobosShipbreaker published source/package version.",
       "targets": [
         {
@@ -191,7 +191,7 @@
     "Agriculture.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.5.0",
+      "value": "0.6.0",
       "description": "PhobosAgriculture published source/package version.",
       "targets": [
         {

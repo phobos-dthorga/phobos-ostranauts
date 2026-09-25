@@ -11,6 +11,7 @@ internal static class FurnaceDefinitions
 {
     internal static void Add(NativeDefinitions d)
     {
+        FurnaceService.AddCoolantStock(d);
         MachineDefinitions.AddFamily(d, FurnaceRules.Prefix);
         MachineDefinitions.AddFeed(d, FurnaceRules.Prefix, "IsAluminum");
         MachineDefinitions.AddFamily(d, FurnaceRules.Radiator);
@@ -29,7 +30,7 @@ internal static class FurnaceDefinitions
             co.nContainerWidth = co.nContainerHeight = furnace ? 8 : 0;
             co.dictSlotsLayout = new Dictionary<string, Vector3> { ["self"] = Vector3.zero };
             co.mapPoints = new[] { "use,0,-56", "PowerA,-40,-40", "PowerB,40,-40" };
-            if (furnace) co.mapPoints = co.mapPoints.Concat(new[] { "CoolingLeft,-56,8", "CoolingRight,56,8", "CoolingRear,0,96" }).ToArray();
+            if (furnace) co.mapPoints = co.mapPoints.Concat(new[] { "CoolingLeft,-56,8", "CoolingRight,56,8", "CoolingRear,0,96", "MaterialIn,-40,-40", "MaterialOut,40,-40" }).ToArray();
             if (!furnace && !port) co.mapPoints = co.mapPoints.Concat(new[] { "CoolantIn,8,-56" }).ToArray();
             if (port) co.mapPoints = new[] { "use,0,0" };
             if (!furnace)
@@ -60,9 +61,9 @@ internal static class FurnaceDefinitions
         // A one-kW clock coefficient; the checked service substitutes each interval's
         // real bounded demand before native UsePower. No free IsPowered receipt.
         d.Power[FurnaceRules.Prefix + "Power"].fAmount = 1.0 / 3600;
-        Packet(d, FurnaceRules.Blank, 19, 55, "Furnace.blank_name", "Furnace.blank_description", "PhobosFurnaceHousing");
+        Packet(d, FurnaceRules.Blank, FurnaceRules.BlankKg, 55, "Furnace.blank_name", "Furnace.blank_description", "PhobosFurnaceHousing");
         Packet(d, FurnaceRules.Housing, 18, 60, "Furnace.housing_name", "Furnace.housing_description", "PhobosFurnaceHousing");
-        Packet(d, FurnaceRules.Remainder, 1, .01, "Furnace.remainder_name", "Furnace.remainder_description", ProcessRules.Residue);
+        Packet(d, FurnaceRules.Remainder, FurnaceRules.RemainderKg, .01, "Furnace.remainder_name", "Furnace.remainder_description", ProcessRules.Residue);
         Packet(d, FurnaceRules.Section, FurnaceRules.SectionKg, 6500, "Furnace.section_name", "Furnace.section_description", ProcessRules.AssemblySection);
     }
     private static string[] Grid(int width, int height, string interior) => Enumerable.Range(0, (height + 2) * (width + 2))

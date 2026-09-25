@@ -112,5 +112,6 @@
   "Performance.reason.application_exit": "application exit or Framework unload",
   "Performance.reason.nesting_error": "scopes closed out of order",
   "Performance.reason.clock_error": "monotonic clock failure",
-  "Performance.reason.overflow": "recording arithmetic limit reached"
+  "Performance.reason.overflow": "recording arithmetic limit reached",
+  "PortBank.full": "All configured delivery slots are occupied."
 }

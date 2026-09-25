@@ -1,4 +1,5 @@
 using System;
+using PhobosAgriculture.Core;
 using System.IO;
 using System.Linq;
 using Phobos.Ostranauts.Framework.Construction;
@@ -14,7 +15,7 @@ internal static class Definitions
     internal const string Irrigation = "PhobosVerdemorrowGroundworkIrrigation";
     internal const double IrrigationKg = 5, IrrigationPrice = 50;
     internal static bool Ready;
-    internal static readonly string[] Work = { "plant-potato", "plant-lettuce", "load-water", "load-irrigation", "load-nutrients", "harvest", "clear", "drain" };
+    internal static readonly string[] Work = { "plant-potato", "plant-lettuce", "load-water", "load-irrigation", "load-nutrients", "recover-solution", "harvest", "clear", "drain" };
     internal static string WorkId(string action) => "PhobosAgricultureWork_" + action.Replace('-', '_');
     private static readonly System.Collections.Generic.HashSet<string> Machines = new(new[] { Rack, Cooker, IrrigationDefinitions.Supply }.SelectMany(prefix => new[] { "Installed", "Loose", "InstalledDmg", "LooseDmg" }.Select(form => prefix + form)), StringComparer.Ordinal);
     internal static bool Machine(CondOwner? co) => co != null && Machines.Contains(co.strCODef);
@@ -46,24 +47,27 @@ internal static class Definitions
         d.Triggers[Rack + "Supplies"] = new CondTrigger { strName = Rack + "Supplies", fChance = 1, fCount = 1, bAND = false,
             aReqs = Array.Empty<string>(), aForbids = new[] { "IsInstalled", "IsCumbersome", "IsOversized" }, aTriggers = new[] { "TIsFitContainerSolid", "TIsWater" } };
         foreach (var co in d.Objects.Values.Where(c => c.strName.StartsWith(Rack, StringComparison.Ordinal))) co.strContainerCT = Rack + "Supplies";
-        foreach (var co in d.Objects.Values.Where(c => c.strName.StartsWith(Rack) && c.strName.EndsWith("Installed"))) co.aInteractions = co.aInteractions.Concat(Work.Select(WorkId)).ToArray();
+        foreach (var co in d.Objects.Values.Where(c => c.strName.StartsWith(Rack) && c.strName.EndsWith("Installed"))) co.aInteractions = co.aInteractions.Concat(Work.Where(a=>a!="recover-solution").Select(WorkId)).ToArray();
         IrrigationDefinitions.Add(d);
         foreach (var co in d.Objects.Values.Where(c => c.strName.EndsWith("Dmg"))) co.strNameFriendly = co.strNameShort = Text.Get("damaged", co.strNameFriendly);
         Stock(d, PotatoSeed, .2, 40, "potato_seed", false); Stock(d, LettuceSeed, .005, EquipmentEconomy.LettuceSeedPrice, "lettuce_seed", false);
         Stock(d, Nutrient, .04, 60, "nutrients", false); Stock(d, Raw, .4, 12, "raw", false);
         Stock(d, Meal, .4, 35, "meal", true); Stock(d, Leaves, .25, 8, "leaves", true); Stock(d, Residue, .5, .01, "residue", false);
         Stock(d, Drainage, .25, .01, "drainage", false);
+        Stock(d, Service.CharacterizedDrainage, .25, .01, "characterized_drainage", false);
+        Stock(d, Service.RecoveryReject, .25, .01, "recovery_reject", false);
+        Stock(d, Service.RecoveryCartridge, DrainageRecovery.CartridgeKg, 25, "recovery_cartridge", false);
         foreach (string food in new[] { Meal, Leaves })
             d.Loot[food + "Effects"] = new Loot { strName = food + "Effects", strType = "trigger", aCOs = new[] { "TDnFood=1x" + (food == Meal ? 5 : 1), "TUpSatiety=1x" + (food == Meal ? 3 : 1), "TDnTeethBrushed=1x1" }, aLoots = Array.Empty<string>() };
         Stock(d, Irrigation, IrrigationKg, IrrigationPrice, "irrigation", false);
-        foreach (string id in new[] { PotatoSeed, LettuceSeed, Nutrient, Irrigation })
+        foreach (string id in new[] { PotatoSeed, LettuceSeed, Nutrient, Irrigation, Service.RecoveryCartridge })
             d.Objects[id].aStartingConds = d.Objects[id].aStartingConds.Concat(new[] { "IsCategoryIndustrialProducts=1x1" }).ToArray();
         d.Objects[Raw].aStartingConds = d.Objects[Raw].aStartingConds.Concat(new[] { "IsCategoryFood=1x1" }).ToArray();
         foreach (string id in new[] { Residue, Drainage })
             d.Objects[id].aStartingConds = d.Objects[id].aStartingConds.Concat(new[] { "IsCategoryTrash=1x1" }).ToArray();
         EquipmentEconomy.Apply(d);
         foreach (string merchant in new[] { "ItmOKLGSupplyKioskInv", "ItmOKLGFixer", "ItmTraderSanDiegoHalvorsonInv" })
-        foreach (string item in new[] { Rack + "Loose", Cooker + "Loose", PotatoSeed, LettuceSeed, Nutrient, Irrigation })
+        foreach (string item in new[] { Rack + "Loose", Cooker + "Loose", PotatoSeed, LettuceSeed, Nutrient, Irrigation, Service.RecoveryCartridge })
             MarketStock.Add(d, merchant, "PhobosAgricultureStock_" + merchant + "_" + item, item, item == Nutrient || item == Irrigation ? 1 : .65, StockCondition.Pristine);
         foreach (string prefix in new[] { Rack, Cooker })
         {

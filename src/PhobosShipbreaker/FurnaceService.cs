@@ -23,10 +23,12 @@ internal static partial class FurnaceService
         internal bool Protected;
         internal string Notice = "";
         internal string CoolingMode = "direct";
+        internal CoolantCharge Coolant = new();
+        internal double AccountedCoolantKg;
         internal ObjectStateStore Store = null!;
     }
     internal sealed class PowerTransfer
-    { internal Session Session = null!, Cooling = null!; internal EnergyReceipt Receipt = null!; internal double Seconds; internal bool Routed; }
+    { internal Session Session = null!, Cooling = null!; internal EnergyReceipt Receipt = null!; internal double Seconds, MotorKJ; internal bool Routed, Finished; internal object? MaterialToken; }
     private static readonly Dictionary<string, Session> sessions = new(StringComparer.Ordinal);
     private static float nextScan;
     internal static bool IsEquipment(CondOwner? co) => co != null && (FurnaceRules.Machine(co.strCODef) || FurnaceRules.Cooling(co.strCODef));
@@ -55,21 +57,22 @@ internal static partial class FurnaceService
         // Unobserved intervals cannot establish an intact radiator/room history.
         // Retain all heat and reset the time anchor; never simulate offline heating.
         s.State.LastEpoch = s.SinkLast = StarSystem.fEpoch;
-        ReadCoolingMode(s);
+        ReadCoolingMode(s); ReadCharge(s);
         sessions[co.strID] = s;
         return s;
     }
     private static void Save(Session s)
     {
         if (s.Protected) return;
+        SaveCharge(s);
         var fields = FurnaceRules.Cooling(s.Object.strCODef) ? FurnaceCooling.Save(s.SinkKJ) : s.State.Save();
         if (!s.Store.TryWrite(fields)) { s.Protected = true; s.State.Batch.Armed = false; s.Notice = Text.Get("Furnace.protected"); }
     }
     internal static bool CanFeed(CondOwner bin, CondOwner input) => !bin.HasCond("IsLocked") && ValidFeed(input) &&
-        bin.objContainer != null && (bin.objContainer.ContainedCOs.Contains(input) || bin.objContainer.ContainedCOs.Count < FurnaceRules.ChargeUnits);
-    private static bool ValidFeed(CondOwner input) => input != null && !input.bDestroyed && input.strCODef == "ItmScrapAluminum" &&
-        !input.HasCond("IsInstalled") && input.coStackHead == null && input.aStack.Count == 0 && input.GetCOsSafe(true).Count == 0 &&
-        input.GetLotCOs(true).Count == 0 && ProcessRules.MassMatches(input.GetTotalMass(), 1);
+        bin.objContainer != null && (bin.objContainer.ContainedCOs.Contains(input) || !FurnaceMaterialRules.ChargeFull(bin.objContainer.ContainedCOs.Count));
+    internal static bool ValidFeed(CondOwner input) => input != null && !input.bDestroyed && input.Crew == null &&
+        FurnaceMaterialRules.Feed(input.strCODef, input.GetTotalMass(), !input.HasCond("IsInstalled"), input.GetCOsSafe(true).Count == 0,
+            input.coStackHead == null && input.aStack.Count == 0, input.GetLotCOs(true).Count == 0);
     private static bool ChargePresent(Session s)
     {
         var bin = Feed(s.Object); var items = bin?.objContainer?.ContainedCOs;
@@ -176,6 +179,7 @@ internal static partial class FurnaceService
         var radiator = CoolingEndpoint(s.Object); Session? sink = radiator == null ? null : Get(radiator);
         if (sink != null) AdvanceCooling(sink);
         bool connected = sink != null && !sink.Protected;
+        if(s.Coolant.Enabled) { int cells=ChargeCells(s);s.Coolant.Advance(dt,cells>0&&!s.Object.HasCond("IsDamaged"),false,cells);if(!ChargeReady(s))b.Armed=false; }
         if (connected) b.SinkKJ = sink!.SinkKJ;
         bool probe = ProbeValid(s.Object);
         if (b.Phase != FurnacePhase.Idle && (!ChargePresent(s) || s.State.ShipId != s.Object.ship?.strRegID))
@@ -200,41 +204,60 @@ internal static partial class FurnaceService
         var radiator = CoolingEndpoint(co); var sink = radiator == null ? null : Get(radiator);
         if (!Content.Ready || s.Protected || sink == null || sink.Protected || !ControlsReady(co) ||
             (s.State.Batch.Phase != FurnacePhase.Idle && !ChargePresent(s)) ||
-            !ThermalMath.Finite(seconds) || seconds <= 0 || seconds > FurnaceRules.MaxIntervalSeconds) return false;
+            !ThermalMath.Finite(seconds) || seconds <= 0 || seconds > FurnaceRules.MaxIntervalSeconds)
+        { Plugin.Collectors.Interrupt(co, Text.Get("Routing.furnace_interlock")); return false; }
         if (Flight(co.ship) || radiator!.HasCond("IsDamaged")) { s.State.Batch.Armed = false; s.State.Batch.Hold = 0; }
         s.State.Batch.SinkKJ = sink.SinkKJ;
         double headroom = Math.Max(0, FurnaceRules.SinkCapacity * (FurnaceRules.SinkMaxK - s.State.Batch.SinkK));
         double instrumentation = Math.Min(FurnaceRules.InstrumentKW * seconds, headroom);
         bool routed = Routed(co);
+        if(!ChargeReady(s)) {s.State.Batch.Armed=false;s.State.Batch.Hold=0;}
         double pump = routed ? Math.Min(FurnaceCooling.PumpKW * seconds, Math.Max(0, headroom - instrumentation)) : 0;
-        amount = (pump + Math.Max(instrumentation, s.State.Batch.RequestedKJ(seconds, true, pump))) / 3600;
-        if (amount <= 0) return false;
-        transfer = new PowerTransfer { Session = s, Cooling = sink, Seconds = seconds, Routed = routed, Receipt = NativeEnergyReceipts.Begin(power, co, amount) };
+        bool feeding = Plugin.Collectors.BeforePower(co);
+        double motor = feeding ? FurnaceMaterialRules.MotorRequest(seconds, Plugin.Options.FeederKW, headroom, instrumentation + pump) : 0;
+        amount = (pump + motor + Math.Max(instrumentation, s.State.Batch.RequestedKJ(seconds, true, pump + motor))) / 3600;
+        if (amount <= 0) { Plugin.Collectors.Interrupt(co, Text.Get("Routing.furnace_interlock")); return false; }
+        transfer = new PowerTransfer { Session = s, Cooling = sink, Seconds = seconds, Routed = routed, MotorKJ = motor,
+            MaterialToken = feeding ? Plugin.Collectors.TransferToken(co) : null, Receipt = NativeEnergyReceipts.Begin(power, co, amount) };
         return true;
     }
     internal static void FinishPower(Powered power, CondOwner co, PowerTransfer? transfer)
     {
-        if (transfer == null) return;
+        if (transfer == null || transfer.Finished) return;
+        transfer.Finished = true;
         var s = transfer.Session; var b = s.State.Batch;
         double kJ = NativeEnergyReceipts.Complete(power, co, transfer.Receipt) * 3600;
         if (kJ >= FurnaceRules.InstrumentKW * transfer.Seconds - 1e-9) s.LastReceiptEpoch = StarSystem.fEpoch;
         else s.LastReceiptEpoch = double.NegativeInfinity;
-        if (transfer.Routed && CoolingEndpoint(co) != transfer.Cooling.Object)
+        if (CoolingEndpoint(co) != transfer.Cooling.Object)
         {
             // A path lost after admission cannot transport heater losses to the old sink.
             b.Armed = false; b.Hold = 0; b.HotKJ += kJ; s.LastReceiptEpoch = double.NegativeInfinity;
-            s.Notice = Text.Get("Furnace.coolant_fault", FurnaceCooling.RouteLimit); Save(s); return;
+            s.Notice = Text.Get("Furnace.coolant_fault", FurnaceCooling.RouteLimit);
+            Plugin.Collectors.Interrupt(co, Text.Get("Routing.furnace_interlock")); Save(s); return;
         }
         double pump = transfer.Routed ? Math.Min(FurnaceCooling.PumpKW * transfer.Seconds,
             Math.Max(0, kJ - FurnaceRules.InstrumentKW * transfer.Seconds)) : 0;
-        b.Receive(kJ - pump, transfer.Seconds);
-        if (transfer.Routed) b.Circulate(transfer.Seconds, pump);
+        double motor = FurnaceMaterialRules.MotorReceipt(kJ, transfer.MotorKJ, FurnaceRules.InstrumentKW * transfer.Seconds, pump);
+        b.Receive(kJ - pump - motor, transfer.Seconds);
+        b.SinkKJ += motor;
+        if (transfer.Routed)
+        {
+            int cells=ChargeCells(s);double flow=s.Coolant.Enabled?(cells>0?s.Coolant.Flow(cells):0):1;
+            if(s.Coolant.Enabled&&cells>0)s.Coolant.Advance(transfer.Seconds*Math.Min(1,pump/(FurnaceCooling.PumpKW*transfer.Seconds)),true,pump>0,cells);
+            b.Circulate(transfer.Seconds,pump,flow);
+        }
         transfer.Cooling.SinkKJ = b.SinkKJ; s.DeliveredKW = kJ / transfer.Seconds;
-        if (kJ <= 0) { b.Armed = false; b.Hold = 0; s.Notice = Text.Get("Furnace.power_lost"); }
+        if (kJ <= 0) { b.Armed = false; b.Hold = 0; s.Notice = Text.Get("Furnace.power_lost"); Plugin.Collectors.Interrupt(co, Text.Get("Routing.no_power")); }
         Save(transfer.Cooling); Save(s);
+        // Revalidate the same physical item and route after settlement. Motor losses stay
+        // in the sink even when a late interlock prevents movement; no credit is banked.
+        if (transfer.MaterialToken != null)
+            Plugin.Collectors.AfterPower(co, motor > 0, motor / Plugin.Options.FeederKW, transfer.MaterialToken);
     }
     internal static void Fault(CondOwner co, Exception ex)
     {
+        Plugin.Collectors.Interrupt(co, Text.Get("Routing.furnace_interlock"));
         var s = Get(co); s.State.Batch.Armed = false; s.Notice = Text.Get("Furnace.fault", ex.Message); Save(s);
         if (s.State.NativeMutation || s.State.Batch.Phase == FurnacePhase.Delivering) s.Protected = true;
         Plugin.Log(s.Notice);
@@ -244,8 +267,8 @@ internal static partial class FurnaceService
         double.TryParse(raw, NumberStyles.Float, CultureInfo.InvariantCulture, out double cycle) && cycle > 0);
     internal static void FlightCommand(Ship ship)
     {
-        foreach (var s in sessions.Values.Where(s => s.Object.ship == ship && FurnaceRules.Machine(s.Object.strCODef) && s.State.Batch.Armed))
-        { s.State.Batch.Armed = false; s.State.Batch.Hold = 0; s.Notice = Text.Get("Furnace.flight"); Save(s); }
+        foreach (var s in sessions.Values.Where(s => s.Object.ship == ship && FurnaceRules.Machine(s.Object.strCODef) && (s.State.Batch.Armed || Plugin.Collectors.ReceivingEnabled(s.Object))))
+        { Plugin.Collectors.Interrupt(s.Object, Text.Get("Furnace.flight")); s.State.Batch.Armed = false; s.State.Batch.Hold = 0; s.Notice = Text.Get("Furnace.flight"); Save(s); }
     }
 }
 

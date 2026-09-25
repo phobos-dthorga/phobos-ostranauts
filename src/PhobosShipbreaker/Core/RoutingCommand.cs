@@ -21,7 +21,7 @@ public readonly struct RoutingCommand
         if (words.Length == 4 && new[] { "link", "unlink", "filter", "controls" }.Contains(action))
         {
             string argument = action == "link" ? words[3] : words[3].ToLowerInvariant();
-            if ((action == "unlink" || action == "controls") && argument != "send" && argument != "receive") return new RoutingCommand("invalid");
+            if ((action == "unlink" || action == "controls") && argument != "send" && argument != "receive" && argument != "metals") return new RoutingCommand("invalid");
             if (action == "filter" && RoutingRules.FilterIds(argument).Length == 0) return new RoutingCommand("invalid");
             return new RoutingCommand(action, words[2], argument);
         }

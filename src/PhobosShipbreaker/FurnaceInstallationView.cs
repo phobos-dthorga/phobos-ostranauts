@@ -29,9 +29,12 @@ public sealed class FurnaceInstallationView : MonoBehaviour
         view.rear = view.Block("R", 0, 96, 96, 64, Color.grey);
         view.Block("", 0, 56, 96, 6, new Color(.7f,.65f,.48f));
         view.Block("▼", 0, -60, 16, 16, new Color(.25f,.5f,.7f));
+        view.Block("\u2193", -40, -40, 12, 12, new Color(.7f,.55f,.2f));
+        view.Block("\u2191", 40, -40, 12, 12, new Color(.7f,.55f,.2f));
         // Centre the asymmetrical rear assembly inside a rotation-safe square.
         view.assembly.localScale = Vector3.one * .82f;
-        view.caption = W.Label(parent, ""); view.Refresh();
+        view.caption = W.Label(parent, "");
+        W.Label(parent, Text.Get("Routing.installation_legend")); view.Refresh();
     }
     private Image Block(string text, float x, float y, float width, float height, Color color)
     {

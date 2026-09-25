@@ -8,6 +8,15 @@ Dates on Draft entries record preparation, not Steam publication.
 
 No additional changes recorded.
 
+## [0.6.0] - 2026-09-25 - Draft
+
+### Added
+
+- One W2 can explicitly supply up to eight compatible racks using one shared pump budget.
+- Irrigation routes retain finite parcels and apply authored resistance and transit delays; broken routes keep their contents.
+- New recorded drainage can be treated with finite cartridges and measured electricity, retaining all losses as terminal rejects. Legacy waste is not reassayed.
+- Existing crop, water and dry nutrient saves remain compatible; gameplay evaluation remains pending.
+
 ## [0.5.0] - 2026-09-25 - Draft
 
 ### Development baseline

@@ -36,9 +36,10 @@ internal static class IndustryService
         if (FurnaceService.IsEquipment(co))
         {
             var s = FurnaceService.Get(co);
+            var receiving = FurnaceRules.Machine(co.strCODef) ? Plugin.Collectors.ActiveReceiving(co) : null;
             return new EquipmentCard { Id = co.strID, Name = co.strNameFriendly + " [" + Phobos.Ostranauts.Framework.Inventory.PortPairing.ShortId(co.strID) + "]",
-                Group = IndustrialRules.Group(co.strCODef), State = s.State.Batch.Armed ? EquipmentState.Running : EquipmentState.Paused,
-                Attention = s.Protected || s.Notice.Length > 0, Detail = FurnaceService.Describe(co) };
+                Group = IndustrialRules.Group(co.strCODef), State = s.State.Batch.Armed ? EquipmentState.Running : receiving?.State ?? EquipmentState.Paused,
+                Attention = s.Protected || s.Notice.Length > 0 || receiving?.NeedsAttention == true, Detail = FurnaceService.Describe(co) };
         }
         var group = IndustrialRules.Group(co.strCODef);
         var process = ProcessingService.IsProcessor(co.strCODef) ? Plugin.Service.Activity(co) :
@@ -55,6 +56,7 @@ internal static class IndustryService
         double demand = group == "fixture" ? Plugin.Options.WorkingKW : group == "reclaimer" ? Plugin.Options.ReclaimerKW : group == "collector" ? Plugin.Options.CollectorKW : group == "grabber" ? IntakeRules.WorkingKW : 0;
         if (demand > 0) detail += "\n\n" + Text.Get("Industry.demand", demand) + (group == "reclaimer" ? Text.Get("Industry.feed_demand", Plugin.Options.FeederKW) : "");
         if (co.objContainer != null) detail += "\n" + Text.Get("Industry.stored", co.objContainer.ContainedCOs.Count, co.objContainer.ContainedCOs.Sum(c => c.GetTotalMass()));
+        if (ProcessingService.IsReclaimer(co)) detail += "\n\n" + Text.Get("Routing.metals_port") + "\n" + CollectorService.DescribeLink(co, true, true);
         if (RoutingRules.IsSender(co.strCODef)) detail += "\n\n" + CollectorService.DescribeLink(co, true);
         if (RoutingRules.IsReceiver(co.strCODef)) detail += "\n\n" + CollectorService.DescribeLink(co, false) + "\n" + CollectorService.FilterLabel(co);
         return new EquipmentCard { Id = co.strID, Name = co.strNameFriendly + " [" + Phobos.Ostranauts.Framework.Inventory.PortPairing.ShortId(co.strID) + "]",
@@ -71,7 +73,7 @@ internal static class IndustryService
             message = ControlAuthority.Check(target, binding) ?? "";
             if (message.Length != 0) return false;
         }
-        if (FurnaceService.IsEquipment(target)) return FurnaceService.Command(binding, target, action, value, out message);
+        if (FurnaceService.IsEquipment(target) && !new[] { "receive", "pause-receive", "filter", "unlink-input", "unlink-output", "link-input", "link-output", "inventory" }.Contains(action)) return FurnaceService.Command(binding, target, action, value, out message);
         var provider = EquipmentProviders.For(target.strCODef);
         if (provider != null) return provider.Command(target, binding, action, out message);
         bool processor = ProcessingService.IsProcessor(target.strCODef), receiver = RoutingRules.IsReceiver(target.strCODef);
@@ -85,6 +87,7 @@ internal static class IndustryService
             case "pause-receive" when receiver: result = Plugin.Collectors.Pause(target, binding); message = Plugin.Collectors.Describe(target); return result;
             case "filter" when receiver: return Plugin.Collectors.SetFilter(target, value ?? "", out message, binding);
             case "unlink-input" when receiver: return Plugin.Collectors.Unlink(target, out message, false, binding);
+            case "unlink-metals" when ProcessingService.IsReclaimer(target): return Plugin.Collectors.Unlink(target, out message, true, binding, true);
             case "unlink-output" when RoutingRules.IsSender(target.strCODef): return Plugin.Collectors.Unlink(target, out message, true, binding);
             case "link-input" when receiver:
             case "link-output" when RoutingRules.IsSender(target.strCODef):

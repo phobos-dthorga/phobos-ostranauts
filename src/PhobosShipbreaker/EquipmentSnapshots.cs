@@ -66,7 +66,8 @@ internal sealed partial class CollectorService
         if (s?.Armed != true) return new EquipmentActivity(EquipmentState.Paused, Describe(receiver));
         problem = PairProblem(receiver, out var source, out _) ?? SourceProblem(receiver, source) ?? FilterProblem(receiver);
         if (problem != null) return new EquipmentActivity(EquipmentState.Blocked, problem);
-        if (Destination(receiver)?.ContainedCOs.Count >= ProcessRules.FeedCapacity)
+        int capacity = FurnaceRules.Machine(receiver.strCODef) ? FurnaceRules.ChargeUnits : ProcessRules.FeedCapacity;
+        if (Destination(receiver)?.ContainedCOs.Count >= capacity)
             return new EquipmentActivity(EquipmentState.Blocked, Text.Get("Industry.output_full"));
         return new EquipmentActivity(!receiver.HasCond("IsPowered") ? EquipmentState.Blocked : s.Item != null ? EquipmentState.Running : EquipmentState.Waiting, Describe(receiver));
     }

@@ -590,3 +590,27 @@ segments always require intact, unlocked, owned installation. The one-argument
 strict behaviour for already-built Agriculture consumers. Content still owns
 connection points, circuit exclusivity, pump demand and thermal accounting.
 Geometry supplies no heat, fluid, pump credit or authority to resume machinery.
+
+### Fluid network extension (Framework 0.20.0)
+
+`Inventory.PortBank` provides a bounded bank of existing reciprocal ports; slot
+zero preserves the caller's original single-port ID. Admission, ship scope,
+permissions and route discovery remain content responsibilities. `FluidLine`
+retains a two-component parcel, immutable occupied route binding, capacity and
+remaining transit. Its endpoint custodian must include contents in physical mass,
+use transfer guards, block removal and offer a finite drain. Missing state starts
+empty; never infer fluid from geometric pipe volume. `HydraulicRoute` supplies a
+bounded authored resistance fraction and equal budget shares, not pressure
+observations or a CFD solver. See [operating contracts](fluid-network-operations.md).
+
+### Fluid network extension (Framework 0.20.0)
+
+`Inventory.PortBank` provides a bounded bank of existing reciprocal ports; slot
+zero preserves the caller's original single-port ID. Admission, ship scope,
+permissions and route discovery remain content responsibilities. `FluidLine`
+retains a two-component parcel, immutable occupied route binding, capacity and
+remaining transit. Its endpoint custodian must include contents in physical mass,
+use transfer guards, block removal and offer a finite drain. Missing state starts
+empty; never infer fluid from geometric pipe volume. `HydraulicRoute` supplies a
+bounded authored resistance fraction and equal budget shares, not pressure
+observations or a CFD solver. See [operating contracts](fluid-network-operations.md).

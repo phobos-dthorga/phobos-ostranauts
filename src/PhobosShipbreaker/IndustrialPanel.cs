@@ -233,6 +233,7 @@ public sealed class IndustrialPanel : GUIData
             if (!Central) { Add(actions, "feed"); Add(actions, "products"); }
             FurnaceInstallationView.Build(actions, target);
             W.Label(actions, Text.Get("Furnace.coolant_controls"));
+            if(!Central) foreach(string service in new[]{"managed","sealed","fill","drain"}) Add(actions,"coolant-"+service,label:Text.Get("Furnace.coolant_"+service));
             foreach (string mode in new[] { "direct", "left", "right" })
                 Add(actions, "cooling-" + mode, label: Text.Get("Furnace.coolant_" + mode));
             Add(actions, "unpair", label: Text.Get("Furnace.action_unpair"));
@@ -248,7 +249,7 @@ public sealed class IndustrialPanel : GUIData
         if (RoutingRules.IsReceiver(target.strCODef))
         {
             W.Label(actions, Text.Get("Industry.receiving")); Add(actions, "receive"); Add(actions, "pause-receive");
-            if (!Central && !ProcessingService.IsProcessor(target.strCODef)) Add(actions, "inventory");
+            if (!Central && !ProcessingService.IsProcessor(target.strCODef) && !FurnaceRules.Machine(target.strCODef)) Add(actions, "inventory");
         }
         if (RoutingRules.IsReceiver(target.strCODef) || RoutingRules.IsSender(target.strCODef))
         {
@@ -286,7 +287,7 @@ public sealed class IndustrialPanel : GUIData
         {
             W.Label(actions, CollectorService.DescribeLink(target, false) + "\n" + CollectorService.LinkIds(target, false) + "\n" + CollectorService.FilterLabel(target));
             Add(actions, "unlink-input");
-            foreach (string filter in ProcessingService.IsReclaimer(target) ? new[] { "feed" } : new[] { "all", "feed", "rejects", "legacy" })
+            foreach (string filter in RoutingRules.Choices(target.strCODef))
                 Add(actions, "filter", filter, Text.Get("Industry.filter_" + filter));
             W.Label(actions, Text.Get("Industry.choose_input"));
             foreach (var peer in IndustryService.Discover(target.ship).Where(c => c.strID != target.strID && RoutingRules.CanConnect(c.strCODef, target.strCODef)))
@@ -296,7 +297,14 @@ public sealed class IndustrialPanel : GUIData
         {
             W.Label(actions, CollectorService.DescribeLink(target, true) + "\n" + CollectorService.LinkIds(target, true)); Add(actions, "unlink-output");
             W.Label(actions, Text.Get("Industry.choose_output"));
-            foreach (var peer in IndustryService.Discover(target.ship).Where(c => c.strID != target.strID && RoutingRules.CanConnect(target.strCODef, c.strCODef)))
+            foreach (var peer in IndustryService.Discover(target.ship).Where(c => c.strID != target.strID && RoutingRules.CanConnect(target.strCODef, RoutingRules.OutputPort(target.strCODef), c.strCODef)))
+                Add(actions, "link-output", peer.strID, CollectorService.Label(peer));
+        }
+        if (ProcessingService.IsReclaimer(target))
+        {
+            W.Label(actions, Text.Get("Routing.metals_port") + "\n" + CollectorService.DescribeLink(target, true, true) + "\n" + CollectorService.LinkIds(target, true, true));
+            Add(actions, "unlink-metals");
+            foreach (var peer in IndustryService.Discover(target.ship).Where(c => RoutingRules.CanConnect(target.strCODef, RoutingRules.MetalsOut, c.strCODef)))
                 Add(actions, "link-output", peer.strID, CollectorService.Label(peer));
         }
         detailPage = true; Layout();

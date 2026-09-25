@@ -1,12 +1,16 @@
 # F6 electric furnace: first implementation
 
-**25 September 2026 — Shipbreaker 0.16.0, Framework 0.19.0.** This is a prepared
-implementation candidate. Automated physics and native-definition checks are
-separate from in-game evaluation; gameplay review remains with the owner.
-The owner's earlier Shipbreaker 0.15.0 / Framework 0.17.0 installation was
-verified on 25 September (80 selected files and load order). The 0.16.0 piped
-cooling candidate has not been installed. Installation checks are separate from
-game-session testing. Ordinary saves remain supported.
+**25 September 2026 — Shipbreaker 0.17.0, Framework 0.20.0.** This is a prepared
+implementation candidate. Automated checks are separate from in-game evaluation.
+The previous Shipbreaker 0.16.0 / Framework 0.19.0 installation was verified
+(86 selected files and load order); the 0.17.0 changes require a later update.
+Ordinary saves remain supported.
+
+Version 0.17.0 adds [automatic material routing](furnace-material-routing.md):
+R4 aluminium to the F6 charge bin and released cold furnace products to a hull
+collector. Receiving, batch Start and Release remain separate decisions. This
+release also adds optional finite coolant servicing, documented in the cooling
+and shared fluid guides; it does not replace existing sealed installations.
 
 Version 0.16.0 adds optional [sealed coolant conduits](furnace-coolant-conduits.md)
 for a remote F6-R radiator through shared Framework routes. Existing direct F6-R
@@ -18,9 +22,9 @@ See [equipment economy](equipment-economy.md#shipbreaker-0150-availability-and-c
 for values, work and acquisition details.
 
 The next [repair-casting study](furnace-repair-castings.md) recommends replacement
-heat sinks. The [material-routing design](furnace-material-routing.md) specifies
-paired aluminium feed and cold product collection. Both remain proposals;
-the installed furnace still makes its original housing batch with manual loading.
+heat sinks for future Manufacturing equipment. This remains a proposal. The
+current furnace keeps its original housing recipe, with manual handling or the
+new explicit paired material routes.
 
 ## Installation: choose one cooling assembly
 

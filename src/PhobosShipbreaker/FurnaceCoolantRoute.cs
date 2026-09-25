@@ -55,6 +55,7 @@ internal static partial class FurnaceService
         message = Text.Get("Furnace.hot_maintenance");
         if (!FurnaceRules.Machine(furnace.strCODef) || UnsafeMaintenance(furnace)) return false;
         var s = Get(furnace);
+        if(s.Coolant.Enabled && mode=="direct") {message=Text.Get("Furnace.charge_service");return false;}
         if (!CoolingMode(furnace).TryWrite(new Dictionary<string, string> { ["mode"] = mode }))
         { s.Protected = true; message = Text.Get("Furnace.protected"); return false; }
         s.CoolingMode = mode; s.State.Batch.Armed = false;

@@ -1,8 +1,8 @@
 # Automatic material routing — 0.9.0
 
-The later [F6 routing study](furnace-material-routing.md) proposes aluminium feed
-and released casting collection. Those routes are not part of this implemented
-residue system; existing filters and saved ports keep their meaning.
+The later [F6 routing implementation](furnace-material-routing.md), Shipbreaker
+0.17.0, adds aluminium feed and released casting collection through separate
+logical ports. Existing residue filters and saved ports keep their meaning.
 
 The transport contract below remains current. UI names in the 0.9.0 walkthrough
 describe the earlier fallback panels. For 0.10.0 local and central controls, use

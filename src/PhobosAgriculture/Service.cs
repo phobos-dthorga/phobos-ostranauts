@@ -18,6 +18,9 @@ internal static partial class Service
         internal ObjectStateStore Store = null!;
         internal CropState State = new();
         internal NutrientSolution Solution = new();
+        internal FluidLine Line = new();
+        internal string RecoveryInput="", RecoveryFilter="";
+        internal double RecoveryEnergy;
         internal double Last, Received, DeliveredKW, LastPower = double.NegativeInfinity;
         internal bool Protected, Routed;
         internal string Notice = "";
@@ -28,7 +31,7 @@ internal static partial class Service
     {
         // Native damage/repair modes retain ID/property maps, but rebuild dry mass.
         var next = new Session { Object = replacement, Store = new ObjectStateStore(replacement.mapGUIPropMaps, "Agriculture", Plugin.Id, 1),
-            State = previous.State.Copy(), Solution = previous.Solution.Copy(), Protected = previous.Protected, Routed = previous.Routed, Last = StarSystem.fEpoch, Notice = Text.Get("paused") };
+            State = previous.State.Copy(), Solution = previous.Solution.Copy(), Line=previous.Line.Copy(), RecoveryInput=previous.RecoveryInput, RecoveryFilter=previous.RecoveryFilter, RecoveryEnergy=previous.RecoveryEnergy, Protected = previous.Protected, Routed = previous.Routed, Last = StarSystem.fEpoch, Notice = Text.Get("paused") };
         next.State.Running = next.State.Receiving = false;
         sessions[replacement.strID] = next;
         if (!next.Protected) Save(next);
@@ -63,10 +66,12 @@ internal static partial class Service
             if (solutionStatus == SavedStateStatus.Ready) s.Solution = NutrientSolution.Read(solutionFields, s.State);
             else if (solutionStatus != SavedStateStatus.Missing) s.Protected = true;
             ReadWaterMode(s);
+            ReadLine(s);
+            ReadRecovery(s);
             if (WaterGuard(co).Protected) s.Protected = true;
             if (IrrigationDefinitions.IsSupply(co) && (s.State.CropId.Length != 0 || s.State.CookerInput.Length != 0 || s.State.CookerProgress != 0)) s.Protected = true;
             if (Definitions.IsCooker(co) && s.Solution.Enabled) s.Protected = true;
-            if (Math.Abs(co.GetCondAmount("StatMass") - Definitions.DryMass(co) - s.State.ContentsMass - s.Solution.TotalKg - PhysicalMass(co)) > 1e-5) s.Protected = true;
+            if (Math.Abs(co.GetCondAmount("StatMass") - Definitions.DryMass(co) - s.State.ContentsMass - s.Solution.TotalKg - s.Line.TotalKg - PhysicalMass(co)) > 1e-5) s.Protected = true;
         }
         catch { s.Protected = true; }
         s.Notice = Text.Get(s.Protected ? "protected" : "paused"); sessions[co.strID] = s; return s;
@@ -75,11 +80,13 @@ internal static partial class Service
     {
         if (s.Protected) throw new InvalidOperationException(Text.Get("protected"));
         var solutionFields = s.Solution.Save(s.State);
+        SaveRecovery(s);
+        if (!LineStore(s.Object).TryWrite(s.Line.Save())) { s.Protected=true; throw new InvalidOperationException(Text.Get("protected")); }
         if (!s.Store.TryWrite(s.State.Save())) { s.Protected = true; throw new InvalidOperationException(Text.Get("protected")); }
         if (!SolutionStore(s.Object).TryWrite(solutionFields)) { s.Protected = true; throw new InvalidOperationException(Text.Get("protected")); }
         // Native containers already include child cargo in StatMass. Keep it and propagate
         // only the numerical reservoir/biomass difference to any native parent.
-        s.Object.AddMass(Definitions.DryMass(s.Object) + s.State.ContentsMass + s.Solution.TotalKg + PhysicalMass(s.Object) - s.Object.GetCondAmount("StatMass"), true);
+        s.Object.AddMass(Definitions.DryMass(s.Object) + s.State.ContentsMass + s.Solution.TotalKg + s.Line.TotalKg + PhysicalMass(s.Object) - s.Object.GetCondAmount("StatMass"), true);
     }
     private static double PhysicalMass(CondOwner co) => co.objContainer?.ContainedCOs.Sum(c => c.GetTotalMass()) ?? 0;
     internal static void Fault(CondOwner co, Exception error)
@@ -167,11 +174,12 @@ internal static partial class Service
         message = Access(co, binding) ?? ""; if (message.Length > 0) return false;
         if (action == "status") { message = Describe(co); return true; }
         var s = Get(co); if (s.Protected || WaterGuard(co).Protected || !Definitions.Ready) { message = Text.Get("protected"); return false; }
+        if(action=="cancel-recovery" && IrrigationDefinitions.IsSupply(co) && Paused(s)) {s.RecoveryInput=s.RecoveryFilter="";s.RecoveryEnergy=0;Save(s);message=Describe(co);return true;}
         if (SolutionCommand(s, action, out message) is bool solutionHandled) return solutionHandled;
         if (WaterCommand(s, action, out message) is bool handled) return handled;
         if (Definitions.Work.Contains(action))
         {
-            if (binding != null || Definitions.IsCooker(co) || IrrigationDefinitions.IsSupply(co) && action != "load-water" && action != "load-irrigation" && action != "load-nutrients" && action != "drain") { message = Text.Get("local_work"); return false; }
+            if (binding != null || Definitions.IsCooker(co) || IrrigationDefinitions.IsSupply(co) && action != "load-water" && action != "load-irrigation" && action != "load-nutrients" && action != "drain" && action != "recover-solution") { message = Text.Get("local_work"); return false; }
             CrewSim.GetSelectedCrew().QueueInteraction(co, DataHandler.GetInteraction(Definitions.WorkId(action))); message = Text.Get("queued"); return true;
         }
         switch (action)

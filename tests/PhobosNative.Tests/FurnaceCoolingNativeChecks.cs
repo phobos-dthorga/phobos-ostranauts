@@ -14,6 +14,19 @@ internal static class FurnaceCoolingNativeChecks
 {
     internal static void Run(NativeDefinitions prepared, string repo, Action<bool,string> check)
     {
+        foreach(string id in new[]{FurnaceService.CoolantStock,FurnaceService.CoolantWaste})
+        {
+            var co=prepared.Objects[id];
+            check(co.nStackLimit==1&&!co.aStartingConds.Any(c=>c.StartsWith("IsEdible=")||c.StartsWith("IsHydrator=")),"Industrial coolant cannot become food, potable water or stacked state");
+            check(co.aStartingConds.Any(c=>c.StartsWith("StatMass=")&&c.EndsWith("x1")),"Coolant charge definition carries one actual kilogram");
+        }
+        var charge=new CoolantCharge{Enabled=true,CleanKg=5.2,CapturedKg=.8,PrimeSeconds=2};
+        var chargeMaps=new Dictionary<string,Dictionary<string,string>>();
+        var chargeStore=new ObjectStateStore(chargeMaps,"FurnaceCoolantCharge",Text.Owner,1);
+        check(chargeStore.TryWrite(charge.Save()),"Finite coolant uses an additive saved contract");
+        var restoredChargeMaps=JsonConvert.DeserializeObject<Dictionary<string,Dictionary<string,string>>>(JsonConvert.SerializeObject(chargeMaps))!;
+        var reloadedCharge=new ObjectStateStore(restoredChargeMaps,"FurnaceCoolantCharge",Text.Owner,1);
+        check(reloadedCharge.Read(out var chargeFields)==SavedStateStatus.Ready&&Math.Abs(CoolantCharge.Read(chargeFields).TotalKg-6)<1e-9,"Native-compatible coolant maps retain clean and captured fluid");
         foreach (string state in new[] { "Installed", "Loose", "InstalledDmg", "LooseDmg" })
         {
             var pipe = prepared.Objects[FurnaceCooling.Conduit + state]; var art = prepared.Items[pipe.strItemDef];

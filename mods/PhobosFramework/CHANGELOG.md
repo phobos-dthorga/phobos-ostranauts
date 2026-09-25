@@ -8,6 +8,14 @@ Dates on Draft entries record preparation, not Steam publication.
 
 No additional changes recorded.
 
+## [0.20.0] - 2026-09-25 - Draft
+
+### Added
+
+- Bounded multi-receiver port banks retain the original single-pair identity.
+- Reusable retained two-component fluid lines preserve cargo, route binding and transit clocks across reloads.
+- Bounded hydraulic resistance and shared-budget allocation support Agriculture and optional furnace coolant servicing.
+
 ## [0.19.0] - 2026-09-25 - Draft
 
 ### Development baseline

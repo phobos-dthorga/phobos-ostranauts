@@ -20,7 +20,7 @@ internal static partial class Service
         message = "";
         if (action != "mix-potato" && action != "mix-lettuce" && action != "water-only") return null;
         if (!IrrigationDefinitions.IsSupply(s.Object) || !Paused(s) || !NativeFluidRoute.EndpointReady(s.Object) ||
-            PortPairing.Read(WaterPort(s.Object)).State != PortLinkState.Unlinked || s.Solution.TotalKg > NutrientSolution.Tolerance)
+            WaterBank(s.Object).Occupied || s.Solution.TotalKg > NutrientSolution.Tolerance)
         { message = Text.Get("solution_switch"); return false; }
         string profile = action == "mix-potato" ? NutrientSolution.Potato : action == "mix-lettuce" ? NutrientSolution.Lettuce : NutrientSolution.None;
         if (profile != NutrientSolution.None && s.State.Water > CropState.ReservoirKg - CropState.NutrientCapacityKg)

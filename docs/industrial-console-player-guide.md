@@ -1,6 +1,6 @@
 # Industrial controls
 
-Current packages: Shipbreaker **0.16.0**, requiring Phobos Framework **0.17.0**. Auto Nav remains optional.
+Current packages: Shipbreaker **0.17.0**, requiring Phobos Framework **0.20.0**. Auto Nav remains optional.
 Built against Ostranauts **1.0.1.5** / BepInEx **5.4.23.5**. Automated checks
 passed; the new native panel/seating integration awaits the owner's game test.
 
@@ -13,7 +13,7 @@ remain awake at that console. Multiple consoles may control the same ship; each
 rechecks its own operator, power and ownership on every command.
 
 The console lists installed dismantling fixtures, reclaimers, residue collectors,
-chutes and grabbers on its own host ship. Docking, mooring or towing never adds the
+chutes, grabbers, furnaces and cooling assemblies on its own host ship. Docking, mooring or towing never adds the
 other ship's equipment, even when both ships belong to the player. Unknown,
 leased and foreign ownership does not grant remote control. Moving/uninstalling
 the console or changing selected crew ends the open session. Losing power or
@@ -31,8 +31,10 @@ Select one machine, then start/pause processing or receiving separately. The
 Routing screen offers only supported pairs on this ship. Changing links and
 filters uses the existing saved-pair services; it does not bypass floor routes,
 locks, receiving capacity, input eligibility or reclaimer cooling checks.
-Receiving filters currently cover identified feedstock, reclaimer rejects and
-legacy residue. Metal/parts transport and arbitrary item filters are not added.
+Receiving filters cover identified feedstock, reclaimer rejects, legacy residue
+and explicit released furnace products. Shipbreaker 0.17.0 adds a separate R4
+aluminium outlet and F6 receiving controls; see [furnace material routing](furnace-material-routing.md).
+These do not start or release a casting batch. Arbitrary item routing remains unsupported.
 
 Every installed equipment family also has a local **Control Panel** action using
 the same shared faceplate and command service. Inventory buttons on those local

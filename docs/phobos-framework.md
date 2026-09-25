@@ -1,5 +1,7 @@
 # Phobos Framework: independent foundation
 
+Current extension: [fluid-network operations](fluid-network-operations.md) documents Agriculture 0.6.0 / Framework 0.20.0 fan-out, line contents, treatment and optional Shipbreaker 0.17.0 coolant servicing. Earlier version-specific sections below retain their baseline scope.
+
 Decision: 24 September 2026. The owner selected our own shareable framework
 **instead of Ostranauts Crafting Framework**, and authorised full independence.
 The purpose is reusable services for equipment and future material transport,

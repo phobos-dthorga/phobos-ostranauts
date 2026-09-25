@@ -23,8 +23,9 @@ internal static partial class FurnaceService
         {
             // Isolation remains available with broken instrumentation or missing power.
             if (action == "stop" || action == "pause" || action == "isolate")
-            { b.Stop(); s.Notice = Text.Get("Furnace.stopped"); Save(s); message = s.Notice; return true; }
+            { Plugin.Collectors.Interrupt(co, Text.Get("Furnace.stopped")); b.Stop(); s.Notice = Text.Get("Furnace.stopped"); Save(s); message = s.Notice; return true; }
             if (action == "status") { message = Describe(co); return true; }
+            if(Content.Ready && action.StartsWith("coolant-",StringComparison.Ordinal))return ChargeCommand(s,action,binding==null,out message);
             if (!Content.Ready || !Intact(co)) { message = Text.Get("Furnace.install"); return false; }
             if (co.HasCond("IsLocked")) { message = Text.Get("Furnace.locked"); return false; }
             if (action == "cooling-direct" || action == "cooling-left" || action == "cooling-right")
@@ -72,7 +73,7 @@ internal static partial class FurnaceService
             if (action == "release") return Release(s, out message);
             if (action == "resume" || action == "start" || action == "next" || action == "auto-run" || action == "step-run")
             {
-                if (!ProbeValid(co) || !ChargePresent(s) || CoolingEndpoint(co) == null || CoolingEndpoint(co)!.HasCond("IsDamaged") || Flight(co.ship) || s.State.ShipId != co.ship.strRegID ||
+                if (!ChargeReady(s) || !ProbeValid(co) || !ChargePresent(s) || CoolingEndpoint(co) == null || CoolingEndpoint(co)!.HasCond("IsDamaged") || Flight(co.ship) || s.State.ShipId != co.ship.strRegID ||
                     b.Phase == FurnacePhase.Idle || b.Phase >= FurnacePhase.Equalize)
                 { message = Text.Get("Furnace.resume_block"); return false; }
                 b.PumpSeconds = 0;
@@ -106,6 +107,7 @@ internal static partial class FurnaceService
         }
         if (Math.Abs(captured.Moles - moles * fraction) > 1e-6 ||
             captured.Moles * FurnaceRules.GasR * kelvin / FurnaceRules.ReceiverM3 > FurnaceRules.ReceiverLimitKPa) return false;
+        Plugin.Collectors.CancelPending(co, Text.Get("Furnace.sealed"));
         b.Seal(captured, kelvin); s.State.Inputs.AddRange(items.Select(c => c.strID));
         s.State.ShipId = co.ship.strRegID; s.State.RoomId = room.strID;
         s.State.NativeMutation = true; Save(s);
@@ -198,7 +200,7 @@ internal static partial class FurnaceService
     private static bool OwnUnsafeMaintenance(CondOwner co)
     {
         var s = Get(co);
-        return !FurnaceCooling.CanChange(s.Protected || s.State.NativeMutation,
+        return s.Coolant.TotalKg>1e-9 || !FurnaceCooling.CanChange(s.Protected || s.State.NativeMutation,
             FurnaceRules.Cooling(co.strCODef) || s.State.Batch.Phase == FurnacePhase.Idle,
             FurnaceRules.Cooling(co.strCODef) ? FurnaceRules.ReferenceK + s.SinkKJ / FurnaceRules.SinkCapacity : s.State.Batch.TemperatureK,
             Feed(co)?.objContainer?.ContainedCOs.Count ?? 0, co.objContainer?.ContainedCOs.Count ?? 0);
@@ -270,7 +272,8 @@ internal static partial class FurnaceService
         if (!PortPairing.Matches(Port(furnace), Port(endpoint))) return Text.Get("Furnace.connection_unpaired");
         return null;
     }
-    internal static string Describe(CondOwner co)
+    internal static string Describe(CondOwner co) => DescribeCore(co) + "\n" + ChargeStatus(Get(co));
+    private static string DescribeCore(CondOwner co)
     {
         var s = Get(co); if (s.Protected) return Text.Get("Furnace.protected");
         if (FurnaceRules.Cooling(co.strCODef)) return Text.Get("Furnace.radiator_status", Intact(co) ? (FurnaceRules.ReferenceK + s.SinkKJ / FurnaceRules.SinkCapacity - 273.15).ToString("F1", CultureInfo.CurrentCulture) : Text.Get("Furnace.unknown"),
@@ -286,7 +289,8 @@ internal static partial class FurnaceService
             Reading(s.DeliveredKW, "F1"), b.Hold.ToString("F1", CultureInfo.CurrentCulture),
             CoolingConnectionStatus(co), b.HeatCapKW, b.RampKPerSecond, b.CoolingCapKW,
             b.StepMode ? Text.Get("Furnace.step") : Text.Get("Furnace.auto"), s.Notice) + "\n" + cooling + "\n" +
-            Text.Get("Furnace.coolant_mode", Text.Get("Furnace.coolant_" + s.CoolingMode));
+            Text.Get("Furnace.coolant_mode", Text.Get("Furnace.coolant_" + s.CoolingMode)) + "\n\n" +
+            Plugin.Collectors.Describe(co) + "\n" + CollectorService.DescribeLink(co, true);
     }
     internal static bool F3(string input, out bool success, out string response)
     {
@@ -299,7 +303,7 @@ internal static partial class FurnaceService
         var co = words.Length >= 3 ? CollectorService.Resolve(words[2]) : null;
         if (!IsEquipment(co)) return true;
         if (words[1] == "controls") { success = IndustrialPanel.Open(co!); return true; }
-        success = Command(null, co!, words[1], words.Length > 3 ? words[3] : null, out response); return true;
+        success = IndustryService.Run(null, co!.strID, words[1], words.Length > 3 ? words[3] : null, out response); return true;
     }
 }
 

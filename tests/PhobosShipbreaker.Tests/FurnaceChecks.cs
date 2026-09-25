@@ -9,6 +9,7 @@ internal static class FurnaceChecks
     {
         FurnaceCoolingChecks.Run(check);
         FurnaceCoolantChecks.Run(check);
+        CoolantChargeChecks.Run(check);
         var receipt = new EnergyReceipt(10, 4); receipt.Gather(10, 7);
         check(receipt.Consume(0) == 7, "Electrical receipt includes partial source and stored consumption");
         bool rejected = false; try { receipt.Consume(0); } catch (InvalidOperationException) { rejected = true; }

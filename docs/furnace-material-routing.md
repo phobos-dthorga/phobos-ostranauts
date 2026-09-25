@@ -1,151 +1,154 @@
-# F6 material routing: implementation design
+# F6 material routing
 
-25 September 2026. Exploration against Shipbreaker 0.14.0 / Framework 0.17.0.
-**Not implemented.** Current F6 feed loading and product collection remain manual.
-This designs the authorized next automation direction around the existing
-housing cycle; the [heat-sink proposal](furnace-repair-castings.md) is independent.
+25 September 2026. **Implemented in the Shipbreaker 0.17.0 candidate.**
+Framework 0.20.0 is required by this combined release. Material routing reuses
+existing Framework pairing, exact filters, physical transfers and transfer clocks;
+it adds no public Framework API, new equipment or generated artwork.
+Offline checks do not establish in-game compatibility. Owner evaluation remains.
 
-## Recommended connected slice
+## Operating sequence
 
-```text
-R4 product tray -- aluminium only --> F6 existing physical input bin
+```
+R4 product tray -- aluminium only --> F6 physical charge bin
                                       |
-                    crew seals, starts, equalizes and releases
+                        crew seals, starts, equalizes and releases
                                       |
-F6 released product tray -----------> existing hull collector
-                                      crew hauls to bench/storage
+F6 released product tray -----------> hull collector --> crew hauling
 
-R4 residue output -----------------> its existing separate residue collector
-F6 cooling connection -------------> F6-R or F6-P (unchanged)
+R4 residue outlet -----------------> its existing residue collector
+F6 cooling connection -------------> existing selected cooling assembly
 ```
 
-Use one explicit aluminium source and one explicit output destination per F6.
-Initially support the R4 as source; defer arbitrary containers, splitters and
-fan-out. Retain crew finishing/repair jobs. Routing permission never authorizes
-Seal, Resume, Equalize, Release or another batch. This removes repeated hauling
-while preserving the process decisions and finite inventories.
+1. Install and power the R4 and F6 on the same player-owned ship. Prepare the
+   furnace cooling connection and let its instruments establish valid readings.
+   Keep structural floor between the material endpoints.
+2. In the F6 local Control Panel or C1 routing page, select the R4 as its input.
+   Alternatively choose the separate **Aluminium output** on the R4. Its residue
+   output remains independently paired. Receiving and processing are distinct.
+3. Press **Receive** on the cool, idle, unsealed F6. Only existing, individual
+   one-kilogram aluminium scrap pieces qualify. Separate native stacks locally;
+   this first route does not split them automatically. Receiving stops at twenty
+   pieces. With ContinueFeeding disabled, press Receive for each piece.
+4. Seal and run the batch explicitly, equalize when ready, then Release.
+   Receiving never issues these process commands. Seal cancels pending transfer
+   work. Another charge requires another explicit Receive.
+5. Pair the F6 output to an existing hull collector. Select **Released furnace
+   products only**, then start that collector. It accepts the 19 kg housing blank
+   and 1 kg melt remainder only after the F6 is idle, cool and unlocked.
+6. Haul cargo away from the collector. The 2 x 2 blank fills its 2 x 2 grid;
+   the other product waits upstream until space exists. Item ordering uses full
+   IDs, so the remainder may arrive first. The four-item / 52 kg limits remain.
 
-## Inspected reuse and concrete gaps
+Manual loading and collection still work. The collector's default **All** filter
+continues to mean all supported residue, not all possible cargo. Changing its
+filter pauses receiving and leaves all existing cargo intact. No rejects,
+historic residue, repaired lots or finished bench housings become furnace feed.
 
-| Existing implementation | Required extension |
+## Connections and placement
+
+| Logical port | Connection |
 | --- | --- |
-| `RoutingRules.SendPort` is published `PhobosShipbreaker.ResidueOut`; R4 already uses it for rejects | Add a separate R4 `PhobosShipbreaker.MetalsOut` logical address; never steal the existing residue pair |
-| Framework `PortPairing` saves reciprocal full IDs and port IDs | New F6 `PhobosFurnace.MaterialIn` and `PhobosFurnace.MaterialOut`; cooling pair remains separate |
-| `CollectorService` has one receiver session, physical item binding, `TransferClock`, `PhysicalTransfer.Commit` | Adapt the same service to F6 receiving and explicit released-product acceptance; do not build another conveyor engine |
-| `RoutingRules.FilterIds`, `CollectorRules.Accepts` and native collector inventory permit only three residue identities | Add an explicit furnace-products filter with exact identities/masses and native admission; leave `all` and unsaved defaults residue-only |
-| Collector has four item slots / 52 kg ceiling and a 2 × 2 inventory grid | Preserve bounds; a 2 × 2 housing blank fills the grid, so its remainder must wait until the blank is hauled away |
-| `CollectorRoute.Cells` assumes every non-collector machine is 4 × 4 | Replace the assumption with content-owned endpoint geometry, including the 6 × 6 F6 |
-| F6 input already validates exact 1 kg aluminium, no stacks/contents/repair lots, at most 20 objects | Reuse that predicate and native `AllowedCO` / `CanAddSimple`; never widen to all `IsAluminum` objects |
-| `FurnaceService.BeginPower` / `FinishPower` owns the furnace's measured electrical receipt | Budget feed movement from that same receipt, including motor heat; never independently debit or count the interval twice |
+| R4 `PhobosShipbreaker.ResidueOut` | Existing residue route, unchanged |
+| R4 `PhobosShipbreaker.MetalsOut` | One F6 input |
+| F6 `PhobosFurnace.MaterialIn` | One R4 aluminium source |
+| F6 `PhobosFurnace.MaterialOut` | One hull collector |
+| F6 `PhobosFurnace.Cooling` | Existing cooling pair, unchanged |
 
-`CollectorLinks.Sender`, `Receiver`, `Peer` and UI currently infer ports from the
-machine family. With a dual-output R4 they must take a concrete logical address;
-ambiguous `send` must retain its historic residue meaning. Add an explicit
-`metals` selector rather than silently retarget existing commands or saves.
-All UI/F3/C1 paths resolve the same address and checked command service.
+Full native object IDs and reciprocal pair tokens identify each endpoint. There
+is no nearest-machine fallback, split, fan-out or automatic replacement binding.
+Damage and uninstallation preserve logical addresses for explicit unlinking.
 
-No new public Framework API is currently justified. Port pairing, exact filters,
-bounded floor search (4,096 visited cells), native physical transfer and clocks
-already exist. Content-side endpoint descriptors can consolidate family tests,
-inventory selection, allowed payload and geometry without changing those APIs.
+The furnace input is at local **(-2.5, -2.5)** and output at **(+2.5, -2.5)**,
+rotated with its heading. The live installation key marks both front corners.
+These are structural-floor transport approaches inside the 6 x 6 footprint;
+they do not route through painted pipes or electrical conduit. The middle front
+operator aisle and cooling connections keep their existing roles.
 
-## Placement and permissions
+Routing requires intact structural floor, grid-aligned installed endpoints and
+the same ship. Walls, flexible floor, EVA tiles and bare space cannot carry the
+route. Search remains bounded to 4,096 visited cells. Moving or rotating an
+endpoint, damage or broken floor invalidates the route. The collector retains
+its two hull-wall supports and clear exterior mounting pocket.
 
-Proposal: designate furnace-local **(-2.5, -2.5)** as the input approach tile and
-**(+2.5, -2.5)** as the output approach tile. These are front-corner tiles inside
-its 6 × 6 floor footprint; they rotate with the furnace. Keep the central front
-operator access and existing side/rear cooling sockets clear. Add named material
-points and show them in the existing live installation schematic. These points
-are a design, not already existing native machinery sockets.
+## Controls and F3
 
-Reuse the current underfloor structural-route model. Require the same loaded,
-authorized ship, intact installed endpoints and valid supporting floors; exclude
-EVA/flexible floors, walls and bare space. Revalidate movement/rotation, floor
-loss, damaged endpoints and reciprocal pairs before each commit. A material path
-does not turn painted cooling pipes or electrical conduit into transport lines.
-The collector retains its hull mounting/exterior checks.
+Local panels, C1 and F3 delegate to the same checked service. C1 keeps its
+same-authorized-ship boundary; opening physical inventories remains local.
 
-Local input Start/Pause is separate from heating. C1 uses the same ship boundary;
-opening inventories stays local. Input Start requires an idle, cool, unsealed F6,
-valid feed bin and cooling installation, fresh instrumentation and no flight
-preemption. It may wait for scrap but stops at exactly twenty units. Sealing
-cancels any transfer clock and pauses feed before binding the exact charge IDs.
-After release the next charge requires explicit receiving Start. Reload retains
-pairs/filters/cargo and resets receiving permission and clock progress.
+```
+phobosroute status
+phobosroute link <R4-full-ID> <F6-full-ID>
+phobosroute start <F6-full-ID>
+phobosroute pause <F6-full-ID>
+phobosroute link <F6-full-ID> <collector-full-ID>
+phobosroute filter <collector-full-ID> furnace-products
+phobosroute start <collector-full-ID>
+phobosroute unlink <R4-full-ID> metals
+phobosroute unlink <F6-full-ID> receive
+phobosroute unlink <F6-full-ID> send
+```
 
-Output collection remains receiver-owned: start it at the hull collector. For the
-first slice transfer only when the furnace is idle, cool, unlocked and outside
-any protected/mutation/delivering state. Do not extract captive charge, infer
-solidification from a sprite, or call Release on behalf of a collector. An
-unqualified recovered charge remains in the feed bin for local handling.
+`send` on an R4 retains its historic residue meaning. `metals` explicitly selects
+its aluminium output for unlinking or `phobosroute controls`. A link to an F6
+selects the R4 metals address automatically. F6 controls also expose Receive and
+Pause receiving separately from heat enable, and its stop control stops feeding.
 
-## Mass, power and backpressure
+## Power, heat and backpressure
 
-Only **existing physical objects** move. Select and bind one full item ID, retain
-it at the sender throughout the delay, and recheck source membership, mass,
-filter, access and destination fit immediately before transfer. A replacement
-item cannot inherit elapsed transfer work. A full receiver retains the original
-object and progress at the source. Neither unloaded ships nor wall-clock time
-advance transport. Time gaps above the existing 60-second limit pause it.
+The F6 feed uses the existing Routing settings: default **2 seconds / 2 kW** per
+piece, with captured per-item duration. Instruments and the optional cooling
+pump take priority; the motor receives the remaining measured electricity.
+Below-full supply advances only the equivalent paid motor seconds, never more
+than elapsed simulation time. All paid motor electricity enters the finite
+cooling store, even if a late interlock prevents movement. Feeding an idle
+furnace supplies no melting energy and cannot arm heat.
 
-Proposed F6 feed default reuses **2 seconds / 2 kW**: twenty individual pieces
-require 40 powered transfer seconds and 80 kJ of motor work, plus instrumentation.
-Below-full power can supply instrumentation first; allocate remaining measured
-kJ to equivalent motor seconds, capped by elapsed time. All motor work becomes
-accounted sink heat; a full sink or missing connection blocks feeding. No heat
-goes to melting while idle. Electrical loss/flight immediately removes feeding
-permission while preserving cargo and passive physical cooling. UI reads do no work.
+The F6 uses one native energy receipt for its instruments, pump, motor and
+process. Duplicate settlement is ignored. A lost cooling connection after
+admission retains the receipt as hot-node energy instead of sending heat to a
+missing sink. Route, pair, exact physical item, filter and destination admission
+are checked again before movement. Replacement cargo cannot inherit paid work.
 
-The existing collector source default is **5 seconds / 2 kW**
-(`CollectorRules.CycleSeconds`, used by `Settings`), despite older prose saying
-two seconds. Respect the owner's saved `Collector/TransferSeconds` setting.
-Moving a blank and a remainder therefore needs 10 powered seconds / 20 kJ at
-the current default, with waiting for cargo space additional. Receiver-side
-electricity and room heat retain the existing collector accounting; the sender
-does not incur a second charge. Together these idealized transfers add 100 kJ
-(0.0278 kWh), excluding idle/instrumentation and native tick overrun. This is a
-design calculation, not a measured game result.
+The collector retains its own configured power and room-heat handling. Its
+current default is **5 seconds / 2 kW** per item. The F6 incurs no second charge
+for collector-owned movement. Ideal default budgets are 80 kJ for twenty feed
+pieces and 20 kJ for two output items, excluding instrumentation, waiting and
+native tick overrun. These are authored gameplay budgets, not measured savings.
 
-The four-slot limit is not four blank capacity: spatial packing still applies.
-Attempt the exact native placement; never resize, compress or stack a casting to
-make it fit. Clearing the collector remains useful crew work. The F6 product tray
-can retain its current outputs while an unavailable destination blocks transfer.
-Selecting furnace-products pauses that collector and leaves existing residue
-cargo intact; it does not transform `all` into a wildcard. Proposed accepted
-first identities: 19 kg `PhobosFurnaceHousingBlank` and 1 kg
-`PhobosFurnaceMeltRemainder`. Add a future heat-sink cluster only when its recipe
-ships. Finished bench products are not emitted by this furnace route.
+A full destination retains the original object and its clock at the sender;
+there is no virtual inventory, item cloning or silent disposal. New clock
+progress is never saved or accumulated while unloaded. Time gaps over the
+existing sixty-second bound pause receiving.
 
-## State and failure walkthrough
+## Interruptions and saves
 
-| Situation | Input route | Output route / material result |
-| --- | --- | --- |
-| Cool idle, fewer than 20 valid pieces | Receive after explicit Start | Released stock may leave with collector permission |
-| Twenty pieces received | Pause complete; no automatic Seal | Other cargo remains physical |
-| Seal or running/hot batch | Pause; locked exact charge cannot move | Conservative first slice waits for idle/cool |
-| Output tray blocked during Release | No new charge | Existing release checks retain charge; routing cannot bypass commit |
-| Full collector | No effect on captured charge | Wait with exact object at sender; no deletion |
-| Brownout or power loss | Partial measured work or pause; no free movement | Existing receiver power rules apply |
-| Failed probe / full cooling store / flight | Pause input; physical heat continues cooling | Wait for safe furnace state; retain cargo |
-| Destroyed floor, damaged equipment, moved/rotated endpoint | Invalidate route and pause | No fallback to nearest machine |
-| Pair/filter change | Reset affected clock and pause | Other logical ports retain their pairs |
-| Hot reload / protected interrupted output commit | Input remains paused | No transfer from protected state; no duplicate products |
+| Event | Result |
+| --- | --- |
+| Twenty pieces received | Receiving pauses; no automatic Seal or Start |
+| Seal, active/hot batch, protected native commit | No material movement from captive or protected contents |
+| Full collector | Product stays in the F6 tray until exact native placement fits |
+| Power loss, flight, invalid probe or unusable cooling | F6 receiving pauses; cargo and heat remain; explicit Receive required |
+| Partial measured power | Only paid motor time advances |
+| Floor/endpoint movement, damage, pair or filter change | Affected route pauses; other logical ports retain their connections |
+| Reload | Links, filters and physical cargo survive; receiving permission and clock credit do not |
+| Unqualified recovered charge | Remains in the charge bin for local handling; output routing does not extract it |
 
-## Concrete later implementation order
+The optional serviced-coolant extension in this same release can also block
+feeding when its loop is not ready. Direct and legacy sealed installations
+retain their existing cooling contracts. See the [coolant guide](furnace-coolant-conduits.md).
 
-1. Refactor content endpoint resolution with legacy-address regression checks.
-   Add R4 MetalsOut and F6 MaterialIn/Out, per-port filters and rotated geometry.
-2. Extend the existing transfer service and receipt allocation for cold F6 feed.
-   Preserve the legacy residue route and the reclaimer's additive power behavior.
-3. Add opt-in furnace-product collection with current bounds; wire local/C1/F3
-   controls and localized waiting/fault messages through the same services.
-4. Verify an existing saved R4-to-collector link alongside its new metals route,
-   all four rotations, stack/foreign-feed rejection, twenty-piece cap, sealing
-   race, multiple source requests, partial power, blocked output and hot reload.
-   Reuse existing rollback tests; add cases only for these changed boundaries.
+## Verification and remaining owner checks
 
-No new equipment or raster artwork is needed for this slice. Reuse current
-furnace/collector portraits, native buttons and the live connection diagram;
-label material and cooling connections separately. No PixelLab cost is incurred.
-Physical fit, full-cycle interaction and hauling behavior remain owner checks
-after implementation. This document itself changes no installed behavior.
+Offline checks cover port independence, duplicate pairing, save conversion,
+retained heat, exact IDs/masses, stack/contents/repair-lot rejection, all rotated
+material coordinates, native named points, twenty-piece capacity, finite sink
+headroom, zero/partial motor power, captive-state exclusion, and actual product
+admission through the native collector filter. Shared transfer rollback and
+batch-placement checks remain in use.
+
+Owner checks: run R4 residue collection and F6 feeding together; test native
+stack handling, all four placements, broken floor, brownouts, flight interruption,
+sealing while receiving is enabled, collector backpressure, save/reload and
+local/C1/F3 controls. Artwork and gameplay remain unapproved until evaluated.
+The separate [replacement-casting study](furnace-repair-castings.md) remains
+future Manufacturing work; this release preserves the original housing recipe.

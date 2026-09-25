@@ -55,6 +55,7 @@ if ('Shipbreaker' -in $Mods) {
         if ([version]$shipInfo[0].strModVersion -ge [version]'0.12.0') { $minimumPhobosFramework = [version]'0.16.0' }
         if ([version]$shipInfo[0].strModVersion -ge [version]'0.14.0') { $minimumPhobosFramework = [version]'0.17.0' }
         if ([version]$shipInfo[0].strModVersion -ge [version]'0.16.0') { $minimumPhobosFramework = [version]'0.19.0' }
+        if ([version]$shipInfo[0].strModVersion -ge [version]'0.17.0') { $minimumPhobosFramework = [version]'0.20.0' }
         if ($needsPhobosFramework) { $Mods = @('Framework') + @($Mods | Where-Object { $_ -ne 'Framework' }) }
     }
 }
@@ -86,6 +87,7 @@ if ('Agriculture' -in $Mods) {
         if ($farmInfo.Count -ne 1) { throw 'Expected exactly one native mod metadata entry for PhobosAgriculture.' }
         if ([version]$farmInfo[0].strModVersion -ge [version]'0.4.0' -and $minimumPhobosFramework -lt [version]'0.18.0') { $minimumPhobosFramework = [version]'0.18.0' }
         if ([version]$farmInfo[0].strModVersion -ge [version]'0.5.0' -and $minimumPhobosFramework -lt [version]'0.19.0') { $minimumPhobosFramework = [version]'0.19.0' }
+        if ([version]$farmInfo[0].strModVersion -ge [version]'0.6.0' -and $minimumPhobosFramework -lt [version]'0.20.0') { $minimumPhobosFramework = [version]'0.20.0' }
     }
     $Mods = @('Framework') + @($Mods | Where-Object { $_ -ne 'Framework' })
 }

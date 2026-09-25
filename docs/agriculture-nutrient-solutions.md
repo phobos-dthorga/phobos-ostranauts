@@ -1,5 +1,7 @@
 # Agriculture nutrient-solution piping
 
+Current extension: [fluid-network operations](fluid-network-operations.md) documents Agriculture 0.6.0 / Framework 0.20.0 fan-out, line contents, treatment and optional Shipbreaker 0.17.0 coolant servicing. Earlier version-specific sections below retain their baseline scope.
+
 25 September 2026. Agriculture **0.5.0**, requiring Framework **0.19.0**,
 extends the [W2 water circuit](agriculture-water-conduits.md) with finite mixed
 feed. Prepared packages are not installed or gameplay-validated.

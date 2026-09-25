@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using PhobosAgriculture.Core;
 using Phobos.Ostranauts.Framework.Inventory;
+using Phobos.Ostranauts.Framework.Liquids;
 using Ostranauts.Inventory;
 
 namespace PhobosAgriculture;
@@ -15,17 +16,19 @@ internal static partial class Service
     {
         var s = Get(co);
         if (s.Protected || WaterGuard(co).Protected || Access(co, null, actor) != null || !co.HasCond("IsInstalled") || co.HasCond("IsDamaged") || !Definitions.Ready) return false;
-        if (IrrigationDefinitions.IsSupply(co) && action != "load-water" && action != "load-irrigation" && action != "load-nutrients" && action != "drain") return false;
+        if (IrrigationDefinitions.IsSupply(co) && action != "load-water" && action != "load-irrigation" && action != "load-nutrients" && action != "drain" && action != "recover-solution") return false;
         try
         {
+            if(action=="recover-solution") return QueueRecovery(s);
             if (action == "harvest" || action == "clear") return Harvest(s, action == "clear");
             if (action == "drain")
             {
-                double kg = s.State.Water + s.State.Nutrients + s.Solution.TotalKg;
+                double kg = s.State.Water + s.State.Nutrients + s.Solution.TotalKg + s.Line.TotalKg;
                 if (kg <= 0) return false;
-                var drained = s.State.Copy(); drained.Water = drained.Nutrients = 0; drained.Receiving = false;
+                var drained = s.State.Copy(); drained.Water = drained.Nutrients = 0; drained.Running = drained.Receiving = false;
                 var solution = s.Solution.Copy(); solution.Quantity = default;
-                return Deliver(s, new List<(string, double)> { (Definitions.Drainage, kg) }, null, drained, solution);
+                var line=s.Line.Copy(); line.SetQuantity(default);
+                return Deliver(s, new List<(string, double)> { (CharacterizedDrainage, kg) }, null, drained, solution,line);
             }
             var next = s.State.Copy(); CondOwner? input;
             if (action == "plant-potato" || action == "plant-lettuce")
@@ -74,18 +77,19 @@ internal static partial class Service
         return input != null && input.objCOParent == s.Object && input.strCODef == Definitions.Raw && input.coStackHead == null && input.aStack.Count == 0 &&
             input.GetCOsSafe(true).Count == 0 && Math.Abs(input.GetTotalMass() - .4) < 1e-7 ? input : null;
     }
-    private static bool Deliver(Session s, List<(string Id, double Kg)> specs, CondOwner? input, CropState next, NutrientSolution? nextSolution = null)
+    private static bool Deliver(Session s, List<(string Id, double Kg)> specs, CondOwner? input, CropState next, NutrientSolution? nextSolution = null, FluidLine? nextLine=null, CondOwner? additionalInput=null)
     {
         var products = new List<CondOwner>(); bool committed = false;
         try
         {
             if (s.Object.objContainer == null || s.Object.objContainer.Locked) return false;
-            double sourceMass = input != null ? input.GetTotalMass() : s.State.ContentsMass - next.ContentsMass + s.Solution.TotalKg - (nextSolution ?? s.Solution).TotalKg;
+            double sourceMass = (input?.GetTotalMass() ?? 0) + (additionalInput?.GetTotalMass() ?? 0) + s.State.ContentsMass - next.ContentsMass + s.Solution.TotalKg - (nextSolution ?? s.Solution).TotalKg + s.Line.TotalKg - (nextLine ?? s.Line).TotalKg;
             if (Math.Abs(specs.Sum(x => x.Kg) - sourceMass) > 1e-7) throw new InvalidOperationException("Unbalanced agriculture delivery.");
             foreach (var spec in specs)
             {
                 var product = DataHandler.GetCondOwner(spec.Id); products.Add(product);
-                if (spec.Id == Definitions.Residue || spec.Id == Definitions.Drainage) product.SetCondAmount("StatMass", spec.Kg);
+                if (spec.Id == Definitions.Residue || spec.Id == Definitions.Drainage || spec.Id == CharacterizedDrainage || spec.Id == RecoveryReject) product.SetCondAmount("StatMass", spec.Kg);
+                if(spec.Id==CharacterizedDrainage) WriteDrainage(product,new(s.State.Water+s.Solution.Quantity.CarrierKg+s.Line.Quantity.CarrierKg,s.State.Nutrients+s.Solution.Quantity.SoluteKg+s.Line.Quantity.SoluteKg));
                 if (Math.Abs(product.GetTotalMass() - spec.Kg) > 1e-7 || !s.Object.objContainer.AllowedCO(product)) throw new InvalidOperationException("Invalid agriculture product.");
             }
             var grid = s.Object.objContainer.gridLayout; var cells = new bool[grid.gridMaxX, grid.gridMaxY];
@@ -101,8 +105,10 @@ internal static partial class Service
                 // Once detached, replacements must survive even if native destruction throws.
                 committed = true;
             }
-            s.State = next; s.Solution = nextSolution ?? s.Solution; Save(s); committed = true;
+            if(additionalInput!=null) { additionalInput.RemoveFromCurrentHome(true); if(additionalInput.objCOParent!=null||additionalInput.ship!=null) throw new InvalidOperationException("Recovery input did not detach."); committed=true; }
+            s.State = next; s.Solution = nextSolution ?? s.Solution; s.Line=nextLine??s.Line; Save(s); committed = true;
             if (input != null) input.Destroy();
+            if(additionalInput!=null) additionalInput.Destroy();
             s.Object.objContainer.Redraw(); s.Notice = Text.Get("done"); return true;
         }
         finally

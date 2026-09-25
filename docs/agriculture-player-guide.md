@@ -1,7 +1,9 @@
 # Phobos Agriculture
 
+Current extension: [fluid-network operations](fluid-network-operations.md) documents Agriculture 0.6.0 / Framework 0.20.0 fan-out, line contents, treatment and optional Shipbreaker 0.17.0 coolant servicing. Earlier version-specific sections below retain their baseline scope.
+
 First gameplay candidate, prepared on 25 September 2026. Requires **Phobos
-Framework 0.19.0**. The offline checks pass; the owner still needs to evaluate
+Framework 0.20.0**. The offline checks pass; the owner still needs to evaluate
 the complete loop in Ostranauts. Packages are prepared, not installed.
 
 Agriculture 0.4.0 adds the optional **Groundwork W2 water supply unit and placed

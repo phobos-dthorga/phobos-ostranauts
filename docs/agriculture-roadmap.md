@@ -1,5 +1,7 @@
 # Phobos Agriculture: endurance roadmap
 
+Current extension: [fluid-network operations](fluid-network-operations.md) documents Agriculture 0.6.0 / Framework 0.20.0 fan-out, line contents, treatment and optional Shipbreaker 0.17.0 coolant servicing. Earlier version-specific sections below retain their baseline scope.
+
 **25 September 2026.** Round 1 now has an [implementation candidate](agriculture-implementation.md);
 owner gameplay acceptance remains pending. The owner requested further feature
 work before gameplay testing on 25 September: the current 0.3.0 candidate includes

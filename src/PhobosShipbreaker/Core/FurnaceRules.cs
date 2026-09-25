@@ -10,6 +10,7 @@ public static class FurnaceRules
     public const string Section = Prefix + "Section";
     public const string ThermalPort = Prefix + "ThermalPort";
     public const int Footprint = 6, RadiatorDepth = 4, ChargeUnits = 20, RecipeRevision = 1;
+    public const double FeedUnitKg = 1, RemainderKg = 1, BlankKg = ChargeUnits * FeedUnitKg - RemainderKg;
     public const double RatingKg = 50, MachineKg = 240, RadiatorKg = 100, SectionKg = 80;
     public const double ReferenceK = 298.15, MeltK = 933.45, TargetK = 973.15, ReleaseK = 323.15;
     public const double SolidCp = 1.05, LiquidCp = 1.177, LatentKJ = 397, LiningCapacity = 30;

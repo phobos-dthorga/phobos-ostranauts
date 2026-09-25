@@ -33,11 +33,11 @@ internal sealed class CollectorRoute
         var tile = ship.GetTileByIndex(index);
         var co = tile?.coProps;
         return co != null && co.ship == ship && co.HasCond("IsFloor") && !co.HasCond("IsWall") &&
-            !co.HasCond("IsFloorFlex") && !co.HasCond("IsEVATile");
+            !co.bDestroyed && !co.HasCond("IsDamaged") && !co.HasCond("IsFloorFlex") && !co.HasCond("IsEVATile");
     }
     internal static string? MountProblem(CondOwner port)
     {
-        if (ProcessingService.IsReclaimer(port))
+        if (ProcessingService.IsReclaimer(port) || FurnaceRules.Machine(port.strCODef))
             return port.Item != null && IntakeRules.SameAngle(Angle(port), 0, 90) ? null : Text.Get("Routing.grid_alignment");
         if (port.Item == null || !IntakeRules.SameAngle(Angle(port), 0, 90)) return Text.Get("CollectorRoute.collector_must_align_with_the_hull_grid");
         var ship = port.ship;
@@ -69,15 +69,21 @@ internal sealed class CollectorRoute
     {
         var ship = port.ship;
         if (source.ship != ship || source.Item == null || CollectorRules.IsFamily(source.strCODef) && MountProblem(source) != null) return null;
-        var starts = Cells(source);
-        var goals = new HashSet<int>(Cells(port));
+        if (source.Item == null || !IntakeRules.SameAngle(Angle(source), 0, 90)) return null;
+        var starts = Cells(source, false);
+        var goals = new HashSet<int>(Cells(port, true));
         int[]? path = GridRoute.Find(ship.nCols, ship.nRows, starts, goals, i => Floor(ship, i));
         return path == null ? null : new CollectorRoute(port, source, path);
     }
-    private static int[] Cells(CondOwner co)
+    private static int[] Cells(CondOwner co, bool input)
     {
         var cells = new List<int>(); var ship = co.ship;
-        if (CollectorRules.IsFamily(co.strCODef))
+        if (FurnaceRules.Machine(co.strCODef))
+        {
+            var p = FurnaceMaterialRules.Point(input, 0);
+            cells.Add(ship.GetTileIndexAtWorldCoords1(Point(co, p.X, p.Y)));
+        }
+        else if (CollectorRules.IsFamily(co.strCODef))
             for (int x = 0; x < CollectorRules.Width; x++) cells.Add(ship.GetTileIndexAtWorldCoords1(Point(co, x - 0.5, -1)));
         else
             for (int y = 0; y < ProcessRules.Footprint; y++)

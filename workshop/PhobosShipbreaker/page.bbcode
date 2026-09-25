@@ -1,5 +1,5 @@
 [h1]Phobos Shipbreaker[/h1]
-[b]Version:[/b] 0.16.0
+[b]Version:[/b] 0.17.0
 [b]Publication status:[/b] Not published - development candidate
 
 Recover useful shipbuilding materials and manage onboard industry with Phobos' Rivetline equipment and the Phobos' Asterel C1 Industrial Control Console.
@@ -18,11 +18,14 @@ Recover useful shipbuilding materials and manage onboard industry with Phobos' R
 [*]Experimental candidate; current machinery and artwork still need in-game evaluation.
 [*]No attached-hull cutting, persistent cargo ejection or perfect recycling. Recipe yields are authored gameplay budgets.
 [*]Processing and receiving are separate permissions and pause after reload. Saved links are retained.
-[*]Coolant conduits use a simplified sealed thermal circuit, not transferable water or a fill/drain/leak simulation. Existing direct installations retain their saved meaning.
+[*]Cooling uses a simplified thermal model with optional finite coolant servicing. Existing direct and legacy sealed installations retain their saved meaning.
 [/list]
 
+[h2]New in 0.17.0[/h2]
+Route R4 aluminium to the F6 through a separate saved port; collect released cold castings with the furnace-products filter. Crew still seal, start, equalize and release each batch. Motors consume accounted power and retain heat; full destinations retain cargo. Optional coolant servicing adds finite fill/drain and captured leakage. No new artwork generation.
+
 [h2]Requirements and installation[/h2]
-Ostranauts 1.0.1.5, BepInEx 5 and Phobos Framework 0.19.0 or newer. Auto Nav and Agriculture are optional. No Crafting Framework or Salvage Workshop dependency.
+Ostranauts 1.0.1.5, BepInEx 5 and Phobos Framework 0.20.0 or newer. Auto Nav and Agriculture are optional. No Crafting Framework or Salvage Workshop dependency.
 
 This is a maintained pre-publication page draft, not a download announcement. No Workshop item has been published for this draft. Use the installation guide for source/prepared-package availability and loader setup. Do not remove required providers from saves that contain their content.
 

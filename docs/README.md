@@ -10,6 +10,7 @@ common failures and useful reports.
 - [Shipbreaker](player-guide.md), [reclaimer](scrap-reclaimer.md) and [automatic routing](automatic-material-routing.md).
 - [Industrial console](industrial-console-player-guide.md) and [electric furnace](furnace-player-guide.md).
 - [Agriculture](agriculture-player-guide.md) and [equipment acquisition/prices](equipment-economy.md).
+- [Fluid-network operations](fluid-network-operations.md): multi-rack distribution, retained lines, treatment and coolant servicing.
 - [Agriculture nutrient-solution piping](agriculture-nutrient-solutions.md): W2 formulation, finite feed and saved contents.
 
 ## Development and evidence
@@ -61,7 +62,7 @@ Manufacturing/medical/asteroid concepts are not delivered gameplay systems.
 - [F6 attachment and instrument completion](furnace-connections-and-instruments.md)
 - [F6 electrical heating: selected direction](furnace-electrical-direction.md)
 - [F6 first processing cycle: research specification](furnace-first-cycle.md)
-- [F6 material routing: implementation design](furnace-material-routing.md)
+- [F6 material routing: operation and safeguards](furnace-material-routing.md)
 - [F6 electric furnace: first implementation](furnace-player-guide.md)
 - [F6 sealed coolant conduits](furnace-coolant-conduits.md)
 - [F6 repair casting: replacement heat sinks](furnace-repair-castings.md)

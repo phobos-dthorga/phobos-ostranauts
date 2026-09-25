@@ -54,8 +54,10 @@ public sealed class FurnaceBatch
     }
     /// <summary>Sealed-loop circulation, bounded by actual incremental pump energy.
     /// Its electricity is retained in the cold node; no credit survives this interval.</summary>
-    public double Circulate(double seconds, double pumpKJ)
+    public double Circulate(double seconds, double pumpKJ) => Circulate(seconds,pumpKJ,1);
+    public double Circulate(double seconds, double pumpKJ, double hydraulicFraction)
     {
+        if(!ThermalMath.Finite(hydraulicFraction)||hydraulicFraction<0||hydraulicFraction>1) throw new ArgumentOutOfRangeException(nameof(hydraulicFraction));
         if (!ThermalMath.Finite(seconds) || seconds <= 0 || seconds > FurnaceRules.MaxIntervalSeconds ||
             !ThermalMath.Finite(pumpKJ) || pumpKJ < 0 || pumpKJ > FurnaceCooling.PumpKW * seconds + 1e-7)
             throw new ArgumentOutOfRangeException(nameof(pumpKJ));
@@ -64,7 +66,7 @@ public sealed class FurnaceBatch
         while (seconds > 1e-9)
         {
             double dt = Math.Min(seconds, FurnaceRules.MaxStepSeconds); seconds -= dt;
-            moved += CoolingStep(dt * fraction);
+            moved += CoolingStep(dt * fraction * hydraulicFraction);
         }
         if (SinkK > FurnaceRules.SinkMaxK) Armed = false;
         Chamber.SetTemperature(TemperatureK);

@@ -22,7 +22,7 @@ internal static class IrrigationDefinitions
             var co = d.Objects[Supply + form];
             co.mapPoints = co.mapPoints.Concat(new[] { Outlet + ",24,8" }).ToArray();
             co.strContainerCT = Definitions.Rack + "Supplies";
-            if (form == "Installed") co.aInteractions = co.aInteractions.Concat(new[] { "load-water", "load-irrigation", "load-nutrients", "drain" }.Select(Definitions.WorkId)).ToArray();
+            if (form == "Installed") co.aInteractions = co.aInteractions.Concat(new[] { "load-water", "load-irrigation", "load-nutrients", "recover-solution", "drain" }.Select(Definitions.WorkId)).ToArray();
             string waste = Supply + (form.EndsWith("Dmg") ? "Broken" : "") + "HousingWaste";
             int scraps = form.EndsWith("Dmg") ? 1 : 4;
             if (!d.Objects.ContainsKey(waste)) MaintenanceDefinitions.Remainder(d, waste, Text.Get("housing_waste"), DryKg - scraps);
