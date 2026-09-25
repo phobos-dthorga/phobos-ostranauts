@@ -1,4 +1,46 @@
-# Agriculture PixelLab pilot
+# Agriculture artwork: living visuals and original pilot
+
+## Current 0.2.0 candidate
+
+The owner requested high-resolution ChatGPT grow-rack and galley furniture art,
+visible plants in the world and a full lettuce family on 25 September 2026.
+`source/firstlight-rack-v2.png` and `source/hearth-counter-v2.png` are untouched
+1254 × 1254 RGBA originals from the built-in ChatGPT image-generation tool.
+The retained PixelLab stove is a separate insert in the galley counter. The
+sage-green/cream equipment family belongs to Verdemorrow Agronomics.
+
+`layers.json` records native sizes and registration for the four tray positions
+and stove. `scripts/export-agriculture-art.py` exports 28 images plus 14 matching
+flat normals, with hashes in `exports.json`. World/panel crop states use twelve
+registered rack compositions. Four tray pictures represent one crop cohort;
+footprints and crop yields remain unchanged. Native exports are 64-square racks,
+32-square cooker/counter and 16-square plant/stove layers. Whole source canvases
+are retained; native derivatives use nearest-neighbour sampling. Masters are
+kept separately for future higher-resolution uses.
+
+`living-visuals-preview.png` shows all crops at integer enlargement and the
+separate equipment layers. It is an offline review sheet, not an in-game image.
+All art remains a candidate pending owner review. Dedicated damaged drawings and
+native relief normals remain future work; the runtime uses native wear handling.
+
+`living-visuals-generation-records.json` retains the exact prompts, seeds,
+provider operations, generation/asset IDs and result URLs for this round. Six
+lettuce states used **eight included PixelLab generations** (two wilted attempts
+rejected because they looked too healthy), or **1.33 generations per retained
+lettuce sprite**. Two separate ChatGPT built-in calls produced the equipment.
+Their model identifier and usage price were not disclosed. No additional credit
+was purchased. Reference inputs were project-generated plants only; no game,
+NASA or ESA images were uploaded. This round's records and the original pilot's
+records both ship in the prepared package.
+
+The built-in ChatGPT outputs have separate provider provenance from PixelLab.
+[OpenAI's terms](https://openai.com/policies/terms-of-use/) are the provider
+reference, not a software license applied to these images. The retrieved page
+on 25 September 2026 was region-labelled Europe, so this record does not claim
+verification of the owner's applicable account terms. No public release or
+third-party rights clearance is asserted by this development candidate.
+
+## Original 0.1.0 pilot (historical)
 
 25 September 2026. Eight retained **candidate** sprites: empty rack, cooker and
 potato sprout/young/mature/harvest/wilted/dead portraits. No owner in-game visual

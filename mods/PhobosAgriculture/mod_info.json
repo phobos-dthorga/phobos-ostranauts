@@ -4,7 +4,7 @@
     "strAuthor": "phobosgekko",
     "strModURL": "https://github.com/phobos-dthorga/phobos-ostranauts",
     "strGameVersion": "1.0.1.5",
-    "strModVersion": "0.1.0",
-    "strNotes": "Potato and lettuce cultivation. Requires Phobos Framework 0.17.0. Optional Ship's Water; manual supply supported. Owner gameplay validation pending."
+    "strModVersion": "0.2.0",
+    "strNotes": "Potato and lettuce cultivation. Requires Phobos Framework 0.17.0. Optional Ship's Water; manual supply supported. Owner gameplay validation pending. Verdemorrow Agronomics supplies Firstlight cultivation, Hearth cooking, Continuance planting stock and Groundwork nutrients. Pre-use content identities adopt the Verdemorrow namespace; no old-ID migration is included."
   }
 ]

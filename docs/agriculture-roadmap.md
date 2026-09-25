@@ -1,7 +1,11 @@
 # Phobos Agriculture: endurance roadmap
 
 **25 September 2026.** Round 1 now has an [implementation candidate](agriculture-implementation.md);
-owner gameplay acceptance remains pending. Later rounds remain research/design. This sequence is based on useful
+owner gameplay acceptance remains pending. The owner requested further feature
+work before gameplay testing on 25 September: the current 0.2.0 candidate adds
+[living rack visuals and lettuce art](agriculture-living-visuals.md). Gameplay
+acceptance below remains an evidence milestone, not a gate on that authorized work.
+Later biological rounds remain research/design. This sequence is based on useful
 playable results, not calendar estimates or a promise to implement every branch.
 The [research report](agriculture-research.md) records evidence; the
 [first-slice specification](agriculture-first-slice.md) defines the candidate rack,

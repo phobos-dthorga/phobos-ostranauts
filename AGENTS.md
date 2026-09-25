@@ -24,8 +24,9 @@
   clear so players can identify the item's purpose. Assign model designations
   where meaningful; ordinary materials need no artificial machine model number.
 - This policy covers existing equipment as well as future additions. The
-  current implementation uses Asterel for electronics and Rivetline for industrial
-  equipment. See `docs/equipment-branding.md` for assigned models.
+  current implementation uses Asterel for electronics, Rivetline for Shipbreaker
+  equipment and Verdemorrow Agronomics (short brand: Verdemorrow) for Agriculture.
+  See `docs/equipment-branding.md` for assigned models and agricultural supply lines.
   When applying a name, update item/damaged forms, construction, shop labels,
   control-panel titles and current player documentation together. Historical
   reports may retain their original names when clearly identified as historical.
@@ -37,6 +38,10 @@
   Brand/model selection belongs to content mods. Framework 0.12.0 owns the shared
   `Localization.EquipmentNames` pattern, with content-owned embedded naming maps
   and translated type/variant descriptors. Retain existing translation keys.
+- Agriculture exception (owner clarification, 2026-09-25): the mod has never been
+  used, so its content identifiers may be replaced without migration aliases.
+  Agriculture 0.1.1 adopts the PhobosVerdemorrow namespace for its equipment,
+  supplies and recipes. This is not permission to change other mods' saved IDs.
 
 ## Supporting research and institutional attribution
 
@@ -66,13 +71,21 @@
 
 ## Agriculture direction (2026-09-25)
 
+- Agriculture has a separate fictional manufacturer: **Verdemorrow Agronomics**,
+  evoking verdant growth and humanity's tomorrow in space. Use Verdemorrow on
+  item names, Firstlight for cultivation machinery, Hearth for cooking and
+  prepared food, Continuance for planting stock, and Groundwork for nutrients.
+  Current models are Firstlight-4 and Hearth-2. Ordinary produce and retained
+  waste carry the brand without artificial model numbers. Keep the literal
+  `Phobos'` prefix and recognizable functional types. These are fictional product
+  families, not claims about real cultivars or research-institution endorsement.
 - The owner selected a separate Phobos Agriculture content mod requiring Phobos
   Framework, beginning with potatoes and lettuce, automatic environmental control
   and crew planting, harvesting and maintenance. Short configurable growth cycles
   are authored gameplay balance. Follow `docs/agriculture-research.md`,
   `docs/agriculture-first-slice.md` and `docs/agriculture-roadmap.md`.
-- The owner subsequently authorized implementation. Agriculture 0.1.0 supplies
-  the A4 rack, K2 portion cooker, potato/lettuce cohorts and finite manual inputs.
+- The owner subsequently authorized implementation. Agriculture 0.2.0 supplies
+  the Firstlight-4 rack, Hearth-2 portion cooker, potato/lettuce cohorts and finite manual inputs.
   Framework 0.17.0 adds equipment providers and measured liquid transfers;
   Shipbreaker 0.14.0 exposes agriculture through C1. The optional Ship's Water
   adapter is scoped to inspected 0.16.1, with manual fallback for other versions.
@@ -88,6 +101,40 @@
   plant production, following the shared asset and resolution policies. Separate
   plant and rack layers, preserve registration/provenance and measure cost per
   usable sprite. Research and planning do not initiate paid generation.
+- Owner follow-up (2026-09-25): continue features before gameplay testing, selecting
+  visible plant growth and lettuce artwork. Use ChatGPT for high-resolution grow-rack
+  and galley furniture masters, with separate PixelLab plant/stove layers. Agriculture
+  0.2.0 selects registered native-size compositions from saved crop state through
+  native Item.SetAlt; the local panel shares the same stage policy. Preserve the
+  4 x 4 / 2 x 2 footprints, four-tray single-cohort meaning and read-only rendering.
+  Follow `docs/agriculture-living-visuals.md` and `assets/phobos-agriculture/layers.json`.
+
+## Manufacturing direction (2026-09-25)
+
+- The owner approved a separate **Phobos Manufacturing** content mod for dedicated
+  machining and finished components, beginning with research for one enclosed
+  milling machine/machining centre and heat-sink finishing. Follow
+  `docs/manufacturing-handover.md` in its separate task. Mod creation and research
+  are authorized; no Manufacturing equipment is implemented by the handover.
+- Require **Phobos Framework only** as a mod dependency, alongside the normal
+  game/loader prerequisites. Do not require Ostranauts Crafting Framework,
+  Salvage Workshop or their associated content. Keep Shipbreaker and other
+  Phobos integrations optional, with valid standalone stock acquisition.
+- Shipbreaker owns recovery and rough casting processes; Manufacturing owns
+  machining, tooling and finished components. Framework owns concrete shared
+  services. Establish one provider per item and avoid circular dependencies.
+- Dedicated machining supersedes ordinary-table finishing in the new heat-sink
+  proposal. Preserve the already delivered housing recipe, saved IDs and hot
+  jobs. New proposed heat-sink IDs and balance are still open to revision.
+- Start with one useful machine/job; later lathes need concrete turned products.
+  Research workholding, contained chips/swarf, power/heat, maintenance, finite
+  outputs and interruption before expanding machinery or process fluids.
+- The first research round and buildable Manufacturing 0.0.1 scaffold are in
+  `docs/manufacturing-research.md` and `docs/manufacturing-implementation.md`.
+  The proposed M4 enclosed mill, two-sink preform and finite machining cartridge
+  remain unregistered designs. The scaffold has no operational machinery and
+  is not installed. Keep the optional F6 recipe separate from historic housings;
+  follow `assets/phobos-manufacturing/README.md` for layered artwork planning.
 
 ## Working style
 
@@ -379,12 +426,17 @@
 
 ## Artwork
 
-- Owner memorandum (2026-09-25): use PixelLab and its suitable AI-generation
-  capabilities by default for simpler pixel-art assets across all Ostranauts
-  mods, primarily to reduce generation costs. Reserve ChatGPT image generation
-  for more complex artwork where its additional capability materially improves
-  the result. This explicit provider preference supersedes generic imagegen-skill
-  defaults for these assets. Existing approved art needs no provider migration.
+- Owner memoranda (2026-09-25): prefer PixelLab for simpler pixel-art assets,
+  and explicitly permit ChatGPT-generated high-resolution equipment/furniture
+  bases with separate PixelLab plant, appliance, workpiece and state layers.
+  This complementary workflow applies across all Ostranauts mods, including
+  Manufacturing. Match final projection, palette and pixel density; use stable
+  pivots/attachment positions, retained masters and deterministic native-size
+  exports. Keep runtime lighting, visibility, rotation and damage coherent.
+  Authoring layers need not be separate gameplay objects. Follow the Agriculture
+  layering precedent and `docs/asset-generation-policy.md`; no mandatory use of
+  both providers, wholesale art migration or immediate generation is implied.
+  This explicit preference supersedes generic imagegen-skill provider defaults.
 - Follow `docs/asset-generation-policy.md`, incorporating the inspected Codename
   Gekko PixelLab workflow lessons. Prefer the lowest-cost suitable single-image
   operation; check current allowance and operation cost, preserve prompts/seeds,

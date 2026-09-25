@@ -1,9 +1,22 @@
-# Agriculture 0.1.0 implementation and validation
+# Agriculture 0.2.0 implementation and validation
 
 25 September 2026. **Implementation candidate; no game session has been run.**
 Read the [player guide](agriculture-player-guide.md) for the actual first version.
 The earlier [specification](agriculture-first-slice.md) retains broader design
 targets; this record identifies delivered behavior and remaining work.
+
+The 0.1.1 branding revision establishes **Verdemorrow Agronomics**, independent
+of Shipbreaker's Rivetline. Equipment uses Firstlight-4 and Hearth-2; planting
+stock uses Continuance; nutrients use Groundwork. Produce, meals and byproducts
+also use the shared localized naming mechanism. Native definitions, construction
+fallbacks, merchant names and panel titles derive from the same content catalog.
+The owner confirmed the mod has never been used, so its equipment/supply/recipe
+IDs now use `PhobosVerdemorrow...` without migration aliases. No biology, balance,
+footprint or artwork changes accompany the rename.
+
+Version 0.2.0 adds state-driven world rack artwork, six lettuce states and new
+ChatGPT-generated rack/galley furniture masters. See [visual implementation](agriculture-living-visuals.md).
+Development continues before owner gameplay testing, as requested on 25 September.
 
 ## Delivered
 
@@ -54,10 +67,12 @@ owner verification. Extracted source remains ignored and is not distributed.
   They are not advertised as independently simulated root-zone probes. Dedicated
   root/CO₂ instruments, acceleration faults and maintenance schedules remain later
   work. Existing cabin failures and native equipment damage provide interruptions.
-- Potato artwork has six distinct panel portraits and a separate rack/cooker
-  family. World equipment is currently static; lettuce uses the rack portrait and
-  textual state. Crop overlays, lettuce art and bespoke stock/damage sprites await
-  the pilot's owner review. Supplies reference native artwork at runtime.
+- Potatoes and lettuce each have six states in the world and local panel. Separate
+  source layers are flattened into registered native textures at export time;
+  native Item.SetAlt selects the saved cohort's image. Four tray pictures are one
+  cohort. Source masters and native-scale exports remain separate. Dedicated stock
+  and damage artwork remains future work; native wear still applies, and supplies
+  reference native artwork at runtime. In-game appearance remains unverified.
 - Seed potatoes are reserved now. Lettuce reproduction, nutrient recovery,
   drainage treatment and asteroid feedstocks remain roadmap work.
 

@@ -3,7 +3,7 @@
 Research date: **25 September 2026**. Owner direction: crops first, managed
 machinery with crew tending, a staple plus a fresh vegetable, and openly
 documented game-paced growth. Phobos Framework is required; useful links to
-other content mods are optional. **Research baseline preceding implementation.** Agriculture 0.1.0 is now prepared
+other content mods are optional. **Research baseline preceding implementation.** Agriculture 0.2.0 is now prepared
 for owner evaluation; see [delivered scope](agriculture-implementation.md). It has
 not been installed or gameplay-tested by this task.
 

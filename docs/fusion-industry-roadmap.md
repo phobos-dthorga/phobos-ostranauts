@@ -1,5 +1,19 @@
 # Fusion-powered industry: ideas and research sequence
 
+**Manufacturing decision, 25 September:** dedicated machining and finished parts
+will be researched in a separate **Phobos Manufacturing** mod requiring Phobos
+Framework, with optional Shipbreaker integration and no OCF/SWB dependency.
+The [handover](manufacturing-handover.md) starts with an enclosed milling machine
+and heat-sink finishing, superseding the new part's ordinary-table proposal.
+This does not move existing equipment or rewrite the current housing recipe.
+
+**25 September follow-up research:** [replacement heat sinks](furnace-repair-castings.md)
+are the recommended second casting: native life-support repairs already consume
+them. [Furnace material routing](furnace-material-routing.md) defines a separate
+R4 metals outlet, cold F6 feeding and explicit released-product collection through
+existing transfer services. These studies are complete; their gameplay changes
+are not implemented. Neither requires new graphics generation during research.
+
 **Implementation update (25 September 2026):** Shipbreaker 0.14.0 / Framework 0.17.0
 now prepare the electrical casting candidate described in the [F6 operating guide](furnace-player-guide.md).
 Read that guide for current dimensions, acquisition, controls and owner checks.

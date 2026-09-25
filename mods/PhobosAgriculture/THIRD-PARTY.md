@@ -23,3 +23,14 @@ agriculture-art-notes.md. [PixelLab terms](https://www.pixellab.ai/termsofservic
 permit output use/modification/distribution and restrict training other models;
 they also reference Open RAIL-M. These terms are separate from Phobos code
 licensing. No third-party reference images were submitted.
+
+Version 0.2.0 also uses two original ChatGPT-generated equipment/furniture masters
+and six new PixelLab lettuce states. The package's
+agriculture-living-art-provenance.json records the separate providers, exact
+requests, generation identifiers, retries and usage; agriculture-art-layers.json
+records how independent plant/rack and stove/counter layers are composed.
+The original PixelLab potato/stove records remain included. OpenAI's
+[provider terms](https://openai.com/policies/terms-of-use/) remain separate from
+PixelLab terms and Phobos code licensing. The terms page retrieved this round
+was labelled Europe; applicability to the owner's account has not been verified.
+No game-derived, NASA or ESA artwork is bundled or used as generation input.

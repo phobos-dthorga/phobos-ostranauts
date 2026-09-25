@@ -1,6 +1,6 @@
 # Phobos Agriculture: first-slice specification
 
-**25 September 2026 — design baseline.** Agriculture 0.1.0 now implements a
+**25 September 2026 — design baseline.** Agriculture 0.2.0 now implements a
 first candidate; see [implementation differences](agriculture-implementation.md)
 and the [current player guide](agriculture-player-guide.md). This document specifies
 the crop-first direction selected by the owner. Read the
@@ -38,8 +38,8 @@ and existing damaged/repair/salvage naming conventions together.
 
 | Candidate equipment | Footprint and capacity | Electrical and thermal design |
 | --- | --- | --- |
-| Phobos' Rivetline A4 Cultivation Rack | 4 × 4 tiles; 80 kg dry; one crop cohort; 20 L process-water reservoir; 0.5 kg nutrient cartridge; harvest drawer rated 6 kg with an 8 × 8 inventory grid; separate 2 kg residue buffer | 1.5 kW maximum; ideal cycle averages 0.75 kW potatoes and 0.4 kW lettuce; powered idle target 0.02 kW, additional to cycle budgets |
-| Phobos' Rivetline K2 Galley Cooker | 2 × 2 tiles; 12 kg dry; one 4 kg potato charge; products remain in its physical inventory until collected | 2 kW for 15 minutes per 4 kg batch, 0.5 kWh; no heat credit merely for being connected |
+| Phobos' Verdemorrow Firstlight-4 Cultivation Rack | 4 × 4 tiles; 80 kg dry; one crop cohort; 20 L process-water reservoir; 0.5 kg nutrient cartridge; harvest drawer rated 6 kg with an 8 × 8 inventory grid; separate 2 kg residue buffer | 1.5 kW maximum; ideal cycle averages 0.75 kW potatoes and 0.4 kW lettuce; powered idle target 0.02 kW, additional to cycle budgets |
+| Phobos' Verdemorrow Hearth-2 Galley Cooker | 2 × 2 tiles; 12 kg dry; one 4 kg potato charge; products remain in its physical inventory until collected | 2 kW for 15 minutes per 4 kg batch, 0.5 kWh; no heat credit merely for being connected |
 
 The rack is a contained root cassette inside a habitable cabin, with a lamp,
 circulation fan, finite irrigation loop and condensate return. It is not its own

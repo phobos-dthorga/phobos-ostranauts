@@ -17,7 +17,7 @@ namespace PhobosAgriculture;
 [BepInProcess("Ostranauts.exe")]
 public sealed class Plugin : BaseUnityPlugin
 {
-    public const string Id = "phobosgekko.ostranauts.agriculture", Version = "0.1.0";
+    public const string Id = "phobosgekko.ostranauts.agriculture", Version = "0.2.0";
     internal static Action<string> Log = _ => { };
     internal static ConfigEntry<double> Pace = null!, ReserveLitres = null!;
     private Harmony? harmony;

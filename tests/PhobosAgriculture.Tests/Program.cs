@@ -40,6 +40,25 @@ var savedFields = fine.Save(); savedFields["health"] = "NaN"; bool rejected = fa
 var savedCooker = new CropState { CookerInput = "exact-portion", CookerProgress = .025, Running = true };
 var loadedCooker = CropState.Read(savedCooker.Save()); Check(loadedCooker.CookerInput == "exact-portion" && loadedCooker.CookerProgress == .025 && !loadedCooker.Running, "Cooking reload retains exact input and partial energy, requiring Resume");
 var carbonLimited = New(Crop.Potato); var carbonExchange = carbonLimited.Step(1, .75, 0, 10, true); Near(carbonLimited.Progress, 0, "Missing atmospheric carbon prevents food production"); Check(carbonExchange.OxygenKg <= 0, "No photosynthetic oxygen from a timer");
+foreach (var crop in new[] { Crop.Potato, Crop.Lettuce })
+{
+    var visual = New(crop); string prefix = crop == Crop.Potato ? "Rack-Potato-" : "Rack-Lettuce-";
+    foreach (var stage in new[] { (0d, "sprout"), (.1499, "sprout"), (.15, "young"), (.4499, "young"), (.45, "mature"), (.999, "mature"), (1d, "harvest") })
+    {
+        visual.Progress = stage.Item1;
+        Check(CropAppearance.RackKey(visual) == prefix + stage.Item2, "Both crops show the actual saved growth stage");
+        visual.Running = false;
+        Check(CropAppearance.RackKey(visual) == prefix + stage.Item2, "Paused machinery does not hide retained crops");
+    }
+    visual.Health = .74; Check(CropAppearance.RackKey(visual) == prefix + "wilted", "Stress overrides healthy mature art");
+    visual.Health = 0; Check(CropAppearance.RackKey(visual) == prefix + "dead", "Death overrides ready art");
+    string savedBefore = string.Join(";", visual.Save());
+    Check(CropAppearance.RackKey(visual.Copy()) == CropAppearance.RackKey(visual), "Appearance derives from state without independent counters");
+    Check(CropAppearance.RackKey(visual, true) == "Rack", "Protected state never invents a healthy crop");
+    Check(savedBefore == string.Join(";", visual.Save()), "Appearance reads cannot mutate biology or stored quantities");
+    visual.ClearCrop(); Check(CropAppearance.RackKey(visual) == "Rack", "Harvest/clear restores empty trays");
+}
+Check(CropAppearance.RackKey(new CropState { CropId = "unknown" }) == "Rack", "Unknown crop cannot silently display as a known species");
 var source = new Reservoir("source", 12, 20); var dest = new Reservoir("dest", 0, 20);
 var receipt = FiniteLiquidTransfer.Commit(source, dest, 5, 10); Near(receipt.ReceivedKg, 2, "Crew reserve wins"); Near(source.QuantityKg + dest.QuantityKg, 12, "Water conserved");
 dest.Ship = "neighbour"; rejected = false; try { FiniteLiquidTransfer.Commit(source, dest, 1, 0); } catch { rejected = true; } Check(rejected, "Docked neighbour rejected");

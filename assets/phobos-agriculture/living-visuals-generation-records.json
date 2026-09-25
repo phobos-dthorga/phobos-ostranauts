@@ -1,0 +1,286 @@
+{
+  "date": "2026-09-25",
+  "status": "candidate; no owner gameplay validation",
+  "equipment": [
+    {
+      "source": "source/firstlight-rack-v2.png",
+      "provider": "ChatGPT built-in image_gen",
+      "model": "not disclosed",
+      "prompt": "Use case: stylized-concept. Asset type: original production game sprite master for Phobos' Verdemorrow Firstlight-4 Cultivation Rack, a utilitarian spaceship hydroponic growing rack, designed to receive separate plant sprites. Generate ONE isolated square object on a genuinely transparent background, 1024 by 1024 master. Strict orthographic overhead view, camera looking vertically straight down, axis-aligned square, no isometric perspective, no visible front wall. Maintain a coarse deliberate pixel-art language with straight pixel-cluster edges and simple 3-tone shading, so it reads cleanly at 64 by 64 in a restrained hard-science spaceship game. Muted sage-green painted metal, warm cream service fascia, charcoal recesses, a few brass fittings, wear confined to edges. Square machine outer frame occupies canvas coordinates about 64..960. Four EMPTY contained root-media trays in a 2 by 2 arrangement: centers exactly at (352,352),(672,352),(352,672),(672,672), each approx 260 by 260, dark brown medium inside square muted trays, with no plants. Keep tray centers bare for overlays. Include small integrated irrigation manifold and a refill cap in the lower service strip, an air-circulation grille in the upper strip, slim non-glowing light rails tucked along the outer side frame (do not cross the trays), and clear small electrical/water connection sockets on the lower edge. These are built-in fittings, not a painted conduit network. Keep all silhouette inside the canvas. No plants, loose tools, floor, stars, text, lettering, numbers, branding text, glass canopy, bloom, gradients, labels, annotations, or external cast shadow. High-resolution original with purposeful detail and clean edges; not a screenshot and not a showroom scene. This is the empty equipment layer only.",
+      "generationId": "exec-c4665294-c236-421f-a981-79a4a0a7ae03",
+      "usage": "not disclosed",
+      "references": [],
+      "returnedCanvas": [
+        1254,
+        1254
+      ],
+      "returnedMode": "RGBA"
+    },
+    {
+      "source": "source/hearth-counter-v2.png",
+      "provider": "ChatGPT built-in image_gen",
+      "model": "not disclosed",
+      "prompt": "Use case: stylized-concept. Asset type: original production game sprite master, Phobos' Verdemorrow Hearth-2 spaceship galley furniture BASE LAYER. One compact square built-in cooking counter viewed STRICTLY vertically from above, orthographic plan view, no visible front wall, no isometric perspective. Isolated complete silhouette on genuinely transparent background. 1024x1024 high-resolution master, will export to 32x32 for a two-by-two-tile utilitarian hard-science spaceship game. Coarse deliberate pixel-art edges, broad purposeful panels and simple three-tone shading. Muted sage-green frame and warm cream enamel worktop, dark steel trim, a few brass fasteners, gently worn edges; restrained industrial design. Outer footprint fills roughly coordinates 64..960. A blank flat DARK square appliance mounting recess occupies the upper-left/central area, approximately x192..704 and y128..640; this must be EMPTY, ready for a separately generated round electric stove module to be composited onto it. Along the right edge reserve a narrow plain preparation surface, no sink. Along the bottom edge a shallow service strip with two small unmarked rotary knobs, a modest ventilation slot and visible small power connection fitting. Keep all fittings integral to this counter. No burner, stove, hotplate, pot, food, water, sink, tools, people, room, floor, text, labels, logos, starfield, smoke, bloom or external cast shadow. No complicated tiny greebles. The only requested asset is the support furniture; the cooking appliance is a separate existing sprite.",
+      "generationId": "exec-c140e3c1-ff1b-4b4a-b033-cc21ca08d089",
+      "usage": "not disclosed",
+      "references": [],
+      "returnedCanvas": [
+        1254,
+        1254
+      ],
+      "returnedMode": "RGBA"
+    }
+  ],
+  "lettuce": [
+    {
+      "state": "mature",
+      "operation": "create_image_pixflux",
+      "request": {
+        "description": "Single lettuce plant, mature compact loose-leaf rosette viewed directly from above, centered root at canvas (32,32), rounded overlapping crisp green leaves. Restrained realistic spaceship-game pixel art, coarse deliberate clusters and stepped edges, olive outer leaves and lighter fresh center, simple shading. Plant only, no pot, soil, tray, furniture or background. Entire silhouette fits within central 52x52 of a 64x64 canvas, transparent margin. High overhead orthographic projection, not isometric. Clearly lettuce, not a tree or flower.",
+        "width": 64,
+        "height": 64,
+        "no_background": true,
+        "view": "high top-down",
+        "isometric": false,
+        "detail": "low detail",
+        "shading": "basic shading",
+        "outline": "selective outline",
+        "seed": 2509251
+      },
+      "response": {
+        "content": [
+          {
+            "type": "text",
+            "text": "id: e8d052cc-42b1-4ba9-9e52-beab9e781512\njob_id: e8d052cc-42b1-4ba9-9e52-beab9e781512\ndescription: Single lettuce plant, mature compact loose-leaf rosette viewed directly from above, centered root at canvas (32,32), rounded overlapping crisp green leaves. Restrained realistic spaceship-game pixel art, coarse deliberate clusters and stepped edges, olive outer leaves and lighter fresh center, simple shading. Plant only, no pot, soil, tray, furniture or background. Entire silhouette fits within central 52x52 of a 64x64 canvas, transparent margin. High overhead orthographic projection, not isometric. Clearly lettuce, not a tree or flower.\nsize: 64x64px\ntransparent: True\nasset_id: bbabafb5-6134-5484-a179-980559bf19bb\nasset_status: pending (saved when generation completes)\nseed: 2509251\ncost: 1 generation\nstatus: processing (~10-40s)\n\nhint: get_image(job_id=\"e8d052cc-42b1-4ba9-9e52-beab9e781512\")"
+          }
+        ],
+        "isError": false
+      },
+      "completion": [
+        {
+          "type": "text",
+          "text": "status: completed\nid: e8d052cc-42b1-4ba9-9e52-beab9e781512\njob_id: e8d052cc-42b1-4ba9-9e52-beab9e781512\nframes: 1\ntransparent: yes\nasset_id: bbabafb5-6134-5484-a179-980559bf19bb\nasset_type: image\nasset_status: saved\ngallery: saved to your PixelLab gallery (pixellab.ai/create)\ndownload: https://api.pixellab.ai/mcp/images/e8d052cc-42b1-4ba9-9e52-beab9e781512/download"
+        }
+      ],
+      "source": "source/lettuce-mature.png",
+      "status": "retained candidate"
+    },
+    {
+      "state": "sprout",
+      "operation": "edit_image_pixen",
+      "request": {
+        "image_url": "https://api.pixellab.ai/mcp/images/e8d052cc-42b1-4ba9-9e52-beab9e781512/download",
+        "description": "Replace the mature lettuce with one very tiny lettuce seedling: only TWO rounded pale-green cotyledons on a tiny central stem. The plant must occupy just the central 16x16 pixels of this 64x64 canvas. Root remains exactly centered (32,32). Keep the same overhead projection, palette, coarse pixel art and transparent canvas. No soil, container or other objects.",
+        "no_background": true,
+        "width": 64,
+        "height": 64,
+        "seed": 2509252
+      },
+      "result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "id: 6955a72b-7fe1-480b-8a92-c463ebd7f09e\njob_id: 6955a72b-7fe1-480b-8a92-c463ebd7f09e\nmodel: pixen\nedit: Replace the mature lettuce with one very tiny lettuce seedling: only TWO rounded pale-green cotyledons on a tiny central stem. The plant must occupy just the central 16x16 pixels of this 64x64 canvas. Root remains exactly centered (32,32). Keep the same overhead projection, palette, coarse pixel art and transparent canvas. No soil, container or other objects.\nsource: 64x64px\nsize: 64x64px\ntransparent: True\nseed: 2509252\nasset_id: a0e2865c-2113-586b-8299-2921f55aa1bf\nasset_status: pending (saved when generation completes)\ncost: 1 generation\nstatus: processing (~10-40s)\n\nhint: get_image(job_id=\"6955a72b-7fe1-480b-8a92-c463ebd7f09e\")"
+          }
+        ],
+        "isError": false
+      },
+      "completion": [
+        {
+          "type": "text",
+          "text": "status: completed\nid: 6955a72b-7fe1-480b-8a92-c463ebd7f09e\njob_id: 6955a72b-7fe1-480b-8a92-c463ebd7f09e\nframes: 1\ntransparent: yes\nasset_id: a0e2865c-2113-586b-8299-2921f55aa1bf\nasset_type: image\nasset_status: saved\ngallery: saved to your PixelLab gallery (pixellab.ai/create)\ndownload: https://api.pixellab.ai/mcp/images/6955a72b-7fe1-480b-8a92-c463ebd7f09e/download"
+        }
+      ],
+      "source": "source/lettuce-sprout.png",
+      "status": "retained candidate"
+    },
+    {
+      "state": "young",
+      "operation": "edit_image_pixen",
+      "request": {
+        "image_url": "https://api.pixellab.ai/mcp/images/e8d052cc-42b1-4ba9-9e52-beab9e781512/download",
+        "description": "Make this lettuce a young plant: only FIVE small distinct fresh rounded green leaves in an open rosette. Plant occupies central 32x32 pixels of this 64x64 canvas, visibly smaller and less dense than mature. Root remains exactly centered (32,32), same overhead projection, crisp pixel art palette and transparent margins. No soil, pot or other objects.",
+        "no_background": true,
+        "width": 64,
+        "height": 64,
+        "seed": 2509253
+      },
+      "result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "id: c17ccd09-de19-4c10-b616-dd17902f048d\njob_id: c17ccd09-de19-4c10-b616-dd17902f048d\nmodel: pixen\nedit: Make this lettuce a young plant: only FIVE small distinct fresh rounded green leaves in an open rosette. Plant occupies central 32x32 pixels of this 64x64 canvas, visibly smaller and less dense than mature. Root remains exactly centered (32,32), same overhead projection, crisp pixel art palette and transparent margins. No soil, pot or other objects.\nsource: 64x64px\nsize: 64x64px\ntransparent: True\nseed: 2509253\nasset_id: 6f71c2a4-a851-5c48-aa8f-896b82c38ddb\nasset_status: pending (saved when generation completes)\ncost: 1 generation\nstatus: processing (~10-40s)\n\nhint: get_image(job_id=\"c17ccd09-de19-4c10-b616-dd17902f048d\")"
+          }
+        ],
+        "isError": false
+      },
+      "completion": [
+        {
+          "type": "text",
+          "text": "status: completed\nid: c17ccd09-de19-4c10-b616-dd17902f048d\njob_id: c17ccd09-de19-4c10-b616-dd17902f048d\nframes: 1\ntransparent: yes\nasset_id: 6f71c2a4-a851-5c48-aa8f-896b82c38ddb\nasset_type: image\nasset_status: saved\ngallery: saved to your PixelLab gallery (pixellab.ai/create)\ndownload: https://api.pixellab.ai/mcp/images/c17ccd09-de19-4c10-b616-dd17902f048d/download"
+        }
+      ],
+      "source": "source/lettuce-young.png",
+      "status": "retained candidate"
+    },
+    {
+      "state": "harvest",
+      "operation": "edit_image_pixen",
+      "request": {
+        "image_url": "https://api.pixellab.ai/mcp/images/e8d052cc-42b1-4ba9-9e52-beab9e781512/download",
+        "description": "Make this lettuce a fully harvest-ready broad dense loose-leaf rosette, larger outer leaves and a full pale-green heart. Occupy central 58x58 pixels of the SAME 64x64 canvas without clipping, root exactly centered (32,32). Preserve top-down view, realistic coarse pixel art and transparency. Green edible lettuce; NO flowers, seeds, yellow potato foliage, roots, container or text.",
+        "no_background": true,
+        "width": 64,
+        "height": 64,
+        "seed": 2509254
+      },
+      "result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "id: fc471468-83f9-4e1e-a210-69b8eab05552\njob_id: fc471468-83f9-4e1e-a210-69b8eab05552\nmodel: pixen\nedit: Make this lettuce a fully harvest-ready broad dense loose-leaf rosette, larger outer leaves and a full pale-green heart. Occupy central 58x58 pixels of the SAME 64x64 canvas without clipping, root exactly centered (32,32). Preserve top-down view, realistic coarse pixel art and transparency. Green edible lettuce; NO flowers, seeds, yellow potato foliage, roots, container or text.\nsource: 64x64px\nsize: 64x64px\ntransparent: True\nseed: 2509254\nasset_id: caa1e1d8-b15d-5a65-a484-d13eceb570fb\nasset_status: pending (saved when generation completes)\ncost: 1 generation\nstatus: processing (~10-40s)\n\nhint: get_image(job_id=\"fc471468-83f9-4e1e-a210-69b8eab05552\")"
+          }
+        ],
+        "isError": false
+      },
+      "completion": [
+        {
+          "type": "text",
+          "text": "status: completed\nid: fc471468-83f9-4e1e-a210-69b8eab05552\njob_id: fc471468-83f9-4e1e-a210-69b8eab05552\nframes: 1\ntransparent: yes\nasset_id: caa1e1d8-b15d-5a65-a484-d13eceb570fb\nasset_type: image\nasset_status: saved\ngallery: saved to your PixelLab gallery (pixellab.ai/create)\ndownload: https://api.pixellab.ai/mcp/images/fc471468-83f9-4e1e-a210-69b8eab05552/download"
+        }
+      ],
+      "source": "source/lettuce-harvest.png",
+      "status": "retained candidate"
+    },
+    {
+      "state": "wilted",
+      "operation": "edit_image_pixen",
+      "request": {
+        "image_url": "https://api.pixellab.ai/mcp/images/e8d052cc-42b1-4ba9-9e52-beab9e781512/download",
+        "description": "Make this same lettuce clearly wilted from water stress: collapsed drooping folded outer leaves, dull olive green, a few yellow-brown leaf tips, smaller limp uneven silhouette. Keep recognizable lettuce rosette and central root exactly at (32,32), same 64x64 canvas, overhead view, pixel art, transparency. No soil, pot or background.",
+        "no_background": true,
+        "width": 64,
+        "height": 64,
+        "seed": 2509255
+      },
+      "result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "id: 5a0c7354-47e3-42e7-97e1-916438824eb3\njob_id: 5a0c7354-47e3-42e7-97e1-916438824eb3\nmodel: pixen\nedit: Make this same lettuce clearly wilted from water stress: collapsed drooping folded outer leaves, dull olive green, a few yellow-brown leaf tips, smaller limp uneven silhouette. Keep recognizable lettuce rosette and central root exactly at (32,32), same 64x64 canvas, overhead view, pixel art, transparency. No soil, pot or background.\nsource: 64x64px\nsize: 64x64px\ntransparent: True\nseed: 2509255\nasset_id: ec9e4e4c-8f74-5f91-9b62-72d9e3a99bb7\nasset_status: pending (saved when generation completes)\ncost: 1 generation\nstatus: processing (~10-40s)\n\nhint: get_image(job_id=\"5a0c7354-47e3-42e7-97e1-916438824eb3\")"
+          }
+        ],
+        "isError": false
+      },
+      "completion": [
+        {
+          "type": "text",
+          "text": "status: completed\nid: 5a0c7354-47e3-42e7-97e1-916438824eb3\njob_id: 5a0c7354-47e3-42e7-97e1-916438824eb3\nframes: 1\ntransparent: yes\nasset_id: ec9e4e4c-8f74-5f91-9b62-72d9e3a99bb7\nasset_type: image\nasset_status: saved\ngallery: saved to your PixelLab gallery (pixellab.ai/create)\ndownload: https://api.pixellab.ai/mcp/images/5a0c7354-47e3-42e7-97e1-916438824eb3/download"
+        }
+      ],
+      "source": "source/lettuce-wilted.png",
+      "status": "rejected: insufficient distinction from healthy at native size"
+    },
+    {
+      "state": "dead",
+      "operation": "edit_image_pixen",
+      "request": {
+        "image_url": "https://api.pixellab.ai/mcp/images/e8d052cc-42b1-4ba9-9e52-beab9e781512/download",
+        "description": "Make this lettuce completely dead: a collapsed dry brown and tan rosette of curled papery leaves, with no green living foliage. Keep central root exactly at (32,32), same 64x64 canvas, overhead view, coarse pixel-art style, transparent margins. No soil, pot or background.",
+        "no_background": true,
+        "width": 64,
+        "height": 64,
+        "seed": 2509256
+      },
+      "result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "id: 74c86b2a-024b-4655-9954-8da3a1067580\njob_id: 74c86b2a-024b-4655-9954-8da3a1067580\nmodel: pixen\nedit: Make this lettuce completely dead: a collapsed dry brown and tan rosette of curled papery leaves, with no green living foliage. Keep central root exactly at (32,32), same 64x64 canvas, overhead view, coarse pixel-art style, transparent margins. No soil, pot or background.\nsource: 64x64px\nsize: 64x64px\ntransparent: True\nseed: 2509256\nasset_id: 08b77440-4390-5f44-b3fa-58d16ddf7b37\nasset_status: pending (saved when generation completes)\ncost: 1 generation\nstatus: processing (~10-40s)\n\nhint: get_image(job_id=\"74c86b2a-024b-4655-9954-8da3a1067580\")"
+          }
+        ],
+        "isError": false
+      },
+      "completion": [
+        {
+          "type": "text",
+          "text": "status: completed\nid: 74c86b2a-024b-4655-9954-8da3a1067580\njob_id: 74c86b2a-024b-4655-9954-8da3a1067580\nframes: 1\ntransparent: yes\nasset_id: 08b77440-4390-5f44-b3fa-58d16ddf7b37\nasset_type: image\nasset_status: saved\ngallery: saved to your PixelLab gallery (pixellab.ai/create)\ndownload: https://api.pixellab.ai/mcp/images/74c86b2a-024b-4655-9954-8da3a1067580/download"
+        }
+      ],
+      "source": "source/lettuce-dead.png",
+      "status": "retained candidate"
+    },
+    {
+      "state": "wilted-retry",
+      "source": "source/lettuce-wilted-retry.png",
+      "status": "rejected: still too similar at native size",
+      "operation": "edit_image_pixen",
+      "request": {
+        "image_url": "https://api.pixellab.ai/mcp/images/5a0c7354-47e3-42e7-97e1-916438824eb3/download",
+        "description": "Make the water-stressed lettuce UNMISTAKABLY different from healthy: replace the lush round green rosette with a badly collapsed uneven cluster of SIX curled limp leaves, most of each leaf dull ochre and grey-olive, a little muted green only near center. Deep gaps between leaves, dry brown outer edges, NO bright lime green. Retain the centered root (32,32), same 64x64 transparent canvas, overhead view and pixel style. The plant is wilted but still alive, distinct from fully brown dead leaves.",
+        "no_background": true,
+        "width": 64,
+        "height": 64,
+        "seed": 2509257
+      },
+      "response": {
+        "content": [
+          {
+            "type": "text",
+            "text": "id: d7ddff37-de8d-4110-a7a3-4b6469744c99\njob_id: d7ddff37-de8d-4110-a7a3-4b6469744c99\nmodel: pixen\nedit: Make the water-stressed lettuce UNMISTAKABLY different from healthy: replace the lush round green rosette with a badly collapsed uneven cluster of SIX curled limp leaves, most of each leaf dull ochre and grey-olive, a little muted green only near center. Deep gaps between leaves, dry brown outer edges, NO bright lime green. Retain the centered root (32,32), same 64x64 transparent canvas, overhead view and pixel style. The plant is wilted but still alive, distinct from fully brown dead leaves.\nsource: 64x64px\nsize: 64x64px\ntransparent: True\nseed: 2509257\nasset_id: 481a6464-4028-5840-8298-4b2dee0b114f\nasset_status: pending (saved when generation completes)\ncost: 1 generation\nstatus: processing (~10-40s)\n\nhint: get_image(job_id=\"d7ddff37-de8d-4110-a7a3-4b6469744c99\")"
+          }
+        ],
+        "isError": false
+      },
+      "completion": [
+        {
+          "type": "text",
+          "text": "status: completed\nid: d7ddff37-de8d-4110-a7a3-4b6469744c99\njob_id: d7ddff37-de8d-4110-a7a3-4b6469744c99\nframes: 1\ntransparent: yes\nasset_id: 481a6464-4028-5840-8298-4b2dee0b114f\nasset_type: image\nasset_status: saved\ngallery: saved to your PixelLab gallery (pixellab.ai/create)\ndownload: https://api.pixellab.ai/mcp/images/d7ddff37-de8d-4110-a7a3-4b6469744c99/download"
+        }
+      ]
+    },
+    {
+      "state": "wilted",
+      "source": "source/lettuce-wilted-final.png",
+      "status": "retained candidate: distinct desaturated stress appearance; owner review pending",
+      "operation": "create_image_pixflux",
+      "request": {
+        "description": "A severely wilted but still living lettuce plant viewed DIRECTLY from overhead. Only six limp crumpled grey-olive leaves loosely radiating from a central root, flattened and folded inwards with wide transparent gaps between leaves. Dull desaturated grey-green, ochre tips, deep dark brown shadows. NO bright green, NO lime, NO dense healthy round head. Recognizable distressed lettuce. Simple coarse hard-science game pixel art, just three muted shades. Plant only, centered at (32,32) within central 44x44 pixels of a 64x64 transparent canvas. No soil, container, background, text or side view.",
+        "width": 64,
+        "height": 64,
+        "no_background": true,
+        "view": "high top-down",
+        "isometric": false,
+        "detail": "low detail",
+        "shading": "basic shading",
+        "outline": "selective outline",
+        "seed": 2509258,
+        "text_guidance_scale": 10
+      },
+      "response": {
+        "content": [
+          {
+            "type": "text",
+            "text": "id: ce3fac84-14fb-4c37-9e14-63c55e78dad2\njob_id: ce3fac84-14fb-4c37-9e14-63c55e78dad2\ndescription: A severely wilted but still living lettuce plant viewed DIRECTLY from overhead. Only six limp crumpled grey-olive leaves loosely radiating from a central root, flattened and folded inwards with wide transparent gaps between leaves. Dull desaturated grey-green, ochre tips, deep dark brown shadows. NO bright green, NO lime, NO dense healthy round head. Recognizable distressed lettuce. Simple coarse hard-science game pixel art, just three muted shades. Plant only, centered at (32,32) within central 44x44 pixels of a 64x64 transparent canvas. No soil, container, background, text or side view.\nsize: 64x64px\ntransparent: True\nasset_id: 1a2fb98f-94dd-507f-bfd9-1cee90140bca\nasset_status: pending (saved when generation completes)\nseed: 2509258\ncost: 1 generation\nstatus: processing (~10-40s)\n\nhint: get_image(job_id=\"ce3fac84-14fb-4c37-9e14-63c55e78dad2\")"
+          }
+        ],
+        "isError": false
+      },
+      "completion": [
+        {
+          "type": "text",
+          "text": "status: completed\nid: ce3fac84-14fb-4c37-9e14-63c55e78dad2\njob_id: ce3fac84-14fb-4c37-9e14-63c55e78dad2\nframes: 1\ntransparent: yes\nasset_id: 1a2fb98f-94dd-507f-bfd9-1cee90140bca\nasset_type: image\nasset_status: saved\ngallery: saved to your PixelLab gallery (pixellab.ai/create)\ndownload: https://api.pixellab.ai/mcp/images/ce3fac84-14fb-4c37-9e14-63c55e78dad2/download"
+        }
+      ]
+    }
+  ],
+  "usage": {
+    "pixellabIncludedGenerations": 8,
+    "quotedPerRequest": 1,
+    "actualPerReceipt": 1,
+    "additionalCreditPurchased": false,
+    "chatgptBuiltInCalls": 2,
+    "chatgptUsageCost": "not disclosed by tool; no cash cost estimate made",
+    "includedGenerationsPerRetainedLettuceSprite": 1.3333333333333333
+  }
+}

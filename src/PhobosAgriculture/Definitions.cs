@@ -9,8 +9,8 @@ namespace PhobosAgriculture;
 
 internal static class Definitions
 {
-    internal const string Rack = "PhobosCultivation", Cooker = "PhobosGalley", Controls = "PhobosAgricultureControls";
-    internal const string PotatoSeed = "PhobosSeedPotato", LettuceSeed = "PhobosLettuceSeed", Nutrient = "PhobosCropNutrients", Raw = "PhobosRawPotatoes", Meal = "PhobosPotatoMeal", Leaves = "PhobosLettuce", Residue = "PhobosCropResidue", Drainage = "PhobosCropDrainage";
+    internal const string Rack = "PhobosVerdemorrowFirstlight4", Cooker = "PhobosVerdemorrowHearth2", Controls = "PhobosAgricultureControls";
+    internal const string PotatoSeed = "PhobosVerdemorrowContinuancePotato", LettuceSeed = "PhobosVerdemorrowContinuanceLettuce", Nutrient = "PhobosVerdemorrowGroundworkNutrients", Raw = "PhobosVerdemorrowRawPotatoes", Meal = "PhobosVerdemorrowHearthPotatoes", Leaves = "PhobosVerdemorrowLettuce", Residue = "PhobosVerdemorrowCropResidue", Drainage = "PhobosVerdemorrowProcessSolution";
     internal static bool Ready;
     internal static readonly string[] Work = { "plant-potato", "plant-lettuce", "load-water", "load-nutrients", "harvest", "clear", "drain" };
     internal static string WorkId(string action) => "PhobosAgricultureWork_" + action.Replace('-', '_');

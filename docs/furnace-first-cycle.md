@@ -1,5 +1,9 @@
 # F6 first processing cycle: research specification
 
+**Subsequent research:** see [replacement heat sinks](furnace-repair-castings.md)
+for the next proposed useful repair product, and [material routing](furnace-material-routing.md)
+for planned automation. Neither changes the existing revision-1 housing contract.
+
 **Implementation update (25 September 2026):** Shipbreaker 0.14.0 / Framework 0.17.0
 now prepare the electrical casting candidate described in the [F6 operating guide](furnace-player-guide.md).
 Read that guide for current dimensions, acquisition, controls and owner checks.

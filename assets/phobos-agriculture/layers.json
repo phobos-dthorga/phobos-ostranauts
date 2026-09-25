@@ -1,0 +1,31 @@
+{
+  "revision": 2,
+  "registration": "Top-left pixel coordinates, whole source canvas, centered native pivot; all plant stages retain the same 64x64 source canvas. Four tray pictures represent one rack cohort, not four separately simulated crops.",
+  "rack": {
+    "source": "firstlight-rack-v2.png",
+    "nativeSize": 64,
+    "plantSize": 16,
+    "plantCenters": [[21, 21], [42, 21], [21, 42], [42, 42]]
+  },
+  "cooker": {
+    "source": "hearth-counter-v2.png",
+    "nativeSize": 32,
+    "applianceSource": "cookerRetry.png",
+    "applianceSize": 16,
+    "applianceOrigin": [5, 5]
+  },
+  "plants": {
+    "Potato-sprout": "edit_sprout.png",
+    "Potato-young": "edit_young.png",
+    "Potato-mature": "plantPilot.png",
+    "Potato-harvest": "edit_harvest.png",
+    "Potato-wilted": "edit_wilted.png",
+    "Potato-dead": "deadEdit.png",
+    "Lettuce-sprout": "lettuce-sprout.png",
+    "Lettuce-young": "lettuce-young.png",
+    "Lettuce-mature": "lettuce-mature.png",
+    "Lettuce-harvest": "lettuce-harvest.png",
+    "Lettuce-wilted": "lettuce-wilted-final.png",
+    "Lettuce-dead": "lettuce-dead.png"
+  }
+}

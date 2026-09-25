@@ -23,7 +23,18 @@ internal static class AgricultureNativeChecks
         }
         foreach (var action in d.Interactions.Values)
             check(action.strRaiseUI == null, "Agriculture actions cannot raise nonexistent native prefabs");
-        check(d.Triggers[d.Objects["PhobosCultivationInstalled"].strContainerCT].aTriggers.Contains("TIsWater"), "Rack accepts liquid water rather than inheriting a solids-only container");
+        // Check assets selected by the shared panel/world policy, not just base definitions.
+        foreach (string crop in new[] { "Potato", "Lettuce" })
+        foreach (string stage in new[] { "sprout", "young", "mature", "harvest", "wilted", "dead" })
+        foreach (string suffix in new[] { "", "Normal" })
+        {
+            string image = Path.Combine(repo, "mods/PhobosAgriculture/images/phobos/agriculture/Rack-" + crop + "-" + stage + suffix + ".png");
+            check(File.Exists(image), "Registered crop stage exists: " + image);
+            var png = File.ReadAllBytes(image);
+            int Dimension(int offset) => (png[offset] << 24) | (png[offset + 1] << 16) | (png[offset + 2] << 8) | png[offset + 3];
+            check(Dimension(16) == 64 && Dimension(20) == 64, "Crop texture preserves the 4 x 4 native footprint");
+        }
+        check(d.Triggers[d.Objects["PhobosVerdemorrowFirstlight4Installed"].strContainerCT].aTriggers.Contains("TIsWater"), "Rack accepts liquid water rather than inheriting a solids-only container");
         check(DataHandler.dictCOs["LiquidWater"].aStartingConds.Any(c => c.StartsWith("StatMass=") && Math.Abs(double.Parse(c.Split('x').Last(), System.Globalization.CultureInfo.InvariantCulture) - .25) < 1e-7), "Manual water quantity matches installed native ration");
         var provider = new TestProvider("test.agriculture", "TestAgriculture");
         EquipmentProviders.Register(provider);

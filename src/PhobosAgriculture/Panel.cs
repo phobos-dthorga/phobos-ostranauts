@@ -62,10 +62,9 @@ public sealed class Panel : GUIData
     private void Refresh(CondOwner co)
     {
         readout.text = Service.Describe(co) + "\n" + result;
-        var state = Service.Get(co).State;
-        string key = Definitions.IsCooker(co) ? "Cooker" : state.CropId != "potato" ? "Rack" : "Potato-" + (state.Health <= 0 ? "dead" : state.Health < .75 ? "wilted" : state.Ready ? "harvest" : state.Progress < .15 ? "sprout" : state.Progress < .45 ? "young" : "mature");
-        if (key == portraitKey) return; portraitKey = key; portrait.texture = DataHandler.LoadPNG("phobos/agriculture/" + key + ".png", bNorm: false);
-        if (portrait.texture != null) portrait.texture.filterMode = FilterMode.Point;
+        var session = Service.Get(co);
+        string key = Artwork.Key(co, session.State, session.Protected);
+        if (key == portraitKey) return; portraitKey = key; portrait.texture = Artwork.Texture(key);
     }
     public override void SaveAndClose() { if (bActive) base.SaveAndClose(); }
 }

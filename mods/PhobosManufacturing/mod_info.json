@@ -1,0 +1,10 @@
+[
+  {
+    "strName": "Phobos Manufacturing",
+    "strAuthor": "phobosgekko",
+    "strModURL": "https://github.com/phobos-dthorga/phobos-ostranauts",
+    "strGameVersion": "1.0.1.5",
+    "strModVersion": "0.0.1",
+    "strNotes": "Research scaffold only: no operational machining equipment, stock or recipes. Requires Phobos Framework 0.17.0 and the normal game/BepInEx prerequisites. Shipbreaker is optional. Not gameplay-validated."
+  }
+]

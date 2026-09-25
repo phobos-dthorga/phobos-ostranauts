@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "recipes": [
     {
-      "id": "PhobosCultivationBuild",
-      "name": "Phobos' Rivetline A4 Cultivation Rack",
+      "id": "PhobosVerdemorrowFirstlight4Build",
+      "name": "Phobos' Verdemorrow Firstlight-4 Cultivation Rack",
       "description": "Assemble an empty, loose appliance from physical materials.",
       "nameKey": "rack",
       "descriptionKey": "build_desc",
@@ -50,7 +50,7 @@
       ],
       "outputs": [
         {
-          "item": "PhobosCultivationLoose",
+          "item": "PhobosVerdemorrowFirstlight4Loose",
           "count": 1,
           "unitMassKg": 80
         }
@@ -59,8 +59,8 @@
       "range": 2
     },
     {
-      "id": "PhobosGalleyBuild",
-      "name": "Phobos' Rivetline K2 Galley Cooker",
+      "id": "PhobosVerdemorrowHearth2Build",
+      "name": "Phobos' Verdemorrow Hearth-2 Galley Cooker",
       "description": "Assemble an empty, loose appliance from physical materials.",
       "nameKey": "cooker",
       "descriptionKey": "build_desc",
@@ -107,7 +107,7 @@
       ],
       "outputs": [
         {
-          "item": "PhobosGalleyLoose",
+          "item": "PhobosVerdemorrowHearth2Loose",
           "count": 1,
           "unitMassKg": 12
         }

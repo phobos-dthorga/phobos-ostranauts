@@ -1,10 +1,46 @@
 {
   "rack": {
-    "brand": "Rivetline",
-    "model": "A4"
+    "brand": "Verdemorrow",
+    "model": "Firstlight-4"
   },
   "cooker": {
-    "brand": "Rivetline",
-    "model": "K2"
+    "brand": "Verdemorrow",
+    "model": "Hearth-2"
+  },
+  "potato_seed": {
+    "brand": "Verdemorrow",
+    "model": "Continuance"
+  },
+  "lettuce_seed": {
+    "brand": "Verdemorrow",
+    "model": "Continuance"
+  },
+  "nutrients": {
+    "brand": "Verdemorrow",
+    "model": "Groundwork"
+  },
+  "raw": {
+    "brand": "Verdemorrow",
+    "model": ""
+  },
+  "meal": {
+    "brand": "Verdemorrow",
+    "model": "Hearth"
+  },
+  "leaves": {
+    "brand": "Verdemorrow",
+    "model": ""
+  },
+  "residue": {
+    "brand": "Verdemorrow",
+    "model": ""
+  },
+  "drainage": {
+    "brand": "Verdemorrow",
+    "model": ""
+  },
+  "housing_waste": {
+    "brand": "Verdemorrow",
+    "model": ""
   }
 }

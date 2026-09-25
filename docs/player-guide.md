@@ -1,6 +1,6 @@
 # Current player guide
 
-Agriculture 0.1.0 is a new prepared candidate: see the [cultivation and cooking guide](agriculture-player-guide.md). It requires Framework 0.17.0; optional C1 integration uses Shipbreaker 0.14.0. Owner gameplay evaluation is pending.
+Agriculture 0.2.0 is a new prepared candidate with visible crop growth and furnished cooking equipment: see the [cultivation and cooking guide](agriculture-player-guide.md). It requires Framework 0.17.0; optional C1 integration uses Shipbreaker 0.14.0. Owner gameplay evaluation is pending.
 
 
 **Prepared versions:** Phobos Framework **0.17.0**, Shipbreaker **0.14.0**, Auto Nav

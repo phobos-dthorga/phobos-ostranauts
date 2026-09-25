@@ -1,4 +1,4 @@
-# Asset generation: PixelLab first for simpler pixel art
+# Asset generation: layered ChatGPT bases and PixelLab sprites
 
 Owner memorandum, **25 September 2026**, effective immediately across all Phobos
 Ostranauts mods. Its purpose is to reduce generation costs while preserving the
@@ -10,16 +10,72 @@ Reuse suitable vanilla controls and existing approved Phobos assets first.
 Use deterministic layout, live localized labels and mechanical exports for work
 that does not need new authored imagery.
 
-For new simpler raster artwork, use **PixelLab**: small machinery fittings,
-materials, icons, uncomplicated props and suitable state variants. Reserve
-ChatGPT's image generation for complex imagery where its additional capability
-materially improves the result. Choose the operation for the actual asset; do
-not infer price or quality from the provider name alone. This changes future
-provider selection, not the provenance or approval of existing artwork.
+For new simpler raster artwork, prefer **PixelLab**: small machinery fittings,
+materials, icons, uncomplicated props and suitable state variants. The owner's
+subsequent memorandum on **25 September 2026 explicitly permits ChatGPT image
+generation for high-resolution equipment/furniture bases**, with separately
+registered PixelLab sprites layered onto them. This applies across all Phobos
+Ostranauts mods, including future Manufacturing equipment. ChatGPT can also supply
+other complex imagery where it materially improves the result. Choose by the
+actual layer's needs; neither both providers nor a new base are required for
+every asset. Existing approved art needs no migration or regeneration.
 
 The configured PixelLab MCP connection was verified through read-only balance
 and capability calls. No generation was submitted for this memorandum. Reuse
 that connection rather than copying credentials or building another integration.
+
+## Layered production memorandum
+
+Use each provider where its output is useful, preserving independent source
+layers and repeatable composition:
+
+| Layer | Preferred source / role |
+| --- | --- |
+| Equipment chassis, grow-rack, galley furniture, machine enclosure | ChatGPT high-resolution original master when useful for the base design |
+| Plants and growth stages, stove insert, workpieces, small fittings, simple variants | PixelLab sprites, kept separate from the base |
+| Labels, readings, buttons and instruments | Live localized text and isolated native controls; original raster UI only for a documented gap |
+| Game-ready image/state | Deterministic composition/export from the retained layers, or a supported native visual overlay where runtime change requires it |
+
+The current reference is the owner's **Research Ostranauts agriculture mod** task
+and its `assets/phobos-agriculture/layers.json`: separate Firstlight rack and
+Hearth counter masters, registered plant positions, a separate cooking appliance
+insert, and potato/lettuce state sprites. The task reported those masters and
+sprite families prepared; runtime composition and owner evaluation were still
+in progress when this memorandum was recorded. This is a production precedent,
+not a claim that the new visuals have been approved in-game.
+
+Recommendations adopted for this workflow:
+
+- Establish transparent canvases, overhead projection, native footprint, crop,
+  pivot, layer order and named attachment positions before requesting variants.
+  Record coordinate units and intended native dimensions in a small manifest.
+  Different source resolutions are acceptable; alignment is defined in one
+  shared output coordinate system, not guessed for each export.
+- A high-resolution base is a **source master**, not permission to ship a larger
+  native footprint. Apply the existing world export/scaling rules. Inspect the
+  composite at actual game size: palette, pixel clusters, outline strength and
+  shading must agree. A detailed master should not leave a smooth-looking base
+  underneath conspicuously coarse sprites. Nearest-neighbour reduction preserves
+  sampling; it does not by itself create a coherent pixel-art design.
+- Keep replaceable content out of the permanent base: plants, movable workpieces,
+  changeable appliances and status indicators should be their own layers.
+  Foreground lips/guards may need a separate occlusion layer so contents sit
+  inside equipment correctly rather than painting over its edges.
+- Authoring layers do not require one game object per layer. Flatten static
+  combinations with the existing exporter. Change only the necessary visual
+  state at runtime using the native rendering path; preserve common rotation,
+  lighting, visibility and damage treatment. Keep colour/normal/state alignment,
+  and do not turn a visual insert into extra physical cargo or simulated equipment.
+- Preserve each untouched master, layer provenance, generation requests and
+  hashes, plus the composition manifest and exporter. Regenerate only the layer
+  whose design changed. Validate one representative base-plus-sprite composite
+  before expanding an entire state family.
+
+The earlier cost-conscious direction remains: no mandatory dual-provider pass,
+bulk remake of approved art, silent paid-credit purchase or assumption that this
+workflow is automatically cheaper. Record observed generation usage separately
+for each provider when available. This memorandum permits the complementary
+workflow; it is not a request to generate additional artwork immediately.
 
 ## Small, cost-conscious workflow
 

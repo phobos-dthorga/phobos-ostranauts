@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <Version>0.0.1</Version>
+    <GameManaged>$(OstranautsPath)/Ostranauts_Data/Managed</GameManaged>
+    <BepInExCore>$(OstranautsPath)/BepInEx/core</BepInExCore>
+  </PropertyGroup>
+  <Target Name="RequireLocalGame" BeforeTargets="ResolveReferences">
+    <Error Condition="!Exists('$(GameManaged)/Assembly-CSharp.dll')" Text="Supply OstranautsPath for your local installation." />
+    <Error Condition="!Exists('$(BepInExCore)/BepInEx.dll')" Text="The installation must contain BepInEx 5." />
+  </Target>
+  <ItemGroup>
+    <ProjectReference Include="../PhobosFramework/PhobosFramework.csproj" Private="false" />
+    <Reference Include="BepInEx" HintPath="$(BepInExCore)/BepInEx.dll" Private="false" />
+    <Reference Include="UnityEngine" HintPath="$(GameManaged)/UnityEngine.dll" Private="false" />
+    <Reference Include="UnityEngine.CoreModule" HintPath="$(GameManaged)/UnityEngine.CoreModule.dll" Private="false" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="../../translations/PhobosManufacturing/en.json" LogicalName="PhobosManufacturing.en.json" />
+  </ItemGroup>
+</Project>

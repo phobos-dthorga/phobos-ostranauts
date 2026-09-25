@@ -1,5 +1,9 @@
 # Automatic material routing — 0.9.0
 
+The later [F6 routing study](furnace-material-routing.md) proposes aluminium feed
+and released casting collection. Those routes are not part of this implemented
+residue system; existing filters and saved ports keep their meaning.
+
 The transport contract below remains current. UI names in the 0.9.0 walkthrough
 describe the earlier fallback panels. For 0.10.0 local and central controls, use
 the [industrial console player guide](industrial-console-player-guide.md).
@@ -90,7 +94,10 @@ Processing and feeding gain no work during a brownout. Adding feed demand does
 not accelerate processing. Cooling failure pauses receiving and processing at the reclaimer. A separate
 collector can still remove its stored output.
 
-Collector receiving retains its existing 2-second / 2 kW total operating demand.
+Collector receiving uses the current code default of 5 seconds / 2 kW total
+operating demand (`CollectorRules.CycleSeconds`); an existing saved
+`Collector/TransferSeconds` setting takes precedence. Earlier prose stated two
+seconds, which is the reclaimer feed default rather than the collector default.
 Sending stored output does not add a second sender-side power charge. Short
 native power ticks can overrun a transfer's final fraction; all delivered
 reclaimer energy still becomes heat. Time gaps over the transfer clock's

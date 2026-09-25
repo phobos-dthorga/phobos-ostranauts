@@ -1,10 +1,16 @@
-# Phobos Agriculture 0.1.0
+# Phobos Agriculture 0.2.0
 
 First gameplay candidate, prepared on 25 September 2026. Requires **Phobos
 Framework 0.17.0**. The offline checks pass; the owner still needs to evaluate
 the complete loop in Ostranauts. Packages are prepared, not installed.
 
 ## Equipment and supplies
+
+**Verdemorrow Agronomics** supplies this agricultural family: **Firstlight-4**
+cultivation racks, **Hearth-2** galley cookers, **Continuance** seed potatoes and
+lettuce seeds, and **Groundwork** formulated nutrients. Harvested produce and
+retained materials also carry the Verdemorrow brand. Full names begin with
+`Phobos' Verdemorrow`; the [brand register](equipment-branding.md) lists them.
 
 Buy equipment, planting stock and formulated nutrients from the supply kiosk,
 fixer or suitable general trader after stock refresh. Availability is additive
@@ -13,8 +19,8 @@ Bar/Dining Table, with the required screwdriver and soldering tools:
 
 | Equipment | Construction inputs | Work / base price |
 | --- | --- | --- |
-| Phobos' Rivetline A4 Cultivation Rack | 48 steel scrap, 24 aluminium scrap, 12 small mechanical parts, 4 small electrical parts | 60 minutes / 9,000 cr |
-| Phobos' Rivetline K2 Galley Cooker | 6 steel scrap, 4 aluminium scrap, 2 small mechanical parts, 2 small electrical parts | 20 minutes / 2,400 cr |
+| Phobos' Verdemorrow Firstlight-4 Cultivation Rack | 48 steel scrap, 24 aluminium scrap, 12 small mechanical parts, 4 small electrical parts | 60 minutes / 9,000 cr |
+| Phobos' Verdemorrow Hearth-2 Galley Cooker | 6 steel scrap, 4 aluminium scrap, 2 small mechanical parts, 2 small electrical parts | 20 minutes / 2,400 cr |
 
 Install the **4 × 4 rack** and **2 × 2 cooker** on cabin floors and connect their
 power points. Keep room temperature at **18–26 °C** and pressure at **70–110 kPa**
@@ -22,11 +28,27 @@ for growth. These are authored gameplay limits, not universal plant tolerances.
 The rack needs atmospheric CO₂. Lamps consume electricity and warm the cabin;
 ventilation and cooling remain ship responsibilities.
 
+## Living rack visuals
+
+Firstlight-4 now shows potatoes or lettuce in its four trays: sprout, young,
+mature, harvest-ready, wilted or dead. These four pictures represent **one crop
+cohort**, not four separately plantable slots or four times the yield. The local
+panel shows the same composed rack. Growth and health drive the artwork; pausing
+the lamps leaves the plants visible. Successful harvesting/clearing empties the
+trays. A protected unreadable state shows the base rack; consult its panel warning.
+
+The rack has a new sage-green and cream housing. Hearth-2 now includes matching
+galley furniture beneath its separate electric stove insert. The fittings are
+part of each machine's housing; the counter is not another buildable object.
+The footprints remain 4 × 4 and 2 × 2. Appearance refreshes within about two real
+seconds while the ship is loaded; it does not advance growth or resume automation.
+Lettuce's harvest-ready image depicts food leaves, not seed production.
+
 ## First crop
 
-1. Put one **0.2 kg seed potato** or one **5 g lettuce seed packet** in the rack's
+1. Put one **Continuance 0.2 kg seed potato** or one **Continuance 5 g lettuce seed packet** in the rack's
    normal Inventory. Supplies must be separate, unstacked items.
-2. Put native **LiquidWater** rations and formulated nutrient packets there too.
+2. Put native **LiquidWater** rations and **Groundwork** nutrient packets there too.
    Use **Control Panel → Load one water ration / Load nutrients**. Each ten-second
    crew action loads one 0.25 kg water ration or one 40 g packet. The finite
    reservoirs hold 20 kg water and 0.5 kg nutrients. Initial ideal potato cycle:
@@ -55,7 +77,7 @@ portion rounding can reduce a delayed harvest by one portion; the remainder stay
 in residue, never disappears. Lettuce harvests currently give **no replacement
 seed**. Buy more seed until its separate reproductive lifecycle is implemented.
 
-The K2 cooks **one 0.4 kg portion per Start**, at 2 kW for 90 seconds at full
+The Hearth-2 cooks **one 0.4 kg portion per Start**, at 2 kW for 90 seconds at full
 supply. Load raw potatoes, start, then collect the cooked portion. Partial supply
 slows cooking. Removing the bound input suspends the cycle; return that exact
 portion or Cancel before using another. Cancellation discards cooking progress,

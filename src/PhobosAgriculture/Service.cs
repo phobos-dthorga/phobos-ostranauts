@@ -38,6 +38,8 @@ internal static partial class Service
         foreach (var co in DataHandler.mapCOs.Values.Where(c => Definitions.Machine(c) && !c.bDestroyed && c.ship != null && (int)c.ship.LoadState >= 2).ToArray())
         {
             if (!co.HasCond("IsInstalled") || co.HasCond("IsDamaged")) { BeginRun(co); Tick(co); }
+            var display = Get(co);
+            Artwork.Refresh(co, display.State, display.Protected);
         }
         foreach (var entry in sessions.ToArray())
         {

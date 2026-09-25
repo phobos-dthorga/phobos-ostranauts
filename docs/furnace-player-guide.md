@@ -3,8 +3,15 @@
 **25 September 2026 — Shipbreaker 0.14.0, Framework 0.17.0.** This is a prepared
 implementation candidate. Automated physics and native-definition checks are
 separate from in-game evaluation; gameplay review remains with the owner.
-The earlier 0.13.0 installation has a verified installer receipt; this 0.14.0
-candidate is a separate build, not an assertion that it has been installed. Ordinary saves are supported. No game or save was modified to test it.
+The owner's local 0.14.0 / Framework 0.17.0 installation was verified on
+25 September: 94 suite files and load order matched, with Auto Nav 0.10.1.
+That is an installation check, not a game-session test. Ordinary saves are
+supported; saves and player settings were not accessed by the installer.
+
+The next [repair-casting study](furnace-repair-castings.md) recommends replacement
+heat sinks. The [material-routing design](furnace-material-routing.md) specifies
+paired aluminium feed and cold product collection. Both remain proposals;
+the installed furnace still makes its original housing batch with manual loading.
 
 ## Installation: choose one cooling assembly
 
@@ -252,5 +259,6 @@ support have separate messages. Painted pipe details are not a routable network.
   guard, enable/stop, drag each slider and Apply, then change a value through F3.
   Verify unsubmitted edits are retained and refresh causes no new commands.
 
-These gameplay checks have **not** been run by the agent. The 0.14.0 package is prepared for owner review; preparing a package does not
-install it or change a running game or saves. The historical research and mockup are background, not runtime proof.
+These gameplay checks have **not** been run by the agent. The 0.14.0 installation
+was verified separately as described above. The historical research and mockup
+are background, not runtime proof.

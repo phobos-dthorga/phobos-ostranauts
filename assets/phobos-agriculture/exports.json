@@ -1,130 +1,680 @@
 [
   {
     "name": "Rack",
-    "source": "assets/phobos-agriculture/source/rackEdit.png",
-    "sourceSHA256": "2e3f0ac22622e31a023b68b6870c0fb10ffb6287b53bddbe2d70a23b3ed7d79b",
-    "canvas": [
-      128,
-      128
+    "inputs": [
+      {
+        "source": "assets/phobos-agriculture/source/firstlight-rack-v2.png",
+        "sourceSHA256": "300d78df654d45b8ca775415b3f3eecf8be5577f3f6d7f74cdcdfa9449a6cefa",
+        "canvas": [
+          1254,
+          1254
+        ]
+      }
     ],
     "export": [
       64,
       64
     ],
-    "sampling": "nearest",
-    "registration": "whole canvas; centered pivot; no independent crop",
-    "exportSHA256": "8400f23000023b298830f21d6cfcc99142375f60279fff81a881a3913d4d8e73"
+    "sampling": "nearest; alpha composite registered layers",
+    "layout": "assets/phobos-agriculture/layers.json",
+    "exportSHA256": "1d6b23df38c094ebb567a7114b3bc22beef3efb24a76fb36a5b57384db714a0f",
+    "normalSHA256": "404db72ff9254a86efe5f970ce729abe5a804563af01ba73ba9b598b95d8fa53"
   },
   {
-    "name": "Cooker",
-    "source": "assets/phobos-agriculture/source/cookerRetry.png",
-    "sourceSHA256": "63a760594079e4491324719f6e72fbcc8786345b3cd27c9aeea99df5f0244512",
-    "canvas": [
-      128,
-      128
+    "name": "Potato-sprout",
+    "inputs": [
+      {
+        "source": "assets/phobos-agriculture/source/edit_sprout.png",
+        "sourceSHA256": "9c8f74f2e34f2c0383179a7a44c4cf75a21137296529388de322d8babc7027c0",
+        "canvas": [
+          64,
+          64
+        ]
+      }
+    ],
+    "export": [
+      16,
+      16
+    ],
+    "sampling": "nearest; alpha composite registered layers",
+    "layout": "assets/phobos-agriculture/layers.json",
+    "exportSHA256": "85069179eb3e7afe1961fe4b0a5138becdb639be630194e6af18eca315c522dd"
+  },
+  {
+    "name": "Rack-Potato-sprout",
+    "inputs": [
+      {
+        "source": "assets/phobos-agriculture/source/firstlight-rack-v2.png",
+        "sourceSHA256": "300d78df654d45b8ca775415b3f3eecf8be5577f3f6d7f74cdcdfa9449a6cefa",
+        "canvas": [
+          1254,
+          1254
+        ]
+      },
+      {
+        "source": "assets/phobos-agriculture/source/edit_sprout.png",
+        "sourceSHA256": "9c8f74f2e34f2c0383179a7a44c4cf75a21137296529388de322d8babc7027c0",
+        "canvas": [
+          64,
+          64
+        ]
+      }
+    ],
+    "export": [
+      64,
+      64
+    ],
+    "sampling": "nearest; alpha composite registered layers",
+    "layout": "assets/phobos-agriculture/layers.json",
+    "exportSHA256": "4b1c09e32182e28690fabdc7c43fd05a104caaf661a75b2bc1d99461e6096510",
+    "normalSHA256": "4bf40f025244224758740a808beb651beb7e682ddf054bdca9888b3832026df2"
+  },
+  {
+    "name": "Potato-young",
+    "inputs": [
+      {
+        "source": "assets/phobos-agriculture/source/edit_young.png",
+        "sourceSHA256": "9b9290287adb5cc4157079c071dae094f240de85a236cd1729aca56100a0f458",
+        "canvas": [
+          64,
+          64
+        ]
+      }
+    ],
+    "export": [
+      16,
+      16
+    ],
+    "sampling": "nearest; alpha composite registered layers",
+    "layout": "assets/phobos-agriculture/layers.json",
+    "exportSHA256": "c8254912a1408bf83381fe3fdddcf278056132bda89ee6a4de6ca5719dd41d2b"
+  },
+  {
+    "name": "Rack-Potato-young",
+    "inputs": [
+      {
+        "source": "assets/phobos-agriculture/source/firstlight-rack-v2.png",
+        "sourceSHA256": "300d78df654d45b8ca775415b3f3eecf8be5577f3f6d7f74cdcdfa9449a6cefa",
+        "canvas": [
+          1254,
+          1254
+        ]
+      },
+      {
+        "source": "assets/phobos-agriculture/source/edit_young.png",
+        "sourceSHA256": "9b9290287adb5cc4157079c071dae094f240de85a236cd1729aca56100a0f458",
+        "canvas": [
+          64,
+          64
+        ]
+      }
+    ],
+    "export": [
+      64,
+      64
+    ],
+    "sampling": "nearest; alpha composite registered layers",
+    "layout": "assets/phobos-agriculture/layers.json",
+    "exportSHA256": "627be91cd59d1fa45573e911e47c75b52f445faa74fb853a31f01620beb652ef",
+    "normalSHA256": "618a12ba6f797e2aa4fbd1a39a5030725c9bcce32e1e345586557a5207e69092"
+  },
+  {
+    "name": "Potato-mature",
+    "inputs": [
+      {
+        "source": "assets/phobos-agriculture/source/plantPilot.png",
+        "sourceSHA256": "d9f732492e0d8c33b9f83a99fc4e72fc11ff044f75cb4984a48f35560bb1451c",
+        "canvas": [
+          64,
+          64
+        ]
+      }
+    ],
+    "export": [
+      16,
+      16
+    ],
+    "sampling": "nearest; alpha composite registered layers",
+    "layout": "assets/phobos-agriculture/layers.json",
+    "exportSHA256": "7809d54f7d27193641262080df772eb2fdd2fd40992baba433713250b7ab5cc6"
+  },
+  {
+    "name": "Rack-Potato-mature",
+    "inputs": [
+      {
+        "source": "assets/phobos-agriculture/source/firstlight-rack-v2.png",
+        "sourceSHA256": "300d78df654d45b8ca775415b3f3eecf8be5577f3f6d7f74cdcdfa9449a6cefa",
+        "canvas": [
+          1254,
+          1254
+        ]
+      },
+      {
+        "source": "assets/phobos-agriculture/source/plantPilot.png",
+        "sourceSHA256": "d9f732492e0d8c33b9f83a99fc4e72fc11ff044f75cb4984a48f35560bb1451c",
+        "canvas": [
+          64,
+          64
+        ]
+      }
+    ],
+    "export": [
+      64,
+      64
+    ],
+    "sampling": "nearest; alpha composite registered layers",
+    "layout": "assets/phobos-agriculture/layers.json",
+    "exportSHA256": "b35927716faa5a10155ebe66e976accf1133074cc6a8a83c62af7fdbf1f7ed75",
+    "normalSHA256": "c47eac8abb1d0877e9e75a4274415a976956e0d7d2538c2b7e7c04db92a76c29"
+  },
+  {
+    "name": "Potato-harvest",
+    "inputs": [
+      {
+        "source": "assets/phobos-agriculture/source/edit_harvest.png",
+        "sourceSHA256": "80cb28b2f891c7942247b9fca0fc54afd5506f74eb2ca3c364456e81387f6ea5",
+        "canvas": [
+          64,
+          64
+        ]
+      }
+    ],
+    "export": [
+      16,
+      16
+    ],
+    "sampling": "nearest; alpha composite registered layers",
+    "layout": "assets/phobos-agriculture/layers.json",
+    "exportSHA256": "058dad4e9c9eec7dd84734bbcaa1bf1ac55de2028f2aa3817e24d177493ab3b7"
+  },
+  {
+    "name": "Rack-Potato-harvest",
+    "inputs": [
+      {
+        "source": "assets/phobos-agriculture/source/firstlight-rack-v2.png",
+        "sourceSHA256": "300d78df654d45b8ca775415b3f3eecf8be5577f3f6d7f74cdcdfa9449a6cefa",
+        "canvas": [
+          1254,
+          1254
+        ]
+      },
+      {
+        "source": "assets/phobos-agriculture/source/edit_harvest.png",
+        "sourceSHA256": "80cb28b2f891c7942247b9fca0fc54afd5506f74eb2ca3c364456e81387f6ea5",
+        "canvas": [
+          64,
+          64
+        ]
+      }
+    ],
+    "export": [
+      64,
+      64
+    ],
+    "sampling": "nearest; alpha composite registered layers",
+    "layout": "assets/phobos-agriculture/layers.json",
+    "exportSHA256": "9563d4f2103b9a772f76287fd98baf95fccd71bc4875cc6797871b8e8132b06e",
+    "normalSHA256": "c47eac8abb1d0877e9e75a4274415a976956e0d7d2538c2b7e7c04db92a76c29"
+  },
+  {
+    "name": "Potato-wilted",
+    "inputs": [
+      {
+        "source": "assets/phobos-agriculture/source/edit_wilted.png",
+        "sourceSHA256": "608644b0a5a7349e82fb24d7a1383f154a567e0725b5fa0261856af2d6e19b24",
+        "canvas": [
+          64,
+          64
+        ]
+      }
+    ],
+    "export": [
+      16,
+      16
+    ],
+    "sampling": "nearest; alpha composite registered layers",
+    "layout": "assets/phobos-agriculture/layers.json",
+    "exportSHA256": "17ea82c1e50d9a1da0517f6f140c1b46e789e984c149014ce928a0e6241f9c52"
+  },
+  {
+    "name": "Rack-Potato-wilted",
+    "inputs": [
+      {
+        "source": "assets/phobos-agriculture/source/firstlight-rack-v2.png",
+        "sourceSHA256": "300d78df654d45b8ca775415b3f3eecf8be5577f3f6d7f74cdcdfa9449a6cefa",
+        "canvas": [
+          1254,
+          1254
+        ]
+      },
+      {
+        "source": "assets/phobos-agriculture/source/edit_wilted.png",
+        "sourceSHA256": "608644b0a5a7349e82fb24d7a1383f154a567e0725b5fa0261856af2d6e19b24",
+        "canvas": [
+          64,
+          64
+        ]
+      }
+    ],
+    "export": [
+      64,
+      64
+    ],
+    "sampling": "nearest; alpha composite registered layers",
+    "layout": "assets/phobos-agriculture/layers.json",
+    "exportSHA256": "57acb3f8a93fa245972850fb2a30d95ffd4e40e94d6e98cc732aa0bad56886f2",
+    "normalSHA256": "1598b338fb79c8879ac0f3f877875230de0412a02a65d96f7af8357b96ff7bf6"
+  },
+  {
+    "name": "Potato-dead",
+    "inputs": [
+      {
+        "source": "assets/phobos-agriculture/source/deadEdit.png",
+        "sourceSHA256": "01b3a30855bc987e636112f64deb17e64e93862ed3df3ad4a410fe98d28f4e14",
+        "canvas": [
+          64,
+          64
+        ]
+      }
+    ],
+    "export": [
+      16,
+      16
+    ],
+    "sampling": "nearest; alpha composite registered layers",
+    "layout": "assets/phobos-agriculture/layers.json",
+    "exportSHA256": "cc2d086a0b8a2f2aeefdc799672c0cbd7409b8a79500f0f8483f4f5fea68a7fb"
+  },
+  {
+    "name": "Rack-Potato-dead",
+    "inputs": [
+      {
+        "source": "assets/phobos-agriculture/source/firstlight-rack-v2.png",
+        "sourceSHA256": "300d78df654d45b8ca775415b3f3eecf8be5577f3f6d7f74cdcdfa9449a6cefa",
+        "canvas": [
+          1254,
+          1254
+        ]
+      },
+      {
+        "source": "assets/phobos-agriculture/source/deadEdit.png",
+        "sourceSHA256": "01b3a30855bc987e636112f64deb17e64e93862ed3df3ad4a410fe98d28f4e14",
+        "canvas": [
+          64,
+          64
+        ]
+      }
+    ],
+    "export": [
+      64,
+      64
+    ],
+    "sampling": "nearest; alpha composite registered layers",
+    "layout": "assets/phobos-agriculture/layers.json",
+    "exportSHA256": "55478baba757cc282668ad57eed8d07a72baa2c30455f8d8410c13cc840dc10e",
+    "normalSHA256": "c47eac8abb1d0877e9e75a4274415a976956e0d7d2538c2b7e7c04db92a76c29"
+  },
+  {
+    "name": "Lettuce-sprout",
+    "inputs": [
+      {
+        "source": "assets/phobos-agriculture/source/lettuce-sprout.png",
+        "sourceSHA256": "d8b568ccbccdc4c293952a6fba9a42dda498a2e5cdc1854da80e95d942d699f5",
+        "canvas": [
+          64,
+          64
+        ]
+      }
+    ],
+    "export": [
+      16,
+      16
+    ],
+    "sampling": "nearest; alpha composite registered layers",
+    "layout": "assets/phobos-agriculture/layers.json",
+    "exportSHA256": "fd152e5bf04ac916aede7214eefaf4cab01005cbf8448f5e14df3ae99bf5ed95"
+  },
+  {
+    "name": "Rack-Lettuce-sprout",
+    "inputs": [
+      {
+        "source": "assets/phobos-agriculture/source/firstlight-rack-v2.png",
+        "sourceSHA256": "300d78df654d45b8ca775415b3f3eecf8be5577f3f6d7f74cdcdfa9449a6cefa",
+        "canvas": [
+          1254,
+          1254
+        ]
+      },
+      {
+        "source": "assets/phobos-agriculture/source/lettuce-sprout.png",
+        "sourceSHA256": "d8b568ccbccdc4c293952a6fba9a42dda498a2e5cdc1854da80e95d942d699f5",
+        "canvas": [
+          64,
+          64
+        ]
+      }
+    ],
+    "export": [
+      64,
+      64
+    ],
+    "sampling": "nearest; alpha composite registered layers",
+    "layout": "assets/phobos-agriculture/layers.json",
+    "exportSHA256": "352845c4dafc14f052676cc39307c136ef6bc4deec8af721d73582dc5ce213d3",
+    "normalSHA256": "987ffadc08ab5a066a04f177ff9970fe710e6f69824cf1dc473306900f7445d7"
+  },
+  {
+    "name": "Lettuce-young",
+    "inputs": [
+      {
+        "source": "assets/phobos-agriculture/source/lettuce-young.png",
+        "sourceSHA256": "c573221bc32cbfd71d4db2162c071cc53d16df7bd9b10d851da39e92addbbb1f",
+        "canvas": [
+          64,
+          64
+        ]
+      }
+    ],
+    "export": [
+      16,
+      16
+    ],
+    "sampling": "nearest; alpha composite registered layers",
+    "layout": "assets/phobos-agriculture/layers.json",
+    "exportSHA256": "de63b21ae1b3982e64e4241316dd35ad7132d1331245abf4d1e57661d9b07759"
+  },
+  {
+    "name": "Rack-Lettuce-young",
+    "inputs": [
+      {
+        "source": "assets/phobos-agriculture/source/firstlight-rack-v2.png",
+        "sourceSHA256": "300d78df654d45b8ca775415b3f3eecf8be5577f3f6d7f74cdcdfa9449a6cefa",
+        "canvas": [
+          1254,
+          1254
+        ]
+      },
+      {
+        "source": "assets/phobos-agriculture/source/lettuce-young.png",
+        "sourceSHA256": "c573221bc32cbfd71d4db2162c071cc53d16df7bd9b10d851da39e92addbbb1f",
+        "canvas": [
+          64,
+          64
+        ]
+      }
+    ],
+    "export": [
+      64,
+      64
+    ],
+    "sampling": "nearest; alpha composite registered layers",
+    "layout": "assets/phobos-agriculture/layers.json",
+    "exportSHA256": "eaa1f6a64363827e54c030466321bb16970826ed7f905d8062ed37ae9b0d5137",
+    "normalSHA256": "56b3d823dfc6fbf43cefae2736135954aa86a7add406b52870c2bdcf839e53fb"
+  },
+  {
+    "name": "Lettuce-mature",
+    "inputs": [
+      {
+        "source": "assets/phobos-agriculture/source/lettuce-mature.png",
+        "sourceSHA256": "334028e933efe600c17cefeed1d223f5a3855eab808b3e60e1d2bdf800a03f03",
+        "canvas": [
+          64,
+          64
+        ]
+      }
+    ],
+    "export": [
+      16,
+      16
+    ],
+    "sampling": "nearest; alpha composite registered layers",
+    "layout": "assets/phobos-agriculture/layers.json",
+    "exportSHA256": "3aaacc85b9e296d40eb8a46a475e4bcb03f29f96894825e8a9f8f2ab5424430b"
+  },
+  {
+    "name": "Rack-Lettuce-mature",
+    "inputs": [
+      {
+        "source": "assets/phobos-agriculture/source/firstlight-rack-v2.png",
+        "sourceSHA256": "300d78df654d45b8ca775415b3f3eecf8be5577f3f6d7f74cdcdfa9449a6cefa",
+        "canvas": [
+          1254,
+          1254
+        ]
+      },
+      {
+        "source": "assets/phobos-agriculture/source/lettuce-mature.png",
+        "sourceSHA256": "334028e933efe600c17cefeed1d223f5a3855eab808b3e60e1d2bdf800a03f03",
+        "canvas": [
+          64,
+          64
+        ]
+      }
+    ],
+    "export": [
+      64,
+      64
+    ],
+    "sampling": "nearest; alpha composite registered layers",
+    "layout": "assets/phobos-agriculture/layers.json",
+    "exportSHA256": "50881c8829d9e39c8f460efeac8623167fffa3595a6cc9891388c730089e63ce",
+    "normalSHA256": "fa54ef1d4a671e78c73e99b571c6901ab14e0b0cdd4d2131bedaac040f3fcb43"
+  },
+  {
+    "name": "Lettuce-harvest",
+    "inputs": [
+      {
+        "source": "assets/phobos-agriculture/source/lettuce-harvest.png",
+        "sourceSHA256": "76c181935df7ebeef683d395995f4953d64d8b1dbf5d35f98a923d79629f763f",
+        "canvas": [
+          64,
+          64
+        ]
+      }
+    ],
+    "export": [
+      16,
+      16
+    ],
+    "sampling": "nearest; alpha composite registered layers",
+    "layout": "assets/phobos-agriculture/layers.json",
+    "exportSHA256": "c2da0b2c074b2106ef54ce597ce502cabe2d05ff4c3fb603e5c29d9d53e80745"
+  },
+  {
+    "name": "Rack-Lettuce-harvest",
+    "inputs": [
+      {
+        "source": "assets/phobos-agriculture/source/firstlight-rack-v2.png",
+        "sourceSHA256": "300d78df654d45b8ca775415b3f3eecf8be5577f3f6d7f74cdcdfa9449a6cefa",
+        "canvas": [
+          1254,
+          1254
+        ]
+      },
+      {
+        "source": "assets/phobos-agriculture/source/lettuce-harvest.png",
+        "sourceSHA256": "76c181935df7ebeef683d395995f4953d64d8b1dbf5d35f98a923d79629f763f",
+        "canvas": [
+          64,
+          64
+        ]
+      }
+    ],
+    "export": [
+      64,
+      64
+    ],
+    "sampling": "nearest; alpha composite registered layers",
+    "layout": "assets/phobos-agriculture/layers.json",
+    "exportSHA256": "17f9fe7c30b0bb30c4096b1a16debb27424a9be82f2dc770bfad404b9b5534c6",
+    "normalSHA256": "3d0f617852b758d09b35c91ecfa49b8b4548c1e7a0cbbc55277f253e23b9f54d"
+  },
+  {
+    "name": "Lettuce-wilted",
+    "inputs": [
+      {
+        "source": "assets/phobos-agriculture/source/lettuce-wilted-final.png",
+        "sourceSHA256": "bb5b54a80e356eee6198f4a2c47b05fea1e4ef5eb3bfcdc677d431da72377b19",
+        "canvas": [
+          64,
+          64
+        ]
+      }
+    ],
+    "export": [
+      16,
+      16
+    ],
+    "sampling": "nearest; alpha composite registered layers",
+    "layout": "assets/phobos-agriculture/layers.json",
+    "exportSHA256": "681d38824469df9a852eb2a47c0fc633aabfdb3111d340155ddbf312b2cf8242"
+  },
+  {
+    "name": "Rack-Lettuce-wilted",
+    "inputs": [
+      {
+        "source": "assets/phobos-agriculture/source/firstlight-rack-v2.png",
+        "sourceSHA256": "300d78df654d45b8ca775415b3f3eecf8be5577f3f6d7f74cdcdfa9449a6cefa",
+        "canvas": [
+          1254,
+          1254
+        ]
+      },
+      {
+        "source": "assets/phobos-agriculture/source/lettuce-wilted-final.png",
+        "sourceSHA256": "bb5b54a80e356eee6198f4a2c47b05fea1e4ef5eb3bfcdc677d431da72377b19",
+        "canvas": [
+          64,
+          64
+        ]
+      }
+    ],
+    "export": [
+      64,
+      64
+    ],
+    "sampling": "nearest; alpha composite registered layers",
+    "layout": "assets/phobos-agriculture/layers.json",
+    "exportSHA256": "83bdbfc01889646ee80f4bc4b73de03f465ec635dd0f96ab719ed09007a1c7a1",
+    "normalSHA256": "89a2be6dd06d1810a66391e2609a0fbd770ad99d12b7a6664b2a0b6c3c28dd6e"
+  },
+  {
+    "name": "Lettuce-dead",
+    "inputs": [
+      {
+        "source": "assets/phobos-agriculture/source/lettuce-dead.png",
+        "sourceSHA256": "9e6a5530aa68ba7e4906f8c323466782704037d3157b6ae29ae1ce0c55ab4010",
+        "canvas": [
+          64,
+          64
+        ]
+      }
+    ],
+    "export": [
+      16,
+      16
+    ],
+    "sampling": "nearest; alpha composite registered layers",
+    "layout": "assets/phobos-agriculture/layers.json",
+    "exportSHA256": "e242c9f833393c7af0757e22375a2821f87ec70e3d6ec025fc1b2fffce23acef"
+  },
+  {
+    "name": "Rack-Lettuce-dead",
+    "inputs": [
+      {
+        "source": "assets/phobos-agriculture/source/firstlight-rack-v2.png",
+        "sourceSHA256": "300d78df654d45b8ca775415b3f3eecf8be5577f3f6d7f74cdcdfa9449a6cefa",
+        "canvas": [
+          1254,
+          1254
+        ]
+      },
+      {
+        "source": "assets/phobos-agriculture/source/lettuce-dead.png",
+        "sourceSHA256": "9e6a5530aa68ba7e4906f8c323466782704037d3157b6ae29ae1ce0c55ab4010",
+        "canvas": [
+          64,
+          64
+        ]
+      }
+    ],
+    "export": [
+      64,
+      64
+    ],
+    "sampling": "nearest; alpha composite registered layers",
+    "layout": "assets/phobos-agriculture/layers.json",
+    "exportSHA256": "53dcedf211e21a77c6793701fe02ea292e7d9c3bd327f559d268e3329e3615bf",
+    "normalSHA256": "fa54ef1d4a671e78c73e99b571c6901ab14e0b0cdd4d2131bedaac040f3fcb43"
+  },
+  {
+    "name": "Counter",
+    "inputs": [
+      {
+        "source": "assets/phobos-agriculture/source/hearth-counter-v2.png",
+        "sourceSHA256": "c5286a7f537ed1cddc08c687eabf8e7a88a43b5466b4bda0feac07e8644ea9bb",
+        "canvas": [
+          1254,
+          1254
+        ]
+      }
     ],
     "export": [
       32,
       32
     ],
-    "sampling": "nearest",
-    "registration": "whole canvas; centered pivot; no independent crop",
-    "exportSHA256": "0788d362a43930ff86b898397444aeb68439978743ad26d09bbe431820d43814"
+    "sampling": "nearest; alpha composite registered layers",
+    "layout": "assets/phobos-agriculture/layers.json",
+    "exportSHA256": "24ab0c224fc4e4d520092d38fa7f9ea8e641d23da15a604ccd3117e7c3e28572"
   },
   {
-    "name": "Potato-mature",
-    "source": "assets/phobos-agriculture/source/plantPilot.png",
-    "sourceSHA256": "d9f732492e0d8c33b9f83a99fc4e72fc11ff044f75cb4984a48f35560bb1451c",
-    "canvas": [
-      64,
-      64
+    "name": "Stove",
+    "inputs": [
+      {
+        "source": "assets/phobos-agriculture/source/cookerRetry.png",
+        "sourceSHA256": "63a760594079e4491324719f6e72fbcc8786345b3cd27c9aeea99df5f0244512",
+        "canvas": [
+          128,
+          128
+        ]
+      }
     ],
     "export": [
       16,
       16
     ],
-    "sampling": "nearest",
-    "registration": "whole canvas; centered pivot; no independent crop",
-    "exportSHA256": "7809d54f7d27193641262080df772eb2fdd2fd40992baba433713250b7ab5cc6"
+    "sampling": "nearest; alpha composite registered layers",
+    "layout": "assets/phobos-agriculture/layers.json",
+    "exportSHA256": "7ef63604fcb92b05accad5a30418bb49506bb76954c9d8e9bc1a379743b9c30e"
   },
   {
-    "name": "Potato-dead",
-    "source": "assets/phobos-agriculture/source/deadEdit.png",
-    "sourceSHA256": "01b3a30855bc987e636112f64deb17e64e93862ed3df3ad4a410fe98d28f4e14",
-    "canvas": [
-      64,
-      64
+    "name": "Cooker",
+    "inputs": [
+      {
+        "source": "assets/phobos-agriculture/source/hearth-counter-v2.png",
+        "sourceSHA256": "c5286a7f537ed1cddc08c687eabf8e7a88a43b5466b4bda0feac07e8644ea9bb",
+        "canvas": [
+          1254,
+          1254
+        ]
+      },
+      {
+        "source": "assets/phobos-agriculture/source/cookerRetry.png",
+        "sourceSHA256": "63a760594079e4491324719f6e72fbcc8786345b3cd27c9aeea99df5f0244512",
+        "canvas": [
+          128,
+          128
+        ]
+      }
     ],
     "export": [
-      16,
-      16
+      32,
+      32
     ],
-    "sampling": "nearest",
-    "registration": "whole canvas; centered pivot; no independent crop",
-    "exportSHA256": "cc2d086a0b8a2f2aeefdc799672c0cbd7409b8a79500f0f8483f4f5fea68a7fb"
-  },
-  {
-    "name": "Potato-sprout",
-    "source": "assets/phobos-agriculture/source/edit_sprout.png",
-    "sourceSHA256": "9c8f74f2e34f2c0383179a7a44c4cf75a21137296529388de322d8babc7027c0",
-    "canvas": [
-      64,
-      64
-    ],
-    "export": [
-      16,
-      16
-    ],
-    "sampling": "nearest",
-    "registration": "whole canvas; centered pivot; no independent crop",
-    "exportSHA256": "85069179eb3e7afe1961fe4b0a5138becdb639be630194e6af18eca315c522dd"
-  },
-  {
-    "name": "Potato-young",
-    "source": "assets/phobos-agriculture/source/edit_young.png",
-    "sourceSHA256": "9b9290287adb5cc4157079c071dae094f240de85a236cd1729aca56100a0f458",
-    "canvas": [
-      64,
-      64
-    ],
-    "export": [
-      16,
-      16
-    ],
-    "sampling": "nearest",
-    "registration": "whole canvas; centered pivot; no independent crop",
-    "exportSHA256": "c8254912a1408bf83381fe3fdddcf278056132bda89ee6a4de6ca5719dd41d2b"
-  },
-  {
-    "name": "Potato-harvest",
-    "source": "assets/phobos-agriculture/source/edit_harvest.png",
-    "sourceSHA256": "80cb28b2f891c7942247b9fca0fc54afd5506f74eb2ca3c364456e81387f6ea5",
-    "canvas": [
-      64,
-      64
-    ],
-    "export": [
-      16,
-      16
-    ],
-    "sampling": "nearest",
-    "registration": "whole canvas; centered pivot; no independent crop",
-    "exportSHA256": "058dad4e9c9eec7dd84734bbcaa1bf1ac55de2028f2aa3817e24d177493ab3b7"
-  },
-  {
-    "name": "Potato-wilted",
-    "source": "assets/phobos-agriculture/source/edit_wilted.png",
-    "sourceSHA256": "608644b0a5a7349e82fb24d7a1383f154a567e0725b5fa0261856af2d6e19b24",
-    "canvas": [
-      64,
-      64
-    ],
-    "export": [
-      16,
-      16
-    ],
-    "sampling": "nearest",
-    "registration": "whole canvas; centered pivot; no independent crop",
-    "exportSHA256": "17ea82c1e50d9a1da0517f6f140c1b46e789e984c149014ce928a0e6241f9c52"
+    "sampling": "nearest; alpha composite registered layers",
+    "layout": "assets/phobos-agriculture/layers.json",
+    "exportSHA256": "cb5c2498035ec433cdc98fdf44f9a2ffa1218ab64cdb874dc8918035e3c77e6a",
+    "normalSHA256": "f40d7287f00244d732758ebf983fe02895edd3abca9f6ddbd61d0f2ec2742366"
   }
 ]

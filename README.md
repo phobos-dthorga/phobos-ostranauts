@@ -24,7 +24,8 @@ default. Its longer navigation proposal remains historical design material.
 
 - Medical equipment, diagnostics and treatments.
 - Production, recycling and life-support machinery.
-- Agriculture 0.1.0: potato/lettuce cultivation and a galley cooker, prepared for owner gameplay evaluation; recovery remains research.
+- Manufacturing 0.0.1: [enclosed-mill research](docs/manufacturing-research.md) and a [buildable scaffold](docs/manufacturing-implementation.md); machining is not operational yet.
+- Agriculture 0.2.0: potato/lettuce cultivation with visible crop stages and a furnished galley cooker, prepared for owner gameplay evaluation; recovery remains research.
 - Comfort, recreation and crew behaviour.
 - Navigation assistance and supporting shipboard equipment.
 - PDA utilities and installed sensor equipment.
@@ -69,7 +70,7 @@ with a smaller setup appropriate to this project's current scope.
 - [Shipbreaker first build: installation, settings and console commands](docs/shipbreaker-first-build.md)
 - [Ship equipment art study and Shipbreaker visual direction](docs/ship-equipment-art-study.md)
 - [Artwork resolution policy: 2x production assets, 4x for small graphics](docs/artwork-resolution-policy.md)
-- [Asset generation policy: PixelLab for simpler pixel art](docs/asset-generation-policy.md)
+- [Asset generation policy: layered ChatGPT bases and PixelLab sprites](docs/asset-generation-policy.md)
 - [Shipbreaker outputs: existing repair and construction uses](docs/shipbreaker-material-uses.md)
 - [Shipbreaker expansion: shredding, recycling and asteroid feedstocks](docs/shipbreaking-material-processing-research.md)
 - [Hull disposal port: filters, external collection and persistent ejecta](docs/material-disposal-port-research.md)

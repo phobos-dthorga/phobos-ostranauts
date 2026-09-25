@@ -8,6 +8,13 @@ These are original project brands, not existing game manufacturers.
 machinery and material-handling equipment. Share these families where equipment
 has a related purpose; new brands should serve a distinct equipment identity.
 
+**Verdemorrow Agronomics** is Agriculture's separate fictional manufacturer.
+Its short brand, **Verdemorrow**, combines the intended associations of *verdant*
+growth and *tomorrow*: carrying the possibility of a lasting home into space.
+Its voice is hopeful and practical, with equipment that belongs aboard a working
+ship. Brand line: **“Where we go, life grows.”** This identity does not represent
+a real company, seed cultivar, research programme or institutional endorsement.
+
 | Full display name | Previous equipment / purpose |
 | --- | --- |
 | Phobos' Asterel N1 Polaris Auto Nav Module | Auto Nav module; Polaris is the compatible navigation station |
@@ -23,8 +30,8 @@ has a related purpose; new brands should serve a distinct equipment identity.
 | Phobos' Rivetline C2 Residue Collector | Two-wide collecting endpoint |
 | Phobos' Rivetline D4-S Dismantling Fixture Assembly Section | Processor construction section |
 | Phobos' Rivetline R4-S Scrap Reclaimer Assembly Section | Reclaimer construction section |
-| Phobos' Rivetline A4 Cultivation Rack | Four-by-four finite cultivation rack |
-| Phobos' Rivetline K2 Galley Cooker | Two-by-two portion cooker |
+| Phobos' Verdemorrow Firstlight-4 Cultivation Rack | Four-by-four finite cultivation rack |
+| Phobos' Verdemorrow Hearth-2 Galley Cooker | Two-by-two portion cooker |
 | Phobos' Asterel N0 Approach Assist (Prototype) | Older, opt-in development prototype |
 
 N and C identify navigation/control electronics; D, G, H, R and C identify the
@@ -32,8 +39,43 @@ industrial product roles. The industrial digits reflect the current equipment's
 width; `-S` denotes construction sections. They are model designations, not
 configurable capacity, price or saved recipe revision numbers.
 
+## Verdemorrow product families
+
+Owner direction, 25 September 2026; applied in Agriculture 0.1.1. Firstlight
+expresses starting a living crop far from Earth; Hearth expresses food and home;
+Continuance expresses retaining the next generation; Groundwork expresses the
+material foundation for growth. These are fictional product families, not new
+biological traits or promises of self-sufficiency.
+
+| Family | Current full display name |
+| --- | --- |
+| Cultivation machinery | Phobos' Verdemorrow Firstlight-4 Cultivation Rack |
+| Food-preparation machinery | Phobos' Verdemorrow Hearth-2 Galley Cooker |
+| Planting stock | Phobos' Verdemorrow Continuance Seed Potato (0.2 kg) |
+| Planting stock | Phobos' Verdemorrow Continuance Lettuce Seeds (5 g) |
+| Formulated nutrients | Phobos' Verdemorrow Groundwork Formulated Crop Nutrients (40 g) |
+| Produce | Phobos' Verdemorrow Raw Potatoes (0.4 kg) |
+| Prepared food | Phobos' Verdemorrow Hearth Cooked Potatoes (0.4 kg) |
+| Produce | Phobos' Verdemorrow Lettuce (0.25 kg) |
+| Retained biological matter | Phobos' Verdemorrow Crop Residue |
+| Retained process liquid | Phobos' Verdemorrow Agricultural Process Solution |
+| Equipment dismantling remainder | Phobos' Verdemorrow Agricultural Housing Waste |
+
+Firstlight-4 and Hearth-2 have model numbers reflecting equipment width.
+Seeds, nutrient blends and meals use named product lines without machine numbers;
+ordinary produce and waste use the brand and a literal description. Future plant
+variety names must not imply a real cultivar or researched tolerance unless that
+specific biological claim is supported separately. Keep manufacturer/product-line
+names fixed across translations and translate the functional descriptions.
+
+The owner confirmed Agriculture has never been used. Its first identities now
+use `PhobosVerdemorrow...` for equipment, supplies and construction recipes, with
+no migration aliases for the earlier unreleased candidates. The Phobos Agriculture
+package and commands retain their product-level names. Other mods keep their own
+brands and saved identifiers.
+
 Intact, damaged, installed and loose forms retain the same maker/model. Internal
-feeds belong to their parent machine. Residue packets use **Phobos' Rivetline**
+feeds belong to their parent machine. Shipbreaker residue packets use **Phobos' Rivetline**
 and a descriptive material name; R2 still means recipe revision 2, not a new
 chemical assay. Auto Nav offcuts/residue retain **Phobos' Asterel N1** provenance.
 Shared mixed service waste is **Phobos' Spent Service Parts (0.5 kg)**: it has no

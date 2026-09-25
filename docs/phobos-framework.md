@@ -212,7 +212,7 @@ and declines other provider versions until reviewed. Agriculture retains manual
 water loading. Agricultural drainage is not accepted by this adapter.
 
 `Registration.ApplianceDefinitions` builds the shared native installable/loose,
-intact/damaged appliance skeleton used by A4 and K2. Content supplies branding,
+intact/damaged appliance skeleton used by Firstlight-4 and Hearth-2. Content supplies branding,
 footprint, mass, price, image prefix and power rating. Supply a matching `Normal`
 image derivative; never include extracted game art. Biology and balance remain
 Agriculture-owned; fixed industrial batches and the one-hour cap are unchanged.

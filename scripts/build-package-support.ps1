@@ -7,8 +7,8 @@ function Copy-PhobosPlayerGuides {
     # Every suite package has the same entry point and its directly linked guides.
     # Keep their filenames as well as the mod-specific README so links remain usable.
     foreach ($name in @(
-        'agriculture-player-guide', 'agriculture-implementation', 'agriculture-research', 'agriculture-first-slice', 'agriculture-roadmap', 'asset-generation-policy',
-        'performance-captures', 'furnace-player-guide', 'furnace-connections-and-instruments', 'furnace-first-cycle',
+        'agriculture-player-guide', 'agriculture-implementation', 'agriculture-research', 'agriculture-first-slice', 'agriculture-roadmap', 'agriculture-living-visuals', 'asset-generation-policy',
+        'performance-captures', 'furnace-player-guide', 'furnace-connections-and-instruments', 'furnace-first-cycle', 'furnace-repair-castings', 'furnace-material-routing', 'manufacturing-handover',
         'player-guide', 'equipment-branding', 'installing-mods', 'equipment-economy', 'equipment-value-audit', 'auto-nav-instruments', 'auto-nav-docking', 'auto-nav-sensors', 'auto-nav-flight-profiles', 'artwork-resolution-policy',
         'vanilla-economy-audit', 'shipbreaker-first-build', 'shipbreaker-hull-intake',
         'residue-collector', 'auto-navigate-adaptation', 'auto-nav-economy', 'auto-nav-panel-layout-audit', 'auto-nav-persistence', 'auto-nav-torch', 'residue-material-contract',
