@@ -1,6 +1,6 @@
 # Current player guide
 
-**Prepared versions:** Phobos Framework **0.16.0**, Shipbreaker **0.12.0**, Auto Nav
+**Prepared versions:** Phobos Framework **0.16.0**, Shipbreaker **0.13.0**, Auto Nav
 **0.10.1**, built against Ostranauts **1.0.1.5** / BepInEx **5.4.23.5**.
 These versions support ordinary saves. Builds and offline checks do not establish
 in-game compatibility. This guide describes the prepared packages, not a claim

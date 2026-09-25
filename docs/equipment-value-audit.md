@@ -10,6 +10,8 @@ All dollar figures below are **whole-object values**, not prices per kilogram or
 | Phobos' Rivetline F6 Electric Furnace (Damaged) | $6,000.00 | $1,500.00 | $597.60 | 9.96% | $600.00 / $298.80 |
 | Phobos' Rivetline F6-R Exterior Radiator | $7,200.00 | $1,800.00 | $196.70 | 2.73% | $720.00 / $98.35 |
 | Phobos' Rivetline F6-R Exterior Radiator (Damaged) | $1,800.00 | $450.00 | $135.80 | 7.54% | $180.00 / $67.90 |
+| Phobos' Rivetline F6-P Thermal Exhaust Port | $7,200.00 | $1,800.00 | $196.70 | 2.73% | $720.00 / $98.35 |
+| Phobos' Rivetline F6-P Thermal Exhaust Port (Damaged) | $1,800.00 | $450.00 | $135.80 | 7.54% | $180.00 / $67.90 |
 | Phobos' Asterel C1 Industrial Control Console | $5,200.00 | $1,300.00 | $164.90 | 3.17% | $520.00 / $82.45 |
 | Phobos' Asterel C1 Industrial Control Console (Damaged) | $1,300.00 | $325.00 | $70.80 | 5.45% | $130.00 / $35.40 |
 | Phobos' Rivetline D4 Dismantling Fixture | $12,000.00 | $3,000.00 | $514.10 | 4.28% | $1,200.00 / $257.05 |
@@ -50,6 +52,7 @@ This is a conservative vanilla baseline, not a guarantee across different region
 | Phobos' Rivetline F6-S Furnace Assembly Section | $373.00 | $298.80 |
 | Phobos' Rivetline F6 Electric Furnace | $19,500.00 | $854.60 |
 | Phobos' Rivetline F6-R Exterior Radiator | $210.00 | $196.70 |
+| Phobos' Rivetline F6-P Thermal Exhaust Port | $210.00 | $196.70 |
 | Phobos' Asterel N1 Polaris Auto Nav Module | $29.00 | $0.01 |
 
 The processor's final assembly consumes two priced sections. Raw materials for both sections total $570.80; its $514.10 dismantling yield is also below that original raw-material bill. Construction creates a usable machine through labour; this is separate from the dismantling comparison.
@@ -58,6 +61,7 @@ The processor's final assembly consumes two priced sections. Raw materials for b
 |---|---:|
 | Phobos' Rivetline F6 Electric Furnace | $145.80 |
 | Phobos' Rivetline F6-R Exterior Radiator | $31.60 |
+| Phobos' Rivetline F6-P Thermal Exhaust Port | $31.60 |
 | Phobos' Asterel C1 Industrial Control Console | $72.70 |
 | Phobos' Rivetline D4 Dismantling Fixture | $94.60 |
 | Phobos' Rivetline G4 Exterior Grabber | $57.30 |

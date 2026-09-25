@@ -34,6 +34,9 @@ internal static partial class FurnaceService
                 var peer = value == null ? null : CollectorService.Resolve(value);
                 if (!FurnaceRules.Machine(co.strCODef) || peer == null || !FurnaceRules.Cooling(peer.strCODef) || !Geometry(co, peer) || Get(peer).Protected)
                 { message = Text.Get("Furnace.geometry"); return false; }
+                if (PortPairing.Matches(Port(co), Port(peer))) return true;
+                if (UnsafeMaintenance(co) || UnsafeMaintenance(peer))
+                { message = Text.Get("Furnace.hot_maintenance"); return false; }
                 return PortPairing.TryLink(Port(co), Port(peer), out message);
             }
             if (action == "unpair")
@@ -67,7 +70,7 @@ internal static partial class FurnaceService
             if (action == "release") return Release(s, out message);
             if (action == "resume" || action == "start" || action == "next" || action == "auto-run" || action == "step-run")
             {
-                if (!ProbeValid(co) || !ChargePresent(s) || Radiator(co) == null || Radiator(co)!.HasCond("IsDamaged") || Flight(co.ship) || s.State.ShipId != co.ship.strRegID ||
+                if (!ProbeValid(co) || !ChargePresent(s) || CoolingEndpoint(co) == null || CoolingEndpoint(co)!.HasCond("IsDamaged") || Flight(co.ship) || s.State.ShipId != co.ship.strRegID ||
                     b.Phase == FurnacePhase.Idle || b.Phase >= FurnacePhase.Equalize)
                 { message = Text.Get("Furnace.resume_block"); return false; }
                 b.PumpSeconds = 0;
@@ -84,7 +87,7 @@ internal static partial class FurnaceService
         var co = s.Object; var b = s.State.Batch; var bin = Feed(co);
         message = Text.Get("Furnace.seal_block");
         if (b.Phase != FurnacePhase.Idle || !b.SafeOpen || bin?.objContainer == null || bin.HasCond("IsLocked") ||
-            Radiator(co) == null || Radiator(co)!.HasCond("IsDamaged") || !ProbeValid(co)) return false;
+            CoolingEndpoint(co) == null || CoolingEndpoint(co)!.HasCond("IsDamaged") || !ProbeValid(co)) return false;
         var items = bin.objContainer.ContainedCOs.ToArray();
         if (items.Length != FurnaceRules.ChargeUnits || items.Any(c => !ValidFeed(c) || c.objCOParent != bin)) return false;
         var room = Room(co); var gas = room?.GasContainer;
@@ -144,7 +147,7 @@ internal static partial class FurnaceService
     {
         var co = s.Object; var b = s.State.Batch; message = Text.Get("Furnace.release_block");
         if (b.Phase != FurnacePhase.Ready || !b.SafeOpen || !ChargePresent(s)) return false;
-        var radiator = Radiator(co); if (radiator == null) return false;
+        var radiator = CoolingEndpoint(co); if (radiator == null) return false;
         var sink = Get(radiator); if (sink.Protected) return false;
         double carried = FurnaceRules.ChargeUnits * FurnaceRules.SolidCp * (b.TemperatureK - FurnaceRules.ReferenceK);
         if (sink.SinkKJ + carried > FurnaceRules.SinkCapacity * (FurnaceRules.SinkMaxK - FurnaceRules.ReferenceK)) return false;
@@ -190,11 +193,20 @@ internal static partial class FurnaceService
         Feed(co)!.ZeroCondAmount("IsLocked"); Feed(co)!.objContainer.Redraw(); co.objContainer.Redraw();
         s.Notice = Text.Get("Furnace.released"); Save(sink); Save(s); message = s.Notice; return true;
     }
-    internal static bool UnsafeMaintenance(CondOwner co)
+    private static bool OwnUnsafeMaintenance(CondOwner co)
     {
         var s = Get(co);
-        return s.Protected || (FurnaceRules.Cooling(co.strCODef) ? FurnaceRules.ReferenceK + s.SinkKJ / FurnaceRules.SinkCapacity > FurnaceRules.ReleaseK :
-            s.State.Batch.Phase != FurnacePhase.Idle || !s.State.Batch.SafeOpen);
+        return !FurnaceCooling.CanChange(s.Protected || s.State.NativeMutation,
+            FurnaceRules.Cooling(co.strCODef) || s.State.Batch.Phase == FurnacePhase.Idle,
+            FurnaceRules.Cooling(co.strCODef) ? FurnaceRules.ReferenceK + s.SinkKJ / FurnaceRules.SinkCapacity : s.State.Batch.TemperatureK,
+            Feed(co)?.objContainer?.ContainedCOs.Count ?? 0, co.objContainer?.ContainedCOs.Count ?? 0);
+    }
+    internal static bool UnsafeMaintenance(CondOwner co)
+    {
+        if (OwnUnsafeMaintenance(co)) return true;
+        // Use the saved endpoint even when mounting has failed. A broken connection cannot bypass hot-removal checks.
+        var peer = SelectedCooling(co);
+        return peer != null && IsEquipment(peer) && OwnUnsafeMaintenance(peer);
     }
     internal static bool UnsafeRepair(CondOwner co)
     {
@@ -202,21 +214,34 @@ internal static partial class FurnaceService
         return s.Protected || s.State.NativeMutation || s.State.Batch.Phase == FurnacePhase.Delivering ||
             (FurnaceRules.Cooling(co.strCODef) ? FurnaceRules.ReferenceK + s.SinkKJ / FurnaceRules.SinkCapacity > FurnaceRules.ReleaseK : !s.State.Batch.SafeOpen);
     }
+    private static string CoolingMountStatus(CondOwner endpoint)
+    {
+        bool port = FurnaceRules.Underside(endpoint.strCODef);
+        string state = CoolingMounted(endpoint) ? Text.Get(port ? "Furnace.underside_ready" : "Furnace.exterior") :
+            Text.Get(port ? "Furnace.port_support" : "Furnace.radiator_mount_fault");
+        return Text.Get("Furnace.endpoint_status", endpoint.strNameFriendly, endpoint.strID, state);
+    }
+    private static string CoolingConnectionStatus(CondOwner furnace)
+    {
+        var endpoint = SelectedCooling(furnace);
+        if (endpoint == null || !FurnaceRules.Cooling(endpoint.strCODef)) return Text.Get("Furnace.no_cooling");
+        return CoolingMountStatus(endpoint) + (CoolingEndpoint(furnace) == null ? "\n" + Text.Get("Furnace.geometry") : "");
+    }
     internal static string Describe(CondOwner co)
     {
         var s = Get(co); if (s.Protected) return Text.Get("Furnace.protected");
         if (FurnaceRules.Cooling(co.strCODef)) return Text.Get("Furnace.radiator_status", Intact(co) ? (FurnaceRules.ReferenceK + s.SinkKJ / FurnaceRules.SinkCapacity - 273.15).ToString("F1", CultureInfo.CurrentCulture) : Text.Get("Furnace.unknown"),
-            Exterior(co) ? Text.Get("Furnace.exterior") : Text.Get("Furnace.geometry"), s.Notice);
+            CoolingMountStatus(co), s.Notice);
         var b = s.State.Batch;
         string Reading(double n, string format) => ProbeValid(co) ? n.ToString(format, CultureInfo.CurrentCulture) : Text.Get("Furnace.unknown");
-        var radiator = Radiator(co); var sink = radiator == null ? null : Get(radiator);
+        var radiator = CoolingEndpoint(co); var sink = radiator == null ? null : Get(radiator);
         string cooling = sink == null || sink.Protected || radiator!.HasCond("IsDamaged") || !ProbeValid(co) ? Text.Get("Furnace.unknown") :
             Text.Get("Furnace.cooling_status", FurnaceRules.ReferenceK + sink.SinkKJ / FurnaceRules.SinkCapacity - 273.15,
                 Math.Max(0, FurnaceRules.SinkCapacity * (FurnaceRules.SinkMaxK - FurnaceRules.ReferenceK) - sink.SinkKJ) / 1000);
         return Text.Get("Furnace.status", Text.Get("Furnace.phase_" + b.Phase), Text.Get(b.Armed ? "Furnace.heating_enabled" : "Furnace.heating_paused"),
             Reading(b.TemperatureK - 273.15, "F1"), Reading(b.PressureKPa, "F3"), Reading(b.ReceiverKPa, "F2"),
             Reading(s.DeliveredKW, "F1"), b.Hold.ToString("F1", CultureInfo.CurrentCulture),
-            Radiator(co)?.strID ?? Text.Get("Furnace.unknown"), b.HeatCapKW, b.RampKPerSecond, b.CoolingCapKW,
+            CoolingConnectionStatus(co), b.HeatCapKW, b.RampKPerSecond, b.CoolingCapKW,
             b.StepMode ? Text.Get("Furnace.step") : Text.Get("Furnace.auto"), s.Notice) + "\n" + cooling;
     }
     internal static bool F3(string input, out bool success, out string response)

@@ -36,8 +36,8 @@ internal static class DependencyChecks
             tables[group.Table].Add(id);
         }
 
-        check(DependencyContract.MissingRecipes(_ => false).Count == 14, "All fourteen construction and finishing recipes must register");
-        check(DependencyContract.MissingRecipes(id => id == DependencyContract.Recipes[0]).Count == 13, "A partially registered construction chain is blocked");
+        check(DependencyContract.MissingRecipes(_ => false).Count == 15, "All fifteen construction and finishing recipes must register");
+        check(DependencyContract.MissingRecipes(id => id == DependencyContract.Recipes[0]).Count == 14, "A partially registered construction chain is blocked");
         check(DependencyContract.MissingRecipes(id => DependencyContract.Recipes.Contains(id)).Count == 0, "All construction stages are available");
 
         var first = new Dictionary<string, int> { ["existing"] = 10, ["foreign"] = 20 };

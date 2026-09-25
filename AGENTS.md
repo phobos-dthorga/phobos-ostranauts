@@ -96,6 +96,13 @@
   electrical-heater candidate, with hardware/efficiency still provisional.
   Shipbreaker 0.12.0 prepares the F6 electrical candidate at 6 x 6 tiles,
   50 kg rating and 250 kW delivered heat, with a 20 kg first housing batch.
+  Shipbreaker 0.13.0 adds optional F6-P underside cooling through a separate
+  1 x 1 sealed head at furnace-local (-3.5,+0.5) or (+3.5,+0.5), rotated together.
+  Keep the intact sealed native floor and existing exterior radiator route; one
+  cooling endpoint per furnace, with equal 100 kg / 12 m² finite assemblies.
+  Preserve old radiator IDs/maps. Switching requires cool endpoints and empty
+  idle furnace inventories. The underside area is an authored abstraction, not
+  a simulated lower deck or an atmosphere vent.
   Follow `docs/furnace-player-guide.md`; gameplay and new art await owner review. Raw fusion heat has no established native outlet and
   remains historical research, not a prerequisite for the electrical furnace.
   Account actual electrical consumption once, including partial supply and losses;

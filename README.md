@@ -60,7 +60,7 @@ with a smaller setup appropriate to this project's current scope.
 - [Phobos Framework: shared services and OCF independence plan](docs/phobos-framework.md)
 - [Phobos Framework: author API guide](docs/framework-author-guide.md)
 - [Fusion-powered industry: five ideas and research triggers](docs/fusion-industry-roadmap.md)
-- [F6 electric furnace operating guide](docs/furnace-player-guide.md) — prepared 0.12.0 casting candidate; owner gameplay and artwork review pending.
+- [F6 electric furnace operating guide](docs/furnace-player-guide.md) — prepared 0.13.0 casting candidate with exterior or underside cooling; owner gameplay and artwork review pending.
 - [Furnace first cycle: casting, cooling and saved phases](docs/furnace-first-cycle.md) — research, now using the [approved electrical route](docs/furnace-electrical-direction.md).
 - [Furnace vanilla UI reuse and graphics brief](docs/furnace-ui-and-art.md), with [installation and instrument layouts](assets/phobos-furnace/research/layouts.html).
 - [Powered shipbreaking: feasibility and first observations](docs/powered-shipbreaking-research.md)

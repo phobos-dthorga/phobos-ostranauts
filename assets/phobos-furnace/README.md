@@ -5,17 +5,18 @@ The [electrical direction](../../docs/furnace-electrical-direction.md) supersede
 the earlier reactor-side coupler. Use the [current operating guide](../../docs/furnace-player-guide.md)
 for the implemented tile layout and first-cycle controls.
 
-Three original masters are retained unchanged in `source/`:
+Four original masters are retained unchanged in `source/`:
 
 | Master | World export | Uses |
 |---|---|---|
 | `PhobosFurnace-v1.png` — 1254 x 1254 | 96 x 96 | F6 installed/loose; native damage tint |
 | `PhobosFurnaceRadiator-v1.png` — 1536 x 1024 | 96 x 64 | Separate radiator installed/loose; native damage tint |
 | `PhobosFurnaceHousing-v1.png` — 1254 x 1254 | 32 x 32 | Rough/finished casting, with live item names |
+| `PhobosFurnaceThermalPort-v1.png` — 1254 x 1254 | 16 x 16 | F6-P sealed mounting head; underside assembly represented by the equipment |
 
-[Full prompts and provenance](prompts.md) record three built-in image_gen calls.
+[Full prompts and provenance](prompts.md) record four built-in image_gen calls.
 The [export manifest](exports.json) pins source hashes, crops and sizes.
-Run `scripts/export-furnace-art.ps1` to regenerate nine runtime colour/flat-normal/
+Run `scripts/export-furnace-art.ps1` to regenerate twelve runtime colour/flat-normal/
 portrait files and native-size/4x previews. Exports use nearest-neighbour sampling
 and a shared alpha threshold; portraits retain integer scaling and padding.
 This creates no enlargement of the physical footprint.
@@ -36,7 +37,7 @@ earlier layout study was liked.
   data, separate from artwork. No number or process state is painted into a panel.
 - The panel reuses installed native knobs, meters, lamps and font resources plus
   the existing Phobos frame; no generated UI plate or native texture export.
-- The furnace, radiator and housing are independent transparent masters. A change
+- The furnace, radiator, housing and thermal port are independent transparent masters. A change
   to one does not require regenerating the others.
 - Paths and world bounds remain stable. Revise the retained master, its provenance
   and hash, and only if needed its manifest crop; then run the exporter. Derived
@@ -44,6 +45,13 @@ earlier layout study was liked.
 - These are flat transparent images, not layered source files. Future moving
   covers or damage overlays should become separate registered layers only when
   a concrete visual change requires them.
+
+The F6-P master was generated in one built-in call for Shipbreaker 0.13.0.
+It has no baked label, heat state or exhaust plume. Its four bolts, pale insulation
+and capped service connection remain separate from the unchanged furnace art.
+World dimensions, alpha, normal and portrait alignment are exported together.
+The 1 x 1 head does not imply a one-square-metre radiator: the complete underside
+assembly has the same finite 12 m² effective area as the exterior option.
 
 ## Earlier research
 

@@ -166,5 +166,13 @@
   "Furnace.remainder_name": {
     "brand": "Rivetline",
     "model": ""
+  },
+  "Furnace.port_name": {
+    "brand": "Rivetline",
+    "model": "F6-P"
+  },
+  "Recipe.PhobosBuildFurnaceThermalPort.name": {
+    "brand": "Rivetline",
+    "model": "F6-P"
   }
 }

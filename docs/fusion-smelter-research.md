@@ -1,8 +1,10 @@
 # Fusion furnace and instrument panel: feasibility and design
 
-**Implementation update (25 September 2026):** Shipbreaker 0.12.0 / Framework 0.16.0
+**Implementation update (25 September 2026):** Shipbreaker 0.13.0 / Framework 0.16.0
 now prepare the electrical casting candidate described in the [F6 operating guide](furnace-player-guide.md).
 Read that guide for current dimensions, acquisition, controls and owner checks.
+Version 0.13.0 adds the optional 1 x 1 side-mounted F6-P underside cooling
+assembly alongside the existing exterior radiator; each furnace selects one.
 The research and direct-fusion installation diagrams below retain their historical scope;
 they are not a record of an in-game test.
 

@@ -56,6 +56,7 @@ ProcessingSaveChecks.Run(Check, Throws);
 ReclaimerNativeChecks.Run(prepared, Check);
 IndustrialNativeChecks.Run(prepared, repo, Check);
 ObservationNativeChecks.Run(Check);
+FurnaceCoolingNativeChecks.Run(prepared, repo, Check);
 // Exercise the game's own data-only trigger evaluator against its actual wall
 // definition: the ordinary solid-container filter caused the grey inventory bug.
 var wallData = new DataCO(DataHandler.dictCOs[ProcessRules.Wall]);
@@ -74,7 +75,7 @@ foreach (string forbidden in new[] { "IsInstalled", "IsOversized" })
 Check(!feedTrigger.TriggeredDataCO(new DataCO(DataHandler.dictCOs[Content.Loose]), false), "Cumbersome machinery cannot enter the wall feed");
 foreach (var machine in prepared.Objects.Values.Where(x => Content.IsMachine(x.strName)))
     Check(!machine.dictSlotsLayout.ContainsKey(Content.InputSlot), "Native feed window retains its title on " + machine.strName);
-Check(prepared.Objects.Count == 45 && prepared.Installables.Count == 99, "Eight machine families, charge chamber and preserved/new material identities");
+Check(prepared.Objects.Count == 49 && prepared.Installables.Count == 111, "Nine machine families, charge chamber and preserved/new material identities");
 var furnaceItem = prepared.Items[FurnaceRules.Prefix + "Installed"];
 var furnaceFeed = DataHandler.dictCTs[prepared.Objects[FurnaceRules.Feed].strContainerCT];
 Check(furnaceItem.nCols == 6 && furnaceItem.aSocketAdds.Length == 36 && furnaceItem.aSocketReqs.Length == 64, "F6 occupies six by six native tiles");

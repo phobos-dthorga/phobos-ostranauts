@@ -69,3 +69,8 @@ owner-review candidates. Installed/loose forms share silhouettes, damaged forms
 use native tint, and the terminal melt remainder reuses original Phobos residue
 art. Native UI sprites/fonts are referenced from installed resource prefabs only;
 none are shipped or copied into these masters.
+
+Shipbreaker 0.13.0 adds one original built-in Imagegen F6-P thermal-port master.
+Its full prompt, source hash and mechanical derivatives join the same furnace
+asset manifest. Native floor and obstruction rules are read through the installed
+game's definitions at runtime; no game textures or extracted research are shipped.

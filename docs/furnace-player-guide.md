@@ -1,11 +1,11 @@
 # F6 electric furnace: first implementation
 
-**25 September 2026 — Shipbreaker 0.12.0, Framework 0.16.0.** This is a prepared
+**25 September 2026 — Shipbreaker 0.13.0, Framework 0.16.0.** This is a prepared
 implementation candidate. Automated physics and native-definition checks are
 separate from in-game evaluation; installation and gameplay review remain with
 the owner. Ordinary saves are supported. No game or save was modified to test it.
 
-## Installation
+## Installation: choose one cooling assembly
 
 **Phobos' Rivetline F6 Electric Furnace** occupies **6 x 6 tiles**, weighs 240 kg
 empty and is rated for a 50 kg charge. The first supported recipe uses exactly
@@ -16,6 +16,8 @@ empty and is rated for a 50 kg charge. The first supported recipe uses exactly
 equipment. Both can appear in the existing industrial/fixer/scrap stock routes,
 and both have table construction, installation, repair, Restore and mass-balanced
 dismantling. Existing D4/R4 equipment and construction routes remain unchanged.
+
+### Exterior radiator
 
 Use this local layout, rotated together as necessary:
 
@@ -42,16 +44,57 @@ the Control Panel; pairing requires a player-owned ship. The pair is reciprocal
 and saved. Moving hardware or breaking the geometry removes usable cooling.
 An intact disconnected radiator continues radiating its own stored heat.
 
+### Optional F6-P thermal exhaust port
+
+**Phobos' Rivetline F6-P Thermal Exhaust Port** is a **1 x 1 mounting head beside
+the furnace**, supplied with a complete **100 kg underside radiator assembly**.
+Its base value, construction, installation and maintenance costs equal the F6-R.
+The visible head represents a sealed through-deck connection; its **12 m² effective
+underside radiating area is an authored equipment abstraction**, not a second deck
+or a new 3D clearance simulation. It consumes no vented cabin air or coolant.
+
+Keep an **intact installed sealed floor** beneath the port. Its floor remains the
+native pressure barrier; never remove it to make an exhaust hole. Damaged/EVA
+flooring, missing floors and wall tiles are rejected. Place the port at one of the
+two side sockets, facing the same direction as the furnace. Furnace-local centre
+offsets are **(-3.5, +0.5)** or **(+3.5, +0.5)** tiles; rotate the layout together.
+
+```text
+        F F F F F F
+        F F F F F F
+      P F F F F F F P     choose ONE side port
+        F F F F F F
+        F F F F F F
+        F F F F F F
+         front operator aisle
+```
+
+The port occupies its own adjacent floor tile, outside the unchanged 6 x 6
+furnace footprint. Its local panel and C1 show the selected assembly's full name,
+ID and mounting status. The existing pair command accepts either endpoint type.
+
+A furnace has exactly **one** selected cooling assembly. To change installation,
+cool both devices to **50 C or less**, return gas, release the charge, empty both
+feed and product inventories, then Unpair and pair the alternative. A second
+assembly cannot be added to combine capacities, nor shared with another furnace.
+An unavailable connection retains its saved identity and physical heat. Old F6-R
+links and hot saves need no conversion; adding this update does not replace them.
+
+### Power and heat
+
 Connect the F6's two front power points to ordinary native electrical supply.
 There is no reactor-side coupler, fuel debit or free reactor-running heat.
 Peak demand is approximately **279.8 kW**: 250 kW useful heat at 90% efficiency,
 plus 2 kW auxiliaries. At rest, a connected unit requests **50 W** for instruments;
 this energy also enters its finite cooling store. Active cooling auxiliaries use
 up to 1 kW. The one-way passive thermal path remains available without power.
+At 700 C with a 25 C cabin, insulation leakage is approximately **675 W**; the
+250 kW process load is stored in the charge/lining and later rejected through the
+selected cooling assembly. Conversion losses also enter that finite store.
 
 ## First casting
 
-1. Open **Control Panel**, choose the radiator and pair it. Allow a powered
+1. Open **Control Panel**, choose one cooling assembly and pair it. Allow a powered
    instrument update. Native donor failures fall back to the existing controls.
 2. Open **Feed** locally. Insert **twenty separate, unstacked native Scrap
    Aluminum items**, each 1 kg and carrying nothing. Other identities, including
@@ -131,9 +174,11 @@ Uninstallation, dismantling and disconnection require a cool, empty furnace.
 Repair/Restore requires cool hardware, but may service a still-sealed cold charge;
 this allows a failed probe to be repaired before gas return. Native damage mode
 switches retain persistent maps and cargo; damaged probes display **Unknown**.
-The radiator's local thermometer is passive. Damaged probes do not disable physical
-heat transfer: a damaged exterior radiator retains 25% of its nominal radiating
-area, but heating is blocked until repaired. Losing its supporting wall disconnects
+The cooling assembly's local thermometer is passive. Damaged probes do not disable physical
+heat transfer: either damaged cooling assembly retains 25% of its nominal
+radiating area while its rejection path remains available; heating is blocked
+until repaired. Removing or damaging the port's supporting floor stops its
+modeled heat rejection and disconnects the furnace; both thermal stores remain. Losing its supporting wall disconnects
 the furnace while an exposed fin bank still rejects its own heat. Absolute destruction remains the
 game's destructive machinery path; this release does not add explosions, rupture
 recovery or a new atmosphere/hazard simulation.
@@ -170,7 +215,7 @@ F3 entry points:
 phobosfurnace help
 phobosfurnace list
 phobosfurnace controls <full-furnace-id>
-phobosfurnace pair <full-furnace-id> <full-radiator-id>
+phobosfurnace pair <full-furnace-id> <full-cooling-id>
 phobosfurnace status <full-furnace-id>
 phobosfurnace stop <full-furnace-id>
 ```
@@ -181,18 +226,19 @@ C1 also accepts furnace actions through `phobosindustry <action> <console-id>
 ## Owner review on return
 
 - Install the prepared packages with the existing installer after closing the
-  game; confirm Framework 0.16.0 and Shipbreaker 0.12.0 in the loaded status/log.
-- Check the furnace/radiator placement in all rotations, visible alignment and
-  collision bounds. Review the three candidate sprites at normal game scale.
+  game; confirm Framework 0.16.0 and Shipbreaker 0.13.0 in the loaded status/log.
+- Check both cooling installations in all rotations, including both port side
+  sockets, visible alignment and collision bounds. Review the port at normal game
+  scale, including damage tint. Verify cabin pressure is unaffected by installation.
 - Pair, load and seal one batch. Verify a previously queued haul/construction
   action cannot take captive feed; inspect normal inventory access while sealed.
 - Check real grid demand, partial supply, flight interruption and loss of
-  radiator support. Do the displayed readings and stop reason explain each stop?
+  radiator or port-floor support. Test blocked hot/loaded
+  Unpair and removal from both ends; confirm old F6-R links still work. Do the displayed readings and stop reason explain each stop?
 - Save hot, reload, verify retained charge/heat/gas and explicit Resume. Block the
   output tray, then free it and release once. Compare all product masses.
 - Open/close local and C1 panels repeatedly; check paused controls, numeric focus,
   smaller UI scales, native donor appearance and always-accessible Stop.
 
-These gameplay checks have **not** been run by the agent. The owner's absence is
-the reason installation, visual approval and interactive validation were left
-for return. The historical research and mockup are background, not runtime proof.
+These gameplay checks have **not** been run by the agent. The 0.13.0 package is prepared for owner review; this development
+round has not installed it or changed the running game or saves. The historical research and mockup are background, not runtime proof.

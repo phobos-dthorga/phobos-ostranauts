@@ -29,7 +29,8 @@ foreach ($entry in $manifest.assets) {
         $crop = [Drawing.Rectangle]::new($entry.crop[0], $entry.crop[1], $entry.crop[2], $entry.crop[3])
         if ($crop.X -lt 0 -or $crop.Y -lt 0 -or $crop.Right -gt $master.Width -or $crop.Bottom -gt $master.Height) { throw 'Invalid furnace crop.' }
         $w = [int]$entry.size[0]; $h = [int]$entry.size[1]
-        if ($master.Width -lt $w * 2 -or $master.Height -lt $h * 2) { throw 'Master is below resolution policy.' }
+        $masterScale = if ([Math]::Min($w, $h) -le 32) { 4 } else { 2 }
+        if ($master.Width -lt $w * $masterScale -or $master.Height -lt $h * $masterScale) { throw 'Master is below resolution policy.' }
         $small = Resize-Pixels $master $crop $w $h
         for ($y = 0; $y -lt $h; $y++) { for ($x = 0; $x -lt $w; $x++) {
             $p = $small.GetPixel($x, $y)
@@ -54,4 +55,4 @@ foreach ($entry in $manifest.assets) {
         $portrait.Save((Join-Path $runtime ($entry.id + 'Portrait.png')), [Drawing.Imaging.ImageFormat]::Png)
     } finally { foreach ($image in @($master, $small, $normal, $portrait, $zoom)) { if ($null -ne $image) { $image.Dispose() } } }
 }
-Write-Output 'Exported three original furnace assets, flat normals, portraits and crisp previews.'
+Write-Output "Exported $($manifest.assets.Count) original furnace assets, flat normals, portraits and crisp previews."

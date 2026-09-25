@@ -25,7 +25,7 @@ internal static partial class FurnaceService
         internal ObjectStateStore Store = null!;
     }
     internal sealed class PowerTransfer
-    { internal Session Session = null!, Radiator = null!; internal EnergyReceipt Receipt = null!; internal double Seconds; }
+    { internal Session Session = null!, Cooling = null!; internal EnergyReceipt Receipt = null!; internal double Seconds; }
     private static readonly Dictionary<string, Session> sessions = new(StringComparer.Ordinal);
     private static float nextScan;
     internal static bool IsEquipment(CondOwner? co) => co != null && (FurnaceRules.Machine(co.strCODef) || FurnaceRules.Cooling(co.strCODef));
@@ -41,8 +41,7 @@ internal static partial class FurnaceService
         {
             if (FurnaceRules.Cooling(co.strCODef))
             {
-                s.Protected = !fields.TryGetValue("sink", out var raw) || !double.TryParse(raw, NumberStyles.Float, CultureInfo.InvariantCulture, out s.SinkKJ) ||
-                    !ThermalMath.Finite(s.SinkKJ) || s.SinkKJ <= -FurnaceRules.ReferenceK * FurnaceRules.SinkCapacity || s.SinkKJ > 1000000;
+                s.Protected = !FurnaceCooling.TryRead(fields, out s.SinkKJ);
             }
             else
             {
@@ -61,7 +60,7 @@ internal static partial class FurnaceService
     private static void Save(Session s)
     {
         if (s.Protected) return;
-        var fields = FurnaceRules.Cooling(s.Object.strCODef) ? new Dictionary<string, string> { ["sink"] = s.SinkKJ.ToString("R", CultureInfo.InvariantCulture) } : s.State.Save();
+        var fields = FurnaceRules.Cooling(s.Object.strCODef) ? FurnaceCooling.Save(s.SinkKJ) : s.State.Save();
         if (!s.Store.TryWrite(fields)) { s.Protected = true; s.State.Batch.Armed = false; s.Notice = Text.Get("Furnace.protected"); }
     }
     internal static bool CanFeed(CondOwner bin, CondOwner input) => !bin.HasCond("IsLocked") && ValidFeed(input) &&
@@ -115,13 +114,31 @@ internal static partial class FurnaceService
         }
         return true;
     }
-    private static bool Geometry(CondOwner furnace, CondOwner radiator)
+    internal static bool PortSupported(CondOwner port)
     {
-        if (furnace.ship == null || furnace.ship != radiator.ship || !Mounted(furnace) || !Exterior(radiator)) return false;
-        var p = furnace.GetPos(); var r = radiator.GetPos(); var offset = IntakeRules.Rotate(0, FurnaceRules.PairSpacingTiles, furnace.tf.eulerAngles.z);
-        return IntakeRules.SameAngle(furnace.tf.eulerAngles.z, radiator.tf.eulerAngles.z) && IntakeRules.Near(r.x, r.y, p.x + offset.X, p.y + offset.Y);
+        if (!Mounted(port)) return false;
+        var pos = port.GetPos();
+        var props = port.ship.GetTileAtWorldCoords1(pos.x, pos.y, false)?.coProps;
+        var floors = new List<CondOwner>();
+        port.ship.GetCOsAtWorldCoords1(pos, null, false, true, floors);
+        return FurnaceCooling.FloorSupport(props?.HasCond("IsFloor") == true, props?.HasCond("IsFloorSealed") == true,
+            props?.HasCond("IsWall") == true, props?.HasCond("IsEVATile") == true,
+            floors.Any(f => !f.bDestroyed && f.ship == port.ship && (f.HasCond("IsFloorGrate") || f.HasCond("IsFloor")) && f.HasCond("IsInstalled") && !f.HasCond("IsDamaged")));
     }
-    internal static CondOwner? Radiator(CondOwner co)
+    private static bool CoolingMounted(CondOwner endpoint) => FurnaceRules.Underside(endpoint.strCODef) ? PortSupported(endpoint) : Exterior(endpoint);
+    private static bool CanRadiate(CondOwner endpoint) => FurnaceRules.Underside(endpoint.strCODef) ? PortSupported(endpoint) : Exposed(endpoint);
+    private static bool Geometry(CondOwner furnace, CondOwner endpoint)
+    {
+        if (furnace.ship == null || furnace.ship != endpoint.ship || !Mounted(furnace) || !CoolingMounted(endpoint)) return false;
+        var p = furnace.GetPos(); var c = endpoint.GetPos();
+        return FurnaceCooling.Aligned(FurnaceRules.Underside(endpoint.strCODef), p.x, p.y, furnace.tf.eulerAngles.z, c.x, c.y, endpoint.tf.eulerAngles.z);
+    }
+    private static CondOwner? SelectedCooling(CondOwner co)
+    {
+        var link = PortPairing.Read(Port(co));
+        return link.State == PortLinkState.Linked ? CollectorService.Resolve(link.PeerObjectId) : null;
+    }
+    internal static CondOwner? CoolingEndpoint(CondOwner co)
     {
         var link = PortPairing.Read(Port(co));
         var peer = link.State == PortLinkState.Linked ? CollectorService.Resolve(link.PeerObjectId) : null;
@@ -137,25 +154,24 @@ internal static partial class FurnaceService
             try { Advance(Get(co)); } catch (Exception ex) { Fault(co, ex); }
         }
     }
-    private static void AdvanceRadiator(Session s)
+    private static void AdvanceCooling(Session s)
     {
         double now = StarSystem.fEpoch, dt = now - s.SinkLast; s.SinkLast = now;
         if (s.Protected || dt <= 0 || !ThermalMath.Finite(dt)) return;
         if (dt > FurnaceRules.MaxIntervalSeconds) { s.Notice = Text.Get("Furnace.interval"); Save(s); return; }
-        if (Exposed(s.Object))
-            while (dt > 1e-9) { double step = Math.Min(dt, FurnaceRules.MaxStepSeconds); dt -= step; s.SinkKJ -= FurnaceRules.Radiation(FurnaceRules.ReferenceK + s.SinkKJ / FurnaceRules.SinkCapacity) * step * (s.Object.HasCond("IsDamaged") ? FurnaceRules.DamagedRadiatorFraction : 1); }
+        FurnaceCooling.Radiate(ref s.SinkKJ, dt, CanRadiate(s.Object), s.Object.HasCond("IsDamaged"));
         Save(s);
     }
     private static void Advance(Session s)
     {
-        if (FurnaceRules.Cooling(s.Object.strCODef)) { AdvanceRadiator(s); return; }
+        if (FurnaceRules.Cooling(s.Object.strCODef)) { AdvanceCooling(s); return; }
         if ((s.Protected || s.State.Batch.Phase != FurnacePhase.Idle) && Feed(s.Object) is CondOwner bin && !bin.HasCond("IsLocked")) bin.AddCondAmount("IsLocked", 1);
         if ((s.Protected || s.State.Batch.Phase == FurnacePhase.Delivering) && !s.Object.HasCond("IsLocked")) s.Object.AddCondAmount("IsLocked", 1);
         var b = s.State.Batch; double now = StarSystem.fEpoch, dt = now - s.State.LastEpoch; s.State.LastEpoch = now;
         if (s.Protected || !ThermalMath.Finite(dt) || dt <= 0) return;
         if (dt > FurnaceRules.MaxIntervalSeconds) { b.Armed = false; b.Hold = 0; s.Notice = Text.Get("Furnace.interval"); Save(s); return; }
-        var radiator = Radiator(s.Object); Session? sink = radiator == null ? null : Get(radiator);
-        if (sink != null) AdvanceRadiator(sink);
+        var radiator = CoolingEndpoint(s.Object); Session? sink = radiator == null ? null : Get(radiator);
+        if (sink != null) AdvanceCooling(sink);
         bool connected = sink != null && !sink.Protected;
         if (connected) b.SinkKJ = sink!.SinkKJ;
         bool probe = ProbeValid(s.Object);
@@ -178,7 +194,7 @@ internal static partial class FurnaceService
     {
         transfer = null; var s = Get(co); Advance(s);
         double seconds = amount * 3600; amount = 0;
-        var radiator = Radiator(co); var sink = radiator == null ? null : Get(radiator);
+        var radiator = CoolingEndpoint(co); var sink = radiator == null ? null : Get(radiator);
         if (!Content.Ready || s.Protected || sink == null || sink.Protected || !ControlsReady(co) ||
             (s.State.Batch.Phase != FurnacePhase.Idle && !ChargePresent(s)) ||
             !ThermalMath.Finite(seconds) || seconds <= 0 || seconds > FurnaceRules.MaxIntervalSeconds) return false;
@@ -187,7 +203,7 @@ internal static partial class FurnaceService
         double instrumentation = Math.Min(FurnaceRules.InstrumentKW * seconds, Math.Max(0, FurnaceRules.SinkCapacity * (FurnaceRules.SinkMaxK - s.State.Batch.SinkK)));
         amount = Math.Max(instrumentation, s.State.Batch.RequestedKJ(seconds, true)) / 3600;
         if (amount <= 0) return false;
-        transfer = new PowerTransfer { Session = s, Radiator = sink, Seconds = seconds, Receipt = NativeEnergyReceipts.Begin(power, co, amount) };
+        transfer = new PowerTransfer { Session = s, Cooling = sink, Seconds = seconds, Receipt = NativeEnergyReceipts.Begin(power, co, amount) };
         return true;
     }
     internal static void FinishPower(Powered power, CondOwner co, PowerTransfer? transfer)
@@ -197,9 +213,9 @@ internal static partial class FurnaceService
         double kJ = NativeEnergyReceipts.Complete(power, co, transfer.Receipt) * 3600;
         if (kJ >= FurnaceRules.InstrumentKW * transfer.Seconds - 1e-9) s.LastReceiptEpoch = StarSystem.fEpoch;
         else s.LastReceiptEpoch = double.NegativeInfinity;
-        b.Receive(kJ, transfer.Seconds); transfer.Radiator.SinkKJ = b.SinkKJ; s.DeliveredKW = kJ / transfer.Seconds;
+        b.Receive(kJ, transfer.Seconds); transfer.Cooling.SinkKJ = b.SinkKJ; s.DeliveredKW = kJ / transfer.Seconds;
         if (kJ <= 0) { b.Armed = false; b.Hold = 0; s.Notice = Text.Get("Furnace.power_lost"); }
-        Save(transfer.Radiator); Save(s);
+        Save(transfer.Cooling); Save(s);
     }
     internal static void Fault(CondOwner co, Exception ex)
     {

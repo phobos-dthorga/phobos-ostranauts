@@ -61,7 +61,7 @@ public sealed class FurnaceInstrumentView : MonoBehaviour
         if (mode != null) NativeInstruments.Refresh(mode, !b.Armed ? 0 : b.StepMode ? 2 : 1);
         if (temperature != null) NativeInstruments.Refresh(temperature, valid ? (b.TemperatureK - 273.15) / 750 : (double?)null);
         if (heat != null) NativeInstruments.Refresh(heat, valid ? s.DeliveredKW / (FurnaceRules.HeatLimitKW / FurnaceRules.Efficiency + FurnaceRules.HeatAuxKW) : (double?)null);
-        var radiator = FurnaceService.Radiator(co);
+        var radiator = FurnaceService.CoolingEndpoint(co);
         if (cooling != null) NativeInstruments.Refresh(cooling, valid && radiator != null && !radiator.HasCond("IsDamaged") && !FurnaceService.Get(radiator).Protected ?
             (FurnaceRules.SinkCapacity * (FurnaceRules.SinkMaxK - FurnaceRules.ReferenceK) - FurnaceService.Get(radiator).SinkKJ) / (FurnaceRules.SinkCapacity * (FurnaceRules.SinkMaxK - FurnaceRules.ReferenceK)) : (double?)null);
         if (enabledLamp != null) enabledLamp.State = valid && b.Armed ? GUILamp.STATE_ON : GUILamp.STATE_OFF;

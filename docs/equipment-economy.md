@@ -370,3 +370,13 @@ keep their original meaning. Identified residue and terminal rejects each cost
 $0.01 at definition level and are not retail products. The reclaimer recovers
 $11.90 of native metal per packet; process value addition is separate from the
 machine-dismantling loss requirement. Full details are in the material contract.
+
+### F6-P alternative cooling assembly (0.13.0)
+
+The 1 x 1 F6-P head includes the complete 100 kg underside assembly. It uses the
+same bill as the F6-R: 40 kg steel + 60 kg aluminium, 3,600 native work-progress
+seconds with Mortorq and welding tools at supported tables. Whole base value is
+$7,200 intact / $1,800 damaged; installation 1,200, uninstallation 900, repair
+3,000 and dismantling 800 work-progress units. Repair and retained salvage bills
+match the F6-R exactly. Native value audits include both forms. The choice changes
+installation geometry, not capacity, construction mass or operating yield.

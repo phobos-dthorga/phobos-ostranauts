@@ -8,6 +8,7 @@ public static class FurnaceRules
     public const string Prefix = "PhobosFurnace", Radiator = "PhobosFurnaceRadiator", Feed = Prefix + "InputBin", Slot = Prefix + "Input";
     public const string Blank = "PhobosFurnaceHousingBlank", Housing = "PhobosFurnaceHousing", Remainder = "PhobosFurnaceMeltRemainder";
     public const string Section = Prefix + "Section";
+    public const string ThermalPort = Prefix + "ThermalPort";
     public const int Footprint = 6, RadiatorDepth = 4, ChargeUnits = 20, RecipeRevision = 1;
     public const double RatingKg = 50, MachineKg = 240, RadiatorKg = 100, SectionKg = 80;
     public const double ReferenceK = 298.15, MeltK = 933.45, TargetK = 973.15, ReleaseK = 323.15;
@@ -23,7 +24,8 @@ public static class FurnaceRules
     public const double MinRamp = .1, MaxRamp = 5, MinPowerSettingKW = 1;
     public const double PairSpacingTiles = Footprint / 2.0 + 1 + RadiatorDepth / 2.0;
     public static bool Machine(string? id) => Family(id, Prefix);
-    public static bool Cooling(string? id) => Family(id, Radiator);
+    public static bool Cooling(string? id) => Family(id, Radiator) || Underside(id);
+    public static bool Underside(string? id) => Family(id, ThermalPort);
     private static bool Family(string? id, string prefix) => id == prefix + "Installed" || id == prefix + "InstalledDmg" || id == prefix + "Loose" || id == prefix + "LooseDmg";
     public static double HeatCapacity(double gasMoles = 0) => LiningCapacity + ChargeUnits * SolidCp + gasMoles * GasCv;
     public static double Enthalpy(double kelvin, double liquid = 0, double gasMoles = 0)

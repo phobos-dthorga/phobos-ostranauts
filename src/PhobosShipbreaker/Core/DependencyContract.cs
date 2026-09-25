@@ -13,7 +13,7 @@ internal static class DependencyContract
         ("objects", Materials.Concat(new[] { "ItmTable01", "ItmTable02", ProcessRules.Wall }).ToArray()),
         ("items", new[] { "Blank" }),
         ("conditions", new[] { "PhobosShipbreakerContent", "PhobosShipbreakerIsSection", "IsInstalled", "IsDamaged",
-            "IsContainer", "IsSystem", "IsSolid", "IsMechanical", "IsCategoryIndustrialProducts", "IsCumbersome", "IsAluminum", "IsLocked", "IsFloor",
+            "IsContainer", "IsSystem", "IsSolid", "IsMechanical", "IsCategoryIndustrialProducts", "IsCumbersome", "IsAluminum", "IsLocked", "IsFloor", "IsFloorSealed", "IsFloorGrate", "IsEVATile",
             "IsWall1x1", "IsWall", "IsWallDeco", "IsFixture", "IsFixtureExt", "IsRigid", "IsSalvageValueHigh", "StatMass", "StatBasePrice", "StatInstallProgressMax",
             "StatUninstallProgressMax", "StatRepairProgressMax", "StatDismantleProgressMax", "StatDamageMax", "IsChair", "IsSignalable", "IsPristine", "IsToolMortorq", "StatInstallRateMISC" }),
         ("triggers", new[] { "PhobosShipbreakerTSection", "TIsFitContainerSolid", "TIsFitContainerSolidCumbersome", "TIsReadyUsePower",
@@ -31,7 +31,7 @@ internal static class DependencyContract
     internal static List<string> MissingDefinitions(Func<string, string, bool> contains) => Required
         .SelectMany(group => group.Names.Where(name => !contains(group.Table, name))
             .Select(name => Text.Get("DependencyContract.missing", group.Table, name))).ToList();
-    internal static readonly string[] Recipes = { "PhobosCraft_PhobosBuildFurnaceSection", "PhobosCraft_PhobosBuildFurnace", "PhobosCraft_PhobosBuildFurnaceRadiator", "PhobosCraft_PhobosFinishFurnaceHousing", "PhobosCraft_PhobosBuildShipbreakerSectionCast", "PhobosCraft_PhobosBuildReclaimerSectionCast", "PhobosCraft_PhobosBuildShipbreakerSection", "PhobosCraft_PhobosBuildShipbreaker",
+    internal static readonly string[] Recipes = { "PhobosCraft_PhobosBuildFurnaceSection", "PhobosCraft_PhobosBuildFurnace", "PhobosCraft_PhobosBuildFurnaceRadiator", "PhobosCraft_PhobosBuildFurnaceThermalPort", "PhobosCraft_PhobosFinishFurnaceHousing", "PhobosCraft_PhobosBuildShipbreakerSectionCast", "PhobosCraft_PhobosBuildReclaimerSectionCast", "PhobosCraft_PhobosBuildShipbreakerSection", "PhobosCraft_PhobosBuildShipbreaker",
         "PhobosCraft_PhobosBuildHullChute", "PhobosCraft_PhobosBuildExteriorGrabber", "PhobosCraft_PhobosBuildResidueCollector", "PhobosCraft_PhobosBuildReclaimerSection", "PhobosCraft_PhobosBuildReclaimer", "PhobosCraft_PhobosBuildIndustrialConsole" };
     internal static List<string> MissingRecipes(Func<string, bool> contains) => Recipes
         .Where(id => !contains(id)).Select(id => Text.Get("DependencyContract.missing_registered_recipe", id)).ToList();
