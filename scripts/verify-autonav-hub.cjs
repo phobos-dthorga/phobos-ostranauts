@@ -11,7 +11,7 @@ const assert=(ok,message)=>{if(!ok)throw Error(message)};
  for(const box of layout.boxes.filter(box=>!box.id.includes('.'))){assert(zones[box.zone]&&inside(box,zones[box.zone]),'Outside designated faceplate field: '+box.id);}
  const unique=new Set();for(const b of layout.boxes){assert(!unique.has(b.id),'Duplicate box '+b.id);unique.add(b.id);assert(b.x>=0&&b.y>=0&&b.w>0&&b.h>0,'Invalid '+b.id);const sub=b.id.includes('.');assert(b.x+b.w<=(sub?body.w:layout.width)&&b.y+b.h<=(sub?body.h:layout.height),'Outside '+b.id);}
  // Navigation settings and docking details intentionally occupy alternate views.
- const groups=[layout.boxes.filter(b=>!b.id.includes('.')),...['nav.','pursuit.','systems.'].map(prefix=>layout.boxes.filter(b=>b.id.startsWith(prefix))),layout.boxes.filter(b=>b.id.startsWith('dock.')||['nav.actions','nav.metrics'].includes(b.id))];
+ const groups=[layout.boxes.filter(b=>!b.id.includes('.')),...['nav.','pursuit.','fire.','systems.'].map(prefix=>layout.boxes.filter(b=>b.id.startsWith(prefix))),layout.boxes.filter(b=>b.id.startsWith('dock.')||['nav.actions','nav.metrics'].includes(b.id))];
  for(const boxes of groups)for(let i=0;i<boxes.length;i++)for(let j=i+1;j<boxes.length;j++){const a=boxes[i],b=boxes[j];assert(!(a.x<b.x+b.w&&b.x<a.x+a.w&&a.y<b.y+b.h&&b.y<a.y+a.h),'Overlapping '+a.id+' / '+b.id);}
  const server=http.createServer((req,res)=>{let file=path.resolve(root,'.'+decodeURIComponent(new URL(req.url,'http://localhost').pathname));if(!file.startsWith(root+path.sep)){res.writeHead(403).end();return;}fs.readFile(file,(err,data)=>{if(err){res.writeHead(404).end();return;}res.setHeader('Content-Type',file.endsWith('.json')?'application/json':file.endsWith('.png')?'image/png':'text/html');res.end(data);});});
  await new Promise(r=>server.listen(0,'127.0.0.1',r));const browser=await chromium.launch({channel:'msedge',headless:true});
@@ -20,7 +20,7 @@ const assert=(ok,message)=>{if(!ok)throw Error(message)};
   const page=await browser.newPage({viewport:{width:850,height:1250},deviceScaleFactor:1});
   await page.goto(packageDir?require('node:url').pathToFileURL(path.join(packageDir,'polaris-flight-hub-preview.html')).href:`http://127.0.0.1:${server.address().port}/assets/phobos-autonav/previews/flight-hub.html`);await page.evaluate(()=>window.ready);
   assert(await page.locator('.art').evaluate(e=>e.complete&&e.naturalWidth===1200&&e.naturalHeight===1920),'Production faceplate failed to load');
-  for(const width of [300,400,600])for(const mode of ['navigation','pursuit','systems','docking'])for(const expanded of [false,true]){
+  for(const width of [300,400,600])for(const mode of ['navigation','pursuit','fire','systems','docking','details'])for(const expanded of [false,true]){
    await page.selectOption('#size',String(width));await page.selectOption('#page',mode);await page.locator('#expanded').setChecked(expanded);
    const faults=await page.evaluate(()=>{
     const faults=[],panel=document.querySelector('#panel').getBoundingClientRect();

@@ -11,6 +11,7 @@ void Check(bool condition, string message)
 }
 
 LocalizationChecks.Run(Check);
+CompletionCueChecks.Run(Check, (action, message) => { bool failed = false; try { action(); } catch { failed = true; } Check(failed, message); });
 SavedStateChecks.Run(Check);
 ConsoleAccessChecks.Run(Check);
 ObservationChecks.Run(Check);

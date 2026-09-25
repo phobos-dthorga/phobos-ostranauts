@@ -6,6 +6,44 @@ Dates on Draft entries record preparation, not Steam publication.
 
 ## [Unreleased]
 
+### Documentation
+
+- Added a maintained per-mod item reference covering function, use, acquisition and applicable economic/service data; generated tables and coverage checks share a one-click updater.
+
+### Research and planning
+
+- Document selected-G4 autonomous reclamation after the player's manual valuables pass, with exact native IDs, supported leftover processing and finite storage/reject accounting. This is a specification, not delivered cutting or automation.
+- Select Auto Nav with existing N1/N2 hardware as a required dependency for the future implementation; record loader, packaging and installer work without changing current candidate requirements or saved identities.
+- Prioritize active G4 positioning, holding/cutting and movement along a short ordinary-wall section; docking/capture remains optional. Record unresolved collision-compatible reach, native uninstall/transfer risks and a proposed review of Phobos' any-thrust furnace pause for concurrent processing within checked motion/power/thermal limits. Existing runtime policy is unchanged; repeated batches and whole-wreck completion remain later gates.
+- Record [NASA Goddard's Raven research](https://www.nasa.gov/general/nasas-hybrid-computer-enables-ravens-autonomous-rendezvous-capability/) and [ESA's LIRIS experiment by Airbus, Jena Optronik and Sodern](https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/ATV/ATV_views_Space_Station_as_never_before) as sensing context, separate from Blue Bottle Games engine evidence and authored gameplay choices. No endorsement or gameplay validation is implied.
+- See the [research](https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/shipbreaker-autopilot-research.md) and [staged implementation handover](https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/shipbreaker-autopilot-handover.md). No installation or publication in this round.
+
+## [0.19.0] - 2026-09-25 - Draft
+
+### Changed
+
+- Use Framework's common completion channel and volume/mute. Preserve the original D4/R4 one-batch meaning; simultaneous events from other Phobos mods cannot overlap.
+
+### Requirements
+
+Phobos Framework 0.21.0 or newer. No recipe, inventory or save changes. Listening evaluation remains pending.
+
+## [0.18.0] - 2026-09-25 - Draft
+
+### Added
+
+- Optional notification for one explicitly watched D4/R4 batch, after products are committed to the output tray. Further queued batches remain silent; completion also remains visible in text.
+- Original 280 ms quiet procedural completion tone through the native sound-effects mixer, with volume/mute in the panels and configuration. Same selected crew and ship only; pause, fault or reload clears watches. Suppressed events never replay; nearby completion bursts are dropped.
+- Local Control Panel, C1, F9/reclaimer fallback and C1 F3 watch/unwatch controls. Reclaimer fallback content scrolls to keep controls reachable.
+
+### Requirements
+
+Ostranauts 1.0.1.5, BepInEx 5 and Phobos Framework 0.20.0 or newer. No new mod dependency or saved-state migration.
+
+### Known limits
+
+- Prepared first audio trial; owner listening and gameplay evaluation remain pending. No furnace, cooker, navigation or ambient cues. Low playback priority is not a native critical-alarm suppression guarantee.
+
 ### Fixed
 
 - Fixed unreachable INSTALL entries; machinery appears under APPS, cooling hardware and conduits under HVAC, and the C1 console under CTRL, including damaged forms. Existing inputs, placement and saved IDs are preserved.

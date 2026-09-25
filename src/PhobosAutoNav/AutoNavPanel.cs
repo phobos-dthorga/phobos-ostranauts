@@ -35,7 +35,27 @@ public sealed class AutoNavPanel : NavModBase
 
     internal static void Ensure(GUIOrbitDraw nav)
     {
+        if (!EquipmentContent.NativePackageEnabled) return;
         if (nav.transform.Find(LayoutId) != null) return;
+        try { Build(nav); }
+        catch (Exception ex)
+        {
+            // This prefix owns only our extension. Never let a failed hub stop
+            // the native station opening, or leave a partial hub for LoadModules.
+            var partial = nav.transform.Find(LayoutId);
+            if (partial != null)
+            {
+                partial.gameObject.SetActive(false);
+                partial.SetParent(null, false);
+                Destroy(partial.gameObject);
+            }
+            Debug.LogError("Phobos Auto Nav hub could not be created; native Polaris loading will continue. " + ex);
+        }
+    }
+    private static void Build(GUIOrbitDraw nav)
+    {
+        // Validate the embedded resource before attaching any native UI objects.
+        var layout = HubLayout.Data;
         var root = new GameObject(LayoutId, typeof(RectTransform)); root.SetActive(false);
         var rect = (RectTransform)root.transform; rect.SetParent(nav.transform, false); PanelWidgets.Fill(rect);
         var container = PanelWidgets.Rect(rect, "Container");
@@ -48,7 +68,7 @@ public sealed class AutoNavPanel : NavModBase
         var panel = root.AddComponent<AutoNavPanel>(); panel.placement = container;
         panel.design = PanelWidgets.Rect(background, "Faceplate");
         panel.design.anchorMin = panel.design.anchorMax = panel.design.pivot = new Vector2(.5f, .5f);
-        panel.design.sizeDelta = new Vector2(HubLayout.Data.width, HubLayout.Data.height);
+        panel.design.sizeDelta = new Vector2(layout.width, layout.height);
         var image = panel.design.gameObject.AddComponent<Image>(); image.raycastTarget = false;
         var texture = DataHandler.LoadPNG(FaceplatePath, bNorm: false);
         if (texture != null)
@@ -75,20 +95,24 @@ public sealed class AutoNavPanel : NavModBase
             labels[id].textWrappingMode = TextWrappingModes.NoWrap;
         labels["restriction"].color = Amber;
         var tabs = Box(layer, "tabs");
-        string[] names = { "navigation", "pursuit", "systems", "details" };
+        string[] names = { "navigation", "pursuit", "fire", "systems", "details" };
         for (int i = 0; i < names.Length; i++)
         {
             string name = names[i];
-            AddButton(Cell(tabs, i, 4), "tab." + name, Text.Get("Hub." + name), () => { page = name; UpdateUI(); }, compact: true);
+            AddButton(Cell(tabs, i, names.Length), "tab." + name, Text.Get("Hub." + name), () => { page = name; UpdateUI(); }, compact: true);
             pages[name] = Box(layer, "body"); pages[name].name = name;
         }
         var strip = Box(layer, "actions");
         AddButton(Cell(strip, 0, 3), "resume", Text.Get("Hub.resume"), () => Plugin.Service.ResumeSaved(COSelf));
         AddButton(Cell(strip, 1, 3), "stop", Text.Get("Hub.disengage"), () => Plugin.Service.Stop(COSelf, Text.Get("NavigationService.stopped_by_pilot_coasting")));
         AddButton(Cell(strip, 2, 3), "cease", Text.Get("Hub.cease"), () => Plugin.Service.CeaseFire());
-        BuildNavigation(pages["navigation"]); BuildPursuit(pages["pursuit"]); BuildSystems(pages["systems"]);
+        BuildNavigation(pages["navigation"]); BuildPursuit(pages["pursuit"]); BuildFire(pages["fire"]); BuildSystems(pages["systems"]);
         var content = PanelWidgets.Scroll(pages["details"], "Diagnostics", out detailScroll);
         PanelWidgets.Fill((RectTransform)detailScroll.transform);
+        PanelWidgets.Button(content, Text.Get("Cue.watch"), () => Plugin.Service.WatchArrival(COSelf, true));
+        PanelWidgets.Button(content, Text.Get("Cue.unwatch"), () => Plugin.Service.WatchArrival(COSelf, false));
+        var cueVolume = PanelWidgets.Button(content, "", () => Phobos.Ostranauts.Framework.Audio.CompletionCues.CycleVolume());
+        labels["cue-volume"] = cueVolume.GetComponentInChildren<TMP_Text>();
         labels["details"] = PanelWidgets.Label(content, "", flowing: false);
         Style(labels["details"], 24); labels["details"].overflowMode = TextOverflowModes.Overflow;
         var sizing = labels["details"].gameObject.AddComponent<LayoutElement>(); sizing.minHeight = HubLayout.Data["body"].h;
@@ -127,13 +151,24 @@ public sealed class AutoNavPanel : NavModBase
         AddButton(Cell(actions, 1, 2), "follow", Text.Get("Hub.follow"), () => Plugin.Service.StartPursuit(COSelf, true));
         Setting(parent, "pursuit.cruise", "pursuitCruise", () => Plugin.Service.StepPanelSpeed(COSelf, false, -1), () => Plugin.Service.StepPanelSpeed(COSelf, false, 1));
         Setting(parent, "pursuit.separation", "pursuitSeparation", () => Plugin.Service.StepPanelArrival(COSelf, -1), () => Plugin.Service.StepPanelArrival(COSelf, 1));
-        labels["fireTarget"] = Readout(Box(parent, "pursuit.target"), 24, 4);
-        AddButton(Box(parent, "pursuit.select"), "firetarget", Text.Get("Hub.select_fire_target"), () => Plugin.Service.SelectFireTarget(COSelf));
-        AddButton(Box(parent, "pursuit.group"), "group", "", () => Plugin.Service.StepWeapons(COSelf));
-        Label(Box(parent, "pursuit.engage"), Text.Get("Hub.engage"), 24);
-        fireGuard = Guard(Box(parent, "pursuit.guard"), on => { if (on) Plugin.Service.EngageWeapons(COSelf); else Plugin.Service.CeaseFire(); });
-        // No unguarded replacement can accidentally broaden offensive authority.
-        labels["fireReady"] = Readout(Box(parent, "pursuit.ready"), 24, 2);
+        labels["pursuitHelp"] = Readout(Box(parent, "pursuit.help"), 24);
+        labels["pursuitHelp"].text = Text.Get("FCS.pursuit_help");
+    }
+    private void BuildFire(RectTransform parent)
+    {
+        AddButton(Box(parent, "fire.target"), "firetarget", Text.Get("Hub.select_fire_target"), () => Plugin.Service.SelectFireTarget(COSelf));
+        AddButton(Box(parent, "fire.group"), "group", "", () => Plugin.Service.StepWeapons(COSelf));
+        AddButton(Box(parent, "fire.volleys"), "volleys", "", () => Plugin.Service.StepVolleys(COSelf));
+        AddButton(Box(parent, "fire.native"), "native", "", () => Plugin.Service.ToggleFireOwnership(COSelf));
+        AddButton(Box(parent, "fire.aim"), "aim", "", () => Plugin.Service.ToggleAutoAim(COSelf));
+        AddButton(Box(parent, "fire.reference"), "reference", Text.Get("FCS.use_aim"), () => Plugin.Service.UseAimReference(COSelf));
+        AddButton(Box(parent, "fire.weapon"), "weapon", "", () => Plugin.Service.BrowseWeapon(COSelf));
+        labels["weaponCard"] = Readout(Box(parent, "fire.card"), 24, 2);
+        labels["weaponCard"].textWrappingMode = TextWrappingModes.NoWrap;
+        labels["ownership"] = Readout(Box(parent, "fire.ownership"), 24, 2);
+        Label(Box(parent, "fire.engage"), Text.Get("FCS.engage"), 24);
+        fireGuard = Guard(Box(parent, "fire.guard"), on => { if (on) Plugin.Service.EngageWeapons(COSelf); else Plugin.Service.CeaseFire(); });
+        labels["fireReady"] = Readout(Box(parent, "fire.ready"), 24, 2);
     }
 
     private void BuildSystems(RectTransform parent)
@@ -177,11 +212,11 @@ public sealed class AutoNavPanel : NavModBase
         preferences.gameObject.SetActive(!isDocking); docking.gameObject.SetActive(isDocking);
         labels["title"].text = Text.Get("Hub.title");
         labels["target"].text = Text.Get("Hub.nav_target", nav.Target);
-        labels["offensive"].text = view.FirePermitted ? Text.Get("Hub.offensive_target", view.OffensiveTarget) :
+        labels["offensive"].text = view.WorkingFire ? Text.Get("Hub.offensive_target", view.OffensiveTarget) :
             Text.Get(view.WorkingPursuit ? "Hub.n2_ready" : view.WorkingNavigation ? "Hub.n1_ready" : "Hub.module_unavailable");
         labels["offensive"].color = view.FirePermitted ? Amber : Ink;
-        labels["operation"].text = isDocking ? Text.Get("Hub.operation." + view.DockProgress) : nav.Heading;
-        labels["contact"].text = Text.Get("Hub.contact." + view.Contact.State);
+        labels["operation"].text = isDocking ? Text.Get("Hub.operation." + view.DockProgress) : view.WorkingFire && !view.Active ? view.Ownership : nav.Heading;
+        labels["contact"].text = Text.Get("FCS.contacts", Text.Get("FCS.contact." + view.Contact.State), Text.Get("FCS.contact." + view.FireContact.State));
         labels["restriction"].text = view.Restriction;
         labels["metrics"].text = Text.Get("Hub.metrics", Number(view.RangeKM, "0.00"), Number(view.ClosingMS, "+0.0;-0.0;0.0"), Number(view.RelativeMS, "0.0"));
         labels["propulsion"].text = Text.Get("Hub.propulsion", Text.Get(nav.TorchPreferred ? "Hub.auto" : "Hub.rcs"));
@@ -192,25 +227,34 @@ public sealed class AutoNavPanel : NavModBase
         labels["ports"].text = Text.Get("Hub.ports", view.OwnPort, view.TargetPort);
         labels["alignment"].text = Text.Get("Hub.alignment", Number(view.AlignmentDegrees, "+0.00;-0.00;0.00"));
         labels["progress"].text = Text.Get("Hub.progress." + view.DockProgress);
-        labels["fireTarget"].text = Text.Get("Hub.offensive_target", view.OffensiveTarget);
+        labels["weaponCard"].text = view.WeaponCard;
+        labels["ownership"].text = Text.Get("FCS.ownership", view.Ownership, view.Remaining);
+        buttons["weapon"].GetComponentInChildren<TMP_Text>().text = view.WeaponLabel;
+        buttons["volleys"].GetComponentInChildren<TMP_Text>().text = Text.Get("FCS.volleys", view.Volleys);
+        buttons["native"].GetComponentInChildren<TMP_Text>().text = Text.Get(view.FireHeld ? "FCS.return_native" : "FCS.take_control");
+        buttons["aim"].GetComponentInChildren<TMP_Text>().text = Text.Get("FCS.auto_aim", State(view.AutoAiming));
         buttons["group"].GetComponentInChildren<TMP_Text>().text = Text.Get("Hub.group", view.WeaponGroup);
-        labels["fireReady"].text = fireGuard == null ? Text.Get("Hub.guard_missing") : !view.WorkingPursuit ? Text.Get("Pursuit.module_required") : view.FireReason;
+        labels["fireReady"].text = fireGuard == null ? Text.Get("Hub.guard_missing") : !view.WorkingFire ? Text.Get("FCS.module_required") : view.FireReason;
         labels["systems"].text = Text.Get("Hub.system_metrics", Number(view.RcsAuthorityMS2, "0.000"), Number(view.RcsFuelKG, "0.0"),
             Number(view.DeliveredMS2, "0.000"), Number(view.TorchHours, "0.00"), Number(view.ConnectedKWh, "0.0"),
             Number(view.CoreMK, "0.0"), State(view.NoWake));
         labels["flowValue"].text = Number(view.Flow * 100, "0") + " %";
         labels["cycleValue"].text = Number(view.Cycle * 100, "0") + " %";
         labels["safetyValue"].text = State(view.Safety); labels["enabledValue"].text = State(view.CycleEnabled);
-        labels["details"].text = nav.Details + "\n\n" + Text.Get("Hub.help") + "\n\n" + Plugin.Service.PursuitSummary(COSelf);
+        labels["cue-volume"].text = Phobos.Ostranauts.Framework.Audio.CompletionCues.VolumeLabel;
+        labels["details"].text = view.CompletionCue + "\n\n" + nav.Details + "\n\n" + Text.Get("Hub.help") + "\n\n" + Plugin.Service.PursuitSummary(COSelf);
         buttons["resume"].interactable = nav.Resumable && view.WorkingNavigation;
-        buttons["stop"].interactable = nav.CanStop;
+        buttons["stop"].interactable = nav.CanStop || view.AutoAiming || view.FirePermitted;
         // Always accessible while following, including when the guarded switch is on another page.
-        buttons["cease"].interactable = view.Active || view.FirePermitted;
+        buttons["cease"].interactable = view.Active || view.FirePermitted || view.AutoAiming || view.FireHeld;
         buttons["approach"].interactable = nav.CanFly && !nav.Resumable && view.WorkingNavigation;
         buttons["dock"].interactable = nav.CanDock && view.WorkingNavigation;
         buttons["approachdock"].interactable = view.CanApproachDock;
         buttons["rendezvous"].interactable = buttons["follow"].interactable = nav.CanFly && !nav.Resumable && view.WorkingPursuit;
-        buttons["firetarget"].interactable = buttons["group"].interactable = view.CanSelectWeapons;
+        buttons["firetarget"].interactable = buttons["volleys"].interactable = buttons["weapon"].interactable = buttons["reference"].interactable = view.CanSelectWeapons;
+        buttons["group"].interactable = view.CanChangeGroup;
+        buttons["native"].interactable = view.CanReturnFire || view.CanSelectWeapons;
+        buttons["aim"].interactable = view.CanAim || view.AutoAiming;
         buttons["propulsion"].interactable = nav.CanAdjustPropulsion && view.WorkingNavigation;
         buttons["shutdown"].interactable = view.CanShutdown;
         foreach (var button in settings) button.interactable = nav.CanAdjustArrival && view.WorkingNavigation;

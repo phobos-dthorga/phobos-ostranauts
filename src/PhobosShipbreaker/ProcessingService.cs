@@ -1,4 +1,5 @@
 using Phobos.Ostranauts.Framework.Processing;
+using Phobos.Ostranauts.Framework.Audio;
 using Phobos.Ostranauts.Framework.Controls;
 using System;
 using System.Collections.Generic;
@@ -20,6 +21,7 @@ internal sealed partial class ProcessingService
         internal IntakeSession? Intake;
         internal bool AwaitingFeed;
         internal bool NeedsAttention;
+        internal readonly CompletionWatch Watch = new CompletionWatch();
         internal string Status = Text.Get("ProcessingService.paused_load_panels_and_start_the_queue");
     }
     private ConditionalWeakTable<CondOwner, Session> sessions = new ConditionalWeakTable<CondOwner, Session>();
@@ -161,6 +163,7 @@ internal sealed partial class ProcessingService
 
     private void Stop(CondOwner machine, Session state, string message, bool needsAttention = true)
     {
+        state.Watch.Cancel();
         IndustryObservations.RecordStop(machine, message);
         state.NeedsAttention = needsAttention;
         state.AwaitingFeed = false; state.Job?.Pause(); state.Status = message; SetWorking(machine, false);
@@ -219,7 +222,7 @@ internal sealed partial class ProcessingService
             if (!state.Job.Running) { Stop(machine, state, Text.Get("ProcessingService.time_gap_progress_retained_resume_when_ready")); return; }
             state.Status = powered ? Text.Get("ProcessingService.processing_wall_panel") : Text.Get("ProcessingService.waiting_for_power_progress_retained");
             if (!state.Job.Complete || !powered) return;
-            Finish(machine, state);
+            Finish(machine, state, notify: true);
         }
         catch (Exception ex)
         {
@@ -228,7 +231,7 @@ internal sealed partial class ProcessingService
         }
     }
 
-    private bool Finish(CondOwner machine, Session state)
+    private bool Finish(CondOwner machine, Session state, bool notify = false)
     {
         SetWorking(machine, false);
         var delivery = new NativeDelivery(machine, state.Input!, state.Job!);
@@ -236,6 +239,7 @@ internal sealed partial class ProcessingService
         { Stop(machine, state, Text.Get("ProcessingService.output_changed_progress_retained_clear_space_and")); return false; }
         log(Text.Get("ProcessingService.completed_panel_with_recipe_revision_total_kg", state.Job!.InputId, state.Job.Recipe.Revision, string.Join(", ", state.Job.Recipe.Products.Select(p => Text.Get("ProcessingService.x", p.Count, p.Id)))));
         state.Job = null; state.Input = null;
+        NotifyCommitted(machine, state, notify);
         if (options.ContinueQueue)
         {
             if (!StartNext(machine, state) && Feed(machine)?.objContainer?.ContainedCOs.Count > 0) state.AwaitingFeed = false;
@@ -258,7 +262,29 @@ internal sealed partial class ProcessingService
             work = Text.Get("ProcessingService.recipe_revision_work_s", (job?.Recipe.Revision ?? Recipes(machine).Current.Revision), (job?.Progress ?? 0), (job?.Duration ?? Cycle(machine)));
         }
         catch (ArgumentException ex) { work = ex.Message; }
-        return Text.Get("ProcessingService.feed_panels", state.Status, (inputs?.Count ?? 0), work, (machine.HasCond("IsPowered") ? Text.Get("ProcessingService.powered") : Text.Get("ProcessingService.no_power")), ProcessRules.FeedCapacity);
+        return Text.Get("ProcessingService.feed_panels", state.Status, (inputs?.Count ?? 0), work, (machine.HasCond("IsPowered") ? Text.Get("ProcessingService.powered") : Text.Get("ProcessingService.no_power")), ProcessRules.FeedCapacity)
+            + "\n" + Text.Get(state.Watch.Armed ? "Audio.watching" : state.Watch.Completed ? "Audio.completed" : "Audio.not_watching");
+    }
+
+    internal bool WatchCompletion(CondOwner machine, bool enabled, ConsoleBinding? console = null)
+    {
+        var state = sessions.GetValue(machine, _ => new Session());
+        string? problem = AccessProblem(machine, console) ?? MachineProblem(machine);
+        if (problem != null) { state.Status = problem; return false; }
+        if (enabled) state.Watch.Arm(CrewSim.GetSelectedCrew()?.strID ?? "", machine.ship?.strRegID ?? "");
+        else state.Watch.Cancel();
+        return true;
+    }
+
+    private static void NotifyCommitted(CondOwner machine, Session state, bool advanced)
+    {
+        try
+        {
+            var actor = CrewSim.GetSelectedCrew();
+            bool eligible = actor != null && !actor.bDestroyed && !actor.HasCond("IsDead") && !actor.HasCond("Unconscious") && actor.ship == machine.ship;
+            CompletionCues.Complete(state.Watch, eligible ? actor!.strID : "", eligible ? machine.ship.strRegID : "", advanced);
+        }
+        catch { state.Watch.Cancel(); } // Optional presentation can never invalidate committed output.
     }
 
     internal static string NewPanelProducts() => string.Join(", ", ProcessRecipes.WallPanels.Current.Products.Select(p =>

@@ -13,12 +13,16 @@ internal static class EquipmentContent
 {
     internal const string Base = "PhobosAutoNavBoard", Residue = "PhobosAutoNavBoardResidue", Offcut = "PhobosAutoNavBoardOffcut";
     internal static string Status { get; private set; } = Text.Get("EquipmentContent.awaiting_content_registration");
+    private static JsonModInfo? NativePackage => DataHandler.dictModInfos.Values.FirstOrDefault(m => m.strName == "Phobos Auto Nav" && !m.GetIsDisabled());
+    internal static bool NativePackageEnabled => NativePackage != null;
     internal static void Register()
     {
         try
         {
             Text.EnsureLoaded();
-            foreach (string id in new[] { NavigationService.ModuleId, NavigationService.DamagedId, NavigationService.PursuitId, NavigationService.PursuitDamagedId })
+            var mod = NativePackage;
+            if (mod == null) throw new InvalidOperationException(Text.Get("EquipmentContent.enable_the_matching_phobos_auto_nav_native"));
+            foreach (string id in new[] { NavigationService.ModuleId, NavigationService.DamagedId, NavigationService.PursuitId, NavigationService.PursuitDamagedId, NavigationService.FireControlId, NavigationService.FireControlDamagedId })
             {
                 if (!DataHandler.dictCOOverlays.TryGetValue(id, out var overlay)) continue;
                 var localized = NativeDefinitions.Clone(overlay);
@@ -28,8 +32,6 @@ internal static class EquipmentContent
                 DataHandler.dictCOOverlays[id] = localized;
             }
             Prepare(Plugin.SalvageEnabled.Value, Plugin.SalvageChance.Value).Publish();
-            var mod = DataHandler.dictModInfos.Values.FirstOrDefault(m => m.strName == "Phobos Auto Nav" && !m.GetIsDisabled());
-            if (mod == null) throw new InvalidOperationException(Text.Get("EquipmentContent.enable_the_matching_phobos_auto_nav_native"));
             string path = Path.Combine(mod.GetDirectory(), "framework", "recipes.json");
             ConstructionRegistry.RegisterPack(Plugin.Id, path);
             Status = Text.Get("EquipmentContent.economy_and_maintenance_definitions_registered");
@@ -40,11 +42,12 @@ internal static class EquipmentContent
     internal static NativeDefinitions Prepare(bool salvageEnabled = true, double salvageChance = EquipmentRules.SalvageChance)
     {
         var d = new NativeDefinitions();
-        foreach (bool pursuit in new[] { false, true })
+        foreach (int model in new[] { 1, 2, 3 })
         {
-            string board = pursuit ? "PhobosPursuitBoard" : Base;
-            string prefix = pursuit ? "PhobosPursuit" : "PhobosAutoNav";
-            string moduleType = pursuit ? NavigationService.PursuitId : NavigationService.ModuleId;
+            bool pursuit = model != 1;
+            string board = model == 3 ? "PhobosFireControlBoard" : pursuit ? "PhobosPursuitBoard" : Base;
+            string prefix = model == 3 ? "PhobosFireControl" : pursuit ? "PhobosPursuit" : "PhobosAutoNav";
+            string moduleType = model == 3 ? NavigationService.FireControlId : pursuit ? NavigationService.PursuitId : NavigationService.ModuleId;
             foreach (bool damaged in new[] { false, true })
             {
                 string id = board + (damaged ? "Dmg" : ""), module = moduleType + (damaged ? "Dmg" : "");
@@ -88,6 +91,7 @@ internal static class EquipmentContent
         Offer("ItmTraderSanDiegoPolarisInv", "New", NavigationService.ModuleId, EquipmentRules.PolarisPristineChance, StockCondition.Pristine);
         Offer("ItmVORBScrapKioskInv", "Refurb", NavigationService.ModuleId, EquipmentRules.VenusRefurbishedChance, StockCondition.Refurbished);
         Offer("ItmTraderSanDiegoPolarisInv", "PursuitNew", NavigationService.PursuitId, EquipmentRules.PolarisPristineChance, StockCondition.Pristine);
+        Offer("ItmTraderSanDiegoPolarisInv", "FireControlNew", NavigationService.FireControlId, EquipmentRules.PolarisPristineChance, StockCondition.Pristine);
         foreach (string table in EquipmentRules.SalvageTables)
         {
             double chance = salvageEnabled ? salvageChance : 0;

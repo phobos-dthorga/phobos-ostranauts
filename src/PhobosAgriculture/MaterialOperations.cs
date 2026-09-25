@@ -71,7 +71,8 @@ internal static partial class Service
     {
         var raw = CookerInput(s); if (raw == null) { s.State.Running = false; return; }
         var next = s.State.Copy(); next.CookerProgress = 0; next.CookerInput = ""; next.Running = false;
-        if (!Deliver(s, new List<(string, double)> { (Definitions.Meal, .4) }, raw, next)) s.State.Running = false;
+        s.MealCommitted = Deliver(s, new List<(string, double)> { (Definitions.Meal, .4) }, raw, next);
+        if (!s.MealCommitted) { s.Watch.Cancel(); s.State.Running = false; }
     }
     private static CondOwner? CookerInput(Session s)
     {

@@ -199,5 +199,13 @@ Check(AutoNavCore.TryReadAdmission(own, admissionTarget, 1, 0, 1, 10, out var ro
 admissionTarget.TargetSitu.vPosy = 500 * AutoNavCore.M_TO_AU; own.objSS.vVelY = .1 * AutoNavCore.M_TO_AU;
 Check(AutoNavCore.TryReadAdmission(own, admissionTarget, 1, 0, .1, 10, out room) && room.Safe,
     "Production target adapter permits a slow approach inside the selected arrival band");
+own = Setup();
+var brakingTarget = new TargetRef(); brakingTarget.TargetSitu.vPosy = 1500 * AutoNavCore.M_TO_AU;
+AutoNavCore.BeginFlight(own, brakingTarget, new CoastSettings(3,10,.75,2), false);
+AutoNavCore.Following = true; AutoNavCore.FaceTarget = true; AutoNavCore.WeaponHeading = Math.PI;
+own.objSS.vVelY = 100 * AutoNavCore.M_TO_AU;
+AutoNavCore.SteerFlight(own, brakingTarget, .25);
+Check(AutoNavCore.ControlLimited || AutoNavCore.CurrentPhase == AutoNavCore.Phase.Decel, "Unsafe Follow intercept engages braking/control limit");
+Check(Math.Abs(own.LastTurn) < 1e-7, "Opposite N3 weapon attitude cannot take precedence over braking/clearance heading");
 Console.WriteLine($"{checks} torch policy, native-boundary and guidance assertions passed. No in-game tests performed.");
 PursuitChecks.Run(Check);

@@ -64,6 +64,30 @@
   correct their source entries explicitly when necessary. Build success is not
   gameplay validation, and a page draft is not evidence that a Workshop item exists.
 
+## Per-mod equipment and item references
+
+- Owner memorandum (2026-09-25): maintain one end-user reference per Ostranauts
+  mod covering every equipment family, gear item, loose commodity, byproduct and
+  supported damaged form. Explain function, use, acquisition, where it appears,
+  placement, base value, salvage, Repair and Restore. Explicitly label internal
+  compartments, legacy identities, prototype inheritance and unimplemented designs.
+- Run `scripts/update-item-reference.ps1` (or double-click its `.cmd` launcher)
+  after each relevant update. It reuses the existing economy audits, exports live
+  source definitions and regenerates all six references and their index. Read
+  `docs/item-reference-maintenance.md`; `-Check` verifies against fresh native
+  data without rewriting tracked files. The game path comes from the local
+  installer settings or an explicit argument, never a committed machine path.
+- Keep reviewed explanations in `config/item-reference.json`; keep numerical
+  balance in its owning definitions and use the constants updater where registered.
+  Do not hand-edit generated references or the data snapshot. Add new identities,
+  acquisition labels and service inputs when coverage reports them. Review use
+  instructions when behaviour changes; the generator must not invent them.
+- Maintain the exporter, coverage tests, packaging links, owning changelogs and
+  Workshop drafts with this workflow. Run `python scripts/update-item-reference.py
+  --check` and `python -m unittest discover -s tests -p test_item_reference.py`.
+  CI verifies saved evidence without proprietary game files; local native checks
+  establish the snapshot. Updating documents does not install or publish mods.
+
 ## Native INSTALL catalogue maintenance
 
 - Owner memorandum (2026-09-25): every implemented placeable Phobos furniture,
@@ -398,6 +422,28 @@
 
 ## Architecture
 
+- Owner autonomous-reclamation direction (2026-09-25): follow
+  `docs/shipbreaker-autopilot-research.md` and
+  `docs/shipbreaker-autopilot-handover.md`. The research round is documentation
+  only. Future Shipbreaker requires Auto Nav (existing N1 or N2), superseding
+  earlier optional-Auto-Nav design direction; current packages retain their
+  existing requirements until that implementation lands. Bind one player-selected
+  G4 by its full native object ID; shorten IDs for display only, disambiguating
+  collisions. Players manually recover valuables first or sacrifice supported
+  leftovers. Plan the complete finite processing/storage/reject chain.
+- Auto Nav owns all flight authority; Shipbreaker owns acquisition and mission
+  coordination; Framework owns concrete shared services. Owner clarification:
+  prioritize active G4 positioning, holding while cutting and advancing between
+  walls. Docking/capture is optional stabilization, not a mission prerequisite.
+  Resolve physical reach within native collision limits before enabling cutting;
+  report required equipment changes rather than silently expanding G4 reach.
+  The current any-thrust furnace interruption is Phobos policy, not a proven
+  engine limit. Research checked concurrent processing during gentle positioning;
+  retain the existing guard until a tested motion/power/thermal policy replaces it.
+  None of these proposals is delivered. Preserve exact ship scope, material/heat
+  budgets and explicit industrial resume after reload. Unsupported/unreachable
+  cargo remains a reported remnant; never delete a ship because its queue is empty.
+
 - Auto Nav 0.10.0 implements the four 2026-09-25 audit recommendations. All RCS
   axes share the selected throttle, including turning; ordinary Fly/Resume uses
   conservative current-motion RCS braking-room admission. Do not apply that
@@ -535,6 +581,33 @@
   telemetry we do not have, or present passive chutes as powered machinery.
 
 ## Artwork
+
+- Owner follow-up: apply the quiet cue where appropriate across the suite.
+  Framework 0.21.0 owns one native-effects player, shared volume/mute and a
+  three-real-second burst limit. Shipbreaker 0.19.0 watches D4/R4 batches;
+  Agriculture 0.8.0 watches meal delivery or whole-cohort readiness; Auto Nav
+  0.14.0 watches finite Approach/Rendezvous arrival. Explicit watches clear on
+  stop, fault/suspension and reload. No docking/weapon/ambient/transfer pings or
+  ambiguous furnace-success signal. Follow `docs/shared-completion-cues.md`.
+  Prepared builds are not listening/gameplay validation.
+
+- Owner direction (2026-09-25): retain PixelLab talking-portrait/mouth-shape
+  animation as a possible future tool. It produces visual frames/timing, not
+  spoken audio; do not assume it supplies sound or that Ostranauts can consume
+  a GIF directly. Follow `docs/animation-and-sound-direction.md` and the existing
+  layered-art/provenance policies. No animation generation is requested now.
+- The same direction supports considering retroactive ChatGPT-assisted sound
+  synthesis only where its gameplay usefulness is **HIGH or MEDIUM-HIGH**.
+  Samples must be brief, quiet, non-startling, non-alarming and unobtrusive;
+  divert attention from other game elements only for an exceptionally strong
+  reason. Do not interpret this as permission for an alarm suite, ambient loops
+  or sounds on every action. Follow `docs/animation-and-sound-direction.md`:
+  distinguish owner requirements from proposed defaults, assess native feedback
+  first, and retain visual information. Candidate ratings are design judgments,
+  not measured player benefits. The authorized first trial is Shipbreaker 0.18.0's
+  optional one-shot watched D4/R4 batch cue: original procedural audio, native
+  effects mixing, volume/mute, transient watches and burst suppression. Follow
+  `docs/shipbreaker-completion-cue.md`; listening/gameplay review remains pending.
 
 - Owner memoranda (2026-09-25): prefer PixelLab for simpler pixel-art assets,
   and explicitly permit ChatGPT-generated high-resolution equipment/furniture

@@ -9,16 +9,36 @@ function Copy-PhobosPlayerGuides {
     foreach ($name in @(
         'agriculture-player-guide', 'agriculture-implementation', 'agriculture-research', 'agriculture-first-slice', 'agriculture-roadmap', 'agriculture-living-visuals', 'agriculture-economy-review', 'agriculture-economy-evidence', 'asset-generation-policy',
         'performance-captures', 'furnace-player-guide', 'furnace-coolant-conduits', 'furnace-connections-and-instruments', 'furnace-first-cycle', 'furnace-repair-castings', 'furnace-material-routing', 'manufacturing-handover',
-        'getting-started', 'building', 'player-guide', 'equipment-branding', 'installing-mods', 'equipment-economy', 'equipment-value-audit', 'auto-nav-instruments', 'auto-nav-hub-validation', 'auto-nav-docking', 'auto-nav-sensors', 'auto-nav-flight-profiles', 'auto-nav-pursuit', 'artwork-resolution-policy',
-        'vanilla-economy-audit', 'shipbreaker-first-build', 'shipbreaker-hull-intake',
+        'getting-started', 'building', 'player-guide', 'equipment-branding', 'installing-mods', 'equipment-economy', 'equipment-value-audit', 'auto-nav-instruments', 'auto-nav-hub-validation', 'auto-nav-polaris-startup', 'auto-nav-docking', 'auto-nav-sensors', 'auto-nav-flight-profiles', 'auto-nav-pursuit', 'auto-nav-fire-control', 'artwork-resolution-policy',
+        'vanilla-economy-audit', 'shipbreaker-first-build', 'shipbreaker-hull-intake', 'shipbreaker-completion-cue', 'animation-and-sound-direction', 'shared-completion-cues',
         'residue-collector', 'auto-navigate-adaptation', 'auto-nav-economy', 'auto-nav-panel-layout-audit', 'auto-nav-persistence', 'auto-nav-torch', 'residue-material-contract',
         'shipbreaking-material-processing-research', 'material-disposal-port-research',
         'fluid-conduits-and-irrigation-research', 'agriculture-water-conduits', 'agriculture-nutrient-solutions', 'fluid-network-operations', 'chemical-storage-and-process-fluids', 'updating-constants',
         'processing-job-compatibility', 'localization', 'scrap-reclaimer', 'automatic-material-routing', 'material-port-pairing',
+        'item-references', 'item-reference-maintenance', 'auto-nav-item-reference', 'shipbreaker-item-reference', 'agriculture-item-reference', 'framework-item-reference', 'approach-assist-item-reference', 'manufacturing-item-reference',
+        'approach-assist-prototype', 'limited-autopilot', 'manufacturing-research', 'manufacturing-implementation',
         'install-catalogue', 'industrial-console-player-guide', 'industrial-control-console', 'industrial-control-mockups', 'shared-console-observations', 'sensor-integration-research', 'fusion-smelter-research', 'framework-author-guide'
     )) {
         Copy-Item -LiteralPath (Join-Path $RepoRoot "docs/$name.md") -Destination $Package
     }
+    # Keep the optional audio preview, licence/provenance and reproducible source usable offline.
+    $audioTarget = Join-Path $Package 'assets/phobos-shipbreaker/audio'
+    $scriptTarget = Join-Path $Package 'scripts'
+    New-Item -ItemType Directory -Force -Path $audioTarget, $scriptTarget | Out-Null
+    foreach ($name in @('completion.wav', 'completion.json', 'README.md')) {
+        Copy-Item -LiteralPath (Join-Path $RepoRoot "assets/phobos-shipbreaker/audio/$name") -Destination $audioTarget
+    }
+    Copy-Item -LiteralPath (Join-Path $RepoRoot 'scripts/synthesize-completion-cue.py') -Destination $scriptTarget
+    $cueGuidePath = Join-Path $Package 'shipbreaker-completion-cue.md'
+    $cueGuide = Get-Content -LiteralPath $cueGuidePath -Raw
+    $cueGuide = $cueGuide.Replace('../assets/phobos-shipbreaker/audio/', 'assets/phobos-shipbreaker/audio/').Replace('../scripts/synthesize-completion-cue.py', 'scripts/synthesize-completion-cue.py')
+    Set-Content -LiteralPath $cueGuidePath -Value $cueGuide -Encoding utf8
+    $sharedCuePath = Join-Path $Package 'shared-completion-cues.md'
+    $sharedCueText = (Get-Content -LiteralPath $sharedCuePath -Raw).Replace('../assets/phobos-shipbreaker/audio/', 'assets/phobos-shipbreaker/audio/')
+    Set-Content -LiteralPath $sharedCuePath -Value $sharedCueText -Encoding utf8
+    $audioReadme = Join-Path $audioTarget 'README.md'
+    $audioText = (Get-Content -LiteralPath $audioReadme -Raw).Replace('../../../docs/shipbreaker-completion-cue.md', '../../../shipbreaker-completion-cue.md')
+    Set-Content -LiteralPath $audioReadme -Value $audioText -Encoding utf8
     # Root-level community links in flattened player guides point back to GitHub.
     foreach ($guide in Get-ChildItem -LiteralPath $Package -Filter '*.md' -File) {
         $text = Get-Content -LiteralPath $guide.FullName -Raw

@@ -1,5 +1,14 @@
 # Dependency maintenance and fallback plan
 
+**25 September autonomous-reclamation direction:** the owner requires Auto Nav
+for the future Shipbreaker implementation, using existing N1/N2 hardware. The
+[handover](shipbreaker-autopilot-handover.md#mandatory-dependency-delivery) covers
+loader/native enablement, package order, installer preflight and historical
+package compatibility. This research round changes no installed/current dependency.
+Do not build a second flight controller if Auto Nav is unavailable, and do not
+remove required providers from saves. Auto Nav's existing upstream provenance
+hold remains applicable to the combined release.
+
 **24 September 2026:** Framework and Shipbreaker 0.2.0 implement the authorised
 independent construction/machinery candidate. OCF/SWB are no longer required by
 this version. See [migration and verification limits](phobos-framework.md).

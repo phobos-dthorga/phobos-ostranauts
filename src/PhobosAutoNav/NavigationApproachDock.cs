@@ -67,7 +67,7 @@ internal sealed partial class NavigationService
         AutoNavCore.RestoreFlight(co.ship, target, flight);
         if (Plugin.FuelCheck.Value && !AutoNavCore.HasFuelForFlight(co.ship, target, readOnly: true))
         { SuspendCombined(Text.Get("NavigationService.insufficient_estimated_delta_v")); return; }
-        Fire.Cease(); co.ship.UnlockFromOrbit(); co.ship.objSS.ResetNavData();
+        CeaseFire(); co.ship.UnlockFromOrbit(); co.ship.objSS.ResetNavData();
         flight.Mode = SavedFlightMode.ApproachDock; nextDockFitCheck = AutoNavCore.ElapsedSeconds + FitCheckSeconds;
         CrewSim.ResetTimeScale(); PersistProgress();
         if (AutoNavCore.Engaged) status = Text.Get("Hub.approach_stage");
@@ -78,7 +78,7 @@ internal sealed partial class NavigationService
     private bool QueueDockingHandoff()
     {
         if (savedFlight?.Mode != SavedFlightMode.ApproachDock || AutoNavCore.Engaged || AutoNavCore.LastResult != "ARRIVED") return false;
-        combinedHandoffPending = true; Fire.Cease();
+        combinedHandoffPending = true; CeaseFire();
         if (!FinishSavedFlight(SavedFlightMode.ApproachDockSuspended))
         { combinedHandoffPending = false; status = Text.Get("Persistence.write_failed"); return true; }
         status = Text.Get("Hub.handoff");
@@ -119,7 +119,7 @@ internal sealed partial class NavigationService
 
     private void SuspendCombined(string reason)
     {
-        combinedHandoffPending = false; Fire.Cease();
+        combinedHandoffPending = false; CeaseFire();
         FinishSavedFlight(SavedFlightMode.ApproachDockSuspended);
         issuing = true;
         try { if (AutoNavCore.Engaged) AutoNavCore.EndFlight(AutoNavCore.EngagedPlayer, "ABORTED"); }

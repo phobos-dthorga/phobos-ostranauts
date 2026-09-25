@@ -1,5 +1,14 @@
 # Powered shipbreaking: feasibility and first observations
 
+**25 September 2026 follow-up:** [autonomous reclamation research](shipbreaker-autopilot-research.md)
+and its [implementation handover](shipbreaker-autopilot-handover.md) now cover the
+selected-G4 external branch. Auto Nav is required in that future design, with N1
+or N2 hardware; existing packages are unchanged. The Approach Assist assessment
+and deferred ordering below are historical. Active G4 positioning with finite
+reach, holding/cutting and advancement between walls is the recommended first
+slice, subject to the documented geometry gates. Docking/capture is optional;
+whole-wreck automation is not implemented.
+
 Research date: **2026-09-23**. Owner-selected sequence: **onboard processing first,
 external cutting later**. Part of the [fusion-industry ideas](fusion-industry-roadmap.md).
 

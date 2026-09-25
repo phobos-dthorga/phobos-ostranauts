@@ -29,6 +29,10 @@ All dollar figures below are **whole-object values**, not prices per kilogram or
 | Phobos' Rivetline F6-S Furnace Assembly Section | $6,500.00 | $6,500.00 | $298.80 | 4.60% | $2,600.00 / $149.40 |
 | Phobos' Asterel N1 Polaris Auto Nav Module | $3,600.00 | $900.00 | $0.01 | 0.00% | $360.00 / $0.00 |
 | Phobos' Asterel N1 Polaris Auto Nav Module (Damaged) | $900.00 | $225.00 | $0.01 | 0.00% | $90.00 / $0.00 |
+| Phobos' Asterel N2 Polaris Pursuit Module | $5,400.00 | $1,350.00 | $0.01 | 0.00% | $540.00 / $0.00 |
+| Phobos' Asterel N2 Polaris Pursuit Module (Damaged) | $1,350.00 | $337.50 | $0.01 | 0.00% | $135.00 / $0.00 |
+| Phobos' Asterel N3 Polaris Fire Control System | $5,400.00 | $1,350.00 | $0.01 | 0.00% | $540.00 / $0.00 |
+| Phobos' Asterel N3 Polaris Fire Control System (Damaged) | $1,350.00 | $337.50 | $0.01 | 0.00% | $135.00 / $0.00 |
 
 The VORB column compares the **lowest whole-item value at the lowest native buyer multiplier** against **fresh output at the highest buyer multiplier**. It excludes supply/demand, negotiation, travel and labour. An assembly section has no wear stat. Broken equipment has its own lower base price; additional wear can reduce that again.
 
@@ -55,7 +59,10 @@ This is a conservative vanilla baseline, not a guarantee across different region
 | Phobos' Rivetline F6-P Thermal Exhaust Port | $210.00 | $196.70 |
 | Recover aluminium from housing blank | $55.00 | $20.90 (explicit recovery) |
 | Recover aluminium from finished housing | $60.00 | $19.80 (explicit recovery) |
+| Phobos' Rivetline F6-C Sealed Coolant Conduit | $1.10 | $0.01 |
 | Phobos' Asterel N1 Polaris Auto Nav Module | $29.00 | $0.01 |
+| Phobos' Asterel N2 Polaris Pursuit Module | $29.00 | $0.01 |
+| Phobos' Asterel N3 Polaris Fire Control System | $29.00 | $0.01 |
 
 The processor's final assembly consumes two priced sections. Raw materials for both sections total $570.80; its $514.10 dismantling yield is also below that original raw-material bill. Construction creates a usable machine through labour; this is separate from the dismantling comparison.
 

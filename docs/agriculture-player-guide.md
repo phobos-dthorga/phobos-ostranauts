@@ -1,5 +1,10 @@
 # Phobos Agriculture
 
+Agriculture 0.8.0 requires Framework 0.21.0. Optional
+[meal/crop completion watches](shared-completion-cues.md) notify once after a meal
+is delivered or the whole cohort becomes harvest-ready. Start first, then choose
+Notify; crop readiness never harvests automatically.
+
 Agriculture 0.7.0 adds [lettuce seed production](agriculture-seed-production.md) and
 [maintenance/treatment economics](agriculture-treatment-economy.md). Existing food
 crops and already bound treatment jobs retain their previous contracts.

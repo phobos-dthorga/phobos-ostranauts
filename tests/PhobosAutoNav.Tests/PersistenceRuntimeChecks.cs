@@ -157,6 +157,7 @@ namespace PhobosAutoNav
     internal sealed class FakeConfig { internal int Saves; internal void Save() { Saves++; } }
     internal static class Plugin
     {
+        internal static NavigationService? Service => null;
         internal static Setting<bool> ResumeAfterLoad = new(true), Enabled = new(true), FuelCheck = new(true);
         internal static Setting<double> MaxFlightSimHours = new(48);
         internal static Setting<bool> PreferTorch = new(true);
@@ -196,6 +197,8 @@ namespace PhobosAutoNav
     }
     internal sealed partial class NavigationService
     {
+        internal bool StandaloneAimFor(ShipSitu situ) => false;
+        internal void CeaseFire() => Fire.Cease();
         internal const string PursuitId = "PhobosNavModPursuit";
         internal FireControlController Fire = new();
         internal TorchDouble Torch { get; } = new();
@@ -235,3 +238,4 @@ internal static class GUIOrbitDraw
     internal static Contact? CrossHairTarget;
     internal static bool IsOpen() => true;
 }
+internal static class StarSystem { internal static double fEpoch => 0; }

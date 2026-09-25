@@ -1,6 +1,15 @@
 # Industrial controls
 
-Current packages: Shipbreaker **0.17.0**, requiring Phobos Framework **0.20.0**. Auto Nav remains optional.
+Shipbreaker 0.19.0 requires Framework 0.21.0. The
+[shared cue controls](shared-completion-cues.md) cover D4/R4 and optional Agriculture
+equipment through C1, with one suite-wide volume/mute setting.
+
+D4/R4 panels now offer **Notify on next batch completion**, **Cancel completion
+notification** and cue volume/mute. Watching is optional, never starts a job and
+clears on processing pause, fault or reload. See the
+[completion cue guide](shipbreaker-completion-cue.md) for scope and listening checks.
+
+Current packages: Shipbreaker **0.19.0**, requiring Phobos Framework **0.21.0**. Auto Nav remains optional.
 Built against Ostranauts **1.0.1.5** / BepInEx **5.4.23.5**. Automated checks
 passed; the new native panel/seating integration awaits the owner's game test.
 

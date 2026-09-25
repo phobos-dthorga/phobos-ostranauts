@@ -3,6 +3,7 @@ using System.Globalization;
 using System.Linq;
 using Ostranauts.ShipGUIs.NavStation;
 using PhobosAutoNav.Core;
+using Phobos.Ostranauts.Framework.Persistence;
 
 namespace PhobosAutoNav;
 
@@ -14,8 +15,12 @@ internal enum ManualPropulsion { Flow, Cycle, CycleEnabled, Safety, Shutdown }
 internal sealed class HubSnapshot
 {
     internal InstrumentSnapshot Navigation = new();
+    internal string CompletionCue = "";
     internal SavedFlightMode? Operation;
-    internal ContactReading Contact;
+    internal ContactReading Contact, FireContact;
+    internal bool WorkingFire, AutoAiming, FireHeld, CanReturnFire, CanAim, CanChangeGroup;
+    internal int Volleys = 1, Remaining;
+    internal string WeaponCard = "", WeaponLabel = "", Ownership = "";
     internal bool WorkingNavigation, WorkingPursuit, Active, CanApproachDock, CanEngage, CanSelectWeapons, FirePermitted;
     internal string Restriction = "", OffensiveTarget = "", OwnPort = "", TargetPort = "", Clearance = "", FireReason = "";
     internal int WeaponGroup;
@@ -31,7 +36,10 @@ internal sealed partial class NavigationService
 {
     internal void HubLoaded(CondOwner co)
     {
-        if (!IsLocalConsole(co) || !co.GetCOsSafe(true).Any(item => HasId(item, ModuleId) || HasId(item, PursuitId) || HasId(item, DamagedId) || HasId(item, PursuitDamagedId))) return;
+        if (!IsLocalConsole(co) || !co.GetCOsSafe(true).Any(item => HasId(item, ModuleId) || HasId(item, PursuitId) || HasId(item, DamagedId) || HasId(item, PursuitDamagedId) || HasId(item, FireControlId) || HasId(item, FireControlDamagedId))) return;
+        var notice = new Phobos.Ostranauts.Framework.Persistence.ObjectStateStore(co.mapGUIPropMaps, "AutoNav.N3Notice", co.strID, 1);
+        if (HasPursuit(co) && notice.Read(out _) == SavedStateStatus.Missing)
+        { CrewSim.coPlayer.LogMessage(Text.Get("FCS.migration"), "Neutral", "Game"); notice.TryWrite(new System.Collections.Generic.Dictionary<string,string> { ["shown"] = "1" }); }
         var store = new Phobos.Ostranauts.Framework.Persistence.ObjectStateStore(co.mapGUIPropMaps, "AutoNav.HubPlacement", co.strID, 1);
         if (store.Read(out _) != Phobos.Ostranauts.Framework.Persistence.SavedStateStatus.Missing) return;
         // Called at native module loading, never from rendering. Keep legacy coordinates and
@@ -42,7 +50,7 @@ internal sealed partial class NavigationService
 
     internal HubSnapshot ReadHub(CondOwner? co)
     {
-        var view = new HubSnapshot { Navigation = ReadInstruments(co), OffensiveTarget = Text.Get("Instruments.no_target"),
+        var view = new HubSnapshot { Navigation = ReadInstruments(co), CompletionCue = co == console ? ArrivalCueStatus : Text.Get("Cue.off"), OffensiveTarget = Text.Get("Instruments.no_target"),
             FireReason = Text.Get("Pursuit.ceased"), Clearance = Text.Get("Hub.unavailable") };
         view.Restriction = view.Navigation.Warning ? view.Navigation.Notice : status;
         if (!IsLocalConsole(co) || CrewSim.objInstance == null || !CrewSim.objInstance.FinishedLoading) return view;
@@ -50,6 +58,7 @@ internal sealed partial class NavigationService
         view.WorkingNavigation = powered && co.GetCOsSafe(true).Any(item =>
             (HasId(item, ModuleId) || HasId(item, PursuitId)) && !item.HasCond("IsDamaged"));
         view.WorkingPursuit = powered && HasPursuit(co);
+        view.WorkingFire = powered && FireModule(co) != null;
         var flight = DisplaySnapshot(co);
         view.Active = AutoNavCore.Engaged && console == co;
         view.Operation = flight?.Mode;
@@ -86,23 +95,31 @@ internal sealed partial class NavigationService
             view.OwnPort = flight.OwnPort; view.TargetPort = flight.TargetPort;
             view.DockProgress = DockProgress.Suspended;
         }
-        bool boundFire = view.Active && view.WorkingPursuit;
+        bool boundFire = fireConsole == co;
+        bool freshFire = boundFire && powered && ArrivalBrake.Finite(Fire.SampleEpoch) && StarSystem.fEpoch >= Fire.SampleEpoch && StarSystem.fEpoch - Fire.SampleEpoch <= FireRules.MaximumStep;
         view.FirePermitted = boundFire && Fire.Permitted;
-        if (fireSelectionConsole == co && fireTargetId != null)
-            view.OffensiveTarget = TargetRef.FromShipId(fireTargetId)?.DisplayName ?? fireTargetId;
-        view.WeaponGroup = WeaponGroup(co);
-        view.CanSelectWeapons = view.WorkingPursuit && (!AutoNavCore.Engaged || console == co);
-        var offensive = fireSelectionConsole == co && fireTargetId != null ? TargetRef.FromShipId(fireTargetId) : null;
-        view.CanEngage = boundFire && flight?.IsFollowing == true && view.Contact.Usable &&
-            offensive != null && ReadContact(co, offensive).Usable && view.WeaponGroup > 0;
-        bool freshFire = boundFire && view.FirePermitted && view.Contact.Usable && ArrivalBrake.Finite(Fire.SampleEpoch) &&
-            StarSystem.fEpoch >= Fire.SampleEpoch && StarSystem.fEpoch - Fire.SampleEpoch <= FireRules.MaximumStep;
-        string shortFire = Fire.Reason switch { "Pursuit.firing" => "firing", "Pursuit.aiming" => "aiming", "Pursuit.armed" => "armed",
-            "Pursuit.no_weapons" => "empty", "Pursuit.fire_held" => "held", _ => "off" };
-        view.FireReason = Text.Get("Hub.fire_readiness", Text.Get("Hub.fire." + (boundFire ? shortFire : "off")),
-            freshFire ? Fire.InArcCount?.ToString() ?? Text.Get("Hub.unavailable") : Text.Get("Hub.unavailable"),
-            freshFire ? Fire.AmmoCount?.ToString() ?? Text.Get("Hub.unavailable") : Text.Get("Hub.unavailable"),
-            freshFire ? Fire.ReadyCount?.ToString() ?? Text.Get("Hub.unavailable") : Text.Get("Hub.unavailable"));
+        view.AutoAiming = boundFire && autoAim;
+        if (boundFire && fireTargetId != null) view.OffensiveTarget = FireTarget?.DisplayName ?? fireTargetId;
+        view.FireContact = ReadContact(co, boundFire ? FireTarget : null);
+        bool validPreferences = FirePreferences(co, out int group, out int volleys, out bool held);
+        view.WeaponGroup = group; view.Volleys = volleys; view.Remaining = boundFire ? Fire.Remaining : 0;
+        view.FireHeld = held || Fire.Owns(co.strID);
+        view.CanSelectWeapons = view.WorkingFire && validPreferences && !Fire.OtherOwner(co.strID);
+        view.CanChangeGroup = view.CanSelectWeapons && !view.FireHeld;
+        view.CanReturnFire = validPreferences && view.FireHeld;
+        view.CanEngage = view.CanSelectWeapons && boundFire && view.FireContact.Usable && FireHardwareProblem(co) == null &&
+            !DockingActive && (!AutoNavCore.Engaged || console == co && AutoNavCore.Following) && freshFire && Fire.Weapons.Any(w => w.Eligible && w.Loaded);
+        view.CanAim = view.CanEngage && AimProblem(co) == null;
+        view.Ownership = Text.Get("FCS.state." + (boundFire ? Fire.State : view.FireHeld ? FireState.Hold : FireState.Native));
+        view.FireReason = !view.WorkingFire ? Text.Get("FCS.module_required") : Text.Get("FCS.readiness", boundFire ? Text.Get(Fire.Reason) : view.Ownership,
+            freshFire ? Fire.ReadyCount?.ToString() ?? "—" : "—", freshFire ? Fire.Weapons.Count.ToString() : "—");
+        if (view.WorkingFire && (!view.WorkingNavigation || boundFire && Fire.State == FireState.Fault)) view.Restriction = view.FireReason;
+        var weapon = freshFire ? DisplayWeapon : null;
+        view.WeaponLabel = Text.Get("FCS.weapon", weapon == null ? 0 : Fire.Weapons.ToList().FindIndex(w => w.Id == weapon.Id) + 1, freshFire ? Fire.Weapons.Count : 0,
+            freshFire && aimReference != null ? (Fire.Weapons.ToList().FindIndex(w => w.Id == aimReference) + 1).ToString() : "—");
+        view.WeaponCard = weapon == null ? Text.Get("FCS.unavailable") : Text.Get("FCS.weapon_card", weapon.Name, Text.Get(weapon.Reason),
+            weapon.InArc.HasValue ? Text.Get(weapon.InArc.Value ? "FCS.yes" : "FCS.no") : "—", Text.Get(weapon.Loaded ? "FCS.yes" : "FCS.no"),
+            weapon.ReloadSeconds?.ToString("0.0") ?? "—", weapon.AimSeconds?.ToString("0.0") ?? "—", Text.Get(weapon.Manual ? "FCS.mode_manual" : "FCS.mode_auto"));
         if (!powered || own.bCheckPower || own.objSS == null) return view;
         float? throttle = ReadThrottleReading(co);
         view.RcsAuthorityMS2 = throttle.HasValue ? Known(own.RCSAccelMax / AutoNavCore.M_TO_AU * throttle.Value) : null;
@@ -121,9 +138,9 @@ internal sealed partial class NavigationService
             true : bool.TryParse(safe, out bool safety) ? safety : (bool?)null;
         view.CycleLimit = view.Safety == true ? NavModTorchDrive.GetLimiterSafetyMax(own) : 1;
         view.FlowLimit = Math.Min(1, view.CycleLimit * 2);
-        view.CanManual = view.WorkingNavigation && (!AutoNavCore.Engaged || console == co) &&
+        view.CanManual = (view.WorkingNavigation || view.WorkingFire) && (!AutoNavCore.Engaged || console == co) &&
             !core.HasCond("IsDamaged") && !own.IsDocked() && !own.IsMoored() && CrewSim.system != null && !CrewSim.system.IsInAtmo(own);
-        view.CanShutdown = view.WorkingNavigation && (!AutoNavCore.Engaged || console == co);
+        view.CanShutdown = (view.WorkingNavigation || view.WorkingFire) && (!AutoNavCore.Engaged || console == co);
         view.CanBurn = view.CanManual && view.Safety.HasValue && view.Flow.HasValue && view.Cycle.HasValue &&
             view.CycleEnabled.HasValue && !OtherControllerBusy() && own.shipStationKeepingTarget == null &&
             (own.aWPs == null || own.aWPs.Count == 0) && !PropOn(co, "chkStationKeeping") && !PropOn(co, "chkHoldThrust") &&

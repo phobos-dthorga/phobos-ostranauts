@@ -36,6 +36,9 @@ internal sealed class Ship
     internal string GetReactorGPMValue(string key) => ReactorProps.TryGetValue(key,out var value) ? value : "";
     internal void SetReactorGPMValue(string key,string value) { if(AutoNavCore.Engaged) throw new Exception("Automation still owns flight during manual write"); ReactorWrites++; ReactorProps[key]=value; }
     internal bool IsMoored() => false;
+    internal int Maneuvers; internal float LastRotation;
+    internal bool FailManeuver;
+    internal void Maneuver(float x, float y, float r, float throttle, float dt) { Maneuvers++; if (FailManeuver) throw new Exception("Native maneuver failure"); LastRotation = r; }
 
     internal bool IsUsingTorchDrive => false;
     internal string strRegID = "", publicName = "";
@@ -56,7 +59,7 @@ internal sealed class Ship
     internal IEnumerable<CondOwner> GetCOs(object? filter, bool bSubObjects, bool bAllowDocked, bool bAllowLocked)
     { if (bSubObjects || bAllowDocked) throw new Exception("Cross-ship discovery"); return Items; }
 }
-internal sealed class ShipSitu { internal double vPosx, vPosy, vVelX, vVelY; internal float fRot; internal UnityEngine.Vector2 vAccIn; }
+internal sealed class ShipSitu { internal double vPosx, vPosy, vVelX, vVelY; internal float fRot, fW = 0; internal UnityEngine.Vector2 vAccIn; }
 internal sealed class PowerReading { internal double PowerConnected = 12; }
 internal sealed class CondOwner
 {
@@ -143,7 +146,7 @@ namespace PhobosAutoNav
         internal static NavigationService Service = null!;
         internal static Setting<bool> Enabled = new(true), FuelCheck = new(true), ResumeAfterLoad = new(true), PreferTorch = new(true);
         internal static Setting<float> DefaultCruiseMS = new(100), DefaultArriveSpeedMS = new(0), DefaultArriveKM = new(1),
-            MaximumStepSeconds = new(10), ArrivalSpeedTolerance = new(.5f), TorchMaximumG = new(1), TorchMinimumCorrectionMS = new(5), MaxFlightSimHours = new(48);
+            RotAccelMax = new(.5f), RotSpeedMax = new(.6f), MaximumStepSeconds = new(10), ArrivalSpeedTolerance = new(.5f), TorchMaximumG = new(1), TorchMinimumCorrectionMS = new(5), MaxFlightSimHours = new(48);
         internal static CoastSettings ReadCoastSettings() => new(3,10,.75,2);
     }
     internal static class EquipmentContent { internal static string Status => "ready"; }
@@ -180,6 +183,7 @@ namespace PhobosAutoNav
         internal static Phase CurrentPhase = Phase.Idle;
         internal static string PhaseName => "phase";
         internal static bool Engaged, Coasting, Following, FaceTarget;
+        internal static double? WeaponHeading;
         internal static bool ControlLimited => false;
         internal static double PredictionHorizon => 2;
         internal static double PredictionError => 0;

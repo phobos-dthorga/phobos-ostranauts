@@ -12,7 +12,7 @@ namespace Phobos.Ostranauts.Framework;
 public static class FrameworkInfo
 {
     public const string PluginId = "phobosgekko.ostranauts.framework";
-    public const string Version = "0.20.0";
+    public const string Version = "0.21.0";
 }
 
 [BepInPlugin(FrameworkInfo.PluginId, "Phobos Framework", FrameworkInfo.Version)]
@@ -41,6 +41,8 @@ public sealed class FrameworkPlugin : BaseUnityPlugin
         language = Config.Bind("Localization", "Language", "auto",
             Text.Get("Plugin.language_tag_such_as_en_fr_or"));
         RefreshLanguage();
+        try { Audio.CompletionCues.Player = new Audio.CompletionAudio(gameObject, Config, message => Logger.LogWarning(message)); }
+        catch (Exception ex) { Logger.LogWarning("Optional completion audio unavailable: " + ex.Message); }
         Trading.MarketStock.AvailabilityMultiplier = Config.Bind("Economy", "StockAvailabilityMultiplier", 1d,
             new BepInEx.Configuration.ConfigDescription(Text.Get("Plugin.chance_multiplier_for_registered_equipment_offers_to"),
                 new BepInEx.Configuration.AcceptableValueRange<double>(.25, 4))).Value;
@@ -50,7 +52,7 @@ public sealed class FrameworkPlugin : BaseUnityPlugin
         harmony.PatchAll(typeof(FrameworkPlugin).Assembly);
         Logger.LogInfo(Text.Get("Plugin.phobos_framework_construction_registration_physical_transfers_filters", FrameworkInfo.Version));
     }
-    private void Update() => Diagnostics.NativePerformance.Poll();
+    private void Update() { Diagnostics.NativePerformance.Poll(); Audio.CompletionCues.Player?.Poll(); }
     private void OnApplicationQuit() => Diagnostics.NativePerformance.Shutdown();
-    private void OnDestroy() { Diagnostics.NativePerformance.Shutdown(); harmony?.UnpatchSelf(); }
+    private void OnDestroy() { Audio.CompletionCues.Player?.Dispose(); Audio.CompletionCues.Player = null; Diagnostics.NativePerformance.Shutdown(); harmony?.UnpatchSelf(); }
 }

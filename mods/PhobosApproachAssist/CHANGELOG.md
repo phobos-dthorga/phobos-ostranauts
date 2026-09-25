@@ -6,7 +6,10 @@ Dates on Draft entries record preparation, not Steam publication.
 
 ## [Unreleased]
 
-No additional changes recorded.
+### Documentation
+
+- Added a prototype item reference distinguishing N0 and its damaged form from current Auto Nav, with inherited values and development-only acquisition clearly labelled.
+
 
 ## [0.1.2] - 2026-09-25 - Draft
 

@@ -1,0 +1,24 @@
+{
+  "file": "completion.wav",
+  "provenance": "ChatGPT-authored procedural synthesis; no audio model, recordings or native samples",
+  "license": "MIT (original project work)",
+  "sample_rate": 44100,
+  "channels": 1,
+  "encoding": "PCM signed 16-bit little-endian WAV",
+  "frames": 12348,
+  "duration_seconds": 0.28,
+  "frequencies_hz": [
+    440,
+    660
+  ],
+  "weights": [
+    0.82,
+    0.18
+  ],
+  "envelope": "sin(pi*i/(frames-1))^2",
+  "amplitude_ceiling": 0.1,
+  "peak_dbfs": -20.326,
+  "rms_dbfs": -28.79,
+  "wav_sha256": "a2f806cb7af8188a1dcdfd0a32592f9d9ebcc66c57e45527b0800ccc07620080",
+  "source_sha256": "312eb0cc8b64ac2fe8e979c64b68f84365e6981a1293f66cdf27f0cdc47547c9"
+}

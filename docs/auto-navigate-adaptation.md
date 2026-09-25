@@ -1,6 +1,6 @@
 # Phobos Auto Nav: standalone adaptation
 
-**Current 0.12.0:** use the [shared tall Polaris flight hub](auto-nav-instruments.md).
+**Current 0.13.0:** use the [shared tall Polaris flight hub](auto-nav-instruments.md).
 Navigation, Pursuit and Systems expose routine controls without scrolling;
 Details contains diagnostics/help. Native Edit places the new layout identity
 without enlarging old compact placements. Explicit Approach & Dock captures
@@ -35,7 +35,8 @@ That note has not been sent. No blanket community reuse grant is claimed.
 
 - Current predictive guidance and the new N2 instrument implement the approved
   [Polaris pursuit and fire-control plan](auto-nav-pursuit.md): Rendezvous, Follow,
-  explicit offensive selection/Engage/Cease Fire and a separate moving-target
+  with [N3 Fire Control System](auto-nav-fire-control.md) owning independent limited
+  volleys, optional aiming and explicit group ownership, plus a separate moving-target
   docking hold. The linked guide supersedes older guidance/pursuit limitations
   below; prior version descriptions remain historical context.
 

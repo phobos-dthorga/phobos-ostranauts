@@ -1,4 +1,59 @@
-# Flight hub validation — Auto Nav 0.12.0
+# Flight hub validation — Auto Nav 0.13.0
+
+## N3 candidate, 25 September 2026
+
+Prepared against Blue Bottle Games' Ostranauts 1.0.1.5. These results are offline;
+no live game session, installation, save edit, commit or publication was performed
+for N3. The separately prepared 0.12.1 startup correction is retained.
+
+- Auto Nav and Framework compile without warnings/errors. Flight/persistence:
+  852,299 numerical assertions; torch/native guidance: 48,337 assertions; docking:
+  437,246 assertions. Existing pursuit benchmarks also run, including reversing,
+  crossing, burst targets and reordered updates with shared background motion.
+- N3 lifecycle/sensor/hub: 284 assertions, including all healthy/damaged N1/N2/N3
+  combinations, independent firing, page/read-only behavior, console closure,
+  exact module binding, locked-console reload hold, multiple consoles, RCS loss,
+  stable mixed-mount reference and native maneuver exceptions. Pilot takeover with
+  Auto Aim cancels both; without Auto Aim weapons-only permission survives manual
+  takeover of Follow. Starting navigation ends that independent engagement.
+- Actual fire controller with native boundary doubles: 69 assertions, including
+  every 1–9 budget, mixed readiness, native queue filtering, defensive projectile
+  and micrometeoroid paths, setting/replacement changes, contact recovery,
+  ammo/mode/jam restrictions, missile lock and unreachable/singular lead.
+- Installed native definitions and compiled plugin: 7,313 checks, including N3
+  construction/maintenance/mass/value/spawning, ownership hook signatures, managed
+  embedded hub parsing and disabled-package registration. Framework independently
+  passes 2,563 checks and 35 performance-adapter checks.
+- Shared layout: 36 source and 36 packaged-preview cases across Navigation, Track, Fire, Systems, active
+  docking and Details, normal/expanded translations and long names at 300 × 480,
+  400 × 640 and 600 × 960. Five tab faces, button targets, named faceplate wells
+  and readout padding are checked. Details alone scrolls. Fire renders at minimum
+  and expanded full size were also visually inspected; long names clip within
+  their fields and full diagnostic names remain in Info. Native controls/font
+  rendering still require owner evaluation.
+- Maintenance scripts: 43 Python tests; constants, Workshop release-note records,
+  document links and native package structure pass. All 219 installer transaction
+  checks pass using synthetic game directories, never the owner's installation.
+
+Reproduce with `scripts/build-autonav.ps1`, `scripts/verify-autonav-hub.cjs` (also
+accepts the prepared package directory) and `tests/install-mods.tests.ps1`.
+The [N3 guide](auto-nav-fire-control.md) records controls and native limitations.
+No missile override is supplied: eligible-missile tests use synthetic envelope
+fields; inspected stock launchers remain blocked by missing automatic requirements.
+
+Owner-run acceptance remains: open/drag/save the real hub; exercise N3 alone and
+N2+N3, native manual/defensive fire alongside held offensive groups, actual reload/
+jam/ammunition/consequence behavior, console closure, power/contact loss,
+coasting aiming, changing mounts, torch transitions, docking starts and reload.
+No numerical result establishes real combat effectiveness or intact boarding.
+
+## Historical 0.12.0 preparation report
+
+**Historical preparation report.** The owner subsequently reported a Polaris
+opening failure in 0.12.0 and confirmed that restoring the preceding installed
+builds removed it. See the [startup diagnosis and 0.12.1 candidate](auto-nav-polaris-startup.md).
+The offline results below did not validate Unity deserialization of the plugin's
+embedded layout or complete native panel construction.
 
 Prepared 25 September 2026. These are offline checks against Blue Bottle Games'
 Ostranauts 1.0.1.5, not gameplay captures or proof of native interaction.

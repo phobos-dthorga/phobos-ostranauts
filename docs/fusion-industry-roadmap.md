@@ -1,5 +1,16 @@
 # Fusion-powered industry: ideas and research sequence
 
+**Autonomous reclamation, 25 September:** the owner selected research/design for
+one explicitly chosen G4, required Auto Nav with an existing N1/N2, supported
+leftover reclamation after manual valuables recovery, and the full downstream
+processing/storage chain. The [research](shipbreaker-autopilot-research.md) now
+prioritizes active G4 positioning and movement between cuts, with docking/capture
+optional. Free-flight collision-compatible reach and concurrent process limits
+remain unresolved integration gates. The
+[handover](shipbreaker-autopilot-handover.md) sequences identity/geometry, useful
+wall acquisition, processing endurance/repositioning and final remnant accounting.
+This is a specification, not an implemented autopilot or a current dependency change.
+
 **Manufacturing decision, 25 September:** dedicated machining and finished parts
 will be researched in a separate **Phobos Manufacturing** mod requiring Phobos
 Framework, with optional Shipbreaker integration and no OCF/SWB dependency.
@@ -51,9 +62,9 @@ researched as relevant equipment and activities arise during play, so experiment
 can be grounded in something they can actually test. This is an opportunity list,
 not a commitment to implement every machine or a calendar schedule.
 
-**Immediate research: idea 4, powered shipbreaking. Onboard processing comes
-first; external cutting comes later.** The owner also identified a possible
-autopilot requirement for external work. See the
+**Historical first priority (23 September): idea 4, onboard powered shipbreaking
+before external cutting.** The owner has now advanced the external branch into
+the research/design round linked above. For the earlier evidence see the
 [shipbreaking research and test brief](powered-shipbreaking-research.md).
 An onboard [first fixture build](shipbreaker-first-build.md) is now prepared:
 4 x 4 footprint, four-panel feed, one mass-balanced recipe and player settings.
@@ -218,7 +229,7 @@ manufacture it. Reuse Testudo's filling role and Ship's Water's water economy;
 OCF's optional water adapter is precedent, not an implemented Phobos adapter. Boil-off and
 contamination are candidate additions, not established engine features.
 
-## 4. Powered shipbreaking workshop — research now
+## 4. Powered shipbreaking and autonomous reclamation
 
 **Loop:** recover suitable loose salvage, bring it to a powered fixture, cut it
 into useful material or subassemblies, and return those outputs to existing
@@ -235,9 +246,16 @@ existing bench, sorter and hauling mods. The first Phobos machine must address a
 observed gap: handling larger workpieces, a meaningful processing choice, or
 sustained throughput. A duplicate broken-item dismantling recipe is insufficient.
 
-**Next evidence:** [framework limits, native hooks, proposed cutter and owner-run
-checks](powered-shipbreaking-research.md). Neither a cutter nor autopilot expansion
-has been implemented by this research round.
+**Current next work:** resolve active working geometry and implement the bounded
+ordinary-wall section in the
+[autonomous reclamation handover](shipbreaker-autopilot-handover.md), preserving
+existing D4/R4/F6 recipes and finite outputs. Auto Nav aligns and holds the selected
+G4, then advances between walls without required docking. Establish real reach,
+surface observations and checked concurrent processing during gentle positioning.
+Then extend storage, repeated furnace operation, feed families and traversal.
+Whole completion requires accounted remnants and safe cleanup, not an empty queue.
+The [earlier framework/cutter brief](powered-shipbreaking-research.md) is historical;
+this research round implements no external cutting or industrial flight controls.
 
 ## 5. Plasma separation
 
@@ -260,7 +278,8 @@ perfect sorting. Defer if it adds complexity without a distinct gameplay choice.
 
 When the owner encounters a relevant machine, commodity or difficulty, record
 what happened, refresh the [mod inventory](mod-extension-survey.md), and compare
-existing solutions. Choose one observable result for a separate test save.
+existing solutions. Choose one observable result for owner-run checks in ordinary
+saves; this does not authorize agent edits to saves.
 Record versions, normal/accelerated behaviour, power interruption and save/reload.
 Expand only after the result shows useful gameplay value. These triggers do not
 create a background automation or require the owner to advance every idea.

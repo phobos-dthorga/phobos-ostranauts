@@ -59,10 +59,13 @@ internal sealed class FixturePanel
             if (GUILayout.Button(Text.Get("FixturePanel.manual_feed_fallback"))) service.OpenInventory(machine, true);
             GUILayout.EndHorizontal();
             GUILayout.Label(CollectorService.DescribeLink(machine));
+            if (GUILayout.Button(Text.Get("Industry.action_watch"))) service.WatchCompletion(machine, true);
+            if (GUILayout.Button(Text.Get("Industry.action_unwatch"))) service.WatchCompletion(machine, false);
             if (GUILayout.Button(Text.Get("FixturePanel.residue_destination_unlink"))) Plugin.CollectorControls.ShowSource(machine);
             GUILayout.EndVertical();
         }
         GUILayout.EndScrollView();
+        if (GUILayout.Button(Phobos.Ostranauts.Framework.Audio.CompletionCues.VolumeLabel)) Phobos.Ostranauts.Framework.Audio.CompletionCues.CycleVolume();
         GUILayout.Label(Text.Get("FixturePanel.per_panel_mechanical_parts_aluminium_carbon_fibre", ProcessingService.NewPanelProducts(), Core.ProcessRules.InputKg));
         GUILayout.Label(Text.Get("FixturePanel.queue_continuation", (options.ContinueQueue ? Text.Get("FixturePanel.automatic") : Text.Get("FixturePanel.one_panel_per_start"))));
         if (GUILayout.Button(Text.Get("FixturePanel.close"))) visible = false;

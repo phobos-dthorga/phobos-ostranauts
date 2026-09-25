@@ -1,4 +1,11 @@
 {
+  "watch": "Notify when this meal or crop is ready",
+  "unwatch": "Cancel completion notification",
+  "cue-volume": "Change shared Phobos cue volume / mute",
+  "cue_start_first": "Start a meal or growing crop first. Already-ready work cannot be watched.",
+  "cue_watching": "Watching this meal delivery or crop becoming ready once. Pause, fault or reload cancels the watch.",
+  "cue_completed": "Watched goal reached. Check the meal inventory or harvest-ready crop; no further cue is armed.",
+  "cue_off": "Completion notification off.",
   "loot_enabled_setting": "Add Agriculture supplies and food to future native fridge and locked-crate contents rolls. Does not refill existing containers or affect merchants. Restart the game after changing.",
   "loot_multiplier_setting": "Multiply Agriculture contents-roll chances (0 disables; 1 default; maximum 3). At most one extra Agriculture item per eligible roll. Does not affect merchant stock. Restart the game after changing.",
   "rack": "Cultivation Rack",

@@ -23,6 +23,7 @@ public static class FrameworkLifecycle
 
     internal static void Begin()
     {
+        Audio.CompletionCues.Player?.Stop();
         Diagnostics.NativePerformance.WorldChanging();
         Observations.NativeRoomAlarms.Reset();
         FrameworkPlugin.RefreshLanguage();

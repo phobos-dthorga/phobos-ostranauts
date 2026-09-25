@@ -1,4 +1,5 @@
 using System;
+using Phobos.Ostranauts.Framework.Audio;
 using System.Collections.Generic;
 using System.Linq;
 using PhobosAgriculture.Core;
@@ -15,6 +16,8 @@ internal static partial class Service
     internal sealed class Session
     {
         internal CondOwner Object = null!;
+        internal readonly CompletionWatch Watch = new();
+        internal bool MealCommitted;
         internal ObjectStateStore Store = null!;
         internal CropState State = new();
         internal NutrientSolution Solution = new();
@@ -50,7 +53,7 @@ internal static partial class Service
         {
             var s = entry.Value;
             if (s.Object == null || s.Object.bDestroyed) { sessions.Remove(entry.Key); continue; }
-            if (s.Object.ship == null || (int)s.Object.ship.LoadState < 2) { s.Last = StarSystem.fEpoch; s.State.Running = s.State.Receiving = false; }
+            if (s.Object.ship == null || (int)s.Object.ship.LoadState < 2) { s.Watch.Cancel(); s.Last = StarSystem.fEpoch; s.State.Running = s.State.Receiving = false; }
         }
     }
     internal static CondOwner? Resolve(string id) => DataHandler.mapCOs != null && DataHandler.mapCOs.TryGetValue(id, out var c) && !c.bDestroyed ? c : null;
@@ -91,7 +94,7 @@ internal static partial class Service
     }
     private static double PhysicalMass(CondOwner co) => co.objContainer?.ContainedCOs.Sum(c => c.GetTotalMass()) ?? 0;
     internal static void Fault(CondOwner co, Exception error)
-    { var s = Get(co); s.State.Running = s.State.Receiving = false; s.Protected = true; s.Notice = Text.Get("fault"); Plugin.Log(error.ToString()); }
+    { var s = Get(co); s.Watch.Cancel(); s.State.Running = s.State.Receiving = false; s.Protected = true; s.Notice = Text.Get("fault"); Plugin.Log(error.ToString()); }
     internal static CondOwner? Room(CondOwner co) => co.ship?.GetRoomAtWorldCoords1(co.GetPos(), false)?.CO;
     internal static double Moles(GasContainer gas, string key) => Math.Max(0, (gas.mapGasMols1.TryGetValue(key, out var x) ? x : 0) + (gas.mapDGasMols.TryGetValue(key, out var y) ? y : 0));
     internal static bool RoomReady(CondOwner co)
@@ -114,16 +117,17 @@ internal static partial class Service
         if (s.Protected || co.ship == null || (int)co.ship.LoadState < 2) return;
         try
         {
+            bool wasReady = s.State.Ready; s.MealCommitted = false;
             double received = s.Received; s.Received = 0;
             if (elapsed > 0 && elapsed <= 3600) { s.DeliveredKW = received * 3600 / elapsed; s.LastPower = StarSystem.fEpoch; }
             if (!CropState.Finite(elapsed) || elapsed < 0 || elapsed > 3600)
-            { s.State.Running = s.State.Receiving = false; elapsed = 0; s.Notice = Text.Get("gap"); }
+            { s.Watch.Cancel(); s.State.Running = s.State.Receiving = false; elapsed = 0; s.Notice = Text.Get("gap"); }
             var room = Room(co); var gas = room?.GasContainer;
             if (gas == null || Moles(gas, "StatGasMolTotal") < 1)
             {
                 // No imaginary vacuum sink. Power admission above prevents consumption here.
                 if (received > 0) throw new InvalidOperationException("Agriculture lost its heat recipient during a native power call.");
-                s.State.Health = Math.Max(0, s.State.Health - elapsed / 3600 * .1); s.State.Running = false; Save(s); return;
+                s.Watch.Cancel(); s.State.Health = Math.Max(0, s.State.Health - elapsed / 3600 * .1); s.State.Running = false; Save(s); return;
             }
             // Settle measured electricity even if a later liquid adapter fails.
             gas.fDGasTemp += received * 3600000 / (Moles(gas, "StatGasMolTotal") * 20.8);
@@ -152,6 +156,12 @@ internal static partial class Service
             // Native gas simulation owns room mixing and later cooling. 20.8 J/mol/K follows native heat accounting.
             gas.fDGasTemp += (exchange.RoomHeatKWh - received) * 3600000 / (Moles(gas, "StatGasMolTotal") * 20.8);
             Save(s);
+            if (s.MealCommitted || !wasReady && s.State.Ready)
+            {
+                var actor = CrewSim.GetSelectedCrew();
+                CompletionCues.Complete(s.Watch, actor?.strID ?? "", actor?.ship == co.ship ? co.ship.strRegID : "");
+            }
+            else if (s.Watch.Armed && (!s.State.Running || co.HasCond("IsDamaged") || !co.HasCond("IsInstalled"))) s.Watch.Cancel();
         }
         catch (Exception ex) { Fault(co, ex); }
     }
@@ -175,6 +185,18 @@ internal static partial class Service
         message = Access(co, binding) ?? ""; if (message.Length > 0) return false;
         if (action == "status") { message = Describe(co); return true; }
         var s = Get(co); if (s.Protected || WaterGuard(co).Protected || !Definitions.Ready) { message = Text.Get("protected"); return false; }
+        if (!IrrigationDefinitions.IsSupply(co) && (action == "watch" || action == "unwatch" || action == "cue-volume"))
+        {
+            if (action == "cue-volume") CompletionCues.CycleVolume();
+            else if (action == "unwatch") s.Watch.Cancel();
+            else
+            {
+                if (!s.State.Running || (Definitions.IsCooker(co) ? CookerInput(s) == null || s.State.CookerProgress >= .05 : s.State.CropId.Length == 0 || s.State.Ready))
+                { message = Text.Get("cue_start_first"); return false; }
+                s.Watch.Arm(CrewSim.GetSelectedCrew().strID, co.ship.strRegID);
+            }
+            message = Describe(co); return true;
+        }
         if(action=="cancel-recovery" && IrrigationDefinitions.IsSupply(co) && Paused(s)) {s.RecoveryInput=s.RecoveryFilter="";s.RecoveryEnergy=0;s.RecoveryMetered=false;Save(s);message=Describe(co);return true;}
         if (SolutionCommand(s, action, out message) is bool solutionHandled) return solutionHandled;
         if (WaterCommand(s, action, out message) is bool handled) return handled;
@@ -195,10 +217,10 @@ internal static partial class Service
                 }
                 if (Definitions.IsCooker(co) && CookerInput(s) == null) { message = Text.Get("cancel_missing"); return false; }
                 s.State.Running = true; break;
-            case "pause": s.State.Running = false; break;
+            case "pause": s.Watch.Cancel(); s.State.Running = false; break;
             case "cancel":
                 if (!Definitions.IsCooker(co)) { message = Text.Get("help"); return false; }
-                s.State.Running = false; s.State.CookerInput = ""; s.State.CookerProgress = 0; break;
+                s.Watch.Cancel(); s.State.Running = false; s.State.CookerInput = ""; s.State.CookerProgress = 0; break;
             case "receive":
                 if (Definitions.IsCooker(co) || !s.Routed && !ShipsWaterSupply.Available) { message = Text.Get("no_provider"); return false; }
                 s.State.Receiving = true; break;
@@ -212,6 +234,7 @@ internal static partial class Service
         var s = Get(co); var b = s.State; var room = Room(co);
         if (IrrigationDefinitions.IsSupply(co)) return DescribeSupply(s);
         string environment = room == null || room.GasContainer == null ? Text.Get("unknown") : Text.Get("environment", room.strID, room.GetCondAmount("StatGasTemp") - 273.15, room.GetCondAmount("StatGasPressure"));
+        environment += "\n" + Text.Get(s.Watch.Armed ? "cue_watching" : s.Watch.Completed ? "cue_completed" : "cue_off") + "\n" + CompletionCues.VolumeLabel;
         environment += "\n" + (StarSystem.fEpoch - s.LastPower <= 5 ? Text.Get("power_reading", s.DeliveredKW) : Text.Get("power_unknown"));
         if (Definitions.IsCooker(co)) return Text.Get("cooker_status", b.CookerProgress / .05 * 100, Text.Get(b.Running ? "cooking" : "stopped"), environment, s.Protected ? Text.Get("protected") : s.Notice);
         if (b.CropId.Length > 0)

@@ -6,9 +6,24 @@ Dates on Draft entries record preparation, not Steam publication.
 
 ## [Unreleased]
 
+### Documentation
+
+- Added a maintained per-mod item reference covering function, use, acquisition and applicable economic/service data; generated tables and coverage checks share a one-click updater.
+
 ### Fixed
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
+
+## [0.21.0] - 2026-09-25 - Draft
+
+### Added
+
+- Share the original quiet completion cue across content mods with one native-effects player, volume/mute and real-time burst suppression. Transient watches retain visible outcomes; dropped events never replay.
+- Seed the shared volume from an existing first-trial Shipbreaker setting only when no shared setting exists. Audio failure remains isolated from game operations.
+
+### Known limits
+
+- No save migration. Unity playback and listening evaluation remain owner checks. Low playback priority does not guarantee suppression during native alarms.
 
 ## [0.20.0] - 2026-09-25 - Draft
 

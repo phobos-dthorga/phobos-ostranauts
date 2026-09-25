@@ -18,6 +18,8 @@ if ($LASTEXITCODE -ne 0) { throw 'Auto Nav docking checks failed.' }
 if ($LASTEXITCODE -ne 0) { throw 'Auto Nav live-contact checks failed.' }
 & dotnet run --project (Join-Path $repoRoot 'tests/PhobosAutoNav.Fire.Tests') -c Release "-p:OstranautsPath=$gameRoot"
 if ($LASTEXITCODE -ne 0) { throw 'Auto Nav explicit fire-control checks failed.' }
+& dotnet run --project (Join-Path $repoRoot 'tests/PhobosNative.Tests') -c Release "-p:OstranautsPath=$gameRoot" -- $gameRoot $repoRoot
+if ($LASTEXITCODE -ne 0) { throw 'Auto Nav embedded hub and native registration checks failed.' }
 $source = Join-Path $repoRoot 'mods/PhobosAutoNav'
 foreach ($file in Get-ChildItem -LiteralPath $source -Recurse -Filter '*.json' -File) {
     $null = Get-Content -LiteralPath $file.FullName -Raw | ConvertFrom-Json
@@ -27,7 +29,7 @@ $overlays = Get-Content -LiteralPath (Join-Path $source 'data/cooverlays/phobos_
 foreach ($overlay in $overlays) {
     foreach ($property in @('strImg', 'strImgNorm', 'strPortraitImg')) {
         $path = Join-Path $source ('images/' + $overlay.$property + '.png')
-        $nativeArt = $overlay.strName -in @('PhobosNavModPursuit', 'PhobosNavModPursuitDmg')
+        $nativeArt = $overlay.strName -in @('PhobosNavModPursuit', 'PhobosNavModPursuitDmg', 'PhobosNavModFireControl', 'PhobosNavModFireControlDmg')
         if ($nativeArt) {
             $stem = 'navmod/ItmNavMod01' + $(if ($overlay.strName.EndsWith('Dmg')) { 'Dmg' } else { '' })
             $expected = $stem + $(if ($property -eq 'strImgNorm') { 'n' } else { '' })
@@ -72,9 +74,9 @@ foreach ($asset in @(
     } finally { $bitmap.Dispose() }
 }
 $hubMaps = Get-Content -LiteralPath (Join-Path $source 'data/guipropmaps/phobos_approach_assist.json') -Raw | ConvertFrom-Json
-if ($hubMaps.Count -ne 2) { throw 'Expected two preserved equipment bindings for one hub.' }
+if ($hubMaps.Count -ne 3) { throw 'Expected N1/N2/N3 equipment bindings for one hub.' }
 foreach ($binding in $hubMaps) {
-    if ($binding.strName -notin @('PhobosNavModAutoNav', 'PhobosNavModPursuit')) { throw 'Saved equipment identity changed.' }
+    if ($binding.strName -notin @('PhobosNavModAutoNav', 'PhobosNavModPursuit', 'PhobosNavModFireControl')) { throw 'Saved equipment identity changed.' }
     $pairs = $binding.dictGUIPropMap
     if ($pairs.Count -ne 6 -or $pairs[1] -ne 'PhobosNavFlightHub' -or $pairs[3] -ne 'PhobosNavFlightHub' -or $pairs[5] -ne '0.00|0.00|0.25|0.80') {
         throw 'Both intact/damaged equipment bindings must resolve the same tall hub identity.'

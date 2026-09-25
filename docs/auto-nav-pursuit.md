@@ -1,4 +1,4 @@
-# Polaris pursuit and fire control — Auto Nav 0.12.0
+# Polaris pursuit — Auto Nav 0.13.0
 
 Prepared 25 September 2026 against Blue Bottle Games' Ostranauts 1.0.1.5.
 Implemented and checked offline; owner-run gameplay evaluation is still pending.
@@ -9,8 +9,8 @@ changes are implied by this document.
 
 **Phobos' Asterel N2 Polaris Pursuit Module** adds pursuit capability to the
 [shared flight hub](auto-nav-instruments.md) in the existing Auto Nav package.
-N1 is not required. Either module supplies navigation/docking, but pursuit and
-fire controls require working N2. Both installed produce one hub and one service
+N1 is not required. Either module supplies navigation/docking; pursuit requires working N2.
+Fire controls require N3. Any combination produces one hub and one service
 owns flight. Place the new tall hub through native Edit; old compact placements
 are never silently enlarged. Framework 0.17.0 or newer is required.
 
@@ -25,56 +25,17 @@ No extracted native artwork is distributed. UI interaction awaits owner evaluati
    **Follow** on the Pursuit page continues maintaining a band while the target moves.
    These modes always request zero arrival speed, independently of ordinary Fly's
    saved arrival-speed preference. Stop the current flight before selecting another.
-3. For optional offensive fire, select a contact with the crosshair and press
-   **Select Fire Target**. This is separate from the captured navigation target.
-   Select a native weapon group using **Weapon group** (1–9), then explicitly
-   lift the fire-permission cover and switch **ON** while Follow is running.
-   Panel Engage is unavailable if the native guarded switch cannot be obtained.
-   The summary identifies
-   both the selected group and offensive target. Crosshair movement cannot retarget
-   either an existing flight or an armed engagement.
-4. Switch **OFF**, or use **Cease Fire**, to revoke our fire
-   permission and retain Follow. The Cease Fire button remains outside the cover.
-   Selecting a different fire target or group also revokes permission. Manual-only
-   weapons remain manual; defensive-only PDC settings remain defensive-only.
-   Native manual fire buttons remain available independently.
-5. **Dock** is a separate command after Stop, using the selected contact and native
-   Comms clearance/assigned port. It never follows automatically from shooting,
-   Rendezvous or Follow. Disengage clears thrust; it is not emergency braking.
+3. Optional fire control now requires the separate [N3 Fire Control System](auto-nav-fire-control.md).
+   Its Fire page owns target/group selection, limited volleys, Auto Aim and guarded
+   Engage. Cease Fire retains Follow and offensive hold; Return to Native releases
+   that hold. N2 no longer grants firing permission.
+4. **Dock** or **Approach & Dock** remains a separate command after Stop, requiring
+   native clearance and compatible assigned ports. Shooting and Follow never dock.
 
-Navigation clearance and braking take priority over weapon-facing attitude. Only
-the first usable weapon mounting in the selected group supplies the requested
-attitude; every weapon is independently checked for arc and readiness. Mixed
-mounting directions can therefore prevent some weapons firing. The native shooter
-owns projectile lead, ammunition consumption, jams, reload, witnesses and faction
-consequences. Missiles additionally require a complete native sensor lock and the
-native navigation display open, because that is the inspected player missile API's
-lock source. Automatic fire is held above a one-second simulation step.
-
-Pursuit suppresses duplicate native automatic salvos against its controlled target(s).
-Unrelated defensive shots and manual firing remain native operations. Offensive
-selection is leased to the native combat-target field only during synchronous shot
-creation and restored in `finally`; navigation never assigns a persistent combat
-target or rewrites weapon firing modes.
-
-F3 equivalents:
-
-```text
-phobosnav rendezvous [km]
-phobosnav follow [km]
-phobosnav firetarget
-phobosnav weapons <1–9>
-phobosnav engage
-phobosnav ceasefire
-phobosnav dock
-phobosnav approachdock
-phobosnav stop
-phobosnav resume
-```
-
-The ordinary `arrival`, `cruise`, `torch`, `status`, `settings` and `forget` commands
-remain shared. `spawnpursuit` is an explicit development spawn into the open local
-console; ordinary acquisition uses construction or the Polaris merchant.
+F3 pursuit equivalents are `phobosnav rendezvous [km]`, `phobosnav follow [km]`,
+`phobosnav stop` and `phobosnav resume`. Flight settings remain shared. Native
+spawning is `spawn PhobosNavModPursuit`; `spawnpursuit` remains a development helper.
+Navigation braking and clearance take priority over N3's optional aiming request.
 
 ## Acquisition, persistence and limits
 
@@ -95,8 +56,8 @@ navigation API or new mandatory mod dependency was introduced.
 Flight intent binds the exact console, module instance, player, ship and destination.
 Rendezvous, Follow, Dock and Approach & Dock **always suspend on loading**, even when ordinary Fly
 auto-resume is enabled. Resume rechecks sensors, hardware and braking room. Predictions,
-observation history, weapon aim and fire authority are session-only. The weapon-group
-preference uses a separate console-owned Framework store; selecting an offensive
+observation history, weapon aim and fire authority are session-only. N3 owns the weapon-group
+preference and retained offensive hold in a separate console-owned Framework store; selecting an offensive
 target and granting Engage must be done again after loading. Unknown future preference
 or flight records are protected. New pursuit mode names are rejected by older
 plugins rather than silently treated as ordinary Fly; do not downgrade or remove

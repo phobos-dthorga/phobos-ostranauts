@@ -5,6 +5,12 @@ against Blue Bottle Games' Ostranauts 1.0.1.5 with Framework 0.17.0 or newer.
 Offline verification is separate from owner-run gameplay evaluation; this round
 does not install or publish the redesign.
 
+The [Shipbreaker autonomous-reclamation specification](shipbreaker-autopilot-research.md)
+uses exact-port selection as a precedent for exact G4 selection. Its primary
+proposal is active working-pose control; docking/capture is optional stabilization.
+It does not add industrial guidance, mooring or automatic undocking to the current
+package; the [handover](shipbreaker-autopilot-handover.md) defines those boundaries.
+
 ## Operating sequence
 
 1. Obtain **DOCK clearance through native Comms** and select that destination.

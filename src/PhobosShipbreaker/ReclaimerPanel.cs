@@ -12,6 +12,7 @@ internal sealed class ReclaimerPanel
     private const int WindowId = 847294;
     private CondOwner? target;
     private Rect bounds = new Rect(160, 100, 640, 470);
+    private Vector2 scroll;
     internal void Reset() => target = null;
     internal bool Show(CondOwner machine)
     {
@@ -26,6 +27,7 @@ internal sealed class ReclaimerPanel
     private void Window(int id)
     {
         var machine = target!; var service = Plugin.Service;
+        scroll = GUILayout.BeginScrollView(scroll);
         GUILayout.Label(CollectorService.Label(machine));
         GUILayout.Label(Text.Get("Reclaimer.panel_budget", Plugin.Options.ReclaimerSeconds, Plugin.Options.ReclaimerKW,
             ReclaimerRules.InputKg, ReclaimerRules.RejectKg));
@@ -47,6 +49,10 @@ internal sealed class ReclaimerPanel
         if (GUILayout.Button(Text.Get("Routing.output_port"))) Plugin.CollectorControls.ShowSource(machine);
         GUILayout.EndHorizontal();
         GUILayout.Label(Text.Get("Routing.queue_hint"));
+        if (GUILayout.Button(Text.Get("Industry.action_watch"))) service.WatchCompletion(machine, true);
+        if (GUILayout.Button(Text.Get("Industry.action_unwatch"))) service.WatchCompletion(machine, false);
+        if (GUILayout.Button(Phobos.Ostranauts.Framework.Audio.CompletionCues.VolumeLabel)) Phobos.Ostranauts.Framework.Audio.CompletionCues.CycleVolume();
+        GUILayout.EndScrollView();
         if (GUILayout.Button(Text.Get("FixturePanel.close"))) target = null;
         GUI.DragWindow(new Rect(0, 0, bounds.width, 24));
     }

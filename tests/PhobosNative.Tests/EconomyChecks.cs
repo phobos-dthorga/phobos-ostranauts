@@ -128,7 +128,7 @@ internal static class EconomyChecks
         check(MaintenanceSafety.ResolveFinish("PhobosNavModAutoNavDmg", "MSNavModMoboRepair") == "MSPhobosAutoNavBoardDmgRepair", "Saved Auto Nav repair uses actual waste accounting");
         check(MaintenanceSafety.ResolveFinish("PhobosNavModAutoNav", "MSNavModMoboDismantle") == "MSPhobosAutoNavBoardDismantle", "Saved Auto Nav dismantle uses the 0.4 kg output");
         check(MaintenanceSafety.ResolveFinish("ItmNavModMobo", "MSNavModMoboDismantle") == "MSNavModMoboDismantle", "Generic vanilla job is not globally redirected");
-        foreach (string id in new[]{PhobosAutoNav.EquipmentContent.Base,PhobosAutoNav.EquipmentContent.Base+"Dmg", "PhobosPursuitBoard", "PhobosPursuitBoardDmg"})
+        foreach (string id in new[]{PhobosAutoNav.EquipmentContent.Base,PhobosAutoNav.EquipmentContent.Base+"Dmg", "PhobosPursuitBoard", "PhobosPursuitBoardDmg", "PhobosFireControlBoard", "PhobosFireControlBoardDmg"})
         {
             check(Stat(id,"StatMass") == .4 && Sum(nav.Installables[id+"Dismantle"].aLootCOs,"StatMass") == .4, "Auto Nav disassembly cannot manufacture native half-kg electronics");
             check(!nav.Objects[id].aUpdateCommands.Any(c => c.Contains("ACTNavModMoboDamage")), "Auto Nav never falls back to a generic damaged board");
@@ -158,8 +158,13 @@ internal static class EconomyChecks
         check(navRestore.bNoDestructable && navRestore.aInputs.Length == 0 && navRestore.strAllowLootCTsThem == "CONDUndamageProgress",
             "Restore remains in-place wear maintenance without a material bill");
         var navOffers = nav.Loot.Values.Where(l => l.strName.StartsWith("PhobosAutoNavStock_", StringComparison.Ordinal)).ToArray();
-        check(navOffers.Length == 5 && navOffers.All(l => l.aCOs.Length == 1 && l.aCOs[0].EndsWith("x1", StringComparison.Ordinal)),
-            "Four N1 offers and one N2 offer each generate at most one module");
+        check(navOffers.Length == 6 && navOffers.All(l => l.aCOs.Length == 1 && l.aCOs[0].EndsWith("x1", StringComparison.Ordinal)),
+            "Four N1 offers, N2 and N3 each generate at most one module");
+        check(Stat("PhobosFireControlBoard", "StatBasePrice") == 5400 && Stat("PhobosFireControlBoardDmg", "StatBasePrice") == 1350,
+            "N3 matches the approved N2 authored prices without changing N2");
+        check(nav.Installables["PhobosFireControlBoardDmgRepair"].aLootCOs.SequenceEqual(new[]{"PhobosNavModFireControl"}) &&
+            nav.Interactions["PhobosFireControlModeDamage"].objLootModeSwitch == "PhobosNavModFireControlDmg", "N3 repair and damage retain the fire-control identity");
+        check(nav.Loot["PhobosNavModFireControl"].aCOs.SequenceEqual(new[]{"PhobosNavModFireControl=1x1"}), "Native spawn resolves the N3 overlay");
         check(Stat("PhobosPursuitBoard", "StatBasePrice") == 5400 && Stat("PhobosPursuitBoardDmg", "StatBasePrice") == 1350,
             "N2 authored economy is distinct from retained N1 values");
         check(nav.Installables["PhobosPursuitBoardDmgRepair"].aLootCOs.SequenceEqual(new[]{"PhobosNavModPursuit"}),
@@ -181,6 +186,12 @@ internal static class EconomyChecks
         RecipeRules.Validate(pursuitRecipe);
         check(DataHandler.dictInteractions.ContainsKey("PhobosCraft_PhobosBuildPursuit") &&
             pursuitRecipe.outputs.Any(o => o.item == "PhobosNavModPursuit"), "N2 native overlay is constructible with balanced retained offcuts");
+        var fireRecipe = pack.recipes.Single(r => r.id == "PhobosBuildFireControl");
+        RecipeRules.Validate(fireRecipe);
+        check(DataHandler.dictInteractions.ContainsKey("PhobosCraft_PhobosBuildFireControl") &&
+            fireRecipe.outputs.Any(o => o.item == "PhobosNavModFireControl") &&
+            Math.Abs(fireRecipe.ingredients.Sum(i=>i.count*i.unitMassKg)-fireRecipe.outputs.Sum(i=>i.count*i.unitMassKg))<.000001,
+            "N3 uses native construction and balanced retained offcuts");
         // Inspect generated native jobs too; no game session or Unity object creation.
         foreach (var job in nav.Installables.Values)
         {

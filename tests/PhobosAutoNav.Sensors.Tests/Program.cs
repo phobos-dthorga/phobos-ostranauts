@@ -218,8 +218,18 @@ f.Service.StartPursuit(f.Console,true);
 Check(AutoNavCore.Engaged && Read(f.Console).Mode == SavedFlightMode.Following && Read(f.Console).ArrivalMS == 0,
     "Follow captures zero arrival speed and its dedicated module");
 f.Service.EngageWeapons(f.Console); Check(!f.Service.Fire.Permitted,"Follow target is not implicitly an offensive target");
+f.Service.SelectFireTarget(f.Console); f.Service.EngageWeapons(f.Console); Check(!f.Service.Fire.Permitted,"N2 no longer grants fire control");
+f.Console.Items.Add(new CondOwner { strID="fire-module", strName=NavigationService.FireControlId, ship=f.Own });
 f.Service.SelectFireTarget(f.Console); f.Service.EngageWeapons(f.Console); Check(f.Service.Fire.Permitted,"Separate target selection and Engage grant fire authority");
 f.Service.CeaseFire(); Check(AutoNavCore.Engaged && AutoNavCore.Following && !f.Service.Fire.Permitted,"Cease Fire preserves Follow");
+f.Service.ToggleAutoAim(f.Console); f.Service.TickFire(.25,false);
+Check(f.Service.ReadHub(f.Console).AutoAiming && AutoNavCore.WeaponHeading.HasValue,"N2 Follow accepts the explicit N3 attitude request");
+f.Service.EngageWeapons(f.Console); f.Service.ExternalControl(f.Own,0,0,.5f);
+Check(!AutoNavCore.Engaged && !f.Service.Fire.Permitted && !f.Service.ReadHub(f.Console).AutoAiming,"Pilot takeover of coordinated aiming cancels flight and fire");
+f.Service.StartPursuit(f.Console,true); f.Service.SelectFireTarget(f.Console); f.Service.EngageWeapons(f.Console);
+f.Service.ExternalControl(f.Own,1,0,0);
+Check(!AutoNavCore.Engaged && f.Service.Fire.Permitted,"Manual flight takeover preserves independently authorized weapons when Auto Aim is off");
+f.Service.StartPursuit(f.Console,true); Check(!f.Service.Fire.Permitted,"Starting another navigation operation ends the independent engagement");
 f.Service.EngageWeapons(f.Console); f.Service.WorldChanging(); f.Service.WorldLoaded(); f.Service.UpdatePersistence();
 Check(!AutoNavCore.Engaged && !f.Service.Fire.Permitted && Read(f.Console).Mode == SavedFlightMode.FollowingSuspended,
     "Follow always suspends on load, even with ordinary auto-resume enabled");
@@ -228,18 +238,19 @@ f.Service.ResumeSaved(f.Console); Check(AutoNavCore.Engaged && Read(f.Console).M
 Signal(f.Own,.1);f.Service.Tick(f.Own.objSS,1,false);
 Check(!AutoNavCore.Engaged && Read(f.Console).Mode==SavedFlightMode.FollowingSuspended,"Follow contact loss preserves mission mode");
 // Shared hub is a read-only view over real service state, with exact hardware capability gates.
-foreach (int installed in Enumerable.Range(0,4))
-foreach (int damaged in Enumerable.Range(0,4))
+foreach (int installed in Enumerable.Range(0,8))
+foreach (int damaged in Enumerable.Range(0,8))
 {
     f=Setup(); f.Console.Items.Clear();
     if((installed&1)!=0) f.Console.Items.Add(new(){strID="n1",strCODef=NavigationService.ModuleId,ship=f.Own});
     if((installed&2)!=0) f.Console.Items.Add(new(){strID="n2",strCODef=NavigationService.PursuitId,ship=f.Own});
-    foreach(var item in f.Console.Items) if(item.strID=="n1"&&(damaged&1)!=0 || item.strID=="n2"&&(damaged&2)!=0) item.Conditions.Add("IsDamaged");
-    bool n1=(installed&1)!=0&&(damaged&1)==0, n2=(installed&2)!=0&&(damaged&2)==0;
+    if((installed&4)!=0) f.Console.Items.Add(new(){strID="n3",strCODef=NavigationService.FireControlId,ship=f.Own});
+    foreach(var item in f.Console.Items) if(item.strID=="n3"&&(damaged&4)!=0 || item.strID=="n1"&&(damaged&1)!=0 || item.strID=="n2"&&(damaged&2)!=0) item.Conditions.Add("IsDamaged");
+    bool n1=(installed&1)!=0&&(damaged&1)==0, n2=(installed&2)!=0&&(damaged&2)==0, n3=(installed&4)!=0&&(damaged&4)==0;
     var hub=f.Service.ReadHub(f.Console);
-    Check(hub.WorkingNavigation==(n1||n2) && hub.WorkingPursuit==n2,"Healthy N1/N2 combinations provide only their own capabilities");
+    Check(hub.WorkingNavigation==(n1||n2) && hub.WorkingPursuit==n2 && hub.WorkingFire==n3,"Healthy N1/N2 combinations provide only their own capabilities");
     f.Console.Conditions.Remove("IsPowered"); hub=f.Service.ReadHub(f.Console);
-    Check(!hub.WorkingNavigation&&!hub.WorkingPursuit&&!hub.CanEngage&&!hub.CanManual&&!hub.Navigation.CanFly,
+    Check(!hub.WorkingNavigation&&!hub.WorkingPursuit&&!hub.WorkingFire&&!hub.CanEngage&&!hub.CanManual&&!hub.Navigation.CanFly,
         "Console power loss disables operational capabilities with either/both modules");
 }
 f=Setup(); f.Target.objSS.vPosx=300*AutoNavCore.M_TO_AU; f.Target.objSS.vPosy=400*AutoNavCore.M_TO_AU;
@@ -304,4 +315,67 @@ foreach(string key in new[]{"slidFlow","slidCycle","knobRatio"})
 f.Service.ManualPropulsionAction(f.Console,ManualPropulsion.Shutdown,0);
 Check(f.Own.Reactor.Conditions.Contains("IsOverrideOff"),"Shutdown delegates to the native reactor condition");
 
+// N3 service lifecycle: native firing is separately checked by Fire.Tests.
+f=Setup(); f.Console.Items.Clear();
+f.Console.Items.Add(new(){strID="n3",strCODef=NavigationService.FireControlId,ship=f.Own});
+f.Service.ToggleFireOwnership(f.Console);
+Check(f.Service.Fire.Owns(f.Console.strID) && !f.Service.Fire.Permitted, "Take FCS control holds without a target or permission");
+f.Service.SelectFireTarget(f.Console); f.Service.EngageWeapons(f.Console);
+Check(f.Service.Fire.Permitted && !AutoNavCore.Engaged,"N3 alone can engage while flight is idle");
+f.Service.ExternalControl(f.Own,1,0,0); Check(f.Service.Fire.Permitted,"Manual piloting preserves weapons-only authorization");
+GUIOrbitDraw.Open=false; f.Service.TickFire(.25,false); f.Service.TickFire(.25,true);
+Check(f.Service.Fire.Permitted,"Closing console does not revoke valid independent kinetic fire");
+var original=Raw(f.Console); var maneuvers=f.Own.Maneuvers;
+for(int i=0;i<10;i++) f.Service.ReadHub(f.Console);
+Check(original==Raw(f.Console) && f.Own.Maneuvers==maneuvers,"N3 display cannot write preferences or thrust");
+f.Service.StepWeapons(f.Console); Check(f.Service.ReadHub(f.Console).WeaponGroup==1,"Held group cannot change without Native return");
+f.Service.CeaseFire(); Check(f.Service.Fire.Owns(f.Console.strID)&&!f.Service.Fire.Permitted,"Cease persists offensive ownership");
+f.Service.EngageWeapons(f.Console); f.Service.TickFire(2,false);
+Check(!f.Service.Fire.Permitted && f.Service.Fire.Owns(f.Console.strID),"Large simulation step revokes but retains hold");
+f.Service.EngageWeapons(f.Console); Signal(f.Own,.1); f.Service.TickFire(.25,false);
+Check(!f.Service.Fire.Permitted,"Independent contact loss revokes fire");
+Signal(f.Own,1); f.Service.TickFire(.25,false); Check(!f.Service.Fire.Permitted,"Independent reacquisition cannot rearm");
+f.Service.EngageWeapons(f.Console); f.Console.Items[0]=new(){strID="replacement",strCODef=NavigationService.FireControlId,ship=f.Own}; f.Service.TickFire(.25,false);
+Check(!f.Service.Fire.Permitted,"Same-model replacement cannot inherit module authority");
+f.Service.EngageWeapons(f.Console);f.Console.Conditions.Remove("IsPowered");f.Service.TickFire(.25,false);
+Check(!f.Service.Fire.Permitted,"Independent power loss revokes");f.Console.Conditions.Add("IsPowered");
+f.Service.EngageWeapons(f.Console);f.Service.WorldChanging();f.Service.WorldLoaded();f.Console.Conditions.Add("IsLocked");f.Service.RestoreFireOwnership();
+Check(f.Service.Fire.Owns(f.Console.strID)&&!f.Service.Fire.Permitted,"Reload restores hold without a shot budget");
+f.Console.Conditions.Remove("IsLocked");
+f.Service.ReturnFireToNative(f.Console); Check(!f.Service.Fire.Owns(f.Console.strID),"Explicit native handoff releases saved ownership");
+f.Service.StepWeapons(f.Console); Check(f.Service.ReadHub(f.Console).WeaponGroup==2,"Group selection allowed after native handoff");
+f.Service.SelectFireTarget(f.Console);f.Service.ToggleAutoAim(f.Console);f.Service.TickFire(.25,false);
+Check(f.Service.ReadHub(f.Console).AutoAiming && f.Own.Maneuvers>maneuvers && !f.Service.Fire.Permitted,"Standalone Auto Aim does not authorize shooting");
+var savedAim = new JsonShipSitu { fA=1, vAccRCS=new(){x=1}, vAccIn=new(){x=1} };
+f.Console.ship = new Ship(); NavigationService.PrepareSavedPhysics(f.Own.objSS,savedAim); f.Console.ship = f.Own;
+Check(savedAim.fA==0 && savedAim.vAccRCS.magnitude==0,"Standalone aiming actuator is not serialized even if the console moved before the next interval");
+f.Service.EngageWeapons(f.Console); f.Service.ExternalControl(f.Own,0,0,.5f);
+Check(!f.Service.ReadHub(f.Console).AutoAiming && !f.Service.Fire.Permitted && f.Own.LastRotation==0,"Pilot yaw clears aim before manual command and cancels firing");
+f.Service.SelectFireTarget(f.Console);f.Service.ToggleAutoAim(f.Console);f.Service.TickFire(.25,false);f.Service.CeaseFire();
+Check(!f.Service.ReadHub(f.Console).AutoAiming && f.Own.LastRotation==0,"Cease removes standalone RCS demand");
+var mountA = new WeaponReading { Id="mount-a", Heading=.3 }; var mountB = new WeaponReading { Id="mount-b", Heading=-2 };
+f.Service.Fire.Weapons = new[]{mountA,mountB}; f.Service.UseAimReference(f.Console); f.Service.ToggleAutoAim(f.Console); f.Service.TickFire(.25,false);
+f.Service.Fire.Weapons = new[]{mountB,mountA}; f.Service.TickFire(.25,false);
+Check(AutoNavCore.WeaponHeading==.3,"Aiming reference remains bound despite conflicting mounts and observation order");
+f.Own.RCSCount=0; f.Service.TickFire(.25,false);
+Check(!f.Service.ReadHub(f.Console).AutoAiming,"Lost RCS authority ends independent aiming"); f.Own.RCSCount=1;
+f.Service.ToggleAutoAim(f.Console); f.Service.EngageWeapons(f.Console); f.Own.FailManeuver=true; f.Service.TickFire(.25,false);
+Check(!f.Service.ReadHub(f.Console).AutoAiming && !f.Service.Fire.Permitted,"Native maneuver exception cannot retain aiming or fire permission"); f.Own.FailManeuver=false;
+var secondConsole=new CondOwner { strID="other-console",ship=f.Own };secondConsole.Items.Add(new(){strID="other-n3",strCODef=NavigationService.FireControlId,ship=f.Own});f.Own.Items.Add(secondConsole);
+f.Service.SelectFireTarget(secondConsole);f.Service.EngageWeapons(secondConsole);
+Check(!f.Service.Fire.Permitted,"Another console cannot take a held group implicitly");
+f = Setup();
+Check(!f.Service.WatchArrival(f.Console, true), "Idle consoles cannot arm a future unspecified arrival");
+f.Service.Engage(f.Console);
+Check(f.Service.WatchArrival(f.Console, true) && f.Service.WatchingForTest, "Pilot can watch an active finite approach");
+f.Service.FinishForCueTest("ARRIVED");
+Check(f.Service.CueCompletedForTest && !f.Service.WatchingForTest, "Persisted arrival consumes watch with audio host absent");
+f.Service.WorldChanging();
+Check(!f.Service.CueCompletedForTest && !f.Service.WatchingForTest, "Reload clears arrival notification state");
+f = Setup(); f.Service.Engage(f.Console); f.Service.WatchArrival(f.Console, true);
+f.Service.FinishForCueTest("ABORTED");
+Check(!f.Service.CueCompletedForTest && !f.Service.WatchingForTest, "Aborted approach never sounds success");
+f = Setup(); f.Service.Engage(f.Console); f.Service.WatchArrival(f.Console, true);
+f.Service.Stop(f.Console, "pilot stop");
+Check(!f.Service.CueCompletedForTest && !f.Service.WatchingForTest, "Pilot stop cancels arrival watch");
 Console.WriteLine($"{checks} sensor-boundary, guidance, display and persistence assertions passed. No in-game tests performed.");

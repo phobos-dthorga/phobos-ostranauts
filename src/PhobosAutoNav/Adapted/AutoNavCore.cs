@@ -315,7 +315,7 @@ internal static class AutoNavCore
                 }
             }
             torch.Cut();
-            double desiredHeading = FaceTarget && WeaponHeading.HasValue ? WeaponHeading.Value : -Math.Atan2(offset.X, offset.Y);
+            double desiredHeading = FaceTarget && WeaponHeading.HasValue && !plan.Braking && !plan.Limited ? WeaponHeading.Value : -Math.Atan2(offset.X, offset.Y);
             double face = WrapPi(desiredHeading - shipSitu.fRot);
             float turn = _coasting && !FaceTarget ? (float)CoastRules.CoastRotation(shipSitu.fW, fTime, Plugin.RotAccelMax.Value) :
                 ComputeRotInput(shipSitu, face, fTime, FlightCoastSettings.BurnHeadingToleranceDegrees * CoastRules.DegreesToRadians);

@@ -6,7 +6,10 @@ Dates on Draft entries record preparation, not Steam publication.
 
 ## [Unreleased]
 
-No additional changes recorded.
+### Documentation
+
+- Added an explicit empty item reference for the held research scaffold; proposed machinery is not presented as obtainable content.
+
 
 ## [0.0.1] - 2026-09-25 - Draft
 

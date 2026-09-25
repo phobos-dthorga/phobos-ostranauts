@@ -4,6 +4,8 @@ $ErrorActionPreference = 'Stop'
 Set-StrictMode -Version Latest
 $repoRoot = Split-Path -Parent $PSScriptRoot
 $gameRoot = (Resolve-Path -LiteralPath $OstranautsPath).Path
+& python (Join-Path $PSScriptRoot 'synthesize-completion-cue.py') --check
+if ($LASTEXITCODE -ne 0) { throw 'Shared completion audio export is stale.' }
 if (-not (Test-Path -LiteralPath (Join-Path $repoRoot 'external/phobos-scope/recording/Phobos.Scope.Recording/Phobos.Scope.Recording.csproj'))) {
     throw 'Initialize the pinned source dependency first: git submodule update --init --recursive'
 }

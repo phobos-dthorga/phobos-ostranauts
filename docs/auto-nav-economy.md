@@ -1,9 +1,11 @@
 # Phobos' Asterel N1 Polaris Auto Nav Module: acquisition and servicing
 
-Current follow-up: [Polaris pursuit and fire control](auto-nav-pursuit.md) adds the
-N2 instrument, shared predictive guidance and moving-target docking hold. Its
-pursuit modes always suspend after reload; fire authority is never saved. Earlier
-version descriptions below remain useful background where not superseded.
+Current follow-up: [N2 pursuit](auto-nav-pursuit.md) retains navigation/docking
+and pursuit. [N3 Fire Control System](auto-nav-fire-control.md) now owns firing
+independently. N3's authored 0.4 kg, $5,400/$1,350 values, two-electronics bill,
+30-minute construction, native maintenance and offcut/residue outputs match N2.
+Its own IDs preserve existing N1/N2 items and jobs. Fire permission is never saved;
+FCS ownership restores as Hold.
 
 Original economy audit prepared with **Auto Nav 0.4.3**, Ostranauts **1.0.1.5**, BepInEx **5.4.23.5**
 and Framework **0.10.0**. That build required Framework 0.7.0 or newer. The economy

@@ -18,6 +18,8 @@ a real company, seed cultivar, research programme or institutional endorsement.
 | Full display name | Previous equipment / purpose |
 | --- | --- |
 | Phobos' Asterel N1 Polaris Auto Nav Module | Auto Nav module; Polaris is the compatible navigation station |
+| Phobos' Asterel N2 Polaris Pursuit Module | Navigation/docking and continuous pursuit |
+| Phobos' Asterel N3 Polaris Fire Control System | Independent weapon observations, limited volleys and optional aiming |
 | Phobos' Asterel C1 Industrial Control Console | Central industrial console |
 | Phobos' Rivetline D4 Dismantling Fixture | Powered wall-panel processor |
 | Phobos' Rivetline G4 Exterior Grabber | Four-wide exterior panel intake |

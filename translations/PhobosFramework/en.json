@@ -1,4 +1,6 @@
 {
+  "Audio.volume_help": "Shared quiet completion level for all Phobos mods, 0 to 1 (0 mutes). Also follows native effects volume. Each supported operation must be explicitly watched; suppressed events never replay.",
+  "Audio.volume_label": "All Phobos completion cues: {0}% (change / mute)",
   "BatchPlacement.input_was_not_consumed": "Input was not consumed",
   "ConstructionHooks.construction_blocked_before_native_effects": "Construction blocked before native effects: {0}",
   "ConstructionHooks.construction_blocked_or_already_applied_check_station": "Construction blocked or already applied: {0}. Check station, arrived materials, contents and unit mass.",

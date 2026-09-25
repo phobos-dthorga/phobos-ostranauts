@@ -1,16 +1,19 @@
-# Polaris flight hub — Auto Nav 0.12.0
+# Polaris flight hub — Auto Nav 0.14.0
 
 Prepared 25 September 2026 for Blue Bottle Games' Ostranauts 1.0.1.5 and
-Phobos Framework 0.17.0 or newer. Offline checks and packaging are separate from
-owner-run gameplay evaluation. This redesign is not installed or published.
+Phobos Framework 0.21.0 or newer. Offline checks and packaging are separate from
+owner-run gameplay evaluation. Preparing this version does not install or publish it.
+
+Details offers an optional [arrival watch](shared-completion-cues.md) after engaging
+Approach or Rendezvous, plus shared cue volume/mute. F3: `phobosnav watch`,
+`phobosnav unwatch`, `phobosnav cue-volume`.
 
 ## Place the new hub
 
-Install either a working **Phobos' Asterel N1 Polaris Auto Nav Module** or
-**Phobos' Asterel N2 Polaris Pursuit Module** in the console. Either supplies
-navigation and docking; pursuit and fire permission require N2. Both installed
-still produce one hub. Damage never lets a different module silently take over
-a saved flight's exact hardware binding.
+Install the relevant working module in the console: N1 supplies navigation and
+docking, N2 also supplies pursuit, and **N3 Fire Control System** supplies Fire and
+Systems independently. N2 no longer authorizes firing. All combinations produce
+one hub. Damage never lets another module inherit a saved flight or engagement.
 
 The hub occupies **25% of console width × 80% of height**, using a 600 × 960
 reference layout. In native **Edit**, enable/place **PhobosNavFlightHub** in a
@@ -26,26 +29,27 @@ flight hub, not a replacement for every specialist instrument or reactor panel.
 ## Routine controls
 
 The header always shows navigation target, operation, contact condition and the
-current highest-priority restriction. When firing is permitted it also shows the
-separate offensive target. Long names can wrap/truncate; Details retains the full
+current highest-priority restriction. With N3 it also shows the separate offensive target and
+qualified contact condition, even before Engage. Long names can wrap/truncate; Details retains the full
 diagnostic explanation. Missing or stale readings show an unavailable mark.
 Header content and tabs are inset within the raster's actual display recesses.
 Telemetry and settings have separate live display wells, padded inside their
 bezels. Short contact/operation labels stay on one line; names can occupy two.
-The Navigation tab uses the short label **Nav**.
+Five compact tabs use **Nav**, **Track**, **Fire**, **Sys** and **Info**.
 
 | Page | Controls and readings |
 | --- | --- |
 | Navigation | **Approach**, **Dock**, **Approach & Dock**; RCS or RCS + Torch preference; cruise speed, arrival speed and separation. Range in km, signed closing speed and total relative speed in m/s. |
 | Active docking | Navigation automatically exposes clearance, captured ports, heading alignment and approach/hold/capture progress, replacing locked flight preferences. |
-| Pursuit | **Rendezvous**, **Follow**, separation/cruise, separate offensive-target selection, weapon group, guarded **Engage**, and arc/ammunition/ready counts. Requires working N2. |
+| Pursuit / Track | **Rendezvous**, **Follow**, separation/cruise. Requires working N2. |
+| Fire | Separate offensive target, group, 1–9 volleys, ownership, Auto Aim/reference, guarded Engage and browsable per-weapon readiness. Requires working N3. |
 | Systems | RCS authority and remaining mass, delivered acceleration, torch endurance/core temperature, connected stored energy, no-wake state; native flow/cycle sliders, safety/cycle switches and Shutdown. |
 | Details | Scrollable diagnostics, full explanations and help. No routine flight or docking controls are hidden here. |
 
 **Resume**, **Disengage** and **Cease Fire** remain available in the bottom strip
 on every page. **Disengage clears commanded thrust and allows coasting; it is not
-an emergency brake.** Cease Fire revokes our offensive permission while retaining
-Follow. Changing pages, refreshing displays and loading a save authorize neither
+an emergency brake.** Cease Fire ends shooting and aiming, retaining offensive hold and
+Follow. Explicit Return to Native releases that hold and may resume native autofire. Changing pages, refreshing displays and loading a save authorize neither
 fire nor docking. If the native guarded switch cannot be obtained, panel Engage
 is unavailable; there is no unguarded replacement.
 
@@ -53,7 +57,7 @@ Settings apply to the next flight and lock while intent is active or suspended.
 Stop before changing destination/profile. The existing RCS inhibition can remove
 torch use from a flight, but cannot add permission to an old RCS-only mission.
 F3 remains available through the same service; see [flight profiles](auto-nav-flight-profiles.md)
-and [pursuit controls](auto-nav-pursuit.md).
+[pursuit controls](auto-nav-pursuit.md) and [N3 controls](auto-nav-fire-control.md).
 
 ## Approach & Dock
 
@@ -80,7 +84,7 @@ See [terminal policy and native evidence](auto-nav-docking.md).
 
 ## Systems scope and measurement limits
 
-Manual propulsion actions first release automatic flight/fire ownership, then use
+Manual propulsion actions first end automatic flight/fire permission (offensive hold remains), then use
 native reactor properties. They retain core readiness, limiter and no-wake checks;
 they cannot cold-start a reactor or bypass a missing reading. Shutdown uses the
 native override-off condition. Keep specialist reactor functions accessible.
@@ -89,7 +93,7 @@ RCS authority uses the selected aggregate throttle. Connected kWh is native stor
 electrical energy, not generation rate. Torch hours are native estimated endurance,
 not a fuel-mass assay. Heading alignment is the native centre-facing geometry, not
 a measurement of physical airlock offset. Fire counts describe the most recent
-qualified weapon evaluation and become unavailable when stale or held. They do not
+qualified weapon evaluation and become unavailable when stale; loaded counts are not ammunition quantities. They do not
 constitute permission to fire. Native missile lock/manual/defensive restrictions
 still apply. See [sensor qualification](auto-nav-sensors.md).
 
@@ -98,7 +102,7 @@ still apply. See [sensor qualification](auto-nav-sensors.md).
 [Shared registration](../assets/phobos-autonav/hub-layout.json) drives both Unity
 controls and the [offline preview](../assets/phobos-autonav/previews/flight-hub.html).
 The preview uses schematic controls and a system font. It checks Navigation,
-Pursuit, Systems and docking at 300 × 480, 400 × 640 and 600 × 960, including expanded
+Pursuit, Fire, Systems and docking at 300 × 480, 400 × 640 and 600 × 960, including expanded
 labels and long names. Routine pages do not scroll; Details does. At the smallest
 size base labels are 12 px and primary buttons at least 24 px high. Final controls
 are reflowed within the generated plate's usable fields rather than shrinking text.

@@ -8,6 +8,8 @@ using Ostranauts.Utils.Models;
 internal sealed class Ship
 {
     internal string strRegID = "own";
+    internal enum TypeClassification { Ship, Projectile }
+    internal TypeClassification Classification;
     internal ShipSitu objSS = new();
     internal WeaponsSystem WeaponsSystem = new();
     internal Ship? shipCombatTarget;
@@ -22,9 +24,9 @@ internal sealed class CondOwner
 {
     internal Ship ship = null!;
     internal bool bDestroyed;
-    internal string strID = "weapon";
+    internal string strID = "weapon", strNameFriendly = "Test weapon";
     internal Item? Item = new();
-    internal HashSet<string> Conditions = new() { "IsPowered" };
+    internal HashSet<string> Conditions = new() { "IsPowered", "IsShipWeaponPDC" };
     internal Dictionary<string,double> Values = new() { ["IsShipWeaponArcAngle"] = 20, ["IsShipWeaponArcRange"] = 5000,
         ["IsShipWeaponTargetingSpeed"] = 10, ["IsShipWeaponFiringGroup"] = 0, ["IsShipWeaponLaunchSpeed"] = 100 };
     internal List<CondOwner> Ammo = new();
@@ -35,6 +37,7 @@ internal sealed class StarSystem
 {
     internal static double fEpoch;
     internal Dictionary<string,Ship> Ships = new();
+    internal Dictionary<string,Ship> dictShips => Ships;
     internal Ship? GetShipByRegID(string id) => Ships.TryGetValue(id,out var ship) ? ship : null;
 }
 internal sealed class CrewSim

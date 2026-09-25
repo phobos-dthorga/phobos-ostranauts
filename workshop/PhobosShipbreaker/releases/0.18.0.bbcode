@@ -1,0 +1,26 @@
+[h1]Phobos Shipbreaker 0.18.0[/h1]
+[b]Draft - not published | 2026-09-25[/b]
+
+[h2]Added[/h2]
+
+[list]
+[*]Optional notification for one explicitly watched D4/R4 batch, after products are committed to the output tray. Further queued batches remain silent; completion also remains visible in text.
+[*]Original 280 ms quiet procedural completion tone through the native sound-effects mixer, with volume/mute in the panels and configuration. Same selected crew and ship only; pause, fault or reload clears watches. Suppressed events never replay; nearby completion bursts are dropped.
+[*]Local Control Panel, C1, F9/reclaimer fallback and C1 F3 watch/unwatch controls. Reclaimer fallback content scrolls to keep controls reachable.
+[/list]
+
+[h2]Requirements[/h2]
+
+Ostranauts 1.0.1.5, BepInEx 5 and Phobos Framework 0.20.0 or newer. No new mod dependency or saved-state migration.
+
+[h2]Known limits[/h2]
+
+[list]
+[*]Prepared first audio trial; owner listening and gameplay evaluation remain pending. No furnace, cooker, navigation or ambient cues. Low playback priority is not a native critical-alarm suppression guarantee.
+[/list]
+
+[h2]Fixed[/h2]
+
+[list]
+[*]Fixed unreachable INSTALL entries; machinery appears under APPS, cooling hardware and conduits under HVAC, and the C1 console under CTRL, including damaged forms. Existing inputs, placement and saved IDs are preserved.
+[/list]

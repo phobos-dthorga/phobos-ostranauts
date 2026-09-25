@@ -20,5 +20,16 @@
       "strDefaultPos",
       "0.00|0.00|0.25|0.80"
     ]
+  },
+  {
+    "strName": "PhobosNavModFireControl",
+    "dictGUIPropMap": [
+      "strGUIPrefab",
+      "PhobosNavFlightHub",
+      "strGUIPrefabDmg",
+      "PhobosNavFlightHub",
+      "strDefaultPos",
+      "0.00|0.00|0.25|0.80"
+    ]
   }
 ]

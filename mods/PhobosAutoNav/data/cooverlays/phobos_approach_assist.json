@@ -63,7 +63,7 @@
     "strName": "PhobosNavModPursuit",
     "strNameFriendly": "Phobos' Asterel N2 Polaris Pursuit Module",
     "strNameShort": "Phobos' Asterel N2 Polaris Pursuit Module",
-    "strDesc": "Predictive rendezvous and continuous following for Polaris. Explicit Engage permits the selected native weapon group; Cease Fire retains following. Dock is a separate clearance-checked RCS manoeuvre. Automation suspends on reload. Does not avoid other traffic or guarantee intact capture.",
+    "strDesc": "Predictive rendezvous and continuous following for Polaris. Navigation and docking are included. Fire control requires a separate N3 Fire Control System. Automation suspends on reload. No general traffic avoidance or guaranteed intact capture.",
     "strCOBase": "PhobosPursuitBoard",
     "strImg": "navmod/ItmNavMod01",
     "strImgNorm": "navmod/ItmNavMod01n",
@@ -117,6 +117,66 @@
       "PhobosNavModPursuit",
       "ItmNavModMoboDmg",
       "PhobosNavModPursuitDmg"
+    ]
+  },
+  {
+    "strName": "PhobosNavModFireControl",
+    "strNameFriendly": "Phobos' Asterel N3 Polaris Fire Control System",
+    "strNameShort": "Phobos' Asterel N3 Polaris Fire Control System",
+    "strDesc": "Independent native weapon readiness and explicitly authorized limited volleys for Polaris. Optional RCS Auto Aim; Cease Fire retains offensive hold until Return to Native. Requires qualified sensors and native weapon permissions. Reload restores hold only.",
+    "strCOBase": "PhobosFireControlBoard",
+    "strImg": "navmod/ItmNavMod01",
+    "strImgNorm": "navmod/ItmNavMod01n",
+    "strPortraitImg": "navmod/ItmNavMod01",
+    "mapGUIPropMaps": [
+      "NavMod",
+      "PhobosNavModFireControl"
+    ],
+    "mapSlotEffects": [
+      "heldL",
+      "HeldItmDefaultL",
+      "heldR",
+      "HeldItmDefaultR"
+    ],
+    "mapModeSwitches": [
+      "PhobosFireControlBoard",
+      "PhobosNavModFireControl",
+      "PhobosFireControlBoardDmg",
+      "PhobosNavModFireControlDmg",
+      "ItmNavModMobo",
+      "PhobosNavModFireControl",
+      "ItmNavModMoboDmg",
+      "PhobosNavModFireControlDmg"
+    ]
+  },
+  {
+    "strName": "PhobosNavModFireControlDmg",
+    "strNameFriendly": "Phobos' Asterel N3 Polaris Fire Control System (Damaged)",
+    "strNameShort": "Phobos' Asterel N3 Polaris Fire Control System (Damaged)",
+    "strDesc": "Independent native weapon readiness and explicitly authorized limited volleys for Polaris. Optional RCS Auto Aim; Cease Fire retains offensive hold until Return to Native. Requires qualified sensors and native weapon permissions. Reload restores hold only. Damaged equipment requires repair.",
+    "strCOBase": "PhobosFireControlBoardDmg",
+    "strImg": "navmod/ItmNavMod01Dmg",
+    "strImgNorm": "navmod/ItmNavMod01Dmgn",
+    "strPortraitImg": "navmod/ItmNavMod01Dmg",
+    "mapGUIPropMaps": [
+      "NavMod",
+      "PhobosNavModFireControl"
+    ],
+    "mapSlotEffects": [
+      "heldL",
+      "HeldItmDefaultL",
+      "heldR",
+      "HeldItmDefaultR"
+    ],
+    "mapModeSwitches": [
+      "PhobosFireControlBoard",
+      "PhobosNavModFireControl",
+      "PhobosFireControlBoardDmg",
+      "PhobosNavModFireControlDmg",
+      "ItmNavModMobo",
+      "PhobosNavModFireControl",
+      "ItmNavModMoboDmg",
+      "PhobosNavModFireControlDmg"
     ]
   }
 ]

@@ -1,5 +1,11 @@
 # Current player guide
 
+[Equipment and item references](item-references.md): functions, use, acquisition, prices and service information for each mod.
+
+Current optional [completion cues](shared-completion-cues.md) use Framework 0.21.0
+with Shipbreaker 0.19.0, Agriculture 0.8.0 and Auto Nav 0.14.0. Watches share one
+quiet volume/mute setting and never replay old events after loading.
+
 For equipment placement, see the [native INSTALL catalogue and tab locations](install-catalogue.md).
 
 New here? Read [getting started](getting-started.md) for download availability,
@@ -8,8 +14,8 @@ prerequisites and experimental status. Need help? See [support](../SUPPORT.md).
 Agriculture is a prepared candidate with visible crop growth, cooking equipment and optional [water conduits](agriculture-water-conduits.md): see the [cultivation and cooking guide](agriculture-player-guide.md). Nutrient-solution piping requires Framework 0.19.0; optional C1 integration uses Shipbreaker 0.14.0 or later. Owner gameplay evaluation is pending.
 
 
-**Prepared versions:** Phobos Framework **0.20.0**, Shipbreaker **0.17.0**, Auto Nav
-**0.12.0**, built against Ostranauts **1.0.1.5** / BepInEx **5.4.23.5**.
+**Prepared versions:** Phobos Framework **0.21.0**, Shipbreaker **0.19.0**, Auto Nav
+**0.14.0**, built against Ostranauts **1.0.1.5** / BepInEx **5.4.23.5**.
 These versions support ordinary saves. Builds and offline checks do not establish
 in-game compatibility. This guide describes the prepared packages, not a claim
 that those packages are already installed or that merchants have restocked.
@@ -63,6 +69,7 @@ Mortorq tool and soldering tool, plus materials; it does not consume those tools
 | Hull chute | 30 min | Same industrial suppliers |
 | Residue collector | 40 min | Same industrial suppliers |
 | N2 Pursuit module | 30 min | Polaris pristine merchant offer or table construction; same electronics bill as N1 |
+| N3 Fire Control System | 30 min | Polaris pristine merchant offer or table construction; same electronics bill as N2 |
 | Auto Nav module | 30 min | Navigation offers in the economy guide; rare native module salvage |
 
 Stock is probabilistic and appears through normal merchant restocking. Restarting
@@ -172,7 +179,7 @@ connected workflow, retained materials and any actual failure you encounter.
 ## Auto Nav and current limits
 
 The [Polaris flight hub](auto-nav-instruments.md) is one tall instrument shared by
-N1 and N2. Use native **Edit** to place its new 25%-wide, 80%-high footprint in a
+N1, N2 and N3. Use native **Edit** to place its new 25%-wide, 80%-high footprint in a
 clear column. Existing compact placements do not expand automatically or move
 other instruments. Keep the native map, sensors, warnings and Comms available.
 
@@ -181,8 +188,11 @@ other instruments. Keep the native map, sensors, warnings and Comms available.
   relative speed are separate readings. Active docking shows clearance, captured
   ports, alignment and progress directly on this page.
 - **Pursuit:** working [N2](auto-nav-pursuit.md) adds Rendezvous and continuous
-  Follow, offensive-target selection, weapon group and guarded Engage. Navigation
-  and offensive targets are separate. Cease Fire retains Follow.
+  Follow with separation and cruise controls.
+- **Fire:** [N3 Fire Control System](auto-nav-fire-control.md) adds independent
+  observations, 1–9 volleys, group ownership, guarded Engage and optional RCS
+  aiming. N2 no longer grants firing permission. Navigation/offensive targets are
+  separate; Cease Fire retains Follow and offensive hold until Return to Native.
 - **Systems:** essential propulsion readings and native torch controls. Manual
   propulsion actions relinquish automation and retain native restrictions.
 - **Details:** diagnostics/help only. Routine controls never require scrolling.
@@ -200,19 +210,21 @@ thrust is saved; page changes and display refresh cannot authorize actions.
 measurements are unavailable, not zero. Saved flights keep their exact hardware,
 target and profile; stop before replacing them.
 
-N1 and N2 acquisition, repair and salvage remain in the [economy guide](auto-nav-economy.md)
+N1/N2 acquisition, repair and salvage remain in the [economy guide](auto-nav-economy.md)
 and [N2 guide](auto-nav-pursuit.md). Either working module supplies navigation and
-docking. N2 alone also works; both installed still show one hub.
+docking. N3 alone supplies Fire and Systems; all combinations share one hub.
+Acquire N3 through the Polaris merchant or the same two-electronics/30-minute
+construction route as N2. Native spawning: `spawn PhobosNavModFireControl`.
 
 Short-range approaches below **5,000 km** remain the immediate goal. No general
 obstacle avoidance, guaranteed pursuit or intact boarding guarantee is supplied.
 Use a clear route and keep specialist native instruments accessible. Numerical
 checks and offline layout proofs are not gameplay validation; see the
-[0.12.0 validation record](auto-nav-hub-validation.md). No installation or
+[validation record](auto-nav-hub-validation.md). No installation or
 publication is implied by this prepared redesign.
 
 ## Industrial controls (0.10.0)
 
-[Console and equipment panel guide](industrial-console-player-guide.md): a 3 x 3 ship-bound workstation, local Control Panels, automatic grouping, search, Attention and routing. The current Shipbreaker 0.17.0 requires Framework 0.17.0 and includes [shared observations](shared-console-observations.md). Prepared for owner testing; no in-game validation claimed.
+[Console and equipment panel guide](industrial-console-player-guide.md): a 3 x 3 ship-bound workstation, local Control Panels, automatic grouping, search, Attention and routing. The current Shipbreaker 0.19.0 requires Framework 0.21.0 and includes [shared observations](shared-console-observations.md) and optional [shared completion cues](shared-completion-cues.md). Prepared for owner testing; no in-game validation claimed.
 
 Agriculture now supports [finite potato and lettuce nutrient-solution piping](agriculture-nutrient-solutions.md) through its W2 supply and irrigation conduits.

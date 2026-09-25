@@ -80,6 +80,8 @@ internal static class IndustryService
         bool result;
         switch (action)
         {
+            case "watch" when processor: result = Plugin.Service.WatchCompletion(target, true, binding); message = Plugin.Service.Describe(target); return result;
+            case "unwatch" when processor: result = Plugin.Service.WatchCompletion(target, false, binding); message = Plugin.Service.Describe(target); return result;
             case "start" when processor: result = Plugin.Service.Start(target, binding); message = Plugin.Service.Describe(target); return result;
             case "pause" when processor: result = Plugin.Service.Pause(target, false, binding); message = Plugin.Service.Describe(target); return result;
             case "cancel" when processor: result = Plugin.Service.Pause(target, true, binding); message = Plugin.Service.Describe(target); return result;

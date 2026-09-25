@@ -1,0 +1,12 @@
+[h1]Phobos Auto Nav 0.12.1[/h1]
+[b]Draft - not published | 2026-09-25[/b]
+
+[h2]Polaris startup correction candidate[/h2]
+
+[list]
+[*]Replace the flight hub's Unity JSON reader with the managed parser already used by Framework. Validate embedded region names and dimensions, and identify missing regions explicitly instead of raising an opaque sequence exception.
+[*]Contain failures while constructing our hub so native Polaris loading can continue; detach incomplete hub objects before the native module loader runs.
+[*]When the native Auto Nav package is disabled, skip hub creation and reject equipment registration before publishing definitions or stock additions.
+[*]Add checks against the compiled plugin's embedded layout, malformed layouts and disabled-package registration. The owner reports that reverting 0.12.0 to the previous installed builds removes the Polaris exception; this candidate still requires owner gameplay evaluation.
+[*]Preserve module identities, saved flights, placement keys, recipes and artwork. No save migration, installation or Workshop publication is performed by preparing this candidate.
+[/list]

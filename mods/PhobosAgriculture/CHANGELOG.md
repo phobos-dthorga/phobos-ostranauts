@@ -6,9 +6,24 @@ Dates on Draft entries record preparation, not Steam publication.
 
 ## [Unreleased]
 
+### Documentation
+
+- Added a maintained per-mod item reference covering function, use, acquisition and applicable economic/service data; generated tables and coverage checks share a one-click updater.
+
 ### Fixed
 
 - Fixed unreachable INSTALL entries; Firstlight-4, Hearth-2 and W2 appear under APPS, and irrigation conduit under MISC, including damaged forms. Existing inputs, placement and saved IDs are preserved.
+
+## [0.8.0] - 2026-09-25 - Draft
+
+### Added
+
+- Optional one-shot watches for a committed meal or a whole crop cohort becoming harvest-ready, including seed crops. Local controls, C1 and F3 share the actions; no individual growth-stage or irrigation sounds.
+- Use Framework's shared quiet completion cue and volume/mute. Pause, fault or reload clears watches; blocked delivery is not success. Results remain visible when muted.
+
+### Requirements
+
+Phobos Framework 0.21.0 or newer. Existing crops, recipes and save contracts remain unchanged. Gameplay/listening evaluation remains pending.
 
 ## [0.7.0] - 2026-09-25 - Draft
 

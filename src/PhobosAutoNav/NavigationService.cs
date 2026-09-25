@@ -13,6 +13,7 @@ internal sealed partial class NavigationService
     internal const string DamagedId = ModuleId + "Dmg";
     internal const string PursuitId = "PhobosNavModPursuit";
     internal const string PursuitDamagedId = PursuitId + "Dmg";
+    internal const string FireControlId = "PhobosNavModFireControl", FireControlDamagedId = FireControlId + "Dmg";
     internal FireControlController Fire { get; } = new();
     private readonly Action<string> log;
     private CondOwner? console;
@@ -21,6 +22,16 @@ internal sealed partial class NavigationService
     private string status = Text.Get("NavigationService.idle");
     private static CondOwner? OpenConsole => GUIOrbitDraw.IsOpen() ? GUIOrbitDraw.Instance.COSelfBase() : null;
     internal NavigationService(Action<string> log) { this.log = log; }
+
+    internal string ArrivalCueStatus => Text.Get(arrivalWatch.Armed ? "Cue.watching" : arrivalWatch.Completed ? "Cue.completed" : "Cue.off");
+    internal bool WatchArrival(CondOwner? co, bool enable)
+    {
+        if (!enable) { arrivalWatch.Cancel(); return true; }
+        if (co == null || co != console || HardwareProblem(co) != null || !AutoNavCore.Engaged ||
+            savedFlight == null || (savedFlight.Mode != SavedFlightMode.Active && savedFlight.Mode != SavedFlightMode.Rendezvous))
+        { status = Text.Get("Cue.start_first"); return false; }
+        arrivalWatch.Arm(savedFlight.PlayerId, savedFlight.ShipId); return true;
+    }
 
     internal float Throttle => ReadThrottle(console);
 
@@ -88,11 +99,11 @@ internal sealed partial class NavigationService
             if (Plugin.FuelCheck.Value && !AutoNavCore.HasFuelForFlight(co!.ship, target))
             { status = Text.Get("NavigationService.insufficient_estimated_delta_v"); return; }
             if (!PreferenceStore(co!).TryWrite(preferences.Encode())) { status = Text.Get("Preferences.invalid"); return; }
+            CeaseFire();
             issuing = true;
             try { AutoNavCore.BeginFlight(co!.ship, target, coastSettings, Plugin.PreferTorch.Value); } finally { issuing = false; }
             savedFlight = CaptureFlight(co!, target, cruise, Math.Min(arrival, cruise), distance, mode);
             AutoNavCore.Following = mode == SavedFlightMode.Following;
-            Fire.Reset();
             PersistProgress();
             if (AutoNavCore.Engaged) status = Text.Get("NavigationService.flight_engaged");
         }
@@ -124,9 +135,6 @@ internal sealed partial class NavigationService
             if (QueueDockingHandoff()) return;
             status = AutoNavCore.Engaged ? AutoNavCore.PhaseName : DescribeResult(AutoNavCore.LastResult);
             if (AutoNavCore.ControlLimited) status = Text.Get("Pursuit.control_limited");
-            if (AutoNavCore.Engaged) Fire.Tick(AutoNavCore.EngagedPlayer, AutoNavCore.EngagedTarget, dt,
-                AutoNavCore.CurrentPhase != AutoNavCore.Phase.Decel && !AutoNavCore.ControlLimited && !AutoNavCore.EngagedPlayer.IsUsingTorchDrive);
-            else Fire.Cease();
             PersistProgress();
         }
         catch (Exception ex) { log(ex.ToString()); Disengage(Text.Get("NavigationService.flight_error_see_log")); }
@@ -149,13 +157,16 @@ internal sealed partial class NavigationService
 
     internal void ExternalControl(Ship ship, float x, float y, float rotation)
     {
+        bool wasAiming = autoAim;
+        if (!issuing && autoAim && fireConsole?.ship == ship && (x != 0 || y != 0 || rotation != 0)) CeaseFire();
         // Closing the native console emits a zero command; it must not cancel off-console travel.
         if (!issuing && (x != 0 || y != 0 || rotation != 0) && AutoNavCore.Engaged && AutoNavCore.EngagedPlayer == ship)
-            Disengage(Text.Get("NavigationService.external_maneuver_command_pilot_other_controller_has"));
+            Disengage(Text.Get("NavigationService.external_maneuver_command_pilot_other_controller_has"), keepWeapons: !wasAiming);
     }
 
     internal void ExternalReactorControl(Ship ship, string key, string value)
     {
+        if (!issuing && autoAim && fireConsole?.ship == ship) CeaseFire();
         if (AutoNavCore.Engaged && Torch.ChangedByPilot(ship, key, value))
         {
             Torch.YieldToPilot();
@@ -163,9 +174,9 @@ internal sealed partial class NavigationService
         }
     }
 
-    internal void Disengage(string reason)
+    internal void Disengage(string reason, bool keepWeapons = false)
     {
-        Fire.Cease();
+        if (!keepWeapons) CeaseFire();
         FinishSavedFlight(SavedFlightMode.Stopped);
         issuing = true;
         try { if (AutoNavCore.Engaged) AutoNavCore.EndFlight(AutoNavCore.EngagedPlayer, reason); }
@@ -249,6 +260,11 @@ internal sealed partial class NavigationService
                 case "firetarget": SelectFireTarget(OpenConsole); response = status; return true;
                 case "engage": EngageWeapons(OpenConsole); response = status; return Fire.Permitted;
                 case "ceasefire": CeaseFire(); response = status; return true;
+                case "autoaim": ToggleAutoAim(OpenConsole); response = status; return autoAim;
+                case "nativefire": ReturnFireToNative(OpenConsole); response = status; return true;
+                case "volley": StepVolleys(OpenConsole); response = status; return true;
+                case "fireweapon": BrowseWeapon(OpenConsole); response = status; return true;
+                case "aimweapon": UseAimReference(OpenConsole); response = status; return true;
                 case "spawnpursuit": return Spawn(out response, PursuitId);
                 case "dock": Dock(OpenConsole); response = status; return AutoNavCore.Engaged;
                 case "approachdock": ApproachDock(OpenConsole); response = status; return AutoNavCore.Engaged;
@@ -268,6 +284,9 @@ internal sealed partial class NavigationService
                     SetTorchPreference(words[2] == "on");
                     response = status;
                     return true;
+                case "watch": bool watching = WatchArrival(OpenConsole ?? console, true); response = watching ? ArrivalCueStatus : status; return watching;
+                case "unwatch": WatchArrival(OpenConsole ?? console, false); response = ArrivalCueStatus; return true;
+                case "cue-volume": Phobos.Ostranauts.Framework.Audio.CompletionCues.CycleVolume(); response = Phobos.Ostranauts.Framework.Audio.CompletionCues.VolumeLabel; return true;
                 case "stop": Stop(OpenConsole ?? console, Text.Get("NavigationService.stopped_by_pilot_coasting")); response = status; return true;
                 case "resume": ResumeSaved(OpenConsole ?? console); response = status; return AutoNavCore.Engaged;
                 case "forget": ForgetSaved(OpenConsole ?? console); response = status; return true;

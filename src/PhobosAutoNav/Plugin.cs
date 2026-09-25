@@ -12,11 +12,11 @@ namespace PhobosAutoNav;
 
 [BepInPlugin(Id, "Phobos Auto Nav", Version)]
 [BepInProcess("Ostranauts.exe")]
-[BepInDependency(FrameworkInfo.PluginId, "0.17.0")]
+[BepInDependency(FrameworkInfo.PluginId, "0.21.0")]
 public sealed class Plugin : BaseUnityPlugin
 {
     public const string Id = "phobosgekko.ostranauts.autonav";
-    public const string Version = "0.12.0";
+    public const string Version = "0.14.0";
     internal static NavigationService Service { get; private set; } = null!;
     internal static ConfigEntry<bool> Enabled = null!, VerboseLogging = null!, FuelCheck = null!,
         AbortOnManualThrust = null!, UseThrusterRotation = null!, ResumeAfterLoad = null!, PreferTorch = null!, SalvageEnabled = null!;
@@ -73,7 +73,7 @@ public sealed class Plugin : BaseUnityPlugin
     internal static CoastSettings ReadCoastSettings() => new CoastSettings(CoastTolerance.Value,
         CoastSpeedTolerancePercent.Value, CoastEnterFraction.Value, BurnHeadingToleranceDegrees.Value);
     internal static void Verbose(string message) { if (VerboseLogging.Value) log?.Invoke(message); }
-    private void Update() => Service?.UpdatePersistence();
+    private void Update() { Service?.RestoreFireOwnership(); Service?.UpdatePersistence(); }
     private void OnDestroy()
     {
         FrameworkLifecycle.ContentLoading -= EquipmentContent.Register;
@@ -88,8 +88,10 @@ internal static class DockingTickPatch
     private static void Prefix(StarSystem __instance, double fTimeDelta)
     {
         if (__instance != CrewSim.system) return;
+        Plugin.Service.TickFire(fTimeDelta, false);
         Plugin.Service.TickDocking(__instance, fTimeDelta, false);
         if (AutoNavCore.EngagedPlayer?.objSS != null) Plugin.Service.Tick(AutoNavCore.EngagedPlayer.objSS, fTimeDelta, false);
+        Plugin.Service.TickFire(fTimeDelta, true);
     }
     private static void Postfix(StarSystem __instance, double fTimeDelta) => Plugin.Service.TickDocking(__instance, fTimeDelta, true);
     private static Exception? Finalizer(Exception? __exception)
@@ -106,36 +108,37 @@ internal static class PanelPatch
     private static void Postfix(CondOwner coNav) => Plugin.Service.HubLoaded(coNav);
 }
 
-// The native panel queues salvos independently of navigation. Suppress its queue
-// for our Follow target; leave manual buttons and unrelated defensive PDC shots alone.
+// Observe native aim normally; remove only leased offensive weapons from its queue.
 [HarmonyPatch(typeof(Ostranauts.ShipGUIs.NavStation.NavModWeaponsControl), "TargetLockHandler")]
 internal static class PursuitWeaponAimPatch
 {
-    private static bool Prefix(Ostranauts.ShipGUIs.NavStation.NavModWeaponsControl __instance,
-        List<CondOwner> ____weaponsToFire, CondOwner ___COSelf)
+    private static void Postfix(List<CondOwner> ____weaponsToFire, CondOwner ___COSelf)
     {
+        Plugin.Service.RestoreFireOwnership();
         var ship = ___COSelf?.ship;
-        if (ship == null || Plugin.Service.Fire.AllowsNative(ship.WeaponsSystem, ship.shipCombatTarget?.objSS)) return true;
-        ____weaponsToFire.Clear(); return false;
+        if (ship != null) Plugin.Service.Fire.FilterNative(ship.WeaponsSystem, ____weaponsToFire, ship.shipCombatTarget?.objSS);
     }
 }
 [HarmonyPatch(typeof(Ostranauts.ShipGUIs.NavStation.NavModWeaponsControl), "KeyHandler")]
 internal static class PursuitWeaponQueuePatch
 {
-    private static void Prefix(Ostranauts.ShipGUIs.NavStation.NavModWeaponsControl __instance,
-        List<CondOwner> ____weaponsToFire, CondOwner ___COSelf)
+    private static void Prefix(List<CondOwner> ____weaponsToFire, CondOwner ___COSelf)
     {
+        Plugin.Service.RestoreFireOwnership();
         var ship = ___COSelf?.ship;
-        if (ship != null && !Plugin.Service.Fire.AllowsNative(ship.WeaponsSystem, ship.shipCombatTarget?.objSS))
-            ____weaponsToFire.Clear();
+        if (ship != null) Plugin.Service.Fire.FilterNative(ship.WeaponsSystem, ____weaponsToFire, ship.shipCombatTarget?.objSS);
     }
 }
 [HarmonyPatch(typeof(Ostranauts.Ships.WeaponsSystem), nameof(Ostranauts.Ships.WeaponsSystem.ShootAuto))]
 internal static class PursuitWeaponFirePatch
 {
-    private static bool Prefix(Ostranauts.Ships.WeaponsSystem __instance, ShipSitu target, ref bool __result)
+    private static bool Prefix(Ostranauts.Ships.WeaponsSystem __instance, ref List<CondOwner> weaponsToFire, ShipSitu target, ref bool __result)
     {
-        if (Plugin.Service.Fire.AllowsNative(__instance, target)) return true;
+        Plugin.Service.RestoreFireOwnership();
+        if (weaponsToFire == null) return true;
+        weaponsToFire = new List<CondOwner>(weaponsToFire);
+        Plugin.Service.Fire.FilterNative(__instance, weaponsToFire, target);
+        if (weaponsToFire.Count > 0) return true;
         __result = false; return false;
     }
 }

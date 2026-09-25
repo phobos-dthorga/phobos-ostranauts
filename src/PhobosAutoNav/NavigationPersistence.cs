@@ -11,6 +11,7 @@ internal sealed partial class NavigationService
 {
     partial void ResetPursuit();
     private FlightSnapshot? savedFlight;
+    private readonly Phobos.Ostranauts.Framework.Audio.CompletionWatch arrivalWatch = new();
     private bool restorePending;
     private bool combinedHandoffPending;
     private static ObjectStateStore Store(CondOwner co) => new ObjectStateStore(co.mapGUIPropMaps,
@@ -20,14 +21,14 @@ internal sealed partial class NavigationService
     // world's snapshot or send a maneuver into a world being torn down.
     internal void WorldChanging()
     {
-        ResetPursuit(); Fire.Reset(); Torch.Reset(); AutoNavCore.ResetStatics(); console = null; savedFlight = null;
+        arrivalWatch.Cancel(); ResetPursuit(); Fire.Reset(); Torch.Reset(); AutoNavCore.ResetStatics(); console = null; savedFlight = null;
         issuing = false; restorePending = false; combinedHandoffPending = false; status = Text.Get("Persistence.loading");
     }
     internal void WorldLoaded() => restorePending = true;
 
     internal static void PrepareSavedPhysics(ShipSitu situ, JsonShipSitu saved)
     {
-        if (!AutoNavCore.Engaged || AutoNavCore.EngagedPlayer?.objSS != situ) return;
+        if ((!AutoNavCore.Engaged || AutoNavCore.EngagedPlayer?.objSS != situ) && Plugin.Service?.StandaloneAimFor(situ) != true) return;
         saved.vAccRCS = UnityEngine.Vector2.zero;
         saved.vAccIn = UnityEngine.Vector2.zero;
         saved.fA = 0;
@@ -109,15 +110,22 @@ internal sealed partial class NavigationService
         if (!savedFlight.Valid || !Store(console).TryWrite(savedFlight.Encode()))
         {
             // A persistence failure cannot leave unrecorded automation running.
-            Fire.Cease(); issuing = true;
+            CeaseFire(); issuing = true;
             try { if (AutoNavCore.Engaged) AutoNavCore.EndFlight(AutoNavCore.EngagedPlayer, "ABORTED"); }
             finally { AutoNavCore.ResetStatics(); issuing = false; }
-            status = Text.Get("Persistence.write_failed");
+            arrivalWatch.Cancel(); status = Text.Get("Persistence.write_failed");
+        }
+        else if (!AutoNavCore.Engaged)
+        {
+            if (savedFlight.Mode == SavedFlightMode.Arrived && arrivalWatch.Armed)
+                Phobos.Ostranauts.Framework.Audio.CompletionCues.Complete(arrivalWatch, savedFlight.PlayerId, savedFlight.ShipId);
+            else if (savedFlight.Mode != SavedFlightMode.Arrived) arrivalWatch.Cancel();
         }
     }
 
     private bool FinishSavedFlight(SavedFlightMode mode)
     {
+        arrivalWatch.Cancel();
         if (mode == SavedFlightMode.Stopped) combinedHandoffPending = false;
         try
         {
@@ -177,7 +185,7 @@ internal sealed partial class NavigationService
                 FinishSavedFlight(snapshot.SuspendedMode); AutoNavCore.ResetStatics();
                 status = Text.Get("Persistence.suspended_reason", Text.Get("NavigationService.insufficient_estimated_delta_v")); return;
             }
-            savedFlight.Mode = snapshot.ActiveMode; Fire.Reset(); PersistProgress();
+            savedFlight.Mode = snapshot.ActiveMode; CeaseFire(); PersistProgress();
             if (AutoNavCore.Engaged) status = Text.Get("Persistence.resumed", target!.DisplayName);
             log(status);
         }
@@ -204,6 +212,7 @@ internal sealed partial class NavigationService
         {
             if (co == null || co.bDestroyed || co.ship != CrewSim.coPlayer?.ship)
             { status = Text.Get("Persistence.open_console"); return; }
+            CeaseFire();
             if (!ReadSaved(co, out var snapshot)) return;
             console = co; savedFlight = snapshot;
         }

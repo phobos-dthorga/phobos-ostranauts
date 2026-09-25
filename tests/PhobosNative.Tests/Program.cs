@@ -42,6 +42,11 @@ Load(Path.Combine(native, "interactions"), DataHandler.dictInteractions, x => x.
 Load(Path.Combine(native, "loot"), DataHandler.dictLoot, x => x.strName);
 Load(Path.Combine(repo, "mods/PhobosShipbreaker/data/conditions"), DataHandler.dictConds, x => x.strName);
 Load(Path.Combine(repo, "mods/PhobosShipbreaker/data/condtrigs"), DataHandler.dictCTs, x => x.strName);
+if (args.Length == 4 && args[2] == "--export-item-reference")
+{
+    ItemReferenceExport.Write(repo, game, args[3]);
+    return;
+}
 var missing = DependencyContract.MissingDefinitions((table,id) => table switch {
     "objects" => DataHandler.dictCOs.ContainsKey(id), "items" => DataHandler.dictItemDefs.ContainsKey(id),
     "conditions" => DataHandler.dictConds.ContainsKey(id), "triggers" => DataHandler.dictCTs.ContainsKey(id),
@@ -231,4 +236,6 @@ ClearConstruction();
 EconomyChecks.Run(repo, Check, Throws);
 EquipmentValueAudit.Run(repo, Check, args.Length > 2 ? args[2] : null);
 InstallMenuChecks.Run(agriculture, prepared, Check, Throws);
+AutoNavHubChecks.Run(repo, Check, Throws);
+FireNativeChecks.Run(Check);
 Console.WriteLine($"PASS: {checks} native-definition/registration checks with no OCF or Workshop loaded. No game session was run.");

@@ -1,5 +1,11 @@
 # Phobos Framework 0.15.0 — author guide
 
+Current extension: Framework 0.21.0 owns [shared completion cues](shared-completion-cues.md).
+Content owns a transient `Audio.CompletionWatch`, arms it after access checks with
+actor/ship IDs, and calls `Audio.CompletionCues.Complete` only after a real committed
+result. Cancel on stop, suspension, faults and reload. Use `CompletionCues.VolumeLabel`
+and `CycleVolume` for presentation; never infer completion from panel reads or save a watch.
+
 ## Optional performance recording (0.15.0)
 
 Framework owns the shared Phobos Scope recorder and capture lifecycle. Register

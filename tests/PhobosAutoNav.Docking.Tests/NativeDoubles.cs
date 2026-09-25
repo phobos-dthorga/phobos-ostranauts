@@ -133,6 +133,7 @@ namespace PhobosAutoNav
     internal sealed class Setting<T> { internal T Value; internal Setting(T value) { Value = value; } }
     internal static class Plugin
     {
+        internal static NavigationService? Service => null;
         internal static Setting<bool> Enabled = new(true), ResumeAfterLoad = new(true), FuelCheck = new(true), PreferTorch = new(false);
         internal static Setting<double> MaxFlightSimHours = new(48);
         internal static CoastSettings ReadCoastSettings() => new(3,10,.75,2);
@@ -169,6 +170,8 @@ namespace PhobosAutoNav
     {
         internal const string PursuitId = "PhobosNavModPursuit";
         internal FireControlController Fire = new();
+        internal void CeaseFire() => Fire.Cease();
+        internal bool StandaloneAimFor(ShipSitu situ) => false;
         internal const string ModuleId = "PhobosNavModAutoNav";
         internal TorchDouble Torch { get; } = new();
         private readonly Action<string> log = _ => { };

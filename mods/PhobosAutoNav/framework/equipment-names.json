@@ -46,5 +46,17 @@
   "Recipe.PhobosBuildPursuit.name": {
     "brand": "Asterel",
     "model": "N2"
+  },
+  "Overlay.PhobosNavModFireControl.name": {
+    "brand": "Asterel",
+    "model": "N3"
+  },
+  "Overlay.PhobosNavModFireControlDmg.name": {
+    "brand": "Asterel",
+    "model": "N3"
+  },
+  "Recipe.PhobosBuildFireControl.name": {
+    "brand": "Asterel",
+    "model": "N3"
   }
 }

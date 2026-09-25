@@ -6,7 +6,51 @@ Dates on Draft entries record preparation, not Steam publication.
 
 ## [Unreleased]
 
-No additional changes recorded.
+### Documentation
+
+- Added a maintained per-mod item reference covering function, use, acquisition and applicable economic/service data; generated tables and coverage checks share a one-click updater.
+
+### Research and planning
+
+- Specify a future narrow industrial-navigation service for Shipbreaker's selected-G4 reclamation missions, using N1 or N2 and preserving Auto Nav as the sole flight authority. No new API, industrial flight mode, mooring or automatic undocking is implemented in this research round.
+- Document required Shipbreaker-to-Auto-Nav dependency direction, exact bindings, active tool-relative positioning and advancement, optional docking/capture, interruption and explicit industrial resume. Collision-compatible reach remains unresolved; existing flight behaviour, requirements, versions and provenance limits remain unchanged.
+- Attribute sensing context to [NASA Goddard's Raven research](https://www.nasa.gov/general/nasas-hybrid-computer-enables-ravens-autonomous-rendezvous-capability/) and [ESA's LIRIS experiment by Airbus, Jena Optronik and Sodern](https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/ATV/ATV_views_Space_Station_as_never_before); these do not validate or endorse Phobos gameplay. See the [research](https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/shipbreaker-autopilot-research.md) and [handover](https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/shipbreaker-autopilot-handover.md).
+
+## [0.14.0] - 2026-09-25 - Draft
+
+### Added
+
+- Optional one-shot arrival watches for active Approach or Rendezvous through Details or F3. Cue only after ARRIVED is saved; Stop, suspension, persistence failure and reload clear the watch.
+- Use Framework's shared quiet completion channel and volume/mute. Preserve native docking audio; no cue for Approach & Dock staging, indefinite Follow or weapons.
+
+### Requirements
+
+Phobos Framework 0.21.0 or newer. Flight rules and saved IDs remain unchanged. Gameplay/listening evaluation and upstream provenance review remain pending.
+
+## [0.13.0] - 2026-09-25 - Draft
+
+### N3 Fire Control System
+
+- Add Phobos' Asterel N3 Polaris Fire Control System within Auto Nav, independent of N1/N2 during manual flight or coasting. N1 retains navigation/docking; N2 retains pursuit but now requires N3 for automated firing. Explain this once per console and preserve existing saved identities/recipes.
+- Add N3 intact/damaged identities, native spawning, Polaris merchant stock, repair and Restore. Authored balance matches N2: 0.4 kg, $5,400/$1,350, two electronics parts, 30-minute construction and retained mass-balanced offcuts/residue.
+- Separate qualified per-weapon observation and group ownership from navigation. Native, FCS Hold, Armed, Held and Fault are distinct. Filter controlled offensive queues while preserving unrelated groups, defensive PDCs and deliberate native manual shots.
+- Offer 1–9 explicitly authorized native volleys, default one. Recheck power, damage, modes, ammunition, arc/range, targeting and missile lock before each batch. Native salvo costs, jams, reloads, projectiles and witnesses remain authoritative; consequences apply once per successful batch. Decoys and unsupported weapons are excluded.
+- Cease Fire, budget completion and reload retain offensive Hold until explicit Return to Native, which may resume native autofire. Save preferences/ownership only; never restore targets, remaining permission or live aiming. Contact, power, exact hardware/player binding or invalid intervals revoke permission without automatic rearm.
+- Add separately permitted RCS-only coasting aim and an N2 Follow attitude request with a stable selected weapon reference. Braking, clearance and propulsion limits take priority. Pilot input during Auto Aim cancels aiming/firing; weapons-only authorization supports manual piloting. Navigation/docking starts end engagement.
+- Add Fire to the shared hub with five compact localized tabs, a browsable weapon card, ready/selected counts, volley/ownership/aim controls and guarded Engage. Keep Cease Fire on every page, preserve approved faceplate/native artwork, and retain the 0.12.1 managed layout/startup correction.
+- Keep Framework 0.17.0 minimum and existing native weapon restrictions. Inspected stock missile definitions lack the required automatic envelope; show that limitation without a manual-mode override or invented range. No guaranteed hits or intact boarding.
+- Attribute historical weapon-role context to Daniel Fedor of Blue Bottle Games' [July 2025 combat preview](https://store.steampowered.com/news/app/1022980/view/503954886346412815); current behavior follows locally inspected 1.0.1.5 code. See the [N3 guide](https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/auto-nav-fire-control.md) for operating limits and evidence. No institutional endorsement or scientific validation is implied.
+- Validate offline capability/lifecycle, finite volleys, ownership, persistence, native contracts and panel sizes separately from pending owner-run combat/gameplay evaluation. This prepared version is not an installation or Workshop publication.
+
+## [0.12.1] - 2026-09-25 - Draft
+
+### Polaris startup correction candidate
+
+- Replace the flight hub's Unity JSON reader with the managed parser already used by Framework. Validate embedded region names and dimensions, and identify missing regions explicitly instead of raising an opaque sequence exception.
+- Contain failures while constructing our hub so native Polaris loading can continue; detach incomplete hub objects before the native module loader runs.
+- When the native Auto Nav package is disabled, skip hub creation and reject equipment registration before publishing definitions or stock additions.
+- Add checks against the compiled plugin's embedded layout, malformed layouts and disabled-package registration. The owner reports that reverting 0.12.0 to the previous installed builds removes the Polaris exception; this candidate still requires owner gameplay evaluation.
+- Preserve module identities, saved flights, placement keys, recipes and artwork. No save migration, installation or Workshop publication is performed by preparing this candidate.
 
 ## [0.12.0] - 2026-09-25 - Draft
 

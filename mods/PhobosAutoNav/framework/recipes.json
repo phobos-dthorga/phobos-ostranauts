@@ -45,7 +45,7 @@
     {
       "id": "PhobosBuildPursuit",
       "name": "Phobos' Asterel N2 Polaris Pursuit Module",
-      "description": "Assemble a 0.4 kg pursuit module from 1 kg of electronics and retain 0.6 kg of board offcuts. Rendezvous, Follow and explicitly armed fire coordination. Requires native docking clearance for Dock.",
+      "description": "Assemble a 0.4 kg pursuit module from 1 kg of electronics and retain 0.6 kg of board offcuts. Rendezvous and Follow; weapons require the separate N3 Fire Control System.",
       "stationIds": [
         "ItmTable01",
         "ItmTable02"
@@ -82,6 +82,47 @@
       ],
       "nameKey": "Recipe.PhobosBuildPursuit.name",
       "descriptionKey": "Recipe.PhobosBuildPursuit.description"
+    },
+    {
+      "id": "PhobosBuildFireControl",
+      "name": "Phobos' Asterel N3 Polaris Fire Control System",
+      "description": "Assemble a 0.4 kg fire control system from 1 kg of electronics and retain 0.6 kg of board offcuts. Explicit limited volleys and optional RCS aiming; native weapon permissions remain required.",
+      "stationIds": [
+        "ItmTable01",
+        "ItmTable02"
+      ],
+      "optionalStationIds": [
+        "ItmWorkbench01",
+        "SWB_WorkbenchInstalled"
+      ],
+      "ingredients": [
+        {
+          "trigger": "TIsPartsElecSmall",
+          "item": "ItmPartsElecSmall01",
+          "count": 2,
+          "unitMassKg": 0.5
+        }
+      ],
+      "outputs": [
+        {
+          "item": "PhobosNavModFireControl",
+          "count": 1,
+          "unitMassKg": 0.4
+        },
+        {
+          "item": "PhobosAutoNavBoardOffcut",
+          "count": 1,
+          "unitMassKg": 0.6
+        }
+      ],
+      "workSeconds": 1800,
+      "range": 2,
+      "toolTriggers": [
+        "TIsToolMortorq",
+        "TIsToolSoldering"
+      ],
+      "nameKey": "Recipe.PhobosBuildFireControl.name",
+      "descriptionKey": "Recipe.PhobosBuildFireControl.description"
     }
   ]
 }

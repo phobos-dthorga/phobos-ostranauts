@@ -1,5 +1,7 @@
 # Documentation library
 
+[Equipment and item references](item-references.md): functions, use, acquisition, prices and service information for each mod.
+
 Start with [getting started](getting-started.md), then [installation](installing-mods.md)
 and the [current player guide](player-guide.md). [Support](../SUPPORT.md) covers
 common failures and useful reports.
@@ -15,11 +17,18 @@ common failures and useful reports.
 
 ## Development and evidence
 
+- [Autonomous Shipbreaker research](shipbreaker-autopilot-research.md) and
+  [implementation handover](shipbreaker-autopilot-handover.md) — selected G4,
+  native capture limits, required Auto Nav integration and the finite processing
+  chain; specification only, not delivered autopilot/cutting.
 - [Update versions and maintained constants](updating-constants.md) — previews, batch edits and JSON verification.
 
 - [Building](building.md), [contributing](../CONTRIBUTING.md), [Framework API](framework-author-guide.md) and [localization](localization.md).
 - [Project direction](project-direction.md), [public-source status](public-release-readiness.md), [licence](../LICENSE) and [third-party notices](../THIRD_PARTY_NOTICES.md).
 - [Artwork policy](asset-generation-policy.md) and [equipment branding](equipment-branding.md).
+- [Future animation and restrained sound cues](animation-and-sound-direction.md) — owner constraints, possible retrofits and proposed acceptance criteria.
+- [Quiet watched-batch completion cue](shipbreaker-completion-cue.md) — first optional D4/R4 audio trial, controls and listening checks.
+- [Shared completion cues](shared-completion-cues.md) — current support across Shipbreaker, Agriculture and Auto Nav.
 
 ## Full reference index
 

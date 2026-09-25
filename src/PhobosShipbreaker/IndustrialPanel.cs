@@ -244,6 +244,8 @@ public sealed class IndustrialPanel : GUIData
         {
             W.Label(actions, Text.Get("Industry.processing"));
             Add(actions, "start"); Add(actions, "pause"); Add(actions, "cancel");
+            Add(actions, "watch"); Add(actions, "unwatch");
+            W.Button(actions, Phobos.Ostranauts.Framework.Audio.CompletionCues.VolumeLabel, () => { Phobos.Ostranauts.Framework.Audio.CompletionCues.CycleVolume(); ShowDetail(); });
             if (!Central) { Add(actions, "feed"); Add(actions, "products"); }
         }
         if (RoutingRules.IsReceiver(target.strCODef))

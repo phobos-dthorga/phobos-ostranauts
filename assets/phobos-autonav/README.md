@@ -136,3 +136,13 @@ The panel uses Framework's isolated reactor safety toggle and references the
 native air-pump Done button's artwork, with fresh Phobos actions and live labels.
 No native reactor or air-pump controller is instantiated. N1 masters remain
 unchanged. The new panel and controls require owner in-game evaluation.
+
+## N3 Fire Control System reuse (0.13.0)
+
+N3 references Blue Bottle Games' native `navmod/ItmNavMod01` intact/damaged board
+artwork at runtime, as N2 does. It reuses the approved tall flight hub faceplate
+and existing Framework control adapters. No new bitmap was generated and no
+extracted game art is redistributed. Five compact live tabs and per-weapon fields
+are registered in `hub-layout.json`; text and controls remain separate from the
+raster. Earlier masters, the 0.11.1 preparation and AI upscale provenance remain
+unchanged.

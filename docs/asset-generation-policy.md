@@ -10,6 +10,13 @@ Reuse suitable vanilla controls and existing approved Phobos assets first.
 Use deterministic layout, live localized labels and mechanical exports for work
 that does not need new authored imagery.
 
+For possible future talking portraits and restrained, useful sound cues, see
+the [animation and sound direction](animation-and-sound-direction.md). PixelLab
+mouth-shape animation is a visual capability, separate from audio synthesis.
+That memorandum records the owner's interest in brief, unobtrusive sound
+retrofits with HIGH or MEDIUM-HIGH value; it does not add sounds or animations
+to current packages.
+
 For new simpler raster artwork, prefer **PixelLab**: small machinery fittings,
 materials, icons, uncomplicated props and suitable state variants. The owner's
 subsequent memorandum on **25 September 2026 explicitly permits ChatGPT image

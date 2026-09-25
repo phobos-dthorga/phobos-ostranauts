@@ -39,8 +39,8 @@ internal static partial class Service
     private static bool Paused(Session s) => !s.State.Running && !s.State.Receiving;
     internal static string[] Actions(CondOwner co) => IrrigationDefinitions.IsSupply(co)
         ? new[] { "start", "pause", "receive", "pause-receive", "unlink-water", "mix-potato", "mix-lettuce", "mix-lettuce-seed", "water-only", "cancel-recovery" }
-        : Definitions.IsCooker(co) ? new[] { "start", "pause", "cancel" }
-        : new[] { "start", "pause", "receive", "pause-receive", "water-routed", "water-legacy", "unlink-water" };
+        : Definitions.IsCooker(co) ? new[] { "start", "pause", "cancel", "watch", "unwatch", "cue-volume" }
+        : new[] { "start", "pause", "receive", "pause-receive", "water-routed", "water-legacy", "unlink-water", "watch", "unwatch", "cue-volume" };
     internal static IEnumerable<CondOwner> WaterCandidates(CondOwner co) =>
         co.ship.GetCOs(null, false, false, true).Where(c => c != co && c.ship == co.ship && Definitions.Machine(c) &&
             !Definitions.IsCooker(c) && IrrigationDefinitions.IsSupply(c) != IrrigationDefinitions.IsSupply(co) && NativeFluidRoute.EndpointReady(c));

@@ -1,0 +1,773 @@
+{
+  "schemaVersion": 1,
+  "mods": {
+    "PhobosAutoNav": {
+      "intro": "Asterel plug-in boards for the native Polaris navigation station. Fit them into the station’s module slots and use the shared Phobos flight hub; they are not floor fixtures and have no INSTALL tile. Working N1/N2 provide navigation, while N3 supplies independent fire controls. Removing a module can suspend the function that owns it.",
+      "groups": [
+        {
+          "key": "n1",
+          "title": "N1 Polaris Auto Nav Module",
+          "ids": [
+            "PhobosAutoNavBoard",
+            "PhobosAutoNavBoardDmg"
+          ],
+          "function": "Navigation, approach and docking assistance. It can stop short of a destination or use a separate docking command.",
+          "use": "Fit a working board to Polaris, open its Phobos hub, select a supported sensor contact, set arrival preferences and choose Fly, Dock or Approach & Dock as appropriate. Use Stop to release flight control.",
+          "find": "Build at a supported table, buy from the listed dealers, or find rare N1 boards in native navigation-module loot. Damaged salvage needs repair.",
+          "notes": "No obstacle avoidance or indefinite position holding is promised. Sensor quality, braking room, fuel and native restrictions still apply. Docking resumes only after an explicit post-load Resume.",
+          "guide": "auto-navigate-adaptation.md",
+          "internal": false,
+          "labels": {}
+        },
+        {
+          "key": "n2",
+          "title": "N2 Polaris Pursuit Module",
+          "ids": [
+            "PhobosPursuitBoard",
+            "PhobosPursuitBoardDmg"
+          ],
+          "function": "Includes navigation/docking and adds Rendezvous and Follow for moving contacts.",
+          "use": "Fit to Polaris and use the Pursuit page. Rendezvous approaches once; Follow maintains a distance band. Stop before changing flight modes.",
+          "find": "Build at a supported table or buy the Polaris dealer offer below. The N1 salvage pool does not grant N2.",
+          "notes": "N2 does not authorize firing; use N3 for that. Pursuit suspends on reload and cannot guarantee catching a faster ship.",
+          "guide": "auto-nav-pursuit.md",
+          "internal": false,
+          "labels": {}
+        },
+        {
+          "key": "n3",
+          "title": "N3 Polaris Fire Control System",
+          "ids": [
+            "PhobosFireControlBoard",
+            "PhobosFireControlBoardDmg"
+          ],
+          "function": "Independent weapon observations, bounded offensive volleys and optional RCS aiming. It can operate without N1/N2.",
+          "use": "Fit to Polaris, open Fire, choose the target and weapon group, then explicitly grant Engage. Cease Fire keeps offensive hold; Return to Native releases that hold.",
+          "find": "Build at a supported table or buy the Polaris dealer offer below. No separate N3 derelict-loot addition is registered.",
+          "notes": "Firing permission is not restored from a save. N2 plus N3 combines Follow and firing; flight braking and clearance take priority over aiming.",
+          "guide": "auto-nav-fire-control.md",
+          "internal": false,
+          "labels": {}
+        },
+        {
+          "key": "offcuts",
+          "title": "Electronics assembly offcuts",
+          "ids": [
+            "PhobosAutoNavBoardOffcut"
+          ],
+          "function": "Retained material left over when any N1/N2/N3 board is constructed.",
+          "use": "Keep, haul or offer to a compatible scrap buyer.",
+          "find": "Appears beside the new board at construction completion.",
+          "notes": "The name still mentions N1, but all three board recipes share this identity. It is not a small electronic-parts item and has no current refining recipe.",
+          "guide": "auto-nav-economy.md",
+          "internal": false,
+          "labels": {}
+        },
+        {
+          "key": "board-residue",
+          "title": "Board residue",
+          "ids": [
+            "PhobosAutoNavBoardResidue"
+          ],
+          "function": "Terminal remainder from dismantling any working or damaged N1/N2/N3 board.",
+          "use": "Treat as retained scrap cargo; reuse or repair a board before choosing irreversible dismantling.",
+          "find": "Produced by the Dismantle action on a board.",
+          "notes": "The N1-labelled identity is shared across all three models. It cannot be refined into electronics by a current Phobos recipe.",
+          "guide": "auto-nav-economy.md",
+          "internal": false,
+          "labels": {}
+        }
+      ]
+    },
+    "PhobosShipbreaker": {
+      "intro": "Rivetline machinery recovers material and casts rough industrial products. Asterel C1 provides optional central controls. Obtain loose equipment, place it through the indicated native INSTALL tab, supply electricity where required, and keep service approaches accessible. Local panels remain usable without C1. Receiving, processing and hot-furnace controls are separate permissions.",
+      "groups": [
+        {
+          "key": "d4",
+          "title": "D4 Dismantling Fixture",
+          "ids": [
+            "PhobosShipbreakerLoose",
+            "PhobosShipbreakerLooseDmg",
+            "PhobosShipbreakerInstalled",
+            "PhobosShipbreakerInstalledDmg"
+          ],
+          "function": "Processes already-detached ordinary wall panels into metal and a retained residue packet.",
+          "use": "Install on cabin flooring, supply power, put supported detached panels in its Wall-panel Feed or use the G4/H4 intake, then enable processing in its local panel. Products appear in the normal machine inventory.",
+          "find": "Buy loose or damaged equipment, or build two D4-S sections and assemble the fixture.",
+          "notes": "It does not cut attached hull walls. Fresh jobs make identified R2 feed; older bound jobs retain their original mixed-residue output. Processing pauses on reload.",
+          "guide": "shipbreaker-first-build.md",
+          "internal": false,
+          "labels": {}
+        },
+        {
+          "key": "g4",
+          "title": "G4 Exterior Grabber",
+          "ids": [
+            "PhobosExteriorGrabberLoose",
+            "PhobosExteriorGrabberLooseDmg",
+            "PhobosExteriorGrabberInstalled",
+            "PhobosExteriorGrabberInstalledDmg"
+          ],
+          "function": "Collects detached wall panels for a connected D4.",
+          "use": "Position outside the hull aligned with the H4 chute and D4 as shown in the intake guide. Put eligible panels in the grabber Inventory and explicitly enable intake.",
+          "find": "Buy from equipment offers or build at a supported table.",
+          "notes": "Not a mining head or an external hull cutter. Positioning ships or stabilizing working range is not supplied by this item.",
+          "guide": "shipbreaker-hull-intake.md",
+          "internal": false,
+          "labels": {}
+        },
+        {
+          "key": "h4",
+          "title": "H4 Sealed Hull Chute",
+          "ids": [
+            "PhobosHullChuteLoose",
+            "PhobosHullChuteLooseDmg",
+            "PhobosHullChuteInstalled",
+            "PhobosHullChuteInstalledDmg"
+          ],
+          "function": "Connects the exterior grabber and interior processor across intact structural flooring.",
+          "use": "Install in the documented G4 → H4 → D4 arrangement; align and power the associated equipment.",
+          "find": "Buy from equipment offers or build at a supported table.",
+          "notes": "Backing walls remain the pressure barrier. The chute is not an open portal, pressure-cycling airlock or arbitrary conveyor network.",
+          "guide": "shipbreaker-hull-intake.md",
+          "internal": false,
+          "labels": {}
+        },
+        {
+          "key": "c2",
+          "title": "C2 Residue Collector",
+          "ids": [
+            "PhobosResidueCollectorLoose",
+            "PhobosResidueCollectorLooseDmg",
+            "PhobosResidueCollectorInstalled",
+            "PhobosResidueCollectorInstalledDmg"
+          ],
+          "function": "A finite physical cargo receiver for explicitly paired industrial outputs.",
+          "use": "Install at the hull, link the required machine/output port, select an exact filter and enable receiving. Empty its Inventory when full.",
+          "find": "Buy from equipment offers or build at a supported table.",
+          "notes": "Full collectors block transfer; cargo stays at the sender. It does not jettison material or reduce ship mass. Furnace products need their explicit filter.",
+          "guide": "residue-collector.md",
+          "internal": false,
+          "labels": {}
+        },
+        {
+          "key": "r4",
+          "title": "R4 Scrap Reclaimer",
+          "ids": [
+            "PhobosScrapReclaimerLoose",
+            "PhobosScrapReclaimerLooseDmg",
+            "PhobosScrapReclaimerInstalled",
+            "PhobosScrapReclaimerInstalledDmg"
+          ],
+          "function": "Reclaims identified R2 panel residue into steel, aluminium and terminal rejects.",
+          "use": "Supply power and adequate cabin atmosphere, load exact R2 feed locally or enable a paired intake, then start processing. Set residue and metals output links independently.",
+          "find": "Buy machinery or assemble two R4-S sections.",
+          "notes": "Legacy mixed residue and terminal rejects are not valid feed. The machine puts heat into cabin gas; vacuum is not free cooling. Receiving and processing pause on reload.",
+          "guide": "scrap-reclaimer.md",
+          "internal": false,
+          "labels": {}
+        },
+        {
+          "key": "f6",
+          "title": "F6 Electric Furnace",
+          "ids": [
+            "PhobosFurnaceLoose",
+            "PhobosFurnaceLooseDmg",
+            "PhobosFurnaceInstalled",
+            "PhobosFurnaceInstalledDmg"
+          ],
+          "function": "Electrically heats an exact aluminium charge to cast a rough machinery housing.",
+          "use": "Build or buy the furnace, install it with a compatible cooling endpoint and power. Use the local panel to load, seal, heat and cast, then cool, equalize and release products. Follow the complete cycle guide.",
+          "find": "Buy machinery or assemble three F6-S sections.",
+          "notes": "Requires finite cooling and a valid gas receiver. Automatic material receipt never authorizes Seal, Start or Release. Hot machinery retains heat across saves.",
+          "guide": "furnace-player-guide.md",
+          "internal": false,
+          "labels": {}
+        },
+        {
+          "key": "f6r",
+          "title": "F6-R Exterior Radiator",
+          "ids": [
+            "PhobosFurnaceRadiatorLoose",
+            "PhobosFurnaceRadiatorLooseDmg",
+            "PhobosFurnaceRadiatorInstalled",
+            "PhobosFurnaceRadiatorInstalledDmg"
+          ],
+          "function": "Rejects furnace heat through a finite exterior cooling assembly.",
+          "use": "Install in the documented exterior location and pair with the F6. Direct coupling or the optional dedicated coolant route is supported.",
+          "find": "Buy from equipment offers or build at a supported table.",
+          "notes": "One cooling endpoint per furnace. It is not an unlimited heat sink; do not switch pairs or modes while hot.",
+          "guide": "furnace-player-guide.md",
+          "internal": false,
+          "labels": {}
+        },
+        {
+          "key": "f6p",
+          "title": "F6-P Thermal Exhaust Port",
+          "ids": [
+            "PhobosFurnaceThermalPortLoose",
+            "PhobosFurnaceThermalPortLooseDmg",
+            "PhobosFurnaceThermalPortInstalled",
+            "PhobosFurnaceThermalPortInstalledDmg"
+          ],
+          "function": "A sealed deck fitting representing the alternative underside radiator assembly.",
+          "use": "Install at the documented furnace-side cooling attachment, rotated with the F6, and select its cooling pairing.",
+          "find": "Buy from equipment offers or build at a supported table.",
+          "notes": "The small head represents a complete finite assembly. It keeps the native floor sealed and does not vent cabin air or create a lower deck.",
+          "guide": "furnace-connections-and-instruments.md",
+          "internal": false,
+          "labels": {}
+        },
+        {
+          "key": "f6c",
+          "title": "F6-C Sealed Coolant Conduit",
+          "ids": [
+            "PhobosFurnaceCoolantConduitLoose",
+            "PhobosFurnaceCoolantConduitLooseDmg",
+            "PhobosFurnaceCoolantConduitInstalled",
+            "PhobosFurnaceCoolantConduitInstalledDmg"
+          ],
+          "function": "Provides the separate coolant route between the F6 and a remote F6-R.",
+          "use": "Place contiguous segments through HVAC, connect the correct cooling endpoints and select piped mode while cool and empty. Use the furnace’s checked routing controls.",
+          "find": "Buy ordinary supply/fixer/Halvorson stock or build at a supported table.",
+          "notes": "This is not electrical cable or irrigation pipe. Legacy sealed operation and optional finite coolant servicing have different requirements. Damaged forms retain separate identities even when the display name lacks a damage suffix.",
+          "guide": "furnace-coolant-conduits.md",
+          "internal": false,
+          "labels": {}
+        },
+        {
+          "key": "c1",
+          "title": "C1 Industrial Control Console",
+          "ids": [
+            "PhobosIndustrialConsoleLoose",
+            "PhobosIndustrialConsoleLooseDmg",
+            "PhobosIndustrialConsoleInstalled",
+            "PhobosIndustrialConsoleInstalledDmg"
+          ],
+          "function": "Provides central status and checked commands for installed industrial equipment on its own ship, with optional Agriculture integration.",
+          "use": "Install, power and use the seated console. Select a machine; filter by name, type or attention state and issue the available service commands.",
+          "find": "Buy from equipment offers or build at a supported table.",
+          "notes": "Physical cargo access and maintenance remain local. Docked, moored and towed ships are separate scopes; C1 is not required for autonomous processing.",
+          "guide": "industrial-console-player-guide.md",
+          "internal": false,
+          "labels": {}
+        },
+        {
+          "key": "d4-section",
+          "title": "D4-S assembly section",
+          "ids": [
+            "PhobosShipbreakerSection"
+          ],
+          "function": "A heavy, unpowered construction component, not a functional machine.",
+          "use": "Carry to a supported table and use the relevant assembly recipe. Two sections build a D4.",
+          "find": "Construct from materials, buy the listed section offers, or obtain a rare native engineering-loot section.",
+          "notes": "Sections do not appear in INSTALL. Dismantling returns the listed materials and loses most whole-item value.",
+          "guide": "equipment-economy.md",
+          "internal": false,
+          "labels": {}
+        },
+        {
+          "key": "r4-section",
+          "title": "R4-S assembly section",
+          "ids": [
+            "PhobosScrapReclaimerSection"
+          ],
+          "function": "A heavy, unpowered construction component, not a functional machine.",
+          "use": "Carry to a supported table and use the relevant assembly recipe. Two sections build an R4.",
+          "find": "Construct from materials, buy the listed section offers, or obtain a rare native engineering-loot section.",
+          "notes": "Sections do not appear in INSTALL. Dismantling returns the listed materials and loses most whole-item value.",
+          "guide": "scrap-reclaimer.md",
+          "internal": false,
+          "labels": {}
+        },
+        {
+          "key": "f6-section",
+          "title": "F6-S furnace assembly section",
+          "ids": [
+            "PhobosFurnaceSection"
+          ],
+          "function": "A heavy, unpowered construction component, not a functional machine.",
+          "use": "Carry to a supported table and use the relevant assembly recipe. Three sections build an F6.",
+          "find": "Construct from materials, buy the listed section offers, or obtain a rare native engineering-loot section.",
+          "notes": "Sections do not appear in INSTALL. Dismantling returns the listed materials and loses most whole-item value.",
+          "guide": "furnace-player-guide.md",
+          "internal": false,
+          "labels": {}
+        },
+        {
+          "key": "rough-housing",
+          "title": "Rough aluminium machinery housing",
+          "ids": [
+            "PhobosFurnaceHousingBlank"
+          ],
+          "function": "The released rough casting from the first F6 recipe.",
+          "use": "Finish it through the table recipe, or choose explicit aluminium recovery if you no longer need it.",
+          "find": "Released from a completed and safely cooled F6 casting batch.",
+          "notes": "Its old recipe identity is preserved; it is not a finished Manufacturing heat sink.",
+          "guide": "furnace-repair-castings.md",
+          "internal": false,
+          "labels": {}
+        },
+        {
+          "key": "housing",
+          "title": "Finished aluminium machinery housing",
+          "ids": [
+            "PhobosFurnaceHousing"
+          ],
+          "function": "A finished construction input for optional D4-S and R4-S casting-based recipes.",
+          "use": "Use the listed section recipes; alternatively cut it back into aluminium using the explicit recovery recipe.",
+          "find": "Finish a rough F6 housing at a supported table.",
+          "notes": "This is cargo, not a fixture. Recovery preserves mass but yields much less base value than the whole housing.",
+          "guide": "furnace-repair-castings.md",
+          "internal": false,
+          "labels": {}
+        },
+        {
+          "key": "melt-remainder",
+          "title": "Terminal aluminium melt remainder",
+          "ids": [
+            "PhobosFurnaceMeltRemainder"
+          ],
+          "function": "Retained casting-process remainder.",
+          "use": "Keep as physical waste or offer to a compatible buyer.",
+          "find": "Appears with released F6 casting products.",
+          "notes": "No current remelting or reclaimer recipe accepts it; its small value is not a recovery yield.",
+          "guide": "furnace-player-guide.md",
+          "internal": false,
+          "labels": {}
+        },
+        {
+          "key": "r2-feed",
+          "title": "Identified Panel Residue R2",
+          "ids": [
+            "PhobosPanelResidueR2"
+          ],
+          "function": "Characterized gameplay feed for the R4.",
+          "use": "Load into R4 feed or transfer through an explicitly enabled route.",
+          "find": "Fresh revision-2 D4 wall jobs.",
+          "notes": "The authored result is steel, aluminium and terminal R2 rejects. It is not a measured chemical assay.",
+          "guide": "residue-material-contract.md",
+          "internal": false,
+          "labels": {}
+        },
+        {
+          "key": "legacy-residue",
+          "title": "Mixed Panel Residue — legacy",
+          "ids": [
+            "PhobosShipbreakerResidue"
+          ],
+          "function": "Unclassified residue preserved from older D4 jobs and saves.",
+          "use": "Retain or move with supported collectors; do not substitute it for identified R2 feed.",
+          "find": "Existing cargo or completion of a job bound to the historical output contract.",
+          "notes": "No conversion to R2 and no R4 recycling; saving or updating does not reclassify it.",
+          "guide": "residue-material-contract.md",
+          "internal": false,
+          "labels": {}
+        },
+        {
+          "key": "r2-reject",
+          "title": "Terminal Panel Rejects R2",
+          "ids": [
+            "PhobosPanelRejectR2"
+          ],
+          "function": "The nonrecoverable remainder of the R4 process.",
+          "use": "Store, haul or sell where accepted.",
+          "find": "Completing an R4 batch of identified panel residue.",
+          "notes": "Cannot be fed back through R4 to roll for more metals.",
+          "guide": "scrap-reclaimer.md",
+          "internal": false,
+          "labels": {}
+        },
+        {
+          "key": "coolant",
+          "title": "Thermal Service Fluid Charge",
+          "ids": [
+            "PhobosRivetlineCoolantCharge"
+          ],
+          "function": "Fresh fictional industrial coolant for optional finite F6 servicing.",
+          "use": "In cool, idle piped mode enable finite servicing, place charges in Products and load locally. Prime before operating.",
+          "find": "Ordinary supply, fixer or Halvorson stock as listed below.",
+          "notes": "Not drinking water, irrigation feed or ammonia. The legacy sealed cooling mode does not require these charges.",
+          "guide": "fluid-network-operations.md",
+          "internal": false,
+          "labels": {}
+        },
+        {
+          "key": "retained-coolant",
+          "title": "Retained Thermal Service Fluid",
+          "ids": [
+            "PhobosRivetlineRetainedCoolant"
+          ],
+          "function": "Physically retained fluid drained or captured from the optional coolant service.",
+          "use": "Recover through local coolant-drain controls and store the resulting cargo.",
+          "find": "F6 finite coolant draining and captured-loss recovery.",
+          "notes": "Live mass may differ from the template below. No current conversion back to a fresh service charge or potable water is provided.",
+          "guide": "fluid-network-operations.md",
+          "internal": false,
+          "labels": {}
+        },
+        {
+          "key": "pipe-waste",
+          "title": "Retained Coolant Conduit Waste",
+          "ids": [
+            "PhobosFurnaceCoolantConduitWaste"
+          ],
+          "function": "Terminal material left after dismantling F6-C.",
+          "use": "Keep as waste cargo or trade where accepted.",
+          "find": "Dismantling an intact or damaged F6-C segment.",
+          "notes": "It is not a fresh pipe or a coolant charge.",
+          "guide": "furnace-coolant-conduits.md",
+          "internal": false,
+          "labels": {}
+        },
+        {
+          "key": "compartments",
+          "title": "Built-in feed compartments",
+          "ids": [
+            "PhobosShipbreakerInputBin",
+            "PhobosScrapReclaimerInputBin",
+            "PhobosFurnaceInputBin"
+          ],
+          "function": "Named child inventories built into D4, R4 and F6. They are not separate products.",
+          "use": "Open the corresponding machine Inventory and put only its accepted wall panels, R2 residue or aluminium charge in the indicated compartment.",
+          "find": "Shown as feed/chamber inventory within their owning machine.",
+          "notes": "No purchase, INSTALL, repair, Restore or standalone salvage contract. Empty-machine checks include these compartments.",
+          "guide": "industrial-console-player-guide.md",
+          "internal": true,
+          "labels": {}
+        }
+      ]
+    },
+    "PhobosAgriculture": {
+      "intro": "Verdemorrow equipment grows potatoes and lettuce, cooks potato portions and manages finite irrigation. These are authored, accelerated gameplay systems. Crop yields and simplified nutrient/treatment chemistry are not research results. The linked research guide attributes the supporting work separately; none of the pricing or yield balance implies NASA/ESA endorsement. See [research and attribution](agriculture-research.md).",
+      "groups": [
+        {
+          "key": "rack",
+          "title": "Firstlight-4 Cultivation Rack",
+          "ids": [
+            "PhobosVerdemorrowFirstlight4Loose",
+            "PhobosVerdemorrowFirstlight4LooseDmg",
+            "PhobosVerdemorrowFirstlight4Installed",
+            "PhobosVerdemorrowFirstlight4InstalledDmg"
+          ],
+          "function": "Grows one potato, food-lettuce or lettuce-seed cohort across four visual trays.",
+          "use": "Install and power the rack, load irrigation and nutrients, then perform Plant. Keep cabin conditions suitable and Harvest when ready. Remove output cargo before replanting.",
+          "find": "Buy equipment or build at a supported table; used/refurbished/damaged offers are listed below.",
+          "notes": "Four trays are one cohort. Food lettuce does not return seeds; choose the dedicated seed cycle. The local panel shows inventory, stress and progress.",
+          "guide": "agriculture-player-guide.md",
+          "internal": false,
+          "labels": {}
+        },
+        {
+          "key": "cooker",
+          "title": "Hearth-2 Galley Cooker",
+          "ids": [
+            "PhobosVerdemorrowHearth2Loose",
+            "PhobosVerdemorrowHearth2LooseDmg",
+            "PhobosVerdemorrowHearth2Installed",
+            "PhobosVerdemorrowHearth2InstalledDmg"
+          ],
+          "function": "Cooks a raw potato portion into edible prepared food.",
+          "use": "Install, power, place raw potatoes in its Inventory and Start. Collect the cooked portion when complete.",
+          "find": "Buy equipment or build at a supported table.",
+          "notes": "Its counter and stove artwork are one machine. Each job binds a particular raw portion; replacing it does not transfer progress.",
+          "guide": "agriculture-player-guide.md",
+          "internal": false,
+          "labels": {}
+        },
+        {
+          "key": "supply",
+          "title": "Groundwork W2 Water Supply Unit",
+          "ids": [
+            "PhobosVerdemorrowGroundworkW2Loose",
+            "PhobosVerdemorrowGroundworkW2LooseDmg",
+            "PhobosVerdemorrowGroundworkW2Installed",
+            "PhobosVerdemorrowGroundworkW2InstalledDmg"
+          ],
+          "function": "Stores and supplies irrigation water or formulated nutrient solution; also treats recorded process solution.",
+          "use": "Install and power W2, load supplies locally, choose formulation, pair supported racks and explicitly enable receiving/distribution. Use treatment controls for recorded drainage and a cartridge.",
+          "find": "Buy supply/fixer/Halvorson stock or build at a supported table.",
+          "notes": "Use separate circuits for incompatible formulations. Receiving pauses after reload. Optional [Valtora’s Ship’s Water](https://steamcommunity.com/sharedfiles/filedetails/?id=3757331189) integration is version-scoped and protects crew reserves; manual input remains available.",
+          "guide": "fluid-network-operations.md",
+          "internal": false,
+          "labels": {}
+        },
+        {
+          "key": "irrigation-pipe",
+          "title": "Groundwork Irrigation Conduit",
+          "ids": [
+            "PhobosVerdemorrowWaterConduitLoose",
+            "PhobosVerdemorrowWaterConduitLooseDmg",
+            "PhobosVerdemorrowWaterConduitInstalled",
+            "PhobosVerdemorrowWaterConduitInstalledDmg"
+          ],
+          "function": "Carries irrigation water or crop nutrient solution between W2 and paired racks.",
+          "use": "Place contiguous segments in MISC, connect the endpoint sockets and use Pair/Receive controls.",
+          "find": "Buy stock, build at a supported table, or find a loose segment in eligible locked-crate contents.",
+          "notes": "Separate from electricity and F6 coolant. Removing a line does not delete the contents retained at its receiving endpoint.",
+          "guide": "agriculture-water-conduits.md",
+          "internal": false,
+          "labels": {}
+        },
+        {
+          "key": "seed-potato",
+          "title": "Continuance Seed Potato",
+          "ids": [
+            "PhobosVerdemorrowContinuancePotato"
+          ],
+          "function": "Planting stock for a potato cohort.",
+          "use": "Place one in the rack and choose Plant potato after loading water and nutrients.",
+          "find": "Buy stock, find eligible fridge/crate loot, or retain stock from a potato harvest.",
+          "notes": "This is the sprouted planting item, not a raw edible portion.",
+          "guide": "agriculture-player-guide.md",
+          "internal": false,
+          "labels": {}
+        },
+        {
+          "key": "lettuce-seed",
+          "title": "Continuance Lettuce Seeds",
+          "ids": [
+            "PhobosVerdemorrowContinuanceLettuce"
+          ],
+          "function": "Planting stock for either lettuce cycle.",
+          "use": "Load one packet, then choose food lettuce or the separate lettuce-for-seed cycle.",
+          "find": "Buy stock, find eligible fridge/crate loot, or harvest a completed lettuce-seed cohort.",
+          "notes": "Food-lettuce harvest gives leaves, not replacement seed packets.",
+          "guide": "agriculture-player-guide.md",
+          "internal": false,
+          "labels": {}
+        },
+        {
+          "key": "nutrients",
+          "title": "Groundwork Formulated Crop Nutrients",
+          "ids": [
+            "PhobosVerdemorrowGroundworkNutrients"
+          ],
+          "function": "Dry finite nutrient input.",
+          "use": "Put packets in the rack or W2 and choose Load nutrients; W2 can blend the selected formulation.",
+          "find": "Buy supplies or find eligible locked-crate loot.",
+          "notes": "Not fertilizer produced from arbitrary trash; unused loaded nutrients remain finite stored stock.",
+          "guide": "agriculture-player-guide.md",
+          "internal": false,
+          "labels": {}
+        },
+        {
+          "key": "irrigation-charge",
+          "title": "Groundwork Irrigation Charge",
+          "ids": [
+            "PhobosVerdemorrowGroundworkIrrigation"
+          ],
+          "function": "A sealed root-water input commodity.",
+          "use": "Place in the rack or W2 and use Load irrigation charge with enough free reservoir space.",
+          "find": "Buy supplies or find eligible locked-crate loot.",
+          "notes": "Not a drinkable ration. Native water rations are an alternative input, not a conversion output.",
+          "guide": "agriculture-player-guide.md",
+          "internal": false,
+          "labels": {}
+        },
+        {
+          "key": "raw-potato",
+          "title": "Raw Potatoes",
+          "ids": [
+            "PhobosVerdemorrowRawPotatoes"
+          ],
+          "function": "Uncooked potato harvest portions.",
+          "use": "Move to Hearth-2 and Start cooking.",
+          "find": "Harvest potatoes or find eligible fridge contents.",
+          "notes": "The current raw item has no Eat action; use the cooker. It is not a seed potato.",
+          "guide": "agriculture-player-guide.md",
+          "internal": false,
+          "labels": {}
+        },
+        {
+          "key": "meal",
+          "title": "Hearth Cooked Potatoes",
+          "ids": [
+            "PhobosVerdemorrowHearthPotatoes"
+          ],
+          "function": "Prepared crew food.",
+          "use": "Collect from Hearth-2 and use the native eating action.",
+          "find": "Cook raw potatoes or find eligible fridge loot.",
+          "notes": "Food effects are authored gameplay values.",
+          "guide": "agriculture-player-guide.md",
+          "internal": false,
+          "labels": {}
+        },
+        {
+          "key": "lettuce",
+          "title": "Lettuce",
+          "ids": [
+            "PhobosVerdemorrowLettuce"
+          ],
+          "function": "Edible leaves from the food-lettuce crop.",
+          "use": "Harvest, collect and eat through native food actions.",
+          "find": "Harvest food lettuce or find eligible fridge loot.",
+          "notes": "Not seed stock. Growing lettuce for seed produces no edible leaves.",
+          "guide": "agriculture-player-guide.md",
+          "internal": false,
+          "labels": {}
+        },
+        {
+          "key": "crop-residue",
+          "title": "Crop Residue",
+          "ids": [
+            "PhobosVerdemorrowCropResidue"
+          ],
+          "function": "Retained nonfood crop biomass, including growth losses and rounding.",
+          "use": "Remove it from rack storage as physical waste.",
+          "find": "Harvesting or clearing crop material.",
+          "notes": "Live packet mass varies; the template mass below is not a fixed yield. No compost-to-nutrient recipe is currently provided.",
+          "guide": "agriculture-player-guide.md",
+          "internal": false,
+          "labels": {}
+        },
+        {
+          "key": "old-solution",
+          "title": "Agricultural Process Solution — unrecorded",
+          "ids": [
+            "PhobosVerdemorrowProcessSolution"
+          ],
+          "function": "Legacy or otherwise uncharacterized retained process liquid.",
+          "use": "Keep and haul it as nonpotable retained cargo.",
+          "find": "Older crop/process outputs and preserved saves.",
+          "notes": "No recorded composition: W2 treatment must not infer one or silently upgrade this item.",
+          "guide": "fluid-network-operations.md",
+          "internal": false,
+          "labels": {}
+        },
+        {
+          "key": "recorded-solution",
+          "title": "Recorded Process Solution",
+          "ids": [
+            "PhobosVerdemorrowCharacterizedProcessSolution"
+          ],
+          "function": "Drainage with saved water/nutrient quantities that W2 can validate.",
+          "use": "Place alongside a usable treatment cartridge in W2; queue drainage treatment, then Start and provide power/output space.",
+          "find": "New recorded drainage and retained solution recovery.",
+          "notes": "Live mass/composition comes from the saved batch. Recovery is partial, with terminal rejects, and never returns drinking water.",
+          "guide": "fluid-network-operations.md",
+          "internal": false,
+          "labels": {}
+        },
+        {
+          "key": "treatment-cartridge",
+          "title": "Groundwork Treatment Cartridge",
+          "ids": [
+            "PhobosVerdemorrowGroundworkRecoveryCartridge"
+          ],
+          "function": "Finite treatment medium used by W2.",
+          "use": "Place with recorded drainage and queue treatment. Keep returned part-used cartridges for later batches.",
+          "find": "Buy supplies or find eligible locked-crate loot.",
+          "notes": "The table shows a full cartridge; remaining capacity controls live mass and price. Historical bound jobs may consume a whole cartridge.",
+          "guide": "fluid-network-operations.md",
+          "internal": false,
+          "labels": {}
+        },
+        {
+          "key": "treatment-rejects",
+          "title": "Retained Treatment Rejects",
+          "ids": [
+            "PhobosVerdemorrowTreatmentRejects"
+          ],
+          "function": "Spent medium and unrecovered material from W2 treatment.",
+          "use": "Collect and retain as waste cargo.",
+          "find": "Completion of drainage treatment.",
+          "notes": "Actual packet mass varies; it cannot be treated again for another recovery roll.",
+          "guide": "fluid-network-operations.md",
+          "internal": false,
+          "labels": {}
+        },
+        {
+          "key": "housing-waste",
+          "title": "Agricultural Housing Waste",
+          "ids": [
+            "PhobosVerdemorrowFirstlight4HousingWaste",
+            "PhobosVerdemorrowFirstlight4BrokenHousingWaste",
+            "PhobosVerdemorrowHearth2HousingWaste",
+            "PhobosVerdemorrowHearth2BrokenHousingWaste",
+            "PhobosVerdemorrowGroundworkW2HousingWaste",
+            "PhobosVerdemorrowGroundworkW2BrokenHousingWaste",
+            "PhobosVerdemorrowWaterConduitWaste"
+          ],
+          "function": "Terminal housing remainders from equipment dismantling. Several different masses share this display name.",
+          "use": "Use the origin and mass below to identify the packet; keep or trade it as waste.",
+          "find": "Produced with recoverable materials by Dismantle.",
+          "notes": "Not construction stock, planting medium or R4 feed. The distinct identities must not be combined into a new salvage recipe.",
+          "guide": "agriculture-economy-review.md",
+          "internal": false,
+          "labels": {
+            "PhobosVerdemorrowFirstlight4HousingWaste": "Rack: intact dismantling",
+            "PhobosVerdemorrowFirstlight4BrokenHousingWaste": "Rack: damaged dismantling",
+            "PhobosVerdemorrowHearth2HousingWaste": "Cooker: intact dismantling",
+            "PhobosVerdemorrowHearth2BrokenHousingWaste": "Cooker: damaged dismantling",
+            "PhobosVerdemorrowGroundworkW2HousingWaste": "W2: intact dismantling",
+            "PhobosVerdemorrowGroundworkW2BrokenHousingWaste": "W2: damaged dismantling",
+            "PhobosVerdemorrowWaterConduitWaste": "Irrigation pipe: either state"
+          }
+        }
+      ]
+    },
+    "PhobosFramework": {
+      "intro": "Framework supplies shared services rather than a set of standalone machines. Its shared repair remainder can appear while servicing equipment from any participating Phobos content mod. Construction menus, machinery controls and the opt-in Scope recorder are interfaces, not additional inventory objects.",
+      "groups": [
+        {
+          "key": "spent-service-parts",
+          "title": "Spent Service Parts",
+          "ids": [
+            "PhobosMaintenanceSpentParts"
+          ],
+          "function": "Material physically retained from the actual repair bill after replacing worn or broken components.",
+          "use": "Collect or haul the spent parts after repair; sell only where a buyer accepts the cargo.",
+          "find": "Native Repair jobs on supported Auto Nav, Shipbreaker and Agriculture equipment.",
+          "notes": "The definition below is a template. Live mass follows the real consumed repair lot, including old jobs with different bills. No current refining recipe returns new electronic or mechanical parts.",
+          "guide": "equipment-economy.md",
+          "internal": false,
+          "labels": {}
+        }
+      ]
+    },
+    "PhobosApproachAssist": {
+      "intro": "Historical, opt-in integration prototype. Use current Auto Nav for ordinary navigation. N0 remains a real prototype module, so it is documented here without implying it has a supported survival-economy release.",
+      "groups": [
+        {
+          "key": "n0",
+          "title": "N0 Approach Assist (Prototype)",
+          "ids": [
+            "PhobosNavModApproachAssist",
+            "PhobosNavModApproachAssistDmg"
+          ],
+          "function": "An experimental Polaris module for a brief RCS integration-test pulse toward a firm contact.",
+          "use": "Follow the prototype test instructions to create and fit the module, inspect its panel and run the bounded pulse.",
+          "find": "Development F3/F8 creation workflow in the linked prototype guide; no mod-authored merchant offers or construction recipes.",
+          "notes": "It does not brake, approach automatically or dock. Price/mass below are inherited native motherboard baselines, not a designed retail contract. Native inherited Repair/Restore/dismantling are outside the maintained N1/N2/N3 service contract; do not assume their yields or guarantees apply.",
+          "guide": "approach-assist-prototype.md",
+          "internal": false,
+          "labels": {}
+        }
+      ]
+    },
+    "PhobosManufacturing": {
+      "intro": "Research scaffold only: no registered equipment, loose items, stock or operational recipes. The proposed M4 enclosed mill, heat-sink preform and machining cartridge are designs, not obtainable items. There are therefore no retail prices, salvage yields or maintenance instructions to present as implemented. See [Manufacturing research](manufacturing-research.md) and [implementation status](manufacturing-implementation.md). Future registered items require reference entries before this guide can be regenerated.",
+      "groups": []
+    }
+  },
+  "sources": {
+    "ItmOKLGSupplyKioskInv": "K-Leg supply kiosk",
+    "ItmOKLGFixer": "K-Leg fixer",
+    "ItmTraderSanDiegoPolarisInv": "San Diego Polaris electronics dealer",
+    "ItmTraderSanDiegoHalvorsonInv": "San Diego Halvorson industrial trader",
+    "ItmVORBScrapKioskInv": "Venus orbital scrap kiosk",
+    "ItmLootSpawnEngineering": "Native engineering-equipment loot",
+    "ItmFridge01Contents": "Eligible native fridge contents",
+    "ItmRandomCrateLockedContents": "Locked-crate contents (also used by bulk cargo)"
+  },
+  "triggers": {
+    "TIsPartsMechSmall": "small mechanical parts",
+    "TIsPartsElecSmall": "small electronic parts",
+    "TIsScrapAluminum": "aluminium scrap",
+    "TIsScrapSteel": "steel scrap",
+    "TIsToolMortorq": "Mortorq tool",
+    "TIsToolSoldering": "soldering tool",
+    "TIsToolWelding": "welding tool"
+  }
+}
