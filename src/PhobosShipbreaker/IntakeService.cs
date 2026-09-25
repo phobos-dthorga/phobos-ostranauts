@@ -175,6 +175,22 @@ internal sealed partial class ProcessingService
         if (!FindIntake(processor, out var found, out string problem)) return problem;
         return DescribeIntake(found!);
     }
+
+    internal static bool CaptureIntake(CondOwner grabber, out CondOwner? chute, out CondOwner? processor, out string problem)
+    {
+        chute = processor = null; problem = Text.Get("Capture.intake");
+        if (!IsGrabber(grabber) || grabber.ship == null) return false;
+        var equipment = IndustryService.Discover(grabber.ship);
+        foreach (var machine in equipment.Where(c => IsProcessor(c.strCODef) && !IsReclaimer(c)))
+        {
+            if (!FindIntake(machine, out var found, out _, equipment) || found!.Grabber != grabber) continue;
+            if (processor != null) { chute = processor = null; return false; }
+            string? fault = LinkProblem(found);
+            if (fault != null) { problem = fault; return false; }
+            chute = found.Chute; processor = machine;
+        }
+        return chute != null && processor != null;
+    }
     private string DescribeIntake(IntakeSession found)
     {
         string? invalid = LinkProblem(found!);

@@ -5,7 +5,16 @@ Framework 0.21.1 adds `Persistence.SavedGridBounds.TryPlan`: a pure, bounded
 expansion calculation for [saved-grid restoration](shipbreaker-room-load-mitigation.md).
 It rejects shrinking, fractional offsets and geometry outside the saved bounds.
 Content owns activation and native application before room/zone loading;
-Framework installs no general room-loading patch.
+Framework does not apply general room-grid restoration. Framework **0.23.1**
+additionally scopes a saved-marker health correction to native `Ship.SpawnItems`:
+`Ship.IsItemDestroyed` must not discard an identified, living saved construction
+marker using the generic `Placeholder` zero maximum when its deterministic saved
+conditions prove remaining health. Resolve saved COs from `DataHandler.dictCOSaves`
+(native loading has already cleared `ship.json.aCOs`), bind full IDs to a unique
+saved placeholder and require both target definitions. Never edit damage or
+progress. Templates, missing providers, ambiguous records and genuinely exhausted
+health retain native behavior. Nested and failed load scopes unwind through a
+Harmony finalizer. See the linked investigation for read-only save audits and limits.
 Content owns a transient `Audio.CompletionWatch`, arms it after access checks with
 actor/ship IDs, and calls `Audio.CompletionCues.Complete` only after a real committed
 result. Cancel on stop, suspension, faults and reload. Use `CompletionCues.VolumeLabel`

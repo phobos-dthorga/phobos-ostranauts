@@ -259,6 +259,14 @@ public sealed class IndustrialPanel : GUIData
         }
         if (IndustrialRules.Group(target.strCODef) == "chute" || IndustrialRules.Group(target.strCODef) == "grabber")
         {
+            if (ProcessingService.IsGrabber(target))
+            {
+                W.Label(actions, Text.Get("Capture.controls"));
+                foreach (var nav in CaptureService.Consoles(target.ship))
+                    Add(actions, "capture-bind", nav.strID, Text.Get("Capture.bind_button", nav.strNameFriendly, nav.strID));
+                foreach (string action in new[] { "capture-start", "capture-stop", "capture-release" })
+                    Add(actions, action, label: Text.Get("Capture.action_" + action));
+            }
             var processor = ProcessingService.PipelineFor(target);
             if (processor != null)
             {

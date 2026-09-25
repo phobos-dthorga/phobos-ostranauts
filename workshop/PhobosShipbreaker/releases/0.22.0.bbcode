@@ -1,0 +1,17 @@
+[h1]Phobos Shipbreaker 0.22.0[/h1]
+[b]Draft - not published | 2026-09-26[/b]
+
+[h2]Added[/h2]
+
+[list]
+[*]Selected-G4 capture and explicit release through local industrial panels, C1 and F3. Bind full native ship, target, G4/chute/D4 and N1/N2 console/module IDs; shorten and disambiguate display labels only. Auto Nav owns the terminal approach; native mooring establishes deck contact after a hull-fit check.
+[*]Write-ahead native anchor records and a post-capture wall-contact check. Manual takeover, tracking/power loss and reload require explicit restart. Unknown state and uncertain native mutations are retained; no target cargo is deleted or copied.
+[/list]
+
+[h2]Requirements and limits[/h2]
+
+[list]
+[*]Phobos Auto Nav 0.16.0+ is now mandatory alongside Framework 0.23.0+. Builder and installer include the dependency. Existing equipment, cargo, recipe and hot-job identities remain unchanged.
+[*]First stage accepts owned, unoccupied targets only. Cutting, automatic repositioning, repeated furnace cycles and whole-wreck completion remain future work. Stop/release do not brake. Prepared offline, not installed, gameplay-validated or published.
+[*]See the [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/shipbreaker-capture.md]capture guide and native evidence[/url]. Blue Bottle Games supplies the native mooring/fit precedent; this authored arrangement is not scientific validation.
+[/list]

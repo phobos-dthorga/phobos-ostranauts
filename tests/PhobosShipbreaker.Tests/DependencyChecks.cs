@@ -27,7 +27,8 @@ internal static class DependencyChecks
         check(DependencyContract.FrameworkProblem(new Version(0, 20, 0)) != null, "Shared completion cues require Framework 0.21");
         check(DependencyContract.FrameworkProblem(new Version(0, 21, 0)) != null, "Saved-grid mitigation requires Framework 0.21.1");
         check(DependencyContract.FrameworkProblem(new Version(0, 21, 1)) != null, "Optional collector admission and reject reservations require Framework 0.22");
-        foreach (var version in new[] { new Version(0, 22, 0), new Version(0, 22, 1), new Version(1, 0, 0) })
+        check(DependencyContract.FrameworkProblem(new Version(0, 22, 0)) != null, "Regional retail endpoints require Framework 0.23");
+        foreach (var version in new[] { new Version(DependencyContract.MinimumFramework), new Version(0, 23, 1), new Version(1, 0, 0) })
             check(DependencyContract.FrameworkProblem(version) == null, "No invented upper version or age cutoff: " + version);
 
         var tables = DependencyContract.Required.ToDictionary(g => g.Table, g => g.Names.ToHashSet());

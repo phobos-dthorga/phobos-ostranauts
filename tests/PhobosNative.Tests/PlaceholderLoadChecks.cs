@@ -35,7 +35,7 @@ internal static class PlaceholderLoadChecks
 
     // Inspect the installed assembly without starting Harmony's Unity/Mono runtime
     // machinery inside the standalone .NET test host.
-    private static List<MethodBase> Calls(MethodInfo method)
+    internal static List<MethodBase> Calls(MethodInfo method)
     {
         var codes = typeof(OpCodes).GetFields(BindingFlags.Public | BindingFlags.Static)
             .Where(f => f.FieldType == typeof(OpCode)).Select(f => (OpCode)f.GetValue(null)!)

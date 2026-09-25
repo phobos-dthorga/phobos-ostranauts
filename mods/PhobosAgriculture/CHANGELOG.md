@@ -17,6 +17,17 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Fixed unreachable INSTALL entries; Firstlight-4, Hearth-2 and W2 appear under APPS, and irrigation conduit under MISC, including damaged forms. Existing inputs, placement and saved IDs are preserved.
 
+## [0.10.0] - 2026-09-26 - Draft
+
+### Added
+
+- Cultivation, cooking, irrigation and nutrient-workup machinery, planting stock, nutrients, root-water charges, cartridges, makeup and pipes gain bounded offers at 15 additional placed vanilla retail markets. Food-producing centres receive higher authored availability. Makeup receives the industrial category; terminal biomass/rejects receive trash. Recorded intermediates retain their separate meaning. Base values, cohorts and fluid records are preserved.
+- [Solar-system economy guide](https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/solar-system-economy.md) documents all 19 native market profiles, authored availability and native pricing limits. Based on Blue Bottle Games' installed Ostranauts 1.0.1.5 data and local engine inspection; these are game-economy choices, not NASA/ESA research results.
+
+### Compatibility
+
+- Requires Phobos Framework 0.23.0 or newer. Existing merchant inventories are not refilled on load. New offers use native generation/restocking. Prepared offline; gameplay validation and Steam publication remain pending.
+
 ## [0.9.0] - 2026-09-26 - Draft
 
 ### Added

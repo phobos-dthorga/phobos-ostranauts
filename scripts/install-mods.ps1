@@ -32,6 +32,7 @@ $overrideMod = if ($PackagePath) { $Mods[0] } else { $null }
 $needsPhobosFramework = $false
 $independentShipbreaker = $false
 $minimumPhobosFramework = [version]'0.1.0'
+$minimumAutoNav = $null
 if ('Shipbreaker' -in $Mods) {
     $shipPackage = if ($overrideMod -eq 'Shipbreaker') { $PackagePath } else { Join-Path $PackageRoot 'PhobosShipbreaker-P0' }
     $shipMetadata = Join-Path $shipPackage 'Mods/PhobosShipbreaker/mod_info.json'
@@ -59,6 +60,11 @@ if ('Shipbreaker' -in $Mods) {
         if ([version]$shipInfo[0].strModVersion -ge [version]'0.19.0') { $minimumPhobosFramework = [version]'0.21.0' }
         if ([version]$shipInfo[0].strModVersion -ge [version]'0.19.1') { $minimumPhobosFramework = [version]'0.21.1' }
         if ([version]$shipInfo[0].strModVersion -ge [version]'0.20.0') { $minimumPhobosFramework = [version]'0.22.0' }
+        if ([version]$shipInfo[0].strModVersion -ge [version]'0.21.0') { $minimumPhobosFramework = [version]'0.23.0' }
+        if ([version]$shipInfo[0].strModVersion -ge [version]'0.22.0' -and -not $PreviewsOnly) {
+            $minimumAutoNav = [version]'0.16.0'
+            $Mods = @('AutoNav') + @($Mods | Where-Object { $_ -ne 'AutoNav' })
+        }
         if ($needsPhobosFramework) { $Mods = @('Framework') + @($Mods | Where-Object { $_ -ne 'Framework' }) }
     }
 }
@@ -79,6 +85,7 @@ if ('AutoNav' -in $Mods) {
             if ([version]$navInfo[0].strModVersion -ge [version]'0.11.1' -and $minimumPhobosFramework -lt [version]'0.17.0') { $minimumPhobosFramework = [version]'0.17.0' }
             if ([version]$navInfo[0].strModVersion -ge [version]'0.14.0' -and $minimumPhobosFramework -lt [version]'0.21.0') { $minimumPhobosFramework = [version]'0.21.0' }
             if ([version]$navInfo[0].strModVersion -ge [version]'0.14.1' -and $minimumPhobosFramework -lt [version]'0.21.2') { $minimumPhobosFramework = [version]'0.21.2' }
+            if ([version]$navInfo[0].strModVersion -ge [version]'0.15.0' -and $minimumPhobosFramework -lt [version]'0.23.0') { $minimumPhobosFramework = [version]'0.23.0' }
             $Mods = @('Framework') + @($Mods | Where-Object { $_ -ne 'Framework' })
         }
     }
@@ -96,6 +103,7 @@ if ('Agriculture' -in $Mods) {
         if ([version]$farmInfo[0].strModVersion -ge [version]'0.6.0' -and $minimumPhobosFramework -lt [version]'0.20.0') { $minimumPhobosFramework = [version]'0.20.0' }
         if ([version]$farmInfo[0].strModVersion -ge [version]'0.8.0' -and $minimumPhobosFramework -lt [version]'0.21.0') { $minimumPhobosFramework = [version]'0.21.0' }
         if ([version]$farmInfo[0].strModVersion -ge [version]'0.9.0' -and $minimumPhobosFramework -lt [version]'0.22.0') { $minimumPhobosFramework = [version]'0.22.0' }
+        if ([version]$farmInfo[0].strModVersion -ge [version]'0.10.0' -and $minimumPhobosFramework -lt [version]'0.23.0') { $minimumPhobosFramework = [version]'0.23.0' }
     }
     $Mods = @('Framework') + @($Mods | Where-Object { $_ -ne 'Framework' })
 }
@@ -183,10 +191,22 @@ foreach ($mod in $Mods) {
         continue
     }
     $version = [version]$metadata[0].strModVersion
+    if ($mod -eq 'AutoNav' -and $null -ne $minimumAutoNav -and $version -lt $minimumAutoNav) {
+        throw "Shipbreaker requires Phobos Auto Nav $minimumAutoNav or later."
+    }
     $dllSource = Join-Path $pluginSource "$id.dll"
     $assembly = [System.Reflection.AssemblyName]::GetAssemblyName($dllSource)
     if ($assembly.Name -ne $id -or $assembly.Version.ToString(3) -ne $version.ToString(3)) {
         throw "Plugin and native package versions differ or wrong assembly for $id. Rebuild the package first."
+    }
+    if ($mod -eq 'AutoNav' -and $null -ne $minimumAutoNav) {
+        $installedNavDll = Join-Path $pluginTarget 'PhobosAutoNav.dll'
+        if (Test-Path -LiteralPath $installedNavDll -PathType Leaf) {
+            $installedNav = [Reflection.AssemblyName]::GetAssemblyName($installedNavDll)
+            if ($installedNav.Version -gt $assembly.Version) {
+                throw 'A newer Phobos Auto Nav is installed. Supply an equal or newer prepared dependency; Shipbreaker does not downgrade it automatically.'
+            }
+        }
     }
     if ($mod -eq 'Framework' -and $needsPhobosFramework -and $version -lt $minimumPhobosFramework) {
         throw "Selected equipment requires Phobos Framework $minimumPhobosFramework or later."

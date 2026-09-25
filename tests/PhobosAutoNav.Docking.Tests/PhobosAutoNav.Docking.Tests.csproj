@@ -5,6 +5,7 @@
     <Compile Include="../../src/PhobosAutoNav/Core/*.cs" Link="%(Filename)%(Extension)" />
     <Compile Include="../../src/PhobosAutoNav/DockingAdapter.cs" Link="DockingAdapter.cs" />
     <Compile Include="../../src/PhobosAutoNav/NavigationDocking.cs" Link="NavigationDocking.cs" />
+    <Compile Include="../../src/PhobosAutoNav/IndustrialNavigation.cs" Link="IndustrialNavigation.cs" />
     <Compile Include="../../src/PhobosAutoNav/NavigationApproachDock.cs" Link="NavigationApproachDock.cs" />
     <Compile Include="../../src/PhobosAutoNav/NavigationPersistence.cs" Link="NavigationPersistence.cs" />
     <Compile Include="../../src/PhobosAutoNav/NavigationSensors.cs" Link="NavigationSensors.cs" />

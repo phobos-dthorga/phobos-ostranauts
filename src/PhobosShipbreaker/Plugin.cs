@@ -12,10 +12,11 @@ namespace PhobosShipbreaker;
 [BepInPlugin(Id, "Phobos Shipbreaker", Version)]
 [BepInProcess("Ostranauts.exe")]
 [BepInDependency(FrameworkInfo.PluginId, Core.DependencyContract.MinimumFramework)]
+[BepInDependency(PhobosAutoNav.Plugin.Id, Core.DependencyContract.MinimumAutoNav)]
 public sealed class Plugin : BaseUnityPlugin
 {
     public const string Id = "phobosgekko.ostranauts.shipbreaker";
-    public const string Version = "0.20.0";
+    public const string Version = "0.22.0";
     internal static ProcessingService Service { get; private set; } = null!;
     internal static Action<string> Log { get; private set; } = null!;
     internal static Settings Options { get; private set; } = null!;
@@ -42,13 +43,14 @@ public sealed class Plugin : BaseUnityPlugin
         FrameworkLifecycle.ContentLoaded += ConfirmContent;
         Log(Text.Get("Plugin.shipbreaker_loaded_with_independent_phobos_framework_construction", Options.ControlsKey));
     }
-    private void Update() { panel.Update(); FurnaceService.Update(); }
+    private void Update() { panel.Update(); FurnaceService.Update(); CaptureService.Update(); }
     private void OnGUI() { panel.Draw(); CollectorControls.Draw(); ReclaimerControls.Draw(); }
-    internal static void ResetServices() { Service.Reset(); Collectors.Reset(); CollectorControls.Reset(); ReclaimerControls.Reset(); IndustryObservations.Reset(); FurnaceService.Reset(); }
+    internal static void ResetServices() { CaptureService.Reset(); Service.Reset(); Collectors.Reset(); CollectorControls.Reset(); ReclaimerControls.Reset(); IndustryObservations.Reset(); FurnaceService.Reset(); }
     private static void LoadContent() { ResetServices(); Content.Register(Log); }
     private static void ConfirmContent() => Content.ConfirmRecipes(Log);
     private void OnDestroy()
     {
+        CaptureService.Shutdown();
         Phobos.Ostranauts.Framework.Inventory.CollectorCargo.SetEndpointValidator(null);
         FrameworkLifecycle.ContentLoading -= LoadContent; FrameworkLifecycle.ContentLoaded -= ConfirmContent;
         Service?.Reset(); Collectors?.Reset(); IndustryObservations.Reset(); harmony?.UnpatchSelf();

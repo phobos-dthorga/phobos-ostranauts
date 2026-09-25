@@ -7,6 +7,7 @@ using PhobosAutoNav.Core;
 // Native boundaries, not copies of the sensor formula or navigation service.
 internal sealed class CrewSim
 {
+    internal static void ResetTimeScale() { }
     internal static CrewSim objInstance = new() { FinishedLoading = true };
     internal static CondOwner coPlayer = new();
     internal static CondOwner? Selected;
@@ -29,6 +30,7 @@ internal sealed class StarSystem
 internal sealed class BodyOrbit { internal bool Blocks, IsAsteroidField; internal int nDrawFlagsBody; }
 internal sealed class Ship
 {
+    internal void UnlockFromOrbit() { }
     internal CondOwner? Reactor;
     internal double fShallowFusionRemain = 3600;
     internal Dictionary<string,string> ReactorProps = new() { ["slidFlow"]="0", ["slidCycle"]="0", ["knobRatio"]="0", ["bNWZ"]="false" };
@@ -59,9 +61,10 @@ internal sealed class Ship
     internal IEnumerable<CondOwner> GetCOs(object? filter, bool bSubObjects, bool bAllowDocked, bool bAllowLocked)
     { if (bSubObjects || bAllowDocked) throw new Exception("Cross-ship discovery"); return Items; }
 }
-internal sealed class ShipSitu { internal double vPosx, vPosy, vVelX, vVelY; internal float fRot, fW = 0; internal UnityEngine.Vector2 vAccIn; }
+internal sealed class ShipSitu { internal double vPosx, vPosy, vVelX, vVelY; internal float fRot, fW = 0; internal UnityEngine.Vector2 vAccIn, vAccRCS = default; internal void ResetNavData() { } }
+internal static class CollisionManager { internal static double GetCollisionDistanceAU(Ship own, Ship target) => 200 * AutoNavCore.M_TO_AU; }
 internal sealed class PowerReading { internal double PowerConnected = 12; }
-internal sealed class CondOwner
+public sealed class CondOwner
 {
     internal PowerReading? Pwr;
     internal int Messages, ConditionWrites;
@@ -227,6 +230,7 @@ namespace PhobosAutoNav
 namespace Ostranauts.ShipGUIs.NavStation { internal static class NavModTorchDrive { internal static float GetLimiterSafetyMax(Ship ship) => .5f; } }
 namespace PhobosAutoNav {
     internal static class DockingAdapter {
+        internal static bool HasFuel(Ship own, Ship target, float throttle) => true;
         internal static string? Check(Ship own, Ship? target, string ownPort, string targetPort, bool checkFit) => null;
         internal static string? SelectPorts(Ship own, Ship target, out string ownPort, out string targetPort) { ownPort="own";targetPort="assigned";return null; }
     }

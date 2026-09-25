@@ -4,7 +4,7 @@ $ErrorActionPreference = 'Stop'
 Set-StrictMode -Version Latest
 $repoRoot = Split-Path -Parent $PSScriptRoot
 $gameRoot = (Resolve-Path -LiteralPath $OstranautsPath).Path
-& (Join-Path $PSScriptRoot 'build-framework.ps1') -OstranautsPath $gameRoot
+& (Join-Path $PSScriptRoot 'build-autonav.ps1') -OstranautsPath $gameRoot
 & (Join-Path $PSScriptRoot 'export-shipbreaker-art.ps1')
 & (Join-Path $PSScriptRoot 'export-hull-intake-concepts.ps1') -Runtime
 & (Join-Path $PSScriptRoot 'export-collector-art.ps1')

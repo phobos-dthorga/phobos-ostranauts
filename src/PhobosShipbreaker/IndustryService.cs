@@ -53,13 +53,14 @@ internal static class IndustryService
             detail += "\n\n" + IndustryObservations.ProbeDetails(co);
         }
         if (group == "fixture") detail += "\n\n" + (intake?.Detail ?? Plugin.Service.DescribeIntake(co));
+        if (group == "grabber") detail += "\n\n" + CaptureService.Describe(co);
         double demand = group == "fixture" ? Plugin.Options.WorkingKW : group == "reclaimer" ? Plugin.Options.ReclaimerKW : group == "collector" ? Plugin.Options.CollectorKW : group == "grabber" ? IntakeRules.WorkingKW : 0;
         if (demand > 0) detail += "\n\n" + Text.Get("Industry.demand", demand) + (group == "reclaimer" ? Text.Get("Industry.feed_demand", Plugin.Options.FeederKW) : "");
         if (co.objContainer != null) detail += "\n" + Text.Get("Industry.stored", co.objContainer.ContainedCOs.Count, co.objContainer.ContainedCOs.Sum(c => c.GetTotalMass()));
         if (ProcessingService.IsReclaimer(co)) detail += "\n\n" + Text.Get("Routing.metals_port") + "\n" + CollectorService.DescribeLink(co, true, true);
         if (RoutingRules.IsSender(co.strCODef)) detail += "\n\n" + CollectorService.DescribeLink(co, true);
         if (RoutingRules.IsReceiver(co.strCODef)) detail += "\n\n" + CollectorService.DescribeLink(co, false) + "\n" + CollectorService.FilterLabel(co);
-        return new EquipmentCard { Id = co.strID, Name = co.strNameFriendly + " [" + Phobos.Ostranauts.Framework.Inventory.PortPairing.ShortId(co.strID) + "]",
+        return new EquipmentCard { Id = co.strID, Name = co.strNameFriendly + (group == "grabber" ? " " + CaptureService.Label(co) : " [" + Phobos.Ostranauts.Framework.Inventory.PortPairing.ShortId(co.strID) + "]"),
             Group = group, State = process.State, Attention = attention, Detail = detail + IndustryObservations.ExplainStop(co) };
     }
     internal static string StateName(EquipmentState state) => Text.Get("Industry.state_" + state);
@@ -73,6 +74,8 @@ internal static class IndustryService
             message = ControlAuthority.Check(target, binding) ?? "";
             if (message.Length != 0) return false;
         }
+        if (ProcessingService.IsGrabber(target) && action.StartsWith("capture-", StringComparison.Ordinal))
+            return CaptureService.Command(binding, target, action, value, out message);
         if (FurnaceService.IsEquipment(target) && !new[] { "receive", "pause-receive", "filter", "unlink-input", "unlink-output", "link-input", "link-output", "inventory" }.Contains(action)) return FurnaceService.Command(binding, target, action, value, out message);
         var provider = EquipmentProviders.For(target.strCODef);
         if (provider != null) return provider.Command(target, binding, action, out message);
@@ -111,6 +114,7 @@ internal static class IndustryService
         var results = new List<string>();
         foreach (var target in Discover(console!.ship))
         {
+            if (ProcessingService.IsGrabber(target)) Run(binding, target.strID, "capture-stop", null, out _);
             if (EquipmentProviders.For(target.strCODef) != null)
             {
                 bool ok = Run(binding, target.strID, "pause", null, out string info);

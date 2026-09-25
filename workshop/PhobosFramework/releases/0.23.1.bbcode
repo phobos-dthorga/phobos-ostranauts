@@ -1,0 +1,15 @@
+[h1]Phobos Framework 0.23.1[/h1]
+[b]Draft - not published | 2026-09-26[/b]
+
+[h2]Fixed[/h2]
+
+[list]
+[*]Retain living saved construction markers whose recorded damage is below their saved health limit when the native loader would compare that damage against the generic marker's zero health. Applies to verified vanilla and available mod targets during saved item spawning; templates, finished equipment, dead/exhausted markers and ambiguous records keep native behavior. Damage, construction progress and save files are not rewritten.
+[*]Addresses the second pending-construction room-load trigger found in Blue Bottle Games' Ostranauts 1.0.1.5: lightly worn G4/H4 markers were discarded before Shipbreaker's existing grid guard could run. The supplied earlier autosave has no damage overrides; the later save has 69 affected markers, including 67 vanilla wall/floor markers. Read-only native-data audits retain all 69 with the patch.
+[/list]
+
+[h2]Compatibility and limits[/h2]
+
+[list]
+[*]Keep Shipbreaker 0.19.1 or newer for its separate saved-grid protection. Framework's health correction does not replace it, restore already-lost gas or recover missing providers. The current installed Shipbreaker 0.21.0 supports this Framework-only update. Automated checks cover native hook boundaries and both supplied saves; gameplay confirmation remains pending. See the [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/shipbreaker-room-load-mitigation.md]investigation and owner check[/url].
+[/list]

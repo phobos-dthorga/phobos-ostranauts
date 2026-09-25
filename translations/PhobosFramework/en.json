@@ -1,4 +1,5 @@
 {
+  "PlaceholderHealthLoad.retained": "Ship {0}: retained {1} saved construction markers using their recorded remaining health instead of the generic zero-health template. Damage and construction progress are unchanged.",
   "Audio.volume_help": "Shared quiet completion level for all Phobos mods, 0 to 1 (0 mutes). Also follows native effects volume. Each supported operation must be explicitly watched; suppressed events never replay.",
   "Audio.volume_label": "All Phobos completion cues: {0}% (change / mute)",
   "BatchPlacement.input_was_not_consumed": "Input was not consumed",

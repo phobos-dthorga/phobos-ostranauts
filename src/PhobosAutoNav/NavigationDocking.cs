@@ -1,5 +1,6 @@
 using System;
 using PhobosAutoNav.Core;
+using static PhobosAutoNav.Core.DockingRules;
 
 namespace PhobosAutoNav;
 
@@ -11,7 +12,7 @@ internal sealed partial class NavigationService
     private double dockStableSeconds;
     private bool dockHolding;
     private bool dockingAttachmentPending;
-    private const double FitCheckSeconds = 2, StableMotionSeconds = 5, TerminalAuthorityShare = .35, MaximumResidualMS = .05;
+    private const double FitCheckSeconds = 2;
 
     internal void Dock(CondOwner? co)
     {

@@ -197,6 +197,14 @@ namespace PhobosAutoNav
     }
     internal sealed partial class NavigationService
     {
+        // Industrial runtime is exercised separately; these doubles let existing persistence/UI
+        // tests verify that loading drops its lease and saved physics excludes its actuators.
+        private sealed class IndustrialFlight { internal string Target = "target"; internal CondOwner Console = null!; }
+        private IndustrialFlight? industrial;
+        private string industrialNotice = "";
+        internal bool IndustrialOwns(ShipSitu situ) => industrial?.Console.ship.objSS == situ;
+        private void EndIndustrial(string reason) { industrial = null; industrialNotice = reason; }
+        internal void BindIndustrialForTest(CondOwner co) => industrial = new IndustrialFlight { Console = co };
         internal bool StandaloneAimFor(ShipSitu situ) => false;
         internal void CeaseFire() => Fire.Cease();
         internal const string PursuitId = "PhobosNavModPursuit";

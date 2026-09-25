@@ -1,5 +1,9 @@
 # Equipment economy and maintenance
 
+Regional acquisition now covers the current vanilla solar system: see the
+[solar-system economy guide](solar-system-economy.md) for availability, native
+price factors and limits. The regional builds require Framework 0.23.0+.
+
 Research and implementation baseline: **2026-09-24**, Ostranauts **1.0.1.4**,
 BepInEx **5.4.23.5**. Candidate: Framework **0.8.0**, Shipbreaker **0.8.0**, Auto Nav **0.3.0**.
 These are implemented balance choices informed by local game/mod definitions;

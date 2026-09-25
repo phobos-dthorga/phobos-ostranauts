@@ -11,6 +11,14 @@ PersistenceRuntimeChecks.Run(Check);
 InstrumentChecks.Run(Check);
 FlightSafetyChecks.Run(Check);
 PreferenceChecks.Run(Check);
+foreach (double face in new[] { 0, Math.PI / 2, Math.PI, -Math.PI / 2 })
+{
+    Check(DockingRules.TryGuide(0, 1050, 0, 0, -face, 0, 1000, 1, .5, .5, out var pose, default, face) && pose.Ready,
+        "Industrial terminal guidance aligns each tool mounting without rotating the velocity frame");
+    Check(DockingRules.TryGuide(0, 1200, 1, 0, -face, 0, 1000, 1, .5, .5, out pose, default, face) &&
+        Math.Abs(pose.X) + Math.Abs(pose.Y) <= .5 + 1e-8 && !pose.Ready, "Mounted-tool approach retains aggregate throttle and readiness limits");
+}
+Check(!DockingRules.TryGuide(0, 1050, 0, 0, 0, 0, 1000, 1, .5, .5, out _, default, double.NaN), "Reject invalid mounting before issuing flight commands");
 
 Check(ArrivalBrake.NeedsBrake(4900, 5000, 100, 0, 0.5), "Crossing arrival ring at speed must still brake");
 Check(ArrivalBrake.NeedsBrake(5100, 5000, 4, 0, 0.5), "Do not inherit upstream's looser zero-speed completion");

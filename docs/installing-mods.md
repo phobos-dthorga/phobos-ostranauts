@@ -12,6 +12,13 @@ repository root. It installs or updates the latest **prepared packages** for
 Phobos Auto Nav and Phobos Shipbreaker. Use the same launcher for subsequent
 updates. PowerShell 7 is required; the launcher leaves its result visible.
 
+Shipbreaker **0.22.0+ also requires Auto Nav 0.16.0+**. Selecting Shipbreaker
+includes its Auto Nav package automatically, including `-PackagePath` overrides
+(the dependency comes from `PackageRoot`). The installer rejects an older Auto
+Nav package before copying anything. `build-shipbreaker.ps1` prepares Auto Nav
+and Framework first. Preview-only artwork updates retain their existing scope.
+See [selected-G4 capture](shipbreaker-capture.md) for controls and current limits.
+
 Shipbreaker **0.1.5+ also selects Phobos Framework automatically**. Its prepared
 package must be available beside the content packages. Building Shipbreaker
 prepares both packages. Shipbreaker 0.6.1 and Auto Nav 0.2.0 require Framework 0.6.0+ and are

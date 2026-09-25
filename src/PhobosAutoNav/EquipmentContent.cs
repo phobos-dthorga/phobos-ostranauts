@@ -102,6 +102,7 @@ internal static class EquipmentContent
                 [NavigationService.DamagedId] = chance - intact
             });
         }
+        RegionalEconomy.Apply(d);
         return d;
 
         void Offer(string merchant, string tag, string item, double chance, StockCondition condition) =>

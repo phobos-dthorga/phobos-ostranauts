@@ -18,6 +18,8 @@ internal static class NativeAdapter
         var data = DataHandler.dictModInfos.Values.FirstOrDefault(m => m.strName == "Phobos Shipbreaker" && !m.GetIsDisabled());
         versions = Text.Get("NativeAdapter.phobos_framework_plugin_minimum_construction_and_machinery", (version?.ToString() ?? Text.Get("NativeAdapter.not_loaded")), DependencyContract.MinimumFramework);
         var problems = DependencyContract.MissingDefinitions(Contains);
+        if (!Chainloader.PluginInfos.TryGetValue(PhobosAutoNav.Plugin.Id, out var nav) || nav.Instance == null ||
+            nav.Metadata.Version < new Version(DependencyContract.MinimumAutoNav)) problems.Add(Text.Get("Capture.dependency", DependencyContract.MinimumAutoNav));
         string? frameworkProblem = DependencyContract.FrameworkProblem(version);
         if (frameworkProblem != null) problems.Insert(0, frameworkProblem);
         RecipePath = "";

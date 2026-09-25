@@ -21,6 +21,7 @@ internal sealed partial class NavigationService
     // world's snapshot or send a maneuver into a world being torn down.
     internal void WorldChanging()
     {
+        industrial = null; industrialNotice = Text.Get("Persistence.loading");
         arrivalWatch.Cancel(); ResetPursuit(); Fire.Reset(); Torch.Reset(); AutoNavCore.ResetStatics(); console = null; savedFlight = null;
         issuing = false; restorePending = false; combinedHandoffPending = false; status = Text.Get("Persistence.loading");
     }
@@ -28,7 +29,7 @@ internal sealed partial class NavigationService
 
     internal static void PrepareSavedPhysics(ShipSitu situ, JsonShipSitu saved)
     {
-        if ((!AutoNavCore.Engaged || AutoNavCore.EngagedPlayer?.objSS != situ) && Plugin.Service?.StandaloneAimFor(situ) != true) return;
+        if ((!AutoNavCore.Engaged || AutoNavCore.EngagedPlayer?.objSS != situ) && Plugin.Service?.StandaloneAimFor(situ) != true && Plugin.Service?.IndustrialOwns(situ) != true) return;
         saved.vAccRCS = UnityEngine.Vector2.zero;
         saved.vAccIn = UnityEngine.Vector2.zero;
         saved.fA = 0;
@@ -197,6 +198,8 @@ internal sealed partial class NavigationService
     }
 
     private static bool OtherControllerBusy()
+        => Plugin.Service?.industrial != null || OtherControllerBusyExceptIndustrial();
+    private static bool OtherControllerBusyExceptIndustrial()
     {
         if (Chainloader.PluginInfos.ContainsKey("com.mrkmg.ostranauts.autonavigate") || AutoNavCore.AutoDockBusy()) return true;
         Type? type = AccessTools.TypeByName("PhobosApproachAssist.Plugin");
@@ -208,6 +211,7 @@ internal sealed partial class NavigationService
     internal void FlyOrResume(CondOwner co) { if (HasResumableFlight(co)) ResumeSaved(co); else Engage(co); }
     internal void Stop(CondOwner? co, string reason)
     {
+        if (industrial != null) { EndIndustrial(reason); return; }
         if (!AutoNavCore.Engaged)
         {
             if (co == null || co.bDestroyed || co.ship != CrewSim.coPlayer?.ship)

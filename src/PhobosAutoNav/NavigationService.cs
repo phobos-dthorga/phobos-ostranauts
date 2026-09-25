@@ -157,6 +157,8 @@ internal sealed partial class NavigationService
 
     internal void ExternalControl(Ship ship, float x, float y, float rotation)
     {
+        if (!issuing && industrial?.Carrier == ship && (x != 0 || y != 0 || rotation != 0))
+            EndIndustrial(Text.Get("NavigationService.external_maneuver_command_pilot_other_controller_has"));
         bool wasAiming = autoAim;
         if (!issuing && autoAim && fireConsole?.ship == ship && (x != 0 || y != 0 || rotation != 0)) CeaseFire();
         // Closing the native console emits a zero command; it must not cancel off-console travel.
@@ -166,6 +168,7 @@ internal sealed partial class NavigationService
 
     internal void ExternalReactorControl(Ship ship, string key, string value)
     {
+        if (!issuing && industrial?.Carrier == ship) EndIndustrial(Text.Get("Torch.manual"));
         if (!issuing && autoAim && fireConsole?.ship == ship) CeaseFire();
         if (AutoNavCore.Engaged && Torch.ChangedByPilot(ship, key, value))
         {
@@ -176,6 +179,7 @@ internal sealed partial class NavigationService
 
     internal void Disengage(string reason, bool keepWeapons = false)
     {
+        EndIndustrial(reason);
         if (!keepWeapons) CeaseFire();
         FinishSavedFlight(SavedFlightMode.Stopped);
         issuing = true;

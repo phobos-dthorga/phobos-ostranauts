@@ -42,6 +42,12 @@ Load(Path.Combine(native, "interactions"), DataHandler.dictInteractions, x => x.
 Load(Path.Combine(native, "loot"), DataHandler.dictLoot, x => x.strName);
 Load(Path.Combine(repo, "mods/PhobosShipbreaker/data/conditions"), DataHandler.dictConds, x => x.strName);
 Load(Path.Combine(repo, "mods/PhobosShipbreaker/data/condtrigs"), DataHandler.dictCTs, x => x.strName);
+PlaceholderHealthChecks.Run(Check);
+if (args.Length == 5 && args[2] == "--audit-placeholder-health")
+{
+    PlaceholderHealthChecks.Audit(args[3], args[4]);
+    return;
+}
 if (args.Length == 4 && args[2] == "--export-item-reference")
 {
     ItemReferenceExport.Write(repo, game, args[3]);
@@ -240,4 +246,6 @@ EquipmentValueAudit.Run(repo, Check, args.Length > 2 ? args[2] : null);
 InstallMenuChecks.Run(agriculture, prepared, Check, Throws);
 AutoNavHubChecks.Run(repo, Check, Throws);
 FireNativeChecks.Run(Check);
+ShipbreakerGeometryChecks.Run(Check);
+RegionalEconomyChecks.Run(game, Check, Throws);
 Console.WriteLine($"PASS: {checks} native-definition/registration checks with no OCF or Workshop loaded. No game session was run.");

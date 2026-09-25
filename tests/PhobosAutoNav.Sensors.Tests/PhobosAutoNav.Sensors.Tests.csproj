@@ -7,6 +7,7 @@
     <Compile Include="../../src/PhobosAutoNav/NativeContactReader.cs" Link="NativeContactReader.cs" />
     <Compile Include="../../src/PhobosAutoNav/NavigationSensors.cs" Link="NavigationSensors.cs" />
     <Compile Include="../../src/PhobosAutoNav/NavigationService.cs" Link="NavigationService.cs" />
+    <Compile Include="../../src/PhobosAutoNav/IndustrialNavigation.cs" Link="IndustrialNavigation.cs" />
     <Compile Include="../../src/PhobosAutoNav/NavigationPersistence.cs" Link="NavigationPersistence.cs" />
     <Compile Include="../../src/PhobosAutoNav/NavigationInstruments.cs" Link="NavigationInstruments.cs" />
     <Compile Include="../../src/PhobosAutoNav/NavigationHub.cs" Link="NavigationHub.cs" />

@@ -21,6 +21,7 @@ void Throws(Action action, string message)
 }
 
 FurnaceChecks.Run(Check);
+CaptureChecks.Run(Check);
 FurnaceMaterialChecks.Run(Check);
 var recipeV1 = ProcessRecipes.WallPanels.Current;
 var masses = recipeV1.Products.SelectMany(p => Enumerable.Repeat(p.Kg, p.Count)).ToArray();

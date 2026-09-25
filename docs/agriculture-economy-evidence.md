@@ -59,10 +59,10 @@ These are native data-trigger results for empty loose definitions. 'Buy' means t
 | Phobos' Verdemorrow Agricultural Housing Waste | 0.01 | IsCategoryTrash | Yes | Yes | No | No |
 | Phobos' Verdemorrow Recorded Crop Residue | 0.01 |  | Yes | Yes | No | No |
 | Phobos' Verdemorrow Groundwork Recovered Nutrient Concentrate | 0.01 |  | Yes | Yes | No | No |
-| Phobos' Verdemorrow Spent Crop Biomass | 0.01 |  | Yes | Yes | No | No |
-| Phobos' Verdemorrow Groundwork Makeup Salts (40 g) | 30.00 |  | Yes | Yes | No | No |
+| Phobos' Verdemorrow Spent Crop Biomass | 0.01 | IsCategoryTrash | Yes | Yes | No | No |
+| Phobos' Verdemorrow Groundwork Makeup Salts (40 g) | 30.00 | IsCategoryIndustrialProducts | Yes | Yes | No | No |
 | Phobos' Verdemorrow Groundwork Recovered Crop Nutrient Mixture | 0.01 |  | Yes | Yes | No | No |
-| Phobos' Verdemorrow Recycler Wet Rejects | 0.01 |  | Yes | Yes | No | No |
+| Phobos' Verdemorrow Recycler Wet Rejects | 0.01 | IsCategoryTrash | Yes | Yes | No | No |
 | Phobos' Verdemorrow Continuance Seed Potato (0.2 kg) | 40.00 | IsCategoryIndustrialProducts | Yes | Yes | No | No |
 | Phobos' Verdemorrow Continuance Lettuce Seeds (5 g) | 5.00 | IsCategoryIndustrialProducts | Yes | Yes | No | No |
 | Phobos' Verdemorrow Groundwork Formulated Crop Nutrients (40 g) | 60.00 | IsCategoryIndustrialProducts | Yes | Yes | No | No |
@@ -72,7 +72,7 @@ These are native data-trigger results for empty loose definitions. 'Buy' means t
 | Phobos' Verdemorrow Crop Residue | 0.01 | IsCategoryTrash | Yes | Yes | No | No |
 | Phobos' Verdemorrow Agricultural Process Solution | 0.01 | IsCategoryTrash | Yes | Yes | No | No |
 | Phobos' Verdemorrow Recorded Process Solution | 0.01 |  | Yes | Yes | No | No |
-| Phobos' Verdemorrow Retained Treatment Rejects | 0.01 |  | Yes | Yes | No | No |
+| Phobos' Verdemorrow Retained Treatment Rejects | 0.01 | IsCategoryTrash | Yes | Yes | No | No |
 | Phobos' Verdemorrow Groundwork Treatment Cartridge | 25.00 | IsCategoryIndustrialProducts | Yes | Yes | No | No |
 | Phobos' Verdemorrow Groundwork Irrigation Charge (5 kg) | 50.00 | IsCategoryIndustrialProducts | Yes | Yes | No | No |
 | Phobos' Verdemorrow Agricultural Housing Waste | 0.01 | IsCategoryTrash | Yes | Yes | No | No |

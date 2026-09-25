@@ -9,7 +9,7 @@ notification** and cue volume/mute. Watching is optional, never starts a job and
 clears on processing pause, fault or reload. See the
 [completion cue guide](shipbreaker-completion-cue.md) for scope and listening checks.
 
-Current packages: Shipbreaker **0.20.0**, requiring Phobos Framework **0.21.0**. Auto Nav remains optional.
+Current packages: Shipbreaker **0.22.0**, requiring Phobos Framework **0.21.0**. Auto Nav remains optional.
 Built against Ostranauts **1.0.1.5** / BepInEx **5.4.23.5**. Automated checks
 passed; the new native panel/seating integration awaits the owner's game test.
 
@@ -136,3 +136,12 @@ records and snapshots. Do not imply those lines are physical belts or silently
 include docked ships. Access, native visor drawing hooks, visibility, refresh cost
 and save behaviour need implementation research. This release adds no cartridge,
 overlay, remote PDA commands, cargo locator or new conveyor simulation.
+
+## Selected-G4 capture
+
+Shipbreaker 0.22.0 requires Auto Nav 0.16.0+. Each G4 equipment entry now offers
+Bind selected target using an exact N1/N2 console, Start/Resume, Stop and Release.
+See [the capture guide](shipbreaker-capture.md) for F3 equivalents, ownership and
+geometry requirements. Panels can close during approach. Capture does not start
+cutting or authorize the connected processor/furnace; those later stages retain
+separate permissions. Stop/release preserve cargo and do not brake the ship.

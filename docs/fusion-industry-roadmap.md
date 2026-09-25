@@ -1,5 +1,13 @@
 # Fusion-powered industry: ideas and research sequence
 
+**26 September implementation:** the owner selected temporary native capture,
+release and repositioning after the [geometry checks](shipbreaker-close-work-geometry.md)
+confirmed distinct deck/navigation scales. The [capture stage](shipbreaker-capture.md)
+now binds exact equipment and uses Auto Nav for approach, followed by checked
+native mooring and explicit release. Cutting, automatic repositioning, repeated
+processing and whole-supported-wreck completion remain subsequent milestones.
+A finite deployed head may later enhance this arrangement.
+
 **Autonomous reclamation, 25 September:** the owner selected research/design for
 one explicitly chosen G4, required Auto Nav with an existing N1/N2, supported
 leftover reclamation after manual valuables recovery, and the full downstream

@@ -10,9 +10,10 @@ function Copy-PhobosPlayerGuides {
         'agriculture-player-guide', 'agriculture-implementation', 'agriculture-research', 'agriculture-first-slice', 'agriculture-roadmap', 'agriculture-living-visuals', 'agriculture-economy-review', 'agriculture-economy-evidence', 'asset-generation-policy',
         'performance-captures', 'furnace-player-guide', 'furnace-coolant-conduits', 'furnace-connections-and-instruments', 'furnace-first-cycle', 'furnace-repair-castings', 'furnace-material-routing', 'manufacturing-handover',
         'getting-started', 'building', 'player-guide', 'equipment-branding', 'installing-mods', 'equipment-economy', 'equipment-value-audit', 'auto-nav-instruments', 'auto-nav-hub-validation', 'auto-nav-polaris-startup', 'auto-nav-docking', 'auto-nav-sensors', 'auto-nav-flight-profiles', 'auto-nav-pursuit', 'auto-nav-fire-control', 'artwork-resolution-policy',
-        'vanilla-economy-audit', 'shipbreaker-first-build', 'shipbreaker-hull-intake', 'shipbreaker-completion-cue', 'animation-and-sound-direction', 'shared-completion-cues',
+        'vanilla-economy-audit', 'solar-system-economy', 'solar-system-economy-evidence', 'shipbreaker-first-build', 'shipbreaker-hull-intake', 'shipbreaker-completion-cue', 'animation-and-sound-direction', 'shared-completion-cues',
         'residue-collector', 'auto-navigate-adaptation', 'auto-nav-economy', 'auto-nav-panel-layout-audit', 'auto-nav-persistence', 'auto-nav-torch', 'residue-material-contract',
         'shipbreaking-material-processing-research', 'material-disposal-port-research',
+        'shipbreaker-capture', 'shipbreaker-close-work-geometry', 'shipbreaker-autopilot-research', 'shipbreaker-autopilot-handover',
         'fluid-conduits-and-irrigation-research', 'agriculture-water-conduits', 'agriculture-nutrient-solutions', 'fluid-network-operations', 'chemical-storage-and-process-fluids', 'updating-constants',
         'processing-job-compatibility', 'localization', 'scrap-reclaimer', 'automatic-material-routing', 'material-port-pairing',
         'item-references', 'item-reference-maintenance', 'auto-nav-item-reference', 'shipbreaker-item-reference', 'agriculture-item-reference', 'framework-item-reference', 'approach-assist-item-reference', 'manufacturing-item-reference',
@@ -45,6 +46,8 @@ function Copy-PhobosPlayerGuides {
         foreach ($name in @('SUPPORT.md', 'CONTRIBUTING.md', 'SECURITY.md', 'THIRD_PARTY_NOTICES.md')) {
             $text = $text.Replace("../$name", "https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/$name")
         }
+        # Source-linked design notes remain useful in binary packages without a source checkout.
+        $text = $text.Replace('../src/', 'https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/src/')
         Set-Content -LiteralPath $guide.FullName -Value $text -Encoding utf8
     }
     Copy-Item -LiteralPath (Join-Path $RepoRoot 'assets/phobos-furnace/coupling-provenance.json') -Destination $Package

@@ -30,10 +30,10 @@ published-release or installed-version claims. Current build baseline:
 
 | Mod | Version | What it does | Status / guide |
 | --- | --- | --- | --- |
-| **Phobos Framework** | 0.22.0 | Shared construction, inventory, controls and saved state | Required by content mods; [author guide](docs/framework-author-guide.md) |
-| **Phobos Shipbreaker** | 0.20.0 | Detached-wall processing, metal recovery, material routing, industrial console and electric furnace | Experimental; [player guide](docs/player-guide.md), [furnace](docs/furnace-player-guide.md) |
-| **Phobos Auto Nav** | 0.14.1 | Shared Polaris hub: N1 navigation/docking, N2 pursuit and N3 limited volleys/optional aiming | Earlier guidance has owner-reported gameplay success; current features need evaluation; [guide](docs/auto-navigate-adaptation.md) |
-| **Phobos Agriculture** | 0.9.0 | Potato/lettuce cultivation, visible growth, nutrient-solution piping and galley cooking | First gameplay candidate; [guide](docs/agriculture-player-guide.md) |
+| **Phobos Framework** | 0.23.1 | Shared construction, inventory, controls and saved state | Required by content mods; [author guide](docs/framework-author-guide.md) |
+| **Phobos Shipbreaker** | 0.22.0 | Detached-wall processing, metal recovery, material routing, industrial console and electric furnace | Experimental; [player guide](docs/player-guide.md), [furnace](docs/furnace-player-guide.md) |
+| **Phobos Auto Nav** | 0.16.0 | Shared Polaris hub: N1 navigation/docking, N2 pursuit and N3 limited volleys/optional aiming | Earlier guidance has owner-reported gameplay success; current features need evaluation; [guide](docs/auto-navigate-adaptation.md) |
+| **Phobos Agriculture** | 0.10.0 | Potato/lettuce cultivation, visible growth, nutrient-solution piping and galley cooking | First gameplay candidate; [guide](docs/agriculture-player-guide.md) |
 | **Phobos Manufacturing** | 0.0.1 | Research and buildable scaffold for future machining | **No operational machinery yet**; [scope](docs/manufacturing-implementation.md) |
 
 Approach Assist is a historical pulse-only prototype, excluded from the default
@@ -45,6 +45,7 @@ flowchart TD
     Game["Ostranauts + BepInEx 5"] --> Framework["Phobos Framework"]
     Framework --> Shipbreaker["Shipbreaker"]
     Framework --> AutoNav["Auto Nav"]
+    AutoNav --> Shipbreaker
     Framework --> Agriculture["Agriculture"]
     Framework --> Manufacturing["Manufacturing — scaffold only"]
     Shipbreaker -. "optional C1 console integration" .-> Agriculture

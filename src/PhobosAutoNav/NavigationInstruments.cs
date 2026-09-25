@@ -23,6 +23,12 @@ internal sealed partial class NavigationService
             Range = Text.Get("Instruments.range_unknown"), RelativeSpeed = Text.Get("Instruments.speed_unknown") };
         if (!IsLocalConsole(co) || CrewSim.objInstance == null || !CrewSim.objInstance.FinishedLoading)
         { view.Notice = view.Details = Text.Get("Persistence.open_console"); return view; }
+        if (industrial != null)
+        {
+            view.Heading = Text.Get("Industrial.approaching"); view.Target = industrial.Target;
+            view.Notice = view.Details = industrialNotice; view.CanStop = industrial.Console == co;
+            return view;
+        }
         bool ownsFlight = AutoNavCore.Engaged && console == co;
         bool otherFlight = AutoNavCore.Engaged && !ownsFlight;
         var snapshot = DisplaySnapshot(co);

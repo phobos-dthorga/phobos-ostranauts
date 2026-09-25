@@ -12,11 +12,11 @@ namespace PhobosAutoNav;
 
 [BepInPlugin(Id, "Phobos Auto Nav", Version)]
 [BepInProcess("Ostranauts.exe")]
-[BepInDependency(FrameworkInfo.PluginId, "0.21.2")]
+[BepInDependency(FrameworkInfo.PluginId, "0.23.0")]
 public sealed class Plugin : BaseUnityPlugin
 {
     public const string Id = "phobosgekko.ostranauts.autonav";
-    public const string Version = "0.14.1";
+    public const string Version = "0.16.0";
     internal static NavigationService Service { get; private set; } = null!;
     internal static ConfigEntry<bool> Enabled = null!, VerboseLogging = null!, FuelCheck = null!,
         AbortOnManualThrust = null!, UseThrusterRotation = null!, ResumeAfterLoad = null!, PreferTorch = null!, SalvageEnabled = null!;
@@ -88,12 +88,17 @@ internal static class DockingTickPatch
     private static void Prefix(StarSystem __instance, double fTimeDelta)
     {
         if (__instance != CrewSim.system) return;
+        Plugin.Service.TickIndustrial(fTimeDelta, false);
         Plugin.Service.TickFire(fTimeDelta, false);
         Plugin.Service.TickDocking(__instance, fTimeDelta, false);
         if (AutoNavCore.EngagedPlayer?.objSS != null) Plugin.Service.Tick(AutoNavCore.EngagedPlayer.objSS, fTimeDelta, false);
         Plugin.Service.TickFire(fTimeDelta, true);
     }
-    private static void Postfix(StarSystem __instance, double fTimeDelta) => Plugin.Service.TickDocking(__instance, fTimeDelta, true);
+    private static void Postfix(StarSystem __instance, double fTimeDelta)
+    {
+        Plugin.Service.TickDocking(__instance, fTimeDelta, true);
+        if (__instance == CrewSim.system) Plugin.Service.TickIndustrial(fTimeDelta, true);
+    }
     private static Exception? Finalizer(Exception? __exception)
     {
         if (__exception != null) Plugin.Service.Disengage(Text.Get("Plugin.physics_interrupted"));

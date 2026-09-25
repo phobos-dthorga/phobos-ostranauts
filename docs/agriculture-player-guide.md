@@ -1,5 +1,9 @@
 # Phobos Agriculture
 
+Regional acquisition now covers the current vanilla solar system: see the
+[solar-system economy guide](solar-system-economy.md) for availability, native
+price factors and limits. The regional builds require Framework 0.23.0+.
+
 Agriculture 0.9.0 requires Framework 0.22.0 and adds [nutrient production](agriculture-nutrient-production.md). Optional
 [meal/crop completion watches](shared-completion-cues.md) notify once after a meal
 is delivered or the whole cohort becomes harvest-ready. Start first, then choose

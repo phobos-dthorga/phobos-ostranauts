@@ -12,9 +12,33 @@ Dates on Draft entries record preparation, not Steam publication.
 
 ### Research and planning
 
+- Document the G4 geometry gate before industrial guidance: Blue Bottle Games' native collision circles and deck grids use different scales; matching relative velocity does not prove physical tool contact. The [operating-model decision](https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/shipbreaker-close-work-geometry.md) was resolved in favour of temporary native capture, implemented as the bounded 0.16.0 service below.
 - Specify a future narrow industrial-navigation service for Shipbreaker's selected-G4 reclamation missions, using N1 or N2 and preserving Auto Nav as the sole flight authority. No new API, industrial flight mode, mooring or automatic undocking is implemented in this research round.
-- Document required Shipbreaker-to-Auto-Nav dependency direction, exact bindings, active tool-relative positioning and advancement, optional docking/capture, interruption and explicit industrial resume. Collision-compatible reach remains unresolved; existing flight behaviour, requirements, versions and provenance limits remain unchanged.
+- Document required Shipbreaker-to-Auto-Nav dependency direction, exact bindings, active tool-relative positioning and advancement, optional docking/capture, interruption and explicit industrial resume. The new capture service uses native attached deck geometry. Free-flight cutting reach remains unresolved; provenance limits remain unchanged.
 - Attribute sensing context to [NASA Goddard's Raven research](https://www.nasa.gov/general/nasas-hybrid-computer-enables-ravens-autonomous-rendezvous-capability/) and [ESA's LIRIS experiment by Airbus, Jena Optronik and Sodern](https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/ATV/ATV_views_Space_Station_as_never_before); these do not validate or endorse Phobos gameplay. See the [research](https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/shipbreaker-autopilot-research.md) and [handover](https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/shipbreaker-autopilot-handover.md).
+
+## [0.16.0] - 2026-09-26 - Draft
+
+### Added
+
+- Narrow industrial working-pose service for the selected N1/N2 console/module and target: exclusive RCS guidance, fresh readiness observations and permission-specific release. Existing native tracking, fuel, power, motion and step limits apply; other flight/aiming controllers cannot compete.
+- Tool-facing terminal guidance for four mounting orientations, closed-panel operation, immediate manual takeover and industrial status in the navigation panel. Reload discards industrial flight authority and never replays saved thrust.
+
+### Limits
+
+- Shipbreaker 0.22.0 uses this service for native capture/release. It does not provide cutting, automatic hull traversal or repeated downstream jobs. See the [capture guide](https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/shipbreaker-capture.md).
+- Prepared offline; gameplay evaluation remains owner-run. Existing upstream provenance and distribution holds remain unchanged. No Steam publication.
+
+## [0.15.0] - 2026-09-26 - Draft
+
+### Added
+
+- N1, N2 and N3 gain bounded regional offers at 15 additional placed vanilla retail markets. Native control-system demand and surplus affect eligible module prices; the Flotilla supplies refurbished modules. Existing offers, base values, recipes and flight saves are preserved.
+- [Solar-system economy guide](https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/solar-system-economy.md) documents all 19 native market profiles, authored availability and native pricing limits. Based on Blue Bottle Games' installed Ostranauts 1.0.1.5 data and local engine inspection; these are game-economy choices, not NASA/ESA research results.
+
+### Compatibility
+
+- Requires Phobos Framework 0.23.0 or newer. Existing merchant inventories are not refilled on load. New offers use native generation/restocking. Prepared offline; gameplay validation and Steam publication remain pending.
 
 ## [0.14.1] - 2026-09-26 - Draft
 

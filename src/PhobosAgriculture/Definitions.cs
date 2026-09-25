@@ -89,6 +89,7 @@ internal static class Definitions
             MarketStock.Add(d, "ItmVORBScrapKioskInv", prefix + "BrokenOffer", prefix + "LooseDmg", .25, StockCondition.Broken);
         }
         LootContent.Add(d, lootEnabled, lootMultiplier);
+        RegionalEconomy.Apply(d);
         return d;
     }
     internal static void Stock(NativeDefinitions d, string id, double kg, double price, string key, bool food, string? artKey = null)

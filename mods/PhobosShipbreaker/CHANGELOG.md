@@ -8,17 +8,43 @@ Dates on Draft entries record preparation, not Steam publication.
 
 ### Documentation
 
+- Document the wear-related save-load recurrence and Framework 0.23.1 correction. Native marker rejection could remove the pending G4/H4 before Shipbreaker's grid guard ran; retain the existing grid protection and update Framework. The earlier successful owner test remains valid for its original save, not proof of all later reloads.
 - Correct the F6 operating guide's direct versus powered-pipe cooling behavior, circulation/feed demand and damaged-pump limits. Point current-version checks to maintained references rather than historical installation notes.
 - Clarify that Manufacturing and autonomous G4 reclamation are separate future implementation tracks; current material receipt does not authorize repeated furnace batches or replace motion interlocks.
 - Added a maintained per-mod item reference covering function, use, acquisition and applicable economic/service data; generated tables and coverage checks share a one-click updater.
 
 ### Research and planning
 
+- Record the 26 September implementation gate: Blue Bottle Games' native deck scale and navigation collision scale differ, and docking positions deck grids separately. Add offline native-boundary checks; the owner subsequently selected temporary native capture; a finite deployed head remains a possible enhancement. The new capture stage is documented below; cutting and repeated batches remain unfinished. See the [geometry findings](https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/shipbreaker-close-work-geometry.md).
 - Document selected-G4 autonomous reclamation after the player's manual valuables pass, with exact native IDs, supported leftover processing and finite storage/reject accounting. This is a specification, not delivered cutting or automation.
-- Select Auto Nav with existing N1/N2 hardware as a required dependency for the future implementation; record loader, packaging and installer work without changing current candidate requirements or saved identities.
-- Prioritize active G4 positioning, holding/cutting and movement along a short ordinary-wall section; docking/capture remains optional. Record unresolved collision-compatible reach, native uninstall/transfer risks and a proposed review of Phobos' any-thrust furnace pause for concurrent processing within checked motion/power/thermal limits. Existing runtime policy is unchanged; repeated batches and whole-wreck completion remain later gates.
+- Select Auto Nav with existing N1/N2 hardware as a required dependency, delivered across loader, packaging and installer in 0.22.0; saved identities are preserved.
+- Supersede the initial free-flight positioning proposal with the owner's selected native-capture arrangement after investigating collision-compatible reach. Native uninstall/transfer, cutting and automatic movement along a wall remain future work. The proposed review of Phobos' any-thrust furnace pause remains separate; existing runtime policy is unchanged, and repeated batches and whole-wreck completion remain later gates.
 - Record [NASA Goddard's Raven research](https://www.nasa.gov/general/nasas-hybrid-computer-enables-ravens-autonomous-rendezvous-capability/) and [ESA's LIRIS experiment by Airbus, Jena Optronik and Sodern](https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/ATV/ATV_views_Space_Station_as_never_before) as sensing context, separate from Blue Bottle Games engine evidence and authored gameplay choices. No endorsement or gameplay validation is implied.
 - See the [research](https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/shipbreaker-autopilot-research.md) and [staged implementation handover](https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/shipbreaker-autopilot-handover.md). No installation or publication in this round.
+
+## [0.22.0] - 2026-09-26 - Draft
+
+### Added
+
+- Selected-G4 capture and explicit release through local industrial panels, C1 and F3. Bind full native ship, target, G4/chute/D4 and N1/N2 console/module IDs; shorten and disambiguate display labels only. Auto Nav owns the terminal approach; native mooring establishes deck contact after a hull-fit check.
+- Write-ahead native anchor records and a post-capture wall-contact check. Manual takeover, tracking/power loss and reload require explicit restart. Unknown state and uncertain native mutations are retained; no target cargo is deleted or copied.
+
+### Requirements and limits
+
+- Phobos Auto Nav 0.16.0+ is now mandatory alongside Framework 0.23.0+. Builder and installer include the dependency. Existing equipment, cargo, recipe and hot-job identities remain unchanged.
+- First stage accepts owned, unoccupied targets only. Cutting, automatic repositioning, repeated furnace cycles and whole-wreck completion remain future work. Stop/release do not brake. Prepared offline, not installed, gameplay-validated or published.
+- See the [capture guide and native evidence](https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/shipbreaker-capture.md). Blue Bottle Games supplies the native mooring/fit precedent; this authored arrangement is not scientific validation.
+
+## [0.21.0] - 2026-09-26 - Draft
+
+### Added
+
+- Industrial equipment, assembly sections, coolant conduits and finite coolant charges gain bounded offers at 15 additional placed vanilla retail markets. Industrial centres receive higher authored availability; Flotilla machinery is refurbished. Clean coolant now uses the industrial category and retained coolant uses trash, never potable water. Base values, material budgets and jobs are preserved.
+- [Solar-system economy guide](https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/solar-system-economy.md) documents all 19 native market profiles, authored availability and native pricing limits. Based on Blue Bottle Games' installed Ostranauts 1.0.1.5 data and local engine inspection; these are game-economy choices, not NASA/ESA research results.
+
+### Compatibility
+
+- Requires Phobos Framework 0.23.0 or newer. Existing merchant inventories are not refilled on load. New offers use native generation/restocking. Prepared offline; gameplay validation and Steam publication remain pending.
 
 ## [0.20.0] - 2026-09-26 - Draft
 

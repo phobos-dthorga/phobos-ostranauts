@@ -438,27 +438,28 @@
 
 ## Architecture
 
-- Owner autonomous-reclamation direction (2026-09-25): follow
-  `docs/shipbreaker-autopilot-research.md` and
-  `docs/shipbreaker-autopilot-handover.md`. The research round is documentation
-  only. Future Shipbreaker requires Auto Nav (existing N1 or N2), superseding
-  earlier optional-Auto-Nav design direction; current packages retain their
-  existing requirements until that implementation lands. Bind one player-selected
-  G4 by its full native object ID; shorten IDs for display only, disambiguating
-  collisions. Players manually recover valuables first or sacrifice supported
-  leftovers. Plan the complete finite processing/storage/reject chain.
-- Auto Nav owns all flight authority; Shipbreaker owns acquisition and mission
-  coordination; Framework owns concrete shared services. Owner clarification:
-  prioritize active G4 positioning, holding while cutting and advancing between
-  walls. Docking/capture is optional stabilization, not a mission prerequisite.
-  Resolve physical reach within native collision limits before enabling cutting;
-  report required equipment changes rather than silently expanding G4 reach.
-  The current any-thrust furnace interruption is Phobos policy, not a proven
-  engine limit. Research checked concurrent processing during gentle positioning;
-  retain the existing guard until a tested motion/power/thermal policy replaces it.
-  None of these proposals is delivered. Preserve exact ship scope, material/heat
-  budgets and explicit industrial resume after reload. Unsupported/unreachable
-  cargo remains a reported remnant; never delete a ship because its queue is empty.
+- Autonomous reclamation follow-up (2026-09-26): the owner selected temporary
+  native capture/mooring, release and repositioning as the first arrangement.
+  A finite deployed head may later enhance this foundation. Read
+  `docs/shipbreaker-capture.md` and `docs/shipbreaker-close-work-geometry.md`:
+  native deck tiles and navigation collision radii are separate scales. Never
+  suppress collisions, expand G4 reach invisibly or turn the grabber into a port.
+- Shipbreaker 0.22.0 / Auto Nav 0.16.0 prepare exact-G4 native capture/release for
+  owned, unoccupied targets, an aligned G4/chute/D4 and existing N1/N2 hardware.
+  Auto Nav is now mandatory in loader checks, build packages and the installer.
+  All participant addresses use full native IDs; labels disambiguate prefixes.
+  Unknown records and ambiguous native commits remain intact. Reload requires
+  explicit Resume, and Stop does not brake or detach. Offline checks do not
+  establish gameplay readiness; owner evaluation remains separate.
+- Auto Nav owns flight exclusively, Shipbreaker owns capture and later mission
+  acquisition/coordination, and Framework supplies existing concrete shared
+  services. This capture candidate does not yet cut, transfer target objects,
+  reposition automatically or authorize repeated furnace operation. Continue the
+  stages in `docs/shipbreaker-autopilot-handover.md`; the owner has authorized
+  acquisition and processing implementation. Preserve finite buffers, hot jobs,
+  material/heat budgets and the current furnace motion guard until a tested
+  policy replaces it. Unsupported cargo is retained, never deleted to declare
+  completion. Manual valuables recovery remains the player's preparatory step.
 
 - Auto Nav 0.10.0 implements the four 2026-09-25 audit recommendations. All RCS
   axes share the selected throttle, including turning; ordinary Fly/Resume uses

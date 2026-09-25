@@ -65,9 +65,10 @@ internal sealed class ShipSitu
 }
 internal sealed class Comms { internal Clearance? Clearance; }
 internal sealed class Clearance { internal string TargetRegId = "target", DockID = "assigned", ClearanceType = "DOCK"; }
-internal sealed class CondOwner
+public sealed class CondOwner
 {
     internal string strID = "", Kind = "";
+    internal string strCODef => Kind;
     internal bool bDestroyed = false;
     internal bool SoftwareDamaged = false;
     internal Ship ship = new();
@@ -133,7 +134,7 @@ namespace PhobosAutoNav
     internal sealed class Setting<T> { internal T Value; internal Setting(T value) { Value = value; } }
     internal static class Plugin
     {
-        internal static NavigationService? Service => null;
+        internal static NavigationService? Service;
         internal static Setting<bool> Enabled = new(true), ResumeAfterLoad = new(true), FuelCheck = new(true), PreferTorch = new(false);
         internal static Setting<double> MaxFlightSimHours = new(48);
         internal static CoastSettings ReadCoastSettings() => new(3,10,.75,2);
@@ -168,6 +169,9 @@ namespace PhobosAutoNav
     internal sealed class TorchDouble { internal void Release() { } internal void Reset() { } }
     internal sealed partial class NavigationService
     {
+        internal NavigationService() { Plugin.Service = this; }
+        private bool autoAim = false;
+        private static float ReadThrottle(CondOwner co) => 1;
         internal const string PursuitId = "PhobosNavModPursuit";
         internal FireControlController Fire = new();
         internal void CeaseFire() => Fire.Cease();

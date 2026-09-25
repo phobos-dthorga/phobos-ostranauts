@@ -231,5 +231,55 @@ for(int i=0;i<100;i++){f.Target.objSS.vVelY+=.1*AutoNavCore.M_TO_AU; Tick(f.Serv
 Check(AutoNavCore.Engaged && CrewSim.AttachCalls==0 && f.Service.Diagnostic.Contains("Docking.holding"),
     "Evasive target after handoff remains in bounded terminal hold");
 
-Console.WriteLine($"{count} docking assertions passed. Numerical and native-boundary doubles; no in-game testing.");
+// Execute the real industrial lease/controller against the same native boundary doubles.
+f = Setup(210);
+Check(IndustrialNavigation.Request("g4-one", f.Console, "module", "target", 0, () => null, out _), "Industrial pose request binds exact hardware");
+Check(!IndustrialNavigation.Request("g4-two", f.Console, "module", "target", 0, () => null, out _), "A second G4 cannot steal propulsion");
+f.Service.Dock(f.Console); Check(!AutoNavCore.Engaged, "Ordinary docking cannot compete with an industrial lease");
+GUIDockSys.instance = null; GUIOrbitDraw.CrossHairTarget = null;
+for (int i = 0; i < 65; i++)
+{
+    f.Service.TickIndustrial(.1, false); StarSystem.fEpoch += .1; f.Service.TickIndustrial(.1, true);
+}
+Check(IndustrialNavigation.Observe("g4-one", out bool ready, out _) && ready, "Closed panels and changed crosshair do not erase stable exact-target readiness");
+Check(CrewSim.AttachCalls == 0, "Flight readiness itself does not mutate native attachments");
+IndustrialNavigation.Release("g4-two");
+Check(IndustrialNavigation.Observe("g4-one", out _, out _), "Foreign permission cannot release this lease");
+var industrialSave = new JsonShipSitu { fA = 2 };
+NavigationService.PrepareSavedPhysics(f.Console.ship.objSS, industrialSave);
+Check(industrialSave.fA == 0, "Industrial actuator commands are removed only from saved physics copies");
+f.Service.Stop(f.Console, "manual");
+Check(!IndustrialNavigation.Observe("g4-one", out _, out _) && f.Console.ship.LastX == 0 && f.Console.ship.LastY == 0, "Navigation Stop releases industrial authority");
+f = Setup();
+Check(IndustrialNavigation.Request("lease", f.Console, "module", "target", 0, () => null, out _), "Fresh industrial request accepted");
+NativeContactReader.State = ContactState.Unavailable; f.Service.TickIndustrial(.1, false);
+NativeContactReader.State = ContactState.Ready;
+Check(!IndustrialNavigation.Observe("lease", out _, out _), "Tracking recovery cannot silently resume industrial flight");
+f = Setup(); IndustrialNavigation.Request("lease", f.Console, "module", "target", 0, () => null, out _);
+f.Console.Items[0].strID = "replacement"; f.Service.TickIndustrial(.1, false);
+Check(!IndustrialNavigation.Observe("lease", out _, out _), "Replacement N1 cannot inherit captured module identity");
+f = Setup(); IndustrialNavigation.Request("lease", f.Console, "module", "target", 0, () => null, out _);
+f.Service.TickIndustrial(2, false);
+Check(!IndustrialNavigation.Observe("lease", out _, out _), "Excessive terminal time compression suspends");
+f = Setup(); IndustrialNavigation.Request("lease", f.Console, "module", "target", 0, () => null, out _);
+f.Service.HardwareFailure = "power"; f.Service.TickIndustrial(.1, false);
+Check(!IndustrialNavigation.Observe("lease", out _, out _), "Power/fuel hardware boundary loss ends industrial permission");
+f = Setup(); bool moved = false; IndustrialNavigation.Request("lease", f.Console, "module", "target", 0, () => moved ? "binding changed" : null, out _);
+moved = true; f.Service.TickIndustrial(.1, false);
+Check(!IndustrialNavigation.Observe("lease", out _, out _), "Consumer binding change ends the working pose");
+f = Setup(); IndustrialNavigation.Request("lease", f.Console, "module", "target", 0, () => null, out _);
+f.Service.WorldChanging(); f.Service.WorldLoaded(); f.Service.UpdatePersistence();
+Check(!IndustrialNavigation.Observe("lease", out _, out _) && !AutoNavCore.Engaged, "Reload never reconstructs an industrial permission");
+f = Setup(210); IndustrialNavigation.Request("lease", f.Console, "module", "target", 0, () => null, out _);
+f.Target.objSS.fW = .02f;
+for (int i = 0; i < 65; i++) { f.Service.TickIndustrial(.1, false); StarSystem.fEpoch += .1; f.Service.TickIndustrial(.1, true); }
+Check(IndustrialNavigation.Observe("lease", out ready, out _) && !ready, "Rotating targets never receive ready-to-clamp status");
+f = Setup(); f.Console.ship.DeltaVRemainingRCS = 0;
+Check(!IndustrialNavigation.Request("lease", f.Console, "module", "target", 0, () => null, out _), "Industrial fuel admission cannot be disabled by caller permission");
+f = Setup(); IndustrialNavigation.Request("lease", f.Console, "module", "target", 0, () => null, out _);
+var oldCarrier = f.Console.ship; var foreignCarrier = new Ship { strRegID = "foreign", LastX = .7 };
+oldCarrier.LastX = .5; f.Console.ship = foreignCarrier; f.Service.TickIndustrial(.1, false);
+Check(oldCarrier.LastX == 0 && foreignCarrier.LastX == .7 && !IndustrialNavigation.Observe("lease", out _, out _),
+    "Moving a bound console stops only the original carrier, never the new host ship");
+Console.WriteLine($"{count} docking/industrial assertions passed. Numerical and native-boundary doubles; no in-game testing.");
 internal enum LegacyMode { Active, Suspended, Stopped, Arrived }

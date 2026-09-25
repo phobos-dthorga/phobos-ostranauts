@@ -1,5 +1,9 @@
 # Phobos' Asterel N1 Polaris Auto Nav Module: acquisition and servicing
 
+Regional acquisition now covers the current vanilla solar system: see the
+[solar-system economy guide](solar-system-economy.md) for availability, native
+price factors and limits. The regional builds require Framework 0.23.0+.
+
 Current follow-up: [N2 pursuit](auto-nav-pursuit.md) retains navigation/docking
 and pursuit. [N3 Fire Control System](auto-nav-fire-control.md) now owns firing
 independently. N3's authored 0.4 kg, $5,400/$1,350 values, two-electronics bill,

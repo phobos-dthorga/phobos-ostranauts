@@ -1,5 +1,14 @@
 # Autonomous reclamation implementation handover
 
+**26 September update:** the owner selected temporary native capture/mooring,
+release and repositioning first, with a finite deployed head as a possible later
+enhancement. [The capture candidate](shipbreaker-capture.md) implements exact G4
+binding, mandatory Auto Nav integration, checked native attachment and explicit
+release. Cutting, automatic repositioning and repeated processing remain later
+stages. The [geometry evidence](shipbreaker-close-work-geometry.md) explains why
+native attachment is needed for this arrangement. The original research below
+is historical proposal text; the capture guide defines current delivered scope.
+
 25 September 2026. **Approved direction; implementation specification, not a
 delivered feature.** Read the [research and native evidence](shipbreaker-autopilot-research.md)
 first. This round changes documentation only. No new version, native definition,

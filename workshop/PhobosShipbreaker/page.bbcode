@@ -1,11 +1,19 @@
 [h1]Phobos Shipbreaker[/h1]
+[h2]Selected-G4 capture in 0.22.0[/h2]
+Bind one G4, its chute/D4 and an existing N1/N2 console/module to a selected owned, unoccupied target. Auto Nav approaches with exclusive propulsion control; separate native mooring anchors establish deck contact after a fit check. Local industrial panels, C1 and F3 offer Bind, Start/Resume, Stop and Release. Full saved IDs survive reload; live permission does not. Stop/release do not brake. All target cargo remains intact.
+Cutting, automatic repositioning, repeated furnace cycles and whole-wreck completion remain future work. Prepared offline; gameplay evaluation and publication remain pending.
+[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/shipbreaker-capture.md]Capture controls, native evidence and limits[/url]
+[h2]Solar-system economy in 0.21.0[/h2]
+Industrial equipment, assembly sections, coolant conduits and finite coolant charges gain bounded offers at 15 additional placed vanilla retail markets. Industrial centres receive higher authored availability; Flotilla machinery is refurbished. Clean coolant now uses the industrial category and retained coolant uses trash, never potable water. Base values, material budgets and jobs are preserved.
+Requires Phobos Framework 0.23.0 or newer. Authored availability follows native economic roles; native supply/demand, merchant terms and restocking remain in control. No new settlements, guaranteed stock or live-price promises. Prepared offline, not gameplay-validated or published.
+[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/solar-system-economy.md]Regional coverage, sources and limits[/url]
 [h2]Pending-construction room-load mitigation in 0.19.1[/h2]
-Requires Phobos Framework 0.21.1 or newer. When pending Shipbreaker equipment reduces the initial loading grid, restore checked saved bounds before native room/zone assignments. Retain saved atmosphere and construction progress. This cannot recover gas already lost before saving. The owner reported a successful affected-save reload on 26 September 2026; broader save/reload coverage remains unverified.
+The grid guard introduced with Framework 0.21.1 restores checked saved bounds before native room/zone assignments when pending Shipbreaker equipment reduces the loading grid. Update to Framework 0.23.1 for the separate worn-marker rejection found in a later save: the native zero-health comparison could discard G4/H4 markers before the guard ran. Damage and construction progress are preserved; gas lost before saving cannot be recovered. The first owner-tested reload succeeded; gameplay confirmation of the wear-related follow-up remains pending.
 [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/shipbreaker-room-load-mitigation.md]Evidence, limits and reload check[/url]
 [h2]Shared completion cues in 0.19.0[/h2]
 Requires Phobos Framework 0.22.0 or newer. D4/R4 watches now use the shared Phobos volume/mute and one audio channel across mods. Existing one-batch meaning and original sound remain; no new furnace, transfer or ambient cues. Gameplay/listening review pending.
 [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/shared-completion-cues.md]Shared controls and limits[/url]
-[b]Version:[/b] 0.20.0
+[b]Version:[/b] 0.22.0
 [b]Publication status:[/b] Not published - development candidate
 
 Recover useful shipbuilding materials and manage onboard industry with Phobos' Rivetline equipment and the Phobos' Asterel C1 Industrial Control Console.
@@ -35,9 +43,9 @@ First optional watched-batch audio trial: one original 280 ms tone after a D4/R4
 [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/shipbreaker-completion-cue.md]Completion cue controls and listening checks[/url]
 
 [h2]Requirements and installation[/h2]
-The following requirements describe the current prepared candidate. Future autonomous-reclamation work will require Auto Nav with an existing N1 or N2 module, as selected by the owner. That dependency change and the automation are not implemented yet.
+Auto Nav is now mandatory. Capture uses existing N1/N2 hardware; no new navigation module or grabber identity is introduced.
 
-Ostranauts 1.0.1.5, BepInEx 5 and Phobos Framework 0.22.0 or newer. Auto Nav and Agriculture are optional. No Crafting Framework or Salvage Workshop dependency.
+Ostranauts 1.0.1.5, BepInEx 5, Phobos Framework 0.23.0+ and Phobos Auto Nav 0.16.0+. Agriculture remains optional. No Crafting Framework or Salvage Workshop dependency.
 
 This is a maintained pre-publication page draft, not a download announcement. No Workshop item has been published for this draft. Use the installation guide for source/prepared-package availability and loader setup. Do not remove required providers from saves that contain their content.
 
@@ -50,6 +58,7 @@ This is a maintained pre-publication page draft, not a download announcement. No
 [h2]Support and credits[/h2]
 [b]Research only, held from feature claims:[/b] autonomous reclamation is specified around one player-selected G4 after manual valuables recovery. The first proposed slice aligns and holds the G4, cuts/feeds one wall and advances along a short section. Docking/capture is optional. Collision-compatible reach and checked processing during gentle positioning remain unresolved; broader recipes, storage, repeated furnace operation and whole-wreck completion remain future work. No automatic cutting, invisible long reach or cargo disposal is supplied by this draft.
 [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/shipbreaker-autopilot-research.md]Autonomous reclamation research[/url] | [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/shipbreaker-autopilot-handover.md]Implementation sequence[/url]
+[b]26 September geometry evidence:[/b] Blue Bottle Games' native deck dimensions and navigation collision circles use different scales. The owner selected temporary native capture. Its prepared implementation preserves bounded mouth contact; no cutting or repeated furnace operation is claimed. [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/shipbreaker-close-work-geometry.md]Evidence and selected arrangement[/url]
 [url=https://www.nasa.gov/general/nasas-hybrid-computer-enables-ravens-autonomous-rendezvous-capability/]NASA Goddard's Raven research[/url] and [url=https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/ATV/ATV_views_Space_Station_as_never_before]ESA's LIRIS experiment, developed by Airbus with Jena Optronik and Sodern[/url] inform the sensing proposal. Blue Bottle Games' inspected native engine determines game boundaries; finite reach, work rates and yields are authored gameplay choices. No institutional or author endorsement or mod validation is implied.
 
 [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/SUPPORT.md]Help and bug reports[/url]

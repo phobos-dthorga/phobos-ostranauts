@@ -124,6 +124,7 @@ internal static class Content
         FurnaceConduitDefinitions.Add(prepared);
         IndustrialDefinitions.Add(prepared);
         EquipmentEconomy.Apply(prepared);
+        RegionalEconomy.Apply(prepared);
         return prepared;
     }
 

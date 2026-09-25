@@ -15,6 +15,8 @@ if ($AgricultureOnly) {
     Write-Output 'Agriculture economy evidence refreshed; unrelated content was not prepared. Game files and saves were not changed.'
     return
 }
+& $PythonPath (Join-Path $PSScriptRoot 'audit-regional-economy.py') --game $gameRoot
+if ($LASTEXITCODE -ne 0) { throw 'Regional economy audit failed.' }
 & $PythonPath (Join-Path $PSScriptRoot 'audit-vanilla-economy.py') --game $gameRoot --output (Join-Path $repoRoot 'docs/vanilla-economy-audit.md')
 if ($LASTEXITCODE -ne 0) { throw 'Vanilla economy audit failed.' }
 & dotnet run --project (Join-Path $repoRoot 'tests/PhobosNative.Tests') -c Release "-p:OstranautsPath=$gameRoot" -- $gameRoot $repoRoot (Join-Path $repoRoot 'docs/equipment-value-audit.md') (Join-Path $repoRoot 'docs/agriculture-economy-evidence.md')

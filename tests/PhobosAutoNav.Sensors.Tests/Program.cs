@@ -379,3 +379,13 @@ f = Setup(); f.Service.Engage(f.Console); f.Service.WatchArrival(f.Console, true
 f.Service.Stop(f.Console, "pilot stop");
 Check(!f.Service.CueCompletedForTest && !f.Service.WatchingForTest, "Pilot stop cancels arrival watch");
 Console.WriteLine($"{checks} sensor-boundary, guidance, display and persistence assertions passed. No in-game tests performed.");
+f = Setup(); f.Target.objSS.vPosy = 1000 * AutoNavCore.M_TO_AU;
+Check(IndustrialNavigation.Request("capture", f.Console, "module", "target", 0, () => null, out _), "Industrial request uses real hardware/sensor service boundary");
+f.Service.ExternalControl(f.Own, 0, 0, 0);
+Check(IndustrialNavigation.Observe("capture", out _, out _), "Closing console zero command retains industrial permission");
+f.Service.ExternalControl(f.Own, 1, 0, 0);
+Check(!IndustrialNavigation.Observe("capture", out _, out _), "Nonzero manual thrust immediately releases industrial permission");
+Check(IndustrialNavigation.Request("capture", f.Console, "module", "target", 0, () => null, out _), "Explicit restart after takeover works");
+f.Service.ExternalReactorControl(f.Own, "slidFlow", "1");
+Check(!IndustrialNavigation.Observe("capture", out _, out _), "Manual reactor control immediately releases industrial permission");
+Console.WriteLine($"{checks} checks including industrial manual-takeover integration passed.");

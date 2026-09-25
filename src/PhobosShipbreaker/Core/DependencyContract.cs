@@ -6,11 +6,12 @@ namespace PhobosShipbreaker.Core;
 
 internal static class DependencyContract
 {
-    internal const string MinimumFramework = "0.22.0";
+    internal const string MinimumFramework = "0.23.0";
+    internal const string MinimumAutoNav = "0.16.0";
     internal static readonly string[] Materials = { "ItmScrapTrash", "ItmScrapSteel", "ItmScrapAluminum",
         "ItmScrapCarbonFiber", "ItmPartsMechSmall01", "ItmPartsElecSmall01" };
     internal static readonly (string Table, string[] Names)[] Required = {
-        ("objects", Materials.Concat(new[] { "ItmTable01", "ItmTable02", ProcessRules.Wall }).ToArray()),
+        ("objects", Materials.Concat(new[] { "ItmTable01", "ItmTable02", ProcessRules.Wall, "ItmWall1x1", "MooringPort" }).ToArray()),
         ("items", new[] { "Blank" }),
         ("conditions", new[] { "PhobosShipbreakerContent", "PhobosShipbreakerIsSection", "IsInstalled", "IsDamaged",
             "IsContainer", "IsSystem", "IsSolid", "IsMechanical", "IsCategoryIndustrialProducts", "IsCumbersome", "IsAluminum", "IsLocked", "IsFloor", "IsFloorSealed", "IsFloorGrate", "IsEVATile",

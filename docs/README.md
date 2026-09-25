@@ -21,6 +21,10 @@ common failures and useful reports.
   [implementation handover](shipbreaker-autopilot-handover.md) — selected G4,
   native capture limits, required Auto Nav integration and the finite processing
   chain; specification only, not delivered autopilot/cutting.
+- [G4 close-work geometry gate](shipbreaker-close-work-geometry.md) — native
+  deck/navigation scale mismatch and the selected native-capture arrangement.
+- [Selected-G4 capture](shipbreaker-capture.md) — prepared capture/release controls,
+  exact bindings, mandatory Auto Nav and the remaining acquisition boundary.
 - [Update versions and maintained constants](updating-constants.md) — previews, batch edits and JSON verification.
 
 - [Building](building.md), [contributing](../CONTRIBUTING.md), [Framework API](framework-author-guide.md) and [localization](localization.md).
@@ -64,6 +68,7 @@ Manufacturing/medical/asteroid concepts are not delivered gameplay systems.
 - [Chemical storage, process fluids and industrial hazards](chemical-storage-and-process-fluids.md)
 - [Dependency maintenance and fallback plan](dependency-contingencies.md)
 - [Equipment brands and models](equipment-branding.md)
+- [Solar-system economy](solar-system-economy.md) and [native regional evidence](solar-system-economy-evidence.md)
 - [Equipment economy and maintenance](equipment-economy.md)
 - [Phobos equipment value audit](equipment-value-audit.md)
 - [First furniture experiment](first-furniture-experiment.md)

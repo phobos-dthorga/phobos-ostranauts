@@ -197,10 +197,10 @@ $independent = Fixture 'independent' @('core')
 Remove-Item -LiteralPath (Join-Path $independent.OstranautsPath 'BepInEx/plugins/Framework/CraftingFramework.dll')
 & $installer @independent -Mods Shipbreaker | Out-Null
 & $installer @independent -Mods Shipbreaker -VerifyOnly | Out-Null
-Check (((ReadOrder $independent).aLoadOrder -join ',') -eq 'core,PhobosFramework,PhobosShipbreaker') 'Independent Shipbreaker acquired Workshop requirements'
+Check (((ReadOrder $independent).aLoadOrder -join ',') -eq 'core,PhobosFramework,PhobosAutoNav,PhobosShipbreaker') 'Shipbreaker requires our Auto Nav but no Workshop providers'
 $optionalDisabled = Fixture 'optional-disabled' @('core', 'OCF|disabled', 'SWB|disabled')
 & $installer @optionalDisabled -Mods Shipbreaker | Out-Null
-Check (((ReadOrder $optionalDisabled).aLoadOrder -join ',') -eq 'core,OCF|disabled,SWB|disabled,PhobosFramework,PhobosShipbreaker') 'Optional mods were enabled'
+Check (((ReadOrder $optionalDisabled).aLoadOrder -join ',') -eq 'core,OCF|disabled,SWB|disabled,PhobosFramework,PhobosAutoNav,PhobosShipbreaker') 'Optional mods were enabled'
 $wrong = Fixture 'legacy-wrong-order' @('core', 'OCF', 'PhobosShipbreaker', 'SWB')
 # Retain the legacy preflight for users explicitly installing a pre-0.2 package.
 Fails { Assert-ShipbreakerDependencies (ReadOrder $wrong).aLoadOrder (Split-Path -Parent $wrong.LoadOrderPath) $wrong.OstranautsPath 0 } 'Shipbreaker load order'
@@ -238,6 +238,14 @@ Check ((InstalledFiles $incomplete) -eq $before) 'Bad second package partially i
 
 # Missing shader input is also an incomplete package, before any mod is copied.
 Copy-Item -LiteralPath (Join-Path $PackageRoot 'PhobosShipbreaker-P0/Mods/PhobosShipbreaker/mod_info.json') -Destination $badVersion -Force
+$staleNav = Join-Path $badPackages 'PhobosAutoNav-P0/Mods/PhobosAutoNav/mod_info.json'
+$navOriginal = [IO.File]::ReadAllBytes($staleNav)
+$navMetadata = @(Get-Content -LiteralPath $staleNav -Raw | ConvertFrom-Json)
+$navMetadata[0].strModVersion = '0.15.0'
+ConvertTo-Json -InputObject $navMetadata | Set-Content -LiteralPath $staleNav
+Fails { & $installer @incomplete -Mods Shipbreaker | Out-Null } 'Shipbreaker requires Phobos Auto Nav 0.16.0'
+Check ((InstalledFiles $incomplete) -eq $before) 'Stale Auto Nav partially installed a capture consumer'
+[IO.File]::WriteAllBytes($staleNav, $navOriginal)
 $missingCatalog = Join-Path $badPackages 'PhobosShipbreaker-P0/BepInEx/plugins/PhobosShipbreaker/translations/en.json'
 $catalogContents = [IO.File]::ReadAllBytes($missingCatalog)
 Remove-Item -LiteralPath $missingCatalog
@@ -263,11 +271,11 @@ $olderInfo = @(Get-Content -LiteralPath $olderMetadata -Raw | ConvertFrom-Json)
 $olderInfo[0].strModVersion = '0.11.99'
 ConvertTo-Json -InputObject $olderInfo | Set-Content -LiteralPath $olderMetadata
 Copy-Item -LiteralPath (Join-Path $olderOutput 'PhobosFramework.dll') -Destination (Join-Path $badPackages $frameworkDllRelative) -Force
-Fails { & $installer @incomplete | Out-Null } 'Selected equipment requires Phobos Framework 0.22.0'
-Fails { & $installer @incomplete -Mods AutoNav | Out-Null } 'Selected equipment requires Phobos Framework 0.21.2'
-Fails { & $installer @incomplete -Mods Shipbreaker | Out-Null } 'Selected equipment requires Phobos Framework 0.22.0'
+Fails { & $installer @incomplete | Out-Null } 'Selected equipment requires Phobos Framework 0.23.0'
+Fails { & $installer @incomplete -Mods AutoNav | Out-Null } 'Selected equipment requires Phobos Framework 0.23.0'
+Fails { & $installer @incomplete -Mods Shipbreaker | Out-Null } 'Selected equipment requires Phobos Framework 0.23.0'
 Copy-Item -LiteralPath (Join-Path $PackageRoot 'PhobosAgriculture-P0') -Destination (Join-Path $badPackages 'PhobosAgriculture-P0') -Recurse
-Fails { & $installer @incomplete -Mods Agriculture | Out-Null } 'Selected equipment requires Phobos Framework 0.22.0'
+Fails { & $installer @incomplete -Mods Agriculture | Out-Null } 'Selected equipment requires Phobos Framework 0.23.0'
 Check ((InstalledFiles $incomplete) -eq $before) 'Equipment naming provider minimum was not enforced'
 foreach ($relative in @($frameworkMetadataRelative, $frameworkDllRelative)) {
     Copy-Item -LiteralPath (Join-Path $PackageRoot $relative) -Destination (Join-Path $badPackages $relative) -Force
@@ -453,4 +461,17 @@ Fails { & $installer @uninstalled -Mods AutoNav -PreviewsOnly | Out-Null } 'alre
 Check ((InstalledFiles $uninstalled) -eq $uninstalledBefore) 'Cover update created an incomplete mod'
 
 Write-Output "$script:passed multi-mod installer checks passed using synthetic installations. No gameplay tests performed."
+if ($null -ne $fixtureSource) {
+    $newerNavOutput = Join-Path $fixtures 'newer-autonav-output'
+    & dotnet build (Join-Path $fixtureSource 'Fixture.csproj') -c Release -p:Version=99.0.0 -p:AssemblyName=PhobosAutoNav -o $newerNavOutput --nologo -v quiet | Out-Null
+    if ($LASTEXITCODE -ne 0) { throw 'Could not build the inert newer Auto Nav fixture.' }
+    $newerNav = Fixture 'newer-autonav-dependency' @('core')
+    $newerNavTarget = Join-Path $newerNav.OstranautsPath 'BepInEx/plugins/PhobosAutoNav'
+    New-Item -ItemType Directory -Path $newerNavTarget -Force | Out-Null
+    Copy-Item -LiteralPath (Join-Path $newerNavOutput 'PhobosAutoNav.dll') -Destination $newerNavTarget
+    $beforeNewerNav = InstalledFiles $newerNav
+    Fails { & $installer @newerNav -Mods Shipbreaker | Out-Null } 'newer Phobos Auto Nav is installed'
+    Check ((InstalledFiles $newerNav) -eq $beforeNewerNav) 'Automatic dependency selection downgraded newer Auto Nav'
+}
+Write-Output "$script:passed checks including Auto Nav dependency downgrade protection passed."
 Remove-Variable -Name PhobosInstallerTestGameRunning -Scope Global

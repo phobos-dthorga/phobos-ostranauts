@@ -437,5 +437,9 @@
   "FCS.take_control": "Take FCS control",
   "FCS.mode_manual": "MANUAL",
   "FCS.mode_auto": "AUTO",
-  "FCS.details": "Offensive target: {0}\nDisplayed weapon: {1}\nStatus: {2}\nAiming reference: {3}"
+  "FCS.details": "Offensive target: {0}\nDisplayed weapon: {1}\nStatus: {2}\nAiming reference: {3}",
+  "Industrial.busy": "Stop existing flight or aiming control before requesting an industrial working pose.",
+  "Industrial.approaching": "Shipbreaker capture approach — Auto Nav owns propulsion.",
+  "Industrial.ready": "Motion matched. Ready for the checked native capture.",
+  "Industrial.released": "Industrial flight control released. Existing motion remains."
 }

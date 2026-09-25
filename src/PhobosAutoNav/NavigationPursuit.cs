@@ -81,7 +81,7 @@ internal sealed partial class NavigationService
     }
     private bool TakeFireControl(CondOwner? co)
     {
-        if (!BindFire(co) || DockingActive || AutoNavCore.Engaged && (console != co || !AutoNavCore.Following) ||
+        if (industrial != null || !BindFire(co) || DockingActive || AutoNavCore.Engaged && (console != co || !AutoNavCore.Following) ||
             !FirePreferences(co, out int group, out int volleys, out _) || !ReadContact(co, FireTarget).Usable)
         { status = Text.Get("FCS.contact"); return false; }
         if (!SaveFirePreferences(co!, group, volleys, true)) { status = Text.Get("Preferences.invalid"); return false; }

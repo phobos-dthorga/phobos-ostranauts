@@ -44,6 +44,7 @@ flowchart TD
 - **Windows and PowerShell 7** for the supplied installer and equipment-art
   build workflow. Other operating systems are not supported by these scripts.
 - Prepared packages for your selected mods and compatible Phobos Framework.
+  Shipbreaker 0.22.0 also requires Auto Nav 0.16.0+; its builder/installer include it.
 
 Then follow [installation and verification](installing-mods.md). Keep your normal
 save backups before changing mods. Ordinary saves are supported; there is no
