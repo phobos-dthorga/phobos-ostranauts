@@ -16,6 +16,10 @@ regions and layered rendering**, rather than one universal paint scheme.
 
 ## Evidence and limits
 
+The game-derived sheets and owner screenshots cited below are retained only in
+ignored local research storage. They are not public downloads or package assets;
+local filenames identify the historical evidence without redistributing it.
+
 I inspected 22 vanilla equipment definitions and their local image files:
 power storage, life support, thermal control, RCS, navigation furniture, a
 turbine lifter, fusion equipment and cargo storage. I compared colour, normal,
@@ -389,16 +393,16 @@ versioned report, our mod artwork, packages or public distribution.
 
 ### Local reference sheets
 
-- [Utilities, power storage, RCS and the current placeholder](../.local/research/equipment-art/equipment-1.png)
-- [Fusion equipment and cargo storage](../.local/research/equipment-art/equipment-2.png)
-- [Colour, normal, damage and loose-state comparison](../.local/research/equipment-art/equipment-states.png)
-- [Source inventory and fingerprints](../.local/research/equipment-art/inventory.json)
+- Utilities, power storage, RCS and the current placeholder (local-only reference: `.local/research/equipment-art/equipment-1.png`)
+- Fusion equipment and cargo storage (local-only reference: `.local/research/equipment-art/equipment-2.png`)
+- Colour, normal, damage and loose-state comparison (local-only reference: `.local/research/equipment-art/equipment-states.png`)
+- Source inventory and fingerprints (local-only reference: `.local/research/equipment-art/inventory.json`)
 
 ### Local owner screenshot references
 
-- [1 — ship overview](../.local/research/equipment-art/user-screenshots/2026-09-23/01-ship-overview.jpg)
-- [2 — ship machinery](../.local/research/equipment-art/user-screenshots/2026-09-23/02-ship-machinery.jpg)
-- [3 — station corridor](../.local/research/equipment-art/user-screenshots/2026-09-23/03-station-corridor.jpg)
-- [4 — station concourse](../.local/research/equipment-art/user-screenshots/2026-09-23/04-station-concourse.jpg)
-- [5 — station terminal](../.local/research/equipment-art/user-screenshots/2026-09-23/05-station-terminal.jpg)
-- [6 — fusion-core close-up](../.local/research/equipment-art/user-screenshots/2026-09-23/06-fusion-core-closeup.jpg)
+- 1 — ship overview (local-only reference: `.local/research/equipment-art/user-screenshots/2026-09-23/01-ship-overview.jpg`)
+- 2 — ship machinery (local-only reference: `.local/research/equipment-art/user-screenshots/2026-09-23/02-ship-machinery.jpg`)
+- 3 — station corridor (local-only reference: `.local/research/equipment-art/user-screenshots/2026-09-23/03-station-corridor.jpg`)
+- 4 — station concourse (local-only reference: `.local/research/equipment-art/user-screenshots/2026-09-23/04-station-concourse.jpg`)
+- 5 — station terminal (local-only reference: `.local/research/equipment-art/user-screenshots/2026-09-23/05-station-terminal.jpg`)
+- 6 — fusion-core close-up (local-only reference: `.local/research/equipment-art/user-screenshots/2026-09-23/06-fusion-core-closeup.jpg`)

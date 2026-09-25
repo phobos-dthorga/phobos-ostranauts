@@ -13,6 +13,7 @@ root = Path(__file__).resolve().parents[1]
 names = subprocess.check_output(
     ["git", "ls-files", "--cached", "--others", "--exclude-standard", "-z"], cwd=root
 ).decode("utf-8").split("\0")
+published = {name for name in names if name}
 failures = []
 checked = 0
 for name in sorted(set(names)):
@@ -28,7 +29,12 @@ for name in sorted(set(names)):
             continue
         target = root / unquote(parsed.path.lstrip("/")) if parsed.path.startswith("/") else path.parent / unquote(parsed.path)
         checked += 1
-        if not target.exists():
+        try:
+            relative = target.resolve().relative_to(root).as_posix()
+        except ValueError:
+            relative = ""
+        available = relative in published or any(name.startswith(relative + "/") for name in published)
+        if not relative or not available or not target.exists():
             failures.append(f"{name}: missing {link}")
 for failure in failures:
     print(failure)
