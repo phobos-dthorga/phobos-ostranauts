@@ -389,6 +389,18 @@ Check (((ReadOrder $farm).aLoadOrder -join ',') -eq 'core,PhobosFramework,Phobos
 & $installer @farm -Mods Agriculture -VerifyOnly | Out-Null
 Check $true 'Agriculture complete package verification'
 
+$farmBrokenPackages = Join-Path $fixtures 'farm-missing-data-packages'
+New-Item -ItemType Directory -Path $farmBrokenPackages | Out-Null
+foreach ($id in @('PhobosFramework', 'PhobosAgriculture')) {
+    Copy-Item -LiteralPath (Join-Path $PackageRoot "$id-P0") -Destination $farmBrokenPackages -Recurse
+}
+Remove-Item -LiteralPath (Join-Path $farmBrokenPackages 'PhobosAgriculture-P0/Mods/PhobosAgriculture/data/README.md')
+$farmMissing = Fixture 'farm-missing-data' @('core')
+$farmMissing.PackageRoot = $farmBrokenPackages
+$farmMissingBefore = InstalledFiles $farmMissing
+Fails { & $installer @farmMissing -Mods Agriculture | Out-Null } 'Package is incomplete: PhobosAgriculture/data/README.md'
+Check ((InstalledFiles $farmMissing) -eq $farmMissingBefore) 'Missing native data directory must fail before installation'
+
 $manufacturing = Fixture 'manufacturing-only' @('core')
 $manufacturingBefore = InstalledFiles $manufacturing
 & $installer @manufacturing -Mods Manufacturing -WhatIf | Out-Null

@@ -231,6 +231,7 @@ foreach ($mod in $Mods) {
     }
     $required = switch ($mod) {
         'Agriculture' {
+            'data/README.md'
             'framework/recipes.json'; 'framework/equipment-names.json'
             foreach ($image in @('Rack', 'RackNormal', 'Cooker', 'CookerNormal', 'Potato-sprout', 'Potato-young', 'Potato-mature', 'Potato-harvest', 'Potato-wilted', 'Potato-dead')) {
                 "images/phobos/agriculture/$image.png"
