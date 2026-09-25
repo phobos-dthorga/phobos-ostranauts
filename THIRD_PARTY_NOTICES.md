@@ -1,5 +1,14 @@
 # Third-party provenance
 
+## Phobos Scope recorder
+
+Framework bundles one copy of `Phobos.Scope.Recording.dll`, built from the
+pinned [Phobos Scope](https://github.com/phobos-dthorga/phobos-scope) submodule.
+It is separately maintained Phobos-authored work with no game dependencies.
+Its project licence remains undecided; this repository's MIT grant does not
+cover the submodule or recorder binary. The Framework package retains its
+`docs/licensing.md` as `licenses/PhobosScope-LICENSING.md`.
+
 ## Auto Navigate guidance adaptation
 
 Original work: **Auto Navigate 1.2.0**, by **Gravy / mrkmg**.

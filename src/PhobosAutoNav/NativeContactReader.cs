@@ -10,6 +10,7 @@ internal static class NativeContactReader
 {
     internal static ContactReading Read(Ship? observer, string? targetId)
     {
+        using var measurement = Phobos.Ostranauts.Framework.Diagnostics.Performance.Measure(PerformanceMetrics.Contact);
         try
         {
             var system = CrewSim.system;

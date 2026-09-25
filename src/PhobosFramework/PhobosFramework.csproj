@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
-    <Version>0.14.0</Version>
+    <Version>0.15.0</Version>
     <GameManaged>$(OstranautsPath)/Ostranauts_Data/Managed</GameManaged>
     <BepInExCore>$(OstranautsPath)/BepInEx/core</BepInExCore>
   </PropertyGroup>
@@ -10,6 +10,7 @@
     <Error Condition="!Exists('$(BepInExCore)/BepInEx.dll')" Text="Supply OstranautsPath for a local installation with BepInEx 5." />
   </Target>
   <ItemGroup>
+    <ProjectReference Include="../../external/phobos-scope/recording/Phobos.Scope.Recording/Phobos.Scope.Recording.csproj" />
     <Reference Include="Assembly-CSharp" HintPath="$(GameManaged)/Assembly-CSharp.dll" Private="false" />
     <Reference Include="Assembly-CSharp-firstpass" HintPath="$(GameManaged)/Assembly-CSharp-firstpass.dll" Private="false" />
     <Reference Include="Newtonsoft.Json" HintPath="$(GameManaged)/Newtonsoft.Json.dll" Private="false" />

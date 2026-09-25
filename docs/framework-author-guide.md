@@ -1,4 +1,23 @@
-# Phobos Framework 0.14.0 — author guide
+# Phobos Framework 0.15.0 — author guide
+
+## Optional performance recording (0.15.0)
+
+Framework owns the shared Phobos Scope recorder and capture lifecycle. Register
+stable handles once during plugin initialization through
+`Phobos.Ostranauts.Framework.Diagnostics.Performance.RegisterOperation(name, category)`.
+Wrap a coarse synchronous service operation with
+`using var timing = Performance.Measure(handle);`. The disabled path returns
+an empty scope; do not create per-call names or start recording from content code.
+
+`RegisterIncrement(name, category, unit)` and `Increment(handle, value)`
+record explicitly defined counts. `RegisterContext(name, provider)` samples
+small string values only while recording and stores initial/changed values.
+Keep providers cheap and side-effect free. Use the main thread, properly nested
+scopes and no `await` inside a scope. Timing is inclusive real elapsed time.
+
+Consumers require Framework 0.15.0 and must not bundle another recorder DLL.
+Instrumentation stays in the owning service; UI files only measure presentation
+work. See [capture commands, metrics and owner-run checks](performance-captures.md).
 
 ## Additive item loot (0.14.0)
 

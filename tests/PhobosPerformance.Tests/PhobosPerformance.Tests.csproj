@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><OutputType>Exe</OutputType><TargetFramework>net10.0</TargetFramework></PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../../external/phobos-scope/recording/Phobos.Scope.Recording/Phobos.Scope.Recording.csproj" />
+    <Compile Include="../../src/PhobosFramework/Diagnostics/Performance.cs" Link="Performance.cs" />
+    <Compile Include="../../src/PhobosFramework/Diagnostics/PerformanceSession.cs" Link="PerformanceSession.cs" />
+    <Compile Include="../../src/PhobosFramework/FrameworkConsole.cs" Link="FrameworkConsole.cs" />
+    <EmbeddedResource Include="../../translations/PhobosFramework/en.json" LogicalName="PhobosFramework.en.json" />
+  </ItemGroup>
+</Project>

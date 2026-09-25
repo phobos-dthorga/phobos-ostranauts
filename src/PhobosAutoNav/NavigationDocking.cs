@@ -76,6 +76,7 @@ internal sealed partial class NavigationService
     {
         if (dockingAttachmentPending || !DockingActive || system != CrewSim.system || CrewSim.objInstance == null ||
             !CrewSim.objInstance.FinishedLoading || CrewSim.Paused || dt == 0) return;
+        using var measurement = Phobos.Ostranauts.Framework.Diagnostics.Performance.Measure(PerformanceMetrics.Docking);
         try
         {
             var own = console!.ship; var flight = savedFlight!;

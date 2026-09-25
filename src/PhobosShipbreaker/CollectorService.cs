@@ -101,6 +101,7 @@ internal sealed partial class CollectorService
     private static void Disarm(CondOwner port, Session s) { s.Armed = false; if (!port.bDestroyed) port.ZeroCondAmount(WorkingCondition(port)); }
     internal bool BeforePower(CondOwner port)
     {
+        using var measurement = Phobos.Ostranauts.Framework.Diagnostics.Performance.Measure(PerformanceMetrics.RouteCheck);
         port.ZeroCondAmount(WorkingCondition(port));
         if (!sessions.TryGetValue(port, out var s) || !s.Armed) return false;
         string? problem = PairProblem(port, out var linkedSource, out var link);
@@ -116,6 +117,7 @@ internal sealed partial class CollectorService
         if (s.Item != null && (!source.Contains(s.Item) || !ValidPayload(s.Item) || !FilterAllows(port, s.Item))) { s.Item = null; s.Clock = null; }
         if (s.Item == null)
         {
+            Phobos.Ostranauts.Framework.Diagnostics.Performance.Increment(PerformanceMetrics.RouteCandidates, source.ContainedCOs.Count);
             s.Item = source.ContainedCOs.OrderBy(i => i.strID, StringComparer.Ordinal).FirstOrDefault(i => ValidPayload(i) && FilterAllows(port, i));
             s.Last = StarSystem.fEpoch;
             if (s.Item == null) { s.Status = Text.Get("Routing.waiting"); return false; }
@@ -131,6 +133,7 @@ internal sealed partial class CollectorService
     internal void AfterPower(CondOwner port, bool requested, double? poweredSeconds = null)
     {
         if (!sessions.TryGetValue(port, out var s) || !s.Armed) return;
+        using var measurement = Phobos.Ostranauts.Framework.Diagnostics.Performance.Measure(PerformanceMetrics.RouteAdvance);
         try
         {
             double now = StarSystem.fEpoch, elapsed = now - s.Last; s.Last = now;

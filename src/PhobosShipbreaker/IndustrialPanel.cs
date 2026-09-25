@@ -143,6 +143,7 @@ public sealed class IndustrialPanel : GUIData
     }
     private void Refresh()
     {
+        using var measurement = Phobos.Ostranauts.Framework.Diagnostics.Performance.Measure(PerformanceMetrics.PanelRefresh);
         var problem = Access();
         if (invalid) { CrewSim.LowerUI(); return; }
         header.text = Text.Get("Industry.header", Central ? Text.Get("Industry.title") : COSelf.strNameFriendly, hostId,

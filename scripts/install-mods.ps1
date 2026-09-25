@@ -47,6 +47,7 @@ if ('Shipbreaker' -in $Mods) {
         if ([version]$shipInfo[0].strModVersion -ge [version]'0.10.0') { $minimumPhobosFramework = [version]'0.10.0' }
         if ([version]$shipInfo[0].strModVersion -ge [version]'0.10.1') { $minimumPhobosFramework = [version]'0.12.0' }
         if ([version]$shipInfo[0].strModVersion -ge [version]'0.11.0') { $minimumPhobosFramework = [version]'0.13.0' }
+        if ([version]$shipInfo[0].strModVersion -ge [version]'0.11.1') { $minimumPhobosFramework = [version]'0.15.0' }
         if ($needsPhobosFramework) { $Mods = @('Framework') + @($Mods | Where-Object { $_ -ne 'Framework' }) }
     }
 }
@@ -63,6 +64,7 @@ if ('AutoNav' -in $Mods) {
             if ([version]$navInfo[0].strModVersion -ge [version]'0.5.0' -and $minimumPhobosFramework -lt [version]'0.11.0') { $minimumPhobosFramework = [version]'0.11.0' }
             if ([version]$navInfo[0].strModVersion -ge [version]'0.8.1' -and $minimumPhobosFramework -lt [version]'0.12.0') { $minimumPhobosFramework = [version]'0.12.0' }
             if ([version]$navInfo[0].strModVersion -ge [version]'0.10.0' -and $minimumPhobosFramework -lt [version]'0.14.0') { $minimumPhobosFramework = [version]'0.14.0' }
+            if ([version]$navInfo[0].strModVersion -ge [version]'0.10.1' -and $minimumPhobosFramework -lt [version]'0.15.0') { $minimumPhobosFramework = [version]'0.15.0' }
             $Mods = @('Framework') + @($Mods | Where-Object { $_ -ne 'Framework' })
         }
     }
@@ -122,14 +124,41 @@ foreach ($mod in $Mods) {
     if ($assembly.Name -ne $id -or $assembly.Version.ToString(3) -ne $version.ToString(3)) {
         throw "Plugin and native package versions differ or wrong assembly for $id. Rebuild the package first."
     }
+    if ($mod -eq 'Framework' -and $needsPhobosFramework -and $version -lt $minimumPhobosFramework) {
+        throw "Selected equipment requires Phobos Framework $minimumPhobosFramework or later."
+    }
+    $needsScope = $mod -eq 'Framework' -and $version -ge [version]'0.15.0'
     foreach ($pluginFile in Get-ChildItem -LiteralPath $pluginSource -Recurse -File -Force) {
         $relativePluginFile = [IO.Path]::GetRelativePath($pluginSource, $pluginFile.FullName).Replace('\', '/')
-        if ($relativePluginFile -ne "$id.dll" -and $relativePluginFile -notmatch '^translations/[a-zA-Z]{2,8}(-[a-zA-Z0-9]{2,8})*\.json$') {
+        if ($relativePluginFile -ne "$id.dll" -and -not ($needsScope -and $relativePluginFile -eq 'Phobos.Scope.Recording.dll') -and $relativePluginFile -notmatch '^translations/[a-zA-Z]{2,8}(-[a-zA-Z0-9]{2,8})*\.json$') {
             throw "Unexpected plugin package files for $id."
         }
     }
     if ($mod -eq 'Framework') {
-        if ($needsPhobosFramework -and $version -lt $minimumPhobosFramework) { throw "Selected equipment requires Phobos Framework $minimumPhobosFramework or later." }
+        if ($needsScope) {
+            $scopeSource = Join-Path $pluginSource 'Phobos.Scope.Recording.dll'
+            $scopeIdentity = [Reflection.AssemblyName]::GetAssemblyName($scopeSource)
+            if ($scopeIdentity.Name -ne 'Phobos.Scope.Recording' -or $scopeIdentity.Version -lt [version]'0.1.1') {
+                throw 'Framework requires the packaged Phobos Scope recorder 0.1.1 or later.'
+            }
+            $scopeTarget = Join-Path $pluginTarget 'Phobos.Scope.Recording.dll'
+            $allPlugins = Join-Path $gameRoot 'BepInEx/plugins'
+            if (Test-Path -LiteralPath $allPlugins) {
+                $scopeCopies = @(Get-ChildItem -LiteralPath $allPlugins -Recurse -Filter 'Phobos.Scope.Recording.dll' -File)
+                if (@($scopeCopies | Where-Object { $_.FullName -ne $scopeTarget }).Count -gt 0) {
+                    throw 'Duplicate Phobos Scope recorder outside Framework; inspect before updating.'
+                }
+            }
+            if (Test-Path -LiteralPath $scopeTarget) {
+                $installedScope = [Reflection.AssemblyName]::GetAssemblyName($scopeTarget)
+                if ($installedScope.Name -ne $scopeIdentity.Name -or $installedScope.Version -gt $scopeIdentity.Version) {
+                    throw 'Installed recorder identity/version conflicts with the prepared package; automatic downgrade is refused.'
+                }
+            }
+            if (-not (Test-Path -LiteralPath (Join-Path $nativeSource 'licenses/PhobosScope-LICENSING.md'))) {
+                throw 'Framework package is missing its Phobos Scope licensing notice.'
+            }
+        }
         $intendedDll = Join-Path $pluginTarget 'PhobosFramework.dll'
         $plugins = Join-Path $gameRoot 'BepInEx/plugins'
         if (Test-Path -LiteralPath $plugins) {
@@ -205,6 +234,9 @@ foreach ($mod in $Mods) {
         }
     }
     $modFiles = @([pscustomobject]@{ Source = $dllSource; Target = (Join-Path $pluginTarget "$id.dll"); Backup = "$id/plugin/$id.dll" })
+    if ($needsScope) {
+        $modFiles += [pscustomobject]@{ Source = $scopeSource; Target = $scopeTarget; Backup = "$id/plugin/Phobos.Scope.Recording.dll" }
+    }
     $translationSource = Join-Path (Split-Path -Parent $dllSource) 'translations'
     $needsTranslations = ($mod -eq 'AutoNav' -and $version -ge [version]'0.3.0') -or
         ($mod -in @('Framework', 'Shipbreaker') -and $version -ge [version]'0.7.0')

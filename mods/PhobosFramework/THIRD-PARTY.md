@@ -1,5 +1,10 @@
 # Phobos Framework provenance
 
+Framework 0.15.0 also bundles the separately maintained Phobos-authored
+`Phobos.Scope.Recording.dll` from the pinned `external/phobos-scope` submodule.
+Phobos Scope's project licence remains undecided; the repository MIT grant does
+not cover it. See `licenses/PhobosScope-LICENSING.md` in the native mod folder.
+
 Phobos Framework 0.2.0 is distributed under the repository MIT licence, with the
 upstream notice below retained for adapted portions.
 

@@ -1,6 +1,9 @@
 MIT License
 
-Scope: This grant covers Phobos-authored work. It does not relicense the
+Scope: This grant covers Phobos-authored work in this repository, excluding the
+separately maintained Phobos Scope submodule and its recorder binary. Phobos
+Scope's project licence remains undecided; see its bundled licensing notice.
+This grant does not relicense the
 upstream-derived files in src/PhobosAutoNav/Adapted or their contribution to
 compiled binaries. See THIRD_PARTY_NOTICES.md for provenance and unverified
 upstream terms. Game assets and other third-party materials are excluded.

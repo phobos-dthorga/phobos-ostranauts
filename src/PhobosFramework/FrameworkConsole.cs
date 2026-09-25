@@ -12,6 +12,12 @@ internal static class FrameworkConsole
     {
         var words = (strInput ?? "").Split(new[] { ' ', '\t', '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
         if (words.Length == 0 || !string.Equals(words[0], "phobosframework", StringComparison.OrdinalIgnoreCase)) return true;
+        if (words.Length >= 2 && words[1].Equals("perf", StringComparison.OrdinalIgnoreCase))
+        {
+            __result = Diagnostics.NativePerformance.Command(words, out var performanceResponse);
+            strInput += "\n" + performanceResponse;
+            return false;
+        }
         string command = words.Length == 1 ? "help" : words[1].ToLowerInvariant();
         __result = words.Length <= 2 && (command == "help" || command == "status" || command == "recipes");
         string response = Text.Get("FrameworkConsole.phobos_framework", FrameworkInfo.Version);

@@ -23,6 +23,7 @@ public static class FrameworkLifecycle
 
     internal static void Begin()
     {
+        Diagnostics.NativePerformance.WorldChanging();
         Observations.NativeRoomAlarms.Reset();
         FrameworkPlugin.RefreshLanguage();
         ConstructionRegistry.BeginLoad();

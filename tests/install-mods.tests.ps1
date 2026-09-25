@@ -123,6 +123,28 @@ $libraryOnly = Fixture 'framework-only' @('core', 'OCF|disabled', 'SWB|disabled'
 & $installer @libraryOnly -Mods Framework -VerifyOnly | Out-Null
 Check (((ReadOrder $libraryOnly).aLoadOrder -join ',') -eq 'core,OCF|disabled,SWB|disabled,PhobosFramework') 'Framework requires or enables upstream crafting content'
 Check (@(Get-ChildItem -LiteralPath (Join-Path $libraryOnly.OstranautsPath 'BepInEx/plugins') -Recurse -Filter PhobosFramework.dll).Count -eq 1) 'Framework installs one shared provider'
+Check (@(Get-ChildItem -LiteralPath (Join-Path $libraryOnly.OstranautsPath 'BepInEx/plugins') -Recurse -Filter Phobos.Scope.Recording.dll).Count -eq 1) 'Framework installs exactly one shared recorder'
+Check (@(Get-ChildItem -LiteralPath (Join-Path $fresh.OstranautsPath 'BepInEx/plugins') -Recurse -Filter Phobos.Scope.Recording.dll).Count -eq 1) 'Content mods must not duplicate the recorder'
+
+$duplicateScope = Fixture 'duplicate-scope-recorder'
+$scopeOutside = Join-Path $duplicateScope.OstranautsPath 'BepInEx/plugins/ForeignRecorder'
+New-Item -ItemType Directory -Path $scopeOutside -Force | Out-Null
+Copy-Item -LiteralPath (Join-Path $PackageRoot 'PhobosFramework-P0/BepInEx/plugins/PhobosFramework/Phobos.Scope.Recording.dll') -Destination $scopeOutside
+$before = InstalledFiles $duplicateScope
+Fails { & $installer @duplicateScope | Out-Null } 'Duplicate Phobos Scope recorder'
+Check ((InstalledFiles $duplicateScope) -eq $before) 'Duplicate recorder preflight changed installed files'
+
+$missingScopePackages = Join-Path $fixtures 'without-scope-recorder'
+New-Item -ItemType Directory -Path $missingScopePackages -Force | Out-Null
+Copy-Item -LiteralPath (Join-Path $PackageRoot 'PhobosFramework-P0') -Destination $missingScopePackages -Recurse
+$missingScopePath = [IO.Path]::GetFullPath((Join-Path $missingScopePackages 'PhobosFramework-P0/BepInEx/plugins/PhobosFramework/Phobos.Scope.Recording.dll'))
+if (-not $missingScopePath.StartsWith([IO.Path]::GetFullPath($fixtures) + [IO.Path]::DirectorySeparatorChar)) { throw 'Unexpected recorder fixture path' }
+Remove-Item -LiteralPath $missingScopePath
+$missingScope = Fixture 'missing-scope-recorder'
+$missingScope.PackageRoot = $missingScopePackages
+$before = InstalledFiles $missingScope
+Fails { & $installer @missingScope -Mods Framework | Out-Null } 'Phobos.Scope.Recording.dll'
+Check ((InstalledFiles $missingScope) -eq $before) 'Missing recorder preflight changed installed files'
 
 $duplicate = Fixture 'duplicate-phobos-provider'
 $extraProvider = Join-Path $duplicate.OstranautsPath 'BepInEx/plugins/ForeignCopy'
@@ -232,9 +254,9 @@ $olderInfo = @(Get-Content -LiteralPath $olderMetadata -Raw | ConvertFrom-Json)
 $olderInfo[0].strModVersion = '0.11.99'
 ConvertTo-Json -InputObject $olderInfo | Set-Content -LiteralPath $olderMetadata
 Copy-Item -LiteralPath (Join-Path $olderOutput 'PhobosFramework.dll') -Destination (Join-Path $badPackages $frameworkDllRelative) -Force
-Fails { & $installer @incomplete | Out-Null } 'Selected equipment requires Phobos Framework 0.14.0'
-Fails { & $installer @incomplete -Mods AutoNav | Out-Null } 'Selected equipment requires Phobos Framework 0.14.0'
-Fails { & $installer @incomplete -Mods Shipbreaker | Out-Null } 'Selected equipment requires Phobos Framework 0.13.0'
+Fails { & $installer @incomplete | Out-Null } 'Selected equipment requires Phobos Framework 0.15.0'
+Fails { & $installer @incomplete -Mods AutoNav | Out-Null } 'Selected equipment requires Phobos Framework 0.15.0'
+Fails { & $installer @incomplete -Mods Shipbreaker | Out-Null } 'Selected equipment requires Phobos Framework 0.15.0'
 Check ((InstalledFiles $incomplete) -eq $before) 'Equipment naming provider minimum was not enforced'
 foreach ($relative in @($frameworkMetadataRelative, $frameworkDllRelative)) {
     Copy-Item -LiteralPath (Join-Path $PackageRoot $relative) -Destination (Join-Path $badPackages $relative) -Force

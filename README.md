@@ -47,6 +47,8 @@ with a smaller setup appropriate to this project's current scope.
 
 ## Start here
 
+- [Opt-in performance captures: Phobos Scope commands and analysis](docs/performance-captures.md)
+
 - [Current player guide: acquire, install, load, run and collect](docs/player-guide.md)
 - [Automatic material routing: machine inputs, buffers and reject destinations](docs/automatic-material-routing.md)
 - [Industrial console and equipment panels: research and text mockups](docs/industrial-control-console.md) — proposed next interface, not yet implemented.

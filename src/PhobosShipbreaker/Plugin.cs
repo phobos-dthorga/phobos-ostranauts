@@ -15,7 +15,7 @@ namespace PhobosShipbreaker;
 public sealed class Plugin : BaseUnityPlugin
 {
     public const string Id = "phobosgekko.ostranauts.shipbreaker";
-    public const string Version = "0.11.0";
+    public const string Version = "0.11.1";
     internal static ProcessingService Service { get; private set; } = null!;
     internal static Action<string> Log { get; private set; } = null!;
     internal static Settings Options { get; private set; } = null!;
@@ -28,6 +28,7 @@ public sealed class Plugin : BaseUnityPlugin
     private void Awake()
     {
         Log = text => Logger.LogInfo(text);
+        PerformanceMetrics.Initialize();
         Options = new Settings(Config);
         Service = new ProcessingService(Log, Options);
         Collectors = new CollectorService(Log, Options);

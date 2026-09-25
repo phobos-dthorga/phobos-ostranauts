@@ -12,11 +12,11 @@ namespace PhobosAutoNav;
 
 [BepInPlugin(Id, "Phobos Auto Nav", Version)]
 [BepInProcess("Ostranauts.exe")]
-[BepInDependency(FrameworkInfo.PluginId, "0.14.0")]
+[BepInDependency(FrameworkInfo.PluginId, "0.15.0")]
 public sealed class Plugin : BaseUnityPlugin
 {
     public const string Id = "phobosgekko.ostranauts.autonav";
-    public const string Version = "0.10.0";
+    public const string Version = "0.10.1";
     internal static NavigationService Service { get; private set; } = null!;
     internal static ConfigEntry<bool> Enabled = null!, VerboseLogging = null!, FuelCheck = null!,
         AbortOnManualThrust = null!, UseThrusterRotation = null!, ResumeAfterLoad = null!, PreferTorch = null!, SalvageEnabled = null!;
@@ -56,6 +56,7 @@ public sealed class Plugin : BaseUnityPlugin
         PreferTorch = Config.Bind("Torch", "PreferTorch", true, Text.Get("Torch.setting_prefer"));
         TorchMaximumG = Number("Torch", "MaximumAccelerationG", 1, 0.05f, 2, Text.Get("Torch.setting_acceleration"));
         TorchMinimumCorrectionMS = Number("Torch", "MinimumCorrectionMS", 5, 0.5f, 100, Text.Get("Torch.setting_correction"));
+        PerformanceMetrics.Initialize();
         Service = new NavigationService(log);
         SalvageEnabled = Config.Bind("Salvage", "Enabled", true, Text.Get("Salvage.enabled"));
         SalvageChance = Number("Salvage", "NavModuleChance", EquipmentRules.SalvageChance, 0, 1, Text.Get("Salvage.chance"));

@@ -68,6 +68,7 @@ public static class NativeRoomAlarms
 
     public static Observation Read(CondOwner source)
     {
+        using var measurement = Diagnostics.Performance.Measure(Diagnostics.Performance.RoomAlarmRead);
         string kind = Kind(source) ?? throw new ArgumentException("Unsupported native room alarm.");
         string ship = source.ship?.strRegID ?? "unknown";
         witnesses.TryGetValue(source, out var w);

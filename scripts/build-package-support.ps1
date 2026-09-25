@@ -7,6 +7,7 @@ function Copy-PhobosPlayerGuides {
     # Every suite package has the same entry point and its directly linked guides.
     # Keep their filenames as well as the mod-specific README so links remain usable.
     foreach ($name in @(
+        'performance-captures',
         'player-guide', 'equipment-branding', 'installing-mods', 'equipment-economy', 'equipment-value-audit', 'auto-nav-instruments', 'auto-nav-docking', 'auto-nav-sensors', 'auto-nav-flight-profiles', 'artwork-resolution-policy',
         'vanilla-economy-audit', 'shipbreaker-first-build', 'shipbreaker-hull-intake',
         'residue-collector', 'auto-navigate-adaptation', 'auto-nav-economy', 'auto-nav-panel-layout-audit', 'auto-nav-persistence', 'auto-nav-torch', 'residue-material-contract',
@@ -63,6 +64,15 @@ function New-PhobosPackage {
     Copy-Item -LiteralPath (Join-Path $RepoRoot "src/$Id/bin/Release/netstandard2.1/$Id.dll") -Destination $pluginTarget
     Copy-Item -LiteralPath (Join-Path $RepoRoot "translations/$Id") -Destination (Join-Path $pluginTarget 'translations') -Recurse
     Copy-Item -LiteralPath $source -Destination $nativeTarget -Recurse
+    if ($Id -eq 'PhobosFramework') {
+        $recorder = Join-Path $RepoRoot 'src/PhobosFramework/bin/Release/netstandard2.1/Phobos.Scope.Recording.dll'
+        $identity = [Reflection.AssemblyName]::GetAssemblyName($recorder)
+        if ($identity.Name -ne 'Phobos.Scope.Recording' -or $identity.Version -lt [version]'0.1.1') {
+            throw 'Build Framework with its pinned Phobos Scope recorder dependency first.'
+        }
+        Copy-Item -LiteralPath $recorder -Destination $pluginTarget
+        Copy-Item -LiteralPath (Join-Path $RepoRoot 'external/phobos-scope/docs/licensing.md') -Destination (Join-Path $nativeTarget 'PhobosFramework/licenses/PhobosScope-LICENSING.md')
+    }
     Copy-Item -LiteralPath (Join-Path $RepoRoot $Readme) -Destination (Join-Path $package 'README.md')
     foreach ($document in $ExtraDocs) { Copy-Item -LiteralPath (Join-Path $RepoRoot $document) -Destination $package }
     Copy-PhobosPlayerGuides -RepoRoot $RepoRoot -Package $package

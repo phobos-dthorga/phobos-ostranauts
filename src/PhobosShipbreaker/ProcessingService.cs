@@ -170,6 +170,7 @@ internal sealed partial class ProcessingService
     internal bool BeforePower(CondOwner machine)
     {
         if (!IsProcessor(machine.strCODef)) return false;
+        using var measurement = Phobos.Ostranauts.Framework.Diagnostics.Performance.Measure(PerformanceMetrics.ProcessCheck);
         FeedArrived(machine);
         if (!sessions.TryGetValue(machine, out var state) || state.Job?.Running != true)
         { SetWorking(machine, false); return false; }
@@ -205,6 +206,7 @@ internal sealed partial class ProcessingService
     internal void AfterPower(CondOwner machine, bool workingRequest, double? poweredSeconds = null)
     {
         if (!IsProcessor(machine.strCODef) || !sessions.TryGetValue(machine, out var state) || state.Job?.Running != true) return;
+        using var measurement = Phobos.Ostranauts.Framework.Diagnostics.Performance.Measure(PerformanceMetrics.ProcessAdvance);
         try
         {
             double now = StarSystem.fEpoch, elapsed = now - state.Last;
