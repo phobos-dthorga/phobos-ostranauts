@@ -24,6 +24,27 @@ internal static class AgricultureNativeChecks
         }
         foreach (var action in d.Interactions.Values)
             check(action.strRaiseUI == null, "Agriculture actions cannot raise nonexistent native prefabs");
+        // Stock artwork must resolve through actual commodity definitions, not just
+        // exist on disk. Keep food behavior and native collision geometry intact.
+        var stockArt = Newtonsoft.Json.Linq.JObject.Parse(File.ReadAllText(Path.Combine(repo, "assets/phobos-agriculture/stock-layers.json")));
+        foreach (var entry in stockArt["items"]!)
+        {
+            string id = (string)entry["definition"]!, key = (string)entry["key"]!;
+            var stock = d.Objects[id];
+            var image = d.Items[stock.strItemDef];
+            var donorCo = DataHandler.dictCOs[key == "meal" || key == "leaves" ? "ItmTrencherAcceptableAlgae" : "ItmScrapTrash"];
+            var donor = DataHandler.dictItemDefs[donorCo.strItemDef];
+            check(image.strImg == "phobos/agriculture/Stock-" + key && stock.strPortraitImg == image.strImg, "Stock world/portrait resolves its dedicated image: " + id);
+            check(image.nCols == donor.nCols && image.aSocketAdds.SequenceEqual(donor.aSocketAdds) && image.aSocketReqs.SequenceEqual(donor.aSocketReqs) && image.aSocketForbids.SequenceEqual(donor.aSocketForbids), "Stock art preserves donor collision/socket geometry: " + id);
+            check(stock.aInteractions.SequenceEqual(donorCo.aInteractions), "Stock art retains native food/item actions: " + id);
+            check(!image.bHasSpriteSheet, "Stock is a single native image, not an inherited sheet: " + id);
+            foreach (string path in new[] { image.strImg, image.strImgNorm })
+            {
+                var png = File.ReadAllBytes(Path.Combine(repo, "mods/PhobosAgriculture/images", path + ".png"));
+                int Dimension(int offset) => (png[offset] << 24) | (png[offset + 1] << 16) | (png[offset + 2] << 8) | png[offset + 3];
+                check(Dimension(16) == 16 && Dimension(20) == 16, "Commodity imagery stays at the native one-tile footprint: " + path);
+            }
+        }
         // Check assets selected by the shared panel/world policy, not just base definitions.
         foreach (string crop in new[] { "Potato", "Lettuce" })
         foreach (string stage in new[] { "sprout", "young", "mature", "harvest", "wilted", "dead" })

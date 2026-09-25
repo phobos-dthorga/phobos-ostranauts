@@ -88,6 +88,15 @@ internal static class Definitions
         co.nStackLimit = 1; co.aUpdateCommands = Array.Empty<string>(); co.aTickers = Array.Empty<string>(); co.inventoryWidth = co.inventoryHeight = 1;
         co.aStartingConds = food ? new[] { "IsSolid=1x1", "IsEdible=1x1", "IsFood=1x1", "IsCategoryFood=1x1", "IsPocketable=1x1" } : new[] { "IsSolid=1x1", "IsPocketable=1x1" };
         MaintenanceDefinitions.SetStat(co, "StatMass", kg); MaintenanceDefinitions.SetStat(co, "StatBasePrice", price);
-        d.Objects[id] = co; // Refer to native item art at runtime until individual stock art is accepted.
+        // Keep the donor's native item behavior and socket geometry, but give each
+        // commodity its own registered image. Saved commodity identities stay fixed.
+        var item = NativeDefinitions.Clone(DataHandler.dictItemDefs[co.strItemDef]);
+        string image = "phobos/agriculture/Stock-" + key;
+        co.strItemDef = item.strName = id;
+        co.strPortraitImg = item.strImg = image;
+        item.strImgNorm = image + "Normal";
+        item.strImgDamaged = "blank";
+        d.Items[id] = item;
+        d.Objects[id] = co;
     }
 }

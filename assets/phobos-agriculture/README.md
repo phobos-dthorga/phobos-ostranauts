@@ -1,5 +1,41 @@
 # Agriculture artwork: living visuals and original pilot
 
+## Commodity sprites (0.6.1)
+
+Twelve original PixelLab item sprites replace borrowed native stock images.
+`stock-layers.json` maps each unchanged commodity identity to its independent
+64 x 64 transparent source master and 16 x 16 native export. Whole-canvas,
+nearest-neighbour exports preserve registration; each colour map has a matching
+neutral tangent normal map with the same alpha. These normals provide no relief.
+World and portrait definitions point to the same dedicated image. Native donor
+socket geometry and item/food interactions are preserved.
+
+Run `scripts/export-agriculture-stock-art.py` with Python/Pillow to reproduce
+`stock-exports.json`, the mod PNGs and `stock-preview.png`. The review sheet shows
+native size and an eight-times enlargement without smoothing. These are offline
+inspection views, not game screenshots or owner gameplay approval.
+
+The set includes Continuance seed potato and lettuce packet; Groundwork nutrients
+and irrigation charge; raw potatoes, Hearth cooked potatoes and lettuce; crop
+residue, legacy and recorded process solution, treatment rejects and a recovery
+cartridge. Pictures of multiple potatoes represent one existing weighed portion,
+not additional inventory or yield. Packaging is illustrative; no new material or
+empty-container return is introduced. Neither lettuce seed production nor new
+recovery recipes are added by the artwork.
+
+`stock-generation-records.json` retains exact requests, seeds, job/asset IDs,
+returned URLs, usage and source hashes. No game or third-party images were uploaded.
+The provider is PixelLab, using `create_image_pixflux`; no ChatGPT image generation
+or API fallback was needed for these small sprites. Provider terms are referenced
+at [PixelLab's terms of service](https://www.pixellab.ai/termsofservice), separately
+from the code licence. Rechecked on 25 September 2026, the page reports a
+23 November 2025 update: it permits output use/modification/distribution, including
+commercial use, prohibits model training without permission, and references
+Open RAIL-M. This records provider terms, not statutory copyright or third-party
+clearance. Fourteen included generations produced twelve retained sprites
+(1.17 generations per retained sprite); two rejected candidates remain in the
+source folder with reasons. No additional credits were purchased.
+
 ## Current 0.2.0 candidate
 
 The owner requested high-resolution ChatGPT grow-rack and galley furniture art,

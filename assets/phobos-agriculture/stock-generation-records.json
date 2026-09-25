@@ -1,0 +1,444 @@
+{
+  "date": "2026-09-25",
+  "provider": "PixelLab",
+  "operation": "create_image_pixflux",
+  "model": "not separately disclosed",
+  "inputs": "Text only. No game or third-party images uploaded.",
+  "terms": {
+    "url": "https://www.pixellab.ai/termsofservice",
+    "lastUpdated": "2025-11-23",
+    "checked": "2026-09-25",
+    "notes": "Provider permits output use/modification/distribution including commercial use; prohibits model training without permission and refers to Open RAIL-M. Provider terms are separate from code licensing; no statutory copyright or third-party clearance is asserted."
+  },
+  "usage": {
+    "allowanceBefore": 1972,
+    "generations": 14,
+    "retainedSprites": 12,
+    "rejectedCandidates": 2,
+    "generationsPerRetainedSprite": 1.1666666666666667,
+    "creditPurchases": 0,
+    "chatgptImageCalls": 0
+  },
+  "records": [
+    {
+      "key": "potato_seed",
+      "source": "source/stock-seed-potato.png",
+      "request": {
+        "description": "One original tiny spaceship farming inventory item sprite: a single squat ochre-brown SEED POTATO with two short pale green sprouts, seen directly from above. Oval tuber, three large simple tone clusters, dark brown selective outline, clearly distinct sprouting silhouette. Sparse utilitarian pixel art for Verdemorrow planting stock; large deliberate pixel clusters that remain readable at 16x16. Strict overhead orthographic view, no perspective, no packaging, no ground, no shadow outside object, no words or letters, no watermark. One centred object inside 64x64 transparent canvas with at least 8 pixels clear margin on all sides. Intended game export 16x16.",
+        "width": 64,
+        "height": 64,
+        "seed": 9250601,
+        "no_background": true,
+        "isometric": false,
+        "view": "high top-down",
+        "outline": "selective outline",
+        "shading": "basic shading",
+        "detail": "low detail"
+      },
+      "costGenerations": 1,
+      "job_id": "600e63e1-2b42-4d36-a7e3-5d7891b3630d",
+      "status": "Selected candidate; inspected at native size and 8x enlargement. Owner gameplay review pending.",
+      "frames": 1,
+      "download_url": "https://api.pixellab.ai/mcp/images/600e63e1-2b42-4d36-a7e3-5d7891b3630d/download",
+      "download_urls": [
+        "https://api.pixellab.ai/mcp/images/600e63e1-2b42-4d36-a7e3-5d7891b3630d/download"
+      ],
+      "asset": {
+        "id": "274a697b-1dbf-53a7-83d1-9f948994bb54",
+        "type": "image",
+        "status": "saved"
+      },
+      "sha256": "d20815cb2547e528f18577c497124982cb92e2de6866dff3e4fa6df81e5d9e36"
+    },
+    {
+      "key": "lettuce_seed",
+      "source": "source/stock-lettuce-seeds.png",
+      "request": {
+        "description": "One flat rectangular CREAM FOIL LETTUCE SEED PACKET lying flat, sage green sealed edges and a large simple dark green leaf pictogram in the centre. Thin horizontal green sealed seam across its top. No loose seeds. Original utilitarian spacecraft agriculture stock, Verdemorrow cream/sage/slate palette, coarse deliberate pixel clusters, only three or four shading tones. STRICT overhead orthographic plan view, no perspective or visible side walls. One centred object inside 64x64 transparent canvas with 8px clear margins. No words, letters, numbers, watermark, floor or external shadow. Designed to remain recognizable after nearest-neighbour reduction to 16x16 pixels.",
+        "width": 64,
+        "height": 64,
+        "seed": 9250602,
+        "no_background": true,
+        "isometric": false,
+        "view": "high top-down",
+        "outline": "selective outline",
+        "shading": "basic shading",
+        "detail": "low detail"
+      },
+      "costGenerations": 1,
+      "job_id": "dc61af1f-8008-4f39-8f24-f13054b1d1dc",
+      "status": "Selected candidate; inspected at native size and 8x enlargement. Owner gameplay review pending.",
+      "frames": 1,
+      "download_url": "https://api.pixellab.ai/mcp/images/dc61af1f-8008-4f39-8f24-f13054b1d1dc/download",
+      "download_urls": [
+        "https://api.pixellab.ai/mcp/images/dc61af1f-8008-4f39-8f24-f13054b1d1dc/download"
+      ],
+      "asset": {
+        "id": "01b32ae1-1fe6-557e-9050-c6c0581aa2b7",
+        "type": "image",
+        "status": "saved"
+      },
+      "sha256": "32b11bc838585d621a53e421ac39fb6f9b62efd0546805d211e594724f13b335"
+    },
+    {
+      "key": "nutrients",
+      "source": "source/stock-nutrients.png",
+      "request": {
+        "description": "One short broad square sealed cream NUTRIENT SACHET lying flat, dark sage green edges and a single wide burnt-orange horizontal band; one simple dark three-dot mineral pictogram. It must look distinctly wider and more orange than a green lettuce seed packet. Original utilitarian spacecraft agriculture stock, Verdemorrow cream/sage/slate palette, coarse deliberate pixel clusters, only three or four shading tones. STRICT overhead orthographic plan view, no perspective or visible side walls. One centred object inside 64x64 transparent canvas with 8px clear margins. No words, letters, numbers, watermark, floor or external shadow. Designed to remain recognizable after nearest-neighbour reduction to 16x16 pixels.",
+        "width": 64,
+        "height": 64,
+        "seed": 9250603,
+        "no_background": true,
+        "isometric": false,
+        "view": "high top-down",
+        "outline": "selective outline",
+        "shading": "basic shading",
+        "detail": "low detail"
+      },
+      "costGenerations": 1,
+      "job_id": "118cad2a-9d34-4980-812a-a805f732a7f8",
+      "status": "Selected candidate; inspected at native size and 8x enlargement. Owner gameplay review pending.",
+      "frames": 1,
+      "download_url": "https://api.pixellab.ai/mcp/images/118cad2a-9d34-4980-812a-a805f732a7f8/download",
+      "download_urls": [
+        "https://api.pixellab.ai/mcp/images/118cad2a-9d34-4980-812a-a805f732a7f8/download"
+      ],
+      "asset": {
+        "id": "96a74530-b855-5e3a-9f96-59d91b1e2f48",
+        "type": "image",
+        "status": "saved"
+      },
+      "sha256": "1141ff07aa7252ef63c6218dd3a1729427ee2f5eaf01250c7602105a2a8f1255"
+    },
+    {
+      "key": "irrigation",
+      "source": "source/stock-irrigation.png",
+      "request": {
+        "description": "One squat rectangular slate-grey IRRIGATION WATER JERRYCAN viewed exactly vertically above, large cyan-blue inset on its top, one small round cream cap at upper left corner and dark recessed carrying handle along upper edge. Clearly readable simple utilitarian canister silhouette. No pouring liquid. Original utilitarian spacecraft agriculture stock, Verdemorrow cream/sage/slate palette, coarse deliberate pixel clusters, only three or four shading tones. STRICT overhead orthographic plan view, no perspective or visible side walls. One centred object inside 64x64 transparent canvas with 8px clear margins. No words, letters, numbers, watermark, floor or external shadow. Designed to remain recognizable after nearest-neighbour reduction to 16x16 pixels.",
+        "width": 64,
+        "height": 64,
+        "seed": 9250604,
+        "no_background": true,
+        "isometric": false,
+        "view": "high top-down",
+        "outline": "selective outline",
+        "shading": "basic shading",
+        "detail": "low detail"
+      },
+      "costGenerations": 1,
+      "job_id": "5e89418d-8736-4178-9faa-f188e6360832",
+      "status": "Selected candidate; inspected at native size and 8x enlargement. Owner gameplay review pending.",
+      "frames": 1,
+      "download_url": "https://api.pixellab.ai/mcp/images/5e89418d-8736-4178-9faa-f188e6360832/download",
+      "download_urls": [
+        "https://api.pixellab.ai/mcp/images/5e89418d-8736-4178-9faa-f188e6360832/download"
+      ],
+      "asset": {
+        "id": "b86f7cc1-f780-5bc2-ae60-c4473076973f",
+        "type": "image",
+        "status": "saved"
+      },
+      "sha256": "d76f942bb3d74c03fd0a9083465572eced03b0f5eeb707485f3b1189aa9b9fcc"
+    },
+    {
+      "key": "raw",
+      "source": "source/stock-raw-potatoes.png",
+      "request": {
+        "description": "A small compact cluster of THREE RAW POTATO TUBERS, round irregular ochre and brown ovals with sparse darker eyes, no sprouts, no foliage, no container. Clearly separate overlapping tubers. Original utilitarian spacecraft agriculture inventory sprite. Sparse coarse pixel art, readable large pixel clusters, only four or five earthy shading tones, restrained saturation. STRICT directly overhead orthographic plan view, no perspective. One centred object inside 64x64 transparent canvas with 8px clear margins. No text, watermark, floor or cast shadow. Must remain recognizable at final native 16x16 pixels.",
+        "width": 64,
+        "height": 64,
+        "seed": 9250605,
+        "no_background": true,
+        "isometric": false,
+        "view": "high top-down",
+        "outline": "selective outline",
+        "shading": "basic shading",
+        "detail": "low detail"
+      },
+      "costGenerations": 1,
+      "job_id": "92e72b2f-9c59-43a6-9ac9-e7a23513b8ca",
+      "status": "Selected candidate; inspected at native size and 8x enlargement. Owner gameplay review pending.",
+      "frames": 1,
+      "download_url": "https://api.pixellab.ai/mcp/images/92e72b2f-9c59-43a6-9ac9-e7a23513b8ca/download",
+      "download_urls": [
+        "https://api.pixellab.ai/mcp/images/92e72b2f-9c59-43a6-9ac9-e7a23513b8ca/download"
+      ],
+      "asset": {
+        "id": "e5be2088-a7be-5509-b6a9-9c1c3653d0e9",
+        "type": "image",
+        "status": "saved"
+      },
+      "sha256": "cf3febce496201537eb843615b1c1abdadab0fb68f87db254ec8256f313e5500"
+    },
+    {
+      "key": "meal",
+      "source": "source/stock-cooked-potatoes.png",
+      "request": {
+        "description": "A shallow rectangular slate grey METAL MEAL TRAY holding four large golden COOKED POTATO chunks, cream exposed flesh with ochre browned edges, muted sage rim at two ends. Seen directly from above, only tray interior, no steam, no garnish or cutlery. Original utilitarian spacecraft agriculture inventory sprite. Sparse coarse pixel art, readable large pixel clusters, only four or five earthy shading tones, restrained saturation. STRICT directly overhead orthographic plan view, no perspective. One centred object inside 64x64 transparent canvas with 8px clear margins. No text, watermark, floor or cast shadow. Must remain recognizable at final native 16x16 pixels.",
+        "width": 64,
+        "height": 64,
+        "seed": 9250606,
+        "no_background": true,
+        "isometric": false,
+        "view": "high top-down",
+        "outline": "selective outline",
+        "shading": "basic shading",
+        "detail": "low detail"
+      },
+      "costGenerations": 1,
+      "job_id": "df2c1bee-0797-46b2-a8fb-52152760ab8e",
+      "status": "Selected candidate; inspected at native size and 8x enlargement. Owner gameplay review pending.",
+      "frames": 1,
+      "download_url": "https://api.pixellab.ai/mcp/images/df2c1bee-0797-46b2-a8fb-52152760ab8e/download",
+      "download_urls": [
+        "https://api.pixellab.ai/mcp/images/df2c1bee-0797-46b2-a8fb-52152760ab8e/download"
+      ],
+      "asset": {
+        "id": "7843822d-eda6-5b1c-8618-e47bbe12d273",
+        "type": "image",
+        "status": "saved"
+      },
+      "sha256": "51652f4131a9e31d37a238013056a9b0be7538be2b994edd7735e675a6636c42"
+    },
+    {
+      "key": "leaves",
+      "source": "source/stock-lettuce.png",
+      "request": {
+        "description": "A single HARVESTED LETTUCE ROSETTE with broad folded pale green leaves around a cream heart, two darker sage green outer leaves, compact circular edible produce silhouette. No pot, soil, roots, wrapper or growing tray. Original utilitarian spacecraft agriculture inventory sprite. Sparse coarse pixel art, readable large pixel clusters, only four or five earthy shading tones, restrained saturation. STRICT directly overhead orthographic plan view, no perspective. One centred object inside 64x64 transparent canvas with 8px clear margins. No text, watermark, floor or cast shadow. Must remain recognizable at final native 16x16 pixels.",
+        "width": 64,
+        "height": 64,
+        "seed": 9250607,
+        "no_background": true,
+        "isometric": false,
+        "view": "high top-down",
+        "outline": "selective outline",
+        "shading": "basic shading",
+        "detail": "low detail"
+      },
+      "costGenerations": 1,
+      "job_id": "c5e8cef8-df52-4845-b8a8-040c74c9004b",
+      "status": "Selected candidate; inspected at native size and 8x enlargement. Owner gameplay review pending.",
+      "frames": 1,
+      "download_url": "https://api.pixellab.ai/mcp/images/c5e8cef8-df52-4845-b8a8-040c74c9004b/download",
+      "download_urls": [
+        "https://api.pixellab.ai/mcp/images/c5e8cef8-df52-4845-b8a8-040c74c9004b/download"
+      ],
+      "asset": {
+        "id": "cb7693df-7f44-58f1-a569-d1bb1ae2a633",
+        "type": "image",
+        "status": "saved"
+      },
+      "sha256": "8514346215a1ae3b7d8d037448376b5893de8bed27f28fe7aba580d9f76c07c9"
+    },
+    {
+      "key": "residue",
+      "source": "source/stock-crop-residue-rejected.png",
+      "request": {
+        "description": "A compact irregular bundle of DEAD CROP RESIDUE: three broad curled olive-brown leaves and short dry tan roots, tied loosely by one narrow cream strip. Clearly non-edible dried plant waste, dull brown and olive, no fresh bright green. Original Verdemorrow spacecraft agriculture inventory sprite. Coarse deliberate pixel clusters and sparse basic shading; restrained cream, sage, grey and ochre palette. STRICT directly overhead orthographic plan view, no perspective or side walls. One centred object inside 64x64 transparent canvas with 8px clear margins. No words, letters, numbers, watermark, ground or cast shadow. Designed to remain recognizable at final 16x16 pixels.",
+        "width": 64,
+        "height": 64,
+        "seed": 9250608,
+        "no_background": true,
+        "isometric": false,
+        "view": "high top-down",
+        "outline": "selective outline",
+        "shading": "basic shading",
+        "detail": "low detail"
+      },
+      "costGenerations": 1,
+      "job_id": "e7f86048-015b-401f-a9be-e1ba945fd8ef",
+      "status": "Rejected: fresh green leaves resemble edible root vegetables instead of dead residue.",
+      "frames": 1,
+      "download_url": "https://api.pixellab.ai/mcp/images/e7f86048-015b-401f-a9be-e1ba945fd8ef/download",
+      "download_urls": [
+        "https://api.pixellab.ai/mcp/images/e7f86048-015b-401f-a9be-e1ba945fd8ef/download"
+      ],
+      "asset": {
+        "id": "731721f8-a922-588f-b703-dbf4d6e10e1d",
+        "type": "image",
+        "status": "saved"
+      },
+      "sha256": "2ea214c571eb44cd36698ba44820b5200e6f6061cfdabe6f2e78a42408ff7ab4"
+    },
+    {
+      "key": "drainage",
+      "source": "source/stock-legacy-solution.png",
+      "request": {
+        "description": "A flat squat rectangular sealed process-liquid POUCH lying flat, opaque dull brown-grey fluid centre, cream heat-sealed border, dark grey cap protruding from upper right, ONE large amber diagonal slash across front. Old unclassified nonpotable process liquid, no blue colour, no text. Original Verdemorrow spacecraft agriculture inventory sprite. Coarse deliberate pixel clusters and sparse basic shading; restrained cream, sage, grey and ochre palette. STRICT directly overhead orthographic plan view, no perspective or side walls. One centred object inside 64x64 transparent canvas with 8px clear margins. No words, letters, numbers, watermark, ground or cast shadow. Designed to remain recognizable at final 16x16 pixels.",
+        "width": 64,
+        "height": 64,
+        "seed": 9250609,
+        "no_background": true,
+        "isometric": false,
+        "view": "high top-down",
+        "outline": "selective outline",
+        "shading": "basic shading",
+        "detail": "low detail"
+      },
+      "costGenerations": 1,
+      "job_id": "24598509-9729-4ba9-b461-d635539a07f4",
+      "status": "Selected candidate; inspected at native size and 8x enlargement. Owner gameplay review pending.",
+      "frames": 1,
+      "download_url": "https://api.pixellab.ai/mcp/images/24598509-9729-4ba9-b461-d635539a07f4/download",
+      "download_urls": [
+        "https://api.pixellab.ai/mcp/images/24598509-9729-4ba9-b461-d635539a07f4/download"
+      ],
+      "asset": {
+        "id": "faae8159-0b33-5882-87db-4bbe490a5e73",
+        "type": "image",
+        "status": "saved"
+      },
+      "sha256": "a14f73c61b617f05bc21a17f6d3fa0532e4309c9cb80947f0642087d9f763623"
+    },
+    {
+      "key": "characterized_drainage",
+      "source": "source/stock-recorded-solution.png",
+      "request": {
+        "description": "A flat squat rectangular sealed process-liquid POUCH lying flat, opaque muted olive-teal fluid centre, cream heat-sealed border, dark grey cap protruding from upper right, a prominent cream circular inspection patch in the centre with two dark horizontal bars. Recorded recoverable nonpotable process liquid, no blue colour, no text. Original Verdemorrow spacecraft agriculture inventory sprite. Coarse deliberate pixel clusters and sparse basic shading; restrained cream, sage, grey and ochre palette. STRICT directly overhead orthographic plan view, no perspective or side walls. One centred object inside 64x64 transparent canvas with 8px clear margins. No words, letters, numbers, watermark, ground or cast shadow. Designed to remain recognizable at final 16x16 pixels.",
+        "width": 64,
+        "height": 64,
+        "seed": 9250610,
+        "no_background": true,
+        "isometric": false,
+        "view": "high top-down",
+        "outline": "selective outline",
+        "shading": "basic shading",
+        "detail": "low detail"
+      },
+      "costGenerations": 1,
+      "job_id": "065b252e-9c13-4b0f-a51c-07253294de78",
+      "status": "Selected candidate; inspected at native size and 8x enlargement. Owner gameplay review pending.",
+      "frames": 1,
+      "download_url": "https://api.pixellab.ai/mcp/images/065b252e-9c13-4b0f-a51c-07253294de78/download",
+      "download_urls": [
+        "https://api.pixellab.ai/mcp/images/065b252e-9c13-4b0f-a51c-07253294de78/download"
+      ],
+      "asset": {
+        "id": "9fccecd1-48e2-5902-8358-c9acd7604e93",
+        "type": "image",
+        "status": "saved"
+      },
+      "sha256": "00522f7f8dbd69f8f1edd42f3220458cfee6960a70007c388cbfbd9f53c2fb8f"
+    },
+    {
+      "key": "recovery_reject",
+      "source": "source/stock-treatment-rejects-rejected.png",
+      "request": {
+        "description": "A compact dark charcoal rectangular sealed WASTE BRICK with two broad ochre diagonal stripes across its top face, dusty dull brown centre and crimped grey edge. Terminal filtration rejects, utilitarian contained waste, clearly solid rectangular silhouette, no liquid spill, no biological hazard symbols. Original Verdemorrow spacecraft agriculture inventory sprite. Coarse deliberate pixel clusters and sparse basic shading; restrained cream, sage, grey and ochre palette. STRICT directly overhead orthographic plan view, no perspective or side walls. One centred object inside 64x64 transparent canvas with 8px clear margins. No words, letters, numbers, watermark, ground or cast shadow. Designed to remain recognizable at final 16x16 pixels.",
+        "width": 64,
+        "height": 64,
+        "seed": 9250611,
+        "no_background": true,
+        "isometric": false,
+        "view": "high top-down",
+        "outline": "selective outline",
+        "shading": "basic shading",
+        "detail": "low detail"
+      },
+      "costGenerations": 1,
+      "job_id": "acf5a04d-dd3c-4259-8ddb-b8129e0ac6dd",
+      "status": "Rejected: isometric cube instead of an overhead flat waste parcel.",
+      "frames": 1,
+      "download_url": "https://api.pixellab.ai/mcp/images/acf5a04d-dd3c-4259-8ddb-b8129e0ac6dd/download",
+      "download_urls": [
+        "https://api.pixellab.ai/mcp/images/acf5a04d-dd3c-4259-8ddb-b8129e0ac6dd/download"
+      ],
+      "asset": {
+        "id": "4627ec28-b6b6-51c3-bf8e-5c2f9111976b",
+        "type": "image",
+        "status": "saved"
+      },
+      "sha256": "bec937ef1ad3c95f22fd05f5ceaa6420285f462a24ac1ead8842c093abf58db1"
+    },
+    {
+      "key": "recovery_cartridge",
+      "source": "source/stock-treatment-cartridge.png",
+      "request": {
+        "description": "One narrow elongated rectangular cream and slate grey REPLACEABLE FILTER CARTRIDGE lying flat vertically, sage green end caps, three thick dark horizontal slotted filter ribs in its centre, small square pull tab at its top. Clear simple slender machinery insert silhouette, no tubing or wires. Original Verdemorrow spacecraft agriculture inventory sprite. Coarse deliberate pixel clusters and sparse basic shading; restrained cream, sage, grey and ochre palette. STRICT directly overhead orthographic plan view, no perspective or side walls. One centred object inside 64x64 transparent canvas with 8px clear margins. No words, letters, numbers, watermark, ground or cast shadow. Designed to remain recognizable at final 16x16 pixels.",
+        "width": 64,
+        "height": 64,
+        "seed": 9250612,
+        "no_background": true,
+        "isometric": false,
+        "view": "high top-down",
+        "outline": "selective outline",
+        "shading": "basic shading",
+        "detail": "low detail"
+      },
+      "costGenerations": 1,
+      "job_id": "f7300fdc-b50e-44be-85cb-05256764e6ca",
+      "status": "Selected candidate; inspected at native size and 8x enlargement. Owner gameplay review pending.",
+      "frames": 1,
+      "download_url": "https://api.pixellab.ai/mcp/images/f7300fdc-b50e-44be-85cb-05256764e6ca/download",
+      "download_urls": [
+        "https://api.pixellab.ai/mcp/images/f7300fdc-b50e-44be-85cb-05256764e6ca/download"
+      ],
+      "asset": {
+        "id": "d96a4c83-2631-5a2e-b2b4-e96f02ffc2c6",
+        "type": "image",
+        "status": "saved"
+      },
+      "sha256": "c71ae67e5ae9e5ab5e64a267c9633037edaf65527c55aaf4c0c3fa2535917cb1"
+    },
+    {
+      "key": "residue",
+      "source": "source/stock-crop-residue.png",
+      "request": {
+        "description": "A flattened tangled mound of DRY DEAD BROWN PLANT WASTE. Only brittle brown leaf fragments, dull tan shredded fibres and dark brown short stems, all fully dead and dried. Absolutely NO green, NO tuber, NO carrot, NO vegetable root, NO fresh foliage. Broad low irregular oval silhouette seen vertically from above. Original tiny utilitarian spacecraft inventory sprite. Very sparse coarse pixel art, only four dull colour tones, large readable blocks for final 16x16 export. Centred object with 8px margins in 64x64 transparent canvas, no scene, shadow, text, numbers or watermark.",
+        "width": 64,
+        "height": 64,
+        "seed": 9250613,
+        "no_background": true,
+        "isometric": false,
+        "view": "high top-down",
+        "outline": "selective outline",
+        "shading": "flat shading",
+        "detail": "low detail"
+      },
+      "costGenerations": 1,
+      "job_id": "5f51fc6f-820b-4abf-a9ee-d4ce35f58402",
+      "status": "Selected candidate; inspected at native size and 8x enlargement. Owner gameplay review pending.",
+      "frames": 1,
+      "download_url": "https://api.pixellab.ai/mcp/images/5f51fc6f-820b-4abf-a9ee-d4ce35f58402/download",
+      "download_urls": [
+        "https://api.pixellab.ai/mcp/images/5f51fc6f-820b-4abf-a9ee-d4ce35f58402/download"
+      ],
+      "asset": {
+        "id": "9e7fce4f-6f27-5c05-9bfc-6d4f5bada113",
+        "type": "image",
+        "status": "saved"
+      },
+      "sha256": "c32a5eaca28c4082bd41986eda2b3934e234ab6eb711877df11d575e5f1d4965"
+    },
+    {
+      "key": "recovery_reject",
+      "source": "source/stock-treatment-rejects.png",
+      "request": {
+        "description": "A FLAT RECTANGULAR WASTE ENVELOPE laid on a table, seen by a camera pointing VERTICALLY DOWN. ONLY A SINGLE FLAT TOP SURFACE visible. All envelope edges parallel to horizontal and vertical image edges. Dark charcoal grey crimped flat pouch, one large ochre X on its top. Absolutely NO isometric view, NO cube, NO box, NO side faces, NO depth or perspective. Original tiny utilitarian spacecraft inventory sprite. Very sparse coarse pixel art, only four dull colour tones, large readable blocks for final 16x16 export. Centred object with 8px margins in 64x64 transparent canvas, no scene, shadow, text, numbers or watermark.",
+        "width": 64,
+        "height": 64,
+        "seed": 9250614,
+        "no_background": true,
+        "isometric": false,
+        "view": "high top-down",
+        "outline": "selective outline",
+        "shading": "flat shading",
+        "detail": "low detail"
+      },
+      "costGenerations": 1,
+      "job_id": "ce5fe4ab-f38f-445e-8fd1-a7685fc158bb",
+      "status": "Selected candidate; inspected at native size and 8x enlargement. Owner gameplay review pending.",
+      "frames": 1,
+      "download_url": "https://api.pixellab.ai/mcp/images/ce5fe4ab-f38f-445e-8fd1-a7685fc158bb/download",
+      "download_urls": [
+        "https://api.pixellab.ai/mcp/images/ce5fe4ab-f38f-445e-8fd1-a7685fc158bb/download"
+      ],
+      "asset": {
+        "id": "4cc02d3a-8897-5ae0-a58a-d2a86e27efbd",
+        "type": "image",
+        "status": "saved"
+      },
+      "sha256": "667cebc80a5e4a8a314119958b0af1c066288bab07bea8be84330cc48dbd1ebf"
+    }
+  ]
+}

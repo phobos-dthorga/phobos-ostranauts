@@ -8,6 +8,14 @@ Dates on Draft entries record preparation, not Steam publication.
 
 No additional changes recorded.
 
+## [0.6.1] - 2026-09-25 - Draft
+
+### Changed
+
+- Replace borrowed stock graphics with twelve original PixelLab sprites for planting stock, nutrients, irrigation water, produce, cooked potatoes, crop residue, process solutions, treatment rejects and recovery cartridges.
+- Use matching world and portrait art with registered neutral normal maps and unchanged native item geometry. Commodity identities, quantities, prices, food actions and crop rules are unchanged.
+- Preserve original masters, generation prompts and reproducible native-size exports. Artwork has been inspected offline; in-game appearance remains pending owner evaluation.
+
 ## [0.6.0] - 2026-09-25 - Draft
 
 ### Added

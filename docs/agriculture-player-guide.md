@@ -2,6 +2,16 @@
 
 Current extension: [fluid-network operations](fluid-network-operations.md) documents Agriculture 0.6.0 / Framework 0.20.0 fan-out, line contents, treatment and optional Shipbreaker 0.17.0 coolant servicing. Earlier version-specific sections below retain their baseline scope.
 
+Agriculture **0.6.1** adds dedicated sprites for all twelve cultivation and treatment
+commodities: planting stock, nutrients, irrigation water, produce, cooked potatoes,
+crop residue, both process-solution identities, treatment rejects and cartridges.
+World images and item portraits use the same art; identities, mass and behavior
+are unchanged. The sprouted potato is planting stock; the unsprouted group is raw
+food. Green packets contain lettuce seeds and orange-banded packets nutrients.
+See the [item-art manifest](../assets/phobos-agriculture/stock-layers.json) and
+[artwork notes](../assets/phobos-agriculture/README.md). In-game appearance still
+needs owner evaluation. Lettuce harvests still do not produce replacement seed.
+
 First gameplay candidate, prepared on 25 September 2026. Requires **Phobos
 Framework 0.20.0**. The offline checks pass; the owner still needs to evaluate
 the complete loop in Ostranauts. Packages are prepared, not installed.

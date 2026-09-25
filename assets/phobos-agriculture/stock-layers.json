@@ -1,0 +1,88 @@
+{
+  "nativeSize": 16,
+  "masterSize": [
+    64,
+    64
+  ],
+  "projection": "orthographic overhead",
+  "pivot": [
+    8,
+    8
+  ],
+  "crop": "whole source canvas",
+  "normals": "neutral tangent normals with registered alpha",
+  "items": [
+    {
+      "key": "potato_seed",
+      "source": "stock-seed-potato.png",
+      "label": "Continuance seed potato",
+      "definition": "PhobosVerdemorrowContinuancePotato"
+    },
+    {
+      "key": "lettuce_seed",
+      "source": "stock-lettuce-seeds.png",
+      "label": "Continuance lettuce seeds",
+      "definition": "PhobosVerdemorrowContinuanceLettuce"
+    },
+    {
+      "key": "nutrients",
+      "source": "stock-nutrients.png",
+      "label": "Groundwork nutrients",
+      "definition": "PhobosVerdemorrowGroundworkNutrients"
+    },
+    {
+      "key": "irrigation",
+      "source": "stock-irrigation.png",
+      "label": "Groundwork irrigation water",
+      "definition": "PhobosVerdemorrowGroundworkIrrigation"
+    },
+    {
+      "key": "raw",
+      "source": "stock-raw-potatoes.png",
+      "label": "Raw potatoes",
+      "definition": "PhobosVerdemorrowRawPotatoes"
+    },
+    {
+      "key": "meal",
+      "source": "stock-cooked-potatoes.png",
+      "label": "Hearth cooked potatoes",
+      "definition": "PhobosVerdemorrowHearthPotatoes"
+    },
+    {
+      "key": "leaves",
+      "source": "stock-lettuce.png",
+      "label": "Harvested lettuce",
+      "definition": "PhobosVerdemorrowLettuce"
+    },
+    {
+      "key": "residue",
+      "source": "stock-crop-residue.png",
+      "label": "Crop residue",
+      "definition": "PhobosVerdemorrowCropResidue"
+    },
+    {
+      "key": "drainage",
+      "source": "stock-legacy-solution.png",
+      "label": "Legacy process solution",
+      "definition": "PhobosVerdemorrowProcessSolution"
+    },
+    {
+      "key": "characterized_drainage",
+      "source": "stock-recorded-solution.png",
+      "label": "Recoverable process solution",
+      "definition": "PhobosVerdemorrowCharacterizedProcessSolution"
+    },
+    {
+      "key": "recovery_reject",
+      "source": "stock-treatment-rejects.png",
+      "label": "Treatment rejects",
+      "definition": "PhobosVerdemorrowTreatmentRejects"
+    },
+    {
+      "key": "recovery_cartridge",
+      "source": "stock-treatment-cartridge.png",
+      "label": "Treatment cartridge",
+      "definition": "PhobosVerdemorrowGroundworkRecoveryCartridge"
+    }
+  ]
+}

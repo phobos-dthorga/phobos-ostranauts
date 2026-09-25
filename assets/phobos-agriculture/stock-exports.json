@@ -1,0 +1,266 @@
+[
+  {
+    "key": "potato_seed",
+    "source": "assets/phobos-agriculture/source/stock-seed-potato.png",
+    "sourceSHA256": "d20815cb2547e528f18577c497124982cb92e2de6866dff3e4fa6df81e5d9e36",
+    "canvas": [
+      64,
+      64
+    ],
+    "export": [
+      16,
+      16
+    ],
+    "sourceBounds": [
+      12,
+      11,
+      52,
+      50
+    ],
+    "sampling": "nearest; whole canvas; no independent crop",
+    "exportSHA256": "682460e0b231183014459a0942f3f4afc41db97ad6b0094e609d78e200f80391",
+    "normalSHA256": "0b2805e05a2824e1c58b584b859ecbf18405e8d32b036cc7c939ed5182984dfc"
+  },
+  {
+    "key": "lettuce_seed",
+    "source": "assets/phobos-agriculture/source/stock-lettuce-seeds.png",
+    "sourceSHA256": "32b11bc838585d621a53e421ac39fb6f9b62efd0546805d211e594724f13b335",
+    "canvas": [
+      64,
+      64
+    ],
+    "export": [
+      16,
+      16
+    ],
+    "sourceBounds": [
+      10,
+      8,
+      54,
+      56
+    ],
+    "sampling": "nearest; whole canvas; no independent crop",
+    "exportSHA256": "b16b64f15048a60368ce500bf53d125f73c3f37948b66d789e47eb93685f6095",
+    "normalSHA256": "10f81c22bf7634bcfca2f1abdc3748de46484e6b08297c114b1f99a279ac8cf0"
+  },
+  {
+    "key": "nutrients",
+    "source": "assets/phobos-agriculture/source/stock-nutrients.png",
+    "sourceSHA256": "1141ff07aa7252ef63c6218dd3a1729427ee2f5eaf01250c7602105a2a8f1255",
+    "canvas": [
+      64,
+      64
+    ],
+    "export": [
+      16,
+      16
+    ],
+    "sourceBounds": [
+      12,
+      7,
+      52,
+      57
+    ],
+    "sampling": "nearest; whole canvas; no independent crop",
+    "exportSHA256": "2e04364e94b26c3243a8e97b481ed59d416dd0dc1ef822d44ef4b4374687b43b",
+    "normalSHA256": "0fc018e953ff730f36637e6076024465d300a16e3878b789dd6564d8c76f55ae"
+  },
+  {
+    "key": "irrigation",
+    "source": "assets/phobos-agriculture/source/stock-irrigation.png",
+    "sourceSHA256": "d76f942bb3d74c03fd0a9083465572eced03b0f5eeb707485f3b1189aa9b9fcc",
+    "canvas": [
+      64,
+      64
+    ],
+    "export": [
+      16,
+      16
+    ],
+    "sourceBounds": [
+      12,
+      8,
+      52,
+      56
+    ],
+    "sampling": "nearest; whole canvas; no independent crop",
+    "exportSHA256": "da78993848ea98a34df32ef01e055c3b7820ebfd1a2cbea710e851cc3897f973",
+    "normalSHA256": "3e6ecf4604f8c26cbe0eba5a67d3c0d0b6f5cd39265cb66e2aef760c1e2bdc5f"
+  },
+  {
+    "key": "raw",
+    "source": "assets/phobos-agriculture/source/stock-raw-potatoes.png",
+    "sourceSHA256": "cf3febce496201537eb843615b1c1abdadab0fb68f87db254ec8256f313e5500",
+    "canvas": [
+      64,
+      64
+    ],
+    "export": [
+      16,
+      16
+    ],
+    "sourceBounds": [
+      8,
+      11,
+      56,
+      53
+    ],
+    "sampling": "nearest; whole canvas; no independent crop",
+    "exportSHA256": "87f2bcdd59f1a4dcb66f492811d1b22fcd0afa353a06bde9262e639c57aad6f5",
+    "normalSHA256": "6234e6bfe691706a89cdae72a8e469419c1626bdd699a3d253ec46b18ec9e1fc"
+  },
+  {
+    "key": "meal",
+    "source": "assets/phobos-agriculture/source/stock-cooked-potatoes.png",
+    "sourceSHA256": "51652f4131a9e31d37a238013056a9b0be7538be2b994edd7735e675a6636c42",
+    "canvas": [
+      64,
+      64
+    ],
+    "export": [
+      16,
+      16
+    ],
+    "sourceBounds": [
+      6,
+      8,
+      58,
+      56
+    ],
+    "sampling": "nearest; whole canvas; no independent crop",
+    "exportSHA256": "8551430c5df892d9362f53b7732309125996fcb6dd03be3b7704e0c4d472aae3",
+    "normalSHA256": "87ed54a8ec6c2c10ba45785f3d83fc1445eed854253ca3ce177a13449f229b85"
+  },
+  {
+    "key": "leaves",
+    "source": "assets/phobos-agriculture/source/stock-lettuce.png",
+    "sourceSHA256": "8514346215a1ae3b7d8d037448376b5893de8bed27f28fe7aba580d9f76c07c9",
+    "canvas": [
+      64,
+      64
+    ],
+    "export": [
+      16,
+      16
+    ],
+    "sourceBounds": [
+      6,
+      7,
+      58,
+      57
+    ],
+    "sampling": "nearest; whole canvas; no independent crop",
+    "exportSHA256": "be0984f0f77acd9f127bf44ca855484d177515b70af22534de29bb66ebbf86c2",
+    "normalSHA256": "1e2553dba04eabfba8c2fcd70b57a60cfcba424585e9d222d43e71f459bd2d20"
+  },
+  {
+    "key": "residue",
+    "source": "assets/phobos-agriculture/source/stock-crop-residue.png",
+    "sourceSHA256": "c32a5eaca28c4082bd41986eda2b3934e234ab6eb711877df11d575e5f1d4965",
+    "canvas": [
+      64,
+      64
+    ],
+    "export": [
+      16,
+      16
+    ],
+    "sourceBounds": [
+      1,
+      9,
+      63,
+      55
+    ],
+    "sampling": "nearest; whole canvas; no independent crop",
+    "exportSHA256": "47682c3a2ca2cfc99068c03be9a194af8b5efc764c224c767abf43f61f410ef3",
+    "normalSHA256": "f2af189372d8dbb799839ceeb1b60fa3ba2c9604c75db718a0a7bdbda107085c"
+  },
+  {
+    "key": "drainage",
+    "source": "assets/phobos-agriculture/source/stock-legacy-solution.png",
+    "sourceSHA256": "a14f73c61b617f05bc21a17f6d3fa0532e4309c9cb80947f0642087d9f763623",
+    "canvas": [
+      64,
+      64
+    ],
+    "export": [
+      16,
+      16
+    ],
+    "sourceBounds": [
+      8,
+      6,
+      54,
+      55
+    ],
+    "sampling": "nearest; whole canvas; no independent crop",
+    "exportSHA256": "541a9be14f4aac8e300c847f5c40b6f6d4000b619bf9d28b6361ddb3b75fb536",
+    "normalSHA256": "4781e5a197ceaa377c431c763d06d9315d33ebd4abe84478512cb71f24330154"
+  },
+  {
+    "key": "characterized_drainage",
+    "source": "assets/phobos-agriculture/source/stock-recorded-solution.png",
+    "sourceSHA256": "00522f7f8dbd69f8f1edd42f3220458cfee6960a70007c388cbfbd9f53c2fb8f",
+    "canvas": [
+      64,
+      64
+    ],
+    "export": [
+      16,
+      16
+    ],
+    "sourceBounds": [
+      10,
+      10,
+      54,
+      54
+    ],
+    "sampling": "nearest; whole canvas; no independent crop",
+    "exportSHA256": "3e6d702a4ba69c1218687ff89027c574f2bef5204d1559571bbecd7fd8d7af10",
+    "normalSHA256": "a9bee27a103e7394d4897e5490a0583e8d3c336c6c04c385c246d4ba60808eb0"
+  },
+  {
+    "key": "recovery_reject",
+    "source": "assets/phobos-agriculture/source/stock-treatment-rejects.png",
+    "sourceSHA256": "667cebc80a5e4a8a314119958b0af1c066288bab07bea8be84330cc48dbd1ebf",
+    "canvas": [
+      64,
+      64
+    ],
+    "export": [
+      16,
+      16
+    ],
+    "sourceBounds": [
+      9,
+      17,
+      55,
+      50
+    ],
+    "sampling": "nearest; whole canvas; no independent crop",
+    "exportSHA256": "70bc73a20f68a9c483195427d1f71f2a8f0447079130e251e685c1f47e7f7d84",
+    "normalSHA256": "bfb775a5734b88d87121dc06a3bf9c3bd9afeeff6040d6924f084191511b7118"
+  },
+  {
+    "key": "recovery_cartridge",
+    "source": "assets/phobos-agriculture/source/stock-treatment-cartridge.png",
+    "sourceSHA256": "c71ae67e5ae9e5ab5e64a267c9633037edaf65527c55aaf4c0c3fa2535917cb1",
+    "canvas": [
+      64,
+      64
+    ],
+    "export": [
+      16,
+      16
+    ],
+    "sourceBounds": [
+      25,
+      9,
+      39,
+      58
+    ],
+    "sampling": "nearest; whole canvas; no independent crop",
+    "exportSHA256": "1797cfa1529bf992ec659ed14da1fe2bb7abb6bce466e28d0768cdb5938c868f",
+    "normalSHA256": "e8e289c73241d11163dd1104a50f330ce7b6b2a13ffc914aa4f47acb5ffcd276"
+  }
+]

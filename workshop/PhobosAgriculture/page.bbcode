@@ -1,5 +1,5 @@
 [h1]Phobos Agriculture[/h1]
-[b]Version:[/b] 0.6.0
+[b]Version:[/b] 0.6.1
 [b]Publication status:[/b] Not published - development candidate
 
 Grow potatoes and lettuce and cook portions aboard your ship using Phobos' Verdemorrow Firstlight-4 Cultivation Racks and Hearth-2 Galley Cookers.
@@ -7,6 +7,7 @@ Grow potatoes and lettuce and cook portions aboard your ship using Phobos' Verde
 [h2]Current features[/h2]
 [list]
 [*]Visible crop stages track the saved crop cohort in the four-tray rack.
+[*]Twelve distinct original item sprites identify planting stock, supplies, food and retained waste.
 [*]Crew load finite supplies, plant, harvest and maintain equipment; automatic controls support the growing environment.
 [*]Use finite manual water and nutrients, or an optional Groundwork W2 supply unit and placed irrigation conduits.
 [*]Mix crop-specific nutrient solution in the W2 and deliver water and nutrients through the same supported circuit.
@@ -18,13 +19,13 @@ Grow potatoes and lettuce and cook portions aboard your ship using Phobos' Verde
 [*]The prepared package includes the native data directory required for the game to recognize Agriculture.
 [*]Experimental candidate; the complete growing/cooking loop still needs in-game evaluation.
 [*]Four trays represent one crop cohort, not four independent crops or four times the yield.
-[*]One W2 serves one rack per connected circuit. Receiving and pumping require explicit controls and pause after reload.
+[*]One W2 can explicitly serve up to eight paired racks. Receiving and pumping require explicit controls and pause after reload.
 [*]Short growth cycles, crop budgets, nutrient mixtures and simplified chemistry are authored gameplay choices, not research results.
-[*]No perfect nutrient recycling or unlimited water. Drained solution remains retained waste.
+[*]Recorded drainage supports finite cartridge-powered treatment with retained rejects; legacy process solution remains waste. There is no perfect nutrient recycling or unlimited water.
 [/list]
 
 [h2]Requirements and installation[/h2]
-Ostranauts 1.0.1.5, BepInEx 5 and Phobos Framework 0.19.0 or newer. Shipbreaker C1 access is optional. The Ship's Water adapter is scoped to inspected version 0.16.1; manual supply remains available.
+Ostranauts 1.0.1.5, BepInEx 5 and Phobos Framework 0.20.0 or newer. Shipbreaker C1 access is optional. The Ship's Water adapter is scoped to inspected version 0.16.1; manual supply remains available.
 
 This is a maintained pre-publication page draft, not a download announcement. No Workshop item has been published for this draft. Use the installation guide for source/prepared-package availability and loader setup. Do not remove required providers from saves that contain their content.
 
