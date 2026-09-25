@@ -11,8 +11,10 @@ internal static class Definitions
 {
     internal const string Rack = "PhobosVerdemorrowFirstlight4", Cooker = "PhobosVerdemorrowHearth2", Controls = "PhobosAgricultureControls";
     internal const string PotatoSeed = "PhobosVerdemorrowContinuancePotato", LettuceSeed = "PhobosVerdemorrowContinuanceLettuce", Nutrient = "PhobosVerdemorrowGroundworkNutrients", Raw = "PhobosVerdemorrowRawPotatoes", Meal = "PhobosVerdemorrowHearthPotatoes", Leaves = "PhobosVerdemorrowLettuce", Residue = "PhobosVerdemorrowCropResidue", Drainage = "PhobosVerdemorrowProcessSolution";
+    internal const string Irrigation = "PhobosVerdemorrowGroundworkIrrigation";
+    internal const double IrrigationKg = 5, IrrigationPrice = 50;
     internal static bool Ready;
-    internal static readonly string[] Work = { "plant-potato", "plant-lettuce", "load-water", "load-nutrients", "harvest", "clear", "drain" };
+    internal static readonly string[] Work = { "plant-potato", "plant-lettuce", "load-water", "load-irrigation", "load-nutrients", "harvest", "clear", "drain" };
     internal static string WorkId(string action) => "PhobosAgricultureWork_" + action.Replace('-', '_');
     private static readonly System.Collections.Generic.HashSet<string> Machines = new(new[] { Rack, Cooker }.SelectMany(prefix => new[] { "Installed", "Loose", "InstalledDmg", "LooseDmg" }.Select(form => prefix + form)), StringComparer.Ordinal);
     internal static bool Machine(CondOwner? co) => co != null && Machines.Contains(co.strCODef);
@@ -37,8 +39,8 @@ internal static class Definitions
             work.fDuration = action == "harvest" ? .5 : action.StartsWith("load-", StringComparison.Ordinal) ? 10d / 3600 : .25; work.strAnim = "Tablet"; work.strActionGroup = "Work";
             d.Interactions[work.strName] = work;
         }
-        ApplianceDefinitions.Add(d, Rack, Text.Get("rack"), Text.Get("rack_desc"), 4, 80, 9000, "phobos/agriculture/Rack", Controls, .02);
-        ApplianceDefinitions.Add(d, Cooker, Text.Get("cooker"), Text.Get("cooker_desc"), 2, 12, 2400, "phobos/agriculture/Cooker", Controls, .02);
+        ApplianceDefinitions.Add(d, Rack, Text.Get("rack"), Text.Get("rack_desc"), 4, 80, EquipmentEconomy.RackPrice, "phobos/agriculture/Rack", Controls, .02);
+        ApplianceDefinitions.Add(d, Cooker, Text.Get("cooker"), Text.Get("cooker_desc"), 2, 12, EquipmentEconomy.CookerPrice, "phobos/agriculture/Cooker", Controls, .02);
         // The ordinary solid-inventory trigger rejects native liquid rations. The
         // rack's contained supply cassette explicitly accepts water as well.
         d.Triggers[Rack + "Supplies"] = new CondTrigger { strName = Rack + "Supplies", fChance = 1, fCount = 1, bAND = false,
@@ -46,23 +48,32 @@ internal static class Definitions
         foreach (var co in d.Objects.Values.Where(c => c.strName.StartsWith(Rack, StringComparison.Ordinal))) co.strContainerCT = Rack + "Supplies";
         foreach (var co in d.Objects.Values.Where(c => c.strName.StartsWith(Rack) && c.strName.EndsWith("Installed"))) co.aInteractions = co.aInteractions.Concat(Work.Select(WorkId)).ToArray();
         foreach (var co in d.Objects.Values.Where(c => c.strName.EndsWith("Dmg"))) co.strNameFriendly = co.strNameShort = Text.Get("damaged", co.strNameFriendly);
-        Stock(d, PotatoSeed, .2, 40, "potato_seed", false); Stock(d, LettuceSeed, .005, 25, "lettuce_seed", false);
+        Stock(d, PotatoSeed, .2, 40, "potato_seed", false); Stock(d, LettuceSeed, .005, EquipmentEconomy.LettuceSeedPrice, "lettuce_seed", false);
         Stock(d, Nutrient, .04, 60, "nutrients", false); Stock(d, Raw, .4, 12, "raw", false);
         Stock(d, Meal, .4, 35, "meal", true); Stock(d, Leaves, .25, 8, "leaves", true); Stock(d, Residue, .5, .01, "residue", false);
         Stock(d, Drainage, .25, .01, "drainage", false);
         foreach (string food in new[] { Meal, Leaves })
             d.Loot[food + "Effects"] = new Loot { strName = food + "Effects", strType = "trigger", aCOs = new[] { "TDnFood=1x" + (food == Meal ? 5 : 1), "TUpSatiety=1x" + (food == Meal ? 3 : 1), "TDnTeethBrushed=1x1" }, aLoots = Array.Empty<string>() };
-        foreach (string prefix in new[] { Rack, Cooker })
-        foreach (string state in new[] { "Installed", "Loose", "InstalledDmg", "LooseDmg" })
-        {
-            // Salvage returns the full dry housing as identified service waste; no resale gain.
-            string scrap = prefix + "HousingWaste";
-            if (!d.Objects.ContainsKey(scrap)) MaintenanceDefinitions.Remainder(d, scrap, Text.Get("housing_waste"), prefix == Rack ? 80 : 12);
-            MaintenanceDefinitions.Dismantle(d, prefix + state, 800, new[] { scrap });
-        }
+        Stock(d, Irrigation, IrrigationKg, IrrigationPrice, "irrigation", false);
+        foreach (string id in new[] { PotatoSeed, LettuceSeed, Nutrient, Irrigation })
+            d.Objects[id].aStartingConds = d.Objects[id].aStartingConds.Concat(new[] { "IsCategoryIndustrialProducts=1x1" }).ToArray();
+        d.Objects[Raw].aStartingConds = d.Objects[Raw].aStartingConds.Concat(new[] { "IsCategoryFood=1x1" }).ToArray();
+        foreach (string id in new[] { Residue, Drainage })
+            d.Objects[id].aStartingConds = d.Objects[id].aStartingConds.Concat(new[] { "IsCategoryTrash=1x1" }).ToArray();
+        EquipmentEconomy.Apply(d);
         foreach (string merchant in new[] { "ItmOKLGSupplyKioskInv", "ItmOKLGFixer", "ItmTraderSanDiegoHalvorsonInv" })
-        foreach (string item in new[] { Rack + "Loose", Cooker + "Loose", PotatoSeed, LettuceSeed, Nutrient })
-            MarketStock.Add(d, merchant, "PhobosAgricultureStock_" + merchant + "_" + item, item, item == Nutrient ? 1 : .65, StockCondition.Pristine);
+        foreach (string item in new[] { Rack + "Loose", Cooker + "Loose", PotatoSeed, LettuceSeed, Nutrient, Irrigation })
+            MarketStock.Add(d, merchant, "PhobosAgricultureStock_" + merchant + "_" + item, item, item == Nutrient || item == Irrigation ? 1 : .65, StockCondition.Pristine);
+        foreach (string prefix in new[] { Rack, Cooker })
+        {
+            MarketStock.Add(d, "ItmOKLGFixer", prefix + "UsedOffer", prefix + "Loose", .3, StockCondition.Worn);
+            MarketStock.Add(d, "ItmVORBScrapKioskInv", prefix + "RefurbishedOffer", prefix + "Loose", .2, StockCondition.Refurbished);
+            MarketStock.Add(d, "ItmVORBScrapKioskInv", prefix + "BrokenOffer", prefix + "LooseDmg", .25, StockCondition.Broken);
+        }
+        // Small refrigerated planting supplies fit this native container pool;
+        // the same pool can also appear outside derelicts. Never insert a rack into a fridge.
+        AdditiveLoot.SetItemChoice(d, "ItmFridge01Contents", "PhobosAgricultureStoredSeeds", new System.Collections.Generic.Dictionary<string, double>
+            { [PotatoSeed] = .02, [LettuceSeed] = .02 });
         return d;
     }
     private static void Stock(NativeDefinitions d, string id, double kg, double price, string key, bool food)

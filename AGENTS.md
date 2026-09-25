@@ -2,6 +2,26 @@
 
 ## Localization and constants
 
+- Owner direction (2026-09-25): `scripts/update-constants.py` is the standard
+  maintenance route for versioning and frequently updated, appropriate constants
+  across all Phobos Ostranauts mods. Use `config/maintained-constants.json` to
+  register their authoritative copies and current summaries; do not maintain
+  registered copies independently or repeat ad hoc search-and-replace edits.
+- Preview with `--set Key=value`, apply with `--apply`, and verify with
+  `--check --format json`. Use `--list` to discover supported fields and
+  `--format json` for machine-readable reports. Follow `docs/updating-constants.md`,
+  review the diff and reported follow-up items, and run affected builds/checks.
+  Updating source values does not rebuild, install or publish packages.
+- Maintain and extend the updater itself as needs arise. When a new recurring
+  field or target format is appropriate, update the catalogue and, where needed,
+  the script, validation, recovery tests and usage documentation together instead
+  of working around the tool. Run `tests/test_update_constants.py` through unittest
+  discovery and the catalogue consistency check after changing this mechanism.
+- Keep this maintenance tooling proportional to actual needs. Preserve saved IDs,
+  historic recipe contracts, compatibility thresholds and historical reports.
+  Do not register migrations, interdependent material budgets or safety rules as
+  routine tuning knobs; those still require their own design and validation.
+
 - Keep player-facing text in per-mod UTF-8 translation catalogs, with embedded
   English fallbacks and Framework's shared lookup. See `docs/localization.md`.
 - Use stable translation keys and complete messages with placeholders. Never
@@ -70,6 +90,15 @@
   repair or extend citations whenever related existing research is revised.
 
 ## Agriculture direction (2026-09-25)
+
+- Owner follow-up: research shared fluid pipes for plant sustenance (water and
+  nutrients), taking after vanilla conduits in part. This is distinct from
+  Agriculture cooling. Follow `docs/fluid-conduits-and-irrigation-research.md`:
+  reusable transport belongs in Framework, equipment/biology in content mods;
+  native conduit placement and sprite patterns are candidates for reuse, while
+  fluid accounting stays separate from electricity. Water-first/local nutrient
+  dosing is a research recommendation, not an owner decision to exclude nutrient
+  pipes. This request authorizes research, not a delivered pipe implementation.
 
 - Agriculture has a separate fictional manufacturer: **Verdemorrow Agronomics**,
   evoking verdant growth and humanity's tomorrow in space. Use Verdemorrow on

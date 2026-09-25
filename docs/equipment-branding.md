@@ -126,3 +126,5 @@ Build checks cover localized naming, variant placeholders, legacy override
 fallback, naming metadata errors, native/recipe fallback agreement and existing
 gameplay/persistence rules. In-game text fit and renamed existing objects remain
 for owner verification. Prepared packages are not an installation claim.
+
+Agriculture 0.3.0 adds **Phobos' Verdemorrow Groundwork Irrigation Charge (5 kg)** to the Groundwork supply family; it is finite crop water, not a drinking-water product.

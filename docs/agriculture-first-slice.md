@@ -1,6 +1,6 @@
 # Phobos Agriculture: first-slice specification
 
-**25 September 2026 — design baseline.** Agriculture 0.2.0 now implements a
+**25 September 2026 — design baseline.** Agriculture 0.3.0 now implements a
 first candidate; see [implementation differences](agriculture-implementation.md)
 and the [current player guide](agriculture-player-guide.md). This document specifies
 the crop-first direction selected by the owner. Read the

@@ -42,5 +42,9 @@
   "housing_waste": {
     "brand": "Verdemorrow",
     "model": ""
+  },
+  "irrigation": {
+    "brand": "Verdemorrow",
+    "model": "Groundwork"
   }
 }

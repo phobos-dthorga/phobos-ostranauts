@@ -43,6 +43,9 @@ directly without interacting with your mouse or opening a launcher window.
 ./scripts/install-mods.ps1 -Mods AutoNav
 ./scripts/install-mods.ps1 -Mods Shipbreaker
 
+# Update Shipbreaker while retaining the existing compatible Framework files.
+./scripts/install-mods.ps1 -Mods Shipbreaker -KeepInstalledFramework
+
 # Agriculture is opt-in and automatically includes Framework.
 ./scripts/install-mods.ps1 -Mods Agriculture
 
@@ -63,6 +66,10 @@ directly without interacting with your mouse or opening a launcher window.
 ```
 
 The old pulse-only Approach Assist prototype is **not included by default**.
+`-KeepInstalledFramework` validates the installed Framework version, assembly,
+recorder, required files and enabled load-order entry, then retains its files.
+It does not compare that dependency with the newly prepared Framework build.
+The ordinary default still updates the dependency from its prepared package.
 The four selected suite covers are native `preview.png` files; their
 [artwork and integration notes](../assets/workshop/README.md) explain the shared
 mod-menu/Workshop path. `-PreviewsOnly` changes only covers, retains installed

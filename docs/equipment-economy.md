@@ -15,6 +15,12 @@ regenerated from the current definitions below.
 
 ## F6 electrical casting candidate (25 September 2026)
 
+Agriculture 0.3.0 implements its separate economic pass: see the
+[current service and supply guide](agriculture-player-guide.md#economy-and-maintenance-030),
+[economic review](agriculture-economy-review.md) and
+[generated evidence](agriculture-economy-evidence.md). Its prices, repairs, salvage
+and finite irrigation supplies are authored balance awaiting owner gameplay checks.
+
 Shipbreaker 0.12.0 adds the 240 kg F6 furnace ($24,000 functional / $6,000
 broken), 100 kg F6-R radiator ($7,200 / $1,800), and 80 kg F6-S construction
 sections ($6,500). Native maintenance and merchant routes reuse the existing
@@ -25,6 +31,39 @@ The [F6 guide](furnace-player-guide.md) describes the mass-balanced casting and
 optional D4/R4 section recipes. Existing recipes and historic residue retain their
 meaning. New furnace/radiator/section dismantling is included in the generated
 value audit, including broken condition and native wear/merchant multipliers.
+
+## Shipbreaker 0.15.0 availability and casting recovery
+
+F6-S sections now receive the same industrial/high-value trade categories as D4-S
+and R4-S. Old explicitly saved F6-S sections gain only those missing categories;
+IDs, cargo references, mass and dismantling progress remain intact. K-Leg supplies
+have a 15% offer chance and San Diego Halvorson 30%, each for one section per native
+stock roll. Existing shops update through ordinary native restocking; no inventories
+are repopulated on loading.
+
+The native `ItmLootSpawnEngineering` table now adds one mutually exclusive section
+choice: D4-S 1%, R4-S 1%, F6-S 1% (3% total per eligible engineering roll). This is
+not a per-ship discovery chance. Native engineering loot remains intact, and repeat
+registration adds no duplicate branch. Native ship layouts including `02Indy.json`,
+`Babak.json` and `Bulk Lifter.json` use this route. Their loot placement and available
+space still determine whether an item appears; no whole working furnace is spawned.
+These observations come from Blue Bottle Games' installed Ostranauts 1.0.1.5
+`data/loot/loot.json` and ship definitions; see the
+[developer's game page](https://bluebottlegames.com/games/ostranauts). The chances
+are Phobos balance choices, not developer recommendations. Extracted data stays local.
+
+Two explicit table recipes cut an unused released 19 kg housing blank into 19
+one-kg aluminium scraps, or an 18 kg finished housing into 18 scraps. Each takes
+600 seconds of configured work with Mortorq and welding tools. All cutting material
+is retained: no extra slag or disappearing mass. Base recovery values are $20.90
+and $19.80, below the respective $55 and $60 whole-item values. Exact casting
+identities are required; melt remainder and historic residue cannot be recycled
+through these recipes. Existing finishing and D4/R4 recipes keep their IDs and bills.
+
+Machine purchase prices, repair bills, salvage yields and construction bills are
+unchanged. Future Manufacturing outputs/prices remain provisional until its own
+machining process is established. Runtime merchant placement, observed work duration
+and owner gameplay evaluation remain pending.
 
 ## Dismantling value audit (owner clarification, 2026-09-24)
 
@@ -198,20 +237,38 @@ thresholds, in that order, are processor 1500/1000/3600/1000, grabber
 1000/800/2400/650, chute 500/500/1500/300, collector 600/500/1800/350.
 Auto Nav repair is 900 and dismantle 100; section dismantle is 400.
 
-**Restore** is native wear maintenance on functional equipment, with tools and
-no replacement-material bill. It subtracts 0.00625 damage per unmodified tick
-in place. Restoring our lightly worn stock takes roughly **28.8 min** per large
-machine and **5.76 min** per Auto Nav at unit multipliers. Full wear bars are 20
-and 4 respectively. It does not reset cargo, routing or panel-processing progress.
-Repairing a broken object uses native replacement mode switching, preserving its
-identity and applicable saved state. Repair/Restore/Dismantle use Mortorq and
-soldering tools; installation/removal use Mortorq.
+**Restore** is native wear maintenance on functional equipment, using tools with
+no replacement-material bill. Shipbreaker **0.15.0** gives each equipment family
+its own wear-removal rate, while retaining native durability, tool/skill modifiers,
+current wear, action IDs and saved work. The native global Restore effect and
+Auto Nav remain unchanged. These are authored labour choices, not measured playtimes.
 
-Native Repair deliberately leaves the now-functional replacement at approximately
-90% wear. Follow with Restore for a well-maintained item; at unit multipliers that
-can add roughly 173 minutes for machinery or 35 minutes for Auto Nav. A shop's
-refurbished offer represents that additional restoration already performed. We
-retain this native distinction instead of making Repair a shortcut to full health.
+| Equipment | Full wear-bar Restore equivalent | Restore after native Repair (90% wear) | Repair + Restore |
+|---|---:|---:|---:|
+| F6 furnace | 80 min | 72 min | 129.6 min |
+| F6-R radiator / F6-P underside assembly | 20 min | 18 min | 54 min |
+| C1 industrial console | 30 min | 27 min | 55.8 min |
+| D4 processor | 60 min | 54 min | 97.2 min |
+| G4 grabber | 30 min | 27 min | 55.8 min |
+| H4 chute | 10 min | 9 min | 27 min |
+| R4 reclaimer | 75 min | 67.5 min | 117.9 min |
+| C2 collector | 15 min | 13.5 min | 35.1 min |
+
+Figures use unit multipliers and exclude fetching, interruptions and tick rounding.
+A full wear bar is a rate comparison, not a functional item at destruction threshold.
+Lightly worn merchant stock needs 15% of the full-bar time. Cooling assembly
+repair plus Restore previously took about 208.8 minutes versus 60 minutes to build;
+it now takes 54 minutes. Repair bills, spent-material returns and durability stay
+unchanged. Restore does not grant pristine status or reset cargo, routing, heat or
+processing progress. An already queued Restore keeps its accumulated wear reduction;
+subsequent work uses the current equipment rate.
+
+Repairing a broken object still uses native replacement mode switching, preserving
+its identity and applicable state, and leaves approximately 90% wear. Auto Nav
+retains its native 0.00625 damage reduction per unmodified tick: roughly 5.76 minutes
+for lightly worn stock and 34.56 minutes after Repair. Repair/Restore/Dismantle use
+Mortorq and soldering tools; installation/removal use Mortorq. F6 construction and
+casting recovery use Mortorq and welding tools.
 
 The existing Shipbreaker construction bills remain unchanged:
 

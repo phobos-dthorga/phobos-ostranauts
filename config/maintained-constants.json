@@ -1,0 +1,425 @@
+{
+  "schemaVersion": 1,
+  "constants": {
+    "Framework.version": {
+      "type": "version",
+      "parts": 3,
+      "value": "0.17.0",
+      "description": "PhobosFramework published source/package version.",
+      "targets": [
+        {
+          "path": "src/PhobosFramework/Plugin.cs",
+          "pattern": "\\bVersion\\s*=\\s*\"(?P<value>[0-9.]+)\"",
+          "count": 1
+        },
+        {
+          "path": "src/PhobosFramework/PhobosFramework.csproj",
+          "pattern": "<Version>(?P<value>[0-9.]+)</Version>",
+          "count": 1
+        },
+        {
+          "path": "mods/PhobosFramework/mod_info.json",
+          "pattern": "\"strModVersion\"\\s*:\\s*\"(?P<value>[0-9.]+)\"",
+          "count": 1
+        },
+        {
+          "path": "README.md",
+          "pattern": "\\|\\ \\*\\*Phobos\\ Framework\\*\\*\\ \\|\\ (?P<value>[0-9.]+) \\|",
+          "count": 1
+        },
+        {
+          "path": "docs/player-guide.md",
+          "pattern": "\\*\\*Prepared versions:\\*\\* Phobos Framework \\*\\*(?P<value>[0-9.]+)\\*\\*",
+          "count": 1
+        }
+      ],
+      "review": [
+        "Run scripts/build-framework.ps1 with your game path.",
+        "Review release notes and version-specific prose; historical compatibility gates are intentionally unchanged."
+      ]
+    },
+    "Framework.gameVersion": {
+      "type": "version",
+      "parts": 4,
+      "value": "1.0.1.5",
+      "description": "PhobosFramework native metadata game target (not a compatibility certification).",
+      "targets": [
+        {
+          "path": "mods/PhobosFramework/mod_info.json",
+          "pattern": "\"strGameVersion\"\\s*:\\s*\"(?P<value>[0-9.]+)\"",
+          "count": 1
+        }
+      ],
+      "review": [
+        "Build against the selected game; record gameplay evidence separately. Update current game-baseline prose only after all affected mods are checked."
+      ]
+    },
+    "Shipbreaker.version": {
+      "type": "version",
+      "parts": 3,
+      "value": "0.15.0",
+      "description": "PhobosShipbreaker published source/package version.",
+      "targets": [
+        {
+          "path": "src/PhobosShipbreaker/Plugin.cs",
+          "pattern": "\\bVersion\\s*=\\s*\"(?P<value>[0-9.]+)\"",
+          "count": 1
+        },
+        {
+          "path": "src/PhobosShipbreaker/PhobosShipbreaker.csproj",
+          "pattern": "<Version>(?P<value>[0-9.]+)</Version>",
+          "count": 1
+        },
+        {
+          "path": "mods/PhobosShipbreaker/mod_info.json",
+          "pattern": "\"strModVersion\"\\s*:\\s*\"(?P<value>[0-9.]+)\"",
+          "count": 1
+        },
+        {
+          "path": "README.md",
+          "pattern": "\\|\\ \\*\\*Phobos\\ Shipbreaker\\*\\*\\ \\|\\ (?P<value>[0-9.]+) \\|",
+          "count": 1
+        },
+        {
+          "path": "docs/player-guide.md",
+          "pattern": "\\*\\*Prepared versions:\\*\\* Phobos Framework \\*\\*[0-9.]+\\*\\*, Shipbreaker \\*\\*(?P<value>[0-9.]+)\\*\\*",
+          "count": 1
+        },
+        {
+          "path": "docs/industrial-console-player-guide.md",
+          "pattern": "Current packages: Shipbreaker \\*\\*(?P<value>[0-9.]+)\\*\\*",
+          "count": 1
+        },
+        {
+          "path": "docs/player-guide.md",
+          "pattern": "The current Shipbreaker (?P<value>[0-9.]+) requires Framework",
+          "count": 1
+        }
+      ],
+      "review": [
+        "Run scripts/build-shipbreaker.ps1 with your game path.",
+        "Review release notes and version-specific prose; historical compatibility gates are intentionally unchanged."
+      ]
+    },
+    "Shipbreaker.gameVersion": {
+      "type": "version",
+      "parts": 4,
+      "value": "1.0.1.5",
+      "description": "PhobosShipbreaker native metadata game target (not a compatibility certification).",
+      "targets": [
+        {
+          "path": "mods/PhobosShipbreaker/mod_info.json",
+          "pattern": "\"strGameVersion\"\\s*:\\s*\"(?P<value>[0-9.]+)\"",
+          "count": 1
+        }
+      ],
+      "review": [
+        "Build against the selected game; record gameplay evidence separately. Update current game-baseline prose only after all affected mods are checked."
+      ]
+    },
+    "AutoNav.version": {
+      "type": "version",
+      "parts": 3,
+      "value": "0.10.1",
+      "description": "PhobosAutoNav published source/package version.",
+      "targets": [
+        {
+          "path": "src/PhobosAutoNav/Plugin.cs",
+          "pattern": "\\bVersion\\s*=\\s*\"(?P<value>[0-9.]+)\"",
+          "count": 1
+        },
+        {
+          "path": "src/PhobosAutoNav/PhobosAutoNav.csproj",
+          "pattern": "<Version>(?P<value>[0-9.]+)</Version>",
+          "count": 1
+        },
+        {
+          "path": "mods/PhobosAutoNav/mod_info.json",
+          "pattern": "\"strModVersion\"\\s*:\\s*\"(?P<value>[0-9.]+)\"",
+          "count": 1
+        },
+        {
+          "path": "README.md",
+          "pattern": "\\|\\ \\*\\*Phobos\\ Auto\\ Nav\\*\\*\\ \\|\\ (?P<value>[0-9.]+) \\|",
+          "count": 1
+        },
+        {
+          "path": "docs/player-guide.md",
+          "pattern": "Shipbreaker \\*\\*[0-9.]+\\*\\*, Auto Nav\\s+\\*\\*(?P<value>[0-9.]+)\\*\\*",
+          "count": 1
+        }
+      ],
+      "review": [
+        "Run scripts/build-autonav.ps1 with your game path.",
+        "Review release notes and version-specific prose; historical compatibility gates are intentionally unchanged."
+      ]
+    },
+    "AutoNav.gameVersion": {
+      "type": "version",
+      "parts": 4,
+      "value": "1.0.1.5",
+      "description": "PhobosAutoNav native metadata game target (not a compatibility certification).",
+      "targets": [
+        {
+          "path": "mods/PhobosAutoNav/mod_info.json",
+          "pattern": "\"strGameVersion\"\\s*:\\s*\"(?P<value>[0-9.]+)\"",
+          "count": 1
+        }
+      ],
+      "review": [
+        "Build against the selected game; record gameplay evidence separately. Update current game-baseline prose only after all affected mods are checked."
+      ]
+    },
+    "Agriculture.version": {
+      "type": "version",
+      "parts": 3,
+      "value": "0.3.0",
+      "description": "PhobosAgriculture published source/package version.",
+      "targets": [
+        {
+          "path": "src/PhobosAgriculture/Plugin.cs",
+          "pattern": "\\bVersion\\s*=\\s*\"(?P<value>[0-9.]+)\"",
+          "count": 1
+        },
+        {
+          "path": "src/PhobosAgriculture/PhobosAgriculture.csproj",
+          "pattern": "<Version>(?P<value>[0-9.]+)</Version>",
+          "count": 1
+        },
+        {
+          "path": "mods/PhobosAgriculture/mod_info.json",
+          "pattern": "\"strModVersion\"\\s*:\\s*\"(?P<value>[0-9.]+)\"",
+          "count": 1
+        },
+        {
+          "path": "README.md",
+          "pattern": "\\|\\ \\*\\*Phobos\\ Agriculture\\*\\*\\ \\|\\ (?P<value>[0-9.]+) \\|",
+          "count": 1
+        }
+      ],
+      "review": [
+        "Run scripts/build-agriculture.ps1 with your game path.",
+        "Review release notes and version-specific prose; historical compatibility gates are intentionally unchanged."
+      ]
+    },
+    "Agriculture.gameVersion": {
+      "type": "version",
+      "parts": 4,
+      "value": "1.0.1.5",
+      "description": "PhobosAgriculture native metadata game target (not a compatibility certification).",
+      "targets": [
+        {
+          "path": "mods/PhobosAgriculture/mod_info.json",
+          "pattern": "\"strGameVersion\"\\s*:\\s*\"(?P<value>[0-9.]+)\"",
+          "count": 1
+        }
+      ],
+      "review": [
+        "Build against the selected game; record gameplay evidence separately. Update current game-baseline prose only after all affected mods are checked."
+      ]
+    },
+    "Manufacturing.version": {
+      "type": "version",
+      "parts": 3,
+      "value": "0.0.1",
+      "description": "PhobosManufacturing published source/package version.",
+      "targets": [
+        {
+          "path": "src/PhobosManufacturing/Plugin.cs",
+          "pattern": "\\bVersion\\s*=\\s*\"(?P<value>[0-9.]+)\"",
+          "count": 1
+        },
+        {
+          "path": "src/PhobosManufacturing/PhobosManufacturing.csproj",
+          "pattern": "<Version>(?P<value>[0-9.]+)</Version>",
+          "count": 1
+        },
+        {
+          "path": "mods/PhobosManufacturing/mod_info.json",
+          "pattern": "\"strModVersion\"\\s*:\\s*\"(?P<value>[0-9.]+)\"",
+          "count": 1
+        },
+        {
+          "path": "README.md",
+          "pattern": "\\|\\ \\*\\*Phobos\\ Manufacturing\\*\\*\\ \\|\\ (?P<value>[0-9.]+) \\|",
+          "count": 1
+        }
+      ],
+      "review": [
+        "Run scripts/build-manufacturing.ps1 with your game path.",
+        "Review release notes and version-specific prose; historical compatibility gates are intentionally unchanged."
+      ]
+    },
+    "Manufacturing.gameVersion": {
+      "type": "version",
+      "parts": 4,
+      "value": "1.0.1.5",
+      "description": "PhobosManufacturing native metadata game target (not a compatibility certification).",
+      "targets": [
+        {
+          "path": "mods/PhobosManufacturing/mod_info.json",
+          "pattern": "\"strGameVersion\"\\s*:\\s*\"(?P<value>[0-9.]+)\"",
+          "count": 1
+        }
+      ],
+      "review": [
+        "Build against the selected game; record gameplay evidence separately. Update current game-baseline prose only after all affected mods are checked."
+      ]
+    },
+    "ApproachAssist.version": {
+      "type": "version",
+      "parts": 3,
+      "value": "0.1.2",
+      "description": "PhobosApproachAssist published source/package version.",
+      "targets": [
+        {
+          "path": "src/PhobosApproachAssist/Plugin.cs",
+          "pattern": "\\bVersion\\s*=\\s*\"(?P<value>[0-9.]+)\"",
+          "count": 1
+        },
+        {
+          "path": "src/PhobosApproachAssist/PhobosApproachAssist.csproj",
+          "pattern": "<Version>(?P<value>[0-9.]+)</Version>",
+          "count": 1
+        },
+        {
+          "path": "mods/PhobosApproachAssist/mod_info.json",
+          "pattern": "\"strModVersion\"\\s*:\\s*\"(?P<value>[0-9.]+)\"",
+          "count": 1
+        }
+      ],
+      "review": [
+        "Run scripts/build-approach-assist.ps1 with your game path.",
+        "Review release notes and version-specific prose; historical compatibility gates are intentionally unchanged."
+      ]
+    },
+    "ApproachAssist.gameVersion": {
+      "type": "version",
+      "parts": 4,
+      "value": "1.0.1.4",
+      "description": "PhobosApproachAssist native metadata game target (not a compatibility certification).",
+      "targets": [
+        {
+          "path": "mods/PhobosApproachAssist/mod_info.json",
+          "pattern": "\"strGameVersion\"\\s*:\\s*\"(?P<value>[0-9.]+)\"",
+          "count": 1
+        }
+      ],
+      "review": [
+        "Build against the selected game; record gameplay evidence separately. Update current game-baseline prose only after all affected mods are checked."
+      ]
+    },
+    "AutoNav.salvageChance": {
+      "type": "number",
+      "value": "0.03",
+      "min": 0,
+      "max": 1,
+      "description": "Default probability of native navigation-module salvage, per eligible roll.",
+      "targets": [
+        {
+          "path": "src/PhobosAutoNav/Core/EquipmentRules.cs",
+          "pattern": "\\bSalvageChance\\s*=\\s*(?P<value>-?(?:[0-9]+(?:\\.[0-9]+)?|\\.[0-9]+))(?=[fd]?(?:\\s*[,;]))",
+          "count": 1,
+          "literal": "csharp-float"
+        }
+      ],
+      "review": [
+        "Run the owning mod build and behaviour checks.",
+        "Review player guidance and calculated examples; existing user configuration and captured jobs are not rewritten."
+      ]
+    },
+    "AutoNav.coastTolerancePercent": {
+      "type": "number",
+      "value": "10",
+      "min": 0,
+      "max": 25,
+      "description": "Default cruise speed-error percentage before correction.",
+      "targets": [
+        {
+          "path": "src/PhobosAutoNav/Core/CoastRules.cs",
+          "pattern": "\\bDefaultSpeedTolerancePercent\\s*=\\s*(?P<value>-?(?:[0-9]+(?:\\.[0-9]+)?|\\.[0-9]+))(?=[fd]?(?:\\s*[,;]))",
+          "count": 1,
+          "literal": "csharp-float"
+        }
+      ],
+      "review": [
+        "Run the owning mod build and behaviour checks.",
+        "Review player guidance and calculated examples; existing user configuration and captured jobs are not rewritten."
+      ]
+    },
+    "AutoNav.coastEnterFraction": {
+      "type": "number",
+      "value": "0.75",
+      "min": 0.2,
+      "max": 0.9,
+      "description": "Default fraction of cruise tolerance at which coasting begins.",
+      "targets": [
+        {
+          "path": "src/PhobosAutoNav/Core/CoastRules.cs",
+          "pattern": "\\bDefaultEnterFraction\\s*=\\s*(?P<value>-?(?:[0-9]+(?:\\.[0-9]+)?|\\.[0-9]+))(?=[fd]?(?:\\s*[,;]))",
+          "count": 1,
+          "literal": "csharp-float"
+        }
+      ],
+      "review": [
+        "Run the owning mod build and behaviour checks.",
+        "Review player guidance and calculated examples; existing user configuration and captured jobs are not rewritten."
+      ]
+    },
+    "AutoNav.burnHeadingDegrees": {
+      "type": "number",
+      "value": "2",
+      "min": 0.1,
+      "max": 10,
+      "description": "Default burn heading tolerance, in degrees.",
+      "targets": [
+        {
+          "path": "src/PhobosAutoNav/Core/CoastRules.cs",
+          "pattern": "\\bDefaultBurnHeadingToleranceDegrees\\s*=\\s*(?P<value>-?(?:[0-9]+(?:\\.[0-9]+)?|\\.[0-9]+))(?=[fd]?(?:\\s*[,;]))",
+          "count": 1,
+          "literal": "csharp-float"
+        }
+      ],
+      "review": [
+        "Run the owning mod build and behaviour checks.",
+        "Review player guidance and calculated examples; existing user configuration and captured jobs are not rewritten."
+      ]
+    },
+    "Shipbreaker.feedSeconds": {
+      "type": "number",
+      "value": "2",
+      "min": 1,
+      "max": 60,
+      "description": "Default powered time in seconds for a material feed transfer.",
+      "targets": [
+        {
+          "path": "src/PhobosShipbreaker/Core/RoutingRules.cs",
+          "pattern": "\\bFeedSeconds\\s*=\\s*(?P<value>-?(?:[0-9]+(?:\\.[0-9]+)?|\\.[0-9]+))(?=[fd]?(?:\\s*[,;]))",
+          "count": 1
+        }
+      ],
+      "review": [
+        "Run the owning mod build and behaviour checks.",
+        "Review player guidance and calculated examples; existing user configuration and captured jobs are not rewritten."
+      ]
+    },
+    "Shipbreaker.feedKilowatts": {
+      "type": "number",
+      "value": "2",
+      "min": 0.1,
+      "max": 100,
+      "description": "Default feed electrical demand, in kW.",
+      "targets": [
+        {
+          "path": "src/PhobosShipbreaker/Core/RoutingRules.cs",
+          "pattern": "\\bFeedKW\\s*=\\s*(?P<value>-?(?:[0-9]+(?:\\.[0-9]+)?|\\.[0-9]+))(?=[fd]?(?:\\s*[,;]))",
+          "count": 1
+        }
+      ],
+      "review": [
+        "Run the owning mod build and behaviour checks.",
+        "Review player guidance and calculated examples; existing user configuration and captured jobs are not rewritten."
+      ]
+    }
+  }
+}

@@ -550,5 +550,9 @@
   "Furnace.no_cooling": "No resolvable cooling assembly selected.",
   "Recipe.PhobosBuildFurnaceThermalPort.name": "Thermal Exhaust Port",
   "Recipe.PhobosBuildFurnaceThermalPort.description": "Build a complete 100 kg underside radiator assembly with a sealed 1 x 1 deck fitting. Mount beside the F6 on an intact sealed floor; the floor remains the pressure barrier.",
-  "Industry.group_agriculture": "Agriculture"
+  "Industry.group_agriculture": "Agriculture",
+  "Recipe.PhobosRecoverFurnaceHousingBlank.name": "Recover aluminium from housing blank",
+  "Recipe.PhobosRecoverFurnaceHousingBlank.description": "Cut one unused 19 kg housing blank into 19 kg of identified aluminium scrap. All cuttings are retained; this destroys the casting. Cold released castings only, never melt remainder or historic residue.",
+  "Recipe.PhobosRecoverFurnaceHousing.name": "Recover aluminium from finished housing",
+  "Recipe.PhobosRecoverFurnaceHousing.description": "Cut one unused 18 kg finished housing into 18 kg of identified aluminium scrap. All cuttings are retained; this destroys the casting. Cold released castings only, never melt remainder or historic residue."
 }

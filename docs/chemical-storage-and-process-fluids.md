@@ -4,6 +4,13 @@ Owner direction and bounded research: **2026-09-24**. These are **future feature
 not implemented tanks, chemical recipes, refuelling services or new hazards. This
 note does not change current Shipbreaker recipes or the priority of existing work.
 
+**25 September follow-up:** [shared fluid conduits and irrigation research](fluid-conduits-and-irrigation-research.md)
+examines Agriculture's plant sustenance as the first physical pipe consumer,
+including partial reuse of vanilla conduits. Framework 0.17.0 now has a narrow
+measured liquid-transfer helper and optional Ship's Water source adapter; these
+do not yet provide pipe routing, nutrient mixtures or a chemical-fluid network.
+The 0.6.0 API inventory below remains a dated baseline.
+
 ## Owner requests
 
 - Install shipboard chemical/solvent silos or reservoirs whose contents are

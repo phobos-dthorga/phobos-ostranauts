@@ -1,4 +1,5 @@
 using System;
+using Ostranauts.Trading;
 using System.IO;
 using System.Linq;
 using System.Collections.Generic;
@@ -36,6 +37,28 @@ internal static class AgricultureNativeChecks
         }
         check(d.Triggers[d.Objects["PhobosVerdemorrowFirstlight4Installed"].strContainerCT].aTriggers.Contains("TIsWater"), "Rack accepts liquid water rather than inheriting a solids-only container");
         check(DataHandler.dictCOs["LiquidWater"].aStartingConds.Any(c => c.StartsWith("StatMass=") && Math.Abs(double.Parse(c.Split('x').Last(), System.Globalization.CultureInfo.InvariantCulture) - .25) < 1e-7), "Manual water quantity matches installed native ration");
+        JsonCondOwner Definition(string id) => d.Objects.TryGetValue(id, out var definition) ? definition : DataHandler.dictCOs[id];
+        double Mass(string id) => double.Parse(Definition(id).aStartingConds.Single(c => c.StartsWith("StatMass=")).Split('x').Last(), System.Globalization.CultureInfo.InvariantCulture);
+        foreach (string prefix in new[] { PhobosAgriculture.Definitions.Rack, PhobosAgriculture.Definitions.Cooker })
+        foreach (string form in new[] { "Installed", "Loose", "InstalledDmg", "LooseDmg" })
+        {
+            string id = prefix + form;
+            var products = d.Installables[id + "Dismantle"].aLootCOs;
+            check(Math.Abs(products.Sum(Mass) - Mass(id)) < 1e-7, "Agriculture salvage retains every kilogram: " + id);
+            double scrap = products.Sum(p => EquipmentValueAudit.Price(Definition(p)));
+            check(scrap * .5 < EquipmentValueAudit.Price(Definition(id), .99) * .4, "Salvage sale stays below worn whole sale across VORB discount endpoints: " + id);
+        }
+        var recipes = Newtonsoft.Json.JsonConvert.DeserializeObject<Phobos.Ostranauts.Framework.Construction.RecipePack>(File.ReadAllText(Path.Combine(repo, "mods/PhobosAgriculture/framework/recipes.json")))!;
+        foreach (var recipe in recipes.recipes)
+        {
+            double inputs = recipe.ingredients.Sum(i => EquipmentValueAudit.Price(Definition(i.item)) * i.count);
+            double outputs = recipe.outputs.Sum(o => EquipmentValueAudit.Price(Definition(o.item)) * o.count);
+            check(outputs * .5 < inputs * 1.2, "New-material assembly does not profit even at favorable VORB discount endpoints: " + recipe.id);
+        }
+        var irrigation = Definition(PhobosAgriculture.Definitions.Irrigation);
+        check(Math.Abs(Mass(irrigation.strName) - PhobosAgriculture.Definitions.IrrigationKg) < 1e-7, "Irrigation transfer uses the physical commodity mass");
+        check(!DataHandler.dictCTs["TIsWater"].TriggeredDataCO(new DataCO(irrigation), false), "Root-water charge cannot impersonate native drinking water");
+        check(!irrigation.aStartingConds.Any(c => c.StartsWith("IsEdible=") || c.StartsWith("IsHydrator=")), "Irrigation cannot grant food or hydration");
         var provider = new TestProvider("test.agriculture", "TestAgriculture");
         EquipmentProviders.Register(provider);
         check(ReferenceEquals(provider, EquipmentProviders.For("TestAgriculture")), "Registered equipment is discoverable");

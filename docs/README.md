@@ -13,6 +13,8 @@ common failures and useful reports.
 
 ## Development and evidence
 
+- [Update versions and maintained constants](updating-constants.md) — previews, batch edits and JSON verification.
+
 - [Building](building.md), [contributing](../CONTRIBUTING.md), [Framework API](framework-author-guide.md) and [localization](localization.md).
 - [Project direction](project-direction.md), [public-source status](public-release-readiness.md), [licence](../LICENSE) and [third-party notices](../THIRD_PARTY_NOTICES.md).
 - [Artwork policy](asset-generation-policy.md) and [equipment branding](equipment-branding.md).
@@ -63,6 +65,7 @@ Manufacturing/medical/asteroid concepts are not delivered gameplay systems.
 - [F6 repair casting: replacement heat sinks](furnace-repair-castings.md)
 - [F6 vanilla UI reuse, layouts and graphics brief](furnace-ui-and-art.md)
 - [Fusion-powered industry: ideas and research sequence](fusion-industry-roadmap.md)
+- [Shared fluid conduits and plant sustenance](fluid-conduits-and-irrigation-research.md)
 - [Fusion furnace and instrument panel: feasibility and design](fusion-smelter-research.md)
 - [Getting started](getting-started.md)
 - [Chronic ailments, scars, traits and emotional health](health-chronic-and-traits.md)

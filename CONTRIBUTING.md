@@ -22,6 +22,10 @@ for gameplay reports and [SECURITY](SECURITY.md) for sensitive vulnerabilities.
 
 ## Design and testing
 
+Use the [version and constants updater](docs/updating-constants.md) for registered
+values instead of editing their copies independently. Its preview and JSON
+verification are also useful when preparing a change for review.
+
 Read [AGENTS.md](AGENTS.md) and [project direction](docs/project-direction.md)
 before changing behaviour. Prefer useful working slices. UI presents state and
 delegates to checked services. Shared services belong in Framework when concrete

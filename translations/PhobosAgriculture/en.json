@@ -47,7 +47,7 @@
   "potato": "Potatoes",
   "lettuce": "Lettuce",
   "status": "Crop: {0}\nGrowth {1:0.0}% | Health {2:0.0}%\nProcess water {3:0.000} / 20 kg\nNutrients {4:0.000} / 0.5 kg | Biomass {5:0.000} kg\n{6}\n{7}\n{8}\n{9}",
-  "help": "phobosagriculture list | status/start/pause/receive/pause-receive/plant-potato/plant-lettuce/load-water/load-nutrients/harvest/clear/drain <full object ID>",
+  "help": "phobosagriculture list | status/start/pause/receive/pause-receive/plant-potato/plant-lettuce/load-water/load-irrigation/load-nutrients/harvest/clear/drain <full object ID>",
   "start": "Start / Resume",
   "pause": "Pause automation",
   "receive": "Enable optional ship-water supply",
@@ -66,7 +66,7 @@
   "unload_first": "Clear the crop and unload solution/contents before dismantling or uninstalling.",
   "cancel": "Cancel cooking cycle",
   "cancel_missing": "The bound cooking portion is missing. Return it or cancel this cycle before starting another.",
-  "no_provider": "Compatible Ship's Water supply is unavailable; load finite water rations locally.",
+  "no_provider": "Compatible Ship's Water supply is unavailable; load finite irrigation charges or water rations locally.",
   "cooking": "Cooking enabled",
   "stopped": "Cooker stopped",
   "cooker_status": "Cooking {0:0.0}%\n{1}\n{2}\n{3}",
@@ -77,5 +77,9 @@
   "water_low": "Process water low.",
   "nutrient_low": "Formulated nutrients low.",
   "carbon_low": "Native cabin CO2 depleted.",
-  "power_low": "Received power is below cultivation demand."
+  "power_low": "Received power is below cultivation demand.",
+  "load-irrigation": "Load 5 kg irrigation charge (10 seconds)",
+  "irrigation": "Irrigation Charge (5 kg)",
+  "irrigation_desc": "Finite Groundwork root-water supply. Not certified drinking water; no decanting or potable-water conversion. Requires 5 kg free reservoir capacity. Commodity mass represents water; packaging is abstracted.",
+  "irrigation_full": "The irrigation charge needs {0} kg free reservoir capacity. Supply retained."
 }

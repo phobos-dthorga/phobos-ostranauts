@@ -1,4 +1,4 @@
-# Phobos Agriculture 0.2.0
+# Phobos Agriculture 0.3.0
 
 First gameplay candidate, prepared on 25 September 2026. Requires **Phobos
 Framework 0.17.0**. The offline checks pass; the owner still needs to evaluate
@@ -19,8 +19,8 @@ Bar/Dining Table, with the required screwdriver and soldering tools:
 
 | Equipment | Construction inputs | Work / base price |
 | --- | --- | --- |
-| Phobos' Verdemorrow Firstlight-4 Cultivation Rack | 48 steel scrap, 24 aluminium scrap, 12 small mechanical parts, 4 small electrical parts | 60 minutes / 9,000 cr |
-| Phobos' Verdemorrow Hearth-2 Galley Cooker | 6 steel scrap, 4 aluminium scrap, 2 small mechanical parts, 2 small electrical parts | 20 minutes / 2,400 cr |
+| Phobos' Verdemorrow Firstlight-4 Cultivation Rack | 48 steel scrap, 24 aluminium scrap, 12 small mechanical parts, 4 small electrical parts | 60 minutes / 700 cr |
+| Phobos' Verdemorrow Hearth-2 Galley Cooker | 6 steel scrap, 4 aluminium scrap, 2 small mechanical parts, 2 small electrical parts | 20 minutes / 150 cr |
 
 Install the **4 × 4 rack** and **2 × 2 cooker** on cabin floors and connect their
 power points. Keep room temperature at **18–26 °C** and pressure at **70–110 kPa**
@@ -48,12 +48,14 @@ Lettuce's harvest-ready image depicts food leaves, not seed production.
 
 1. Put one **Continuance 0.2 kg seed potato** or one **Continuance 5 g lettuce seed packet** in the rack's
    normal Inventory. Supplies must be separate, unstacked items.
-2. Put native **LiquidWater** rations and **Groundwork** nutrient packets there too.
-   Use **Control Panel → Load one water ration / Load nutrients**. Each ten-second
-   crew action loads one 0.25 kg water ration or one 40 g packet. The finite
-   reservoirs hold 20 kg water and 0.5 kg nutrients. Initial ideal potato cycle:
-   at least 19 water rations and one nutrient packet; lettuce: six rations and
-   one packet, with unused water/nutrients retained.
+2. Put a **Groundwork 5 kg irrigation charge** (50 cr base) and nutrient packets
+   in the rack. Choose **Load 5 kg irrigation charge / Load nutrients**; each action
+   takes ten seconds. The charge needs 5 kg free reservoir capacity and is consumed
+   whole. One charge covers the initial ideal potato cycle or three lettuce cycles,
+   with leftover water retained. Native 0.25 kg water rations remain an expensive
+   fallback through **Load one water ration**. Reservoir limits remain 20 kg water
+   and 0.5 kg nutrients; a nutrient packet holds 40 g. Charges are root-water
+   commodities, not drinkable items; packaging mass is abstracted.
 3. Choose **Plant**. Fifteen minutes of local crew work consumes the stock and
    starts automatic cultivation. The panel shows crop progress, health, retained
    quantities, native room readings and their compartment source.
@@ -118,8 +120,8 @@ conditions stops further stress but does not magically restore lost health.
 Clear failed crops into retained residue; Drain unloads water plus unused nutrients
 as non-potable process solution. Neither has a recovery recipe yet. Empty physical
 inventory and numeric contents before uninstalling/dismantling; cancel cooking
-progress first. Ordinary repair/Restore use native maintenance. Dismantling returns
-dry housing waste with negligible value; it does not create valuable extra metal.
+progress first. Ordinary repair/Restore use native maintenance. Dismantling returns a bounded mix of native parts/materials and retained housing
+waste; see the condition-specific recovery bills below.
 
 Configuration: `GrowthDurationMultiplier` (0.5–2, captured when planting; total
 cycle energy unchanged) and `CrewReserveLitres` (live). No saved identity, footprint
@@ -143,3 +145,45 @@ After exiting the game, use `scripts/install-mods.ps1 -Mods Agriculture -WhatIf`
 then the same selection without `-WhatIf` when ready. It includes Framework.
 Select `Agriculture,Shipbreaker` to include the prepared C1 integration update.
 Use `-VerifyOnly` afterwards. See [installation](installing-mods.md).
+
+## Economy and maintenance (0.3.0)
+
+Prices here are authored base values before native condition, merchant and market
+adjustments. Firstlight-4 is 700 cr (875 pristine, 140 broken); Hearth-2 is 150 cr
+(187.50 pristine, 30 broken). Construction bills and assembly times are unchanged.
+Continuance lettuce seed is 5 cr per sowing. Nutrients remain 60 cr per 40 g.
+See the [native economic evidence](agriculture-economy-evidence.md) for comparisons.
+
+The fixer can offer worn equipment; VORB scrap stock can offer refurbished or
+broken units. Existing pristine supply/fixer/Halvorson offers remain. Offers are
+probabilistic and do not refresh existing inventories. Native supply and VORB
+buyers accept empty loose Agriculture goods; the generic fixer and Halvorson
+buyer filters do not. Being a seller does not guarantee buying the item back.
+Small planting supplies can occasionally occur in the native fridge contents
+pool, including derelicts; that shared pool is not exclusive to salvage.
+
+| Service | Firstlight-4 | Hearth-2 |
+| --- | --- | --- |
+| Repair bill | 2 small mechanical + 1 small electrical + 2 aluminium; 26.70 cr, 3.5 kg | 1 small mechanical + 1 aluminium; 6.10 cr, 1.5 kg |
+| Repair work, unmodified | 28.8 minutes | 14.4 minutes |
+| Intact dismantling | 12 kg steel + 8 kg aluminium + 2 mechanical parts (1 kg) + 59 kg waste | 2 kg steel + 1 kg aluminium + 9 kg waste |
+| Broken dismantling | 4 kg steel + 2 kg aluminium + 74 kg waste | 1 kg aluminium + 11 kg waste |
+
+Native tools and skill modifiers apply. Framework returns the actual consumed
+repair material as spent waste. Restore remains native in-place wear removal,
+with no material bill and no pristine bonus. Clear crops, drain solution and
+empty cargo before dismantling or uninstalling. Waste has no recovery recipe.
+
+Ideal consumed inputs with Groundwork water cost 106.24 cr per potato cycle
+(excluding reusable seed) and 25.158 cr per lettuce cycle including fresh seed.
+Whole-charge purchase costs, electricity, crew work, losses and equipment are
+additional considerations. Nominal cooked potato output is 350 cr and lettuce
+32 cr before condition/trade modifiers: these are not guaranteed trading profits.
+Accelerated growth, yield and prices are gameplay choices, not NASA/ESA results.
+
+Owner gameplay checks: buy a worn/broken machine, repair and Restore it; compare
+actual offers; dismantle empty intact/broken units; load a charge with less than
+5 kg space (it must remain untouched), then with enough space; reload and verify
+water is retained once. Check absent Ship's Water, full output inventory and
+queued work whose supply is removed before completion. Offline native checks do
+not establish merchant availability or crew interaction behavior in a running game.
