@@ -1,5 +1,9 @@
 # Installing and updating our mods
 
+**First visit?** Read [getting started](getting-started.md). This installer needs
+prepared packages; a GitHub source ZIP does not contain them. No installable
+GitHub release is published yet. Developers can [build the packages](building.md).
+
 For acquisition and operation after installation, use the
 [current player guide](player-guide.md).
 
@@ -38,6 +42,9 @@ directly without interacting with your mouse or opening a launcher window.
 # Install/update just one.
 ./scripts/install-mods.ps1 -Mods AutoNav
 ./scripts/install-mods.ps1 -Mods Shipbreaker
+
+# Agriculture is opt-in and automatically includes Framework.
+./scripts/install-mods.ps1 -Mods Agriculture
 
 # The shared library alone, for another consumer or development.
 ./scripts/install-mods.ps1 -Mods Framework
@@ -104,8 +111,8 @@ so obsolete code and user additions are not silently retained or deleted.
 If copying fails, **keep the game closed** and retain the reported backup folder.
 This is not a transactional installer and does not automatically roll back.
 Its receipt records intended targets and prior existence; previous contents and
-`loading_order.before.json` support inspection and recovery. Ask Codex to resolve
-the failure before launching. Do not treat these snapshots as verified gameplay
+`loading_order.before.json` support inspection and recovery. Use the receipt to investigate or [ask for help](../SUPPORT.md)
+before launching. Do not treat these snapshots as verified gameplay
 rollback versions; see [dependency contingencies](dependency-contingencies.md).
 
 ## Where updates come from

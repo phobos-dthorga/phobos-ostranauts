@@ -155,17 +155,15 @@
 - For any Ostranauts mod idea, candidly recommend simplifying, setting it aside
   or changing direction when gameplay value, engine limits or maintenance costs
   make further work unconvincing. Do not continue merely because effort was spent.
-- Repository visibility stays private until the owner explicitly requests a change.
-- While this repository is private, use ordinary commits and direct pushes to
-  `main` for requested checkpoints. Do not create PRs or run PR review/merge
-  workflows unless the owner explicitly asks. The owner deferred PR formalities
-  until the project is public (2026-09-23); this preference overrides a skill's
-  default PR lifecycle. Keep appropriate checks and normal Git protections;
-  never force-push or change visibility to simplify delivery.
-- Public releases of these mods are the intended destination (2026-09-23).
-  Preserve original authorship, provenance and adaptation notes from the outset;
-  distinguish verified third-party terms from the owner's permissive working
-  assumption. This future intent does not authorise changing visibility today.
+- Owner authorized public visibility and newcomer documentation on 2026-09-25,
+  including the Phobos Scope dependency, and selected MIT for original Scope work.
+  Community contributions use the contributor guide and pull requests. This
+  publication checkpoint is authorized as an ordinary direct push to main.
+  Never force-push or change other repositories' visibility implicitly.
+- Public source availability does not establish gameplay readiness or resolve
+  third-party reuse terms. Preserve authorship, notices and provenance, including
+  Auto Nav's unverified upstream terms and explicit MIT exclusions. Do not publish
+  binary releases as a side effect of documentation or visibility changes.
 - Research industrial ideas as the owner encounters relevant gameplay and can
   test them. Current priority: powered shipbreaking, onboard processing first,
   external cutting and its positioning/autopilot needs later. See

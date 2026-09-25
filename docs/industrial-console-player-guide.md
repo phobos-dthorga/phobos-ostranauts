@@ -1,6 +1,6 @@
-# Industrial controls — 0.11.0
+# Industrial controls
 
-Current packages: Shipbreaker **0.11.0**, requiring Phobos Framework **0.13.0**. Auto Nav remains optional.
+Current packages: Shipbreaker **0.14.0**, requiring Phobos Framework **0.17.0**. Auto Nav remains optional.
 Built against Ostranauts **1.0.1.5** / BepInEx **5.4.23.5**. Automated checks
 passed; the new native panel/seating integration awaits the owner's game test.
 

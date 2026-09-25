@@ -5,9 +5,11 @@
 Framework bundles one copy of `Phobos.Scope.Recording.dll`, built from the
 pinned [Phobos Scope](https://github.com/phobos-dthorga/phobos-scope) submodule.
 It is separately maintained Phobos-authored work with no game dependencies.
-Its project licence remains undecided; this repository's MIT grant does not
-cover the submodule or recorder binary. The Framework package retains its
-`docs/licensing.md` as `licenses/PhobosScope-LICENSING.md`.
+The owner selected MIT for original Scope work on 2026-09-25. Its separate
+[MIT licence](https://github.com/phobos-dthorga/phobos-scope/blob/main/LICENSE) covers
+the recorder; this repository's grant does not relicense the submodule. The Framework package retains its
+`docs/licensing.md` as `licenses/PhobosScope-LICENSING.md` and the full grant
+as `licenses/PhobosScope-MIT.md`.
 
 ## Auto Navigate guidance adaptation
 

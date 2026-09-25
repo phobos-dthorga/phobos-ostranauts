@@ -9,7 +9,7 @@ function Copy-PhobosPlayerGuides {
     foreach ($name in @(
         'agriculture-player-guide', 'agriculture-implementation', 'agriculture-research', 'agriculture-first-slice', 'agriculture-roadmap', 'agriculture-living-visuals', 'asset-generation-policy',
         'performance-captures', 'furnace-player-guide', 'furnace-connections-and-instruments', 'furnace-first-cycle', 'furnace-repair-castings', 'furnace-material-routing', 'manufacturing-handover',
-        'player-guide', 'equipment-branding', 'installing-mods', 'equipment-economy', 'equipment-value-audit', 'auto-nav-instruments', 'auto-nav-docking', 'auto-nav-sensors', 'auto-nav-flight-profiles', 'artwork-resolution-policy',
+        'getting-started', 'building', 'player-guide', 'equipment-branding', 'installing-mods', 'equipment-economy', 'equipment-value-audit', 'auto-nav-instruments', 'auto-nav-docking', 'auto-nav-sensors', 'auto-nav-flight-profiles', 'artwork-resolution-policy',
         'vanilla-economy-audit', 'shipbreaker-first-build', 'shipbreaker-hull-intake',
         'residue-collector', 'auto-navigate-adaptation', 'auto-nav-economy', 'auto-nav-panel-layout-audit', 'auto-nav-persistence', 'auto-nav-torch', 'residue-material-contract',
         'shipbreaking-material-processing-research', 'material-disposal-port-research',
@@ -17,6 +17,14 @@ function Copy-PhobosPlayerGuides {
         'industrial-console-player-guide', 'industrial-control-console', 'industrial-control-mockups', 'shared-console-observations', 'sensor-integration-research', 'fusion-smelter-research', 'framework-author-guide'
     )) {
         Copy-Item -LiteralPath (Join-Path $RepoRoot "docs/$name.md") -Destination $Package
+    }
+    # Root-level community links in flattened player guides point back to GitHub.
+    foreach ($guide in Get-ChildItem -LiteralPath $Package -Filter '*.md' -File) {
+        $text = Get-Content -LiteralPath $guide.FullName -Raw
+        foreach ($name in @('SUPPORT.md', 'CONTRIBUTING.md', 'SECURITY.md', 'THIRD_PARTY_NOTICES.md')) {
+            $text = $text.Replace("../$name", "https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/$name")
+        }
+        Set-Content -LiteralPath $guide.FullName -Value $text -Encoding utf8
     }
     Copy-Item -LiteralPath (Join-Path $RepoRoot 'assets/phobos-furnace/coupling-provenance.json') -Destination $Package
     $furnaceGuidePath = Join-Path $Package 'furnace-connections-and-instruments.md'
@@ -92,6 +100,7 @@ function New-PhobosPackage {
         }
         Copy-Item -LiteralPath $recorder -Destination $pluginTarget
         Copy-Item -LiteralPath (Join-Path $RepoRoot 'external/phobos-scope/docs/licensing.md') -Destination (Join-Path $nativeTarget 'PhobosFramework/licenses/PhobosScope-LICENSING.md')
+        Copy-Item -LiteralPath (Join-Path $RepoRoot 'external/phobos-scope/LICENSE') -Destination (Join-Path $nativeTarget 'PhobosFramework/licenses/PhobosScope-MIT.md')
     }
     Copy-Item -LiteralPath (Join-Path $RepoRoot $Readme) -Destination (Join-Path $package 'README.md')
     foreach ($document in $ExtraDocs) { Copy-Item -LiteralPath (Join-Path $RepoRoot $document) -Destination $package }

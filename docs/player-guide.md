@@ -1,5 +1,8 @@
 # Current player guide
 
+New here? Read [getting started](getting-started.md) for download availability,
+prerequisites and experimental status. Need help? See [support](../SUPPORT.md).
+
 Agriculture 0.2.0 is a new prepared candidate with visible crop growth and furnished cooking equipment: see the [cultivation and cooking guide](agriculture-player-guide.md). It requires Framework 0.17.0; optional C1 integration uses Shipbreaker 0.14.0. Owner gameplay evaluation is pending.
 
 
@@ -233,4 +236,4 @@ Translation catalogs, language settings and contributor guidance: [Localization]
 
 ## Industrial controls (0.10.0)
 
-[Console and equipment panel guide](industrial-console-player-guide.md): a 3 x 3 ship-bound workstation, local Control Panels, automatic grouping, search, Attention and routing. Shipbreaker now requires Framework 0.13.0 and adds [shared observations](shared-console-observations.md). Prepared for owner testing; no in-game validation claimed.
+[Console and equipment panel guide](industrial-console-player-guide.md): a 3 x 3 ship-bound workstation, local Control Panels, automatic grouping, search, Attention and routing. The current Shipbreaker 0.14.0 requires Framework 0.17.0 and includes [shared observations](shared-console-observations.md). Prepared for owner testing; no in-game validation claimed.
