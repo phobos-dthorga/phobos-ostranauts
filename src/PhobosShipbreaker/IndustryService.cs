@@ -18,7 +18,7 @@ internal static class IndustryService
 {
     internal static CondOwner[] Discover(Ship? ship) => ship == null || (int)ship.LoadState < 2 ? Array.Empty<CondOwner>() :
         ship.GetCOs(null, bSubObjects: false, bAllowDocked: false, bAllowLocked: true)
-            .Where(c => c != null && !c.bDestroyed && c.ship == ship && c.objCOParent == null && c.HasCond("IsInstalled") && IndustrialRules.Equipment(c.strCODef))
+            .Where(c => c != null && !c.bDestroyed && c.ship == ship && c.objCOParent == null && c.HasCond("IsInstalled") && (IndustrialRules.Equipment(c.strCODef) || EquipmentProviders.For(c.strCODef) != null))
             .OrderBy(c => IndustrialRules.Group(c.strCODef), StringComparer.Ordinal).ThenBy(c => c.strID, StringComparer.Ordinal).ToArray();
     internal static EquipmentCard[] SnapshotShip(Ship? ship)
     {
@@ -27,6 +27,12 @@ internal static class IndustryService
     }
     internal static EquipmentCard Snapshot(CondOwner co, EquipmentActivity? intake = null)
     {
+        var provider = EquipmentProviders.For(co.strCODef);
+        if (provider != null)
+        {
+            var snapshot = provider.Snapshot(co);
+            return new EquipmentCard { Id = snapshot.Id, Name = snapshot.Name, Group = snapshot.Group, State = snapshot.Activity.State, Attention = snapshot.Activity.NeedsAttention, Detail = snapshot.Activity.Detail };
+        }
         if (FurnaceService.IsEquipment(co))
         {
             var s = FurnaceService.Get(co);
@@ -59,13 +65,15 @@ internal static class IndustryService
     {
         var target = CollectorService.Resolve(targetId);
         message = Text.Get("Industry.missing");
-        if (target == null || !IndustrialRules.Equipment(target.strCODef)) return false;
+        if (target == null || (!IndustrialRules.Equipment(target.strCODef) && EquipmentProviders.For(target.strCODef) == null)) return false;
         if (binding != null)
         {
             message = ControlAuthority.Check(target, binding) ?? "";
             if (message.Length != 0) return false;
         }
         if (FurnaceService.IsEquipment(target)) return FurnaceService.Command(binding, target, action, value, out message);
+        var provider = EquipmentProviders.For(target.strCODef);
+        if (provider != null) return provider.Command(target, binding, action, out message);
         bool processor = ProcessingService.IsProcessor(target.strCODef), receiver = RoutingRules.IsReceiver(target.strCODef);
         bool result;
         switch (action)
@@ -98,6 +106,12 @@ internal static class IndustryService
         var results = new List<string>();
         foreach (var target in Discover(console!.ship))
         {
+            if (EquipmentProviders.For(target.strCODef) != null)
+            {
+                bool ok = Run(binding, target.strID, "pause", null, out string info);
+                Run(binding, target.strID, "pause-receive", null, out _);
+                results.Add(target.strNameFriendly + ": " + Text.Get(ok ? "Industry.success" : "Industry.rejected", info));
+            }
             if (FurnaceRules.Machine(target.strCODef)) { bool ok = Run(binding, target.strID, "stop", null, out string info); results.Add(target.strNameFriendly + ": " + Text.Get(ok ? "Industry.success" : "Industry.rejected", info)); }
             if (ProcessingService.IsProcessor(target.strCODef)) { bool ok = Run(binding, target.strID, "pause", null, out string info); results.Add(target.strNameFriendly + ": " + Text.Get(ok ? "Industry.success" : "Industry.rejected", info)); }
             if (RoutingRules.IsReceiver(target.strCODef)) { bool ok = Run(binding, target.strID, "pause-receive", null, out string info); results.Add(target.strNameFriendly + ": " + Text.Get(ok ? "Industry.success" : "Industry.rejected", info)); }

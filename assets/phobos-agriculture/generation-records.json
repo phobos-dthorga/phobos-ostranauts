@@ -1,0 +1,586 @@
+{
+  "provider": "PixelLab",
+  "date": "2026-09-25",
+  "paidCreditPurchased": false,
+  "includedGenerations": 16,
+  "acceptedSpriteCandidates": 8,
+  "notes": "Eight retained candidates, eight rejected/intermediate images. Included allowance cost per retained candidate: 2 generations. Account usage includes unrelated work; job receipts are the per-task record. Model versions not disclosed. Owner in-game approval pending.",
+  "records": [
+    {
+      "key": "plantPilot",
+      "args": {
+        "description": "Single potato plant canopy seen from directly overhead orthographic 90-degree bird's-eye view, no side view, no horizon, roots anchored at exact canvas centre (32,32). Mature healthy Solanum tuberosum plant with 7 broad irregular dark desaturated olive green leaf clusters radiating from center and a few subdued cream flower pixels. Coarse deliberate pixel clusters, restrained industrial hard science fiction game sprite, realistic modest botanical shape, extremely simple shading only 3 green tones, no black cartoon outline, no pot, no tray, no soil, no text, no shadow outside silhouette. Transparent background, centered within x=10..54 y=10..54 with generous clear margin. Pixel grid designed to remain legible at 16x16 game scale.",
+        "width": 64,
+        "height": 64,
+        "no_background": true,
+        "view": "high top-down",
+        "isometric": false,
+        "detail": "low detail",
+        "shading": "basic shading",
+        "outline": "lineless",
+        "seed": 9252601
+      },
+      "response": {
+        "content": [
+          {
+            "type": "text",
+            "text": "id: ff1f237b-5773-4777-8436-be9e6a40d796\njob_id: ff1f237b-5773-4777-8436-be9e6a40d796\ndescription: Single potato plant canopy seen from directly overhead orthographic 90-degree bird's-eye view, no side view, no horizon, roots anchored at exact canvas centre (32,32). Mature healthy Solanum tuberosum plant with 7 broad irregular dark desaturated olive green leaf clusters radiating from center and a few subdued cream flower pixels. Coarse deliberate pixel clusters, restrained industrial hard science fiction game sprite, realistic modest botanical shape, extremely simple shading only 3 green tones, no black cartoon outline, no pot, no tray, no soil, no text, no shadow outside silhouette. Transparent background, centered within x=10..54 y=10..54 with generous clear margin. Pixel grid designed to remain legible at 16x16 game scale.\nsize: 64x64px\ntransparent: True\nasset_id: 74521963-a32c-58a8-858e-2d0f84022851\nasset_status: pending (saved when generation completes)\nseed: 9252601\ncost: 1 generation\nstatus: processing (~10-40s)\n\nhint: get_image(job_id=\"ff1f237b-5773-4777-8436-be9e6a40d796\")"
+          }
+        ],
+        "isError": false
+      },
+      "completed": {
+        "job_id": "ff1f237b-5773-4777-8436-be9e6a40d796",
+        "status": "completed",
+        "frames": 1,
+        "download_url": "https://api.pixellab.ai/mcp/images/ff1f237b-5773-4777-8436-be9e6a40d796/download",
+        "download_urls": [
+          "https://api.pixellab.ai/mcp/images/ff1f237b-5773-4777-8436-be9e6a40d796/download"
+        ],
+        "asset": {
+          "id": "74521963-a32c-58a8-858e-2d0f84022851",
+          "type": "image",
+          "status": "saved"
+        }
+      }
+    },
+    {
+      "key": "rackPilot",
+      "args": {
+        "description": "Single enclosed industrial cultivation rack, directly overhead orthographic 90 degree top-down spaceship equipment sprite. Square 4 by 4 floor tile housing, restrained utilitarian dark slate metal, central inset 2 by 2 arrangement of four EMPTY dark root-media trays, narrow warm-white grow light bars at left and right edges, small irrigation tank and square access panel at top edge, small visible power terminal at top corners. No plants, no pipes outside housing, no text, no logos, no isometric side view. Coarse purposeful pixel clusters readable at 64x64. Fits entire square x=4..124 y=4..124 within 128x128 transparent canvas. Modest wear, distinct simple areas, no decorative microdetail.",
+        "width": 128,
+        "height": 128,
+        "no_background": true,
+        "view": "high top-down",
+        "isometric": false,
+        "detail": "low detail",
+        "shading": "basic shading",
+        "outline": "lineless",
+        "seed": 9252602
+      },
+      "response": {
+        "content": [
+          {
+            "type": "text",
+            "text": "id: 81bc338a-f070-490e-b43b-38a6df836f83\njob_id: 81bc338a-f070-490e-b43b-38a6df836f83\ndescription: Single enclosed industrial cultivation rack, directly overhead orthographic 90 degree top-down spaceship equipment sprite. Square 4 by 4 floor tile housing, restrained utilitarian dark slate metal, central inset 2 by 2 arrangement of four EMPTY dark root-media trays, narrow warm-white grow light bars at left and right edges, small irrigation tank and square access panel at top edge, small visible power terminal at top corners. No plants, no pipes outside housing, no text, no logos, no isometric side view. Coarse purposeful pixel clusters readable at 64x64. Fits entire square x=4..124 y=4..124 within 128x128 transparent canvas. Modest wear, distinct simple areas, no decorative microdetail.\nsize: 128x128px\ntransparent: True\nasset_id: e9be29a4-1c33-57a7-995e-93dc6011cc5b\nasset_status: pending (saved when generation completes)\nseed: 9252602\ncost: 1 generation\nstatus: processing (~10-40s)\n\nhint: get_image(job_id=\"81bc338a-f070-490e-b43b-38a6df836f83\")"
+          }
+        ],
+        "isError": false
+      },
+      "completed": {
+        "job_id": "81bc338a-f070-490e-b43b-38a6df836f83",
+        "status": "completed",
+        "frames": 1,
+        "download_url": "https://api.pixellab.ai/mcp/images/81bc338a-f070-490e-b43b-38a6df836f83/download",
+        "download_urls": [
+          "https://api.pixellab.ai/mcp/images/81bc338a-f070-490e-b43b-38a6df836f83/download"
+        ],
+        "asset": {
+          "id": "e9be29a4-1c33-57a7-995e-93dc6011cc5b",
+          "type": "image",
+          "status": "saved"
+        }
+      }
+    },
+    {
+      "key": "rackRetry",
+      "args": {
+        "description": "FLAT TWO DIMENSIONAL overhead FLOOR PLAN of a square plant growing tray, four square dark brown soil compartments in a square metal frame. Like a tabletop viewed by a camera pointing STRAIGHT DOWN: perfectly horizontal top edge, vertical sides, all four corners at right angles, rectangular square silhouette. NO visible front, NO visible side, NO depth, NO three-quarter view, NO diamond, NO perspective, NO isometric. Four empty tray rectangles occupy the center. Narrow white light strip at left and right, olive-grey irrigation strip at top. Top-down equipment sprite with deliberately simple pixel shapes, transparent background outside the flat square. No plants, no labels, no external conduits.",
+        "width": 128,
+        "height": 128,
+        "no_background": true,
+        "view": "high top-down",
+        "isometric": false,
+        "detail": "low detail",
+        "shading": "basic shading",
+        "outline": "lineless",
+        "seed": 9252604
+      },
+      "response": {
+        "content": [
+          {
+            "type": "text",
+            "text": "id: 9969c7a3-dec8-40ed-b8fe-e5a02d495479\njob_id: 9969c7a3-dec8-40ed-b8fe-e5a02d495479\ndescription: FLAT TWO DIMENSIONAL overhead FLOOR PLAN of a square plant growing tray, four square dark brown soil compartments in a square metal frame. Like a tabletop viewed by a camera pointing STRAIGHT DOWN: perfectly horizontal top edge, vertical sides, all four corners at right angles, rectangular square silhouette. NO visible front, NO visible side, NO depth, NO three-quarter view, NO diamond, NO perspective, NO isometric. Four empty tray rectangles occupy the center. Narrow white light strip at left and right, olive-grey irrigation strip at top. Top-down equipment sprite with deliberately simple pixel shapes, transparent background outside the flat square. No plants, no labels, no external conduits.\nsize: 128x128px\ntransparent: True\nasset_id: c2c228ce-a916-5e52-a417-59508c6ca193\nasset_status: pending (saved when generation completes)\nseed: 9252604\ncost: 1 generation\nstatus: processing (~10-40s)\n\nhint: get_image(job_id=\"9969c7a3-dec8-40ed-b8fe-e5a02d495479\")"
+          }
+        ],
+        "isError": false
+      },
+      "completed": {
+        "job_id": "9969c7a3-dec8-40ed-b8fe-e5a02d495479",
+        "status": "completed",
+        "frames": 1,
+        "download_url": "https://api.pixellab.ai/mcp/images/9969c7a3-dec8-40ed-b8fe-e5a02d495479/download",
+        "download_urls": [
+          "https://api.pixellab.ai/mcp/images/9969c7a3-dec8-40ed-b8fe-e5a02d495479/download"
+        ],
+        "asset": {
+          "id": "c2c228ce-a916-5e52-a417-59508c6ca193",
+          "type": "image",
+          "status": "saved"
+        }
+      }
+    },
+    {
+      "key": "cookerPilot",
+      "args": {
+        "description": "Single industrial galley cooker seen directly from above, orthographic 90 degree top-down spaceship equipment sprite. Square compact dark slate and muted stainless-steel cabinet, large central closed charcoal cooking lid with sturdy small handle, two tiny amber status lamps and simple unlabelled power switch along top edge, four corner fasteners. Entire square visible with transparent 4px margins. No text, no logos, no food, no plants, no external plumbing, no isometric side face, no perspective. Restrained coarse pixel clusters readable at 32x32 game size. Very simple utilitarian worn machine matching an industrial cultivation rack, not a household kitchen scene.",
+        "width": 128,
+        "height": 128,
+        "no_background": true,
+        "view": "high top-down",
+        "isometric": false,
+        "detail": "low detail",
+        "shading": "basic shading",
+        "outline": "lineless",
+        "seed": 9252603
+      },
+      "response": {
+        "content": [
+          {
+            "type": "text",
+            "text": "id: 365fbfb6-b0cf-4bd7-b9c7-3426e845d992\njob_id: 365fbfb6-b0cf-4bd7-b9c7-3426e845d992\ndescription: Single industrial galley cooker seen directly from above, orthographic 90 degree top-down spaceship equipment sprite. Square compact dark slate and muted stainless-steel cabinet, large central closed charcoal cooking lid with sturdy small handle, two tiny amber status lamps and simple unlabelled power switch along top edge, four corner fasteners. Entire square visible with transparent 4px margins. No text, no logos, no food, no plants, no external plumbing, no isometric side face, no perspective. Restrained coarse pixel clusters readable at 32x32 game size. Very simple utilitarian worn machine matching an industrial cultivation rack, not a household kitchen scene.\nsize: 128x128px\ntransparent: True\nasset_id: 054c8440-b06f-5d2a-8c09-d86b9778ab38\nasset_status: pending (saved when generation completes)\nseed: 9252603\ncost: 1 generation\nstatus: processing (~10-40s)\n\nhint: get_image(job_id=\"365fbfb6-b0cf-4bd7-b9c7-3426e845d992\")"
+          }
+        ],
+        "isError": false
+      },
+      "completed": {
+        "job_id": "365fbfb6-b0cf-4bd7-b9c7-3426e845d992",
+        "status": "completed",
+        "frames": 1,
+        "download_url": "https://api.pixellab.ai/mcp/images/365fbfb6-b0cf-4bd7-b9c7-3426e845d992/download",
+        "download_urls": [
+          "https://api.pixellab.ai/mcp/images/365fbfb6-b0cf-4bd7-b9c7-3426e845d992/download"
+        ],
+        "asset": {
+          "id": "054c8440-b06f-5d2a-8c09-d86b9778ab38",
+          "type": "image",
+          "status": "saved"
+        }
+      }
+    },
+    {
+      "key": "deadEdit",
+      "args": {
+        "image_url": "https://api.pixellab.ai/mcp/images/ff1f237b-5773-4777-8436-be9e6a40d796/download",
+        "description": "Turn this living potato plant into a DEAD potato plant. Replace ALL green leaves with dark brown, ochre and grey curled dead leaves. No green anywhere. Keep the same top-down perspective, center root point and transparent 64x64 canvas. Coarse pixel art.",
+        "seed": 9252630
+      },
+      "response": {
+        "content": [
+          {
+            "type": "text",
+            "text": "id: f457daa9-107d-419e-8614-621efe406e44\njob_id: f457daa9-107d-419e-8614-621efe406e44\nmodel: pixen\nedit: Turn this living potato plant into a DEAD potato plant. Replace ALL green leaves with dark brown, ochre and grey curled dead leaves. No green anywhere. Keep the same top-down perspective, center root point and transparent 64x64 canvas. Coarse pixel art.\nsource: 64x64px\nsize: 64x64px\ntransparent: True — auto (input has transparency)\nseed: 9252630\nasset_id: 93bc7d59-b765-5d41-aca6-0c38942a4912\nasset_status: pending (saved when generation completes)\ncost: 1 generation\nstatus: processing (~10-40s)\n\nhint: get_image(job_id=\"f457daa9-107d-419e-8614-621efe406e44\")"
+          }
+        ],
+        "isError": false
+      },
+      "completed": {
+        "job_id": "f457daa9-107d-419e-8614-621efe406e44",
+        "status": "completed",
+        "frames": 1,
+        "download_url": "https://api.pixellab.ai/mcp/images/f457daa9-107d-419e-8614-621efe406e44/download",
+        "download_urls": [
+          "https://api.pixellab.ai/mcp/images/f457daa9-107d-419e-8614-621efe406e44/download"
+        ],
+        "asset": {
+          "id": "93bc7d59-b765-5d41-aca6-0c38942a4912",
+          "type": "image",
+          "status": "saved"
+        }
+      }
+    },
+    {
+      "key": "rackEdit",
+      "args": {
+        "image_url": "https://api.pixellab.ai/mcp/images/9969c7a3-dec8-40ed-b8fe-e5a02d495479/download",
+        "description": "Remove the four tiny green plants completely. Fill their places with the same dark brown growing medium. This is an EMPTY cultivation rack. Keep all metal framing, trays, perspective and transparent 128x128 canvas exactly the same. No green plants.",
+        "seed": 9252631
+      },
+      "response": {
+        "content": [
+          {
+            "type": "text",
+            "text": "id: b8bc5d7a-fd0a-486d-ba1c-9b0bdf5e819b\njob_id: b8bc5d7a-fd0a-486d-ba1c-9b0bdf5e819b\nmodel: pixen\nedit: Remove the four tiny green plants completely. Fill their places with the same dark brown growing medium. This is an EMPTY cultivation rack. Keep all metal framing, trays, perspective and transparent 128x128 canvas exactly the same. No green plants.\nsource: 128x128px\nsize: 128x128px\ntransparent: True — auto (input has transparency)\nseed: 9252631\nasset_id: d33023d9-e71d-5b00-bc52-efa48742c595\nasset_status: pending (saved when generation completes)\ncost: 1 generation\nstatus: processing (~10-40s)\n\nhint: get_image(job_id=\"b8bc5d7a-fd0a-486d-ba1c-9b0bdf5e819b\")"
+          }
+        ],
+        "isError": false
+      },
+      "completed": {
+        "job_id": "b8bc5d7a-fd0a-486d-ba1c-9b0bdf5e819b",
+        "status": "completed",
+        "frames": 1,
+        "download_url": "https://api.pixellab.ai/mcp/images/b8bc5d7a-fd0a-486d-ba1c-9b0bdf5e819b/download",
+        "download_urls": [
+          "https://api.pixellab.ai/mcp/images/b8bc5d7a-fd0a-486d-ba1c-9b0bdf5e819b/download"
+        ],
+        "asset": {
+          "id": "d33023d9-e71d-5b00-bc52-efa48742c595",
+          "type": "image",
+          "status": "saved"
+        }
+      }
+    },
+    {
+      "key": "cookerRetry",
+      "args": {
+        "description": "Flat orthographic overhead sprite of a square industrial cooking hotplate. Camera exactly vertically above at 90 degrees: see ONLY flat square TOP FACE, no visible sides, no depth, no isometric, no perspective. Square grey metal border parallel with image edges, four corner screws. Central charcoal circular lid, small horizontal handle. Two tiny amber lights along the top. Transparent canvas, centered object, 4 pixel margins. Coarse simple pixel art for a 32x32 spaceship game appliance.",
+        "width": 128,
+        "height": 128,
+        "no_background": true,
+        "view": "high top-down",
+        "isometric": false,
+        "detail": "low detail",
+        "shading": "basic shading",
+        "outline": "lineless",
+        "seed": 9252632
+      },
+      "response": {
+        "content": [
+          {
+            "type": "text",
+            "text": "id: d30229e0-747d-441a-9e78-58d40d511f14\njob_id: d30229e0-747d-441a-9e78-58d40d511f14\ndescription: Flat orthographic overhead sprite of a square industrial cooking hotplate. Camera exactly vertically above at 90 degrees: see ONLY flat square TOP FACE, no visible sides, no depth, no isometric, no perspective. Square grey metal border parallel with image edges, four corner screws. Central charcoal circular lid, small horizontal handle. Two tiny amber lights along the top. Transparent canvas, centered object, 4 pixel margins. Coarse simple pixel art for a 32x32 spaceship game appliance.\nsize: 128x128px\ntransparent: True\nasset_id: cfb2d1a2-6933-5d1c-af5f-a202e4211577\nasset_status: pending (saved when generation completes)\nseed: 9252632\ncost: 1 generation\nstatus: processing (~10-40s)\n\nhint: get_image(job_id=\"d30229e0-747d-441a-9e78-58d40d511f14\")"
+          }
+        ],
+        "isError": false
+      },
+      "completed": {
+        "job_id": "d30229e0-747d-441a-9e78-58d40d511f14",
+        "status": "completed",
+        "frames": 1,
+        "download_url": "https://api.pixellab.ai/mcp/images/d30229e0-747d-441a-9e78-58d40d511f14/download",
+        "download_urls": [
+          "https://api.pixellab.ai/mcp/images/d30229e0-747d-441a-9e78-58d40d511f14/download"
+        ],
+        "asset": {
+          "id": "cfb2d1a2-6933-5d1c-af5f-a202e4211577",
+          "type": "image",
+          "status": "saved"
+        }
+      }
+    },
+    {
+      "key": "edit_sprout",
+      "args": {
+        "image_url": "https://api.pixellab.ai/mcp/images/ff1f237b-5773-4777-8436-be9e6a40d796/download",
+        "description": "Replace this large mature potato plant with a tiny newly sprouted potato: exactly TWO small green leaves at the same central root, occupying only the middle 16x16 pixels of this 64x64 canvas. Remove all other foliage and stems. Straight overhead view. Transparent background and coarse pixel art.",
+        "seed": 9252640
+      },
+      "response": {
+        "content": [
+          {
+            "type": "text",
+            "text": "id: 5aa94ca8-5f18-440d-b4dd-f3fe35555c89\njob_id: 5aa94ca8-5f18-440d-b4dd-f3fe35555c89\nmodel: pixen\nedit: Replace this large mature potato plant with a tiny newly sprouted potato: exactly TWO small green leaves at the same central root, occupying only the middle 16x16 pixels of this 64x64 canvas. Remove all other foliage and stems. Straight overhead view. Transparent background and coarse pixel art.\nsource: 64x64px\nsize: 64x64px\ntransparent: True — auto (input has transparency)\nseed: 9252640\nasset_id: fe58ea09-9732-508a-9a9d-70f3629c3e86\nasset_status: pending (saved when generation completes)\ncost: 1 generation\nstatus: processing (~10-40s)\n\nhint: get_image(job_id=\"5aa94ca8-5f18-440d-b4dd-f3fe35555c89\")"
+          }
+        ],
+        "isError": false
+      },
+      "completed": {
+        "job_id": "5aa94ca8-5f18-440d-b4dd-f3fe35555c89",
+        "status": "completed",
+        "frames": 1,
+        "download_url": "https://api.pixellab.ai/mcp/images/5aa94ca8-5f18-440d-b4dd-f3fe35555c89/download",
+        "download_urls": [
+          "https://api.pixellab.ai/mcp/images/5aa94ca8-5f18-440d-b4dd-f3fe35555c89/download"
+        ],
+        "asset": {
+          "id": "fe58ea09-9732-508a-9a9d-70f3629c3e86",
+          "type": "image",
+          "status": "saved"
+        }
+      }
+    },
+    {
+      "key": "edit_young",
+      "args": {
+        "image_url": "https://api.pixellab.ai/mcp/images/ff1f237b-5773-4777-8436-be9e6a40d796/download",
+        "description": "Make this potato plant young and small: exactly four modest green leaves in a compact cross, one short central stem, occupying only the middle 32x32 pixels of this 64x64 canvas. Remove all other mature foliage. Preserve centered root, overhead view and transparent background. Coarse pixel art.",
+        "seed": 9252641
+      },
+      "response": {
+        "content": [
+          {
+            "type": "text",
+            "text": "id: 9bc3731f-827c-484e-b7fa-1e37ee5e8c76\njob_id: 9bc3731f-827c-484e-b7fa-1e37ee5e8c76\nmodel: pixen\nedit: Make this potato plant young and small: exactly four modest green leaves in a compact cross, one short central stem, occupying only the middle 32x32 pixels of this 64x64 canvas. Remove all other mature foliage. Preserve centered root, overhead view and transparent background. Coarse pixel art.\nsource: 64x64px\nsize: 64x64px\ntransparent: True — auto (input has transparency)\nseed: 9252641\nasset_id: 4e99b9ab-cdeb-52a5-bf30-52e8e0d1a12f\nasset_status: pending (saved when generation completes)\ncost: 1 generation\nstatus: processing (~10-40s)\n\nhint: get_image(job_id=\"9bc3731f-827c-484e-b7fa-1e37ee5e8c76\")"
+          }
+        ],
+        "isError": false
+      },
+      "completed": {
+        "job_id": "9bc3731f-827c-484e-b7fa-1e37ee5e8c76",
+        "status": "completed",
+        "frames": 1,
+        "download_url": "https://api.pixellab.ai/mcp/images/9bc3731f-827c-484e-b7fa-1e37ee5e8c76/download",
+        "download_urls": [
+          "https://api.pixellab.ai/mcp/images/9bc3731f-827c-484e-b7fa-1e37ee5e8c76/download"
+        ],
+        "asset": {
+          "id": "4e99b9ab-cdeb-52a5-bf30-52e8e0d1a12f",
+          "type": "image",
+          "status": "saved"
+        }
+      }
+    },
+    {
+      "key": "edit_harvest",
+      "args": {
+        "image_url": "https://api.pixellab.ai/mcp/images/ff1f237b-5773-4777-8436-be9e6a40d796/download",
+        "description": "Make this potato plant harvest-ready: preserve its large leafy shape, change most leaves to yellow-green and ochre, add a few dry brown tips. Keep some muted green. No potatoes above ground. Same centered root, overhead view, transparent 64x64 canvas. Clear yellowing distinguishes this from healthy green mature stage.",
+        "seed": 9252642
+      },
+      "response": {
+        "content": [
+          {
+            "type": "text",
+            "text": "id: ef8d6cad-fc3f-4fda-87df-50f3efb910c2\njob_id: ef8d6cad-fc3f-4fda-87df-50f3efb910c2\nmodel: pixen\nedit: Make this potato plant harvest-ready: preserve its large leafy shape, change most leaves to yellow-green and ochre, add a few dry brown tips. Keep some muted green. No potatoes above ground. Same centered root, overhead view, transparent 64x64 canvas. Clear yellowing distinguishes this from healthy green mature stage.\nsource: 64x64px\nsize: 64x64px\ntransparent: True — auto (input has transparency)\nseed: 9252642\nasset_id: 66bea452-71d6-542b-bd83-dbcdb76692dd\nasset_status: pending (saved when generation completes)\ncost: 1 generation\nstatus: processing (~10-40s)\n\nhint: get_image(job_id=\"ef8d6cad-fc3f-4fda-87df-50f3efb910c2\")"
+          }
+        ],
+        "isError": false
+      },
+      "completed": {
+        "job_id": "ef8d6cad-fc3f-4fda-87df-50f3efb910c2",
+        "status": "completed",
+        "frames": 1,
+        "download_url": "https://api.pixellab.ai/mcp/images/ef8d6cad-fc3f-4fda-87df-50f3efb910c2/download",
+        "download_urls": [
+          "https://api.pixellab.ai/mcp/images/ef8d6cad-fc3f-4fda-87df-50f3efb910c2/download"
+        ],
+        "asset": {
+          "id": "66bea452-71d6-542b-bd83-dbcdb76692dd",
+          "type": "image",
+          "status": "saved"
+        }
+      }
+    },
+    {
+      "key": "edit_wilted",
+      "args": {
+        "image_url": "https://api.pixellab.ai/mcp/images/ff1f237b-5773-4777-8436-be9e6a40d796/download",
+        "description": "Make this potato plant severely WILTED: drooping limp folded narrow leaves, dull olive grey-green and yellow-brown edges. Open gaps between sagging leaves. Clearly different from healthy bright green foliage, but still alive. Same centered root, overhead view, transparent 64x64 canvas. Coarse pixel art.",
+        "seed": 9252643
+      },
+      "response": {
+        "content": [
+          {
+            "type": "text",
+            "text": "id: 706a3ef8-5c91-43e5-a13b-b893f5b3d0e0\njob_id: 706a3ef8-5c91-43e5-a13b-b893f5b3d0e0\nmodel: pixen\nedit: Make this potato plant severely WILTED: drooping limp folded narrow leaves, dull olive grey-green and yellow-brown edges. Open gaps between sagging leaves. Clearly different from healthy bright green foliage, but still alive. Same centered root, overhead view, transparent 64x64 canvas. Coarse pixel art.\nsource: 64x64px\nsize: 64x64px\ntransparent: True — auto (input has transparency)\nseed: 9252643\nasset_id: 74bf62a4-8ed5-5292-a756-d4603cdaec3e\nasset_status: pending (saved when generation completes)\ncost: 1 generation\nstatus: processing (~10-40s)\n\nhint: get_image(job_id=\"706a3ef8-5c91-43e5-a13b-b893f5b3d0e0\")"
+          }
+        ],
+        "isError": false
+      },
+      "completed": {
+        "job_id": "706a3ef8-5c91-43e5-a13b-b893f5b3d0e0",
+        "status": "completed",
+        "frames": 1,
+        "download_url": "https://api.pixellab.ai/mcp/images/706a3ef8-5c91-43e5-a13b-b893f5b3d0e0/download",
+        "download_urls": [
+          "https://api.pixellab.ai/mcp/images/706a3ef8-5c91-43e5-a13b-b893f5b3d0e0/download"
+        ],
+        "asset": {
+          "id": "74bf62a4-8ed5-5292-a756-d4603cdaec3e",
+          "type": "image",
+          "status": "saved"
+        }
+      }
+    },
+    {
+      "key": "stage_sprout",
+      "args": {
+        "description": "One sprout potato plant, directly overhead 90-degree orthographic top-down. Only two very small leaves on a tiny shoot. Same species and muted palette as the reference plant, same root anchor exactly at (32,32), transparent 64x64 canvas, generous clear margins. No pot, no dirt, no machinery, no text, no side view. Coarse simple pixel clusters readable at 16x16. Maintain reference projection and plant identity.",
+        "width": 64,
+        "height": 64,
+        "no_background": true,
+        "view": "high top-down",
+        "isometric": false,
+        "detail": "low detail",
+        "shading": "basic shading",
+        "outline": "lineless",
+        "seed": 9252610,
+        "init_image_url": "https://api.pixellab.ai/mcp/images/ff1f237b-5773-4777-8436-be9e6a40d796/download",
+        "init_image_strength": 80
+      },
+      "response": {
+        "content": [
+          {
+            "type": "text",
+            "text": "id: 678a6ccb-505f-49db-b348-271c92b1fe90\njob_id: 678a6ccb-505f-49db-b348-271c92b1fe90\ndescription: One sprout potato plant, directly overhead 90-degree orthographic top-down. Only two very small leaves on a tiny shoot. Same species and muted palette as the reference plant, same root anchor exactly at (32,32), transparent 64x64 canvas, generous clear margins. No pot, no dirt, no machinery, no text, no side view. Coarse simple pixel clusters readable at 16x16. Maintain reference projection and plant identity.\nsize: 64x64px\ntransparent: True\nasset_id: fc92fc9e-0c4b-5e98-b498-4adab832a97b\nasset_status: pending (saved when generation completes)\ninit_image: yes (strength 80)\nseed: 9252610\ncost: 1 generation\nstatus: processing (~10-40s)\n\nhint: get_image(job_id=\"678a6ccb-505f-49db-b348-271c92b1fe90\")"
+          }
+        ],
+        "isError": false
+      },
+      "completed": {
+        "job_id": "678a6ccb-505f-49db-b348-271c92b1fe90",
+        "status": "completed",
+        "frames": 1,
+        "download_url": "https://api.pixellab.ai/mcp/images/678a6ccb-505f-49db-b348-271c92b1fe90/download",
+        "download_urls": [
+          "https://api.pixellab.ai/mcp/images/678a6ccb-505f-49db-b348-271c92b1fe90/download"
+        ],
+        "asset": {
+          "id": "fc92fc9e-0c4b-5e98-b498-4adab832a97b",
+          "type": "image",
+          "status": "saved"
+        }
+      }
+    },
+    {
+      "key": "stage_young",
+      "args": {
+        "description": "One young potato plant, directly overhead 90-degree orthographic top-down. A small young plant with three short branches and five small leaves. Same species and muted palette as the reference plant, same root anchor exactly at (32,32), transparent 64x64 canvas, generous clear margins. No pot, no dirt, no machinery, no text, no side view. Coarse simple pixel clusters readable at 16x16. Maintain reference projection and plant identity.",
+        "width": 64,
+        "height": 64,
+        "no_background": true,
+        "view": "high top-down",
+        "isometric": false,
+        "detail": "low detail",
+        "shading": "basic shading",
+        "outline": "lineless",
+        "seed": 9252611,
+        "init_image_url": "https://api.pixellab.ai/mcp/images/ff1f237b-5773-4777-8436-be9e6a40d796/download",
+        "init_image_strength": 150
+      },
+      "response": {
+        "content": [
+          {
+            "type": "text",
+            "text": "id: 775e4ad5-1053-4df3-af6e-e2afb9520292\njob_id: 775e4ad5-1053-4df3-af6e-e2afb9520292\ndescription: One young potato plant, directly overhead 90-degree orthographic top-down. A small young plant with three short branches and five small leaves. Same species and muted palette as the reference plant, same root anchor exactly at (32,32), transparent 64x64 canvas, generous clear margins. No pot, no dirt, no machinery, no text, no side view. Coarse simple pixel clusters readable at 16x16. Maintain reference projection and plant identity.\nsize: 64x64px\ntransparent: True\nasset_id: d0f3b360-19ac-5f0b-8656-4d3804efe2c9\nasset_status: pending (saved when generation completes)\ninit_image: yes (strength 150)\nseed: 9252611\ncost: 1 generation\nstatus: processing (~10-40s)\n\nhint: get_image(job_id=\"775e4ad5-1053-4df3-af6e-e2afb9520292\")"
+          }
+        ],
+        "isError": false
+      },
+      "completed": {
+        "job_id": "775e4ad5-1053-4df3-af6e-e2afb9520292",
+        "status": "completed",
+        "frames": 1,
+        "download_url": "https://api.pixellab.ai/mcp/images/775e4ad5-1053-4df3-af6e-e2afb9520292/download",
+        "download_urls": [
+          "https://api.pixellab.ai/mcp/images/775e4ad5-1053-4df3-af6e-e2afb9520292/download"
+        ],
+        "asset": {
+          "id": "d0f3b360-19ac-5f0b-8656-4d3804efe2c9",
+          "type": "image",
+          "status": "saved"
+        }
+      }
+    },
+    {
+      "key": "stage_harvest",
+      "args": {
+        "description": "One harvest potato plant, directly overhead 90-degree orthographic top-down. A wide fully grown canopy with a few yellowing outer leaf clusters indicating mature tubers below. Same species and muted palette as the reference plant, same root anchor exactly at (32,32), transparent 64x64 canvas, generous clear margins. No pot, no dirt, no machinery, no text, no side view. Coarse simple pixel clusters readable at 16x16. Maintain reference projection and plant identity.",
+        "width": 64,
+        "height": 64,
+        "no_background": true,
+        "view": "high top-down",
+        "isometric": false,
+        "detail": "low detail",
+        "shading": "basic shading",
+        "outline": "lineless",
+        "seed": 9252612,
+        "init_image_url": "https://api.pixellab.ai/mcp/images/ff1f237b-5773-4777-8436-be9e6a40d796/download",
+        "init_image_strength": 150
+      },
+      "response": {
+        "content": [
+          {
+            "type": "text",
+            "text": "id: 041a3b62-8d9e-4e44-b553-aacece9a0e0d\njob_id: 041a3b62-8d9e-4e44-b553-aacece9a0e0d\ndescription: One harvest potato plant, directly overhead 90-degree orthographic top-down. A wide fully grown canopy with a few yellowing outer leaf clusters indicating mature tubers below. Same species and muted palette as the reference plant, same root anchor exactly at (32,32), transparent 64x64 canvas, generous clear margins. No pot, no dirt, no machinery, no text, no side view. Coarse simple pixel clusters readable at 16x16. Maintain reference projection and plant identity.\nsize: 64x64px\ntransparent: True\nasset_id: 2117e76f-8557-5a4c-9a67-25cb7ee28f04\nasset_status: pending (saved when generation completes)\ninit_image: yes (strength 150)\nseed: 9252612\ncost: 1 generation\nstatus: processing (~10-40s)\n\nhint: get_image(job_id=\"041a3b62-8d9e-4e44-b553-aacece9a0e0d\")"
+          }
+        ],
+        "isError": false
+      },
+      "completed": {
+        "job_id": "041a3b62-8d9e-4e44-b553-aacece9a0e0d",
+        "status": "completed",
+        "frames": 1,
+        "download_url": "https://api.pixellab.ai/mcp/images/041a3b62-8d9e-4e44-b553-aacece9a0e0d/download",
+        "download_urls": [
+          "https://api.pixellab.ai/mcp/images/041a3b62-8d9e-4e44-b553-aacece9a0e0d/download"
+        ],
+        "asset": {
+          "id": "2117e76f-8557-5a4c-9a67-25cb7ee28f04",
+          "type": "image",
+          "status": "saved"
+        }
+      }
+    },
+    {
+      "key": "stage_wilted",
+      "args": {
+        "description": "One wilted potato plant, directly overhead 90-degree orthographic top-down. The same mature plant with drooping curled grey-green and yellow leaves, visibly stressed. Same species and muted palette as the reference plant, same root anchor exactly at (32,32), transparent 64x64 canvas, generous clear margins. No pot, no dirt, no machinery, no text, no side view. Coarse simple pixel clusters readable at 16x16. Maintain reference projection and plant identity.",
+        "width": 64,
+        "height": 64,
+        "no_background": true,
+        "view": "high top-down",
+        "isometric": false,
+        "detail": "low detail",
+        "shading": "basic shading",
+        "outline": "lineless",
+        "seed": 9252613,
+        "init_image_url": "https://api.pixellab.ai/mcp/images/ff1f237b-5773-4777-8436-be9e6a40d796/download",
+        "init_image_strength": 150
+      },
+      "response": {
+        "content": [
+          {
+            "type": "text",
+            "text": "id: 2785bb43-cd64-41aa-af4e-ecde91b327fc\njob_id: 2785bb43-cd64-41aa-af4e-ecde91b327fc\ndescription: One wilted potato plant, directly overhead 90-degree orthographic top-down. The same mature plant with drooping curled grey-green and yellow leaves, visibly stressed. Same species and muted palette as the reference plant, same root anchor exactly at (32,32), transparent 64x64 canvas, generous clear margins. No pot, no dirt, no machinery, no text, no side view. Coarse simple pixel clusters readable at 16x16. Maintain reference projection and plant identity.\nsize: 64x64px\ntransparent: True\nasset_id: ff4d596c-dd9f-5160-8161-d50b95f1001f\nasset_status: pending (saved when generation completes)\ninit_image: yes (strength 150)\nseed: 9252613\ncost: 1 generation\nstatus: processing (~10-40s)\n\nhint: get_image(job_id=\"2785bb43-cd64-41aa-af4e-ecde91b327fc\")"
+          }
+        ],
+        "isError": false
+      },
+      "completed": {
+        "job_id": "2785bb43-cd64-41aa-af4e-ecde91b327fc",
+        "status": "completed",
+        "frames": 1,
+        "download_url": "https://api.pixellab.ai/mcp/images/2785bb43-cd64-41aa-af4e-ecde91b327fc/download",
+        "download_urls": [
+          "https://api.pixellab.ai/mcp/images/2785bb43-cd64-41aa-af4e-ecde91b327fc/download"
+        ],
+        "asset": {
+          "id": "ff4d596c-dd9f-5160-8161-d50b95f1001f",
+          "type": "image",
+          "status": "saved"
+        }
+      }
+    },
+    {
+      "key": "stage_dead",
+      "args": {
+        "description": "One dead potato plant, directly overhead 90-degree orthographic top-down. The same plant now entirely dry brown collapsed leaves and brittle stalks, no green. Same species and muted palette as the reference plant, same root anchor exactly at (32,32), transparent 64x64 canvas, generous clear margins. No pot, no dirt, no machinery, no text, no side view. Coarse simple pixel clusters readable at 16x16. Maintain reference projection and plant identity.",
+        "width": 64,
+        "height": 64,
+        "no_background": true,
+        "view": "high top-down",
+        "isometric": false,
+        "detail": "low detail",
+        "shading": "basic shading",
+        "outline": "lineless",
+        "seed": 9252614,
+        "init_image_url": "https://api.pixellab.ai/mcp/images/ff1f237b-5773-4777-8436-be9e6a40d796/download",
+        "init_image_strength": 150
+      },
+      "response": {
+        "content": [
+          {
+            "type": "text",
+            "text": "id: a781750f-298c-41e3-be9a-1a7f37372ac9\njob_id: a781750f-298c-41e3-be9a-1a7f37372ac9\ndescription: One dead potato plant, directly overhead 90-degree orthographic top-down. The same plant now entirely dry brown collapsed leaves and brittle stalks, no green. Same species and muted palette as the reference plant, same root anchor exactly at (32,32), transparent 64x64 canvas, generous clear margins. No pot, no dirt, no machinery, no text, no side view. Coarse simple pixel clusters readable at 16x16. Maintain reference projection and plant identity.\nsize: 64x64px\ntransparent: True\nasset_id: cbdf3fe7-8c58-5d0f-a38e-9313d9a96c76\nasset_status: pending (saved when generation completes)\ninit_image: yes (strength 150)\nseed: 9252614\ncost: 1 generation\nstatus: processing (~10-40s)\n\nhint: get_image(job_id=\"a781750f-298c-41e3-be9a-1a7f37372ac9\")"
+          }
+        ],
+        "isError": false
+      },
+      "completed": {
+        "job_id": "a781750f-298c-41e3-be9a-1a7f37372ac9",
+        "status": "completed",
+        "frames": 1,
+        "download_url": "https://api.pixellab.ai/mcp/images/a781750f-298c-41e3-be9a-1a7f37372ac9/download",
+        "download_urls": [
+          "https://api.pixellab.ai/mcp/images/a781750f-298c-41e3-be9a-1a7f37372ac9/download"
+        ],
+        "asset": {
+          "id": "cbdf3fe7-8c58-5d0f-a38e-9313d9a96c76",
+          "type": "image",
+          "status": "saved"
+        }
+      }
+    }
+  ]
+}

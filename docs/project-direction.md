@@ -77,6 +77,18 @@ not a claim that food, atmosphere or all maintenance supplies are already closed
 loops. The [processing study](shipbreaking-material-processing-research.md) connects
 them to shredding, separation, finite transport and retained waste.
 
+On **2026-09-25**, the owner selected **Phobos Agriculture** for research and
+design: a separate Framework-dependent content mod beginning with potatoes and
+lettuce, crew tending and managed growing equipment. The
+[research report](agriculture-research.md), [first-slice specification](agriculture-first-slice.md)
+and [endurance roadmap](agriculture-roadmap.md) connect food production to finite
+water, nutrients, electrical supply and heat. NASA and ESA references are explicit;
+accelerated growth and candidate yields remain authored gameplay balance.
+Ship's Water, Shipbreaker and future asteroid processing have optional proposed
+links. PixelLab is the preferred plant-sprite candidate, with a small pilot before
+production. This research does not implement a growing mod or authorize paid
+generation, and does not establish indefinite survival.
+
 ## First milestone
 
 The owner selected **[Phobos Approach Assist](limited-autopilot.md)** as the first

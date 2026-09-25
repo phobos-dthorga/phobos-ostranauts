@@ -1,10 +1,11 @@
 # Fusion-powered industry: ideas and research sequence
 
-**Implementation update (25 September 2026):** Shipbreaker 0.13.0 / Framework 0.16.0
+**Implementation update (25 September 2026):** Shipbreaker 0.14.0 / Framework 0.17.0
 now prepare the electrical casting candidate described in the [F6 operating guide](furnace-player-guide.md).
 Read that guide for current dimensions, acquisition, controls and owner checks.
 Version 0.13.0 adds the optional 1 x 1 side-mounted F6-P underside cooling
 assembly alongside the existing exterior radiator; each furnace selects one.
+Version 0.14.0 completes the [attachment and native-instrument follow-up](furnace-connections-and-instruments.md).
 The research and direct-fusion installation diagrams below retain their historical scope;
 they are not a record of an in-game test.
 
@@ -16,7 +17,7 @@ radiator and vanilla-control design; omit the reactor-side heat coupler.
 **25 September 2026:** [shared console observations](shared-console-observations.md)
 are prepared in Framework 0.13.0 / Shipbreaker 0.11.0. Native room alarms, R4
 cooling probes and session stop evidence provide the first industrial instruments;
-furnace/specialist instrumentation is still future work.
+furnace instruments are now implemented; specialist instrumentation remains future work.
 
 **25 September furnace first-cycle study:** [the recommended design](furnace-first-cycle.md)
 casts 20 kg of native aluminium into a 19 kg rough non-pressure housing and 1 kg
@@ -26,7 +27,8 @@ The proposed F6/coupler/exterior-radiator installation has a finite thermal and
 gas budget, with a roughly 54-minute cold thermal cycle under the documented
 assumptions. [Vanilla UI reuse](furnace-ui-and-art.md) is the preferred route for
 controls, with [installation and panel mockups](../assets/phobos-furnace/research/layouts.html).
-This completes research/design only. Native fusion debit/allocation still needs a
+That historical study completed research/design only; the electric cycle is now
+implemented. Any later raw-fusion debit/allocation still needs a
 maintainable adapter; the current reactor's displayed split is not an energy receipt.
 
 Decision record: **2026-09-23**. The owner wants all five ideas retained and
@@ -64,6 +66,15 @@ Control is restricted to the console's player-owned host ship. See the
 [console player guide](industrial-console-player-guide.md). Builds/checks are
 offline; game rendering, seating and connected operation still need owner tests.
 A future PDA/visor logical-connection view is documented only.
+
+**2026-09-25 agriculture research:** the [Phobos Agriculture study](agriculture-research.md)
+and [endurance roadmap](agriculture-roadmap.md) add a proposed food/nutrient consumer
+for later resource processing. Growing racks use measured native electricity and
+finite water/nutrients; they do not require direct reactor heat or Shipbreaker.
+The [specification](agriculture-first-slice.md#framework-and-optional-integrations)
+proposes a Framework equipment-provider interface for optional C1 console access
+and finite liquid transfers for optional Ship's Water irrigation. These are design
+work, not implemented integrations or changed scrap/reject contracts.
 
 **Auto Nav direction (2026-09-24):** serve the owner's short-range gap below
 5,000 km. Version 0.4.0 prepares closer arrival settings, a 1 km new-config

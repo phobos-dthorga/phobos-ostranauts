@@ -17,7 +17,7 @@ carbonaceous material** and **phosphate/salt-bearing material**. These would mak
 asteroid selection matter and eventually help replenish air and crop nutrients.
 Do not make every rock a source of every consumable.
 
-The scientific precedent is encouraging: Bennu samples contain ammonia and
+NASA's OSIRIS-REx sample research provides a precedent: Bennu samples contain ammonia and
 nitrogen-rich organic matter, while mineral analysis identified salts including
 phosphates. These observations support the presence of relevant ingredients, not
 our proposed concentration, extraction efficiency or equipment size.
@@ -138,9 +138,15 @@ appropriate biological stock. NASA's space-crop work identifies water, light,
 CO2 and nutrients such as nitrogen, potassium and phosphorus as inputs.
 [NASA space-growing discussion](https://www.nasa.gov/podcasts/curious-universe/how-to-grow-plants-in-space/).
 
-Do not add crop machinery as a prerequisite to the first water machine. Refresh
-the mod inventory for actual food-growing systems when that branch becomes
-relevant; this round did not verify a compatible food-production provider.
+Do not add crop machinery as a prerequisite to the first water machine. The
+original asteroid research did not verify a compatible food-production provider.
+The **2026-09-25 follow-up** refreshed the installed inventory and selected
+[Phobos Agriculture](agriculture-research.md) as a proposed Framework-dependent
+consumer. Its [crop specification](agriculture-first-slice.md#candidate-resource-budgets)
+starts with purchased formulated nutrients; retained nutrient mass is a simplified
+budget, not a complete chemical assay or an implemented extraction recipe.
+The [endurance roadmap](agriculture-roadmap.md#round-3-characterized-nutrients-and-asteroid-replenishment)
+requires characterized products before enabling ore-to-nutrient integration.
 Keep process water and crop nutrient solutions separate from drinking water.
 Only promise useful nutrient products once their quality requirements and consumer
 are known. Wastewater reclamation alone does not establish nutrient recovery.

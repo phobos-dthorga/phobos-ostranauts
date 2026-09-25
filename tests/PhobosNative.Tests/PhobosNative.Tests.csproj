@@ -7,6 +7,7 @@
     <ProjectReference Include="../../src/PhobosFramework/PhobosFramework.csproj" />
     <ProjectReference Include="../../src/PhobosShipbreaker/PhobosShipbreaker.csproj" />
     <ProjectReference Include="../../src/PhobosAutoNav/PhobosAutoNav.csproj" />
+    <ProjectReference Include="../../src/PhobosAgriculture/PhobosAgriculture.csproj" />
     <Reference Include="Assembly-CSharp" HintPath="$(GameManaged)/Assembly-CSharp.dll" />
     <Reference Include="Assembly-CSharp-firstpass" HintPath="$(GameManaged)/Assembly-CSharp-firstpass.dll" />
     <Reference Include="Newtonsoft.Json" HintPath="$(GameManaged)/Newtonsoft.Json.dll" />

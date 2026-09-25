@@ -38,6 +38,57 @@
   `Localization.EquipmentNames` pattern, with content-owned embedded naming maps
   and translated type/variant descriptors. Retain existing translation keys.
 
+## Supporting research and institutional attribution
+
+- Owner memorandum (2026-09-25), effective immediately for all current and future
+  Phobos Ostranauts mods, including Framework: explicitly name NASA, ESA or the
+  relevant research organization whenever its work supports a claim, calculation
+  or design decision. Do not leave that attribution implicit in a link or describe
+  it only as generic "research".
+- In research notes, design documents, explanations and relevant player-facing
+  help, place a clearly labelled primary-source link beside the supported claim.
+  Identify the organization and the document, experiment or mission; include its
+  date/version where material. Attribute the actual researchers or institution,
+  distinguishing authorship from a repository merely hosting a paper.
+- Clearly separate the source's findings from our inference, simplified model,
+  fictional equipment and authored gameplay balance. Explain material limits of
+  applying the research; attribution must not imply institutional endorsement or
+  validation of our mod. Mark unverified references as such rather than inventing
+  citations. Correct missing attribution when encountered in existing material.
+- Keep equipment branding original and controls readable. Put supporting research
+  in the relevant explanatory text or documentation, with live/localized text
+  where it appears in-game; do not bake citations into machinery artwork.
+- Apply the same direct attribution to original researchers, game documentation
+  and mod authors. Label accelerated growth, authored yields and simplified
+  chemistry explicitly. Preserve references in relevant design and release
+  documentation alongside separate artwork provenance and licensing records;
+  repair or extend citations whenever related existing research is revised.
+
+## Agriculture direction (2026-09-25)
+
+- The owner selected a separate Phobos Agriculture content mod requiring Phobos
+  Framework, beginning with potatoes and lettuce, automatic environmental control
+  and crew planting, harvesting and maintenance. Short configurable growth cycles
+  are authored gameplay balance. Follow `docs/agriculture-research.md`,
+  `docs/agriculture-first-slice.md` and `docs/agriculture-roadmap.md`.
+- The owner subsequently authorized implementation. Agriculture 0.1.0 supplies
+  the A4 rack, K2 portion cooker, potato/lettuce cohorts and finite manual inputs.
+  Framework 0.17.0 adds equipment providers and measured liquid transfers;
+  Shipbreaker 0.14.0 exposes agriculture through C1. The optional Ship's Water
+  adapter is scoped to inspected 0.16.1, with manual fallback for other versions.
+  Follow `docs/agriculture-player-guide.md` and `docs/agriculture-implementation.md`
+  for delivered scope and owner checks. Prepared packages are not installed or
+  gameplay-validated. Keep biology in Agriculture, preserving Framework fixed
+  batches and their one-hour limit.
+- Ship's Water irrigation and Shipbreaker's industrial-console/material links
+  remain optional. Protect crew water reserves, same-ship isolation, finite manual
+  supply and existing residue/reject identities. Future nutrient/asteroid recovery
+  needs characterized products; cultivation does not grant perfect recycling.
+- PixelLab is preferred for a small potato growth-stage pilot before broader
+  plant production, following the shared asset and resolution policies. Separate
+  plant and rack layers, preserve registration/provenance and measure cost per
+  usable sprite. Research and planning do not initiate paid generation.
+
 ## Working style
 
 - Keep this a practical, small-team project. Prefer a working slice over a
@@ -103,6 +154,11 @@
   Preserve old radiator IDs/maps. Switching requires cool endpoints and empty
   idle furnace inventories. The underside area is an authored abstraction, not
   a simulated lower deck or an atmosphere vent.
+  Shipbreaker 0.14.0 / Framework 0.17.0 add reactor-inspired named attachment
+  points, inward-facing coupling artwork, a rotating installation key and native
+  guarded-toggle/digit/slider adapters. See `docs/furnace-connections-and-instruments.md`.
+  Retain existing placement offsets, thermal rules and saved pairs. Artwork
+  selection is presentation only; slider drafts apply through the checked service.
   Follow `docs/furnace-player-guide.md`; gameplay and new art await owner review. Raw fusion heat has no established native outlet and
   remains historical research, not a prerequisite for the electrical furnace.
   Account actual electrical consumption once, including partial supply and losses;
@@ -322,6 +378,25 @@
   telemetry we do not have, or present passive chutes as powered machinery.
 
 ## Artwork
+
+- Owner memorandum (2026-09-25): use PixelLab and its suitable AI-generation
+  capabilities by default for simpler pixel-art assets across all Ostranauts
+  mods, primarily to reduce generation costs. Reserve ChatGPT image generation
+  for more complex artwork where its additional capability materially improves
+  the result. This explicit provider preference supersedes generic imagegen-skill
+  defaults for these assets. Existing approved art needs no provider migration.
+- Follow `docs/asset-generation-policy.md`, incorporating the inspected Codename
+  Gekko PixelLab workflow lessons. Prefer the lowest-cost suitable single-image
+  operation; check current allowance and operation cost, preserve prompts/seeds,
+  provider IDs and untouched masters, and inspect native-scale exports before
+  commissioning more. PixelLab's different operations have different costs;
+  do not assume an object/directional batch is as cheap as one image.
+- Retain vanilla UI reuse, existing deterministic exporters and the resolution
+  memorandum. Generate original world sprites in Ostranauts' overhead projection;
+  do not import Gekko's isometric requirement, assets, credentials or separate
+  approval process. If the configured service is unavailable or unexpectedly
+  requires additional paid credits, explain the gap and request the needed input
+  instead of silently purchasing credit or switching to a costlier generator.
 
 - Owner direction (2026-09-25): minimize future graphics rework. Follow the
   production approach in `docs/furnace-ui-and-art.md`: compose panels from

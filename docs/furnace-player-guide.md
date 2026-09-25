@@ -1,9 +1,10 @@
 # F6 electric furnace: first implementation
 
-**25 September 2026 — Shipbreaker 0.13.0, Framework 0.16.0.** This is a prepared
+**25 September 2026 — Shipbreaker 0.14.0, Framework 0.17.0.** This is a prepared
 implementation candidate. Automated physics and native-definition checks are
-separate from in-game evaluation; installation and gameplay review remain with
-the owner. Ordinary saves are supported. No game or save was modified to test it.
+separate from in-game evaluation; gameplay review remains with the owner.
+The earlier 0.13.0 installation has a verified installer receipt; this 0.14.0
+candidate is a separate build, not an assertion that it has been installed. Ordinary saves are supported. No game or save was modified to test it.
 
 ## Installation: choose one cooling assembly
 
@@ -203,9 +204,12 @@ hierarchy, initializes under
 an inactive owned root and explicitly detaches knob callbacks during refresh.
 It also reuses the air-pump title font. No full reactor controller is cloned.
 
-The guarded toggle, seven-segment formatter and sliders remain follow-up work.
-This candidate uses ordinary signed TMP readings and Framework numeric fields,
-buttons and scrolling for those controls. Native layout/scale, click feedback,
+Version 0.14.0 adds the native guarded switch, seven-segment artwork with a
+Phobos formatter, and vertical sliders. Missing readings and overflow blank the
+digits; adjacent signed localized text remains authoritative. Sliders edit a
+draft; Apply sends one checked command. Buttons, numeric fields and scrolling
+remain as accessible controls and diagnosed fallbacks. See the
+[attachment and instrument record](furnace-connections-and-instruments.md). Native layout/scale, click feedback,
 focus and repeated opening need in-game review. Diagnostics identify rejected
 donor paths once; original game assets are never modified or distributed.
 
@@ -223,10 +227,16 @@ phobosfurnace stop <full-furnace-id>
 C1 also accepts furnace actions through `phobosindustry <action> <console-id>
 <furnace-id> [value]`, using the same access checks.
 
+The installation key rotates with the F6 and highlights its valid selected
+attachment. Named attachment points follow the vanilla reactor pattern without
+changing existing offsets. The side-port coupling faces inward automatically
+when the saved pair is physically valid. Wrong rotation, wrong socket and missing
+support have separate messages. Painted pipe details are not a routable network.
+
 ## Owner review on return
 
 - Install the prepared packages with the existing installer after closing the
-  game; confirm Framework 0.16.0 and Shipbreaker 0.13.0 in the loaded status/log.
+  game; confirm Framework 0.17.0 and Shipbreaker 0.14.0 in the loaded status/log.
 - Check both cooling installations in all rotations, including both port side
   sockets, visible alignment and collision bounds. Review the port at normal game
   scale, including damage tint. Verify cabin pressure is unaffected by installation.
@@ -238,7 +248,9 @@ C1 also accepts furnace actions through `phobosindustry <action> <console-id>
 - Save hot, reload, verify retained charge/heat/gas and explicit Resume. Block the
   output tray, then free it and release once. Compare all product masses.
 - Open/close local and C1 panels repeatedly; check paused controls, numeric focus,
-  smaller UI scales, native donor appearance and always-accessible Stop.
+  smaller UI scales, native donor appearance and always-accessible Stop. Open the
+  guard, enable/stop, drag each slider and Apply, then change a value through F3.
+  Verify unsubmitted edits are retained and refresh causes no new commands.
 
-These gameplay checks have **not** been run by the agent. The 0.13.0 package is prepared for owner review; this development
-round has not installed it or changed the running game or saves. The historical research and mockup are background, not runtime proof.
+These gameplay checks have **not** been run by the agent. The 0.14.0 package is prepared for owner review; preparing a package does not
+install it or change a running game or saves. The historical research and mockup are background, not runtime proof.

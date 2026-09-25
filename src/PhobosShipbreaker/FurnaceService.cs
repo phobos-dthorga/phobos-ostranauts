@@ -130,8 +130,7 @@ internal static partial class FurnaceService
     private static bool Geometry(CondOwner furnace, CondOwner endpoint)
     {
         if (furnace.ship == null || furnace.ship != endpoint.ship || !Mounted(furnace) || !CoolingMounted(endpoint)) return false;
-        var p = furnace.GetPos(); var c = endpoint.GetPos();
-        return FurnaceCooling.Aligned(FurnaceRules.Underside(endpoint.strCODef), p.x, p.y, furnace.tf.eulerAngles.z, c.x, c.y, endpoint.tf.eulerAngles.z);
+        return IntakeRules.SameAngle(furnace.tf.eulerAngles.z, endpoint.tf.eulerAngles.z) && SocketAt(furnace, endpoint) != FurnaceCooling.Socket.None;
     }
     private static CondOwner? SelectedCooling(CondOwner co)
     {
@@ -152,6 +151,7 @@ internal static partial class FurnaceService
         {
             if (co.bDestroyed || co.ship == null || (int)co.ship.LoadState < 2) continue;
             try { Advance(Get(co)); } catch (Exception ex) { Fault(co, ex); }
+            FurnaceConnectionView.Refresh(co);
         }
     }
     private static void AdvanceCooling(Session s)

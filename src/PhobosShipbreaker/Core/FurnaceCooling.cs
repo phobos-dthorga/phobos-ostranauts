@@ -8,17 +8,25 @@ namespace PhobosShipbreaker.Core;
 /// <summary>Two physical installations, one finite cooling budget and unchanged saved sink format.</summary>
 public static class FurnaceCooling
 {
+    public enum Socket { None, Left, Right, Rear }
     public const double SideX = 3.5, SideY = .5;
+    public static (double X, double Y) Offset(Socket socket) => socket switch
+    {
+        Socket.Left => (-SideX, SideY), Socket.Right => (SideX, SideY),
+        Socket.Rear => (0, FurnaceRules.PairSpacingTiles), _ => throw new ArgumentOutOfRangeException(nameof(socket))
+    };
+    public static Socket AtSocket(bool underside, double fx, double fy, double fa, double cx, double cy)
+    {
+        foreach (var socket in underside ? new[] { Socket.Left, Socket.Right } : new[] { Socket.Rear })
+        {
+            var offset = Offset(socket); var p = IntakeRules.Rotate(offset.X, offset.Y, fa);
+            if (IntakeRules.Near(cx, cy, fx + p.X, fy + p.Y)) return socket;
+        }
+        return Socket.None;
+    }
     public static bool Aligned(bool underside, double fx, double fy, double fa, double cx, double cy, double ca)
     {
-        if (!IntakeRules.SameAngle(fa, ca)) return false;
-        if (!underside) return At(0, FurnaceRules.PairSpacingTiles);
-        return At(-SideX, SideY) || At(SideX, SideY);
-        bool At(double x, double y)
-        {
-            var p = IntakeRules.Rotate(x, y, fa);
-            return IntakeRules.Near(cx, cy, fx + p.X, fy + p.Y);
-        }
+        return IntakeRules.SameAngle(fa, ca) && AtSocket(underside, fx, fy, fa, cx, cy) != Socket.None;
     }
     public static bool FloorSupport(bool floor, bool sealedFloor, bool wall, bool eva, bool intactInstalledFloor) =>
         floor && sealedFloor && !wall && !eva && intactInstalledFloor;

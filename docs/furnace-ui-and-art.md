@@ -1,10 +1,11 @@
 # F6 vanilla UI reuse, layouts and graphics brief
 
-**Implementation update (25 September 2026):** Shipbreaker 0.13.0 / Framework 0.16.0
+**Implementation update (25 September 2026):** Shipbreaker 0.14.0 / Framework 0.17.0
 now prepare the electrical casting candidate described in the [F6 operating guide](furnace-player-guide.md).
 Read that guide for current dimensions, acquisition, controls and owner checks.
 Version 0.13.0 adds the optional 1 x 1 side-mounted F6-P underside cooling
 assembly alongside the existing exterior radiator; each furnace selects one.
+Version 0.14.0 completes the [attachment and native-instrument follow-up](furnace-connections-and-instruments.md).
 The research and direct-fusion installation diagrams below retain their historical scope;
 they are not a record of an in-game test.
 
@@ -16,7 +17,8 @@ first electrical build; its coupler art is no longer required.
 **25 September 2026.** Companion to the [first-cycle specification](furnace-first-cycle.md).
 This round inspects native resources and produces a
 [browser layout study](../assets/phobos-furnace/research/layouts.html).
-There is no Unity furnace panel, no production artwork and no in-game UI test yet.
+At the time of this historical study there was no Unity furnace panel or production
+artwork. Both are now implemented; in-game evaluation is still pending.
 The browser study uses original geometry placeholders, not extracted game pixels.
 
 ## Reuse decision

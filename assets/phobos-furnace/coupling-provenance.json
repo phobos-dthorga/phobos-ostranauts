@@ -1,0 +1,30 @@
+{
+  "provider": "PixelLab",
+  "operation": "create_image_pixflux",
+  "date": "2026-09-25",
+  "job_id": "92dc7256-dcf0-402c-a0f6-0acf5ae2193d",
+  "asset_id": "c19cf711-9ce1-55b3-b686-a064737c152f",
+  "cost_generations": 1,
+  "paid_credits": 0,
+  "returned_size": [
+    64,
+    32
+  ],
+  "source": "source/PhobosFurnaceCoupling-pixellab-v1.png",
+  "sha256": "47bdc416272c2b763e6d5b24dda5078e8f963b14e71f8bc9774f05951fac509a",
+  "request": {
+    "description": "One small industrial insulated thermal coupling, straight horizontal left-to-right connector, orthographic overhead view with no perspective. Two simple pale ceramic end collars and a short dark red ribbed bellows between them, restrained grey metal clamps. Coarse readable pixel art for utilitarian spaceship equipment, clean silhouette, sparse highlights, no labels, no logos, no glow, no floor or shadow. Centered single object fully inside a transparent 64 by 32 canvas with a small clear margin. This is a tiny reusable coupling insert, not a whole machine.",
+    "width": 64,
+    "height": 32,
+    "no_background": true,
+    "isometric": false,
+    "view": "high top-down",
+    "detail": "low detail",
+    "shading": "basic shading",
+    "outline": "selective outline",
+    "seed": 26092513
+  },
+  "input_images": [],
+  "terms": "https://pixellab.ai/termsofservice",
+  "approval": "Candidate for owner in-game evaluation; original masters unchanged."
+}

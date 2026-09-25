@@ -1,0 +1,119 @@
+{
+  "schemaVersion": 1,
+  "recipes": [
+    {
+      "id": "PhobosCultivationBuild",
+      "name": "Phobos' Rivetline A4 Cultivation Rack",
+      "description": "Assemble an empty, loose appliance from physical materials.",
+      "nameKey": "rack",
+      "descriptionKey": "build_desc",
+      "stationIds": [
+        "ItmTable01",
+        "ItmTable02"
+      ],
+      "optionalStationIds": [
+        "SWB_WorkbenchInstalled"
+      ],
+      "toolTriggers": [
+        "TIsToolMortorq",
+        "TIsToolSoldering"
+      ],
+      "ingredients": [
+        {
+          "item": "ItmScrapSteel",
+          "trigger": "TIsScrapSteel",
+          "count": 48,
+          "unitMassKg": 1,
+          "requireEmpty": true
+        },
+        {
+          "item": "ItmScrapAluminum",
+          "trigger": "TIsScrapAluminum",
+          "count": 24,
+          "unitMassKg": 1,
+          "requireEmpty": true
+        },
+        {
+          "item": "ItmPartsMechSmall01",
+          "trigger": "TIsPartsMechSmall",
+          "count": 12,
+          "unitMassKg": 0.5,
+          "requireEmpty": true
+        },
+        {
+          "item": "ItmPartsElecSmall01",
+          "trigger": "TIsPartsElecSmall",
+          "count": 4,
+          "unitMassKg": 0.5,
+          "requireEmpty": true
+        }
+      ],
+      "outputs": [
+        {
+          "item": "PhobosCultivationLoose",
+          "count": 1,
+          "unitMassKg": 80
+        }
+      ],
+      "workSeconds": 3600,
+      "range": 2
+    },
+    {
+      "id": "PhobosGalleyBuild",
+      "name": "Phobos' Rivetline K2 Galley Cooker",
+      "description": "Assemble an empty, loose appliance from physical materials.",
+      "nameKey": "cooker",
+      "descriptionKey": "build_desc",
+      "stationIds": [
+        "ItmTable01",
+        "ItmTable02"
+      ],
+      "optionalStationIds": [
+        "SWB_WorkbenchInstalled"
+      ],
+      "toolTriggers": [
+        "TIsToolMortorq",
+        "TIsToolSoldering"
+      ],
+      "ingredients": [
+        {
+          "item": "ItmScrapSteel",
+          "trigger": "TIsScrapSteel",
+          "count": 6,
+          "unitMassKg": 1,
+          "requireEmpty": true
+        },
+        {
+          "item": "ItmScrapAluminum",
+          "trigger": "TIsScrapAluminum",
+          "count": 4,
+          "unitMassKg": 1,
+          "requireEmpty": true
+        },
+        {
+          "item": "ItmPartsMechSmall01",
+          "trigger": "TIsPartsMechSmall",
+          "count": 2,
+          "unitMassKg": 0.5,
+          "requireEmpty": true
+        },
+        {
+          "item": "ItmPartsElecSmall01",
+          "trigger": "TIsPartsElecSmall",
+          "count": 2,
+          "unitMassKg": 0.5,
+          "requireEmpty": true
+        }
+      ],
+      "outputs": [
+        {
+          "item": "PhobosGalleyLoose",
+          "count": 1,
+          "unitMassKg": 12
+        }
+      ],
+      "workSeconds": 1200,
+      "range": 2
+    }
+  ]
+}

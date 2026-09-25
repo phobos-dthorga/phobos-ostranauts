@@ -25,6 +25,14 @@ Keep game data and local research outside tracked source. Use small synthetic
 fixtures where tests need representative state. Include licences and provenance
 for third-party artwork or code, and note AI assistance when assets use it.
 
+For every mod and research document, name NASA, ESA, original researchers, game
+documentation and mod authors beside relevant claims, with direct primary-source
+links. Separate scientific findings, observed behaviour, proposals and untested
+assumptions; identify accelerated growth, authored yields and simplified chemistry
+as gameplay choices. Preserve relevant references in design and release documents
+alongside separate artwork/licensing records, and repair citations when revising
+related research. See the [standing attribution guidance](AGENTS.md#supporting-research-and-institutional-attribution).
+
 As with Republic Observatory, independent forks and community maintenance are
 welcome if the project is shared. Preserve the MIT notice and credit contributors.
 Suggested attribution: "Based on Phobos Ostranauts by Phobos A. D'thorga."

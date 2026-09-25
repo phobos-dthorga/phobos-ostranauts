@@ -21,7 +21,8 @@ internal static class DependencyChecks
         check(DependencyContract.FrameworkProblem(new Version(0, 12, 0)) != null, "Console observations require Framework 0.13");
         check(DependencyContract.FrameworkProblem(new Version(0, 14, 0)) != null, "Performance handles require Framework 0.15");
         check(DependencyContract.FrameworkProblem(new Version(0, 15, 0)) != null, "Furnace receipts and native instruments require Framework 0.16");
-        foreach (var version in new[] { new Version(0, 16, 0), new Version(0, 16, 1), new Version(1, 0, 0) })
+        check(DependencyContract.FrameworkProblem(new Version(0, 16, 0)) != null, "Guarded control and digit adapters require Framework 0.17");
+        foreach (var version in new[] { new Version(0, 17, 0), new Version(0, 17, 1), new Version(1, 0, 0) })
             check(DependencyContract.FrameworkProblem(version) == null, "No invented upper version or age cutoff: " + version);
 
         var tables = DependencyContract.Required.ToDictionary(g => g.Table, g => g.Names.ToHashSet());

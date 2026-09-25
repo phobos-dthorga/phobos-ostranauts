@@ -55,4 +55,57 @@ foreach ($entry in $manifest.assets) {
         $portrait.Save((Join-Path $runtime ($entry.id + 'Portrait.png')), [Drawing.Imaging.ImageFormat]::Png)
     } finally { foreach ($image in @($master, $small, $normal, $portrait, $zoom)) { if ($null -ne $image) { $image.Dispose() } } }
 }
+# Independent coupling insert. Compose registered derivatives; never paint over the retained masters.
+$couplingPath = Join-Path $art 'source/PhobosFurnaceCoupling-pixellab-v1.png'
+if ((Get-FileHash -LiteralPath $couplingPath).Hash -ne '47BDC416272C2B763E6D5B24DDA5078E8F963B14E71F8BC9774F05951FAC509A') { throw 'Coupling master hash changed.' }
+$couplingMaster = [Drawing.Bitmap]::new($couplingPath)
+$coupling = Resize-Pixels $couplingMaster ([Drawing.Rectangle]::new(0,0,64,32)) 16 8
+$furnace = [Drawing.Bitmap]::new((Join-Path $runtime 'PhobosFurnace.png'))
+try {
+    $g = [Drawing.Graphics]::FromImage($furnace)
+    try {
+        $g.CompositingMode = [Drawing.Drawing2D.CompositingMode]::SourceOver
+        $g.DrawImage($coupling, [Drawing.Rectangle]::new(0,36,8,8), [Drawing.Rectangle]::new(8,0,8,8), [Drawing.GraphicsUnit]::Pixel)
+        $g.DrawImage($coupling, [Drawing.Rectangle]::new(88,36,8,8), [Drawing.Rectangle]::new(0,0,8,8), [Drawing.GraphicsUnit]::Pixel)
+        $vertical = [Drawing.Bitmap]$coupling.Clone()
+        try {
+            $vertical.RotateFlip([Drawing.RotateFlipType]::Rotate90FlipNone)
+            $g.DrawImage($vertical, [Drawing.Rectangle]::new(44,0,8,8), [Drawing.Rectangle]::new(0,8,8,8), [Drawing.GraphicsUnit]::Pixel)
+            $radiator = [Drawing.Bitmap]::new((Join-Path $runtime 'PhobosFurnaceRadiator.png'))
+            try {
+                $rg = [Drawing.Graphics]::FromImage($radiator)
+                try { $rg.DrawImage($vertical, [Drawing.Rectangle]::new(44,56,8,8), [Drawing.Rectangle]::new(0,0,8,8), [Drawing.GraphicsUnit]::Pixel) } finally { $rg.Dispose() }
+                $radiator.Save((Join-Path $runtime 'PhobosFurnaceRadiatorSocket.png'), [Drawing.Imaging.ImageFormat]::Png)
+            } finally { $radiator.Dispose() }
+        } finally { $vertical.Dispose() }
+    } finally { $g.Dispose() }
+    $furnace.Save((Join-Path $runtime 'PhobosFurnaceSockets.png'), [Drawing.Imaging.ImageFormat]::Png)
+    foreach ($side in @('Left', 'Right')) {
+        $port = [Drawing.Bitmap]::new((Join-Path $runtime 'PhobosFurnaceThermalPort.png'))
+        try {
+            $g = [Drawing.Graphics]::FromImage($port)
+            try {
+                $destX = if ($side -eq 'Left') { 0 } else { 8 }
+                $sourceX = if ($side -eq 'Left') { 8 } else { 0 }
+                $g.DrawImage($coupling, [Drawing.Rectangle]::new($destX,4,8,8), [Drawing.Rectangle]::new($sourceX,0,8,8), [Drawing.GraphicsUnit]::Pixel)
+            } finally { $g.Dispose() }
+            $port.Save((Join-Path $runtime "PhobosFurnaceThermalPortConnect$side.png"), [Drawing.Imaging.ImageFormat]::Png)
+            $proof = [Drawing.Bitmap]::new(128,112,[Drawing.Imaging.PixelFormat]::Format32bppArgb)
+            try {
+                $g = [Drawing.Graphics]::FromImage($proof)
+                try {
+                    $g.Clear([Drawing.Color]::FromArgb(32,35,38)); $g.DrawImageUnscaled($furnace,16,8)
+                    # Port on left faces right; port on right faces left. Both share the furnace heading.
+                    $portX = if ($side -eq 'Right') { 0 } else { 112 }
+                    $g.DrawImageUnscaled($port,$portX,40)
+                } finally { $g.Dispose() }
+                foreach ($quarter in 0..3) {
+                    $zoom = Resize-Pixels $proof ([Drawing.Rectangle]::new(0,0,$proof.Width,$proof.Height)) ($proof.Width*4) ($proof.Height*4)
+                    try { $zoom.Save((Join-Path $preview "F6-port-facing-$side-rotation-$($quarter*90).png"), [Drawing.Imaging.ImageFormat]::Png) } finally { $zoom.Dispose() }
+                    $proof.RotateFlip([Drawing.RotateFlipType]::Rotate90FlipNone)
+                }
+            } finally { $proof.Dispose() }
+        } finally { $port.Dispose() }
+    }
+} finally { $furnace.Dispose(); $coupling.Dispose(); $couplingMaster.Dispose() }
 Write-Output "Exported $($manifest.assets.Count) original furnace assets, flat normals, portraits and crisp previews."

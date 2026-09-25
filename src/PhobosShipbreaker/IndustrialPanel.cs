@@ -222,12 +222,16 @@ public sealed class IndustrialPanel : GUIData
         var layout = actions.gameObject.AddComponent<VerticalLayoutGroup>(); layout.spacing = W.Gap;
         layout.childControlHeight = layout.childControlWidth = true; layout.childForceExpandHeight = false;
         commands = actions.gameObject.AddComponent<CanvasGroup>(); commands.interactable = Access() == null;
+        var provider = EquipmentProviders.For(target.strCODef);
+        if (provider != null)
+            foreach (var command in provider.Snapshot(target).Actions) Add(actions, command.Id, label: command.Label);
         if (FurnaceRules.Machine(target.strCODef))
         {
             string targetId = target.strID;
             FurnaceInstrumentView.Build(actions, target, (action, value) =>
             { IndustryService.Run(binding, targetId, action, value, out result); RefreshReadout(); });
             if (!Central) { Add(actions, "feed"); Add(actions, "products"); }
+            FurnaceInstallationView.Build(actions, target);
             Add(actions, "unpair", label: Text.Get("Furnace.action_unpair"));
             foreach (var peer in IndustryService.Discover(target.ship).Where(c => FurnaceRules.Cooling(c.strCODef)))
                 Add(actions, "pair", peer.strID, Text.Get("Furnace.action_pair") + " " + CollectorService.Label(peer));

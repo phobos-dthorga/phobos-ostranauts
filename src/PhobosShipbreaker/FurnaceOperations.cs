@@ -33,7 +33,7 @@ internal static partial class FurnaceService
                 { message = Text.Get("Furnace.owned_ship"); return false; }
                 var peer = value == null ? null : CollectorService.Resolve(value);
                 if (!FurnaceRules.Machine(co.strCODef) || peer == null || !FurnaceRules.Cooling(peer.strCODef) || !Geometry(co, peer) || Get(peer).Protected)
-                { message = Text.Get("Furnace.geometry"); return false; }
+                { message = peer != null && FurnaceRules.Cooling(peer.strCODef) ? ConnectionProblem(co, peer) ?? Text.Get("Furnace.protected") : Text.Get("Furnace.geometry"); return false; }
                 if (PortPairing.Matches(Port(co), Port(peer))) return true;
                 if (UnsafeMaintenance(co) || UnsafeMaintenance(peer))
                 { message = Text.Get("Furnace.hot_maintenance"); return false; }
@@ -225,7 +225,42 @@ internal static partial class FurnaceService
     {
         var endpoint = SelectedCooling(furnace);
         if (endpoint == null || !FurnaceRules.Cooling(endpoint.strCODef)) return Text.Get("Furnace.no_cooling");
-        return CoolingMountStatus(endpoint) + (CoolingEndpoint(furnace) == null ? "\n" + Text.Get("Furnace.geometry") : "");
+        return CoolingMountStatus(endpoint) + "\n" + (ConnectionProblem(furnace, endpoint) ?? Text.Get("Furnace.socket_connected", Text.Get("Furnace.socket_" + SocketAt(furnace, endpoint))));
+    }
+    internal static FurnaceCooling.Socket SocketAt(CondOwner furnace, CondOwner endpoint)
+    {
+        var f = furnace.GetPos(); var p = endpoint.GetPos();
+        foreach (var socket in FurnaceRules.Underside(endpoint.strCODef) ? new[] { FurnaceCooling.Socket.Left, FurnaceCooling.Socket.Right } : new[] { FurnaceCooling.Socket.Rear })
+        {
+            string name = "Cooling" + socket;
+            if (furnace.mapPoints.ContainsKey(name))
+            {
+                var point = furnace.GetPos(name);
+                if (IntakeRules.Near(point.x, point.y, p.x, p.y)) return socket;
+                continue;
+            }
+            // An older saved object can lack a newly added named point. Preserve
+            // its historical geometry without rewriting maps or saved pairing.
+            var offset = FurnaceCooling.Offset(socket);
+            var rotated = IntakeRules.Rotate(offset.X, offset.Y, furnace.tf.eulerAngles.z);
+            if (IntakeRules.Near(f.x + rotated.X, f.y + rotated.Y, p.x, p.y)) return socket;
+        }
+        return FurnaceCooling.Socket.None;
+    }
+    internal static FurnaceCooling.Socket ConnectedSocket(CondOwner endpoint)
+    {
+        var furnace = SelectedCooling(endpoint);
+        return furnace != null && FurnaceRules.Machine(furnace.strCODef) && CoolingEndpoint(furnace) == endpoint ? SocketAt(furnace, endpoint) : FurnaceCooling.Socket.None;
+    }
+    internal static string? ConnectionProblem(CondOwner furnace, CondOwner endpoint)
+    {
+        if (!FurnaceRules.Machine(furnace.strCODef) || furnace.ship == null || furnace.ship != endpoint.ship) return Text.Get("Furnace.connection_ship");
+        if (!Mounted(furnace) || !Mounted(endpoint)) return Text.Get("Furnace.install");
+        if (SocketAt(furnace, endpoint) == FurnaceCooling.Socket.None) return Text.Get("Furnace.connection_socket");
+        if (!IntakeRules.SameAngle(furnace.tf.eulerAngles.z, endpoint.tf.eulerAngles.z)) return Text.Get("Furnace.connection_rotation");
+        if (!CoolingMounted(endpoint)) return Text.Get(FurnaceRules.Underside(endpoint.strCODef) ? "Furnace.port_support" : "Furnace.radiator_mount_fault");
+        if (!PortPairing.Matches(Port(furnace), Port(endpoint))) return Text.Get("Furnace.connection_unpaired");
+        return null;
     }
     internal static string Describe(CondOwner co)
     {

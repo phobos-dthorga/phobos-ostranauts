@@ -1,5 +1,10 @@
 # Original furnace candidate prompts — 25 September 2026
 
+**0.14.0 addition:** one small original coupling was generated through PixelLab
+`create_image_pixflux`, costing one included generation. Its full request, seed,
+provider job/asset ID and hash are in [coupling-provenance.json](coupling-provenance.json).
+It is a separate insert; none of the four masters below was regenerated.
+
 Generated with the **built-in image_gen tool**, one call per asset: three calls
 for the initial furnace set, then one F6-P call for 0.13.0, with no iterative
 generations. No game images or extracted assets were

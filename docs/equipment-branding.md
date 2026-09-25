@@ -23,6 +23,8 @@ has a related purpose; new brands should serve a distinct equipment identity.
 | Phobos' Rivetline C2 Residue Collector | Two-wide collecting endpoint |
 | Phobos' Rivetline D4-S Dismantling Fixture Assembly Section | Processor construction section |
 | Phobos' Rivetline R4-S Scrap Reclaimer Assembly Section | Reclaimer construction section |
+| Phobos' Rivetline A4 Cultivation Rack | Four-by-four finite cultivation rack |
+| Phobos' Rivetline K2 Galley Cooker | Two-by-two portion cooker |
 | Phobos' Asterel N0 Approach Assist (Prototype) | Older, opt-in development prototype |
 
 N and C identify navigation/control electronics; D, G, H, R and C identify the

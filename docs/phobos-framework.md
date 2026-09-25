@@ -5,7 +5,15 @@ Decision: 24 September 2026. The owner selected our own shareable framework
 The purpose is reusable services for equipment and future material transport,
 not reproducing every feature of OCF or turning Ostranauts into a factory game.
 
-## Current candidate: Framework 0.14.0, Shipbreaker 0.11.0, Auto Nav 0.10.0
+## Current candidate: Framework 0.17.0, Shipbreaker 0.14.0, Auto Nav 0.10.1
+
+Framework 0.16.0 introduced measured electricity receipts, finite thermal/gas
+primitives and the first isolated native instruments for the F6 electric furnace.
+Version 0.17.0 extends those instrument adapters to guarded toggles, native digit
+artwork and sliders. Shipbreaker owns the furnace's rules and balance. See the
+[current F6 guide](furnace-player-guide.md) and
+[attachment/instrument record](furnace-connections-and-instruments.md).
+In-game evaluation remains with the owner.
 
 Framework 0.14.0 adds a shared additive item-loot helper, used by existing
 merchant stock and Auto Nav's rare salvage choices. It preserves other entries
@@ -16,8 +24,9 @@ policy remain in Auto Nav, using the existing object storage. See the
 Framework 0.13.0 adds [shared observations](shared-console-observations.md):
 an immutable evidence/validity contract and a narrow native room-alarm adapter.
 Shipbreaker 0.11.0 uses them for the C1 console, built-in R4 cooling probes and
-session stop evidence. Furnace instruments and specialist packages remain future
-work. No saved schema or material/heat accounting changes are introduced.
+session stop evidence. Furnace instruments arrived in the later versions above;
+specialist packages remain future work. That observation release introduced no
+saved schema or material/heat accounting changes.
 
 Framework 0.12.0 adds shared [equipment name formatting](equipment-branding.md),
 with brands/models owned by content and type/variant descriptions translated.
@@ -175,3 +184,36 @@ the session; temporarily unavailable power does not grant permission or erase wo
 Shipbreaker owns native access resolution, snapshots, discovery and command rules.
 No generic third-party equipment registry or new control network is claimed.
 Physical inventories remain local. PDA/visor connections are documented only.
+
+
+## Agriculture consumer extensions (0.17.0)
+
+`Controls.EquipmentProviders` registers one content-owned `IEquipmentProvider`
+per stable owner and native definition set. Duplicate ownership is rejected.
+Snapshots contain immutable identity, group, activity and copied action lists;
+reading them must not advance simulation. `Command` must revalidate the live
+actor, full equipment ID, ship, optional `ConsoleBinding` and machine interlocks.
+Registration does not grant remote authority. Agriculture is the first external
+consumer; Shipbreaker's C1 performs its existing access check before dispatch.
+
+`Liquids.FiniteLiquidTransfer` accepts synchronous `ILiquidReservoir` endpoints
+with kg quantities/capacities, stable identity, same-ship scope and commodity.
+It bounds requests by reserve and destination headroom, measures debit/receipt,
+and returns unreceived material when the destination partially accepts or throws.
+Unexpected mutation must stop the consumer for reconciliation; receipts are not
+persisted or replayed. Call on the game thread. This is not a station-refuelling
+API or a replacement for solid-item transfers.
+
+`Liquids.ShipsWaterSupply` is a narrow optional adapter for Valtora's
+[Ship's Water 0.16.1](https://steamcommunity.com/sharedfiles/filedetails/?id=3757331189).
+Its inspected potable-vessel field stores litres; this adapter treats water as
+1 kg/L, leaves foreign mass/capacity policy intact, protects a same-ship reserve,
+and declines other provider versions until reviewed. Agriculture retains manual
+water loading. Agricultural drainage is not accepted by this adapter.
+
+`Registration.ApplianceDefinitions` builds the shared native installable/loose,
+intact/damaged appliance skeleton used by A4 and K2. Content supplies branding,
+footprint, mass, price, image prefix and power rating. Supply a matching `Normal`
+image derivative; never include extracted game art. Biology and balance remain
+Agriculture-owned; fixed industrial batches and the one-hour cap are unchanged.
+See [Agriculture implementation and owner checks](agriculture-implementation.md).

@@ -16,6 +16,12 @@ records 34 known packages (29 configured enabled, 5 disabled). It confirms the
 installed Common Sense Salvage and Storage 0.12.14 package's MIT licence and
 physical-hauling/filter precedent; no reusable conveyor/ejection API was verified.
 
+**2026-09-25 agriculture refresh:** the [agriculture research report](agriculture-research.md#evidence-labels-and-current-environment)
+records 34 packages, 32 configured enabled and two disabled, with no installed
+cultivation provider found. It distinguishes installed metadata from loaded
+versions and investigates optional Ship's Water irrigation. This does not replace
+the historical provider evidence below or certify agriculture compatibility.
+
 ## Owner preferences
 
 - Extend worthwhile community work instead of repeatedly implementing equivalent

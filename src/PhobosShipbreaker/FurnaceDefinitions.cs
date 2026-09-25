@@ -29,6 +29,7 @@ internal static class FurnaceDefinitions
             co.nContainerWidth = co.nContainerHeight = furnace ? 8 : 0;
             co.dictSlotsLayout = new Dictionary<string, Vector3> { ["self"] = Vector3.zero };
             co.mapPoints = new[] { "use,0,-56", "PowerA,-40,-40", "PowerB,40,-40" };
+            if (furnace) co.mapPoints = co.mapPoints.Concat(new[] { "CoolingLeft,-56,8", "CoolingRight,56,8", "CoolingRear,0,96" }).ToArray();
             if (port) co.mapPoints = new[] { "use,0,0" };
             if (!furnace)
             {
@@ -37,6 +38,8 @@ internal static class FurnaceDefinitions
                 co.jsonPI = null; co.aTickers = Array.Empty<string>(); co.aInteractions = Array.Empty<string>();
             }
             Content.ApplyArtwork(co, item, p);
+            if (furnace && installed) item.strImg = "phobos/shipbreaker/PhobosFurnaceSockets";
+            if (!furnace && !port && installed) item.strImg = "phobos/shipbreaker/PhobosFurnaceRadiatorSocket";
             item.aSocketAdds = Enumerable.Repeat(installed ? furnace || port ? "TILFixtureAdds" : "TILExtFixtureAdds" : "TILItemAdds", width * height).ToArray();
             item.aSocketReqs = Grid(width, height, installed && (furnace || port) ? "TILFloor" : "Blank");
             item.aSocketForbids = Grid(width, height, installed ? "TILObstruction" : "TILItemForbids");

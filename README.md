@@ -24,6 +24,7 @@ default. Its longer navigation proposal remains historical design material.
 
 - Medical equipment, diagnostics and treatments.
 - Production, recycling and life-support machinery.
+- Agriculture 0.1.0: potato/lettuce cultivation and a galley cooker, prepared for owner gameplay evaluation; recovery remains research.
 - Comfort, recreation and crew behaviour.
 - Navigation assistance and supporting shipboard equipment.
 - PDA utilities and installed sensor equipment.
@@ -60,7 +61,7 @@ with a smaller setup appropriate to this project's current scope.
 - [Phobos Framework: shared services and OCF independence plan](docs/phobos-framework.md)
 - [Phobos Framework: author API guide](docs/framework-author-guide.md)
 - [Fusion-powered industry: five ideas and research triggers](docs/fusion-industry-roadmap.md)
-- [F6 electric furnace operating guide](docs/furnace-player-guide.md) — prepared 0.13.0 casting candidate with exterior or underside cooling; owner gameplay and artwork review pending.
+- [F6 electric furnace operating guide](docs/furnace-player-guide.md) — prepared 0.14.0 casting candidate with reactor-inspired attachments and exterior or underside cooling; owner gameplay and artwork review pending.
 - [Furnace first cycle: casting, cooling and saved phases](docs/furnace-first-cycle.md) — research, now using the [approved electrical route](docs/furnace-electrical-direction.md).
 - [Furnace vanilla UI reuse and graphics brief](docs/furnace-ui-and-art.md), with [installation and instrument layouts](assets/phobos-furnace/research/layouts.html).
 - [Powered shipbreaking: feasibility and first observations](docs/powered-shipbreaking-research.md)
@@ -68,11 +69,17 @@ with a smaller setup appropriate to this project's current scope.
 - [Shipbreaker first build: installation, settings and console commands](docs/shipbreaker-first-build.md)
 - [Ship equipment art study and Shipbreaker visual direction](docs/ship-equipment-art-study.md)
 - [Artwork resolution policy: 2x production assets, 4x for small graphics](docs/artwork-resolution-policy.md)
+- [Asset generation policy: PixelLab for simpler pixel art](docs/asset-generation-policy.md)
 - [Shipbreaker outputs: existing repair and construction uses](docs/shipbreaker-material-uses.md)
 - [Shipbreaker expansion: shredding, recycling and asteroid feedstocks](docs/shipbreaking-material-processing-research.md)
 - [Hull disposal port: filters, external collection and persistent ejecta](docs/material-disposal-port-research.md)
 - [Residue Collector: placement, controls and testing](docs/residue-collector.md)
 - [Asteroid resources for water, oxygen, nitrogen and nutrients](docs/asteroid-life-support-research.md)
+- [Agriculture player guide and first gameplay candidate](docs/agriculture-player-guide.md)
+- [Agriculture implementation boundaries and validation](docs/agriculture-implementation.md)
+- [Phobos Agriculture: NASA/ESA research, native findings and PixelLab direction](docs/agriculture-research.md)
+- [Agriculture first slice: crops, resource budgets and Framework integrations](docs/agriculture-first-slice.md)
+- [Agriculture endurance roadmap: propagation, recovery and replenishment](docs/agriculture-roadmap.md)
 - [Future chemical tanks, station replenishment and industrial hazards](docs/chemical-storage-and-process-fluids.md)
 - [Current mod inventory and extension opportunities](docs/mod-extension-survey.md)
 - [Dependency maintenance and fallback plan](docs/dependency-contingencies.md)

@@ -1,0 +1,130 @@
+[
+  {
+    "name": "Rack",
+    "source": "assets/phobos-agriculture/source/rackEdit.png",
+    "sourceSHA256": "2e3f0ac22622e31a023b68b6870c0fb10ffb6287b53bddbe2d70a23b3ed7d79b",
+    "canvas": [
+      128,
+      128
+    ],
+    "export": [
+      64,
+      64
+    ],
+    "sampling": "nearest",
+    "registration": "whole canvas; centered pivot; no independent crop",
+    "exportSHA256": "8400f23000023b298830f21d6cfcc99142375f60279fff81a881a3913d4d8e73"
+  },
+  {
+    "name": "Cooker",
+    "source": "assets/phobos-agriculture/source/cookerRetry.png",
+    "sourceSHA256": "63a760594079e4491324719f6e72fbcc8786345b3cd27c9aeea99df5f0244512",
+    "canvas": [
+      128,
+      128
+    ],
+    "export": [
+      32,
+      32
+    ],
+    "sampling": "nearest",
+    "registration": "whole canvas; centered pivot; no independent crop",
+    "exportSHA256": "0788d362a43930ff86b898397444aeb68439978743ad26d09bbe431820d43814"
+  },
+  {
+    "name": "Potato-mature",
+    "source": "assets/phobos-agriculture/source/plantPilot.png",
+    "sourceSHA256": "d9f732492e0d8c33b9f83a99fc4e72fc11ff044f75cb4984a48f35560bb1451c",
+    "canvas": [
+      64,
+      64
+    ],
+    "export": [
+      16,
+      16
+    ],
+    "sampling": "nearest",
+    "registration": "whole canvas; centered pivot; no independent crop",
+    "exportSHA256": "7809d54f7d27193641262080df772eb2fdd2fd40992baba433713250b7ab5cc6"
+  },
+  {
+    "name": "Potato-dead",
+    "source": "assets/phobos-agriculture/source/deadEdit.png",
+    "sourceSHA256": "01b3a30855bc987e636112f64deb17e64e93862ed3df3ad4a410fe98d28f4e14",
+    "canvas": [
+      64,
+      64
+    ],
+    "export": [
+      16,
+      16
+    ],
+    "sampling": "nearest",
+    "registration": "whole canvas; centered pivot; no independent crop",
+    "exportSHA256": "cc2d086a0b8a2f2aeefdc799672c0cbd7409b8a79500f0f8483f4f5fea68a7fb"
+  },
+  {
+    "name": "Potato-sprout",
+    "source": "assets/phobos-agriculture/source/edit_sprout.png",
+    "sourceSHA256": "9c8f74f2e34f2c0383179a7a44c4cf75a21137296529388de322d8babc7027c0",
+    "canvas": [
+      64,
+      64
+    ],
+    "export": [
+      16,
+      16
+    ],
+    "sampling": "nearest",
+    "registration": "whole canvas; centered pivot; no independent crop",
+    "exportSHA256": "85069179eb3e7afe1961fe4b0a5138becdb639be630194e6af18eca315c522dd"
+  },
+  {
+    "name": "Potato-young",
+    "source": "assets/phobos-agriculture/source/edit_young.png",
+    "sourceSHA256": "9b9290287adb5cc4157079c071dae094f240de85a236cd1729aca56100a0f458",
+    "canvas": [
+      64,
+      64
+    ],
+    "export": [
+      16,
+      16
+    ],
+    "sampling": "nearest",
+    "registration": "whole canvas; centered pivot; no independent crop",
+    "exportSHA256": "c8254912a1408bf83381fe3fdddcf278056132bda89ee6a4de6ca5719dd41d2b"
+  },
+  {
+    "name": "Potato-harvest",
+    "source": "assets/phobos-agriculture/source/edit_harvest.png",
+    "sourceSHA256": "80cb28b2f891c7942247b9fca0fc54afd5506f74eb2ca3c364456e81387f6ea5",
+    "canvas": [
+      64,
+      64
+    ],
+    "export": [
+      16,
+      16
+    ],
+    "sampling": "nearest",
+    "registration": "whole canvas; centered pivot; no independent crop",
+    "exportSHA256": "058dad4e9c9eec7dd84734bbcaa1bf1ac55de2028f2aa3817e24d177493ab3b7"
+  },
+  {
+    "name": "Potato-wilted",
+    "source": "assets/phobos-agriculture/source/edit_wilted.png",
+    "sourceSHA256": "608644b0a5a7349e82fb24d7a1383f154a567e0725b5fa0261856af2d6e19b24",
+    "canvas": [
+      64,
+      64
+    ],
+    "export": [
+      16,
+      16
+    ],
+    "sampling": "nearest",
+    "registration": "whole canvas; centered pivot; no independent crop",
+    "exportSHA256": "17ea82c1e50d9a1da0517f6f140c1b46e789e984c149014ce928a0e6241f9c52"
+  }
+]

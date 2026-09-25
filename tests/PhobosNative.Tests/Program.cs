@@ -48,6 +48,20 @@ var missing = DependencyContract.MissingDefinitions((table,id) => table switch {
     "interactions" => DataHandler.dictInteractions.ContainsKey(id), "loot" => DataHandler.dictLoot.ContainsKey(id), _ => false });
 Check(missing.Count == 0, string.Join("\n", missing));
 Check(!DataHandler.dictCOs.ContainsKey("SWB_SorterInstalled"), "No Workshop templates loaded");
+var agriculture = PhobosAgriculture.Definitions.Prepare();
+AgricultureNativeChecks.Run(agriculture, repo, Check, Throws);
+foreach (var co in agriculture.Objects.Values) {
+    Check(co.strNameFriendly.StartsWith("Phobos' ", StringComparison.Ordinal), "Agriculture names are branded: " + co.strName);
+    Check(agriculture.Items.ContainsKey(co.strItemDef) || DataHandler.dictItemDefs.ContainsKey(co.strItemDef), "Agriculture item reference exists: " + co.strName);
+}
+foreach (var name in new[]{ "PhobosCultivationInstalled", "PhobosGalleyInstalled" }) {
+    Check(agriculture.Objects[name].aTickers.Contains("Power"), "Agriculture native power ticker");
+    Check(agriculture.Objects[name].aInteractions.Contains("PhobosAgricultureControls"), "Agriculture local controls");
+}
+var farmRecipes = JsonConvert.DeserializeObject<RecipePack>(File.ReadAllText(Path.Combine(repo, "mods/PhobosAgriculture/framework/recipes.json")))!;
+foreach (var recipe in farmRecipes.recipes) { RecipeRules.Validate(recipe); Check(true, "Agriculture recipe balance"); }
+Check(agriculture.Loot["PhobosLettuceEffects"].aCOs.Contains("TDnFood=1x1"), "Lettuce does not grant ordinary five-unit hunger effect");
+Check(agriculture.Loot["PhobosPotatoMealEffects"].aCOs.Contains("TDnFood=1x5"), "Potato meal has explicit hunger effect");
 var prepared = Content.Prepare();
 foreach (var equipment in prepared.Objects.Values)
     Check(equipment.strNameFriendly.StartsWith("Phobos' ", StringComparison.Ordinal), "Branded native machine, section or material: " + equipment.strName);

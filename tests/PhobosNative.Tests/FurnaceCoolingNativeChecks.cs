@@ -15,6 +15,22 @@ internal static class FurnaceCoolingNativeChecks
     internal static void Run(NativeDefinitions prepared, string repo, Action<bool,string> check)
     {
         var item = prepared.Items[FurnaceRules.ThermalPort + "Installed"];
+        var furnace = prepared.Objects[FurnaceRules.Prefix + "Installed"];
+        foreach (var socket in new[] { FurnaceCooling.Socket.Left, FurnaceCooling.Socket.Right, FurnaceCooling.Socket.Rear })
+        {
+            var offset = FurnaceCooling.Offset(socket);
+            string point = furnace.mapPoints.Single(p => p.StartsWith("Cooling" + socket + ","));
+            var coordinates = point.Split(',');
+            check(double.Parse(coordinates[1], System.Globalization.CultureInfo.InvariantCulture) / 16 == offset.X &&
+                double.Parse(coordinates[2], System.Globalization.CultureInfo.InvariantCulture) / 16 == offset.Y,
+                "Native named attachment points agree with legacy saved connection geometry");
+        }
+        foreach (var art in new[] { ("PhobosFurnaceSockets",96,96), ("PhobosFurnaceRadiatorSocket",96,64), ("PhobosFurnaceThermalPortConnectLeft",16,16), ("PhobosFurnaceThermalPortConnectRight",16,16) })
+        {
+            byte[] png = File.ReadAllBytes(Path.Combine(repo,"mods/PhobosShipbreaker/images/phobos/shipbreaker/" + art.Item1 + ".png"));
+            int Size(int o) => png[o]<<24 | png[o+1]<<16 | png[o+2]<<8 | png[o+3];
+            check(Size(16) == art.Item2 && Size(20) == art.Item3, "Connection artwork preserves native footprint and normal alignment");
+        }
         check(item.nCols == 1 && item.aSocketAdds.Length == 1 && item.aSocketReqs.Length == 9 && item.aSocketReqs[4] == "TILFloor", "Port is one native tile on the existing sealed floor");
         check(item.aSocketAdds[0] == "TILFixtureAdds" && !prepared.Objects[FurnaceRules.ThermalPort + "Installed"].aStartingConds.Any(s => s.StartsWith("IsFloor")), "Port does not manufacture a floor or pressure boundary");
         var adds = DataHandler.dictLoot["TILFloor"].aCOs;

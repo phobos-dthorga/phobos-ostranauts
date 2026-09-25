@@ -5,7 +5,7 @@ The [electrical direction](../../docs/furnace-electrical-direction.md) supersede
 the earlier reactor-side coupler. Use the [current operating guide](../../docs/furnace-player-guide.md)
 for the implemented tile layout and first-cycle controls.
 
-Four original masters are retained unchanged in `source/`:
+The four original equipment masters are retained unchanged in `source/`:
 
 | Master | World export | Uses |
 |---|---|---|
@@ -32,6 +32,17 @@ can follow owner feedback. No new sprite is claimed approved merely because the
 earlier layout study was liked.
 
 ## Keeping changes inexpensive
+
+Version 0.14.0 adds one independent **64 x 32 PixelLab coupling master**, exported
+to a 16 x 8 insert. See [exact prompt and provenance](coupling-provenance.json).
+The deterministic exporter composes it into `PhobosFurnaceSockets` (96 x 96),
+`PhobosFurnaceRadiatorSocket` (96 x 64) and the two inward-facing port derivatives
+(16 x 16). Existing colour masters, base exports, portraits and flat normals are
+unchanged. Eight side/rotation previews are retained under `previews/`.
+This insert cost one included PixelLab generation, with no paid-credit use.
+It has no source-image inputs. [PixelLab's terms](https://pixellab.ai/termsofservice)
+apply; the job record is provenance, not an independent legal clearance or a
+claim of owner approval. Existing built-in generation provenance remains intact.
 
 - Controls, measurements, labels, units, language and sequence are code/catalog
   data, separate from artwork. No number or process state is painted into a panel.
@@ -61,8 +72,8 @@ direct-fusion coupler installation is explicitly historical. The panel grouping
 informed the runtime view, but the study is not a screenshot of it.
 
 The [UI reuse brief](../../docs/furnace-ui-and-art.md) records native donor paths.
-The implementation uses isolated knob, LED and lamp donors; guarded-toggle,
-seven-segment and slider adapters remain follow-up work. In-game isolation, focus,
+The implementation uses isolated knob, LED, lamp, guarded-toggle, seven-segment
+artwork and slider donors. Version 0.14.0 completes their adapters. In-game isolation, focus,
 scaling and appearance await owner checks.
 
 Research tools remain `scripts/calculate-furnace-cycle.py`,

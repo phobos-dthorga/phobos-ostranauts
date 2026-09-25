@@ -7,7 +7,8 @@ function Copy-PhobosPlayerGuides {
     # Every suite package has the same entry point and its directly linked guides.
     # Keep their filenames as well as the mod-specific README so links remain usable.
     foreach ($name in @(
-        'performance-captures', 'furnace-player-guide',
+        'agriculture-player-guide', 'agriculture-implementation', 'agriculture-research', 'agriculture-first-slice', 'agriculture-roadmap', 'asset-generation-policy',
+        'performance-captures', 'furnace-player-guide', 'furnace-connections-and-instruments', 'furnace-first-cycle',
         'player-guide', 'equipment-branding', 'installing-mods', 'equipment-economy', 'equipment-value-audit', 'auto-nav-instruments', 'auto-nav-docking', 'auto-nav-sensors', 'auto-nav-flight-profiles', 'artwork-resolution-policy',
         'vanilla-economy-audit', 'shipbreaker-first-build', 'shipbreaker-hull-intake',
         'residue-collector', 'auto-navigate-adaptation', 'auto-nav-economy', 'auto-nav-panel-layout-audit', 'auto-nav-persistence', 'auto-nav-torch', 'residue-material-contract',
@@ -17,6 +18,11 @@ function Copy-PhobosPlayerGuides {
     )) {
         Copy-Item -LiteralPath (Join-Path $RepoRoot "docs/$name.md") -Destination $Package
     }
+    Copy-Item -LiteralPath (Join-Path $RepoRoot 'assets/phobos-furnace/coupling-provenance.json') -Destination $Package
+    $furnaceGuidePath = Join-Path $Package 'furnace-connections-and-instruments.md'
+    $furnaceGuide = Get-Content -LiteralPath $furnaceGuidePath -Raw
+    $furnaceGuide = $furnaceGuide.Replace('../assets/phobos-furnace/coupling-provenance.json', 'coupling-provenance.json')
+    Set-Content -LiteralPath $furnaceGuidePath -Value $furnaceGuide -Encoding utf8
     # The shared instrument guide links a preview; keep it usable offline in every suite package.
     Copy-Item -LiteralPath (Join-Path $RepoRoot 'assets/phobos-autonav/instruments-prompt.md') -Destination (Join-Path $Package 'INSTRUMENTS-PROMPT.md')
     Copy-Item -LiteralPath (Join-Path $RepoRoot 'mods/PhobosAutoNav/images/phobos/autonav/PhobosAutoNavInstruments.png') -Destination $Package

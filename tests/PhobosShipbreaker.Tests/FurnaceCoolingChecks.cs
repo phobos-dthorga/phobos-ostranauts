@@ -14,6 +14,9 @@ internal static class FurnaceCoolingChecks
             check(FurnaceCooling.Aligned(port, 10, -20, angle, 10 + p.X, -20 + p.Y, angle), "Both cooling layouts rotate around their exact sockets");
             check(!FurnaceCooling.Aligned(port, 10, -20, angle, 10 + p.X, -20 + p.Y, angle + 90), "Wrong equipment orientation blocks cooling");
             check(!FurnaceCooling.Aligned(port, 10, -20, angle, 11 + p.X, -20 + p.Y, angle), "Nearby hardware is not an implicit cooling connection");
+            var expected = !port ? FurnaceCooling.Socket.Rear : side < 0 ? FurnaceCooling.Socket.Left : FurnaceCooling.Socket.Right;
+            check(FurnaceCooling.AtSocket(port, 10, -20, angle, 10 + p.X, -20 + p.Y) == expected,
+                "Connection artwork retains the correct local side through every rotation");
         }
         check(!FurnaceCooling.Aligned(true, 0, 0, 0, 0, -3.5, 0), "Port cannot occupy front operator access");
         check(FurnaceCooling.FloorSupport(true, true, false, false, true), "Intact sealed native floor supports underside assembly");

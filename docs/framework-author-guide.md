@@ -489,3 +489,57 @@ diagnostic and a null result for the caller's existing control fallback. Never
 clone the reactor controller, mutate shared sprite/font assets or distribute them.
 Consumers still own authority, localization, numeric formatting and physical
 measurements; absent data must stay Unknown.
+
+### Native control additions (0.17.0)
+
+`NativeInstruments.Clone<T>` also accepts the audited reactor `GUISafetyToggle`,
+`GUI7Seg` and `Slider` donors used by the F6. The clone's serialized events are
+replaced before activation; guard buttons and toggle sprite feedback are then
+initialized by their own audited native behaviours. Component references must
+remain inside the cloned subtree. Toggle groups and explicit navigation links
+are removed. Native guard refresh uses `SetIsOnWithoutNotify` and explicitly
+refreshes the toggle sprite; it must never dispatch a service command.
+
+`InstrumentNumber.TryFormat` returns invariant digits, dot position and sign,
+rejecting missing, nonfinite and overflowing values. The digit adapter bypasses
+the native formatter, blanks invalid readings and retains the native artwork.
+Consumers must display the full signed localized measurement (or Unknown) beside
+the digits; the sprite sheet has no sign glyph. Slider consumers set their own
+bounds and submit drafts through checked services. Framework does not own F6
+balance or permit commands merely because a widget is enabled.
+
+See [the F6 attachment and instrument record](furnace-connections-and-instruments.md)
+for exact donor paths, native attribution and pending Unity-scene checks.
+
+
+## Agriculture consumer extensions (0.17.0)
+
+`Controls.EquipmentProviders` registers one content-owned `IEquipmentProvider`
+per stable owner and native definition set. Duplicate ownership is rejected.
+Snapshots contain immutable identity, group, activity and copied action lists;
+reading them must not advance simulation. `Command` must revalidate the live
+actor, full equipment ID, ship, optional `ConsoleBinding` and machine interlocks.
+Registration does not grant remote authority. Agriculture is the first external
+consumer; Shipbreaker's C1 performs its existing access check before dispatch.
+
+`Liquids.FiniteLiquidTransfer` accepts synchronous `ILiquidReservoir` endpoints
+with kg quantities/capacities, stable identity, same-ship scope and commodity.
+It bounds requests by reserve and destination headroom, measures debit/receipt,
+and returns unreceived material when the destination partially accepts or throws.
+Unexpected mutation must stop the consumer for reconciliation; receipts are not
+persisted or replayed. Call on the game thread. This is not a station-refuelling
+API or a replacement for solid-item transfers.
+
+`Liquids.ShipsWaterSupply` is a narrow optional adapter for Valtora's
+[Ship's Water 0.16.1](https://steamcommunity.com/sharedfiles/filedetails/?id=3757331189).
+Its inspected potable-vessel field stores litres; this adapter treats water as
+1 kg/L, leaves foreign mass/capacity policy intact, protects a same-ship reserve,
+and declines other provider versions until reviewed. Agriculture retains manual
+water loading. Agricultural drainage is not accepted by this adapter.
+
+`Registration.ApplianceDefinitions` builds the shared native installable/loose,
+intact/damaged appliance skeleton used by A4 and K2. Content supplies branding,
+footprint, mass, price, image prefix and power rating. Supply a matching `Normal`
+image derivative; never include extracted game art. Biology and balance remain
+Agriculture-owned; fixed industrial batches and the one-hour cap are unchanged.
+See [Agriculture implementation and owner checks](agriculture-implementation.md).
