@@ -2,7 +2,7 @@
 
 **25 September 2026.** Round 1 now has an [implementation candidate](agriculture-implementation.md);
 owner gameplay acceptance remains pending. The owner requested further feature
-work before gameplay testing on 25 September: the current 0.2.0 candidate adds
+work before gameplay testing on 25 September: the current 0.3.0 candidate includes
 [living rack visuals and lettuce art](agriculture-living-visuals.md). Gameplay
 acceptance below remains an evidence milestone, not a gate on that authorized work.
 Later biological rounds remain research/design. This sequence is based on useful
@@ -55,6 +55,14 @@ adding species. If native food effects or gas transfers cannot be made reliable,
 reduce the documented scope rather than conceal a free-food or free-oxygen path.
 
 ## Round 2: propagation and improved water recovery
+
+The owner's 25 September follow-up also requests research into shared fluid
+conduits for **plant water/nutrient supply**, taking after vanilla conduits in
+part. See [fluid conduits and irrigation research](fluid-conduits-and-irrigation-research.md)
+for native evidence, Framework/content ownership and the proposed staged route
+from water distribution/local nutrient dosing to fresh nutrient-solution supply.
+This is new research, not delivered piping or a decision to exclude nutrient
+transport. Supply plumbing does not establish drainage treatment or recovery.
 
 Make seed potatoes a visible reservation from food yield and introduce a distinct
 lettuce seed-production cycle. Demonstrate multiple generations, finite seed stock

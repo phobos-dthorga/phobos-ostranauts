@@ -36,8 +36,15 @@ internal static class EconomyChecks
             else
             {
                 var restore = definitions.Installables[id + "Restore"];
-                check(restore.bNoDestructable && restore.strAllowLootCTsThem == "CONDUndamageProgress" && restore.aInputs.Length == 0,
+                check(restore.bNoDestructable && restore.strAllowLootCTsThem == spec.Prefix + "RestoreProgress" && restore.aInputs.Length == 0,
                     "Restore changes wear in place without a second damage handler: " + id);
+                var effect = definitions.Loot[restore.strAllowLootCTsThem];
+                double removal = double.Parse(effect.aCOs.Single().Split('x').Last(), System.Globalization.CultureInfo.InvariantCulture);
+                double minutes = Stat(id, "StatDamageMax") / removal * restore.fDuration * 60;
+                check(effect.strType == "trigger" && effect.aCOs.Single().StartsWith("TDnStatDamage=1x") && effect.aLoots.Length == 0,
+                    "Restore only removes native wear, without inventory or extra effects: " + id);
+                check(Math.Abs(minutes - spec.RestoreMinutes) < .0001 && removal > 0,
+                    "Restore full wear budget matches equipment-specific labour: " + id);
             }
         }
         foreach (double kg in new[] { 0, .5, 1, 1.5, 3, 4, 6, 10, 100 })
@@ -58,7 +65,8 @@ internal static class EconomyChecks
         check(updated.aLoots.Length == original.aLoots.Length, "Repeat stock registration does not grow merchant table");
         foreach (var offer in repeat.Loot.Values.Where(l => l.strName.StartsWith("PhobosStock_")))
             check(offer.aCOs.Length == 1 && offer.aCOs[0].EndsWith("x1"), "Each merchant offer is bounded to one object");
-        foreach (string id in EquipmentEconomy.Machines.Select(s => s.Prefix + "Loose").Concat(new[]{ProcessRules.AssemblySection, ReclaimerRules.Section}))
+        check(DataHandler.dictLoot["CONDUndamageProgress"].aCOs.Single() == "TDnStatDamage=1x0.00625", "Native restoration remains unchanged for other equipment");
+        foreach (string id in EquipmentEconomy.Machines.Select(s => s.Prefix + "Loose").Concat(new[]{ProcessRules.AssemblySection, ReclaimerRules.Section, FurnaceRules.Section}))
         {
             var item = new DataCO(DataHandler.dictCOs[id]);
             check(DataHandler.dictCTs["TIsBarterSanDiegoHalvorsonSell"].TriggeredDataCO(item,false), "Industrial seller permits the stocked equipment: " + id);
@@ -67,8 +75,34 @@ internal static class EconomyChecks
             check(!DataHandler.dictCTs["TIsBarterOKLGSupplyKiosk"].TriggeredDataCO(item,false), "Keep native licensed/high-value resale restriction: " + id);
         }
         throws(() => MarketStock.Add(new NativeDefinitions(), "MissingMerchant", "PhobosMissingOffer", Content.Loose, .2, StockCondition.Worn), "Missing merchant is explicit, not silently unstocked");
+        var engineering = definitions.Loot["ItmLootSpawnEngineering"];
+        check(repeat.Loot["ItmLootSpawnEngineering"].aLoots.SequenceEqual(engineering.aLoots), "Repeated engineering salvage registration is idempotent");
+        check(engineering.aLoots.Contains("ItmRandomEngineeringLoot=0.8x1|ItmScrapTrash=0.1x1-2"), "Engineering salvage retains native choice");
+        var sectionChoice = repeat.Loot["PhobosEngineeringSectionSalvage"];
+        check(sectionChoice.aCOs.Length == 1 && sectionChoice.aCOs[0].Split('|').Length == 3 &&
+            sectionChoice.aCOs[0].Split('|').All(s => s.EndsWith("=0.01x1")), "Engineering roll adds at most one section at three percent total");
+        var parsedChoice = ((System.Collections.Generic.List<System.Collections.Generic.List<LootUnit>>)typeof(Loot)
+            .GetField("aCOLootUnits", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic)!
+            .GetValue(sectionChoice)!).Single();
+        check(parsedChoice.Count == 3 && parsedChoice.All(u => u.fMin == 1 && u.fMax == 1) &&
+            Math.Abs(parsedChoice.Sum(u => u.fChance) - .03) < 1e-7, "Native parser retains one three-percent cumulative section choice");
+        foreach (string merchantId in new[] { "ItmOKLGSupplyKioskInv", "ItmTraderSanDiegoHalvorsonInv" })
+            check(repeat.Loot.ContainsKey("PhobosStock_FurnaceSection_" + merchantId + "_" + FurnaceRules.Section), "F6 section has explicit stock: " + merchantId);
         foreach (double probability in new[] { 0, -1, double.NaN, 1.1 })
             throws(() => MarketStock.Add(new NativeDefinitions(), merchant, "PhobosInvalidOffer", Content.Loose, probability, StockCondition.Worn), "Invalid stock chance rejected");
+
+        var oldSection = new JsonCondOwnerSave { strCODef = FurnaceRules.Section, strID = "saved-section",
+            aConds = new[] { "StatMass=1x80", "StatDismantleProgress=1x45", "StatDismantleProgressMax=1x600", "PhobosEquipmentEconomyV1=1x1" },
+            aLot = new[] { "existing-material" }, strSlotName = "old-slot" };
+        string sectionBefore = JsonConvert.SerializeObject(oldSection);
+        var fixedSection = EconomySaveCompatibility.Upgrade(oldSection);
+        check(oldSection.aConds.All(c => fixedSection.aConds.Contains(c)) && fixedSection.aConds.Length == oldSection.aConds.Length + 2,
+            "Explicit old F6 section adds only its two merchant flags, retaining work and mass");
+        check(fixedSection.strID == oldSection.strID && fixedSection.aLot.SequenceEqual(oldSection.aLot) && fixedSection.strSlotName == oldSection.strSlotName &&
+            JsonConvert.SerializeObject(oldSection) == sectionBefore, "Section category migration preserves identity, materials and source save DTO");
+        check(ReferenceEquals(fixedSection, EconomySaveCompatibility.Upgrade(fixedSection)), "Section category migration is idempotent");
+        var compressedSection = new JsonCondOwnerSave { strCODef = FurnaceRules.Section, aConds = new[] { "DEFAULT" } };
+        check(ReferenceEquals(compressedSection, EconomySaveCompatibility.Upgrade(compressedSection)), "Compressed sections inherit categories without expansion");
 
         // Native compressed and explicit saves both occur. Do not edit the caller's DTO.
         foreach (string[] conds in new[] {

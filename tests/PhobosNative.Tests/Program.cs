@@ -50,6 +50,7 @@ Check(missing.Count == 0, string.Join("\n", missing));
 Check(!DataHandler.dictCOs.ContainsKey("SWB_SorterInstalled"), "No Workshop templates loaded");
 var agriculture = PhobosAgriculture.Definitions.Prepare();
 AgricultureNativeChecks.Run(agriculture, repo, Check, Throws);
+if (args.Length > 3) AgricultureEconomyAudit.Write(agriculture, repo, args[3]);
 foreach (var co in agriculture.Objects.Values) {
     Check(co.strNameFriendly.StartsWith("Phobos' ", StringComparison.Ordinal), "Agriculture names are branded: " + co.strName);
     Check(agriculture.Items.ContainsKey(co.strItemDef) || DataHandler.dictItemDefs.ContainsKey(co.strItemDef), "Agriculture item reference exists: " + co.strName);
@@ -62,6 +63,11 @@ var farmRecipes = JsonConvert.DeserializeObject<RecipePack>(File.ReadAllText(Pat
 foreach (var recipe in farmRecipes.recipes) { RecipeRules.Validate(recipe); Check(true, "Agriculture recipe balance"); }
 Check(agriculture.Loot["PhobosVerdemorrowLettuceEffects"].aCOs.Contains("TDnFood=1x1"), "Lettuce does not grant ordinary five-unit hunger effect");
 Check(agriculture.Loot["PhobosVerdemorrowHearthPotatoesEffects"].aCOs.Contains("TDnFood=1x5"), "Potato meal has explicit hunger effect");
+if (args.Length > 2 && args[2] == "--agriculture-only")
+{
+    Console.WriteLine($"PASS: {checks} Agriculture/persistence/native-definition checks; economic report generated without preparing unrelated content. No game session was run.");
+    return;
+}
 var prepared = Content.Prepare();
 foreach (var equipment in prepared.Objects.Values)
     Check(equipment.strNameFriendly.StartsWith("Phobos' ", StringComparison.Ordinal), "Branded native machine, section or material: " + equipment.strName);

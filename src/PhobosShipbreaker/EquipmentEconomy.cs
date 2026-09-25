@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using Phobos.Ostranauts.Framework.Registration;
 using Phobos.Ostranauts.Framework.Trading;
@@ -12,27 +13,28 @@ internal static class EquipmentEconomy
     internal sealed class Spec
     {
         internal string Prefix;
-        internal int Price, Install, Uninstall, Repair, Dismantle;
+        internal int Price, Install, Uninstall, Repair, Dismantle, RestoreMinutes;
         internal int[] RepairBill, Salvage, BrokenSalvage;
         internal Spec(string prefix, int price, int install, int uninstall, int repair, int dismantle,
-            int[] repairBill, int[] salvage, int[] brokenSalvage)
+            int[] repairBill, int[] salvage, int[] brokenSalvage, int restoreMinutes)
         { Prefix = prefix; Price = price; Install = install; Uninstall = uninstall; Repair = repair;
-          Dismantle = dismantle; RepairBill = repairBill; Salvage = salvage; BrokenSalvage = brokenSalvage; }
+          Dismantle = dismantle; RepairBill = repairBill; Salvage = salvage; BrokenSalvage = brokenSalvage;
+          RestoreMinutes = restoreMinutes; }
     }
     // Native work-progress targets, not wall-clock seconds. Bills below are steel,
     // aluminium, mechanical parts, electronic parts, retained trash.
     internal static readonly string[] Materials = { "ItmScrapSteel", "ItmScrapAluminum", "ItmPartsMechSmall01", "ItmPartsElecSmall01", "ItmScrapTrash" };
     private static readonly string[] Triggers = { "TIsScrapSteel", "TIsScrapAluminum", "TIsPartsMechSmall", "TIsPartsElecSmall" };
     internal static readonly Spec[] Machines = {
-        new Spec(FurnaceRules.Prefix, price: 24000, install: 2400, uninstall: 1800, repair: 4800, dismantle: 1800, new[]{4,4,8,6}, new[]{140,50,24,12,32}, new[]{120,40,12,4,72}),
-        new Spec(FurnaceRules.Radiator, price: 7200, install: 1200, uninstall: 900, repair: 3000, dismantle: 800, new[]{2,4,4,0}, new[]{28,50,8,0,18}, new[]{20,38,4,0,40}),
-        new Spec(FurnaceRules.ThermalPort, price: 7200, install: 1200, uninstall: 900, repair: 3000, dismantle: 800, new[]{2,4,4,0}, new[]{28,50,8,0,18}, new[]{20,38,4,0,40}),
-        new Spec(IndustrialRules.Prefix, price: 5200, install: 1000, uninstall: 800, repair: 2400, dismantle: 500, new[]{1,1,2,4}, new[]{16,8,8,4,10}, new[]{12,6,4,0,20}),
-        new Spec(Content.Prefix, price: 12000, install: 1500, uninstall: 1000, repair: 3600, dismantle: 1000, new[]{4,2,4,4}, new[]{92,40,16,4,18}, new[]{80,32,8,0,44}),
-        new Spec(IntakeRules.Grabber, price: 6400, install: 1000, uninstall: 800, repair: 2400, dismantle: 650, new[]{2,1,4,2}, new[]{42,16,12,2,15}, new[]{34,12,6,0,31}),
-        new Spec(IntakeRules.Chute, price: 1800, install: 500, uninstall: 500, repair: 1500, dismantle: 300, new[]{2,1,2,0}, new[]{20,8,8,2,7}, new[]{16,6,4,0,16}),
-        new Spec(ReclaimerRules.Prefix, price: 14800, install: 1800, uninstall: 1200, repair: 4200, dismantle: 1200, new[]{4,2,6,4}, new[]{104,42,20,8,20}, new[]{92,34,10,2,48}),
-        new Spec(CollectorRules.Prefix, price: 2400, install: 600, uninstall: 500, repair: 1800, dismantle: 350, new[]{0,1,2,2}, new[]{10,3,4,2,4}, new[]{8,2,2,0,9})
+        new Spec(FurnaceRules.Prefix, price: 24000, install: 2400, uninstall: 1800, repair: 4800, dismantle: 1800, new[]{4,4,8,6}, new[]{140,50,24,12,32}, new[]{120,40,12,4,72}, restoreMinutes: 80),
+        new Spec(FurnaceRules.Radiator, price: 7200, install: 1200, uninstall: 900, repair: 3000, dismantle: 800, new[]{2,4,4,0}, new[]{28,50,8,0,18}, new[]{20,38,4,0,40}, restoreMinutes: 20),
+        new Spec(FurnaceRules.ThermalPort, price: 7200, install: 1200, uninstall: 900, repair: 3000, dismantle: 800, new[]{2,4,4,0}, new[]{28,50,8,0,18}, new[]{20,38,4,0,40}, restoreMinutes: 20),
+        new Spec(IndustrialRules.Prefix, price: 5200, install: 1000, uninstall: 800, repair: 2400, dismantle: 500, new[]{1,1,2,4}, new[]{16,8,8,4,10}, new[]{12,6,4,0,20}, restoreMinutes: 30),
+        new Spec(Content.Prefix, price: 12000, install: 1500, uninstall: 1000, repair: 3600, dismantle: 1000, new[]{4,2,4,4}, new[]{92,40,16,4,18}, new[]{80,32,8,0,44}, restoreMinutes: 60),
+        new Spec(IntakeRules.Grabber, price: 6400, install: 1000, uninstall: 800, repair: 2400, dismantle: 650, new[]{2,1,4,2}, new[]{42,16,12,2,15}, new[]{34,12,6,0,31}, restoreMinutes: 30),
+        new Spec(IntakeRules.Chute, price: 1800, install: 500, uninstall: 500, repair: 1500, dismantle: 300, new[]{2,1,2,0}, new[]{20,8,8,2,7}, new[]{16,6,4,0,16}, restoreMinutes: 10),
+        new Spec(ReclaimerRules.Prefix, price: 14800, install: 1800, uninstall: 1200, repair: 4200, dismantle: 1200, new[]{4,2,6,4}, new[]{104,42,20,8,20}, new[]{92,34,10,2,48}, restoreMinutes: 75),
+        new Spec(CollectorRules.Prefix, price: 2400, install: 600, uninstall: 500, repair: 1800, dismantle: 350, new[]{0,1,2,2}, new[]{10,3,4,2,4}, new[]{8,2,2,0,9}, restoreMinutes: 15)
     };
 
     internal static string[] Products(int[] bill) => bill.SelectMany((count, i) => Enumerable.Repeat(Materials[i], count)).ToArray();
@@ -59,7 +61,7 @@ internal static class EquipmentEconomy
                 repair.aToolCTsUse = new[] { "TIsToolMortorq", "TIsToolSoldering" };
                 MaintenanceDefinitions.ReturnRepairMaterials(d, repair);
             }
-            else MaintenanceDefinitions.Restore(d, id);
+            else Restore(d, id, spec);
             MaintenanceDefinitions.Dismantle(d, id, spec.Dismantle, Products(damaged ? spec.BrokenSalvage : spec.Salvage),
                 emptyInternalBin: spec.Prefix == Content.Prefix ? Content.InputBin : spec.Prefix == ReclaimerRules.Prefix ? ReclaimerRules.InputBin : spec.Prefix == FurnaceRules.Prefix ? FurnaceRules.Feed : null);
             var mount = d.Installables[spec.Prefix + state + (state.StartsWith("Installed") ? "Uninstall" : "Install")];
@@ -80,9 +82,37 @@ internal static class EquipmentEconomy
         MaintenanceDefinitions.SetStat(reclaimSection, "StatBasePrice", 6000);
         MaintenanceDefinitions.Dismantle(d, ReclaimerRules.Section, 500, Products(new[]{52,21,10,4,10}));
         EquipmentSaveUpgrade.Register(d, ReclaimerRules.Section, ReclaimerRules.Section);
+        var furnaceSection = d.Objects[FurnaceRules.Section];
+        furnaceSection.aStartingConds = furnaceSection.aStartingConds.Concat(new[] { "IsCategoryIndustrialProducts=1x1", "IsSalvageValueHigh=1x1" }).ToArray();
         MaintenanceDefinitions.Dismantle(d, FurnaceRules.Section, 600, Products(new[]{44,20,12,4,8}));
         EquipmentSaveUpgrade.Register(d, FurnaceRules.Section, FurnaceRules.Section);
         AddStock(d);
+        // The native engineering spawn already supplies loose ship equipment.
+        // One cumulative choice adds at most one section, never dismantling yields.
+        const double SectionSalvageChance = .01;
+        AdditiveLoot.SetItemChoice(d, "ItmLootSpawnEngineering", "PhobosEngineeringSectionSalvage",
+            new Dictionary<string, double> {
+                [ProcessRules.AssemblySection] = SectionSalvageChance,
+                [ReclaimerRules.Section] = SectionSalvageChance,
+                [FurnaceRules.Section] = SectionSalvageChance
+            });
+    }
+
+    private static void Restore(NativeDefinitions d, string id, Spec spec)
+    {
+        MaintenanceDefinitions.Restore(d, id);
+        var job = d.Installables[id + "Restore"];
+        // Native work duration is hours. Scale only our wear-removal effect;
+        // damage capacity, saved wear, tool/skill modifiers and action identity stay intact.
+        const double MinutesPerHour = 60;
+        double maximum = double.Parse(d.Objects[id].aStartingConds.Single(s =>
+            s.StartsWith("StatDamageMax=", StringComparison.Ordinal)).Split('x').Last(), CultureInfo.InvariantCulture);
+        double removal = maximum * job.fDuration * MinutesPerHour / spec.RestoreMinutes;
+        string effect = spec.Prefix + "RestoreProgress";
+        d.Loot[effect] = new Loot { strName = effect, strType = "trigger",
+            aCOs = new[] { "TDnStatDamage=1x" + removal.ToString("R", CultureInfo.InvariantCulture) },
+            aLoots = Array.Empty<string>() };
+        job.strAllowLootCTsThem = effect;
     }
 
     private static void AddStock(NativeDefinitions d)
@@ -106,6 +136,8 @@ internal static class EquipmentEconomy
         Offer("ItmOKLGSupplyKioskInv", "ReclaimSection", ReclaimerRules.Section, .20, StockCondition.Refurbished);
         Offer("ItmTraderSanDiegoHalvorsonInv", "ReclaimSection", ReclaimerRules.Section, .40, StockCondition.Refurbished);
         Offer("ItmOKLGFixer", "ReclaimRefurb", ReclaimerRules.Prefix + "Loose", .10, StockCondition.Refurbished);
+        Offer("ItmOKLGSupplyKioskInv", "FurnaceSection", FurnaceRules.Section, .15, StockCondition.Refurbished);
+        Offer("ItmTraderSanDiegoHalvorsonInv", "FurnaceSection", FurnaceRules.Section, .30, StockCondition.Refurbished);
 
         void Offer(string merchant, string tag, string item, double chance, StockCondition condition) =>
             MarketStock.Add(d, merchant, "PhobosStock_" + tag + "_" + merchant + "_" + item, item, chance, condition);

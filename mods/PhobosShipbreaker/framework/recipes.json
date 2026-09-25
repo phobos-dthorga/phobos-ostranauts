@@ -746,6 +746,80 @@
       ],
       "nameKey": "Recipe.PhobosBuildFurnaceThermalPort.name",
       "descriptionKey": "Recipe.PhobosBuildFurnaceThermalPort.description"
+    },
+    {
+      "id": "PhobosRecoverFurnaceHousingBlank",
+      "name": "Recover aluminium from housing blank",
+      "description": "Cut one unused 19 kg housing blank into 19 kg of identified aluminium scrap. All cuttings are retained; this destroys the casting. Cold released castings only, never melt remainder or historic residue.",
+      "stationIds": [
+        "ItmTable01",
+        "ItmTable02"
+      ],
+      "optionalStationIds": [
+        "ItmWorkbench01",
+        "SWB_WorkbenchInstalled"
+      ],
+      "ingredients": [
+        {
+          "trigger": "PhobosFurnaceHousingBlankTrigger",
+          "item": "PhobosFurnaceHousingBlank",
+          "count": 1,
+          "unitMassKg": 19,
+          "requireEmpty": true
+        }
+      ],
+      "outputs": [
+        {
+          "item": "ItmScrapAluminum",
+          "count": 19,
+          "unitMassKg": 1
+        }
+      ],
+      "workSeconds": 600,
+      "range": 2,
+      "toolTriggers": [
+        "TIsToolMortorq",
+        "TIsToolWelding"
+      ],
+      "nameKey": "Recipe.PhobosRecoverFurnaceHousingBlank.name",
+      "descriptionKey": "Recipe.PhobosRecoverFurnaceHousingBlank.description"
+    },
+    {
+      "id": "PhobosRecoverFurnaceHousing",
+      "name": "Recover aluminium from finished housing",
+      "description": "Cut one unused 18 kg finished housing into 18 kg of identified aluminium scrap. All cuttings are retained; this destroys the casting. Cold released castings only, never melt remainder or historic residue.",
+      "stationIds": [
+        "ItmTable01",
+        "ItmTable02"
+      ],
+      "optionalStationIds": [
+        "ItmWorkbench01",
+        "SWB_WorkbenchInstalled"
+      ],
+      "ingredients": [
+        {
+          "trigger": "PhobosFurnaceHousingTrigger",
+          "item": "PhobosFurnaceHousing",
+          "count": 1,
+          "unitMassKg": 18,
+          "requireEmpty": true
+        }
+      ],
+      "outputs": [
+        {
+          "item": "ItmScrapAluminum",
+          "count": 18,
+          "unitMassKg": 1
+        }
+      ],
+      "workSeconds": 600,
+      "range": 2,
+      "toolTriggers": [
+        "TIsToolMortorq",
+        "TIsToolWelding"
+      ],
+      "nameKey": "Recipe.PhobosRecoverFurnaceHousing.name",
+      "descriptionKey": "Recipe.PhobosRecoverFurnaceHousing.description"
     }
   ]
 }

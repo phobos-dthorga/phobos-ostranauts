@@ -1,4 +1,4 @@
-# Agriculture 0.2.0 implementation and validation
+# Agriculture 0.3.0 implementation and validation
 
 25 September 2026. **Implementation candidate; no game session has been run.**
 Read the [player guide](agriculture-player-guide.md) for the actual first version.
@@ -18,10 +18,15 @@ Version 0.2.0 adds state-driven world rack artwork, six lettuce states and new
 ChatGPT-generated rack/galley furniture masters. See [visual implementation](agriculture-living-visuals.md).
 Development continues before owner gameplay testing, as requested on 25 September.
 
+Version 0.3.0 applies the [economic follow-up](agriculture-economy-review.md):
+revised equipment/seed prices, separate repair bills, useful intact/broken salvage,
+condition-based stock, stored planting-stock finds and finite manual irrigation
+charges. Native Restore and construction contracts are unchanged.
+
 ## Delivered
 
 - Separate Framework-dependent native/content package, construction, additive
-  merchant stock, repairs/Restore, mass-retaining low-value dismantling, translated
+  merchant stock, repairs/Restore, condition-specific mass-balanced dismantling, translated
   equipment branding and native Control Panel lifecycle with shared widgets.
 - Agriculture-owned potato/lettuce cohorts: finite water/nutrients, actual native
   electrical receipts, net CO₂ uptake/O₂ release, explicit blocked/dark respiration,

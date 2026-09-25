@@ -35,6 +35,8 @@ internal static partial class Service
             }
             else if (action == "load-water")
             { if (next.Water > CropState.ReservoirKg - .25) return false; input = Input(co, "LiquidWater", .25); next.Water += .25; }
+            else if (action == "load-irrigation")
+            { if (next.Water > CropState.ReservoirKg - Definitions.IrrigationKg) { s.Notice = Text.Get("irrigation_full", Definitions.IrrigationKg); return false; } input = Input(co, Definitions.Irrigation, Definitions.IrrigationKg); next.Water += Definitions.IrrigationKg; }
             else if (action == "load-nutrients")
             { if (next.Nutrients > CropState.NutrientCapacityKg - .04) return false; input = Input(co, Definitions.Nutrient, .04); next.Nutrients += .04; }
             else return false;

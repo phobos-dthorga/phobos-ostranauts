@@ -12,6 +12,8 @@ param(
     [switch]$VerifyOnly,
     # Update existing mods' menu/Workshop covers without changing gameplay or enabling mods.
     [switch]$PreviewsOnly,
+    # Validate the existing dependency without replacing any of its files.
+    [switch]$KeepInstalledFramework,
     [switch]$NoRememberPaths
 )
 $ErrorActionPreference = 'Stop'
@@ -116,13 +118,18 @@ foreach ($mod in $Mods) {
     $pluginSource = Join-Path $package "BepInEx/plugins/$id"
     $nativeTarget = Join-Path $modRoot $id
     $pluginTarget = Join-Path $gameRoot "BepInEx/plugins/$id"
+    $retainFramework = $KeepInstalledFramework -and $mod -eq 'Framework'
+    if ($retainFramework) {
+        $nativeSource = $nativeTarget
+        $pluginSource = $pluginTarget
+    }
     if ((Test-Within $nativeTarget $pluginTarget) -or (Test-Within $pluginTarget $nativeTarget)) {
         throw 'Native and plugin destinations must be separate folders. Check LoadOrderPath.'
     }
     foreach ($folder in @($nativeSource, $pluginSource, $nativeTarget, $pluginTarget)) { Assert-NoLinks $folder -Tree }
     foreach ($source in @($nativeSource, $pluginSource)) {
         foreach ($target in @($nativeTarget, $pluginTarget)) {
-            if ((Test-Within $source $target) -or (Test-Within $target $source)) { throw 'PackagePath must be separate from the installed files.' }
+            if (-not $retainFramework -and ((Test-Within $source $target) -or (Test-Within $target $source))) { throw 'PackagePath must be separate from the installed files.' }
         }
     }
     $metadata = @(Get-Content -LiteralPath (Join-Path $nativeSource 'mod_info.json') -Raw | ConvertFrom-Json)
@@ -319,6 +326,9 @@ foreach ($mod in $Mods) {
     }
     if ($moduleIndices.Count -gt 1) { throw "Duplicate $label load-order entries; resolve them before installing." }
     $loadOrderStatus = 'missing'
+    if ($retainFramework -and ($moduleIndices.Count -ne 1 -or $entries[$moduleIndices[0]].EndsWith('|disabled', [StringComparison]::Ordinal))) {
+        throw 'KeepInstalledFramework requires an already enabled, compatible Framework installation.'
+    }
     if ($moduleIndices.Count -eq 1) {
         $index = $moduleIndices[0]
         if ($index -lt $coreIndex) { throw "$label must load after core." }

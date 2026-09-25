@@ -14,3 +14,7 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - name: Check local documentation links
         run: python3 scripts/check-doc-links.py
+      - name: Verify maintained constants agree
+        run: python3 scripts/update-constants.py --check --format json
+      - name: Exercise constant update and recovery
+        run: python3 -m unittest discover -s tests -p test_update_constants.py -v

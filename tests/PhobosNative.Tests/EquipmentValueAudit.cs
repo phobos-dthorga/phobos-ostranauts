@@ -15,8 +15,11 @@ using Ostranauts.Trading;
 internal static class EquipmentValueAudit
 {
     private static double Price(string id, double wear = 0, bool pristine = false)
+        => Price(DataHandler.dictCOs[id], wear, pristine);
+
+    internal static double Price(JsonCondOwner definition, double wear = 0, bool pristine = false)
     {
-        var co = NativeDefinitions.Clone(DataHandler.dictCOs[id]);
+        var co = NativeDefinitions.Clone(definition);
         double maximum = EquipmentSaveUpgrade.Amount(co.aStartingConds, "StatDamageMax");
         MaintenanceDefinitions.SetStat(co, "StatDamage", maximum * wear);
         // DataCO tests condition presence, so a literal IsPristine=0 is still a flag.
@@ -25,7 +28,7 @@ internal static class EquipmentValueAudit
         return new DataCO(co).GetBasePrice();
     }
 
-    private static (double low, double high) Discount(string id)
+    internal static (double low, double high) Discount(string id)
     {
         string expression = DataHandler.dictLoot[id].aCOs.Single().Split('x').Last();
         var values = expression.Split('-').Select(s => double.Parse(s, CultureInfo.InvariantCulture)).ToArray();
@@ -41,7 +44,7 @@ internal static class EquipmentValueAudit
         var buyer = DataHandler.dictCTs["TIsBarterVORBScrapKiosk"];
         var rows = new List<string> {
             "# Phobos equipment value audit", "",
-            "Generated from current Phobos candidate definitions and Ostranauts 1.0.1.5's `DataCO.GetBasePrice` (2026-09-24). Includes every implemented equipment family, both functional and broken forms, and the assembly section. No game session or live merchant quote was sampled.", "",
+            "Generated from current Phobos candidate definitions and Ostranauts 1.0.1.5's `DataCO.GetBasePrice` (baseline 2026-09-24). Covers Shipbreaker and Auto Nav equipment, both functional and broken forms, and assembly sections. Agriculture has a separate [economic evidence report](agriculture-economy-evidence.md) and [review](agriculture-economy-review.md). No game session or live merchant quote was sampled.", "",
             "All dollar figures below are **whole-object values**, not prices per kilogram or shop purchase quotes. Recovered parts are valued at full condition without a retail pristine flag. Work, power and tool costs are excluded.", "",
             "| Item/state | Whole base | Whole at maximum wear tier | All dismantling outputs | Output / whole base | VORB adverse comparison: whole / scrap |",
             "|---|---:|---:|---:|---:|---:|" };
@@ -79,6 +82,21 @@ internal static class EquipmentValueAudit
                 string id = recipe.outputs[0].item;
                 if (id == "PhobosNavModAutoNav") id = PhobosAutoNav.EquipmentContent.Base;
                 double inputs = recipe.ingredients.Sum(i => i.count * Price(i.item));
+                if (recipe.id == "PhobosRecoverFurnaceHousingBlank" || recipe.id == "PhobosRecoverFurnaceHousing")
+                {
+                    int mass = recipe.id.EndsWith("Blank") ? 19 : 18;
+                    string source = mass == 19 ? FurnaceRules.Blank : FurnaceRules.Housing;
+                    double recovered = recipe.outputs.Sum(o => o.count * Price(o.item));
+                    check(recipe.ingredients.Length == 1 && recipe.ingredients[0].item == source &&
+                        recipe.ingredients[0].trigger == source + "Trigger" && recipe.ingredients[0].count == 1 && recipe.ingredients[0].requireEmpty,
+                        "Recovery accepts only one exact unused casting: " + recipe.id);
+                    check(recipe.outputs.Length == 1 && id == "ItmScrapAluminum" && recipe.outputs[0].count == mass &&
+                        recipe.outputs[0].unitMassKg == 1 && recipe.ingredients[0].unitMassKg == mass,
+                        "Casting recovery preserves every kilogram without terminal residue: " + recipe.id);
+                    check(recovered < inputs && recipe.workSeconds == 600, "Casting recovery loses sale value and requires cutting labour: " + recipe.id);
+                    rows.Add($"| {recipe.name} | ${inputs:N2} | ${recovered:N2} (explicit recovery) |");
+                    continue;
+                }
                 if (id == FurnaceRules.Housing)
                 {
                     check(!DataHandler.dictInstallables.ContainsKey(id + "Dismantle"), "Finished casting has no hidden scrap reroll recipe");

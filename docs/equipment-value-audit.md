@@ -1,6 +1,6 @@
 # Phobos equipment value audit
 
-Generated from current Phobos candidate definitions and Ostranauts 1.0.1.5's `DataCO.GetBasePrice` (2026-09-24). Includes every implemented equipment family, both functional and broken forms, and the assembly section. No game session or live merchant quote was sampled.
+Generated from current Phobos candidate definitions and Ostranauts 1.0.1.5's `DataCO.GetBasePrice` (baseline 2026-09-24). Covers Shipbreaker and Auto Nav equipment, both functional and broken forms, and assembly sections. Agriculture has a separate [economic evidence report](agriculture-economy-evidence.md) and [review](agriculture-economy-review.md). No game session or live merchant quote was sampled.
 
 All dollar figures below are **whole-object values**, not prices per kilogram or shop purchase quotes. Recovered parts are valued at full condition without a retail pristine flag. Work, power and tool costs are excluded.
 
@@ -53,6 +53,8 @@ This is a conservative vanilla baseline, not a guarantee across different region
 | Phobos' Rivetline F6 Electric Furnace | $19,500.00 | $854.60 |
 | Phobos' Rivetline F6-R Exterior Radiator | $210.00 | $196.70 |
 | Phobos' Rivetline F6-P Thermal Exhaust Port | $210.00 | $196.70 |
+| Recover aluminium from housing blank | $55.00 | $20.90 (explicit recovery) |
+| Recover aluminium from finished housing | $60.00 | $19.80 (explicit recovery) |
 | Phobos' Asterel N1 Polaris Auto Nav Module | $29.00 | $0.01 |
 
 The processor's final assembly consumes two priced sections. Raw materials for both sections total $570.80; its $514.10 dismantling yield is also below that original raw-material bill. Construction creates a usable machine through labour; this is separate from the dismantling comparison.

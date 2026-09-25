@@ -60,6 +60,9 @@ See [installation and recovery](installing-mods.md), then [the player guide](pla
 
 ## Contributing and checks
 
+For routine version/default updates, use the [maintained-constants updater](updating-constants.md).
+It previews exact changes and can emit JSON verification; builds remain separate.
+
 Follow [CONTRIBUTING](../CONTRIBUTING.md). Run the affected build script when code,
 native data or packaged artwork changes. For documentation, run
 `python scripts/check-doc-links.py`. Public documentation checks do not build

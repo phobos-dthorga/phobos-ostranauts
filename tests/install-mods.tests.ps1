@@ -104,6 +104,15 @@ $dllStamp = (Get-Item -LiteralPath $dll).LastWriteTimeUtc
 Check ((Get-Item -LiteralPath $fresh.LoadOrderPath).LastWriteTimeUtc -eq $stamp -and (Get-Item -LiteralPath $dll).LastWriteTimeUtc -eq $dllStamp) 'Repeat rewrote unchanged files'
 Check ((Get-FileHash -LiteralPath $overrideFile).Hash -eq $overrideHash) 'Repeat installation changed a community translation override'
 
+$frameworkNotice = Join-Path $nativeRoot 'PhobosFramework/THIRD-PARTY.md'
+Add-Content -LiteralPath $frameworkNotice -Value 'Installed dependency notice retained by test.'
+$retainedHash = (Get-FileHash -LiteralPath $frameworkNotice).Hash
+& $installer @fresh -Mods Shipbreaker -KeepInstalledFramework -VerifyOnly | Out-Null
+& $installer @fresh -Mods Shipbreaker -KeepInstalledFramework | Out-Null
+Check ((Get-FileHash -LiteralPath $frameworkNotice).Hash -eq $retainedHash) 'KeepInstalledFramework replaced dependency files'
+Fails { & $installer @fresh -Mods Shipbreaker -VerifyOnly | Out-Null } 'Installation differs'
+& $installer @fresh -Mods Shipbreaker | Out-Null
+
 $panel = Join-Path $nativeRoot 'PhobosAutoNav/images/phobos/autonav/PhobosAutoNavPanel.png'
 Set-Content -LiteralPath $panel -Value 'previous image'
 Fails { & $installer @fresh -VerifyOnly | Out-Null } 'Installation differs'

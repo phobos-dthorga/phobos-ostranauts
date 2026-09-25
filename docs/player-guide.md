@@ -6,7 +6,7 @@ prerequisites and experimental status. Need help? See [support](../SUPPORT.md).
 Agriculture 0.2.0 is a new prepared candidate with visible crop growth and furnished cooking equipment: see the [cultivation and cooking guide](agriculture-player-guide.md). It requires Framework 0.17.0; optional C1 integration uses Shipbreaker 0.14.0. Owner gameplay evaluation is pending.
 
 
-**Prepared versions:** Phobos Framework **0.17.0**, Shipbreaker **0.14.0**, Auto Nav
+**Prepared versions:** Phobos Framework **0.17.0**, Shipbreaker **0.15.0**, Auto Nav
 **0.10.1**, built against Ostranauts **1.0.1.5** / BepInEx **5.4.23.5**.
 These versions support ordinary saves. Builds and offline checks do not establish
 in-game compatibility. This guide describes the prepared packages, not a claim
@@ -236,4 +236,4 @@ Translation catalogs, language settings and contributor guidance: [Localization]
 
 ## Industrial controls (0.10.0)
 
-[Console and equipment panel guide](industrial-console-player-guide.md): a 3 x 3 ship-bound workstation, local Control Panels, automatic grouping, search, Attention and routing. The current Shipbreaker 0.14.0 requires Framework 0.17.0 and includes [shared observations](shared-console-observations.md). Prepared for owner testing; no in-game validation claimed.
+[Console and equipment panel guide](industrial-console-player-guide.md): a 3 x 3 ship-bound workstation, local Control Panels, automatic grouping, search, Attention and routing. The current Shipbreaker 0.15.0 requires Framework 0.17.0 and includes [shared observations](shared-console-observations.md). Prepared for owner testing; no in-game validation claimed.

@@ -7,6 +7,12 @@ not reproducing every feature of OCF or turning Ostranauts into a factory game.
 
 ## Current candidate: Framework 0.17.0, Shipbreaker 0.14.0, Auto Nav 0.10.1
 
+The owner's 25 September [shared fluid-conduit research](fluid-conduits-and-irrigation-research.md)
+uses Agriculture's water/nutrient delivery as the concrete consumer and examines
+native conduit placement, connection artwork and routing. It proposes Framework
+transport services with content-owned equipment and biology. General pipe networks
+and nutrient-mixture transfers are not implemented by the current liquid helper.
+
 Framework 0.16.0 introduced measured electricity receipts, finite thermal/gas
 primitives and the first isolated native instruments for the F6 electric furnace.
 Version 0.17.0 extends those instrument adapters to guarded toggles, native digit

@@ -18,12 +18,12 @@ internal static class DependencyContract
             "StatUninstallProgressMax", "StatRepairProgressMax", "StatDismantleProgressMax", "StatDamageMax", "IsChair", "IsSignalable", "IsPristine", "IsToolMortorq", "StatInstallRateMISC" }),
         ("triggers", new[] { "PhobosShipbreakerTSection", "TIsFitContainerSolid", "TIsFitContainerSolidCumbersome", "TIsReadyUsePower",
             "TIsScrapSteel", "TIsScrapAluminum", "TIsPartsMechSmall", "TIsPartsElecSmall", "TIsRepairableNotContained",
-            "TIsToolMortorq", "TIsToolSoldering", "TIsToolWelding", "TCanBeDismantled", "TIsUndamageableNotContained", "TIsChairFree" }),
+            "TIsToolMortorq", "TIsToolSoldering", "TIsToolWelding", "TCanBeDismantled", "TIsUndamageableNotContained", "TIsChairFree", "TDnStatDamage" }),
         ("interactions", new[] { "Inventory", "ACTRepairTEMP", "ACTRepairTEMPAllow",
             "ACTInstallNoSparksTEMP", "ACTInstallNoSparksTEMPAllow", "ACTUninstallNoSparksTEMP", "ACTUninstallNoSparksTEMPAllow",
             "ACTUndamageTEMP", "ACTUndamageTEMPAllow", "ACTDismantleTEMP", "ACTDismantleTEMPAllow", "ACTChairSitShim" }),
         ("loot", new[] { "ACTDefaultDestroy", "CTWorkProgressMISC", "CONDRepairProgressx5", "CONDInstallProgressx5", "CONDUninstallProgressx5",
-            "CONDUndamageProgress", "CONDDismantleProgress", "ItmOKLGSupplyKioskInv", "ItmOKLGFixer", "ItmTraderSanDiegoHalvorsonInv", "ItmVORBScrapKioskInv",
+            "CONDUndamageProgress", "CONDDismantleProgress", "ItmOKLGSupplyKioskInv", "ItmOKLGFixer", "ItmTraderSanDiegoHalvorsonInv", "ItmVORBScrapKioskInv", "ItmLootSpawnEngineering",
             "Blank", "TILWall", "TILWallDecoAdds", "TILExtFixtureAdds", "TILFixtureAdds", "TILItemAdds", "TILItemForbids", "TILObstruction", "TILFloor" })
     };
     internal static string? FrameworkProblem(Version? loaded) => loaded == null ? Text.Get("DependencyContract.phobos_framework_plugin_is_not_loaded") :
@@ -31,7 +31,7 @@ internal static class DependencyContract
     internal static List<string> MissingDefinitions(Func<string, string, bool> contains) => Required
         .SelectMany(group => group.Names.Where(name => !contains(group.Table, name))
             .Select(name => Text.Get("DependencyContract.missing", group.Table, name))).ToList();
-    internal static readonly string[] Recipes = { "PhobosCraft_PhobosBuildFurnaceSection", "PhobosCraft_PhobosBuildFurnace", "PhobosCraft_PhobosBuildFurnaceRadiator", "PhobosCraft_PhobosBuildFurnaceThermalPort", "PhobosCraft_PhobosFinishFurnaceHousing", "PhobosCraft_PhobosBuildShipbreakerSectionCast", "PhobosCraft_PhobosBuildReclaimerSectionCast", "PhobosCraft_PhobosBuildShipbreakerSection", "PhobosCraft_PhobosBuildShipbreaker",
+    internal static readonly string[] Recipes = { "PhobosCraft_PhobosRecoverFurnaceHousingBlank", "PhobosCraft_PhobosRecoverFurnaceHousing", "PhobosCraft_PhobosBuildFurnaceSection", "PhobosCraft_PhobosBuildFurnace", "PhobosCraft_PhobosBuildFurnaceRadiator", "PhobosCraft_PhobosBuildFurnaceThermalPort", "PhobosCraft_PhobosFinishFurnaceHousing", "PhobosCraft_PhobosBuildShipbreakerSectionCast", "PhobosCraft_PhobosBuildReclaimerSectionCast", "PhobosCraft_PhobosBuildShipbreakerSection", "PhobosCraft_PhobosBuildShipbreaker",
         "PhobosCraft_PhobosBuildHullChute", "PhobosCraft_PhobosBuildExteriorGrabber", "PhobosCraft_PhobosBuildResidueCollector", "PhobosCraft_PhobosBuildReclaimerSection", "PhobosCraft_PhobosBuildReclaimer", "PhobosCraft_PhobosBuildIndustrialConsole" };
     internal static List<string> MissingRecipes(Func<string, bool> contains) => Recipes
         .Where(id => !contains(id)).Select(id => Text.Get("DependencyContract.missing_registered_recipe", id)).ToList();
