@@ -6,6 +6,12 @@ services in Framework, and suggested following vanilla conduits in part. This
 report implements no pipes, changes no packages and establishes no new gameplay
 validation. The furnace's current fixed cooling attachments remain unchanged.
 
+**Subsequent implementation:** the owner authorized this sequence and necessary
+artwork later on 25 September. Agriculture 0.4.0 / Framework 0.18.0 now prepare
+the [first water-conduit slice](agriculture-water-conduits.md). The research below
+retains its original baseline/proposals; it is not the current implementation
+inventory. Nutrient-mixture pipes and furnace coolant networks remain future work.
+
 ## Recommendation
 
 Use **separately installed fluid conduits that feel like vanilla electrical

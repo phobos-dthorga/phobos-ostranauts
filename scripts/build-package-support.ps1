@@ -13,7 +13,7 @@ function Copy-PhobosPlayerGuides {
         'vanilla-economy-audit', 'shipbreaker-first-build', 'shipbreaker-hull-intake',
         'residue-collector', 'auto-navigate-adaptation', 'auto-nav-economy', 'auto-nav-panel-layout-audit', 'auto-nav-persistence', 'auto-nav-torch', 'residue-material-contract',
         'shipbreaking-material-processing-research', 'material-disposal-port-research',
-        'fluid-conduits-and-irrigation-research', 'chemical-storage-and-process-fluids', 'updating-constants',
+        'fluid-conduits-and-irrigation-research', 'agriculture-water-conduits', 'chemical-storage-and-process-fluids', 'updating-constants',
         'processing-job-compatibility', 'localization', 'scrap-reclaimer', 'automatic-material-routing', 'material-port-pairing',
         'industrial-console-player-guide', 'industrial-control-console', 'industrial-control-mockups', 'shared-console-observations', 'sensor-integration-research', 'fusion-smelter-research', 'framework-author-guide'
     )) {
@@ -28,6 +28,11 @@ function Copy-PhobosPlayerGuides {
         Set-Content -LiteralPath $guide.FullName -Value $text -Encoding utf8
     }
     Copy-Item -LiteralPath (Join-Path $RepoRoot 'assets/phobos-furnace/coupling-provenance.json') -Destination $Package
+    Copy-Item -LiteralPath (Join-Path $RepoRoot 'assets/phobos-agriculture/irrigation-generation-records.json') -Destination (Join-Path $Package 'agriculture-irrigation-generation-records.json')
+    $waterGuidePath = Join-Path $Package 'agriculture-water-conduits.md'
+    $waterGuide = Get-Content -LiteralPath $waterGuidePath -Raw
+    $waterGuide = $waterGuide.Replace('../assets/phobos-agriculture/irrigation-generation-records.json', 'agriculture-irrigation-generation-records.json')
+    Set-Content -LiteralPath $waterGuidePath -Value $waterGuide -Encoding utf8
     $furnaceGuidePath = Join-Path $Package 'furnace-connections-and-instruments.md'
     $furnaceGuide = Get-Content -LiteralPath $furnaceGuidePath -Raw
     $furnaceGuide = $furnaceGuide.Replace('../assets/phobos-furnace/coupling-provenance.json', 'coupling-provenance.json')

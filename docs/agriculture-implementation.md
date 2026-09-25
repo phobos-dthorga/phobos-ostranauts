@@ -1,9 +1,16 @@
-# Agriculture 0.3.0 implementation and validation
+# Agriculture implementation and validation
 
 25 September 2026. **Implementation candidate; no game session has been run.**
 Read the [player guide](agriculture-player-guide.md) for the actual first version.
 The earlier [specification](agriculture-first-slice.md) retains broader design
 targets; this record identifies delivered behavior and remaining work.
+
+Version 0.4.0 implements the [first routed-water slice](agriculture-water-conduits.md):
+W2 finite supply, independently installed conduits, one reciprocal rack binding,
+actual electrical budgets, local nutrient loading and explicit legacy/routed
+selection. Framework 0.18.0 supplies native floor routing, bounded delivery budgets
+and durable interruption journals. Existing crop, cooker and residue contracts
+remain unchanged. Artwork and routes still need owner gameplay evaluation.
 
 The 0.1.1 branding revision establishes **Verdemorrow Agronomics**, independent
 of Shipbreaker's Rivetline. Equipment uses Firstlight-4 and Hearth-2; planting

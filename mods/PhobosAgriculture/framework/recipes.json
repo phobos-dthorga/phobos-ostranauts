@@ -114,6 +114,99 @@
       ],
       "workSeconds": 1200,
       "range": 2
+    },
+    {
+      "id": "PhobosVerdemorrowGroundworkW2Build",
+      "name": "Phobos' Verdemorrow Groundwork W2 Water Supply Unit",
+      "description": "Assemble an empty, loose appliance from physical materials.",
+      "nameKey": "water_supply",
+      "descriptionKey": "build_desc",
+      "stationIds": [
+        "ItmTable01",
+        "ItmTable02"
+      ],
+      "optionalStationIds": [
+        "SWB_WorkbenchInstalled"
+      ],
+      "toolTriggers": [
+        "TIsToolMortorq",
+        "TIsToolSoldering"
+      ],
+      "ingredients": [
+        {
+          "item": "ItmScrapSteel",
+          "trigger": "TIsScrapSteel",
+          "count": 8,
+          "unitMassKg": 1,
+          "requireEmpty": true
+        },
+        {
+          "item": "ItmScrapAluminum",
+          "trigger": "TIsScrapAluminum",
+          "count": 8,
+          "unitMassKg": 1,
+          "requireEmpty": true
+        },
+        {
+          "item": "ItmPartsMechSmall01",
+          "trigger": "TIsPartsMechSmall",
+          "count": 4,
+          "unitMassKg": 0.5,
+          "requireEmpty": true
+        },
+        {
+          "item": "ItmPartsElecSmall01",
+          "trigger": "TIsPartsElecSmall",
+          "count": 4,
+          "unitMassKg": 0.5,
+          "requireEmpty": true
+        }
+      ],
+      "outputs": [
+        {
+          "item": "PhobosVerdemorrowGroundworkW2Loose",
+          "count": 1,
+          "unitMassKg": 20
+        }
+      ],
+      "workSeconds": 1800,
+      "range": 2
+    },
+    {
+      "id": "PhobosVerdemorrowWaterConduitBuild",
+      "name": "Phobos' Verdemorrow Groundwork Irrigation Conduit",
+      "description": "Assemble an empty, loose appliance from physical materials.",
+      "nameKey": "water_pipe",
+      "descriptionKey": "build_desc",
+      "stationIds": [
+        "ItmTable01",
+        "ItmTable02"
+      ],
+      "optionalStationIds": [
+        "SWB_WorkbenchInstalled"
+      ],
+      "toolTriggers": [
+        "TIsToolMortorq",
+        "TIsToolSoldering"
+      ],
+      "ingredients": [
+        {
+          "item": "ItmScrapAluminum",
+          "trigger": "TIsScrapAluminum",
+          "count": 1,
+          "unitMassKg": 1,
+          "requireEmpty": true
+        }
+      ],
+      "outputs": [
+        {
+          "item": "PhobosVerdemorrowWaterConduitLoose",
+          "count": 1,
+          "unitMassKg": 1
+        }
+      ],
+      "workSeconds": 120,
+      "range": 2
     }
   ]
 }

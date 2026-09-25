@@ -13,7 +13,7 @@ internal static class Artwork
     private static readonly HashSet<string> reported = new(StringComparer.Ordinal);
 
     internal static string Key(CondOwner co, CropState state, bool protectedState) =>
-        Definitions.IsCooker(co) ? "Cooker" : CropAppearance.RackKey(state, protectedState);
+        IrrigationDefinitions.IsSupply(co) ? "WaterSupply" : Definitions.IsCooker(co) ? "Cooker" : CropAppearance.RackKey(state, protectedState);
 
     internal static Texture2D? Texture(string key)
     {
@@ -30,7 +30,7 @@ internal static class Artwork
         if (item.ImgOverride == path) return;
         try
         {
-            int size = Definitions.IsCooker(co) ? 32 : 64;
+            int size = Definitions.IsCooker(co) || IrrigationDefinitions.IsSupply(co) ? 32 : 64;
             var color = Texture(key);
             var normal = DataHandler.LoadPNG(path + "Normal.png", bNorm: true);
             if (color == null || normal == null || color.width != size || color.height != size || normal.width != size || normal.height != size)

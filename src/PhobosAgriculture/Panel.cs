@@ -47,8 +47,17 @@ public sealed class Panel : GUIData
         portrait = imageRect.gameObject.AddComponent<RawImage>(); portrait.raycastTarget = false;
         var aspect = imageRect.gameObject.AddComponent<AspectRatioFitter>(); aspect.aspectMode = AspectRatioFitter.AspectMode.HeightControlsWidth;
         readout = W.Label(content, "");
-        foreach (string action in Definitions.IsCooker(co) ? new[] { "start", "pause", "cancel" } : new[] { "start", "pause", "receive", "pause-receive" }) AddButton(content, co, action);
-        if (!Definitions.IsCooker(co)) foreach (string action in Definitions.Work) AddButton(content, co, action);
+        foreach (string action in Service.Actions(co)) AddButton(content, co, action);
+        if (!Definitions.IsCooker(co))
+        {
+            foreach (string action in IrrigationDefinitions.IsSupply(co) ? new[] { "load-water", "load-irrigation", "drain" } : Definitions.Work) AddButton(content, co, action);
+            W.Label(content, Text.Get("water_pair_help"));
+            foreach (var candidate in Service.WaterCandidates(co))
+            {
+                string peerId = candidate.strID;
+                W.Button(content, Text.Get("water_pair", candidate.strNameFriendly, peerId), () => { Service.Command(co, null, "link-water:" + peerId, out result); Refresh(co); });
+            }
+        }
         W.Label(content, Text.Get("panel_help")); W.Button(content, Text.Get("close"), () => CrewSim.LowerUI()); Refresh(co);
     }
     private void AddButton(Transform parent, CondOwner co, string action) => W.Button(parent, Text.Get(action), () => { Service.Command(co, null, action, out result); Refresh(co); });

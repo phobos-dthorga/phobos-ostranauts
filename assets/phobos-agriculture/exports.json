@@ -9,6 +9,14 @@
           1254,
           1254
         ]
+      },
+      {
+        "source": "assets/phobos-agriculture/source/groundwork-pipe-cross.png",
+        "sourceSHA256": "b01dfcbf7c1a80b61f06da1331a78734c5119b7ae175d0cc7697c5efe4411be1",
+        "canvas": [
+          64,
+          64
+        ]
       }
     ],
     "export": [
@@ -17,8 +25,8 @@
     ],
     "sampling": "nearest; alpha composite registered layers",
     "layout": "assets/phobos-agriculture/layers.json",
-    "exportSHA256": "1d6b23df38c094ebb567a7114b3bc22beef3efb24a76fb36a5b57384db714a0f",
-    "normalSHA256": "404db72ff9254a86efe5f970ce729abe5a804563af01ba73ba9b598b95d8fa53"
+    "exportSHA256": "3fb865b27688ac825d7acec00926c3f929323825b301946d80a2d63e0dfd81a6",
+    "normalSHA256": "569e4201cb299b7edca0e24d68f825d306a6c34bf7008ecb230fc0e3e4626554"
   },
   {
     "name": "Potato-sprout",
@@ -52,6 +60,14 @@
         ]
       },
       {
+        "source": "assets/phobos-agriculture/source/groundwork-pipe-cross.png",
+        "sourceSHA256": "b01dfcbf7c1a80b61f06da1331a78734c5119b7ae175d0cc7697c5efe4411be1",
+        "canvas": [
+          64,
+          64
+        ]
+      },
+      {
         "source": "assets/phobos-agriculture/source/edit_sprout.png",
         "sourceSHA256": "9c8f74f2e34f2c0383179a7a44c4cf75a21137296529388de322d8babc7027c0",
         "canvas": [
@@ -66,8 +82,8 @@
     ],
     "sampling": "nearest; alpha composite registered layers",
     "layout": "assets/phobos-agriculture/layers.json",
-    "exportSHA256": "4b1c09e32182e28690fabdc7c43fd05a104caaf661a75b2bc1d99461e6096510",
-    "normalSHA256": "4bf40f025244224758740a808beb651beb7e682ddf054bdca9888b3832026df2"
+    "exportSHA256": "4a4c2bcf7943a0aeb23f2689fd54d40d7466b1249afcdf3e53520fbdba5a5b8a",
+    "normalSHA256": "4c13ad3feeb605ac7648a6c17489bf2cbb612ebdaf051f92e7b4b081dca05a5d"
   },
   {
     "name": "Potato-young",
@@ -101,6 +117,14 @@
         ]
       },
       {
+        "source": "assets/phobos-agriculture/source/groundwork-pipe-cross.png",
+        "sourceSHA256": "b01dfcbf7c1a80b61f06da1331a78734c5119b7ae175d0cc7697c5efe4411be1",
+        "canvas": [
+          64,
+          64
+        ]
+      },
+      {
         "source": "assets/phobos-agriculture/source/edit_young.png",
         "sourceSHA256": "9b9290287adb5cc4157079c071dae094f240de85a236cd1729aca56100a0f458",
         "canvas": [
@@ -115,8 +139,8 @@
     ],
     "sampling": "nearest; alpha composite registered layers",
     "layout": "assets/phobos-agriculture/layers.json",
-    "exportSHA256": "627be91cd59d1fa45573e911e47c75b52f445faa74fb853a31f01620beb652ef",
-    "normalSHA256": "618a12ba6f797e2aa4fbd1a39a5030725c9bcce32e1e345586557a5207e69092"
+    "exportSHA256": "2b619e1a3bfa25a3ba323510630f4bc672d45ad9711a18eaaf2667b93f219623",
+    "normalSHA256": "0d1fd192ac40f4970b594a94a36a6fc250ed5539a6392ad802808d9eaa0d97ba"
   },
   {
     "name": "Potato-mature",
@@ -150,6 +174,14 @@
         ]
       },
       {
+        "source": "assets/phobos-agriculture/source/groundwork-pipe-cross.png",
+        "sourceSHA256": "b01dfcbf7c1a80b61f06da1331a78734c5119b7ae175d0cc7697c5efe4411be1",
+        "canvas": [
+          64,
+          64
+        ]
+      },
+      {
         "source": "assets/phobos-agriculture/source/plantPilot.png",
         "sourceSHA256": "d9f732492e0d8c33b9f83a99fc4e72fc11ff044f75cb4984a48f35560bb1451c",
         "canvas": [
@@ -164,8 +196,8 @@
     ],
     "sampling": "nearest; alpha composite registered layers",
     "layout": "assets/phobos-agriculture/layers.json",
-    "exportSHA256": "b35927716faa5a10155ebe66e976accf1133074cc6a8a83c62af7fdbf1f7ed75",
-    "normalSHA256": "c47eac8abb1d0877e9e75a4274415a976956e0d7d2538c2b7e7c04db92a76c29"
+    "exportSHA256": "e2ae7fbd4aa3b620292af393b899752b7efc8efe03fa07782fba1745d43f19f7",
+    "normalSHA256": "30b13893ee493d831f80fbbeaa32be41546704b3b23b42ea8c2318fda538ce4e"
   },
   {
     "name": "Potato-harvest",
@@ -199,6 +231,14 @@
         ]
       },
       {
+        "source": "assets/phobos-agriculture/source/groundwork-pipe-cross.png",
+        "sourceSHA256": "b01dfcbf7c1a80b61f06da1331a78734c5119b7ae175d0cc7697c5efe4411be1",
+        "canvas": [
+          64,
+          64
+        ]
+      },
+      {
         "source": "assets/phobos-agriculture/source/edit_harvest.png",
         "sourceSHA256": "80cb28b2f891c7942247b9fca0fc54afd5506f74eb2ca3c364456e81387f6ea5",
         "canvas": [
@@ -213,8 +253,8 @@
     ],
     "sampling": "nearest; alpha composite registered layers",
     "layout": "assets/phobos-agriculture/layers.json",
-    "exportSHA256": "9563d4f2103b9a772f76287fd98baf95fccd71bc4875cc6797871b8e8132b06e",
-    "normalSHA256": "c47eac8abb1d0877e9e75a4274415a976956e0d7d2538c2b7e7c04db92a76c29"
+    "exportSHA256": "c32986ed4d99dadd2510a5185e87ac9d3057f80982d440ae80835dd3b3fbe7af",
+    "normalSHA256": "30b13893ee493d831f80fbbeaa32be41546704b3b23b42ea8c2318fda538ce4e"
   },
   {
     "name": "Potato-wilted",
@@ -248,6 +288,14 @@
         ]
       },
       {
+        "source": "assets/phobos-agriculture/source/groundwork-pipe-cross.png",
+        "sourceSHA256": "b01dfcbf7c1a80b61f06da1331a78734c5119b7ae175d0cc7697c5efe4411be1",
+        "canvas": [
+          64,
+          64
+        ]
+      },
+      {
         "source": "assets/phobos-agriculture/source/edit_wilted.png",
         "sourceSHA256": "608644b0a5a7349e82fb24d7a1383f154a567e0725b5fa0261856af2d6e19b24",
         "canvas": [
@@ -262,8 +310,8 @@
     ],
     "sampling": "nearest; alpha composite registered layers",
     "layout": "assets/phobos-agriculture/layers.json",
-    "exportSHA256": "57acb3f8a93fa245972850fb2a30d95ffd4e40e94d6e98cc732aa0bad56886f2",
-    "normalSHA256": "1598b338fb79c8879ac0f3f877875230de0412a02a65d96f7af8357b96ff7bf6"
+    "exportSHA256": "acbeddd7cd52dcd39893ab426cbb7ac4390d08009a285c726292b0207ca2b895",
+    "normalSHA256": "faf7a21cc063df1ce69e520f4ae2a5e752db964c62ee975fd3e3ead996adb4e6"
   },
   {
     "name": "Potato-dead",
@@ -297,6 +345,14 @@
         ]
       },
       {
+        "source": "assets/phobos-agriculture/source/groundwork-pipe-cross.png",
+        "sourceSHA256": "b01dfcbf7c1a80b61f06da1331a78734c5119b7ae175d0cc7697c5efe4411be1",
+        "canvas": [
+          64,
+          64
+        ]
+      },
+      {
         "source": "assets/phobos-agriculture/source/deadEdit.png",
         "sourceSHA256": "01b3a30855bc987e636112f64deb17e64e93862ed3df3ad4a410fe98d28f4e14",
         "canvas": [
@@ -311,8 +367,8 @@
     ],
     "sampling": "nearest; alpha composite registered layers",
     "layout": "assets/phobos-agriculture/layers.json",
-    "exportSHA256": "55478baba757cc282668ad57eed8d07a72baa2c30455f8d8410c13cc840dc10e",
-    "normalSHA256": "c47eac8abb1d0877e9e75a4274415a976956e0d7d2538c2b7e7c04db92a76c29"
+    "exportSHA256": "65f10be863a340252fd9f8b81b7255242b0c4dde92d603ec895a88be1eaa4f3d",
+    "normalSHA256": "30b13893ee493d831f80fbbeaa32be41546704b3b23b42ea8c2318fda538ce4e"
   },
   {
     "name": "Lettuce-sprout",
@@ -346,6 +402,14 @@
         ]
       },
       {
+        "source": "assets/phobos-agriculture/source/groundwork-pipe-cross.png",
+        "sourceSHA256": "b01dfcbf7c1a80b61f06da1331a78734c5119b7ae175d0cc7697c5efe4411be1",
+        "canvas": [
+          64,
+          64
+        ]
+      },
+      {
         "source": "assets/phobos-agriculture/source/lettuce-sprout.png",
         "sourceSHA256": "d8b568ccbccdc4c293952a6fba9a42dda498a2e5cdc1854da80e95d942d699f5",
         "canvas": [
@@ -360,8 +424,8 @@
     ],
     "sampling": "nearest; alpha composite registered layers",
     "layout": "assets/phobos-agriculture/layers.json",
-    "exportSHA256": "352845c4dafc14f052676cc39307c136ef6bc4deec8af721d73582dc5ce213d3",
-    "normalSHA256": "987ffadc08ab5a066a04f177ff9970fe710e6f69824cf1dc473306900f7445d7"
+    "exportSHA256": "943e488f98195c1b2ea650a26270278e85237f27a8ff47579d8de95a26b564f1",
+    "normalSHA256": "78aed9f43fc1d88415b83bd177493314d8e50a87af571df756a5837931136492"
   },
   {
     "name": "Lettuce-young",
@@ -395,6 +459,14 @@
         ]
       },
       {
+        "source": "assets/phobos-agriculture/source/groundwork-pipe-cross.png",
+        "sourceSHA256": "b01dfcbf7c1a80b61f06da1331a78734c5119b7ae175d0cc7697c5efe4411be1",
+        "canvas": [
+          64,
+          64
+        ]
+      },
+      {
         "source": "assets/phobos-agriculture/source/lettuce-young.png",
         "sourceSHA256": "c573221bc32cbfd71d4db2162c071cc53d16df7bd9b10d851da39e92addbbb1f",
         "canvas": [
@@ -409,8 +481,8 @@
     ],
     "sampling": "nearest; alpha composite registered layers",
     "layout": "assets/phobos-agriculture/layers.json",
-    "exportSHA256": "eaa1f6a64363827e54c030466321bb16970826ed7f905d8062ed37ae9b0d5137",
-    "normalSHA256": "56b3d823dfc6fbf43cefae2736135954aa86a7add406b52870c2bdcf839e53fb"
+    "exportSHA256": "97b000dffdd3daed606fe5c94e72bb18d9f3816dba9d76b5adc09bfc068a54e6",
+    "normalSHA256": "53604527174b2a21c46b1d6770d00e58509a120a7eca17574dab68dcad38cdf5"
   },
   {
     "name": "Lettuce-mature",
@@ -444,6 +516,14 @@
         ]
       },
       {
+        "source": "assets/phobos-agriculture/source/groundwork-pipe-cross.png",
+        "sourceSHA256": "b01dfcbf7c1a80b61f06da1331a78734c5119b7ae175d0cc7697c5efe4411be1",
+        "canvas": [
+          64,
+          64
+        ]
+      },
+      {
         "source": "assets/phobos-agriculture/source/lettuce-mature.png",
         "sourceSHA256": "334028e933efe600c17cefeed1d223f5a3855eab808b3e60e1d2bdf800a03f03",
         "canvas": [
@@ -458,8 +538,8 @@
     ],
     "sampling": "nearest; alpha composite registered layers",
     "layout": "assets/phobos-agriculture/layers.json",
-    "exportSHA256": "50881c8829d9e39c8f460efeac8623167fffa3595a6cc9891388c730089e63ce",
-    "normalSHA256": "fa54ef1d4a671e78c73e99b571c6901ab14e0b0cdd4d2131bedaac040f3fcb43"
+    "exportSHA256": "41636f68ed509a5df62e820340e1f4dcebbc3aa9a3aee39a1d1723d4daf970cf",
+    "normalSHA256": "a42d5669b29567becb36ec7c3d51b37753c1afd235501aae677b478be9f35c7c"
   },
   {
     "name": "Lettuce-harvest",
@@ -493,6 +573,14 @@
         ]
       },
       {
+        "source": "assets/phobos-agriculture/source/groundwork-pipe-cross.png",
+        "sourceSHA256": "b01dfcbf7c1a80b61f06da1331a78734c5119b7ae175d0cc7697c5efe4411be1",
+        "canvas": [
+          64,
+          64
+        ]
+      },
+      {
         "source": "assets/phobos-agriculture/source/lettuce-harvest.png",
         "sourceSHA256": "76c181935df7ebeef683d395995f4953d64d8b1dbf5d35f98a923d79629f763f",
         "canvas": [
@@ -507,8 +595,8 @@
     ],
     "sampling": "nearest; alpha composite registered layers",
     "layout": "assets/phobos-agriculture/layers.json",
-    "exportSHA256": "17f9fe7c30b0bb30c4096b1a16debb27424a9be82f2dc770bfad404b9b5534c6",
-    "normalSHA256": "3d0f617852b758d09b35c91ecfa49b8b4548c1e7a0cbbc55277f253e23b9f54d"
+    "exportSHA256": "d93c5f52bdfb7077cd86c821e3589003830ce5cfb5a4d9b5176ff3de038b8487",
+    "normalSHA256": "8a3c98395307221bb48e10889ad1dd93684dda8f8f9b6b9246f478409e2715f3"
   },
   {
     "name": "Lettuce-wilted",
@@ -542,6 +630,14 @@
         ]
       },
       {
+        "source": "assets/phobos-agriculture/source/groundwork-pipe-cross.png",
+        "sourceSHA256": "b01dfcbf7c1a80b61f06da1331a78734c5119b7ae175d0cc7697c5efe4411be1",
+        "canvas": [
+          64,
+          64
+        ]
+      },
+      {
         "source": "assets/phobos-agriculture/source/lettuce-wilted-final.png",
         "sourceSHA256": "bb5b54a80e356eee6198f4a2c47b05fea1e4ef5eb3bfcdc677d431da72377b19",
         "canvas": [
@@ -556,8 +652,8 @@
     ],
     "sampling": "nearest; alpha composite registered layers",
     "layout": "assets/phobos-agriculture/layers.json",
-    "exportSHA256": "83bdbfc01889646ee80f4bc4b73de03f465ec635dd0f96ab719ed09007a1c7a1",
-    "normalSHA256": "89a2be6dd06d1810a66391e2609a0fbd770ad99d12b7a6664b2a0b6c3c28dd6e"
+    "exportSHA256": "1649fb6faa450ad08f08bf50ff1d97f35cb34bec93d43622f89afc223bfeb6a6",
+    "normalSHA256": "06b401cf8d5efc053b2fe9bf057894f2aca86fa580a9977456d66e83c93b5a65"
   },
   {
     "name": "Lettuce-dead",
@@ -591,6 +687,14 @@
         ]
       },
       {
+        "source": "assets/phobos-agriculture/source/groundwork-pipe-cross.png",
+        "sourceSHA256": "b01dfcbf7c1a80b61f06da1331a78734c5119b7ae175d0cc7697c5efe4411be1",
+        "canvas": [
+          64,
+          64
+        ]
+      },
+      {
         "source": "assets/phobos-agriculture/source/lettuce-dead.png",
         "sourceSHA256": "9e6a5530aa68ba7e4906f8c323466782704037d3157b6ae29ae1ce0c55ab4010",
         "canvas": [
@@ -605,8 +709,8 @@
     ],
     "sampling": "nearest; alpha composite registered layers",
     "layout": "assets/phobos-agriculture/layers.json",
-    "exportSHA256": "53dcedf211e21a77c6793701fe02ea292e7d9c3bd327f559d268e3329e3615bf",
-    "normalSHA256": "fa54ef1d4a671e78c73e99b571c6901ab14e0b0cdd4d2131bedaac040f3fcb43"
+    "exportSHA256": "a1689bac26a235bfb4e43a95f23beb16c78e94699505396a7ffd90d89b9f7e01",
+    "normalSHA256": "a42d5669b29567becb36ec7c3d51b37753c1afd235501aae677b478be9f35c7c"
   },
   {
     "name": "Counter",

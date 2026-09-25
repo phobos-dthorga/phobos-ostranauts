@@ -97,8 +97,14 @@
   reusable transport belongs in Framework, equipment/biology in content mods;
   native conduit placement and sprite patterns are candidates for reuse, while
   fluid accounting stays separate from electricity. Water-first/local nutrient
-  dosing is a research recommendation, not an owner decision to exclude nutrient
-  pipes. This request authorizes research, not a delivered pipe implementation.
+  dosing was the first recommendation, not an exclusion of later nutrient pipes.
+  The owner subsequently authorized implementation and necessary artwork.
+  Agriculture 0.4.0 / Framework 0.18.0 prepare one W2 supply-to-rack water route,
+  finite manual/provider inlet, local nutrients, independent pipe sockets and
+  guarded receipts. Follow `docs/agriculture-water-conduits.md`. Receiving/pumping
+  pauses on reload; legacy refill remains explicit. Multi-rack allocation,
+  nutrient mixtures and furnace coolant loops remain future work. No installation
+  or gameplay validation is implied by prepared packages.
 
 - Agriculture has a separate fictional manufacturer: **Verdemorrow Agronomics**,
   evoking verdant growth and humanity's tomorrow in space. Use Verdemorrow on

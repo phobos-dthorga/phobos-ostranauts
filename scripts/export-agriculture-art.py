@@ -45,7 +45,11 @@ def export(name, pixels, inputs, normal=False):
 rack = LAYOUT['rack']
 master, rack_input = source(rack['source'], rack['nativeSize'])
 empty = master.resize((rack['nativeSize'],) * 2, NEAREST)
-export('Rack', empty, [rack_input], normal=True)
+inlet = rack['waterInlet']
+inlet_master, inlet_input = source(inlet['source'], 16)
+inlet_sprite = inlet_master.crop(tuple(inlet['sourceCrop'])).resize((16, 16), NEAREST).crop(tuple(inlet['part']))
+empty.alpha_composite(inlet_sprite, tuple(inlet['origin']))
+export('Rack', empty, [rack_input, inlet_input], normal=True)
 for key, filename in LAYOUT['plants'].items():
     plant_master, plant_input = source(filename, rack['plantSize'])
     plant = plant_master.resize((rack['plantSize'],) * 2, NEAREST)
@@ -55,7 +59,7 @@ for key, filename in LAYOUT['plants'].items():
         origin = (x - plant.width // 2, y - plant.height // 2)
         assert min(origin) >= 0 and origin[0] + plant.width <= empty.width and origin[1] + plant.height <= empty.height
         composed.alpha_composite(plant, origin)
-    export('Rack-' + key, composed, [rack_input, plant_input], normal=True)
+    export('Rack-' + key, composed, [rack_input, inlet_input, plant_input], normal=True)
 
 cooker = LAYOUT['cooker']
 counter_master, counter_input = source(cooker['source'], cooker['nativeSize'])

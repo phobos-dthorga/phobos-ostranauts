@@ -1,0 +1,104 @@
+{
+  "date": "2026-09-25",
+  "inputs": "Text only; no game or third-party images uploaded.",
+  "terms": {
+    "PixelLab": "https://pixellab.ai/termsofservice",
+    "OpenAI": "https://openai.com/policies/terms-of-use/"
+  },
+  "usage": {
+    "PixelLab": "1975 included generations available before work; three single-generation calls, two rejected projection candidates and one usable pipe master; no credit purchases",
+    "ChatGPT": "One built-in imagegen call; monetary cost/model not reported by tool"
+  },
+  "records": [
+    {
+      "provider": "PixelLab",
+      "operation": "create_image_pixflux",
+      "model": "not separately disclosed",
+      "costGenerations": 1,
+      "jobId": "04dcf6c0-0648-48bd-815c-0af3c8101ee1",
+      "assetId": "1a4ab9ae-fd7b-51cf-aabf-89ef1a88784c",
+      "seed": 9250401,
+      "source": "source/groundwork-water-supply-rejected-angle-1.png",
+      "size": [
+        128,
+        128
+      ],
+      "status": "Rejected: angled projection; retained unchanged, never exported.",
+      "options": {
+        "no_background": true,
+        "view": "high top-down",
+        "isometric": false,
+        "outline": "selective outline",
+        "shading": "basic shading",
+        "detail": "low detail"
+      },
+      "prompt": "Original top-down orthographic pixel-art spaceship hydroponics CLEAN WATER supply appliance, a compact square industrial 2x2 floor-tile unit seen exactly from above, no isometric perspective. One squat slate-grey rectangular casing with a dark teal sealed reservoir cap on the left, compact small pump motor on the right, restrained sage green identification stripe, readable chunky pixel clusters, simple utilitarian worn metal, restrained 5-tone shading, four mounting feet inside silhouette, a short cyan-grey water outlet at middle right edge. No external pipes, no plants, no floating parts, no cables, no labels or text, no glow, no cast shadow outside footprint. Entire object centred in 128x128 transparent canvas with 4px margins. Intended reduction to 32x32 must read clearly. Space salvage game aesthetic, original fictional equipment.",
+      "sha256": "f6334530cc677571b635a79bb3982c47592de27deba6f41fda34ff9ceee73039"
+    },
+    {
+      "provider": "PixelLab",
+      "operation": "create_image_pixflux",
+      "model": "not separately disclosed",
+      "costGenerations": 1,
+      "jobId": "97090a69-e08b-432e-8437-32836fceef6f",
+      "assetId": "9eaf6e8e-6ca0-5b01-b284-ce6dc7083913",
+      "seed": 9250402,
+      "source": "source/groundwork-water-supply-rejected-angle-2.png",
+      "size": [
+        128,
+        128
+      ],
+      "status": "Rejected: angled projection remains after targeted retry; retained unchanged, never exported.",
+      "options": {
+        "no_background": true,
+        "view": "high top-down",
+        "direction": "north",
+        "isometric": false,
+        "outline": "selective outline",
+        "shading": "flat shading",
+        "detail": "low detail"
+      },
+      "prompt": "STRICT BIRD'S EYE PLAN VIEW, CAMERA VERTICALLY ABOVE POINTING STRAIGHT DOWN, zero perspective, only TOP surfaces visible, rectangular edges horizontal and vertical, NO side walls, NO isometric angles. A single square compact clean water pump reservoir for industrial spacecraft hydroponics. At centre a round teal metal tank top with circular cap viewed from vertically above; small rectangular grey electric pump top on right; both inside square slate grey mounting tray, sage green stripe. Four bolt heads at corners, short water fitting on right edge. Sparse chunky low-resolution pixel art, original fictional equipment, no words, no floor, no external shadows, transparent background. Canvas128x128 with 8px padding. Final sprite32x32.",
+      "sha256": "8723165461df4f40e10262a483493130642b171b9748f1ab125ddb8852ccb539"
+    },
+    {
+      "provider": "PixelLab",
+      "operation": "create_image_pixflux",
+      "model": "not separately disclosed",
+      "costGenerations": 1,
+      "jobId": "6174ea15-f638-4452-81b3-e94444a237c0",
+      "assetId": "bc316801-84bb-587e-b9c5-86f026c73e10",
+      "seed": 9250403,
+      "source": "source/groundwork-pipe-cross.png",
+      "size": [
+        64,
+        64
+      ],
+      "status": "Selected candidate; native-size export inspected, owner gameplay review pending.",
+      "options": {
+        "no_background": true,
+        "isometric": false,
+        "outline": "selective outline",
+        "shading": "flat shading",
+        "detail": "low detail"
+      },
+      "prompt": "FLAT OVERHEAD PLUS SIGN pipe junction sprite: four straight metal tubes join at a small square central coupling, viewed vertically from above. Exactly symmetric cross shape, straight horizontal and vertical arms, tube tips at the four canvas-edge midpoints. Thin 12-pixel-wide dark slate grey pipes with one muted cyan stripe, chunky pixel art, simple flat 3-tone shading, NO perspective, NO diagonals, NO enclosure, NO tank, NO text, NO floor, transparent background.64x64 canvas. A single utilitarian spacecraft irrigation conduit fitting.",
+      "sha256": "b01dfcbf7c1a80b61f06da1331a78734c5119b7ae175d0cc7697c5efe4411be1"
+    },
+    {
+      "provider": "ChatGPT / OpenAI",
+      "operation": "image_gen.imagegen",
+      "model": "not disclosed",
+      "seed": null,
+      "outputId": "exec-cf2b26a4-1507-429e-83a0-cc74093c3cfe",
+      "source": "source/groundwork-water-supply.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "status": "Selected overhead chassis candidate. Requested 1024x1024; returned 1254x1254. Preserve original alpha/master; mechanical crop excludes almost-transparent outer noise. Native-size owner review pending.",
+      "prompt": "Create a production source master for a top-down 2D spaceship game sprite. ONE compact square hydroponics clean-water supply appliance, a low enclosed grey pump-and-water-buffer assembly. Strict orthographic PLAN VIEW: camera directly above looking vertically down, absolutely no perspective or visible side walls. All casing edges are horizontal/vertical. Canvas 1024x1024 transparent RGBA with about 64px margin around full square silhouette. Deliberate chunky pixel clusters and sparse shading suited to reduction to 32x32 pixels. Slate grey metal rectangular enclosure; squat dark teal circular tank lid occupies left half, small grey rectangular pump housing occupies right half. Four small corner mounting bolts. One muted sage green strip; no text, no labels, no numbers, no screen, no glow, no cables, no plants, no external tubing or connected network, no shadow outside silhouette. Original fictional utilitarian industrial equipment. The right edge at upper quarter has a small horizontal water outlet coupling; this must be visible from overhead. No isometric view. No scene or floor. No border. Transparent background. This is a static chassis master; sensors and readings will be live UI, not painted text.",
+      "sha256": "dd000333fc217ac9dd453a4efcbba14137e1a1c421753308407e3a8dbecdcbf1"
+    }
+  ]
+}

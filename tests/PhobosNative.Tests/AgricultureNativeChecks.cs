@@ -39,7 +39,7 @@ internal static class AgricultureNativeChecks
         check(DataHandler.dictCOs["LiquidWater"].aStartingConds.Any(c => c.StartsWith("StatMass=") && Math.Abs(double.Parse(c.Split('x').Last(), System.Globalization.CultureInfo.InvariantCulture) - .25) < 1e-7), "Manual water quantity matches installed native ration");
         JsonCondOwner Definition(string id) => d.Objects.TryGetValue(id, out var definition) ? definition : DataHandler.dictCOs[id];
         double Mass(string id) => double.Parse(Definition(id).aStartingConds.Single(c => c.StartsWith("StatMass=")).Split('x').Last(), System.Globalization.CultureInfo.InvariantCulture);
-        foreach (string prefix in new[] { PhobosAgriculture.Definitions.Rack, PhobosAgriculture.Definitions.Cooker })
+        foreach (string prefix in new[] { PhobosAgriculture.Definitions.Rack, PhobosAgriculture.Definitions.Cooker, PhobosAgriculture.IrrigationDefinitions.Supply, PhobosAgriculture.IrrigationDefinitions.Pipe })
         foreach (string form in new[] { "Installed", "Loose", "InstalledDmg", "LooseDmg" })
         {
             string id = prefix + form;
@@ -59,6 +59,22 @@ internal static class AgricultureNativeChecks
         check(Math.Abs(Mass(irrigation.strName) - PhobosAgriculture.Definitions.IrrigationKg) < 1e-7, "Irrigation transfer uses the physical commodity mass");
         check(!DataHandler.dictCTs["TIsWater"].TriggeredDataCO(new DataCO(irrigation), false), "Root-water charge cannot impersonate native drinking water");
         check(!irrigation.aStartingConds.Any(c => c.StartsWith("IsEdible=") || c.StartsWith("IsHydrator=")), "Irrigation cannot grant food or hydration");
+        var pipe = d.Items[PhobosAgriculture.IrrigationDefinitions.Pipe + "Installed"];
+        var pipeAdds = d.Loot[pipe.aSocketAdds.Single()];
+        check(pipe.bHasSpriteSheet && d.Triggers.ContainsKey(pipe.ctSpriteSheet), "Pipe uses native cardinal auto-tiling with its own trigger");
+        check(pipeAdds.aCOs.All(c => !c.Contains("Power")), "Water pipes never participate in native electrical routing");
+        foreach (var socket in d.Items.Values.SelectMany(i => i.aSocketAdds).Distinct().Where(d.Loot.ContainsKey))
+        {
+            var loot = d.Loot[socket];
+            check(loot.strType == "condition", "Native tile additions must apply conditions rather than resolve condition names as triggers: " + socket);
+            check(loot.aCOs.All(c => d.Conditions.ContainsKey(c.Split('=')[0]) || DataHandler.dictConds.ContainsKey(c.Split('=')[0])), "Tile additions reference real conditions");
+            check(loot.aLoots.All(c => DataHandler.dictLoot.ContainsKey(c.Split('=')[0]) || d.Loot.ContainsKey(c.Split('=')[0])), "Nested tile additions retain real native fixture sockets");
+        }
+        check(pipe.aSocketReqs[4] == "TILFloor" && pipe.aSocketForbids[4] == PhobosAgriculture.IrrigationDefinitions.Pipe + "Off", "Pipe requires floor and rejects duplicate pipe, independent of power sockets");
+        check(d.Objects[PhobosAgriculture.IrrigationDefinitions.Pipe + "Installed"].jsonPI == null, "A pipe cannot draw or distribute electricity");
+        check(d.Objects[PhobosAgriculture.IrrigationDefinitions.Supply + "Installed"].mapPoints.Contains(PhobosAgriculture.IrrigationDefinitions.Outlet + ",24,8"), "Supply outlet has a rotating native named point");
+        check(d.Objects[PhobosAgriculture.Definitions.Rack + "Installed"].mapPoints.Contains(PhobosAgriculture.IrrigationDefinitions.Inlet + ",-40,8"), "Rack inlet is outside its unchanged four-tile footprint");
+        check(Math.Abs(PhobosAgriculture.IrrigationDefinitions.CapacityKg - PhobosAgriculture.Core.CropState.ReservoirKg) < 1e-9, "Shared empty-appliance reservoir schema retains its existing capacity bound");
         var provider = new TestProvider("test.agriculture", "TestAgriculture");
         EquipmentProviders.Register(provider);
         check(ReferenceEquals(provider, EquipmentProviders.For("TestAgriculture")), "Registered equipment is discoverable");

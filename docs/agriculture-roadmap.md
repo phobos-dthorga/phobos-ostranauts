@@ -61,8 +61,10 @@ conduits for **plant water/nutrient supply**, taking after vanilla conduits in
 part. See [fluid conduits and irrigation research](fluid-conduits-and-irrigation-research.md)
 for native evidence, Framework/content ownership and the proposed staged route
 from water distribution/local nutrient dosing to fresh nutrient-solution supply.
-This is new research, not delivered piping or a decision to exclude nutrient
-transport. Supply plumbing does not establish drainage treatment or recovery.
+The owner subsequently authorized implementation: the [Agriculture 0.4.0 water
+route](agriculture-water-conduits.md) prepares one W2/rack circuit. Nutrient-mixture
+transport remains the next extension. Supply plumbing does not establish drainage
+treatment or recovery.
 
 Make seed potatoes a visible reservation from food yield and introduce a distinct
 lettuce seed-production cycle. Demonstrate multiple generations, finite seed stock

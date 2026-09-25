@@ -19,6 +19,9 @@ Copy-Item -LiteralPath (Join-Path $repoRoot 'assets/phobos-agriculture/README.md
 Copy-Item -LiteralPath (Join-Path $repoRoot 'assets/phobos-agriculture/exports.json') -Destination (Join-Path $package 'agriculture-art-exports.json')
 Copy-Item -LiteralPath (Join-Path $repoRoot 'assets/phobos-agriculture/living-visuals-generation-records.json') -Destination (Join-Path $package 'agriculture-living-art-provenance.json')
 Copy-Item -LiteralPath (Join-Path $repoRoot 'assets/phobos-agriculture/layers.json') -Destination (Join-Path $package 'agriculture-art-layers.json')
+foreach ($record in @('irrigation-generation-records', 'irrigation-exports', 'irrigation-layers')) {
+    Copy-Item -LiteralPath (Join-Path $repoRoot "assets/phobos-agriculture/$record.json") -Destination (Join-Path $package "agriculture-$record.json")
+}
 Compress-Archive -Path (Join-Path $package '*') -DestinationPath "$package.zip" -Force
 Write-Output "Package: $package.zip"
 Write-Output 'Prepared only. No game files, load order or saves were changed.'

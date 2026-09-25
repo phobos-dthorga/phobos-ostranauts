@@ -14,7 +14,8 @@ internal static partial class Service
     internal static bool Work(CondOwner co, CondOwner actor, string action)
     {
         var s = Get(co);
-        if (s.Protected || Access(co, null, actor) != null || !co.HasCond("IsInstalled") || co.HasCond("IsDamaged") || !Definitions.Ready) return false;
+        if (s.Protected || WaterGuard(co).Protected || Access(co, null, actor) != null || !co.HasCond("IsInstalled") || co.HasCond("IsDamaged") || !Definitions.Ready) return false;
+        if (IrrigationDefinitions.IsSupply(co) && action != "load-water" && action != "load-irrigation" && action != "drain") return false;
         try
         {
             if (action == "harvest" || action == "clear") return Harvest(s, action == "clear");

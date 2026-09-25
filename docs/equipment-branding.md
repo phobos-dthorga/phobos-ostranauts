@@ -128,3 +128,8 @@ gameplay/persistence rules. In-game text fit and renamed existing objects remain
 for owner verification. Prepared packages are not an installation claim.
 
 Agriculture 0.3.0 adds **Phobos' Verdemorrow Groundwork Irrigation Charge (5 kg)** to the Groundwork supply family; it is finite crop water, not a drinking-water product.
+
+Agriculture 0.4.0 adds **Phobos' Verdemorrow Groundwork W2 Water Supply Unit** and
+**Phobos' Verdemorrow Groundwork Irrigation Conduit**. W2 is the supply appliance
+model; the ordinary conduit has no artificial model designation. Names use the
+shared equipment catalog and remain independent of native saved IDs.

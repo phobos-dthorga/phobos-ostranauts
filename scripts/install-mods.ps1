@@ -78,6 +78,13 @@ if ('AutoNav' -in $Mods) {
 if ('Agriculture' -in $Mods) {
     $needsPhobosFramework = $true
     if ($minimumPhobosFramework -lt [version]'0.17.0') { $minimumPhobosFramework = [version]'0.17.0' }
+    $farmPackage = if ($overrideMod -eq 'Agriculture') { $PackagePath } else { Join-Path $PackageRoot 'PhobosAgriculture-P0' }
+    $farmMetadata = Join-Path $farmPackage 'Mods/PhobosAgriculture/mod_info.json'
+    if (Test-Path -LiteralPath $farmMetadata -PathType Leaf) {
+        $farmInfo = @(Get-Content -LiteralPath $farmMetadata -Raw | ConvertFrom-Json)
+        if ($farmInfo.Count -ne 1) { throw 'Expected exactly one native mod metadata entry for PhobosAgriculture.' }
+        if ([version]$farmInfo[0].strModVersion -ge [version]'0.4.0' -and $minimumPhobosFramework -lt [version]'0.18.0') { $minimumPhobosFramework = [version]'0.18.0' }
+    }
     $Mods = @('Framework') + @($Mods | Where-Object { $_ -ne 'Framework' })
 }
 $locations = Resolve-InstallLocations $OstranautsPath $LoadOrderPath $settingsFile

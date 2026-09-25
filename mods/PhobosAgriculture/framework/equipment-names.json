@@ -1,4 +1,6 @@
 {
+  "water_supply": { "brand": "Verdemorrow", "model": "Groundwork W2" },
+  "water_pipe": { "brand": "Verdemorrow", "model": "Groundwork" },
   "rack": {
     "brand": "Verdemorrow",
     "model": "Firstlight-4"

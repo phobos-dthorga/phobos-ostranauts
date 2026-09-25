@@ -543,3 +543,29 @@ footprint, mass, price, image prefix and power rating. Supply a matching `Normal
 image derivative; never include extracted game art. Biology and balance remain
 Agriculture-owned; fixed industrial batches and the one-hour cap are unchanged.
 See [Agriculture implementation and owner checks](agriculture-implementation.md).
+
+### Routed water delivery (Framework 0.18.0)
+
+`Liquids.NativeFluidRoute.Find` takes two native named endpoint points and a
+content-owned compatible-segment predicate. It resolves fresh cardinal paths
+over intact same-ship structural flooring, with owned/installed/unlocked endpoint
+checks and a bounded search. It never borrows the native electrical network.
+Pair selection and run/receive permission remain explicit consumer responsibilities.
+
+`LiquidDeliveryBudget.Kilograms` bounds one interval by actual received electricity
+and the content's flow/energy ratings; invalid intervals and gaps over one hour
+yield zero. The consumer must share that budget across every action of its pump,
+settle all consumed energy to a real recipient and avoid persistent energy credit.
+
+`LiquidTransferGuard.Commit` wraps the measured scalar transfer with namespaced
+versioned pending journals at both endpoints. Check both guards before operation
+or manual contents changes. A failure leaves evidence and disables retry, including
+after reload. Do not automatically clear pending/future records. This protects
+against uncertain completion; it does not provide crash-atomic native saves.
+The new optional guarded `ShipsWaterSupply.Refill` overload preserves the earlier
+four-argument API and adds a private Framework journal to eligible provider tanks.
+
+[Agriculture water conduits](agriculture-water-conduits.md) are the first consumer.
+They keep one pump/rack pair per circuit. Mixtures, return flow, fluid temperature
+and multi-consumer fairness need concrete additional contracts; scalar `water`
+must not be used to erase nutrient composition or manufacture cooling capacity.

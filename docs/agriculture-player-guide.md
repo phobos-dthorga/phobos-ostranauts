@@ -1,8 +1,13 @@
-# Phobos Agriculture 0.3.0
+# Phobos Agriculture
 
 First gameplay candidate, prepared on 25 September 2026. Requires **Phobos
-Framework 0.17.0**. The offline checks pass; the owner still needs to evaluate
+Framework 0.18.0**. The offline checks pass; the owner still needs to evaluate
 the complete loop in Ostranauts. Packages are prepared, not installed.
+
+Agriculture 0.4.0 adds the optional **Groundwork W2 water supply unit and placed
+irrigation conduits**. See the [water-conduit guide](agriculture-water-conduits.md)
+for acquisition, pairing, pipe placement and explicit receiving controls. The
+first slice serves one rack per supply; nutrients remain locally loaded.
 
 ## Equipment and supplies
 

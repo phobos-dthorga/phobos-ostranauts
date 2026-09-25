@@ -1,0 +1,42 @@
+[
+  {
+    "source": "assets/phobos-agriculture/source/groundwork-water-supply.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "sha256": "dd000333fc217ac9dd453a4efcbba14137e1a1c421753308407e3a8dbecdcbf1"
+  },
+  {
+    "export": "mods/PhobosAgriculture/images/phobos/agriculture/WaterSupply.png",
+    "size": [
+      32,
+      32
+    ],
+    "sha256": "054760f2f47f831ffc2083c5112653c4232ba593755715803271d0636cae849d"
+  },
+  {
+    "source": "assets/phobos-agriculture/source/groundwork-pipe-cross.png",
+    "size": [
+      64,
+      64
+    ],
+    "sha256": "b01dfcbf7c1a80b61f06da1331a78734c5119b7ae175d0cc7697c5efe4411be1"
+  },
+  {
+    "export": "mods/PhobosAgriculture/images/phobos/agriculture/WaterPipeSheet.png",
+    "size": [
+      64,
+      64
+    ],
+    "sha256": "ac806dff387573d6b1e1d374e9ea1c686ad08259273903f13d09764288fb4b7a"
+  },
+  {
+    "export": "mods/PhobosAgriculture/images/phobos/agriculture/WaterPipe.png",
+    "size": [
+      16,
+      16
+    ],
+    "sha256": "99f07eaf688c772306ee21731edf63b3074901276527804b276c50b0a347083b"
+  }
+]

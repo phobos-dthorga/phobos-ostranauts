@@ -5,13 +5,15 @@ Decision: 24 September 2026. The owner selected our own shareable framework
 The purpose is reusable services for equipment and future material transport,
 not reproducing every feature of OCF or turning Ostranauts into a factory game.
 
-## Current candidate: Framework 0.17.0, Shipbreaker 0.14.0, Auto Nav 0.10.1
+## Current implementation
 
 The owner's 25 September [shared fluid-conduit research](fluid-conduits-and-irrigation-research.md)
 uses Agriculture's water/nutrient delivery as the concrete consumer and examines
 native conduit placement, connection artwork and routing. It proposes Framework
-transport services with content-owned equipment and biology. General pipe networks
-and nutrient-mixture transfers are not implemented by the current liquid helper.
+transport services with content-owned equipment and biology. Framework 0.18.0
+implements fresh native floor routes, measured pump budgets and durable transfer
+journals for [Agriculture's first water route](agriculture-water-conduits.md).
+General branching networks and nutrient-mixture transfers remain future work.
 
 Framework 0.16.0 introduced measured electricity receipts, finite thermal/gas
 primitives and the first isolated native instruments for the F6 electric furnace.

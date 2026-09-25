@@ -74,3 +74,18 @@ commercial use; they prohibit training other models without permission and refer
 to an Open RAIL-M license. Preserve these provider terms separately from Phobos
 code licensing. This record reports the provider's terms and is not a guarantee
 of statutory copyright or third-party clearance. No NASA/ESA imagery is used.
+## Irrigation additions, 25 September 2026
+
+The [water-conduit candidate](../../docs/agriculture-water-conduits.md) adds an
+overhead ChatGPT W2 chassis and one PixelLab pipe fitting. Exact prompts, output
+IDs, terms, costs, rejected candidates and hashes are in
+[irrigation-generation-records.json](irrigation-generation-records.json).
+[irrigation-layers.json](irrigation-layers.json) records source crops and native
+registration; [irrigation-exports.json](irrigation-exports.json) records outputs.
+Run `scripts/export-irrigation-art.py`, then `scripts/export-agriculture-art.py`
+with Python/Pillow to reproduce them, including the rack inlet fitting.
+The original rack/chassis/plant masters remain unchanged. Two PixelLab supply
+candidates were rejected for angled projection; they are retained but never
+exported. Three included PixelLab generations and one ChatGPT call produced the
+selected sources; no credits were purchased. Native-size previews were inspected;
+these assets have not been approved in-game by the owner.

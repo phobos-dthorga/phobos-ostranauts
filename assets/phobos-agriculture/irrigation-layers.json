@@ -1,0 +1,9 @@
+{
+  "revision": 1,
+  "registration": "Overhead orthographic; transparent canvas; centred native pivot; top-left image coordinates. World pixels are 16 per tile. Original PixelLab sources only.",
+  "supply": { "source": "groundwork-water-supply.png", "masterSize": 1254, "nativeSize": 32, "crop": [150,270,1210,955], "composeSize": [32,21], "origin": [0,2], "footprintTiles": [2,2], "outletWorldPixels": [24,8], "useWorldPixels": [0,-24] },
+  "conduit": { "source": "groundwork-pipe-cross.png", "masterSize": 64, "nativeSize": 16, "crop": [7,7,57,57], "footprintTiles": [1,1], "pivot": [8,8], "arms": "cardinal centre to canvas edge; compose masks from the retained cross; no nonjoining crossing", "sheet": [4,4] },
+  "rackInletWorldPixels": [-40,8],
+  "normal": "Neutral tangent normal with colour alpha; no inferred relief.",
+  "states": "Native damage tint; no painted power state. Pipe topology uses independent native sprite-sheet trigger."
+}

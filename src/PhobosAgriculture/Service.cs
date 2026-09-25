@@ -18,7 +18,7 @@ internal static partial class Service
         internal ObjectStateStore Store = null!;
         internal CropState State = new();
         internal double Last, Received, DeliveredKW, LastPower = double.NegativeInfinity;
-        internal bool Protected;
+        internal bool Protected, Routed;
         internal string Notice = "";
     }
     private static readonly Dictionary<string, Session> sessions = new(StringComparer.Ordinal);
@@ -27,7 +27,7 @@ internal static partial class Service
     {
         // Native damage/repair modes retain ID/property maps, but rebuild dry mass.
         var next = new Session { Object = replacement, Store = new ObjectStateStore(replacement.mapGUIPropMaps, "Agriculture", Plugin.Id, 1),
-            State = previous.State.Copy(), Protected = previous.Protected, Last = StarSystem.fEpoch, Notice = Text.Get("paused") };
+            State = previous.State.Copy(), Protected = previous.Protected, Routed = previous.Routed, Last = StarSystem.fEpoch, Notice = Text.Get("paused") };
         next.State.Running = next.State.Receiving = false;
         sessions[replacement.strID] = next;
         if (!next.Protected) Save(next);
@@ -58,6 +58,9 @@ internal static partial class Service
         {
             if (status == SavedStateStatus.Ready) s.State = CropState.Read(fields);
             else if (status != SavedStateStatus.Missing) s.Protected = true;
+            ReadWaterMode(s);
+            if (WaterGuard(co).Protected) s.Protected = true;
+            if (IrrigationDefinitions.IsSupply(co) && (s.State.CropId.Length != 0 || s.State.Nutrients != 0 || s.State.CookerInput.Length != 0 || s.State.CookerProgress != 0)) s.Protected = true;
             if (Math.Abs(co.GetCondAmount("StatMass") - Definitions.DryMass(co) - s.State.ContentsMass - PhysicalMass(co)) > 1e-5) s.Protected = true;
         }
         catch { s.Protected = true; }
@@ -86,8 +89,8 @@ internal static partial class Service
     internal static double Requested(CondOwner co, double nativeAmount)
     {
         var s = Get(co);
-        if (s.Protected || !RoomReady(co)) return 0;
-        double kw = Definitions.IsCooker(co) ? s.State.Running && CookerInput(s) != null ? 2 : .02 : s.State.DemandKW;
+        if (s.Protected || WaterGuard(co).Protected || !RoomReady(co)) return 0;
+        double kw = IrrigationDefinitions.IsSupply(co) ? SupplyDemand(s) : Definitions.IsCooker(co) ? s.State.Running && CookerInput(s) != null ? 2 : .02 : s.State.DemandKW;
         return nativeAmount / .02 * kw;
     }
     internal static void Tick(CondOwner co)
@@ -99,7 +102,7 @@ internal static partial class Service
             double received = s.Received; s.Received = 0;
             if (elapsed > 0 && elapsed <= 3600) { s.DeliveredKW = received * 3600 / elapsed; s.LastPower = StarSystem.fEpoch; }
             if (!CropState.Finite(elapsed) || elapsed < 0 || elapsed > 3600)
-            { s.State.Running = false; elapsed = 0; s.Notice = Text.Get("gap"); }
+            { s.State.Running = s.State.Receiving = false; elapsed = 0; s.Notice = Text.Get("gap"); }
             var room = Room(co); var gas = room?.GasContainer;
             if (gas == null || Moles(gas, "StatGasMolTotal") < 1)
             {
@@ -107,10 +110,17 @@ internal static partial class Service
                 if (received > 0) throw new InvalidOperationException("Agriculture lost its heat recipient during a native power call.");
                 s.State.Health = Math.Max(0, s.State.Health - elapsed / 3600 * .1); s.State.Running = false; Save(s); return;
             }
-            if (s.State.Receiving && !Definitions.IsCooker(co) && received > 0 && co.HasCond("IsInstalled") && !co.HasCond("IsDamaged"))
-                ShipsWaterSupply.Refill(co.ship, new Reservoir(s), Math.Min(.25 * elapsed, CropState.ReservoirKg - s.State.Water), Plugin.ReserveLitres.Value);
+            // Settle measured electricity even if a later liquid adapter fails.
+            gas.fDGasTemp += received * 3600000 / (Moles(gas, "StatGasMolTotal") * 20.8);
+            if (s.State.Receiving && !s.Routed && !Definitions.IsCooker(co) && !IrrigationDefinitions.IsSupply(co) && received > 0 && co.HasCond("IsInstalled") && !co.HasCond("IsDamaged"))
+                ShipsWaterSupply.Refill(co.ship, new Reservoir(s), Math.Min(.25 * elapsed, CropState.ReservoirKg - s.State.Water), Plugin.ReserveLitres.Value, WaterGuard(co));
             Exchange exchange;
-            if (Definitions.IsCooker(co))
+            if (IrrigationDefinitions.IsSupply(co))
+            {
+                exchange = new Exchange { RoomHeatKWh = received };
+                Pump(s, elapsed, received);
+            }
+            else if (Definitions.IsCooker(co))
             {
                 exchange = new Exchange { RoomHeatKWh = received };
                 if (s.State.Running && CookerInput(s) != null) s.State.CookerProgress = Math.Min(.05, s.State.CookerProgress + received);
@@ -125,7 +135,7 @@ internal static partial class Service
                 gas.Run();
             }
             // Native gas simulation owns room mixing and later cooling. 20.8 J/mol/K follows native heat accounting.
-            gas.fDGasTemp += exchange.RoomHeatKWh * 3600000 / (Moles(gas, "StatGasMolTotal") * 20.8);
+            gas.fDGasTemp += (exchange.RoomHeatKWh - received) * 3600000 / (Moles(gas, "StatGasMolTotal") * 20.8);
             Save(s);
         }
         catch (Exception ex) { Fault(co, ex); }
@@ -149,10 +159,11 @@ internal static partial class Service
     {
         message = Access(co, binding) ?? ""; if (message.Length > 0) return false;
         if (action == "status") { message = Describe(co); return true; }
-        var s = Get(co); if (s.Protected || !Definitions.Ready) { message = Text.Get("protected"); return false; }
+        var s = Get(co); if (s.Protected || WaterGuard(co).Protected || !Definitions.Ready) { message = Text.Get("protected"); return false; }
+        if (WaterCommand(s, action, out message) is bool handled) return handled;
         if (Definitions.Work.Contains(action))
         {
-            if (binding != null || Definitions.IsCooker(co)) { message = Text.Get("local_work"); return false; }
+            if (binding != null || Definitions.IsCooker(co) || IrrigationDefinitions.IsSupply(co) && action != "load-water" && action != "load-irrigation" && action != "drain") { message = Text.Get("local_work"); return false; }
             CrewSim.GetSelectedCrew().QueueInteraction(co, DataHandler.GetInteraction(Definitions.WorkId(action))); message = Text.Get("queued"); return true;
         }
         switch (action)
@@ -172,7 +183,7 @@ internal static partial class Service
                 if (!Definitions.IsCooker(co)) { message = Text.Get("help"); return false; }
                 s.State.Running = false; s.State.CookerInput = ""; s.State.CookerProgress = 0; break;
             case "receive":
-                if (Definitions.IsCooker(co) || !ShipsWaterSupply.Available) { message = Text.Get("no_provider"); return false; }
+                if (Definitions.IsCooker(co) || !s.Routed && !ShipsWaterSupply.Available) { message = Text.Get("no_provider"); return false; }
                 s.State.Receiving = true; break;
             case "pause-receive": s.State.Receiving = false; break;
             default: message = Text.Get("help"); return false;
@@ -182,6 +193,7 @@ internal static partial class Service
     internal static string Describe(CondOwner co)
     {
         var s = Get(co); var b = s.State; var room = Room(co);
+        if (IrrigationDefinitions.IsSupply(co)) return DescribeSupply(s);
         string environment = room == null || room.GasContainer == null ? Text.Get("unknown") : Text.Get("environment", room.strID, room.GetCondAmount("StatGasTemp") - 273.15, room.GetCondAmount("StatGasPressure"));
         environment += "\n" + (StarSystem.fEpoch - s.LastPower <= 5 ? Text.Get("power_reading", s.DeliveredKW) : Text.Get("power_unknown"));
         if (Definitions.IsCooker(co)) return Text.Get("cooker_status", b.CookerProgress / .05 * 100, Text.Get(b.Running ? "cooking" : "stopped"), environment, s.Protected ? Text.Get("protected") : s.Notice);
@@ -197,7 +209,7 @@ internal static partial class Service
             environment += "\n" + string.Join("\n", warnings);
         }
         return Text.Get("status", b.CropId.Length == 0 ? Text.Get("empty") : Text.Get(b.CropId), b.Progress * 100, b.Health * 100, b.Water, b.Nutrients, b.Biomass,
-            Text.Get(b.Running ? "running" : "paused"), Text.Get(b.Receiving ? "receiving" : "manual"), environment, s.Protected ? Text.Get("protected") : s.Notice);
+            Text.Get(b.Running ? "running" : "paused"), Text.Get(b.Receiving ? "receiving" : "manual"), environment, s.Protected || WaterGuard(co).Protected ? Text.Get("protected") : s.Notice) + "\n" + DescribeWaterRoute(s);
     }
     private sealed class Reservoir : ILiquidReservoir
     {
