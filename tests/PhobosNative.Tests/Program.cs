@@ -15,6 +15,7 @@ int checks = 0;
 void Check(bool condition, string message) { if (!condition) throw new Exception(message); checks++; }
 void Throws(Action call, string message) { bool threw = false; try { call(); } catch { threw = true; } Check(threw, message); }
 PairingSaveChecks.Run(Check);
+FlightHubNativeChecks.Run(Check);
 void Load<T>(string folder, Dictionary<string,T> destination, Func<T,string> key)
 {
     foreach (string file in Directory.GetFiles(folder, "*.json", SearchOption.AllDirectories))
@@ -248,4 +249,5 @@ AutoNavHubChecks.Run(repo, Check, Throws);
 FireNativeChecks.Run(Check);
 ShipbreakerGeometryChecks.Run(Check);
 RegionalEconomyChecks.Run(game, Check, Throws);
+StockQuantityChecks.Run(Check, Throws);
 Console.WriteLine($"PASS: {checks} native-definition/registration checks with no OCF or Workshop loaded. No game session was run.");

@@ -1,5 +1,7 @@
 # Scrap reclaimer — prepared 0.9.0 candidate
 
+Current stock quantities: [bulk merchant lots](merchant-stock.md) supersede the older single-item offers below. These content versions require Framework 0.24.0+.
+
 Framework and Shipbreaker **0.9.0**, built against the installed Ostranauts
 1.0.1.5 baseline. The reclaimer was introduced in 0.8.0. This is implemented and checked offline, not yet tested in a
 game session. Auto Nav remains 0.3.0 and is optional for this processing chain.

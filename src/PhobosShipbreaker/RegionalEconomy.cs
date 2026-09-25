@@ -40,8 +40,8 @@ internal static class RegionalEconomy
                 Offer(section, .30);
             Offer(FurnaceCooling.Conduit + "Loose", .65);
             // Consumable charge quality is independent of refurbished machinery.
-            RegionalMarkets.Add(d, profile.Region, FurnaceService.CoolantStock, .65 * profile.Factor, StockCondition.Pristine);
-            void Offer(string item, double chance) => RegionalMarkets.Add(d, profile.Region, item, chance * profile.Factor, condition);
+            RegionalMarkets.Add(d, profile.Region, FurnaceService.CoolantStock, .65 * profile.Factor, StockCondition.Pristine, StockQuantities.Coolant);
+            void Offer(string item, double chance) => RegionalMarkets.Add(d, profile.Region, item, chance * profile.Factor, condition, StockQuantities.For(item));
         }
         // Packaged working fluid is an industrial consumable, never potable water.
         MaintenanceDefinitions.SetStat(d.Objects[FurnaceService.CoolantStock], "IsCategoryIndustrialProducts", 1);

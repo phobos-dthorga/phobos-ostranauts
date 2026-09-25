@@ -81,12 +81,12 @@ internal static class Definitions
         EquipmentEconomy.Apply(d);
         foreach (string merchant in new[] { "ItmOKLGSupplyKioskInv", "ItmOKLGFixer", "ItmTraderSanDiegoHalvorsonInv" })
         foreach (string item in new[] { Rack + "Loose", Cooker + "Loose", PotatoSeed, LettuceSeed, Nutrient, Irrigation, Service.RecoveryCartridge })
-            MarketStock.Add(d, merchant, "PhobosAgricultureStock_" + merchant + "_" + item, item, item == Nutrient || item == Irrigation ? 1 : .65, StockCondition.Pristine);
+            MarketStock.Add(d, merchant, "PhobosAgricultureStock_" + merchant + "_" + item, item, item == Nutrient || item == Irrigation ? 1 : .65, StockCondition.Pristine, StockQuantities.For(item));
         foreach (string prefix in new[] { Rack, Cooker })
         {
-            MarketStock.Add(d, "ItmOKLGFixer", prefix + "UsedOffer", prefix + "Loose", .3, StockCondition.Worn);
-            MarketStock.Add(d, "ItmVORBScrapKioskInv", prefix + "RefurbishedOffer", prefix + "Loose", .2, StockCondition.Refurbished);
-            MarketStock.Add(d, "ItmVORBScrapKioskInv", prefix + "BrokenOffer", prefix + "LooseDmg", .25, StockCondition.Broken);
+            MarketStock.Add(d, "ItmOKLGFixer", prefix + "UsedOffer", prefix + "Loose", .3, StockCondition.Worn, StockQuantities.Machines);
+            MarketStock.Add(d, "ItmVORBScrapKioskInv", prefix + "RefurbishedOffer", prefix + "Loose", .2, StockCondition.Refurbished, StockQuantities.Machines);
+            MarketStock.Add(d, "ItmVORBScrapKioskInv", prefix + "BrokenOffer", prefix + "LooseDmg", .25, StockCondition.Broken, StockQuantities.Machines);
         }
         LootContent.Add(d, lootEnabled, lootMultiplier);
         RegionalEconomy.Apply(d);

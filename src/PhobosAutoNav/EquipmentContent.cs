@@ -106,6 +106,6 @@ internal static class EquipmentContent
         return d;
 
         void Offer(string merchant, string tag, string item, double chance, StockCondition condition) =>
-            MarketStock.Add(d, merchant, "PhobosAutoNavStock_" + tag, item, chance, condition);
+            MarketStock.Add(d, merchant, "PhobosAutoNavStock_" + tag, item, chance, condition, StockQuantities.Boards);
     }
 }

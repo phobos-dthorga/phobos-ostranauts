@@ -22,6 +22,13 @@ Dates on Draft entries record preparation, not Steam publication.
 - Record [NASA Goddard's Raven research](https://www.nasa.gov/general/nasas-hybrid-computer-enables-ravens-autonomous-rendezvous-capability/) and [ESA's LIRIS experiment by Airbus, Jena Optronik and Sodern](https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/ATV/ATV_views_Space_Station_as_never_before) as sensing context, separate from Blue Bottle Games engine evidence and authored gameplay choices. No endorsement or gameplay validation is implied.
 - See the [research](https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/shipbreaker-autopilot-research.md) and [staged implementation handover](https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/shipbreaker-autopilot-handover.md). No installation or publication in this round.
 
+## [0.23.0] - 2026-09-26 - Draft
+
+### Changed
+
+- Increase successful local and regional offers to wholesale lots for all machinery, assembly sections, coolant conduit and service charges. Uses Framework 0.24.0; prices, engineering salvage and existing inventories are unchanged.
+- Quantities are authored balance and apply on future native restocks; no forced refill, installation or Steam publication. Offline checks are separate from owner shop validation.
+
 ## [0.22.0] - 2026-09-26 - Draft
 
 ### Added

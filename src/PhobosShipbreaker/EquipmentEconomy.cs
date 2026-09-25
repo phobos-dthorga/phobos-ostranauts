@@ -143,6 +143,6 @@ internal static class EquipmentEconomy
         Offer("ItmTraderSanDiegoHalvorsonInv", "FurnaceSection", FurnaceRules.Section, .30, StockCondition.Refurbished);
 
         void Offer(string merchant, string tag, string item, double chance, StockCondition condition) =>
-            MarketStock.Add(d, merchant, "PhobosStock_" + tag + "_" + merchant + "_" + item, item, chance, condition);
+            MarketStock.Add(d, merchant, "PhobosStock_" + tag + "_" + merchant + "_" + item, item, chance, condition, StockQuantities.For(item));
     }
 }

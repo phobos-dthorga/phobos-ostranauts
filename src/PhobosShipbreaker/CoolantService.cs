@@ -83,7 +83,7 @@ internal static partial class FurnaceService
             var co=NativeDefinitions.Clone(DataHandler.dictCOs["ItmScrapTrash"]);co.strName=id;co.strNameFriendly=co.strNameShort=Text.Get(id==CoolantStock?"Furnace.charge_item":"Furnace.charge_waste");co.strDesc=Text.Get("Furnace.charge_desc");
             co.nStackLimit=1;co.inventoryWidth=co.inventoryHeight=1;co.aTickers=co.aUpdateCommands=Array.Empty<string>();co.aStartingConds=new[]{"IsSolid=1x1","IsPocketable=1x1"};Content.SetStat(co,"StatMass",1);Content.SetStat(co,"StatBasePrice",id==CoolantStock?20:.01);d.Objects[id]=co;
         }
-        foreach(string merchant in new[]{"ItmOKLGSupplyKioskInv","ItmOKLGFixer","ItmTraderSanDiegoHalvorsonInv"})MarketStock.Add(d,merchant,"PhobosCoolantStock_"+merchant,CoolantStock,1,StockCondition.Pristine);
+        foreach(string merchant in new[]{"ItmOKLGSupplyKioskInv","ItmOKLGFixer","ItmTraderSanDiegoHalvorsonInv"})MarketStock.Add(d,merchant,"PhobosCoolantStock_"+merchant,CoolantStock,1,StockCondition.Pristine, StockQuantities.Coolant);
     }
 }
 

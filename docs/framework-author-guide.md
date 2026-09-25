@@ -424,7 +424,7 @@ when reusing them. See `THIRD-PARTY.md` for scope and exclusions.
 condition)` appends one namespaced offer, retaining native/other-mod entries. Call
 during `ContentLoading`, then publish the prepared definitions. Use a unique Phobos
 offer ID and a probability in (0,1]. The framework availability setting scales it
-and caps it at one. Each offer yields at most one item. Conditions are Pristine,
+and caps it at one. The original overload yields one item; Framework 0.24.0 adds a final integer quantity argument for a bounded physical lot. Use content-owned [stock quantities](merchant-stock.md) for new retail offers. Conditions are Pristine,
 Refurbished, Worn (15% wear), or Broken (supply a damaged definition). Native
 merchant stock updates normally; registration never forces restocking.
 

@@ -1,5 +1,7 @@
 # Equipment economy and maintenance
 
+Current stock quantities: [bulk merchant lots](merchant-stock.md) supersede the older single-item offers below. These content versions require Framework 0.24.0+.
+
 Regional acquisition now covers the current vanilla solar system: see the
 [solar-system economy guide](solar-system-economy.md) for availability, native
 price factors and limits. The regional builds require Framework 0.23.0+.
@@ -213,7 +215,7 @@ inventory the player expects to remain present.
 
 `BepInEx/config/phobosgekko.ostranauts.framework.cfg` exposes
 `[Economy] StockAvailabilityMultiplier`, default **1**, range **0.25–4**.
-It multiplies chances, capped at 100%, while retaining one item per offer. Change
+It multiplies chances, capped at 100%, without changing the quantity per successful offer. Change
 with the game closed; restart and allow a normal restock. Prices, dimensions and
 material identities remain a coherent fixed baseline in this version.
 

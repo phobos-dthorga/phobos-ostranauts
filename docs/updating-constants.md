@@ -48,6 +48,7 @@ the expectation or omit it for an idempotent repeat.
 | `AutoNav.coastTolerancePercent` | Default cruise speed-error tolerance, 0–25 percent |
 | `AutoNav.coastEnterFraction` | Default coasting entry fraction, 0.2–0.9 |
 | `AutoNav.burnHeadingDegrees` | Default burn heading tolerance, 0.1–10 degrees |
+| `Agriculture.stock*`, `Shipbreaker.stock*`, `AutoNav.stockBoards` | Per-offer merchant lot sizes and the current [stock table](merchant-stock.md); integers 1–256 |
 | `Shipbreaker.feedSeconds` | Default material feed time, 1–60 seconds |
 | `Shipbreaker.feedKilowatts` | Default feed electrical demand, 0.1–100 kW |
 

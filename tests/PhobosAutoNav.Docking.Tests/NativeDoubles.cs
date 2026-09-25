@@ -169,6 +169,8 @@ namespace PhobosAutoNav
     internal sealed class TorchDouble { internal void Release() { } internal void Reset() { } }
     internal sealed partial class NavigationService
     {
+        private static bool CanReleaseNativeControls(CondOwner? co) => false;
+        private bool ReleaseNativeControls(CondOwner? co) => false;
         internal NavigationService() { Plugin.Service = this; }
         private bool autoAim = false;
         private static float ReadThrottle(CondOwner co) => 1;

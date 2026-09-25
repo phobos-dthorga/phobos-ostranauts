@@ -1,0 +1,15 @@
+[h1]Phobos Auto Nav 0.16.1[/h1]
+[b]Draft - not published | 2026-09-26[/b]
+
+[h2]Fixed[/h2]
+
+[list]
+[*]Replace the generic native-automation warning with the actual blocker: native pilot, saved engagement switch, station-keeping, held thrust, torch request or waypoints. Disengage is available for local native control intent even without a Phobos flight record. Explicitly release the three standard native autopilots, clear local console switches and cut torch/RCS thrust while preserving reactor operation, velocity and spin. Other flight plugins and unrelated AI remain protected.
+[*]Keep the flight hub behind native overlays and hide its surface/input on the Rescue screen; Done restores the existing page and placement. Native layout Edit still blocks operational controls. Track help identifies its N2 requirement; Resume and Cease Fire retain their operation-specific availability.
+[/list]
+
+[h2]Validation and limits[/h2]
+
+[list]
+[*]Regression checks cover stale native switches, two local consoles, manual torch request, standard native pilots, foreign-console and independent-controller rejection. Build and offline checks do not validate Unity clicking or live flight. [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/auto-nav-hub-validation.md]Hub owner checks[/url] remain required. Prepared candidate; no Steam publication.
+[/list]

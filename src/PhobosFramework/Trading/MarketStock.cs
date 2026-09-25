@@ -24,12 +24,23 @@ public static class MarketStock
     internal static void BeginLoad() { Offers.Clear(); fresh = new ConditionalWeakTable<CondOwner, Offer>(); }
 
     public static void Add(NativeDefinitions d, string merchantLoot, string offerId, string itemId,
-        double probability, StockCondition condition)
+        double probability, StockCondition condition) => Add(d, merchantLoot, offerId, itemId, probability, condition, 1);
+
+    // Keep the old public overload and rare world-loot quantities unchanged.
+    public const int MaximumOfferQuantity = 256;
+    public static void Add(NativeDefinitions d, string merchantLoot, string offerId, string itemId,
+        double probability, StockCondition condition, int quantity)
     {
+        if (quantity < 1 || quantity > MaximumOfferQuantity)
+            throw new ArgumentOutOfRangeException(nameof(quantity), Text.Get("MarketStock.invalid_merchant_offer"));
         if (string.IsNullOrWhiteSpace(offerId) || !offerId.StartsWith("Phobos", StringComparison.Ordinal) ||
             double.IsNaN(probability) || probability <= 0 || probability > 1) throw new ArgumentException(Text.Get("MarketStock.invalid_merchant_offer"));
         AdditiveLoot.SetItemChoice(d, merchantLoot, offerId, new Dictionary<string, double>
             { [itemId] = Math.Min(1, probability * AvailabilityMultiplier) });
+        // One offer roll selects a finite lot, not quantity independent probability rolls.
+        // Assign through aCOs so the native parser refreshes its cached LootUnits.
+        d.Loot[offerId].aCOs = new[] { itemId + "=" + Math.Min(1, probability * AvailabilityMultiplier).ToString("R", CultureInfo.InvariantCulture)
+            + "x" + quantity.ToString(CultureInfo.InvariantCulture) };
         Offers[offerId] = new Offer { Item = itemId, Condition = condition };
     }
 

@@ -95,7 +95,7 @@ def render(mod, notes, config):
            'Restore reduces wear on functional equipment in place; it does not grant pristine status. '
            'Empty cargo and follow the machine’s local maintenance guards first. Work speed depends on crew, tools and current condition.', '',
            '**Finding stock:** the generated percentages are defaults per eligible native stock/loot roll, not per ship or guaranteed shop availability. '
-           'Offers are additive, may be independent, and require normal restocking. Loot branches choose at most one added item per branch. '
+           'Offers are additive, may be independent, and require normal restocking. Merchant offers request the listed finite lot when successful; separate world-loot branches retain their own listed quantities. '
            'Configuration, capacity and native generation rules still apply; loading an existing save does not refill its inventories.', '']
     if not mod['items']:
         out = out[:8]

@@ -42,7 +42,9 @@ internal sealed class Ship
     internal bool FailManeuver;
     internal void Maneuver(float x, float y, float r, float throttle, float dt) { Maneuvers++; if (FailManeuver) throw new Exception("Native maneuver failure"); LastRotation = r; }
 
-    internal bool IsUsingTorchDrive => false;
+    internal bool IsUsingTorchDrive;
+    internal void SetThrust(double value) { IsUsingTorchDrive = value > 0; aWPs.Clear(); }
+    internal void ClearShipTarget() { }
     internal string strRegID = "", publicName = "";
     internal ShipSitu objSS = new();
     internal bool bDestroyed, HideFromSystem, Hidden, bCheckPower, bCheckSensors;
@@ -90,8 +92,15 @@ internal sealed class JsonShipSitu
     internal float fA;
 }
 namespace UnityEngine { internal struct Vector2 { internal float x,y; internal double magnitude => Math.Sqrt(x*x+y*y); internal static Vector2 zero => default; } }
+internal sealed class GUILamp { internal int State; }
+internal sealed class NativeToggle { private bool state; internal bool isOn { get => state; set { state = value; Events++; } } internal int Events; internal void SetIsOnWithoutNotify(bool value) => state = value; }
 internal sealed class GUIOrbitDraw
 {
+    internal GUILamp ledWLock = new();
+    internal bool HoldingThrustActive => ledWLock.State == 3;
+    internal NativeToggle chkStationKeeping = new();
+    internal Ostranauts.ShipGUIs.NavStation.NavModCoursePlot Course = new();
+    internal T[] GetComponentsInChildren<T>(bool inactive) => new[] { (T)(object)Course };
     internal static GUIOrbitDraw Instance = new();
     internal static bool Open = true;
     internal static CondOwner? Console;
@@ -100,7 +109,13 @@ internal sealed class GUIOrbitDraw
     internal static bool IsOpen() => Open;
     internal CondOwner? COSelfBase() => Console;
 }
-internal static class AIShipManager { internal static object? GetAIShipByRegID(string id) => null; }
+internal sealed class AIShip { internal string ActiveCommandName = ""; }
+internal static class AIShipManager
+{
+    internal static AIShip? Current;
+    internal static AIShip? GetAIShipByRegID(string id) => Current;
+    internal static void UnregisterShip(Ship ship) => Current = null;
+}
 internal static class DataHandler
 {
     internal static object? GetCOOverlay(string id) => null;
@@ -111,6 +126,7 @@ namespace HarmonyLib
 {
     internal static class AccessTools
     {
+        internal static System.Reflection.FieldInfo? Field(Type type, string name) => type.GetField(name, System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.NonPublic);
         internal static Type? TypeByName(string name) => null;
         internal static System.Reflection.PropertyInfo? Property(Type type, string name) => null;
     }
@@ -161,7 +177,7 @@ namespace PhobosAutoNav
         internal string Reason => "Torch.rcs";
         internal bool ControlsChanged => false;
         internal int Releases;
-        internal static bool ThrustRequested(Ship ship) => false;
+        internal static bool ThrustRequested(Ship ship) => ship.IsUsingTorchDrive || ship.GetReactorGPMValue("slidCycle") != "0";
         internal bool Owns(Ship ship) => false;
         internal bool ChangedByPilot(Ship ship, string key, string value) => false;
         internal void YieldToPilot() { }
@@ -235,3 +251,5 @@ namespace PhobosAutoNav {
         internal static string? SelectPorts(Ship own, Ship target, out string ownPort, out string targetPort) { ownPort="own";targetPort="assigned";return null; }
     }
 }
+
+namespace Ostranauts.ShipGUIs.NavStation { internal sealed class NavModCoursePlot { internal NativeToggle chkEngage = new(); } }

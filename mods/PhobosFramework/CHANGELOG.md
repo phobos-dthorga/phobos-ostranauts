@@ -14,6 +14,13 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.24.0] - 2026-09-26 - Draft
+
+### Changed
+
+- Quantity-aware merchant and regional-stock overloads request bounded physical lots while retaining the old single-unit API. Probability and stock condition remain independent; native and third-party branches and existing inventories are preserved.
+- Quantities are authored balance and apply on future native restocks; no forced refill, installation or Steam publication. Offline checks are separate from owner shop validation.
+
 ## [0.23.1] - 2026-09-26 - Draft
 
 ### Fixed

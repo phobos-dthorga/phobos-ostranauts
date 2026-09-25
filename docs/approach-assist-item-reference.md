@@ -10,7 +10,7 @@ Historical, opt-in integration prototype. Use current Auto Nav for ordinary navi
 
 **Repair and Restore:** Repair fixes a damaged form and retains the actual consumed service materials as spent parts. Restore reduces wear on functional equipment in place; it does not grant pristine status. Empty cargo and follow the machine’s local maintenance guards first. Work speed depends on crew, tools and current condition.
 
-**Finding stock:** the generated percentages are defaults per eligible native stock/loot roll, not per ship or guaranteed shop availability. Offers are additive, may be independent, and require normal restocking. Loot branches choose at most one added item per branch. Configuration, capacity and native generation rules still apply; loading an existing save does not refill its inventories.
+**Finding stock:** the generated percentages are defaults per eligible native stock/loot roll, not per ship or guaranteed shop availability. Offers are additive, may be independent, and require normal restocking. Merchant offers request the listed finite lot when successful; separate world-loot branches retain their own listed quantities. Configuration, capacity and native generation rules still apply; loading an existing save does not refill its inventories.
 
 The general maintenance explanation above describes current content mods. N0 instead retains its historical native-motherboard inheritance; its prototype exceptions are described below.
 

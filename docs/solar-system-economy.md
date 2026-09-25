@@ -1,5 +1,7 @@
 # Phobos economy across the vanilla solar system
 
+Current stock quantities: [bulk merchant lots](merchant-stock.md) supersede the older single-item offers below. These content versions require Framework 0.24.0+.
+
 Prepared 26 September 2026 against **Ostranauts 1.0.1.5**. Regional builds:
 Framework **0.23.0**, Shipbreaker **0.21.0**, Agriculture **0.10.0**, Auto Nav
 **0.15.0**. The three content builds require Framework 0.23.0 or newer.

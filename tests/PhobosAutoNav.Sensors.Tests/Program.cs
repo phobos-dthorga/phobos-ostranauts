@@ -8,6 +8,7 @@ int checks = 0;
 void Check(bool ok, string message) { checks++; if (!ok) throw new Exception(message); }
 (NavigationService Service, CondOwner Console, Ship Own, Ship Target) Setup()
 {
+    AIShipManager.Current = null; BepInEx.Bootstrap.Chainloader.PluginInfos.Clear(); GUIOrbitDraw.Instance = new();
     AutoNavCore.ResetStatics(); AutoNavCore.SteeringCalls = AutoNavCore.ApproachReads = TargetRef.Resolves = 0;
     AutoNavCore.ElapsedSeconds = 0; AutoNavCore.Coasting = false;
     AutoNavCore.AdmissionSafe = true;
@@ -389,3 +390,53 @@ Check(IndustrialNavigation.Request("capture", f.Console, "module", "target", 0, 
 f.Service.ExternalReactorControl(f.Own, "slidFlow", "1");
 Check(!IndustrialNavigation.Observe("capture", out _, out _), "Manual reactor control immediately releases industrial permission");
 Console.WriteLine($"{checks} checks including industrial manual-takeover integration passed.");
+
+// Explicit local override of native flight intent must not depend on a Phobos save record.
+f = Setup();
+f.Console.mapGUIPropMaps["Panel A"] = new() { ["chkEngage"] = "true", ["chkHoldThrust"] = "false" };
+var secondStation = new CondOwner { strID = "second", ship = f.Own };
+secondStation.Conditions.Add("IsNavStation"); secondStation.mapGUIPropMaps["Panel A"] = new() { ["chkEngage"] = "true" };
+f.Own.Items.Add(secondStation);
+var beforeOverride = Raw(f.Console);
+var blocked = f.Service.ReadInstruments(f.Console);
+Check(blocked.CanStop && !blocked.CanFly && blocked.Notice == "Controls.native_switch", "Stale native engagement exposes its cause and a usable Disengage");
+Check(Raw(f.Console) == beforeOverride, "Displaying a blocked control does not silently override native intent");
+f.Service.Stop(f.Console, "pilot");
+Check(f.Console.mapGUIPropMaps["Panel A"]["chkEngage"] == "false" && secondStation.mapGUIPropMaps["Panel A"]["chkEngage"] == "false", "Explicit stop clears both local nav station switches");
+Check(f.Service.ReadInstruments(f.Console).CanFly, "Approach becomes available after explicit override and fresh checks");
+Check(Store(f.Console).Read(out _) == SavedStateStatus.Missing, "Native override invents no saved Phobos flight");
+f = Setup(); f.Own.Reactor = new CondOwner { ship = f.Own }; f.Own.ReactorProps["slidCycle"] = ".22";
+f.Own.IsUsingTorchDrive = true; f.Own.objSS.vVelX = 42; f.Own.objSS.fW = .2f;
+Check(f.Service.ReadInstruments(f.Console).CanStop && f.Service.ReadInstruments(f.Console).Notice == "Controls.torch_request", "Manual torch request is distinguished from another autopilot");
+f.Service.Stop(f.Console, "pilot");
+Check(f.Own.ReactorProps["slidCycle"] == "0" && !f.Own.IsUsingTorchDrive && f.Own.objSS.vVelX == 42 && f.Own.objSS.fW == .2f && !f.Own.Reactor.HasCond("IsOverrideOff"), "Disengage clears torch thrust while preserving velocity, spin and reactor operation");
+foreach (string command in new[] { "FlyToAutoPilot", "HoldStationAutoPilot", "HoldThrustAutoPilot" })
+{
+    f = Setup(); AIShipManager.Current = new() { ActiveCommandName = command }; f.Own.shipStationKeepingTarget = new();
+    Check(f.Service.ReadInstruments(f.Console).CanStop, "Known native pilot may be explicitly released");
+    f.Service.Stop(f.Console, "pilot");
+    Check(AIShipManager.Current == null && f.Own.shipStationKeepingTarget == null, "Native pilot and station target released");
+}
+f = Setup(); AIShipManager.Current = new() { ActiveCommandName = "PolicePatrol" };
+Check(!f.Service.ReadInstruments(f.Console).CanStop, "Unrelated AI remains outside the native override");
+f.Service.Stop(f.Console, "pilot"); Check(AIShipManager.Current != null, "Explicit stop does not unregister unrelated AI");
+f = Setup(); f.Console.mapGUIPropMaps["Panel A"] = new() { ["chkEngage"] = "true" };
+BepInEx.Bootstrap.Chainloader.PluginInfos["com.mrkmg.ostranauts.autonavigate"] = new();
+Check(!f.Service.ReadInstruments(f.Console).CanStop, "An independent flight plugin must release itself");
+f.Service.Stop(f.Console, "pilot"); Check(f.Console.mapGUIPropMaps["Panel A"]["chkEngage"] == "true", "Independent plugin conflict prevents native override");
+f = Setup(); f.Console.mapGUIPropMaps["Panel A"] = new() { ["chkEngage"] = "true" }; CrewSim.coPlayer.ship = f.Target;
+f.Service.Stop(f.Console, "pilot"); Check(f.Console.mapGUIPropMaps["Panel A"]["chkEngage"] == "true", "Foreign console cannot override the original ship");
+Console.WriteLine($"{checks} checks including explicit native control override passed.");
+
+f = Setup(); GUIOrbitDraw.Instance.ledWLock.State = 3;
+GUIOrbitDraw.Instance.chkStationKeeping.isOn = true; GUIOrbitDraw.Instance.Course.chkEngage.isOn = true;
+f.Console.mapGUIPropMaps["Panel A"] = new() { ["chkHoldThrust"] = "true" };
+GUIOrbitDraw.Instance.chkStationKeeping.Events = GUIOrbitDraw.Instance.Course.chkEngage.Events = 0;
+f.Service.Stop(f.Console, "pilot");
+Check(!GUIOrbitDraw.Instance.HoldingThrustActive && !GUIOrbitDraw.Instance.chkStationKeeping.isOn && !GUIOrbitDraw.Instance.Course.chkEngage.isOn,
+    "Explicit release clears native panel latches as well as saved switches");
+Check(GUIOrbitDraw.Instance.chkStationKeeping.Events == 0 && GUIOrbitDraw.Instance.Course.chkEngage.Events == 0, "Native toggle synchronization never replays engagement callbacks");
+f = Setup(); GUIOrbitDraw.Instance.ledWLock.State = 3; GUIOrbitDraw.Console = new() { ship = f.Target };
+NativeFlightPanel.Release(f.Own);
+Check(GUIOrbitDraw.Instance.HoldingThrustActive, "Another ship's open panel keeps its native latches");
+Console.WriteLine($"{checks} checks including native panel latch release passed.");

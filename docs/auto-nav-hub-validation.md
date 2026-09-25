@@ -1,5 +1,42 @@
 # Flight hub validation — Auto Nav 0.14.1
 
+## 0.16.1 control recovery and Rescue follow-up
+
+Blue Bottle Games' Ostranauts 1.0.1.5 `NavModCoursePlot.UpdateUI` reconciles its
+engagement switch against `AIShip.ActiveCommandName`. A retained switch is not
+proof of a running Phobos flight. Native `GUIOrbitDraw.ToggleInnerPanel` displays
+Rescue through the `pnlInside` CanvasGroup; runtime modules are sibling objects.
+These findings come from local engine inspection, not a Unity test.
+
+Auto Nav now reports the specific native blocker. **Disengage** explicitly
+releases `FlyToAutoPilot`, `HoldStationAutoPilot` or `HoldThrustAutoPilot`, clears
+saved native switches on the current ship's navigation consoles, drops the
+native target/course and cuts torch cycle/RCS thrust. Reactor ignition, flow,
+velocity and spin remain. Independent flight plugins and unrelated AI still
+block takeover. No automatic override occurs while drawing the screen.
+
+The hub follows native module draw order and suppresses its own surface and
+input while Rescue is visible. Done restores the selected page and saved
+placement; Edit continues to disable operational controls.
+
+Owner checks for this candidate:
+
+- With a retained native engagement switch and no Phobos mission, verify that
+  Disengage is available, reports the actual blocker and enables fresh admission.
+- With a manual torch cycle selected, verify that Disengage cuts thrust without
+  extinguishing the reactor or removing ship velocity/spin. Re-engage only after
+  checking the new contact, fuel and braking-room assessment.
+- Check normal controls, native Edit, Rescue/Done on every hub tab, reopening the
+  console and reopening another local station. Rescue must have no visible or
+  clickable hub; saved positions must remain unchanged.
+- N1 provides navigation. N2 is required for Rendezvous/Follow; N3 for weapons.
+  Resume requires a suspended mission. Cease Fire has no action when neither
+  flight nor fire control is active. These are deliberate disabled states.
+
+Automated service regressions cover explicit overrides and rejection boundaries.
+The appearance/input lifecycle still needs owner evaluation in Unity.
+
+
 ## Display correction, 26 September 2026
 
 The owner's 0.12.1 screenshot shows blank compact labels, absent decrease signs,

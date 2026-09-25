@@ -30,9 +30,9 @@ internal static class RegionalEconomy
         foreach (var profile in Profiles)
         {
             var condition = profile.Region == "OFLT" ? StockCondition.Refurbished : StockCondition.Pristine;
-            RegionalMarkets.Add(d, profile.Region, NavigationService.ModuleId, .30 * profile.Factor, condition);
-            RegionalMarkets.Add(d, profile.Region, NavigationService.PursuitId, .15 * profile.Factor, condition);
-            RegionalMarkets.Add(d, profile.Region, NavigationService.FireControlId, .10 * profile.Factor, condition);
+            RegionalMarkets.Add(d, profile.Region, NavigationService.ModuleId, .30 * profile.Factor, condition, StockQuantities.Boards);
+            RegionalMarkets.Add(d, profile.Region, NavigationService.PursuitId, .15 * profile.Factor, condition, StockQuantities.Boards);
+            RegionalMarkets.Add(d, profile.Region, NavigationService.FireControlId, .10 * profile.Factor, condition, StockQuantities.Boards);
         }
     }
 }

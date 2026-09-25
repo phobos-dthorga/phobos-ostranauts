@@ -24,9 +24,12 @@ public static class RegionalMarkets
     public static string SupplyTable(string region) => SupplyTables.TryGetValue(region, out var table)
         ? table : throw new ArgumentException("Unknown vanilla retail region: " + region, nameof(region));
 
-    /// <summary>One bounded physical offer per native roll. Content owns probability and condition.</summary>
+    /// <summary>One bounded physical lot per native roll. Content owns probability, quantity and condition.</summary>
     public static void Add(NativeDefinitions definitions, string region, string item,
-        double probability, StockCondition condition)
+        double probability, StockCondition condition) => Add(definitions, region, item, probability, condition, 1);
+
+    public static void Add(NativeDefinitions definitions, string region, string item,
+        double probability, StockCondition condition, int quantity)
     {
         string table = SupplyTable(region);
         // A removed endpoint in a different game/mod combination must not disable the whole mod.
@@ -36,6 +39,6 @@ public static class RegionalMarkets
             FrameworkLifecycle.Log("Regional stock skipped: missing native item table " + table);
             return;
         }
-        MarketStock.Add(definitions, table, "PhobosRegional_" + region + "_" + item, item, probability, condition);
+        MarketStock.Add(definitions, table, "PhobosRegional_" + region + "_" + item, item, probability, condition, quantity);
     }
 }

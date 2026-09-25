@@ -1,5 +1,7 @@
 # Phobos Agriculture
 
+Current stock quantities: [bulk merchant lots](merchant-stock.md) supersede the older single-item offers below. These content versions require Framework 0.24.0+.
+
 Regional acquisition now covers the current vanilla solar system: see the
 [solar-system economy guide](solar-system-economy.md) for availability, native
 price factors and limits. The regional builds require Framework 0.23.0+.

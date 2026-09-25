@@ -50,7 +50,7 @@ internal static class FurnaceConduitDefinitions
             MaintenanceDefinitions.Dismantle(d, co.strName, 20, new[] { waste });
         }
         foreach (string merchant in new[] { "ItmOKLGSupplyKioskInv", "ItmOKLGFixer", "ItmTraderSanDiegoHalvorsonInv" })
-            MarketStock.Add(d, merchant, p + "Offer_" + merchant, p + "Loose", 1, StockCondition.Pristine);
+            MarketStock.Add(d, merchant, p + "Offer_" + merchant, p + "Loose", 1, StockCondition.Pristine, StockQuantities.Pipes);
         // Native sheet sockets show the furnace connector independently of electricity.
         d.Loot[p + "Fixture"] = new Loot { strName = p + "Fixture", strType = "condition", aCOs = new[] { Segment + "=1x1" }, aLoots = new[] { "TILFixtureAdds=1x1" } };
         foreach (string form in new[] { "Installed", "InstalledDmg" })

@@ -1,4 +1,7 @@
 [h1]Phobos Auto Nav[/h1]
+[h2]Control recovery and Rescue display in 0.16.1[/h2]
+Native flight blockers now identify their cause. Disengage explicitly releases standard native autopilot, station-keeping, held thrust and torch-cycle requests even without a Phobos flight record. The reactor remains running and the ship coasts; this does not brake or override unrelated controllers. The hub hides on Rescue and restores its existing layout on Done. N2/N3 requirements remain. Prepared and checked offline; live UI/gameplay verification and distribution holds remain.
+
 [h2]Industrial flight service in 0.16.0[/h2]
 Shipbreaker 0.22.0 can request exclusive RCS approach and motion matching from an exact N1/N2 console/module. Tool-facing guidance supports all four mounting orientations. Tracking loss, manual takeover, changed equipment or reload ends permission. Native collision limits remain; no arbitrary G4 reach is granted. The capture stage does not yet cut or automatically traverse a wreck.
 [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/shipbreaker-capture.md]Capture integration and limits[/url]
@@ -12,7 +15,7 @@ Corrects missing compact labels, clipped range/speed readings and blank decrease
 [h2]Optional arrival cue in 0.14.0[/h2]
 Requires Phobos Framework 0.21.0 or newer. Engage Approach or Rendezvous, then opt into one arrival cue through Details or F3. Stop, suspension and reload clear watches. Shared volume/mute and burst suppression; native docking sound remains unchanged. No weapon, Follow or intermediate docking-stage cues. Gameplay/listening review pending.
 [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/shared-completion-cues.md]Shared controls, limits and original audio provenance[/url]
-[b]Version:[/b] 0.16.0
+[b]Version:[/b] 0.17.0
 [b]Publication status:[/b] Not published - held for upstream provenance review
 
 N1 supplies navigation/docking; N2 adds pursuit. Phobos' Asterel N3 Polaris Fire Control System independently supplies fire-control information, limited volleys and optional RCS aiming, including during manual flight without N1/N2. All combinations share one hub. Existing N2 owners now need N3 for automated firing; IDs, recipes and saved flights remain intact.
@@ -62,7 +65,7 @@ The [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/ship
 [url=https://ntrs.nasa.gov/citations/20120014309]Zhou, NASA Langley (2012)[/url] supports relative-motion feedback; [url=https://eprints.whiterose.ac.uk/id/eprint/90483/1/orcsatpaper_final.pdf]Hartley, Trodden, Richards and Maciejowski, ESA ORCSAT (2012)[/url] motivates constrained repeated planning for a passive target; [url=https://www.esa.int/Enabling_Support/Operations/ATV_i_Jules_Verne_i]ESA ATV operations[/url] motivates separate checked approach/hold/capture phases. Our game controller, thresholds and equipment balance are authored choices; these sources neither validate nor endorse this mod or hostile capture.
 
 [h2]Requirements and installation[/h2]
-Ostranauts 1.0.1.5, BepInEx 5 and Phobos Framework 0.21.2 or newer. Original Auto Navigate is not a dependency and must be disabled for Phobos Auto Nav to engage.
+Ostranauts 1.0.1.5, BepInEx 5 and Phobos Framework 0.24.0 or newer. Original Auto Navigate is not a dependency and must be disabled for Phobos Auto Nav to engage.
 
 This is a maintained pre-publication page draft, not a download announcement. No Workshop item has been published for this draft. Use the installation guide for source/prepared-package availability and loader setup. Do not remove required providers from saves that contain their content.
 
@@ -85,3 +88,7 @@ Promotional illustrations and original equipment artwork use AI-assisted product
 
 [h2]Equipment and item reference[/h2]
 [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/auto-nav-item-reference.md]Read this mod’s item reference[/url] for functions, use, acquisition and applicable base prices, repair and salvage. Generated tables follow the current source candidate; proposals and prototype limitations are labelled.
+
+[h2]Bulk merchant stock[/h2]
+Increase successful local and regional N1/N2/N3 offers to wholesale board lots, including the existing worn, refurbished and broken offers. Uses Framework 0.24.0; unit prices, rare N1 salvage and saved flights are unchanged.
+Normal restocking is required; updating does not refill existing shops. [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/merchant-stock.md]Current quantities and restocking guide[/url]. Prepared candidate; in-game stock/capacity review pending.

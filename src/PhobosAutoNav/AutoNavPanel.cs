@@ -19,6 +19,8 @@ public sealed class AutoNavPanel : NavModBase
     private static readonly Color Ink = new Color32(205, 216, 216, 255), Amber = new Color32(234, 196, 102, 255);
     private RectTransform placement = null!, design = null!;
     private CanvasGroup controls = null!;
+    private CanvasGroup surface = null!;
+    private CanvasGroup? rescue;
     private TMP_FontAsset? font;
     private readonly Dictionary<string, TMP_Text> labels = new();
     private readonly Dictionary<string, Button> buttons = new();
@@ -57,7 +59,7 @@ public sealed class AutoNavPanel : NavModBase
         // Validate the embedded resource before attaching any native UI objects.
         var layout = HubLayout.Data;
         var root = new GameObject(LayoutId, typeof(RectTransform)); root.SetActive(false);
-        var rect = (RectTransform)root.transform; rect.SetParent(nav.transform, false); PanelWidgets.Fill(rect);
+        var rect = (RectTransform)root.transform; rect.SetParent(nav.transform, false); rect.SetAsFirstSibling(); PanelWidgets.Fill(rect);
         var container = PanelWidgets.Rect(rect, "Container");
         container.anchorMin = new Vector2(PanelLayoutRules.DefaultLeft, PanelLayoutRules.DefaultTop - PanelLayoutRules.RowHeight);
         container.anchorMax = new Vector2(PanelLayoutRules.DefaultLeft + PanelLayoutRules.ColumnWidth, PanelLayoutRules.DefaultTop);
@@ -66,6 +68,8 @@ public sealed class AutoNavPanel : NavModBase
         container.gameObject.AddComponent<Image>().color = new Color(.12f, .17f, .21f);
         var background = PanelWidgets.Rect(container, "bg"); PanelWidgets.Fill(background);
         var panel = root.AddComponent<AutoNavPanel>(); panel.placement = container;
+        panel.surface = container.GetComponent<CanvasGroup>();
+        panel.rescue = nav.transform.Find("pnlInside")?.GetComponent<CanvasGroup>();
         panel.design = PanelWidgets.Rect(background, "Faceplate");
         panel.design.anchorMin = panel.design.anchorMax = panel.design.pivot = new Vector2(.5f, .5f);
         panel.design.sizeDelta = new Vector2(layout.width, layout.height);
@@ -194,7 +198,16 @@ public sealed class AutoNavPanel : NavModBase
         settings.Add(AddButton(Rect(row, 448, 0, 80, 56), id + "+", "+", plus));
     }
 
-    private bool CanInteract => COSelf != null && (DraggableRef == null || !DraggableRef.enabled);
+    private bool RescueOpen => rescue != null && rescue.gameObject.activeInHierarchy && rescue.alpha > 0;
+    private bool CanInteract => COSelf != null && !RescueOpen && (DraggableRef == null || !DraggableRef.enabled);
+    private void LateUpdate()
+    {
+        // Native rescue is a sibling overlay. Keep module registration and saved placement intact.
+        if (surface == null || controls == null) return;
+        surface.alpha = RescueOpen ? 0 : 1;
+        surface.blocksRaycasts = !RescueOpen;
+        controls.interactable = controls.blocksRaycasts = CanInteract;
+    }
     private void Invoke(Action action) { if (!CanInteract) return; CrewSim.bJustClickedInput = true; action(); UpdateUI(); }
     protected override void Init() => UpdateUI();
     protected override void OnNavModMessage(NavModMessageType messageType, object arg)

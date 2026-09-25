@@ -217,6 +217,7 @@ internal sealed partial class NavigationService
             if (co == null || co.bDestroyed || co.ship != CrewSim.coPlayer?.ship)
             { status = Text.Get("Persistence.open_console"); return; }
             CeaseFire();
+            ReleaseNativeControls(co);
             if (!ReadSaved(co, out var snapshot)) return;
             console = co; savedFlight = snapshot;
         }

@@ -71,6 +71,18 @@
   correct their source entries explicitly when necessary. Build success is not
   gameplay validation, and a page draft is not evidence that a Workshop item exists.
 
+## Merchant stock quantities
+
+- Owner memorandum (2026-09-26): stock all offered Phobos goods in substantially
+  larger finite lots, especially piping and other high-consumption supplies.
+  Follow `docs/merchant-stock.md`; use content-owned `StockQuantities` for both
+  original and regional merchants. Keep probability separate from physical count.
+- Maintain quantities through the registered `*.stock*` constants and regenerate
+  the per-item economic references after changes. New retail offers must explicitly
+  select an appropriate lot; the legacy single-unit API is compatibility support.
+  Preserve native restocking, existing inventories, other providers and rare-world
+  salvage contracts. Do not force stock refreshes or rewrite saves.
+
 ## Per-mod equipment and item references
 
 - Owner memorandum (2026-09-25): maintain one end-user reference per Ostranauts

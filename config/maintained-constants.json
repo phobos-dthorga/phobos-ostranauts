@@ -4,7 +4,7 @@
     "Framework.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.23.1",
+      "value": "0.24.0",
       "description": "PhobosFramework published source/package version.",
       "targets": [
         {
@@ -63,7 +63,7 @@
     "Shipbreaker.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.22.0",
+      "value": "0.23.0",
       "description": "PhobosShipbreaker published source/package version.",
       "targets": [
         {
@@ -132,7 +132,7 @@
     "AutoNav.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.16.0",
+      "value": "0.17.0",
       "description": "PhobosAutoNav published source/package version.",
       "targets": [
         {
@@ -191,7 +191,7 @@
     "Agriculture.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.10.0",
+      "value": "0.11.0",
       "description": "PhobosAgriculture published source/package version.",
       "targets": [
         {
@@ -455,6 +455,190 @@
       "review": [
         "Run the owning mod build and behaviour checks.",
         "Review player guidance and calculated examples; existing user configuration and captured jobs are not rewritten."
+      ]
+    },
+    "Agriculture.stockMachines": {
+      "type": "integer",
+      "value": "8",
+      "min": 1,
+      "max": 256,
+      "description": "Agriculture machines quantity per successful merchant offer, including regional suppliers.",
+      "targets": [
+        {
+          "path": "src/PhobosAgriculture/StockQuantities.cs",
+          "pattern": "\\bMachines\\s*=\\s*(?P<value>[0-9]+)(?=\\s*[,;])",
+          "count": 1
+        },
+        {
+          "path": "docs/merchant-stock.md",
+          "pattern": "^\\| Agriculture\\ equipment \\| (?P<value>[0-9]+) \\|\\r?$",
+          "count": 1
+        }
+      ],
+      "review": [
+        "Run native stock-quantity and regional checks, then affected builds.",
+        "Run scripts/update-item-reference.ps1; inspect generated quantities. Existing merchant inventories wait for native restocking."
+      ]
+    },
+    "Agriculture.stockPipes": {
+      "type": "integer",
+      "value": "128",
+      "min": 1,
+      "max": 256,
+      "description": "Agriculture pipes quantity per successful merchant offer, including regional suppliers.",
+      "targets": [
+        {
+          "path": "src/PhobosAgriculture/StockQuantities.cs",
+          "pattern": "\\bPipes\\s*=\\s*(?P<value>[0-9]+)(?=\\s*[,;])",
+          "count": 1
+        },
+        {
+          "path": "docs/merchant-stock.md",
+          "pattern": "^\\| Agriculture\\ irrigation\\ pipes \\| (?P<value>[0-9]+) \\|\\r?$",
+          "count": 1
+        }
+      ],
+      "review": [
+        "Run native stock-quantity and regional checks, then affected builds.",
+        "Run scripts/update-item-reference.ps1; inspect generated quantities. Existing merchant inventories wait for native restocking."
+      ]
+    },
+    "Agriculture.stockSupplies": {
+      "type": "integer",
+      "value": "64",
+      "min": 1,
+      "max": 256,
+      "description": "Agriculture supplies quantity per successful merchant offer, including regional suppliers.",
+      "targets": [
+        {
+          "path": "src/PhobosAgriculture/StockQuantities.cs",
+          "pattern": "\\bSupplies\\s*=\\s*(?P<value>[0-9]+)(?=\\s*[,;])",
+          "count": 1
+        },
+        {
+          "path": "docs/merchant-stock.md",
+          "pattern": "^\\| Agriculture\\ consumables \\| (?P<value>[0-9]+) \\|\\r?$",
+          "count": 1
+        }
+      ],
+      "review": [
+        "Run native stock-quantity and regional checks, then affected builds.",
+        "Run scripts/update-item-reference.ps1; inspect generated quantities. Existing merchant inventories wait for native restocking."
+      ]
+    },
+    "Shipbreaker.stockMachines": {
+      "type": "integer",
+      "value": "8",
+      "min": 1,
+      "max": 256,
+      "description": "Shipbreaker machines quantity per successful merchant offer, including regional suppliers.",
+      "targets": [
+        {
+          "path": "src/PhobosShipbreaker/StockQuantities.cs",
+          "pattern": "\\bMachines\\s*=\\s*(?P<value>[0-9]+)(?=\\s*[,;])",
+          "count": 1
+        },
+        {
+          "path": "docs/merchant-stock.md",
+          "pattern": "^\\| Shipbreaker\\ equipment \\| (?P<value>[0-9]+) \\|\\r?$",
+          "count": 1
+        }
+      ],
+      "review": [
+        "Run native stock-quantity and regional checks, then affected builds.",
+        "Run scripts/update-item-reference.ps1; inspect generated quantities. Existing merchant inventories wait for native restocking."
+      ]
+    },
+    "Shipbreaker.stockSections": {
+      "type": "integer",
+      "value": "24",
+      "min": 1,
+      "max": 256,
+      "description": "Shipbreaker sections quantity per successful merchant offer, including regional suppliers.",
+      "targets": [
+        {
+          "path": "src/PhobosShipbreaker/StockQuantities.cs",
+          "pattern": "\\bSections\\s*=\\s*(?P<value>[0-9]+)(?=\\s*[,;])",
+          "count": 1
+        },
+        {
+          "path": "docs/merchant-stock.md",
+          "pattern": "^\\| Shipbreaker\\ assembly\\ sections \\| (?P<value>[0-9]+) \\|\\r?$",
+          "count": 1
+        }
+      ],
+      "review": [
+        "Run native stock-quantity and regional checks, then affected builds.",
+        "Run scripts/update-item-reference.ps1; inspect generated quantities. Existing merchant inventories wait for native restocking."
+      ]
+    },
+    "Shipbreaker.stockPipes": {
+      "type": "integer",
+      "value": "128",
+      "min": 1,
+      "max": 256,
+      "description": "Shipbreaker pipes quantity per successful merchant offer, including regional suppliers.",
+      "targets": [
+        {
+          "path": "src/PhobosShipbreaker/StockQuantities.cs",
+          "pattern": "\\bPipes\\s*=\\s*(?P<value>[0-9]+)(?=\\s*[,;])",
+          "count": 1
+        },
+        {
+          "path": "docs/merchant-stock.md",
+          "pattern": "^\\| Shipbreaker\\ coolant\\ pipes \\| (?P<value>[0-9]+) \\|\\r?$",
+          "count": 1
+        }
+      ],
+      "review": [
+        "Run native stock-quantity and regional checks, then affected builds.",
+        "Run scripts/update-item-reference.ps1; inspect generated quantities. Existing merchant inventories wait for native restocking."
+      ]
+    },
+    "Shipbreaker.stockCoolant": {
+      "type": "integer",
+      "value": "64",
+      "min": 1,
+      "max": 256,
+      "description": "Shipbreaker coolant quantity per successful merchant offer, including regional suppliers.",
+      "targets": [
+        {
+          "path": "src/PhobosShipbreaker/StockQuantities.cs",
+          "pattern": "\\bCoolant\\s*=\\s*(?P<value>[0-9]+)(?=\\s*[,;])",
+          "count": 1
+        },
+        {
+          "path": "docs/merchant-stock.md",
+          "pattern": "^\\| Shipbreaker\\ coolant\\ charges \\| (?P<value>[0-9]+) \\|\\r?$",
+          "count": 1
+        }
+      ],
+      "review": [
+        "Run native stock-quantity and regional checks, then affected builds.",
+        "Run scripts/update-item-reference.ps1; inspect generated quantities. Existing merchant inventories wait for native restocking."
+      ]
+    },
+    "AutoNav.stockBoards": {
+      "type": "integer",
+      "value": "16",
+      "min": 1,
+      "max": 256,
+      "description": "AutoNav boards quantity per successful merchant offer, including regional suppliers.",
+      "targets": [
+        {
+          "path": "src/PhobosAutoNav/StockQuantities.cs",
+          "pattern": "\\bBoards\\s*=\\s*(?P<value>[0-9]+)(?=\\s*[,;])",
+          "count": 1
+        },
+        {
+          "path": "docs/merchant-stock.md",
+          "pattern": "^\\| Auto\\ Nav\\ boards \\| (?P<value>[0-9]+) \\|\\r?$",
+          "count": 1
+        }
+      ],
+      "review": [
+        "Run native stock-quantity and regional checks, then affected builds.",
+        "Run scripts/update-item-reference.ps1; inspect generated quantities. Existing merchant inventories wait for native restocking."
       ]
     }
   }

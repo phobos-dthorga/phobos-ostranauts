@@ -197,6 +197,8 @@ namespace PhobosAutoNav
     }
     internal sealed partial class NavigationService
     {
+        private static bool CanReleaseNativeControls(CondOwner? co) => false;
+        private bool ReleaseNativeControls(CondOwner? co) => false;
         // Industrial runtime is exercised separately; these doubles let existing persistence/UI
         // tests verify that loading drops its lease and saved physics excludes its actuators.
         private sealed class IndustrialFlight { internal string Target = "target"; internal CondOwner Console = null!; }

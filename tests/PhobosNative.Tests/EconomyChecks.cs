@@ -64,7 +64,7 @@ internal static class EconomyChecks
         check(updated.aLoots.Length == updated.aLoots.Distinct().Count(), "Repeated content loading adds no duplicate stock branches");
         check(updated.aLoots.Length == original.aLoots.Length, "Repeat stock registration does not grow merchant table");
         foreach (var offer in repeat.Loot.Values.Where(l => l.strName.StartsWith("PhobosStock_")))
-            check(offer.aCOs.Length == 1 && offer.aCOs[0].EndsWith("x1"), "Each merchant offer is bounded to one object");
+            check(offer.aCOs.Length == 1 && int.Parse(offer.aCOs[0].Split('x').Last()) > 1, "Each merchant offer requests a bulk lot");
         check(DataHandler.dictLoot["CONDUndamageProgress"].aCOs.Single() == "TDnStatDamage=1x0.00625", "Native restoration remains unchanged for other equipment");
         foreach (string id in EquipmentEconomy.Machines.Select(s => s.Prefix + "Loose").Concat(new[]{ProcessRules.AssemblySection, ReclaimerRules.Section, FurnaceRules.Section}))
         {
@@ -158,8 +158,8 @@ internal static class EconomyChecks
         check(navRestore.bNoDestructable && navRestore.aInputs.Length == 0 && navRestore.strAllowLootCTsThem == "CONDUndamageProgress",
             "Restore remains in-place wear maintenance without a material bill");
         var navOffers = nav.Loot.Values.Where(l => l.strName.StartsWith("PhobosAutoNavStock_", StringComparison.Ordinal)).ToArray();
-        check(navOffers.Length == 6 && navOffers.All(l => l.aCOs.Length == 1 && l.aCOs[0].EndsWith("x1", StringComparison.Ordinal)),
-            "Four N1 offers, N2 and N3 each generate at most one module");
+        check(navOffers.Length == 6 && navOffers.All(l => l.aCOs.Length == 1 && l.aCOs[0].EndsWith("x" + PhobosAutoNav.StockQuantities.Boards, StringComparison.Ordinal)),
+            "Four N1 offers, N2 and N3 request their configured board lots");
         check(Stat("PhobosFireControlBoard", "StatBasePrice") == 5400 && Stat("PhobosFireControlBoardDmg", "StatBasePrice") == 1350,
             "N3 matches the approved N2 authored prices without changing N2");
         check(nav.Installables["PhobosFireControlBoardDmgRepair"].aLootCOs.SequenceEqual(new[]{"PhobosNavModFireControl"}) &&

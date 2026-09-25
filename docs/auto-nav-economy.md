@@ -1,5 +1,7 @@
 # Phobos' Asterel N1 Polaris Auto Nav Module: acquisition and servicing
 
+Current stock quantities: [bulk merchant lots](merchant-stock.md) supersede the older single-item offers below. These content versions require Framework 0.24.0+.
+
 Regional acquisition now covers the current vanilla solar system: see the
 [solar-system economy guide](solar-system-economy.md) for availability, native
 price factors and limits. The regional builds require Framework 0.23.0+.
@@ -47,7 +49,7 @@ negotiation and market/category modifiers; they are not guaranteed purchase quot
 | K-Leg scrap supplies | Broken | 25% |
 | Venus orbital scrap kiosk | Refurbished | 20% |
 
-Each offer generates at most one module. Framework's stock-availability setting
+Each successful current offer supplies the board lot in the stock guide. Framework's stock-availability setting
 can scale the chances. Merchants must restock normally; we do not replace their
 inventories, force refreshes or guarantee availability after restarting. No new
 merchant or geographic distribution is introduced.

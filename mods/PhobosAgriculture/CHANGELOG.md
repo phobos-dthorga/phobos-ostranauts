@@ -17,6 +17,13 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Fixed unreachable INSTALL entries; Firstlight-4, Hearth-2 and W2 appear under APPS, and irrigation conduit under MISC, including damaged forms. Existing inputs, placement and saved IDs are preserved.
 
+## [0.11.0] - 2026-09-26 - Draft
+
+### Changed
+
+- Increase successful local and regional offers to wholesale lots for machinery, irrigation conduit and consumables, including W2/B2, seeds, nutrients, water charges, treatment cartridges and makeup. Uses Framework 0.24.0; prices, rare fridge/crate loot and existing inventories are unchanged.
+- Quantities are authored balance and apply on future native restocks; no forced refill, installation or Steam publication. Offline checks are separate from owner shop validation.
+
 ## [0.10.0] - 2026-09-26 - Draft
 
 ### Added

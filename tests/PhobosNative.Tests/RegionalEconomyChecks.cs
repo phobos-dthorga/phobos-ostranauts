@@ -41,7 +41,7 @@ internal static class RegionalEconomyChecks
                 foreach (var branch in pack.Loot.Values.Where(x => x.strName.StartsWith("PhobosRegional_" + profile.Region + "_", StringComparison.Ordinal)))
                 {
                     check(added.aLoots.Count(x => x == branch.strName + "=1x1") == 1, "Regional branch occurs once on repeated preparation");
-                    check(branch.aCOs.Length == 1 && branch.aCOs[0].EndsWith("x1", StringComparison.Ordinal), "At most one physical item per offer roll");
+                    check(branch.aCOs.Length == 1 && int.Parse(branch.aCOs[0].Split('x').Last()) > 1, "Regional offer requests a bounded bulk lot");
                     double chance = double.Parse(branch.aCOs[0].Split('=')[1].Split('x')[0], CultureInfo.InvariantCulture);
                     check(chance > 0 && chance <= 1, "Bounded regional offer probability");
                 }

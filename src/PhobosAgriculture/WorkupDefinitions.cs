@@ -37,6 +37,6 @@ internal static class WorkupDefinitions
             Definitions.Stock(d, stock.Item1, stock.Item4, stock.Item5, stock.Item2, false, stock.Item3);
         foreach (string merchant in new[] { "ItmOKLGSupplyKioskInv", "ItmOKLGFixer", "ItmTraderSanDiegoHalvorsonInv" })
         foreach (string item in new[] { Bench + "Loose", Makeup })
-            MarketStock.Add(d, merchant, "PhobosAgricultureStock_" + merchant + "_" + item, item, .65, StockCondition.Pristine);
+            MarketStock.Add(d, merchant, "PhobosAgricultureStock_" + merchant + "_" + item, item, .65, StockCondition.Pristine, StockQuantities.For(item));
     }
 }

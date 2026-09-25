@@ -17,6 +17,24 @@ Dates on Draft entries record preparation, not Steam publication.
 - Document required Shipbreaker-to-Auto-Nav dependency direction, exact bindings, active tool-relative positioning and advancement, optional docking/capture, interruption and explicit industrial resume. The new capture service uses native attached deck geometry. Free-flight cutting reach remains unresolved; provenance limits remain unchanged.
 - Attribute sensing context to [NASA Goddard's Raven research](https://www.nasa.gov/general/nasas-hybrid-computer-enables-ravens-autonomous-rendezvous-capability/) and [ESA's LIRIS experiment by Airbus, Jena Optronik and Sodern](https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/ATV/ATV_views_Space_Station_as_never_before); these do not validate or endorse Phobos gameplay. See the [research](https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/shipbreaker-autopilot-research.md) and [handover](https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/shipbreaker-autopilot-handover.md).
 
+## [0.17.0] - 2026-09-26 - Draft
+
+### Changed
+
+- Increase successful local and regional N1/N2/N3 offers to wholesale board lots, including the existing worn, refurbished and broken offers. Uses Framework 0.24.0; unit prices, rare N1 salvage and saved flights are unchanged.
+- Quantities are authored balance and apply on future native restocks; no forced refill, installation or Steam publication. Offline checks are separate from owner shop validation.
+
+## [0.16.1] - 2026-09-26 - Draft
+
+### Fixed
+
+- Replace the generic native-automation warning with the actual blocker: native pilot, saved engagement switch, station-keeping, held thrust, torch request or waypoints. Disengage is available for local native control intent even without a Phobos flight record. Explicitly release the three standard native autopilots, clear local console switches and cut torch/RCS thrust while preserving reactor operation, velocity and spin. Other flight plugins and unrelated AI remain protected.
+- Keep the flight hub behind native overlays and hide its surface/input on the Rescue screen; Done restores the existing page and placement. Native layout Edit still blocks operational controls. Track help identifies its N2 requirement; Resume and Cease Fire retain their operation-specific availability.
+
+### Validation and limits
+
+- Regression checks cover stale native switches, two local consoles, manual torch request, standard native pilots, foreign-console and independent-controller rejection. Build and offline checks do not validate Unity clicking or live flight. [Hub owner checks](https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/auto-nav-hub-validation.md) remain required. Prepared candidate; no Steam publication.
+
 ## [0.16.0] - 2026-09-26 - Draft
 
 ### Added

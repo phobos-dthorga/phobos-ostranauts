@@ -81,7 +81,7 @@ internal sealed partial class NavigationService
         if (previousDestination && problem == null && !view.Resumable)
             view.Heading = Text.Get(stored!.Mode == SavedFlightMode.Arrived ? "Instruments.arrived" : "Instruments.stopped");
         view.CanFly = !AutoNavCore.Engaged && problem == null && approachReady;
-        view.CanStop = !otherFlight && (ownsFlight || view.Resumable);
+        view.CanStop = !otherFlight && (ownsFlight || view.Resumable || CanReleaseNativeControls(co));
         view.Notice = problem ?? (ownsFlight ? Text.Get(AutoNavCore.CurrentPhase == AutoNavCore.Phase.Coast ? "Instruments.coast_hint" : Torch.Reason) :
             view.Resumable ? Text.Get("Instruments.resume_hint") : Text.Get(target != null ? "Instruments.ready_hint" : "Instruments.select_hint"));
         if (previousDestination && problem == null && !view.Resumable) view.Notice = Text.Get("Instruments.guidance_off");

@@ -31,10 +31,10 @@ internal static class RegionalEconomy
         {
             var condition = profile.Region == "OFLT" ? StockCondition.Refurbished : StockCondition.Pristine;
             foreach (string machine in new[] { Definitions.Rack, Definitions.Cooker, IrrigationDefinitions.Supply, WorkupDefinitions.Bench })
-                RegionalMarkets.Add(d, profile.Region, machine + "Loose", .25 * profile.Factor, condition);
+                RegionalMarkets.Add(d, profile.Region, machine + "Loose", .25 * profile.Factor, condition, StockQuantities.Machines);
             foreach (string item in new[] { Definitions.PotatoSeed, Definitions.LettuceSeed, Definitions.Nutrient,
                 Definitions.Irrigation, Service.RecoveryCartridge, WorkupDefinitions.Makeup, IrrigationDefinitions.Pipe + "Loose" })
-                RegionalMarkets.Add(d, profile.Region, item, .65 * profile.Factor, StockCondition.Pristine);
+                RegionalMarkets.Add(d, profile.Region, item, .65 * profile.Factor, StockCondition.Pristine, StockQuantities.For(item));
         }
         MaintenanceDefinitions.SetStat(d.Objects[WorkupDefinitions.Makeup], "IsCategoryIndustrialProducts", 1);
         foreach (string waste in new[] { WorkupDefinitions.Spent, Service.RecoveryReject, RecyclerCapture.Wet })

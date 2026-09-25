@@ -47,13 +47,60 @@ internal sealed partial class NavigationService
         if (co.ship.IsDocked()) return Text.Get("NavigationService.undock_before_engagement");
         // Pending power/sensor refresh is a contact suspension, not a discarded
         // destination. Every guidance entry point checks NativeContactReader.
-        if ((TorchDriveController.ThrustRequested(co.ship) && !Plugin.Service.Torch.Owns(co.ship)) || co.ship.shipStationKeepingTarget != null || (co.ship.aWPs != null && co.ship.aWPs.Count > 0)
-            || PropOn(co, "chkStationKeeping") || PropOn(co, "chkHoldThrust") || PropOn(co, "chkEngage")
-            || AIShipManager.GetAIShipByRegID(co.ship.strRegID) != null) return Text.Get("NavigationService.disengage_other_flight_automation_first");
+        string? nativeProblem = NativeControlProblem(co);
+        if (nativeProblem != null) return nativeProblem;
         if (CrewSim.system == null || CrewSim.system.IsInAtmo(co.ship)) return Text.Get("NavigationService.free_space_flight_only");
         if (co.ship.RCSCount <= 0 || co.ship.GetRCSRemain() <= 0) return Text.Get("NavigationService.working_rcs_and_fuel_required");
         if (co.ship.objSS == null || !ArrivalBrake.Finite(co.ship.RCSAccelMax) || co.ship.RCSAccelMax <= 0) return Text.Get("NavigationService.rcs_acceleration_unavailable");
         return null;
+    }
+
+    // Keep admission read-only. Saved switches can survive a rejected native course;
+    // only the pilot's explicit Disengage clears them and the current native controls.
+    private static string? NativeControlProblem(CondOwner co)
+    {
+        var ship = co.ship;
+        var ai = AIShipManager.GetAIShipByRegID(ship.strRegID);
+        if (ai != null) return Text.Get("Controls.native_pilot", ai.ActiveCommandName);
+        if (PropOn(co, "chkEngage")) return Text.Get("Controls.native_switch");
+        if (ship.shipStationKeepingTarget != null || PropOn(co, "chkStationKeeping")) return Text.Get("Controls.station_keeping");
+        if (PropOn(co, "chkHoldThrust") || NativeFlightPanel.Holding(ship)) return Text.Get("Controls.hold_thrust");
+        if (TorchDriveController.ThrustRequested(ship) && !Plugin.Service.Torch.Owns(ship)) return Text.Get("Controls.torch_request");
+        if (ship.aWPs != null && ship.aWPs.Count > 0) return Text.Get("Controls.waypoints");
+        return null;
+    }
+    private static bool CanReleaseNativeControls(CondOwner? co)
+    {
+        if (!IsLocalConsole(co) || co!.ship.bDestroyed || co.ship.objSS == null ||
+            CrewSim.objInstance == null || !CrewSim.objInstance.FinishedLoading ||
+            AutoNavCore.Engaged || OtherControllerBusyExceptIndustrial()) return false;
+        var ai = AIShipManager.GetAIShipByRegID(co!.ship.strRegID);
+        return (ai == null || ai.ActiveCommandName == "FlyToAutoPilot" || ai.ActiveCommandName == "HoldStationAutoPilot" ||
+            ai.ActiveCommandName == "HoldThrustAutoPilot") && NativeControlProblem(co) != null;
+    }
+    private bool ReleaseNativeControls(CondOwner? co)
+    {
+        if (!CanReleaseNativeControls(co)) return false;
+        var ship = co!.ship;
+        NativeFlightPanel.Release(ship);
+        var ai = AIShipManager.GetAIShipByRegID(ship.strRegID);
+        if (ai != null) AIShipManager.UnregisterShip(ship);
+        // Clear all local consoles so opening a second station cannot reassert a saved switch.
+        foreach (var nav in ship.GetCOs(null, false, false, true).Where(c => c.ship == ship && c.HasCond("IsNavStation")).Concat(new[] { co }).Distinct())
+            if (nav.mapGUIPropMaps.TryGetValue("Panel A", out var props))
+                foreach (string key in new[] { "chkEngage", "chkStationKeeping", "chkHoldThrust" })
+                    if (props.ContainsKey(key)) props[key] = "false";
+        ship.shipStationKeepingTarget = null;
+        ship.ClearShipTarget(); ship.objSS.ResetNavData();
+        issuing = true;
+        try
+        {
+            if (ship.Reactor != null) ship.SetReactorGPMValue("slidCycle", "0");
+            ship.SetThrust(0); ship.Maneuver(0, 0, 0, 0, 0);
+        }
+        finally { issuing = false; }
+        status = Text.Get("Controls.released"); log(status);
+        return true;
     }
 
     internal void Engage(CondOwner? co, float? arrivalKM = null, SavedFlightMode mode = SavedFlightMode.Active)
