@@ -129,6 +129,13 @@ and replace the pre-publication/download wording with verified instructions.
 Artwork records remain in [Workshop artwork provenance](../assets/workshop/README.md).
 
 Before uploading, resolve distribution terms, check exact package versions,
+and run `python scripts/check-mod-layout.py --packages` after building all mods.
+This checks that every mod retains Git-tracked native `data/` content in its
+source, prepared folder and ZIP. Empty folders do not survive Git downloads;
+plugin-only definitions still need a tracked file such as Agriculture's
+`data/README.md`. Preserve that directory in the final Workshop upload content.
+GitHub source ZIPs are source code, not installable release packages.
+Also review
 required items, save compatibility and known gameplay limitations. Generated
 notes do not confer reuse permission or certify the mod. See
 [public-release readiness](public-release-readiness.md) and

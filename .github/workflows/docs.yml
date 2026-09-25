@@ -16,6 +16,10 @@ jobs:
           fetch-depth: 0
       - name: Check local documentation links
         run: python3 scripts/check-doc-links.py
+      - name: Check native mod loader directories
+        run: python3 scripts/check-mod-layout.py
+      - name: Exercise native layout checks
+        run: python3 -m unittest discover -s tests -p test_mod_layout.py
       - name: Verify maintained constants agree
         run: python3 scripts/update-constants.py --check --format json
       - name: Exercise constant update and recovery
