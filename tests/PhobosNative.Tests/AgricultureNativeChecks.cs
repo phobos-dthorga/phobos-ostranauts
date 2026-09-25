@@ -56,6 +56,7 @@ internal static class AgricultureNativeChecks
             check(outputs * .5 < inputs * 1.2, "New-material assembly does not profit even at favorable VORB discount endpoints: " + recipe.id);
         }
         var irrigation = Definition(PhobosAgriculture.Definitions.Irrigation);
+        check(d.Objects[PhobosAgriculture.IrrigationDefinitions.Supply + "Installed"].aInteractions.Contains(PhobosAgriculture.Definitions.WorkId("load-nutrients")), "W2 exposes native crew nutrient loading");
         check(Math.Abs(Mass(irrigation.strName) - PhobosAgriculture.Definitions.IrrigationKg) < 1e-7, "Irrigation transfer uses the physical commodity mass");
         check(!DataHandler.dictCTs["TIsWater"].TriggeredDataCO(new DataCO(irrigation), false), "Root-water charge cannot impersonate native drinking water");
         check(!irrigation.aStartingConds.Any(c => c.StartsWith("IsEdible=") || c.StartsWith("IsHydrator=")), "Irrigation cannot grant food or hydration");

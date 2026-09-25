@@ -17,6 +17,7 @@ internal static partial class Service
         internal CondOwner Object = null!;
         internal ObjectStateStore Store = null!;
         internal CropState State = new();
+        internal NutrientSolution Solution = new();
         internal double Last, Received, DeliveredKW, LastPower = double.NegativeInfinity;
         internal bool Protected, Routed;
         internal string Notice = "";
@@ -27,7 +28,7 @@ internal static partial class Service
     {
         // Native damage/repair modes retain ID/property maps, but rebuild dry mass.
         var next = new Session { Object = replacement, Store = new ObjectStateStore(replacement.mapGUIPropMaps, "Agriculture", Plugin.Id, 1),
-            State = previous.State.Copy(), Protected = previous.Protected, Routed = previous.Routed, Last = StarSystem.fEpoch, Notice = Text.Get("paused") };
+            State = previous.State.Copy(), Solution = previous.Solution.Copy(), Protected = previous.Protected, Routed = previous.Routed, Last = StarSystem.fEpoch, Notice = Text.Get("paused") };
         next.State.Running = next.State.Receiving = false;
         sessions[replacement.strID] = next;
         if (!next.Protected) Save(next);
@@ -58,10 +59,14 @@ internal static partial class Service
         {
             if (status == SavedStateStatus.Ready) s.State = CropState.Read(fields);
             else if (status != SavedStateStatus.Missing) s.Protected = true;
+            var solutionStatus = SolutionStore(co).Read(out var solutionFields);
+            if (solutionStatus == SavedStateStatus.Ready) s.Solution = NutrientSolution.Read(solutionFields, s.State);
+            else if (solutionStatus != SavedStateStatus.Missing) s.Protected = true;
             ReadWaterMode(s);
             if (WaterGuard(co).Protected) s.Protected = true;
-            if (IrrigationDefinitions.IsSupply(co) && (s.State.CropId.Length != 0 || s.State.Nutrients != 0 || s.State.CookerInput.Length != 0 || s.State.CookerProgress != 0)) s.Protected = true;
-            if (Math.Abs(co.GetCondAmount("StatMass") - Definitions.DryMass(co) - s.State.ContentsMass - PhysicalMass(co)) > 1e-5) s.Protected = true;
+            if (IrrigationDefinitions.IsSupply(co) && (s.State.CropId.Length != 0 || s.State.CookerInput.Length != 0 || s.State.CookerProgress != 0)) s.Protected = true;
+            if (Definitions.IsCooker(co) && s.Solution.Enabled) s.Protected = true;
+            if (Math.Abs(co.GetCondAmount("StatMass") - Definitions.DryMass(co) - s.State.ContentsMass - s.Solution.TotalKg - PhysicalMass(co)) > 1e-5) s.Protected = true;
         }
         catch { s.Protected = true; }
         s.Notice = Text.Get(s.Protected ? "protected" : "paused"); sessions[co.strID] = s; return s;
@@ -69,10 +74,12 @@ internal static partial class Service
     internal static void Save(Session s)
     {
         if (s.Protected) throw new InvalidOperationException(Text.Get("protected"));
+        var solutionFields = s.Solution.Save(s.State);
         if (!s.Store.TryWrite(s.State.Save())) { s.Protected = true; throw new InvalidOperationException(Text.Get("protected")); }
+        if (!SolutionStore(s.Object).TryWrite(solutionFields)) { s.Protected = true; throw new InvalidOperationException(Text.Get("protected")); }
         // Native containers already include child cargo in StatMass. Keep it and propagate
         // only the numerical reservoir/biomass difference to any native parent.
-        s.Object.AddMass(Definitions.DryMass(s.Object) + s.State.ContentsMass + PhysicalMass(s.Object) - s.Object.GetCondAmount("StatMass"), true);
+        s.Object.AddMass(Definitions.DryMass(s.Object) + s.State.ContentsMass + s.Solution.TotalKg + PhysicalMass(s.Object) - s.Object.GetCondAmount("StatMass"), true);
     }
     private static double PhysicalMass(CondOwner co) => co.objContainer?.ContainedCOs.Sum(c => c.GetTotalMass()) ?? 0;
     internal static void Fault(CondOwner co, Exception error)
@@ -113,7 +120,7 @@ internal static partial class Service
             // Settle measured electricity even if a later liquid adapter fails.
             gas.fDGasTemp += received * 3600000 / (Moles(gas, "StatGasMolTotal") * 20.8);
             if (s.State.Receiving && !s.Routed && !Definitions.IsCooker(co) && !IrrigationDefinitions.IsSupply(co) && received > 0 && co.HasCond("IsInstalled") && !co.HasCond("IsDamaged"))
-                ShipsWaterSupply.Refill(co.ship, new Reservoir(s), Math.Min(.25 * elapsed, CropState.ReservoirKg - s.State.Water), Plugin.ReserveLitres.Value, WaterGuard(co));
+                ShipsWaterSupply.Refill(co.ship, new Reservoir(s), Math.Min(.25 * elapsed, Math.Max(0, s.Solution.PlainWaterCapacity - s.State.Water)), Plugin.ReserveLitres.Value, WaterGuard(co));
             Exchange exchange;
             if (IrrigationDefinitions.IsSupply(co))
             {
@@ -130,7 +137,7 @@ internal static partial class Service
             {
                 double temp = room!.GetCondAmount("StatGasTemp") + gas.fDGasTemp, pressure = room.GetCondAmount("StatGasPressure");
                 bool habitable = co.HasCond("IsInstalled") && !co.HasCond("IsDamaged") && temp >= 291.15 && temp <= 299.15 && pressure >= 70 && pressure <= 110;
-                exchange = s.State.Step(elapsed / 3600, received, Moles(gas, "StatGasMolCO2") * .044, Moles(gas, "StatGasMolO2") * .032, habitable);
+                exchange = s.State.Step(elapsed / 3600, received, Moles(gas, "StatGasMolCO2") * .044, Moles(gas, "StatGasMolO2") * .032, habitable, s.Solution);
                 gas.AddGasMols("CO2", exchange.CO2Kg / .044, false); gas.AddGasMols("O2", exchange.OxygenKg / .032, false); gas.AddGasMols("H2O", exchange.VapourKg / .018, false);
                 gas.Run();
             }
@@ -160,10 +167,11 @@ internal static partial class Service
         message = Access(co, binding) ?? ""; if (message.Length > 0) return false;
         if (action == "status") { message = Describe(co); return true; }
         var s = Get(co); if (s.Protected || WaterGuard(co).Protected || !Definitions.Ready) { message = Text.Get("protected"); return false; }
+        if (SolutionCommand(s, action, out message) is bool solutionHandled) return solutionHandled;
         if (WaterCommand(s, action, out message) is bool handled) return handled;
         if (Definitions.Work.Contains(action))
         {
-            if (binding != null || Definitions.IsCooker(co) || IrrigationDefinitions.IsSupply(co) && action != "load-water" && action != "load-irrigation" && action != "drain") { message = Text.Get("local_work"); return false; }
+            if (binding != null || Definitions.IsCooker(co) || IrrigationDefinitions.IsSupply(co) && action != "load-water" && action != "load-irrigation" && action != "load-nutrients" && action != "drain") { message = Text.Get("local_work"); return false; }
             CrewSim.GetSelectedCrew().QueueInteraction(co, DataHandler.GetInteraction(Definitions.WorkId(action))); message = Text.Get("queued"); return true;
         }
         switch (action)
@@ -202,8 +210,8 @@ internal static partial class Service
             var warnings = new List<string>();
             if (b.Health <= 0) warnings.Add(Text.Get("crop_dead"));
             if (b.DarkHours > 0) warnings.Add(Text.Get("crop_stress", b.DarkHours));
-            if (b.Water < .25) warnings.Add(Text.Get("water_low"));
-            if (b.Nutrients < .001) warnings.Add(Text.Get("nutrient_low"));
+            if (b.Water + s.Solution.Quantity.CarrierKg < .25) warnings.Add(Text.Get("water_low"));
+            if (b.Nutrients + s.Solution.Quantity.SoluteKg < .001) warnings.Add(Text.Get("nutrient_low"));
             if (room?.GasContainer != null && Moles(room.GasContainer, "StatGasMolCO2") <= 1e-6) warnings.Add(Text.Get("carbon_low"));
             if (b.Running && !b.Ready && StarSystem.fEpoch - s.LastPower <= 5 && s.DeliveredKW < b.DemandKW * .95) warnings.Add(Text.Get("power_low"));
             environment += "\n" + string.Join("\n", warnings);
@@ -215,7 +223,7 @@ internal static partial class Service
     {
         private readonly Session s; internal Reservoir(Session s) { this.s = s; }
         public string Identity => s.Object.strID; public string ShipId => s.Object.ship.strRegID; public string Commodity => "water";
-        public double QuantityKg => s.State.Water; public double CapacityKg => CropState.ReservoirKg;
+        public double QuantityKg => s.State.Water; public double CapacityKg => s.Solution.PlainWaterCapacity;
         public void SetQuantity(double kg) { s.State.Water = kg; Save(s); }
     }
 }

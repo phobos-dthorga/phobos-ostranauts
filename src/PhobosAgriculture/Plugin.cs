@@ -13,11 +13,11 @@ using Phobos.Ostranauts.Framework.Construction;
 namespace PhobosAgriculture;
 
 [BepInPlugin(Id, "Phobos Agriculture", Version)]
-[BepInDependency(FrameworkInfo.PluginId, "0.18.0")]
+[BepInDependency(FrameworkInfo.PluginId, "0.19.0")]
 [BepInProcess("Ostranauts.exe")]
 public sealed class Plugin : BaseUnityPlugin
 {
-    public const string Id = "phobosgekko.ostranauts.agriculture", Version = "0.4.0";
+    public const string Id = "phobosgekko.ostranauts.agriculture", Version = "0.5.0";
     internal static Action<string> Log = _ => { };
     internal static ConfigEntry<double> Pace = null!, ReserveLitres = null!;
     private Harmony? harmony;
@@ -119,7 +119,7 @@ internal static class ContentsEligibilityPatch
     {
         var co = action.strName.StartsWith("MS", StringComparison.Ordinal) ? us : them;
         return Definitions.Machine(co) && (action.strName.Contains("Dismantle") || action.strName.Contains("Uninstall")) &&
-            (Service.Get(co!).Protected || Service.WaterGuard(co!).Protected || Service.Get(co!).State.ContentsMass > 1e-8 || Service.Get(co!).State.CookerProgress > 0);
+            (Service.Get(co!).Protected || Service.WaterGuard(co!).Protected || Service.Get(co!).State.ContentsMass + Service.Get(co!).Solution.TotalKg > 1e-8 || Service.Get(co!).State.CookerProgress > 0);
     }
     private static void Postfix(Interaction __instance, CondOwner objUs, CondOwner objThem, ref bool __result)
     { if (__result && Blocked(__instance, objUs, objThem)) { __result = false; __instance.AddFailReason("main", Text.Get("unload_first")); } }

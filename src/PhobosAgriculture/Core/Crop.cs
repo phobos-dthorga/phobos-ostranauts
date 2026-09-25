@@ -46,34 +46,38 @@ public sealed class CropState
 
     // Effective continuously lit, NET healthy-growth surrogate. Dark/blocked time respires
     // explicitly; no oxygen timer and no bank of power credit. All quantities are kg/kWh.
-    public Exchange Step(double hours, double electricKWh, double co2Kg, double oxygenKg, bool habitable)
+    public Exchange Step(double hours, double electricKWh, double co2Kg, double oxygenKg, bool habitable, NutrientSolution? solution = null)
     {
         foreach (double x in new[] { hours, electricKWh, co2Kg, oxygenKg }) if (!Finite(x) || x < 0) throw new ArgumentException("Invalid crop step.");
         if (hours > 1) throw new ArgumentException("Settle cultivation in at most one-hour steps.");
         var exchange = new Exchange { RoomHeatKWh = electricKWh };
+        solution?.Validate(this);
         if (CropId.Length == 0 || hours == 0) return exchange;
         var c = Crop.Get(CropId);
         double grow = Running && Health > 0 && habitable ? Math.Min(1 - Progress, Math.Min(hours / (c.Hours * Pace), electricKWh / (c.Hours * c.KW))) : 0;
-        grow = Math.Max(0, Math.Min(grow, Math.Min(Water / c.Water, Math.Min(Nutrients / c.Nutrient, co2Kg / (c.Carbon * 44 / 30)))));
-        Water -= grow * c.Water; Nutrients -= grow * c.Nutrient; Biomass += grow * (c.Final - c.Seed); Carbon += grow * c.Carbon; Progress = Math.Min(1, Progress + grow);
+        double solutionGrowth = solution == null ? 0 : Math.Min(solution.Quantity.CarrierKg / c.Water, solution.Quantity.SoluteKg / c.Nutrient);
+        grow = Math.Max(0, Math.Min(grow, Math.Min(solutionGrowth + Math.Min(Water / c.Water, Nutrients / c.Nutrient), co2Kg / (c.Carbon * 44 / 30))));
+        double mixedGrowth = Math.Min(grow, solutionGrowth);
+        if (solution != null) solution.Quantity = new(Math.Max(0, solution.Quantity.CarrierKg - mixedGrowth * c.Water), Math.Max(0, solution.Quantity.SoluteKg - mixedGrowth * c.Nutrient));
+        Water -= (grow - mixedGrowth) * c.Water; Nutrients -= (grow - mixedGrowth) * c.Nutrient; Biomass += grow * (c.Final - c.Seed); Carbon += grow * c.Carbon; Progress = Math.Min(1, Progress + grow);
         exchange.CO2Kg = -grow * c.Carbon * 44 / 30; exchange.OxygenKg = grow * c.Carbon * 32 / 30; exchange.VapourKg = grow * c.Vapour;
         exchange.RoomHeatKWh -= grow * (c.Carbon * HeatPerCarbonKWh + c.Vapour * 2.45 / 3.6);
         double dark = Math.Max(0, hours - grow * c.Hours * Pace);
         double respired = Math.Min(Carbon, Math.Min(oxygenKg * 30 / 32, Carbon * (1 - Math.Exp(-dark * .0005))));
         Carbon -= respired; Biomass -= respired;
         double returnedWater = respired * 18 / 30;
-        double retained = Math.Min(returnedWater, ReservoirKg - Water); Water += retained;
+        double retained = Math.Min(returnedWater, Math.Max(0, ReservoirKg - Water - (solution?.TotalKg ?? 0))); Water += retained;
         exchange.VapourKg += returnedWater - retained;
         exchange.CO2Kg += respired * 44 / 30; exchange.OxygenKg -= respired * 32 / 30;
         exchange.RoomHeatKWh += respired * HeatPerCarbonKWh - (returnedWater - retained) * 2.45 / 3.6;
         // Harvest-ready crops still respire, but ordinary retention does not count as an irrigation failure.
-        bool stressed = !habitable || Health <= 0 || (Progress < 1 && dark > hours * .5) || Water < .01;
+        bool stressed = !habitable || Health <= 0 || (Progress < 1 && dark > hours * .5) || Water + (solution?.Quantity.CarrierKg ?? 0) < .01;
         double previousStress = DarkHours;
         DarkHours = stressed ? DarkHours + hours : Math.Max(0, DarkHours - hours);
         double damagingHours = Math.Max(0, Math.Max(0, DarkHours - 2) - Math.Max(0, previousStress - 2));
         Health = Math.Max(0, Health - damagingHours * (habitable ? .01 : .1));
         if (Health == 0) Running = false;
-        Validate(); return exchange;
+        Validate(); solution?.Validate(this); return exchange;
     }
     public void Validate()
     {

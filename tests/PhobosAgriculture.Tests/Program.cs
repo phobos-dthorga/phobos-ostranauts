@@ -66,6 +66,7 @@ dest.Ship = "ship"; dest.Fail = true; double total = source.QuantityKg + dest.Qu
 try { FiniteLiquidTransfer.Commit(source, dest, 1, 0); } catch { }
 Near(source.QuantityKg + dest.QuantityKg, total, "Failed destination returns unreceived debit");
 dest.Fail = false; dest.Kg = 20; receipt = FiniteLiquidTransfer.Commit(source, dest, 1, 0); Near(receipt.DebitedKg, 0, "Full storage consumes nothing");
+SolutionChecks.Run(Check);
 Console.WriteLine($"Agriculture: {checks} checks passed (offline; not gameplay validation).");
 
 sealed class Reservoir : ILiquidReservoir

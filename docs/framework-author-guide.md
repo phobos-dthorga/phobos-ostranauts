@@ -566,6 +566,18 @@ The new optional guarded `ShipsWaterSupply.Refill` overload preserves the earlie
 four-argument API and adds a private Framework journal to eligible provider tanks.
 
 [Agriculture water conduits](agriculture-water-conduits.md) are the first consumer.
-They keep one pump/rack pair per circuit. Mixtures, return flow, fluid temperature
+They keep one pump/rack pair per circuit. Return flow, fluid temperature
 and multi-consumer fairness need concrete additional contracts; scalar `water`
 must not be used to erase nutrient composition or manufacture cooling capacity.
+
+Framework 0.19.0 adds two-component `LiquidMixture` and `IMixtureReservoir` for
+[Agriculture's finite nutrient solutions](agriculture-nutrient-solutions.md).
+`MixtureTransfer.Allowance` preserves source proportions and checks both component
+capacities and total capacity. Use the `LiquidTransferGuard.Commit` mixture
+overload for journaled writes and measured component receipts. Adapters must set
+both quantities together and expose a stable nonempty ship/identity/profile.
+Partial accepted receipts must retain the source composition; equal total mass
+alone does not reconcile a transfer. A failed/ambiguous write protects both ends.
+Content owns the profile definitions, blending, reactions and consumption; this
+is not a general chemistry or pressure simulation. Share the existing delivery
+budget across mixing, transfer and intake rather than granting each a full budget.

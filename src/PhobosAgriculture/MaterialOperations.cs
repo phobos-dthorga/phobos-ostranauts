@@ -15,31 +15,33 @@ internal static partial class Service
     {
         var s = Get(co);
         if (s.Protected || WaterGuard(co).Protected || Access(co, null, actor) != null || !co.HasCond("IsInstalled") || co.HasCond("IsDamaged") || !Definitions.Ready) return false;
-        if (IrrigationDefinitions.IsSupply(co) && action != "load-water" && action != "load-irrigation" && action != "drain") return false;
+        if (IrrigationDefinitions.IsSupply(co) && action != "load-water" && action != "load-irrigation" && action != "load-nutrients" && action != "drain") return false;
         try
         {
             if (action == "harvest" || action == "clear") return Harvest(s, action == "clear");
             if (action == "drain")
             {
-                double kg = s.State.Water + s.State.Nutrients;
+                double kg = s.State.Water + s.State.Nutrients + s.Solution.TotalKg;
                 if (kg <= 0) return false;
                 var drained = s.State.Copy(); drained.Water = drained.Nutrients = 0; drained.Receiving = false;
-                return Deliver(s, new List<(string, double)> { (Definitions.Drainage, kg) }, null, drained);
+                var solution = s.Solution.Copy(); solution.Quantity = default;
+                return Deliver(s, new List<(string, double)> { (Definitions.Drainage, kg) }, null, drained, solution);
             }
             var next = s.State.Copy(); CondOwner? input;
             if (action == "plant-potato" || action == "plant-lettuce")
             {
                 var crop = action == "plant-potato" ? Crop.Potato : Crop.Lettuce;
                 if (next.CropId.Length != 0) return false;
+                if (!s.Solution.CanPlant(crop.Id)) { s.Notice = Text.Get("solution_incompatible"); return false; }
                 input = Input(co, crop == Crop.Potato ? Definitions.PotatoSeed : Definitions.LettuceSeed, crop.Seed);
                 next.Plant(crop, Plugin.Pace.Value);
             }
             else if (action == "load-water")
-            { if (next.Water > CropState.ReservoirKg - .25) return false; input = Input(co, "LiquidWater", .25); next.Water += .25; }
+            { if (next.Water > s.Solution.PlainWaterCapacity - .25) return false; input = Input(co, "LiquidWater", .25); next.Water += .25; }
             else if (action == "load-irrigation")
-            { if (next.Water > CropState.ReservoirKg - Definitions.IrrigationKg) { s.Notice = Text.Get("irrigation_full", Definitions.IrrigationKg); return false; } input = Input(co, Definitions.Irrigation, Definitions.IrrigationKg); next.Water += Definitions.IrrigationKg; }
+            { if (next.Water > s.Solution.PlainWaterCapacity - Definitions.IrrigationKg) { s.Notice = Text.Get("irrigation_full", Definitions.IrrigationKg); return false; } input = Input(co, Definitions.Irrigation, Definitions.IrrigationKg); next.Water += Definitions.IrrigationKg; }
             else if (action == "load-nutrients")
-            { if (next.Nutrients > CropState.NutrientCapacityKg - .04) return false; input = Input(co, Definitions.Nutrient, .04); next.Nutrients += .04; }
+            { if (next.Nutrients > s.Solution.DryCapacity - .04) return false; input = Input(co, Definitions.Nutrient, .04); next.Nutrients += .04; }
             else return false;
             if (input == null) { s.Notice = Text.Get("missing_input"); return false; }
             // Main-thread conversion: source detaches before its quantity becomes rack contents.
@@ -72,13 +74,13 @@ internal static partial class Service
         return input != null && input.objCOParent == s.Object && input.strCODef == Definitions.Raw && input.coStackHead == null && input.aStack.Count == 0 &&
             input.GetCOsSafe(true).Count == 0 && Math.Abs(input.GetTotalMass() - .4) < 1e-7 ? input : null;
     }
-    private static bool Deliver(Session s, List<(string Id, double Kg)> specs, CondOwner? input, CropState next)
+    private static bool Deliver(Session s, List<(string Id, double Kg)> specs, CondOwner? input, CropState next, NutrientSolution? nextSolution = null)
     {
         var products = new List<CondOwner>(); bool committed = false;
         try
         {
             if (s.Object.objContainer == null || s.Object.objContainer.Locked) return false;
-            double sourceMass = input != null ? input.GetTotalMass() : s.State.ContentsMass - next.ContentsMass;
+            double sourceMass = input != null ? input.GetTotalMass() : s.State.ContentsMass - next.ContentsMass + s.Solution.TotalKg - (nextSolution ?? s.Solution).TotalKg;
             if (Math.Abs(specs.Sum(x => x.Kg) - sourceMass) > 1e-7) throw new InvalidOperationException("Unbalanced agriculture delivery.");
             foreach (var spec in specs)
             {
@@ -99,7 +101,7 @@ internal static partial class Service
                 // Once detached, replacements must survive even if native destruction throws.
                 committed = true;
             }
-            s.State = next; Save(s); committed = true;
+            s.State = next; s.Solution = nextSolution ?? s.Solution; Save(s); committed = true;
             if (input != null) input.Destroy();
             s.Object.objContainer.Redraw(); s.Notice = Text.Get("done"); return true;
         }

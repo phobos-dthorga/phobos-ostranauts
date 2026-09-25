@@ -10,6 +10,7 @@ common failures and useful reports.
 - [Shipbreaker](player-guide.md), [reclaimer](scrap-reclaimer.md) and [automatic routing](automatic-material-routing.md).
 - [Industrial console](industrial-console-player-guide.md) and [electric furnace](furnace-player-guide.md).
 - [Agriculture](agriculture-player-guide.md) and [equipment acquisition/prices](equipment-economy.md).
+- [Agriculture nutrient-solution piping](agriculture-nutrient-solutions.md): W2 formulation, finite feed and saved contents.
 
 ## Development and evidence
 

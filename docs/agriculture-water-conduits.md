@@ -3,9 +3,10 @@
 25 September 2026. **Agriculture 0.4.0 requires Framework 0.18.0.** Prepared
 implementation candidate, not installed or gameplay-validated. This implements
 the first stage of the [shared-fluid research](fluid-conduits-and-irrigation-research.md).
-It supplies plant water; nutrient packets and dosing remain local to the rack.
-Central nutrient solution, multiple racks per pump, returns and furnace coolant
-networks remain later stages.
+This page records the water-only baseline. [Agriculture 0.5.0 nutrient-solution
+piping](agriculture-nutrient-solutions.md) extends the same W2 and pipes with
+finite mixed feed and shared liquid capacity. Multiple racks per pump and returns
+remain later stages; furnace cooling is a separate content-owned circuit.
 
 ## Equipment and operation
 

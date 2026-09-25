@@ -16,6 +16,7 @@ ConsoleAccessChecks.Run(Check);
 ObservationChecks.Run(Check);
 InstrumentNumberChecks.Run(Check);
 LiquidDeliveryChecks.Run(Check);
+MixtureChecks.Run(Check);
 
 // Consume the built public assembly, without compiling private copies of its code.
 Check(typeof(BatchPlacement).Assembly.GetName().Name == "PhobosFramework", "Consumer uses the shared assembly");

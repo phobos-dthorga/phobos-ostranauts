@@ -62,8 +62,9 @@ part. See [fluid conduits and irrigation research](fluid-conduits-and-irrigation
 for native evidence, Framework/content ownership and the proposed staged route
 from water distribution/local nutrient dosing to fresh nutrient-solution supply.
 The owner subsequently authorized implementation: the [Agriculture 0.4.0 water
-route](agriculture-water-conduits.md) prepares one W2/rack circuit. Nutrient-mixture
-transport remains the next extension. Supply plumbing does not establish drainage
+route](agriculture-water-conduits.md) prepares one W2/rack circuit. The authorized
+[0.5.0 nutrient-solution extension](agriculture-nutrient-solutions.md) now prepares
+finite potato/lettuce feed through that circuit. Supply plumbing does not establish drainage
 treatment or recovery.
 
 Make seed potatoes a visible reservation from food yield and introduce a distinct

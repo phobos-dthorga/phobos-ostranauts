@@ -1,5 +1,7 @@
 # Shared fluid conduits and plant sustenance
 
+Current implementation follow-up: [Agriculture 0.5.0 nutrient-solution piping](agriculture-nutrient-solutions.md) now implements finite mixed feed; staged proposals below retain their original research context.
+
 **25 September 2026 — research and proposed implementation sequence.**
 The owner requested pipes for Agriculture's water/nutrient supply, with shared
 services in Framework, and suggested following vanilla conduits in part. This

@@ -13,7 +13,9 @@ native conduit placement, connection artwork and routing. It proposes Framework
 transport services with content-owned equipment and biology. Framework 0.18.0
 implements fresh native floor routes, measured pump budgets and durable transfer
 journals for [Agriculture's first water route](agriculture-water-conduits.md).
-General branching networks and nutrient-mixture transfers remain future work.
+Framework 0.19.0 adds measured two-component transfers and durable journals for
+[Agriculture nutrient-solution piping](agriculture-nutrient-solutions.md).
+General multi-consumer distribution and return networks remain future work.
 
 Framework 0.16.0 introduced measured electricity receipts, finite thermal/gas
 primitives and the first isolated native instruments for the F6 electric furnace.

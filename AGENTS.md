@@ -91,6 +91,13 @@
 
 ## Agriculture direction (2026-09-25)
 
+- Nutrient-solution follow-up: Agriculture 0.5.0 / Framework 0.19.0 add finite
+  potato/lettuce feed through the existing W2 and irrigation conduits. Follow
+  `docs/agriculture-nutrient-solutions.md`: preserve schema-1 plain water/dry
+  nutrients, additive solution records, measured two-component transfers,
+  shared power budget and authored formulation labels. Reuse existing artwork.
+  No potable return, chemical assay or gameplay validation is implied.
+
 - Owner follow-up: research shared fluid pipes for plant sustenance (water and
   nutrients), taking after vanilla conduits in part. This is distinct from
   Agriculture cooling. Follow `docs/fluid-conduits-and-irrigation-research.md`:

@@ -51,4 +51,25 @@ public sealed class LiquidTransferGuard
         return receipt;
     }
     private static bool Finite(double value) => !double.IsNaN(value) && !double.IsInfinity(value);
+
+    private void Pending(IMixtureReservoir self, IMixtureReservoir peer, double request)
+    {
+        string N(double value) => value.ToString("R", CultureInfo.InvariantCulture);
+        if (!store.TryWrite(new Dictionary<string, string> { ["state"] = "pending-mixture", ["peer"] = peer.Identity,
+            ["profile"] = self.Profile, ["carrierKg"] = N(self.Quantity.CarrierKg), ["soluteKg"] = N(self.Quantity.SoluteKg),
+            ["peerCarrierKg"] = N(peer.Quantity.CarrierKg), ["peerSoluteKg"] = N(peer.Quantity.SoluteKg), ["requestedKg"] = N(request) }))
+            throw new InvalidOperationException("Mixture journal is protected.");
+    }
+    public static MixtureReceipt Commit(IMixtureReservoir source, IMixtureReservoir destination, double requestedKg,
+        LiquidTransferGuard sourceGuard, LiquidTransferGuard destinationGuard)
+    {
+        if (ReferenceEquals(sourceGuard, destinationGuard) || sourceGuard.Protected || destinationGuard.Protected)
+            throw new InvalidOperationException("Mixture transfer requires two clear journals.");
+        double allowed = MixtureTransfer.Allowance(source, destination, requestedKg);
+        if (allowed <= 0) return new MixtureReceipt(default, default);
+        sourceGuard.Pending(source, destination, allowed); destinationGuard.Pending(destination, source, allowed);
+        var receipt = MixtureTransfer.Commit(source, destination, allowed);
+        destinationGuard.Complete(); sourceGuard.Complete();
+        return receipt;
+    }
 }

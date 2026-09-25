@@ -5,6 +5,12 @@ Read the [player guide](agriculture-player-guide.md) for the actual first versio
 The earlier [specification](agriculture-first-slice.md) retains broader design
 targets; this record identifies delivered behavior and remaining work.
 
+Version 0.5.0 adds [finite nutrient-solution piping](agriculture-nutrient-solutions.md).
+The W2 mixes content-owned potato/lettuce profiles; Framework 0.19.0 transfers
+both components with measured receipts and interruption journals. Additive saved
+solution records preserve old water and dry-stock meanings. Existing equipment,
+artwork, crop yields and manual supply remain usable. No new art was generated.
+
 Version 0.4.0 implements the [first routed-water slice](agriculture-water-conduits.md):
 W2 finite supply, independently installed conduits, one reciprocal rack binding,
 actual electrical budgets, local nutrient loading and explicit legacy/routed
