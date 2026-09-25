@@ -33,7 +33,11 @@ retained materials also carry the Verdemorrow brand. Full names begin with
 
 Buy equipment, planting stock and formulated nutrients from the supply kiosk,
 fixer or suitable general trader after stock refresh. Availability is additive
-and probabilistic. Alternatively, use Framework construction at an ordinary
+and probabilistic. Agriculture **0.6.2** also adds seeds/food to eligible native
+fridge contents and seeds, nutrients, irrigation charges, treatment cartridges
+and loose pipes to locked-crate contents (also used by bulk-cargo loot). These
+are future native rolls, not retroactive refills. See [loot chances and settings](agriculture-loot.md).
+Alternatively, use Framework construction at an ordinary
 Bar/Dining Table, with the required screwdriver and soldering tools:
 
 | Equipment | Construction inputs | Work / base price |

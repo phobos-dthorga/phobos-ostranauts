@@ -191,7 +191,7 @@
     "Agriculture.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.6.1",
+      "value": "0.6.2",
       "description": "PhobosAgriculture published source/package version.",
       "targets": [
         {

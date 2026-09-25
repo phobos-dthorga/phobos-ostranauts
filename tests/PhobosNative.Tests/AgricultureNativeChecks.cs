@@ -10,6 +10,7 @@ internal static class AgricultureNativeChecks
 {
     internal static void Run(NativeDefinitions d, string repo, Action<bool,string> check, Action<Action,string> throws)
     {
+        AgricultureLootChecks.Run(d, check, throws);
         foreach (var co in d.Objects.Values)
         foreach (string condition in co.aStartingConds)
         {

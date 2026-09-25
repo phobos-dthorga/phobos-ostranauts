@@ -26,9 +26,9 @@ internal static class Definitions
         Ready = false;
         var mod = DataHandler.dictModInfos.Values.FirstOrDefault(m => m.strName == "Phobos Agriculture" && !m.GetIsDisabled());
         if (mod == null) throw new InvalidOperationException(Text.Get("missing_package"));
-        var prepared = Prepare(); prepared.Publish(); ConstructionRegistry.RegisterPack(Plugin.Id, Path.Combine(mod.GetDirectory(), "framework", "recipes.json"));
+        var prepared = Prepare(Plugin.LootEnabled.Value, Plugin.LootMultiplier.Value); prepared.Publish(); ConstructionRegistry.RegisterPack(Plugin.Id, Path.Combine(mod.GetDirectory(), "framework", "recipes.json"));
     }
-    internal static NativeDefinitions Prepare()
+    internal static NativeDefinitions Prepare(bool lootEnabled = true, double lootMultiplier = LootContent.DefaultMultiplier)
     {
         var d = new NativeDefinitions();
         var controls = NativeDefinitions.Clone(DataHandler.dictInteractions["Inventory"]);
@@ -75,10 +75,7 @@ internal static class Definitions
             MarketStock.Add(d, "ItmVORBScrapKioskInv", prefix + "RefurbishedOffer", prefix + "Loose", .2, StockCondition.Refurbished);
             MarketStock.Add(d, "ItmVORBScrapKioskInv", prefix + "BrokenOffer", prefix + "LooseDmg", .25, StockCondition.Broken);
         }
-        // Small refrigerated planting supplies fit this native container pool;
-        // the same pool can also appear outside derelicts. Never insert a rack into a fridge.
-        AdditiveLoot.SetItemChoice(d, "ItmFridge01Contents", "PhobosAgricultureStoredSeeds", new System.Collections.Generic.Dictionary<string, double>
-            { [PotatoSeed] = .02, [LettuceSeed] = .02 });
+        LootContent.Add(d, lootEnabled, lootMultiplier);
         return d;
     }
     private static void Stock(NativeDefinitions d, string id, double kg, double price, string key, bool food)

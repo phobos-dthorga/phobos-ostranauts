@@ -1,4 +1,6 @@
 {
+  "loot_enabled_setting": "Add Agriculture supplies and food to future native fridge and locked-crate contents rolls. Does not refill existing containers or affect merchants. Restart the game after changing.",
+  "loot_multiplier_setting": "Multiply Agriculture contents-roll chances (0 disables; 1 default; maximum 3). At most one extra Agriculture item per eligible roll. Does not affect merchant stock. Restart the game after changing.",
   "rack": "Cultivation Rack",
   "cooker": "Galley Cooker",
   "rack_desc": "Firstlight-4: 4 x 4 cultivation rack; 20 kg combined liquid and 0.5 kg total dry/dissolved nutrients. Manual stock or matching W2 nutrient solution. Potato/lettuce cycles and formulations are authored gameplay balance. Load supplies through Inventory.",

@@ -17,9 +17,11 @@ namespace PhobosAgriculture;
 [BepInProcess("Ostranauts.exe")]
 public sealed class Plugin : BaseUnityPlugin
 {
-    public const string Id = "phobosgekko.ostranauts.agriculture", Version = "0.6.1";
+    public const string Id = "phobosgekko.ostranauts.agriculture", Version = "0.6.2";
     internal static Action<string> Log = _ => { };
     internal static ConfigEntry<double> Pace = null!, ReserveLitres = null!;
+    internal static ConfigEntry<bool> LootEnabled = null!;
+    internal static ConfigEntry<double> LootMultiplier = null!;
     private Harmony? harmony;
     private float nextScan;
     private void Awake()
@@ -27,6 +29,8 @@ public sealed class Plugin : BaseUnityPlugin
         Log = x => Logger.LogInfo(x); Text.EnsureLoaded();
         Pace = Config.Bind("Crops", "GrowthDurationMultiplier", 1d, new ConfigDescription(Text.Get("pace_setting"), new AcceptableValueRange<double>(.5, 2)));
         ReserveLitres = Config.Bind("Irrigation", "CrewReserveLitres", 10d, new ConfigDescription(Text.Get("reserve_setting"), new AcceptableValueRange<double>(0, 100000)));
+        LootEnabled = Config.Bind("Loot", "Enabled", true, Text.Get("loot_enabled_setting"));
+        LootMultiplier = Config.Bind("Loot", "ChanceMultiplier", LootContent.DefaultMultiplier, new ConfigDescription(Text.Get("loot_multiplier_setting"), new AcceptableValueRange<double>(0, LootContent.MaximumMultiplier)));
         harmony = new Harmony(Id); harmony.PatchAll(typeof(Plugin).Assembly);
         FrameworkLifecycle.ContentLoading += Load; FrameworkLifecycle.ContentLoaded += Confirm;
         EquipmentProviders.Register(new Provider());

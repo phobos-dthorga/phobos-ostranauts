@@ -34,6 +34,13 @@ These are native data-trigger results for empty loose definitions. 'Buy' means t
 | Phobos' Verdemorrow Firstlight-4 Cultivation Rack (Damaged) | 140.00 | IsCategoryIndustrialProducts | Yes | Yes | No | No |
 | Phobos' Verdemorrow Hearth-2 Galley Cooker | 150.00 | IsCategoryIndustrialProducts | Yes | Yes | No | No |
 | Phobos' Verdemorrow Hearth-2 Galley Cooker (Damaged) | 30.00 | IsCategoryIndustrialProducts | Yes | Yes | No | No |
+| Phobos' Verdemorrow Groundwork W2 Water Supply Unit | 250.00 | IsCategoryIndustrialProducts | Yes | Yes | No | No |
+| Phobos' Verdemorrow Groundwork W2 Water Supply Unit (Damaged) | 50.00 | IsCategoryIndustrialProducts | Yes | Yes | No | No |
+| Phobos' Verdemorrow Agricultural Housing Waste | 0.01 | IsCategoryTrash | Yes | Yes | No | No |
+| Phobos' Verdemorrow Agricultural Housing Waste | 0.01 | IsCategoryTrash | Yes | Yes | No | No |
+| Phobos' Verdemorrow Groundwork Irrigation Conduit | 2.00 | IsCategoryIndustrialProducts | Yes | Yes | No | No |
+| Phobos' Verdemorrow Groundwork Irrigation Conduit (Damaged) | 0.40 | IsCategoryIndustrialProducts | Yes | Yes | No | No |
+| Phobos' Verdemorrow Agricultural Housing Waste | 0.01 | IsCategoryTrash | Yes | Yes | No | No |
 | Phobos' Verdemorrow Continuance Seed Potato (0.2 kg) | 40.00 | IsCategoryIndustrialProducts | Yes | Yes | No | No |
 | Phobos' Verdemorrow Continuance Lettuce Seeds (5 g) | 5.00 | IsCategoryIndustrialProducts | Yes | Yes | No | No |
 | Phobos' Verdemorrow Groundwork Formulated Crop Nutrients (40 g) | 60.00 | IsCategoryIndustrialProducts | Yes | Yes | No | No |
@@ -42,6 +49,9 @@ These are native data-trigger results for empty loose definitions. 'Buy' means t
 | Phobos' Verdemorrow Lettuce (0.25 kg) | 8.00 | IsCategoryFood | Yes | Yes | No | No |
 | Phobos' Verdemorrow Crop Residue | 0.01 | IsCategoryTrash | Yes | Yes | No | No |
 | Phobos' Verdemorrow Agricultural Process Solution | 0.01 | IsCategoryTrash | Yes | Yes | No | No |
+| Phobos' Verdemorrow Recorded Process Solution | 0.01 |  | Yes | Yes | No | No |
+| Phobos' Verdemorrow Retained Treatment Rejects | 0.01 |  | Yes | Yes | No | No |
+| Phobos' Verdemorrow Groundwork Treatment Cartridge | 25.00 | IsCategoryIndustrialProducts | Yes | Yes | No | No |
 | Phobos' Verdemorrow Groundwork Irrigation Charge (5 kg) | 50.00 | IsCategoryIndustrialProducts | Yes | Yes | No | No |
 | Phobos' Verdemorrow Agricultural Housing Waste | 0.01 | IsCategoryTrash | Yes | Yes | No | No |
 | Phobos' Verdemorrow Agricultural Housing Waste | 0.01 | IsCategoryTrash | Yes | Yes | No | No |

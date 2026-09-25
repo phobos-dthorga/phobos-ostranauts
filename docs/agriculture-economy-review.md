@@ -1,5 +1,37 @@
 # Agriculture economy review
 
+## Current remaining work (0.6.2)
+
+The newer [loot extension](agriculture-loot.md) supplies seeds, food and finite
+consumables through appropriate native pools. It does not change crop prices or
+make station-independent replenishment complete. The following work remains:
+
+- Extend the equipment/service comparison to W2 and irrigation pipes. Their
+  construction, purchase, repair and dismantling exist; the generated equipment
+  summary still focuses on rack/cooker. In particular, the 2 cr pipe inherits a
+  repair bill of one small mechanical part plus one aluminium scrap (6.10 cr at
+  the inspected base values), making ordinary replacement cheaper in materials.
+- Add treatment economics: each recorded drainage item consumes one 25 cr
+  cartridge, plus power and crew work, independent of batch size. Small batches
+  can cost more than fresh inputs. Recovery is already implemented; this is a
+  balancing and presentation gap, not missing treatment functionality.
+- Compare full crop operating costs and avoided food purchases: retained seed,
+  consumed portions of nutrient/water packs, lighting, pumping, cooking, cooling,
+  crew work, crop losses and equipment. Existing nominal output values are not
+  net trading profits. Check actual merchant availability and buying policies.
+- Implement the separately planned lettuce seed-production lifecycle if selected.
+  Lettuce still consumes purchased/found seed each sowing; potatoes reserve seed
+  from a suitable harvest. Loot adds finite finds, not propagation.
+- Research useful manufacturing/replenishment of nutrient stock and treatment
+  media, and characterized crop-residue recovery. No such recipes are delivered
+  by the loot update; retained terminal rejects remain terminal.
+
+Crop, W2, service and loot prices/probabilities are authored gameplay choices.
+Blue Bottle Games' native definitions support the component/trade comparisons;
+they do not establish market quotes or balanced profitability in ordinary play.
+
+## Historical audit and implemented first economic pass
+
 **Implemented follow-up: Agriculture 0.3.0.** Current values and owner checks are
 in the [player guide](agriculture-player-guide.md#economy-and-maintenance-030);
 the [generated evidence](agriculture-economy-evidence.md) now reflects 0.3.0.

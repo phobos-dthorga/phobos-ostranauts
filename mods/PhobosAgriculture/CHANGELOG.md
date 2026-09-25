@@ -8,6 +8,19 @@ Dates on Draft entries record preparation, not Steam publication.
 
 No additional changes recorded.
 
+## [0.6.2] - 2026-09-25 - Draft
+
+### Added
+
+- Agriculture planting stock and food can appear through native fridge contents; seeds, nutrients, irrigation charges, treatment cartridges and loose pipes can appear through locked-crate contents and its bulk-cargo uses.
+- One optional extra item per eligible contents roll: 22% total fridge chance and 30% crate chance by default. Existing native and other-mod rewards remain intact.
+- Add Loot.Enabled and Loot.ChanceMultiplier settings (0 to 3, default 1; restart required). Settings affect future loot generation, not merchants or already saved inventories.
+
+### Limits
+
+- These are shared native pools, not guaranteed finds or a promise that every fridge uses them. No existing container refill, large machinery, spent waste or artificial measured-drainage records are added.
+- Prices, recipes, crop yields and saved item identities are unchanged. Artwork from 0.6.1 remains included; owner in-game loot and appearance checks remain pending.
+
 ## [0.6.1] - 2026-09-25 - Draft
 
 ### Changed

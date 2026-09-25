@@ -13,7 +13,7 @@ if ($LASTEXITCODE -ne 0) { throw 'Agriculture balance/persistence checks failed.
 & dotnet run --project (Join-Path $repoRoot 'tests/PhobosNative.Tests') -c Release "-p:OstranautsPath=$gameRoot" -- $gameRoot $repoRoot
 if ($LASTEXITCODE -ne 0) { throw 'Native definition checks failed.' }
 . (Join-Path $PSScriptRoot 'build-package-support.ps1')
-$package = New-PhobosPackage -RepoRoot $repoRoot -Id PhobosAgriculture -Readme 'docs/agriculture-player-guide.md' -ExtraDocs @('docs/agriculture-player-guide.md', 'docs/agriculture-first-slice.md', 'docs/agriculture-research.md', 'docs/agriculture-roadmap.md', 'docs/agriculture-implementation.md', 'docs/agriculture-living-visuals.md', 'docs/asset-generation-policy.md')
+$package = New-PhobosPackage -RepoRoot $repoRoot -Id PhobosAgriculture -Readme 'docs/agriculture-player-guide.md' -ExtraDocs @('docs/agriculture-player-guide.md', 'docs/agriculture-first-slice.md', 'docs/agriculture-research.md', 'docs/agriculture-roadmap.md', 'docs/agriculture-implementation.md', 'docs/agriculture-living-visuals.md', 'docs/agriculture-loot.md', 'docs/asset-generation-policy.md')
 Copy-Item -LiteralPath (Join-Path $repoRoot 'assets/phobos-agriculture/generation-records.json') -Destination (Join-Path $package 'agriculture-art-provenance.json')
 Copy-Item -LiteralPath (Join-Path $repoRoot 'assets/phobos-agriculture/README.md') -Destination (Join-Path $package 'agriculture-art-notes.md')
 Copy-Item -LiteralPath (Join-Path $repoRoot 'assets/phobos-agriculture/exports.json') -Destination (Join-Path $package 'agriculture-art-exports.json')
