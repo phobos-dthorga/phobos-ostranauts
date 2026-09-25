@@ -17,7 +17,7 @@ internal static class FurnaceConduitDefinitions
         d.Triggers[p + "Sprite"] = new CondTrigger { strName = p + "Sprite", fChance = 1, fCount = 1, bAND = true,
             aReqs = new[] { Segment }, aForbids = Array.Empty<string>(), aTriggers = Array.Empty<string>() };
         d.Loot[p + "Adds"] = new Loot { strName = p + "Adds", strType = "condition", aCOs = new[] { Segment + "=1x1" }, aLoots = Array.Empty<string>() };
-        ApplianceDefinitions.Add(d, p, Text.Get("Furnace.coolant_pipe"), Text.Get("Furnace.coolant_pipe_desc", FurnaceCooling.RouteLimit), 1, 1, 3, Art, "Inventory", 0);
+        ApplianceDefinitions.Add(d, p, Text.Get("Furnace.coolant_pipe"), Text.Get("Furnace.coolant_pipe_desc", FurnaceCooling.RouteLimit), 1, 1, 3, Art, "Inventory", 0, InstallMenu.Hvac);
         d.Power.Remove(p + "Power");
         string waste = p + "Waste";
         MaintenanceDefinitions.Remainder(d, waste, Text.Get("Furnace.coolant_waste"), 1);

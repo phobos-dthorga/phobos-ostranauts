@@ -3,6 +3,10 @@ namespace PhobosAutoNav;
 internal sealed class FireControlController
 {
     internal bool Permitted;
+    internal int? InArcCount => null;
+    internal int? AmmoCount => null;
+    internal int? ReadyCount => null;
+    internal double SampleEpoch => double.NaN;
     internal string Reason => "Pursuit.ceased";
     internal void Reset() => Permitted = false;
     internal void Cease() => Permitted = false;

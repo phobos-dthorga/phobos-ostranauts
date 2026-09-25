@@ -111,6 +111,11 @@ category gets a visible drag-build tab. Deliver normal native item installation
 first; inspect the build-menu adapter before promising conduit-style drag laying.
 No new graphical construction mode is needed just to supply the first rack.
 
+Implementation follow-up (25 September 2026): the existing native tabs have now
+been inspected and [catalogue entries](install-catalogue.md) prepared for all
+implemented Phobos fixtures, including irrigation under MISC and coolant under
+HVAC. Arbitrary new tabs and continuous drag laying remain unverified.
+
 ## Plant-delivery evidence and its limits
 
 | Primary source | Supported finding | Our proposed application |

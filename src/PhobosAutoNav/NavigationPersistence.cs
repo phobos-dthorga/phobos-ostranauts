@@ -12,6 +12,7 @@ internal sealed partial class NavigationService
     partial void ResetPursuit();
     private FlightSnapshot? savedFlight;
     private bool restorePending;
+    private bool combinedHandoffPending;
     private static ObjectStateStore Store(CondOwner co) => new ObjectStateStore(co.mapGUIPropMaps,
         FlightSnapshot.StoreName, co.strID, FlightSnapshot.Schema);
 
@@ -20,7 +21,7 @@ internal sealed partial class NavigationService
     internal void WorldChanging()
     {
         ResetPursuit(); Fire.Reset(); Torch.Reset(); AutoNavCore.ResetStatics(); console = null; savedFlight = null;
-        issuing = false; restorePending = false; status = Text.Get("Persistence.loading");
+        issuing = false; restorePending = false; combinedHandoffPending = false; status = Text.Get("Persistence.loading");
     }
     internal void WorldLoaded() => restorePending = true;
 
@@ -89,7 +90,7 @@ internal sealed partial class NavigationService
 
     private FlightSnapshot CaptureFlight(CondOwner co, TargetRef target, double cruise, double arrival, double distance, SavedFlightMode mode = SavedFlightMode.Active) => new FlightSnapshot
     {
-        ConsoleId = co.strID, ModuleId = co.GetCOsSafe(true).First(item => (mode != SavedFlightMode.Active ? HasId(item, PursuitId) : (HasId(item, ModuleId) || HasId(item, PursuitId))) && !item.HasCond("IsDamaged")).strID,
+        ConsoleId = co.strID, ModuleId = co.GetCOsSafe(true).First(item => (mode == SavedFlightMode.Rendezvous || mode == SavedFlightMode.Following ? HasId(item, PursuitId) : (HasId(item, ModuleId) || HasId(item, PursuitId))) && !item.HasCond("IsDamaged")).strID,
         ShipId = co.ship.strRegID, PlayerId = CrewSim.coPlayer.strID, TargetId = target.ShipId,
         CruiseMS = cruise, ArrivalMS = arrival,
         ArrivalKM = distance, Coast = AutoNavCore.FlightCoastSettings, PreferTorch = AutoNavCore.FlightPrefersTorch, Mode = mode
@@ -117,6 +118,7 @@ internal sealed partial class NavigationService
 
     private bool FinishSavedFlight(SavedFlightMode mode)
     {
+        if (mode == SavedFlightMode.Stopped) combinedHandoffPending = false;
         try
         {
             if (savedFlight == null || console == null || console.bDestroyed || savedFlight.ConsoleId != console.strID) return false;
@@ -158,7 +160,7 @@ internal sealed partial class NavigationService
             }
             if (problem == null && (target == null || !AutoNavCore.TryReadApproach(co.ship, target, snapshot.ArrivalKM, out _, out _)))
                 problem = Text.Get("NavigationService.target_unavailable");
-            if (problem == null && !snapshot.IsDocking)
+            if (problem == null && !snapshot.IsDocking && !snapshot.IsCombinedApproach)
                 problem = AdmissionProblem(co, target!, snapshot.ArrivalKM, snapshot.ArrivalMS);
             if (problem != null)
             {
@@ -166,6 +168,7 @@ internal sealed partial class NavigationService
                 status = Text.Get("Persistence.suspended_reason", problem); log(status); return;
             }
             if (snapshot.IsDocking) { ResumeDocking(co, target!, snapshot); return; }
+            if (snapshot.IsCombinedApproach) { ResumeApproachDock(co, target!, snapshot); return; }
             // No Resolve/BeginFlight here: those can advance target physics or
             // reset native navigation. All actual guidance waits for TimeAdvance.
             AutoNavCore.RestoreFlight(co.ship, target!, snapshot);

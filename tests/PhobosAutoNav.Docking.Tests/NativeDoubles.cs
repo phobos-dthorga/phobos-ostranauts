@@ -133,7 +133,7 @@ namespace PhobosAutoNav
     internal sealed class Setting<T> { internal T Value; internal Setting(T value) { Value = value; } }
     internal static class Plugin
     {
-        internal static Setting<bool> Enabled = new(true), ResumeAfterLoad = new(true), FuelCheck = new(true);
+        internal static Setting<bool> Enabled = new(true), ResumeAfterLoad = new(true), FuelCheck = new(true), PreferTorch = new(false);
         internal static Setting<double> MaxFlightSimHours = new(48);
         internal static CoastSettings ReadCoastSettings() => new(3,10,.75,2);
     }
@@ -160,7 +160,9 @@ namespace PhobosAutoNav
         internal static void AdvanceDockingClock(double dt) => ElapsedSeconds += dt;
         internal static bool AutoDockBusy() => Busy;
         internal static bool TryReadApproach(Ship own, TargetRef target, double distance, out ApproachPlan plan, out double speed)
-        { plan = default; speed = 0; return true; }
+        { var other = CrewSim.system.GetShipByRegID(target.ShipId)!;
+            double dx = other.objSS.vPosx-own.objSS.vPosx, dy = other.objSS.vPosy-own.objSS.vPosy;
+            speed = 0; return ApproachRules.TryPlan(Math.Sqrt(dx*dx+dy*dy)/M_TO_AU/1000, distance, .2, out plan); }
     }
     internal sealed class TorchDouble { internal void Release() { } internal void Reset() { } }
     internal sealed partial class NavigationService
@@ -179,6 +181,8 @@ namespace PhobosAutoNav
         private string? HardwareProblem(CondOwner? co) => HardwareFailure;
         private static string? AdmissionProblem(CondOwner co, TargetRef target, double km, double speed) => null;
         private static bool HasId(CondOwner co, string id) => co.Kind == id;
+        private static bool ReadPreferences(CondOwner co, out FlightPreferences preferences) { preferences = new FlightPreferences(1500,0,1); return true; }
+        internal bool FinishApproach() { AutoNavCore.EndFlight(console!.ship,"ARRIVED"); return QueueDockingHandoff(); }
         internal void Engage(CondOwner? co) => throw new NotSupportedException();
         internal void Disengage(string reason)
         { FinishSavedFlight(SavedFlightMode.Stopped); AutoNavCore.ResetStatics(); console?.ship.Maneuver(0,0,0,0,1); status = reason; }

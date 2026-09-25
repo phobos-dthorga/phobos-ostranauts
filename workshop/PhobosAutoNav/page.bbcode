@@ -1,11 +1,17 @@
 [h1]Phobos Auto Nav[/h1]
-[b]Version:[/b] 0.11.0
+[b]Version:[/b] 0.12.0
 [b]Publication status:[/b] Not published - held for upstream provenance review
 
-The Phobos' Asterel N1 Polaris Auto Nav Module assists approaches and braking. The new Phobos' Asterel N2 Polaris Pursuit Module adds Rendezvous, Follow and explicitly permitted native fire control. Both share one guidance service and separate checked RCS docking.
+The Phobos' Asterel N1 Polaris Auto Nav Module assists approaches and braking. The new Phobos' Asterel N2 Polaris Pursuit Module adds Rendezvous, Follow and explicitly permitted native fire control. Either module supplies the shared flight hub and checked docking; N2 supplies pursuit and fire controls. Both installed still show one hub.
 
 [h2]Current features[/h2]
 [list]
+[*]One tall graphite/slate hub exposes Navigation, Pursuit and Systems, with diagnostic-only Details. Place its new 25%-wide, 80%-high footprint through native Edit; old compact placements do not expand over other instruments. Keep native map, sensors, warnings and Comms available.
+[*]Reuse native guarded switches, buttons and sliders by runtime reference. Separate navigation/offensive targets and unavailable/stale readings are explicit. No game artwork is redistributed.
+[*]Header, tabs and bottom actions fit their faceplate recesses. Telemetry and settings use inset display fields; compact status labels keep full explanations in Details. Layout checks include field boundaries, not only overall panel fit.
+[*]Compact page-button faces leave clear margins inside the tab row while retaining larger click targets and readable labels.
+[*]Navigation offers Approach, Dock and explicit Approach & Dock: capture native clearance/assigned ports, stage 1 km beyond protected hull clearance, match motion and revalidate the RCS-only handoff. Failed handoff suspends for Resume.
+[*]Systems shows essential propulsion telemetry and native torch controls. Manual actions release automation and retain native restrictions. Specialist reactor functions remain native.
 [*]Predict motion over a short horizon and replan from qualified observations of both ships. Preserve RCS throttle, torch protections and braking handoff.
 [*]N2: Rendezvous finishes at a chosen separation; Follow maintains a band. Select an offensive target and weapon group separately, then Engage. Cease Fire retains following.
 [*]N2: Polaris merchant or two-electronics/30-minute construction; repair, Restore and retained board offcuts/residue.
@@ -17,20 +23,22 @@ The Phobos' Asterel N1 Polaris Auto Nav Module assists approaches and braking. T
 
 [h2]Limits and save behaviour[/h2]
 [list]
-[*]Stop / Coast clears thrust; it is not emergency braking. Fly stops short; Dock is a separate action.
+[*]Resume, Disengage and Cease Fire remain on every page. Disengage clears thrust and allows coasting; it is not emergency braking. Approach stops short; docking requires Dock or Approach & Dock.
 [*]No general obstacle avoidance, guaranteed catch or intact capture. Sensor loss suspends guidance. N1 Fly remains a one-shot approach; N2 Follow supplies continuous distance holding.
-[*]Rendezvous, Follow and Docking suspend after reload. Fire permission and prediction history are never restored. Native manual/defensive settings remain in force; missile fire requires the open native display and completed lock. Automatic fire is held above a one-second simulation step. Ordinary flight restoration follows its own validation and preference policy.
-[*]Offline manoeuvring-target and fire-interlock checks pass; N2 pursuit, combat coordination and moving-target docking require owner gameplay evaluation. Numerical results are not measured game fuel savings.
+[*]Rendezvous, Follow and both combined docking phases suspend after reload. Fire permission and prediction history are never restored. Native manual/defensive settings remain in force; missile fire requires the open native display and completed lock. Automatic fire is held above a one-second simulation step. Ordinary flight restoration follows its own validation and preference policy.
+[*]Offline manoeuvring-target and fire-interlock checks pass; the tall hub, pursuit, combat coordination and moving-target docking require owner gameplay evaluation. All routine views pass offline layout checks at 300 x 480, 400 x 640 and 600 x 960; those are not native gameplay captures. Numerical results are not measured game fuel savings.
 [*]Upstream-derived guidance reuse terms remain unresolved. This draft is held for provenance review before Workshop publication.
 [/list]
 
 [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/auto-nav-pursuit.md]Pursuit controls, tested conditions, research and limits[/url]
 
+[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/auto-nav-instruments.md]Flight hub controls and layout migration[/url]
+
 [h2]Research attribution[/h2]
 [url=https://ntrs.nasa.gov/citations/20120014309]Zhou, NASA Langley (2012)[/url] supports relative-motion feedback; [url=https://eprints.whiterose.ac.uk/id/eprint/90483/1/orcsatpaper_final.pdf]Hartley, Trodden, Richards and Maciejowski, ESA ORCSAT (2012)[/url] motivates constrained repeated planning for a passive target; [url=https://www.esa.int/Enabling_Support/Operations/ATV_i_Jules_Verne_i]ESA ATV operations[/url] motivates separate checked approach/hold/capture phases. Our game controller, thresholds and equipment balance are authored choices; these sources neither validate nor endorse this mod or hostile capture.
 
 [h2]Requirements and installation[/h2]
-Ostranauts 1.0.1.5, BepInEx 5 and Phobos Framework 0.15.0 or newer. Original Auto Navigate is not a dependency and must be disabled for Phobos Auto Nav to engage.
+Ostranauts 1.0.1.5, BepInEx 5 and Phobos Framework 0.17.0 or newer. Original Auto Navigate is not a dependency and must be disabled for Phobos Auto Nav to engage.
 
 This is a maintained pre-publication page draft, not a download announcement. No Workshop item has been published for this draft. Use the installation guide for source/prepared-package availability and loader setup. Do not remove required providers from saves that contain their content.
 

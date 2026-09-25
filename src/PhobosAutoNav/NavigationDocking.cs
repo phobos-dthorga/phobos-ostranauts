@@ -78,6 +78,12 @@ internal sealed partial class NavigationService
     // would mix timestamps and mistake orbital motion for a large docking error.
     internal void TickDocking(StarSystem system, double dt, bool afterPhysics)
     {
+        try
+        {
+            if (system == CrewSim.system && CrewSim.objInstance != null && CrewSim.objInstance.FinishedLoading && !CrewSim.Paused && dt > 0)
+                TickCombinedDocking(afterPhysics);
+        }
+        catch (Exception ex) { log(ex.ToString()); Disengage(Text.Get("Docking.error")); return; }
         if (dockingAttachmentPending || !DockingActive || system != CrewSim.system || CrewSim.objInstance == null ||
             !CrewSim.objInstance.FinishedLoading || CrewSim.Paused || dt == 0) return;
         using var measurement = Phobos.Ostranauts.Framework.Diagnostics.Performance.Measure(PerformanceMetrics.Docking);

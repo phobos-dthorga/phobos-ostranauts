@@ -56,7 +56,7 @@ internal static class IrrigationDefinitions
             }
         }
         // Ordinary native install/repair workflow, with entirely independent tile sockets.
-        ApplianceDefinitions.Add(d, Pipe, Text.Get("water_pipe"), Text.Get("water_pipe_desc"), 1, PipeKg, PipePrice, "phobos/agriculture/WaterPipe", Definitions.Controls, 0);
+        ApplianceDefinitions.Add(d, Pipe, Text.Get("water_pipe"), Text.Get("water_pipe_desc"), 1, PipeKg, PipePrice, "phobos/agriculture/WaterPipe", Definitions.Controls, 0, InstallMenu.Miscellaneous);
         d.Power.Remove(Pipe + "Power");
         foreach (string form in new[] { "Installed", "Loose", "InstalledDmg", "LooseDmg" })
         {

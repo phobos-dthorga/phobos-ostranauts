@@ -18,8 +18,13 @@ internal sealed class FireControlController
     private bool dispatch;
     private ShipSitu? inhibitedTarget;
     internal bool Permitted { get; private set; }
+    internal int? InArcCount { get; private set; }
+    internal int? AmmoCount { get; private set; }
+    internal int? ReadyCount { get; private set; }
+    internal double SampleEpoch { get; private set; } = double.NaN;
     internal string Reason { get; private set; } = "Pursuit.ceased";
-    internal void Reset() { owner = null; target = null; group = 0; inhibitedTarget = null; Reason = "Pursuit.ceased"; aim.Clear(); dispatch = false; Permitted = false; AutoNavCore.FaceTarget = false; AutoNavCore.WeaponHeading = null; }
+    internal void Reset() { owner = null; target = null; group = 0; inhibitedTarget = null; Reason = "Pursuit.ceased"; aim.Clear(); dispatch = false; Permitted = false; AutoNavCore.FaceTarget = false; AutoNavCore.WeaponHeading = null; ClearReadiness(); }
+    private void ClearReadiness() { InArcCount = AmmoCount = ReadyCount = null; SampleEpoch = double.NaN; }
     internal void Cease() { var held = target?.TargetSitu ?? inhibitedTarget; Reset(); inhibitedTarget = held; }
     internal void Authorize(Ship ship, TargetRef destination, int selectedGroup)
     {
@@ -34,6 +39,7 @@ internal sealed class FireControlController
 
     internal void Tick(Ship ship, TargetRef destination, double dt, bool guidanceAllowsFire)
     {
+        ClearReadiness();
         if (!Permitted || target == null) return;
         destination = target;
         if (ship != owner || !AutoNavCore.Engaged || !AutoNavCore.Following ||
@@ -49,6 +55,7 @@ internal sealed class FireControlController
         var other = CrewSim.system.GetShipByRegID(destination.ShipId);
         if (other?.objSS == null) { Cease(); return; }
         var salvo = new List<CondOwner>();
+        int arcs = 0, loaded = 0;
         Reason = "Pursuit.aiming";
         bool selected = false;
         var present = new HashSet<string>();
@@ -66,9 +73,12 @@ internal sealed class FireControlController
             double range = weapon.GetCondAmount("IsShipWeaponArcRange", false);
             if (weapon.HasCond("IsShipWeaponMassThrower", false)) range *= ship.WeaponsSystem.fRangeModGunner;
             double angle = ship.WeaponsSystem.GetItemsDefaultFiringAngle(weapon.Item.fLastRotation) + Math.PI / 2;
-            ready &= TorchRules.Finite(arc, range, angle) && arc > 0 && range > 0 &&
+            bool inArc = TorchRules.Finite(arc, range, angle) && arc > 0 && range > 0 &&
                 WeaponsSystem.IsPointInView(ship.objSS.vPos, new Point(Math.Cos(angle), Math.Sin(angle)), other.objSS.vPos, range, arc);
+            if (inArc) arcs++;
+            ready &= inArc;
             var ammo = WeaponsSystem.GetAmmo(weapon);
+            if (ammo != null && ammo.Count > 0) loaded++;
             ready &= ammo != null && ammo.Count > 0;
             bool missile = ammo?.Any(a => a != null && a.HasCond("IsAmmoMissile")) == true;
             // Native player missiles require the native sensor lock; never invoke the AI shortcut.
@@ -90,6 +100,7 @@ internal sealed class FireControlController
         }
         foreach (string id in aim.Keys.Where(id => !present.Contains(id)).ToArray()) aim.Remove(id);
         if (!selected) { aim.Clear(); Reason = "Pursuit.no_weapons"; }
+        InArcCount = arcs; AmmoCount = loaded; ReadyCount = salvo.Count; SampleEpoch = StarSystem.fEpoch;
         if (salvo.Count == 0) return;
         // Combat selection is leased only during native projectile creation (missile API requirement).
         // The player's persistent combat selection is never used as our engagement permission.

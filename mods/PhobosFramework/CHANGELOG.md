@@ -6,7 +6,9 @@ Dates on Draft entries record preparation, not Steam publication.
 
 ## [Unreleased]
 
-No additional changes recorded.
+### Fixed
+
+- Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
 ## [0.20.0] - 2026-09-25 - Draft
 

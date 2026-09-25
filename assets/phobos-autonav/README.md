@@ -1,5 +1,37 @@
 # Phobos Auto Nav artwork
 
+## Current flight hub (0.12.0)
+
+One reusable tall faceplate serves both N1 and N2. Live Navigation/Pursuit labels
+and accents distinguish capabilities. Intended reference: **600 × 960**; runtime
+PNG: **1200 × 1920**; retained AI-upscaled master: **1984 × 3172**. Controls, text,
+numeric displays and hit areas remain separate. World-item footprints are unchanged.
+The corrected live layout registers six safe fields to the actual raster recesses.
+Readouts have code-rendered inset bezels and padded content; all labels remain live.
+This changes registration/presentation only, retaining the selected image hashes.
+
+- [Exact generation prompt and upscale provenance](hub-prompt.md)
+- [Processing manifest and hashes](hub-upscale-provenance.json)
+- [Shared live-control registration](hub-layout.json)
+- [Offline layout preview](previews/flight-hub.html)
+- [Current controls and migration](../../docs/auto-nav-instruments.md)
+
+The two untouched Imagegen sources in `source/PhobosFlightHub-generated.png` and
+`source/PhobosFlightHub-resolution-attempt.png` are both 992 × 1586. Explicit
+owner-approved local Real-ESRGAN supplies inferred sharper texture, not lossless
+reconstruction. The source alpha is resampled separately. The enlarged master is
+`source/PhobosFlightHub-ai-master.png`; production is
+`mods/PhobosAutoNav/images/phobos/autonav/PhobosFlightHub.png` at repository root.
+Earlier approved masters, exports and the 0.11.1 N2 work below are retained as
+historical provenance. They are not the current hub's control layout.
+
+Blue Bottle Games' native button, knob, slider and guarded-switch sprites are
+shared by runtime reference through Framework's isolated native adapters. No
+reactor panel/controller or game-derived bitmap is distributed with this art.
+The original Phobos N2 generated artwork is the style reference for the new plate.
+
+## Earlier artwork records
+
 New artwork and visual revisions follow the
 [2x/4x resolution policy](../../docs/artwork-resolution-policy.md). The approved
 masters and existing export dimensions recorded below remain unchanged.
@@ -86,10 +118,21 @@ no exclusivity in generated imagery or rights over the game's art are claimed.
 The separate uncertainty about Auto Navigate-derived code is documented in the
 repository/package's `THIRD_PARTY_NOTICES.md` and is not an artwork dependency.
 
-## N2 pursuit casing reuse (25 September 2026)
+## N2 pursuit artwork — 0.11.1 (25 September 2026)
 
-Auto Nav's N2 pursuit instrument reuses the existing module, damaged module,
-portrait, normal map and instrument faceplate exports unchanged. It is identified
-by its localized live N2 title and pursuit controls. No new artwork generation,
-third-party raster extraction or new artwork licence is implied. The N2 controls
-require owner evaluation in the actual native panel layout.
+The initial 0.11.0 N2 reused N1 art. Following the owner's request, N2 now uses
+its own 1942 x 809 graphite-blue/amber instrument faceplate, retaining the same
+600 x 250 reference layout and native placement bounds (over 2x both axes).
+The untouched built-in generated master is also the runtime texture:
+`mods/PhobosAutoNav/images/phobos/autonav/PhobosPursuitInstruments.png`.
+SHA-256: `9B6C07990EAA2C2AC4800D1F1B73994B0E0BCE018F998824CE017799A5A00FC8`.
+See [exact prompt and provenance](pursuit-prompt.md).
+
+Blue Bottle Games' native `navmod/ItmNavMod01` / `ItmNavMod01Dmg` sprites and
+matching normals are runtime references for the N2 item/portrait. They remain
+16 x 16 native assets with native detail, not generated or enlarged production
+masters. No game pixels are redistributed or uploaded to an image provider.
+The panel uses Framework's isolated reactor safety toggle and references the
+native air-pump Done button's artwork, with fresh Phobos actions and live labels.
+No native reactor or air-pump controller is instantiated. N1 masters remain
+unchanged. The new panel and controls require owner in-game evaluation.

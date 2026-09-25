@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
-    <Version>0.11.0</Version>
+    <Version>0.12.0</Version>
     <GameManaged>$(OstranautsPath)/Ostranauts_Data/Managed</GameManaged>
     <BepInExCore>$(OstranautsPath)/BepInEx/core</BepInExCore>
   </PropertyGroup>
@@ -14,6 +14,7 @@
     <Reference Include="Assembly-CSharp-firstpass" HintPath="$(GameManaged)/Assembly-CSharp-firstpass.dll" Private="false" />
     <Reference Include="UnityEngine" HintPath="$(GameManaged)/UnityEngine.dll" Private="false" />
     <Reference Include="UnityEngine.CoreModule" HintPath="$(GameManaged)/UnityEngine.CoreModule.dll" Private="false" />
+    <Reference Include="UnityEngine.JSONSerializeModule" HintPath="$(GameManaged)/UnityEngine.JSONSerializeModule.dll" Private="false" />
     <Reference Include="UnityEngine.UI" HintPath="$(GameManaged)/UnityEngine.UI.dll" Private="false" />
     <Reference Include="UnityEngine.UIModule" HintPath="$(GameManaged)/UnityEngine.UIModule.dll" Private="false" />
     <Reference Include="Unity.TextMeshPro" HintPath="$(GameManaged)/Unity.TextMeshPro.dll" Private="false" />
@@ -21,5 +22,6 @@
     <Reference Include="0Harmony" HintPath="$(BepInExCore)/0Harmony.dll" Private="false" />
   </ItemGroup>
   <ItemGroup><EmbeddedResource Include="../../translations/PhobosAutoNav/en.json" LogicalName="PhobosAutoNav.en.json" /></ItemGroup>
+  <ItemGroup><EmbeddedResource Include="../../assets/phobos-autonav/hub-layout.json" LogicalName="PhobosAutoNav.hub-layout.json" /></ItemGroup>
   <ItemGroup><EmbeddedResource Include="../../mods/PhobosAutoNav/framework/equipment-names.json" LogicalName="PhobosAutoNav.equipment-names.json" /></ItemGroup>
 </Project>

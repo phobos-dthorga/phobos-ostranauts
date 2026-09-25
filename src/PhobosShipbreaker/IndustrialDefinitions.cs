@@ -11,7 +11,7 @@ internal static class IndustrialDefinitions
     internal static void Add(NativeDefinitions d)
     {
         string p = IndustrialRules.Prefix;
-        MachineDefinitions.AddFamily(d, p);
+        MachineDefinitions.AddFamily(d, p, InstallMenu.Controls);
         foreach (var state in new[] { "Installed", "InstalledDmg", "Loose", "LooseDmg" })
         {
             bool installed = state.StartsWith("Installed"), damaged = state.EndsWith("Dmg");

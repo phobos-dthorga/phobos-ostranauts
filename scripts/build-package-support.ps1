@@ -9,13 +9,13 @@ function Copy-PhobosPlayerGuides {
     foreach ($name in @(
         'agriculture-player-guide', 'agriculture-implementation', 'agriculture-research', 'agriculture-first-slice', 'agriculture-roadmap', 'agriculture-living-visuals', 'agriculture-economy-review', 'agriculture-economy-evidence', 'asset-generation-policy',
         'performance-captures', 'furnace-player-guide', 'furnace-coolant-conduits', 'furnace-connections-and-instruments', 'furnace-first-cycle', 'furnace-repair-castings', 'furnace-material-routing', 'manufacturing-handover',
-        'getting-started', 'building', 'player-guide', 'equipment-branding', 'installing-mods', 'equipment-economy', 'equipment-value-audit', 'auto-nav-instruments', 'auto-nav-docking', 'auto-nav-sensors', 'auto-nav-flight-profiles', 'auto-nav-pursuit', 'artwork-resolution-policy',
+        'getting-started', 'building', 'player-guide', 'equipment-branding', 'installing-mods', 'equipment-economy', 'equipment-value-audit', 'auto-nav-instruments', 'auto-nav-hub-validation', 'auto-nav-docking', 'auto-nav-sensors', 'auto-nav-flight-profiles', 'auto-nav-pursuit', 'artwork-resolution-policy',
         'vanilla-economy-audit', 'shipbreaker-first-build', 'shipbreaker-hull-intake',
         'residue-collector', 'auto-navigate-adaptation', 'auto-nav-economy', 'auto-nav-panel-layout-audit', 'auto-nav-persistence', 'auto-nav-torch', 'residue-material-contract',
         'shipbreaking-material-processing-research', 'material-disposal-port-research',
         'fluid-conduits-and-irrigation-research', 'agriculture-water-conduits', 'agriculture-nutrient-solutions', 'fluid-network-operations', 'chemical-storage-and-process-fluids', 'updating-constants',
         'processing-job-compatibility', 'localization', 'scrap-reclaimer', 'automatic-material-routing', 'material-port-pairing',
-        'industrial-console-player-guide', 'industrial-control-console', 'industrial-control-mockups', 'shared-console-observations', 'sensor-integration-research', 'fusion-smelter-research', 'framework-author-guide'
+        'install-catalogue', 'industrial-console-player-guide', 'industrial-control-console', 'industrial-control-mockups', 'shared-console-observations', 'sensor-integration-research', 'fusion-smelter-research', 'framework-author-guide'
     )) {
         Copy-Item -LiteralPath (Join-Path $RepoRoot "docs/$name.md") -Destination $Package
     }
@@ -52,6 +52,7 @@ function Copy-PhobosPlayerGuides {
     Set-Content -LiteralPath $furnaceGuidePath -Value $furnaceGuide -Encoding utf8
     # The shared instrument guide links a preview; keep it usable offline in every suite package.
     Copy-Item -LiteralPath (Join-Path $RepoRoot 'assets/phobos-autonav/instruments-prompt.md') -Destination (Join-Path $Package 'INSTRUMENTS-PROMPT.md')
+    Copy-Item -LiteralPath (Join-Path $RepoRoot 'assets/phobos-autonav/pursuit-prompt.md') -Destination (Join-Path $Package 'PURSUIT-ART-PROMPT.md')
     Copy-Item -LiteralPath (Join-Path $RepoRoot 'mods/PhobosAutoNav/images/phobos/autonav/PhobosAutoNavInstruments.png') -Destination $Package
     $preview = Get-Content -LiteralPath (Join-Path $RepoRoot 'assets/phobos-autonav/previews/instruments.html') -Raw
     $preview = $preview.Replace('../../../mods/PhobosAutoNav/images/phobos/autonav/PhobosAutoNavInstruments.png', 'PhobosAutoNavInstruments.png')
@@ -59,7 +60,31 @@ function Copy-PhobosPlayerGuides {
     $instrumentGuidePath = Join-Path $Package 'auto-nav-instruments.md'
     $instrumentGuide = Get-Content -LiteralPath $instrumentGuidePath -Raw
     $instrumentGuide = $instrumentGuide.Replace('../assets/phobos-autonav/instruments-prompt.md', 'INSTRUMENTS-PROMPT.md').Replace('../assets/phobos-autonav/previews/instruments.html', 'polaris-instruments-preview.html')
+    $instrumentGuide = $instrumentGuide.Replace('../assets/phobos-autonav/pursuit-prompt.md', 'PURSUIT-ART-PROMPT.md')
     Set-Content -LiteralPath $instrumentGuidePath -Value $instrumentGuide -Encoding utf8
+    # Inline the preview's read-only data so the flattened package works from file://,
+    # without a development server or cross-origin fetch privileges.
+    Copy-Item -LiteralPath (Join-Path $RepoRoot 'assets/phobos-autonav/hub-prompt.md') -Destination (Join-Path $Package 'HUB-ART-PROMPT.md')
+    foreach ($name in @('hub-layout', 'hub-upscale-provenance')) {
+        Copy-Item -LiteralPath (Join-Path $RepoRoot "assets/phobos-autonav/$name.json") -Destination $Package
+    }
+    Copy-Item -LiteralPath (Join-Path $RepoRoot 'mods/PhobosAutoNav/images/phobos/autonav/PhobosFlightHub.png') -Destination $Package
+    $hubPreview = Get-Content -LiteralPath (Join-Path $RepoRoot 'assets/phobos-autonav/previews/flight-hub.html') -Raw
+    $hubPreview = $hubPreview.Replace('../../../mods/PhobosAutoNav/images/phobos/autonav/PhobosFlightHub.png', 'PhobosFlightHub.png')
+    $layoutJson = (Get-Content -LiteralPath (Join-Path $RepoRoot 'assets/phobos-autonav/hub-layout.json') -Raw).Replace('<', '\u003c')
+    $catalogJson = (Get-Content -LiteralPath (Join-Path $RepoRoot 'translations/PhobosAutoNav/en.json') -Raw).Replace('<', '\u003c')
+    $hubPreview = $hubPreview.Replace("fetch('../hub-layout.json').then(r=>r.json())", "Promise.resolve($layoutJson)")
+    $hubPreview = $hubPreview.Replace("fetch('../../../translations/PhobosAutoNav/en.json').then(r=>r.json())", "Promise.resolve($catalogJson)")
+    Set-Content -LiteralPath (Join-Path $Package 'polaris-flight-hub-preview.html') -Value $hubPreview -Encoding utf8
+    foreach ($name in @('auto-nav-instruments.md', 'auto-nav-hub-validation.md', 'ARTWORK.md', 'HUB-ART-PROMPT.md')) {
+        $guidePath = Join-Path $Package $name
+        if (-not (Test-Path -LiteralPath $guidePath)) { continue }
+        $text = Get-Content -LiteralPath $guidePath -Raw
+        $text = $text.Replace('../assets/phobos-autonav/hub-prompt.md', 'HUB-ART-PROMPT.md').Replace('(hub-prompt.md)', '(HUB-ART-PROMPT.md)')
+        $text = $text.Replace('../assets/phobos-autonav/hub-layout.json', 'hub-layout.json')
+        $text = $text.Replace('../assets/phobos-autonav/previews/flight-hub.html', 'polaris-flight-hub-preview.html').Replace('(previews/flight-hub.html)', '(polaris-flight-hub-preview.html)')
+        Set-Content -LiteralPath $guidePath -Value $text -Encoding utf8
+    }
     # Covers are native preview.png files, copied with the native mod directory.
     # Validate against the committed derivative; ordinary builds need no art branch.
     $covers = Get-Content -LiteralPath (Join-Path $RepoRoot 'assets/workshop/exports.json') -Raw | ConvertFrom-Json

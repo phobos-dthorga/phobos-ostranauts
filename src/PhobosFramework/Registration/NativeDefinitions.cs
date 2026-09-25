@@ -23,6 +23,7 @@ public sealed class NativeDefinitions
 
     public void Publish()
     {
+        InstallMenu.Validate(Installables.Values);
         var batch = new DefinitionTransaction();
         batch.Stage(DataHandler.dictCOs, Objects); batch.Stage(DataHandler.dictItemDefs, Items);
         batch.Stage(DataHandler.dictSlots, Slots); batch.Stage(DataHandler.dictConds, Conditions);

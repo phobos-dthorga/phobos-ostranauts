@@ -6,7 +6,9 @@ Dates on Draft entries record preparation, not Steam publication.
 
 ## [Unreleased]
 
-No additional changes recorded.
+### Fixed
+
+- Fixed unreachable INSTALL entries; Firstlight-4, Hearth-2 and W2 appear under APPS, and irrigation conduit under MISC, including damaged forms. Existing inputs, placement and saved IDs are preserved.
 
 ## [0.7.0] - 2026-09-25 - Draft
 

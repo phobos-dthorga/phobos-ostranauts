@@ -6,13 +6,16 @@ namespace PhobosAutoNav;
 
 internal sealed partial class NavigationService
 {
-    private static float ReadThrottle(CondOwner? co)
+    private static float ReadThrottle(CondOwner? co) => ReadThrottleReading(co) ?? 0;
+
+    // Guidance fails closed to zero; instruments retain the distinction from a measured zero.
+    private static float? ReadThrottleReading(CondOwner? co)
     {
         if (co != null && co.mapGUIPropMaps.TryGetValue("Panel A", out var props) &&
             props.TryGetValue("slidThrottle", out var text) &&
             float.TryParse(text, NumberStyles.Float, CultureInfo.InvariantCulture, out float value) && ArrivalBrake.Finite(value))
             return Math.Max(0, Math.Min(1, value));
-        return 0;
+        return null;
     }
 
     private static string? AdmissionProblem(CondOwner co, TargetRef target, double arrivalKM, double arrivalMS)

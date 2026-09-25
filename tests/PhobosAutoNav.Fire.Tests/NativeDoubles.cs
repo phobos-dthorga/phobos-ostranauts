@@ -33,6 +33,7 @@ internal sealed class CondOwner
 }
 internal sealed class StarSystem
 {
+    internal static double fEpoch;
     internal Dictionary<string,Ship> Ships = new();
     internal Ship? GetShipByRegID(string id) => Ships.TryGetValue(id,out var ship) ? ship : null;
 }

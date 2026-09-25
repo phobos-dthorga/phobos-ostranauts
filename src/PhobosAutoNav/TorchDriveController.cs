@@ -175,7 +175,7 @@ internal sealed class TorchDriveController
         }
     }
 
-    private static bool Ready(CondOwner core)
+    internal static bool Ready(CondOwner core)
     {
         double temperature = core.GetCondAmount("StatICCoreTemp") / TorchRules.NativeCoreTemperature;
         return !core.bDestroyed && core.HasCond("IsInstalled") && core.HasCond("IsReadyFusion") &&

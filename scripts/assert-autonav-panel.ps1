@@ -30,3 +30,24 @@ $normalizationCalls = @($boundsPatch.Methods | Where-Object HasBody | ForEach-Ob
     $_.Operand.FullName -eq 'System.Void PhobosAutoNav.AutoNavPanel::NormalizePlacementBounds()'
 })
 if ($normalizationCalls.Count -ne 1) { throw 'Auto Nav native fit hook must normalize only its own panel bounds.' }
+$refreshMethods = @($panel.Methods | Where-Object { $_.HasBody -and $_.Name -in @('UpdateUI', 'Refresh') })
+foreach ($method in $refreshMethods) {
+    foreach ($instruction in $method.Body.Instructions) {
+        $call = $instruction.Operand
+        if ($call -isnot [Mono.Cecil.MethodReference]) { continue }
+        if ($call.DeclaringType.FullName -eq 'PhobosAutoNav.NavigationService' -and $call.Name -notin @('ReadHub', 'PursuitSummary')) {
+            throw "Display refresh calls a service mutation: $call"
+        }
+        if ($call.DeclaringType.FullName -eq 'UnityEngine.UI.Slider' -and $call.Name -in @('set_value', 'set_maxValue', 'set_minValue')) {
+            throw 'Display refresh must set sliders without notifying command callbacks.'
+        }
+    }
+}
+$hubRead = $Module.GetType('PhobosAutoNav.NavigationService').Methods | Where-Object Name -eq 'ReadHub'
+if ($null -eq $hubRead) { throw 'Shared read-only hub snapshot is missing.' }
+foreach ($instruction in $hubRead.Body.Instructions) {
+    $call = $instruction.Operand
+    if ($call -is [Mono.Cecil.MethodReference] -and $call.Name -in @('TryWrite', 'SetReactorGPMValue', 'Maneuver', 'Authorize', 'DockShip', 'Attach')) {
+        throw "Hub snapshot must not command or persist game state: $call"
+    }
+}

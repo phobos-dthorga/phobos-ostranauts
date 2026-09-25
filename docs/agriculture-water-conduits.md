@@ -52,7 +52,8 @@ One W2 binds one rack. Use separate pipe circuits for additional pairs. Joining
 two intact source outlets into one circuit blocks pumping: branching supply and
 shared allocation are deliberately outside this first slice. Cardinal corners,
 T-junctions and crosses connect; crosses never represent isolated crossing pipes.
-Normal installation is supported, not a new drag-build menu. Pipes can occupy
+Normal installation is supported, including the native INSTALL > MISC entry
+(see [catalogue](install-catalogue.md)); continuous drag laying is not verified. Pipes can occupy
 electrical-conduit tiles through independent sockets; visual layering and native
 placement still need owner evaluation. Walls, flex floors and EVA tiles do not
 form valid water paths; there is no hull penetration or atmosphere opening.

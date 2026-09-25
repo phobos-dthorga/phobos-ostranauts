@@ -1,4 +1,4 @@
-# Polaris pursuit and fire control — Auto Nav 0.11.0
+# Polaris pursuit and fire control — Auto Nav 0.12.0
 
 Prepared 25 September 2026 against Blue Bottle Games' Ostranauts 1.0.1.5.
 Implemented and checked offline; owner-run gameplay evaluation is still pending.
@@ -7,32 +7,40 @@ changes are implied by this document.
 
 ## Operating the N2 instrument
 
-**Phobos' Asterel N2 Polaris Pursuit Module** is a second instrument in the
-existing Phobos Auto Nav package. It uses the same navigation service as N1;
-only one flight can control the player's ship. Install it in the Polaris console
-and place its panel through the native layout controls. N1 is not a prerequisite.
-Both instruments reuse the approved Auto Nav casing artwork, with different live
-names and controls. Details scrolls to expose the additional pursuit controls.
+**Phobos' Asterel N2 Polaris Pursuit Module** adds pursuit capability to the
+[shared flight hub](auto-nav-instruments.md) in the existing Auto Nav package.
+N1 is not required. Either module supplies navigation/docking, but pursuit and
+fire controls require working N2. Both installed produce one hub and one service
+owns flight. Place the new tall hub through native Edit; old compact placements
+are never silently enlarged. Framework 0.17.0 or newer is required.
+
+The Pursuit page exposes routine controls directly. The shared graphite/slate
+faceplate uses live accents and Blue Bottle Games' native controls by runtime
+reference. Physical module sprites, IDs and recipes retain their earlier contracts.
+No extracted native artwork is distributed. UI interaction awaits owner evaluation.
 
 1. Select a qualified native sensor contact. Set separation and cruise speed.
    Separation is centre-to-centre, subject to larger native hull clearance.
 2. **Rendezvous** approaches that separation, matches motion and finishes.
-   **Follow** in Details continues maintaining a band while the target moves.
+   **Follow** on the Pursuit page continues maintaining a band while the target moves.
    These modes always request zero arrival speed, independently of ordinary Fly's
    saved arrival-speed preference. Stop the current flight before selecting another.
 3. For optional offensive fire, select a contact with the crosshair and press
    **Select Fire Target**. This is separate from the captured navigation target.
-   Select a native weapon group using **Next Weapon Group** (1–9), then explicitly
-   press **Engage / Permit Fire** while Follow is running. The summary identifies
+   Select a native weapon group using **Weapon group** (1–9), then explicitly
+   lift the fire-permission cover and switch **ON** while Follow is running.
+   Panel Engage is unavailable if the native guarded switch cannot be obtained.
+   The summary identifies
    both the selected group and offensive target. Crosshair movement cannot retarget
    either an existing flight or an armed engagement.
-4. **Cease Fire / Keep Following** revokes our fire permission and retains Follow.
+4. Switch **OFF**, or use **Cease Fire**, to revoke our fire
+   permission and retain Follow. The Cease Fire button remains outside the cover.
    Selecting a different fire target or group also revokes permission. Manual-only
    weapons remain manual; defensive-only PDC settings remain defensive-only.
    Native manual fire buttons remain available independently.
 5. **Dock** is a separate command after Stop, using the selected contact and native
    Comms clearance/assigned port. It never follows automatically from shooting,
-   Rendezvous or Follow. Stop / Coast clears thrust; it is not emergency braking.
+   Rendezvous or Follow. Disengage clears thrust; it is not emergency braking.
 
 Navigation clearance and braking take priority over weapon-facing attitude. Only
 the first usable weapon mounting in the selected group supplies the requested
@@ -59,6 +67,7 @@ phobosnav weapons <1–9>
 phobosnav engage
 phobosnav ceasefire
 phobosnav dock
+phobosnav approachdock
 phobosnav stop
 phobosnav resume
 ```
@@ -84,7 +93,7 @@ definitions `PhobosPursuitBoard` / `PhobosPursuitBoardDmg` and construction reci
 navigation API or new mandatory mod dependency was introduced.
 
 Flight intent binds the exact console, module instance, player, ship and destination.
-Rendezvous, Follow and Dock **always suspend on loading**, even when ordinary Fly
+Rendezvous, Follow, Dock and Approach & Dock **always suspend on loading**, even when ordinary Fly
 auto-resume is enabled. Resume rechecks sensors, hardware and braking room. Predictions,
 observation history, weapon aim and fire authority are session-only. The weapon-group
 preference uses a separate console-owned Framework store; selecting an offensive

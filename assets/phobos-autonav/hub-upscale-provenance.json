@@ -1,0 +1,28 @@
+{
+  "source_size": [
+    992,
+    1586
+  ],
+  "model_output_size": [
+    3968,
+    6344
+  ],
+  "master_size": [
+    1984,
+    3172
+  ],
+  "production_size": [
+    1200,
+    1920
+  ],
+  "model": "realesrgan-x4plus",
+  "source_sha256": "e993e90b58e058dd90066c7d8d8bd3bfbfaec55f5fae0e489c1117ed8bc4a851",
+  "executable_sha256": "07e49f7cbb4ede01ae4dd4c399d3a7e5846e3d2085c3128eff881e55cb7b1a0c",
+  "model_parameters_sha256": "35330ececcea33b6c397a72548e788d5d53becee4734c50b7fada36e89f10a86",
+  "model_weights_sha256": "713ee713b0353afaa27976f0563a64a5043bd70b9bd8936c2e26e25ebcdbcddf",
+  "master_sha256": "eaed671f47bde5a3de54ee83a9f229162c4cd57445e616db1d5e8d79517f51c0",
+  "production_sha256": "cea047e05c667a81fdf9fd429f0d8dd40cd74da2ff5e0b8829f56f997831a8d0",
+  "alpha": "Original alpha, Lanczos resampled; never AI reconstructed",
+  "processing": "Real-ESRGAN 4x RGB; Lanczos 2x retained master; uniform fit to 1200x1920 production",
+  "limitations": "AI inferred texture. Not a native high-resolution generation or lossless recovery."
+}

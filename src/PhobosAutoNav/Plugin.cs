@@ -12,11 +12,11 @@ namespace PhobosAutoNav;
 
 [BepInPlugin(Id, "Phobos Auto Nav", Version)]
 [BepInProcess("Ostranauts.exe")]
-[BepInDependency(FrameworkInfo.PluginId, "0.15.0")]
+[BepInDependency(FrameworkInfo.PluginId, "0.17.0")]
 public sealed class Plugin : BaseUnityPlugin
 {
     public const string Id = "phobosgekko.ostranauts.autonav";
-    public const string Version = "0.11.0";
+    public const string Version = "0.12.0";
     internal static NavigationService Service { get; private set; } = null!;
     internal static ConfigEntry<bool> Enabled = null!, VerboseLogging = null!, FuelCheck = null!,
         AbortOnManualThrust = null!, UseThrusterRotation = null!, ResumeAfterLoad = null!, PreferTorch = null!, SalvageEnabled = null!;
@@ -103,6 +103,7 @@ internal static class DockingTickPatch
 internal static class PanelPatch
 {
     private static void Prefix(GUIOrbitDraw __instance) => AutoNavPanel.Ensure(__instance);
+    private static void Postfix(CondOwner coNav) => Plugin.Service.HubLoaded(coNav);
 }
 
 // The native panel queues salvos independently of navigation. Suppress its queue

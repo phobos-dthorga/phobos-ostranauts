@@ -160,5 +160,76 @@ Check(DockingRules.TryHold(new(0,250),new(0,2),new(0,.5),0,0,200,1,.5,.1,out var
 f=Setup(210); f.Service.Dock(f.Console); Settle(f.Service); f.Target.objSS.fW=.01f;
 f.Service.TickDocking(CrewSim.system,.1,true);
 Check(CrewSim.AttachCalls==0 && AutoNavCore.Engaged,"Rotating target holds final capture despite matched translation");
+// Combined approach-to-terminal mission: real service and persistence, doubled engine boundary.
+foreach (string module in new[] { NavigationService.ModuleId, NavigationService.PursuitId })
+{
+    f = Setup(50000); f.Console.Items[0].Kind = module; Plugin.PreferTorch.Value = true;
+    f.Service.ApproachDock(f.Console);
+    var combined = Read(f.Console);
+    Check(AutoNavCore.Engaged && combined.Mode == SavedFlightMode.ApproachDock, "Either healthy module can start a combined mission");
+    Check(combined.ModuleId == "module" && combined.OwnPort == "own" && combined.TargetPort == "assigned" &&
+        Math.Abs(combined.ArrivalKM - 1.3) < 1e-6 && combined.ArrivalMS == 0 && combined.PreferTorch,
+        "Staging is 1 km beyond protective hull clearance, with matched-motion arrival and captured hardware/ports");
+    var bad = combined.Encode(); bad.Remove("ownPort");
+    Check(!FlightSnapshot.TryDecode(bad, out _), "Combined record without a bound port is rejected");
+    bad = combined.Encode(); bad["arrivalMS"] = "1";
+    Check(!FlightSnapshot.TryDecode(bad, out _), "Combined approach cannot save an unmatched-motion arrival");
+    GUIOrbitDraw.CrossHairTarget = null;
+    f.Service.WorldChanging(); f.Service.WorldLoaded(); f.Service.UpdatePersistence();
+    Check(!AutoNavCore.Engaged && Read(f.Console).Mode == SavedFlightMode.ApproachDockSuspended,
+        "Combined mission suspends even with ordinary auto-resume enabled");
+    f.Service.ResumeSaved(f.Console);
+    Check(AutoNavCore.Engaged && Read(f.Console).TargetId == "target", "Resume retains destination without a crosshair");
+    f.Target.objSS.vPosy = 1300 * AutoNavCore.M_TO_AU;
+    Check(f.Service.FinishApproach() && !AutoNavCore.Engaged, "Arrival queues handoff without steering inside a ship update");
+    Check(Read(f.Console).Mode == SavedFlightMode.ApproachDockSuspended, "Saving between phases cannot restore thrust");
+    f.Service.TickDocking(CrewSim.system, .1, true);
+    Check(AutoNavCore.Engaged && Read(f.Console).Mode == SavedFlightMode.Docking && !Read(f.Console).PreferTorch &&
+        Read(f.Console).CruiseMS == DockingRules.CruiseMS && CrewSim.AttachCalls == 0,
+        "Post-physics handoff enters RCS-only terminal guidance without attaching");
+    Check(Read(f.Console).ModuleId == "module" && Read(f.Console).OwnPort == "own", "Handoff keeps exact original module and ports");
+}
+Plugin.PreferTorch.Value = false;
+f = Setup(50000); f.Console.ship.Comms.Clearance = null; f.Service.ApproachDock(f.Console);
+Check(!AutoNavCore.Engaged && CrewSim.AttachCalls == 0, "Combined mission requires clearance before approach");
+f = Setup(50000); f.Service.ApproachDock(f.Console); f.Console.ship.Comms.Clearance!.DockID = "changed"; Tick(f.Service);
+Check(!AutoNavCore.Engaged && Read(f.Console).Mode == SavedFlightMode.ApproachDockSuspended && Read(f.Console).TargetPort == "assigned",
+    "Revoked or reassigned clearance suspends instead of choosing another port");
+f.Console.ship.Comms.Clearance.DockID = "assigned"; Tick(f.Service);
+Check(!AutoNavCore.Engaged, "Restored clearance never restarts a suspended approach");
+f.Service.ResumeSaved(f.Console); Check(AutoNavCore.Engaged, "Explicit Resume can revalidate restored clearance");
+f.Target.Ports.Clear(); Tick(f.Service); Check(!AutoNavCore.Engaged, "Occupied port suspends during the approach phase");
+f = Setup(50000); f.Service.ApproachDock(f.Console); f.Service.HardwareFailure = "power"; Tick(f.Service);
+Check(!AutoNavCore.Engaged && Read(f.Console).IsCombinedApproach, "Power loss clears automation and retains combined intent");
+f = Setup(50000); f.Service.ApproachDock(f.Console); NativeContactReader.State = ContactState.Weak; Tick(f.Service);
+Check(!AutoNavCore.Engaged && Read(f.Console).Mode == SavedFlightMode.ApproachDockSuspended, "Contact loss suspends combined intent");
+NativeContactReader.State = ContactState.Ready; Tick(f.Service); Check(!AutoNavCore.Engaged, "Reacquisition cannot authorize handoff");
+f = Setup(50000); f.Service.ApproachDock(f.Console); f.Console.Items.Add(new() { strID="replacement", Kind=NavigationService.PursuitId });
+f.Console.Items.RemoveAt(0); Tick(f.Service);
+Check(!AutoNavCore.Engaged && Read(f.Console).ModuleId == "module", "A second working module cannot substitute for a removed bound module");
+f = Setup(50000); f.Service.ApproachDock(f.Console); f.Target.objSS.vPosy=1300*AutoNavCore.M_TO_AU; f.Service.FinishApproach();
+GUIDockSys.instance=null; f.Service.TickDocking(CrewSim.system,.1,true);
+Check(!AutoNavCore.Engaged && Read(f.Console).IsCombinedApproach && f.Service.Diagnostic.Contains("Docking.open_console"),
+    "Unavailable native attachment interface prevents handoff and exposes its requirement");
+GUIDockSys.instance=new() { COSelf=f.Console }; f.Service.TickDocking(CrewSim.system,.1,true);
+Check(!AutoNavCore.Engaged, "Opening native docking after a failed handoff does not silently retry");
+f.Service.ResumeSaved(f.Console); Check(AutoNavCore.Engaged && Read(f.Console).IsDocking, "Explicit Resume inside staging uses terminal admission");
+f=Setup(1000); f.Service.ApproachDock(f.Console);
+Check(AutoNavCore.Engaged && Read(f.Console).Mode==SavedFlightMode.Docking, "Already inside staging starts checked terminal guidance");
+f=Setup(1000); f.Console.ship.objSS.vVelY=100*AutoNavCore.M_TO_AU; f.Service.ApproachDock(f.Console);
+Check(!AutoNavCore.Engaged && Read(f.Console).Mode==SavedFlightMode.ApproachDockSuspended, "Insufficient terminal braking authority refuses inside-staging admission");
+f=Setup(50000); AutoNavCore.FuelAvailable=false; f.Service.ApproachDock(f.Console);
+Check(!AutoNavCore.Engaged && Read(f.Console).IsCombinedApproach, "Failed approach fuel admission leaves a resumable mission without thrust");
+f=Setup(50000); f.Service.ApproachDock(f.Console); f.Target.objSS.vPosy=1300*AutoNavCore.M_TO_AU; f.Service.FinishApproach();
+f.Service.Stop(f.Console,"manual"); f.Service.TickDocking(CrewSim.system,.1,true);
+Check(!AutoNavCore.Engaged && Read(f.Console).Mode==SavedFlightMode.Stopped, "Manual takeover cancels even a queued handoff");
+f=Setup(50000); f.Service.ApproachDock(f.Console); f.Service.FinishApproach();
+f.Service.WorldChanging(); f.Service.WorldLoaded(); f.Service.UpdatePersistence(); f.Service.TickDocking(CrewSim.system,.1,true);
+Check(!AutoNavCore.Engaged && Read(f.Console).Mode==SavedFlightMode.ApproachDockSuspended, "Reload drops queued handoff permission");
+f=Setup(1000); f.Service.ApproachDock(f.Console); Tick(f.Service);
+for(int i=0;i<100;i++){f.Target.objSS.vVelY+=.1*AutoNavCore.M_TO_AU; Tick(f.Service);}
+Check(AutoNavCore.Engaged && CrewSim.AttachCalls==0 && f.Service.Diagnostic.Contains("Docking.holding"),
+    "Evasive target after handoff remains in bounded terminal hold");
+
 Console.WriteLine($"{count} docking assertions passed. Numerical and native-boundary doubles; no in-game testing.");
 internal enum LegacyMode { Active, Suspended, Stopped, Arrived }

@@ -27,9 +27,16 @@ $overlays = Get-Content -LiteralPath (Join-Path $source 'data/cooverlays/phobos_
 foreach ($overlay in $overlays) {
     foreach ($property in @('strImg', 'strImgNorm', 'strPortraitImg')) {
         $path = Join-Path $source ('images/' + $overlay.$property + '.png')
+        $nativeArt = $overlay.strName -in @('PhobosNavModPursuit', 'PhobosNavModPursuitDmg')
+        if ($nativeArt) {
+            $stem = 'navmod/ItmNavMod01' + $(if ($overlay.strName.EndsWith('Dmg')) { 'Dmg' } else { '' })
+            $expected = $stem + $(if ($property -eq 'strImgNorm') { 'n' } else { '' })
+            if ($overlay.$property -ne $expected) { throw "Unreviewed native pursuit image: $($overlay.$property)" }
+            $path = Join-Path $gameRoot ('Ostranauts_Data/StreamingAssets/images/' + $expected + '.png')
+        }
         $bitmap = [Drawing.Bitmap]::new($path)
         try {
-            $expectedSize = if ($property -eq 'strPortraitImg') { 256 } else { 16 }
+            $expectedSize = if ($property -eq 'strPortraitImg' -and -not $nativeArt) { 256 } else { 16 }
             if ($bitmap.Width -ne $expectedSize -or $bitmap.Height -ne $expectedSize) { throw "Wrong image size: $path" }
             if ($property -ne 'strImgNorm' -and $bitmap.GetPixel(0, 0).A -ne 0) { throw "Image margin is not transparent: $path" }
         } finally { $bitmap.Dispose() }
@@ -44,7 +51,35 @@ $bitmap = [Drawing.Bitmap]::new($instruments)
 try {
     if ($bitmap.Width -lt 1200 -or $bitmap.Height -lt 500) { throw 'Instrument artwork must meet 2x the 600 x 250 reference display size.' }
 } finally { $bitmap.Dispose() }
+$pursuitInstruments = Join-Path $source 'images/phobos/autonav/PhobosPursuitInstruments.png'
+if ((Get-FileHash -LiteralPath $pursuitInstruments -Algorithm SHA256).Hash -ne '9B6C07990EAA2C2AC4800D1F1B73994B0E0BCE018F998824CE017799A5A00FC8') { throw 'N2 artwork changed; review control registration.' }
+$bitmap = [Drawing.Bitmap]::new($pursuitInstruments)
+try {
+    if ($bitmap.Width -lt 1200 -or $bitmap.Height -lt 500) { throw 'N2 artwork must meet 2x the 600 x 250 reference display size.' }
+} finally { $bitmap.Dispose() }
 # Read metadata without loading or executing the plugin.
+$hubProvenance = Get-Content -LiteralPath (Join-Path $repoRoot 'assets/phobos-autonav/hub-upscale-provenance.json') -Raw | ConvertFrom-Json
+foreach ($asset in @(
+    @{ Path = 'assets/phobos-autonav/source/PhobosFlightHub-generated.png'; Hash = $hubProvenance.source_sha256; Width = 992; Height = 1586 },
+    @{ Path = 'assets/phobos-autonav/source/PhobosFlightHub-ai-master.png'; Hash = $hubProvenance.master_sha256; Width = 1984; Height = 3172 },
+    @{ Path = 'mods/PhobosAutoNav/images/phobos/autonav/PhobosFlightHub.png'; Hash = $hubProvenance.production_sha256; Width = 1200; Height = 1920 }
+)) {
+    $path = Join-Path $repoRoot $asset.Path
+    if ((Get-FileHash -LiteralPath $path -Algorithm SHA256).Hash -ne $asset.Hash) { throw "Hub artwork differs from its selected provenance: $path" }
+    $bitmap = [Drawing.Bitmap]::new($path)
+    try {
+        if ($bitmap.Width -ne $asset.Width -or $bitmap.Height -ne $asset.Height) { throw "Hub image dimensions changed: $path" }
+    } finally { $bitmap.Dispose() }
+}
+$hubMaps = Get-Content -LiteralPath (Join-Path $source 'data/guipropmaps/phobos_approach_assist.json') -Raw | ConvertFrom-Json
+if ($hubMaps.Count -ne 2) { throw 'Expected two preserved equipment bindings for one hub.' }
+foreach ($binding in $hubMaps) {
+    if ($binding.strName -notin @('PhobosNavModAutoNav', 'PhobosNavModPursuit')) { throw 'Saved equipment identity changed.' }
+    $pairs = $binding.dictGUIPropMap
+    if ($pairs.Count -ne 6 -or $pairs[1] -ne 'PhobosNavFlightHub' -or $pairs[3] -ne 'PhobosNavFlightHub' -or $pairs[5] -ne '0.00|0.00|0.25|0.80') {
+        throw 'Both intact/damaged equipment bindings must resolve the same tall hub identity.'
+    }
+}
 Add-Type -Path (Join-Path $gameRoot 'BepInEx/core/Mono.Cecil.dll')
 $module = [Mono.Cecil.ModuleDefinition]::ReadModule($plugin)
 try {

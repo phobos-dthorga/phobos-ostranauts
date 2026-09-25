@@ -1,5 +1,7 @@
 # Current player guide
 
+For equipment placement, see the [native INSTALL catalogue and tab locations](install-catalogue.md).
+
 New here? Read [getting started](getting-started.md) for download availability,
 prerequisites and experimental status. Need help? See [support](../SUPPORT.md).
 
@@ -7,7 +9,7 @@ Agriculture is a prepared candidate with visible crop growth, cooking equipment 
 
 
 **Prepared versions:** Phobos Framework **0.20.0**, Shipbreaker **0.17.0**, Auto Nav
-**0.11.0**, built against Ostranauts **1.0.1.5** / BepInEx **5.4.23.5**.
+**0.12.0**, built against Ostranauts **1.0.1.5** / BepInEx **5.4.23.5**.
 These versions support ordinary saves. Builds and offline checks do not establish
 in-game compatibility. This guide describes the prepared packages, not a claim
 that those packages are already installed or that merchants have restocked.
@@ -169,80 +171,45 @@ connected workflow, retained materials and any actual failure you encounter.
 
 ## Auto Nav and current limits
 
-The [N2 Polaris Pursuit instrument](auto-nav-pursuit.md) adds Rendezvous, continuous
-Follow and separately selected offensive targets/native weapon groups with explicit
-Engage / Cease Fire. It shares predictive RCS/torch guidance with N1. Cease Fire
-retains Follow; Dock remains separate. Pursuit always suspends after load, and fire
-permission never resumes automatically. Build the N2 or look for it at the Polaris
-merchant. The new control behaviour and panel await owner-run gameplay evaluation.
+The [Polaris flight hub](auto-nav-instruments.md) is one tall instrument shared by
+N1 and N2. Use native **Edit** to place its new 25%-wide, 80%-high footprint in a
+clear column. Existing compact placements do not expand automatically or move
+other instruments. Keep the native map, sensors, warnings and Comms available.
 
-Auto Nav 0.10.0 adds [console-specific flight settings and safer starts](auto-nav-flight-profiles.md).
-Set cruise and arrival speed in **Details**, and stopping distance with the
-existing dial. F3 accepts `phobosnav cruise <m/s>`, `phobosnav arrivalspeed <m/s>`
-and `phobosnav arrival <km>`. These numeric defaults stay with that console;
-active/suspended flights retain their captured values. All RCS commands now
-respect the selected throttle including turning. Fly/Resume refuses an approach
-without enough conservative RCS braking room; Details explains the refusal.
-Rare module salvage joins the existing acquisition paths, using unchanged art.
+- **Navigation:** Approach, Dock, explicit Approach & Dock, propulsion preference,
+  cruise speed, arrival speed and separation. Range, signed closing speed and
+  relative speed are separate readings. Active docking shows clearance, captured
+  ports, alignment and progress directly on this page.
+- **Pursuit:** working [N2](auto-nav-pursuit.md) adds Rendezvous and continuous
+  Follow, offensive-target selection, weapon group and guarded Engage. Navigation
+  and offensive targets are separate. Cease Fire retains Follow.
+- **Systems:** essential propulsion readings and native torch controls. Manual
+  propulsion actions relinquish automation and retain native restrictions.
+- **Details:** diagnostics/help only. Routine controls never require scrolling.
 
-Auto Nav 0.8.0 adds [automatic RCS docking](auto-nav-docking.md) as a separate
-maneuver within 10 km of the hull. Request Comms clearance, select that target,
-then use Details → Dock or `phobosnav dock`. Keep Comms/docking controls open for
-final attachment. Reload suspends docking for explicit Resume.
+Resume, Disengage and Cease Fire remain on every page. **Disengage clears thrust
+and allows coasting; it is not emergency braking.** Native clearance and compatible
+assigned ports are required for docking. Approach & Dock stages 1 km beyond
+protected hull clearance, matches motion, then checks the RCS terminal handoff.
+A failed handoff suspends with its reason and requires Resume. Ordinary Approach
+does not dock. See [docking operation](auto-nav-docking.md).
 
-Auto Nav 0.7.0 adds the [Polaris instrument panel](auto-nav-instruments.md):
-rotary AUTO/RCS preference and stopping distance, clear live flight readings,
-Fly/Resume, Stop/Coast and scrollable Details. AUTO prefers a usable running torch;
-it does not start a cold reactor or override no-wake restrictions. Arrival remains
-locked for active/suspended flights; stop before choosing a new distance.
+Pursuit and both docking phases suspend after loading. No fire permission or live
+thrust is saved; page changes and display refresh cannot authorize actions.
+[Qualified sensor contact](auto-nav-sensors.md) is required throughout. Missing
+measurements are unavailable, not zero. Saved flights keep their exact hardware,
+target and profile; stop before replacing them.
 
-Auto Nav 0.6.0 adds [torch-preferred travel and approach braking](auto-nav-torch.md).
-Start the reactor normally, then begin a new flight. Native no-wake zones,
-alignment and braking room determine when the torch is useful; RCS handles
-turns, fine corrections and restricted approaches. Use **phobosnav torch off**
-for RCS-only operation. Existing saved RCS-only flights retain that choice.
+N1 and N2 acquisition, repair and salvage remain in the [economy guide](auto-nav-economy.md)
+and [N2 guide](auto-nav-pursuit.md). Either working module supplies navigation and
+docking. N2 alone also works; both installed still show one hub.
 
-Look for **Phobos' Asterel N1 Polaris Auto Nav Module** in shops or table construction.
-The [Auto Nav economy guide](auto-nav-economy.md) lists sellers, conditions,
-prices, repair materials, Restore and dismantling. Its package is still Phobos Auto Nav.
-
-Install the module in a compatible navigation console and use its **Fly** and
-**Stop / Coast** controls. F3 equivalents are `phobosnav fly` and `phobosnav stop`.
-Use the console's **Edit** mode to drag the panel into available space, then
-leave Edit before flying; the game deliberately locks pause while editing.
-Auto Nav 0.4.1 corrects the failed dragging / "can't find mod" issue in 0.4.0.
-Version 0.4.2 corrects its oversized footprint and keeps the artwork and placement
-bounds aligned. Reopen the console after updating; existing modules are supported.
-Version 0.5.0 also widens it to the full standard column (25% of the board), keeping
-the confirmed 20% row height and the original artwork's corner/screw shapes.
-If the board is full, rearrange or remove another panel to make space.
-Version 0.4.3 favours fuel-saving coasting: at the default 100 m/s cruise, stop
-correcting at 7.5 m/s velocity error and resume above 10 m/s, subject to tighter
-sideways-drift and braking checks. It no longer chases heading while coasting.
-Arrival-speed tolerance is unchanged. `phobosnav settings` shows the adjustable
-coasting values; see the [coasting policy](auto-navigate-adaptation.md#fuel-conscious-coasting-043).
-Version 0.5.0 adds [saved flights](auto-nav-persistence.md): active flights resume
-after load-time checks, preserving their target, profile and elapsed time. Blocked
-flights stay suspended for **Resume** / `phobosnav resume`. Set
-`Persistence.ResumeAfterLoad = false` for manual resumption. Stop/arrival remain
-stopped after reload. Older saves without flight records remain idle.
-Short-range approaches below **5,000 km** are the current goal; Auto Nav has no
-minimum engagement range. New configurations stop at **1 km**, adjustable down
-to **100 m** subject to larger hull clearance. Existing settings stay unchanged:
-while disengaged, `phobosnav arrival 1` saves that console's 1 km default. `phobosnav fly 0.5`
-requests 500 m for one flight. These distances are centre-to-centre, and arrival
-is a band rather than an exact docking position. Status reports effective range.
-Choose a ship/station target and use the [Auto Nav guide](auto-navigate-adaptation.md)
-for settings and integration limits. Stopping clears commanded thrust: the ship
-coasts. Stop is not emergency braking. Fly does not dock. General obstacle avoidance remains unimplemented; continuous
-distance holding is now available through N2 Follow.
-
-The grabber currently receives manually loaded detached walls. It does not cut
-attached hull. The combined scrap reclaimer is now available; asteroid-water
-processing and persistent cargo release remain future work. See the
-[residue contract and next processing stage](residue-material-contract.md).
-
-Translation catalogs, language settings and contributor guidance: [Localization](localization.md).
+Short-range approaches below **5,000 km** remain the immediate goal. No general
+obstacle avoidance, guaranteed pursuit or intact boarding guarantee is supplied.
+Use a clear route and keep specialist native instruments accessible. Numerical
+checks and offline layout proofs are not gameplay validation; see the
+[0.12.0 validation record](auto-nav-hub-validation.md). No installation or
+publication is implied by this prepared redesign.
 
 ## Industrial controls (0.10.0)
 

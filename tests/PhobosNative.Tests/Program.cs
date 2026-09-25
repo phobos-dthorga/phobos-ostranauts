@@ -230,4 +230,5 @@ Check(!ConstructionRegistry.Ready("ConflictAfter") && ConstructionRegistry.Statu
 ClearConstruction();
 EconomyChecks.Run(repo, Check, Throws);
 EquipmentValueAudit.Run(repo, Check, args.Length > 2 ? args[2] : null);
+InstallMenuChecks.Run(agriculture, prepared, Check, Throws);
 Console.WriteLine($"PASS: {checks} native-definition/registration checks with no OCF or Workshop loaded. No game session was run.");

@@ -25,6 +25,7 @@ internal static class PersistenceChecks
                     Coast = new CoastSettings(3.5, 12.5, .75, 2.5), Coasting = coast, Mode = mode, PreferTorch = torch
                 };
                 if (original.IsPursuit) original.ArrivalMS = 0;
+                if (original.IsCombinedApproach) { original.ArrivalMS = 0; original.OwnPort = "own-port"; original.TargetPort = "assigned-port"; }
                 var maps = new Dictionary<string, Dictionary<string, string>>();
                 var store = new ObjectStateStore(maps, FlightSnapshot.StoreName, original.ConsoleId, FlightSnapshot.Schema);
                 check(original.Valid && store.TryWrite(original.Encode()), "Persist each supported flight state");

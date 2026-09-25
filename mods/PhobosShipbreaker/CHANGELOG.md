@@ -6,7 +6,9 @@ Dates on Draft entries record preparation, not Steam publication.
 
 ## [Unreleased]
 
-No additional changes recorded.
+### Fixed
+
+- Fixed unreachable INSTALL entries; machinery appears under APPS, cooling hardware and conduits under HVAC, and the C1 console under CTRL, including damaged forms. Existing inputs, placement and saved IDs are preserved.
 
 ## [0.17.0] - 2026-09-25 - Draft
 

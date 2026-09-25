@@ -42,5 +42,14 @@ f=Setup();var old=new Ship{strRegID="old"};f.Own.shipCombatTarget=old;f.Own.Weap
 try { Aim(f); } catch { }
 Check(f.Own.shipCombatTarget==old && !f.Control.AllowsNative(f.Own.WeaponsSystem,f.Target.objSS),"Native exception restores combat target and dispatch guard");
 var lead=FireRules.Lead(new(0,1000),new(20,0),100);Check(lead.X>0 && lead.Y==1000,"Attitude leads a crossing contact");
+f=Setup();StarSystem.fEpoch=42;f.Control.Authorize(f.Own,f.Ref,1);f.Control.Tick(f.Own,f.Ref,.25,true);
+Check(f.Control.InArcCount==1 && f.Control.AmmoCount==1 && f.Control.ReadyCount==0 && f.Control.SampleEpoch==42,
+    "Readiness reports measured arc and ammo while native aim is incomplete");
+f.Control.Tick(f.Own,f.Ref,.25,false);
+Check(f.Control.InArcCount==null && f.Control.AmmoCount==null && f.Control.ReadyCount==null && double.IsNaN(f.Control.SampleEpoch),
+    "Guidance veto invalidates readiness rather than retaining a stale ready indication");
+f.Weapon.Item!.fLastRotation=180;f.Weapon.Ammo.Clear();f.Control.Tick(f.Own,f.Ref,.25,true);
+Check(f.Control.InArcCount==0 && f.Control.AmmoCount==0 && f.Control.ReadyCount==0,"Observed unavailable weapons read zero, separately from stale telemetry");
+f.Control.Cease();Check(f.Control.InArcCount==null && double.IsNaN(f.Control.SampleEpoch),"Cease Fire clears readiness and observation time");
 Check(FireRules.Aim(10,20,10,double.NaN,true)==0,"Nonfinite aim interval cannot acquire lock");
 Console.WriteLine($"{checks} fire-control native-boundary assertions passed; no in-game tests performed.");

@@ -1,43 +1,35 @@
-# Polaris docking — Auto Nav 0.8.0
+# Polaris docking — Auto Nav 0.12.0
 
-Current follow-up: [Polaris pursuit and fire control](auto-nav-pursuit.md) adds the
-N2 instrument, shared predictive guidance and moving-target docking hold. Its
-pursuit modes always suspend after reload; fire authority is never saved. Earlier
-version descriptions below remain useful background where not superseded.
-
-**0.9.0 follow-up:** [live contact](auto-nav-sensors.md) is required to engage,
-resume, guide and clamp. Contact loss suspends, clears owned thrust and preserves
-the assigned pair for explicit Resume; it does not provide emergency braking.
-
-Prepared on 2026-09-24 against Ostranauts **1.0.1.5**, BepInEx **5.4.23.5**
-and Phobos Framework **0.11.0**. Built and checked offline; **not yet tested in
-game or installed**. No new item, dependency, price change or raster artwork.
+Current operation uses the [shared flight hub](auto-nav-instruments.md), prepared
+against Blue Bottle Games' Ostranauts 1.0.1.5 with Framework 0.17.0 or newer.
+Offline verification is separate from owner-run gameplay evaluation; this round
+does not install or publish the redesign.
 
 ## Operating sequence
 
-1. Use **Fly** for travel and a normal approach. Dock is a separate, deliberate
-   maneuver; Fly does not start docking automatically.
-2. Obtain **DOCK clearance through native Comms** and select the same ship or
-   station. End any active/suspended Fly command with Stop before choosing Dock.
-3. Within **10 km of the hull**, with room to brake, choose **Details → Dock with
-   selected target**, or enter `phobosnav dock`. The display's ordinary Range
-   remains centre-to-centre; the docking progress message reports **hull gap**.
-4. Polaris resets time acceleration, uses RCS to approach at up to **20 m/s**,
-   removes relative motion and turns toward the target. The ship's throttle
-   limits the combined translation/rotation input. Working RCS and fuel are
-   required even with a running reactor.
-5. Keep that navigation console's **Comms/docking controls open** for final
-   attachment. If closed, guidance continues and reports that the console must
-   be reopened. Native attachment is requested once, after fresh checks.
+1. Obtain **DOCK clearance through native Comms** and select that destination.
+   Disengage an existing active/suspended mission before choosing a new one.
+2. On Navigation choose **Approach & Dock** (`phobosnav approachdock`) for a
+   combined mission: travel to 1 km beyond protected hull clearance, match motion,
+   revalidate exact assigned ports and hand off to RCS-only terminal guidance.
+   The target, module and both ports are captured. Protected hull clearance uses
+   the ordinary 1.5 × native collision distance. This margin is authored policy.
+3. **Dock** (`phobosnav dock`) remains available for terminal admission within
+   10 km of the hull. Already inside the combined mission's staging distance
+   also uses terminal admission. Insufficient braking room prevents engagement.
+4. Keep the native Comms/docking interface available. An unavailable interface
+   suspends combined handoff with an explanation. Existing terminal guidance
+   requests it before attachment. No fee, clearance or salvage-law bypass exists.
+5. Navigation automatically shows clearance, assigned ports, relative motion,
+   heading alignment and approach/hold/capture progress. Terminal RCS matches
+   motion and holds/retreats when target manoeuvres exceed safe capture authority.
 
-The stopping-distance dial displays **CLAMPS** during docking; its ordinary
-distance and torch settings do not control this maneuver. Normal Fly retains
-torch preference, including approach braking where permitted. Tight terminal
-docking uses RCS only. No automatic clearance request or fee avoidance.
-
-`phobosnav status`, Stop and Resume use the same service as the panel. **Stop
-removes commanded thrust, not velocity**. Replacing an active/suspended mission
-requires a deliberate Stop. Changing the crosshair does not retarget it.
+Changed/revoked clearance, occupied ports or failed handoff suspend combined intent.
+Explicit Resume rechecks it; no port substitution or repeated approach restart is
+allowed. Both phases always suspend after loading. Manual takeover cancels;
+contact loss suspends and clears commanded thrust. **Disengage allows coasting,
+not emergency braking.** Ordinary Approach, Rendezvous and Follow never start
+docking implicitly. Terminal attachment follows the preserved contract below.
 
 ## Rules and limits
 
@@ -70,7 +62,8 @@ requires a deliberate Stop. Changing the crosshair does not retarget it.
 
 Reuse Framework's `Persistence.ObjectStateStore` and Auto Nav's console/module/
 ship/player/target binding. The schema-1 record gains `ownPort` and `targetPort`
-only for docking states, plus `Docking`, `DockingSuspended` and `Docked` lifecycle
+for terminal and combined docking states, with `ApproachDock`,
+`ApproachDockSuspended`, `Docking`, `DockingSuspended` and `Docked` lifecycle
 names. Earlier plugins reject those unknown states and retain the record;
 they cannot reinterpret docking as an ordinary approach on downgrade.
 

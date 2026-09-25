@@ -2,15 +2,15 @@ using System;
 
 namespace PhobosAutoNav.Core;
 
-/// <summary>One standard native navigation column and row.</summary>
+/// <summary>One native navigation column, four standard rows. New layout identity only.</summary>
 internal static class PanelLayoutRules
 {
-    public const float RowHeight = 0.2f;
+    public const float RowHeight = 0.8f;
     public const float ColumnWidth = 0.25f;
-    public const float DefaultLeft = 0.35f;
-    public const float DefaultTop = 0.25f;
+    public const float DefaultLeft = 0f;
+    public const float DefaultTop = 0.8f;
 
-    // Match Time/Zoom and Display Controls, independently of the source bitmap's
+    // Match the native column grid, independently of the source bitmap's
     // aspect ratio. Both dimensions lie on the native two-decimal anchor grid.
     // Keep the top-left placement; never silently move other panels or force a fit.
     public static bool TryBounds(double boardWidth, double boardHeight, float left, float top,

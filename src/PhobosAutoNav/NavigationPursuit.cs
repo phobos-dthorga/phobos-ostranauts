@@ -52,6 +52,7 @@ internal sealed partial class NavigationService
     {
         // Engagement never starts navigation or takes the crosshair as permission.
         if (!HasPursuit(co) || co != console || !AutoNavCore.Engaged || savedFlight?.IsFollowing != true ||
+            HardwareProblem(co) != null || !FlightBindingValid() ||
             !ReadContact(co, AutoNavCore.EngagedTarget).Usable)
         { status = Text.Get("Pursuit.follow_first"); return; }
         var offensive = fireSelectionConsole != co || fireTargetId == null ? null : TargetRef.FromShipId(fireTargetId);

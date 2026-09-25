@@ -1,104 +1,121 @@
-# Polaris instrument panel — Auto Nav 0.10.0
+# Polaris flight hub — Auto Nav 0.12.0
 
-Current follow-up: [Polaris pursuit and fire control](auto-nav-pursuit.md) adds the
-N2 instrument, shared predictive guidance and moving-target docking hold. Its
-pursuit modes always suspend after reload; fire authority is never saved. Earlier
-version descriptions below remain useful background where not superseded.
+Prepared 25 September 2026 for Blue Bottle Games' Ostranauts 1.0.1.5 and
+Phobos Framework 0.17.0 or newer. Offline checks and packaging are separate from
+owner-run gameplay evaluation. This redesign is not installed or published.
 
-**0.10.0 controls:** Details adds cruise and arrival-speed minus/plus controls.
-Numeric speed/distance defaults now belong to each console; Fly readiness also
-checks braking room. See [flight profiles and safety](auto-nav-flight-profiles.md).
-The existing plate and pickup sprites are unchanged. The artwork preview below
-remains a historical illustration of the original 0.7.0 controls.
+## Place the new hub
 
-**0.9.0 sensing:** range and relative speed are unknown without a
-[usable native contact](auto-nav-sensors.md). Details and F3 status explain
-blocked or suspended tracking. Existing artwork and control positions suffice;
-the new messages use translation keys and the existing scrollable Details view.
+Install either a working **Phobos' Asterel N1 Polaris Auto Nav Module** or
+**Phobos' Asterel N2 Polaris Pursuit Module** in the console. Either supplies
+navigation and docking; pursuit and fire permission require N2. Both installed
+still produce one hub. Damage never lets a different module silently take over
+a saved flight's exact hardware binding.
 
-**0.8.1 naming:** the live title is now **Phobos' Asterel N1 Polaris Auto Nav**,
-using Framework 0.12.0. The plate artwork and control positions are unchanged.
+The hub occupies **25% of console width × 80% of height**, using a 600 × 960
+reference layout. In native **Edit**, enable/place **PhobosNavFlightHub** in a
+clear column, then exit Edit. Native dragging and overlap checks still apply.
+Existing compact placements are retained under their old layout identities;
+they are not expanded over other instruments. A once-only console message explains
+the new placement. Other modules keep their positions. Physical item IDs, recipes
+and saved flight bindings are unchanged.
 
-**0.8.0 addition:** Details now includes **Dock with selected target**, using the
-same service as `phobosnav dock`. During active/suspended docking the stopping
-distance reads CLAMPS; docking uses its own capture limits and RCS. See the
-[docking guide](auto-nav-docking.md) for clearance, ports and explicit Resume
-after reload. The linked artwork preview illustrates the original 0.7.0 layout.
+Keep the native map, sensors, warnings and access to Comms/docking. This is a
+flight hub, not a replacement for every specialist instrument or reactor panel.
 
-Prepared against Ostranauts 1.0.1.5 and Framework 0.14.0. The owner authorised a
-substantial redesign on 24 September 2026. This is a prepared candidate, not an
-installed update or an in-game validation claim.
+## Routine controls
 
-## Operating the panel
+The header always shows navigation target, operation, contact condition and the
+current highest-priority restriction. When firing is permitted it also shows the
+separate offensive target. Long names can wrap/truncate; Details retains the full
+diagnostic explanation. Missing or stale readings show an unavailable mark.
+Header content and tabs are inset within the raster's actual display recesses.
+Telemetry and settings have separate live display wells, padded inside their
+bezels. Short contact/operation labels stay on one line; names can occupy two.
+The Navigation tab uses the short label **Nav**.
 
-The same native navigation-module slot now contains a dedicated flight display,
-two rotary controls and three buttons. Its placement remains 25% of board width
-by 20% of board height, retaining saved positions and native fit/overlap rules.
+| Page | Controls and readings |
+| --- | --- |
+| Navigation | **Approach**, **Dock**, **Approach & Dock**; RCS or RCS + Torch preference; cruise speed, arrival speed and separation. Range in km, signed closing speed and total relative speed in m/s. |
+| Active docking | Navigation automatically exposes clearance, captured ports, heading alignment and approach/hold/capture progress, replacing locked flight preferences. |
+| Pursuit | **Rendezvous**, **Follow**, separation/cruise, separate offensive-target selection, weapon group, guarded **Engage**, and arc/ammunition/ready counts. Requires working N2. |
+| Systems | RCS authority and remaining mass, delivered acceleration, torch endurance/core temperature, connected stored energy, no-wake state; native flow/cycle sliders, safety/cycle switches and Shutdown. |
+| Details | Scrollable diagnostics, full explanations and help. No routine flight or docking controls are hidden here. |
 
-- **Flight display:** current phase, destination, range and total relative speed.
-  Relative speed is not signed closing speed. Range is centre-to-centre. Coasting
-  explicitly reports idle translation; RCS may still correct rotation.
-- **Propulsion:** AUTO prefers a running, usable torch with native zone checks and
-  RCS fallback. RCS inhibits Auto Nav torch burns immediately without stopping
-  guidance. This setting neither ignites the reactor nor certifies torch legality.
-- **Stop distance:** requests a centre-to-centre arrival distance; native hull
-  clearance can increase the effective distance shown in Details. Presets are
-  0.1, 0.25, 0.5, 1, 2, 5, 10, 25, 50 and 100 km. The dial stops at its limits;
-  it never wraps from 100 km to 100 m. Existing custom values stay exact until
-  the next deliberate detent. F3 `phobosnav arrival <km>` remains available.
-- **Fly / Resume:** starts toward the selected ship/station or resumes the saved
-  destination. Changing the crosshair does not retarget a saved flight. A rejected
-  engagement opens Details with the full reason.
-- **Stop / Coast:** ends guidance and removes its commanded thrust; it does not
-  brake. After stopping, select settings and start another flight normally.
-- **Details / Overview:** switches the display area. Details scrolls with a visible
-  scrollbar and retains full destination names, last event, current restriction,
-  requested/effective stopping distances, cruise/torch settings and control help.
-  Long translations fit here rather than being packed into the main display.
+**Resume**, **Disengage** and **Cease Fire** remain available in the bottom strip
+on every page. **Disengage clears commanded thrust and allows coasting; it is not
+an emergency brake.** Cease Fire revokes our offensive permission while retaining
+Follow. Changing pages, refreshing displays and loading a save authorize neither
+fire nor docking. If the native guarded switch cannot be obtained, panel Engage
+is unavailable; there is no unguarded replacement.
 
-Click the left/right half of a dial, scroll, or drag vertically to step it.
-Focused arrow keys also step. Amber values indicate locked settings. Arrival is
-locked during active or suspended flights. An old RCS-only flight cannot acquire
-torch permission through the panel: stop and begin a new flight. A torch-permitted
-flight can switch between RCS inhibition and AUTO without changing saved intent.
-Numeric defaults are saved per console; active flight values are captured per
-flight. Propulsion preference retains its shared configuration behaviour.
+Settings apply to the next flight and lock while intent is active or suspended.
+Stop before changing destination/profile. The existing RCS inhibition can remove
+torch use from a flight, but cannot add permission to an old RCS-only mission.
+F3 remains available through the same service; see [flight profiles](auto-nav-flight-profiles.md)
+and [pursuit controls](auto-nav-pursuit.md).
 
-Damaged hardware disables flight/settings controls; Details remains readable.
-In native Edit mode the controls yield pointer events to placement and cannot
-change flight settings. Exit Edit before interacting, as with native modules.
-An active flight on another console blocks takeover and setting changes here.
+## Approach & Dock
 
-## Artwork and implementation
+Obtain native DOCK clearance and select its destination. **Approach & Dock**
+(`phobosnav approachdock`) checks assigned compatible ports, captures the exact
+target/port pair/module and approaches a staging distance **1 km beyond protected
+hull clearance**. Protected clearance is the existing 1.5 × native collision
+distance; the margin is an authored guidance policy, not a research result.
+The cruise preference and allowed torch apply to this travel phase; arrival speed
+is zero. After matching motion, the service revalidates and hands off to the
+existing RCS-only terminal controller at a shared physics boundary.
 
-The new [faceplate and exact prompt](../assets/phobos-autonav/instruments-prompt.md)
-are original built-in Imagegen output, with no game pixels copied. Production
-resolution is **1942 x 809** for a **600 x 250** reference display, exceeding our
-[2x requirement](artwork-resolution-policy.md). The retained full-resolution raster
-scales with code into the native slot. No world-item dimensions change. Existing
-pickup art and the former approved faceplate are preserved.
+Already inside staging uses terminal admission immediately. Changed clearance,
+occupied ports, unsafe motion, missing control authority or an unavailable native
+docking interface prevent handoff and expose the reason. Failure suspends intent
+for explicit Resume; it never substitutes ports or silently restarts an approach.
+Keep native Comms/docking controls available for the checked handoff and attachment.
+Native fees, salvage restrictions and completion events are retained. Ordinary
+Approach, Rendezvous and Follow do not imply docking.
 
-Text, status colour and rotating pointer bars are rendered live. The previous
-three-line status block is replaced; artwork contains no baked labels. All player
-messages are in the translation catalog. Framework supplies the existing clipped
-scroll panel. NavigationService owns snapshot reads and settings/actions, reusing
-the same mutations as F3; flight guidance and saved schema are unchanged.
+Both phases always suspend after loading, including when ordinary Approach has
+auto-resume enabled. Contact loss suspends; manual takeover cancels automation.
+See [terminal policy and native evidence](auto-nav-docking.md).
 
-The [interactive preview](../assets/phobos-autonav/previews/instruments.html)
-uses sample values and a system font. It demonstrates layout and interactions,
-not native Unity input/font behaviour. `scripts/verify-autonav-preview.cjs`
-optionally exercises it with Playwright and headless Edge, writing local review
-screenshots. Native integration checks remain in `scripts/build-autonav.ps1`.
+## Systems scope and measurement limits
 
-## Focused verification
+Manual propulsion actions first release automatic flight/fire ownership, then use
+native reactor properties. They retain core readiness, limiter and no-wake checks;
+they cannot cold-start a reactor or bypass a missing reading. Shutdown uses the
+native override-off condition. Keep specialist reactor functions accessible.
 
-Automated coverage exercises bounded/custom arrival detents, captured profile
-protection, display reads without save/config writes, same-console authority,
-RCS inhibition without cancelling guidance and retention of future save records.
-Existing flight, persistence, torch and compiled native-placement checks remain.
-The package also verifies artwork identity and minimum production dimensions.
+RCS authority uses the selected aggregate throttle. Connected kWh is native stored
+electrical energy, not generation rate. Torch hours are native estimated endurance,
+not a fuel-mass assay. Heading alignment is the native centre-facing geometry, not
+a measurement of physical airlock offset. Fire counts describe the most recent
+qualified weapon evaluation and become unavailable when stale or held. They do not
+constitute permission to fire. Native missile lock/manual/defensive restrictions
+still apply. See [sensor qualification](auto-nav-sensors.md).
 
-Owner checks after installation: confirm the panel still fits and drags in Edit;
-exit Edit and try the rotary controls; check a normal flight and a resumed one;
-open and scroll Details. Verify readable labels and input behaviour with the
-game's font and your display scale. No basic power-consumption retest is needed.
+## Layout, artwork and verification
+
+[Shared registration](../assets/phobos-autonav/hub-layout.json) drives both Unity
+controls and the [offline preview](../assets/phobos-autonav/previews/flight-hub.html).
+The preview uses schematic controls and a system font. It checks Navigation,
+Pursuit, Systems and docking at 300 × 480, 400 × 640 and 600 × 960, including expanded
+labels and long names. Routine pages do not scroll; Details does. At the smallest
+size base labels are 12 px and primary buttons at least 24 px high. Final controls
+are reflowed within the generated plate's usable fields rather than shrinking text.
+Named safe fields register the header, tabs, main body and bottom strips to the
+faceplate. Verification checks containment in those fields and readout padding;
+overall panel bounds alone are insufficient. Unity text also has local clipping
+at its designated field, without reducing critical font size.
+
+The [faceplate provenance](../assets/phobos-autonav/hub-prompt.md) retains both
+992 × 1586 Imagegen outputs and the approved compact N1/N2 masters. With explicit
+owner approval, local Real-ESRGAN produced a 1984 × 3172 master and an exact
+1200 × 1920 runtime export. It infers texture; it is not lossless recovery or a
+native high-resolution generation. All labels, switches and readings remain live.
+Blue Bottle Games' button/switch/slider artwork is referenced at runtime through
+Framework's isolated adapters; no unrelated reactor controller is instantiated
+and no game artwork is redistributed.
+
+See [validation record and remaining owner checks](auto-nav-hub-validation.md).
+Earlier 0.7–0.11.1 compact layouts and prompts are preserved as artwork provenance;
+their control instructions are superseded by this guide.

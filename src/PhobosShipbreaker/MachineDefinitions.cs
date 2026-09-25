@@ -19,7 +19,7 @@ internal static class MachineDefinitions
     }
 
     // The same native install/repair/damage contract serves all three machines.
-    internal static void AddFamily(NativeDefinitions d, string P)
+    internal static void AddFamily(NativeDefinitions d, string P, string buildCategory = InstallMenu.Appliances)
     {
         d.Conditions.Add(P + "Machine", new JsonCond { strName = P + "Machine", strNameFriendly = Text.Get("MachineDefinitions.dismantling_fixture"),
             strColor = "Neutral", nDisplaySelf = 2, nDisplayOther = 2 });
@@ -58,8 +58,8 @@ internal static class MachineDefinitions
                 d.Loot.Add(P + "Damage" + state, new Loot { strName = P + "Damage" + state,
                     strType = "interaction", aCOs = new[] { damage + "=1.0x1" }, aLoots = Array.Empty<string>() });
             }
-            AddInstallable(d, P, state, installed ? "Uninstall" : "Install");
-            if (damaged) AddInstallable(d, P, state, "Repair");
+            AddInstallable(d, P, state, installed ? "Uninstall" : "Install", buildCategory);
+            if (damaged) AddInstallable(d, P, state, "Repair", buildCategory);
         }
     }
 
@@ -86,7 +86,7 @@ internal static class MachineDefinitions
     }
     private static Loot ItemLoot(string id, string item) => new Loot { strName = id, strType = "item",
         aCOs = new[] { item + "=1.0x1" }, aLoots = Array.Empty<string>() };
-    private static void AddInstallable(NativeDefinitions d, string P, string state, string job)
+    private static void AddInstallable(NativeDefinitions d, string P, string state, string job, string buildCategory)
     {
         bool repair = job == "Repair", install = job == "Install";
         string source = P + state, intact = state.Replace("Dmg", ""), id = P + (repair ? intact : state) + job;
@@ -94,7 +94,7 @@ internal static class MachineDefinitions
         d.Installables.Add(id, new JsonInstallable {
             strName = id, strActionCO = source, strActionGroup = "Work", strJobType = job.ToLowerInvariant(),
             strInteractionName = job, strInteractionTemplate = "ACT" + job + (repair ? "" : "NoSparks") + "TEMP",
-            strStartInstall = install ? output : null, strBuildType = install ? "MIS" : null,
+            strStartInstall = install ? output : null, strBuildType = install ? buildCategory : null,
             CTThem = repair ? "TIsRepairableNotContained" : P + "T" + state,
             aInputs = repair ? new[] { "TIsPartsMechSmall=1.0x1", "TIsScrapAluminum=1.0x1" } :
                 install ? new[] { P + "T" + state + "=1.0x1" } : Array.Empty<string>(),

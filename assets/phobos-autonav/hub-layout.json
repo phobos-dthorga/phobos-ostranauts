@@ -1,0 +1,361 @@
+{
+  "width": 600,
+  "height": 960,
+  "boxes": [
+    {
+      "id": "title",
+      "x": 60,
+      "y": 16,
+      "w": 480,
+      "h": 32,
+      "zone": "title"
+    },
+    {
+      "id": "target",
+      "x": 44,
+      "y": 68,
+      "w": 512,
+      "h": 56,
+      "zone": "header"
+    },
+    {
+      "id": "offensive",
+      "x": 44,
+      "y": 124,
+      "w": 512,
+      "h": 56,
+      "zone": "header"
+    },
+    {
+      "id": "operation",
+      "x": 44,
+      "y": 180,
+      "w": 512,
+      "h": 28,
+      "zone": "header"
+    },
+    {
+      "id": "contact",
+      "x": 44,
+      "y": 208,
+      "w": 512,
+      "h": 28,
+      "zone": "header"
+    },
+    {
+      "id": "restriction",
+      "x": 44,
+      "y": 236,
+      "w": 512,
+      "h": 28,
+      "zone": "header"
+    },
+    {
+      "id": "tabs",
+      "x": 46,
+      "y": 292,
+      "w": 508,
+      "h": 48,
+      "zone": "tabs"
+    },
+    {
+      "id": "body",
+      "x": 36,
+      "y": 358,
+      "w": 528,
+      "h": 434,
+      "zone": "body"
+    },
+    {
+      "id": "actions",
+      "x": 38,
+      "y": 812,
+      "w": 524,
+      "h": 48,
+      "zone": "actions"
+    },
+    {
+      "id": "coast",
+      "x": 44,
+      "y": 880,
+      "w": 512,
+      "h": 32,
+      "zone": "coast"
+    },
+    {
+      "id": "nav.actions",
+      "x": 0,
+      "y": 0,
+      "w": 528,
+      "h": 64
+    },
+    {
+      "id": "nav.metrics",
+      "x": 0,
+      "y": 72,
+      "w": 528,
+      "h": 104
+    },
+    {
+      "id": "nav.propulsion",
+      "x": 0,
+      "y": 184,
+      "w": 528,
+      "h": 52
+    },
+    {
+      "id": "nav.cruise",
+      "x": 0,
+      "y": 244,
+      "w": 528,
+      "h": 56
+    },
+    {
+      "id": "nav.arrival",
+      "x": 0,
+      "y": 308,
+      "w": 528,
+      "h": 56
+    },
+    {
+      "id": "nav.separation",
+      "x": 0,
+      "y": 372,
+      "w": 528,
+      "h": 56
+    },
+    {
+      "id": "dock.clearance",
+      "x": 0,
+      "y": 184,
+      "w": 528,
+      "h": 52
+    },
+    {
+      "id": "dock.ports",
+      "x": 0,
+      "y": 244,
+      "w": 528,
+      "h": 84
+    },
+    {
+      "id": "dock.alignment",
+      "x": 0,
+      "y": 336,
+      "w": 528,
+      "h": 40
+    },
+    {
+      "id": "dock.progress",
+      "x": 0,
+      "y": 384,
+      "w": 528,
+      "h": 48
+    },
+    {
+      "id": "pursuit.actions",
+      "x": 0,
+      "y": 0,
+      "w": 528,
+      "h": 56
+    },
+    {
+      "id": "pursuit.cruise",
+      "x": 0,
+      "y": 64,
+      "w": 528,
+      "h": 56
+    },
+    {
+      "id": "pursuit.separation",
+      "x": 0,
+      "y": 128,
+      "w": 528,
+      "h": 56
+    },
+    {
+      "id": "pursuit.target",
+      "x": 0,
+      "y": 192,
+      "w": 528,
+      "h": 64
+    },
+    {
+      "id": "pursuit.select",
+      "x": 0,
+      "y": 264,
+      "w": 528,
+      "h": 48
+    },
+    {
+      "id": "pursuit.group",
+      "x": 0,
+      "y": 320,
+      "w": 260,
+      "h": 52
+    },
+    {
+      "id": "pursuit.engage",
+      "x": 272,
+      "y": 320,
+      "w": 148,
+      "h": 52
+    },
+    {
+      "id": "pursuit.guard",
+      "x": 432,
+      "y": 320,
+      "w": 96,
+      "h": 112
+    },
+    {
+      "id": "pursuit.ready",
+      "x": 0,
+      "y": 374,
+      "w": 420,
+      "h": 60
+    },
+    {
+      "id": "systems.metrics",
+      "x": 0,
+      "y": 0,
+      "w": 528,
+      "h": 176
+    },
+    {
+      "id": "systems.flowLabel",
+      "x": 0,
+      "y": 184,
+      "w": 128,
+      "h": 32
+    },
+    {
+      "id": "systems.cycleLabel",
+      "x": 132,
+      "y": 184,
+      "w": 128,
+      "h": 32
+    },
+    {
+      "id": "systems.flow",
+      "x": 28,
+      "y": 222,
+      "w": 72,
+      "h": 124
+    },
+    {
+      "id": "systems.cycle",
+      "x": 160,
+      "y": 222,
+      "w": 72,
+      "h": 124
+    },
+    {
+      "id": "systems.flowValue",
+      "x": 0,
+      "y": 348,
+      "w": 128,
+      "h": 32
+    },
+    {
+      "id": "systems.cycleValue",
+      "x": 132,
+      "y": 348,
+      "w": 128,
+      "h": 32
+    },
+    {
+      "id": "systems.safetyLabel",
+      "x": 268,
+      "y": 182,
+      "w": 124,
+      "h": 56
+    },
+    {
+      "id": "systems.cycleEnableLabel",
+      "x": 404,
+      "y": 182,
+      "w": 124,
+      "h": 56
+    },
+    {
+      "id": "systems.safety",
+      "x": 282,
+      "y": 242,
+      "w": 96,
+      "h": 104
+    },
+    {
+      "id": "systems.cycleEnable",
+      "x": 416,
+      "y": 242,
+      "w": 96,
+      "h": 104
+    },
+    {
+      "id": "systems.safetyValue",
+      "x": 268,
+      "y": 348,
+      "w": 124,
+      "h": 32
+    },
+    {
+      "id": "systems.enabledValue",
+      "x": 404,
+      "y": 348,
+      "w": 124,
+      "h": 32
+    },
+    {
+      "id": "systems.shutdown",
+      "x": 0,
+      "y": 386,
+      "w": 528,
+      "h": 48
+    }
+  ],
+  "zones": [
+    {
+      "id": "title",
+      "x": 60,
+      "y": 14,
+      "w": 480,
+      "h": 34
+    },
+    {
+      "id": "header",
+      "x": 40,
+      "y": 64,
+      "w": 520,
+      "h": 208
+    },
+    {
+      "id": "tabs",
+      "x": 34,
+      "y": 288,
+      "w": 532,
+      "h": 56
+    },
+    {
+      "id": "body",
+      "x": 32,
+      "y": 354,
+      "w": 536,
+      "h": 442
+    },
+    {
+      "id": "actions",
+      "x": 34,
+      "y": 808,
+      "w": 532,
+      "h": 56
+    },
+    {
+      "id": "coast",
+      "x": 40,
+      "y": 876,
+      "w": 520,
+      "h": 40
+    }
+  ]
+}

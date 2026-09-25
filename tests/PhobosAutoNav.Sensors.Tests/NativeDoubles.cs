@@ -17,6 +17,9 @@ internal sealed class CrewSim
 }
 internal sealed class StarSystem
 {
+    internal static double fEpoch;
+    internal bool NoWake;
+    internal bool IsWithinNoWakeRangeOfAnyStation(ShipSitu situ, double epoch) => NoWake;
     internal Dictionary<string, Ship> Ships = new();
     internal Dictionary<string, BodyOrbit> aBOs = new();
     internal Ship? GetShipByRegID(string id) => Ships.TryGetValue(id, out var ship) ? ship : null;
@@ -26,6 +29,14 @@ internal sealed class StarSystem
 internal sealed class BodyOrbit { internal bool Blocks, IsAsteroidField; internal int nDrawFlagsBody; }
 internal sealed class Ship
 {
+    internal CondOwner? Reactor;
+    internal double fShallowFusionRemain = 3600;
+    internal Dictionary<string,string> ReactorProps = new() { ["slidFlow"]="0", ["slidCycle"]="0", ["knobRatio"]="0", ["bNWZ"]="false" };
+    internal int ReactorWrites;
+    internal string GetReactorGPMValue(string key) => ReactorProps.TryGetValue(key,out var value) ? value : "";
+    internal void SetReactorGPMValue(string key,string value) { if(AutoNavCore.Engaged) throw new Exception("Automation still owns flight during manual write"); ReactorWrites++; ReactorProps[key]=value; }
+    internal bool IsMoored() => false;
+
     internal bool IsUsingTorchDrive => false;
     internal string strRegID = "", publicName = "";
     internal ShipSitu objSS = new();
@@ -45,9 +56,16 @@ internal sealed class Ship
     internal IEnumerable<CondOwner> GetCOs(object? filter, bool bSubObjects, bool bAllowDocked, bool bAllowLocked)
     { if (bSubObjects || bAllowDocked) throw new Exception("Cross-ship discovery"); return Items; }
 }
-internal sealed class ShipSitu { }
+internal sealed class ShipSitu { internal double vPosx, vPosy, vVelX, vVelY; internal float fRot; internal UnityEngine.Vector2 vAccIn; }
+internal sealed class PowerReading { internal double PowerConnected = 12; }
 internal sealed class CondOwner
 {
+    internal PowerReading? Pwr;
+    internal int Messages, ConditionWrites;
+    internal double GetCondAmount(string key) => 11;
+    internal void AddCondAmount(string key,double amount) { ConditionWrites++; Conditions.Add(key); }
+    internal void LogMessage(string message,string mood,string source) { Messages++; }
+
     internal string strID = "", strName = "", strCODef = "";
     internal bool bDestroyed;
     internal Ship ship = null!;
@@ -65,7 +83,7 @@ internal sealed class JsonShipSitu
     internal UnityEngine.Vector2 vAccRCS, vAccIn;
     internal float fA;
 }
-namespace UnityEngine { internal struct Vector2 { internal static Vector2 zero => default; } }
+namespace UnityEngine { internal struct Vector2 { internal float x,y; internal double magnitude => Math.Sqrt(x*x+y*y); internal static Vector2 zero => default; } }
 internal sealed class GUIOrbitDraw
 {
     internal static GUIOrbitDraw Instance = new();
@@ -132,6 +150,7 @@ namespace PhobosAutoNav
     internal static class Text { internal static string Get(string key, params object[] values) => key + (values.Length == 0 ? "" : " " + string.Join(";",values)); }
     internal sealed class TorchDriveController
     {
+        internal static bool Ready(CondOwner core) => core.HasCond("IsReadyFusion") && !core.HasCond("IsDamaged");
         internal ContactReading? ContactLoss;
         internal string Reason => "Torch.rcs";
         internal bool ControlsChanged => false;
@@ -191,8 +210,20 @@ namespace PhobosAutoNav
     // Docking orchestration has its own suite using the real docking service.
     internal sealed partial class NavigationService
     {
+        private bool dockHolding => false;
         private bool DockingActive => false;
         internal void Dock(CondOwner? co) => throw new NotSupportedException();
         private void ResumeDocking(CondOwner co, TargetRef target, FlightSnapshot snapshot) => throw new NotSupportedException();
+        private void ResumeApproachDock(CondOwner co, TargetRef target, FlightSnapshot snapshot) => throw new NotSupportedException();
+        private bool QueueDockingHandoff() => combinedHandoffPending;
+        internal void ApproachDock(CondOwner? co) => throw new NotSupportedException();
+    }
+}
+
+namespace Ostranauts.ShipGUIs.NavStation { internal static class NavModTorchDrive { internal static float GetLimiterSafetyMax(Ship ship) => .5f; } }
+namespace PhobosAutoNav {
+    internal static class DockingAdapter {
+        internal static string? Check(Ship own, Ship? target, string ownPort, string targetPort, bool checkFit) => null;
+        internal static string? SelectPorts(Ship own, Ship target, out string ownPort, out string targetPort) { ownPort="own";targetPort="assigned";return null; }
     }
 }

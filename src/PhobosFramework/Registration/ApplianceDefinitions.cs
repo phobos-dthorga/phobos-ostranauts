@@ -7,7 +7,11 @@ namespace Phobos.Ostranauts.Framework.Registration;
 /// <summary>Native installable appliance family. All names, ratings, sprites and bills are content-owned.</summary>
 public static class ApplianceDefinitions
 {
-    public static void Add(NativeDefinitions d, string prefix, string name, string description, int size, double kg, double price, string image, string controls, double kw)
+    // Preserve the existing public signature for already-compiled content consumers.
+    public static void Add(NativeDefinitions d, string prefix, string name, string description, int size, double kg, double price, string image, string controls, double kw) =>
+        Add(d, prefix, name, description, size, kg, price, image, controls, kw, InstallMenu.Appliances);
+
+    public static void Add(NativeDefinitions d, string prefix, string name, string description, int size, double kg, double price, string image, string controls, double kw, string buildCategory)
     {
         d.Conditions[prefix + "Machine"] = new JsonCond { strName = prefix + "Machine", strNameFriendly = name, strColor = "Neutral", nDisplaySelf = 2, nDisplayOther = 2 };
         d.Power[prefix + "Power"] = new JsonPowerInfo { strName = prefix + "Power", strUsePowerCT = "TIsReadyUsePower", aInputPts = new[] { "PowerA", "PowerB" }, bAllowExtPower = true, fAmount = kw / 3600 };
@@ -47,7 +51,7 @@ public static class ApplianceDefinitions
                 var work = MaintenanceDefinitions.Work(id + job, id, "ACT" + job + (repair ? "" : "NoSparks") + "TEMP", id + "Test", "MISC");
                 work.strJobType = job.ToLowerInvariant(); work.strInteractionName = job;
                 string output = repair ? id.Replace("Dmg", "") : prefix + form.Replace(install ? "Loose" : "Installed", install ? "Installed" : "Loose");
-                work.strStartInstall = install ? output : null; work.strBuildType = install ? "MIS" : null;
+                work.strStartInstall = install ? output : null; work.strBuildType = install ? buildCategory : null;
                 work.aInputs = repair ? new[] { "TIsPartsMechSmall=1x1", "TIsScrapAluminum=1x1" } : install ? new[] { id + "Test=1x1" } : Array.Empty<string>();
                 work.aLootCOs = new[] { output }; work.strAllowLootCTsThem = "COND" + job + "Progressx5"; work.strProgressStat = "Stat" + job + "Progress";
                 d.Installables[work.strName] = work;

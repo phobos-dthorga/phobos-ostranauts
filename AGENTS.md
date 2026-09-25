@@ -64,6 +64,20 @@
   correct their source entries explicitly when necessary. Build success is not
   gameplay validation, and a page draft is not evidence that a Workshop item exists.
 
+## Native INSTALL catalogue maintenance
+
+- Owner memorandum (2026-09-25): every implemented placeable Phobos furniture,
+  equipment and machinery family must appear in an appropriate native INSTALL
+  tab, including supported damaged forms. Maintain this alongside additions,
+  renames, placement changes and removals; it is part of delivering the item.
+- Use Framework `InstallMenu` category constants and native installables; preserve
+  existing item IDs, physical inputs, footprints, work rates and saved state.
+  Keep other providers' entries intact. Menu visibility is not free construction.
+- Run the native catalogue coverage checks and maintain
+  `docs/install-catalogue.md`, owning changelogs and Workshop page drafts.
+  Record genuine exceptions (slot-only modules, non-placeable supplies and
+  unimplemented scaffolds); do not invent floor fixtures for them.
+
 ## Equipment branding and model names
 
 - Owner memorandum (2026-09-24): all our objects, machines and other equipment

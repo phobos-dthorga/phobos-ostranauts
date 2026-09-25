@@ -227,4 +227,81 @@ f.Service.ResumeSaved(f.Console); Check(AutoNavCore.Engaged && Read(f.Console).M
     "Resume restores Follow without restoring automatic-fire authority");
 Signal(f.Own,.1);f.Service.Tick(f.Own.objSS,1,false);
 Check(!AutoNavCore.Engaged && Read(f.Console).Mode==SavedFlightMode.FollowingSuspended,"Follow contact loss preserves mission mode");
+// Shared hub is a read-only view over real service state, with exact hardware capability gates.
+foreach (int installed in Enumerable.Range(0,4))
+foreach (int damaged in Enumerable.Range(0,4))
+{
+    f=Setup(); f.Console.Items.Clear();
+    if((installed&1)!=0) f.Console.Items.Add(new(){strID="n1",strCODef=NavigationService.ModuleId,ship=f.Own});
+    if((installed&2)!=0) f.Console.Items.Add(new(){strID="n2",strCODef=NavigationService.PursuitId,ship=f.Own});
+    foreach(var item in f.Console.Items) if(item.strID=="n1"&&(damaged&1)!=0 || item.strID=="n2"&&(damaged&2)!=0) item.Conditions.Add("IsDamaged");
+    bool n1=(installed&1)!=0&&(damaged&1)==0, n2=(installed&2)!=0&&(damaged&2)==0;
+    var hub=f.Service.ReadHub(f.Console);
+    Check(hub.WorkingNavigation==(n1||n2) && hub.WorkingPursuit==n2,"Healthy N1/N2 combinations provide only their own capabilities");
+    f.Console.Conditions.Remove("IsPowered"); hub=f.Service.ReadHub(f.Console);
+    Check(!hub.WorkingNavigation&&!hub.WorkingPursuit&&!hub.CanEngage&&!hub.CanManual&&!hub.Navigation.CanFly,
+        "Console power loss disables operational capabilities with either/both modules");
+}
+f=Setup(); f.Target.objSS.vPosx=300*AutoNavCore.M_TO_AU; f.Target.objSS.vPosy=400*AutoNavCore.M_TO_AU;
+f.Own.objSS.vVelX=6*AutoNavCore.M_TO_AU;f.Own.objSS.vVelY=8*AutoNavCore.M_TO_AU;
+f.Own.objSS.fRot=0; StarSystem.fEpoch=1; f.Own.objSS.vAccIn=new(){x=0,y=(float)AutoNavCore.M_TO_AU};
+f.Console.Pwr=new(); f.Own.Reactor=new(){ship=f.Own};f.Own.Reactor.Conditions.Add("IsReadyFusion");
+before=Raw(f.Console);int resolves=TargetRef.Resolves;
+for(int i=0;i<20;i++) f.Service.ReadHub(f.Console);
+Check(Raw(f.Console)==before&&TargetRef.Resolves==resolves&&f.Own.ReactorWrites==0&&f.Own.Reactor.ConditionWrites==0&&!f.Service.Fire.Permitted,
+    "Repeated hub refresh changes no preferences, physics, reactor or fire permission");
+var reading=f.Service.ReadHub(f.Console);
+Check(Math.Abs(reading.RangeKM!.Value-.5)<1e-9&&Math.Abs(reading.ClosingMS!.Value-10)<1e-9&&Math.Abs(reading.RelativeMS!.Value-10)<1e-9,
+    "Hub reports centre range, positive closing and total relative speed separately");
+f.Own.objSS.vVelX*=-1;f.Own.objSS.vVelY*=-1;Check(f.Service.ReadHub(f.Console).ClosingMS<0,"Separating motion has negative closing speed");
+Check(reading.ConnectedKWh==12&&reading.TorchHours==1&&reading.RcsFuelKG==100,"Native available power/fuel readings retain units");
+string savedThrottle=f.Console.mapGUIPropMaps["Panel A"]["slidThrottle"];
+f.Console.mapGUIPropMaps["Panel A"]["slidThrottle"]="invalid";
+Check(f.Service.ReadHub(f.Console).RcsAuthorityMS2==null,"Unreadable throttle makes authority unavailable rather than zero");
+f.Console.mapGUIPropMaps["Panel A"]["slidThrottle"]="0";
+Check(f.Service.ReadHub(f.Console).RcsAuthorityMS2==0,"Measured zero throttle displays zero authority");
+f.Console.mapGUIPropMaps["Panel A"]["slidThrottle"]=savedThrottle;
+f.Own.bCheckPower=true;reading=f.Service.ReadHub(f.Console);
+Check(reading.RangeKM==null&&reading.RcsAuthorityMS2==null&&reading.ConnectedKWh==null,"Pending power marks target and system telemetry unavailable");
+f.Own.bCheckPower=false;Signal(f.Own,.1);reading=f.Service.ReadHub(f.Console);
+Check(reading.RangeKM==null&&reading.ClosingMS==null&&reading.AlignmentDegrees==null,"Weak contact cannot leak precise motion or alignment");
+Signal(f.Own,1); f.Own.Reactor=null;reading=f.Service.ReadHub(f.Console);
+Check(reading.TorchHours==null&&reading.Cycle==null&&!reading.CanBurn,"Missing reactor is unavailable, not zero fuel or authority");
+f=Setup();f.Console.mapGUIPropMaps["NavModConfig"]=new(){[NavigationService.ModuleId]="0.35|0.05|0.60|0.25",["Map"]="0.25|0|0.65|0.8"};
+f.Service.HubLoaded(f.Console);f.Service.HubLoaded(f.Console);
+Check(CrewSim.coPlayer.Messages==1 && f.Console.mapGUIPropMaps["NavModConfig"].Count==2 &&
+    f.Console.mapGUIPropMaps["NavModConfig"][NavigationService.ModuleId]=="0.35|0.05|0.60|0.25",
+    "One-time placement notice never enlarges legacy anchors or changes other instruments");
+f=Setup(); f.Own.Reactor=new(){ship=f.Own};f.Own.Reactor.Conditions.Add("IsReadyFusion");
+f.Service.Engage(f.Console);f.Own.Thrust=1;f.Service.Fire.Permitted=true;
+f.Service.ManualPropulsionAction(f.Console,ManualPropulsion.Flow,.2);
+Check(!AutoNavCore.Engaged&&!f.Service.Fire.Permitted&&f.Own.Thrust==0&&Read(f.Console).Mode==SavedFlightMode.Stopped&&f.Own.ReactorProps["slidFlow"]=="0.2",
+    "Manual flow releases automatic flight and fire before writing native actuators");
+f=Setup();f.Own.Reactor=new(){ship=f.Own};f.Own.Reactor.Conditions.Add("IsReadyFusion");CrewSim.system.NoWake=true;
+f.Service.ManualPropulsionAction(f.Console,ManualPropulsion.Cycle,.2);
+Check(f.Own.ReactorWrites==0,"Native no-wake geometry blocks manual positive thrust");
+CrewSim.system.NoWake=false;f.Own.ReactorProps["bNWZ"]="true";f.Service.ManualPropulsionAction(f.Console,ManualPropulsion.CycleEnabled,1);
+Check(f.Own.ReactorWrites==0,"Native no-wake state blocks enabling thrust");
+f.Own.ReactorProps["bNWZ"]="false";f.Own.Reactor.Conditions.Remove("IsReadyFusion");
+f.Service.ManualPropulsionAction(f.Console,ManualPropulsion.Flow,.2);Check(f.Own.ReactorWrites==0,"Cold reactor cannot be started through the flight hub");
+f.Own.Reactor.Conditions.Add("IsReadyFusion");f.Service.ManualPropulsionAction(f.Console,ManualPropulsion.Cycle,.8);
+Check(f.Own.ReactorWrites==0,"Native safety maximum constrains manual thrust");
+f.Console.mapGUIPropMaps["Panel A"]=new(){["bTorchSafety"]="invalid"};
+f.Service.ManualPropulsionAction(f.Console,ManualPropulsion.Flow,.2);
+Check(!f.Service.ReadHub(f.Console).CanBurn && f.Own.ReactorWrites==0,"Unknown safety state cannot authorize positive manual thrust");
+f.Console.mapGUIPropMaps["Panel A"]["bTorchSafety"]="true";
+f.Console.mapGUIPropMaps["Panel A"]["chkStationKeeping"]="true";
+f.Service.ManualPropulsionAction(f.Console,ManualPropulsion.Flow,.2);
+Check(f.Own.ReactorWrites==0,"Native station keeping prevents competing positive manual thrust");
+f.Console.mapGUIPropMaps["Panel A"]["chkStationKeeping"]="false";
+foreach(string key in new[]{"slidFlow","slidCycle","knobRatio"})
+{
+    string previous=f.Own.ReactorProps[key];f.Own.ReactorProps[key]="invalid";
+    f.Service.ManualPropulsionAction(f.Console,ManualPropulsion.Flow,.2);
+    Check(!f.Service.ReadHub(f.Console).CanBurn && f.Own.ReactorWrites==0,"Unknown native actuator reading inhibits positive manual thrust: "+key);
+    f.Own.ReactorProps[key]=previous;
+}
+f.Service.ManualPropulsionAction(f.Console,ManualPropulsion.Shutdown,0);
+Check(f.Own.Reactor.Conditions.Contains("IsOverrideOff"),"Shutdown delegates to the native reactor condition");
+
 Console.WriteLine($"{checks} sensor-boundary, guidance, display and persistence assertions passed. No in-game tests performed.");

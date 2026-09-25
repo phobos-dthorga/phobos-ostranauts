@@ -91,11 +91,11 @@ finally { CultureInfo.CurrentCulture = previousCulture; }
 // measured board proportions and other parent sizes to catch pixel assumptions.
 foreach (var board in new[] { (1440d, 732d), (2419d, 1230d), (720d, 366d), (1280d, 720d), (1024d, 768d) })
 {
-    Check(PanelLayoutRules.TryBounds(board.Item1, board.Item2, .35f, .3f, out var bounds), "Old panel can be resized");
-    Check(bounds.Left == .35f && bounds.Top == .3f, "Keep existing top-left placement");
-    Check(Math.Abs(bounds.Top - bounds.Bottom - .2) < 1e-6, "Use vanilla row height");
+    Check(PanelLayoutRules.TryBounds(board.Item1, board.Item2, .0f, .8f, out var bounds), "New shared hub footprint is available");
+    Check(bounds.Left == 0 && bounds.Top == .8f, "Keep existing top-left placement");
+    Check(Math.Abs(bounds.Top - bounds.Bottom - .8) < 1e-6, "Use vanilla row height");
     Check(Math.Abs(bounds.Right - bounds.Left - .25) < 1e-6, "Match the full vanilla column, not the bitmap aspect ratio");
-    Check(bounds.Right <= .650001f && bounds.Bottom > .05f, "Reduce the legacy footprint on supported board proportions");
+    Check(bounds.Right <= .250001f && bounds.Bottom >= 0, "New footprint fits one column below the reserved top row");
     for (int reload = 0; reload < 3; reload++)
     {
         Check(PanelLayoutRules.TryBounds(board.Item1, board.Item2,

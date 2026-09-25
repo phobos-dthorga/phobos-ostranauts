@@ -121,6 +121,7 @@ internal sealed partial class NavigationService
             issuing = true;
             try { AutoNavCore.SteerFlight(AutoNavCore.EngagedPlayer, AutoNavCore.EngagedTarget, dt); }
             finally { issuing = false; }
+            if (QueueDockingHandoff()) return;
             status = AutoNavCore.Engaged ? AutoNavCore.PhaseName : DescribeResult(AutoNavCore.LastResult);
             if (AutoNavCore.ControlLimited) status = Text.Get("Pursuit.control_limited");
             if (AutoNavCore.Engaged) Fire.Tick(AutoNavCore.EngagedPlayer, AutoNavCore.EngagedTarget, dt,
@@ -250,6 +251,7 @@ internal sealed partial class NavigationService
                 case "ceasefire": CeaseFire(); response = status; return true;
                 case "spawnpursuit": return Spawn(out response, PursuitId);
                 case "dock": Dock(OpenConsole); response = status; return AutoNavCore.Engaged;
+                case "approachdock": ApproachDock(OpenConsole); response = status; return AutoNavCore.Engaged;
                 case "arrival":
                 case "cruise":
                 case "arrivalspeed":

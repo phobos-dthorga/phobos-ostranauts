@@ -14,8 +14,8 @@ internal static class FurnaceDefinitions
         FurnaceService.AddCoolantStock(d);
         MachineDefinitions.AddFamily(d, FurnaceRules.Prefix);
         MachineDefinitions.AddFeed(d, FurnaceRules.Prefix, "IsAluminum");
-        MachineDefinitions.AddFamily(d, FurnaceRules.Radiator);
-        MachineDefinitions.AddFamily(d, FurnaceRules.ThermalPort);
+        MachineDefinitions.AddFamily(d, FurnaceRules.Radiator, InstallMenu.Hvac);
+        MachineDefinitions.AddFamily(d, FurnaceRules.ThermalPort, InstallMenu.Hvac);
         foreach (string p in new[] { FurnaceRules.Prefix, FurnaceRules.Radiator, FurnaceRules.ThermalPort })
         foreach (string state in new[] { "Installed", "Loose", "InstalledDmg", "LooseDmg" })
         {
