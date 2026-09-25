@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "masterBranch": "codex/workshop-art-masters",
+  "masterCommit": "796f099b9ce4dd465d5ba9855b5ba978f37eacff",
+  "resampling": "nearest-neighbour",
+  "exportSizes": [
+    512,
+    256
+  ],
+  "maxPreviewBytes": 1000000,
+  "assets": [
+    {
+      "id": "PhobosFramework",
+      "masterPath": "assets/workshop/masters/PhobosFramework.png",
+      "width": 1254,
+      "height": 1254,
+      "sha256": "65FFCC3E91CD21BCE229503457CE830FF0A1F1BC33BA483BA19AB20C98805CCA",
+      "bytes": 1734434,
+      "resultId": "exec-0081ce47-9288-4167-99e5-8c3237fe9250"
+    },
+    {
+      "id": "PhobosAutoNav",
+      "masterPath": "assets/workshop/masters/PhobosAutoNav.png",
+      "width": 1254,
+      "height": 1254,
+      "sha256": "68F0BC784FB2F828BC86A282397BC08C7FA28DAE6E9D024232C76143A56614C9",
+      "bytes": 2226948,
+      "resultId": "exec-b2a0f246-7a4e-4291-a89a-1e7bb26cfdb6"
+    },
+    {
+      "id": "PhobosShipbreaker",
+      "masterPath": "assets/workshop/masters/PhobosShipbreaker.png",
+      "width": 1254,
+      "height": 1254,
+      "sha256": "FB1353FDB39554E0A3641A59E2148765699203D81E32AD9578AF02AA91BE3467",
+      "bytes": 1756025,
+      "resultId": "exec-679d538d-b994-4ae4-97a8-87bf7d86bfc0"
+    },
+    {
+      "id": "PhobosAgriculture",
+      "masterPath": "assets/workshop/masters/PhobosAgriculture.png",
+      "width": 1254,
+      "height": 1254,
+      "sha256": "D1DFB827A7A4B81EDCB6D3C8C883EF8BA5ED1C15CF110BE09F75BA15FA528FA6",
+      "bytes": 2010272,
+      "resultId": "exec-9f5a1828-607c-426b-84a2-9f527e5dedff"
+    }
+  ]
+}
