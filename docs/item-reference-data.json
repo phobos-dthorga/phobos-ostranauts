@@ -3480,39 +3480,6 @@
       }
     },
     {
-      "id": "PhobosApproachAssist",
-      "name": "Phobos Approach Assist (Prototype)",
-      "version": "0.1.2",
-      "gameTarget": "1.0.1.4",
-      "items": [
-        {
-          "id": "PhobosNavModApproachAssist",
-          "name": "Phobos' Asterel N0 Approach Assist (Prototype)",
-          "massKg": 0.4,
-          "baseValue": 767.0,
-          "installed": false,
-          "operatingModes": [],
-          "installTab": null,
-          "jobs": [],
-          "aliases": []
-        },
-        {
-          "id": "PhobosNavModApproachAssistDmg",
-          "name": "Phobos' Asterel N0 Approach Assist (Prototype, Damaged)",
-          "massKg": 0.4,
-          "baseValue": 159.0,
-          "installed": false,
-          "operatingModes": [],
-          "installTab": null,
-          "jobs": [],
-          "aliases": []
-        }
-      ],
-      "sources": [],
-      "recipes": [],
-      "recipeItemNames": {}
-    },
-    {
       "id": "PhobosAutoNav",
       "name": "Phobos Auto Nav",
       "version": "0.18.0",
@@ -10797,9 +10764,6 @@
     "mods/PhobosAgriculture/framework/equipment-names.json": "7c8f30af60cbf4116208e5d35a9847d309a413927bd6e0efab69d86f385cd4f2",
     "mods/PhobosAgriculture/framework/recipes.json": "3a8a1e8949e3fa5071464a84658bf4c43f3abc732dd2244cb379fb8359933ca6",
     "mods/PhobosAgriculture/mod_info.json": "2ea7b59985726c5d6a40d868c40e9d764ebbff3b013790d88cb0050fbd5da9b0",
-    "mods/PhobosApproachAssist/data/cooverlays/phobos_approach_assist.json": "f309b562807dd3b98de6152d7ca4635d9bb6cddcc65c575d533753d15d763086",
-    "mods/PhobosApproachAssist/data/guipropmaps/phobos_approach_assist.json": "a65f4313445b7606daa0ce635afc60e3d960806e28efc4265ffad9e44432e34f",
-    "mods/PhobosApproachAssist/mod_info.json": "d181c24ee0825cd841165bb45c20174271c4e3e47ad13a68bb47485cd89b9e35",
     "mods/PhobosAutoNav/data/cooverlays/phobos_approach_assist.json": "7208e3ca5bdabc6cba5d89ea17e2fd5ca30667fcf2cd12e0d036c82fe96d284d",
     "mods/PhobosAutoNav/data/guipropmaps/phobos_approach_assist.json": "b58a900cf980995085aaf4db06e4dbf2d6bd7287762475662035d4947d7eac0b",
     "mods/PhobosAutoNav/framework/equipment-names.json": "478a9416b2eb043c18fd5aac3b1720d512fdc9aa363c8411f831fa2fc9dfbee2",
@@ -10844,14 +10808,6 @@
     "src/PhobosAgriculture/Text.cs": "46728b07c9ec483275df903c8c872474e08ee59e99ffa8638045cb5faf0bd18f",
     "src/PhobosAgriculture/WorkupDefinitions.cs": "d8ad71576366b5b502b8caad005aaa8a536385720704555efc1c92c422f0fede",
     "src/PhobosAgriculture/WorkupService.cs": "db3b7d29fec02a7b973c70473baf71e5442d96d3b575aa0674be5349920aedcf",
-    "src/PhobosApproachAssist/ApproachPanel.cs": "49a94c7f7a60e549bd50cc6daf66ff1b91c18712e10c4a3227891816975104bc",
-    "src/PhobosApproachAssist/ApproachService.cs": "bbd2531ef35d1ca2bd4b444f0eaf441eda6686b53a4450fdeafa52f1aa9f53a2",
-    "src/PhobosApproachAssist/ConsoleCommands.cs": "720139a12d20ddfeea5395ca4daa3b210104cb10a5b24560b3b2b0d7e4b179ea",
-    "src/PhobosApproachAssist/Core/BurnPlan.cs": "d0e1c7f7b55b81a6380334e8ce9b0b1c06fa12aa051dbc486e85f76cb488722d",
-    "src/PhobosApproachAssist/Core/DebugCommands.cs": "0981c1a8a4e8a32367901ab2b2e68175d006156a3a1f821c486061a68521fb08",
-    "src/PhobosApproachAssist/Core/ThrustDirection.cs": "b0e20af1e4cf614f0b3b4167c5b1bbec3b2397db1a49c226ca3599f58711ccd7",
-    "src/PhobosApproachAssist/PhobosApproachAssist.csproj": "5fa7baec55e621690067898a1c913aac2e96ec3a771afbcd9f69a39c34c670a2",
-    "src/PhobosApproachAssist/Plugin.cs": "0c7a37cc6c68a7ef0f51e8d055b7ae8f6ff136b7804f93efab3c88ef43357d23",
     "src/PhobosAutoNav/Adapted/AutoNavCore.cs": "065b85aaa278249de26b6978ee9053605a100ca5840670349e8e2801787e52f0",
     "src/PhobosAutoNav/Adapted/TargetRef.cs": "f02c0687e083f16847d0c3857f2292cacd508b7b39be8631172fc746c3194206",
     "src/PhobosAutoNav/AssemblyInfo.cs": "a442448369b44ef8921362eea7215eab4e7fb557881cded3213f00b5d7600549",
@@ -11044,7 +11000,7 @@
     "src/PhobosShipbreaker/TargetWallTransfer.cs": "674edc235e6b466056adc486b8063ebf1e3660697a1cf8a2ff8aae5eaa57a5ae",
     "src/PhobosShipbreaker/Text.cs": "2a0b7890addcbb0f4f8f71c48373cf352d7af8379905b01b1bc48bd0f84f7846",
     "tests/PhobosNative.Tests/EquipmentValueAudit.cs": "cca95052803934b6ac8af32979f066ca064942ca79ac87e4ec94b8b183815cac",
-    "tests/PhobosNative.Tests/ItemReferenceExport.cs": "02ecdd4317fc335e5932f163c95d6915fd3089991f1b7a9a22d99f05414524eb",
+    "tests/PhobosNative.Tests/ItemReferenceExport.cs": "4d48594455b0814a72ba21d0c4e4588c8a4135d9651f795c5c5cec9857b85392",
     "tests/PhobosNative.Tests/Program.cs": "7316ab402b6bd3dd115ea90dfd5c50463cb66023045f4c8cdc8756192e14ebc2",
     "translations/PhobosAgriculture/en.json": "abb5001b0935b58939c4b5a14a5bf6668e2570456006a2216ec858a619231787",
     "translations/PhobosAutoNav/en.json": "257655904e9888d3d944f2425b0bdab25e4a858d21cdf1da0354f921b01063fe",

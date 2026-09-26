@@ -92,7 +92,7 @@
   compartments, legacy identities, prototype inheritance and unimplemented designs.
 - Run `scripts/update-item-reference.ps1` (or double-click its `.cmd` launcher)
   after each relevant update. It reuses the existing economy audits, exports live
-  source definitions and regenerates all six references and their index. Read
+  source definitions and regenerates all current references and their index. Read
   `docs/item-reference-maintenance.md`; `-Check` verifies against fresh native
   data without rewriting tracked files. The game path comes from the local
   installer settings or an explicit argument, never a committed machine path.
@@ -444,8 +444,9 @@
   agent-run delivery. The owner requested a reusable installer usable by both
   them and Codex (2026-09-23). Build the selected package first when its source
   changes; use `-WhatIf` for previews and `-VerifyOnly` for installed-file checks.
-  Default selection is AutoNav and Shipbreaker; the older Approach Assist is
-  opt-in. Keep the game-closed guard and leave gameplay tests to the owner.
+  Default selection is AutoNav and Shipbreaker. Approach Assist is retired;
+  do not restore its folders or installer entries without owner direction. Keep
+  the game-closed guard and leave gameplay tests to the owner.
   See `docs/installing-mods.md`; do not repeat manual file-copy/load-order edits.
 
 ## Architecture

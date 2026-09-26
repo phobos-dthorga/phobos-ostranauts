@@ -34,7 +34,6 @@ a real company, seed cultivar, research programme or institutional endorsement.
 | Phobos' Rivetline R4-S Scrap Reclaimer Assembly Section | Reclaimer construction section |
 | Phobos' Verdemorrow Firstlight-4 Cultivation Rack | Four-by-four finite cultivation rack |
 | Phobos' Verdemorrow Hearth-2 Galley Cooker | Two-by-two portion cooker |
-| Phobos' Asterel N0 Approach Assist (Prototype) | Older, opt-in development prototype |
 
 N and C identify navigation/control electronics; D, G, H, R and C identify the
 industrial product roles. The industrial digits reflect the current equipment's
@@ -119,10 +118,6 @@ save-property keys, commands, package names, economics and material quantities
 are unchanged. Native definitions supply the default names when objects load;
 player-assigned names remain governed by native rename handling. No save files
 are edited and no equipment is replaced to rename it.
-
-The older Approach Assist stays independent of Framework: its native display
-names are updated and its panel reads the native name. It remains a prototype,
-not an alternative to N1's current flight and docking features.
 
 Build checks cover localized naming, variant placeholders, legacy override
 fallback, naming metadata errors, native/recipe fallback agreement and existing

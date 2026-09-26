@@ -25,7 +25,7 @@ use native placement; continuous drag-laying behaviour has not been verified.
 Auto Nav's N1 and N2 boards are inserted in Polaris module slots through the
 existing [Auto Nav workflow](auto-navigate-adaptation.md). They have no standalone
 floor-installed form and are deliberately absent from this placement catalogue.
-Framework adds shared services, Approach Assist adds no placeable fixture, and
+Framework adds shared services, and
 Manufacturing currently has no implemented machinery. Manufacturing's proposed
 M4 must receive a catalogue entry when it becomes operational. Supplies, produce,
 castings, waste and assembly sections are cargo rather than installed furniture.

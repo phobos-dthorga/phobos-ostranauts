@@ -11,7 +11,6 @@ folder establishes that a Workshop item has been published.** Follow the
 | Auto Nav — provenance hold | [Changelog](../mods/PhobosAutoNav/CHANGELOG.md) | [Page](PhobosAutoNav/page.bbcode) | [Versions](PhobosAutoNav/releases) |
 | Agriculture | [Changelog](../mods/PhobosAgriculture/CHANGELOG.md) | [Page](PhobosAgriculture/page.bbcode) | [Versions](PhobosAgriculture/releases) |
 | Manufacturing — scaffold hold | [Changelog](../mods/PhobosManufacturing/CHANGELOG.md) | [Page](PhobosManufacturing/page.bbcode) | [Versions](PhobosManufacturing/releases) |
-| Approach Assist — historical hold | [Changelog](../mods/PhobosApproachAssist/CHANGELOG.md) | [Page](PhobosApproachAssist/page.bbcode) | [Versions](PhobosApproachAssist/releases) |
 
 Edit each mod's main changelog and page description. Regenerate release notes
 with `python scripts/workshop-release-notes.py --write`; never edit generated

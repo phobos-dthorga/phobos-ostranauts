@@ -29,15 +29,6 @@ internal static class ItemReferenceExport
         shared.Objects[MaintenanceDefinitions.SpentParts] = DataHandler.dictCOs[MaintenanceDefinitions.SpentParts];
         packs["PhobosFramework"] = shared;
         packs["PhobosManufacturing"] = new NativeDefinitions();
-        var prototype = new NativeDefinitions();
-        foreach (string file in Directory.GetFiles(Path.Combine(repo, "mods/PhobosApproachAssist/data/cooverlays"), "*.json"))
-        foreach (var overlay in JsonConvert.DeserializeObject<JsonCOOverlay[]>(File.ReadAllText(file))!)
-        {
-            var co = NativeDefinitions.Clone(DataHandler.dictCOs[overlay.strCOBase]);
-            co.strName = overlay.strName; co.strNameFriendly = overlay.strNameFriendly;
-            prototype.Objects.Add(co.strName, co);
-        }
-        packs["PhobosApproachAssist"] = prototype;
         var installedSources = Directory.GetDirectories(Path.Combine(repo, "mods"))
             .Where(path => File.Exists(Path.Combine(path, "mod_info.json"))).Select(Path.GetFileName).ToHashSet();
         if (!installedSources.SetEquals(packs.Keys))

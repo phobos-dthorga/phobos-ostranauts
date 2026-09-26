@@ -42,8 +42,7 @@ published-release or installed-version claims. Current build baseline:
 | **Phobos Agriculture** | 0.11.0 | Potato/lettuce cultivation, visible growth, nutrient-solution piping and galley cooking | First gameplay candidate; [guide](docs/agriculture-player-guide.md) |
 | **Phobos Manufacturing** | 0.0.1 | Research and buildable scaffold for future machining | **No operational machinery yet**; [scope](docs/manufacturing-implementation.md) |
 
-Approach Assist is a historical pulse-only prototype, excluded from the default
-installation. Medical systems and asteroid life-support processing remain proposals.
+Approach Assist has been retired and removed; its prototype remains in Git history. Medical systems and asteroid life-support processing remain proposals.
 External hull cutting is bounded to supported ordinary walls; broader structural
 processing remains proposed. A successful build is not an in-game test.
 

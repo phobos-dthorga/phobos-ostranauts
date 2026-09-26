@@ -5,8 +5,7 @@
     "PhobosAgriculture": {"itemId": null, "requires": ["PhobosFramework"], "hold": null},
     "PhobosShipbreaker": {"itemId": null, "requires": ["PhobosFramework"], "hold": null},
     "PhobosAutoNav": {"itemId": null, "requires": ["PhobosFramework"], "hold": "Upstream adaptation distribution terms remain unresolved."},
-    "PhobosManufacturing": {"itemId": null, "requires": ["PhobosFramework"], "hold": "Research scaffold; no operational equipment."},
-    "PhobosApproachAssist": {"itemId": null, "requires": [], "hold": "Historical prototype held from publication."}
+    "PhobosManufacturing": {"itemId": null, "requires": ["PhobosFramework"], "hold": "Research scaffold; no operational equipment."}
   },
   "externalRequiredItems": ["3741030124"]
 }

@@ -19,7 +19,7 @@ work, not deferred until upload. It does not publish anything automatically.
 See the [Workshop draft index](../workshop/README.md). All six existing mods have
 initial **Draft** baseline entries. Their dates record preparation, not release
 dates, and do not reconstruct an unsupported history of earlier releases.
-Approach Assist is held as a historical prototype; Manufacturing is held as a
+Manufacturing is held as a
 scaffold. Auto Nav is held for unresolved upstream provenance before distribution.
 Phobos Scope is a separate toolkit and is outside this Workshop inventory.
 

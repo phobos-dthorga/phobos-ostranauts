@@ -1,9 +1,11 @@
 # Limited autopilot nav module
 
+> Historical research: Approach Assist was retired on 26 September 2026. Use Auto Nav for current navigation. The prototype source is retained in Git history.
+
 **Selected as the project's first mod by the owner on 2026-09-20.** Working name:
 **Phobos Approach Assist**. This document combines researched extension points
 with the intended design for a deliberately limited, "pseudo autopilot" module.
-An [initial integration prototype](approach-assist-prototype.md) now contains the
+An [initial integration prototype](https://github.com/phobos-dthorga/phobos-ostranauts/blob/a288ed2/docs/approach-assist-prototype.md) now contains the
 module, sensor checks and a short RCS test pulse. Full approach/braking behaviour
 and in-game verification remain outstanding.
 

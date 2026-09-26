@@ -8,6 +8,8 @@ Dates on Draft entries record preparation, not Steam publication.
 
 ### Documentation
 
+- Retire the obsolete Approach Assist prototype from source, installer selections, Workshop preparation and item references. Auto Nav remains the supported navigation mod; historical source stays in Git.
+
 - Added a maintained per-mod item reference covering function, use, acquisition and applicable economic/service data; generated tables and coverage checks share a one-click updater.
 
 ### Research and planning

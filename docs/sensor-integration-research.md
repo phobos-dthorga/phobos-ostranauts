@@ -60,7 +60,7 @@ from the current assembly during this research. No gameplay tests were run.
 | `Ship.UpdateSensors`, sensor registration/removal | Native sensor-list refresh and the pending-update flag |
 | `condowners/condowners.json`, `guipropmaps/guipropmaps.json`, `condtrigs/condtrigs.json`; `GasPressureSense`, `Sensor` | Separate local room sensing, threshold conditions and alarm interactions |
 
-Our [Approach Assist service](../src/PhobosApproachAssist/ApproachService.cs)
+Our [Approach Assist service](https://github.com/phobos-dthorga/phobos-ostranauts/blob/a288ed2/src/PhobosApproachAssist/ApproachService.cs)
 contains a narrow native-contact precedent. Current
 [Auto Nav guidance](../src/PhobosAutoNav/NavigationService.cs) and its
 [target adapter](../src/PhobosAutoNav/Adapted/TargetRef.cs) retain the different

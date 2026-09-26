@@ -65,10 +65,10 @@ directly without interacting with your mouse or opening a launcher window.
 # Manufacturing is an opt-in research scaffold, with no operational equipment.
 ./scripts/install-mods.ps1 -Mods Manufacturing
 
-# Explicitly select all six, including the old Approach Assist prototype.
-./scripts/install-mods.ps1 -Mods Framework,AutoNav,Shipbreaker,Agriculture,Manufacturing,ApproachAssist -WhatIf
-./scripts/install-mods.ps1 -Mods Framework,AutoNav,Shipbreaker,Agriculture,Manufacturing,ApproachAssist
-./scripts/install-mods.ps1 -Mods Framework,AutoNav,Shipbreaker,Agriculture,Manufacturing,ApproachAssist -VerifyOnly
+# Explicitly select all five current mods.
+./scripts/install-mods.ps1 -Mods Framework,AutoNav,Shipbreaker,Agriculture,Manufacturing -WhatIf
+./scripts/install-mods.ps1 -Mods Framework,AutoNav,Shipbreaker,Agriculture,Manufacturing
+./scripts/install-mods.ps1 -Mods Framework,AutoNav,Shipbreaker,Agriculture,Manufacturing -VerifyOnly
 
 # The shared library alone, for another consumer or development.
 ./scripts/install-mods.ps1 -Mods Framework
@@ -86,7 +86,7 @@ directly without interacting with your mouse or opening a launcher window.
 ./scripts/install-mods.ps1 -PreviewsOnly -VerifyOnly
 ```
 
-The old pulse-only Approach Assist prototype is **not included by default**.
+Approach Assist is retired and no longer offered by the installer.
 `-KeepInstalledFramework` validates the installed Framework version, assembly,
 recorder, required files and enabled load-order entry, then retains its files.
 It does not compare that dependency with the newly prepared Framework build.
@@ -97,8 +97,6 @@ mod-menu/Workshop path. `-PreviewsOnly` changes only covers, retains installed
 versions and disabled/enabled states, and refuses mods not already installed.
 It still requires Ostranauts to be closed for writes. Agriculture's prepared
 package includes its cover, but this option does not install Agriculture itself.
-Explicitly select `-Mods ApproachAssist` if wanted. Its previous
-`install-approach-assist.ps1` command remains supported through the same installer.
 Installing AutoNav does not remove that old plugin or enable original Auto
 Navigate. AutoNav still enforces its runtime navigation-conflict checks.
 
@@ -167,7 +165,6 @@ package still comes from `-PackageRoot`; the override is not applied to both mod
 
 ```powershell
 ./tests/install-mods.tests.ps1
-./tests/install-approach-assist.tests.ps1
 ```
 
 The checks use temporary installations under `.local/script-tests/`, prepared

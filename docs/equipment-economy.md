@@ -167,8 +167,7 @@ are not tagged as ordinary sortable trash and have no refining recipes yet.
 Native scrap and useful parts produced by the processor retain native prices.
 The hidden zero-mass feed is an internal system, not an item for sale.
 
-The legacy pulse-only Approach Assist stays an opt-in historical prototype; it
-does not get duplicate retail offers. The combined scrap reclaimer is implemented in 0.8.0. Research-only ore and
+The combined scrap reclaimer is implemented in 0.8.0. Research-only ore and
 chemical systems are not advertised as purchasable equipment.
 
 ## Merchants and rarity

@@ -831,26 +831,6 @@
         }
       ]
     },
-    "PhobosApproachAssist": {
-      "intro": "Historical, opt-in integration prototype. Use current Auto Nav for ordinary navigation. N0 remains a real prototype module, so it is documented here without implying it has a supported survival-economy release.",
-      "groups": [
-        {
-          "key": "n0",
-          "title": "N0 Approach Assist (Prototype)",
-          "ids": [
-            "PhobosNavModApproachAssist",
-            "PhobosNavModApproachAssistDmg"
-          ],
-          "function": "An experimental Polaris module for a brief RCS integration-test pulse toward a firm contact.",
-          "use": "Follow the prototype test instructions to create and fit the module, inspect its panel and run the bounded pulse.",
-          "find": "Development F3/F8 creation workflow in the linked prototype guide; no mod-authored merchant offers or construction recipes.",
-          "notes": "It does not brake, approach automatically or dock. Price/mass below are inherited native motherboard baselines, not a designed retail contract. Native inherited Repair/Restore/dismantling are outside the maintained N1/N2/N3 service contract; do not assume their yields or guarantees apply.",
-          "guide": "approach-assist-prototype.md",
-          "internal": false,
-          "labels": {}
-        }
-      ]
-    },
     "PhobosManufacturing": {
       "intro": "Research scaffold only: no registered equipment, loose items, stock or operational recipes. The proposed M4 enclosed mill, heat-sink preform and machining cartridge are designs, not obtainable items. There are therefore no retail prices, salvage yields or maintenance instructions to present as implemented. See [Manufacturing research](manufacturing-research.md) and [implementation status](manufacturing-implementation.md). Future registered items require reference entries before this guide can be regenerated.",
       "groups": []

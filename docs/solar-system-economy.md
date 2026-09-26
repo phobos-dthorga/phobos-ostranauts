@@ -160,6 +160,6 @@ A missing optional endpoint is reported and skipped, without inventing another
 merchant or disabling the rest of the mod. Normal K-Leg dependencies are retained.
 
 Framework has no retail machinery of its own. Manufacturing remains an
-unimplemented scaffold; Approach Assist remains an opt-in historical prototype.
+unimplemented scaffold.
 Neither gains fictional products or a new survival-economy contract.
 In-game shop presentation, restocking and live quotes remain owner-run checks.

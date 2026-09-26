@@ -2,7 +2,7 @@
 # Prepared packages are installed locally; this script never builds, downloads or launches anything.
 [CmdletBinding(SupportsShouldProcess)]
 param(
-    [ValidateSet('AutoNav', 'Shipbreaker', 'ApproachAssist', 'Framework', 'Agriculture', 'Manufacturing')]
+    [ValidateSet('AutoNav', 'Shipbreaker', 'Framework', 'Agriculture', 'Manufacturing')]
     [string[]]$Mods = @('AutoNav', 'Shipbreaker'),
     [string]$OstranautsPath,
     [string]$LoadOrderPath,
@@ -144,7 +144,7 @@ $plans = @()
 $changeOrder = $false
 foreach ($mod in $Mods) {
     $id = 'Phobos' + $mod
-    $label = switch ($mod) { 'AutoNav' { 'Auto Nav' } 'Shipbreaker' { 'Shipbreaker' } 'ApproachAssist' { 'Approach Assist' } 'Framework' { 'Framework' } 'Agriculture' { 'Agriculture' } 'Manufacturing' { 'Manufacturing' } }
+    $label = switch ($mod) { 'AutoNav' { 'Auto Nav' } 'Shipbreaker' { 'Shipbreaker' } 'Framework' { 'Framework' } 'Agriculture' { 'Agriculture' } 'Manufacturing' { 'Manufacturing' } }
     $package = if ($overrideMod -eq $mod) { $PackagePath } else { Join-Path $PackageRoot ($id + '-P0') }
     if (-not (Test-Path -LiteralPath $package -PathType Container)) {
         throw "Prepared package missing: $package. Run the corresponding build script first."
@@ -272,7 +272,6 @@ foreach ($mod in $Mods) {
             }
         }
         'Framework' { 'data/conditions/phobos_framework.json' }
-        'ApproachAssist' { 'data/cooverlays/phobos_approach_assist.json'; 'data/guipropmaps/phobos_approach_assist.json' }
         'AutoNav' {
             if ($version -ge [version]'0.2.0') { 'framework/recipes.json' }
             if ($version -ge [version]'0.7.0') { 'images/phobos/autonav/PhobosAutoNavInstruments.png' }

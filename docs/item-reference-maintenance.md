@@ -29,7 +29,7 @@ For maintainers and automated use:
    `config/item-reference.json`. Unknown, duplicated or obsolete entries stop
    generation. Built-in inventories are explicitly covered as compartments;
    Framework's shared repair waste is documented once in its own guide.
-4. Regenerates [the index](item-references.md) and all six mod references, with
+4. Regenerates [the index](item-references.md) and all current mod references, with
    economic tables, native INSTALL categories, service bills, dismantle outputs,
    acquisition probabilities and table recipes. Functional and damaged forms
    are separate; identical installed/loose valuations are folded together.

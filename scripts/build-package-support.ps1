@@ -16,8 +16,8 @@ function Copy-PhobosPlayerGuides {
         'shipbreaker-capture', 'shipbreaker-reclamation', 'auto-nav-departure', 'auto-nav-reclamation-validation', 'shipbreaker-close-work-geometry', 'shipbreaker-autopilot-research', 'shipbreaker-autopilot-handover',
         'fluid-conduits-and-irrigation-research', 'agriculture-water-conduits', 'agriculture-nutrient-solutions', 'fluid-network-operations', 'chemical-storage-and-process-fluids', 'updating-constants',
         'processing-job-compatibility', 'localization', 'scrap-reclaimer', 'automatic-material-routing', 'material-port-pairing',
-        'merchant-stock', 'item-references', 'item-reference-maintenance', 'auto-nav-item-reference', 'shipbreaker-item-reference', 'agriculture-item-reference', 'framework-item-reference', 'approach-assist-item-reference', 'manufacturing-item-reference',
-        'approach-assist-prototype', 'limited-autopilot', 'manufacturing-research', 'manufacturing-implementation',
+        'merchant-stock', 'item-references', 'item-reference-maintenance', 'auto-nav-item-reference', 'shipbreaker-item-reference', 'agriculture-item-reference', 'framework-item-reference', 'manufacturing-item-reference',
+        'limited-autopilot', 'manufacturing-research', 'manufacturing-implementation',
         'install-catalogue', 'industrial-console-player-guide', 'industrial-control-console', 'industrial-control-mockups', 'shared-console-observations', 'sensor-integration-research', 'fusion-smelter-research', 'framework-author-guide'
     )) {
         Copy-Item -LiteralPath (Join-Path $RepoRoot "docs/$name.md") -Destination $Package

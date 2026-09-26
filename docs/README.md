@@ -39,7 +39,7 @@ common failures and useful reports.
 Research, first-build reports and dated inventories record evidence at the time
 of writing. They can include superseded designs and proposals, not current
 operating instructions. In particular, direct-fusion-first furnace research is
-superseded by the electrical route, Approach Assist is historical, and
+superseded by the electrical route, Approach Assist is retired (Git history only), and
 Manufacturing/medical/asteroid concepts are not delivered gameplay systems.
 
 - [Phobos Agriculture: first-slice specification](agriculture-first-slice.md)
@@ -48,7 +48,7 @@ Manufacturing/medical/asteroid concepts are not delivered gameplay systems.
 - [Phobos Agriculture 0.2.0](agriculture-player-guide.md)
 - [Phobos Agriculture: research findings](agriculture-research.md)
 - [Phobos Agriculture: endurance roadmap](agriculture-roadmap.md)
-- [Approach Assist P0: integration prototype](approach-assist-prototype.md)
+- [Archived Approach Assist P0 prototype](https://github.com/phobos-dthorga/phobos-ostranauts/blob/a288ed2/docs/approach-assist-prototype.md)
 - [Artwork resolution policy](artwork-resolution-policy.md)
 - [Asset generation: layered ChatGPT bases and PixelLab sprites](asset-generation-policy.md)
 - [Asteroid resources for long-term life support](asteroid-life-support-research.md)

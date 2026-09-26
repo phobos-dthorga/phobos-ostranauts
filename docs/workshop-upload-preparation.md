@@ -75,7 +75,7 @@ verify them separately through the Workshop editor or a future UGC integration.
 Optional providers must not become mandatory required items.
 
 Auto Nav remains held for unresolved upstream distribution terms. Manufacturing
-and Approach Assist retain their scaffold/prototype holds. Missing covers and
+retains its scaffold hold. Missing covers and
 unpublished dependency IDs are reported as blockers. Do not treat a generated draft
 as permission to bypass these holds. Resolve them in the source catalogue/docs.
 

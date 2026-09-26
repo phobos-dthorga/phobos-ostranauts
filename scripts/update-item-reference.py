@@ -12,7 +12,7 @@ SNAPSHOT = Path('docs/item-reference-data.json')
 CONFIG = Path('config/item-reference.json')
 SLUGS = {'PhobosAutoNav': 'auto-nav', 'PhobosShipbreaker': 'shipbreaker',
          'PhobosAgriculture': 'agriculture', 'PhobosFramework': 'framework',
-         'PhobosApproachAssist': 'approach-assist', 'PhobosManufacturing': 'manufacturing'}
+         'PhobosManufacturing': 'manufacturing'}
 
 
 def source_hashes(root):
@@ -99,8 +99,6 @@ def render(mod, notes, config):
            'Configuration, capacity and native generation rules still apply; loading an existing save does not refill its inventories.', '']
     if not mod['items']:
         out = out[:8]
-    if mid == 'PhobosApproachAssist':
-        out += ['The general maintenance explanation above describes current content mods. N0 instead retains its historical native-motherboard inheritance; its prototype exceptions are described below.', '']
     if notes['groups']:
         out += ['## Find an item', ''] + [f'- [{g["title"]}](#{g["key"]})' for g in notes['groups']] + ['']
     for group in notes['groups']:
@@ -199,7 +197,7 @@ def generate(root, data, config):
              'Tables are generated from the current definitions; operating notes are reviewed separately.', '',
              '| Mod | Reference |', '| --- | --- |']
     index += [f'| {m["name"]} | [Items and equipment]({SLUGS[mid]}-item-reference.md) |' for mid, m in mods.items()]
-    index += ['', 'Manufacturing is explicitly empty while it remains a scaffold. Framework documents shared spent parts; Approach Assist is labelled as a historical prototype.', '',
+    index += ['', 'Manufacturing is explicitly empty while it remains a scaffold. Framework documents shared spent parts.', '',
               'For placement tabs, see [INSTALL catalogue](install-catalogue.md). For refreshing these documents, see [reference maintenance](item-reference-maintenance.md).', '']
     outputs[Path('docs/item-references.md')] = '\n'.join(index)
     return outputs

@@ -145,8 +145,7 @@ still need implementation. This is research only. The original decision to
 start with onboard dismantling remains the history of the implemented chain;
 it no longer excludes developing the furnace downstream of that chain.
 
-Approach Assist remains an existing prototype with owner testing outstanding;
-selecting industrial research does not claim that its guidance is complete.
+Approach Assist was retired on 26 September 2026; Auto Nav owns current flight guidance.
 
 **2026-09-25 sensor direction:** [native sensing and instrumentation](sensor-integration-research.md)
 records full instrumentation realism with built-in basic probes and modular
