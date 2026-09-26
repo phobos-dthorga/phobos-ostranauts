@@ -6,6 +6,20 @@ int checks = 0;
 void Check(bool value, string message) { if (!value) throw new Exception(message); checks++; }
 void Near(double actual, double expected, string message) => Check(Math.Abs(actual - expected) < 1e-7, message + $": {actual} vs {expected}");
 CropState New(Crop c) { var s = new CropState { Water = 20, Nutrients = .5 }; s.Plant(c, 1); return s; }
+foreach (double recyclerAngle in new[] { 0d, 90, 180, 270 })
+foreach (double collectorAngle in new[] { 0d, 90, 180, 270 })
+{
+    double radians = collectorAngle * Math.PI / 180;
+    double x = 10 + 1.5 * Math.Sin(radians), y = 20 - 1.5 * Math.Cos(radians);
+    Check(RecyclerAttachment.Aligned(10, 20, recyclerAngle, x, y, collectorAngle), "Two complete edge tiles align at every quarter turn");
+    Check(!RecyclerAttachment.Aligned(10, 20, recyclerAngle, x + .5, y, collectorAngle), "Half-tile shift cannot attach a nearby collector");
+    Check(!RecyclerAttachment.Aligned(10, 20, recyclerAngle, x, y, collectorAngle + 90), "Perpendicular one-tile contact is refused");
+    Check(!RecyclerAttachment.Aligned(10, 20, recyclerAngle, x, y, collectorAngle + 180), "Collector service side cannot face the Recycler");
+}
+Check(!RecyclerAttachment.Aligned(0,0,0,0,0,0), "Overlapping machinery cannot pair");
+Check(!RecyclerAttachment.Aligned(0,0,0,0,-2,0), "Nearby machinery with an edge gap cannot pair");
+Check(!RecyclerAttachment.Aligned(0,0,45,0,-1.5,0), "Recycler must follow the tile grid");
+Check(!RecyclerAttachment.Aligned(0,0,0,double.NaN,-1.5,0), "Invalid geometry cannot pair");
 foreach (var crop in new[] { Crop.Potato, Crop.Lettuce, Crop.LettuceSeed })
 {
     var s = New(crop); double energy = 0, oxygen = 0;

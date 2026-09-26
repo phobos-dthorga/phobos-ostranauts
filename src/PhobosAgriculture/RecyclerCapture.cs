@@ -13,7 +13,7 @@ internal sealed class RecyclerCapture : IRecyclerRejectSink
     internal static readonly RecyclerCapture Instance=new();
     internal const string Wet="PhobosVerdemorrowRecyclerWetRejects",Controls="PhobosAgricultureRecyclerCapture";
     private const string Collector="PhobosResidueCollectorInstalled";
-    private const double PacketKg=13,CapacityKg=52,AttachmentRange=2;
+    private const double PacketKg=13,CapacityKg=52;
     private static readonly HashSet<string> armed=new(StringComparer.Ordinal);
     internal static bool Available;
     internal static void Reset()=>armed.Clear();
@@ -44,14 +44,17 @@ internal sealed class RecyclerCapture : IRecyclerRejectSink
     }
     private static bool Endpoint(CondOwner co)=>!co.bDestroyed && co.objCOParent==null && co.ship!=null && (int)co.ship.LoadState>=2 && co.HasCond("IsInstalled") &&
         !co.HasCond("IsDamaged") && !co.HasCond("IsLocked") && !co.HasCond("IsOverrideOff") && !co.HasCond("IsSignalOff") && co.objContainer!=null && !co.objContainer.Locked;
-    internal static IEnumerable<CondOwner> Candidates(CondOwner recycler)=>recycler.ship.GetCOs(null,false,false,true).Where(c=>c.strCODef==Collector && CollectorCargo.EndpointReady(c) && c.ship==recycler.ship && Endpoint(c) && TileUtils.TileRange(c.GetPos(),recycler.GetPos())<=AttachmentRange);
+    private static bool Attached(CondOwner recycler, CondOwner collector)=>recycler.ship==collector.ship && recycler.Item!=null && collector.Item!=null &&
+        Core.RecyclerAttachment.Aligned(recycler.GetPos().x,recycler.GetPos().y,recycler.Item.TF.eulerAngles.z,
+            collector.GetPos().x,collector.GetPos().y,collector.Item.TF.eulerAngles.z);
+    internal static IEnumerable<CondOwner> Candidates(CondOwner recycler)=>recycler.ship.GetCOs(null,false,false,true).Where(c=>c.strCODef==Collector && CollectorCargo.EndpointReady(c) && Endpoint(c) && Attached(recycler,c));
     private static CondOwner? Peer(CondOwner recycler)=>Service.Resolve(PortPairing.Read(Sender(recycler)).PeerObjectId);
     public bool Handles(CondOwner recycler)=>PortPairing.Read(Sender(recycler)).State!=PortLinkState.Unlinked;
     public RecyclerRejectReservation? Reserve(CondOwner recycler)
     {
         var collector=Peer(recycler);
         if(!Available||!Definitions.Ready||!armed.Contains(recycler.strID)||!Endpoint(recycler)||collector==null||collector.strCODef!=Collector||!CollectorCargo.EndpointReady(collector)||!Endpoint(collector)||!collector.HasCond("IsPowered")||
-            recycler.ship!=collector.ship||TileUtils.TileRange(recycler.GetPos(),collector.GetPos())>AttachmentRange||!PortPairing.Matches(Sender(recycler),Receiver(collector))||!Clear(recycler)||!Clear(collector))return null;
+            !Attached(recycler,collector)||!PortPairing.Matches(Sender(recycler),Receiver(collector))||!Clear(recycler)||!Clear(collector))return null;
         var container=collector.objContainer!;
         double headroom=Math.Max(0,CapacityKg-container.ContainedCOs.Sum(c=>c.GetTotalMass()));
         var packet=container.ContainedCOs.FirstOrDefault(c=>Cargo(c)&&c.GetTotalMass()<PacketKg-1e-6);

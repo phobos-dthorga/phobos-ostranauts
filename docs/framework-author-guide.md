@@ -138,6 +138,13 @@ declare Framework **0.11.0** or later.
 
 ## Industrial controls (0.10.0)
 
+`Controls.PanelFeedback.Additional(success, message, liveStatus)` (Framework
+0.24.2) removes successful command feedback only when its complete lines already
+appear in the fresh live status. Use it immediately after a command, then retain
+the returned extra message rather than a stale status snapshot. It preserves
+errors, distinct notices and responses about another endpoint; do not use its
+text comparisons to decide gameplay state. CLI callers retain their full replies.
+
 `Controls.ConsoleBinding` stores session-only console, ship and operator IDs.
 Call `Check` with freshly resolved native identities, current player/owner and
 hardware/operator readiness on **every action**. Identity changes permanently

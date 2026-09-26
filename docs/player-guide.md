@@ -33,7 +33,7 @@ prerequisites and experimental status. Need help? See [support](../SUPPORT.md).
 Agriculture is a prepared candidate with visible crop growth, cooking equipment and optional [water conduits](agriculture-water-conduits.md): see the [cultivation and cooking guide](agriculture-player-guide.md). Nutrient-solution piping requires Framework 0.19.0; optional C1 integration uses Shipbreaker 0.14.0 or later. Owner gameplay evaluation is pending.
 
 
-**Prepared versions:** Phobos Framework **0.24.1**, Shipbreaker **0.24.0**, Auto Nav
+**Prepared versions:** Phobos Framework **0.24.2**, Shipbreaker **0.24.1**, Auto Nav
 **0.18.0**, built against Ostranauts **1.0.1.5** / BepInEx **5.4.23.5**.
 These versions support ordinary saves. Builds and offline checks do not establish
 in-game compatibility. This guide describes the prepared packages, not a claim
@@ -118,9 +118,13 @@ outside. There must be no gap or sideways offset between the three pieces.
 Build the native electrical conduit separately and power the grabber and
 processor. See [mounting and rotation](shipbreaker-hull-intake.md).
 
-The collector is optional: the processor works with its own product tray. Mount
-a collector over **two intact exterior walls**, with its service panel inward
-and receiving pocket outward, clear exterior space and structural floor inside.
+The collector is optional: the processor works with its own product tray. Stand
+it on **two structural floor tiles**, keeping both tiles along its service side
+clear for pedestrians. Alternatively, mount it over **two intact exterior walls**,
+with its service panel inward and receiving pocket outward, clear exterior space
+and structural floor inside. For Agriculture's optional Recycler attachment,
+align the collector's full two-tile pocket against a Recycler edge, with the
+service face away; see the [attachment guide](agriculture-nutrient-production.md).
 It requires its own electrical connection and a structural-floor route from
 the processor. It does not cross gaps, cargo webbing or a docked ship.
 
@@ -244,6 +248,6 @@ publication is implied by this prepared redesign.
 
 ## Industrial controls (0.10.0)
 
-[Console and equipment panel guide](industrial-console-player-guide.md): a 3 x 3 ship-bound workstation, local Control Panels, automatic grouping, search, Attention and routing. The current Shipbreaker 0.24.0 requires Framework 0.24.0 and Auto Nav 0.18.0 and includes [shared observations](shared-console-observations.md) and optional [shared completion cues](shared-completion-cues.md). Prepared for owner testing; no in-game validation claimed.
+[Console and equipment panel guide](industrial-console-player-guide.md): a 3 x 3 ship-bound workstation, local Control Panels, automatic grouping, search, Attention and routing. The current Shipbreaker 0.24.1 requires Framework 0.24.0 and Auto Nav 0.18.0 and includes [shared observations](shared-console-observations.md) and optional [shared completion cues](shared-completion-cues.md). Prepared for owner testing; no in-game validation claimed.
 
 Agriculture now supports [finite potato and lettuce nutrient-solution piping](agriculture-nutrient-solutions.md) through its W2 supply and irrigation conduits.

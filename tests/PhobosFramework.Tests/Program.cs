@@ -20,6 +20,7 @@ ConsoleAccessChecks.Run(Check);
 ObservationChecks.Run(Check);
 InstrumentNumberChecks.Run(Check);
 PanelPresentationChecks.Run(Check);
+PanelFeedbackChecks.Run(Check);
 LiquidDeliveryChecks.Run(Check);
 MixtureChecks.Run(Check);
 FluidNetworkChecks.Run(Check);

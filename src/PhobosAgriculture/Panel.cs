@@ -44,24 +44,25 @@ public sealed class Panel : GUIData
         plate.gameObject.AddComponent<Image>().color = new Color(.12f, .15f, .18f);
         var content = W.Scroll(plate, "Controls", out var scroll); W.Fill((RectTransform)scroll.transform, 24, 24, 24, 24);
         W.Label(content, co.strNameFriendly);
-        var imageRect = W.Rect(content, "Crop portrait"); imageRect.gameObject.AddComponent<LayoutElement>().minHeight = 96;
-        portrait = imageRect.gameObject.AddComponent<RawImage>(); portrait.raycastTarget = false;
-        var aspect = imageRect.gameObject.AddComponent<AspectRatioFitter>(); aspect.aspectMode = AspectRatioFitter.AspectMode.HeightControlsWidth;
         readout = W.Label(content, "");
         if (RecyclerCapture.IsRecycler(co))
         {
-            foreach (string action in new[] { "capture-start", "capture-pause", "capture-unlink" }) W.Button(content, Text.Get(action), () => { RecyclerCapture.Command(co, action, out result); Refresh(co); });
+            foreach (string action in new[] { "capture-start", "capture-pause", "capture-unlink" }) AddButton(content, co, action);
             foreach (var candidate in RecyclerCapture.Candidates(co))
             {
                 string peer = candidate.strID;
-                W.Button(content, Text.Get("capture_link", candidate.strNameFriendly, peer), () => { RecyclerCapture.Command(co, "capture-link:" + peer, out result); Refresh(co); });
+                W.Button(content, Text.Get("capture_link", candidate.strNameFriendly, peer), () => Execute(co, "capture-link:" + peer));
             }
             W.Button(content, Text.Get("close"), () => CrewSim.LowerUI()); Refresh(co); return;
         }
+        var imageRect = W.Rect(content, "Crop portrait"); imageRect.SetSiblingIndex(1);
+        imageRect.gameObject.AddComponent<LayoutElement>().minHeight = 96;
+        portrait = imageRect.gameObject.AddComponent<RawImage>(); portrait.raycastTarget = false;
+        var aspect = imageRect.gameObject.AddComponent<AspectRatioFitter>(); aspect.aspectMode = AspectRatioFitter.AspectMode.HeightControlsWidth;
         foreach (string action in Service.Actions(co)) AddButton(content, co, action);
         if(IrrigationDefinitions.IsSupply(co)) foreach(var charge in Service.DoseCandidates(Service.Get(co)))
         {
-            string source=charge.strID; W.Button(content,Text.Get("dose_select",charge.strNameFriendly,source),()=>{Service.Command(co,null,"dose:"+source,out result);Refresh(co);});
+            string source=charge.strID; W.Button(content,Text.Get("dose_select",charge.strNameFriendly,source),()=>Execute(co,"dose:"+source));
         }
         if (!Definitions.IsCooker(co) && !WorkupDefinitions.IsBench(co))
         {
@@ -70,12 +71,22 @@ public sealed class Panel : GUIData
             foreach (var candidate in Service.WaterCandidates(co))
             {
                 string peerId = candidate.strID;
-                W.Button(content, Text.Get("water_pair", candidate.strNameFriendly, peerId), () => { Service.Command(co, null, "link-water:" + peerId, out result); Refresh(co); });
+                W.Button(content, Text.Get("water_pair", candidate.strNameFriendly, peerId), () => Execute(co, "link-water:" + peerId));
             }
         }
         W.Label(content, Text.Get("panel_help")); W.Button(content, Text.Get("close"), () => CrewSim.LowerUI()); Refresh(co);
     }
-    private void AddButton(Transform parent, CondOwner co, string action) => W.Button(parent, Text.Get(action), () => { Service.Command(co, null, action, out result); Refresh(co); });
+    private void AddButton(Transform parent, CondOwner co, string action) => W.Button(parent, Text.Get(action), () => Execute(co, action));
+    private void Execute(CondOwner co, string action)
+    {
+        bool recycler = RecyclerCapture.IsRecycler(co);
+        bool success = recycler ? RecyclerCapture.Command(co, action, out result) : Service.Command(co, null, action, out result);
+        // Services also serve console callers. Their successful status response is
+        // already rendered live here; preserve distinct notices (e.g. queued work).
+        result = Phobos.Ostranauts.Framework.Controls.PanelFeedback.Additional(success, result,
+            recycler ? RecyclerCapture.Describe(co) : Service.Describe(co));
+        Refresh(co);
+    }
     private void Update()
     {
         if (!bActive || Time.unscaledTime < nextRefresh) return; nextRefresh = Time.unscaledTime + .5f;
@@ -90,6 +101,7 @@ public sealed class Panel : GUIData
         var session = Service.Get(co);
         string key = Artwork.Key(co, session.State, session.Protected);
         if (key == portraitKey) return; portraitKey = key; portrait.texture = Artwork.Texture(key);
+        portrait.gameObject.SetActive(portrait.texture != null);
     }
     public override void SaveAndClose() { if (bActive) base.SaveAndClose(); }
 }

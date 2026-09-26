@@ -17,6 +17,18 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Fixed unreachable INSTALL entries; Firstlight-4, Hearth-2 and W2 appear under APPS, and irrigation conduit under MISC, including damaged forms. Existing inputs, placement and saved IDs are preserved.
 
+## [0.11.1] - 2026-09-26 - Draft
+
+### Fixed
+
+- Recycler attachment controls show the live status once after repeated actions and omit the unused crop portrait that appeared as a white square. Other Agriculture panels also suppress echoed successful status while retaining distinct action notices and errors.
+- Use Framework 0.24.2's shared feedback rule; hide the portrait slot on actual Agriculture machinery if its artwork fails to load, avoiding another empty white square.
+- Optional Recycler capture requires a complete two-tile edge alignment, including quarter-turn rotations, and rechecks it before reserving waste. Shipbreaker 0.24.1 adds floor mounting with a clear service walkway. Existing saved links and cargo remain intact; misaligned pairs wait for repositioning or explicit Unlink.
+
+### Compatibility
+
+- Applies to the optional adapter for [Valtora's Ship's Water 0.16.1](https://steamcommunity.com/sharedfiles/filedetails/?id=3757331189). Payload limits, exclusive pairing, measured waste and pause after reload are unchanged. Prepared and checked offline; owner gameplay confirmation remains pending.
+
 ## [0.11.0] - 2026-09-26 - Draft
 
 ### Changed

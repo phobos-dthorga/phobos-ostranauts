@@ -111,7 +111,7 @@
           "function": "Receives detached wall panels and, when explicitly enabled, cuts supported captured walls for the existing D4 chain.",
           "use": "Install the G4/H4/D4 assembly with all four backing walls intact. Manual loading and intake still work. For automatic reclamation, bind the exact G4 and N1/N2 console to an owned, unoccupied wreck, then choose Start reclamation. Resume is required after loading or lost authority.",
           "find": "Buy from equipment offers or build at a supported table.",
-          "notes": "Requires Auto Nav 0.18.0+ and Framework 0.24.0+. Cutting, feeding, release, outward retreat, traversal and recapture are sequenced. Cutting rejects its delivered electrical energy as heat through the D4 interior service area (at least 10 kPa and headroom below 40 C); this is authored gameplay cooling, not a simulated physical coolant circuit. Only empty, unstacked, undamaged 24 kg ordinary walls with retained floors/supports qualify. Target pressure must be at most 0.1 kPa. Stop retains the capture; Release is separate. Floors, other equipment, cargo and final supports remain.",
+          "notes": "Requires Auto Nav and Framework; see the installation guide for current minimum versions. Cutting, feeding, release, outward retreat, traversal and recapture are sequenced. Cutting rejects its delivered electrical energy as heat through the D4 interior service area (at least 10 kPa and headroom below 40 C); this is authored gameplay cooling, not a simulated physical coolant circuit. Only empty, unstacked, undamaged 24 kg ordinary walls with retained floors/supports qualify. Target pressure must be at most 0.1 kPa. Stop retains the capture; Release is separate. Floors, other equipment, cargo and final supports remain.",
           "guide": "shipbreaker-reclamation.md",
           "internal": false,
           "labels": {}
@@ -143,7 +143,7 @@
             "PhobosResidueCollectorInstalledDmg"
           ],
           "function": "A finite physical cargo receiver for explicitly paired industrial outputs.",
-          "use": "Install at the hull, link the required machine/output port, select an exact filter and enable receiving. Empty its Inventory when full.",
+          "use": "Install on two structural floor tiles with a clear two-tile service walkway, or at the hull with the existing wall supports. Link the required machine/output port, select an exact filter and enable receiving. For Agriculture's optional Recycler capture, align the full two-tile pocket against the Recycler with the service side facing away; enable collection from the Recycler panel. Empty Inventory when full.",
           "find": "Buy from equipment offers or build at a supported table.",
           "notes": "Full collectors block transfer; cargo stays at the sender. It does not jettison material or reduce ship mass. Furnace products need their explicit filter.",
           "guide": "residue-collector.md",

@@ -14,6 +14,16 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.24.2] - 2026-09-26 - Draft
+
+### Fixed
+
+- Share a presentation-only command-feedback rule across Agriculture and Shipbreaker panels: omit successful complete-line or paragraph echoes already shown in fresh live status. Keep rejection explanations, distinct notices and other-endpoint responses visible. No gameplay, saved state or console command responses change.
+
+### Compatibility and limits
+
+- Agriculture 0.11.1 and Shipbreaker 0.24.1 require this shared helper. Offline regression checks cover full-status echoes, notices, line endings, errors and substring coincidences; native visual confirmation remains pending.
+
 ## [0.24.1] - 2026-09-26 - Draft
 
 ### Fixed

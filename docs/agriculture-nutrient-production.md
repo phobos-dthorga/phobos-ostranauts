@@ -62,10 +62,21 @@ matching newer mod set when loading those saves.
 ## Optional Recycler collector attachment
 
 With **Valtora's [Ship's Water](https://steamcommunity.com/sharedfiles/filedetails/?id=3757331189)
-0.16.1** and Shipbreaker 0.20.0, open **Residue Collector attachment** on an
-installed Recycler. Install a normal Phobos Residue Collector within two tiles;
-retain its existing two-wall/exterior-mouth/floor support and power. Stand beside
-both unlocked endpoints, choose the collector and explicitly enable collection.
+0.16.1**, open **Residue Collector attachment** on an installed Recycler.
+Agriculture 0.11.1 and Shipbreaker 0.24.1 support a normal C2 Residue Collector
+on two bare structural floor tiles, including directly in front of the Recycler.
+Place its full two-tile pocket flush against a two-tile Recycler edge; turn its
+cream service face away and leave both adjacent service tiles walkable. Quarter
+turns are supported. No wall is required for this floor arrangement; existing
+hull mounts retain their wall/exterior-mouth rules. Connect power separately.
+Stand beside both unlocked endpoints, choose the collector and explicitly enable
+collection. Mere proximity, a corner contact or a gap does not establish alignment.
+Old links and cargo are retained; a misaligned pair waits for repositioning or
+explicit Unlink. The panel shows one live status and no unused crop-image square.
+Framework 0.24.2 supplies the shared display rule, also used by Shipbreaker's
+collector routing and furnace panels. Distinct action notices and errors remain
+visible. Other Agriculture panels hide unavailable portraits rather than showing
+an empty image slot.
 
 The existing collector inlet is exclusive: unlink an industrial source first.
 At settlement the shared adapter restricts tank lists to this exact ship,

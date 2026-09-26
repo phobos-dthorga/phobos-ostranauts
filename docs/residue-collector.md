@@ -1,4 +1,12 @@
-# Residue Collector — Shipbreaker 0.9.0 candidate
+# Residue Collector
+
+Current placement update: **Shipbreaker 0.24.1 / Agriculture 0.11.1**, prepared
+26 September 2026. A collector may stand on two structural floor tiles with both
+tiles along its cream service side clear for pedestrians. It occupies its full
+2 x 1 footprint; no walls are needed for this arrangement. Existing wall mounts
+retain the rules below. The new floor option and panel fixes await owner gameplay
+confirmation. Earlier version-specific descriptions below document their original
+delivery, rather than the current package version.
 
 24 September 2026. Current prepared versions: **Phobos Framework 0.9.0** and
 Shipbreaker **0.9.0**. Saved pairing was introduced in 0.5.0; the current versions
@@ -12,7 +20,7 @@ Version 0.9.0 adds saved receiving filters and a separate output port for feedin
 a reclaimer from this collector as a buffer. See [automatic routing](automatic-material-routing.md).
 
 The collector moves existing panel residue from a selected processor to a
-finite wall-mounted inventory. **Material remains aboard and still weighs on the
+finite floor- or wall-mounted inventory. **Material remains aboard and still weighs on the
 ship.** There is no jettison button, automatic destruction or persistent-space
 release in this build. [Research and later release options](material-disposal-port-research.md).
 
@@ -32,7 +40,7 @@ are also required; hauling, skills and interruptions affect elapsed time.
 | **Collector** | **1** | **20 kg** |
 
 The body is **two tiles along the hull and one tile deep** (32 x 16 world pixels).
-Install it **over two intact exterior walls**, retaining both walls. Face its dark
+For the wall option, install it **over two intact exterior walls**, retaining both walls. Face its dark
 collection pocket outward, cream service panel inward. Both adjacent inboard
 tiles require structural floor; the two outward tiles must be clear of ship
 structure and solid items, including docked neighbours. Repair damaged supporting
@@ -204,6 +212,13 @@ a separate explicit pair. Collection remains aboard and is never disposal.
 ## Optional Agriculture attachment — Shipbreaker 0.20.0
 
 Agriculture 0.9.0 can bind the existing collector inlet to Valtora’s Ship’s Water
-0.16.1 Recycler for retained wet rejects. Hardware, mount, inventory and 52 kg
+0.16.1 Recycler for retained wet rejects. Hardware, inventory and 52 kg
 payload are reused. Wet reject identities are separate from industrial residue,
 with no reclaimer recipe or nutrient assay. See the [attachment guide](agriculture-nutrient-production.md).
+
+Agriculture 0.11.1 uses full two-tile edge alignment, with the dark pocket toward
+the Recycler and the service side away. Shipbreaker 0.24.1 permits the collector
+on bare structural floor directly in front of, or along another complete edge
+of, the Recycler. Keep both service-side floor tiles walkable. Unsupported,
+obstructed or misaligned pairs hold wastewater at its source. Old links and cargo
+are retained; correct placement or explicitly unlink to restore ordinary recycling.

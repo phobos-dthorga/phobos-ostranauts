@@ -19,6 +19,19 @@ Dates on Draft entries record preparation, not Steam publication.
 - Earlier capture-only research is superseded for supported ordinary walls by the implementation below. Broader structural recipes, repeated furnace batches and whole-wreck completion remain outside this round.
 - Keep [NASA Goddard's Raven research](https://www.nasa.gov/general/nasas-hybrid-computer-enables-ravens-autonomous-rendezvous-capability/) and [ESA's LIRIS experiment by Airbus, Jena Optronik and Sodern](https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/ATV/ATV_views_Space_Station_as_never_before) as sensing context, separate from Blue Bottle Games native evidence and authored gameplay choices. No institutional endorsement or gameplay validation is implied.
 
+## [0.24.1] - 2026-09-26 - Draft
+
+### Fixed
+
+- C2 residue collectors can be installed on two structural floor tiles with a clear two-tile service walkway, including damaged installation forms. Native placement checks still reject occupied footprints; the body blocks pedestrian overlap. Existing wall installations retain their support and exterior-mouth rules.
+- Agriculture 0.11.1 can align the collector's full two-tile pocket against the optional Recycler on open floor, including in front of it. The collector's opposite service side remains accessible. Floor support and access are rechecked during operation.
+- Collector routing windows and local/C1 furnace instruments suppress successful status or notice echoes already present in live status, using Framework 0.24.2. Furnace actions refresh their status immediately; rejection explanations and responses concerning another endpoint remain visible.
+
+### Compatibility
+
+- Retains equipment IDs, inventories, saved pairs, construction inputs, finite payload and explicit resume after reload. No pressure boundary is created or removed. Prepared offline; gameplay confirmation remains with the owner.
+- Requires Framework 0.24.2 or newer for shared panel feedback.
+
 ## [0.24.0] - 2026-09-26 - Draft
 
 ### Added

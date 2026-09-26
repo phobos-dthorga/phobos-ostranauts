@@ -35,12 +35,28 @@ internal sealed class CollectorRoute
         return co != null && co.ship == ship && co.HasCond("IsFloor") && !co.HasCond("IsWall") &&
             !co.bDestroyed && !co.HasCond("IsDamaged") && !co.HasCond("IsFloorFlex") && !co.HasCond("IsEVATile");
     }
+    internal static bool FloorSupport(Ship ship, Vector2 position, double angle) =>
+        IntakeRules.SameAngle(angle, 0, 90) && Enumerable.Range(0, CollectorRules.Width).All(col =>
+        {
+            var offset = IntakeRules.Rotate(col - .5, 0, angle);
+            return Floor(ship, ship.GetTileIndexAtWorldCoords1(position + new Vector2((float)offset.X, (float)offset.Y)));
+        });
+    internal static bool ServiceClear(Ship ship, Vector2 position, double angle) =>
+        Enumerable.Range(0, CollectorRules.Width).All(col =>
+        {
+            var offset = IntakeRules.Rotate(col - .5, -1, angle);
+            var point = position + new Vector2((float)offset.X, (float)offset.Y);
+            int index = ship.GetTileIndexAtWorldCoords1(point);
+            return Floor(ship, index) && ship.GetTileByIndex(index)?.bPassable == true;
+        });
     internal static string? MountProblem(CondOwner port)
     {
         if (ProcessingService.IsReclaimer(port) || FurnaceRules.Machine(port.strCODef))
             return port.Item != null && IntakeRules.SameAngle(Angle(port), 0, 90) ? null : Text.Get("Routing.grid_alignment");
         if (port.Item == null || !IntakeRules.SameAngle(Angle(port), 0, 90)) return Text.Get("CollectorRoute.collector_must_align_with_the_hull_grid");
         var ship = port.ship;
+        if (FloorSupport(ship, port.GetPos(), Angle(port)))
+            return ServiceClear(ship, port.GetPos(), Angle(port)) ? null : Text.Get("CollectorRoute.clear_floor_service_side");
         for (int col = 0; col < CollectorRules.Width; col++)
         {
             var wallPos = Point(port, col - 0.5, 0);

@@ -152,7 +152,18 @@ var collector = prepared.Objects[CollectorRules.Installed];
 var collectorItem = prepared.Items[collector.strItemDef];
 Check(collector.nContainerWidth == 2 && collector.nContainerHeight == 2, "Finite four-cell collection chamber");
 Check(collectorItem.nCols == 2 && collectorItem.aSocketAdds.Length == 2 && collectorItem.aSocketReqs.Length == 12, "Collector full intended 2 x 1 footprint and padded sockets");
-Check(collectorItem.aSocketReqs.Count(s=>s=="TILWall")==2 && collectorItem.aSocketAdds.All(s=>s=="TILWallDecoAdds"), "Collector mounts over intact walls without creating floor or pressure portal");
+foreach (string form in new[] { "Installed", "InstalledDmg" })
+{
+    var mount = prepared.Items[CollectorRules.Prefix + form];
+    Check(CollectorPlacement.Installed(mount.strName) && mount.aSocketReqs.Count(s=>s=="TILWall")==2,
+        "Both collector installation forms retain the native wall alternative");
+    var adds = prepared.Loot[mount.aSocketAdds[0]].aCOs;
+    Check(adds.Contains("IsFixture=1.0x1") && adds.Contains("IsObstruction=1.0x1") && adds.Contains("IsWallDeco=1.0x1"),
+        "Floor collector blocks pedestrian overlap and other fixtures while retaining wall identity");
+    Check(!adds.Any(s=>s.StartsWith("IsFloor=") || s.StartsWith("IsWall=")), "Collector never creates structural support or a pressure boundary");
+}
+Check(!CollectorPlacement.Installed(CollectorRules.Prefix + "Loose") && !CollectorPlacement.Installed(IntakeRules.Chute + "Installed"),
+    "Alternative placement excludes loose collectors and hull chutes");
 Check(collector.aInteractions.Contains(IndustrialRules.LocalControls) && prepared.Interactions[CollectorRules.Controls].strRaiseUI == null, "Own control-panel action does not accidentally open native inventory UI");
 var residueData = new DataCO(prepared.Objects[ProcessRules.Residue]);
 Check(DataHandler.dictCTs[collector.strContainerCT].TriggeredDataCO(residueData,false), "Native container accepts residue before the runtime exact filter");

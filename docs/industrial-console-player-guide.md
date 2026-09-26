@@ -1,5 +1,10 @@
 # Industrial controls
 
+Shipbreaker 0.24.1 with Framework 0.24.2 avoids echoing successful status and
+notices in the collector routing window and local/C1 furnace controls. Furnace
+instrument actions immediately refresh the live readout. Rejection explanations,
+distinct notices and feedback concerning another endpoint remain visible.
+
 G4 adds **Start reclamation**, **Resume reclamation**, **Pause** and **Stop**,
 with phase, blocker, completed-wall count and retained remnants. These actions
 are available locally and through C1; [the reclamation guide](shipbreaker-reclamation.md)
@@ -16,7 +21,8 @@ notification** and cue volume/mute. Watching is optional, never starts a job and
 clears on processing pause, fault or reload. See the
 [completion cue guide](shipbreaker-completion-cue.md) for scope and listening checks.
 
-Current packages: Shipbreaker **0.24.0**, requiring Phobos Framework **0.21.0**. Auto Nav remains optional.
+Current packages: Shipbreaker **0.24.1**. Framework and Auto Nav are required;
+see [installation requirements](installing-mods.md) for current minimum versions.
 Built against Ostranauts **1.0.1.5** / BepInEx **5.4.23.5**. Automated checks
 passed; the new native panel/seating integration awaits the owner's game test.
 

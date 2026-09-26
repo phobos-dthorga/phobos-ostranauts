@@ -19,7 +19,10 @@ internal static class CollectorDefinitions
         controls.strTooltip = Text.Get("CollectorDefinitions.choose_a_processor_and_collect_its_residue");
         controls.strRaiseUI = null; controls.fTargetPointRange = 2;
         d.Interactions[controls.strName] = controls;
-        // Reuse the wall-chute support contract. Neither fixture creates/removes walls.
+        // Block the footprint on open floors too. Existing wall mounts retain
+        // their wall-decoration identity; neither mode creates/removes structure.
+        d.Loot[p + "Adds"] = new Loot { strName = p + "Adds", strType = "condition",
+            aCOs = new[] { "IsWallDeco=1.0x1", "IsFixture=1.0x1", "IsObstruction=1.0x1" }, aLoots = Array.Empty<string>() };
         foreach (string state in new[] { "Installed", "Loose", "InstalledDmg", "LooseDmg" })
         {
             string id = p + state; bool installed = state.StartsWith("Installed", StringComparison.Ordinal);
@@ -36,7 +39,7 @@ internal static class CollectorDefinitions
             Content.SetStat(co, "StatMass", CollectorRules.MachineKg);
             Content.SetStat(co, "StatBasePrice", damaged ? 100 : 400);
             item.nCols = CollectorRules.Width; item.fZScale = 0.75f;
-            item.aSocketAdds = Enumerable.Repeat(installed ? "TILWallDecoAdds" : "TILItemAdds", 2).ToArray();
+            item.aSocketAdds = Enumerable.Repeat(installed ? p + "Adds" : "TILItemAdds", 2).ToArray();
             item.aSocketReqs = Padded(installed ? "TILWall" : "Blank");
             item.aSocketForbids = Padded(installed ? "PhobosHullChuteForbids" : "TILItemForbids");
             Content.ApplyArtwork(co, item, p);

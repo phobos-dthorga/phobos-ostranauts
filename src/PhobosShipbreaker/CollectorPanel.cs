@@ -1,5 +1,6 @@
 using System.Linq;
 using PhobosShipbreaker.Core;
+using Phobos.Ostranauts.Framework.Controls;
 using UnityEngine;
 
 namespace PhobosShipbreaker;
@@ -50,13 +51,13 @@ internal sealed class CollectorPanel
             if (GUILayout.Button(Text.Get("CollectorPanel.pause"))) { message = ""; service.Pause(port); }
             if (GUILayout.Button(Text.Get("CollectorPanel.inventory"))) { message = ""; service.OpenInventory(port); }
         }
-        if (GUILayout.Button(Text.Get("CollectorPanel.unlink"))) service.Unlink(port, out message, sourceMode, metals: metalsMode);
+        if (GUILayout.Button(Text.Get("CollectorPanel.unlink"))) Feedback(port, service.Unlink(port, out message, sourceMode, metals: metalsMode));
         GUILayout.EndHorizontal();
         if (!sourceMode)
         {
             GUILayout.BeginHorizontal();
             foreach (var choice in RoutingRules.Choices(port.strCODef))
-                if (GUILayout.Button(FilterTitle(choice))) service.SetFilter(port, choice, out message);
+                if (GUILayout.Button(FilterTitle(choice))) Feedback(port, service.SetFilter(port, choice, out message));
             GUILayout.EndHorizontal();
         }
         GUILayout.Label(sourceMode ? Text.Get("Routing.choose_receiver") : Text.Get("Routing.choose_sender"));
@@ -68,8 +69,9 @@ internal sealed class CollectorPanel
             if (GUILayout.Button(new GUIContent(Text.Get("CollectorPanel.link", CollectorService.Label(candidate)), candidate.strID)))
             {
                 var receiver = sourceMode ? candidate : port;
-                service.Bind(receiver, sourceMode ? port : candidate);
+                bool success = service.Bind(receiver, sourceMode ? port : candidate);
                 message = service.Describe(receiver);
+                Feedback(port, success);
             }
             GUILayout.Label(CollectorService.DescribeLink(candidate, !sourceMode, !sourceMode && FurnaceRules.Machine(port.strCODef)));
         }
@@ -78,6 +80,8 @@ internal sealed class CollectorPanel
         if (GUILayout.Button(Text.Get("CollectorPanel.close"))) target = null;
         GUI.DragWindow(new Rect(0, 0, bounds.width, TitleBarHeight));
     }
+    private void Feedback(CondOwner port, bool success) => message = PanelFeedback.Additional(success, message,
+        sourceMode ? CollectorService.DescribeLink(port, true, metalsMode) : service.Describe(port));
     private static string FilterTitle(string choice) => choice switch
     {
         "all" => Text.Get("Routing.filter_all"), "feed" => Text.Get("Routing.filter_feed"),

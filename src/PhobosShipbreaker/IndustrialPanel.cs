@@ -94,8 +94,7 @@ public sealed class IndustrialPanel : GUIData
         W.Button(footer, Text.Get("Industry.back_list"), () => { detailPage = false; Layout(); }).gameObject.SetActive(Central);
         pause = W.Button(footer, Text.Get("Industry.pause_all"), () => { if (binding != null) { result = IndustryService.PauseAll(binding); ShowDetail(); } });
         pause.gameObject.SetActive(Central);
-        furnaceStop = W.Button(footer, Text.Get("Furnace.action_stop"), () =>
-        { IndustryService.Run(binding, selected, "stop", null, out result); RefreshReadout(); });
+        furnaceStop = W.Button(footer, Text.Get("Furnace.action_stop"), () => RunInstrument(selected, "stop", null));
         furnaceStop.gameObject.SetActive(false);
         W.Button(footer, Text.Get("Industry.close"), () => CrewSim.LowerUI());
 
@@ -228,8 +227,7 @@ public sealed class IndustrialPanel : GUIData
         if (FurnaceRules.Machine(target.strCODef))
         {
             string targetId = target.strID;
-            FurnaceInstrumentView.Build(actions, target, (action, value) =>
-            { IndustryService.Run(binding, targetId, action, value, out result); RefreshReadout(); });
+            FurnaceInstrumentView.Build(actions, target, (action, value) => RunInstrument(targetId, action, value));
             if (!Central) { Add(actions, "feed"); Add(actions, "products"); }
             FurnaceInstallationView.Build(actions, target);
             W.Label(actions, Text.Get("Furnace.coolant_controls"));
@@ -279,6 +277,16 @@ public sealed class IndustrialPanel : GUIData
         }
         if (Central) W.Label(details, Text.Get("Industry.local_only"));
         if (tab == "routing") ShowRouting(target); else Layout();
+    }
+    private void RunInstrument(string targetId, string action, string? value)
+    {
+        bool success = IndustryService.Run(binding, targetId, action, value, out result);
+        // Refresh first: old cards can otherwise echo a success response or leave
+        // stale notices below the live readout when the machine changes later.
+        Refresh();
+        if (!bActive || invalid) return;
+        result = PanelFeedback.Additional(success, result, cards.FirstOrDefault(c => c.Id == targetId)?.Detail ?? "");
+        RefreshReadout();
     }
     private void Add(Transform parent, string action, string? value = null, string? label = null)
     {
