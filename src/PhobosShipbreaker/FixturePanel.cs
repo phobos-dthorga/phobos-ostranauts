@@ -48,6 +48,7 @@ internal sealed class FixturePanel
             GUILayout.BeginVertical(GUI.skin.box);
             GUILayout.Label(machine.strNameFriendly + " (" + machine.strID + ")");
             GUILayout.Label(service.Describe(machine));
+            if (GUILayout.Button(Phobos.Ostranauts.Framework.Crew.CrewWork.Message("open")) && Phobos.Ostranauts.Framework.Crew.CrewPanel.Show(machine)) visible=false;
             if (intakeDescriptions.TryGetValue(machine.strID, out string intakeDescription)) GUILayout.Label(intakeDescription);
             GUILayout.BeginHorizontal();
             if (GUILayout.Button(Text.Get("FixturePanel.start_resume_pipeline"))) service.Start(machine);

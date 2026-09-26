@@ -21,7 +21,7 @@ notification** and cue volume/mute. Watching is optional, never starts a job and
 clears on processing pause, fault or reload. See the
 [completion cue guide](shipbreaker-completion-cue.md) for scope and listening checks.
 
-Current packages: Shipbreaker **0.24.1**. Framework and Auto Nav are required;
+Current packages: Shipbreaker **0.25.0**. Framework and Auto Nav are required;
 see [installation requirements](installing-mods.md) for current minimum versions.
 Built against Ostranauts **1.0.1.5** / BepInEx **5.4.23.5**. Automated checks
 passed; the new native panel/seating integration awaits the owner's game test.
@@ -158,3 +158,7 @@ See [the capture guide](shipbreaker-capture.md) for F3 equivalents, ownership an
 geometry requirements. Panels can close during approach. Capture does not start
 cutting or authorize the connected processor/furnace; those later stages retain
 separate permissions. Stop/release preserve cargo and do not brake the ship.
+
+## Crew standing orders
+
+See [crew automation, specialities and time-skips](crew-automation.md) for default-disabled orders, native duty/AutoTask rules, approved stores, training, saved stops and supported onboard work. Industrial batches, exterior missions and crew-launched flight require explicit Resume. Gameplay and UI checks remain owner-run.

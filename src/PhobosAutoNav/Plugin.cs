@@ -12,11 +12,11 @@ namespace PhobosAutoNav;
 
 [BepInPlugin(Id, "Phobos Auto Nav", Version)]
 [BepInProcess("Ostranauts.exe")]
-[BepInDependency(FrameworkInfo.PluginId, "0.24.0")]
+[BepInDependency(FrameworkInfo.PluginId, "0.25.0")]
 public sealed class Plugin : BaseUnityPlugin
 {
     public const string Id = "phobosgekko.ostranauts.autonav";
-    public const string Version = "0.18.0";
+    public const string Version = "0.19.0";
     internal static NavigationService Service { get; private set; } = null!;
     internal static ConfigEntry<bool> Enabled = null!, VerboseLogging = null!, FuelCheck = null!,
         AbortOnManualThrust = null!, UseThrusterRotation = null!, ResumeAfterLoad = null!, PreferTorch = null!, SalvageEnabled = null!;
@@ -58,6 +58,8 @@ public sealed class Plugin : BaseUnityPlugin
         TorchMinimumCorrectionMS = Number("Torch", "MinimumCorrectionMS", 5, 0.5f, 100, Text.Get("Torch.setting_correction"));
         PerformanceMetrics.Initialize();
         Service = new NavigationService(log);
+        Phobos.Ostranauts.Framework.Crew.CrewWork.Register(new NavigationCrewProvider());
+        Phobos.Ostranauts.Framework.Crew.CrewWork.SkipStarting += Service.SuspendForSkip;
         SalvageEnabled = Config.Bind("Salvage", "Enabled", true, Text.Get("Salvage.enabled"));
         SalvageChance = Number("Salvage", "NavModuleChance", EquipmentRules.SalvageChance, 0, 1, Text.Get("Salvage.chance"));
         ResumeAfterLoad = Config.Bind("Persistence", "ResumeAfterLoad", true, Text.Get("Persistence.resume_setting"));
@@ -76,6 +78,7 @@ public sealed class Plugin : BaseUnityPlugin
     private void Update() { Service?.RestoreFireOwnership(); Service?.UpdatePersistence(); }
     private void OnDestroy()
     {
+        Phobos.Ostranauts.Framework.Crew.CrewWork.SkipStarting -= Service.SuspendForSkip;
         FrameworkLifecycle.ContentLoading -= EquipmentContent.Register;
         if (Service != null) CrewSim.OnGameFinishedLoading.RemoveListener(Service.WorldLoaded);
         Service?.Disengage(Text.Get("Plugin.plugin_unloaded")); harmony?.UnpatchSelf();

@@ -14,6 +14,7 @@ namespace PhobosShipbreaker;
 // Mission authority is transient. Only intent, paid work and mutation evidence survive a load.
 internal static partial class ReclamationService
 {
+    static partial void CrewManualStop(CondOwner co);
     private sealed class Session
     {
         internal CondOwner Grabber=null!;
@@ -51,6 +52,7 @@ internal static partial class ReclamationService
             if(action=="reclaim-status") { message=Describe(g);return true; }
             if(action=="reclaim-pause"||action=="reclaim-stop")
             {
+                CrewManualStop(g);
                 if(sessions.TryGetValue(g.strID,out var active)) Suspend(active,Text.Get("Reclamation.suspended"));
                 message=Describe(g);return true;
             }

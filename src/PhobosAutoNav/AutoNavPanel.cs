@@ -121,6 +121,7 @@ public sealed class AutoNavPanel : NavModBase
         var content = PanelWidgets.Scroll(pages["details"], "Diagnostics", out detailScroll);
         PanelWidgets.Fill((RectTransform)detailScroll.transform);
         PanelWidgets.Button(content, Text.Get("Cue.watch"), () => Plugin.Service.WatchArrival(COSelf, true));
+        Phobos.Ostranauts.Framework.Crew.CrewPanel.Button(content, COSelf);
         PanelWidgets.Button(content, Text.Get("Cue.unwatch"), () => Plugin.Service.WatchArrival(COSelf, false));
         var cueVolume = PanelWidgets.Button(content, "", () => Phobos.Ostranauts.Framework.Audio.CompletionCues.CycleVolume());
         labels["cue-volume"] = cueVolume.GetComponentInChildren<TMP_Text>();

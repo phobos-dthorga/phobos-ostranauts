@@ -154,3 +154,11 @@ compile/runtime files; this catalogue is a maintenance tool, not a new runtime
 configuration dependency.
 
 Workshop page version fields are maintained targets. Add a new changelog entry after a version bump, review the page content and regenerate Steam notes; see [Workshop publication](workshop-publication.md). The updater does not rewrite historical release entries. Only `workshop/<ModId>/page.bbcode` is allowed as a Workshop target, not generated release files.
+
+## Crew training balance
+
+Use Framework.crewPracticeHours, Framework.crewStudyHours and Framework.crewSkilledDurationFraction for authored speciality training thresholds and hands-on duration. Run the Framework crew checks after changing them, and review [crew guidance](crew-automation.md). These do not control machine duration, crop growth or yields.
+
+Current dependency requirements in the installation guide, player guide and
+Workshop requirements sections are registered alongside runtime/installer
+minimums. Historical feature/version paragraphs keep their original floors.

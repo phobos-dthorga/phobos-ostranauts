@@ -17,6 +17,20 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Fixed unreachable INSTALL entries; Firstlight-4, Hearth-2 and W2 appear under APPS, and irrigation conduit under MISC, including damaged forms. Existing inputs, placement and saved IDs are preserved.
 
+## [0.12.0] - 2026-09-26 - Draft
+
+### Crew automation
+
+- Added standing work for selected crop cohorts, finite replenishment, harvest/replant, potato cooking, nutrient workup, configured water routes, recorded drainage recovery and approved storage.
+- Added Agriculture and Cooking training, novice eligibility and qualified-worker preference. Crop growth, chemistry and material yields are unchanged.
+- Preserved source seed stock and configured crew-water reserves. Clearing unwanted living crops and draining usable solutions require separate permission.
+- Added routine resume-after-load selection and supported onboard time-skip accounting through Framework 0.25.0.
+
+### Compatibility and limits
+
+- Requires Framework 0.25.0. Ship’s Water and Shipbreaker remain optional. No new recipe for uncharacterized wet rejects; no gameplay validation or Steam publication.
+- See [crew controls, sources and owner checks](https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/crew-automation.md).
+
 ## [0.11.1] - 2026-09-26 - Draft
 
 ### Fixed

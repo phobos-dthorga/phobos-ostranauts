@@ -41,6 +41,7 @@ foreach (var record in Newtonsoft.Json.Linq.JArray.Parse(File.ReadAllText(file))
 Load(Path.Combine(native, "condtrigs"), DataHandler.dictCTs, x => x.strName);
 Load(Path.Combine(native, "interactions"), DataHandler.dictInteractions, x => x.strName);
 Load(Path.Combine(native, "loot"), DataHandler.dictLoot, x => x.strName);
+CrewNativeChecks.Run(Check);
 Load(Path.Combine(repo, "mods/PhobosShipbreaker/data/conditions"), DataHandler.dictConds, x => x.strName);
 Load(Path.Combine(repo, "mods/PhobosShipbreaker/data/condtrigs"), DataHandler.dictCTs, x => x.strName);
 PlaceholderHealthChecks.Run(Check);

@@ -97,6 +97,7 @@ public sealed class IndustrialPanel : GUIData
         furnaceStop = W.Button(footer, Text.Get("Furnace.action_stop"), () => RunInstrument(selected, "stop", null));
         furnaceStop.gameObject.SetActive(false);
         W.Button(footer, Text.Get("Industry.close"), () => CrewSim.LowerUI());
+        Phobos.Ostranauts.Framework.Crew.CrewPanel.Button(footer);
 
         list = W.Scroll(plate, "Equipment", out listScroll); details = W.Scroll(plate, "Details", out detailScroll);
         if (Central)

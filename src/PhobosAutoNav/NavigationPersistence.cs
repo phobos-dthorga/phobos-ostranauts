@@ -12,6 +12,8 @@ internal sealed partial class NavigationService
     partial void ResetPursuit();
     partial void ResetExtended();
     partial void StopExtended(string reason);
+    partial void CrewResumePolicy(CondOwner co, ref bool permitted);
+    partial void CrewManualStop(CondOwner co);
     partial void ExtendedCommand(CondOwner? co, string action, ref bool handled);
     partial void ReadIndustrialRouteCost(CondOwner co,string module,string targetId,double bearing,double gap,ref bool valid,ref double cost);
     internal bool IndustrialRouteCost(CondOwner co,string module,string target,double bearing,double gap,out double cost)
@@ -73,7 +75,9 @@ internal sealed partial class NavigationService
             console = selected;
             if (!ReadSaved(selected, out var snapshot)) return;
             savedFlight = snapshot;
-            if (snapshot.Mode == SavedFlightMode.Active && Plugin.ResumeAfterLoad.Value) ResumeSaved(selected);
+            bool resumePermitted=Plugin.ResumeAfterLoad.Value;
+            CrewResumePolicy(selected,ref resumePermitted);
+            if (snapshot.Mode == SavedFlightMode.Active && resumePermitted) ResumeSaved(selected);
             else
             {
                 if (snapshot.IsActive) FinishSavedFlight(snapshot.SuspendedMode);
@@ -220,6 +224,7 @@ internal sealed partial class NavigationService
     internal void FlyOrResume(CondOwner co) { if (HasResumableFlight(co)) ResumeSaved(co); else Engage(co); }
     internal void Stop(CondOwner? co, string reason)
     {
+        if(co!=null)CrewManualStop(co);
         if (industrial != null) { EndIndustrial(reason); return; }
         if (!AutoNavCore.Engaged)
         {

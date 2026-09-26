@@ -43,6 +43,7 @@ internal sealed class CollectorPanel
         if (ProcessingService.IsReclaimer(port) && GUILayout.Button(Text.Get("Routing.metals_port"))) ShowSource(port, true);
         GUILayout.EndHorizontal();
         GUILayout.Label(sourceMode ? CollectorService.DescribeLink(port, true, metalsMode) : service.Describe(port));
+        if (GUILayout.Button(Phobos.Ostranauts.Framework.Crew.CrewWork.Message("open")) && Phobos.Ostranauts.Framework.Crew.CrewPanel.Show(port)) target=null;
         if (!string.IsNullOrEmpty(message)) GUILayout.Label(message);
         GUILayout.BeginHorizontal();
         if (!sourceMode)

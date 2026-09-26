@@ -17,6 +17,19 @@ Dates on Draft entries record preparation, not Steam publication.
 - Earlier capture-only research is superseded for supported ordinary walls by the implementation below. Broader structural recipes, repeated furnace batches and whole-wreck completion remain outside this round.
 - Keep [NASA Goddard's Raven research](https://www.nasa.gov/general/nasas-hybrid-computer-enables-ravens-autonomous-rendezvous-capability/) and [ESA's LIRIS experiment by Airbus, Jena Optronik and Sodern](https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/ATV/ATV_views_Space_Station_as_never_before) as sensing context, separate from Blue Bottle Games native evidence and authored gameplay choices. No institutional endorsement or gameplay validation is implied.
 
+## [0.19.0] - 2026-09-26 - Draft
+
+### Crew automation
+
+- Added a standing crew order to resume one explicitly permitted recorded flight, using the exact saved target and a working navigation module. It never acquires a replacement target.
+- Added shared crew controls to hub details and preference for native piloting skill during eligible hands-on preparation.
+- Time-skip suspends departure, industrial movement and ordinary automatic flight before advancing time. Crew-launched flights require explicit Resume after reload or interruption.
+
+### Compatibility and limits
+
+- Requires Framework 0.25.0. Native collision warnings and flight authority checks remain unchanged. Auto Nav’s existing upstream provenance hold remains in force; no Steam publication or gameplay validation.
+- See [crew controls, sources and owner checks](https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/crew-automation.md).
+
 ## [0.18.0] - 2026-09-26 - Draft
 
 ### Added

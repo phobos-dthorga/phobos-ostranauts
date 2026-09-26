@@ -674,3 +674,29 @@ it supplies no nutrient assay. `CollectorCargo` admits registered physical cargo
 under Shipbreaker’s existing capacity and native container checks; its endpoint
 validator retains Shipbreaker’s mount rules. Neither API authorizes automatic
 industrial routing. See [the concrete consumer](agriculture-nutrient-production.md).
+
+## Crew standing orders
+
+See [crew automation, specialities and time-skips](crew-automation.md) for default-disabled orders, native duty/AutoTask rules, approved stores, training, saved stops and supported onboard work. Industrial batches, exterior missions and crew-launched flight require explicit Resume. Gameplay and UI checks remain owner-run.
+
+Register an additive `Crew.ICrewWorkProvider` through `CrewWork.Register` during
+plugin initialization. `Next` reports an offer and a localized blocker without
+advancing production. `Complete` receives the actual `CrewWorkContext.Actor`
+and must recheck through the owning service before mutating resources. The
+existing equipment-provider contract is unchanged. Keep recipes, interlocks,
+balance and machine mutations in the content mod.
+
+`CrewLogistics` reserves and moves exact physical units. Native tasks retain
+ordinary claiming, walking, carrying and cancellation. `ICrewBoundProvider`
+adds an immutable equipment/mission fingerprint captured on explicit Enable;
+providers compare it before admission and completion. `ICrewSkipProvider` is
+an accounting opt-in, not a timer callback: only register machines whose existing
+power callbacks settle finite inputs, outputs, fluids and heat. Unsupported
+operations suspend before the native skip.
+
+Register content-owned specialities with `CrewSpecialities.Register`, and map
+timed native work with `RegisterPractical`. Call `CreditPractical` only after
+successful completion; its per-interaction guard prevents duplicate credit.
+Never credit idle machine time or award progress while preparing/previewing an
+offer. The shared saved-order, training and permission maps use Framework's
+protected `ObjectStateStore`; generated tasks and reservations are transient.

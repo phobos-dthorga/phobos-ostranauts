@@ -45,6 +45,7 @@ public sealed class Panel : GUIData
         var content = W.Scroll(plate, "Controls", out var scroll); W.Fill((RectTransform)scroll.transform, 24, 24, 24, 24);
         W.Label(content, co.strNameFriendly);
         readout = W.Label(content, "");
+        if (Definitions.Machine(co)) Phobos.Ostranauts.Framework.Crew.CrewPanel.Button(content, co);
         if (RecyclerCapture.IsRecycler(co))
         {
             foreach (string action in new[] { "capture-start", "capture-pause", "capture-unlink" }) AddButton(content, co, action);

@@ -237,3 +237,7 @@ finite makeup salts and selected physical W2 charges. Optional Ship’s Water
 Recycler attachments retain wet rejects without inventing nutrients. Follow the
 [nutrient-production guide](agriculture-nutrient-production.md) for controls,
 recipe budgets, compatibility, save behavior and owner gameplay checks.
+
+## Crew standing orders
+
+See [crew automation, specialities and time-skips](crew-automation.md) for default-disabled orders, native duty/AutoTask rules, approved stores, training, saved stops and supported onboard work. Industrial batches, exterior missions and crew-launched flight require explicit Resume. Gameplay and UI checks remain owner-run.

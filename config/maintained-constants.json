@@ -4,7 +4,7 @@
     "Framework.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.24.2",
+      "value": "0.25.0",
       "description": "PhobosFramework published source/package version.",
       "targets": [
         {
@@ -63,7 +63,7 @@
     "Shipbreaker.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.24.1",
+      "value": "0.25.0",
       "description": "PhobosShipbreaker published source/package version.",
       "targets": [
         {
@@ -132,7 +132,7 @@
     "AutoNav.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.18.0",
+      "value": "0.19.0",
       "description": "PhobosAutoNav published source/package version.",
       "targets": [
         {
@@ -191,7 +191,7 @@
     "Agriculture.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.11.1",
+      "value": "0.12.0",
       "description": "PhobosAgriculture published source/package version.",
       "targets": [
         {
@@ -595,7 +595,7 @@
     "AutoNav.minimumFramework": {
       "type": "version",
       "parts": 3,
-      "value": "0.24.0",
+      "value": "0.25.0",
       "description": "Current AutoNav required Framework version, shared with local installer admission.",
       "targets": [
         {
@@ -607,6 +607,16 @@
           "path": "config/mod-dependency-minimums.json",
           "pattern": "\"AutoNav\\.Framework\":\\s*\\{\\s*\"since\": \"[0-9.]+\",\\s*\"value\": \"(?P<value>[0-9.]+)\"",
           "count": 1
+        },
+        {
+          "path": "workshop/PhobosAutoNav/page.bbcode",
+          "pattern": "Ostranauts 1\\.0\\.1\\.5, BepInEx 5 and Phobos Framework (?P<value>[0-9]+\\.[0-9]+\\.[0-9]+)",
+          "count": 1
+        },
+        {
+          "path": "workshop/PhobosAutoNav/page.bbcode",
+          "pattern": "\\[h2\\]Crew standing orders[^\\n]*\\n[^\\n]*\\nRequires Framework (?P<value>[0-9]+\\.[0-9]+\\.[0-9]+)",
+          "count": 1
         }
       ],
       "review": [
@@ -616,7 +626,7 @@
     "Shipbreaker.minimumFramework": {
       "type": "version",
       "parts": 3,
-      "value": "0.24.2",
+      "value": "0.25.0",
       "description": "Current Shipbreaker required Framework version, shared with local installer admission.",
       "targets": [
         {
@@ -628,6 +638,26 @@
           "path": "config/mod-dependency-minimums.json",
           "pattern": "\"Shipbreaker\\.Framework\":\\s*\\{\\s*\"since\": \"[0-9.]+\",\\s*\"value\": \"(?P<value>[0-9.]+)\"",
           "count": 1
+        },
+        {
+          "path": "docs/installing-mods.md",
+          "pattern": "Current prepared Shipbreaker requires Auto Nav [0-9.]+ and Framework (?P<value>[0-9]+\\.[0-9]+\\.[0-9]+)",
+          "count": 1
+        },
+        {
+          "path": "docs/player-guide.md",
+          "pattern": "The current Shipbreaker [0-9.]+ requires Framework (?P<value>[0-9]+\\.[0-9]+\\.[0-9]+)",
+          "count": 1
+        },
+        {
+          "path": "workshop/PhobosShipbreaker/page.bbcode",
+          "pattern": "Ostranauts 1\\.0\\.1\\.5, BepInEx 5 and Phobos Framework (?P<value>[0-9]+\\.[0-9]+\\.[0-9]+)",
+          "count": 1
+        },
+        {
+          "path": "workshop/PhobosShipbreaker/page.bbcode",
+          "pattern": "\\[h2\\]Crew standing orders[^\\n]*\\n[^\\n]*\\nRequires Framework (?P<value>[0-9]+\\.[0-9]+\\.[0-9]+)",
+          "count": 1
         }
       ],
       "review": [
@@ -637,7 +667,7 @@
     "Shipbreaker.minimumAutoNav": {
       "type": "version",
       "parts": 3,
-      "value": "0.18.0",
+      "value": "0.19.0",
       "description": "Current Shipbreaker required AutoNav version, shared with local installer admission.",
       "targets": [
         {
@@ -649,6 +679,21 @@
           "path": "config/mod-dependency-minimums.json",
           "pattern": "\"Shipbreaker\\.AutoNav\":\\s*\\{\\s*\"since\": \"[0-9.]+\",\\s*\"value\": \"(?P<value>[0-9.]+)\"",
           "count": 1
+        },
+        {
+          "path": "docs/installing-mods.md",
+          "pattern": "Current prepared Shipbreaker requires Auto Nav (?P<value>[0-9]+\\.[0-9]+\\.[0-9]+)",
+          "count": 1
+        },
+        {
+          "path": "docs/player-guide.md",
+          "pattern": "The current Shipbreaker [0-9.]+ requires Framework [0-9.]+ and Auto Nav (?P<value>[0-9]+\\.[0-9]+\\.[0-9]+)",
+          "count": 1
+        },
+        {
+          "path": "workshop/PhobosShipbreaker/page.bbcode",
+          "pattern": "Ostranauts 1\\.0\\.1\\.5, BepInEx 5 and Phobos Framework [0-9.]+\\+ and Phobos Auto Nav (?P<value>[0-9]+\\.[0-9]+\\.[0-9]+)",
+          "count": 1
         }
       ],
       "review": [
@@ -658,7 +703,7 @@
     "Agriculture.minimumFramework": {
       "type": "version",
       "parts": 3,
-      "value": "0.24.2",
+      "value": "0.25.0",
       "description": "Current Agriculture required Framework version, shared with local installer admission.",
       "targets": [
         {
@@ -669,6 +714,21 @@
         {
           "path": "config/mod-dependency-minimums.json",
           "pattern": "\"Agriculture\\.Framework\":\\s*\\{\\s*\"since\": \"[0-9.]+\",\\s*\"value\": \"(?P<value>[0-9.]+)\"",
+          "count": 1
+        },
+        {
+          "path": "docs/installing-mods.md",
+          "pattern": "Current prepared Agriculture requires Framework (?P<value>[0-9]+\\.[0-9]+\\.[0-9]+)",
+          "count": 1
+        },
+        {
+          "path": "workshop/PhobosAgriculture/page.bbcode",
+          "pattern": "Ostranauts 1\\.0\\.1\\.5, BepInEx 5 and Phobos Framework (?P<value>[0-9]+\\.[0-9]+\\.[0-9]+)",
+          "count": 1
+        },
+        {
+          "path": "workshop/PhobosAgriculture/page.bbcode",
+          "pattern": "\\[h2\\]Crew standing orders[^\\n]*\\n[^\\n]*\\nRequires Framework (?P<value>[0-9]+\\.[0-9]+\\.[0-9]+)",
           "count": 1
         }
       ],
@@ -708,6 +768,60 @@
       ],
       "review": [
         "Run Shipbreaker core, reclamation-boundary and native checks; regenerate item-reference operating tables. Started paid jobs retain their captured duration and power."
+      ]
+    },
+    "Framework.crewPracticeHours": {
+      "type": "number",
+      "value": "20",
+      "min": 1,
+      "max": 1000,
+      "description": "Authored crew training balance: PracticeHours.",
+      "targets": [
+        {
+          "path": "src/PhobosFramework/Crew/WorkRules.cs",
+          "pattern": "\\bPracticeHours\\s*=\\s*(?P<value>[0-9.]+)",
+          "count": 1
+        }
+      ],
+      "review": [
+        "Run Framework crew-work checks and native integration checks.",
+        "Update crew player guide and translation descriptions when training balance changes."
+      ]
+    },
+    "Framework.crewStudyHours": {
+      "type": "number",
+      "value": "10",
+      "min": 1,
+      "max": 1000,
+      "description": "Authored crew training balance: StudyHours.",
+      "targets": [
+        {
+          "path": "src/PhobosFramework/Crew/WorkRules.cs",
+          "pattern": "\\bStudyHours\\s*=\\s*(?P<value>[0-9.]+)",
+          "count": 1
+        }
+      ],
+      "review": [
+        "Run Framework crew-work checks and native integration checks.",
+        "Update crew player guide and translation descriptions when training balance changes."
+      ]
+    },
+    "Framework.crewSkilledDurationFraction": {
+      "type": "number",
+      "value": "0.8",
+      "min": 0.1,
+      "max": 1,
+      "description": "Authored crew training balance: SkilledDurationFraction.",
+      "targets": [
+        {
+          "path": "src/PhobosFramework/Crew/WorkRules.cs",
+          "pattern": "\\bSkilledDurationFraction\\s*=\\s*(?P<value>[0-9.]+)",
+          "count": 1
+        }
+      ],
+      "review": [
+        "Run Framework crew-work checks and native integration checks.",
+        "Update crew player guide and translation descriptions when training balance changes."
       ]
     }
   }

@@ -485,5 +485,8 @@
   "Departure.phase_Departing": "Moving outward under RCS",
   "Departure.phase_Continue": "Departure finished; saved continuation awaits admission",
   "Departure.phase_Complete": "Complete",
-  "Departure.phase_Cancelled": "Cancelled"
+  "Departure.phase_Cancelled": "Cancelled",
+  "Crew.recipe": "Resume the exact recorded flight",
+  "Crew.bind": "Permit the existing resumable flight and bind its exact target. Changed hardware or flight settings require a fresh Enable / Resume. No new target is acquired.",
+  "Crew.skip": "Flight suspended for time-skip; explicit Resume is required."
 }

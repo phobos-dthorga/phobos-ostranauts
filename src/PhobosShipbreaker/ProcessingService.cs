@@ -20,6 +20,7 @@ internal sealed partial class ProcessingService
         internal double Last;
         internal IntakeSession? Intake;
         internal bool AwaitingFeed;
+        internal bool CrewManaged;
         internal bool NeedsAttention, CapacityWait;
         internal readonly CompletionWatch Watch = new CompletionWatch();
         internal string Status = Text.Get("ProcessingService.paused_load_panels_and_start_the_queue");
@@ -43,10 +44,13 @@ internal sealed partial class ProcessingService
         (input.aStack == null || input.aStack.Count == 0) && input.GetCOsSafe(true).Count == 0 &&
         ProcessRules.MassMatches(input.GetTotalMass(), kg);
     internal static bool ValidPanel(CondOwner? input) => ValidInput(input, ProcessRules.Wall, ProcessRules.InputKg);
-    private static bool ValidInput(CondOwner machine, CondOwner? input) => ValidInput(input, InputDefinition(machine), Recipes(machine).Current.InputKg);
+    internal static bool ValidInput(CondOwner machine, CondOwner? input) => ValidInput(input, InputDefinition(machine), Recipes(machine).Current.InputKg);
     internal static bool CanFeed(CondOwner bin, CondOwner input) =>
-        ValidInput(input, bin.strCODef == ReclaimerRules.InputBin ? ReclaimerRules.Feedstock : ProcessRules.Wall,
-            bin.strCODef == ReclaimerRules.InputBin ? ReclaimerRules.InputKg : ProcessRules.InputKg) &&
+        (Phobos.Ostranauts.Framework.Crew.CrewLogistics.IsUnitPreflight(input) ?
+            Phobos.Ostranauts.Framework.Crew.CrewLogistics.Loose(input) && input.strCODef == (bin.strCODef == ReclaimerRules.InputBin ? ReclaimerRules.Feedstock : ProcessRules.Wall) &&
+            ProcessRules.MassMatches(input.GetCondAmount("StatMass"), bin.strCODef == ReclaimerRules.InputBin ? ReclaimerRules.InputKg : ProcessRules.InputKg) :
+            ValidInput(input, bin.strCODef == ReclaimerRules.InputBin ? ReclaimerRules.Feedstock : ProcessRules.Wall,
+                bin.strCODef == ReclaimerRules.InputBin ? ReclaimerRules.InputKg : ProcessRules.InputKg)) &&
         bin.objContainer != null && (bin.objContainer.ContainedCOs.Contains(input) || bin.objContainer.ContainedCOs.Count < ProcessRules.FeedCapacity);
 
     private static string PanelProblem(CondOwner panel)
@@ -74,10 +78,10 @@ internal sealed partial class ProcessingService
     internal static string? AccessProblem(CondOwner machine, ConsoleBinding? console = null)
     {
         if (console != null) return ControlAuthority.Check(machine, console);
-        var actor = CrewSim.GetSelectedCrew();
+        var actor = Phobos.Ostranauts.Framework.Crew.CrewWork.Actor ?? CrewSim.GetSelectedCrew();
         if (actor == null || actor.bDestroyed || actor.HasCond("IsDead") || actor.HasCond("Unconscious"))
             return Text.Get("ProcessingService.select_an_awake_crew_member");
-        if (actor.ship != machine.ship || TileUtils.TileRange(actor.tf.position, machine.tf.position) > ProcessRules.AccessRangeTiles)
+        if (!Phobos.Ostranauts.Framework.Crew.CrewWork.LocalAccess(actor, machine, ProcessRules.AccessRangeTiles))
             return Text.Get("ProcessingService.move_the_selected_crew_member_beside_the");
         return null;
     }
@@ -90,6 +94,7 @@ internal sealed partial class ProcessingService
         try
         {
             IndustryObservations.ClearStop(machine);
+            state.CrewManaged = false;
             state.NeedsAttention = false;
             if (IsReclaimer(machine)) state.AwaitingFeed = true;
             string intakeMessage = "";
@@ -146,6 +151,7 @@ internal sealed partial class ProcessingService
         string? problem = AccessProblem(machine, console);
         if (problem != null) { state.Status = problem; return false; }
         state.NeedsAttention = false;
+        Phobos.Ostranauts.Framework.Crew.CrewWork.ManualStop(machine);
         Stop(machine, state, cancel ? Text.Get("ProcessingService.work_cancelled_panel_retained_spent_energy_is") : Text.Get("ProcessingService.paused_progress_retained"), needsAttention: false);
         if (!cancel) return true;
         // Include saved jobs after reload, when no session binding exists yet.
@@ -252,12 +258,13 @@ internal sealed partial class ProcessingService
         log(Text.Get("ProcessingService.completed_panel_with_recipe_revision_total_kg", state.Job!.InputId, state.Job.Recipe.Revision, string.Join(", ", state.Job.Recipe.Products.Select(p => Text.Get("ProcessingService.x", p.Count, p.Id)))));
         state.Job = null; state.Input = null;
         NotifyCommitted(machine, state, notify);
-        if (options.ContinueQueue || state.Intake?.Mission==true&&state.Intake.Armed)
+        if (!state.CrewManaged && (options.ContinueQueue || state.Intake?.Mission==true&&state.Intake.Armed))
         {
             if (!StartNext(machine, state) && Feed(machine)?.objContainer?.ContainedCOs.Count > 0)
             {state.AwaitingFeed=false;if(state.Intake?.Mission==true&&!state.CapacityWait) DisarmIntake(machine);}
         }
         else { state.AwaitingFeed = false; DisarmIntake(machine); state.Status = Text.Get("ProcessingService.panel_complete_start_again_for_the_next"); }
+        state.CrewManaged=false;
         return true;
     }
 

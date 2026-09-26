@@ -13,13 +13,13 @@ using Phobos.Ostranauts.Framework.Construction;
 namespace PhobosAgriculture;
 
 [BepInPlugin(Id, "Phobos Agriculture", Version)]
-[BepInDependency(FrameworkInfo.PluginId, "0.24.2")]
+[BepInDependency(FrameworkInfo.PluginId, "0.25.0")]
 [BepInDependency("com.ostranauts.shipswater", BepInDependency.DependencyFlags.SoftDependency)]
 [BepInDependency("phobosgekko.ostranauts.shipbreaker", BepInDependency.DependencyFlags.SoftDependency)]
 [BepInProcess("Ostranauts.exe")]
 public sealed class Plugin : BaseUnityPlugin
 {
-    public const string Id = "phobosgekko.ostranauts.agriculture", Version = "0.11.1";
+    public const string Id = "phobosgekko.ostranauts.agriculture", Version = "0.12.0";
     internal static Action<string> Log = _ => { };
     internal static ConfigEntry<double> Pace = null!, ReserveLitres = null!;
     internal static ConfigEntry<bool> LootEnabled = null!;
@@ -38,6 +38,9 @@ public sealed class Plugin : BaseUnityPlugin
         RecyclerCapture.Available = BepInEx.Bootstrap.Chainloader.PluginInfos.TryGetValue("phobosgekko.ostranauts.shipbreaker", out var shipbreaker) && shipbreaker.Metadata.Version >= new Version(0,20,0) && Phobos.Ostranauts.Framework.Liquids.ShipsWaterRejects.Install(harmony, RecyclerCapture.Instance);
         FrameworkLifecycle.ContentLoading += Load; FrameworkLifecycle.ContentLoaded += Confirm;
         EquipmentProviders.Register(new Provider());
+        Phobos.Ostranauts.Framework.Crew.CrewWork.Register(new AgricultureCrewProvider());
+        Phobos.Ostranauts.Framework.Crew.CrewSpecialities.Register(new("Agriculture", Text.Get("crew_skill_agriculture"), Id, Phobos.Ostranauts.Framework.Crew.CrewRole.Agriculture));
+        Phobos.Ostranauts.Framework.Crew.CrewSpecialities.Register(new("Cooking", Text.Get("crew_skill_cooking"), Id, Phobos.Ostranauts.Framework.Crew.CrewRole.Cooking));
     }
     private static void Load() { Service.Reset(); RecyclerCapture.Reset(); try { Definitions.Load(); } catch (Exception e) { Definitions.Ready = false; Log(e.ToString()); } }
     private static void Confirm() => Definitions.Ready = ConstructionRegistry.Ready(Id);
@@ -83,7 +86,9 @@ internal static class EffectsPatch
         if (!isCancelIa && __instance.strName == RecyclerCapture.Controls && RecyclerCapture.IsRecycler(__instance.objThem)) { Panel.Show(__instance.objThem); return; }
         if (isCancelIa || !Definitions.Machine(__instance.objThem)) return;
         if (__instance.strName == Definitions.Controls) { if (__instance.objUs == CrewSim.GetSelectedCrew()) Panel.Show(__instance.objThem); return; }
-        foreach (string action in Definitions.Work) if (__instance.strName == Definitions.WorkId(action)) Service.Work(__instance.objThem, __instance.objUs, action);
+        foreach (string action in Definitions.Work)
+            if (!__instance.bCancel && __instance.strName == Definitions.WorkId(action) && Service.Work(__instance.objThem, __instance.objUs, action))
+                Phobos.Ostranauts.Framework.Crew.CrewSpecialities.CreditPractical(__instance);
     }
 }
 [HarmonyPatch(typeof(ConsoleResolver), nameof(ConsoleResolver.ResolveString))]

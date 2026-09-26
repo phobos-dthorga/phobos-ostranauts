@@ -19,6 +19,21 @@ Dates on Draft entries record preparation, not Steam publication.
 - Earlier capture-only research is superseded for supported ordinary walls by the implementation below. Broader structural recipes, repeated furnace batches and whole-wreck completion remain outside this round.
 - Keep [NASA Goddard's Raven research](https://www.nasa.gov/general/nasas-hybrid-computer-enables-ravens-autonomous-rendezvous-capability/) and [ESA's LIRIS experiment by Airbus, Jena Optronik and Sodern](https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/ATV/ATV_views_Space_Station_as_never_before) as sensing context, separate from Blue Bottle Games native evidence and authored gameplay choices. No institutional endorsement or gameplay validation is implied.
 
+## [0.25.0] - 2026-09-26 - Draft
+
+### Crew automation
+
+- Added standing D4/R4 feed and product handling, configured collector clearing, managed coolant replenishment and explicitly permitted F6 batch sequences.
+- Added Industrial Processing training and shared standing-order controls, using the actual worker and existing material, power, heat and furnace interlocks.
+- Added one-attempt crew launch/resume of the existing exact G4 reclamation mission. Existing ownership, sensors, pressure, access, occupancy and equipment bindings remain mandatory.
+- Industrial orders require Resume after loading; G4 work and movement suspend before time-skip. Supported onboard work uses Framework’s measured skip coordinator.
+
+### Compatibility and limits
+
+- Requires Framework 0.25.0 and Auto Nav 0.19.0, including suspension of manoeuvres before native time-skips.
+- Native repair/construction and existing Auto Nav authority remain in place. Existing identities, recipe revisions and cargo are preserved; gameplay checks remain owner-run.
+- See [crew controls, sources and owner checks](https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/crew-automation.md).
+
 ## [0.24.1] - 2026-09-26 - Draft
 
 ### Fixed

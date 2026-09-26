@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "mods": {
     "PhobosAutoNav": {
-      "intro": "Asterel plug-in boards for the native Polaris navigation station. Fit them into the station’s module slots and use the shared Phobos flight hub; they are not floor fixtures and have no INSTALL tile. Working N1/N2 provide navigation, while N3 supplies independent fire controls. Removing a module can suspend the function that owns it. Regional offers extend through the current vanilla solar system; see [market coverage and native economic factors](solar-system-economy.md).",
+      "intro": "Asterel plug-in boards for the native Polaris navigation station. Fit them into the station’s module slots and use the shared Phobos flight hub; they are not floor fixtures and have no INSTALL tile. Working N1/N2 provide navigation, while N3 supplies independent fire controls. Removing a module can suspend the function that owns it. Regional offers extend through the current vanilla solar system; see [market coverage and native economic factors](solar-system-economy.md). Crew standing orders are opt-in; see [crew work, training and time-skips](crew-automation.md) for eligible work, approved stores, resource limits and explicit industrial/exterior Resume.",
       "groups": [
         {
           "key": "n1",
@@ -12,7 +12,7 @@
             "PhobosAutoNavBoardDmg"
           ],
           "function": "Navigation, approach and docking assistance. It can stop short of a destination or use a separate docking command.",
-          "use": "Fit a working board to Polaris, open its Phobos hub, select a supported sensor contact, set arrival preferences and choose Fly, Dock or Approach & Dock as appropriate. Use Stop to release flight control.",
+          "use": "Fit a working board to Polaris, open its Phobos hub, select a supported sensor contact, set arrival preferences and choose Fly, Dock or Approach & Dock as appropriate. Use Stop to release flight control. Supported crew work is configured through the [standing-order controls](crew-automation.md); orders begin disabled and retain the existing physical/service restrictions.",
           "find": "Build at a supported table, buy from the listed dealers, or find rare N1 boards in native navigation-module loot. Damaged salvage needs repair.",
           "notes": "No obstacle avoidance or indefinite position holding is promised. Sensor quality, braking room, fuel and native restrictions still apply. Docking resumes only after an explicit post-load Resume. Local obstacle avoidance uses tracked contacts; lost tracking requires Resume. Explicit Undock & Depart / Undock & Continue prepare a 1 km hull-gap departure. See [departure and avoidance](auto-nav-departure.md).",
           "guide": "auto-navigate-adaptation.md",
@@ -27,7 +27,7 @@
             "PhobosPursuitBoardDmg"
           ],
           "function": "Includes navigation/docking and adds Rendezvous and Follow for moving contacts.",
-          "use": "Fit to Polaris and use the Pursuit page. Rendezvous approaches once; Follow maintains a distance band. Stop before changing flight modes.",
+          "use": "Fit to Polaris and use the Pursuit page. Rendezvous approaches once; Follow maintains a distance band. Stop before changing flight modes. Supported crew work is configured through the [standing-order controls](crew-automation.md); orders begin disabled and retain the existing physical/service restrictions.",
           "find": "Build at a supported table or buy the Polaris dealer offer below. The N1 salvage pool does not grant N2.",
           "notes": "N2 does not authorize firing; use N3 for that. Pursuit suspends on reload and cannot guarantee catching a faster ship. Local obstacle avoidance uses tracked contacts; lost tracking requires Resume. Explicit Undock & Depart / Undock & Continue prepare a 1 km hull-gap departure. See [departure and avoidance](auto-nav-departure.md).",
           "guide": "auto-nav-pursuit.md",
@@ -80,7 +80,7 @@
       ]
     },
     "PhobosShipbreaker": {
-      "intro": "Rivetline machinery recovers material and casts rough industrial products. Asterel C1 provides optional central controls. Obtain loose equipment, place it through the indicated native INSTALL tab, supply electricity where required, and keep service approaches accessible. Local panels remain usable without C1. Receiving, processing and hot-furnace controls are separate permissions. Pending-equipment reloads include a bounded room-grid mitigation; see [evidence and limits](shipbreaker-room-load-mitigation.md). It cannot recover atmosphere already lost before saving. Regional offers extend through the current vanilla solar system; see [market coverage and native economic factors](solar-system-economy.md).",
+      "intro": "Rivetline machinery recovers material and casts rough industrial products. Asterel C1 provides optional central controls. Obtain loose equipment, place it through the indicated native INSTALL tab, supply electricity where required, and keep service approaches accessible. Local panels remain usable without C1. Receiving, processing and hot-furnace controls are separate permissions. Pending-equipment reloads include a bounded room-grid mitigation; see [evidence and limits](shipbreaker-room-load-mitigation.md). It cannot recover atmosphere already lost before saving. Regional offers extend through the current vanilla solar system; see [market coverage and native economic factors](solar-system-economy.md). Crew standing orders are opt-in; see [crew work, training and time-skips](crew-automation.md) for eligible work, approved stores, resource limits and explicit industrial/exterior Resume.",
       "groups": [
         {
           "key": "d4",
@@ -92,7 +92,7 @@
             "PhobosShipbreakerInstalledDmg"
           ],
           "function": "Processes already-detached ordinary wall panels into metal and a retained residue packet.",
-          "use": "Install on cabin flooring, supply power, put supported detached panels in its Wall-panel Feed or use the G4/H4 intake, then enable processing in its local panel. Products appear in the normal machine inventory.",
+          "use": "Install on cabin flooring, supply power, put supported detached panels in its Wall-panel Feed or use the G4/H4 intake, then enable processing in its local panel. Products appear in the normal machine inventory. Supported crew work is configured through the [standing-order controls](crew-automation.md); orders begin disabled and retain the existing physical/service restrictions.",
           "find": "Buy loose or damaged equipment, or build two D4-S sections and assemble the fixture.",
           "notes": "It does not cut attached hull walls. Fresh jobs make identified R2 feed; older bound jobs retain their original mixed-residue output. Processing pauses on reload.",
           "guide": "shipbreaker-first-build.md",
@@ -109,7 +109,7 @@
             "PhobosExteriorGrabberInstalledDmg"
           ],
           "function": "Receives detached wall panels and, when explicitly enabled, cuts supported captured walls for the existing D4 chain.",
-          "use": "Install the G4/H4/D4 assembly with all four backing walls intact. Manual loading and intake still work. For automatic reclamation, bind the exact G4 and N1/N2 console to an owned, unoccupied wreck, then choose Start reclamation. Resume is required after loading or lost authority.",
+          "use": "Install the G4/H4/D4 assembly with all four backing walls intact. Manual loading and intake still work. For automatic reclamation, bind the exact G4 and N1/N2 console to an owned, unoccupied wreck, then choose Start reclamation. Resume is required after loading or lost authority. Supported crew work is configured through the [standing-order controls](crew-automation.md); orders begin disabled and retain the existing physical/service restrictions.",
           "find": "Buy from equipment offers or build at a supported table.",
           "notes": "Requires Auto Nav and Framework; see the installation guide for current minimum versions. Cutting, feeding, release, outward retreat, traversal and recapture are sequenced. Cutting rejects its delivered electrical energy as heat through the D4 interior service area (at least 10 kPa and headroom below 40 C); this is authored gameplay cooling, not a simulated physical coolant circuit. Only empty, unstacked, undamaged 24 kg ordinary walls with retained floors/supports qualify. Target pressure must be at most 0.1 kPa. Stop retains the capture; Release is separate. Floors, other equipment, cargo and final supports remain.",
           "guide": "shipbreaker-reclamation.md",
@@ -143,7 +143,7 @@
             "PhobosResidueCollectorInstalledDmg"
           ],
           "function": "A finite physical cargo receiver for explicitly paired industrial outputs.",
-          "use": "Install on two structural floor tiles with a clear two-tile service walkway, or at the hull with the existing wall supports. Link the required machine/output port, select an exact filter and enable receiving. For Agriculture's optional Recycler capture, align the full two-tile pocket against the Recycler with the service side facing away; enable collection from the Recycler panel. Empty Inventory when full.",
+          "use": "Install on two structural floor tiles with a clear two-tile service walkway, or at the hull with the existing wall supports. Link the required machine/output port, select an exact filter and enable receiving. For Agriculture's optional Recycler capture, align the full two-tile pocket against the Recycler with the service side facing away; enable collection from the Recycler panel. Empty Inventory when full. Supported crew work is configured through the [standing-order controls](crew-automation.md); orders begin disabled and retain the existing physical/service restrictions.",
           "find": "Buy from equipment offers or build at a supported table.",
           "notes": "Full collectors block transfer; cargo stays at the sender. It does not jettison material or reduce ship mass. Furnace products need their explicit filter.",
           "guide": "residue-collector.md",
@@ -160,7 +160,7 @@
             "PhobosScrapReclaimerInstalledDmg"
           ],
           "function": "Reclaims identified R2 panel residue into steel, aluminium and terminal rejects.",
-          "use": "Supply power and adequate cabin atmosphere, load exact R2 feed locally or enable a paired intake, then start processing. Set residue and metals output links independently.",
+          "use": "Supply power and adequate cabin atmosphere, load exact R2 feed locally or enable a paired intake, then start processing. Set residue and metals output links independently. Supported crew work is configured through the [standing-order controls](crew-automation.md); orders begin disabled and retain the existing physical/service restrictions.",
           "find": "Buy machinery or assemble two R4-S sections.",
           "notes": "Legacy mixed residue and terminal rejects are not valid feed. The machine puts heat into cabin gas; vacuum is not free cooling. Receiving and processing pause on reload.",
           "guide": "scrap-reclaimer.md",
@@ -177,7 +177,7 @@
             "PhobosFurnaceInstalledDmg"
           ],
           "function": "Electrically heats an exact aluminium charge to cast a rough machinery housing.",
-          "use": "Build or buy the furnace, install it with a compatible cooling endpoint and power. Use the local panel to load, seal, heat and cast, then cool, equalize and release products. Follow the complete cycle guide.",
+          "use": "Build or buy the furnace, install it with a compatible cooling endpoint and power. Use the local panel to load, seal, heat and cast, then cool, equalize and release products. Follow the complete cycle guide. Supported crew work is configured through the [standing-order controls](crew-automation.md); orders begin disabled and retain the existing physical/service restrictions.",
           "find": "Buy machinery or assemble three F6-S sections.",
           "notes": "Requires finite cooling and a valid gas receiver. Direct coupling can transfer heat without power; piped circulation requires pump electricity. Automatic material receipt never authorizes Seal, Start or Release. Hot machinery retains heat across saves.",
           "guide": "furnace-player-guide.md",
@@ -245,7 +245,7 @@
             "PhobosIndustrialConsoleInstalledDmg"
           ],
           "function": "Provides central status and checked commands for installed industrial equipment on its own ship, with optional Agriculture integration.",
-          "use": "Install, power and use the seated console. Select a machine; filter by name, type or attention state and issue the available service commands.",
+          "use": "Install, power and use the seated console. Select a machine; filter by name, type or attention state and issue the available service commands. Supported crew work is configured through the [standing-order controls](crew-automation.md); orders begin disabled and retain the existing physical/service restrictions.",
           "find": "Buy from equipment offers or build at a supported table.",
           "notes": "Physical cargo access and maintenance remain local. Docked, moored and towed ships are separate scopes; C1 is not required for autonomous processing.",
           "guide": "industrial-console-player-guide.md",
@@ -439,7 +439,7 @@
       ]
     },
     "PhobosAgriculture": {
-      "intro": "Verdemorrow equipment grows potatoes and lettuce, cooks potato portions and manages finite irrigation. These are authored, accelerated gameplay systems. Crop yields and simplified nutrient/treatment chemistry are not research results. The linked research guide attributes the supporting work separately; none of the pricing or yield balance implies NASA/ESA endorsement. See [research and attribution](agriculture-research.md). Regional offers extend through the current vanilla solar system; see [market coverage and native economic factors](solar-system-economy.md).",
+      "intro": "Verdemorrow equipment grows potatoes and lettuce, cooks potato portions and manages finite irrigation. These are authored, accelerated gameplay systems. Crop yields and simplified nutrient/treatment chemistry are not research results. The linked research guide attributes the supporting work separately; none of the pricing or yield balance implies NASA/ESA endorsement. See [research and attribution](agriculture-research.md). Regional offers extend through the current vanilla solar system; see [market coverage and native economic factors](solar-system-economy.md). Crew standing orders are opt-in; see [crew work, training and time-skips](crew-automation.md) for eligible work, approved stores, resource limits and explicit industrial/exterior Resume.",
       "groups": [
         {
           "key": "rack",
@@ -451,7 +451,7 @@
             "PhobosVerdemorrowFirstlight4InstalledDmg"
           ],
           "function": "Grows one potato, food-lettuce or lettuce-seed cohort across four visual trays.",
-          "use": "Install and power the rack, load irrigation and nutrients, then perform Plant. Keep cabin conditions suitable and Harvest when ready. Remove output cargo before replanting.",
+          "use": "Install and power the rack, load irrigation and nutrients, then perform Plant. Keep cabin conditions suitable and Harvest when ready. Remove output cargo before replanting. Supported crew work is configured through the [standing-order controls](crew-automation.md); orders begin disabled and retain the existing physical/service restrictions.",
           "find": "Buy equipment or build at a supported table; used/refurbished/damaged offers are listed below.",
           "notes": "Four trays are one cohort. Food lettuce does not return seeds; choose the dedicated seed cycle. The local panel shows inventory, stress and progress.",
           "guide": "agriculture-player-guide.md",
@@ -468,7 +468,7 @@
             "PhobosVerdemorrowHearth2InstalledDmg"
           ],
           "function": "Cooks a raw potato portion into edible prepared food.",
-          "use": "Install, power, place raw potatoes in its Inventory and Start. Collect the cooked portion when complete.",
+          "use": "Install, power, place raw potatoes in its Inventory and Start. Collect the cooked portion when complete. Supported crew work is configured through the [standing-order controls](crew-automation.md); orders begin disabled and retain the existing physical/service restrictions.",
           "find": "Buy equipment or build at a supported table.",
           "notes": "Its counter and stove artwork are one machine. Each job binds a particular raw portion; replacing it does not transfer progress.",
           "guide": "agriculture-player-guide.md",
@@ -485,7 +485,7 @@
             "PhobosVerdemorrowGroundworkW2InstalledDmg"
           ],
           "function": "Stores and supplies irrigation water or formulated nutrient solution; also treats recorded process solution.",
-          "use": "Install and power W2, load supplies locally, choose formulation, pair supported racks and explicitly enable receiving/distribution. Use treatment controls for recorded drainage and a cartridge. Select a physical nutrient charge while paused for gradual consumption during powered blending.",
+          "use": "Install and power W2, load supplies locally, choose formulation, pair supported racks and explicitly enable receiving/distribution. Use treatment controls for recorded drainage and a cartridge. Select a physical nutrient charge while paused for gradual consumption during powered blending. Supported crew work is configured through the [standing-order controls](crew-automation.md); orders begin disabled and retain the existing physical/service restrictions.",
           "find": "Buy supply/fixer/Halvorson stock or build at a supported table.",
           "notes": "Use separate circuits for incompatible formulations. Receiving pauses after reload. Optional [Valtora’s Ship’s Water](https://steamcommunity.com/sharedfiles/filedetails/?id=3757331189) integration is version-scoped and protects crew reserves; manual input remains available.",
           "guide": "fluid-network-operations.md",
@@ -719,7 +719,7 @@
             "PhobosVerdemorrowGroundworkB2InstalledDmg"
           ],
           "function": "Recovers recorded crop nutrients and formulates finite W2 mixtures.",
-          "use": "Install through APPS, power, load a recorded residue packet, prepare recovery and Start. Then prepare recovered concentrate plus equal-mass makeup salts and Start. Leave output room.",
+          "use": "Install through APPS, power, load a recorded residue packet, prepare recovery and Start. Then prepare recovered concentrate plus equal-mass makeup salts and Start. Leave output room. Supported crew work is configured through the [standing-order controls](crew-automation.md); orders begin disabled and retain the existing physical/service restrictions.",
           "find": "Buy supply/fixer/Halvorson stock or construct at a supported table.",
           "notes": "Each stage binds physical inputs, consumes power and pauses after reload. Damaged hardware is repairable; consumable contents are not.",
           "guide": "agriculture-nutrient-production.md",
@@ -813,7 +813,7 @@
       ]
     },
     "PhobosFramework": {
-      "intro": "Framework supplies shared services rather than a set of standalone machines. Its shared repair remainder can appear while servicing equipment from any participating Phobos content mod. Construction menus, machinery controls and the opt-in Scope recorder are interfaces, not additional inventory objects.",
+      "intro": "Framework supplies shared services rather than a set of standalone machines. Its shared repair remainder can appear while servicing equipment from any participating Phobos content mod. Construction menus, machinery controls and the opt-in Scope recorder are interfaces, not additional inventory objects. Crew standing orders are opt-in; see [crew work, training and time-skips](crew-automation.md) for eligible work, approved stores, resource limits and explicit industrial/exterior Resume.",
       "groups": [
         {
           "key": "spent-service-parts",

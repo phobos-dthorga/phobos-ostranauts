@@ -23,7 +23,7 @@ internal static partial class FurnaceService
         {
             // Isolation remains available with broken instrumentation or missing power.
             if (action == "stop" || action == "pause" || action == "isolate")
-            { Plugin.Collectors.Interrupt(co, Text.Get("Furnace.stopped")); b.Stop(); s.Notice = Text.Get("Furnace.stopped"); Save(s); message = s.Notice; return true; }
+            { Phobos.Ostranauts.Framework.Crew.CrewWork.ManualStop(co); Plugin.Collectors.Interrupt(co, Text.Get("Furnace.stopped")); b.Stop(); s.Notice = Text.Get("Furnace.stopped"); Save(s); message = s.Notice; return true; }
             if (action == "status") { message = Describe(co); return true; }
             if(Content.Ready && action.StartsWith("coolant-",StringComparison.Ordinal))return ChargeCommand(s,action,binding==null,out message);
             if (!Content.Ready || !Intact(co)) { message = Text.Get("Furnace.install"); return false; }

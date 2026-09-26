@@ -32,6 +32,7 @@ internal sealed class ReclaimerPanel
         GUILayout.Label(Text.Get("Reclaimer.panel_budget", Plugin.Options.ReclaimerSeconds, Plugin.Options.ReclaimerKW,
             ReclaimerRules.InputKg, ReclaimerRules.RejectKg));
         GUILayout.Label(service.Describe(machine));
+        if (GUILayout.Button(Phobos.Ostranauts.Framework.Crew.CrewWork.Message("open")) && Phobos.Ostranauts.Framework.Crew.CrewPanel.Show(machine)) target=null;
         GUILayout.Label(Text.Get("Reclaimer.cooling_hint", ReclaimerRules.MaxRoomKelvin - Phobos.Ostranauts.Framework.Units.CelsiusToKelvin, ReclaimerRules.MinPressureKPa));
         GUILayout.BeginHorizontal();
         if (GUILayout.Button(Text.Get("Reclaimer.start"))) service.Start(machine);

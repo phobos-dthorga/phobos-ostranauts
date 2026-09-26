@@ -4,7 +4,7 @@
     "strAuthor": "phobosgekko",
     "strModURL": "https://github.com/phobos-dthorga/phobos-ostranauts",
     "strGameVersion": "1.0.1.5",
-    "strModVersion": "0.24.1",
+    "strModVersion": "0.25.0",
     "strNotes": "Requires Phobos Framework 0.24.0+, Phobos Auto Nav 0.16.0+ and the Shipbreaker plugin. Version 0.22.0 adds selected-G4 native capture/release for owned, unoccupied ships using existing N1/N2 hardware; explicit resume after reload. Cutting and automatic repositioning remain future work. Includes powered wall processing, connected intake, scrap recovery, paired material collection, the F6 electric casting furnace and finite direct or piped cooling. Version 0.17.0 adds separate R4 aluminium-to-F6 feed routing, explicit cold furnace-product collection and optional finite coolant servicing. Existing residue contracts, saved pairs, furnace batches and direct/legacy sealed cooling retain their meaning. Receiving and processing are separate permissions and pause after reload. Local/C1/F3 controls, native stock, construction, maintenance and restoration are included. Agriculture is optional; no OCF/SWB dependency. Includes checked saved-grid restoration for pending Shipbreaker construction before room loading. No save editing or recovery of gas already lost before saving. Ordinary saves supported; in-game evaluation remains with the owner. No attached-hull cutting or persistent ejection."
   }
 ]

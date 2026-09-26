@@ -344,3 +344,7 @@ Near-target or high-relative-speed behaviour still needs supervised game testing
 Longer-term work should address sensor-qualified target tracking, stopping-distance
 admission, obstacles and a deliberate handover into a separately designed work
 position controller. None is implied by a successful arrival.
+
+## Crew standing orders
+
+See [crew automation, specialities and time-skips](crew-automation.md) for default-disabled orders, native duty/AutoTask rules, approved stores, training, saved stops and supported onboard work. Industrial batches, exterior missions and crew-launched flight require explicit Resume. Gameplay and UI checks remain owner-run.

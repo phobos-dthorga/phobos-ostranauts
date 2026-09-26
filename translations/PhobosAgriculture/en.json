@@ -181,5 +181,19 @@
   "capture_status": "Collector: {0}\n{1}\nPlace the collector's two-tile pocket flush against the Recycler on structural floor, with a clear walkway along the collector's opposite service side.\nUp to four 13 kg wet-reject packets; remove full packets manually. Full or unavailable collectors hold wastewater in its tank. Unlink restores ordinary provider operation. Wet rejects have no fertilizer recipe. Optional adapter for Valtora's Ship's Water 0.16.1.",
   "dose-inventory": "Select first inventory nutrient charge",
   "dose-off": "Disable inventory dosing",
-  "dose_select": "Select {0} [{1}]"
+  "dose_select": "Select {0} [{1}]",
+  "crew_skill_agriculture": "Agriculture",
+  "crew_skill_cooking": "Cooking",
+  "crew_recipe_default": "Choose work",
+  "crew_recipe_potato": "Grow potatoes",
+  "crew_recipe_lettuce": "Grow lettuce",
+  "crew_recipe_lettuce-seed": "Grow lettuce planting stock",
+  "crew_recipe_cook": "Cook potato portions",
+  "crew_recipe_recover-crop": "Recover characterized crop residue",
+  "crew_recipe_formulate-nutrients": "Formulate nutrient mixture",
+  "crew_recipe_supply": "Maintain the configured water supply route",
+  "crew_recipe_recover-solution": "Recover recorded drainage",
+  "crew_select_recipe": "Choose the crop or process for this equipment.",
+  "crew_stock_met": "Stock target reached.",
+  "crew_supplies": "Missing approved supplies or free inventory space; seed and crew-water reserves are retained."
 }

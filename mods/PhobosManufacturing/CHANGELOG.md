@@ -8,6 +8,7 @@ Dates on Draft entries record preparation, not Steam publication.
 
 ### Documentation
 
+- Clarified that Manufacturing remains a held scaffold and registers no operational crew jobs.
 - Correct the implementation guide: the shared installer already supports explicit Manufacturing selection, Framework inclusion, backups and verification. Operational machinery remains unimplemented and the scaffold remains held.
 - Added an explicit empty item reference for the held research scaffold; proposed machinery is not presented as obtainable content.
 

@@ -47,9 +47,9 @@ internal sealed partial class CollectorService
         (collector.objContainer.Contains(item) || collector.objContainer.ContainedCOs.Count < CollectorRules.Capacity && collector.objContainer.ContainedCOs.Sum(c => c.GetTotalMass()) + item.GetTotalMass() <= CollectorRules.MaxPayloadKg + ProcessRules.MassTolerance);
     internal static string? AccessProblem(CondOwner port)
     {
-        var crew = CrewSim.GetSelectedCrew();
+        var crew = Phobos.Ostranauts.Framework.Crew.CrewWork.Actor ?? CrewSim.GetSelectedCrew();
         if (crew == null || crew.bDestroyed || crew.HasCond("IsDead") || crew.HasCond("Unconscious")) return Text.Get("CollectorService.select_an_awake_crew_member");
-        if (port == null || port.bDestroyed || port.ship != crew.ship || TileUtils.TileRange(crew.GetPos(), port.GetPos("use")) > CollectorRules.AccessRangeTiles)
+        if (port == null || port.bDestroyed || !Phobos.Ostranauts.Framework.Crew.CrewWork.LocalAccess(crew, port, CollectorRules.AccessRangeTiles))
             return Text.Get("CollectorService.move_selected_crew_beside_the_collector_s");
         return port.HasCond("IsLocked") ? Text.Get("CollectorService.unlock_the_collector") : null;
     }
@@ -102,6 +102,7 @@ internal sealed partial class CollectorService
         var s = sessions.GetValue(port, _ => new Session());
         string? problem = EndpointAccess(port, console);
         if (problem != null) { s.Status = problem; return false; }
+        Phobos.Ostranauts.Framework.Crew.CrewWork.ManualStop(port);
         Disarm(port, s); s.NeedsAttention = false; s.Status = Text.Get("CollectorService.collection_paused_material_retained"); return true;
     }
     private static void SetWorking(CondOwner port, bool working) { if (!FurnaceRules.Machine(port.strCODef) && !port.bDestroyed) port.SetCondAmount(WorkingCondition(port), working ? 1 : 0); }

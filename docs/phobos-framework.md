@@ -235,3 +235,7 @@ footprint, mass, price, image prefix and power rating. Supply a matching `Normal
 image derivative; never include extracted game art. Biology and balance remain
 Agriculture-owned; fixed industrial batches and the one-hour cap are unchanged.
 See [Agriculture implementation and owner checks](agriculture-implementation.md).
+
+## Crew standing orders
+
+See [crew automation, specialities and time-skips](crew-automation.md) for default-disabled orders, native duty/AutoTask rules, approved stores, training, saved stops and supported onboard work. Industrial batches, exterior missions and crew-launched flight require explicit Resume. Gameplay and UI checks remain owner-run.

@@ -302,3 +302,7 @@ support have separate messages. Painted pipe details are not a routable network.
 These gameplay checks have **not** been run by the agent. File/load-order
 verification does not establish a successful in-game cycle. Historical research,
 installation records and mockups are background, not runtime proof.
+
+## Crew standing orders
+
+See [crew automation, specialities and time-skips](crew-automation.md) for default-disabled orders, native duty/AutoTask rules, approved stores, training, saved stops and supported onboard work. Industrial batches, exterior missions and crew-launched flight require explicit Resume. Gameplay and UI checks remain owner-run.

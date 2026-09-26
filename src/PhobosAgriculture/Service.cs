@@ -178,9 +178,9 @@ internal static partial class Service
     }
     internal static string? Access(CondOwner co, ConsoleBinding? binding = null, CondOwner? worker = null)
     {
-        var actor = worker ?? CrewSim.GetSelectedCrew();
+        var actor = worker ?? Phobos.Ostranauts.Framework.Crew.CrewWork.Actor ?? CrewSim.GetSelectedCrew();
         if (actor == null || actor.bDestroyed || actor.HasCond("IsDead") || actor.HasCond("Unconscious") || co.bDestroyed || co.ship == null || actor.ship != co.ship || co.HasCond("IsLocked") || co.objContainer?.Locked == true) return Text.Get("access");
-        if (binding == null) return TileUtils.TileRange(actor.GetPos(), co.GetPos("use")) <= LocalAccessTiles ? null : Text.Get("access");
+        if (binding == null) return Phobos.Ostranauts.Framework.Crew.CrewWork.LocalAccess(actor, co, LocalAccessTiles) ? null : Text.Get("access");
         var console = Resolve(binding.ConsoleId);
         bool consoleReady = console != null && console.strCODef == "PhobosIndustrialConsoleInstalled" && console.HasCond("IsInstalled") && console.HasCond("IsPowered") && !console.HasCond("IsDamaged") && !console.HasCond("IsLocked") && !console.HasCond("IsOverrideOff") && !console.HasCond("IsSignalOff") && console.objCOParent == null;
         return binding.Check(console?.strID, console?.ship?.strRegID, actor.strID, actor.ship?.strRegID, co.ship.strRegID, CrewSim.system?.GetShipOwner(binding.ShipId), CrewSim.coPlayer?.strID, consoleReady,
@@ -188,7 +188,7 @@ internal static partial class Service
     }
     internal static bool Command(CondOwner co, ConsoleBinding? binding, string action, out string message)
     {
-        try { return CheckedCommand(co, binding, action, out message); }
+        try { bool done = CheckedCommand(co, binding, action, out message); if (done && (action == "pause" || action == "pause-receive" || action == "cancel")) Phobos.Ostranauts.Framework.Crew.CrewWork.ManualStop(co); return done; }
         catch (Exception error) { Fault(co, error); message = Text.Get("fault"); return false; }
     }
     private static bool CheckedCommand(CondOwner co, ConsoleBinding? binding, string action, out string message)
