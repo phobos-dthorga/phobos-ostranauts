@@ -14,6 +14,18 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.26.1] - 2026-09-27 - Draft
+
+### Panel corrections
+
+- Keep compact text inside its actual element bounds, shorten the roster shortcut, respect fixed picture/button widths and draw both stock-stepper symbols without relying on font glyph coverage.
+- Make Details & diagnostics a reusable expand/collapse block. Show status once, highlight the selected view/equipment, and explain empty time-skip sections.
+- Disable unavailable Locate/Clear controls. Locate centres a temporary ship view; Clear explicitly reports a pending draft change, which still needs Apply.
+- Add a visible ship-selection banner, dimmed background with candidate openings, object brackets and a cyan line that animates over native-valid hits. Right/middle drag pans, scroll zooms, and Cancel/Escape restores the previous view and draft. Overlaps open a short choice list.
+- Isolate native shortcut commands as well as mouse/keyboard world handlers while picking. Do not enter native signal-connection mode or change crew selection, target authorization, object lights or layers.
+- Bound multi-line confirmations by both width and height, so notices cannot overflow the footer.
+- Preserve saved orders, manual stops, names, resource accounting and existing presentation APIs. Automated geometry, compiled-wiring and build checks are separate from pending owner-run Unity evaluation.
+
 ## [0.26.0] - 2026-09-26 - Draft
 
 ### Control panels

@@ -22,6 +22,8 @@ internal static class PanelConfiguration
 }
 internal static partial class FurnaceService
 {
+    // A broken route is still a saved selection. Presentation must permit locating/clearing it.
+    internal static string CoolingSelection(CondOwner co)=>PortPairing.Read(Port(co)).PeerObjectId;
     internal static string SettingsStamp(CondOwner co)
     {var b=Get(co).State.Batch;return string.Join("|",b.HeatCapKW.ToString("R",CultureInfo.InvariantCulture),b.RampKPerSecond.ToString("R",CultureInfo.InvariantCulture),b.CoolingCapKW.ToString("R",CultureInfo.InvariantCulture),b.StepMode,b.Phase);}
     internal static bool ApplySettings(ConsoleBinding? binding,CondOwner co,string expected,double heat,double ramp,double cool,out string reason)

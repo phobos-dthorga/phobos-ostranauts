@@ -49,7 +49,7 @@ the expectation or omit it for an idempotent repeat.
 
 | Keys | Targets / meaning |
 | --- | --- |
-| `Framework.version`, `Shipbreaker.version`, `AutoNav.version`, `Agriculture.version`, `Manufacturing.version` | Plugin version, project version, native `strModVersion`; current README table where present, selected explicitly current player-guide summaries, and the Workshop page version |
+| `Framework.version`, `Shipbreaker.version`, `AutoNav.version`, `Agriculture.version`, `Manufacturing.version` | Plugin version, project version, native `strModVersion`; current README table where present, selected explicitly current player-guide summaries (including the control-panel guide), and the Workshop page version |
 | The same six mod names with `.gameVersion` | Native `strGameVersion` (four numeric components) |
 | `AutoNav.salvageChance` | Default eligible-roll chance, 0–1 |
 | `AutoNav.coastTolerancePercent` | Default cruise speed-error tolerance, 0–25 percent |

@@ -21,9 +21,12 @@ public sealed class CrewPanel : GUIData
     private OrderDraft? draft;
     private readonly Dictionary<CrewRole,bool> roleDraft=new(), roleOriginal=new();
     private readonly Dictionary<string,TMP_Text> summaries=new();
+    private readonly Dictionary<string,Button> orderRows=new(),tabs=new();
     private readonly Dictionary<string,Action<double>> training=new();
     private readonly Dictionary<string,(float List,float Detail,string Query)> positions=new();
     private TMP_Text? status;
+    private TMP_Text? diagnostics;
+    private bool detailsOpen;
     private float next;
     private int previewHours=1;
     private global::Ostranauts.Core.Models.Tuple<string,CondOwner>? returnPanel;
@@ -47,7 +50,7 @@ public sealed class CrewPanel : GUIData
     private void Build()
     {
         shell=ConsoleShell.Create(transform,C.Text("crew_title"),C.Slate);shell.Dirty=Dirty;shell.Apply=Apply;shell.Discard=Discard;
-        foreach(var tab in new[]{"orders","crew","skip"}){var id=tab;C.Button(shell.Navigation,C.Text(tab),()=>shell.Navigate(()=>{RememberView();view=id;query=positions.TryGetValue(view,out var saved)?saved.Query:"";BuildView();RestoreView();}));}
+        foreach(var tab in new[]{"orders","crew","skip"}){var id=tab;tabs[id]=C.Button(shell.Navigation,C.Text(tab),()=>shell.Navigate(()=>{RememberView();view=id;query=positions.TryGetValue(view,out var saved)?saved.Query:"";BuildView();RestoreView();}));}
         C.Button(shell.Navigation,C.Text("back"),()=>shell.Navigate(()=>{equipmentId=crewId="";Discard();shell.Page(false);}));
         C.Button(shell.Navigation,C.Text("close"),shell.Close);BuildView();
     }
@@ -60,7 +63,8 @@ public sealed class CrewPanel : GUIData
     }
     private void BuildView()
     {
-        draft=null;roleDraft.Clear();roleOriginal.Clear();status=null;summaries.Clear();shell.EmergencyStop=null;W.Clear(shell.List);W.Clear(shell.Detail);W.Clear(shell.Actions);
+        draft=null;roleDraft.Clear();roleOriginal.Clear();status=diagnostics=null;summaries.Clear();shell.EmergencyStop=null;W.Clear(shell.List);W.Clear(shell.Detail);W.Clear(shell.Actions);
+        foreach(var tab in tabs)C.Accent(tab.Value,C.Slate,tab.Key==view);
         if(Ship==null)return;
         if(view=="skip"){BuildSkip();return;}
         C.Input(shell.List,C.Text("search"),query,s=>{query=s;Populate();});
@@ -72,18 +76,19 @@ public sealed class CrewPanel : GUIData
     }
     private void Populate()
     {
-        W.Clear(rows);summaries.Clear();if(Ship==null)return;
+        W.Clear(rows);summaries.Clear();orderRows.Clear();if(Ship==null)return;
         var choices=view=="orders"?CrewWork.Equipment(Ship):CrewRoster.Members().Where(c=>c.ship==Ship);
         foreach(var co in choices.Where(c=>(ObjectPresentation.Name(c)+" "+ObjectPresentation.Location(c)).IndexOf(query,StringComparison.CurrentCultureIgnoreCase)>=0).OrderBy(ObjectPresentation.Name))
         {
             var item=co;var b=C.Button(rows,Summary(co),()=>shell.Navigate(()=>{if(view=="orders")Edit(item);else EditCrew(item);}),C.RowHeight);
             var label=b.GetComponentInChildren<TMP_Text>();label.fontSize=16;summaries[co.strID]=label;
+            orderRows[co.strID]=b;C.Accent(b,C.Green,co.strID==(view=="orders"?equipmentId:crewId));
         }
     }
     private string Summary(CondOwner co)
     {
         if(view=="crew")return ObjectPresentation.ListName(co)+"\n"+Availability(co);
-        var s=CrewWork.ReadStatus(co);return ObjectPresentation.ListName(co)+"\n"+s.Label+" · "+s.Worker+" · "+s.Work;
+        var s=CrewWork.ReadStatus(co);return ObjectPresentation.ListName(co)+"\n"+s.Label+" · "+s.Worker;
     }
     private static string Availability(CondOwner actor)
     {
@@ -96,20 +101,24 @@ public sealed class CrewPanel : GUIData
     }
     private void Header(CondOwner co)
     {
-        var row=C.Row(shell.Detail,80);ObjectPresentation.Picture(row,co,72);C.Label(row,ObjectPresentation.Name(co)+"\n"+ObjectPresentation.Location(co));
+        shell.SelectionOrigin=co;
+        foreach(var entry in orderRows)C.Accent(entry.Value,C.Green,entry.Key==co.strID);
+        var row=C.Row(shell.Detail,96);ObjectPresentation.Picture(row,co,72);var caption=C.Label(row,ObjectPresentation.Name(co)+"\n"+ObjectPresentation.Location(co));C.Size(caption.transform,96);C.Fixed(caption);
         C.Button(shell.Detail,C.Text("display_name"),()=>Nickname(co));
     }
     private void Edit(CondOwner co)
     {
         if(CrewWork.Order(co).Protected)
         {draft=null;W.Clear(shell.Detail);W.Clear(shell.Actions);shell.Page(true);C.Label(shell.Detail,CrewWork.Message("protected"));return;}
+        if(equipmentId!=co.strID)detailsOpen=false;
         equipmentId=co.strID;roleDraft.Clear();roleOriginal.Clear();draft=new OrderDraft(co.strID,CrewWork.Order(co));RenderOrder(co);
     }
     private void RenderOrder(CondOwner co)
     {
+        float scroll=shell.DetailScroll.verticalNormalizedPosition;
         W.Clear(shell.Detail);W.Clear(shell.Actions);shell.Page(true);Header(co);var provider=CrewWork.Provider(co)!;var value=draft!.Value;
         shell.EmergencyStop=()=>StopOrder(co);
-        status=C.Label(shell.Detail,StatusText(co));C.Heading(shell.Detail,C.Text("configuration"));
+        status=C.Status(shell.Detail,StatusText(co));C.Heading(shell.Detail,C.Text("configuration"));
         var recipes=provider.Recipes(co);C.Field(shell.Detail,C.Text("process"),recipes.Contains(value.Recipe)?provider.RecipeLabel(value.Recipe):CrewWork.Message("choose_work"),()=>Choices(C.Text("process"),recipes.Select(r=>(r,provider.RecipeLabel(r))),id=>{value.Recipe=id;RenderOrder(co);}));
         var fields=OrderConfiguration.Fields(co);
         if(fields.HasFlag(OrderFields.Stock))C.Stepper(shell.Detail,C.Text("stock"),value.Stock,1,256,n=>value.Stock=n);
@@ -120,11 +129,14 @@ public sealed class CrewPanel : GUIData
         if(fields.HasFlag(OrderFields.ClearCrops))C.Check(shell.Detail,C.Text("clear_crops"),value.ClearCrops,v=>value.ClearCrops=v);
         if(fields.HasFlag(OrderFields.Drain))C.Check(shell.Detail,C.Text("drain"),value.Drain,v=>value.Drain=v);
         if(fields.HasFlag(OrderFields.Target)&&provider is ICrewOrderPresentation p)
-            C.Field(shell.Detail,C.Text("mission_target"),CrewSim.system.GetShipByRegID(value.Target)?.publicName??C.Text("not_selected"),()=>Choices(C.Text("mission_target"),p.Targets(co).Select(s=>(s.strRegID,s.publicName)),id=>{value.Target=id;RenderOrder(co);}),clear:()=>{value.Target="none";RenderOrder(co);});
-        C.Button(shell.Detail,C.Text("diagnostics"),()=>C.Label(shell.Detail,co.strCODef+"\n"+co.strID+"\n"+CrewWork.Status(co)));
-        C.Button(shell.Actions,C.Text("apply"),()=>Apply());C.Button(shell.Actions,C.Text("discard"),Discard);
+            C.Field(shell.Detail,C.Text("mission_target"),CrewSim.system.GetShipByRegID(value.Target)?.publicName??C.Text("not_selected"),()=>Choices(C.Text("mission_target"),p.Targets(co).Select(s=>(s.strRegID,s.publicName)),id=>{value.Target=id;RenderOrder(co);}),null,()=>{value.Target="none";RenderOrder(co);shell.Notice.text=C.Text("cleared_draft");},false,value.Target!="none"&&!string.IsNullOrEmpty(value.Target));
+        var detailButton=C.Button(shell.Detail,C.Text(detailsOpen?"hide_diagnostics":"diagnostics"),()=>{});
+        diagnostics=C.Label(shell.Detail,C.Text("technical_identity",co.strCODef,co.strID));diagnostics.gameObject.SetActive(detailsOpen);
+        detailButton.onClick.AddListener(()=>{detailsOpen=!detailsOpen;diagnostics.gameObject.SetActive(detailsOpen);detailButton.GetComponentInChildren<TMP_Text>().text=C.Text(detailsOpen?"hide_diagnostics":"diagnostics");});
+        C.Accent(C.Button(shell.Actions,C.Text("apply"),()=>Apply()),C.Green);C.Button(shell.Actions,C.Text("discard"),Discard);
         C.Button(shell.Actions,C.Text("resume"),()=>{if(Dirty()){shell.Notice.text=C.Text("apply_first");return;}CrewWork.SetPermission(co,WorkPermission.Enabled);Edit(co);});
-        C.Button(shell.Actions,C.Text("stop"),()=>StopOrder(co));
+        C.Accent(C.Button(shell.Actions,C.Text("stop"),()=>StopOrder(co)),C.Amber);
+        Canvas.ForceUpdateCanvases();shell.DetailScroll.verticalNormalizedPosition=scroll;
     }
     private void StopOrder(CondOwner co)
     {CrewWork.SetPermission(co,WorkPermission.Stopped);if(draft?.Dirty!=true)Edit(co);else shell.Notice.text=C.Text("stopped_draft");}
@@ -133,11 +145,11 @@ public sealed class CrewPanel : GUIData
     private void StoreField(CondOwner co,bool output)
     {
         string selected=output?draft!.Value.Destination:draft!.Value.Source;
-        void Set(string id){if(output)draft!.Value.Destination=id;else draft!.Value.Source=id;RenderOrder(co);}
+        void Set(string id){if(output)draft!.Value.Destination=id;else draft!.Value.Source=id;RenderOrder(co);shell.Notice.text=C.Text(id=="none"?"cleared_draft":"selection_draft");}
         var presentation=CrewWork.Provider(co) as ICrewOrderPresentation;
         C.Field(shell.Detail,C.Text(output?"output_storage":"input_storage"),ObjectPresentation.Name(selected),
             ()=>ObjectPicker.Show(shell,C.Text(output?"output_storage":"input_storage"),()=>CrewWork.Stores(co.ship),c=>Set(c.strID),c=>presentation?.RelevantStore(co,draft!.Value,c,output)??true),
-            ()=>ObjectPicker.Locate(shell,CrewWork.Resolve(selected)),()=>Set("none"));
+            ()=>ObjectPicker.Locate(shell,CrewWork.Resolve(selected)),()=>Set("none"),CrewWork.Resolve(selected)!=null,!string.IsNullOrEmpty(selected)&&selected!="none");
     }
     private void Choices(string title,IEnumerable<(string Id,string Label)> choices,Action<string> choose)
     {
@@ -158,8 +170,8 @@ public sealed class CrewPanel : GUIData
     }
     private void EditCrew(CondOwner actor)
     {
-        crewId=actor.strID;draft=null;roleDraft.Clear();roleOriginal.Clear();W.Clear(shell.Detail);W.Clear(shell.Actions);shell.Page(true);Header(actor);
-        status=C.Label(shell.Detail,Availability(actor));C.Label(shell.Detail,C.Text("native_roster"));roleExpected=CrewSpecialities.RoleFingerprint(actor);
+        crewId=actor.strID;draft=null;diagnostics=null;roleDraft.Clear();roleOriginal.Clear();W.Clear(shell.Detail);W.Clear(shell.Actions);shell.Page(true);Header(actor);
+        status=C.Status(shell.Detail,Availability(actor));C.Label(shell.Detail,C.Text("native_roster"));roleExpected=CrewSpecialities.RoleFingerprint(actor);
         C.Heading(shell.Detail,C.Text("permissions"));
         foreach(CrewRole role in Enum.GetValues(typeof(CrewRole))){var r=role;bool allowed=CrewSpecialities.Allowed(actor,role);roleDraft[r]=roleOriginal[r]=allowed;C.Check(shell.Detail,CrewWork.Message(role.ToString()),allowed,v=>roleDraft[r]=v);}
         training.Clear();C.Heading(shell.Detail,C.Text("training"));foreach(var skill in CrewSpecialities.All)training[skill.Id]=C.Progress(shell.Detail,skill.Label,CrewSpecialities.Progress(actor,skill.Id));
@@ -186,6 +198,7 @@ public sealed class CrewPanel : GUIData
         }
         C.Heading(shell.Detail,C.Text("onboard"));
         var equipment=CrewWork.Equipment(Ship!).Where(c=>CrewWork.Order(c).Permission==WorkPermission.Enabled).ToArray();
+        if(!equipment.Any(c=>CrewWork.Provider(c) is ICrewSkipProvider))C.Label(shell.Detail,C.Text("no_onboard_work"));
         foreach(var co in equipment.Where(c=>CrewWork.Provider(c) is ICrewSkipProvider))
         {
             var provider=CrewWork.Provider(co)!;string detail=CrewWork.Message("skip_wait");
@@ -195,7 +208,7 @@ public sealed class CrewPanel : GUIData
         }
         C.Heading(shell.Detail,C.Text("suspended_operations"));
         foreach(var co in equipment.Where(c=>CrewWork.Provider(c) is not ICrewSkipProvider || OrderConfiguration.Fields(c).HasFlag(OrderFields.Target)))C.Label(shell.Detail,ObjectPresentation.Name(co)+"\n"+CrewWork.Message("skip_wait"));
-        C.Label(shell.Detail,C.Text("skip_estimate"));
+        if(!equipment.Any(c=>CrewWork.Provider(c) is not ICrewSkipProvider || OrderConfiguration.Fields(c).HasFlag(OrderFields.Target)))C.Label(shell.Detail,C.Text("no_suspended_work"));
         C.Button(shell.Actions,C.Text(returnPanel==null?"close":"back"),()=>
         {
             var previous=returnPanel;CrewSim.LowerUI();if(CrewSim.goUI!=null||previous==null||previous.Item2==null||previous.Item2.bDestroyed)return;
@@ -220,7 +233,7 @@ internal static class CrewRosterButton
         if(__instance.transform.Find("PhobosCrewButton")!=null)return;
         var holder=W.Rect(__instance.transform,"PhobosCrewButton"); holder.anchorMin=holder.anchorMax=new Vector2(0,1);
         holder.pivot=new Vector2(0,1); holder.anchoredPosition=new Vector2(4,-32); holder.sizeDelta=new Vector2(150,28);
-        var button=W.Button(holder,CrewWork.Message("open"),()=>CrewPanel.Show()); W.Fill((RectTransform)button.transform);
+        var button=C.Button(holder,C.Text("roster_shortcut"),()=>CrewPanel.Show(),28); W.Fill((RectTransform)button.transform);
         button.GetComponentInChildren<TMP_Text>().fontSize=13;
     }
 }

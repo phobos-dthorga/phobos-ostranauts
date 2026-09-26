@@ -25,7 +25,7 @@ notification** and cue volume/mute. Watching is optional, never starts a job and
 clears on processing pause, fault or reload. See the
 [completion cue guide](shipbreaker-completion-cue.md) for scope and listening checks.
 
-Current packages: Shipbreaker **0.26.0**. Framework and Auto Nav are required;
+Current packages: Shipbreaker **0.26.1**. Framework and Auto Nav are required;
 see [installation requirements](installing-mods.md) for current minimum versions.
 Built against Ostranauts **1.0.1.5** / BepInEx **5.4.23.5**. Automated checks
 passed; the new native panel/seating integration awaits the owner's game test.

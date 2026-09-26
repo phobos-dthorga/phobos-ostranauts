@@ -13,6 +13,11 @@ if (-not (Test-Path -LiteralPath (Join-Path $repoRoot 'external/phobos-scope/rec
 if ($LASTEXITCODE -ne 0) { throw 'Phobos Framework build failed.' }
 & dotnet run --project (Join-Path $repoRoot 'tests/PhobosFramework.Tests') -c Release "-p:OstranautsPath=$gameRoot"
 if ($LASTEXITCODE -ne 0) { throw 'Phobos Framework checks failed.' }
+Add-Type -Path (Join-Path $gameRoot 'BepInEx/core/Mono.Cecil.dll')
+$uiModule = [Mono.Cecil.ModuleDefinition]::ReadModule((Join-Path $repoRoot 'src/PhobosFramework/bin/Release/netstandard2.1/PhobosFramework.dll'))
+$nativeModule = [Mono.Cecil.ModuleDefinition]::ReadModule((Join-Path $gameRoot 'Ostranauts_Data/Managed/Assembly-CSharp.dll'))
+try { & (Join-Path $PSScriptRoot 'assert-console-panel.ps1') -Module $uiModule -NativeModule $nativeModule }
+finally { $uiModule.Dispose(); $nativeModule.Dispose() }
 & dotnet run --project (Join-Path $repoRoot 'tests/PhobosCrew.Tests') -c Release
 if ($LASTEXITCODE -ne 0) { throw 'Crew roster adapter checks failed.' }
 & dotnet run --project (Join-Path $repoRoot 'tests/PhobosPerformance.Tests') -c Release

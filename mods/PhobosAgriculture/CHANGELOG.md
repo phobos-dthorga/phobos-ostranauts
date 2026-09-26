@@ -17,6 +17,15 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Fixed unreachable INSTALL entries; Firstlight-4, Hearth-2 and W2 appear under APPS, and irrigation conduit under MISC, including damaged forms. Existing inputs, placement and saved IDs are preserved.
 
+## [0.13.1] - 2026-09-27 - Draft
+
+### Panel corrections
+
+- Require Framework 0.26.1 for compact control corrections, readable roster access, stable diagnostics and the visible ship picker.
+- Bind picker lines to the originating agricultural machine and disable Locate/Clear for absent water, collector and nutrient-charge connections. Missing saved selections remain retained and clearable.
+- Keep Apply confirmations visible during live refresh instead of replacing them with an older blank notice.
+- Keep crop artwork, recipes, manual operations, draft validation and local access restrictions unchanged. Prepared offline; Unity evaluation remains owner-run.
+
 ## [0.13.0] - 2026-09-26 - Draft
 
 ### Control panels

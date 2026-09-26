@@ -152,7 +152,7 @@ public sealed class IndustrialPanel : GUIData
         foreach (var group in visible.GroupBy(c => c.Group))
         {
             string key = group.Key;
-            C.Button(RowsRoot, (collapsed.Contains(key) ? "+ " : "− ") + Text.Get("Industry.group_" + key) + " (" + group.Count() + ")", () => { if (!collapsed.Add(key)) collapsed.Remove(key); RebuildRows(); });
+            C.Button(RowsRoot, (collapsed.Contains(key) ? "+ " : "- ") + Text.Get("Industry.group_" + key) + " (" + group.Count() + ")", () => { if (!collapsed.Add(key)) collapsed.Remove(key); RebuildRows(); });
             if (collapsed.Contains(key)) continue;
             foreach (var card in group)
             {
@@ -172,7 +172,7 @@ public sealed class IndustrialPanel : GUIData
         if (tab == "overview" && Central)
             readout.text = Text.Get("Industry.overview", cards.Count(c => !c.Instrument), cards.Count(c => !c.Instrument && c.State == EquipmentState.Running), cards.Count(c => !c.Instrument && c.Attention)) +
                 "\n\n" + Text.Get("Observations.overview", cards.Count(c => c.Instrument), cards.Count(c => c.Instrument && c.Attention)) +
-                "\n\n" + Text.Get("Industry.scope_help") + (result.Length == 0 ? "" : "\n\n" + result);
+                "\n\n" + Text.Get("Industry.scope_help");
         else
         {
             var card = cards.FirstOrDefault(c => c.Id == selected);
@@ -184,6 +184,7 @@ public sealed class IndustrialPanel : GUIData
         W.Clear(details); commands = null!;
         readout = W.Label(details, ""); RefreshReadout();
         var target = cards.Any(c => c.Id == selected && !c.Instrument) ? CollectorService.Resolve(selected) : null;
+        shell.SelectionOrigin=target;
         if (target == null || tab == "overview" && Central) { Layout(); return; }
         var identity=C.Row(details,72);ObjectPresentation.Picture(identity,target,64);C.Label(identity,ObjectPresentation.Location(target));
         if(tab=="details"){Layout();return;}
@@ -237,7 +238,7 @@ public sealed class IndustrialPanel : GUIData
                 string console=CaptureService.Read(target,out var capture)?capture["console"]:"none";
                 C.Label(actions,C.Text("mission_target")+": "+(capture==null?C.Text("not_selected"):CrewSim.system.GetShipByRegID(capture["target"])?.publicName??C.Text("missing_selection")));
                 C.Field(actions,C.Text("navigation_console"),ObjectPresentation.Name(console),()=>Connection(target,"capture-bind",C.Text("navigation_console")+" · "+(GUIOrbitDraw.CrossHairTarget?.Ship?.publicName??C.Text("not_selected")),"",()=>CaptureService.Consoles(target.ship)),
-                    ()=>ObjectPicker.Locate(shell,CollectorService.Resolve(console)));
+                    ()=>ObjectPicker.Locate(shell,CollectorService.Resolve(console)),null,CollectorService.Resolve(console)!=null,false);
                 foreach (string action in new[] { "capture-start", "capture-stop", "capture-release" })
                     Add(actions, action, label: Text.Get("Capture.action_" + action));
             }
@@ -260,6 +261,7 @@ public sealed class IndustrialPanel : GUIData
         Refresh();
         if (!bActive || invalid) return;
         result = PanelFeedback.Additional(success, result, cards.FirstOrDefault(c => c.Id == targetId)?.Detail ?? "");
+        shell.Notice.text=result;
         RefreshReadout();
     }
     private void StopSelected()
@@ -281,7 +283,7 @@ public sealed class IndustrialPanel : GUIData
                 if(inventory)CrewSim.LowerUI();
                 bool success = IndustryService.Run(binding, targetId, action, value, out string message);
                 result = success ? Text.Get("Industry.success", label ?? Text.Get("Industry.action_" + action)) : Text.Get("Industry.rejected", message);
-                if(!inventory)RefreshReadout();
+                if(!inventory){shell.Notice.text=result;RefreshReadout();}
             }
             if(inventory)shell.Navigate(Execute);else Execute();
         });
@@ -291,9 +293,10 @@ public sealed class IndustrialPanel : GUIData
         if(FurnaceRules.Machine(target.strCODef))
         {
             FurnaceInstallationView.Build(actions,target);
-            C.Field(actions,C.Text("cooling"),FurnaceService.CoolingEndpoint(target) is CondOwner peer?ObjectPresentation.Name(peer):C.Text("not_selected"),
-                ()=>Connection(target,"pair",C.Text("cooling"),FurnaceService.CoolingEndpoint(target)?.strID??"none",()=>IndustryService.Discover(target.ship).Where(c=>FurnaceRules.Cooling(c.strCODef)),"unpair"),
-                ()=>ObjectPicker.Locate(shell,FurnaceService.CoolingEndpoint(target)),()=>Setting(target,"unpair"));
+            string cooling=FurnaceService.CoolingSelection(target);
+            C.Field(actions,C.Text("cooling"),ObjectPresentation.Name(cooling),
+                ()=>Connection(target,"pair",C.Text("cooling"),cooling,()=>IndustryService.Discover(target.ship).Where(c=>FurnaceRules.Cooling(c.strCODef)),"unpair"),
+                ()=>ObjectPicker.Locate(shell,CollectorService.Resolve(cooling)),()=>Setting(target,"unpair"),CollectorService.Resolve(cooling)!=null,cooling!="none"&&!string.IsNullOrEmpty(cooling));
             foreach(var mode in new[]{"direct","left","right"})C.Button(actions,Text.Get("Furnace.coolant_"+mode),()=>Setting(target,"cooling-"+mode));
             if(!Central)foreach(var service in new[]{"managed","sealed","fill","drain"})
             {var action="coolant-"+service;if(service=="fill"||service=="drain")Add(actions,action,label:Text.Get("Furnace.coolant_"+service));else C.Button(actions,Text.Get("Furnace.coolant_"+service),()=>Setting(target,action));}
@@ -320,7 +323,7 @@ public sealed class IndustrialPanel : GUIData
             string peer=PanelConfiguration.Peer(target,false);
             C.Field(actions,C.Text("source"),ObjectPresentation.Name(peer),()=>Connection(target,"link-input",C.Text("source"),peer,
                 ()=>IndustryService.Discover(target.ship).Where(c=>c!=target&&RoutingRules.CanConnect(c.strCODef,target.strCODef)),"unlink-input"),
-                ()=>ObjectPicker.Locate(shell,CollectorService.Resolve(peer)),()=>Setting(target,"unlink-input",label:C.Text("clear")));
+                ()=>ObjectPicker.Locate(shell,CollectorService.Resolve(peer)),()=>Setting(target,"unlink-input",label:C.Text("clear")),CollectorService.Resolve(peer)!=null,peer!="none"&&!string.IsNullOrEmpty(peer));
             C.Field(actions,C.Text("filter"),CollectorService.FilterLabel(target),()=>ConfigurationSheet.Choices(shell,C.Text("filter"),"",PanelConfiguration.Stamp(target),RoutingRules.Choices(target.strCODef).Select(f=>(f,Text.Get("Industry.filter_"+f))),
                 (string expected,string value,out string reason)=>PanelConfiguration.Apply(binding,target,expected,"filter",value,out reason)));
         }
@@ -331,7 +334,7 @@ public sealed class IndustrialPanel : GUIData
             string peer=PanelConfiguration.Peer(target,true,metals),label=metals?Text.Get("Routing.metals_port"):C.Text("destination"),unlink=metals?"unlink-metals":"unlink-output";
             C.Field(actions,label,ObjectPresentation.Name(peer),()=>Connection(target,"link-output",label,peer,
                 ()=>IndustryService.Discover(target.ship).Where(c=>c!=target&&RoutingRules.CanConnect(target.strCODef,RoutingRules.OutputPort(target.strCODef,metals),c.strCODef)),unlink),
-                ()=>ObjectPicker.Locate(shell,CollectorService.Resolve(peer)),()=>Setting(target,unlink,label:C.Text("clear")));
+                ()=>ObjectPicker.Locate(shell,CollectorService.Resolve(peer)),()=>Setting(target,unlink,label:C.Text("clear")),CollectorService.Resolve(peer)!=null,peer!="none"&&!string.IsNullOrEmpty(peer));
         }
         detailPage=true;Layout();
     }

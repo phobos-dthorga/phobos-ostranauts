@@ -45,6 +45,7 @@ public sealed class Panel : GUIData
     private void Build(CondOwner co)
     {
         shell=ConsoleShell.Create(transform,co.strNameFriendly,C.Green);
+        shell.SelectionOrigin=co;
         shell.EmergencyStop=()=>Execute(co,RecyclerCapture.IsRecycler(co)?"capture-pause":"pause");
         foreach(var page in new[]{"operation","supplies","details"})
         {var name=page;C.Button(shell.Navigation,C.Text(name),()=>shell.Navigate(()=>{tab=name;Page(co);}));}
@@ -69,15 +70,15 @@ public sealed class Panel : GUIData
         {
             if(recycler)
                 C.Field(shell.Detail,C.Text("collector"),ObjectPresentation.Name(PanelConfiguration.Collector(co)),()=>Connection(co,"collector"),
-                    ()=>ObjectPicker.Locate(shell,Service.Resolve(PanelConfiguration.Collector(co))),()=>Setting(co,"capture-unlink"));
+                    ()=>ObjectPicker.Locate(shell,Service.Resolve(PanelConfiguration.Collector(co))),()=>Setting(co,"capture-unlink"),Service.Resolve(PanelConfiguration.Collector(co))!=null,PanelConfiguration.Collector(co)!="none");
             else if(!Definitions.IsCooker(co)&&!WorkupDefinitions.IsBench(co))
             {
                 var peers=PanelConfiguration.WaterPeers(co);C.Field(shell.Detail,C.Text("water"),peers.Length==0?C.Text("not_selected"):string.Join(" · ",peers.Select(ObjectPresentation.Name)),()=>Connection(co,"water"),
-                    ()=>ObjectPicker.Locate(shell,Service.Resolve(peers.FirstOrDefault()??"")),()=>Setting(co,"unlink-water"));
+                    ()=>ObjectPicker.Locate(shell,Service.Resolve(peers.FirstOrDefault()??"")),()=>Setting(co,"unlink-water"),Service.Resolve(peers.FirstOrDefault()??"")!=null,peers.Length>0);
                 if(IrrigationDefinitions.IsSupply(co))
                 {
                     C.Field(shell.Detail,C.Text("charge"),ObjectPresentation.Name(Service.Get(co).DoseId),()=>Connection(co,"charge"),
-                        ()=>ObjectPicker.Locate(shell,Service.Resolve(Service.Get(co).DoseId)),()=>Setting(co,"dose-off"));
+                        ()=>ObjectPicker.Locate(shell,Service.Resolve(Service.Get(co).DoseId)),()=>Setting(co,"dose-off"),Service.Resolve(Service.Get(co).DoseId)!=null,Service.Get(co).DoseId!="none");
                     foreach(var action in new[]{"mix-potato","mix-lettuce","mix-lettuce-seed","water-only"})AddButton(shell.Detail,co,action,true);
                 }
                 else foreach(var action in new[]{"water-routed","water-legacy"})AddButton(shell.Detail,co,action,true);
@@ -118,6 +119,7 @@ public sealed class Panel : GUIData
         // already rendered live here; preserve distinct notices (e.g. queued work).
         result = Phobos.Ostranauts.Framework.Controls.PanelFeedback.Additional(success, result,
             recycler ? RecyclerCapture.Describe(co) : Service.Describe(co));
+        shell.Notice.text=result;
         Refresh(co);
     }
     private void Update()
@@ -134,7 +136,6 @@ public sealed class Panel : GUIData
             var parent=shell.IsNarrow?shell.Detail:shell.List;
             if(portrait.transform.parent!=parent){portrait.transform.SetParent(parent,false);if(shell.IsNarrow)portrait.transform.SetAsFirstSibling();}
         }
-        shell.Notice.text=result;
         if(RecyclerCapture.IsRecycler(co)){readout.text=RecyclerCapture.Describe(co);live.text=C.Text("collector");return;}
         var session=Service.Get(co);var b=session.State;
         string state=C.Text(session.Protected?"state_Blocked":b.Running?"state_Running":"state_Stopped");

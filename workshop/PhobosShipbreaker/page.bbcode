@@ -1,3 +1,8 @@
+[h2]Panel corrections in 0.26.1[/h2]
+Uses Framework 0.26.1 for bounded compact text, stable diagnostics, usable stock buttons and visible ship selection. Connection fields disable unavailable actions and show pending draft changes. Command feedback and Apply confirmations remain visible. Selection lines begin at the relevant machine; local/C1 authority, saved identities and processing rules are retained.
+[b]Unpublished development candidate. Automated checks are not owner-run Unity evaluation.[/b]
+[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/control-panel-guide.md]Controls and verification limits[/url]
+
 [h2]Compact console update[/h2]
 Migrated C1 and local D4/R4/C2/G4/F6 controls to the shared compact console. Legacy collector/reclaimer windows and F9 entry points now open the native panel. Replaced endpoint lists with searchable Change/Locate/Clear forms. Local inventory access and C1 ship scope retain the existing checked services. Retained native furnace gauges and safety controls. Heat, ramp and cooling drafts apply together after fresh access/range/state validation; invalid or stale edits remain visible. Operation, routing, maintenance and diagnostics have separate views.
 [b]Prepared, not published. Unity gameplay and scale evaluation remain owner-run.[/b]
@@ -25,7 +30,7 @@ The grid guard introduced with Framework 0.21.1 restores checked saved bounds be
 [h2]Shared completion cues in 0.19.0[/h2]
 Requires Phobos Framework 0.22.0 or newer. D4/R4 watches now use the shared Phobos volume/mute and one audio channel across mods. Existing one-batch meaning and original sound remain; no new furnace, transfer or ambient cues. Gameplay/listening review pending.
 [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/shared-completion-cues.md]Shared controls and limits[/url]
-[b]Version:[/b] 0.26.0
+[b]Version:[/b] 0.26.1
 [b]Publication status:[/b] Not published - development candidate
 
 Recover useful shipbuilding materials and manage onboard industry with Phobos' Rivetline equipment and the Phobos' Asterel C1 Industrial Control Console.
@@ -57,7 +62,7 @@ First optional watched-batch audio trial: one original 280 ms tone after a D4/R4
 [h2]Requirements and installation[/h2]
 Auto Nav is now mandatory. Capture uses existing N1/N2 hardware; no new navigation module or grabber identity is introduced.
 
-Ostranauts 1.0.1.5, BepInEx 5 and Phobos Framework 0.26.0+ and Phobos Auto Nav 0.19.0+. Agriculture remains optional. No Crafting Framework or Salvage Workshop dependency.
+Ostranauts 1.0.1.5, BepInEx 5 and Phobos Framework 0.26.1+ and Phobos Auto Nav 0.19.0+. Agriculture remains optional. No Crafting Framework or Salvage Workshop dependency.
 
 This is a maintained pre-publication page draft, not a download announcement. No Workshop item has been published for this draft. Use the installation guide for source/prepared-package availability and loader setup. Do not remove required providers from saves that contain their content.
 
@@ -97,5 +102,5 @@ Normal restocking is required; updating does not refill existing shops. [url=htt
 
 [h2]Crew standing orders[/h2]
 Added standing D4/R4 feed and product handling, configured collector clearing, managed coolant replenishment and explicitly permitted F6 batch sequences. Added Industrial Processing training and shared standing-order controls, using the actual worker and existing material, power, heat and furnace interlocks. Added one-attempt crew launch/resume of the existing exact G4 reclamation mission. Existing ownership, sensors, pressure, access, occupancy and equipment bindings remain mandatory. Industrial orders require Resume after loading; G4 work and movement suspend before time-skip. Supported onboard work uses Framework’s measured skip coordinator.
-Requires Framework 0.26.0. Native repair/construction and optional Auto Nav authority remain in place. Existing identities, recipe revisions and cargo are preserved; gameplay checks remain owner-run.
+Requires Framework 0.26.1. Native repair/construction and optional Auto Nav authority remain in place. Existing identities, recipe revisions and cargo are preserved; gameplay checks remain owner-run.
 [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/crew-automation.md]Crew controls, time-skip limits and owner checks[/url]. Optional native-task coexistence with [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3789049955]LOGUSS’s Common Sense modules[/url]; added study preserves [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3788237703]jossla’s Study at Terminals[/url].

@@ -1,6 +1,6 @@
 # Phobos control panels
 
-Framework 0.26.0, Agriculture 0.13.0, Shipbreaker 0.26.0 and Auto Nav 0.20.0
+Framework 0.26.1, Agriculture 0.13.1, Shipbreaker 0.26.1 and Auto Nav 0.20.0
 prepare this interface update. Manufacturing remains a scaffold with no operational
 panel or jobs. These are unpublished development candidates.
 
@@ -12,6 +12,13 @@ outside the scrolling content. Equipment and detail lists scroll independently;
 below 1,000 native content units, Back switches between list and detail pages.
 Actual native panel bounds, including the game's UI scale, choose that layout.
 Asterel uses slate, Verdemorrow muted green and Rivetline amber accents.
+Selected crew tabs/equipment have a distinct tint and live status has its own
+inset. Long compact captions truncate each line with an ellipsis at the actual
+laid-out width; full selected storage names wrap above their action buttons.
+The native roster shortcut reads **Orders & training**. Stock steppers use drawn
+minus/plus symbols; the lower/upper limit disables the corresponding button.
+**Details & diagnostics** toggles one technical-identity block and can be closed
+again without duplicating the live status.
 
 Crew operations has separate **Orders**, **Crew & Training** and **Time-skip** views.
 Orders start disabled. Select a process, target stock and approved stores where
@@ -56,12 +63,19 @@ visible. Missing saved selections are retained and labelled unavailable. Connect
 pickers retain their content mod's candidate rules. Mission targets are limited
 to the already bound mission or saved resumable flight; no new target is acquired.
 
-**Locate** highlights the selected object on the ship. **Pick on ship** temporarily
-exposes the ship beneath a full-screen input-capturing overlay. Marked candidates
-use the native object hit test; overlapping candidates open a short choice list.
-Back or Escape restores the panel and draft. The picker does not select the native
+**Locate** centres a temporary ship view on the selected object. Locate is disabled
+when no object is available; Clear is disabled when there is no saved selection.
+**Clear** edits the draft and reports that Apply is still required. An unavailable
+saved selection can still be cleared deliberately.
+
+**Pick on ship** shows a mode banner and dims the background around eligible
+objects. Brackets mark candidates; a line from the source machine animates cyan
+when native hit-testing finds a valid choice. Click overlapping objects to open
+a short choice list, or use Candidate list to return to the full picker. Right
+or middle drag pans the view; scroll zooms. Back, Cancel or Escape restores the
+original panel, draft, camera position, zoom and follow preference. The picker does not select the native
 crew, issue movement or pickup, acquire targets or run machinery. Mouse/keyboard
-world handlers are suppressed during picking and through the release frame.
+world handlers and native shortcut commands are suppressed during picking and through the release frame. The native Cancel command closes only the picker.
 Access and candidate membership are checked again when applying.
 
 An optional display nickname is saved as protected Framework metadata, separate
@@ -104,7 +118,7 @@ Owner checks in Ostranauts are still required:
   Auto Nav's captured flight restrictions. No UI test may bypass those services.
 
 The native lifecycle and object-hit-test integration follow code inspected in
-Blue Bottle Games' local Ostranauts 1.0.1.5 installation. Proprietary decompiled
+[Blue Bottle Games' Ostranauts](https://bluebottlegames.com/games/ostranauts) 1.0.1.5 local installation. Proprietary decompiled
 sources remain outside the repository. Existing research attribution, mod author
 credits, material budgets and optional integration boundaries are unchanged.
 
@@ -117,3 +131,32 @@ many parameterized assertions and do not measure in-game coverage. New checks
 exercise isolated drafts, manual stops, stale navigation settings, candidate
 admission and input-release policy. Five browser reference sizes/scales passed
 scrolling, fixed-action, narrow-navigation and long-name checks.
+
+### Follow-up to the owner's 27 September screenshots
+
+The owner observed overflowing compact labels, repeated diagnostic paragraphs,
+an absent minus glyph and unclear picker/control feedback in the first installed
+redesign. The corrections above address those reports. The picker uses native
+read-only hit-testing, with our own screen geometry rather than calling native
+ShowInputSelector: that native controller also sets connection and crew-selection
+state. The dim veil does not change object layers, lights or contents. Existing
+original framing and locally loaded item pictures are reused; no new raster art
+or game-derived files are exported.
+
+Additional automated checks exercise per-line truncation (including combining
+characters), overlapping/offscreen candidate openings, and compiled callback wiring:
+diagnostics clicks cannot allocate new labels, both stock symbols are drawn, and
+the picker cannot call connection, crew-selection or equipment-command methods.
+These checks establish code and layout-policy properties. They do not establish
+Unity font rendering, pointer routing, camera behaviour or in-game appearance;
+those remain owner checks after installation. Manual command confirmations and
+rejection reasons use the persistent notice area; Agriculture refresh does not
+erase an Apply confirmation. Fixed captions also respect the number of lines
+that fit vertically, including single-line footer notices.
+
+Follow-up validation passed 18,932 Framework assertions (including pixel samples
+for the picker mask), 824 Agriculture, 8,378 Shipbreaker, 9,973 native-definition
+checks, the existing Auto Nav suites, 59 Python maintenance tests and 226 synthetic
+installer checks. Compiled panel/input wiring and five browser reference sizes
+also passed. Assertion counts include parameter sweeps; they are not gameplay
+coverage measurements. No Unity session was run for this follow-up.

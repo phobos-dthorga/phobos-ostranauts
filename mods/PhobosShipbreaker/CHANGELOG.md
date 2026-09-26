@@ -19,6 +19,15 @@ Dates on Draft entries record preparation, not Steam publication.
 - Earlier capture-only research is superseded for supported ordinary walls by the implementation below. Broader structural recipes, repeated furnace batches and whole-wreck completion remain outside this round.
 - Keep [NASA Goddard's Raven research](https://www.nasa.gov/general/nasas-hybrid-computer-enables-ravens-autonomous-rendezvous-capability/) and [ESA's LIRIS experiment by Airbus, Jena Optronik and Sodern](https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/ATV/ATV_views_Space_Station_as_never_before) as sensing context, separate from Blue Bottle Games native evidence and authored gameplay choices. No institutional endorsement or gameplay validation is implied.
 
+## [0.26.1] - 2026-09-27 - Draft
+
+### Panel corrections
+
+- Require Framework 0.26.1 for compact controls, stable diagnostics and a visible, input-isolated ship picker.
+- Bind picker lines to the selected local/C1 machine and disable unavailable Locate/Clear actions for routing, navigation-console and cooling connections. A broken cooling route retains its saved selection so it can still be located or deliberately cleared.
+- Show manual-command confirmations and rejection reasons in the fixed notice area, and use a font-safe collapse marker for equipment groups.
+- Retain explicit Apply, remote/local authority, furnace interlocks, mission targets and material accounting. Existing Auto Nav requirements remain unchanged; prepared offline, with Unity evaluation pending.
+
 ## [0.26.0] - 2026-09-26 - Draft
 
 ### Control panels

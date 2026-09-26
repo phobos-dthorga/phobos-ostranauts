@@ -25,6 +25,7 @@ public sealed class ConsoleShell : MonoBehaviour
     public Action? Discard;
     public Action? CancelOverlay;
     public Action? EmergencyStop;
+    public CondOwner? SelectionOrigin;
     private RectTransform body=null!, listRoot=null!, detailRoot=null!;
     private GameObject? dialog;
     private bool detailPage, forceClose;
@@ -63,7 +64,7 @@ public sealed class ConsoleShell : MonoBehaviour
         List=PanelWidgets.Scroll(body,"Equipment",out ListScroll);listRoot=(RectTransform)ListScroll.transform;
         Detail=PanelWidgets.Scroll(body,"Details",out DetailScroll);detailRoot=(RectTransform)DetailScroll.transform;
         Actions=ConsoleWidgets.Row(transform);PanelWidgets.Fill(Actions,24,26,24,0);Actions.anchorMax=new Vector2(1,0);Actions.offsetMax=new Vector2(-24,62);
-        Notice=ConsoleWidgets.Label(transform,"",false);var nr=(RectTransform)Notice.transform;PanelWidgets.Fill(nr,24,3,24,0);nr.anchorMax=new Vector2(1,0);nr.offsetMax=new Vector2(-24,24);Notice.fontSize=14;Notice.overflowMode=TextOverflowModes.Ellipsis;
+        Notice=ConsoleWidgets.Label(transform,"",false);var nr=(RectTransform)Notice.transform;PanelWidgets.Fill(nr,24,3,24,0);nr.anchorMax=new Vector2(1,0);nr.offsetMax=new Vector2(-24,24);Notice.fontSize=14;ConsoleWidgets.Fixed(Notice);
         Layout();
     }
     public void Page(bool detail){detailPage=detail;Layout();}

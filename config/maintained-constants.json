@@ -4,7 +4,7 @@
     "Framework.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.26.0",
+      "value": "0.26.1",
       "description": "PhobosFramework published source/package version.",
       "targets": [
         {
@@ -36,6 +36,11 @@
           "path": "workshop/PhobosFramework/page.bbcode",
           "pattern": "^\\[b\\]Version:\\[/b\\] (?P<value>[0-9.]+)\\r?$",
           "count": 1
+        },
+        {
+          "path": "docs/control-panel-guide.md",
+          "pattern": "^Framework (?P<value>[0-9.]+), Agriculture",
+          "count": 1
         }
       ],
       "review": [
@@ -63,7 +68,7 @@
     "Shipbreaker.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.26.0",
+      "value": "0.26.1",
       "description": "PhobosShipbreaker published source/package version.",
       "targets": [
         {
@@ -104,6 +109,11 @@
         {
           "path": "workshop/PhobosShipbreaker/page.bbcode",
           "pattern": "^\\[b\\]Version:\\[/b\\] (?P<value>[0-9.]+)\\r?$",
+          "count": 1
+        },
+        {
+          "path": "docs/control-panel-guide.md",
+          "pattern": "^Framework [0-9.]+, Agriculture [0-9.]+, Shipbreaker (?P<value>[0-9.]+) and",
           "count": 1
         }
       ],
@@ -164,6 +174,11 @@
           "path": "workshop/PhobosAutoNav/page.bbcode",
           "pattern": "^\\[b\\]Version:\\[/b\\] (?P<value>[0-9.]+)\\r?$",
           "count": 1
+        },
+        {
+          "path": "docs/control-panel-guide.md",
+          "pattern": "^Framework [0-9.]+, Agriculture [0-9.]+, Shipbreaker [0-9.]+ and Auto Nav (?P<value>[0-9.]+)",
+          "count": 1
         }
       ],
       "review": [
@@ -191,7 +206,7 @@
     "Agriculture.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.13.0",
+      "value": "0.13.1",
       "description": "PhobosAgriculture published source/package version.",
       "targets": [
         {
@@ -217,6 +232,11 @@
         {
           "path": "workshop/PhobosAgriculture/page.bbcode",
           "pattern": "^\\[b\\]Version:\\[/b\\] (?P<value>[0-9.]+)\\r?$",
+          "count": 1
+        },
+        {
+          "path": "docs/control-panel-guide.md",
+          "pattern": "^Framework [0-9.]+, Agriculture (?P<value>[0-9.]+),",
           "count": 1
         }
       ],
@@ -626,7 +646,7 @@
     "Shipbreaker.minimumFramework": {
       "type": "version",
       "parts": 3,
-      "value": "0.26.0",
+      "value": "0.26.1",
       "description": "Current Shipbreaker required Framework version, shared with local installer admission.",
       "targets": [
         {
@@ -703,7 +723,7 @@
     "Agriculture.minimumFramework": {
       "type": "version",
       "parts": 3,
-      "value": "0.26.0",
+      "value": "0.26.1",
       "description": "Current Agriculture required Framework version, shared with local installer admission.",
       "targets": [
         {

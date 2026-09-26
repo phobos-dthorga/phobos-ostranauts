@@ -11,7 +11,8 @@ public static class ConfigurationSheet
 {
     public static void Objects(ConsoleShell shell,string title,string current,string expected,Func<IEnumerable<CondOwner>> candidates,ConfigurationApply apply,bool allowClear=true)
         =>Show(shell,title,current,expected,(body,get,set)=>ConsoleWidgets.Field(body,title,ObjectPresentation.Name(get()),
-            ()=>ObjectPicker.Show(shell,title,candidates,co=>set(co.strID)),()=>ObjectPicker.Locate(shell,Crew.CrewWork.Resolve(get())),allowClear?()=>set("none"):null),apply);
+            ()=>ObjectPicker.Show(shell,title,candidates,co=>set(co.strID)),()=>ObjectPicker.Locate(shell,Crew.CrewWork.Resolve(get())),allowClear?()=>set("none"):null,
+            Crew.CrewWork.Resolve(get())!=null,!string.IsNullOrEmpty(get())&&get()!="none"),apply);
     public static void Choices(ConsoleShell shell,string title,string current,string expected,IEnumerable<(string Value,string Label)> options,ConfigurationApply apply)
         =>Show(shell,title,current,expected,(body,get,set)=>{foreach(var o in options){var option=o;ConsoleWidgets.Button(body,(get()==option.Value?"[x] ":"[ ] ")+option.Label,()=>set(option.Value));}},apply);
     private static void Show(ConsoleShell shell,string title,string current,string expected,Action<Transform,Func<string>,Action<string>> render,ConfigurationApply apply)
@@ -21,7 +22,7 @@ public static class ConfigurationSheet
         var footer=ConsoleWidgets.Row(overlay);PanelWidgets.Fill(footer,24,24,24,0);footer.anchorMax=new Vector2(1,0);footer.offsetMax=new Vector2(-24,60);
         var oldDirty=shell.Dirty;var oldApply=shell.Apply;var oldDiscard=shell.Discard;var oldCancel=shell.CancelOverlay;
         string value=current,notice="";
-        void Refresh(){PanelWidgets.Clear(body);ConsoleWidgets.Heading(body,title);if(notice.Length>0)ConsoleWidgets.Label(body,notice);render(body,()=>value,s=>{value=s;Refresh();});}
+        void Refresh(){PanelWidgets.Clear(body);ConsoleWidgets.Heading(body,title);if(notice.Length>0)ConsoleWidgets.Label(body,notice);render(body,()=>value,s=>{value=s;notice=ConsoleWidgets.Text(s=="none"?"cleared_draft":"selection_draft");Refresh();});}
         void Close(){shell.Dirty=oldDirty;shell.Apply=oldApply;shell.Discard=oldDiscard;shell.CancelOverlay=oldCancel;overlay.gameObject.SetActive(false);UnityEngine.Object.Destroy(overlay.gameObject);}
         bool Apply(){if(value==current&&value.Length>0)return true;if(value.Length==0){notice=ConsoleWidgets.Text("not_selected");Refresh();return false;}if(!apply(expected,value,out var reason)){notice=reason;Refresh();return false;}current=value;shell.Notice.text=ConsoleWidgets.Text("applied");return true;}
         shell.Dirty=()=>value!=current;shell.Apply=Apply;shell.Discard=()=>{value=current;Refresh();};shell.CancelOverlay=()=>shell.Navigate(Close);
