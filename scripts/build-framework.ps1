@@ -13,6 +13,8 @@ if (-not (Test-Path -LiteralPath (Join-Path $repoRoot 'external/phobos-scope/rec
 if ($LASTEXITCODE -ne 0) { throw 'Phobos Framework build failed.' }
 & dotnet run --project (Join-Path $repoRoot 'tests/PhobosFramework.Tests') -c Release "-p:OstranautsPath=$gameRoot"
 if ($LASTEXITCODE -ne 0) { throw 'Phobos Framework checks failed.' }
+& dotnet run --project (Join-Path $repoRoot 'tests/PhobosCrew.Tests') -c Release
+if ($LASTEXITCODE -ne 0) { throw 'Crew roster adapter checks failed.' }
 & dotnet run --project (Join-Path $repoRoot 'tests/PhobosPerformance.Tests') -c Release
 if ($LASTEXITCODE -ne 0) { throw 'Performance capture adapter checks failed.' }
 . (Join-Path $PSScriptRoot 'build-package-support.ps1')

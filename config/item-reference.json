@@ -14,7 +14,7 @@
           "function": "Navigation, approach and docking assistance. It can stop short of a destination or use a separate docking command.",
           "use": "Fit a working board to Polaris, open its Phobos hub, select a supported sensor contact, set arrival preferences and choose Fly, Dock or Approach & Dock as appropriate. Use Stop to release flight control. Supported crew work is configured through the [standing-order controls](crew-automation.md); orders begin disabled and retain the existing physical/service restrictions.",
           "find": "Build at a supported table, buy from the listed dealers, or find rare N1 boards in native navigation-module loot. Damaged salvage needs repair.",
-          "notes": "No obstacle avoidance or indefinite position holding is promised. Sensor quality, braking room, fuel and native restrictions still apply. Docking resumes only after an explicit post-load Resume. Local obstacle avoidance uses tracked contacts; lost tracking requires Resume. Explicit Undock & Depart / Undock & Continue prepare a 1 km hull-gap departure. See [departure and avoidance](auto-nav-departure.md).",
+          "notes": "Indefinite position holding is not promised. Sensor quality, braking room, fuel and native restrictions still apply. Docking resumes only after an explicit post-load Resume. Local obstacle avoidance uses tracked contacts; lost tracking requires Resume. Explicit Undock & Depart / Undock & Continue prepare a 1 km hull-gap departure and require every native company-roster member aboard; missing or away crew block departure. See [departure and avoidance](auto-nav-departure.md).",
           "guide": "auto-navigate-adaptation.md",
           "internal": false,
           "labels": {}
@@ -29,7 +29,7 @@
           "function": "Includes navigation/docking and adds Rendezvous and Follow for moving contacts.",
           "use": "Fit to Polaris and use the Pursuit page. Rendezvous approaches once; Follow maintains a distance band. Stop before changing flight modes. Supported crew work is configured through the [standing-order controls](crew-automation.md); orders begin disabled and retain the existing physical/service restrictions.",
           "find": "Build at a supported table or buy the Polaris dealer offer below. The N1 salvage pool does not grant N2.",
-          "notes": "N2 does not authorize firing; use N3 for that. Pursuit suspends on reload and cannot guarantee catching a faster ship. Local obstacle avoidance uses tracked contacts; lost tracking requires Resume. Explicit Undock & Depart / Undock & Continue prepare a 1 km hull-gap departure. See [departure and avoidance](auto-nav-departure.md).",
+          "notes": "N2 does not authorize firing; use N3 for that. Pursuit suspends on reload and cannot guarantee catching a faster ship. Local obstacle avoidance uses tracked contacts; lost tracking requires Resume. Explicit Undock & Depart / Undock & Continue prepare a 1 km hull-gap departure and require every native company-roster member aboard; missing or away crew block departure. See [departure and avoidance](auto-nav-departure.md).",
           "guide": "auto-nav-pursuit.md",
           "internal": false,
           "labels": {}

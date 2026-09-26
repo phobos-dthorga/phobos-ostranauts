@@ -22,6 +22,7 @@ public static class CrewWork
     private static CrewWorkContext? executing;
     public static CondOwner? Actor => executing?.Actor;
     public static bool IsExecuting => executing != null;
+    public static bool AllCrewAboard(Ship ship) => CrewRoster.AllAboard(ship);
     public static event Action? SkipStarting;
     public static IEnumerable<ICrewWorkProvider> Providers => providers.Values;
     public static string Message(string key, params object[] args) => Text.Get("Crew." + key, args);
@@ -102,9 +103,10 @@ public static class CrewWork
     public static bool Eligible(CondOwner actor, CrewWorkOffer offer, out string reason, bool checkRole = true, int? hour = null)
     {
         reason = Message("crew_unavailable");
-        if (actor == null || actor.bDestroyed || !actor.bAlive || actor.HasCond("IsDead") || actor.HasCond("Unconscious") ||
+        if (actor == null || actor.bDestroyed || actor.aQueue == null || !actor.bAlive || actor.HasCond("IsDead") || actor.HasCond("Unconscious") ||
             actor.HasCond("IsAIManual") || actor.HasCond("IsInCombat") || actor.HasCond("IsEmergencyOverride") || actor.Company == null ||
-            actor.Company != CrewSim.coPlayer?.Company || actor.ship != offer.Target.ship || !actor.Company.mapRoster.TryGetValue(actor.strID, out var roster) ||
+            actor.Company != CrewSim.coPlayer?.Company || actor.ship != offer.Target.ship || actor.Company.mapRoster == null ||
+            !actor.Company.mapRoster.TryGetValue(actor.strID, out var roster) || roster?.aDutyLvls == null ||
             actor.Company.GetShift(hour??StarSystem.nUTCHour, actor).nID != 2 || checkRole && !CrewSpecialities.Allowed(actor, offer.Role)) return false;
         int duty = Array.IndexOf(JsonCompanyRules.aDutiesNew, offer.Duty);
         if (duty < 0 || duty >= roster.aDutyLvls.Length || roster.aDutyLvls[duty] < JsonCompanyRules.nPriorityMin || roster.aDutyLvls[duty] > JsonCompanyRules.nPriorityMax) return false;
@@ -132,10 +134,10 @@ public static class CrewWork
     internal static int DutyPriority(CondOwner actor, string duty)
     {
         int index = Array.IndexOf(JsonCompanyRules.aDutiesNew, duty);
-        return index >= 0 && actor.Company?.mapRoster.TryGetValue(actor.strID, out var r) == true && index < r.aDutyLvls.Length &&
+        return index >= 0 && actor.Company?.mapRoster?.TryGetValue(actor.strID, out var r) == true && r?.aDutyLvls != null && index < r.aDutyLvls.Length &&
             r.aDutyLvls[index] >= JsonCompanyRules.nPriorityMin && r.aDutyLvls[index] <= JsonCompanyRules.nPriorityMax ? r.aDutyLvls[index] : int.MaxValue;
     }
-    internal static bool Idle(CondOwner actor) => !actor.aQueue.Any(i => !i.bCancel && i.strName != "QuickWait" && i.strName != "Wait");
+    internal static bool Idle(CondOwner actor) => actor.aQueue != null && !actor.aQueue.Any(i => i == null || !i.bCancel && i.strName != "QuickWait" && i.strName != "Wait");
     internal static long DutyRank(CondOwner actor,string duty)=>(long)DutyPriority(actor,duty)*JsonCompanyRules.aDutiesNew.Length+Array.IndexOf(JsonCompanyRules.aDutiesNew,duty);
     internal static bool NativeWorkPrecedes(CondOwner actor,CrewWorkOffer offer)=>CrewSim.objInstance.workManager.GetAllTasks().Any(t=>
         t.strInteraction!=WorkId && (t.bManual || DutyRank(actor,t.strDuty)<DutyRank(actor,offer.Duty)) &&
@@ -146,7 +148,7 @@ public static class CrewWork
         foreach(var job in Jobs.Values.Where(j=>j.Worker==actor).ToArray())Release(job,true);
     }
     internal static bool PreferredAvailable(CondOwner actor, CrewWorkOffer offer, Func<CondOwner,bool>? available = null) =>
-        !CrewSpecialities.Skilled(actor, offer.Skill) && CrewSim.aCrew.Any(other => other != actor &&
+        !CrewSpecialities.Skilled(actor, offer.Skill) && CrewRoster.Members().Any(other => other != actor &&
             (available?.Invoke(other) ?? Idle(other)) && DutyPriority(other, offer.Duty) == DutyPriority(actor, offer.Duty) &&
             CrewSpecialities.Skilled(other, offer.Skill) && Eligible(other, offer, out _) && Path(other, offer.Target) && CrewLogistics.Prepare(other, offer));
     internal static void Notice(CondOwner co, string reason) => notices[co.strID] = reason;
@@ -154,13 +156,15 @@ public static class CrewWork
     { Notice(co, Message("fault", error.Message)); SetPermission(co, WorkPermission.Suspended,"fault"); }
     public static void Poll()
     {
-        if (CrewSim.objInstance == null || !CrewSim.objInstance.FinishedLoading || CrewSim.coPlayer == null || CrewSim.Paused || CrewSkip.Active || Time.unscaledTime < nextScan) return;
+        if (CrewSim.objInstance == null || !CrewSim.objInstance.FinishedLoading || CrewSim.objInstance.workManager == null ||
+            DataHandler.mapCOs == null || CrewSim.coPlayer == null || CrewSim.Paused || CrewSkip.Active || Time.unscaledTime < nextScan) return;
         nextScan = Time.unscaledTime + (float)CrewBalance.DiscoverySeconds;
-        foreach(var actor in CrewSim.aCrew)
-            foreach(var ia in actor.aQueue.Where(i=>i.strName.StartsWith(CrewSpecialities.StudyPrefix,StringComparison.Ordinal)))
+        var crew = CrewRoster.Members();
+        foreach(var actor in crew)
+            foreach(var ia in actor.aQueue.Where(i=>i?.strName?.StartsWith(CrewSpecialities.StudyPrefix,StringComparison.Ordinal)==true))
                 if(!CrewSpecialities.StudyReady(actor,ia.objThem))ia.bCancel=true;
-        Reconcile();
-        var ships = CrewSim.aCrew.Where(c => c != null && c.ship != null).Select(c => c.ship).Distinct().ToArray();
+        Reconcile(crew);
+        var ships = crew.Select(c => c.ship).Distinct().ToArray();
         foreach (var ship in ships) foreach (var co in Equipment(ship)) Discover(co);
     }
     private static void Discover(CondOwner co)
@@ -222,7 +226,7 @@ public static class CrewWork
         Jobs.Remove(job.Task);
         if (removeTask) CrewSim.objInstance?.workManager?.RemoveTask(job.Task);
     }
-    private static void Reconcile()
+    private static void Reconcile(CondOwner[] crew)
     {
         var all = CrewSim.objInstance.workManager.GetAllTasks();
         foreach (var j in Jobs.Values.ToArray())
@@ -231,7 +235,7 @@ public static class CrewWork
                 !all.Contains(j.Task) || j.Interaction != null && (j.Interaction.bCancel || j.Worker == null || !Eligible(j.Worker, j.Offer, out _))) Release(j, true);
             else if(j.Worker==null)
             {
-                var eligible=CrewSim.aCrew.Where(c=>Eligible(c,j.Offer,out _)).ToArray();
+                var eligible=crew.Where(c=>Eligible(c,j.Offer,out _)).ToArray();
                 Notice(j.Equipment,eligible.Length==0?Message("crew_unavailable"):
                     !eligible.Any(c=>Path(c,j.Offer.Target)&&CrewLogistics.Prepare(c,j.Offer))?Message("access_blocked"):Message("busy"));
             }

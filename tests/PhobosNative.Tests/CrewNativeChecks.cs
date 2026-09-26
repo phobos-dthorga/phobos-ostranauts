@@ -7,6 +7,9 @@ internal static class CrewNativeChecks
 {
     internal static void Run(Action<bool,string> check)
     {
+        var nativeRoster=typeof(JsonCompany).GetMethod(nameof(JsonCompany.GetCrewMembers))!;
+        check(PlaceholderLoadChecks.Calls(typeof(CrewRoster).GetMethod("Members",BindingFlags.Static|BindingFlags.NonPublic,null,new[]{typeof(JsonCompany)},null)!)
+            .Any(m=>m==nativeRoster),"Shared resolver calls the native company crew API");
         var flags=BindingFlags.Public|BindingFlags.NonPublic|BindingFlags.Instance;
         var clock=typeof(GUIFFWD).GetMethod("FFWD",flags)!;
         check(PlaceholderLoadChecks.Calls(clock).Count(m=>m.DeclaringType==typeof(StarSystem)&&m.Name=="Update")==1,

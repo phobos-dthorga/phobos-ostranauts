@@ -17,6 +17,13 @@ Dates on Draft entries record preparation, not Steam publication.
 - Earlier capture-only research is superseded for supported ordinary walls by the implementation below. Broader structural recipes, repeated furnace batches and whole-wreck completion remain outside this round.
 - Keep [NASA Goddard's Raven research](https://www.nasa.gov/general/nasas-hybrid-computer-enables-ravens-autonomous-rendezvous-capability/) and [ESA's LIRIS experiment by Airbus, Jena Optronik and Sodern](https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/ATV/ATV_views_Space_Station_as_never_before) as sensing context, separate from Blue Bottle Games native evidence and authored gameplay choices. No institutional endorsement or gameplay validation is implied.
 
+## [0.19.1] - 2026-09-26 - Draft
+
+### Fixed
+
+- Use Framework's native company-roster check for departure, fixing an always-blocked crew check when the old crew-list field is unpopulated. Missing or away crew still block departure.
+- Requires Framework 0.25.1 for the shared roster service. Existing flight permissions, saved targets and explicit Resume remain unchanged; automated checks are not gameplay validation.
+
 ## [0.19.0] - 2026-09-26 - Draft
 
 ### Crew automation

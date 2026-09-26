@@ -14,6 +14,14 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.25.1] - 2026-09-26 - Draft
+
+### Fixed
+
+- Resolve crew through the native company roster instead of the unused legacy crew-list field, fixing repeated CrewWork.Poll null exceptions and the same fault in crew controls and time-skip preview.
+- Skip unresolved, destroyed and uninitialized workers during work discovery. Departure checks use the same native roster but block if any member is unresolved or away.
+- Keep saved orders, manual stops, training and native roster entries intact. Automated regression checks are not in-game validation.
+
 ## [0.25.0] - 2026-09-26 - Draft
 
 ### Crew automation

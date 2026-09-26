@@ -18,7 +18,8 @@ internal static partial class Service
         var status=DosingStore(s.Object).Read(out var fields);
         if(status==SavedStateStatus.Ready)
         {
-            if(fields.Count!=1 || !fields.TryGetValue("source",out var source) || source.Length>200 || source.Length>0&&!IrrigationDefinitions.IsSupply(s.Object)) s.Protected=true;
+            var source=DosingBinding.Read(fields);
+            if(source.Length>0&&!IrrigationDefinitions.IsSupply(s.Object)) s.Protected=true;
             else s.DoseId=source;
         }
         else if(status!=SavedStateStatus.Missing)s.Protected=true;

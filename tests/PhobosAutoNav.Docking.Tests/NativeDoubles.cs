@@ -197,6 +197,7 @@ namespace PhobosAutoNav
     internal sealed class TorchDouble { internal bool ControlsChanged=>false;internal void Cut() {} internal void Release() { } internal void Reset() { } }
     internal sealed partial class NavigationService
     {
+        private static bool CrewAboard(Ship ship) => CrewSim.aCrew!=null && CrewSim.aCrew.Count>0 && CrewSim.aCrew.All(c=>c!=null&&!c.bDestroyed&&c.ship==ship);
         private static bool IsLocalConsole(CondOwner? co)=>co!=null&&co.ship==CrewSim.coPlayer.ship;
         private static bool HasPursuit(CondOwner co)=>co.Items.Any(c=>c.Kind==PursuitId);
         private static bool CanReleaseNativeControls(CondOwner? co) => false;

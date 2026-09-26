@@ -30,7 +30,8 @@ public static class CrewSkip
     {
         var lines=new List<string>{CrewWork.Message("skip_preview")};
         var contexts=DataHandler.GetLoot("ACTFFWDContextPayloads").GetAllLootNames();
-        foreach(var actor in CrewSim.aCrew.Where(a=>a!=null&&a.ship==ship))
+        var members=CrewRoster.Members();
+        foreach(var actor in members.Where(a=>a.ship==ship))
         {
             var care=contexts.Select(id=>DataHandler.GetInteraction(id)).FirstOrDefault(i=>i!=null&&i.Triggered(actor,actor));
             string state=care?.strTitle??CrewWork.Message(actor.HasCond("IsAIManual")?"preview_manual":
@@ -47,7 +48,7 @@ public static class CrewSkip
                     var offer=provider.Next(co,CrewWork.Order(co),out var reason); detail=offer?.Label??reason;
                     if(offer!=null)
                     {
-                        var available=CrewSim.aCrew.Where(a=>CrewWork.Eligible(a,offer,out _)).ToArray();
+                        var available=members.Where(a=>CrewWork.Eligible(a,offer,out _)).ToArray();
                         if(available.Length==0)detail+=" — "+CrewWork.Message("crew_unavailable");
                         else if(!available.Any(a=>CrewWork.Path(a,offer.Target)&&CrewLogistics.Prepare(a,offer)))
                             detail+=" — "+CrewWork.Message("access_blocked");
@@ -72,7 +73,8 @@ public static class CrewSkip
             if(row.CO!=null && (payloads==null || contexts.Any(id=>payloads.TryGetValue(id,out var hours)&&hours>0)))
                 nativeCare.Add(row.CO.strID);
         }
-        crew=participants.Select(r=>r.CO).Where(c=>c!=null&&!c.bDestroyed&&c.ship!=null).Distinct().ToArray(); nextDecision.Clear();
+        var available=CrewRoster.Members();
+        crew=participants.Select(r=>r.CO).Where(c=>available.Contains(c)).Distinct().ToArray(); nextDecision.Clear();
         CrewWork.StartSkip();
     }
     // Replace only the native clock call, retaining the surrounding native risk/events/report lifecycle.
@@ -102,7 +104,7 @@ public static class CrewSkip
                 system.Update(step);
                 TickMachines(ships);
                 foreach(var actor in crew)
-                    foreach(var ia in actor.aQueue.Where(i=>i.strName.StartsWith(CrewSpecialities.StudyPrefix,StringComparison.Ordinal)))
+                    foreach(var ia in (actor.aQueue??Enumerable.Empty<Interaction>()).Where(i=>i?.strName?.StartsWith(CrewSpecialities.StudyPrefix,StringComparison.Ordinal)==true))
                         if(!CrewSpecialities.StudyReady(actor,ia.objThem))ia.bCancel=true;
                 foreach(var actor in crew)
                 {

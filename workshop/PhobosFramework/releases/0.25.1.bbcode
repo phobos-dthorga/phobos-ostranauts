@@ -1,0 +1,10 @@
+[h1]Phobos Framework 0.25.1[/h1]
+[b]Draft - not published | 2026-09-26[/b]
+
+[h2]Fixed[/h2]
+
+[list]
+[*]Resolve crew through the native company roster instead of the unused legacy crew-list field, fixing repeated CrewWork.Poll null exceptions and the same fault in crew controls and time-skip preview.
+[*]Skip unresolved, destroyed and uninitialized workers during work discovery. Departure checks use the same native roster but block if any member is unresolved or away.
+[*]Keep saved orders, manual stops, training and native roster entries intact. Automated regression checks are not in-game validation.
+[/list]

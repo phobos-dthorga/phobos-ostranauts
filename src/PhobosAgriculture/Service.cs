@@ -88,7 +88,7 @@ internal static partial class Service
         if (s.Protected) throw new InvalidOperationException(Text.Get("protected"));
         var solutionFields = s.Solution.Save(s.State);
         SaveRecovery(s);
-        if (!DosingStore(s.Object).TryWrite(new Dictionary<string,string>{["source"]=s.DoseId})) throw new InvalidOperationException("Protected dosing binding.");
+        if (!DosingStore(s.Object).TryWrite(DosingBinding.Save(s.DoseId))) throw new InvalidOperationException("Protected dosing binding.");
         if (!WorkupStore(s.Object).TryWrite(s.Workup.Save())) throw new InvalidOperationException("Protected workup state.");
         if (!LineStore(s.Object).TryWrite(s.Line.Save())) { s.Protected=true; throw new InvalidOperationException(Text.Get("protected")); }
         if (!s.Store.TryWrite(s.State.Save())) { s.Protected = true; throw new InvalidOperationException(Text.Get("protected")); }

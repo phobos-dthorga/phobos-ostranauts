@@ -21,13 +21,17 @@ F3 equivalents are `phobosnav depart`, `phobosnav depart-continue`,
 `phobosnav depart-mode`, `phobosnav depart-resume` and `phobosnav depart-stop`.
 They use the same services and preparation checks as the hub.
 
-Before departure, bring the captain and player-controlled crew aboard, seal
+Before departure, bring every native company-roster member aboard, seal
 departure airlocks, repair and power the navigation equipment, and provide working
 RCS with at least 42 m/s reserve. This reserve is an authored admission allowance
 for the bounded local manoeuvre, not a prediction of every possible detour.
 The ship must have exactly one external connection and no secured tow brace.
 Orbital stations may have other ships connected: only this ship's exact connection
 is released. Ground stations and ambiguous attachment groups are excluded.
+
+Auto Nav 0.19.1 uses Framework 0.25.1's shared company-roster check. A roster
+member whose object is missing or unloaded also blocks departure; the mod does
+not silently dismiss them or modify the save to clear the restriction.
 
 Obtain native **PUSHBACK & TAXI** clearance from a station or a connection to a
 ship you do not own. An owned native mooring needs no invented ATC clearance.

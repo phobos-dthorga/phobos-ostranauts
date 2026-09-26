@@ -17,6 +17,14 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Fixed unreachable INSTALL entries; Firstlight-4, Hearth-2 and W2 appear under APPS, and irrigation conduit under MISC, including damaged forms. Existing inputs, placement and saved IDs are preserved.
 
+## [0.12.1] - 2026-09-26 - Draft
+
+### Fixed
+
+- Encode an absent dosing selection and idle or supplement-free workup state with explicit empty-state markers accepted by Framework's save wrapper. This fixes the Protected dosing binding fault and the related Protected workup state fault.
+- Preserve exact selected input identities and paid workup energy. Unknown, corrupt and foreign records remain protected; no saved cargo, crop or material record is rewritten as recovery.
+- Add save-wrapper roundtrip coverage for idle equipment, recovery and formulation. Restart and reload after updating; gameplay validation remains owner-run.
+
 ## [0.12.0] - 2026-09-26 - Draft
 
 ### Crew automation

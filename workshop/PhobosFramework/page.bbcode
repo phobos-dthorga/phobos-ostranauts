@@ -16,7 +16,7 @@ Provides the checked bounds calculation used by Shipbreaker 0.19.1 to mitigate r
 [h2]Shared completion cues[/h2]
 One optional quiet completion channel now supports watched D4/R4 batches, meals, whole-crop readiness and finite navigation arrivals. Volume/mute and burst suppression apply across the suite. Original procedural audio; no native recordings copied. No saved watch replay. Gameplay/listening review pending.
 [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/shared-completion-cues.md]Supported events and shared controls[/url]
-[b]Version:[/b] 0.25.0
+[b]Version:[/b] 0.25.1
 [b]Publication status:[/b] Not published - development candidate
 
 Shared foundations for the Phobos Ostranauts mods and other mod authors. Install this alongside a content mod; Framework does not add a complete gameplay activity on its own.
@@ -72,6 +72,9 @@ Framework 0.24.2 shares a presentation-only rule used by Agriculture 0.11.1 and 
 [h2]Bulk merchant stock[/h2]
 Quantity-aware merchant and regional-stock overloads request bounded physical lots while retaining the old single-unit API. Probability and stock condition remain independent; native and third-party branches and existing inventories are preserved.
 Normal restocking is required; updating does not refill existing shops. [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/merchant-stock.md]Current quantities and restocking guide[/url]. Prepared candidate; in-game stock/capacity review pending.
+
+[h2]Crew roster correction[/h2]
+Framework 0.25.1 fixes repeated CrewWork.Poll null exceptions by using the native company roster for work discovery, crew controls and time-skip preview. Missing or unloaded crew do not block other workers; departure still requires every roster member aboard. Saved orders and training are preserved. Automated regression checks are not gameplay validation.
 
 [h2]Crew standing orders[/h2]
 Added default-disabled standing orders, native task publication, exact worker context, equipment/input/capacity reservations, per-crew permissions and shared roster/equipment/C1 controls. Added persistent specialities and powered-terminal study; completed practice and study combine toward authored 20-hour/10-hour thresholds, with a 20% hands-on duration benefit. Existing terminal actions are retained. Added bounded native time-skip coordination, checked travel/handling budgets, measured machine ticks and repair-time sharing. Native rest, care, events, payroll and fuel remain native; exterior operations suspend. Saved manual stops and routine resume preferences remain authoritative. Unknown saved records are retained and blocked.

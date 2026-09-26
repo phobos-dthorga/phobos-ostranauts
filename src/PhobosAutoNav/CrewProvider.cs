@@ -39,6 +39,7 @@ internal sealed class NavigationCrewProvider : ICrewWorkProvider,ICrewBoundProvi
 
 internal sealed partial class NavigationService
 {
+    private static bool CrewAboard(Ship ship) => CrewWork.AllCrewAboard(ship);
     partial void CrewResumePolicy(CondOwner co,ref bool permitted)
     { if(CrewWork.Order(co).Recipe=="resume-flight")permitted=false; }
     partial void CrewManualStop(CondOwner co)=>CrewWork.ManualStop(co);

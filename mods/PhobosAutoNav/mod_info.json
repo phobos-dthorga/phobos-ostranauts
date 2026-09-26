@@ -4,7 +4,7 @@
     "strAuthor": "phobosgekko; guidance adapted from Gravy/mrkmg's Auto Navigate",
     "strModURL": "https://github.com/phobos-dthorga/phobos-ostranauts",
     "strGameVersion": "1.0.1.5",
-    "strModVersion": "0.19.0",
+    "strModVersion": "0.19.1",
     "strNotes": "Shared tall Polaris flight hub: N1 navigation/docking, N2 pursuit and N3 Fire Control System. N3 independently supplies qualified weapon observations, 1–9 explicitly authorized volleys and optional RCS aiming. N2 no longer authorizes firing. Cease Fire and reload retain offensive Hold until Return to Native; no fire permission or live aiming is restored. Five compact tabs, unchanged approved faceplate and native controls. Place PhobosNavFlightHub through native Edit; existing positions stay intact. Approach & Dock retains checked native clearance/ports and an RCS-only terminal handoff. Requires Framework 0.23.0+. Prepared offline; owner gameplay evaluation and upstream provenance review remain pending. Not published. Version 0.16.0 adds an exclusive industrial approach/readiness/release service for selected N1/N2 hardware, used by Shipbreaker native capture. Industrial permission always ends on reload; no cutting is supplied."
   }
 ]

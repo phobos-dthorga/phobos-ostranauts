@@ -97,7 +97,7 @@ internal sealed partial class NavigationService
             CrewSim.system!.IsInAtmo(own) || ReadThrottle(co)<=0 || OtherControllerBusyExceptIndustrial()) return Text.Get("Departure.hardware");
         if(own.RCSCount<=0||own.GetRCSRemain()<=0||own.objSS==null||!ArrivalBrake.Finite(own.RCSAccelMax)||own.RCSAccelMax<=0) return Text.Get("Departure.reserve");
         var nativeProblem=NativeControlProblem(co);if(nativeProblem!=null)return nativeProblem;
-        if(CrewSim.aCrew==null || CrewSim.aCrew.Any(c=>c!=null && !c.bDestroyed && c.ship!=own)) return Text.Get("Departure.crew");
+        if(!CrewAboard(own)) return Text.Get("Departure.crew");
         if(own.GetCOs(null,false,false,true).Any(c=>c.HasCond("IsInstalled") && c.HasCond("IsDockSys") && (c.HasCond("IsOpen") || c.HasCond("IsDamaged")))) return Text.Get("Departure.seal");
         // Native attached delta-v includes the station's mass; departure uses this ship's own propulsion and mass.
         double reserve=own.DeltaVRemainingRCS*(attached?own.RCSAccelMaxUndocked/own.RCSAccelMax:1)/AutoNavCore.M_TO_AU;

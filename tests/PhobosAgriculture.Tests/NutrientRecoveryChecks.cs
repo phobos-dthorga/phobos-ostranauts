@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using PhobosAgriculture.Core;
 using Phobos.Ostranauts.Framework.Liquids;
+using Phobos.Ostranauts.Framework.Persistence;
 
 internal static class NutrientRecoveryChecks
 {
@@ -43,6 +44,33 @@ internal static class NutrientRecoveryChecks
         Reject(()=>new NutrientCharge(.04,double.NaN),"Nonfinite charge rejected");
         var job=new WorkupJob{Mode="formulate",Input="exact-source",Supplement="exact-makeup",Energy=.001};
         var loaded=WorkupJob.Read(job.Save());check(loaded.Input==job.Input && loaded.Supplement==job.Supplement && loaded.Energy==job.Energy,"Workup retains exact input identities and paid energy");
+        foreach(var work in new[]{new WorkupJob(),new WorkupJob{Mode="recover",Input="exact-residue",Energy=.007},job})
+        {
+            var maps=new Dictionary<string,Dictionary<string,string>>();
+            var store=new ObjectStateStore(maps,"AgricultureWorkup","test",1);
+            check(store.TryWrite(work.Save()),"Idle, recovery and formulation workup fit the real state envelope");
+            check(store.Read(out var fields)==SavedStateStatus.Ready,"Workup envelope reads as valid");
+            var roundTrip=WorkupJob.Read(fields);
+            check(roundTrip.Mode==work.Mode&&roundTrip.Input==work.Input&&roundTrip.Supplement==work.Supplement&&roundTrip.Energy==work.Energy,
+                "Workup envelope preserves exact bindings and paid energy including absent inputs");
+            maps["PhobosState.AgricultureWorkup"]["schema"]="2";
+            check(!store.TryWrite(new WorkupJob().Save())&&maps["PhobosState.AgricultureWorkup"]["schema"]=="2","Future workup state remains untouched");
+        }
+        foreach(var source in new[]{"","exact-dosing-charge"})
+        {
+            var maps=new Dictionary<string,Dictionary<string,string>>();
+            var store=new ObjectStateStore(maps,"AgricultureDosing","test",1);
+            check(store.TryWrite(DosingBinding.Save(source)),"Absent or exact dosing choice fits the real state envelope");
+            check(store.Read(out var fields)==SavedStateStatus.Ready&&DosingBinding.Read(fields)==source,"Dosing choice survives envelope roundtrip");
+            maps["PhobosState.AgricultureDosing"]["owner"]="another-provider";
+            check(!store.TryWrite(DosingBinding.Save(""))&&maps["PhobosState.AgricultureDosing"]["data.source"]==fields["source"],"Foreign dosing state is preserved");
+        }
+        Reject(()=>DosingBinding.Save("none"),"Reserved sentinel cannot bind a physical dosing item");
+        Reject(()=>DosingBinding.Save(new string('x',201)),"Oversized dosing identity remains invalid");
+        Reject(()=>DosingBinding.Read(new Dictionary<string,string>{{"source",""}}),"Malformed empty stored binding is not silently recovered");
+        Reject(()=>new WorkupJob{Mode="recover",Input="none"}.Save(),"Reserved workup input is not a physical item");
+        Reject(()=>new WorkupJob{Mode="recover",Input="unsafe=source"}.Save(),"Unsafe workup identity rejected before envelope mutation");
+        Reject(()=>new WorkupJob{Energy=.001}.Save(),"Idle workup cannot retain unexplained paid energy");
         Reject(()=>new WorkupJob{Mode="future",Input="source"}.Save(),"Unknown job cannot run");
         Near(RecyclerRejectBudget.Rejected(10,6,4),4,"Recycler captures wet remainder, not dry nutrient");
         Near(RecyclerRejectBudget.Seconds(100,1,.6,4),10,"Full reservation bounds provider processing time");

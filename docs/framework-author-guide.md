@@ -679,6 +679,13 @@ industrial routing. See [the concrete consumer](agriculture-nutrient-production.
 
 See [crew automation, specialities and time-skips](crew-automation.md) for default-disabled orders, native duty/AutoTask rules, approved stores, training, saved stops and supported onboard work. Industrial batches, exterior missions and crew-launched flight require explicit Resume. Gameplay and UI checks remain owner-run.
 
+Framework 0.25.1 resolves available crew through Blue Bottle Games' native
+`JsonCompany.GetCrewMembers` roster API, including for panels and skip preview.
+The legacy `CrewSim.aCrew` field is not initialized in the inspected 1.0.1.5 code.
+`CrewWork.AllCrewAboard(ship)` is a stricter departure guard: unavailable company
+data, an empty roster, unresolved members and members away from that ship block
+permission. It does not remove roster entries or alter native saves.
+
 Register an additive `Crew.ICrewWorkProvider` through `CrewWork.Register` during
 plugin initialization. `Next` reports an offer and a localized blocker without
 advancing production. `Complete` receives the actual `CrewWorkContext.Actor`

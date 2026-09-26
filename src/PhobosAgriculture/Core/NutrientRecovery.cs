@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using Phobos.Ostranauts.Framework.Persistence;
 
 namespace PhobosAgriculture.Core;
 
@@ -73,15 +74,22 @@ public sealed class WorkupJob
     public WorkupJob Copy() => (WorkupJob)MemberwiseClone();
     public Dictionary<string,string> Save()
     {
-        if ((Mode != "" && Mode != "recover" && Mode != "formulate") || !CropState.Finite(Energy) || Energy < 0 || Energy > 100 ||
+        if (Input == null || Supplement == null || Input == "none" || Supplement == "none" ||
+            (Mode != "" && Mode != "recover" && Mode != "formulate") || !CropState.Finite(Energy) || Energy < 0 || Energy > 100 ||
             (Mode.Length == 0 && (Input.Length > 0 || Supplement.Length > 0 || Energy != 0)) || (Mode.Length > 0 && Input.Length == 0) ||
             (Mode == "formulate" && Supplement.Length == 0) || (Mode == "recover" && Supplement.Length > 0)) throw new ArgumentException("Invalid workup job.");
-        return new() { ["mode"] = Mode, ["input"] = Input, ["supplement"] = Supplement, ["energy"] = Energy.ToString("R", CultureInfo.InvariantCulture) };
+        var fields = new Dictionary<string,string> { ["mode"] = Mode.Length == 0 ? "none" : Mode,
+            ["input"] = Input.Length == 0 ? "none" : Input, ["supplement"] = Supplement.Length == 0 ? "none" : Supplement,
+            ["energy"] = Energy.ToString("R", CultureInfo.InvariantCulture) };
+        foreach(var value in fields.Values) if(!ObjectStateStore.SafeValue(value)) throw new ArgumentException("Unsafe workup identity.");
+        return fields;
     }
     public static WorkupJob Read(IReadOnlyDictionary<string,string> d)
     {
         if (d.Count != 4) throw new ArgumentException("Unknown workup job fields.");
-        var job = new WorkupJob { Mode=d["mode"], Input=d["input"], Supplement=d["supplement"], Energy=double.Parse(d["energy"],CultureInfo.InvariantCulture) };
+        foreach(var value in d.Values) if(!ObjectStateStore.SafeValue(value)) throw new ArgumentException("Unsafe workup record.");
+        var job = new WorkupJob { Mode=d["mode"]=="none"?"":d["mode"], Input=d["input"]=="none"?"":d["input"],
+            Supplement=d["supplement"]=="none"?"":d["supplement"], Energy=double.Parse(d["energy"],CultureInfo.InvariantCulture) };
         job.Save(); return job;
     }
 }

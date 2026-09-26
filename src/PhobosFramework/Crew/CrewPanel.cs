@@ -50,7 +50,7 @@ public sealed class CrewPanel : GUIData
         W.Label(content,CrewWork.Message("orders_help"));
         foreach(var co in CrewWork.Equipment(ship))
         { var id=co.strID; W.Button(content,co.strNameFriendly+" — "+CrewWork.Status(co),()=>{equipmentId=id;Build();}); }
-        foreach(var actor in CrewSim.aCrew.Where(c=>c!=null && c.ship==ship))
+        foreach(var actor in CrewRoster.Members().Where(c=>c.ship==ship))
         {
             W.Label(content,actor.FriendlyName);
             foreach(CrewRole role in Enum.GetValues(typeof(CrewRole)))

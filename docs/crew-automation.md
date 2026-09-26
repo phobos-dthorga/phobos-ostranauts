@@ -4,6 +4,22 @@ Prepared in Framework 0.25.0, Agriculture 0.12.0, Shipbreaker 0.25.0 and
 Auto Nav 0.19.0. These are unpublished development candidates. Automated
 checks do not establish in-game behaviour or UI fit.
 
+The owner's subsequent game report exposed repeated `CrewWork.Poll` null
+exceptions. Framework 0.25.1 uses Blue Bottle Games' native company roster
+(`JsonCompany.GetCrewMembers`), as the native time-skip screen does; the older
+`CrewSim.aCrew` field is not populated in the inspected 1.0.1.5 code. Work discovery,
+controls and skip preview share the correction. Auto Nav 0.19.1 also fixes its
+departure check through this service, retaining a block for unresolved or away crew.
+These are code-inspection findings, with owner-observed exceptions; successful
+live operation after the fix still needs owner confirmation.
+
+Agriculture 0.12.1 fixes a separate logged `Protected dosing binding` fault and
+the related idle/recovery workup save format. Absent selections use explicit
+markers accepted by the saved-state wrapper, while exact input IDs and paid
+energy remain intact. Restart and reload after installing. Transient session
+faults are revalidated; genuinely corrupt, future or foreign saved records remain
+protected. No automatic save repair or cargo replacement is performed.
+
 ## Giving work to the crew
 
 Open **Crew standing orders and training** from the roster, an equipment
@@ -181,6 +197,15 @@ Ostranauts 1.0.1.5 / BepInEx 5.4.23.5 with no compiler warnings or errors:
 Counts describe assertions in offline suites, including existing regressions;
 they are not counts of live crew scenarios. No Unity/game session was controlled
 or used to claim gameplay validation.
+
+The 0.25.1/0.12.1/0.19.1 corrective builds subsequently passed 8,639 Framework
+checks, 17 roster checks with native boundary doubles, 824 Agriculture checks
+and 9,973 native definition/API checks, plus the existing Auto Nav suites.
+The roster checks reproduce an absent legacy crew list alongside valid, missing,
+destroyed and partially loaded members, including stricter departure admission.
+Agriculture tests exercise idle, recovery and formulation through the actual
+saved-state wrapper, preserving input IDs, paid energy and protected records.
+These tests confirm the corrected code paths offline, not live Unity behaviour.
 
 Gameplay validation remains owner-run. Check these on a copy of an ordinary save:
 
