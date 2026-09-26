@@ -8,6 +8,7 @@ Dates on Draft entries record preparation, not Steam publication.
 
 ### Documentation
 
+- Document the third room-load recurrence: the grid guard trusted dimensions recorded before native save trimming. Framework 0.24.1 corrects validated stale headers before padding and synchronizes future outgoing saves after trimming. The earlier marker-health fix was owner-confirmed; the new before/after archive checks are offline, with gameplay confirmation pending.
 - Document the wear-related save-load recurrence and Framework 0.23.1 correction. Native marker rejection could remove the pending G4/H4 before Shipbreaker's grid guard ran; retain the existing grid protection and update Framework. The earlier successful owner test remains valid for its original save, not proof of all later reloads.
 - Correct the F6 operating guide's direct versus powered-pipe cooling behavior, circulation/feed demand and damaged-pump limits. Point current-version checks to maintained references rather than historical installation notes.
 - Clarify that Manufacturing and autonomous G4 reclamation are separate implementation tracks; current material receipt does not authorize repeated furnace batches or replace motion interlocks.

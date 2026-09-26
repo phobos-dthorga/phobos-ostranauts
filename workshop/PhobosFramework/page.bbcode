@@ -1,6 +1,9 @@
 [h1]Phobos Framework[/h1]
+[h2]Trimmed-grid save correction in 0.24.1[/h2]
+Synchronizes outgoing saved dimensions after native grid trimming and validates already-affected headers against their exterior boundary and saved room positions. Corrects the inspected Ostranauts 1.0.1.5 save-order defect before Shipbreaker's grid guard runs. Room IDs, atmosphere, zones, items and construction progress are retained; original archives are not edited. Ambiguous records remain untouched. Both reported archives pass offline checks; gameplay confirmation of this third fix is pending.
+[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/shipbreaker-room-load-mitigation.md]Evidence, limits and reload instructions[/url]
 [h2]Saved construction-marker health in 0.23.1[/h2]
-Corrects the inspected Ostranauts 1.0.1.5 loader's zero-health comparison for living saved construction markers with recorded remaining health. Retains original damage and construction progress for verified vanilla and available mod targets. No save-file editing, free repairs or resurrection of destroyed equipment. Keep Shipbreaker 0.19.1+ for its separate saved-grid guard. Both supplied saves were checked offline; gameplay confirmation of this follow-up remains pending.
+Corrects the inspected Ostranauts 1.0.1.5 loader's zero-health comparison for living saved construction markers with recorded remaining health. Retains original damage and construction progress for verified vanilla and available mod targets. No free repairs or resurrection of destroyed equipment. Keep Shipbreaker 0.19.1+ for its separate saved-grid guard. The owner confirmed the reported wear-related reload worked; the later stale-header case is addressed separately in 0.24.1.
 [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/shipbreaker-room-load-mitigation.md]Evidence, limits and reload check[/url]
 [h2]Solar-system economy in 0.23.0[/h2]
 Shared verified vanilla retail endpoint lookup and additive regional offers. Missing optional kiosks are reported and skipped without redirecting stock or disabling content. Consumers retain ownership of balance; native market pricing and inventories remain authoritative.
@@ -13,7 +16,7 @@ Provides the checked bounds calculation used by Shipbreaker 0.19.1 to mitigate r
 [h2]Shared completion cues[/h2]
 One optional quiet completion channel now supports watched D4/R4 batches, meals, whole-crop readiness and finite navigation arrivals. Volume/mute and burst suppression apply across the suite. Original procedural audio; no native recordings copied. No saved watch replay. Gameplay/listening review pending.
 [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/shared-completion-cues.md]Supported events and shared controls[/url]
-[b]Version:[/b] 0.24.0
+[b]Version:[/b] 0.24.1
 [b]Publication status:[/b] Not published - development candidate
 
 Shared foundations for the Phobos Ostranauts mods and other mod authors. Install this alongside a content mod; Framework does not add a complete gameplay activity on its own.

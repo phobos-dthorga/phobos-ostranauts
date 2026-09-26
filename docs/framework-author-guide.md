@@ -15,6 +15,17 @@ saved placeholder and require both target definitions. Never edit damage or
 progress. Templates, missing providers, ambiguous records and genuinely exhausted
 health retain native behavior. Nested and failed load scopes unwind through a
 Harmony finalizer. See the linked investigation for read-only save audits and limits.
+
+Framework **0.24.1** also corrects the inspected native save-trimming order.
+`Ship.GetJSON` captures dimensions before trimming but serializes origin/rooms/zones
+afterwards. A postfix synchronizes outgoing full-game-save dimensions with the
+post-trim live count and origin. A separate `Ship.InitShip` prefix validates already
+inconsistent headers through `Persistence.SavedRoomGrid`: require a unique smaller
+grid, complete exterior boundary and every saved Compartment item's position in
+its own room. Correct dimensions before `SpawnItems` and any padding consumers;
+never remap tiles or replace gas records. Templates, shallow-only calls and
+ambiguous records stay native. Read-only `--audit-room-grid` native-test mode and
+the incident guide describe the supplied before/after saves and owner checks.
 Content owns a transient `Audio.CompletionWatch`, arms it after access checks with
 actor/ship IDs, and calls `Audio.CompletionCues.Complete` only after a real committed
 result. Cancel on stop, suspension, faults and reload. Use `CompletionCues.VolumeLabel`

@@ -1,4 +1,6 @@
 {
+  "SavedGridHeader.load": "Ship {0}: corrected stale saved grid header from {1}x{2} to {3}x{4} in memory using the exterior boundary and saved room positions. Room, zone, atmosphere and item records are unchanged.",
+  "SavedGridHeader.save": "Ship {0}: synchronized outgoing saved grid dimensions from {1}x{2} to {3}x{4} after native trimming. Room and zone indices already use the trimmed grid.",
   "PlaceholderHealthLoad.retained": "Ship {0}: retained {1} saved construction markers using their recorded remaining health instead of the generic zero-health template. Damage and construction progress are unchanged.",
   "Audio.volume_help": "Shared quiet completion level for all Phobos mods, 0 to 1 (0 mutes). Also follows native effects volume. Each supported operation must be explicitly watched; suppressed events never replay.",
   "Audio.volume_label": "All Phobos completion cues: {0}% (change / mute)",

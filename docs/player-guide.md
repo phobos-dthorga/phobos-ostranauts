@@ -20,11 +20,12 @@ For equipment placement, see the [native INSTALL catalogue and tab locations](in
 
 Shipbreaker 0.19.1 introduced a
 [pending-construction room-load mitigation](shipbreaker-room-load-mitigation.md).
-Keep that grid guard and update to Framework **0.23.1** for a second trigger:
-native loading could discard lightly worn construction markers as zero-health
-objects before the guard ran. The follow-up preserves recorded damage and
-progress; neither guard restores gas lost before saving. The first owner-tested
-reload succeeded; gameplay confirmation of the wear-related follow-up is pending.
+Keep that grid guard and update to Framework **0.24.1** for both follow-ups:
+preserve living worn markers and correct stale dimensions recorded before native
+save trimming. The third fix validates existing headers before padding and keeps
+future saves consistent with the trimmed grid. Saved room, zone, damage and
+progress records are retained; already-lost gas is not recreated. The owner
+confirmed the first two fixes; gameplay confirmation of the third is pending.
 
 New here? Read [getting started](getting-started.md) for download availability,
 prerequisites and experimental status. Need help? See [support](../SUPPORT.md).
@@ -32,7 +33,7 @@ prerequisites and experimental status. Need help? See [support](../SUPPORT.md).
 Agriculture is a prepared candidate with visible crop growth, cooking equipment and optional [water conduits](agriculture-water-conduits.md): see the [cultivation and cooking guide](agriculture-player-guide.md). Nutrient-solution piping requires Framework 0.19.0; optional C1 integration uses Shipbreaker 0.14.0 or later. Owner gameplay evaluation is pending.
 
 
-**Prepared versions:** Phobos Framework **0.24.0**, Shipbreaker **0.24.0**, Auto Nav
+**Prepared versions:** Phobos Framework **0.24.1**, Shipbreaker **0.24.0**, Auto Nav
 **0.18.0**, built against Ostranauts **1.0.1.5** / BepInEx **5.4.23.5**.
 These versions support ordinary saves. Builds and offline checks do not establish
 in-game compatibility. This guide describes the prepared packages, not a claim

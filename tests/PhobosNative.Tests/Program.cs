@@ -44,6 +44,12 @@ Load(Path.Combine(native, "loot"), DataHandler.dictLoot, x => x.strName);
 Load(Path.Combine(repo, "mods/PhobosShipbreaker/data/conditions"), DataHandler.dictConds, x => x.strName);
 Load(Path.Combine(repo, "mods/PhobosShipbreaker/data/condtrigs"), DataHandler.dictCTs, x => x.strName);
 PlaceholderHealthChecks.Run(Check);
+SavedGridHeaderChecks.Run(Check);
+if (args.Length == 5 && args[2] == "--audit-room-grid")
+{
+    SavedGridHeaderChecks.Audit(args[3], args[4]);
+    return;
+}
 if (args.Length == 5 && args[2] == "--audit-placeholder-health")
 {
     PlaceholderHealthChecks.Audit(args[3], args[4]);

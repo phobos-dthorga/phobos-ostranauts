@@ -1,0 +1,16 @@
+[h1]Phobos Framework 0.24.1[/h1]
+[b]Draft - not published | 2026-09-26[/b]
+
+[h2]Fixed[/h2]
+
+[list]
+[*]Correct outgoing ship dimensions after native save trimming. Blue Bottle Games' inspected Ostranauts 1.0.1.5 writes dimensions before trimming but room/zone indices afterwards; removal of edge objects can therefore produce an internally inconsistent save.
+[*]Load an affected save using a uniquely validated smaller grid, requiring the full exterior boundary and all saved room positions to agree. Correct only in-memory dimensions before Shipbreaker's padding guard. Preserve room IDs, atmosphere, zones, items, wear and construction progress; reject missing or ambiguous evidence. Original archives are not edited.
+[*]The supplied later autosave resolves from its stale 64-by-44 header to 63 by 44, restoring all eight room-position lookups offline. The earlier save remains 64 by 44. Both earlier guards ran; trusting the stale header was the remaining Phobos contribution. See the [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/shipbreaker-room-load-mitigation.md]evidence and reload check[/url].
+[/list]
+
+[h2]Compatibility and limits[/h2]
+
+[list]
+[*]Framework-only update retaining Shipbreaker's existing grid guard, including 0.23.0 from the failure log and 0.24.0 present at delivery. The owner associates the recurrence with torch use and a six-hour time skip; those triggers are not independently established. The earlier marker-health fix was owner-confirmed, while this third fix awaits gameplay confirmation. No lost gas is invented, and no drive/time controls, saved identities or recipe contracts are changed.
+[/list]

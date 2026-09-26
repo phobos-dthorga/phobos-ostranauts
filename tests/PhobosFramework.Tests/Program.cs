@@ -14,6 +14,7 @@ LocalizationChecks.Run(Check);
 CompletionCueChecks.Run(Check, (action, message) => { bool failed = false; try { action(); } catch { failed = true; } Check(failed, message); });
 SavedStateChecks.Run(Check);
 SavedGridBoundsChecks.Run(Check);
+SavedRoomGridChecks.Run(Check);
 SavedPlaceholderHealthChecks.Run(Check);
 ConsoleAccessChecks.Run(Check);
 ObservationChecks.Run(Check);

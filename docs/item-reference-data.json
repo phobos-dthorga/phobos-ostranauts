@@ -4505,7 +4505,7 @@
     {
       "id": "PhobosFramework",
       "name": "Phobos Framework",
-      "version": "0.24.0",
+      "version": "0.24.1",
       "gameTarget": "1.0.1.5",
       "items": [
         {
@@ -10807,7 +10807,7 @@
     "mods/PhobosAutoNav/mod_info.json": "5662c2bbc828c2d604b35002f5312c262d04cfe0003f5b2c240a49e17b02aee1",
     "mods/PhobosFramework/data/conditions/phobos_framework.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
     "mods/PhobosFramework/framework/equipment-names.json": "8d64a49207830ca57808d0de92ac82feaf95fb200dd550888e795bb7ed37afb7",
-    "mods/PhobosFramework/mod_info.json": "0504842d09ecf90825910343fe13d24113b8c332d1a66b78c8b3b9b972edee15",
+    "mods/PhobosFramework/mod_info.json": "85411a06e4a7fb507f414f71f6a16d5330be8405bc2018ad2ee66c5ec33a4cc9",
     "mods/PhobosManufacturing/data/conditions/phobos_manufacturing.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
     "mods/PhobosManufacturing/mod_info.json": "ca699100a8084899d77a65e2a54e6d94c9b67f808addfe5367ea2306d4fce21b",
     "mods/PhobosShipbreaker/crafting/recipes.json": "8b0f034a7c732fec44ac31585321347040ee2074cd330cd3e5ecb90bb4ab7df4",
@@ -10947,9 +10947,11 @@
     "src/PhobosFramework/Persistence/ObjectStateStore.cs": "97a5cad6999e7d60baedb565d162f9cd1435b85ecda6ba814b4e564519d8fd01",
     "src/PhobosFramework/Persistence/PlaceholderHealthLoad.cs": "a93304c9830550983ddd83a64dd7ea562c1de32d4ddc849bf7b5f61ea34764b3",
     "src/PhobosFramework/Persistence/SavedGridBounds.cs": "6c8849d2e88311ffd2cb6e3124f4a29fb52d194faa5ce814e08514c710734af0",
+    "src/PhobosFramework/Persistence/SavedGridHeader.cs": "b7ef65702f570dfb2d267b97c726e2ba02b420bfbbc2c5471ef4ac7479874bb2",
     "src/PhobosFramework/Persistence/SavedPlaceholderHealth.cs": "358c35db2a5f73335cc5930e808c25817da5fa6b1d9d91c217c5a119f26db91d",
-    "src/PhobosFramework/PhobosFramework.csproj": "fe9261db757c43539efd4ca445b8e13ad337d15fb28f91fa8a20af342895aa1a",
-    "src/PhobosFramework/Plugin.cs": "57777b37ca0d73ea24ffee0cd40ab26e6b81702b05be3019e63c1d90edf32140",
+    "src/PhobosFramework/Persistence/SavedRoomGrid.cs": "d7d70aba54e777d96d3079318f75320fb981a6dba8f3728570c84b8e54072fbe",
+    "src/PhobosFramework/PhobosFramework.csproj": "52135fe87a85f3150d16f3899752efd91444f5b0eaad5a2799233f291d550364",
+    "src/PhobosFramework/Plugin.cs": "363877333b089192f34bdaeb48507ef27982725f5225f2e3dbbb10a736e0a1a6",
     "src/PhobosFramework/Processing/EnergyReceipt.cs": "cb31cd45ea69ee8d182b0578f50540393bd70e63e918a161f04f2b6a290199b2",
     "src/PhobosFramework/Processing/GasParcel.cs": "814357580cf3b2f7257a67042454823b454437f1fda38488521b66621e081fa3",
     "src/PhobosFramework/Processing/NativeEnergyReceipts.cs": "ed52382413127a5acd3700070f5d19975aec54c953d2fb2fa09eef08836fbe5e",
@@ -11043,10 +11045,10 @@
     "src/PhobosShipbreaker/Text.cs": "2a0b7890addcbb0f4f8f71c48373cf352d7af8379905b01b1bc48bd0f84f7846",
     "tests/PhobosNative.Tests/EquipmentValueAudit.cs": "cca95052803934b6ac8af32979f066ca064942ca79ac87e4ec94b8b183815cac",
     "tests/PhobosNative.Tests/ItemReferenceExport.cs": "02ecdd4317fc335e5932f163c95d6915fd3089991f1b7a9a22d99f05414524eb",
-    "tests/PhobosNative.Tests/Program.cs": "b4d0046eb51f1d98e7e7e8c2ffe24b81276b877be0129e7815ccbc7be22074bf",
+    "tests/PhobosNative.Tests/Program.cs": "7316ab402b6bd3dd115ea90dfd5c50463cb66023045f4c8cdc8756192e14ebc2",
     "translations/PhobosAgriculture/en.json": "abb5001b0935b58939c4b5a14a5bf6668e2570456006a2216ec858a619231787",
     "translations/PhobosAutoNav/en.json": "257655904e9888d3d944f2425b0bdab25e4a858d21cdf1da0354f921b01063fe",
-    "translations/PhobosFramework/en.json": "112421a1155411a5f978bc3193ddad8e32fbc66a51039a2f808d548ba6b05cc1",
+    "translations/PhobosFramework/en.json": "e6a9f47dd53a8b64e6f4f3961b63a9dcb47b30d001bddb6b0c9c158f85f53adb",
     "translations/PhobosManufacturing/en.json": "3b3f3aa7f3c8c1124e6452335a634cf6e591dbe99021b2ec24bc61ae5b0524c0",
     "translations/PhobosShipbreaker/en.json": "4128c653437afe545994e1905da069cdc296a5a5d308953804aa14368975a390"
   }

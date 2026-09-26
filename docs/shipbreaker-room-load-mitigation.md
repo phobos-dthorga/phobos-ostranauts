@@ -1,9 +1,11 @@
 # Pending Shipbreaker construction and saved rooms
 
-Use **Framework 0.23.1** with Shipbreaker **0.19.1 or newer** for both identified
-loading defects. Framework now prevents false destruction of living saved
-construction markers; Shipbreaker preserves checked saved grid bounds. The second
-fix was verified against both supplied saves offline; its gameplay check is pending.
+Use **Framework 0.24.1** with Shipbreaker **0.19.1 or newer** for the three
+identified failures. Framework preserves living saved construction markers,
+validates stale grid headers and records dimensions after native save trimming;
+Shipbreaker preserves checked loading bounds for its pending equipment.
+The owner confirmed the first two fixes on their reported saves. The third,
+described below, passes offline checks and awaits owner gameplay confirmation.
 
 Shipbreaker **0.19.1** with Framework **0.21.1** introduced a narrowly scoped
 mitigation for atmosphere loss while loading saves with pending Shipbreaker
@@ -12,7 +14,89 @@ rooms and zones. On 26 September 2026, the owner reported that the patched
 reload worked well. This confirms the reported case by owner observation;
 broader save/reload coverage remains unverified.
 
-## Later recurrence: marker wear and zero template health
+## Third incident: dimensions captured before save trimming
+
+The owner's later 26 September report supplied `pg17` (05:33:29 local save
+metadata) and `autosave_293_pg17` (05:39:33), and associated the recurrence with
+torch use and skipping six hours. The running log records Framework 0.24.0 and
+Shipbreaker 0.23.0. Both earlier protections **ran**: the loader retained 58 worn
+markers and expanded its grid from 63 by 44 to the header's 64 by 44. Nevertheless,
+four duplicate-room lookups and five ghost-room removals followed.
+
+**Observed save/log evidence:** `pg17` consistently uses 64 columns, 44 rows and
+origin (-33,-14). In the autosave, all eight room positions, the complete exterior
+border and the zone indices instead agree on **63 columns by 44 rows**, with
+origin (-32,-14). Its header alone still says 64 columns. The log explicitly
+records B-14EA changing from **2816 to 2772 tiles during saving**, then regenerating
+the eight room IDs found in that autosave. The seven interior rooms still retain
+approximately **101.28–101.39 kPa**. Their gas records have not yet been lost in
+the supplied archive.
+
+| Actual saved room lookup, width 63 | Incorrect lookup using header width 64 |
+| --- | --- |
+| 1111 | 1128 |
+| 1120 | 1137 |
+| 1410 | 1432 |
+| 2297 | 2333 |
+
+All four incorrect indices match the recorded load errors. The earlier Phobos
+grid guard contributed to this recurrence by trusting the stale header and
+expanding an already-correct 63-column loading grid. The new correction must run
+before that guard; simply retaining the worn markers cannot solve this case.
+
+**Locally inspected native cause:** [Blue Bottle Games' Ostranauts](https://bluebottlegames.com/ostranauts)
+1.0.1.5 `Ship.GetJSON` copies dimensions before `TileUtils.TrimAllSides`, but saves
+the origin, item positions, rooms and zones afterwards. If native trimming removes
+an empty edge during that save, the archive combines dimensions from one grid
+with indices from another. This is a source/log/save diagnosis, not a developer
+confirmation or an independently reproduced unmodded gameplay test.
+
+**Torch and accelerated-time evidence:** six loose trash objects along the left
+edge disappear between the two saves, including the objects at x=-32 that kept
+the extra column in use. The enclosed room tile counts stay the same. Their
+removal permits the native trim. The owner reports torch use and a six-hour time
+skip; these are relevant conditions, but the available evidence does not establish
+which activity removed the trash. Neither torch controls nor time progression
+is disabled or changed by this fix.
+
+Framework 0.24.1 has two narrow corrections:
+
+1. Before a full saved load, resolve a smaller grid only when exactly one candidate
+   matches the complete single exterior border and every same-ID saved Compartment
+   item's world position. Require unique room/anchor IDs, consistent room ownership,
+   integral coordinates and in-bounds zones. Repeated native tile entries within
+   the same room are preserved. Missing/conflicting evidence or ambiguous grids
+   are left unchanged. Correct only the in-memory dimensions, keeping the saved
+   origin and all room, gas, zone, item, damage and progress records.
+2. After native full-ship save serialization, synchronize the outgoing dimensions
+   with the post-trim live grid when its tile count and origin agree. Do not pad,
+   trim or move live geometry. Templates, shallow snapshots and inconsistent
+   native output keep their original behavior. This prevents the inconsistent
+   header from being written by subsequent ordinary saves.
+
+Read-only native DTO audits resolve **63 by 44** for `autosave_293_pg17`, matching
+all eight room anchors; `pg17` remains unchanged at **64 by 44**. Tests cover
+width/height trimming, repeated application, room/zone preservation, missing or
+duplicate anchors, ambiguous factorization, malformed bounds, native hook
+signatures and template/shallow exclusions. Repeat the archive audit with:
+
+```powershell
+dotnet run --project tests/PhobosNative.Tests -c Release "-p:OstranautsPath=$gamePath" -- $gamePath $repoPath --audit-room-grid $archivePath B-14EA
+```
+
+The delivery for this incident updates **Framework only**. The failure log used
+Shipbreaker 0.23.0; the local installation had advanced to 0.24.0 by delivery, and
+this installer run left that package intact. Both original archives and logs are copied to local ignored
+diagnostics; no save is replaced or edited. After restarting, load
+**`autosave_293_pg17`** to keep its later progress. Expect `corrected stale saved
+grid header from 64x44 to 63x44` before room loading, retained marker health, and
+no duplicate-room/ghost-room errors for B-14EA. Verify atmosphere, items, pending
+construction and stockpile zones, then save to a new slot and reload. A later
+native trim should log `synchronized outgoing saved grid dimensions` when needed.
+The unmodified earlier `pg17` remains available. Owner testing of this third fix
+is pending; no guarantee is made about already-lost gas or unrelated save defects.
+
+## Second incident: marker wear and zero template health
 
 Later on 26 September 2026, the owner supplied a new `pg15` plus the working
 preceding `autosave_285_pg15`. Logs show Framework 0.23.0 and Shipbreaker 0.21.0.
@@ -71,7 +155,9 @@ Shipbreaker 0.21.0, restart the game and load the new pg15. Look for `retained 6
 saved construction markers` and the existing `restored saved grid bounds` message
 for B-14EA. Confirm pressure, pending marker positions/progress and absence of the
 duplicate-room/ghost-room errors, then test another save/reload in a new slot.
-Gameplay confirmation of this follow-up remains pending.
+**Owner result:** after Framework 0.23.1 installation, the owner reported that
+the fix was working. This confirms that reported reload, not every future save
+or the separate stale-header case above.
 
 ## First incident: evidence and cause
 
