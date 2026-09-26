@@ -195,5 +195,9 @@
   "crew_recipe_recover-solution": "Recover recorded drainage",
   "crew_select_recipe": "Choose the crop or process for this equipment.",
   "crew_stock_met": "Stock target reached.",
-  "crew_supplies": "Missing approved supplies or free inventory space; seed and crew-water reserves are retained."
+  "crew_supplies": "Missing approved supplies or free inventory space; seed and crew-water reserves are retained.",
+  "panel_live": "Progress {0:0}% · Health {1:0}% · Water {2:0.00} kg · Nutrients {3:0.000} kg",
+  "panel_cooker": "Cooking progress {0:0}%",
+  "panel_workup": "Process: {0}\nMetered work energy: {1:0.00} kWh",
+  "panel_supply": "Plain water {0:0.00} kg · Nutrient solution {1:0.00} kg"
 }

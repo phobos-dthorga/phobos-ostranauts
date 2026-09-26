@@ -1,5 +1,9 @@
 # Crew standing orders, training and time-skips
 
+The current console redesign uses compact views and checked drafts. See the
+[control-panel guide](control-panel-guide.md) for Apply/Discard, storage selection,
+ship picking, training and the separate Unity validation checklist.
+
 Prepared in Framework 0.25.0, Agriculture 0.12.0, Shipbreaker 0.25.0 and
 Auto Nav 0.19.0. These are unpublished development candidates. Automated
 checks do not establish in-game behaviour or UI fit.
@@ -25,7 +29,7 @@ protected. No automatic save repair or cargo replacement is performed.
 Open **Crew standing orders and training** from the roster, an equipment
 panel, the C1 console or the Auto Nav hub's details page. Orders begin
 disabled. Choose the equipment's crop/process, target stock, source store
-and destination store, then Enable. Turn on AutoTask and enable the native
+and destination store, then Apply and Enable / Resume. Turn on AutoTask and enable the native
 Operate or Haul duty for the intended worker. Native repair, construction,
 restoration and demolition remain native tasks; this feature does not replace them.
 
@@ -33,7 +37,7 @@ Crew work only during their work shift. Sleep, hunger, thirst, serious pain,
 unconsciousness, emergencies, access restrictions and direct queued orders
 take precedence. Agriculture, Cooking and Industry permissions initially
 allow eligible crew; Exterior permission starts off. Change permissions per
-person in the overview. Turning off AutoTask or a duty cancels that worker's
+person under Crew & Training, then Apply. Turning off AutoTask or a duty cancels that worker's
 generated work without deleting cargo.
 
 Standing orders publish native tasks and use native claiming, routes and

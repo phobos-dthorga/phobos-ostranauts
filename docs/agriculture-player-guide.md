@@ -1,5 +1,9 @@
 # Phobos Agriculture
 
+The current console redesign uses compact views and checked drafts. See the
+[control-panel guide](control-panel-guide.md) for Apply/Discard, storage selection,
+ship picking, training and the separate Unity validation checklist.
+
 Current stock quantities: [bulk merchant lots](merchant-stock.md) supersede the older single-item offers below. These content versions require Framework 0.24.0+.
 
 Regional acquisition now covers the current vanilla solar system: see the

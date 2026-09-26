@@ -6,8 +6,18 @@ using Phobos.Ostranauts.Framework.Crew;
 
 namespace PhobosAgriculture;
 
-internal sealed class AgricultureCrewProvider : ICrewWorkProvider, ICrewSkipProvider
+internal sealed class AgricultureCrewProvider : ICrewWorkProvider, ICrewSkipProvider, ICrewOrderPresentation
 {
+    public OrderFields Fields(CondOwner co)=>OrderFields.Stock|OrderFields.Source|OrderFields.Destination|OrderFields.Routine|
+        (Definitions.IsCooker(co)||WorkupDefinitions.IsBench(co)?OrderFields.None:IrrigationDefinitions.IsSupply(co)?OrderFields.Drain:OrderFields.ClearCrops|OrderFields.Drain);
+    public IEnumerable<Ship> Targets(CondOwner co)=>Array.Empty<Ship>();
+    public OrderState Activity(CondOwner co,StandingOrder order)
+    {var s=Service.Get(co);return s.Protected||co.HasCond("IsDamaged")||co.HasCond("IsLocked")||s.State.Running&&!co.HasCond("IsPowered")?OrderState.Blocked:s.State.Running?OrderState.Running:OrderState.Waiting;}
+    public bool Validate(CondOwner co,StandingOrder draft,out string reason){reason="";return true;}
+    public bool RelevantStore(CondOwner co,StandingOrder draft,CondOwner store,bool output)=>CrewLogistics.Contents(store).Any(c=>output?IsOutput(co,c,draft):
+        Definitions.IsCooker(co)?c.strCODef==Definitions.Raw:WorkupDefinitions.IsBench(co)?
+        c.strCODef==(draft.Recipe=="recover-crop"?WorkupDefinitions.Residue:WorkupDefinitions.Concentrate)||c.strCODef==WorkupDefinitions.Makeup:
+        c.strCODef==Definitions.Irrigation||c.strCODef=="LiquidWater"||c.strCODef.StartsWith("PhobosVerdemorrow",StringComparison.Ordinal));
     public string Id => Plugin.Id;
     public bool Supports(CondOwner equipment) => Definitions.Machine(equipment);
     public bool RoutineResume(CondOwner equipment) => true;

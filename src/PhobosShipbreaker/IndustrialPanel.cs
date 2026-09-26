@@ -10,6 +10,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using Ostranauts.InputControl;
 using Ostranauts.Inventory;
+using C = Phobos.Ostranauts.Framework.Controls.ConsoleWidgets;
 using W = Phobos.Ostranauts.Framework.Controls.PanelWidgets;
 
 namespace PhobosShipbreaker;
@@ -18,9 +19,9 @@ namespace PhobosShipbreaker;
 public sealed class IndustrialPanel : GUIData
 {
     internal const string Key = "PhobosIndustrialPanel";
-    private const float HeaderHeight = 86, FooterHeight = 96, Edge = 76, ListFraction = .36f, FramePixelsPerUnit = 200;
+    private ConsoleShell shell = null!;
     private ConsoleBinding? binding;
-    private string hostId = "", actorId = "", selected = "", query = "", tab = "overview", result = "";
+    private string hostId = "", actorId = "", selected = "", query = "", tab = "overview", result = "", displayedResult = "";
     private int stateFilter;
     private bool compact, detailPage, invalid;
     private float nextRefresh;
@@ -35,7 +36,7 @@ public sealed class IndustrialPanel : GUIData
     private Button pause = null!;
     private Button furnaceStop = null!;
     private TMP_InputField search = null!;
-    private Sprite? frame;
+
     private bool Central => binding != null;
 
     internal static bool Open(CondOwner target)
@@ -74,61 +75,24 @@ public sealed class IndustrialPanel : GUIData
     }
     private void Build()
     {
-        plate = W.Rect(transform, "Faceplate"); W.Fill(plate, 22, 18, 22, 18);
-        var art = plate.gameObject.AddComponent<Image>();
-        var texture = DataHandler.LoadPNG("phobos/shipbreaker/PhobosIndustrialPanel.png", bNorm: false);
-        if (texture != null)
-        {
-            frame = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(.5f, .5f), FramePixelsPerUnit, 0,
-                SpriteMeshType.FullRect, new Vector4(110, 140, 110, 140));
-            art.sprite = frame; art.type = Image.Type.Sliced;
-        }
-        else art.color = new Color(.12f, .15f, .18f);
-        header = W.Label(plate, "", false); var h = (RectTransform)header.transform;
-        W.Fill(h, Edge, 0, Edge, Edge); h.anchorMin = new Vector2(0, 1); h.offsetMin = new Vector2(Edge, -Edge - HeaderHeight);
-        header.overflowMode = TextOverflowModes.Ellipsis;
-        var footer = W.Rect(plate, "Footer"); W.Fill(footer, Edge, Edge, Edge, 0);
-        footer.anchorMax = new Vector2(1, 0); footer.offsetMax = new Vector2(-Edge, Edge + FooterHeight);
-        var layout = footer.gameObject.AddComponent<HorizontalLayoutGroup>(); layout.spacing = W.Gap;
-        layout.childControlWidth = layout.childControlHeight = true; layout.childForceExpandWidth = true;
-        W.Button(footer, Text.Get("Industry.back_list"), () => { detailPage = false; Layout(); }).gameObject.SetActive(Central);
-        pause = W.Button(footer, Text.Get("Industry.pause_all"), () => { if (binding != null) { result = IndustryService.PauseAll(binding); ShowDetail(); } });
-        pause.gameObject.SetActive(Central);
-        furnaceStop = W.Button(footer, Text.Get("Furnace.action_stop"), () => RunInstrument(selected, "stop", null));
-        furnaceStop.gameObject.SetActive(false);
-        W.Button(footer, Text.Get("Industry.close"), () => CrewSim.LowerUI());
-        Phobos.Ostranauts.Framework.Crew.CrewPanel.Button(footer);
-
-        list = W.Scroll(plate, "Equipment", out listScroll); details = W.Scroll(plate, "Details", out detailScroll);
-        if (Central)
-        {
-            search = W.Search(list, Text.Get("Industry.search"), text => { query = text; RebuildRows(); });
-            foreach (var key in new[] { "overview", "equipment", "routing", "observations", "attention" })
-            {
-                string captured = key;
-                W.Button(list, Text.Get("Industry.tab_" + key), () => { tab = captured; selected = ""; detailPage = captured == "overview"; roster = ""; RebuildRows(); ShowDetail(); });
-            }
-            W.Button(list, Text.Get("Industry.cycle_state"), () => { stateFilter = (stateFilter + 1) % (Enum.GetValues(typeof(EquipmentState)).Length + 1); RebuildRows(); });
-        }
-        var rowsRoot = W.Rect(list, "Rows"); var group = rowsRoot.gameObject.AddComponent<VerticalLayoutGroup>();
-        group.spacing = W.Gap; group.childControlHeight = group.childControlWidth = true; group.childForceExpandHeight = false;
+        shell=ConsoleShell.Create(transform,Text.Get("Industry.title"),C.Amber);plate=(RectTransform)shell.transform;header=shell.Title;
+        shell.EmergencyStop=StopSelected;
+        list=shell.List;details=shell.Detail;listScroll=shell.ListScroll;detailScroll=shell.DetailScroll;
+        var tabs=Central?new[]{"overview","equipment","routing","maintenance","observations","attention","details"}:new[]{"equipment","routing","maintenance","details"};
+        foreach(var key in tabs){var captured=key;C.Button(shell.Navigation,key=="maintenance"||key=="details"?C.Text(key):Text.Get("Industry.tab_"+key),()=>shell.Navigate(()=>
+        {tab=captured;if(tab=="observations"||tab=="attention"){selected="";detailPage=false;}if(tab=="overview")detailPage=true;RebuildRows();ShowDetail();}));}
+        if(Central)C.Button(shell.Actions,C.Text("back"),()=>shell.Navigate(()=>{detailPage=false;Layout();}));
+        pause=C.Button(shell.Actions,Text.Get("Industry.pause_all"),()=>{if(binding!=null){result=IndustryService.PauseAll(binding);RefreshReadout();}});pause.gameObject.SetActive(Central);
+        furnaceStop=C.Button(shell.Actions,C.Text("stop"),StopSelected);
+        C.Button(shell.Actions,C.Text("crew_settings"),()=>shell.Navigate(()=>Phobos.Ostranauts.Framework.Crew.CrewPanel.Show(CollectorService.Resolve(selected)??COSelf)));
+        C.Button(shell.Actions,C.Text("close"),shell.Close);
+        search=C.Input(list,Text.Get("Industry.search"),query,text=>{query=text;RebuildRows();});
+        if(Central)C.Button(list,Text.Get("Industry.cycle_state"),()=>{stateFilter=(stateFilter+1)%(Enum.GetValues(typeof(EquipmentState)).Length+1);RebuildRows();});
+        var rowsRoot=W.Rect(list,"Rows");var group=rowsRoot.gameObject.AddComponent<VerticalLayoutGroup>();group.spacing=6;group.childControlHeight=group.childControlWidth=true;group.childForceExpandHeight=false;
         Layout();
     }
     private Transform RowsRoot => list.GetChild(list.childCount - 1);
-    private void Layout()
-    {
-        compact = plate.rect.width < IndustrialRules.CompactWidth;
-        var left = (RectTransform)listScroll.transform; var right = (RectTransform)detailScroll.transform;
-        W.Fill(left, Edge, Edge + FooterHeight + W.Gap, Edge, Edge + HeaderHeight);
-        W.Fill(right, Edge, Edge + FooterHeight + W.Gap, Edge, Edge + HeaderHeight);
-        if (!compact && Central)
-        {
-            left.anchorMax = new Vector2(ListFraction, 1); left.offsetMax = new Vector2(-W.Gap, -Edge - HeaderHeight);
-            right.anchorMin = new Vector2(ListFraction, 0); right.offsetMin = new Vector2(W.Gap, Edge + FooterHeight + W.Gap);
-        }
-        left.gameObject.SetActive(Central && (!compact || !detailPage));
-        right.gameObject.SetActive(!Central || !compact || detailPage);
-    }
+    private void Layout(){compact=shell.IsNarrow;shell.Page(!Central||detailPage);}
     private void Update()
     {
         if (!bActive || Time.unscaledTime < nextRefresh) return;
@@ -149,11 +113,13 @@ public sealed class IndustrialPanel : GUIData
     {
         using var measurement = Phobos.Ostranauts.Framework.Diagnostics.Performance.Measure(PerformanceMetrics.PanelRefresh);
         var problem = Access();
-        if (invalid) { CrewSim.LowerUI(); return; }
-        header.text = Text.Get("Industry.header", Central ? Text.Get("Industry.title") : COSelf.strNameFriendly, hostId,
-            problem ?? Text.Get("Industry.connected"));
+        if (invalid) { shell.ForceClose(); return; }
+        header.text = Central ? Text.Get("Industry.title") : ObjectPresentation.Name(COSelf);
+        if(problem!=null)shell.Notice.text=problem;
+        else if(result!=displayedResult){shell.Notice.text=result;displayedResult=result;}
         pause.interactable = problem == null;
-        furnaceStop.gameObject.SetActive(FurnaceRules.Machine(CollectorService.Resolve(selected)?.strCODef));
+        var selectedObject=CollectorService.Resolve(selected);
+        furnaceStop.gameObject.SetActive(selectedObject!=null&&(FurnaceRules.Machine(selectedObject.strCODef)||ProcessingService.IsProcessor(selectedObject.strCODef)||RoutingRules.IsReceiver(selectedObject.strCODef)||ProcessingService.IsGrabber(selectedObject)||EquipmentProviders.For(selectedObject.strCODef)!=null));
         furnaceStop.interactable = problem == null;
         // Losing console/operator access must stop observation reads as well as commands.
         if (problem != null)
@@ -167,8 +133,8 @@ public sealed class IndustrialPanel : GUIData
         string signature = string.Join("|", cards.Select(c => c.Id + (tab == "attention" ? ":" + c.Attention : "") + (stateFilter != 0 ? ":" + c.State : "") + (query.Length != 0 ? ":" + MatchesQuery(c) : "")));
         if (signature != roster) { roster = signature; RebuildRows(); }
         foreach (var card in cards) if (rows.TryGetValue(card.Id, out var row)) row.text = RowText(card);
-        if (readout == null || commands == null && cards.Any(c => c.Id == selected && !c.Instrument)) ShowDetail(); else RefreshReadout();
-        if (commands != null) commands.interactable = problem == null;
+        if (readout == null) ShowDetail(); else RefreshReadout();
+        if (commands != null) commands.interactable = problem == null && CollectorService.Resolve(selected)!=null;
         Layout();
     }
     private static string RowText(EquipmentCard c) => c.Name + "\n" + (c.Instrument ? c.InstrumentStatus : IndustryService.StateName(c.State)) + (c.Attention ? " — " + Text.Get("Industry.tab_attention") : "");
@@ -186,12 +152,13 @@ public sealed class IndustrialPanel : GUIData
         foreach (var group in visible.GroupBy(c => c.Group))
         {
             string key = group.Key;
-            W.Button(RowsRoot, (collapsed.Contains(key) ? "+ " : "− ") + Text.Get("Industry.group_" + key) + " (" + group.Count() + ")", () => { if (!collapsed.Add(key)) collapsed.Remove(key); RebuildRows(); });
+            C.Button(RowsRoot, (collapsed.Contains(key) ? "+ " : "− ") + Text.Get("Industry.group_" + key) + " (" + group.Count() + ")", () => { if (!collapsed.Add(key)) collapsed.Remove(key); RebuildRows(); });
             if (collapsed.Contains(key)) continue;
             foreach (var card in group)
             {
                 string id = card.Id;
-                var button = W.Button(RowsRoot, RowText(card), () => { selected = id; result = ""; if (tab == "overview") tab = "equipment"; detailPage = true; ShowDetail(); });
+                var button = C.Button(RowsRoot, RowText(card), () => shell.Navigate(() => { selected = id; result = ""; if (tab == "overview") tab = "equipment"; detailPage = true; ShowDetail(); }),48);
+                button.GetComponentInChildren<TMP_Text>().fontSize=16;
                 rows[id] = button.GetComponentInChildren<TMP_Text>();
             }
         }
@@ -209,7 +176,7 @@ public sealed class IndustrialPanel : GUIData
         else
         {
             var card = cards.FirstOrDefault(c => c.Id == selected);
-            readout.text = card == null ? Text.Get("Industry.select") : card.Name + "\n" + card.Id + "\n\n" + card.Detail + (result.Length == 0 ? "" : "\n\n" + result);
+            readout.text = card == null ? Text.Get("Industry.select") : card.Name + "\n" + (tab=="details"||card.Instrument?card.Detail+(tab=="details"?"\n\n"+card.Id:""):IndustryService.StateName(card.State)+(card.Summary.Length>0?"\n"+card.Summary:""));
         }
     }
     private void ShowDetail()
@@ -218,33 +185,37 @@ public sealed class IndustrialPanel : GUIData
         readout = W.Label(details, ""); RefreshReadout();
         var target = cards.Any(c => c.Id == selected && !c.Instrument) ? CollectorService.Resolve(selected) : null;
         if (target == null || tab == "overview" && Central) { Layout(); return; }
+        var identity=C.Row(details,72);ObjectPresentation.Picture(identity,target,64);C.Label(identity,ObjectPresentation.Location(target));
+        if(tab=="details"){Layout();return;}
         var actions = W.Rect(details, "Commands");
         var layout = actions.gameObject.AddComponent<VerticalLayoutGroup>(); layout.spacing = W.Gap;
         layout.childControlHeight = layout.childControlWidth = true; layout.childForceExpandHeight = false;
         commands = actions.gameObject.AddComponent<CanvasGroup>(); commands.interactable = Access() == null;
+        if(tab=="routing"){ShowRouting(target);return;}
+        if(tab=="maintenance"){ShowMaintenance(actions,target);Layout();return;}
         var provider = EquipmentProviders.For(target.strCODef);
         if (provider != null)
-            foreach (var command in provider.Snapshot(target).Actions) Add(actions, command.Id, label: command.Label);
+            foreach (var command in provider.Snapshot(target).Actions)
+            {
+                var captured=command;
+                if(provider is IEquipmentPanelPresentation presentation&&presentation.IsConfiguration(command.Id))
+                    C.Button(actions,command.Label,()=>ConfigurationSheet.Choices(shell,captured.Label,"",presentation.ConfigurationStamp(target),new[]{(captured.Id,captured.Label)},
+                        (string expected,string chosen,out string reason)=>presentation.ApplyConfiguration(target,binding,expected,chosen,out reason)));
+                else Add(actions,command.Id,label:command.Label);
+            }
         if (FurnaceRules.Machine(target.strCODef))
         {
             string targetId = target.strID;
-            FurnaceInstrumentView.Build(actions, target, (action, value) => RunInstrument(targetId, action, value));
+            FurnaceInstrumentView.Build(actions, target, (action, value) => {if(action=="automatic"||action=="step-mode")Setting(target,action);else RunInstrument(targetId,action,value);}, shell, binding);
             if (!Central) { Add(actions, "feed"); Add(actions, "products"); }
-            FurnaceInstallationView.Build(actions, target);
-            W.Label(actions, Text.Get("Furnace.coolant_controls"));
-            if(!Central) foreach(string service in new[]{"managed","sealed","fill","drain"}) Add(actions,"coolant-"+service,label:Text.Get("Furnace.coolant_"+service));
-            foreach (string mode in new[] { "direct", "left", "right" })
-                Add(actions, "cooling-" + mode, label: Text.Get("Furnace.coolant_" + mode));
-            Add(actions, "unpair", label: Text.Get("Furnace.action_unpair"));
-            foreach (var peer in IndustryService.Discover(target.ship).Where(c => FurnaceRules.Cooling(c.strCODef)))
-                Add(actions, "pair", peer.strID, Text.Get("Furnace.action_pair") + " " + CollectorService.Label(peer));
+
         }
         if (ProcessingService.IsProcessor(target.strCODef))
         {
             W.Label(actions, Text.Get("Industry.processing"));
             Add(actions, "start"); Add(actions, "pause"); Add(actions, "cancel");
             Add(actions, "watch"); Add(actions, "unwatch");
-            W.Button(actions, Phobos.Ostranauts.Framework.Audio.CompletionCues.VolumeLabel, () => { Phobos.Ostranauts.Framework.Audio.CompletionCues.CycleVolume(); ShowDetail(); });
+            C.Button(actions, Phobos.Ostranauts.Framework.Audio.CompletionCues.VolumeLabel, () => { Phobos.Ostranauts.Framework.Audio.CompletionCues.CycleVolume(); ShowDetail(); });
             if (!Central) { Add(actions, "feed"); Add(actions, "products"); }
         }
         if (RoutingRules.IsReceiver(target.strCODef))
@@ -254,7 +225,7 @@ public sealed class IndustrialPanel : GUIData
         }
         if (RoutingRules.IsReceiver(target.strCODef) || RoutingRules.IsSender(target.strCODef))
         {
-            W.Button(actions, Text.Get("Industry.tab_routing"), () => ShowRouting(target));
+            C.Button(actions, Text.Get("Industry.tab_routing"), () => shell.Navigate(()=>{tab="routing";ShowDetail();}));
         }
         if (IndustrialRules.Group(target.strCODef) == "chute" || IndustrialRules.Group(target.strCODef) == "grabber")
         {
@@ -263,8 +234,10 @@ public sealed class IndustrialPanel : GUIData
                 W.Label(actions, Text.Get("Reclamation.controls"));
                 foreach(string action in new[]{"reclaim-start","reclaim-resume","reclaim-pause","reclaim-stop"}) Add(actions,action,label:Text.Get("Reclamation.action_"+action));
                 W.Label(actions, Text.Get("Capture.controls"));
-                foreach (var nav in CaptureService.Consoles(target.ship))
-                    Add(actions, "capture-bind", nav.strID, Text.Get("Capture.bind_button", nav.strNameFriendly, nav.strID));
+                string console=CaptureService.Read(target,out var capture)?capture["console"]:"none";
+                C.Label(actions,C.Text("mission_target")+": "+(capture==null?C.Text("not_selected"):CrewSim.system.GetShipByRegID(capture["target"])?.publicName??C.Text("missing_selection")));
+                C.Field(actions,C.Text("navigation_console"),ObjectPresentation.Name(console),()=>Connection(target,"capture-bind",C.Text("navigation_console")+" · "+(GUIOrbitDraw.CrossHairTarget?.Ship?.publicName??C.Text("not_selected")),"",()=>CaptureService.Consoles(target.ship)),
+                    ()=>ObjectPicker.Locate(shell,CollectorService.Resolve(console)));
                 foreach (string action in new[] { "capture-start", "capture-stop", "capture-release" })
                     Add(actions, action, label: Text.Get("Capture.action_" + action));
             }
@@ -272,7 +245,7 @@ public sealed class IndustrialPanel : GUIData
             if (processor != null)
             {
                 string? localProblem = Central ? null : ProcessingService.AccessProblem(processor);
-                W.Button(actions, Text.Get("Industry.open_processor"), () => { if (Central) { selected = processor.strID; ShowDetail(); } else Open(processor); }).interactable = localProblem == null;
+                C.Button(actions, Text.Get("Industry.open_processor"), () => { if (Central) { selected = processor.strID; ShowDetail(); } else Open(processor); }).interactable = localProblem == null;
                 if (localProblem != null) W.Label(actions, localProblem);
             }
         }
@@ -289,52 +262,83 @@ public sealed class IndustrialPanel : GUIData
         result = PanelFeedback.Additional(success, result, cards.FirstOrDefault(c => c.Id == targetId)?.Detail ?? "");
         RefreshReadout();
     }
+    private void StopSelected()
+    {
+        var co=CollectorService.Resolve(selected);if(co==null)return;
+        if(ProcessingService.IsGrabber(co)){RunInstrument(selected,"reclaim-stop",null);RunInstrument(selected,"capture-stop",null);}
+        else RunInstrument(selected,FurnaceRules.Machine(co.strCODef)?"stop":ProcessingService.IsProcessor(co.strCODef)||EquipmentProviders.For(co.strCODef)!=null?"pause":"pause-receive",null);
+    }
     private void Add(Transform parent, string action, string? value = null, string? label = null)
     {
         string targetId = selected;
-        W.Button(parent, label ?? Text.Get("Industry.action_" + action), () =>
+        var last=parent.childCount>0?parent.GetChild(parent.childCount-1):null;
+        var row=last!=null&&last.name=="Command row"&&last.childCount<2?last:C.Row(parent);row.name="Command row";
+        C.Button(row, label ?? Text.Get("Industry.action_" + action), () =>
         {
-            if (!Central && (action == "feed" || action == "products" || action == "inventory")) CrewSim.LowerUI();
-            bool success = IndustryService.Run(binding, targetId, action, value, out string message);
-            result = success ? Text.Get("Industry.success", label ?? Text.Get("Industry.action_" + action)) : Text.Get("Industry.rejected", message);
-            RefreshReadout();
+            bool inventory=!Central&&(action=="feed"||action=="products"||action=="inventory");
+            void Execute()
+            {
+                if(inventory)CrewSim.LowerUI();
+                bool success = IndustryService.Run(binding, targetId, action, value, out string message);
+                result = success ? Text.Get("Industry.success", label ?? Text.Get("Industry.action_" + action)) : Text.Get("Industry.rejected", message);
+                if(!inventory)RefreshReadout();
+            }
+            if(inventory)shell.Navigate(Execute);else Execute();
         });
+    }
+    private void ShowMaintenance(Transform actions,CondOwner target)
+    {
+        if(FurnaceRules.Machine(target.strCODef))
+        {
+            FurnaceInstallationView.Build(actions,target);
+            C.Field(actions,C.Text("cooling"),FurnaceService.CoolingEndpoint(target) is CondOwner peer?ObjectPresentation.Name(peer):C.Text("not_selected"),
+                ()=>Connection(target,"pair",C.Text("cooling"),FurnaceService.CoolingEndpoint(target)?.strID??"none",()=>IndustryService.Discover(target.ship).Where(c=>FurnaceRules.Cooling(c.strCODef)),"unpair"),
+                ()=>ObjectPicker.Locate(shell,FurnaceService.CoolingEndpoint(target)),()=>Setting(target,"unpair"));
+            foreach(var mode in new[]{"direct","left","right"})C.Button(actions,Text.Get("Furnace.coolant_"+mode),()=>Setting(target,"cooling-"+mode));
+            if(!Central)foreach(var service in new[]{"managed","sealed","fill","drain"})
+            {var action="coolant-"+service;if(service=="fill"||service=="drain")Add(actions,action,label:Text.Get("Furnace.coolant_"+service));else C.Button(actions,Text.Get("Furnace.coolant_"+service),()=>Setting(target,action));}
+        }
+        else C.Label(actions,Text.Get("Industry.local_only"));
+        if(!Central){if(ProcessingService.IsProcessor(target.strCODef)){Add(actions,"feed");Add(actions,"products");}else if(RoutingRules.IsReceiver(target.strCODef)&&target.objContainer!=null)Add(actions,"inventory");}
+    }
+    private void Setting(CondOwner target,string action,string? value=null,string? label=null)
+    {
+        string title=label??Text.Get(action.StartsWith("cooling-",StringComparison.Ordinal)?"Furnace.coolant_"+action.Substring(8):action.StartsWith("coolant-",StringComparison.Ordinal)?"Furnace.coolant_"+action.Substring(8):"Furnace.action_"+action);
+        ConfigurationSheet.Choices(shell,title,"",PanelConfiguration.Stamp(target),new[]{(value??action,title)},
+            (string expected,string chosen,out string reason)=>PanelConfiguration.Apply(binding,target,expected,action,value==null?null:chosen,out reason));
+    }
+    private void Connection(CondOwner target,string action,string label,string current,Func<IEnumerable<CondOwner>> candidates,string? unlink=null)
+    {
+        ConfigurationSheet.Objects(shell,label,current,PanelConfiguration.Stamp(target),candidates,
+            (string expected,string value,out string reason)=>PanelConfiguration.Apply(binding,target,expected,value=="none"?unlink??action:action,value=="none"?null:value,out reason),allowClear:unlink!=null);
     }
     private void ShowRouting(CondOwner target)
     {
-        var actions = commands.transform; W.Clear(actions);
-        W.Button(actions, Text.Get("Industry.tab_equipment"), () => { tab = "equipment"; ShowDetail(); });
-        if (RoutingRules.IsReceiver(target.strCODef))
+        var actions=commands.transform;W.Clear(actions);
+        if(RoutingRules.IsReceiver(target.strCODef))
         {
-            W.Label(actions, CollectorService.DescribeLink(target, false) + "\n" + CollectorService.LinkIds(target, false) + "\n" + CollectorService.FilterLabel(target));
-            Add(actions, "unlink-input");
-            foreach (string filter in RoutingRules.Choices(target.strCODef))
-                Add(actions, "filter", filter, Text.Get("Industry.filter_" + filter));
-            W.Label(actions, Text.Get("Industry.choose_input"));
-            foreach (var peer in IndustryService.Discover(target.ship).Where(c => c.strID != target.strID && RoutingRules.CanConnect(c.strCODef, target.strCODef)))
-                Add(actions, "link-input", peer.strID, CollectorService.Label(peer));
+            string peer=PanelConfiguration.Peer(target,false);
+            C.Field(actions,C.Text("source"),ObjectPresentation.Name(peer),()=>Connection(target,"link-input",C.Text("source"),peer,
+                ()=>IndustryService.Discover(target.ship).Where(c=>c!=target&&RoutingRules.CanConnect(c.strCODef,target.strCODef)),"unlink-input"),
+                ()=>ObjectPicker.Locate(shell,CollectorService.Resolve(peer)),()=>Setting(target,"unlink-input",label:C.Text("clear")));
+            C.Field(actions,C.Text("filter"),CollectorService.FilterLabel(target),()=>ConfigurationSheet.Choices(shell,C.Text("filter"),"",PanelConfiguration.Stamp(target),RoutingRules.Choices(target.strCODef).Select(f=>(f,Text.Get("Industry.filter_"+f))),
+                (string expected,string value,out string reason)=>PanelConfiguration.Apply(binding,target,expected,"filter",value,out reason)));
         }
-        if (RoutingRules.IsSender(target.strCODef))
+        if(RoutingRules.IsSender(target.strCODef))Output(false);
+        if(ProcessingService.IsReclaimer(target))Output(true);
+        void Output(bool metals)
         {
-            W.Label(actions, CollectorService.DescribeLink(target, true) + "\n" + CollectorService.LinkIds(target, true)); Add(actions, "unlink-output");
-            W.Label(actions, Text.Get("Industry.choose_output"));
-            foreach (var peer in IndustryService.Discover(target.ship).Where(c => c.strID != target.strID && RoutingRules.CanConnect(target.strCODef, RoutingRules.OutputPort(target.strCODef), c.strCODef)))
-                Add(actions, "link-output", peer.strID, CollectorService.Label(peer));
+            string peer=PanelConfiguration.Peer(target,true,metals),label=metals?Text.Get("Routing.metals_port"):C.Text("destination"),unlink=metals?"unlink-metals":"unlink-output";
+            C.Field(actions,label,ObjectPresentation.Name(peer),()=>Connection(target,"link-output",label,peer,
+                ()=>IndustryService.Discover(target.ship).Where(c=>c!=target&&RoutingRules.CanConnect(target.strCODef,RoutingRules.OutputPort(target.strCODef,metals),c.strCODef)),unlink),
+                ()=>ObjectPicker.Locate(shell,CollectorService.Resolve(peer)),()=>Setting(target,unlink,label:C.Text("clear")));
         }
-        if (ProcessingService.IsReclaimer(target))
-        {
-            W.Label(actions, Text.Get("Routing.metals_port") + "\n" + CollectorService.DescribeLink(target, true, true) + "\n" + CollectorService.LinkIds(target, true, true));
-            Add(actions, "unlink-metals");
-            foreach (var peer in IndustryService.Discover(target.ship).Where(c => RoutingRules.CanConnect(target.strCODef, RoutingRules.MetalsOut, c.strCODef)))
-                Add(actions, "link-output", peer.strID, CollectorService.Label(peer));
-        }
-        detailPage = true; Layout();
+        detailPage=true;Layout();
     }
     public override void SaveAndClose()
     {
         if (!bActive) return; // GUIData and IGUIHarness call each other during native cleanup.
         if (search != null && search.isFocused) CrewSim.EndTyping();
-        if (frame != null) { Destroy(frame); frame = null; }
         base.SaveAndClose();
     }
 }

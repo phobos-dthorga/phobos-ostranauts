@@ -13,13 +13,13 @@ using Phobos.Ostranauts.Framework.Construction;
 namespace PhobosAgriculture;
 
 [BepInPlugin(Id, "Phobos Agriculture", Version)]
-[BepInDependency(FrameworkInfo.PluginId, "0.25.0")]
+[BepInDependency(FrameworkInfo.PluginId, "0.26.0")]
 [BepInDependency("com.ostranauts.shipswater", BepInDependency.DependencyFlags.SoftDependency)]
 [BepInDependency("phobosgekko.ostranauts.shipbreaker", BepInDependency.DependencyFlags.SoftDependency)]
 [BepInProcess("Ostranauts.exe")]
 public sealed class Plugin : BaseUnityPlugin
 {
-    public const string Id = "phobosgekko.ostranauts.agriculture", Version = "0.12.1";
+    public const string Id = "phobosgekko.ostranauts.agriculture", Version = "0.13.0";
     internal static Action<string> Log = _ => { };
     internal static ConfigEntry<double> Pace = null!, ReserveLitres = null!;
     internal static ConfigEntry<bool> LootEnabled = null!;
@@ -113,8 +113,15 @@ internal static class ReloadPatch
     private static void Prefix() { Service.Reset(); RecyclerCapture.Reset(); }
 }
 
-internal sealed class Provider : IEquipmentProvider
+internal sealed class Provider : IEquipmentProvider, IEquipmentPanelPresentation
 {
+    public bool IsConfiguration(string action)=>action.StartsWith("mix-",StringComparison.Ordinal)||action.StartsWith("dose-",StringComparison.Ordinal)||action=="water-only"||action=="water-routed"||action=="water-legacy"||action=="unlink-water";
+    public string ConfigurationStamp(CondOwner co)=>PanelConfiguration.Stamp(co);
+    public bool ApplyConfiguration(CondOwner co,ConsoleBinding? binding,string expected,string action,out string reason)
+    {
+        reason=Phobos.Ostranauts.Framework.Controls.ConsoleWidgets.Text("stale");if(co.bDestroyed||expected!=PanelConfiguration.Stamp(co)||!IsConfiguration(action))return false;
+        bool saved=Service.Command(co,binding,action,out reason);if(saved)Phobos.Ostranauts.Framework.Controls.ConfigurationStamp.SuspendChangedOrder(co);return saved;
+    }
     public string Id => Plugin.Id;
     public IReadOnlyList<string> Definitions { get; } = Array.AsReadOnly(new[] { PhobosAgriculture.Definitions.Rack + "Installed", PhobosAgriculture.Definitions.Cooker + "Installed", IrrigationDefinitions.Supply + "Installed", WorkupDefinitions.Bench + "Installed" });
     public EquipmentSnapshot Snapshot(CondOwner co)

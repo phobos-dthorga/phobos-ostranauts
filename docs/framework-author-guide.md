@@ -1,5 +1,9 @@
 # Phobos Framework 0.15.0 — author guide
 
+The current console redesign uses compact views and checked drafts. See the
+[control-panel guide](control-panel-guide.md) for Apply/Discard, storage selection,
+ship picking, training and the separate Unity validation checklist.
+
 Framework 0.21.0 introduced [shared completion cues](shared-completion-cues.md).
 Framework 0.21.1 adds `Persistence.SavedGridBounds.TryPlan`: a pure, bounded
 expansion calculation for [saved-grid restoration](shipbreaker-room-load-mitigation.md).

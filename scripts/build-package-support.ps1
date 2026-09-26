@@ -8,6 +8,7 @@ function Copy-PhobosPlayerGuides {
     # Keep their filenames as well as the mod-specific README so links remain usable.
     foreach ($name in @(
         'crew-automation',
+        'control-panel-guide',
         'agriculture-player-guide', 'agriculture-implementation', 'agriculture-research', 'agriculture-first-slice', 'agriculture-roadmap', 'agriculture-living-visuals', 'agriculture-economy-review', 'agriculture-economy-evidence', 'asset-generation-policy',
         'performance-captures', 'furnace-player-guide', 'furnace-coolant-conduits', 'furnace-connections-and-instruments', 'furnace-first-cycle', 'furnace-repair-castings', 'furnace-material-routing', 'manufacturing-handover',
         'getting-started', 'building', 'player-guide', 'equipment-branding', 'installing-mods', 'equipment-economy', 'equipment-value-audit', 'auto-nav-instruments', 'auto-nav-hub-validation', 'auto-nav-polaris-startup', 'auto-nav-docking', 'auto-nav-sensors', 'auto-nav-flight-profiles', 'auto-nav-pursuit', 'auto-nav-fire-control', 'artwork-resolution-policy',
@@ -49,6 +50,7 @@ function Copy-PhobosPlayerGuides {
         }
         # Source-linked design notes remain useful in binary packages without a source checkout.
         $text = $text.Replace('../src/', 'https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/src/')
+        $text = $text.Replace('../assets/phobos-industrial-console/README.md', 'https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/assets/phobos-industrial-console/README.md')
         Set-Content -LiteralPath $guide.FullName -Value $text -Encoding utf8
     }
     Copy-Item -LiteralPath (Join-Path $RepoRoot 'assets/phobos-furnace/coupling-provenance.json') -Destination $Package

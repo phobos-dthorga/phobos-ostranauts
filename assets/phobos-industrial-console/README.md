@@ -42,3 +42,13 @@ Loose damaged (reference: loose intact master):
 Shared faceplate (reference: `mods/PhobosAutoNav/images/phobos/autonav/PhobosAutoNavPanel.png`):
 
 > Use case: precise-object-edit. Create one NEW wide blank equipment control-panel faceplate in the exact restrained flat monotone slate-blue/grey style of the supplied approved plate. Wide landscape 3:2 canvas. Replace the three fixed inset windows with ONE plain uninterrupted near-black rectangular recessed centre occupying 88 percent width and 83 percent height. Narrow plain slate perimeter, four small slotted dark screws at corners, tiny bevel only. Orthographic face-on rectangular plate, modest rounded outer corners, no perspective, no cast shadow. Centre perfectly empty even near-black for runtime controls. No divider lines, no buttons, lights, lettering, labels, icons or text. Uniform matte flat neutral slate, no strong gradients, rust, ornamental grain or wear. The silhouette nearly fills canvas, transparent alpha only outside rounded corners. Game UI asset suited to nine-slice scaling; all ornament confined to outermost 6 percent border. Original derivative of our supplied generated artwork.
+
+## Shared console reuse (26 September 2026)
+
+Framework embeds the unchanged `source/PhobosIndustrialPanel.png` original master
+for the shared console shell. Its existing manifest hash and generation provenance
+remain authoritative; this update generated no raster artwork and extracted no
+Blue Bottle Games assets. Live headings, state, controls and accents are runtime UI.
+The master is reused with a nine-slice border, not baked labels or a new upscale.
+`console-preview.html` is a browser layout reference, checked with
+`scripts/verify-console-preview.cjs`; it is not a Unity capture.

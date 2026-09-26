@@ -17,6 +17,14 @@ Dates on Draft entries record preparation, not Steam publication.
 - Earlier capture-only research is superseded for supported ordinary walls by the implementation below. Broader structural recipes, repeated furnace batches and whole-wreck completion remain outside this round.
 - Keep [NASA Goddard's Raven research](https://www.nasa.gov/general/nasas-hybrid-computer-enables-ravens-autonomous-rendezvous-capability/) and [ESA's LIRIS experiment by Airbus, Jena Optronik and Sodern](https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/ATV/ATV_views_Space_Station_as_never_before) as sensing context, separate from Blue Bottle Games native evidence and authored gameplay choices. No institutional endorsement or gameplay validation is implied.
 
+## [0.20.0] - 2026-09-26 - Draft
+
+### Control panels
+
+- Retained the approved Polaris hub artwork, native placement, flight/propulsion/fire separation and persistent Stop/Cease controls.
+- Navigation speed, arrival distance, propulsion preference and departure-intent edits now remain drafts with Apply/Discard. Fresh validation rejects stale settings; new flight commands wait until the draft is resolved.
+- Compacted departure/details controls and routed crew access through the shared draft-aware interface. Requires Framework 0.26.0; existing flight identities and captured flight intent are preserved.
+
 ## [0.19.1] - 2026-09-26 - Draft
 
 ### Fixed

@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
-    <Version>0.25.1</Version>
+    <Version>0.26.0</Version>
     <GameManaged>$(OstranautsPath)/Ostranauts_Data/Managed</GameManaged>
     <BepInExCore>$(OstranautsPath)/BepInEx/core</BepInExCore>
   </PropertyGroup>
@@ -23,8 +23,11 @@
     <Reference Include="UnityEngine.CoreModule" HintPath="$(GameManaged)/UnityEngine.CoreModule.dll" Private="false" />
     <Reference Include="UnityEngine.TextCoreFontEngineModule" HintPath="$(GameManaged)/UnityEngine.TextCoreFontEngineModule.dll" Private="false" />
     <Reference Include="UnityEngine.AudioModule" HintPath="$(GameManaged)/UnityEngine.AudioModule.dll" Private="false" />
+    <Reference Include="UnityEngine.TextRenderingModule" HintPath="$(GameManaged)/UnityEngine.TextRenderingModule.dll" Private="false" />
+    <Reference Include="UnityEngine.ImageConversionModule" HintPath="$(GameManaged)/UnityEngine.ImageConversionModule.dll" Private="false" />
   </ItemGroup>
   <ItemGroup><EmbeddedResource Include="../../translations/PhobosFramework/en.json" LogicalName="PhobosFramework.en.json" /></ItemGroup>
   <ItemGroup><EmbeddedResource Include="../../assets/phobos-shipbreaker/audio/completion.wav" LogicalName="PhobosFramework.completion.wav" /></ItemGroup>
+  <ItemGroup><EmbeddedResource Include="../../assets/phobos-industrial-console/source/PhobosIndustrialPanel.png" LogicalName="PhobosFramework.console.png" /></ItemGroup>
   <ItemGroup><EmbeddedResource Include="../../mods/PhobosFramework/framework/equipment-names.json" LogicalName="PhobosFramework.equipment-names.json" /></ItemGroup>
 </Project>

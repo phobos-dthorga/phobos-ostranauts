@@ -4,6 +4,14 @@ using System.Linq;
 
 namespace Phobos.Ostranauts.Framework.Controls;
 
+/// <summary>Optional presentation hints; existing providers keep their binary contract.</summary>
+public interface IEquipmentPanelPresentation
+{
+    bool IsConfiguration(string action);
+    string ConfigurationStamp(CondOwner equipment);
+    bool ApplyConfiguration(CondOwner equipment,ConsoleBinding? scope,string expected,string action,out string reason);
+}
+
 public sealed class EquipmentAction
 {
     public string Id { get; }

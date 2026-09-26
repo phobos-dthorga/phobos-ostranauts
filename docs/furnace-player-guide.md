@@ -1,5 +1,9 @@
 # F6 electric furnace: operating guide
 
+The current console redesign uses compact views and checked drafts. See the
+[control-panel guide](control-panel-guide.md) for Apply/Discard, storage selection,
+ship picking, training and the separate Unity validation checklist.
+
 This guide describes the implemented furnace in the current source candidate.
 See the [current player guide](player-guide.md) for maintained package versions
 and the [Shipbreaker item reference](shipbreaker-item-reference.md) for current

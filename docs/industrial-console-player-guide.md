@@ -1,5 +1,9 @@
 # Industrial controls
 
+The current console redesign uses compact views and checked drafts. See the
+[control-panel guide](control-panel-guide.md) for Apply/Discard, storage selection,
+ship picking, training and the separate Unity validation checklist.
+
 Shipbreaker 0.24.1 with Framework 0.24.2 avoids echoing successful status and
 notices in the collector routing window and local/C1 furnace controls. Furnace
 instrument actions immediately refresh the live readout. Rejection explanations,
@@ -21,7 +25,7 @@ notification** and cue volume/mute. Watching is optional, never starts a job and
 clears on processing pause, fault or reload. See the
 [completion cue guide](shipbreaker-completion-cue.md) for scope and listening checks.
 
-Current packages: Shipbreaker **0.25.0**. Framework and Auto Nav are required;
+Current packages: Shipbreaker **0.26.0**. Framework and Auto Nav are required;
 see [installation requirements](installing-mods.md) for current minimum versions.
 Built against Ostranauts **1.0.1.5** / BepInEx **5.4.23.5**. Automated checks
 passed; the new native panel/seating integration awaits the owner's game test.

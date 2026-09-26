@@ -34,6 +34,12 @@ public sealed class AutoNavPanel : NavModBase
     private Sprite? faceplateSprite;
     private string page = "navigation";
     private bool lastFire, lastDocking;
+    private FlightPreferences preferenceDraft;
+    private bool preferencesDirty,torchDraft;
+    private int departureDraft, departureExpected;
+    private string preferenceExpected="";
+    private ConsoleShell draftGuard=null!;
+    private RectTransform draftActions=null!;
 
     internal static void Ensure(GUIOrbitDraw nav)
     {
@@ -110,23 +116,29 @@ public sealed class AutoNavPanel : NavModBase
         AddButton(Cell(strip, 0, 3), "resume", Text.Get("Hub.resume"), () => Plugin.Service.ResumeSaved(COSelf));
         AddButton(Cell(strip, 1, 3), "stop", Text.Get("Hub.disengage"), () => Plugin.Service.Stop(COSelf, Text.Get("NavigationService.stopped_by_pilot_coasting")));
         AddButton(Cell(strip, 2, 3), "cease", Text.Get("Hub.cease"), () => Plugin.Service.CeaseFire());
+        draftActions=Box(layer,"coast");
+        AddButton(Cell(draftActions,0,2),"apply-settings",ConsoleWidgets.Text("apply"),ApplyPreferences,true);
+        AddButton(Cell(draftActions,1,2),"discard-settings",ConsoleWidgets.Text("discard"),DiscardPreferences,true);
+        draftGuard=ConsoleShell.AttachDraftGuard(design,()=>preferencesDirty,ApplyPreferenceDraft,DiscardPreferences);
+        draftGuard.EmergencyStop=()=>Plugin.Service.Stop(COSelf,Text.Get("NavigationService.stopped_by_pilot_coasting"));
         BuildNavigation(pages["navigation"]); BuildPursuit(pages["pursuit"]); BuildFire(pages["fire"]); BuildSystems(pages["systems"]);
         var dep = PanelWidgets.Scroll(pages["departure"], "Departure", out var depScroll);
         PanelWidgets.Fill((RectTransform)depScroll.transform);
         foreach (string action in new[] { "depart-mode", "depart", "depart-continue", "depart-resume", "depart-stop" })
-        { string command = action; var button=PanelWidgets.Button(dep, Text.Get("Departure." + action), () => Invoke(() => Plugin.Service.DepartureAction(COSelf, command)));
-          Style(button.GetComponentInChildren<TMP_Text>(),24); button.GetComponent<LayoutElement>().minHeight=64; }
+          { string command = action; var button=ConsoleWidgets.Button(dep, Text.Get("Departure." + action), () => Invoke(() => { if(command=="depart-mode"){BeginPreferenceDraft();departureDraft=(departureDraft+1)%Plugin.Service.PanelDepartureModeCount;}else if(!preferencesDirty||command=="depart-stop")Plugin.Service.DepartureAction(COSelf, command); }));
+            buttons[command]=button;
+          Style(button.GetComponentInChildren<TMP_Text>(),18); }
         labels["departure"] = PanelWidgets.Label(dep, "", flowing: true);
         Style(labels["departure"],24); labels["departure"].textWrappingMode=TextWrappingModes.Normal;
         var content = PanelWidgets.Scroll(pages["details"], "Diagnostics", out detailScroll);
         PanelWidgets.Fill((RectTransform)detailScroll.transform);
-        PanelWidgets.Button(content, Text.Get("Cue.watch"), () => Plugin.Service.WatchArrival(COSelf, true));
-        Phobos.Ostranauts.Framework.Crew.CrewPanel.Button(content, COSelf);
-        PanelWidgets.Button(content, Text.Get("Cue.unwatch"), () => Plugin.Service.WatchArrival(COSelf, false));
-        var cueVolume = PanelWidgets.Button(content, "", () => Phobos.Ostranauts.Framework.Audio.CompletionCues.CycleVolume());
+        ConsoleWidgets.Button(content, Text.Get("Cue.watch"), () => Plugin.Service.WatchArrival(COSelf, true));
+        ConsoleWidgets.Button(content,ConsoleWidgets.Text("crew_settings"),()=>draftGuard.Navigate(()=>Phobos.Ostranauts.Framework.Crew.CrewPanel.Show(COSelf)));
+        ConsoleWidgets.Button(content, Text.Get("Cue.unwatch"), () => Plugin.Service.WatchArrival(COSelf, false));
+        var cueVolume = ConsoleWidgets.Button(content, "", () => Phobos.Ostranauts.Framework.Audio.CompletionCues.CycleVolume());
         labels["cue-volume"] = cueVolume.GetComponentInChildren<TMP_Text>();
         labels["details"] = PanelWidgets.Label(content, "", flowing: false);
-        Style(labels["details"], 24); labels["details"].textWrappingMode = TextWrappingModes.Normal;
+        Style(labels["details"], 18); labels["details"].textWrappingMode = TextWrappingModes.Normal;
         var sizing = labels["details"].gameObject.AddComponent<LayoutElement>(); sizing.minHeight = HubLayout.Data["body"].h;
     }
 
@@ -145,13 +157,13 @@ public sealed class AutoNavPanel : NavModBase
         if (propulsionKnob != null)
         {
             FitNative(propulsionKnob, knobHost);
-            propulsionKnob.Callback = state => Invoke(() => Plugin.Service.SetPanelTorch(COSelf, state > 0));
+            propulsionKnob.Callback = state => Invoke(() => DraftTorch(state > 0));
         }
         // Explicit text selection accompanies the native knob and remains available if the donor changes.
-        AddButton(Rect(prop, 408, 0, 120, 52), "propulsion", Text.Get("Hub.change"), () => Plugin.Service.SetPanelTorch(COSelf, !Plugin.Service.ReadHub(COSelf).Navigation.TorchPreferred));
-        Setting(preferences, "nav.cruise", "cruise", () => Plugin.Service.StepPanelSpeed(COSelf, false, -1), () => Plugin.Service.StepPanelSpeed(COSelf, false, 1));
-        Setting(preferences, "nav.arrival", "arrival", () => Plugin.Service.StepPanelSpeed(COSelf, true, -1), () => Plugin.Service.StepPanelSpeed(COSelf, true, 1));
-        Setting(preferences, "nav.separation", "separation", () => Plugin.Service.StepPanelArrival(COSelf, -1), () => Plugin.Service.StepPanelArrival(COSelf, 1));
+        AddButton(Rect(prop, 408, 0, 120, 52), "propulsion", Text.Get("Hub.change"), () => DraftTorch(!(preferencesDirty?torchDraft:Plugin.Service.ReadHub(COSelf).Navigation.TorchPreferred)));
+        Setting(preferences, "nav.cruise", "cruise", () => DraftSpeed(false,-1), () => DraftSpeed(false,1));
+        Setting(preferences, "nav.arrival", "arrival", () => DraftSpeed(true,-1), () => DraftSpeed(true,1));
+        Setting(preferences, "nav.separation", "separation", () => DraftArrival(-1), () => DraftArrival(1));
         docking = PanelWidgets.Rect(parent, "Docking"); PanelWidgets.Fill(docking);
         foreach (string id in new[] { "clearance", "ports", "alignment", "progress" }) labels[id] = Readout(Box(docking, "dock." + id), 24, 4);
     }
@@ -161,8 +173,8 @@ public sealed class AutoNavPanel : NavModBase
         var actions = Box(parent, "pursuit.actions");
         AddButton(Cell(actions, 0, 2), "rendezvous", Text.Get("Hub.rendezvous"), () => Plugin.Service.StartPursuit(COSelf, false));
         AddButton(Cell(actions, 1, 2), "follow", Text.Get("Hub.follow"), () => Plugin.Service.StartPursuit(COSelf, true));
-        Setting(parent, "pursuit.cruise", "pursuitCruise", () => Plugin.Service.StepPanelSpeed(COSelf, false, -1), () => Plugin.Service.StepPanelSpeed(COSelf, false, 1));
-        Setting(parent, "pursuit.separation", "pursuitSeparation", () => Plugin.Service.StepPanelArrival(COSelf, -1), () => Plugin.Service.StepPanelArrival(COSelf, 1));
+        Setting(parent, "pursuit.cruise", "pursuitCruise", () => DraftSpeed(false,-1), () => DraftSpeed(false,1));
+        Setting(parent, "pursuit.separation", "pursuitSeparation", () => DraftArrival(-1), () => DraftArrival(1));
         labels["pursuitHelp"] = Readout(Box(parent, "pursuit.help"), 24);
         labels["pursuitHelp"].textWrappingMode = TextWrappingModes.Normal;
         labels["pursuitHelp"].text = Text.Get("FCS.pursuit_help");
@@ -225,6 +237,8 @@ public sealed class AutoNavPanel : NavModBase
         if (!labels.ContainsKey("title")) return;
         NormalizePlacementBounds();
         var view = Plugin.Service.ReadHub(COSelf); var nav = view.Navigation;
+        draftActions.gameObject.SetActive(preferencesDirty);labels["coast"].gameObject.SetActive(!preferencesDirty);
+        if(preferencesDirty){nav.CruiseMS=preferenceDraft.CruiseMS;nav.ArrivalMS=preferenceDraft.ArrivalMS;nav.ArrivalKM=preferenceDraft.ArrivalKM;nav.TorchPreferred=torchDraft;}
         controls.interactable = controls.blocksRaycasts = CanInteract;
         bool isDocking = view.DockProgress != DockProgress.None;
         if (isDocking && !lastDocking) page = "navigation";
@@ -264,16 +278,18 @@ public sealed class AutoNavPanel : NavModBase
         labels["cycleValue"].text = Number(view.Cycle * 100, "0") + " %";
         labels["safetyValue"].text = State(view.Safety); labels["enabledValue"].text = State(view.CycleEnabled);
         labels["cue-volume"].text = Phobos.Ostranauts.Framework.Audio.CompletionCues.VolumeLabel;
-        labels["departure"].text = Plugin.Service.DepartureDescription(COSelf);
+          labels["departure"].text = Plugin.Service.DepartureDescription(COSelf);
+          if(preferencesDirty)labels["departure"].text=Plugin.Service.PanelDepartureLabel(departureDraft)+"\n"+ConsoleWidgets.Text("apply_first");
+          foreach(var command in new[]{"depart","depart-continue","depart-resume"})buttons[command].interactable=!preferencesDirty;
         labels["details"].text = view.CompletionCue + "\n\n" + nav.Details + "\n\n" + Text.Get("Hub.help") + "\n\n" + Plugin.Service.PursuitSummary(COSelf);
-        buttons["resume"].interactable = nav.Resumable && view.WorkingNavigation;
+          buttons["resume"].interactable = !preferencesDirty && nav.Resumable && view.WorkingNavigation;
         buttons["stop"].interactable = nav.CanStop || view.AutoAiming || view.FirePermitted;
         // Always accessible while following, including when the guarded switch is on another page.
         buttons["cease"].interactable = view.Active || view.FirePermitted || view.AutoAiming || view.FireHeld;
-        buttons["approach"].interactable = nav.CanFly && !nav.Resumable && view.WorkingNavigation;
-        buttons["dock"].interactable = nav.CanDock && view.WorkingNavigation;
-        buttons["approachdock"].interactable = view.CanApproachDock;
-        buttons["rendezvous"].interactable = buttons["follow"].interactable = nav.CanFly && !nav.Resumable && view.WorkingPursuit;
+        buttons["approach"].interactable = !preferencesDirty && nav.CanFly && !nav.Resumable && view.WorkingNavigation;
+        buttons["dock"].interactable = !preferencesDirty && nav.CanDock && view.WorkingNavigation;
+        buttons["approachdock"].interactable = !preferencesDirty && view.CanApproachDock;
+        buttons["rendezvous"].interactable = buttons["follow"].interactable = !preferencesDirty && nav.CanFly && !nav.Resumable && view.WorkingPursuit;
         buttons["firetarget"].interactable = buttons["volleys"].interactable = buttons["weapon"].interactable = buttons["reference"].interactable = view.CanSelectWeapons;
         buttons["group"].interactable = view.CanChangeGroup;
         buttons["native"].interactable = view.CanReturnFire || view.CanSelectWeapons;
@@ -295,6 +311,23 @@ public sealed class AutoNavPanel : NavModBase
         Refresh(cycleSlider, view.Cycle, view.CycleLimit, view.CanManual);
     }
 
+    private void BeginPreferenceDraft()
+    {
+        if(preferencesDirty)return;
+        preferenceDraft=Plugin.Service.PanelPreferences(COSelf);preferenceExpected=Plugin.Service.PanelPreferenceStamp(COSelf);
+        torchDraft=Plugin.Service.ReadHub(COSelf).Navigation.TorchPreferred;departureDraft=departureExpected=Plugin.Service.PanelDepartureMode;preferencesDirty=true;
+    }
+    private void DraftSpeed(bool arrival,int direction)
+    {
+        BeginPreferenceDraft();double value=InstrumentRules.StepSpeed(arrival?preferenceDraft.ArrivalMS:preferenceDraft.CruiseMS,direction,arrival,preferenceDraft.CruiseMS);
+        preferenceDraft=arrival?new FlightPreferences(preferenceDraft.CruiseMS,value,preferenceDraft.ArrivalKM):new FlightPreferences(value,Math.Min(value,preferenceDraft.ArrivalMS),preferenceDraft.ArrivalKM);
+    }
+    private void DraftArrival(int direction){BeginPreferenceDraft();preferenceDraft=new FlightPreferences(preferenceDraft.CruiseMS,preferenceDraft.ArrivalMS,InstrumentRules.StepArrival(preferenceDraft.ArrivalKM,direction));}
+    private void DraftTorch(bool value){BeginPreferenceDraft();torchDraft=value;}
+    private bool ApplyPreferenceDraft()
+    {if(!preferencesDirty)return true;if(!Plugin.Service.ApplyNavigationPanel(COSelf,preferenceExpected,preferenceDraft,torchDraft,departureExpected,departureDraft)){UpdateUI();return false;}preferencesDirty=false;UpdateUI();return true;}
+    private void ApplyPreferences()=>ApplyPreferenceDraft();
+    private void DiscardPreferences(){preferencesDirty=false;UpdateUI();}
     private static string Number(double? value, string format) => value.HasValue ? value.Value.ToString(format, System.Globalization.CultureInfo.CurrentCulture) : Text.Get("Hub.unavailable");
     private static string State(bool? value) => Text.Get(value.HasValue ? value.Value ? "Hub.on" : "Hub.off" : "Hub.unavailable");
     private static void Refresh(GUISafetyToggle? guard, bool value, bool enabled)

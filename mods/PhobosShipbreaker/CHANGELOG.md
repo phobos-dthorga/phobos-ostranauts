@@ -19,6 +19,15 @@ Dates on Draft entries record preparation, not Steam publication.
 - Earlier capture-only research is superseded for supported ordinary walls by the implementation below. Broader structural recipes, repeated furnace batches and whole-wreck completion remain outside this round.
 - Keep [NASA Goddard's Raven research](https://www.nasa.gov/general/nasas-hybrid-computer-enables-ravens-autonomous-rendezvous-capability/) and [ESA's LIRIS experiment by Airbus, Jena Optronik and Sodern](https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/ATV/ATV_views_Space_Station_as_never_before) as sensing context, separate from Blue Bottle Games native evidence and authored gameplay choices. No institutional endorsement or gameplay validation is implied.
 
+## [0.26.0] - 2026-09-26 - Draft
+
+### Control panels
+
+- Migrated C1 and local D4/R4/C2/G4/F6 controls to the shared compact console. Legacy collector/reclaimer windows and F9 entry points now open the native panel.
+- Replaced endpoint lists with searchable Change/Locate/Clear forms. Local inventory access and C1 ship scope retain the existing checked services.
+- Retained native furnace gauges and safety controls. Heat, ramp and cooling drafts apply together after fresh access/range/state validation; invalid or stale edits remain visible. Operation, routing, maintenance and diagnostics have separate views.
+- Requires Framework 0.26.0. Saved pairs, cargo, industrial jobs and explicit Resume rules are unchanged. Owner Unity evaluation remains pending.
+
 ## [0.25.0] - 2026-09-26 - Draft
 
 ### Crew automation

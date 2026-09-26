@@ -6,8 +6,22 @@ using Phobos.Ostranauts.Framework.Crew;
 
 namespace PhobosShipbreaker;
 
-internal sealed class IndustrialCrewProvider : ICrewWorkProvider,ICrewSkipProvider,ICrewBoundProvider
+internal sealed class IndustrialCrewProvider : ICrewWorkProvider,ICrewSkipProvider,ICrewBoundProvider,ICrewOrderPresentation
 {
+    public OrderFields Fields(CondOwner co)=>ProcessingService.IsGrabber(co)?OrderFields.Target|OrderFields.Hazardous:
+        co.strCODef.StartsWith(CollectorRules.Installed,StringComparison.Ordinal)?OrderFields.Destination|OrderFields.Routine:
+        OrderFields.Stock|OrderFields.Source|OrderFields.Destination|(FurnaceRules.Machine(co.strCODef)?OrderFields.Hazardous:OrderFields.None);
+    public IEnumerable<Ship> Targets(CondOwner co)=>ProcessingService.IsGrabber(co)&&CaptureService.Read(co,out var c)&&CrewSim.system.GetShipByRegID(c["target"]) is Ship s?new[]{s}:Array.Empty<Ship>();
+    public OrderState Activity(CondOwner co,StandingOrder order)
+    {
+        if(co.HasCond("IsDamaged")||co.HasCond("IsLocked"))return OrderState.Blocked;
+        bool working=ProcessingService.IsGrabber(co)?ReclamationService.CrewActive(co):FurnaceRules.Machine(co.strCODef)?FurnaceService.Get(co).State.Batch.Armed:co.HasCond(ProcessRules.Working);
+        return working?(co.HasCond("IsPowered")?OrderState.Running:OrderState.Blocked):OrderState.Waiting;
+    }
+    public bool Validate(CondOwner co,StandingOrder draft,out string reason)
+    {reason=Text.Get("Crew.bound_target");return !ProcessingService.IsGrabber(co)||draft.Target=="none"||Targets(co).Any(s=>s.strRegID==draft.Target);}
+    public bool RelevantStore(CondOwner co,StandingOrder draft,CondOwner store,bool output)=>CrewLogistics.Contents(store).Any(c=>output?ProcessingService.CrewProduct(co,c):
+        FurnaceRules.Machine(co.strCODef)?FurnaceService.CrewFeed(c):ProcessingService.CrewFeed(co,c));
     public string Id=>Plugin.Id;
     public bool Supports(CondOwner c)=>ProcessingService.IsProcessor(c.strCODef) || c.strCODef==CollectorRules.Installed || c.strCODef==CollectorRules.Installed+"Dmg" ||
         FurnaceRules.Machine(c.strCODef) || ProcessingService.IsGrabber(c);

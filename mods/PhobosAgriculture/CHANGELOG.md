@@ -17,6 +17,14 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Fixed unreachable INSTALL entries; Firstlight-4, Hearth-2 and W2 appear under APPS, and irrigation conduit under MISC, including damaged forms. Existing inputs, placement and saved IDs are preserved.
 
+## [0.13.0] - 2026-09-26 - Draft
+
+### Control panels
+
+- Grouped local machinery controls into Operation, Supplies & connections, Details and standing-order access using Framework 0.26.0.
+- Kept crop-stage artwork and manual planting, harvesting, draining and workup actions. Connection and dosing choices use checked Apply forms; current selections are retained when supplies disappear.
+- B2 standing orders expose process, stock target, approved input/output stores and routine resume without unrelated crop-clearing, drain or exterior mission controls. Recipes and resource accounting are unchanged.
+
 ## [0.12.1] - 2026-09-26 - Draft
 
 ### Fixed

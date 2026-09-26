@@ -7,8 +7,14 @@ using Phobos.Ostranauts.Framework.Crew;
 namespace PhobosAutoNav;
 
 /// <summary>Only resumes an explicitly bound, already recorded flight; never acquires a target.</summary>
-internal sealed class NavigationCrewProvider : ICrewWorkProvider,ICrewBoundProvider
+internal sealed class NavigationCrewProvider : ICrewWorkProvider,ICrewBoundProvider,ICrewOrderPresentation
 {
+    public OrderFields Fields(CondOwner co)=>OrderFields.Hazardous|OrderFields.Target;
+    public OrderState Activity(CondOwner co,StandingOrder order)=>co.HasCond("IsDamaged")||co.HasCond("IsLocked")?OrderState.Blocked:AutoNavCore.Engaged?OrderState.Running:OrderState.Waiting;
+    public bool RelevantStore(CondOwner co,StandingOrder draft,CondOwner store,bool output)=>false;
+    public IEnumerable<Ship> Targets(CondOwner co)=>CrewSim.system.dictShips.Values.Where(s=>Plugin.Service.CrewFlightMatches(co,s.strRegID));
+    public bool Validate(CondOwner co,StandingOrder draft,out string reason)
+    {reason=Text.Get("Crew.bind");return draft.Target=="none"||Targets(co).Any(s=>s.strRegID==draft.Target);}
     public string Id => Plugin.Id;
     public bool Supports(CondOwner co) => co.HasCond("IsNavStation") &&
         co.GetCOsSafe(true).Any(c => c.strCODef == NavigationService.ModuleId || c.strCODef == NavigationService.PursuitId);
@@ -39,6 +45,7 @@ internal sealed class NavigationCrewProvider : ICrewWorkProvider,ICrewBoundProvi
 
 internal sealed partial class NavigationService
 {
+    partial void CrewSettingsChanged(CondOwner co)=>Phobos.Ostranauts.Framework.Controls.ConfigurationStamp.SuspendChangedOrder(co);
     private static bool CrewAboard(Ship ship) => CrewWork.AllCrewAboard(ship);
     partial void CrewResumePolicy(CondOwner co,ref bool permitted)
     { if(CrewWork.Order(co).Recipe=="resume-flight")permitted=false; }

@@ -70,6 +70,21 @@ public static class CrewSpecialities
         var next=fields.ToDictionary(p=>p.Key,p=>p.Value,StringComparer.Ordinal); next[role.ToString()]=Allowed(actor,role)?"0":"1";
         return store.TryWrite(next);
     }
+    public static string RoleFingerprint(CondOwner actor)
+    {
+        var status=CrewWork.Store(actor,"crew-roles").Read(out var fields);
+        return status+":"+CrewBalance.Binding(fields.OrderBy(p=>p.Key,StringComparer.Ordinal).SelectMany(p=>new[]{p.Key,p.Value}));
+    }
+    public static bool ApplyRoles(CondOwner actor,string expected,IReadOnlyDictionary<CrewRole,bool> roles,out string reason)
+    {
+        reason=Controls.ConsoleText.Get("stale");
+        if(actor.Company!=CrewSim.coPlayer?.Company||actor.bDestroyed||RoleFingerprint(actor)!=expected)return false;
+        var store=CrewWork.Store(actor,"crew-roles");var status=store.Read(out var fields);
+        if(status!=SavedStateStatus.Missing&&status!=SavedStateStatus.Ready)return false;
+        var next=fields.ToDictionary(p=>p.Key,p=>p.Value,StringComparer.Ordinal);
+        foreach(var role in roles){if(!Enum.IsDefined(typeof(CrewRole),role.Key))return false;next[role.Key.ToString()]=role.Value?"1":"0";}
+        reason=Controls.ConsoleText.Get("protected");bool saved=store.TryWrite(next);if(saved)reason=Controls.ConsoleText.Get("applied");return saved;
+    }
     internal static void Definitions() => PrepareDefinitions().Publish();
     public static NativeDefinitions PrepareDefinitions()
     {

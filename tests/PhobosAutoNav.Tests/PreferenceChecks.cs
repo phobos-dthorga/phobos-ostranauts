@@ -41,6 +41,15 @@ internal static class PreferenceChecks
             "Lowering cruise clamps its own arrival speed coherently");
         check(!service.SetFlightSetting(one, FlightSetting.ArrivalSpeed, 11), "Explicit arrival above cruise is rejected");
         check(!service.SetFlightSetting(one, FlightSetting.Cruise, double.NaN), "Invalid F3/service input cannot enter saved defaults");
+        string draftStamp=service.PanelPreferenceStamp(one);
+        var draftProfile=new FlightPreferences(250,.5,1.25);
+        check(service.ReadInstruments(one).CruiseMS==10,"Reading a navigation draft does not apply settings");
+        check(!service.ApplyPanelPreferences(one,draftStamp,new FlightPreferences(10,20,1),false)&&service.ReadInstruments(one).CruiseMS==10,
+            "Invalid complete form preserves all live settings");
+        check(service.ApplyPanelPreferences(one,draftStamp,draftProfile,false)&&service.PanelPreferences(one).CruiseMS==250&&service.PanelPreferences(one).ArrivalKM==1.25,
+            "Validated navigation form commits speed and distance together");
+        check(!service.ApplyPanelPreferences(one,draftStamp,new FlightPreferences(300,0,2),false)&&service.PanelPreferences(one).CruiseMS==250,
+            "A stale panel cannot overwrite settings changed since it opened");
         var flight = new FlightSnapshot { ConsoleId = "one", ModuleId = "one-module", ShipId = "ship", PlayerId = "player", TargetId = "target",
             CruiseMS = 80, ArrivalMS = .2, ArrivalKM = .5, Coast = new CoastSettings(3,10,.75,2), Mode = SavedFlightMode.Suspended };
         var flightStore = new ObjectStateStore(one.mapGUIPropMaps, FlightSnapshot.StoreName, "one", 1);
@@ -48,6 +57,7 @@ internal static class PreferenceChecks
         check(!service.SetFlightSetting(one, FlightSetting.Cruise, 300) && service.ReadInstruments(one).CruiseMS == 80,
             "Suspended flight retains captured settings instead of defaults");
         flightStore.Read(out var after); check(before.SequenceEqual(after), "Rejected settings do not rewrite flight intent");
+        check(!service.ApplyPanelPreferences(one,service.PanelPreferenceStamp(one),draftProfile,false),"Panel apply also preserves suspended flight authority");
         flightStore.Clear();
         var protectedMap = new Dictionary<string,string> { ["schema"] = "99", ["owner"] = "one", ["data.future"] = "keep" };
         one.mapGUIPropMaps["PhobosState." + FlightPreferences.StoreName] = protectedMap;

@@ -1,5 +1,10 @@
 # Polaris flight hub — Auto Nav 0.14.1
 
+Auto Nav 0.20.0 keeps this approved native footprint and artwork. Speed, arrival
+propulsion preferences and departure intent use Apply/Discard drafts; see the
+[control-panel guide](control-panel-guide.md). Flight, fire and native propulsion
+commands remain separate explicit actions.
+
 Prepared 26 September 2026 for Blue Bottle Games' Ostranauts 1.0.1.5 and
 Phobos Framework 0.21.2 or newer. Offline checks and packaging are separate from
 owner-run gameplay evaluation. Preparing this version does not install or publish it.

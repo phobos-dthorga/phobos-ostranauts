@@ -1,3 +1,8 @@
+[h2]Compact console update[/h2]
+Added a shared compact console shell with fixed navigation/actions, independent viewports and a narrow-screen Back layout. Existing panels and native instrument dimensions are not globally resized. Separated Orders, Crew & Training and Time-skip. Equipment-specific forms use drafts, complete form validation, stale rejection, Apply/Discard and explicit Resume after changing enabled orders. Disabled and manual-stop states remain intact. Added searchable storage/connection pickers, opt-in nicknames, native artwork with neutral placeholders, and an input-isolated ship picker with overlap disambiguation. Native names, object IDs and physical inventories are unchanged.
+[b]Prepared, not published. Unity gameplay and scale evaluation remain owner-run.[/b]
+[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/control-panel-guide.md]Console controls, drafts and owner checks[/url]
+
 [h1]Phobos Framework[/h1]
 [h2]Trimmed-grid save correction in 0.24.1[/h2]
 Synchronizes outgoing saved dimensions after native grid trimming and validates already-affected headers against their exterior boundary and saved room positions. Corrects the inspected Ostranauts 1.0.1.5 save-order defect before Shipbreaker's grid guard runs. Room IDs, atmosphere, zones, items and construction progress are retained; original archives are not edited. Ambiguous records remain untouched. Both reported archives pass offline checks; gameplay confirmation of this third fix is pending.
@@ -16,7 +21,7 @@ Provides the checked bounds calculation used by Shipbreaker 0.19.1 to mitigate r
 [h2]Shared completion cues[/h2]
 One optional quiet completion channel now supports watched D4/R4 batches, meals, whole-crop readiness and finite navigation arrivals. Volume/mute and burst suppression apply across the suite. Original procedural audio; no native recordings copied. No saved watch replay. Gameplay/listening review pending.
 [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/shared-completion-cues.md]Supported events and shared controls[/url]
-[b]Version:[/b] 0.25.1
+[b]Version:[/b] 0.26.0
 [b]Publication status:[/b] Not published - development candidate
 
 Shared foundations for the Phobos Ostranauts mods and other mod authors. Install this alongside a content mod; Framework does not add a complete gameplay activity on its own.

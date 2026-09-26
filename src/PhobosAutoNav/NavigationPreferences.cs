@@ -60,6 +60,20 @@ internal sealed partial class NavigationService
             direction, arrival, preferences.CruiseMS);
         SetFlightSetting(co, arrival ? FlightSetting.ArrivalSpeed : FlightSetting.Cruise, value);
     }
+    internal FlightPreferences PanelPreferences(CondOwner co)=>ReadPreferences(co,out var value)?value:default;
+    internal string PanelPreferenceStamp(CondOwner co)=>string.Join("|",PanelPreferences(co).Encode().OrderBy(p=>p.Key).Select(p=>p.Key+":"+p.Value))+"|"+Plugin.PreferTorch.Value;
+    internal bool ApplyPanelPreferences(CondOwner co,string expected,FlightPreferences value,bool torch)
+    {
+        if(!CanChangePreferences(co))return false;
+        if(!value.Valid||PanelPreferenceStamp(co)!=expected||!ReadPreferences(co,out _))
+        {status=Phobos.Ostranauts.Framework.Controls.ConsoleText.Get("stale");return false;}
+        // One validated main-thread commit. Existing property identity and captured flights are untouched.
+        if(!PreferenceStore(co).TryWrite(value.Encode())){status=Text.Get("Preferences.invalid");return false;}
+        SetTorchPreference(torch);
+        CrewSettingsChanged(co);
+        status=Phobos.Ostranauts.Framework.Controls.ConsoleText.Get("applied");return true;
+    }
+    partial void CrewSettingsChanged(CondOwner co);
 
     private bool ResetPreferences(CondOwner? co)
     {

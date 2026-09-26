@@ -8,7 +8,7 @@ namespace PhobosShipbreaker;
 
 internal sealed class EquipmentCard
 {
-    internal string Id = "", Name = "", Group = "", Detail = "", InstrumentStatus = "", SearchScope = "";
+    internal string Id = "", Name = "", Group = "", Detail = "", Summary = "", InstrumentStatus = "", SearchScope = "";
     internal EquipmentState State;
     internal bool Attention, Instrument;
 }
@@ -31,15 +31,15 @@ internal static class IndustryService
         if (provider != null)
         {
             var snapshot = provider.Snapshot(co);
-            return new EquipmentCard { Id = snapshot.Id, Name = snapshot.Name, Group = snapshot.Group, State = snapshot.Activity.State, Attention = snapshot.Activity.NeedsAttention, Detail = snapshot.Activity.Detail };
+            return new EquipmentCard { Id = snapshot.Id, Name = ObjectPresentation.Name(co), Group = snapshot.Group, State = snapshot.Activity.State, Attention = snapshot.Activity.NeedsAttention, Summary = FirstLine(snapshot.Activity.Detail), Detail = snapshot.Activity.Detail };
         }
         if (FurnaceService.IsEquipment(co))
         {
             var s = FurnaceService.Get(co);
             var receiving = FurnaceRules.Machine(co.strCODef) ? Plugin.Collectors.ActiveReceiving(co) : null;
-            return new EquipmentCard { Id = co.strID, Name = co.strNameFriendly + " [" + Phobos.Ostranauts.Framework.Inventory.PortPairing.ShortId(co.strID) + "]",
+            return new EquipmentCard { Id = co.strID, Name = ObjectPresentation.Name(co),
                 Group = IndustrialRules.Group(co.strCODef), State = s.State.Batch.Armed ? EquipmentState.Running : receiving?.State ?? EquipmentState.Paused,
-                Attention = s.Protected || s.Notice.Length > 0 || receiving?.NeedsAttention == true, Detail = FurnaceService.Describe(co) };
+                Attention = s.Protected || s.Notice.Length > 0 || receiving?.NeedsAttention == true, Summary = s.Notice, Detail = FurnaceService.Describe(co) };
         }
         var group = IndustrialRules.Group(co.strCODef);
         var process = ProcessingService.IsProcessor(co.strCODef) ? Plugin.Service.Activity(co) :
@@ -60,9 +60,11 @@ internal static class IndustryService
         if (ProcessingService.IsReclaimer(co)) detail += "\n\n" + Text.Get("Routing.metals_port") + "\n" + CollectorService.DescribeLink(co, true, true);
         if (RoutingRules.IsSender(co.strCODef)) detail += "\n\n" + CollectorService.DescribeLink(co, true);
         if (RoutingRules.IsReceiver(co.strCODef)) detail += "\n\n" + CollectorService.DescribeLink(co, false) + "\n" + CollectorService.FilterLabel(co);
-        return new EquipmentCard { Id = co.strID, Name = co.strNameFriendly + (group == "grabber" ? " " + CaptureService.Label(co) : " [" + Phobos.Ostranauts.Framework.Inventory.PortPairing.ShortId(co.strID) + "]"),
-            Group = group, State = process.State, Attention = attention, Detail = detail + IndustryObservations.ExplainStop(co) };
+        return new EquipmentCard { Id = co.strID, Name = ObjectPresentation.Name(co),
+            Group = group, State = process.State, Attention = attention, Summary = FirstLine(process.Detail), Detail = detail + IndustryObservations.ExplainStop(co) };
     }
+    // Presentation only. Gameplay decisions use EquipmentState and the checked services.
+    private static string FirstLine(string detail) => detail.Split(new[]{'\r','\n'},StringSplitOptions.RemoveEmptyEntries).FirstOrDefault()??"";
     internal static string StateName(EquipmentState state) => Text.Get("Industry.state_" + state);
     internal static bool Run(ConsoleBinding? binding, string targetId, string action, string? value, out string message)
     {

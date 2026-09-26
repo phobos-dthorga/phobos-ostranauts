@@ -91,6 +91,7 @@ internal static class LocalizationChecks
         // Build-time content audit: every literal key and every construction/overlay
         // key must exist. This also validates all contributed language files.
         string repo = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "../../../../../"));
+        var consoleEnglish = TranslationCatalog.Parse(File.ReadAllText(Path.Combine(repo, "translations/PhobosFramework/en.json")));
         foreach (string mod in new[] { "PhobosFramework", "PhobosShipbreaker", "PhobosAutoNav" })
         {
             string translations = Path.Combine(repo, "translations", mod);
@@ -100,8 +101,13 @@ internal static class LocalizationChecks
             var english = new TranslationCatalog(File.ReadAllText(Path.Combine(translations, "en.json")), null, equipment);
             foreach (var entry in baseline) { TranslationCatalog.Signature(entry.Value); check(true, "Valid English template: " + entry.Key); }
             foreach (string file in Directory.GetFiles(Path.Combine(repo, "src", mod), "*.cs", SearchOption.AllDirectories))
-            foreach (Match key in Regex.Matches(File.ReadAllText(file), "Text\\.Get\\(\"([^\"]+)\"\\s*[,)]"))
+            {
+            string source = File.ReadAllText(file);
+            foreach (Match key in Regex.Matches(source, "\\bText\\.Get\\(\"([^\"]+)\"\\s*[,)]"))
                 check(baseline.ContainsKey(key.Groups[1].Value), "English key exists: " + mod + "/" + key.Groups[1].Value);
+            foreach (Match key in Regex.Matches(source, "\\b(?:ConsoleText\\.Get|ConsoleWidgets\\.Text|C\\.Text)\\(\"([^\"]+)\"\\s*[,)]"))
+                check(consoleEnglish.ContainsKey("Console." + key.Groups[1].Value), "Shared console key exists: " + key.Groups[1].Value);
+            }
             foreach (string file in Directory.GetFiles(translations, "*.json"))
             {
                 var entries = TranslationCatalog.Parse(File.ReadAllText(file));

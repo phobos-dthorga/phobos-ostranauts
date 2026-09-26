@@ -14,6 +14,15 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.26.0] - 2026-09-26 - Draft
+
+### Control panels
+
+- Added a shared compact console shell with fixed navigation/actions, independent viewports and a narrow-screen Back layout. Existing panels and native instrument dimensions are not globally resized.
+- Separated Orders, Crew & Training and Time-skip. Equipment-specific forms use drafts, complete form validation, stale rejection, Apply/Discard and explicit Resume after changing enabled orders. Disabled and manual-stop states remain intact.
+- Added searchable storage/connection pickers, opt-in nicknames, native artwork with neutral placeholders, and an input-isolated ship picker with overlap disambiguation. Native names, object IDs and physical inventories are unchanged.
+- Reused the existing original Phobos console frame. Native components remain behind audited adapters with standard-widget fallbacks. Browser previews and automated checks are not Unity gameplay validation.
+
 ## [0.25.1] - 2026-09-26 - Draft
 
 ### Fixed

@@ -93,6 +93,23 @@ public static class CrewWork
         return Message("order_status", Message(order.Permission.ToString()), active?.Worker?.FriendlyName ?? Message("unassigned"),
             active==null?detail:active.Offer.Label+"\n"+detail);
     }
+    public static OrderStatus ReadStatus(CondOwner co)
+    {
+        var order=Order(co);var provider=Provider(co);var job=Jobs.Values.FirstOrDefault(j=>j.Equipment==co);
+        string work=provider?.Recipes(co).Contains(order.Recipe)==true?provider.RecipeLabel(order.Recipe):Message("choose_work");
+        string worker=job?.Worker?.FriendlyName??Message("unassigned");
+        if(order.Protected)return new(OrderState.Blocked,work,worker,Message("protected"));
+        if(order.Permission==WorkPermission.Stopped)return new(OrderState.Stopped,work,worker,Message("reason_"+(order.StopReason.Length>0?order.StopReason:"manual")));
+        if(provider?.Recipes(co).Contains(order.Recipe)!=true)return new(OrderState.NeedsSetup,work,worker,Message("choose_work"));
+        if(order.Permission==WorkPermission.Disabled)return new(OrderState.Disabled,work,worker,"");
+        if(order.Permission==WorkPermission.Suspended)return new(OrderState.Stopped,work,worker,order.StopReason.Length>0?Message("reason_"+order.StopReason):Message("Suspended"));
+        if(job!=null)return new(job.Worker!=null?OrderState.Running:OrderState.Waiting,job.Offer.Label,worker,job.Worker==null?Message("crew_unavailable"):"");
+        string detail=notices.TryGetValue(co.strID,out var reason)?reason:"";
+        OrderState state;
+        try{state=provider is ICrewOrderPresentation presentation?presentation.Activity(co,order):OrderState.Waiting;}
+        catch{state=OrderState.Blocked;detail=Message("protected");}
+        return new(state,work,worker,detail);
+    }
     public static IEnumerable<CondOwner> Equipment(Ship ship) => DataHandler.mapCOs.Values.Where(c => c != null && !c.bDestroyed && c.ship == ship &&
         c.objCOParent == null && c.HasCond("IsInstalled") && Provider(c) != null).ToArray();
     public static IEnumerable<CondOwner> Stores(Ship ship) => DataHandler.mapCOs.Values.Where(c => c != null && !c.bDestroyed && c.ship == ship &&
