@@ -497,7 +497,7 @@
   "FCS.group_now_held": "Group {0} selected. Fire is on hold.",
   "FCS.group_selected": "Group {0} selected. Native control remains active.",
   "FCS.group_empty": "No installed weapons in this group.",
-  "FCS.switched_off": "Switched off",
+  "FCS.switched_off": "Off: check power or control signal",
   "FCS.reading_pending": "Firing readiness unavailable",
   "FCS.inventory_status": "{0}\n{1}",
   "FCS.inventory_ready": "{0} • Ready {1} • Installed {2}",

@@ -687,9 +687,9 @@
     },
     {
       "path": "src/PhobosAutoNav/AutoNavPanel.cs",
-      "sha256": "0bb54cb6aa9db7e220f95c8d8c890f0561b779585986d052d01cf156399388fe",
+      "sha256": "bbd68b99ff868f541924890039e31f74afc7bb73ed7129263bc6b08e5be70b0b",
       "role": "navigation, native boundary or flight policy",
-      "review": "2026-09-27: reviewed Polaris update/caller boundaries; fresh inventory only for visible Fire or explicit actions; no simulation cadence or recording changes.",
+      "review": "2026-09-27: reviewed Polaris update/caller boundaries; fresh inventory only for visible Fire or explicit actions; no simulation cadence or recording changes. Polaris readability correction reviewed: widget binding/geometry changes occur at creation; warning and damage precedence reuse existing snapshot facts. Metadata changes only adjust versions/minima. No additional polling, simulation or persistence work.",
       "decision": "P8: retain ten-per-second presentation, hidden-tab inactivity and unchanged-widget suppression. Add opt-in retained bindings, fresh inventory and checked action-time handoff. Metadata-only version updates have no recurring cost.",
       "findings": [
         "P2",
@@ -720,7 +720,7 @@
     {
       "path": "src/PhobosAutoNav/AutoNavPanelDialogs.cs",
       "role": "Polaris presentation, interaction guard or checked weapon-group handoff",
-      "review": "2026-09-27: reviewed Polaris update/caller boundaries; fresh inventory only for visible Fire or explicit actions; no simulation cadence or recording changes.",
+      "review": "2026-09-27: reviewed Polaris update/caller boundaries; fresh inventory only for visible Fire or explicit actions; no simulation cadence or recording changes. Polaris readability correction reviewed: widget binding/geometry changes occur at creation; warning and damage precedence reuse existing snapshot facts. Metadata changes only adjust versions/minima. No additional polling, simulation or persistence work.",
       "decision": "P8: retain ten-per-second presentation, hidden-tab inactivity and unchanged-widget suppression. Add opt-in retained bindings, fresh inventory and checked action-time handoff. Metadata-only version updates have no recurring cost.",
       "findings": [
         "P8"
@@ -732,7 +732,7 @@
           72
         ]
       },
-      "sha256": "ea46ce0c3becc89a997fb2a6095a0e9141337918d26445fba02f29848e3e47ba"
+      "sha256": "f697b723e38aef80c417b349f4126680a614ace6aed479644ed45198fc90f32e"
     },
     {
       "path": "src/PhobosAutoNav/Core/ApproachAdmission.cs",
@@ -1014,9 +1014,9 @@
     },
     {
       "path": "src/PhobosAutoNav/HubLayout.cs",
-      "sha256": "9a47e76875d54016b1dd9b603ffc69b5485863bb3f867f9d1f3fc9e9c7682a3a",
+      "sha256": "f662c428a1477185375bcfd6572a940f632dd22a22896faa7f9294601c85b628",
       "role": "navigation, native boundary or flight policy",
-      "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
+      "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings. Polaris readability correction reviewed: widget binding/geometry changes occur at creation; warning and damage precedence reuse existing snapshot facts. Metadata changes only adjust versions/minima. No additional polling, simulation or persistence work.",
       "decision": "Retain existing policy and call frequency. No independent measured hotspot justifies additional changes in this file; see the linked subsystem decision.",
       "findings": [
         "R2"
@@ -1165,9 +1165,9 @@
     },
     {
       "path": "src/PhobosAutoNav/NavigationHub.cs",
-      "sha256": "fd6bb1f2bbc3bcea0675820719b6be34c7f4724ae3daeffa858a26fae091834e",
+      "sha256": "68062b4a55294d405b2f10424d9f7249ecf01a00dcac87dbbd797be48b929ed1",
       "role": "navigation, native boundary or flight policy",
-      "review": "2026-09-27: reviewed Polaris update/caller boundaries; fresh inventory only for visible Fire or explicit actions; no simulation cadence or recording changes.",
+      "review": "2026-09-27: reviewed Polaris update/caller boundaries; fresh inventory only for visible Fire or explicit actions; no simulation cadence or recording changes. Polaris readability correction reviewed: widget binding/geometry changes occur at creation; warning and damage precedence reuse existing snapshot facts. Metadata changes only adjust versions/minima. No additional polling, simulation or persistence work.",
       "decision": "P8: retain ten-per-second presentation, hidden-tab inactivity and unchanged-widget suppression. Add opt-in retained bindings, fresh inventory and checked action-time handoff. Metadata-only version updates have no recurring cost.",
       "findings": [
         "P1",
@@ -1345,7 +1345,7 @@
     {
       "path": "src/PhobosAutoNav/NavigationWeaponGroups.cs",
       "role": "Polaris presentation, interaction guard or checked weapon-group handoff",
-      "review": "2026-09-27: reviewed Polaris update/caller boundaries; fresh inventory only for visible Fire or explicit actions; no simulation cadence or recording changes.",
+      "review": "2026-09-27: reviewed Polaris update/caller boundaries; fresh inventory only for visible Fire or explicit actions; no simulation cadence or recording changes. Polaris readability correction reviewed: widget binding/geometry changes occur at creation; warning and damage precedence reuse existing snapshot facts. Metadata changes only adjust versions/minima. No additional polling, simulation or persistence work.",
       "decision": "P8: retain ten-per-second presentation, hidden-tab inactivity and unchanged-widget suppression. Add opt-in retained bindings, fresh inventory and checked action-time handoff. Metadata-only version updates have no recurring cost.",
       "findings": [
         "P8"
@@ -1372,7 +1372,7 @@
           60
         ]
       },
-      "sha256": "a06f6b2aa9603b4f28e287f2d4dd95cf42394fd239dbb20fc79f3a5c29ff2126"
+      "sha256": "b7a22cf7d7b7819127fbee3e7832c3cb6d8c82a1872e7dae3bc82f7c40246524"
     },
     {
       "path": "src/PhobosAutoNav/PanelDepartureSettings.cs",
@@ -1408,9 +1408,9 @@
     },
     {
       "path": "src/PhobosAutoNav/Plugin.cs",
-      "sha256": "e2e0ca2dabd35d6ebf96c5537ee98ec33ab7063823e800277635b39e91bac378",
+      "sha256": "ea55efb3de089a4252e0c4f47db0c7873bc90d684ca850fe36f574646533f6d8",
       "role": "navigation, native boundary or flight policy",
-      "review": "2026-09-27: reviewed Polaris update/caller boundaries; fresh inventory only for visible Fire or explicit actions; no simulation cadence or recording changes.",
+      "review": "2026-09-27: reviewed Polaris update/caller boundaries; fresh inventory only for visible Fire or explicit actions; no simulation cadence or recording changes. Polaris readability correction reviewed: widget binding/geometry changes occur at creation; warning and damage precedence reuse existing snapshot facts. Metadata changes only adjust versions/minima. No additional polling, simulation or persistence work.",
       "decision": "P8: retain ten-per-second presentation, hidden-tab inactivity and unchanged-widget suppression. Add opt-in retained bindings, fresh inventory and checked action-time handoff. Metadata-only version updates have no recurring cost.",
       "findings": [
         "R2",
@@ -1973,7 +1973,7 @@
     {
       "path": "src/PhobosFramework/Controls/PolarisWidgets.cs",
       "role": "Polaris presentation, interaction guard or checked weapon-group handoff",
-      "review": "2026-09-27: reviewed Polaris update/caller boundaries; fresh inventory only for visible Fire or explicit actions; no simulation cadence or recording changes. Final sizing review preserves 18px command text and matches command-row height to 48px buttons; creation/layout only.",
+      "review": "2026-09-27: reviewed Polaris update/caller boundaries; fresh inventory only for visible Fire or explicit actions; no simulation cadence or recording changes. Final sizing review preserves 18px command text and matches command-row height to 48px buttons; creation/layout only. Polaris readability correction reviewed: widget binding/geometry changes occur at creation; warning and damage precedence reuse existing snapshot facts. Metadata changes only adjust versions/minima. No additional polling, simulation or persistence work.",
       "decision": "P8: retain ten-per-second presentation, hidden-tab inactivity and unchanged-widget suppression. Add opt-in retained bindings, fresh inventory and checked action-time handoff. Metadata-only version updates have no recurring cost.",
       "findings": [
         "P8"
@@ -1985,7 +1985,7 @@
           55
         ]
       },
-      "sha256": "f8b8ebf4f6f08b961c6b68ae6d7ed8f5aad7913201e2d8c395c8940e17832828"
+      "sha256": "a4337e9ef7101fdbf2bc15068a4353cb7eb95e249325686339760c45235e85eb"
     },
     {
       "path": "src/PhobosFramework/Controls/Presentation.cs",
@@ -2865,9 +2865,9 @@
     },
     {
       "path": "src/PhobosFramework/Plugin.cs",
-      "sha256": "2ef1e25879508a206b8f078a0c1d7ccd756db571c6ca9a4bb9be29b3e179c968",
+      "sha256": "9803dfb0a2f4a84bddc847d864f38539ca16e0a3a8f4304006db078031c9a5ad",
       "role": "shared accounting, inventory, crew or native boundary",
-      "review": "2026-09-27: reviewed Polaris update/caller boundaries; fresh inventory only for visible Fire or explicit actions; no simulation cadence or recording changes.",
+      "review": "2026-09-27: reviewed Polaris update/caller boundaries; fresh inventory only for visible Fire or explicit actions; no simulation cadence or recording changes. Polaris readability correction reviewed: widget binding/geometry changes occur at creation; warning and damage precedence reuse existing snapshot facts. Metadata changes only adjust versions/minima. No additional polling, simulation or persistence work.",
       "decision": "P8: retain ten-per-second presentation, hidden-tab inactivity and unchanged-widget suppression. Add opt-in retained bindings, fresh inventory and checked action-time handoff. Metadata-only version updates have no recurring cost.",
       "findings": [
         "R3",
@@ -3565,9 +3565,9 @@
     },
     {
       "path": "src/PhobosShipbreaker/Core/DependencyContract.cs",
-      "sha256": "5cb6d924ced70d60f4cfec40dede8d24d94ce7a0b794df465820e116ecb6a970",
+      "sha256": "06374c68abd71f3596a3819eea6e6dd770deb53159ffe693235972668c0313cc",
       "role": "industrial service, native boundary or process policy",
-      "review": "2026-09-27: reviewed Polaris update/caller boundaries; fresh inventory only for visible Fire or explicit actions; no simulation cadence or recording changes.",
+      "review": "2026-09-27: reviewed Polaris update/caller boundaries; fresh inventory only for visible Fire or explicit actions; no simulation cadence or recording changes. Polaris readability correction reviewed: widget binding/geometry changes occur at creation; warning and damage precedence reuse existing snapshot facts. Metadata changes only adjust versions/minima. No additional polling, simulation or persistence work.",
       "decision": "P8: retain ten-per-second presentation, hidden-tab inactivity and unchanged-widget suppression. Add opt-in retained bindings, fresh inventory and checked action-time handoff. Metadata-only version updates have no recurring cost.",
       "findings": [
         "R3",
@@ -4229,9 +4229,9 @@
     },
     {
       "path": "src/PhobosShipbreaker/Plugin.cs",
-      "sha256": "7b876e478859a326bf3e7ea4187ce92a7fce0185939ce044918e309e2420c628",
+      "sha256": "ed1c8f2b029c8de3eb62554bfd1b40ad404b0d1e0d4a04b153d0988d61e556f0",
       "role": "industrial service, native boundary or process policy",
-      "review": "2026-09-27: reviewed Polaris update/caller boundaries; fresh inventory only for visible Fire or explicit actions; no simulation cadence or recording changes.",
+      "review": "2026-09-27: reviewed Polaris update/caller boundaries; fresh inventory only for visible Fire or explicit actions; no simulation cadence or recording changes. Polaris readability correction reviewed: widget binding/geometry changes occur at creation; warning and damage precedence reuse existing snapshot facts. Metadata changes only adjust versions/minima. No additional polling, simulation or persistence work.",
       "decision": "P8: retain ten-per-second presentation, hidden-tab inactivity and unchanged-widget suppression. Add opt-in retained bindings, fresh inventory and checked action-time handoff. Metadata-only version updates have no recurring cost.",
       "findings": [
         "R3",

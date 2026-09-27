@@ -16,6 +16,17 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.30.1] - 2026-09-27 - Draft
+
+### Fixed
+
+- Correct washed-out Polaris buttons by using explicit dark colours for every button state and resetting inherited brightness. Native artwork and other panel defaults remain unchanged.
+
+### Known limits
+
+- Native palette contrast and offline regressions are checked; corrected Unity appearance and scrolling still require owner playtesting. No gameplay values or save formats change.
+
+
 ## [0.30.0] - 2026-09-27 - Draft
 
 ### Changed

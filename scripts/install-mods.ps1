@@ -70,6 +70,7 @@ if ('Shipbreaker' -in $Mods) {
         }
         if ([version]$shipInfo[0].strModVersion -ge [version]'0.23.0' -and $minimumPhobosFramework -lt [version]'0.28.0') { $minimumPhobosFramework = [version]'0.28.0' }
         if ([version]$shipInfo[0].strModVersion -ge [version]'0.28.2' -and $minimumPhobosFramework -lt [version]'0.29.0') { $minimumPhobosFramework = [version]'0.29.0' }
+        if ([version]$shipInfo[0].strModVersion -ge [version]'0.29.0' -and $minimumPhobosFramework -lt [version]'0.30.0') { $minimumPhobosFramework = [version]'0.30.0' }
         $minimumPhobosFramework = Get-MaintainedDependencyMinimum 'Shipbreaker.Framework' ([version]$shipInfo[0].strModVersion) $minimumPhobosFramework
         if (-not $PreviewsOnly) { $minimumAutoNav = Get-MaintainedDependencyMinimum 'Shipbreaker.AutoNav' ([version]$shipInfo[0].strModVersion) $minimumAutoNav }
         if ($needsPhobosFramework) { $Mods = @('Framework') + @($Mods | Where-Object { $_ -ne 'Framework' }) }
@@ -95,6 +96,7 @@ if ('AutoNav' -in $Mods) {
             if ([version]$navInfo[0].strModVersion -ge [version]'0.15.0' -and $minimumPhobosFramework -lt [version]'0.23.0') { $minimumPhobosFramework = [version]'0.23.0' }
             if ([version]$navInfo[0].strModVersion -ge [version]'0.17.0' -and $minimumPhobosFramework -lt [version]'0.26.0') { $minimumPhobosFramework = [version]'0.26.0' }
             if ([version]$navInfo[0].strModVersion -ge [version]'0.20.3' -and $minimumPhobosFramework -lt [version]'0.29.0') { $minimumPhobosFramework = [version]'0.29.0' }
+            if ([version]$navInfo[0].strModVersion -ge [version]'0.21.0' -and $minimumPhobosFramework -lt [version]'0.30.0') { $minimumPhobosFramework = [version]'0.30.0' }
             $minimumPhobosFramework = Get-MaintainedDependencyMinimum 'AutoNav.Framework' ([version]$navInfo[0].strModVersion) $minimumPhobosFramework
             $Mods = @('Framework') + @($Mods | Where-Object { $_ -ne 'Framework' })
         }

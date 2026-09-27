@@ -34890,13 +34890,13 @@
       "key": "FCS.switched_off",
       "category": "status/warning",
       "decision": "add",
-      "reason": "2026-09-27 Polaris review: plain action/status wording; installed inventory distinct from firing readiness; handoff explicitly warns that native automatic fire may resume.",
+      "reason": "Native launcher automatically powers up and has no manual Turn on interaction. The saved off flag does not establish a manual switch or a proven wiring fault; give actionable checks without promising firing readiness.",
       "trace": "Polaris presentation/service message",
       "references": [
         "src/PhobosAutoNav/NavigationWeaponGroups.cs:79"
       ],
       "before": "Switched off",
-      "after": "Switched off"
+      "after": "Off: check power or control signal"
     },
     {
       "mod": "PhobosAutoNav",
@@ -35211,7 +35211,7 @@
       "path": "docs/auto-nav-fire-control.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "675558363e37a99867e37035b4f302fa5250f50e060acf1d20cd030961116ef1",
+      "sha256": "727891ae925638eb9480501e3c7fce4ea80191e25242f7b3767cf5e5f8c9c209",
       "review": "2026-09-27 Polaris review: checked revised controls, versions, generated reference evidence and limitations; preserved scientific attribution and historical records."
     },
     {
@@ -35236,7 +35236,7 @@
       "path": "docs/auto-nav-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "ab0b1f198759ba98b43555ef81347a645da5654d896af58e7bbfdcc05d2556f7",
+      "sha256": "180e9fe3600be46576c959a968e7b8604f67f5b5002a845e39d1ce59436a41fa",
       "review": "2026-09-27 Polaris review: checked revised controls, versions, generated reference evidence and limitations; preserved scientific attribution and historical records."
     },
     {
@@ -35321,7 +35321,7 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "eefaac1ce7aaa4245c7ad4cdd2d1be8cd00b274788f9a54f17d618b90b7205c9",
+      "sha256": "5c9ba7849ef80c8f7c28f3749d81e5f8492d8e1190d2410d1f8fb5f13ef0b3f0",
       "review": "2026-09-27 Polaris review: checked revised controls, versions, generated reference evidence and limitations; preserved scientific attribution and historical records."
     },
     {
@@ -35389,7 +35389,7 @@
       "path": "docs/framework-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "bcfe9698342721f2ba11f5d517ece51b7bd799e6ee9471690350274cf0cd1cd4",
+      "sha256": "6eae20cb3c4cb66f6de22df68c7ff1f27479cd9523c0d01d1d9c136bb4dbbac2",
       "review": "2026-09-27 Polaris review: checked revised controls, versions, generated reference evidence and limitations; preserved scientific attribution and historical records."
     },
     {
@@ -35486,7 +35486,7 @@
       "path": "docs/industrial-console-player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "32d9a5ed23264a1b56957f2add23bbf36e174a8219d940502714c777d3a868ec",
+      "sha256": "1c80028fe34c6162f61a61e83aaf05163152863f31c5c67e4d6697ad682f6782",
       "review": "2026-09-27 Polaris review: checked revised controls, versions, generated reference evidence and limitations; preserved scientific attribution and historical records."
     },
     {
@@ -35511,7 +35511,7 @@
       "path": "docs/installing-mods.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "dad67e0991ffa8d51259decc35490f135ab12bf6277e7e7011710e4cadc0a5f6",
+      "sha256": "d8184e6065cb4463b1648fe615870c1863f99868c30ba8e9f568aa9f8c68bd7d",
       "review": "2026-09-27 Polaris review: checked revised controls, versions, generated reference evidence and limitations; preserved scientific attribution and historical records."
     },
     {
@@ -35651,7 +35651,7 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "d6695bbe6075027ca257996a08461d47b057a483e40d5a244819254e4d2ef3a6",
+      "sha256": "d1e60720e771b7642c5b7555ec1e9ea0394d2d82f6805f730ff339f58e84cdaf",
       "review": "2026-09-27 Polaris review: checked revised controls, versions, generated reference evidence and limitations; preserved scientific attribution and historical records."
     },
     {
@@ -35784,7 +35784,7 @@
       "path": "docs/shipbreaker-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "65a6c1386857bb19c497b4518de6630dc0235faaa714eeb303d1a31f275bab76",
+      "sha256": "ca16b93564902318882877d84ea028aaf26d208b71dbf3b4edd8446b95ccbc7b",
       "review": "2026-09-27 Polaris review: checked revised controls, versions, generated reference evidence and limitations; preserved scientific attribution and historical records."
     },
     {
@@ -35863,7 +35863,7 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "6deb945062cf469e529f640722f7b820f3e527d3b71490531b15287b56b56022",
+      "sha256": "6b13b2b62bced2646e034ef7d098889cc3bdcd7aff6954efad04e1078de131fe",
       "review": "2026-09-27 Polaris review: checked revised controls, versions, generated reference evidence and limitations; preserved scientific attribution and historical records."
     },
     {
@@ -35883,14 +35883,14 @@
       "path": "workshop/PhobosAutoNav/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "bce16fb2f913546134b4212c6edc768ec438f0d943904ca08598d2da10a47873",
+      "sha256": "ad9eaccb5ec5a6493d3f7cf5304409cc55e32a146d378bb13d86ea81be134a9c",
       "review": "2026-09-27 Polaris review: checked revised controls, versions, generated reference evidence and limitations; preserved scientific attribution and historical records."
     },
     {
       "path": "workshop/PhobosFramework/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "caea4127efc35d6b9aa40890ea1dea5eabbedde242dde22cd68b8b341dd85bfb",
+      "sha256": "e2f9bc08c1fd46235382965e2070d1b12a023cb54741255ded9897d572a750d5",
       "review": "2026-09-27 Polaris review: checked revised controls, versions, generated reference evidence and limitations; preserved scientific attribution and historical records."
     },
     {
@@ -35904,21 +35904,21 @@
       "path": "workshop/PhobosShipbreaker/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "8cf3c7c3b9d6d03a2cee2f6a00622b2dd0952a019cc0256662b6d2db066de36b",
+      "sha256": "b704d9ffbcd51dea1bd5f113d128ef778ce447817843deb7f70903950545d373",
       "review": "2026-09-27 Polaris review: checked revised controls, versions, generated reference evidence and limitations; preserved scientific attribution and historical records."
     },
     {
       "path": "docs/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "78fe72705d39237a9e7732328ca26214b882e7e06264b31a486056babd676743",
+      "sha256": "5ea9d290e3dbd9973cdae21787db52551e90a30e6e361fffa3cf1f1c6bc14cd5",
       "review": "2026-09-27 Polaris review: checked revised controls, versions, generated reference evidence and limitations; preserved scientific attribution and historical records."
     },
     {
       "path": "docs/polaris-interface-refresh.md",
       "scope": "current player controls plus labelled implementation/artwork evidence",
       "decision": "add",
-      "sha256": "e128f48d2c9e465bc5d183c2de8b231b03814df98ed8e536bd019d2c610f0a78",
+      "sha256": "7739642ab8e1a6b4ca49ddbb87b5b8600ad9f0e1fbc4fb3add958c528caa61e3",
       "review": "2026-09-27 Polaris review: checked revised controls, versions, generated reference evidence and limitations; preserved scientific attribution and historical records."
     }
   ],
@@ -35963,7 +35963,7 @@
     {
       "path": "mods/PhobosAutoNav/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "2625669c023445b3f48594dd4f0c71692ed6eac6ed6fa23128e97f05ec0e8d57",
+      "sha256": "13098e39217b1ff58f40cadbf120edcf0b694ea86d6ec8731e5dec7c9ee3f633",
       "review": "2026-09-27 Polaris review: checked revised controls, versions, generated reference evidence and limitations; preserved scientific attribution and historical records."
     },
     {
@@ -35974,7 +35974,7 @@
     {
       "path": "mods/PhobosFramework/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "0aa5441aa152830fa3f66c022061784c3acf8f1710e3f39d27b9f3708259bc42",
+      "sha256": "9a510077a6f0e4982eda05db0b8d843c310944d60bf29cdc981dddc6a70ccfcc",
       "review": "2026-09-27 Polaris review: checked revised controls, versions, generated reference evidence and limitations; preserved scientific attribution and historical records."
     },
     {
@@ -35995,7 +35995,7 @@
     {
       "path": "mods/PhobosShipbreaker/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "73b9f91fc7e20ba814d9b9d8e1fd6612f3334c05b50d7165875aea7d6a3ec1cc",
+      "sha256": "6eaaa3183a9fc4dc6503f486c8c6a5c98d11a31d710438d0393cf064cfc8d560",
       "review": "2026-09-27 Polaris review: checked revised controls, versions, generated reference evidence and limitations; preserved scientific attribution and historical records."
     }
   ],

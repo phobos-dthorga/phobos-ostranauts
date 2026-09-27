@@ -34,8 +34,8 @@ function Fails([scriptblock]$Action, [string]$Message) {
 Check ((Get-MaintainedDependencyMinimum 'AutoNav.Framework' ([version]'0.20.2') ([version]'0.26.0')) -eq [version]'0.26.0') 'Previous Auto Nav package inherited the new dependency floor'
 Check ((Get-MaintainedDependencyMinimum 'Shipbreaker.Framework' ([version]'0.28.1') ([version]'0.28.0')) -eq [version]'0.28.0') 'Previous Shipbreaker package inherited the new dependency floor'
 Check ((Get-MaintainedDependencyMinimum 'Agriculture.Framework' ([version]'0.15.1') ([version]'0.28.0')) -eq [version]'0.28.0') 'Previous Agriculture package inherited the new dependency floor'
-foreach ($dependency in @(@('AutoNav.Framework','0.21.0'), @('Shipbreaker.Framework','0.29.0'))) {
-    Check ((Get-MaintainedDependencyMinimum $dependency[0] ([version]$dependency[1]) ([version]'0.28.0')) -eq [version]'0.30.0') 'Polaris helpers require Framework 0.30.0'
+foreach ($dependency in @(@('AutoNav.Framework','0.21.1'), @('Shipbreaker.Framework','0.29.1'))) {
+    Check ((Get-MaintainedDependencyMinimum $dependency[0] ([version]$dependency[1]) ([version]'0.28.0')) -eq [version]'0.30.1') 'Polaris fixes require Framework 0.30.1'
 }
 foreach ($dependency in @(@('AutoNav.Framework','0.20.3'), @('Shipbreaker.Framework','0.28.2'), @('Agriculture.Framework','0.15.2'))) {
     Check ((Get-MaintainedDependencyMinimum $dependency[0] ([version]$dependency[1]) ([version]'0.29.0')) -eq [version]'0.29.0') 'Performance packages retain their Framework 0.29.0 floor'
@@ -67,7 +67,7 @@ function InstalledFiles($Fixture) {
 
 Check ((Get-MaintainedDependencyMinimum 'Shipbreaker.AutoNav' ([version]'0.24.0') ([version]'0.16.0')) -ge [version]'0.18.0') 'Reclamation package requires the new movement API'
 Check ((Get-MaintainedDependencyMinimum 'Shipbreaker.AutoNav' ([version]'0.22.0') ([version]'0.16.0')) -eq [version]'0.16.0') 'Historic capture-only package retains its compatibility gate'
-Check ((Get-MaintainedDependencyMinimum 'AutoNav.Framework' ([version]'0.21.0') ([version]'0.26.0')) -eq [version]'0.30.0') 'Maintained minimum corrects stale installer dependency floor for the new package'
+Check ((Get-MaintainedDependencyMinimum 'AutoNav.Framework' ([version]'0.21.1') ([version]'0.26.0')) -eq [version]'0.30.1') 'Maintained minimum corrects stale installer dependency floor for the new package'
 
 $fresh = Fixture 'both'
 $overrideDirectory = Join-Path $fresh.OstranautsPath 'BepInEx/config/PhobosTranslations/phobosgekko.ostranauts.shipbreaker'

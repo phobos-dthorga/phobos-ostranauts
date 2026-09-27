@@ -642,6 +642,13 @@
   This supersedes earlier absolute faceplate-preservation wording for Polaris
   interfaces only; it does not authorize unrelated art replacements.
 
+- Owner clarification (2026-09-27): smaller Polaris button/help text and compact
+  buttons are welcome where readable, following vanilla's information density.
+  Keep important state prominent. Bound scrolling content inside visible frames
+  with clear scrollbars; keep tabs and emergency actions fixed. Do not retain
+  obsolete painted dividers that contradict the live layout. Browser geometry
+  checks must include actual frame/viewport boundaries, not merely the panel edge.
+
 
 - Owner direction (2026-09-27): keep rejected/unselected production attempts on
   `codex/rejected-artwork`, not in the current `main` tree. Preserve and verify

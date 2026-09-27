@@ -15,6 +15,19 @@ internal static class AutoNavHubChecks
         var source = JObject.Parse(File.ReadAllText(Path.Combine(repo, "assets/phobos-autonav/hub-layout.json")));
         check(layout.width == (float)source["width"]! && layout.height == (float)source["height"]!, "Embedded hub dimensions match source");
         check(layout.boxes.Length == source["boxes"]!.Count(), "Embedded hub retains every region");
+        check(layout.zones.Length == source["zones"]!.Count(), "Native frames use the embedded layout zones");
+        var frames = layout.zones.Where(z => z.id != "title").OrderBy(z => z.y).ToArray();
+        for (int i = 1; i < frames.Length; i++)
+            check(frames[i].y >= frames[i - 1].y + frames[i - 1].h + 4, "Live frames keep a visible gap: " + frames[i].id);
+        foreach (var region in source["boxes"]!.Where(b => b["zone"] != null))
+        {
+            var box = layout[(string)region["id"]!];
+            var frame = layout.zones.Single(z => z.id == (string)region["zone"]!);
+            check(box.x >= frame.x && box.y >= frame.y && box.x + box.w <= frame.x + frame.w && box.y + box.h <= frame.y + frame.h,
+                "Native controls stay inside their live frame: " + box.id);
+        }
+        Reject(copy => copy["zones"] = new JArray(), "Reject missing frame registration");
+        Reject(copy => copy["zones"]![0]!["h"] = 1000, "Reject off-panel frame registration");
         foreach (var region in source["boxes"]!)
         {
             string id = (string)region["id"]!;

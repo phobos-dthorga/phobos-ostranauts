@@ -63,3 +63,7 @@ generated. Original masters and exports remain unchanged. Native button sprites
 are referenced at runtime only, never exported or supplied as generation inputs.
 See [the refresh report](../../docs/polaris-interface-refresh.md). The updated
 policy allows MEDIUM-HIGH/HIGH replacements when a concrete need is demonstrated.
+
+## Native appearance correction (27 September 2026)
+
+Owner screenshots revealed white button masks with unreadable labels despite passing schematic browser checks. Framework now supplies explicit dark state tints with brightness fixed at one; the preview uses those colours. Existing native sprites and original masters are retained. Compiled contrast checks are separate from pending Unity appearance approval. No new artwork or rejected candidate was produced.

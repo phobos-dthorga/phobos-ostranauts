@@ -131,3 +131,7 @@ selected state changes update only their marker/label. Industrial navigation wra
 on layout/size changes. No recording is enabled and no capture file is written.
 The source ledger has been extended for these reviewed additions; the earlier
 259-file count and test totals above describe the optimisation delivery.
+
+## Polaris readability correction
+
+The owner-reported white-button regression is corrected by owning all native colour states when binding widgets. No per-frame work is added. Flight Hub footer geometry is set at creation; recovered tracking changes only the choice of displayed warning from the existing snapshot. Weapon damage/off wording uses existing inventory facts. The ten-per-second scheduler, hidden-tab inactivity, command validation and discovery cadence remain unchanged. No new measurements were taken; see the [Polaris correction](polaris-interface-refresh.md).

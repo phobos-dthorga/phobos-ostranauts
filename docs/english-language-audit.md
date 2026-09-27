@@ -114,3 +114,12 @@ reverse volley clicks and warn explicitly about old-group native automatic fire
 during a handoff. Fire help and the maintained item reference were updated
 together. The [Polaris report](polaris-interface-refresh.md) records browser
 size checks separately from pending native Unity appearance and interaction.
+
+## Polaris correction review
+
+The off-weapon message now says "Off: check power or control signal". Native launcher definitions do not offer a manual Turn on action, so "switched off" implied an unsupported remedy. Damage takes precedence when present. Current guides distinguish the saved condition from an unverified live wiring fault. Recovered tracking displays existing Resume guidance and preserves the historical suspension reason. No keys, placeholders or scientific attribution changed.
+
+The owner approved smaller secondary text and compact controls following the
+boundary report. The revised 300/400/600-pixel previews retain prominent status,
+use real Departure wording and check scroll containment and access to long text.
+These are layout checks, with native font readability still awaiting owner review.

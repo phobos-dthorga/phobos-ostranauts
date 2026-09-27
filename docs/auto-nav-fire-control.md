@@ -172,6 +172,9 @@ missile behavior and mixed-mount pursuit remain owner evaluation items.
 
 See the [Polaris interface report](polaris-interface-refresh.md) for the group
 picker, guided handoff, reverse volley click and visual review. Installed weapon
-inventory is separate from native active/ready weapons. A switched-off Artemis
-launcher remains visible as switched off; this does not enable automatic missile
+inventory is separate from native active/ready weapons. An off Artemis remains
+visible with "Off: check power or control signal". Its native launcher definition
+automatically powers up when supplied; there is no manual Turn on interaction.
+Check electricity at the launcher and any connected control signal. The off
+condition alone does not prove the cause. This does not enable automatic missile
 fire or waive the native envelope/lock restrictions documented above.

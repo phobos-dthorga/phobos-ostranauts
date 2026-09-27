@@ -47,7 +47,7 @@ not marked damaged, and had the native off condition. No save was modified.
 trigger, excluding off and damaged weapons. That collection is appropriate for
 native firing eligibility, but did not describe the installed inventory. This
 explains the old group-2 “Weapon 0/0 — Unavailable” display. A fresh ship-scoped
-inventory now shows **Artemis Launcher — switched off** while native firing
+inventory now includes the Artemis while native firing
 eligibility, power and assignment remain untouched.
 
 Automatic Artemis firing is not added by this change. The existing unsupported
@@ -131,7 +131,7 @@ minimums and all 80 release records pass their consistency checks.
 
 - Open and close the hub; switch all six tabs, expand a long warning, and check
   Edit, placement and the rescue overlay.
-- Check group 2 identifies the switched-off Artemis. Change groups under native
+- Check group 2 identifies the off Artemis and suggests checking power or its control signal. Change groups under native
   control, then cancel and confirm an FCS handoff. Confirm the warning matches
   the intended old-group return to native control.
 - Try Volleys in both directions at 1 and 9; verify one step per click and that
@@ -142,3 +142,56 @@ minimums and all 80 release records pass their consistency checks.
 Unity interaction, final native artwork appearance and measured FPS improvement
 remain unverified until owner playtesting. Preserve existing rollback packages
 and the six earlier captures.
+
+## Owner-reported regression and correction, 27 September 2026
+
+The owner screenshots of the original delivery show white enabled buttons with
+unreadable pale labels, and Departure/Info text meeting the fixed action strip.
+The browser previews missed the native styling failure: a white face tint and
+inherited brightness were unsuitable for the reused native graphic.
+
+Framework 0.30.1 owns all button-state colours and sets brightness to one. Auto
+Nav 0.21.1 covers obsolete painted interior dividers with a live backplate and
+draws separate frames from the same registration as the controls. The outer
+case and original master remain intact. Departure, Info and dialogs have inset
+scroll viewports with contrasting scrollbar handles; fixed actions stay outside.
+Shipbreaker 0.29.1 requires the shared correction. The previews now
+use the same dark state colours. Compiled palette checks cover text contrast
+against a white source graphic; these do not substitute for Unity rendering.
+
+When current sensors recover, the header now shows Resume guidance rather than
+the old load-time suspension reason. Info retains that reason as the last event.
+No sensor checks are bypassed and Resume must still validate current conditions.
+
+The earlier phrase "switched off" was too specific for the Artemis. Inspection
+of Blue Bottle Games' installed 1.0.1.5 native launcher definition found automatic
+power-up through electricity and no manual Turn on interaction. The saved off
+condition alone does not identify its cause. The card now says "Off: check power
+or control signal"; inspect its electrical supply and any connected control
+signal. This is local native-definition evidence, not a verified live wiring
+fault. Automatic Artemis firing remains unsupported by this change.
+
+The original verification results above describe the initial delivery. This
+correction adds a recovered-sensor display regression and native palette/binding
+checks. Corrected Unity appearance, scrolling and interaction remain unverified
+until owner playtesting; no new performance captures are required.
+
+The owner approved smaller, vanilla-like secondary text and compact buttons.
+Commands/help now use 20 design pixels (10 at the minimum 300-pixel panel width),
+while key header readouts remain 24. Tabs and scrolling commands are 40 pixels
+high; fixed emergency controls remain 48. This frees room for ordinary Departure
+instructions and keeps longer text scrollable. Suitability of live framing is
+HIGH as an editorial judgement: it removes conflicting raster boundaries without
+generating replacement artwork. The initial no-unmet-need judgement above is
+superseded by the owner's boundary report; original masters are preserved.
+
+New checks cover separated live frames, controls within their assigned frames,
+inset scroll viewports, reaching the final content line and footer immobility
+while scrolling. Browser previews use the actual Departure catalogue text.
+
+Correction verification: 352 sensor/presentation/handoff assertions, 69 fire
+control assertions, 11,281 native-definition checks, 305 synthetic installer
+checks, 75 Python maintenance tests and 70 browser layout cases pass. All five
+packages build; Agriculture remains 0.15.2 and Manufacturing remains held.
+These counts include parameter sweeps. Native rendering, scrollbar interaction
+and readability of the smaller text still await owner playtesting.

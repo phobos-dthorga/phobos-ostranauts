@@ -76,7 +76,7 @@ internal sealed partial class NavigationService
             aimReference == null ? "—" : (members.FindIndex(w => w.strID == aimReference) + 1).ToString());
         view.FireReason = Text.Get("FCS.inventory_ready", view.Ownership, fresh ? Fire.ReadyCount?.ToString() ?? "—" : "—", members.Count);
         if (item == null) { view.WeaponCard = Text.Get("FCS.group_empty"); return; }
-        string? reason = item.HasCond("IsOff") ? "FCS.switched_off" : item.HasCond("IsDamaged") ? "FCS.damaged" :
+        string? reason = item.HasCond("IsDamaged") ? "FCS.damaged" : item.HasCond("IsOff") ? "FCS.switched_off" :
             !item.HasCond("IsPowered") ? "FCS.unpowered" : null;
         var reading = fresh ? Fire.Weapons.FirstOrDefault(w => w.Id == item.strID) : null;
         if (reason != null || reading == null)

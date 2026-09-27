@@ -12,6 +12,17 @@ public static class PolarisWidgets
     private static readonly ConditionalWeakTable<Button, PolarisButton> Bindings = new();
     public static readonly Color Accent = new Color32(234, 196, 102, 255);
     public static readonly Color Surface = new Color32(43, 55, 65, 255);
+    // Native button textures can be white masks, with brightness supplied by
+    // their donor's ColorBlock. Own every state and reset its multiplier.
+    public static ColorBlock ButtonColors => new()
+    {
+        normalColor = new Color32(54, 69, 81, 255),
+        highlightedColor = new Color32(68, 86, 99, 255),
+        pressedColor = new Color32(29, 42, 53, 255),
+        selectedColor = new Color32(54, 69, 81, 255),
+        disabledColor = new Color32(36, 44, 51, 255),
+        colorMultiplier = 1, fadeDuration = .06f
+    };
     public static Button Button(Transform parent, string text, Action click, float height = 48)
     {
         var button = ConsoleWidgets.Button(parent, text, click, height);
@@ -43,15 +54,12 @@ internal sealed class PolarisButton : MonoBehaviour
             var donor = Resources.Load<GameObject>("GUIShip/GUIAirPump")?.transform.Find("pnlInside/btnDone")?.GetComponent<Button>();
             if (donor?.targetGraphic is Image source && source.sprite != null)
             { image.sprite = source.sprite; image.type = source.type; image.color = Color.white; }
-            else image.color = new Color32(77, 94, 108, 255);
+            else image.color = Color.white; // Same palette for the plain fallback.
             var border = image.gameObject.AddComponent<Outline>();
             border.effectColor = new Color32(129, 148, 157, 255); border.effectDistance = new Vector2(1, -1);
         }
         button.transition = Selectable.Transition.ColorTint;
-        var colors = button.colors;
-        colors.normalColor = Color.white; colors.highlightedColor = new Color(1.2f, 1.2f, 1.2f);
-        colors.pressedColor = new Color(.65f, .75f, .8f); colors.selectedColor = Color.white;
-        colors.disabledColor = new Color(.48f, .52f, .55f, 1); colors.fadeDuration = .06f; button.colors = colors;
+        button.colors = PolarisWidgets.ButtonColors;
         label = button.GetComponentInChildren<TMP_Text>();
         var edge = PanelWidgets.Rect(button.transform, "Selected tab");
         edge.anchorMin = new Vector2(0, 0); edge.anchorMax = new Vector2(1, 0);

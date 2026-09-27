@@ -17,6 +17,19 @@ Dates on Draft entries record preparation, not Steam publication.
 - Earlier capture-only research is superseded for supported ordinary walls by the implementation below. Broader structural recipes, repeated furnace batches and whole-wreck completion remain outside this round.
 - Keep [NASA Goddard's Raven research](https://www.nasa.gov/general/nasas-hybrid-computer-enables-ravens-autonomous-rendezvous-capability/) and [ESA's LIRIS experiment by Airbus, Jena Optronik and Sodern](https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/ATV/ATV_views_Space_Station_as_never_before) as sensing context, separate from Blue Bottle Games native evidence and authored gameplay choices. No institutional endorsement or gameplay validation is implied.
 
+## [0.21.1] - 2026-09-27 - Draft
+
+### Fixed
+
+- Restore readable Polaris buttons through Framework 0.30.1. Replace conflicting painted interior boundaries with separate live frames, compact command/help text and smaller buttons. Departure, Info and dialogs have inset scroll areas with contrasting handles; emergency actions stay fixed.
+- Show current Resume guidance when tracking has recovered; retain the earlier suspension reason in event history. Resume still rechecks flight safety.
+- Describe an off weapon as "Off: check power or control signal" rather than implying a manual switch. Report damage first when both conditions apply.
+
+### Known limits
+
+- Native palette contrast and offline regressions are checked; corrected Unity appearance and scrolling still require owner playtesting. No gameplay values or save formats change.
+
+
 ## [0.21.0] - 2026-09-27 - Draft
 
 ### Changed

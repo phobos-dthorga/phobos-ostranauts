@@ -17,6 +17,7 @@ public sealed partial class AutoNavPanel : NavModBase
     internal const string LayoutId = "PhobosNavFlightHub";
     internal const string FaceplatePath = "phobos/autonav/PhobosFlightHub.png";
     private static readonly Color Ink = new Color32(205, 216, 216, 255), Amber = new Color32(234, 196, 102, 255);
+    private const float CommandTextSize = 20, FlowButtonHeight = 40;
     private RectTransform placement = null!, design = null!;
     private CanvasGroup controls = null!;
     private CanvasGroup surface = null!;
@@ -101,8 +102,21 @@ public sealed partial class AutoNavPanel : NavModBase
 
     private void BuildControls(RectTransform layer)
     {
+        // Retain the original outer case, but cover its obsolete painted dividers.
+        // Live frames use the same registration as the controls and browser proof.
+        var plate = Rect(layer, 24, 52, 552, 896);
+        plate.gameObject.AddComponent<Image>().color = PolarisWidgets.Surface;
+        foreach (var zone in HubLayout.Data.zones)
+        {
+            if (zone.id == "title") continue;
+            var frame = Rect(layer, zone.x, zone.y, zone.w, zone.h);
+            var rim = frame.gameObject.AddComponent<Image>(); rim.color = new Color32(86,100,109,255); rim.raycastTarget = false;
+            var inset = PanelWidgets.Rect(frame, "Frame inset"); PanelWidgets.Fill(inset, 2, 2, 2, 2);
+            var fill = inset.gameObject.AddComponent<Image>(); fill.raycastTarget = false;
+            fill.color = zone.id == "header" || zone.id == "coast" ? new Color32(12,19,23,255) : PolarisWidgets.Surface;
+        }
         foreach (string id in new[] { "title", "target", "offensive", "operation", "contact", "restriction", "coast" })
-            labels[id] = Label(Box(layer, id), "", id == "title" ? 26 : 24);
+            labels[id] = Label(Box(layer, id), "", id == "title" ? 26 : id == "coast" ? CommandTextSize : 24);
         labels["title"].text = Text.Get("Hub.title"); labels["coast"].text = Text.Get("Hub.coast");
         foreach (string id in new[] { "operation", "contact", "restriction" })
             labels[id].textWrappingMode = TextWrappingModes.NoWrap;
@@ -115,10 +129,13 @@ public sealed partial class AutoNavPanel : NavModBase
         for (int i = 0; i < names.Length; i++)
         {
             string name = names[i];
-            AddButton(Rect(tabs, (i % 3) * (528f / 3), (i / 3) * 48, 168, 48), "tab." + name, Text.Get("Hub." + name), () => { CloseOverlay(); page = name; }, compact: false);
+            AddButton(Rect(tabs, (i % 3) * (528f / 3), (i / 3) * 46, 168, FlowButtonHeight), "tab." + name, Text.Get("Hub." + name), () => { CloseOverlay(); page = name; }, compact: false);
             pages[name] = Box(layer, "body"); pages[name].name = name;
+            pages[name].gameObject.AddComponent<RectMask2D>();
         }
         var strip = Box(layer, "actions");
+        // Opaque fixed footer protects controls from scrolled native text meshes.
+        strip.gameObject.AddComponent<Image>().color = PolarisWidgets.Surface;
         AddButton(Cell(strip, 0, 3), "resume", Text.Get("Hub.resume"), () => Plugin.Service.ResumeSaved(COSelf));
         AddButton(Cell(strip, 1, 3), "stop", Text.Get("Hub.disengage"), () => Plugin.Service.Stop(COSelf, Text.Get("NavigationService.stopped_by_pilot_coasting")));
         AddButton(Cell(strip, 2, 3), "cease", Text.Get("Hub.cease"), () => { CloseOverlay(); Plugin.Service.CeaseFire(); });
@@ -128,30 +145,36 @@ public sealed partial class AutoNavPanel : NavModBase
         draftGuard=ConsoleShell.AttachDraftGuard(design,()=>preferencesDirty,ApplyPreferenceDraft,DiscardPreferences);
         draftGuard.EmergencyStop=()=>Plugin.Service.Stop(COSelf,Text.Get("NavigationService.stopped_by_pilot_coasting"));
         BuildNavigation(pages["navigation"]); BuildPursuit(pages["pursuit"]); BuildFire(pages["fire"]); BuildSystems(pages["systems"]);
-        var dep = PanelWidgets.Scroll(pages["departure"], "Departure", out var depScroll);
-        PanelWidgets.Fill((RectTransform)depScroll.transform);
+        var dep = ScrollBody(pages["departure"], "Departure", out var depScroll);
         foreach (string action in new[] { "depart-mode", "depart", "depart-continue", "depart-resume", "depart-stop" })
-          { string command = action; var button=PolarisWidgets.Button(dep, Text.Get("Departure." + action), () => Invoke(() => { if(command=="depart-mode"){BeginPreferenceDraft();departureDraft=(departureDraft+1)%Plugin.Service.PanelDepartureModeCount;}else if(!preferencesDirty||command=="depart-stop")Plugin.Service.DepartureAction(COSelf, command); }));
+          { string command = action; var button=PolarisWidgets.Button(dep, Text.Get("Departure." + action), () => Invoke(() => { if(command=="depart-mode"){BeginPreferenceDraft();departureDraft=(departureDraft+1)%Plugin.Service.PanelDepartureModeCount;}else if(!preferencesDirty||command=="depart-stop")Plugin.Service.DepartureAction(COSelf, command); }), FlowButtonHeight);
             buttons[command]=button;
-          Style(button.GetComponentInChildren<TMP_Text>(),24); }
+          Style(button.GetComponentInChildren<TMP_Text>(),CommandTextSize); }
         labels["departure"] = PanelWidgets.Label(dep, "", flowing: true);
-        Style(labels["departure"],24); labels["departure"].textWrappingMode=TextWrappingModes.Normal;
-        var content = PanelWidgets.Scroll(pages["details"], "Diagnostics", out detailScroll);
-        PanelWidgets.Fill((RectTransform)detailScroll.transform);
+        Style(labels["departure"],CommandTextSize); labels["departure"].textWrappingMode=TextWrappingModes.Normal;
+        var content = ScrollBody(pages["details"], "Diagnostics", out detailScroll);
         FlowButton(content, "watch", Text.Get("Cue.watch"), () => Plugin.Service.WatchArrival(COSelf, true));
         FlowButton(content,"crew-settings",ConsoleWidgets.Text("crew_settings"),()=>draftGuard.Navigate(()=>Phobos.Ostranauts.Framework.Crew.CrewPanel.Show(COSelf)));
         FlowButton(content, "unwatch", Text.Get("Cue.unwatch"), () => Plugin.Service.WatchArrival(COSelf, false));
         var cueVolume = FlowButton(content, "volume", "", () => Phobos.Ostranauts.Framework.Audio.CompletionCues.CycleVolume());
         labels["cue-volume"] = cueVolume.GetComponentInChildren<TMP_Text>();
         labels["details"] = PanelWidgets.Label(content, "", flowing: false);
-        Style(labels["details"], 24); labels["details"].textWrappingMode = TextWrappingModes.Normal;
+        Style(labels["details"], CommandTextSize); labels["details"].textWrappingMode = TextWrappingModes.Normal;
         var sizing = labels["details"].gameObject.AddComponent<LayoutElement>(); sizing.minHeight = HubLayout.Data["body"].h;
+    }
+
+    private static RectTransform ScrollBody(RectTransform parent, string name, out ScrollRect scroll)
+    {
+        var content = PanelWidgets.Scroll(parent, name, out scroll);
+        PanelWidgets.Fill((RectTransform)scroll.transform, 8, 8, 8, 8);
+        scroll.verticalScrollbar.targetGraphic.color = new Color32(153,175,187,255);
+        return content;
     }
 
     private Button FlowButton(Transform parent, string id, string text, Action action)
     {
-        var button = PolarisWidgets.Button(parent, text, () => Invoke(action));
-        var label = button.GetComponentInChildren<TMP_Text>(); Style(label, 24);
+        var button = PolarisWidgets.Button(parent, text, () => Invoke(action), FlowButtonHeight);
+        var label = button.GetComponentInChildren<TMP_Text>(); Style(label, CommandTextSize);
         buttons[id] = button; buttonLabels[id] = label; return button;
     }
     private void RefreshCaptions()
@@ -480,7 +503,7 @@ public sealed partial class AutoNavPanel : NavModBase
         var donor = Resources.Load<GameObject>("GUIShip/GUIAirPump")?.transform.Find("pnlInside/btnDone")?.GetComponent<Button>();
         if (donor?.targetGraphic is Image source && source.sprite != null)
         { image.sprite = source.sprite; image.type = source.type; button.transition = donor.transition; button.spriteState = donor.spriteState; button.colors = donor.colors; }
-        var label = Label(face, text, 24); PanelWidgets.Fill((RectTransform)label.transform, 6, 2, 6, 2); label.alignment = TextAlignmentOptions.Midline;
+        var label = Label(face, text, CommandTextSize); PanelWidgets.Fill((RectTransform)label.transform, 6, 2, 6, 2); label.alignment = TextAlignmentOptions.Midline;
         PolarisWidgets.Style(button);
         button.onClick.AddListener(() => Invoke(action)); buttons[id] = button; buttonLabels[id] = label; return button;
     }

@@ -13,6 +13,8 @@ internal sealed class HubLayout
     public float width = 600, height = 960;
     [JsonProperty(Required = Required.Always)]
     public Box[] boxes = Array.Empty<Box>();
+    [JsonProperty(Required = Required.Always)]
+    public Box[] zones = Array.Empty<Box>();
     internal sealed class Box
     {
         [JsonProperty(Required = Required.Always)] public string id = "";
@@ -34,7 +36,7 @@ internal sealed class HubLayout
     {
         var layout = JsonConvert.DeserializeObject<HubLayout>(json) ??
             throw new InvalidDataException("Phobos flight hub layout is empty.");
-        if (!Positive(layout.width) || !Positive(layout.height) || layout.boxes.Length == 0)
+        if (!Positive(layout.width) || !Positive(layout.height) || layout.boxes.Length == 0 || layout.zones.Length == 0)
             throw new InvalidDataException("Phobos flight hub layout needs positive dimensions and named regions.");
         foreach (var box in layout.boxes)
         {
@@ -44,6 +46,14 @@ internal sealed class HubLayout
                 box.x + box.w > layout.width || box.y + box.h > layout.height)
                 throw new InvalidDataException("Phobos flight hub layout has invalid bounds for '" + box.id + "'.");
             layout.byId.Add(box.id, box);
+        }
+        var zoneIds = new HashSet<string>(StringComparer.Ordinal);
+        foreach (var zone in layout.zones)
+        {
+            if (zone == null || string.IsNullOrWhiteSpace(zone.id) || !zoneIds.Add(zone.id) ||
+                !Finite(zone.x) || !Finite(zone.y) || zone.x < 0 || zone.y < 0 || !Positive(zone.w) || !Positive(zone.h) ||
+                zone.x + zone.w > layout.width || zone.y + zone.h > layout.height)
+                throw new InvalidDataException("Phobos flight hub has invalid frame bounds.");
         }
         return layout;
     }

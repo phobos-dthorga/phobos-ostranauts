@@ -55,7 +55,7 @@ internal sealed partial class NavigationService
         var read = IsLocalConsole(co) && CrewSim.objInstance?.FinishedLoading == true ? new PresentationRead(co!, AutoNavCore.Engaged && console == co) : null;
         var view = new HubSnapshot { Navigation = ReadInstruments(co, read: read, details: page == null || page == "details"), CompletionCue = co == console ? ArrivalCueStatus : Text.Get("Cue.off"), OffensiveTarget = Text.Get("Instruments.no_target"),
             FireReason = Text.Get("Pursuit.ceased"), Clearance = Text.Get("Hub.unavailable") };
-        view.Restriction = view.Navigation.Warning ? view.Navigation.Notice : status;
+        view.Restriction = view.Navigation.Warning || view.Navigation.Resumable ? view.Navigation.Notice : status;
         if (read == null) return view;
         bool powered = !co!.HasCond("IsOff") && co.HasCond("IsPowered") && !co.HasCond("IsDamaged");
         view.WorkingNavigation = powered && read.Navigation;

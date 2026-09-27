@@ -4,7 +4,7 @@
     "Framework.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.30.0",
+      "value": "0.30.1",
       "description": "PhobosFramework published source/package version.",
       "targets": [
         {
@@ -68,7 +68,7 @@
     "Shipbreaker.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.29.0",
+      "value": "0.29.1",
       "description": "PhobosShipbreaker published source/package version.",
       "targets": [
         {
@@ -142,7 +142,7 @@
     "AutoNav.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.21.0",
+      "value": "0.21.1",
       "description": "PhobosAutoNav published source/package version.",
       "targets": [
         {
@@ -615,7 +615,7 @@
     "AutoNav.minimumFramework": {
       "type": "version",
       "parts": 3,
-      "value": "0.30.0",
+      "value": "0.30.1",
       "description": "Current AutoNav required Framework version, shared with local installer admission.",
       "targets": [
         {
@@ -641,7 +641,7 @@
     "Shipbreaker.minimumFramework": {
       "type": "version",
       "parts": 3,
-      "value": "0.30.0",
+      "value": "0.30.1",
       "description": "Current Shipbreaker required Framework version, shared with local installer admission.",
       "targets": [
         {

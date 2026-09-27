@@ -171,3 +171,13 @@ Earlier approved art is not an absolute constraint: the owner's new MEDIUM-HIGH/
 HIGH threshold permits future justified replacements. Browser reference renders
 are layout evidence, not a Unity visual sign-off. See the
 [interface report](../../docs/polaris-interface-refresh.md).
+
+## Native appearance correction (27 September 2026)
+
+Owner screenshots revealed white button masks with unreadable labels despite passing schematic browser checks. Framework now supplies explicit dark state tints with brightness fixed at one; the preview uses those colours. Existing native sprites and original masters are retained. Compiled contrast checks are separate from pending Unity appearance approval. No new artwork or rejected candidate was produced.
+
+The subsequent boundary report warrants a live interior backplate and registered
+frames (HIGH suitability, editorial judgement). Opaque runtime primitives cover
+old painted dividers while preserving the original outer case and saved master.
+No image editing or generation is required. Compact text/buttons and inset scroll
+areas use those same frame coordinates in native construction and the preview.

@@ -123,6 +123,8 @@ f.Service.ResumeSaved(f.Console);
 Check(!AutoNavCore.Engaged && Read(f.Console).Mode == SavedFlightMode.Suspended, "Explicit resume still requires live contact");
 Signal(f.Own, 1); f.Service.Tick(f.Own.objSS, 1, false); f.Service.UpdatePersistence();
 Check(!AutoNavCore.Engaged, "Reacquisition never silently restarts a suspended flight");
+var recoveredDisplay = f.Service.ReadHub(f.Console, "navigation");
+Check(!recoveredDisplay.Navigation.Warning && recoveredDisplay.Restriction == "Instruments.resume_hint", "Recovered sensors show current Resume guidance rather than the historical suspension reason");
 f.Service.ResumeSaved(f.Console);
 Check(AutoNavCore.Engaged && AutoNavCore.ElapsedSeconds == 1, "Explicit resume reuses the captured profile and elapsed budget");
 f.Service.WorldChanging(); Signal(f.Own, .1); f.Service.WorldLoaded(); f.Service.UpdatePersistence();
@@ -486,6 +488,8 @@ Check(ticket != null && f.Service.ConfirmGroupSwitch(ticket), "Native-owned grou
 fireView = f.Service.ReadHub(f.Console, "fire");
 Check(fireView.WeaponCard.Contains("Artemis Launcher") && fireView.WeaponCard.Contains("FCS.switched_off"), "Inactive launcher is named with its actual reason");
 Check(!fireView.FireHeld && !f.Service.Fire.Permitted, "Browsing never acquires hold or firing permission");
+missile.Conditions.Add("IsDamaged");
+Check(f.Service.ReadHub(f.Console,"fire").WeaponCard.Contains("FCS.damaged"), "Damage is shown before the off condition, rather than suggesting power alone resolves it");
 missile.Conditions.Remove("IsOff"); missile.Conditions.Add("IsPowered"); missile.Conditions.Add("IsDamaged");
 Check(f.Service.ReadHub(f.Console,"fire").WeaponCard.Contains("FCS.damaged"), "Damaged installed weapon remains visible");
 missile.Conditions.Remove("IsDamaged");
