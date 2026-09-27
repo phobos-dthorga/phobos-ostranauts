@@ -25,6 +25,17 @@ class ItemReferenceTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'explain new items'):
             reference.validate(self.data, self.config)
 
+    def test_stack_limits_are_required_and_displayed_per_loose_form(self):
+        mod = next(m for m in self.data['mods'] if m['id'] == 'PhobosAgriculture')
+        pipe = next(i for i in mod['items'] if i['id'] == 'PhobosVerdemorrowWaterConduitLoose')
+        pipe['stackLimit'] = 17
+        result = reference.generate(ROOT, self.data, self.config)
+        self.assertIn('| Functional | 17 |', result[Path('docs/agriculture-item-reference.md')])
+        for invalid in (0, -1, 2.5, True, None):
+            pipe['stackLimit'] = invalid
+            with self.assertRaisesRegex(ValueError, 'Invalid stack limit'):
+                reference.validate(self.data, self.config)
+
     def test_removed_item_and_duplicate_coverage_fail(self):
         self.data['mods'][0]['items'].pop()
         with self.assertRaisesRegex(ValueError, 'stale entries'):

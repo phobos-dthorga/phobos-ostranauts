@@ -1,0 +1,117 @@
+[
+  {
+    "key": "rack-loose",
+    "family": "rack",
+    "request": {
+      "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. Keep EXACT canvas, silhouette, pivot and facing. LOOSE TRANSPORT state: flat grey protective covers over four empty trays, two mustard retaining straps. Keep frame and water inlet fixed; no plants. Transparent background, coarse pixels, no text or debris.",
+      "width": 128,
+      "height": 128,
+      "no_background": true,
+      "seed": 9270430,
+      "inputReference": "references/rack.png"
+    },
+    "response": {
+      "content": [
+        {
+          "type": "text",
+          "text": "id: 9f39fbd3-07e5-4dd8-bfca-a18b7d7bda90\njob_id: 9f39fbd3-07e5-4dd8-bfca-a18b7d7bda90\nmodel: pixen\nedit: ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. Keep EXACT canvas, silhouette, pivot and facing. LOOSE TRANSPORT state: flat grey protective covers over four empty trays, two mustard retaining straps. Keep frame and water inlet fixed; no plants. Transparent background, coarse pixels, no text or debris.\nsource: 128x128px\nsize: 128x128px\ntransparent: True\nseed: 9270430\nasset_id: 7ec8204b-62db-5186-a3c2-97715f95c7a7\nasset_status: pending (saved when generation completes)\ncost: 1 generation\nstatus: processing (~10-40s)\n\nhint: get_image(job_id=\"9f39fbd3-07e5-4dd8-bfca-a18b7d7bda90\")"
+        }
+      ],
+      "isError": false
+    },
+    "provider": "PixelLab",
+    "operation": "edit_image_pixen"
+  },
+  {
+    "key": "reclaimer-damaged",
+    "family": "reclaimer",
+    "request": {
+      "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. Keep EXACT canvas, silhouette, pivot and facing. Add a diagonal crack on the cream lid and a localized scorch on the teal motor. Transparent background, coarse pixels, no text or debris.",
+      "width": 128,
+      "height": 128,
+      "no_background": true,
+      "seed": 9270431,
+      "inputReference": "references/reclaimer.png"
+    },
+    "response": {
+      "content": [
+        {
+          "type": "text",
+          "text": "id: 492b1c64-f1be-4754-851d-7bb8cdd0d9d4\njob_id: 492b1c64-f1be-4754-851d-7bb8cdd0d9d4\nmodel: pixen\nedit: ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. Keep EXACT canvas, silhouette, pivot and facing. Add a diagonal crack on the cream lid and a localized scorch on the teal motor. Transparent background, coarse pixels, no text or debris.\nsource: 128x128px\nsize: 128x128px\ntransparent: True\nseed: 9270431\nasset_id: 7a7c16c7-f5c0-555d-b2d6-b59392487795\nasset_status: pending (saved when generation completes)\ncost: 1 generation\nstatus: processing (~10-40s)\n\nhint: get_image(job_id=\"492b1c64-f1be-4754-851d-7bb8cdd0d9d4\")"
+        }
+      ],
+      "isError": false
+    },
+    "provider": "PixelLab",
+    "operation": "edit_image_pixen"
+  },
+  {
+    "key": "furnace-damaged",
+    "family": "furnace",
+    "request": {
+      "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. Keep EXACT canvas, silhouette, pivot and facing. Add two cracked refractory segments and a small scorch on right electronics. Keep couplers and sockets fixed. Transparent background, coarse pixels, no text or debris.",
+      "width": 192,
+      "height": 192,
+      "no_background": true,
+      "seed": 9270432,
+      "inputReference": "references/furnace.png"
+    },
+    "response": {
+      "content": [
+        {
+          "type": "text",
+          "text": "id: 602aaf84-6706-4d7a-8a7c-73a31d9cb726\njob_id: 602aaf84-6706-4d7a-8a7c-73a31d9cb726\nmodel: pixen\nedit: ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. Keep EXACT canvas, silhouette, pivot and facing. Add two cracked refractory segments and a small scorch on right electronics. Keep couplers and sockets fixed. Transparent background, coarse pixels, no text or debris.\nsource: 192x192px\nsize: 192x192px\ntransparent: True\nseed: 9270432\nasset_id: 14057464-2304-541b-8fa7-442c6496131d\nasset_status: pending (saved when generation completes)\ncost: 1 generation\nstatus: processing (~10-40s)\n\nhint: get_image(job_id=\"602aaf84-6706-4d7a-8a7c-73a31d9cb726\")"
+        }
+      ],
+      "isError": false
+    },
+    "provider": "PixelLab",
+    "operation": "edit_image_pixen"
+  },
+  {
+    "key": "radiator-damaged",
+    "family": "radiator",
+    "request": {
+      "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. Keep EXACT canvas, silhouette, pivot and facing. Add two bent cooling-fin sections and one cracked corner brace. Keep all mounts and coupling fixed. Transparent background, coarse pixels, no text or debris.",
+      "width": 192,
+      "height": 128,
+      "no_background": true,
+      "seed": 9270433,
+      "inputReference": "references/radiator.png"
+    },
+    "response": {
+      "content": [
+        {
+          "type": "text",
+          "text": "id: 0b1d75f6-5885-42bc-91a8-d2a00481a62a\njob_id: 0b1d75f6-5885-42bc-91a8-d2a00481a62a\nmodel: pixen\nedit: ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. Keep EXACT canvas, silhouette, pivot and facing. Add two bent cooling-fin sections and one cracked corner brace. Keep all mounts and coupling fixed. Transparent background, coarse pixels, no text or debris.\nsource: 192x128px\nsize: 192x128px\ntransparent: True\nseed: 9270433\nasset_id: 72aeef3e-5554-52a1-b8a3-f1948f0caf02\nasset_status: pending (saved when generation completes)\ncost: 1 generation\nstatus: processing (~10-40s)\n\nhint: get_image(job_id=\"0b1d75f6-5885-42bc-91a8-d2a00481a62a\")"
+        }
+      ],
+      "isError": false
+    },
+    "provider": "PixelLab",
+    "operation": "edit_image_pixen"
+  },
+  {
+    "key": "thermal-port-damaged",
+    "family": "thermal-port",
+    "request": {
+      "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. Keep EXACT canvas, silhouette, pivot and facing. Add a cracked outer ring and dark scorch on one corner. Keep circular head and four mounts fixed. Transparent background, coarse pixels, no text or debris.",
+      "width": 64,
+      "height": 64,
+      "no_background": true,
+      "seed": 9270434,
+      "inputReference": "references/thermal-port.png"
+    },
+    "response": {
+      "content": [
+        {
+          "type": "text",
+          "text": "id: 00923285-c973-4e3e-9e9e-9df650acd0b1\njob_id: 00923285-c973-4e3e-9e9e-9df650acd0b1\nmodel: pixen\nedit: ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. Keep EXACT canvas, silhouette, pivot and facing. Add a cracked outer ring and dark scorch on one corner. Keep circular head and four mounts fixed. Transparent background, coarse pixels, no text or debris.\nsource: 64x64px\nsize: 64x64px\ntransparent: True\nseed: 9270434\nasset_id: 505bf29d-5b03-53e3-bda3-9269ca5e5334\nasset_status: pending (saved when generation completes)\ncost: 1 generation\nstatus: processing (~10-40s)\n\nhint: get_image(job_id=\"00923285-c973-4e3e-9e9e-9df650acd0b1\")"
+        }
+      ],
+      "isError": false
+    },
+    "provider": "PixelLab",
+    "operation": "edit_image_pixen"
+  }
+]

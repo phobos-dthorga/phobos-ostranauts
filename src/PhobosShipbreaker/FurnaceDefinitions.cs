@@ -61,10 +61,10 @@ internal static class FurnaceDefinitions
         // A one-kW clock coefficient; the checked service substitutes each interval's
         // real bounded demand before native UsePower. No free IsPowered receipt.
         d.Power[FurnaceRules.Prefix + "Power"].fAmount = 1.0 / 3600;
-        Packet(d, FurnaceRules.Blank, FurnaceRules.BlankKg, 55, "Furnace.blank_name", "Furnace.blank_description", "PhobosFurnaceHousing");
+        Packet(d, FurnaceRules.Blank, FurnaceRules.BlankKg, 55, "Furnace.blank_name", "Furnace.blank_description", "PhobosHousingBlankDedicated");
         Packet(d, FurnaceRules.Housing, 18, 60, "Furnace.housing_name", "Furnace.housing_description", "PhobosFurnaceHousing");
-        Packet(d, FurnaceRules.Remainder, FurnaceRules.RemainderKg, .01, "Furnace.remainder_name", "Furnace.remainder_description", ProcessRules.Residue);
-        Packet(d, FurnaceRules.Section, FurnaceRules.SectionKg, 6500, "Furnace.section_name", "Furnace.section_description", ProcessRules.AssemblySection);
+        Packet(d, FurnaceRules.Remainder, FurnaceRules.RemainderKg, .01, "Furnace.remainder_name", "Furnace.remainder_description", "StockMeltRemainder");
+        Packet(d, FurnaceRules.Section, FurnaceRules.SectionKg, 6500, "Furnace.section_name", "Furnace.section_description", "PhobosFurnaceSectionDedicated");
     }
     private static string[] Grid(int width, int height, string interior) => Enumerable.Range(0, (height + 2) * (width + 2))
         .Select(i => i % (width + 2) > 0 && i % (width + 2) <= width && i / (width + 2) > 0 && i / (width + 2) <= height ? interior : "Blank").ToArray();
@@ -80,7 +80,8 @@ internal static class FurnaceDefinitions
         item.aSocketAdds = Enumerable.Repeat("TILItemAdds", side * side).ToArray();
         item.aSocketReqs = Enumerable.Repeat("Blank", (side + 2) * (side + 2)).ToArray();
         item.aSocketForbids = Enumerable.Range(0, (side + 2) * (side + 2)).Select(i => i % (side + 2) > 0 && i % (side + 2) <= side && i / (side + 2) > 0 && i / (side + 2) <= side ? "TILItemForbids" : "Blank").ToArray();
-        Content.ApplyArtwork(co, item, art);
+        if (id == FurnaceRules.Housing) Content.ApplyArtwork(co, item, art);
+        else Content.ApplyStockArtwork(co, item, art);
         d.Conditions[id + "Identity"] = new JsonCond { strName = id + "Identity", strNameFriendly = co.strNameFriendly, strColor = "Neutral", nDisplaySelf = 2, nDisplayOther = 2 };
         d.Triggers[id + "Trigger"] = new CondTrigger { strName = id + "Trigger", fChance = 1, fCount = 1, bAND = true, aReqs = new[] { id + "Identity" }, aForbids = Array.Empty<string>(), aTriggers = Array.Empty<string>() };
         d.Objects[id] = co; d.Items[id] = item;

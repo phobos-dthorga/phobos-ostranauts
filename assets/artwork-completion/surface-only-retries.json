@@ -1,0 +1,64 @@
+[
+  {
+    "key": "concentrate",
+    "subject": "a FLAT CIRCULAR cream lid surrounded by a dark sage-green ring, one broad dark green semicircle marking on the lid. The outline is a perfect circle centred on the canvas, with no cylinder or wall underneath.",
+    "size": 64,
+    "native": 16,
+    "seed": 9270311,
+    "request": {
+      "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. Draw a FLAT CIRCULAR cream lid surrounded by a dark sage-green ring, one broad dark green semicircle marking on the lid. The outline is a perfect circle centred on the canvas, with no cylinder or wall underneath. Original coarse utilitarian spaceship pixel art, sparse three-tone shading. Transparent 64x64 canvas, 8px clear margins, intended 16x16 world export. No text, ground, perspective, shadow or logos.",
+      "width": 64,
+      "height": 64,
+      "no_background": true,
+      "isometric": false,
+      "view": "high top-down",
+      "outline": "selective outline",
+      "shading": "flat shading",
+      "detail": "low detail",
+      "seed": 9270311
+    },
+    "response": {
+      "content": [
+        {
+          "type": "text",
+          "text": "id: b651223c-a89f-49e4-aa09-ba622a064e21\njob_id: b651223c-a89f-49e4-aa09-ba622a064e21\ndescription: ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. Draw a FLAT CIRCULAR cream lid surrounded by a dark sage-green ring, one broad dark green semicircle marking on the lid. The outline is a perfect circle centred on the canvas, with no cylinder or wall underneath. Original coarse utilitarian spaceship pixel art, sparse three-tone shading. Transparent 64x64 canvas, 8px clear margins, intended 16x16 world export. No text, ground, perspective, shadow or logos.\nsize: 64x64px\ntransparent: True\nasset_id: c7f38d9d-ea6d-5e8f-955b-80e4d207d971\nasset_status: pending (saved when generation completes)\nseed: 9270311\ncost: 1 generation\nstatus: processing (~10-40s)\n\nhint: get_image(job_id=\"b651223c-a89f-49e4-aa09-ba622a064e21\")"
+        }
+      ],
+      "isError": false
+    },
+    "provider": "PixelLab",
+    "operation": "create_image_pixflux",
+    "reason": "Correction retained visible cylindrical side wall. New surface-only prompt."
+  },
+  {
+    "key": "f6-section",
+    "subject": "a FLAT SQUARE grey unfinished furnace TOP PLATE, edges horizontal and vertical, with a large cream CIRCULAR refractory ring at the centre surrounding a dark circular opening, four small flat corner bolt marks, two copper arcs inside the square plate. One contiguous square assembly; no detached objects.",
+    "size": 128,
+    "native": 64,
+    "seed": 9270312,
+    "request": {
+      "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. Draw a FLAT SQUARE grey unfinished furnace TOP PLATE, edges horizontal and vertical, with a large cream CIRCULAR refractory ring at the centre surrounding a dark circular opening, four small flat corner bolt marks, two copper arcs inside the square plate. One contiguous square assembly; no detached objects. Original coarse utilitarian spaceship pixel art, sparse three-tone shading. Transparent 128x128 canvas, 16px clear margins, intended 64x64 world export. No text, ground, perspective, shadow or logos.",
+      "width": 128,
+      "height": 128,
+      "no_background": true,
+      "isometric": false,
+      "view": "high top-down",
+      "outline": "selective outline",
+      "shading": "flat shading",
+      "detail": "low detail",
+      "seed": 9270312
+    },
+    "response": {
+      "content": [
+        {
+          "type": "text",
+          "text": "id: 1ea8fcef-7ba8-43a7-bdde-0ddb25a4fad3\njob_id: 1ea8fcef-7ba8-43a7-bdde-0ddb25a4fad3\ndescription: ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. Draw a FLAT SQUARE grey unfinished furnace TOP PLATE, edges horizontal and vertical, with a large cream CIRCULAR refractory ring at the centre surrounding a dark circular opening, four small flat corner bolt marks, two copper arcs inside the square plate. One contiguous square assembly; no detached objects. Original coarse utilitarian spaceship pixel art, sparse three-tone shading. Transparent 128x128 canvas, 16px clear margins, intended 64x64 world export. No text, ground, perspective, shadow or logos.\nsize: 128x128px\ntransparent: True\nasset_id: 2b91b458-e16e-5881-a425-2d1cab794426\nasset_status: pending (saved when generation completes)\nseed: 9270312\ncost: 1 generation\nstatus: processing (~10-40s)\n\nhint: get_image(job_id=\"1ea8fcef-7ba8-43a7-bdde-0ddb25a4fad3\")"
+        }
+      ],
+      "isError": false
+    },
+    "provider": "PixelLab",
+    "operation": "create_image_pixflux",
+    "reason": "Correction lost square frame and left disconnected fragments. New surface-only prompt."
+  }
+]

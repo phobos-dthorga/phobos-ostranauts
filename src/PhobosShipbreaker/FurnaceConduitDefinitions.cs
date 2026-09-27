@@ -9,6 +9,7 @@ namespace PhobosShipbreaker;
 internal static class FurnaceConduitDefinitions
 {
     internal const string Segment = "PhobosFurnaceCoolantSegment";
+    internal const int LooseStackLimit = 10;
     internal const string Art = "phobos/shipbreaker/FurnaceCoolantPipe";
     internal static void Add(NativeDefinitions d)
     {
@@ -25,6 +26,7 @@ internal static class FurnaceConduitDefinitions
         {
             bool installed = form.StartsWith("Installed");
             var co = d.Objects[p + form]; var item = d.Items[co.strItemDef];
+            co.nStackLimit = installed ? 1 : LooseStackLimit;
             co.jsonPI = null; co.aTickers = Array.Empty<string>(); co.aInteractions = Array.Empty<string>();
             co.mapPoints = new[] { "use,0,-16" }; co.mapGUIPropMaps = Array.Empty<string>();
             co.nContainerWidth = co.nContainerHeight = 0; co.strContainerCT = null;

@@ -612,6 +612,17 @@
 
 ## Artwork
 
+- Owner direction (2026-09-27): **overhead-first PixelLab requests** for every
+  world/inventory sprite. Follow the explicit prompt prefix and inspection rule
+  in `docs/asset-generation-policy.md`: vertical orthographic camera directly
+  above, top surfaces only, axis-aligned rectangular edges; set `view="high
+  top-down"` and `isometric=false` wherever supported. Describe overhead surfaces,
+  not standing product views. Prefer a verified overhead original Phobos reference
+  for variants. Inspect one pilot before expanding a family; reject visible
+  vertical side/front faces and diamond projection. These weak provider settings
+  reduce ambiguity but do not guarantee correct output. UI faceplates are exempt
+  from the world-camera rule. Preserve prompts, rejected attempts and review evidence.
+
 - Owner follow-up: apply the quiet cue where appropriate across the suite.
   Framework 0.21.0 owns one native-effects player, shared volume/mute and a
   three-real-second burst limit. Shipbreaker 0.19.0 watches D4/R4 batches;

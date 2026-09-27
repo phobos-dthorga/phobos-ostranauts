@@ -1,0 +1,24 @@
+{
+  "key": "workup-damaged",
+  "family": "workup",
+  "request": {
+    "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. Keep EXACT canvas, silhouette, pivot, facing, sockets and fittings. Add a small dark scorch beside the service light and two fine cracks on the round lid. No displaced pieces, smoke, fire, text or new fittings. Preserve transparent margins and coarse pixels.",
+    "width": 128,
+    "height": 128,
+    "no_background": true,
+    "seed": 9270412,
+    "inputReference": "references/workup.png"
+  },
+  "response": {
+    "content": [
+      {
+        "type": "text",
+        "text": "id: bebf5b55-5c08-4729-9dba-0202870870c3\njob_id: bebf5b55-5c08-4729-9dba-0202870870c3\nmodel: pixen\nedit: ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. Keep EXACT canvas, silhouette, pivot, facing, sockets and fittings. Add a small dark scorch beside the service light and two fine cracks on the round lid. No displaced pieces, smoke, fire, text or new fittings. Preserve transparent margins and coarse pixels.\nsource: 128x128px\nsize: 128x128px\ntransparent: True\nseed: 9270412\nasset_id: 3aece4bd-fc27-5e6d-9f41-ebb17eee18a4\nasset_status: pending (saved when generation completes)\ncost: 1 generation\nstatus: processing (~10-40s)\n\nhint: get_image(job_id=\"bebf5b55-5c08-4729-9dba-0202870870c3\")"
+      }
+    ],
+    "isError": false
+  },
+  "provider": "PixelLab",
+  "operation": "edit_image_pixen",
+  "reason": "Original job explicitly failed with connection timeout; retry after final failure."
+}

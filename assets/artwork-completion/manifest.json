@@ -1,0 +1,1378 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-09-27",
+  "status": "48 selected masters; native export review complete; owner gameplay and visual approval pending",
+  "projection": "Orthographic vertical overhead, no visible vertical faces",
+  "registration": "Whole transparent source canvas, centred pivot, unchanged native footprint; nearest-neighbour exports",
+  "allowanceBefore": 1952,
+  "creditBalanceBeforeUSD": 0,
+  "terms": {
+    "provider": "PixelLab",
+    "url": "https://www.pixellab.ai/termsofservice",
+    "checked": "2026-09-27",
+    "lastUpdated": "2025-11-23",
+    "notes": "Output use, modification and distribution permitted subject to provider terms; model-training restriction and Open RAIL-M reference retained. Separate from code licensing and statutory copyright."
+  },
+  "assets": [
+    {
+      "key": "coolant-charge",
+      "mod": "PhobosShipbreaker",
+      "definition": "PhobosRivetlineCoolantCharge",
+      "nativeSize": [
+        16,
+        16
+      ],
+      "masterSize": [
+        64,
+        64
+      ],
+      "pivot": [
+        8,
+        8
+      ],
+      "runtime": "phobos/shipbreaker/StockCoolantCharge",
+      "status": "selected",
+      "source": "source/coolant-charge.png",
+      "sourceSHA256": "4e6c98923468fdae7a124c0f6cf6dd6fffe2611f50e0d50b076c8f62f1b8cf6e",
+      "review": "Overhead and native-scale export inspected; registered silhouette retained where applicable. Owner in-game review pending."
+    },
+    {
+      "key": "makeup",
+      "mod": "PhobosAgriculture",
+      "definition": "PhobosVerdemorrowGroundworkMakeup",
+      "nativeSize": [
+        16,
+        16
+      ],
+      "masterSize": [
+        64,
+        64
+      ],
+      "pivot": [
+        8,
+        8
+      ],
+      "runtime": "phobos/agriculture/Stock-makeup",
+      "status": "selected",
+      "source": "source/makeup.png",
+      "sourceSHA256": "742c1d7cea1d0ec2fbb86122468f2bd19dbeafff86088009c57a1ff270cbed1c",
+      "review": "Overhead and native-scale export inspected; registered silhouette retained where applicable. Owner in-game review pending."
+    },
+    {
+      "key": "mixture",
+      "mod": "PhobosAgriculture",
+      "definition": "PhobosVerdemorrowGroundworkMixture",
+      "nativeSize": [
+        16,
+        16
+      ],
+      "masterSize": [
+        64,
+        64
+      ],
+      "pivot": [
+        8,
+        8
+      ],
+      "runtime": "phobos/agriculture/Stock-mixture",
+      "status": "selected",
+      "source": "source/mixture.png",
+      "sourceSHA256": "00977fd0c3d49b3c50211bac2f50c720de61c5fb8041450207881eeb756dae22",
+      "review": "Overhead and native-scale export inspected; registered silhouette retained where applicable. Owner in-game review pending."
+    },
+    {
+      "key": "spent-biomass",
+      "mod": "PhobosAgriculture",
+      "definition": "PhobosVerdemorrowSpentBiomass",
+      "nativeSize": [
+        16,
+        16
+      ],
+      "masterSize": [
+        64,
+        64
+      ],
+      "pivot": [
+        8,
+        8
+      ],
+      "runtime": "phobos/agriculture/Stock-spent_biomass",
+      "status": "selected",
+      "source": "source/spent-biomass.png",
+      "sourceSHA256": "059ff184ec699f5f6418e7dbfa0c2dc1f88f084238b9e8ebeca968cdf18c93cb",
+      "review": "Overhead and native-scale export inspected; registered silhouette retained where applicable. Owner in-game review pending."
+    },
+    {
+      "key": "bulk-nutrients",
+      "mod": "PhobosAgriculture",
+      "definition": "PhobosVerdemorrowGroundworkBulkNutrients",
+      "nativeSize": [
+        16,
+        16
+      ],
+      "masterSize": [
+        64,
+        64
+      ],
+      "pivot": [
+        8,
+        8
+      ],
+      "runtime": "phobos/agriculture/Stock-bulk_nutrients",
+      "status": "selected",
+      "source": "source/bulk-nutrients.png",
+      "sourceSHA256": "943306ec4734bf110df74d6da9172147f193d865dc8b8234ebe7327ee38ca9d1",
+      "review": "Overhead and native-scale export inspected; registered silhouette retained where applicable. Owner in-game review pending."
+    },
+    {
+      "key": "housing-blank",
+      "mod": "PhobosShipbreaker",
+      "definition": "PhobosFurnaceHousingBlank",
+      "nativeSize": [
+        32,
+        32
+      ],
+      "masterSize": [
+        128,
+        128
+      ],
+      "pivot": [
+        16,
+        16
+      ],
+      "runtime": "phobos/shipbreaker/PhobosHousingBlankDedicated",
+      "status": "selected",
+      "source": "source/housing-blank.png",
+      "sourceSHA256": "5e91ef5394c68a3e803589a3fe8a2b567e059223c8c6e4730ffbef54bc92504c",
+      "review": "Overhead and native-scale export inspected; registered silhouette retained where applicable. Owner in-game review pending."
+    },
+    {
+      "key": "reclaimer-rejects",
+      "mod": "PhobosShipbreaker",
+      "definition": "PhobosPanelRejectR2",
+      "nativeSize": [
+        16,
+        16
+      ],
+      "masterSize": [
+        64,
+        64
+      ],
+      "pivot": [
+        8,
+        8
+      ],
+      "runtime": "phobos/shipbreaker/StockReclaimerRejects",
+      "status": "selected",
+      "source": "source/reclaimer-rejects.png",
+      "sourceSHA256": "168c427fc332e5341583631de9642de665e55dc0d1f96564bde4fe75d43e4dac",
+      "review": "Overhead and native-scale export inspected; registered silhouette retained where applicable. Owner in-game review pending."
+    },
+    {
+      "key": "melt-remainder",
+      "mod": "PhobosShipbreaker",
+      "definition": "PhobosFurnaceMeltRemainder",
+      "nativeSize": [
+        16,
+        16
+      ],
+      "masterSize": [
+        64,
+        64
+      ],
+      "pivot": [
+        8,
+        8
+      ],
+      "runtime": "phobos/shipbreaker/StockMeltRemainder",
+      "status": "selected",
+      "source": "source/melt-remainder.png",
+      "sourceSHA256": "a94d25296bdd5f6b0867a2461c49e74e8b95104d345a24dc4ed9ea9afe46647e",
+      "review": "Overhead and native-scale export inspected; registered silhouette retained where applicable. Owner in-game review pending."
+    },
+    {
+      "key": "retained-coolant",
+      "mod": "PhobosShipbreaker",
+      "definition": "PhobosRivetlineRetainedCoolant",
+      "nativeSize": [
+        16,
+        16
+      ],
+      "masterSize": [
+        64,
+        64
+      ],
+      "pivot": [
+        8,
+        8
+      ],
+      "runtime": "phobos/shipbreaker/StockRetainedCoolant",
+      "status": "selected",
+      "source": "source/retained-coolant.png",
+      "sourceSHA256": "a946931e960f28b08f58784c0d94def9761de55e4e8521c74a4127b0270a0b09",
+      "review": "Overhead and native-scale export inspected; registered silhouette retained where applicable. Owner in-game review pending."
+    },
+    {
+      "key": "recorded-residue",
+      "mod": "PhobosAgriculture",
+      "definition": "PhobosVerdemorrowRecordedCropResidue",
+      "nativeSize": [
+        16,
+        16
+      ],
+      "masterSize": [
+        64,
+        64
+      ],
+      "pivot": [
+        8,
+        8
+      ],
+      "runtime": "phobos/agriculture/Stock-recorded_residue",
+      "status": "selected",
+      "source": "source/recorded-residue.png",
+      "sourceSHA256": "77bab2af61de4b84c383d2a117d2315843eba3e8cbcce2296b12fe3c1b46e67f",
+      "review": "Overhead and native-scale export inspected; registered silhouette retained where applicable. Owner in-game review pending."
+    },
+    {
+      "key": "wet-rejects",
+      "mod": "PhobosAgriculture",
+      "definition": "PhobosVerdemorrowRecyclerWetRejects",
+      "nativeSize": [
+        16,
+        16
+      ],
+      "masterSize": [
+        64,
+        64
+      ],
+      "pivot": [
+        8,
+        8
+      ],
+      "runtime": "phobos/agriculture/Stock-wet_rejects",
+      "status": "selected",
+      "source": "source/wet-rejects.png",
+      "sourceSHA256": "93aec514eeaccca0062675e3bb416dd032d0b2edc9c4dbc8f74dc62f15121c85",
+      "review": "Overhead and native-scale export inspected; registered silhouette retained where applicable. Owner in-game review pending."
+    },
+    {
+      "key": "r4-section",
+      "mod": "PhobosShipbreaker",
+      "definition": "PhobosScrapReclaimerSection",
+      "nativeSize": [
+        64,
+        64
+      ],
+      "masterSize": [
+        128,
+        128
+      ],
+      "pivot": [
+        32,
+        32
+      ],
+      "runtime": "phobos/shipbreaker/PhobosReclaimerSectionDedicated",
+      "status": "selected",
+      "source": "source/r4-section.png",
+      "sourceSHA256": "e94252d4a7cc6728aa98f4a2b83d70fad4e8841ccad9133a8d166aaef13e0be6",
+      "review": "Overhead and native-scale export inspected; registered silhouette retained where applicable. Owner in-game review pending."
+    },
+    {
+      "key": "reclaimer-feedstock",
+      "mod": "PhobosShipbreaker",
+      "definition": "PhobosPanelResidueR2",
+      "nativeSize": [
+        16,
+        16
+      ],
+      "masterSize": [
+        64,
+        64
+      ],
+      "pivot": [
+        8,
+        8
+      ],
+      "runtime": "phobos/shipbreaker/StockClassifiedResidue",
+      "status": "selected",
+      "source": "source/reclaimer-feedstock.png",
+      "sourceSHA256": "49c311addca707bc3c7ac321d4359851c49795f77a8a70f9a9bac852f734d708",
+      "review": "Overhead and native-scale export inspected; registered silhouette retained where applicable. Owner in-game review pending."
+    },
+    {
+      "key": "concentrate",
+      "mod": "PhobosAgriculture",
+      "definition": "PhobosVerdemorrowRecoveredConcentrate",
+      "nativeSize": [
+        16,
+        16
+      ],
+      "masterSize": [
+        64,
+        64
+      ],
+      "pivot": [
+        8,
+        8
+      ],
+      "runtime": "phobos/agriculture/Stock-concentrate",
+      "status": "selected",
+      "source": "source/concentrate.png",
+      "sourceSHA256": "8f2487f93715ade7ce518a26ad7ea7988e144086668913c7bf9845b7ad3048de",
+      "review": "Overhead and native-scale export inspected; registered silhouette retained where applicable. Owner in-game review pending."
+    },
+    {
+      "key": "f6-section",
+      "mod": "PhobosShipbreaker",
+      "definition": "PhobosFurnaceSection",
+      "nativeSize": [
+        64,
+        64
+      ],
+      "masterSize": [
+        128,
+        128
+      ],
+      "pivot": [
+        32,
+        32
+      ],
+      "runtime": "phobos/shipbreaker/PhobosFurnaceSectionDedicated",
+      "status": "selected",
+      "source": "source/f6-section.png",
+      "sourceSHA256": "f2cb958ab34f610af9fbf1e4a3f154777d23b980f562fec0717b7ca576bb0ea8",
+      "review": "Overhead and native-scale export inspected; registered silhouette retained where applicable. Owner in-game review pending."
+    },
+    {
+      "key": "rack-damaged",
+      "mod": "PhobosAgriculture",
+      "definition": "PhobosVerdemorrowFirstlight4InstalledDmg",
+      "nativeSize": [
+        64,
+        64
+      ],
+      "masterSize": [
+        128,
+        128
+      ],
+      "pivot": [
+        32,
+        32
+      ],
+      "runtime": "phobos/agriculture/RackDamaged",
+      "source": "source/rack-damaged.png",
+      "sourceSHA256": "2e24750872803a724dc138594476ec0b13e4f1971a495ba383a0c5d45550699e",
+      "status": "selected",
+      "registrationReference": "references/rack.png",
+      "requestRecord": "rack-damaged-request.json",
+      "jobId": "13275813-3bf6-4182-b1a4-c825cf256a71",
+      "review": "Overhead and native-scale export inspected; registered silhouette retained where applicable. Owner in-game review pending.",
+      "patches": [
+        [
+          45,
+          4,
+          58,
+          14
+        ],
+        [
+          3,
+          30,
+          9,
+          40
+        ]
+      ],
+      "registrationSHA256": "787a187d48bc99684ac93dcc3099c924e7ab4c4d95bfe941776f1cc21e76fdba"
+    },
+    {
+      "key": "cooker-damaged",
+      "mod": "PhobosAgriculture",
+      "definition": "PhobosVerdemorrowHearth2InstalledDmg",
+      "nativeSize": [
+        32,
+        32
+      ],
+      "masterSize": [
+        128,
+        128
+      ],
+      "pivot": [
+        16,
+        16
+      ],
+      "runtime": "phobos/agriculture/CookerDamaged",
+      "source": "source/cooker-damaged.png",
+      "sourceSHA256": "5588459d0740a73b0b163596fb473ae82b84ac21ad41347041d94eb41058cd08",
+      "status": "selected",
+      "registrationReference": "references/cooker.png",
+      "requestRecord": "machinery-damage-requests-1.json",
+      "jobId": "3f5b5705-962b-4815-a701-b2865df2c99f",
+      "review": "Overhead and native-scale export inspected; registered silhouette retained where applicable. Owner in-game review pending.",
+      "patches": [
+        [
+          7,
+          5,
+          23,
+          22
+        ],
+        [
+          24,
+          20,
+          28,
+          26
+        ]
+      ],
+      "registrationSHA256": "3f1ced258d26898a9d44decff8d62a9ccc8bfd6f3d871a179ad2284c30d635a6"
+    },
+    {
+      "key": "water-supply-damaged",
+      "mod": "PhobosAgriculture",
+      "definition": "PhobosVerdemorrowGroundworkW2InstalledDmg",
+      "nativeSize": [
+        32,
+        32
+      ],
+      "masterSize": [
+        128,
+        128
+      ],
+      "pivot": [
+        16,
+        16
+      ],
+      "runtime": "phobos/agriculture/WaterSupplyDamaged",
+      "source": "source/water-supply-damaged.png",
+      "sourceSHA256": "d165b4c2cb0e05b7d777430882bc561111f96d58249c053b980b2c823abe5e75",
+      "status": "selected",
+      "registrationReference": "references/water-supply.png",
+      "requestRecord": "machinery-damage-requests-1.json",
+      "jobId": "d23b63b9-971a-44bb-b4ee-8ff80c56b53b",
+      "review": "Overhead and native-scale export inspected; registered silhouette retained where applicable. Owner in-game review pending.",
+      "patches": [
+        [
+          3,
+          6,
+          18,
+          20
+        ],
+        [
+          21,
+          4,
+          27,
+          22
+        ]
+      ],
+      "registrationSHA256": "a3e832239152e19db9f9c8cff0ce5c8a217088a13214e2f6db893740d39ae450"
+    },
+    {
+      "key": "chute-damaged",
+      "mod": "PhobosShipbreaker",
+      "definition": "PhobosHullChuteInstalledDmg",
+      "nativeSize": [
+        64,
+        16
+      ],
+      "masterSize": [
+        256,
+        64
+      ],
+      "pivot": [
+        32,
+        8
+      ],
+      "runtime": "phobos/shipbreaker/PhobosHullChuteDamaged",
+      "source": "source/chute-damaged.png",
+      "sourceSHA256": "b122f5f102eeffb3c0bf09d8225208897dac70ead49f1c21468e3cf3c3c306dc",
+      "status": "selected",
+      "registrationReference": "references/chute.png",
+      "requestRecord": "machinery-damage-requests-1.json",
+      "jobId": "ebe770ae-dbfc-4c25-9f6e-353118ac6dea",
+      "review": "Overhead and native-scale export inspected; registered silhouette retained where applicable. Owner in-game review pending.",
+      "patches": [
+        [
+          19,
+          4,
+          44,
+          12
+        ],
+        [
+          2,
+          4,
+          9,
+          12
+        ]
+      ],
+      "registrationSHA256": "3ea33f646ebce0a12513e946c5b713eeff25861fd32a6975dec2c14adaab95eb"
+    },
+    {
+      "key": "grabber-damaged",
+      "mod": "PhobosShipbreaker",
+      "definition": "PhobosExteriorGrabberInstalledDmg",
+      "nativeSize": [
+        64,
+        48
+      ],
+      "masterSize": [
+        128,
+        96
+      ],
+      "pivot": [
+        32,
+        24
+      ],
+      "runtime": "phobos/shipbreaker/PhobosExteriorGrabberDamaged",
+      "source": "source/grabber-damaged.png",
+      "sourceSHA256": "db7536712946f781e21f33c80e3f24fe7b6d74a18d7a5af4932af16d30bc19c4",
+      "status": "selected",
+      "registrationReference": "references/grabber.png",
+      "requestRecord": "machinery-damage-requests-1.json",
+      "jobId": "f35453ab-fecf-4694-ad7d-8a503846fab3",
+      "review": "Overhead and native-scale export inspected; registered silhouette retained where applicable. Owner in-game review pending.",
+      "patches": [
+        [
+          5,
+          10,
+          16,
+          27
+        ],
+        [
+          25,
+          27,
+          39,
+          41
+        ]
+      ],
+      "registrationSHA256": "4d616947092877eb21fa1e4eeb4c01cd41569f98b32cd5eb4b2a6622d5fb2bd7"
+    },
+    {
+      "key": "collector-damaged",
+      "mod": "PhobosShipbreaker",
+      "definition": "PhobosResidueCollectorInstalledDmg",
+      "nativeSize": [
+        32,
+        16
+      ],
+      "masterSize": [
+        128,
+        64
+      ],
+      "pivot": [
+        16,
+        8
+      ],
+      "runtime": "phobos/shipbreaker/PhobosResidueCollectorDamaged",
+      "source": "source/collector-damaged.png",
+      "sourceSHA256": "15d14adbefd6fead6f8c955d70a97f17f2707c815d6450145a127ff27dd6cc31",
+      "status": "selected",
+      "registrationReference": "references/collector.png",
+      "requestRecord": "machinery-damage-requests-1.json",
+      "jobId": "d5f7c3f9-68fc-42be-9985-8410053415d3",
+      "review": "Overhead and native-scale export inspected; registered silhouette retained where applicable. Owner in-game review pending.",
+      "patches": [
+        [
+          4,
+          9,
+          28,
+          15
+        ],
+        [
+          8,
+          4,
+          25,
+          8
+        ]
+      ],
+      "registrationSHA256": "38bc61ca1ce1cfe7f6d6fd0661bab4b0844b42940683e99e14e7def72bb42247"
+    },
+    {
+      "key": "rack-loose",
+      "mod": "PhobosAgriculture",
+      "definition": "PhobosVerdemorrowFirstlight4Loose",
+      "nativeSize": [
+        64,
+        64
+      ],
+      "masterSize": [
+        128,
+        128
+      ],
+      "pivot": [
+        32,
+        32
+      ],
+      "runtime": "phobos/agriculture/RackLoose",
+      "source": "source/rack-loose.png",
+      "sourceSHA256": "e16c5287b9d9096fd7b91fa30e0171971f14f5b764e6bf3d262c39056652487d",
+      "status": "selected",
+      "registrationReference": "references/rack.png",
+      "requestRecord": "machinery-requests-2.json",
+      "jobId": "9f39fbd3-07e5-4dd8-bfca-a18b7d7bda90",
+      "review": "Overhead and native-scale export inspected; registered silhouette retained where applicable. Owner in-game review pending.",
+      "registrationSHA256": "787a187d48bc99684ac93dcc3099c924e7ab4c4d95bfe941776f1cc21e76fdba"
+    },
+    {
+      "key": "reclaimer-damaged",
+      "mod": "PhobosShipbreaker",
+      "definition": "PhobosScrapReclaimerInstalledDmg",
+      "nativeSize": [
+        64,
+        64
+      ],
+      "masterSize": [
+        128,
+        128
+      ],
+      "pivot": [
+        32,
+        32
+      ],
+      "runtime": "phobos/shipbreaker/PhobosScrapReclaimerDamaged",
+      "source": "source/reclaimer-damaged.png",
+      "sourceSHA256": "5126f3fc77e984b7802a91fd131381a2f4f855013bacb2bc6cfaea1e5ff7c61d",
+      "status": "selected",
+      "registrationReference": "references/reclaimer.png",
+      "requestRecord": "machinery-requests-2.json",
+      "jobId": "492b1c64-f1be-4754-851d-7bb8cdd0d9d4",
+      "review": "Overhead and native-scale export inspected; registered silhouette retained where applicable. Owner in-game review pending.",
+      "patches": [
+        [
+          12,
+          20,
+          43,
+          43
+        ],
+        [
+          51,
+          14,
+          60,
+          37
+        ]
+      ],
+      "registrationSHA256": "8f5cc7037183ee785e04b6e1343310697b13a3c39e21f89272660d5ddad67738"
+    },
+    {
+      "key": "furnace-damaged",
+      "mod": "PhobosShipbreaker",
+      "definition": "PhobosFurnaceInstalledDmg",
+      "nativeSize": [
+        96,
+        96
+      ],
+      "masterSize": [
+        192,
+        192
+      ],
+      "pivot": [
+        48,
+        48
+      ],
+      "runtime": "phobos/shipbreaker/PhobosFurnaceSocketsDamaged",
+      "source": "source/furnace-damaged.png",
+      "sourceSHA256": "bf16121ce3dc695508c2891ca46d107c31f9e5b50a1e3fbad83e5163dbdf3f37",
+      "status": "selected",
+      "registrationReference": "references/furnace.png",
+      "requestRecord": "machinery-requests-2.json",
+      "jobId": "602aaf84-6706-4d7a-8a7c-73a31d9cb726",
+      "review": "Overhead and native-scale export inspected; registered silhouette retained where applicable. Owner in-game review pending.",
+      "patches": [
+        [
+          6,
+          13,
+          25,
+          31
+        ],
+        [
+          80,
+          27,
+          91,
+          52
+        ]
+      ],
+      "registrationSHA256": "b227172e13d8397774f26dd9248500eb55b08a2178d41fc351ec3b0dfc54fbfa"
+    },
+    {
+      "key": "radiator-damaged",
+      "mod": "PhobosShipbreaker",
+      "definition": "PhobosFurnaceRadiatorInstalledDmg",
+      "nativeSize": [
+        96,
+        64
+      ],
+      "masterSize": [
+        192,
+        128
+      ],
+      "pivot": [
+        48,
+        32
+      ],
+      "runtime": "phobos/shipbreaker/PhobosFurnaceRadiatorSocketDamaged",
+      "source": "source/radiator-damaged.png",
+      "sourceSHA256": "061e054d6bb7ff397f54da32a6eee7b486f31f775ad51b0699de99cf2d2b05c5",
+      "status": "selected",
+      "registrationReference": "references/radiator.png",
+      "requestRecord": "machinery-requests-2.json",
+      "jobId": "0b1d75f6-5885-42bc-91a8-d2a00481a62a",
+      "review": "Overhead and native-scale export inspected; registered silhouette retained where applicable. Owner in-game review pending.",
+      "patches": [
+        [
+          25,
+          13,
+          34,
+          46
+        ],
+        [
+          56,
+          16,
+          66,
+          47
+        ],
+        [
+          83,
+          15,
+          90,
+          22
+        ]
+      ],
+      "registrationSHA256": "d02b4bd11cf5a47b9842ea99ca60d0d046108d3aee807bf40d092787b9a39751"
+    },
+    {
+      "key": "thermal-port-damaged",
+      "mod": "PhobosShipbreaker",
+      "definition": "PhobosFurnaceThermalPortInstalledDmg",
+      "nativeSize": [
+        16,
+        16
+      ],
+      "masterSize": [
+        64,
+        64
+      ],
+      "pivot": [
+        8,
+        8
+      ],
+      "runtime": "phobos/shipbreaker/PhobosFurnaceThermalPortDamaged",
+      "source": "source/thermal-port-damaged.png",
+      "sourceSHA256": "aca36e24da65c51c6ef5c780189b003dd3063918892c373f4b0251135d49d599",
+      "status": "selected",
+      "registrationReference": "references/thermal-port.png",
+      "requestRecord": "machinery-requests-2.json",
+      "jobId": "00923285-c973-4e3e-9e9e-9df650acd0b1",
+      "review": "Overhead and native-scale export inspected; registered silhouette retained where applicable. Owner in-game review pending.",
+      "patches": [
+        [
+          1,
+          2,
+          14,
+          14
+        ]
+      ],
+      "registrationSHA256": "c1a53a7a7f470747e6b8783328105aa9d7308c2530fdce8baa753ada210a8942"
+    },
+    {
+      "key": "cooker-loose",
+      "mod": "PhobosAgriculture",
+      "definition": "PhobosVerdemorrowHearth2Loose",
+      "nativeSize": [
+        32,
+        32
+      ],
+      "masterSize": [
+        128,
+        128
+      ],
+      "pivot": [
+        16,
+        16
+      ],
+      "runtime": "phobos/agriculture/CookerLoose",
+      "source": "source/cooker-loose.png",
+      "sourceSHA256": "40f48e59141a181d9e2cf1f2deca73042a4dd86d39a2409b3007c05061f3ffbb",
+      "status": "selected",
+      "registrationReference": "references/cooker.png",
+      "requestRecord": "machinery-loose-requests-1.json",
+      "jobId": "7ffc7958-e1dd-4668-a748-4e2cd58578d5",
+      "review": "Overhead and native-scale export inspected; registered silhouette retained where applicable. Owner in-game review pending.",
+      "registrationSHA256": "3f1ced258d26898a9d44decff8d62a9ccc8bfd6f3d871a179ad2284c30d635a6"
+    },
+    {
+      "key": "water-supply-loose",
+      "mod": "PhobosAgriculture",
+      "definition": "PhobosVerdemorrowGroundworkW2Loose",
+      "nativeSize": [
+        32,
+        32
+      ],
+      "masterSize": [
+        128,
+        128
+      ],
+      "pivot": [
+        16,
+        16
+      ],
+      "runtime": "phobos/agriculture/WaterSupplyLoose",
+      "source": "source/water-supply-loose.png",
+      "sourceSHA256": "615b03280883c57537be8e06cdfb870056d9c4180c1bc298d06067922f8d9660",
+      "status": "selected",
+      "registrationReference": "references/water-supply.png",
+      "requestRecord": "machinery-loose-requests-1.json",
+      "jobId": "79d11119-fc51-4662-b5c9-009b10c4b604",
+      "review": "Overhead and native-scale export inspected; registered silhouette retained where applicable. Owner in-game review pending.",
+      "registrationSHA256": "a3e832239152e19db9f9c8cff0ce5c8a217088a13214e2f6db893740d39ae450"
+    },
+    {
+      "key": "workup-loose",
+      "mod": "PhobosAgriculture",
+      "definition": "PhobosVerdemorrowGroundworkB2Loose",
+      "nativeSize": [
+        32,
+        32
+      ],
+      "masterSize": [
+        128,
+        128
+      ],
+      "pivot": [
+        16,
+        16
+      ],
+      "runtime": "phobos/agriculture/WorkupLoose",
+      "source": "source/workup-loose.png",
+      "sourceSHA256": "480d0f6cf230e5551201e5ad8643750fec55b10412f8276da01ec763e1a8127c",
+      "status": "selected",
+      "registrationReference": "references/workup.png",
+      "requestRecord": "machinery-loose-requests-1.json",
+      "jobId": "4d0e2278-6861-49a1-afd7-f3ebfeb49035",
+      "review": "Overhead and native-scale export inspected; registered silhouette retained where applicable. Owner in-game review pending.",
+      "registrationSHA256": "afaf9313de745755213c133f11042f1bc7bc0f5547f182c7d49f838c3ecf3345"
+    },
+    {
+      "key": "chute-loose",
+      "mod": "PhobosShipbreaker",
+      "definition": "PhobosHullChuteLoose",
+      "nativeSize": [
+        64,
+        16
+      ],
+      "masterSize": [
+        256,
+        64
+      ],
+      "pivot": [
+        32,
+        8
+      ],
+      "runtime": "phobos/shipbreaker/PhobosHullChuteLoose",
+      "source": "source/chute-loose.png",
+      "sourceSHA256": "f5f653517c9018e736b71fefab3e4df58a85629f9fc94e9ebb9f159397ff0b74",
+      "status": "selected",
+      "registrationReference": "references/chute.png",
+      "requestRecord": "machinery-loose-requests-1.json",
+      "jobId": "f8e7b52e-9846-4078-998e-dfc28fc2c3cd",
+      "review": "Overhead and native-scale export inspected; registered silhouette retained where applicable. Owner in-game review pending.",
+      "registrationSHA256": "3ea33f646ebce0a12513e946c5b713eeff25861fd32a6975dec2c14adaab95eb"
+    },
+    {
+      "key": "grabber-loose",
+      "mod": "PhobosShipbreaker",
+      "definition": "PhobosExteriorGrabberLoose",
+      "nativeSize": [
+        64,
+        48
+      ],
+      "masterSize": [
+        128,
+        96
+      ],
+      "pivot": [
+        32,
+        24
+      ],
+      "runtime": "phobos/shipbreaker/PhobosExteriorGrabberLoose",
+      "source": "source/grabber-loose.png",
+      "sourceSHA256": "831b787ec7844b66e1ced23098b4420262b4ada270fce7a564c5fc53b6ba4ea4",
+      "status": "selected",
+      "registrationReference": "references/grabber.png",
+      "requestRecord": "machinery-loose-requests-1.json",
+      "jobId": "d92661c8-905c-4646-83c2-c82c21cd324a",
+      "review": "Overhead and native-scale export inspected; registered silhouette retained where applicable. Owner in-game review pending.",
+      "registrationSHA256": "4d616947092877eb21fa1e4eeb4c01cd41569f98b32cd5eb4b2a6622d5fb2bd7"
+    },
+    {
+      "key": "collector-loose",
+      "mod": "PhobosShipbreaker",
+      "definition": "PhobosResidueCollectorLoose",
+      "nativeSize": [
+        32,
+        16
+      ],
+      "masterSize": [
+        128,
+        64
+      ],
+      "pivot": [
+        16,
+        8
+      ],
+      "runtime": "phobos/shipbreaker/PhobosResidueCollectorLoose",
+      "source": "source/collector-loose.png",
+      "sourceSHA256": "5dc298c7107d9fb6e8c32f590f0f807c54d41afdd79a22035bb675004af0f9d2",
+      "status": "selected",
+      "registrationReference": "references/collector.png",
+      "requestRecord": "machinery-loose-requests-1.json",
+      "jobId": "d3d1e47e-d9d4-44d9-9e2d-3be19949653d",
+      "review": "Overhead and native-scale export inspected; registered silhouette retained where applicable. Owner in-game review pending.",
+      "registrationSHA256": "38bc61ca1ce1cfe7f6d6fd0661bab4b0844b42940683e99e14e7def72bb42247"
+    },
+    {
+      "key": "reclaimer-loose",
+      "mod": "PhobosShipbreaker",
+      "definition": "PhobosScrapReclaimerLoose",
+      "nativeSize": [
+        64,
+        64
+      ],
+      "masterSize": [
+        128,
+        128
+      ],
+      "pivot": [
+        32,
+        32
+      ],
+      "runtime": "phobos/shipbreaker/PhobosScrapReclaimerLoose",
+      "source": "source/reclaimer-loose.png",
+      "sourceSHA256": "28bc80c32731bd6014c0b6fca9c8dcd20a03739f93962ba43d0c2c332c25c693",
+      "status": "selected",
+      "registrationReference": "references/reclaimer.png",
+      "requestRecord": "machinery-loose-requests-1.json",
+      "jobId": "b40db751-c66a-4186-b579-f3b0a1c206b7",
+      "review": "Overhead and native-scale export inspected; registered silhouette retained where applicable. Owner in-game review pending.",
+      "registrationSHA256": "8f5cc7037183ee785e04b6e1343310697b13a3c39e21f89272660d5ddad67738"
+    },
+    {
+      "key": "workup-damaged",
+      "mod": "PhobosAgriculture",
+      "definition": "PhobosVerdemorrowGroundworkB2InstalledDmg",
+      "nativeSize": [
+        32,
+        32
+      ],
+      "masterSize": [
+        128,
+        128
+      ],
+      "pivot": [
+        16,
+        16
+      ],
+      "runtime": "phobos/agriculture/WorkupDamaged",
+      "source": "source/workup-damaged.png",
+      "sourceSHA256": "86f49a23d7a20f9af7a1c5c2f5239695ff6e5c76026ced662dcdb21768c3f615",
+      "status": "selected",
+      "registrationReference": "references/workup.png",
+      "requestRecord": "workup-damage-retry.json",
+      "jobId": "bebf5b55-5c08-4729-9dba-0202870870c3",
+      "review": "Overhead and native-scale export inspected; registered silhouette retained where applicable. Owner in-game review pending.",
+      "patches": [
+        [
+          10,
+          8,
+          24,
+          23
+        ],
+        [
+          25,
+          5,
+          29,
+          25
+        ]
+      ],
+      "registrationSHA256": "afaf9313de745755213c133f11042f1bc7bc0f5547f182c7d49f838c3ecf3345"
+    },
+    {
+      "key": "furnace-loose",
+      "mod": "PhobosShipbreaker",
+      "definition": "PhobosFurnaceLoose",
+      "nativeSize": [
+        96,
+        96
+      ],
+      "masterSize": [
+        192,
+        192
+      ],
+      "pivot": [
+        48,
+        48
+      ],
+      "runtime": "phobos/shipbreaker/PhobosFurnaceSocketsLoose",
+      "source": "source/furnace-loose.png",
+      "sourceSHA256": "717b654db3a310e50e8361d9d8783f2827124ed79cc8ecdd2d0f2618ef9cf088",
+      "status": "selected",
+      "registrationReference": "references/furnace.png",
+      "requestRecord": "machinery-loose-requests-2.json",
+      "jobId": "a54f7073-05ee-4c18-a041-81604606200a",
+      "review": "Overhead and native-scale export inspected; registered silhouette retained where applicable. Owner in-game review pending.",
+      "registrationSHA256": "b227172e13d8397774f26dd9248500eb55b08a2178d41fc351ec3b0dfc54fbfa"
+    },
+    {
+      "key": "radiator-loose",
+      "mod": "PhobosShipbreaker",
+      "definition": "PhobosFurnaceRadiatorLoose",
+      "nativeSize": [
+        96,
+        64
+      ],
+      "masterSize": [
+        192,
+        128
+      ],
+      "pivot": [
+        48,
+        32
+      ],
+      "runtime": "phobos/shipbreaker/PhobosFurnaceRadiatorSocketLoose",
+      "source": "source/radiator-loose.png",
+      "sourceSHA256": "dd8ce9d989c33d2dd2161cd90dfceed63c7d04159a4297861aca03da633b13f2",
+      "status": "selected",
+      "registrationReference": "references/radiator.png",
+      "requestRecord": "machinery-loose-requests-2.json",
+      "jobId": "1bf031cc-4088-444e-b75d-2e401d45766c",
+      "review": "Overhead and native-scale export inspected; registered silhouette retained where applicable. Owner in-game review pending.",
+      "registrationSHA256": "d02b4bd11cf5a47b9842ea99ca60d0d046108d3aee807bf40d092787b9a39751"
+    },
+    {
+      "key": "thermal-port-loose",
+      "mod": "PhobosShipbreaker",
+      "definition": "PhobosFurnaceThermalPortLoose",
+      "nativeSize": [
+        16,
+        16
+      ],
+      "masterSize": [
+        64,
+        64
+      ],
+      "pivot": [
+        8,
+        8
+      ],
+      "runtime": "phobos/shipbreaker/PhobosFurnaceThermalPortLoose",
+      "source": "source/thermal-port-loose.png",
+      "sourceSHA256": "125866525e81a84d48ed9a17cb4398912520711c1ef7ce7005d83a0502b07ce6",
+      "status": "selected",
+      "registrationReference": "references/thermal-port.png",
+      "requestRecord": "machinery-loose-requests-2.json",
+      "jobId": "4901b95c-2d16-4bb4-8a3e-57f71311db06",
+      "review": "Overhead and native-scale export inspected; registered silhouette retained where applicable. Owner in-game review pending.",
+      "registrationSHA256": "c1a53a7a7f470747e6b8783328105aa9d7308c2530fdce8baa753ada210a8942"
+    },
+    {
+      "key": "rack-loose-damaged",
+      "mod": "PhobosAgriculture",
+      "definition": "PhobosVerdemorrowFirstlight4LooseDmg",
+      "nativeSize": [
+        64,
+        64
+      ],
+      "masterSize": [
+        128,
+        128
+      ],
+      "pivot": [
+        32,
+        32
+      ],
+      "runtime": "phobos/agriculture/RackLooseDamaged",
+      "source": "source/rack-loose-damaged.png",
+      "sourceSHA256": "aa2cd410d3eb26422b0c21001959cf25a94f4d64cf05f676357786c01f9d7017",
+      "status": "selected",
+      "registrationReference": "references/rack-loose.png",
+      "requestRecord": "machinery-loose-damaged-requests-1.json",
+      "jobId": "433a6664-b840-4e24-90e0-7a62fa98b0b0",
+      "review": "Overhead and native-scale export inspected; registered silhouette retained where applicable. Owner in-game review pending.",
+      "registrationSHA256": "e3a354cfc805a8a1c4e10d21793d5fcec0423406a97b2a1eb3fa697fbca7a125"
+    },
+    {
+      "key": "cooker-loose-damaged",
+      "mod": "PhobosAgriculture",
+      "definition": "PhobosVerdemorrowHearth2LooseDmg",
+      "nativeSize": [
+        32,
+        32
+      ],
+      "masterSize": [
+        128,
+        128
+      ],
+      "pivot": [
+        16,
+        16
+      ],
+      "runtime": "phobos/agriculture/CookerLooseDamaged",
+      "source": "source/cooker-loose-damaged.png",
+      "sourceSHA256": "3ecb2ea1cc22c526c94567ddbdcb667b4a96a7bcac73d3b162f6728762e1cf96",
+      "status": "selected",
+      "registrationReference": "references/cooker-loose.png",
+      "requestRecord": "machinery-loose-damaged-requests-1.json",
+      "jobId": "31d88af3-7fb3-407c-9155-d405091a0b95",
+      "review": "Overhead and native-scale export inspected; registered silhouette retained where applicable. Owner in-game review pending.",
+      "registrationSHA256": "e59739cd7447e7c6221c3424079d31401b279690a4ac43382bc745183c351361"
+    },
+    {
+      "key": "water-supply-loose-damaged",
+      "mod": "PhobosAgriculture",
+      "definition": "PhobosVerdemorrowGroundworkW2LooseDmg",
+      "nativeSize": [
+        32,
+        32
+      ],
+      "masterSize": [
+        128,
+        128
+      ],
+      "pivot": [
+        16,
+        16
+      ],
+      "runtime": "phobos/agriculture/WaterSupplyLooseDamaged",
+      "source": "source/water-supply-loose-damaged.png",
+      "sourceSHA256": "4ef9eda9c6fc2d15fd4f45b5d5fd968f74a25826400c85b44d66f9a8cc84a5fa",
+      "status": "selected",
+      "registrationReference": "references/water-supply-loose.png",
+      "requestRecord": "machinery-loose-damaged-requests-1.json",
+      "jobId": "f0aaf53e-7521-435b-a627-a6d70b1f30a5",
+      "review": "Overhead and native-scale export inspected; registered silhouette retained where applicable. Owner in-game review pending.",
+      "registrationSHA256": "4f168dc1de40fce007c8b912d3eedd14fa6dbd63bf8f70c89d1e0a92dbd85d82"
+    },
+    {
+      "key": "workup-loose-damaged",
+      "mod": "PhobosAgriculture",
+      "definition": "PhobosVerdemorrowGroundworkB2LooseDmg",
+      "nativeSize": [
+        32,
+        32
+      ],
+      "masterSize": [
+        128,
+        128
+      ],
+      "pivot": [
+        16,
+        16
+      ],
+      "runtime": "phobos/agriculture/WorkupLooseDamaged",
+      "source": "source/workup-loose-damaged.png",
+      "sourceSHA256": "83e9e6bc3a105d69c4ad6c3d93137aae0a74e45f426e48e4e57ee56176703312",
+      "status": "selected",
+      "registrationReference": "references/workup-loose.png",
+      "requestRecord": "machinery-loose-damaged-requests-1.json",
+      "jobId": "329a3954-a3ea-4f1f-a27d-e0d5fac334e3",
+      "review": "Overhead and native-scale export inspected; registered silhouette retained where applicable. Owner in-game review pending.",
+      "registrationSHA256": "e40ea465a41772d93e19e08fd2f4709a80b4fb597f6a070a3231c37fa243a3aa"
+    },
+    {
+      "key": "chute-loose-damaged",
+      "mod": "PhobosShipbreaker",
+      "definition": "PhobosHullChuteLooseDmg",
+      "nativeSize": [
+        64,
+        16
+      ],
+      "masterSize": [
+        256,
+        64
+      ],
+      "pivot": [
+        32,
+        8
+      ],
+      "runtime": "phobos/shipbreaker/PhobosHullChuteLooseDamaged",
+      "source": "source/chute-loose-damaged.png",
+      "sourceSHA256": "508224187577b0d8ca02d93a379c24f7e3bd7525e40eae714d3a3bac114778f5",
+      "status": "selected",
+      "registrationReference": "references/chute-loose.png",
+      "requestRecord": "machinery-loose-damaged-requests-1.json",
+      "jobId": "911bf8dd-4478-4bd9-8c15-e10609de7f61",
+      "review": "Overhead and native-scale export inspected; registered silhouette retained where applicable. Owner in-game review pending.",
+      "registrationSHA256": "1113170f638e63850cdb12fae7e720591c588b3656f08b0793d837e02a192fda"
+    },
+    {
+      "key": "grabber-loose-damaged",
+      "mod": "PhobosShipbreaker",
+      "definition": "PhobosExteriorGrabberLooseDmg",
+      "nativeSize": [
+        64,
+        48
+      ],
+      "masterSize": [
+        128,
+        96
+      ],
+      "pivot": [
+        32,
+        24
+      ],
+      "runtime": "phobos/shipbreaker/PhobosExteriorGrabberLooseDamaged",
+      "source": "source/grabber-loose-damaged.png",
+      "sourceSHA256": "3d3f36fb064524fbfaebb6119f143dbb62a609aff5016707c6261242b087a0e7",
+      "status": "selected",
+      "registrationReference": "references/grabber-loose.png",
+      "requestRecord": "machinery-loose-damaged-requests-2.json",
+      "jobId": "10e270b1-7912-4872-9a5d-0498743f954a",
+      "review": "Overhead and native-scale export inspected; registered silhouette retained where applicable. Owner in-game review pending.",
+      "registrationSHA256": "93fa1c996f19598e74b024519418d7022058d0ffe5981f51709c21266c5dd80e"
+    },
+    {
+      "key": "collector-loose-damaged",
+      "mod": "PhobosShipbreaker",
+      "definition": "PhobosResidueCollectorLooseDmg",
+      "nativeSize": [
+        32,
+        16
+      ],
+      "masterSize": [
+        128,
+        64
+      ],
+      "pivot": [
+        16,
+        8
+      ],
+      "runtime": "phobos/shipbreaker/PhobosResidueCollectorLooseDamaged",
+      "source": "source/collector-loose-damaged.png",
+      "sourceSHA256": "fcb8f6c61450af435b3ed5a513f44b66a000a3c26c15dc3e8ceb65f377c1c7c5",
+      "status": "selected",
+      "registrationReference": "references/collector-loose.png",
+      "requestRecord": "machinery-loose-damaged-requests-2.json",
+      "jobId": "37d8ecb7-55fa-46c1-a38e-4fe431c4a586",
+      "review": "Overhead and native-scale export inspected; registered silhouette retained where applicable. Owner in-game review pending.",
+      "registrationSHA256": "584e02d6769b92009357178bb96d4ca6f164b6ee53143248514bf23f496f6ed5"
+    },
+    {
+      "key": "reclaimer-loose-damaged",
+      "mod": "PhobosShipbreaker",
+      "definition": "PhobosScrapReclaimerLooseDmg",
+      "nativeSize": [
+        64,
+        64
+      ],
+      "masterSize": [
+        128,
+        128
+      ],
+      "pivot": [
+        32,
+        32
+      ],
+      "runtime": "phobos/shipbreaker/PhobosScrapReclaimerLooseDamaged",
+      "source": "source/reclaimer-loose-damaged.png",
+      "sourceSHA256": "b81517e575016c10f86b91d3939c46e1d50f5f4a857347ceb744166f59382033",
+      "status": "selected",
+      "registrationReference": "references/reclaimer-loose.png",
+      "requestRecord": "machinery-loose-damaged-requests-2.json",
+      "jobId": "1da664d7-4654-41cd-8ace-61187fcec0e5",
+      "review": "Overhead and native-scale export inspected; registered silhouette retained where applicable. Owner in-game review pending.",
+      "registrationSHA256": "2f6715ea35a75693f14461de8aabc3219b22e64900f1750f19cadc4cb5d12281"
+    },
+    {
+      "key": "furnace-loose-damaged",
+      "mod": "PhobosShipbreaker",
+      "definition": "PhobosFurnaceLooseDmg",
+      "nativeSize": [
+        96,
+        96
+      ],
+      "masterSize": [
+        192,
+        192
+      ],
+      "pivot": [
+        48,
+        48
+      ],
+      "runtime": "phobos/shipbreaker/PhobosFurnaceSocketsLooseDamaged",
+      "source": "source/furnace-loose-damaged.png",
+      "sourceSHA256": "2522871d4781c29ae9d540a43f9258dff2505ee07f23fb3bcc3f16cfafd2947e",
+      "status": "selected",
+      "registrationReference": "references/furnace-loose.png",
+      "requestRecord": "machinery-loose-damaged-requests-2.json",
+      "jobId": "dc9149a0-9698-414c-8d0d-86c63fc6c809",
+      "review": "Overhead and native-scale export inspected; registered silhouette retained where applicable. Owner in-game review pending.",
+      "registrationSHA256": "51f36f90e98326e6dbd57deae56e6a9b98797330d2bf1f42300d6ff33a4ba77f"
+    },
+    {
+      "key": "radiator-loose-damaged",
+      "mod": "PhobosShipbreaker",
+      "definition": "PhobosFurnaceRadiatorLooseDmg",
+      "nativeSize": [
+        96,
+        64
+      ],
+      "masterSize": [
+        192,
+        128
+      ],
+      "pivot": [
+        48,
+        32
+      ],
+      "runtime": "phobos/shipbreaker/PhobosFurnaceRadiatorSocketLooseDamaged",
+      "source": "source/radiator-loose-damaged.png",
+      "sourceSHA256": "dddd7e45cc5ad1a9cfbf0afa0c14130cd66d9bf8616d86bd9979636477f8f3e4",
+      "status": "selected",
+      "registrationReference": "references/radiator-loose.png",
+      "requestRecord": "machinery-loose-damaged-requests-2.json",
+      "jobId": "4f713cb0-f261-4b83-98c6-5005c94b9559",
+      "review": "Overhead and native-scale export inspected; registered silhouette retained where applicable. Owner in-game review pending.",
+      "registrationSHA256": "8590fc13cf774eb9f3244dd826b5b6fa1003287f88489e729fa3296c3186228f"
+    },
+    {
+      "key": "thermal-port-loose-damaged",
+      "mod": "PhobosShipbreaker",
+      "definition": "PhobosFurnaceThermalPortLooseDmg",
+      "nativeSize": [
+        16,
+        16
+      ],
+      "masterSize": [
+        64,
+        64
+      ],
+      "pivot": [
+        8,
+        8
+      ],
+      "runtime": "phobos/shipbreaker/PhobosFurnaceThermalPortLooseDamaged",
+      "source": "source/thermal-port-loose-damaged.png",
+      "sourceSHA256": "5a7b8dfe4d4d95abff9ad49d313caf78276aef96c11a724b46a0cc33aa355756",
+      "status": "selected",
+      "registrationReference": "references/thermal-port-loose.png",
+      "requestRecord": "machinery-loose-damaged-requests-2.json",
+      "jobId": "d6a5bc13-18ac-4660-b691-65db9893b95c",
+      "review": "Overhead and native-scale export inspected; registered silhouette retained where applicable. Owner in-game review pending.",
+      "registrationSHA256": "4ad032a2fc0d8995093b8d9c1c5f211d031158cddd4994068e9c83bcf88b72df"
+    }
+  ],
+  "records": [
+    {
+      "key": "coolant-charge",
+      "attempts": [
+        "coolant-pilot-request.json",
+        "coolant-pilot-retry.json"
+      ],
+      "jobs": [
+        "26cff103-da6e-4b60-92e4-69272d7b96ad",
+        "4fb35d9b-1094-4abd-962c-c3d4539cd59b"
+      ],
+      "costGenerations": 2,
+      "review": "First rejected for isometric projection; Pixen correction selected for native-size review."
+    }
+  ],
+  "allowanceAfter": 1894,
+  "allowanceDelta": 58,
+  "creditBalanceAfterUSD": 0
+}

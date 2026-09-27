@@ -1,0 +1,163 @@
+[
+  {
+    "key": "cooker-loose",
+    "family": "cooker",
+    "request": {
+      "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. LOOSE TRANSPORT state: add a flat dark protective cover over stove glass and two mustard retaining straps. Keep EXACT canvas, outer silhouette, facing, mounting points and pivot. Transparent margins, coarse pixels, no text or scene.",
+      "width": 128,
+      "height": 128,
+      "no_background": true,
+      "seed": 9270500,
+      "inputReference": "references/cooker.png"
+    },
+    "response": {
+      "content": [
+        {
+          "type": "text",
+          "text": "id: 7ffc7958-e1dd-4668-a748-4e2cd58578d5\njob_id: 7ffc7958-e1dd-4668-a748-4e2cd58578d5\nmodel: pixen\nedit: ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. LOOSE TRANSPORT state: add a flat dark protective cover over stove glass and two mustard retaining straps. Keep EXACT canvas, outer silhouette, facing, mounting points and pivot. Transparent margins, coarse pixels, no text or scene.\nsource: 128x128px\nsize: 128x128px\ntransparent: True\nseed: 9270500\nasset_id: 9bf00dc3-9073-5f05-af57-91180f56dca5\nasset_status: pending (saved when generation completes)\ncost: 1 generation\nstatus: processing (~10-40s)\n\nhint: get_image(job_id=\"7ffc7958-e1dd-4668-a748-4e2cd58578d5\")"
+        }
+      ],
+      "isError": false
+    },
+    "provider": "PixelLab",
+    "operation": "edit_image_pixen"
+  },
+  {
+    "key": "water-supply-loose",
+    "family": "water-supply",
+    "request": {
+      "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. LOOSE TRANSPORT state: add a flat protective grey cap over the lid and two mustard retaining straps. Keep EXACT canvas, outer silhouette, facing, mounting points and pivot. Transparent margins, coarse pixels, no text or scene.",
+      "width": 128,
+      "height": 128,
+      "no_background": true,
+      "seed": 9270501,
+      "inputReference": "references/water-supply.png"
+    },
+    "response": {
+      "content": [
+        {
+          "type": "text",
+          "text": "id: 79d11119-fc51-4662-b5c9-009b10c4b604\njob_id: 79d11119-fc51-4662-b5c9-009b10c4b604\nmodel: pixen\nedit: ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. LOOSE TRANSPORT state: add a flat protective grey cap over the lid and two mustard retaining straps. Keep EXACT canvas, outer silhouette, facing, mounting points and pivot. Transparent margins, coarse pixels, no text or scene.\nsource: 128x128px\nsize: 128x128px\ntransparent: True\nseed: 9270501\nasset_id: cb162aa2-7ff6-5a2e-b048-c12c9b46f701\nasset_status: pending (saved when generation completes)\ncost: 1 generation\nstatus: processing (~10-40s)\n\nhint: get_image(job_id=\"79d11119-fc51-4662-b5c9-009b10c4b604\")"
+        }
+      ],
+      "isError": false
+    },
+    "provider": "PixelLab",
+    "operation": "edit_image_pixen"
+  },
+  {
+    "key": "workup-loose",
+    "family": "workup",
+    "request": {
+      "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. LOOSE TRANSPORT state: add a protective grey cover over the round work lid and two mustard retaining straps. Keep EXACT canvas, outer silhouette, facing, mounting points and pivot. Transparent margins, coarse pixels, no text or scene.",
+      "width": 128,
+      "height": 128,
+      "no_background": true,
+      "seed": 9270502,
+      "inputReference": "references/workup.png"
+    },
+    "response": {
+      "content": [
+        {
+          "type": "text",
+          "text": "id: 4d0e2278-6861-49a1-afd7-f3ebfeb49035\njob_id: 4d0e2278-6861-49a1-afd7-f3ebfeb49035\nmodel: pixen\nedit: ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. LOOSE TRANSPORT state: add a protective grey cover over the round work lid and two mustard retaining straps. Keep EXACT canvas, outer silhouette, facing, mounting points and pivot. Transparent margins, coarse pixels, no text or scene.\nsource: 128x128px\nsize: 128x128px\ntransparent: True\nseed: 9270502\nasset_id: d820622a-ccfb-5ce8-a149-fbdd21086a99\nasset_status: pending (saved when generation completes)\ncost: 1 generation\nstatus: processing (~10-40s)\n\nhint: get_image(job_id=\"4d0e2278-6861-49a1-afd7-f3ebfeb49035\")"
+        }
+      ],
+      "isError": false
+    },
+    "provider": "PixelLab",
+    "operation": "edit_image_pixen"
+  },
+  {
+    "key": "chute-loose",
+    "family": "chute",
+    "request": {
+      "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. LOOSE TRANSPORT state: add a flat grey protective plate over the shutter slot with two short mustard retaining straps. Keep EXACT canvas, outer silhouette, facing, mounting points and pivot. Transparent margins, coarse pixels, no text or scene.",
+      "width": 256,
+      "height": 64,
+      "no_background": true,
+      "seed": 9270503,
+      "inputReference": "references/chute.png"
+    },
+    "response": {
+      "content": [
+        {
+          "type": "text",
+          "text": "id: f8e7b52e-9846-4078-998e-dfc28fc2c3cd\njob_id: f8e7b52e-9846-4078-998e-dfc28fc2c3cd\nmodel: pixen\nedit: ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. LOOSE TRANSPORT state: add a flat grey protective plate over the shutter slot with two short mustard retaining straps. Keep EXACT canvas, outer silhouette, facing, mounting points and pivot. Transparent margins, coarse pixels, no text or scene.\nsource: 256x64px\nsize: 256x64px\ntransparent: True\nseed: 9270503\nasset_id: f5c37d4a-6bda-55f3-a08a-bc11d5e3b50c\nasset_status: pending (saved when generation completes)\ncost: 1 generation\nstatus: processing (~10-40s)\n\nhint: get_image(job_id=\"f8e7b52e-9846-4078-998e-dfc28fc2c3cd\")"
+        }
+      ],
+      "isError": false
+    },
+    "provider": "PixelLab",
+    "operation": "edit_image_pixen"
+  },
+  {
+    "key": "grabber-loose",
+    "family": "grabber",
+    "request": {
+      "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. LOOSE TRANSPORT state: add two flat grey guards over clamp tips and a mustard transit locking bar across the central opening. Keep EXACT canvas, outer silhouette, facing, mounting points and pivot. Transparent margins, coarse pixels, no text or scene.",
+      "width": 128,
+      "height": 96,
+      "no_background": true,
+      "seed": 9270504,
+      "inputReference": "references/grabber.png"
+    },
+    "response": {
+      "content": [
+        {
+          "type": "text",
+          "text": "id: d92661c8-905c-4646-83c2-c82c21cd324a\njob_id: d92661c8-905c-4646-83c2-c82c21cd324a\nmodel: pixen\nedit: ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. LOOSE TRANSPORT state: add two flat grey guards over clamp tips and a mustard transit locking bar across the central opening. Keep EXACT canvas, outer silhouette, facing, mounting points and pivot. Transparent margins, coarse pixels, no text or scene.\nsource: 128x96px\nsize: 128x96px\ntransparent: True\nseed: 9270504\nasset_id: cfe677cd-926e-5bed-9b75-5f23c3c9d0b4\nasset_status: pending (saved when generation completes)\ncost: 1 generation\nstatus: processing (~10-40s)\n\nhint: get_image(job_id=\"d92661c8-905c-4646-83c2-c82c21cd324a\")"
+        }
+      ],
+      "isError": false
+    },
+    "provider": "PixelLab",
+    "operation": "edit_image_pixen"
+  },
+  {
+    "key": "collector-loose",
+    "family": "collector",
+    "request": {
+      "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. LOOSE TRANSPORT state: add a flat grey cap over the receiving pocket with two mustard retaining straps. Keep EXACT canvas, outer silhouette, facing, mounting points and pivot. Transparent margins, coarse pixels, no text or scene.",
+      "width": 128,
+      "height": 64,
+      "no_background": true,
+      "seed": 9270505,
+      "inputReference": "references/collector.png"
+    },
+    "response": {
+      "content": [
+        {
+          "type": "text",
+          "text": "id: d3d1e47e-d9d4-44d9-9e2d-3be19949653d\njob_id: d3d1e47e-d9d4-44d9-9e2d-3be19949653d\nmodel: pixen\nedit: ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. LOOSE TRANSPORT state: add a flat grey cap over the receiving pocket with two mustard retaining straps. Keep EXACT canvas, outer silhouette, facing, mounting points and pivot. Transparent margins, coarse pixels, no text or scene.\nsource: 128x64px\nsize: 128x64px\ntransparent: True\nseed: 9270505\nasset_id: 31d43836-b7c0-5f9b-8feb-2a0b0b0d5d0f\nasset_status: pending (saved when generation completes)\ncost: 1 generation\nstatus: processing (~10-40s)\n\nhint: get_image(job_id=\"d3d1e47e-d9d4-44d9-9e2d-3be19949653d\")"
+        }
+      ],
+      "isError": false
+    },
+    "provider": "PixelLab",
+    "operation": "edit_image_pixen"
+  },
+  {
+    "key": "reclaimer-loose",
+    "family": "reclaimer",
+    "request": {
+      "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. LOOSE TRANSPORT state: add a flat grey protective cover over the chamber lid and two mustard retaining straps. Keep EXACT canvas, outer silhouette, facing, mounting points and pivot. Transparent margins, coarse pixels, no text or scene.",
+      "width": 128,
+      "height": 128,
+      "no_background": true,
+      "seed": 9270506,
+      "inputReference": "references/reclaimer.png"
+    },
+    "response": {
+      "content": [
+        {
+          "type": "text",
+          "text": "id: b40db751-c66a-4186-b579-f3b0a1c206b7\njob_id: b40db751-c66a-4186-b579-f3b0a1c206b7\nmodel: pixen\nedit: ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. LOOSE TRANSPORT state: add a flat grey protective cover over the chamber lid and two mustard retaining straps. Keep EXACT canvas, outer silhouette, facing, mounting points and pivot. Transparent margins, coarse pixels, no text or scene.\nsource: 128x128px\nsize: 128x128px\ntransparent: True\nseed: 9270506\nasset_id: 6ce96bec-4d50-57d4-aab3-4886198c5b6d\nasset_status: pending (saved when generation completes)\ncost: 1 generation\nstatus: processing (~10-40s)\n\nhint: get_image(job_id=\"b40db751-c66a-4186-b579-f3b0a1c206b7\")"
+        }
+      ],
+      "isError": false
+    },
+    "provider": "PixelLab",
+    "operation": "edit_image_pixen"
+  }
+]

@@ -12,6 +12,7 @@ namespace PhobosShipbreaker;
 internal static partial class FurnaceService
 {
     internal const string CoolantStock="PhobosRivetlineCoolantCharge", CoolantWaste="PhobosRivetlineRetainedCoolant";
+    internal const int CoolantChargeStackLimit = 3;
     private static ObjectStateStore ChargeStore(CondOwner co)=>new(co.mapGUIPropMaps,"FurnaceCoolantCharge",Text.Owner,1);
     private static ObjectStateStore ChargeJournal(CondOwner co)=>new(co.mapGUIPropMaps,"FurnaceCoolantService",Text.Owner,1);
     private static void ReadCharge(Session s)
@@ -81,7 +82,11 @@ internal static partial class FurnaceService
         foreach(string id in new[]{CoolantStock,CoolantWaste})
         {
             var co=NativeDefinitions.Clone(DataHandler.dictCOs["ItmScrapTrash"]);co.strName=id;co.strNameFriendly=co.strNameShort=Text.Get(id==CoolantStock?"Furnace.charge_item":"Furnace.charge_waste");co.strDesc=Text.Get("Furnace.charge_desc");
-            co.nStackLimit=1;co.inventoryWidth=co.inventoryHeight=1;co.aTickers=co.aUpdateCommands=Array.Empty<string>();co.aStartingConds=new[]{"IsSolid=1x1","IsPocketable=1x1"};Content.SetStat(co,"StatMass",1);Content.SetStat(co,"StatBasePrice",id==CoolantStock?20:.01);d.Objects[id]=co;
+            co.nStackLimit=id==CoolantStock?CoolantChargeStackLimit:1;co.inventoryWidth=co.inventoryHeight=1;co.aTickers=co.aUpdateCommands=Array.Empty<string>();co.aStartingConds=new[]{"IsSolid=1x1","IsPocketable=1x1"};Content.SetStat(co,"StatMass",1);Content.SetStat(co,"StatBasePrice",id==CoolantStock?20:.01);
+            var item=NativeDefinitions.Clone(DataHandler.dictItemDefs[co.strItemDef]);
+            co.strItemDef=item.strName=id;
+            Content.ApplyStockArtwork(co,item,id==CoolantStock?"StockCoolantCharge":"StockRetainedCoolant");
+            d.Items[id]=item;d.Objects[id]=co;
         }
         foreach(string merchant in new[]{"ItmOKLGSupplyKioskInv","ItmOKLGFixer","ItmTraderSanDiegoHalvorsonInv"})MarketStock.Add(d,merchant,"PhobosCoolantStock_"+merchant,CoolantStock,1,StockCondition.Pristine, StockQuantities.Coolant);
     }

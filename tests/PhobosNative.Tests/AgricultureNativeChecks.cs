@@ -50,7 +50,7 @@ internal static class AgricultureNativeChecks
         // Check assets selected by the shared panel/world policy, not just base definitions.
         foreach (string crop in new[] { "Potato", "Lettuce", "LettuceSeed" })
         foreach (string stage in new[] { "sprout", "young", "mature", "harvest", "wilted", "dead" })
-        foreach (string suffix in new[] { "", "Normal" })
+        foreach (string suffix in new[] { "", "Normal", "Damaged", "DamagedNormal" })
         {
             string image = Path.Combine(repo, "mods/PhobosAgriculture/images/phobos/agriculture/Rack-" + crop + "-" + stage + suffix + ".png");
             check(File.Exists(image), "Registered crop stage exists: " + image);
@@ -83,7 +83,7 @@ internal static class AgricultureNativeChecks
         {
             var item=Definition(stock);
             check(!item.aStartingConds.Any(c=>c.StartsWith("IsEdible=")||c.StartsWith("IsHydrator=")),"Treatment stock cannot grant food or hydration");
-            check(item.nStackLimit==1,"Recorded/finite treatment stock cannot merge its state in a native stack");
+            check(item.nStackLimit==(stock==PhobosAgriculture.Service.RecoveryCartridge?3:1),"Cartridges stack as separate objects; recorded solution and rejects stay individual");
         }
         var drainageMaps=new Dictionary<string,Dictionary<string,string>>();
         var drainageStore=new Phobos.Ostranauts.Framework.Persistence.ObjectStateStore(drainageMaps,"AgricultureDrainage",PhobosAgriculture.Plugin.Id,1);

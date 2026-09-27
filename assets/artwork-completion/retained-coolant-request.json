@@ -1,0 +1,22 @@
+{
+  "provider": "PixelLab",
+  "operation": "edit_image_pixen",
+  "request": {
+    "image_url": "https://api.pixellab.ai/mcp/images/4fb35d9b-1094-4abd-962c-c3d4539cd59b/download",
+    "description": "Keep this EXACT overhead canister silhouette, canvas, cap, handle, registration and pixel style. Change ONLY the teal top panel to dark rusty brown, add one broad ochre diagonal slash across the top and two dark stain pixels near the cap. This is a closed retained used-fluid container, no spilling or broken structure. Preserve all transparent margins. Strict vertical overhead, no side walls, text, perspective or extra objects.",
+    "width": 64,
+    "height": 64,
+    "no_background": true,
+    "seed": 9270110
+  },
+  "response": {
+    "content": [
+      {
+        "type": "text",
+        "text": "id: 6545e271-49ed-4d7c-9af5-13bc3d5c4366\njob_id: 6545e271-49ed-4d7c-9af5-13bc3d5c4366\nmodel: pixen\nedit: Keep this EXACT overhead canister silhouette, canvas, cap, handle, registration and pixel style. Change ONLY the teal top panel to dark rusty brown, add one broad ochre diagonal slash across the top and two dark stain pixels near the cap. This is a closed retained used-fluid container, no spilling or broken structure. Preserve all transparent margins. Strict vertical overhead, no side walls, text, perspective or extra objects.\nsource: 64x64px\nsize: 64x64px\ntransparent: True\nseed: 9270110\nasset_id: a49d4234-df7c-52c2-a82f-b51eafb82206\nasset_status: pending (saved when generation completes)\ncost: 1 generation\nstatus: processing (~10-40s)\n\nhint: get_image(job_id=\"6545e271-49ed-4d7c-9af5-13bc3d5c4366\")"
+      }
+    ],
+    "isError": false
+  },
+  "inputProvenance": "Selected original coolant pilot."
+}

@@ -230,7 +230,7 @@
           "function": "Provides the separate coolant route between the F6 and a remote F6-R.",
           "use": "Place contiguous segments through HVAC, connect the correct cooling endpoints and select piped mode while cool and empty. Use the furnace’s checked routing controls.",
           "find": "Buy ordinary supply/fixer/Halvorson stock or build at a supported table.",
-          "notes": "This is not electrical cable or irrigation pipe. Legacy sealed operation and optional finite coolant servicing have different requirements. Damaged forms retain separate identities even when the display name lacks a damage suffix.",
+          "notes": "This is not electrical cable or irrigation pipe. Legacy sealed operation and optional finite coolant servicing have different requirements. Damaged forms retain separate identities even when the display name lacks a damage suffix. Loose intact and damaged sections support native storage stacks, separately by identity; installed segments remain individual fixtures. Split off a section when an action requires an individual item.",
           "guide": "furnace-coolant-conduits.md",
           "internal": false,
           "labels": {}
@@ -387,7 +387,7 @@
           "function": "Fresh fictional industrial coolant for optional finite F6 servicing.",
           "use": "In cool, idle piped mode enable finite servicing, place charges in Products and load locally. Prime before operating.",
           "find": "Ordinary supply, fixer or Halvorson stock as listed below.",
-          "notes": "Not drinking water, irrigation feed or ammonia. The legacy sealed cooling mode does not require these charges.",
+          "notes": "Not drinking water, irrigation feed or ammonia. The legacy sealed cooling mode does not require these charges. Fresh thermal service fluid charges support storage stacks of three. Split off one before furnace filling; retained coolant remains individual.",
           "guide": "fluid-network-operations.md",
           "internal": false,
           "labels": {}
@@ -504,7 +504,7 @@
           "function": "Carries irrigation water or crop nutrient solution between W2 and paired racks.",
           "use": "Place contiguous segments in MISC, connect the endpoint sockets and use Pair/Receive controls.",
           "find": "Buy stock, build at a supported table, or find a loose segment in eligible locked-crate contents.",
-          "notes": "Separate from electricity and F6 coolant. Removing a line does not delete the contents retained at its receiving endpoint.",
+          "notes": "Separate from electricity and F6 coolant. Removing a line does not delete the contents retained at its receiving endpoint. Loose intact and damaged sections support native storage stacks, separately by identity; installed segments remain individual fixtures. Split off a section when an action requires an individual item.",
           "guide": "agriculture-water-conduits.md",
           "internal": false,
           "labels": {}
@@ -518,7 +518,7 @@
           "function": "Planting stock for a potato cohort.",
           "use": "Place one in the rack and choose Plant potato after loading water and nutrients.",
           "find": "Buy stock, find eligible fridge/crate loot, or retain stock from a potato harvest.",
-          "notes": "This is the sprouted planting item, not a raw edible portion.",
+          "notes": "This is the sprouted planting item, not a raw edible portion. Split off one seed potato or seed packet before manual planting; an intact stack is not a planting input. Crew source hauling can deliver individual units from stacks.",
           "guide": "agriculture-player-guide.md",
           "internal": false,
           "labels": {}
@@ -532,7 +532,7 @@
           "function": "Planting stock for either lettuce cycle.",
           "use": "Load one packet, then choose food lettuce or the separate lettuce-for-seed cycle.",
           "find": "Buy stock, find eligible fridge/crate loot, or harvest a completed lettuce-seed cohort.",
-          "notes": "Food-lettuce harvest gives leaves, not replacement seed packets.",
+          "notes": "Food-lettuce harvest gives leaves, not replacement seed packets. Split off one seed potato or seed packet before manual planting; an intact stack is not a planting input. Crew source hauling can deliver individual units from stacks.",
           "guide": "agriculture-player-guide.md",
           "internal": false,
           "labels": {}
@@ -546,7 +546,7 @@
           "function": "Dry finite nutrient input.",
           "use": "Put packets in the rack or W2 and choose Load nutrients; W2 can blend the selected formulation. Alternatively select the exact physical packet in W2 while paused for gradual dosing; no Repair or Restore.",
           "find": "Buy supplies or find eligible locked-crate loot.",
-          "notes": "Not fertilizer produced from arbitrary trash; unused loaded nutrients remain finite stored stock.",
+          "notes": "Not fertilizer produced from arbitrary trash; unused loaded nutrients remain finite stored stock. Storage stacks retain individual packets and charge records. Split off one packet before manual loading, W2 dosing or B2 formulation; an intact stack is not a processing input. Crew source hauling can deliver individual units from stacks. Stacking does not replenish partially used packets.",
           "guide": "agriculture-player-guide.md",
           "internal": false,
           "labels": {}
@@ -560,7 +560,7 @@
           "function": "A sealed root-water input commodity.",
           "use": "Place in the rack or W2 and use Load irrigation charge with enough free reservoir space.",
           "find": "Buy supplies or find eligible locked-crate loot.",
-          "notes": "Not a drinkable ration. Native water rations are an alternative input, not a conversion output.",
+          "notes": "Not a drinkable ration. Native water rations are an alternative input, not a conversion output. Irrigation charges support storage stacks of three. Split off one before manual water loading; per-charge quantity is unchanged.",
           "guide": "agriculture-player-guide.md",
           "internal": false,
           "labels": {}
@@ -574,7 +574,7 @@
           "function": "Uncooked potato harvest portions.",
           "use": "Move to Hearth-2 and Start cooking.",
           "find": "Harvest potatoes or find eligible fridge contents.",
-          "notes": "The current raw item has no Eat action; use the cooker. It is not a seed potato.",
+          "notes": "The current raw item has no Eat action; use the cooker. It is not a seed potato. Raw potato portions support native storage stacks. Separate one portion before placing it in the cooker; a whole stack is not a cooker input. Each portion retains its original mass.",
           "guide": "agriculture-player-guide.md",
           "internal": false,
           "labels": {}
@@ -588,7 +588,7 @@
           "function": "Prepared crew food.",
           "use": "Collect from Hearth-2 and use the native eating action.",
           "find": "Cook raw potatoes or find eligible fridge loot.",
-          "notes": "Food effects are authored gameplay values.",
+          "notes": "Food effects are authored gameplay values. Portions support native storage stacks; mass and food effects remain per individual portion.",
           "guide": "agriculture-player-guide.md",
           "internal": false,
           "labels": {}
@@ -602,7 +602,7 @@
           "function": "Edible leaves from the food-lettuce crop.",
           "use": "Harvest, collect and eat through native food actions.",
           "find": "Harvest food lettuce or find eligible fridge loot.",
-          "notes": "Not seed stock. Growing lettuce for seed produces no edible leaves.",
+          "notes": "Not seed stock. Growing lettuce for seed produces no edible leaves. Portions support native storage stacks; mass and food effects remain per individual portion.",
           "guide": "agriculture-player-guide.md",
           "internal": false,
           "labels": {}
@@ -658,7 +658,7 @@
           "function": "Finite treatment medium used by W2.",
           "use": "Place with recorded drainage and queue treatment. Keep returned part-used cartridges for later batches.",
           "find": "Buy supplies or find eligible locked-crate loot.",
-          "notes": "The table shows a full cartridge; remaining capacity controls live mass and price. Historical bound jobs may consume a whole cartridge.",
+          "notes": "The table shows a full cartridge; remaining capacity controls live mass and price. Historical bound jobs may consume a whole cartridge. Cartridges support storage stacks of three separate objects. Split off one before treatment. Each retains its own remaining capacity; a batch must fit one cartridge, and stacking never pools or refills capacity.",
           "guide": "fluid-network-operations.md",
           "internal": false,
           "labels": {}
@@ -767,7 +767,7 @@
           "function": "Finite complementary input for recovered nutrient formulation.",
           "use": "Place at B2 with concentrate; retain returned partial packets.",
           "find": "Buy supply/fixer/Halvorson stock.",
-          "notes": "Full packet values below; partial mass and value decrease. Cannot Repair or Restore; not a complete nutrient substitute.",
+          "notes": "Full packet values below; partial mass and value decrease. Cannot Repair or Restore; not a complete nutrient substitute. Storage stacks retain individual packets and charge records. Split off one packet before manual loading, W2 dosing or B2 formulation; an intact stack is not a processing input. Crew source hauling can deliver individual units from stacks. Stacking does not replenish partially used packets.",
           "guide": "agriculture-nutrient-production.md",
           "internal": false,
           "labels": {}
@@ -840,7 +840,7 @@
           "function": "One physical 500 g dry formulated nutrient charge for gradual selected W2 dosing.",
           "use": "Put in the W2 inventory; pause, select its exact charge in Supplies, Apply and Resume. Explicitly choose the distribute-and-replace standing order to authorize crew replacement from the approved input store.",
           "find": "Agriculture merchants in finite lots of eight, or one charge per independent station Bulk supplies purchase into a selected W2 inventory.",
-          "notes": "Same aggregate formulation value per kg as existing nutrients. Reuses nutrient packet artwork; localized name and measured mass distinguish it. No water carrier or new chemical assay. Remaining mass/value decrease; empty charges vanish. No Repair/Restore.",
+          "notes": "Same aggregate formulation value per kg as existing nutrients. Dedicated bulk nutrient packet artwork, localized name and measured mass distinguish it. No water carrier or new chemical assay. Remaining mass/value decrease; empty charges vanish. No Repair/Restore. Bulk charges support storage stacks of three individual objects. Split off one before dosing; partially depleted charges retain their own contents.",
           "guide": "agriculture-bulk-storage.md",
           "internal": false,
           "labels": {}

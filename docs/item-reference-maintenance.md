@@ -89,3 +89,8 @@ the operating guides because wear, skills, tools and saved jobs affect it.
 Live fluid, waste and part-used cartridge masses can differ from their template.
 Research-backed explanations retain direct attribution in the operating guides;
 authored prices, yields and simplified chemistry remain labelled as gameplay.
+
+The exporter also records each definition's effective native stack limit
+(minimum one). Item tables show the loose form's maximum stack separately
+from per-item mass and price; installed fixtures remain individual. Missing
+or invalid stack limits fail validation rather than silently assuming one.

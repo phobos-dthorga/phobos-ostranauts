@@ -26,7 +26,7 @@ internal static class BulkNativeChecks
             }
         }
         var charge=d.Objects[BulkDefinitions.Nutrients];
-        check(Stat(charge,"StatMass")==.5&&Stat(charge,"StatBasePrice")==750&&charge.nStackLimit==1,"Finite bulk charge has an individual physical identity and authored price");
+        check(Stat(charge,"StatMass")==.5&&Stat(charge,"StatBasePrice")==750&&charge.nStackLimit==3,"Finite bulk charge has an individual physical identity and authored price");
         check(charge.inventoryWidth==1&&charge.inventoryHeight==1&&charge.aUpdateCommands.Length==0,"Bulk nutrient charge fits one slot and cannot regenerate through a native damage mode");
         check(typeof(GUIStationRefuel).GetMethod("SetupFields",System.Reflection.BindingFlags.NonPublic|System.Reflection.BindingFlags.Instance)!=null,"Audited station entry hook exists");
         check(typeof(CrewSim).GetMethod(nameof(CrewSim.ScheduleCODestruction))?.GetParameters()[0].Name=="coToDestroy","Destruction guard binds the inspected argument");

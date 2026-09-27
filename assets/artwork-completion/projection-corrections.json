@@ -1,0 +1,140 @@
+[
+  {
+    "key": "recorded-residue",
+    "request": {
+      "image_url": "https://api.pixellab.ai/mcp/images/c76f4dab-f9aa-4cbb-b692-50fdb6c2c00f/download",
+      "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. Show the round mouth of the green mesh bag with chopped brown stems filling it; remove the standing bag view. Centred complete silhouette, 8px transparent margins, coarse pixels, no text.",
+      "width": 64,
+      "height": 64,
+      "no_background": true,
+      "seed": 9270300
+    },
+    "response": {
+      "content": [
+        {
+          "type": "text",
+          "text": "id: c49bf255-2165-46b9-975c-ed4cc0ffdc8c\njob_id: c49bf255-2165-46b9-975c-ed4cc0ffdc8c\nmodel: pixen\nedit: ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. Show the round mouth of the green mesh bag with chopped brown stems filling it; remove the standing bag view. Centred complete silhouette, 8px transparent margins, coarse pixels, no text.\nsource: 64x64px\nsize: 64x64px\ntransparent: True\nseed: 9270300\nasset_id: 0ab0eff6-de06-5fde-b0ca-2510cbd33d5e\nasset_status: pending (saved when generation completes)\ncost: 1 generation\nstatus: processing (~10-40s)\n\nhint: get_image(job_id=\"c49bf255-2165-46b9-975c-ed4cc0ffdc8c\")"
+        }
+      ],
+      "isError": false
+    },
+    "reason": "Rejected original projection; apply overhead-first rule.",
+    "provider": "PixelLab",
+    "operation": "edit_image_pixen"
+  },
+  {
+    "key": "concentrate",
+    "request": {
+      "image_url": "https://api.pixellab.ai/mcp/images/f36b8f67-5913-4a3e-a126-600a24d48941/download",
+      "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. Show a circular cream lid inside a dark green circular rim. Eliminate the vertical green wall under the lid. Centred complete silhouette, 8px transparent margins, coarse pixels, no text.",
+      "width": 64,
+      "height": 64,
+      "no_background": true,
+      "seed": 9270301
+    },
+    "response": {
+      "content": [
+        {
+          "type": "text",
+          "text": "id: 5ab341ae-1e08-4164-b405-7d351b8e9b9a\njob_id: 5ab341ae-1e08-4164-b405-7d351b8e9b9a\nmodel: pixen\nedit: ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. Show a circular cream lid inside a dark green circular rim. Eliminate the vertical green wall under the lid. Centred complete silhouette, 8px transparent margins, coarse pixels, no text.\nsource: 64x64px\nsize: 64x64px\ntransparent: True\nseed: 9270301\nasset_id: e92630ea-c449-5de5-ae7f-bad5a67110cc\nasset_status: pending (saved when generation completes)\ncost: 1 generation\nstatus: processing (~10-40s)\n\nhint: get_image(job_id=\"5ab341ae-1e08-4164-b405-7d351b8e9b9a\")"
+        }
+      ],
+      "isError": false
+    },
+    "reason": "Rejected original projection; apply overhead-first rule.",
+    "provider": "PixelLab",
+    "operation": "edit_image_pixen"
+  },
+  {
+    "key": "wet-rejects",
+    "request": {
+      "image_url": "https://api.pixellab.ai/mcp/images/36e1dcd5-9e68-426e-ae03-72c3fad76aa4/download",
+      "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. Flatten to a rectangular dark-slate TOP PANEL with broad mustard band, murky brown inset and two flush round seals. No visible walls. Centred, 8px transparent margins, no text.",
+      "width": 64,
+      "height": 64,
+      "no_background": true,
+      "seed": 9270302
+    },
+    "response": {
+      "content": [
+        {
+          "type": "text",
+          "text": "id: 5de70e9d-3e35-4502-a0ad-e1de3193401e\njob_id: 5de70e9d-3e35-4502-a0ad-e1de3193401e\nmodel: pixen\nedit: ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. Flatten to a rectangular dark-slate TOP PANEL with broad mustard band, murky brown inset and two flush round seals. No visible walls. Centred, 8px transparent margins, no text.\nsource: 64x64px\nsize: 64x64px\ntransparent: True\nseed: 9270302\nasset_id: 3f43cff6-c79e-5dc3-ae09-5b5455d55608\nasset_status: pending (saved when generation completes)\ncost: 1 generation\nstatus: processing (~10-40s)\n\nhint: get_image(job_id=\"5de70e9d-3e35-4502-a0ad-e1de3193401e\")"
+        }
+      ],
+      "isError": false
+    },
+    "reason": "Rejected original projection; apply overhead-first rule.",
+    "provider": "PixelLab",
+    "operation": "edit_image_pixen"
+  },
+  {
+    "key": "r4-section",
+    "request": {
+      "image_url": "https://api.pixellab.ai/mcp/images/11c04169-d01b-46a4-839f-c55c00fb9175/download",
+      "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. Show a SQUARE open chassis outline, parallel vertical dark shredding rollers inside, flat teal motor top at right. Eliminate every vertical outside wall. Keep cream grey teal palette, coarse pixels, 16px transparent margins.",
+      "width": 128,
+      "height": 128,
+      "no_background": true,
+      "seed": 9270303
+    },
+    "response": {
+      "content": [
+        {
+          "type": "text",
+          "text": "id: 1c2f5d16-0583-4a1c-9c4f-d5aa91c69a64\njob_id: 1c2f5d16-0583-4a1c-9c4f-d5aa91c69a64\nmodel: pixen\nedit: ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. Show a SQUARE open chassis outline, parallel vertical dark shredding rollers inside, flat teal motor top at right. Eliminate every vertical outside wall. Keep cream grey teal palette, coarse pixels, 16px transparent margins.\nsource: 128x128px\nsize: 128x128px\ntransparent: True\nseed: 9270303\nasset_id: 5a20648f-dfe3-59bf-a7c2-8d5cc1fd7c25\nasset_status: pending (saved when generation completes)\ncost: 1 generation\nstatus: processing (~10-40s)\n\nhint: get_image(job_id=\"1c2f5d16-0583-4a1c-9c4f-d5aa91c69a64\")"
+        }
+      ],
+      "isError": false
+    },
+    "reason": "Rejected original projection; apply overhead-first rule.",
+    "provider": "PixelLab",
+    "operation": "edit_image_pixen"
+  },
+  {
+    "key": "f6-section",
+    "request": {
+      "image_url": "https://api.pixellab.ai/mcp/images/2689010a-8105-4c3d-8b5d-2df7b24eaf9e/download",
+      "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. Show a SQUARE grey frame around a CIRCULAR cream refractory ring and dark circular centre. Remove every vertical outside wall; square edges horizontal/vertical. Coarse pixels, 16px transparent margins, no text.",
+      "width": 128,
+      "height": 128,
+      "no_background": true,
+      "seed": 9270304
+    },
+    "response": {
+      "content": [
+        {
+          "type": "text",
+          "text": "id: e9f0b8cd-6599-42ca-8205-c1976ae58152\njob_id: e9f0b8cd-6599-42ca-8205-c1976ae58152\nmodel: pixen\nedit: ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. Show a SQUARE grey frame around a CIRCULAR cream refractory ring and dark circular centre. Remove every vertical outside wall; square edges horizontal/vertical. Coarse pixels, 16px transparent margins, no text.\nsource: 128x128px\nsize: 128x128px\ntransparent: True\nseed: 9270304\nasset_id: 1fd2d74a-fb5b-5729-adde-c56d2487c1ea\nasset_status: pending (saved when generation completes)\ncost: 1 generation\nstatus: processing (~10-40s)\n\nhint: get_image(job_id=\"e9f0b8cd-6599-42ca-8205-c1976ae58152\")"
+        }
+      ],
+      "isError": false
+    },
+    "reason": "Rejected original projection; apply overhead-first rule.",
+    "provider": "PixelLab",
+    "operation": "edit_image_pixen"
+  },
+  {
+    "key": "reclaimer-feedstock",
+    "request": {
+      "image_url": "https://api.pixellab.ai/mcp/images/4cce2103-ddef-4798-9f36-2addd02f8961/download",
+      "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. Flatten to a RECTANGULAR top surface of grey offcuts with two mustard bands and copper fragments. Eliminate all side walls and diamond edges. Complete centred bundle, 8px transparent margins, coarse pixels, no text.",
+      "width": 64,
+      "height": 64,
+      "no_background": true,
+      "seed": 9270305
+    },
+    "response": {
+      "content": [
+        {
+          "type": "text",
+          "text": "id: 55d9a362-3b9a-4ff4-8255-2727eb21d997\njob_id: 55d9a362-3b9a-4ff4-8255-2727eb21d997\nmodel: pixen\nedit: ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. Flatten to a RECTANGULAR top surface of grey offcuts with two mustard bands and copper fragments. Eliminate all side walls and diamond edges. Complete centred bundle, 8px transparent margins, coarse pixels, no text.\nsource: 64x64px\nsize: 64x64px\ntransparent: True\nseed: 9270305\nasset_id: ffdaca60-c401-5fd1-91bf-956f3951ea52\nasset_status: pending (saved when generation completes)\ncost: 1 generation\nstatus: processing (~10-40s)\n\nhint: get_image(job_id=\"55d9a362-3b9a-4ff4-8255-2727eb21d997\")"
+        }
+      ],
+      "isError": false
+    },
+    "reason": "Rejected original projection; apply overhead-first rule.",
+    "provider": "PixelLab",
+    "operation": "edit_image_pixen"
+  }
+]

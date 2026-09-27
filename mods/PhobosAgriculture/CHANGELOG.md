@@ -19,6 +19,32 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Fixed unreachable INSTALL entries; Firstlight-4, Hearth-2 and W2 appear under APPS, and irrigation conduit under MISC, including damaged forms. Existing inputs, placement and saved IDs are preserved.
 
+## [0.15.0] - 2026-09-27 - Draft
+
+### Artwork
+
+- Add dedicated overhead sprites for recorded crop residue, recovered concentrate, makeup salts, progressive mixture, spent biomass, Recycler wet rejects and the bulk nutrient charge.
+- Add damaged, packed and damaged-packed artwork for Firstlight-4, Hearth-2, W2 and B2. Installed rack damage preserves all eighteen crop-stage overlays; packed racks show their protective covers. Existing cooked-potato and other approved stock artwork is retained.
+
+### Compatibility and limits
+
+- Require Framework 0.28.0 for shared native state-art binding. Existing identities, footprints, sockets, contents, stack limits and recipes are preserved. Neutral normal maps supply no authored relief. Offline image and definition checks do not establish Unity or owner gameplay approval.
+- Retain original masters, exact PixelLab prompts, job IDs and export hashes in the [artwork provenance record](https://github.com/phobos-dthorga/phobos-ostranauts/tree/main/assets/artwork-completion). Prepared only; no installation or publication.
+
+## [0.14.1] - 2026-09-27 - Draft
+
+### Changed
+
+- Treatment cartridges, 500 g bulk nutrient charges and 5 kg irrigation charges stack to 3 each. Separate one object before treatment, dosing or water loading. Cartridges retain individual remaining capacity; one treatment batch must still fit one cartridge, without pooling capacities.
+
+- Loose intact and damaged irrigation conduits and seed potatoes stack to 10; lettuce seed packets to 50; formulated nutrient and makeup-salt packets to 25.
+- Raw potato portions, Hearth cooked potato portions and lettuce portions also stack to 10 each. Separate an individual raw potato portion before cooker processing; per-portion mass, food effects and recipes are unchanged.
+
+### Compatibility and limits
+
+- Split seeds and nutrient packets into individual items before manual planting, loading, dosing or B2 workup. Existing crew source hauling can deliver individual units from stacks. Partial charges retain their own state; stacking does not refill or combine their contents.
+- Native stack limits apply on the ground and in compatible containers. Existing IDs, per-item mass, value and recipes are preserved; existing items use current definitions on reload, without automatically consolidating stored cargo. Offline checks do not establish gameplay validation.
+
 ## [0.14.0] - 2026-09-27 - Draft
 
 ### Agricultural bulk supplies

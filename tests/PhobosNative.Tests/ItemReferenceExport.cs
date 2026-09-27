@@ -57,6 +57,7 @@ internal static class ItemReferenceExport
             var items = d.Objects.Values.Where(c => mod == "PhobosFramework" || c.strName != MaintenanceDefinitions.SpentParts)
                 .OrderBy(c => c.strName, StringComparer.Ordinal).Select(co => new {
                     id = co.strName, name = co.strNameFriendly,
+                    stackLimit = Math.Max(1, co.nStackLimit),
                     massKg = EquipmentSaveUpgrade.Amount(co.aStartingConds, "StatMass"),
                     baseValue = EquipmentValueAudit.Price(co),
                     installed = co.aStartingConds.Any(s => s.Split('=')[0] == "IsInstalled"),

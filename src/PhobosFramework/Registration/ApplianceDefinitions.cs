@@ -7,6 +7,21 @@ namespace Phobos.Ostranauts.Framework.Registration;
 /// <summary>Native installable appliance family. All names, ratings, sprites and bills are content-owned.</summary>
 public static class ApplianceDefinitions
 {
+    /// <summary>Bind registered presentation-only variants without changing physical definitions.</summary>
+    public static void ApplyStateArtwork(NativeDefinitions d, string prefix, string imageBase)
+    {
+        d.Items[d.Objects[prefix + "Installed"].strItemDef].strImgDamaged = imageBase + "Damaged";
+        foreach (string form in new[] { "InstalledDmg", "Loose", "LooseDmg" })
+        {
+            string suffix = form == "InstalledDmg" ? "Damaged" : form == "LooseDmg" ? "LooseDamaged" : "Loose";
+            var owner = d.Objects[prefix + form];
+            var item = d.Items[owner.strItemDef];
+            owner.strPortraitImg = item.strImg = imageBase + suffix;
+            item.strImgNorm = item.strImg + "Normal";
+            item.strImgDamaged = imageBase + (form == "InstalledDmg" ? "Damaged" : "LooseDamaged");
+        }
+    }
+
     // Preserve the existing public signature for already-compiled content consumers.
     public static void Add(NativeDefinitions d, string prefix, string name, string description, int size, double kg, double price, string image, string controls, double kw) =>
         Add(d, prefix, name, description, size, kg, price, image, controls, kw, InstallMenu.Appliances);

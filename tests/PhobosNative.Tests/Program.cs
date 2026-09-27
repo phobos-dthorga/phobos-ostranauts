@@ -68,7 +68,9 @@ var missing = DependencyContract.MissingDefinitions((table,id) => table switch {
 Check(missing.Count == 0, string.Join("\n", missing));
 Check(!DataHandler.dictCOs.ContainsKey("SWB_SorterInstalled"), "No Workshop templates loaded");
 var agriculture = PhobosAgriculture.Definitions.Prepare();
+CompletionArtworkChecks.Run(agriculture, "PhobosAgriculture", repo, Check);
 AgricultureNativeChecks.Run(agriculture, repo, Check, Throws);
+StackLimitChecks.Run(Check);
 NutrientProductionNativeChecks.Run(agriculture, game, Check);
 if (args.Length > 3) AgricultureEconomyAudit.Write(agriculture, repo, args[3]);
 foreach (var co in agriculture.Objects.Values) {
@@ -89,6 +91,7 @@ if (args.Length > 2 && args[2] == "--agriculture-only")
     return;
 }
 var prepared = Content.Prepare();
+CompletionArtworkChecks.Run(prepared, "PhobosShipbreaker", repo, Check);
 PlaceholderLoadChecks.Run(prepared, Check);
 foreach (var equipment in prepared.Objects.Values)
     Check(equipment.strNameFriendly.StartsWith("Phobos' ", StringComparison.Ordinal), "Branded native machine, section or material: " + equipment.strName);

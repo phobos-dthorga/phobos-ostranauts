@@ -63,7 +63,7 @@ internal static class Definitions
         IrrigationDefinitions.Add(d);
         WorkupDefinitions.Add(d);
         BulkDefinitions.Add(d);
-        Stock(d, RecyclerCapture.Wet, 13, .01, "wet_rejects", false, "recovery_reject");
+        Stock(d, RecyclerCapture.Wet, 13, .01, "wet_rejects", false);
         foreach (var co in d.Objects.Values.Where(c => c.strName.EndsWith("Dmg"))) co.strNameFriendly = co.strNameShort = Text.Get("damaged", co.strNameFriendly);
         Stock(d, PotatoSeed, .2, 40, "potato_seed", false); Stock(d, LettuceSeed, .005, EquipmentEconomy.LettuceSeedPrice, "lettuce_seed", false);
         Stock(d, Nutrient, .04, 60, "nutrients", false); Stock(d, Raw, .4, 12, "raw", false);
@@ -92,13 +92,15 @@ internal static class Definitions
         }
         LootContent.Add(d, lootEnabled, lootMultiplier);
         RegionalEconomy.Apply(d);
+        foreach (var art in new[] { (Rack, "Rack"), (Cooker, "Cooker"), (IrrigationDefinitions.Supply, "WaterSupply"), (WorkupDefinitions.Bench, "Workup") })
+            ApplianceDefinitions.ApplyStateArtwork(d, art.Item1, "phobos/agriculture/" + art.Item2);
         return d;
     }
     internal static void Stock(NativeDefinitions d, string id, double kg, double price, string key, bool food, string? artKey = null)
     {
         var co = NativeDefinitions.Clone(DataHandler.dictCOs[food ? "ItmTrencherAcceptableAlgae" : "ItmScrapTrash"]);
         co.strName = id; co.strNameFriendly = co.strNameShort = Text.Get(key); co.strDesc = Text.Get(key + "_desc");
-        co.nStackLimit = 1; co.aUpdateCommands = Array.Empty<string>(); co.aTickers = Array.Empty<string>(); co.inventoryWidth = co.inventoryHeight = 1;
+        co.nStackLimit = StackLimits.Stock(id); co.aUpdateCommands = Array.Empty<string>(); co.aTickers = Array.Empty<string>(); co.inventoryWidth = co.inventoryHeight = 1;
         co.aStartingConds = food ? new[] { "IsSolid=1x1", "IsEdible=1x1", "IsFood=1x1", "IsCategoryFood=1x1", "IsPocketable=1x1" } : new[] { "IsSolid=1x1", "IsPocketable=1x1" };
         MaintenanceDefinitions.SetStat(co, "StatMass", kg); MaintenanceDefinitions.SetStat(co, "StatBasePrice", price);
         // Keep the donor's native item behavior and socket geometry, but give each

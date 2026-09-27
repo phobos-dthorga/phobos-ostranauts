@@ -1,0 +1,117 @@
+[
+  {
+    "key": "rack-loose-damaged",
+    "family": "rack",
+    "request": {
+      "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. Preserve EXACT packed machine silhouette, protective covers, straps, sockets, pivot and margins. Add two clear dark cracks to the protective cover and a localized brown-black scorch near one strap. No loose debris, text or smoke. Keep coarse pixel art.",
+      "width": 128,
+      "height": 128,
+      "no_background": true,
+      "seed": 9270600,
+      "inputReference": "references/rack-loose.png"
+    },
+    "response": {
+      "content": [
+        {
+          "type": "text",
+          "text": "id: 433a6664-b840-4e24-90e0-7a62fa98b0b0\njob_id: 433a6664-b840-4e24-90e0-7a62fa98b0b0\nmodel: pixen\nedit: ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. Preserve EXACT packed machine silhouette, protective covers, straps, sockets, pivot and margins. Add two clear dark cracks to the protective cover and a localized brown-black scorch near one strap. No loose debris, text or smoke. Keep coarse pixel art.\nsource: 128x128px\nsize: 128x128px\ntransparent: True\nseed: 9270600\nasset_id: 35c41c97-6a1e-5276-b4f3-740865e28ec4\nasset_status: pending (saved when generation completes)\ncost: 1 generation\nstatus: processing (~10-40s)\n\nhint: get_image(job_id=\"433a6664-b840-4e24-90e0-7a62fa98b0b0\")"
+        }
+      ],
+      "isError": false
+    },
+    "provider": "PixelLab",
+    "operation": "edit_image_pixen"
+  },
+  {
+    "key": "cooker-loose-damaged",
+    "family": "cooker",
+    "request": {
+      "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. Preserve EXACT packed machine silhouette, protective covers, straps, sockets, pivot and margins. Add two clear dark cracks to the protective cover and a localized brown-black scorch near one strap. No loose debris, text or smoke. Keep coarse pixel art.",
+      "width": 128,
+      "height": 128,
+      "no_background": true,
+      "seed": 9270601,
+      "inputReference": "references/cooker-loose.png"
+    },
+    "response": {
+      "content": [
+        {
+          "type": "text",
+          "text": "id: 31d88af3-7fb3-407c-9155-d405091a0b95\njob_id: 31d88af3-7fb3-407c-9155-d405091a0b95\nmodel: pixen\nedit: ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. Preserve EXACT packed machine silhouette, protective covers, straps, sockets, pivot and margins. Add two clear dark cracks to the protective cover and a localized brown-black scorch near one strap. No loose debris, text or smoke. Keep coarse pixel art.\nsource: 128x128px\nsize: 128x128px\ntransparent: True\nseed: 9270601\nasset_id: 8dac56d9-6e35-5e7f-a639-f8f1b7e9a103\nasset_status: pending (saved when generation completes)\ncost: 1 generation\nstatus: processing (~10-40s)\n\nhint: get_image(job_id=\"31d88af3-7fb3-407c-9155-d405091a0b95\")"
+        }
+      ],
+      "isError": false
+    },
+    "provider": "PixelLab",
+    "operation": "edit_image_pixen"
+  },
+  {
+    "key": "water-supply-loose-damaged",
+    "family": "water-supply",
+    "request": {
+      "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. Preserve EXACT packed machine silhouette, protective covers, straps, sockets, pivot and margins. Add two clear dark cracks to the protective cover and a localized brown-black scorch near one strap. No loose debris, text or smoke. Keep coarse pixel art.",
+      "width": 128,
+      "height": 128,
+      "no_background": true,
+      "seed": 9270602,
+      "inputReference": "references/water-supply-loose.png"
+    },
+    "response": {
+      "content": [
+        {
+          "type": "text",
+          "text": "id: f0aaf53e-7521-435b-a627-a6d70b1f30a5\njob_id: f0aaf53e-7521-435b-a627-a6d70b1f30a5\nmodel: pixen\nedit: ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. Preserve EXACT packed machine silhouette, protective covers, straps, sockets, pivot and margins. Add two clear dark cracks to the protective cover and a localized brown-black scorch near one strap. No loose debris, text or smoke. Keep coarse pixel art.\nsource: 128x128px\nsize: 128x128px\ntransparent: True\nseed: 9270602\nasset_id: d907f2c4-dbdc-55c3-93af-60dd5874e210\nasset_status: pending (saved when generation completes)\ncost: 1 generation\nstatus: processing (~10-40s)\n\nhint: get_image(job_id=\"f0aaf53e-7521-435b-a627-a6d70b1f30a5\")"
+        }
+      ],
+      "isError": false
+    },
+    "provider": "PixelLab",
+    "operation": "edit_image_pixen"
+  },
+  {
+    "key": "workup-loose-damaged",
+    "family": "workup",
+    "request": {
+      "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. Preserve EXACT packed machine silhouette, protective covers, straps, sockets, pivot and margins. Add two clear dark cracks to the protective cover and a localized brown-black scorch near one strap. No loose debris, text or smoke. Keep coarse pixel art.",
+      "width": 128,
+      "height": 128,
+      "no_background": true,
+      "seed": 9270603,
+      "inputReference": "references/workup-loose.png"
+    },
+    "response": {
+      "content": [
+        {
+          "type": "text",
+          "text": "id: 329a3954-a3ea-4f1f-a27d-e0d5fac334e3\njob_id: 329a3954-a3ea-4f1f-a27d-e0d5fac334e3\nmodel: pixen\nedit: ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. Preserve EXACT packed machine silhouette, protective covers, straps, sockets, pivot and margins. Add two clear dark cracks to the protective cover and a localized brown-black scorch near one strap. No loose debris, text or smoke. Keep coarse pixel art.\nsource: 128x128px\nsize: 128x128px\ntransparent: True\nseed: 9270603\nasset_id: 0b131221-28db-50e3-971d-54c6e4a5495b\nasset_status: pending (saved when generation completes)\ncost: 1 generation\nstatus: processing (~10-40s)\n\nhint: get_image(job_id=\"329a3954-a3ea-4f1f-a27d-e0d5fac334e3\")"
+        }
+      ],
+      "isError": false
+    },
+    "provider": "PixelLab",
+    "operation": "edit_image_pixen"
+  },
+  {
+    "key": "chute-loose-damaged",
+    "family": "chute",
+    "request": {
+      "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. Preserve EXACT packed machine silhouette, protective covers, straps, sockets, pivot and margins. Add two clear dark cracks to the protective cover and a localized brown-black scorch near one strap. No loose debris, text or smoke. Keep coarse pixel art.",
+      "width": 256,
+      "height": 64,
+      "no_background": true,
+      "seed": 9270604,
+      "inputReference": "references/chute-loose.png"
+    },
+    "response": {
+      "content": [
+        {
+          "type": "text",
+          "text": "id: 911bf8dd-4478-4bd9-8c15-e10609de7f61\njob_id: 911bf8dd-4478-4bd9-8c15-e10609de7f61\nmodel: pixen\nedit: ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. Preserve EXACT packed machine silhouette, protective covers, straps, sockets, pivot and margins. Add two clear dark cracks to the protective cover and a localized brown-black scorch near one strap. No loose debris, text or smoke. Keep coarse pixel art.\nsource: 256x64px\nsize: 256x64px\ntransparent: True\nseed: 9270604\nasset_id: cd8a55cb-add1-533f-b21e-e878b360d054\nasset_status: pending (saved when generation completes)\ncost: 1 generation\nstatus: processing (~10-40s)\n\nhint: get_image(job_id=\"911bf8dd-4478-4bd9-8c15-e10609de7f61\")"
+        }
+      ],
+      "isError": false
+    },
+    "provider": "PixelLab",
+    "operation": "edit_image_pixen"
+  }
+]

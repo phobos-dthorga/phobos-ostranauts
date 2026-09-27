@@ -1,6 +1,11 @@
 # Phobos Shipbreaker: first playable build
 
-Current candidate: **Shipbreaker 0.10.1 + Phobos Framework 0.12.0**, built against
+Current artwork: Shipbreaker 0.28.0 requires Framework 0.28.0 and adds
+[dedicated supply and equipment-state imagery](artwork-completion.md).
+The original first-build snapshot below is historical; consult the current
+player guide and item reference for present capabilities and versions.
+
+Historical candidate: **Shipbreaker 0.10.1 + Phobos Framework 0.12.0**, built against
 Ostranauts **1.0.1.5** and BepInEx **5.4.23.5**. Offline checks pass; connected
 gameplay validation remains pending. These are prepared-package versions, not
 an assertion about the currently installed files. Start with the

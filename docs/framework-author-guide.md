@@ -1,5 +1,12 @@
 # Phobos Framework 0.15.0 — author guide
 
+Framework 0.28.0 adds `ApplianceDefinitions.ApplyStateArtwork`. Call it after
+registering a complete Installed/InstalledDmg/Loose/LooseDmg appliance family.
+Supply a content-owned image base plus Damaged, Loose and LooseDamaged exports
+with matching Normal maps. It binds native images and portraits without changing
+physical fields. Dynamic views must select the same registered states. See
+[dedicated artwork coverage](artwork-completion.md).
+
 Framework 0.27.0 adds [bulk custody, station settlement and compact provider selectors](framework-bulk-storage.md). Existing reservoir, equipment and crew interfaces remain compatible.
 
 The current console redesign uses compact views and checked drafts. See the

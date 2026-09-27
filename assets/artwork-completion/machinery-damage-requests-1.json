@@ -1,0 +1,140 @@
+[
+  {
+    "key": "cooker-damaged",
+    "family": "cooker",
+    "request": {
+      "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. Keep EXACT canvas, silhouette, pivot, facing, sockets and fittings. Add crack across the stove glass and a small dark scorch beside its controls. No displaced pieces, smoke, fire, text or new fittings. Preserve transparent margins and coarse pixels.",
+      "width": 128,
+      "height": 128,
+      "no_background": true,
+      "seed": 9270410,
+      "inputReference": "references/cooker.png"
+    },
+    "response": {
+      "content": [
+        {
+          "type": "text",
+          "text": "id: 3f5b5705-962b-4815-a701-b2865df2c99f\njob_id: 3f5b5705-962b-4815-a701-b2865df2c99f\nmodel: pixen\nedit: ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. Keep EXACT canvas, silhouette, pivot, facing, sockets and fittings. Add crack across the stove glass and a small dark scorch beside its controls. No displaced pieces, smoke, fire, text or new fittings. Preserve transparent margins and coarse pixels.\nsource: 128x128px\nsize: 128x128px\ntransparent: True\nseed: 9270410\nasset_id: 84c66cae-873a-51ef-b580-033ea68e132a\nasset_status: pending (saved when generation completes)\ncost: 1 generation\nstatus: processing (~10-40s)\n\nhint: get_image(job_id=\"3f5b5705-962b-4815-a701-b2865df2c99f\")"
+        }
+      ],
+      "isError": false
+    },
+    "provider": "PixelLab",
+    "operation": "edit_image_pixen"
+  },
+  {
+    "key": "water-supply-damaged",
+    "family": "water-supply",
+    "request": {
+      "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. Keep EXACT canvas, silhouette, pivot, facing, sockets and fittings. Add two fine dark cracks on the teal lid and a localized scorch on the right electronics strip. No displaced pieces, smoke, fire, text or new fittings. Preserve transparent margins and coarse pixels.",
+      "width": 128,
+      "height": 128,
+      "no_background": true,
+      "seed": 9270411,
+      "inputReference": "references/water-supply.png"
+    },
+    "response": {
+      "content": [
+        {
+          "type": "text",
+          "text": "id: d23b63b9-971a-44bb-b4ee-8ff80c56b53b\njob_id: d23b63b9-971a-44bb-b4ee-8ff80c56b53b\nmodel: pixen\nedit: ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. Keep EXACT canvas, silhouette, pivot, facing, sockets and fittings. Add two fine dark cracks on the teal lid and a localized scorch on the right electronics strip. No displaced pieces, smoke, fire, text or new fittings. Preserve transparent margins and coarse pixels.\nsource: 128x128px\nsize: 128x128px\ntransparent: True\nseed: 9270411\nasset_id: ac124eae-d9bc-5018-a225-51842e3a6177\nasset_status: pending (saved when generation completes)\ncost: 1 generation\nstatus: processing (~10-40s)\n\nhint: get_image(job_id=\"d23b63b9-971a-44bb-b4ee-8ff80c56b53b\")"
+        }
+      ],
+      "isError": false
+    },
+    "provider": "PixelLab",
+    "operation": "edit_image_pixen"
+  },
+  {
+    "key": "workup-damaged",
+    "family": "workup",
+    "request": {
+      "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. Keep EXACT canvas, silhouette, pivot, facing, sockets and fittings. Add a small dark scorch beside the service light and two fine cracks on the round lid. No displaced pieces, smoke, fire, text or new fittings. Preserve transparent margins and coarse pixels.",
+      "width": 128,
+      "height": 128,
+      "no_background": true,
+      "seed": 9270412,
+      "inputReference": "references/workup.png"
+    },
+    "response": {
+      "content": [
+        {
+          "type": "text",
+          "text": "id: 30087d28-5b1d-489d-9f22-4b2d3eb0d912\njob_id: 30087d28-5b1d-489d-9f22-4b2d3eb0d912\nmodel: pixen\nedit: ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. Keep EXACT canvas, silhouette, pivot, facing, sockets and fittings. Add a small dark scorch beside the service light and two fine cracks on the round lid. No displaced pieces, smoke, fire, text or new fittings. Preserve transparent margins and coarse pixels.\nsource: 128x128px\nsize: 128x128px\ntransparent: True\nseed: 9270412\nasset_id: e1f25ebe-f758-53d9-8cf2-7470a916ff5b\nasset_status: pending (saved when generation completes)\ncost: 1 generation\nstatus: processing (~10-40s)\n\nhint: get_image(job_id=\"30087d28-5b1d-489d-9f22-4b2d3eb0d912\")"
+        }
+      ],
+      "isError": false
+    },
+    "provider": "PixelLab",
+    "operation": "edit_image_pixen"
+  },
+  {
+    "key": "chute-damaged",
+    "family": "chute",
+    "request": {
+      "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. Keep EXACT canvas, silhouette, pivot, facing, sockets and fittings. Add a bent centre shutter strip and localized dark scrape on its left mounting plate. No displaced pieces, smoke, fire, text or new fittings. Preserve transparent margins and coarse pixels.",
+      "width": 256,
+      "height": 64,
+      "no_background": true,
+      "seed": 9270413,
+      "inputReference": "references/chute.png"
+    },
+    "response": {
+      "content": [
+        {
+          "type": "text",
+          "text": "id: ebe770ae-dbfc-4c25-9f6e-353118ac6dea\njob_id: ebe770ae-dbfc-4c25-9f6e-353118ac6dea\nmodel: pixen\nedit: ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. Keep EXACT canvas, silhouette, pivot, facing, sockets and fittings. Add a bent centre shutter strip and localized dark scrape on its left mounting plate. No displaced pieces, smoke, fire, text or new fittings. Preserve transparent margins and coarse pixels.\nsource: 256x64px\nsize: 256x64px\ntransparent: True\nseed: 9270413\nasset_id: 2170c659-8fe6-590a-ad8b-dedbf6aea944\nasset_status: pending (saved when generation completes)\ncost: 1 generation\nstatus: processing (~10-40s)\n\nhint: get_image(job_id=\"ebe770ae-dbfc-4c25-9f6e-353118ac6dea\")"
+        }
+      ],
+      "isError": false
+    },
+    "provider": "PixelLab",
+    "operation": "edit_image_pixen"
+  },
+  {
+    "key": "grabber-damaged",
+    "family": "grabber",
+    "request": {
+      "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. Keep EXACT canvas, silhouette, pivot, facing, sockets and fittings. Add a cracked left clamp cover and dark scorch on the central cutting head. No displaced pieces, smoke, fire, text or new fittings. Preserve transparent margins and coarse pixels.",
+      "width": 128,
+      "height": 96,
+      "no_background": true,
+      "seed": 9270414,
+      "inputReference": "references/grabber.png"
+    },
+    "response": {
+      "content": [
+        {
+          "type": "text",
+          "text": "id: f35453ab-fecf-4694-ad7d-8a503846fab3\njob_id: f35453ab-fecf-4694-ad7d-8a503846fab3\nmodel: pixen\nedit: ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. Keep EXACT canvas, silhouette, pivot, facing, sockets and fittings. Add a cracked left clamp cover and dark scorch on the central cutting head. No displaced pieces, smoke, fire, text or new fittings. Preserve transparent margins and coarse pixels.\nsource: 128x96px\nsize: 128x96px\ntransparent: True\nseed: 9270414\nasset_id: ea31d56d-2330-5212-b086-c9694414adae\nasset_status: pending (saved when generation completes)\ncost: 1 generation\nstatus: processing (~10-40s)\n\nhint: get_image(job_id=\"f35453ab-fecf-4694-ad7d-8a503846fab3\")"
+        }
+      ],
+      "isError": false
+    },
+    "provider": "PixelLab",
+    "operation": "edit_image_pixen"
+  },
+  {
+    "key": "collector-damaged",
+    "family": "collector",
+    "request": {
+      "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. Keep EXACT canvas, silhouette, pivot, facing, sockets and fittings. Add a cracked cream front cover and dark scorch inside the central pocket. No displaced pieces, smoke, fire, text or new fittings. Preserve transparent margins and coarse pixels.",
+      "width": 128,
+      "height": 64,
+      "no_background": true,
+      "seed": 9270415,
+      "inputReference": "references/collector.png"
+    },
+    "response": {
+      "content": [
+        {
+          "type": "text",
+          "text": "id: d5f7c3f9-68fc-42be-9985-8410053415d3\njob_id: d5f7c3f9-68fc-42be-9985-8410053415d3\nmodel: pixen\nedit: ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. Keep EXACT canvas, silhouette, pivot, facing, sockets and fittings. Add a cracked cream front cover and dark scorch inside the central pocket. No displaced pieces, smoke, fire, text or new fittings. Preserve transparent margins and coarse pixels.\nsource: 128x64px\nsize: 128x64px\ntransparent: True\nseed: 9270415\nasset_id: 02806ff6-5cea-53f2-a7db-72f96f8768af\nasset_status: pending (saved when generation completes)\ncost: 1 generation\nstatus: processing (~10-40s)\n\nhint: get_image(job_id=\"d5f7c3f9-68fc-42be-9985-8410053415d3\")"
+        }
+      ],
+      "isError": false
+    },
+    "provider": "PixelLab",
+    "operation": "edit_image_pixen"
+  }
+]

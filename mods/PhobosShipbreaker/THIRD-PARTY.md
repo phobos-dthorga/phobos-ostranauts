@@ -85,3 +85,10 @@ inward-facing port variants; the older masters are unchanged. PixelLab's
 [Terms of Service](https://pixellab.ai/termsofservice) govern its service. These
 provenance records do not assert institutional endorsement, owner visual approval,
 exclusive copyright in AI output or an independently verified blanket licence.
+
+Shipbreaker 0.28.0 adds original PixelLab coolant/intermediate sprites and three
+machinery state variants per family. This supersedes the older shared-silhouette
+and melt-remainder artwork notes above while retaining original masters. The
+packaged assets/artwork-completion records preserve exact requests, registration,
+usage and source/export hashes; complete masters remain in the source repository.
+PixelLab terms remain separate from code licensing. Owner gameplay review is pending.

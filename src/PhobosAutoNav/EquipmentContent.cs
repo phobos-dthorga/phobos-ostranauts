@@ -12,6 +12,7 @@ namespace PhobosAutoNav;
 internal static class EquipmentContent
 {
     internal const string Base = "PhobosAutoNavBoard", Residue = "PhobosAutoNavBoardResidue", Offcut = "PhobosAutoNavBoardOffcut";
+    internal const int RemnantStackLimit = 10;
     internal static string Status { get; private set; } = Text.Get("EquipmentContent.awaiting_content_registration");
     private static JsonModInfo? NativePackage => DataHandler.dictModInfos.Values.FirstOrDefault(m => m.strName == "Phobos Auto Nav" && !m.GetIsDisabled());
     internal static bool NativePackageEnabled => NativePackage != null;
@@ -86,6 +87,7 @@ internal static class EquipmentContent
         }
         MaintenanceDefinitions.Remainder(d, Residue, Text.Get("EquipmentContent.auto_nav_board_residue_kg"), EquipmentRules.ModuleMassKg);
         MaintenanceDefinitions.Remainder(d, Offcut, Text.Get("EquipmentContent.auto_nav_assembly_offcuts_kg"), EquipmentRules.AssemblyOffcutKg);
+        d.Objects[Residue].nStackLimit = d.Objects[Offcut].nStackLimit = RemnantStackLimit;
         Offer("ItmOKLGFixer", "Used", NavigationService.ModuleId, EquipmentRules.FixerWornChance, StockCondition.Worn);
         Offer("ItmOKLGSupplyKioskInv", "Broken", NavigationService.DamagedId, EquipmentRules.KLegBrokenChance, StockCondition.Broken);
         Offer("ItmTraderSanDiegoPolarisInv", "New", NavigationService.ModuleId, EquipmentRules.PolarisPristineChance, StockCondition.Pristine);

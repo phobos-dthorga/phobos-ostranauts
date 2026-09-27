@@ -56,6 +56,7 @@ internal static class ReclaimerDefinitions
         section.strDesc = Text.Get("Reclaimer.section_description", ReclaimerRules.SectionKg, ReclaimerRules.MachineKg);
         section.aStartingConds = section.aStartingConds.Where(s => !s.StartsWith(ProcessRules.AssemblySectionCondition + "=")).Concat(new[] { ReclaimerRules.SectionCondition + "=1x1" }).ToArray();
         Content.SetStat(section, "StatMass", ReclaimerRules.SectionKg);
+        Content.ApplyStockArtwork(section, sectionItem, "PhobosReclaimerSectionDedicated");
         d.Objects[section.strName] = section; d.Items[sectionItem.strName] = sectionItem;
         d.Triggers[ReclaimerRules.SectionTrigger] = new CondTrigger { strName = ReclaimerRules.SectionTrigger, fChance = 1, fCount = 1, bAND = true,
             aReqs = new[] { ReclaimerRules.SectionCondition }, aForbids = Array.Empty<string>(), aTriggers = Array.Empty<string>() };
@@ -71,6 +72,7 @@ internal static class ReclaimerDefinitions
         item.aSocketReqs = Enumerable.Repeat("Blank", 9).ToArray();
         item.aSocketForbids = Enumerable.Range(0, 9).Select(i => i == 4 ? "TILItemForbids" : "Blank").ToArray();
         Content.SetStat(co, "StatMass", kg); Content.SetStat(co, "StatBasePrice", .01);
+        Content.ApplyStockArtwork(co, item, id == ReclaimerRules.Feedstock ? "StockClassifiedResidue" : "StockReclaimerRejects");
         if (condition != null) co.aStartingConds = co.aStartingConds.Concat(new[] { condition + "=1x1" }).ToArray();
         d.Objects[id] = co; d.Items[id] = item;
     }

@@ -19,6 +19,31 @@ Dates on Draft entries record preparation, not Steam publication.
 - Earlier capture-only research is superseded for supported ordinary walls by the implementation below. Broader structural recipes, repeated furnace batches and whole-wreck completion remain outside this round.
 - Keep [NASA Goddard's Raven research](https://www.nasa.gov/general/nasas-hybrid-computer-enables-ravens-autonomous-rendezvous-capability/) and [ESA's LIRIS experiment by Airbus, Jena Optronik and Sodern](https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/ATV/ATV_views_Space_Station_as_never_before) as sensing context, separate from Blue Bottle Games native evidence and authored gameplay choices. No institutional endorsement or gameplay validation is implied.
 
+## [0.28.0] - 2026-09-27 - Draft
+
+### Artwork
+
+- Give fresh and retained coolant, classified reclaimer feed, terminal rejects, melt remainder, housing blanks, R4 sections and F6 sections dedicated overhead artwork.
+- Add damaged, packed and damaged-packed artwork for the hull chute, exterior grabber, residue collector, R4, F6, F6-R and F6-P. Preserve left/right F6-P connection inserts and native installation geometry.
+
+### Compatibility and limits
+
+- Require Framework 0.28.0 for shared native state-art binding. Artwork changes preserve saved IDs, placement, recipes, material accounting and native item actions. Neutral normal maps supply no authored relief. Offline image and definition checks do not establish Unity or owner gameplay approval.
+- Retain original masters, exact PixelLab prompts, job IDs and export hashes in the [artwork provenance record](https://github.com/phobos-dthorga/phobos-ostranauts/tree/main/assets/artwork-completion). Design-only Manufacturing and underfloor equipment remain unimplemented; no installation or publication.
+
+## [0.27.1] - 2026-09-27 - Draft
+
+### Changed
+
+- Fresh 1 kg thermal service fluid charges stack to 3. Separate one charge before furnace coolant filling; retained coolant remains unstackable. Per-charge mass and coolant accounting are unchanged.
+
+- Loose intact and damaged F6-C coolant conduits stack to 10; installed segments remain individual fixtures.
+
+### Compatibility and limits
+
+- Intact and damaged segments remain distinct identities. Other equipment, materials and retained coolant retain their existing limits.
+- Native stack limits apply on the ground and in compatible containers. Existing IDs, per-item mass, value and recipes are preserved; existing items use current definitions on reload, without automatically consolidating stored cargo. Offline checks do not establish gameplay validation.
+
 ## [0.27.0] - 2026-09-27 - Draft
 
 ### Shared provider configuration

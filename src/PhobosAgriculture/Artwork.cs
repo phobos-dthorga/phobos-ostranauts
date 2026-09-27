@@ -12,8 +12,15 @@ internal static class Artwork
     private const string Folder = "phobos/agriculture/";
     private static readonly HashSet<string> reported = new(StringComparer.Ordinal);
 
-    internal static string Key(CondOwner co, CropState state, bool protectedState) =>
-        WorkupDefinitions.IsBench(co) ? "Workup" : IrrigationDefinitions.IsSupply(co) ? "WaterSupply" : Definitions.IsCooker(co) ? "Cooker" : CropAppearance.RackKey(state, protectedState);
+    internal static string Key(CondOwner co, CropState state, bool protectedState)
+    {
+        string basis = WorkupDefinitions.IsBench(co) ? "Workup" : IrrigationDefinitions.IsSupply(co) ? "WaterSupply" : Definitions.IsCooker(co) ? "Cooker" : "Rack";
+        bool loose = co.strCODef.EndsWith("Loose", StringComparison.Ordinal) || co.strCODef.EndsWith("LooseDmg", StringComparison.Ordinal);
+        bool damaged = co.strCODef.EndsWith("Dmg", StringComparison.Ordinal);
+        if (loose) return basis + (damaged ? "LooseDamaged" : "Loose");
+        if (basis == "Rack") return CropAppearance.RackKey(state, protectedState) + (damaged ? "Damaged" : "");
+        return basis + (damaged ? "Damaged" : "");
+    }
 
     internal static Texture2D? Texture(string key)
     {
@@ -36,7 +43,8 @@ internal static class Artwork
             if (color == null || normal == null || color.width != size || color.height != size || normal.width != size || normal.height != size)
                 throw new InvalidOperationException("Missing or incorrectly sized Agriculture appearance: " + key);
             normal.filterMode = FilterMode.Point;
-            item.SetAlt(path, path + "Normal", item.jid.strImgDamaged, item.jid.strDmgColor);
+            string damage = Folder + (key.EndsWith("Damaged", StringComparison.Ordinal) ? key : key + "Damaged");
+            item.SetAlt(path, path + "Normal", damage, item.jid.strDmgColor);
         }
         catch (Exception error)
         {

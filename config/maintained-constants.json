@@ -4,7 +4,7 @@
     "Framework.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.27.0",
+      "value": "0.28.0",
       "description": "PhobosFramework published source/package version.",
       "targets": [
         {
@@ -68,7 +68,7 @@
     "Shipbreaker.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.27.0",
+      "value": "0.28.0",
       "description": "PhobosShipbreaker published source/package version.",
       "targets": [
         {
@@ -142,7 +142,7 @@
     "AutoNav.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.20.0",
+      "value": "0.20.1",
       "description": "PhobosAutoNav published source/package version.",
       "targets": [
         {
@@ -206,7 +206,7 @@
     "Agriculture.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.14.0",
+      "value": "0.15.0",
       "description": "PhobosAgriculture published source/package version.",
       "targets": [
         {
@@ -646,7 +646,7 @@
     "Shipbreaker.minimumFramework": {
       "type": "version",
       "parts": 3,
-      "value": "0.27.0",
+      "value": "0.28.0",
       "description": "Current Shipbreaker required Framework version, shared with local installer admission.",
       "targets": [
         {
@@ -723,7 +723,7 @@
     "Agriculture.minimumFramework": {
       "type": "version",
       "parts": 3,
-      "value": "0.27.0",
+      "value": "0.28.0",
       "description": "Current Agriculture required Framework version, shared with local installer admission.",
       "targets": [
         {
@@ -937,6 +937,176 @@
       ],
       "review": [
         "Regenerate Agriculture native economy/item references and bulk guide; run bulk purchase/storage checks."
+      ]
+    },
+    "Agriculture.stackPipes": {
+      "type": "integer",
+      "min": 1,
+      "max": 100,
+      "value": "10",
+      "description": "Maximum physical objects per native stack for Agriculture.stackPipes.",
+      "targets": [
+        {
+          "path": "src/PhobosAgriculture/StackLimits.cs",
+          "pattern": "\\bPipes\\s*=\\s*(?P<value>[0-9]+)",
+          "count": 1
+        }
+      ],
+      "review": [
+        "Regenerate item references and check native stack coverage. Preserve installed limits, per-item mass/state and single-item processing guards."
+      ]
+    },
+    "Agriculture.stackSeedPotatoes": {
+      "type": "integer",
+      "min": 1,
+      "max": 100,
+      "value": "10",
+      "description": "Maximum physical objects per native stack for Agriculture.stackSeedPotatoes.",
+      "targets": [
+        {
+          "path": "src/PhobosAgriculture/StackLimits.cs",
+          "pattern": "\\bSeedPotatoes\\s*=\\s*(?P<value>[0-9]+)",
+          "count": 1
+        }
+      ],
+      "review": [
+        "Regenerate item references and check native stack coverage. Preserve installed limits, per-item mass/state and single-item processing guards."
+      ]
+    },
+    "Agriculture.stackLettuceSeeds": {
+      "type": "integer",
+      "min": 1,
+      "max": 100,
+      "value": "50",
+      "description": "Maximum physical objects per native stack for Agriculture.stackLettuceSeeds.",
+      "targets": [
+        {
+          "path": "src/PhobosAgriculture/StackLimits.cs",
+          "pattern": "\\bLettuceSeeds\\s*=\\s*(?P<value>[0-9]+)",
+          "count": 1
+        }
+      ],
+      "review": [
+        "Regenerate item references and check native stack coverage. Preserve installed limits, per-item mass/state and single-item processing guards."
+      ]
+    },
+    "Agriculture.stackNutrients": {
+      "type": "integer",
+      "min": 1,
+      "max": 100,
+      "value": "25",
+      "description": "Maximum physical objects per native stack for Agriculture.stackNutrients.",
+      "targets": [
+        {
+          "path": "src/PhobosAgriculture/StackLimits.cs",
+          "pattern": "\\bNutrients\\s*=\\s*(?P<value>[0-9]+)",
+          "count": 1
+        }
+      ],
+      "review": [
+        "Regenerate item references and check native stack coverage. Preserve installed limits, per-item mass/state and single-item processing guards."
+      ]
+    },
+    "Agriculture.stackMakeupSalts": {
+      "type": "integer",
+      "min": 1,
+      "max": 100,
+      "value": "25",
+      "description": "Maximum physical objects per native stack for Agriculture.stackMakeupSalts.",
+      "targets": [
+        {
+          "path": "src/PhobosAgriculture/StackLimits.cs",
+          "pattern": "\\bMakeupSalts\\s*=\\s*(?P<value>[0-9]+)",
+          "count": 1
+        }
+      ],
+      "review": [
+        "Regenerate item references and check native stack coverage. Preserve installed limits, per-item mass/state and single-item processing guards."
+      ]
+    },
+    "Shipbreaker.stackPipes": {
+      "type": "integer",
+      "min": 1,
+      "max": 100,
+      "value": "10",
+      "description": "Maximum physical objects per native stack for Shipbreaker.stackPipes.",
+      "targets": [
+        {
+          "path": "src/PhobosShipbreaker/FurnaceConduitDefinitions.cs",
+          "pattern": "\\bLooseStackLimit\\s*=\\s*(?P<value>[0-9]+)",
+          "count": 1
+        }
+      ],
+      "review": [
+        "Regenerate item references and check native stack coverage. Preserve installed limits, per-item mass/state and single-item processing guards."
+      ]
+    },
+    "AutoNav.stackRemnants": {
+      "type": "integer",
+      "min": 1,
+      "max": 100,
+      "value": "10",
+      "description": "Maximum physical objects per native stack for AutoNav.stackRemnants.",
+      "targets": [
+        {
+          "path": "src/PhobosAutoNav/EquipmentContent.cs",
+          "pattern": "\\bRemnantStackLimit\\s*=\\s*(?P<value>[0-9]+)",
+          "count": 1
+        }
+      ],
+      "review": [
+        "Regenerate item references and check native stack coverage. Preserve installed limits, per-item mass/state and single-item processing guards."
+      ]
+    },
+    "Agriculture.stackFoodPortions": {
+      "type": "integer",
+      "min": 1,
+      "max": 100,
+      "value": "10",
+      "description": "Maximum raw potato, cooked potato and lettuce portions per native storage stack.",
+      "targets": [
+        {
+          "path": "src/PhobosAgriculture/StackLimits.cs",
+          "pattern": "\\bFoodPortions\\s*=\\s*(?P<value>[0-9]+)",
+          "count": 1
+        }
+      ],
+      "review": [
+        "Regenerate item references and run native stack coverage. Preserve per-portion mass and food effects; the cooker requires individual inputs."
+      ]
+    },
+    "Agriculture.stackBulkySupplies": {
+      "type": "integer",
+      "min": 1,
+      "max": 100,
+      "value": "3",
+      "description": "Maximum physical objects per storage stack for Agriculture.stackBulkySupplies.",
+      "targets": [
+        {
+          "path": "src/PhobosAgriculture/StackLimits.cs",
+          "pattern": "\\bBulkySupplies\\s*=\\s*(?P<value>[0-9]+)",
+          "count": 1
+        }
+      ],
+      "review": [
+        "Regenerate item references and run native stack checks. Individual contents/capacity and single-item service guards remain authoritative."
+      ]
+    },
+    "Shipbreaker.stackCoolantCharges": {
+      "type": "integer",
+      "min": 1,
+      "max": 100,
+      "value": "3",
+      "description": "Maximum physical objects per storage stack for Shipbreaker.stackCoolantCharges.",
+      "targets": [
+        {
+          "path": "src/PhobosShipbreaker/CoolantService.cs",
+          "pattern": "\\bCoolantChargeStackLimit\\s*=\\s*(?P<value>[0-9]+)",
+          "count": 1
+        }
+      ],
+      "review": [
+        "Regenerate item references and run native stack checks. Individual contents/capacity and single-item service guards remain authoritative."
       ]
     }
   }

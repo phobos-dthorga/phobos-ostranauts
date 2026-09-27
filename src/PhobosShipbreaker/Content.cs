@@ -125,6 +125,12 @@ internal static class Content
         IndustrialDefinitions.Add(prepared);
         EquipmentEconomy.Apply(prepared);
         RegionalEconomy.Apply(prepared);
+        foreach (var art in new[] {
+            (IntakeRules.Chute, IntakeRules.Chute), (IntakeRules.Grabber, IntakeRules.Grabber),
+            (CollectorRules.Prefix, CollectorRules.Prefix), (ReclaimerRules.Prefix, ReclaimerRules.Prefix),
+            (FurnaceRules.Prefix, "PhobosFurnaceSockets"), (FurnaceRules.Radiator, "PhobosFurnaceRadiatorSocket"),
+            (FurnaceRules.ThermalPort, FurnaceRules.ThermalPort) })
+            ApplianceDefinitions.ApplyStateArtwork(prepared, art.Item1, "phobos/shipbreaker/" + art.Item2);
         return prepared;
     }
 
@@ -165,6 +171,14 @@ internal static class Content
         item.aSocketReqs = Border("Blank");
         prepared.Items[item.strName] = item;
         prepared.Objects[section.strName] = section;
+    }
+
+    // Dedicated inventory images use their registered native derivative for both
+    // world and portrait, as Agriculture stock does; no enlarged world footprint.
+    internal static void ApplyStockArtwork(JsonCondOwner owner, JsonItemDef item, string name)
+    {
+        ApplyArtwork(owner, item, name);
+        owner.strPortraitImg = item.strImg;
     }
 
     internal static void ApplyArtwork(JsonCondOwner owner, JsonItemDef item, string name, string damaged = "blank")

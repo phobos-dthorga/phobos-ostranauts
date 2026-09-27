@@ -1,5 +1,9 @@
 # Phobos Agriculture
 
+Agriculture 0.15.0 requires Framework 0.28.0 and adds [dedicated supply and
+equipment-state artwork](artwork-completion.md), preserving crop stages, recipes
+and native footprints. Prepared candidate; owner gameplay review remains pending.
+
 Agriculture 0.14.0 adds the optional [R3 reservoir, 500 g nutrient charges and
 station Bulk supplies](agriculture-bulk-storage.md), requiring Framework 0.27.0.
 Existing W2/B2 workflows remain available; owner Unity evaluation is pending.

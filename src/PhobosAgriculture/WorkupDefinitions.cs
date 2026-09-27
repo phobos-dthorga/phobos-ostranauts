@@ -31,9 +31,9 @@ internal static class WorkupDefinitions
             MaintenanceDefinitions.Dismantle(d, id, 600, Enumerable.Repeat("ItmScrapSteel", steel).Concat(new[] { waste }).ToArray());
             if (form == "Installed") d.Objects[id].aInteractions = d.Objects[id].aInteractions.Concat(new[] { "recover-crop", "formulate-nutrients" }.Select(Definitions.WorkId)).ToArray();
         }
-        foreach (var stock in new[] { (Residue,"recorded_residue","residue",.5,.01), (Concentrate,"concentrate","nutrients",.004,.01),
-            (Spent,"spent_biomass","recovery_reject",.5,.01), (Makeup,"makeup","nutrients",NutrientRecovery.MakeupKg,NutrientRecovery.MakeupPrice),
-            (Mixture,"mixture","nutrients",.008,.01) })
+        foreach (var stock in new[] { (Residue,"recorded_residue","recorded_residue",.5,.01), (Concentrate,"concentrate","concentrate",.004,.01),
+            (Spent,"spent_biomass","spent_biomass",.5,.01), (Makeup,"makeup","makeup",NutrientRecovery.MakeupKg,NutrientRecovery.MakeupPrice),
+            (Mixture,"mixture","mixture",.008,.01) })
             Definitions.Stock(d, stock.Item1, stock.Item4, stock.Item5, stock.Item2, false, stock.Item3);
         foreach (string merchant in new[] { "ItmOKLGSupplyKioskInv", "ItmOKLGFixer", "ItmTraderSanDiegoHalvorsonInv" })
         foreach (string item in new[] { Bench + "Loose", Makeup })

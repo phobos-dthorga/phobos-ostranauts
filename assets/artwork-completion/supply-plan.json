@@ -1,0 +1,103 @@
+{
+  "status": "Pre-generation plan; definition IDs must be checked before runtime wiring",
+  "columns": [
+    "key",
+    "mod",
+    "definition",
+    "runtimeName",
+    "subject"
+  ],
+  "items": [
+    [
+      "recorded-residue",
+      "PhobosAgriculture",
+      "PhobosVerdemorrowRecordedCropResidue",
+      "Stock-recorded_residue",
+      "compact tied sage-green mesh sack containing dark brown chopped crop stems, with a cream sealed collar"
+    ],
+    [
+      "concentrate",
+      "PhobosAgriculture",
+      "PhobosVerdemorrowRecoveredConcentrate",
+      "Stock-concentrate",
+      "short round dark green sealed concentrate pot, pale cream circular lid, two wide dark green rim segments"
+    ],
+    [
+      "makeup",
+      "PhobosAgriculture",
+      "PhobosVerdemorrowGroundworkMakeup",
+      "Stock-makeup",
+      "small square ivory foil mineral-salts packet with a bold mustard-yellow cross pictogram and pale grey sealed edges"
+    ],
+    [
+      "mixture",
+      "PhobosAgriculture",
+      "PhobosVerdemorrowGroundworkMixture",
+      "Stock-mixture",
+      "flat sage-green nutrient pouch with ivory heat-sealed edges and two broad ivory diagonal bars"
+    ],
+    [
+      "spent-biomass",
+      "PhobosAgriculture",
+      "PhobosVerdemorrowSpentBiomass",
+      "Stock-spent_biomass",
+      "dark brown compressed fibrous waste puck with a broken irregular edge and a few dull straw fragments, no living green plant"
+    ],
+    [
+      "wet-rejects",
+      "PhobosAgriculture",
+      "PhobosVerdemorrowRecyclerWetRejects",
+      "Stock-wet_rejects",
+      "sealed dark slate rectangular waste pouch, broad mustard band and murky brown inset panel, two round corner seals"
+    ],
+    [
+      "bulk-nutrients",
+      "PhobosAgriculture",
+      "PhobosVerdemorrowGroundworkBulkNutrients",
+      "Stock-bulk_nutrients",
+      "broad cream heavy nutrient sack with folded sage-green end seams, bold green central band and three simple yellow granule marks"
+    ],
+    [
+      "r4-section",
+      "PhobosShipbreaker",
+      "PhobosScrapReclaimerSection",
+      "PhobosReclaimerSectionDedicated",
+      "square unfinished scrap-reclaimer assembly: cream open chassis holding a dark twin-roller shredding cassette, teal motor on right, sparse mustard latches"
+    ],
+    [
+      "f6-section",
+      "PhobosShipbreaker",
+      "PhobosFurnaceSection",
+      "PhobosFurnaceSectionDedicated",
+      "square unfinished electric furnace assembly: grey square mounting chassis enclosing a thick pale refractory ring and central dark crucible opening, restrained copper coil segments"
+    ],
+    [
+      "housing-blank",
+      "PhobosShipbreaker",
+      "PhobosFurnaceHousingBlank",
+      "PhobosHousingBlankDedicated",
+      "rough cast aluminium machine housing, square silver-grey frame with central hollow square recess, two chunky casting gates protruding symmetrically on left and right, dull coarse casting texture"
+    ],
+    [
+      "reclaimer-feedstock",
+      "PhobosShipbreaker",
+      "PhobosPanelResidueR2",
+      "StockClassifiedResidue",
+      "compact rectangular bound bundle of mixed grey steel offcuts, dull copper strips and ivory fragments, two broad mustard ties, no whole usable machine"
+    ],
+    [
+      "reclaimer-rejects",
+      "PhobosShipbreaker",
+      "PhobosPanelRejectR2",
+      "StockReclaimerRejects",
+      "compact flat dark charcoal-grey terminal scrap cake with dull brown and ivory fragments embedded, irregular oval silhouette, no bright metal bars"
+    ],
+    [
+      "melt-remainder",
+      "PhobosShipbreaker",
+      "PhobosFurnaceMeltRemainder",
+      "StockMeltRemainder",
+      "single irregular dark charcoal clinker with dull silver-grey crust flecks and a small rusty-brown patch, coarse broken edges, no glow"
+    ]
+  ]
+}

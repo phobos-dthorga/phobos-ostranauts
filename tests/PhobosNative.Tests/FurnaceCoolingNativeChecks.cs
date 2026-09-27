@@ -17,7 +17,7 @@ internal static class FurnaceCoolingNativeChecks
         foreach(string id in new[]{FurnaceService.CoolantStock,FurnaceService.CoolantWaste})
         {
             var co=prepared.Objects[id];
-            check(co.nStackLimit==1&&!co.aStartingConds.Any(c=>c.StartsWith("IsEdible=")||c.StartsWith("IsHydrator=")),"Industrial coolant cannot become food, potable water or stacked state");
+            check(co.nStackLimit==(id==FurnaceService.CoolantStock?3:1)&&!co.aStartingConds.Any(c=>c.StartsWith("IsEdible=")||c.StartsWith("IsHydrator=")),"Fresh coolant stacks to three; retained coolant stays individual; neither becomes food or potable water");
             check(co.aStartingConds.Any(c=>c.StartsWith("StatMass=")&&c.EndsWith("x1")),"Coolant charge definition carries one actual kilogram");
         }
         var charge=new CoolantCharge{Enabled=true,CleanKg=5.2,CapturedKg=.8,PrimeSeconds=2};

@@ -1,0 +1,483 @@
+[
+  {
+    "key": "recorded-residue",
+    "mod": "PhobosAgriculture",
+    "definition": "PhobosVerdemorrowRecordedCropResidue",
+    "runtimeName": "Stock-recorded_residue",
+    "nativeSize": [
+      16,
+      16
+    ],
+    "masterSize": [
+      64,
+      64
+    ],
+    "provider": "PixelLab",
+    "operation": "create_image_pixflux",
+    "request": {
+      "description": "One ORIGINAL overhead spacecraft inventory sprite: compact tied sage-green mesh sack containing dark brown chopped crop stems, with a cream sealed collar. Camera directly above looking vertically down; flat plan view, only horizontal top surfaces visible. Outline edges align horizontally and vertically, not a diamond. Coarse deliberate pixel clusters, three-tone flat shading, selective dark outline, restrained utilitarian cream sage-green grey ochre palette. One independent complete centred object on 64x64 transparent canvas, 8px clear margins. Native export 16x16. No side walls, isometric projection, perspective, floor, external shadow, glow, text, letters, numbers, logos or extra objects. Packaging and appearance are illustrative only; no new contents or physics.",
+      "width": 64,
+      "height": 64,
+      "no_background": true,
+      "isometric": false,
+      "view": "high top-down",
+      "outline": "selective outline",
+      "shading": "basic shading",
+      "detail": "low detail",
+      "seed": 9270200
+    },
+    "response": {
+      "content": [
+        {
+          "type": "text",
+          "text": "id: c76f4dab-f9aa-4cbb-b692-50fdb6c2c00f\njob_id: c76f4dab-f9aa-4cbb-b692-50fdb6c2c00f\ndescription: One ORIGINAL overhead spacecraft inventory sprite: compact tied sage-green mesh sack containing dark brown chopped crop stems, with a cream sealed collar. Camera directly above looking vertically down; flat plan view, only horizontal top surfaces visible. Outline edges align horizontally and vertically, not a diamond. Coarse deliberate pixel clusters, three-tone flat shading, selective dark outline, restrained utilitarian cream sage-green grey ochre palette. One independent complete centred object on 64x64 transparent canvas, 8px clear margins. Native export 16x16. No side walls, isometric projection, perspective, floor, external shadow, glow, text, letters, numbers, logos or extra objects. Packaging and appearance are illustrative only; no new contents or physics.\nsize: 64x64px\ntransparent: True\nasset_id: 7950a25b-12b2-5fde-a608-663108f8fd8d\nasset_status: pending (saved when generation completes)\nseed: 9270200\ncost: 1 generation\nstatus: processing (~10-40s)\n\nhint: get_image(job_id=\"c76f4dab-f9aa-4cbb-b692-50fdb6c2c00f\")"
+        }
+      ],
+      "isError": false
+    }
+  },
+  {
+    "key": "concentrate",
+    "mod": "PhobosAgriculture",
+    "definition": "PhobosVerdemorrowRecoveredConcentrate",
+    "runtimeName": "Stock-concentrate",
+    "nativeSize": [
+      16,
+      16
+    ],
+    "masterSize": [
+      64,
+      64
+    ],
+    "provider": "PixelLab",
+    "operation": "create_image_pixflux",
+    "request": {
+      "description": "One ORIGINAL overhead spacecraft inventory sprite: short round dark green sealed concentrate pot, pale cream circular lid, two wide dark green rim segments. Camera directly above looking vertically down; flat plan view, only horizontal top surfaces visible. Outline edges align horizontally and vertically, not a diamond. Coarse deliberate pixel clusters, three-tone flat shading, selective dark outline, restrained utilitarian cream sage-green grey ochre palette. One independent complete centred object on 64x64 transparent canvas, 8px clear margins. Native export 16x16. No side walls, isometric projection, perspective, floor, external shadow, glow, text, letters, numbers, logos or extra objects. Packaging and appearance are illustrative only; no new contents or physics.",
+      "width": 64,
+      "height": 64,
+      "no_background": true,
+      "isometric": false,
+      "view": "high top-down",
+      "outline": "selective outline",
+      "shading": "basic shading",
+      "detail": "low detail",
+      "seed": 9270201
+    },
+    "response": {
+      "content": [
+        {
+          "type": "text",
+          "text": "id: f36b8f67-5913-4a3e-a126-600a24d48941\njob_id: f36b8f67-5913-4a3e-a126-600a24d48941\ndescription: One ORIGINAL overhead spacecraft inventory sprite: short round dark green sealed concentrate pot, pale cream circular lid, two wide dark green rim segments. Camera directly above looking vertically down; flat plan view, only horizontal top surfaces visible. Outline edges align horizontally and vertically, not a diamond. Coarse deliberate pixel clusters, three-tone flat shading, selective dark outline, restrained utilitarian cream sage-green grey ochre palette. One independent complete centred object on 64x64 transparent canvas, 8px clear margins. Native export 16x16. No side walls, isometric projection, perspective, floor, external shadow, glow, text, letters, numbers, logos or extra objects. Packaging and appearance are illustrative only; no new contents or physics.\nsize: 64x64px\ntransparent: True\nasset_id: 9fe36aaa-13cc-5e8d-ae24-b1d862c22acc\nasset_status: pending (saved when generation completes)\nseed: 9270201\ncost: 1 generation\nstatus: processing (~10-40s)\n\nhint: get_image(job_id=\"f36b8f67-5913-4a3e-a126-600a24d48941\")"
+        }
+      ],
+      "isError": false
+    }
+  },
+  {
+    "key": "makeup",
+    "mod": "PhobosAgriculture",
+    "definition": "PhobosVerdemorrowGroundworkMakeup",
+    "runtimeName": "Stock-makeup",
+    "nativeSize": [
+      16,
+      16
+    ],
+    "masterSize": [
+      64,
+      64
+    ],
+    "provider": "PixelLab",
+    "operation": "create_image_pixflux",
+    "request": {
+      "description": "One ORIGINAL overhead spacecraft inventory sprite: small square ivory foil mineral-salts packet with a bold mustard-yellow cross pictogram and pale grey sealed edges. Camera directly above looking vertically down; flat plan view, only horizontal top surfaces visible. Outline edges align horizontally and vertically, not a diamond. Coarse deliberate pixel clusters, three-tone flat shading, selective dark outline, restrained utilitarian cream sage-green grey ochre palette. One independent complete centred object on 64x64 transparent canvas, 8px clear margins. Native export 16x16. No side walls, isometric projection, perspective, floor, external shadow, glow, text, letters, numbers, logos or extra objects. Packaging and appearance are illustrative only; no new contents or physics.",
+      "width": 64,
+      "height": 64,
+      "no_background": true,
+      "isometric": false,
+      "view": "high top-down",
+      "outline": "selective outline",
+      "shading": "basic shading",
+      "detail": "low detail",
+      "seed": 9270202
+    },
+    "response": {
+      "content": [
+        {
+          "type": "text",
+          "text": "id: 498d7bd8-acf8-424e-b2c8-479b371dfa3c\njob_id: 498d7bd8-acf8-424e-b2c8-479b371dfa3c\ndescription: One ORIGINAL overhead spacecraft inventory sprite: small square ivory foil mineral-salts packet with a bold mustard-yellow cross pictogram and pale grey sealed edges. Camera directly above looking vertically down; flat plan view, only horizontal top surfaces visible. Outline edges align horizontally and vertically, not a diamond. Coarse deliberate pixel clusters, three-tone flat shading, selective dark outline, restrained utilitarian cream sage-green grey ochre palette. One independent complete centred object on 64x64 transparent canvas, 8px clear margins. Native export 16x16. No side walls, isometric projection, perspective, floor, external shadow, glow, text, letters, numbers, logos or extra objects. Packaging and appearance are illustrative only; no new contents or physics.\nsize: 64x64px\ntransparent: True\nasset_id: 44eee095-7b20-5688-9bd3-2bd6561c7547\nasset_status: pending (saved when generation completes)\nseed: 9270202\ncost: 1 generation\nstatus: processing (~10-40s)\n\nhint: get_image(job_id=\"498d7bd8-acf8-424e-b2c8-479b371dfa3c\")"
+        }
+      ],
+      "isError": false
+    }
+  },
+  {
+    "key": "mixture",
+    "mod": "PhobosAgriculture",
+    "definition": "PhobosVerdemorrowGroundworkMixture",
+    "runtimeName": "Stock-mixture",
+    "nativeSize": [
+      16,
+      16
+    ],
+    "masterSize": [
+      64,
+      64
+    ],
+    "provider": "PixelLab",
+    "operation": "create_image_pixflux",
+    "request": {
+      "description": "One ORIGINAL overhead spacecraft inventory sprite: flat sage-green nutrient pouch with ivory heat-sealed edges and two broad ivory diagonal bars. Camera directly above looking vertically down; flat plan view, only horizontal top surfaces visible. Outline edges align horizontally and vertically, not a diamond. Coarse deliberate pixel clusters, three-tone flat shading, selective dark outline, restrained utilitarian cream sage-green grey ochre palette. One independent complete centred object on 64x64 transparent canvas, 8px clear margins. Native export 16x16. No side walls, isometric projection, perspective, floor, external shadow, glow, text, letters, numbers, logos or extra objects. Packaging and appearance are illustrative only; no new contents or physics.",
+      "width": 64,
+      "height": 64,
+      "no_background": true,
+      "isometric": false,
+      "view": "high top-down",
+      "outline": "selective outline",
+      "shading": "basic shading",
+      "detail": "low detail",
+      "seed": 9270203
+    },
+    "response": {
+      "content": [
+        {
+          "type": "text",
+          "text": "id: a47787b4-4446-4d66-823b-61b4bedfa6ea\njob_id: a47787b4-4446-4d66-823b-61b4bedfa6ea\ndescription: One ORIGINAL overhead spacecraft inventory sprite: flat sage-green nutrient pouch with ivory heat-sealed edges and two broad ivory diagonal bars. Camera directly above looking vertically down; flat plan view, only horizontal top surfaces visible. Outline edges align horizontally and vertically, not a diamond. Coarse deliberate pixel clusters, three-tone flat shading, selective dark outline, restrained utilitarian cream sage-green grey ochre palette. One independent complete centred object on 64x64 transparent canvas, 8px clear margins. Native export 16x16. No side walls, isometric projection, perspective, floor, external shadow, glow, text, letters, numbers, logos or extra objects. Packaging and appearance are illustrative only; no new contents or physics.\nsize: 64x64px\ntransparent: True\nasset_id: a47b7c24-5ca8-5e38-b4b8-e75878dd1b76\nasset_status: pending (saved when generation completes)\nseed: 9270203\ncost: 1 generation\nstatus: processing (~10-40s)\n\nhint: get_image(job_id=\"a47787b4-4446-4d66-823b-61b4bedfa6ea\")"
+        }
+      ],
+      "isError": false
+    }
+  },
+  {
+    "key": "spent-biomass",
+    "mod": "PhobosAgriculture",
+    "definition": "PhobosVerdemorrowSpentBiomass",
+    "runtimeName": "Stock-spent_biomass",
+    "nativeSize": [
+      16,
+      16
+    ],
+    "masterSize": [
+      64,
+      64
+    ],
+    "provider": "PixelLab",
+    "operation": "create_image_pixflux",
+    "request": {
+      "description": "One ORIGINAL overhead spacecraft inventory sprite: dark brown compressed fibrous waste puck with a broken irregular edge and a few dull straw fragments, no living green plant. Camera directly above looking vertically down; flat plan view, only horizontal top surfaces visible. Outline edges align horizontally and vertically, not a diamond. Coarse deliberate pixel clusters, three-tone flat shading, selective dark outline, restrained utilitarian cream sage-green grey ochre palette. One independent complete centred object on 64x64 transparent canvas, 8px clear margins. Native export 16x16. No side walls, isometric projection, perspective, floor, external shadow, glow, text, letters, numbers, logos or extra objects. Packaging and appearance are illustrative only; no new contents or physics.",
+      "width": 64,
+      "height": 64,
+      "no_background": true,
+      "isometric": false,
+      "view": "high top-down",
+      "outline": "selective outline",
+      "shading": "basic shading",
+      "detail": "low detail",
+      "seed": 9270204
+    },
+    "response": {
+      "content": [
+        {
+          "type": "text",
+          "text": "id: 5967da6a-b4d1-4bd0-927d-038b735ab0d6\njob_id: 5967da6a-b4d1-4bd0-927d-038b735ab0d6\ndescription: One ORIGINAL overhead spacecraft inventory sprite: dark brown compressed fibrous waste puck with a broken irregular edge and a few dull straw fragments, no living green plant. Camera directly above looking vertically down; flat plan view, only horizontal top surfaces visible. Outline edges align horizontally and vertically, not a diamond. Coarse deliberate pixel clusters, three-tone flat shading, selective dark outline, restrained utilitarian cream sage-green grey ochre palette. One independent complete centred object on 64x64 transparent canvas, 8px clear margins. Native export 16x16. No side walls, isometric projection, perspective, floor, external shadow, glow, text, letters, numbers, logos or extra objects. Packaging and appearance are illustrative only; no new contents or physics.\nsize: 64x64px\ntransparent: True\nasset_id: b368110e-2fe9-5943-81fe-b6b987098bbc\nasset_status: pending (saved when generation completes)\nseed: 9270204\ncost: 1 generation\nstatus: processing (~10-40s)\n\nhint: get_image(job_id=\"5967da6a-b4d1-4bd0-927d-038b735ab0d6\")"
+        }
+      ],
+      "isError": false
+    }
+  },
+  {
+    "key": "wet-rejects",
+    "mod": "PhobosAgriculture",
+    "definition": "PhobosVerdemorrowRecyclerWetRejects",
+    "runtimeName": "Stock-wet_rejects",
+    "nativeSize": [
+      16,
+      16
+    ],
+    "masterSize": [
+      64,
+      64
+    ],
+    "provider": "PixelLab",
+    "operation": "create_image_pixflux",
+    "request": {
+      "description": "One ORIGINAL overhead spacecraft inventory sprite: sealed dark slate rectangular waste pouch, broad mustard band and murky brown inset panel, two round corner seals. Camera directly above looking vertically down; flat plan view, only horizontal top surfaces visible. Outline edges align horizontally and vertically, not a diamond. Coarse deliberate pixel clusters, three-tone flat shading, selective dark outline, restrained utilitarian cream sage-green grey ochre palette. One independent complete centred object on 64x64 transparent canvas, 8px clear margins. Native export 16x16. No side walls, isometric projection, perspective, floor, external shadow, glow, text, letters, numbers, logos or extra objects. Packaging and appearance are illustrative only; no new contents or physics.",
+      "width": 64,
+      "height": 64,
+      "no_background": true,
+      "isometric": false,
+      "view": "high top-down",
+      "outline": "selective outline",
+      "shading": "basic shading",
+      "detail": "low detail",
+      "seed": 9270205
+    },
+    "response": {
+      "content": [
+        {
+          "type": "text",
+          "text": "id: 36e1dcd5-9e68-426e-ae03-72c3fad76aa4\njob_id: 36e1dcd5-9e68-426e-ae03-72c3fad76aa4\ndescription: One ORIGINAL overhead spacecraft inventory sprite: sealed dark slate rectangular waste pouch, broad mustard band and murky brown inset panel, two round corner seals. Camera directly above looking vertically down; flat plan view, only horizontal top surfaces visible. Outline edges align horizontally and vertically, not a diamond. Coarse deliberate pixel clusters, three-tone flat shading, selective dark outline, restrained utilitarian cream sage-green grey ochre palette. One independent complete centred object on 64x64 transparent canvas, 8px clear margins. Native export 16x16. No side walls, isometric projection, perspective, floor, external shadow, glow, text, letters, numbers, logos or extra objects. Packaging and appearance are illustrative only; no new contents or physics.\nsize: 64x64px\ntransparent: True\nasset_id: 4261c5a9-5b2e-5ed0-8fb8-a73c0c18fb6a\nasset_status: pending (saved when generation completes)\nseed: 9270205\ncost: 1 generation\nstatus: processing (~10-40s)\n\nhint: get_image(job_id=\"36e1dcd5-9e68-426e-ae03-72c3fad76aa4\")"
+        }
+      ],
+      "isError": false
+    }
+  },
+  {
+    "key": "bulk-nutrients",
+    "mod": "PhobosAgriculture",
+    "definition": "PhobosVerdemorrowGroundworkBulkNutrients",
+    "runtimeName": "Stock-bulk_nutrients",
+    "nativeSize": [
+      16,
+      16
+    ],
+    "masterSize": [
+      64,
+      64
+    ],
+    "provider": "PixelLab",
+    "operation": "create_image_pixflux",
+    "request": {
+      "description": "One ORIGINAL overhead spacecraft inventory sprite: broad cream heavy nutrient sack with folded sage-green end seams, bold green central band and three simple yellow granule marks. Camera directly above looking vertically down; flat plan view, only horizontal top surfaces visible. Outline edges align horizontally and vertically, not a diamond. Coarse deliberate pixel clusters, three-tone flat shading, selective dark outline, restrained utilitarian cream sage-green grey ochre palette. One independent complete centred object on 64x64 transparent canvas, 8px clear margins. Native export 16x16. No side walls, isometric projection, perspective, floor, external shadow, glow, text, letters, numbers, logos or extra objects. Packaging and appearance are illustrative only; no new contents or physics.",
+      "width": 64,
+      "height": 64,
+      "no_background": true,
+      "isometric": false,
+      "view": "high top-down",
+      "outline": "selective outline",
+      "shading": "basic shading",
+      "detail": "low detail",
+      "seed": 9270206
+    },
+    "response": {
+      "content": [
+        {
+          "type": "text",
+          "text": "id: 4dc0d359-4d22-4e17-b123-4832a65564d3\njob_id: 4dc0d359-4d22-4e17-b123-4832a65564d3\ndescription: One ORIGINAL overhead spacecraft inventory sprite: broad cream heavy nutrient sack with folded sage-green end seams, bold green central band and three simple yellow granule marks. Camera directly above looking vertically down; flat plan view, only horizontal top surfaces visible. Outline edges align horizontally and vertically, not a diamond. Coarse deliberate pixel clusters, three-tone flat shading, selective dark outline, restrained utilitarian cream sage-green grey ochre palette. One independent complete centred object on 64x64 transparent canvas, 8px clear margins. Native export 16x16. No side walls, isometric projection, perspective, floor, external shadow, glow, text, letters, numbers, logos or extra objects. Packaging and appearance are illustrative only; no new contents or physics.\nsize: 64x64px\ntransparent: True\nasset_id: 15bcd70c-8a4b-5f1c-a779-b11a01a4afa8\nasset_status: pending (saved when generation completes)\nseed: 9270206\ncost: 1 generation\nstatus: processing (~10-40s)\n\nhint: get_image(job_id=\"4dc0d359-4d22-4e17-b123-4832a65564d3\")"
+        }
+      ],
+      "isError": false
+    }
+  },
+  {
+    "key": "r4-section",
+    "mod": "PhobosShipbreaker",
+    "definition": "PhobosScrapReclaimerSection",
+    "runtimeName": "PhobosReclaimerSectionDedicated",
+    "nativeSize": [
+      64,
+      64
+    ],
+    "masterSize": [
+      128,
+      128
+    ],
+    "provider": "PixelLab",
+    "operation": "create_image_pixflux",
+    "request": {
+      "description": "One ORIGINAL overhead spacecraft inventory sprite: square unfinished scrap-reclaimer assembly: cream open chassis holding a dark twin-roller shredding cassette, teal motor on right, sparse mustard latches. Camera directly above looking vertically down; flat plan view, only horizontal top surfaces visible. Outline edges align horizontally and vertically, not a diamond. Coarse deliberate pixel clusters, three-tone flat shading, selective dark outline, restrained utilitarian cream slate-grey teal mustard palette. One independent complete centred object on 128x128 transparent canvas, 16px clear margins. Native export 64x64. No side walls, isometric projection, perspective, floor, external shadow, glow, text, letters, numbers, logos or extra objects. Packaging and appearance are illustrative only; no new contents or physics.",
+      "width": 128,
+      "height": 128,
+      "no_background": true,
+      "isometric": false,
+      "view": "high top-down",
+      "outline": "selective outline",
+      "shading": "basic shading",
+      "detail": "low detail",
+      "seed": 9270207
+    },
+    "response": {
+      "content": [
+        {
+          "type": "text",
+          "text": "id: 11c04169-d01b-46a4-839f-c55c00fb9175\njob_id: 11c04169-d01b-46a4-839f-c55c00fb9175\ndescription: One ORIGINAL overhead spacecraft inventory sprite: square unfinished scrap-reclaimer assembly: cream open chassis holding a dark twin-roller shredding cassette, teal motor on right, sparse mustard latches. Camera directly above looking vertically down; flat plan view, only horizontal top surfaces visible. Outline edges align horizontally and vertically, not a diamond. Coarse deliberate pixel clusters, three-tone flat shading, selective dark outline, restrained utilitarian cream slate-grey teal mustard palette. One independent complete centred object on 128x128 transparent canvas, 16px clear margins. Native export 64x64. No side walls, isometric projection, perspective, floor, external shadow, glow, text, letters, numbers, logos or extra objects. Packaging and appearance are illustrative only; no new contents or physics.\nsize: 128x128px\ntransparent: True\nasset_id: 979b1abf-41f8-5bbc-9475-dabf858fc42e\nasset_status: pending (saved when generation completes)\nseed: 9270207\ncost: 1 generation\nstatus: processing (~10-40s)\n\nhint: get_image(job_id=\"11c04169-d01b-46a4-839f-c55c00fb9175\")"
+        }
+      ],
+      "isError": false
+    }
+  },
+  {
+    "key": "f6-section",
+    "mod": "PhobosShipbreaker",
+    "definition": "PhobosFurnaceSection",
+    "runtimeName": "PhobosFurnaceSectionDedicated",
+    "nativeSize": [
+      64,
+      64
+    ],
+    "masterSize": [
+      128,
+      128
+    ],
+    "provider": "PixelLab",
+    "operation": "create_image_pixflux",
+    "request": {
+      "description": "One ORIGINAL overhead spacecraft inventory sprite: square unfinished electric furnace assembly: grey square mounting chassis enclosing a thick pale refractory ring and central dark crucible opening, restrained copper coil segments. Camera directly above looking vertically down; flat plan view, only horizontal top surfaces visible. Outline edges align horizontally and vertically, not a diamond. Coarse deliberate pixel clusters, three-tone flat shading, selective dark outline, restrained utilitarian cream slate-grey teal mustard palette. One independent complete centred object on 128x128 transparent canvas, 16px clear margins. Native export 64x64. No side walls, isometric projection, perspective, floor, external shadow, glow, text, letters, numbers, logos or extra objects. Packaging and appearance are illustrative only; no new contents or physics.",
+      "width": 128,
+      "height": 128,
+      "no_background": true,
+      "isometric": false,
+      "view": "high top-down",
+      "outline": "selective outline",
+      "shading": "basic shading",
+      "detail": "low detail",
+      "seed": 9270208
+    },
+    "response": {
+      "content": [
+        {
+          "type": "text",
+          "text": "error: rate limit exceeded (8/8 jobs)\n\nhint: wait for a job to finish, then retry"
+        }
+      ],
+      "isError": true
+    }
+  },
+  {
+    "key": "housing-blank",
+    "mod": "PhobosShipbreaker",
+    "definition": "PhobosFurnaceHousingBlank",
+    "runtimeName": "PhobosHousingBlankDedicated",
+    "nativeSize": [
+      32,
+      32
+    ],
+    "masterSize": [
+      128,
+      128
+    ],
+    "provider": "PixelLab",
+    "operation": "create_image_pixflux",
+    "request": {
+      "description": "One ORIGINAL overhead spacecraft inventory sprite: rough cast aluminium machine housing, square silver-grey frame with central hollow square recess, two chunky casting gates protruding symmetrically on left and right, dull coarse casting texture. Camera directly above looking vertically down; flat plan view, only horizontal top surfaces visible. Outline edges align horizontally and vertically, not a diamond. Coarse deliberate pixel clusters, three-tone flat shading, selective dark outline, restrained utilitarian cream slate-grey teal mustard palette. One independent complete centred object on 128x128 transparent canvas, 16px clear margins. Native export 32x32. No side walls, isometric projection, perspective, floor, external shadow, glow, text, letters, numbers, logos or extra objects. Packaging and appearance are illustrative only; no new contents or physics.",
+      "width": 128,
+      "height": 128,
+      "no_background": true,
+      "isometric": false,
+      "view": "high top-down",
+      "outline": "selective outline",
+      "shading": "basic shading",
+      "detail": "low detail",
+      "seed": 9270209
+    },
+    "response": {
+      "content": [
+        {
+          "type": "text",
+          "text": "error: rate limit exceeded (8/8 jobs)\n\nhint: wait for a job to finish, then retry"
+        }
+      ],
+      "isError": true
+    }
+  },
+  {
+    "key": "reclaimer-feedstock",
+    "mod": "PhobosShipbreaker",
+    "definition": "PhobosPanelResidueR2",
+    "runtimeName": "StockClassifiedResidue",
+    "nativeSize": [
+      16,
+      16
+    ],
+    "masterSize": [
+      64,
+      64
+    ],
+    "provider": "PixelLab",
+    "operation": "create_image_pixflux",
+    "request": {
+      "description": "One ORIGINAL overhead spacecraft inventory sprite: compact rectangular bound bundle of mixed grey steel offcuts, dull copper strips and ivory fragments, two broad mustard ties, no whole usable machine. Camera directly above looking vertically down; flat plan view, only horizontal top surfaces visible. Outline edges align horizontally and vertically, not a diamond. Coarse deliberate pixel clusters, three-tone flat shading, selective dark outline, restrained utilitarian cream slate-grey teal mustard palette. One independent complete centred object on 64x64 transparent canvas, 8px clear margins. Native export 16x16. No side walls, isometric projection, perspective, floor, external shadow, glow, text, letters, numbers, logos or extra objects. Packaging and appearance are illustrative only; no new contents or physics.",
+      "width": 64,
+      "height": 64,
+      "no_background": true,
+      "isometric": false,
+      "view": "high top-down",
+      "outline": "selective outline",
+      "shading": "basic shading",
+      "detail": "low detail",
+      "seed": 9270210
+    },
+    "response": {
+      "content": [
+        {
+          "type": "text",
+          "text": "error: rate limit exceeded (8/8 jobs)\n\nhint: wait for a job to finish, then retry"
+        }
+      ],
+      "isError": true
+    }
+  },
+  {
+    "key": "reclaimer-rejects",
+    "mod": "PhobosShipbreaker",
+    "definition": "PhobosPanelRejectR2",
+    "runtimeName": "StockReclaimerRejects",
+    "nativeSize": [
+      16,
+      16
+    ],
+    "masterSize": [
+      64,
+      64
+    ],
+    "provider": "PixelLab",
+    "operation": "create_image_pixflux",
+    "request": {
+      "description": "One ORIGINAL overhead spacecraft inventory sprite: compact flat dark charcoal-grey terminal scrap cake with dull brown and ivory fragments embedded, irregular oval silhouette, no bright metal bars. Camera directly above looking vertically down; flat plan view, only horizontal top surfaces visible. Outline edges align horizontally and vertically, not a diamond. Coarse deliberate pixel clusters, three-tone flat shading, selective dark outline, restrained utilitarian cream slate-grey teal mustard palette. One independent complete centred object on 64x64 transparent canvas, 8px clear margins. Native export 16x16. No side walls, isometric projection, perspective, floor, external shadow, glow, text, letters, numbers, logos or extra objects. Packaging and appearance are illustrative only; no new contents or physics.",
+      "width": 64,
+      "height": 64,
+      "no_background": true,
+      "isometric": false,
+      "view": "high top-down",
+      "outline": "selective outline",
+      "shading": "basic shading",
+      "detail": "low detail",
+      "seed": 9270211
+    },
+    "response": {
+      "content": [
+        {
+          "type": "text",
+          "text": "error: rate limit exceeded (8/8 jobs)\n\nhint: wait for a job to finish, then retry"
+        }
+      ],
+      "isError": true
+    }
+  },
+  {
+    "key": "melt-remainder",
+    "mod": "PhobosShipbreaker",
+    "definition": "PhobosFurnaceMeltRemainder",
+    "runtimeName": "StockMeltRemainder",
+    "nativeSize": [
+      16,
+      16
+    ],
+    "masterSize": [
+      64,
+      64
+    ],
+    "provider": "PixelLab",
+    "operation": "create_image_pixflux",
+    "request": {
+      "description": "One ORIGINAL overhead spacecraft inventory sprite: single irregular dark charcoal clinker with dull silver-grey crust flecks and a small rusty-brown patch, coarse broken edges, no glow. Camera directly above looking vertically down; flat plan view, only horizontal top surfaces visible. Outline edges align horizontally and vertically, not a diamond. Coarse deliberate pixel clusters, three-tone flat shading, selective dark outline, restrained utilitarian cream slate-grey teal mustard palette. One independent complete centred object on 64x64 transparent canvas, 8px clear margins. Native export 16x16. No side walls, isometric projection, perspective, floor, external shadow, glow, text, letters, numbers, logos or extra objects. Packaging and appearance are illustrative only; no new contents or physics.",
+      "width": 64,
+      "height": 64,
+      "no_background": true,
+      "isometric": false,
+      "view": "high top-down",
+      "outline": "selective outline",
+      "shading": "basic shading",
+      "detail": "low detail",
+      "seed": 9270212
+    },
+    "response": {
+      "content": [
+        {
+          "type": "text",
+          "text": "error: rate limit exceeded (8/8 jobs)\n\nhint: wait for a job to finish, then retry"
+        }
+      ],
+      "isError": true
+    }
+  }
+]

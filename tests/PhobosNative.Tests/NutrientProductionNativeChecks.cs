@@ -13,7 +13,7 @@ internal static class NutrientProductionNativeChecks
         {
             check(!d.Installables.Values.Any(j=>(j.strJobType=="repair" || j.strJobType=="restore") && j.strActionCO==id),"Consumable has no repair/restore definition: "+id);
             check(!d.Objects[id].aStartingConds.Any(c=>c.StartsWith("IsMechanical=")||c.StartsWith("StatDamageMax=")),"Consumable depletion is not repairable mechanical durability: "+id);
-            check(d.Objects[id].nStackLimit==1 && d.Objects[id].aTickers.Length==0,"Finite charge cannot merge or regenerate on an offline ticker: "+id);
+            check(d.Objects[id].nStackLimit==(id==Definitions.Nutrient || id==WorkupDefinitions.Makeup ? 25 : id==Service.RecoveryCartridge ? 3 : 1) && d.Objects[id].aTickers.Length==0,"Only approved nutrient packets stack as individual objects; no offline regeneration: "+id);
         }
         foreach(string id in new[]{WorkupDefinitions.Residue,WorkupDefinitions.Concentrate,WorkupDefinitions.Spent,WorkupDefinitions.Mixture,RecyclerCapture.Wet})
             check(!d.Objects[id].aStartingConds.Any(c=>c.StartsWith("IsFood=")||c.StartsWith("IsHydrator=")),"Recovery supplies cannot impersonate food/potable water: "+id);

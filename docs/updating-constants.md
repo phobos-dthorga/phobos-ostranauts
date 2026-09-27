@@ -164,3 +164,21 @@ Use Framework.crewPracticeHours, Framework.crewStudyHours and Framework.crewSkil
 Current dependency requirements in the installation guide, player guide and
 Workshop requirements sections are registered alongside runtime/installer
 minimums. Historical feature/version paragraphs keep their original floors.
+
+## Storage stack limits
+
+Use `Agriculture.stackPipes`, `Agriculture.stackSeedPotatoes`,
+`Agriculture.stackLettuceSeeds`, `Agriculture.stackNutrients`,
+`Agriculture.stackMakeupSalts`, `Shipbreaker.stackPipes` and
+`AutoNav.stackRemnants` for the approved loose-item limits. These are distinct
+from merchant stock lots. Regenerate the item references after changes.
+Installed fixtures and unlisted supplies remain individual; changing a limit
+does not make processing or automatic transfer accept a whole stack.
+
+`Agriculture.stackFoodPortions` maintains the shared storage limit for raw
+potatoes, cooked potatoes and lettuce portions. Cooker inputs remain individual.
+
+`Agriculture.stackBulkySupplies` covers treatment cartridges, bulk nutrient
+charges and irrigation charges; `Shipbreaker.stackCoolantCharges` covers fresh
+thermal service fluid charges. These storage limits do not pool contents or
+cartridge capacity. Processing still requires individual objects.

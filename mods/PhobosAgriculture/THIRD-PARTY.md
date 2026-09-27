@@ -34,3 +34,9 @@ The original PixelLab potato/stove records remain included. OpenAI's
 PixelLab terms and Phobos code licensing. The terms page retrieved this round
 was labelled Europe; applicability to the owner's account has not been verified.
 No game-derived, NASA or ESA artwork is bundled or used as generation input.
+
+Agriculture 0.15.0 adds original PixelLab recovery/bulk sprites and machinery
+state variants. The packaged assets/artwork-completion records preserve exact
+requests, selected master hashes, registration, usage and export hashes; the
+source repository retains masters and mechanical export tooling. PixelLab's
+terms above remain separate from code licensing. Owner gameplay review is pending.

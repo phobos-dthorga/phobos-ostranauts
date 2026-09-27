@@ -86,6 +86,52 @@ workflow; it is not a request to generate additional artwork immediately.
 
 ## Small, cost-conscious workflow
 
+### Overhead-first PixelLab rule — owner direction, 27 September 2026
+
+All Ostranauts **world sprites and inventory-item sprites** must request the
+correct projection on the first submission. This also applies to machinery,
+commodities and their damaged/loose variants. UI faceplates are flat front-facing
+interfaces and are outside this world-camera rule.
+
+- Begin the prompt with: **"ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera
+  directly above, looking straight down at the object's TOP SURFACE ONLY.
+  Rectangular edges run horizontally and vertically on the canvas. Show no
+  vertical front or side faces."** Put this before the object description.
+- For `create_image_pixflux`, explicitly pass `view="high top-down"` and
+  `isometric=false`. Do not rely on defaults or the ambiguous word "top-down"
+  alone. When an operation has no camera fields, retain the full prompt prefix.
+- Describe the visible lid, top panel, rim, recesses and overhead silhouette.
+  Avoid product-photography wording that invites a standing container or a
+  three-quarter view. Express height/capacity in game definitions and live text,
+  not through visible side walls. Do not use an isometric image as a style input.
+- For a related state, prefer editing an already verified **overhead Phobos
+  reference**, preserving canvas, footprint, pivot and attachments, instead of
+  asking the generator to rediscover the camera. Only original project imagery
+  may be uploaded; native game references stay local.
+- Validate one overhead pilot at native scale before expanding that family.
+  A diamond-shaped footprint or visible front/side faces is a projection failure;
+  retain and label the rejected candidate. Do not export it merely because its
+  palette or detail is attractive. Make one targeted correction before considering
+  another approach; continue to follow the existing cost/fallback rules.
+- Record requested camera settings and the actual projection review beside the
+  generation request. Tool camera settings are weak guidance, **not a guarantee**;
+  prompt compliance never substitutes for inspecting the output.
+
+Reusable first-request wording for a small supply item:
+
+> ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking
+> straight down at the object's TOP SURFACE ONLY. Rectangular edges run
+> horizontally and vertically on the canvas. Show no vertical front or side
+> faces. Draw one sealed spacecraft supply canister as its rectangular grey TOP
+> PANEL with a teal inset, circular filler cap and flush yellow handle. Original
+> coarse pixel art, restrained shading. Centre the complete silhouette on a
+> transparent 64 × 64 canvas with 8-pixel margins; intended native export 16 × 16.
+> No perspective, scene, ground shadow, text or logos.
+
+This rule follows projection failures observed in the coolant pilot and earlier
+reservoir work. It aims to reduce avoidable retries; it does not claim a measured
+success rate or guaranteed provider behaviour.
+
 1. Establish the native footprint, projection, visible connection positions and
    master dimensions before generating. Retain the [resolution policy](artwork-resolution-policy.md):
    at least 2x per axis, or 4x when the intended short side is at most 32 pixels.

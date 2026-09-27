@@ -35,7 +35,7 @@ internal static class BulkDefinitions
             if(!d.Objects.ContainsKey(waste))MaintenanceDefinitions.Remainder(d,waste,Text.Get("housing_waste"),DryKg-scraps);
             MaintenanceDefinitions.Dismantle(d,co.strName,600,Enumerable.Repeat("ItmScrapSteel",scraps).Concat(new[]{waste}).ToArray());
         }
-        Definitions.Stock(d,Nutrients,NutrientKg,NutrientPrice,"bulk_nutrients",false,"nutrients");
+        Definitions.Stock(d,Nutrients,NutrientKg,NutrientPrice,"bulk_nutrients",false);
         MaintenanceDefinitions.SetStat(d.Objects[Nutrients],"IsCategoryIndustrialProducts",1);
         foreach(string merchant in new[]{"ItmOKLGSupplyKioskInv","ItmOKLGFixer","ItmTraderSanDiegoHalvorsonInv"})
         {

@@ -1,0 +1,200 @@
+[
+  {
+    "key": "rack",
+    "mod": "PhobosAgriculture",
+    "runtimeBase": "Rack",
+    "nativeSize": [
+      64,
+      64
+    ],
+    "masterSize": [
+      128,
+      128
+    ],
+    "reference": "references/rack.png",
+    "originalRuntimeSource": "mods/PhobosAgriculture/images/phobos/agriculture/Rack.png",
+    "originalRuntimeSHA256": "3fb865b27688ac825d7acec00926c3f929323825b301946d80a2d63e0dfd81a6",
+    "referenceSHA256": "787a187d48bc99684ac93dcc3099c924e7ab4c4d95bfe941776f1cc21e76fdba",
+    "purpose": "Mechanical enlarged registration reference only, not a new production master. Preserve current geometry; provider will author state details."
+  },
+  {
+    "key": "cooker",
+    "mod": "PhobosAgriculture",
+    "runtimeBase": "Cooker",
+    "nativeSize": [
+      32,
+      32
+    ],
+    "masterSize": [
+      128,
+      128
+    ],
+    "reference": "references/cooker.png",
+    "originalRuntimeSource": "mods/PhobosAgriculture/images/phobos/agriculture/Cooker.png",
+    "originalRuntimeSHA256": "cb5c2498035ec433cdc98fdf44f9a2ffa1218ab64cdb874dc8918035e3c77e6a",
+    "referenceSHA256": "3f1ced258d26898a9d44decff8d62a9ccc8bfd6f3d871a179ad2284c30d635a6",
+    "purpose": "Mechanical enlarged registration reference only, not a new production master. Preserve current geometry; provider will author state details."
+  },
+  {
+    "key": "water-supply",
+    "mod": "PhobosAgriculture",
+    "runtimeBase": "WaterSupply",
+    "nativeSize": [
+      32,
+      32
+    ],
+    "masterSize": [
+      128,
+      128
+    ],
+    "reference": "references/water-supply.png",
+    "originalRuntimeSource": "mods/PhobosAgriculture/images/phobos/agriculture/WaterSupply.png",
+    "originalRuntimeSHA256": "054760f2f47f831ffc2083c5112653c4232ba593755715803271d0636cae849d",
+    "referenceSHA256": "a3e832239152e19db9f9c8cff0ce5c8a217088a13214e2f6db893740d39ae450",
+    "purpose": "Mechanical enlarged registration reference only, not a new production master. Preserve current geometry; provider will author state details."
+  },
+  {
+    "key": "workup",
+    "mod": "PhobosAgriculture",
+    "runtimeBase": "Workup",
+    "nativeSize": [
+      32,
+      32
+    ],
+    "masterSize": [
+      128,
+      128
+    ],
+    "reference": "references/workup.png",
+    "originalRuntimeSource": "mods/PhobosAgriculture/images/phobos/agriculture/Workup.png",
+    "originalRuntimeSHA256": "a84d5e205f7e2e97ee12a9c4a75f919b8c9e8d5a4a2cdd4785d3bab4e2f0993e",
+    "referenceSHA256": "afaf9313de745755213c133f11042f1bc7bc0f5547f182c7d49f838c3ecf3345",
+    "purpose": "Mechanical enlarged registration reference only, not a new production master. Preserve current geometry; provider will author state details."
+  },
+  {
+    "key": "chute",
+    "mod": "PhobosShipbreaker",
+    "runtimeBase": "PhobosHullChute",
+    "nativeSize": [
+      64,
+      16
+    ],
+    "masterSize": [
+      256,
+      64
+    ],
+    "reference": "references/chute.png",
+    "originalRuntimeSource": "mods/PhobosShipbreaker/images/phobos/shipbreaker/PhobosHullChute.png",
+    "originalRuntimeSHA256": "bdd76cb4031a5588d85133da4e9b80c5ac93ec8070f8a69c13d694efc994d9a8",
+    "referenceSHA256": "3ea33f646ebce0a12513e946c5b713eeff25861fd32a6975dec2c14adaab95eb",
+    "purpose": "Mechanical enlarged registration reference only, not a new production master. Preserve current geometry; provider will author state details."
+  },
+  {
+    "key": "grabber",
+    "mod": "PhobosShipbreaker",
+    "runtimeBase": "PhobosExteriorGrabber",
+    "nativeSize": [
+      64,
+      48
+    ],
+    "masterSize": [
+      128,
+      96
+    ],
+    "reference": "references/grabber.png",
+    "originalRuntimeSource": "mods/PhobosShipbreaker/images/phobos/shipbreaker/PhobosExteriorGrabber.png",
+    "originalRuntimeSHA256": "1496df46176766258d3c31f1f435aa6c97fa1d88618549b3c522778ecc1644b1",
+    "referenceSHA256": "4d616947092877eb21fa1e4eeb4c01cd41569f98b32cd5eb4b2a6622d5fb2bd7",
+    "purpose": "Mechanical enlarged registration reference only, not a new production master. Preserve current geometry; provider will author state details."
+  },
+  {
+    "key": "collector",
+    "mod": "PhobosShipbreaker",
+    "runtimeBase": "PhobosResidueCollector",
+    "nativeSize": [
+      32,
+      16
+    ],
+    "masterSize": [
+      128,
+      64
+    ],
+    "reference": "references/collector.png",
+    "originalRuntimeSource": "mods/PhobosShipbreaker/images/phobos/shipbreaker/PhobosResidueCollector.png",
+    "originalRuntimeSHA256": "23e69abf6260ee98561782f51fe71c18adf3194f40170096cb51c00516a4bf53",
+    "referenceSHA256": "38bc61ca1ce1cfe7f6d6fd0661bab4b0844b42940683e99e14e7def72bb42247",
+    "purpose": "Mechanical enlarged registration reference only, not a new production master. Preserve current geometry; provider will author state details."
+  },
+  {
+    "key": "reclaimer",
+    "mod": "PhobosShipbreaker",
+    "runtimeBase": "PhobosScrapReclaimer",
+    "nativeSize": [
+      64,
+      64
+    ],
+    "masterSize": [
+      128,
+      128
+    ],
+    "reference": "references/reclaimer.png",
+    "originalRuntimeSource": "mods/PhobosShipbreaker/images/phobos/shipbreaker/PhobosScrapReclaimer.png",
+    "originalRuntimeSHA256": "5e17de64e4ac75edebfaeea68ad6416d34cf5be05579a43c84b143ece6309938",
+    "referenceSHA256": "8f5cc7037183ee785e04b6e1343310697b13a3c39e21f89272660d5ddad67738",
+    "purpose": "Mechanical enlarged registration reference only, not a new production master. Preserve current geometry; provider will author state details."
+  },
+  {
+    "key": "furnace",
+    "mod": "PhobosShipbreaker",
+    "runtimeBase": "PhobosFurnaceSockets",
+    "nativeSize": [
+      96,
+      96
+    ],
+    "masterSize": [
+      192,
+      192
+    ],
+    "reference": "references/furnace.png",
+    "originalRuntimeSource": "mods/PhobosShipbreaker/images/phobos/shipbreaker/PhobosFurnaceSockets.png",
+    "originalRuntimeSHA256": "31fa068ae62c7b5dd6794df38701b2cb36245dd84242e88bb843f8052f00601c",
+    "referenceSHA256": "b227172e13d8397774f26dd9248500eb55b08a2178d41fc351ec3b0dfc54fbfa",
+    "purpose": "Mechanical enlarged registration reference only, not a new production master. Preserve current geometry; provider will author state details."
+  },
+  {
+    "key": "radiator",
+    "mod": "PhobosShipbreaker",
+    "runtimeBase": "PhobosFurnaceRadiatorSocket",
+    "nativeSize": [
+      96,
+      64
+    ],
+    "masterSize": [
+      192,
+      128
+    ],
+    "reference": "references/radiator.png",
+    "originalRuntimeSource": "mods/PhobosShipbreaker/images/phobos/shipbreaker/PhobosFurnaceRadiatorSocket.png",
+    "originalRuntimeSHA256": "58007b2c1f53fd49f6d772cacb1eafab2fc0fa55bfc000ac4f913a6faeac7412",
+    "referenceSHA256": "d02b4bd11cf5a47b9842ea99ca60d0d046108d3aee807bf40d092787b9a39751",
+    "purpose": "Mechanical enlarged registration reference only, not a new production master. Preserve current geometry; provider will author state details."
+  },
+  {
+    "key": "thermal-port",
+    "mod": "PhobosShipbreaker",
+    "runtimeBase": "PhobosFurnaceThermalPort",
+    "nativeSize": [
+      16,
+      16
+    ],
+    "masterSize": [
+      64,
+      64
+    ],
+    "reference": "references/thermal-port.png",
+    "originalRuntimeSource": "mods/PhobosShipbreaker/images/phobos/shipbreaker/PhobosFurnaceThermalPort.png",
+    "originalRuntimeSHA256": "855c132800de163c0a8e6f7221401e8ae82e095e5ebf86cf9e693fcb5f07dde2",
+    "referenceSHA256": "c1a53a7a7f470747e6b8783328105aa9d7308c2530fdce8baa753ada210a8942",
+    "purpose": "Mechanical enlarged registration reference only, not a new production master. Preserve current geometry; provider will author state details."
+  }
+]

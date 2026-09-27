@@ -1,0 +1,22 @@
+{
+  "provider": "PixelLab",
+  "operation": "edit_image_pixen",
+  "request": {
+    "image_url": "https://api.pixellab.ai/mcp/images/1ea8fcef-7ba8-43a7-bdde-0ddb25a4fad3/download",
+    "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. Preserve this square footprint and central ring. Fill the square top plate INSIDE the corner bolts with solid medium slate-grey metal, leaving only the central circular hole dark. Make outer rim chunky and clearly visible. Transparent outside, no text.",
+    "width": 128,
+    "height": 128,
+    "no_background": true,
+    "seed": 9270313
+  },
+  "response": {
+    "content": [
+      {
+        "type": "text",
+        "text": "id: c5ba2067-b19d-4fff-986c-29e64ef49e85\njob_id: c5ba2067-b19d-4fff-986c-29e64ef49e85\nmodel: pixen\nedit: ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. Preserve this square footprint and central ring. Fill the square top plate INSIDE the corner bolts with solid medium slate-grey metal, leaving only the central circular hole dark. Make outer rim chunky and clearly visible. Transparent outside, no text.\nsource: 128x128px\nsize: 128x128px\ntransparent: True\nseed: 9270313\nasset_id: e86faa93-a76d-543d-b585-a0b74c0e8cd7\nasset_status: pending (saved when generation completes)\ncost: 1 generation\nstatus: processing (~10-40s)\n\nhint: get_image(job_id=\"c5ba2067-b19d-4fff-986c-29e64ef49e85\")"
+      }
+    ],
+    "isError": false
+  },
+  "reason": "Projection corrected; outer plate was too dark/sparse for native-scale recognition. Preserve camera and improve plate contrast."
+}

@@ -5,12 +5,13 @@
     {
       "id": "PhobosAgriculture",
       "name": "Phobos Agriculture",
-      "version": "0.14.0",
+      "version": "0.15.0",
       "gameTarget": "1.0.1.5",
       "items": [
         {
           "id": "PhobosVerdemorrowCharacterizedProcessSolution",
           "name": "Phobos' Verdemorrow Recorded Process Solution",
+          "stackLimit": 1,
           "massKg": 0.25,
           "baseValue": 0.009999999776482582,
           "installed": false,
@@ -22,6 +23,7 @@
         {
           "id": "PhobosVerdemorrowContinuanceLettuce",
           "name": "Phobos' Verdemorrow Continuance Lettuce Seeds (5 g)",
+          "stackLimit": 50,
           "massKg": 0.005,
           "baseValue": 5.0,
           "installed": false,
@@ -33,6 +35,7 @@
         {
           "id": "PhobosVerdemorrowContinuancePotato",
           "name": "Phobos' Verdemorrow Continuance Seed Potato (0.2 kg)",
+          "stackLimit": 10,
           "massKg": 0.2,
           "baseValue": 40.0,
           "installed": false,
@@ -44,6 +47,7 @@
         {
           "id": "PhobosVerdemorrowCropResidue",
           "name": "Phobos' Verdemorrow Crop Residue",
+          "stackLimit": 1,
           "massKg": 0.5,
           "baseValue": 0.009999999776482582,
           "installed": false,
@@ -55,6 +59,7 @@
         {
           "id": "PhobosVerdemorrowFirstlight4BrokenHousingWaste",
           "name": "Phobos' Verdemorrow Agricultural Housing Waste",
+          "stackLimit": 1,
           "massKg": 74.0,
           "baseValue": 0.009999999776482582,
           "installed": false,
@@ -66,6 +71,7 @@
         {
           "id": "PhobosVerdemorrowFirstlight4HousingWaste",
           "name": "Phobos' Verdemorrow Agricultural Housing Waste",
+          "stackLimit": 1,
           "massKg": 59.0,
           "baseValue": 0.009999999776482582,
           "installed": false,
@@ -77,6 +83,7 @@
         {
           "id": "PhobosVerdemorrowFirstlight4Installed",
           "name": "Phobos' Verdemorrow Firstlight-4 Cultivation Rack",
+          "stackLimit": 1,
           "massKg": 80.0,
           "baseValue": 700.0,
           "installed": true,
@@ -151,6 +158,7 @@
         {
           "id": "PhobosVerdemorrowFirstlight4InstalledDmg",
           "name": "Phobos' Verdemorrow Firstlight-4 Cultivation Rack (Damaged)",
+          "stackLimit": 1,
           "massKg": 80.0,
           "baseValue": 140.0,
           "installed": true,
@@ -230,6 +238,7 @@
         {
           "id": "PhobosVerdemorrowFirstlight4Loose",
           "name": "Phobos' Verdemorrow Firstlight-4 Cultivation Rack",
+          "stackLimit": 1,
           "massKg": 80.0,
           "baseValue": 700.0,
           "installed": false,
@@ -306,6 +315,7 @@
         {
           "id": "PhobosVerdemorrowFirstlight4LooseDmg",
           "name": "Phobos' Verdemorrow Firstlight-4 Cultivation Rack (Damaged)",
+          "stackLimit": 1,
           "massKg": 80.0,
           "baseValue": 140.0,
           "installed": false,
@@ -387,6 +397,7 @@
         {
           "id": "PhobosVerdemorrowGroundworkB2BrokenHousingWaste",
           "name": "Phobos' Verdemorrow Agricultural Housing Waste",
+          "stackLimit": 1,
           "massKg": 19.0,
           "baseValue": 0.009999999776482582,
           "installed": false,
@@ -398,6 +409,7 @@
         {
           "id": "PhobosVerdemorrowGroundworkB2HousingWaste",
           "name": "Phobos' Verdemorrow Agricultural Housing Waste",
+          "stackLimit": 1,
           "massKg": 17.0,
           "baseValue": 0.009999999776482582,
           "installed": false,
@@ -409,6 +421,7 @@
         {
           "id": "PhobosVerdemorrowGroundworkB2Installed",
           "name": "Phobos' Verdemorrow Groundwork B2 Workup Bench",
+          "stackLimit": 1,
           "massKg": 20.0,
           "baseValue": 250.0,
           "installed": true,
@@ -471,6 +484,7 @@
         {
           "id": "PhobosVerdemorrowGroundworkB2InstalledDmg",
           "name": "Phobos' Verdemorrow Groundwork B2 Workup Bench (Damaged)",
+          "stackLimit": 1,
           "massKg": 20.0,
           "baseValue": 50.0,
           "installed": true,
@@ -544,6 +558,7 @@
         {
           "id": "PhobosVerdemorrowGroundworkB2Loose",
           "name": "Phobos' Verdemorrow Groundwork B2 Workup Bench",
+          "stackLimit": 1,
           "massKg": 20.0,
           "baseValue": 250.0,
           "installed": false,
@@ -608,6 +623,7 @@
         {
           "id": "PhobosVerdemorrowGroundworkB2LooseDmg",
           "name": "Phobos' Verdemorrow Groundwork B2 Workup Bench (Damaged)",
+          "stackLimit": 1,
           "massKg": 20.0,
           "baseValue": 50.0,
           "installed": false,
@@ -683,6 +699,7 @@
         {
           "id": "PhobosVerdemorrowGroundworkBulkNutrients",
           "name": "Phobos' Verdemorrow Groundwork Bulk Nutrient Charge",
+          "stackLimit": 3,
           "massKg": 0.5,
           "baseValue": 750.0,
           "installed": false,
@@ -694,6 +711,7 @@
         {
           "id": "PhobosVerdemorrowGroundworkIrrigation",
           "name": "Phobos' Verdemorrow Groundwork Irrigation Charge (5 kg)",
+          "stackLimit": 3,
           "massKg": 5.0,
           "baseValue": 50.0,
           "installed": false,
@@ -705,6 +723,7 @@
         {
           "id": "PhobosVerdemorrowGroundworkMakeup",
           "name": "Phobos' Verdemorrow Groundwork Makeup Salts (40 g)",
+          "stackLimit": 25,
           "massKg": 0.04,
           "baseValue": 30.0,
           "installed": false,
@@ -716,6 +735,7 @@
         {
           "id": "PhobosVerdemorrowGroundworkMixture",
           "name": "Phobos' Verdemorrow Groundwork Recovered Crop Nutrient Mixture",
+          "stackLimit": 1,
           "massKg": 0.008,
           "baseValue": 0.009999999776482582,
           "installed": false,
@@ -727,6 +747,7 @@
         {
           "id": "PhobosVerdemorrowGroundworkNutrients",
           "name": "Phobos' Verdemorrow Groundwork Formulated Crop Nutrients (40 g)",
+          "stackLimit": 25,
           "massKg": 0.04,
           "baseValue": 60.0,
           "installed": false,
@@ -738,6 +759,7 @@
         {
           "id": "PhobosVerdemorrowGroundworkR3BrokenHousingWaste",
           "name": "Phobos' Verdemorrow Agricultural Housing Waste",
+          "stackLimit": 1,
           "massKg": 24.0,
           "baseValue": 0.009999999776482582,
           "installed": false,
@@ -749,6 +771,7 @@
         {
           "id": "PhobosVerdemorrowGroundworkR3HousingWaste",
           "name": "Phobos' Verdemorrow Agricultural Housing Waste",
+          "stackLimit": 1,
           "massKg": 21.0,
           "baseValue": 0.009999999776482582,
           "installed": false,
@@ -760,6 +783,7 @@
         {
           "id": "PhobosVerdemorrowGroundworkR3Installed",
           "name": "Phobos' Verdemorrow Groundwork R3 Agricultural Water Reservoir",
+          "stackLimit": 1,
           "massKg": 25.0,
           "baseValue": 450.0,
           "installed": true,
@@ -822,6 +846,7 @@
         {
           "id": "PhobosVerdemorrowGroundworkR3InstalledDmg",
           "name": "Phobos' Verdemorrow Groundwork R3 Agricultural Water Reservoir (Damaged)",
+          "stackLimit": 1,
           "massKg": 25.0,
           "baseValue": 90.0,
           "installed": true,
@@ -895,6 +920,7 @@
         {
           "id": "PhobosVerdemorrowGroundworkR3Loose",
           "name": "Phobos' Verdemorrow Groundwork R3 Agricultural Water Reservoir",
+          "stackLimit": 1,
           "massKg": 25.0,
           "baseValue": 450.0,
           "installed": false,
@@ -959,6 +985,7 @@
         {
           "id": "PhobosVerdemorrowGroundworkR3LooseDmg",
           "name": "Phobos' Verdemorrow Groundwork R3 Agricultural Water Reservoir (Damaged)",
+          "stackLimit": 1,
           "massKg": 25.0,
           "baseValue": 90.0,
           "installed": false,
@@ -1034,6 +1061,7 @@
         {
           "id": "PhobosVerdemorrowGroundworkRecoveryCartridge",
           "name": "Phobos' Verdemorrow Groundwork Treatment Cartridge",
+          "stackLimit": 3,
           "massKg": 0.05,
           "baseValue": 25.0,
           "installed": false,
@@ -1045,6 +1073,7 @@
         {
           "id": "PhobosVerdemorrowGroundworkW2BrokenHousingWaste",
           "name": "Phobos' Verdemorrow Agricultural Housing Waste",
+          "stackLimit": 1,
           "massKg": 19.0,
           "baseValue": 0.009999999776482582,
           "installed": false,
@@ -1056,6 +1085,7 @@
         {
           "id": "PhobosVerdemorrowGroundworkW2HousingWaste",
           "name": "Phobos' Verdemorrow Agricultural Housing Waste",
+          "stackLimit": 1,
           "massKg": 16.0,
           "baseValue": 0.009999999776482582,
           "installed": false,
@@ -1067,6 +1097,7 @@
         {
           "id": "PhobosVerdemorrowGroundworkW2Installed",
           "name": "Phobos' Verdemorrow Groundwork W2 Water Supply Unit",
+          "stackLimit": 1,
           "massKg": 20.0,
           "baseValue": 250.0,
           "installed": true,
@@ -1129,6 +1160,7 @@
         {
           "id": "PhobosVerdemorrowGroundworkW2InstalledDmg",
           "name": "Phobos' Verdemorrow Groundwork W2 Water Supply Unit (Damaged)",
+          "stackLimit": 1,
           "massKg": 20.0,
           "baseValue": 50.0,
           "installed": true,
@@ -1202,6 +1234,7 @@
         {
           "id": "PhobosVerdemorrowGroundworkW2Loose",
           "name": "Phobos' Verdemorrow Groundwork W2 Water Supply Unit",
+          "stackLimit": 1,
           "massKg": 20.0,
           "baseValue": 250.0,
           "installed": false,
@@ -1266,6 +1299,7 @@
         {
           "id": "PhobosVerdemorrowGroundworkW2LooseDmg",
           "name": "Phobos' Verdemorrow Groundwork W2 Water Supply Unit (Damaged)",
+          "stackLimit": 1,
           "massKg": 20.0,
           "baseValue": 50.0,
           "installed": false,
@@ -1341,6 +1375,7 @@
         {
           "id": "PhobosVerdemorrowHearth2BrokenHousingWaste",
           "name": "Phobos' Verdemorrow Agricultural Housing Waste",
+          "stackLimit": 1,
           "massKg": 11.0,
           "baseValue": 0.009999999776482582,
           "installed": false,
@@ -1352,6 +1387,7 @@
         {
           "id": "PhobosVerdemorrowHearth2HousingWaste",
           "name": "Phobos' Verdemorrow Agricultural Housing Waste",
+          "stackLimit": 1,
           "massKg": 9.0,
           "baseValue": 0.009999999776482582,
           "installed": false,
@@ -1363,6 +1399,7 @@
         {
           "id": "PhobosVerdemorrowHearth2Installed",
           "name": "Phobos' Verdemorrow Hearth-2 Galley Cooker",
+          "stackLimit": 1,
           "massKg": 12.0,
           "baseValue": 150.0,
           "installed": true,
@@ -1431,6 +1468,7 @@
         {
           "id": "PhobosVerdemorrowHearth2InstalledDmg",
           "name": "Phobos' Verdemorrow Hearth-2 Galley Cooker (Damaged)",
+          "stackLimit": 1,
           "massKg": 12.0,
           "baseValue": 30.0,
           "installed": true,
@@ -1503,6 +1541,7 @@
         {
           "id": "PhobosVerdemorrowHearth2Loose",
           "name": "Phobos' Verdemorrow Hearth-2 Galley Cooker",
+          "stackLimit": 1,
           "massKg": 12.0,
           "baseValue": 150.0,
           "installed": false,
@@ -1573,6 +1612,7 @@
         {
           "id": "PhobosVerdemorrowHearth2LooseDmg",
           "name": "Phobos' Verdemorrow Hearth-2 Galley Cooker (Damaged)",
+          "stackLimit": 1,
           "massKg": 12.0,
           "baseValue": 30.0,
           "installed": false,
@@ -1647,6 +1687,7 @@
         {
           "id": "PhobosVerdemorrowHearthPotatoes",
           "name": "Phobos' Verdemorrow Hearth Cooked Potatoes (0.4 kg)",
+          "stackLimit": 10,
           "massKg": 0.4,
           "baseValue": 35.0,
           "installed": false,
@@ -1658,6 +1699,7 @@
         {
           "id": "PhobosVerdemorrowLettuce",
           "name": "Phobos' Verdemorrow Lettuce (0.25 kg)",
+          "stackLimit": 10,
           "massKg": 0.25,
           "baseValue": 8.0,
           "installed": false,
@@ -1669,6 +1711,7 @@
         {
           "id": "PhobosVerdemorrowProcessSolution",
           "name": "Phobos' Verdemorrow Agricultural Process Solution",
+          "stackLimit": 1,
           "massKg": 0.25,
           "baseValue": 0.009999999776482582,
           "installed": false,
@@ -1680,6 +1723,7 @@
         {
           "id": "PhobosVerdemorrowRawPotatoes",
           "name": "Phobos' Verdemorrow Raw Potatoes (0.4 kg)",
+          "stackLimit": 10,
           "massKg": 0.4,
           "baseValue": 12.0,
           "installed": false,
@@ -1691,6 +1735,7 @@
         {
           "id": "PhobosVerdemorrowRecordedCropResidue",
           "name": "Phobos' Verdemorrow Recorded Crop Residue",
+          "stackLimit": 1,
           "massKg": 0.5,
           "baseValue": 0.009999999776482582,
           "installed": false,
@@ -1702,6 +1747,7 @@
         {
           "id": "PhobosVerdemorrowRecoveredConcentrate",
           "name": "Phobos' Verdemorrow Groundwork Recovered Nutrient Concentrate",
+          "stackLimit": 1,
           "massKg": 0.004,
           "baseValue": 0.009999999776482582,
           "installed": false,
@@ -1713,6 +1759,7 @@
         {
           "id": "PhobosVerdemorrowRecyclerWetRejects",
           "name": "Phobos' Verdemorrow Recycler Wet Rejects",
+          "stackLimit": 1,
           "massKg": 13.0,
           "baseValue": 0.009999999776482582,
           "installed": false,
@@ -1724,6 +1771,7 @@
         {
           "id": "PhobosVerdemorrowSpentBiomass",
           "name": "Phobos' Verdemorrow Spent Crop Biomass",
+          "stackLimit": 1,
           "massKg": 0.5,
           "baseValue": 0.009999999776482582,
           "installed": false,
@@ -1735,6 +1783,7 @@
         {
           "id": "PhobosVerdemorrowTreatmentRejects",
           "name": "Phobos' Verdemorrow Retained Treatment Rejects",
+          "stackLimit": 1,
           "massKg": 0.25,
           "baseValue": 0.009999999776482582,
           "installed": false,
@@ -1746,6 +1795,7 @@
         {
           "id": "PhobosVerdemorrowWaterConduitInstalled",
           "name": "Phobos' Verdemorrow Groundwork Irrigation Conduit",
+          "stackLimit": 1,
           "massKg": 1.0,
           "baseValue": 2.0,
           "installed": true,
@@ -1802,6 +1852,7 @@
         {
           "id": "PhobosVerdemorrowWaterConduitInstalledDmg",
           "name": "Phobos' Verdemorrow Groundwork Irrigation Conduit (Damaged)",
+          "stackLimit": 1,
           "massKg": 1.0,
           "baseValue": 0.4000000059604645,
           "installed": true,
@@ -1867,6 +1918,7 @@
         {
           "id": "PhobosVerdemorrowWaterConduitLoose",
           "name": "Phobos' Verdemorrow Groundwork Irrigation Conduit",
+          "stackLimit": 10,
           "massKg": 1.0,
           "baseValue": 2.0,
           "installed": false,
@@ -1925,6 +1977,7 @@
         {
           "id": "PhobosVerdemorrowWaterConduitLooseDmg",
           "name": "Phobos' Verdemorrow Groundwork Irrigation Conduit (Damaged)",
+          "stackLimit": 10,
           "massKg": 1.0,
           "baseValue": 0.4000000059604645,
           "installed": false,
@@ -1992,6 +2045,7 @@
         {
           "id": "PhobosVerdemorrowWaterConduitWaste",
           "name": "Phobos' Verdemorrow Agricultural Housing Waste",
+          "stackLimit": 1,
           "massKg": 1.0,
           "baseValue": 0.009999999776482582,
           "installed": false,
@@ -4041,12 +4095,13 @@
     {
       "id": "PhobosAutoNav",
       "name": "Phobos Auto Nav",
-      "version": "0.20.0",
+      "version": "0.20.1",
       "gameTarget": "1.0.1.5",
       "items": [
         {
           "id": "PhobosAutoNavBoard",
           "name": "Phobos' Asterel N1 Polaris Auto Nav Module",
+          "stackLimit": 1,
           "massKg": 0.4,
           "baseValue": 3600.0,
           "installed": false,
@@ -4088,6 +4143,7 @@
         {
           "id": "PhobosAutoNavBoardDmg",
           "name": "Phobos' Asterel N1 Polaris Auto Nav Module (Damaged)",
+          "stackLimit": 1,
           "massKg": 0.4,
           "baseValue": 900.0,
           "installed": false,
@@ -4138,6 +4194,7 @@
         {
           "id": "PhobosAutoNavBoardOffcut",
           "name": "Phobos' Asterel N1 Auto Nav Assembly Offcuts (0.6 kg)",
+          "stackLimit": 10,
           "massKg": 0.6,
           "baseValue": 0.009999999776482582,
           "installed": false,
@@ -4149,6 +4206,7 @@
         {
           "id": "PhobosAutoNavBoardResidue",
           "name": "Phobos' Asterel N1 Auto Nav Board Residue (0.4 kg)",
+          "stackLimit": 10,
           "massKg": 0.4,
           "baseValue": 0.009999999776482582,
           "installed": false,
@@ -4160,6 +4218,7 @@
         {
           "id": "PhobosFireControlBoard",
           "name": "Phobos' Asterel N3 Polaris Fire Control System",
+          "stackLimit": 1,
           "massKg": 0.4,
           "baseValue": 5400.0,
           "installed": false,
@@ -4201,6 +4260,7 @@
         {
           "id": "PhobosFireControlBoardDmg",
           "name": "Phobos' Asterel N3 Polaris Fire Control System (Damaged)",
+          "stackLimit": 1,
           "massKg": 0.4,
           "baseValue": 1350.0,
           "installed": false,
@@ -4251,6 +4311,7 @@
         {
           "id": "PhobosPursuitBoard",
           "name": "Phobos' Asterel N2 Polaris Pursuit Module",
+          "stackLimit": 1,
           "massKg": 0.4,
           "baseValue": 5400.0,
           "installed": false,
@@ -4292,6 +4353,7 @@
         {
           "id": "PhobosPursuitBoardDmg",
           "name": "Phobos' Asterel N2 Polaris Pursuit Module (Damaged)",
+          "stackLimit": 1,
           "massKg": 0.4,
           "baseValue": 1350.0,
           "installed": false,
@@ -5031,12 +5093,13 @@
     {
       "id": "PhobosFramework",
       "name": "Phobos Framework",
-      "version": "0.27.0",
+      "version": "0.28.0",
       "gameTarget": "1.0.1.5",
       "items": [
         {
           "id": "PhobosMaintenanceSpentParts",
           "name": "Phobos' Spent Service Parts (0.5 kg)",
+          "stackLimit": 1,
           "massKg": 0.5,
           "baseValue": 0.009999999776482582,
           "installed": false,
@@ -5063,12 +5126,13 @@
     {
       "id": "PhobosShipbreaker",
       "name": "Phobos Shipbreaker",
-      "version": "0.27.0",
+      "version": "0.28.0",
       "gameTarget": "1.0.1.5",
       "items": [
         {
           "id": "PhobosExteriorGrabberInstalled",
           "name": "Phobos' Rivetline G4 Exterior Grabber",
+          "stackLimit": 1,
           "massKg": 80.0,
           "baseValue": 6400.0,
           "installed": true,
@@ -5159,6 +5223,7 @@
         {
           "id": "PhobosExteriorGrabberInstalledDmg",
           "name": "Phobos' Rivetline G4 Exterior Grabber (Damaged)",
+          "stackLimit": 1,
           "massKg": 80.0,
           "baseValue": 1600.0,
           "installed": true,
@@ -5244,6 +5309,7 @@
         {
           "id": "PhobosExteriorGrabberLoose",
           "name": "Phobos' Rivetline G4 Exterior Grabber",
+          "stackLimit": 1,
           "massKg": 80.0,
           "baseValue": 6400.0,
           "installed": false,
@@ -5325,6 +5391,7 @@
         {
           "id": "PhobosExteriorGrabberLooseDmg",
           "name": "Phobos' Rivetline G4 Exterior Grabber (Damaged)",
+          "stackLimit": 1,
           "massKg": 80.0,
           "baseValue": 1600.0,
           "installed": false,
@@ -5412,6 +5479,7 @@
         {
           "id": "PhobosFurnaceCoolantConduitInstalled",
           "name": "Phobos' Rivetline F6-C Sealed Coolant Conduit",
+          "stackLimit": 1,
           "massKg": 1.0,
           "baseValue": 3.0,
           "installed": true,
@@ -5468,6 +5536,7 @@
         {
           "id": "PhobosFurnaceCoolantConduitInstalledDmg",
           "name": "Phobos' Rivetline F6-C Sealed Coolant Conduit",
+          "stackLimit": 1,
           "massKg": 1.0,
           "baseValue": 0.6000000238418579,
           "installed": true,
@@ -5533,6 +5602,7 @@
         {
           "id": "PhobosFurnaceCoolantConduitLoose",
           "name": "Phobos' Rivetline F6-C Sealed Coolant Conduit",
+          "stackLimit": 10,
           "massKg": 1.0,
           "baseValue": 3.0,
           "installed": false,
@@ -5591,6 +5661,7 @@
         {
           "id": "PhobosFurnaceCoolantConduitLooseDmg",
           "name": "Phobos' Rivetline F6-C Sealed Coolant Conduit",
+          "stackLimit": 10,
           "massKg": 1.0,
           "baseValue": 0.6000000238418579,
           "installed": false,
@@ -5658,6 +5729,7 @@
         {
           "id": "PhobosFurnaceCoolantConduitWaste",
           "name": "Phobos' Rivetline Retained Coolant Conduit Waste",
+          "stackLimit": 1,
           "massKg": 1.0,
           "baseValue": 0.009999999776482582,
           "installed": false,
@@ -5669,6 +5741,7 @@
         {
           "id": "PhobosFurnaceHousing",
           "name": "Phobos' Rivetline Finished aluminium machinery housing",
+          "stackLimit": 1,
           "massKg": 18.0,
           "baseValue": 60.0,
           "installed": false,
@@ -5680,6 +5753,7 @@
         {
           "id": "PhobosFurnaceHousingBlank",
           "name": "Phobos' Rivetline Rough aluminium machinery housing",
+          "stackLimit": 1,
           "massKg": 19.0,
           "baseValue": 55.0,
           "installed": false,
@@ -5691,6 +5765,7 @@
         {
           "id": "PhobosFurnaceInputBin",
           "name": "Phobos' Rivetline F6 Aluminium charge chamber",
+          "stackLimit": 1,
           "massKg": 0.0,
           "baseValue": 0.0,
           "installed": false,
@@ -5702,6 +5777,7 @@
         {
           "id": "PhobosFurnaceInstalled",
           "name": "Phobos' Rivetline F6 Electric Furnace",
+          "stackLimit": 1,
           "massKg": 240.0,
           "baseValue": 24000.0,
           "installed": true,
@@ -5781,6 +5857,7 @@
         {
           "id": "PhobosFurnaceInstalledDmg",
           "name": "Phobos' Rivetline F6 Electric Furnace (Damaged)",
+          "stackLimit": 1,
           "massKg": 240.0,
           "baseValue": 6000.0,
           "installed": true,
@@ -5872,6 +5949,7 @@
         {
           "id": "PhobosFurnaceLoose",
           "name": "Phobos' Rivetline F6 Electric Furnace",
+          "stackLimit": 1,
           "massKg": 240.0,
           "baseValue": 24000.0,
           "installed": false,
@@ -5953,6 +6031,7 @@
         {
           "id": "PhobosFurnaceLooseDmg",
           "name": "Phobos' Rivetline F6 Electric Furnace (Damaged)",
+          "stackLimit": 1,
           "massKg": 240.0,
           "baseValue": 6000.0,
           "installed": false,
@@ -6046,6 +6125,7 @@
         {
           "id": "PhobosFurnaceMeltRemainder",
           "name": "Phobos' Rivetline Terminal aluminium melt remainder",
+          "stackLimit": 1,
           "massKg": 1.0,
           "baseValue": 0.009999999776482582,
           "installed": false,
@@ -6057,6 +6137,7 @@
         {
           "id": "PhobosFurnaceRadiatorInstalled",
           "name": "Phobos' Rivetline F6-R Exterior Radiator",
+          "stackLimit": 1,
           "massKg": 100.0,
           "baseValue": 7200.0,
           "installed": true,
@@ -6130,6 +6211,7 @@
         {
           "id": "PhobosFurnaceRadiatorInstalledDmg",
           "name": "Phobos' Rivetline F6-R Exterior Radiator (Damaged)",
+          "stackLimit": 1,
           "massKg": 100.0,
           "baseValue": 1800.0,
           "installed": true,
@@ -6214,6 +6296,7 @@
         {
           "id": "PhobosFurnaceRadiatorLoose",
           "name": "Phobos' Rivetline F6-R Exterior Radiator",
+          "stackLimit": 1,
           "massKg": 100.0,
           "baseValue": 7200.0,
           "installed": false,
@@ -6289,6 +6372,7 @@
         {
           "id": "PhobosFurnaceRadiatorLooseDmg",
           "name": "Phobos' Rivetline F6-R Exterior Radiator (Damaged)",
+          "stackLimit": 1,
           "massKg": 100.0,
           "baseValue": 1800.0,
           "installed": false,
@@ -6375,6 +6459,7 @@
         {
           "id": "PhobosFurnaceSection",
           "name": "Phobos' Rivetline F6-S Furnace Assembly Section",
+          "stackLimit": 1,
           "massKg": 80.0,
           "baseValue": 6500.0,
           "installed": false,
@@ -6428,6 +6513,7 @@
         {
           "id": "PhobosFurnaceThermalPortInstalled",
           "name": "Phobos' Rivetline F6-P Thermal Exhaust Port",
+          "stackLimit": 1,
           "massKg": 100.0,
           "baseValue": 7200.0,
           "installed": true,
@@ -6501,6 +6587,7 @@
         {
           "id": "PhobosFurnaceThermalPortInstalledDmg",
           "name": "Phobos' Rivetline F6-P Thermal Exhaust Port (Damaged)",
+          "stackLimit": 1,
           "massKg": 100.0,
           "baseValue": 1800.0,
           "installed": true,
@@ -6585,6 +6672,7 @@
         {
           "id": "PhobosFurnaceThermalPortLoose",
           "name": "Phobos' Rivetline F6-P Thermal Exhaust Port",
+          "stackLimit": 1,
           "massKg": 100.0,
           "baseValue": 7200.0,
           "installed": false,
@@ -6660,6 +6748,7 @@
         {
           "id": "PhobosFurnaceThermalPortLooseDmg",
           "name": "Phobos' Rivetline F6-P Thermal Exhaust Port (Damaged)",
+          "stackLimit": 1,
           "massKg": 100.0,
           "baseValue": 1800.0,
           "installed": false,
@@ -6746,6 +6835,7 @@
         {
           "id": "PhobosHullChuteInstalled",
           "name": "Phobos' Rivetline H4 Sealed Hull Chute",
+          "stackLimit": 1,
           "massKg": 40.0,
           "baseValue": 1800.0,
           "installed": true,
@@ -6825,6 +6915,7 @@
         {
           "id": "PhobosHullChuteInstalledDmg",
           "name": "Phobos' Rivetline H4 Sealed Hull Chute (Damaged)",
+          "stackLimit": 1,
           "massKg": 40.0,
           "baseValue": 450.0,
           "installed": true,
@@ -6909,6 +7000,7 @@
         {
           "id": "PhobosHullChuteLoose",
           "name": "Phobos' Rivetline H4 Sealed Hull Chute",
+          "stackLimit": 1,
           "massKg": 40.0,
           "baseValue": 1800.0,
           "installed": false,
@@ -6990,6 +7082,7 @@
         {
           "id": "PhobosHullChuteLooseDmg",
           "name": "Phobos' Rivetline H4 Sealed Hull Chute (Damaged)",
+          "stackLimit": 1,
           "massKg": 40.0,
           "baseValue": 450.0,
           "installed": false,
@@ -7076,6 +7169,7 @@
         {
           "id": "PhobosIndustrialConsoleInstalled",
           "name": "Phobos' Asterel C1 Industrial Control Console",
+          "stackLimit": 1,
           "massKg": 40.0,
           "baseValue": 5200.0,
           "installed": true,
@@ -7155,6 +7249,7 @@
         {
           "id": "PhobosIndustrialConsoleInstalledDmg",
           "name": "Phobos' Asterel C1 Industrial Control Console (Damaged)",
+          "stackLimit": 1,
           "massKg": 40.0,
           "baseValue": 1300.0,
           "installed": true,
@@ -7240,6 +7335,7 @@
         {
           "id": "PhobosIndustrialConsoleLoose",
           "name": "Phobos' Asterel C1 Industrial Control Console",
+          "stackLimit": 1,
           "massKg": 40.0,
           "baseValue": 5200.0,
           "installed": false,
@@ -7321,6 +7417,7 @@
         {
           "id": "PhobosIndustrialConsoleLooseDmg",
           "name": "Phobos' Asterel C1 Industrial Control Console (Damaged)",
+          "stackLimit": 1,
           "massKg": 40.0,
           "baseValue": 1300.0,
           "installed": false,
@@ -7408,6 +7505,7 @@
         {
           "id": "PhobosPanelRejectR2",
           "name": "Phobos' Rivetline Terminal Panel Rejects R2 (9 kg)",
+          "stackLimit": 1,
           "massKg": 9.0,
           "baseValue": 0.009999999776482582,
           "installed": false,
@@ -7419,6 +7517,7 @@
         {
           "id": "PhobosPanelResidueR2",
           "name": "Phobos' Rivetline Identified Panel Residue R2 (13 kg)",
+          "stackLimit": 1,
           "massKg": 13.0,
           "baseValue": 0.009999999776482582,
           "installed": false,
@@ -7430,6 +7529,7 @@
         {
           "id": "PhobosResidueCollectorInstalled",
           "name": "Phobos' Rivetline C2 Residue Collector",
+          "stackLimit": 1,
           "massKg": 20.0,
           "baseValue": 2400.0,
           "installed": true,
@@ -7509,6 +7609,7 @@
         {
           "id": "PhobosResidueCollectorInstalledDmg",
           "name": "Phobos' Rivetline C2 Residue Collector (Damaged)",
+          "stackLimit": 1,
           "massKg": 20.0,
           "baseValue": 600.0,
           "installed": true,
@@ -7593,6 +7694,7 @@
         {
           "id": "PhobosResidueCollectorLoose",
           "name": "Phobos' Rivetline C2 Residue Collector",
+          "stackLimit": 1,
           "massKg": 20.0,
           "baseValue": 2400.0,
           "installed": false,
@@ -7674,6 +7776,7 @@
         {
           "id": "PhobosResidueCollectorLooseDmg",
           "name": "Phobos' Rivetline C2 Residue Collector (Damaged)",
+          "stackLimit": 1,
           "massKg": 20.0,
           "baseValue": 600.0,
           "installed": false,
@@ -7760,6 +7863,7 @@
         {
           "id": "PhobosRivetlineCoolantCharge",
           "name": "Phobos' Rivetline Thermal Service Fluid Charge",
+          "stackLimit": 3,
           "massKg": 1.0,
           "baseValue": 20.0,
           "installed": false,
@@ -7771,6 +7875,7 @@
         {
           "id": "PhobosRivetlineRetainedCoolant",
           "name": "Phobos' Rivetline Retained Thermal Service Fluid",
+          "stackLimit": 1,
           "massKg": 1.0,
           "baseValue": 0.009999999776482582,
           "installed": false,
@@ -7782,6 +7887,7 @@
         {
           "id": "PhobosScrapReclaimerInputBin",
           "name": "Phobos' Rivetline R4 Reclaimer Feed",
+          "stackLimit": 1,
           "massKg": 0.0,
           "baseValue": 0.0,
           "installed": false,
@@ -7793,6 +7899,7 @@
         {
           "id": "PhobosScrapReclaimerInstalled",
           "name": "Phobos' Rivetline R4 Scrap Reclaimer",
+          "stackLimit": 1,
           "massKg": 180.0,
           "baseValue": 14800.0,
           "installed": true,
@@ -7872,6 +7979,7 @@
         {
           "id": "PhobosScrapReclaimerInstalledDmg",
           "name": "Phobos' Rivetline R4 Scrap Reclaimer (Damaged)",
+          "stackLimit": 1,
           "massKg": 180.0,
           "baseValue": 3700.0,
           "installed": true,
@@ -7963,6 +8071,7 @@
         {
           "id": "PhobosScrapReclaimerLoose",
           "name": "Phobos' Rivetline R4 Scrap Reclaimer",
+          "stackLimit": 1,
           "massKg": 180.0,
           "baseValue": 14800.0,
           "installed": false,
@@ -8044,6 +8153,7 @@
         {
           "id": "PhobosScrapReclaimerLooseDmg",
           "name": "Phobos' Rivetline R4 Scrap Reclaimer (Damaged)",
+          "stackLimit": 1,
           "massKg": 180.0,
           "baseValue": 3700.0,
           "installed": false,
@@ -8137,6 +8247,7 @@
         {
           "id": "PhobosScrapReclaimerSection",
           "name": "Phobos' Rivetline R4-S Scrap Reclaimer Assembly Section",
+          "stackLimit": 1,
           "massKg": 90.0,
           "baseValue": 6000.0,
           "installed": false,
@@ -8190,6 +8301,7 @@
         {
           "id": "PhobosShipbreakerInputBin",
           "name": "Phobos' Rivetline D4 Wall-panel Feed (4 panels / 96 kg)",
+          "stackLimit": 1,
           "massKg": 0.0,
           "baseValue": 0.0,
           "installed": false,
@@ -8201,6 +8313,7 @@
         {
           "id": "PhobosShipbreakerInstalled",
           "name": "Phobos' Rivetline D4 Dismantling Fixture",
+          "stackLimit": 1,
           "massKg": 160.0,
           "baseValue": 12000.0,
           "installed": true,
@@ -8280,6 +8393,7 @@
         {
           "id": "PhobosShipbreakerInstalledDmg",
           "name": "Phobos' Rivetline D4 Dismantling Fixture (Damaged)",
+          "stackLimit": 1,
           "massKg": 160.0,
           "baseValue": 3000.0,
           "installed": true,
@@ -8365,6 +8479,7 @@
         {
           "id": "PhobosShipbreakerLoose",
           "name": "Phobos' Rivetline D4 Dismantling Fixture",
+          "stackLimit": 1,
           "massKg": 160.0,
           "baseValue": 12000.0,
           "installed": false,
@@ -8446,6 +8561,7 @@
         {
           "id": "PhobosShipbreakerLooseDmg",
           "name": "Phobos' Rivetline D4 Dismantling Fixture (Damaged)",
+          "stackLimit": 1,
           "massKg": 160.0,
           "baseValue": 3000.0,
           "installed": false,
@@ -8533,6 +8649,7 @@
         {
           "id": "PhobosShipbreakerResidue",
           "name": "Phobos' Rivetline Mixed Panel Residue (13 kg)",
+          "stackLimit": 1,
           "massKg": 13.0,
           "baseValue": 0.009999999776482582,
           "installed": false,
@@ -8544,6 +8661,7 @@
         {
           "id": "PhobosShipbreakerSection",
           "name": "Phobos' Rivetline D4-S Dismantling Fixture Assembly Section",
+          "stackLimit": 1,
           "massKg": 80.0,
           "baseValue": 4800.0,
           "installed": false,
@@ -11322,15 +11440,15 @@
   "sourceHashes": {
     "mods/PhobosAgriculture/framework/equipment-names.json": "aad5c48acf15576e70469fdb9ff245de55e82b3fa2a4453afedf786d99c55174",
     "mods/PhobosAgriculture/framework/recipes.json": "3a8a1e8949e3fa5071464a84658bf4c43f3abc732dd2244cb379fb8359933ca6",
-    "mods/PhobosAgriculture/mod_info.json": "e9b99c12a75c7da52871815c5801b709560b1ed4d78356e0fac4188e4b75414e",
+    "mods/PhobosAgriculture/mod_info.json": "0e6f95b6f970c8baaf776845c20a937731a0af9308a4e390508881d8296b625c",
     "mods/PhobosAutoNav/data/cooverlays/phobos_approach_assist.json": "7208e3ca5bdabc6cba5d89ea17e2fd5ca30667fcf2cd12e0d036c82fe96d284d",
     "mods/PhobosAutoNav/data/guipropmaps/phobos_approach_assist.json": "b58a900cf980995085aaf4db06e4dbf2d6bd7287762475662035d4947d7eac0b",
     "mods/PhobosAutoNav/framework/equipment-names.json": "478a9416b2eb043c18fd5aac3b1720d512fdc9aa363c8411f831fa2fc9dfbee2",
     "mods/PhobosAutoNav/framework/recipes.json": "b03ff79d6c08b75c89b4bf30cd459e46de410366a505aa93ca5190b1ce1d90c4",
-    "mods/PhobosAutoNav/mod_info.json": "2d2214fbc54aca310d3d130e295fa35e69f8a19a2e4692a79470f05f49f45b30",
+    "mods/PhobosAutoNav/mod_info.json": "e62aa225e09307a005cadc183fc083997d6b8b6f2aa2a73c8fd62ddf0983b660",
     "mods/PhobosFramework/data/conditions/phobos_framework.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
     "mods/PhobosFramework/framework/equipment-names.json": "8d64a49207830ca57808d0de92ac82feaf95fb200dd550888e795bb7ed37afb7",
-    "mods/PhobosFramework/mod_info.json": "eac60e33f107aad222e0c88af09fd95c80e49931bd5f1ea7df6e9dc4f1751f68",
+    "mods/PhobosFramework/mod_info.json": "a49b9252536ddcc6338f780f28772da6b3d1409a73df6215a7a00113af3a99e9",
     "mods/PhobosManufacturing/data/conditions/phobos_manufacturing.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
     "mods/PhobosManufacturing/mod_info.json": "ca699100a8084899d77a65e2a54e6d94c9b67f808addfe5367ea2306d4fce21b",
     "mods/PhobosShipbreaker/crafting/recipes.json": "8b0f034a7c732fec44ac31585321347040ee2074cd330cd3e5ecb90bb4ab7df4",
@@ -11338,10 +11456,10 @@
     "mods/PhobosShipbreaker/data/condtrigs/phobos_shipbreaker.json": "c7d4104df596d3fd362d9a80f4703178eafc5d3151bd53907814732ec84d3585",
     "mods/PhobosShipbreaker/framework/equipment-names.json": "06ca1a5fe39812844c8f114303e7205b1d366f8466bd614966e39f5f57844db8",
     "mods/PhobosShipbreaker/framework/recipes.json": "fb28b45a6f6c35860cea3dbe7cdc9ec23f5fc1ec9cb346ffee71b53a1cafec75",
-    "mods/PhobosShipbreaker/mod_info.json": "7ecd3b9f5d3c55ed3d0d0b34dfda86bf407f63341516120a8f202a9d5c07061a",
-    "src/PhobosAgriculture/Artwork.cs": "c0b0f215961a5e35aa0d7bd174a0c3edddbbcf1ed5e7238039cf9d940bfd38fd",
+    "mods/PhobosShipbreaker/mod_info.json": "13dcfa3f6f30c73436e124b2f6806e79751576279e2cb4dd7330e0c96875df7f",
+    "src/PhobosAgriculture/Artwork.cs": "ccae66ac85e7dbe64d47bb3f93153558ca1b893a039310c688e366a1dd48408f",
     "src/PhobosAgriculture/AssemblyInfo.cs": "441ebc13e73f63e15379d179bdcde910645df15d5847671cdfff7cd313fbf66b",
-    "src/PhobosAgriculture/BulkDefinitions.cs": "e07ed15846a0d762d4ef57a367c31fe735a87f8210c6ac7ea3c27b8f870c2137",
+    "src/PhobosAgriculture/BulkDefinitions.cs": "777e3fb87c64eeaa8cb3a537958a5e54fc05b1dc0a21aa4ccc407dc08cc38b04",
     "src/PhobosAgriculture/BulkHooks.cs": "41b77a4286ccd58fbfb7fc088fdf665df15b5ac3e8a681440eba19278dc69111",
     "src/PhobosAgriculture/BulkService.cs": "818f58f3a25df9dae9491ec55548051c2c4c6d0f95e2232fa7d6d71b489aa5f2",
     "src/PhobosAgriculture/BulkTrading.cs": "bbcab42c9698e91c8e9026fe61519e6bed4f4106ad334da9c5f0d25816a2ed11",
@@ -11355,25 +11473,26 @@
     "src/PhobosAgriculture/Core/RecyclerAttachment.cs": "f30d14ce5775f04f521d8d4a141ca2d8e161575aa02d8b196f26dfc65d37166f",
     "src/PhobosAgriculture/Core/TreatmentCartridge.cs": "904486b97a333d4a193a7e6208637222dfe3b08e579d4d15dddca395043363d9",
     "src/PhobosAgriculture/CrewProvider.cs": "418d1d04f3f33b5fa09a94f517be8c9fa10e94ee0ad1af7d716d8aea0299dd20",
-    "src/PhobosAgriculture/Definitions.cs": "16745a098338fc7574f4de8ed01ffdc5fe316ec75b8c9993aad65b808aa7c0aa",
+    "src/PhobosAgriculture/Definitions.cs": "2faa187ce7bbfd63f3061f3f7415ff83911594649a3dcaf15181c87b4039bd28",
     "src/PhobosAgriculture/EquipmentEconomy.cs": "8273cee6d1b4ff1633f690eb6cfbffc2810ed972f4f1f4b83944382dae96c340",
-    "src/PhobosAgriculture/IrrigationDefinitions.cs": "9b5b23cea0fc885c2ef1caa82325f686db1365468b7f80ccb35788d68ae2932f",
+    "src/PhobosAgriculture/IrrigationDefinitions.cs": "4fef8fb890ddb0408b0f5ff44d8a6eb8917f2af9f3869c3fccbbbe59bd3cb6b9",
     "src/PhobosAgriculture/IrrigationService.cs": "dbda414e08127beef40fa455aef253f3f5f5ebaadac93a17a2d3b7e5217d708c",
     "src/PhobosAgriculture/LineService.cs": "ff3dcabc978cd2252b5ab328c5a2b634c5825231492f9f2d0873c8d4a877d4e3",
     "src/PhobosAgriculture/LootContent.cs": "30d5fe01e8b9f9f26c6100065bc752df6d54a86da283fff1812fd865f77d4a62",
     "src/PhobosAgriculture/MaterialOperations.cs": "fa2aef354216a963c5292ce022536b97e43a160b8ea5df3766972a1d90d675ec",
     "src/PhobosAgriculture/Panel.cs": "2eb015690e81830cf24dadb7102fb842a3e2fadd32a52d61e44950d056e424d8",
     "src/PhobosAgriculture/PanelConfiguration.cs": "5c0a35b39f385a1a9c3515970b6f93e66677a2ac7f3d7e4bcb2b91cfef713003",
-    "src/PhobosAgriculture/PhobosAgriculture.csproj": "b22ca180594b7dda425538559193d0c25f82202daa44ceb9d0eb35651ad1eac2",
-    "src/PhobosAgriculture/Plugin.cs": "4b2e52a3a1fafc931d8a6d0855464a1ae1d6ed108508f85261ddcf4017d691d0",
+    "src/PhobosAgriculture/PhobosAgriculture.csproj": "58f6ce1505301344aa7f318bb335c4d4ff81eba44adcf3e7abbc134785f1f8ce",
+    "src/PhobosAgriculture/Plugin.cs": "dd89c779203ea19368bb032acfea5d0c27bf049a2de934d5bcf63b79397354a2",
     "src/PhobosAgriculture/RecoveryService.cs": "fa5bd63314d8c6abfe7f225a927c36d92203bd11f1bfdf8f7085a71615b92f6e",
     "src/PhobosAgriculture/RecyclerCapture.cs": "3c33048a4896961c1d69ee87827cc3557f61548124e5c95a1a43882139dc9fb1",
     "src/PhobosAgriculture/RegionalEconomy.cs": "de3792e8ce5dc53879ba6533d02a29b74f8263d785b914017a876c0d480b701d",
     "src/PhobosAgriculture/Service.cs": "6be6d387d7bcf55e33011b630a480f251ea10d99706bb772d64f8675755078ce",
     "src/PhobosAgriculture/SolutionService.cs": "b0124863ac541413458ca930eb49d252e95e9c9a766245ac664f7ef23b5c0c33",
+    "src/PhobosAgriculture/StackLimits.cs": "821b2e3427b23676c50e3959b1953023c99711d326b29396d2f3c645db4196ae",
     "src/PhobosAgriculture/StockQuantities.cs": "07fe3a7afc3da2d5425cd71713bf6e1f4b265afcfd9c2cd42a1c80fa7f3dcf1f",
     "src/PhobosAgriculture/Text.cs": "46728b07c9ec483275df903c8c872474e08ee59e99ffa8638045cb5faf0bd18f",
-    "src/PhobosAgriculture/WorkupDefinitions.cs": "d8ad71576366b5b502b8caad005aaa8a536385720704555efc1c92c422f0fede",
+    "src/PhobosAgriculture/WorkupDefinitions.cs": "0dc6f88881f63f8dffcc86f31c86506490cfb8480ff66e56d7b197d8f39ecf51",
     "src/PhobosAgriculture/WorkupService.cs": "4deb1ea07282cc14d66e8843d55fdeea95b345b5c462023e4b9b2337458785c8",
     "src/PhobosAutoNav/Adapted/AutoNavCore.cs": "065b85aaa278249de26b6978ee9053605a100ca5840670349e8e2801787e52f0",
     "src/PhobosAutoNav/Adapted/TargetRef.cs": "f02c0687e083f16847d0c3857f2292cacd508b7b39be8631172fc746c3194206",
@@ -11398,7 +11517,7 @@
     "src/PhobosAutoNav/Core/TorchRules.cs": "400327d85cb0db9e2ea6c93f7d4afea074d33726d0018f4f25a99e3057a8fd04",
     "src/PhobosAutoNav/CrewProvider.cs": "916e080293e9cc07f450b7447b60482d248600d2fa5c8753df5328870fd27e24",
     "src/PhobosAutoNav/DockingAdapter.cs": "924401fdba185f4b9c757e34cf25ba12ed7977376b7a5ad06cda7d594cb3f257",
-    "src/PhobosAutoNav/EquipmentContent.cs": "0a5c6fc238d30dda7792f800da6bfabd961cb39c009782aca7e8ad88749f23bc",
+    "src/PhobosAutoNav/EquipmentContent.cs": "7372b5f9eedac930bf960b37435c454e2850bcb92f19fe148f2f78a6bda74faf",
     "src/PhobosAutoNav/FireControlController.cs": "61c2915e12eec75eeae9a2062761f9bf3d4879c28b10bc79087569ee5cdf6902",
     "src/PhobosAutoNav/HubLayout.cs": "9a47e76875d54016b1dd9b603ffc69b5485863bb3f867f9d1f3fc9e9c7682a3a",
     "src/PhobosAutoNav/IndustrialNavigation.cs": "3b1b4abe6aeb2dd67c45833068e561b9113580fdd179f78ad5c2b9ce829496a5",
@@ -11418,8 +11537,8 @@
     "src/PhobosAutoNav/NavigationService.cs": "7540fe7545198fc9ec256bcdb6208bb260749517bafdbe3bcf909020f88e8f5d",
     "src/PhobosAutoNav/PanelDepartureSettings.cs": "41101e08241fa63f112fe8b009420996e25b40a643e9da6d10bfcd908b510bdf",
     "src/PhobosAutoNav/PerformanceMetrics.cs": "349cfaef02af245464dc68235c368c0ba399f4e6c033b9b996f7cc74d5e979aa",
-    "src/PhobosAutoNav/PhobosAutoNav.csproj": "9086b2575d039f601deb14b7b2a404649bd812067f5fe7f290374f9fa03cc887",
-    "src/PhobosAutoNav/Plugin.cs": "e9204c485d3f8eb9f7e0e0670ce112bce8af1b35b7566bab95af92c2731da736",
+    "src/PhobosAutoNav/PhobosAutoNav.csproj": "e65a487e1798b236de65829b497d30e3962ea2579c24005ec13903182997c0d3",
+    "src/PhobosAutoNav/Plugin.cs": "00a530aea6bf45e1125d5999f81117f2bfe06ca6433dbe092e609bc25f0ce715",
     "src/PhobosAutoNav/RegionalEconomy.cs": "dc2973df21debf6d6a18b630981ba7a0edfba239969b488461114e89dcc80f0c",
     "src/PhobosAutoNav/RotarySelector.cs": "2e2005b2e02dc8a1ddd2080a4b127bc7c326e19ff17cb56f35ad567917580d3e",
     "src/PhobosAutoNav/StockQuantities.cs": "71ddfe767ea5060dc6f998f02c47046bcb4d9953a93582eace4c9781f0041173",
@@ -11497,15 +11616,15 @@
     "src/PhobosFramework/Persistence/SavedGridHeader.cs": "b7ef65702f570dfb2d267b97c726e2ba02b420bfbbc2c5471ef4ac7479874bb2",
     "src/PhobosFramework/Persistence/SavedPlaceholderHealth.cs": "358c35db2a5f73335cc5930e808c25817da5fa6b1d9d91c217c5a119f26db91d",
     "src/PhobosFramework/Persistence/SavedRoomGrid.cs": "d7d70aba54e777d96d3079318f75320fb981a6dba8f3728570c84b8e54072fbe",
-    "src/PhobosFramework/PhobosFramework.csproj": "8b099d7934f93d79783971571919580e541027782bd3245682550d578a90f91a",
-    "src/PhobosFramework/Plugin.cs": "fcbd8a310dc9204c66bf64960e7033261b779025f5152fb4fdfaaf30b50c6a2b",
+    "src/PhobosFramework/PhobosFramework.csproj": "0357d8a5826bb4371d20751e33355050800ac56bb7fca32f2acbd3d24400438b",
+    "src/PhobosFramework/Plugin.cs": "23ec0586200e34e14fd821c81c66fdf54479889c9683bddb0aaff25c8283a3b3",
     "src/PhobosFramework/Processing/EnergyReceipt.cs": "cb31cd45ea69ee8d182b0578f50540393bd70e63e918a161f04f2b6a290199b2",
     "src/PhobosFramework/Processing/GasParcel.cs": "814357580cf3b2f7257a67042454823b454437f1fda38488521b66621e081fa3",
     "src/PhobosFramework/Processing/NativeEnergyReceipts.cs": "ed52382413127a5acd3700070f5d19975aec54c953d2fb2fa09eef08836fbe5e",
     "src/PhobosFramework/Processing/ProcessJob.cs": "8ea5c53b1cea328318047355a7dbeb4e5b5875d682f799b9d7d3fae4ee80f581",
     "src/PhobosFramework/Processing/ThermalMath.cs": "62a98ea93497801a84194c3ddb52b15f12ec97c0f0da141e9a764956a96ca2bc",
     "src/PhobosFramework/Registration/AdditiveLoot.cs": "b33ea6826fec3d55754cd976865a1de76cdab48823be0e569973196a4ff75f07",
-    "src/PhobosFramework/Registration/ApplianceDefinitions.cs": "53563315f6365d4d85c426105f97cb06af4ddfa196d6dc4ad096f9f10a8a3044",
+    "src/PhobosFramework/Registration/ApplianceDefinitions.cs": "8e205e2978d3708aa835e0ab59104191b97130bb3d85b247c26973b96e94083b",
     "src/PhobosFramework/Registration/DefinitionTransaction.cs": "32b8094092aa4645e4b0a19c0f7a59263c76dfe7f7fe26819232eff46d6cead9",
     "src/PhobosFramework/Registration/EquipmentSaveUpgrade.cs": "91ca5b438b952d8850687153ab1eb687b2b380945fe47d6e0cf2278202c940d0",
     "src/PhobosFramework/Registration/InstallMenu.cs": "1876a1222a5e766afe46380ccd0530e99246912d6b47bdb55399c87feaa1cdf2",
@@ -11531,15 +11650,15 @@
     "src/PhobosShipbreaker/CollectorRoute.cs": "7a1a943279a718094e2e8c130344a62bab947a03e5e78ec2b73b6bb58dd651cb",
     "src/PhobosShipbreaker/CollectorService.cs": "24cca62fd06764a28ae7112ac08f74499564cdf02939e0231591b3456d51780a",
     "src/PhobosShipbreaker/ConsoleCommands.cs": "a6a197cf3ce0646148c861549ae27dcd017aa45328d2cff596014cf3a72147c7",
-    "src/PhobosShipbreaker/Content.cs": "75070cc76bd42a373fc3ca4db47e0a6aa4a7917b74d1355758334c6ba2b71330",
+    "src/PhobosShipbreaker/Content.cs": "027a29ef9c24ba62a36d20f43639e1c7e1f32f40aa1a200c259ad401c864dac8",
     "src/PhobosShipbreaker/ControlAuthority.cs": "1bad10780bc839976cd5becf865b51a5c056de92e0390e9242ed428c0feb1039",
-    "src/PhobosShipbreaker/CoolantService.cs": "cacb884eaa6efd5cc0c11ec9e83f6806206737d6f1a488174f2f2d33f0301071",
+    "src/PhobosShipbreaker/CoolantService.cs": "9b066f9802125868927c1bac4a02c1cd87fd6753dccb109db3e10d4bdf9ff429",
     "src/PhobosShipbreaker/Core/CaptureRules.cs": "0166d2bda0007870d3b6775fcd413d5253834c07c39e4ea59995a4c00fd1fea4",
     "src/PhobosShipbreaker/Core/CollectorCommand.cs": "1af59059c2bd2c032a750712e12833f83e28573034000756b3c345d93bd99dc5",
     "src/PhobosShipbreaker/Core/CollectorRules.cs": "21349875b1be7f45ffe42ed10ce30f9f34b72f7257a51c983011f5348a2c0e6a",
     "src/PhobosShipbreaker/Core/Commands.cs": "6e4a786128d0f4f86b8401057a2f90df96628279d0eda360fece0a902d5b488f",
     "src/PhobosShipbreaker/Core/CoolantCharge.cs": "76339dc6670dff12e9d33da4480793bfc76d0961503d6c05975afc6d4ded4432",
-    "src/PhobosShipbreaker/Core/DependencyContract.cs": "e553352333bfb8a330aaba6a522be3bfe2b08834984e0aeb323b850bd522fe67",
+    "src/PhobosShipbreaker/Core/DependencyContract.cs": "8b4bd383c3b759d36cd23c4e3f106c1491dfe0c8ebb4234bf93901d4aaaef973",
     "src/PhobosShipbreaker/Core/FurnaceBatch.cs": "a9fbc2a1f9be4c6f55dd7159e0202db6292f861f0704df6fb7ffd8dc19578f12",
     "src/PhobosShipbreaker/Core/FurnaceCooling.cs": "4c090e6c28b0cda7b2b646f4619dd9f3e139af9a4098912c590caeb45300842e",
     "src/PhobosShipbreaker/Core/FurnaceMaterialRules.cs": "9e875d11345f05a5d881bbf7bd84dc6e48713b459913ec81a525790bda52d307",
@@ -11558,10 +11677,10 @@
     "src/PhobosShipbreaker/EquipmentEconomy.cs": "1073ef4a6956a41d76712fc78a8222352ac6d682913f9dd360a7bf2f154bea20",
     "src/PhobosShipbreaker/EquipmentSnapshots.cs": "334bb5d510f43b577c4b8cd7a4f331e48fce6d223ceee100783277229420d3bd",
     "src/PhobosShipbreaker/FixturePanel.cs": "52358f984ab7155d5cf1c51699396735b2927f888bebb18b8af20bec9656ce96",
-    "src/PhobosShipbreaker/FurnaceConduitDefinitions.cs": "7c22eff30cec44447f5915a6e0796637ff9418ec9e01f52688c465d29203677d",
-    "src/PhobosShipbreaker/FurnaceConnectionView.cs": "36a7571fda12d77894d361698deaa51722b2c8ad79a67a3f9b09d296fb701878",
+    "src/PhobosShipbreaker/FurnaceConduitDefinitions.cs": "63d88f271c0333ee64d05cc227a5e494a13cda7156abb8a7b9f107f75a93da8e",
+    "src/PhobosShipbreaker/FurnaceConnectionView.cs": "5816832354a947cde9554020c05b442f0c59dfb89b0eb41c2db1bc5e77bc03a5",
     "src/PhobosShipbreaker/FurnaceCoolantRoute.cs": "12df0f8df00bf10fd422aba52c5f398b4a1c9d812ac51d43618dcdecbe4ed967",
-    "src/PhobosShipbreaker/FurnaceDefinitions.cs": "0f3129927794be729e7029bfc457330224878a60ab4f1d6ef93b7b85b213cccc",
+    "src/PhobosShipbreaker/FurnaceDefinitions.cs": "d592b633de635cf08151fc97a78c783fcd0148159b2b874a3e51344229ba767a",
     "src/PhobosShipbreaker/FurnaceInstallationView.cs": "30665788657608baae05620f2de3469a1581f8a79887d9120f35c71892d79248",
     "src/PhobosShipbreaker/FurnaceInstrumentView.cs": "ae3aa54600073c9abba7cbd3c3da5b08b967ac2515fe8dff6cc76fe3490a9ab2",
     "src/PhobosShipbreaker/FurnaceMaterials.cs": "e347479428eaf4f6106d9217781b991359995f38da0ebfa83e1da158c7185cd4",
@@ -11578,12 +11697,12 @@
     "src/PhobosShipbreaker/NativeAdapter.cs": "8320c05ddf6667060af21a98218e4df82015aba7feaeb124623d5eb57428083b",
     "src/PhobosShipbreaker/PanelConfiguration.cs": "74bcdd7f73eda6df2f29092c8493aaa852cf1518ce3afe6f12ff318c3dbc4bf2",
     "src/PhobosShipbreaker/PerformanceMetrics.cs": "91708a5cf54eea0b2b70a0625556b466fb2ecdbdfb60346bd855c44a68f644f5",
-    "src/PhobosShipbreaker/PhobosShipbreaker.csproj": "1aead7f60d832ae146621cd876f0278ede3ca1048c7d03f5a9bc1a63c1affd16",
+    "src/PhobosShipbreaker/PhobosShipbreaker.csproj": "41a567be2ed8496af6609eb5319b632d45f6cda1b8f9afce038cb1fdc145034d",
     "src/PhobosShipbreaker/PlaceholderLoadRepair.cs": "8fdf6627ae35cd6d6c281a92a728e588f516ba7e4138e7204cc5c69549db44c4",
-    "src/PhobosShipbreaker/Plugin.cs": "4f507f88e1b660c7547cb80188dc962e47ca02f9fb6500cec8975fd9ed984fa0",
+    "src/PhobosShipbreaker/Plugin.cs": "75dc6550d68f44fc0aa9d6858e53959bbb39eef6fb5212535175b35ed3554d3b",
     "src/PhobosShipbreaker/ProcessingCommands.cs": "5c0a603a4e2ae406bc94d5fcf0d30bb01b40512f57e474ab9ef5f2ab470a7320",
     "src/PhobosShipbreaker/ProcessingService.cs": "e2ce888fc8c850eb47632271f657d5d5918232b7f395a74e4a7f4c07ea464ca8",
-    "src/PhobosShipbreaker/ReclaimerDefinitions.cs": "876ee87e6a85180804cf8d697cd1ffa1873e082489929c191b6a29e3602618ab",
+    "src/PhobosShipbreaker/ReclaimerDefinitions.cs": "a56fa6440c3c3eec6ec4856ff47fdcbba43bffa50faeb92b8ecd5a28157514b2",
     "src/PhobosShipbreaker/ReclaimerHeat.cs": "4adf7c76f4189e41fa306b4c4e968d38fe324a7698d0840eeef5ffea70fe9fb1",
     "src/PhobosShipbreaker/ReclaimerPanel.cs": "2da77d38e57c7e8be13e287809fa87b7a6025fe6b3b84ac7d695798e13d2a6a1",
     "src/PhobosShipbreaker/ReclamationGeometry.cs": "1b2d9c7f2bb479d5ec5d7d400253883a6153415eb20677776adfea68a501a8f9",
@@ -11596,8 +11715,8 @@
     "src/PhobosShipbreaker/TargetWallTransfer.cs": "674edc235e6b466056adc486b8063ebf1e3660697a1cf8a2ff8aae5eaa57a5ae",
     "src/PhobosShipbreaker/Text.cs": "2a0b7890addcbb0f4f8f71c48373cf352d7af8379905b01b1bc48bd0f84f7846",
     "tests/PhobosNative.Tests/EquipmentValueAudit.cs": "cca95052803934b6ac8af32979f066ca064942ca79ac87e4ec94b8b183815cac",
-    "tests/PhobosNative.Tests/ItemReferenceExport.cs": "4d48594455b0814a72ba21d0c4e4588c8a4135d9651f795c5c5cec9857b85392",
-    "tests/PhobosNative.Tests/Program.cs": "b63eb24cbb6270eb9db1d3134c083bc840a4d2d09f3bc459f68cb97c166fc2c6",
+    "tests/PhobosNative.Tests/ItemReferenceExport.cs": "0ae2ce0937ef548da12cd6dd5b08ddf7d5ef3ad44cce88c920b7c437579236c8",
+    "tests/PhobosNative.Tests/Program.cs": "663612d439231731b9f836d912327fd845ac2910f8f110dfb2b92070e4b73c0d",
     "translations/PhobosAgriculture/en.json": "1ed5d77054bf32a28c6b352cbf9cd2fc78361c9b623b5730c534dbcd3cba49a2",
     "translations/PhobosAutoNav/en.json": "6e228589fbe90ef1c4d334fc4fb5be2e5f677a7143dff87662e56f02486fb552",
     "translations/PhobosFramework/en.json": "5032547db8b34a08b424441afd068b563b025c71f450b6db8c22b12e29c8a14d",

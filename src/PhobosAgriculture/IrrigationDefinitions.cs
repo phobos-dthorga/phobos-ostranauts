@@ -62,6 +62,7 @@ internal static class IrrigationDefinitions
         {
             bool installed = form.StartsWith("Installed"), damaged = form.EndsWith("Dmg");
             var co = d.Objects[Pipe + form]; var item = d.Items[co.strItemDef];
+            co.nStackLimit = installed ? 1 : StackLimits.Pipes;
             if (damaged)
             {
                 d.Installables[co.strName + "Repair"].aInputs = new[] { "TIsScrapAluminum=1x1" };

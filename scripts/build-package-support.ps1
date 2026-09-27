@@ -7,7 +7,7 @@ function Copy-PhobosPlayerGuides {
     # Every suite package has the same entry point and its directly linked guides.
     # Keep their filenames as well as the mod-specific README so links remain usable.
     foreach ($name in @(
-        'crew-automation',
+        'crew-automation', 'artwork-completion',
         'control-panel-guide',
         'agriculture-player-guide', 'agriculture-implementation', 'agriculture-research', 'agriculture-first-slice', 'agriculture-roadmap', 'agriculture-living-visuals', 'agriculture-economy-review', 'agriculture-economy-evidence', 'asset-generation-policy',
         'performance-captures', 'furnace-player-guide', 'furnace-coolant-conduits', 'furnace-connections-and-instruments', 'furnace-first-cycle', 'furnace-repair-castings', 'furnace-material-routing', 'manufacturing-handover',
@@ -25,6 +25,13 @@ function Copy-PhobosPlayerGuides {
         Copy-Item -LiteralPath (Join-Path $RepoRoot "docs/$name.md") -Destination $Package
     }
     # Keep the optional audio preview, licence/provenance and reproducible source usable offline.
+    $artTarget = Join-Path $Package 'assets/artwork-completion'
+    New-Item -ItemType Directory -Force -Path $artTarget | Out-Null
+    foreach ($record in Get-ChildItem -LiteralPath (Join-Path $RepoRoot 'assets/artwork-completion') -File) {
+        Copy-Item -LiteralPath $record.FullName -Destination $artTarget
+    }
+    $artGuide = Join-Path $Package 'artwork-completion.md'
+    Set-Content -LiteralPath $artGuide -Value ((Get-Content -LiteralPath $artGuide -Raw).Replace('../assets/artwork-completion/', 'assets/artwork-completion/')) -Encoding utf8
     $audioTarget = Join-Path $Package 'assets/phobos-shipbreaker/audio'
     $scriptTarget = Join-Path $Package 'scripts'
     New-Item -ItemType Directory -Force -Path $audioTarget, $scriptTarget | Out-Null

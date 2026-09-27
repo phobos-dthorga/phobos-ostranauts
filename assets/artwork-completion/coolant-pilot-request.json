@@ -1,0 +1,27 @@
+{
+  "provider": "PixelLab",
+  "operation": "create_image_pixflux",
+  "request": {
+    "description": "One ORIGINAL small spacecraft industrial supply sprite: sealed squat rectangular GREY METAL COOLANT CANISTER viewed strictly vertically from above, teal-blue recessed top panel, a single round capped filler in upper right, chunky mustard-yellow carrying handle along upper edge. Clearly a clean fresh service-fluid container, not trash or a drink. Coarse deliberate pixel clusters and three-tone flat shading, utilitarian cream grey teal palette matching retro spaceship salvage equipment. Absolute overhead orthographic plan view, horizontal and vertical edges, NO visible front or side walls, NOT isometric. One centred complete object on 64x64 transparent canvas, at least 8px margin. Designed for 16x16 native export. No text, logos, letters, floor, shadows, gradients, glow, scenery or extra objects.",
+    "width": 64,
+    "height": 64,
+    "seed": 9270101,
+    "no_background": true,
+    "isometric": false,
+    "view": "high top-down",
+    "outline": "selective outline",
+    "shading": "basic shading",
+    "detail": "low detail"
+  },
+  "response": {
+    "content": [
+      {
+        "type": "text",
+        "text": "id: 26cff103-da6e-4b60-92e4-69272d7b96ad\njob_id: 26cff103-da6e-4b60-92e4-69272d7b96ad\ndescription: One ORIGINAL small spacecraft industrial supply sprite: sealed squat rectangular GREY METAL COOLANT CANISTER viewed strictly vertically from above, teal-blue recessed top panel, a single round capped filler in upper right, chunky mustard-yellow carrying handle along upper edge. Clearly a clean fresh service-fluid container, not trash or a drink. Coarse deliberate pixel clusters and three-tone flat shading, utilitarian cream grey teal palette matching retro spaceship salvage equipment. Absolute overhead orthographic plan view, horizontal and vertical edges, NO visible front or side walls, NOT isometric. One centred complete object on 64x64 transparent canvas, at least 8px margin. Designed for 16x16 native export. No text, logos, letters, floor, shadows, gradients, glow, scenery or extra objects.\nsize: 64x64px\ntransparent: True\nasset_id: 88ca0fb2-12e8-5373-8300-8aa6b2947147\nasset_status: pending (saved when generation completes)\nseed: 9270101\ncost: 1 generation\nstatus: processing (~10-40s)\n\nhint: get_image(job_id=\"26cff103-da6e-4b60-92e4-69272d7b96ad\")"
+      }
+    ],
+    "isError": false
+  },
+  "inputProvenance": "Text only; no native game or third-party assets uploaded.",
+  "status": "Submitted; poll original job, do not resubmit."
+}

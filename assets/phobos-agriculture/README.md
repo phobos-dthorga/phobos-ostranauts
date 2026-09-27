@@ -1,5 +1,10 @@
 # Agriculture artwork: living visuals and original pilot
 
+The [27 September completion pass](../artwork-completion/README.md) supersedes
+the older recovery/bulk commodity reuse notes below with seven dedicated supply
+sprites and three state variants for Firstlight-4, Hearth-2, W2 and B2. Original
+masters and approved food sprites are retained.
+
 ## Commodity sprites (0.6.1)
 
 Twelve original PixelLab item sprites replace borrowed native stock images.

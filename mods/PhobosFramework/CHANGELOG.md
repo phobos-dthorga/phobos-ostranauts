@@ -16,6 +16,16 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.28.0] - 2026-09-27 - Draft
+
+### Added
+
+- Add shared native appliance state-art binding for dedicated damaged, loose and loose-damaged imagery. Content mods own sprites; the helper changes image and portrait references while preserving physical definitions and saved identities.
+
+### Compatibility and limits
+
+- Agriculture 0.15.0 and Shipbreaker 0.28.0 use the new helper. Existing appliance registration signatures remain available. Native definition checks verify that geometry, conditions, actions and economic fields survive repeat binding. No installation, Steam publication or gameplay validation is claimed.
+
 ## [0.27.0] - 2026-09-27 - Draft
 
 ### Bulk custody and purchasing

@@ -65,6 +65,8 @@ def validate(data, config):
         if set(actual) != set(declared):
             raise ValueError(f'{mid}: explain new items {sorted(set(actual)-set(declared))}; remove stale entries {sorted(set(declared)-set(actual))}')
         for item in mod['items']:
+            if type(item.get('stackLimit')) is not int or item['stackLimit'] < 1:
+                raise ValueError(f'Invalid stack limit for {item["id"]}; refresh the native export')
             if item['massKg'] < 0 or item['baseValue'] < 0:
                 raise ValueError(f'Invalid economic values for {item["id"]}')
         known = set(actual) | {a for i in mod['items'] for a in i['aliases']}
@@ -96,7 +98,9 @@ def render(mod, notes, config):
            'Empty cargo and follow the machine’s local maintenance guards first. Work speed depends on crew, tools and current condition.', '',
            '**Finding stock:** the generated percentages are defaults per eligible native stock/loot roll, not per ship or guaranteed shop availability. '
            'Offers are additive, may be independent, and require normal restocking. Merchant offers request the listed finite lot when successful; separate world-loot branches retain their own listed quantities. '
-           'Configuration, capacity and native generation rules still apply; loading an existing save does not refill its inventories.', '']
+           'Configuration, capacity and native generation rules still apply; loading an existing save does not refill its inventories.', '',
+           '**Stacking:** limits below apply to loose items on the ground or in compatible containers; 1 means no multi-item stack. '
+           'Installed equipment remains individual. Limits count objects, not kilograms, and do not change merchant lot sizes or per-object contents.', '']
     if not mod['items']:
         out = out[:8]
     if notes['groups']:
@@ -132,9 +136,9 @@ def render(mod, notes, config):
         rows = []
         for item in shown:
             dismantle = next((j for j in item['jobs'] if j['kind'] == 'dismantle'), None)
-            rows.append((state(item), f'{item["massKg"]:g}', money(item['baseValue']),
+            rows.append((state(item), str(item['stackLimit']), f'{item["massKg"]:g}', money(item['baseValue']),
                          money(sum(p['baseValue'] for p in dismantle['outputs'])) if dismantle else 'No mod-authored yield'))
-        out += table(['Form / origin', 'Mass (kg)', 'Base (cr)', 'Dismantle outputs (cr)'], rows)
+        out += table(['Form / origin', 'Max stack', 'Mass per item (kg)', 'Base per item (cr)', 'Dismantle outputs per item (cr)'], rows)
         out += ['In-game name' + ('s' if len({i['name'] for i in shown}) > 1 else '') + ': ' + '; '.join(dict.fromkeys(i['name'] for i in shown)) + '.', '']
         services = []
         for item in shown:

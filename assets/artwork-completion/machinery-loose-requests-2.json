@@ -1,0 +1,71 @@
+[
+  {
+    "key": "furnace-loose",
+    "family": "furnace",
+    "request": {
+      "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. LOOSE TRANSPORT state: add flat grey protective cover over the round chamber, two mustard retaining straps, small flat caps over side controls. Keep EXACT canvas, outer silhouette, facing, mounting points and pivot. Transparent margins, coarse pixels, no text.",
+      "width": 192,
+      "height": 192,
+      "no_background": true,
+      "seed": 9270510,
+      "inputReference": "references/furnace.png"
+    },
+    "response": {
+      "content": [
+        {
+          "type": "text",
+          "text": "id: a54f7073-05ee-4c18-a041-81604606200a\njob_id: a54f7073-05ee-4c18-a041-81604606200a\nmodel: pixen\nedit: ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. LOOSE TRANSPORT state: add flat grey protective cover over the round chamber, two mustard retaining straps, small flat caps over side controls. Keep EXACT canvas, outer silhouette, facing, mounting points and pivot. Transparent margins, coarse pixels, no text.\nsource: 192x192px\nsize: 192x192px\ntransparent: True\nseed: 9270510\nasset_id: 9305ac1e-9cbb-5511-b07a-40b1605284d5\nasset_status: pending (saved when generation completes)\ncost: 1 generation\nstatus: processing (~10-40s)\n\nhint: get_image(job_id=\"a54f7073-05ee-4c18-a041-81604606200a\")"
+        }
+      ],
+      "isError": false
+    },
+    "provider": "PixelLab",
+    "operation": "edit_image_pixen"
+  },
+  {
+    "key": "radiator-loose",
+    "family": "radiator",
+    "request": {
+      "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. LOOSE TRANSPORT state: add three grey flat protective strips across the fins with two mustard retaining straps. Keep EXACT canvas, outer silhouette, facing, mounting points and pivot. Transparent margins, coarse pixels, no text.",
+      "width": 192,
+      "height": 128,
+      "no_background": true,
+      "seed": 9270511,
+      "inputReference": "references/radiator.png"
+    },
+    "response": {
+      "content": [
+        {
+          "type": "text",
+          "text": "id: 1bf031cc-4088-444e-b75d-2e401d45766c\njob_id: 1bf031cc-4088-444e-b75d-2e401d45766c\nmodel: pixen\nedit: ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. LOOSE TRANSPORT state: add three grey flat protective strips across the fins with two mustard retaining straps. Keep EXACT canvas, outer silhouette, facing, mounting points and pivot. Transparent margins, coarse pixels, no text.\nsource: 192x128px\nsize: 192x128px\ntransparent: True\nseed: 9270511\nasset_id: 764cb6f7-44c1-5d18-8e59-9fb298b98f4f\nasset_status: pending (saved when generation completes)\ncost: 1 generation\nstatus: processing (~10-40s)\n\nhint: get_image(job_id=\"1bf031cc-4088-444e-b75d-2e401d45766c\")"
+        }
+      ],
+      "isError": false
+    },
+    "provider": "PixelLab",
+    "operation": "edit_image_pixen"
+  },
+  {
+    "key": "thermal-port-loose",
+    "family": "thermal-port",
+    "request": {
+      "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. LOOSE TRANSPORT state: add a flat grey protective cap over the circular head and one mustard retaining band. Keep EXACT canvas, outer silhouette, facing, mounting points and pivot. Transparent margins, coarse pixels, no text.",
+      "width": 64,
+      "height": 64,
+      "no_background": true,
+      "seed": 9270512,
+      "inputReference": "references/thermal-port.png"
+    },
+    "response": {
+      "content": [
+        {
+          "type": "text",
+          "text": "id: 4901b95c-2d16-4bb4-8a3e-57f71311db06\njob_id: 4901b95c-2d16-4bb4-8a3e-57f71311db06\nmodel: pixen\nedit: ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. LOOSE TRANSPORT state: add a flat grey protective cap over the circular head and one mustard retaining band. Keep EXACT canvas, outer silhouette, facing, mounting points and pivot. Transparent margins, coarse pixels, no text.\nsource: 64x64px\nsize: 64x64px\ntransparent: True\nseed: 9270512\nasset_id: 3ec5c3b4-cc7e-508e-ae96-f4894c0b10e8\nasset_status: pending (saved when generation completes)\ncost: 1 generation\nstatus: processing (~10-40s)\n\nhint: get_image(job_id=\"4901b95c-2d16-4bb4-8a3e-57f71311db06\")"
+        }
+      ],
+      "isError": false
+    },
+    "provider": "PixelLab",
+    "operation": "edit_image_pixen"
+  }
+]

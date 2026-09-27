@@ -16,6 +16,8 @@ if ($LASTEXITCODE -ne 0) { throw 'Native definition checks failed.' }
 $package = New-PhobosPackage -RepoRoot $repoRoot -Id PhobosAgriculture -Readme 'docs/agriculture-player-guide.md' -ExtraDocs @('docs/agriculture-player-guide.md', 'docs/agriculture-bulk-storage.md', 'docs/framework-bulk-storage.md', 'docs/agriculture-bulk-storage-research.md', 'docs/agriculture-first-slice.md', 'docs/agriculture-research.md', 'docs/agriculture-roadmap.md', 'docs/agriculture-implementation.md', 'docs/agriculture-living-visuals.md', 'docs/agriculture-loot.md', 'docs/agriculture-seed-production.md', 'docs/agriculture-treatment-economy.md', 'docs/agriculture-nutrient-production.md', 'docs/agriculture-nutrient-recovery.md', 'docs/asset-generation-policy.md')
 Copy-Item -LiteralPath (Join-Path $repoRoot 'assets/phobos-agriculture/generation-records.json') -Destination (Join-Path $package 'agriculture-art-provenance.json')
 Copy-Item -LiteralPath (Join-Path $repoRoot 'assets/phobos-agriculture/README.md') -Destination (Join-Path $package 'agriculture-art-notes.md')
+$artNotes = Join-Path $package 'agriculture-art-notes.md'
+Set-Content -LiteralPath $artNotes -Value ((Get-Content -LiteralPath $artNotes -Raw).Replace('../artwork-completion/', 'assets/artwork-completion/')) -Encoding utf8
 Copy-Item -LiteralPath (Join-Path $repoRoot 'assets/phobos-agriculture/exports.json') -Destination (Join-Path $package 'agriculture-art-exports.json')
 Copy-Item -LiteralPath (Join-Path $repoRoot 'assets/phobos-agriculture/living-visuals-generation-records.json') -Destination (Join-Path $package 'agriculture-living-art-provenance.json')
 Copy-Item -LiteralPath (Join-Path $repoRoot 'assets/phobos-agriculture/layers.json') -Destination (Join-Path $package 'agriculture-art-layers.json')

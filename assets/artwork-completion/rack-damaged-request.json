@@ -1,0 +1,21 @@
+{
+  "provider": "PixelLab",
+  "operation": "edit_image_pixen",
+  "request": {
+    "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. Preserve EXACT silhouette, four empty tray positions, margins, inlet and pivot. Add localized dark scorch to upper-right electronics and two small cracks on the cream frame. No plants, debris, smoke, text or new fittings. Keep coarse pixel style.",
+    "width": 128,
+    "height": 128,
+    "no_background": true,
+    "seed": 9270400,
+    "inputReference": "references/rack.png"
+  },
+  "response": {
+    "content": [
+      {
+        "type": "text",
+        "text": "id: 13275813-3bf6-4182-b1a4-c825cf256a71\njob_id: 13275813-3bf6-4182-b1a4-c825cf256a71\nmodel: pixen\nedit: ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. Preserve EXACT silhouette, four empty tray positions, margins, inlet and pivot. Add localized dark scorch to upper-right electronics and two small cracks on the cream frame. No plants, debris, smoke, text or new fittings. Keep coarse pixel style.\nsource: 128x128px\nsize: 128x128px\ntransparent: True\nseed: 9270400\nasset_id: 8a4a3bd0-26e4-5ebf-b89e-c2df3c19f393\nasset_status: pending (saved when generation completes)\ncost: 1 generation\nstatus: processing (~10-40s)\n\nhint: get_image(job_id=\"13275813-3bf6-4182-b1a4-c825cf256a71\")"
+      }
+    ],
+    "isError": false
+  }
+}
