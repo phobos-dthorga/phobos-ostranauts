@@ -21,7 +21,7 @@ also depend on market and trading modifiers.
 | Venus orbital scrap kiosk | 15% broken machine |
 
 These are normal additive stock entries. Existing merchant inventory is not
-replaced when loading a save. Stock space, native restocking and Framework's
+replaced when loading a save. Stock space, normal restocking and Framework's
 availability setting still apply. Arriving at a station does not guarantee a
 unit is for sale. Existing Shipbreaker equipment retains its offers.
 

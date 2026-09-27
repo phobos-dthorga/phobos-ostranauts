@@ -1,63 +1,40 @@
 # Phobos control panels
 
-Framework 0.28.0, Agriculture 0.15.0, Shipbreaker 0.28.0 and Auto Nav 0.20.1
+Framework 0.28.1, Agriculture 0.15.1, Shipbreaker 0.28.1 and Auto Nav 0.20.2
 prepare this interface update. Manufacturing remains a scaffold with no operational
 panel or jobs. These are unpublished development candidates.
 
 ## Finding controls
 
-Open a machine normally to start on that machine. C1 retains its ship equipment
-overview and observations. The common frame keeps navigation and primary actions
-outside the scrolling content. Equipment and detail lists scroll independently;
-below 1,000 native content units, Back switches between list and detail pages.
-Actual native panel bounds, including the game's UI scale, choose that layout.
-Asterel uses slate, Verdemorrow muted green and Rivetline amber accents.
-Selected crew tabs/equipment have a distinct tint and live status has its own
-inset. Long compact captions truncate each line with an ellipsis at the actual
-laid-out width; full selected storage names wrap above their action buttons.
-The native roster shortcut reads **Orders & training**. Stock steppers use drawn
-minus/plus symbols; the lower/upper limit disables the corresponding button.
-**Details & diagnostics** toggles one technical-identity block and can be closed
-again without duplicating the live status.
+Open a machine's Control Panel to work beside it, or use C1 for equipment on
+your ship. **Operation** holds Start/Pause and the current job. **Supplies &
+connections** holds stores, links and materials. **Details & diagnostics** shows
+technical information when you need to investigate a fault.
 
-Crew operations has separate **Orders**, **Crew & Training** and **Time-skip** views.
-Orders start disabled. Select a process, target stock and approved stores where
-applicable, Apply, then Enable / Resume. The B2 form contains only its relevant
-settings. Native AutoTask, duties, shifts and personal needs remain authoritative;
-permission changes use their own Apply form. Training bars report saved progress.
+Crew operations has **Orders**, **Crew & Training** and **Time-skip** pages. The
+crew roster shortcut is **Orders & training**. Long lists scroll; on narrower
+screens, use Back to return from equipment details to the list. Long compact
+labels may end in an ellipsis; selected storage names wrap above their buttons.
 
-Agriculture groups operations, supplies/connections and details, retaining its
-live crop-stage artwork. Planting, harvesting, workup and draining remain explicit
-service actions. C1 and Shipbreaker group equipment operation, routing, maintenance
-and diagnostics. F9 and the old collector/reclaimer entry points open the same
-native panel, retaining local-access checks. The F6 keeps its existing audited
-native gauges and safety controls, with standard controls available as fallbacks.
-
-Auto Nav stays in the approved native Polaris footprint with its existing art.
-Flight, propulsion, fire and departure remain distinct. Navigation drafts show
-Apply and Discard in the lower caption area while Stop and Cease remain available.
-New flight commands wait until the navigation draft is resolved. The native panel's
-placement controls and rescue view retain precedence.
+Auto Nav keeps separate navigation, propulsion, fire and departure controls in
+Polaris. Stop and Cease Fire remain available while editing flight settings.
+Use the navigation console's Edit controls to place the hub.
 
 ## Applying settings
 
-Configuration selections remain drafts. **Apply** validates the complete open form
-against fresh state; **Discard** reloads the saved values. Leaving a dirty form
-requires Apply, Discard or Keep editing. A failed or stale apply retains the draft
-and explains the failure. Stop acts immediately, including with a draft open;
-an independent stop makes an older draft stale rather than silently clearing it.
-Applying a changed enabled standing order suspends it for explicit Resume.
-Disabled and manually stopped orders retain their state.
+Changes to a settings form are not saved until you choose **Apply**. **Discard**
+reloads the saved settings. When leaving an edited form, choose Apply, Discard or
+Keep editing. If equipment or access changed meanwhile, the form stays open and
+explains why the settings could not be applied.
 
-Connection fields open focused Apply forms. Furnace heat, ramp and cooling settings
-are validated and applied together. Navigation cruise, arrival speed/distance and
-torch preference and departure intent are checked together. Start, Seal, Harvest, Drain, Undock, Fire
-and other operational actions still run explicitly through the owning checked
-service; applying configuration does not initiate production or a flight.
+**Stop acts immediately**, even while editing. If another control stops the job,
+reload the form before applying older changes. Changing an enabled standing order
+pauses it; choose Resume when ready. Applying settings alone does not start work,
+harvest a crop, drain supplies, undock or fire weapons.
 
 ## Choosing storage, connections and names
 
-**Change** opens a searchable candidate picker. Approved stores with relevant
+**Change** opens a searchable list. Approved stores with relevant
 contents sort first; Include empty / unsuitable makes the other eligible stores
 visible. Missing saved selections are retained and labelled unavailable. Connection
 pickers retain their content mod's candidate rules. Mission targets are limited
@@ -70,16 +47,13 @@ saved selection can still be cleared deliberately.
 
 **Pick on ship** shows a mode banner and dims the background around eligible
 objects. Brackets mark candidates; a line from the source machine animates cyan
-when native hit-testing finds a valid choice. Click overlapping objects to open
-a short choice list, or use Candidate list to return to the full picker. Right
+when an object can be chosen. Click overlapping objects to open
+a short choice list, or use Available objects to return to the full picker. Right
 or middle drag pans the view; scroll zooms. Back, Cancel or Escape restores the
-original panel, draft, camera position, zoom and follow preference. The picker does not select the native
-crew, issue movement or pickup, acquire targets or run machinery. Mouse/keyboard
-world handlers and native shortcut commands are suppressed during picking and through the release frame. The native Cancel command closes only the picker.
+original panel, draft, camera position, zoom and follow preference. Picking chooses an object for the form; it does not move crew or operate machinery. Cancel closes the picker.
 Access and candidate membership are checked again when applying.
 
-An optional display nickname is saved as protected Framework metadata, separate
-from the native name and object identity. Normal lists use names and location;
+An optional nickname helps you recognize equipment. The original item name stays unchanged. Normal lists use names and location;
 full object IDs remain available in diagnostics. Available native equipment art
 and portraits are referenced locally, with a neutral outline when absent. The
 original Phobos frame and its [provenance](../assets/phobos-industrial-console/README.md)

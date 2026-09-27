@@ -46,7 +46,7 @@ tiles require structural floor; the two outward tiles must be clear of ship
 structure and solid items, including docked neighbours. Repair damaged supporting
 walls. Rotation is supported in quarter turns.
 
-Connect native electrical conduit separately. Backing walls remain the native
+Connect electrical conduit separately. Backing walls remain the native
 pressure barrier. The collector is a sealed-transfer abstraction, not an open
 door, replacement hull or simulated airlock.
 

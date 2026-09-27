@@ -1,61 +1,28 @@
 # Current player guide
 
-The current console redesign uses compact views and checked drafts. See the
-[control-panel guide](control-panel-guide.md) for Apply/Discard, storage selection,
-ship picking, training and the separate Unity validation checklist.
+Keep the ship moving, turn salvage into useful stock, and grow something worth
+eating. This guide starts with installation and the basic shipbreaking loop.
 
-New in Auto Nav 0.18.0 / Shipbreaker 0.24.0: [explicit departure and shared local
-obstacle avoidance](auto-nav-departure.md), plus [G4 paid wall cutting, release,
-traversal and recapture](shipbreaker-reclamation.md). Requires Framework 0.24.0.
-Reload and manual takeover suspend these missions; gameplay evaluation remains
-separate from offline validation.
+- [Navigation and flight controls](auto-nav-instruments.md): fit a Polaris module,
+  select a sensor contact and choose Approach or Dock. Disengage leaves you coasting.
+- [Cultivation and cooking](agriculture-player-guide.md): grow potatoes or lettuce,
+  cook portions and add irrigation when you need it.
+- [Electric furnace](furnace-player-guide.md): cast aluminium housings with power,
+  cooling and room for the products.
+- [Crew orders](crew-automation.md): choose work and approved stores, then enable it.
+- [Control panels](control-panel-guide.md): Apply/Discard, storage selection and training.
+- [Equipment references](item-references.md): what each item does, where to find it,
+  installation, service bills and prices.
+- [Markets](solar-system-economy.md) and [stock quantities](merchant-stock.md):
+  availability depends on ordinary merchant restocking.
 
-Regional acquisition now covers the current vanilla solar system: see the
-[solar-system economy guide](solar-system-economy.md) for availability, native
-price factors and limits. The regional builds require Framework 0.23.0+.
-
-[Equipment and item references](item-references.md): functions, use, acquisition, prices and service information for each mod.
-
-Current optional [completion cues](shared-completion-cues.md) use Framework 0.21.0
-with Shipbreaker 0.19.0, Agriculture 0.8.0 and Auto Nav 0.14.0. Watches share one
-quiet volume/mute setting and never replay old events after loading.
-
-For equipment placement, see the [native INSTALL catalogue and tab locations](install-catalogue.md).
-
-Shipbreaker 0.19.1 introduced a
-[pending-construction room-load mitigation](shipbreaker-room-load-mitigation.md).
-Keep that grid guard and update to Framework **0.24.1** for both follow-ups:
-preserve living worn markers and correct stale dimensions recorded before native
-save trimming. The third fix validates existing headers before padding and keeps
-future saves consistent with the trimmed grid. Saved room, zone, damage and
-progress records are retained; already-lost gas is not recreated. The owner
-confirmed the first two fixes; gameplay confirmation of the third is pending.
-
-New here? Read [getting started](getting-started.md) for download availability,
-prerequisites and experimental status. Need help? See [support](../SUPPORT.md).
-
-Agriculture is a prepared candidate with visible crop growth, cooking equipment and optional [water conduits](agriculture-water-conduits.md): see the [cultivation and cooking guide](agriculture-player-guide.md). Nutrient-solution piping requires Framework 0.19.0; optional C1 integration uses Shipbreaker 0.14.0 or later. Owner gameplay evaluation is pending.
-
-
-**Prepared versions:** Phobos Framework **0.28.0**, Shipbreaker **0.28.0**, Auto Nav
-**0.20.1**, built against Ostranauts **1.0.1.5** / BepInEx **5.4.23.5**.
-These versions support ordinary saves. Builds and offline checks do not establish
-in-game compatibility. This guide describes the prepared packages, not a claim
-that those packages are already installed or that merchants have restocked.
-
-Use this page for the current operating sequence. The linked equipment guides
-provide details; dated research reports describe the evidence available then.
-
-Auto Nav now requires [live native sensor contact](auto-nav-sensors.md).
-Contact loss suspends and clears owned thrust; the ship coasts until manual
-control or an explicit Resume after contact returns. Emitting sensors remain
-under player control. A known station marker alone does not authorize guidance.
-
-The [F6 electric furnace](furnace-player-guide.md) is now a prepared casting candidate,
-with separate finite cooling, hot-state saves and local/C1/F3 controls. Version
-0.17.0 adds [R4 aluminium feed and cold product collection](furnace-material-routing.md),
-while batch Seal, Start, Equalize and Release remain explicit crew actions. Its
-first in-game cycle and new artwork still await owner evaluation.
+**Prepared versions:** Phobos Framework **0.28.1**, Shipbreaker **0.28.1**, Auto Nav
+**0.20.2**, built against Ostranauts **1.0.1.5** / BepInEx **5.4.23.5**.
+These are development packages. Automated checks do not establish in-game
+compatibility or tell you which version is installed locally. Ordinary saves are
+supported; keep required content installed. [Getting started](getting-started.md)
+explains availability and prerequisites; [support](../SUPPORT.md) explains bug reports.
+Version history and past validation reports remain in the individual changelogs.
 
 ## Install or update
 
@@ -119,7 +86,7 @@ INTERIOR    [ processor, 4 x 4, loading mouth toward chute   ]
 **Keep the four walls.** They provide the pressure seal. The processor needs
 interior floor and accessible space alongside it. The grabber needs clear space
 outside. There must be no gap or sideways offset between the three pieces.
-Build the native electrical conduit separately and power the grabber and
+Build the electrical conduit separately and power the grabber and
 processor. See [mounting and rotation](shipbreaker-hull-intake.md).
 
 The collector is optional: the processor works with its own product tray. Stand
@@ -252,7 +219,7 @@ publication is implied by this prepared redesign.
 
 ## Industrial controls (0.10.0)
 
-[Console and equipment panel guide](industrial-console-player-guide.md): a 3 x 3 ship-bound workstation, local Control Panels, automatic grouping, search, Attention and routing. The current Shipbreaker 0.28.0 requires Framework 0.28.0 and Auto Nav 0.19.0 and includes [shared observations](shared-console-observations.md) and optional [shared completion cues](shared-completion-cues.md). Prepared for owner testing; no in-game validation claimed.
+[Console and equipment panel guide](industrial-console-player-guide.md): a 3 x 3 ship-bound workstation, local Control Panels, automatic grouping, search, Attention and routing. The current Shipbreaker 0.28.1 requires Framework 0.28.0 and Auto Nav 0.19.0 and includes [shared observations](shared-console-observations.md) and optional [shared completion cues](shared-completion-cues.md). Prepared for owner testing; no in-game validation claimed.
 
 Agriculture now supports [finite potato and lettuce nutrient-solution piping](agriculture-nutrient-solutions.md) through its W2 supply and irrigation conduits.
 

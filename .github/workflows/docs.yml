@@ -18,6 +18,8 @@ jobs:
         run: python3 scripts/check-doc-links.py
       - name: Check native mod loader directories
         run: python3 scripts/check-mod-layout.py
+      - name: Verify reviewed English coverage and formatting contracts
+        run: python3 scripts/audit-player-language.py
       - name: Exercise native layout checks
         run: python3 -m unittest discover -s tests -p test_mod_layout.py
       - name: Verify maintained constants agree

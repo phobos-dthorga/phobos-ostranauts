@@ -261,9 +261,9 @@ internal static partial class FurnaceService
     internal static void Fault(CondOwner co, Exception ex)
     {
         Plugin.Collectors.Interrupt(co, Text.Get("Routing.furnace_interlock"));
-        var s = Get(co); s.State.Batch.Armed = false; s.Notice = Text.Get("Furnace.fault", ex.Message); Save(s);
+        var s = Get(co); s.State.Batch.Armed = false; s.Notice = Text.Get("Furnace.fault_player"); Save(s);
         if (s.State.NativeMutation || s.State.Batch.Phase == FurnacePhase.Delivering) s.Protected = true;
-        Plugin.Log(s.Notice);
+        Plugin.Log(Text.Get("Furnace.fault", ex.Message));
     }
     private static bool Flight(Ship? ship) => ship != null && (ship.IsUsingTorchDrive ||
         ship.Reactor?.mapGUIPropMaps.TryGetValue("Panel A", out var map) == true && map.TryGetValue("slidCycle", out var raw) &&

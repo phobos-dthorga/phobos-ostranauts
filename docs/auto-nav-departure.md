@@ -14,14 +14,14 @@ Polaris console. Ordinary **Fly** never disconnects the ship.
 | Undock & Depart | Release the single connection, retreat using RCS to at least a 1 km hull gap, match relative velocity within the existing 0.2 m/s docking tolerance, then finish. |
 | Undock & Continue | Capture the selected destination and displayed continuation mode first, depart as above, then check admission again and enter that operation. Moving the crosshair afterwards does not change the destination. |
 | Continuation mode | Cycle Fly, Rendezvous, Follow, Dock and Approach & Dock. Rendezvous/Follow require N2. |
-| Resume departure | Reconcile saved intent against actual attachments and replan. Loading never restores departure thrust. |
-| Stop departure | Cancel further movement; preserve unresolved detachment evidence. |
+| Resume departure | Check the saved departure against the current connection before continuing. Loading never restores departure thrust. |
+| Stop departure | Stop further movement; keep the record of any unfinished disconnect. |
 
 F3 equivalents are `phobosnav depart`, `phobosnav depart-continue`,
 `phobosnav depart-mode`, `phobosnav depart-resume` and `phobosnav depart-stop`.
 They use the same services and preparation checks as the hub.
 
-Before departure, bring every native company-roster member aboard, seal
+Before departure, bring every crew member on the company roster aboard, seal
 departure airlocks, repair and power the navigation equipment, and provide working
 RCS with at least 42 m/s reserve. This reserve is an authored admission allowance
 for the bounded local manoeuvre, not a prediction of every possible detour.
@@ -40,16 +40,13 @@ pay bills or grant clearance. Native undocking/unmooring retains its legal and
 physical consequences. An obstructed exit is refused before detachment.
 
 If interrupted during detachment, **Resume departure** reads the actual connection
-and exact ports. A still-attached pending mutation is retained for inspection;
-it is never blindly repeated. A confirmed detached ship may resume the outward
+and exact ports. If a disconnect is still unconfirmed, it stops for inspection instead of trying again. A confirmed detached ship may resume the outward
 leg after fresh checks. Do not remove stored evidence to force a retry.
 
 ## Avoidance during local flight
 
 Fly, Rendezvous, Follow, docking approaches, industrial movement and departure
-share obstacle observations at the system-update boundary. Candidate ship contacts
-pass the existing native visibility, sensor and occlusion checks before geometry
-or velocity is used. Sensors are never switched on automatically. Known celestial
+share obstacle observations at the system-update boundary. Avoidance uses visible, tracked ship contacts to check their size and movement. Sensors are never switched on automatically. Known celestial
 boundaries are exclusion regions; asteroid-field markers are not individual rocks.
 
 The local planner uses collision radii, relative motion, the simulation interval

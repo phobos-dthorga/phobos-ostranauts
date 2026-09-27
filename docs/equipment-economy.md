@@ -44,7 +44,7 @@ F6-S sections now receive the same industrial/high-value trade categories as D4-
 and R4-S. Old explicitly saved F6-S sections gain only those missing categories;
 IDs, cargo references, mass and dismantling progress remain intact. K-Leg supplies
 have a 15% offer chance and San Diego Halvorson 30%, each for one section per native
-stock roll. Existing shops update through ordinary native restocking; no inventories
+stock roll. Existing shops update through ordinary normal restocking; no inventories
 are repopulated on loading.
 
 The native `ItmLootSpawnEngineering` table now adds one mutually exclusive section
@@ -172,9 +172,9 @@ chemical systems are not advertised as purchasable equipment.
 
 ## Merchants and rarity
 
-Each percentage is an independent chance of **one** item per native stock
+Each percentage is an independent chance of **one** item per shop stock
 generation. It is not a promise that the item will be present on every visit.
-An item may also fail to appear if native stock placement has no usable space.
+An item may also fail to appear if shop stock placement has no usable space.
 
 | Merchant stock | Processor | Grabber | Chute | Collector | Section | Auto Nav |
 |---|---|---|---|---|---|---|

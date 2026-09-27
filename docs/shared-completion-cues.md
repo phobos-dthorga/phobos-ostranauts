@@ -13,10 +13,10 @@ That is a design judgment, not measured usability; mute or remove unwanted cues.
 
 | Operation | Opt-in | Meaning |
 | --- | --- | --- |
-| Shipbreaker D4 / R4 | Notify on next batch completion, local panel/C1/F9 | One batch's products committed to its output tray; not queue completion or delivery to another machine. |
-| Agriculture Hearth cooker | Start, then Notify when this meal or crop is ready | Meal physically delivered and state saved; blocked output is not success. |
-| Agriculture Firstlight rack | Start a crop, then the same notification action | Whole cohort changed to harvest-ready after simulation and save. No automatic harvest. Includes the seed-producing cohort. |
-| Auto Nav Approach / Rendezvous | Engage, then Details → Notify when this approach / rendezvous arrives | ARRIVED result saved. Arrival retains configured distance/speed meaning; it is not docking. |
+| Shipbreaker D4 / R4 | Notify on next batch completion, local panel/C1/F9 | One batch's products placed in its output tray; not queue completion or delivery to another machine. |
+| Agriculture Hearth cooker | Start, then Notify me when ready | Meal physically delivered and state saved; blocked output is not success. |
+| Agriculture Firstlight rack | Start a crop, then the same notification action | The whole crop is ready to harvest. No automatic harvest. Includes the lettuce seed crop. |
+| Auto Nav Approach / Rendezvous | Engage, then Details → Notify me on arrival | ARRIVED result saved. Arrival retains configured distance/speed meaning; it is not docking. |
 
 Agriculture exposes the same actions through its C1 equipment provider and F3
 interface. Auto Nav F3 adds `phobosnav watch`, `phobosnav unwatch` and
@@ -42,7 +42,7 @@ an exhaustive audio audit or an endorsement by Blue Bottle Games.
 ## Shared controls and restraint
 
 **All Phobos completion cues: …%** changes the suite's single level. Agriculture's
-**Change shared Phobos cue volume / mute** reports the level in its readout.
+**Completion sound: volume / mute** reports the level in its readout.
 Levels cycle through 15%, 35%, 60% and mute. Default 35% scales the already quiet
 sample before native effects volume. Configuration belongs to Framework:
 `[Audio] CompletionCueVolume`, range 0–1. If no shared setting exists, an existing

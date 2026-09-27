@@ -29,9 +29,9 @@ Harvest takes the existing 30 minutes of crew work. The seed cycle produces
 other three can start food crops. This reservation is a player decision, not
 an extra automatic packet. Respiration, poor health and whole-packet rounding
 can lower the harvest; all remaining tissue stays in residue. Clear returns
-residue only. One rack still represents one cohort across four tray pictures.
+residue only. One rack still represents one crop batch across four tray pictures.
 
-At authored base values, consumed Groundwork irrigation is 13.56 cr, nutrients
+At base prices chosen for the mod, consumed Groundwork irrigation is 13.56 cr, nutrients
 15 cr and planting seed 5 cr: 33.56 cr before power, crew, equipment and losses.
 The four packets have 20 cr combined base value. Propagation is an endurance
 option with a space/time cost; it is not designed as a guaranteed seed-sale

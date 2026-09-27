@@ -1,4 +1,10 @@
-# Agriculture water conduits — first working slice
+# Agriculture water conduits
+
+For the current multi-rack setup, use [fluid-network operations](fluid-network-operations.md):
+one W2 can serve up to eight linked racks. The placement instructions below still
+apply; the one-rack restriction belongs to the historical water-only baseline.
+
+## Historical water-only baseline
 
 25 September 2026. **Agriculture 0.4.0 requires Framework 0.18.0.** Prepared
 implementation candidate, not installed or gameplay-validated. This implements

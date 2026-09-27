@@ -16,7 +16,7 @@ aggregate recovery process, not a validated digester, sterilizer or chemical lab
    Residue** in B2 Inventory. Older cohorts and old residue retain their existing
    uncharacterized identity and cannot enter this process.
 2. While paused, choose **Prepare crop-residue recovery**. An awake crew member
-   performs one minute of setup. The job binds that exact packet. Choose **Start**.
+   performs one minute of setup. The job uses that particular packet. Choose **Start**.
 3. B2 consumes received electricity at up to 0.5 kW. It returns **Recovered
    Nutrient Concentrate** and **Spent Crop Biomass**. Every kilogram stays in
    an output; the biomass cannot be run through recovery again.
@@ -26,8 +26,8 @@ aggregate recovery process, not a validated digester, sterilizer or chemical lab
    makeup salts, returning a **Recovered Crop Nutrient Mixture** and any unused
    makeup packet with its remaining mass and proportional value.
 5. Remove the products. Each stage needs output space in addition to its retained
-   inputs. A full bin pauses with bound inputs and paid progress intact. Cancel
-   while paused to release a job; cancellation forfeits paid work, never duplicates
+   inputs. A full bin pauses with selected inputs and completed work intact. Cancel
+   while paused to release a job; cancellation forfeits completed work, never duplicates
    ingredients. Reload retains the job but requires explicit Resume.
 
 Each stage requires 0.02 kWh/kg of its primary input, with a 0.001 kWh minimum.
@@ -46,16 +46,14 @@ unpaired-circuit rules. Start blending and distribution normally.
 
 Selection stores the full item identity. W2 never silently selects another
 packet after removal or exhaustion. The panel reports grams and percentage
-remaining; choose another charge explicitly. No dose occurs without paid blending
-work, water and solution headroom. Pausing or reloading stops consumption.
+remaining; choose another charge explicitly. Dosing needs power, water and room for the mixed solution. Pausing or reloading stops consumption.
 Existing numeric nutrients and manual whole-packet loading remain supported.
 
 Depletion reduces physical mass and base value. Charge records are separate
 from machine wear: **Repair and Restore cannot replenish any mixture or makeup
 salts**. Ordinary machine repairs still work. Empty charges disappear because
 their existing mass contract contains no separate packaging. Unknown, corrupt
-or mass-mismatched records remain unusable. Interrupted native commits leave
-protected journals rather than replaying the transfer. Save records written by this version contain
+or mass-mismatched records remain unusable. An interrupted transfer keeps its records and blocks automatic retry. Save records written by this version contain
 new fields; older Agriculture versions cannot safely resume them. Keep the
 matching newer mod set when loading those saves.
 
@@ -69,7 +67,7 @@ Place its full two-tile pocket flush against a two-tile Recycler edge; turn its
 cream service face away and leave both adjacent service tiles walkable. Quarter
 turns are supported. No wall is required for this floor arrangement; existing
 hull mounts retain their wall/exterior-mouth rules. Connect power separately.
-Stand beside both unlocked endpoints, choose the collector and explicitly enable
+Stand beside both unlocked machines, choose the collector and explicitly enable
 collection. Mere proximity, a corner contact or a gap does not establish alignment.
 Old links and cargo are retained; a misaligned pair waits for repositioning or
 explicit Unlink. The panel shows one live status and no unused crop-image square.
@@ -79,10 +77,9 @@ visible. Other Agriculture panels hide unavailable portraits rather than showing
 an empty image slot.
 
 The existing collector inlet is exclusive: unlink an industrial source first.
-At settlement the shared adapter restricts tank lists to this exact ship,
-reserves collector space, caps processing to that space, and measures actual
-waste debit minus potable credit. It preserves the provider's power/filter
-processing. Collectors retain up to four packets of at most 13 kg each, within
+Only tanks on this ship are used. Recycling is limited by free collector space,
+and the collector catches the measured difference between wastewater consumed
+and drinking water returned. Ship's Water still handles power and filters. Collectors retain up to four packets of at most 13 kg each, within
 their existing 52 kg payload budget. Remove full packets manually. There is no
 automatic transfer of this cargo into industrial processors.
 

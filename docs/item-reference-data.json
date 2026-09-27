@@ -5,7 +5,7 @@
     {
       "id": "PhobosAgriculture",
       "name": "Phobos Agriculture",
-      "version": "0.15.0",
+      "version": "0.15.1",
       "gameTarget": "1.0.1.5",
       "items": [
         {
@@ -3818,7 +3818,7 @@
         {
           "id": "PhobosVerdemorrowFirstlight4Build",
           "name": "Phobos' Verdemorrow Firstlight-4 Cultivation Rack",
-          "description": "Assemble an empty, loose appliance from physical materials.",
+          "description": "Assemble an empty appliance, ready to install.",
           "nameKey": "rack",
           "descriptionKey": "build_desc",
           "stationIds": [
@@ -3875,7 +3875,7 @@
         {
           "id": "PhobosVerdemorrowHearth2Build",
           "name": "Phobos' Verdemorrow Hearth-2 Galley Cooker",
-          "description": "Assemble an empty, loose appliance from physical materials.",
+          "description": "Assemble an empty appliance, ready to install.",
           "nameKey": "cooker",
           "descriptionKey": "build_desc",
           "stationIds": [
@@ -3932,7 +3932,7 @@
         {
           "id": "PhobosVerdemorrowGroundworkW2Build",
           "name": "Phobos' Verdemorrow Groundwork W2 Water Supply Unit",
-          "description": "Assemble an empty, loose appliance from physical materials.",
+          "description": "Assemble an empty appliance, ready to install.",
           "nameKey": "water_supply",
           "descriptionKey": "build_desc",
           "stationIds": [
@@ -3989,7 +3989,7 @@
         {
           "id": "PhobosVerdemorrowWaterConduitBuild",
           "name": "Phobos' Verdemorrow Groundwork Irrigation Conduit",
-          "description": "Assemble an empty, loose appliance from physical materials.",
+          "description": "Assemble an empty appliance, ready to install.",
           "nameKey": "water_pipe",
           "descriptionKey": "build_desc",
           "stationIds": [
@@ -4025,7 +4025,7 @@
         {
           "id": "PhobosVerdemorrowGroundworkB2Build",
           "name": "Phobos' Verdemorrow Groundwork B2 Workup Bench",
-          "description": "Assemble an empty, loose appliance from physical materials.",
+          "description": "Assemble an empty appliance, ready to install.",
           "nameKey": "workup_bench",
           "descriptionKey": "build_desc",
           "stationIds": [
@@ -4095,7 +4095,7 @@
     {
       "id": "PhobosAutoNav",
       "name": "Phobos Auto Nav",
-      "version": "0.20.1",
+      "version": "0.20.2",
       "gameTarget": "1.0.1.5",
       "items": [
         {
@@ -5093,7 +5093,7 @@
     {
       "id": "PhobosFramework",
       "name": "Phobos Framework",
-      "version": "0.28.0",
+      "version": "0.28.1",
       "gameTarget": "1.0.1.5",
       "items": [
         {
@@ -5126,7 +5126,7 @@
     {
       "id": "PhobosShipbreaker",
       "name": "Phobos Shipbreaker",
-      "version": "0.28.0",
+      "version": "0.28.1",
       "gameTarget": "1.0.1.5",
       "items": [
         {
@@ -10711,7 +10711,7 @@
         {
           "id": "PhobosBuildExteriorGrabber",
           "name": "Phobos' Rivetline G4 Exterior Grabber",
-          "description": "Build an 80 kg, 4 wide x 3 deep exterior loading cradle. Place its rear against a Phobos wall chute; connect conduit power. Load already-detached ordinary walls through Inventory. Static jaws and cutter housing; cutting installed hull is not implemented.",
+          "description": "Build an 80 kg, 4 wide x 3 deep exterior grabber. Place its rear against the wall chute and connect power. Load detached ordinary walls through Inventory, or prepare an owned, empty target and use Start reclamation for powered wall cutting. The connected D4 needs cooling.",
           "stationIds": [
             "ItmTable01",
             "ItmTable02"
@@ -10765,7 +10765,7 @@
         {
           "id": "PhobosBuildResidueCollector",
           "name": "Phobos' Rivetline C2 Residue Collector",
-          "description": "Build a 20 kg, 2 wide x 1 deep collector over two intact exterior walls. Control Panel links a processor through structural flooring. Inventory holds four 13 kg residue packets; collected cargo remains aboard. Separate conduit power required.",
+          "description": "Build a 20 kg, 2 wide x 1 deep collector. Place on structural floor with a clear service side, or over two intact exterior walls. Link a processor through structural flooring. Holds four 13 kg residue packets; cargo stays aboard. Needs separate conduit power.",
           "stationIds": [
             "ItmTable01",
             "ItmTable02"
@@ -11439,24 +11439,24 @@
   ],
   "sourceHashes": {
     "mods/PhobosAgriculture/framework/equipment-names.json": "aad5c48acf15576e70469fdb9ff245de55e82b3fa2a4453afedf786d99c55174",
-    "mods/PhobosAgriculture/framework/recipes.json": "3a8a1e8949e3fa5071464a84658bf4c43f3abc732dd2244cb379fb8359933ca6",
-    "mods/PhobosAgriculture/mod_info.json": "0e6f95b6f970c8baaf776845c20a937731a0af9308a4e390508881d8296b625c",
-    "mods/PhobosAutoNav/data/cooverlays/phobos_approach_assist.json": "7208e3ca5bdabc6cba5d89ea17e2fd5ca30667fcf2cd12e0d036c82fe96d284d",
+    "mods/PhobosAgriculture/framework/recipes.json": "35f866781942bbf18cad299a4e2b0f33c246c7333e9b8cd17e1cdbd31ae0405a",
+    "mods/PhobosAgriculture/mod_info.json": "2c91488f131ad6f3c21a6feabf2ba8d30906c8d4914939a91ab7e619b843abef",
+    "mods/PhobosAutoNav/data/cooverlays/phobos_approach_assist.json": "980e9511be952b459d684accedc4fc82df41a80a1023719524b5f4f74719b898",
     "mods/PhobosAutoNav/data/guipropmaps/phobos_approach_assist.json": "b58a900cf980995085aaf4db06e4dbf2d6bd7287762475662035d4947d7eac0b",
     "mods/PhobosAutoNav/framework/equipment-names.json": "478a9416b2eb043c18fd5aac3b1720d512fdc9aa363c8411f831fa2fc9dfbee2",
     "mods/PhobosAutoNav/framework/recipes.json": "b03ff79d6c08b75c89b4bf30cd459e46de410366a505aa93ca5190b1ce1d90c4",
-    "mods/PhobosAutoNav/mod_info.json": "e62aa225e09307a005cadc183fc083997d6b8b6f2aa2a73c8fd62ddf0983b660",
+    "mods/PhobosAutoNav/mod_info.json": "0895c24fedcf0a2e54da1a2f84d9cca06be654bb10060b205fd89b832f17e0d9",
     "mods/PhobosFramework/data/conditions/phobos_framework.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
     "mods/PhobosFramework/framework/equipment-names.json": "8d64a49207830ca57808d0de92ac82feaf95fb200dd550888e795bb7ed37afb7",
-    "mods/PhobosFramework/mod_info.json": "a49b9252536ddcc6338f780f28772da6b3d1409a73df6215a7a00113af3a99e9",
+    "mods/PhobosFramework/mod_info.json": "f381e84d40623e80374bf5ce82614bb1dbaca3f2486f479bd4ab96a8fd60738d",
     "mods/PhobosManufacturing/data/conditions/phobos_manufacturing.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
     "mods/PhobosManufacturing/mod_info.json": "ca699100a8084899d77a65e2a54e6d94c9b67f808addfe5367ea2306d4fce21b",
     "mods/PhobosShipbreaker/crafting/recipes.json": "8b0f034a7c732fec44ac31585321347040ee2074cd330cd3e5ecb90bb4ab7df4",
     "mods/PhobosShipbreaker/data/conditions/phobos_shipbreaker.json": "4163d90a49167ef2178e2bfd00636e8288db73511c66c0f423e828642d4f1e44",
     "mods/PhobosShipbreaker/data/condtrigs/phobos_shipbreaker.json": "c7d4104df596d3fd362d9a80f4703178eafc5d3151bd53907814732ec84d3585",
     "mods/PhobosShipbreaker/framework/equipment-names.json": "06ca1a5fe39812844c8f114303e7205b1d366f8466bd614966e39f5f57844db8",
-    "mods/PhobosShipbreaker/framework/recipes.json": "fb28b45a6f6c35860cea3dbe7cdc9ec23f5fc1ec9cb346ffee71b53a1cafec75",
-    "mods/PhobosShipbreaker/mod_info.json": "13dcfa3f6f30c73436e124b2f6806e79751576279e2cb4dd7330e0c96875df7f",
+    "mods/PhobosShipbreaker/framework/recipes.json": "86bbcf4e5a5255b1640af90e62cf7840b85b4414ed6f1ac4b37d3b94b3613e98",
+    "mods/PhobosShipbreaker/mod_info.json": "40a8389c4a9a08805f780d19f98d252e717a331184507dfe10efaca65df81615",
     "src/PhobosAgriculture/Artwork.cs": "ccae66ac85e7dbe64d47bb3f93153558ca1b893a039310c688e366a1dd48408f",
     "src/PhobosAgriculture/AssemblyInfo.cs": "441ebc13e73f63e15379d179bdcde910645df15d5847671cdfff7cd313fbf66b",
     "src/PhobosAgriculture/BulkDefinitions.cs": "777e3fb87c64eeaa8cb3a537958a5e54fc05b1dc0a21aa4ccc407dc08cc38b04",
@@ -11482,8 +11482,8 @@
     "src/PhobosAgriculture/MaterialOperations.cs": "fa2aef354216a963c5292ce022536b97e43a160b8ea5df3766972a1d90d675ec",
     "src/PhobosAgriculture/Panel.cs": "2eb015690e81830cf24dadb7102fb842a3e2fadd32a52d61e44950d056e424d8",
     "src/PhobosAgriculture/PanelConfiguration.cs": "5c0a35b39f385a1a9c3515970b6f93e66677a2ac7f3d7e4bcb2b91cfef713003",
-    "src/PhobosAgriculture/PhobosAgriculture.csproj": "58f6ce1505301344aa7f318bb335c4d4ff81eba44adcf3e7abbc134785f1f8ce",
-    "src/PhobosAgriculture/Plugin.cs": "dd89c779203ea19368bb032acfea5d0c27bf049a2de934d5bcf63b79397354a2",
+    "src/PhobosAgriculture/PhobosAgriculture.csproj": "fce76e5ea1aa384732f0e839f4cb1c8ad4e1e87b1c5bf8fdb97b23f9afc76f46",
+    "src/PhobosAgriculture/Plugin.cs": "968777f2736c55402ccc32fd11178a2d4539e4c13584a40ec5011b2544fe6225",
     "src/PhobosAgriculture/RecoveryService.cs": "fa5bd63314d8c6abfe7f225a927c36d92203bd11f1bfdf8f7085a71615b92f6e",
     "src/PhobosAgriculture/RecyclerCapture.cs": "3c33048a4896961c1d69ee87827cc3557f61548124e5c95a1a43882139dc9fb1",
     "src/PhobosAgriculture/RegionalEconomy.cs": "de3792e8ce5dc53879ba6533d02a29b74f8263d785b914017a876c0d480b701d",
@@ -11537,8 +11537,8 @@
     "src/PhobosAutoNav/NavigationService.cs": "7540fe7545198fc9ec256bcdb6208bb260749517bafdbe3bcf909020f88e8f5d",
     "src/PhobosAutoNav/PanelDepartureSettings.cs": "41101e08241fa63f112fe8b009420996e25b40a643e9da6d10bfcd908b510bdf",
     "src/PhobosAutoNav/PerformanceMetrics.cs": "349cfaef02af245464dc68235c368c0ba399f4e6c033b9b996f7cc74d5e979aa",
-    "src/PhobosAutoNav/PhobosAutoNav.csproj": "e65a487e1798b236de65829b497d30e3962ea2579c24005ec13903182997c0d3",
-    "src/PhobosAutoNav/Plugin.cs": "00a530aea6bf45e1125d5999f81117f2bfe06ca6433dbe092e609bc25f0ce715",
+    "src/PhobosAutoNav/PhobosAutoNav.csproj": "8fe315aa8a939869e8d58d41a2382912c91a219e8a6bef7a61ce0861b0eec261",
+    "src/PhobosAutoNav/Plugin.cs": "c73f77fd9f3074d1bd5a75042861e8c62f9d7182f20edaaad08d8020d34a2644",
     "src/PhobosAutoNav/RegionalEconomy.cs": "dc2973df21debf6d6a18b630981ba7a0edfba239969b488461114e89dcc80f0c",
     "src/PhobosAutoNav/RotarySelector.cs": "2e2005b2e02dc8a1ddd2080a4b127bc7c326e19ff17cb56f35ad567917580d3e",
     "src/PhobosAutoNav/StockQuantities.cs": "71ddfe767ea5060dc6f998f02c47046bcb4d9953a93582eace4c9781f0041173",
@@ -11616,8 +11616,8 @@
     "src/PhobosFramework/Persistence/SavedGridHeader.cs": "b7ef65702f570dfb2d267b97c726e2ba02b420bfbbc2c5471ef4ac7479874bb2",
     "src/PhobosFramework/Persistence/SavedPlaceholderHealth.cs": "358c35db2a5f73335cc5930e808c25817da5fa6b1d9d91c217c5a119f26db91d",
     "src/PhobosFramework/Persistence/SavedRoomGrid.cs": "d7d70aba54e777d96d3079318f75320fb981a6dba8f3728570c84b8e54072fbe",
-    "src/PhobosFramework/PhobosFramework.csproj": "0357d8a5826bb4371d20751e33355050800ac56bb7fca32f2acbd3d24400438b",
-    "src/PhobosFramework/Plugin.cs": "23ec0586200e34e14fd821c81c66fdf54479889c9683bddb0aaff25c8283a3b3",
+    "src/PhobosFramework/PhobosFramework.csproj": "f2eebbeda04d4344d7c5967492d9c16eb6d8b8ceffd0345559e0e7ef6a2677f4",
+    "src/PhobosFramework/Plugin.cs": "1531795dea9e4a04448ee3b82b3f8dda2c189a4592962a7f2af75e72c19e48ab",
     "src/PhobosFramework/Processing/EnergyReceipt.cs": "cb31cd45ea69ee8d182b0578f50540393bd70e63e918a161f04f2b6a290199b2",
     "src/PhobosFramework/Processing/GasParcel.cs": "814357580cf3b2f7257a67042454823b454437f1fda38488521b66621e081fa3",
     "src/PhobosFramework/Processing/NativeEnergyReceipts.cs": "ed52382413127a5acd3700070f5d19975aec54c953d2fb2fa09eef08836fbe5e",
@@ -11685,7 +11685,7 @@
     "src/PhobosShipbreaker/FurnaceInstrumentView.cs": "ae3aa54600073c9abba7cbd3c3da5b08b967ac2515fe8dff6cc76fe3490a9ab2",
     "src/PhobosShipbreaker/FurnaceMaterials.cs": "e347479428eaf4f6106d9217781b991359995f38da0ebfa83e1da158c7185cd4",
     "src/PhobosShipbreaker/FurnaceOperations.cs": "e79d325d9e3354cdc51647712f607d15c7b1d1bb9bd92571bbbe5d2542dcdc37",
-    "src/PhobosShipbreaker/FurnaceService.cs": "963164f41a503249e2370a4e57309408bf511c17c8f817f049c4a985ef4730c5",
+    "src/PhobosShipbreaker/FurnaceService.cs": "6806c77f2829f34f17eb3ccaa5cd0ebf94cf51a0ec188a9b18a111238ecc2741",
     "src/PhobosShipbreaker/IndustrialDefinitions.cs": "1d141044d9f37befe4e02e843955add810d37668e6146151da5ed7b41b04024b",
     "src/PhobosShipbreaker/IndustrialPanel.cs": "6869daa811ce7347c365d10f17ff787b64bddd7dab90ef2c469f523b587ee692",
     "src/PhobosShipbreaker/IndustryCommands.cs": "3c7e24e1c0d5e6dc87f5c27e10cae0c67d040f4f6b0692132d1825013588a27b",
@@ -11697,9 +11697,9 @@
     "src/PhobosShipbreaker/NativeAdapter.cs": "8320c05ddf6667060af21a98218e4df82015aba7feaeb124623d5eb57428083b",
     "src/PhobosShipbreaker/PanelConfiguration.cs": "74bcdd7f73eda6df2f29092c8493aaa852cf1518ce3afe6f12ff318c3dbc4bf2",
     "src/PhobosShipbreaker/PerformanceMetrics.cs": "91708a5cf54eea0b2b70a0625556b466fb2ecdbdfb60346bd855c44a68f644f5",
-    "src/PhobosShipbreaker/PhobosShipbreaker.csproj": "41a567be2ed8496af6609eb5319b632d45f6cda1b8f9afce038cb1fdc145034d",
+    "src/PhobosShipbreaker/PhobosShipbreaker.csproj": "6f7fd143de2ca0f0aae604656fa4bcb3f2a98fceebc44688beae43abc0e548ed",
     "src/PhobosShipbreaker/PlaceholderLoadRepair.cs": "8fdf6627ae35cd6d6c281a92a728e588f516ba7e4138e7204cc5c69549db44c4",
-    "src/PhobosShipbreaker/Plugin.cs": "75dc6550d68f44fc0aa9d6858e53959bbb39eef6fb5212535175b35ed3554d3b",
+    "src/PhobosShipbreaker/Plugin.cs": "4cb339b09b51688be088e056c64e0265a98508216cd80c3ec030477dde43b3f8",
     "src/PhobosShipbreaker/ProcessingCommands.cs": "5c0a603a4e2ae406bc94d5fcf0d30bb01b40512f57e474ab9ef5f2ab470a7320",
     "src/PhobosShipbreaker/ProcessingService.cs": "e2ce888fc8c850eb47632271f657d5d5918232b7f395a74e4a7f4c07ea464ca8",
     "src/PhobosShipbreaker/ReclaimerDefinitions.cs": "a56fa6440c3c3eec6ec4856ff47fdcbba43bffa50faeb92b8ecd5a28157514b2",
@@ -11717,10 +11717,10 @@
     "tests/PhobosNative.Tests/EquipmentValueAudit.cs": "cca95052803934b6ac8af32979f066ca064942ca79ac87e4ec94b8b183815cac",
     "tests/PhobosNative.Tests/ItemReferenceExport.cs": "0ae2ce0937ef548da12cd6dd5b08ddf7d5ef3ad44cce88c920b7c437579236c8",
     "tests/PhobosNative.Tests/Program.cs": "663612d439231731b9f836d912327fd845ac2910f8f110dfb2b92070e4b73c0d",
-    "translations/PhobosAgriculture/en.json": "1ed5d77054bf32a28c6b352cbf9cd2fc78361c9b623b5730c534dbcd3cba49a2",
-    "translations/PhobosAutoNav/en.json": "6e228589fbe90ef1c4d334fc4fb5be2e5f677a7143dff87662e56f02486fb552",
-    "translations/PhobosFramework/en.json": "5032547db8b34a08b424441afd068b563b025c71f450b6db8c22b12e29c8a14d",
+    "translations/PhobosAgriculture/en.json": "dd495149117aaac1d674fd119aeee3e53112a7b3fbcfc126cfab4ec461670a17",
+    "translations/PhobosAutoNav/en.json": "5914a4e2a329690f9d39724a65e323a01bb9d3cdb71e7eb688a4634ea7aa4b15",
+    "translations/PhobosFramework/en.json": "dafc13c4d4ed31b44e92cea5dab423761e37aa1934797bb1256c277f22caa941",
     "translations/PhobosManufacturing/en.json": "3b3f3aa7f3c8c1124e6452335a634cf6e591dbe99021b2ec24bc61ae5b0524c0",
-    "translations/PhobosShipbreaker/en.json": "909ce8da3d6b494283f7fb4f65f5db9ba5d0f4612748cf72e0c0ac1816a8cf0d"
+    "translations/PhobosShipbreaker/en.json": "1c55eaf7c3f4074c58414c504ba5980a9d58da8c7f3c9d734ac046f49f5bb1a4"
   }
 }

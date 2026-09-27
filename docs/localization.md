@@ -41,6 +41,14 @@ quotes (`\"`) inside a value. Files contain one flat object of string values.
 
 ## Authoring
 
+The mandatory [player-language rule and glossary](player-language.md) apply to
+all existing and future English text. Review the situation, consequence and
+available action; use a practical working-spacer voice in descriptions while
+keeping controls and warnings direct. Write for interested players without
+assuming engineering or programming knowledge. Keep precise log diagnostics,
+research attribution and technical evidence in their appropriate contexts.
+Record retained entries as well as rewrites in the English audit ledger.
+
 Framework owns lookup, fallback, validation and language selection. Content mods
 own their catalogs and embed their English JSON as an assembly resource. Register
 with `Translations.Register(owner, assembly, resourceName)`, retain the returned

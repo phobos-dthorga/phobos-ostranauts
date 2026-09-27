@@ -81,11 +81,11 @@ An intact disconnected radiator continues radiating its own stored heat.
 the furnace**, supplied with a complete **100 kg underside radiator assembly**.
 Its base value, construction, installation and maintenance costs equal the F6-R.
 The visible head represents a sealed through-deck connection; its **12 m² effective
-underside radiating area is an authored equipment abstraction**, not a second deck
+underside radiating area is an simplified equipment model**, not a second deck
 or a new 3D clearance simulation. It consumes no vented cabin air or coolant.
 
 Keep an **intact installed sealed floor** beneath the port. Its floor remains the
-native pressure barrier; never remove it to make an exhaust hole. Damaged/EVA
+pressure barrier; never remove it to make an exhaust hole. Damaged/EVA
 flooring, missing floors and wall tiles are rejected. Place the port at one of the
 two side sockets, facing the same direction as the furnace. Furnace-local centre
 offsets are **(-3.5, +0.5)** or **(+3.5, +0.5)** tiles; rotate the layout together.
@@ -113,7 +113,7 @@ links and hot saves need no conversion; adding this update does not replace them
 
 ### Power and heat
 
-Connect the F6's two front power points to ordinary native electrical supply.
+Connect the F6's two front power points to ordinary ship electrical supply.
 There is no reactor-side coupler, fuel debit or free reactor-running heat.
 At the full heating rating, direct coupling requests approximately **279.8 kW**:
 250 kW useful heat at 90% efficiency plus 2 kW process auxiliaries. Piped cooling
@@ -142,16 +142,15 @@ selected cooling assembly. Conversion losses also enter that finite store.
 ## First casting
 
 1. Open **Control Panel**, choose one cooling assembly and pair it. Allow a powered
-   instrument update. Native donor failures fall back to the existing controls.
+   instrument update. If the instrument artwork is unavailable, use the fallback controls.
 2. Open **Feed** locally. Insert **twenty separate, unstacked native Scrap
    Aluminum items**, each 1 kg and carrying nothing. Other identities, including
    finished housings and historic residue, are not accepted. Native auto-stacking
    is disabled only for items entering or leaving the F6 charge bin.
 3. **Seal and verify charge**. The cool lining, exact feed, room atmosphere and
-   finite receiver are checked. This closes the native feed container and captures
-   80 litres of the room's actual gas species. No mass is replaced by virtual cargo.
+   finite receiver are checked. The feed chamber closes and holds 80 litres of cabin gas.
 4. **Enable / resume sequence**. AUTO evacuates, preheats, melts and holds at
-   700 C for 60 continuous qualified seconds, then solidifies in its captive mould
+   700 C for 60 continuous seconds with the required pressure and working probes, then solidifies in its captive mould
    and cools. STEP waits at the operating transitions; use **Advance next step**.
 5. At or below **50 C**, return chamber and receiver gas to the adjacent room.
    An absent accepting gas volume or excessive resulting room temperature blocks
@@ -202,17 +201,15 @@ a 60 C accepting-room ceiling. Vacuum supplies no convective cooling. These are
 authored lumped thermal parameters, not measurements of vanilla equipment.
 
 Charge sensible heat remaining at release moves into the finite radiator store;
-released native stock has no separate invisible hot-item state. Chamber and
-receiver sensible energy moves back into native room gas. Every native electrical
-receipt is consumed once, including partial supply and appliance storage changes.
+released shop stock has no separate invisible hot-item state. Chamber and
+receiver sensible energy moves back into native room gas. Heat follows the electricity actually supplied, including partial power.
 
 Power loss, failed instruments, missing cooling and native flight commands pause
 heating. Torch demand and RCS manoeuvre commands pre-empt the furnace; the furnace
 does not alter flight controls or upstream fuel accounting. Resume is explicit.
 The permanent **STOP / ISOLATE HEAT** button remains below the scrolling controls.
 
-Hot state, gas species, exact input IDs, qualified casting state and bounded
-settings persist in native object maps. Reload always pauses heating and resets
+Loading keeps the heat, gas, selected input pieces, casting progress and settings. Reload always pauses heating and resets
 an unfinished continuous hold. Passive simulation advances observed intervals up
 to 60 seconds, substepped at 0.25 seconds. Longer or unloaded intervals retain
 heat conservatively, reset the clock and require Resume; wall-clock time away
@@ -233,20 +230,19 @@ the furnace while an exposed fin bank still rejects its own heat. Absolute destr
 game's destructive machinery path; this release does not add explosions, rupture
 recovery or a new atmosphere/hazard simulation.
 
-Output delivery stages both products before retiring the twenty inputs in one
-synchronous native operation. An interrupted gas transfer or output commit retains a protected marker,
-locks the equipment and cannot replay after reload. This is **not** a promise of
-crash-atomic native inventory operations. Keep the log and retained cargo for
-recovery; do not delete or reset a protected record.
+If gas return or product release is interrupted and cannot be confirmed, the
+furnace locks for inspection instead of retrying. Keep the log, save and cargo;
+do not erase the fault record to force another attempt. Recovery after a crash
+is not guaranteed.
 
-## Controls and native artwork
+## Controls and technical reference
 
 Local panels, C1 and F3 use one checked service. Remote physical inventory access
 remains local. Numeric limits use decimal-point input; measurement formatting
 and complete UI messages use localization catalogs. Reading a panel does not
 advance the process or rewrite saved settings.
 
-The implementation loads only isolated `GUIShip/GUIReactor` child donors:
+Technical artwork details for maintainers: the implementation loads only isolated `GUIShip/GUIReactor` child donors:
 `pnlPower/knobBus`, `pnlCoreTemp/pnlLeds`, `pnlPower/pnlLedsTotal` and
 `pnlInit/pnlStepBus/bmpGreen`. It checks the locally audited game assembly fingerprint, audits the component
 hierarchy, initializes under

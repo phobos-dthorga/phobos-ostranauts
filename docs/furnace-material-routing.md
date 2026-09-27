@@ -117,7 +117,7 @@ The F6 uses one native energy receipt for its instruments, pump, motor and
 process. Duplicate settlement is ignored. A lost cooling connection after
 admission retains the receipt as hot-node energy instead of sending heat to a
 missing sink. Route, pair, exact physical item, filter and destination admission
-are checked again before movement. Replacement cargo cannot inherit paid work.
+are checked again before movement. Replacement cargo cannot inherit completed work.
 
 The collector retains its own configured power and room-heat handling. Its
 current default is **5 seconds / 2 kW** per item. The F6 incurs no second charge

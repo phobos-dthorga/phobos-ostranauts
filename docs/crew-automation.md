@@ -9,7 +9,7 @@ Auto Nav 0.19.0. These are unpublished development candidates. Automated
 checks do not establish in-game behaviour or UI fit.
 
 The owner's subsequent game report exposed repeated `CrewWork.Poll` null
-exceptions. Framework 0.25.1 uses Blue Bottle Games' native company roster
+exceptions. Framework 0.25.1 uses Blue Bottle Games' company crew roster
 (`JsonCompany.GetCrewMembers`), as the native time-skip screen does; the older
 `CrewSim.aCrew` field is not populated in the inspected 1.0.1.5 code. Work discovery,
 controls and skip preview share the correction. Auto Nav 0.19.1 also fixes its
@@ -40,11 +40,10 @@ allow eligible crew; Exterior permission starts off. Change permissions per
 person under Crew & Training, then Apply. Turning off AutoTask or a duty cancels that worker's
 generated work without deleting cargo.
 
-Standing orders publish native tasks and use native claiming, routes and
-single-item pickup. The actual worker performs the checked operation. The
-selected portrait does not substitute for a worker. Equipment, physical inputs
-and destination space have temporary reservations; completion rechecks them.
-Other providers retain their native tasks and inventories.
+Crew travel to the equipment and carry supplies one item at a time. Selecting
+a portrait does not make that person the worker. The job reserves its equipment,
+inputs and output space, then checks them again before finishing. Tasks from
+other mods remain available.
 
 Stock targets count output units in the equipment and its approved destination.
 Industrial processors count their recipe products, excluding unrelated cargo.
@@ -65,14 +64,13 @@ and full destinations leave the work pending.
 | C2 collector | Enable its existing configured collection route and clear accepted cargo |
 | F6 | Supply exact aluminium units, replenish an already enabled managed coolant circuit, and perform an explicitly permitted seal/run/equalize/release sequence |
 | G4 | Prepare and launch/resume the existing exact reclamation mission through its recorded capture, equipment and Auto Nav bindings |
-| N1 / N2 at Polaris | Launch one explicitly permitted resume of an already recorded flight to the exact bound target |
+| N1 / N2 at Polaris | Launch one explicitly permitted resume of an already recorded flight to the selected target |
 
 Agriculture preserves a reserve unit of source planting stock and the configured
 crew-water reserve when taking loose water rations. Rack-grown planting stock is
 retained for replanting. Clearing dead/unwanted living crops and draining usable
-solution each require their own explicit permission. Crop growth, chemistry,
-finite products, heat, power, fluids and machine interlocks use the existing
-content services. Routine work does not invent a fertilizer recipe for wet rejects.
+solution each require their own explicit permission. Crew work follows the same growth, supply, power, cooling and machine safety
+rules as manual work. Routine work does not invent a fertilizer recipe for wet rejects.
 
 Drain is a one-shot order: after draining, its permission is consumed and the
 standing order suspends, so replenishment cannot create a drain/refill loop.

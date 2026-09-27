@@ -20,7 +20,7 @@ are retained. Prepared implementation and offline checks are not gameplay valida
    an exposed wall and a separate temporary anchor support, stages through Auto
    Nav, and establishes native physical capture before cutting.
 4. Watch phase, blocking reason, completed-wall count, retained-wall count and
-   paid cutting progress. Clear full destinations when capacity is the blocker.
+   completed cutting work. Clear full destinations when capacity is the blocker.
 
 Old captures remain releasable, but lack the separate protected anchor evidence
 required for automatic cutting. Explicitly Release and start a newly planned
@@ -32,14 +32,14 @@ it does not start other machines or repeated furnace batches.
 | Control | Effect |
 | --- | --- |
 | Start reclamation | Create a mission for the bound equipment/target and authorize its G4/D4 chain. |
-| Resume reclamation | Recheck the same identities, paid work and physical evidence; observe and replan. |
-| Pause / Stop reclamation | Cancel automatic work and flight authority, retaining cargo, paid progress and any current capture. |
+| Resume reclamation | Check the selected equipment, target and completed work before continuing. |
+| Pause / Stop reclamation | Cancel automatic work and flight authority, retaining cargo, completed work and any current capture. |
 | Release | Explicitly release an existing capture through the existing capture service. |
 
 F3 uses the existing `phobosindustry` equipment selector with actions
 `reclaim-start`, `reclaim-resume`, `reclaim-pause`, `reclaim-stop` and
 `reclaim-status`. See the [console guide](industrial-console-player-guide.md)
-for selector syntax. Panels delegate to those same services.
+for selector syntax. Panel buttons make the same checks.
 
 Manual movement, sensor loss, changed bindings and loading suspend the mission.
 Reacquisition of a contact does not grant permission to restart. Resume is explicit.
@@ -52,14 +52,14 @@ Stop does not unexpectedly disconnect an attached ship.
 | G4 ordinary-wall cutting | 120 seconds per wall | 12 kW | 0.4 kWh |
 | G4 transfer to D4 | Existing configured transfer duration | 2 kW | Depends on transfer duration |
 
-These are authored gameplay defaults. Each started cut captures its duration and
+These are defaults chosen for gameplay. Each started cut captures its duration and
 power, and advances proportionally to actual delivered electricity. Partial power
 slows progress; no power provides none. Cutting and G4 transfer occur sequentially,
 so the same power request cannot pay both operations. Other D4 consumption remains
 separate. Maintained values and generated tables live in the [item reference](shipbreaker-item-reference.md).
 
 The cooling model assumes a service connection rejecting cutter energy into the
-connected D4's interior service area. This is an authored abstraction, not a
+connected D4's interior service area. This is a simplified game model, not a
 simulated coolant pipe or a scientific measurement of G4 machinery. Received
 energy becomes native room-gas heat. At least **10 kPa** is required, with a
 **40 degrees C ceiling**, including pending heat. Inadequate cooling pauses the
@@ -68,7 +68,7 @@ cut; vacuum is not free cooling. The existing furnace motion interlocks are unch
 ## What the mission will remove
 
 Only exposed, undamaged, empty, unstacked, native **24 kg ordinary walls** qualify.
-The wall must retain its floor support and its verified native uninstall contract.
+The wall needs intact floor support and must be removable by the game.
 Actors, co-located equipment, attached contents, pressure boundaries, temporary
 anchor supports and uncertain state are rejected. Installed floor panels and
 other equipment are retained. A navigation distance is never treated as cutter

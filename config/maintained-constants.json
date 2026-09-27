@@ -4,7 +4,7 @@
     "Framework.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.28.0",
+      "value": "0.28.1",
       "description": "PhobosFramework published source/package version.",
       "targets": [
         {
@@ -68,7 +68,7 @@
     "Shipbreaker.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.28.0",
+      "value": "0.28.1",
       "description": "PhobosShipbreaker published source/package version.",
       "targets": [
         {
@@ -142,7 +142,7 @@
     "AutoNav.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.20.1",
+      "value": "0.20.2",
       "description": "PhobosAutoNav published source/package version.",
       "targets": [
         {
@@ -206,7 +206,7 @@
     "Agriculture.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.15.0",
+      "value": "0.15.1",
       "description": "PhobosAgriculture published source/package version.",
       "targets": [
         {
@@ -632,11 +632,6 @@
           "path": "workshop/PhobosAutoNav/page.bbcode",
           "pattern": "Ostranauts 1\\.0\\.1\\.5, BepInEx 5 and Phobos Framework (?P<value>[0-9]+\\.[0-9]+\\.[0-9]+)",
           "count": 1
-        },
-        {
-          "path": "workshop/PhobosAutoNav/page.bbcode",
-          "pattern": "\\[h2\\]Crew standing orders[^\\n]*\\n[^\\n]*\\nRequires Framework (?P<value>[0-9]+\\.[0-9]+\\.[0-9]+)",
-          "count": 1
         }
       ],
       "review": [
@@ -671,12 +666,7 @@
         },
         {
           "path": "workshop/PhobosShipbreaker/page.bbcode",
-          "pattern": "Ostranauts 1\\.0\\.1\\.5, BepInEx 5 and Phobos Framework (?P<value>[0-9]+\\.[0-9]+\\.[0-9]+)",
-          "count": 1
-        },
-        {
-          "path": "workshop/PhobosShipbreaker/page.bbcode",
-          "pattern": "\\[h2\\]Crew standing orders[^\\n]*\\n[^\\n]*\\nRequires Framework (?P<value>[0-9]+\\.[0-9]+\\.[0-9]+)",
+          "pattern": "Phobos Framework (?P<value>[0-9]+\\.[0-9]+\\.[0-9]+) or newer",
           "count": 1
         }
       ],
@@ -712,7 +702,7 @@
         },
         {
           "path": "workshop/PhobosShipbreaker/page.bbcode",
-          "pattern": "Ostranauts 1\\.0\\.1\\.5, BepInEx 5 and Phobos Framework [0-9.]+\\+ and Phobos Auto Nav (?P<value>[0-9]+\\.[0-9]+\\.[0-9]+)",
+          "pattern": "Phobos Auto Nav (?P<value>[0-9]+\\.[0-9]+\\.[0-9]+) or newer",
           "count": 1
         }
       ],
@@ -744,11 +734,6 @@
         {
           "path": "workshop/PhobosAgriculture/page.bbcode",
           "pattern": "Ostranauts 1\\.0\\.1\\.5, BepInEx 5 and Phobos Framework (?P<value>[0-9]+\\.[0-9]+\\.[0-9]+)",
-          "count": 1
-        },
-        {
-          "path": "workshop/PhobosAgriculture/page.bbcode",
-          "pattern": "\\[h2\\]Crew standing orders[^\\n]*\\n[^\\n]*\\nRequires Framework (?P<value>[0-9]+\\.[0-9]+\\.[0-9]+)",
           "count": 1
         }
       ],

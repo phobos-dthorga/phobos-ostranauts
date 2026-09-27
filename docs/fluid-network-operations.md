@@ -67,7 +67,7 @@ item is potable. Existing residue/reject identities are not reassayed.
    [treatment economics](agriculture-treatment-economy.md) explains the 25 kg rating.
    Older bound jobs still consume their whole 0.05 kg cartridge. Spent medium and
    unrecovered matter become terminal **Retained Treatment Rejects**.
-5. If water/nutrient capacity or output space is insufficient, all bound inputs
+5. If water/nutrient capacity or output space is insufficient, all selected inputs
    remain. Clear space and explicitly restart. A paused job can be cancelled;
    supplies remain physical, and spent electrical work stays heat. After reload,
    restore the exact bound supplies or cancel; substitutes do not inherit work.

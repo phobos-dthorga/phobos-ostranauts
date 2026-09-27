@@ -155,7 +155,7 @@
     {
       "id": "PhobosBuildExteriorGrabber",
       "name": "Phobos' Rivetline G4 Exterior Grabber",
-      "description": "Build an 80 kg, 4 wide x 3 deep exterior loading cradle. Place its rear against a Phobos wall chute; connect conduit power. Load already-detached ordinary walls through Inventory. Static jaws and cutter housing; cutting installed hull is not implemented.",
+      "description": "Build an 80 kg, 4 wide x 3 deep exterior grabber. Place its rear against the wall chute and connect power. Load detached ordinary walls through Inventory, or prepare an owned, empty target and use Start reclamation for powered wall cutting. The connected D4 needs cooling.",
       "stationIds": [
         "ItmTable01",
         "ItmTable02"
@@ -209,7 +209,7 @@
     {
       "id": "PhobosBuildResidueCollector",
       "name": "Phobos' Rivetline C2 Residue Collector",
-      "description": "Build a 20 kg, 2 wide x 1 deep collector over two intact exterior walls. Control Panel links a processor through structural flooring. Inventory holds four 13 kg residue packets; collected cargo remains aboard. Separate conduit power required.",
+      "description": "Build a 20 kg, 2 wide x 1 deep collector. Place on structural floor with a clear service side, or over two intact exterior walls. Link a processor through structural flooring. Holds four 13 kg residue packets; cargo stays aboard. Needs separate conduit power.",
       "stationIds": [
         "ItmTable01",
         "ItmTable02"

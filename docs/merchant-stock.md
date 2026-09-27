@@ -55,7 +55,7 @@ Use the constants updater keys `Agriculture.stockMachines`, `Agriculture.stockPi
 `Agriculture.stockSupplies`, `Shipbreaker.stockMachines`, `Shipbreaker.stockSections`,
 `Shipbreaker.stockPipes`, `Shipbreaker.stockCoolant` and `AutoNav.stockBoards`.
 Their catalogue entries update the owning source constants and this table
-together. Then run the native stock checks, affected builds and
+together. Then run the shop stock checks, affected builds and
 `scripts/update-item-reference.ps1` to refresh every item-level offer table.
 See [constant maintenance](updating-constants.md) and
 [item-reference maintenance](item-reference-maintenance.md).

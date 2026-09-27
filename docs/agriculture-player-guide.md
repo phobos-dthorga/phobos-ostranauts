@@ -1,54 +1,24 @@
 # Phobos Agriculture
 
-Agriculture 0.15.0 requires Framework 0.28.0 and adds [dedicated supply and
-equipment-state artwork](artwork-completion.md), preserving crop stages, recipes
-and native footprints. Prepared candidate; owner gameplay review remains pending.
+Grow a meal between salvage runs. Firstlight-4 grows potatoes or lettuce;
+Hearth-2 turns the potatoes into cooked portions. Keep the plants supplied with
+water, nutrients, light and suitable cabin air. Four trays share one crop cycle.
 
-Agriculture 0.14.0 adds the optional [R3 reservoir, 500 g nutrient charges and
-station Bulk supplies](agriculture-bulk-storage.md), requiring Framework 0.27.0.
-Existing W2/B2 workflows remain available; owner Unity evaluation is pending.
+Agriculture 0.15.0 requires Framework 0.28.0. These are development packages;
+the complete loop and Unity layout still need in-game evaluation.
 
-The current console redesign uses compact views and checked drafts. See the
-[control-panel guide](control-panel-guide.md) for Apply/Discard, storage selection,
-ship picking, training and the separate Unity validation checklist.
+Start with the rack and cooker below. Add [W2 irrigation](agriculture-water-conduits.md),
+[nutrient mixing](agriculture-nutrient-solutions.md), [B2 recovery](agriculture-nutrient-production.md)
+or an [R3 water reserve](agriculture-bulk-storage.md) when needed. A W2 can serve
+up to eight linked racks. For replacement lettuce seed, choose the separate
+[seed crop](agriculture-seed-production.md).
 
-Current stock quantities: [bulk merchant lots](merchant-stock.md) supersede the older single-item offers below. These content versions require Framework 0.24.0+.
-
-Regional acquisition now covers the current vanilla solar system: see the
-[solar-system economy guide](solar-system-economy.md) for availability, native
-price factors and limits. The regional builds require Framework 0.23.0+.
-
-Agriculture 0.9.0 requires Framework 0.22.0 and adds [nutrient production](agriculture-nutrient-production.md). Optional
-[meal/crop completion watches](shared-completion-cues.md) notify once after a meal
-is delivered or the whole cohort becomes harvest-ready. Start first, then choose
-Notify; crop readiness never harvests automatically.
-
-Agriculture 0.7.0 adds [lettuce seed production](agriculture-seed-production.md) and
-[maintenance/treatment economics](agriculture-treatment-economy.md). Existing food
-crops and already bound treatment jobs retain their previous contracts.
-
-Current extension: [fluid-network operations](fluid-network-operations.md) documents Agriculture 0.6.0 / Framework 0.20.0 fan-out, line contents, treatment and optional Shipbreaker 0.17.0 coolant servicing. Earlier version-specific sections below retain their baseline scope.
-
-Agriculture **0.6.1** adds dedicated sprites for all twelve cultivation and treatment
-commodities: planting stock, nutrients, irrigation water, produce, cooked potatoes,
-crop residue, both process-solution identities, treatment rejects and cartridges.
-World images and item portraits use the same art; identities, mass and behavior
-are unchanged. The sprouted potato is planting stock; the unsprouted group is raw
-food. Green packets contain lettuce seeds and orange-banded packets nutrients.
-See the [item-art manifest](../assets/phobos-agriculture/stock-layers.json) and
-[artwork notes](../assets/phobos-agriculture/README.md). In-game appearance still
-needs owner evaluation. Food-lettuce harvests do not produce seed; choose the separate seed-production cycle.
-
-First gameplay candidate, prepared on 25 September 2026. Requires **Phobos
-Framework 0.20.0**. The offline checks pass; the owner still needs to evaluate
-the complete loop in Ostranauts. Local installation status is reported separately; a successful build is not gameplay validation.
-
-Agriculture 0.4.0 adds the optional **Groundwork W2 water supply unit and placed
-irrigation conduits**. See the [water-conduit guide](agriculture-water-conduits.md)
-for acquisition, pairing, pipe placement and explicit receiving controls. The
-first slice serves one rack per supply. Agriculture 0.5.0 adds optional
-[potato/lettuce nutrient solution](agriculture-nutrient-solutions.md) through
-the same W2 and pipes, while preserving manual water and dry nutrient loading.
+See [controls](control-panel-guide.md) for Apply/Discard and choosing stores,
+[crew orders](crew-automation.md) for help with routine work, and
+[suppliers](solar-system-economy.md) and [stock lots](merchant-stock.md) for shopping.
+Optional [completion alerts](shared-completion-cues.md) tell you when a meal or
+crop is ready; they do not harvest it. The [changelog](../mods/PhobosAgriculture/CHANGELOG.md)
+keeps the version history and [artwork notes](artwork-completion.md) cover the sprites.
 
 ## Equipment and supplies
 
@@ -74,7 +44,7 @@ Bar/Dining Table, with the required screwdriver and soldering tools:
 
 Install the **4 × 4 rack** and **2 × 2 cooker** on cabin floors and connect their
 power points. Keep room temperature at **18–26 °C** and pressure at **70–110 kPa**
-for growth. These are authored gameplay limits, not universal plant tolerances.
+for growth. These are gameplay limits chosen for this mod, not universal plant tolerances.
 The rack needs atmospheric CO₂. Lamps consume electricity and warm the cabin;
 ventilation and cooling remain ship responsibilities.
 
@@ -108,7 +78,7 @@ Lettuce's harvest-ready image depicts food leaves, not seed production.
    commodities, not drinkable items; packaging mass is abstracted.
 3. Choose **Plant**. Fifteen minutes of local crew work consumes the stock and
    starts automatic cultivation. The panel shows crop progress, health, retained
-   quantities, native room readings and their compartment source.
+   quantities, cabin readings and their compartment source.
 4. Keep water, nutrients, CO₂, power and cabin conditions available. You can leave
    the panel closed. Pausing lamps does **not** freeze respiration or stress.
 5. At readiness, choose **Harvest and retain stock**. Thirty minutes of crew work
@@ -132,7 +102,7 @@ cycle: four seed packets and retained residue at full health, with no food leave
 
 The Hearth-2 cooks **one 0.4 kg portion per Start**, at 2 kW for 90 seconds at full
 supply. Load raw potatoes, start, then collect the cooked portion. Partial supply
-slows cooking. Removing the bound input suspends the cycle; return that exact
+slows cooking. Removing the selected input suspends the cycle; return that exact
 portion or Cancel before using another. Cancellation discards cooking progress,
 not the food. Cooked potatoes reduce native food debt by five units; lettuce by
 one. These values, yields and accelerated growth are gameplay choices.
@@ -161,17 +131,15 @@ F3 uses ordinary access and resource checks.
 
 ## Interruptions and maintenance
 
-Reload keeps crop identity, health, material, growth, captured pace and the bound
-cooking portion. **Resume cultivation/cooking and receiving separately.** No
-unobserved catch-up growth is granted. Loaded, stopped or damaged plants still
+Reload keeps crop identity, health, material, growth, growth rate set at planting and the bound
+cooking portion. **Resume cultivation/cooking and receiving separately.** No growth is added for time outside the running simulation. Loaded, stopped or damaged plants still
 respire and deteriorate; unloaded ship time is not simulated in this candidate.
 Continuous shortages have a two-hour grace, then progressive stress. Restoring
 conditions stops further stress but does not magically restore lost health.
 
 Clear failed crops into retained residue; Drain unloads water plus unused nutrients
-as recorded non-potable process solution eligible for W2 treatment. Crop residue
-has no recovery recipe. Empty physical
-inventory and numeric contents before uninstalling/dismantling; cancel cooking
+as recorded non-potable process solution eligible for W2 treatment. Older unrecorded crop residue has no recovery recipe. New recorded residue can
+be processed at [B2](agriculture-nutrient-production.md). Empty the inventory and stored liquids/nutrients before uninstalling/dismantling; cancel cooking
 progress first. Ordinary repair/Restore use native maintenance. Dismantling returns a bounded mix of native parts/materials and retained housing
 waste; see the condition-specific recovery bills below.
 
@@ -200,7 +168,7 @@ Use `-VerifyOnly` afterwards. See [installation](installing-mods.md).
 
 ## Economy and maintenance (0.3.0)
 
-Prices here are authored base values before native condition, merchant and market
+Prices here are base prices chosen for the mod before native condition, merchant and market
 adjustments. Firstlight-4 is 700 cr (875 pristine, 140 broken); Hearth-2 is 150 cr
 (187.50 pristine, 30 broken). Construction bills and assembly times are unchanged.
 Continuance lettuce seed is 5 cr per sowing. Nutrients remain 60 cr per 40 g.

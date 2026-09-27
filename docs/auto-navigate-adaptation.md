@@ -49,7 +49,7 @@ That note has not been sent. No blanket community reuse grant is claimed.
   braking room before ordinary Fly/Resume, saves console-specific numeric defaults
   with speed controls in Details, and adds rare native module salvage. See
   [flight profiles, safety and salvage](auto-nav-flight-profiles.md).
-- Version 0.9.0 requires [live native sensor contact](auto-nav-sensors.md) for
+- Version 0.9.0 requires [live sensor contact](auto-nav-sensors.md) for
   Fly, Resume and Dock. Losing contact suspends and clears owned thrust while
   preserving intent; reacquisition requires explicit Resume. Unavailable range
   and speed remain unknown. Tracking works with the panel closed and never

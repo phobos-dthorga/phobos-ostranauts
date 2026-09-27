@@ -24,7 +24,7 @@ faceplate uses live accents and Blue Bottle Games' native controls by runtime
 reference. Physical module sprites, IDs and recipes retain their earlier contracts.
 No extracted native artwork is distributed. UI interaction awaits owner evaluation.
 
-1. Select a qualified native sensor contact. Set separation and cruise speed.
+1. Select a qualified sensor contact. Set separation and cruise speed.
    Separation is centre-to-centre, subject to larger native hull clearance.
 2. **Rendezvous** approaches that separation, matches motion and finishes.
    **Follow** on the Pursuit page continues maintaining a band while the target moves.

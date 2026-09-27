@@ -16,6 +16,17 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.28.1] - 2026-09-27 - Draft
+
+### Documentation
+
+- Review English controls, warnings, descriptions and help for practical player language; retain precise diagnostics and established equipment names. Update current guides, item-reference inputs and the Workshop draft.
+- Follow the retrospective language rule and glossary in docs/player-language.md, informed by Blue Bottle Games' official Ostranauts description and Daniel Fedor's developer AMA. This is an interest-based audience interpretation, not measured demographic data.
+
+### Compatibility and limits
+
+- Wording only: translation keys, placeholders, commands, saved identities, resource values and gameplay rules are unchanged. This is an unpublished development candidate; Unity text layout remains unverified.
+
 ## [0.28.0] - 2026-09-27 - Draft
 
 ### Added

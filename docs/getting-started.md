@@ -74,7 +74,7 @@ named-test-save requirement for the current suite.
   validated flight-restoration policy; docking suspends.
 - **Nothing grants perfect recycling.** Rejects remain, cooling is finite, and
   agriculture consumes inputs. Growth speed, yields and simplified chemistry
-  are authored gameplay choices.
+  are gameplay choices made for this mod.
 - **Manufacturing is not playable machinery yet.** Research pages include ideas;
   prefer current player guides for operating instructions.
 - **Updating is not uninstalling.** Do not remove a provider from a save that

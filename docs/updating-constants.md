@@ -182,3 +182,7 @@ potatoes, cooked potatoes and lettuce portions. Cooker inputs remain individual.
 charges and irrigation charges; `Shipbreaker.stackCoolantCharges` covers fresh
 thermal service fluid charges. These storage limits do not pool contents or
 cartridge capacity. Processing still requires individual objects.
+
+Current Workshop requirement paragraphs are registered once per dependency.
+The English rewrite removed duplicate requirements from old crew-update notices;
+maintain the current requirement paragraph instead of restoring those duplicates.

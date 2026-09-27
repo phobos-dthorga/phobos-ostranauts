@@ -66,7 +66,7 @@ be implemented merely to illustrate this directly adjoining intake.
   damaged states use the same art with native damage tint and a damaged name.
   Separate damaged/transport drawings can follow testing. Flat normal maps and
   padded portraits are included; no original-game artwork is packaged.
-- **Infrastructure:** native electrical conduit remains separately placed. Do
+- **Infrastructure:** electrical conduit remains separately placed. Do
   not bake connected cabling, a ship wall, floor, atmosphere, visibility wedges
   or lighting effects into these sprites.
 

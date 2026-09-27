@@ -4,7 +4,7 @@
     {
       "id": "PhobosVerdemorrowFirstlight4Build",
       "name": "Phobos' Verdemorrow Firstlight-4 Cultivation Rack",
-      "description": "Assemble an empty, loose appliance from physical materials.",
+      "description": "Assemble an empty appliance, ready to install.",
       "nameKey": "rack",
       "descriptionKey": "build_desc",
       "stationIds": [
@@ -61,7 +61,7 @@
     {
       "id": "PhobosVerdemorrowHearth2Build",
       "name": "Phobos' Verdemorrow Hearth-2 Galley Cooker",
-      "description": "Assemble an empty, loose appliance from physical materials.",
+      "description": "Assemble an empty appliance, ready to install.",
       "nameKey": "cooker",
       "descriptionKey": "build_desc",
       "stationIds": [
@@ -118,7 +118,7 @@
     {
       "id": "PhobosVerdemorrowGroundworkW2Build",
       "name": "Phobos' Verdemorrow Groundwork W2 Water Supply Unit",
-      "description": "Assemble an empty, loose appliance from physical materials.",
+      "description": "Assemble an empty appliance, ready to install.",
       "nameKey": "water_supply",
       "descriptionKey": "build_desc",
       "stationIds": [
@@ -175,7 +175,7 @@
     {
       "id": "PhobosVerdemorrowWaterConduitBuild",
       "name": "Phobos' Verdemorrow Groundwork Irrigation Conduit",
-      "description": "Assemble an empty, loose appliance from physical materials.",
+      "description": "Assemble an empty appliance, ready to install.",
       "nameKey": "water_pipe",
       "descriptionKey": "build_desc",
       "stationIds": [
@@ -211,7 +211,7 @@
     {
       "id": "PhobosVerdemorrowGroundworkB2Build",
       "name": "Phobos' Verdemorrow Groundwork B2 Workup Bench",
-      "description": "Assemble an empty, loose appliance from physical materials.",
+      "description": "Assemble an empty appliance, ready to install.",
       "nameKey": "workup_bench",
       "descriptionKey": "build_desc",
       "stationIds": [

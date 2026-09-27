@@ -40,7 +40,7 @@ nearest-machine selection.
    routing**, choose **Terminal rejects only**, then **Start transfers**.
 
 For the buffered variant, use the first collector's **Output routing** to link
-the reclaimer. Start incoming transfers at each receiving endpoint. The fixture's
+the reclaimer. Start incoming transfers at each receiving machine. The fixture's
 F9 **Output routing** opens the same controls from its end. The original processor
 Control Panel artwork was not included in 0.9.0. Version 0.10.0 implements the
 [industrial console and equipment panels](industrial-console-player-guide.md),

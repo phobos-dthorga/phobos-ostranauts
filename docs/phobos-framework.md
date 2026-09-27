@@ -103,7 +103,7 @@ The standalone replacement is implemented and packaged for owner testing:
   repair and damage definitions against native game interfaces. It no longer
   clones SWB machinery or requires OCF/SWB at startup.
 - Native installed **Bar Table** (`ItmTable01`) and **Dining Table** (`ItmTable02`)
-  provide construction. Their loose forms occur in native stock/loot. The native
+  provide construction. Their loose forms occur in shop stock/loot. The native
   **Workbench** (`ItmWorkbench01`) is defined but was found only in object/item
   data, so normal acquisition is unconfirmed. It is an optional surface. An
   installed `SWB_WorkbenchInstalled` is also supported when present.

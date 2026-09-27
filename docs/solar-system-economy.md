@@ -115,7 +115,7 @@ negotiation, pristine status and wear remain additional native factors.
 | N1/N2/N3 loose modules | Control Systems, inherited from the native motherboard |
 | Potatoes, lettuce and prepared food | Food |
 | Seeds, nutrients, root-water charges, treatment cartridges, nutrient makeup, clean coolant charges | Industrial Products: packaged operating inputs |
-| Retained coolant, spent biomass, terminal recovery/wet rejects and ordinary maintenance remnants | Trash; tiny authored base values remain unchanged |
+| Retained coolant, spent biomass, terminal recovery/wet rejects and ordinary maintenance remnants | Trash; tiny base prices chosen for the mod remain unchanged |
 | Recorded crop residue, recovered concentrate, in-progress mixture and characterized drainage | No new bulk classification; retain their existing process-specific identity |
 
 Native collections exclude installed equipment and, for Industrial Products and

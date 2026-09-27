@@ -7,7 +7,7 @@ No Steam publication is implied.
 
 ## Equipment and supplies
 
-| Item | Capacity / mass | Acquisition and authored base price |
+| Item | Capacity / mass | Acquisition and base price |
 |---|---|---|
 | Phobos' Verdemorrow Groundwork R3 Agricultural Water Reservoir | 3 x 3 tiles; 120 kg water; 25 kg empty, 145 kg full, plus physical inventory cargo | Empty loose hardware, 450 cr; Agriculture merchants, four per successful offer; INSTALL → APPS |
 | Phobos' Verdemorrow Groundwork Bulk Nutrient Charge | One inventory slot; 0.5 kg dry formulated nutrient stock | 750 cr; eight per merchant offer, or one per station purchase |
@@ -41,17 +41,15 @@ missing or below reserve. Clear the selection while paused to restore the
 previous intake option, including its crew-water reserve.
 
 R3 uses W2's existing received-electricity and throughput budget: output,
-blending and intake compete for that one budget. There is no R3 ticker or
-extra pump allowance. A 120 kg intake requires 0.12 kWh of the existing
+blending and intake compete for that one budget. R3 adds storage, not a second pump. A 120 kg intake requires 0.12 kWh of the existing
 0.001 kWh/kg transfer budget. Room heat follows the existing W2 accounting.
 W2 treatment still suspends distribution; storage does not bypass it.
 
 ## Nutrient charges and crew
 
 Put the new charge in W2's inventory, pause, select that exact charge under
-Supplies and Resume. Its actual remaining mass/value decrease through the
-existing gradual dosing service. Empty charges disappear; no packaging mass,
-water carrier, Repair or Restore is invented.
+Supplies and Resume. Its mass and value fall as nutrients are used. Empty charges disappear.
+Repair and Restore cannot refill them.
 
 Orders begin disabled. R3's **Maintain R3 water stock** order hauls only ordinary
 5 kg irrigation charges from the approved input store and loads them when a
@@ -75,7 +73,7 @@ Choose agricultural water or a nutrient charge, the exact destination and
 quantity. Review the quote and use its separate **Buy quoted quantity** button.
 Water is 10 cr/kg in 0.25 kg steps, up to 120 kg per quote into one R3. Nutrients
 are one 500 g charge at 750 cr into an accessible W2 inventory per purchase.
-These are authored transaction caps, not finite station stock simulation.
+These are limits chosen for gameplay; station stock is not simulated as a finite supply.
 
 The actual terminal user pays. Ownership, docking, terminal access, the quote,
 destination revision and capacity are checked again on Buy. Closing before Buy
@@ -83,12 +81,10 @@ spends nothing. A known partial delivery refunds the undelivered portion and
 records only the amount delivered. A completed quote cannot be replayed.
 Choose a new quantity/destination for another purchase.
 
-Interrupted or uncertain settlement keeps a protected journal on the payer and
-blocks new bulk purchases; it does not guess a refund from a wallet balance.
-Keep the save and report the blocker for evidence-based reconciliation. There
-is deliberately no “clear journal and retry” button. Ordinary supply packages
-and native services remain available. Native save writes are not a database
-transaction, so crash-atomic payment/delivery is not promised.
+If a purchase cannot be confirmed, further bulk purchases are blocked and its
+payment/delivery records are kept. Keep the save and report the fault; do not
+erase those records to force another attempt. Packaged supplies and the usual
+fuel and water services remain available. Recovery after a crash is not guaranteed.
 
 The station entry is gated to the locally audited native assembly. Unsupported
 versions receive no added entry and retain ordinary packaged supply. Blue Bottle

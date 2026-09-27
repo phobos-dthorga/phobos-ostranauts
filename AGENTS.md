@@ -2,6 +2,26 @@
 
 ## Localization and constants
 
+- Owner direction (2026-09-27): all current and future player-facing English
+  across every Ostranauts mod must follow `docs/player-language.md`. Apply this
+  retrospectively, including controls, notifications, item/recipe descriptions,
+  settings help, player guides and Workshop drafts. Write for players interested
+  in ship operation and survival without assuming engineering or coding knowledge.
+- Use an original working-spacer voice: practical, worn-in and occasionally dryly
+  humorous in descriptions and routine messages. Keep controls, warnings and
+  recovery instructions direct. No forced dialect, gratuitous profanity or humour
+  that hides a fault. Say what happened, what it means and what the player can do;
+  never promise an action or recovery the implementation does not support.
+- Keep useful game terms and explain unfamiliar ones. Use the shared glossary;
+  avoid implementation language in ordinary messages. Keep precise diagnostics
+  in logs/developer tools. Preserve commands, IDs, placeholders, units, numerical
+  contracts, the literal `Phobos'` prefix, established makers and model names.
+- Put operating essentials first. Keep scientific attribution, limitations and
+  authored gameplay assumptions in relevant help and guides rather than routine
+  labels. Preserve research and historical release records. Review every English
+  entry and current player document, including retained wording; maintain the
+  language audit record and run localisation/reference checks with related edits.
+
 - Owner direction (2026-09-25): `scripts/update-constants.py` is the standard
   maintenance route for versioning and frequently updated, appropriate constants
   across all Phobos Ostranauts mods. Use `config/maintained-constants.json` to

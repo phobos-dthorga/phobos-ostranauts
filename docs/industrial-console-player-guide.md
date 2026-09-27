@@ -25,7 +25,7 @@ notification** and cue volume/mute. Watching is optional, never starts a job and
 clears on processing pause, fault or reload. See the
 [completion cue guide](shipbreaker-completion-cue.md) for scope and listening checks.
 
-Current packages: Shipbreaker **0.28.0**. Framework and Auto Nav are required;
+Current packages: Shipbreaker **0.28.1**. Framework and Auto Nav are required;
 see [installation requirements](installing-mods.md) for current minimum versions.
 Built against Ostranauts **1.0.1.5** / BepInEx **5.4.23.5**. Automated checks
 passed; the new native panel/seating integration awaits the owner's game test.
@@ -54,9 +54,8 @@ to the list. Text wraps in scrolling content. The ship/access header and
 **Pause ship industry** remain outside the scrolling body. There is no Start All.
 
 Select one machine, then start/pause processing or receiving separately. The
-Routing screen offers only supported pairs on this ship. Changing links and
-filters uses the existing saved-pair services; it does not bypass floor routes,
-locks, receiving capacity, input eligibility or reclaimer cooling checks.
+Routing screen offers only supported pairs on this ship. Links and filters still need valid floor routes, unlocked equipment, free space,
+accepted inputs and enough cooling.
 Receiving filters cover identified feedstock, reclaimer rejects, legacy residue
 and explicit released furnace products. Shipbreaker 0.17.0 adds a separate R4
 aluminium outlet and F6 receiving controls; see [furnace material routing](furnace-material-routing.md).
@@ -70,8 +69,7 @@ the connected intake. The grabber panel can lead to its linked fixture. Existing
 F9 and older console controls remain diagnostic fallbacks.
 
 Readouts show configured working demand, not measured reactor telemetry. Reclaimer
-temperature/pressure is room atmosphere, not the machine's core. Attention is
-based on typed status and interlocks, never on matching English error text. A
+temperature/pressure is room atmosphere, not the machine's core. Attention highlights machines with a fault or a blocked active job. A
 deliberately unused unlinked receiving port is not an alarm. Faults and invalidated
 active receiving routes are attention states until acknowledged/restarted.
 

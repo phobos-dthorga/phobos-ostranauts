@@ -1,121 +1,62 @@
-[h2]Dedicated artwork in 0.15.0[/h2]
-Requires Framework 0.28.0. Seven recovery/bulk supplies have dedicated overhead sprites. Firstlight-4, Hearth-2, W2 and B2 have damaged, packed and damaged-packed variants; installed rack damage retains crop stages. Cooked potato portions already had dedicated artwork. Footprints, saved identities, contents and recipes are unchanged. Artwork is prepared for owner gameplay review.
-[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/artwork-completion.md]Coverage, previews and PixelLab provenance[/url]
-
-[h2]Panel corrections in 0.13.1[/h2]
-Uses Framework 0.26.1 for bounded compact text, stable diagnostics, usable stock buttons and visible ship selection. Connection fields disable unavailable actions and show pending draft changes. Command feedback and Apply confirmations remain visible. Selection lines begin at the relevant machine; local/C1 authority, saved identities and processing rules are retained.
-[b]Unpublished development candidate. Automated checks are not owner-run Unity evaluation.[/b]
-[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/control-panel-guide.md]Controls and verification limits[/url]
-
-[h2]Compact console update[/h2]
-Grouped local machinery controls into Operation, Supplies & connections, Details and standing-order access using Framework 0.26.0. Kept crop-stage artwork and manual planting, harvesting, draining and workup actions. Connection and dosing choices use checked Apply forms; current selections are retained when supplies disappear. B2 standing orders expose process, stock target, approved input/output stores and routine resume without unrelated crop-clearing, drain or exterior mission controls. Recipes and resource accounting are unchanged.
-[b]Prepared, not published. Unity gameplay and scale evaluation remain owner-run.[/b]
-[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/control-panel-guide.md]Console controls, drafts and owner checks[/url]
-
 [h1]Phobos Agriculture[/h1]
-[h2]Solar-system economy in 0.10.0[/h2]
-Cultivation, cooking, irrigation and nutrient-workup machinery, planting stock, nutrients, root-water charges, cartridges, makeup and pipes gain bounded offers at 15 additional placed vanilla retail markets. Food-producing centres receive higher authored availability. Makeup receives the industrial category; terminal biomass/rejects receive trash. Recorded intermediates retain their separate meaning. Base values, cohorts and fluid records are preserved.
-Requires Phobos Framework 0.23.0 or newer. Authored availability follows native economic roles; native supply/demand, merchant terms and restocking remain in control. No new settlements, guaranteed stock or live-price promises. Prepared offline, not gameplay-validated or published.
-[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/solar-system-economy.md]Regional coverage, sources and limits[/url]
-[h2]Optional completion cues in 0.8.0[/h2]
-Requires Phobos Framework 0.22.0 or newer. After starting a meal or crop, optionally watch its completion once through local controls, C1 or F3. A quiet tone means the meal was delivered or the whole cohort became harvest-ready; it never harvests automatically. Shared volume/mute, no replay after loading and no growth-stage or irrigation pings. Gameplay/listening review pending.
-[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/shared-completion-cues.md]Supported events, shared controls and original audio provenance[/url]
-[b]Version:[/b] 0.15.0
+[b]Version:[/b] 0.15.1
 [b]Publication status:[/b] Not published - development candidate
 
-Grow potatoes and lettuce and cook portions aboard your ship using Phobos' Verdemorrow Firstlight-4 Cultivation Racks and Hearth-2 Galley Cookers.
+A hot meal is a useful thing to come home to. Grow potatoes and lettuce with Verdemorrow equipment, then cook potato portions in the Hearth-2 galley cooker.
 
-[h2]Current features[/h2]
+[h2]What it does[/h2]
 [list]
-[*]Choose a separate lettuce seed-production cycle, with flowering/seed-head art and finite seed harvests. Food lettuce remains a separate crop.
-[*]New treatment jobs use finite cartridge capacity by drainage mass and return unused medium; older queued jobs keep their original contract.
-[*]W2 and conduit repair bills reflect their equipment roles.
-[*]Visible crop stages track the saved crop cohort in the four-tray rack.
-[*]Twelve distinct original item sprites identify planting stock, supplies, food and retained waste.
-[*]Find planting stock and food in eligible native fridge loot, and seeds, nutrients, water charges, treatment cartridges and loose pipes in locked-crate/bulk-cargo loot. Chances are configurable and existing loot remains intact.
-[*]Crew load finite supplies, plant, harvest and maintain equipment; automatic controls support the growing environment.
-[*]Use finite manual water and nutrients, or an optional Groundwork W2 supply unit and placed irrigation conduits.
-[*]Mix crop-specific nutrient solution in the W2 and deliver water and nutrients through the same supported circuit.
-[*]Buy or construct equipment through ordinary acquisition routes, with repair, dismantling and retained waste.
-[*]INSTALL catalogue: Firstlight-4, Hearth-2 and W2 under APPS; irrigation conduit under MISC. Intact and damaged forms retain normal physical installation requirements. Prepared; gameplay review pending.
+[*]Firstlight-4 shows the crop growing across four trays. All four share one crop cycle.
+[*]Grow food lettuce or choose the separate seed crop for replacement planting stock.
+[*]Start with manual water and nutrients. Add a W2 and irrigation pipes for up to eight linked racks, then an optional R3 water reserve.
+[*]Recover recorded crop nutrients at B2, add makeup salts and use the mixture in W2. Older unrecorded waste remains waste.
+[*]Buy equipment and supplies or build machinery at supported tables. Some small supplies also appear in newly generated fridges and crates.
+[*]Assign routine planting, supply hauling, harvesting and cooking to eligible crew. Choose an optional alert when a meal or crop is ready.
+[*]Buy agricultural water and 500 g nutrient charges through station Bulk supplies. Review each quote before buying.
 [/list]
 
-[h2]Limits and save behaviour[/h2]
-[list]
-[*]The prepared package includes the native data directory required for the game to recognize Agriculture.
-[*]Experimental candidate; the complete growing/cooking loop still needs in-game evaluation.
-[*]Loot additions apply only to future native generation; existing containers are not refilled. Not every fridge uses the eligible pool. No large machinery or generated process waste is added.
-[*]Four trays represent one crop cohort, not four independent crops or four times the yield.
-[*]One W2 can explicitly serve up to eight paired racks. Receiving and pumping require explicit controls and pause after reload.
-[*]Short growth cycles, crop budgets, nutrient mixtures and simplified chemistry are authored gameplay choices, not research results.
-[*]Recorded drainage supports finite cartridge-powered treatment with retained rejects; legacy process solution remains waste. There is no perfect nutrient recycling or unlimited water.
-[/list]
+[h2]Operating limits[/h2]
+Supplies, output space, cabin conditions and power matter. Growth cycles, yields and simplified chemistry are gameplay choices, not NASA or ESA results. Food lettuce produces no seeds. Drainage treatment loses material and never makes drinking water. Wet Recycler rejects have no fertilizer recipe. Loading pauses water transfer; resume when ready. Split stacked supplies before manual processing; partial charges keep their own contents.
 
 [h2]Requirements and installation[/h2]
-Ostranauts 1.0.1.5, BepInEx 5 and Phobos Framework 0.28.0 or newer. Shipbreaker C1 access is optional. The Ship's Water adapter is scoped to inspected version 0.16.1; manual supply remains available.
+Ostranauts 1.0.1.5, BepInEx 5 and Phobos Framework 0.28.0 or newer. Shipbreaker C1 control is optional. Optional Ship's Water support is scoped to Valtora's inspected 0.16.1; manual supplies remain available.
 
-This is a maintained pre-publication page draft, not a download announcement. No Workshop item has been published for this draft. Use the installation guide for source/prepared-package availability and loader setup. Do not remove required providers from saves that contain their content.
+This is an unpublished development package. Automated checks do not establish in-game readiness or Unity layout approval. Keep required mods installed for saves using their content. Updating does not refill shops or old loot containers. See the installation guide for current download availability.
 
+[h2]English wording update[/h2]
+Controls, warnings and descriptions use clearer language. Equipment identities, saved progress, recipes and gameplay values are unchanged.
+
+[h2]Guides, sources and credits[/h2]
+Created by Phobos A. D'thorga (phobosgekko). Independent community work, not endorsed by Blue Bottle Games, Kitfox Games or the research institutions cited below. Research informs design; compact equipment, yields and operating limits remain gameplay choices.
+NASA plant work and ESA MELiSSA inform the crop and recovery research. Bruce Dunn at Oklahoma State University informs hydroponics; NASA porous-tube research informs root-water delivery; Jay Garland of Bionetics (NASA TM-107557) informs the recovery discussion. The linked research guides distinguish findings from our simplified recipes. Valtora owns Ship's Water; its optional integration does not imply endorsement.
+Original artwork uses AI-assisted production; artwork provenance and licensing are recorded separately.
+
+[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/artwork-completion.md]Coverage, previews and PixelLab provenance[/url]
+[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/control-panel-guide.md]Controls and verification limits[/url]
+[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/control-panel-guide.md]Console controls, drafts and owner checks[/url]
+[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/solar-system-economy.md]Regional coverage, sources and limits[/url]
+[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/shared-completion-cues.md]Supported events, shared controls and original audio provenance[/url]
 [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/getting-started.md]Getting started and download status[/url]
 [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/installing-mods.md]Installation and updates[/url]
 [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/agriculture-player-guide.md]Mod guide[/url]
 [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/agriculture-research.md]NASA/ESA research, original sources and modelling limits[/url]
 [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/agriculture-nutrient-solutions.md]Nutrient solution operation[/url]
 [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/agriculture-loot.md]Loot locations, chances and settings[/url]
-
-[h2]Support and credits[/h2]
 [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/SUPPORT.md]Help and bug reports[/url]
 [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/mods/PhobosAgriculture/CHANGELOG.md]Full changelog[/url]
-Verdemorrow Agronomics is a fictional manufacturer. NASA/ESA and original researcher references, with the findings distinguished from gameplay choices, are recorded in the research guide. They do not endorse or validate this mod.
-
-Created by Phobos A. D'thorga (phobosgekko). Independent community work, not affiliated with or endorsed by Blue Bottle Games or Kitfox Games.
 [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/LICENSE]Licence and exclusions[/url]
 [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/THIRD_PARTY_NOTICES.md]Third-party notices[/url]
-Promotional illustrations and original equipment artwork use AI-assisted production; provenance records retain prompts and export details.
 [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/assets/workshop/README.md]Workshop artwork provenance[/url]
-
-[h2]Fluid network update[/h2]
-One W2 can explicitly supply up to eight compatible racks using one shared pump budget. Irrigation routes retain finite parcels and apply authored resistance and transit delays; broken routes keep their contents.
-
-[h2]Equipment and item reference[/h2]
-[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/agriculture-item-reference.md]Read this mod’s item reference[/url] for functions, use, acquisition and applicable base prices, repair and salvage. Generated tables follow the current source candidate; proposals and prototype limitations are labelled.
-
-[h2]Nutrient recovery research[/h2]
-[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/agriculture-nutrient-recovery.md]Read the researched nutrient-recovery and workup direction[/url]. That research now supports the implemented 0.9.0 crop-residue chain and wet-reject capture described below. Wastewater nutrients remain uncharacterized; recorded-drainage treatment stays separate.
-
-[h2]Nutrient recovery and optional wet-reject collection[/h2]
-[b]Agricultural bulk storage:[/b] R3 water reserves, 500 g nutrient charges and independent station purchases are implemented in this draft. [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/agriculture-bulk-storage.md]Current setup, limits and research attribution[/url].
-
-[b]Prepared, not yet gameplay-validated.[/b] Agriculture 0.9.0 adds the Groundwork B2 bench, recorded crop recovery and equal-mass makeup formulation. Select a physical nutrient charge in W2 for gradual consumption during blending; consumables cannot be repaired or restored. Old crop residue remains uncharacterized. Framework 0.22.0 and Shipbreaker 0.20.0 support measured wet-reject capture from [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3757331189]Valtora’s Ship’s Water 0.16.1[/url]. Full or unavailable linked collectors hold wastewater in its source tank. No wastewater-to-fertilizer recipe is claimed. [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/agriculture-nutrient-production.md]Operating guide, economic limits and research attribution[/url].
-
-[h2]Recycler controls and collector placement[/h2]
-Requires Framework 0.24.2 for shared panel feedback. Other Agriculture machinery hides its portrait slot if artwork is unavailable; errors and distinct action notices remain visible.
-Agriculture 0.11.1 corrects repeated control-panel status and the empty Recycler portrait square. With Shipbreaker 0.24.1, the C2 collector may stand on bare structural floor directly against a full two-tile Recycler edge, including its front. Keep the opposite service side clear for pedestrians. Saved links and cargo remain intact; misaligned pairs wait for correction or Unlink. Prepared offline; gameplay confirmation pending.
-
-[h2]Bulk merchant stock[/h2]
-Increase successful local and regional offers to wholesale lots for machinery, irrigation conduit and consumables, including W2/B2, seeds, nutrients, water charges, treatment cartridges and makeup. Uses Framework 0.24.0; prices, rare fridge/crate loot and existing inventories are unchanged.
-Normal restocking is required; updating does not refill existing shops. [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/merchant-stock.md]Current quantities and restocking guide[/url]. Prepared candidate; in-game stock/capacity review pending.
-
-[h2]Dosing and workup save correction[/h2]
-Agriculture 0.12.1 fixes protected-state faults when no dosing charge is selected, a workup bench is idle or a recovery job needs no supplement. Exact input identities and paid energy are preserved; unknown or corrupt records remain blocked. Restart and reload after updating. Automated save-wrapper checks are not gameplay validation.
-
-[h2]Crew standing orders[/h2]
-Added standing work for selected crop cohorts, finite replenishment, harvest/replant, potato cooking, nutrient workup, configured water routes, recorded drainage recovery and approved storage. Added Agriculture and Cooking training, novice eligibility and qualified-worker preference. Crop growth, chemistry and material yields are unchanged. Preserved source seed stock and configured crew-water reserves. Clearing unwanted living crops and draining usable solutions require separate permission. Added routine resume-after-load selection and supported onboard time-skip accounting through Framework 0.25.0.
-Requires Framework 0.28.0. Ship’s Water and Shipbreaker remain optional. No new recipe for uncharacterized wet rejects; no gameplay validation or Steam publication.
-[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/crew-automation.md]Crew controls, time-skip limits and owner checks[/url]. Optional native-task coexistence with [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3789049955]LOGUSS’s Common Sense modules[/url]; added study preserves [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3788237703]jossla’s Study at Terminals[/url].
-
-[h2]Agricultural bulk supplies[/h2]
-Add the passive 3 x 3 Groundwork R3 reservoir: 120 kg agricultural water, 25 kg empty, one explicitly paired adjacent W2, finite catch and protected reserves. W2 retains one shared power/throughput budget and treatment still pauses distribution.
-Add a physical 500 g Groundwork nutrient charge, gradual selected dosing and optional approved-store crew replacement. R3 crew orders refill from 5 kg irrigation charges; old orders retain their meaning.
-Add station water purchasing at 10 cr/kg in quarter-kilogram steps and single nutrient-charge purchases, with exact destinations, fresh validation and protected settlement evidence. Native refuelling and Valtora’s Ship’s Water 0.16.1 controls remain independent.
-Add original overhead R3 intact/damaged art and native-size exports; loose R3 forms reuse the matching chassis. The bulk nutrient charge now has dedicated packet artwork. No native game images are distributed or submitted to generation.
-Require Framework 0.27.0. R3 starts empty; saves retain contents/identity, W2 resumes explicitly. Filled or uncertain individual reservoirs block detach/destruction; whole-ship loss remains native. No chemical hazard simulation or automatic crash recovery is claimed.
-Update item/INSTALL/economy/player references and retain attribution to Bruce Dunn/OSU, NASA porous-tube research and Jay Garland/Bionetics NASA TM-107557. Capacities, prices and simplified chemistry are authored gameplay choices. Owner Unity evaluation remains pending.
-Research attribution: [url=https://extension.okstate.edu/fact-sheets/hydroponics]Bruce Dunn, Oklahoma State University[/url]; [url=https://technology.nasa.gov/patent/ksc-tops-73]NASA porous-tube nutrient delivery[/url]; [url=https://ntrs.nasa.gov/citations/19930008922]Jay Garland, Bionetics, NASA TM-107557[/url]. No institutional endorsement. [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3757331189]Valtora’s Ship’s Water[/url] remains optional.
-
-[h2]Storage stacks[/h2]
-Loose intact and damaged irrigation conduits and seed potatoes stack to 10; lettuce seed packets to 50; formulated nutrient and makeup-salt packets to 25. Split seeds and nutrient packets into individual items before manual planting, loading, dosing or B2 workup. Existing crew source hauling can deliver individual units from stacks. Partial charges retain their own state; stacking does not refill or combine their contents. Stack quantities count physical objects, not kilograms; merchant lots and per-item values are unchanged. Prepared source candidate; gameplay stacking and save/reload checks remain owner-run.
-
-Raw potato portions, Hearth cooked potato portions and lettuce portions stack to 10 each. Separate one raw potato portion before cooker processing. Per-portion mass and food effects are unchanged.
-
-Treatment cartridges, 500 g bulk nutrient charges and 5 kg irrigation charges stack to 3 each. Separate one object before treatment, dosing or water loading. Cartridges retain individual remaining capacity; one treatment batch must still fit one cartridge, without pooling capacities.
+[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/agriculture-item-reference.md]Read this mod’s item reference[/url]
+[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/agriculture-nutrient-recovery.md]Read the researched nutrient-recovery and workup direction[/url]
+[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/agriculture-bulk-storage.md]Current setup, limits and research attribution[/url]
+[url=https://steamcommunity.com/sharedfiles/filedetails/?id=3757331189]Valtora’s Ship’s Water 0.16.1[/url]
+[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/agriculture-nutrient-production.md]Operating guide, economic limits and research attribution[/url]
+[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/merchant-stock.md]Current quantities and restocking guide[/url]
+[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/crew-automation.md]Crew controls, time-skip limits and owner checks[/url]
+[url=https://steamcommunity.com/sharedfiles/filedetails/?id=3789049955]LOGUSS’s Common Sense modules[/url]
+[url=https://steamcommunity.com/sharedfiles/filedetails/?id=3788237703]jossla’s Study at Terminals[/url]
+[url=https://extension.okstate.edu/fact-sheets/hydroponics]Bruce Dunn, Oklahoma State University[/url]
+[url=https://technology.nasa.gov/patent/ksc-tops-73]NASA porous-tube nutrient delivery[/url]
+[url=https://ntrs.nasa.gov/citations/19930008922]Jay Garland, Bionetics, NASA TM-107557[/url]
+[url=https://steamcommunity.com/sharedfiles/filedetails/?id=3757331189]Valtora’s Ship’s Water[/url]

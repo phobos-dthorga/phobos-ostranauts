@@ -42,7 +42,7 @@ negotiation and market/category modifiers; they are not guaranteed purchase quot
 | Refurbished (restored, without pristine premium) | $3,600 |
 | Broken, before additional wear discounts | $900 |
 
-| Existing merchant | Offer | Chance per native stock generation |
+| Existing merchant | Offer | Chance per shop stock generation |
 |---|---|---:|
 | San Diego Polaris electronics dealer | Pristine | 60% |
 | K-Leg fixer | Lightly worn | 30% |
