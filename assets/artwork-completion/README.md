@@ -32,7 +32,8 @@ Pixen edits. The account allowance decreased from 1,952 to 1,894 during the pass
 (58 included generations), with $0 credit balance throughout and no purchases.
 One B2 damage request explicitly timed out before a successful retry. Capacity
 rejections returned no job ID and were retried after slots became available.
-Rejected/superseded originals remain unselected in the source directory.
+Rejected/superseded originals are preserved on the dedicated archive branch;
+see the [archive inventory](https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/assets/rejected-artwork-archive.md) for exact paths and hashes.
 Initial projection failures prompted the owner's mandatory overhead-first rule.
 
 PixelLab's [terms of service](https://www.pixellab.ai/termsofservice), checked

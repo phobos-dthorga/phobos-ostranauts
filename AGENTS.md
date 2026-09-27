@@ -612,6 +612,14 @@
 
 ## Artwork
 
+- Owner direction (2026-09-27): keep rejected/unselected production attempts on
+  `codex/rejected-artwork`, not in the current `main` tree. Preserve and verify
+  the archive branch before removing originals from main; retain exact requests,
+  rejection reasons, hashes and archive links on main. Maintain
+  `assets/rejected-artwork-archive.json` and its README. Never remove selected
+  masters, generation inputs needed by accepted art, or runtime exports merely
+  because their filenames contain "rejects". Do not rewrite Git history.
+
 - Owner direction (2026-09-27): **overhead-first PixelLab requests** for every
   world/inventory sprite. Follow the explicit prompt prefix and inspection rule
   in `docs/asset-generation-policy.md`: vertical orthographic camera directly

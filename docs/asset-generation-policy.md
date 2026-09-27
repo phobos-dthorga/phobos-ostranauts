@@ -86,6 +86,18 @@ workflow; it is not a request to generate additional artwork immediately.
 
 ## Small, cost-conscious workflow
 
+### Rejected artwork archive
+
+Owner direction, 27 September 2026: keep rejected and unselected image binaries
+on [codex/rejected-artwork](https://github.com/phobos-dthorga/phobos-ostranauts/tree/codex/rejected-artwork).
+Verify the archived originals before removing them from the current main tree.
+Keep selected masters, required inputs and runtime exports on main, together
+with the original requests, decisions, hashes and an
+[archive inventory](https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/assets/rejected-artwork-archive.md). Future additions must
+preserve existing archive contents and record their exact archive commit; do not
+reset the archive branch or rewrite main history. This does not change provider
+licensing or turn discarded candidates into approved assets.
+
 ### Overhead-first PixelLab rule — owner direction, 27 September 2026
 
 All Ostranauts **world sprites and inventory-item sprites** must request the

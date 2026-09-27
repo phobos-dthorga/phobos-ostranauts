@@ -15,7 +15,8 @@ The output is a single finished reusable bitmap asset with transparency only out
 The first generation returned 992 × 1586. A second built-in imagegen edit requested
 an exact 2400 × 3840 enlargement preserving the complete silhouette and registered
 fields; it again returned 992 × 1586. Both exact returned images are retained as
-`source/PhobosFlightHub-generated.png` and `source/PhobosFlightHub-resolution-attempt.png`.
+`source/PhobosFlightHub-generated.png` and the
+[archived resolution retry](https://github.com/phobos-dthorga/phobos-ostranauts/blob/codex/rejected-artwork/assets/phobos-autonav/source/PhobosFlightHub-resolution-attempt.png).
 The first is the selected source. Generated pixels do not imply the requested
 resolution was delivered. The retry was not selected for production.
 

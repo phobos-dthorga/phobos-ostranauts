@@ -1,5 +1,11 @@
 # Agriculture artwork: living visuals and original pilot
 
+**Archive location, 27 September 2026:** rejected trials described below now
+live on [codex/rejected-artwork](https://github.com/phobos-dthorga/phobos-ostranauts/tree/codex/rejected-artwork/assets/phobos-agriculture/source).
+Historical source paths in generation records resolve in that archive snapshot;
+selected originals and production inputs remain on main. The
+[archive inventory](https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/assets/rejected-artwork-archive.md) records paths and hashes.
+
 The [27 September completion pass](../artwork-completion/README.md) supersedes
 the older recovery/bulk commodity reuse notes below with seven dedicated supply
 sprites and three state variants for Firstlight-4, Hearth-2, W2 and B2. Original

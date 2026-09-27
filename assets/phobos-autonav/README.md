@@ -1,5 +1,10 @@
 # Phobos Auto Nav artwork
 
+The unselected flight-hub resolution retry is now preserved on
+[codex/rejected-artwork](https://github.com/phobos-dthorga/phobos-ostranauts/tree/codex/rejected-artwork/assets/phobos-autonav/source).
+Its historical path below resolves there; the selected original and upscaled
+master remain on main. See the [archive inventory](https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/assets/rejected-artwork-archive.md).
+
 ## Current flight hub (0.12.0)
 
 One reusable tall faceplate serves both N1 and N2. Live Navigation/Pursuit labels

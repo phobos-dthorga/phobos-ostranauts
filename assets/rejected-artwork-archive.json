@@ -1,0 +1,164 @@
+{
+  "branch": "codex/rejected-artwork",
+  "snapshotCommit": "c86bbc03436b7fb4e8d1cffec4dc3111e67e9a1d",
+  "date": "2026-09-27",
+  "note": "Archive snapshot retains originals and contemporaneous provenance at their original paths. Main retains requests, rejection reasons and selected production sources. No Git history rewrite.",
+  "assets": [
+    {
+      "path": "assets/artwork-completion/source/concentrate-rejected-angle.png",
+      "sha256": "5f1eff77bbf54d75d697ece0c68d35b5093dad2d82e80581a271d3d9e64e594a",
+      "reason": "Rejected projection/correction or superseded low-contrast candidate; absent from selected manifest.",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/c86bbc03436b7fb4e8d1cffec4dc3111e67e9a1d/assets/artwork-completion/source/concentrate-rejected-angle.png"
+    },
+    {
+      "path": "assets/artwork-completion/source/concentrate-rejected-correction.png",
+      "sha256": "63bd088d9746922e79d35c662edb73aedb83b9ddf0e7fb29717af4ea8956729c",
+      "reason": "Rejected projection/correction or superseded low-contrast candidate; absent from selected manifest.",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/c86bbc03436b7fb4e8d1cffec4dc3111e67e9a1d/assets/artwork-completion/source/concentrate-rejected-correction.png"
+    },
+    {
+      "path": "assets/artwork-completion/source/coolant-charge-rejected-angle.png",
+      "sha256": "aff54e6f9e03c33a236751d8505d9607718333861aa67ff96fded61fa191c65b",
+      "reason": "Rejected projection/correction or superseded low-contrast candidate; absent from selected manifest.",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/c86bbc03436b7fb4e8d1cffec4dc3111e67e9a1d/assets/artwork-completion/source/coolant-charge-rejected-angle.png"
+    },
+    {
+      "path": "assets/artwork-completion/source/f6-section-low-contrast.png",
+      "sha256": "c493e3af8a7fac0a3368b809bd8d09ba5b278c7791e61f60a525c138fb21b146",
+      "reason": "Rejected projection/correction or superseded low-contrast candidate; absent from selected manifest.",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/c86bbc03436b7fb4e8d1cffec4dc3111e67e9a1d/assets/artwork-completion/source/f6-section-low-contrast.png"
+    },
+    {
+      "path": "assets/artwork-completion/source/f6-section-rejected-angle.png",
+      "sha256": "e4bb1eb91783324684a3338d69c6af6e4d9d36059d6445860f0cd4e9bc195834",
+      "reason": "Rejected projection/correction or superseded low-contrast candidate; absent from selected manifest.",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/c86bbc03436b7fb4e8d1cffec4dc3111e67e9a1d/assets/artwork-completion/source/f6-section-rejected-angle.png"
+    },
+    {
+      "path": "assets/artwork-completion/source/f6-section-rejected-correction.png",
+      "sha256": "781fb63259f80dea2fe2a678b953e1f798a63033716dba8154c8fc4d413c1c67",
+      "reason": "Rejected projection/correction or superseded low-contrast candidate; absent from selected manifest.",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/c86bbc03436b7fb4e8d1cffec4dc3111e67e9a1d/assets/artwork-completion/source/f6-section-rejected-correction.png"
+    },
+    {
+      "path": "assets/artwork-completion/source/r4-section-rejected-angle.png",
+      "sha256": "b734ec083e7703c52292fa405cca9424428badab8b9f86800154711cf7b2f6b3",
+      "reason": "Rejected projection/correction or superseded low-contrast candidate; absent from selected manifest.",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/c86bbc03436b7fb4e8d1cffec4dc3111e67e9a1d/assets/artwork-completion/source/r4-section-rejected-angle.png"
+    },
+    {
+      "path": "assets/artwork-completion/source/reclaimer-feedstock-rejected-angle.png",
+      "sha256": "35e295b48a456b0cb7ca5a19e9dc49db18ce27540970f99ccdc399788124feee",
+      "reason": "Rejected projection/correction or superseded low-contrast candidate; absent from selected manifest.",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/c86bbc03436b7fb4e8d1cffec4dc3111e67e9a1d/assets/artwork-completion/source/reclaimer-feedstock-rejected-angle.png"
+    },
+    {
+      "path": "assets/artwork-completion/source/recorded-residue-rejected-angle.png",
+      "sha256": "cb0fdc69448d5e90425f0c2b8ea5d067897313a015d711183f91c14d5dab203e",
+      "reason": "Rejected projection/correction or superseded low-contrast candidate; absent from selected manifest.",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/c86bbc03436b7fb4e8d1cffec4dc3111e67e9a1d/assets/artwork-completion/source/recorded-residue-rejected-angle.png"
+    },
+    {
+      "path": "assets/artwork-completion/source/wet-rejects-rejected-angle.png",
+      "sha256": "4115e7132020cbb4da3b9cb725526f504be7c5630f02ef61c1098e5acae47c6e",
+      "reason": "Rejected projection/correction or superseded low-contrast candidate; absent from selected manifest.",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/c86bbc03436b7fb4e8d1cffec4dc3111e67e9a1d/assets/artwork-completion/source/wet-rejects-rejected-angle.png"
+    },
+    {
+      "path": "assets/phobos-agriculture/source/groundwork-water-supply-rejected-angle-1.png",
+      "sha256": "f6334530cc677571b635a79bb3982c47592de27deba6f41fda34ff9ceee73039",
+      "reason": "Rejected in irrigation/stock generation records; never selected for export.",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/c86bbc03436b7fb4e8d1cffec4dc3111e67e9a1d/assets/phobos-agriculture/source/groundwork-water-supply-rejected-angle-1.png"
+    },
+    {
+      "path": "assets/phobos-agriculture/source/groundwork-water-supply-rejected-angle-2.png",
+      "sha256": "8723165461df4f40e10262a483493130642b171b9748f1ab125ddb8852ccb539",
+      "reason": "Rejected in irrigation/stock generation records; never selected for export.",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/c86bbc03436b7fb4e8d1cffec4dc3111e67e9a1d/assets/phobos-agriculture/source/groundwork-water-supply-rejected-angle-2.png"
+    },
+    {
+      "path": "assets/phobos-agriculture/source/stock-crop-residue-rejected.png",
+      "sha256": "2ea214c571eb44cd36698ba44820b5200e6f6061cfdabe6f2e78a42408ff7ab4",
+      "reason": "Rejected in irrigation/stock generation records; never selected for export.",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/c86bbc03436b7fb4e8d1cffec4dc3111e67e9a1d/assets/phobos-agriculture/source/stock-crop-residue-rejected.png"
+    },
+    {
+      "path": "assets/phobos-agriculture/source/stock-treatment-rejects-rejected.png",
+      "sha256": "bec937ef1ad3c95f22fd05f5ceaa6420285f462a24ac1ead8842c093abf58db1",
+      "reason": "Rejected in irrigation/stock generation records; never selected for export.",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/c86bbc03436b7fb4e8d1cffec4dc3111e67e9a1d/assets/phobos-agriculture/source/stock-treatment-rejects-rejected.png"
+    },
+    {
+      "path": "assets/phobos-agriculture/source/rackPilot.png",
+      "sha256": "bc0d508f0ce0850f68d2e0d03a8a5b508bd1dcbf8638c687b763217143d46b80",
+      "reason": "Initial pilot rejected for wrong projection; see Agriculture artwork README and generation records.",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/c86bbc03436b7fb4e8d1cffec4dc3111e67e9a1d/assets/phobos-agriculture/source/rackPilot.png"
+    },
+    {
+      "path": "assets/phobos-agriculture/source/cookerPilot.png",
+      "sha256": "b1bc96c31129df5f651f0222334b410bc9e61130832c9920abe9b24f25ac42dc",
+      "reason": "Initial pilot rejected for wrong projection; see Agriculture artwork README and generation records.",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/c86bbc03436b7fb4e8d1cffec4dc3111e67e9a1d/assets/phobos-agriculture/source/cookerPilot.png"
+    },
+    {
+      "path": "assets/phobos-agriculture/source/stage_sprout.png",
+      "sha256": "ea7887e9a403b150be5f417f9c6b57dfac32235bafc2c3e5d021c3026552f1a2",
+      "reason": "Reference regeneration rejected for inadequate biological-state distinction; replaced by Pixen edits.",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/c86bbc03436b7fb4e8d1cffec4dc3111e67e9a1d/assets/phobos-agriculture/source/stage_sprout.png"
+    },
+    {
+      "path": "assets/phobos-agriculture/source/stage_young.png",
+      "sha256": "5ce51e35b3ea2491f1363b3378cbc32ef2b6203f9c53ceb1cc0285478d9725f8",
+      "reason": "Reference regeneration rejected for inadequate biological-state distinction; replaced by Pixen edits.",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/c86bbc03436b7fb4e8d1cffec4dc3111e67e9a1d/assets/phobos-agriculture/source/stage_young.png"
+    },
+    {
+      "path": "assets/phobos-agriculture/source/stage_harvest.png",
+      "sha256": "cee43ca4ecec08487f8d402efd89144922a6d1546673142ca33b812bd009ddc4",
+      "reason": "Reference regeneration rejected for inadequate biological-state distinction; replaced by Pixen edits.",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/c86bbc03436b7fb4e8d1cffec4dc3111e67e9a1d/assets/phobos-agriculture/source/stage_harvest.png"
+    },
+    {
+      "path": "assets/phobos-agriculture/source/stage_wilted.png",
+      "sha256": "7219f796595624682abd482a3c78b044590479bf5689acf9f502519212bb3902",
+      "reason": "Reference regeneration rejected for inadequate biological-state distinction; replaced by Pixen edits.",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/c86bbc03436b7fb4e8d1cffec4dc3111e67e9a1d/assets/phobos-agriculture/source/stage_wilted.png"
+    },
+    {
+      "path": "assets/phobos-agriculture/source/stage_dead.png",
+      "sha256": "debad3491095682f792e73616fe0be792cbb76a26f397e27856c420033b999d3",
+      "reason": "Reference regeneration rejected for inadequate biological-state distinction; replaced by Pixen edits.",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/c86bbc03436b7fb4e8d1cffec4dc3111e67e9a1d/assets/phobos-agriculture/source/stage_dead.png"
+    },
+    {
+      "path": "assets/phobos-agriculture/source/lettuce-wilted.png",
+      "sha256": "80f5f9f51d4dd61e0107722a1d7f1f6c967ca51164a1b6e1062a61e38643093e",
+      "reason": "Rejected as too similar to healthy lettuce at native size; see living-visuals generation records.",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/c86bbc03436b7fb4e8d1cffec4dc3111e67e9a1d/assets/phobos-agriculture/source/lettuce-wilted.png"
+    },
+    {
+      "path": "assets/phobos-agriculture/source/lettuce-wilted-retry.png",
+      "sha256": "c2fbccebf01729e08af4b9698a61d1005eede6c945ac0ae2321ab2139d519cf1",
+      "reason": "Rejected as too similar to healthy lettuce at native size; see living-visuals generation records.",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/c86bbc03436b7fb4e8d1cffec4dc3111e67e9a1d/assets/phobos-agriculture/source/lettuce-wilted-retry.png"
+    },
+    {
+      "path": "assets/phobos-agriculture/source/lettuce-bolting.png",
+      "sha256": "7473bb1193c6156a32ec14ea18e5bb6b364019a054ce5bbe21be0bf7cd0a3a99",
+      "reason": "Rejected first seed-stage pair; selected v2 sources retain appropriate reproductive detail.",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/c86bbc03436b7fb4e8d1cffec4dc3111e67e9a1d/assets/phobos-agriculture/source/lettuce-bolting.png"
+    },
+    {
+      "path": "assets/phobos-agriculture/source/lettuce-seed.png",
+      "sha256": "1f3b56af01fd2d4cbe349b8d08c428b472cdab57aa9d3806b188739c9cc7adf1",
+      "reason": "Rejected first seed-stage pair; selected v2 sources retain appropriate reproductive detail.",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/c86bbc03436b7fb4e8d1cffec4dc3111e67e9a1d/assets/phobos-agriculture/source/lettuce-seed.png"
+    },
+    {
+      "path": "assets/phobos-autonav/source/PhobosFlightHub-resolution-attempt.png",
+      "sha256": "1b3cb1491b22560e4ddbda4479ae0c874e2190c643444994dedab56529d6fe78",
+      "reason": "Unselected resolution retry; see hub-prompt.md. Original selected source and upscaled master remain on main.",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/c86bbc03436b7fb4e8d1cffec4dc3111e67e9a1d/assets/phobos-autonav/source/PhobosFlightHub-resolution-attempt.png"
+    }
+  ]
+}
