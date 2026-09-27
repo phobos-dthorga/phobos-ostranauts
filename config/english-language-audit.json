@@ -35829,14 +35829,15 @@
       "path": "docs/item-handling-audit.md",
       "scope": "current handling guidance and complete generated definition ledger",
       "decision": "reviewed",
-      "sha256": "1a227160046b2d37974b67ed39ed9ddff128536213a4c2c19c88db873b54d193",
-      "review": "Explains vanilla pickup/drag labels, legacy-placement exception and missing-menu uncertainty. Game evidence is attributed; native IDs stay untranslated."
+      "sha256": "f4e0c36d8ef8a6a8e45bd1491c974be72435986d26bee430f5e643f139e82347",
+      "review": "2026-09-27 complete item-action audit: explains inaccessible cooling cargo, existing stack restrictions, native maintenance context and saved cumbersome flags; distinguishes findings from fixes and offline evidence from Unity approval."
     },
     {
       "path": "docs/item-reference-maintenance.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "c795cd785731c0e1c12b774b7cc0afcd888abe0b625f04e405363db7cb5cd3fe"
+      "sha256": "87aa5661cbaddd1a138b3567ad6331dfe95563bd44fa6eab169e716cfdc18142",
+      "review": "2026-09-27 complete item-action audit: explains inaccessible cooling cargo, existing stack restrictions, native maintenance context and saved cumbersome flags; distinguishes findings from fixes and offline evidence from Unity approval."
     },
     {
       "path": "docs/item-references.md",
@@ -36110,8 +36111,8 @@
       "path": "docs/shipbreaker-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "287c9f946ec289518c93450a8adf664f91768027f387fd10eeaa8bb44f097ab0",
-      "review": "2026-09-27 Polaris review: checked revised controls, versions, generated reference evidence and limitations; preserved scientific attribution and historical records."
+      "sha256": "73532d421d72c615d27f34dea2c2063cae08aae4627a5fb446bed61f3b315bbd",
+      "review": "2026-09-27 complete item-action audit: explains inaccessible cooling cargo, existing stack restrictions, native maintenance context and saved cumbersome flags; distinguishes findings from fixes and offline evidence from Unity approval."
     },
     {
       "path": "docs/shipbreaker-material-uses.md",
@@ -36189,22 +36190,22 @@
       "path": "workshop/PhobosAgriculture/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "7d8a3beb949922ebac10a20adbab7e1846d424ffde86ec02ff63d495a3b02e4d",
-      "review": "2026-09-27: reviewed performance-update wording/version requirements; existing research and historical evidence retained; no measured speedup claim."
+      "sha256": "13a0787992331e2bee0b12fe9fc48c3abc87cc42d5b5c95c4f71ca197afd7395",
+      "review": "2026-09-27 complete item-action audit: explains inaccessible cooling cargo, existing stack restrictions, native maintenance context and saved cumbersome flags; distinguishes findings from fixes and offline evidence from Unity approval."
     },
     {
       "path": "workshop/PhobosAutoNav/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "dac71a82c0d12a40f67b85aeae460c4befe72b6e0c2b6c984ca9e12dbd35ee78",
-      "review": "2026-09-27: towing instructions, unchanged native mechanics and scope limits reviewed; historical records preserved."
+      "sha256": "7a55e24300a31882f4cbf95b7afa9becdabe7ee625efd3a256612026bd959532",
+      "review": "2026-09-27 complete item-action audit: explains inaccessible cooling cargo, existing stack restrictions, native maintenance context and saved cumbersome flags; distinguishes findings from fixes and offline evidence from Unity approval."
     },
     {
       "path": "workshop/PhobosFramework/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "0f1fa5a23d6fd607d411be49238bc645fc4f789b08a5e67d6acfdde846b2256c",
-      "review": "2026-09-27 Polaris review: checked revised controls, versions, generated reference evidence and limitations; preserved scientific attribution and historical records."
+      "sha256": "76977e727a547a08ff9c4df6b7773693ca3f0f82b19fb206a190c435f12828a5",
+      "review": "2026-09-27 complete item-action audit: explains inaccessible cooling cargo, existing stack restrictions, native maintenance context and saved cumbersome flags; distinguishes findings from fixes and offline evidence from Unity approval."
     },
     {
       "path": "workshop/PhobosManufacturing/page.bbcode",
@@ -36217,16 +36218,16 @@
       "path": "workshop/PhobosShipbreaker/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "3dcc24e45af403519ab4ffe1fd19e1b7c9a94e92239e7b72de6b8f2096e3cbab",
-      "review": "2026-09-27 Polaris review: checked revised controls, versions, generated reference evidence and limitations; preserved scientific attribution and historical records."
+      "sha256": "5727350070eae31faac9b54996b72c7c0bee258b2051f6d6614bd0406c15a5ed",
+      "review": "2026-09-27 complete item-action audit: explains inaccessible cooling cargo, existing stack restrictions, native maintenance context and saved cumbersome flags; distinguishes findings from fixes and offline evidence from Unity approval."
     }
   ],
   "surfaces": [
     {
       "path": "config/item-reference.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "a2e1c3ee38819764a62f6a7ff4974798f34a07e4077a240f1f31705ebf1a6da6",
-      "review": "2026-09-27: reviewed secured towing, warning priority, native boundaries and regenerated reference evidence; historical records preserved."
+      "sha256": "636da3358328083e48e36138dfce920e8f37486b480011a58de4c442d432b71c",
+      "review": "2026-09-27: reviewed F6-P/F6-R known-issue notices; cargo recovery is identified as unresolved rather than promised by the audit."
     },
     {
       "path": "mods/PhobosAgriculture/framework/equipment-names.json",

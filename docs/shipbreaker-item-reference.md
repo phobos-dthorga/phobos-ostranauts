@@ -397,7 +397,7 @@ Rejects furnace heat through a finite exterior cooling assembly.
 
 **Placement:** INSTALL → HVAC. Obtain the loose item first; the menu does not manufacture it.
 
-One cooling endpoint per furnace. Direct coupling is passive; a remote piped installation needs powered circulation. A disconnected exposed radiator still rejects heat already in its own store. It is not an unlimited heat sink; do not switch pairs or modes while hot.
+One cooling endpoint per furnace. Direct coupling is passive; a remote piped installation needs powered circulation. A disconnected exposed radiator still rejects heat already in its own store. It is not an unlimited heat sink; do not switch pairs or modes while hot. Known issue from the [complete item-action audit](item-handling-audit.md): this cooling family can retain cargo without offering Inventory. That can hide Uninstall/Dismantle even when cold. A cargo-preserving recovery fix is still needed; this audit does not change your save.
 
 Full operating instructions: [F6-R Exterior Radiator guide](furnace-player-guide.md).
 
@@ -453,7 +453,7 @@ A sealed deck fitting representing the alternative underside radiator assembly.
 
 **Placement:** INSTALL → HVAC. Obtain the loose item first; the menu does not manufacture it.
 
-The small head represents a complete finite assembly. It keeps the native floor sealed and does not vent cabin air or create a lower deck.
+The small head represents a complete finite assembly. It keeps the native floor sealed and does not vent cabin air or create a lower deck. Known issue from the [complete item-action audit](item-handling-audit.md): this cooling family can retain cargo without offering Inventory. That can hide Uninstall/Dismantle even when cold. A cargo-preserving recovery fix is still needed; this audit does not change your save.
 
 Full operating instructions: [F6-P Thermal Exhaust Port guide](furnace-connections-and-instruments.md).
 

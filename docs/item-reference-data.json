@@ -16,6 +16,16 @@
             "DropItem",
             "PickupItem"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
           "handlingFlags": [
             "IsPocketable"
           ],
@@ -41,6 +51,16 @@
             "PickupItem",
             "PickupItemStack"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
           "handlingFlags": [
             "IsPocketable"
           ],
@@ -66,6 +86,16 @@
             "PickupItem",
             "PickupItemStack"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
           "handlingFlags": [
             "IsPocketable"
           ],
@@ -89,6 +119,16 @@
             "DropItem",
             "PickupItem"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
           "handlingFlags": [
             "IsPocketable"
           ],
@@ -112,6 +152,16 @@
             "DropItem",
             "PickupItem"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
           "handlingFlags": [
             "IsCumbersome"
           ],
@@ -134,6 +184,16 @@
             "DropItem",
             "PickupItem"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
           "handlingFlags": [
             "IsCumbersome"
           ],
@@ -165,6 +225,16 @@
             "PhobosAgricultureWork_clear",
             "PhobosAgricultureWork_drain"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "PhobosVerdemorrowFirstlight4Supplies",
+            "width": 8,
+            "height": 8,
+            "flag": true,
+            "inventoryAction": true,
+            "ownedSlots": [],
+            "loot": null
+          },
           "handlingFlags": [
             "IsInstalled"
           ],
@@ -178,6 +248,13 @@
             {
               "id": "PhobosVerdemorrowFirstlight4InstalledDismantle",
               "kind": "dismantle",
+              "action": "ACTPhobosVerdemorrowFirstlight4InstalledDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -213,6 +290,13 @@
             {
               "id": "PhobosVerdemorrowFirstlight4InstalledRestore",
               "kind": "restore",
+              "action": "ACTPhobosVerdemorrowFirstlight4InstalledRestore",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsUndamageableNotContained",
+              "targetPassOnFreshDefinition": false,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -223,6 +307,13 @@
             {
               "id": "PhobosVerdemorrowFirstlight4InstalledUninstall",
               "kind": "uninstall",
+              "action": "ACTPhobosVerdemorrowFirstlight4InstalledUninstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosVerdemorrowFirstlight4InstalledTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -248,6 +339,16 @@
             "Inventory",
             "PhobosAgricultureControls"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "PhobosVerdemorrowFirstlight4Supplies",
+            "width": 8,
+            "height": 8,
+            "flag": true,
+            "inventoryAction": true,
+            "ownedSlots": [],
+            "loot": null
+          },
           "handlingFlags": [
             "IsDamaged",
             "IsInstalled"
@@ -262,6 +363,13 @@
             {
               "id": "PhobosVerdemorrowFirstlight4InstalledDmgDismantle",
               "kind": "dismantle",
+              "action": "ACTPhobosVerdemorrowFirstlight4InstalledDmgDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -291,6 +399,13 @@
             {
               "id": "PhobosVerdemorrowFirstlight4InstalledDmgRepair",
               "kind": "repair",
+              "action": "ACTPhobosVerdemorrowFirstlight4InstalledDmgRepair",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosVerdemorrowFirstlight4InstalledDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
               "inputs": [
                 "TIsPartsMechSmall=1x2",
                 "TIsPartsElecSmall=1x1",
@@ -312,6 +427,13 @@
             {
               "id": "PhobosVerdemorrowFirstlight4InstalledDmgUninstall",
               "kind": "uninstall",
+              "action": "ACTPhobosVerdemorrowFirstlight4InstalledDmgUninstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosVerdemorrowFirstlight4InstalledDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -338,6 +460,16 @@
             "DropItem",
             "PickupItem"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "PhobosVerdemorrowFirstlight4Supplies",
+            "width": 8,
+            "height": 8,
+            "flag": true,
+            "inventoryAction": true,
+            "ownedSlots": [],
+            "loot": null
+          },
           "handlingFlags": [
             "IsCumbersome"
           ],
@@ -353,6 +485,13 @@
             {
               "id": "PhobosVerdemorrowFirstlight4LooseDismantle",
               "kind": "dismantle",
+              "action": "ACTPhobosVerdemorrowFirstlight4LooseDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -388,6 +527,13 @@
             {
               "id": "PhobosVerdemorrowFirstlight4LooseInstall",
               "kind": "install",
+              "action": "ACTPhobosVerdemorrowFirstlight4LooseInstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosVerdemorrowFirstlight4LooseTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
               "inputs": [
                 "PhobosVerdemorrowFirstlight4LooseTest=1x1"
               ],
@@ -407,6 +553,13 @@
             {
               "id": "PhobosVerdemorrowFirstlight4LooseRestore",
               "kind": "restore",
+              "action": "ACTPhobosVerdemorrowFirstlight4LooseRestore",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsUndamageableNotContained",
+              "targetPassOnFreshDefinition": false,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -426,6 +579,16 @@
             "DropItem",
             "PickupItem"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "PhobosVerdemorrowFirstlight4Supplies",
+            "width": 8,
+            "height": 8,
+            "flag": true,
+            "inventoryAction": true,
+            "ownedSlots": [],
+            "loot": null
+          },
           "handlingFlags": [
             "IsCumbersome",
             "IsDamaged"
@@ -442,6 +605,13 @@
             {
               "id": "PhobosVerdemorrowFirstlight4LooseDmgDismantle",
               "kind": "dismantle",
+              "action": "ACTPhobosVerdemorrowFirstlight4LooseDmgDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -471,6 +641,13 @@
             {
               "id": "PhobosVerdemorrowFirstlight4LooseDmgInstall",
               "kind": "install",
+              "action": "ACTPhobosVerdemorrowFirstlight4LooseDmgInstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosVerdemorrowFirstlight4LooseDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
               "inputs": [
                 "PhobosVerdemorrowFirstlight4LooseDmgTest=1x1"
               ],
@@ -490,6 +667,13 @@
             {
               "id": "PhobosVerdemorrowFirstlight4LooseDmgRepair",
               "kind": "repair",
+              "action": "ACTPhobosVerdemorrowFirstlight4LooseDmgRepair",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosVerdemorrowFirstlight4LooseDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
               "inputs": [
                 "TIsPartsMechSmall=1x2",
                 "TIsPartsElecSmall=1x1",
@@ -519,6 +703,16 @@
             "DropItem",
             "PickupItem"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
           "handlingFlags": [],
           "slots": [
             "heldL",
@@ -540,6 +734,16 @@
             "DropItem",
             "PickupItem"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
           "handlingFlags": [],
           "slots": [
             "heldL",
@@ -563,6 +767,16 @@
             "PhobosAgricultureWork_recover_crop",
             "PhobosAgricultureWork_formulate_nutrients"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "TIsFitContainerSolid",
+            "width": 8,
+            "height": 8,
+            "flag": true,
+            "inventoryAction": true,
+            "ownedSlots": [],
+            "loot": null
+          },
           "handlingFlags": [
             "IsInstalled"
           ],
@@ -576,6 +790,13 @@
             {
               "id": "PhobosVerdemorrowGroundworkB2InstalledDismantle",
               "kind": "dismantle",
+              "action": "ACTPhobosVerdemorrowGroundworkB2InstalledDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -599,6 +820,13 @@
             {
               "id": "PhobosVerdemorrowGroundworkB2InstalledRestore",
               "kind": "restore",
+              "action": "ACTPhobosVerdemorrowGroundworkB2InstalledRestore",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsUndamageableNotContained",
+              "targetPassOnFreshDefinition": false,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -609,6 +837,13 @@
             {
               "id": "PhobosVerdemorrowGroundworkB2InstalledUninstall",
               "kind": "uninstall",
+              "action": "ACTPhobosVerdemorrowGroundworkB2InstalledUninstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosVerdemorrowGroundworkB2InstalledTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -634,6 +869,16 @@
             "Inventory",
             "PhobosAgricultureControls"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "TIsFitContainerSolid",
+            "width": 8,
+            "height": 8,
+            "flag": true,
+            "inventoryAction": true,
+            "ownedSlots": [],
+            "loot": null
+          },
           "handlingFlags": [
             "IsDamaged",
             "IsInstalled"
@@ -648,6 +893,13 @@
             {
               "id": "PhobosVerdemorrowGroundworkB2InstalledDmgDismantle",
               "kind": "dismantle",
+              "action": "ACTPhobosVerdemorrowGroundworkB2InstalledDmgDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -671,6 +923,13 @@
             {
               "id": "PhobosVerdemorrowGroundworkB2InstalledDmgRepair",
               "kind": "repair",
+              "action": "ACTPhobosVerdemorrowGroundworkB2InstalledDmgRepair",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosVerdemorrowGroundworkB2InstalledDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
               "inputs": [
                 "TIsPartsMechSmall=1x1",
                 "TIsPartsElecSmall=1x1",
@@ -692,6 +951,13 @@
             {
               "id": "PhobosVerdemorrowGroundworkB2InstalledDmgUninstall",
               "kind": "uninstall",
+              "action": "ACTPhobosVerdemorrowGroundworkB2InstalledDmgUninstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosVerdemorrowGroundworkB2InstalledDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -718,6 +984,16 @@
             "DropItem",
             "PickupItem"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "TIsFitContainerSolid",
+            "width": 8,
+            "height": 8,
+            "flag": true,
+            "inventoryAction": true,
+            "ownedSlots": [],
+            "loot": null
+          },
           "handlingFlags": [
             "IsCumbersome"
           ],
@@ -733,6 +1009,13 @@
             {
               "id": "PhobosVerdemorrowGroundworkB2LooseDismantle",
               "kind": "dismantle",
+              "action": "ACTPhobosVerdemorrowGroundworkB2LooseDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -756,6 +1039,13 @@
             {
               "id": "PhobosVerdemorrowGroundworkB2LooseInstall",
               "kind": "install",
+              "action": "ACTPhobosVerdemorrowGroundworkB2LooseInstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosVerdemorrowGroundworkB2LooseTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
               "inputs": [
                 "PhobosVerdemorrowGroundworkB2LooseTest=1x1"
               ],
@@ -775,6 +1065,13 @@
             {
               "id": "PhobosVerdemorrowGroundworkB2LooseRestore",
               "kind": "restore",
+              "action": "ACTPhobosVerdemorrowGroundworkB2LooseRestore",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsUndamageableNotContained",
+              "targetPassOnFreshDefinition": false,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -794,6 +1091,16 @@
             "DropItem",
             "PickupItem"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "TIsFitContainerSolid",
+            "width": 8,
+            "height": 8,
+            "flag": true,
+            "inventoryAction": true,
+            "ownedSlots": [],
+            "loot": null
+          },
           "handlingFlags": [
             "IsCumbersome",
             "IsDamaged"
@@ -810,6 +1117,13 @@
             {
               "id": "PhobosVerdemorrowGroundworkB2LooseDmgDismantle",
               "kind": "dismantle",
+              "action": "ACTPhobosVerdemorrowGroundworkB2LooseDmgDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -833,6 +1147,13 @@
             {
               "id": "PhobosVerdemorrowGroundworkB2LooseDmgInstall",
               "kind": "install",
+              "action": "ACTPhobosVerdemorrowGroundworkB2LooseDmgInstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosVerdemorrowGroundworkB2LooseDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
               "inputs": [
                 "PhobosVerdemorrowGroundworkB2LooseDmgTest=1x1"
               ],
@@ -852,6 +1173,13 @@
             {
               "id": "PhobosVerdemorrowGroundworkB2LooseDmgRepair",
               "kind": "repair",
+              "action": "ACTPhobosVerdemorrowGroundworkB2LooseDmgRepair",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosVerdemorrowGroundworkB2LooseDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
               "inputs": [
                 "TIsPartsMechSmall=1x1",
                 "TIsPartsElecSmall=1x1",
@@ -883,6 +1211,16 @@
             "PickupItem",
             "PickupItemStack"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
           "handlingFlags": [
             "IsPocketable"
           ],
@@ -908,6 +1246,16 @@
             "PickupItem",
             "PickupItemStack"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
           "handlingFlags": [
             "IsPocketable"
           ],
@@ -933,6 +1281,16 @@
             "PickupItem",
             "PickupItemStack"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
           "handlingFlags": [
             "IsPocketable"
           ],
@@ -956,6 +1314,16 @@
             "DropItem",
             "PickupItem"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
           "handlingFlags": [
             "IsPocketable"
           ],
@@ -981,6 +1349,16 @@
             "PickupItem",
             "PickupItemStack"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
           "handlingFlags": [
             "IsPocketable"
           ],
@@ -1004,6 +1382,16 @@
             "DropItem",
             "PickupItem"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
           "handlingFlags": [
             "IsCumbersome"
           ],
@@ -1026,6 +1414,16 @@
             "DropItem",
             "PickupItem"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
           "handlingFlags": [
             "IsCumbersome"
           ],
@@ -1051,6 +1449,16 @@
             "PhobosAgriculture_bulk-recover",
             "PhobosAgriculture_bulk-drain"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "TIsFitContainerSolid",
+            "width": 8,
+            "height": 8,
+            "flag": true,
+            "inventoryAction": true,
+            "ownedSlots": [],
+            "loot": null
+          },
           "handlingFlags": [
             "IsInstalled"
           ],
@@ -1064,6 +1472,13 @@
             {
               "id": "PhobosVerdemorrowGroundworkR3InstalledDismantle",
               "kind": "dismantle",
+              "action": "ACTPhobosVerdemorrowGroundworkR3InstalledDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -1087,6 +1502,13 @@
             {
               "id": "PhobosVerdemorrowGroundworkR3InstalledRestore",
               "kind": "restore",
+              "action": "ACTPhobosVerdemorrowGroundworkR3InstalledRestore",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsUndamageableNotContained",
+              "targetPassOnFreshDefinition": false,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -1097,6 +1519,13 @@
             {
               "id": "PhobosVerdemorrowGroundworkR3InstalledUninstall",
               "kind": "uninstall",
+              "action": "ACTPhobosVerdemorrowGroundworkR3InstalledUninstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosVerdemorrowGroundworkR3InstalledTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -1122,6 +1551,16 @@
             "Inventory",
             "PhobosAgricultureBulkControls"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "TIsFitContainerSolid",
+            "width": 8,
+            "height": 8,
+            "flag": true,
+            "inventoryAction": true,
+            "ownedSlots": [],
+            "loot": null
+          },
           "handlingFlags": [
             "IsDamaged",
             "IsInstalled"
@@ -1136,6 +1575,13 @@
             {
               "id": "PhobosVerdemorrowGroundworkR3InstalledDmgDismantle",
               "kind": "dismantle",
+              "action": "ACTPhobosVerdemorrowGroundworkR3InstalledDmgDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -1159,6 +1605,13 @@
             {
               "id": "PhobosVerdemorrowGroundworkR3InstalledDmgRepair",
               "kind": "repair",
+              "action": "ACTPhobosVerdemorrowGroundworkR3InstalledDmgRepair",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosVerdemorrowGroundworkR3InstalledDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
               "inputs": [
                 "TIsPartsMechSmall=1x1",
                 "TIsPartsElecSmall=1x1",
@@ -1180,6 +1633,13 @@
             {
               "id": "PhobosVerdemorrowGroundworkR3InstalledDmgUninstall",
               "kind": "uninstall",
+              "action": "ACTPhobosVerdemorrowGroundworkR3InstalledDmgUninstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosVerdemorrowGroundworkR3InstalledDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -1206,6 +1666,16 @@
             "DropItem",
             "PickupItem"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "TIsFitContainerSolid",
+            "width": 8,
+            "height": 8,
+            "flag": true,
+            "inventoryAction": true,
+            "ownedSlots": [],
+            "loot": null
+          },
           "handlingFlags": [
             "IsCumbersome"
           ],
@@ -1221,6 +1691,13 @@
             {
               "id": "PhobosVerdemorrowGroundworkR3LooseDismantle",
               "kind": "dismantle",
+              "action": "ACTPhobosVerdemorrowGroundworkR3LooseDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -1244,6 +1721,13 @@
             {
               "id": "PhobosVerdemorrowGroundworkR3LooseInstall",
               "kind": "install",
+              "action": "ACTPhobosVerdemorrowGroundworkR3LooseInstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosVerdemorrowGroundworkR3LooseTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
               "inputs": [
                 "PhobosVerdemorrowGroundworkR3LooseTest=1x1"
               ],
@@ -1263,6 +1747,13 @@
             {
               "id": "PhobosVerdemorrowGroundworkR3LooseRestore",
               "kind": "restore",
+              "action": "ACTPhobosVerdemorrowGroundworkR3LooseRestore",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsUndamageableNotContained",
+              "targetPassOnFreshDefinition": false,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -1282,6 +1773,16 @@
             "DropItem",
             "PickupItem"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "TIsFitContainerSolid",
+            "width": 8,
+            "height": 8,
+            "flag": true,
+            "inventoryAction": true,
+            "ownedSlots": [],
+            "loot": null
+          },
           "handlingFlags": [
             "IsCumbersome",
             "IsDamaged"
@@ -1298,6 +1799,13 @@
             {
               "id": "PhobosVerdemorrowGroundworkR3LooseDmgDismantle",
               "kind": "dismantle",
+              "action": "ACTPhobosVerdemorrowGroundworkR3LooseDmgDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -1321,6 +1829,13 @@
             {
               "id": "PhobosVerdemorrowGroundworkR3LooseDmgInstall",
               "kind": "install",
+              "action": "ACTPhobosVerdemorrowGroundworkR3LooseDmgInstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosVerdemorrowGroundworkR3LooseDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
               "inputs": [
                 "PhobosVerdemorrowGroundworkR3LooseDmgTest=1x1"
               ],
@@ -1340,6 +1855,13 @@
             {
               "id": "PhobosVerdemorrowGroundworkR3LooseDmgRepair",
               "kind": "repair",
+              "action": "ACTPhobosVerdemorrowGroundworkR3LooseDmgRepair",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosVerdemorrowGroundworkR3LooseDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
               "inputs": [
                 "TIsPartsMechSmall=1x1",
                 "TIsPartsElecSmall=1x1",
@@ -1371,6 +1893,16 @@
             "PickupItem",
             "PickupItemStack"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
           "handlingFlags": [
             "IsPocketable"
           ],
@@ -1394,6 +1926,16 @@
             "DropItem",
             "PickupItem"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
           "handlingFlags": [],
           "slots": [
             "heldL",
@@ -1415,6 +1957,16 @@
             "DropItem",
             "PickupItem"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
           "handlingFlags": [],
           "slots": [
             "heldL",
@@ -1441,6 +1993,16 @@
             "PhobosAgricultureWork_recover_solution",
             "PhobosAgricultureWork_drain"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "PhobosVerdemorrowFirstlight4Supplies",
+            "width": 8,
+            "height": 8,
+            "flag": true,
+            "inventoryAction": true,
+            "ownedSlots": [],
+            "loot": null
+          },
           "handlingFlags": [
             "IsInstalled"
           ],
@@ -1454,6 +2016,13 @@
             {
               "id": "PhobosVerdemorrowGroundworkW2InstalledDismantle",
               "kind": "dismantle",
+              "action": "ACTPhobosVerdemorrowGroundworkW2InstalledDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -1477,6 +2046,13 @@
             {
               "id": "PhobosVerdemorrowGroundworkW2InstalledRestore",
               "kind": "restore",
+              "action": "ACTPhobosVerdemorrowGroundworkW2InstalledRestore",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsUndamageableNotContained",
+              "targetPassOnFreshDefinition": false,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -1487,6 +2063,13 @@
             {
               "id": "PhobosVerdemorrowGroundworkW2InstalledUninstall",
               "kind": "uninstall",
+              "action": "ACTPhobosVerdemorrowGroundworkW2InstalledUninstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosVerdemorrowGroundworkW2InstalledTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -1512,6 +2095,16 @@
             "Inventory",
             "PhobosAgricultureControls"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "PhobosVerdemorrowFirstlight4Supplies",
+            "width": 8,
+            "height": 8,
+            "flag": true,
+            "inventoryAction": true,
+            "ownedSlots": [],
+            "loot": null
+          },
           "handlingFlags": [
             "IsDamaged",
             "IsInstalled"
@@ -1526,6 +2119,13 @@
             {
               "id": "PhobosVerdemorrowGroundworkW2InstalledDmgDismantle",
               "kind": "dismantle",
+              "action": "ACTPhobosVerdemorrowGroundworkW2InstalledDmgDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -1549,6 +2149,13 @@
             {
               "id": "PhobosVerdemorrowGroundworkW2InstalledDmgRepair",
               "kind": "repair",
+              "action": "ACTPhobosVerdemorrowGroundworkW2InstalledDmgRepair",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosVerdemorrowGroundworkW2InstalledDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
               "inputs": [
                 "TIsPartsMechSmall=1x1",
                 "TIsPartsElecSmall=1x1",
@@ -1570,6 +2177,13 @@
             {
               "id": "PhobosVerdemorrowGroundworkW2InstalledDmgUninstall",
               "kind": "uninstall",
+              "action": "ACTPhobosVerdemorrowGroundworkW2InstalledDmgUninstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosVerdemorrowGroundworkW2InstalledDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -1596,6 +2210,16 @@
             "DropItem",
             "PickupItem"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "PhobosVerdemorrowFirstlight4Supplies",
+            "width": 8,
+            "height": 8,
+            "flag": true,
+            "inventoryAction": true,
+            "ownedSlots": [],
+            "loot": null
+          },
           "handlingFlags": [
             "IsCumbersome"
           ],
@@ -1611,6 +2235,13 @@
             {
               "id": "PhobosVerdemorrowGroundworkW2LooseDismantle",
               "kind": "dismantle",
+              "action": "ACTPhobosVerdemorrowGroundworkW2LooseDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -1634,6 +2265,13 @@
             {
               "id": "PhobosVerdemorrowGroundworkW2LooseInstall",
               "kind": "install",
+              "action": "ACTPhobosVerdemorrowGroundworkW2LooseInstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosVerdemorrowGroundworkW2LooseTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
               "inputs": [
                 "PhobosVerdemorrowGroundworkW2LooseTest=1x1"
               ],
@@ -1653,6 +2291,13 @@
             {
               "id": "PhobosVerdemorrowGroundworkW2LooseRestore",
               "kind": "restore",
+              "action": "ACTPhobosVerdemorrowGroundworkW2LooseRestore",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsUndamageableNotContained",
+              "targetPassOnFreshDefinition": false,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -1672,6 +2317,16 @@
             "DropItem",
             "PickupItem"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "PhobosVerdemorrowFirstlight4Supplies",
+            "width": 8,
+            "height": 8,
+            "flag": true,
+            "inventoryAction": true,
+            "ownedSlots": [],
+            "loot": null
+          },
           "handlingFlags": [
             "IsCumbersome",
             "IsDamaged"
@@ -1688,6 +2343,13 @@
             {
               "id": "PhobosVerdemorrowGroundworkW2LooseDmgDismantle",
               "kind": "dismantle",
+              "action": "ACTPhobosVerdemorrowGroundworkW2LooseDmgDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -1711,6 +2373,13 @@
             {
               "id": "PhobosVerdemorrowGroundworkW2LooseDmgInstall",
               "kind": "install",
+              "action": "ACTPhobosVerdemorrowGroundworkW2LooseDmgInstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosVerdemorrowGroundworkW2LooseDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
               "inputs": [
                 "PhobosVerdemorrowGroundworkW2LooseDmgTest=1x1"
               ],
@@ -1730,6 +2399,13 @@
             {
               "id": "PhobosVerdemorrowGroundworkW2LooseDmgRepair",
               "kind": "repair",
+              "action": "ACTPhobosVerdemorrowGroundworkW2LooseDmgRepair",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosVerdemorrowGroundworkW2LooseDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
               "inputs": [
                 "TIsPartsMechSmall=1x1",
                 "TIsPartsElecSmall=1x1",
@@ -1759,6 +2435,16 @@
             "DropItem",
             "PickupItem"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
           "handlingFlags": [],
           "slots": [
             "heldL",
@@ -1780,6 +2466,16 @@
             "DropItem",
             "PickupItem"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
           "handlingFlags": [],
           "slots": [
             "heldL",
@@ -1801,6 +2497,16 @@
             "Inventory",
             "PhobosAgricultureControls"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "TIsFitContainerSolid",
+            "width": 8,
+            "height": 8,
+            "flag": true,
+            "inventoryAction": true,
+            "ownedSlots": [],
+            "loot": null
+          },
           "handlingFlags": [
             "IsInstalled"
           ],
@@ -1814,6 +2520,13 @@
             {
               "id": "PhobosVerdemorrowHearth2InstalledDismantle",
               "kind": "dismantle",
+              "action": "ACTPhobosVerdemorrowHearth2InstalledDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -1843,6 +2556,13 @@
             {
               "id": "PhobosVerdemorrowHearth2InstalledRestore",
               "kind": "restore",
+              "action": "ACTPhobosVerdemorrowHearth2InstalledRestore",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsUndamageableNotContained",
+              "targetPassOnFreshDefinition": false,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -1853,6 +2573,13 @@
             {
               "id": "PhobosVerdemorrowHearth2InstalledUninstall",
               "kind": "uninstall",
+              "action": "ACTPhobosVerdemorrowHearth2InstalledUninstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosVerdemorrowHearth2InstalledTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -1878,6 +2605,16 @@
             "Inventory",
             "PhobosAgricultureControls"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "TIsFitContainerSolid",
+            "width": 8,
+            "height": 8,
+            "flag": true,
+            "inventoryAction": true,
+            "ownedSlots": [],
+            "loot": null
+          },
           "handlingFlags": [
             "IsDamaged",
             "IsInstalled"
@@ -1892,6 +2629,13 @@
             {
               "id": "PhobosVerdemorrowHearth2InstalledDmgDismantle",
               "kind": "dismantle",
+              "action": "ACTPhobosVerdemorrowHearth2InstalledDmgDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -1915,6 +2659,13 @@
             {
               "id": "PhobosVerdemorrowHearth2InstalledDmgRepair",
               "kind": "repair",
+              "action": "ACTPhobosVerdemorrowHearth2InstalledDmgRepair",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosVerdemorrowHearth2InstalledDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
               "inputs": [
                 "TIsPartsMechSmall=1x1",
                 "TIsScrapAluminum=1x1"
@@ -1935,6 +2686,13 @@
             {
               "id": "PhobosVerdemorrowHearth2InstalledDmgUninstall",
               "kind": "uninstall",
+              "action": "ACTPhobosVerdemorrowHearth2InstalledDmgUninstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosVerdemorrowHearth2InstalledDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -1961,6 +2719,16 @@
             "DropItem",
             "PickupItem"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "TIsFitContainerSolid",
+            "width": 8,
+            "height": 8,
+            "flag": true,
+            "inventoryAction": true,
+            "ownedSlots": [],
+            "loot": null
+          },
           "handlingFlags": [
             "IsCumbersome"
           ],
@@ -1976,6 +2744,13 @@
             {
               "id": "PhobosVerdemorrowHearth2LooseDismantle",
               "kind": "dismantle",
+              "action": "ACTPhobosVerdemorrowHearth2LooseDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -2005,6 +2780,13 @@
             {
               "id": "PhobosVerdemorrowHearth2LooseInstall",
               "kind": "install",
+              "action": "ACTPhobosVerdemorrowHearth2LooseInstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosVerdemorrowHearth2LooseTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
               "inputs": [
                 "PhobosVerdemorrowHearth2LooseTest=1x1"
               ],
@@ -2024,6 +2806,13 @@
             {
               "id": "PhobosVerdemorrowHearth2LooseRestore",
               "kind": "restore",
+              "action": "ACTPhobosVerdemorrowHearth2LooseRestore",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsUndamageableNotContained",
+              "targetPassOnFreshDefinition": false,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -2043,6 +2832,16 @@
             "DropItem",
             "PickupItem"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "TIsFitContainerSolid",
+            "width": 8,
+            "height": 8,
+            "flag": true,
+            "inventoryAction": true,
+            "ownedSlots": [],
+            "loot": null
+          },
           "handlingFlags": [
             "IsCumbersome",
             "IsDamaged"
@@ -2059,6 +2858,13 @@
             {
               "id": "PhobosVerdemorrowHearth2LooseDmgDismantle",
               "kind": "dismantle",
+              "action": "ACTPhobosVerdemorrowHearth2LooseDmgDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -2082,6 +2888,13 @@
             {
               "id": "PhobosVerdemorrowHearth2LooseDmgInstall",
               "kind": "install",
+              "action": "ACTPhobosVerdemorrowHearth2LooseDmgInstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosVerdemorrowHearth2LooseDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
               "inputs": [
                 "PhobosVerdemorrowHearth2LooseDmgTest=1x1"
               ],
@@ -2101,6 +2914,13 @@
             {
               "id": "PhobosVerdemorrowHearth2LooseDmgRepair",
               "kind": "repair",
+              "action": "ACTPhobosVerdemorrowHearth2LooseDmgRepair",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosVerdemorrowHearth2LooseDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
               "inputs": [
                 "TIsPartsMechSmall=1x1",
                 "TIsScrapAluminum=1x1"
@@ -2134,6 +2954,16 @@
             "PickupItem",
             "PickupItemStack"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
           "handlingFlags": [
             "IsPocketable"
           ],
@@ -2162,6 +2992,16 @@
             "PickupItem",
             "PickupItemStack"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
           "handlingFlags": [
             "IsPocketable"
           ],
@@ -2185,6 +3025,16 @@
             "DropItem",
             "PickupItem"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
           "handlingFlags": [
             "IsPocketable"
           ],
@@ -2210,6 +3060,16 @@
             "PickupItem",
             "PickupItemStack"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
           "handlingFlags": [
             "IsPocketable"
           ],
@@ -2233,6 +3093,16 @@
             "DropItem",
             "PickupItem"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
           "handlingFlags": [
             "IsPocketable"
           ],
@@ -2256,6 +3126,16 @@
             "DropItem",
             "PickupItem"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
           "handlingFlags": [
             "IsPocketable"
           ],
@@ -2279,6 +3159,16 @@
             "DropItem",
             "PickupItem"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
           "handlingFlags": [
             "IsPocketable"
           ],
@@ -2302,6 +3192,16 @@
             "DropItem",
             "PickupItem"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
           "handlingFlags": [
             "IsPocketable"
           ],
@@ -2325,6 +3225,16 @@
             "DropItem",
             "PickupItem"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
           "handlingFlags": [
             "IsPocketable"
           ],
@@ -2345,6 +3255,16 @@
           "name": "Phobos' Verdemorrow Groundwork Irrigation Conduit",
           "stackLimit": 1,
           "actions": [],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
           "handlingFlags": [
             "IsInstalled",
             "IsPocketable"
@@ -2359,6 +3279,13 @@
             {
               "id": "PhobosVerdemorrowWaterConduitInstalledDismantle",
               "kind": "dismantle",
+              "action": "ACTPhobosVerdemorrowWaterConduitInstalledDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -2376,6 +3303,13 @@
             {
               "id": "PhobosVerdemorrowWaterConduitInstalledRestore",
               "kind": "restore",
+              "action": "ACTPhobosVerdemorrowWaterConduitInstalledRestore",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsUndamageableNotContained",
+              "targetPassOnFreshDefinition": false,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -2386,6 +3320,13 @@
             {
               "id": "PhobosVerdemorrowWaterConduitInstalledUninstall",
               "kind": "uninstall",
+              "action": "ACTPhobosVerdemorrowWaterConduitInstalledUninstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosVerdemorrowWaterConduitInstalledTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -2408,6 +3349,16 @@
           "name": "Phobos' Verdemorrow Groundwork Irrigation Conduit (Damaged)",
           "stackLimit": 1,
           "actions": [],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
           "handlingFlags": [
             "IsDamaged",
             "IsInstalled",
@@ -2423,6 +3374,13 @@
             {
               "id": "PhobosVerdemorrowWaterConduitInstalledDmgDismantle",
               "kind": "dismantle",
+              "action": "ACTPhobosVerdemorrowWaterConduitInstalledDmgDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -2440,6 +3398,13 @@
             {
               "id": "PhobosVerdemorrowWaterConduitInstalledDmgRepair",
               "kind": "repair",
+              "action": "ACTPhobosVerdemorrowWaterConduitInstalledDmgRepair",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosVerdemorrowWaterConduitInstalledDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
               "inputs": [
                 "TIsScrapAluminum=1x1"
               ],
@@ -2459,6 +3424,13 @@
             {
               "id": "PhobosVerdemorrowWaterConduitInstalledDmgUninstall",
               "kind": "uninstall",
+              "action": "ACTPhobosVerdemorrowWaterConduitInstalledDmgUninstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosVerdemorrowWaterConduitInstalledDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -2486,6 +3458,16 @@
             "DropItemStack",
             "PickupItemStack"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
           "handlingFlags": [
             "IsPocketable"
           ],
@@ -2502,6 +3484,13 @@
             {
               "id": "PhobosVerdemorrowWaterConduitLooseDismantle",
               "kind": "dismantle",
+              "action": "ACTPhobosVerdemorrowWaterConduitLooseDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -2519,6 +3508,13 @@
             {
               "id": "PhobosVerdemorrowWaterConduitLooseInstall",
               "kind": "install",
+              "action": "ACTPhobosVerdemorrowWaterConduitLooseInstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosVerdemorrowWaterConduitLooseTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
               "inputs": [
                 "PhobosVerdemorrowWaterConduitLooseTest=1x1"
               ],
@@ -2538,6 +3534,13 @@
             {
               "id": "PhobosVerdemorrowWaterConduitLooseRestore",
               "kind": "restore",
+              "action": "ACTPhobosVerdemorrowWaterConduitLooseRestore",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsUndamageableNotContained",
+              "targetPassOnFreshDefinition": false,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -2558,6 +3561,16 @@
             "DropItemStack",
             "PickupItemStack"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
           "handlingFlags": [
             "IsDamaged",
             "IsPocketable"
@@ -2575,6 +3588,13 @@
             {
               "id": "PhobosVerdemorrowWaterConduitLooseDmgDismantle",
               "kind": "dismantle",
+              "action": "ACTPhobosVerdemorrowWaterConduitLooseDmgDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -2592,6 +3612,13 @@
             {
               "id": "PhobosVerdemorrowWaterConduitLooseDmgInstall",
               "kind": "install",
+              "action": "ACTPhobosVerdemorrowWaterConduitLooseDmgInstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosVerdemorrowWaterConduitLooseDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
               "inputs": [
                 "PhobosVerdemorrowWaterConduitLooseDmgTest=1x1"
               ],
@@ -2611,6 +3638,13 @@
             {
               "id": "PhobosVerdemorrowWaterConduitLooseDmgRepair",
               "kind": "repair",
+              "action": "ACTPhobosVerdemorrowWaterConduitLooseDmgRepair",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosVerdemorrowWaterConduitLooseDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
               "inputs": [
                 "TIsScrapAluminum=1x1"
               ],
@@ -2638,6 +3672,16 @@
             "DropItem",
             "PickupItem"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
           "handlingFlags": [],
           "slots": [
             "heldL",
@@ -5270,6 +6314,16 @@
             "DropItem",
             "PickupItem"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
           "handlingFlags": [
             "IsPocketable"
           ],
@@ -5286,6 +6340,13 @@
             {
               "id": "PhobosAutoNavBoardDismantle",
               "kind": "dismantle",
+              "action": "ACTPhobosAutoNavBoardDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -5303,6 +6364,13 @@
             {
               "id": "PhobosAutoNavBoardRestore",
               "kind": "restore",
+              "action": "ACTPhobosAutoNavBoardRestore",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsUndamageableNotContained",
+              "targetPassOnFreshDefinition": false,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -5323,6 +6391,16 @@
             "DropItem",
             "PickupItem"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
           "handlingFlags": [
             "IsDamaged",
             "IsPocketable"
@@ -5340,6 +6418,13 @@
             {
               "id": "PhobosAutoNavBoardDmgDismantle",
               "kind": "dismantle",
+              "action": "ACTPhobosAutoNavBoardDmgDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -5357,6 +6442,13 @@
             {
               "id": "PhobosAutoNavBoardDmgRepair",
               "kind": "repair",
+              "action": "ACTPhobosAutoNavBoardDmgRepair",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsRepairableNotContained",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [
                 "TIsPartsElecSmall=1x2"
               ],
@@ -5388,6 +6480,16 @@
             "DropItemStack",
             "PickupItemStack"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
           "handlingFlags": [],
           "slots": [
             "heldL",
@@ -5411,6 +6513,16 @@
             "DropItemStack",
             "PickupItemStack"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
           "handlingFlags": [],
           "slots": [
             "heldL",
@@ -5432,6 +6544,16 @@
             "DropItem",
             "PickupItem"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
           "handlingFlags": [
             "IsPocketable"
           ],
@@ -5448,6 +6570,13 @@
             {
               "id": "PhobosFireControlBoardDismantle",
               "kind": "dismantle",
+              "action": "ACTPhobosFireControlBoardDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -5465,6 +6594,13 @@
             {
               "id": "PhobosFireControlBoardRestore",
               "kind": "restore",
+              "action": "ACTPhobosFireControlBoardRestore",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsUndamageableNotContained",
+              "targetPassOnFreshDefinition": false,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -5485,6 +6621,16 @@
             "DropItem",
             "PickupItem"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
           "handlingFlags": [
             "IsDamaged",
             "IsPocketable"
@@ -5502,6 +6648,13 @@
             {
               "id": "PhobosFireControlBoardDmgDismantle",
               "kind": "dismantle",
+              "action": "ACTPhobosFireControlBoardDmgDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -5519,6 +6672,13 @@
             {
               "id": "PhobosFireControlBoardDmgRepair",
               "kind": "repair",
+              "action": "ACTPhobosFireControlBoardDmgRepair",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsRepairableNotContained",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [
                 "TIsPartsElecSmall=1x2"
               ],
@@ -5548,6 +6708,16 @@
             "DropItem",
             "PickupItem"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
           "handlingFlags": [
             "IsPocketable"
           ],
@@ -5564,6 +6734,13 @@
             {
               "id": "PhobosPursuitBoardDismantle",
               "kind": "dismantle",
+              "action": "ACTPhobosPursuitBoardDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -5581,6 +6758,13 @@
             {
               "id": "PhobosPursuitBoardRestore",
               "kind": "restore",
+              "action": "ACTPhobosPursuitBoardRestore",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsUndamageableNotContained",
+              "targetPassOnFreshDefinition": false,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -5601,6 +6785,16 @@
             "DropItem",
             "PickupItem"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
           "handlingFlags": [
             "IsDamaged",
             "IsPocketable"
@@ -5618,6 +6812,13 @@
             {
               "id": "PhobosPursuitBoardDmgDismantle",
               "kind": "dismantle",
+              "action": "ACTPhobosPursuitBoardDmgDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -5635,6 +6836,13 @@
             {
               "id": "PhobosPursuitBoardDmgRepair",
               "kind": "repair",
+              "action": "ACTPhobosPursuitBoardDmgRepair",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsRepairableNotContained",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [
                 "TIsPartsElecSmall=1x2"
               ],
@@ -6821,6 +8029,16 @@
             "DropItem",
             "PickupItem"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
           "handlingFlags": [],
           "slots": [
             "heldL",
@@ -6863,6 +8081,16 @@
             "Inventory",
             "PhobosEquipmentControls"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "TIsFitContainerSolidCumbersome",
+            "width": 4,
+            "height": 4,
+            "flag": true,
+            "inventoryAction": true,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
           "handlingFlags": [
             "IsInstalled"
           ],
@@ -6887,6 +8115,13 @@
             {
               "id": "PhobosExteriorGrabberInstalledDismantle",
               "kind": "dismantle",
+              "action": "ACTPhobosExteriorGrabberInstalledDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -6928,6 +8163,13 @@
             {
               "id": "PhobosExteriorGrabberInstalledRestore",
               "kind": "restore",
+              "action": "ACTPhobosExteriorGrabberInstalledRestore",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsUndamageableNotContained",
+              "targetPassOnFreshDefinition": false,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -6938,6 +8180,13 @@
             {
               "id": "PhobosExteriorGrabberInstalledUninstall",
               "kind": "uninstall",
+              "action": "ACTPhobosExteriorGrabberInstalledUninstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosExteriorGrabberTInstalled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq"
@@ -6962,6 +8211,16 @@
             "Inventory",
             "PhobosEquipmentControls"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "TIsFitContainerSolidCumbersome",
+            "width": 4,
+            "height": 4,
+            "flag": true,
+            "inventoryAction": true,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
           "handlingFlags": [
             "IsDamaged",
             "IsInstalled"
@@ -6976,6 +8235,13 @@
             {
               "id": "PhobosExteriorGrabberInstalledDmgDismantle",
               "kind": "dismantle",
+              "action": "ACTPhobosExteriorGrabberInstalledDmgDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -7011,6 +8277,13 @@
             {
               "id": "PhobosExteriorGrabberInstalledDmgUninstall",
               "kind": "uninstall",
+              "action": "ACTPhobosExteriorGrabberInstalledDmgUninstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosExteriorGrabberTInstalledDmg",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq"
@@ -7027,6 +8300,13 @@
             {
               "id": "PhobosExteriorGrabberInstalledRepair",
               "kind": "repair",
+              "action": "ACTPhobosExteriorGrabberInstalledRepair",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsRepairableNotContained",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [
                 "TIsScrapSteel=1x2",
                 "TIsScrapAluminum=1x1",
@@ -7058,6 +8338,16 @@
             "DropItem",
             "PickupItem"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "TIsFitContainerSolidCumbersome",
+            "width": 4,
+            "height": 4,
+            "flag": true,
+            "inventoryAction": true,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
           "handlingFlags": [
             "IsCumbersome"
           ],
@@ -7073,6 +8363,13 @@
             {
               "id": "PhobosExteriorGrabberLooseDismantle",
               "kind": "dismantle",
+              "action": "ACTPhobosExteriorGrabberLooseDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -7114,6 +8411,13 @@
             {
               "id": "PhobosExteriorGrabberLooseInstall",
               "kind": "install",
+              "action": "ACTPhobosExteriorGrabberLooseInstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosExteriorGrabberTLoose",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
               "inputs": [
                 "PhobosExteriorGrabberTLoose=1.0x1"
               ],
@@ -7132,6 +8436,13 @@
             {
               "id": "PhobosExteriorGrabberLooseRestore",
               "kind": "restore",
+              "action": "ACTPhobosExteriorGrabberLooseRestore",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsUndamageableNotContained",
+              "targetPassOnFreshDefinition": false,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -7151,6 +8462,16 @@
             "DropItem",
             "PickupItem"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "TIsFitContainerSolidCumbersome",
+            "width": 4,
+            "height": 4,
+            "flag": true,
+            "inventoryAction": true,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
           "handlingFlags": [
             "IsCumbersome",
             "IsDamaged"
@@ -7167,6 +8488,13 @@
             {
               "id": "PhobosExteriorGrabberLooseDmgDismantle",
               "kind": "dismantle",
+              "action": "ACTPhobosExteriorGrabberLooseDmgDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -7202,6 +8530,13 @@
             {
               "id": "PhobosExteriorGrabberLooseDmgInstall",
               "kind": "install",
+              "action": "ACTPhobosExteriorGrabberLooseDmgInstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosExteriorGrabberTLooseDmg",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
               "inputs": [
                 "PhobosExteriorGrabberTLooseDmg=1.0x1"
               ],
@@ -7220,6 +8555,13 @@
             {
               "id": "PhobosExteriorGrabberLooseRepair",
               "kind": "repair",
+              "action": "ACTPhobosExteriorGrabberLooseRepair",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsRepairableNotContained",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [
                 "TIsScrapSteel=1x2",
                 "TIsScrapAluminum=1x1",
@@ -7247,6 +8589,16 @@
           "name": "Phobos' Rivetline F6-C Sealed Coolant Conduit",
           "stackLimit": 1,
           "actions": [],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
           "handlingFlags": [
             "IsInstalled",
             "IsPocketable"
@@ -7261,6 +8613,13 @@
             {
               "id": "PhobosFurnaceCoolantConduitInstalledDismantle",
               "kind": "dismantle",
+              "action": "ACTPhobosFurnaceCoolantConduitInstalledDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -7278,6 +8637,13 @@
             {
               "id": "PhobosFurnaceCoolantConduitInstalledRestore",
               "kind": "restore",
+              "action": "ACTPhobosFurnaceCoolantConduitInstalledRestore",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsUndamageableNotContained",
+              "targetPassOnFreshDefinition": false,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -7288,6 +8654,13 @@
             {
               "id": "PhobosFurnaceCoolantConduitInstalledUninstall",
               "kind": "uninstall",
+              "action": "ACTPhobosFurnaceCoolantConduitInstalledUninstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosFurnaceCoolantConduitInstalledTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -7310,6 +8683,16 @@
           "name": "Phobos' Rivetline F6-C Sealed Coolant Conduit",
           "stackLimit": 1,
           "actions": [],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
           "handlingFlags": [
             "IsDamaged",
             "IsInstalled",
@@ -7325,6 +8708,13 @@
             {
               "id": "PhobosFurnaceCoolantConduitInstalledDmgDismantle",
               "kind": "dismantle",
+              "action": "ACTPhobosFurnaceCoolantConduitInstalledDmgDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -7342,6 +8732,13 @@
             {
               "id": "PhobosFurnaceCoolantConduitInstalledDmgRepair",
               "kind": "repair",
+              "action": "ACTPhobosFurnaceCoolantConduitInstalledDmgRepair",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosFurnaceCoolantConduitInstalledDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
               "inputs": [
                 "TIsScrapAluminum=1x1"
               ],
@@ -7361,6 +8758,13 @@
             {
               "id": "PhobosFurnaceCoolantConduitInstalledDmgUninstall",
               "kind": "uninstall",
+              "action": "ACTPhobosFurnaceCoolantConduitInstalledDmgUninstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosFurnaceCoolantConduitInstalledDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -7388,6 +8792,16 @@
             "DropItemStack",
             "PickupItemStack"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
           "handlingFlags": [
             "IsPocketable"
           ],
@@ -7404,6 +8818,13 @@
             {
               "id": "PhobosFurnaceCoolantConduitLooseDismantle",
               "kind": "dismantle",
+              "action": "ACTPhobosFurnaceCoolantConduitLooseDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -7421,6 +8842,13 @@
             {
               "id": "PhobosFurnaceCoolantConduitLooseInstall",
               "kind": "install",
+              "action": "ACTPhobosFurnaceCoolantConduitLooseInstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosFurnaceCoolantConduitLooseTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
               "inputs": [
                 "PhobosFurnaceCoolantConduitLooseTest=1x1"
               ],
@@ -7440,6 +8868,13 @@
             {
               "id": "PhobosFurnaceCoolantConduitLooseRestore",
               "kind": "restore",
+              "action": "ACTPhobosFurnaceCoolantConduitLooseRestore",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsUndamageableNotContained",
+              "targetPassOnFreshDefinition": false,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -7460,6 +8895,16 @@
             "DropItemStack",
             "PickupItemStack"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
           "handlingFlags": [
             "IsDamaged",
             "IsPocketable"
@@ -7477,6 +8922,13 @@
             {
               "id": "PhobosFurnaceCoolantConduitLooseDmgDismantle",
               "kind": "dismantle",
+              "action": "ACTPhobosFurnaceCoolantConduitLooseDmgDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -7494,6 +8946,13 @@
             {
               "id": "PhobosFurnaceCoolantConduitLooseDmgInstall",
               "kind": "install",
+              "action": "ACTPhobosFurnaceCoolantConduitLooseDmgInstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosFurnaceCoolantConduitLooseDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
               "inputs": [
                 "PhobosFurnaceCoolantConduitLooseDmgTest=1x1"
               ],
@@ -7513,6 +8972,13 @@
             {
               "id": "PhobosFurnaceCoolantConduitLooseDmgRepair",
               "kind": "repair",
+              "action": "ACTPhobosFurnaceCoolantConduitLooseDmgRepair",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosFurnaceCoolantConduitLooseDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
               "inputs": [
                 "TIsScrapAluminum=1x1"
               ],
@@ -7540,6 +9006,16 @@
             "DropItem",
             "PickupItem"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
           "handlingFlags": [],
           "slots": [
             "heldL",
@@ -7561,6 +9037,16 @@
             "DropItem",
             "PickupItem"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
           "handlingFlags": [],
           "slots": [
             "heldL",
@@ -7582,6 +9068,16 @@
             "DropItem",
             "PickupItem"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
           "handlingFlags": [],
           "slots": [
             "heldL",
@@ -7600,6 +9096,16 @@
           "name": "Phobos' Rivetline F6 Aluminium charge chamber",
           "stackLimit": 1,
           "actions": [],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "PhobosFurnaceTFeed",
+            "width": 10,
+            "height": 8,
+            "flag": true,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
           "handlingFlags": [
             "IsSystem"
           ],
@@ -7622,6 +9128,18 @@
             "Inventory",
             "PhobosEquipmentControls"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "TIsFitContainerSolid",
+            "width": 8,
+            "height": 8,
+            "flag": true,
+            "inventoryAction": true,
+            "ownedSlots": [
+              "PhobosFurnaceInput"
+            ],
+            "loot": "PhobosFurnaceCompartments"
+          },
           "handlingFlags": [
             "IsInstalled"
           ],
@@ -7635,6 +9153,13 @@
             {
               "id": "PhobosFurnaceInstalledDismantle",
               "kind": "dismantle",
+              "action": "ACTPhobosFurnaceInstalledDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -7676,6 +9201,13 @@
             {
               "id": "PhobosFurnaceInstalledRestore",
               "kind": "restore",
+              "action": "ACTPhobosFurnaceInstalledRestore",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsUndamageableNotContained",
+              "targetPassOnFreshDefinition": false,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -7686,6 +9218,13 @@
             {
               "id": "PhobosFurnaceInstalledUninstall",
               "kind": "uninstall",
+              "action": "ACTPhobosFurnaceInstalledUninstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosFurnaceTInstalled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq"
@@ -7710,6 +9249,18 @@
             "Inventory",
             "PhobosEquipmentControls"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "TIsFitContainerSolid",
+            "width": 8,
+            "height": 8,
+            "flag": true,
+            "inventoryAction": true,
+            "ownedSlots": [
+              "PhobosFurnaceInput"
+            ],
+            "loot": "PhobosFurnaceCompartments"
+          },
           "handlingFlags": [
             "IsDamaged",
             "IsInstalled"
@@ -7724,6 +9275,13 @@
             {
               "id": "PhobosFurnaceInstalledDmgDismantle",
               "kind": "dismantle",
+              "action": "ACTPhobosFurnaceInstalledDmgDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -7765,6 +9323,13 @@
             {
               "id": "PhobosFurnaceInstalledDmgUninstall",
               "kind": "uninstall",
+              "action": "ACTPhobosFurnaceInstalledDmgUninstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosFurnaceTInstalledDmg",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq"
@@ -7781,6 +9346,13 @@
             {
               "id": "PhobosFurnaceInstalledRepair",
               "kind": "repair",
+              "action": "ACTPhobosFurnaceInstalledRepair",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsRepairableNotContained",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [
                 "TIsScrapSteel=1x4",
                 "TIsScrapAluminum=1x4",
@@ -7812,6 +9384,18 @@
             "DropItem",
             "PickupItem"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "TIsFitContainerSolid",
+            "width": 8,
+            "height": 8,
+            "flag": true,
+            "inventoryAction": true,
+            "ownedSlots": [
+              "PhobosFurnaceInput"
+            ],
+            "loot": "PhobosFurnaceCompartments"
+          },
           "handlingFlags": [
             "IsCumbersome"
           ],
@@ -7827,6 +9411,13 @@
             {
               "id": "PhobosFurnaceLooseDismantle",
               "kind": "dismantle",
+              "action": "ACTPhobosFurnaceLooseDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -7868,6 +9459,13 @@
             {
               "id": "PhobosFurnaceLooseInstall",
               "kind": "install",
+              "action": "ACTPhobosFurnaceLooseInstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosFurnaceTLoose",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
               "inputs": [
                 "PhobosFurnaceTLoose=1.0x1"
               ],
@@ -7886,6 +9484,13 @@
             {
               "id": "PhobosFurnaceLooseRestore",
               "kind": "restore",
+              "action": "ACTPhobosFurnaceLooseRestore",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsUndamageableNotContained",
+              "targetPassOnFreshDefinition": false,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -7905,6 +9510,18 @@
             "DropItem",
             "PickupItem"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "TIsFitContainerSolid",
+            "width": 8,
+            "height": 8,
+            "flag": true,
+            "inventoryAction": true,
+            "ownedSlots": [
+              "PhobosFurnaceInput"
+            ],
+            "loot": "PhobosFurnaceCompartments"
+          },
           "handlingFlags": [
             "IsCumbersome",
             "IsDamaged"
@@ -7921,6 +9538,13 @@
             {
               "id": "PhobosFurnaceLooseDmgDismantle",
               "kind": "dismantle",
+              "action": "ACTPhobosFurnaceLooseDmgDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -7962,6 +9586,13 @@
             {
               "id": "PhobosFurnaceLooseDmgInstall",
               "kind": "install",
+              "action": "ACTPhobosFurnaceLooseDmgInstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosFurnaceTLooseDmg",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
               "inputs": [
                 "PhobosFurnaceTLooseDmg=1.0x1"
               ],
@@ -7980,6 +9611,13 @@
             {
               "id": "PhobosFurnaceLooseRepair",
               "kind": "repair",
+              "action": "ACTPhobosFurnaceLooseRepair",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsRepairableNotContained",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [
                 "TIsScrapSteel=1x4",
                 "TIsScrapAluminum=1x4",
@@ -8010,6 +9648,16 @@
             "DropItem",
             "PickupItem"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
           "handlingFlags": [],
           "slots": [
             "heldL",
@@ -8030,6 +9678,16 @@
           "actions": [
             "PhobosEquipmentControls"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "TIsFitContainerSolid",
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
           "handlingFlags": [
             "IsInstalled"
           ],
@@ -8043,6 +9701,13 @@
             {
               "id": "PhobosFurnaceRadiatorInstalledDismantle",
               "kind": "dismantle",
+              "action": "ACTPhobosFurnaceRadiatorInstalledDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -8078,6 +9743,13 @@
             {
               "id": "PhobosFurnaceRadiatorInstalledRestore",
               "kind": "restore",
+              "action": "ACTPhobosFurnaceRadiatorInstalledRestore",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsUndamageableNotContained",
+              "targetPassOnFreshDefinition": false,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -8088,6 +9760,13 @@
             {
               "id": "PhobosFurnaceRadiatorInstalledUninstall",
               "kind": "uninstall",
+              "action": "ACTPhobosFurnaceRadiatorInstalledUninstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosFurnaceRadiatorTInstalled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq"
@@ -8111,6 +9790,16 @@
           "actions": [
             "PhobosEquipmentControls"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "TIsFitContainerSolid",
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
           "handlingFlags": [
             "IsDamaged",
             "IsInstalled"
@@ -8125,6 +9814,13 @@
             {
               "id": "PhobosFurnaceRadiatorInstalledDmgDismantle",
               "kind": "dismantle",
+              "action": "ACTPhobosFurnaceRadiatorInstalledDmgDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -8160,6 +9856,13 @@
             {
               "id": "PhobosFurnaceRadiatorInstalledDmgUninstall",
               "kind": "uninstall",
+              "action": "ACTPhobosFurnaceRadiatorInstalledDmgUninstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosFurnaceRadiatorTInstalledDmg",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq"
@@ -8176,6 +9879,13 @@
             {
               "id": "PhobosFurnaceRadiatorInstalledRepair",
               "kind": "repair",
+              "action": "ACTPhobosFurnaceRadiatorInstalledRepair",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsRepairableNotContained",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [
                 "TIsScrapSteel=1x2",
                 "TIsScrapAluminum=1x4",
@@ -8205,6 +9915,16 @@
             "DropItem",
             "PickupItem"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "TIsFitContainerSolid",
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
           "handlingFlags": [
             "IsCumbersome"
           ],
@@ -8220,6 +9940,13 @@
             {
               "id": "PhobosFurnaceRadiatorLooseDismantle",
               "kind": "dismantle",
+              "action": "ACTPhobosFurnaceRadiatorLooseDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -8255,6 +9982,13 @@
             {
               "id": "PhobosFurnaceRadiatorLooseInstall",
               "kind": "install",
+              "action": "ACTPhobosFurnaceRadiatorLooseInstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosFurnaceRadiatorTLoose",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
               "inputs": [
                 "PhobosFurnaceRadiatorTLoose=1.0x1"
               ],
@@ -8273,6 +10007,13 @@
             {
               "id": "PhobosFurnaceRadiatorLooseRestore",
               "kind": "restore",
+              "action": "ACTPhobosFurnaceRadiatorLooseRestore",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsUndamageableNotContained",
+              "targetPassOnFreshDefinition": false,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -8291,6 +10032,16 @@
             "DropItem",
             "PickupItem"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "TIsFitContainerSolid",
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
           "handlingFlags": [
             "IsCumbersome",
             "IsDamaged"
@@ -8307,6 +10058,13 @@
             {
               "id": "PhobosFurnaceRadiatorLooseDmgDismantle",
               "kind": "dismantle",
+              "action": "ACTPhobosFurnaceRadiatorLooseDmgDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -8342,6 +10100,13 @@
             {
               "id": "PhobosFurnaceRadiatorLooseDmgInstall",
               "kind": "install",
+              "action": "ACTPhobosFurnaceRadiatorLooseDmgInstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosFurnaceRadiatorTLooseDmg",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
               "inputs": [
                 "PhobosFurnaceRadiatorTLooseDmg=1.0x1"
               ],
@@ -8360,6 +10125,13 @@
             {
               "id": "PhobosFurnaceRadiatorLooseRepair",
               "kind": "repair",
+              "action": "ACTPhobosFurnaceRadiatorLooseRepair",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsRepairableNotContained",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [
                 "TIsScrapSteel=1x2",
                 "TIsScrapAluminum=1x4",
@@ -8389,6 +10161,16 @@
             "DropItem",
             "PickupItem"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
           "handlingFlags": [
             "IsCumbersome"
           ],
@@ -8404,6 +10186,13 @@
             {
               "id": "PhobosFurnaceSectionDismantle",
               "kind": "dismantle",
+              "action": "ACTPhobosFurnaceSectionDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -8452,6 +10241,16 @@
           "actions": [
             "PhobosEquipmentControls"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "TIsFitContainerSolid",
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
           "handlingFlags": [
             "IsInstalled"
           ],
@@ -8465,6 +10264,13 @@
             {
               "id": "PhobosFurnaceThermalPortInstalledDismantle",
               "kind": "dismantle",
+              "action": "ACTPhobosFurnaceThermalPortInstalledDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -8500,6 +10306,13 @@
             {
               "id": "PhobosFurnaceThermalPortInstalledRestore",
               "kind": "restore",
+              "action": "ACTPhobosFurnaceThermalPortInstalledRestore",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsUndamageableNotContained",
+              "targetPassOnFreshDefinition": false,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -8510,6 +10323,13 @@
             {
               "id": "PhobosFurnaceThermalPortInstalledUninstall",
               "kind": "uninstall",
+              "action": "ACTPhobosFurnaceThermalPortInstalledUninstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosFurnaceThermalPortTInstalled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq"
@@ -8533,6 +10353,16 @@
           "actions": [
             "PhobosEquipmentControls"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "TIsFitContainerSolid",
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
           "handlingFlags": [
             "IsDamaged",
             "IsInstalled"
@@ -8547,6 +10377,13 @@
             {
               "id": "PhobosFurnaceThermalPortInstalledDmgDismantle",
               "kind": "dismantle",
+              "action": "ACTPhobosFurnaceThermalPortInstalledDmgDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -8582,6 +10419,13 @@
             {
               "id": "PhobosFurnaceThermalPortInstalledDmgUninstall",
               "kind": "uninstall",
+              "action": "ACTPhobosFurnaceThermalPortInstalledDmgUninstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosFurnaceThermalPortTInstalledDmg",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq"
@@ -8598,6 +10442,13 @@
             {
               "id": "PhobosFurnaceThermalPortInstalledRepair",
               "kind": "repair",
+              "action": "ACTPhobosFurnaceThermalPortInstalledRepair",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsRepairableNotContained",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [
                 "TIsScrapSteel=1x2",
                 "TIsScrapAluminum=1x4",
@@ -8627,6 +10478,16 @@
             "DropItem",
             "PickupItem"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "TIsFitContainerSolid",
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
           "handlingFlags": [
             "IsCumbersome"
           ],
@@ -8642,6 +10503,13 @@
             {
               "id": "PhobosFurnaceThermalPortLooseDismantle",
               "kind": "dismantle",
+              "action": "ACTPhobosFurnaceThermalPortLooseDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -8677,6 +10545,13 @@
             {
               "id": "PhobosFurnaceThermalPortLooseInstall",
               "kind": "install",
+              "action": "ACTPhobosFurnaceThermalPortLooseInstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosFurnaceThermalPortTLoose",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
               "inputs": [
                 "PhobosFurnaceThermalPortTLoose=1.0x1"
               ],
@@ -8695,6 +10570,13 @@
             {
               "id": "PhobosFurnaceThermalPortLooseRestore",
               "kind": "restore",
+              "action": "ACTPhobosFurnaceThermalPortLooseRestore",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsUndamageableNotContained",
+              "targetPassOnFreshDefinition": false,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -8713,6 +10595,16 @@
             "DropItem",
             "PickupItem"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "TIsFitContainerSolid",
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
           "handlingFlags": [
             "IsCumbersome",
             "IsDamaged"
@@ -8729,6 +10621,13 @@
             {
               "id": "PhobosFurnaceThermalPortLooseDmgDismantle",
               "kind": "dismantle",
+              "action": "ACTPhobosFurnaceThermalPortLooseDmgDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -8764,6 +10663,13 @@
             {
               "id": "PhobosFurnaceThermalPortLooseDmgInstall",
               "kind": "install",
+              "action": "ACTPhobosFurnaceThermalPortLooseDmgInstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosFurnaceThermalPortTLooseDmg",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
               "inputs": [
                 "PhobosFurnaceThermalPortTLooseDmg=1.0x1"
               ],
@@ -8782,6 +10688,13 @@
             {
               "id": "PhobosFurnaceThermalPortLooseRepair",
               "kind": "repair",
+              "action": "ACTPhobosFurnaceThermalPortLooseRepair",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsRepairableNotContained",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [
                 "TIsScrapSteel=1x2",
                 "TIsScrapAluminum=1x4",
@@ -8810,6 +10723,16 @@
           "actions": [
             "PhobosEquipmentControls"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
           "handlingFlags": [
             "IsInstalled"
           ],
@@ -8823,6 +10746,13 @@
             {
               "id": "PhobosHullChuteInstalledDismantle",
               "kind": "dismantle",
+              "action": "ACTPhobosHullChuteInstalledDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -8864,6 +10794,13 @@
             {
               "id": "PhobosHullChuteInstalledRestore",
               "kind": "restore",
+              "action": "ACTPhobosHullChuteInstalledRestore",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsUndamageableNotContained",
+              "targetPassOnFreshDefinition": false,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -8874,6 +10811,13 @@
             {
               "id": "PhobosHullChuteInstalledUninstall",
               "kind": "uninstall",
+              "action": "ACTPhobosHullChuteInstalledUninstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosHullChuteTInstalled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq"
@@ -8897,6 +10841,16 @@
           "actions": [
             "PhobosEquipmentControls"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
           "handlingFlags": [
             "IsDamaged",
             "IsInstalled"
@@ -8911,6 +10865,13 @@
             {
               "id": "PhobosHullChuteInstalledDmgDismantle",
               "kind": "dismantle",
+              "action": "ACTPhobosHullChuteInstalledDmgDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -8946,6 +10907,13 @@
             {
               "id": "PhobosHullChuteInstalledDmgUninstall",
               "kind": "uninstall",
+              "action": "ACTPhobosHullChuteInstalledDmgUninstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosHullChuteTInstalledDmg",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq"
@@ -8962,6 +10930,13 @@
             {
               "id": "PhobosHullChuteInstalledRepair",
               "kind": "repair",
+              "action": "ACTPhobosHullChuteInstalledRepair",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsRepairableNotContained",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [
                 "TIsScrapSteel=1x2",
                 "TIsScrapAluminum=1x1",
@@ -8991,6 +10966,16 @@
             "DropItem",
             "PickupItem"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
           "handlingFlags": [
             "IsCumbersome"
           ],
@@ -9006,6 +10991,13 @@
             {
               "id": "PhobosHullChuteLooseDismantle",
               "kind": "dismantle",
+              "action": "ACTPhobosHullChuteLooseDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -9047,6 +11039,13 @@
             {
               "id": "PhobosHullChuteLooseInstall",
               "kind": "install",
+              "action": "ACTPhobosHullChuteLooseInstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosHullChuteTLoose",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
               "inputs": [
                 "PhobosHullChuteTLoose=1.0x1"
               ],
@@ -9065,6 +11064,13 @@
             {
               "id": "PhobosHullChuteLooseRestore",
               "kind": "restore",
+              "action": "ACTPhobosHullChuteLooseRestore",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsUndamageableNotContained",
+              "targetPassOnFreshDefinition": false,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -9083,6 +11089,16 @@
             "DropItem",
             "PickupItem"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
           "handlingFlags": [
             "IsCumbersome",
             "IsDamaged"
@@ -9099,6 +11115,13 @@
             {
               "id": "PhobosHullChuteLooseDmgDismantle",
               "kind": "dismantle",
+              "action": "ACTPhobosHullChuteLooseDmgDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -9134,6 +11157,13 @@
             {
               "id": "PhobosHullChuteLooseDmgInstall",
               "kind": "install",
+              "action": "ACTPhobosHullChuteLooseDmgInstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosHullChuteTLooseDmg",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
               "inputs": [
                 "PhobosHullChuteTLooseDmg=1.0x1"
               ],
@@ -9152,6 +11182,13 @@
             {
               "id": "PhobosHullChuteLooseRepair",
               "kind": "repair",
+              "action": "ACTPhobosHullChuteLooseRepair",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsRepairableNotContained",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [
                 "TIsScrapSteel=1x2",
                 "TIsScrapAluminum=1x1",
@@ -9180,6 +11217,16 @@
           "actions": [
             "PhobosIndustrialControls"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
           "handlingFlags": [
             "IsInstalled"
           ],
@@ -9193,6 +11240,13 @@
             {
               "id": "PhobosIndustrialConsoleInstalledDismantle",
               "kind": "dismantle",
+              "action": "ACTPhobosIndustrialConsoleInstalledDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -9234,6 +11288,13 @@
             {
               "id": "PhobosIndustrialConsoleInstalledRestore",
               "kind": "restore",
+              "action": "ACTPhobosIndustrialConsoleInstalledRestore",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsUndamageableNotContained",
+              "targetPassOnFreshDefinition": false,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -9244,6 +11305,13 @@
             {
               "id": "PhobosIndustrialConsoleInstalledUninstall",
               "kind": "uninstall",
+              "action": "ACTPhobosIndustrialConsoleInstalledUninstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosIndustrialConsoleTInstalled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq"
@@ -9267,6 +11335,16 @@
           "actions": [
             "PhobosIndustrialControls"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
           "handlingFlags": [
             "IsDamaged",
             "IsInstalled"
@@ -9281,6 +11359,13 @@
             {
               "id": "PhobosIndustrialConsoleInstalledDmgDismantle",
               "kind": "dismantle",
+              "action": "ACTPhobosIndustrialConsoleInstalledDmgDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -9316,6 +11401,13 @@
             {
               "id": "PhobosIndustrialConsoleInstalledDmgUninstall",
               "kind": "uninstall",
+              "action": "ACTPhobosIndustrialConsoleInstalledDmgUninstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosIndustrialConsoleTInstalledDmg",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq"
@@ -9332,6 +11424,13 @@
             {
               "id": "PhobosIndustrialConsoleInstalledRepair",
               "kind": "repair",
+              "action": "ACTPhobosIndustrialConsoleInstalledRepair",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsRepairableNotContained",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [
                 "TIsScrapSteel=1x1",
                 "TIsScrapAluminum=1x1",
@@ -9362,6 +11461,16 @@
             "DropItem",
             "PickupItem"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
           "handlingFlags": [
             "IsCumbersome"
           ],
@@ -9377,6 +11486,13 @@
             {
               "id": "PhobosIndustrialConsoleLooseDismantle",
               "kind": "dismantle",
+              "action": "ACTPhobosIndustrialConsoleLooseDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -9418,6 +11534,13 @@
             {
               "id": "PhobosIndustrialConsoleLooseInstall",
               "kind": "install",
+              "action": "ACTPhobosIndustrialConsoleLooseInstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosIndustrialConsoleTLoose",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
               "inputs": [
                 "PhobosIndustrialConsoleTLoose=1.0x1"
               ],
@@ -9436,6 +11559,13 @@
             {
               "id": "PhobosIndustrialConsoleLooseRestore",
               "kind": "restore",
+              "action": "ACTPhobosIndustrialConsoleLooseRestore",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsUndamageableNotContained",
+              "targetPassOnFreshDefinition": false,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -9454,6 +11584,16 @@
             "DropItem",
             "PickupItem"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
           "handlingFlags": [
             "IsCumbersome",
             "IsDamaged"
@@ -9470,6 +11610,13 @@
             {
               "id": "PhobosIndustrialConsoleLooseDmgDismantle",
               "kind": "dismantle",
+              "action": "ACTPhobosIndustrialConsoleLooseDmgDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -9505,6 +11652,13 @@
             {
               "id": "PhobosIndustrialConsoleLooseDmgInstall",
               "kind": "install",
+              "action": "ACTPhobosIndustrialConsoleLooseDmgInstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosIndustrialConsoleTLooseDmg",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
               "inputs": [
                 "PhobosIndustrialConsoleTLooseDmg=1.0x1"
               ],
@@ -9523,6 +11677,13 @@
             {
               "id": "PhobosIndustrialConsoleLooseRepair",
               "kind": "repair",
+              "action": "ACTPhobosIndustrialConsoleLooseRepair",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsRepairableNotContained",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [
                 "TIsScrapSteel=1x1",
                 "TIsScrapAluminum=1x1",
@@ -9553,6 +11714,16 @@
             "DropItem",
             "PickupItem"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
           "handlingFlags": [],
           "slots": [
             "heldL",
@@ -9574,6 +11745,16 @@
             "DropItem",
             "PickupItem"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
           "handlingFlags": [],
           "slots": [
             "heldL",
@@ -9595,6 +11776,16 @@
             "Inventory",
             "PhobosEquipmentControls"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "TIsFitContainerSolid",
+            "width": 2,
+            "height": 2,
+            "flag": true,
+            "inventoryAction": true,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
           "handlingFlags": [
             "IsInstalled"
           ],
@@ -9608,6 +11799,13 @@
             {
               "id": "PhobosResidueCollectorInstalledDismantle",
               "kind": "dismantle",
+              "action": "ACTPhobosResidueCollectorInstalledDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -9649,6 +11847,13 @@
             {
               "id": "PhobosResidueCollectorInstalledRestore",
               "kind": "restore",
+              "action": "ACTPhobosResidueCollectorInstalledRestore",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsUndamageableNotContained",
+              "targetPassOnFreshDefinition": false,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -9659,6 +11864,13 @@
             {
               "id": "PhobosResidueCollectorInstalledUninstall",
               "kind": "uninstall",
+              "action": "ACTPhobosResidueCollectorInstalledUninstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosResidueCollectorTInstalled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq"
@@ -9683,6 +11895,16 @@
             "Inventory",
             "PhobosEquipmentControls"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "TIsFitContainerSolid",
+            "width": 2,
+            "height": 2,
+            "flag": true,
+            "inventoryAction": true,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
           "handlingFlags": [
             "IsDamaged",
             "IsInstalled"
@@ -9697,6 +11919,13 @@
             {
               "id": "PhobosResidueCollectorInstalledDmgDismantle",
               "kind": "dismantle",
+              "action": "ACTPhobosResidueCollectorInstalledDmgDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -9732,6 +11961,13 @@
             {
               "id": "PhobosResidueCollectorInstalledDmgUninstall",
               "kind": "uninstall",
+              "action": "ACTPhobosResidueCollectorInstalledDmgUninstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosResidueCollectorTInstalledDmg",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq"
@@ -9748,6 +11984,13 @@
             {
               "id": "PhobosResidueCollectorInstalledRepair",
               "kind": "repair",
+              "action": "ACTPhobosResidueCollectorInstalledRepair",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsRepairableNotContained",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [
                 "TIsScrapAluminum=1x1",
                 "TIsPartsMechSmall=1x2",
@@ -9778,6 +12021,16 @@
             "DropItem",
             "PickupItem"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "TIsFitContainerSolid",
+            "width": 2,
+            "height": 2,
+            "flag": true,
+            "inventoryAction": true,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
           "handlingFlags": [
             "IsCumbersome"
           ],
@@ -9793,6 +12046,13 @@
             {
               "id": "PhobosResidueCollectorLooseDismantle",
               "kind": "dismantle",
+              "action": "ACTPhobosResidueCollectorLooseDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -9834,6 +12094,13 @@
             {
               "id": "PhobosResidueCollectorLooseInstall",
               "kind": "install",
+              "action": "ACTPhobosResidueCollectorLooseInstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosResidueCollectorTLoose",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
               "inputs": [
                 "PhobosResidueCollectorTLoose=1.0x1"
               ],
@@ -9852,6 +12119,13 @@
             {
               "id": "PhobosResidueCollectorLooseRestore",
               "kind": "restore",
+              "action": "ACTPhobosResidueCollectorLooseRestore",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsUndamageableNotContained",
+              "targetPassOnFreshDefinition": false,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -9871,6 +12145,16 @@
             "DropItem",
             "PickupItem"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "TIsFitContainerSolid",
+            "width": 2,
+            "height": 2,
+            "flag": true,
+            "inventoryAction": true,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
           "handlingFlags": [
             "IsCumbersome",
             "IsDamaged"
@@ -9887,6 +12171,13 @@
             {
               "id": "PhobosResidueCollectorLooseDmgDismantle",
               "kind": "dismantle",
+              "action": "ACTPhobosResidueCollectorLooseDmgDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -9922,6 +12213,13 @@
             {
               "id": "PhobosResidueCollectorLooseDmgInstall",
               "kind": "install",
+              "action": "ACTPhobosResidueCollectorLooseDmgInstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosResidueCollectorTLooseDmg",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
               "inputs": [
                 "PhobosResidueCollectorTLooseDmg=1.0x1"
               ],
@@ -9940,6 +12238,13 @@
             {
               "id": "PhobosResidueCollectorLooseRepair",
               "kind": "repair",
+              "action": "ACTPhobosResidueCollectorLooseRepair",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsRepairableNotContained",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [
                 "TIsScrapAluminum=1x1",
                 "TIsPartsMechSmall=1x2",
@@ -9971,6 +12276,16 @@
             "PickupItem",
             "PickupItemStack"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
           "handlingFlags": [
             "IsPocketable"
           ],
@@ -9994,6 +12309,16 @@
             "DropItem",
             "PickupItem"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
           "handlingFlags": [
             "IsPocketable"
           ],
@@ -10014,6 +12339,16 @@
           "name": "Phobos' Rivetline R4 Reclaimer Feed",
           "stackLimit": 1,
           "actions": [],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "PhobosScrapReclaimerTFeed",
+            "width": 2,
+            "height": 2,
+            "flag": true,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
           "handlingFlags": [
             "IsSystem"
           ],
@@ -10036,6 +12371,18 @@
             "Inventory",
             "PhobosEquipmentControls"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "TIsFitContainerSolid",
+            "width": 8,
+            "height": 8,
+            "flag": true,
+            "inventoryAction": true,
+            "ownedSlots": [
+              "PhobosScrapReclaimerInput"
+            ],
+            "loot": "PhobosScrapReclaimerCompartments"
+          },
           "handlingFlags": [
             "IsInstalled"
           ],
@@ -10049,6 +12396,13 @@
             {
               "id": "PhobosScrapReclaimerInstalledDismantle",
               "kind": "dismantle",
+              "action": "ACTPhobosScrapReclaimerInstalledDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -10090,6 +12444,13 @@
             {
               "id": "PhobosScrapReclaimerInstalledRestore",
               "kind": "restore",
+              "action": "ACTPhobosScrapReclaimerInstalledRestore",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsUndamageableNotContained",
+              "targetPassOnFreshDefinition": false,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -10100,6 +12461,13 @@
             {
               "id": "PhobosScrapReclaimerInstalledUninstall",
               "kind": "uninstall",
+              "action": "ACTPhobosScrapReclaimerInstalledUninstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosScrapReclaimerTInstalled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq"
@@ -10124,6 +12492,18 @@
             "Inventory",
             "PhobosEquipmentControls"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "TIsFitContainerSolid",
+            "width": 8,
+            "height": 8,
+            "flag": true,
+            "inventoryAction": true,
+            "ownedSlots": [
+              "PhobosScrapReclaimerInput"
+            ],
+            "loot": "PhobosScrapReclaimerCompartments"
+          },
           "handlingFlags": [
             "IsDamaged",
             "IsInstalled"
@@ -10138,6 +12518,13 @@
             {
               "id": "PhobosScrapReclaimerInstalledDmgDismantle",
               "kind": "dismantle",
+              "action": "ACTPhobosScrapReclaimerInstalledDmgDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -10179,6 +12566,13 @@
             {
               "id": "PhobosScrapReclaimerInstalledDmgUninstall",
               "kind": "uninstall",
+              "action": "ACTPhobosScrapReclaimerInstalledDmgUninstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosScrapReclaimerTInstalledDmg",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq"
@@ -10195,6 +12589,13 @@
             {
               "id": "PhobosScrapReclaimerInstalledRepair",
               "kind": "repair",
+              "action": "ACTPhobosScrapReclaimerInstalledRepair",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsRepairableNotContained",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [
                 "TIsScrapSteel=1x4",
                 "TIsScrapAluminum=1x2",
@@ -10226,6 +12627,18 @@
             "DropItem",
             "PickupItem"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "TIsFitContainerSolid",
+            "width": 8,
+            "height": 8,
+            "flag": true,
+            "inventoryAction": true,
+            "ownedSlots": [
+              "PhobosScrapReclaimerInput"
+            ],
+            "loot": "PhobosScrapReclaimerCompartments"
+          },
           "handlingFlags": [
             "IsCumbersome"
           ],
@@ -10241,6 +12654,13 @@
             {
               "id": "PhobosScrapReclaimerLooseDismantle",
               "kind": "dismantle",
+              "action": "ACTPhobosScrapReclaimerLooseDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -10282,6 +12702,13 @@
             {
               "id": "PhobosScrapReclaimerLooseInstall",
               "kind": "install",
+              "action": "ACTPhobosScrapReclaimerLooseInstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosScrapReclaimerTLoose",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
               "inputs": [
                 "PhobosScrapReclaimerTLoose=1.0x1"
               ],
@@ -10300,6 +12727,13 @@
             {
               "id": "PhobosScrapReclaimerLooseRestore",
               "kind": "restore",
+              "action": "ACTPhobosScrapReclaimerLooseRestore",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsUndamageableNotContained",
+              "targetPassOnFreshDefinition": false,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -10319,6 +12753,18 @@
             "DropItem",
             "PickupItem"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "TIsFitContainerSolid",
+            "width": 8,
+            "height": 8,
+            "flag": true,
+            "inventoryAction": true,
+            "ownedSlots": [
+              "PhobosScrapReclaimerInput"
+            ],
+            "loot": "PhobosScrapReclaimerCompartments"
+          },
           "handlingFlags": [
             "IsCumbersome",
             "IsDamaged"
@@ -10335,6 +12781,13 @@
             {
               "id": "PhobosScrapReclaimerLooseDmgDismantle",
               "kind": "dismantle",
+              "action": "ACTPhobosScrapReclaimerLooseDmgDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -10376,6 +12829,13 @@
             {
               "id": "PhobosScrapReclaimerLooseDmgInstall",
               "kind": "install",
+              "action": "ACTPhobosScrapReclaimerLooseDmgInstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosScrapReclaimerTLooseDmg",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
               "inputs": [
                 "PhobosScrapReclaimerTLooseDmg=1.0x1"
               ],
@@ -10394,6 +12854,13 @@
             {
               "id": "PhobosScrapReclaimerLooseRepair",
               "kind": "repair",
+              "action": "ACTPhobosScrapReclaimerLooseRepair",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsRepairableNotContained",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [
                 "TIsScrapSteel=1x4",
                 "TIsScrapAluminum=1x2",
@@ -10424,6 +12891,16 @@
             "DropItem",
             "PickupItem"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
           "handlingFlags": [
             "IsCumbersome"
           ],
@@ -10439,6 +12916,13 @@
             {
               "id": "PhobosScrapReclaimerSectionDismantle",
               "kind": "dismantle",
+              "action": "ACTPhobosScrapReclaimerSectionDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -10485,6 +12969,16 @@
           "name": "Phobos' Rivetline D4 Wall-panel Feed (4 panels / 96 kg)",
           "stackLimit": 1,
           "actions": [],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "PhobosShipbreakerTFeed",
+            "width": 4,
+            "height": 4,
+            "flag": true,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
           "handlingFlags": [
             "IsSystem"
           ],
@@ -10507,6 +13001,18 @@
             "Inventory",
             "PhobosEquipmentControls"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "TIsFitContainerSolid",
+            "width": 8,
+            "height": 8,
+            "flag": true,
+            "inventoryAction": true,
+            "ownedSlots": [
+              "PhobosShipbreakerInput"
+            ],
+            "loot": "PhobosShipbreakerCompartments"
+          },
           "handlingFlags": [
             "IsInstalled"
           ],
@@ -10520,6 +13026,13 @@
             {
               "id": "PhobosShipbreakerInstalledDismantle",
               "kind": "dismantle",
+              "action": "ACTPhobosShipbreakerInstalledDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -10561,6 +13074,13 @@
             {
               "id": "PhobosShipbreakerInstalledRestore",
               "kind": "restore",
+              "action": "ACTPhobosShipbreakerInstalledRestore",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsUndamageableNotContained",
+              "targetPassOnFreshDefinition": false,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -10571,6 +13091,13 @@
             {
               "id": "PhobosShipbreakerInstalledUninstall",
               "kind": "uninstall",
+              "action": "ACTPhobosShipbreakerInstalledUninstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosShipbreakerTInstalled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq"
@@ -10595,6 +13122,18 @@
             "Inventory",
             "PhobosEquipmentControls"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "TIsFitContainerSolid",
+            "width": 8,
+            "height": 8,
+            "flag": true,
+            "inventoryAction": true,
+            "ownedSlots": [
+              "PhobosShipbreakerInput"
+            ],
+            "loot": "PhobosShipbreakerCompartments"
+          },
           "handlingFlags": [
             "IsDamaged",
             "IsInstalled"
@@ -10609,6 +13148,13 @@
             {
               "id": "PhobosShipbreakerInstalledDmgDismantle",
               "kind": "dismantle",
+              "action": "ACTPhobosShipbreakerInstalledDmgDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -10644,6 +13190,13 @@
             {
               "id": "PhobosShipbreakerInstalledDmgUninstall",
               "kind": "uninstall",
+              "action": "ACTPhobosShipbreakerInstalledDmgUninstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosShipbreakerTInstalledDmg",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq"
@@ -10660,6 +13213,13 @@
             {
               "id": "PhobosShipbreakerInstalledRepair",
               "kind": "repair",
+              "action": "ACTPhobosShipbreakerInstalledRepair",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsRepairableNotContained",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [
                 "TIsScrapSteel=1x4",
                 "TIsScrapAluminum=1x2",
@@ -10691,6 +13251,18 @@
             "DropItem",
             "PickupItem"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "TIsFitContainerSolid",
+            "width": 8,
+            "height": 8,
+            "flag": true,
+            "inventoryAction": true,
+            "ownedSlots": [
+              "PhobosShipbreakerInput"
+            ],
+            "loot": "PhobosShipbreakerCompartments"
+          },
           "handlingFlags": [
             "IsCumbersome"
           ],
@@ -10706,6 +13278,13 @@
             {
               "id": "PhobosShipbreakerLooseDismantle",
               "kind": "dismantle",
+              "action": "ACTPhobosShipbreakerLooseDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -10747,6 +13326,13 @@
             {
               "id": "PhobosShipbreakerLooseInstall",
               "kind": "install",
+              "action": "ACTPhobosShipbreakerLooseInstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosShipbreakerTLoose",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
               "inputs": [
                 "PhobosShipbreakerTLoose=1.0x1"
               ],
@@ -10765,6 +13351,13 @@
             {
               "id": "PhobosShipbreakerLooseRestore",
               "kind": "restore",
+              "action": "ACTPhobosShipbreakerLooseRestore",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsUndamageableNotContained",
+              "targetPassOnFreshDefinition": false,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -10784,6 +13377,18 @@
             "DropItem",
             "PickupItem"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "TIsFitContainerSolid",
+            "width": 8,
+            "height": 8,
+            "flag": true,
+            "inventoryAction": true,
+            "ownedSlots": [
+              "PhobosShipbreakerInput"
+            ],
+            "loot": "PhobosShipbreakerCompartments"
+          },
           "handlingFlags": [
             "IsCumbersome",
             "IsDamaged"
@@ -10800,6 +13405,13 @@
             {
               "id": "PhobosShipbreakerLooseDmgDismantle",
               "kind": "dismantle",
+              "action": "ACTPhobosShipbreakerLooseDmgDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -10835,6 +13447,13 @@
             {
               "id": "PhobosShipbreakerLooseDmgInstall",
               "kind": "install",
+              "action": "ACTPhobosShipbreakerLooseDmgInstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosShipbreakerTLooseDmg",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
               "inputs": [
                 "PhobosShipbreakerTLooseDmg=1.0x1"
               ],
@@ -10853,6 +13472,13 @@
             {
               "id": "PhobosShipbreakerLooseRepair",
               "kind": "repair",
+              "action": "ACTPhobosShipbreakerLooseRepair",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsRepairableNotContained",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [
                 "TIsScrapSteel=1x4",
                 "TIsScrapAluminum=1x2",
@@ -10883,6 +13509,16 @@
             "DropItem",
             "PickupItem"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
           "handlingFlags": [],
           "slots": [
             "heldL",
@@ -10904,6 +13540,16 @@
             "DropItem",
             "PickupItem"
           ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
           "handlingFlags": [
             "IsCumbersome"
           ],
@@ -10919,6 +13565,13 @@
             {
               "id": "PhobosShipbreakerSectionDismantle",
               "kind": "dismantle",
+              "action": "ACTPhobosShipbreakerSectionDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
               "inputs": [],
               "tools": [
                 "TIsToolMortorq",
@@ -14300,7 +16953,7 @@
     "src/PhobosShipbreaker/TargetWallTransfer.cs": "674edc235e6b466056adc486b8063ebf1e3660697a1cf8a2ff8aae5eaa57a5ae",
     "src/PhobosShipbreaker/Text.cs": "2a0b7890addcbb0f4f8f71c48373cf352d7af8379905b01b1bc48bd0f84f7846",
     "tests/PhobosNative.Tests/EquipmentValueAudit.cs": "cca95052803934b6ac8af32979f066ca064942ca79ac87e4ec94b8b183815cac",
-    "tests/PhobosNative.Tests/ItemReferenceExport.cs": "491d786054477f5ec50e7ed5a4f9274ff4a7595b479a4400d4319927b594037d",
+    "tests/PhobosNative.Tests/ItemReferenceExport.cs": "dd8d70d095a2f7249a2cd0cebe977b7c8e843524f43bd9f1e1458700f04e0994",
     "tests/PhobosNative.Tests/Program.cs": "4264b9f3d5e3bb582e362a32987d96d8d172fe9fd8c55387212e828462e68e72",
     "translations/PhobosAgriculture/en.json": "9bbf666a88b1541a1b45d8f0bee8b0959f43640605ed7b1384b8bf6077ace710",
     "translations/PhobosAutoNav/en.json": "ac5d25bac9a873c019b8d36d3791a57aca7725b28ad1db65fbaeebad8988cffd",

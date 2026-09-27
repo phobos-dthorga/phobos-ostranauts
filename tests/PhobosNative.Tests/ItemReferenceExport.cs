@@ -8,6 +8,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Ostranauts.Trading;
 using Phobos.Ostranauts.Framework.Registration;
 
 // Data-only documentation export: no Unity scene, installation, save or inventory access.
@@ -34,12 +35,36 @@ internal static class ItemReferenceExport
         if (!installedSources.SetEquals(packs.Keys))
             throw new InvalidOperationException("Mod inventory changed; register its item-reference provider before export.");
 
+        // Keep authored actions separate from the game's generated maintenance menu.
+        // Exercise the same data-only generator that runs during native startup.
+        var directActions = packs.Values.SelectMany(p => p.Objects.Values).GroupBy(c => c.strName)
+            .ToDictionary(g => g.Key, g => (g.First().aInteractions ?? Array.Empty<string>()).ToArray());
+        DataHandler.dictInstallables2 = new Dictionary<string, JsonInstallable>();
+        foreach (var job in packs.Values.SelectMany(p => p.Installables.Values).OrderBy(j => j.strName))
+            Installables.Create(job);
+
         JsonCondOwner Resolve(string id) => DataHandler.dictCOs.TryGetValue(id, out var co) ? co :
             DataHandler.dictCOs[DataHandler.dictCOOverlays[id].strCOBase];
         object Product(string id, int count) => new { id, name = Resolve(id).strNameFriendly, count,
             baseValue = EquipmentValueAudit.Price(Resolve(id)) * count };
+        bool? TargetPass(JsonInstallable job, string? extra = null)
+        {
+            if (!DataHandler.dictCTs.TryGetValue(job.CTThem ?? "", out var trigger)) return null;
+            var definition = NativeDefinitions.Clone(Resolve(job.strActionCO));
+            if (extra != null)
+                definition.aStartingConds = definition.aStartingConds.Where(s => !s.StartsWith(extra.Split('=')[0] + "=", StringComparison.Ordinal))
+                    .Concat(new[] { extra }).ToArray();
+            return trigger.TriggeredDataCO(new DataCO(definition), false);
+        }
         object Job(JsonInstallable j) => new {
             id = j.strName, kind = j.strName.EndsWith("Restore", StringComparison.Ordinal) ? "restore" : j.strJobType,
+            action = "ACT" + j.strName,
+            generated = DataHandler.dictInteractions.ContainsKey("ACT" + j.strName),
+            attached = (Resolve(j.strActionCO).aInteractions ?? Array.Empty<string>()).Contains("ACT" + j.strName),
+            targetTrigger = j.CTThem,
+            targetPassOnFreshDefinition = TargetPass(j),
+            targetPassWithWear = TargetPass(j, "StatDamage=1x0.1"),
+            targetPassInContainer = TargetPass(j, "IsInContainer=1x1"),
             inputs = j.aInputs ?? Array.Empty<string>(), tools = j.aToolCTsUse ?? Array.Empty<string>(),
             outputs = (j.aLootCOs ?? Array.Empty<string>()).GroupBy(x => x).Select(g => Product(g.Key, g.Count())).ToArray()
         };
@@ -58,7 +83,16 @@ internal static class ItemReferenceExport
                 .OrderBy(c => c.strName, StringComparer.Ordinal).Select(co => new {
                     id = co.strName, name = co.strNameFriendly,
                     stackLimit = Math.Max(1, co.nStackLimit),
-                    actions = co.aInteractions ?? Array.Empty<string>(),
+                    actions = directActions[co.strName],
+                    missingDirectActions = directActions[co.strName].Where(a => !DataHandler.dictInteractions.ContainsKey(a)).ToArray(),
+                    container = new {
+                        trigger = co.strContainerCT,
+                        width = co.nContainerWidth, height = co.nContainerHeight,
+                        flag = (co.aStartingConds ?? Array.Empty<string>()).Any(s => s.Split('=')[0] == "IsContainer"),
+                        inventoryAction = directActions[co.strName].Contains("Inventory"),
+                        ownedSlots = co.aSlotsWeHave ?? Array.Empty<string>(),
+                        loot = co.strLoot
+                    },
                     handlingFlags = (co.aStartingConds ?? Array.Empty<string>()).Select(s => s.Split('=')[0]).Where(s => new[] { "IsInstalled", "IsCumbersome", "IsSystem", "IsPocketable", "IsDamaged" }.Contains(s)).OrderBy(s => s).ToArray(),
                     slots = (co.mapSlotEffects ?? Array.Empty<string>()).Where((s, i) => i % 2 == 0).ToArray(),
                     massKg = EquipmentSaveUpgrade.Amount(co.aStartingConds ?? Array.Empty<string>(), "StatMass"),
