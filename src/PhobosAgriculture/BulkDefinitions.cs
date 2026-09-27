@@ -9,7 +9,7 @@ internal static class BulkDefinitions
     internal const string Tank="PhobosVerdemorrowGroundworkR3",Nutrients="PhobosVerdemorrowGroundworkBulkNutrients",Controls="PhobosAgricultureBulkControls";
     internal const double CapacityKg=120,DryKg=25,Price=450,NutrientKg=.5,NutrientPrice=750,WaterPricePerKg=10;
     internal const int TankStock=4,NutrientStock=8;
-    internal static bool IsTank(CondOwner? co)=>co!=null && new[]{"Installed","Loose","InstalledDmg","LooseDmg"}.Any(f=>co.strCODef==Tank+f);
+    internal static bool IsTank(CondOwner? co)=>co!=null && EquipmentIdentity.IsFamily(co.strCODef,Tank);
     internal static readonly string[] Work={"bulk-load","bulk-recover","bulk-drain"};
     internal static string WorkId(string action)=>"PhobosAgriculture_"+action;
     internal static void Add(NativeDefinitions d)

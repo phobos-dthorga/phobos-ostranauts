@@ -23,7 +23,7 @@ public sealed class FurnaceInstrumentView : MonoBehaviour
     private TMP_Text chargeCaption = null!, powerCaption = null!;
     private readonly List<Action> settingRefreshes = new();
     private TMP_Text status = null!;
-    private float nextRefresh;
+    private readonly PresentationRefresh refresh = new(.25);
     private bool dirty;
     private readonly Dictionary<string,string> values=new();
     private string expected="";
@@ -107,7 +107,7 @@ public sealed class FurnaceInstrumentView : MonoBehaviour
         }
         view.Refresh();
     }
-    private void Update() { if (Time.unscaledTime >= nextRefresh) { nextRefresh = Time.unscaledTime + .25f; Refresh(); } }
+    private void Update() { if (refresh.Due(Time.unscaledTime)) Refresh(); }
     private void Refresh()
     {
         var co = CollectorService.Resolve(target);

@@ -323,6 +323,7 @@
   "Hub.arrival_value": "Arrival   {0:0.#} m/s",
   "Hub.separation_value": "Separation   {0:0.##} km",
   "Hub.clearance_valid": "✓ DOCK clearance / assigned pair",
+  "Hub.clearance_pending_fit": "DOCK clearance received. Hull fit is checked when you start.",
   "Hub.ports": "OUR PORT   {0}\nTARGET PORT   {1}",
   "Hub.alignment": "Alignment   {0}°",
   "Hub.progress.None": "No docking mission",

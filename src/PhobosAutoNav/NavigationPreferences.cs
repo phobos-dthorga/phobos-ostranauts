@@ -21,9 +21,9 @@ internal sealed partial class NavigationService
         return false;
     }
 
-    private static bool SettingsHardwareReady(CondOwner? co) => IsLocalConsole(co) &&
+    private static bool SettingsHardwareReady(CondOwner? co, PresentationRead? presentation = null) => IsLocalConsole(co) &&
         CrewSim.objInstance != null && CrewSim.objInstance.FinishedLoading && !co!.HasCond("IsDamaged") &&
-        co.GetCOsSafe(true).Any(item => (HasId(item, ModuleId) || HasId(item, PursuitId)) && !item.HasCond("IsDamaged"));
+        (presentation?.Navigation ?? co.GetCOsSafe(true).Any(item => (HasId(item, ModuleId) || HasId(item, PursuitId)) && !item.HasCond("IsDamaged")));
 
     private bool CanChangePreferences(CondOwner? co)
     {

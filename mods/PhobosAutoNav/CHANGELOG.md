@@ -17,6 +17,18 @@ Dates on Draft entries record preparation, not Steam publication.
 - Earlier capture-only research is superseded for supported ordinary walls by the implementation below. Broader structural recipes, repeated furnace batches and whole-wreck completion remain outside this round.
 - Keep [NASA Goddard's Raven research](https://www.nasa.gov/general/nasas-hybrid-computer-enables-ravens-autonomous-rendezvous-capability/) and [ESA's LIRIS experiment by Airbus, Jena Optronik and Sodern](https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/ATV/ATV_views_Space_Station_as_never_before) as sensing context, separate from Blue Bottle Games native evidence and authored gameplay choices. No institutional endorsement or gameplay validation is implied.
 
+## [0.20.3] - 2026-09-27 - Draft
+
+### Fixed
+
+- Stop rebuilding native hull grids for the idle navigation display. Show clearance separately; docking commands, active checks and attachment still validate native hull fit.
+- Refresh the shared header and selected page at most ten times per second, with immediate action/context updates. Reuse one presentation snapshot and retained widgets; skip hidden-page detail reads and unchanged display writes.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.29.0. Flight, firing, docking, saved IDs and resource rules are unchanged; commands always recheck current state.
+- Baseline measurements and audit findings are in docs/performance-audit.md. Further captures are deferred by owner direction; offline checks do not establish a measured speedup or Unity interaction approval.
+
 ## [0.20.2] - 2026-09-27 - Draft
 
 ### Documentation

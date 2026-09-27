@@ -16,6 +16,7 @@ void Check(bool condition, string message) { if (!condition) throw new Exception
 void Throws(Action call, string message) { bool threw = false; try { call(); } catch { threw = true; } Check(threw, message); }
 PairingSaveChecks.Run(Check);
 FlightHubNativeChecks.Run(Check);
+PerformanceNativeChecks.Run(Check);
 void Load<T>(string folder, Dictionary<string,T> destination, Func<T,string> key)
 {
     foreach (string file in Directory.GetFiles(folder, "*.json", SearchOption.AllDirectories))

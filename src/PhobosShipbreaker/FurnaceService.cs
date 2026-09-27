@@ -156,6 +156,8 @@ internal static partial class FurnaceService
     {
         if (CrewSim.objInstance?.FinishedLoading != true || !Content.Ready || Time.unscaledTime < nextScan) return;
         nextScan = Time.unscaledTime + .25f;
+        using var measurement = Phobos.Ostranauts.Framework.Diagnostics.Performance.Measure(PerformanceMetrics.Furnace);
+        Phobos.Ostranauts.Framework.Diagnostics.Performance.Increment(PerformanceMetrics.FurnaceCandidates, DataHandler.mapCOs.Count);
         foreach (var co in DataHandler.mapCOs.Values.Where(IsEquipment).ToArray())
         {
             if (co.bDestroyed || co.ship == null || (int)co.ship.LoadState < 2) continue;

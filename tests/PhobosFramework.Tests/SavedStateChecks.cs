@@ -27,6 +27,14 @@ internal static class SavedStateChecks
         store.Clear();
         check(store.Read(out _) == SavedStateStatus.Missing && maps.Count == 1, "Explicit reset removes only its own state");
         var secondWorld = new Dictionary<string, Dictionary<string, string>>();
+        check(store.TryWrite(fields), "Reset record can be saved again");
+        var native = maps["PhobosState.Tests.Flight"];
+        native["data.bad=key"] = "value";
+        check(store.Read(out var invalidFields) == SavedStateStatus.Invalid && invalidFields.Count == 0 && !store.TryWrite(fields),
+            "Fresh validation rejects malformed native data without copying or overwriting it");
+        native.Remove("data.bad=key"); native["data.target"] = "new-native-value";
+        check(store.Read(out var changed) == SavedStateStatus.Ready && changed["target"] == "new-native-value",
+            "Validation never retains a stale native snapshot");
         check(new ObjectStateStore(secondWorld, "Tests.Flight", "console-1", 1).Read(out _) == SavedStateStatus.Missing,
             "Identical IDs in another save cannot leak state through globals");
     }

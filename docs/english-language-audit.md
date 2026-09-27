@@ -94,3 +94,14 @@ No artwork generation, mechanical rebalance, interface redesign, public API
 change or save-format migration is included. The furnace's log keeps the existing
 exception detail while its panel uses the new plain warning. Manufacturing remains a held
 scaffold with one precise bootstrap diagnostic and no playable machinery.
+
+## Performance follow-up, 27 September 2026
+
+The performance candidate adds one reviewed Auto Nav message: "DOCK clearance
+received. Hull fit is checked when you start." This distinguishes display
+information from the fresh command checks. Current coverage is 1,724 entries,
+144 documents and 14 other surfaces. Version requirements, generated reference
+headings and the performance help/report were reviewed together; existing
+placeholder contracts, equipment names and research attribution remain intact.
+See the [performance audit](performance-audit.md) for this candidate's offline
+checks and the deliberately deferred in-game measurements.

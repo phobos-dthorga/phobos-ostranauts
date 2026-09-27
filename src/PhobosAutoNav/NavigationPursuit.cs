@@ -44,9 +44,9 @@ internal sealed partial class NavigationService
     }
     internal void StartPursuit(CondOwner? co, bool follow, float? distance = null) => Engage(co, distance, follow ? SavedFlightMode.Following : SavedFlightMode.Rendezvous);
     internal void PursuitOrResume(CondOwner co) { if (HasResumableFlight(co)) ResumeSaved(co); else StartPursuit(co, false); }
-    private static string? FireHardwareProblem(CondOwner? co)
+    private static string? FireHardwareProblem(CondOwner? co, PresentationRead? presentation = null)
     {
-        if (!IsLocalConsole(co) || FireModule(co) == null) return "FCS.module_required";
+        if (!IsLocalConsole(co) || (presentation != null ? presentation.FireModule : FireModule(co)) == null) return "FCS.module_required";
         if (co!.HasCond("IsOff") || !co.HasCond("IsPowered") || co.HasCond("IsDamaged") || co.HasCond("IsDamagedSoftware")) return "FCS.unpowered";
         if (co.ship.bDestroyed || co.ship.objSS == null || co.ship.IsDocked() || co.ship.IsMoored()) return "FCS.unavailable";
         return null;
@@ -173,6 +173,7 @@ internal sealed partial class NavigationService
     }
     internal void TickFire(double dt, bool dispatch)
     {
+        using var measurement = Phobos.Ostranauts.Framework.Diagnostics.Performance.Measure(PerformanceMetrics.Fire);
         if (CrewSim.objInstance == null || !CrewSim.objInstance.FinishedLoading) return;
         RestoreFireOwnership();
         if (CrewSim.Paused) return;

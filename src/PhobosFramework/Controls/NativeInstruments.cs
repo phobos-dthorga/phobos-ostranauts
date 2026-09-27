@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using Phobos.Ostranauts.Framework.Processing;
 using TMPro;
 using UnityEngine;
@@ -15,6 +16,24 @@ public static class NativeInstruments
     private static readonly HashSet<string> diagnosed = new(StringComparer.Ordinal);
     private const string Reactor = "GUIShip/GUIReactor";
     private const int DigitCount = 7;
+    private static readonly ConditionalWeakTable<GUISafetyToggle, GuardBinding> guards = new();
+    private static readonly ConditionalWeakTable<GUI7Seg, DigitBinding> digits = new();
+    private sealed class GuardBinding
+    {
+        internal readonly GUIToggleSwap[] Swaps;
+        internal bool? Value;
+        internal GuardBinding(GUISafetyToggle guard) => Swaps = guard.GetComponentsInChildren<GUIToggleSwap>(true);
+    }
+    private sealed class DigitBinding
+    {
+        internal readonly Image[] Images = new Image[DigitCount];
+        internal readonly GameObject[] Dots = new GameObject[DigitCount];
+        internal DigitBinding(GUI7Seg display)
+        {
+            for (int i = 0; i < DigitCount; i++)
+            { Images[i] = display.transform.Find("bmpDigit" + i).GetComponent<Image>(); Dots[i] = display.transform.Find("bmpDot" + i).gameObject; }
+        }
+    }
     private const string AuditedAssembly = "91b50f45cacd64de39b9bcc30ec7b4542f3e3976ac3bc5589b346976a262425e";
     private static readonly Lazy<bool> compatible = new(() =>
         NativeAssemblyAudit.Matches(typeof(GUIKnob).Assembly, BepInEx.Paths.ManagedPath, AuditedAssembly));
@@ -140,22 +159,29 @@ public static class NativeInstruments
     }
     public static void Refresh(GUISafetyToggle guard, bool enabled)
     {
+        var binding = guards.GetValue(guard, key => new GuardBinding(key));
+        if (binding.Value == enabled && guard.chkSwitch.isOn == enabled) return;
         guard.chkSwitch.SetIsOnWithoutNotify(enabled);
-        foreach (var swap in guard.GetComponentsInChildren<GUIToggleSwap>(true)) swap.OnTargetToggleValueChanged(enabled);
+        foreach (var swap in binding.Swaps) swap.OnTargetToggleValueChanged(enabled);
+        binding.Value = enabled;
     }
     public static bool Refresh(GUI7Seg display, double? value, int decimalPlaces)
     {
-        bool valid = InstrumentNumber.TryFormat(value, decimalPlaces, DigitCount, out var digits, out int dot, out _);
+        var binding = digits.GetValue(display, key => new DigitBinding(key));
+        bool valid = InstrumentNumber.TryFormat(value, decimalPlaces, DigitCount, out var text, out int dot, out _);
         for (int i = 0; i < DigitCount; i++)
         {
-            char digit = valid ? digits[i] : ' ';
-            display.transform.Find("bmpDigit" + i).GetComponent<Image>().sprite = display.aSpriteSheet[digit == ' ' ? 10 : digit - '0'];
-            display.transform.Find("bmpDot" + i).gameObject.SetActive(valid && i == dot);
+            char digit = valid ? text[i] : ' ';
+            var sprite = display.aSpriteSheet[digit == ' ' ? 10 : digit - '0'];
+            if (binding.Images[i].sprite != sprite) binding.Images[i].sprite = sprite;
+            Presentation.Active(binding.Dots[i], valid && i == dot);
         }
         return valid;
     }
     public static void Refresh(GUIKnob knob, int state)
     {
+        state = Math.Max(0, Math.Min(2, state));
+        if (knob.State == state) return;
         var callback = knob.Callback;
         try { knob.Callback = null; knob.SetStateSilent(Math.Max(0, Math.Min(2, state))); }
         finally { knob.Callback = callback; }

@@ -34778,6 +34778,20 @@
       ],
       "before": "Replenish managed coolant",
       "after": "Replenish managed coolant"
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "Hub.clearance_pending_fit",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Distinguish received docking clearance from hull-fit validation, which now occurs on command admission rather than every display refresh.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosAutoNav/NavigationHub.cs",
+        "src/PhobosAutoNav/DockingAdapter.cs"
+      ],
+      "before": "DOCK clearance received. Hull fit is checked when you start.",
+      "after": "DOCK clearance received. Hull fit is checked when you start."
     }
   ],
   "documents": [
@@ -34791,7 +34805,8 @@
       "path": "docs/agriculture-bulk-storage-calculations.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "629920c20345c2348f0a5e0a37d76f9e6ce81ec9c7db49fd3f479e0edfc0b524"
+      "sha256": "0f5fd74a01dbe8119cf8270a6e5ecab3b5040e2fa94ec3305b0aff370f76b957",
+      "review": "2026-09-27: generator refresh changes only current versions/source fingerprints; item values, research findings and player explanations are unchanged."
     },
     {
       "path": "docs/agriculture-bulk-storage-design.md",
@@ -34839,7 +34854,8 @@
       "path": "docs/agriculture-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "8f16d6bdc57bbb627bea3aa3860274cea5fe0437fd2599c0185d8388f80c8b72"
+      "sha256": "fde7e766c4aaff73e434165e493ac4acdcd58f25be14de0399534dd263e47aea",
+      "review": "2026-09-27: generator refresh changes only current versions/source fingerprints; item values, research findings and player explanations are unchanged."
     },
     {
       "path": "docs/agriculture-living-visuals.md",
@@ -34983,7 +34999,8 @@
       "path": "docs/auto-nav-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "c4b2a226b9354da59972694bc93a28491840bcc8890f1ae419ac9540f69c9d77"
+      "sha256": "60d2dde7a25e155407d33b7eefdf82a21beaca94992c3704fdcd78bfcc648cc7",
+      "review": "2026-09-27: generator refresh changes only current versions/source fingerprints; item values, research findings and player explanations are unchanged."
     },
     {
       "path": "docs/auto-nav-outstanding-audit.md",
@@ -35066,8 +35083,9 @@
     {
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
-      "decision": "rewrite",
-      "sha256": "47232aab0a15f1a38f36247d80231cb0b54c40121ee5877b9b15a867fe594bd8"
+      "decision": "update current version/help and retain technical evidence",
+      "sha256": "14058519f15ea01f4b034b10e581156a50493161a0a961590116f75ed5296f13",
+      "review": "2026-09-27: reviewed performance-update wording/version requirements; existing research and historical evidence retained; no measured speedup claim."
     },
     {
       "path": "docs/crew-automation.md",
@@ -35120,8 +35138,9 @@
     {
       "path": "docs/framework-author-guide.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
-      "decision": "retain",
-      "sha256": "b61e7045b82ab461053151620a2d3458b3d2ae33eca9e2bf8f85c8581b180848"
+      "decision": "update current version/help and retain technical evidence",
+      "sha256": "b36d2880cdeeb5c70ffbc8ab90bc8fb6d14bf8da4805c02fcf8521bf414760f4",
+      "review": "2026-09-27: reviewed performance-update wording/version requirements; existing research and historical evidence retained; no measured speedup claim."
     },
     {
       "path": "docs/framework-bulk-storage.md",
@@ -35133,7 +35152,8 @@
       "path": "docs/framework-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "134bfae6a29df97130d6e98b87c897059a23f0ae76a0f500022d87a5fd25fba2"
+      "sha256": "b324c0cbffedf98eb2328f7941b3e3b1db01548332becc12c2118b27fdb03c36",
+      "review": "2026-09-27: generator refresh changes only current versions/source fingerprints; item values, research findings and player explanations are unchanged."
     },
     {
       "path": "docs/furnace-connections-and-instruments.md",
@@ -35228,8 +35248,9 @@
     {
       "path": "docs/industrial-console-player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
-      "decision": "rewrite",
-      "sha256": "b3831f51f4efa1dc50e0ead70b2e39c5fa94d327037c9cf9aa3103ddde9fa5ce"
+      "decision": "update current version/help and retain technical evidence",
+      "sha256": "4358cd074a39627a6db90623c1168e1bb892b7054e48d550545d371b486c1ba9",
+      "review": "2026-09-27: reviewed performance-update wording/version requirements; existing research and historical evidence retained; no measured speedup claim."
     },
     {
       "path": "docs/industrial-control-console.md",
@@ -35252,8 +35273,9 @@
     {
       "path": "docs/installing-mods.md",
       "scope": "current player text; technical/history sections retained where labelled",
-      "decision": "retain",
-      "sha256": "71e5ef55d8308e6fe3d92bbd95678222ee3e8cb82aa19e48834f3cf91d9caa1c"
+      "decision": "update current version/help and retain technical evidence",
+      "sha256": "630c89e2a2302840fae07e639a613d67c3dfc495f44e52cecabcd5a849f5274d",
+      "review": "2026-09-27: reviewed explicit held-scaffold backup/removal instructions and limits; no operational provider removal or gameplay validation promised."
     },
     {
       "path": "docs/item-reference-maintenance.md",
@@ -35378,8 +35400,9 @@
     {
       "path": "docs/performance-captures.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
-      "decision": "retain",
-      "sha256": "3f6411f09d7bef26b9f36e72943c6f65bb3cc9b2c63fe0871c6d92680aab4f76"
+      "decision": "update current version/help and retain technical evidence",
+      "sha256": "a7b7a79783e105a7110646572403f1e5405186a93c3a7e44c2175ea69849bb40",
+      "review": "2026-09-27: reviewed performance-update wording/version requirements; existing research and historical evidence retained; no measured speedup claim."
     },
     {
       "path": "docs/phobos-framework.md",
@@ -35390,8 +35413,9 @@
     {
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
-      "decision": "rewrite",
-      "sha256": "6c0febed2a16e3564232790992eb851fe0cbb0b40dc8e9e9352d050a87b2f6cb"
+      "decision": "update current version/help and retain technical evidence",
+      "sha256": "7f2fcc417d4775e0dc010def6b1fc6d9fb0f3a5baa7a25eee0c8f141193c59cf",
+      "review": "2026-09-27: reviewed performance-update wording/version requirements; existing research and historical evidence retained; no measured speedup claim."
     },
     {
       "path": "docs/powered-shipbreaking-design-findings.md",
@@ -35523,7 +35547,8 @@
       "path": "docs/shipbreaker-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "3eb34646cbdbe1bb87cdf6baf50e0d46b7a0bd6dbe2a513f9b7e04faec5692cf"
+      "sha256": "e330faa1d1c5edd5045b4f7c0ce66392b0dbbc6b191d4c1cc7277fe1d76b52c2",
+      "review": "2026-09-27: generator refresh changes only current versions/source fingerprints; item values, research findings and player explanations are unchanged."
     },
     {
       "path": "docs/shipbreaker-material-uses.md",
@@ -35600,8 +35625,9 @@
     {
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
-      "decision": "rewrite",
-      "sha256": "41b4d506103e3534b994f3a82c0a238350eaa1c3e80b4faf3c2bca950db6ce6a"
+      "decision": "update current version/help and retain technical evidence",
+      "sha256": "e8823652249fa0aea5acae6a11ca5e83b291859c82400495b7e1f1a452b950e4",
+      "review": "2026-09-27: reviewed performance-update wording/version requirements; existing research and historical evidence retained; no measured speedup claim."
     },
     {
       "path": "SUPPORT.md",
@@ -35612,32 +35638,44 @@
     {
       "path": "workshop/PhobosAgriculture/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
-      "decision": "rewrite",
-      "sha256": "876e83304279292182d7db1ce94f5ad887760cc8485e6d6df5f2d787b5da3df3"
+      "decision": "update current version/help and retain technical evidence",
+      "sha256": "ea02d90f0e8fb015452cb3a24780b5131fefe43c4519fe4ca21b1fd85ae9c556",
+      "review": "2026-09-27: reviewed performance-update wording/version requirements; existing research and historical evidence retained; no measured speedup claim."
     },
     {
       "path": "workshop/PhobosAutoNav/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
-      "decision": "rewrite",
-      "sha256": "d0a2f522acbf2bfc9f7d50ee93b0e902349547c041ab92e2463dfbba0d9d513a"
+      "decision": "update current version/help and retain technical evidence",
+      "sha256": "4472404ddf4d5c6126f37c729d614f59fe45d9ce3a021dbe7c3cc5791bc29ca5",
+      "review": "2026-09-27: reviewed performance-update wording/version requirements; existing research and historical evidence retained; no measured speedup claim."
     },
     {
       "path": "workshop/PhobosFramework/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
-      "decision": "rewrite",
-      "sha256": "48474400954a32d1399082c8bae337e2fa7925fee2dfb6f09f3a61aedf2d2836"
+      "decision": "update current version/help and retain technical evidence",
+      "sha256": "8c28ba94398e4d6a9ad6a85e358c62284c34ba463880b26b50e6f93e84456213",
+      "review": "2026-09-27: reviewed performance-update wording/version requirements; existing research and historical evidence retained; no measured speedup claim."
     },
     {
       "path": "workshop/PhobosManufacturing/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "0562ac8a6c9940e4af9acf3dc1bd2d42bba682293be9ac7066e05a5a421fa390"
+      "sha256": "9dde213c18cd8e987c19d7242225be2423a0a0275f9c4f99a5917b878ec1de9c",
+      "review": "2026-09-27: keep publication/installation hold explicit and refer older development installations to the guarded archive procedure."
     },
     {
       "path": "workshop/PhobosShipbreaker/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
-      "decision": "rewrite",
-      "sha256": "6afd98398277b2a8c2b837655015172e4aecd3ef9333d56b7f7e3f0c3b713bc0"
+      "decision": "update current version/help and retain technical evidence",
+      "sha256": "d0fdc885b352cbdd13b66afe6db3098c5241cac15f1c65716c56123d2f53543b",
+      "review": "2026-09-27: reviewed performance-update wording/version requirements; existing research and historical evidence retained; no measured speedup claim."
+    },
+    {
+      "path": "docs/performance-audit.md",
+      "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
+      "decision": "add; explicit measurement limits and practical player actions",
+      "sha256": "7254e14043c095e02a70599b4410172f9768aeb3fcf1f9a6061430057bb0657f",
+      "review": "2026-09-27: reviewed test evidence and the discovered old Manufacturing scaffold; distinguish source findings, measured baseline, implementation and deferred owner validation."
     }
   ],
   "surfaces": [
@@ -35659,7 +35697,8 @@
     {
       "path": "mods/PhobosAgriculture/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "2c91488f131ad6f3c21a6feabf2ba8d30906c8d4914939a91ab7e619b843abef"
+      "sha256": "846beba96b34775100d41da9f9fc4cc286d0819527bb3b6a6e272dd3da9170ab",
+      "review": "2026-09-27: reviewed performance-update wording/version requirements; existing research and historical evidence retained; no measured speedup claim."
     },
     {
       "path": "mods/PhobosAutoNav/data/cooverlays/phobos_approach_assist.json",
@@ -35679,7 +35718,8 @@
     {
       "path": "mods/PhobosAutoNav/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "0895c24fedcf0a2e54da1a2f84d9cca06be654bb10060b205fd89b832f17e0d9"
+      "sha256": "c34474cf17534f246cc47031e8be5fd6bc243dc2a570f1b094e228fa6b5060a9",
+      "review": "2026-09-27: reviewed performance-update wording/version requirements; existing research and historical evidence retained; no measured speedup claim."
     },
     {
       "path": "mods/PhobosFramework/framework/equipment-names.json",
@@ -35689,7 +35729,8 @@
     {
       "path": "mods/PhobosFramework/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "f381e84d40623e80374bf5ce82614bb1dbaca3f2486f479bd4ab96a8fd60738d"
+      "sha256": "8a8a810a3c97b3125b7b8b0251bd241eed0c4ee07192a4fa002c562fc4985d19",
+      "review": "2026-09-27: reviewed performance-update wording/version requirements; existing research and historical evidence retained; no measured speedup claim."
     },
     {
       "path": "mods/PhobosManufacturing/mod_info.json",
@@ -35709,7 +35750,8 @@
     {
       "path": "mods/PhobosShipbreaker/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "40a8389c4a9a08805f780d19f98d252e717a331184507dfe10efaca65df81615"
+      "sha256": "8d65f262a558782df37ca4214b0a5b5e390c0dd8197c654ceb23d0eea13de0ed",
+      "review": "2026-09-27: reviewed performance-update wording/version requirements; existing research and historical evidence retained; no measured speedup claim."
     }
   ],
   "hardcodedReview": {

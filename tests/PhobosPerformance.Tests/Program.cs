@@ -101,6 +101,7 @@ try
     session = new PerformanceSession(directory, () => true, () => new Dictionary<string, string>(), _ => { });
     session.Command(new[] { "phobosframework", "perf", "start" }, out _); session.Stop(StopReason.ApplicationExit);
     Check(session.Snapshot!.StopReason == "application_exit", "Orderly exit stops without implicit file writes");
+    FrameChecks.Run(Check, directory);
 }
 finally { Performance.Session = null; Directory.Delete(directory, recursive: true); }
 Console.WriteLine($"{checks} performance adapter checks passed.");

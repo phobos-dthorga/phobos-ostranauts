@@ -45,6 +45,8 @@ internal static partial class Service
     internal static void PassiveScan()
     {
         if (CrewSim.objInstance == null || !CrewSim.objInstance.FinishedLoading || DataHandler.mapCOs == null) return;
+        using var measurement = Phobos.Ostranauts.Framework.Diagnostics.Performance.Measure(PerformanceMetrics.Scan);
+        Phobos.Ostranauts.Framework.Diagnostics.Performance.Increment(PerformanceMetrics.Candidates, DataHandler.mapCOs.Count);
         foreach (var co in DataHandler.mapCOs.Values.Where(c => Definitions.Machine(c) && !c.bDestroyed && c.ship != null && (int)c.ship.LoadState >= 2).ToArray())
         {
             if (!co.HasCond("IsInstalled") || co.HasCond("IsDamaged")) { BeginRun(co); Tick(co); }
@@ -118,6 +120,7 @@ internal static partial class Service
     }
     internal static void Tick(CondOwner co)
     {
+        using var measurement = Phobos.Ostranauts.Framework.Diagnostics.Performance.Measure(PerformanceMetrics.Tick);
         var s = Get(co); double elapsed = StarSystem.fEpoch - s.Last; s.Last = StarSystem.fEpoch;
         if (s.Protected || co.ship == null || (int)co.ship.LoadState < 2) return;
         try

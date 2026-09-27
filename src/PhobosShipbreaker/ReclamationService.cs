@@ -122,6 +122,7 @@ internal static partial class ReclamationService
     internal static void Update()
     {
         if(CrewSim.objInstance==null||!CrewSim.objInstance.FinishedLoading||CrewSim.Paused) return;
+        using var measurement = Phobos.Ostranauts.Framework.Diagnostics.Performance.Measure(PerformanceMetrics.Reclamation);
         foreach(var s in sessions.Values.ToArray())
         {
             if(!s.Authorized||StarSystem.fEpoch<s.NextUpdate) continue;

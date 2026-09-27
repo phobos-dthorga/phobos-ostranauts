@@ -16,6 +16,8 @@ public sealed class ObjectStateStore
     private readonly Dictionary<string, Dictionary<string, string>> maps;
     private readonly string key, owner;
     private readonly int version;
+    private static readonly IReadOnlyDictionary<string, string> EmptyFields =
+        new ReadOnlyDictionary<string, string>(new Dictionary<string, string>());
 
     public ObjectStateStore(Dictionary<string, Dictionary<string, string>> maps, string name, string owner, int version)
     {
@@ -26,29 +28,38 @@ public sealed class ObjectStateStore
 
     public SavedStateStatus Read(out IReadOnlyDictionary<string, string> fields)
     {
-        fields = new ReadOnlyDictionary<string, string>(new Dictionary<string, string>());
-        if (!maps.TryGetValue(key, out var map)) return SavedStateStatus.Missing;
+        fields = EmptyFields;
+        var status = Validate(out var map);
+        if (status != SavedStateStatus.Ready) return status;
+        var copy = new Dictionary<string, string>(StringComparer.Ordinal);
+        foreach (var pair in map!)
+            if (pair.Key != "schema" && pair.Key != "owner") copy.Add(pair.Key.Substring(FieldPrefix.Length), pair.Value);
+        fields = new ReadOnlyDictionary<string, string>(copy);
+        return SavedStateStatus.Ready;
+    }
+
+    // Validate current native data on every call; do not cache mutable property maps.
+    private SavedStateStatus Validate(out Dictionary<string, string>? map)
+    {
+        if (!maps.TryGetValue(key, out map)) return SavedStateStatus.Missing;
         if (map == null || !map.TryGetValue("schema", out var schema) ||
             !int.TryParse(schema, NumberStyles.None, CultureInfo.InvariantCulture, out int found) || found < 1)
             return SavedStateStatus.Invalid;
         if (found != version) return SavedStateStatus.UnsupportedVersion;
         if (!map.TryGetValue("owner", out var savedOwner) || savedOwner != owner) return SavedStateStatus.DifferentOwner;
-        var copy = new Dictionary<string, string>(StringComparer.Ordinal);
         foreach (var pair in map)
         {
             if (pair.Key == "schema" || pair.Key == "owner") continue;
             if (!pair.Key.StartsWith(FieldPrefix, StringComparison.Ordinal) ||
-                !SafeKey(pair.Key.Substring(FieldPrefix.Length)) || !SafeValue(pair.Value)) return SavedStateStatus.Invalid;
-            copy.Add(pair.Key.Substring(FieldPrefix.Length), pair.Value);
+                !SafeKey(pair.Key, FieldPrefix.Length) || !SafeValue(pair.Value)) return SavedStateStatus.Invalid;
         }
-        fields = new ReadOnlyDictionary<string, string>(copy);
         return SavedStateStatus.Ready;
     }
 
     /// <summary>Replaces our map with a detached snapshot. Unknown schemas/owners remain untouched.</summary>
     public bool TryWrite(IReadOnlyDictionary<string, string> fields)
     {
-        var state = Read(out _);
+        var state = Validate(out _);
         if (state != SavedStateStatus.Missing && state != SavedStateStatus.Ready) return false;
         var copy = new Dictionary<string, string>(StringComparer.Ordinal)
         {
@@ -65,8 +76,13 @@ public sealed class ObjectStateStore
 
     /// <summary>Explicit consumer-authorized reset only; never call as automatic load recovery.</summary>
     public void Clear() => maps.Remove(key);
-    private static bool SafeKey(string? value) => !string.IsNullOrEmpty(value) && value!.Length <= 100 &&
-        value.All(c => char.IsLetterOrDigit(c) || c == '.' || c == '_' || c == '-');
+    private static bool SafeKey(string? value, int start = 0)
+    {
+        if (value == null || value.Length <= start || value.Length - start > 100) return false;
+        for (int i = start; i < value.Length; i++)
+            if (!char.IsLetterOrDigit(value[i]) && value[i] != '.' && value[i] != '_' && value[i] != '-') return false;
+        return true;
+    }
     public static bool SafeValue(string? value) => !string.IsNullOrWhiteSpace(value) && value!.Length <= 512 &&
         !value.Any(c => char.IsControl(c) || c == '=' || c == ',');
 }

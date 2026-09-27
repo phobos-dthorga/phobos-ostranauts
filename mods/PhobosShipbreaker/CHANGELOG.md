@@ -19,6 +19,18 @@ Dates on Draft entries record preparation, not Steam publication.
 - Earlier capture-only research is superseded for supported ordinary walls by the implementation below. Broader structural recipes, repeated furnace batches and whole-wreck completion remain outside this round.
 - Keep [NASA Goddard's Raven research](https://www.nasa.gov/general/nasas-hybrid-computer-enables-ravens-autonomous-rendezvous-capability/) and [ESA's LIRIS experiment by Airbus, Jena Optronik and Sodern](https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/ATV/ATV_views_Space_Station_as_never_before) as sensing context, separate from Blue Bottle Games native evidence and authored gameplay choices. No institutional endorsement or gameplay validation is implied.
 
+## [0.28.2] - 2026-09-27 - Draft
+
+### Fixed
+
+- Remove temporary equipment-name strings from recurring furnace discovery without changing scan cadence, passive cooling or measured resource accounting.
+- Reuse Framework ship-scoped discovery, presentation pacing and change-only native widgets in industrial panels. Add opt-in furnace, capture and reclamation timing scopes.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.29.0; the existing Auto Nav dependency remains. Save formats, construction, recipes, heat, material and flight-authority rules are unchanged.
+- See docs/performance-audit.md for baseline findings and offline verification. Follow-up measurements are deferred; active machinery performance and Unity interaction remain owner-run checks.
+
 ## [0.28.1] - 2026-09-27 - Draft
 
 ### Documentation

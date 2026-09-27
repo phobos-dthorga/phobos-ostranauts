@@ -19,6 +19,18 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Fixed unreachable INSTALL entries; Firstlight-4, Hearth-2 and W2 appear under APPS, and irrigation conduit under MISC, including damaged forms. Existing inputs, placement and saved IDs are preserved.
 
+## [0.15.2] - 2026-09-27 - Draft
+
+### Fixed
+
+- Use allocation-free bulk-tank family matching and shared presentation pacing. Keep crop, cooker, irrigation and passive-scan cadence unchanged.
+- Add disabled-by-default Scope timings for discovery, machine updates and panel refreshes; retain the existing change-only growth artwork selection.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.29.0. Saved state, water, nutrients, power, heat, crop yields and recipes are unchanged.
+- See docs/performance-audit.md for the source review and baseline evidence. Further captures are deferred by owner direction; measured speedup and Unity interaction are unverified.
+
 ## [0.15.1] - 2026-09-27 - Draft
 
 ### Documentation

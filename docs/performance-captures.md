@@ -1,9 +1,9 @@
 # Opt-in performance captures
 
 Performance recording was introduced in Framework **0.15.0**, Auto Nav **0.10.1**
-and Shipbreaker **0.11.1**. Current prepared versions are Framework **0.17.0**,
-Auto Nav **0.10.1** and Shipbreaker **0.14.0**. These integrate
-[Phobos Scope](https://github.com/phobos-dthorga/phobos-scope). Profiling is disabled
+and Shipbreaker **0.11.1**. See the [player guide](player-guide.md) for current
+prepared versions. These integrate [Phobos Scope](https://github.com/phobos-dthorga/phobos-scope).
+Profiling is disabled
 by default. Enable a bounded capture through F3, reproduce a workload, stop and
 export, then analyse outside the game. A Rust process is not needed during play.
 
@@ -19,7 +19,7 @@ Framework's plugin directory contains both `PhobosFramework.dll` and one
 `Phobos.Scope.Recording.dll` (0.1.1). Consumer packages do not duplicate the recorder.
 The installer checks recorder identity/version and refuses missing, duplicate or
 newer conflicting shared copies. Check the BepInEx startup log for the versions you installed; the current
-prepared suite is Framework 0.17.0, Auto Nav 0.10.1 and Shipbreaker 0.14.0.
+prepared versions are listed in the player guide.
 
 ## Capture a workload
 
@@ -111,11 +111,10 @@ JSON so it can be reanalysed.
 
 ## Build and verification boundaries
 
-Initialize the pinned private source dependency with
+Initialize the pinned public source dependency with
 `git submodule update --init --recursive`. Framework builds it via a project
 reference; do not copy recorder source into individual mods. The pin is the
-reproducible dependency identity. The Scope project licence is still undecided:
-its bundled licensing notice is separate from Framework's MIT grant.
+reproducible dependency identity. Original Scope work is MIT licensed; preserve its separate bundled licensing notice.
 
 `scripts/build-framework.ps1` runs the adapter checks. `scripts/verify-performance.ps1`
 creates synthetic adapter captures and sends them through the pinned Rust analyser.
@@ -126,3 +125,33 @@ rollback receipts in fixtures.
 Compiled against the installed Ostranauts assemblies and BepInEx 5.4.23.5; package
 metadata targets Ostranauts 1.0.1.5. Builds, synthetic captures and offline native
 checks are not in-game tests. Owner gameplay evaluation remains pending.
+
+## Current audit and deferred comparisons
+
+The owner deferred additional in-game captures on 27 September 2026. Recording
+remains disabled by default; ordinary play is the next evaluation step. See the
+[performance audit](performance-audit.md) for baseline results and limitations.
+
+Additional scopes cover Auto Nav panel refresh/read, system-prefix work and fire;
+Shipbreaker furnace/capture/reclamation; Framework crew discovery; and Agriculture
+scan/update/panel work. `framework.equipment.scan_objects`,
+`shipbreaker.furnace.scan_objects` and `agriculture.scan_objects` count candidate
+objects actually examined by those entry points. They are not machine counts.
+`framework.crew.scan_objects` belongs to the baseline global-scan instrumentation;
+it is not emitted by the new ship-scoped discovery path.
+
+`game.frame.interval` records main-thread frame intervals in milliseconds.
+`game.gc.gen0/1/2` record process collection-count increments, not per-mod
+collections. `game.allocations.main_thread` is available only when the runtime's
+counter passes an allocation probe. Early baseline captures reported unsupported
+zero totals; do not interpret those as allocation measurements. Metadata now
+records calibration support and assembly build IDs without object/player IDs.
+Memory stays bounded by the existing record cap and export remains explicit.
+
+For a future comparison, `scripts/compare-performance.py --before <captures...>
+--after <captures...>` emits JSON with per-run percentiles, long frames, operation
+cost per second, collections and quality flags. Supply three matched 30-second
+captures per side and compare open/closed scenarios separately. Incomplete scopes
+limit their own operation totals, not otherwise valid frame samples. Unsupported
+allocation totals are omitted. This tool does not verify identical saves, zoom,
+workloads or recorder overhead, and does not establish gameplay correctness.

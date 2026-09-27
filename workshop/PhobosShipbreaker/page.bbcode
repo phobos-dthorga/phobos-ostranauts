@@ -1,5 +1,10 @@
 [h1]Phobos Shipbreaker[/h1]
-[b]Version:[/b] 0.28.1
+[b]Version:[/b] 0.28.2
+
+[h2]Performance update[/h2]
+Furnace equipment searches create less temporary data, and industrial panels reuse shared display and ship-search helpers. Cooling, processing speed, heat and material accounting are unchanged.
+Offline checks accompany this draft. Measured improvement and in-game interaction still await owner feedback. [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/performance-audit.md]Audit and optional playtesting checks[/url].
+
 [b]Publication status:[/b] Not published - development candidate
 
 Make the wreck pay for the next repair. Rivetline equipment brings wall processing, scrap recovery and aluminium casting aboard your ship.
@@ -19,7 +24,7 @@ Make the wreck pay for the next repair. Rivetline equipment brings wall processi
 Keep the supporting hull walls under the sealed chute. Processing needs power, output space and suitable cooling; vacuum is not free cooling. Older unclassified residue has no R4 recipe. Furnace heating and exterior work pause on interruption and require Resume. Capture does not by itself authorize cutting. Loading preserves cargo and work; a fault may block further work for inspection.
 
 [h2]Requirements and installation[/h2]
-Ostranauts 1.0.1.5, BepInEx 5, Phobos Framework 0.28.0 or newer and Phobos Auto Nav 0.19.0 or newer. Crafting Framework and Salvage Workshop are optional. Agriculture integration is optional.
+Ostranauts 1.0.1.5, BepInEx 5, Phobos Framework 0.29.0 or newer and Phobos Auto Nav 0.19.0 or newer. Crafting Framework and Salvage Workshop are optional. Agriculture integration is optional.
 
 This is an unpublished development package. Automated checks do not establish in-game readiness or Unity layout approval. Keep required mods installed for saves using their content. Updating does not refill shops or old loot containers. See the installation guide for current download availability.
 

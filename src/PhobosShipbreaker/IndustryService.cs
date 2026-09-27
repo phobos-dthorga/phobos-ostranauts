@@ -16,9 +16,8 @@ internal sealed class EquipmentCard
 /// <summary>One command boundary for local panels, central console and F3. No ambient remote bypass.</summary>
 internal static class IndustryService
 {
-    internal static CondOwner[] Discover(Ship? ship) => ship == null || (int)ship.LoadState < 2 ? Array.Empty<CondOwner>() :
-        ship.GetCOs(null, bSubObjects: false, bAllowDocked: false, bAllowLocked: true)
-            .Where(c => c != null && !c.bDestroyed && c.ship == ship && c.objCOParent == null && c.HasCond("IsInstalled") && (IndustrialRules.Equipment(c.strCODef) || EquipmentProviders.For(c.strCODef) != null))
+    internal static CondOwner[] Discover(Ship? ship) => ShipEquipment.Read(ship,
+            c => c.HasCond("IsInstalled") && (IndustrialRules.Equipment(c.strCODef) || EquipmentProviders.For(c.strCODef) != null))
             .OrderBy(c => IndustrialRules.Group(c.strCODef), StringComparer.Ordinal).ThenBy(c => c.strID, StringComparer.Ordinal).ToArray();
     internal static EquipmentCard[] SnapshotShip(Ship? ship)
     {

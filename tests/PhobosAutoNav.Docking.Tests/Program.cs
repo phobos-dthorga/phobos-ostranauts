@@ -63,7 +63,12 @@ FlightSnapshot Read(CondOwner co)
 void Tick(NavigationService service, double dt = .1)
 { service.TickDocking(CrewSim.system, dt, false); StarSystem.fEpoch += dt; }
 void Settle(NavigationService service) { for (int i = 0; i < 55; i++) Tick(service); }
-var f = Setup(); f.Console.ship.Comms.Clearance = null; f.Service.Dock(f.Console);
+var f = Setup();
+Check(DockingAdapter.ReadAvailablePorts(f.Console.ship, f.Target, out var shownOwn, out var shownTarget) == null &&
+    shownOwn == "own" && shownTarget == "assigned" && f.Target.FitChecks == 0, "Presentation reads clearance without native hull-grid work");
+f.Target.Pairs.Clear(); f.Service.Dock(f.Console);
+Check(!AutoNavCore.Engaged && f.Target.FitChecks > 0, "Dock command freshly rejects hull fit after a valid clearance display");
+f = Setup(); f.Console.ship.Comms.Clearance = null; f.Service.Dock(f.Console);
 Check(!AutoNavCore.Engaged && CrewSim.AttachCalls == 0, "No clearance cannot engage");
 f = Setup(); f.Console.ship.Comms.Clearance!.ClearanceType = "PUSHBACK & TAXI"; f.Service.Dock(f.Console);
 Check(!AutoNavCore.Engaged, "Undocking clearance cannot authorize docking");

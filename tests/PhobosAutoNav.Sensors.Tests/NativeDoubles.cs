@@ -35,8 +35,9 @@ public sealed class Ship
     internal CondOwner? Reactor;
     internal double fShallowFusionRemain = 3600;
     internal Dictionary<string,string> ReactorProps = new() { ["slidFlow"]="0", ["slidCycle"]="0", ["knobRatio"]="0", ["bNWZ"]="false" };
-    internal int ReactorWrites;
-    internal string GetReactorGPMValue(string key) => ReactorProps.TryGetValue(key,out var value) ? value : "";
+    internal int ReactorWrites, ReactorReads;
+    internal readonly List<string> ReactorReadKeys = new();
+    internal string GetReactorGPMValue(string key) { ReactorReads++; ReactorReadKeys.Add(key); return ReactorProps.TryGetValue(key,out var value) ? value : ""; }
     internal void SetReactorGPMValue(string key,string value) { if(AutoNavCore.Engaged) throw new Exception("Automation still owns flight during manual write"); ReactorWrites++; ReactorProps[key]=value; }
     internal bool IsMoored() => false;
     internal int Maneuvers; internal float LastRotation;
@@ -83,7 +84,8 @@ public sealed class CondOwner
     internal HashSet<string> Conditions = new() { "IsInstalled", "IsPowered" };
     internal Dictionary<string, Dictionary<string, string>> mapGUIPropMaps = new();
     internal bool HasCond(string name) => Conditions.Contains(name);
-    internal IEnumerable<CondOwner> GetCOsSafe(bool recursive) => Items;
+    internal int ModuleReads;
+    internal IEnumerable<CondOwner> GetCOsSafe(bool recursive) { ModuleReads++; return Items; }
     internal CondOwner? AddCO(CondOwner co, bool bEquip, bool bOverflow, bool bIgnoreLocks) { Items.Add(co); return null; }
     internal void Destroy() => bDestroyed = true;
 }
@@ -247,6 +249,7 @@ namespace PhobosAutoNav
 namespace Ostranauts.ShipGUIs.NavStation { internal static class NavModTorchDrive { internal static float GetLimiterSafetyMax(Ship ship) => .5f; } }
 namespace PhobosAutoNav {
     internal static class DockingAdapter {
+        internal static string? ReadAvailablePorts(Ship own, Ship target, out string ownPort, out string targetPort) { ownPort="own";targetPort="assigned";return null; }
         internal static bool HasFuel(Ship own, Ship target, float throttle) => true;
         internal static string? Check(Ship own, Ship? target, string ownPort, string targetPort, bool checkFit) => null;
         internal static string? SelectPorts(Ship own, Ship target, out string ownPort, out string targetPort) { ownPort="own";targetPort="assigned";return null; }

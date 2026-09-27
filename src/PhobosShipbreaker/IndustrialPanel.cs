@@ -24,7 +24,7 @@ public sealed class IndustrialPanel : GUIData
     private string hostId = "", actorId = "", selected = "", query = "", tab = "overview", result = "", displayedResult = "";
     private int stateFilter;
     private bool compact, detailPage, invalid;
-    private float nextRefresh;
+    private readonly PresentationRefresh refresh = new(IndustrialRules.RefreshSeconds);
     private string roster = "";
     private EquipmentCard[] cards = Array.Empty<EquipmentCard>();
     private readonly HashSet<string> collapsed = new HashSet<string>();
@@ -95,8 +95,9 @@ public sealed class IndustrialPanel : GUIData
     private void Layout(){compact=shell.IsNarrow;shell.Page(!Central||detailPage);}
     private void Update()
     {
-        if (!bActive || Time.unscaledTime < nextRefresh) return;
-        nextRefresh = Time.unscaledTime + (float)IndustrialRules.RefreshSeconds;
+        if (!bActive) return;
+        refresh.Bind(COSelf, CrewSim.GetSelectedCrew(), null, Phobos.Ostranauts.Framework.Localization.Translations.Language);
+        if (!refresh.Due(Time.unscaledTime)) return;
         try { Refresh(); }
         catch (Exception ex) { invalid = true; if (commands != null) commands.interactable = false; Plugin.Log(Text.Get("Industry.ui_error", ex.Message)); CrewSim.LowerUI(); }
     }
@@ -132,7 +133,7 @@ public sealed class IndustrialPanel : GUIData
         // Stable rows while status text changes; rebuild only when membership changes.
         string signature = string.Join("|", cards.Select(c => c.Id + (tab == "attention" ? ":" + c.Attention : "") + (stateFilter != 0 ? ":" + c.State : "") + (query.Length != 0 ? ":" + MatchesQuery(c) : "")));
         if (signature != roster) { roster = signature; RebuildRows(); }
-        foreach (var card in cards) if (rows.TryGetValue(card.Id, out var row)) row.text = RowText(card);
+        foreach (var card in cards) if (rows.TryGetValue(card.Id, out var row)) Presentation.Text(row, RowText(card));
         if (readout == null) ShowDetail(); else RefreshReadout();
         if (commands != null) commands.interactable = problem == null && CollectorService.Resolve(selected)!=null;
         Layout();

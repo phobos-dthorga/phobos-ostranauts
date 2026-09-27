@@ -48,23 +48,23 @@ internal sealed partial class NavigationService
         store.TryWrite(new System.Collections.Generic.Dictionary<string, string> { ["shown"] = "1" });
     }
 
-    internal HubSnapshot ReadHub(CondOwner? co)
+    internal HubSnapshot ReadHub(CondOwner? co, string? page = null)
     {
-        var view = new HubSnapshot { Navigation = ReadInstruments(co), CompletionCue = co == console ? ArrivalCueStatus : Text.Get("Cue.off"), OffensiveTarget = Text.Get("Instruments.no_target"),
+        using var measurement = Phobos.Ostranauts.Framework.Diagnostics.Performance.Measure(PerformanceMetrics.PanelRead);
+        var read = IsLocalConsole(co) && CrewSim.objInstance?.FinishedLoading == true ? new PresentationRead(co!, AutoNavCore.Engaged && console == co) : null;
+        var view = new HubSnapshot { Navigation = ReadInstruments(co, read: read, details: page == null || page == "details"), CompletionCue = co == console ? ArrivalCueStatus : Text.Get("Cue.off"), OffensiveTarget = Text.Get("Instruments.no_target"),
             FireReason = Text.Get("Pursuit.ceased"), Clearance = Text.Get("Hub.unavailable") };
         view.Restriction = view.Navigation.Warning ? view.Navigation.Notice : status;
-        if (!IsLocalConsole(co) || CrewSim.objInstance == null || !CrewSim.objInstance.FinishedLoading) return view;
+        if (read == null) return view;
         bool powered = !co!.HasCond("IsOff") && co.HasCond("IsPowered") && !co.HasCond("IsDamaged");
-        view.WorkingNavigation = powered && co.GetCOsSafe(true).Any(item =>
-            (HasId(item, ModuleId) || HasId(item, PursuitId)) && !item.HasCond("IsDamaged"));
-        view.WorkingPursuit = powered && HasPursuit(co);
-        view.WorkingFire = powered && FireModule(co) != null;
-        var flight = DisplaySnapshot(co);
+        view.WorkingNavigation = powered && read.Navigation;
+        view.WorkingPursuit = powered && read.Pursuit;
+        view.WorkingFire = powered && read.FireModule != null;
+        var flight = read.Flight;
         view.Active = AutoNavCore.Engaged && console == co;
         view.Operation = flight?.Mode;
-        var target = view.Active ? AutoNavCore.EngagedTarget : flight != null ? TargetRef.FromShipId(flight.TargetId) :
-            GUIOrbitDraw.IsOpen() ? TargetRef.FromShipId(GUIOrbitDraw.CrossHairTarget?.Ship?.strRegID ?? "") : null;
-        view.Contact = ReadContact(co, target);
+        var target = read.Target;
+        view.Contact = read.Contact(target);
         var own = co.ship;
         var other = target == null ? null : CrewSim.system?.GetShipByRegID(target.ShipId);
         if (powered && view.Contact.Usable && other?.objSS != null && own.objSS != null)
@@ -84,10 +84,10 @@ internal sealed partial class NavigationService
                 view.DockProgress = !view.Active ? DockProgress.Suspended : flight.IsCombinedApproach ? DockProgress.Approach :
                     dockHolding ? DockProgress.Hold : DockProgress.Capture;
             }
-            else dockingProblem = DockingAdapter.SelectPorts(own, other, out view.OwnPort, out view.TargetPort);
-            view.Clearance = Text.Get(dockingProblem ?? "Hub.clearance_valid");
+            else dockingProblem = page == null || page == "navigation" ? DockingAdapter.ReadAvailablePorts(own, other, out view.OwnPort, out view.TargetPort) : "Instruments.clearance_unknown";
+            view.Clearance = Text.Get(dockingProblem ?? (flight == null ? "Hub.clearance_pending_fit" : "Hub.clearance_valid"));
             view.CanApproachDock = view.WorkingNavigation && !view.Active && flight == null &&
-                !AutoNavCore.Engaged && HardwareProblem(co) == null && !OtherControllerBusy() &&
+                !AutoNavCore.Engaged && read.Hardware == null && !OtherControllerBusy() &&
                 dockingProblem == null && !co.HasCond("IsDamagedSoftware");
         }
         else if (flight?.IsDocking == true || flight?.IsCombinedApproach == true)
@@ -100,30 +100,37 @@ internal sealed partial class NavigationService
         view.FirePermitted = boundFire && Fire.Permitted;
         view.AutoAiming = boundFire && autoAim;
         if (boundFire && fireTargetId != null) view.OffensiveTarget = FireTarget?.DisplayName ?? fireTargetId;
-        view.FireContact = ReadContact(co, boundFire ? FireTarget : null);
+        view.FireContact = read.Contact(boundFire ? FireTarget : null);
         bool validPreferences = FirePreferences(co, out int group, out int volleys, out bool held);
         view.WeaponGroup = group; view.Volleys = volleys; view.Remaining = boundFire ? Fire.Remaining : 0;
         view.FireHeld = held || Fire.Owns(co.strID);
         view.CanSelectWeapons = view.WorkingFire && validPreferences && !Fire.OtherOwner(co.strID);
         view.CanChangeGroup = view.CanSelectWeapons && !view.FireHeld;
         view.CanReturnFire = validPreferences && view.FireHeld;
-        view.CanEngage = view.CanSelectWeapons && boundFire && view.FireContact.Usable && FireHardwareProblem(co) == null &&
+        view.CanEngage = (page == null || page == "fire") && view.CanSelectWeapons && boundFire && view.FireContact.Usable && FireHardwareProblem(co, read) == null &&
             !DockingActive && (!AutoNavCore.Engaged || console == co && AutoNavCore.Following) && freshFire && Fire.Weapons.Any(w => w.Eligible && w.Loaded);
         view.CanAim = view.CanEngage && AimProblem(co) == null;
         view.Ownership = Text.Get("FCS.state." + (boundFire ? Fire.State : view.FireHeld ? FireState.Hold : FireState.Native));
         view.FireReason = !view.WorkingFire ? Text.Get("FCS.module_required") : Text.Get("FCS.readiness", boundFire ? Text.Get(Fire.Reason) : view.Ownership,
             freshFire ? Fire.ReadyCount?.ToString() ?? "—" : "—", freshFire ? Fire.Weapons.Count.ToString() : "—");
         if (view.WorkingFire && (!view.WorkingNavigation || boundFire && Fire.State == FireState.Fault)) view.Restriction = view.FireReason;
+        if (page == null || page == "fire")
+        {
         var weapon = freshFire ? DisplayWeapon : null;
-        view.WeaponLabel = Text.Get("FCS.weapon", weapon == null ? 0 : Fire.Weapons.ToList().FindIndex(w => w.Id == weapon.Id) + 1, freshFire ? Fire.Weapons.Count : 0,
-            freshFire && aimReference != null ? (Fire.Weapons.ToList().FindIndex(w => w.Id == aimReference) + 1).ToString() : "—");
+        int weaponIndex = 0, aimIndex = 0;
+        for (int i = 0; i < Fire.Weapons.Count; i++)
+        { if (weapon != null && Fire.Weapons[i].Id == weapon.Id) weaponIndex = i + 1; if (Fire.Weapons[i].Id == aimReference) aimIndex = i + 1; }
+        view.WeaponLabel = Text.Get("FCS.weapon", weaponIndex, freshFire ? Fire.Weapons.Count : 0,
+            freshFire && aimReference != null ? aimIndex.ToString() : "—");
         view.WeaponCard = weapon == null ? Text.Get("FCS.unavailable") : Text.Get("FCS.weapon_card", weapon.Name, Text.Get(weapon.Reason),
             weapon.InArc.HasValue ? Text.Get(weapon.InArc.Value ? "FCS.yes" : "FCS.no") : "—", Text.Get(weapon.Loaded ? "FCS.yes" : "FCS.no"),
             weapon.ReloadSeconds?.ToString("0.0") ?? "—", weapon.AimSeconds?.ToString("0.0") ?? "—", Text.Get(weapon.Manual ? "FCS.mode_manual" : "FCS.mode_auto"));
+        }
+        if (page != null && page != "systems") return view;
         if (!powered || own.bCheckPower || own.objSS == null) return view;
         float? throttle = ReadThrottleReading(co);
         view.RcsAuthorityMS2 = throttle.HasValue ? Known(own.RCSAccelMax / AutoNavCore.M_TO_AU * throttle.Value) : null;
-        view.RcsFuelKG = Known(own.GetRCSRemain());
+        view.RcsFuelKG = Known(read.Fuel);
         view.ConnectedKWh = co.Pwr == null ? null : Known(co.Pwr.PowerConnected);
         view.DeliveredMS2 = Known(own.objSS.vAccIn.magnitude / AutoNavCore.M_TO_AU);
         var core = own.Reactor;

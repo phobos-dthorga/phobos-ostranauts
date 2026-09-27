@@ -1,0 +1,16 @@
+[h1]Phobos Auto Nav 0.20.3[/h1]
+[b]Draft - not published | 2026-09-27[/b]
+
+[h2]Fixed[/h2]
+
+[list]
+[*]Stop rebuilding native hull grids for the idle navigation display. Show clearance separately; docking commands, active checks and attachment still validate native hull fit.
+[*]Refresh the shared header and selected page at most ten times per second, with immediate action/context updates. Reuse one presentation snapshot and retained widgets; skip hidden-page detail reads and unchanged display writes.
+[/list]
+
+[h2]Compatibility and limits[/h2]
+
+[list]
+[*]Requires Phobos Framework 0.29.0. Flight, firing, docking, saved IDs and resource rules are unchanged; commands always recheck current state.
+[*]Baseline measurements and audit findings are in docs/performance-audit.md. Further captures are deferred by owner direction; offline checks do not establish a measured speedup or Unity interaction approval.
+[/list]

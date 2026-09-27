@@ -1,5 +1,10 @@
 [h1]Phobos Agriculture[/h1]
-[b]Version:[/b] 0.15.1
+[b]Version:[/b] 0.15.2
+
+[h2]Performance update[/h2]
+Bulk-tank searches and panel refreshes reuse shared helpers. Crop growth, cooking, water, nutrients, power and heat rules are unchanged.
+Offline checks accompany this draft. Measured improvement and in-game interaction still await owner feedback. [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/performance-audit.md]Audit and optional playtesting checks[/url].
+
 [b]Publication status:[/b] Not published - development candidate
 
 A hot meal is a useful thing to come home to. Grow potatoes and lettuce with Verdemorrow equipment, then cook potato portions in the Hearth-2 galley cooker.
@@ -19,7 +24,7 @@ A hot meal is a useful thing to come home to. Grow potatoes and lettuce with Ver
 Supplies, output space, cabin conditions and power matter. Growth cycles, yields and simplified chemistry are gameplay choices, not NASA or ESA results. Food lettuce produces no seeds. Drainage treatment loses material and never makes drinking water. Wet Recycler rejects have no fertilizer recipe. Loading pauses water transfer; resume when ready. Split stacked supplies before manual processing; partial charges keep their own contents.
 
 [h2]Requirements and installation[/h2]
-Ostranauts 1.0.1.5, BepInEx 5 and Phobos Framework 0.28.0 or newer. Shipbreaker C1 control is optional. Optional Ship's Water support is scoped to Valtora's inspected 0.16.1; manual supplies remain available.
+Ostranauts 1.0.1.5, BepInEx 5 and Phobos Framework 0.29.0 or newer. Shipbreaker C1 control is optional. Optional Ship's Water support is scoped to Valtora's inspected 0.16.1; manual supplies remain available.
 
 This is an unpublished development package. Automated checks do not establish in-game readiness or Unity layout approval. Keep required mods installed for saves using their content. Updating does not refill shops or old loot containers. See the installation guide for current download availability.
 

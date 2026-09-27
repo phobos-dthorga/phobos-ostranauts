@@ -440,3 +440,22 @@ f = Setup(); GUIOrbitDraw.Instance.ledWLock.State = 3; GUIOrbitDraw.Console = ne
 NativeFlightPanel.Release(f.Own);
 Check(GUIOrbitDraw.Instance.HoldingThrustActive, "Another ship's open panel keeps its native latches");
 Console.WriteLine($"{checks} checks including native panel latch release passed.");
+
+// One fresh read per presentation; hidden pages must not touch their native data.
+f = Setup(); f.Own.Reactor = new CondOwner { ship = f.Own };
+int moduleReads = f.Console.ModuleReads, contactReads = f.Own.ElectronicSystems.Reads;
+var navPage = f.Service.ReadHub(f.Console, "navigation");
+Check(f.Console.ModuleReads - moduleReads == 1, "Header and visible page share one module discovery");
+Check(f.Own.ElectronicSystems.Reads - contactReads == 1, "Header and visible page share their target contact");
+Check(f.Own.ReactorReadKeys.All(key => key == "slidCycle"), "Hidden Systems reads only thrust intent needed for the shared navigation warning");
+Check(navPage.Navigation.Details == "", "Hidden Details is not formatted: " + navPage.Navigation.Details);
+Check(navPage.WeaponCard == "", "Hidden weapon card is not formatted");
+f.Service.ReadHub(f.Console, "systems");
+Check(f.Own.ReactorReadKeys.Contains("slidFlow") && f.Own.ReactorReadKeys.Contains("bNWZ"), "Selecting Systems reads current reactor data");
+Check(f.Service.ReadHub(f.Console, "details").Navigation.Details != "", "Selecting Details supplies its help");
+f.Console.Items[0].Conditions.Add("IsDamaged");
+Check(!f.Service.ReadHub(f.Console, "navigation").WorkingNavigation, "Next snapshot discovers newly damaged hardware");
+Check(navPage.WorkingNavigation, "Previously returned presentation remains a detached value");
+f.Service.Engage(f.Console);
+Check(!AutoNavCore.Engaged, "A formerly valid presentation never authorises flight after hardware damage");
+Console.WriteLine($"{checks} checks including presentation snapshots passed.");

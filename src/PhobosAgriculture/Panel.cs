@@ -24,7 +24,7 @@ public sealed class Panel : GUIData
     private string portraitKey = "", tab = "operation";
     private ConsoleShell shell = null!;
     private TMP_Text live = null!;
-    private float nextRefresh;
+    private readonly PresentationRefresh refresh = new(.5);
     internal static bool Show(CondOwner co)
     {
         if (!(Definitions.Machine(co) || BulkDefinitions.IsTank(co) || RecyclerCapture.IsRecycler(co)) || Service.Access(co) != null || CrewSim.goIntUIPanel == null || CrewSim.bUILock ||
@@ -140,13 +140,16 @@ public sealed class Panel : GUIData
     }
     private void Update()
     {
-        if (!bActive || Time.unscaledTime < nextRefresh) return; nextRefresh = Time.unscaledTime + .5f;
+        if (!bActive) return;
+        refresh.Bind(COSelf, CrewSim.GetSelectedCrew(), null, Phobos.Ostranauts.Framework.Localization.Translations.Language);
+        if (!refresh.Due(Time.unscaledTime)) return;
         var co = Service.Resolve(id);
         if (co == null || CrewSim.GetSelectedCrew()?.strID != actorId || Service.Access(co) != null) { shell.ForceClose(); return; }
         Refresh(co);
     }
     private void Refresh(CondOwner co)
     {
+        using var measurement = Phobos.Ostranauts.Framework.Diagnostics.Performance.Measure(PerformanceMetrics.Panel);
         if(portrait!=null)
         {
             var parent=shell.IsNarrow?shell.Detail:shell.List;

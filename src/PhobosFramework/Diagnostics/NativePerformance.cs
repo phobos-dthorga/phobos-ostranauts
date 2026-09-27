@@ -14,6 +14,7 @@ namespace Phobos.Ostranauts.Framework.Diagnostics;
 
 internal static class NativePerformance
 {
+    private static FrameMeasurements? frames;
     internal static void Initialize(Action<string> log)
     {
         try
@@ -22,6 +23,10 @@ internal static class NativePerformance
                 () => CrewSim.objInstance != null && CrewSim.objInstance.FinishedLoading && CrewSim.system != null,
                 Metadata, log);
             Performance.RoomAlarmRead = Performance.RegisterOperation("framework.room_alarm.read", "observations");
+            Performance.CrewDiscovery = Performance.RegisterOperation("framework.crew.discovery", "discovery");
+            Performance.ShipCandidates = Performance.RegisterIncrement("framework.equipment.scan_objects", "discovery", "items");
+            frames = new FrameMeasurements();
+            Performance.RegisterContext("game.allocations.available", () => frames.AllocationSupported ? "true" : "false");
             Performance.RegisterContext("game.speed_multiplier", () => Time.timeScale.ToString("R", CultureInfo.InvariantCulture));
             Performance.RegisterContext("game.paused", () => CrewSim.Paused ? "true" : "false");
             Performance.RegisterContext("game.navigation_console_visible", () => GUIOrbitDraw.IsOpen() ? "true" : "false");
@@ -39,11 +44,22 @@ internal static class NativePerformance
             ["framework_version"] = FrameworkInfo.Version,
             ["bepinex_version"] = typeof(BaseUnityPlugin).Assembly.GetName().Version.ToString()
         };
-        foreach (var pair in new[] { ("phobosgekko.ostranauts.autonav", "autonav_version"), ("phobosgekko.ostranauts.shipbreaker", "shipbreaker_version") })
-            if (Chainloader.PluginInfos.TryGetValue(pair.Item1, out var plugin)) values[pair.Item2] = plugin.Metadata.Version.ToString();
+        foreach (var pair in new[] { ("phobosgekko.ostranauts.autonav", "autonav"), ("phobosgekko.ostranauts.shipbreaker", "shipbreaker"),
+            ("phobosgekko.ostranauts.agriculture", "agriculture"), ("phobosgekko.ostranauts.manufacturing", "manufacturing") })
+            if (Chainloader.PluginInfos.TryGetValue(pair.Item1, out var plugin))
+            {
+                values[pair.Item2 + "_version"] = plugin.Metadata.Version.ToString();
+                values[pair.Item2 + "_build"] = plugin.Instance.GetType().Module.ModuleVersionId.ToString();
+            }
+        values["framework_build"] = typeof(NativePerformance).Module.ModuleVersionId.ToString();
+        values["allocation_measurement"] = frames?.AllocationSupported == true ? "main_thread_bytes" : "unavailable";
         return values;
     }
-    internal static void Poll() => Performance.Session?.Poll();
+    internal static void Poll()
+    {
+        Performance.Session?.Poll();
+        frames?.Poll();
+    }
     internal static void WorldChanging() => Performance.Session?.Stop(StopReason.WorldChange);
     internal static void Shutdown() => Performance.Session?.Stop(StopReason.ApplicationExit);
     internal static bool Command(string[] words, out string response)

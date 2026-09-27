@@ -39,6 +39,18 @@ internal static class DockingAdapter
         return Check(own, target, ownPort, targetPort, checkFit: false);
     }
 
+    // Presentation only: native GetAvailableDockingPorts builds both full hull
+    // grids and tests overlays. Commands still call SelectPorts for a fresh fit.
+    internal static string? ReadAvailablePorts(Ship own, Ship target, out string ownPort, out string targetPort)
+    {
+        ownPort = ""; targetPort = own.Comms?.Clearance?.DockID ?? "";
+        var clearance = own.Comms?.Clearance;
+        if (clearance == null || clearance.TargetRegId != target.strRegID || clearance.ClearanceType != "DOCK") return "Docking.clearance";
+        var ports = own.GetOpenDockingPorts();
+        ownPort = ports.Contains(own.PrimaryDockingPortID) ? own.PrimaryDockingPortID : ports.OrderBy(p => p, StringComparer.Ordinal).FirstOrDefault() ?? "";
+        return Check(own, target, ownPort, targetPort, checkFit: false);
+    }
+
     internal static bool Read(Ship own, Ship target, float throttle, double dt, out DockingCommand command, NavVector targetAcceleration = default, bool hold = false)
     {
         var a = own.objSS; var b = target.objSS;

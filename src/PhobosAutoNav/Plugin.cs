@@ -12,11 +12,11 @@ namespace PhobosAutoNav;
 
 [BepInPlugin(Id, "Phobos Auto Nav", Version)]
 [BepInProcess("Ostranauts.exe")]
-[BepInDependency(FrameworkInfo.PluginId, "0.26.0")]
+[BepInDependency(FrameworkInfo.PluginId, "0.29.0")]
 public sealed class Plugin : BaseUnityPlugin
 {
     public const string Id = "phobosgekko.ostranauts.autonav";
-    public const string Version = "0.20.2";
+    public const string Version = "0.20.3";
     internal static NavigationService Service { get; private set; } = null!;
     internal static ConfigEntry<bool> Enabled = null!, VerboseLogging = null!, FuelCheck = null!,
         AbortOnManualThrust = null!, UseThrusterRotation = null!, ResumeAfterLoad = null!, PreferTorch = null!, SalvageEnabled = null!;
@@ -91,6 +91,7 @@ internal static class DockingTickPatch
     private static void Prefix(StarSystem __instance, double fTimeDelta)
     {
         if (__instance != CrewSim.system) return;
+        using var measurement = Phobos.Ostranauts.Framework.Diagnostics.Performance.Measure(PerformanceMetrics.Background);
         Plugin.Service.TickDeparture(fTimeDelta);
         if (Plugin.Service.GuardNavigation(fTimeDelta)) return;
         Plugin.Service.TickIndustrial(fTimeDelta, false);

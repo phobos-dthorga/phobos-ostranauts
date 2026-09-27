@@ -38,11 +38,11 @@ internal sealed partial class NavigationService
     private static bool HasId(CondOwner co, string id) => !co.bDestroyed && (co.strName == id || co.strCODef == id);
     private static bool PropOn(CondOwner co, string key) => co.mapGUIPropMaps.TryGetValue("Panel A", out var props)
         && props.TryGetValue(key, out var value) && string.Equals(value, "true", StringComparison.OrdinalIgnoreCase);
-    private static string? HardwareProblem(CondOwner? co)
+    private static string? HardwareProblem(CondOwner? co, PresentationRead? presentation = null)
     {
         if (co == null || co.bDestroyed || !co.HasCond("IsInstalled")) return Text.Get("NavigationService.installed_nav_console_required");
         if (co.HasCond("IsOff") || !co.HasCond("IsPowered") || co.HasCond("IsDamaged")) return Text.Get("NavigationService.console_is_off_unpowered_or_damaged");
-        if (!co.GetCOsSafe(true).Any(item => (HasId(item, ModuleId) || HasId(item, PursuitId)) && !item.HasCond("IsDamaged"))) return Text.Get("NavigationService.working_phobos_auto_nav_module_required");
+        if (!(presentation?.Navigation ?? co.GetCOsSafe(true).Any(item => (HasId(item, ModuleId) || HasId(item, PursuitId)) && !item.HasCond("IsDamaged")))) return Text.Get("NavigationService.working_phobos_auto_nav_module_required");
         if (co.ship == null || co.ship.bDestroyed || CrewSim.coPlayer == null || CrewSim.coPlayer.ship != co.ship) return Text.Get("NavigationService.player_must_be_aboard_the_controlled_ship");
         if (co.ship.IsDocked()) return Text.Get("NavigationService.undock_before_engagement");
         // Pending power/sensor refresh is a contact suspension, not a discarded
@@ -50,7 +50,7 @@ internal sealed partial class NavigationService
         string? nativeProblem = NativeControlProblem(co);
         if (nativeProblem != null) return nativeProblem;
         if (CrewSim.system == null || CrewSim.system.IsInAtmo(co.ship)) return Text.Get("NavigationService.free_space_flight_only");
-        if (co.ship.RCSCount <= 0 || co.ship.GetRCSRemain() <= 0) return Text.Get("NavigationService.working_rcs_and_fuel_required");
+        if (co.ship.RCSCount <= 0 || (presentation?.Fuel ?? co.ship.GetRCSRemain()) <= 0) return Text.Get("NavigationService.working_rcs_and_fuel_required");
         if (co.ship.objSS == null || !ArrivalBrake.Finite(co.ship.RCSAccelMax) || co.ship.RCSAccelMax <= 0) return Text.Get("NavigationService.rcs_acceleration_unavailable");
         return null;
     }

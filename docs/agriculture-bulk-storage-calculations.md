@@ -99,4 +99,4 @@ Run `python scripts/calculate-agriculture-storage.py --check` to detect stale ev
 - `src/PhobosAgriculture/Core/DrainageRecovery.cs` (UTF-8/LF, no BOM): `5763ebc1c9933620b1671c9fcbd5d3b3eccb28fa2354e7f791f72970068be047`
 - `src/PhobosAgriculture/Core/TreatmentCartridge.cs` (UTF-8/LF, no BOM): `904486b97a333d4a193a7e6208637222dfe3b08e579d4d15dddca395043363d9`
 - `src/PhobosAgriculture/IrrigationDefinitions.cs` (UTF-8/LF, no BOM): `4fef8fb890ddb0408b0f5ff44d8a6eb8917f2af9f3869c3fccbbbe59bd3cb6b9`
-- `src/PhobosAgriculture/BulkDefinitions.cs` (UTF-8/LF, no BOM): `777e3fb87c64eeaa8cb3a537958a5e54fc05b1dc0a21aa4ccc407dc08cc38b04`
+- `src/PhobosAgriculture/BulkDefinitions.cs` (UTF-8/LF, no BOM): `3984cf371a896dd8e82e0ff6391473ac5afff584935b3d586f7a454b024b256e`

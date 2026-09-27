@@ -31,6 +31,12 @@ function Fails([scriptblock]$Action, [string]$Message) {
     try { & $Action; throw 'Expected failure did not occur' }
     catch { Check ($_.Exception.Message.Contains($Message)) "Wrong failure: $($_.Exception.Message)" }
 }
+Check ((Get-MaintainedDependencyMinimum 'AutoNav.Framework' ([version]'0.20.2') ([version]'0.26.0')) -eq [version]'0.26.0') 'Previous Auto Nav package inherited the new dependency floor'
+Check ((Get-MaintainedDependencyMinimum 'Shipbreaker.Framework' ([version]'0.28.1') ([version]'0.28.0')) -eq [version]'0.28.0') 'Previous Shipbreaker package inherited the new dependency floor'
+Check ((Get-MaintainedDependencyMinimum 'Agriculture.Framework' ([version]'0.15.1') ([version]'0.28.0')) -eq [version]'0.28.0') 'Previous Agriculture package inherited the new dependency floor'
+foreach ($dependency in @(@('AutoNav.Framework','0.20.3'), @('Shipbreaker.Framework','0.28.2'), @('Agriculture.Framework','0.15.2'))) {
+    Check ((Get-MaintainedDependencyMinimum $dependency[0] ([version]$dependency[1]) ([version]'0.28.0')) -ge [version]'0.29.0') 'New helpers require Framework 0.29.0'
+}
 function Fixture([string]$Name, [string[]]$Entries = @('core', 'OCF', 'SWB', 'AutoNavigate|disabled', 'PhobosApproachAssist|disabled')) {
     $root = Join-Path $fixtures $Name
     $game = Join-Path $root 'game'
@@ -58,7 +64,7 @@ function InstalledFiles($Fixture) {
 
 Check ((Get-MaintainedDependencyMinimum 'Shipbreaker.AutoNav' ([version]'0.24.0') ([version]'0.16.0')) -ge [version]'0.18.0') 'Reclamation package requires the new movement API'
 Check ((Get-MaintainedDependencyMinimum 'Shipbreaker.AutoNav' ([version]'0.22.0') ([version]'0.16.0')) -eq [version]'0.16.0') 'Historic capture-only package retains its compatibility gate'
-Check ((Get-MaintainedDependencyMinimum 'AutoNav.Framework' ([version]'0.17.0') ([version]'0.23.0')) -ge [version]'0.24.0') 'Maintained minimum corrects stale installer dependency floor'
+Check ((Get-MaintainedDependencyMinimum 'AutoNav.Framework' ([version]'0.20.3') ([version]'0.26.0')) -ge [version]'0.29.0') 'Maintained minimum corrects stale installer dependency floor for the new package'
 
 $fresh = Fixture 'both'
 $overrideDirectory = Join-Path $fresh.OstranautsPath 'BepInEx/config/PhobosTranslations/phobosgekko.ostranauts.shipbreaker'
@@ -478,4 +484,24 @@ if ($null -ne $fixtureSource) {
     Check ((InstalledFiles $newerNav) -eq $beforeNewerNav) 'Automatic dependency selection downgraded newer Auto Nav'
 }
 Write-Output "$script:passed checks including Auto Nav dependency downgrade protection passed."
+$held = Fixture 'held-scaffold' @('core', 'PhobosManufacturing|disabled')
+$heldPath = Join-Path $held.OstranautsPath 'BepInEx/plugins/PhobosManufacturing/PhobosManufacturing.dll'
+New-Item -ItemType Directory -Path (Split-Path -Parent $heldPath) -Force | Out-Null
+Copy-Item -LiteralPath (Join-Path $PackageRoot 'PhobosManufacturing-P0/BepInEx/plugins/PhobosManufacturing/PhobosManufacturing.dll') -Destination $heldPath
+$heldHash = (Get-FileHash -LiteralPath $heldPath).Hash
+& $installer @held -Mods AutoNav -HoldManufacturing -WhatIf | Out-Null
+Check (Test-Path -LiteralPath $heldPath) 'Hold preview removed the scaffold'
+Fails { & $installer @held -Mods AutoNav -HoldManufacturing -VerifyOnly | Out-Null } 'held scaffold still present: True'
+$holdBackup = BackupPath (& $installer @held -Mods AutoNav -HoldManufacturing)
+Check (-not (Test-Path -LiteralPath $heldPath)) 'Held scaffold remains in the loader directory'
+Check ((Get-FileHash -LiteralPath (Join-Path $holdBackup 'held/PhobosManufacturing.dll')).Hash -eq $heldHash) 'Held scaffold backup does not match'
+Check ('PhobosManufacturing|disabled' -in (ReadOrder $held).aLoadOrder) 'Holding scaffold changed its disabled native entry'
+& $installer @held -Mods AutoNav -HoldManufacturing -VerifyOnly | Out-Null
+& $installer @held -Mods AutoNav -HoldManufacturing | Out-Null
+Check (-not (Test-Path -LiteralPath $heldPath)) 'Repeated hold restored the scaffold'
+Copy-Item -LiteralPath (Join-Path $PackageRoot 'PhobosFramework-P0/BepInEx/plugins/PhobosFramework/PhobosFramework.dll') -Destination $heldPath
+Fails { & $installer @held -Mods AutoNav -HoldManufacturing | Out-Null } 'only handles the known non-operational'
+Check (Test-Path -LiteralPath $heldPath) 'Holding removed an unexpected assembly'
+Fails { & $installer @held -Mods Manufacturing -HoldManufacturing | Out-Null } 'cannot also select it'
+Write-Output "$script:passed checks including held-scaffold backup and guards passed."
 Remove-Variable -Name PhobosInstallerTestGameRunning -Scope Global

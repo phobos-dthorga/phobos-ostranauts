@@ -27,7 +27,7 @@ public static class FurnaceRules
     public static bool Machine(string? id) => Family(id, Prefix);
     public static bool Cooling(string? id) => Family(id, Radiator) || Underside(id);
     public static bool Underside(string? id) => Family(id, ThermalPort);
-    private static bool Family(string? id, string prefix) => id == prefix + "Installed" || id == prefix + "InstalledDmg" || id == prefix + "Loose" || id == prefix + "LooseDmg";
+    private static bool Family(string? id, string prefix) => Phobos.Ostranauts.Framework.Registration.EquipmentIdentity.IsFamily(id, prefix);
     public static double HeatCapacity(double gasMoles = 0) => LiningCapacity + ChargeUnits * SolidCp + gasMoles * GasCv;
     public static double Enthalpy(double kelvin, double liquid = 0, double gasMoles = 0)
     {

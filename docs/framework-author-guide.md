@@ -727,3 +727,18 @@ successful completion; its per-interaction guard prevents duplicate credit.
 Never credit idle machine time or award progress while preparing/previewing an
 offer. The shared saved-order, training and permission maps use Framework's
 protected `ObjectStateStore`; generated tasks and reservations are transient.
+
+## Presentation and equipment discovery
+
+Framework 0.29.0 adds `Controls.PresentationRefresh` for real-time UI cadence with
+explicit invalidation, and `Controls.Presentation` for change-only widget writes.
+Build labels and optional CompactText components before their first binding.
+`Controls.NativeInstruments` retains its API and binds isolated digit/guard
+children once. Keep these helpers out of simulation scheduling and command admission.
+
+`Controls.ShipEquipment.Read(ship, predicate)` returns a fresh loaded-ship root
+snapshot, excluding destroyed objects, nested cargo and docked neighbours. Content
+must supply its equipment/store predicate and revalidate when acting. It is not a
+retained object registry. `Registration.EquipmentIdentity.IsFamily(id, prefix)`
+compares the four exact native Installed/InstalledDmg/Loose/LooseDmg forms without
+constructing temporary candidate IDs. See [the audit](performance-audit.md).

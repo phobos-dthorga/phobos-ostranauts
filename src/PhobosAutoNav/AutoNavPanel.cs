@@ -24,6 +24,8 @@ public sealed class AutoNavPanel : NavModBase
     private TMP_FontAsset? font;
     private readonly Dictionary<string, TMP_Text> labels = new();
     private readonly Dictionary<string, Button> buttons = new();
+    private readonly Dictionary<string, TMP_Text> buttonLabels = new();
+    private readonly PresentationRefresh refresh = new(.1);
     private readonly Dictionary<string, RectTransform> pages = new();
     private readonly List<Button> settings = new();
     private RectTransform preferences = null!, docking = null!;
@@ -109,7 +111,7 @@ public sealed class AutoNavPanel : NavModBase
         for (int i = 0; i < names.Length; i++)
         {
             string name = names[i];
-            AddButton(Cell(tabs, i, names.Length), "tab." + name, Text.Get("Hub." + name), () => { page = name; UpdateUI(); }, compact: true);
+            AddButton(Cell(tabs, i, names.Length), "tab." + name, Text.Get("Hub." + name), () => { page = name; ForceRefresh(); }, compact: true);
             pages[name] = Box(layer, "body"); pages[name].name = name;
         }
         var strip = Box(layer, "actions");
@@ -228,88 +230,120 @@ public sealed class AutoNavPanel : NavModBase
         surface.blocksRaycasts = !RescueOpen;
         controls.interactable = controls.blocksRaycasts = CanInteract;
     }
-    private void Invoke(Action action) { if (!CanInteract) return; CrewSim.bJustClickedInput = true; action(); UpdateUI(); }
-    protected override void Init() => UpdateUI();
+    private void Invoke(Action action) { if (!CanInteract) return; CrewSim.bJustClickedInput = true; action(); ForceRefresh(); }
+    protected override void Init() => ForceRefresh();
+    private void OnEnable() => refresh.Invalidate();
+    private void ForceRefresh() { refresh.Invalidate(); UpdateUI(); }
     protected override void OnNavModMessage(NavModMessageType messageType, object arg)
-    { base.OnNavModMessage(messageType, arg); if (messageType == NavModMessageType.EditNavStation) UpdateUI(); }
+    { base.OnNavModMessage(messageType, arg); if (messageType == NavModMessageType.EditNavStation) ForceRefresh(); }
     protected override void UpdateUI()
     {
-        if (!labels.ContainsKey("title")) return;
-        NormalizePlacementBounds();
-        var view = Plugin.Service.ReadHub(COSelf); var nav = view.Navigation;
-        draftActions.gameObject.SetActive(preferencesDirty);labels["coast"].gameObject.SetActive(!preferencesDirty);
-        if(preferencesDirty){nav.CruiseMS=preferenceDraft.CruiseMS;nav.ArrivalMS=preferenceDraft.ArrivalMS;nav.ArrivalKM=preferenceDraft.ArrivalKM;nav.TorchPreferred=torchDraft;}
-        controls.interactable = controls.blocksRaycasts = CanInteract;
+        if (!labels.ContainsKey("title") || !gameObject.activeInHierarchy || !GUIOrbitDraw.IsOpen()) return;
+        refresh.Bind(COSelf, CrewSim.GetSelectedCrew(), GUIOrbitDraw.CrossHairTarget?.Ship,
+            Phobos.Ostranauts.Framework.Localization.Translations.Language);
+        if (!refresh.Due(Time.unscaledTime)) return;
+        using var measurement = Phobos.Ostranauts.Framework.Diagnostics.Performance.Measure(PerformanceMetrics.PanelRefresh);
+        var view = Plugin.Service.ReadHub(COSelf, page);
         bool isDocking = view.DockProgress != DockProgress.None;
-        if (isDocking && !lastDocking) page = "navigation";
-        lastDocking = isDocking;
-        foreach (var entry in pages) entry.Value.gameObject.SetActive(entry.Key == page);
-        foreach (string name in pages.Keys) buttons["tab." + name].targetGraphic.color = name == page ? new Color(.35f, .42f, .46f) : new Color(.24f, .28f, .31f);
-        preferences.gameObject.SetActive(!isDocking); docking.gameObject.SetActive(isDocking);
-        labels["title"].text = Text.Get("Hub.title");
-        labels["target"].text = Text.Get("Hub.nav_target", nav.Target);
-        labels["offensive"].text = view.WorkingFire ? Text.Get("Hub.offensive_target", view.OffensiveTarget) :
-            Text.Get(view.WorkingPursuit ? "Hub.n2_ready" : view.WorkingNavigation ? "Hub.n1_ready" : "Hub.module_unavailable");
-        labels["offensive"].color = view.FirePermitted ? Amber : Ink;
-        labels["operation"].text = isDocking ? Text.Get("Hub.operation." + view.DockProgress) : view.WorkingFire && !view.Active ? view.Ownership : nav.Heading;
-        labels["contact"].text = Text.Get("FCS.contacts", Text.Get("FCS.contact." + view.Contact.State), Text.Get("FCS.contact." + view.FireContact.State));
-        labels["restriction"].text = view.Restriction;
-        labels["metrics"].text = Text.Get("Hub.metrics", Number(view.RangeKM, "0.00"), Number(view.ClosingMS, "+0.0;-0.0;0.0"), Number(view.RelativeMS, "0.0"));
-        labels["propulsion"].text = Text.Get("Hub.propulsion", Text.Get(nav.TorchPreferred ? "Hub.auto" : "Hub.rcs"));
-        labels["cruise"].text = labels["pursuitCruise"].text = Text.Get("Hub.cruise_value", nav.CruiseMS);
-        labels["arrival"].text = Text.Get("Hub.arrival_value", nav.ArrivalMS);
-        labels["separation"].text = labels["pursuitSeparation"].text = Text.Get("Hub.separation_value", nav.ArrivalKM);
-        labels["clearance"].text = view.Clearance;
-        labels["ports"].text = Text.Get("Hub.ports", view.OwnPort, view.TargetPort);
-        labels["alignment"].text = Text.Get("Hub.alignment", Number(view.AlignmentDegrees, "+0.00;-0.00;0.00"));
-        labels["progress"].text = Text.Get("Hub.progress." + view.DockProgress);
-        labels["weaponCard"].text = view.WeaponCard;
-        labels["ownership"].text = Text.Get("FCS.ownership", view.Ownership, view.Remaining);
-        buttons["weapon"].GetComponentInChildren<TMP_Text>().text = view.WeaponLabel;
-        buttons["volleys"].GetComponentInChildren<TMP_Text>().text = Text.Get("FCS.volleys", view.Volleys);
-        buttons["native"].GetComponentInChildren<TMP_Text>().text = Text.Get(view.FireHeld ? "FCS.return_native" : "FCS.take_control");
-        buttons["aim"].GetComponentInChildren<TMP_Text>().text = Text.Get("FCS.auto_aim", State(view.AutoAiming));
-        buttons["group"].GetComponentInChildren<TMP_Text>().text = Text.Get("Hub.group", view.WeaponGroup);
-        labels["fireReady"].text = fireGuard == null ? Text.Get("Hub.guard_missing") : !view.WorkingFire ? Text.Get("FCS.module_required") : view.FireReason;
-        labels["systems"].text = Text.Get("Hub.system_metrics", Number(view.RcsAuthorityMS2, "0.000"), Number(view.RcsFuelKG, "0.0"),
-            Number(view.DeliveredMS2, "0.000"), Number(view.TorchHours, "0.00"), Number(view.ConnectedKWh, "0.0"),
-            Number(view.CoreMK, "0.0"), State(view.NoWake));
-        labels["flowValue"].text = Number(view.Flow * 100, "0") + " %";
-        labels["cycleValue"].text = Number(view.Cycle * 100, "0") + " %";
-        labels["safetyValue"].text = State(view.Safety); labels["enabledValue"].text = State(view.CycleEnabled);
-        labels["cue-volume"].text = Phobos.Ostranauts.Framework.Audio.CompletionCues.VolumeLabel;
-          labels["departure"].text = Plugin.Service.DepartureDescription(COSelf);
-          if(preferencesDirty)labels["departure"].text=Plugin.Service.PanelDepartureLabel(departureDraft)+"\n"+ConsoleWidgets.Text("apply_first");
-          foreach(var command in new[]{"depart","depart-continue","depart-resume"})buttons[command].interactable=!preferencesDirty;
-        labels["details"].text = view.CompletionCue + "\n\n" + nav.Details + "\n\n" + Text.Get("Hub.help") + "\n\n" + Plugin.Service.PursuitSummary(COSelf);
-          buttons["resume"].interactable = !preferencesDirty && nav.Resumable && view.WorkingNavigation;
-        buttons["stop"].interactable = nav.CanStop || view.AutoAiming || view.FirePermitted;
-        // Always accessible while following, including when the guarded switch is on another page.
-        buttons["cease"].interactable = view.Active || view.FirePermitted || view.AutoAiming || view.FireHeld;
-        buttons["approach"].interactable = !preferencesDirty && nav.CanFly && !nav.Resumable && view.WorkingNavigation;
-        buttons["dock"].interactable = !preferencesDirty && nav.CanDock && view.WorkingNavigation;
-        buttons["approachdock"].interactable = !preferencesDirty && view.CanApproachDock;
-        buttons["rendezvous"].interactable = buttons["follow"].interactable = !preferencesDirty && nav.CanFly && !nav.Resumable && view.WorkingPursuit;
-        buttons["firetarget"].interactable = buttons["volleys"].interactable = buttons["weapon"].interactable = buttons["reference"].interactable = view.CanSelectWeapons;
-        buttons["group"].interactable = view.CanChangeGroup;
-        buttons["native"].interactable = view.CanReturnFire || view.CanSelectWeapons;
-        buttons["aim"].interactable = view.CanAim || view.AutoAiming;
-        buttons["propulsion"].interactable = nav.CanAdjustPropulsion && view.WorkingNavigation;
-        buttons["shutdown"].interactable = view.CanShutdown;
-        foreach (var button in settings) button.interactable = nav.CanAdjustArrival && view.WorkingNavigation;
-        if (propulsionKnob != null)
+        if (isDocking && !lastDocking && page != "navigation")
         {
-            NativeInstruments.Refresh(propulsionKnob, nav.TorchPreferred ? 1 : 0);
-            propulsionKnob.enabled = nav.CanAdjustPropulsion && view.WorkingNavigation;
+            page = "navigation";
+            // One immediate page transition. Routine refreshes read exactly one snapshot.
+            view = Plugin.Service.ReadHub(COSelf, page);
         }
-        Refresh(fireGuard, view.FirePermitted, view.CanEngage || view.FirePermitted);
+        lastDocking = isDocking;
+        var nav = view.Navigation;
+        Presentation.Active(draftActions.gameObject, preferencesDirty);
+        Presentation.Active(labels["coast"].gameObject, !preferencesDirty);
+        if (preferencesDirty)
+        { nav.CruiseMS = preferenceDraft.CruiseMS; nav.ArrivalMS = preferenceDraft.ArrivalMS; nav.ArrivalKM = preferenceDraft.ArrivalKM; nav.TorchPreferred = torchDraft; }
+        controls.interactable = controls.blocksRaycasts = CanInteract;
+        foreach (var entry in pages)
+        {
+            Presentation.Active(entry.Value.gameObject, entry.Key == page);
+            Presentation.Color(buttons["tab." + entry.Key].targetGraphic, entry.Key == page ? new Color(.35f, .42f, .46f) : new Color(.24f, .28f, .31f));
+        }
+        Caption("title", Text.Get("Hub.title"));
+        Caption("target", Text.Get("Hub.nav_target", nav.Target));
+        Caption("offensive", view.WorkingFire ? Text.Get("Hub.offensive_target", view.OffensiveTarget) :
+            Text.Get(view.WorkingPursuit ? "Hub.n2_ready" : view.WorkingNavigation ? "Hub.n1_ready" : "Hub.module_unavailable"));
+        Presentation.Color(labels["offensive"], view.FirePermitted ? Amber : Ink);
+        Caption("operation", isDocking ? Text.Get("Hub.operation." + view.DockProgress) : view.WorkingFire && !view.Active ? view.Ownership : nav.Heading);
+        Caption("contact", Text.Get("FCS.contacts", Text.Get("FCS.contact." + view.Contact.State), Text.Get("FCS.contact." + view.FireContact.State)));
+        Caption("restriction", view.Restriction);
+        Enable("resume", !preferencesDirty && nav.Resumable && view.WorkingNavigation);
+        Enable("stop", nav.CanStop || view.AutoAiming || view.FirePermitted);
+        Enable("cease", view.Active || view.FirePermitted || view.AutoAiming || view.FireHeld);
+        // Keep this edge even while Fire is hidden, so its safety cover closes on cessation.
         if (lastFire && !view.FirePermitted && fireGuard != null) fireGuard.Closed = true;
         lastFire = view.FirePermitted;
-        Refresh(safetyGuard, view.Safety == true, view.CanManual && view.Safety.HasValue);
-        Refresh(cycleGuard, view.CycleEnabled == true, view.CanManual && (view.CanBurn || view.CycleEnabled == true));
-        Refresh(flowSlider, view.Flow, view.FlowLimit, view.CanManual);
-        Refresh(cycleSlider, view.Cycle, view.CycleLimit, view.CanManual);
+
+        if (page == "navigation")
+        {
+            Presentation.Active(preferences.gameObject, !isDocking); Presentation.Active(docking.gameObject, isDocking);
+            Caption("metrics", Text.Get("Hub.metrics", Number(view.RangeKM, "0.00"), Number(view.ClosingMS, "+0.0;-0.0;0.0"), Number(view.RelativeMS, "0.0")));
+            Caption("propulsion", Text.Get("Hub.propulsion", Text.Get(nav.TorchPreferred ? "Hub.auto" : "Hub.rcs")));
+            Caption("cruise", Text.Get("Hub.cruise_value", nav.CruiseMS));
+            Caption("arrival", Text.Get("Hub.arrival_value", nav.ArrivalMS));
+            Caption("separation", Text.Get("Hub.separation_value", nav.ArrivalKM));
+            Caption("clearance", view.Clearance); Caption("ports", Text.Get("Hub.ports", view.OwnPort, view.TargetPort));
+            Caption("alignment", Text.Get("Hub.alignment", Number(view.AlignmentDegrees, "+0.00;-0.00;0.00")));
+            Caption("progress", Text.Get("Hub.progress." + view.DockProgress));
+            Enable("approach", !preferencesDirty && nav.CanFly && !nav.Resumable && view.WorkingNavigation);
+            Enable("dock", !preferencesDirty && nav.CanDock && view.WorkingNavigation);
+            Enable("approachdock", !preferencesDirty && view.CanApproachDock);
+            Enable("propulsion", nav.CanAdjustPropulsion && view.WorkingNavigation);
+            if (propulsionKnob != null)
+            {
+                NativeInstruments.Refresh(propulsionKnob, nav.TorchPreferred ? 1 : 0);
+                bool enabled = nav.CanAdjustPropulsion && view.WorkingNavigation;
+                if (propulsionKnob.enabled != enabled) propulsionKnob.enabled = enabled;
+            }
+        }
+        if (page == "navigation" || page == "pursuit")
+            foreach (var button in settings) Presentation.Enabled(button, nav.CanAdjustArrival && view.WorkingNavigation);
+        if (page == "pursuit")
+        {
+            Caption("pursuitCruise", Text.Get("Hub.cruise_value", nav.CruiseMS));
+            Caption("pursuitSeparation", Text.Get("Hub.separation_value", nav.ArrivalKM));
+            Enable("rendezvous", !preferencesDirty && nav.CanFly && !nav.Resumable && view.WorkingPursuit);
+            Enable("follow", !preferencesDirty && nav.CanFly && !nav.Resumable && view.WorkingPursuit);
+        }
+        if (page == "fire")
+        {
+            Caption("weaponCard", view.WeaponCard); Caption("ownership", Text.Get("FCS.ownership", view.Ownership, view.Remaining));
+            ButtonCaption("weapon", view.WeaponLabel); ButtonCaption("volleys", Text.Get("FCS.volleys", view.Volleys));
+            ButtonCaption("native", Text.Get(view.FireHeld ? "FCS.return_native" : "FCS.take_control"));
+            ButtonCaption("aim", Text.Get("FCS.auto_aim", State(view.AutoAiming))); ButtonCaption("group", Text.Get("Hub.group", view.WeaponGroup));
+            Caption("fireReady", fireGuard == null ? Text.Get("Hub.guard_missing") : !view.WorkingFire ? Text.Get("FCS.module_required") : view.FireReason);
+            Enable("firetarget", view.CanSelectWeapons); Enable("volleys", view.CanSelectWeapons); Enable("weapon", view.CanSelectWeapons); Enable("reference", view.CanSelectWeapons);
+            Enable("group", view.CanChangeGroup); Enable("native", view.CanReturnFire || view.CanSelectWeapons); Enable("aim", view.CanAim || view.AutoAiming);
+            Refresh(fireGuard, view.FirePermitted, view.CanEngage || view.FirePermitted);
+        }
+        if (page == "systems")
+        {
+            Caption("systems", Text.Get("Hub.system_metrics", Number(view.RcsAuthorityMS2, "0.000"), Number(view.RcsFuelKG, "0.0"),
+                Number(view.DeliveredMS2, "0.000"), Number(view.TorchHours, "0.00"), Number(view.ConnectedKWh, "0.0"), Number(view.CoreMK, "0.0"), State(view.NoWake)));
+            Caption("flowValue", Number(view.Flow * 100, "0") + " %"); Caption("cycleValue", Number(view.Cycle * 100, "0") + " %");
+            Caption("safetyValue", State(view.Safety)); Caption("enabledValue", State(view.CycleEnabled)); Enable("shutdown", view.CanShutdown);
+            Refresh(safetyGuard, view.Safety == true, view.CanManual && view.Safety.HasValue);
+            Refresh(cycleGuard, view.CycleEnabled == true, view.CanManual && (view.CanBurn || view.CycleEnabled == true));
+            Refresh(flowSlider, view.Flow, view.FlowLimit, view.CanManual); Refresh(cycleSlider, view.Cycle, view.CycleLimit, view.CanManual);
+        }
+        if (page == "departure")
+        {
+            Caption("departure", preferencesDirty ? Plugin.Service.PanelDepartureLabel(departureDraft) + "\n" + ConsoleWidgets.Text("apply_first") : Plugin.Service.DepartureDescription(COSelf));
+            Enable("depart", !preferencesDirty); Enable("depart-continue", !preferencesDirty); Enable("depart-resume", !preferencesDirty);
+        }
+        if (page == "details")
+        {
+            Caption("cue-volume", Phobos.Ostranauts.Framework.Audio.CompletionCues.VolumeLabel);
+            Caption("details", view.CompletionCue + "\n\n" + nav.Details + "\n\n" + Text.Get("Hub.help") + "\n\n" + Plugin.Service.PursuitSummary(COSelf));
+        }
     }
+    private void Caption(string id, string value) => Presentation.Text(labels[id], value);
+    private void ButtonCaption(string id, string value) => Presentation.Text(buttonLabels[id], value);
+    private void Enable(string id, bool enabled) => Presentation.Enabled(buttons[id], enabled);
 
     private void BeginPreferenceDraft()
     {
@@ -325,29 +359,37 @@ public sealed class AutoNavPanel : NavModBase
     private void DraftArrival(int direction){BeginPreferenceDraft();preferenceDraft=new FlightPreferences(preferenceDraft.CruiseMS,preferenceDraft.ArrivalMS,InstrumentRules.StepArrival(preferenceDraft.ArrivalKM,direction));}
     private void DraftTorch(bool value){BeginPreferenceDraft();torchDraft=value;}
     private bool ApplyPreferenceDraft()
-    {if(!preferencesDirty)return true;if(!Plugin.Service.ApplyNavigationPanel(COSelf,preferenceExpected,preferenceDraft,torchDraft,departureExpected,departureDraft)){UpdateUI();return false;}preferencesDirty=false;UpdateUI();return true;}
+    {if(!preferencesDirty)return true;if(!Plugin.Service.ApplyNavigationPanel(COSelf,preferenceExpected,preferenceDraft,torchDraft,departureExpected,departureDraft)){ForceRefresh();return false;}preferencesDirty=false;ForceRefresh();return true;}
     private void ApplyPreferences()=>ApplyPreferenceDraft();
-    private void DiscardPreferences(){preferencesDirty=false;UpdateUI();}
+    private void DiscardPreferences(){preferencesDirty=false;ForceRefresh();}
     private static string Number(double? value, string format) => value.HasValue ? value.Value.ToString(format, System.Globalization.CultureInfo.CurrentCulture) : Text.Get("Hub.unavailable");
     private static string State(bool? value) => Text.Get(value.HasValue ? value.Value ? "Hub.on" : "Hub.off" : "Hub.unavailable");
     private static void Refresh(GUISafetyToggle? guard, bool value, bool enabled)
-    { if (guard == null) return; NativeInstruments.Refresh(guard, value); guard.chkSwitch.interactable = enabled; }
+    { if (guard == null) return; NativeInstruments.Refresh(guard, value); Presentation.Enabled(guard.chkSwitch, enabled); }
     private static void Refresh(Slider? slider, double? value, float maximum, bool enabled)
     {
         if (slider == null) return;
         // Changing maxValue can invoke Unity's change event. Set the value silently first
         // and keep a fixed normalized range; service converts the selected fraction.
-        slider.SetValueWithoutNotify(value.HasValue && maximum > 0 ? (float)value.Value / maximum : 0);
-        slider.interactable = enabled && value.HasValue;
+        float shown = value.HasValue && maximum > 0 ? (float)value.Value / maximum : 0;
+        if (slider.value != shown) slider.SetValueWithoutNotify(shown);
+        Presentation.Enabled(slider, enabled && value.HasValue);
     }
     internal void NormalizePlacementBounds()
     {
         if (placement == null || !(placement.parent is RectTransform board)) return;
         if (!PanelLayoutRules.TryBounds(board.rect.width, board.rect.height, placement.anchorMin.x, placement.anchorMax.y, out var bounds)) return;
-        placement.anchorMin = new Vector2(bounds.Left, bounds.Bottom); placement.anchorMax = new Vector2(bounds.Right, bounds.Top);
-        placement.offsetMin = placement.offsetMax = Vector2.zero;
-        if (design != null) design.localScale = new Vector3(board.rect.width * PanelLayoutRules.ColumnWidth / HubLayout.Data.width,
-            board.rect.height * PanelLayoutRules.RowHeight / HubLayout.Data.height, 1);
+        var minimum = new Vector2(bounds.Left, bounds.Bottom); var maximum = new Vector2(bounds.Right, bounds.Top);
+        if (placement.anchorMin != minimum) placement.anchorMin = minimum;
+        if (placement.anchorMax != maximum) placement.anchorMax = maximum;
+        if (placement.offsetMin != Vector2.zero) placement.offsetMin = Vector2.zero;
+        if (placement.offsetMax != Vector2.zero) placement.offsetMax = Vector2.zero;
+        if (design != null)
+        {
+            var scale = new Vector3(board.rect.width * PanelLayoutRules.ColumnWidth / HubLayout.Data.width,
+                board.rect.height * PanelLayoutRules.RowHeight / HubLayout.Data.height, 1);
+            if (design.localScale != scale) design.localScale = scale;
+        }
     }
     private void OnRectTransformDimensionsChange() => NormalizePlacementBounds();
     private new void OnDestroy() { base.OnDestroy(); if (faceplateSprite != null) Destroy(faceplateSprite); }
@@ -402,7 +444,7 @@ public sealed class AutoNavPanel : NavModBase
         if (donor?.targetGraphic is Image source && source.sprite != null)
         { image.sprite = source.sprite; image.type = source.type; button.transition = donor.transition; button.spriteState = donor.spriteState; button.colors = donor.colors; }
         var label = Label(face, text, 24); PanelWidgets.Fill((RectTransform)label.transform, 6, 2, 6, 2); label.alignment = TextAlignmentOptions.Midline;
-        button.onClick.AddListener(() => Invoke(action)); buttons[id] = button; return button;
+        button.onClick.AddListener(() => Invoke(action)); buttons[id] = button; buttonLabels[id] = label; return button;
     }
     private GUISafetyToggle? Guard(RectTransform host, Action<bool> action)
     {

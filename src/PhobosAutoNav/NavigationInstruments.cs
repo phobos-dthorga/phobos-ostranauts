@@ -16,7 +16,7 @@ internal sealed partial class NavigationService
         co.HasCond("IsInstalled") && !co.HasCond("IsLocked") && co.ship != null && co.ship == CrewSim.coPlayer?.ship;
 
     // UI reads only. Never Resolve a target or touch actuator/save state when drawing a panel.
-    internal InstrumentSnapshot ReadInstruments(CondOwner? co, bool matchMotion = false)
+    internal InstrumentSnapshot ReadInstruments(CondOwner? co, bool matchMotion = false, PresentationRead? read = null, bool details = true)
     {
         var view = new InstrumentSnapshot { ArrivalKM = Plugin.DefaultArriveKM.Value,
             Heading = Text.Get("Instruments.waiting"), Target = Text.Get("Instruments.no_target"),
@@ -31,8 +31,10 @@ internal sealed partial class NavigationService
         }
         bool ownsFlight = AutoNavCore.Engaged && console == co;
         bool otherFlight = AutoNavCore.Engaged && !ownsFlight;
-        var snapshot = DisplaySnapshot(co);
-        bool validPreferences = ReadPreferences(co!, out var preferences);
+        read ??= new PresentationRead(co!, ownsFlight);
+        var snapshot = read.Flight;
+        bool validPreferences = read.ValidPreferences;
+        var preferences = read.Preferences;
         view.Resumable = !AutoNavCore.Engaged && snapshot != null;
         bool captured = ownsFlight || snapshot != null;
         bool permitsTorch = ownsFlight ? AutoNavCore.FlightPrefersTorch : snapshot?.PreferTorch ?? Plugin.PreferTorch.Value;
@@ -40,15 +42,13 @@ internal sealed partial class NavigationService
         view.CruiseMS = snapshot?.CruiseMS ?? preferences.CruiseMS;
         view.ArrivalMS = snapshot?.ArrivalMS ?? (matchMotion ? 0 : preferences.ArrivalMS);
         view.TorchPreferred = permitsTorch && Plugin.PreferTorch.Value;
-        view.CanAdjustArrival = validPreferences && SettingsHardwareReady(co) &&
+        view.CanAdjustArrival = validPreferences && SettingsHardwareReady(co, read) &&
             !otherFlight && InstrumentRules.CanSetArrival(AutoNavCore.Engaged, snapshot != null);
         view.CanAdjustPropulsion = !otherFlight && InstrumentRules.CanEnableTorch(captured, permitsTorch);
-        var target = ownsFlight ? AutoNavCore.EngagedTarget : snapshot != null ? TargetRef.FromShipId(snapshot.TargetId) :
-            GUIOrbitDraw.IsOpen() && GUIOrbitDraw.CrossHairTarget?.Ship != null && GUIOrbitDraw.CrossHairTarget.Ship != co!.ship
-                ? TargetRef.FromShipId(GUIOrbitDraw.CrossHairTarget.Ship.strRegID) : null;
+        var target = read.Target;
         if (target != null) view.Target = target.DisplayName;
         bool approachReady = false;
-        var sensing = ReadContact(co, target);
+        var sensing = read.Contact(target);
         string clearance = Text.Get("Instruments.clearance_unknown");
         if (sensing.Usable && target != null && AutoNavCore.TryReadApproach(co!.ship, target, view.ArrivalKM, out var plan, out var speed))
         {
@@ -58,12 +58,9 @@ internal sealed partial class NavigationService
             clearance = Text.Get("Instruments.clearance", view.ArrivalKM, plan.EffectiveArrivalKM);
         }
         string? problem = otherFlight ? Text.Get("Instruments.other_console") :
-            !Plugin.Enabled.Value ? Text.Get("NavigationService.mod_disabled") : HardwareProblem(co);
-        var recordStatus = Store(co!).Read(out var fields);
-        FlightSnapshot? stored = null;
-        bool validRecord = recordStatus == Phobos.Ostranauts.Framework.Persistence.SavedStateStatus.Missing ||
-            recordStatus == Phobos.Ostranauts.Framework.Persistence.SavedStateStatus.Ready &&
-            FlightSnapshot.TryDecode(fields, out stored) && stored.ConsoleId == co!.strID;
+            !Plugin.Enabled.Value ? Text.Get("NavigationService.mod_disabled") : read.Hardware;
+        var stored = read.Stored;
+        bool validRecord = read.ValidRecord;
         if (!validRecord) problem = Text.Get("Persistence.invalid_state");
         view.CanAdjustArrival &= validRecord;
         if (!captured && !validPreferences) problem = Text.Get("Preferences.invalid");
@@ -85,18 +82,17 @@ internal sealed partial class NavigationService
         view.Notice = problem ?? (ownsFlight ? Text.Get(AutoNavCore.CurrentPhase == AutoNavCore.Phase.Coast ? "Instruments.coast_hint" : Torch.Reason) :
             view.Resumable ? Text.Get("Instruments.resume_hint") : Text.Get(target != null ? "Instruments.ready_hint" : "Instruments.select_hint"));
         if (previousDestination && problem == null && !view.Resumable) view.Notice = Text.Get("Instruments.guidance_off");
-        view.Details = Text.Get("Instruments.details", view.Target, status, view.Notice, clearance, view.CruiseMS,
+        if (details) view.Details = Text.Get("Instruments.details", view.Target, status, view.Notice, clearance, view.CruiseMS,
             Plugin.TorchMaximumG.Value, Plugin.ResumeAfterLoad.Value ? Text.Get("Instruments.on") : Text.Get("Instruments.off")) +
             "\n\n" + Text.Get(captured ? "Instruments.captured_hint" : "Instruments.default_hint") +
             "\n\n" + Text.Get("Instruments.help");
-        view.Details += "\n\n" + Text.Get("Preferences.profile", view.CruiseMS, view.ArrivalMS);
-        view.Details += "\n\n" + Text.Get("Docking.help");
+        if (details) view.Details += "\n\n" + Text.Get("Preferences.profile", view.CruiseMS, view.ArrivalMS) + "\n\n" + Text.Get("Docking.help");
         if (snapshot?.IsDocking == true)
         {
             view.Docking = true;
             view.Heading = Text.Get(problem != null ? "Instruments.blocked" : ownsFlight ? "Docking.heading" : "Docking.suspended_heading");
             view.Notice = problem ?? (ownsFlight ? status : Text.Get("Docking.resume_hint"));
-            view.Details = Text.Get("Docking.details", view.Target, status, view.Notice, view.Range, view.RelativeSpeed) +
+            if (details) view.Details = Text.Get("Docking.details", view.Target, status, view.Notice, view.Range, view.RelativeSpeed) +
                 "\n\n" + Text.Get("Docking.binding", snapshot.OwnPort, snapshot.TargetPort) +
                 "\n\n" + Text.Get("Docking.help");
         }
@@ -107,7 +103,7 @@ internal sealed partial class NavigationService
         }
         if (ownsFlight && AutoNavCore.ControlLimited)
         { view.Notice = Text.Get("Pursuit.control_limited"); view.Warning = true; }
-        view.Details += "\n\n" + Text.Get(sensing.MessageKey) + "\n" + Text.Get("Sensors.help");
+        if (details) view.Details += "\n\n" + Text.Get(sensing.MessageKey) + "\n" + Text.Get("Sensors.help");
         return view;
     }
 

@@ -20,6 +20,7 @@ internal sealed class PerformanceSession
     private string? exportedCapture;
     internal bool IsRecording => !faulted && recorder.IsRecording;
     internal CaptureSnapshot? Snapshot => recorder.LastCapture;
+    internal int CaptureSequence { get; private set; }
 
     internal PerformanceSession(string directory, Func<bool> worldReady,
         Func<IReadOnlyDictionary<string, string>> metadata, Action<string> log)
@@ -27,6 +28,7 @@ internal sealed class PerformanceSession
 
     internal PerformanceMetric RegisterOperation(string name, string category) => new(this, recorder.RegisterOperation(name, category));
     internal PerformanceMetric RegisterIncrement(string name, string category, string unit) => new(this, recorder.RegisterCounter(name, category, unit, CounterKind.Increment));
+    internal PerformanceMetric RegisterGauge(string name, string category, string unit) => new(this, recorder.RegisterCounter(name, category, unit, CounterKind.Gauge));
     internal void RegisterContext(string name, Func<string> read) => contexts.Add(new ContextProvider(recorder.RegisterContext(name, "context"), read));
     internal PerformanceScope Measure(PerformanceMetric operation)
     {
@@ -91,7 +93,7 @@ internal sealed class PerformanceSession
                     if (!worldReady()) { response = Text.Get("Performance.world_required"); return false; }
                     options.Metadata = metadata();
                     foreach (var context in contexts) context.Last = null;
-                    recorder.Start(options); Poll();
+                    recorder.Start(options); CaptureSequence++; Poll();
                     response = Describe(); return IsRecording;
                 case "status": Poll(); response = Describe(); return true;
                 case "stop": Stop(StopReason.Manual); response = Describe(); return true;

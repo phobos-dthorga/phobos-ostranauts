@@ -1,0 +1,43 @@
+using System;
+using System.Linq;
+using Phobos.Ostranauts.Framework.Controls;
+
+int checks = 0;
+void Check(bool value, string message) { checks++; if (!value) throw new Exception(message); }
+var own = new Ship(); var other = new Ship();
+var co = new CondOwner { ship = own }; own.Objects.Add(co);
+bool Include(CondOwner item) => item.Installed;
+var first = ShipEquipment.Read(own, Include);
+Check(first.Count == 1 && first[0] == co, "Native root equipment discovered");
+var created = new CondOwner { ship = own }; own.Objects.Add(created);
+Check(ShipEquipment.Read(own, Include).Count == 2 && first.Count == 1, "Creation appears in a fresh detached list");
+co.bDestroyed = true;
+Check(ShipEquipment.Read(own, Include).Single() == created, "Destroyed object excluded immediately");
+var replacement = new CondOwner { ship = own, Id = created.Id }; own.Objects.Remove(created); own.Objects.Add(replacement);
+Check(ShipEquipment.Read(own, Include).Single() == replacement, "Same-ID replacement never resolves to old reference");
+replacement.ship = other; other.Objects.Add(replacement);
+Check(ShipEquipment.Read(own, Include).Count == 0 && ShipEquipment.Read(other, Include).Single() == replacement, "Movement preserves explicit ship isolation even with a stale native candidate");
+replacement.objCOParent = new();
+Check(ShipEquipment.Read(other, Include).Count == 0, "Nested cargo is excluded");
+replacement.objCOParent = null; replacement.Installed = false;
+Check(ShipEquipment.Read(other, Include).Count == 0, "Consumer predicate remains explicit");
+replacement.Installed = true; other.LoadState = 1;
+int reads = other.Reads;
+Check(ShipEquipment.Read(other, Include).Count == 0 && other.Reads == reads, "Unloaded ships are not queried");
+other.LoadState = 2;
+Check(ShipEquipment.Read(other, Include).Count == 1, "Reload rediscovers live objects");
+Check(ShipEquipment.Read(new Ship(), Include).Count == 0 && ShipEquipment.Read(null, Include).Count == 0, "Another world or missing ship inherits no cached members");
+
+var text = new TMPro.TMP_Text();
+for (int i = 0; i < 20; i++) Presentation.Text(text, "ready");
+Check(text.Writes == 1 && text.Lookups == 1, "Unchanged captions avoid writes and repeated component lookup");
+Presentation.Text(text, "blocked"); Check(text.Writes == 2, "Changed caption writes once");
+var compact = new CompactText(); var fitted = new TMPro.TMP_Text { Component = compact };
+Presentation.Text(fitted, "long label"); Presentation.Text(fitted, "long label");
+Check(compact.Changes == 1 && fitted.Writes == 0, "Compact captions use their full-source setter");
+var active = new UnityEngine.GameObject(); var selectable = new UnityEngine.UI.Selectable(); var graphic = new UnityEngine.UI.Graphic();
+for (int i = 0; i < 20; i++) { Presentation.Active(active, true); Presentation.Enabled(selectable, true); Presentation.Color(graphic, new(1)); }
+Check(active.Writes == 1 && selectable.Writes == 1 && graphic.Writes == 1, "Unchanged visibility, control and colour produce one write");
+Presentation.Active(active, false); Presentation.Enabled(selectable, false); Presentation.Color(graphic, new(0));
+Check(active.Writes == 2 && selectable.Writes == 2 && graphic.Writes == 2, "Changed visual states are applied");
+Console.WriteLine($"PASS: {checks} discovery and presentation boundary checks; Unity rendering is not exercised.");

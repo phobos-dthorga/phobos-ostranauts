@@ -28,6 +28,8 @@ public static class Performance
 {
     internal static PerformanceSession? Session;
     internal static PerformanceMetric? RoomAlarmRead;
+    internal static PerformanceMetric? CrewDiscovery = null;
+    internal static PerformanceMetric? ShipCandidates = null;
     public static bool IsRecording => Session?.IsRecording == true;
     public static PerformanceMetric? RegisterOperation(string name, string category)
     {

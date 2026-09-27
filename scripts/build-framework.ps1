@@ -20,6 +20,8 @@ try { & (Join-Path $PSScriptRoot 'assert-console-panel.ps1') -Module $uiModule -
 finally { $uiModule.Dispose(); $nativeModule.Dispose() }
 & dotnet run --project (Join-Path $repoRoot 'tests/PhobosCrew.Tests') -c Release
 if ($LASTEXITCODE -ne 0) { throw 'Crew roster adapter checks failed.' }
+& dotnet run --project (Join-Path $repoRoot 'tests/PhobosPresentation.Tests') -c Release
+if ($LASTEXITCODE -ne 0) { throw 'Presentation and equipment-discovery checks failed.' }
 & dotnet run --project (Join-Path $repoRoot 'tests/PhobosPerformance.Tests') -c Release
 if ($LASTEXITCODE -ne 0) { throw 'Performance capture adapter checks failed.' }
 . (Join-Path $PSScriptRoot 'build-package-support.ps1')

@@ -32,6 +32,12 @@ public sealed class CompactText : MonoBehaviour
     private string source="",rendered="";
     private float width=-1,height=-1,size=-1;
     private void Awake(){label=GetComponent<TMP_Text>();source=label.text;rendered=source;}
+    public void SetSource(string value)
+    {
+        if (source == value) return;
+        source = value; label.text = value;
+        width = -1; // Refit even if new full text happens to equal the old truncated output.
+    }
     private void LateUpdate()
     {
         float nextWidth=label.rectTransform.rect.width-label.margin.x-label.margin.z;

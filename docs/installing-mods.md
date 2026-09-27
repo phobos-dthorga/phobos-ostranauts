@@ -1,7 +1,7 @@
 # Installing and updating our mods
 
-Current prepared Shipbreaker requires Auto Nav 0.19.0 and Framework 0.28.0.
-Current prepared Agriculture requires Framework 0.28.0 for shared crew work and controls.
+Current prepared Shipbreaker requires Auto Nav 0.19.0 and Framework 0.29.0.
+Current prepared Agriculture requires Framework 0.29.0 for shared crew work and controls.
 Current dependency minima come from `config/mod-dependency-minimums.json`,
 maintained with the constants updater and runtime requirements. Historical package
 compatibility floors remain supported. Build before installation; preview with
@@ -66,6 +66,9 @@ directly without interacting with your mouse or opening a launcher window.
 # Manufacturing is an opt-in research scaffold, with no operational equipment.
 ./scripts/install-mods.ps1 -Mods Manufacturing
 
+# Keep an older Manufacturing 0.0.1 scaffold out of the loader while held.
+./scripts/install-mods.ps1 -Mods AutoNav,Shipbreaker,Agriculture -HoldManufacturing
+
 # Explicitly select all five current mods.
 ./scripts/install-mods.ps1 -Mods Framework,AutoNav,Shipbreaker,Agriculture,Manufacturing -WhatIf
 ./scripts/install-mods.ps1 -Mods Framework,AutoNav,Shipbreaker,Agriculture,Manufacturing
@@ -88,6 +91,12 @@ directly without interacting with your mouse or opening a launcher window.
 ```
 
 Approach Assist is retired and no longer offered by the installer.
+Manufacturing remains held. If an earlier development install left its 0.0.1
+plugin behind, `-HoldManufacturing` backs up and removes that DLL from the loader
+directory after checking its identity and verifying the backup. Its native entry
+must already be disabled or absent; native files and other plugin files remain
+untouched. The receipt records the backup. This option rejects other assemblies
+or versions and cannot be combined with selecting Manufacturing or `-PreviewsOnly`.
 `-KeepInstalledFramework` validates the installed Framework version, assembly,
 recorder, required files and enabled load-order entry, then retains its files.
 It does not compare that dependency with the newly prepared Framework build.
@@ -135,7 +144,8 @@ Older package versions retain their historical dependency thresholds.
 
 The installer refuses actual updates while Ostranauts is running. Close it
 normally and run again. It never stops the game, launches it, accesses saves,
-changes player settings, removes files, or overwrites original game data.
+changes player settings or overwrites original game data. File removal is limited
+to the explicitly requested held-scaffold operation described above.
 Unexpected extra files in our destination folders stop an update for inspection,
 so obsolete code and user additions are not silently retained or deleted.
 

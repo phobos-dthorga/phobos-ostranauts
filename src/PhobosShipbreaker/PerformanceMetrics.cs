@@ -4,7 +4,7 @@ namespace PhobosShipbreaker;
 
 internal static class PerformanceMetrics
 {
-    internal static PerformanceMetric? ProcessCheck, ProcessAdvance, RouteCheck, RouteAdvance, PanelRefresh, RouteCandidates;
+    internal static PerformanceMetric? ProcessCheck, ProcessAdvance, RouteCheck, RouteAdvance, PanelRefresh, RouteCandidates, Furnace, Capture, Reclamation, FurnaceCandidates;
     internal static void Initialize()
     {
         ProcessCheck = Performance.RegisterOperation("shipbreaker.processing.check", "processing");
@@ -13,6 +13,10 @@ internal static class PerformanceMetrics
         RouteAdvance = Performance.RegisterOperation("shipbreaker.routing.advance", "routing");
         PanelRefresh = Performance.RegisterOperation("shipbreaker.panel.refresh", "presentation");
         RouteCandidates = Performance.RegisterIncrement("shipbreaker.routing.candidate_items", "routing", "items");
+        Furnace = Performance.RegisterOperation("shipbreaker.furnace.update", "processing");
+        Capture = Performance.RegisterOperation("shipbreaker.capture.update", "processing");
+        Reclamation = Performance.RegisterOperation("shipbreaker.reclamation.update", "processing");
+        FurnaceCandidates = Performance.RegisterIncrement("shipbreaker.furnace.scan_objects", "discovery", "items");
         Performance.RegisterContext("shipbreaker.industrial_panel_visible", () =>
             CrewSim.goUI != null && CrewSim.goUI.GetComponent<IndustrialPanel>()?.bActive == true ? "true" : "false");
     }

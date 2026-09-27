@@ -119,6 +119,7 @@ internal sealed class Ship
     internal ShipSitu objSS = new();
     internal string strRegID = "";
     internal List<CondOwner> Items = new();
+    internal double GetRCSRemain() => 100;
     internal IEnumerable<CondOwner> GetCOs(object? filter, bool bSubObjects, bool bAllowDocked, bool bAllowLocked)
     { if (bSubObjects || bAllowDocked) throw new Exception("Discovery expanded beyond owning ship"); return Items; }
 }
@@ -219,7 +220,8 @@ namespace PhobosAutoNav
         private readonly Action<string> log = _ => { };
         internal float Throttle => 1;
         private static bool HasId(CondOwner item, string id) => item.Kind == id;
-        private static string? HardwareProblem(CondOwner? co) => co?.Problem;
+        private static string? HardwareProblem(CondOwner? co, PresentationRead? presentation = null) => co?.Problem;
+        internal const string FireControlId = "PhobosNavModFireControl";
         internal void Engage(CondOwner co) => throw new NotSupportedException();
         private void ResumeDocking(CondOwner co, TargetRef target, FlightSnapshot snapshot) => throw new NotSupportedException();
         private void ResumeApproachDock(CondOwner co, TargetRef target, FlightSnapshot snapshot) => throw new NotSupportedException();

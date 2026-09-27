@@ -14,6 +14,8 @@ param(
     [switch]$PreviewsOnly,
     # Validate the existing dependency without replacing any of its files.
     [switch]$KeepInstalledFramework,
+    # Remove only the known, non-operational Manufacturing 0.0.1 scaffold DLL from loading.
+    [switch]$HoldManufacturing,
     [switch]$NoRememberPaths
 )
 $ErrorActionPreference = 'Stop'
@@ -26,6 +28,7 @@ if ($Mods.Count -eq 0 -or @($Mods | Select-Object -Unique).Count -ne $Mods.Count
     throw 'Choose at least one mod, without duplicates.'
 }
 if ($PackagePath -and $Mods.Count -ne 1) { throw 'PackagePath requires exactly one selected mod.' }
+if ($HoldManufacturing -and ('Manufacturing' -in $Mods -or $PreviewsOnly)) { throw 'Holding Manufacturing cannot also select it or use preview-only installation.' }
 $overrideMod = if ($PackagePath) { $Mods[0] } else { $null }
 # Shipbreaker 0.1.5+ uses one separately installed Phobos Framework provider.
 # A package override selects the requested mod only; dependencies use PackageRoot.
@@ -65,6 +68,7 @@ if ('Shipbreaker' -in $Mods) {
             $minimumAutoNav = [version]'0.16.0'
             $Mods = @('AutoNav') + @($Mods | Where-Object { $_ -ne 'AutoNav' })
         }
+        if ([version]$shipInfo[0].strModVersion -ge [version]'0.23.0' -and $minimumPhobosFramework -lt [version]'0.28.0') { $minimumPhobosFramework = [version]'0.28.0' }
         $minimumPhobosFramework = Get-MaintainedDependencyMinimum 'Shipbreaker.Framework' ([version]$shipInfo[0].strModVersion) $minimumPhobosFramework
         if (-not $PreviewsOnly) { $minimumAutoNav = Get-MaintainedDependencyMinimum 'Shipbreaker.AutoNav' ([version]$shipInfo[0].strModVersion) $minimumAutoNav }
         if ($needsPhobosFramework) { $Mods = @('Framework') + @($Mods | Where-Object { $_ -ne 'Framework' }) }
@@ -88,6 +92,7 @@ if ('AutoNav' -in $Mods) {
             if ([version]$navInfo[0].strModVersion -ge [version]'0.14.0' -and $minimumPhobosFramework -lt [version]'0.21.0') { $minimumPhobosFramework = [version]'0.21.0' }
             if ([version]$navInfo[0].strModVersion -ge [version]'0.14.1' -and $minimumPhobosFramework -lt [version]'0.21.2') { $minimumPhobosFramework = [version]'0.21.2' }
             if ([version]$navInfo[0].strModVersion -ge [version]'0.15.0' -and $minimumPhobosFramework -lt [version]'0.23.0') { $minimumPhobosFramework = [version]'0.23.0' }
+            if ([version]$navInfo[0].strModVersion -ge [version]'0.17.0' -and $minimumPhobosFramework -lt [version]'0.26.0') { $minimumPhobosFramework = [version]'0.26.0' }
             $minimumPhobosFramework = Get-MaintainedDependencyMinimum 'AutoNav.Framework' ([version]$navInfo[0].strModVersion) $minimumPhobosFramework
             $Mods = @('Framework') + @($Mods | Where-Object { $_ -ne 'Framework' })
         }
@@ -106,6 +111,7 @@ if ('Agriculture' -in $Mods) {
         if ([version]$farmInfo[0].strModVersion -ge [version]'0.6.0' -and $minimumPhobosFramework -lt [version]'0.20.0') { $minimumPhobosFramework = [version]'0.20.0' }
         if ([version]$farmInfo[0].strModVersion -ge [version]'0.8.0' -and $minimumPhobosFramework -lt [version]'0.21.0') { $minimumPhobosFramework = [version]'0.21.0' }
         if ([version]$farmInfo[0].strModVersion -ge [version]'0.9.0' -and $minimumPhobosFramework -lt [version]'0.22.0') { $minimumPhobosFramework = [version]'0.22.0' }
+        if ([version]$farmInfo[0].strModVersion -ge [version]'0.11.0' -and $minimumPhobosFramework -lt [version]'0.28.0') { $minimumPhobosFramework = [version]'0.28.0' }
         $minimumPhobosFramework = Get-MaintainedDependencyMinimum 'Agriculture.Framework' ([version]$farmInfo[0].strModVersion) $minimumPhobosFramework
         if ([version]$farmInfo[0].strModVersion -ge [version]'0.10.0' -and $minimumPhobosFramework -lt [version]'0.23.0') { $minimumPhobosFramework = [version]'0.23.0' }
     }
@@ -142,6 +148,21 @@ if (@($entries | Where-Object { $_.Split('|')[0] -eq 'core' }).Count -ne 1) { th
 $files = @()
 $plans = @()
 $changeOrder = $false
+$heldScaffold = $null
+if ($HoldManufacturing) {
+    $scaffoldDll = Join-Path $gameRoot 'BepInEx/plugins/PhobosManufacturing/PhobosManufacturing.dll'
+    Assert-NoLinks $scaffoldDll
+    if (@($entries | Where-Object { $_.Split('|')[0] -eq 'PhobosManufacturing' -and $_ -ne 'PhobosManufacturing|disabled' }).Count -gt 0) {
+        throw 'HoldManufacturing requires the native Manufacturing entry already disabled or absent.'
+    }
+    if (Test-Path -LiteralPath $scaffoldDll -PathType Leaf) {
+        $identity = [Reflection.AssemblyName]::GetAssemblyName($scaffoldDll)
+        if ($identity.Name -ne 'PhobosManufacturing' -or $identity.Version -ne [version]'0.0.1.0') {
+            throw 'HoldManufacturing only handles the known non-operational 0.0.1 scaffold; other versions require review.'
+        }
+        $heldScaffold = [pscustomobject]@{ Target = $scaffoldDll; Backup = 'held/PhobosManufacturing.dll'; Hash = (Get-FileHash -LiteralPath $scaffoldDll -Algorithm SHA256).Hash }
+    }
+}
 foreach ($mod in $Mods) {
     $id = 'Phobos' + $mod
     $label = switch ($mod) { 'AutoNav' { 'Auto Nav' } 'Shipbreaker' { 'Shipbreaker' } 'Framework' { 'Framework' } 'Agriculture' { 'Agriculture' } 'Manufacturing' { 'Manufacturing' } }
@@ -409,21 +430,21 @@ Write-Output "Selected: $description"
 Write-Output "Game: $gameRoot"
 Write-Output "Native mods: $modRoot"
 if ($VerifyOnly) {
-    if ($changedFiles.Count -gt 0 -or $changeOrder) {
+    if ($changedFiles.Count -gt 0 -or $changeOrder -or $null -ne $heldScaffold) {
         $states = ($plans | ForEach-Object { "$($_.Id) load-order status: $($_.LoadOrderStatus)" }) -join '; '
-        throw "Installation differs: $($changedFiles.Count) missing/changed file(s); $states"
+        throw "Installation differs: $($changedFiles.Count) missing/changed file(s); held scaffold still present: $($null -ne $heldScaffold); $states"
     }
     Write-Output "Verified $($files.Count) matching files and load-order configuration. In-game startup is not tested."
     return
 }
-if ($changedFiles.Count -eq 0 -and -not $changeOrder) {
+if ($changedFiles.Count -eq 0 -and -not $changeOrder -and $null -eq $heldScaffold) {
     if (-not $NoRememberPaths -and $PSCmdlet.ShouldProcess($settingsFile, 'Remember verified installation paths')) {
         Save-InstallLocations $locations $settingsFile
     }
     Write-Output 'Already installed and verified. No game files changed.'
     return
 }
-if (-not $PSCmdlet.ShouldProcess($gameRoot, "Install/update $description; $($changedFiles.Count) files; update load order: $changeOrder")) { return }
+if (-not $PSCmdlet.ShouldProcess($gameRoot, "Install/update $description; $($changedFiles.Count) files; update load order: $changeOrder; archive held scaffold: $($null -ne $heldScaffold)")) { return }
 if (Get-Process -Name Ostranauts -ErrorAction SilentlyContinue) { throw 'Ostranauts started during preflight; installation stopped.' }
 if ((Get-FileHash -LiteralPath $orderFile -Algorithm SHA256).Hash -ne $orderHash) { throw 'Load order changed during preflight; retry.' }
 # Recheck sources before touching destinations (e.g. a build in another terminal).
@@ -446,6 +467,14 @@ foreach ($file in $changedFiles) {
 # Write the recovery manifest BEFORE copying, so even an interrupted run is inspectable.
 $receipt = [ordered]@{ Mods = $plans; StartedAt = (Get-Date).ToString('o'); Status = 'Copying'; LoadOrderPath = $orderFile; ChangedFiles = $changedFiles; Files = $files; InGameVerification = 'Pending owner testing' }
 $receiptFile = Join-Path $backupRoot 'receipt.json'
+if ($null -ne $heldScaffold) {
+    if ((Get-FileHash -LiteralPath $heldScaffold.Target -Algorithm SHA256).Hash -ne $heldScaffold.Hash) { throw 'Held scaffold changed during preflight.' }
+    $heldBackup = Join-Path $backupRoot $heldScaffold.Backup
+    New-Item -ItemType Directory -Path (Split-Path -Parent $heldBackup) -Force | Out-Null
+    Copy-Item -LiteralPath $heldScaffold.Target -Destination $heldBackup
+    if ((Get-FileHash -LiteralPath $heldBackup -Algorithm SHA256).Hash -ne $heldScaffold.Hash) { throw 'Held scaffold backup failed verification.' }
+    $receipt.HeldScaffold = $heldScaffold
+}
 $receipt | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath $receiptFile -Encoding utf8
 try {
     foreach ($file in $changedFiles) {
@@ -454,6 +483,12 @@ try {
     }
     foreach ($file in $files) {
         if ((Get-FileHash -LiteralPath $file.Target -Algorithm SHA256).Hash -ne $file.Hash) { throw "Installed file mismatch: $($file.Target)" }
+    }
+    if ($null -ne $heldScaffold) {
+        if (Get-Process -Name Ostranauts -ErrorAction SilentlyContinue) { throw 'Ostranauts started; held scaffold was not removed.' }
+        if ((Get-FileHash -LiteralPath $heldScaffold.Target -Algorithm SHA256).Hash -ne $heldScaffold.Hash) { throw 'Held scaffold changed during copying.' }
+        Remove-Item -LiteralPath $heldScaffold.Target
+        if (Test-Path -LiteralPath $heldScaffold.Target) { throw 'Held scaffold remains in the loader directory.' }
     }
     if ((Get-FileHash -LiteralPath $orderFile -Algorithm SHA256).Hash -ne $orderHash) { throw 'Load order changed during copying; it was not overwritten.' }
     if ($changeOrder) { ConvertTo-Json -InputObject $order -Depth 100 | Set-Content -LiteralPath $orderFile -Encoding utf8 }

@@ -16,6 +16,21 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.29.0] - 2026-09-27 - Draft
+
+### Added
+
+- Add shared presentation pacing, change-only widget updates, retained native-widget bindings, fresh ship-scoped equipment discovery and allocation-free equipment-family matching for existing mod consumers.
+- Extend disabled-by-default Scope recording with bounded frame intervals, collection counts, calibrated allocation support and crew/discovery timings. Export stays explicit; world changes stop recording.
+
+### Fixed
+
+- Avoid allocating empty state copies and copying prior saved data solely to validate a write. Preserve fresh validation and detached read snapshots.
+
+### Compatibility and limits
+
+- Public helper additions are additive; save formats and gameplay rules are unchanged. See docs/performance-audit.md for the six baseline captures, complete source ledger and offline checks. Follow-up captures and measured improvement targets are deferred by owner direction; Unity interaction and performance remain unverified.
+
 ## [0.28.1] - 2026-09-27 - Draft
 
 ### Documentation

@@ -157,6 +157,7 @@ internal static class CaptureService
     internal static void Update()
     {
         if (CrewSim.objInstance == null || !CrewSim.objInstance.FinishedLoading || CrewSim.Paused) return;
+        using var measurement = Phobos.Ostranauts.Framework.Diagnostics.Performance.Measure(PerformanceMetrics.Capture);
         foreach (var s in sessions.Values.ToArray())
         {
             if (s.Record.Phase != CapturePhase.Approaching) continue;

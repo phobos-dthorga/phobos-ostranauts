@@ -13,13 +13,13 @@ using Phobos.Ostranauts.Framework.Construction;
 namespace PhobosAgriculture;
 
 [BepInPlugin(Id, "Phobos Agriculture", Version)]
-[BepInDependency(FrameworkInfo.PluginId, "0.28.0")]
+[BepInDependency(FrameworkInfo.PluginId, "0.29.0")]
 [BepInDependency("com.ostranauts.shipswater", BepInDependency.DependencyFlags.SoftDependency)]
 [BepInDependency("phobosgekko.ostranauts.shipbreaker", BepInDependency.DependencyFlags.SoftDependency)]
 [BepInProcess("Ostranauts.exe")]
 public sealed class Plugin : BaseUnityPlugin
 {
-    public const string Id = "phobosgekko.ostranauts.agriculture", Version = "0.15.1";
+    public const string Id = "phobosgekko.ostranauts.agriculture", Version = "0.15.2";
     internal static Action<string> Log = _ => { };
     internal static ConfigEntry<double> Pace = null!, ReserveLitres = null!;
     internal static ConfigEntry<bool> LootEnabled = null!;
@@ -29,6 +29,7 @@ public sealed class Plugin : BaseUnityPlugin
     private void Awake()
     {
         Log = x => Logger.LogInfo(x); Text.EnsureLoaded();
+        PerformanceMetrics.Initialize();
         Pace = Config.Bind("Crops", "GrowthDurationMultiplier", 1d, new ConfigDescription(Text.Get("pace_setting"), new AcceptableValueRange<double>(.5, 2)));
         ReserveLitres = Config.Bind("Irrigation", "CrewReserveLitres", 10d, new ConfigDescription(Text.Get("reserve_setting"), new AcceptableValueRange<double>(0, 100000)));
         LootEnabled = Config.Bind("Loot", "Enabled", true, Text.Get("loot_enabled_setting"));

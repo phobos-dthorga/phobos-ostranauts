@@ -110,11 +110,11 @@ public static class CrewWork
         catch{state=OrderState.Blocked;detail=Message("protected");}
         return new(state,work,worker,detail);
     }
-    public static IEnumerable<CondOwner> Equipment(Ship ship) => DataHandler.mapCOs.Values.Where(c => c != null && !c.bDestroyed && c.ship == ship &&
-        c.objCOParent == null && c.HasCond("IsInstalled") && Provider(c) != null).ToArray();
-    public static IEnumerable<CondOwner> Stores(Ship ship) => DataHandler.mapCOs.Values.Where(c => c != null && !c.bDestroyed && c.ship == ship &&
+    public static IEnumerable<CondOwner> Equipment(Ship ship) => Controls.ShipEquipment.Read(ship,
+        c => c.HasCond("IsInstalled") && Provider(c) != null);
+    public static IEnumerable<CondOwner> Stores(Ship ship) => Controls.ShipEquipment.Read(ship, c =>
         c.objContainer != null && !c.objContainer.Locked && !c.HasCond("IsInfiniteContainer") && !c.HasCond("IsHuman") &&
-        c.objCOParent == null && Provider(c) == null).OrderBy(c => c.strID, StringComparer.Ordinal).ToArray();
+        Provider(c) == null).OrderBy(c => c.strID, StringComparer.Ordinal).ToArray();
     public static bool LocalAccess(CondOwner actor, CondOwner target, double range) => actor != null && target != null && actor.ship == target.ship &&
         (TileUtils.TileRange(actor.GetPos(), target.GetPos("use")) <= range || executing?.Skipping == true && executing.Actor == actor && executing.Equipment == target);
     public static bool Eligible(CondOwner actor, CrewWorkOffer offer, out string reason, bool checkRole = true, int? hour = null)
@@ -176,6 +176,7 @@ public static class CrewWork
         if (CrewSim.objInstance == null || !CrewSim.objInstance.FinishedLoading || CrewSim.objInstance.workManager == null ||
             DataHandler.mapCOs == null || CrewSim.coPlayer == null || CrewSim.Paused || CrewSkip.Active || Time.unscaledTime < nextScan) return;
         nextScan = Time.unscaledTime + (float)CrewBalance.DiscoverySeconds;
+        using var measurement = Diagnostics.Performance.Measure(Diagnostics.Performance.CrewDiscovery);
         var crew = CrewRoster.Members();
         foreach(var actor in crew)
             foreach(var ia in actor.aQueue.Where(i=>i?.strName?.StartsWith(CrewSpecialities.StudyPrefix,StringComparison.Ordinal)==true))

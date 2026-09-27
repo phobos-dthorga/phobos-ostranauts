@@ -8,6 +8,7 @@ Dates on Draft entries record preparation, not Steam publication.
 
 ### Documentation
 
+- Document the installer's explicit held-scaffold option: back up and remove only the known 0.0.1 plugin DLL from the loader, with its native entry already disabled or absent. Operational equipment remains unimplemented.
 - Review the English bootstrap diagnostic and simplify the Workshop description. Keep the held scaffold explicit: no playable machining equipment, recipes or stock. Follow the shared player-language rule.
 
 ### Documentation
