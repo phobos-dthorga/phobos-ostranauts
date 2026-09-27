@@ -45,9 +45,58 @@ SAMPLES = [
 # evidence that the default strImg is what players see at runtime.
 DISPLAY_CANDIDATES = {"ItmAirPump02Off": "ItmAirPump02Off"}
 
+# A scoped extension of the same local-only audit, not a new extraction pipeline.
+BULK_SAMPLES = [
+    ("ItmCanister01", "Gas canister"),
+    ("ItmCanister01Loose", "Gas canister / loose"),
+    ("ItmCanister01Dmg", "Gas canister / damaged"),
+    ("ItmCanisterLH02", "D2O tank"),
+    ("ItmCanisterLH02Loose", "D2O tank / loose"),
+    ("ItmCanisterLHe01", "Cryo reservoir"),
+    ("ItmCanisterO2Small", "Small oxygen bottle"),
+    ("ItmFusionCorePump01", "Core pump"),
+    ("ItmFusionCryoPump01", "Cryo pump"),
+    ("ItmConduit00", "Conduit / whole atlas"),
+    ("ItmCargoPod01", "Cargo pod"),
+    ("ItmAtmoScrubber01", "Scrubber / fittings reference"),
+]
+
+
+def bulk_sheet(cells, title, output):
+    """Analytical comparison only: unchanged native pixels beside 4x pixels."""
+    width, height, header = 480, 560, 95
+    canvas = Image.new("RGB", (width * 3, header + ((len(cells) + 2) // 3) * height), "#14191d")
+    draw = ImageDraw.Draw(canvas)
+    draw.text((18, 12), title, font=font(23), fill="#eff1eb")
+    draw.text((18, 45), "LOCAL RESEARCH | Blue Bottle Games vanilla references + labelled Phobos art", font=font(17), fill="#abb9c1")
+    draw.text((18, 68), "1x and 4x nearest neighbour. No game lighting, wear shader or gameplay validation.", font=font(16), fill="#abb9c1")
+    for i, (label, path, subtitle) in enumerate(cells):
+        x, y = i % 3 * width, header + i // 3 * height
+        draw.rectangle((x+5, y+5, x+width-5, y+height-5), fill="#262c30")
+        draw.text((x+14, y+14), label, font=font(18), fill="#f1e7cc")
+        draw.text((x+14, y+42), subtitle, font=font(13), fill="#bfcbd1")
+        if not path or not path.exists():
+            draw.text((x+14, y+95), "No separate texture referenced", font=font(17), fill="#bfcbd1")
+            continue
+        with Image.open(path) as source:
+            rgba = source.convert("RGBA")
+        if rgba.width * 4 > width - 130 or rgba.height * 4 > height - 105:
+            raise ValueError(f"Reference exceeds fixed comparison cell: {path}")
+        draw.text((x+14, y+75), "1x", font=font(15), fill="#abb9c1")
+        draw.text((x+125, y+75), "4x", font=font(15), fill="#abb9c1")
+        canvas.paste(rgba, (x+14, y+110), rgba)
+        enlarged = rgba.resize((rgba.width*4, rgba.height*4), Image.Resampling.NEAREST)
+        canvas.paste(enlarged, (x+125, y+110), enlarged)
+    canvas.save(output)
+
 
 def fingerprint(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def dimensions(path):
+    with Image.open(path) as source:
+        return list(source.size)
 
 
 def load_definitions(directory):
@@ -92,9 +141,11 @@ def sheet(cells, title, output, columns=4):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--game-path", required=True, type=Path)
-    parser.add_argument("--output", type=Path, default=Path(__file__).resolve().parents[1] / ".local/research/equipment-art")
+    parser.add_argument("--profile", choices=("equipment", "agriculture-bulk"), default="equipment")
+    parser.add_argument("--output", type=Path)
     args = parser.parse_args()
-    output = args.output.resolve()
+    folder = "agriculture-bulk/art" if args.profile == "agriculture-bulk" else "equipment-art"
+    output = (args.output or Path(__file__).resolve().parents[1] / ".local/research" / folder).resolve()
     local = Path(__file__).resolve().parents[1] / ".local"
     if not output.is_relative_to(local.resolve()):
         parser.error("Reference images must stay under the repository's ignored .local directory.")
@@ -104,7 +155,8 @@ def main():
     owners = load_definitions(base / "data/condowners")
     images = base / "images"
     records, cells = [], []
-    for identifier, title in SAMPLES:
+    samples = BULK_SAMPLES if args.profile == "agriculture-bulk" else SAMPLES
+    for identifier, title in samples:
         owner = owners[identifier]
         item_id = owner.get("strItemDef", identifier)
         item = items[item_id]
@@ -118,7 +170,8 @@ def main():
         for key in ("strImg", "strImgNorm", "strImgDamaged"):
             name = item.get(key)
             p = images / (name + ".png") if name else None
-            maps[key] = {"name": name, "sha256": fingerprint(p) if p and p.exists() else None}
+            maps[key] = {"name": name, "sha256": fingerprint(p) if p and p.exists() else None,
+                         "dimensions": dimensions(p) if p and p.exists() else None}
         record = {
             "object_id": identifier, "item_id": item_id, "title": title,
             "game_name": owner.get("strNameFriendly"), "texture_size": list(rgba.size),
@@ -132,6 +185,30 @@ def main():
         records.append(record)
         note = " | candidate; runtime unresolved" if identifier in DISPLAY_CANDIDATES else f" | {cols} x {rows} grid bounds"
         cells.append((title, path, f"{rgba.width} x {rgba.height} px" + note))
+    if args.profile == "agriculture-bulk":
+        repo = Path(__file__).resolve().parents[1]
+        for label, name in (("Phobos W2", "WaterSupply"), ("Phobos B2", "Workup"),
+                            ("Phobos irrigation conduit", "WaterPipe")):
+            p = repo / "mods/PhobosAgriculture/images/phobos/agriculture" / (name + ".png")
+            if not p.exists():
+                raise FileNotFoundError(p)
+            cells.append((label, p, "Existing Phobos artwork"))
+            records.append({"title": label, "local_phobos_asset": str(p.relative_to(repo)),
+                            "sha256": fingerprint(p), "texture_size": dimensions(p)})
+        for page, start in enumerate(range(0, len(cells), 6), 1):
+            bulk_sheet(cells[start:start+6], f"Agriculture bulk storage / reference study / {page}", output / f"bulk-{page}.png")
+        map_cells = []
+        for r in records[:6]:
+            for kind, m in r["normal_and_damage"].items():
+                name = m["name"]
+                map_cells.append((r["title"] + " / " + kind, images/(name+".png") if name else None, name or "none"))
+        for page, start in enumerate(range(0, len(map_cells), 6), 1):
+            bulk_sheet(map_cells[start:start+6], f"Reservoir map references / {page}", output / f"bulk-maps-{page}.png")
+        manifest = {"scope": "Local source-image study only; no Unity validation", "records": records,
+                    "game_assembly_sha256": fingerprint(args.game_path.resolve()/"Ostranauts_Data/Managed/Assembly-CSharp.dll")}
+        (output/"inventory.json").write_text(json.dumps(manifest, indent=2), encoding="utf-8")
+        print(f"{len(records)} references recorded under {output}")
+        return
     for page, start in enumerate(range(0, len(cells), 12), 1):
         sheet(cells[start:start + 12], f"Ostranauts ship equipment / native textures / {page}", output / f"equipment-{page}.png")
     states = []

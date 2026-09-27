@@ -1,5 +1,12 @@
 # Phobos Agriculture: endurance roadmap
 
+**27 September 2026 research:** [bulk storage and station supplies](agriculture-bulk-storage-research.md)
+compares one/four/eight-rack endurance and recommends an optional 120 kg R3
+agricultural water reserve plus 500 g nutrient charges. The
+[Framework/Agriculture blueprint](agriculture-bulk-storage-design.md) and
+[artwork audit](agriculture-bulk-storage-art.md) are planning records, not shipped
+equipment. Prepared-feed/return tanks and named reagent chemistry remain deferred.
+
 Agriculture 0.7.0 adds [lettuce seed production](agriculture-seed-production.md) and
 [maintenance/treatment economics](agriculture-treatment-economy.md). Existing food
 crops and already bound treatment jobs retain their previous contracts.

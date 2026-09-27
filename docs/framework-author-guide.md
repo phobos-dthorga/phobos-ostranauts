@@ -583,6 +583,13 @@ Unexpected mutation must stop the consumer for reconciliation; receipts are not
 persisted or replayed. Call on the game thread. This is not a station-refuelling
 API or a replacement for solid-item transfers.
 
+The [27 September bulk-storage blueprint](agriculture-bulk-storage-design.md)
+audits these services and proposes additive endpoint snapshots, reservations and
+separate station purchase contracts for Agriculture. Those proposed APIs and R3
+equipment are **not implemented**; use the interfaces documented here for current
+consumers. The [research report](agriculture-bulk-storage-research.md) and
+[art/native-widget audit](agriculture-bulk-storage-art.md) explain the boundaries.
+
 `Liquids.ShipsWaterSupply` is a narrow optional adapter for Valtora's
 [Ship's Water 0.16.1](https://steamcommunity.com/sharedfiles/filedetails/?id=3757331189).
 Its inspected potable-vessel field stores litres; this adapter treats water as

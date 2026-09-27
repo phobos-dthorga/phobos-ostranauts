@@ -41,3 +41,5 @@ jobs:
         run: python3 scripts/update-item-reference.py --check
       - name: Exercise item reference failure and check-only cases
         run: python3 -m unittest discover -s tests -p test_item_reference.py -v
+      - name: Verify bulk-storage research calculations and source freshness
+        run: python3 -m unittest discover -s tests -p test_agriculture_storage.py -v

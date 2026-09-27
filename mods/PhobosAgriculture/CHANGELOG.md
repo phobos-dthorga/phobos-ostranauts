@@ -8,6 +8,8 @@ Dates on Draft entries record preparation, not Steam publication.
 
 ### Documentation
 
+- Added source-backed bulk-storage calculations for 54 farm scenarios, an R3 water-reservoir and larger nutrient-charge proposal, and a local vanilla-art comparison workflow. Existing machinery, recipes, versions and installed files are unchanged; no production artwork was generated.
+
 - Research crop-residue nutrient recovery, optional Ship's Water reject capture, a proposed Groundwork workup bench and non-repairable progressive W2 mixtures. These are implementation plans, not delivered recipes or integrations.
 - Expand the native economic audit with electricity sensitivity, repeating seed-production costs and bounded illustrative residue recovery; runtime prices and yields are unchanged.
 

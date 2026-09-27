@@ -8,6 +8,8 @@ Dates on Draft entries record preparation, not Steam publication.
 
 ### Documentation
 
+- Investigated additive bulk-storage and station-purchase contracts for Agriculture, including native refuelling and Ship's Water coexistence, custody, reservations and UI isolation. Published a research blueprint; no new runtime API, equipment or service is registered.
+
 - Added a maintained per-mod item reference covering function, use, acquisition and applicable economic/service data; generated tables and coverage checks share a one-click updater.
 
 ### Fixed

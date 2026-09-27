@@ -4,6 +4,15 @@ Owner direction and bounded research: **2026-09-24**. These are **future feature
 not implemented tanks, chemical recipes, refuelling services or new hazards. This
 note does not change current Shipbreaker recipes or the priority of existing work.
 
+**27 September Agriculture-first investigation:** the
+[bulk-storage findings](agriculture-bulk-storage-research.md),
+[implementation blueprint](agriculture-bulk-storage-design.md) and
+[native-style artwork audit](agriculture-bulk-storage-art.md) now recommend an
+optional R3 water reservoir, larger nutrient charges and a separate station bulk
+supplies view. These remain proposals. The new study audits current Framework
+transfer/mixture services and W2/B2 rather than treating the older API inventory
+below as current. No new chemicals, machinery or station services are installed.
+
 **25 September follow-up:** [shared fluid conduits and irrigation research](fluid-conduits-and-irrigation-research.md)
 examines Agriculture's plant sustenance as the first physical pipe consumer,
 including partial reuse of vanilla conduits. Framework 0.17.0 now has a narrow
