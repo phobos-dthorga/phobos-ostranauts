@@ -136,3 +136,5 @@ The new Track help uses an inset scroll area; browser evidence is not Unity appr
 ## Auto Nav 0.22.1 towing follow-up
 
 Five new warnings explain the connection, brace and competing-control blocker. Navigation warnings outrank idle FCS faults. Current review covers 1,761 entries (528 Auto Nav), 147 documents and 14 other surfaces. The towing guide distinguishes supported ordinary flight from terminal docking and Combat; no save changes or live validation are implied.
+
+Auto Nav 0.22.2 adds one direct attached-target instruction and updates the current towing/FCS/Combat guides. Existing towing reasons are reused for brace faults; historical 0.22.1 release limitations remain historical.

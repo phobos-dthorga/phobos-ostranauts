@@ -1,5 +1,5 @@
 [h1]Phobos Auto Nav[/h1]
-[b]Version:[/b] 0.22.1
+[b]Version:[/b] 0.22.2
 
 [h2]Performance update[/h2]
 The console refreshes the visible page up to ten times per second and responds immediately to your actions. It no longer checks whole-ship hull fit just to display docking clearance; starting a docking manoeuvre still checks it. Flight and firing safety checks remain current.
@@ -78,4 +78,4 @@ Dark button faces now keep labels readable in every interaction state. This fixe
 Separate live frames, smaller command/help text and compact buttons keep controls within their sections. Departure, Info and dialogs scroll inside inset areas; Resume, Disengage and Cease Fire stay fixed below them.
 
 [b]Secured towing[/b]
-Approach, Rendezvous and Follow support one securely braced tow in free space, using native RCS/torch controls and clearance for both hulls. Release the tow before Dock, Approach & Dock, FCS/Combat or industrial close work. Stations, mooring, towing chains and unsecured attachments remain blocked. Live towing handling awaits owner testing.
+Approach, Rendezvous, Follow, FCS and Combat support one securely braced tow in free space, using native RCS/torch controls and clearance for both hulls. Engage still grants firing permission separately; an attached ship cannot be selected as the fire target. Brace faults cancel aiming and firing without automatic restart. Release the tow before Dock, Approach & Dock or industrial close work. Stations, mooring, towing chains and unsecured attachments remain blocked. Live towing handling awaits owner testing.

@@ -1130,14 +1130,15 @@
     },
     {
       "path": "src/PhobosAutoNav/NavigationCombat.cs",
-      "sha256": "e1ac91eb5a989fed2bc9d09746156f9839cbd1b65e11e126944c663c8e998369",
+      "sha256": "e40e2413da5d9dd8df8a1629e98522eb467125ecdab39e6e0161b407f443729c",
       "role": "navigation authority and transient Combat lifecycle",
       "findings": [
-        "C1"
+        "C1",
+        "T2"
       ],
       "indicators": {},
       "review": "2026-09-27: reviewed Combat ownership, protected persistence, live docking blockers, opt-in diagnostics and existing bounded presentation; see C1.",
-      "decision": "Use one existing guidance controller. Retain save/shot checks and no discovery-result cache; no new capture campaign or per-frame logging."
+      "decision": "Reuse fresh secured-tow admission and reject attached fire targets; preserve simulation cadence, hidden-tab inactivity and explicit firing permission. No measured performance claim."
     },
     {
       "path": "src/PhobosAutoNav/NavigationDeparture.cs",
@@ -1185,15 +1186,16 @@
     },
     {
       "path": "src/PhobosAutoNav/NavigationHub.cs",
-      "sha256": "6b92623742b3fce2acc04344f2ffa5935b84e3dd721fe862d26a2573c1a5b30b",
+      "sha256": "d725cca926ff8e581eafa8e114aec245dec16a3151a2cc875e10fca34908f2be",
       "role": "navigation, native boundary or flight policy",
       "review": "2026-09-27: reviewed secured towing, warning priority, native boundaries and regenerated reference evidence; historical records preserved.",
-      "decision": "Use one existing guidance controller. Retain save/shot checks and no discovery-result cache; no new capture campaign or per-frame logging.",
+      "decision": "Reuse fresh secured-tow admission and reject attached fire targets; preserve simulation cadence, hidden-tab inactivity and explicit firing permission. No measured performance claim.",
       "findings": [
         "P1",
         "P8",
         "C1",
-        "T1"
+        "T1",
+        "T2"
       ],
       "indicators": {
         "discovery": [
@@ -1289,14 +1291,15 @@
     },
     {
       "path": "src/PhobosAutoNav/NavigationPursuit.cs",
-      "sha256": "071b4ae13d185b02a2faf643f36acf6580cfdf6d5ca4ac5e236c2accfe096452",
+      "sha256": "1ace2fef50c87721ba92cceae376901eb93ed09b0fa9296117fe03a43bc1509a",
       "role": "navigation, native boundary or flight policy",
       "review": "2026-09-27: reviewed docking/avoidance frame correction, transient Combat ownership and the unchanged bounded presentation path; see docs/auto-nav-combat.md.",
-      "decision": "Use one existing guidance controller. Retain save/shot checks and no discovery-result cache; no new capture campaign or per-frame logging.",
+      "decision": "Reuse fresh secured-tow admission and reject attached fire targets; preserve simulation cadence, hidden-tab inactivity and explicit firing permission. No measured performance claim.",
       "findings": [
         "P2",
         "P8",
-        "C1"
+        "C1",
+        "T2"
       ],
       "indicators": {
         "collection": [
@@ -1449,7 +1452,7 @@
     },
     {
       "path": "src/PhobosAutoNav/Plugin.cs",
-      "sha256": "9302eaec975905a83c23bedf1482be7b18ec5b19645a2e188d726204d65657b7",
+      "sha256": "673cf8b8220aaeb95c4d422f28eabb66dcf319b84002ec079ee0b0464b30dcac",
       "role": "navigation, native boundary or flight policy",
       "review": "2026-09-27 towing: reviewed attachment ownership, clearance and native-policy boundaries; bounded UI refresh preserved.",
       "decision": "Use one existing guidance controller. Retain save/shot checks and no discovery-result cache; no new capture campaign or per-frame logging.",

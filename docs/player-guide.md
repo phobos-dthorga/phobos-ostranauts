@@ -17,7 +17,7 @@ eating. This guide starts with installation and the basic shipbreaking loop.
   availability depends on ordinary merchant restocking.
 
 **Prepared versions:** Phobos Framework **0.30.1**, Shipbreaker **0.29.1**, Auto Nav
-**0.22.1**, built against Ostranauts **1.0.1.5** / BepInEx **5.4.23.5**.
+**0.22.2**, built against Ostranauts **1.0.1.5** / BepInEx **5.4.23.5**.
 These are development packages. Automated checks do not establish in-game
 compatibility or tell you which version is installed locally. Ordinary saves are
 supported; keep required content installed. [Getting started](getting-started.md)
@@ -235,4 +235,4 @@ Engage grants firing separately. Cease Fire retains range matching. Leave Combat
 and Resume the previous flight explicitly. Docking, braking and traffic safety
 retain priority. Live handling still needs owner playtesting.
 
-Secured two-ship towing is supported for ordinary flight; see [towing controls and limits](auto-nav-towing.md). Release the tow before terminal docking or Combat.
+Secured two-ship towing is supported for ordinary flight, FCS and Combat; see [towing controls and limits](auto-nav-towing.md). Release the tow before terminal docking or industrial close work.

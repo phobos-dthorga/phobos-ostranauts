@@ -526,5 +526,6 @@
   "Tow.unavailable": "Tow connection unavailable. Check both ships before starting.",
   "Tow.updating": "Tow braces are updating. Wait, then try again.",
   "Tow.secure": "Secure the towing brace or undock before starting.",
-  "Tow.controls": "The towed ship has active flight controls. Stop those controls first."
+  "Tow.controls": "The towed ship has active flight controls. Stop those controls first.",
+  "FCS.attached_target": "That ship is attached to yours. Select a different fire target."
 }

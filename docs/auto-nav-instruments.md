@@ -134,4 +134,4 @@ See [validation record and remaining owner checks](auto-nav-hub-validation.md).
 Earlier 0.7–0.11.1 compact layouts and prompts are preserved as artwork provenance;
 their control instructions are superseded by this guide.
 
-Secured two-ship towing is supported for ordinary flight; see [towing controls and limits](auto-nav-towing.md). Release the tow before terminal docking or Combat.
+Secured two-ship towing is supported for ordinary flight, FCS and Combat; see [towing controls and limits](auto-nav-towing.md). Release the tow before terminal docking or industrial close work.

@@ -148,3 +148,12 @@ performance captures or quantitative improvement claims were made.
 ## T1 — Secured towing correction
 
 Auto Nav 0.22.1 reads the fresh native attachment map for one reciprocal tow; no retained discovery cache is added. The enclosing radius protects both hulls and existing bounded presentation remains. No new recording or performance measurements. See [towing evidence](auto-nav-towing.md).
+
+### T2 — secured towing fire-control follow-up (0.22.2)
+
+FCS reuses the existing fresh, ship-scoped towing policy at admission and update.
+Attached-target exclusion also runs immediately before dispatch. No global
+inventory scan, retained discovery results or extra presentation refresh was added.
+Combat continues through the existing single movement authority. The native aim
+stop now uses a positive interval, matching the core's existing stop convention.
+No new frame-time measurements or Unity validation are claimed.

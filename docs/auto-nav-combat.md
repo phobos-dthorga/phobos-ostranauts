@@ -108,3 +108,5 @@ campaign, artwork generation or measured FPS claim is part of this update.
 Live handling, the owner's exact docking incident, Unity interaction and subjective
 performance remain unverified until owner feedback. Existing captures and installer
 rollback packages are retained.
+
+A reciprocal, securely braced tow is supported from Auto Nav 0.22.2. Use a separate fire target; only the piloted ship’s weapons are controlled. Brace faults cancel aiming and firing, and recovery never re-arms automatically. See [towing controls and limits](auto-nav-towing.md).

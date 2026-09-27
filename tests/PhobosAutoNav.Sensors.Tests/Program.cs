@@ -657,3 +657,58 @@ f.Own.TowSecured=false; f.Service.Tick(f.Own.objSS,.1,false);
 Check(!AutoNavCore.Engaged && f.Own.Thrust==0,"Lost brace stops commanded towing thrust");
 Check(f.Service.ReadHub(f.Console,"navigation").Restriction=="Tow.secure","FCS fault cannot hide the current navigation blocker");
 Console.WriteLine($"{checks} checks including secured towing and warning priority passed.");
+
+// FCS uses the same fresh secured-tow policy as navigation; permission remains explicit.
+Ship AttachLoad()
+{
+    var tow = new Ship { strRegID = "tow", publicName = "Attached load" };
+    CrewSim.system.Ships[tow.strRegID] = tow;
+    f.Own.Attachments["own-port"] = tow; tow.Attachments["peer-port"] = f.Own;
+    return tow;
+}
+ReadyCombat(false); var towLoad = AttachLoad();
+f.Console.Items.RemoveAll(c => c.strID == "n2");
+f.Service.TickFire(.1,false);
+Check(f.Service.ReadHub(f.Console,"fire").CanEngage && !f.Service.Fire.Permitted,"Secured tow permits N3 FCS without N2 or automatic shots");
+f.Service.ToggleAutoAim(f.Console); f.Service.Fire.Weapons[0].Heading=1;
+f.Service.TickFire(.1,false);
+Check(f.Service.ReadHub(f.Console,"fire").AutoAiming && f.Own.LastRotation!=0,"Standalone tow aiming uses native rotation");
+f.Service.EngageWeapons(f.Console); f.Service.TickFire(.1,true);
+Check(f.Service.Fire.Permitted && f.Service.Fire.LastDispatchSafe,"Explicit FCS Engage admits ordinary fresh shot checks while towing");
+f.Service.CeaseFire();
+Check(!f.Service.Fire.Permitted && f.Own.LastRotation==0,"Cease Fire clears native standalone rotation with a positive stop timestep");
+foreach(var fault in new[]{"brace","refresh","moored","reciprocal","controls"})
+{
+    ReadyCombat(false); towLoad=AttachLoad(); f.Service.ToggleAutoAim(f.Console); f.Service.EngageWeapons(f.Console);
+    switch(fault)
+    {
+        case "brace":f.Own.TowSecured=false;break;
+        case "refresh":towLoad.bCheckTowingBraces=true;break;
+        case "moored":towLoad.TowMoored=true;break;
+        case "reciprocal":towLoad.Attachments.Clear();break;
+        case "controls":towLoad.IsUsingTorchDrive=true;break;
+    }
+    f.Service.TickFire(.1,true);
+    Check(!f.Service.Fire.Permitted && !f.Service.ReadHub(f.Console,"fire").AutoAiming,"Tow fault revokes shots and aiming before dispatch: "+fault);
+    f.Own.TowSecured=true; towLoad.bCheckTowingBraces=false; towLoad.TowMoored=false;
+    towLoad.Attachments["peer-port"]=f.Own; towLoad.IsUsingTorchDrive=false;
+    f.Service.TickFire(.1,false);
+    Check(!f.Service.Fire.Permitted && !f.Service.ReadHub(f.Console,"fire").AutoAiming,"Restored tow never rearms automatically: "+fault);
+}
+ReadyCombat(false); towLoad=AttachLoad(); GUIOrbitDraw.CrossHairTarget=new(){Ship=towLoad};
+f.Service.SelectFireTarget(f.Console); f.Service.EngageWeapons(f.Console);
+Check(!f.Service.Fire.Permitted && !f.Service.ReadHub(f.Console,"fire").CanEngage,"Attached hull cannot be selected as a fire target");
+ReadyCombat(false); f.Service.EngageWeapons(f.Console);
+f.Own.Attachments["own-port"]=f.Target; f.Target.Attachments["peer-port"]=f.Own;
+f.Service.TickFire(.1,true);
+Check(!f.Service.Fire.Permitted && f.Service.Fire.Reason=="FCS.attached_target","Target attachment after Engage revokes permission before dispatch");
+ReadyCombat(); towLoad=AttachLoad(); f.Service.EnterCombat(f.Console);
+Check(f.Service.CombatActive && !f.Service.Fire.Permitted,"Combat admits secured tow without granting firing permission");
+f.Service.EngageWeapons(f.Console); f.Service.CeaseFire();
+Check(f.Service.CombatActive && AutoNavCore.Engaged && !f.Service.ReadHub(f.Console,"fire").AutoAiming,"Tow Cease Fire keeps Combat range matching only");
+f.Service.EngageWeapons(f.Console); f.Own.TowSecured=false; f.Service.TickFire(.1,true);
+Check(!f.Service.CombatActive && !AutoNavCore.Engaged && !f.Service.Fire.Permitted && Read(f.Console).Mode==SavedFlightMode.Suspended,"Lost brace ends Combat and preserves suspended mission");
+ReadyCombat(); towLoad=AttachLoad(); f.Service.EnterCombat(f.Console); f.Service.EngageWeapons(f.Console);
+f.Service.WorldChanging(); f.Service.WorldLoaded(); f.Service.UpdatePersistence(); f.Service.RestoreFireOwnership();
+Check(!f.Service.CombatActive && !f.Service.Fire.Permitted && !AutoNavCore.Engaged && f.Service.Fire.Owns(f.Console.strID),"Towing reload restores Hold without movement or shots");
+Console.WriteLine($"{checks} checks including towing FCS and Combat passed.");

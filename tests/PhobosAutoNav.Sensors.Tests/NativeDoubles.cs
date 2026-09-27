@@ -48,7 +48,7 @@ public sealed class Ship
     internal bool IsMoored() => TowMoored;
     internal int Maneuvers; internal float LastRotation;
     internal bool FailManeuver;
-    internal void Maneuver(float x, float y, float r, float throttle, float dt) { Maneuvers++; if (FailManeuver) throw new Exception("Native maneuver failure"); LastRotation = r; }
+    internal void Maneuver(float x, float y, float r, float throttle, float dt) { if (dt <= 0) return; Maneuvers++; if (FailManeuver) throw new Exception("Native maneuver failure"); LastRotation = r; }
 
     internal bool IsUsingTorchDrive;
     internal void SetThrust(double value) { IsUsingTorchDrive = value > 0; aWPs.Clear(); }

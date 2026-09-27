@@ -17,6 +17,15 @@ Dates on Draft entries record preparation, not Steam publication.
 - Earlier capture-only research is superseded for supported ordinary walls by the implementation below. Broader structural recipes, repeated furnace batches and whole-wreck completion remain outside this round.
 - Keep [NASA Goddard's Raven research](https://www.nasa.gov/general/nasas-hybrid-computer-enables-ravens-autonomous-rendezvous-capability/) and [ESA's LIRIS experiment by Airbus, Jena Optronik and Sodern](https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/ATV/ATV_views_Space_Station_as_never_before) as sensing context, separate from Blue Bottle Games native evidence and authored gameplay choices. No institutional endorsement or gameplay validation is implied.
 
+## [0.22.2] - 2026-09-27 - Draft
+
+### Fixed
+
+- FCS and Combat now accept the same reciprocal, securely braced two-ship tow as ordinary navigation. FCS uses only weapons aboard the piloted ship; Engage still grants firing permission separately. Docking and industrial close work still require releasing the tow.
+- Reject the attached ship as a fire target, including a connection made after Engage. Brace faults cancel aiming and firing before dispatch; restoring the brace does not re-arm the group. Show the specific towing blocker instead of a generic unavailable fault.
+- Stop standalone weapon aiming through a positive native update interval: a zero interval was ignored by the game. Native weapon eligibility, missile locks, fuel accounting, saved assignments and reload Hold remain unchanged.
+- Offline service tests cover secured towing, invalidation, attached targets, Combat and reload. Unity handling and firing remain owner-tested; see the [towing guide](https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/auto-nav-towing.md).
+
 ## [0.22.1] - 2026-09-27 - Draft
 
 ### Fixed

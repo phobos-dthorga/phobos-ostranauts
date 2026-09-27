@@ -40,6 +40,7 @@ internal sealed partial class NavigationService
                 !CanReplaceFlight(co))
             { status = Text.Get("Combat.unavailable"); return; }
             var target = FireTarget;
+            if (AttachedFireTarget(co, target)) { status = Text.Get("FCS.attached_target"); return; }
             if (target == null || !ReadContact(co, target).Usable || aimReference == null)
             { status = Text.Get("Combat.select"); return; }
             Fire.Observe(co.ship, target, group, 0);
@@ -98,7 +99,8 @@ internal sealed partial class NavigationService
         fireModule != null && FireModule(console) == fireModule && firePlayer == CrewSim.coPlayer &&
         combatOperator == CrewSim.GetSelectedCrew() && Fire.Owns(console.strID) &&
         !Fire.OtherOwner(console.strID) && WeaponGroup(console) == combatGroup &&
-        savedFlight?.TargetId == fireTargetId && aimReference == combatWeapon && ReadContact(console, FireTarget).Usable;
+        savedFlight?.TargetId == fireTargetId && aimReference == combatWeapon &&
+        !AttachedFireTarget(console, FireTarget) && ReadContact(console, FireTarget).Usable;
 
     internal void ValidateCombat()
     { if (!CombatBindingValid()) Disengage(Text.Get("Combat.ended")); }

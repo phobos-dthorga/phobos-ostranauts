@@ -35288,6 +35288,20 @@
       ],
       "before": "The towed ship has active flight controls. Stop those controls first.",
       "after": "The towed ship has active flight controls. Stop those controls first."
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "FCS.attached_target",
+      "category": "status/warnings",
+      "decision": "retain",
+      "reason": "New message names the attached-target problem and available action; no invented firing or power control.",
+      "trace": "literal service reference",
+      "references": [
+        "src/PhobosAutoNav/NavigationPursuit.cs",
+        "src/PhobosAutoNav/NavigationCombat.cs"
+      ],
+      "before": "That ship is attached to yours. Select a different fire target.",
+      "after": "That ship is attached to yours. Select a different fire target."
     }
   ],
   "documents": [
@@ -35473,7 +35487,7 @@
       "path": "docs/auto-nav-fire-control.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "2db293132705b6d056ca0a0872f41dbf1be8187bf6b88a9e4fb9594305f5e4e2",
+      "sha256": "b6519d916cab3a2bf97de3fb81edd34f74872f6a0b9f6fdd049ad2a5d08554c2",
       "review": "2026-09-27 Auto Nav 0.22.0: reviewed controls, version, preserved research and unverified live handling; no promised automatic firing or resume."
     },
     {
@@ -35492,14 +35506,14 @@
       "path": "docs/auto-nav-instruments.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "19e87d628404ad6541e234de1d37908d2bf34559bb98e5f26eaf384cd6ba894b",
+      "sha256": "508a65c001da84ac663d5ab5e4da998a3a0979f3aba3aaa7e083cdf7df621edc",
       "review": "2026-09-27: towing instructions, unchanged native mechanics and scope limits reviewed; historical records preserved."
     },
     {
       "path": "docs/auto-nav-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "dbdfb15303b37757a663ff34598a65d4fb2bc68f6ce4a9e8d40da850664efce8",
+      "sha256": "4f798360648dd37c6e501dda5a7ebe578cd00d4b8d53687c8de0d7912b77ef2d",
       "review": "2026-09-27: reviewed secured towing, warning priority, native boundaries and regenerated reference evidence; historical records preserved."
     },
     {
@@ -35585,7 +35599,7 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "908ecafed1dd96e51af0367f335aed71b53e1eacd60ee5a87260e2917d981f1a",
+      "sha256": "e88229a65bbe68f4d75ae94d9350f366e7b5fc78a196e91d8e773f9a636b5372",
       "review": "2026-09-27: towing instructions, unchanged native mechanics and scope limits reviewed; historical records preserved."
     },
     {
@@ -35915,7 +35929,7 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "1d047f9f2866dbd8543d2819023f9698c4d753164a18fb9e6a732eb527a7b8d3",
+      "sha256": "8305b8d16e475cedda481eaf66003f6e294c9ac1456018c23796bc85b5549074",
       "review": "2026-09-27: towing instructions, unchanged native mechanics and scope limits reviewed; historical records preserved."
     },
     {
@@ -36127,7 +36141,7 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "322933450cd26df4a4db32c2457ec671d18b51679d6cf9d90bac8b0fc5dadc5e",
+      "sha256": "fba1f302caa634b1aa8c99b0eb14495a5951ba0aa10ae8168414899744ec63a9",
       "review": "2026-09-27: towing instructions, unchanged native mechanics and scope limits reviewed; historical records preserved."
     },
     {
@@ -36147,7 +36161,7 @@
       "path": "workshop/PhobosAutoNav/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "36b953d6c6faa9f3607b9cf118a51a063d9046e07285f36767a057f7031559fd",
+      "sha256": "5cab1afb0137b9267ed4ca4fcaedcb8811baa400342b627a67f7ba759e7ceb4c",
       "review": "2026-09-27: towing instructions, unchanged native mechanics and scope limits reviewed; historical records preserved."
     },
     {
@@ -36175,7 +36189,7 @@
       "path": "docs/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "4ca4dc81f0d33dfd36412c47be72d8c271c47dca6db61e562bee0ad7fcbd87b2",
+      "sha256": "655d6b55b6989270e7f7daaad135159e049736638bc638761a2b2bfca9874961",
       "review": "2026-09-27: towing instructions, unchanged native mechanics and scope limits reviewed; historical records preserved."
     },
     {
@@ -36189,14 +36203,14 @@
       "path": "docs/auto-nav-combat.md",
       "scope": "current player instructions and explicit technical validation record",
       "decision": "review new Combat guide and preserve native evidence",
-      "sha256": "7c03997de578c7f5c91cda975cc432240f465c11fd5f6d18911606ff494031cf",
+      "sha256": "13b15c5731bdfd9500f869eca53af39865fe9642ea49f4a94a19dd8f8255cb1e",
       "review": "2026-09-27 Auto Nav 0.22.0: reviewed current Combat/docking instructions and regenerated references; historical evidence and behavioural limits preserved."
     },
     {
       "path": "docs/auto-nav-towing.md",
       "scope": "current player guide and native evidence",
       "decision": "reviewed",
-      "sha256": "4fed2571ce7c0039646e3d54acd74de7ed7516170f148c581725ee75da55864d",
+      "sha256": "e90e9c4384fd0faab9d19a950182bd2838ff113a95291654009cf411a0be1c06",
       "review": "2026-09-27: towing instructions, unchanged native mechanics and scope limits reviewed; historical records preserved."
     }
   ],
@@ -36204,7 +36218,7 @@
     {
       "path": "config/item-reference.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "4224fff4113a5b43de26c717349b4f9065aadd164934d60fcce936dd09fc07f1",
+      "sha256": "b0fa6ea217558c9df49ebe1130bb6bde3b48f4be42e9ee212f1f88e9eb40b612",
       "review": "2026-09-27: reviewed secured towing, warning priority, native boundaries and regenerated reference evidence; historical records preserved."
     },
     {
@@ -36241,7 +36255,7 @@
     {
       "path": "mods/PhobosAutoNav/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "3309a65585373d4c9926c8f8f04ddf38c88f810df24500031b05da778c58a01d",
+      "sha256": "bc51b28a1f1a13bec64799a63f2f93f62fea1f2eb860b523c0813fa420f03e06",
       "review": "2026-09-27: towing instructions, unchanged native mechanics and scope limits reviewed; historical records preserved."
     },
     {

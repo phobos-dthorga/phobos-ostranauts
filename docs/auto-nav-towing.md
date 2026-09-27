@@ -1,4 +1,4 @@
-# Auto Nav 0.22.1 towing repair
+# Auto Nav secured towing
 
 The owner reported blocked navigation with the towing brace engaged, both with
 NAV WEAK and NAV OK. The latest relevant save was inspected read-only: Forgotten
@@ -20,9 +20,16 @@ updates, unsecured connections, missing peers, mooring, stationary/grounded
 attachments, chains and conflicting controls aboard the tow prevent guidance.
 The mod neither changes braces nor releases any connection.
 
-Release the tow before Dock or Approach & Dock, FCS/Combat or industrial close
-work. Those paths retain their single-ship attachment, firing and positioning
-requirements. This patch does not extend native port fitting to a combined hull.
+Auto Nav 0.22.2 also permits FCS and Combat with this secured pair. FCS controls
+only the piloted ship’s weapons. Select a different tracked ship as the fire
+target; an attached ship cannot be targeted. Take FCS control, select an aim
+reference and use Auto Aim or Enter Combat as usual. Engage remains a separate
+permission to fire. Cease Fire stops aiming and firing; Combat keeps matching
+range. A brace fault cancels aiming and firing, with no automatic restart when
+security returns. Reload restores Hold, never combat movement or firing.
+
+Release the tow before Dock or Approach & Dock, or industrial close work.
+Those paths retain their single-ship attachment and positioning requirements. This patch does not extend native port fitting to a combined hull.
 Sensor contact requirements remain unchanged; NAV OK cannot override an unsafe
 connection. Navigation warnings now take precedence over idle FCS faults.
 
@@ -49,5 +56,15 @@ execute Unity's complete dock-group physics, heat, fuel or rendering.
 With the brace secured and the other ship's controls idle, select a tracked third
 ship/station and choose Approach. Check that the combined hull stops clear and
 that neither the brace nor ports change. Check RCS first, then permitted torch
-operation outside no-wake areas. Confirm an idle FCS fault no longer hides a
-navigation warning. Live handling remains unverified until owner feedback.
+operation outside no-wake areas. Against a separate target, check FCS Hold,
+Auto Aim and explicit Engage, then Cease Fire. In Combat, check that Cease Fire
+keeps range matching while Leave Combat stops movement. Reload must restore
+Hold without aiming or shots. Native arcs, ammunition and missile locks still
+apply; this is not a new friendly-fire or projectile-path protection system.
+Live handling remains unverified until owner feedback.
+
+The 0.22.2 service regression set checks N3-only FCS, native standalone aim stop,
+brace/security loss immediately before dispatch, no automatic re-arming,
+attached-target rejection after permission, Combat entry/exit and reload Hold.
+Native firing is doubled in that lifecycle suite; the separate production FCS
+controller suite verifies eligibility and dispatch. Neither is a live firing test.

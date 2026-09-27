@@ -123,7 +123,7 @@ internal sealed partial class NavigationService
         view.CanChangeGroup = view.CanSelectWeapons;
         view.CanReturnFire = validPreferences && view.FireHeld;
         view.CanEngage = (page == null || page == "fire") && view.CanSelectWeapons && boundFire && view.FireContact.Usable && FireHardwareProblem(co, read) == null &&
-            CoordinatedFlight(co) && freshFire && Fire.Weapons.Any(w => w.Eligible && w.Loaded);
+            !AttachedFireTarget(co, FireTarget) && CoordinatedFlight(co) && freshFire && Fire.Weapons.Any(w => w.Eligible && w.Loaded);
         view.CanAim = view.CanEngage && AimProblem(co) == null;
         view.Ownership = Text.Get("FCS.state." + (boundFire ? Fire.State : view.FireHeld ? FireState.Hold : FireState.Native));
         view.FireReason = !view.WorkingFire ? Text.Get("FCS.module_required") : Text.Get("FCS.readiness", boundFire ? Text.Get(Fire.Reason) : view.Ownership,

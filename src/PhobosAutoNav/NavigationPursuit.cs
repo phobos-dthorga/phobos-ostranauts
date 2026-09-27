@@ -48,9 +48,11 @@ internal sealed partial class NavigationService
     {
         if (!IsLocalConsole(co) || (presentation != null ? presentation.FireModule : FireModule(co)) == null) return "FCS.module_required";
         if (co!.HasCond("IsOff") || !co.HasCond("IsPowered") || co.HasCond("IsDamaged") || co.HasCond("IsDamagedSoftware")) return "FCS.unpowered";
-        if (co.ship.bDestroyed || co.ship.objSS == null || co.ship.IsDocked() || co.ship.IsMoored()) return "FCS.unavailable";
-        return null;
+        if (co.ship.bDestroyed || co.ship.objSS == null || co.ship.IsMoored()) return "FCS.unavailable";
+        return TowFlight.Problem(co.ship);
     }
+    private static bool AttachedFireTarget(CondOwner co, TargetRef? target) =>
+        target != null && TowFlight.Contains(co.ship, CrewSim.system.GetShipByRegID(target.ShipId));
     private bool BindFire(CondOwner? co)
     {
         if (!Plugin.Enabled.Value || FireHardwareProblem(co) != null || !FirePreferences(co, out _, out _, out _) || Fire.OtherOwner(co!.strID))
@@ -63,6 +65,8 @@ internal sealed partial class NavigationService
         if (combatActive && co == console) Disengage(Text.Get("Combat.left"));
         if (!BindFire(co)) return;
         CeaseFire(); var selected = TargetRef.FromCrossHair();
+        if (AttachedFireTarget(co!, selected))
+        { fireTargetId = aimReference = null; Fire.Invalidate(); status = Text.Get("FCS.attached_target"); return; }
         fireTargetId = selected != null && selected.ShipId != co!.ship.strRegID && ReadContact(co, selected).Usable ? selected.ShipId : null;
         aimReference = null; Fire.Invalidate(); status = Text.Get(fireTargetId == null ? "Pursuit.select_fire_target" : "FCS.target_selected");
     }
@@ -82,6 +86,7 @@ internal sealed partial class NavigationService
     }
     private bool TakeFireControl(CondOwner? co)
     {
+        if (co != null && AttachedFireTarget(co, FireTarget)) { FireFault("FCS.attached_target"); return false; }
         if (!CoordinatedFlight(co) || !BindFire(co) ||
             !FirePreferences(co, out int group, out int volleys, out _) || !ReadContact(co, FireTarget).Usable)
         { status = Text.Get("FCS.contact"); return false; }
@@ -161,7 +166,8 @@ internal sealed partial class NavigationService
         if (clear && fireShip?.objSS != null)
         {
             issuing = true;
-            try { fireShip.Maneuver(0, 0, 0, 0, 0); }
+            // Native Maneuver ignores a zero timestep, even when clearing inputs.
+            try { fireShip.Maneuver(0, 0, 0, 0, 1E-10f); }
             catch (Exception ex) { log(ex.ToString()); }
             finally { issuing = false; }
         }
@@ -191,7 +197,10 @@ internal sealed partial class NavigationService
             if (!dispatch && fireConsole == null && FireModule(OpenConsole) != null) fireConsole = OpenConsole;
             if (fireConsole == null) return;
             var co = fireConsole; var ship = co.ship;
-            if (!Plugin.Enabled.Value || FireHardwareProblem(co) is { } || !FirePreferences(co, out int group, out _, out _)) { FireFault("FCS.unavailable"); return; }
+            var hardwareProblem = FireHardwareProblem(co);
+            if (!Plugin.Enabled.Value || hardwareProblem != null || !FirePreferences(co, out int group, out _, out _))
+            { FireFault(hardwareProblem ?? "FCS.unavailable"); return; }
+            if (AttachedFireTarget(co, FireTarget)) { FireFault("FCS.attached_target"); return; }
             if (!ArrivalBrake.Finite(dt) || dt <= 0 || dt > FireRules.MaximumStep) { FireFault("FCS.step"); return; }
             if ((Fire.Permitted || autoAim) && (ship != fireShip || fireModule == null || FireModule(co) != fireModule || CrewSim.coPlayer != firePlayer ||
                 !ReadContact(co, FireTarget).Usable)) { FireFault("FCS.binding"); return; }
