@@ -4,8 +4,8 @@
 compares one/four/eight-rack endurance and recommends an optional 120 kg R3
 agricultural water reserve plus 500 g nutrient charges. The
 [Framework/Agriculture blueprint](agriculture-bulk-storage-design.md) and
-[artwork audit](agriculture-bulk-storage-art.md) are planning records, not shipped
-equipment. Prepared-feed/return tanks and named reagent chemistry remain deferred.
+[artwork audit](agriculture-bulk-storage-art.md) remain design history; the [R3 slice](agriculture-bulk-storage.md) is now implemented
+in Agriculture 0.14.0. Prepared-feed/return tanks and named reagent chemistry remain deferred.
 
 Agriculture 0.7.0 adds [lettuce seed production](agriculture-seed-production.md) and
 [maintenance/treatment economics](agriculture-treatment-economy.md). Existing food

@@ -27,7 +27,7 @@ public sealed class Panel : GUIData
     private float nextRefresh;
     internal static bool Show(CondOwner co)
     {
-        if (!(Definitions.Machine(co) || RecyclerCapture.IsRecycler(co)) || Service.Access(co) != null || CrewSim.goIntUIPanel == null || CrewSim.bUILock ||
+        if (!(Definitions.Machine(co) || BulkDefinitions.IsTank(co) || RecyclerCapture.IsRecycler(co)) || Service.Access(co) != null || CrewSim.goIntUIPanel == null || CrewSim.bUILock ||
             CrewSim.objInstance.coConnectMode != null || GUIInventory.instance?.Selected != null ||
             CanvasManager.instance.State == CanvasManager.GUIState.SOCIAL || CanvasManager.instance.State == CanvasManager.GUIState.GAMEOVER) return false;
         CrewSim.LowerUI(); if (CrewSim.goUI != null) return false;
@@ -49,7 +49,7 @@ public sealed class Panel : GUIData
         shell.EmergencyStop=()=>Execute(co,RecyclerCapture.IsRecycler(co)?"capture-pause":"pause");
         foreach(var page in new[]{"operation","supplies","details"})
         {var name=page;C.Button(shell.Navigation,C.Text(name),()=>shell.Navigate(()=>{tab=name;Page(co);}));}
-        if(Definitions.Machine(co))C.Button(shell.Navigation,C.Text("crew_settings"),()=>shell.Navigate(()=>Phobos.Ostranauts.Framework.Crew.CrewPanel.Show(co)));
+        if(Definitions.Machine(co)||BulkDefinitions.IsTank(co))C.Button(shell.Navigation,C.Text("crew_settings"),()=>shell.Navigate(()=>Phobos.Ostranauts.Framework.Crew.CrewPanel.Show(co)));
         C.Button(shell.Navigation,C.Text("close"),shell.Close);
         ObjectPresentation.Picture(shell.List,co,120);C.Label(shell.List,ObjectPresentation.Location(co));
         live=C.Label(shell.List,"");
@@ -65,6 +65,7 @@ public sealed class Panel : GUIData
         if(portrait!=null)portrait.transform.SetParent(shell.List,false);
         W.Clear(shell.Detail);W.Clear(shell.Actions);shell.Page(true);readout=C.Label(shell.Detail,"");
         bool recycler=RecyclerCapture.IsRecycler(co);
+        if(BulkDefinitions.IsTank(co)){BulkPage(co);Refresh(co);return;}
         if(tab=="details") {C.Label(shell.Detail,Text.Get("panel_help"));C.Label(shell.Detail,co.strCODef+"\n"+co.strID);}
         else if(tab=="supplies")
         {
@@ -77,6 +78,8 @@ public sealed class Panel : GUIData
                     ()=>ObjectPicker.Locate(shell,Service.Resolve(peers.FirstOrDefault()??"")),()=>Setting(co,"unlink-water"),Service.Resolve(peers.FirstOrDefault()??"")!=null,peers.Length>0);
                 if(IrrigationDefinitions.IsSupply(co))
                 {
+                    BulkField(co);
+                    C.Button(shell.Detail,Text.Get("bulk_target"),()=>ConfigurationSheet.Choices(shell,Text.Get("bulk_target"),"",PanelConfiguration.Stamp(co),new[]{5d,10d,15d,19.5}.Select(n=>("bulk-target:"+n.ToString(System.Globalization.CultureInfo.InvariantCulture),Text.Get("bulk_kg",n))),(string expected,string value,out string reason)=>PanelConfiguration.Apply(co,expected,value,out reason)));
                     C.Field(shell.Detail,C.Text("charge"),ObjectPresentation.Name(Service.Get(co).DoseId),()=>Connection(co,"charge"),
                         ()=>ObjectPicker.Locate(shell,Service.Resolve(Service.Get(co).DoseId)),()=>Setting(co,"dose-off"),Service.Resolve(Service.Get(co).DoseId)!=null,Service.Get(co).DoseId!="none");
                     foreach(var action in new[]{"mix-potato","mix-lettuce","mix-lettuce-seed","water-only"})AddButton(shell.Detail,co,action,true);
@@ -100,6 +103,19 @@ public sealed class Panel : GUIData
         C.Button(shell.Actions,C.Text("stop"),()=>Execute(co,recycler?"capture-pause":"pause"));
         C.Button(shell.Actions,C.Text("details"),()=>{tab="details";Page(co);});C.Button(shell.Actions,C.Text("close"),shell.Close);Refresh(co);
     }
+    private void BulkField(CondOwner co) => C.Field(shell.Detail,Text.Get("bulk_connection"),ObjectPresentation.Name(BulkService.Peer(co)),()=>ConfigurationSheet.Objects(shell,Text.Get("bulk_connection"),BulkService.Peer(co),PanelConfiguration.Stamp(co),()=>BulkService.Candidates(co),(string expected,string value,out string reason)=>PanelConfiguration.Apply(co,expected,"bulk-link:"+value,out reason)),()=>ObjectPicker.Locate(shell,Service.Resolve(BulkService.Peer(co))),()=>Setting(co,"bulk-link:none"),Service.Resolve(BulkService.Peer(co))!=null,BulkService.HasLink(co));
+    private void BulkPage(CondOwner co)
+    {
+        if(tab=="details")C.Label(shell.Detail,Text.Get("bulk_tank_desc")+"\n"+co.strCODef+"\n"+co.strID);
+        else if(tab=="supplies")
+        {
+            BulkField(co);
+            if(!BulkService.Protected(co))ConfigurationSheetButton(co);
+        }
+        else foreach(var action in BulkDefinitions.Work)AddButton(shell.Detail,co,action);
+        C.Button(shell.Actions,C.Text("stop"),()=>Execute(co,"pause"));C.Button(shell.Actions,C.Text("close"),shell.Close);
+    }
+    private void ConfigurationSheetButton(CondOwner co)=>C.Button(shell.Detail,Text.Get("bulk_reserve"),()=>ConfigurationSheet.Choices(shell,Text.Get("bulk_reserve"),"bulk-reserve:"+BulkService.Read(co).ReserveKg.ToString(System.Globalization.CultureInfo.InvariantCulture),PanelConfiguration.Stamp(co),new[]{0,5,10,20,40,80,120}.Select(n=>("bulk-reserve:"+n,Text.Get("bulk_kg",n))),(string expected,string value,out string reason)=>PanelConfiguration.Apply(co,expected,value,out reason)));
     private void Connection(CondOwner co,string kind)
     {
         string current=kind=="collector"?PanelConfiguration.Collector(co):kind=="charge"?Service.Get(co).DoseId:PanelConfiguration.WaterPeers(co).FirstOrDefault()??"none";
@@ -114,11 +130,11 @@ public sealed class Panel : GUIData
     private void Execute(CondOwner co, string action)
     {
         bool recycler = RecyclerCapture.IsRecycler(co);
-        bool success = recycler ? RecyclerCapture.Command(co, action, out result) : Service.Command(co, null, action, out result);
+        bool success = recycler ? RecyclerCapture.Command(co, action, out result) : BulkDefinitions.IsTank(co)?BulkService.Command(co,null,action,out result):Service.Command(co, null, action, out result);
         // Services also serve console callers. Their successful status response is
         // already rendered live here; preserve distinct notices (e.g. queued work).
         result = Phobos.Ostranauts.Framework.Controls.PanelFeedback.Additional(success, result,
-            recycler ? RecyclerCapture.Describe(co) : Service.Describe(co));
+            recycler ? RecyclerCapture.Describe(co) : BulkDefinitions.IsTank(co)?BulkService.Describe(co):Service.Describe(co));
         shell.Notice.text=result;
         Refresh(co);
     }
@@ -136,6 +152,7 @@ public sealed class Panel : GUIData
             var parent=shell.IsNarrow?shell.Detail:shell.List;
             if(portrait.transform.parent!=parent){portrait.transform.SetParent(parent,false);if(shell.IsNarrow)portrait.transform.SetAsFirstSibling();}
         }
+        if(BulkDefinitions.IsTank(co)){live.text=Text.Get("bulk_tank");readout.text=BulkService.Describe(co);return;}
         if(RecyclerCapture.IsRecycler(co)){readout.text=RecyclerCapture.Describe(co);live.text=C.Text("collector");return;}
         var session=Service.Get(co);var b=session.State;
         string state=C.Text(session.Protected?"state_Blocked":b.Running?"state_Running":"state_Stopped");

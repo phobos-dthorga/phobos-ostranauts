@@ -10,10 +10,10 @@ is still pending.
 | Phobos Shipbreaker | APPS | D4 dismantling fixture, exterior grabber, intake chute, floor/hull collector, R4 scrap reclaimer and F6 furnace |
 | Phobos Shipbreaker | HVAC | F6-R exterior radiator, F6-P underside cooling head and F6-C coolant conduit |
 | Phobos Shipbreaker | CTRL | C1 industrial control console |
-| Phobos Agriculture | APPS | Firstlight-4 cultivation rack, Hearth-2 portion cooker and Groundwork W2 supply |
+| Phobos Agriculture | APPS | Firstlight-4 cultivation rack, Hearth-2 portion cooker, Groundwork W2 supply, B2 workup bench and R3 reservoir |
 | Phobos Agriculture | MISC | Irrigation conduit |
 
-This covers 14 equipment families and 28 intact/damaged placement entries.
+The native coverage checks include every implemented intact/damaged placement family. R3 has no fabrication recipe: buy the loose hardware before installation.
 Installation consumes the existing loose equipment and uses its existing work,
 placement and access requirements. Obtain or construct the equipment first;
 selecting a catalogue entry does not create a free machine or replace the

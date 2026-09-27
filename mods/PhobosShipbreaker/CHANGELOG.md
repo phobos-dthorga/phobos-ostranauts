@@ -19,6 +19,14 @@ Dates on Draft entries record preparation, not Steam publication.
 - Earlier capture-only research is superseded for supported ordinary walls by the implementation below. Broader structural recipes, repeated furnace batches and whole-wreck completion remain outside this round.
 - Keep [NASA Goddard's Raven research](https://www.nasa.gov/general/nasas-hybrid-computer-enables-ravens-autonomous-rendezvous-capability/) and [ESA's LIRIS experiment by Airbus, Jena Optronik and Sodern](https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/ATV/ATV_views_Space_Station_as_never_before) as sensing context, separate from Blue Bottle Games native evidence and authored gameplay choices. No institutional endorsement or gameplay validation is implied.
 
+## [0.27.0] - 2026-09-27 - Draft
+
+### Shared provider configuration
+
+- Render optional Framework provider fields as compact checked selectors in C1, including Agriculture R3/W2 connections and reserve/target choices. Local/C1 authority and configuration suspension remain checked by the owning content mod.
+- Require Framework 0.27.0. Existing industrial recipes, material identities, thermal accounting and Auto Nav authority are unchanged. Offline regression checks are not owner Unity validation.
+
+
 ## [0.26.1] - 2026-09-27 - Draft
 
 ### Panel corrections

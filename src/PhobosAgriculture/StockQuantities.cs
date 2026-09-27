@@ -8,6 +8,8 @@ internal static class StockQuantities
     internal const int Machines = 8, Pipes = 128, Supplies = 64;
     internal static int For(string item)
     {
+        if(item.StartsWith(BulkDefinitions.Tank,StringComparison.Ordinal))return BulkDefinitions.TankStock;
+        if(item==BulkDefinitions.Nutrients)return BulkDefinitions.NutrientStock;
         if (item.StartsWith(IrrigationDefinitions.Pipe, StringComparison.Ordinal)) return Pipes;
         if (item.EndsWith("Loose", StringComparison.Ordinal) || item.EndsWith("LooseDmg", StringComparison.Ordinal)) return Machines;
         return Supplies;

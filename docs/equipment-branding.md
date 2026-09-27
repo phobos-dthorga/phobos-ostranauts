@@ -1,5 +1,7 @@
 # Equipment brands and models
 
+R3 bulk-storage follow-up: **Phobos' Verdemorrow Groundwork R3 Agricultural Water Reservoir** and **Phobos' Verdemorrow Groundwork Bulk Nutrient Charge**. Both are registered Agriculture content; the charge has no artificial machine model. See the [bulk guide](agriculture-bulk-storage.md).
+
 Owner memorandum enacted in Framework 0.12.0, Shipbreaker 0.10.1 and Auto Nav
 0.8.1. Every full equipment name starts with **Phobos'**, including the apostrophe.
 These are original project brands, not existing game manufacturers.

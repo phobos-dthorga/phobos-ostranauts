@@ -9,9 +9,10 @@ note does not change current Shipbreaker recipes or the priority of existing wor
 [implementation blueprint](agriculture-bulk-storage-design.md) and
 [native-style artwork audit](agriculture-bulk-storage-art.md) now recommend an
 optional R3 water reservoir, larger nutrient charges and a separate station bulk
-supplies view. These remain proposals. The new study audits current Framework
-transfer/mixture services and W2/B2 rather than treating the older API inventory
-below as current. No new chemicals, machinery or station services are installed.
+supplies view. The subsequent [R3 implementation](agriculture-bulk-storage.md)
+now prepares that narrow water/stock slice with Framework 0.27.0. Named chemical
+reagents, prepared-feed/return tanks, reactive mixing and atmospheric hazards
+remain research. The old API inventory below is a dated baseline.
 
 **25 September follow-up:** [shared fluid conduits and irrigation research](fluid-conduits-and-irrigation-research.md)
 examines Agriculture's plant sustenance as the first physical pipe consumer,

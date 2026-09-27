@@ -13,13 +13,13 @@ using Phobos.Ostranauts.Framework.Construction;
 namespace PhobosAgriculture;
 
 [BepInPlugin(Id, "Phobos Agriculture", Version)]
-[BepInDependency(FrameworkInfo.PluginId, "0.26.1")]
+[BepInDependency(FrameworkInfo.PluginId, "0.27.0")]
 [BepInDependency("com.ostranauts.shipswater", BepInDependency.DependencyFlags.SoftDependency)]
 [BepInDependency("phobosgekko.ostranauts.shipbreaker", BepInDependency.DependencyFlags.SoftDependency)]
 [BepInProcess("Ostranauts.exe")]
 public sealed class Plugin : BaseUnityPlugin
 {
-    public const string Id = "phobosgekko.ostranauts.agriculture", Version = "0.13.1";
+    public const string Id = "phobosgekko.ostranauts.agriculture", Version = "0.14.0";
     internal static Action<string> Log = _ => { };
     internal static ConfigEntry<double> Pace = null!, ReserveLitres = null!;
     internal static ConfigEntry<bool> LootEnabled = null!;
@@ -38,14 +38,15 @@ public sealed class Plugin : BaseUnityPlugin
         RecyclerCapture.Available = BepInEx.Bootstrap.Chainloader.PluginInfos.TryGetValue("phobosgekko.ostranauts.shipbreaker", out var shipbreaker) && shipbreaker.Metadata.Version >= new Version(0,20,0) && Phobos.Ostranauts.Framework.Liquids.ShipsWaterRejects.Install(harmony, RecyclerCapture.Instance);
         FrameworkLifecycle.ContentLoading += Load; FrameworkLifecycle.ContentLoaded += Confirm;
         EquipmentProviders.Register(new Provider());
+        Phobos.Ostranauts.Framework.Trading.BulkSupplies.Register(new AgricultureBulkSupplies());
         Phobos.Ostranauts.Framework.Crew.CrewWork.Register(new AgricultureCrewProvider());
         Phobos.Ostranauts.Framework.Crew.CrewSpecialities.Register(new("Agriculture", Text.Get("crew_skill_agriculture"), Id, Phobos.Ostranauts.Framework.Crew.CrewRole.Agriculture));
         Phobos.Ostranauts.Framework.Crew.CrewSpecialities.Register(new("Cooking", Text.Get("crew_skill_cooking"), Id, Phobos.Ostranauts.Framework.Crew.CrewRole.Cooking));
     }
     private static void Load() { Service.Reset(); RecyclerCapture.Reset(); try { Definitions.Load(); } catch (Exception e) { Definitions.Ready = false; Log(e.ToString()); } }
     private static void Confirm() => Definitions.Ready = ConstructionRegistry.Ready(Id);
-    private void Update() { if (UnityEngine.Time.unscaledTime >= nextScan) { nextScan = UnityEngine.Time.unscaledTime + 2; Service.PassiveScan(); } }
-    private void OnDestroy() { Phobos.Ostranauts.Framework.Inventory.CollectorCargo.Unregister(Id); Phobos.Ostranauts.Framework.Liquids.ShipsWaterRejects.Forget(RecyclerCapture.Instance); FrameworkLifecycle.ContentLoading -= Load; FrameworkLifecycle.ContentLoaded -= Confirm; EquipmentProviders.Unregister(Id); harmony?.UnpatchSelf(); Service.Reset(); }
+    private void Update() { if (UnityEngine.Time.unscaledTime >= nextScan) { nextScan = UnityEngine.Time.unscaledTime + 2; Service.PassiveScan(); if(CrewSim.objInstance?.FinishedLoading==true)BulkDestroy.Loading=false; } }
+    private void OnDestroy() { Phobos.Ostranauts.Framework.Inventory.CollectorCargo.Unregister(Id); Phobos.Ostranauts.Framework.Liquids.ShipsWaterRejects.Forget(RecyclerCapture.Instance); FrameworkLifecycle.ContentLoading -= Load; FrameworkLifecycle.ContentLoaded -= Confirm; EquipmentProviders.Unregister(Id); Phobos.Ostranauts.Framework.Trading.BulkSupplies.Unregister(Id); harmony?.UnpatchSelf(); Service.Reset(); }
 }
 
 [HarmonyPatch(typeof(Powered), "Run")]
@@ -113,24 +114,32 @@ internal static class ReloadPatch
     private static void Prefix() { Service.Reset(); RecyclerCapture.Reset(); }
 }
 
-internal sealed class Provider : IEquipmentProvider, IEquipmentPanelPresentation
+internal sealed class Provider : IEquipmentProvider, IEquipmentPanelFields
 {
-    public bool IsConfiguration(string action)=>action.StartsWith("mix-",StringComparison.Ordinal)||action.StartsWith("dose-",StringComparison.Ordinal)||action=="water-only"||action=="water-routed"||action=="water-legacy"||action=="unlink-water";
+    public IEnumerable<EquipmentField> Fields(CondOwner co)
+    {
+        if(!BulkDefinitions.IsTank(co)&&!IrrigationDefinitions.IsSupply(co))yield break;
+        yield return new(Text.Get("bulk_connection"),ObjectPresentation.Name(BulkService.Peer(co)),BulkService.Candidates(co).Select(c=>("bulk-link:"+c.strID,ObjectPresentation.Name(c))).Concat(new[]{("bulk-link:none",Text.Get("bulk-link:none"))}));
+        if(BulkDefinitions.IsTank(co)&&!BulkService.Protected(co))yield return new(Text.Get("bulk_reserve"),Text.Get("bulk_kg",BulkService.Read(co).ReserveKg),new[]{0,5,10,20,40,80,120}.Select(n=>("bulk-reserve:"+n,Text.Get("bulk_kg",n))));
+        if(IrrigationDefinitions.IsSupply(co))yield return new(Text.Get("bulk_target"),BulkService.TryTarget(co,out double target)?Text.Get("bulk_kg",target):Text.Get("protected"),new[]{5d,10d,15d,19.5}.Select(n=>("bulk-target:"+n.ToString(System.Globalization.CultureInfo.InvariantCulture),Text.Get("bulk_kg",n))));
+    }
+    public bool IsConfiguration(string action)=>action.StartsWith("mix-",StringComparison.Ordinal)||action.StartsWith("dose-",StringComparison.Ordinal)||action=="water-only"||action=="water-routed"||action=="water-legacy"||action=="unlink-water"||action.StartsWith("bulk-link:",StringComparison.Ordinal)||action.StartsWith("bulk-reserve:",StringComparison.Ordinal)||action.StartsWith("bulk-target:",StringComparison.Ordinal);
     public string ConfigurationStamp(CondOwner co)=>PanelConfiguration.Stamp(co);
     public bool ApplyConfiguration(CondOwner co,ConsoleBinding? binding,string expected,string action,out string reason)
     {
         reason=Phobos.Ostranauts.Framework.Controls.ConsoleWidgets.Text("stale");if(co.bDestroyed||expected!=PanelConfiguration.Stamp(co)||!IsConfiguration(action))return false;
-        bool saved=Service.Command(co,binding,action,out reason);if(saved)Phobos.Ostranauts.Framework.Controls.ConfigurationStamp.SuspendChangedOrder(co);return saved;
+        bool saved=Command(co,binding,action,out reason);if(saved)Phobos.Ostranauts.Framework.Controls.ConfigurationStamp.SuspendChangedOrder(co);return saved;
     }
     public string Id => Plugin.Id;
-    public IReadOnlyList<string> Definitions { get; } = Array.AsReadOnly(new[] { PhobosAgriculture.Definitions.Rack + "Installed", PhobosAgriculture.Definitions.Cooker + "Installed", IrrigationDefinitions.Supply + "Installed", WorkupDefinitions.Bench + "Installed" });
+    public IReadOnlyList<string> Definitions { get; } = Array.AsReadOnly(new[] { PhobosAgriculture.Definitions.Rack + "Installed", PhobosAgriculture.Definitions.Cooker + "Installed", IrrigationDefinitions.Supply + "Installed", WorkupDefinitions.Bench + "Installed", BulkDefinitions.Tank + "Installed", BulkDefinitions.Tank + "InstalledDmg" });
     public EquipmentSnapshot Snapshot(CondOwner co)
     {
+        if(BulkDefinitions.IsTank(co))return new EquipmentSnapshot(co.strID,co.strNameFriendly,"agriculture",new EquipmentActivity(BulkService.Protected(co)||co.HasCond("IsDamaged")||co.HasCond("IsLocked")||BulkService.Read(co).CatchKg>0?EquipmentState.Blocked:EquipmentState.Ready,BulkService.Describe(co)),new[]{new EquipmentAction("pause",Text.Get("pause"))});
         var s = Service.Get(co); var b = s.State;
         return new EquipmentSnapshot(co.strID, co.strNameFriendly, "agriculture", new EquipmentActivity(s.Protected || b.Health < .5 ? EquipmentState.Blocked : b.Ready ? EquipmentState.Ready : b.Running ? EquipmentState.Running : EquipmentState.Paused, Service.Describe(co)),
             Service.Actions(co).Select(a => new EquipmentAction(a, Text.Get(a))));
     }
-    public bool Command(CondOwner co, ConsoleBinding? binding, string action, out string message) => Service.Command(co, binding, action, out message);
+    public bool Command(CondOwner co, ConsoleBinding? binding, string action, out string message) => BulkDefinitions.IsTank(co)?BulkService.Command(co,binding,action,out message):Service.Command(co, binding, action, out message);
 }
 
 [HarmonyPatch(typeof(Interaction), "TriggeredInternal")]
@@ -139,13 +148,14 @@ internal static class ContentsEligibilityPatch
     internal static bool Blocked(Interaction action, CondOwner? us, CondOwner? them)
     {
         var co = action.strName.StartsWith("MS", StringComparison.Ordinal) ? us : them;
-        bool supply = new[] { Definitions.Nutrient, WorkupDefinitions.Makeup, WorkupDefinitions.Mixture, WorkupDefinitions.Concentrate, Service.RecoveryCartridge }.Contains(co?.strCODef);
+        bool supply = new[] { Definitions.Nutrient, BulkDefinitions.Nutrients, WorkupDefinitions.Makeup, WorkupDefinitions.Mixture, WorkupDefinitions.Concentrate, Service.RecoveryCartridge }.Contains(co?.strCODef);
         if (supply && (action.strName.Contains("Repair") || action.strName.Contains("Restore") || action.strName.Contains("Undamage"))) return true;
+        if(BulkDefinitions.IsTank(co) && (action.strName.Contains("Dismantle")||action.strName.Contains("Uninstall")))return BulkService.Protected(co!)||BulkService.Read(co!).TotalKg>1e-8||BulkService.HasLink(co!);
         return Definitions.Machine(co) && (action.strName.Contains("Dismantle") || action.strName.Contains("Uninstall")) &&
             (Service.Get(co!).Protected || Service.WaterGuard(co!).Protected || Service.Get(co!).State.ContentsMass + Service.Get(co!).Solution.TotalKg + Service.Get(co!).Line.TotalKg > 1e-8 || Service.Get(co!).State.CookerProgress > 0 || Service.Get(co!).Workup.Mode.Length > 0);
     }
     private static void Postfix(Interaction __instance, CondOwner objUs, CondOwner objThem, ref bool __result)
-    { if (__result && Blocked(__instance, objUs, objThem)) { __result = false; __instance.AddFailReason("main", Text.Get(Definitions.Machine(objUs) || Definitions.Machine(objThem) ? "unload_first" : "consumable_no_repair")); } }
+    { if (__result && Blocked(__instance, objUs, objThem)) { __result = false; __instance.AddFailReason("main", Text.Get(Definitions.Machine(objUs) || Definitions.Machine(objThem) || BulkDefinitions.IsTank(objUs) || BulkDefinitions.IsTank(objThem) ? "unload_first" : "consumable_no_repair")); } }
 }
 [HarmonyPatch(typeof(Interaction), nameof(Interaction.ApplyEffects))]
 internal static class ContentsCompletionPatch

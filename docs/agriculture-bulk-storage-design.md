@@ -1,5 +1,7 @@
 # R3 first-slice implementation blueprint
 
+**Implementation follow-up:** Agriculture 0.14.0 / Framework 0.27.0 now provide the [first R3 slice](agriculture-bulk-storage.md). The dated proposal/audit below remains the pre-implementation record. Actual API boundaries and conservative destruction fallback are documented in the current guide; [original production masters and exports](../assets/phobos-agriculture/bulk/README.md) are now retained. No owner Unity validation is claimed.
+
 27 September 2026. **Proposed, not implemented.** Read the
 [findings and calculations](agriculture-bulk-storage-research.md) and
 [artwork brief](agriculture-bulk-storage-art.md) first. This document chooses the

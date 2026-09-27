@@ -122,7 +122,7 @@ internal static partial class Service
     {
         if (!NativeFluidRoute.EndpointReady(s.Object) || s.Protected || WaterGuard(s.Object).Protected) return 0;
         if(s.RecoveryInput.Length>0) return s.State.Running?DrainageRecovery.PowerKW:0;
-        if (s.State.Receiving && ShipsWaterSupply.Available && ProviderHeadroom(s) > NutrientSolution.Tolerance) return IrrigationDefinitions.PumpKW;
+        if (s.State.Receiving && (BulkService.HasSelection(s.Object)?BulkService.Intake(s.Object,new Reservoir(s),1,false)>NutrientSolution.Tolerance:ShipsWaterSupply.Available && ProviderHeadroom(s) > NutrientSolution.Tolerance)) return IrrigationDefinitions.PumpKW;
         if (!s.State.Running) return 0;
         if (NutrientCharge.DoseAllowance(s.State,s.Solution,1) > NutrientSolution.Tolerance && DosingCharge(s) != null) return IrrigationDefinitions.PumpKW;
         if (s.Solution.BlendAllowance(s.State, 1) > NutrientSolution.Tolerance) return IrrigationDefinitions.PumpKW;
@@ -153,7 +153,10 @@ internal static partial class Service
             }
         }
         if (s.State.Receiving && budget > NutrientSolution.Tolerance)
-            ShipsWaterSupply.Refill(s.Object.ship, new Reservoir(s), Math.Min(budget, ProviderHeadroom(s)), Plugin.ReserveLitres.Value, WaterGuard(s.Object));
+        {
+            if(BulkService.HasSelection(s.Object))BulkService.Intake(s.Object,new Reservoir(s),budget,true);
+            else ShipsWaterSupply.Refill(s.Object.ship, new Reservoir(s), Math.Min(budget, ProviderHeadroom(s)), Plugin.ReserveLitres.Value, WaterGuard(s.Object));
+        }
     }
     private static string DescribeWaterRoute(Session s)
     {
@@ -162,6 +165,12 @@ internal static partial class Service
         return Text.Get("water_route_status", Text.Get(s.Routed ? "water_routed_mode" : "water_legacy_mode"),
             link.State == PortLinkState.Linked ? link.PeerObjectId : Text.Get(link.State == PortLinkState.Invalid ? "protected" : "water_unlinked")) + "\n" + DescribeSolution(s) + "\n" + DescribeLine(s) + (s.RecoveryInput.Length>0?"\n"+Text.Get("recovery_status",s.RecoveryInput,s.RecoveryEnergy)+"\n"+DescribeCartridge(s):"");
     }
+    private static string DescribeBulkIntake(Session s)
+    {
+        if(!BulkService.HasSelection(s.Object))return "";
+        if(!BulkService.TryTarget(s.Object,out double target))return "\n"+Text.Get("protected");
+        return "\n"+Text.Get("bulk_intake",Phobos.Ostranauts.Framework.Controls.ObjectPresentation.Name(BulkService.Peer(s.Object)),target,Text.Get(BulkService.Intake(s.Object,new Reservoir(s),1,false)>1e-8?"bulk_intake_ready":"bulk_intake_wait"));
+    }
     private static string DescribeSupply(Session s)
     {
         var targets = Destinations(s, false).ToArray(); var target=targets.FirstOrDefault(); var route = target == null ? null : Route(s, target);
@@ -169,6 +178,6 @@ internal static partial class Service
             Text.Get(s.State.Receiving ? "receiving" : "manual"), targets.Length==0 ? Text.Get("water_unlinked") : string.Join(", ",targets.Select(t=>t.Object.strID)),
             route == null ? Text.Get("water_no_route") : Text.Get("water_route_length", route.Length),
             s.Protected || WaterGuard(s.Object).Protected ? Text.Get("protected") : s.Notice) + "\n" +
-            (StarSystem.fEpoch - s.LastPower <= 5 ? Text.Get("power_reading", s.DeliveredKW) : Text.Get("power_unknown")) + "\n" + DescribeDose(s) + "\n" + DescribeSolution(s) + "\n" + DescribeLine(s) + (s.RecoveryInput.Length>0?"\n"+Text.Get("recovery_status",s.RecoveryInput,s.RecoveryEnergy)+"\n"+DescribeCartridge(s):"");
+            (StarSystem.fEpoch - s.LastPower <= 5 ? Text.Get("power_reading", s.DeliveredKW) : Text.Get("power_unknown")) + DescribeBulkIntake(s) + "\n" + DescribeDose(s) + "\n" + DescribeSolution(s) + "\n" + DescribeLine(s) + (s.RecoveryInput.Length>0?"\n"+Text.Get("recovery_status",s.RecoveryInput,s.RecoveryEnergy)+"\n"+DescribeCartridge(s):"");
     }
 }

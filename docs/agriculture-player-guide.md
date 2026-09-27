@@ -1,8 +1,8 @@
 # Phobos Agriculture
 
-Future research: [bulk storage and station supplies](agriculture-bulk-storage-research.md)
-evaluates an R3 reservoir and larger nutrient charges. Neither is currently
-available in INSTALL or stores; existing W2/B2 instructions below remain current.
+Agriculture 0.14.0 adds the optional [R3 reservoir, 500 g nutrient charges and
+station Bulk supplies](agriculture-bulk-storage.md), requiring Framework 0.27.0.
+Existing W2/B2 workflows remain available; owner Unity evaluation is pending.
 
 The current console redesign uses compact views and checked drafts. See the
 [control-panel guide](control-panel-guide.md) for Apply/Discard, storage selection,

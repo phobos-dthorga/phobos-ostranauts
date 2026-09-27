@@ -27,10 +27,14 @@ internal static class AgricultureEconomyAudit
             "25 September 2026. Current Agriculture definitions plus installed Ostranauts 1.0.1.5, evaluated with Blue Bottle Games' native DataCO.GetBasePrice and trade triggers. Values are per object, in credits, before merchant/market adjustments. No game session or live quote was sampled; this report reflects the current authored economic balance.", "",
             "## Equipment and construction", "",
             "| Machine | Base | Pristine | Broken base | Worn broken | Raw construction inputs | Work minutes | Dismantle outputs |", "|---|---:|---:|---:|---:|---:|---:|---:|" };
-        foreach (string prefix in new[] { rack, cooker, PhobosAgriculture.IrrigationDefinitions.Supply, PhobosAgriculture.IrrigationDefinitions.Pipe, PhobosAgriculture.WorkupDefinitions.Bench })
+        foreach (string prefix in new[] { rack, cooker, PhobosAgriculture.IrrigationDefinitions.Supply, PhobosAgriculture.IrrigationDefinitions.Pipe, PhobosAgriculture.WorkupDefinitions.Bench, PhobosAgriculture.BulkDefinitions.Tank })
         {
             string id = prefix + "Loose";
-            var recipe = recipes.recipes.Single(r => r.outputs.Any(o => o.item == id));
+            var recipe = recipes.recipes.SingleOrDefault(r => r.outputs.Any(o => o.item == id));
+            if(recipe==null)
+            {
+                rows.Add($"| {Object(id).strNameFriendly} | {Money(Price(id))} | {Money(EquipmentValueAudit.Price(Object(id), pristine: true))} | {Money(Price(id+"Dmg"))} | {Money(EquipmentValueAudit.Price(Object(id+"Dmg"),.99))} | Purchase loose hardware; no fabrication | Not applicable | {Money(definitions.Installables[id+"Dismantle"].aLootCOs.Sum(Price))} |");continue;
+            }
             double ingredients = recipe.ingredients.Sum(i => Price(i.item) * i.count);
             double scrap = definitions.Installables[id + "Dismantle"].aLootCOs.Sum(Price);
             rows.Add($"| {Object(id).strNameFriendly} | {Money(Price(id))} | {Money(EquipmentValueAudit.Price(Object(id), pristine: true))} | {Money(Price(id + "Dmg"))} | {Money(EquipmentValueAudit.Price(Object(id + "Dmg"), .99))} | {Money(ingredients)} | {recipe.workSeconds / 60d:G} | {Money(scrap)} |");
@@ -40,7 +44,7 @@ internal static class AgricultureEconomyAudit
         }
         rows.Add(""); rows.AddRange(comparisons);
         rows.AddRange(new[] { "", "## Native service definitions", "", "| Target | Repair inputs | Repair outputs | Restore inputs | Dismantle outputs |", "|---|---|---|---|---|" });
-        foreach (string prefix in new[] { rack, cooker, PhobosAgriculture.IrrigationDefinitions.Supply, PhobosAgriculture.IrrigationDefinitions.Pipe, PhobosAgriculture.WorkupDefinitions.Bench })
+        foreach (string prefix in new[] { rack, cooker, PhobosAgriculture.IrrigationDefinitions.Supply, PhobosAgriculture.IrrigationDefinitions.Pipe, PhobosAgriculture.WorkupDefinitions.Bench, PhobosAgriculture.BulkDefinitions.Tank })
         {
             var repair = definitions.Installables[prefix + "LooseDmgRepair"];
             var restore = definitions.Installables[prefix + "LooseRestore"];

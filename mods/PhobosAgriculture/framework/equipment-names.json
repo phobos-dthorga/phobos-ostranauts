@@ -82,5 +82,13 @@
   "wet_rejects": {
     "brand": "Verdemorrow",
     "model": ""
+  },
+  "bulk_tank": {
+    "brand": "Verdemorrow",
+    "model": "Groundwork R3"
+  },
+  "bulk_nutrients": {
+    "brand": "Verdemorrow",
+    "model": "Groundwork"
   }
 }

@@ -193,7 +193,9 @@ internal static partial class Service
     }
     private static bool CheckedCommand(CondOwner co, ConsoleBinding? binding, string action, out string message)
     {
+        if(IrrigationDefinitions.IsSupply(co)&&action.StartsWith("bulk-target:",StringComparison.Ordinal))return BulkService.SetTarget(co,binding,action.Substring(12),out message);
         message = Access(co, binding) ?? ""; if (message.Length > 0) return false;
+        if(IrrigationDefinitions.IsSupply(co)&&action.StartsWith("bulk-link:",StringComparison.Ordinal))return BulkService.Link(co,action.Substring(10),binding,out message);
         if (action == "status") { message = Describe(co); return true; }
         var s = Get(co); if (s.Protected || WaterGuard(co).Protected || !Definitions.Ready) { message = Text.Get("protected"); return false; }
         if (!WorkupDefinitions.IsBench(co) && !IrrigationDefinitions.IsSupply(co) && (action == "watch" || action == "unwatch" || action == "cue-volume"))
@@ -252,7 +254,7 @@ internal static partial class Service
                 if (!Definitions.IsCooker(co)) { message = Text.Get("help"); return false; }
                 s.Watch.Cancel(); s.State.Running = false; s.State.CookerInput = ""; s.State.CookerProgress = 0; break;
             case "receive":
-                if (Definitions.IsCooker(co) || !s.Routed && !ShipsWaterSupply.Available) { message = Text.Get("no_provider"); return false; }
+                if (Definitions.IsCooker(co) || !s.Routed && !ShipsWaterSupply.Available && !(IrrigationDefinitions.IsSupply(co)&&BulkService.HasSelection(co))) { message = Text.Get("no_provider"); return false; }
                 s.State.Receiving = true; break;
             case "pause-receive": s.State.Receiving = false; break;
             default: message = Text.Get("help"); return false;

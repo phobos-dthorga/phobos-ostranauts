@@ -294,5 +294,22 @@
   "Console.pick_invalid": "No eligible object here. Choose a marked object or return to the candidate list.",
   "Console.hover_choice": "Click to choose: {0}",
   "Console.hover_overlap": "{1} overlapping candidates at {0} — click to choose from a list.",
-  "Console.pick_count": "{0} eligible objects · {1} visible. Drag with the right or middle button to pan; scroll to zoom."
+  "Console.pick_count": "{0} eligible objects · {1} visible. Drag with the right or middle button to pan; scroll to zoom.",
+  "Bulk.title": "Bulk supplies",
+  "Bulk.access": "Station access, docking or ship ownership changed. Return to the station terminal.",
+  "Bulk.choose": "Choose a commodity. Native fuel and potable-water services remain on the previous screen.",
+  "Bulk.destination": "Deliver to",
+  "Bulk.quantity": "Quantity steps ({0:G} {1} each)",
+  "Bulk.fill_available": "Quote a full destination",
+  "Bulk.no_capacity": "There is no room for another quantity step. Choose another destination.",
+  "Bulk.choose_destination": "Choose a destination and quantity.",
+  "Bulk.quote": "Deliver {0:G} {1}\nTotal: {2:F2} cr\nAvailable destination capacity: {3:G}",
+  "Bulk.buy": "Buy quoted quantity",
+  "Bulk.protected": "Purchase needs reconciliation. Saved custody/payment evidence is retained; automatic retry is blocked. Native services remain available.",
+  "Bulk.already_settled": "This quote has already been settled. Choose a new quantity to buy again.",
+  "Bulk.funds": "Insufficient funds. Nothing was delivered.",
+  "Bulk.reserved": "Another operation holds this destination or payer. Try again after it finishes.",
+  "Bulk.partial": "Delivered {0:G}; paid {1:F2} cr. The undelivered portion was refunded.",
+  "Bulk.done": "Delivered {0:G}; paid {1:F2} cr.",
+  "Bulk.ledger": "Bulk supplies: {0}, quantity {1:G}"
 }

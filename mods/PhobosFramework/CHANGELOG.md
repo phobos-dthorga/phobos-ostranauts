@@ -16,6 +16,16 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.27.0] - 2026-09-27 - Draft
+
+### Bulk custody and purchasing
+
+- Add validated commodity/catch/reserve storage and operation-owned endpoint reservations, without changing existing scalar/mixture transfer interfaces.
+- Add an independent station Bulk supplies view, exact quotes and measured payment/delivery settlement. Known partial receipts refund missing quantity; uncertain journals block retry and retain evidence. Native fuel and optional Ship’s Water services remain separate.
+- Add optional structured equipment selectors for checked C1 configuration drafts. No content-owned chemistry or resources move into UI callbacks.
+- Retain the Agriculture-first research and native Blue Bottle Games / Valtora attribution. Offline accounting/native checks are not Unity validation; no Steam publication.
+
+
 ## [0.26.1] - 2026-09-27 - Draft
 
 ### Panel corrections

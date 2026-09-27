@@ -689,7 +689,9 @@
             "PhobosVerdemorrowGroundworkW2BrokenHousingWaste",
             "PhobosVerdemorrowWaterConduitWaste",
             "PhobosVerdemorrowGroundworkB2HousingWaste",
-            "PhobosVerdemorrowGroundworkB2BrokenHousingWaste"
+            "PhobosVerdemorrowGroundworkB2BrokenHousingWaste",
+            "PhobosVerdemorrowGroundworkR3HousingWaste",
+            "PhobosVerdemorrowGroundworkR3BrokenHousingWaste"
           ],
           "function": "Terminal housing remainders from equipment dismantling. Several different masses share this display name.",
           "use": "Use the origin and mass below to identify the packet; keep or trade it as waste.",
@@ -706,7 +708,9 @@
             "PhobosVerdemorrowGroundworkW2BrokenHousingWaste": "W2: damaged dismantling",
             "PhobosVerdemorrowWaterConduitWaste": "Irrigation pipe: either state",
             "PhobosVerdemorrowGroundworkB2HousingWaste": "B2: intact dismantling",
-            "PhobosVerdemorrowGroundworkB2BrokenHousingWaste": "B2: damaged dismantling"
+            "PhobosVerdemorrowGroundworkB2BrokenHousingWaste": "B2: damaged dismantling",
+            "PhobosVerdemorrowGroundworkR3HousingWaste": "R3: intact dismantling",
+            "PhobosVerdemorrowGroundworkR3BrokenHousingWaste": "R3: damaged dismantling"
           }
         },
         {
@@ -807,6 +811,37 @@
           "find": "Opt-in attachment with Ship’s Water 0.16.1 and Shipbreaker 0.20.0.",
           "notes": "Maximum 13 kg per packet and 52 kg per collector. Uncharacterized water remainder; no B2 fertilizer recipe or industrial reclaimer route.",
           "guide": "agriculture-nutrient-production.md",
+          "internal": false,
+          "labels": {}
+        },
+        {
+          "key": "bulk-reservoir",
+          "title": "Groundwork R3 Agricultural Water Reservoir",
+          "ids": [
+            "PhobosVerdemorrowGroundworkR3Loose",
+            "PhobosVerdemorrowGroundworkR3LooseDmg",
+            "PhobosVerdemorrowGroundworkR3Installed",
+            "PhobosVerdemorrowGroundworkR3InstalledDmg"
+          ],
+          "function": "Passive 120 kg agricultural water buffer for one explicitly paired adjacent W2. Storage and catch share one capacity; adds no pump power.",
+          "use": "Install through APPS. Place W2 against the R3 right edge at matching rotation, leaving both front service approaches clear. Pause W2, Apply the reservoir connection, choose reserve/refill target, then explicitly enable W2 receiving and Resume. Fill through station Bulk supplies or put 5 kg irrigation charges in its inventory and Load. Routine crew loading is opt-in.",
+          "find": "Empty loose hardware at Agriculture supply/fixer/Halvorson and supported regional merchants; finite lots of four. No fabrication recipe.",
+          "notes": "Damage isolates the water in a finite catch. Repair does not recover or resume it: use Recover locally. Explicit lossy Drain creates recorded treatment feed, at most 20 kg per action. Filled, linked or uncertain storage cannot be uninstalled/dismantled. Whole-ship disposal remains native. Not a potable tank, feed-mixture tank or drainage receiver.",
+          "guide": "agriculture-bulk-storage.md",
+          "internal": false,
+          "labels": {}
+        },
+        {
+          "key": "bulk-nutrients",
+          "title": "Groundwork Bulk Nutrient Charge",
+          "ids": [
+            "PhobosVerdemorrowGroundworkBulkNutrients"
+          ],
+          "function": "One physical 500 g dry formulated nutrient charge for gradual selected W2 dosing.",
+          "use": "Put in the W2 inventory; pause, select its exact charge in Supplies, Apply and Resume. Explicitly choose the distribute-and-replace standing order to authorize crew replacement from the approved input store.",
+          "find": "Agriculture merchants in finite lots of eight, or one charge per independent station Bulk supplies purchase into a selected W2 inventory.",
+          "notes": "Same aggregate formulation value per kg as existing nutrients. Reuses nutrient packet artwork; localized name and measured mass distinguish it. No water carrier or new chemical assay. Remaining mass/value decrease; empty charges vanish. No Repair/Restore.",
+          "guide": "agriculture-bulk-storage.md",
           "internal": false,
           "labels": {}
         }

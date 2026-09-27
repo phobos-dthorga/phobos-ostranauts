@@ -25,6 +25,7 @@ PanelFeedbackChecks.Run(Check);
 LiquidDeliveryChecks.Run(Check);
 MixtureChecks.Run(Check);
 FluidNetworkChecks.Run(Check);
+BulkStorageChecks.Run(Check);
 CrewWorkChecks.Run(Check);
 
 // Consume the built public assembly, without compiling private copies of its code.

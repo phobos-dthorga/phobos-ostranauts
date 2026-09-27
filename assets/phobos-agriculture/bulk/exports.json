@@ -1,0 +1,126 @@
+[
+  {
+    "source": "assets/phobos-agriculture/bulk/source/reservoir-master.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "crop": [
+      141,
+      150,
+      1133,
+      1054
+    ],
+    "sourceSha256": "92da9b60353e6062bdc53e453e45009c10dc27da59280a00352a9c382817ddd0",
+    "form": "Reservoir",
+    "pivot": [
+      24,
+      24
+    ],
+    "origin": [
+      1,
+      2
+    ],
+    "composeSize": [
+      46,
+      44
+    ],
+    "exports": {
+      "Reservoir.png": "d21f0138d72e92d950f32a33b12a2740a6d9498c656391416b3b175cb0a935e5",
+      "ReservoirNormal.png": "cb501b3ccc8503f44f0508933b3132d2c8f1c18e441d35f2712c6c80a638b34a"
+    }
+  },
+  {
+    "source": "assets/phobos-agriculture/bulk/source/reservoir-master.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "crop": [
+      141,
+      150,
+      1133,
+      1054
+    ],
+    "sourceSha256": "92da9b60353e6062bdc53e453e45009c10dc27da59280a00352a9c382817ddd0",
+    "form": "ReservoirLoose",
+    "pivot": [
+      24,
+      24
+    ],
+    "origin": [
+      1,
+      2
+    ],
+    "composeSize": [
+      46,
+      44
+    ],
+    "exports": {
+      "ReservoirLoose.png": "d21f0138d72e92d950f32a33b12a2740a6d9498c656391416b3b175cb0a935e5",
+      "ReservoirLooseNormal.png": "cb501b3ccc8503f44f0508933b3132d2c8f1c18e441d35f2712c6c80a638b34a"
+    }
+  },
+  {
+    "source": "assets/phobos-agriculture/bulk/source/reservoir-damaged-master.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "crop": [
+      139,
+      151,
+      1135,
+      1056
+    ],
+    "sourceSha256": "31e0a9c74e71feb3736217a70ab904e160ce1285d79b0ad54853fbdee6620b4d",
+    "form": "ReservoirDamaged",
+    "pivot": [
+      24,
+      24
+    ],
+    "origin": [
+      1,
+      2
+    ],
+    "composeSize": [
+      46,
+      44
+    ],
+    "exports": {
+      "ReservoirDamaged.png": "69045c954660512d7b5534b558407c5193d12ab5bafa9602fc9c058b2401c72d",
+      "ReservoirDamagedNormal.png": "565d5571096c73aee2d35630a9ee026de07518532a4c8fd47c9888abfa56f56b"
+    }
+  },
+  {
+    "source": "assets/phobos-agriculture/bulk/source/reservoir-damaged-master.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "crop": [
+      139,
+      151,
+      1135,
+      1056
+    ],
+    "sourceSha256": "31e0a9c74e71feb3736217a70ab904e160ce1285d79b0ad54853fbdee6620b4d",
+    "form": "ReservoirLooseDamaged",
+    "pivot": [
+      24,
+      24
+    ],
+    "origin": [
+      1,
+      2
+    ],
+    "composeSize": [
+      46,
+      44
+    ],
+    "exports": {
+      "ReservoirLooseDamaged.png": "69045c954660512d7b5534b558407c5193d12ab5bafa9602fc9c058b2401c72d",
+      "ReservoirLooseDamagedNormal.png": "565d5571096c73aee2d35630a9ee026de07518532a4c8fd47c9888abfa56f56b"
+    }
+  }
+]

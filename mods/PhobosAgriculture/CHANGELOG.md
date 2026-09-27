@@ -19,6 +19,18 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Fixed unreachable INSTALL entries; Firstlight-4, Hearth-2 and W2 appear under APPS, and irrigation conduit under MISC, including damaged forms. Existing inputs, placement and saved IDs are preserved.
 
+## [0.14.0] - 2026-09-27 - Draft
+
+### Agricultural bulk supplies
+
+- Add the passive 3 x 3 Groundwork R3 reservoir: 120 kg agricultural water, 25 kg empty, one explicitly paired adjacent W2, finite catch and protected reserves. W2 retains one shared power/throughput budget and treatment still pauses distribution.
+- Add a physical 500 g Groundwork nutrient charge, gradual selected dosing and optional approved-store crew replacement. R3 crew orders refill from 5 kg irrigation charges; old orders retain their meaning.
+- Add station water purchasing at 10 cr/kg in quarter-kilogram steps and single nutrient-charge purchases, with exact destinations, fresh validation and protected settlement evidence. Native refuelling and Valtora’s Ship’s Water 0.16.1 controls remain independent.
+- Add original overhead R3 intact/damaged art and native-size exports; loose forms reuse the matching chassis and nutrients reuse existing original packet art. No native game images are distributed or submitted to generation.
+- Require Framework 0.27.0. R3 starts empty; saves retain contents/identity, W2 resumes explicitly. Filled or uncertain individual reservoirs block detach/destruction; whole-ship loss remains native. No chemical hazard simulation or automatic crash recovery is claimed.
+- Update item/INSTALL/economy/player references and retain attribution to Bruce Dunn/OSU, NASA porous-tube research and Jay Garland/Bionetics NASA TM-107557. Capacities, prices and simplified chemistry are authored gameplay choices. Owner Unity evaluation remains pending.
+
+
 ## [0.13.1] - 2026-09-27 - Draft
 
 ### Panel corrections

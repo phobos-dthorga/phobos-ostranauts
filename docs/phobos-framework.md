@@ -1,5 +1,7 @@
 # Phobos Framework: independent foundation
 
+Framework 0.27.0 adds [shared bulk storage and station transactions](framework-bulk-storage.md), first used by Agriculture R3. Content owns commodities and physical delivery; native refuelling remains separate.
+
 Framework 0.21.0 adds [shared quiet completion cues](shared-completion-cues.md):
 one native-effects player, volume/mute and transient watches across content mods.
 

@@ -12,6 +12,19 @@ public interface IEquipmentPanelPresentation
     bool ApplyConfiguration(CondOwner equipment,ConsoleBinding? scope,string expected,string action,out string reason);
 }
 
+/// <summary>Optional compact selectors. Choices and checked application stay content-owned.</summary>
+public interface IEquipmentPanelFields : IEquipmentPanelPresentation
+{
+    IEnumerable<EquipmentField> Fields(CondOwner equipment);
+}
+public sealed class EquipmentField
+{
+    public readonly string Label,Value;
+    public readonly IReadOnlyList<(string Id,string Label)> Choices;
+    public EquipmentField(string label,string value,IEnumerable<(string Id,string Label)> choices)
+    {Label=label;Value=value;Choices=Array.AsReadOnly(choices.ToArray());}
+}
+
 public sealed class EquipmentAction
 {
     public string Id { get; }

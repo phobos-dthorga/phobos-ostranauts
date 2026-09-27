@@ -8,6 +8,14 @@ namespace PhobosAgriculture;
 
 internal static partial class Service
 {
+    internal static bool CrewReplaceDose(CondOwner co,CondOwner actor)
+    {
+        if(Access(co,null,actor)!=null||!IrrigationDefinitions.IsSupply(co))return false;
+        var s=Get(co);if(s.Protected||!s.Solution.Enabled||DoseCandidates(s).Any(c=>c.strID==s.DoseId))return false;
+        var selected=DoseCandidates(s).OrderBy(c=>c.strID,StringComparer.Ordinal).FirstOrDefault();if(selected==null)return false;
+        // Explicit standing-order permission authorizes this replacement only.
+        s.State.Running=s.State.Receiving=false;s.DoseId=selected.strID;Save(s);return true;
+    }
     private static ObjectStateStore DosingStore(CondOwner co) => new(co.mapGUIPropMaps,"AgricultureDosing",Plugin.Id,1);
     private static ObjectStateStore WorkupStore(CondOwner co) => new(co.mapGUIPropMaps,"AgricultureWorkup",Plugin.Id,1);
     private static ObjectStateStore ResidueStore(CondOwner co) => new(co.mapGUIPropMaps,"AgricultureCropResidue",Plugin.Id,1);
@@ -42,7 +50,7 @@ internal static partial class Service
     private static NutrientCharge ReadCharge(CondOwner co)
     {
         var status=ChargeStore(co).Read(out var fields);
-        double initial=co.strCODef==Definitions.Nutrient?.04:co.strCODef==WorkupDefinitions.Makeup?NutrientRecovery.MakeupKg:0;
+        double initial=co.strCODef==BulkDefinitions.Nutrients?BulkDefinitions.NutrientKg:co.strCODef==Definitions.Nutrient?.04:co.strCODef==WorkupDefinitions.Makeup?NutrientRecovery.MakeupKg:0;
         if(status==SavedStateStatus.Missing && initial>0 && Math.Abs(co.GetTotalMass()-initial)<1e-8) return new(initial,initial);
         if(status!=SavedStateStatus.Ready) throw new ArgumentException("Unrecorded or protected nutrient charge.");
         return NutrientCharge.Read(fields,co.GetTotalMass());
@@ -116,7 +124,7 @@ internal static partial class Service
     {
         foreach(var co in s.Object.objContainer?.ContainedCOs ?? Enumerable.Empty<CondOwner>())
         {
-            if((co.strCODef!=Definitions.Nutrient && co.strCODef!=WorkupDefinitions.Mixture)||!IsInput(s.Object,co,co.strCODef,co.GetTotalMass()))continue;
+            if((co.strCODef!=Definitions.Nutrient && co.strCODef!=BulkDefinitions.Nutrients && co.strCODef!=WorkupDefinitions.Mixture)||!IsInput(s.Object,co,co.strCODef,co.GetTotalMass()))continue;
             bool valid=false;try {valid=ReadCharge(co).Remaining>1e-10;}catch(Exception error) when (error is ArgumentException || error is FormatException || error is System.Collections.Generic.KeyNotFoundException || error is OverflowException){}
             if(valid)yield return co;
         }

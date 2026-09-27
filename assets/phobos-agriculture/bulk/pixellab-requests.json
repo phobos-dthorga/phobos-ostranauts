@@ -1,0 +1,14 @@
+{
+  "date": "2026-09-27",
+  "purpose": "Rejected overhead sprite trials; no native image inputs",
+  "requests": [
+    {
+      "job": "aa03a37d-4942-4e3f-a270-aa2c7845fdc8",
+      "prompt": "One original utilitarian spacecraft agricultural water reservoir game sprite. STRICT ORTHOGRAPHIC OVERHEAD viewed exactly vertically down, circular pale grey sealed tank lid inside a low square charcoal steel frame. Broad readable pixel clusters, restrained off-white and cool grey shading, muted desaturated green service column along the RIGHT edge, a clearly visible small grey coupling projecting from right edge at centre. Tiny maintenance hatch on lower edge. Industrial retro spaceship pixel art, no perspective, no visible front elevation, no cast ground shadow, no text, no letters, no numbers, no gauges or imaginary glowing displays. 3 by 3 tile machine intended for 48x48 export. Single complete object centred on transparent 96x96 canvas with 4 pixel margins, square silhouette. Simple low detail, not photoreal, not glossy, not cute. Original fictional Verdemorrow equipment; no real logos."
+    },
+    {
+      "job": "092b32b1-8ffb-4064-8f59-11199a3b0301",
+      "prompt": "Flat orthographic PLAN VIEW pixel art sprite. Camera points EXACTLY STRAIGHT DOWN vertically from overhead. You can see ONLY the square top face of an industrial machine and circular top lid; NO FRONT, NO SIDE WALLS, NO perspective, NO isometric diamonds, NO visible height. Edges of square chassis align exactly horizontally/vertically to image canvas. One sealed round pale grey water tank top inside 80x80 pixel square dark steel frame, desaturated green flat service strip along RIGHT edge, small grey rectangular connector at middle of right edge. Offwhite silver lid, small dark circular hatch. Functional retro spaceship pixel art, broad 2-4pixel clusters, minimal details, matte surfaces. Isolated square top-view sprite centered on transparent 96x96 canvas with 6pixel margin on each side. No text, no numbers, no ground shadow, no lights, no screen. Strict vertical-overhead orthographic top surface only, as a 2D floorplan."
+    }
+  ]
+}

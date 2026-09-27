@@ -13,6 +13,8 @@ shop inventories or a scientific/economic claim.
 | Agriculture equipment | 8 |
 | Agriculture irrigation pipes | 128 |
 | Agriculture consumables | 64 |
+| Agriculture R3 reservoirs | 4 |
+| Agriculture 500 g nutrient charges | 8 |
 | Shipbreaker equipment | 8 |
 | Shipbreaker assembly sections | 24 |
 | Shipbreaker coolant pipes | 128 |

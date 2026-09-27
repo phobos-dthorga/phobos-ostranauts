@@ -1,0 +1,54 @@
+{
+  "date": "2026-09-27",
+  "original": true,
+  "nativeInputs": [],
+  "attribution": "Native visual references inspected locally are Blue Bottle Games artwork. None was uploaded or redistributed. Scientific attribution is separate in the bulk research report.",
+  "records": [
+    {
+      "provider": "PixelLab",
+      "job": "aa03a37d-4942-4e3f-a270-aa2c7845fdc8",
+      "asset": "03cf1111-93b5-5ae9-b65e-f7a377c05cc0",
+      "seed": 273003,
+      "size": [
+        96,
+        96
+      ],
+      "outcome": "Rejected: isometric projection; not exported.",
+      "usage": "One billed generation."
+    },
+    {
+      "provider": "PixelLab",
+      "job": "092b32b1-8ffb-4064-8f59-11199a3b0301",
+      "asset": "7b208044-6cf4-551c-992f-cdbce100bafd",
+      "seed": 273004,
+      "size": [
+        96,
+        96
+      ],
+      "outcome": "Rejected: still isometric; not exported.",
+      "usage": "One billed generation."
+    },
+    {
+      "provider": "ChatGPT built-in image generation",
+      "job": "exec-723acd74-7a3e-420d-8f1e-e4c12aef35d5",
+      "master": "source/reservoir-master.png",
+      "inputImages": [],
+      "outcome": "Selected after native-size static preview; owner Unity evaluation pending.",
+      "usage": "One generation; no monetary usage/model/seed disclosed.",
+      "prompt": "Create an ORIGINAL game sprite master for a spacecraft agricultural water reservoir. ABSOLUTE ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW: camera is straight above looking vertically downward. Do not show any vertical walls, front, feet, or side faces. Not isometric. The outline is a square with horizontal and vertical edges, not a diamond. Within it, a large circular off-white sealed tank lid occupies left three quarters, a desaturated sage/teal service strip occupies the right quarter, with one small grey connector pointing directly right at the middle. A dark grey low square frame, small flush hatch and sparse rim bolts. Looks like machinery on a top-down spacecraft floorplan. Pixel art with bold coarse deliberate clusters, restrained grey/ivory/teal palette, no gradients or glossy photorealism, no text, logos, glowing lights, pressure dial, scene, floor, shadows or backdrop. Entire object visible, centred with 8 percent transparent margin. Square canvas, designed to reduce clearly to 48x48 game pixels. Produce only this one top-view asset, not a sheet. It must match a strictly top-down utilitarian spaceship game; seeing a front face is a failure."
+    },
+    {
+      "provider": "ChatGPT built-in image generation",
+      "job": "exec-bff15aa9-d465-442a-b445-e2ccb9da9d5e",
+      "master": "source/reservoir-damaged-master.png",
+      "inputImages": [
+        "source/reservoir-master.png"
+      ],
+      "outcome": "Selected damaged edit; same export registration.",
+      "usage": "One edit; no monetary usage/model/seed disclosed.",
+      "prompt": "EDIT THIS ORIGINAL SPRITE into its damaged state. Preserve the exact orthographic overhead plan view, square footprint, framing, scale, silhouette, circular lid position, green service strip, central hatch, and right-side connector position. Keep all machinery present and closed: add a few broad dark scratches and a shallow dent to the off-white tank lid, battered frame paint and a discoloured service-panel corner. No holes, spills, smoke, sparks, glowing warning lights, written text or extra objects. Restrained utilitarian pixel art with coarse readable damage visible when reduced to 48x48. Preserve transparent background and original margins. Keep this a single overhead machinery sprite at the same canvas dimensions and alignment as the input; do not rotate or reframe it."
+    }
+  ],
+  "reuse": "Loose forms reuse the matching installed chassis; bulk nutrients reuse existing original Stock-nutrients. Flat normals share the exact colour alpha. No original UI imagery needed.",
+  "licensing": "Original generated output under the recorded providers’ terms and repository asset policy; no asserted rights over Blue Bottle Games or third-party mod artwork."
+}

@@ -1,5 +1,7 @@
 # Updating versions and maintained constants
 
+The Agriculture bulk slice registers `Agriculture.bulkReservoirPrice`, `Agriculture.bulkNutrientPrice`, `Agriculture.bulkWaterPricePerKg`, `Agriculture.stockBulkReservoirs` and `Agriculture.stockBulkNutrients`. Reservoir capacity, dry mass and housing salvage form a reviewed material budget, not routine tuning knobs.
+
 The catalogue also maintains `Shipbreaker.cuttingSeconds` and
 `Shipbreaker.cuttingKilowatts` for new G4 jobs (started jobs retain their captured values),
 and current runtime/installer dependency minima through

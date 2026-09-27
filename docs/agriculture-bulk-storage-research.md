@@ -1,5 +1,7 @@
 # Agriculture bulk storage: findings and first recommendation
 
+**Implementation follow-up:** Agriculture 0.14.0 / Framework 0.27.0 now provide the [first R3 slice](agriculture-bulk-storage.md). The dated proposal/audit below remains the pre-implementation record. Actual API boundaries and conservative destruction fallback are documented in the current guide; [original production masters and exports](../assets/phobos-agriculture/bulk/README.md) are now retained. No owner Unity validation is claimed.
+
 27 September 2026. **Research and proposed implementation only.** No reservoir,
 station service, recipe or production artwork is registered by this work.
 Baseline inspected: Framework 0.26.1, Agriculture 0.13.1, Ship's Water 0.16.1.

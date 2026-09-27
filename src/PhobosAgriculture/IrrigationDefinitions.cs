@@ -21,7 +21,7 @@ internal static class IrrigationDefinitions
         foreach (string form in new[] { "Installed", "Loose", "InstalledDmg", "LooseDmg" })
         {
             var co = d.Objects[Supply + form];
-            co.mapPoints = co.mapPoints.Concat(new[] { Outlet + ",24,8" }).ToArray();
+            co.mapPoints = co.mapPoints.Concat(new[] { Outlet + ",24,8", "PhobosBulkIn,-16,0" }).ToArray();
             co.strContainerCT = Definitions.Rack + "Supplies";
             if (form.EndsWith("Dmg"))
             {

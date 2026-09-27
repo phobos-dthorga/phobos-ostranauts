@@ -1,5 +1,7 @@
 # Phobos Framework 0.15.0 — author guide
 
+Framework 0.27.0 adds [bulk custody, station settlement and compact provider selectors](framework-bulk-storage.md). Existing reservoir, equipment and crew interfaces remain compatible.
+
 The current console redesign uses compact views and checked drafts. See the
 [control-panel guide](control-panel-guide.md) for Apply/Discard, storage selection,
 ship picking, training and the separate Unity validation checklist.

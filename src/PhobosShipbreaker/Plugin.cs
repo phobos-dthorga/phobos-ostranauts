@@ -16,7 +16,7 @@ namespace PhobosShipbreaker;
 public sealed class Plugin : BaseUnityPlugin
 {
     public const string Id = "phobosgekko.ostranauts.shipbreaker";
-    public const string Version = "0.26.1";
+    public const string Version = "0.27.0";
     internal static ProcessingService Service { get; private set; } = null!;
     internal static Action<string> Log { get; private set; } = null!;
     internal static Settings Options { get; private set; } = null!;

@@ -62,6 +62,7 @@ internal static class Definitions
         foreach (var co in d.Objects.Values.Where(c => c.strName.StartsWith(Rack) && c.strName.EndsWith("Installed"))) co.aInteractions = co.aInteractions.Concat(Work.Where(a=>a!="recover-solution" && a!="recover-crop" && a!="formulate-nutrients").Select(WorkId)).ToArray();
         IrrigationDefinitions.Add(d);
         WorkupDefinitions.Add(d);
+        BulkDefinitions.Add(d);
         Stock(d, RecyclerCapture.Wet, 13, .01, "wet_rejects", false, "recovery_reject");
         foreach (var co in d.Objects.Values.Where(c => c.strName.EndsWith("Dmg"))) co.strNameFriendly = co.strNameShort = Text.Get("damaged", co.strNameFriendly);
         Stock(d, PotatoSeed, .2, 40, "potato_seed", false); Stock(d, LettuceSeed, .005, EquipmentEconomy.LettuceSeedPrice, "lettuce_seed", false);

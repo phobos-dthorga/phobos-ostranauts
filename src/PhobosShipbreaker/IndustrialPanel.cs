@@ -195,6 +195,13 @@ public sealed class IndustrialPanel : GUIData
         if(tab=="routing"){ShowRouting(target);return;}
         if(tab=="maintenance"){ShowMaintenance(actions,target);Layout();return;}
         var provider = EquipmentProviders.For(target.strCODef);
+        if(provider is IEquipmentPanelFields fields)
+            foreach(var field in fields.Fields(target))
+            {
+                var selected=field;
+                C.Button(actions,field.Label+": "+field.Value,()=>ConfigurationSheet.Choices(shell,selected.Label,"",fields.ConfigurationStamp(target),selected.Choices,
+                    (string expected,string chosen,out string reason)=>fields.ApplyConfiguration(target,binding,expected,chosen,out reason)));
+            }
         if (provider != null)
             foreach (var command in provider.Snapshot(target).Actions)
             {
