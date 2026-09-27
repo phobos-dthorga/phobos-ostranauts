@@ -116,6 +116,7 @@ internal sealed class CrewSim
 }
 internal sealed class Ship
 {
+    internal bool IsDocked() => false;
     internal ShipSitu objSS = new();
     internal string strRegID = "";
     internal List<CondOwner> Items = new();

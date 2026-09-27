@@ -44,7 +44,7 @@ internal sealed partial class NavigationService
         if (co.HasCond("IsOff") || !co.HasCond("IsPowered") || co.HasCond("IsDamaged")) return Text.Get("NavigationService.console_is_off_unpowered_or_damaged");
         if (!(presentation?.Navigation ?? co.GetCOsSafe(true).Any(item => (HasId(item, ModuleId) || HasId(item, PursuitId)) && !item.HasCond("IsDamaged")))) return Text.Get("NavigationService.working_phobos_auto_nav_module_required");
         if (co.ship == null || co.ship.bDestroyed || CrewSim.coPlayer == null || CrewSim.coPlayer.ship != co.ship) return Text.Get("NavigationService.player_must_be_aboard_the_controlled_ship");
-        if (co.ship.IsDocked()) return Text.Get("NavigationService.undock_before_engagement");
+        if (TowFlight.Problem(co.ship) is string towProblem) return Text.Get(towProblem);
         // Pending power/sensor refresh is a contact suspension, not a discarded
         // destination. Every guidance entry point checks NativeContactReader.
         string? nativeProblem = NativeControlProblem(co);

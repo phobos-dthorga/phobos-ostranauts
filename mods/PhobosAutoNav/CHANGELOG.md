@@ -17,6 +17,18 @@ Dates on Draft entries record preparation, not Steam publication.
 - Earlier capture-only research is superseded for supported ordinary walls by the implementation below. Broader structural recipes, repeated furnace batches and whole-wreck completion remain outside this round.
 - Keep [NASA Goddard's Raven research](https://www.nasa.gov/general/nasas-hybrid-computer-enables-ravens-autonomous-rendezvous-capability/) and [ESA's LIRIS experiment by Airbus, Jena Optronik and Sodern](https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/ATV/ATV_views_Space_Station_as_never_before) as sensing context, separate from Blue Bottle Games native evidence and authored gameplay choices. No institutional endorsement or gameplay validation is implied.
 
+## [0.22.1] - 2026-09-27 - Draft
+
+### Fixed
+
+- Ordinary Approach, Rendezvous and Follow now accept a reciprocal two-ship connection with secured native towing braces. Previously every docked connection was rejected, including a valid tow. Native RCS mass, fuel and torch controls remain authoritative.
+- Include the attached hull in clearance, traffic avoidance and projected no-wake checks; exclude that hull from independent traffic. Stop on lost brace security, pending brace updates or conflicting controls aboard the tow.
+- Navigation warnings take priority over an idle FCS fault. Dock and Approach & Dock, FCS/Combat and industrial close work still require releasing the tow; stations, mooring, chains and unsecured attachments remain blocked.
+
+### Validation
+
+- Read the owner's save and logs without changing them. Added mirrored coupled towing sequences, attachment/admission and warning regressions, plus torch admission checks. Native group physics and live handling still require owner playtesting. See [the towing repair record](https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/auto-nav-towing.md).
+
 ## [0.22.0] - 2026-09-27 - Draft
 
 ### Added

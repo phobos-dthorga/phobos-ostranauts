@@ -58,7 +58,8 @@ internal sealed partial class NavigationService
         var read = IsLocalConsole(co) && CrewSim.objInstance?.FinishedLoading == true ? new PresentationRead(co!, AutoNavCore.Engaged && console == co) : null;
         var view = new HubSnapshot { Navigation = ReadInstruments(co, read: read, details: page == null || page == "details"), CompletionCue = co == console ? ArrivalCueStatus : Text.Get("Cue.off"), OffensiveTarget = Text.Get("Instruments.no_target"),
             FireReason = Text.Get("Pursuit.ceased"), Clearance = Text.Get("Hub.unavailable") };
-        view.Restriction = view.Navigation.Warning || view.Navigation.Resumable ? view.Navigation.Notice : status;
+        view.Restriction = view.Navigation.Warning || view.Navigation.Resumable ||
+            page != "fire" && Fire.State == FireState.Fault && status == Text.Get(Fire.Reason) ? view.Navigation.Notice : status;
         if (read == null) return view;
         bool powered = !co!.HasCond("IsOff") && co.HasCond("IsPowered") && !co.HasCond("IsDamaged");
         view.WorkingNavigation = powered && read.Navigation;
@@ -127,7 +128,7 @@ internal sealed partial class NavigationService
         view.Ownership = Text.Get("FCS.state." + (boundFire ? Fire.State : view.FireHeld ? FireState.Hold : FireState.Native));
         view.FireReason = !view.WorkingFire ? Text.Get("FCS.module_required") : Text.Get("FCS.readiness", boundFire ? Text.Get(Fire.Reason) : view.Ownership,
             freshFire ? Fire.ReadyCount?.ToString() ?? "—" : "—", freshFire ? Fire.Weapons.Count.ToString() : "—");
-        if (view.WorkingFire && (!view.WorkingNavigation || boundFire && Fire.State == FireState.Fault)) view.Restriction = view.FireReason;
+        if (view.WorkingFire && !view.Navigation.Warning && (!view.WorkingNavigation || page == "fire" && boundFire && Fire.State == FireState.Fault)) view.Restriction = view.FireReason;
         if (page == null || page == "fire")
         {
             ReadWeaponInventory(co, view, freshFire);
@@ -152,7 +153,7 @@ internal sealed partial class NavigationService
         view.CycleLimit = view.Safety == true ? NavModTorchDrive.GetLimiterSafetyMax(own) : 1;
         view.FlowLimit = Math.Min(1, view.CycleLimit * 2);
         view.CanManual = (view.WorkingNavigation || view.WorkingFire) && (!AutoNavCore.Engaged || console == co) &&
-            !core.HasCond("IsDamaged") && !own.IsDocked() && !own.IsMoored() && CrewSim.system != null && !CrewSim.system.IsInAtmo(own);
+            !core.HasCond("IsDamaged") && TowFlight.Problem(own) == null && CrewSim.system != null && !CrewSim.system.IsInAtmo(own);
         view.CanShutdown = (view.WorkingNavigation || view.WorkingFire) && (!AutoNavCore.Engaged || console == co);
         view.CanBurn = view.CanManual && view.Safety.HasValue && view.Flow.HasValue && view.Cycle.HasValue &&
             view.CycleEnabled.HasValue && !OtherControllerBusy() && own.shipStationKeepingTarget == null &&

@@ -2,7 +2,7 @@ using System;
 using PhobosAutoNav;
 internal sealed partial class ShipSitu
 {
-    internal bool bOrbitLocked=false,bBOLocked=false,bIsBO=false;
+    internal bool bOrbitLocked=false;
     internal UnityEngine.Vector2 vAccIn=default;
     internal void UnlockFromBO() { bBOLocked=false; }
 }

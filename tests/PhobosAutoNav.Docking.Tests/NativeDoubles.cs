@@ -42,6 +42,9 @@ public sealed partial class Ship
     internal enum Loaded { Shallow,Edit,Full }
     internal Loaded LoadState=Loaded.Full;
     internal JsonShip json=new();
+    internal bool bCheckTowingBraces=false;
+    internal object? shipStationKeepingTarget=null;
+    internal List<object> aWPs=new();
     internal Dictionary<string,Ship> Attachments=new();
     internal Dictionary<string,Ship> GetDockedShipsAndPortIDs()=>Attachments;
     internal string GetPortIdForDockedShip(string id)=>Attachments.FirstOrDefault(p=>p.Value.strRegID==id).Key??"";
@@ -99,6 +102,7 @@ internal sealed partial class ShipSitu
         fRot+=(float)(fW*dt+fA*dt*dt/2);
         float previous=fW;fW+=fA*(float)dt;if(previous*fW<0){fW=0;fA=0;}
     }
+    internal bool bGrounded=false,bBOLocked=false,bIsBO=false;
     internal double GetRadiusAU()=>100*AutoNavCore.M_TO_AU;
     internal void ResetNavData() { }
 }
@@ -137,6 +141,9 @@ internal sealed class GUIDockSys
 internal sealed class Signal { internal int Count; internal void Invoke(string target) { Count++; } }
 internal static partial class CollisionManager
 {
+#if !COUPLED
+    internal static double GetCollisionDistanceAU(ShipSitu a,ShipSitu b)=>200*AutoNavCore.M_TO_AU;
+#endif
     internal static float GetCollisionDistanceAU(Ship own, Ship target) => (float)(200 * AutoNavCore.M_TO_AU);
 }
 internal sealed partial class GUIOrbitDraw
@@ -269,3 +276,7 @@ namespace PhobosAutoNav
         { StopExtended(reason);EndIndustrial(reason);FinishSavedFlight(SavedFlightMode.Stopped); AutoNavCore.ResetStatics(); console?.ship.Maneuver(0,0,0,0,1); status = reason; }
     }
 }
+
+internal static class AIShipManager { internal static object? GetAIShipByRegID(string id)=>null; }
+
+namespace PhobosAutoNav { internal static class TorchDriveController { internal static bool ThrustRequested(Ship ship)=>false; } }

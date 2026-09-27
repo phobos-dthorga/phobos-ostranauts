@@ -209,3 +209,11 @@ Check(AutoNavCore.ControlLimited || AutoNavCore.CurrentPhase == AutoNavCore.Phas
 Check(Math.Abs(own.LastTurn) < 1e-7, "Opposite N3 weapon attitude cannot take precedence over braking/clearance heading");
 Console.WriteLine($"{checks} torch policy, native-boundary and guidance assertions passed. No in-game tests performed.");
 PursuitChecks.Run(Check);
+
+var tug=Setup(); tug.strRegID="tug"; var tow=new Ship{strRegID="load"};
+CrewSim.system!.Ships["tug"]=tug; CrewSim.system.Ships["load"]=tow;
+tug.Attachments["own"]=tow;tow.Attachments["peer"]=tug;
+Check(Plugin.Service.Torch.Available(tug,true,.1,out _),"Secured tow permits native torch availability");
+tug.TowSecured=false;
+Check(!Plugin.Service.Torch.Available(tug,true,.1,out _),"Unsecured tow cannot acquire a torch burn");
+Console.WriteLine($"{checks} checks including secured tow torch admission passed.");

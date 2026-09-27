@@ -69,7 +69,7 @@ internal sealed partial class NavigationService
         if (problem == null && OtherControllerBusy()) problem = Text.Get("NavigationService.disengage_other_flight_automation_first");
         if (problem == null && (target != null || captured) && !sensing.Usable) problem = Text.Get(sensing.MessageKey);
         // Dock retains its own terminal admission policy and must not inherit Fly's arrival settings.
-        view.CanDock = !AutoNavCore.Engaged && problem == null && approachReady && !view.Resumable;
+        view.CanDock = !AutoNavCore.Engaged && problem == null && approachReady && !view.Resumable && !co!.ship.IsDocked();
         if (problem == null && !AutoNavCore.Engaged && target != null && snapshot?.IsDocking != true)
             problem = AdmissionProblem(co!, target, view.ArrivalKM, view.ArrivalMS);
         view.Warning = problem != null;

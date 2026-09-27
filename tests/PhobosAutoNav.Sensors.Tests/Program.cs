@@ -623,3 +623,37 @@ ReadyCombat(); beforeCombat=Raw(f.Console); CrewSim.coPlayer=new(){strID="replac
 f.Service.EnterCombat(f.Console);
 Check(!f.Service.CombatActive && Raw(f.Console)==beforeCombat,"Stale previous mission binding cannot transfer authority");
 Console.WriteLine($"{checks} checks including Combat lifecycle and coordinated navigation passed.");
+
+// Saved owner scenario: one reciprocal, secured tow; ordinary navigation remains available.
+f=Setup(); f.Target.Attachments["peer-port"]=f.Own; f.Own.Attachments["own-port"]=f.Target;
+Check(TowFlight.Problem(f.Own)==null,"Reciprocal secured tow is admitted");
+foreach(var reason in new[]{"brace","refresh","moored","station","grounded","extra","reciprocal","torch","waypoint"})
+{
+    f=Setup(); f.Target.Attachments["peer-port"]=f.Own; f.Own.Attachments["own-port"]=f.Target;
+    switch(reason)
+    {
+        case "brace":f.Own.TowSecured=false;break;
+        case "refresh":f.Target.bCheckTowingBraces=true;break;
+        case "moored":f.Target.TowMoored=true;break;
+        case "station":f.Target.objSS.bIsBO=true;break;
+        case "grounded":f.Target.objSS.bGrounded=true;break;
+        case "extra":f.Target.Attachments["extra"]=new();break;
+        case "reciprocal":f.Target.Attachments.Clear();break;
+        case "torch":f.Target.IsUsingTorchDrive=true;break;
+        case "waypoint":f.Target.aWPs.Add(new());break;
+    }
+    Check(TowFlight.Problem(f.Own)!=null,"Tow rejects "+reason);
+}
+f=Setup(); var load=new Ship{strRegID="load"}; CrewSim.system.Ships["load"]=load;
+f.Own.Attachments["own-port"]=load; load.Attachments["peer-port"]=f.Own;
+load.objSS.vPosx=250*AutoNavCore.M_TO_AU;
+Check(Math.Abs(TowFlight.RadiusAU(f.Own)/AutoNavCore.M_TO_AU-350)<1e-8,"Envelope includes load offset and radius");
+f.Console.Items.Add(new(){strID="n3",strCODef=NavigationService.FireControlId,ship=f.Own});
+f.Service.TickFire(.1,false);
+Check(f.Service.ReadHub(f.Console,"navigation").Navigation.CanFly,"Idle FCS fault does not disable secure towing navigation");
+Check(f.Service.ReadHub(f.Console,"navigation").Restriction != "FCS.unavailable","Idle fire failure cannot replace ready navigation guidance");
+f.Service.Engage(f.Console); Check(AutoNavCore.Engaged,"Production service starts an ordinary secured tow");
+f.Own.TowSecured=false; f.Service.Tick(f.Own.objSS,.1,false);
+Check(!AutoNavCore.Engaged && f.Own.Thrust==0,"Lost brace stops commanded towing thrust");
+Check(f.Service.ReadHub(f.Console,"navigation").Restriction=="Tow.secure","FCS fault cannot hide the current navigation blocker");
+Console.WriteLine($"{checks} checks including secured towing and warning priority passed.");

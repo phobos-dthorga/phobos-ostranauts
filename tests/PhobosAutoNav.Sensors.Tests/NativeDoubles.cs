@@ -30,6 +30,11 @@ internal sealed class StarSystem
 internal sealed class BodyOrbit { internal bool Blocks, IsAsteroidField; internal int nDrawFlagsBody; }
 public sealed class Ship
 {
+    internal bool bCheckTowingBraces = false, TowSecured = true, TowMoored = false;
+    internal Dictionary<string,Ship> Attachments = new();
+    internal Dictionary<string,Ship> GetDockedShipsAndPortIDs() => Attachments;
+    internal bool TowBraceSecured(string id) => TowSecured;
+
     internal int LoadState = 2;
     internal double DeltaVRemainingRCS=100*PhobosAutoNav.AutoNavCore.M_TO_AU;
     internal void UnlockFromOrbit() { }
@@ -40,7 +45,7 @@ public sealed class Ship
     internal readonly List<string> ReactorReadKeys = new();
     internal string GetReactorGPMValue(string key) { ReactorReads++; ReactorReadKeys.Add(key); return ReactorProps.TryGetValue(key,out var value) ? value : ""; }
     internal void SetReactorGPMValue(string key,string value) { if(AutoNavCore.Engaged) throw new Exception("Automation still owns flight during manual write"); ReactorWrites++; ReactorProps[key]=value; }
-    internal bool IsMoored() => false;
+    internal bool IsMoored() => TowMoored;
     internal int Maneuvers; internal float LastRotation;
     internal bool FailManeuver;
     internal void Maneuver(float x, float y, float r, float throttle, float dt) { Maneuvers++; if (FailManeuver) throw new Exception("Native maneuver failure"); LastRotation = r; }
@@ -60,14 +65,14 @@ public sealed class Ship
     internal Ostranauts.Ships.Sensors.ElectronicSystems ElectronicSystems = new();
     internal double RangeKM = 80, Thrust;
     internal bool IsStationHidden() => Hidden;
-    internal bool IsDocked() => false;
+    internal bool IsDocked() => Attachments.Count>0;
     internal double GetRangeTo(Ship other) => RangeKM * AutoNavCore.KM_TO_AU;
     internal double GetRCSRemain() => 100;
     internal IEnumerable<CondOwner> GetCOs(object? filter, bool bSubObjects, bool bAllowDocked, bool bAllowLocked)
     { if (bSubObjects || bAllowDocked) throw new Exception("Cross-ship discovery"); return Items; }
 }
-internal sealed class ShipSitu { internal double vPosx, vPosy, vVelX, vVelY; internal float fRot, fW = 0; internal UnityEngine.Vector2 vAccIn, vAccRCS = default; internal void ResetNavData() { } }
-internal static class CollisionManager { internal static double GetCollisionDistanceAU(Ship own, Ship target) => 200 * AutoNavCore.M_TO_AU; }
+internal sealed class ShipSitu { internal bool bIsBO=false,bBOLocked=false,bGrounded=false; internal double GetRadiusAU()=>100*AutoNavCore.M_TO_AU; internal double vPosx, vPosy, vVelX, vVelY; internal float fRot, fW = 0; internal UnityEngine.Vector2 vAccIn, vAccRCS = default; internal void ResetNavData() { } }
+internal static class CollisionManager { internal static double GetCollisionDistanceAU(ShipSitu own, ShipSitu target)=>200*AutoNavCore.M_TO_AU; internal static double GetCollisionDistanceAU(Ship own, Ship target) => 200 * AutoNavCore.M_TO_AU; }
 internal sealed class PowerReading { internal double PowerConnected = 12; }
 public sealed class CondOwner
 {

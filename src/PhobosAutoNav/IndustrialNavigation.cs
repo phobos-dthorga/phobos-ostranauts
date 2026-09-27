@@ -64,7 +64,7 @@ internal sealed partial class NavigationService
         if (industrial != null || AutoNavCore.Engaged || autoAim || OtherControllerBusy() ||
             string.IsNullOrWhiteSpace(permission) || bindingProblem == null || !ArrivalBrake.Finite(facing) ||
             CrewSim.objInstance == null || !CrewSim.objInstance.FinishedLoading || !Plugin.Enabled.Value) return false;
-        message = HardwareProblem(co) ?? bindingProblem() ?? "";
+        message = co.ship.IsDocked() ? Text.Get("NavigationService.undock_before_engagement") : HardwareProblem(co) ?? bindingProblem() ?? "";
         if (message.Length != 0) return false;
         if (co.HasCond("IsDamagedSoftware")) { message = Text.Get("Docking.software"); return false; }
         if (DisplaySnapshot(co) != null || !CanReplaceFlight(co) || !HasIndustrialModule(co, module))
@@ -107,7 +107,7 @@ internal sealed partial class NavigationService
             CrewSim.coPlayer?.strID != f.Player || f.Console.ship != f.Carrier || f.Carrier.strRegID != f.Ship ||
             !HasIndustrialModule(f.Console, f.Module) || AutoNavCore.Engaged || autoAim ||
             OtherControllerBusyExceptIndustrial()) return Text.Get("Persistence.binding_changed");
-        var problem = HardwareProblem(f.Console) ?? f.BindingProblem();
+        var problem = f.Console.ship.IsDocked() ? Text.Get("NavigationService.undock_before_engagement") : HardwareProblem(f.Console) ?? f.BindingProblem();
         if (f.Console.HasCond("IsDamagedSoftware")) return Text.Get("Docking.software");
         if (problem != null) return problem;
         var contact = NativeContactReader.Read(f.Console.ship, f.Target);

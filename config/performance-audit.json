@@ -654,13 +654,14 @@
     },
     {
       "path": "src/PhobosAutoNav/Adapted/AutoNavCore.cs",
-      "sha256": "99f5b4281ab647bd882ccf5e5ad62564f23d18e9c8daf27d56f0f2a510f75832",
+      "sha256": "fb61d9804633dc8293baf307438f7811147e3c0c256e9cd6852b143bf1ade062",
       "role": "navigation, native boundary or flight policy",
-      "review": "2026-09-27: reviewed Combat ownership, protected persistence, live docking blockers, opt-in diagnostics and existing bounded presentation; see C1.",
+      "review": "2026-09-27 towing: reviewed attachment ownership, clearance and native-policy boundaries; bounded UI refresh preserved.",
       "decision": "Use one existing guidance controller. Retain save/shot checks and no discovery-result cache; no new capture campaign or per-frame logging.",
       "findings": [
         "R2",
-        "C1"
+        "C1",
+        "T1"
       ],
       "indicators": {}
     },
@@ -688,14 +689,15 @@
     },
     {
       "path": "src/PhobosAutoNav/AutoNavPanel.cs",
-      "sha256": "0a641b59e334464e4d76d5e81ab1a15243fe031c3ef1bd6bd733cc7a2c9a43e2",
+      "sha256": "053469a08e26ab93370da845ed8c6ca49c1786aaa3d017a5b3fdbe8a35855816",
       "role": "navigation, native boundary or flight policy",
-      "review": "2026-09-27: reviewed docking/avoidance frame correction, transient Combat ownership and the unchanged bounded presentation path; see docs/auto-nav-combat.md.",
+      "review": "2026-09-27 towing: reviewed attachment ownership, clearance and native-policy boundaries; bounded UI refresh preserved.",
       "decision": "Use one existing guidance controller. Retain save/shot checks and no discovery-result cache; no new capture campaign or per-frame logging.",
       "findings": [
         "P2",
         "P8",
-        "C1"
+        "C1",
+        "T1"
       ],
       "indicators": {
         "runtime_hook": [
@@ -1027,12 +1029,13 @@
     },
     {
       "path": "src/PhobosAutoNav/IndustrialNavigation.cs",
-      "sha256": "3b1b4abe6aeb2dd67c45833068e561b9113580fdd179f78ad5c2b9ce829496a5",
+      "sha256": "b93a4be24aa215036f7147b77ccb89ef0e6c6f558ebd41045474f11621b6213a",
       "role": "navigation, native boundary or flight policy",
-      "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
+      "review": "2026-09-27 towing: reviewed attachment ownership, clearance and native-policy boundaries; bounded UI refresh preserved.",
       "decision": "Retain existing policy and call frequency. No independent measured hotspot justifies additional changes in this file; see the linked subsystem decision.",
       "findings": [
-        "R2"
+        "R2",
+        "T1"
       ],
       "indicators": {
         "runtime_hook": [
@@ -1105,13 +1108,14 @@
     },
     {
       "path": "src/PhobosAutoNav/NavigationAvoidance.cs",
-      "sha256": "a7fa61762dab0362e48ed18de405fdbfb3d9880e1a2db6c24f4da24b39ccd308",
+      "sha256": "0835d8d2787f21bfde3d2188d4759b5f020eff9bcd0df0ba2517a5652f6a8202",
       "role": "navigation, native boundary or flight policy",
-      "review": "2026-09-27: reviewed docking/avoidance frame correction, transient Combat ownership and the unchanged bounded presentation path; see docs/auto-nav-combat.md.",
+      "review": "2026-09-27 towing: reviewed attachment ownership, clearance and native-policy boundaries; bounded UI refresh preserved.",
       "decision": "Use one existing guidance controller. Retain save/shot checks and no discovery-result cache; no new capture campaign or per-frame logging.",
       "findings": [
         "R2",
-        "C1"
+        "C1",
+        "T1"
       ],
       "indicators": {
         "collection": [
@@ -1181,14 +1185,15 @@
     },
     {
       "path": "src/PhobosAutoNav/NavigationHub.cs",
-      "sha256": "95e25b2d6bed6f24c1b31b1dbb56bd4cbf9953bbb8adf051ccce09eb76c3d5fb",
+      "sha256": "6b92623742b3fce2acc04344f2ffa5935b84e3dd721fe862d26a2573c1a5b30b",
       "role": "navigation, native boundary or flight policy",
-      "review": "2026-09-27: reviewed Combat ownership, protected persistence, live docking blockers, opt-in diagnostics and existing bounded presentation; see C1.",
+      "review": "2026-09-27: reviewed secured towing, warning priority, native boundaries and regenerated reference evidence; historical records preserved.",
       "decision": "Use one existing guidance controller. Retain save/shot checks and no discovery-result cache; no new capture campaign or per-frame logging.",
       "findings": [
         "P1",
         "P8",
-        "C1"
+        "C1",
+        "T1"
       ],
       "indicators": {
         "discovery": [
@@ -1203,13 +1208,14 @@
     },
     {
       "path": "src/PhobosAutoNav/NavigationInstruments.cs",
-      "sha256": "a66469e9591d261d4be955f7d0a835124f9f0519d8d9ff90612c5cbd42caad28",
+      "sha256": "2e81f1b0d241d80850c3c4bdd87bc4426c4c971e01f15c3ed4781bc2d614cb6f",
       "role": "navigation, native boundary or flight policy",
-      "review": "2026-09-27: reviewed Combat ownership, protected persistence, live docking blockers, opt-in diagnostics and existing bounded presentation; see C1.",
+      "review": "2026-09-27 towing: reviewed attachment ownership, clearance and native-policy boundaries; bounded UI refresh preserved.",
       "decision": "Use one existing guidance controller. Retain save/shot checks and no discovery-result cache; no new capture campaign or per-frame logging.",
       "findings": [
         "P2",
-        "C1"
+        "C1",
+        "T1"
       ],
       "indicators": {
         "persistence_or_io": [
@@ -1339,13 +1345,14 @@
     },
     {
       "path": "src/PhobosAutoNav/NavigationService.cs",
-      "sha256": "481cd3031bb8c7cd0b6b952f36c3c25c15916a0c8a8a094b0df670f841dc4fbc",
+      "sha256": "8d593e46efcc615bb7f75b38d9e44f048b15cc56cb901d2ae24894f55eb80491",
       "role": "navigation, native boundary or flight policy",
-      "review": "2026-09-27: reviewed docking/avoidance frame correction, transient Combat ownership and the unchanged bounded presentation path; see docs/auto-nav-combat.md.",
+      "review": "2026-09-27 towing: reviewed attachment ownership, clearance and native-policy boundaries; bounded UI refresh preserved.",
       "decision": "Use one existing guidance controller. Retain save/shot checks and no discovery-result cache; no new capture campaign or per-frame logging.",
       "findings": [
         "P2",
-        "C1"
+        "C1",
+        "T1"
       ],
       "indicators": {
         "runtime_hook": [
@@ -1442,14 +1449,15 @@
     },
     {
       "path": "src/PhobosAutoNav/Plugin.cs",
-      "sha256": "679920acfa7adb97f1609618ff4bd12ed4fc814c59ada40db9fdf689d1227bfe",
+      "sha256": "9302eaec975905a83c23bedf1482be7b18ec5b19645a2e188d726204d65657b7",
       "role": "navigation, native boundary or flight policy",
-      "review": "2026-09-27: reviewed docking/avoidance frame correction, transient Combat ownership and the unchanged bounded presentation path; see docs/auto-nav-combat.md.",
+      "review": "2026-09-27 towing: reviewed attachment ownership, clearance and native-policy boundaries; bounded UI refresh preserved.",
       "decision": "Use one existing guidance controller. Retain save/shot checks and no discovery-result cache; no new capture campaign or per-frame logging.",
       "findings": [
         "R2",
         "P8",
-        "C1"
+        "C1",
+        "T1"
       ],
       "indicators": {
         "runtime_hook": [
@@ -1504,12 +1512,13 @@
     },
     {
       "path": "src/PhobosAutoNav/TorchDriveController.cs",
-      "sha256": "c13fa68c432268f405746cf90c878f20b9fce6ae04e747787db317b60db62d5b",
+      "sha256": "82e34d5c502c9c27a8a4b417b166b04f20f49022bd53fed98d0899db0315fd86",
       "role": "navigation, native boundary or flight policy",
-      "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
+      "review": "2026-09-27 towing: reviewed attachment ownership, clearance and native-policy boundaries; bounded UI refresh preserved.",
       "decision": "Retain existing policy and call frequency. No independent measured hotspot justifies additional changes in this file; see the linked subsystem decision.",
       "findings": [
-        "R2"
+        "R2",
+        "T1"
       ],
       "indicators": {}
     },
@@ -4508,6 +4517,17 @@
       "decision": "Retain existing policy and call frequency. No independent measured hotspot justifies additional changes in this file; see the linked subsystem decision.",
       "findings": [
         "R4"
+      ],
+      "indicators": {}
+    },
+    {
+      "path": "src/PhobosAutoNav/TowFlight.cs",
+      "sha256": "834949a58d456d576152d64d3ebc596c9668966ef9feea587ad2500b30d438ed",
+      "role": "native towing admission and combined hull envelope",
+      "review": "2026-09-27 towing: reviewed attachment ownership, clearance and native-policy boundaries; bounded UI refresh preserved.",
+      "decision": "Use fresh native reciprocal attachment facts; no cached membership or new public API.",
+      "findings": [
+        "T1"
       ],
       "indicators": {}
     }

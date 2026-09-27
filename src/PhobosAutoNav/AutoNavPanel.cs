@@ -328,7 +328,7 @@ public sealed partial class AutoNavPanel : NavModBase
         Caption("offensive", view.WorkingFire ? Text.Get("Hub.offensive_target", view.OffensiveTarget) :
             Text.Get(view.WorkingPursuit ? "Hub.n2_ready" : view.WorkingNavigation ? "Hub.n1_ready" : "Hub.module_unavailable"));
         Presentation.Color(labels["offensive"], view.FirePermitted ? Amber : Ink);
-        Caption("operation", view.Combat ? Text.Get("Combat.controller", view.Movement) : isDocking ? Text.Get("Hub.operation." + view.DockProgress) : view.WorkingFire && !view.Active ? view.Ownership : nav.Heading);
+        Caption("operation", view.Combat ? Text.Get("Combat.controller", view.Movement) : isDocking ? Text.Get("Hub.operation." + view.DockProgress) : view.WorkingFire && !view.Active && !nav.Warning && page == "fire" ? view.Ownership : nav.Heading);
         Caption("contact", Text.Get("FCS.contacts", Text.Get("FCS.contact." + view.Contact.State), Text.Get("FCS.contact." + view.FireContact.State)));
         fullWarning = view.Restriction;
         Caption("restriction", fullWarning);

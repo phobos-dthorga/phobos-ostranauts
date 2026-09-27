@@ -38,7 +38,7 @@ published-release or installed-version claims. Current build baseline:
 | --- | --- | --- | --- |
 | **Phobos Framework** | 0.30.1 | Shared construction, inventory, controls and saved state | Required by content mods; [author guide](docs/framework-author-guide.md) |
 | **Phobos Shipbreaker** | 0.29.1 | Captured-wall reclamation and detached-wall processing, metal recovery, material routing, industrial console and electric furnace | Experimental; [player guide](docs/player-guide.md), [furnace](docs/furnace-player-guide.md) |
-| **Phobos Auto Nav** | 0.22.0 | Shared Polaris hub: N1 navigation/docking, N2 pursuit and N3 limited volleys/optional aiming | Earlier guidance has owner-reported gameplay success; current features need evaluation; [guide](docs/auto-navigate-adaptation.md) |
+| **Phobos Auto Nav** | 0.22.1 | Shared Polaris hub: N1 navigation/docking, N2 pursuit and N3 limited volleys/optional aiming | Earlier guidance has owner-reported gameplay success; current features need evaluation; [guide](docs/auto-navigate-adaptation.md) |
 | **Phobos Agriculture** | 0.15.2 | Potato/lettuce cultivation, visible growth, nutrient-solution piping and galley cooking | First gameplay candidate; [guide](docs/agriculture-player-guide.md) |
 | **Phobos Manufacturing** | 0.0.1 | Research and buildable scaffold for future machining | **No operational machinery yet**; [scope](docs/manufacturing-implementation.md) |
 

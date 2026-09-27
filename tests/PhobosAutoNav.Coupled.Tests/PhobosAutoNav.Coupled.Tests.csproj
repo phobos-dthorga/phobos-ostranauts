@@ -1,6 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup><DefineConstants>COUPLED</DefineConstants><OutputType>Exe</OutputType><TargetFramework>net10.0</TargetFramework></PropertyGroup>
   <ItemGroup>
+    <Compile Include="../../src/PhobosAutoNav/TowFlight.cs" Link="TowFlight.cs" />
     <Compile Include="../PhobosAutoNav.Docking.Tests/NativeDoubles.cs" Link="NativeDoubles.cs"/>
     <Compile Include="../../src/PhobosAutoNav/Adapted/AutoNavCore.cs" Link="AutoNavCore.cs"/>
     <Compile Include="../../src/PhobosAutoNav/NavigationUpdate.cs" Link="NavigationUpdate.cs"/>

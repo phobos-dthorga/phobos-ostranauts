@@ -204,7 +204,7 @@ internal static class AutoNavCore
 			}
 			try
 			{
-				if (player.IsDocked())
+				if (TowFlight.Problem(player) != null)
 				{
 					EndFlight(player, "DOCKED");
 					return;
@@ -266,7 +266,7 @@ internal static class AutoNavCore
             { EndFlight(player, "INVALID FLIGHT DATA"); return; }
             // Relative observations cancel common gravity; subtract our known delivered control.
             var acceleration = Track.Acceleration;
-            double hull = CollisionManager.GetCollisionDistanceAU(player.objSS, target.TargetSitu) / M_TO_AU;
+            double hull = TowFlight.CollisionAU(player, target.TargetSitu) / M_TO_AU;
             if (!PredictiveGuidance.TryPlan(offset, velocity, acceleration, lastAcceleration, full * throttle,
                 cruise, arrival, stop, hull, fTime, Track.Horizon, Following, out var plan))
             { EndFlight(player, "INVALID FLIGHT DATA"); return; }
@@ -353,14 +353,14 @@ internal static class AutoNavCore
         {
             var own = player?.objSS;
             var other = target?.TargetSitu;
-            if (own == null || other == null) return false;
+            if (own == null || other == null || TowFlight.Contains(player, CrewSim.system?.GetShipByRegID(target.ShipId))) return false;
             double dx = other.vPosx - own.vPosx, dy = other.vPosy - own.vPosy;
             double vx = (own.vVelX - other.vVelX) / M_TO_AU;
             double vy = (own.vVelY - other.vVelY) / M_TO_AU;
             relativeSpeedMS = Math.Sqrt(vx * vx + vy * vy);
             return ArrivalBrake.Finite(relativeSpeedMS) && ApproachRules.TryPlan(
                 Math.Sqrt(dx * dx + dy * dy) / KM_TO_AU, requestedKM,
-                CollisionManager.GetCollisionDistanceAU(own, other) / KM_TO_AU, out plan);
+                TowFlight.CollisionAU(player, other) / KM_TO_AU, out plan);
         }
         catch { return false; }
     }
@@ -378,7 +378,7 @@ internal static class AutoNavCore
             return ApproachAdmission.TryEvaluate((other.vPosx - own.vPosx) / M_TO_AU,
                 (other.vPosy - own.vPosy) / M_TO_AU, (own.vVelX - other.vVelX) / M_TO_AU,
                 (own.vVelY - other.vVelY) / M_TO_AU,
-                CollisionManager.GetCollisionDistanceAU(own, other) / M_TO_AU,
+                TowFlight.CollisionAU(player, other) / M_TO_AU,
                 plan.EffectiveArrivalKM * 1000, arrivalMS, player.RCSAccelMax / M_TO_AU,
                 throttle, reactionSeconds, out room);
         }

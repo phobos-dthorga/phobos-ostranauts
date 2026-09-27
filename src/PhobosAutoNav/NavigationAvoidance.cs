@@ -19,7 +19,7 @@ internal sealed partial class NavigationService
     private double stepBraking,stepEpoch=double.NegativeInfinity;
     internal bool ObstacleBurnAllowed(Ship own,double acceleration,double dt)
     {
-        if(bodyMotion.Values.Any(b=>!b.Velocity.Finite)||avoidanceActive||industrial!=null||own!=console?.ship||stepEpoch!=StarSystem.fEpoch||previousThreats.Any(id=>!NativeContactReader.Read(own,id).Usable)) return false;
+        if(bodyMotion.Values.Any(b=>!b.Velocity.Finite)||avoidanceActive||industrial!=null||own!=console?.ship||stepEpoch!=StarSystem.fEpoch||previousThreats.Any(id=>!TowFlight.Contains(own,CrewSim.system.GetShipByRegID(id)) && !NativeContactReader.Read(own,id).Usable)) return false;
         var heading=new NavVector(-Math.Sin(own.objSS.fRot),Math.Cos(own.objSS.fRot));
         return ObstacleRoute.BurnAndBrakeSafe(stepVelocity,heading*acceleration,dt+TorchRules.ZoneRefreshSeconds,stepBraking,stepObstacles);
     }
@@ -52,7 +52,7 @@ internal sealed partial class NavigationService
         if(own.RCSCount<=0||!ArrivalBrake.Finite(reserve)||reserve<DepartureRules.MinimumReserveMS) return;
         var target=CrewSim.system.GetShipByRegID(targetId);var a=own.objSS;if(target==null)return;var b=target.objSS;
         var offset=new NavVector((b.vPosx-a.vPosx)/AutoNavCore.M_TO_AU,(b.vPosy-a.vPosy)/AutoNavCore.M_TO_AU);
-        double radius=CollisionManager.GetCollisionDistanceAU(own,target)/AutoNavCore.M_TO_AU;
+        double radius=TowFlight.CollisionAU(own,target.objSS)/AutoNavCore.M_TO_AU;
         var goal=offset+new NavVector(Math.Cos(bearing*Math.PI/180),Math.Sin(bearing*Math.PI/180))*(radius+gap);
         // For a captured ship, route costing starts at its radial departure staging point.
         var start=own.IsDockedWith(target)?offset-offset.Unit*(radius+gap):default;
@@ -62,7 +62,7 @@ internal sealed partial class NavigationService
             if(other==own||other==null||!NativeContactReader.Read(own,other.strRegID).Usable) continue;
             var p=new NavVector((other.objSS.vPosx-a.vPosx)/AutoNavCore.M_TO_AU,(other.objSS.vPosy-a.vPosy)/AutoNavCore.M_TO_AU);
             var v=new NavVector((other.objSS.vVelX-b.vVelX)/AutoNavCore.M_TO_AU,(other.objSS.vVelY-b.vVelY)/AutoNavCore.M_TO_AU);
-            double r=CollisionManager.GetCollisionDistanceAU(own,other)/AutoNavCore.M_TO_AU+Math.Max(25,v.Length*10);
+            double r=TowFlight.CollisionAU(own,other.objSS)/AutoNavCore.M_TO_AU+Math.Max(25,v.Length*10);
             if(ObstacleRoute.Distance(start,goal,p)>r+gap) continue;
             obstacles.Add(new ObstacleDisc(other.strRegID,p-start,v,r));
         }
@@ -106,7 +106,7 @@ internal sealed partial class NavigationService
             var a = own.objSS; var b = target.objSS;
             var offset = new NavVector((b.vPosx-a.vPosx)/AutoNavCore.M_TO_AU,(b.vPosy-a.vPosy)/AutoNavCore.M_TO_AU);
             var velocity = new NavVector((a.vVelX-b.vVelX)/AutoNavCore.M_TO_AU,(a.vVelY-b.vVelY)/AutoNavCore.M_TO_AU);
-            double hull = CollisionManager.GetCollisionDistanceAU(own,target)/AutoNavCore.M_TO_AU;
+            double hull = TowFlight.CollisionAU(own,target.objSS)/AutoNavCore.M_TO_AU;
             double stop = industrial != null || DockingActive ? hull * DockingRules.StandOffRadius : AutoNavCore.EffectiveArriveAU(own, AutoNavCore.EngagedTarget)/AutoNavCore.M_TO_AU;
             var goal = offset.Unit * Math.Max(0, offset.Length-stop);
             if (industrial != null && industrial.Move != IndustrialMove.CaptureApproach)
@@ -117,10 +117,10 @@ internal sealed partial class NavigationService
             double horizon = Math.Min(ObstacleRoute.MaximumHorizonSeconds, Math.Max(2*dt, velocity.Length/(acceleration*.45)+2*dt));
             var actual = new List<ObstacleDisc>(); var planning = new List<ObstacleDisc>();
             var threats = new HashSet<string>(StringComparer.Ordinal);
-            if(previousThreats.Any(id=>!NativeContactReader.Read(own,id).Usable)) { SuspendAvoidance();return true; }
+            if(previousThreats.Any(id=>!TowFlight.Contains(own,CrewSim.system.GetShipByRegID(id)) && !NativeContactReader.Read(own,id).Usable)) { SuspendAvoidance();return true; }
             foreach (var other in CrewSim.system.dictShips.Values.ToArray())
             {
-                if (other == null || other == own) continue;
+                if (other == null || other == own || TowFlight.Contains(own, other)) continue;
                 var reading = NativeContactReader.Read(own,other.strRegID);
                 if (!reading.Usable)
                 {
@@ -131,7 +131,7 @@ internal sealed partial class NavigationService
                 var c = other.objSS;
                 var p = new NavVector((c.vPosx-a.vPosx)/AutoNavCore.M_TO_AU,(c.vPosy-a.vPosy)/AutoNavCore.M_TO_AU);
                 var v = new NavVector((c.vVelX-b.vVelX)/AutoNavCore.M_TO_AU,(c.vVelY-b.vVelY)/AutoNavCore.M_TO_AU);
-                double radius = CollisionManager.GetCollisionDistanceAU(own,other)/AutoNavCore.M_TO_AU;
+                double radius = TowFlight.CollisionAU(own,other.objSS)/AutoNavCore.M_TO_AU;
                 double margin = other == target ? (industrial?.Move==IndustrialMove.Egress ? Math.Min(1,radius*.002) : radius*.002) : Math.Max(ObstacleRoute.MinimumMarginM, radius*.05);
                 if (!p.Finite || !v.Finite || !ArrivalBrake.Finite(radius) || radius <= 0) { Disengage(Text.Get("Docking.unsafe")); return true; }
                 actual.Add(new ObstacleDisc(other.strRegID,p,v,radius+margin));
@@ -146,7 +146,7 @@ internal sealed partial class NavigationService
                 if (body == null || body.IsAsteroidField || body.nDrawFlagsBody == ContactRules.PlaceholderBodyDrawFlag) continue;
                 var world = new NavVector(body.dXReal/AutoNavCore.M_TO_AU,body.dYReal/AutoNavCore.M_TO_AU);
                 var p = world-new NavVector(a.vPosx/AutoNavCore.M_TO_AU,a.vPosy/AutoNavCore.M_TO_AU);
-                double radius = body.fRadius/AutoNavCore.M_TO_AU + own.objSS.GetRadiusAU()/AutoNavCore.M_TO_AU + 1000;
+                double radius = body.fRadius/AutoNavCore.M_TO_AU + TowFlight.RadiusAU(own)/AutoNavCore.M_TO_AU + 1000;
                 bool sampled = bodyMotion.TryGetValue(body.strName,out var old) && StarSystem.fEpoch > old.Epoch;
                 var v = sampled ? (world-old.Position)/(StarSystem.fEpoch-old.Epoch) : old.Velocity;
                 if (StarSystem.fEpoch != old.Epoch) bodyMotion[body.strName]=(world,StarSystem.fEpoch,v);

@@ -144,3 +144,7 @@ now follow the same target-relative frame as its velocity model. Combat validati
 runs at the common physics boundary; no additional recorder or per-frame logs were
 introduced. See [the repair and Combat record](auto-nav-combat.md). No additional
 performance captures or quantitative improvement claims were made.
+
+## T1 — Secured towing correction
+
+Auto Nav 0.22.1 reads the fresh native attachment map for one reciprocal tow; no retained discovery cache is added. The enclosing radius protects both hulls and existing bounded presentation remains. No new recording or performance measurements. See [towing evidence](auto-nav-towing.md).

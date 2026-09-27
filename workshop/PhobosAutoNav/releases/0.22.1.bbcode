@@ -1,0 +1,16 @@
+[h1]Phobos Auto Nav 0.22.1[/h1]
+[b]Draft - not published | 2026-09-27[/b]
+
+[h2]Fixed[/h2]
+
+[list]
+[*]Ordinary Approach, Rendezvous and Follow now accept a reciprocal two-ship connection with secured native towing braces. Previously every docked connection was rejected, including a valid tow. Native RCS mass, fuel and torch controls remain authoritative.
+[*]Include the attached hull in clearance, traffic avoidance and projected no-wake checks; exclude that hull from independent traffic. Stop on lost brace security, pending brace updates or conflicting controls aboard the tow.
+[*]Navigation warnings take priority over an idle FCS fault. Dock and Approach & Dock, FCS/Combat and industrial close work still require releasing the tow; stations, mooring, chains and unsecured attachments remain blocked.
+[/list]
+
+[h2]Validation[/h2]
+
+[list]
+[*]Read the owner's save and logs without changing them. Added mirrored coupled towing sequences, attachment/admission and warning regressions, plus torch admission checks. Native group physics and live handling still require owner playtesting. See [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/auto-nav-towing.md]the towing repair record[/url].
+[/list]

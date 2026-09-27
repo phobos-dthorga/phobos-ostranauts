@@ -521,5 +521,10 @@
   "Combat.aligning": "Flight alignment",
   "Combat.matching": "Range matching",
   "Combat.controller": "COMBAT: {0}",
-  "Combat.separation": "Separation {0:0.##} km; effective {1:0.##} km."
+  "Combat.separation": "Separation {0:0.##} km; effective {1:0.##} km.",
+  "Tow.single": "AutoNav supports one braced tow. Release other connections first.",
+  "Tow.unavailable": "Tow connection unavailable. Check both ships before starting.",
+  "Tow.updating": "Tow braces are updating. Wait, then try again.",
+  "Tow.secure": "Secure the towing brace or undock before starting.",
+  "Tow.controls": "The towed ship has active flight controls. Stop those controls first."
 }

@@ -42,7 +42,7 @@ internal sealed partial class TorchDriveController
         if (!preferred || !Plugin.PreferTorch.Value) return false;
         var core = candidate.Reactor;
         Reason = "Torch.unavailable";
-        if (core == null || !Ready(core) || candidate.bCheckFusion || candidate.IsDocked() ||
+        if (core == null || !Ready(core) || candidate.bCheckFusion || TowFlight.Problem(candidate) != null ||
             !candidate.bFusionReactorRunning || !ArrivalBrake.Finite(candidate.fShallowFusionRemain) ||
             candidate.fShallowFusionRemain <= dt + TorchRules.ZoneRefreshSeconds ||
             core.GetComponent<FusionIC>() == null || !ValidControls(core)) return false;
@@ -128,7 +128,7 @@ internal sealed partial class TorchDriveController
         if (!TorchRules.Finite(force, horizon, maxG, candidate.Mass) || maxG <= 0 || maxG > 2 || candidate.Mass <= 0 || forceLimit <= 0 || horizon <= 0 ||
             CrewSim.objInstance == null || !CrewSim.objInstance.FinishedLoading || !AutoNavCore.Engaged ||
             !Plugin.Enabled.Value || !Plugin.PreferTorch.Value || reactor == null || !Ready(reactor) ||
-            IsNoWake(reactor) || candidate.IsDocked() ||
+            IsNoWake(reactor) || TowFlight.Problem(candidate) != null ||
             !TorchRules.Aligned(headingError, candidate.objSS.fW, horizon) ||
             !ZoneClear(candidate, forceLimit / candidate.Mass, horizon)) force = 0;
         else force = Math.Min(force, Math.Min(forceLimit, maxG * TorchRules.StandardGravity * candidate.Mass));
@@ -210,7 +210,8 @@ internal sealed partial class TorchDriveController
                 // Native updates orbit-locked station positions at the new global
                 // epoch before all free ships have taken their step. Inflate for
                 // that whole-step position uncertainty rather than assuming simultaneity.
-                Math.Sqrt(other.vVelX * other.vVelX + other.vVelY * other.vVelY) / AutoNavCore.M_TO_AU * horizon)) return false;
+                Math.Sqrt(other.vVelX * other.vVelX + other.vVelY * other.vVelY) / AutoNavCore.M_TO_AU * horizon +
+                (candidate.IsDocked() ? TowFlight.RadiusAU(candidate) / AutoNavCore.M_TO_AU : 0))) return false;
         }
         return true;
     }

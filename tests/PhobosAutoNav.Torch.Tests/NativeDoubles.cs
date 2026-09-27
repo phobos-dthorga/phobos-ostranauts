@@ -11,6 +11,11 @@ using UnityEngine;
 
 internal sealed class Ship
 {
+    internal bool bCheckTowingBraces = false, TowSecured = true, TowMoored = false;
+    internal Dictionary<string,Ship> Attachments = new();
+    internal Dictionary<string,Ship> GetDockedShipsAndPortIDs() => Attachments;
+    internal bool TowBraceSecured(string id) => TowSecured;
+
     internal ShipSitu objSS = new();
     internal CondOwner Reactor;
     internal bool bDestroyed, bCheckFusion, bFusionReactorRunning = true, Docked, IsNotAFullStation, IsUsingTorchDrive;
@@ -19,7 +24,11 @@ internal sealed class Ship
     internal int PositiveThrusts, RetrogradeBurns;
     internal float LastX, LastY, LastTurn;
     internal Ship() { Reactor = new CondOwner(this); }
-    internal bool IsDocked() => Docked;
+    internal bool IsDocked() => Docked || Attachments.Count>0;
+    internal bool IsMoored() => TowMoored;
+    internal object? shipStationKeepingTarget;
+    internal List<object> aWPs=new();
+    internal string strRegID="";
     internal void UnlockFromOrbit() { }
     internal double GetRCSRemain() => RcsFuel;
     internal float GetMaxTorchThrust(float limiter) => (float)(20 * limiter * limiter * AutoNavCore.M_TO_AU);
@@ -52,7 +61,8 @@ internal sealed class ShipSitu
 {
     internal double vPosx, vPosy, vVelX, vVelY;
     internal float fRot, fW, fA;
-    internal bool bOrbitLocked, bBOLocked, bIsBO;
+    internal bool bOrbitLocked, bBOLocked, bIsBO, bGrounded;
+    internal double GetRadiusAU()=>100*AutoNavCore.M_TO_AU;
     internal Vector2 vAccIn, vAccEx, vAccRCS;
     internal void ResetNavData() { }
     internal void UnlockFromBO() { }
@@ -113,6 +123,8 @@ internal sealed class CrewSim
 }
 internal sealed class StarSystem
 {
+    internal Dictionary<string,Ship> Ships=new();
+    internal Ship? GetShipByRegID(string id)=>Ships.TryGetValue(id,out var ship)?ship:null;
     internal static double fEpoch;
     internal List<Ship> Stations = new();
     internal bool Restricted, FailQuery;
@@ -188,3 +200,5 @@ namespace PhobosAutoNav
         { Resolve(out x, out y, out vx, out vy); double ax = TargetSitu.vAccIn.x, ay = TargetSitu.vAccIn.y; x += vx * dt + .5 * ax * dt * dt; y += vy * dt + .5 * ay * dt * dt; vx += ax * dt; vy += ay * dt; return true; }
     }
 }
+
+internal static class AIShipManager { internal static object? GetAIShipByRegID(string id)=>null; }
