@@ -35306,6 +35306,25 @@
   ],
   "documents": [
     {
+      "path": "README.md",
+      "scope": "current player text; technical/history sections retained where labelled",
+      "decision": "update current version/help and retain technical evidence",
+      "sha256": "fb9ca636d58af93a11680e67829d687efc417fae1e67ecf687dd5b6f19c98c46",
+      "review": "2026-09-27: towing instructions, unchanged native mechanics and scope limits reviewed; historical records preserved."
+    },
+    {
+      "path": "SUPPORT.md",
+      "scope": "current player text; technical/history sections retained where labelled",
+      "decision": "retain",
+      "sha256": "a7dea122304ed15323c6cede84fb65b946beeed8c6d74f46bd2610870fbcd238"
+    },
+    {
+      "path": "docs/README.md",
+      "scope": "current player text; technical/history sections retained where labelled",
+      "decision": "retain",
+      "sha256": "f46f1de9e1b8459f8ce717bf56bf629ce18064eb28ed22529c678fd51a6e840d"
+    },
+    {
       "path": "docs/agriculture-bulk-storage-art.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
@@ -35315,7 +35334,7 @@
       "path": "docs/agriculture-bulk-storage-calculations.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "0f5fd74a01dbe8119cf8270a6e5ecab3b5040e2fa94ec3305b0aff370f76b957",
+      "sha256": "4bf53d458553bc937cb0c843796e6b8d24cedbad54b38527851b687897aa453e",
       "review": "2026-09-27: generator refresh changes only current versions/source fingerprints; item values, research findings and player explanations are unchanged."
     },
     {
@@ -35364,7 +35383,7 @@
       "path": "docs/agriculture-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "fde7e766c4aaff73e434165e493ac4acdcd58f25be14de0399534dd263e47aea",
+      "sha256": "4e400756b152070baaff26a133476540030a26ce14f138758db720225c70e7f0",
       "review": "2026-09-27: generator refresh changes only current versions/source fingerprints; item values, research findings and player explanations are unchanged."
     },
     {
@@ -35465,6 +35484,13 @@
       "sha256": "8bb6a7dfda5a51a57d527369a5b14a9063d0417e3b184a8acdbb8ed4b439afd5"
     },
     {
+      "path": "docs/auto-nav-combat.md",
+      "scope": "current player instructions and explicit technical validation record",
+      "decision": "review new Combat guide and preserve native evidence",
+      "sha256": "13b15c5731bdfd9500f869eca53af39865fe9642ea49f4a94a19dd8f8255cb1e",
+      "review": "2026-09-27 Auto Nav 0.22.0: reviewed current Combat/docking instructions and regenerated references; historical evidence and behavioural limits preserved."
+    },
+    {
       "path": "docs/auto-nav-departure.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
@@ -35513,7 +35539,7 @@
       "path": "docs/auto-nav-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "4f798360648dd37c6e501dda5a7ebe578cd00d4b8d53687c8de0d7912b77ef2d",
+      "sha256": "504b60c2c8849a90228c4d8f2e92a85b3ba4ad6d92aa5a5a86da95d4ea75353c",
       "review": "2026-09-27: reviewed secured towing, warning priority, native boundaries and regenerated reference evidence; historical records preserved."
     },
     {
@@ -35566,6 +35592,13 @@
       "sha256": "57546cc70ad89295b3fefd154beb3bc36cbc4787150197155c74bf5b285359fb"
     },
     {
+      "path": "docs/auto-nav-towing.md",
+      "scope": "current player guide and native evidence",
+      "decision": "reviewed",
+      "sha256": "e90e9c4384fd0faab9d19a950182bd2838ff113a95291654009cf411a0be1c06",
+      "review": "2026-09-27: towing instructions, unchanged native mechanics and scope limits reviewed; historical records preserved."
+    },
+    {
       "path": "docs/auto-navigate-adaptation.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
@@ -35599,7 +35632,7 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "e88229a65bbe68f4d75ae94d9350f366e7b5fc78a196e91d8e773f9a636b5372",
+      "sha256": "38e2648fb7f782e1eb3a26290eeb01c8b2caab745c63bfa2d470fada3dccc865",
       "review": "2026-09-27: towing instructions, unchanged native mechanics and scope limits reviewed; historical records preserved."
     },
     {
@@ -35654,7 +35687,7 @@
       "path": "docs/framework-author-guide.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "256cf3c44c7cd09c6327eab7d9d5603f4f3e359a40f3dafaec691d4ebee1f0e3",
+      "sha256": "d0c9e0e892283893dc329e3bbb794c51d2b2e79a58fa7ce0019a798002bb3370",
       "review": "2026-09-27 Polaris review: checked revised controls, versions, generated reference evidence and limitations; preserved scientific attribution and historical records."
     },
     {
@@ -35667,7 +35700,7 @@
       "path": "docs/framework-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "6eae20cb3c4cb66f6de22df68c7ff1f27479cd9523c0d01d1d9c136bb4dbbac2",
+      "sha256": "31dc2d8a3f939613116f609da70a5bbac2f2f5f653c8dcc077b07707f73abdae",
       "review": "2026-09-27 Polaris review: checked revised controls, versions, generated reference evidence and limitations; preserved scientific attribution and historical records."
     },
     {
@@ -35764,7 +35797,7 @@
       "path": "docs/industrial-console-player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "1c80028fe34c6162f61a61e83aaf05163152863f31c5c67e4d6697ad682f6782",
+      "sha256": "1ac84979cc88ffd7f59b1f8b49152ca9c76bf32fb1497678b30154bfd149dddd",
       "review": "2026-09-27 Polaris review: checked revised controls, versions, generated reference evidence and limitations; preserved scientific attribution and historical records."
     },
     {
@@ -35789,14 +35822,21 @@
       "path": "docs/installing-mods.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "d8184e6065cb4463b1648fe615870c1863f99868c30ba8e9f568aa9f8c68bd7d",
+      "sha256": "be6a421f361bbf186359309bd3d9f8f8b775a622b8ad2f184940a6d33677f9ee",
       "review": "2026-09-27 Polaris review: checked revised controls, versions, generated reference evidence and limitations; preserved scientific attribution and historical records."
+    },
+    {
+      "path": "docs/item-handling-audit.md",
+      "scope": "current handling guidance and complete generated definition ledger",
+      "decision": "reviewed",
+      "sha256": "1a227160046b2d37974b67ed39ed9ddff128536213a4c2c19c88db873b54d193",
+      "review": "Explains vanilla pickup/drag labels, legacy-placement exception and missing-menu uncertainty. Game evidence is attributed; native IDs stay untranslated."
     },
     {
       "path": "docs/item-reference-maintenance.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "69d962e95bc8256c90df18808a44a3b12697f45d39afb9812077cec2a2b0d705"
+      "sha256": "c795cd785731c0e1c12b774b7cc0afcd888abe0b625f04e405363db7cb5cd3fe"
     },
     {
       "path": "docs/item-references.md",
@@ -35913,6 +35953,13 @@
       "sha256": "e03a56f986a716835615ae2c75cfcab0087c58ede51458fabe17bf35f59b142c"
     },
     {
+      "path": "docs/performance-audit.md",
+      "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
+      "decision": "add; explicit measurement limits and practical player actions",
+      "sha256": "c8f4fdfa778818f4bc3daf06b476d1b5a5000b5b1a55eb0146f8695eda76a192",
+      "review": "2026-09-27: towing instructions, unchanged native mechanics and scope limits reviewed; historical records preserved."
+    },
+    {
       "path": "docs/performance-captures.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "update current version/help and retain technical evidence",
@@ -35929,8 +35976,15 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "8305b8d16e475cedda481eaf66003f6e294c9ac1456018c23796bc85b5549074",
+      "sha256": "687d6d3828c485cdb674c8a28651d67020d26acfc76ea631326f810a5cd3a9bc",
       "review": "2026-09-27: towing instructions, unchanged native mechanics and scope limits reviewed; historical records preserved."
+    },
+    {
+      "path": "docs/polaris-interface-refresh.md",
+      "scope": "current player controls plus labelled implementation/artwork evidence",
+      "decision": "add",
+      "sha256": "7739642ab8e1a6b4ca49ddbb87b5b8600ad9f0e1fbc4fb3add958c528caa61e3",
+      "review": "2026-09-27 Polaris review: checked revised controls, versions, generated reference evidence and limitations; preserved scientific attribution and historical records."
     },
     {
       "path": "docs/powered-shipbreaking-design-findings.md",
@@ -35961,12 +36015,6 @@
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
       "sha256": "c2c24ab8c5effe31f8c97f7580c0b229266d7b788138aa191b6b2333b9c26a89"
-    },
-    {
-      "path": "docs/README.md",
-      "scope": "current player text; technical/history sections retained where labelled",
-      "decision": "retain",
-      "sha256": "f46f1de9e1b8459f8ce717bf56bf629ce18064eb28ed22529c678fd51a6e840d"
     },
     {
       "path": "docs/residue-collector.md",
@@ -36062,7 +36110,7 @@
       "path": "docs/shipbreaker-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "ca16b93564902318882877d84ea028aaf26d208b71dbf3b4edd8446b95ccbc7b",
+      "sha256": "76c21c029c2abb16ec135e6bb9c8de737239ae47347f8fec23af67aa8b71fd9b",
       "review": "2026-09-27 Polaris review: checked revised controls, versions, generated reference evidence and limitations; preserved scientific attribution and historical records."
     },
     {
@@ -36138,37 +36186,24 @@
       "sha256": "90a2667c29e7ad84b74bfc8b0d5c116af86ab7b1c3f67d5646e01626b22d8cd2"
     },
     {
-      "path": "README.md",
-      "scope": "current player text; technical/history sections retained where labelled",
-      "decision": "update current version/help and retain technical evidence",
-      "sha256": "fba1f302caa634b1aa8c99b0eb14495a5951ba0aa10ae8168414899744ec63a9",
-      "review": "2026-09-27: towing instructions, unchanged native mechanics and scope limits reviewed; historical records preserved."
-    },
-    {
-      "path": "SUPPORT.md",
-      "scope": "current player text; technical/history sections retained where labelled",
-      "decision": "retain",
-      "sha256": "a7dea122304ed15323c6cede84fb65b946beeed8c6d74f46bd2610870fbcd238"
-    },
-    {
       "path": "workshop/PhobosAgriculture/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "ea02d90f0e8fb015452cb3a24780b5131fefe43c4519fe4ca21b1fd85ae9c556",
+      "sha256": "e1c004f53f2a68c144fb66ae0899ad95057ebaeae0bcd014020fc672d6e55b43",
       "review": "2026-09-27: reviewed performance-update wording/version requirements; existing research and historical evidence retained; no measured speedup claim."
     },
     {
       "path": "workshop/PhobosAutoNav/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "5cab1afb0137b9267ed4ca4fcaedcb8811baa400342b627a67f7ba759e7ceb4c",
+      "sha256": "87780a41daf74333e510023ebd8c6edfeb5c3a2a82fb3d16213a0c393f055398",
       "review": "2026-09-27: towing instructions, unchanged native mechanics and scope limits reviewed; historical records preserved."
     },
     {
       "path": "workshop/PhobosFramework/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "e2f9bc08c1fd46235382965e2070d1b12a023cb54741255ded9897d572a750d5",
+      "sha256": "d13a89f239309740dbb170661d88e19451aa7f8936fb031d10c1da411d9d4641",
       "review": "2026-09-27 Polaris review: checked revised controls, versions, generated reference evidence and limitations; preserved scientific attribution and historical records."
     },
     {
@@ -36182,43 +36217,15 @@
       "path": "workshop/PhobosShipbreaker/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "b704d9ffbcd51dea1bd5f113d128ef778ce447817843deb7f70903950545d373",
+      "sha256": "7a73af74da1c2322b5c6649825c477591ea824ea2cd6a6d86c5689e1c4685cab",
       "review": "2026-09-27 Polaris review: checked revised controls, versions, generated reference evidence and limitations; preserved scientific attribution and historical records."
-    },
-    {
-      "path": "docs/performance-audit.md",
-      "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
-      "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "655d6b55b6989270e7f7daaad135159e049736638bc638761a2b2bfca9874961",
-      "review": "2026-09-27: towing instructions, unchanged native mechanics and scope limits reviewed; historical records preserved."
-    },
-    {
-      "path": "docs/polaris-interface-refresh.md",
-      "scope": "current player controls plus labelled implementation/artwork evidence",
-      "decision": "add",
-      "sha256": "7739642ab8e1a6b4ca49ddbb87b5b8600ad9f0e1fbc4fb3add958c528caa61e3",
-      "review": "2026-09-27 Polaris review: checked revised controls, versions, generated reference evidence and limitations; preserved scientific attribution and historical records."
-    },
-    {
-      "path": "docs/auto-nav-combat.md",
-      "scope": "current player instructions and explicit technical validation record",
-      "decision": "review new Combat guide and preserve native evidence",
-      "sha256": "13b15c5731bdfd9500f869eca53af39865fe9642ea49f4a94a19dd8f8255cb1e",
-      "review": "2026-09-27 Auto Nav 0.22.0: reviewed current Combat/docking instructions and regenerated references; historical evidence and behavioural limits preserved."
-    },
-    {
-      "path": "docs/auto-nav-towing.md",
-      "scope": "current player guide and native evidence",
-      "decision": "reviewed",
-      "sha256": "e90e9c4384fd0faab9d19a950182bd2838ff113a95291654009cf411a0be1c06",
-      "review": "2026-09-27: towing instructions, unchanged native mechanics and scope limits reviewed; historical records preserved."
     }
   ],
   "surfaces": [
     {
       "path": "config/item-reference.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "b0fa6ea217558c9df49ebe1130bb6bde3b48f4be42e9ee212f1f88e9eb40b612",
+      "sha256": "8fb36e98a5c56aa0f0b1324d29a621e5639559f5dbaf2c3ae8aac04b57e6ea36",
       "review": "2026-09-27: reviewed secured towing, warning priority, native boundaries and regenerated reference evidence; historical records preserved."
     },
     {
@@ -36234,7 +36241,7 @@
     {
       "path": "mods/PhobosAgriculture/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "846beba96b34775100d41da9f9fc4cc286d0819527bb3b6a6e272dd3da9170ab",
+      "sha256": "854476e2bdd510f2efcaf773fde8ee5564d804adc79e7ad7f52d8c24d3e054a7",
       "review": "2026-09-27: reviewed performance-update wording/version requirements; existing research and historical evidence retained; no measured speedup claim."
     },
     {
@@ -36255,7 +36262,7 @@
     {
       "path": "mods/PhobosAutoNav/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "bc51b28a1f1a13bec64799a63f2f93f62fea1f2eb860b523c0813fa420f03e06",
+      "sha256": "786aa661c342e7369150677da2f1233ceac5b179642627a655ea77347c49e517",
       "review": "2026-09-27: towing instructions, unchanged native mechanics and scope limits reviewed; historical records preserved."
     },
     {
@@ -36266,7 +36273,7 @@
     {
       "path": "mods/PhobosFramework/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "9a510077a6f0e4982eda05db0b8d843c310944d60bf29cdc981dddc6a70ccfcc",
+      "sha256": "fdae67cac50771205de85691e0e62d4da578f97c101ea9847480c920503d810f",
       "review": "2026-09-27 Polaris review: checked revised controls, versions, generated reference evidence and limitations; preserved scientific attribution and historical records."
     },
     {
@@ -36287,7 +36294,7 @@
     {
       "path": "mods/PhobosShipbreaker/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "6eaaa3183a9fc4dc6503f486c8c6a5c98d11a31d710438d0393cf064cfc8d560",
+      "sha256": "afa49ce95404866ea6fc3e329b238e219ac078dc1975b125ac520fb4f20827a0",
       "review": "2026-09-27 Polaris review: checked revised controls, versions, generated reference evidence and limitations; preserved scientific attribution and historical records."
     }
   ],

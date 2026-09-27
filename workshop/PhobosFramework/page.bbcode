@@ -1,5 +1,5 @@
 [h1]Phobos Framework[/h1]
-[b]Version:[/b] 0.30.1
+[b]Version:[/b] 0.30.2
 
 [h2]Performance update[/h2]
 Shared display updates now avoid repeated work, and crew equipment searches stay within their own ship. Optional performance recording remains off unless requested. Saved state and gameplay rules are unchanged.
@@ -64,3 +64,6 @@ Browser checks do not establish Unity interaction approval. The recent refresh p
 
 [h2]Polaris readability correction[/h2]
 Dark button faces now keep labels readable in every interaction state. This fixes the white-button regression reported in game. The corrected native appearance still awaits owner playtesting.
+
+[b]Item handling correction[/b]
+Add opt-in native transport-action normalization shared by content mods: retain useful actions, add missing pickup/drop, match stack actions to stack limits and keep installed machinery out of carry slots. Restore declared cumbersome flags in detached load data for explicitly registered bulky cargo. Preserve saved hand placement until successful native release, then retire the legacy hand attachment. No save files, contents, mass, wear or progress are rewritten. Live menu and inventory handling remain owner-tested.

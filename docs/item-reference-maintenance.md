@@ -94,3 +94,5 @@ The exporter also records each definition's effective native stack limit
 (minimum one). Item tables show the loose form's maximum stack separately
 from per-item mass and price; installed fixtures remain individual. Missing
 or invalid stack limits fail validation rather than silently assuming one.
+
+The same native export includes direct actions, handling flags and equipment slots. `scripts/audit-item-handling.py` renders their complete ledger; `--check` verifies it. The PowerShell updater and documentation CI include this check. Keep native menu context and Unity testing separate from this definition inventory.

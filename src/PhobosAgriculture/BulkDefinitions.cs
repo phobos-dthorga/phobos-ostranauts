@@ -26,7 +26,7 @@ internal static class BulkDefinitions
         {
             var co=d.Objects[Tank+form];co.jsonPI=null;co.aTickers=Array.Empty<string>();
             co.mapPoints=new[]{"use,0,-32","PhobosBulkOut,24,0"};
-            if(form.StartsWith("Installed",StringComparison.Ordinal))co.aInteractions=co.aInteractions.Concat(Work.Select(WorkId)).ToArray();
+            if(form == "Installed")co.aInteractions=co.aInteractions.Concat(Work.Select(WorkId)).ToArray();
             string image="phobos/agriculture/Reservoir"+(form.Contains("Loose")?"Loose":"")+(form.EndsWith("Dmg")?"Damaged":"");
             co.strPortraitImg=image;d.Items[co.strItemDef].strImg=image;d.Items[co.strItemDef].strImgNorm=image+"Normal";
             if(form.EndsWith("Dmg"))

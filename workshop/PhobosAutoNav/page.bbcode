@@ -1,5 +1,5 @@
 [h1]Phobos Auto Nav[/h1]
-[b]Version:[/b] 0.22.2
+[b]Version:[/b] 0.22.3
 
 [h2]Performance update[/h2]
 The console refreshes the visible page up to ten times per second and responds immediately to your actions. It no longer checks whole-ship hull fit just to display docking clearance; starting a docking manoeuvre still checks it. Flight and firing safety checks remain current.
@@ -24,7 +24,7 @@ Give Polaris the long approach while you keep an eye on the ship. Asterel module
 Disengage removes thrust; the ship coasts. It is not an emergency brake. Docking needs clearance and the navigation console open for final clamps. Departure, docking and pursuit pause after loading. No guaranteed collision-free flight, successful hit or intact capture. Upstream-derived Auto Navigate code remains excluded from the MIT grant; its unresolved reuse terms keep publication on hold.
 
 [h2]Requirements and installation[/h2]
-Ostranauts 1.0.1.5, BepInEx 5 and Phobos Framework 0.30.1 or newer. Disable original Auto Navigate before engaging Phobos Auto Nav; it is not a dependency.
+Ostranauts 1.0.1.5, BepInEx 5 and Phobos Framework 0.30.2 or newer. Disable original Auto Navigate before engaging Phobos Auto Nav; it is not a dependency.
 
 This is an unpublished development package. Automated checks do not establish in-game readiness or Unity layout approval. Keep required mods installed for saves using their content. Updating does not refill shops or old loot containers. See the installation guide for current download availability.
 
@@ -79,3 +79,6 @@ Separate live frames, smaller command/help text and compact buttons keep control
 
 [b]Secured towing[/b]
 Approach, Rendezvous, Follow, FCS and Combat support one securely braced tow in free space, using native RCS/torch controls and clearance for both hulls. Engage still grants firing permission separately; an attached ship cannot be selected as the fire target. Brace faults cancel aiming and firing without automatic restart. Release the tow before Dock, Approach & Dock or industrial close work. Stations, mooring, towing chains and unsecured attachments remain blocked. Live towing handling awaits owner testing.
+
+[b]Item handling correction[/b]
+Keep board and remnant pickup/drop actions consistent with their actual stack limits through the shared handling helper. Preserve module slots, repair, restore, dismantling and navigation behaviour. Requires Phobos Framework 0.30.2. Live menu and inventory handling remain owner-tested.

@@ -19,6 +19,14 @@ Dates on Draft entries record preparation, not Steam publication.
 - Earlier capture-only research is superseded for supported ordinary walls by the implementation below. Broader structural recipes, repeated furnace batches and whole-wreck completion remain outside this round.
 - Keep [NASA Goddard's Raven research](https://www.nasa.gov/general/nasas-hybrid-computer-enables-ravens-autonomous-rendezvous-capability/) and [ESA's LIRIS experiment by Airbus, Jena Optronik and Sodern](https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/ATV/ATV_views_Space_Station_as_never_before) as sensing context, separate from Blue Bottle Games native evidence and authored gameplay choices. No institutional endorsement or gameplay validation is implied.
 
+## [0.29.2] - 2026-09-27 - Draft
+
+### Fixed
+
+- Correct loose machinery and conduit pickup/drop actions. D4-S, R4-S and F6-S assembly sections now use the native cumbersome/drag family instead of hand-held scrap behaviour. Sections retain dismantling and remain construction inputs, not installed machines.
+- Existing sections in hands or containers remain where saved. Put a held section down once; future handling uses the drag slot. Requires Phobos Framework 0.30.2.
+- Audited all 118 implemented item definitions and checked native action/slot contracts offline. Live menus and loaded inventory handling still require owner testing; see the [item handling audit](https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/item-handling-audit.md).
+
 ## [0.29.1] - 2026-09-27 - Draft
 
 ### Fixed

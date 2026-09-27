@@ -29,12 +29,13 @@
     },
     {
       "path": "src/PhobosAgriculture/BulkDefinitions.cs",
-      "sha256": "3984cf371a896dd8e82e0ff6391473ac5afff584935b3d586f7a454b024b256e",
+      "sha256": "0c8914f77eac2346d511892ac9e6f66a7943765aa3da2b874b2dd11b0fe291a3",
       "role": "registration, metadata or event-driven content",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Implement bounded, behaviour-preserving changes described by the linked findings; retain owning simulation and validation policy.",
+      "decision": "Definition/load-time handling correction; native transport remains authoritative. No recurring scans, UI refresh changes or simulation work added.",
       "findings": [
-        "P3"
+        "P3",
+        "H1"
       ],
       "indicators": {
         "collection": [
@@ -239,12 +240,13 @@
     },
     {
       "path": "src/PhobosAgriculture/Definitions.cs",
-      "sha256": "2faa187ce7bbfd63f3061f3f7415ff83911594649a3dcaf15181c87b4039bd28",
+      "sha256": "4e9d1932e866b28c1e4051dfc0f2b69c800e8931206408f7218d7fb3e93fe1e7",
       "role": "registration, metadata or event-driven content",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Retain existing policy and call frequency. No independent measured hotspot justifies additional changes in this file; see the linked subsystem decision.",
+      "decision": "Definition/load-time handling correction; native transport remains authoritative. No recurring scans, UI refresh changes or simulation work added.",
       "findings": [
-        "R4"
+        "R4",
+        "H1"
       ],
       "indicators": {
         "collection": [
@@ -439,7 +441,7 @@
     },
     {
       "path": "src/PhobosAgriculture/Plugin.cs",
-      "sha256": "9c1ed52343f83f14de00356ddd538699679159d5b8a33249ae62b5bd0c09fc3f",
+      "sha256": "944b0b2d268144e120b562bb5ee1272009751b977370842bfcf01c12ab496054",
       "role": "biology, fluids, native boundary or process policy",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
       "decision": "Retain existing policy and call frequency. No independent measured hotspot justifies additional changes in this file; see the linked subsystem decision.",
@@ -983,12 +985,13 @@
     },
     {
       "path": "src/PhobosAutoNav/EquipmentContent.cs",
-      "sha256": "7372b5f9eedac930bf960b37435c454e2850bcb92f19fe148f2f78a6bda74faf",
+      "sha256": "f231c65511ac91f501341d9fdd657805dc04bd81166fd2ef650da8583001fbc6",
       "role": "registration, metadata or event-driven content",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Retain existing policy and call frequency. No independent measured hotspot justifies additional changes in this file; see the linked subsystem decision.",
+      "decision": "Definition/load-time handling correction; native transport remains authoritative. No recurring scans, UI refresh changes or simulation work added.",
       "findings": [
-        "R4"
+        "R4",
+        "H1"
       ],
       "indicators": {
         "collection": [
@@ -1452,7 +1455,7 @@
     },
     {
       "path": "src/PhobosAutoNav/Plugin.cs",
-      "sha256": "673cf8b8220aaeb95c4d422f28eabb66dcf319b84002ec079ee0b0464b30dcac",
+      "sha256": "0eac54026731db289ba8740fc70911292e4e2a00df0283bf60a78ea1fb5f2507",
       "role": "navigation, native boundary or flight policy",
       "review": "2026-09-27 towing: reviewed attachment ownership, clearance and native-policy boundaries; bounded UI refresh preserved.",
       "decision": "Use one existing guidance controller. Retain save/shot checks and no discovery-result cache; no new capture campaign or per-frame logging.",
@@ -1533,6 +1536,17 @@
       "decision": "Retain existing policy and call frequency. No independent measured hotspot justifies additional changes in this file; see the linked subsystem decision.",
       "findings": [
         "R2"
+      ],
+      "indicators": {}
+    },
+    {
+      "path": "src/PhobosAutoNav/TowFlight.cs",
+      "sha256": "834949a58d456d576152d64d3ebc596c9668966ef9feea587ad2500b30d438ed",
+      "role": "native towing admission and combined hull envelope",
+      "review": "2026-09-27 towing: reviewed attachment ownership, clearance and native-policy boundaries; bounded UI refresh preserved.",
+      "decision": "Use fresh native reciprocal attachment facts; no cached membership or new public API.",
+      "findings": [
+        "T1"
       ],
       "indicators": {}
     },
@@ -2437,12 +2451,13 @@
     },
     {
       "path": "src/PhobosFramework/FrameworkLifecycle.cs",
-      "sha256": "0a9dae1237ee384ef72a1f59118b8f415da1dcc59190c8bf38c4a9f043091348",
+      "sha256": "ba3cef315744df19f154dccbf76cddfae353bb0549c2523b4051b0cafcb6d6eb",
       "role": "registration, metadata or event-driven content",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Retain existing policy and call frequency. No independent measured hotspot justifies additional changes in this file; see the linked subsystem decision.",
+      "decision": "Definition/load-time handling correction; native transport remains authoritative. No recurring scans, UI refresh changes or simulation work added.",
       "findings": [
-        "R4"
+        "R4",
+        "H1"
       ],
       "indicators": {
         "runtime_hook": [
@@ -2912,7 +2927,7 @@
     },
     {
       "path": "src/PhobosFramework/Plugin.cs",
-      "sha256": "9803dfb0a2f4a84bddc847d864f38539ca16e0a3a8f4304006db078031c9a5ad",
+      "sha256": "50352eb26adb7340b9b1ee0631c51ffc929c67665c8c54cdce5479cf34c85e0c",
       "role": "shared accounting, inventory, crew or native boundary",
       "review": "2026-09-27: reviewed Polaris update/caller boundaries; fresh inventory only for visible Fire or explicit actions; no simulation cadence or recording changes. Polaris readability correction reviewed: widget binding/geometry changes occur at creation; warning and damage precedence reuse existing snapshot facts. Metadata changes only adjust versions/minima. No additional polling, simulation or persistence work.",
       "decision": "P8: retain ten-per-second presentation, hidden-tab inactivity and unchanged-widget suppression. Add opt-in retained bindings, fresh inventory and checked action-time handoff. Metadata-only version updates have no recurring cost.",
@@ -3091,13 +3106,25 @@
       "indicators": {}
     },
     {
+      "path": "src/PhobosFramework/Registration/ItemHandling.cs",
+      "sha256": "e006b31c6f34e348e6415a705638e35ecda9608086bfbd93f2e5c4f374a4de77",
+      "role": "opt-in definition handling and saved-slot compatibility",
+      "review": "Reviewed native SetData/SlotItem/UnSlotItem boundaries, exact owned-definition scope, detached DTO correction, weak legacy-hand lifetime and no runtime scanning.",
+      "decision": "Normalize transport once during registration; preserve saved placement until native release; do not alter mass, inventory contents or other mods.",
+      "findings": [
+        "H1"
+      ],
+      "indicators": {}
+    },
+    {
       "path": "src/PhobosFramework/Registration/MaintenanceDefinitions.cs",
-      "sha256": "023413c0bd172722429144d8307300e5791ac6699692358d42081b493dbae235",
+      "sha256": "b501541592d33d6f904701b3ee83be08356256fb54b7a67ae37ef85d9fb5b12c",
       "role": "registration, metadata or event-driven content",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Retain existing policy and call frequency. No independent measured hotspot justifies additional changes in this file; see the linked subsystem decision.",
+      "decision": "Definition/load-time handling correction; native transport remains authoritative. No recurring scans, UI refresh changes or simulation work added.",
       "findings": [
-        "R4"
+        "R4",
+        "H1"
       ],
       "indicators": {
         "collection": [
@@ -3492,12 +3519,13 @@
     },
     {
       "path": "src/PhobosShipbreaker/Content.cs",
-      "sha256": "027a29ef9c24ba62a36d20f43639e1c7e1f32f40aa1a200c259ad401c864dac8",
+      "sha256": "15fb48455fa285de9cb5744521752127ec1dabacec83fa1b9a47749eb28237f0",
       "role": "registration, metadata or event-driven content",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Retain existing policy and call frequency. No independent measured hotspot justifies additional changes in this file; see the linked subsystem decision.",
+      "decision": "Definition/load-time handling correction; native transport remains authoritative. No recurring scans, UI refresh changes or simulation work added.",
       "findings": [
-        "R4"
+        "R4",
+        "H1"
       ],
       "indicators": {
         "collection": [
@@ -3612,7 +3640,7 @@
     },
     {
       "path": "src/PhobosShipbreaker/Core/DependencyContract.cs",
-      "sha256": "06374c68abd71f3596a3819eea6e6dd770deb53159ffe693235972668c0313cc",
+      "sha256": "7a519726c7c82677988662bc2e14bcc88b7d268cfeb4c8008e2326e555601b02",
       "role": "industrial service, native boundary or process policy",
       "review": "2026-09-27: reviewed Polaris update/caller boundaries; fresh inventory only for visible Fire or explicit actions; no simulation cadence or recording changes. Polaris readability correction reviewed: widget binding/geometry changes occur at creation; warning and damage precedence reuse existing snapshot facts. Metadata changes only adjust versions/minima. No additional polling, simulation or persistence work.",
       "decision": "P8: retain ten-per-second presentation, hidden-tab inactivity and unchanged-widget suppression. Add opt-in retained bindings, fresh inventory and checked action-time handoff. Metadata-only version updates have no recurring cost.",
@@ -4276,7 +4304,7 @@
     },
     {
       "path": "src/PhobosShipbreaker/Plugin.cs",
-      "sha256": "ed1c8f2b029c8de3eb62554bfd1b40ad404b0d1e0d4a04b153d0988d61e556f0",
+      "sha256": "392e91a241a44551f65f53d046c42303ef12a57ca63f1c2b4aef2bb8608ce878",
       "role": "industrial service, native boundary or process policy",
       "review": "2026-09-27: reviewed Polaris update/caller boundaries; fresh inventory only for visible Fire or explicit actions; no simulation cadence or recording changes. Polaris readability correction reviewed: widget binding/geometry changes occur at creation; warning and damage precedence reuse existing snapshot facts. Metadata changes only adjust versions/minima. No additional polling, simulation or persistence work.",
       "decision": "P8: retain ten-per-second presentation, hidden-tab inactivity and unchanged-widget suppression. Add opt-in retained bindings, fresh inventory and checked action-time handoff. Metadata-only version updates have no recurring cost.",
@@ -4520,17 +4548,6 @@
       "decision": "Retain existing policy and call frequency. No independent measured hotspot justifies additional changes in this file; see the linked subsystem decision.",
       "findings": [
         "R4"
-      ],
-      "indicators": {}
-    },
-    {
-      "path": "src/PhobosAutoNav/TowFlight.cs",
-      "sha256": "834949a58d456d576152d64d3ebc596c9668966ef9feea587ad2500b30d438ed",
-      "role": "native towing admission and combined hull envelope",
-      "review": "2026-09-27 towing: reviewed attachment ownership, clearance and native-policy boundaries; bounded UI refresh preserved.",
-      "decision": "Use fresh native reciprocal attachment facts; no cached membership or new public API.",
-      "findings": [
-        "T1"
       ],
       "indicators": {}
     }

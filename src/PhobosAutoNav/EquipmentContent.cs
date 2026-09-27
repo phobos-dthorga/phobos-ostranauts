@@ -105,6 +105,7 @@ internal static class EquipmentContent
             });
         }
         RegionalEconomy.Apply(d);
+        ItemHandling.Apply(d);
         return d;
 
         void Offer(string merchant, string tag, string item, double chance, StockCondition condition) =>

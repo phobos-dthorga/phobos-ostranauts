@@ -1,0 +1,22 @@
+using System;
+using System.Linq;
+using Phobos.Ostranauts.Framework.Registration;
+int checks=0;void Check(bool yes,string reason){checks++;if(!yes)throw new Exception(reason);}
+var d=new NativeDefinitions();d.Objects["PhobosSection"]=new(){strName="PhobosSection"};
+ItemHandling.Cumbersome(d,"PhobosSection");ItemHandling.Apply(d);
+var saved=new JsonCondOwnerSave{strCODef="PhobosSection",strID="original",strSlotName="heldR",aConds=new[]{"DEFAULT"}};
+var item=new CondOwner();item.mapSlotEffects["drag"]=new(){strSlotPrimary="drag"};
+ItemHandling.RestoreLegacyHand(item,saved);
+Check(item.mapSlotEffects.ContainsKey("heldR")&&!item.mapSlotEffects.ContainsKey("heldL"),"Only exact saved hand is retained");
+Check(item.mapSlotEffects["heldR"].strSlotPrimary=="heldR","Native hand mapping binds exact slot");
+item.slotNow="heldR";ItemHandling.RetireLegacyHand(item);
+Check(item.mapSlotEffects.ContainsKey("heldR"),"Failed release preserves required unslot effects");
+ItemHandling.RetireLegacyHand(null);Check(item.mapSlotEffects.ContainsKey("heldR"),"Null native result cannot retire a held item");
+item.slotNow=null;ItemHandling.RetireLegacyHand(item);
+Check(item.mapSlotEffects.Keys.SequenceEqual(new[]{"drag"}),"Successful release leaves only drag attachment");
+ItemHandling.RetireLegacyHand(item);Check(item.mapSlotEffects.Count==1,"Repeat release is harmless");
+var fresh=new CondOwner();ItemHandling.RestoreLegacyHand(fresh,null);Check(fresh.mapSlotEffects.Count==0,"Fresh item receives no legacy hand mapping");
+saved.strCODef="ForeignSection";ItemHandling.RestoreLegacyHand(fresh,saved);Check(fresh.mapSlotEffects.Count==0,"Unregistered items are untouched");
+saved.strCODef="PhobosSection";saved.strSlotName="drag";ItemHandling.RestoreLegacyHand(fresh,saved);Check(fresh.mapSlotEffects.Count==0,"Saved drag does not grant hand access");
+ItemHandling.BeginLoad();saved.strSlotName="heldR";Check(!ItemHandling.LegacyHand(saved),"Content reload clears old registration");
+Console.WriteLine($"{checks} production handling/legacy-release checks passed against native doubles; not Unity validation.");

@@ -16,8 +16,8 @@ eating. This guide starts with installation and the basic shipbreaking loop.
 - [Markets](solar-system-economy.md) and [stock quantities](merchant-stock.md):
   availability depends on ordinary merchant restocking.
 
-**Prepared versions:** Phobos Framework **0.30.1**, Shipbreaker **0.29.1**, Auto Nav
-**0.22.2**, built against Ostranauts **1.0.1.5** / BepInEx **5.4.23.5**.
+**Prepared versions:** Phobos Framework **0.30.2**, Shipbreaker **0.29.2**, Auto Nav
+**0.22.3**, built against Ostranauts **1.0.1.5** / BepInEx **5.4.23.5**.
 These are development packages. Automated checks do not establish in-game
 compatibility or tell you which version is installed locally. Ordinary saves are
 supported; keep required content installed. [Getting started](getting-started.md)
@@ -219,7 +219,7 @@ publication is implied by this prepared redesign.
 
 ## Industrial controls (0.10.0)
 
-[Console and equipment panel guide](industrial-console-player-guide.md): a 3 x 3 ship-bound workstation, local Control Panels, automatic grouping, search, Attention and routing. The current Shipbreaker 0.29.1 requires Framework 0.30.1 and Auto Nav 0.19.0 and includes [shared observations](shared-console-observations.md) and optional [shared completion cues](shared-completion-cues.md). Prepared for owner testing; no in-game validation claimed.
+[Console and equipment panel guide](industrial-console-player-guide.md): a 3 x 3 ship-bound workstation, local Control Panels, automatic grouping, search, Attention and routing. The current Shipbreaker 0.29.2 requires Framework 0.30.2 and Auto Nav 0.19.0 and includes [shared observations](shared-console-observations.md) and optional [shared completion cues](shared-completion-cues.md). Prepared for owner testing; no in-game validation claimed.
 
 Agriculture now supports [finite potato and lettuce nutrient-solution piping](agriculture-nutrient-solutions.md) through its W2 supply and irrigation conduits.
 
@@ -236,3 +236,7 @@ and Resume the previous flight explicitly. Docking, braking and traffic safety
 retain priority. Live handling still needs owner playtesting.
 
 Secured two-ship towing is supported for ordinary flight, FCS and Combat; see [towing controls and limits](auto-nav-towing.md). Release the tow before terminal docking or industrial close work.
+
+### Moving equipment and assembly sections
+
+Loose machines and bulky assembly sections use the native drag slot. The game may label the action Pick Up; this does not mean the item fits in a hand or ordinary container. Installed equipment must be uninstalled first. D4-S, R4-S and F6-S sections are recipe inputs, so they do not have machine controls or an INSTALL entry. Place them near a supported construction table. Existing saved cargo stays in place; put any previously held heavy section down once to use corrected handling. See the [item handling audit](item-handling-audit.md).

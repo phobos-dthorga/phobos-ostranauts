@@ -754,3 +754,9 @@ Consumers must still validate access/current state in their action services.
 `ConsoleShell.UsePolarisStyle()` opts into wrapped navigation and action rows;
 other shells retain existing dimensions and appearance. These additions are
 presentation-only and preserve existing public signatures.
+
+### Native item handling
+
+Framework 0.30.2 provides opt-in `Registration.ItemHandling.Apply(NativeDefinitions)` after content definitions are complete. It preserves non-transport actions, supplies native pickup/drop, gates stack actions by stack limits, and keeps installed/internal objects out of ordinary carrying. Content calls `ItemHandling.Cumbersome(definitions, id)` for explicitly bulky loose components; mass is not used as a universal threshold. Existing native cumbersome machine forms remain drag-only. Only Phobos item definitions are normalized, leaving optional foreign-provider definitions intact.
+
+The explicit bulky registry also corrects saved condition copies. A saved hand slot is temporarily retained until native unslot succeeds, then removed; contents and placement are never forcibly changed. See the [complete handling audit](item-handling-audit.md) for evidence and owner checks.

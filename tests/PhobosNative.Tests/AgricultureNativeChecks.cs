@@ -38,7 +38,8 @@ internal static class AgricultureNativeChecks
             var donor = DataHandler.dictItemDefs[donorCo.strItemDef];
             check(image.strImg == "phobos/agriculture/Stock-" + key && stock.strPortraitImg == image.strImg, "Stock world/portrait resolves its dedicated image: " + id);
             check(image.nCols == donor.nCols && image.aSocketAdds.SequenceEqual(donor.aSocketAdds) && image.aSocketReqs.SequenceEqual(donor.aSocketReqs) && image.aSocketForbids.SequenceEqual(donor.aSocketForbids), "Stock art preserves donor collision/socket geometry: " + id);
-            check(stock.aInteractions.SequenceEqual(donorCo.aInteractions), "Stock art retains native food/item actions: " + id);
+            check(stock.aInteractions.Where(a => !new[] { "PickupItem", "DropItem", "PickupItemStack", "DropItemStack" }.Contains(a)).SequenceEqual(
+                donorCo.aInteractions.Where(a => !new[] { "PickupItem", "DropItem", "PickupItemStack", "DropItemStack" }.Contains(a))), "Stock retains native non-transport actions, including eating: " + id);
             check(!image.bHasSpriteSheet, "Stock is a single native image, not an inherited sheet: " + id);
             foreach (string path in new[] { image.strImg, image.strImgNorm })
             {

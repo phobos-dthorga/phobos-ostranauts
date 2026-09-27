@@ -58,9 +58,12 @@ internal static class ItemReferenceExport
                 .OrderBy(c => c.strName, StringComparer.Ordinal).Select(co => new {
                     id = co.strName, name = co.strNameFriendly,
                     stackLimit = Math.Max(1, co.nStackLimit),
-                    massKg = EquipmentSaveUpgrade.Amount(co.aStartingConds, "StatMass"),
+                    actions = co.aInteractions ?? Array.Empty<string>(),
+                    handlingFlags = (co.aStartingConds ?? Array.Empty<string>()).Select(s => s.Split('=')[0]).Where(s => new[] { "IsInstalled", "IsCumbersome", "IsSystem", "IsPocketable", "IsDamaged" }.Contains(s)).OrderBy(s => s).ToArray(),
+                    slots = (co.mapSlotEffects ?? Array.Empty<string>()).Where((s, i) => i % 2 == 0).ToArray(),
+                    massKg = EquipmentSaveUpgrade.Amount(co.aStartingConds ?? Array.Empty<string>(), "StatMass"),
                     baseValue = EquipmentValueAudit.Price(co),
-                    installed = co.aStartingConds.Any(s => s.Split('=')[0] == "IsInstalled"),
+                    installed = (co.aStartingConds ?? Array.Empty<string>()).Any(s => s.Split('=')[0] == "IsInstalled"),
                     operatingModes = co.strName == PhobosShipbreaker.Core.IntakeRules.Grabber + "Installed" ? new[] {
                         new { name="Powered wall cutting", seconds=PhobosShipbreaker.Core.ReclamationRules.CuttingSeconds, kw=PhobosShipbreaker.Core.ReclamationRules.CuttingKW },
                         new { name="Existing G4 intake transfer", seconds=PhobosShipbreaker.Core.IntakeRules.TransferSeconds, kw=PhobosShipbreaker.Core.IntakeRules.WorkingKW }

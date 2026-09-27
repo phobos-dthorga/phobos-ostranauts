@@ -19,6 +19,14 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Fixed unreachable INSTALL entries; Firstlight-4, Hearth-2 and W2 appear under APPS, and irrigation conduit under MISC, including damaged forms. Existing inputs, placement and saved IDs are preserved.
 
+## [0.15.3] - 2026-09-27 - Draft
+
+### Fixed
+
+- Restore native pickup/drop on loose appliances and conduit parts; remove stack actions from single items. Large Firstlight rack and R3 reservoir housing remains use cumbersome handling. Portable supplies and native food actions remain available.
+- Remove operating-work entries from damaged R3 reservoirs. Saved cargo remains intact, with legacy hand placement preserved until release. Requires Phobos Framework 0.30.2.
+- Audited all 118 implemented item definitions and checked native action/slot contracts offline. Live menus and loaded inventory handling still require owner testing; see the [item handling audit](https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/item-handling-audit.md).
+
 ## [0.15.2] - 2026-09-27 - Draft
 
 ### Fixed

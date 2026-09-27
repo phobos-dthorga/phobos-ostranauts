@@ -131,6 +131,9 @@ internal static class Content
             (FurnaceRules.Prefix, "PhobosFurnaceSockets"), (FurnaceRules.Radiator, "PhobosFurnaceRadiatorSocket"),
             (FurnaceRules.ThermalPort, FurnaceRules.ThermalPort) })
             ApplianceDefinitions.ApplyStateArtwork(prepared, art.Item1, "phobos/shipbreaker/" + art.Item2);
+        foreach (string id in new[] { ProcessRules.AssemblySection, ReclaimerRules.Section, FurnaceRules.Section })
+            ItemHandling.Cumbersome(prepared, id);
+        ItemHandling.Apply(prepared);
         return prepared;
     }
 

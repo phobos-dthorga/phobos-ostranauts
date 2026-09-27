@@ -94,6 +94,10 @@ internal static class Definitions
         RegionalEconomy.Apply(d);
         foreach (var art in new[] { (Rack, "Rack"), (Cooker, "Cooker"), (IrrigationDefinitions.Supply, "WaterSupply"), (WorkupDefinitions.Bench, "Workup") })
             ApplianceDefinitions.ApplyStateArtwork(d, art.Item1, "phobos/agriculture/" + art.Item2);
+        // Large rack housings remain bulky after dismantling; small loose supplies do not.
+        foreach (string id in new[] { Rack + "HousingWaste", Rack + "BrokenHousingWaste", BulkDefinitions.Tank + "HousingWaste", BulkDefinitions.Tank + "BrokenHousingWaste" })
+            ItemHandling.Cumbersome(d, id);
+        ItemHandling.Apply(d);
         return d;
     }
     internal static void Stock(NativeDefinitions d, string id, double kg, double price, string key, bool food, string? artKey = null)

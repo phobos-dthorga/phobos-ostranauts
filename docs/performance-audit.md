@@ -157,3 +157,7 @@ inventory scan, retained discovery results or extra presentation refresh was add
 Combat continues through the existing single movement authority. The native aim
 stop now uses a positive interval, matching the core's existing stop convention.
 No new frame-time measurements or Unity validation are claimed.
+
+### H1 — native item handling correction
+
+Content-owned handling choices are normalized once during definition preparation. Explicit heavy-item flags are added to detached load DTOs; existing hand slots have a weakly tracked, event-driven release exception. No world scans or recurring update work were added. Native slot, maintenance, food and construction behaviour remain authoritative. Live inventory interaction is unverified.

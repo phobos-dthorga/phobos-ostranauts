@@ -36,6 +36,10 @@ $renderArgs = @((Join-Path $PSScriptRoot 'update-item-reference.py'), '--snapsho
 if ($Check) { $renderArgs += '--check' }
 & $PythonPath @renderArgs
 if ($LASTEXITCODE -ne 0) { throw 'Item reference coverage or freshness check failed. Review the reported catalogue entries.' }
+$handlingArgs = @((Join-Path $PSScriptRoot 'audit-item-handling.py'))
+if ($Check) { $handlingArgs += '--check' }
+& $PythonPath @handlingArgs
+if ($LASTEXITCODE -ne 0) { throw 'Item handling ledger is stale.' }
 & $PythonPath (Join-Path $PSScriptRoot 'update-constants.py') --check --format json
 if ($LASTEXITCODE -ne 0) { throw 'Maintained constants are inconsistent.' }
 & $PythonPath (Join-Path $PSScriptRoot 'workshop-release-notes.py') --check --format json

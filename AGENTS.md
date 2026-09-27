@@ -971,3 +971,10 @@
   and `config/mod-dependency-minimums.json`; preserve historical compatibility gates.
   Update item-reference operating modes, per-mod guides, changelogs and Workshop drafts
   whenever these features change. Install only through the guarded existing installer.
+
+## Native item actions and handling (2026-09-27)
+
+- Audit direct actions, native maintenance jobs, carrying slots and conditions together. Use Framework `ItemHandling.Apply` after preparing owned definitions; content explicitly declares bulky sections/housings through `ItemHandling.Cumbersome`. Keep ordinary small supplies portable and installed equipment out of carrying slots. Internal compartments are not loose cargo.
+- Reuse native pickup/drop and stack actions where valid; native Pick Up can use the drag slot for cumbersome cargo. Do not add machine controls or INSTALL entries to unfinished assembly sections. Retain native food, module, repair, restore and dismantle behaviour.
+- Preserve saved cargo and placement. Correct handling on detached load data, allowing a previously saved hand slot only until successful native release; never silently relocate or destroy an item to enforce a new classification.
+- Maintain the complete [handling ledger](docs/item-handling-audit.md) through the item-reference exporter and `scripts/audit-item-handling.py`. Add regression coverage for changes, including existing saves; definition checks do not establish live context-menu or Unity approval.

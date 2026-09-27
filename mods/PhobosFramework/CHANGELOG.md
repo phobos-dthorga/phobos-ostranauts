@@ -16,6 +16,14 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.30.2] - 2026-09-27 - Draft
+
+### Fixed
+
+- Add opt-in native transport-action normalization shared by content mods: retain useful actions, add missing pickup/drop, match stack actions to stack limits and keep installed machinery out of carry slots.
+- Restore declared cumbersome flags in detached load data for explicitly registered bulky cargo. Preserve saved hand placement until successful native release, then retire the legacy hand attachment. No save files, contents, mass, wear or progress are rewritten.
+- Audited all 118 implemented item definitions and checked native action/slot contracts offline. Live menus and loaded inventory handling still require owner testing; see the [item handling audit](https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/item-handling-audit.md).
+
 ## [0.30.1] - 2026-09-27 - Draft
 
 ### Fixed

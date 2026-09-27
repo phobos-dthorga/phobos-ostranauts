@@ -32,6 +32,7 @@ public static class FrameworkLifecycle
         Trading.MarketStock.BeginLoad();
         Registration.MaintenanceSafety.Actions.Clear();
         Registration.EquipmentSaveUpgrade.BeginLoad();
+        Registration.ItemHandling.BeginLoad();
         Registration.MaintenanceSafety.Repairs.Clear();
         Registration.MaintenanceSafety.LegacyFinishes.Clear();
         Notify(ContentLoading);

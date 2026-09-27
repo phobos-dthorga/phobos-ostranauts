@@ -259,9 +259,9 @@
             "PhobosShipbreakerSection"
           ],
           "function": "A heavy, unpowered construction component, not a functional machine.",
-          "use": "Carry to a supported table and use the relevant assembly recipe. Two sections build a D4.",
+          "use": "Drag to a supported table and use the relevant assembly recipe. Two sections build a D4.",
           "find": "Construct from materials, buy the listed section offers, or obtain a rare native engineering-loot section.",
-          "notes": "Sections do not appear in INSTALL. Dismantling returns the listed materials and loses most whole-item value.",
+          "notes": "Sections do not appear in INSTALL. Dismantling returns the listed materials and loses most whole-item value. Cumbersome cargo uses the native drag slot, not either hand. A section already held in an older save stays there until put down; its next pickup uses drag.",
           "guide": "equipment-economy.md",
           "internal": false,
           "labels": {}
@@ -273,9 +273,9 @@
             "PhobosScrapReclaimerSection"
           ],
           "function": "A heavy, unpowered construction component, not a functional machine.",
-          "use": "Carry to a supported table and use the relevant assembly recipe. Two sections build an R4.",
+          "use": "Drag to a supported table and use the relevant assembly recipe. Two sections build an R4.",
           "find": "Construct from materials, buy the listed section offers, or obtain a rare native engineering-loot section.",
-          "notes": "Sections do not appear in INSTALL. Dismantling returns the listed materials and loses most whole-item value.",
+          "notes": "Sections do not appear in INSTALL. Dismantling returns the listed materials and loses most whole-item value. Cumbersome cargo uses the native drag slot, not either hand. A section already held in an older save stays there until put down; its next pickup uses drag.",
           "guide": "scrap-reclaimer.md",
           "internal": false,
           "labels": {}
@@ -289,7 +289,7 @@
           "function": "A heavy, unpowered construction component, not a functional machine.",
           "use": "Carry to a supported table and use the relevant assembly recipe. Three sections build an F6.",
           "find": "Construct from materials, buy the listed section offers, or obtain a rare native engineering-loot section.",
-          "notes": "Sections do not appear in INSTALL. Dismantling returns the listed materials and loses most whole-item value.",
+          "notes": "Sections do not appear in INSTALL. Dismantling returns the listed materials and loses most whole-item value. This bulky section uses the native drag slot. Older held or contained sections are preserved until moved; put a held section down before moving it by drag.",
           "guide": "furnace-player-guide.md",
           "internal": false,
           "labels": {}

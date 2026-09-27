@@ -73,6 +73,7 @@ var agriculture = PhobosAgriculture.Definitions.Prepare();
 CompletionArtworkChecks.Run(agriculture, "PhobosAgriculture", repo, Check);
 AgricultureNativeChecks.Run(agriculture, repo, Check, Throws);
 StackLimitChecks.Run(Check);
+ItemHandlingChecks.Run(Check);
 NutrientProductionNativeChecks.Run(agriculture, game, Check);
 if (args.Length > 3) AgricultureEconomyAudit.Write(agriculture, repo, args[3]);
 foreach (var co in agriculture.Objects.Values) {
