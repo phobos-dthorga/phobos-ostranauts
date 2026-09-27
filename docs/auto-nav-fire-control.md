@@ -44,12 +44,14 @@ not real equipment performance or guaranteed merchant quotes. See the
 1. Select a qualified contact with the native crosshair, then press **Fire target**
    on **Fire**. The offensive target is captured separately from the navigation
    target; moving the crosshair does not retarget an engagement.
-2. Select one native group and **1–9 volleys** (default 1). Browse the weapon card
-   to inspect mode, combined arc/range status, loaded status, reload/aim delay and
-   the primary blocking reason. Ready/selected counts are visible before Engage.
+2. Open **Weapon group** to choose from populated native groups and their installed
+   counts. Off or damaged weapons remain visible. Set **1–9 volleys** (default 1):
+   left-click increases and right-click decreases, wrapping at either end. This
+   cancels existing firing permission. Browse the card for mode, arc/range, loaded
+   status, delays and the blocking reason. Readiness is separate from inventory.
 3. **Take FCS control** establishes offensive hold without aiming or shooting.
    Engage or Auto Aim also takes control when needed. Release the previous group
-   with **Return to Native** before changing groups.
+   explicitly with **Return to Native**, or choose another group and confirm the guided handoff. The old group may resume native automatic firing; the new group enters FCS Hold with no firing or aiming permission.
 4. For optional aiming, browse to a weapon and use **Use for aim**, then enable
    **Auto Aim**. With no selected reference, the first eligible loaded weapon with
    a valid solution is selected in stable ID order. Its displayed index remains
@@ -136,7 +138,7 @@ phobosnav nativefire
 ```
 
 `volley` cycles the budget; `fireweapon` browses the card; `aimweapon` selects that
-card as the reference. Setting changes revoke permission. All routine controls
+card as the reference. Setting changes revoke permission. The UI group picker includes switched-off and damaged installed weapons, with a reason instead of an empty group. F3 numeric selection retains its explicit Return to Native requirement. All routine controls
 remain on Fire, with Cease Fire in the persistent action strip. Short tabs are
 Nav, Track, Fire, Sys and Info; Details/Info contains explanations only.
 
@@ -165,3 +167,11 @@ are also checked. See the [validation record](auto-nav-hub-validation.md) for
 counts, rendered sizes and owner-run scenarios. Doubles and browser renders are
 not a Unity flight/combat session; live weapon consequences, panel dragging,
 missile behavior and mixed-mount pursuit remain owner evaluation items.
+
+## Interface follow-up, Auto Nav 0.21.0
+
+See the [Polaris interface report](polaris-interface-refresh.md) for the group
+picker, guided handoff, reverse volley click and visual review. Installed weapon
+inventory is separate from native active/ready weapons. A switched-off Artemis
+launcher remains visible as switched off; this does not enable automatic missile
+fire or waive the native envelope/lock restrictions documented above.

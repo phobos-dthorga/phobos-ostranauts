@@ -74,10 +74,10 @@ internal sealed partial class NavigationService
         aimReference = viewedWeapon = null; Fire.Invalidate();
     }
     internal void StepWeapons(CondOwner? co) => SelectWeapons(co, WeaponGroup(co) % 9 + 1);
-    internal void StepVolleys(CondOwner? co)
+    internal void StepVolleys(CondOwner? co, int direction = 1)
     {
         if (!BindFire(co) || !FirePreferences(co, out int group, out int volleys, out bool held)) return;
-        CeaseFire(); if (!SaveFirePreferences(co!, group, volleys % 9 + 1, held)) status = Text.Get("Preferences.invalid");
+        CeaseFire(); if (!SaveFirePreferences(co!, group, (volleys - 1 + (direction < 0 ? 8 : 1)) % 9 + 1, held)) status = Text.Get("Preferences.invalid");
     }
     private bool TakeFireControl(CondOwner? co)
     {
@@ -114,17 +114,21 @@ internal sealed partial class NavigationService
     }
     internal void BrowseWeapon(CondOwner? co)
     {
-        if (!BindFire(co) || Fire.Weapons.Count == 0) return;
-        int index = Fire.Weapons.ToList().FindIndex(w => w.Id == viewedWeapon);
-        viewedWeapon = Fire.Weapons[(index + 1) % Fire.Weapons.Count].Id;
+        if (!BindFire(co)) return;
+        var weapons = InstalledWeapons(co).Where(w => InstalledGroup(w) == WeaponGroup(co)).ToList();
+        if (weapons.Count == 0) return;
+        int index = Math.Max(0, weapons.FindIndex(w => w.strID == viewedWeapon));
+        viewedWeapon = weapons[(index + 1) % weapons.Count].strID;
     }
     internal void UseAimReference(CondOwner? co)
     {
         if (!BindFire(co)) return;
-        var weapon = DisplayWeapon; if (weapon == null || !weapon.Eligible) return;
+        var shown = InstalledWeapons(co).Where(w => InstalledGroup(w) == WeaponGroup(co)).ToList();
+        string? shownId = (shown.FirstOrDefault(w => w.strID == viewedWeapon) ?? shown.FirstOrDefault())?.strID;
+        var weapon = Fire.Weapons.FirstOrDefault(w => w.Id == shownId); if (weapon == null || !weapon.Eligible) return;
         CeaseFire(); aimReference = weapon.Id;
     }
-    private WeaponReading? DisplayWeapon => Fire.Weapons.FirstOrDefault(w => w.Id == viewedWeapon) ?? Fire.Weapons.FirstOrDefault();
+    private WeaponReading? DisplayWeapon => viewedWeapon == null ? Fire.Weapons.FirstOrDefault() : Fire.Weapons.FirstOrDefault(w => w.Id == viewedWeapon);
     internal void ToggleAutoAim(CondOwner? co)
     {
         if (autoAim) { CeaseFire(); return; }

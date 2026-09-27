@@ -10503,13 +10503,13 @@
       "key": "FCS.help",
       "category": "help/settings",
       "decision": "rewrite",
-      "reason": "Reworded for the situation/action or corrected stale feature wording; formatting and behaviour contracts retained.",
+      "reason": "2026-09-27 Polaris review: current group picker, explicit native handoff warning and two-way volley controls; no promise of unsupported missile firing.",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosAutoNav/NavigationPursuit.cs:43"
       ],
       "before": "N3 Fire Control System: select a qualified offensive target and one native weapon group. Volleys (1–9) counts successful native batches, not projectiles or ammunition units; each batch contains the weapons ready at that instant. Engage requires the guarded switch. Weapons can operate during manual flight with Auto Aim off.\n\nAuto Aim is a separate permission for RCS rotation while coasting, or a heading request during N2 Follow. Choose a weapon with Weapon > and Use for aim. Pilot thrust/yaw cancels aiming and firing. Braking and clearance take priority.\n\nCease Fire and volley completion retain offensive hold and stop Auto Aim; Follow continues. Return to Native explicitly releases the group and may allow native autofire. Defensive PDCs and deliberate manual fire remain native. Release the old group before changing groups.\n\nReload retains offensive hold only: targets, firing permission, remaining volleys and live aiming are never restored. Missing/stale readings are unavailable. Missiles require native automatic eligibility and a full native lock; decoys are excluded. No promised hit probability, intact boarding or crew survival. Native map, sensors and specialist weapon settings remain separate.",
-      "after": "Select a tracked fire target and one weapon group. Volleys (1–9) counts successful firing batches: each batch fires the weapons ready at that moment, not one projectile per weapon. Lift the cover to Engage. With Auto Aim off, weapons can operate while you fly manually.\n\nAuto Aim permits RCS turning while coasting, or requests a heading during N2 Follow. Choose a weapon with Weapon > and Use for aim. When aiming is active, pilot thrust or turning cancels aiming and firing. Braking and clearance take priority.\n\nCease Fire or the end of a volley order stops Auto Aim and keeps offensive fire on hold. Follow can continue. Return to Native releases the hold and may allow normal automatic firing again. Defensive PDCs and deliberate manual fire still work normally. Release the old group before changing groups.\n\nLoading a save keeps fire on hold. It does not restore targets, firing permission, remaining volleys or aiming. Missing or stale readings mean unavailable. Missiles need permission for automatic fire and a full lock; decoys are excluded. Hits, intact boarding and crew survival are never guaranteed. Use the map, sensors and specialist weapon settings as usual."
+      "after": "Select a tracked fire target and one weapon group. Volleys (1–9) counts successful firing batches: each batch fires the weapons ready at that moment, not one projectile per weapon. Lift the cover to Engage. With Auto Aim off, weapons can operate while you fly manually.\n\nAuto Aim permits RCS turning while coasting, or requests a heading during N2 Follow. Choose a weapon with Weapon > and Use for aim. When aiming is active, pilot thrust or turning cancels aiming and firing. Braking and clearance take priority.\n\nCease Fire or the end of a volley order stops Auto Aim and keeps offensive fire on hold. Follow can continue. Return to Native releases the hold and may allow normal automatic firing again. Defensive PDCs and deliberate manual fire still work normally. Choose an installed group from the picker. If FCS holds the old group, confirm its return to native control; the new group stays on hold. Left-click Volleys to increase; right-click to decrease. Both wrap between 1 and 9. Switched-off and damaged weapons remain listed but cannot fire.\n\nLoading a save keeps fire on hold. It does not restore targets, firing permission, remaining volleys or aiming. Missing or stale readings mean unavailable. Missiles need permission for automatic fire and a full lock; decoys are excluded. Hits, intact boarding and crew survival are never guaranteed. Use the map, sensors and specialist weapon settings as usual."
     },
     {
       "mod": "PhobosAutoNav",
@@ -34792,6 +34792,241 @@
       ],
       "before": "DOCK clearance received. Hull fit is checked when you start.",
       "after": "DOCK clearance received. Hull fit is checked when you start."
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "Hub.more",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "2026-09-27 Polaris review: plain action/status wording; installed inventory distinct from firing readiness; handoff explicitly warns that native automatic fire may resume.",
+      "trace": "Polaris presentation/service message",
+      "references": [
+        "src/PhobosAutoNav/AutoNavPanel.cs:111",
+        "src/PhobosAutoNav/AutoNavPanel.cs:166"
+      ],
+      "before": "Details",
+      "after": "Details"
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "Hub.close_details",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "2026-09-27 Polaris review: plain action/status wording; installed inventory distinct from firing readiness; handoff explicitly warns that native automatic fire may resume.",
+      "trace": "Polaris presentation/service message",
+      "references": [
+        "src/PhobosAutoNav/AutoNavPanelDialogs.cs:28"
+      ],
+      "before": "Back",
+      "after": "Back"
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "Hub.warning_details",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "2026-09-27 Polaris review: plain action/status wording; installed inventory distinct from firing readiness; handoff explicitly warns that native automatic fire may resume.",
+      "trace": "Polaris presentation/service message",
+      "references": [
+        "src/PhobosAutoNav/AutoNavPanelDialogs.cs:38"
+      ],
+      "before": "Current warning",
+      "after": "Current warning"
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "FCS.group_changed_retry",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "2026-09-27 Polaris review: plain action/status wording; installed inventory distinct from firing readiness; handoff explicitly warns that native automatic fire may resume.",
+      "trace": "Polaris presentation/service message",
+      "references": [
+        "src/PhobosAutoNav/NavigationWeaponGroups.cs:56"
+      ],
+      "before": "Weapon setup changed. Choose the group again.",
+      "after": "Weapon setup changed. Choose the group again."
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "FCS.group_now_held",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "2026-09-27 Polaris review: plain action/status wording; installed inventory distinct from firing readiness; handoff explicitly warns that native automatic fire may resume.",
+      "trace": "Polaris presentation/service message",
+      "references": [
+        "src/PhobosAutoNav/NavigationWeaponGroups.cs:65"
+      ],
+      "before": "Group {0} selected. Fire is on hold.",
+      "after": "Group {0} selected. Fire is on hold."
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "FCS.group_selected",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "2026-09-27 Polaris review: plain action/status wording; installed inventory distinct from firing readiness; handoff explicitly warns that native automatic fire may resume.",
+      "trace": "Polaris presentation/service message",
+      "references": [
+        "src/PhobosAutoNav/NavigationWeaponGroups.cs:65"
+      ],
+      "before": "Group {0} selected. Native control remains active.",
+      "after": "Group {0} selected. Native control remains active."
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "FCS.group_empty",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "2026-09-27 Polaris review: plain action/status wording; installed inventory distinct from firing readiness; handoff explicitly warns that native automatic fire may resume.",
+      "trace": "Polaris presentation/service message",
+      "references": [
+        "src/PhobosAutoNav/NavigationWeaponGroups.cs:78"
+      ],
+      "before": "No installed weapons in this group.",
+      "after": "No installed weapons in this group."
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "FCS.switched_off",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "2026-09-27 Polaris review: plain action/status wording; installed inventory distinct from firing readiness; handoff explicitly warns that native automatic fire may resume.",
+      "trace": "Polaris presentation/service message",
+      "references": [
+        "src/PhobosAutoNav/NavigationWeaponGroups.cs:79"
+      ],
+      "before": "Switched off",
+      "after": "Switched off"
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "FCS.reading_pending",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "2026-09-27 Polaris review: plain action/status wording; installed inventory distinct from firing readiness; handoff explicitly warns that native automatic fire may resume.",
+      "trace": "Polaris presentation/service message",
+      "references": [
+        "src/PhobosAutoNav/NavigationWeaponGroups.cs:83"
+      ],
+      "before": "Firing readiness unavailable",
+      "after": "Firing readiness unavailable"
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "FCS.inventory_status",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "2026-09-27 Polaris review: plain action/status wording; installed inventory distinct from firing readiness; handoff explicitly warns that native automatic fire may resume.",
+      "trace": "Polaris presentation/service message",
+      "references": [
+        "src/PhobosAutoNav/NavigationWeaponGroups.cs:83"
+      ],
+      "before": "{0}\n{1}",
+      "after": "{0}\n{1}"
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "FCS.inventory_ready",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "2026-09-27 Polaris review: plain action/status wording; installed inventory distinct from firing readiness; handoff explicitly warns that native automatic fire may resume.",
+      "trace": "Polaris presentation/service message",
+      "references": [
+        "src/PhobosAutoNav/NavigationWeaponGroups.cs:77"
+      ],
+      "before": "{0} • Ready {1} • Installed {2}",
+      "after": "{0} • Ready {1} • Installed {2}"
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "FCS.choose_group",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "2026-09-27 Polaris review: plain action/status wording; installed inventory distinct from firing readiness; handoff explicitly warns that native automatic fire may resume.",
+      "trace": "Polaris presentation/service message",
+      "references": [
+        "src/PhobosAutoNav/AutoNavPanelDialogs.cs:45"
+      ],
+      "before": "Installed weapon groups",
+      "after": "Installed weapon groups"
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "FCS.group_entry",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "2026-09-27 Polaris review: plain action/status wording; installed inventory distinct from firing readiness; handoff explicitly warns that native automatic fire may resume.",
+      "trace": "Polaris presentation/service message",
+      "references": [
+        "src/PhobosAutoNav/AutoNavPanelDialogs.cs:50"
+      ],
+      "before": "Group {0} • {1} installed",
+      "after": "Group {0} • {1} installed"
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "FCS.selected_empty",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "2026-09-27 Polaris review: plain action/status wording; installed inventory distinct from firing readiness; handoff explicitly warns that native automatic fire may resume.",
+      "trace": "Polaris presentation/service message",
+      "references": [
+        "src/PhobosAutoNav/AutoNavPanelDialogs.cs:58"
+      ],
+      "before": "Group {0} selected • no installed weapons",
+      "after": "Group {0} selected • no installed weapons"
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "FCS.change_group",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "2026-09-27 Polaris review: plain action/status wording; installed inventory distinct from firing readiness; handoff explicitly warns that native automatic fire may resume.",
+      "trace": "Polaris presentation/service message",
+      "references": [
+        "src/PhobosAutoNav/AutoNavPanelDialogs.cs:67"
+      ],
+      "before": "Change weapon group",
+      "after": "Change weapon group"
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "FCS.handoff",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "2026-09-27 Polaris review: plain action/status wording; installed inventory distinct from firing readiness; handoff explicitly warns that native automatic fire may resume.",
+      "trace": "Polaris presentation/service message",
+      "references": [
+        "src/PhobosAutoNav/AutoNavPanelDialogs.cs:68"
+      ],
+      "before": "Return group {0} to native control and select group {1}?\n\nGroup {0} may resume native automatic firing. Group {1} will be held by FCS, with Auto Aim off. You must Engage again to authorize shots.\n\nThe current order continues until you confirm. Cease Fire remains available below.",
+      "after": "Return group {0} to native control and select group {1}?\n\nGroup {0} may resume native automatic firing. Group {1} will be held by FCS, with Auto Aim off. You must Engage again to authorize shots.\n\nThe current order continues until you confirm. Cease Fire remains available below."
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "FCS.confirm_handoff",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "2026-09-27 Polaris review: plain action/status wording; installed inventory distinct from firing readiness; handoff explicitly warns that native automatic fire may resume.",
+      "trace": "Polaris presentation/service message",
+      "references": [
+        "src/PhobosAutoNav/AutoNavPanelDialogs.cs:70"
+      ],
+      "before": "Return old group & switch",
+      "after": "Return old group & switch"
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "FCS.volleys_hint",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "2026-09-27 Polaris review: plain action/status wording; installed inventory distinct from firing readiness; handoff explicitly warns that native automatic fire may resume.",
+      "trace": "Polaris presentation/service message",
+      "references": [
+        "src/PhobosAutoNav/AutoNavPanel.cs:351"
+      ],
+      "before": "Volleys {0}  L+ / R-",
+      "after": "Volleys {0}  L+ / R-"
     }
   ],
   "documents": [
@@ -34945,7 +35180,8 @@
       "path": "docs/asset-generation-policy.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "fc1515fc880d019bdd55fc598320fb67c37ca866a9b4e63fc7d091c0f36468ce"
+      "sha256": "313fe1ad97c2e50a19f00d4740dc678bf1a44f72d2a96162e18183e22de1c187",
+      "review": "2026-09-27 Polaris review: checked revised controls, versions, generated reference evidence and limitations; preserved scientific attribution and historical records."
     },
     {
       "path": "docs/asteroid-life-support-research.md",
@@ -34975,7 +35211,8 @@
       "path": "docs/auto-nav-fire-control.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "6fc08cdaec7c8230addce0165ecd88c231208b0402ddc974b03acf56bf710acf"
+      "sha256": "675558363e37a99867e37035b4f302fa5250f50e060acf1d20cd030961116ef1",
+      "review": "2026-09-27 Polaris review: checked revised controls, versions, generated reference evidence and limitations; preserved scientific attribution and historical records."
     },
     {
       "path": "docs/auto-nav-flight-profiles.md",
@@ -34999,8 +35236,8 @@
       "path": "docs/auto-nav-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "60d2dde7a25e155407d33b7eefdf82a21beaca94992c3704fdcd78bfcc648cc7",
-      "review": "2026-09-27: generator refresh changes only current versions/source fingerprints; item values, research findings and player explanations are unchanged."
+      "sha256": "ab0b1f198759ba98b43555ef81347a645da5654d896af58e7bbfdcc05d2556f7",
+      "review": "2026-09-27 Polaris review: checked revised controls, versions, generated reference evidence and limitations; preserved scientific attribution and historical records."
     },
     {
       "path": "docs/auto-nav-outstanding-audit.md",
@@ -35084,8 +35321,8 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "14058519f15ea01f4b034b10e581156a50493161a0a961590116f75ed5296f13",
-      "review": "2026-09-27: reviewed performance-update wording/version requirements; existing research and historical evidence retained; no measured speedup claim."
+      "sha256": "eefaac1ce7aaa4245c7ad4cdd2d1be8cd00b274788f9a54f17d618b90b7205c9",
+      "review": "2026-09-27 Polaris review: checked revised controls, versions, generated reference evidence and limitations; preserved scientific attribution and historical records."
     },
     {
       "path": "docs/crew-automation.md",
@@ -35139,8 +35376,8 @@
       "path": "docs/framework-author-guide.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "b36d2880cdeeb5c70ffbc8ab90bc8fb6d14bf8da4805c02fcf8521bf414760f4",
-      "review": "2026-09-27: reviewed performance-update wording/version requirements; existing research and historical evidence retained; no measured speedup claim."
+      "sha256": "256cf3c44c7cd09c6327eab7d9d5603f4f3e359a40f3dafaec691d4ebee1f0e3",
+      "review": "2026-09-27 Polaris review: checked revised controls, versions, generated reference evidence and limitations; preserved scientific attribution and historical records."
     },
     {
       "path": "docs/framework-bulk-storage.md",
@@ -35152,8 +35389,8 @@
       "path": "docs/framework-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "b324c0cbffedf98eb2328f7941b3e3b1db01548332becc12c2118b27fdb03c36",
-      "review": "2026-09-27: generator refresh changes only current versions/source fingerprints; item values, research findings and player explanations are unchanged."
+      "sha256": "bcfe9698342721f2ba11f5d517ece51b7bd799e6ee9471690350274cf0cd1cd4",
+      "review": "2026-09-27 Polaris review: checked revised controls, versions, generated reference evidence and limitations; preserved scientific attribution and historical records."
     },
     {
       "path": "docs/furnace-connections-and-instruments.md",
@@ -35249,8 +35486,8 @@
       "path": "docs/industrial-console-player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "4358cd074a39627a6db90623c1168e1bb892b7054e48d550545d371b486c1ba9",
-      "review": "2026-09-27: reviewed performance-update wording/version requirements; existing research and historical evidence retained; no measured speedup claim."
+      "sha256": "32d9a5ed23264a1b56957f2add23bbf36e174a8219d940502714c777d3a868ec",
+      "review": "2026-09-27 Polaris review: checked revised controls, versions, generated reference evidence and limitations; preserved scientific attribution and historical records."
     },
     {
       "path": "docs/industrial-control-console.md",
@@ -35274,8 +35511,8 @@
       "path": "docs/installing-mods.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "630c89e2a2302840fae07e639a613d67c3dfc495f44e52cecabcd5a849f5274d",
-      "review": "2026-09-27: reviewed explicit held-scaffold backup/removal instructions and limits; no operational provider removal or gameplay validation promised."
+      "sha256": "dad67e0991ffa8d51259decc35490f135ab12bf6277e7e7011710e4cadc0a5f6",
+      "review": "2026-09-27 Polaris review: checked revised controls, versions, generated reference evidence and limitations; preserved scientific attribution and historical records."
     },
     {
       "path": "docs/item-reference-maintenance.md",
@@ -35414,8 +35651,8 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "7f2fcc417d4775e0dc010def6b1fc6d9fb0f3a5baa7a25eee0c8f141193c59cf",
-      "review": "2026-09-27: reviewed performance-update wording/version requirements; existing research and historical evidence retained; no measured speedup claim."
+      "sha256": "d6695bbe6075027ca257996a08461d47b057a483e40d5a244819254e4d2ef3a6",
+      "review": "2026-09-27 Polaris review: checked revised controls, versions, generated reference evidence and limitations; preserved scientific attribution and historical records."
     },
     {
       "path": "docs/powered-shipbreaking-design-findings.md",
@@ -35547,8 +35784,8 @@
       "path": "docs/shipbreaker-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "e330faa1d1c5edd5045b4f7c0ce66392b0dbbc6b191d4c1cc7277fe1d76b52c2",
-      "review": "2026-09-27: generator refresh changes only current versions/source fingerprints; item values, research findings and player explanations are unchanged."
+      "sha256": "65a6c1386857bb19c497b4518de6630dc0235faaa714eeb303d1a31f275bab76",
+      "review": "2026-09-27 Polaris review: checked revised controls, versions, generated reference evidence and limitations; preserved scientific attribution and historical records."
     },
     {
       "path": "docs/shipbreaker-material-uses.md",
@@ -35626,8 +35863,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "e8823652249fa0aea5acae6a11ca5e83b291859c82400495b7e1f1a452b950e4",
-      "review": "2026-09-27: reviewed performance-update wording/version requirements; existing research and historical evidence retained; no measured speedup claim."
+      "sha256": "6deb945062cf469e529f640722f7b820f3e527d3b71490531b15287b56b56022",
+      "review": "2026-09-27 Polaris review: checked revised controls, versions, generated reference evidence and limitations; preserved scientific attribution and historical records."
     },
     {
       "path": "SUPPORT.md",
@@ -35646,15 +35883,15 @@
       "path": "workshop/PhobosAutoNav/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "4472404ddf4d5c6126f37c729d614f59fe45d9ce3a021dbe7c3cc5791bc29ca5",
-      "review": "2026-09-27: reviewed performance-update wording/version requirements; existing research and historical evidence retained; no measured speedup claim."
+      "sha256": "bce16fb2f913546134b4212c6edc768ec438f0d943904ca08598d2da10a47873",
+      "review": "2026-09-27 Polaris review: checked revised controls, versions, generated reference evidence and limitations; preserved scientific attribution and historical records."
     },
     {
       "path": "workshop/PhobosFramework/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "8c28ba94398e4d6a9ad6a85e358c62284c34ba463880b26b50e6f93e84456213",
-      "review": "2026-09-27: reviewed performance-update wording/version requirements; existing research and historical evidence retained; no measured speedup claim."
+      "sha256": "caea4127efc35d6b9aa40890ea1dea5eabbedde242dde22cd68b8b341dd85bfb",
+      "review": "2026-09-27 Polaris review: checked revised controls, versions, generated reference evidence and limitations; preserved scientific attribution and historical records."
     },
     {
       "path": "workshop/PhobosManufacturing/page.bbcode",
@@ -35667,22 +35904,30 @@
       "path": "workshop/PhobosShipbreaker/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "d0fdc885b352cbdd13b66afe6db3098c5241cac15f1c65716c56123d2f53543b",
-      "review": "2026-09-27: reviewed performance-update wording/version requirements; existing research and historical evidence retained; no measured speedup claim."
+      "sha256": "8cf3c7c3b9d6d03a2cee2f6a00622b2dd0952a019cc0256662b6d2db066de36b",
+      "review": "2026-09-27 Polaris review: checked revised controls, versions, generated reference evidence and limitations; preserved scientific attribution and historical records."
     },
     {
       "path": "docs/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "7254e14043c095e02a70599b4410172f9768aeb3fcf1f9a6061430057bb0657f",
-      "review": "2026-09-27: reviewed test evidence and the discovered old Manufacturing scaffold; distinguish source findings, measured baseline, implementation and deferred owner validation."
+      "sha256": "78fe72705d39237a9e7732328ca26214b882e7e06264b31a486056babd676743",
+      "review": "2026-09-27 Polaris review: checked revised controls, versions, generated reference evidence and limitations; preserved scientific attribution and historical records."
+    },
+    {
+      "path": "docs/polaris-interface-refresh.md",
+      "scope": "current player controls plus labelled implementation/artwork evidence",
+      "decision": "add",
+      "sha256": "e128f48d2c9e465bc5d183c2de8b231b03814df98ed8e536bd019d2c610f0a78",
+      "review": "2026-09-27 Polaris review: checked revised controls, versions, generated reference evidence and limitations; preserved scientific attribution and historical records."
     }
   ],
   "surfaces": [
     {
       "path": "config/item-reference.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "6b0dee8ebfb82940d903a8e563a1fc67b901e543efc0b08f11cf401e9fe63a6b"
+      "sha256": "85c2be1f95c8d19273e7b6bfb40811a03958710fb0586f672ca204f8551cd18d",
+      "review": "2026-09-27 Polaris review: checked revised controls, versions, generated reference evidence and limitations; preserved scientific attribution and historical records."
     },
     {
       "path": "mods/PhobosAgriculture/framework/equipment-names.json",
@@ -35718,8 +35963,8 @@
     {
       "path": "mods/PhobosAutoNav/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "c34474cf17534f246cc47031e8be5fd6bc243dc2a570f1b094e228fa6b5060a9",
-      "review": "2026-09-27: reviewed performance-update wording/version requirements; existing research and historical evidence retained; no measured speedup claim."
+      "sha256": "2625669c023445b3f48594dd4f0c71692ed6eac6ed6fa23128e97f05ec0e8d57",
+      "review": "2026-09-27 Polaris review: checked revised controls, versions, generated reference evidence and limitations; preserved scientific attribution and historical records."
     },
     {
       "path": "mods/PhobosFramework/framework/equipment-names.json",
@@ -35729,8 +35974,8 @@
     {
       "path": "mods/PhobosFramework/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "8a8a810a3c97b3125b7b8b0251bd241eed0c4ee07192a4fa002c562fc4985d19",
-      "review": "2026-09-27: reviewed performance-update wording/version requirements; existing research and historical evidence retained; no measured speedup claim."
+      "sha256": "0aa5441aa152830fa3f66c022061784c3acf8f1710e3f39d27b9f3708259bc42",
+      "review": "2026-09-27 Polaris review: checked revised controls, versions, generated reference evidence and limitations; preserved scientific attribution and historical records."
     },
     {
       "path": "mods/PhobosManufacturing/mod_info.json",
@@ -35750,8 +35995,8 @@
     {
       "path": "mods/PhobosShipbreaker/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "8d65f262a558782df37ca4214b0a5b5e390c0dd8197c654ceb23d0eea13de0ed",
-      "review": "2026-09-27: reviewed performance-update wording/version requirements; existing research and historical evidence retained; no measured speedup claim."
+      "sha256": "73b9f91fc7e20ba814d9b9d8e1fd6612f3334c05b50d7165875aea7d6a3ec1cc",
+      "review": "2026-09-27 Polaris review: checked revised controls, versions, generated reference evidence and limitations; preserved scientific attribution and historical records."
     }
   ],
   "hardcodedReview": {

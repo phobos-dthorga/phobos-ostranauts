@@ -42,7 +42,7 @@
             "PhobosFireControlBoardDmg"
           ],
           "function": "Independent weapon observations, bounded offensive volleys and optional RCS aiming. It can operate without N1/N2.",
-          "use": "Fit to Polaris, open Fire, choose the target and weapon group, then explicitly grant Engage. Cease Fire keeps offensive hold; Return to Native releases that hold.",
+          "use": "Fit to Polaris, open Fire, choose a target and use Weapon group to see installed weapons, including off or damaged ones. Left-click Volleys to increase, right-click to decrease (1–9, wrapping). Engage grants a fresh firing budget. Cease Fire keeps offensive hold; Return to Native releases it. Switching an FCS-held group asks for confirmation: the old group may resume native automatic firing and the new group enters Hold with aiming off. See the [Polaris controls](polaris-interface-refresh.md).",
           "find": "Build at a supported table or buy the Polaris dealer offer below. No separate N3 derelict-loot addition is registered.",
           "notes": "Firing permission is not restored from a save. N2 plus N3 combines Follow and firing; flight braking and clearance take priority over aiming.",
           "guide": "auto-nav-fire-control.md",

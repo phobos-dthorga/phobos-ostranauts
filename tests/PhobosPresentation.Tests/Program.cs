@@ -41,3 +41,20 @@ Check(active.Writes == 1 && selectable.Writes == 1 && graphic.Writes == 1, "Unch
 Presentation.Active(active, false); Presentation.Enabled(selectable, false); Presentation.Color(graphic, new(0));
 Check(active.Writes == 2 && selectable.Writes == 2 && graphic.Writes == 2, "Changed visual states are applied");
 Console.WriteLine($"PASS: {checks} discovery and presentation boundary checks; Unity rendering is not exercised.");
+
+var alternate = new UnityEngine.UI.Button { interactable=true }; int invoked=0;
+SecondaryClick.Bind(alternate,()=>invoked++);
+var handler=alternate.GetComponent<SecondaryClick>()!;
+var pointer=new UnityEngine.EventSystems.PointerEventData { button=UnityEngine.EventSystems.PointerEventData.InputButton.Right };
+handler.OnPointerClick(pointer);
+Check(invoked==1 && pointer.Used && CrewSim.bJustClickedInput,"Secondary click dispatches once and consumes input");
+pointer.button=UnityEngine.EventSystems.PointerEventData.InputButton.Left; handler.OnPointerClick(pointer);
+pointer.button=UnityEngine.EventSystems.PointerEventData.InputButton.Middle; handler.OnPointerClick(pointer);
+Check(invoked==1,"Secondary handler never duplicates left clicks or accepts middle clicks");
+pointer.button=UnityEngine.EventSystems.PointerEventData.InputButton.Right; alternate.interactable=false; handler.OnPointerClick(pointer);
+Check(invoked==1,"Disabled controls block alternate actions");
+alternate.interactable=true; alternate.ParentAllows=false; handler.OnPointerClick(pointer);
+Check(invoked==1,"Parent input guard blocks secondary actions");
+alternate.ParentAllows=true; alternate.Active=false; handler.OnPointerClick(pointer);
+Check(invoked==1,"Hidden control blocks secondary action");
+Console.WriteLine($"PASS: {checks} including secondary-click boundary checks.");

@@ -151,3 +151,23 @@ extracted game art is redistributed. Five compact live tabs and per-weapon field
 are registered in `hub-layout.json`; text and controls remain separate from the
 raster. Earlier masters, the 0.11.1 preparation and AI upscale provenance remain
 unchanged.
+
+## Polaris interface review, 27 September 2026
+
+Auto Nav 0.21.0 retains the current selected faceplate after a reuse-first review.
+Native Blue Bottle Games air-pump button artwork is referenced at runtime, with
+new live state colours, borders and tab markers. It is not exported or supplied
+to a generation service. Existing dark tinting obscured the native button face;
+correcting it and reflowing the controls addresses the demonstrated distinction
+and clipping problems without replacing the image.
+
+| Candidate | Suitability judgement | Decision |
+|---|---|---|
+| Native button faces, live borders and selected marks | HIGH reuse value | Reuse native visuals, isolated from native controller logic. |
+| New modular backplate | MEDIUM after layout/reuse trial | Current frame still accommodates the measured layout; no qualifying unmet need remains. No generation submitted. |
+| Decorative icons or replacement switch art | LOW | Keep familiar native guards, knobs and sliders. |
+
+Earlier approved art is not an absolute constraint: the owner's new MEDIUM-HIGH/
+HIGH threshold permits future justified replacements. Browser reference renders
+are layout evidence, not a Unity visual sign-off. See the
+[interface report](../../docs/polaris-interface-refresh.md).

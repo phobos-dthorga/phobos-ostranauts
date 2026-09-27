@@ -19,6 +19,23 @@ Dates on Draft entries record preparation, not Steam publication.
 - Earlier capture-only research is superseded for supported ordinary walls by the implementation below. Broader structural recipes, repeated furnace batches and whole-wreck completion remain outside this round.
 - Keep [NASA Goddard's Raven research](https://www.nasa.gov/general/nasas-hybrid-computer-enables-ravens-autonomous-rendezvous-capability/) and [ESA's LIRIS experiment by Airbus, Jena Optronik and Sodern](https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/ATV/ATV_views_Space_Station_as_never_before) as sensing context, separate from Blue Bottle Games native evidence and authored gameplay choices. No institutional endorsement or gameplay validation is implied.
 
+## [0.29.0] - 2026-09-27 - Draft
+
+### Changed
+
+- Give Polaris Industrial Control clearer native button faces and selected tabs, with navigation and action rows wrapping at narrow widths.
+- Retain independent scrolling, drafts, stop controls, processing policies and resource accounting.
+
+### Requirements
+
+Requires Phobos Framework 0.30.0 or newer; other provider requirements remain unchanged.
+
+### Known limits
+
+- Offline regression and browser-layout checks are separate from owner-run Unity interaction tests. No additional performance captures or Steam publication are claimed.
+- Existing faceplates and suitable vanilla graphics are reused after review; no new artwork generation was warranted.
+
+
 ## [0.28.2] - 2026-09-27 - Draft
 
 ### Fixed

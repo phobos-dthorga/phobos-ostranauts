@@ -632,6 +632,17 @@
 
 ## Artwork
 
+- Owner direction (2026-09-27), Polaris interface refresh: existing interface
+  artwork is a starting point, not an unconditional preservation constraint.
+  Replacements are authorized where suitability is MEDIUM-HIGH or HIGH for
+  readability, control distinction or reusable layout. Prefer suitable vanilla
+  widgets/artwork at runtime; match vanilla's utilitarian instrument style.
+  Assess and record the unmet need before generating one pilot. Keep text and
+  states live, preserve prior masters and follow provenance/rejected-art policies.
+  This supersedes earlier absolute faceplate-preservation wording for Polaris
+  interfaces only; it does not authorize unrelated art replacements.
+
+
 - Owner direction (2026-09-27): keep rejected/unselected production attempts on
   `codex/rejected-artwork`, not in the current `main` tree. Preserve and verify
   the archive branch before removing originals from main; retain exact requests,

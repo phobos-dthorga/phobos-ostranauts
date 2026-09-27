@@ -25,7 +25,7 @@ notification** and cue volume/mute. Watching is optional, never starts a job and
 clears on processing pause, fault or reload. See the
 [completion cue guide](shipbreaker-completion-cue.md) for scope and listening checks.
 
-Current packages: Shipbreaker **0.28.2**. Framework and Auto Nav are required;
+Current packages: Shipbreaker **0.29.0**. Framework and Auto Nav are required;
 see [installation requirements](installing-mods.md) for current minimum versions.
 Built against Ostranauts **1.0.1.5** / BepInEx **5.4.23.5**. Automated checks
 passed; the new native panel/seating integration awaits the owner's game test.
@@ -164,3 +164,12 @@ separate permissions. Stop/release preserve cargo and do not brake the ship.
 ## Crew standing orders
 
 See [crew automation, specialities and time-skips](crew-automation.md) for default-disabled orders, native duty/AutoTask rules, approved stores, training, saved stops and supported onboard work. Industrial batches, exterior missions and crew-launched flight require explicit Resume. Gameplay and UI checks remain owner-run.
+
+## Polaris 0.29.0 interface
+
+Selected tabs have a gold underline and bold text. Buttons have clearer edges
+and hover, pressed and disabled states. Navigation and fixed actions wrap at
+narrow widths, while equipment and details scroll independently. Draft settings
+and stop controls retain their existing checks. See the
+[Polaris refresh notes](polaris-interface-refresh.md) for controls and optional
+owner checks; browser previews do not establish Unity interaction approval.

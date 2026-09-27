@@ -17,6 +17,25 @@ Dates on Draft entries record preparation, not Steam publication.
 - Earlier capture-only research is superseded for supported ordinary walls by the implementation below. Broader structural recipes, repeated furnace batches and whole-wreck completion remain outside this round.
 - Keep [NASA Goddard's Raven research](https://www.nasa.gov/general/nasas-hybrid-computer-enables-ravens-autonomous-rendezvous-capability/) and [ESA's LIRIS experiment by Airbus, Jena Optronik and Sodern](https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/ATV/ATV_views_Space_Station_as_never_before) as sensing context, separate from Blue Bottle Games native evidence and authored gameplay choices. No institutional endorsement or gameplay validation is implied.
 
+## [0.21.0] - 2026-09-27 - Draft
+
+### Changed
+
+- Refresh all six Flight Hub tabs, including Departure, with clearer native controls, two-row navigation and expandable warnings. Retain placement, Edit/rescue support and ten-per-second routine refreshes.
+- Show installed weapon groups, including switched-off and damaged weapons. A switched-off Artemis is identified instead of reporting an empty group.
+- Add a confirmed group handoff: return the old group to native control and hold the new group without firing permission. Native automatic fire may resume for the released group.
+- Left-click Volleys to increase and right-click to decrease, wrapping from 1 to 9. Automatic missile eligibility and lock restrictions remain unchanged.
+
+### Requirements
+
+Requires Phobos Framework 0.30.0 or newer; other provider requirements remain unchanged.
+
+### Known limits
+
+- Offline regression and browser-layout checks are separate from owner-run Unity interaction tests. No additional performance captures or Steam publication are claimed.
+- Existing faceplates and suitable vanilla graphics are reused after review; no new artwork generation was warranted.
+
+
 ## [0.20.3] - 2026-09-27 - Draft
 
 ### Fixed

@@ -20,6 +20,7 @@ public sealed class IndustrialPanel : GUIData
 {
     internal const string Key = "PhobosIndustrialPanel";
     private ConsoleShell shell = null!;
+    private readonly Dictionary<string, Button> navigationButtons = new();
     private ConsoleBinding? binding;
     private string hostId = "", actorId = "", selected = "", query = "", tab = "overview", result = "", displayedResult = "";
     private int stateFilter;
@@ -76,23 +77,24 @@ public sealed class IndustrialPanel : GUIData
     private void Build()
     {
         shell=ConsoleShell.Create(transform,Text.Get("Industry.title"),C.Amber);plate=(RectTransform)shell.transform;header=shell.Title;
+        shell.UsePolarisStyle();
         shell.EmergencyStop=StopSelected;
         list=shell.List;details=shell.Detail;listScroll=shell.ListScroll;detailScroll=shell.DetailScroll;
         var tabs=Central?new[]{"overview","equipment","routing","maintenance","observations","attention","details"}:new[]{"equipment","routing","maintenance","details"};
-        foreach(var key in tabs){var captured=key;C.Button(shell.Navigation,key=="maintenance"||key=="details"?C.Text(key):Text.Get("Industry.tab_"+key),()=>shell.Navigate(()=>
+        foreach(var key in tabs){var captured=key;navigationButtons[key]=PolarisWidgets.Button(shell.Navigation,key=="maintenance"||key=="details"?C.Text(key):Text.Get("Industry.tab_"+key),()=>shell.Navigate(()=>
         {tab=captured;if(tab=="observations"||tab=="attention"){selected="";detailPage=false;}if(tab=="overview")detailPage=true;RebuildRows();ShowDetail();}));}
-        if(Central)C.Button(shell.Actions,C.Text("back"),()=>shell.Navigate(()=>{detailPage=false;Layout();}));
-        pause=C.Button(shell.Actions,Text.Get("Industry.pause_all"),()=>{if(binding!=null){result=IndustryService.PauseAll(binding);RefreshReadout();}});pause.gameObject.SetActive(Central);
-        furnaceStop=C.Button(shell.Actions,C.Text("stop"),StopSelected);
-        C.Button(shell.Actions,C.Text("crew_settings"),()=>shell.Navigate(()=>Phobos.Ostranauts.Framework.Crew.CrewPanel.Show(CollectorService.Resolve(selected)??COSelf)));
-        C.Button(shell.Actions,C.Text("close"),shell.Close);
+        if(Central)PolarisWidgets.Button(shell.Actions,C.Text("back"),()=>shell.Navigate(()=>{detailPage=false;Layout();}));
+        pause=PolarisWidgets.Button(shell.Actions,Text.Get("Industry.pause_all"),()=>{if(binding!=null){result=IndustryService.PauseAll(binding);RefreshReadout();}});pause.gameObject.SetActive(Central);
+        furnaceStop=PolarisWidgets.Button(shell.Actions,C.Text("stop"),StopSelected);
+        PolarisWidgets.Button(shell.Actions,C.Text("crew_settings"),()=>shell.Navigate(()=>Phobos.Ostranauts.Framework.Crew.CrewPanel.Show(CollectorService.Resolve(selected)??COSelf)));
+        PolarisWidgets.Button(shell.Actions,C.Text("close"),shell.Close);
         search=C.Input(list,Text.Get("Industry.search"),query,text=>{query=text;RebuildRows();});
-        if(Central)C.Button(list,Text.Get("Industry.cycle_state"),()=>{stateFilter=(stateFilter+1)%(Enum.GetValues(typeof(EquipmentState)).Length+1);RebuildRows();});
+        if(Central)PolarisWidgets.Button(list,Text.Get("Industry.cycle_state"),()=>{stateFilter=(stateFilter+1)%(Enum.GetValues(typeof(EquipmentState)).Length+1);RebuildRows();});
         var rowsRoot=W.Rect(list,"Rows");var group=rowsRoot.gameObject.AddComponent<VerticalLayoutGroup>();group.spacing=6;group.childControlHeight=group.childControlWidth=true;group.childForceExpandHeight=false;
         Layout();
     }
     private Transform RowsRoot => list.GetChild(list.childCount - 1);
-    private void Layout(){compact=shell.IsNarrow;shell.Page(!Central||detailPage);}
+    private void Layout(){foreach(var entry in navigationButtons) PolarisWidgets.Selected(entry.Value,entry.Key==tab);compact=shell.IsNarrow;shell.Page(!Central||detailPage);}
     private void Update()
     {
         if (!bActive) return;
@@ -153,12 +155,12 @@ public sealed class IndustrialPanel : GUIData
         foreach (var group in visible.GroupBy(c => c.Group))
         {
             string key = group.Key;
-            C.Button(RowsRoot, (collapsed.Contains(key) ? "+ " : "- ") + Text.Get("Industry.group_" + key) + " (" + group.Count() + ")", () => { if (!collapsed.Add(key)) collapsed.Remove(key); RebuildRows(); });
+            PolarisWidgets.Button(RowsRoot, (collapsed.Contains(key) ? "+ " : "- ") + Text.Get("Industry.group_" + key) + " (" + group.Count() + ")", () => { if (!collapsed.Add(key)) collapsed.Remove(key); RebuildRows(); });
             if (collapsed.Contains(key)) continue;
             foreach (var card in group)
             {
                 string id = card.Id;
-                var button = C.Button(RowsRoot, RowText(card), () => shell.Navigate(() => { selected = id; result = ""; if (tab == "overview") tab = "equipment"; detailPage = true; ShowDetail(); }),48);
+                var button = PolarisWidgets.Button(RowsRoot, RowText(card), () => shell.Navigate(() => { selected = id; result = ""; if (tab == "overview") tab = "equipment"; detailPage = true; ShowDetail(); }),48);
                 button.GetComponentInChildren<TMP_Text>().fontSize=16;
                 rows[id] = button.GetComponentInChildren<TMP_Text>();
             }
@@ -200,7 +202,7 @@ public sealed class IndustrialPanel : GUIData
             foreach(var field in fields.Fields(target))
             {
                 var selected=field;
-                C.Button(actions,field.Label+": "+field.Value,()=>ConfigurationSheet.Choices(shell,selected.Label,"",fields.ConfigurationStamp(target),selected.Choices,
+                PolarisWidgets.Button(actions,field.Label+": "+field.Value,()=>ConfigurationSheet.Choices(shell,selected.Label,"",fields.ConfigurationStamp(target),selected.Choices,
                     (string expected,string chosen,out string reason)=>fields.ApplyConfiguration(target,binding,expected,chosen,out reason)));
             }
         if (provider != null)
@@ -208,7 +210,7 @@ public sealed class IndustrialPanel : GUIData
             {
                 var captured=command;
                 if(provider is IEquipmentPanelPresentation presentation&&presentation.IsConfiguration(command.Id))
-                    C.Button(actions,command.Label,()=>ConfigurationSheet.Choices(shell,captured.Label,"",presentation.ConfigurationStamp(target),new[]{(captured.Id,captured.Label)},
+                    PolarisWidgets.Button(actions,command.Label,()=>ConfigurationSheet.Choices(shell,captured.Label,"",presentation.ConfigurationStamp(target),new[]{(captured.Id,captured.Label)},
                         (string expected,string chosen,out string reason)=>presentation.ApplyConfiguration(target,binding,expected,chosen,out reason)));
                 else Add(actions,command.Id,label:command.Label);
             }
@@ -224,7 +226,7 @@ public sealed class IndustrialPanel : GUIData
             W.Label(actions, Text.Get("Industry.processing"));
             Add(actions, "start"); Add(actions, "pause"); Add(actions, "cancel");
             Add(actions, "watch"); Add(actions, "unwatch");
-            C.Button(actions, Phobos.Ostranauts.Framework.Audio.CompletionCues.VolumeLabel, () => { Phobos.Ostranauts.Framework.Audio.CompletionCues.CycleVolume(); ShowDetail(); });
+            PolarisWidgets.Button(actions, Phobos.Ostranauts.Framework.Audio.CompletionCues.VolumeLabel, () => { Phobos.Ostranauts.Framework.Audio.CompletionCues.CycleVolume(); ShowDetail(); });
             if (!Central) { Add(actions, "feed"); Add(actions, "products"); }
         }
         if (RoutingRules.IsReceiver(target.strCODef))
@@ -234,7 +236,7 @@ public sealed class IndustrialPanel : GUIData
         }
         if (RoutingRules.IsReceiver(target.strCODef) || RoutingRules.IsSender(target.strCODef))
         {
-            C.Button(actions, Text.Get("Industry.tab_routing"), () => shell.Navigate(()=>{tab="routing";ShowDetail();}));
+            PolarisWidgets.Button(actions, Text.Get("Industry.tab_routing"), () => shell.Navigate(()=>{tab="routing";ShowDetail();}));
         }
         if (IndustrialRules.Group(target.strCODef) == "chute" || IndustrialRules.Group(target.strCODef) == "grabber")
         {
@@ -254,7 +256,7 @@ public sealed class IndustrialPanel : GUIData
             if (processor != null)
             {
                 string? localProblem = Central ? null : ProcessingService.AccessProblem(processor);
-                C.Button(actions, Text.Get("Industry.open_processor"), () => { if (Central) { selected = processor.strID; ShowDetail(); } else Open(processor); }).interactable = localProblem == null;
+                PolarisWidgets.Button(actions, Text.Get("Industry.open_processor"), () => { if (Central) { selected = processor.strID; ShowDetail(); } else Open(processor); }).interactable = localProblem == null;
                 if (localProblem != null) W.Label(actions, localProblem);
             }
         }
@@ -282,8 +284,8 @@ public sealed class IndustrialPanel : GUIData
     {
         string targetId = selected;
         var last=parent.childCount>0?parent.GetChild(parent.childCount-1):null;
-        var row=last!=null&&last.name=="Command row"&&last.childCount<2?last:C.Row(parent);row.name="Command row";
-        C.Button(row, label ?? Text.Get("Industry.action_" + action), () =>
+        var row=last!=null&&last.name=="Command row"&&last.childCount<2?last:C.Row(parent,48);row.name="Command row";
+        PolarisWidgets.Button(row, label ?? Text.Get("Industry.action_" + action), () =>
         {
             bool inventory=!Central&&(action=="feed"||action=="products"||action=="inventory");
             void Execute()
@@ -305,9 +307,9 @@ public sealed class IndustrialPanel : GUIData
             C.Field(actions,C.Text("cooling"),ObjectPresentation.Name(cooling),
                 ()=>Connection(target,"pair",C.Text("cooling"),cooling,()=>IndustryService.Discover(target.ship).Where(c=>FurnaceRules.Cooling(c.strCODef)),"unpair"),
                 ()=>ObjectPicker.Locate(shell,CollectorService.Resolve(cooling)),()=>Setting(target,"unpair"),CollectorService.Resolve(cooling)!=null,cooling!="none"&&!string.IsNullOrEmpty(cooling));
-            foreach(var mode in new[]{"direct","left","right"})C.Button(actions,Text.Get("Furnace.coolant_"+mode),()=>Setting(target,"cooling-"+mode));
+            foreach(var mode in new[]{"direct","left","right"})PolarisWidgets.Button(actions,Text.Get("Furnace.coolant_"+mode),()=>Setting(target,"cooling-"+mode));
             if(!Central)foreach(var service in new[]{"managed","sealed","fill","drain"})
-            {var action="coolant-"+service;if(service=="fill"||service=="drain")Add(actions,action,label:Text.Get("Furnace.coolant_"+service));else C.Button(actions,Text.Get("Furnace.coolant_"+service),()=>Setting(target,action));}
+            {var action="coolant-"+service;if(service=="fill"||service=="drain")Add(actions,action,label:Text.Get("Furnace.coolant_"+service));else PolarisWidgets.Button(actions,Text.Get("Furnace.coolant_"+service),()=>Setting(target,action));}
         }
         else C.Label(actions,Text.Get("Industry.local_only"));
         if(!Central){if(ProcessingService.IsProcessor(target.strCODef)){Add(actions,"feed");Add(actions,"products");}else if(RoutingRules.IsReceiver(target.strCODef)&&target.objContainer!=null)Add(actions,"inventory");}

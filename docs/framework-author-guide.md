@@ -742,3 +742,15 @@ must supply its equipment/store predicate and revalidate when acting. It is not 
 retained object registry. `Registration.EquipmentIdentity.IsFamily(id, prefix)`
 compares the four exact native Installed/InstalledDmg/Loose/LooseDmg forms without
 constructing temporary candidate IDs. See [the audit](performance-audit.md).
+
+### Framework 0.30.0: optional Polaris presentation
+
+`PolarisWidgets.Button`, `Style` and `Selected` use native button artwork with
+retained weak bindings, change-only selected markers and new control states.
+No native controller or donor listener is copied. `SecondaryClick.Bind` adds a
+right-click action to a Button; it consumes right clicks, respects active and
+inherited interactability, and leaves left-click dispatch to Unity Button.
+Consumers must still validate access/current state in their action services.
+`ConsoleShell.UsePolarisStyle()` opts into wrapped navigation and action rows;
+other shells retain existing dimensions and appearance. These additions are
+presentation-only and preserve existing public signatures.

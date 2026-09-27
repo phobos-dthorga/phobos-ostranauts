@@ -32,11 +32,14 @@ namespace UnityEngine
 {
     public readonly record struct Color(float R);
     public sealed class GameObject
-    { public bool activeSelf; public int Writes; public void SetActive(bool active) { Writes++; activeSelf = active; } }
+    { private readonly Dictionary<System.Type,object> components = new();
+      public T? GetComponent<T>() where T:class => components.TryGetValue(typeof(T),out var c) ? c as T : null;
+      public T AddComponent<T>() where T:new() { var c=new T(); components[typeof(T)]=c!; return c; }
+      public bool activeSelf; public int Writes; public void SetActive(bool active) { Writes++; activeSelf = active; } }
 }
 namespace UnityEngine.UI
 {
-    public sealed class Selectable
+    public class Selectable
     { private bool enabled; public int Writes; public bool interactable { get => enabled; set { enabled = value; Writes++; } } }
     public sealed class Graphic
     { private UnityEngine.Color current; public int Writes; public UnityEngine.Color color { get => current; set { current = value; Writes++; } } }
@@ -51,4 +54,21 @@ namespace TMPro
         public string text { get => caption; set { caption = value; Writes++; } }
         public T? GetComponent<T>() where T : class { Lookups++; return Component as T; }
     }
+}
+
+internal static class CrewSim { internal static bool bJustClickedInput; }
+namespace UnityEngine { public class MonoBehaviour {} }
+namespace UnityEngine.UI {
+ public sealed class Button : Selectable {
+  public readonly UnityEngine.GameObject gameObject = new(); public bool Active=true, ParentAllows=true;
+  public T? GetComponent<T>() where T:class => gameObject.GetComponent<T>();
+  public bool IsActive()=>Active; public bool IsInteractable()=>interactable && ParentAllows;
+ }
+}
+namespace UnityEngine.EventSystems {
+ public interface IPointerClickHandler { void OnPointerClick(PointerEventData data); }
+ public sealed class PointerEventData {
+  public enum InputButton { Left, Right, Middle }
+  public InputButton button; public bool Used; public void Use()=>Used=true;
+ }
 }

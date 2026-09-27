@@ -115,3 +115,19 @@ claim for this release. Use the existing opt-in recorder later if needed.
 The six original captures, baseline packages and verified pre-profiling rollback
 packages remain local. Installation uses the guarded installer, never a running
 game; Manufacturing remains held. Steam publication is not part of delivery.
+
+## P8 — Polaris interface follow-up
+
+The owner reported that the installed optimisation was already working much
+better. This is qualitative play feedback; no percentage/FPS improvement is
+claimed. The six original captures remain unchanged and additional captures stay
+deferred.
+
+The subsequent [interface refresh](polaris-interface-refresh.md) retains the
+0.1-second presentation gate and hidden-tab boundaries. Installed weapon discovery
+runs only for Fire/picker presentation or an explicit checked weapon action.
+Native shot eligibility remains separate. Widget styles retain weak bindings;
+selected state changes update only their marker/label. Industrial navigation wraps
+on layout/size changes. No recording is enabled and no capture file is written.
+The source ledger has been extended for these reviewed additions; the earlier
+259-file count and test totals above describe the optimisation delivery.

@@ -30,6 +30,7 @@ internal sealed class StarSystem
 internal sealed class BodyOrbit { internal bool Blocks, IsAsteroidField; internal int nDrawFlagsBody; }
 public sealed class Ship
 {
+    internal int LoadState = 2;
     internal double DeltaVRemainingRCS=100*PhobosAutoNav.AutoNavCore.M_TO_AU;
     internal void UnlockFromOrbit() { }
     internal CondOwner? Reactor;
@@ -70,9 +71,12 @@ internal static class CollisionManager { internal static double GetCollisionDist
 internal sealed class PowerReading { internal double PowerConnected = 12; }
 public sealed class CondOwner
 {
+    internal object? Item = new object();
+    internal string strNameFriendly => strName;
+    internal Dictionary<string,double> Amounts = new();
     internal PowerReading? Pwr;
     internal int Messages, ConditionWrites;
-    internal double GetCondAmount(string key) => 11;
+    internal double GetCondAmount(string key) => Amounts.TryGetValue(key, out var value) ? value : key == "IsShipWeaponFiringGroup" ? 0 : 11;
     internal void AddCondAmount(string key,double amount) { ConditionWrites++; Conditions.Add(key); }
     internal void LogMessage(string message,string mood,string source) { Messages++; }
 
@@ -257,3 +261,4 @@ namespace PhobosAutoNav {
 }
 
 namespace Ostranauts.ShipGUIs.NavStation { internal sealed class NavModCoursePlot { internal NativeToggle chkEngage = new(); } }
+internal static class MathUtils { internal static int RoundToInt(double value) => (int)System.Math.Floor(value + .5); }

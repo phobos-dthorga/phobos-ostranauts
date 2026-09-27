@@ -687,33 +687,52 @@
     },
     {
       "path": "src/PhobosAutoNav/AutoNavPanel.cs",
-      "sha256": "510467248d3f43c3e38fda638f18cdd30a936e9630bcfa60651488eca067e11f",
+      "sha256": "0bb54cb6aa9db7e220f95c8d8c890f0561b779585986d052d01cf156399388fe",
       "role": "navigation, native boundary or flight policy",
-      "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Implement bounded, behaviour-preserving changes described by the linked findings; retain owning simulation and validation policy.",
+      "review": "2026-09-27: reviewed Polaris update/caller boundaries; fresh inventory only for visible Fire or explicit actions; no simulation cadence or recording changes.",
+      "decision": "P8: retain ten-per-second presentation, hidden-tab inactivity and unchanged-widget suppression. Add opt-in retained bindings, fresh inventory and checked action-time handoff. Metadata-only version updates have no recurring cost.",
       "findings": [
-        "P2"
+        "P2",
+        "P8"
       ],
       "indicators": {
         "runtime_hook": [
-          225
+          256,
+          267,
+          268,
+          271,
+          431,
+          432
         ],
         "discovery": [
-          94
-        ],
-        "ui_mutation": [
-          58,
-          69,
-          89,
-          105,
-          182,
-          375,
-          445
-        ],
-        "profiling": [
-          245
+          80,
+          81,
+          95,
+          136,
+          145,
+          154,
+          172,
+          444,
+          480
         ]
       }
+    },
+    {
+      "path": "src/PhobosAutoNav/AutoNavPanelDialogs.cs",
+      "role": "Polaris presentation, interaction guard or checked weapon-group handoff",
+      "review": "2026-09-27: reviewed Polaris update/caller boundaries; fresh inventory only for visible Fire or explicit actions; no simulation cadence or recording changes.",
+      "decision": "P8: retain ten-per-second presentation, hidden-tab inactivity and unchanged-widget suppression. Add opt-in retained bindings, fresh inventory and checked action-time handoff. Metadata-only version updates have no recurring cost.",
+      "findings": [
+        "P8"
+      ],
+      "indicators": {
+        "discovery": [
+          28,
+          52,
+          72
+        ]
+      },
+      "sha256": "ea46ce0c3becc89a997fb2a6095a0e9141337918d26445fba02f29848e3e47ba"
     },
     {
       "path": "src/PhobosAutoNav/Core/ApproachAdmission.cs",
@@ -975,21 +994,21 @@
     },
     {
       "path": "src/PhobosAutoNav/FireControlController.cs",
-      "sha256": "61c2915e12eec75eeae9a2062761f9bf3d4879c28b10bc79087569ee5cdf6902",
+      "sha256": "e75b8accca48fb532fe95d3493a5b73dcd9aa3643097c843ac69bc656da84603",
       "role": "navigation, native boundary or flight policy",
-      "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Retain existing policy and call frequency. No independent measured hotspot justifies additional changes in this file; see the linked subsystem decision.",
+      "review": "2026-09-27: reviewed Polaris update/caller boundaries; fresh inventory only for visible Fire or explicit actions; no simulation cadence or recording changes.",
+      "decision": "P8: retain ten-per-second presentation, hidden-tab inactivity and unchanged-widget suppression. Add opt-in retained bindings, fresh inventory and checked action-time handoff. Metadata-only version updates have no recurring cost.",
       "findings": [
-        "R2"
+        "R2",
+        "P8"
       ],
       "indicators": {
         "collection": [
-          83,
-          93,
-          95,
+          85,
           97,
-          98,
-          148
+          99,
+          100,
+          150
         ]
       }
     },
@@ -1146,23 +1165,22 @@
     },
     {
       "path": "src/PhobosAutoNav/NavigationHub.cs",
-      "sha256": "4c879413da4c93295393c6b7bad052d59b3557dda0c26d661723f0c3d0651f5d",
+      "sha256": "fd6bb1f2bbc3bcea0675820719b6be34c7f4724ae3daeffa858a26fae091834e",
       "role": "navigation, native boundary or flight policy",
-      "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Implement bounded, behaviour-preserving changes described by the linked findings; retain owning simulation and validation policy.",
+      "review": "2026-09-27: reviewed Polaris update/caller boundaries; fresh inventory only for visible Fire or explicit actions; no simulation cadence or recording changes.",
+      "decision": "P8: retain ten-per-second presentation, hidden-tab inactivity and unchanged-widget suppression. Add opt-in retained bindings, fresh inventory and checked action-time handoff. Metadata-only version updates have no recurring cost.",
       "findings": [
-        "P1"
+        "P1",
+        "P8"
       ],
       "indicators": {
         "discovery": [
-          39
+          40
         ],
-        "persistence_or_io": [
-          42,
-          48
-        ],
-        "profiling": [
-          53
+        "persistence": [
+          43,
+          49,
+          105
         ]
       }
     },
@@ -1246,31 +1264,44 @@
     },
     {
       "path": "src/PhobosAutoNav/NavigationPursuit.cs",
-      "sha256": "e015886719ba16fb5c789d1e660bd9664a756aa2b7efe89806af86b82c3f5dbc",
+      "sha256": "248b3772d036f1193fab600c565ade6e6977c9382de2d8aaed2e0be03a718830",
       "role": "navigation, native boundary or flight policy",
-      "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Implement bounded, behaviour-preserving changes described by the linked findings; retain owning simulation and validation policy.",
+      "review": "2026-09-27: reviewed Polaris update/caller boundaries; fresh inventory only for visible Fire or explicit actions; no simulation cadence or recording changes.",
+      "decision": "P8: retain ten-per-second presentation, hidden-tab inactivity and unchanged-widget suppression. Add opt-in retained bindings, fresh inventory and checked action-time handoff. Metadata-only version updates have no recurring cost.",
       "findings": [
-        "P2"
+        "P2",
+        "P8"
       ],
       "indicators": {
-        "runtime_hook": [
-          174
+        "collection": [
+          118,
+          126
         ],
         "discovery": [
           10,
           11,
-          170
+          118,
+          126,
+          174
         ],
-        "collection": [
+        "persistence": [
+          19,
+          34,
           35,
-          118
-        ],
-        "persistence_or_io": [
-          35
-        ],
-        "profiling": [
-          176
+          56,
+          70,
+          73,
+          79,
+          80,
+          85,
+          87,
+          95,
+          99,
+          104,
+          110,
+          112,
+          175,
+          189
         ]
       }
     },
@@ -1312,6 +1343,38 @@
       }
     },
     {
+      "path": "src/PhobosAutoNav/NavigationWeaponGroups.cs",
+      "role": "Polaris presentation, interaction guard or checked weapon-group handoff",
+      "review": "2026-09-27: reviewed Polaris update/caller boundaries; fresh inventory only for visible Fire or explicit actions; no simulation cadence or recording changes.",
+      "decision": "P8: retain ten-per-second presentation, hidden-tab inactivity and unchanged-widget suppression. Add opt-in retained bindings, fresh inventory and checked action-time handoff. Metadata-only version updates have no recurring cost.",
+      "findings": [
+        "P8"
+      ],
+      "indicators": {
+        "collection": [
+          22,
+          41,
+          55,
+          71,
+          72,
+          73
+        ],
+        "discovery": [
+          16,
+          19,
+          41,
+          55,
+          70
+        ],
+        "persistence": [
+          40,
+          50,
+          60
+        ]
+      },
+      "sha256": "a06f6b2aa9603b4f28e287f2d4dd95cf42394fd239dbb20fc79f3a5c29ff2126"
+    },
+    {
       "path": "src/PhobosAutoNav/PanelDepartureSettings.cs",
       "sha256": "41101e08241fa63f112fe8b009420996e25b40a643e9da6d10bfcd908b510bdf",
       "role": "navigation, native boundary or flight policy",
@@ -1345,51 +1408,18 @@
     },
     {
       "path": "src/PhobosAutoNav/Plugin.cs",
-      "sha256": "66a15ae528ffe466de950c5c06e8b99443287ed1b603ec7616412933c0b37e8f",
+      "sha256": "e2e0ca2dabd35d6ebf96c5537ee98ec33ab7063823e800277635b39e91bac378",
       "role": "navigation, native boundary or flight policy",
-      "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Retain existing policy and call frequency. No independent measured hotspot justifies additional changes in this file; see the linked subsystem decision.",
+      "review": "2026-09-27: reviewed Polaris update/caller boundaries; fresh inventory only for visible Fire or explicit actions; no simulation cadence or recording changes.",
+      "decision": "P8: retain ten-per-second presentation, hidden-tab inactivity and unchanged-widget suppression. Add opt-in retained bindings, fresh inventory and checked action-time handoff. Metadata-only version updates have no recurring cost.",
       "findings": [
-        "R2"
+        "R2",
+        "P8"
       ],
       "indicators": {
         "runtime_hook": [
-          31,
           78,
-          91,
-          95,
-          97,
-          98,
-          99,
-          100,
-          101,
-          103,
-          106,
-          107,
-          109,
-          119,
-          120,
-          127,
-          137,
-          147,
-          164,
-          173,
-          180,
-          187,
-          197,
-          206,
-          212,
-          214,
-          220,
-          225,
-          231,
-          242
-        ],
-        "collection": [
-          151
-        ],
-        "profiling": [
-          94
+          79
         ]
       }
     },
@@ -1681,24 +1711,24 @@
     },
     {
       "path": "src/PhobosFramework/Controls/ConsoleShell.cs",
-      "sha256": "75d313d573e6a3bbc46f1b21e4abb32c805b0f790b9581cb6fed985bb8d87262",
+      "sha256": "d5f92a1db12fd7418f2f3f41f3be563bcf3b12a7dcf9fb8c47f04c5cbb38f8ed",
       "role": "shared presentation and input",
-      "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Retain existing policy and call frequency. No independent measured hotspot justifies additional changes in this file; see the linked subsystem decision.",
+      "review": "2026-09-27: reviewed Polaris update/caller boundaries; fresh inventory only for visible Fire or explicit actions; no simulation cadence or recording changes.",
+      "decision": "P8: retain ten-per-second presentation, hidden-tab inactivity and unchanged-widget suppression. Add opt-in retained bindings, fresh inventory and checked action-time handoff. Metadata-only version updates have no recurring cost.",
       "findings": [
-        "R5"
+        "R5",
+        "P8"
       ],
       "indicators": {
         "runtime_hook": [
-          72,
-          111
+          95,
+          138
         ],
         "collection": [
-          56
+          79
         ],
-        "ui_mutation": [
-          57,
-          76
+        "discovery": [
+          43
         ]
       }
     },
@@ -1941,6 +1971,23 @@
       }
     },
     {
+      "path": "src/PhobosFramework/Controls/PolarisWidgets.cs",
+      "role": "Polaris presentation, interaction guard or checked weapon-group handoff",
+      "review": "2026-09-27: reviewed Polaris update/caller boundaries; fresh inventory only for visible Fire or explicit actions; no simulation cadence or recording changes. Final sizing review preserves 18px command text and matches command-row height to 48px buttons; creation/layout only.",
+      "decision": "P8: retain ten-per-second presentation, hidden-tab inactivity and unchanged-widget suppression. Add opt-in retained bindings, fresh inventory and checked action-time handoff. Metadata-only version updates have no recurring cost.",
+      "findings": [
+        "P8"
+      ],
+      "indicators": {
+        "discovery": [
+          20,
+          43,
+          55
+        ]
+      },
+      "sha256": "f8b8ebf4f6f08b961c6b68ae6d7ed8f5aad7913201e2d8c395c8940e17832828"
+    },
+    {
       "path": "src/PhobosFramework/Controls/Presentation.cs",
       "sha256": "b67b25d0a678822447121e699da811f2eb77eb0cfee857f41d7378b5d0cb2ca4",
       "role": "shared presentation and input",
@@ -1966,6 +2013,21 @@
         "P6"
       ],
       "indicators": {}
+    },
+    {
+      "path": "src/PhobosFramework/Controls/SecondaryClick.cs",
+      "role": "Polaris presentation, interaction guard or checked weapon-group handoff",
+      "review": "2026-09-27: reviewed Polaris update/caller boundaries; fresh inventory only for visible Fire or explicit actions; no simulation cadence or recording changes.",
+      "decision": "P8: retain ten-per-second presentation, hidden-tab inactivity and unchanged-widget suppression. Add opt-in retained bindings, fresh inventory and checked action-time handoff. Metadata-only version updates have no recurring cost.",
+      "findings": [
+        "P8"
+      ],
+      "indicators": {
+        "discovery": [
+          15
+        ]
+      },
+      "sha256": "93e615ca660eeef481ff93743375c0717ce87879980e055b3eb9885a860e9b90"
     },
     {
       "path": "src/PhobosFramework/Controls/ShipEquipment.cs",
@@ -2803,17 +2865,18 @@
     },
     {
       "path": "src/PhobosFramework/Plugin.cs",
-      "sha256": "cfb99c25fd405f6f4dd5134a1a84b068c53f9ddb2292da621cb9eaa028ba39fa",
+      "sha256": "2ef1e25879508a206b8f078a0c1d7ccd756db571c6ca9a4bb9be29b3e179c968",
       "role": "shared accounting, inventory, crew or native boundary",
-      "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Retain existing policy and call frequency. No independent measured hotspot justifies additional changes in this file; see the linked subsystem decision.",
+      "review": "2026-09-27: reviewed Polaris update/caller boundaries; fresh inventory only for visible Fire or explicit actions; no simulation cadence or recording changes.",
+      "decision": "P8: retain ten-per-second presentation, hidden-tab inactivity and unchanged-widget suppression. Add opt-in retained bindings, fresh inventory and checked action-time handoff. Metadata-only version updates have no recurring cost.",
       "findings": [
-        "R3"
+        "R3",
+        "P8"
       ],
       "indicators": {
         "runtime_hook": [
-          37,
-          56
+          56,
+          58
         ]
       }
     },
@@ -3502,12 +3565,13 @@
     },
     {
       "path": "src/PhobosShipbreaker/Core/DependencyContract.cs",
-      "sha256": "16b2a672b3ef174fc70e33897ffdd37f8381a0e92a6f1e934ef932f15d588d0a",
+      "sha256": "5cb6d924ced70d60f4cfec40dede8d24d94ce7a0b794df465820e116ecb6a970",
       "role": "industrial service, native boundary or process policy",
-      "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Retain existing policy and call frequency. No independent measured hotspot justifies additional changes in this file; see the linked subsystem decision.",
+      "review": "2026-09-27: reviewed Polaris update/caller boundaries; fresh inventory only for visible Fire or explicit actions; no simulation cadence or recording changes.",
+      "decision": "P8: retain ten-per-second presentation, hidden-tab inactivity and unchanged-widget suppression. Add opt-in retained bindings, fresh inventory and checked action-time handoff. Metadata-only version updates have no recurring cost.",
       "findings": [
-        "R3"
+        "R3",
+        "P8"
       ],
       "indicators": {
         "collection": [
@@ -3965,39 +4029,25 @@
     },
     {
       "path": "src/PhobosShipbreaker/IndustrialPanel.cs",
-      "sha256": "213e57d2fb63ee3ff1a7aa8ea4aff5bae241b6d50486f842f0ef018e845f18cf",
+      "sha256": "69f77d8d9eb20e9965d5a15b90573c19bcb063d997ef71db75ae997e9d6b8570",
       "role": "industrial service, native boundary or process policy",
-      "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Implement bounded, behaviour-preserving changes described by the linked findings; retain owning simulation and validation policy.",
+      "review": "2026-09-27: reviewed Polaris update/caller boundaries; fresh inventory only for visible Fire or explicit actions; no simulation cadence or recording changes. Final sizing review preserves 18px command text and matches command-row height to 48px buttons; creation/layout only.",
+      "decision": "P8: retain ten-per-second presentation, hidden-tab inactivity and unchanged-widget suppression. Add opt-in retained bindings, fresh inventory and checked action-time handoff. Metadata-only version updates have no recurring cost.",
       "findings": [
-        "P6"
+        "P6",
+        "P8"
       ],
       "indicators": {
         "runtime_hook": [
-          96,
-          360,
-          371
+          98
         ],
         "collection": [
-          30,
-          31,
-          67,
-          132
+          134,
+          155
         ],
-        "ui_mutation": [
-          85,
-          118,
-          119,
-          120,
-          123,
-          172,
-          174,
-          180,
-          272,
-          294
-        ],
-        "profiling": [
-          115
+        "discovery": [
+          164,
+          165
         ]
       }
     },
@@ -4179,26 +4229,18 @@
     },
     {
       "path": "src/PhobosShipbreaker/Plugin.cs",
-      "sha256": "7771b9d7d15a7a22f2e4f2bf76c26ca96440ae1c6c8fb03275799e5d7245f658",
+      "sha256": "7b876e478859a326bf3e7ea4187ce92a7fce0185939ce044918e309e2420c628",
       "role": "industrial service, native boundary or process policy",
-      "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Retain existing policy and call frequency. No independent measured hotspot justifies additional changes in this file; see the linked subsystem decision.",
+      "review": "2026-09-27: reviewed Polaris update/caller boundaries; fresh inventory only for visible Fire or explicit actions; no simulation cadence or recording changes.",
+      "decision": "P8: retain ten-per-second presentation, hidden-tab inactivity and unchanged-widget suppression. Add opt-in retained bindings, fresh inventory and checked action-time handoff. Metadata-only version updates have no recurring cost.",
       "findings": [
-        "R3"
+        "R3",
+        "P8"
       ],
       "indicators": {
         "runtime_hook": [
-          29,
           49,
-          50,
-          68,
-          91,
-          119,
-          142,
-          172,
-          187,
-          196,
-          198
+          54
         ]
       }
     },

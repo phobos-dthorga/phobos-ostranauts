@@ -1,6 +1,6 @@
 # Phobos control panels
 
-Framework 0.29.0, Agriculture 0.15.2, Shipbreaker 0.28.2 and Auto Nav 0.20.3
+Framework 0.30.0, Agriculture 0.15.2, Shipbreaker 0.29.0 and Auto Nav 0.21.0
 prepare this interface update. Manufacturing remains a scaffold with no operational
 panel or jobs. These are unpublished development candidates.
 
@@ -134,3 +134,11 @@ checks, the existing Auto Nav suites, 59 Python maintenance tests and 226 synthe
 installer checks. Compiled panel/input wiring and five browser reference sizes
 also passed. Assertion counts include parameter sweeps; they are not gameplay
 coverage measurements. No Unity session was run for this follow-up.
+
+## Polaris readability update
+
+The [Polaris interface refresh](polaris-interface-refresh.md) gives Flight Hub
+six larger tabs, full warning details, an installed-group picker and reversible
+volley adjustment. Industrial Control uses matching native button faces and
+wrapped navigation/actions at narrow widths. Existing Edit/rescue handling,
+settings drafts, ownership checks and emergency controls remain in place.

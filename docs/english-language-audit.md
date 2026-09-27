@@ -105,3 +105,12 @@ headings and the performance help/report were reviewed together; existing
 placeholder contracts, equipment names and research attribution remain intact.
 See the [performance audit](performance-audit.md) for this candidate's offline
 checks and the deliberately deferred in-game measurements.
+
+## Polaris follow-up, 27 September 2026
+
+Current coverage is 1,742 catalogue entries, 145 documents and 14 other surfaces.
+The 18 new messages distinguish installed weapons from firing readiness, explain
+reverse volley clicks and warn explicitly about old-group native automatic fire
+during a handoff. Fire help and the maintained item reference were updated
+together. The [Polaris report](polaris-interface-refresh.md) records browser
+size checks separately from pending native Unity appearance and interaction.

@@ -6,11 +6,11 @@ const fs = require('fs'), path = require('path');
   fs.mkdirSync(out, { recursive: true });
   const browser = await chromium.launch({ channel: 'msedge', headless: true });
   try {
-    for (const [width, height, scale] of [[1920,1080,1], [2560,1440,1], [3440,1440,1], [1920,1080,1.5], [1280,720,1.25]]) {
+    for (const mode of ['shared','polaris']) for (const [width, height, scale] of [[1920,1080,1], [2560,1440,1], [3440,1440,1], [1920,1080,1.5], [1280,720,1.25]]) {
       const page = await browser.newPage({ viewport: { width, height } });
-      await page.goto(require('url').pathToFileURL(path.join(root, 'assets/phobos-industrial-console/console-preview.html')).href);
+      await page.goto(require('url').pathToFileURL(path.join(root, 'assets/phobos-industrial-console/console-preview.html')).href+(mode==='polaris'?'?polaris=1':''));
       await page.evaluate(s => document.documentElement.style.setProperty('--scale', s), scale);
-      await page.screenshot({ path: path.join(out, `console-${width}-${height}-${scale}.png`) });
+      await page.screenshot({ path: path.join(out, `console-${mode}-${width}-${height}-${scale}.png`) });
       const result = await page.evaluate(() => {
         const main = document.querySelector('main'), footer = document.querySelector('footer');
         const list = document.querySelector('aside'), detail = document.querySelector('article');
@@ -34,9 +34,9 @@ const fs = require('fs'), path = require('path');
         return errors;
       });
       if (result.length) throw Error(`${width}×${height} @ ${scale}: ${result.join(', ')}`);
-      await page.screenshot({ path: path.join(out, `console-long-${width}-${height}-${scale}.png`) });
+      await page.screenshot({ path: path.join(out, `console-long-${mode}-${width}-${height}-${scale}.png`) });
       await page.close();
     }
-    console.log('PASS: five browser reference sizes/scales, independent scrolling, fixed actions, narrow navigation and long duplicate names. Not Unity validation.');
+    console.log('PASS: ten shared/Polaris browser reference sizes/scales, independent scrolling, fixed actions, narrow navigation and long duplicate names. Not Unity validation.');
   } finally { await browser.close(); }
 })().catch(error => { console.error(error); process.exitCode = 1; });

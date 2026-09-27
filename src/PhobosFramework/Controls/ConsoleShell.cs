@@ -29,6 +29,29 @@ public sealed class ConsoleShell : MonoBehaviour
     private RectTransform body=null!, listRoot=null!, detailRoot=null!;
     private GameObject? dialog;
     private bool detailPage, forceClose;
+    private bool polaris;
+    private GridLayoutGroup? navigationGrid, actionGrid;
+    /// <summary>Opt-in wrapped navigation/actions for Polaris consumers. Other shells retain their layout.</summary>
+    public void UsePolarisStyle()
+    {
+        if (polaris) return;
+        polaris = true;
+        navigationGrid = Grid(Navigation); actionGrid = Grid(Actions); Layout();
+    }
+    private static GridLayoutGroup Grid(RectTransform root)
+    {
+        var old = root.GetComponent<HorizontalLayoutGroup>();
+        if (old != null) { old.enabled = false; DestroyImmediate(old); }
+        var grid = root.gameObject.AddComponent<GridLayoutGroup>(); grid.spacing = new Vector2(8, 8);
+        grid.constraint = GridLayoutGroup.Constraint.FixedColumnCount; return grid;
+    }
+    private float Wrap(GridLayoutGroup grid, RectTransform root)
+    {
+        int count = 0; foreach (Transform child in root) if (child.gameObject.activeSelf) count++;
+        int columns = Math.Max(1, Math.Min(Math.Max(1, count), (int)((width - 48 + 8) / 160)));
+        grid.constraintCount = columns; grid.cellSize = new Vector2(Math.Max(24, (width - 48 - (columns - 1) * 8) / columns), 48);
+        return Math.Max(1, (count + columns - 1) / columns) * 56 - 8;
+    }
     private float width=-1;
     private Texture2D? frameTexture;
     private Sprite? frameSprite;
@@ -73,6 +96,13 @@ public sealed class ConsoleShell : MonoBehaviour
     private void Layout()
     {
         width=((RectTransform)transform).rect.width;bool narrow=ConsoleLayout.Narrow(width);
+        if (polaris && navigationGrid != null && actionGrid != null)
+        {
+            float navHeight = Wrap(navigationGrid, Navigation), actionHeight = Wrap(actionGrid, Actions);
+            Navigation.offsetMin = new Vector2(24, -58 - navHeight);
+            Actions.offsetMax = new Vector2(-24, 26 + actionHeight);
+            PanelWidgets.Fill(body, 24, 36 + actionHeight, 24, 68 + navHeight);
+        }
         listRoot.gameObject.SetActive(!narrow||!detailPage);detailRoot.gameObject.SetActive(!narrow||detailPage);
         PanelWidgets.Fill(listRoot);PanelWidgets.Fill(detailRoot);
         if(!narrow){float split=ConsoleLayout.ListWidth(width);listRoot.anchorMax=new Vector2(0,1);listRoot.offsetMax=new Vector2(split,0);detailRoot.offsetMin=new Vector2(split+20,0);}

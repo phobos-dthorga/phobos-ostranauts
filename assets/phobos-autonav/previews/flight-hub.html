@@ -4,9 +4,13 @@
 .readout{background:#0c1317;box-shadow:inset 0 0 0 2px #56646d}.one-line{display:block;white-space:nowrap;text-overflow:ellipsis;line-height:28px}.centred{justify-content:center;text-align:center}
 .button.compact{border:0;background:transparent;box-shadow:none;padding:0}.tab-face{left:2px;right:2px;top:6px;bottom:6px;pointer-events:none}
 .label,.button{white-space:pre}.clip{display:flex}.label.prose{white-space:pre-line}.weapon-card{display:block;white-space:pre;line-height:26px;text-overflow:ellipsis}
+
+.button{border-color:#7f939d;background:linear-gradient(#586c7c,#364956);box-shadow:inset 0 1px 0 #9caeb5;color:#edf1ed}
+.button:hover{filter:brightness(1.18)}.button:active{filter:brightness(.75)}.button.active{border-bottom:4px solid #eac466;color:#eac466;font-weight:bold}
+[data-box="tabs"]{background:#2b3741}.tab-face{top:0;bottom:0}.dialog{background:#131d24;padding:12px;overflow:auto;font-size:24px;line-height:1.2}.dialog h2{font-size:26px;color:#eac466}.dialog button{position:relative;display:block;width:100%;min-height:48px;margin:8px 0}
 </style>
 <h1>Polaris flight hub • layout proof</h1><p>Offline layout and typography only. Vanilla controls are represented schematically; this is not a Unity or gameplay capture. All positions use the same registration file as the game panel.</p>
-<p><select id="size"><option>300</option><option>400</option><option selected>600</option></select> <select id="page"><option>navigation</option><option>pursuit</option><option>fire</option><option>systems</option><option>docking</option><option>details</option></select> <label><input type="checkbox" id="expanded"> Expanded labels / long target names</label></p><div id="frame"><div id="panel"></div></div>
+<p><select id="size"><option>300</option><option>400</option><option selected>600</option></select> <select id="page"><option>navigation</option><option>pursuit</option><option>fire</option><option>systems</option><option>docking</option><option>departure</option><option>details</option><option>groups</option><option>handoff</option><option>warning</option></select> <label><input type="checkbox" id="expanded"> Expanded labels / long target names</label></p><div id="frame"><div id="panel"></div></div>
 <script>
 let layout,catalog,boxes;const panel=document.querySelector('#panel');
 const fmt=(s,...args)=>s.replace(/\{(\d+)(?::[^}]+)?\}/g,(_,n)=>args[+n]??'—');
@@ -14,7 +18,7 @@ function t(key,...args){let s=fmt(catalog['Hub.'+key]||catalog[key]||key,...args
 function box(parent,id){const b=boxes[id],e=document.createElement('div');e.className='box';e.dataset.box=id;Object.assign(e.style,{left:b.x+'px',top:b.y+'px',width:b.w+'px',height:b.h+'px'});parent.append(e);return e;}
 function label(parent,text,extra=''){const e=document.createElement('div');e.className='label '+extra;e.style.width=e.style.height='100%';e.textContent=text;parent.append(e);return e;}
 function readout(parent,text,size=24,pad=6,extra=''){parent.classList.add('readout');parent.dataset.field=true;const e=label(parent,text,extra);Object.assign(e.style,{position:'absolute',left:'12px',right:'12px',top:pad+'px',bottom:pad+'px',width:'auto',height:'auto',fontSize:size+'px'});return e;}
-function btn(parent,text,x,y,w,h,critical=true){const e=document.createElement('button');e.className='button';e.textContent=text;Object.assign(e.style,{left:x+'px',top:y+'px',width:w+'px',height:h+'px'});e.dataset.critical=critical;if(parent.dataset.box==='tabs'){e.classList.add('compact');e.textContent='';const face=document.createElement('span');face.className='button tab-face';face.textContent=text;e.append(face);}parent.append(e);return e;}
+function btn(parent,text,x,y,w,h,critical=true){const e=document.createElement('button');e.className='button';e.textContent=text;Object.assign(e.style,{left:x+'px',top:y+'px',width:w+'px',height:h+'px'});e.dataset.critical=critical;if(false){e.classList.add('compact');e.textContent='';const face=document.createElement('span');face.className='button tab-face';face.textContent=text;e.append(face);}parent.append(e);return e;}
 function cells(parent,items,fn){const w=(parent.clientWidth-(items.length-1)*8)/items.length;items.forEach((item,i)=>{const e=btn(parent,t(item),i*(w+8),0,w,parent.clientHeight);if(fn)e.onclick=()=>fn(item);});}
 function setting(parent,id,key,value){const r=box(parent,id),field=document.createElement('div');Object.assign(field.style,{position:'absolute',width:'344px',height:'56px'});r.append(field);readout(field,t(key,value),24,2);btn(r,'-',356,0,80,56);btn(r,'+',448,0,80,56);}
 function decorate(parent,id,type){const e=box(parent,id);e.classList.add(type);e.dataset.control=true;return e;}
@@ -23,7 +27,8 @@ function render(){panel.replaceChildren();const width=+document.querySelector('#
  const long=document.querySelector('#expanded').checked,target=long?'Definitely Nurture — Interplanetary Logistics Courier Alpha Seven':'Definitely Nurture',fire=long?'Independent Salvage Vessel — Forgotten Virtue Beta Nine':'Forgotten Virtue';
  label(box(panel,'title'),t('title')).style.fontSize='26px';label(box(panel,'target'),t('nav_target',target),'clip');label(box(panel,'offensive'),page==='fire'?t('offensive_target',fire):t('n2_ready'),'clip');
  label(box(panel,'operation'),page==='docking'?t('operation.Hold'):page==='pursuit'?'FOLLOWING • FIRE HELD':'READY','one-line');label(box(panel,'contact'),t('FCS.contacts',t('FCS.contact.Ready'),page==='fire'?t('FCS.contact.Ready'):t('FCS.contact.Unavailable')),'one-line');label(box(panel,'restriction'),page==='docking'?'Holding separation until target manoeuvres settle':page==='pursuit'?'Braking priority • weapons held':'Select a flight action below','one-line').style.color='#eac466';
- cells(box(panel,'tabs'),['navigation','pursuit','fire','systems','details'],name=>{document.querySelector('#page').value=name;render()});
+ const tabs=box(panel,'tabs');['navigation','pursuit','fire','systems','departure','details'].forEach((name,i)=>{const b=btn(tabs,t(name),(i%3)*176,Math.floor(i/3)*48,168,48);if(page===name)b.classList.add('active');b.onclick=()=>{document.querySelector('#page').value=name;render()};});
+ const more=box(panel,'warningDetails');btn(more,t('more'),0,0,more.clientWidth,more.clientHeight);
  const body=box(panel,'body');
  if(page==='navigation'||page==='docking'){
   cells(box(body,'nav.actions'),['approach','dock','approachdock']);readout(box(body,'nav.metrics'),page==='docking'?t('metrics','1.30','+0.0','0.1'):t('metrics','575.20','+1,402.0','1,496.6'),26);
@@ -34,15 +39,23 @@ function render(){panel.replaceChildren();const width=+document.querySelector('#
  }else if(page==='pursuit'){
   cells(box(body,'pursuit.actions'),['rendezvous','follow']);setting(body,'pursuit.cruise','cruise_value','1,500');setting(body,'pursuit.separation','separation_value','1');readout(box(body,'pursuit.help'),t('FCS.pursuit_help'),24,6,'prose');
  }else if(page==='fire'){
-  for(const [id,key,args]of [['target','select_fire_target',[]],['group','group',[2]],['volleys','FCS.volleys',[1]],['native','FCS.return_native',[]],['aim','FCS.auto_aim',['OFF']],['reference','FCS.use_aim',[]],['weapon','FCS.weapon',[1,4,1]]]){const b=box(body,'fire.'+id);btn(b,t(key,...args),0,0,b.clientWidth,b.clientHeight);}
-  readout(box(body,'fire.card'),t('FCS.weapon_card',long?'Long named kinetic weapon Alpha Seven':'Mass thrower 01',t('FCS.ready'),'YES','YES','0.0','0.0',t('FCS.mode_auto')),24,2,'weapon-card');
-  readout(box(body,'fire.ownership'),t('FCS.ownership',t('FCS.state.Hold'),0),24,2);label(box(body,'fire.engage'),t('FCS.engage'));decorate(body,'fire.guard','guard');readout(box(body,'fire.ready'),t('FCS.readiness',t('FCS.hold'),2,4),24,2);
+  for(const [id,key,args]of [['target','select_fire_target',[]],['group','group',[2]],['volleys','FCS.volleys_hint',[1]],['native','FCS.return_native',[]],['aim','FCS.auto_aim',['OFF']],['reference','FCS.use_aim',[]],['weapon','FCS.weapon',[1,long?4:1,'—']]]){const b=box(body,'fire.'+id);btn(b,t(key,...args),0,0,b.clientWidth,b.clientHeight);}
+  readout(box(body,'fire.card'),long?t('FCS.weapon_card','Long named kinetic weapon Alpha Seven',t('FCS.ready'),'YES','YES','0.0','0.0',t('FCS.mode_auto')):t('FCS.inventory_status','Artemis Launcher',t('FCS.switched_off')),24,2,'weapon-card');
+  readout(box(body,'fire.ownership'),t('FCS.ownership',t('FCS.state.Hold'),0),24,2);label(box(body,'fire.engage'),t('FCS.engage'));decorate(body,'fire.guard','guard');readout(box(body,'fire.ready'),t('FCS.inventory_ready',t('FCS.hold'),long?2:0,long?4:1),24,2);
  }else if(page==='systems'){
   readout(box(body,'systems.metrics'),t('system_metrics','0.021','2,787.9','9.810','6.53','445.2','11.0','OFF'));
   for(const id of ['flow','cycle','safety','cycleEnable'])label(box(body,'systems.'+id+'Label'),t(id),'centred');
   for(const id of ['flow','cycle']){decorate(body,'systems.'+id,'slider');readout(box(body,'systems.'+id+'Value'),id==='flow'?'20 %':'50 %',24,2,'centred');}
   for(const id of ['safety','cycleEnable'])decorate(body,'systems.'+id,'guard');readout(box(body,'systems.safetyValue'),'ON',24,2,'centred');readout(box(body,'systems.enabledValue'),'OFF',24,2,'centred');const s=box(body,'systems.shutdown');btn(s,t('shutdown'),0,0,s.clientWidth,s.clientHeight);
- }else{body.classList.add('details');body.textContent=t('help');}
+ }else if(page==='departure'){
+  body.classList.add('dialog');for(const key of ['depart-mode','depart','depart-continue','depart-resume','depart-stop']){const b=btn(body,t('Departure.'+key),0,0,body.clientWidth-40,48);b.style.position='relative';}
+  const help=document.createElement('p');help.textContent='Continue with: Fly. Depart releases one prepared connection, opens a safe hull gap and matches relative velocity. Continue captures the selected destination and mode first.';body.append(help);
+ }else if(['groups','handoff','warning'].includes(page)){
+  body.classList.add('dialog');const title=document.createElement('h2');title.textContent=t(page==='groups'?'FCS.choose_group':page==='handoff'?'FCS.change_group':'warning_details');body.append(title);
+  btn(body,t('close_details'),0,0,body.clientWidth-40,48);
+  if(page==='groups')for(let g=1;g<=3;g++){const b=btn(body,t('FCS.group_entry',g,1),0,0,body.clientWidth-40,48);if(g===2){b.classList.add('active');b.disabled=true;}}
+  else{const p=document.createElement('p');p.textContent=page==='handoff'?t('FCS.handoff',1,2):'RCS detour around Deimos. Weapon-facing authority is held while braking and clearance take priority. This full explanation is available without clipping.';body.append(p);if(page==='handoff')btn(body,t('FCS.confirm_handoff'),0,0,body.clientWidth-40,48);}
+ }else{body.classList.add('dialog');for(const caption of [t('Cue.watch'),'Crew settings',t('Cue.unwatch'),'Completion sound: 50%'])btn(body,caption,0,0,body.clientWidth-40,48);const help=document.createElement('p');help.textContent=t('help');body.append(help);}
  cells(box(panel,'actions'),['resume','disengage','cease']);label(box(panel,'coast'),t('coast'));
 }
 window.ready=Promise.all([fetch('../hub-layout.json').then(r=>r.json()),fetch('../../../translations/PhobosAutoNav/en.json').then(r=>r.json())]).then(([a,b])=>{layout=a;catalog=b;boxes=Object.fromEntries(a.boxes.map(v=>[v.id,v]));render();for(const id of ['size','page','expanded'])document.getElementById(id).onchange=render;});

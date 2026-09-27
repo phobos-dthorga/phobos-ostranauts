@@ -14,6 +14,7 @@ internal sealed class WeaponReading
 internal sealed class FireControlController
 {
     internal bool Permitted;
+    internal long OwnershipRevision;
     private HashSet<string> leases = new();
     internal int Remaining;
     internal FireState State;
@@ -23,11 +24,11 @@ internal sealed class FireControlController
     internal int? ReadyCount => null;
     internal double SampleEpoch = double.NaN;
     internal string Reason = "FCS.hold";
-    internal void Reset() { Permitted = false; leases.Clear(); }
+    internal void Reset() { OwnershipRevision++; Permitted = false; leases.Clear(); }
     internal void Cease(string reason = "FCS.hold", bool fault = false) { Permitted = false; Remaining = 0; Reason = reason; State = fault ? FireState.Fault : FireState.Hold; }
     internal void Invalidate() { SampleEpoch = double.NaN; }
     internal bool Authorize(Ship ship, string target, int group, int volleys) { Permitted = true; Remaining = volleys; State = FireState.Armed; return true; }
-    internal void SetOwnership(string console, Ship ship, int group, bool hold) { if (hold) leases.Add(console); else leases.Remove(console); }
+    internal void SetOwnership(string console, Ship ship, int group, bool hold) { OwnershipRevision++; if (hold) leases.Add(console); else leases.Remove(console); }
     internal bool Owns(string console) => leases.Contains(console);
     internal bool OtherOwner(string console) => leases.Any(id => id != console);
     internal void Observe(Ship ship, TargetRef? target, int group, double dt) { SampleEpoch = StarSystem.fEpoch; }

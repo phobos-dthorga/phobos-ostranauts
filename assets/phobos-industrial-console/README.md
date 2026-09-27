@@ -52,3 +52,14 @@ Blue Bottle Games assets. Live headings, state, controls and accents are runtime
 The master is reused with a nine-slice border, not baked labels or a new upscale.
 `console-preview.html` is a browser layout reference, checked with
 `scripts/verify-console-preview.cjs`; it is not a Unity capture.
+
+## Polaris review, 27 September 2026
+
+The current frame remains selected after a layout trial with native button faces,
+live borders and wrapped navigation. Native reuse is HIGH suitability; a new
+modular backplate is MEDIUM here because no remaining layout need warrants it.
+These are editorial judgements. No new images or rejected candidates were
+generated. Original masters and exports remain unchanged. Native button sprites
+are referenced at runtime only, never exported or supplied as generation inputs.
+See [the refresh report](../../docs/polaris-interface-refresh.md). The updated
+policy allows MEDIUM-HIGH/HIGH replacements when a concrete need is demonstrated.

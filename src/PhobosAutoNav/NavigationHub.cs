@@ -24,6 +24,7 @@ internal sealed class HubSnapshot
     internal bool WorkingNavigation, WorkingPursuit, Active, CanApproachDock, CanEngage, CanSelectWeapons, FirePermitted;
     internal string Restriction = "", OffensiveTarget = "", OwnPort = "", TargetPort = "", Clearance = "", FireReason = "";
     internal int WeaponGroup;
+    internal WeaponGroupReading[] Groups = Array.Empty<WeaponGroupReading>();
     internal DockProgress DockProgress;
     internal double? RangeKM, ClosingMS, RelativeMS, AlignmentDegrees, RcsAuthorityMS2, RcsFuelKG,
         TorchHours, ConnectedKWh, DeliveredMS2, CoreMK, Flow, Cycle;
@@ -105,7 +106,7 @@ internal sealed partial class NavigationService
         view.WeaponGroup = group; view.Volleys = volleys; view.Remaining = boundFire ? Fire.Remaining : 0;
         view.FireHeld = held || Fire.Owns(co.strID);
         view.CanSelectWeapons = view.WorkingFire && validPreferences && !Fire.OtherOwner(co.strID);
-        view.CanChangeGroup = view.CanSelectWeapons && !view.FireHeld;
+        view.CanChangeGroup = view.CanSelectWeapons;
         view.CanReturnFire = validPreferences && view.FireHeld;
         view.CanEngage = (page == null || page == "fire") && view.CanSelectWeapons && boundFire && view.FireContact.Usable && FireHardwareProblem(co, read) == null &&
             !DockingActive && (!AutoNavCore.Engaged || console == co && AutoNavCore.Following) && freshFire && Fire.Weapons.Any(w => w.Eligible && w.Loaded);
@@ -116,15 +117,7 @@ internal sealed partial class NavigationService
         if (view.WorkingFire && (!view.WorkingNavigation || boundFire && Fire.State == FireState.Fault)) view.Restriction = view.FireReason;
         if (page == null || page == "fire")
         {
-        var weapon = freshFire ? DisplayWeapon : null;
-        int weaponIndex = 0, aimIndex = 0;
-        for (int i = 0; i < Fire.Weapons.Count; i++)
-        { if (weapon != null && Fire.Weapons[i].Id == weapon.Id) weaponIndex = i + 1; if (Fire.Weapons[i].Id == aimReference) aimIndex = i + 1; }
-        view.WeaponLabel = Text.Get("FCS.weapon", weaponIndex, freshFire ? Fire.Weapons.Count : 0,
-            freshFire && aimReference != null ? aimIndex.ToString() : "—");
-        view.WeaponCard = weapon == null ? Text.Get("FCS.unavailable") : Text.Get("FCS.weapon_card", weapon.Name, Text.Get(weapon.Reason),
-            weapon.InArc.HasValue ? Text.Get(weapon.InArc.Value ? "FCS.yes" : "FCS.no") : "—", Text.Get(weapon.Loaded ? "FCS.yes" : "FCS.no"),
-            weapon.ReloadSeconds?.ToString("0.0") ?? "—", weapon.AimSeconds?.ToString("0.0") ?? "—", Text.Get(weapon.Manual ? "FCS.mode_manual" : "FCS.mode_auto"));
+            ReadWeaponInventory(co, view, freshFire);
         }
         if (page != null && page != "systems") return view;
         if (!powered || own.bCheckPower || own.objSS == null) return view;

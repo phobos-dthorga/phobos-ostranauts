@@ -199,3 +199,14 @@ records; its project artwork and project-specific approval rules are not importe
 Keep extracted game art local, preserve original authorship and record applicable
 provider terms alongside generated assets. Do not send game textures or Gekko
 assets as generation inputs merely because they were inspected for research.
+
+## Polaris interface follow-up — 27 September 2026
+
+The owner permits replacement interface artwork where suitability is MEDIUM-HIGH
+or HIGH. Prefer Blue Bottle Games' native widget/artwork references at runtime,
+then assess remaining gaps in readability, control boundaries and reusable
+framing. Ratings are design judgements, not measured usability gains. Generate
+one pilot only for a documented qualifying gap; keep all labels and states live.
+Preserve previous selected masters and archive rejected outputs under the existing
+policy. Flat UI artwork remains exempt from the world-sprite overhead camera rule.
+See [the implemented interface review](polaris-interface-refresh.md).

@@ -28,6 +28,7 @@ internal sealed class FireControlController
     private int group;
     private bool dispatch;
     internal bool Permitted { get; private set; }
+    internal long OwnershipRevision { get; private set; }
     internal int Remaining { get; private set; }
     internal FireState State { get; private set; }
     internal string Reason { get; private set; } = "FCS.native";
@@ -36,10 +37,11 @@ internal sealed class FireControlController
     internal int? InArcCount => double.IsNaN(SampleEpoch) ? null : Weapons.Count(w => w.InArc == true);
     internal int? AmmoCount => double.IsNaN(SampleEpoch) ? null : Weapons.Count(w => w.Loaded);
     internal int? ReadyCount => double.IsNaN(SampleEpoch) ? null : Weapons.Count(w => w.Ready);
-    internal void Reset() { Cease(); leases.Clear(); owner = null; targetId = null; group = 0; State = FireState.Native; Reason = "FCS.native"; Invalidate(); }
+    internal void Reset() { Cease(); leases.Clear(); OwnershipRevision++; owner = null; targetId = null; group = 0; State = FireState.Native; Reason = "FCS.native"; Invalidate(); }
     internal void Invalidate() { Weapons = Array.Empty<WeaponReading>(); SampleEpoch = double.NaN; aim.Clear(); }
     internal void SetOwnership(string consoleId, Ship ship, int selectedGroup, bool hold)
     {
+        OwnershipRevision++;
         Cease();
         if (hold) leases[consoleId] = (ship, selectedGroup); else leases.Remove(consoleId);
         State = leases.Count > 0 ? FireState.Hold : FireState.Native;

@@ -355,6 +355,12 @@ Check(!f.Service.ReadHub(f.Console).AutoAiming && !f.Service.Fire.Permitted && f
 f.Service.SelectFireTarget(f.Console);f.Service.ToggleAutoAim(f.Console);f.Service.TickFire(.25,false);f.Service.CeaseFire();
 Check(!f.Service.ReadHub(f.Console).AutoAiming && f.Own.LastRotation==0,"Cease removes standalone RCS demand");
 var mountA = new WeaponReading { Id="mount-a", Heading=.3 }; var mountB = new WeaponReading { Id="mount-b", Heading=-2 };
+foreach (var mount in new[]{mountA,mountB})
+{
+    var installedMount = new CondOwner { strID=mount.Id, ship=f.Own };
+    installedMount.Conditions.Add("IsShipWeapon"); installedMount.Amounts["IsShipWeaponFiringGroup"] = 1;
+    f.Own.Items.Add(installedMount);
+}
 f.Service.Fire.Weapons = new[]{mountA,mountB}; f.Service.UseAimReference(f.Console); f.Service.ToggleAutoAim(f.Console); f.Service.TickFire(.25,false);
 f.Service.Fire.Weapons = new[]{mountB,mountA}; f.Service.TickFire(.25,false);
 Check(AutoNavCore.WeaponHeading==.3,"Aiming reference remains bound despite conflicting mounts and observation order");
@@ -459,3 +465,73 @@ Check(navPage.WorkingNavigation, "Previously returned presentation remains a det
 f.Service.Engage(f.Console);
 Check(!AutoNavCore.Engaged, "A formerly valid presentation never authorises flight after hardware damage");
 Console.WriteLine($"{checks} checks including presentation snapshots passed.");
+
+// Installed inventory must retain inactive weapons without granting fire permission.
+f = Setup();
+f.Console.Items.Add(new() { strID = "fire-module", strCODef = NavigationService.FireControlId, ship = f.Own });
+CondOwner Weapon(string id, int group, string name)
+{
+    var w = new CondOwner { strID = id, strName = name, ship = f.Own };
+    w.Conditions.Add("IsShipWeapon"); w.Amounts["IsShipWeaponFiringGroup"] = group - 1;
+    f.Own.Items.Add(w); return w;
+}
+var coil = Weapon("coil", 1, "Burst Coil MK1");
+var missile = Weapon("launcher", 2, "Artemis Launcher"); missile.Conditions.Add("IsOff"); missile.Conditions.Remove("IsPowered");
+var ciws = Weapon("ciws", 3, "CIWS");
+var fireView = f.Service.ReadHub(f.Console, "fire");
+Check(fireView.Groups.Select(g => g.Group).SequenceEqual(new[]{1,2,3}), "All three installed groups remain visible");
+Check(f.Service.ReadHub(f.Console, "navigation").Groups.Length == 0, "Hidden Fire performs no inventory read");
+var ticket = f.Service.PrepareGroupSwitch(f.Console, 2)!;
+Check(ticket != null && f.Service.ConfirmGroupSwitch(ticket), "Native-owned group switches without a lease");
+fireView = f.Service.ReadHub(f.Console, "fire");
+Check(fireView.WeaponCard.Contains("Artemis Launcher") && fireView.WeaponCard.Contains("FCS.switched_off"), "Inactive launcher is named with its actual reason");
+Check(!fireView.FireHeld && !f.Service.Fire.Permitted, "Browsing never acquires hold or firing permission");
+missile.Conditions.Remove("IsOff"); missile.Conditions.Add("IsPowered"); missile.Conditions.Add("IsDamaged");
+Check(f.Service.ReadHub(f.Console,"fire").WeaponCard.Contains("FCS.damaged"), "Damaged installed weapon remains visible");
+missile.Conditions.Remove("IsDamaged");
+Check(!f.Service.ReadHub(f.Console,"fire").WeaponCard.Contains("FCS.damaged"), "Power and damage recovery is reflected by the next read");
+f.Service.ToggleFireOwnership(f.Console);
+f.Service.SelectFireTarget(f.Console); f.Service.ToggleAutoAim(f.Console); f.Service.EngageWeapons(f.Console);
+ticket = f.Service.PrepareGroupSwitch(f.Console,3)!;
+Check(ticket.Held && f.Service.Fire.Owns(f.Console.strID) && f.Service.Fire.Permitted && f.Service.ReadHub(f.Console,"fire").AutoAiming, "Preparing or cancelling confirmation preserves original engagement");
+Check(f.Service.ConfirmGroupSwitch(ticket), "Confirmed handoff succeeds");
+Check(f.Service.ReadHub(f.Console,"fire").WeaponGroup == 3 && f.Service.Fire.Owns(f.Console.strID) && !f.Service.Fire.Permitted && !f.Service.ReadHub(f.Console,"fire").AutoAiming, "New group held with no firing permission or Auto Aim");
+Check(!f.Service.ConfirmGroupSwitch(ticket), "Consumed confirmation cannot be replayed");
+ticket = f.Service.PrepareGroupSwitch(f.Console,2)!;
+missile.ship = f.Target;
+Check(!f.Service.ConfirmGroupSwitch(ticket) && f.Service.ReadHub(f.Console,"fire").WeaponGroup == 3, "Moved destination rejected without releasing old group");
+missile.ship = f.Own;
+ticket = f.Service.PrepareGroupSwitch(f.Console,2)!;
+missile.bDestroyed = true;
+Check(!f.Service.ConfirmGroupSwitch(ticket), "Destroyed destination rejected");
+missile.bDestroyed = false;
+ticket = f.Service.PrepareGroupSwitch(f.Console,2)!;
+f.Own.Items.Remove(missile); missile = Weapon("launcher",2,"Replacement launcher");
+Check(!f.Service.ConfirmGroupSwitch(ticket), "Same-ID replacement does not inherit confirmation");
+ticket = f.Service.PrepareGroupSwitch(f.Console,2)!;
+CrewSim.Selected = new CondOwner { ship=f.Own };
+Check(!f.Service.ConfirmGroupSwitch(ticket), "Operator change invalidates handoff");
+CrewSim.Selected = CrewSim.coPlayer;
+ticket = f.Service.PrepareGroupSwitch(f.Console,2)!;
+f.Service.Fire.SetOwnership("other-console", f.Own, 1, true);
+Check(!f.Service.ConfirmGroupSwitch(ticket), "Another console invalidates handoff");
+f.Service.Fire.SetOwnership("other-console", f.Own, 1, false);
+ticket = f.Service.PrepareGroupSwitch(f.Console,2)!;
+var pref = f.Console.mapGUIPropMaps["PhobosState.AutoNav.FirePreferences"]; var schema = pref["schema"]; pref["schema"]="99";
+Check(!f.Service.ConfirmGroupSwitch(ticket) && f.Service.Fire.Owns(f.Console.strID), "Unsupported save rejects handoff without releasing old ownership");
+pref["schema"]=schema;
+f.Service.StepVolleys(f.Console,-1);
+Check(f.Service.ReadHub(f.Console,"fire").Volleys == 9,"Right click wraps one to nine");
+f.Service.StepVolleys(f.Console);
+Check(f.Service.ReadHub(f.Console,"fire").Volleys == 1,"Left click wraps nine to one");
+f.Service.StepVolleys(f.Console); f.Service.StepVolleys(f.Console,-1);
+Check(f.Service.ReadHub(f.Console,"fire").Volleys == 1 && !f.Service.Fire.Permitted,"Each direction steps once and never rearms");
+ciws.Conditions.Remove("IsInstalled");
+Check(f.Service.ReadHub(f.Console,"fire").WeaponCard.Contains("FCS.group_empty"),"Removed selected weapon explicitly reports empty group");
+ciws.Conditions.Add("IsInstalled"); ciws.Amounts["IsShipWeaponFiringGroup"] = 5;
+Check(f.Service.ReadHub(f.Console,"fire").Groups.Any(g=>g.Group==6),"Native reassignment reflected without retaining inventory");
+ticket = f.Service.PrepareGroupSwitch(f.Console,2)!;
+f.Service.WorldChanging();
+Check(!f.Service.ConfirmGroupSwitch(ticket) && !f.Service.Fire.Permitted, "Reload invalidates an outstanding handoff and clears firing permission");
+Check(f.Service.ReadHub(f.Console,"fire").Groups.Any(g=>g.Group==6), "Inventory is freshly discovered after world reset");
+Console.WriteLine($"{checks} checks including weapon inventory and guided handoffs passed.");

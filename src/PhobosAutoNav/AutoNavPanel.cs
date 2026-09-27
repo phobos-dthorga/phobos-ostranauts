@@ -12,7 +12,7 @@ using NavPanelDraggable = Ostranauts.ShipGUIs.NavStation.Draggable;
 namespace PhobosAutoNav;
 
 /// <summary>Presentation only. Every flight/propulsion/fire action belongs to NavigationService.</summary>
-public sealed class AutoNavPanel : NavModBase
+public sealed partial class AutoNavPanel : NavModBase
 {
     internal const string LayoutId = "PhobosNavFlightHub";
     internal const string FaceplatePath = "phobos/autonav/PhobosFlightHub.png";
@@ -42,6 +42,7 @@ public sealed class AutoNavPanel : NavModBase
     private string preferenceExpected="";
     private ConsoleShell draftGuard=null!;
     private RectTransform draftActions=null!;
+    private string captionLanguage = "";
 
     internal static void Ensure(GUIOrbitDraw nav)
     {
@@ -106,18 +107,21 @@ public sealed class AutoNavPanel : NavModBase
         foreach (string id in new[] { "operation", "contact", "restriction" })
             labels[id].textWrappingMode = TextWrappingModes.NoWrap;
         labels["restriction"].color = Amber;
+        labels["restriction"].overflowMode = TextOverflowModes.Ellipsis;
+        AddButton(Box(layer, "warningDetails"), "warningDetails", Text.Get("Hub.more"), ShowWarning);
         var tabs = Box(layer, "tabs");
+        tabs.gameObject.AddComponent<Image>().color = PolarisWidgets.Surface;
         string[] names = { "navigation", "pursuit", "fire", "systems", "departure", "details" };
         for (int i = 0; i < names.Length; i++)
         {
             string name = names[i];
-            AddButton(Cell(tabs, i, names.Length), "tab." + name, Text.Get("Hub." + name), () => { page = name; ForceRefresh(); }, compact: true);
+            AddButton(Rect(tabs, (i % 3) * (528f / 3), (i / 3) * 48, 168, 48), "tab." + name, Text.Get("Hub." + name), () => { CloseOverlay(); page = name; }, compact: false);
             pages[name] = Box(layer, "body"); pages[name].name = name;
         }
         var strip = Box(layer, "actions");
         AddButton(Cell(strip, 0, 3), "resume", Text.Get("Hub.resume"), () => Plugin.Service.ResumeSaved(COSelf));
         AddButton(Cell(strip, 1, 3), "stop", Text.Get("Hub.disengage"), () => Plugin.Service.Stop(COSelf, Text.Get("NavigationService.stopped_by_pilot_coasting")));
-        AddButton(Cell(strip, 2, 3), "cease", Text.Get("Hub.cease"), () => Plugin.Service.CeaseFire());
+        AddButton(Cell(strip, 2, 3), "cease", Text.Get("Hub.cease"), () => { CloseOverlay(); Plugin.Service.CeaseFire(); });
         draftActions=Box(layer,"coast");
         AddButton(Cell(draftActions,0,2),"apply-settings",ConsoleWidgets.Text("apply"),ApplyPreferences,true);
         AddButton(Cell(draftActions,1,2),"discard-settings",ConsoleWidgets.Text("discard"),DiscardPreferences,true);
@@ -127,23 +131,49 @@ public sealed class AutoNavPanel : NavModBase
         var dep = PanelWidgets.Scroll(pages["departure"], "Departure", out var depScroll);
         PanelWidgets.Fill((RectTransform)depScroll.transform);
         foreach (string action in new[] { "depart-mode", "depart", "depart-continue", "depart-resume", "depart-stop" })
-          { string command = action; var button=ConsoleWidgets.Button(dep, Text.Get("Departure." + action), () => Invoke(() => { if(command=="depart-mode"){BeginPreferenceDraft();departureDraft=(departureDraft+1)%Plugin.Service.PanelDepartureModeCount;}else if(!preferencesDirty||command=="depart-stop")Plugin.Service.DepartureAction(COSelf, command); }));
+          { string command = action; var button=PolarisWidgets.Button(dep, Text.Get("Departure." + action), () => Invoke(() => { if(command=="depart-mode"){BeginPreferenceDraft();departureDraft=(departureDraft+1)%Plugin.Service.PanelDepartureModeCount;}else if(!preferencesDirty||command=="depart-stop")Plugin.Service.DepartureAction(COSelf, command); }));
             buttons[command]=button;
-          Style(button.GetComponentInChildren<TMP_Text>(),18); }
+          Style(button.GetComponentInChildren<TMP_Text>(),24); }
         labels["departure"] = PanelWidgets.Label(dep, "", flowing: true);
         Style(labels["departure"],24); labels["departure"].textWrappingMode=TextWrappingModes.Normal;
         var content = PanelWidgets.Scroll(pages["details"], "Diagnostics", out detailScroll);
         PanelWidgets.Fill((RectTransform)detailScroll.transform);
-        ConsoleWidgets.Button(content, Text.Get("Cue.watch"), () => Plugin.Service.WatchArrival(COSelf, true));
-        ConsoleWidgets.Button(content,ConsoleWidgets.Text("crew_settings"),()=>draftGuard.Navigate(()=>Phobos.Ostranauts.Framework.Crew.CrewPanel.Show(COSelf)));
-        ConsoleWidgets.Button(content, Text.Get("Cue.unwatch"), () => Plugin.Service.WatchArrival(COSelf, false));
-        var cueVolume = ConsoleWidgets.Button(content, "", () => Phobos.Ostranauts.Framework.Audio.CompletionCues.CycleVolume());
+        FlowButton(content, "watch", Text.Get("Cue.watch"), () => Plugin.Service.WatchArrival(COSelf, true));
+        FlowButton(content,"crew-settings",ConsoleWidgets.Text("crew_settings"),()=>draftGuard.Navigate(()=>Phobos.Ostranauts.Framework.Crew.CrewPanel.Show(COSelf)));
+        FlowButton(content, "unwatch", Text.Get("Cue.unwatch"), () => Plugin.Service.WatchArrival(COSelf, false));
+        var cueVolume = FlowButton(content, "volume", "", () => Phobos.Ostranauts.Framework.Audio.CompletionCues.CycleVolume());
         labels["cue-volume"] = cueVolume.GetComponentInChildren<TMP_Text>();
         labels["details"] = PanelWidgets.Label(content, "", flowing: false);
-        Style(labels["details"], 18); labels["details"].textWrappingMode = TextWrappingModes.Normal;
+        Style(labels["details"], 24); labels["details"].textWrappingMode = TextWrappingModes.Normal;
         var sizing = labels["details"].gameObject.AddComponent<LayoutElement>(); sizing.minHeight = HubLayout.Data["body"].h;
     }
 
+    private Button FlowButton(Transform parent, string id, string text, Action action)
+    {
+        var button = PolarisWidgets.Button(parent, text, () => Invoke(action));
+        var label = button.GetComponentInChildren<TMP_Text>(); Style(label, 24);
+        buttons[id] = button; buttonLabels[id] = label; return button;
+    }
+    private void RefreshCaptions()
+    {
+        string language = Phobos.Ostranauts.Framework.Localization.Translations.Language;
+        if (captionLanguage == language) return;
+        captionLanguage = language;
+        foreach (string name in pages.Keys) ButtonCaption("tab." + name, Text.Get("Hub." + name));
+        foreach (string name in new[] { "approach", "dock", "approachdock", "rendezvous", "follow", "resume", "shutdown" })
+            ButtonCaption(name, Text.Get("Hub." + name));
+        ButtonCaption("stop", Text.Get("Hub.disengage")); ButtonCaption("cease", Text.Get("Hub.cease"));
+        ButtonCaption("warningDetails", Text.Get("Hub.more")); ButtonCaption("propulsion", Text.Get("Hub.change"));
+        ButtonCaption("firetarget", Text.Get("Hub.select_fire_target")); ButtonCaption("reference", Text.Get("FCS.use_aim"));
+        ButtonCaption("watch", Text.Get("Cue.watch")); ButtonCaption("unwatch", Text.Get("Cue.unwatch"));
+        ButtonCaption("crew-settings", ConsoleWidgets.Text("crew_settings"));
+        ButtonCaption("apply-settings", ConsoleWidgets.Text("apply")); ButtonCaption("discard-settings", ConsoleWidgets.Text("discard"));
+        foreach (string name in new[] { "depart-mode", "depart", "depart-continue", "depart-resume", "depart-stop" })
+            Presentation.Text(buttons[name].GetComponentInChildren<TMP_Text>(), Text.Get("Departure." + name));
+        Caption("coast", Text.Get("Hub.coast")); Caption("pursuitHelp", Text.Get("FCS.pursuit_help"));
+        foreach (string name in new[] { "flow", "cycle", "safety", "cycleEnable" }) Caption(name + "Label", Text.Get("Hub." + name));
+        Caption("engageLabel", Text.Get("FCS.engage"));
+    }
     private void BuildNavigation(RectTransform parent)
     {
         var actions = Box(parent, "nav.actions");
@@ -184,8 +214,9 @@ public sealed class AutoNavPanel : NavModBase
     private void BuildFire(RectTransform parent)
     {
         AddButton(Box(parent, "fire.target"), "firetarget", Text.Get("Hub.select_fire_target"), () => Plugin.Service.SelectFireTarget(COSelf));
-        AddButton(Box(parent, "fire.group"), "group", "", () => Plugin.Service.StepWeapons(COSelf));
-        AddButton(Box(parent, "fire.volleys"), "volleys", "", () => Plugin.Service.StepVolleys(COSelf));
+        AddButton(Box(parent, "fire.group"), "group", "", ShowGroups);
+        var volleys = AddButton(Box(parent, "fire.volleys"), "volleys", "", () => Plugin.Service.StepVolleys(COSelf));
+        SecondaryClick.Bind(volleys, () => Invoke(() => Plugin.Service.StepVolleys(COSelf, -1)));
         AddButton(Box(parent, "fire.native"), "native", "", () => Plugin.Service.ToggleFireOwnership(COSelf));
         AddButton(Box(parent, "fire.aim"), "aim", "", () => Plugin.Service.ToggleAutoAim(COSelf));
         AddButton(Box(parent, "fire.reference"), "reference", Text.Get("FCS.use_aim"), () => Plugin.Service.UseAimReference(COSelf));
@@ -193,7 +224,7 @@ public sealed class AutoNavPanel : NavModBase
         labels["weaponCard"] = Readout(Box(parent, "fire.card"), 24, 2);
         labels["weaponCard"].textWrappingMode = TextWrappingModes.NoWrap;
         labels["ownership"] = Readout(Box(parent, "fire.ownership"), 24, 2);
-        Label(Box(parent, "fire.engage"), Text.Get("FCS.engage"), 24);
+        labels["engageLabel"] = Label(Box(parent, "fire.engage"), Text.Get("FCS.engage"), 24);
         fireGuard = Guard(Box(parent, "fire.guard"), on => { if (on) Plugin.Service.EngageWeapons(COSelf); else Plugin.Service.CeaseFire(); });
         labels["fireReady"] = Readout(Box(parent, "fire.ready"), 24, 2);
     }
@@ -202,7 +233,7 @@ public sealed class AutoNavPanel : NavModBase
     {
         labels["systems"] = Readout(Box(parent, "systems.metrics"), 24);
         foreach (string id in new[] { "flow", "cycle", "safety", "cycleEnable" })
-            Label(Box(parent, "systems." + id + "Label"), Text.Get("Hub." + id), 24).alignment = TextAlignmentOptions.Midline;
+        { labels[id + "Label"] = Label(Box(parent, "systems." + id + "Label"), Text.Get("Hub." + id), 24); labels[id + "Label"].alignment = TextAlignmentOptions.Midline; }
         foreach (string id in new[] { "flowValue", "cycleValue", "safetyValue", "enabledValue" })
         { labels[id] = Readout(Box(parent, "systems." + id), 24, 2); labels[id].alignment = TextAlignmentOptions.Midline; }
         flowSlider = Slider(Box(parent, "systems.flow"), value => Plugin.Service.ManualPropulsionAction(COSelf, ManualPropulsion.Flow, value));
@@ -226,6 +257,7 @@ public sealed class AutoNavPanel : NavModBase
     {
         // Native rescue is a sibling overlay. Keep module registration and saved placement intact.
         if (surface == null || controls == null) return;
+        if (!CanInteract) CloseOverlay();
         surface.alpha = RescueOpen ? 0 : 1;
         surface.blocksRaycasts = !RescueOpen;
         controls.interactable = controls.blocksRaycasts = CanInteract;
@@ -242,16 +274,18 @@ public sealed class AutoNavPanel : NavModBase
         refresh.Bind(COSelf, CrewSim.GetSelectedCrew(), GUIOrbitDraw.CrossHairTarget?.Ship,
             Phobos.Ostranauts.Framework.Localization.Translations.Language);
         if (!refresh.Due(Time.unscaledTime)) return;
+        RefreshCaptions();
         using var measurement = Phobos.Ostranauts.Framework.Diagnostics.Performance.Measure(PerformanceMetrics.PanelRefresh);
         var view = Plugin.Service.ReadHub(COSelf, page);
         bool isDocking = view.DockProgress != DockProgress.None;
         if (isDocking && !lastDocking && page != "navigation")
         {
-            page = "navigation";
+            CloseOverlay(); page = "navigation";
             // One immediate page transition. Routine refreshes read exactly one snapshot.
             view = Plugin.Service.ReadHub(COSelf, page);
         }
         lastDocking = isDocking;
+        UpdateOverlay(view);
         var nav = view.Navigation;
         Presentation.Active(draftActions.gameObject, preferencesDirty);
         Presentation.Active(labels["coast"].gameObject, !preferencesDirty);
@@ -261,7 +295,7 @@ public sealed class AutoNavPanel : NavModBase
         foreach (var entry in pages)
         {
             Presentation.Active(entry.Value.gameObject, entry.Key == page);
-            Presentation.Color(buttons["tab." + entry.Key].targetGraphic, entry.Key == page ? new Color(.35f, .42f, .46f) : new Color(.24f, .28f, .31f));
+            PolarisWidgets.Selected(buttons["tab." + entry.Key], entry.Key == page);
         }
         Caption("title", Text.Get("Hub.title"));
         Caption("target", Text.Get("Hub.nav_target", nav.Target));
@@ -270,7 +304,9 @@ public sealed class AutoNavPanel : NavModBase
         Presentation.Color(labels["offensive"], view.FirePermitted ? Amber : Ink);
         Caption("operation", isDocking ? Text.Get("Hub.operation." + view.DockProgress) : view.WorkingFire && !view.Active ? view.Ownership : nav.Heading);
         Caption("contact", Text.Get("FCS.contacts", Text.Get("FCS.contact." + view.Contact.State), Text.Get("FCS.contact." + view.FireContact.State)));
-        Caption("restriction", view.Restriction);
+        fullWarning = view.Restriction;
+        Caption("restriction", fullWarning);
+        Enable("warningDetails", !string.IsNullOrWhiteSpace(fullWarning));
         Enable("resume", !preferencesDirty && nav.Resumable && view.WorkingNavigation);
         Enable("stop", nav.CanStop || view.AutoAiming || view.FirePermitted);
         Enable("cease", view.Active || view.FirePermitted || view.AutoAiming || view.FireHeld);
@@ -312,7 +348,7 @@ public sealed class AutoNavPanel : NavModBase
         if (page == "fire")
         {
             Caption("weaponCard", view.WeaponCard); Caption("ownership", Text.Get("FCS.ownership", view.Ownership, view.Remaining));
-            ButtonCaption("weapon", view.WeaponLabel); ButtonCaption("volleys", Text.Get("FCS.volleys", view.Volleys));
+            ButtonCaption("weapon", view.WeaponLabel); ButtonCaption("volleys", Text.Get("FCS.volleys_hint", view.Volleys));
             ButtonCaption("native", Text.Get(view.FireHeld ? "FCS.return_native" : "FCS.take_control"));
             ButtonCaption("aim", Text.Get("FCS.auto_aim", State(view.AutoAiming))); ButtonCaption("group", Text.Get("Hub.group", view.WeaponGroup));
             Caption("fireReady", fireGuard == null ? Text.Get("Hub.guard_missing") : !view.WorkingFire ? Text.Get("FCS.module_required") : view.FireReason);
@@ -392,7 +428,8 @@ public sealed class AutoNavPanel : NavModBase
         }
     }
     private void OnRectTransformDimensionsChange() => NormalizePlacementBounds();
-    private new void OnDestroy() { base.OnDestroy(); if (faceplateSprite != null) Destroy(faceplateSprite); }
+    private void OnDisable() => CloseOverlay();
+    private new void OnDestroy() { CloseOverlay(); base.OnDestroy(); if (faceplateSprite != null) Destroy(faceplateSprite); }
     private static RectTransform Box(Transform parent, string id)
     { var box = HubLayout.Data[id]; return Rect(parent, box.x, box.y, box.w, box.h); }
     private static RectTransform Rect(Transform parent, float x, float y, float width, float height)
@@ -444,6 +481,7 @@ public sealed class AutoNavPanel : NavModBase
         if (donor?.targetGraphic is Image source && source.sprite != null)
         { image.sprite = source.sprite; image.type = source.type; button.transition = donor.transition; button.spriteState = donor.spriteState; button.colors = donor.colors; }
         var label = Label(face, text, 24); PanelWidgets.Fill((RectTransform)label.transform, 6, 2, 6, 2); label.alignment = TextAlignmentOptions.Midline;
+        PolarisWidgets.Style(button);
         button.onClick.AddListener(() => Invoke(action)); buttons[id] = button; buttonLabels[id] = label; return button;
     }
     private GUISafetyToggle? Guard(RectTransform host, Action<bool> action)

@@ -16,6 +16,23 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.30.0] - 2026-09-27 - Draft
+
+### Changed
+
+- Add opt-in Polaris button styling using native artwork, retained bindings and live selected markers. Existing panel styles remain available.
+- Add guarded secondary-click handling and wrapped Polaris console navigation/actions. No gameplay policy or saved-state format changes.
+
+### Requirements
+
+Additive Framework API update; normal game/loader requirements remain unchanged.
+
+### Known limits
+
+- Offline regression and browser-layout checks are separate from owner-run Unity interaction tests. No additional performance captures or Steam publication are claimed.
+- Existing faceplates and suitable vanilla graphics are reused after review; no new artwork generation was warranted.
+
+
 ## [0.29.0] - 2026-09-27 - Draft
 
 ### Added

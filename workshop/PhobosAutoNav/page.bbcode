@@ -1,5 +1,5 @@
 [h1]Phobos Auto Nav[/h1]
-[b]Version:[/b] 0.20.3
+[b]Version:[/b] 0.21.0
 
 [h2]Performance update[/h2]
 The console refreshes the visible page up to ten times per second and responds immediately to your actions. It no longer checks whole-ship hull fit just to display docking clearance; starting a docking manoeuvre still checks it. Flight and firing safety checks remain current.
@@ -23,7 +23,7 @@ Give Polaris the long approach while you keep an eye on the ship. Asterel module
 Disengage removes thrust; the ship coasts. It is not an emergency brake. Docking needs clearance and the navigation console open for final clamps. Departure, docking and pursuit pause after loading. No guaranteed collision-free flight, successful hit or intact capture. Upstream-derived Auto Navigate code remains excluded from the MIT grant; its unresolved reuse terms keep publication on hold.
 
 [h2]Requirements and installation[/h2]
-Ostranauts 1.0.1.5, BepInEx 5 and Phobos Framework 0.29.0 or newer. Disable original Auto Navigate before engaging Phobos Auto Nav; it is not a dependency.
+Ostranauts 1.0.1.5, BepInEx 5 and Phobos Framework 0.30.0 or newer. Disable original Auto Navigate before engaging Phobos Auto Nav; it is not a dependency.
 
 This is an unpublished development package. Automated checks do not establish in-game readiness or Unity layout approval. Keep required mods installed for saves using their content. Updating does not refill shops or old loot containers. See the installation guide for current download availability.
 
@@ -67,3 +67,7 @@ Original artwork uses AI-assisted production; artwork provenance and licensing a
 [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/crew-automation.md]Crew controls, time-skip limits and owner checks[/url]
 [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3789049955]LOGUSS’s Common Sense modules[/url]
 [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3788237703]jossla’s Study at Terminals[/url]
+
+[h2]Polaris interface update[/h2]
+Clearer controls across all six tabs, full warning details and an installed weapon-group picker. Switched-off weapons stay visible with an explanation. Confirm group handoffs explicitly: the old group may resume native automatic fire; the new group stays held. Left-click Volleys to increase, right-click to decrease; both wrap from 1 to 9. Existing automatic missile restrictions remain in place.
+Browser checks do not establish Unity interaction approval. The recent refresh pacing remains in place; further performance recordings are deferred.
