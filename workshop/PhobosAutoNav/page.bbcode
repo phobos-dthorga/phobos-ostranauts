@@ -1,5 +1,5 @@
 [h1]Phobos Auto Nav[/h1]
-[b]Version:[/b] 0.22.3
+[b]Version:[/b] 0.22.4
 
 [h2]Performance update[/h2]
 The console refreshes the visible page up to ten times per second and responds immediately to your actions. It no longer checks whole-ship hull fit just to display docking clearance; starting a docking manoeuvre still checks it. Flight and firing safety checks remain current.
@@ -24,7 +24,7 @@ Give Polaris the long approach while you keep an eye on the ship. Asterel module
 Disengage removes thrust; the ship coasts. It is not an emergency brake. Docking needs clearance and the navigation console open for final clamps. Departure, docking and pursuit pause after loading. No guaranteed collision-free flight, successful hit or intact capture. Upstream-derived Auto Navigate code remains excluded from the MIT grant; its unresolved reuse terms keep publication on hold.
 
 [h2]Requirements and installation[/h2]
-Ostranauts 1.0.1.5, BepInEx 5 and Phobos Framework 0.30.2 or newer. Disable original Auto Navigate before engaging Phobos Auto Nav; it is not a dependency.
+Ostranauts 1.0.1.5, BepInEx 5 and Phobos Framework 0.30.3 or newer. Disable original Auto Navigate before engaging Phobos Auto Nav; it is not a dependency.
 
 This is an unpublished development package. Automated checks do not establish in-game readiness or Unity layout approval. Keep required mods installed for saves using their content. Updating does not refill shops or old loot containers. See the installation guide for current download availability.
 
@@ -82,3 +82,6 @@ Approach, Rendezvous, Follow, FCS and Combat support one securely braced tow in 
 
 [b]Item handling correction[/b]
 Keep board and remnant pickup/drop actions consistent with their actual stack limits through the shared handling helper. Preserve module slots, repair, restore, dismantling and navigation behaviour. Requires Phobos Framework 0.30.2. Live menu and inventory handling remain owner-tested.
+
+[b]Merchant and salvage update[/b]
+Raise equipment offer chances to at least 85% before the availability setting, fill missing N1/N2/N3 offers at general suppliers, and include all three boards in native module salvage. New configurations default to 30% total per eligible roll; existing saved settings remain authoritative. One board per successful salvage choice, with damaged-only pools preserved. Normal restocking and new loot generation are required; existing inventories stay as they are. Offline checks are not gameplay validation.

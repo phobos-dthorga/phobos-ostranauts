@@ -4,7 +4,7 @@
     "Framework.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.30.2",
+      "value": "0.30.3",
       "description": "PhobosFramework published source/package version.",
       "targets": [
         {
@@ -68,7 +68,7 @@
     "Shipbreaker.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.29.2",
+      "value": "0.30.0",
       "description": "PhobosShipbreaker published source/package version.",
       "targets": [
         {
@@ -142,7 +142,7 @@
     "AutoNav.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.22.3",
+      "value": "0.22.4",
       "description": "PhobosAutoNav published source/package version.",
       "targets": [
         {
@@ -206,7 +206,7 @@
     "Agriculture.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.15.3",
+      "value": "0.16.0",
       "description": "PhobosAgriculture published source/package version.",
       "targets": [
         {
@@ -318,7 +318,7 @@
     },
     "AutoNav.salvageChance": {
       "type": "number",
-      "value": "0.03",
+      "value": "0.30",
       "min": 0,
       "max": 1,
       "description": "Default probability of native navigation-module salvage, per eligible roll.",
@@ -615,7 +615,7 @@
     "AutoNav.minimumFramework": {
       "type": "version",
       "parts": 3,
-      "value": "0.30.2",
+      "value": "0.30.3",
       "description": "Current AutoNav required Framework version, shared with local installer admission.",
       "targets": [
         {
@@ -641,7 +641,7 @@
     "Shipbreaker.minimumFramework": {
       "type": "version",
       "parts": 3,
-      "value": "0.30.2",
+      "value": "0.30.3",
       "description": "Current Shipbreaker required Framework version, shared with local installer admission.",
       "targets": [
         {
@@ -713,7 +713,7 @@
     "Agriculture.minimumFramework": {
       "type": "version",
       "parts": 3,
-      "value": "0.30.2",
+      "value": "0.30.3",
       "description": "Current Agriculture required Framework version, shared with local installer admission.",
       "targets": [
         {
@@ -1092,6 +1092,142 @@
       ],
       "review": [
         "Regenerate item references and run native stack checks. Individual contents/capacity and single-item service guards remain authoritative."
+      ]
+    },
+    "AutoNav.stockEquipmentChance": {
+      "type": "number",
+      "value": "0.85",
+      "min": 0.01,
+      "max": 1,
+      "description": "Minimum authored merchant offer probability before the global availability setting.",
+      "targets": [
+        {
+          "path": "src/PhobosAutoNav/StockQuantities.cs",
+          "pattern": "\\bEquipmentChance\\s*=\\s*(?P<value>[0-9.]+)",
+          "count": 1
+        }
+      ],
+      "review": [
+        "Regenerate item references and run native merchant/loot checks. Existing inventories remain unchanged."
+      ]
+    },
+    "Shipbreaker.stockEquipmentChance": {
+      "type": "number",
+      "value": "0.85",
+      "min": 0.01,
+      "max": 1,
+      "description": "Minimum authored merchant offer probability before the global availability setting.",
+      "targets": [
+        {
+          "path": "src/PhobosShipbreaker/StockQuantities.cs",
+          "pattern": "\\bEquipmentChance\\s*=\\s*(?P<value>[0-9.]+)",
+          "count": 1
+        }
+      ],
+      "review": [
+        "Regenerate item references and run native merchant/loot checks. Existing inventories remain unchanged."
+      ]
+    },
+    "Shipbreaker.stockSupplyChance": {
+      "type": "number",
+      "value": "0.95",
+      "min": 0.01,
+      "max": 1,
+      "description": "Minimum authored merchant offer probability before the global availability setting.",
+      "targets": [
+        {
+          "path": "src/PhobosShipbreaker/StockQuantities.cs",
+          "pattern": "\\bSupplyChance\\s*=\\s*(?P<value>[0-9.]+)",
+          "count": 1
+        }
+      ],
+      "review": [
+        "Regenerate item references and run native merchant/loot checks. Existing inventories remain unchanged."
+      ]
+    },
+    "Agriculture.stockEquipmentChance": {
+      "type": "number",
+      "value": "0.85",
+      "min": 0.01,
+      "max": 1,
+      "description": "Minimum authored merchant offer probability before the global availability setting.",
+      "targets": [
+        {
+          "path": "src/PhobosAgriculture/StockQuantities.cs",
+          "pattern": "\\bEquipmentChance\\s*=\\s*(?P<value>[0-9.]+)",
+          "count": 1
+        }
+      ],
+      "review": [
+        "Regenerate item references and run native merchant/loot checks. Existing inventories remain unchanged."
+      ]
+    },
+    "Agriculture.stockSupplyChance": {
+      "type": "number",
+      "value": "0.95",
+      "min": 0.01,
+      "max": 1,
+      "description": "Minimum authored merchant offer probability before the global availability setting.",
+      "targets": [
+        {
+          "path": "src/PhobosAgriculture/StockQuantities.cs",
+          "pattern": "\\bSupplyChance\\s*=\\s*(?P<value>[0-9.]+)",
+          "count": 1
+        }
+      ],
+      "review": [
+        "Regenerate item references and run native merchant/loot checks. Existing inventories remain unchanged."
+      ]
+    },
+    "Shipbreaker.sectionSalvageChance": {
+      "type": "number",
+      "value": ".05",
+      "min": 0,
+      "max": 0.333,
+      "description": "Authored chance per eligible engineering loot roll; finite single-item choice.",
+      "targets": [
+        {
+          "path": "src/PhobosShipbreaker/EquipmentEconomy.cs",
+          "pattern": "\\bSectionSalvageChance\\s*=\\s*(?P<value>[0-9.]+)",
+          "count": 1
+        }
+      ],
+      "review": [
+        "Run native loot checks and regenerate acquisition references. Existing generated cargo is preserved."
+      ]
+    },
+    "Shipbreaker.machinerySalvageChance": {
+      "type": "number",
+      "value": ".4",
+      "min": 0,
+      "max": 1,
+      "description": "Authored chance per eligible engineering loot roll; finite single-item choice.",
+      "targets": [
+        {
+          "path": "src/PhobosShipbreaker/EquipmentEconomy.cs",
+          "pattern": "\\bMachinerySalvageChance\\s*=\\s*(?P<value>[0-9.]+)",
+          "count": 1
+        }
+      ],
+      "review": [
+        "Run native loot checks and regenerate acquisition references. Existing generated cargo is preserved."
+      ]
+    },
+    "Agriculture.machinerySalvageChance": {
+      "type": "number",
+      "value": ".3",
+      "min": 0,
+      "max": 0.333,
+      "description": "Authored chance per eligible engineering loot roll; finite single-item choice.",
+      "targets": [
+        {
+          "path": "src/PhobosAgriculture/LootContent.cs",
+          "pattern": "\\bEquipmentChance\\s*=\\s*(?P<value>[0-9.]+)",
+          "count": 1
+        }
+      ],
+      "review": [
+        "Run native loot checks and regenerate acquisition references. Existing generated cargo is preserved."
       ]
     }
   }

@@ -978,3 +978,8 @@
 - Reuse native pickup/drop and stack actions where valid; native Pick Up can use the drag slot for cumbersome cargo. Do not add machine controls or INSTALL entries to unfinished assembly sections. Retain native food, module, repair, restore and dismantle behaviour.
 - Preserve saved cargo and placement. Correct handling on detached load data, allowing a previously saved hand slot only until successful native release; never silently relocate or destroy an item to enforce a new classification.
 - Maintain the complete [handling ledger](docs/item-handling-audit.md) through the item-reference exporter and `scripts/audit-item-handling.py`. Add regression coverage for changes, including existing saves; definition checks do not establish live context-menu or Unity approval.
+
+## Merchant availability and loot (2026-09-27)
+
+- Owner requests much broader merchant availability and world finds. Current stock floors are content-owned (85% equipment/sections/boards, 95% supplies/food) before Framework availability configuration, with existing finite lots. Maintain through the constants updater and regenerate item references.
+- Fill general-market coverage without duplicating prepared offers; retain native restocking, prices, merchant roles, other providers and saved inventories. Use suitable native leaf/engineering pools and single-item loot choices; never put wholesale lots, installed machinery or fabricated process records into world loot. See [merchant stock](docs/merchant-stock.md).

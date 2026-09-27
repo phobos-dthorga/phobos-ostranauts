@@ -1,6 +1,8 @@
 # Phobos economy across the vanilla solar system
 
-Current stock quantities: [bulk merchant lots](merchant-stock.md) supersede the older single-item offers below. These content versions require Framework 0.24.0+.
+Current availability: [27 September expansion](merchant-stock.md) supersedes the historical probability examples below: 85% equipment/sections/boards and 95% supplies/food minimum before configuration. General local stock gaps and engineering loot are expanded.
+
+Historical regional baseline and current stock quantities: [bulk merchant lots](merchant-stock.md) supersede the older single-item offers below. These content versions require Framework 0.24.0+.
 
 Prepared 26 September 2026 against **Ostranauts 1.0.1.5**. Regional builds:
 Framework **0.23.0**, Shipbreaker **0.21.0**, Agriculture **0.10.0**, Auto Nav
@@ -25,7 +27,7 @@ Existing inventories are not replaced or topped up on load. Native restocking,
 access rules and each merchant's willingness to buy your goods remain native.
 In particular, ordinary supply kiosks may sell equipment without buying it back.
 
-## Regional availability
+## Original regional availability (historical baseline)
 
 These **authored gameplay factors** multiply the content mod's base offer chance.
 They are a modest specialization model, not measured prices or a transport

@@ -29,10 +29,10 @@ internal static class SalvageChecks
             check(units.All(unit => unit.fMin == 1 && unit.fMax == 1) &&
                 Math.Abs(units.Sum(unit => unit.fChance) - EquipmentRules.SalvageChance) < 1e-7,
                 "Actual native parser sees a bounded single choice with the authored total chance");
-            check(units.All(unit => unit.strName == "PhobosNavModAutoNav" || unit.strName == "PhobosNavModAutoNavDmg"),
+            check(units.All(unit => new[] { "PhobosNavModAutoNav", "PhobosNavModAutoNavDmg", "PhobosNavModPursuit", "PhobosNavModPursuitDmg", "PhobosNavModFireControl", "PhobosNavModFireControlDmg" }.Contains(unit.strName)),
                 "Native loot targets saved module identities");
             if (table.EndsWith("Dmg", StringComparison.Ordinal))
-                check(units.Count == 1 && units[0].strName == "PhobosNavModAutoNavDmg", "Damaged pools cannot create pristine modules");
+                check(units.Count == 3 && units.All(unit => unit.strName.EndsWith("Dmg", StringComparison.Ordinal)), "Damaged pools cannot create pristine modules");
         }
         check(DataHandler.dictLoot[parent].aCOs.SequenceEqual(originalItems) &&
             DataHandler.dictLoot[parent].aLoots.Contains("ForeignNavSalvage=0.5x1"), "Native and foreign choices survive publication");

@@ -1,3 +1,4 @@
+using System.Linq;
 using Phobos.Ostranauts.Framework.Registration;
 using Phobos.Ostranauts.Framework.Trading;
 using PhobosShipbreaker.Core;
@@ -28,6 +29,10 @@ internal static class RegionalEconomy
 
     internal static void Apply(NativeDefinitions d)
     {
+        foreach (string merchant in new[] { "ItmOKLGSupplyKioskInv", "ItmOKLGFixer", "ItmTraderSanDiegoHalvorsonInv", "ItmVORBScrapKioskInv" })
+        foreach (string item in EquipmentEconomy.Machines.Select(m => m.Prefix + "Loose").Concat(new[] { ProcessRules.AssemblySection, ReclaimerRules.Section, FurnaceRules.Section, FurnaceCooling.Conduit + "Loose", FurnaceService.CoolantStock }))
+            MarketStock.AddMissing(d, merchant, "PhobosExpanded_Shipbreaker_" + merchant + "_" + item,
+                item, StockQuantities.Chance(item, 0), StockCondition.Pristine, StockQuantities.For(item));
         foreach (var profile in Profiles)
         {
             var condition = profile.Region == "OFLT" ? StockCondition.Refurbished : StockCondition.Pristine;
@@ -40,8 +45,8 @@ internal static class RegionalEconomy
                 Offer(section, .30);
             Offer(FurnaceCooling.Conduit + "Loose", .65);
             // Consumable charge quality is independent of refurbished machinery.
-            RegionalMarkets.Add(d, profile.Region, FurnaceService.CoolantStock, .65 * profile.Factor, StockCondition.Pristine, StockQuantities.Coolant);
-            void Offer(string item, double chance) => RegionalMarkets.Add(d, profile.Region, item, chance * profile.Factor, condition, StockQuantities.For(item));
+            RegionalMarkets.Add(d, profile.Region, FurnaceService.CoolantStock, StockQuantities.Chance(FurnaceService.CoolantStock, .65 * profile.Factor), StockCondition.Pristine, StockQuantities.Coolant);
+            void Offer(string item, double chance) => RegionalMarkets.Add(d, profile.Region, item, StockQuantities.Chance(item, chance * profile.Factor), condition, StockQuantities.For(item));
         }
         // Packaged working fluid is an industrial consumable, never potable water.
         MaintenanceDefinitions.SetStat(d.Objects[FurnaceService.CoolantStock], "IsCategoryIndustrialProducts", 1);

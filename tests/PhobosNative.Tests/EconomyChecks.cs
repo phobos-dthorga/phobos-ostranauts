@@ -80,12 +80,19 @@ internal static class EconomyChecks
         check(engineering.aLoots.Contains("ItmRandomEngineeringLoot=0.8x1|ItmScrapTrash=0.1x1-2"), "Engineering salvage retains native choice");
         var sectionChoice = repeat.Loot["PhobosEngineeringSectionSalvage"];
         check(sectionChoice.aCOs.Length == 1 && sectionChoice.aCOs[0].Split('|').Length == 3 &&
-            sectionChoice.aCOs[0].Split('|').All(s => s.EndsWith("=0.01x1")), "Engineering roll adds at most one section at three percent total");
+            sectionChoice.aCOs[0].Split('|').All(s => s.EndsWith("=0.05x1")), "Engineering roll adds at most one section at fifteen percent total");
         var parsedChoice = ((System.Collections.Generic.List<System.Collections.Generic.List<LootUnit>>)typeof(Loot)
             .GetField("aCOLootUnits", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic)!
             .GetValue(sectionChoice)!).Single();
         check(parsedChoice.Count == 3 && parsedChoice.All(u => u.fMin == 1 && u.fMax == 1) &&
-            Math.Abs(parsedChoice.Sum(u => u.fChance) - .03) < 1e-7, "Native parser retains one three-percent cumulative section choice");
+            Math.Abs(parsedChoice.Sum(u => u.fChance) - .15) < 1e-7, "Native parser retains one fifteen-percent cumulative section choice");
+        var machineryChoice = ((System.Collections.Generic.List<System.Collections.Generic.List<LootUnit>>)typeof(Loot)
+            .GetField("aCOLootUnits", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic)!
+            .GetValue(repeat.Loot["PhobosShipbreakerMachinerySalvage"])!).Single();
+        check(machineryChoice.Count == EquipmentEconomy.Machines.Length * 2 &&
+            machineryChoice.All(u => u.fMin == 1 && u.fMax == 1 && (u.strName.EndsWith("Loose") || u.strName.EndsWith("LooseDmg"))) &&
+            Math.Abs(machineryChoice.Sum(u => u.fChance) - EquipmentEconomy.MachinerySalvageChance) < 1e-7,
+            "Engineering machinery is one bounded loose intact/damaged choice across every implemented family");
         foreach (string merchantId in new[] { "ItmOKLGSupplyKioskInv", "ItmTraderSanDiegoHalvorsonInv" })
             check(repeat.Loot.ContainsKey("PhobosStock_FurnaceSection_" + merchantId + "_" + FurnaceRules.Section), "F6 section has explicit stock: " + merchantId);
         foreach (double probability in new[] { 0, -1, double.NaN, 1.1 })

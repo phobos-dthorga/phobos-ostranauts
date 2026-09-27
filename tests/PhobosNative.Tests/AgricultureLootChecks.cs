@@ -10,8 +10,8 @@ internal static class AgricultureLootChecks
 {
     internal static void Run(NativeDefinitions content, Action<bool, string> check, Action<Action, string> throws)
     {
-        var parents = new[] { LootContent.FridgeTable, LootContent.CrateTable };
-        var branches = new[] { LootContent.FridgeBranch, LootContent.CrateBranch };
+        var parents = new[] { LootContent.FridgeTable, LootContent.CrateTable, "ItmLootSpawnEngineering" };
+        var branches = new[] { LootContent.FridgeBranch, LootContent.CrateBranch, "PhobosAgricultureMachinerySalvage" };
         var originals = parents.ToDictionary(id => id, id => DataHandler.dictLoot[id]);
         List<LootUnit> Choices(Loot loot) => ((List<List<LootUnit>>)typeof(Loot)
             .GetField("aCOLootUnits", BindingFlags.Instance | BindingFlags.NonPublic)!.GetValue(loot)!).Single();
@@ -25,7 +25,7 @@ internal static class AgricultureLootChecks
             }
             var prepared = new NativeDefinitions();
             LootContent.Add(prepared, true, 1);
-            check(prepared.Loot.Count == 4, "Agriculture adds only two contents branches, not repeated parent/leaf bonuses");
+            check(prepared.Loot.Count == 6, "Agriculture adds three contents/engineering branches, not repeated parent/leaf bonuses");
             for (int n = 0; n < parents.Length; n++)
             {
                 string parent = parents[n], branch = branches[n];
@@ -37,7 +37,7 @@ internal static class AgricultureLootChecks
                 check(units.All(u => u.fMin == 1 && u.fMax == 1) && Math.Abs(units.Sum(u => u.fChance) - (n == 0 ? .22 : .30)) < 1e-7, "Native parser sees one bounded Agriculture item choice per contents roll");
                 foreach (var unit in units)
                 {
-                    check(content.Objects.TryGetValue(unit.strName, out var co) && co.inventoryWidth == 1 && co.inventoryHeight == 1, "Loot uses defined single-slot portable supplies, never oversized machinery");
+                    check(content.Objects.TryGetValue(unit.strName, out var co) && (n == 2 ? !co.aStartingConds.Any(c => c.StartsWith("IsInstalled=", StringComparison.Ordinal)) : co.inventoryWidth == 1 && co.inventoryHeight == 1), "Container loot fits one slot; engineering machinery is loose, never installed");
                     check(!new[] { Service.CharacterizedDrainage, Service.RecoveryReject, Definitions.Drainage, Definitions.Residue }.Contains(unit.strName), "Loot cannot manufacture measured process records or spent waste");
                     if (n == 1) check(DataHandler.dictCTs["TIsFitCrate"].TriggeredDataCO(new DataCO(content.Objects[unit.strName]), false), "Supply satisfies the real native locked-crate filter");
                 }

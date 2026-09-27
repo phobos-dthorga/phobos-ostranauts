@@ -17,6 +17,13 @@ Dates on Draft entries record preparation, not Steam publication.
 - Earlier capture-only research is superseded for supported ordinary walls by the implementation below. Broader structural recipes, repeated furnace batches and whole-wreck completion remain outside this round.
 - Keep [NASA Goddard's Raven research](https://www.nasa.gov/general/nasas-hybrid-computer-enables-ravens-autonomous-rendezvous-capability/) and [ESA's LIRIS experiment by Airbus, Jena Optronik and Sodern](https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/ATV/ATV_views_Space_Station_as_never_before) as sensing context, separate from Blue Bottle Games native evidence and authored gameplay choices. No institutional endorsement or gameplay validation is implied.
 
+## [0.22.4] - 2026-09-27 - Draft
+
+### Changed
+
+- Raise equipment offer chances to at least 85% before the availability setting, fill missing N1/N2/N3 offers at general suppliers, and include all three boards in native module salvage. New configurations default to 30% total per eligible roll; existing saved settings remain authoritative. One board per successful salvage choice, with damaged-only pools preserved.
+- Applies to future native stock and loot generation; no forced restocks, saved-cargo changes, price changes or live gameplay validation. See [merchant availability and salvage](https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/merchant-stock.md).
+
 ## [0.22.3] - 2026-09-27 - Draft
 
 ### Fixed

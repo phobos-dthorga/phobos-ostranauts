@@ -9,6 +9,7 @@ namespace PhobosAgriculture;
 // Keep commodities in one optional choice so adding stock cannot flood containers.
 internal static class LootContent
 {
+    internal const double EquipmentChance = .3;
     internal const double DefaultMultiplier = 1, MaximumMultiplier = 3;
     internal const string FridgeTable = "ItmFridge01Contents", CrateTable = "ItmRandomCrateLockedContents";
     // Preserve our original fridge branch when expanding it beyond seeds.
@@ -30,6 +31,11 @@ internal static class LootContent
             [Definitions.Nutrient] = .08, [Definitions.Irrigation] = .06,
             [Service.RecoveryCartridge] = .05, [IrrigationDefinitions.Pipe + "Loose"] = .04
         });
+
+        string[] machinery = new[] { Definitions.Rack, Definitions.Cooker, IrrigationDefinitions.Supply, WorkupDefinitions.Bench, BulkDefinitions.Tank }
+            .SelectMany(id => new[] { id + "Loose", id + "LooseDmg" }).ToArray();
+        AddChoice("ItmLootSpawnEngineering", "PhobosAgricultureMachinerySalvage",
+            machinery.ToDictionary(id => id, _ => EquipmentChance / machinery.Length));
 
         void AddChoice(string parent, string branch, Dictionary<string, double> chances) =>
             AdditiveLoot.SetItemChoice(definitions, parent, branch,

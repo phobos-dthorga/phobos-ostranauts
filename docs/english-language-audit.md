@@ -140,3 +140,7 @@ Five new warnings explain the connection, brace and competing-control blocker. N
 Auto Nav 0.22.2 adds one direct attached-target instruction and updates the current towing/FCS/Combat guides. Existing towing reasons are reused for brace faults; historical 0.22.1 release limitations remain historical.
 
 The item handling correction reuses native action labels and updates current references to explain Pick Up versus the drag slot, sections versus machines, and saved-hand recovery. The new audit accounts for all item definitions without treating offline checks as live interaction approval.
+
+### Merchant availability and salvage expansion
+
+Reviewed revised settings help, maintained acquisition explanations, current merchant/salvage guides and publication drafts. Chances are per native roll, not guaranteed finds; normal restocking, existing configuration, finite quantities and unverified live placement remain explicit. Historic research is preserved and current summaries link the revised policy.

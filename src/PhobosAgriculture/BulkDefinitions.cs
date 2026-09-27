@@ -39,8 +39,8 @@ internal static class BulkDefinitions
         MaintenanceDefinitions.SetStat(d.Objects[Nutrients],"IsCategoryIndustrialProducts",1);
         foreach(string merchant in new[]{"ItmOKLGSupplyKioskInv","ItmOKLGFixer","ItmTraderSanDiegoHalvorsonInv"})
         {
-            MarketStock.Add(d,merchant,Tank+merchant,Tank+"Loose",1,StockCondition.Pristine,TankStock);
-            MarketStock.Add(d,merchant,Nutrients+merchant,Nutrients,1,StockCondition.Pristine,NutrientStock);
+            MarketStock.Add(d,merchant,Tank+merchant,Tank+"Loose", StockQuantities.Chance(Tank+"Loose", 1),StockCondition.Pristine,TankStock);
+            MarketStock.Add(d,merchant,Nutrients+merchant,Nutrients, StockQuantities.Chance(Nutrients, 1),StockCondition.Pristine,NutrientStock);
         }
     }
 }

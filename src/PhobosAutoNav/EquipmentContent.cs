@@ -100,8 +100,12 @@ internal static class EquipmentContent
             double intact = table.EndsWith("Dmg", StringComparison.Ordinal) ? 0 : chance * (1 - EquipmentRules.DamagedSalvageShare);
             AdditiveLoot.SetItemChoice(d, table, "PhobosAutoNavSalvage_" + table, new Dictionary<string, double>
             {
-                [NavigationService.ModuleId] = intact,
-                [NavigationService.DamagedId] = chance - intact
+                [NavigationService.ModuleId] = intact / 3,
+                [NavigationService.PursuitId] = intact / 3,
+                [NavigationService.FireControlId] = intact / 3,
+                [NavigationService.DamagedId] = (chance - intact) / 3,
+                [NavigationService.PursuitId + "Dmg"] = (chance - intact) / 3,
+                [NavigationService.FireControlId + "Dmg"] = (chance - intact) / 3
             });
         }
         RegionalEconomy.Apply(d);
@@ -109,6 +113,6 @@ internal static class EquipmentContent
         return d;
 
         void Offer(string merchant, string tag, string item, double chance, StockCondition condition) =>
-            MarketStock.Add(d, merchant, "PhobosAutoNavStock_" + tag, item, chance, condition, StockQuantities.Boards);
+            MarketStock.Add(d, merchant, "PhobosAutoNavStock_" + tag, item, StockQuantities.Chance(item, chance), condition, StockQuantities.Boards);
     }
 }

@@ -1,5 +1,5 @@
 [h1]Phobos Framework[/h1]
-[b]Version:[/b] 0.30.2
+[b]Version:[/b] 0.30.3
 
 [h2]Performance update[/h2]
 Shared display updates now avoid repeated work, and crew equipment searches stay within their own ship. Optional performance recording remains off unless requested. Saved state and gameplay rules are unchanged.
@@ -67,3 +67,6 @@ Dark button faces now keep labels readable in every interaction state. This fixe
 
 [b]Item handling correction[/b]
 Add opt-in native transport-action normalization shared by content mods: retain useful actions, add missing pickup/drop, match stack actions to stack limits and keep installed machinery out of carry slots. Restore declared cumbersome flags in detached load data for explicitly registered bulky cargo. Preserve saved hand placement until successful native release, then retire the legacy hand attachment. No save files, contents, mass, wear or progress are rewritten. Live menu and inventory handling remain owner-tested.
+
+[b]Merchant and salvage update[/b]
+Add a shared stock-coverage helper that fills omitted item offers without duplicating an already prepared lot or replacing its condition. Existing merchant inventories, native pricing and other providers remain untouched. Normal restocking and new loot generation are required; existing inventories stay as they are. Offline checks are not gameplay validation.

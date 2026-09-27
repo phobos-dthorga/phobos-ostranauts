@@ -87,6 +87,6 @@ internal static class IrrigationDefinitions
         }
         foreach (string merchant in new[] { "ItmOKLGSupplyKioskInv", "ItmOKLGFixer", "ItmTraderSanDiegoHalvorsonInv" })
         foreach (string item in new[] { Supply + "Loose", Pipe + "Loose" })
-            MarketStock.Add(d, merchant, item + "Offer_" + merchant, item, 1, StockCondition.Pristine, StockQuantities.For(item));
+            MarketStock.Add(d, merchant, item + "Offer_" + merchant, item, StockQuantities.Chance(item, 1), StockCondition.Pristine, StockQuantities.For(item));
     }
 }

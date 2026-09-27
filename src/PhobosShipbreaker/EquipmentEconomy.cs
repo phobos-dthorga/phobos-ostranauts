@@ -87,9 +87,14 @@ internal static class EquipmentEconomy
         MaintenanceDefinitions.Dismantle(d, FurnaceRules.Section, 600, Products(new[]{44,20,12,4,8}));
         EquipmentSaveUpgrade.Register(d, FurnaceRules.Section, FurnaceRules.Section);
         AddStock(d);
+        var machinery = Machines.SelectMany(m => new[] { m.Prefix + "Loose", m.Prefix + "LooseDmg" }).ToArray();
+        AdditiveLoot.SetItemChoice(d, "ItmLootSpawnEngineering", "PhobosShipbreakerMachinerySalvage",
+            machinery.ToDictionary(id => id, _ => MachinerySalvageChance / machinery.Length));
+        AdditiveLoot.SetItemChoice(d, "ItmLootSpawnEngineering", "PhobosShipbreakerServiceSalvage",
+            new Dictionary<string, double> { [FurnaceCooling.Conduit + "Loose"] = .10, [FurnaceService.CoolantStock] = .10 });
         // The native engineering spawn already supplies loose ship equipment.
         // One cumulative choice adds at most one section, never dismantling yields.
-        const double SectionSalvageChance = .01;
+        const double SectionSalvageChance = .05;
         AdditiveLoot.SetItemChoice(d, "ItmLootSpawnEngineering", "PhobosEngineeringSectionSalvage",
             new Dictionary<string, double> {
                 [ProcessRules.AssemblySection] = SectionSalvageChance,
@@ -97,6 +102,8 @@ internal static class EquipmentEconomy
                 [FurnaceRules.Section] = SectionSalvageChance
             });
     }
+
+    internal const double MachinerySalvageChance = .4;
 
     private static void Restore(NativeDefinitions d, string id, Spec spec)
     {
@@ -143,6 +150,6 @@ internal static class EquipmentEconomy
         Offer("ItmTraderSanDiegoHalvorsonInv", "FurnaceSection", FurnaceRules.Section, .30, StockCondition.Refurbished);
 
         void Offer(string merchant, string tag, string item, double chance, StockCondition condition) =>
-            MarketStock.Add(d, merchant, "PhobosStock_" + tag + "_" + merchant + "_" + item, item, chance, condition, StockQuantities.For(item));
+            MarketStock.Add(d, merchant, "PhobosStock_" + tag + "_" + merchant + "_" + item, item, StockQuantities.Chance(item, chance), condition, StockQuantities.For(item));
     }
 }

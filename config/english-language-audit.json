@@ -108,26 +108,26 @@
       "key": "loot_enabled_setting",
       "category": "help/settings",
       "decision": "rewrite",
-      "reason": "Reworded for the situation/action or corrected stale feature wording; formatting and behaviour contracts retained.",
+      "reason": "Reviewed expanded merchant/loot scope and settings: per-roll chance, finite choice, future generation and restart are explicit.",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosAgriculture/Plugin.cs:34"
       ],
       "before": "Add Agriculture supplies and food to future native fridge and locked-crate contents rolls. Does not refill existing containers or affect merchants. Restart the game after changing.",
-      "after": "Allow Agriculture food and supplies to appear in newly stocked fridges and locked crates. Existing contents and shops are unchanged. Restart after changing."
+      "after": "Allow Agriculture supplies in newly stocked fridges and crates, and loose machinery in engineering loot. Existing contents and shops are unchanged. Restart after changing."
     },
     {
       "mod": "PhobosAgriculture",
       "key": "loot_multiplier_setting",
       "category": "help/settings",
       "decision": "rewrite",
-      "reason": "Reworded for the situation/action or corrected stale feature wording; formatting and behaviour contracts retained.",
+      "reason": "Reviewed expanded merchant/loot scope and settings: per-roll chance, finite choice, future generation and restart are explicit.",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosAgriculture/Plugin.cs:35"
       ],
       "before": "Multiply Agriculture contents-roll chances (0 disables; 1 default; maximum 3). At most one extra Agriculture item per eligible roll. Does not affect merchant stock. Restart the game after changing.",
-      "after": "Chance of finding Agriculture supplies (0 off; 1 normal; maximum 3). Adds at most one item each time an eligible container is stocked. Shops are unchanged. Restart after changing."
+      "after": "Chance of Agriculture finds (0 off; 1 normal; maximum 3). Each eligible pool adds at most one item. Shops are unchanged. Restart after changing."
     },
     {
       "mod": "PhobosAgriculture",
@@ -7842,26 +7842,26 @@
       "key": "Salvage.enabled",
       "category": "status/warning",
       "decision": "retain",
-      "reason": "Retain: clear functional label, operational instruction or necessary safety/detail constraint; no forced personality.",
+      "reason": "Reviewed expanded merchant/loot scope and settings: per-roll chance, finite choice, future generation and restart are explicit.",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosAutoNav/Plugin.cs:63"
       ],
       "before": "Add rare Polaris modules to future native navigation-module loot rolls. Requires a content reload/restart. Existing inventories and explored wrecks are not rerolled.",
-      "after": "Add rare Polaris modules to future native navigation-module loot rolls. Requires a content reload/restart. Existing inventories and explored wrecks are not rerolled."
+      "after": "Allow N1, N2 and N3 Polaris boards in newly generated module loot. Restart after changing. Existing inventories and explored wrecks are unchanged."
     },
     {
       "mod": "PhobosAutoNav",
       "key": "Salvage.chance",
       "category": "status/warning",
       "decision": "retain",
-      "reason": "Retain: clear functional label, operational instruction or necessary safety/detail constraint; no forced personality.",
+      "reason": "Reviewed expanded merchant/loot scope and settings: per-roll chance, finite choice, future generation and restart are explicit.",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosAutoNav/Plugin.cs:64"
       ],
       "before": "Chance of one extra module per eligible native navigation-module loot roll (0–1). Default 0.03. Two thirds are damaged; damaged-only tables always yield damaged modules. Shared native pools may also supply merchants. Requires a content reload/restart.",
-      "after": "Chance of one extra module per eligible native navigation-module loot roll (0–1). Default 0.03. Two thirds are damaged; damaged-only tables always yield damaged modules. Shared native pools may also supply merchants. Requires a content reload/restart."
+      "after": "Chance of one extra N1, N2 or N3 board per eligible module roll (0–1). New configurations default to 0.30. Two thirds are damaged; damaged-only pools stay damaged. Some pools also stock merchants. Restart after changing."
     },
     {
       "mod": "PhobosAutoNav",
@@ -35309,7 +35309,7 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "fb9ca636d58af93a11680e67829d687efc417fae1e67ecf687dd5b6f19c98c46",
+      "sha256": "685a58b691e2d190cb1d55179d2c3d2a8ff933571e1a89d264f686e50d9cf531",
       "review": "2026-09-27: towing instructions, unchanged native mechanics and scope limits reviewed; historical records preserved."
     },
     {
@@ -35334,7 +35334,7 @@
       "path": "docs/agriculture-bulk-storage-calculations.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "4bf53d458553bc937cb0c843796e6b8d24cedbad54b38527851b687897aa453e",
+      "sha256": "24e0400ab7c79548c58e2c867b2b3398fadf5dd684ea481f4ae027a8aafa5308",
       "review": "2026-09-27: generator refresh changes only current versions/source fingerprints; item values, research findings and player explanations are unchanged."
     },
     {
@@ -35383,7 +35383,7 @@
       "path": "docs/agriculture-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "4e400756b152070baaff26a133476540030a26ce14f138758db720225c70e7f0",
+      "sha256": "a105f4555c70042cec1f18fa835a88cb776620060b763b41a7c4d4bb33b0800f",
       "review": "2026-09-27: generator refresh changes only current versions/source fingerprints; item values, research findings and player explanations are unchanged."
     },
     {
@@ -35396,7 +35396,7 @@
       "path": "docs/agriculture-loot.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "fa7650252a8da5a89f7a7591a3c6c73279fa85be689bac8d474bb5f86789cca8"
+      "sha256": "e764a267b024e849e7c482c5e49f271b401dad6db0a815819e331ba4fa363b13"
     },
     {
       "path": "docs/agriculture-nutrient-production.md",
@@ -35507,7 +35507,7 @@
       "path": "docs/auto-nav-economy.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "02edaf36e6b9c587c70cd5a00041abb5e77f7351d0f9040faff8d0648f3465ac"
+      "sha256": "2f4dd4320890b825e3ab6ae12b4a95a95b071596bbca6876077416b321757f96"
     },
     {
       "path": "docs/auto-nav-fire-control.md",
@@ -35520,7 +35520,7 @@
       "path": "docs/auto-nav-flight-profiles.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "7d20a4698d205617798c3a13be61244dc575847b2e980bf5f735992d414f130d"
+      "sha256": "c294a47aa3a676afd0b84b8a5e7c56207dc779ddad57cffe7450895cd965d5d0"
     },
     {
       "path": "docs/auto-nav-hub-validation.md",
@@ -35539,7 +35539,7 @@
       "path": "docs/auto-nav-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "504b60c2c8849a90228c4d8f2e92a85b3ba4ad6d92aa5a5a86da95d4ea75353c",
+      "sha256": "14147b853f686b7f5bc4c65468976ee123ba5e684ea1959a2be03857d28525bd",
       "review": "2026-09-27: reviewed secured towing, warning priority, native boundaries and regenerated reference evidence; historical records preserved."
     },
     {
@@ -35632,7 +35632,7 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "38e2648fb7f782e1eb3a26290eeb01c8b2caab745c63bfa2d470fada3dccc865",
+      "sha256": "bac10c89aa2866dce5493bd83e1fc4bb64147f67af972c17d174b6c9b8cb9066",
       "review": "2026-09-27: towing instructions, unchanged native mechanics and scope limits reviewed; historical records preserved."
     },
     {
@@ -35700,7 +35700,7 @@
       "path": "docs/framework-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "31dc2d8a3f939613116f609da70a5bbac2f2f5f653c8dcc077b07707f73abdae",
+      "sha256": "e53b4090f6037319acf595df2ecfc08f78ea906d59e7050d404b3f1d450b8345",
       "review": "2026-09-27 Polaris review: checked revised controls, versions, generated reference evidence and limitations; preserved scientific attribution and historical records."
     },
     {
@@ -35797,7 +35797,7 @@
       "path": "docs/industrial-console-player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "1ac84979cc88ffd7f59b1f8b49152ca9c76bf32fb1497678b30154bfd149dddd",
+      "sha256": "0630bd0e926c01edd9909d4a5bf44153846e9825613a726741dd3e93c9388a7f",
       "review": "2026-09-27 Polaris review: checked revised controls, versions, generated reference evidence and limitations; preserved scientific attribution and historical records."
     },
     {
@@ -35822,7 +35822,7 @@
       "path": "docs/installing-mods.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "be6a421f361bbf186359309bd3d9f8f8b775a622b8ad2f184940a6d33677f9ee",
+      "sha256": "6eb3dcbc2cc897d3882c8c992a43ae997abb8fb736b9240ef72718ea03962dbd",
       "review": "2026-09-27 Polaris review: checked revised controls, versions, generated reference evidence and limitations; preserved scientific attribution and historical records."
     },
     {
@@ -35932,7 +35932,7 @@
       "path": "docs/merchant-stock.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "700600e929c46dfb1777a2a0dc6193c26c5fef2c15f056d180332a0b471b3c1b"
+      "sha256": "23fdf7e19b075f7ef8311bdab27cce79857adfff92102bd63edf4845ef7efbbe"
     },
     {
       "path": "docs/mod-extension-survey.md",
@@ -35956,7 +35956,7 @@
       "path": "docs/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "c8f4fdfa778818f4bc3daf06b476d1b5a5000b5b1a55eb0146f8695eda76a192",
+      "sha256": "a82e5c00c1537aab535699268b74b31bed3e61bebc3735bb306a049ca41359f1",
       "review": "2026-09-27: towing instructions, unchanged native mechanics and scope limits reviewed; historical records preserved."
     },
     {
@@ -35976,7 +35976,7 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "687d6d3828c485cdb674c8a28651d67020d26acfc76ea631326f810a5cd3a9bc",
+      "sha256": "6ad03831a2fed2381475ec9b025d2948dfe6a280d6b6a7235dba372ace5741fc",
       "review": "2026-09-27: towing instructions, unchanged native mechanics and scope limits reviewed; historical records preserved."
     },
     {
@@ -36110,7 +36110,7 @@
       "path": "docs/shipbreaker-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "76c21c029c2abb16ec135e6bb9c8de737239ae47347f8fec23af67aa8b71fd9b",
+      "sha256": "287c9f946ec289518c93450a8adf664f91768027f387fd10eeaa8bb44f097ab0",
       "review": "2026-09-27 Polaris review: checked revised controls, versions, generated reference evidence and limitations; preserved scientific attribution and historical records."
     },
     {
@@ -36147,7 +36147,7 @@
       "path": "docs/solar-system-economy.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "4425479c62cdb72f49b51871f0af2d479b2e29fcef42842ee5cc9f290487872f"
+      "sha256": "b2b6a40403634fc9619ca324bba6859b86dfd7f6c589ec61adc3d29b4eb50867"
     },
     {
       "path": "docs/terminal-social-network.md",
@@ -36189,21 +36189,21 @@
       "path": "workshop/PhobosAgriculture/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "e1c004f53f2a68c144fb66ae0899ad95057ebaeae0bcd014020fc672d6e55b43",
+      "sha256": "7d8a3beb949922ebac10a20adbab7e1846d424ffde86ec02ff63d495a3b02e4d",
       "review": "2026-09-27: reviewed performance-update wording/version requirements; existing research and historical evidence retained; no measured speedup claim."
     },
     {
       "path": "workshop/PhobosAutoNav/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "87780a41daf74333e510023ebd8c6edfeb5c3a2a82fb3d16213a0c393f055398",
+      "sha256": "dac71a82c0d12a40f67b85aeae460c4befe72b6e0c2b6c984ca9e12dbd35ee78",
       "review": "2026-09-27: towing instructions, unchanged native mechanics and scope limits reviewed; historical records preserved."
     },
     {
       "path": "workshop/PhobosFramework/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "d13a89f239309740dbb170661d88e19451aa7f8936fb031d10c1da411d9d4641",
+      "sha256": "0f1fa5a23d6fd607d411be49238bc645fc4f789b08a5e67d6acfdde846b2256c",
       "review": "2026-09-27 Polaris review: checked revised controls, versions, generated reference evidence and limitations; preserved scientific attribution and historical records."
     },
     {
@@ -36217,7 +36217,7 @@
       "path": "workshop/PhobosShipbreaker/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "7a73af74da1c2322b5c6649825c477591ea824ea2cd6a6d86c5689e1c4685cab",
+      "sha256": "3dcc24e45af403519ab4ffe1fd19e1b7c9a94e92239e7b72de6b8f2096e3cbab",
       "review": "2026-09-27 Polaris review: checked revised controls, versions, generated reference evidence and limitations; preserved scientific attribution and historical records."
     }
   ],
@@ -36225,7 +36225,7 @@
     {
       "path": "config/item-reference.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "8fb36e98a5c56aa0f0b1324d29a621e5639559f5dbaf2c3ae8aac04b57e6ea36",
+      "sha256": "a2e1c3ee38819764a62f6a7ff4974798f34a07e4077a240f1f31705ebf1a6da6",
       "review": "2026-09-27: reviewed secured towing, warning priority, native boundaries and regenerated reference evidence; historical records preserved."
     },
     {
@@ -36241,7 +36241,7 @@
     {
       "path": "mods/PhobosAgriculture/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "854476e2bdd510f2efcaf773fde8ee5564d804adc79e7ad7f52d8c24d3e054a7",
+      "sha256": "0d85036caa9afacdb32c5dd6c86309bf43eae75461c0a39083b466e505cf93df",
       "review": "2026-09-27: reviewed performance-update wording/version requirements; existing research and historical evidence retained; no measured speedup claim."
     },
     {
@@ -36262,7 +36262,7 @@
     {
       "path": "mods/PhobosAutoNav/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "786aa661c342e7369150677da2f1233ceac5b179642627a655ea77347c49e517",
+      "sha256": "bd32155c6511d0e0e5b67caea8f1069f16fd207669bcc8ef1cf6c5c9f780f8a3",
       "review": "2026-09-27: towing instructions, unchanged native mechanics and scope limits reviewed; historical records preserved."
     },
     {
@@ -36273,7 +36273,7 @@
     {
       "path": "mods/PhobosFramework/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "fdae67cac50771205de85691e0e62d4da578f97c101ea9847480c920503d810f",
+      "sha256": "2adf1594a9c81b75daf9aa7b605e4000cce996ea8394cdc3856f8b69c24bf170",
       "review": "2026-09-27 Polaris review: checked revised controls, versions, generated reference evidence and limitations; preserved scientific attribution and historical records."
     },
     {
@@ -36294,7 +36294,7 @@
     {
       "path": "mods/PhobosShipbreaker/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "afa49ce95404866ea6fc3e329b238e219ac078dc1975b125ac520fb4f20827a0",
+      "sha256": "f58df33fdd6d0853ca013b20272dbab8cb8320549cb3aa3ef59fb27d1184a7bf",
       "review": "2026-09-27 Polaris review: checked revised controls, versions, generated reference evidence and limitations; preserved scientific attribution and historical records."
     }
   ],

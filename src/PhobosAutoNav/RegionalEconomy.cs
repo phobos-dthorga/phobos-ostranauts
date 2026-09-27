@@ -27,12 +27,16 @@ internal static class RegionalEconomy
 
     internal static void Apply(NativeDefinitions d)
     {
+        foreach (string merchant in new[] { "ItmOKLGSupplyKioskInv", "ItmOKLGFixer", "ItmTraderSanDiegoHalvorsonInv", "ItmVORBScrapKioskInv", "ItmTraderSanDiegoPolarisInv" })
+        foreach (string item in new[] { NavigationService.ModuleId, NavigationService.PursuitId, NavigationService.FireControlId })
+            MarketStock.AddMissing(d, merchant, "PhobosExpanded_AutoNav_" + merchant + "_" + item,
+                item, StockQuantities.Chance(item, 0), StockCondition.Pristine, StockQuantities.Boards);
         foreach (var profile in Profiles)
         {
             var condition = profile.Region == "OFLT" ? StockCondition.Refurbished : StockCondition.Pristine;
-            RegionalMarkets.Add(d, profile.Region, NavigationService.ModuleId, .30 * profile.Factor, condition, StockQuantities.Boards);
-            RegionalMarkets.Add(d, profile.Region, NavigationService.PursuitId, .15 * profile.Factor, condition, StockQuantities.Boards);
-            RegionalMarkets.Add(d, profile.Region, NavigationService.FireControlId, .10 * profile.Factor, condition, StockQuantities.Boards);
+            RegionalMarkets.Add(d, profile.Region, NavigationService.ModuleId, StockQuantities.Chance(NavigationService.ModuleId, .30 * profile.Factor), condition, StockQuantities.Boards);
+            RegionalMarkets.Add(d, profile.Region, NavigationService.PursuitId, StockQuantities.Chance(NavigationService.PursuitId, .15 * profile.Factor), condition, StockQuantities.Boards);
+            RegionalMarkets.Add(d, profile.Region, NavigationService.FireControlId, StockQuantities.Chance(NavigationService.FireControlId, .10 * profile.Factor), condition, StockQuantities.Boards);
         }
     }
 }

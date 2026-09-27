@@ -161,3 +161,7 @@ No new frame-time measurements or Unity validation are claimed.
 ### H1 — native item handling correction
 
 Content-owned handling choices are normalized once during definition preparation. Explicit heavy-item flags are added to detached load DTOs; existing hand slots have a weakly tracked, event-driven release exception. No world scans or recurring update work were added. Native slot, maintenance, food and construction behaviour remain authoritative. Live inventory interaction is unverified.
+
+### E1 — merchant coverage and finite world loot
+
+Stock probability floors, missing-offer checks and new loot branches run only during definition preparation. Coverage uses the prepared merchant branches and existing offer registry; no merchant inventory scans, per-frame hooks, forced restocks or recurring allocations were added. Existing generation hooks and content-owned balance are retained.

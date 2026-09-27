@@ -1,5 +1,5 @@
 [h1]Phobos Agriculture[/h1]
-[b]Version:[/b] 0.15.3
+[b]Version:[/b] 0.16.0
 
 [h2]Performance update[/h2]
 Bulk-tank searches and panel refreshes reuse shared helpers. Crop growth, cooking, water, nutrients, power and heat rules are unchanged.
@@ -24,7 +24,7 @@ A hot meal is a useful thing to come home to. Grow potatoes and lettuce with Ver
 Supplies, output space, cabin conditions and power matter. Growth cycles, yields and simplified chemistry are gameplay choices, not NASA or ESA results. Food lettuce produces no seeds. Drainage treatment loses material and never makes drinking water. Wet Recycler rejects have no fertilizer recipe. Loading pauses water transfer; resume when ready. Split stacked supplies before manual processing; partial charges keep their own contents.
 
 [h2]Requirements and installation[/h2]
-Ostranauts 1.0.1.5, BepInEx 5 and Phobos Framework 0.30.2 or newer. Shipbreaker C1 control is optional. Optional Ship's Water support is scoped to Valtora's inspected 0.16.1; manual supplies remain available.
+Ostranauts 1.0.1.5, BepInEx 5 and Phobos Framework 0.30.3 or newer. Shipbreaker C1 control is optional. Optional Ship's Water support is scoped to Valtora's inspected 0.16.1; manual supplies remain available.
 
 This is an unpublished development package. Automated checks do not establish in-game readiness or Unity layout approval. Keep required mods installed for saves using their content. Updating does not refill shops or old loot containers. See the installation guide for current download availability.
 
@@ -68,3 +68,6 @@ Original artwork uses AI-assisted production; artwork provenance and licensing a
 
 [b]Item handling correction[/b]
 Restore native pickup/drop on loose appliances and conduit parts; remove stack actions from single items. Large Firstlight rack and R3 reservoir housing remains use cumbersome handling. Portable supplies and native food actions remain available. Remove operating-work entries from damaged R3 reservoirs. Saved cargo remains intact, with legacy hand placement preserved until release. Requires Phobos Framework 0.30.2. Live menu and inventory handling remain owner-tested.
+
+[b]Merchant and salvage update[/b]
+Raise equipment offers to at least 85% and supplies to at least 95%, before the availability setting. Fill missing local stock, add regional produce/meal offers and Hearth meals to native food sellers. Engineering loot gains a 30% single-item choice across five intact/damaged equipment families; existing fridge/crate supply choices remain finite. Normal restocking and new loot generation are required; existing inventories stay as they are. Offline checks are not gameplay validation.

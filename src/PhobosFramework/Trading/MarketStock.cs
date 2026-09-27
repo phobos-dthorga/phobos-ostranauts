@@ -44,6 +44,18 @@ public static class MarketStock
         Offers[offerId] = new Offer { Item = itemId, Condition = condition };
     }
 
+    /// <summary>Fill an omitted stock identity without duplicating an already prepared offer.</summary>
+    public static void AddMissing(NativeDefinitions d, string merchantLoot, string offerId, string itemId,
+        double probability, StockCondition condition, int quantity)
+    {
+        if (d.Loot.TryGetValue(merchantLoot, out var parent) &&
+            (parent.aLoots ?? Array.Empty<string>()).Any(link => {
+                string branch = link.EndsWith("=1x1", StringComparison.Ordinal) ? link.Substring(0, link.Length - 4) : "";
+                return d.Loot.ContainsKey(branch) && Offers.TryGetValue(branch, out var offer) && offer.Item == itemId;
+            })) return;
+        Add(d, merchantLoot, offerId, itemId, probability, condition, quantity);
+    }
+
     public static double WearFraction(StockCondition condition) => condition == StockCondition.Worn ? .15 : 0;
     internal static void Generated(string loot, List<CondOwner> items)
     {

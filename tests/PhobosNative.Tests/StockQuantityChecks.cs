@@ -27,9 +27,24 @@ internal static class StockQuantityChecks
                 var parsed = Parsed(branch); int expected = quantity(parsed.strName);
                 check(parsed.fMin == expected && parsed.fMax == expected && expected > 1 && expected <= MarketStock.MaximumOfferQuantity,
                     "Native merchant parser receives the content-owned lot, including regional offers: " + branch.strName);
+                check(parsed.fChance >= .85f && parsed.fChance <= 1, "Every stock offer receives increased availability before optional configuration");
                 count++;
             }
             check(count > 0, "Every trading content mod is covered by bulk-stock checks");
+        }
+
+        // Every implemented purchasable family has a functional route in each general local market.
+        foreach (var (d, quantity) in packs)
+        {
+            var available = d.Loot.Values.Where(l => offers.Contains(l.strName)).Select(l => Parsed(l).strName)
+                .Where(id => !id.EndsWith("Dmg", StringComparison.Ordinal)).ToHashSet();
+            foreach (string merchant in new[] { "ItmOKLGSupplyKioskInv", "ItmOKLGFixer", "ItmTraderSanDiegoHalvorsonInv", "ItmVORBScrapKioskInv" })
+            {
+                var local = d.Loot[merchant].aLoots.Where(link => link.EndsWith("=1x1", StringComparison.Ordinal))
+                    .Select(link => link.Substring(0, link.Length - 4)).Where(id => d.Loot.ContainsKey(id) && offers.Contains(id))
+                    .Select(id => Parsed(d.Loot[id]).strName).ToHashSet();
+                check(available.IsSubsetOf(local), "No functional item silently omitted from general market: " + merchant);
+            }
         }
 
         const string parent = "ItmOKLGSupplyKioskInv", branchId = "PhobosQuantityTest";
@@ -48,6 +63,11 @@ internal static class StockQuantityChecks
                 "Reject unsafe quantity before publication");
             check(rejected.Loot.Count == 0, "Rejected quantity leaves no partial registration");
         }
+        MarketStock.AddMissing(batch, parent, "PhobosShouldNotDuplicate", "PhobosVerdemorrowWaterConduitLoose", .95, StockCondition.Worn, 16);
+        check(!batch.Loot.ContainsKey("PhobosShouldNotDuplicate") && Parsed(batch.Loot[branchId]).fMin == 64,
+            "Coverage filling preserves an existing prepared offer and its physical lot");
+        MarketStock.AddMissing(batch, parent, "PhobosMissingBoard", "PhobosNavModAutoNav", .85, StockCondition.Pristine, 16);
+        check(batch.Loot.ContainsKey("PhobosMissingBoard"), "A distinct omitted identity receives an offer");
         var legacy = new NativeDefinitions();
         MarketStock.Add(legacy, parent, branchId, "PhobosVerdemorrowWaterConduitLoose", .5, StockCondition.Pristine);
         check(Parsed(legacy.Loot[branchId]).fMin == 1, "Old public API keeps its single-unit contract");

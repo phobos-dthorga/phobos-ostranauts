@@ -29,13 +29,14 @@
     },
     {
       "path": "src/PhobosAgriculture/BulkDefinitions.cs",
-      "sha256": "0c8914f77eac2346d511892ac9e6f66a7943765aa3da2b874b2dd11b0fe291a3",
+      "sha256": "3ab7a2d2a54ae07e5f18e28c0d9e8b1cb2ce8f960c1f37c8885904ba3a35ac5d",
       "role": "registration, metadata or event-driven content",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Definition/load-time handling correction; native transport remains authoritative. No recurring scans, UI refresh changes or simulation work added.",
+      "decision": "Definition-time stock/loot policy or release metadata only; no new recurring work. Preserve native finite generation and existing cadence.",
       "findings": [
         "P3",
-        "H1"
+        "H1",
+        "E1"
       ],
       "indicators": {
         "collection": [
@@ -240,13 +241,14 @@
     },
     {
       "path": "src/PhobosAgriculture/Definitions.cs",
-      "sha256": "4e9d1932e866b28c1e4051dfc0f2b69c800e8931206408f7218d7fb3e93fe1e7",
+      "sha256": "34572d69b9e6b3e9c9cb8928b37b8ffce6b38bfdacb0fe00aedbdc2caa7ebdcb",
       "role": "registration, metadata or event-driven content",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Definition/load-time handling correction; native transport remains authoritative. No recurring scans, UI refresh changes or simulation work added.",
+      "decision": "Definition-time stock/loot policy or release metadata only; no new recurring work. Preserve native finite generation and existing cadence.",
       "findings": [
         "R4",
-        "H1"
+        "H1",
+        "E1"
       ],
       "indicators": {
         "collection": [
@@ -276,12 +278,13 @@
     },
     {
       "path": "src/PhobosAgriculture/IrrigationDefinitions.cs",
-      "sha256": "4fef8fb890ddb0408b0f5ff44d8a6eb8917f2af9f3869c3fccbbbe59bd3cb6b9",
+      "sha256": "d0adbe0a8424804d7fc6caea394fd5e0b5f45c7c03196c0cc0e23d96ec65110c",
       "role": "registration, metadata or event-driven content",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Retain existing policy and call frequency. No independent measured hotspot justifies additional changes in this file; see the linked subsystem decision.",
+      "decision": "Definition-time stock/loot policy or release metadata only; no new recurring work. Preserve native finite generation and existing cadence.",
       "findings": [
-        "R4"
+        "R4",
+        "E1"
       ],
       "indicators": {
         "collection": [
@@ -333,12 +336,13 @@
     },
     {
       "path": "src/PhobosAgriculture/LootContent.cs",
-      "sha256": "30d5fe01e8b9f9f26c6100065bc752df6d54a86da283fff1812fd865f77d4a62",
+      "sha256": "91d71f4d4e89fa30d4829d2e6b8322e10beb1679c235cc58589b09dc5cda61a6",
       "role": "registration, metadata or event-driven content",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Retain existing policy and call frequency. No independent measured hotspot justifies additional changes in this file; see the linked subsystem decision.",
+      "decision": "Definition-time stock/loot policy or release metadata only; no new recurring work. Preserve native finite generation and existing cadence.",
       "findings": [
-        "R4"
+        "R4",
+        "E1"
       ],
       "indicators": {
         "collection": [
@@ -441,12 +445,13 @@
     },
     {
       "path": "src/PhobosAgriculture/Plugin.cs",
-      "sha256": "944b0b2d268144e120b562bb5ee1272009751b977370842bfcf01c12ab496054",
+      "sha256": "8fcdd72196de05e347eeaf76b57a31915840ec5c999b4339a69b14781fe6adf8",
       "role": "biology, fluids, native boundary or process policy",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Retain existing policy and call frequency. No independent measured hotspot justifies additional changes in this file; see the linked subsystem decision.",
+      "decision": "Definition-time stock/loot policy or release metadata only; no new recurring work. Preserve native finite generation and existing cadence.",
       "findings": [
-        "R1"
+        "R1",
+        "E1"
       ],
       "indicators": {
         "runtime_hook": [
@@ -521,12 +526,13 @@
     },
     {
       "path": "src/PhobosAgriculture/RegionalEconomy.cs",
-      "sha256": "de3792e8ce5dc53879ba6533d02a29b74f8263d785b914017a876c0d480b701d",
+      "sha256": "0cd481a0f6050f7d995e20b0fec17faec5dd95e7c259f5579d6f1877a0ad6d76",
       "role": "registration, metadata or event-driven content",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Retain existing policy and call frequency. No independent measured hotspot justifies additional changes in this file; see the linked subsystem decision.",
+      "decision": "Definition-time stock/loot policy or release metadata only; no new recurring work. Preserve native finite generation and existing cadence.",
       "findings": [
-        "R4"
+        "R4",
+        "E1"
       ],
       "indicators": {}
     },
@@ -594,12 +600,13 @@
     },
     {
       "path": "src/PhobosAgriculture/StockQuantities.cs",
-      "sha256": "07fe3a7afc3da2d5425cd71713bf6e1f4b265afcfd9c2cd42a1c80fa7f3dcf1f",
+      "sha256": "dd672c60367f5436ea5c08140523f0918529a3c15b3240722185aa2fe1f72b03",
       "role": "registration, metadata or event-driven content",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Retain existing policy and call frequency. No independent measured hotspot justifies additional changes in this file; see the linked subsystem decision.",
+      "decision": "Definition-time stock/loot policy or release metadata only; no new recurring work. Preserve native finite generation and existing cadence.",
       "findings": [
-        "R4"
+        "R4",
+        "E1"
       ],
       "indicators": {}
     },
@@ -616,12 +623,13 @@
     },
     {
       "path": "src/PhobosAgriculture/WorkupDefinitions.cs",
-      "sha256": "0dc6f88881f63f8dffcc86f31c86506490cfb8480ff66e56d7b197d8f39ecf51",
+      "sha256": "c634c6a5c5d3872907d82b932abeedea8b1d2a8507b70bdb83ef7c33b836a4d8",
       "role": "registration, metadata or event-driven content",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Retain existing policy and call frequency. No independent measured hotspot justifies additional changes in this file; see the linked subsystem decision.",
+      "decision": "Definition-time stock/loot policy or release metadata only; no new recurring work. Preserve native finite generation and existing cadence.",
       "findings": [
-        "R4"
+        "R4",
+        "E1"
       ],
       "indicators": {
         "collection": [
@@ -819,12 +827,13 @@
     },
     {
       "path": "src/PhobosAutoNav/Core/EquipmentRules.cs",
-      "sha256": "6f64eaaf106e71306b8c2a3bfc06de05f06c04104d1fe4dd54ef31eeb31b2345",
+      "sha256": "ad28fefb24c80ec5cfea0141ea20136ee38ed1e500a90d054aaccee4ec66e7e7",
       "role": "navigation, native boundary or flight policy",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Retain existing policy and call frequency. No independent measured hotspot justifies additional changes in this file; see the linked subsystem decision.",
+      "decision": "Definition-time stock/loot policy or release metadata only; no new recurring work. Preserve native finite generation and existing cadence.",
       "findings": [
-        "R2"
+        "R2",
+        "E1"
       ],
       "indicators": {}
     },
@@ -985,13 +994,14 @@
     },
     {
       "path": "src/PhobosAutoNav/EquipmentContent.cs",
-      "sha256": "f231c65511ac91f501341d9fdd657805dc04bd81166fd2ef650da8583001fbc6",
+      "sha256": "84ca8cbca8a90d4e9e6e10e4a1a2112b8bf51f390389b496048debe6b469e1ba",
       "role": "registration, metadata or event-driven content",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Definition/load-time handling correction; native transport remains authoritative. No recurring scans, UI refresh changes or simulation work added.",
+      "decision": "Definition-time stock/loot policy or release metadata only; no new recurring work. Preserve native finite generation and existing cadence.",
       "findings": [
         "R4",
-        "H1"
+        "H1",
+        "E1"
       ],
       "indicators": {
         "collection": [
@@ -1455,15 +1465,16 @@
     },
     {
       "path": "src/PhobosAutoNav/Plugin.cs",
-      "sha256": "0eac54026731db289ba8740fc70911292e4e2a00df0283bf60a78ea1fb5f2507",
+      "sha256": "2b52dba4b48b476f6cfab07559796314e457a2784b846f3178994a1ef586f34a",
       "role": "navigation, native boundary or flight policy",
       "review": "2026-09-27 towing: reviewed attachment ownership, clearance and native-policy boundaries; bounded UI refresh preserved.",
-      "decision": "Use one existing guidance controller. Retain save/shot checks and no discovery-result cache; no new capture campaign or per-frame logging.",
+      "decision": "Definition-time stock/loot policy or release metadata only; no new recurring work. Preserve native finite generation and existing cadence.",
       "findings": [
         "R2",
         "P8",
         "C1",
-        "T1"
+        "T1",
+        "E1"
       ],
       "indicators": {
         "runtime_hook": [
@@ -1474,12 +1485,13 @@
     },
     {
       "path": "src/PhobosAutoNav/RegionalEconomy.cs",
-      "sha256": "dc2973df21debf6d6a18b630981ba7a0edfba239969b488461114e89dcc80f0c",
+      "sha256": "77ad3ffee98fedbc03a6ec7efe9cbbdb8b0fe55e483065d0cf9f5c8384540422",
       "role": "registration, metadata or event-driven content",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Retain existing policy and call frequency. No independent measured hotspot justifies additional changes in this file; see the linked subsystem decision.",
+      "decision": "Definition-time stock/loot policy or release metadata only; no new recurring work. Preserve native finite generation and existing cadence.",
       "findings": [
-        "R4"
+        "R4",
+        "E1"
       ],
       "indicators": {}
     },
@@ -1496,12 +1508,13 @@
     },
     {
       "path": "src/PhobosAutoNav/StockQuantities.cs",
-      "sha256": "71ddfe767ea5060dc6f998f02c47046bcb4d9953a93582eace4c9781f0041173",
+      "sha256": "18ee9844fbb571f55fae48f9228b1eb31fdcdf57c275f7c8f0923dc2ab8869c4",
       "role": "registration, metadata or event-driven content",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Retain existing policy and call frequency. No independent measured hotspot justifies additional changes in this file; see the linked subsystem decision.",
+      "decision": "Definition-time stock/loot policy or release metadata only; no new recurring work. Preserve native finite generation and existing cadence.",
       "findings": [
-        "R4"
+        "R4",
+        "E1"
       ],
       "indicators": {}
     },
@@ -2927,13 +2940,14 @@
     },
     {
       "path": "src/PhobosFramework/Plugin.cs",
-      "sha256": "50352eb26adb7340b9b1ee0631c51ffc929c67665c8c54cdce5479cf34c85e0c",
+      "sha256": "02a4cabb2b12255315432b9c3683c2af88f168ea45e8cbf2f1458c8e9bece069",
       "role": "shared accounting, inventory, crew or native boundary",
       "review": "2026-09-27: reviewed Polaris update/caller boundaries; fresh inventory only for visible Fire or explicit actions; no simulation cadence or recording changes. Polaris readability correction reviewed: widget binding/geometry changes occur at creation; warning and damage precedence reuse existing snapshot facts. Metadata changes only adjust versions/minima. No additional polling, simulation or persistence work.",
-      "decision": "P8: retain ten-per-second presentation, hidden-tab inactivity and unchanged-widget suppression. Add opt-in retained bindings, fresh inventory and checked action-time handoff. Metadata-only version updates have no recurring cost.",
+      "decision": "Definition-time stock/loot policy or release metadata only; no new recurring work. Preserve native finite generation and existing cadence.",
       "findings": [
         "R3",
-        "P8"
+        "P8",
+        "E1"
       ],
       "indicators": {
         "runtime_hook": [
@@ -3246,12 +3260,13 @@
     },
     {
       "path": "src/PhobosFramework/Trading/MarketStock.cs",
-      "sha256": "0a757800082d398456ac9c84ceaf2cbdc57c2fe6478a67457b0a7551469c5a26",
+      "sha256": "d79c97264759c7d8d1ab2cb791239f9ff23c380aa7dcd818eafa26f7fecaad16",
       "role": "registration, metadata or event-driven content",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Retain existing policy and call frequency. No independent measured hotspot justifies additional changes in this file; see the linked subsystem decision.",
+      "decision": "Definition-time stock/loot policy or release metadata only; no new recurring work. Preserve native finite generation and existing cadence.",
       "findings": [
-        "R4"
+        "R4",
+        "E1"
       ],
       "indicators": {
         "runtime_hook": [
@@ -3551,12 +3566,13 @@
     },
     {
       "path": "src/PhobosShipbreaker/CoolantService.cs",
-      "sha256": "9b066f9802125868927c1bac4a02c1cd87fd6753dccb109db3e10d4bdf9ff429",
+      "sha256": "c0948e8a8164240245c0c0d6e2b0477989750119ada29ef476d42fbc3e295ba1",
       "role": "industrial service, native boundary or process policy",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Retain existing policy and call frequency. No independent measured hotspot justifies additional changes in this file; see the linked subsystem decision.",
+      "decision": "Definition-time stock/loot policy or release metadata only; no new recurring work. Preserve native finite generation and existing cadence.",
       "findings": [
-        "R3"
+        "R3",
+        "E1"
       ],
       "indicators": {
         "runtime_hook": [
@@ -3640,13 +3656,14 @@
     },
     {
       "path": "src/PhobosShipbreaker/Core/DependencyContract.cs",
-      "sha256": "7a519726c7c82677988662bc2e14bcc88b7d268cfeb4c8008e2326e555601b02",
+      "sha256": "683a27aaa2d2e8c2cb22e16cff583e2d1ba07f5a0bd13cdbc01a681479634d3c",
       "role": "industrial service, native boundary or process policy",
       "review": "2026-09-27: reviewed Polaris update/caller boundaries; fresh inventory only for visible Fire or explicit actions; no simulation cadence or recording changes. Polaris readability correction reviewed: widget binding/geometry changes occur at creation; warning and damage precedence reuse existing snapshot facts. Metadata changes only adjust versions/minima. No additional polling, simulation or persistence work.",
-      "decision": "P8: retain ten-per-second presentation, hidden-tab inactivity and unchanged-widget suppression. Add opt-in retained bindings, fresh inventory and checked action-time handoff. Metadata-only version updates have no recurring cost.",
+      "decision": "Definition-time stock/loot policy or release metadata only; no new recurring work. Preserve native finite generation and existing cadence.",
       "findings": [
         "R3",
-        "P8"
+        "P8",
+        "E1"
       ],
       "indicators": {
         "collection": [
@@ -3842,12 +3859,13 @@
     },
     {
       "path": "src/PhobosShipbreaker/EquipmentEconomy.cs",
-      "sha256": "1073ef4a6956a41d76712fc78a8222352ac6d682913f9dd360a7bf2f154bea20",
+      "sha256": "c94924c65d0d55b1fec63296c3887d2a9ce13cc3a5d9e5177e9ad1fbb9aa8d80",
       "role": "registration, metadata or event-driven content",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Retain existing policy and call frequency. No independent measured hotspot justifies additional changes in this file; see the linked subsystem decision.",
+      "decision": "Definition-time stock/loot policy or release metadata only; no new recurring work. Preserve native finite generation and existing cadence.",
       "findings": [
-        "R4"
+        "R4",
+        "E1"
       ],
       "indicators": {
         "collection": [
@@ -3898,12 +3916,13 @@
     },
     {
       "path": "src/PhobosShipbreaker/FurnaceConduitDefinitions.cs",
-      "sha256": "63d88f271c0333ee64d05cc227a5e494a13cda7156abb8a7b9f107f75a93da8e",
+      "sha256": "4169a23c2b52c193c28e234020f2200126cfff185754abfb2e9395a979cd516a",
       "role": "registration, metadata or event-driven content",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Retain existing policy and call frequency. No independent measured hotspot justifies additional changes in this file; see the linked subsystem decision.",
+      "decision": "Definition-time stock/loot policy or release metadata only; no new recurring work. Preserve native finite generation and existing cadence.",
       "findings": [
-        "R4"
+        "R4",
+        "E1"
       ],
       "indicators": {
         "collection": [
@@ -4304,13 +4323,14 @@
     },
     {
       "path": "src/PhobosShipbreaker/Plugin.cs",
-      "sha256": "392e91a241a44551f65f53d046c42303ef12a57ca63f1c2b4aef2bb8608ce878",
+      "sha256": "b9c56220c1c6b69172c13500434cac002e566fd033adbcbfe0eb19988f11cdd4",
       "role": "industrial service, native boundary or process policy",
       "review": "2026-09-27: reviewed Polaris update/caller boundaries; fresh inventory only for visible Fire or explicit actions; no simulation cadence or recording changes. Polaris readability correction reviewed: widget binding/geometry changes occur at creation; warning and damage precedence reuse existing snapshot facts. Metadata changes only adjust versions/minima. No additional polling, simulation or persistence work.",
-      "decision": "P8: retain ten-per-second presentation, hidden-tab inactivity and unchanged-widget suppression. Add opt-in retained bindings, fresh inventory and checked action-time handoff. Metadata-only version updates have no recurring cost.",
+      "decision": "Definition-time stock/loot policy or release metadata only; no new recurring work. Preserve native finite generation and existing cadence.",
       "findings": [
         "R3",
-        "P8"
+        "P8",
+        "E1"
       ],
       "indicators": {
         "runtime_hook": [
@@ -4482,12 +4502,13 @@
     },
     {
       "path": "src/PhobosShipbreaker/RegionalEconomy.cs",
-      "sha256": "b8aa0464a04dcd8016dab0021d11be5d07ecaa4122dfe2151fbed7e726125de9",
+      "sha256": "65a3a64472eae389cf90a5a986d7717ef6e7f0eddbdf17258cebab8a2e36c26f",
       "role": "registration, metadata or event-driven content",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Retain existing policy and call frequency. No independent measured hotspot justifies additional changes in this file; see the linked subsystem decision.",
+      "decision": "Definition-time stock/loot policy or release metadata only; no new recurring work. Preserve native finite generation and existing cadence.",
       "findings": [
-        "R4"
+        "R4",
+        "E1"
       ],
       "indicators": {}
     },
@@ -4520,12 +4541,13 @@
     },
     {
       "path": "src/PhobosShipbreaker/StockQuantities.cs",
-      "sha256": "1ae56ff65ed8d64d534d922bcadf432c54a690b575172561197ce25c0d9c97cd",
+      "sha256": "e9cd2d30faab8c157f1ed6bb5a2e270d016f07bf517eec7e3e3a96a6dce45548",
       "role": "registration, metadata or event-driven content",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Retain existing policy and call frequency. No independent measured hotspot justifies additional changes in this file; see the linked subsystem decision.",
+      "decision": "Definition-time stock/loot policy or release metadata only; no new recurring work. Preserve native finite generation and existing cadence.",
       "findings": [
-        "R4"
+        "R4",
+        "E1"
       ],
       "indicators": {}
     },

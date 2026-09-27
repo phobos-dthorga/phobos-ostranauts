@@ -21,7 +21,7 @@ trade/maintenance checks. Versions 0.4.1–0.4.3 fix panel dragging/layout and i
 and existing work thresholds are retained.
 No game session or live shop quote was used for this audit.
 
-Current build: **Auto Nav 0.10.0 requires Framework 0.14.0**. The equipment naming
+Current merchant/salvage policy: [expanded availability](merchant-stock.md), Auto Nav 0.22.4 with Framework 0.30.3. Earlier build evidence below is historical. The equipment naming
 introduced in 0.8.1 is unchanged.
 The item and its damaged form are **Phobos' Asterel N1 Polaris Auto Nav Module** and
 **Phobos' Asterel N1 Polaris Auto Nav Module (Damaged)**. The mod manager/package remains
@@ -44,10 +44,10 @@ negotiation and market/category modifiers; they are not guaranteed purchase quot
 
 | Existing merchant | Offer | Chance per shop stock generation |
 |---|---|---:|
-| San Diego Polaris electronics dealer | Pristine | 60% |
-| K-Leg fixer | Lightly worn | 30% |
-| K-Leg scrap supplies | Broken | 25% |
-| Venus orbital scrap kiosk | Refurbished | 20% |
+| San Diego Polaris electronics dealer | Pristine | 85% |
+| K-Leg fixer | Lightly worn | 85% |
+| K-Leg scrap supplies | Broken | 85% |
+| Venus orbital scrap kiosk | Refurbished | 85% |
 
 Each successful current offer supplies the board lot in the stock guide. Framework's stock-availability setting
 can scale the chances. Merchants must restock normally; we do not replace their
@@ -63,9 +63,7 @@ onto this small control-system board.
 
 ## Build, repair, Restore and dismantle
 
-Version 0.10.0 also adds [rare native module salvage](auto-nav-flight-profiles.md):
-3% per eligible navigation-module leaf roll by default, biased toward damaged
-modules. Some shared pools feed merchants too. Existing inventories are retained;
+Current [native module salvage](auto-nav-flight-profiles.md) includes N1, N2 and N3: 30% total per eligible leaf roll for new configurations, biased toward damaged boards. Existing saved chance settings remain authoritative. Some shared pools feed merchants too. Existing inventories are retained;
 this adds future loot choices rather than rewriting ship layouts or guaranteeing
 an item aboard every derelict. The salvage chance has its own configuration.
 

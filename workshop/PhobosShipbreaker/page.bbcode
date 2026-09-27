@@ -1,5 +1,5 @@
 [h1]Phobos Shipbreaker[/h1]
-[b]Version:[/b] 0.29.2
+[b]Version:[/b] 0.30.0
 
 [h2]Performance update[/h2]
 Furnace equipment searches create less temporary data, and industrial panels reuse shared display and ship-search helpers. Cooling, processing speed, heat and material accounting are unchanged.
@@ -24,7 +24,7 @@ Make the wreck pay for the next repair. Rivetline equipment brings wall processi
 Keep the supporting hull walls under the sealed chute. Processing needs power, output space and suitable cooling; vacuum is not free cooling. Older unclassified residue has no R4 recipe. Furnace heating and exterior work pause on interruption and require Resume. Capture does not by itself authorize cutting. Loading preserves cargo and work; a fault may block further work for inspection.
 
 [h2]Requirements and installation[/h2]
-Ostranauts 1.0.1.5, BepInEx 5, Phobos Framework 0.30.2 or newer and Phobos Auto Nav 0.19.0 or newer. Crafting Framework and Salvage Workshop are optional. Agriculture integration is optional.
+Ostranauts 1.0.1.5, BepInEx 5, Phobos Framework 0.30.3 or newer and Phobos Auto Nav 0.19.0 or newer. Crafting Framework and Salvage Workshop are optional. Agriculture integration is optional.
 
 This is an unpublished development package. Automated checks do not establish in-game readiness or Unity layout approval. Keep required mods installed for saves using their content. Updating does not refill shops or old loot containers. See the installation guide for current download availability.
 
@@ -78,3 +78,6 @@ Dark button faces now keep labels readable in every interaction state. This fixe
 
 [b]Item handling correction[/b]
 Correct loose machinery and conduit pickup/drop actions. D4-S, R4-S and F6-S assembly sections now use the native cumbersome/drag family instead of hand-held scrap behaviour. Sections retain dismantling and remain construction inputs, not installed machines. Existing sections in hands or containers remain where saved. Put a held section down once; future handling uses the drag slot. Requires Phobos Framework 0.30.2. Live menu and inventory handling remain owner-tested.
+
+[b]Merchant and salvage update[/b]
+Raise equipment and section offers to at least 85%, and pipes/coolant to at least 95%, before the availability setting. Fill missing functional stock at general local suppliers. Native engineering rolls can now find one of nine intact/damaged machinery families (40% total), one assembly section (15% total), and one pipe/coolant charge (20% total), as separate bounded choices. Normal restocking and new loot generation are required; existing inventories stay as they are. Offline checks are not gameplay validation.

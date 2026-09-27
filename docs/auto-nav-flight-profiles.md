@@ -67,12 +67,10 @@ are retained and block new settings/flights until explicitly reset with
 remains the separate saved-flight action. Neither operation is performed by a
 display read.
 
-## Rare module salvage
+## Native module salvage (updated 27 September 2026)
 
 New native navigation-module loot rolls can include an intact or damaged
-**Phobos' Asterel N1 Polaris Auto Nav Module**. The default chance is **3% per
-eligible leaf-table roll**: approximately **1% functional and 2% damaged** in
-mixed pools, or **3% damaged** in damaged-only pools. One added choice can produce
+**Phobos' Asterel N1, N2 or N3 Polaris board**. New configurations default to **30% per eligible leaf-table roll**: **10% functional and 20% damaged** in mixed pools, or **30% damaged** in damaged-only pools. Each board family has equal weight; existing saved settings are retained. One added choice can produce
 at most one module. These are authored balance values, not native drop rates.
 
 The registration covers the native navigation-module leaf tables used by ship

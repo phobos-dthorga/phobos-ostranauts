@@ -46,8 +46,7 @@ These changes apply to future normal merchant generation/restocks after updating
 and restarting the game. Already-generated shop inventories are retained; there
 is no forced refill, save edit or replacement of another mod's stock. An update
 or reload alone does not guarantee that an existing shop restocks immediately.
-Rare world salvage, engineering sections found on derelicts and Agriculture
-fridge/crate loot retain their previous quantities and probability contracts.
+World salvage uses separate single-item choices; see the current expansion below. Agriculture fridge/crate supply odds are unchanged.
 
 ## Maintenance and evidence
 
@@ -77,3 +76,73 @@ unchanged rare-loot checks. Primary product attribution:
 This is locally inspected implementation evidence, not a claim on that webpage.
 Proprietary source remains local. Builds and offline checks are not owner-run
 shop/restock gameplay validation.
+
+## Expanded availability — 27 September 2026
+
+Auto Nav 0.22.4, Shipbreaker 0.30.0 and Agriculture 0.16.0 require Framework
+0.30.3. Equipment, boards and assembly sections now have an **85% minimum**
+chance per registered offer; consumables, pipes and food have a **95% minimum**.
+Existing higher offers remain higher, capped at 100%. Framework's existing
+`StockAvailabilityMultiplier` applies afterward. These are authored gameplay
+choices responding to the owner's repeated sparse merchant selections, not a
+measurement of the game's economy. Prices and finite lot sizes above are unchanged.
+
+Coverage includes all 15 previously supported regional supply/scrap endpoints,
+K-Leg supplies and fixer, Venus scrap and San Diego Halvorson. All functional
+retail families now have offers at those general suppliers. Polaris retains its
+N1/N2/N3 offers; Hearth meals also reach both K-Leg food-cart tables and San Diego
+Future Foods. Food-only shops do not receive industrial machines. Existing broken,
+worn and refurbished offers remain; filling a coverage gap does not duplicate
+an already prepared offer for the same item. Produce and prepared meals now have
+explicit general/regional retail offers. Internal compartments, recorded process
+materials, waste and Manufacturing's unimplemented designs remain excluded.
+
+### World finds
+
+| Native pool | Added choice | Total default chance per roll |
+| --- | --- | ---: |
+| Engineering equipment | One of nine Shipbreaker machines, intact or damaged | 40% |
+| Engineering equipment | One D4/R4/F6 assembly section | 15% |
+| Engineering equipment | One coolant pipe or clean coolant charge | 20% |
+| Engineering equipment | One of five Agriculture machines, intact or damaged | 30% |
+| Navigation-module leaf pools | One N1/N2/N3 board | 30% for new configurations |
+
+Each row is an independent, mutually exclusive **single-item** choice. No shop
+lot sizes enter salvage. Machinery choices give intact and damaged forms equal
+weight. Mixed board pools retain one-third functional and two-thirds damaged;
+damaged-only pools remain damaged. Existing Agriculture fridge/crate branches
+remain 22%/30% total; its loot enable/multiplier also controls the new machinery
+choice (30% at 1, 90% at its maximum 3). Native ownership, physical placement,
+locks and available space still apply. A table roll is not a guarantee per ship;
+shared native pools can also serve merchants or other world generation.
+
+Auto Nav's existing `NavModuleChance` is not silently migrated: older installations
+may still have 0.03. Set it to 0.30 with the game closed for the new default, or
+retain another preferred rate. New merchandise likewise appears only during
+normal future stock generation; revisiting or reloading an existing shop does
+not guarantee a refill. No save edits or forced refreshes are included.
+
+### Audit and acceptance
+
+Reviewed all implemented machinery, supplies, boards, food, sections and damaged
+forms against their prepared native stock/loot definitions. Framework's spent
+parts and Manufacturing's scaffold add no retail equipment. The exact identities,
+probabilities and quantities are regenerated in the [item references](item-references.md).
+The 27 September native export covers all 118 registered definitions. Across the
+three content mods it records 658 merchant offers (previously 551), 45 distinct
+retail item identities (previously 42), and 48 identities in added world-loot
+choices (previously 14). Intact/damaged forms count separately; multiple shops
+are separate offers. Manufacturing contributes no items. Finished furnace
+castings retain their production route; internal compartments, waste and recorded
+process intermediates are deliberately not manufactured by the new stock/loot rules.
+
+Existing classification preserves native industrial/control-system/food pricing;
+there is no added inflation model, station production rewrite or new salvage yield.
+
+Native-parser checks cover minimum chances, full functional general-market
+coverage, finite lots, intact/damaged choices, repeated registration, configured
+multipliers, disabled Agriculture/Auto Nav loot and preservation of other providers.
+Player confirmation remains outstanding: check a normally restocked supplier and
+newly generated engineering/nav-module loot, then reload without duplicated cargo.
+Large equipment still needs native placement space; definitions alone cannot prove
+that every rolled find fits or that every merchant has room for every offered lot.
