@@ -273,9 +273,12 @@ internal static class AutoNavCore
             ControlLimited = plan.Limited;
             double error = plan.Correction.Length;
             double lateral = Math.Abs(velocity.X * offset.Unit.Y - velocity.Y * offset.Unit.X);
-            if (!CoastRules.TryDecide(_coasting, cruise, error, lateral, stop, plan.Braking,
+            // Guidance may cap a high requested cruise far below its saved value. A tolerance
+            // based on that saved value could classify an almost stationary ship as cruising.
+            double attainableCruise = Math.Max(.1, Math.Min(cruise, plan.ClosingLimit));
+            if (!CoastRules.TryDecide(_coasting, attainableCruise, error, lateral, stop, plan.Braking,
                 FlightCoastSettings, out var coast)) { EndFlight(player, "INVALID FLIGHT DATA"); return; }
-            _coasting = coast.Coasting && acceleration.Length < .001 && !Following;
+            _coasting = coast.Coasting && velocity.Dot(offset.Unit) > tolerance && acceleration.Length < .001 && !Following;
             var demand = _coasting ? default : plan.Acceleration;
             var correction = plan.Correction;
             var torch = Plugin.Service.Torch;
@@ -327,7 +330,7 @@ internal static class AutoNavCore
             if (_logAccum >= 5)
             {
                 _logAccum = 0;
-                Plugin.Verbose($"predictive range={offset.Length:0.0}m relative={velocity.Length:0.00}m/s horizon={plan.Horizon:0.0}s error={Track.ErrorMS:0.00}m/s limited={plan.Limited}");
+                Plugin.Verbose($"predictive range={offset.Length:0.0}m relative={velocity.Length:0.00}m/s horizon={plan.Horizon:0.0}s error={Track.ErrorMS:0.00}m/s limited={plan.Limited} phase={CurrentPhase} {Plugin.Service.ControlDiagnostic}");
             }
         }
     }
@@ -393,7 +396,7 @@ internal static class AutoNavCore
     public static double EffectiveArriveAU(Ship player, TargetRef target) =>
         TryReadApproach(player, target, ArriveAU / KM_TO_AU, out var plan, out _)
             ? plan.EffectiveArrivalKM * KM_TO_AU : double.NaN;
-	public static bool HasFuelForFlight(Ship player, TargetRef target, bool readOnly = false)
+	public static bool HasFuelForFlight(Ship player, TargetRef target, bool readOnly = false, FlightSnapshot profile = null)
 	{
 		if (player?.objSS == null || target == null)
 		{
@@ -418,12 +421,14 @@ internal static class AutoNavCore
 			}
 			double num = px - player.objSS.vPosx;
 			double num2 = py - player.objSS.vPosy;
-			double num3 = Math.Max(0.0, Math.Sqrt(num * num + num2 * num2) - EffectiveArriveAU(player, target));
+            double stop = profile == null ? EffectiveArriveAU(player, target) :
+                TryReadApproach(player, target, profile.ArrivalKM, out var plan, out _) ? plan.EffectiveArrivalKM * KM_TO_AU : double.NaN;
+			double num3 = Math.Max(0.0, Math.Sqrt(num * num + num2 * num2) - stop);
 			double num4 = player.objSS.vVelX - vx;
 			double num5 = player.objSS.vVelY - vy;
 			double num6 = Math.Sqrt(num4 * num4 + num5 * num5);
-			double num7 = Math.Max(CruiseAU, M_TO_AU);
-			double num8 = Math.Max(0.0, Math.Min(ArrSpdAU, num7));
+			double num7 = Math.Max(profile == null ? CruiseAU : profile.CruiseMS * M_TO_AU, M_TO_AU);
+			double num8 = Math.Max(0.0, Math.Min(profile == null ? ArrSpdAU : profile.ArrivalMS * M_TO_AU, num7));
 			double num9 = Math.Min(num7, Math.Sqrt(Math.Max(0.0, player.RCSAccelMax * 0.85 * num3)));
 			double num10 = num6 + num9 + Math.Max(0.0, num9 - num8);
 			bool result = player.DeltaVRemainingRCS >= num10 * 1.05;

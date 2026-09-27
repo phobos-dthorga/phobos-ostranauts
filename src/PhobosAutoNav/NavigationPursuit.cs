@@ -60,6 +60,7 @@ internal sealed partial class NavigationService
     }
     internal void SelectFireTarget(CondOwner? co)
     {
+        if (combatActive && co == console) Disengage(Text.Get("Combat.left"));
         if (!BindFire(co)) return;
         CeaseFire(); var selected = TargetRef.FromCrossHair();
         fireTargetId = selected != null && selected.ShipId != co!.ship.strRegID && ReadContact(co, selected).Usable ? selected.ShipId : null;
@@ -81,7 +82,7 @@ internal sealed partial class NavigationService
     }
     private bool TakeFireControl(CondOwner? co)
     {
-        if (industrial != null || !BindFire(co) || DockingActive || AutoNavCore.Engaged && (console != co || !AutoNavCore.Following) ||
+        if (!CoordinatedFlight(co) || !BindFire(co) ||
             !FirePreferences(co, out int group, out int volleys, out _) || !ReadContact(co, FireTarget).Usable)
         { status = Text.Get("FCS.contact"); return false; }
         if (!SaveFirePreferences(co!, group, volleys, true)) { status = Text.Get("Preferences.invalid"); return false; }
@@ -108,6 +109,7 @@ internal sealed partial class NavigationService
     internal void ReturnFireToNative(CondOwner? co)
     {
         if (!IsLocalConsole(co) || !FirePreferences(co, out int group, out int volleys, out _)) return;
+        if (combatActive && co == console) Disengage(Text.Get("Combat.left"));
         CeaseFire();
         if (!SaveFirePreferences(co!, group, volleys, false)) { status = Text.Get("Preferences.invalid"); return; }
         Fire.SetOwnership(co!.strID, co.ship, group, false); status = Text.Get("FCS.returned");
@@ -126,6 +128,7 @@ internal sealed partial class NavigationService
         var shown = InstalledWeapons(co).Where(w => InstalledGroup(w) == WeaponGroup(co)).ToList();
         string? shownId = (shown.FirstOrDefault(w => w.strID == viewedWeapon) ?? shown.FirstOrDefault())?.strID;
         var weapon = Fire.Weapons.FirstOrDefault(w => w.Id == shownId); if (weapon == null || !weapon.Eligible) return;
+        if (combatActive && weapon.Id != aimReference) Disengage(Text.Get("Combat.left"));
         CeaseFire(); aimReference = weapon.Id;
     }
     private WeaponReading? DisplayWeapon => viewedWeapon == null ? Fire.Weapons.FirstOrDefault() : Fire.Weapons.FirstOrDefault(w => w.Id == viewedWeapon);
@@ -145,7 +148,7 @@ internal sealed partial class NavigationService
         if (DockingActive || ship.RCSCount <= 0 || ship.GetRCSRemain() <= 0 || ReadThrottle(co) <= 0 ||
             !ArrivalBrake.Finite(ship.RCSAccelMax) || ship.RCSAccelMax <= 0 || !ArrivalBrake.Finite(ship.objSS.fW) ||
             !ArrivalBrake.Finite(ship.objSS.fRot) || CrewSim.system.IsInAtmo(ship) ||
-            AutoNavCore.Engaged && (console != co || !AutoNavCore.Following)) return "FCS.aim_unavailable";
+            !CoordinatedFlight(co)) return "FCS.aim_unavailable";
         if (!AutoNavCore.Engaged && (TorchDriveController.ThrustRequested(ship) || ship.shipStationKeepingTarget != null ||
             ship.aWPs?.Count > 0 || PropOn(co, "chkStationKeeping") || PropOn(co, "chkHoldThrust") || PropOn(co, "chkEngage") ||
             AIShipManager.GetAIShipByRegID(ship.strRegID) != null || ship.objSS.vAccIn.magnitude > 0)) return "FCS.aim_unavailable";
@@ -164,7 +167,8 @@ internal sealed partial class NavigationService
         }
     }
     internal void CeaseFire() { Fire.Cease(); StopAim(); status = Text.Get(Fire.Reason); }
-    private void FireFault(string reason) { Fire.Cease(reason, true); StopAim(); Fire.Invalidate(); status = Text.Get(reason); }
+    partial void HoldFireForGuidance() { AutoNavCore.FaceTarget = false; AutoNavCore.WeaponHeading = null; }
+    private void FireFault(string reason) { if (combatActive) Disengage(Text.Get(reason)); Fire.Cease(reason, true); StopAim(); Fire.Invalidate(); status = Text.Get(reason); }
     // Restore ownership before any native offensive queue can dispatch. No module,
     // prediction, target or permission is synthesized during restoration.
     internal void RestoreFireOwnership()
@@ -177,6 +181,7 @@ internal sealed partial class NavigationService
     }
     internal void TickFire(double dt, bool dispatch)
     {
+        ValidateCombat();
         using var measurement = Phobos.Ostranauts.Framework.Diagnostics.Performance.Measure(PerformanceMetrics.Fire);
         if (CrewSim.objInstance == null || !CrewSim.objInstance.FinishedLoading) return;
         RestoreFireOwnership();
@@ -192,14 +197,18 @@ internal sealed partial class NavigationService
                 !ReadContact(co, FireTarget).Usable)) { FireFault("FCS.binding"); return; }
             if (dispatch)
             {
-                bool safe = !DockingActive && (!AutoNavCore.Engaged || console == co && AutoNavCore.Following &&
-                    AutoNavCore.CurrentPhase != AutoNavCore.Phase.Decel && !AutoNavCore.ControlLimited && !ship.IsUsingTorchDrive);
+                bool safe = !avoidanceActive && CoordinatedFlight(co) && (!AutoNavCore.Engaged ||
+                    AutoNavCore.CurrentPhase != AutoNavCore.Phase.Decel && AutoNavCore.CurrentPhase != AutoNavCore.Phase.Align &&
+                    !AutoNavCore.ControlLimited && !ship.IsUsingTorchDrive);
                 Fire.Dispatch(ship, FireTarget, safe);
                 if (Fire.State == FireState.Fault || !Fire.Permitted && Fire.Reason == "FCS.complete") StopAim();
                 return;
             }
             Fire.Observe(ship, FireTarget, group, dt);
-            if (Fire.State == FireState.Fault) { StopAim(); return; }
+            if (Fire.State == FireState.Fault)
+            { if (combatActive) Disengage(Text.Get(Fire.Reason)); StopAim(); return; }
+            if (combatActive && !Fire.Weapons.Any(w => w.Id == combatWeapon && w.Eligible))
+            { FireFault("FCS.no_solution"); return; }
             if (!autoAim) return;
             if (AimProblem(co) != null) { FireFault("FCS.aim_unavailable"); return; }
             var reference = Fire.Weapons.FirstOrDefault(w => w.Id == aimReference && w.Eligible && w.Loaded);

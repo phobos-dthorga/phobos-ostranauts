@@ -16,7 +16,7 @@ namespace PhobosAutoNav;
 public sealed class Plugin : BaseUnityPlugin
 {
     public const string Id = "phobosgekko.ostranauts.autonav";
-    public const string Version = "0.21.1";
+    public const string Version = "0.22.0";
     internal static NavigationService Service { get; private set; } = null!;
     internal static ConfigEntry<bool> Enabled = null!, VerboseLogging = null!, FuelCheck = null!,
         AbortOnManualThrust = null!, UseThrusterRotation = null!, ResumeAfterLoad = null!, PreferTorch = null!, SalvageEnabled = null!;
@@ -90,21 +90,11 @@ internal static class DockingTickPatch
 {
     private static void Prefix(StarSystem __instance, double fTimeDelta)
     {
-        if (__instance != CrewSim.system) return;
-        using var measurement = Phobos.Ostranauts.Framework.Diagnostics.Performance.Measure(PerformanceMetrics.Background);
-        Plugin.Service.TickDeparture(fTimeDelta);
-        if (Plugin.Service.GuardNavigation(fTimeDelta)) return;
-        Plugin.Service.TickIndustrial(fTimeDelta, false);
-        Plugin.Service.TickFire(fTimeDelta, false);
-        Plugin.Service.TickDocking(__instance, fTimeDelta, false);
-        if (AutoNavCore.EngagedPlayer?.objSS != null) Plugin.Service.Tick(AutoNavCore.EngagedPlayer.objSS, fTimeDelta, false);
-        Plugin.Service.TickFire(fTimeDelta, true);
+        Plugin.Service.BeforeNavigationPhysics(__instance, fTimeDelta);
     }
     private static void Postfix(StarSystem __instance, double fTimeDelta)
     {
-        if (Plugin.Service.avoidanceActive) return;
-        Plugin.Service.TickDocking(__instance, fTimeDelta, true);
-        if (__instance == CrewSim.system) Plugin.Service.TickIndustrial(fTimeDelta, true);
+        Plugin.Service.AfterNavigationPhysics(__instance, fTimeDelta);
     }
     private static Exception? Finalizer(Exception? __exception)
     {

@@ -17,6 +17,27 @@ Dates on Draft entries record preparation, not Steam publication.
 - Earlier capture-only research is superseded for supported ordinary walls by the implementation below. Broader structural recipes, repeated furnace batches and whole-wreck completion remain outside this round.
 - Keep [NASA Goddard's Raven research](https://www.nasa.gov/general/nasas-hybrid-computer-enables-ravens-autonomous-rendezvous-capability/) and [ESA's LIRIS experiment by Airbus, Jena Optronik and Sodern](https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/ATV/ATV_views_Space_Station_as_never_before) as sensing context, separate from Blue Bottle Games native evidence and authored gameplay choices. No institutional endorsement or gameplay validation is implied.
 
+## [0.22.0] - 2026-09-27 - Draft
+
+### Added
+
+- Track now offers explicit N2 + N3 Combat: match the selected fire target's motion and separation with RCS or permitted torch manoeuvres, and request the selected weapon's facing. Entering suspends the previous mission and grants no firing permission. Engage remains separate.
+- Show movement priority and effective separation. Track instructions scroll; fixed stop controls and the ten-per-second refresh limit remain.
+
+### Fixed
+
+- Keep avoidance waypoints in the target-relative frame used by guidance. Coupled regressions reproduced a docking diversion/timeout when both ships shared orbital motion; mirrored moving cases now complete without weakening clearance or attachment checks.
+- Base the coast tolerance on attainable guidance speed so a high saved cruise setting cannot leave an almost stationary Approach & Dock coasting indefinitely.
+- Clear commanded RCS when terminal fuel admission fails after acquiring docking intent.
+- Permit N3 coordination during ordinary Approach, Rendezvous and Follow. Navigation retains its destination; braking, traffic, torch manoeuvres, docking, departure and industrial movement take priority.
+
+### Compatibility and limits
+
+- Framework minimum remains 0.30.1. Saved schemas, assignments, gameplay values and other mod versions are unchanged. Combat is transient: reload leaves the previous mission suspended and FCS on Hold, without movement, aiming or firing permission.
+- Cease Fire keeps Combat range matching. Leave Combat, Disengage or Return to Native exits Combat; the previous mission needs explicit Resume. Change movement settings after leaving Combat. Contact, hardware or operator loss ends combat authority without automatic restart.
+- Automatic Artemis firing remains unsupported by the inspected native envelope. Native shot, lock and ammunition checks remain authoritative.
+- Tests use production guidance/update ordering with native boundary doubles. The original owner incident is not proven reproduced; live handling and Unity approval remain owner checks. No performance captures or artwork generation were requested.
+
 ## [0.21.1] - 2026-09-27 - Draft
 
 ### Fixed

@@ -7,6 +7,7 @@ internal sealed class InstrumentSnapshot
 {
     internal string Heading = "", Target = "", Range = "", RelativeSpeed = "", Notice = "", Details = "";
     internal double ArrivalKM, CruiseMS, ArrivalMS;
+    internal double? EffectiveArrivalKM;
     internal bool TorchPreferred, CanFly, CanStop, CanAdjustArrival, CanAdjustPropulsion, Resumable, Warning, CanDock, Docking;
 }
 
@@ -32,7 +33,7 @@ internal sealed partial class NavigationService
         bool ownsFlight = AutoNavCore.Engaged && console == co;
         bool otherFlight = AutoNavCore.Engaged && !ownsFlight;
         read ??= new PresentationRead(co!, ownsFlight);
-        var snapshot = read.Flight;
+        var snapshot = ownsFlight && combatActive ? savedFlight : read.Flight;
         bool validPreferences = read.ValidPreferences;
         var preferences = read.Preferences;
         view.Resumable = !AutoNavCore.Engaged && snapshot != null;
@@ -53,6 +54,7 @@ internal sealed partial class NavigationService
         if (sensing.Usable && target != null && AutoNavCore.TryReadApproach(co!.ship, target, view.ArrivalKM, out var plan, out var speed))
         {
             approachReady = true;
+            view.EffectiveArrivalKM = plan.EffectiveArrivalKM;
             view.Range = Text.Get("Instruments.range", plan.RangeKM);
             view.RelativeSpeed = Text.Get("Instruments.relative_speed", speed);
             clearance = Text.Get("Instruments.clearance", view.ArrivalKM, plan.EffectiveArrivalKM);
@@ -128,6 +130,7 @@ internal sealed partial class NavigationService
     private void SetTorchPreference(bool preferred)
     {
         bool changed = Plugin.PreferTorch.Value != preferred;
+        if (changed && combatActive) CeaseFire();
         Plugin.PreferTorch.Value = preferred;
         if (!preferred) Torch.Cut();
         if (changed) Plugin.PreferTorch.ConfigFile.Save();

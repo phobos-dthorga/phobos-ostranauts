@@ -229,12 +229,12 @@ internal sealed partial class NavigationService
     {
         StopExtended(reason);
         EndIndustrial(reason);
-        if (!keepWeapons) CeaseFire();
+        if (!keepWeapons || combatActive) CeaseFire();
         FinishSavedFlight(SavedFlightMode.Stopped);
         issuing = true;
         try { if (AutoNavCore.Engaged) AutoNavCore.EndFlight(AutoNavCore.EngagedPlayer, reason); }
         catch (Exception ex) { log(Text.Get("NavigationService.stop_failed", ex)); }
-        finally { AutoNavCore.ResetStatics(); issuing = false; status = reason; }
+        finally { AutoNavCore.ResetStatics(); DropCombat(); issuing = false; status = reason; }
         log(reason);
     }
 

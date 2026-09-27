@@ -654,12 +654,13 @@
     },
     {
       "path": "src/PhobosAutoNav/Adapted/AutoNavCore.cs",
-      "sha256": "065b85aaa278249de26b6978ee9053605a100ca5840670349e8e2801787e52f0",
+      "sha256": "99f5b4281ab647bd882ccf5e5ad62564f23d18e9c8daf27d56f0f2a510f75832",
       "role": "navigation, native boundary or flight policy",
-      "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Retain existing policy and call frequency. No independent measured hotspot justifies additional changes in this file; see the linked subsystem decision.",
+      "review": "2026-09-27: reviewed Combat ownership, protected persistence, live docking blockers, opt-in diagnostics and existing bounded presentation; see C1.",
+      "decision": "Use one existing guidance controller. Retain save/shot checks and no discovery-result cache; no new capture campaign or per-frame logging.",
       "findings": [
-        "R2"
+        "R2",
+        "C1"
       ],
       "indicators": {}
     },
@@ -687,13 +688,14 @@
     },
     {
       "path": "src/PhobosAutoNav/AutoNavPanel.cs",
-      "sha256": "bbd68b99ff868f541924890039e31f74afc7bb73ed7129263bc6b08e5be70b0b",
+      "sha256": "0a641b59e334464e4d76d5e81ab1a15243fe031c3ef1bd6bd733cc7a2c9a43e2",
       "role": "navigation, native boundary or flight policy",
-      "review": "2026-09-27: reviewed Polaris update/caller boundaries; fresh inventory only for visible Fire or explicit actions; no simulation cadence or recording changes. Polaris readability correction reviewed: widget binding/geometry changes occur at creation; warning and damage precedence reuse existing snapshot facts. Metadata changes only adjust versions/minima. No additional polling, simulation or persistence work.",
-      "decision": "P8: retain ten-per-second presentation, hidden-tab inactivity and unchanged-widget suppression. Add opt-in retained bindings, fresh inventory and checked action-time handoff. Metadata-only version updates have no recurring cost.",
+      "review": "2026-09-27: reviewed docking/avoidance frame correction, transient Combat ownership and the unchanged bounded presentation path; see docs/auto-nav-combat.md.",
+      "decision": "Use one existing guidance controller. Retain save/shot checks and no discovery-result cache; no new capture campaign or per-frame logging.",
       "findings": [
         "P2",
-        "P8"
+        "P8",
+        "C1"
       ],
       "indicators": {
         "runtime_hook": [
@@ -1103,12 +1105,13 @@
     },
     {
       "path": "src/PhobosAutoNav/NavigationAvoidance.cs",
-      "sha256": "b29faa454be61f0ed674b06d727c847f6c466a9c68a1a035031bfe82c78375a9",
+      "sha256": "a7fa61762dab0362e48ed18de405fdbfb3d9880e1a2db6c24f4da24b39ccd308",
       "role": "navigation, native boundary or flight policy",
-      "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Retain existing policy and call frequency. No independent measured hotspot justifies additional changes in this file; see the linked subsystem decision.",
+      "review": "2026-09-27: reviewed docking/avoidance frame correction, transient Combat ownership and the unchanged bounded presentation path; see docs/auto-nav-combat.md.",
+      "decision": "Use one existing guidance controller. Retain save/shot checks and no discovery-result cache; no new capture campaign or per-frame logging.",
       "findings": [
-        "R2"
+        "R2",
+        "C1"
       ],
       "indicators": {
         "collection": [
@@ -1122,13 +1125,25 @@
       }
     },
     {
-      "path": "src/PhobosAutoNav/NavigationDeparture.cs",
-      "sha256": "4083dc3501a1fc3d44eabe5f7901d7b6a6909c2af7f2b019fa8c8b40b7fecf70",
-      "role": "navigation, native boundary or flight policy",
-      "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Retain existing policy and call frequency. No independent measured hotspot justifies additional changes in this file; see the linked subsystem decision.",
+      "path": "src/PhobosAutoNav/NavigationCombat.cs",
+      "sha256": "e1ac91eb5a989fed2bc9d09746156f9839cbd1b65e11e126944c663c8e998369",
+      "role": "navigation authority and transient Combat lifecycle",
       "findings": [
-        "R2"
+        "C1"
+      ],
+      "indicators": {},
+      "review": "2026-09-27: reviewed Combat ownership, protected persistence, live docking blockers, opt-in diagnostics and existing bounded presentation; see C1.",
+      "decision": "Use one existing guidance controller. Retain save/shot checks and no discovery-result cache; no new capture campaign or per-frame logging."
+    },
+    {
+      "path": "src/PhobosAutoNav/NavigationDeparture.cs",
+      "sha256": "747047112b9d9bb33329732a47f0514caa92aca95d04d15f20a7a12cee83fb30",
+      "role": "navigation, native boundary or flight policy",
+      "review": "2026-09-27: reviewed docking/avoidance frame correction, transient Combat ownership and the unchanged bounded presentation path; see docs/auto-nav-combat.md.",
+      "decision": "Use one existing guidance controller. Retain save/shot checks and no discovery-result cache; no new capture campaign or per-frame logging.",
+      "findings": [
+        "R2",
+        "C1"
       ],
       "indicators": {
         "runtime_hook": [
@@ -1146,12 +1161,13 @@
     },
     {
       "path": "src/PhobosAutoNav/NavigationDocking.cs",
-      "sha256": "2c476a0c32f64fc6871ef70a9697e72e43b1bafe9e5921eff658353a72882e38",
+      "sha256": "f61cb0c7e16b3684e3aa3858cd9fb9eb1ff9f07fb04098a413245abaa6d59d66",
       "role": "navigation, native boundary or flight policy",
-      "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Retain existing policy and call frequency. No independent measured hotspot justifies additional changes in this file; see the linked subsystem decision.",
+      "review": "2026-09-27: reviewed docking/avoidance frame correction, transient Combat ownership and the unchanged bounded presentation path; see docs/auto-nav-combat.md.",
+      "decision": "Use one existing guidance controller. Retain save/shot checks and no discovery-result cache; no new capture campaign or per-frame logging.",
       "findings": [
-        "R2"
+        "R2",
+        "C1"
       ],
       "indicators": {
         "runtime_hook": [
@@ -1165,13 +1181,14 @@
     },
     {
       "path": "src/PhobosAutoNav/NavigationHub.cs",
-      "sha256": "68062b4a55294d405b2f10424d9f7249ecf01a00dcac87dbbd797be48b929ed1",
+      "sha256": "95e25b2d6bed6f24c1b31b1dbb56bd4cbf9953bbb8adf051ccce09eb76c3d5fb",
       "role": "navigation, native boundary or flight policy",
-      "review": "2026-09-27: reviewed Polaris update/caller boundaries; fresh inventory only for visible Fire or explicit actions; no simulation cadence or recording changes. Polaris readability correction reviewed: widget binding/geometry changes occur at creation; warning and damage precedence reuse existing snapshot facts. Metadata changes only adjust versions/minima. No additional polling, simulation or persistence work.",
-      "decision": "P8: retain ten-per-second presentation, hidden-tab inactivity and unchanged-widget suppression. Add opt-in retained bindings, fresh inventory and checked action-time handoff. Metadata-only version updates have no recurring cost.",
+      "review": "2026-09-27: reviewed Combat ownership, protected persistence, live docking blockers, opt-in diagnostics and existing bounded presentation; see C1.",
+      "decision": "Use one existing guidance controller. Retain save/shot checks and no discovery-result cache; no new capture campaign or per-frame logging.",
       "findings": [
         "P1",
-        "P8"
+        "P8",
+        "C1"
       ],
       "indicators": {
         "discovery": [
@@ -1186,12 +1203,13 @@
     },
     {
       "path": "src/PhobosAutoNav/NavigationInstruments.cs",
-      "sha256": "661dd816cc89d33d19c565a47fdfba6cdef7479f9210652590b9dd656c399877",
+      "sha256": "a66469e9591d261d4be955f7d0a835124f9f0519d8d9ff90612c5cbd42caad28",
       "role": "navigation, native boundary or flight policy",
-      "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Implement bounded, behaviour-preserving changes described by the linked findings; retain owning simulation and validation policy.",
+      "review": "2026-09-27: reviewed Combat ownership, protected persistence, live docking blockers, opt-in diagnostics and existing bounded presentation; see C1.",
+      "decision": "Use one existing guidance controller. Retain save/shot checks and no discovery-result cache; no new capture campaign or per-frame logging.",
       "findings": [
-        "P2"
+        "P2",
+        "C1"
       ],
       "indicators": {
         "persistence_or_io": [
@@ -1201,12 +1219,13 @@
     },
     {
       "path": "src/PhobosAutoNav/NavigationPersistence.cs",
-      "sha256": "1d3d110092c843178e4601316377cf76a0002cc3fc850c76409b732b53e9a624",
+      "sha256": "6a3607d8c3f86c3a292a47a7864e92fa8b748c6bef81d54dc54de5d62b73115a",
       "role": "navigation, native boundary or flight policy",
-      "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Retain existing policy and call frequency. No independent measured hotspot justifies additional changes in this file; see the linked subsystem decision.",
+      "review": "2026-09-27: reviewed Combat ownership, protected persistence, live docking blockers, opt-in diagnostics and existing bounded presentation; see C1.",
+      "decision": "Use one existing guidance controller. Retain save/shot checks and no discovery-result cache; no new capture campaign or per-frame logging.",
       "findings": [
-        "R2"
+        "R2",
+        "C1"
       ],
       "indicators": {
         "discovery": [
@@ -1264,13 +1283,14 @@
     },
     {
       "path": "src/PhobosAutoNav/NavigationPursuit.cs",
-      "sha256": "248b3772d036f1193fab600c565ade6e6977c9382de2d8aaed2e0be03a718830",
+      "sha256": "071b4ae13d185b02a2faf643f36acf6580cfdf6d5ca4ac5e236c2accfe096452",
       "role": "navigation, native boundary or flight policy",
-      "review": "2026-09-27: reviewed Polaris update/caller boundaries; fresh inventory only for visible Fire or explicit actions; no simulation cadence or recording changes.",
-      "decision": "P8: retain ten-per-second presentation, hidden-tab inactivity and unchanged-widget suppression. Add opt-in retained bindings, fresh inventory and checked action-time handoff. Metadata-only version updates have no recurring cost.",
+      "review": "2026-09-27: reviewed docking/avoidance frame correction, transient Combat ownership and the unchanged bounded presentation path; see docs/auto-nav-combat.md.",
+      "decision": "Use one existing guidance controller. Retain save/shot checks and no discovery-result cache; no new capture campaign or per-frame logging.",
       "findings": [
         "P2",
-        "P8"
+        "P8",
+        "C1"
       ],
       "indicators": {
         "collection": [
@@ -1307,23 +1327,25 @@
     },
     {
       "path": "src/PhobosAutoNav/NavigationSensors.cs",
-      "sha256": "9b4818313ecd0f580f2716d9b44d74e1d944194c0dbb22ac2dfc8c578730f537",
+      "sha256": "0666c09feb1e845b5cc1ec05ab97f1bb18800c0c7d4a82b8f95d66788f5ec161",
       "role": "navigation, native boundary or flight policy",
-      "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Retain existing policy and call frequency. No independent measured hotspot justifies additional changes in this file; see the linked subsystem decision.",
+      "review": "2026-09-27: reviewed docking/avoidance frame correction, transient Combat ownership and the unchanged bounded presentation path; see docs/auto-nav-combat.md.",
+      "decision": "Use one existing guidance controller. Retain save/shot checks and no discovery-result cache; no new capture campaign or per-frame logging.",
       "findings": [
-        "R2"
+        "R2",
+        "C1"
       ],
       "indicators": {}
     },
     {
       "path": "src/PhobosAutoNav/NavigationService.cs",
-      "sha256": "080c85270277c70c6acdd34516cdadf5a141b6aa66bd6b33cd2cd744c74f5b1e",
+      "sha256": "481cd3031bb8c7cd0b6b952f36c3c25c15916a0c8a8a094b0df670f841dc4fbc",
       "role": "navigation, native boundary or flight policy",
-      "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Implement bounded, behaviour-preserving changes described by the linked findings; retain owning simulation and validation policy.",
+      "review": "2026-09-27: reviewed docking/avoidance frame correction, transient Combat ownership and the unchanged bounded presentation path; see docs/auto-nav-combat.md.",
+      "decision": "Use one existing guidance controller. Retain save/shot checks and no discovery-result cache; no new capture campaign or per-frame logging.",
       "findings": [
-        "P2"
+        "P2",
+        "C1"
       ],
       "indicators": {
         "runtime_hook": [
@@ -1343,12 +1365,24 @@
       }
     },
     {
+      "path": "src/PhobosAutoNav/NavigationUpdate.cs",
+      "sha256": "d8afa5d525043bd8af1dfdac0834d2a38292d23f7e227bc164ea335638e54f80",
+      "role": "navigation authority and transient Combat lifecycle",
+      "findings": [
+        "C1"
+      ],
+      "indicators": {},
+      "review": "2026-09-27: reviewed docking/avoidance frame correction, transient Combat ownership and the unchanged bounded presentation path; see docs/auto-nav-combat.md.",
+      "decision": "Use one existing guidance controller. Retain save/shot checks and no discovery-result cache; no new capture campaign or per-frame logging."
+    },
+    {
       "path": "src/PhobosAutoNav/NavigationWeaponGroups.cs",
       "role": "Polaris presentation, interaction guard or checked weapon-group handoff",
-      "review": "2026-09-27: reviewed Polaris update/caller boundaries; fresh inventory only for visible Fire or explicit actions; no simulation cadence or recording changes. Polaris readability correction reviewed: widget binding/geometry changes occur at creation; warning and damage precedence reuse existing snapshot facts. Metadata changes only adjust versions/minima. No additional polling, simulation or persistence work.",
-      "decision": "P8: retain ten-per-second presentation, hidden-tab inactivity and unchanged-widget suppression. Add opt-in retained bindings, fresh inventory and checked action-time handoff. Metadata-only version updates have no recurring cost.",
+      "review": "2026-09-27: reviewed docking/avoidance frame correction, transient Combat ownership and the unchanged bounded presentation path; see docs/auto-nav-combat.md.",
+      "decision": "Use one existing guidance controller. Retain save/shot checks and no discovery-result cache; no new capture campaign or per-frame logging.",
       "findings": [
-        "P8"
+        "P8",
+        "C1"
       ],
       "indicators": {
         "collection": [
@@ -1372,7 +1406,7 @@
           60
         ]
       },
-      "sha256": "b7a22cf7d7b7819127fbee3e7832c3cb6d8c82a1872e7dae3bc82f7c40246524"
+      "sha256": "c16d4083974271128e1004a367501dbf89ae7bc4d0006282336a025245320ea1"
     },
     {
       "path": "src/PhobosAutoNav/PanelDepartureSettings.cs",
@@ -1408,13 +1442,14 @@
     },
     {
       "path": "src/PhobosAutoNav/Plugin.cs",
-      "sha256": "ea55efb3de089a4252e0c4f47db0c7873bc90d684ca850fe36f574646533f6d8",
+      "sha256": "679920acfa7adb97f1609618ff4bd12ed4fc814c59ada40db9fdf689d1227bfe",
       "role": "navigation, native boundary or flight policy",
-      "review": "2026-09-27: reviewed Polaris update/caller boundaries; fresh inventory only for visible Fire or explicit actions; no simulation cadence or recording changes. Polaris readability correction reviewed: widget binding/geometry changes occur at creation; warning and damage precedence reuse existing snapshot facts. Metadata changes only adjust versions/minima. No additional polling, simulation or persistence work.",
-      "decision": "P8: retain ten-per-second presentation, hidden-tab inactivity and unchanged-widget suppression. Add opt-in retained bindings, fresh inventory and checked action-time handoff. Metadata-only version updates have no recurring cost.",
+      "review": "2026-09-27: reviewed docking/avoidance frame correction, transient Combat ownership and the unchanged bounded presentation path; see docs/auto-nav-combat.md.",
+      "decision": "Use one existing guidance controller. Retain save/shot checks and no discovery-result cache; no new capture campaign or per-frame logging.",
       "findings": [
         "R2",
-        "P8"
+        "P8",
+        "C1"
       ],
       "indicators": {
         "runtime_hook": [

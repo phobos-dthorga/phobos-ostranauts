@@ -16,6 +16,7 @@ internal sealed partial class NavigationService
         internal string this[string key] { get => Fields.TryGetValue(key,out var value) ? value : ""; set => Fields[key]=value; }
     }
     private Departure? departure;
+    partial void ReadExclusiveMovement(ref bool exclusive) { exclusive |= departure != null; }
     private int departureMode;
     private static readonly string[] DepartureModes = { "fly", "rendezvous", "follow", "dock", "approachdock" };
     private static ObjectStateStore DepartureStore(CondOwner co) => new(co.mapGUIPropMaps,"AutoNav.Departure",co.strID,1);

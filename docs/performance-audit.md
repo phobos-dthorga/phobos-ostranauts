@@ -135,3 +135,12 @@ The source ledger has been extended for these reviewed additions; the earlier
 ## Polaris readability correction
 
 The owner-reported white-button regression is corrected by owning all native colour states when binding widgets. No per-frame work is added. Flight Hub footer geometry is set at creation; recovered tracking changes only the choice of displayed warning from the existing snapshot. Weapon damage/off wording uses existing inventory facts. The ten-per-second scheduler, hidden-tab inactivity, command validation and discovery cadence remain unchanged. No new measurements were taken; see the [Polaris correction](polaris-interface-refresh.md).
+
+## C1 — Auto Nav 0.22.0 follow-up
+
+Combat reuses the current guidance controller, holds only transient session bindings,
+and preserves selected-tab refresh and widget suppression. Avoidance cache coordinates
+now follow the same target-relative frame as its velocity model. Combat validation
+runs at the common physics boundary; no additional recorder or per-frame logs were
+introduced. See [the repair and Combat record](auto-nav-combat.md). No additional
+performance captures or quantitative improvement claims were made.

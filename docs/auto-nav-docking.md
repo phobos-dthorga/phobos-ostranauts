@@ -149,3 +149,13 @@ After installation, the useful first checks are:
    discrepancy, including the F3 status text.
 
 The owner runs these checks. No mouse/keyboard automation or save editing is used.
+
+## 0.22.0 docking repair evidence
+
+The [docking and Combat audit](auto-nav-combat.md) records two reproduced faults:
+a high-cruise coast stall, and target-relative avoidance reusing an inertial cached
+waypoint during common orbital motion. Neither fix reverses steering signs or
+loosens native clearance, port fit, braking or clamp limits. Failed terminal fuel
+admission now also clears RCS before releasing its acquired navigation state.
+The owner's exact earlier trial is not proven reproduced; the latest relevant
+save was already docked. Live playtesting remains necessary.

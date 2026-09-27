@@ -68,7 +68,13 @@ internal sealed partial class NavigationService
         CeaseFire(); dockTrack.Reset(); dockStableSeconds = 0; dockHolding = true;
         AutoNavCore.RestoreFlight(co.ship, target, snapshot);
         if (Plugin.FuelCheck.Value && !DockingAdapter.HasFuel(co.ship, CrewSim.system.GetShipByRegID(snapshot.TargetId)!, Throttle))
-        { AutoNavCore.ResetStatics(); FinishSavedFlight(SavedFlightMode.DockingSuspended); status = Text.Get("NavigationService.insufficient_estimated_delta_v"); return; }
+        {
+            FinishSavedFlight(SavedFlightMode.DockingSuspended);
+            issuing = true;
+            try { AutoNavCore.EndFlight(co.ship, "NO FUEL"); }
+            finally { AutoNavCore.ResetStatics(); issuing = false; }
+            status = Text.Get("NavigationService.insufficient_estimated_delta_v"); return;
+        }
         co.ship.UnlockFromOrbit(); co.ship.objSS.ResetNavData(); Torch.Release();
         snapshot.Mode = SavedFlightMode.Docking; nextDockFitCheck = 0;
         CrewSim.ResetTimeScale(); PersistProgress();

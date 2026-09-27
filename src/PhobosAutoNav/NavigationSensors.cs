@@ -19,7 +19,7 @@ internal sealed partial class NavigationService
         catch (Exception ex) { log(ex.ToString()); }
         finally
         {
-            AutoNavCore.ResetStatics(); issuing = false;
+            AutoNavCore.ResetStatics(); DropCombat(); issuing = false;
             status = persisted ? Text.Get("Sensors.suspended", Text.Get(contact.MessageKey)) : Text.Get("Persistence.write_failed");
         }
         log(status);

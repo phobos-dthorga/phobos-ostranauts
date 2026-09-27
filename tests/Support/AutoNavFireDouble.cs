@@ -32,5 +32,6 @@ internal sealed class FireControlController
     internal bool Owns(string console) => leases.Contains(console);
     internal bool OtherOwner(string console) => leases.Any(id => id != console);
     internal void Observe(Ship ship, TargetRef? target, int group, double dt) { SampleEpoch = StarSystem.fEpoch; }
-    internal void Dispatch(Ship ship, TargetRef? target, bool safe) { }
+    internal bool LastDispatchSafe;
+    internal void Dispatch(Ship ship, TargetRef? target, bool safe) { LastDispatchSafe=safe; }
 }

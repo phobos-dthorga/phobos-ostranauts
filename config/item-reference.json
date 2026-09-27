@@ -26,7 +26,7 @@
             "PhobosPursuitBoard",
             "PhobosPursuitBoardDmg"
           ],
-          "function": "Includes navigation/docking and adds Rendezvous and Follow for moving contacts.",
+          "function": "Includes navigation/docking and adds Rendezvous and Follow for moving contacts. With N3, explicit Combat matches the selected fire target while retaining the previous mission for Resume.",
           "use": "Fit to Polaris and use the Pursuit page. Rendezvous approaches once; Follow maintains a distance band. Stop before changing flight modes. Supported crew work is configured through the [standing-order controls](crew-automation.md); orders begin disabled and retain the existing access and supply requirements.",
           "find": "Build at a supported table or buy the Polaris dealer offer below. The N1 salvage pool does not grant N2.",
           "notes": "N2 does not authorize firing; use N3 for that. Pursuit suspends on reload and cannot guarantee catching a faster ship. Local obstacle avoidance uses tracked contacts; lost tracking requires Resume. Explicit Undock & Depart / Undock & Continue prepare a 1 km hull-gap departure and require every crew member on the company roster aboard; missing or away crew block departure. See [departure and avoidance](auto-nav-departure.md).",

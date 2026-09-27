@@ -228,9 +228,12 @@ public sealed partial class AutoNavPanel : NavModBase
         var actions = Box(parent, "pursuit.actions");
         AddButton(Cell(actions, 0, 2), "rendezvous", Text.Get("Hub.rendezvous"), () => Plugin.Service.StartPursuit(COSelf, false));
         AddButton(Cell(actions, 1, 2), "follow", Text.Get("Hub.follow"), () => Plugin.Service.StartPursuit(COSelf, true));
+        AddButton(Box(parent, "pursuit.combat"), "combat", Text.Get("Combat.enter"), () => Plugin.Service.ToggleCombat(COSelf));
         Setting(parent, "pursuit.cruise", "pursuitCruise", () => DraftSpeed(false,-1), () => DraftSpeed(false,1));
         Setting(parent, "pursuit.separation", "pursuitSeparation", () => DraftArrival(-1), () => DraftArrival(1));
-        labels["pursuitHelp"] = Readout(Box(parent, "pursuit.help"), 24);
+        var help = ScrollBody(Box(parent, "pursuit.help"), "Track instructions", out _);
+        labels["pursuitHelp"] = PanelWidgets.Label(help, "", flowing: true);
+        Style(labels["pursuitHelp"], CommandTextSize);
         labels["pursuitHelp"].textWrappingMode = TextWrappingModes.Normal;
         labels["pursuitHelp"].text = Text.Get("FCS.pursuit_help");
     }
@@ -325,7 +328,7 @@ public sealed partial class AutoNavPanel : NavModBase
         Caption("offensive", view.WorkingFire ? Text.Get("Hub.offensive_target", view.OffensiveTarget) :
             Text.Get(view.WorkingPursuit ? "Hub.n2_ready" : view.WorkingNavigation ? "Hub.n1_ready" : "Hub.module_unavailable"));
         Presentation.Color(labels["offensive"], view.FirePermitted ? Amber : Ink);
-        Caption("operation", isDocking ? Text.Get("Hub.operation." + view.DockProgress) : view.WorkingFire && !view.Active ? view.Ownership : nav.Heading);
+        Caption("operation", view.Combat ? Text.Get("Combat.controller", view.Movement) : isDocking ? Text.Get("Hub.operation." + view.DockProgress) : view.WorkingFire && !view.Active ? view.Ownership : nav.Heading);
         Caption("contact", Text.Get("FCS.contacts", Text.Get("FCS.contact." + view.Contact.State), Text.Get("FCS.contact." + view.FireContact.State)));
         fullWarning = view.Restriction;
         Caption("restriction", fullWarning);
@@ -363,6 +366,10 @@ public sealed partial class AutoNavPanel : NavModBase
             foreach (var button in settings) Presentation.Enabled(button, nav.CanAdjustArrival && view.WorkingNavigation);
         if (page == "pursuit")
         {
+            ButtonCaption("combat", Text.Get(view.Combat ? "Combat.leave" : "Combat.enter"));
+            Enable("combat", view.Combat || !preferencesDirty && view.CanCombat);
+            Caption("pursuitHelp", (view.Active ? view.Movement + "\n" + nav.Range + "\n" + Text.Get("Combat.separation", nav.ArrivalKM,
+                view.EffectiveSeparationKM ?? nav.ArrivalKM) + "\n\n" : "") + Text.Get("FCS.pursuit_help"));
             Caption("pursuitCruise", Text.Get("Hub.cruise_value", nav.CruiseMS));
             Caption("pursuitSeparation", Text.Get("Hub.separation_value", nav.ArrivalKM));
             Enable("rendezvous", !preferencesDirty && nav.CanFly && !nav.Resumable && view.WorkingPursuit);

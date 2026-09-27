@@ -1,5 +1,5 @@
 [h1]Phobos Auto Nav[/h1]
-[b]Version:[/b] 0.21.1
+[b]Version:[/b] 0.22.0
 
 [h2]Performance update[/h2]
 The console refreshes the visible page up to ten times per second and responds immediately to your actions. It no longer checks whole-ship hull fit just to display docking clearance; starting a docking manoeuvre still checks it. Flight and firing safety checks remain current.
@@ -14,7 +14,8 @@ Give Polaris the long approach while you keep an eye on the ship. Asterel module
 [*]N1 handles approaches and docking. Set stopping distance and speed; working sensors, braking room, RCS and fuel are still required.
 [*]N2 includes navigation and adds Rendezvous to match motion once, or Follow to keep pace.
 [*]N3 handles selected weapon groups, limited volleys and optional RCS aiming. Select a fire target separately and lift the cover to Engage.
-[*]Cease Fire stops automatic offensive fire and aiming while Follow can continue. Return to Native releases the hold and can allow normal automatic firing again.
+[*]N2 + N3 add explicit Combat on Track: range matching and weapon facing, with permitted RCS/torch manoeuvres. Select the fire target and aim-reference weapon first. Entering suspends the previous flight; Engage remains separate.
+[*]Cease Fire stops automatic offensive fire and aiming while Follow or Combat range matching can continue. Return to Native exits Combat and releases the hold, which can allow normal automatic firing again. Leave Combat or Disengage retains the previous flight for explicit Resume. Combat never restarts on reload.
 [*]Undock & Depart checks crew, clearance and connections, then moves to at least a 1 km hull gap. Ordinary Fly never disconnects the ship.
 [*]Local avoidance uses tracked contacts. Losing contact releases thrust and requires Resume after contact returns.
 [/list]

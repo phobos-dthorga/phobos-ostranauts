@@ -1,4 +1,4 @@
-# Polaris N3 Fire Control System — Auto Nav 0.13.0
+# Polaris N3 Fire Control System
 
 Prepared 25 September 2026 against Blue Bottle Games' Ostranauts 1.0.1.5.
 This is an implemented, offline-checked candidate. Owner-run gameplay evaluation
@@ -16,7 +16,8 @@ share one hub per console.
 | N1 | Navigation and docking |
 | N2 | Navigation, docking, Rendezvous and Follow |
 | N3 | Weapon observations, limited offensive volleys and optional RCS aiming |
-| N2 + N3 | Follow with coordinated aiming and firing |
+| N2 + N3 | Explicit Combat range matching and coordinated aiming; Engage separately |
+| N1 + N3 | Approach with coordinated aiming; navigation keeps its own destination |
 
 **N2 no longer authorizes firing.** Existing N2 owners must acquire N3; a once-only
 console message explains this change. N1/N2 item IDs, recipes and exact saved
@@ -39,6 +40,8 @@ Polaris merchant has a 60% pristine offer chance. These are gameplay choices,
 not real equipment performance or guaranteed merchant quotes. See the
 [economy guide](auto-nav-economy.md).
 
+Current Auto Nav 0.22.0 adds [explicit Combat and coordinated flight](auto-nav-combat.md).
+
 ## Using Fire
 
 1. Select a qualified contact with the native crosshair, then press **Fire target**
@@ -59,7 +62,7 @@ not real equipment performance or guaranteed merchant quotes. See the
 5. Lift the native cover and **Engage** to capture the volley budget. With Auto
    Aim off, steer and thrust manually; that does not cancel weapons-only firing.
    Kinetic fire can continue with the console closed or another page displayed.
-6. **Cease Fire** immediately ends firing and aiming, retains Follow if active,
+6. **Cease Fire** immediately ends firing and aiming, retains Follow or Combat range matching if active,
    and leaves **FCS Hold**. Budget completion does the same. Only **Return to
    Native** releases the hold; native offensive autofire may then resume.
 
@@ -104,7 +107,7 @@ available. Native projectile lead is retained; unreachable, nonfinite or singula
 native quadratic solutions hold fire.
 
 Auto Aim during coasting commands bounded **RCS rotation only**, never translation,
-torch startup or velocity matching. During N2 Follow it requests attitude through
+torch startup or velocity matching. During Approach, Rendezvous, Follow and Combat it requests attitude through
 the existing guidance arbiter; braking, clearance, control limits and torch
 transitions take priority. Pilot thrust/yaw or manual reactor control while Auto
 Aim is active cancels both aiming and firing. Starting another navigation or
@@ -140,7 +143,7 @@ phobosnav nativefire
 `volley` cycles the budget; `fireweapon` browses the card; `aimweapon` selects that
 card as the reference. Setting changes revoke permission. The UI group picker includes switched-off and damaged installed weapons, with a reason instead of an empty group. F3 numeric selection retains its explicit Return to Native requirement. All routine controls
 remain on Fire, with Cease Fire in the persistent action strip. Short tabs are
-Nav, Track, Fire, Sys and Info; Details/Info contains explanations only.
+Nav, Track, Fire, Sys, Departure and Info; Details/Info contains explanations only.
 
 ## Evidence, provenance and validation
 

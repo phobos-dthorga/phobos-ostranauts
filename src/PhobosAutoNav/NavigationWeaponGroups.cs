@@ -59,6 +59,7 @@ internal sealed partial class NavigationService
         // is synchronous on the native main thread; no native dispatch runs between these steps.
         if (!SaveFirePreferences(ticket.Console, ticket.After, ticket.Volleys, hold))
         { status = Text.Get("Preferences.invalid"); return false; }
+        if (combatActive) Disengage(Text.Get("Combat.left"));
         CeaseFire();
         Fire.SetOwnership(ticket.Console.strID, ticket.Ship, ticket.After, hold);
         fireConsole = ticket.Console; aimReference = viewedWeapon = null; Fire.Invalidate();

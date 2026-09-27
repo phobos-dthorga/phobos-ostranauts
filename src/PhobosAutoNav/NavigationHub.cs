@@ -16,6 +16,9 @@ internal sealed class HubSnapshot
 {
     internal InstrumentSnapshot Navigation = new();
     internal string CompletionCue = "";
+    internal bool Combat, CanCombat;
+    internal string Movement = "";
+    internal double? EffectiveSeparationKM;
     internal SavedFlightMode? Operation;
     internal ContactReading Contact, FireContact;
     internal bool WorkingFire, AutoAiming, FireHeld, CanReturnFire, CanAim, CanChangeGroup;
@@ -61,13 +64,17 @@ internal sealed partial class NavigationService
         view.WorkingNavigation = powered && read.Navigation;
         view.WorkingPursuit = powered && read.Pursuit;
         view.WorkingFire = powered && read.FireModule != null;
-        var flight = read.Flight;
+        view.Combat = combatActive && console == co;
+        view.CanCombat = view.WorkingPursuit && view.WorkingFire && CoordinatedFlight(co);
+        view.Movement = AutoNavCore.Engaged && console == co ? MovementReason() : "";
+        var flight = combatActive && console == co ? savedFlight : read.Flight;
         view.Active = AutoNavCore.Engaged && console == co;
         view.Operation = flight?.Mode;
         var target = read.Target;
         view.Contact = read.Contact(target);
         var own = co.ship;
         var other = target == null ? null : CrewSim.system?.GetShipByRegID(target.ShipId);
+        view.EffectiveSeparationKM = view.Navigation.EffectiveArrivalKM;
         if (powered && view.Contact.Usable && other?.objSS != null && own.objSS != null)
         {
             var offset = new NavVector((other.objSS.vPosx - own.objSS.vPosx) / AutoNavCore.M_TO_AU,
@@ -82,6 +89,12 @@ internal sealed partial class NavigationService
             {
                 view.OwnPort = flight.OwnPort; view.TargetPort = flight.TargetPort;
                 dockingProblem = DockingAdapter.Check(own, other, flight.OwnPort, flight.TargetPort, checkFit: false);
+                if (dockingProblem != null)
+                {
+                    // Current admission is distinct from the earlier event retained in Info.
+                    view.Restriction = view.Navigation.Notice = Text.Get(dockingProblem);
+                    view.Navigation.Warning = true;
+                }
                 view.DockProgress = !view.Active ? DockProgress.Suspended : flight.IsCombinedApproach ? DockProgress.Approach :
                     dockHolding ? DockProgress.Hold : DockProgress.Capture;
             }
@@ -109,7 +122,7 @@ internal sealed partial class NavigationService
         view.CanChangeGroup = view.CanSelectWeapons;
         view.CanReturnFire = validPreferences && view.FireHeld;
         view.CanEngage = (page == null || page == "fire") && view.CanSelectWeapons && boundFire && view.FireContact.Usable && FireHardwareProblem(co, read) == null &&
-            !DockingActive && (!AutoNavCore.Engaged || console == co && AutoNavCore.Following) && freshFire && Fire.Weapons.Any(w => w.Eligible && w.Loaded);
+            CoordinatedFlight(co) && freshFire && Fire.Weapons.Any(w => w.Eligible && w.Loaded);
         view.CanAim = view.CanEngage && AimProblem(co) == null;
         view.Ownership = Text.Get("FCS.state." + (boundFire ? Fire.State : view.FireHeld ? FireState.Hold : FireState.Native));
         view.FireReason = !view.WorkingFire ? Text.Get("FCS.module_required") : Text.Get("FCS.readiness", boundFire ? Text.Get(Fire.Reason) : view.Ownership,

@@ -1,6 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup><OutputType>Exe</OutputType><TargetFramework>net10.0</TargetFramework></PropertyGroup>
   <ItemGroup>
+    <Compile Include="../../src/PhobosAutoNav/NavigationCombat.cs" Link="NavigationCombat.cs" />
     <Compile Include="../../src/PhobosAutoNav/NavigationWeaponGroups.cs" Link="NavigationWeaponGroups.cs" />
     <Compile Include="../../src/PhobosAutoNav/NavigationPresentation.cs" Link="NavigationPresentation.cs" />
     <Compile Include="../../src/PhobosAutoNav/PerformanceMetrics.cs" Link="PerformanceMetrics.cs" />

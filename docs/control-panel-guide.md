@@ -1,6 +1,6 @@
 # Phobos control panels
 
-Framework 0.30.1, Agriculture 0.15.2, Shipbreaker 0.29.1 and Auto Nav 0.21.1
+Framework 0.30.1, Agriculture 0.15.2, Shipbreaker 0.29.1 and Auto Nav 0.22.0
 prepare this interface update. Manufacturing remains a scaffold with no operational
 panel or jobs. These are unpublished development candidates.
 
@@ -142,3 +142,15 @@ six larger tabs, full warning details, an installed-group picker and reversible
 volley adjustment. Industrial Control uses matching native button faces and
 wrapped navigation/actions at narrow widths. Existing Edit/rescue handling,
 settings drafts, ownership checks and emergency controls remain in place.
+
+## Combat on Track (Auto Nav 0.22.0)
+
+Fit working N2 and N3 in the same Polaris console. On Fire, select the tracked
+fire target and choose **Use for aim** on the desired ready weapon. On Track,
+choose **Enter Combat**. The previous flight is suspended; movement matches the
+fire target at your navigation speed/separation. Hull clearance may raise the
+effective separation shown in Track's scrollable instructions. **Engage** on Fire
+is still a separate firing decision. **Cease Fire** leaves range matching active.
+**Leave Combat** stops combat movement; **Resume** deliberately restores the old
+flight. Leave Combat before editing movement settings. See the
+[complete operating and validation notes](auto-nav-combat.md).

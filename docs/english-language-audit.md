@@ -123,3 +123,12 @@ The owner approved smaller secondary text and compact controls following the
 boundary report. The revised 300/400/600-pixel previews retain prominent status,
 use real Departure wording and check scroll containment and access to long text.
 These are layout checks, with native font readability still awaiting owner review.
+
+## Auto Nav 0.22.0 follow-up
+
+Reviewed the new Combat controls and priority/exit messages against the service.
+Current coverage is 1,756 catalogue entries (523 Auto Nav), 146 documents and
+14 other surfaces. New text separates movement, aiming and firing, explains
+effective separation and never promises automatic restart or Artemis firing.
+Existing placeholder, native-token, brand and historical research contracts remain.
+The new Track help uses an inset scroll area; browser evidence is not Unity approval.

@@ -14,6 +14,8 @@ if ($LASTEXITCODE -ne 0) { throw 'Auto Nav flight and layout checks failed.' }
 if ($LASTEXITCODE -ne 0) { throw 'Auto Nav torch control checks failed.' }
 & dotnet run --project (Join-Path $repoRoot 'tests/PhobosAutoNav.Docking.Tests') -c Release "-p:OstranautsPath=$gameRoot"
 if ($LASTEXITCODE -ne 0) { throw 'Auto Nav docking checks failed.' }
+& dotnet run --project (Join-Path $repoRoot 'tests/PhobosAutoNav.Coupled.Tests') -c Release "-p:OstranautsPath=$gameRoot"
+if ($LASTEXITCODE -ne 0) { throw 'Coupled guidance tests failed.' }
 & dotnet run --project (Join-Path $repoRoot 'tests/PhobosAutoNav.Sensors.Tests') -c Release "-p:OstranautsPath=$gameRoot"
 if ($LASTEXITCODE -ne 0) { throw 'Auto Nav live-contact checks failed.' }
 & dotnet run --project (Join-Path $repoRoot 'tests/PhobosAutoNav.Fire.Tests') -c Release "-p:OstranautsPath=$gameRoot"

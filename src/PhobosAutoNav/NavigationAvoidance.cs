@@ -10,7 +10,7 @@ internal sealed partial class NavigationService
     private readonly ObstacleRoute obstacleRoute = new();
     private readonly HashSet<string> previousThreats = new(StringComparer.Ordinal);
     private readonly Dictionary<string, (NavVector Position, double Epoch, NavVector Velocity)> bodyMotion = new();
-    private NavVector cachedHop;
+    private NavVector cachedHop; // Relative to the tracked target, like obstacle velocities.
     private double nextRoute;
     private string routeTarget = "";
     private bool cachedRouted;
@@ -34,7 +34,7 @@ internal sealed partial class NavigationService
             ReadThrottle(industrial?.Console??console!),RcsBudget.CombinedRotationShare,out var limited))
         { x=(float)limited.X;y=(float)limited.Y;turn=0; }
         else x=y=turn=0;
-        CeaseFire();Torch.Cut();status=Text.Get("Avoidance.emergency");
+        avoidanceActive=true; HoldFireForGuidance();Torch.Cut();status=Text.Get("Avoidance.emergency");
     }
     private void SuspendAvoidance()
     {
@@ -163,14 +163,15 @@ internal sealed partial class NavigationService
             if (direct && !imminent && planning.Count <= ObstacleRoute.MaximumObstacles)
             { routeTarget=""; obstacleRoute.Reset(); return false; }
             avoidanceActive = true; if (industrial != null) industrial.Ready=false;
-            CeaseFire(); Torch.Cut();
+            HoldFireForGuidance(); Torch.Cut();
             var worldOwn = new NavVector(a.vPosx/AutoNavCore.M_TO_AU,a.vPosy/AutoNavCore.M_TO_AU);
-            NavVector hop = cachedHop-worldOwn;
+            var worldTarget = new NavVector(b.vPosx/AutoNavCore.M_TO_AU,b.vPosy/AutoNavCore.M_TO_AU);
+            NavVector hop = cachedHop + worldTarget - worldOwn;
             bool routed = cachedRouted && planning.Count <= ObstacleRoute.MaximumObstacles;
             if (routeTarget != targetId || StarSystem.fEpoch >= nextRoute || hop.Length < 25 || !ObstacleRoute.Clear(default,hop,planning))
             {
                 routed = planning.Count <= ObstacleRoute.MaximumObstacles && obstacleRoute.Plan(goal,planning,out hop); cachedRouted=routed;
-                cachedHop = worldOwn+hop; nextRoute=StarSystem.fEpoch+1; routeTarget=targetId;
+                cachedHop = worldOwn+hop-worldTarget; nextRoute=StarSystem.fEpoch+1; routeTarget=targetId;
             }
             avoidanceBlocked=!routed;
             double speed = routed ? Math.Min(DockingRules.CruiseMS,Math.Sqrt(Math.Max(0,hop.Length*acceleration*.25))) : 0;

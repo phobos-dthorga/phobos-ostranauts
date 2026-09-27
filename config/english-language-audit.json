@@ -10315,8 +10315,8 @@
       "mod": "PhobosAutoNav",
       "key": "FCS.aim_unavailable",
       "category": "status/warning",
-      "decision": "retain",
-      "reason": "Retain: clear functional label, operational instruction or necessary safety/detail constraint; no forced personality.",
+      "decision": "rewrite",
+      "reason": "0.22.0: reviewed coordinated navigation and Combat commands against implemented permission, exit and reload behaviour.",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosAutoNav/NavigationPursuit.cs:131",
@@ -10325,7 +10325,7 @@
         "src/PhobosAutoNav/NavigationPursuit.cs:199"
       ],
       "before": "Auto Aim requires RCS coasting or N2 Follow.",
-      "after": "Auto Aim requires RCS coasting or N2 Follow."
+      "after": "Auto Aim needs free RCS control or compatible Auto Nav flight. Docking, departure and industrial movement take priority."
     },
     {
       "mod": "PhobosAutoNav",
@@ -10489,27 +10489,27 @@
       "mod": "PhobosAutoNav",
       "key": "FCS.pursuit_help",
       "category": "help/settings",
-      "decision": "retain",
-      "reason": "Retain: clear functional label, operational instruction or necessary safety/detail constraint; no forced personality.",
+      "decision": "rewrite",
+      "reason": "0.22.0: reviewed coordinated navigation and Combat commands against implemented permission, exit and reload behaviour.",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosAutoNav/AutoNavPanel.cs:180"
       ],
       "before": "Rendezvous and Follow require N2.\n\nRendezvous matches motion and finishes. Follow maintains separation.\n\nWeapons and optional aiming require N3 on the Fire page.",
-      "after": "Rendezvous and Follow require N2.\n\nRendezvous matches motion and finishes. Follow maintains separation.\n\nWeapons and optional aiming require N3 on the Fire page."
+      "after": "Rendezvous matches motion and finishes. Follow maintains separation. Both require N2.\n\nCombat requires N2 + N3. Select a fire target and Use for aim on the Fire tab first. Enter Combat uses the speed and separation above, suspends the previous flight, and starts range matching and aiming. Engage weapons separately.\n\nBraking, traffic avoidance and torch manoeuvres take priority over weapon facing. Cease Fire stops aiming and firing while range matching continues. Leave Combat to change movement settings; Resume the previous flight explicitly."
     },
     {
       "mod": "PhobosAutoNav",
       "key": "FCS.help",
       "category": "help/settings",
       "decision": "rewrite",
-      "reason": "2026-09-27 Polaris review: current group picker, explicit native handoff warning and two-way volley controls; no promise of unsupported missile firing.",
+      "reason": "0.22.0: reviewed coordinated navigation and Combat commands against implemented permission, exit and reload behaviour.",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosAutoNav/NavigationPursuit.cs:43"
       ],
       "before": "N3 Fire Control System: select a qualified offensive target and one native weapon group. Volleys (1–9) counts successful native batches, not projectiles or ammunition units; each batch contains the weapons ready at that instant. Engage requires the guarded switch. Weapons can operate during manual flight with Auto Aim off.\n\nAuto Aim is a separate permission for RCS rotation while coasting, or a heading request during N2 Follow. Choose a weapon with Weapon > and Use for aim. Pilot thrust/yaw cancels aiming and firing. Braking and clearance take priority.\n\nCease Fire and volley completion retain offensive hold and stop Auto Aim; Follow continues. Return to Native explicitly releases the group and may allow native autofire. Defensive PDCs and deliberate manual fire remain native. Release the old group before changing groups.\n\nReload retains offensive hold only: targets, firing permission, remaining volleys and live aiming are never restored. Missing/stale readings are unavailable. Missiles require native automatic eligibility and a full native lock; decoys are excluded. No promised hit probability, intact boarding or crew survival. Native map, sensors and specialist weapon settings remain separate.",
-      "after": "Select a tracked fire target and one weapon group. Volleys (1–9) counts successful firing batches: each batch fires the weapons ready at that moment, not one projectile per weapon. Lift the cover to Engage. With Auto Aim off, weapons can operate while you fly manually.\n\nAuto Aim permits RCS turning while coasting, or requests a heading during N2 Follow. Choose a weapon with Weapon > and Use for aim. When aiming is active, pilot thrust or turning cancels aiming and firing. Braking and clearance take priority.\n\nCease Fire or the end of a volley order stops Auto Aim and keeps offensive fire on hold. Follow can continue. Return to Native releases the hold and may allow normal automatic firing again. Defensive PDCs and deliberate manual fire still work normally. Choose an installed group from the picker. If FCS holds the old group, confirm its return to native control; the new group stays on hold. Left-click Volleys to increase; right-click to decrease. Both wrap between 1 and 9. Switched-off and damaged weapons remain listed but cannot fire.\n\nLoading a save keeps fire on hold. It does not restore targets, firing permission, remaining volleys or aiming. Missing or stale readings mean unavailable. Missiles need permission for automatic fire and a full lock; decoys are excluded. Hits, intact boarding and crew survival are never guaranteed. Use the map, sensors and specialist weapon settings as usual."
+      "after": "Select a tracked fire target and one weapon group. Volleys (1–9) counts successful firing batches: each batch fires the weapons ready at that moment, not one projectile per weapon. Lift the cover to Engage. With Auto Aim off, weapons can operate while you fly manually.\n\nAuto Aim permits RCS turning while coasting, or requests a heading during Approach, Rendezvous, Follow or Combat. Choose a weapon with Weapon > and Use for aim. When aiming is active, pilot thrust or turning cancels aiming and firing. Braking and clearance take priority.\n\nCease Fire or the end of a volley order stops Auto Aim and keeps offensive fire on hold. Follow and Combat range matching can continue. Return to Native exits Combat and releases the hold and may allow normal automatic firing again. Defensive PDCs and deliberate manual fire still work normally. Choose an installed group from the picker. If FCS holds the old group, confirm its return to native control; the new group stays on hold. Left-click Volleys to increase; right-click to decrease. Both wrap between 1 and 9. Switched-off and damaged weapons remain listed but cannot fire.\n\nLoading a save keeps fire on hold. It does not restore targets, firing permission, remaining volleys or aiming. Missing or stale readings mean unavailable. Missiles need permission for automatic fire and a full lock; decoys are excluded. Hits, intact boarding and crew survival are never guaranteed. Use the map, sensors and specialist weapon settings as usual."
     },
     {
       "mod": "PhobosAutoNav",
@@ -35027,6 +35027,202 @@
       ],
       "before": "Volleys {0}  L+ / R-",
       "after": "Volleys {0}  L+ / R-"
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "Combat.enter",
+      "category": "control/status/help",
+      "decision": "new",
+      "reason": "Reviewed against Combat service: explicit movement/aiming/fire separation, actual blockers and preserved mission; no unsupported promises.",
+      "trace": "literal or movement-reason family",
+      "references": [
+        "src/PhobosAutoNav/NavigationCombat.cs",
+        "src/PhobosAutoNav/AutoNavPanel.cs"
+      ],
+      "before": "Enter Combat",
+      "after": "Enter Combat"
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "Combat.leave",
+      "category": "control/status/help",
+      "decision": "new",
+      "reason": "Reviewed against Combat service: explicit movement/aiming/fire separation, actual blockers and preserved mission; no unsupported promises.",
+      "trace": "literal or movement-reason family",
+      "references": [
+        "src/PhobosAutoNav/NavigationCombat.cs",
+        "src/PhobosAutoNav/AutoNavPanel.cs"
+      ],
+      "before": "Leave Combat",
+      "after": "Leave Combat"
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "Combat.left",
+      "category": "control/status/help",
+      "decision": "new",
+      "reason": "Reviewed against Combat service: explicit movement/aiming/fire separation, actual blockers and preserved mission; no unsupported promises.",
+      "trace": "literal or movement-reason family",
+      "references": [
+        "src/PhobosAutoNav/NavigationCombat.cs",
+        "src/PhobosAutoNav/AutoNavPanel.cs"
+      ],
+      "before": "Combat movement stopped. Resume the previous flight when ready.",
+      "after": "Combat movement stopped. Resume the previous flight when ready."
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "Combat.unavailable",
+      "category": "control/status/help",
+      "decision": "new",
+      "reason": "Reviewed against Combat service: explicit movement/aiming/fire separation, actual blockers and preserved mission; no unsupported promises.",
+      "trace": "literal or movement-reason family",
+      "references": [
+        "src/PhobosAutoNav/NavigationCombat.cs",
+        "src/PhobosAutoNav/AutoNavPanel.cs"
+      ],
+      "before": "Combat needs working N2 and N3 in this console, a clear flight controller and the pilot at the controls.",
+      "after": "Combat needs working N2 and N3 in this console, a clear flight controller and the pilot at the controls."
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "Combat.select",
+      "category": "control/status/help",
+      "decision": "new",
+      "reason": "Reviewed against Combat service: explicit movement/aiming/fire separation, actual blockers and preserved mission; no unsupported promises.",
+      "trace": "literal or movement-reason family",
+      "references": [
+        "src/PhobosAutoNav/NavigationCombat.cs",
+        "src/PhobosAutoNav/AutoNavPanel.cs"
+      ],
+      "before": "On Fire, select a tracked target and choose Use for aim on a ready weapon first.",
+      "after": "On Fire, select a tracked target and choose Use for aim on a ready weapon first."
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "Combat.entered",
+      "category": "control/status/help",
+      "decision": "new",
+      "reason": "Reviewed against Combat service: explicit movement/aiming/fire separation, actual blockers and preserved mission; no unsupported promises.",
+      "trace": "literal or movement-reason family",
+      "references": [
+        "src/PhobosAutoNav/NavigationCombat.cs",
+        "src/PhobosAutoNav/AutoNavPanel.cs"
+      ],
+      "before": "Combat range matching and aiming active. Engage weapons separately.",
+      "after": "Combat range matching and aiming active. Engage weapons separately."
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "Combat.ended",
+      "category": "control/status/help",
+      "decision": "new",
+      "reason": "Reviewed against Combat service: explicit movement/aiming/fire separation, actual blockers and preserved mission; no unsupported promises.",
+      "trace": "literal or movement-reason family",
+      "references": [
+        "src/PhobosAutoNav/NavigationCombat.cs",
+        "src/PhobosAutoNav/AutoNavPanel.cs"
+      ],
+      "before": "Combat stopped: contact, equipment or operator changed. Check the ship before entering Combat again.",
+      "after": "Combat stopped: contact, equipment or operator changed. Check the ship before entering Combat again."
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "Combat.avoiding",
+      "category": "control/status/help",
+      "decision": "new",
+      "reason": "Reviewed against Combat service: explicit movement/aiming/fire separation, actual blockers and preserved mission; no unsupported promises.",
+      "trace": "literal or movement-reason family",
+      "references": [
+        "src/PhobosAutoNav/NavigationCombat.cs",
+        "src/PhobosAutoNav/AutoNavPanel.cs"
+      ],
+      "before": "Avoiding traffic",
+      "after": "Avoiding traffic"
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "Combat.docking",
+      "category": "control/status/help",
+      "decision": "new",
+      "reason": "Reviewed against Combat service: explicit movement/aiming/fire separation, actual blockers and preserved mission; no unsupported promises.",
+      "trace": "literal or movement-reason family",
+      "references": [
+        "src/PhobosAutoNav/NavigationCombat.cs",
+        "src/PhobosAutoNav/AutoNavPanel.cs"
+      ],
+      "before": "Docking alignment",
+      "after": "Docking alignment"
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "Combat.braking",
+      "category": "control/status/help",
+      "decision": "new",
+      "reason": "Reviewed against Combat service: explicit movement/aiming/fire separation, actual blockers and preserved mission; no unsupported promises.",
+      "trace": "literal or movement-reason family",
+      "references": [
+        "src/PhobosAutoNav/NavigationCombat.cs",
+        "src/PhobosAutoNav/AutoNavPanel.cs"
+      ],
+      "before": "Braking",
+      "after": "Braking"
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "Combat.aligning",
+      "category": "control/status/help",
+      "decision": "new",
+      "reason": "Reviewed against Combat service: explicit movement/aiming/fire separation, actual blockers and preserved mission; no unsupported promises.",
+      "trace": "literal or movement-reason family",
+      "references": [
+        "src/PhobosAutoNav/NavigationCombat.cs",
+        "src/PhobosAutoNav/AutoNavPanel.cs"
+      ],
+      "before": "Flight alignment",
+      "after": "Flight alignment"
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "Combat.matching",
+      "category": "control/status/help",
+      "decision": "new",
+      "reason": "Reviewed against Combat service: explicit movement/aiming/fire separation, actual blockers and preserved mission; no unsupported promises.",
+      "trace": "literal or movement-reason family",
+      "references": [
+        "src/PhobosAutoNav/NavigationCombat.cs",
+        "src/PhobosAutoNav/AutoNavPanel.cs"
+      ],
+      "before": "Range matching",
+      "after": "Range matching"
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "Combat.controller",
+      "category": "control/status/help",
+      "decision": "new",
+      "reason": "Reviewed against Combat service: explicit movement/aiming/fire separation, actual blockers and preserved mission; no unsupported promises.",
+      "trace": "literal or movement-reason family",
+      "references": [
+        "src/PhobosAutoNav/NavigationCombat.cs",
+        "src/PhobosAutoNav/AutoNavPanel.cs"
+      ],
+      "before": "COMBAT: {0}",
+      "after": "COMBAT: {0}"
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "Combat.separation",
+      "category": "control/status/help",
+      "decision": "new",
+      "reason": "Reviewed against Combat service: explicit movement/aiming/fire separation, actual blockers and preserved mission; no unsupported promises.",
+      "trace": "literal or movement-reason family",
+      "references": [
+        "src/PhobosAutoNav/NavigationCombat.cs",
+        "src/PhobosAutoNav/AutoNavPanel.cs"
+      ],
+      "before": "Separation {0:0.##} km; effective {1:0.##} km.",
+      "after": "Separation {0:0.##} km; effective {1:0.##} km."
     }
   ],
   "documents": [
@@ -35199,7 +35395,8 @@
       "path": "docs/auto-nav-docking.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "04117e55a6a252cef5de3e17e4a2857a5b053bbdd4461473bf6cb1bd46ee1686"
+      "sha256": "70a4a522c945e286643e46ab56b20cd282887cfd05c484607bbd4bf45f30a8a6",
+      "review": "2026-09-27 Auto Nav 0.22.0: reviewed controls, version, preserved research and unverified live handling; no promised automatic firing or resume."
     },
     {
       "path": "docs/auto-nav-economy.md",
@@ -35211,8 +35408,8 @@
       "path": "docs/auto-nav-fire-control.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "727891ae925638eb9480501e3c7fce4ea80191e25242f7b3767cf5e5f8c9c209",
-      "review": "2026-09-27 Polaris review: checked revised controls, versions, generated reference evidence and limitations; preserved scientific attribution and historical records."
+      "sha256": "2db293132705b6d056ca0a0872f41dbf1be8187bf6b88a9e4fb9594305f5e4e2",
+      "review": "2026-09-27 Auto Nav 0.22.0: reviewed controls, version, preserved research and unverified live handling; no promised automatic firing or resume."
     },
     {
       "path": "docs/auto-nav-flight-profiles.md",
@@ -35236,8 +35433,8 @@
       "path": "docs/auto-nav-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "180e9fe3600be46576c959a968e7b8604f67f5b5002a845e39d1ce59436a41fa",
-      "review": "2026-09-27 Polaris review: checked revised controls, versions, generated reference evidence and limitations; preserved scientific attribution and historical records."
+      "sha256": "420329ea61522469f7c2fcc4b94ce767003395800ea2b27a3a5031394d5aa92b",
+      "review": "2026-09-27 Auto Nav 0.22.0: reviewed current Combat/docking instructions and regenerated references; historical evidence and behavioural limits preserved."
     },
     {
       "path": "docs/auto-nav-outstanding-audit.md",
@@ -35267,7 +35464,8 @@
       "path": "docs/auto-nav-pursuit.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "d120fd21d2d271ccef4c9c2daac50cfd289499a7d882ab7fa61c02c4e5f2b1d4"
+      "sha256": "ef7d726a996ee45fe4dfd93f0146039e911eeac94e75ae8cedeaed5df0c9f014",
+      "review": "2026-09-27 Auto Nav 0.22.0: reviewed controls, version, preserved research and unverified live handling; no promised automatic firing or resume."
     },
     {
       "path": "docs/auto-nav-reclamation-validation.md",
@@ -35321,8 +35519,8 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "5c9ba7849ef80c8f7c28f3749d81e5f8492d8e1190d2410d1f8fb5f13ef0b3f0",
-      "review": "2026-09-27 Polaris review: checked revised controls, versions, generated reference evidence and limitations; preserved scientific attribution and historical records."
+      "sha256": "9cc27f449ed8f6e0c70fec3cb0b425fd62669baaf951a1ffaca1f002a70f62ae",
+      "review": "2026-09-27 Auto Nav 0.22.0: reviewed controls, version, preserved research and unverified live handling; no promised automatic firing or resume."
     },
     {
       "path": "docs/crew-automation.md",
@@ -35651,8 +35849,8 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "d1e60720e771b7642c5b7555ec1e9ea0394d2d82f6805f730ff339f58e84cdaf",
-      "review": "2026-09-27 Polaris review: checked revised controls, versions, generated reference evidence and limitations; preserved scientific attribution and historical records."
+      "sha256": "8d70a094a4c24fe7a40ba052023aa94aaf648f964ca073d4441ef39adcae3060",
+      "review": "2026-09-27 Auto Nav 0.22.0: reviewed controls, version, preserved research and unverified live handling; no promised automatic firing or resume."
     },
     {
       "path": "docs/powered-shipbreaking-design-findings.md",
@@ -35863,8 +36061,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "6b13b2b62bced2646e034ef7d098889cc3bdcd7aff6954efad04e1078de131fe",
-      "review": "2026-09-27 Polaris review: checked revised controls, versions, generated reference evidence and limitations; preserved scientific attribution and historical records."
+      "sha256": "121ad68a0eea54c41469e5701417028aa874972b60f877fea74ef712c301cc24",
+      "review": "2026-09-27 Auto Nav 0.22.0: reviewed controls, version, preserved research and unverified live handling; no promised automatic firing or resume."
     },
     {
       "path": "SUPPORT.md",
@@ -35883,8 +36081,8 @@
       "path": "workshop/PhobosAutoNav/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "ad9eaccb5ec5a6493d3f7cf5304409cc55e32a146d378bb13d86ea81be134a9c",
-      "review": "2026-09-27 Polaris review: checked revised controls, versions, generated reference evidence and limitations; preserved scientific attribution and historical records."
+      "sha256": "1c1127965681699be25b1f7d67b02eceb028eec904d87fa4a0b78f7c03cfc6fc",
+      "review": "2026-09-27 Auto Nav 0.22.0: reviewed controls, version, preserved research and unverified live handling; no promised automatic firing or resume."
     },
     {
       "path": "workshop/PhobosFramework/page.bbcode",
@@ -35911,8 +36109,8 @@
       "path": "docs/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "5ea9d290e3dbd9973cdae21787db52551e90a30e6e361fffa3cf1f1c6bc14cd5",
-      "review": "2026-09-27 Polaris review: checked revised controls, versions, generated reference evidence and limitations; preserved scientific attribution and historical records."
+      "sha256": "453f3a03e0c45ba2e9aa8117807bce2c5630deb2bc031f707ac2cf85fb9db394",
+      "review": "2026-09-27 Auto Nav 0.22.0: reviewed current Combat/docking instructions and regenerated references; historical evidence and behavioural limits preserved."
     },
     {
       "path": "docs/polaris-interface-refresh.md",
@@ -35920,14 +36118,21 @@
       "decision": "add",
       "sha256": "7739642ab8e1a6b4ca49ddbb87b5b8600ad9f0e1fbc4fb3add958c528caa61e3",
       "review": "2026-09-27 Polaris review: checked revised controls, versions, generated reference evidence and limitations; preserved scientific attribution and historical records."
+    },
+    {
+      "path": "docs/auto-nav-combat.md",
+      "scope": "current player instructions and explicit technical validation record",
+      "decision": "review new Combat guide and preserve native evidence",
+      "sha256": "7c03997de578c7f5c91cda975cc432240f465c11fd5f6d18911606ff494031cf",
+      "review": "2026-09-27 Auto Nav 0.22.0: reviewed current Combat/docking instructions and regenerated references; historical evidence and behavioural limits preserved."
     }
   ],
   "surfaces": [
     {
       "path": "config/item-reference.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "85c2be1f95c8d19273e7b6bfb40811a03958710fb0586f672ca204f8551cd18d",
-      "review": "2026-09-27 Polaris review: checked revised controls, versions, generated reference evidence and limitations; preserved scientific attribution and historical records."
+      "sha256": "5af8e404db4ef7f7d3a1d0100b478e64fb097eed29ed523d8cc6cff8180a80c6",
+      "review": "2026-09-27 Auto Nav 0.22.0: reviewed controls, version, preserved research and unverified live handling; no promised automatic firing or resume."
     },
     {
       "path": "mods/PhobosAgriculture/framework/equipment-names.json",
@@ -35963,8 +36168,8 @@
     {
       "path": "mods/PhobosAutoNav/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "13098e39217b1ff58f40cadbf120edcf0b694ea86d6ec8731e5dec7c9ee3f633",
-      "review": "2026-09-27 Polaris review: checked revised controls, versions, generated reference evidence and limitations; preserved scientific attribution and historical records."
+      "sha256": "885f5880d2be029f588a3e1c4d91718db4ff61096f66dce893a1e3b6707838ed",
+      "review": "2026-09-27 Auto Nav 0.22.0: reviewed controls, version, preserved research and unverified live handling; no promised automatic firing or resume."
     },
     {
       "path": "mods/PhobosFramework/framework/equipment-names.json",

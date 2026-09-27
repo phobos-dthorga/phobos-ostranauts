@@ -10,6 +10,9 @@ namespace PhobosAutoNav;
 internal sealed partial class NavigationService
 {
     partial void ResetPursuit();
+    partial void HoldFireForGuidance();
+    partial void ResetCombatSession();
+    partial void ReadExclusiveMovement(ref bool exclusive);
     partial void ResetExtended();
     partial void StopExtended(string reason);
     partial void CrewResumePolicy(CondOwner co, ref bool permitted);
@@ -21,6 +24,17 @@ internal sealed partial class NavigationService
     internal bool avoidanceActive, avoidanceBlocked;
     internal string avoidanceNotice = "";
     private FlightSnapshot? savedFlight;
+    // Combat never replaces the saved mission. Only this session owns its movement intent.
+    private bool combatActive;
+    private FlightSnapshot? combatPrevious;
+    internal bool CombatActive => combatActive;
+    internal string ControlDiagnostic => $"controller={(combatActive ? "Combat" : industrial != null ? "Industrial" : savedFlight?.Mode.ToString() ?? "None")} console={console?.strID ?? "none"} reason={status}";
+    private void DropCombat()
+    {
+        if (!combatActive) return;
+        combatActive = false; savedFlight = combatPrevious; combatPrevious = null;
+        ResetCombatSession();
+    }
     private readonly Phobos.Ostranauts.Framework.Audio.CompletionWatch arrivalWatch = new();
     private bool restorePending;
     private bool combinedHandoffPending;
@@ -31,6 +45,7 @@ internal sealed partial class NavigationService
     // world's snapshot or send a maneuver into a world being torn down.
     internal void WorldChanging()
     {
+        DropCombat();
         ResetExtended(); avoidanceActive = avoidanceBlocked = false;
         industrial = null; industrialNotice = Text.Get("Persistence.loading");
         arrivalWatch.Cancel(); ResetPursuit(); Fire.Reset(); Torch.Reset(); AutoNavCore.ResetStatics(); console = null; savedFlight = null;
@@ -117,6 +132,7 @@ internal sealed partial class NavigationService
 
     private void PersistProgress()
     {
+        if (combatActive) { if (!AutoNavCore.Engaged) { CeaseFire(); DropCombat(); } return; }
         if (savedFlight == null || console == null || console.bDestroyed || savedFlight.ConsoleId != console.strID) return;
         savedFlight.ElapsedSeconds = AutoNavCore.ElapsedSeconds;
         savedFlight.Coasting = AutoNavCore.Coasting;
@@ -139,6 +155,7 @@ internal sealed partial class NavigationService
 
     private bool FinishSavedFlight(SavedFlightMode mode)
     {
+        if (combatActive) return true; // Previous mission was suspended before control transferred.
         arrivalWatch.Cancel();
         if (mode == SavedFlightMode.Stopped) combinedHandoffPending = false;
         try

@@ -100,8 +100,9 @@ f = Setup(210); Check(!DockingAdapter.Attach(f.Console, f.Target, "own", "wrong"
 f.Target.objSS.vVelX = AutoNavCore.M_TO_AU;
 Check(!DockingAdapter.Attach(f.Console,f.Target,"own","assigned",1,.1), "Attachment boundary independently rejects motion");
 
-f = Setup(); f.Console.ship.DeltaVRemainingRCS = 0; f.Service.Dock(f.Console);
+f = Setup(); f.Console.ship.Maneuver(.2f,.1f,0,0,.1f); f.Console.ship.DeltaVRemainingRCS = 0; f.Service.Dock(f.Console);
 Check(!AutoNavCore.Engaged && Read(f.Console).Mode == SavedFlightMode.DockingSuspended, "Actual RCS budget gates docking even inside ordinary Fly arrival radius");
+Check(f.Console.ship.LastX == 0 && f.Console.ship.LastY == 0, "Fuel rejection after acquiring docking intent clears residual thrust before dropping ownership");
 f = Setup(); f.Service.Dock(f.Console);
 var stored = Read(f.Console); var encoded = stored.Encode(); encoded.Remove("targetPort");
 Check(!FlightSnapshot.TryDecode(encoded, out _), "Docking record missing a port is protected");
@@ -299,6 +300,23 @@ foreach(var mode in new[]{SavedFlightMode.Active,SavedFlightMode.Rendezvous,Save
     Check(!f.Service.ObstacleBurnAllowed(f.Console.ship,5,1),"Detours inhibit torch for "+mode);
     NativeContactReader.State=ContactState.Weak;f.Service.GuardNavigation(.5);
     Check(!AutoNavCore.Engaged&&f.Console.ship.LastX==0&&f.Console.ship.LastY==0,"Contact loss releases thrust for "+mode);
+}
+// Coupled pre-physics guard, terminal service, native kinematics, post-physics attachment.
+foreach(double dt in new[]{.02,.1,.5,1d})
+foreach(double mirror in new[]{-1d,1d})
+{
+    f=Setup(2000);var own=f.Console.ship;
+    f.Target.objSS.vPosx=mirror*600*AutoNavCore.M_TO_AU;
+    own.objSS.fRot=(float)(mirror*.7);own.objSS.vVelX=mirror*2*AutoNavCore.M_TO_AU;
+    f.Service.Dock(f.Console);int avoided=0;
+    for(double t=0;t<1800&&AutoNavCore.Engaged;t+=dt)
+    {
+        if(f.Service.GuardNavigation(dt))avoided++;
+        else f.Service.TickDocking(CrewSim.system,dt,false);
+        own.objSS.Integrate(dt);f.Target.objSS.Integrate(dt);StarSystem.fEpoch+=dt;
+        if(!f.Service.avoidanceActive)f.Service.TickDocking(CrewSim.system,dt,true);
+    }
+    Check(CrewSim.AttachCalls==1,$"Coupled docking converges dt={dt} mirror={mirror} avoided={avoided} reason={f.Service.Diagnostic} x={own.objSS.vPosx/AutoNavCore.M_TO_AU} y={own.objSS.vPosy/AutoNavCore.M_TO_AU}");
 }
 Console.WriteLine($"{count} docking/industrial assertions passed. Numerical and native-boundary doubles; no in-game testing.");
 internal enum LegacyMode { Active, Suspended, Stopped, Arrived }

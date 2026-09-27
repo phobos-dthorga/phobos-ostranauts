@@ -171,6 +171,7 @@ namespace PhobosAutoNav
     }
     internal sealed class NavigationService
     {
+        internal string ControlDiagnostic => "test boundary";
         internal TorchDriveController Torch = new();
         internal float Throttle { get; set; } = 1;
     }

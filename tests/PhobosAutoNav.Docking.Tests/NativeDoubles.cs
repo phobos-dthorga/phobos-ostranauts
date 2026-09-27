@@ -14,10 +14,10 @@ internal sealed class CrewSim
     internal static Action? DuringDetach=null;
     internal static void UnMoorShip(Ship own,Ship peer) { DetachCalls++;DuringDetach?.Invoke();own.Attached=own.Moored=false;own.Attachments.Clear();own.Items.RemoveAll(c=>c.strID.StartsWith("MP|"));peer.Items.RemoveAll(c=>c.strID.StartsWith("MP|")); }
     internal static void UndockShip(Ship own,Ship peer,bool pushback) { DetachCalls++;DuringDetach?.Invoke();own.Attached=false;own.Attachments.Clear(); }
-    internal static bool Paused;
+    internal static bool Paused=false;
     internal bool FinishedLoading;
     internal static int AttachCalls;
-    internal static Action? DuringAttach;
+    internal static Action? DuringAttach=null;
     internal static string? LastOwnPort, LastTargetPort;
     internal static void ResetTimeScale() { }
     internal static CondOwner GetSelectedCrew() => coPlayer;
@@ -37,7 +37,7 @@ internal sealed class StarSystem
 internal sealed class BodyOrbit { internal string strName="body";internal double dXReal=0,dYReal=0,fRadius=0;internal bool IsAsteroidField=false;internal int nDrawFlagsBody=0; }
 internal sealed class JsonItem { internal string strID=""; }
 internal sealed class JsonShip { internal JsonItem[] aItems=Array.Empty<JsonItem>(); }
-public sealed class Ship
+public sealed partial class Ship
 {
     internal enum Loaded { Shallow,Edit,Full }
     internal Loaded LoadState=Loaded.Full;
@@ -77,13 +77,28 @@ public sealed class Ship
     { if (earlyOut) throw new Exception("Must check all pairs for assigned port"); FitChecks++; return Pairs; }
     internal IEnumerable<CondOwner> GetCOs(object? filter, bool bSubObjects, bool bAllowDocked, bool bAllowLocked) => Items;
     internal void UnlockFromOrbit() { }
-    internal void Maneuver(float x, float y, float turn, int noise, float dt) { LastX = x; LastY = y; LastTurn = turn; }
+    internal void Maneuver(float x, float y, float turn, int noise, float dt)
+    {
+        Plugin.Service?.FilterAvoidanceCommand(this, ref x, ref y, ref turn, dt);
+        LastX = x; LastY = y; LastTurn = turn;
+        objSS.vAccRCS = new UnityEngine.Vector2 { x = (x*Math.Cos(objSS.fRot)-y*Math.Sin(objSS.fRot))*RCSAccelMax,
+            y = (x*Math.Sin(objSS.fRot)+y*Math.Cos(objSS.fRot))*RCSAccelMax };
+        if (Math.Abs(objSS.fW)>1e-7 && objSS.fW*(objSS.fW+turn*dt)<0) objSS.fW=0;
+        else { objSS.fW+=turn*dt; objSS.fA=turn; }
+    }
 }
-internal sealed class ShipSitu
+internal sealed partial class ShipSitu
 {
     internal UnityEngine.Vector2 vAccRCS = default;
     internal double vPosx = 0, vPosy = 0, vVelX = 0, vVelY = 0;
-    internal float fRot = 0, fW = 0;
+    internal float fRot = 0, fW = 0, fA = 0;
+    internal void Integrate(double dt)
+    {
+        vPosx+=vVelX*dt+vAccRCS.x*dt*dt/2;vPosy+=vVelY*dt+vAccRCS.y*dt*dt/2;
+        vVelX+=vAccRCS.x*dt;vVelY+=vAccRCS.y*dt;
+        fRot+=(float)(fW*dt+fA*dt*dt/2);
+        float previous=fW;fW+=fA*(float)dt;if(previous*fW<0){fW=0;fA=0;}
+    }
     internal double GetRadiusAU()=>100*AutoNavCore.M_TO_AU;
     internal void ResetNavData() { }
 }
@@ -120,11 +135,11 @@ internal sealed class GUIDockSys
     internal void CheckForCrimeIllegalSalvagingOKLG(string target, CondOwner player) { }
 }
 internal sealed class Signal { internal int Count; internal void Invoke(string target) { Count++; } }
-internal static class CollisionManager
+internal static partial class CollisionManager
 {
     internal static float GetCollisionDistanceAU(Ship own, Ship target) => (float)(200 * AutoNavCore.M_TO_AU);
 }
-internal static class GUIOrbitDraw
+internal sealed partial class GUIOrbitDraw
 {
     internal sealed class Contact { internal Ship? Ship; }
     internal static Contact? CrossHairTarget;
@@ -157,19 +172,21 @@ internal static class BeatManager { internal static void AutoSaveBeforePirateEnc
 namespace PhobosAutoNav
 {
     internal sealed class Setting<T> { internal T Value; internal Setting(T value) { Value = value; } }
-    internal static class Plugin
+    internal static partial class Plugin
     {
         internal static NavigationService? Service;
         internal static Setting<bool> Enabled = new(true), ResumeAfterLoad = new(true), FuelCheck = new(true), PreferTorch = new(false);
-        internal static Setting<double> MaxFlightSimHours = new(48), MaximumStepSeconds=new(1);
+        internal static Setting<float> MaxFlightSimHours = new(48);
+        internal static Setting<double> MaximumStepSeconds=new(1);
         internal static CoastSettings ReadCoastSettings() => new(3,10,.75,2);
     }
     internal static class Text { internal static string Get(string key, params object[] values) => key; }
-    internal sealed class TargetRef
+    internal sealed partial class TargetRef
     {
         internal string ShipId = "target", DisplayName = "target";
         internal static TargetRef? FromShipId(string id) => CrewSim.system.GetShipByRegID(id) == null ? null : new() { ShipId = id };
     }
+    #if !COUPLED
     internal static class AutoNavCore
     {
         internal const double M_TO_AU = 6.684587122268445E-12;
@@ -194,7 +211,8 @@ namespace PhobosAutoNav
             double dx = other.objSS.vPosx-own.objSS.vPosx, dy = other.objSS.vPosy-own.objSS.vPosy;
             speed = 0; return ApproachRules.TryPlan(Math.Sqrt(dx*dx+dy*dy)/M_TO_AU/1000, distance, .2, out plan); }
     }
-    internal sealed class TorchDouble { internal bool ControlsChanged=>false;internal void Cut() {} internal void Release() { } internal void Reset() { } }
+    #endif
+    internal sealed partial class TorchDouble { internal bool ControlsChanged=>false;internal void Cut() {} internal void Release() { } internal void Reset() { } }
     internal sealed partial class NavigationService
     {
         private static bool CrewAboard(Ship ship) => CrewSim.aCrew!=null && CrewSim.aCrew.Count>0 && CrewSim.aCrew.All(c=>c!=null&&!c.bDestroyed&&c.ship==ship);
@@ -216,15 +234,30 @@ namespace PhobosAutoNav
         private bool issuing;
         private string status = "";
         internal float Throttle { get; set; } = 1;
-        internal string? HardwareFailure;
+        internal string? HardwareFailure=null;
         internal string Diagnostic => status + issuing;
         private string? HardwareProblem(CondOwner? co) => HardwareFailure;
         private static string? NativeControlProblem(CondOwner co)=>co.mapGUIPropMaps.ContainsKey("chkEngage")?"native":null;
         private static string? AdmissionProblem(CondOwner co, TargetRef target, double km, double speed) => null;
         private static bool HasId(CondOwner co, string id) => co.Kind == id;
-        private static bool ReadPreferences(CondOwner co, out FlightPreferences preferences) { preferences = new FlightPreferences(1500,0,1); return true; }
+        internal static double TestCruise = 100;
+        private static bool ReadPreferences(CondOwner co, out FlightPreferences preferences) { preferences = new FlightPreferences(TestCruise,0,1); return true; }
         internal bool FinishApproach() { AutoNavCore.EndFlight(console!.ship,"ARRIVED"); return QueueDockingHandoff(); }
         internal void Engage(CondOwner? co) => throw new NotSupportedException();
+#if COUPLED
+        internal void ValidateCombat() { }
+        internal void TickFire(double dt,bool dispatch) { }
+        internal void Tick(ShipSitu situ,double dt,bool ignoreAcceleration)
+        {
+            if(AutoNavCore.Engaged && !DockingActive)
+            {
+                issuing=true;
+                try {AutoNavCore.SteerFlight(console!.ship,AutoNavCore.EngagedTarget!,dt);}
+                finally {issuing=false;}
+                if(!QueueDockingHandoff()) PersistProgress();
+            }
+        }
+#endif
         internal void BeginAvoidanceFlight(CondOwner co,SavedFlightMode mode)
         {
             console=co;var target=TargetRef.FromShipId("target")!;

@@ -227,7 +227,7 @@ namespace PhobosAutoNav
         internal static bool AutoDockBusy() => false;
         internal static bool TryReadApproach(Ship own, TargetRef target, double requested, out ApproachPlan plan, out double speed)
         { ApproachReads++; speed = 10; return ApproachRules.TryPlan(80, requested, 0, out plan); }
-        internal static bool HasFuelForFlight(Ship own, TargetRef target, bool readOnly = false) => true;
+        internal static bool HasFuelForFlight(Ship own, TargetRef target, bool readOnly = false, FlightSnapshot? profile = null) => true;
         internal static void BeginFlight(Ship own, TargetRef target, CoastSettings coast, bool torch)
         { Engaged = true; EngagedPlayer = own; EngagedTarget = target; ElapsedSeconds = 0; FlightCoastSettings = coast; FlightPrefersTorch = torch; }
         internal static void RestoreFlight(Ship own, TargetRef target, FlightSnapshot flight)
@@ -253,9 +253,10 @@ namespace PhobosAutoNav
 namespace Ostranauts.ShipGUIs.NavStation { internal static class NavModTorchDrive { internal static float GetLimiterSafetyMax(Ship ship) => .5f; } }
 namespace PhobosAutoNav {
     internal static class DockingAdapter {
+        internal static string? Problem;
         internal static string? ReadAvailablePorts(Ship own, Ship target, out string ownPort, out string targetPort) { ownPort="own";targetPort="assigned";return null; }
         internal static bool HasFuel(Ship own, Ship target, float throttle) => true;
-        internal static string? Check(Ship own, Ship? target, string ownPort, string targetPort, bool checkFit) => null;
+        internal static string? Check(Ship own, Ship? target, string ownPort, string targetPort, bool checkFit) => Problem;
         internal static string? SelectPorts(Ship own, Ship target, out string ownPort, out string targetPort) { ownPort="own";targetPort="assigned";return null; }
     }
 }

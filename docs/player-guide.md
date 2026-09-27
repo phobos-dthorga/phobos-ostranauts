@@ -17,7 +17,7 @@ eating. This guide starts with installation and the basic shipbreaking loop.
   availability depends on ordinary merchant restocking.
 
 **Prepared versions:** Phobos Framework **0.30.1**, Shipbreaker **0.29.1**, Auto Nav
-**0.21.1**, built against Ostranauts **1.0.1.5** / BepInEx **5.4.23.5**.
+**0.22.0**, built against Ostranauts **1.0.1.5** / BepInEx **5.4.23.5**.
 These are development packages. Automated checks do not establish in-game
 compatibility or tell you which version is installed locally. Ordinary saves are
 supported; keep required content installed. [Getting started](getting-started.md)
@@ -226,3 +226,11 @@ Agriculture now supports [finite potato and lettuce nutrient-solution piping](ag
 ## Crew standing orders
 
 See [crew automation, specialities and time-skips](crew-automation.md) for default-disabled orders, native duty/AutoTask rules, approved stores, training, saved stops and supported onboard work. Industrial batches, exterior missions and crew-launched flight require explicit Resume. Gameplay and UI checks remain owner-run.
+
+### Coordinated combat flight
+
+Auto Nav 0.22.0 adds [N2 + N3 Combat](auto-nav-combat.md) on Track. Select the fire
+target and aim-reference weapon first. Enter Combat starts movement and aiming;
+Engage grants firing separately. Cease Fire retains range matching. Leave Combat
+and Resume the previous flight explicitly. Docking, braking and traffic safety
+retain priority. Live handling still needs owner playtesting.

@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><DefineConstants>COUPLED</DefineConstants><OutputType>Exe</OutputType><TargetFramework>net10.0</TargetFramework></PropertyGroup>
+  <ItemGroup>
+    <Compile Include="../PhobosAutoNav.Docking.Tests/NativeDoubles.cs" Link="NativeDoubles.cs"/>
+    <Compile Include="../../src/PhobosAutoNav/Adapted/AutoNavCore.cs" Link="AutoNavCore.cs"/>
+    <Compile Include="../../src/PhobosAutoNav/NavigationUpdate.cs" Link="NavigationUpdate.cs"/>
+    <Compile Include="../../src/PhobosAutoNav/PerformanceMetrics.cs" Link="PerformanceMetrics.cs" />
+    <Compile Include="../../src/PhobosAutoNav/Core/*.cs" Link="%(Filename)%(Extension)" />
+    <Compile Include="../../src/PhobosAutoNav/DockingAdapter.cs" Link="DockingAdapter.cs" />
+    <Compile Include="../../src/PhobosAutoNav/NavigationAvoidance.cs" Link="NavigationAvoidance.cs" />
+    <Compile Include="../../src/PhobosAutoNav/NavigationDeparture.cs" Link="NavigationDeparture.cs" />
+    <Compile Include="../../src/PhobosAutoNav/NavigationDocking.cs" Link="NavigationDocking.cs" />
+    <Compile Include="../../src/PhobosAutoNav/IndustrialNavigation.cs" Link="IndustrialNavigation.cs" />
+    <Compile Include="../../src/PhobosAutoNav/NavigationApproachDock.cs" Link="NavigationApproachDock.cs" />
+    <Compile Include="../../src/PhobosAutoNav/NavigationPersistence.cs" Link="NavigationPersistence.cs" />
+    <Compile Include="../../src/PhobosAutoNav/NavigationSensors.cs" Link="NavigationSensors.cs" />
+    <Compile Include="../Support/AutoNavContactDouble.cs" Link="AutoNavContactDouble.cs" />
+    <ProjectReference Include="../../src/PhobosFramework/PhobosFramework.csproj" />
+  </ItemGroup>
+  <ItemGroup><Compile Include="../Support/AutoNavFireDouble.cs" Link="AutoNavFireDouble.cs" /></ItemGroup>
+</Project>

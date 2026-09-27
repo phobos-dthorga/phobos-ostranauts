@@ -12,6 +12,7 @@ void Check(bool ok, string message) { checks++; if (!ok) throw new Exception(mes
     AutoNavCore.ResetStatics(); AutoNavCore.SteeringCalls = AutoNavCore.ApproachReads = TargetRef.Resolves = 0;
     AutoNavCore.ElapsedSeconds = 0; AutoNavCore.Coasting = false;
     AutoNavCore.AdmissionSafe = true;
+    DockingAdapter.Problem = null;
     CrewSim.system = new(); CrewSim.objInstance = new() { FinishedLoading = true }; CrewSim.Paused = false;
     Plugin.ResumeAfterLoad.Value = true;
     var own = new Ship { strRegID = "own", publicName = "Home" };
@@ -173,6 +174,10 @@ Check(docking.Valid && Store(f.Console).TryWrite(docking.Encode()), "Valid docki
 AutoNavCore.ResetStatics(); Signal(f.Own, .1);
 f.Service.Command(new[] { "phobosnav", "status" }, out response);
 Check(response.Contains("Sensors.Weak") && response.Contains("own-port"), "Docking diagnostics retain port binding and fresh contact state together");
+Signal(f.Own, 1); DockingAdapter.Problem = "Docking.clearance_lost";
+var blockedDock = f.Service.ReadHub(f.Console, "navigation");
+Check(blockedDock.Restriction == "Docking.clearance_lost" && blockedDock.Navigation.Warning,
+    "Suspended docking shows the current admission blocker rather than a generic Resume hint");
 f = Setup(); AutoNavCore.AdmissionSafe = false;
 Check(!f.Service.ReadInstruments(f.Console).CanFly && f.Service.ReadInstruments(f.Console).CanDock,
     "Unsafe Fly admission disables Fly while retaining separate Dock preflight");
@@ -539,3 +544,82 @@ f.Service.WorldChanging();
 Check(!f.Service.ConfirmGroupSwitch(ticket) && !f.Service.Fire.Permitted, "Reload invalidates an outstanding handoff and clears firing permission");
 Check(f.Service.ReadHub(f.Console,"fire").Groups.Any(g=>g.Group==6), "Inventory is freshly discovered after world reset");
 Console.WriteLine($"{checks} checks including weapon inventory and guided handoffs passed.");
+
+void ReadyCombat(bool mission=true)
+{
+    f=Setup();
+    f.Console.Items.Add(new(){strID="n2",strCODef=NavigationService.PursuitId,ship=f.Own});
+    f.Console.Items.Add(new(){strID="n3",strCODef=NavigationService.FireControlId,ship=f.Own});
+    Weapon("weapon",1,"Test");
+    if(mission)f.Service.Engage(f.Console);
+    f.Service.SelectFireTarget(f.Console);f.Service.TickFire(.1,false);f.Service.UseAimReference(f.Console);
+}
+ReadyCombat();var preCombatMission=Read(f.Console);f.Service.EnterCombat(f.Console);
+Check(f.Service.CombatActive && AutoNavCore.Engaged && AutoNavCore.Following,"Combat acquires range matching");
+Check(Read(f.Console).Mode==SavedFlightMode.Suspended && Read(f.Console).TargetId==preCombatMission.TargetId,"Original mission suspended before transfer");
+Check(!f.Service.Fire.Permitted && f.Service.ReadHub(f.Console,"fire").AutoAiming,"Combat starts aiming without firing permission");
+var suspendedCombatRecord=Raw(f.Console);f.Service.Tick(f.Own.objSS,.1,false);
+Check(Raw(f.Console)==suspendedCombatRecord,"Combat progress never overwrites the suspended mission");
+f.Service.EngageWeapons(f.Console);Check(f.Service.Fire.Permitted,"Combat still needs explicit Engage");
+foreach(var phase in new[]{AutoNavCore.Phase.Decel,AutoNavCore.Phase.Align})
+{AutoNavCore.CurrentPhase=phase;f.Service.TickFire(.1,true);Check(!f.Service.Fire.LastDispatchSafe && f.Service.Fire.Permitted,"Guidance hold inhibits dispatch without reauthorizing shots");}
+AutoNavCore.CurrentPhase=AutoNavCore.Phase.Coast;f.Service.TickFire(.1,true);Check(f.Service.Fire.LastDispatchSafe,"Settled guidance admits fresh shot checks");
+f.Service.CeaseFire();Check(f.Service.CombatActive&&AutoNavCore.Engaged&&!f.Service.Fire.Permitted&&!f.Service.ReadHub(f.Console,"fire").AutoAiming,"Cease Fire keeps range matching only");
+f.Service.ToggleCombat(f.Console);Check(!f.Service.CombatActive&&!AutoNavCore.Engaged&&Read(f.Console).Mode==SavedFlightMode.Suspended,"Leave keeps old mission suspended");
+f.Service.ResumeSaved(f.Console);Check(AutoNavCore.Engaged&&!f.Service.Fire.Permitted,"Explicit Resume restores original mission without shots");
+ReadyCombat();var beforeCombat=Raw(f.Console);f.Console.Items.First(c=>c.strID=="n2").Conditions.Add("IsDamaged");f.Service.EnterCombat(f.Console);
+Check(!f.Service.CombatActive&&AutoNavCore.Engaged&&Raw(f.Console)==beforeCombat,"Failed hardware admission leaves mission unchanged");
+ReadyCombat();f.Console.mapGUIPropMaps["PhobosState.AutoNav.Flight"]["schema"]="999";beforeCombat=Raw(f.Console);f.Service.EnterCombat(f.Console);
+Check(!f.Service.CombatActive&&AutoNavCore.Engaged&&Raw(f.Console)==beforeCombat,"Protected flight record cannot be overwritten during entry");
+ReadyCombat();f.Service.ToggleFireOwnership(f.Console);f.Console.mapGUIPropMaps["PhobosState.AutoNav.FirePreferences"]["schema"]="999";beforeCombat=Raw(f.Console);f.Service.EnterCombat(f.Console);
+Check(!f.Service.CombatActive&&AutoNavCore.Engaged&&Raw(f.Console)==beforeCombat,"Protected fire record prevents entry without suspending mission");
+ReadyCombat();f.Service.EnterCombat(f.Console);f.Service.EngageWeapons(f.Console);f.Service.WorldChanging();f.Service.WorldLoaded();f.Service.UpdatePersistence();f.Service.RestoreFireOwnership();
+Check(!f.Service.CombatActive&&!AutoNavCore.Engaged&&!f.Service.Fire.Permitted&&Read(f.Console).Mode==SavedFlightMode.Suspended,"Reload restores no combat, aiming or shots");
+Check(f.Service.Fire.Owns(f.Console.strID),"Reload preserves FCS Hold");
+foreach(string fault in new[]{"operator","contact","module","weapon","owner","manual","native","target"})
+{
+    ReadyCombat();f.Service.EnterCombat(f.Console);f.Service.EngageWeapons(f.Console);
+    switch(fault)
+    {
+        case "operator":CrewSim.Selected=new(){ship=f.Own};break;
+        case "contact":Signal(f.Own,.01);break;
+        case "module":f.Console.Items.First(c=>c.strID=="n3").Conditions.Add("IsDamaged");break;
+        case "weapon":f.Service.Fire.Weapons=Array.Empty<WeaponReading>();break;
+        case "owner":f.Service.Fire.SetOwnership("other",f.Own,1,true);break;
+        case "manual":f.Service.CeaseFire();f.Service.EngageWeapons(f.Console);f.Service.ExternalControl(f.Own,1,0,0);break;
+        case "native":f.Service.ReturnFireToNative(f.Console);break;
+        case "target":f.Service.SelectFireTarget(f.Console);break;
+    }
+    f.Service.TickFire(.1,false);
+    Check(!f.Service.CombatActive&&!AutoNavCore.Engaged&&!f.Service.Fire.Permitted&&Read(f.Console).Mode==SavedFlightMode.Suspended,"Combat authority ends on "+fault);
+}
+ReadyCombat(false);f.Service.EnterCombat(f.Console);Check(f.Service.CombatActive,"Combat can start without a saved mission");f.Service.ToggleCombat(f.Console);
+Check(!f.Console.mapGUIPropMaps.ContainsKey("PhobosState.AutoNav.Flight"),"Combat does not invent a resumable mission");
+f=Setup();f.Console.Items.Add(new(){strID="n3",strCODef=NavigationService.FireControlId,ship=f.Own});f.Service.Engage(f.Console);
+var hostile=new Ship{strRegID="hostile",publicName="Hostile"};CrewSim.system.Ships.Add("hostile",hostile);GUIOrbitDraw.CrossHairTarget=new(){Ship=hostile};
+f.Service.SelectFireTarget(f.Console);f.Service.ToggleAutoAim(f.Console);f.Service.EngageWeapons(f.Console);f.Service.TickFire(.1,false);
+Check(AutoNavCore.EngagedTarget?.ShipId=="target"&&f.Service.Fire.Permitted&&f.Service.ReadHub(f.Console,"fire").AutoAiming,"Approach and FCS retain separate targets");
+ReadyCombat(); var priorTarget=AutoNavCore.EngagedTarget!.ShipId;
+var combatTarget=new Ship{strRegID="combat-target",publicName="Combat target"}; CrewSim.system.Ships.Add(combatTarget.strRegID,combatTarget);
+GUIOrbitDraw.CrossHairTarget=new(){Ship=combatTarget}; f.Service.SelectFireTarget(f.Console); f.Service.UseAimReference(f.Console); f.Service.EnterCombat(f.Console);
+Check(f.Service.CombatActive && AutoNavCore.EngagedTarget!.ShipId==combatTarget.strRegID && Read(f.Console).TargetId==priorTarget,
+    "Combat follows the explicit fire target while preserving the separate previous destination");
+f.Service.EngageWeapons(f.Console); f.Own.IsUsingTorchDrive=true; f.Service.TickFire(.1,true);
+Check(!f.Service.Fire.LastDispatchSafe && f.Service.Fire.Permitted,"Torch burn holds offensive dispatch without transferring permission");
+f.Own.IsUsingTorchDrive=false; f.Service.avoidanceActive=true; f.Service.TickFire(.1,true);
+Check(!f.Service.Fire.LastDispatchSafe && f.Service.CombatActive,"Avoidance holds offensive dispatch while retaining Combat intent");
+f.Service.avoidanceActive=false; f.Service.Fire.Cease("FCS.complete"); f.Service.TickFire(.1,true);
+Check(f.Service.CombatActive && AutoNavCore.Engaged && !f.Service.ReadHub(f.Console,"fire").AutoAiming,"Exhausted volley budget ends aiming but keeps range matching");
+f.Service.Fire.Weapons[0].Loaded=false; f.Service.TickFire(.1,false);
+Check(f.Service.CombatActive && !f.Service.Fire.Permitted,"Empty reference after completed volleys does not stop range matching");
+ReadyCombat(); f.Service.EnterCombat(f.Console); f.Service.EngageWeapons(f.Console);
+f.Service.SetPanelTorch(f.Console,!Plugin.PreferTorch.Value);
+Check(f.Service.CombatActive && !f.Service.Fire.Permitted,"Changing Combat drive preference revokes shots");
+ReadyCombat(); f.Service.EnterCombat(f.Console); f.Service.EngageWeapons(f.Console); Weapon("other-weapon",2,"Other");
+ticket=f.Service.PrepareGroupSwitch(f.Console,2)!;
+Check(f.Service.ConfirmGroupSwitch(ticket) && !f.Service.CombatActive && !f.Service.Fire.Permitted && !AutoNavCore.Engaged,
+    "Confirmed group change ends Combat without transferring movement or firing authority");
+ReadyCombat(); beforeCombat=Raw(f.Console); CrewSim.coPlayer=new(){strID="replacement-player",ship=f.Own}; CrewSim.Selected=CrewSim.coPlayer;
+f.Service.EnterCombat(f.Console);
+Check(!f.Service.CombatActive && Raw(f.Console)==beforeCombat,"Stale previous mission binding cannot transfer authority");
+Console.WriteLine($"{checks} checks including Combat lifecycle and coordinated navigation passed.");
