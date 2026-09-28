@@ -144,3 +144,7 @@ The item handling correction reuses native action labels and updates current ref
 ### Merchant availability and salvage expansion
 
 Reviewed revised settings help, maintained acquisition explanations, current merchant/salvage guides and publication drafts. Chances are per native roll, not guaranteed finds; normal restocking, existing configuration, finite quantities and unverified live placement remain explicit. Historic research is preserved and current summaries link the revised policy.
+
+## Assembly and maintenance follow-up, 28 September 2026
+
+Reviewed the new section-site instructions, cargo recovery and specific maintenance blockers against their native and service checks. Coverage is 1,791 catalogue entries, 149 documents and 14 other surfaces. Descriptions distinguish unfinished sections from operating machines and saved table contracts from current construction sites. Instructions preserve tool, mass and safety requirements; recovery promises no automatic cargo movement. Current references and Workshop drafts agree; historical research remains labelled. The [assembly guide](section-assembly-and-maintenance.md) separates offline evidence from owner playtesting.

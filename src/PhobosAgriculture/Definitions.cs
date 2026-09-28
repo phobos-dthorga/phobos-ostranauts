@@ -98,6 +98,8 @@ internal static class Definitions
         foreach (string id in new[] { Rack + "HousingWaste", Rack + "BrokenHousingWaste", BulkDefinitions.Tank + "HousingWaste", BulkDefinitions.Tank + "BrokenHousingWaste" })
             ItemHandling.Cumbersome(d, id);
         ItemHandling.Apply(d);
+        MaintenanceInformation.Register(d, "PhobosAgricultureMaintenanceInformation", co =>
+            ContentsEligibilityPatch.RemovalReason(co) ?? Text.Get("Maintenance.ready"));
         return d;
     }
     internal static void Stock(NativeDefinitions d, string id, double kg, double price, string key, bool food, string? artKey = null)

@@ -760,3 +760,20 @@ presentation-only and preserve existing public signatures.
 Framework 0.30.2 provides opt-in `Registration.ItemHandling.Apply(NativeDefinitions)` after content definitions are complete. It preserves non-transport actions, supplies native pickup/drop, gates stack actions by stack limits, and keeps installed/internal objects out of ordinary carrying. Content calls `ItemHandling.Cumbersome(definitions, id)` for explicitly bulky loose components; mass is not used as a universal threshold. Existing native cumbersome machine forms remain drag-only. Only Phobos item definitions are normalized, leaving optional foreign-provider definitions intact.
 
 The explicit bulky registry also corrects saved condition copies. A saved hand slot is temporarily retained until native unslot succeeds, then removed; contents and placement are never forcibly changed. See the [complete handling audit](item-handling-audit.md) for evidence and owner checks.
+
+### Framework 0.31.0: section sites and maintenance information
+
+`Construction.SectionAssembly.Add` registers a finite section bill through native
+installables before publication. Content supplies the section trigger, installed
+output, count/mass, tools and native work target. Only separate, empty, matching
+sections qualify; the finish revalidates the actual native site lot. Call
+`PreferAssemblyMenu` after native generation to resolve an intentional shared
+placement target deterministically. Whole-machine direct actions remain valid.
+`RetireTableOffers` removes only named new offers, preserving old action definitions
+and saved queues. Native placeholders own hauling, cancellation and serialization.
+
+`Controls.ItemInformation.Register` adds read-only, scrollable instructions to
+explicitly selected definitions. `Registration.MaintenanceInformation.Register`
+adds shared cargo/lot/stack guidance and an optional content-owned blocker reader.
+Neither authorizes work. Content services retain current-state validation. See
+[section assembly and maintenance](section-assembly-and-maintenance.md).

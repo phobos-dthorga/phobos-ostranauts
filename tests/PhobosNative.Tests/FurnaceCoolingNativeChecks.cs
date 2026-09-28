@@ -31,7 +31,7 @@ internal static class FurnaceCoolingNativeChecks
         {
             var pipe = prepared.Objects[FurnaceCooling.Conduit + state]; var art = prepared.Items[pipe.strItemDef];
             var data = new DataCO(pipe);
-            check(pipe.jsonPI == null && pipe.aTickers.Length == 0 && pipe.aInteractions.All(a => new[] { "PickupItem", "DropItem", "PickupItemStack", "DropItemStack" }.Contains(a)) && pipe.nContainerWidth == 0,
+            check(pipe.jsonPI == null && pipe.aTickers.Length == 0 && pipe.aInteractions.All(a => new[] { "PickupItem", "DropItem", "PickupItemStack", "DropItemStack", "PhobosShipbreakerMaintenanceInformation" }.Contains(a)) && pipe.nContainerWidth == 0,
                 "Coolant conduit is passive infrastructure, not an extra pump or virtual tank");
             check(!data.HasCond("IsPowerPath") && !data.HasCond("IsPowerConduit") && !data.HasCond("PhobosWaterConduitPresent"),
                 "Coolant pipe cannot carry native electricity or Agriculture water");

@@ -224,5 +224,11 @@
   "crew_recipe_supply-charges": "Distribute feed and replace selected charges",
   "bulk_intake": "R3 supply: {0} | W2 target: {1:G} kg\n{2}",
   "bulk_intake_wait": "Waiting. Check R3 water and reserve, damage, connections, service access and room in W2. This connection uses R3 only.",
-  "bulk_intake_ready": "Ready when intake is enabled. Shares W2's pump power."
+  "bulk_intake_ready": "Ready when intake is enabled. Shares W2's pump power.",
+  "Maintenance.ready": "No extra agricultural restriction currently blocks removal. Native access, tools and materials still apply.",
+  "Maintenance.protected": "A saved transfer or process needs attention. Keep the equipment in place and inspect its control panel before maintenance.",
+  "Maintenance.tank": "Drain the tank before removing or dismantling it.",
+  "Maintenance.link": "Disconnect the empty tank from its paired equipment before removal.",
+  "Maintenance.contents": "Unload crops, food, nutrients and retained water or solution before removing this equipment. Check its supply and pipe contents in the control panel.",
+  "Maintenance.job": "Finish or cancel the cooking or workup job before removing this equipment."
 }

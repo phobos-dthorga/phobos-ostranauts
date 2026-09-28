@@ -1,5 +1,5 @@
 [h1]Phobos Framework[/h1]
-[b]Version:[/b] 0.30.3
+[b]Version:[/b] 0.31.0
 
 [h2]Performance update[/h2]
 Shared display updates now avoid repeated work, and crew equipment searches stay within their own ship. Optional performance recording remains off unless requested. Saved state and gameplay rules are unchanged.
@@ -74,3 +74,7 @@ Add a shared stock-coverage helper that fills omitted item offers without duplic
 [b]Item-action audit[/b]
 The complete item-action audit now checks generated native maintenance actions and saved cargo relationships as well as declared actions. Shared safety checks can withhold dismantling for cargo, work lots or stack members. This documentation update does not change runtime behaviour.
 [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/item-handling-audit.md]Complete findings and item ledger[/url]
+
+[h2]Assembly and maintenance update[/h2]
+Shared construction-site support and read-only item/maintenance information preserve native work and save handling.
+Offline checks are not Unity gameplay approval. See [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/section-assembly-and-maintenance.md]assembly and maintenance instructions[/url].

@@ -18,6 +18,21 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.31.0] - 2026-09-28 - Draft
+
+### Added
+
+- Shared native construction-site section contracts with exact input validation, staged native lots and preserved cancellation/save handling.
+- Read-only item and maintenance information panels for content-owned instructions.
+
+### Fixed
+
+- Explain split-stack, retained cargo and pending-work restrictions without weakening dismantle guards.
+
+### Compatibility
+
+- Existing public APIs and table action identities remain valid. Native Unity hauling and information-panel interaction await owner checks.
+
 ## [0.30.3] - 2026-09-27 - Draft
 
 ### Changed

@@ -15,6 +15,8 @@ if ($LASTEXITCODE -ne 0) { throw 'Phobos Framework build failed.' }
 if ($LASTEXITCODE -ne 0) { throw 'Phobos Framework checks failed.' }
 & dotnet run --project (Join-Path $repoRoot 'tests/PhobosHandling.Tests') -c Release
 if ($LASTEXITCODE -ne 0) { throw 'Item handling/legacy-release checks failed.' }
+& dotnet run --project (Join-Path $repoRoot 'tests/PhobosAssembly.Tests') -c Release
+if ($LASTEXITCODE -ne 0) { throw 'Section assembly and legacy cargo recovery checks failed.' }
 Add-Type -Path (Join-Path $gameRoot 'BepInEx/core/Mono.Cecil.dll')
 $uiModule = [Mono.Cecil.ModuleDefinition]::ReadModule((Join-Path $repoRoot 'src/PhobosFramework/bin/Release/netstandard2.1/PhobosFramework.dll'))
 $nativeModule = [Mono.Cecil.ModuleDefinition]::ReadModule((Join-Path $gameRoot 'Ostranauts_Data/Managed/Assembly-CSharp.dll'))

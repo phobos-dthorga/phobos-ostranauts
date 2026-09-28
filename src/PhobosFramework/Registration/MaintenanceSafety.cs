@@ -26,6 +26,13 @@ internal static class MaintenanceSafety
         item.GetLotCOs(true).Count == 0 && item.GetCOsSafe(true).All(child =>
             internalBin != null && child.strCODef == internalBin && child.GetTotalMass() == 0 &&
             child.GetCOsSafe(true).Count == 0 && child.GetLotCOs(true).Count == 0);
+    internal static string? Reason(CondOwner? item, string? internalBin)
+    {
+        if (item == null || item.bDestroyed) return Text.Get("MaintenanceInfo.gone");
+        if (item.coStackHead != null || item.aStack?.Count > 0) return Text.Get("MaintenanceInfo.stack");
+        if (item.GetLotCOs(true).Count != 0) return Text.Get("MaintenanceInfo.lot");
+        return Empty(item, internalBin) ? null : Text.Get("MaintenanceInfo.contents");
+    }
 }
 
 // A saved pre-economy overlay may still have a generic native finish queued.
@@ -79,7 +86,7 @@ internal static class DismantleEligibilityPatch
         if (!__result || !MaintenanceSafety.Actions.TryGetValue(__instance.strName, out var bin)) return;
         var item = __instance.strName.StartsWith("MS", StringComparison.Ordinal) ? objUs : objThem;
         if (MaintenanceSafety.Empty(item, bin)) return;
-        __instance.AddFailReason("main", Text.Get("MaintenanceSafety.empty_the_equipment_its_feed_and_any"));
+        __instance.AddFailReason("main", MaintenanceSafety.Reason(item, bin) ?? Text.Get("MaintenanceSafety.empty_the_equipment_its_feed_and_any"));
         __result = false;
     }
 }

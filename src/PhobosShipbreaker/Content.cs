@@ -124,6 +124,9 @@ internal static class Content
         FurnaceConduitDefinitions.Add(prepared);
         IndustrialDefinitions.Add(prepared);
         EquipmentEconomy.Apply(prepared);
+        AssemblyDefinitions.Add(prepared);
+        MaintenanceInformation.Register(prepared, "PhobosShipbreakerMaintenanceInformation", co =>
+            FurnaceService.IsEquipment(co) ? FurnaceService.MaintenanceReason(co, false) ?? Text.Get("Maintenance.ready") : "");
         RegionalEconomy.Apply(prepared);
         foreach (var art in new[] {
             (IntakeRules.Chute, IntakeRules.Chute), (IntakeRules.Grabber, IntakeRules.Grabber),
@@ -140,6 +143,7 @@ internal static class Content
     internal static void ConfirmRecipes(Action<string> log)
     {
         if (!definitionsRegistered) return;
+        AssemblyDefinitions.FinishRegistration();
         var missing = DependencyContract.MissingRecipes(id => DataHandler.dictInteractions?.ContainsKey(id) == true);
         Ready = missing.Count == 0 && ConstructionRegistry.Ready(Plugin.Id);
         Status = Ready ? Text.Get("Content.shipbreaker_definitions_ready") :

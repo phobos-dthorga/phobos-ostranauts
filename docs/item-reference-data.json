@@ -5,7 +5,7 @@
     {
       "id": "PhobosAgriculture",
       "name": "Phobos Agriculture",
-      "version": "0.16.0",
+      "version": "0.16.1",
       "gameTarget": "1.0.1.5",
       "items": [
         {
@@ -223,7 +223,8 @@
             "PhobosAgricultureWork_load_nutrients",
             "PhobosAgricultureWork_harvest",
             "PhobosAgricultureWork_clear",
-            "PhobosAgricultureWork_drain"
+            "PhobosAgricultureWork_drain",
+            "PhobosAgricultureMaintenanceInformation"
           ],
           "missingDirectActions": [],
           "container": {
@@ -260,6 +261,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 800.0,
               "outputs": [
                 {
                   "id": "ItmScrapSteel",
@@ -302,6 +304,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 20.0,
               "outputs": []
             },
             {
@@ -319,6 +322,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 800.0,
               "outputs": [
                 {
                   "id": "PhobosVerdemorrowFirstlight4Loose",
@@ -337,7 +341,8 @@
           "stackLimit": 1,
           "actions": [
             "Inventory",
-            "PhobosAgricultureControls"
+            "PhobosAgricultureControls",
+            "PhobosAgricultureMaintenanceInformation"
           ],
           "missingDirectActions": [],
           "container": {
@@ -375,6 +380,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 800.0,
               "outputs": [
                 {
                   "id": "ItmScrapSteel",
@@ -415,6 +421,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 2400.0,
               "outputs": [
                 {
                   "id": "PhobosVerdemorrowFirstlight4Installed",
@@ -439,6 +446,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 800.0,
               "outputs": [
                 {
                   "id": "PhobosVerdemorrowFirstlight4LooseDmg",
@@ -458,7 +466,8 @@
           "actions": [
             "Inventory",
             "DropItem",
-            "PickupItem"
+            "PickupItem",
+            "PhobosAgricultureMaintenanceInformation"
           ],
           "missingDirectActions": [],
           "container": {
@@ -497,6 +506,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 800.0,
               "outputs": [
                 {
                   "id": "ItmScrapSteel",
@@ -541,6 +551,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 1000.0,
               "outputs": [
                 {
                   "id": "PhobosVerdemorrowFirstlight4Installed",
@@ -565,6 +576,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 20.0,
               "outputs": []
             }
           ],
@@ -577,7 +589,8 @@
           "actions": [
             "Inventory",
             "DropItem",
-            "PickupItem"
+            "PickupItem",
+            "PhobosAgricultureMaintenanceInformation"
           ],
           "missingDirectActions": [],
           "container": {
@@ -617,6 +630,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 800.0,
               "outputs": [
                 {
                   "id": "ItmScrapSteel",
@@ -655,6 +669,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 1000.0,
               "outputs": [
                 {
                   "id": "PhobosVerdemorrowFirstlight4InstalledDmg",
@@ -683,6 +698,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 2400.0,
               "outputs": [
                 {
                   "id": "PhobosVerdemorrowFirstlight4Loose",
@@ -765,7 +781,8 @@
             "Inventory",
             "PhobosAgricultureControls",
             "PhobosAgricultureWork_recover_crop",
-            "PhobosAgricultureWork_formulate_nutrients"
+            "PhobosAgricultureWork_formulate_nutrients",
+            "PhobosAgricultureMaintenanceInformation"
           ],
           "missingDirectActions": [],
           "container": {
@@ -802,6 +819,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 600.0,
               "outputs": [
                 {
                   "id": "ItmScrapSteel",
@@ -832,6 +850,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 20.0,
               "outputs": []
             },
             {
@@ -849,6 +868,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 800.0,
               "outputs": [
                 {
                   "id": "PhobosVerdemorrowGroundworkB2Loose",
@@ -867,7 +887,8 @@
           "stackLimit": 1,
           "actions": [
             "Inventory",
-            "PhobosAgricultureControls"
+            "PhobosAgricultureControls",
+            "PhobosAgricultureMaintenanceInformation"
           ],
           "missingDirectActions": [],
           "container": {
@@ -905,6 +926,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 600.0,
               "outputs": [
                 {
                   "id": "ItmScrapSteel",
@@ -939,6 +961,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 1800.0,
               "outputs": [
                 {
                   "id": "PhobosVerdemorrowGroundworkB2Installed",
@@ -963,6 +986,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 800.0,
               "outputs": [
                 {
                   "id": "PhobosVerdemorrowGroundworkB2LooseDmg",
@@ -982,7 +1006,8 @@
           "actions": [
             "Inventory",
             "DropItem",
-            "PickupItem"
+            "PickupItem",
+            "PhobosAgricultureMaintenanceInformation"
           ],
           "missingDirectActions": [],
           "container": {
@@ -1021,6 +1046,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 600.0,
               "outputs": [
                 {
                   "id": "ItmScrapSteel",
@@ -1053,6 +1079,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 1000.0,
               "outputs": [
                 {
                   "id": "PhobosVerdemorrowGroundworkB2Installed",
@@ -1077,6 +1104,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 20.0,
               "outputs": []
             }
           ],
@@ -1089,7 +1117,8 @@
           "actions": [
             "Inventory",
             "DropItem",
-            "PickupItem"
+            "PickupItem",
+            "PhobosAgricultureMaintenanceInformation"
           ],
           "missingDirectActions": [],
           "container": {
@@ -1129,6 +1158,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 600.0,
               "outputs": [
                 {
                   "id": "ItmScrapSteel",
@@ -1161,6 +1191,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 1000.0,
               "outputs": [
                 {
                   "id": "PhobosVerdemorrowGroundworkB2InstalledDmg",
@@ -1189,6 +1220,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 1800.0,
               "outputs": [
                 {
                   "id": "PhobosVerdemorrowGroundworkB2Loose",
@@ -1447,7 +1479,8 @@
             "PhobosAgricultureBulkControls",
             "PhobosAgriculture_bulk-load",
             "PhobosAgriculture_bulk-recover",
-            "PhobosAgriculture_bulk-drain"
+            "PhobosAgriculture_bulk-drain",
+            "PhobosAgricultureMaintenanceInformation"
           ],
           "missingDirectActions": [],
           "container": {
@@ -1484,6 +1517,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 600.0,
               "outputs": [
                 {
                   "id": "ItmScrapSteel",
@@ -1514,6 +1548,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 20.0,
               "outputs": []
             },
             {
@@ -1531,6 +1566,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 800.0,
               "outputs": [
                 {
                   "id": "PhobosVerdemorrowGroundworkR3Loose",
@@ -1549,7 +1585,8 @@
           "stackLimit": 1,
           "actions": [
             "Inventory",
-            "PhobosAgricultureBulkControls"
+            "PhobosAgricultureBulkControls",
+            "PhobosAgricultureMaintenanceInformation"
           ],
           "missingDirectActions": [],
           "container": {
@@ -1587,6 +1624,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 600.0,
               "outputs": [
                 {
                   "id": "ItmScrapSteel",
@@ -1621,6 +1659,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 1800.0,
               "outputs": [
                 {
                   "id": "PhobosVerdemorrowGroundworkR3Installed",
@@ -1645,6 +1684,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 800.0,
               "outputs": [
                 {
                   "id": "PhobosVerdemorrowGroundworkR3LooseDmg",
@@ -1664,7 +1704,8 @@
           "actions": [
             "Inventory",
             "DropItem",
-            "PickupItem"
+            "PickupItem",
+            "PhobosAgricultureMaintenanceInformation"
           ],
           "missingDirectActions": [],
           "container": {
@@ -1703,6 +1744,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 600.0,
               "outputs": [
                 {
                   "id": "ItmScrapSteel",
@@ -1735,6 +1777,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 1000.0,
               "outputs": [
                 {
                   "id": "PhobosVerdemorrowGroundworkR3Installed",
@@ -1759,6 +1802,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 20.0,
               "outputs": []
             }
           ],
@@ -1771,7 +1815,8 @@
           "actions": [
             "Inventory",
             "DropItem",
-            "PickupItem"
+            "PickupItem",
+            "PhobosAgricultureMaintenanceInformation"
           ],
           "missingDirectActions": [],
           "container": {
@@ -1811,6 +1856,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 600.0,
               "outputs": [
                 {
                   "id": "ItmScrapSteel",
@@ -1843,6 +1889,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 1000.0,
               "outputs": [
                 {
                   "id": "PhobosVerdemorrowGroundworkR3InstalledDmg",
@@ -1871,6 +1918,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 1800.0,
               "outputs": [
                 {
                   "id": "PhobosVerdemorrowGroundworkR3Loose",
@@ -1991,7 +2039,8 @@
             "PhobosAgricultureWork_load_irrigation",
             "PhobosAgricultureWork_load_nutrients",
             "PhobosAgricultureWork_recover_solution",
-            "PhobosAgricultureWork_drain"
+            "PhobosAgricultureWork_drain",
+            "PhobosAgricultureMaintenanceInformation"
           ],
           "missingDirectActions": [],
           "container": {
@@ -2028,6 +2077,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 600.0,
               "outputs": [
                 {
                   "id": "ItmScrapSteel",
@@ -2058,6 +2108,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 20.0,
               "outputs": []
             },
             {
@@ -2075,6 +2126,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 800.0,
               "outputs": [
                 {
                   "id": "PhobosVerdemorrowGroundworkW2Loose",
@@ -2093,7 +2145,8 @@
           "stackLimit": 1,
           "actions": [
             "Inventory",
-            "PhobosAgricultureControls"
+            "PhobosAgricultureControls",
+            "PhobosAgricultureMaintenanceInformation"
           ],
           "missingDirectActions": [],
           "container": {
@@ -2131,6 +2184,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 600.0,
               "outputs": [
                 {
                   "id": "ItmScrapSteel",
@@ -2165,6 +2219,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 1800.0,
               "outputs": [
                 {
                   "id": "PhobosVerdemorrowGroundworkW2Installed",
@@ -2189,6 +2244,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 800.0,
               "outputs": [
                 {
                   "id": "PhobosVerdemorrowGroundworkW2LooseDmg",
@@ -2208,7 +2264,8 @@
           "actions": [
             "Inventory",
             "DropItem",
-            "PickupItem"
+            "PickupItem",
+            "PhobosAgricultureMaintenanceInformation"
           ],
           "missingDirectActions": [],
           "container": {
@@ -2247,6 +2304,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 600.0,
               "outputs": [
                 {
                   "id": "ItmScrapSteel",
@@ -2279,6 +2337,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 1000.0,
               "outputs": [
                 {
                   "id": "PhobosVerdemorrowGroundworkW2Installed",
@@ -2303,6 +2362,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 20.0,
               "outputs": []
             }
           ],
@@ -2315,7 +2375,8 @@
           "actions": [
             "Inventory",
             "DropItem",
-            "PickupItem"
+            "PickupItem",
+            "PhobosAgricultureMaintenanceInformation"
           ],
           "missingDirectActions": [],
           "container": {
@@ -2355,6 +2416,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 600.0,
               "outputs": [
                 {
                   "id": "ItmScrapSteel",
@@ -2387,6 +2449,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 1000.0,
               "outputs": [
                 {
                   "id": "PhobosVerdemorrowGroundworkW2InstalledDmg",
@@ -2415,6 +2478,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 1800.0,
               "outputs": [
                 {
                   "id": "PhobosVerdemorrowGroundworkW2Loose",
@@ -2495,7 +2559,8 @@
           "stackLimit": 1,
           "actions": [
             "Inventory",
-            "PhobosAgricultureControls"
+            "PhobosAgricultureControls",
+            "PhobosAgricultureMaintenanceInformation"
           ],
           "missingDirectActions": [],
           "container": {
@@ -2532,6 +2597,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 400.0,
               "outputs": [
                 {
                   "id": "ItmScrapSteel",
@@ -2568,6 +2634,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 20.0,
               "outputs": []
             },
             {
@@ -2585,6 +2652,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 800.0,
               "outputs": [
                 {
                   "id": "PhobosVerdemorrowHearth2Loose",
@@ -2603,7 +2671,8 @@
           "stackLimit": 1,
           "actions": [
             "Inventory",
-            "PhobosAgricultureControls"
+            "PhobosAgricultureControls",
+            "PhobosAgricultureMaintenanceInformation"
           ],
           "missingDirectActions": [],
           "container": {
@@ -2641,6 +2710,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 400.0,
               "outputs": [
                 {
                   "id": "ItmScrapAluminum",
@@ -2674,6 +2744,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 1200.0,
               "outputs": [
                 {
                   "id": "PhobosVerdemorrowHearth2Installed",
@@ -2698,6 +2769,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 800.0,
               "outputs": [
                 {
                   "id": "PhobosVerdemorrowHearth2LooseDmg",
@@ -2717,7 +2789,8 @@
           "actions": [
             "Inventory",
             "DropItem",
-            "PickupItem"
+            "PickupItem",
+            "PhobosAgricultureMaintenanceInformation"
           ],
           "missingDirectActions": [],
           "container": {
@@ -2756,6 +2829,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 400.0,
               "outputs": [
                 {
                   "id": "ItmScrapSteel",
@@ -2794,6 +2868,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 1000.0,
               "outputs": [
                 {
                   "id": "PhobosVerdemorrowHearth2Installed",
@@ -2818,6 +2893,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 20.0,
               "outputs": []
             }
           ],
@@ -2830,7 +2906,8 @@
           "actions": [
             "Inventory",
             "DropItem",
-            "PickupItem"
+            "PickupItem",
+            "PhobosAgricultureMaintenanceInformation"
           ],
           "missingDirectActions": [],
           "container": {
@@ -2870,6 +2947,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 400.0,
               "outputs": [
                 {
                   "id": "ItmScrapAluminum",
@@ -2902,6 +2980,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 1000.0,
               "outputs": [
                 {
                   "id": "PhobosVerdemorrowHearth2InstalledDmg",
@@ -2929,6 +3008,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 1200.0,
               "outputs": [
                 {
                   "id": "PhobosVerdemorrowHearth2Loose",
@@ -3254,7 +3334,9 @@
           "id": "PhobosVerdemorrowWaterConduitInstalled",
           "name": "Phobos' Verdemorrow Groundwork Irrigation Conduit",
           "stackLimit": 1,
-          "actions": [],
+          "actions": [
+            "PhobosAgricultureMaintenanceInformation"
+          ],
           "missingDirectActions": [],
           "container": {
             "trigger": null,
@@ -3291,6 +3373,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 120.0,
               "outputs": [
                 {
                   "id": "PhobosVerdemorrowWaterConduitWaste",
@@ -3315,6 +3398,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 20.0,
               "outputs": []
             },
             {
@@ -3332,6 +3416,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 800.0,
               "outputs": [
                 {
                   "id": "PhobosVerdemorrowWaterConduitLoose",
@@ -3348,7 +3433,9 @@
           "id": "PhobosVerdemorrowWaterConduitInstalledDmg",
           "name": "Phobos' Verdemorrow Groundwork Irrigation Conduit (Damaged)",
           "stackLimit": 1,
-          "actions": [],
+          "actions": [
+            "PhobosAgricultureMaintenanceInformation"
+          ],
           "missingDirectActions": [],
           "container": {
             "trigger": null,
@@ -3386,6 +3473,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 120.0,
               "outputs": [
                 {
                   "id": "PhobosVerdemorrowWaterConduitWaste",
@@ -3412,6 +3500,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 120.0,
               "outputs": [
                 {
                   "id": "PhobosVerdemorrowWaterConduitInstalled",
@@ -3436,6 +3525,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 800.0,
               "outputs": [
                 {
                   "id": "PhobosVerdemorrowWaterConduitLooseDmg",
@@ -3456,7 +3546,8 @@
             "DropItem",
             "PickupItem",
             "DropItemStack",
-            "PickupItemStack"
+            "PickupItemStack",
+            "PhobosAgricultureMaintenanceInformation"
           ],
           "missingDirectActions": [],
           "container": {
@@ -3496,6 +3587,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 120.0,
               "outputs": [
                 {
                   "id": "PhobosVerdemorrowWaterConduitWaste",
@@ -3522,6 +3614,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 1000.0,
               "outputs": [
                 {
                   "id": "PhobosVerdemorrowWaterConduitInstalled",
@@ -3546,6 +3639,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 20.0,
               "outputs": []
             }
           ],
@@ -3559,7 +3653,8 @@
             "DropItem",
             "PickupItem",
             "DropItemStack",
-            "PickupItemStack"
+            "PickupItemStack",
+            "PhobosAgricultureMaintenanceInformation"
           ],
           "missingDirectActions": [],
           "container": {
@@ -3600,6 +3695,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 120.0,
               "outputs": [
                 {
                   "id": "PhobosVerdemorrowWaterConduitWaste",
@@ -3626,6 +3722,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 1000.0,
               "outputs": [
                 {
                   "id": "PhobosVerdemorrowWaterConduitInstalledDmg",
@@ -3652,6 +3749,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 120.0,
               "outputs": [
                 {
                   "id": "PhobosVerdemorrowWaterConduitLoose",
@@ -6078,7 +6176,8 @@
             }
           ],
           "workSeconds": 3600,
-          "range": 2
+          "range": 2,
+          "retiredFromMenus": false
         },
         {
           "id": "PhobosVerdemorrowHearth2Build",
@@ -6135,7 +6234,8 @@
             }
           ],
           "workSeconds": 1200,
-          "range": 2
+          "range": 2,
+          "retiredFromMenus": false
         },
         {
           "id": "PhobosVerdemorrowGroundworkW2Build",
@@ -6192,7 +6292,8 @@
             }
           ],
           "workSeconds": 1800,
-          "range": 2
+          "range": 2,
+          "retiredFromMenus": false
         },
         {
           "id": "PhobosVerdemorrowWaterConduitBuild",
@@ -6228,7 +6329,8 @@
             }
           ],
           "workSeconds": 120,
-          "range": 2
+          "range": 2,
+          "retiredFromMenus": false
         },
         {
           "id": "PhobosVerdemorrowGroundworkB2Build",
@@ -6285,7 +6387,8 @@
             }
           ],
           "workSeconds": 1800,
-          "range": 2
+          "range": 2,
+          "retiredFromMenus": false
         }
       ],
       "recipeItemNames": {
@@ -6352,6 +6455,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 100.0,
               "outputs": [
                 {
                   "id": "PhobosAutoNavBoardResidue",
@@ -6376,6 +6480,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 4.0,
               "outputs": []
             }
           ],
@@ -6430,6 +6535,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 100.0,
               "outputs": [
                 {
                   "id": "PhobosAutoNavBoardResidue",
@@ -6456,6 +6562,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 900.0,
               "outputs": [
                 {
                   "id": "PhobosNavModAutoNav",
@@ -6582,6 +6689,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 100.0,
               "outputs": [
                 {
                   "id": "PhobosAutoNavBoardResidue",
@@ -6606,6 +6714,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 4.0,
               "outputs": []
             }
           ],
@@ -6660,6 +6769,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 100.0,
               "outputs": [
                 {
                   "id": "PhobosAutoNavBoardResidue",
@@ -6686,6 +6796,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 900.0,
               "outputs": [
                 {
                   "id": "PhobosNavModFireControl",
@@ -6746,6 +6857,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 100.0,
               "outputs": [
                 {
                   "id": "PhobosAutoNavBoardResidue",
@@ -6770,6 +6882,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 4.0,
               "outputs": []
             }
           ],
@@ -6824,6 +6937,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 100.0,
               "outputs": [
                 {
                   "id": "PhobosAutoNavBoardResidue",
@@ -6850,6 +6964,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 900.0,
               "outputs": [
                 {
                   "id": "PhobosNavModPursuit",
@@ -7922,7 +8037,8 @@
             "TIsToolSoldering"
           ],
           "nameKey": "Recipe.PhobosBuildAutoNav.name",
-          "descriptionKey": "Recipe.PhobosBuildAutoNav.description"
+          "descriptionKey": "Recipe.PhobosBuildAutoNav.description",
+          "retiredFromMenus": false
         },
         {
           "id": "PhobosBuildPursuit",
@@ -7963,7 +8079,8 @@
             "TIsToolSoldering"
           ],
           "nameKey": "Recipe.PhobosBuildPursuit.name",
-          "descriptionKey": "Recipe.PhobosBuildPursuit.description"
+          "descriptionKey": "Recipe.PhobosBuildPursuit.description",
+          "retiredFromMenus": false
         },
         {
           "id": "PhobosBuildFireControl",
@@ -8004,7 +8121,8 @@
             "TIsToolSoldering"
           ],
           "nameKey": "Recipe.PhobosBuildFireControl.name",
-          "descriptionKey": "Recipe.PhobosBuildFireControl.description"
+          "descriptionKey": "Recipe.PhobosBuildFireControl.description",
+          "retiredFromMenus": false
         }
       ],
       "recipeItemNames": {
@@ -8018,7 +8136,7 @@
     {
       "id": "PhobosFramework",
       "name": "Phobos Framework",
-      "version": "0.30.3",
+      "version": "0.31.0",
       "gameTarget": "1.0.1.5",
       "items": [
         {
@@ -8070,7 +8188,7 @@
     {
       "id": "PhobosShipbreaker",
       "name": "Phobos Shipbreaker",
-      "version": "0.30.0",
+      "version": "0.31.0",
       "gameTarget": "1.0.1.5",
       "items": [
         {
@@ -8079,7 +8197,8 @@
           "stackLimit": 1,
           "actions": [
             "Inventory",
-            "PhobosEquipmentControls"
+            "PhobosEquipmentControls",
+            "PhobosShipbreakerMaintenanceInformation"
           ],
           "missingDirectActions": [],
           "container": {
@@ -8127,6 +8246,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 650.0,
               "outputs": [
                 {
                   "id": "ItmScrapSteel",
@@ -8175,6 +8295,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 20.0,
               "outputs": []
             },
             {
@@ -8191,6 +8312,7 @@
               "tools": [
                 "TIsToolMortorq"
               ],
+              "workProgress": 800.0,
               "outputs": [
                 {
                   "id": "PhobosExteriorGrabberLoose",
@@ -8209,7 +8331,8 @@
           "stackLimit": 1,
           "actions": [
             "Inventory",
-            "PhobosEquipmentControls"
+            "PhobosEquipmentControls",
+            "PhobosShipbreakerMaintenanceInformation"
           ],
           "missingDirectActions": [],
           "container": {
@@ -8247,6 +8370,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 650.0,
               "outputs": [
                 {
                   "id": "ItmScrapSteel",
@@ -8288,6 +8412,7 @@
               "tools": [
                 "TIsToolMortorq"
               ],
+              "workProgress": 800.0,
               "outputs": [
                 {
                   "id": "PhobosExteriorGrabberLooseDmg",
@@ -8317,6 +8442,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 2400.0,
               "outputs": [
                 {
                   "id": "PhobosExteriorGrabberInstalled",
@@ -8335,6 +8461,7 @@
           "stackLimit": 1,
           "actions": [
             "Inventory",
+            "PhobosShipbreakerMaintenanceInformation",
             "DropItem",
             "PickupItem"
           ],
@@ -8375,6 +8502,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 650.0,
               "outputs": [
                 {
                   "id": "ItmScrapSteel",
@@ -8424,6 +8552,7 @@
               "tools": [
                 "TIsToolMortorq"
               ],
+              "workProgress": 1000.0,
               "outputs": [
                 {
                   "id": "PhobosExteriorGrabberInstalled",
@@ -8448,6 +8577,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 20.0,
               "outputs": []
             }
           ],
@@ -8459,6 +8589,7 @@
           "stackLimit": 1,
           "actions": [
             "Inventory",
+            "PhobosShipbreakerMaintenanceInformation",
             "DropItem",
             "PickupItem"
           ],
@@ -8500,6 +8631,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 650.0,
               "outputs": [
                 {
                   "id": "ItmScrapSteel",
@@ -8543,6 +8675,7 @@
               "tools": [
                 "TIsToolMortorq"
               ],
+              "workProgress": 1000.0,
               "outputs": [
                 {
                   "id": "PhobosExteriorGrabberInstalledDmg",
@@ -8572,6 +8705,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 2400.0,
               "outputs": [
                 {
                   "id": "PhobosExteriorGrabberLoose",
@@ -8588,7 +8722,9 @@
           "id": "PhobosFurnaceCoolantConduitInstalled",
           "name": "Phobos' Rivetline F6-C Sealed Coolant Conduit",
           "stackLimit": 1,
-          "actions": [],
+          "actions": [
+            "PhobosShipbreakerMaintenanceInformation"
+          ],
           "missingDirectActions": [],
           "container": {
             "trigger": null,
@@ -8625,6 +8761,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 20.0,
               "outputs": [
                 {
                   "id": "PhobosFurnaceCoolantConduitWaste",
@@ -8649,6 +8786,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 20.0,
               "outputs": []
             },
             {
@@ -8666,6 +8804,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 50.0,
               "outputs": [
                 {
                   "id": "PhobosFurnaceCoolantConduitLoose",
@@ -8682,7 +8821,9 @@
           "id": "PhobosFurnaceCoolantConduitInstalledDmg",
           "name": "Phobos' Rivetline F6-C Sealed Coolant Conduit",
           "stackLimit": 1,
-          "actions": [],
+          "actions": [
+            "PhobosShipbreakerMaintenanceInformation"
+          ],
           "missingDirectActions": [],
           "container": {
             "trigger": null,
@@ -8720,6 +8861,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 20.0,
               "outputs": [
                 {
                   "id": "PhobosFurnaceCoolantConduitWaste",
@@ -8746,6 +8888,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 50.0,
               "outputs": [
                 {
                   "id": "PhobosFurnaceCoolantConduitInstalled",
@@ -8770,6 +8913,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 50.0,
               "outputs": [
                 {
                   "id": "PhobosFurnaceCoolantConduitLooseDmg",
@@ -8787,6 +8931,7 @@
           "name": "Phobos' Rivetline F6-C Sealed Coolant Conduit",
           "stackLimit": 10,
           "actions": [
+            "PhobosShipbreakerMaintenanceInformation",
             "DropItem",
             "PickupItem",
             "DropItemStack",
@@ -8830,6 +8975,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 20.0,
               "outputs": [
                 {
                   "id": "PhobosFurnaceCoolantConduitWaste",
@@ -8856,6 +9002,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 50.0,
               "outputs": [
                 {
                   "id": "PhobosFurnaceCoolantConduitInstalled",
@@ -8880,6 +9027,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 20.0,
               "outputs": []
             }
           ],
@@ -8890,6 +9038,7 @@
           "name": "Phobos' Rivetline F6-C Sealed Coolant Conduit",
           "stackLimit": 10,
           "actions": [
+            "PhobosShipbreakerMaintenanceInformation",
             "DropItem",
             "PickupItem",
             "DropItemStack",
@@ -8934,6 +9083,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 20.0,
               "outputs": [
                 {
                   "id": "PhobosFurnaceCoolantConduitWaste",
@@ -8960,6 +9110,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 50.0,
               "outputs": [
                 {
                   "id": "PhobosFurnaceCoolantConduitInstalledDmg",
@@ -8986,6 +9137,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 50.0,
               "outputs": [
                 {
                   "id": "PhobosFurnaceCoolantConduitLoose",
@@ -9126,7 +9278,8 @@
           "stackLimit": 1,
           "actions": [
             "Inventory",
-            "PhobosEquipmentControls"
+            "PhobosEquipmentControls",
+            "PhobosShipbreakerMaintenanceInformation"
           ],
           "missingDirectActions": [],
           "container": {
@@ -9165,6 +9318,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 1800.0,
               "outputs": [
                 {
                   "id": "ItmScrapSteel",
@@ -9213,6 +9367,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 20.0,
               "outputs": []
             },
             {
@@ -9229,6 +9384,7 @@
               "tools": [
                 "TIsToolMortorq"
               ],
+              "workProgress": 1800.0,
               "outputs": [
                 {
                   "id": "PhobosFurnaceLoose",
@@ -9247,7 +9403,8 @@
           "stackLimit": 1,
           "actions": [
             "Inventory",
-            "PhobosEquipmentControls"
+            "PhobosEquipmentControls",
+            "PhobosShipbreakerMaintenanceInformation"
           ],
           "missingDirectActions": [],
           "container": {
@@ -9287,6 +9444,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 1800.0,
               "outputs": [
                 {
                   "id": "ItmScrapSteel",
@@ -9334,6 +9492,7 @@
               "tools": [
                 "TIsToolMortorq"
               ],
+              "workProgress": 1800.0,
               "outputs": [
                 {
                   "id": "PhobosFurnaceLooseDmg",
@@ -9363,6 +9522,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 4800.0,
               "outputs": [
                 {
                   "id": "PhobosFurnaceInstalled",
@@ -9381,6 +9541,7 @@
           "stackLimit": 1,
           "actions": [
             "Inventory",
+            "PhobosShipbreakerMaintenanceInformation",
             "DropItem",
             "PickupItem"
           ],
@@ -9423,6 +9584,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 1800.0,
               "outputs": [
                 {
                   "id": "ItmScrapSteel",
@@ -9472,6 +9634,7 @@
               "tools": [
                 "TIsToolMortorq"
               ],
+              "workProgress": 2400.0,
               "outputs": [
                 {
                   "id": "PhobosFurnaceInstalled",
@@ -9496,6 +9659,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 20.0,
               "outputs": []
             }
           ],
@@ -9507,6 +9671,7 @@
           "stackLimit": 1,
           "actions": [
             "Inventory",
+            "PhobosShipbreakerMaintenanceInformation",
             "DropItem",
             "PickupItem"
           ],
@@ -9550,6 +9715,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 1800.0,
               "outputs": [
                 {
                   "id": "ItmScrapSteel",
@@ -9599,6 +9765,7 @@
               "tools": [
                 "TIsToolMortorq"
               ],
+              "workProgress": 2400.0,
               "outputs": [
                 {
                   "id": "PhobosFurnaceInstalledDmg",
@@ -9628,6 +9795,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 4800.0,
               "outputs": [
                 {
                   "id": "PhobosFurnaceLoose",
@@ -9676,13 +9844,15 @@
           "name": "Phobos' Rivetline F6-R Exterior Radiator",
           "stackLimit": 1,
           "actions": [
-            "PhobosEquipmentControls"
+            "PhobosCoolingRecoverCargo",
+            "PhobosEquipmentControls",
+            "PhobosShipbreakerMaintenanceInformation"
           ],
           "missingDirectActions": [],
           "container": {
-            "trigger": "TIsFitContainerSolid",
-            "width": 0,
-            "height": 0,
+            "trigger": "PhobosCoolingNoNewCargo",
+            "width": 8,
+            "height": 8,
             "flag": false,
             "inventoryAction": false,
             "ownedSlots": [],
@@ -9713,6 +9883,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 800.0,
               "outputs": [
                 {
                   "id": "ItmScrapSteel",
@@ -9755,6 +9926,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 20.0,
               "outputs": []
             },
             {
@@ -9771,6 +9943,7 @@
               "tools": [
                 "TIsToolMortorq"
               ],
+              "workProgress": 900.0,
               "outputs": [
                 {
                   "id": "PhobosFurnaceRadiatorLoose",
@@ -9788,13 +9961,15 @@
           "name": "Phobos' Rivetline F6-R Exterior Radiator (Damaged)",
           "stackLimit": 1,
           "actions": [
-            "PhobosEquipmentControls"
+            "PhobosCoolingRecoverCargo",
+            "PhobosEquipmentControls",
+            "PhobosShipbreakerMaintenanceInformation"
           ],
           "missingDirectActions": [],
           "container": {
-            "trigger": "TIsFitContainerSolid",
-            "width": 0,
-            "height": 0,
+            "trigger": "PhobosCoolingNoNewCargo",
+            "width": 8,
+            "height": 8,
             "flag": false,
             "inventoryAction": false,
             "ownedSlots": [],
@@ -9826,6 +10001,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 800.0,
               "outputs": [
                 {
                   "id": "ItmScrapSteel",
@@ -9867,6 +10043,7 @@
               "tools": [
                 "TIsToolMortorq"
               ],
+              "workProgress": 900.0,
               "outputs": [
                 {
                   "id": "PhobosFurnaceRadiatorLooseDmg",
@@ -9895,6 +10072,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 3000.0,
               "outputs": [
                 {
                   "id": "PhobosFurnaceRadiatorInstalled",
@@ -9912,14 +10090,16 @@
           "name": "Phobos' Rivetline F6-R Exterior Radiator",
           "stackLimit": 1,
           "actions": [
+            "PhobosCoolingRecoverCargo",
+            "PhobosShipbreakerMaintenanceInformation",
             "DropItem",
             "PickupItem"
           ],
           "missingDirectActions": [],
           "container": {
-            "trigger": "TIsFitContainerSolid",
-            "width": 0,
-            "height": 0,
+            "trigger": "PhobosCoolingNoNewCargo",
+            "width": 8,
+            "height": 8,
             "flag": false,
             "inventoryAction": false,
             "ownedSlots": [],
@@ -9952,6 +10132,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 800.0,
               "outputs": [
                 {
                   "id": "ItmScrapSteel",
@@ -9995,6 +10176,7 @@
               "tools": [
                 "TIsToolMortorq"
               ],
+              "workProgress": 1200.0,
               "outputs": [
                 {
                   "id": "PhobosFurnaceRadiatorInstalled",
@@ -10019,6 +10201,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 20.0,
               "outputs": []
             }
           ],
@@ -10029,14 +10212,16 @@
           "name": "Phobos' Rivetline F6-R Exterior Radiator (Damaged)",
           "stackLimit": 1,
           "actions": [
+            "PhobosCoolingRecoverCargo",
+            "PhobosShipbreakerMaintenanceInformation",
             "DropItem",
             "PickupItem"
           ],
           "missingDirectActions": [],
           "container": {
-            "trigger": "TIsFitContainerSolid",
-            "width": 0,
-            "height": 0,
+            "trigger": "PhobosCoolingNoNewCargo",
+            "width": 8,
+            "height": 8,
             "flag": false,
             "inventoryAction": false,
             "ownedSlots": [],
@@ -10070,6 +10255,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 800.0,
               "outputs": [
                 {
                   "id": "ItmScrapSteel",
@@ -10113,6 +10299,7 @@
               "tools": [
                 "TIsToolMortorq"
               ],
+              "workProgress": 1200.0,
               "outputs": [
                 {
                   "id": "PhobosFurnaceRadiatorInstalledDmg",
@@ -10141,6 +10328,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 3000.0,
               "outputs": [
                 {
                   "id": "PhobosFurnaceRadiatorLoose",
@@ -10159,7 +10347,9 @@
           "stackLimit": 1,
           "actions": [
             "DropItem",
-            "PickupItem"
+            "PickupItem",
+            "PhobosFurnaceAssemblyInformation",
+            "PhobosShipbreakerMaintenanceInformation"
           ],
           "missingDirectActions": [],
           "container": {
@@ -10184,6 +10374,33 @@
           "installTab": null,
           "jobs": [
             {
+              "id": "PhobosFurnaceSectionAssembly",
+              "kind": "install",
+              "action": "ACTPhobosFurnaceSectionAssembly",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosFurnaceSectionAssemblyMaterial",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "PhobosFurnaceSectionAssemblyMaterial=1x3"
+              ],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 5733.333333333333,
+              "outputs": [
+                {
+                  "id": "PhobosFurnaceInstalled",
+                  "name": "Phobos' Rivetline F6 Electric Furnace",
+                  "count": 1,
+                  "baseValue": 24000.0
+                }
+              ]
+            },
+            {
               "id": "PhobosFurnaceSectionDismantle",
               "kind": "dismantle",
               "action": "ACTPhobosFurnaceSectionDismantle",
@@ -10198,6 +10415,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 600.0,
               "outputs": [
                 {
                   "id": "ItmScrapSteel",
@@ -10239,13 +10457,15 @@
           "name": "Phobos' Rivetline F6-P Thermal Exhaust Port",
           "stackLimit": 1,
           "actions": [
-            "PhobosEquipmentControls"
+            "PhobosCoolingRecoverCargo",
+            "PhobosEquipmentControls",
+            "PhobosShipbreakerMaintenanceInformation"
           ],
           "missingDirectActions": [],
           "container": {
-            "trigger": "TIsFitContainerSolid",
-            "width": 0,
-            "height": 0,
+            "trigger": "PhobosCoolingNoNewCargo",
+            "width": 8,
+            "height": 8,
             "flag": false,
             "inventoryAction": false,
             "ownedSlots": [],
@@ -10276,6 +10496,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 800.0,
               "outputs": [
                 {
                   "id": "ItmScrapSteel",
@@ -10318,6 +10539,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 20.0,
               "outputs": []
             },
             {
@@ -10334,6 +10556,7 @@
               "tools": [
                 "TIsToolMortorq"
               ],
+              "workProgress": 900.0,
               "outputs": [
                 {
                   "id": "PhobosFurnaceThermalPortLoose",
@@ -10351,13 +10574,15 @@
           "name": "Phobos' Rivetline F6-P Thermal Exhaust Port (Damaged)",
           "stackLimit": 1,
           "actions": [
-            "PhobosEquipmentControls"
+            "PhobosCoolingRecoverCargo",
+            "PhobosEquipmentControls",
+            "PhobosShipbreakerMaintenanceInformation"
           ],
           "missingDirectActions": [],
           "container": {
-            "trigger": "TIsFitContainerSolid",
-            "width": 0,
-            "height": 0,
+            "trigger": "PhobosCoolingNoNewCargo",
+            "width": 8,
+            "height": 8,
             "flag": false,
             "inventoryAction": false,
             "ownedSlots": [],
@@ -10389,6 +10614,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 800.0,
               "outputs": [
                 {
                   "id": "ItmScrapSteel",
@@ -10430,6 +10656,7 @@
               "tools": [
                 "TIsToolMortorq"
               ],
+              "workProgress": 900.0,
               "outputs": [
                 {
                   "id": "PhobosFurnaceThermalPortLooseDmg",
@@ -10458,6 +10685,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 3000.0,
               "outputs": [
                 {
                   "id": "PhobosFurnaceThermalPortInstalled",
@@ -10475,14 +10703,16 @@
           "name": "Phobos' Rivetline F6-P Thermal Exhaust Port",
           "stackLimit": 1,
           "actions": [
+            "PhobosCoolingRecoverCargo",
+            "PhobosShipbreakerMaintenanceInformation",
             "DropItem",
             "PickupItem"
           ],
           "missingDirectActions": [],
           "container": {
-            "trigger": "TIsFitContainerSolid",
-            "width": 0,
-            "height": 0,
+            "trigger": "PhobosCoolingNoNewCargo",
+            "width": 8,
+            "height": 8,
             "flag": false,
             "inventoryAction": false,
             "ownedSlots": [],
@@ -10515,6 +10745,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 800.0,
               "outputs": [
                 {
                   "id": "ItmScrapSteel",
@@ -10558,6 +10789,7 @@
               "tools": [
                 "TIsToolMortorq"
               ],
+              "workProgress": 1200.0,
               "outputs": [
                 {
                   "id": "PhobosFurnaceThermalPortInstalled",
@@ -10582,6 +10814,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 20.0,
               "outputs": []
             }
           ],
@@ -10592,14 +10825,16 @@
           "name": "Phobos' Rivetline F6-P Thermal Exhaust Port (Damaged)",
           "stackLimit": 1,
           "actions": [
+            "PhobosCoolingRecoverCargo",
+            "PhobosShipbreakerMaintenanceInformation",
             "DropItem",
             "PickupItem"
           ],
           "missingDirectActions": [],
           "container": {
-            "trigger": "TIsFitContainerSolid",
-            "width": 0,
-            "height": 0,
+            "trigger": "PhobosCoolingNoNewCargo",
+            "width": 8,
+            "height": 8,
             "flag": false,
             "inventoryAction": false,
             "ownedSlots": [],
@@ -10633,6 +10868,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 800.0,
               "outputs": [
                 {
                   "id": "ItmScrapSteel",
@@ -10676,6 +10912,7 @@
               "tools": [
                 "TIsToolMortorq"
               ],
+              "workProgress": 1200.0,
               "outputs": [
                 {
                   "id": "PhobosFurnaceThermalPortInstalledDmg",
@@ -10704,6 +10941,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 3000.0,
               "outputs": [
                 {
                   "id": "PhobosFurnaceThermalPortLoose",
@@ -10721,7 +10959,8 @@
           "name": "Phobos' Rivetline H4 Sealed Hull Chute",
           "stackLimit": 1,
           "actions": [
-            "PhobosEquipmentControls"
+            "PhobosEquipmentControls",
+            "PhobosShipbreakerMaintenanceInformation"
           ],
           "missingDirectActions": [],
           "container": {
@@ -10758,6 +10997,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 300.0,
               "outputs": [
                 {
                   "id": "ItmScrapSteel",
@@ -10806,6 +11046,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 20.0,
               "outputs": []
             },
             {
@@ -10822,6 +11063,7 @@
               "tools": [
                 "TIsToolMortorq"
               ],
+              "workProgress": 500.0,
               "outputs": [
                 {
                   "id": "PhobosHullChuteLoose",
@@ -10839,7 +11081,8 @@
           "name": "Phobos' Rivetline H4 Sealed Hull Chute (Damaged)",
           "stackLimit": 1,
           "actions": [
-            "PhobosEquipmentControls"
+            "PhobosEquipmentControls",
+            "PhobosShipbreakerMaintenanceInformation"
           ],
           "missingDirectActions": [],
           "container": {
@@ -10877,6 +11120,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 300.0,
               "outputs": [
                 {
                   "id": "ItmScrapSteel",
@@ -10918,6 +11162,7 @@
               "tools": [
                 "TIsToolMortorq"
               ],
+              "workProgress": 500.0,
               "outputs": [
                 {
                   "id": "PhobosHullChuteLooseDmg",
@@ -10946,6 +11191,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 1500.0,
               "outputs": [
                 {
                   "id": "PhobosHullChuteInstalled",
@@ -10963,6 +11209,7 @@
           "name": "Phobos' Rivetline H4 Sealed Hull Chute",
           "stackLimit": 1,
           "actions": [
+            "PhobosShipbreakerMaintenanceInformation",
             "DropItem",
             "PickupItem"
           ],
@@ -11003,6 +11250,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 300.0,
               "outputs": [
                 {
                   "id": "ItmScrapSteel",
@@ -11052,6 +11300,7 @@
               "tools": [
                 "TIsToolMortorq"
               ],
+              "workProgress": 500.0,
               "outputs": [
                 {
                   "id": "PhobosHullChuteInstalled",
@@ -11076,6 +11325,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 20.0,
               "outputs": []
             }
           ],
@@ -11086,6 +11336,7 @@
           "name": "Phobos' Rivetline H4 Sealed Hull Chute (Damaged)",
           "stackLimit": 1,
           "actions": [
+            "PhobosShipbreakerMaintenanceInformation",
             "DropItem",
             "PickupItem"
           ],
@@ -11127,6 +11378,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 300.0,
               "outputs": [
                 {
                   "id": "ItmScrapSteel",
@@ -11170,6 +11422,7 @@
               "tools": [
                 "TIsToolMortorq"
               ],
+              "workProgress": 500.0,
               "outputs": [
                 {
                   "id": "PhobosHullChuteInstalledDmg",
@@ -11198,6 +11451,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 1500.0,
               "outputs": [
                 {
                   "id": "PhobosHullChuteLoose",
@@ -11215,7 +11469,8 @@
           "name": "Phobos' Asterel C1 Industrial Control Console",
           "stackLimit": 1,
           "actions": [
-            "PhobosIndustrialControls"
+            "PhobosIndustrialControls",
+            "PhobosShipbreakerMaintenanceInformation"
           ],
           "missingDirectActions": [],
           "container": {
@@ -11252,6 +11507,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 500.0,
               "outputs": [
                 {
                   "id": "ItmScrapSteel",
@@ -11300,6 +11556,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 20.0,
               "outputs": []
             },
             {
@@ -11316,6 +11573,7 @@
               "tools": [
                 "TIsToolMortorq"
               ],
+              "workProgress": 800.0,
               "outputs": [
                 {
                   "id": "PhobosIndustrialConsoleLoose",
@@ -11333,7 +11591,8 @@
           "name": "Phobos' Asterel C1 Industrial Control Console (Damaged)",
           "stackLimit": 1,
           "actions": [
-            "PhobosIndustrialControls"
+            "PhobosIndustrialControls",
+            "PhobosShipbreakerMaintenanceInformation"
           ],
           "missingDirectActions": [],
           "container": {
@@ -11371,6 +11630,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 500.0,
               "outputs": [
                 {
                   "id": "ItmScrapSteel",
@@ -11412,6 +11672,7 @@
               "tools": [
                 "TIsToolMortorq"
               ],
+              "workProgress": 800.0,
               "outputs": [
                 {
                   "id": "PhobosIndustrialConsoleLooseDmg",
@@ -11441,6 +11702,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 2400.0,
               "outputs": [
                 {
                   "id": "PhobosIndustrialConsoleInstalled",
@@ -11458,6 +11720,7 @@
           "name": "Phobos' Asterel C1 Industrial Control Console",
           "stackLimit": 1,
           "actions": [
+            "PhobosShipbreakerMaintenanceInformation",
             "DropItem",
             "PickupItem"
           ],
@@ -11498,6 +11761,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 500.0,
               "outputs": [
                 {
                   "id": "ItmScrapSteel",
@@ -11547,6 +11811,7 @@
               "tools": [
                 "TIsToolMortorq"
               ],
+              "workProgress": 1000.0,
               "outputs": [
                 {
                   "id": "PhobosIndustrialConsoleInstalled",
@@ -11571,6 +11836,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 20.0,
               "outputs": []
             }
           ],
@@ -11581,6 +11847,7 @@
           "name": "Phobos' Asterel C1 Industrial Control Console (Damaged)",
           "stackLimit": 1,
           "actions": [
+            "PhobosShipbreakerMaintenanceInformation",
             "DropItem",
             "PickupItem"
           ],
@@ -11622,6 +11889,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 500.0,
               "outputs": [
                 {
                   "id": "ItmScrapSteel",
@@ -11665,6 +11933,7 @@
               "tools": [
                 "TIsToolMortorq"
               ],
+              "workProgress": 1000.0,
               "outputs": [
                 {
                   "id": "PhobosIndustrialConsoleInstalledDmg",
@@ -11694,6 +11963,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 2400.0,
               "outputs": [
                 {
                   "id": "PhobosIndustrialConsoleLoose",
@@ -11774,7 +12044,8 @@
           "stackLimit": 1,
           "actions": [
             "Inventory",
-            "PhobosEquipmentControls"
+            "PhobosEquipmentControls",
+            "PhobosShipbreakerMaintenanceInformation"
           ],
           "missingDirectActions": [],
           "container": {
@@ -11811,6 +12082,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 350.0,
               "outputs": [
                 {
                   "id": "ItmScrapSteel",
@@ -11859,6 +12131,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 20.0,
               "outputs": []
             },
             {
@@ -11875,6 +12148,7 @@
               "tools": [
                 "TIsToolMortorq"
               ],
+              "workProgress": 500.0,
               "outputs": [
                 {
                   "id": "PhobosResidueCollectorLoose",
@@ -11893,7 +12167,8 @@
           "stackLimit": 1,
           "actions": [
             "Inventory",
-            "PhobosEquipmentControls"
+            "PhobosEquipmentControls",
+            "PhobosShipbreakerMaintenanceInformation"
           ],
           "missingDirectActions": [],
           "container": {
@@ -11931,6 +12206,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 350.0,
               "outputs": [
                 {
                   "id": "ItmScrapSteel",
@@ -11972,6 +12248,7 @@
               "tools": [
                 "TIsToolMortorq"
               ],
+              "workProgress": 500.0,
               "outputs": [
                 {
                   "id": "PhobosResidueCollectorLooseDmg",
@@ -12000,6 +12277,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 1800.0,
               "outputs": [
                 {
                   "id": "PhobosResidueCollectorInstalled",
@@ -12018,6 +12296,7 @@
           "stackLimit": 1,
           "actions": [
             "Inventory",
+            "PhobosShipbreakerMaintenanceInformation",
             "DropItem",
             "PickupItem"
           ],
@@ -12058,6 +12337,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 350.0,
               "outputs": [
                 {
                   "id": "ItmScrapSteel",
@@ -12107,6 +12387,7 @@
               "tools": [
                 "TIsToolMortorq"
               ],
+              "workProgress": 600.0,
               "outputs": [
                 {
                   "id": "PhobosResidueCollectorInstalled",
@@ -12131,6 +12412,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 20.0,
               "outputs": []
             }
           ],
@@ -12142,6 +12424,7 @@
           "stackLimit": 1,
           "actions": [
             "Inventory",
+            "PhobosShipbreakerMaintenanceInformation",
             "DropItem",
             "PickupItem"
           ],
@@ -12183,6 +12466,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 350.0,
               "outputs": [
                 {
                   "id": "ItmScrapSteel",
@@ -12226,6 +12510,7 @@
               "tools": [
                 "TIsToolMortorq"
               ],
+              "workProgress": 600.0,
               "outputs": [
                 {
                   "id": "PhobosResidueCollectorInstalledDmg",
@@ -12254,6 +12539,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 1800.0,
               "outputs": [
                 {
                   "id": "PhobosResidueCollectorLoose",
@@ -12369,7 +12655,8 @@
           "stackLimit": 1,
           "actions": [
             "Inventory",
-            "PhobosEquipmentControls"
+            "PhobosEquipmentControls",
+            "PhobosShipbreakerMaintenanceInformation"
           ],
           "missingDirectActions": [],
           "container": {
@@ -12408,6 +12695,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 1200.0,
               "outputs": [
                 {
                   "id": "ItmScrapSteel",
@@ -12456,6 +12744,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 20.0,
               "outputs": []
             },
             {
@@ -12472,6 +12761,7 @@
               "tools": [
                 "TIsToolMortorq"
               ],
+              "workProgress": 1200.0,
               "outputs": [
                 {
                   "id": "PhobosScrapReclaimerLoose",
@@ -12490,7 +12780,8 @@
           "stackLimit": 1,
           "actions": [
             "Inventory",
-            "PhobosEquipmentControls"
+            "PhobosEquipmentControls",
+            "PhobosShipbreakerMaintenanceInformation"
           ],
           "missingDirectActions": [],
           "container": {
@@ -12530,6 +12821,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 1200.0,
               "outputs": [
                 {
                   "id": "ItmScrapSteel",
@@ -12577,6 +12869,7 @@
               "tools": [
                 "TIsToolMortorq"
               ],
+              "workProgress": 1200.0,
               "outputs": [
                 {
                   "id": "PhobosScrapReclaimerLooseDmg",
@@ -12606,6 +12899,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 4200.0,
               "outputs": [
                 {
                   "id": "PhobosScrapReclaimerInstalled",
@@ -12624,6 +12918,7 @@
           "stackLimit": 1,
           "actions": [
             "Inventory",
+            "PhobosShipbreakerMaintenanceInformation",
             "DropItem",
             "PickupItem"
           ],
@@ -12666,6 +12961,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 1200.0,
               "outputs": [
                 {
                   "id": "ItmScrapSteel",
@@ -12715,6 +13011,7 @@
               "tools": [
                 "TIsToolMortorq"
               ],
+              "workProgress": 1800.0,
               "outputs": [
                 {
                   "id": "PhobosScrapReclaimerInstalled",
@@ -12739,6 +13036,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 20.0,
               "outputs": []
             }
           ],
@@ -12750,6 +13048,7 @@
           "stackLimit": 1,
           "actions": [
             "Inventory",
+            "PhobosShipbreakerMaintenanceInformation",
             "DropItem",
             "PickupItem"
           ],
@@ -12793,6 +13092,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 1200.0,
               "outputs": [
                 {
                   "id": "ItmScrapSteel",
@@ -12842,6 +13142,7 @@
               "tools": [
                 "TIsToolMortorq"
               ],
+              "workProgress": 1800.0,
               "outputs": [
                 {
                   "id": "PhobosScrapReclaimerInstalledDmg",
@@ -12871,6 +13172,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 4200.0,
               "outputs": [
                 {
                   "id": "PhobosScrapReclaimerLoose",
@@ -12889,7 +13191,9 @@
           "stackLimit": 1,
           "actions": [
             "DropItem",
-            "PickupItem"
+            "PickupItem",
+            "PhobosScrapReclaimerAssemblyInformation",
+            "PhobosShipbreakerMaintenanceInformation"
           ],
           "missingDirectActions": [],
           "container": {
@@ -12914,6 +13218,33 @@
           "installTab": null,
           "jobs": [
             {
+              "id": "PhobosScrapReclaimerSectionAssembly",
+              "kind": "install",
+              "action": "ACTPhobosScrapReclaimerSectionAssembly",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosScrapReclaimerSectionAssemblyMaterial",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "PhobosScrapReclaimerSectionAssemblyMaterial=1x2"
+              ],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 5550.0,
+              "outputs": [
+                {
+                  "id": "PhobosScrapReclaimerInstalled",
+                  "name": "Phobos' Rivetline R4 Scrap Reclaimer",
+                  "count": 1,
+                  "baseValue": 14800.0
+                }
+              ]
+            },
+            {
               "id": "PhobosScrapReclaimerSectionDismantle",
               "kind": "dismantle",
               "action": "ACTPhobosScrapReclaimerSectionDismantle",
@@ -12928,6 +13259,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 500.0,
               "outputs": [
                 {
                   "id": "ItmScrapSteel",
@@ -12999,7 +13331,8 @@
           "stackLimit": 1,
           "actions": [
             "Inventory",
-            "PhobosEquipmentControls"
+            "PhobosEquipmentControls",
+            "PhobosShipbreakerMaintenanceInformation"
           ],
           "missingDirectActions": [],
           "container": {
@@ -13038,6 +13371,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 1000.0,
               "outputs": [
                 {
                   "id": "ItmScrapSteel",
@@ -13086,6 +13420,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 20.0,
               "outputs": []
             },
             {
@@ -13102,6 +13437,7 @@
               "tools": [
                 "TIsToolMortorq"
               ],
+              "workProgress": 1000.0,
               "outputs": [
                 {
                   "id": "PhobosShipbreakerLoose",
@@ -13120,7 +13456,8 @@
           "stackLimit": 1,
           "actions": [
             "Inventory",
-            "PhobosEquipmentControls"
+            "PhobosEquipmentControls",
+            "PhobosShipbreakerMaintenanceInformation"
           ],
           "missingDirectActions": [],
           "container": {
@@ -13160,6 +13497,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 1000.0,
               "outputs": [
                 {
                   "id": "ItmScrapSteel",
@@ -13201,6 +13539,7 @@
               "tools": [
                 "TIsToolMortorq"
               ],
+              "workProgress": 1000.0,
               "outputs": [
                 {
                   "id": "PhobosShipbreakerLooseDmg",
@@ -13230,6 +13569,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 3600.0,
               "outputs": [
                 {
                   "id": "PhobosShipbreakerInstalled",
@@ -13248,6 +13588,7 @@
           "stackLimit": 1,
           "actions": [
             "Inventory",
+            "PhobosShipbreakerMaintenanceInformation",
             "DropItem",
             "PickupItem"
           ],
@@ -13290,6 +13631,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 1000.0,
               "outputs": [
                 {
                   "id": "ItmScrapSteel",
@@ -13339,6 +13681,7 @@
               "tools": [
                 "TIsToolMortorq"
               ],
+              "workProgress": 1500.0,
               "outputs": [
                 {
                   "id": "PhobosShipbreakerInstalled",
@@ -13363,6 +13706,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 20.0,
               "outputs": []
             }
           ],
@@ -13374,6 +13718,7 @@
           "stackLimit": 1,
           "actions": [
             "Inventory",
+            "PhobosShipbreakerMaintenanceInformation",
             "DropItem",
             "PickupItem"
           ],
@@ -13417,6 +13762,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 1000.0,
               "outputs": [
                 {
                   "id": "ItmScrapSteel",
@@ -13460,6 +13806,7 @@
               "tools": [
                 "TIsToolMortorq"
               ],
+              "workProgress": 1500.0,
               "outputs": [
                 {
                   "id": "PhobosShipbreakerInstalledDmg",
@@ -13489,6 +13836,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 3600.0,
               "outputs": [
                 {
                   "id": "PhobosShipbreakerLoose",
@@ -13538,7 +13886,9 @@
           "stackLimit": 1,
           "actions": [
             "DropItem",
-            "PickupItem"
+            "PickupItem",
+            "PhobosShipbreakerAssemblyInformation",
+            "PhobosShipbreakerMaintenanceInformation"
           ],
           "missingDirectActions": [],
           "container": {
@@ -13563,6 +13913,33 @@
           "installTab": null,
           "jobs": [
             {
+              "id": "PhobosShipbreakerSectionAssembly",
+              "kind": "install",
+              "action": "ACTPhobosShipbreakerSectionAssembly",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosShipbreakerSectionAssemblyMaterial",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "PhobosShipbreakerSectionAssemblyMaterial=1x2"
+              ],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 4000.0,
+              "outputs": [
+                {
+                  "id": "PhobosShipbreakerInstalled",
+                  "name": "Phobos' Rivetline D4 Dismantling Fixture",
+                  "count": 1,
+                  "baseValue": 12000.0
+                }
+              ]
+            },
+            {
               "id": "PhobosShipbreakerSectionDismantle",
               "kind": "dismantle",
               "action": "ACTPhobosShipbreakerSectionDismantle",
@@ -13577,6 +13954,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
+              "workProgress": 400.0,
               "outputs": [
                 {
                   "id": "ItmScrapSteel",
@@ -15835,7 +16213,8 @@
             "TIsToolSoldering"
           ],
           "nameKey": "Recipe.PhobosBuildShipbreakerSection.name",
-          "descriptionKey": "Recipe.PhobosBuildShipbreakerSection.description"
+          "descriptionKey": "Recipe.PhobosBuildShipbreakerSection.description",
+          "retiredFromMenus": false
         },
         {
           "id": "PhobosBuildShipbreaker",
@@ -15875,7 +16254,8 @@
             "TIsToolSoldering"
           ],
           "nameKey": "Recipe.PhobosBuildShipbreaker.name",
-          "descriptionKey": "Recipe.PhobosBuildShipbreaker.description"
+          "descriptionKey": "Recipe.PhobosBuildShipbreaker.description",
+          "retiredFromMenus": true
         },
         {
           "id": "PhobosBuildHullChute",
@@ -15929,7 +16309,8 @@
             "TIsToolSoldering"
           ],
           "nameKey": "Recipe.PhobosBuildHullChute.name",
-          "descriptionKey": "Recipe.PhobosBuildHullChute.description"
+          "descriptionKey": "Recipe.PhobosBuildHullChute.description",
+          "retiredFromMenus": false
         },
         {
           "id": "PhobosBuildExteriorGrabber",
@@ -15983,7 +16364,8 @@
             "TIsToolSoldering"
           ],
           "nameKey": "Recipe.PhobosBuildExteriorGrabber.name",
-          "descriptionKey": "Recipe.PhobosBuildExteriorGrabber.description"
+          "descriptionKey": "Recipe.PhobosBuildExteriorGrabber.description",
+          "retiredFromMenus": false
         },
         {
           "id": "PhobosBuildResidueCollector",
@@ -16037,7 +16419,8 @@
             "TIsToolSoldering"
           ],
           "nameKey": "Recipe.PhobosBuildResidueCollector.name",
-          "descriptionKey": "Recipe.PhobosBuildResidueCollector.description"
+          "descriptionKey": "Recipe.PhobosBuildResidueCollector.description",
+          "retiredFromMenus": false
         },
         {
           "id": "PhobosBuildReclaimerSection",
@@ -16092,7 +16475,8 @@
             "TIsToolSoldering"
           ],
           "nameKey": "Recipe.PhobosBuildReclaimerSection.name",
-          "descriptionKey": "Recipe.PhobosBuildReclaimerSection.description"
+          "descriptionKey": "Recipe.PhobosBuildReclaimerSection.description",
+          "retiredFromMenus": false
         },
         {
           "id": "PhobosBuildReclaimer",
@@ -16130,7 +16514,8 @@
             "TIsToolSoldering"
           ],
           "nameKey": "Recipe.PhobosBuildReclaimer.name",
-          "descriptionKey": "Recipe.PhobosBuildReclaimer.description"
+          "descriptionKey": "Recipe.PhobosBuildReclaimer.description",
+          "retiredFromMenus": true
         },
         {
           "id": "PhobosBuildIndustrialConsole",
@@ -16185,7 +16570,8 @@
             "TIsToolSoldering"
           ],
           "nameKey": "Recipe.PhobosBuildIndustrialConsole.name",
-          "descriptionKey": "Recipe.PhobosBuildIndustrialConsole.description"
+          "descriptionKey": "Recipe.PhobosBuildIndustrialConsole.description",
+          "retiredFromMenus": false
         },
         {
           "id": "PhobosFinishFurnaceHousing",
@@ -16227,7 +16613,8 @@
             "TIsToolWelding"
           ],
           "nameKey": "Recipe.PhobosFinishFurnaceHousing.name",
-          "descriptionKey": "Recipe.PhobosFinishFurnaceHousing.description"
+          "descriptionKey": "Recipe.PhobosFinishFurnaceHousing.description",
+          "retiredFromMenus": false
         },
         {
           "id": "PhobosBuildShipbreakerSectionCast",
@@ -16288,7 +16675,8 @@
             "TIsToolWelding"
           ],
           "nameKey": "Recipe.PhobosBuildShipbreakerSectionCast.name",
-          "descriptionKey": "Recipe.PhobosBuildShipbreakerSectionCast.description"
+          "descriptionKey": "Recipe.PhobosBuildShipbreakerSectionCast.description",
+          "retiredFromMenus": false
         },
         {
           "id": "PhobosBuildReclaimerSectionCast",
@@ -16349,7 +16737,8 @@
             "TIsToolWelding"
           ],
           "nameKey": "Recipe.PhobosBuildReclaimerSectionCast.name",
-          "descriptionKey": "Recipe.PhobosBuildReclaimerSectionCast.description"
+          "descriptionKey": "Recipe.PhobosBuildReclaimerSectionCast.description",
+          "retiredFromMenus": false
         },
         {
           "id": "PhobosBuildFurnaceSection",
@@ -16403,7 +16792,8 @@
             "TIsToolWelding"
           ],
           "nameKey": "Recipe.PhobosBuildFurnaceSection.name",
-          "descriptionKey": "Recipe.PhobosBuildFurnaceSection.description"
+          "descriptionKey": "Recipe.PhobosBuildFurnaceSection.description",
+          "retiredFromMenus": false
         },
         {
           "id": "PhobosBuildFurnace",
@@ -16440,7 +16830,8 @@
             "TIsToolWelding"
           ],
           "nameKey": "Recipe.PhobosBuildFurnace.name",
-          "descriptionKey": "Recipe.PhobosBuildFurnace.description"
+          "descriptionKey": "Recipe.PhobosBuildFurnace.description",
+          "retiredFromMenus": true
         },
         {
           "id": "PhobosBuildFurnaceRadiator",
@@ -16482,7 +16873,8 @@
             "TIsToolWelding"
           ],
           "nameKey": "Recipe.PhobosBuildFurnaceRadiator.name",
-          "descriptionKey": "Recipe.PhobosBuildFurnaceRadiator.description"
+          "descriptionKey": "Recipe.PhobosBuildFurnaceRadiator.description",
+          "retiredFromMenus": false
         },
         {
           "id": "PhobosBuildFurnaceThermalPort",
@@ -16524,7 +16916,8 @@
             "TIsToolWelding"
           ],
           "nameKey": "Recipe.PhobosBuildFurnaceThermalPort.name",
-          "descriptionKey": "Recipe.PhobosBuildFurnaceThermalPort.description"
+          "descriptionKey": "Recipe.PhobosBuildFurnaceThermalPort.description",
+          "retiredFromMenus": false
         },
         {
           "id": "PhobosRecoverFurnaceHousingBlank",
@@ -16561,7 +16954,8 @@
             "TIsToolWelding"
           ],
           "nameKey": "Recipe.PhobosRecoverFurnaceHousingBlank.name",
-          "descriptionKey": "Recipe.PhobosRecoverFurnaceHousingBlank.description"
+          "descriptionKey": "Recipe.PhobosRecoverFurnaceHousingBlank.description",
+          "retiredFromMenus": false
         },
         {
           "id": "PhobosRecoverFurnaceHousing",
@@ -16598,7 +16992,8 @@
             "TIsToolWelding"
           ],
           "nameKey": "Recipe.PhobosRecoverFurnaceHousing.name",
-          "descriptionKey": "Recipe.PhobosRecoverFurnaceHousing.description"
+          "descriptionKey": "Recipe.PhobosRecoverFurnaceHousing.description",
+          "retiredFromMenus": false
         },
         {
           "id": "PhobosBuildFurnaceCoolantConduit",
@@ -16634,7 +17029,8 @@
             "TIsToolWelding"
           ],
           "nameKey": "Recipe.PhobosBuildFurnaceCoolantConduit.name",
-          "descriptionKey": "Recipe.PhobosBuildFurnaceCoolantConduit.description"
+          "descriptionKey": "Recipe.PhobosBuildFurnaceCoolantConduit.description",
+          "retiredFromMenus": false
         }
       ],
       "recipeItemNames": {
@@ -16663,7 +17059,7 @@
   "sourceHashes": {
     "mods/PhobosAgriculture/framework/equipment-names.json": "aad5c48acf15576e70469fdb9ff245de55e82b3fa2a4453afedf786d99c55174",
     "mods/PhobosAgriculture/framework/recipes.json": "35f866781942bbf18cad299a4e2b0f33c246c7333e9b8cd17e1cdbd31ae0405a",
-    "mods/PhobosAgriculture/mod_info.json": "0d85036caa9afacdb32c5dd6c86309bf43eae75461c0a39083b466e505cf93df",
+    "mods/PhobosAgriculture/mod_info.json": "d91e201d6e4a86c73f2a65002dad62d6eefc1ab2e0a85a5fb48c36aa867e4848",
     "mods/PhobosAutoNav/data/cooverlays/phobos_approach_assist.json": "980e9511be952b459d684accedc4fc82df41a80a1023719524b5f4f74719b898",
     "mods/PhobosAutoNav/data/guipropmaps/phobos_approach_assist.json": "b58a900cf980995085aaf4db06e4dbf2d6bd7287762475662035d4947d7eac0b",
     "mods/PhobosAutoNav/framework/equipment-names.json": "478a9416b2eb043c18fd5aac3b1720d512fdc9aa363c8411f831fa2fc9dfbee2",
@@ -16671,7 +17067,7 @@
     "mods/PhobosAutoNav/mod_info.json": "bd32155c6511d0e0e5b67caea8f1069f16fd207669bcc8ef1cf6c5c9f780f8a3",
     "mods/PhobosFramework/data/conditions/phobos_framework.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
     "mods/PhobosFramework/framework/equipment-names.json": "8d64a49207830ca57808d0de92ac82feaf95fb200dd550888e795bb7ed37afb7",
-    "mods/PhobosFramework/mod_info.json": "2adf1594a9c81b75daf9aa7b605e4000cce996ea8394cdc3856f8b69c24bf170",
+    "mods/PhobosFramework/mod_info.json": "1e6ba74fcf5fd240fd2cd8545ef11718e31b9a00a43364e482c98be24fd7111e",
     "mods/PhobosManufacturing/data/conditions/phobos_manufacturing.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
     "mods/PhobosManufacturing/mod_info.json": "ca699100a8084899d77a65e2a54e6d94c9b67f808addfe5367ea2306d4fce21b",
     "mods/PhobosShipbreaker/crafting/recipes.json": "8b0f034a7c732fec44ac31585321347040ee2074cd330cd3e5ecb90bb4ab7df4",
@@ -16679,7 +17075,7 @@
     "mods/PhobosShipbreaker/data/condtrigs/phobos_shipbreaker.json": "c7d4104df596d3fd362d9a80f4703178eafc5d3151bd53907814732ec84d3585",
     "mods/PhobosShipbreaker/framework/equipment-names.json": "06ca1a5fe39812844c8f114303e7205b1d366f8466bd614966e39f5f57844db8",
     "mods/PhobosShipbreaker/framework/recipes.json": "86bbcf4e5a5255b1640af90e62cf7840b85b4414ed6f1ac4b37d3b94b3613e98",
-    "mods/PhobosShipbreaker/mod_info.json": "f58df33fdd6d0853ca013b20272dbab8cb8320549cb3aa3ef59fb27d1184a7bf",
+    "mods/PhobosShipbreaker/mod_info.json": "da28d779d77f3c6716ba47182f155a7dfe65a1020db3e779a22f461282f08792",
     "src/PhobosAgriculture/Artwork.cs": "ccae66ac85e7dbe64d47bb3f93153558ca1b893a039310c688e366a1dd48408f",
     "src/PhobosAgriculture/AssemblyInfo.cs": "441ebc13e73f63e15379d179bdcde910645df15d5847671cdfff7cd313fbf66b",
     "src/PhobosAgriculture/BulkDefinitions.cs": "3ab7a2d2a54ae07e5f18e28c0d9e8b1cb2ce8f960c1f37c8885904ba3a35ac5d",
@@ -16696,7 +17092,7 @@
     "src/PhobosAgriculture/Core/RecyclerAttachment.cs": "f30d14ce5775f04f521d8d4a141ca2d8e161575aa02d8b196f26dfc65d37166f",
     "src/PhobosAgriculture/Core/TreatmentCartridge.cs": "904486b97a333d4a193a7e6208637222dfe3b08e579d4d15dddca395043363d9",
     "src/PhobosAgriculture/CrewProvider.cs": "418d1d04f3f33b5fa09a94f517be8c9fa10e94ee0ad1af7d716d8aea0299dd20",
-    "src/PhobosAgriculture/Definitions.cs": "34572d69b9e6b3e9c9cb8928b37b8ffce6b38bfdacb0fe00aedbdc2caa7ebdcb",
+    "src/PhobosAgriculture/Definitions.cs": "2a3d5b15909c053de8df4a3475279534bda98c295ecd22f3b9a5eb409426ec14",
     "src/PhobosAgriculture/EquipmentEconomy.cs": "8273cee6d1b4ff1633f690eb6cfbffc2810ed972f4f1f4b83944382dae96c340",
     "src/PhobosAgriculture/IrrigationDefinitions.cs": "d0adbe0a8424804d7fc6caea394fd5e0b5f45c7c03196c0cc0e23d96ec65110c",
     "src/PhobosAgriculture/IrrigationService.cs": "dbda414e08127beef40fa455aef253f3f5f5ebaadac93a17a2d3b7e5217d708c",
@@ -16706,8 +17102,8 @@
     "src/PhobosAgriculture/Panel.cs": "bbc54e2982e9653bf1bcf8ac908cfa6cd643d3e0c196635f9e280ce164afb85c",
     "src/PhobosAgriculture/PanelConfiguration.cs": "5c0a35b39f385a1a9c3515970b6f93e66677a2ac7f3d7e4bcb2b91cfef713003",
     "src/PhobosAgriculture/PerformanceMetrics.cs": "22b973d198593f8f38d1ef56579299ecf70fe373236443ff0e6723dc6d63ae56",
-    "src/PhobosAgriculture/PhobosAgriculture.csproj": "f8c7f3bfeacfb11cf79d1a2d515c0cbfc1f83de6a1ae1da7a13d7e210c526dc5",
-    "src/PhobosAgriculture/Plugin.cs": "8fcdd72196de05e347eeaf76b57a31915840ec5c999b4339a69b14781fe6adf8",
+    "src/PhobosAgriculture/PhobosAgriculture.csproj": "7054aad7ddcd094eaf624fb339d69b0ba1c5acc5c5e08a2120d79f7a9c0153f8",
+    "src/PhobosAgriculture/Plugin.cs": "ff874d58f65b525d7b3010202b2d010864614e127b75469041a981fc22bda7a4",
     "src/PhobosAgriculture/RecoveryService.cs": "fa5bd63314d8c6abfe7f225a927c36d92203bd11f1bfdf8f7085a71615b92f6e",
     "src/PhobosAgriculture/RecyclerCapture.cs": "3c33048a4896961c1d69ee87827cc3557f61548124e5c95a1a43882139dc9fb1",
     "src/PhobosAgriculture/RegionalEconomy.cs": "0cd481a0f6050f7d995e20b0fec17faec5dd95e7c259f5579d6f1877a0ad6d76",
@@ -16783,6 +17179,7 @@
     "src/PhobosFramework/Construction/ConstructionHooks.cs": "b96d2ede63edc0d6c60d84a093097a7800b1134e4db935c8b5db14620493648c",
     "src/PhobosFramework/Construction/ConstructionRegistry.cs": "8c545fff57cf035b7b19d38ec8d4126a45674824564c65cfe88b143f556fe2a4",
     "src/PhobosFramework/Construction/Recipe.cs": "a4c751f3f1816730818cbd56cc3e58ab1d45dd4b83f71bcba8a9bc57ae810e90",
+    "src/PhobosFramework/Construction/SectionAssembly.cs": "425cd2af2a7a52faedf1a270b336716d0911cdfb511d6bbce8539a2d5b81da7d",
     "src/PhobosFramework/Controls/CompactText.cs": "db07f9c3094de46881933ed2ab07156d59007cbeee0d862ffc4f9b2ad558111e",
     "src/PhobosFramework/Controls/ConfigurationSheet.cs": "f0a8c2f86b4fc6aff4c391f781c303c5df5430a937ede824408fd8fd884bb4b8",
     "src/PhobosFramework/Controls/ConfigurationStamp.cs": "6a5e6d010164ae936bc5a5d15cd26779a3581ba551ab00ac05ef1420dce164e1",
@@ -16793,6 +17190,7 @@
     "src/PhobosFramework/Controls/EquipmentProviders.cs": "c66c0281660cc2d63e10dfae3f62a2f2f8eea5b3980ff9964abf1ce21d9556be",
     "src/PhobosFramework/Controls/FixedTextMetrics.cs": "8c358b78786069c9156095549d0e9c073381abba48ac00fe7eb31682fad1c5c8",
     "src/PhobosFramework/Controls/InstrumentNumber.cs": "de9daa9d5b56aba59cb1908368d00b1ea5bf16dde5353ca339b2bbf1e5f2eb5f",
+    "src/PhobosFramework/Controls/ItemInformation.cs": "53533db29cc1eb0a4f3c56aedfa91efd925596b2fb21850d3e73f84b50fdb30a",
     "src/PhobosFramework/Controls/NativeAssemblyAudit.cs": "cd2c82894775d50c34edbc9e0a260cea92bc30c267f68ed7779855d629314eb5",
     "src/PhobosFramework/Controls/NativeInstruments.cs": "404f8169a9df129b5549883ad5852141464bc48f5d4c5dd03592a5e12248c2ff",
     "src/PhobosFramework/Controls/ObjectPicker.cs": "d774298d493cafe9cfcf843c00bf1203e775a49de79f79a77329afbd1f7b4331",
@@ -16821,7 +17219,7 @@
     "src/PhobosFramework/Diagnostics/Performance.cs": "86c37f769333dea06c0ea0fa2f8323d1c3eec5c8a3794075701252961c1f4d15",
     "src/PhobosFramework/Diagnostics/PerformanceSession.cs": "6d38efe649a4461ccdd977f26fdd01932c399818dc6989e703a04705f243acf4",
     "src/PhobosFramework/FrameworkConsole.cs": "75235e5905fd4944c692ca8feb90917a62c48b1fd598ba05f7dedc3a314a7dae",
-    "src/PhobosFramework/FrameworkLifecycle.cs": "ba3cef315744df19f154dccbf76cddfae353bb0549c2523b4051b0cafcb6d6eb",
+    "src/PhobosFramework/FrameworkLifecycle.cs": "7acbaf89bf946b5af7b1a6c011c0d2671f95db027d64f0a7a85af1cb81730466",
     "src/PhobosFramework/Inventory/BatchPlacement.cs": "2717d661636337f41b782aef9f3307dae27fa9b1ce3c403230ae8a7deff2bbcb",
     "src/PhobosFramework/Inventory/CollectorCargo.cs": "6e08c64cbce9799d4e1d38d3e8a7bd03bbc7b1976ddca167985d1cefe9430ffb",
     "src/PhobosFramework/Inventory/GridRoute.cs": "9cb05c97bdd83ee2b4d27185f8a1beae9c0aabd7d3213ccccf35091bf1d62b28",
@@ -16852,8 +17250,8 @@
     "src/PhobosFramework/Persistence/SavedGridHeader.cs": "b7ef65702f570dfb2d267b97c726e2ba02b420bfbbc2c5471ef4ac7479874bb2",
     "src/PhobosFramework/Persistence/SavedPlaceholderHealth.cs": "358c35db2a5f73335cc5930e808c25817da5fa6b1d9d91c217c5a119f26db91d",
     "src/PhobosFramework/Persistence/SavedRoomGrid.cs": "d7d70aba54e777d96d3079318f75320fb981a6dba8f3728570c84b8e54072fbe",
-    "src/PhobosFramework/PhobosFramework.csproj": "426bffe6b4da950a75c15649d6a611166a1de8e7db4a19a497e345df4b33981a",
-    "src/PhobosFramework/Plugin.cs": "02a4cabb2b12255315432b9c3683c2af88f168ea45e8cbf2f1458c8e9bece069",
+    "src/PhobosFramework/PhobosFramework.csproj": "92b527bb666217208ab76f325e0eb86aae43baeae9b8bece52ad7fbe1b43cbe1",
+    "src/PhobosFramework/Plugin.cs": "c41df73040003248050068c0a633133d9d444661761250af07aa1e7660df0710",
     "src/PhobosFramework/Processing/EnergyReceipt.cs": "cb31cd45ea69ee8d182b0578f50540393bd70e63e918a161f04f2b6a290199b2",
     "src/PhobosFramework/Processing/GasParcel.cs": "814357580cf3b2f7257a67042454823b454437f1fda38488521b66621e081fa3",
     "src/PhobosFramework/Processing/NativeEnergyReceipts.cs": "ed52382413127a5acd3700070f5d19975aec54c953d2fb2fa09eef08836fbe5e",
@@ -16867,7 +17265,8 @@
     "src/PhobosFramework/Registration/InstallMenu.cs": "1876a1222a5e766afe46380ccd0530e99246912d6b47bdb55399c87feaa1cdf2",
     "src/PhobosFramework/Registration/ItemHandling.cs": "e006b31c6f34e348e6415a705638e35ecda9608086bfbd93f2e5c4f374a4de77",
     "src/PhobosFramework/Registration/MaintenanceDefinitions.cs": "b501541592d33d6f904701b3ee83be08356256fb54b7a67ae37ef85d9fb5b12c",
-    "src/PhobosFramework/Registration/MaintenanceSafety.cs": "0796b48485ed38844a228d3725fc0e649cfe99f4bd80e8e5cf6f444da14a49b3",
+    "src/PhobosFramework/Registration/MaintenanceInformation.cs": "b4800a38d08e93250dbad547e416fb84daff861e9ab689158649b8f8a761a652",
+    "src/PhobosFramework/Registration/MaintenanceSafety.cs": "ff57a1890d48b7615e5ac91d945d57deb05dd239333680da295a04bde5c2e05d",
     "src/PhobosFramework/Registration/NativeDefinitions.cs": "a717e81f92237b0657f80ec25feea7a058bac0280fcac62ab3c098723ceaf738",
     "src/PhobosFramework/Text.cs": "866668152e077c30ff9d278aa86762e0b44e9662a46d9a6bd94f99cf040ea493",
     "src/PhobosFramework/Trading/BulkSettlement.cs": "7b25b5da6ea5d3ece352f8fb2009370dba1900ee31d3bd032950f4410c154aec",
@@ -16877,6 +17276,7 @@
     "src/PhobosFramework/Units.cs": "b66b1134d9b9e2ff57055c41b5354f280ec21233a395224ec6ba213668b22cf3",
     "src/PhobosManufacturing/PhobosManufacturing.csproj": "6669cb7319a67c1786e1d91c700ec7e1a24fc3cb6bd2585fcf7939711f9f00d5",
     "src/PhobosManufacturing/Plugin.cs": "145edfcafef1e1b0c4a53de5270298f6bb4c16a6e98080760b37a5efebd25642",
+    "src/PhobosShipbreaker/AssemblyDefinitions.cs": "6217f9a1893f9187a19ca07dadd390eab9aaefc8f358af4f032451b61ef48657",
     "src/PhobosShipbreaker/AssemblyInfo.cs": "a442448369b44ef8921362eea7215eab4e7fb557881cded3213f00b5d7600549",
     "src/PhobosShipbreaker/CaptureGeometry.cs": "4abc22fa206dca3b4da97c5c576858a8745d037a11adab00f1fb59d59ff7eb9a",
     "src/PhobosShipbreaker/CaptureService.cs": "84377f0db70451803afd504590a4b844c99c5428bd3b4a4d1836cf577767d254",
@@ -16888,15 +17288,16 @@
     "src/PhobosShipbreaker/CollectorRoute.cs": "7a1a943279a718094e2e8c130344a62bab947a03e5e78ec2b73b6bb58dd651cb",
     "src/PhobosShipbreaker/CollectorService.cs": "24cca62fd06764a28ae7112ac08f74499564cdf02939e0231591b3456d51780a",
     "src/PhobosShipbreaker/ConsoleCommands.cs": "a6a197cf3ce0646148c861549ae27dcd017aa45328d2cff596014cf3a72147c7",
-    "src/PhobosShipbreaker/Content.cs": "15fb48455fa285de9cb5744521752127ec1dabacec83fa1b9a47749eb28237f0",
+    "src/PhobosShipbreaker/Content.cs": "79d55e4f9cf2d85977dd3ad70cfd883652fcb885431275c55a326029ebe87e41",
     "src/PhobosShipbreaker/ControlAuthority.cs": "1bad10780bc839976cd5becf865b51a5c056de92e0390e9242ed428c0feb1039",
     "src/PhobosShipbreaker/CoolantService.cs": "c0948e8a8164240245c0c0d6e2b0477989750119ada29ef476d42fbc3e295ba1",
+    "src/PhobosShipbreaker/CoolingCargo.cs": "615e8c43ceb755efe97d862d6734016f35f963f10f3d3b9337fcaad5fba1b677",
     "src/PhobosShipbreaker/Core/CaptureRules.cs": "0166d2bda0007870d3b6775fcd413d5253834c07c39e4ea59995a4c00fd1fea4",
     "src/PhobosShipbreaker/Core/CollectorCommand.cs": "1af59059c2bd2c032a750712e12833f83e28573034000756b3c345d93bd99dc5",
     "src/PhobosShipbreaker/Core/CollectorRules.cs": "21349875b1be7f45ffe42ed10ce30f9f34b72f7257a51c983011f5348a2c0e6a",
     "src/PhobosShipbreaker/Core/Commands.cs": "6e4a786128d0f4f86b8401057a2f90df96628279d0eda360fece0a902d5b488f",
     "src/PhobosShipbreaker/Core/CoolantCharge.cs": "76339dc6670dff12e9d33da4480793bfc76d0961503d6c05975afc6d4ded4432",
-    "src/PhobosShipbreaker/Core/DependencyContract.cs": "683a27aaa2d2e8c2cb22e16cff583e2d1ba07f5a0bd13cdbc01a681479634d3c",
+    "src/PhobosShipbreaker/Core/DependencyContract.cs": "8de82d7ce84b80e002507d8c8f290918550607766d58d812ea805d39484190ff",
     "src/PhobosShipbreaker/Core/FurnaceBatch.cs": "a9fbc2a1f9be4c6f55dd7159e0202db6292f861f0704df6fb7ffd8dc19578f12",
     "src/PhobosShipbreaker/Core/FurnaceCooling.cs": "4c090e6c28b0cda7b2b646f4619dd9f3e139af9a4098912c590caeb45300842e",
     "src/PhobosShipbreaker/Core/FurnaceMaterialRules.cs": "9e875d11345f05a5d881bbf7bd84dc6e48713b459913ec81a525790bda52d307",
@@ -16918,11 +17319,11 @@
     "src/PhobosShipbreaker/FurnaceConduitDefinitions.cs": "4169a23c2b52c193c28e234020f2200126cfff185754abfb2e9395a979cd516a",
     "src/PhobosShipbreaker/FurnaceConnectionView.cs": "5816832354a947cde9554020c05b442f0c59dfb89b0eb41c2db1bc5e77bc03a5",
     "src/PhobosShipbreaker/FurnaceCoolantRoute.cs": "12df0f8df00bf10fd422aba52c5f398b4a1c9d812ac51d43618dcdecbe4ed967",
-    "src/PhobosShipbreaker/FurnaceDefinitions.cs": "d592b633de635cf08151fc97a78c783fcd0148159b2b874a3e51344229ba767a",
+    "src/PhobosShipbreaker/FurnaceDefinitions.cs": "f47e216d77d99192653e19b3c56ef824c260f5846b3bb2235dd9c7acd53c2f8a",
     "src/PhobosShipbreaker/FurnaceInstallationView.cs": "30665788657608baae05620f2de3469a1581f8a79887d9120f35c71892d79248",
     "src/PhobosShipbreaker/FurnaceInstrumentView.cs": "05593c1fe2730fb3c296e86871a92c7a469766a8d55adb6124f989dafc8be1f4",
     "src/PhobosShipbreaker/FurnaceMaterials.cs": "e347479428eaf4f6106d9217781b991359995f38da0ebfa83e1da158c7185cd4",
-    "src/PhobosShipbreaker/FurnaceOperations.cs": "e79d325d9e3354cdc51647712f607d15c7b1d1bb9bd92571bbbe5d2542dcdc37",
+    "src/PhobosShipbreaker/FurnaceOperations.cs": "ba8ce61b7b5d3d46c7c5e14c76009f67363f52c72e8bd16b7b463c122d638f27",
     "src/PhobosShipbreaker/FurnaceService.cs": "040dce11dbeceee1a14dc80e04a6ca9e6fe8b220eaa105ed5d4bbda366e73e03",
     "src/PhobosShipbreaker/IndustrialDefinitions.cs": "1d141044d9f37befe4e02e843955add810d37668e6146151da5ed7b41b04024b",
     "src/PhobosShipbreaker/IndustrialPanel.cs": "69f77d8d9eb20e9965d5a15b90573c19bcb063d997ef71db75ae997e9d6b8570",
@@ -16935,9 +17336,9 @@
     "src/PhobosShipbreaker/NativeAdapter.cs": "8320c05ddf6667060af21a98218e4df82015aba7feaeb124623d5eb57428083b",
     "src/PhobosShipbreaker/PanelConfiguration.cs": "74bcdd7f73eda6df2f29092c8493aaa852cf1518ce3afe6f12ff318c3dbc4bf2",
     "src/PhobosShipbreaker/PerformanceMetrics.cs": "d46727b5bdae9d235719ea4a9e0a76afd2ec63bfd410ebb5f410bb0ee75ebe9a",
-    "src/PhobosShipbreaker/PhobosShipbreaker.csproj": "343c41ce61b0f20f05739a57a6691db72d6d4a745034285742413f0a576fff02",
+    "src/PhobosShipbreaker/PhobosShipbreaker.csproj": "b4944e84584ce6031961e4095571f3cdd3b0f795e07cdfb0c24e72e9849b12b9",
     "src/PhobosShipbreaker/PlaceholderLoadRepair.cs": "8fdf6627ae35cd6d6c281a92a728e588f516ba7e4138e7204cc5c69549db44c4",
-    "src/PhobosShipbreaker/Plugin.cs": "b9c56220c1c6b69172c13500434cac002e566fd033adbcbfe0eb19988f11cdd4",
+    "src/PhobosShipbreaker/Plugin.cs": "c66c98100d59eabdf4a996d91cbadd4a8aef4712f20d1de73e49ae7a2cc39a4e",
     "src/PhobosShipbreaker/ProcessingCommands.cs": "5c0a603a4e2ae406bc94d5fcf0d30bb01b40512f57e474ab9ef5f2ab470a7320",
     "src/PhobosShipbreaker/ProcessingService.cs": "e2ce888fc8c850eb47632271f657d5d5918232b7f395a74e4a7f4c07ea464ca8",
     "src/PhobosShipbreaker/ReclaimerDefinitions.cs": "a56fa6440c3c3eec6ec4856ff47fdcbba43bffa50faeb92b8ecd5a28157514b2",
@@ -16953,12 +17354,12 @@
     "src/PhobosShipbreaker/TargetWallTransfer.cs": "674edc235e6b466056adc486b8063ebf1e3660697a1cf8a2ff8aae5eaa57a5ae",
     "src/PhobosShipbreaker/Text.cs": "2a0b7890addcbb0f4f8f71c48373cf352d7af8379905b01b1bc48bd0f84f7846",
     "tests/PhobosNative.Tests/EquipmentValueAudit.cs": "cca95052803934b6ac8af32979f066ca064942ca79ac87e4ec94b8b183815cac",
-    "tests/PhobosNative.Tests/ItemReferenceExport.cs": "dd8d70d095a2f7249a2cd0cebe977b7c8e843524f43bd9f1e1458700f04e0994",
-    "tests/PhobosNative.Tests/Program.cs": "4264b9f3d5e3bb582e362a32987d96d8d172fe9fd8c55387212e828462e68e72",
-    "translations/PhobosAgriculture/en.json": "9bbf666a88b1541a1b45d8f0bee8b0959f43640605ed7b1384b8bf6077ace710",
+    "tests/PhobosNative.Tests/ItemReferenceExport.cs": "b79b3e5348c17148eaf195f77a1073c4cd5b9c466f03b9a6709af8c76113a8e8",
+    "tests/PhobosNative.Tests/Program.cs": "ba576401af22b87f027867bbc4acd67b5a6d2aab0889fcf6e27170a447679f7b",
+    "translations/PhobosAgriculture/en.json": "7df3c46676c5fda905d02ecb71936cfacfba035d95323b439dcf20c55cddf9e0",
     "translations/PhobosAutoNav/en.json": "ac5d25bac9a873c019b8d36d3791a57aca7725b28ad1db65fbaeebad8988cffd",
-    "translations/PhobosFramework/en.json": "dafc13c4d4ed31b44e92cea5dab423761e37aa1934797bb1256c277f22caa941",
+    "translations/PhobosFramework/en.json": "419414906df37260de5729f1efed91be90c5ff73cc32f8baa81aaa3e1e6d4895",
     "translations/PhobosManufacturing/en.json": "3b3f3aa7f3c8c1124e6452335a634cf6e591dbe99021b2ec24bc61ae5b0524c0",
-    "translations/PhobosShipbreaker/en.json": "1c55eaf7c3f4074c58414c504ba5980a9d58da8c7f3c9d734ac046f49f5bb1a4"
+    "translations/PhobosShipbreaker/en.json": "5b1db94b2aef875a66cccfc2ab8dcce4573dcc9f59ee28dd3eefa034a47da0ce"
   }
 }

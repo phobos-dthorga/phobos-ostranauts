@@ -311,5 +311,12 @@
   "Bulk.reserved": "Another purchase is using this destination or account. Try again after it finishes.",
   "Bulk.partial": "Delivered {0:G}; paid {1:F2} cr. The undelivered portion was refunded.",
   "Bulk.done": "Delivered {0:G}; paid {1:F2} cr.",
-  "Bulk.ledger": "Bulk supplies: {0}, quantity {1:G}"
+  "Bulk.ledger": "Bulk supplies: {0}, quantity {1:G}",
+  "MaintenanceInfo.title": "Maintenance information",
+  "MaintenanceInfo.basics": "Install places a complete loose machine. Uninstall removes installed equipment. Repair rebuilds a broken form; Restore treats wear on an intact item. Dismantle breaks the item into salvage. Available work also depends on access, tools and materials.",
+  "MaintenanceInfo.empty": "No cargo or construction materials block dismantling. Check the work requirements and any equipment-specific restrictions below.",
+  "MaintenanceInfo.gone": "This item is no longer available.",
+  "MaintenanceInfo.stack": "Split the stack before working on one item. The other units must stay intact.",
+  "MaintenanceInfo.lot": "Materials are reserved for work on this item. Finish or cancel that work before dismantling.",
+  "MaintenanceInfo.contents": "Empty the equipment and its feed compartments before dismantling. Cargo must be moved out first."
 }

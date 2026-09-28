@@ -18,7 +18,7 @@ function Copy-PhobosPlayerGuides {
         'shipbreaker-capture', 'shipbreaker-reclamation', 'auto-nav-departure', 'auto-nav-reclamation-validation', 'shipbreaker-close-work-geometry', 'shipbreaker-autopilot-research', 'shipbreaker-autopilot-handover',
         'fluid-conduits-and-irrigation-research', 'agriculture-water-conduits', 'agriculture-nutrient-solutions', 'fluid-network-operations', 'chemical-storage-and-process-fluids', 'updating-constants',
         'processing-job-compatibility', 'localization', 'scrap-reclaimer', 'automatic-material-routing', 'material-port-pairing',
-        'merchant-stock', 'item-references', 'item-handling-audit', 'item-reference-maintenance', 'auto-nav-item-reference', 'shipbreaker-item-reference', 'agriculture-item-reference', 'framework-item-reference', 'manufacturing-item-reference',
+        'merchant-stock', 'item-references', 'item-handling-audit', 'section-assembly-and-maintenance', 'item-reference-maintenance', 'auto-nav-item-reference', 'shipbreaker-item-reference', 'agriculture-item-reference', 'framework-item-reference', 'manufacturing-item-reference',
         'limited-autopilot', 'manufacturing-research', 'manufacturing-implementation',
         'install-catalogue', 'industrial-console-player-guide', 'industrial-control-console', 'industrial-control-mockups', 'shared-console-observations', 'sensor-integration-research', 'fusion-smelter-research', 'framework-author-guide'
     )) {
@@ -59,6 +59,7 @@ function Copy-PhobosPlayerGuides {
         $text = $text.Replace('../src/', 'https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/src/')
         $text = $text.Replace('../assets/phobos-industrial-console/README.md', 'https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/assets/phobos-industrial-console/README.md')
         $text = $text.Replace('../config/', 'https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/config/')
+        $text = $text.Replace('../mods/PhobosFramework/licenses/', 'https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/mods/PhobosFramework/licenses/')
         Set-Content -LiteralPath $guide.FullName -Value $text -Encoding utf8
     }
     Copy-Item -LiteralPath (Join-Path $RepoRoot 'assets/phobos-furnace/coupling-provenance.json') -Destination $Package

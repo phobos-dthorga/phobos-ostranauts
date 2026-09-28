@@ -103,6 +103,15 @@ class ItemReferenceTests(unittest.TestCase):
             for p in root.rglob('*.cs'): p.write_bytes(b'line one\nline two\n')
             self.assertEqual(before, reference.source_hashes(root))
 
+    def test_assembly_work_uses_native_export_and_labels_retired_table_contract(self):
+        mod = next(m for m in self.data['mods'] if m['id'] == 'PhobosShipbreaker')
+        site = next(j for i in mod['items'] for j in i['jobs'] if j['id'].endswith('SectionAssembly'))
+        site['workProgress'] = 5000
+        text = reference.generate(ROOT, self.data, self.config)[Path('docs/shipbreaker-item-reference.md')]
+        self.assertIn('| 60 | Mortorq tool, soldering tool |', text)
+        self.assertIn('Construction-site assembly', text)
+        self.assertEqual(text.count('**Legacy saved-job contract:**'), 3)
+
 
 if __name__ == '__main__':
     unittest.main()

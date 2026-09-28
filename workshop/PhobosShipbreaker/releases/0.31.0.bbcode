@@ -1,0 +1,23 @@
+[h1]Phobos Shipbreaker 0.31.0[/h1]
+[b]Draft - not published | 2026-09-28[/b]
+
+[h2]Added[/h2]
+
+[list]
+[*]D4-S, R4-S and F6-S now offer Assembly information and Install for native construction sites. Crew deliver two D4/R4 sections or three F6 sections separately; the APPS tab in INSTALL selects that route.
+[*]Maintenance information identifies cargo, coolant, temperature, batch state and connected-equipment blockers.
+[/list]
+
+[h2]Fixed[/h2]
+
+[list]
+[*]Replace the new-work table assembly route that required multiple drag-only sections to be carried together. Complete loose machines keep direct Install; legacy table action IDs and bills remain for saved queues.
+[*]Recover stored cargo opens checked local F6-P/F6-R recovery. New deposits are blocked, real construction lots stay protected, and native damage transitions preserve captured existing cargo.
+[/list]
+
+[h2]Compatibility[/h2]
+
+[list]
+[*]Requires Phobos Framework 0.31.0. Section masses, output identities, thermal/coolant saves and native placement stay unchanged. Site work combines previous final assembly and mounting.
+[*]Offline native-definition and production adapter checks are separate from pending owner Unity hauling, recovery and reload tests.
+[/list]

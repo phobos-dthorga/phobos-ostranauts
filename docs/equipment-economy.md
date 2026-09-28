@@ -220,8 +220,7 @@ material identities remain a coherent fixed baseline in this version.
 
 ## Construction, repair and restoration
 
-All assembly recipes use an installed native Bar/Dining Table or a supported
-optional workbench. A Mortorq tool and soldering tool are required through native
+Section fabrication and smaller equipment recipes use an installed native Bar/Dining Table or a supported optional workbench. Since Shipbreaker 0.31.0, final D4/R4/F6 assembly uses native construction sites instead; [the site workflow](section-assembly-and-maintenance.md) combines the former final-assembly work with the existing installation work target. Whole loose machines keep their direct Install action. A Mortorq tool and soldering tool are required through native
 tool selection/fetching. Tools are used, not consumed as ingredients. Skills,
 tool condition, travel, materials fetching and interruptions can alter observed
 job duration. Construction work below is the configured action duration; install,
@@ -230,7 +229,7 @@ repair and dismantle values are normalized to **unit work/tool multipliers**.
 | Equipment | Assembly work | Install / uninstall | Repair broken | Dismantle |
 |---|---:|---:|---:|---:|
 | Assembly section | 60 min | n/a | n/a | 24 min |
-| Processor | 30 min final assembly; **150 min including two sections** | 18 / 12 min | 43.2 min | 60 min |
+| Processor | 48 min site assembly including mounting; **168 min including two sections** | 18 / 12 min | 43.2 min | 60 min |
 | Grabber | 60 min | 12 / 9.6 min | 28.8 min | 39 min |
 | Chute | 30 min | 6 / 6 min | 18 min | 18 min |
 | Collector | 40 min | 7.2 / 6 min | 21.6 min | 21 min |

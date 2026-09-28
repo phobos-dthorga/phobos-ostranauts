@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "date": "2026-09-27",
+  "date": "2026-09-28",
   "baseline": "8bd31b3",
   "rule": "docs/player-language.md",
   "entries": [
@@ -17759,13 +17759,15 @@
       "key": "Content.an_unpowered_kg_x_assembly_section_combine",
       "category": "status/warning",
       "decision": "retain",
-      "reason": "Retain: clear functional label, operational instruction or necessary safety/detail constraint; no forced personality.",
-      "trace": "literal/name/recipe reference",
+      "reason": "2026-09-28: reviewed native section-site instructions and maintenance/recovery restrictions against current service checks; explicit actions, no promised bypass or cargo relocation.",
+      "trace": "maintained runtime lookup",
       "references": [
-        "src/PhobosShipbreaker/Content.cs:157"
+        "src/PhobosShipbreaker/AssemblyDefinitions.cs",
+        "src/PhobosShipbreaker/CoolingCargo.cs",
+        "src/PhobosShipbreaker/FurnaceOperations.cs"
       ],
       "before": "An unpowered {0} kg, {1} x {1} assembly section. Combine two at an installed table or supported workbench to finish one powered dismantling fixture. Not ordinary scrap; cannot process panels by itself.",
-      "after": "An unpowered {0} kg, {1} x {1} assembly section. Combine two at an installed table or supported workbench to finish one powered dismantling fixture. Not ordinary scrap; cannot process panels by itself."
+      "after": "Unpowered {0} kg, {1} x {1} assembly section. Choose Install to place a construction site, then deliver two matching sections with Mortorq and soldering tools. Use Assembly information for instructions. Cannot process panels by itself."
     },
     {
       "mod": "PhobosShipbreaker",
@@ -20098,13 +20100,15 @@
       "key": "Reclaimer.section_description",
       "category": "description",
       "decision": "retain",
-      "reason": "Retain: clear functional label, operational instruction or necessary safety/detail constraint; no forced personality.",
-      "trace": "literal/name/recipe reference",
+      "reason": "2026-09-28: reviewed native section-site instructions and maintenance/recovery restrictions against current service checks; explicit actions, no promised bypass or cargo relocation.",
+      "trace": "maintained runtime lookup",
       "references": [
-        "src/PhobosShipbreaker/ReclaimerDefinitions.cs:56"
+        "src/PhobosShipbreaker/AssemblyDefinitions.cs",
+        "src/PhobosShipbreaker/CoolingCargo.cs",
+        "src/PhobosShipbreaker/FurnaceOperations.cs"
       ],
       "before": "Unpowered {0} kg, 4 x 4 construction section. Combine two into a {1} kg scrap reclaimer.",
-      "after": "Unpowered {0} kg, 4 x 4 construction section. Combine two into a {1} kg scrap reclaimer."
+      "after": "Unpowered {0} kg, 4 x 4 construction section. Choose Install to assemble two at a construction site into a {1} kg scrap reclaimer. Assembly information explains the tools and hauling."
     },
     {
       "mod": "PhobosShipbreaker",
@@ -26132,13 +26136,15 @@
       "key": "Furnace.section_description",
       "category": "description",
       "decision": "retain",
-      "reason": "Retain: clear functional label, operational instruction or necessary safety/detail constraint; no forced personality.",
-      "trace": "literal/name/recipe reference",
+      "reason": "2026-09-28: reviewed native section-site instructions and maintenance/recovery restrictions against current service checks; explicit actions, no promised bypass or cargo relocation.",
+      "trace": "maintained runtime lookup",
       "references": [
-        "src/PhobosShipbreaker/FurnaceDefinitions.cs:67"
+        "src/PhobosShipbreaker/AssemblyDefinitions.cs",
+        "src/PhobosShipbreaker/CoolingCargo.cs",
+        "src/PhobosShipbreaker/FurnaceOperations.cs"
       ],
       "before": "80 kg unpowered assembly stock. Join three sections into the complete 240 kg F6 furnace.",
-      "after": "80 kg unpowered assembly stock. Join three sections into the complete 240 kg F6 furnace."
+      "after": "80 kg unpowered assembly section. Choose Install to build the 240 kg F6 furnace from three matching sections at its final location. Assembly information explains the tools and hauling."
     },
     {
       "mod": "PhobosShipbreaker",
@@ -35302,6 +35308,422 @@
       ],
       "before": "That ship is attached to yours. Select a different fire target.",
       "after": "That ship is attached to yours. Select a different fire target."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "Maintenance.ready",
+      "category": "help/settings",
+      "decision": "new",
+      "before": "No extra agricultural restriction currently blocks removal. Native access, tools and materials still apply.",
+      "after": "No extra agricultural restriction currently blocks removal. Native access, tools and materials still apply.",
+      "reason": "2026-09-28: reviewed native section-site instructions and maintenance/recovery restrictions against current service checks; explicit actions, no promised bypass or cargo relocation.",
+      "trace": "maintained runtime lookup",
+      "references": [
+        "src/PhobosAgriculture/Plugin.cs"
+      ]
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "Maintenance.protected",
+      "category": "help/settings",
+      "decision": "new",
+      "before": "A saved transfer or process needs attention. Keep the equipment in place and inspect its control panel before maintenance.",
+      "after": "A saved transfer or process needs attention. Keep the equipment in place and inspect its control panel before maintenance.",
+      "reason": "2026-09-28: reviewed native section-site instructions and maintenance/recovery restrictions against current service checks; explicit actions, no promised bypass or cargo relocation.",
+      "trace": "maintained runtime lookup",
+      "references": [
+        "src/PhobosAgriculture/Plugin.cs"
+      ]
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "Maintenance.tank",
+      "category": "help/settings",
+      "decision": "new",
+      "before": "Drain the tank before removing or dismantling it.",
+      "after": "Drain the tank before removing or dismantling it.",
+      "reason": "2026-09-28: reviewed native section-site instructions and maintenance/recovery restrictions against current service checks; explicit actions, no promised bypass or cargo relocation.",
+      "trace": "maintained runtime lookup",
+      "references": [
+        "src/PhobosAgriculture/Plugin.cs"
+      ]
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "Maintenance.link",
+      "category": "help/settings",
+      "decision": "new",
+      "before": "Disconnect the empty tank from its paired equipment before removal.",
+      "after": "Disconnect the empty tank from its paired equipment before removal.",
+      "reason": "2026-09-28: reviewed native section-site instructions and maintenance/recovery restrictions against current service checks; explicit actions, no promised bypass or cargo relocation.",
+      "trace": "maintained runtime lookup",
+      "references": [
+        "src/PhobosAgriculture/Plugin.cs"
+      ]
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "Maintenance.contents",
+      "category": "help/settings",
+      "decision": "new",
+      "before": "Unload crops, food, nutrients and retained water or solution before removing this equipment. Check its supply and pipe contents in the control panel.",
+      "after": "Unload crops, food, nutrients and retained water or solution before removing this equipment. Check its supply and pipe contents in the control panel.",
+      "reason": "2026-09-28: reviewed native section-site instructions and maintenance/recovery restrictions against current service checks; explicit actions, no promised bypass or cargo relocation.",
+      "trace": "maintained runtime lookup",
+      "references": [
+        "src/PhobosAgriculture/Plugin.cs"
+      ]
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "Maintenance.job",
+      "category": "help/settings",
+      "decision": "new",
+      "before": "Finish or cancel the cooking or workup job before removing this equipment.",
+      "after": "Finish or cancel the cooking or workup job before removing this equipment.",
+      "reason": "2026-09-28: reviewed native section-site instructions and maintenance/recovery restrictions against current service checks; explicit actions, no promised bypass or cargo relocation.",
+      "trace": "maintained runtime lookup",
+      "references": [
+        "src/PhobosAgriculture/Plugin.cs"
+      ]
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "MaintenanceInfo.title",
+      "category": "help/settings",
+      "decision": "new",
+      "before": "Maintenance information",
+      "after": "Maintenance information",
+      "reason": "2026-09-28: reviewed native section-site instructions and maintenance/recovery restrictions against current service checks; explicit actions, no promised bypass or cargo relocation.",
+      "trace": "maintained runtime lookup",
+      "references": [
+        "src/PhobosFramework/Registration/MaintenanceSafety.cs",
+        "src/PhobosFramework/Registration/MaintenanceInformation.cs"
+      ]
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "MaintenanceInfo.basics",
+      "category": "help/settings",
+      "decision": "new",
+      "before": "Install places a complete loose machine. Uninstall removes installed equipment. Repair rebuilds a broken form; Restore treats wear on an intact item. Dismantle breaks the item into salvage. Available work also depends on access, tools and materials.",
+      "after": "Install places a complete loose machine. Uninstall removes installed equipment. Repair rebuilds a broken form; Restore treats wear on an intact item. Dismantle breaks the item into salvage. Available work also depends on access, tools and materials.",
+      "reason": "2026-09-28: reviewed native section-site instructions and maintenance/recovery restrictions against current service checks; explicit actions, no promised bypass or cargo relocation.",
+      "trace": "maintained runtime lookup",
+      "references": [
+        "src/PhobosFramework/Registration/MaintenanceSafety.cs",
+        "src/PhobosFramework/Registration/MaintenanceInformation.cs"
+      ]
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "MaintenanceInfo.empty",
+      "category": "help/settings",
+      "decision": "new",
+      "before": "No cargo or construction materials block dismantling. Check the work requirements and any equipment-specific restrictions below.",
+      "after": "No cargo or construction materials block dismantling. Check the work requirements and any equipment-specific restrictions below.",
+      "reason": "2026-09-28: reviewed native section-site instructions and maintenance/recovery restrictions against current service checks; explicit actions, no promised bypass or cargo relocation.",
+      "trace": "maintained runtime lookup",
+      "references": [
+        "src/PhobosFramework/Registration/MaintenanceSafety.cs",
+        "src/PhobosFramework/Registration/MaintenanceInformation.cs"
+      ]
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "MaintenanceInfo.gone",
+      "category": "help/settings",
+      "decision": "new",
+      "before": "This item is no longer available.",
+      "after": "This item is no longer available.",
+      "reason": "2026-09-28: reviewed native section-site instructions and maintenance/recovery restrictions against current service checks; explicit actions, no promised bypass or cargo relocation.",
+      "trace": "maintained runtime lookup",
+      "references": [
+        "src/PhobosFramework/Registration/MaintenanceSafety.cs",
+        "src/PhobosFramework/Registration/MaintenanceInformation.cs"
+      ]
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "MaintenanceInfo.stack",
+      "category": "help/settings",
+      "decision": "new",
+      "before": "Split the stack before working on one item. The other units must stay intact.",
+      "after": "Split the stack before working on one item. The other units must stay intact.",
+      "reason": "2026-09-28: reviewed native section-site instructions and maintenance/recovery restrictions against current service checks; explicit actions, no promised bypass or cargo relocation.",
+      "trace": "maintained runtime lookup",
+      "references": [
+        "src/PhobosFramework/Registration/MaintenanceSafety.cs",
+        "src/PhobosFramework/Registration/MaintenanceInformation.cs"
+      ]
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "MaintenanceInfo.lot",
+      "category": "help/settings",
+      "decision": "new",
+      "before": "Materials are reserved for work on this item. Finish or cancel that work before dismantling.",
+      "after": "Materials are reserved for work on this item. Finish or cancel that work before dismantling.",
+      "reason": "2026-09-28: reviewed native section-site instructions and maintenance/recovery restrictions against current service checks; explicit actions, no promised bypass or cargo relocation.",
+      "trace": "maintained runtime lookup",
+      "references": [
+        "src/PhobosFramework/Registration/MaintenanceSafety.cs",
+        "src/PhobosFramework/Registration/MaintenanceInformation.cs"
+      ]
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "MaintenanceInfo.contents",
+      "category": "help/settings",
+      "decision": "new",
+      "before": "Empty the equipment and its feed compartments before dismantling. Cargo must be moved out first.",
+      "after": "Empty the equipment and its feed compartments before dismantling. Cargo must be moved out first.",
+      "reason": "2026-09-28: reviewed native section-site instructions and maintenance/recovery restrictions against current service checks; explicit actions, no promised bypass or cargo relocation.",
+      "trace": "maintained runtime lookup",
+      "references": [
+        "src/PhobosFramework/Registration/MaintenanceSafety.cs",
+        "src/PhobosFramework/Registration/MaintenanceInformation.cs"
+      ]
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Assembly.title",
+      "category": "help/settings",
+      "decision": "new",
+      "before": "Assembly information",
+      "after": "Assembly information",
+      "reason": "2026-09-28: reviewed native section-site instructions and maintenance/recovery restrictions against current service checks; explicit actions, no promised bypass or cargo relocation.",
+      "trace": "maintained runtime lookup",
+      "references": [
+        "src/PhobosShipbreaker/AssemblyDefinitions.cs",
+        "src/PhobosShipbreaker/CoolingCargo.cs",
+        "src/PhobosShipbreaker/FurnaceOperations.cs"
+      ]
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Assembly.instructions",
+      "category": "help/settings",
+      "decision": "new",
+      "before": "This is one unpowered assembly section. You need {0} matching sections of {1} kg each, a Mortorq tool and a soldering tool. The completed machine weighs {2} kg.\n\nChoose Install on a section, or choose the machine in INSTALL > APPS, then place its outline where it will operate. Native construction work brings sections to the site one at a time; they use the drag slot, not your hands. Keep a clear route for crew and bulky parts. No table is needed for final assembly.\n\nThe construction site retains delivered parts and work progress across saves. Cancel its native construction order to recover delivered parts. Do not dismantle the sections to assemble the machine.\n\nA complete loose machine still has its own Install action. Once assembled and installed, use Control Panel. Sections can still be made at a suitable work table.",
+      "after": "This is one unpowered assembly section. You need {0} matching sections of {1} kg each, a Mortorq tool and a soldering tool. The completed machine weighs {2} kg.\n\nChoose Install on a section, or choose the machine in INSTALL > APPS, then place its outline where it will operate. Native construction work brings sections to the site one at a time; they use the drag slot, not your hands. Keep a clear route for crew and bulky parts. No table is needed for final assembly.\n\nThe construction site retains delivered parts and work progress across saves. Cancel its native construction order to recover delivered parts. Do not dismantle the sections to assemble the machine.\n\nA complete loose machine still has its own Install action. Once assembled and installed, use Control Panel. Sections can still be made at a suitable work table.",
+      "reason": "2026-09-28: reviewed native section-site instructions and maintenance/recovery restrictions against current service checks; explicit actions, no promised bypass or cargo relocation.",
+      "trace": "maintained runtime lookup",
+      "references": [
+        "src/PhobosShipbreaker/AssemblyDefinitions.cs",
+        "src/PhobosShipbreaker/CoolingCargo.cs",
+        "src/PhobosShipbreaker/FurnaceOperations.cs"
+      ]
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Maintenance.ready",
+      "category": "help/settings",
+      "decision": "new",
+      "before": "No extra machinery restriction currently blocks removal. Native access, tools and material requirements still apply.",
+      "after": "No extra machinery restriction currently blocks removal. Native access, tools and material requirements still apply.",
+      "reason": "2026-09-28: reviewed native section-site instructions and maintenance/recovery restrictions against current service checks; explicit actions, no promised bypass or cargo relocation.",
+      "trace": "maintained runtime lookup",
+      "references": [
+        "src/PhobosShipbreaker/AssemblyDefinitions.cs",
+        "src/PhobosShipbreaker/CoolingCargo.cs",
+        "src/PhobosShipbreaker/FurnaceOperations.cs"
+      ]
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Maintenance.protected",
+      "category": "help/settings",
+      "decision": "new",
+      "before": "This machine has an unfinished or unreadable saved operation. Keep it in place and inspect its control panel; do not discard its saved contents.",
+      "after": "This machine has an unfinished or unreadable saved operation. Keep it in place and inspect its control panel; do not discard its saved contents.",
+      "reason": "2026-09-28: reviewed native section-site instructions and maintenance/recovery restrictions against current service checks; explicit actions, no promised bypass or cargo relocation.",
+      "trace": "maintained runtime lookup",
+      "references": [
+        "src/PhobosShipbreaker/AssemblyDefinitions.cs",
+        "src/PhobosShipbreaker/CoolingCargo.cs",
+        "src/PhobosShipbreaker/FurnaceOperations.cs"
+      ]
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Maintenance.coolant",
+      "category": "help/settings",
+      "decision": "new",
+      "before": "Drain the retained coolant through the control panel before removing this equipment.",
+      "after": "Drain the retained coolant through the control panel before removing this equipment.",
+      "reason": "2026-09-28: reviewed native section-site instructions and maintenance/recovery restrictions against current service checks; explicit actions, no promised bypass or cargo relocation.",
+      "trace": "maintained runtime lookup",
+      "references": [
+        "src/PhobosShipbreaker/AssemblyDefinitions.cs",
+        "src/PhobosShipbreaker/CoolingCargo.cs",
+        "src/PhobosShipbreaker/FurnaceOperations.cs"
+      ]
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Maintenance.batch",
+      "category": "help/settings",
+      "decision": "new",
+      "before": "Finish or safely release the current furnace batch before removing this equipment.",
+      "after": "Finish or safely release the current furnace batch before removing this equipment.",
+      "reason": "2026-09-28: reviewed native section-site instructions and maintenance/recovery restrictions against current service checks; explicit actions, no promised bypass or cargo relocation.",
+      "trace": "maintained runtime lookup",
+      "references": [
+        "src/PhobosShipbreaker/AssemblyDefinitions.cs",
+        "src/PhobosShipbreaker/CoolingCargo.cs",
+        "src/PhobosShipbreaker/FurnaceOperations.cs"
+      ]
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Maintenance.hot",
+      "category": "help/settings",
+      "decision": "new",
+      "before": "Let the equipment cool to 50 C or below before removal. An unavailable temperature reading also blocks removal.",
+      "after": "Let the equipment cool to 50 C or below before removal. An unavailable temperature reading also blocks removal.",
+      "reason": "2026-09-28: reviewed native section-site instructions and maintenance/recovery restrictions against current service checks; explicit actions, no promised bypass or cargo relocation.",
+      "trace": "maintained runtime lookup",
+      "references": [
+        "src/PhobosShipbreaker/AssemblyDefinitions.cs",
+        "src/PhobosShipbreaker/CoolingCargo.cs",
+        "src/PhobosShipbreaker/FurnaceOperations.cs"
+      ]
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Maintenance.feed",
+      "category": "help/settings",
+      "decision": "new",
+      "before": "Empty the furnace feed before removal.",
+      "after": "Empty the furnace feed before removal.",
+      "reason": "2026-09-28: reviewed native section-site instructions and maintenance/recovery restrictions against current service checks; explicit actions, no promised bypass or cargo relocation.",
+      "trace": "maintained runtime lookup",
+      "references": [
+        "src/PhobosShipbreaker/AssemblyDefinitions.cs",
+        "src/PhobosShipbreaker/CoolingCargo.cs",
+        "src/PhobosShipbreaker/FurnaceOperations.cs"
+      ]
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Maintenance.products",
+      "category": "help/settings",
+      "decision": "new",
+      "before": "Take the finished products out before removal.",
+      "after": "Take the finished products out before removal.",
+      "reason": "2026-09-28: reviewed native section-site instructions and maintenance/recovery restrictions against current service checks; explicit actions, no promised bypass or cargo relocation.",
+      "trace": "maintained runtime lookup",
+      "references": [
+        "src/PhobosShipbreaker/AssemblyDefinitions.cs",
+        "src/PhobosShipbreaker/CoolingCargo.cs",
+        "src/PhobosShipbreaker/FurnaceOperations.cs"
+      ]
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Maintenance.trapped",
+      "category": "help/settings",
+      "decision": "new",
+      "before": "Cargo remains inside this cooling unit. Stand beside it and choose Recover stored cargo, then move the items out.",
+      "after": "Cargo remains inside this cooling unit. Stand beside it and choose Recover stored cargo, then move the items out.",
+      "reason": "2026-09-28: reviewed native section-site instructions and maintenance/recovery restrictions against current service checks; explicit actions, no promised bypass or cargo relocation.",
+      "trace": "maintained runtime lookup",
+      "references": [
+        "src/PhobosShipbreaker/AssemblyDefinitions.cs",
+        "src/PhobosShipbreaker/CoolingCargo.cs",
+        "src/PhobosShipbreaker/FurnaceOperations.cs"
+      ]
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Maintenance.repair_hot",
+      "category": "help/settings",
+      "decision": "new",
+      "before": "Repair is held while the equipment is hot, pressurised or delivering a batch. Let it cool and safely finish or release the batch through its controls.",
+      "after": "Repair is held while the equipment is hot, pressurised or delivering a batch. Let it cool and safely finish or release the batch through its controls.",
+      "reason": "2026-09-28: reviewed native section-site instructions and maintenance/recovery restrictions against current service checks; explicit actions, no promised bypass or cargo relocation.",
+      "trace": "maintained runtime lookup",
+      "references": [
+        "src/PhobosShipbreaker/AssemblyDefinitions.cs",
+        "src/PhobosShipbreaker/CoolingCargo.cs",
+        "src/PhobosShipbreaker/FurnaceOperations.cs"
+      ]
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Maintenance.peer",
+      "category": "help/settings",
+      "decision": "new",
+      "before": "Connected equipment also needs attention: {0}. {1}",
+      "after": "Connected equipment also needs attention: {0}. {1}",
+      "reason": "2026-09-28: reviewed native section-site instructions and maintenance/recovery restrictions against current service checks; explicit actions, no promised bypass or cargo relocation.",
+      "trace": "maintained runtime lookup",
+      "references": [
+        "src/PhobosShipbreaker/AssemblyDefinitions.cs",
+        "src/PhobosShipbreaker/CoolingCargo.cs",
+        "src/PhobosShipbreaker/FurnaceOperations.cs"
+      ]
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Maintenance.recover_cargo",
+      "category": "help/settings",
+      "decision": "new",
+      "before": "Recover stored cargo",
+      "after": "Recover stored cargo",
+      "reason": "2026-09-28: reviewed native section-site instructions and maintenance/recovery restrictions against current service checks; explicit actions, no promised bypass or cargo relocation.",
+      "trace": "maintained runtime lookup",
+      "references": [
+        "src/PhobosShipbreaker/AssemblyDefinitions.cs",
+        "src/PhobosShipbreaker/CoolingCargo.cs",
+        "src/PhobosShipbreaker/FurnaceOperations.cs"
+      ]
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Maintenance.recovery_help",
+      "category": "help/settings",
+      "decision": "new",
+      "before": "Move the stored items out of this cooling unit using the inventory window. New deposits are blocked; this is recovery access for older saves.",
+      "after": "Move the stored items out of this cooling unit using the inventory window. New deposits are blocked; this is recovery access for older saves.",
+      "reason": "2026-09-28: reviewed native section-site instructions and maintenance/recovery restrictions against current service checks; explicit actions, no promised bypass or cargo relocation.",
+      "trace": "maintained runtime lookup",
+      "references": [
+        "src/PhobosShipbreaker/AssemblyDefinitions.cs",
+        "src/PhobosShipbreaker/CoolingCargo.cs",
+        "src/PhobosShipbreaker/FurnaceOperations.cs"
+      ]
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Maintenance.no_cargo",
+      "category": "help/settings",
+      "decision": "new",
+      "before": "No stored cargo is available here.",
+      "after": "No stored cargo is available here.",
+      "reason": "2026-09-28: reviewed native section-site instructions and maintenance/recovery restrictions against current service checks; explicit actions, no promised bypass or cargo relocation.",
+      "trace": "maintained runtime lookup",
+      "references": [
+        "src/PhobosShipbreaker/AssemblyDefinitions.cs",
+        "src/PhobosShipbreaker/CoolingCargo.cs",
+        "src/PhobosShipbreaker/FurnaceOperations.cs"
+      ]
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Maintenance.reserved",
+      "category": "help/settings",
+      "decision": "new",
+      "before": "Cargo is reserved for an active operation. Finish or cancel that native work before recovering it.",
+      "after": "Cargo is reserved for an active operation. Finish or cancel that native work before recovering it.",
+      "reason": "2026-09-28: reviewed native section-site instructions and maintenance/recovery restrictions against current service checks; explicit actions, no promised bypass or cargo relocation.",
+      "trace": "maintained runtime lookup",
+      "references": [
+        "src/PhobosShipbreaker/AssemblyDefinitions.cs",
+        "src/PhobosShipbreaker/CoolingCargo.cs",
+        "src/PhobosShipbreaker/FurnaceOperations.cs"
+      ]
     }
   ],
   "documents": [
@@ -35309,8 +35731,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "685a58b691e2d190cb1d55179d2c3d2a8ff933571e1a89d264f686e50d9cf531",
-      "review": "2026-09-27: towing instructions, unchanged native mechanics and scope limits reviewed; historical records preserved."
+      "sha256": "5ccf2a5b80e5efaf2cbb1eaebf73dd2df7705a4793c80b628cb0fd2e0a4ee7ce",
+      "review": "2026-09-28: reviewed assembly sites, local cargo recovery, maintenance explanations and release/reference consistency; historical evidence and native/Unity validation limits retained."
     },
     {
       "path": "SUPPORT.md",
@@ -35334,8 +35756,8 @@
       "path": "docs/agriculture-bulk-storage-calculations.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "24e0400ab7c79548c58e2c867b2b3398fadf5dd684ea481f4ae027a8aafa5308",
-      "review": "2026-09-27: generator refresh changes only current versions/source fingerprints; item values, research findings and player explanations are unchanged."
+      "sha256": "9179c200f94c650daf17f18b8903982044805dcd82318f7b4afe653e7805bbbc",
+      "review": "2026-09-28: reviewed assembly sites, local cargo recovery, maintenance explanations and release/reference consistency; historical evidence and native/Unity validation limits retained."
     },
     {
       "path": "docs/agriculture-bulk-storage-design.md",
@@ -35383,8 +35805,8 @@
       "path": "docs/agriculture-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "a105f4555c70042cec1f18fa835a88cb776620060b763b41a7c4d4bb33b0800f",
-      "review": "2026-09-27: generator refresh changes only current versions/source fingerprints; item values, research findings and player explanations are unchanged."
+      "sha256": "9997914c2f226d334dfc9ee9a23fc8c8567f3fe66982dc59c13df1b6c6a50397",
+      "review": "2026-09-28: reviewed assembly sites, local cargo recovery, maintenance explanations and release/reference consistency; historical evidence and native/Unity validation limits retained."
     },
     {
       "path": "docs/agriculture-living-visuals.md",
@@ -35632,8 +36054,8 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "bac10c89aa2866dce5493bd83e1fc4bb64147f67af972c17d174b6c9b8cb9066",
-      "review": "2026-09-27: towing instructions, unchanged native mechanics and scope limits reviewed; historical records preserved."
+      "sha256": "fa3ff9f01b7a4176ccb67c5f36d5c907c9ee0cbcb2bc8835ac448d01c91cc0e0",
+      "review": "2026-09-28: reviewed assembly sites, local cargo recovery, maintenance explanations and release/reference consistency; historical evidence and native/Unity validation limits retained."
     },
     {
       "path": "docs/crew-automation.md",
@@ -35657,7 +36079,8 @@
       "path": "docs/equipment-economy.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "56508198a099c20e92e0b817debbfc5bb94ea95c7759d85e1bfa68894dbd0e1d"
+      "sha256": "ae5ff9108fe8c5fabde51b90ca01436c467ab488b14ed087e7751245cbf3fbe0",
+      "review": "2026-09-28: reviewed assembly sites, local cargo recovery, maintenance explanations and release/reference consistency; historical evidence and native/Unity validation limits retained."
     },
     {
       "path": "docs/equipment-value-audit.md",
@@ -35687,8 +36110,8 @@
       "path": "docs/framework-author-guide.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "d0c9e0e892283893dc329e3bbb794c51d2b2e79a58fa7ce0019a798002bb3370",
-      "review": "2026-09-27 Polaris review: checked revised controls, versions, generated reference evidence and limitations; preserved scientific attribution and historical records."
+      "sha256": "71af938ddc87b34623711ccfba12ed568011cd677decf215287f7cdf9318052e",
+      "review": "2026-09-28: reviewed assembly sites, local cargo recovery, maintenance explanations and release/reference consistency; historical evidence and native/Unity validation limits retained."
     },
     {
       "path": "docs/framework-bulk-storage.md",
@@ -35700,8 +36123,8 @@
       "path": "docs/framework-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "e53b4090f6037319acf595df2ecfc08f78ea906d59e7050d404b3f1d450b8345",
-      "review": "2026-09-27 Polaris review: checked revised controls, versions, generated reference evidence and limitations; preserved scientific attribution and historical records."
+      "sha256": "50f28ce3c357dc3a69e471e0132f411e07b3a1db9954d6c08e585fc0c96413dc",
+      "review": "2026-09-28: reviewed assembly sites, local cargo recovery, maintenance explanations and release/reference consistency; historical evidence and native/Unity validation limits retained."
     },
     {
       "path": "docs/furnace-connections-and-instruments.md",
@@ -35737,7 +36160,8 @@
       "path": "docs/furnace-player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "91268899baaddc73a29668f53297f4ce1e84ad4988e76c21c40a73b4dd686871"
+      "sha256": "cd9b76ce629c9ba49a8fdab2b4899e7a12e012a1069fadc27e46ef288b7bc8ea",
+      "review": "2026-09-28: reviewed assembly sites, local cargo recovery, maintenance explanations and release/reference consistency; historical evidence and native/Unity validation limits retained."
     },
     {
       "path": "docs/furnace-repair-castings.md",
@@ -35797,8 +36221,8 @@
       "path": "docs/industrial-console-player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "0630bd0e926c01edd9909d4a5bf44153846e9825613a726741dd3e93c9388a7f",
-      "review": "2026-09-27 Polaris review: checked revised controls, versions, generated reference evidence and limitations; preserved scientific attribution and historical records."
+      "sha256": "ff2dbde0edd2891b6676be1d35b72bd11a7c483211a13c255bdfa2befb3caeda",
+      "review": "2026-09-28: reviewed assembly sites, local cargo recovery, maintenance explanations and release/reference consistency; historical evidence and native/Unity validation limits retained."
     },
     {
       "path": "docs/industrial-control-console.md",
@@ -35816,21 +36240,22 @@
       "path": "docs/install-catalogue.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "6da48c88ad8e4d7a414d2ebcfa1e4be470372b38202fd9c9b35bd76962ee724c"
+      "sha256": "6ae44058dc8ab0d4df6691e403424b36a011e4a1731b5adbd18a446bf5552d22",
+      "review": "2026-09-28: reviewed assembly sites, local cargo recovery, maintenance explanations and release/reference consistency; historical evidence and native/Unity validation limits retained."
     },
     {
       "path": "docs/installing-mods.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "6eb3dcbc2cc897d3882c8c992a43ae997abb8fb736b9240ef72718ea03962dbd",
-      "review": "2026-09-27 Polaris review: checked revised controls, versions, generated reference evidence and limitations; preserved scientific attribution and historical records."
+      "sha256": "8c3a5bf55d8f502f0582ee8dc0a291070282a29a93fa5150b4c617c456826569",
+      "review": "2026-09-28: reviewed assembly sites, local cargo recovery, maintenance explanations and release/reference consistency; historical evidence and native/Unity validation limits retained."
     },
     {
       "path": "docs/item-handling-audit.md",
       "scope": "current handling guidance and complete generated definition ledger",
       "decision": "reviewed",
-      "sha256": "f4e0c36d8ef8a6a8e45bd1491c974be72435986d26bee430f5e643f139e82347",
-      "review": "2026-09-27 complete item-action audit: explains inaccessible cooling cargo, existing stack restrictions, native maintenance context and saved cumbersome flags; distinguishes findings from fixes and offline evidence from Unity approval."
+      "sha256": "a9a5c8da4a884ea2b370bf0480165bab85814e773ee993b6a9c538d7f8cf98ca",
+      "review": "2026-09-28: reviewed assembly sites, local cargo recovery, maintenance explanations and release/reference consistency; historical evidence and native/Unity validation limits retained."
     },
     {
       "path": "docs/item-reference-maintenance.md",
@@ -35957,8 +36382,8 @@
       "path": "docs/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "a82e5c00c1537aab535699268b74b31bed3e61bebc3735bb306a049ca41359f1",
-      "review": "2026-09-27: towing instructions, unchanged native mechanics and scope limits reviewed; historical records preserved."
+      "sha256": "5f431c80a825a90ecd3feaaa67a8997c0a6991993c6a4504689c943fe1b22fc7",
+      "review": "2026-09-28: reviewed assembly sites, local cargo recovery, maintenance explanations and release/reference consistency; historical evidence and native/Unity validation limits retained."
     },
     {
       "path": "docs/performance-captures.md",
@@ -35977,8 +36402,8 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "6ad03831a2fed2381475ec9b025d2948dfe6a280d6b6a7235dba372ace5741fc",
-      "review": "2026-09-27: towing instructions, unchanged native mechanics and scope limits reviewed; historical records preserved."
+      "sha256": "fe13434fdfbfea3f5746c5a69bf7d3dfe5bd17f2f50d7c37ace87356e170b52f",
+      "review": "2026-09-28: reviewed assembly sites, local cargo recovery, maintenance explanations and release/reference consistency; historical evidence and native/Unity validation limits retained."
     },
     {
       "path": "docs/polaris-interface-refresh.md",
@@ -36033,7 +36458,8 @@
       "path": "docs/scrap-reclaimer.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "e797a7c2ef879e137e478a08cf56aa550c315ae3a1174b4a09c52c93bedff797"
+      "sha256": "814e69c106ccdddd551b913a3f8b01772f4018cfa8d9725d51996adf1c08c8d0",
+      "review": "2026-09-28: reviewed assembly sites, local cargo recovery, maintenance explanations and release/reference consistency; historical evidence and native/Unity validation limits retained."
     },
     {
       "path": "docs/sensor-integration-research.md",
@@ -36111,8 +36537,8 @@
       "path": "docs/shipbreaker-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "73532d421d72c615d27f34dea2c2063cae08aae4627a5fb446bed61f3b315bbd",
-      "review": "2026-09-27 complete item-action audit: explains inaccessible cooling cargo, existing stack restrictions, native maintenance context and saved cumbersome flags; distinguishes findings from fixes and offline evidence from Unity approval."
+      "sha256": "6fbc7910adc31d2cd0bdb123499f5fa07958a0281e52bc31dd54fb7c547e199a",
+      "review": "2026-09-28: reviewed assembly sites, local cargo recovery, maintenance explanations and release/reference consistency; historical evidence and native/Unity validation limits retained."
     },
     {
       "path": "docs/shipbreaker-material-uses.md",
@@ -36190,8 +36616,8 @@
       "path": "workshop/PhobosAgriculture/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "13a0787992331e2bee0b12fe9fc48c3abc87cc42d5b5c95c4f71ca197afd7395",
-      "review": "2026-09-27 complete item-action audit: explains inaccessible cooling cargo, existing stack restrictions, native maintenance context and saved cumbersome flags; distinguishes findings from fixes and offline evidence from Unity approval."
+      "sha256": "b51e3f4cc0c5498de4925afa9817ac7d3aef24267e5b74cd7dcb06d746b8b520",
+      "review": "2026-09-28: reviewed assembly sites, local cargo recovery, maintenance explanations and release/reference consistency; historical evidence and native/Unity validation limits retained."
     },
     {
       "path": "workshop/PhobosAutoNav/page.bbcode",
@@ -36204,8 +36630,8 @@
       "path": "workshop/PhobosFramework/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "76977e727a547a08ff9c4df6b7773693ca3f0f82b19fb206a190c435f12828a5",
-      "review": "2026-09-27 complete item-action audit: explains inaccessible cooling cargo, existing stack restrictions, native maintenance context and saved cumbersome flags; distinguishes findings from fixes and offline evidence from Unity approval."
+      "sha256": "969ae5f6a7808f2b09c003767367b67c5e72b00f3e62d0f9b19f082bdb584d77",
+      "review": "2026-09-28: reviewed assembly sites, local cargo recovery, maintenance explanations and release/reference consistency; historical evidence and native/Unity validation limits retained."
     },
     {
       "path": "workshop/PhobosManufacturing/page.bbcode",
@@ -36218,16 +36644,23 @@
       "path": "workshop/PhobosShipbreaker/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "5727350070eae31faac9b54996b72c7c0bee258b2051f6d6614bd0406c15a5ed",
-      "review": "2026-09-27 complete item-action audit: explains inaccessible cooling cargo, existing stack restrictions, native maintenance context and saved cumbersome flags; distinguishes findings from fixes and offline evidence from Unity approval."
+      "sha256": "27274743b0b718f7d5507a8c24d090557b5b6fea775a405cd8ad0d5665050f5c",
+      "review": "2026-09-28: reviewed assembly sites, local cargo recovery, maintenance explanations and release/reference consistency; historical evidence and native/Unity validation limits retained."
+    },
+    {
+      "path": "docs/section-assembly-and-maintenance.md",
+      "scope": "current player guide and native implementation evidence",
+      "decision": "new reviewed assembly/recovery guide",
+      "sha256": "1d0a3368a15fab0cb1c68a99c411a410625f95575d142aa52df304b65836d9c7",
+      "review": "2026-09-28: section bills, derived work budgets, cancellation, local recovery restrictions and native evidence checked against implementation; live interaction explicitly unverified."
     }
   ],
   "surfaces": [
     {
       "path": "config/item-reference.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "636da3358328083e48e36138dfce920e8f37486b480011a58de4c442d432b71c",
-      "review": "2026-09-27: reviewed F6-P/F6-R known-issue notices; cargo recovery is identified as unresolved rather than promised by the audit."
+      "sha256": "907350e3ec9083db48f7c955687a74acaf9753b3e35ab652a4041713f7c8ebf9",
+      "review": "2026-09-28: reviewed assembly sites, local cargo recovery, maintenance explanations and release/reference consistency; historical evidence and native/Unity validation limits retained."
     },
     {
       "path": "mods/PhobosAgriculture/framework/equipment-names.json",
@@ -36242,8 +36675,8 @@
     {
       "path": "mods/PhobosAgriculture/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "0d85036caa9afacdb32c5dd6c86309bf43eae75461c0a39083b466e505cf93df",
-      "review": "2026-09-27: reviewed performance-update wording/version requirements; existing research and historical evidence retained; no measured speedup claim."
+      "sha256": "d91e201d6e4a86c73f2a65002dad62d6eefc1ab2e0a85a5fb48c36aa867e4848",
+      "review": "2026-09-28: reviewed assembly sites, local cargo recovery, maintenance explanations and release/reference consistency; historical evidence and native/Unity validation limits retained."
     },
     {
       "path": "mods/PhobosAutoNav/data/cooverlays/phobos_approach_assist.json",
@@ -36274,8 +36707,8 @@
     {
       "path": "mods/PhobosFramework/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "2adf1594a9c81b75daf9aa7b605e4000cce996ea8394cdc3856f8b69c24bf170",
-      "review": "2026-09-27 Polaris review: checked revised controls, versions, generated reference evidence and limitations; preserved scientific attribution and historical records."
+      "sha256": "1e6ba74fcf5fd240fd2cd8545ef11718e31b9a00a43364e482c98be24fd7111e",
+      "review": "2026-09-28: reviewed assembly sites, local cargo recovery, maintenance explanations and release/reference consistency; historical evidence and native/Unity validation limits retained."
     },
     {
       "path": "mods/PhobosManufacturing/mod_info.json",
@@ -36295,8 +36728,8 @@
     {
       "path": "mods/PhobosShipbreaker/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "f58df33fdd6d0853ca013b20272dbab8cb8320549cb3aa3ef59fb27d1184a7bf",
-      "review": "2026-09-27 Polaris review: checked revised controls, versions, generated reference evidence and limitations; preserved scientific attribution and historical records."
+      "sha256": "da28d779d77f3c6716ba47182f155a7dfe65a1020db3e779a22f461282f08792",
+      "review": "2026-09-28: reviewed assembly sites, local cargo recovery, maintenance explanations and release/reference consistency; historical evidence and native/Unity validation limits retained."
     }
   ],
   "hardcodedReview": {

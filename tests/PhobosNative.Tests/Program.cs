@@ -123,7 +123,7 @@ foreach (string forbidden in new[] { "IsInstalled", "IsOversized" })
 Check(!feedTrigger.TriggeredDataCO(new DataCO(DataHandler.dictCOs[Content.Loose]), false), "Cumbersome machinery cannot enter the wall feed");
 foreach (var machine in prepared.Objects.Values.Where(x => Content.IsMachine(x.strName)))
     Check(!machine.dictSlotsLayout.ContainsKey(Content.InputSlot), "Native feed window retains its title on " + machine.strName);
-Check(prepared.Objects.Count == 56 && prepared.Installables.Count == 123, $"Nine machine families, coolant conduit, charge chamber and preserved/new material identities ({prepared.Objects.Count} objects, {prepared.Installables.Count} actions)");
+Check(prepared.Objects.Count == 56 && prepared.Installables.Count == 126, $"Nine machine families, coolant conduit, charge chamber and preserved/new material identities ({prepared.Objects.Count} objects, {prepared.Installables.Count} actions)");
 var furnaceItem = prepared.Items[FurnaceRules.Prefix + "Installed"];
 var furnaceFeed = DataHandler.dictCTs[prepared.Objects[FurnaceRules.Feed].strContainerCT];
 Check(furnaceItem.nCols == 6 && furnaceItem.aSocketAdds.Length == 36 && furnaceItem.aSocketReqs.Length == 64, "F6 occupies six by six native tiles");
@@ -198,6 +198,7 @@ foreach (var definition in prepared.Installables.Values)
         Check(DataHandler.dictCOs[definition.strActionCO].aUpdateCommands.Any(x => x.StartsWith("Destructable," + definition.strProgressStat + ",MS" + definition.strName + ",")), "Progress switches use native save-compatible identities");
     }
 }
+AssemblyNativeChecks.Run(prepared, Check);
 FrameworkLifecycle.Begin();
 var filePath = Path.Combine(repo, "mods/PhobosShipbreaker/framework/recipes.json");
 var frameworkText = Phobos.Ostranauts.Framework.Localization.Translations.Register(FrameworkInfo.PluginId,

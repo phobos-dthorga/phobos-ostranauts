@@ -21,6 +21,20 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Fixed unreachable INSTALL entries; Firstlight-4, Hearth-2 and W2 appear under APPS, and irrigation conduit under MISC, including damaged forms. Existing inputs, placement and saved IDs are preserved.
 
+## [0.16.1] - 2026-09-28 - Draft
+
+### Added
+
+- Maintenance information explains retained crops, food, water/solution, active jobs, protected state and R3 tank links.
+
+### Fixed
+
+- Replace broad removal refusals with specific current blockers; native and completion-time safety checks stay in force.
+
+### Compatibility
+
+- Requires Phobos Framework 0.31.0. No crop, process, yield, inventory or save-format change. Unity interaction remains owner-tested.
+
 ## [0.16.0] - 2026-09-27 - Draft
 
 ### Changed

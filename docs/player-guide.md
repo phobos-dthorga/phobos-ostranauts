@@ -16,7 +16,7 @@ eating. This guide starts with installation and the basic shipbreaking loop.
 - [Markets](solar-system-economy.md) and [stock quantities](merchant-stock.md):
   availability depends on ordinary merchant restocking.
 
-**Prepared versions:** Phobos Framework **0.30.3**, Shipbreaker **0.30.0**, Auto Nav
+**Prepared versions:** Phobos Framework **0.31.0**, Shipbreaker **0.31.0**, Auto Nav
 **0.22.4**, built against Ostranauts **1.0.1.5** / BepInEx **5.4.23.5**.
 These are development packages. Automated checks do not establish in-game
 compatibility or tell you which version is installed locally. Ordinary saves are
@@ -47,14 +47,12 @@ phobosnav status
 
 ## Obtain the equipment
 
-Buy equipment at its normal merchants, or assemble it at an installed **Bar Table
-or Dining Table**. An existing supported workbench is optional. Assembly uses a
-Mortorq tool and soldering tool, plus materials; it does not consume those tools.
+Buy equipment at its normal merchants, or make sections and smaller equipment at an installed **Bar Table or Dining Table** (supported workbenches are optional). Final D4/R4/F6 assembly takes place at a **construction site**: choose **Install** on a section or the machine in **INSTALL > APPS**. Crew can deliver the bulky sections one at a time. Mortorq and soldering tools are reusable requirements. See [assembly and maintenance](section-assembly-and-maintenance.md).
 
 | Equipment | Unmodified assembly work | Ordinary acquisition |
 | --- | ---: | --- |
-| Dismantling fixture | Two sections at 60 min each, then 30 min assembly | Broken stock at K-Leg/VORB scrap suppliers; occasional usable stock at K-Leg's fixer; new at San Diego's Halvorson |
-| Scrap reclaimer | Two sections at 75 min each, then 45 min assembly | K-Leg/VORB scrap, K-Leg fixer, San Diego Halvorson; [reclaimer guide](scrap-reclaimer.md) |
+| Dismantling fixture | Two sections at 60 min each, then 48 min site assembly including mounting | Broken stock at K-Leg/VORB scrap suppliers; occasional usable stock at K-Leg's fixer; new at San Diego's Halvorson |
+| Scrap reclaimer | Two sections at 75 min each, then 66.6 min site assembly including mounting | K-Leg/VORB scrap, K-Leg fixer, San Diego Halvorson; [reclaimer guide](scrap-reclaimer.md) |
 | Exterior grabber | 60 min | K-Leg/VORB scrap, K-Leg fixer, San Diego Halvorson |
 | Hull chute | 30 min | Same industrial suppliers |
 | Residue collector | 40 min | Same industrial suppliers |
@@ -219,7 +217,7 @@ publication is implied by this prepared redesign.
 
 ## Industrial controls (0.10.0)
 
-[Console and equipment panel guide](industrial-console-player-guide.md): a 3 x 3 ship-bound workstation, local Control Panels, automatic grouping, search, Attention and routing. The current Shipbreaker 0.30.0 requires Framework 0.30.3 and Auto Nav 0.19.0 and includes [shared observations](shared-console-observations.md) and optional [shared completion cues](shared-completion-cues.md). Prepared for owner testing; no in-game validation claimed.
+[Console and equipment panel guide](industrial-console-player-guide.md): a 3 x 3 ship-bound workstation, local Control Panels, automatic grouping, search, Attention and routing. The current Shipbreaker 0.31.0 requires Framework 0.31.0 and Auto Nav 0.19.0 and includes [shared observations](shared-console-observations.md) and optional [shared completion cues](shared-completion-cues.md). Prepared for owner testing; no in-game validation claimed.
 
 Agriculture now supports [finite potato and lettuce nutrient-solution piping](agriculture-nutrient-solutions.md) through its W2 supply and irrigation conduits.
 

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "date": "2026-09-27",
+  "date": "2026-09-28",
   "baselineCommit": "21c7d68677981236d8385e9289b29d23f8857847",
   "report": "docs/performance-audit.md",
   "reviewBoundary": "First-party mod C# source. Static coverage plus deeper hotspot/caller review; not formal verification, a third-party audit or an after-performance measurement.",
@@ -241,14 +241,15 @@
     },
     {
       "path": "src/PhobosAgriculture/Definitions.cs",
-      "sha256": "34572d69b9e6b3e9c9cb8928b37b8ffce6b38bfdacb0fe00aedbdc2caa7ebdcb",
+      "sha256": "2a3d5b15909c053de8df4a3475279534bda98c295ecd22f3b9a5eb409426ec14",
       "role": "registration, metadata or event-driven content",
-      "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Definition-time stock/loot policy or release metadata only; no new recurring work. Preserve native finite generation and existing cadence.",
+      "review": "2026-09-28: reviewed registration, selector/completion hooks, local action reads and native mode-switch scope.",
+      "decision": "Event-driven work only; constant-time registry lookup for unrelated selectors/actions, no new update scan. Recovery permission lookup allocates nothing on the idle admission path. Native hauling cadence unchanged.",
       "findings": [
         "R4",
         "H1",
-        "E1"
+        "E1",
+        "R10"
       ],
       "indicators": {
         "collection": [
@@ -445,13 +446,14 @@
     },
     {
       "path": "src/PhobosAgriculture/Plugin.cs",
-      "sha256": "8fcdd72196de05e347eeaf76b57a31915840ec5c999b4339a69b14781fe6adf8",
+      "sha256": "ff874d58f65b525d7b3010202b2d010864614e127b75469041a981fc22bda7a4",
       "role": "biology, fluids, native boundary or process policy",
-      "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Definition-time stock/loot policy or release metadata only; no new recurring work. Preserve native finite generation and existing cadence.",
+      "review": "2026-09-28: reviewed registration, selector/completion hooks, local action reads and native mode-switch scope.",
+      "decision": "Event-driven work only; constant-time registry lookup for unrelated selectors/actions, no new update scan. Recovery permission lookup allocates nothing on the idle admission path. Native hauling cadence unchanged.",
       "findings": [
         "R1",
-        "E1"
+        "E1",
+        "R10"
       ],
       "indicators": {
         "runtime_hook": [
@@ -1721,6 +1723,17 @@
       }
     },
     {
+      "path": "src/PhobosFramework/Construction/SectionAssembly.cs",
+      "role": "native construction, local information or recovery boundary",
+      "indicators": {},
+      "sha256": "425cd2af2a7a52faedf1a270b336716d0911cdfb511d6bbce8539a2d5b81da7d",
+      "review": "2026-09-28: reviewed registration, selector/completion hooks, local action reads and native mode-switch scope.",
+      "decision": "Event-driven work only; constant-time registry lookup for unrelated selectors/actions, no new update scan. Recovery permission lookup allocates nothing on the idle admission path. Native hauling cadence unchanged.",
+      "findings": [
+        "R10"
+      ]
+    },
+    {
       "path": "src/PhobosFramework/Controls/CompactText.cs",
       "sha256": "db07f9c3094de46881933ed2ab07156d59007cbeee0d862ffc4f9b2ad558111e",
       "role": "registration, metadata or event-driven content",
@@ -1871,6 +1884,17 @@
         "R5"
       ],
       "indicators": {}
+    },
+    {
+      "path": "src/PhobosFramework/Controls/ItemInformation.cs",
+      "role": "native construction, local information or recovery boundary",
+      "indicators": {},
+      "sha256": "53533db29cc1eb0a4f3c56aedfa91efd925596b2fb21850d3e73f84b50fdb30a",
+      "review": "2026-09-28: reviewed registration, selector/completion hooks, local action reads and native mode-switch scope.",
+      "decision": "Event-driven work only; constant-time registry lookup for unrelated selectors/actions, no new update scan. Recovery permission lookup allocates nothing on the idle admission path. Native hauling cadence unchanged.",
+      "findings": [
+        "R10"
+      ]
     },
     {
       "path": "src/PhobosFramework/Controls/NativeAssemblyAudit.cs",
@@ -2464,13 +2488,14 @@
     },
     {
       "path": "src/PhobosFramework/FrameworkLifecycle.cs",
-      "sha256": "ba3cef315744df19f154dccbf76cddfae353bb0549c2523b4051b0cafcb6d6eb",
+      "sha256": "7acbaf89bf946b5af7b1a6c011c0d2671f95db027d64f0a7a85af1cb81730466",
       "role": "registration, metadata or event-driven content",
-      "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Definition/load-time handling correction; native transport remains authoritative. No recurring scans, UI refresh changes or simulation work added.",
+      "review": "2026-09-28: reviewed registration, selector/completion hooks, local action reads and native mode-switch scope.",
+      "decision": "Event-driven work only; constant-time registry lookup for unrelated selectors/actions, no new update scan. Recovery permission lookup allocates nothing on the idle admission path. Native hauling cadence unchanged.",
       "findings": [
         "R4",
-        "H1"
+        "H1",
+        "R10"
       ],
       "indicators": {
         "runtime_hook": [
@@ -2940,14 +2965,15 @@
     },
     {
       "path": "src/PhobosFramework/Plugin.cs",
-      "sha256": "02a4cabb2b12255315432b9c3683c2af88f168ea45e8cbf2f1458c8e9bece069",
+      "sha256": "c41df73040003248050068c0a633133d9d444661761250af07aa1e7660df0710",
       "role": "shared accounting, inventory, crew or native boundary",
-      "review": "2026-09-27: reviewed Polaris update/caller boundaries; fresh inventory only for visible Fire or explicit actions; no simulation cadence or recording changes. Polaris readability correction reviewed: widget binding/geometry changes occur at creation; warning and damage precedence reuse existing snapshot facts. Metadata changes only adjust versions/minima. No additional polling, simulation or persistence work.",
-      "decision": "Definition-time stock/loot policy or release metadata only; no new recurring work. Preserve native finite generation and existing cadence.",
+      "review": "2026-09-28: reviewed registration, selector/completion hooks, local action reads and native mode-switch scope.",
+      "decision": "Event-driven work only; constant-time registry lookup for unrelated selectors/actions, no new update scan. Recovery permission lookup allocates nothing on the idle admission path. Native hauling cadence unchanged.",
       "findings": [
         "R3",
         "P8",
-        "E1"
+        "E1",
+        "R10"
       ],
       "indicators": {
         "runtime_hook": [
@@ -3147,13 +3173,25 @@
       }
     },
     {
-      "path": "src/PhobosFramework/Registration/MaintenanceSafety.cs",
-      "sha256": "0796b48485ed38844a228d3725fc0e649cfe99f4bd80e8e5cf6f444da14a49b3",
-      "role": "definition/state validation and load compatibility",
-      "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Retain existing policy and call frequency. No independent measured hotspot justifies additional changes in this file; see the linked subsystem decision.",
+      "path": "src/PhobosFramework/Registration/MaintenanceInformation.cs",
+      "role": "native construction, local information or recovery boundary",
+      "indicators": {},
+      "sha256": "b4800a38d08e93250dbad547e416fb84daff861e9ab689158649b8f8a761a652",
+      "review": "2026-09-28: reviewed registration, selector/completion hooks, local action reads and native mode-switch scope.",
+      "decision": "Event-driven work only; constant-time registry lookup for unrelated selectors/actions, no new update scan. Recovery permission lookup allocates nothing on the idle admission path. Native hauling cadence unchanged.",
       "findings": [
-        "R4"
+        "R10"
+      ]
+    },
+    {
+      "path": "src/PhobosFramework/Registration/MaintenanceSafety.cs",
+      "sha256": "ff57a1890d48b7615e5ac91d945d57deb05dd239333680da295a04bde5c2e05d",
+      "role": "definition/state validation and load compatibility",
+      "review": "2026-09-28: reviewed registration, selector/completion hooks, local action reads and native mode-switch scope.",
+      "decision": "Event-driven work only; constant-time registry lookup for unrelated selectors/actions, no new update scan. Recovery permission lookup allocates nothing on the idle admission path. Native hauling cadence unchanged.",
+      "findings": [
+        "R4",
+        "R10"
       ],
       "indicators": {
         "runtime_hook": [
@@ -3319,6 +3357,17 @@
           16
         ]
       }
+    },
+    {
+      "path": "src/PhobosShipbreaker/AssemblyDefinitions.cs",
+      "role": "native construction, local information or recovery boundary",
+      "indicators": {},
+      "sha256": "6217f9a1893f9187a19ca07dadd390eab9aaefc8f358af4f032451b61ef48657",
+      "review": "2026-09-28: reviewed registration, selector/completion hooks, local action reads and native mode-switch scope.",
+      "decision": "Event-driven work only; constant-time registry lookup for unrelated selectors/actions, no new update scan. Recovery permission lookup allocates nothing on the idle admission path. Native hauling cadence unchanged.",
+      "findings": [
+        "R10"
+      ]
     },
     {
       "path": "src/PhobosShipbreaker/AssemblyInfo.cs",
@@ -3534,13 +3583,14 @@
     },
     {
       "path": "src/PhobosShipbreaker/Content.cs",
-      "sha256": "15fb48455fa285de9cb5744521752127ec1dabacec83fa1b9a47749eb28237f0",
+      "sha256": "79d55e4f9cf2d85977dd3ad70cfd883652fcb885431275c55a326029ebe87e41",
       "role": "registration, metadata or event-driven content",
-      "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Definition/load-time handling correction; native transport remains authoritative. No recurring scans, UI refresh changes or simulation work added.",
+      "review": "2026-09-28: reviewed registration, selector/completion hooks, local action reads and native mode-switch scope.",
+      "decision": "Event-driven work only; constant-time registry lookup for unrelated selectors/actions, no new update scan. Recovery permission lookup allocates nothing on the idle admission path. Native hauling cadence unchanged.",
       "findings": [
         "R4",
-        "H1"
+        "H1",
+        "R10"
       ],
       "indicators": {
         "collection": [
@@ -3594,6 +3644,17 @@
           77
         ]
       }
+    },
+    {
+      "path": "src/PhobosShipbreaker/CoolingCargo.cs",
+      "role": "native construction, local information or recovery boundary",
+      "indicators": {},
+      "sha256": "615e8c43ceb755efe97d862d6734016f35f963f10f3d3b9337fcaad5fba1b677",
+      "review": "2026-09-28: reviewed registration, selector/completion hooks, local action reads and native mode-switch scope.",
+      "decision": "Event-driven work only; constant-time registry lookup for unrelated selectors/actions, no new update scan. Recovery permission lookup allocates nothing on the idle admission path. Native hauling cadence unchanged.",
+      "findings": [
+        "R10"
+      ]
     },
     {
       "path": "src/PhobosShipbreaker/Core/CaptureRules.cs",
@@ -3656,14 +3717,15 @@
     },
     {
       "path": "src/PhobosShipbreaker/Core/DependencyContract.cs",
-      "sha256": "683a27aaa2d2e8c2cb22e16cff583e2d1ba07f5a0bd13cdbc01a681479634d3c",
+      "sha256": "8de82d7ce84b80e002507d8c8f290918550607766d58d812ea805d39484190ff",
       "role": "industrial service, native boundary or process policy",
-      "review": "2026-09-27: reviewed Polaris update/caller boundaries; fresh inventory only for visible Fire or explicit actions; no simulation cadence or recording changes. Polaris readability correction reviewed: widget binding/geometry changes occur at creation; warning and damage precedence reuse existing snapshot facts. Metadata changes only adjust versions/minima. No additional polling, simulation or persistence work.",
-      "decision": "Definition-time stock/loot policy or release metadata only; no new recurring work. Preserve native finite generation and existing cadence.",
+      "review": "2026-09-28: reviewed registration, selector/completion hooks, local action reads and native mode-switch scope.",
+      "decision": "Event-driven work only; constant-time registry lookup for unrelated selectors/actions, no new update scan. Recovery permission lookup allocates nothing on the idle admission path. Native hauling cadence unchanged.",
       "findings": [
         "R3",
         "P8",
-        "E1"
+        "E1",
+        "R10"
       ],
       "indicators": {
         "collection": [
@@ -3966,12 +4028,13 @@
     },
     {
       "path": "src/PhobosShipbreaker/FurnaceDefinitions.cs",
-      "sha256": "d592b633de635cf08151fc97a78c783fcd0148159b2b874a3e51344229ba767a",
+      "sha256": "f47e216d77d99192653e19b3c56ef824c260f5846b3bb2235dd9c7acd53c2f8a",
       "role": "registration, metadata or event-driven content",
-      "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Retain existing policy and call frequency. No independent measured hotspot justifies additional changes in this file; see the linked subsystem decision.",
+      "review": "2026-09-28: reviewed registration, selector/completion hooks, local action reads and native mode-switch scope.",
+      "decision": "Event-driven work only; constant-time registry lookup for unrelated selectors/actions, no new update scan. Recovery permission lookup allocates nothing on the idle admission path. Native hauling cadence unchanged.",
       "findings": [
-        "R4"
+        "R4",
+        "R10"
       ],
       "indicators": {
         "collection": [
@@ -4046,12 +4109,13 @@
     },
     {
       "path": "src/PhobosShipbreaker/FurnaceOperations.cs",
-      "sha256": "e79d325d9e3354cdc51647712f607d15c7b1d1bb9bd92571bbbe5d2542dcdc37",
+      "sha256": "ba8ce61b7b5d3d46c7c5e14c76009f67363f52c72e8bd16b7b463c122d638f27",
       "role": "industrial service, native boundary or process policy",
-      "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Retain existing policy and call frequency. No independent measured hotspot justifies additional changes in this file; see the linked subsystem decision.",
+      "review": "2026-09-28: reviewed registration, selector/completion hooks, local action reads and native mode-switch scope.",
+      "decision": "Event-driven work only; constant-time registry lookup for unrelated selectors/actions, no new update scan. Recovery permission lookup allocates nothing on the idle admission path. Native hauling cadence unchanged.",
       "findings": [
-        "R3"
+        "R3",
+        "R10"
       ],
       "indicators": {
         "runtime_hook": [
@@ -4323,14 +4387,15 @@
     },
     {
       "path": "src/PhobosShipbreaker/Plugin.cs",
-      "sha256": "b9c56220c1c6b69172c13500434cac002e566fd033adbcbfe0eb19988f11cdd4",
+      "sha256": "c66c98100d59eabdf4a996d91cbadd4a8aef4712f20d1de73e49ae7a2cc39a4e",
       "role": "industrial service, native boundary or process policy",
-      "review": "2026-09-27: reviewed Polaris update/caller boundaries; fresh inventory only for visible Fire or explicit actions; no simulation cadence or recording changes. Polaris readability correction reviewed: widget binding/geometry changes occur at creation; warning and damage precedence reuse existing snapshot facts. Metadata changes only adjust versions/minima. No additional polling, simulation or persistence work.",
-      "decision": "Definition-time stock/loot policy or release metadata only; no new recurring work. Preserve native finite generation and existing cadence.",
+      "review": "2026-09-28: reviewed registration, selector/completion hooks, local action reads and native mode-switch scope.",
+      "decision": "Event-driven work only; constant-time registry lookup for unrelated selectors/actions, no new update scan. Recovery permission lookup allocates nothing on the idle admission path. Native hauling cadence unchanged.",
       "findings": [
         "R3",
         "P8",
-        "E1"
+        "E1",
+        "R10"
       ],
       "indicators": {
         "runtime_hook": [

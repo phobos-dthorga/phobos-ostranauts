@@ -165,3 +165,13 @@ Content-owned handling choices are normalized once during definition preparation
 ### E1 — merchant coverage and finite world loot
 
 Stock probability floors, missing-offer checks and new loot branches run only during definition preparation. Coverage uses the prepared merchant branches and existing offer registry; no merchant inventory scans, per-frame hooks, forced restocks or recurring allocations were added. Existing generation hooks and content-owned balance are retained.
+
+## 28 September: construction and maintenance follow-up
+
+R10 — Section assembly uses native work scheduling, hauling and saved lots. There
+are no new frame loops, equipment scans or automatic restarts. Instructions build
+only on explicit opening; maintenance reasons reuse the existing service checks.
+The section selector hook uses a dictionary fast path. Cooling's native admission
+hook performs an allocation-free empty-list check during ordinary operation;
+its captured-cargo set exists only during a synchronous damage/repair transition.
+No repeat performance capture or measured FPS claim accompanies this change.

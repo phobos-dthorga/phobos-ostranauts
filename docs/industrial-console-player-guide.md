@@ -25,7 +25,7 @@ notification** and cue volume/mute. Watching is optional, never starts a job and
 clears on processing pause, fault or reload. See the
 [completion cue guide](shipbreaker-completion-cue.md) for scope and listening checks.
 
-Current packages: Shipbreaker **0.30.0**. Framework and Auto Nav are required;
+Current packages: Shipbreaker **0.31.0**. Framework and Auto Nav are required;
 see [installation requirements](installing-mods.md) for current minimum versions.
 Built against Ostranauts **1.0.1.5** / BepInEx **5.4.23.5**. Automated checks
 passed; the new native panel/seating integration awaits the owner's game test.
@@ -173,3 +173,10 @@ narrow widths, while equipment and details scroll independently. Draft settings
 and stop controls retain their existing checks. See the
 [Polaris refresh notes](polaris-interface-refresh.md) for controls and optional
 owner checks; browser previews do not establish Unity interaction approval.
+
+## Missing maintenance actions
+
+Use the item's **Maintenance information** action for the current removal blocker.
+F6-P/F6-R units with old hidden cargo offer **Recover stored cargo** locally; move
+those items out before removal. This does not enable remote inventory transfers.
+See [section assembly and maintenance](section-assembly-and-maintenance.md).

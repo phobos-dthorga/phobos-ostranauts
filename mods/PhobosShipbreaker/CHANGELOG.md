@@ -8,7 +8,7 @@ Dates on Draft entries record preparation, not Steam publication.
 
 ### Documentation
 
-- Audit all item actions through native maintenance generation and saved cargo references. Identify inaccessible F6-P/F6-R inventories as an unresolved cause of missing removal actions; document the existing split-stack requirement and confirmed D4-S cumbersome handling. No gameplay fix or version change is claimed.
+- The initial read-only audit identified inaccessible F6-P/F6-R inventories, the split-stack requirement and D4-S cumbersome handling. The 0.31.0 follow-up below implements recovery, clearer maintenance explanations and construction-site assembly; the original audit alone made no gameplay changes.
 
 - Document the third room-load recurrence: the grid guard trusted dimensions recorded before native save trimming. Framework 0.24.1 corrects validated stale headers before padding and synchronizes future outgoing saves after trimming. The earlier marker-health fix was owner-confirmed; the new before/after archive checks are offline, with gameplay confirmation pending.
 - Document the wear-related save-load recurrence and Framework 0.23.1 correction. Native marker rejection could remove the pending G4/H4 before Shipbreaker's grid guard ran; retain the existing grid protection and update Framework. The earlier successful owner test remains valid for its original save, not proof of all later reloads.
@@ -20,6 +20,23 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Earlier capture-only research is superseded for supported ordinary walls by the implementation below. Broader structural recipes, repeated furnace batches and whole-wreck completion remain outside this round.
 - Keep [NASA Goddard's Raven research](https://www.nasa.gov/general/nasas-hybrid-computer-enables-ravens-autonomous-rendezvous-capability/) and [ESA's LIRIS experiment by Airbus, Jena Optronik and Sodern](https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/ATV/ATV_views_Space_Station_as_never_before) as sensing context, separate from Blue Bottle Games native evidence and authored gameplay choices. No institutional endorsement or gameplay validation is implied.
+
+## [0.31.0] - 2026-09-28 - Draft
+
+### Added
+
+- D4-S, R4-S and F6-S now offer Assembly information and Install for native construction sites. Crew deliver two D4/R4 sections or three F6 sections separately; the APPS tab in INSTALL selects that route.
+- Maintenance information identifies cargo, coolant, temperature, batch state and connected-equipment blockers.
+
+### Fixed
+
+- Replace the new-work table assembly route that required multiple drag-only sections to be carried together. Complete loose machines keep direct Install; legacy table action IDs and bills remain for saved queues.
+- Recover stored cargo opens checked local F6-P/F6-R recovery. New deposits are blocked, real construction lots stay protected, and native damage transitions preserve captured existing cargo.
+
+### Compatibility
+
+- Requires Phobos Framework 0.31.0. Section masses, output identities, thermal/coolant saves and native placement stay unchanged. Site work combines previous final assembly and mounting.
+- Offline native-definition and production adapter checks are separate from pending owner Unity hauling, recovery and reload tests.
 
 ## [0.30.0] - 2026-09-27 - Draft
 

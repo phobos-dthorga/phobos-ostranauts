@@ -14,8 +14,7 @@ is still pending.
 | Phobos Agriculture | MISC | Irrigation conduit |
 
 The native coverage checks include every implemented intact/damaged placement family. R3 has no fabrication recipe: buy the loose hardware before installation.
-Installation consumes the existing loose equipment and uses its existing work,
-placement and access requirements. Obtain or construct the equipment first;
+D4, R4 and F6 entries now consume two D4-S, two R4-S or three F6-S sections at the site. Native hauling stages them separately. Complete loose machinery still has its direct Install action; damaged placement keeps its existing loose input. Other entries consume existing loose equipment and retain their work, placement and access requirements. See [section assembly](section-assembly-and-maintenance.md). Obtain or construct the equipment first;
 selecting a catalogue entry does not create a free machine or replace the
 [construction recipes and equipment economy](equipment-economy.md). Pipe entries
 use native placement; continuous drag-laying behaviour has not been verified.
@@ -28,7 +27,7 @@ floor-installed form and are deliberately absent from this placement catalogue.
 Framework adds shared services, and
 Manufacturing currently has no implemented machinery. Manufacturing's proposed
 M4 must receive a catalogue entry when it becomes operational. Supplies, produce,
-castings, waste and assembly sections are cargo rather than installed furniture.
+castings and waste remain cargo. Assembly sections are also cargo, but their Install action starts construction of the complete machine rather than installing a section as furniture.
 
 ## Implementation evidence and maintenance
 

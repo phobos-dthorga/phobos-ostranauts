@@ -35,6 +35,10 @@ internal static class FurnaceDefinitions
             if (port) co.mapPoints = new[] { "use,0,0" };
             if (!furnace)
             {
+                // Keep a reject-all receptacle solely to restore legacy saved cargo.
+                // Removing it would strand children during native Ship.SpawnItems.
+                co.strContainerCT = CoolingCargo.RejectAll;
+                co.nContainerWidth = co.nContainerHeight = 8;
                 co.aStartingConds = co.aStartingConds.Where(c => !c.StartsWith("IsContainer=")).ToArray();
                 co.aSlotsWeHave = Array.Empty<string>(); co.strLoot = "Blank";
                 co.jsonPI = null; co.aTickers = Array.Empty<string>(); co.aInteractions = Array.Empty<string>();
@@ -65,6 +69,7 @@ internal static class FurnaceDefinitions
         Packet(d, FurnaceRules.Housing, 18, 60, "Furnace.housing_name", "Furnace.housing_description", "PhobosFurnaceHousing");
         Packet(d, FurnaceRules.Remainder, FurnaceRules.RemainderKg, .01, "Furnace.remainder_name", "Furnace.remainder_description", "StockMeltRemainder");
         Packet(d, FurnaceRules.Section, FurnaceRules.SectionKg, 6500, "Furnace.section_name", "Furnace.section_description", "PhobosFurnaceSectionDedicated");
+        CoolingCargo.Add(d);
     }
     private static string[] Grid(int width, int height, string interior) => Enumerable.Range(0, (height + 2) * (width + 2))
         .Select(i => i % (width + 2) > 0 && i % (width + 2) <= width && i / (width + 2) > 0 && i / (width + 2) <= height ? interior : "Blank").ToArray();

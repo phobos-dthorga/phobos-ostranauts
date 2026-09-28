@@ -74,6 +74,16 @@ class ItemActionAuditTests(unittest.TestCase):
             self.assertNotIn('private-id', json.dumps(result))
             self.assertNotIn('private-name', json.dumps(result))
 
+    def test_recovery_exemption_requires_both_blocked_deposits_and_access(self):
+        item = dict(container=dict(trigger='PhobosCoolingNoNewCargo', inventoryAction=False),
+                    actions=['PhobosCoolingRecoverCargo'], handlingFlags=[], stackLimit=1, jobs=[])
+        self.assertEqual(ledger.findings(item), [])
+        item['actions'] = []
+        self.assertEqual(ledger.findings(item), ['H01: inaccessible container'])
+        item['actions'] = ['PhobosCoolingRecoverCargo']
+        item['container']['trigger'] = 'FitsCargo'
+        self.assertEqual(ledger.findings(item), ['H01: inaccessible container'])
+
     def test_saved_explicit_zero_overrides_default_handling(self):
         definition = dict(id='Machine', aliases=[], handlingFlags=['IsCumbersome'],
                           container=dict(trigger=None, inventoryAction=False))

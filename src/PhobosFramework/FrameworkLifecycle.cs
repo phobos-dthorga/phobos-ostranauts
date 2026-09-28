@@ -29,6 +29,8 @@ public static class FrameworkLifecycle
         Observations.NativeRoomAlarms.Reset();
         FrameworkPlugin.RefreshLanguage();
         ConstructionRegistry.BeginLoad();
+        Construction.SectionAssembly.Reset();
+        Controls.ItemInformation.Reset();
         Trading.MarketStock.BeginLoad();
         Registration.MaintenanceSafety.Actions.Clear();
         Registration.EquipmentSaveUpgrade.BeginLoad();

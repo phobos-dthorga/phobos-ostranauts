@@ -45,8 +45,7 @@ empty and is rated for a 50 kg charge. The first supported recipe uses exactly
 
 **Phobos' Rivetline F6-R Exterior Radiator** is separate **6 x 4**, 100 kg
 equipment. Both can appear in the existing industrial/fixer/scrap stock routes,
-and both have table construction, installation, repair, Restore and mass-balanced
-dismantling. Existing D4/R4 equipment and construction routes remain unchanged.
+and both retain installation, repair, Restore and mass-balanced dismantling. Make F6-S sections at a table, then choose Install to assemble three at the furnace site; buy or table-build the cooling equipment. D4/R4 also use staged construction-site assembly. See [assembly, recovery and maintenance](section-assembly-and-maintenance.md).
 
 ### Exterior radiator
 

@@ -6,6 +6,8 @@ Framework and Shipbreaker **0.9.0**, built against the installed Ostranauts
 1.0.1.5 baseline. The reclaimer was introduced in 0.8.0. This is implemented and checked offline, not yet tested in a
 game session. Auto Nav remains 0.3.0 and is optional for this processing chain.
 
+Current assembly follow-up: Shipbreaker 0.31.0 replaces new final table assembly with a native construction site. Build or obtain two R4-S sections, then use INSTALL > APPS; native hauling delivers them separately. Site work combines the historical 45-minute final assembly below with 21.6 minutes of mounting. See [current assembly instructions](section-assembly-and-maintenance.md). The original 0.9.0 record below is historical.
+
 ## Buying and building
 
 The **Phobos' Rivetline R4 Scrap Reclaimer** has a $14,800 refurbished base value; broken

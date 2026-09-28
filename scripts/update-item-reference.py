@@ -170,6 +170,16 @@ def render(mod, notes, config):
             out += table(['Registered source', 'Offer / form', 'Chance per roll', 'Quantity'], sorted(sources))
         else:
             out += ['No direct added merchant/loot offer; use the production or historical route described above.', '']
+    assemblies = [(item, job) for item in mod['items'] for job in item['jobs'] if job['id'].endswith('SectionAssembly')]
+    if assemblies:
+        out += ['## Construction-site assembly', '',
+                'Choose Install on a section or the completed machine in INSTALL > APPS. Native hauling delivers the matching sections separately. '
+                'A complete loose machine retains its direct Install action. See [assembly and maintenance](section-assembly-and-maintenance.md). '
+                'Work below includes mounting at unit skill/tool multipliers, before hauling and interruptions.', '']
+        out += table(['Consumed sections', 'Installed result', 'Site work (min)', 'Reusable tools'], [(
+            '; '.join(material(x, config) for x in job['inputs']),
+            '; '.join(f'{p["count"]} × {p["name"]}' for p in job['outputs']),
+            f'{job["workProgress"] / 5 * .001 * 60:g}', ', '.join(config['triggers'][x] for x in job['tools'])) for item, job in assemblies])
     if mod['recipes']:
         out += ['## Construction and recovery', '',
                 'Use an installed native Bar/Dining Table, or a supported optional workbench. Times are configured work minutes, excluding hauling, skills and interruptions. '
@@ -177,6 +187,9 @@ def render(mod, notes, config):
         for recipe in mod['recipes']:
             names = mod['recipeItemNames']
             out += [f'### {recipe["name"]}', '']
+            if recipe.get('retiredFromMenus'):
+                out += ['**Legacy saved-job contract:** no longer offered for new table work. Use the construction-site route above. '
+                        'This record preserves the old inputs, outputs and duration; it is not a second current assembly method.', '']
             out += table(['Consumed inputs', 'Physical outputs', 'Work (min)', 'Tools'], [(
                 '; '.join(f'{i["count"]} × {names[i["item"]]}' for i in recipe['ingredients']),
                 '; '.join(f'{i["count"]} × {names[i["item"]]}' for i in recipe['outputs']),

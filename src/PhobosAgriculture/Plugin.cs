@@ -13,13 +13,13 @@ using Phobos.Ostranauts.Framework.Construction;
 namespace PhobosAgriculture;
 
 [BepInPlugin(Id, "Phobos Agriculture", Version)]
-[BepInDependency(FrameworkInfo.PluginId, "0.30.3")]
+[BepInDependency(FrameworkInfo.PluginId, "0.31.0")]
 [BepInDependency("com.ostranauts.shipswater", BepInDependency.DependencyFlags.SoftDependency)]
 [BepInDependency("phobosgekko.ostranauts.shipbreaker", BepInDependency.DependencyFlags.SoftDependency)]
 [BepInProcess("Ostranauts.exe")]
 public sealed class Plugin : BaseUnityPlugin
 {
-    public const string Id = "phobosgekko.ostranauts.agriculture", Version = "0.16.0";
+    public const string Id = "phobosgekko.ostranauts.agriculture", Version = "0.16.1";
     internal static Action<string> Log = _ => { };
     internal static ConfigEntry<double> Pace = null!, ReserveLitres = null!;
     internal static ConfigEntry<bool> LootEnabled = null!;
@@ -147,16 +147,31 @@ internal sealed class Provider : IEquipmentProvider, IEquipmentPanelFields
 internal static class ContentsEligibilityPatch
 {
     internal static bool Blocked(Interaction action, CondOwner? us, CondOwner? them)
+        => Reason(action, us, them) != null;
+    internal static string? Reason(Interaction action, CondOwner? us, CondOwner? them)
     {
         var co = action.strName.StartsWith("MS", StringComparison.Ordinal) ? us : them;
         bool supply = new[] { Definitions.Nutrient, BulkDefinitions.Nutrients, WorkupDefinitions.Makeup, WorkupDefinitions.Mixture, WorkupDefinitions.Concentrate, Service.RecoveryCartridge }.Contains(co?.strCODef);
-        if (supply && (action.strName.Contains("Repair") || action.strName.Contains("Restore") || action.strName.Contains("Undamage"))) return true;
-        if(BulkDefinitions.IsTank(co) && (action.strName.Contains("Dismantle")||action.strName.Contains("Uninstall")))return BulkService.Protected(co!)||BulkService.Read(co!).TotalKg>1e-8||BulkService.HasLink(co!);
-        return Definitions.Machine(co) && (action.strName.Contains("Dismantle") || action.strName.Contains("Uninstall")) &&
-            (Service.Get(co!).Protected || Service.WaterGuard(co!).Protected || Service.Get(co!).State.ContentsMass + Service.Get(co!).Solution.TotalKg + Service.Get(co!).Line.TotalKg > 1e-8 || Service.Get(co!).State.CookerProgress > 0 || Service.Get(co!).Workup.Mode.Length > 0);
+        if (supply && (action.strName.Contains("Repair") || action.strName.Contains("Restore") || action.strName.Contains("Undamage"))) return Text.Get("consumable_no_repair");
+        return action.strName.Contains("Dismantle") || action.strName.Contains("Uninstall") ? RemovalReason(co) : null;
+    }
+    internal static string? RemovalReason(CondOwner? co)
+    {
+        if (BulkDefinitions.IsTank(co))
+        {
+            if (BulkService.Protected(co!)) return Text.Get("Maintenance.protected");
+            if (BulkService.Read(co!).TotalKg > 1e-8) return Text.Get("Maintenance.tank");
+            return BulkService.HasLink(co!) ? Text.Get("Maintenance.link") : null;
+        }
+        if (!Definitions.Machine(co)) return null;
+        var s = Service.Get(co!);
+        if (s.Protected || Service.WaterGuard(co!).Protected) return Text.Get("Maintenance.protected");
+        if (s.State.ContentsMass + s.Solution.TotalKg + s.Line.TotalKg > 1e-8) return Text.Get("Maintenance.contents");
+        if (s.State.CookerProgress > 0 || s.Workup.Mode.Length > 0) return Text.Get("Maintenance.job");
+        return null;
     }
     private static void Postfix(Interaction __instance, CondOwner objUs, CondOwner objThem, ref bool __result)
-    { if (__result && Blocked(__instance, objUs, objThem)) { __result = false; __instance.AddFailReason("main", Text.Get(Definitions.Machine(objUs) || Definitions.Machine(objThem) || BulkDefinitions.IsTank(objUs) || BulkDefinitions.IsTank(objThem) ? "unload_first" : "consumable_no_repair")); } }
+    { var reason = __result ? Reason(__instance, objUs, objThem) : null; if (reason != null) { __result = false; __instance.AddFailReason("main", reason); } }
 }
 [HarmonyPatch(typeof(Interaction), nameof(Interaction.ApplyEffects))]
 internal static class ContentsCompletionPatch

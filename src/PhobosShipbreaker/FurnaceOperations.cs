@@ -197,20 +197,31 @@ internal static partial class FurnaceService
         Feed(co)!.ZeroCondAmount("IsLocked"); Feed(co)!.objContainer.Redraw(); co.objContainer.Redraw();
         s.Notice = Text.Get("Furnace.released"); Save(sink); Save(s); message = s.Notice; return true;
     }
-    private static bool OwnUnsafeMaintenance(CondOwner co)
+    private static string? OwnMaintenanceReason(CondOwner co)
     {
         var s = Get(co);
-        return s.Coolant.TotalKg>1e-9 || !FurnaceCooling.CanChange(s.Protected || s.State.NativeMutation,
-            FurnaceRules.Cooling(co.strCODef) || s.State.Batch.Phase == FurnacePhase.Idle,
-            FurnaceRules.Cooling(co.strCODef) ? FurnaceRules.ReferenceK + s.SinkKJ / FurnaceRules.SinkCapacity : s.State.Batch.TemperatureK,
-            Feed(co)?.objContainer?.ContainedCOs.Count ?? 0, co.objContainer?.ContainedCOs.Count ?? 0);
+        if (s.Protected || s.State.NativeMutation) return Text.Get("Maintenance.protected");
+        if (s.Coolant.TotalKg > 1e-9) return Text.Get("Maintenance.coolant");
+        if (!FurnaceRules.Cooling(co.strCODef) && s.State.Batch.Phase != FurnacePhase.Idle) return Text.Get("Maintenance.batch");
+        double temperature = FurnaceRules.Cooling(co.strCODef) ? FurnaceRules.ReferenceK + s.SinkKJ / FurnaceRules.SinkCapacity : s.State.Batch.TemperatureK;
+        if (!ThermalMath.Finite(temperature) || temperature > FurnaceRules.ReleaseK) return Text.Get("Maintenance.hot");
+        if ((Feed(co)?.objContainer?.ContainedCOs.Count ?? 0) != 0) return Text.Get("Maintenance.feed");
+        if ((co.objContainer?.ContainedCOs.Count ?? 0) != 0) return Text.Get(FurnaceRules.Cooling(co.strCODef) ? "Maintenance.trapped" : "Maintenance.products");
+        return null;
+    }
+    internal static string? MaintenanceReason(CondOwner co, bool repair)
+    {
+        if (repair) return UnsafeRepair(co) ? Text.Get(Get(co).Protected || Get(co).State.NativeMutation ? "Maintenance.protected" : "Maintenance.repair_hot") : null;
+        string? own = OwnMaintenanceReason(co);
+        if (own != null) return own;
+        var peer = SelectedCooling(co);
+        var problem = peer != null && IsEquipment(peer) ? OwnMaintenanceReason(peer) : null;
+        return problem == null ? null : Text.Get("Maintenance.peer", peer!.FriendlyName, problem);
     }
     internal static bool UnsafeMaintenance(CondOwner co)
     {
-        if (OwnUnsafeMaintenance(co)) return true;
-        // Use the saved endpoint even when mounting has failed. A broken connection cannot bypass hot-removal checks.
-        var peer = SelectedCooling(co);
-        return peer != null && IsEquipment(peer) && OwnUnsafeMaintenance(peer);
+        // Use the saved endpoint even when mounting has failed, as before.
+        return MaintenanceReason(co, false) != null;
     }
     internal static bool UnsafeRepair(CondOwner co)
     {
@@ -314,19 +325,20 @@ internal static class FurnaceMaintenanceOffer
 {
     private static void Postfix(Interaction __instance, CondOwner objUs, CondOwner objThem, ref bool __result)
     {
-        if (__result && FurnaceMaintenanceFinish.Blocked(__instance.strName, objUs, objThem))
-        { __instance.AddFailReason("main", Text.Get("Furnace.hot_maintenance")); __result = false; }
+        var reason = __result ? FurnaceMaintenanceFinish.Reason(__instance.strName, objUs, objThem) : null;
+        if (reason != null) { __instance.AddFailReason("main", reason); __result = false; }
     }
 }
 [HarmonyPatch(typeof(Interaction), nameof(Interaction.ApplyEffects))]
 internal static class FurnaceMaintenanceFinish
 {
-    internal static bool Blocked(string action, CondOwner us, CondOwner them)
+    internal static bool Blocked(string action, CondOwner us, CondOwner them) => Reason(action, us, them) != null;
+    internal static string? Reason(string action, CondOwner us, CondOwner them)
     {
         bool removal = action.IndexOf("Uninstall", StringComparison.OrdinalIgnoreCase) >= 0 || action.IndexOf("Dismantle", StringComparison.OrdinalIgnoreCase) >= 0;
         bool repair = action.IndexOf("Repair", StringComparison.OrdinalIgnoreCase) >= 0 || action.IndexOf("Undamage", StringComparison.OrdinalIgnoreCase) >= 0 || action.IndexOf("Restore", StringComparison.OrdinalIgnoreCase) >= 0;
-        return (removal || repair) && new[] { us, them }.Any(c => FurnaceService.IsEquipment(c) &&
-            (removal ? FurnaceService.UnsafeMaintenance(c) : FurnaceService.UnsafeRepair(c)));
+        return !(removal || repair) ? null : new[] { us, them }.Where(FurnaceService.IsEquipment)
+            .Select(c => FurnaceService.MaintenanceReason(c, !removal)).FirstOrDefault(reason => reason != null);
     }
     private static bool Prefix(Interaction __instance) => !Blocked(__instance.strName, __instance.objUs, __instance.objThem);
 }
