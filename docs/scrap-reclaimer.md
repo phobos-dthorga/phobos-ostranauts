@@ -1,6 +1,6 @@
 # Scrap reclaimer — prepared 0.9.0 candidate
 
-Current stock quantities: [bulk merchant lots](merchant-stock.md) supersede the older single-item offers below. These content versions require Framework 0.24.0+.
+Current stock quantities: [bulk merchant lots](development/merchant-stock.md) supersede the older single-item offers below. Use the [current dependency requirements](installing-mods.md); older version floors below describe their original releases.
 
 Framework and Shipbreaker **0.9.0**, built against the installed Ostranauts
 1.0.1.5 baseline. The reclaimer was introduced in 0.8.0. This is implemented and checked offline, not yet tested in a
@@ -69,7 +69,7 @@ does not eject material or reduce ship mass.
 
 Old **Mixed panel residue** is still unclassified and is not accepted as feed.
 Terminal rejects cannot be fed back for another yield. New recipes do not rewrite
-old cargo or partially completed wall jobs. See [saved-job compatibility](processing-job-compatibility.md).
+old cargo or partially completed wall jobs. See [saved-job compatibility](development/processing-job-compatibility.md).
 
 F3 commands use the same service and access checks:
 
@@ -161,7 +161,7 @@ Tools are reused. Native Repair's remaining wear still requires Restore.
 Part units are 0.5 kg; scrap/trash units are 1 kg. Recovery loses monetary value
 against selling the complete equipment, including tested native worn/broken
 tiers. Both sections' raw material bill is $696.40, greater than the machine's
-$637.60 dismantling yield. The [native value audit](equipment-value-audit.md)
+$637.60 dismantling yield. The [native value audit](development/equipment-value-audit.md)
 checks these comparisons. Empty both feed and output before dismantling.
 
 ## Framework, assets and verification

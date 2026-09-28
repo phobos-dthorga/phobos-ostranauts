@@ -1,8 +1,8 @@
 # Phobos economy across the vanilla solar system
 
-Current availability: [27 September expansion](merchant-stock.md) supersedes the historical probability examples below: 85% equipment/sections/boards and 95% supplies/food minimum before configuration. General local stock gaps and engineering loot are expanded.
+Current availability: [27 September expansion](development/merchant-stock.md) supersedes the historical probability examples below: 85% equipment/sections/boards and 95% supplies/food minimum before configuration. General local stock gaps and engineering loot are expanded.
 
-Historical regional baseline and current stock quantities: [bulk merchant lots](merchant-stock.md) supersede the older single-item offers below. These content versions require Framework 0.24.0+.
+Historical regional baseline and current stock quantities: [bulk merchant lots](development/merchant-stock.md) supersede the older single-item offers below. These content versions require Framework 0.24.0+.
 
 Prepared 26 September 2026 against **Ostranauts 1.0.1.5**. Regional builds:
 Framework **0.23.0**, Shipbreaker **0.21.0**, Agriculture **0.10.0**, Auto Nav
@@ -130,8 +130,8 @@ nutrient-bearing stock by this change.
 Base values, physical masses, construction and service bills, dismantle yields,
 crop budgets, stored fluids and in-progress jobs are unchanged. Native scrap and
 repair inputs keep their own regional factors. Existing
-[equipment valuation](equipment-value-audit.md) and
-[Agriculture economic evidence](agriculture-economy-evidence.md) remain definition
+[equipment valuation](development/equipment-value-audit.md) and
+[Agriculture economic evidence](development/agriculture-economy-evidence.md) remain definition
 comparisons; they are not guarantees of profit or identical recovery margins in
 every market. Labour, power, tools, travel and native merchant restrictions still
 matter. Finite equipment outputs do not become perfect recycling.
@@ -150,7 +150,7 @@ Ostranauts 1.0.1.5**: `data/market/Markets/market_actor_configs.json`,
 Local inspection of `DataCoCollection`, `ShipMarket`, `DataHandler` and `Trader`
 establishes the code behaviour above. Proprietary definitions and decompiled
 source remain local and are not redistributed. The
-[generated regional evidence](solar-system-economy-evidence.md) records a compact
+[generated regional evidence](development/solar-system-economy-evidence.md) records a compact
 reviewable summary of relevant native production roles and endpoint coverage.
 No NASA/ESA research is invoked to justify fictional prices, and no institution
 or game developer is represented as endorsing this balance.

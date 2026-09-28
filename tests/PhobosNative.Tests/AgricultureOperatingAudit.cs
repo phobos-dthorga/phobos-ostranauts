@@ -48,6 +48,6 @@ internal static class AgricultureOperatingAudit
                 throw new InvalidOperationException("Recovery exceeds retained material or consumed nutrients.");
             rows.Add($"| {crop.Id} | {N(residue)} | {N(allocated * 1000)} | {N(recovered * 1000)} | {N(recovered * NutrientRecovery.MakeupPrice / NutrientRecovery.MakeupKg)} | {N(recovered * 2000)} | {N(recovered * 2 * nutrientPrice - recovered * NutrientRecovery.MakeupPrice / NutrientRecovery.MakeupKg)} |");
         }
-        rows.Add("\nAvoided cost is a resupply comparison, not a sale profit. Subtract B2 energy, two one-minute crew setups, hauling and capital. Each stage uses 0.02 kWh/kg input with a 0.001 kWh minimum. Terminal rejects cannot be rerun. The executable audit reads content balance; it does not itself register recipes. See [nutrient production](agriculture-nutrient-production.md).\n");
+        rows.Add("\nAvoided cost is a resupply comparison, not a sale profit. Subtract B2 energy, two one-minute crew setups, hauling and capital. Each stage uses 0.02 kWh/kg input with a 0.001 kWh minimum. Terminal rejects cannot be rerun. The executable audit reads content balance; it does not itself register recipes. See [nutrient production](../agriculture-nutrient-production.md).\n");
     }
 }

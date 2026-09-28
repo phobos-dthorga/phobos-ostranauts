@@ -173,4 +173,4 @@ Any new handheld treatment must establish actor, tool, patient and wound roles,
 resource consumption, interruption, depleted battery behavior and save/reload.
 An item interaction whose `Them` receives medicine after an inverse interaction
 is not sufficient proof that a medic can administer it to an unconscious third
-party. See [runtime ownership findings](medical-runtime-findings.md).
+party. See [runtime ownership findings](development/medical-runtime-findings.md).

@@ -4,16 +4,16 @@ Read-only research on **2026-09-23**, while the owner prepares the Auto Nav test
 The useful conclusion is to feed existing repair and workshop systems. A second
 conduit, battery or thruster crafting system would duplicate installed content.
 This review also found and led to a fix for our construction recipe's input-count
-limit; see [the 0.1.1 build guide](shipbreaker-first-build.md).
+limit; see [the 0.1.1 build guide](development/shipbreaker-first-build.md).
 
 **2026-09-24 follow-up:** the owner has now requested research into shredders,
-recyclers and ore, including life-support replenishment. See [the processing study](shipbreaking-material-processing-research.md)
-and [asteroid resource plan](asteroid-life-support-research.md). This advances the
+recyclers and ore, including life-support replenishment. See [the processing study](development/shipbreaking-material-processing-research.md)
+and [asteroid resource plan](development/asteroid-life-support-research.md). This advances the
 research scope beyond the deferral below; it does not change the existing panel
 recipe, assign an assay to saved residue or implement refining. The current
-[framework candidate](phobos-framework.md) makes OCF/SWB optional. This document's
+[framework candidate](development/phobos-framework.md) makes OCF/SWB optional. This document's
 mod inventory is a dated research snapshot. For current operation use the
-[player guide](player-guide.md); the [residue contract](residue-material-contract.md)
+[player guide](player-guide.md); the [residue contract](development/residue-material-contract.md)
 selects future material recovery while preserving existing unclassified packets.
 
 ## Evidence and boundaries

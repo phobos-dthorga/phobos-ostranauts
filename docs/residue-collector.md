@@ -22,7 +22,7 @@ a reclaimer from this collector as a buffer. See [automatic routing](automatic-m
 The collector moves existing panel residue from a selected processor to a
 finite floor- or wall-mounted inventory. **Material remains aboard and still weighs on the
 ship.** There is no jettison button, automatic destruction or persistent-space
-release in this build. [Research and later release options](material-disposal-port-research.md).
+release in this build. [Research and later release options](development/material-disposal-port-research.md).
 
 ## Build and placement
 
@@ -57,7 +57,7 @@ rejects. These have distinct identities and expected masses. Both installed and
 loose forms keep the finite storage/filter. Stacks, modified-mass packets and
 items with contents are refused. Whole walls, ordinary trash and valuable parts
 cannot enter. Existing residue remains unclassified; see the
-[material contract](residue-material-contract.md).
+[material contract](development/residue-material-contract.md).
 
 ## Use
 

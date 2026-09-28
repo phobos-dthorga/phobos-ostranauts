@@ -15,7 +15,7 @@
           "use": "Fit a working board to Polaris, open its Phobos hub, select a supported sensor contact, set arrival preferences and choose Fly, Dock or Approach & Dock as appropriate. Use Stop to release flight control. Supported crew work is configured through the [standing-order controls](crew-automation.md); orders begin disabled and retain the existing access and supply requirements.",
           "find": "Build at a supported table, buy from the listed dealers, or find an N1/N2/N3 board in eligible native module loot. Damaged finds need repair.",
           "notes": "Indefinite position holding is not promised. Sensor quality, braking room, fuel and native restrictions still apply. Docking resumes only after an explicit post-load Resume. Local obstacle avoidance uses tracked contacts; lost tracking requires Resume. Explicit Undock & Depart / Undock & Continue prepare a 1 km hull-gap departure and require every crew member on the company roster aboard; missing or away crew block departure. See [departure and avoidance](auto-nav-departure.md).",
-          "guide": "auto-navigate-adaptation.md",
+          "guide": "development/auto-navigate-adaptation.md",
           "internal": false,
           "labels": {}
         },
@@ -42,7 +42,7 @@
             "PhobosFireControlBoardDmg"
           ],
           "function": "Independent weapon observations, bounded offensive volleys and optional RCS aiming. It can operate without N1/N2.",
-          "use": "Fit to Polaris, open Fire, choose a target and use Weapon group to see installed weapons, including off or damaged ones. Left-click Volleys to increase, right-click to decrease (1–9, wrapping). Engage grants a fresh firing budget. Cease Fire keeps offensive hold; Return to Native releases it. Switching an FCS-held group asks for confirmation: the old group may resume native automatic firing and the new group enters Hold with aiming off. See the [Polaris controls](polaris-interface-refresh.md).",
+          "use": "Fit to Polaris, open Fire, choose a target and use Weapon group to see installed weapons, including off or damaged ones. Left-click Volleys to increase, right-click to decrease (1–9, wrapping). Engage grants a fresh firing budget. Cease Fire keeps offensive hold; Return to Native releases it. Switching an FCS-held group asks for confirmation: the old group may resume native automatic firing and the new group enters Hold with aiming off. See the [Polaris controls](development/polaris-interface-refresh.md).",
           "find": "Build at a supported table, buy from the listed dealers, or find an N1/N2/N3 board in eligible native module loot. Damaged finds need repair.",
           "notes": "Firing permission is not restored from a save. N2 plus N3 combines Follow and firing; flight braking and clearance take priority over aiming.",
           "guide": "auto-nav-fire-control.md",
@@ -80,7 +80,7 @@
       ]
     },
     "PhobosShipbreaker": {
-      "intro": "Rivetline machinery recovers material and casts rough industrial products. Asterel C1 provides optional central controls. Obtain loose equipment, place it through the indicated native INSTALL tab, supply electricity where required, and keep service approaches accessible. Local panels remain usable without C1. Receiving, processing and hot-furnace controls are separate permissions. Pending-equipment reloads include a bounded room-grid mitigation; see [evidence and limits](shipbreaker-room-load-mitigation.md). It cannot recover atmosphere already lost before saving. Regional offers extend through the current vanilla solar system; see [market coverage and the game's market pricing](solar-system-economy.md). Crew standing orders are opt-in; see [crew work, training and time-skips](crew-automation.md) for eligible work, approved stores, resource limits and resuming industrial and exterior work. Compact controls, unsaved settings and object selection are explained in the [control-panel guide](control-panel-guide.md). In selection fields, Locate opens a temporary marked ship view; Clear is a draft change that requires Apply. Pick on ship marks eligible objects and Escape restores the panel and view.",
+      "intro": "Rivetline machinery recovers material and casts rough industrial products. Asterel C1 provides optional central controls. Obtain loose equipment, place it through the indicated native INSTALL tab, supply electricity where required, and keep service approaches accessible. Local panels remain usable without C1. Receiving, processing and hot-furnace controls are separate permissions. Pending-equipment reloads include a bounded room-grid mitigation; see [evidence and limits](development/shipbreaker-room-load-mitigation.md). It cannot recover atmosphere already lost before saving. Regional offers extend through the current vanilla solar system; see [market coverage and the game's market pricing](solar-system-economy.md). Crew standing orders are opt-in; see [crew work, training and time-skips](crew-automation.md) for eligible work, approved stores, resource limits and resuming industrial and exterior work. Compact controls, unsaved settings and object selection are explained in the [control-panel guide](control-panel-guide.md). In selection fields, Locate opens a temporary marked ship view; Clear is a draft change that requires Apply. Pick on ship marks eligible objects and Escape restores the panel and view.",
       "groups": [
         {
           "key": "d4",
@@ -95,7 +95,7 @@
           "use": "Install on cabin flooring, supply power, put supported detached panels in its Wall-panel Feed or use the G4/H4 intake, then enable processing in its local panel. Products appear in the normal machine inventory. Supported crew work is configured through the [standing-order controls](crew-automation.md); orders begin disabled and retain the existing access and supply requirements.",
           "find": "Buy loose or damaged equipment, or build two D4-S sections and assemble the fixture. This item may also appear in eligible engineering-equipment loot; see the exact offers below. Final assembly now takes place at the installation site through Install on a section or INSTALL > APPS; a complete loose machine keeps its direct Install action.",
           "notes": "It does not cut attached hull walls. Fresh jobs make identified R2 feed; older bound jobs retain their original mixed-residue output. Processing pauses on reload.",
-          "guide": "shipbreaker-first-build.md",
+          "guide": "development/shipbreaker-first-build.md",
           "internal": false,
           "labels": {}
         },
@@ -214,7 +214,7 @@
           "use": "Install at the documented furnace-side cooling attachment, rotated with the F6, and select its cooling pairing.",
           "find": "Buy from equipment offers or build at a supported table. This item may also appear in eligible engineering-equipment loot; see the exact offers below.",
           "notes": "The small head represents a complete finite assembly. It keeps the native floor sealed and does not vent cabin air or create a lower deck. If older saves left cargo inside, choose Recover stored cargo while beside the unit and move the items out. New deposits are blocked. Maintenance information identifies contents, coolant, heat and paired-equipment restrictions. Actual work lots remain reserved until their native job finishes or is cancelled.",
-          "guide": "furnace-connections-and-instruments.md",
+          "guide": "development/furnace-connections-and-instruments.md",
           "internal": false,
           "labels": {}
         },
@@ -346,7 +346,7 @@
           "use": "Load into R4 feed or transfer through an explicitly enabled route.",
           "find": "Fresh revision-2 D4 wall jobs.",
           "notes": "The authored result is steel, aluminium and terminal R2 rejects. It is not a measured chemical assay.",
-          "guide": "residue-material-contract.md",
+          "guide": "development/residue-material-contract.md",
           "internal": false,
           "labels": {}
         },
@@ -360,7 +360,7 @@
           "use": "Retain or move with supported collectors; do not substitute it for identified R2 feed.",
           "find": "Existing cargo or completion of a job bound to the historical output contract.",
           "notes": "No conversion to R2 and no R4 recycling; saving or updating does not reclassify it.",
-          "guide": "residue-material-contract.md",
+          "guide": "development/residue-material-contract.md",
           "internal": false,
           "labels": {}
         },
@@ -439,7 +439,7 @@
       ]
     },
     "PhobosAgriculture": {
-      "intro": "Verdemorrow equipment grows potatoes and lettuce, cooks potato portions and manages finite irrigation. These are authored, accelerated gameplay systems. Crop yields and simplified nutrient/treatment chemistry are not research results. The linked research guide attributes the supporting work separately; none of the pricing or yield balance implies NASA/ESA endorsement. See [research and attribution](agriculture-research.md). Regional offers extend through the current vanilla solar system; see [market coverage and the game's market pricing](solar-system-economy.md). Crew standing orders are opt-in; see [crew work, training and time-skips](crew-automation.md) for eligible work, approved stores, resource limits and resuming industrial and exterior work. Compact controls, unsaved settings and object selection are explained in the [control-panel guide](control-panel-guide.md). In selection fields, Locate opens a temporary marked ship view; Clear is a draft change that requires Apply. Pick on ship marks eligible objects and Escape restores the panel and view.",
+      "intro": "Verdemorrow equipment grows potatoes and lettuce, cooks potato portions and manages finite irrigation. These are authored, accelerated gameplay systems. Crop yields and simplified nutrient/treatment chemistry are not research results. The linked research guide attributes the supporting work separately; none of the pricing or yield balance implies NASA/ESA endorsement. See [research and attribution](development/agriculture-research.md). Regional offers extend through the current vanilla solar system; see [market coverage and the game's market pricing](solar-system-economy.md). Crew standing orders are opt-in; see [crew work, training and time-skips](crew-automation.md) for eligible work, approved stores, resource limits and resuming industrial and exterior work. Compact controls, unsaved settings and object selection are explained in the [control-panel guide](control-panel-guide.md). In selection fields, Locate opens a temporary marked ship view; Clear is a draft change that requires Apply. Pick on ship marks eligible objects and Escape restores the panel and view.",
       "groups": [
         {
           "key": "rack",
@@ -697,7 +697,7 @@
           "use": "Use the origin and mass below to identify the packet; keep or trade it as waste.",
           "find": "Produced with recoverable materials by Dismantle.",
           "notes": "Not construction stock, planting medium or R4 feed. The distinct identities must not be combined into a new salvage recipe.",
-          "guide": "agriculture-economy-review.md",
+          "guide": "development/agriculture-economy-review.md",
           "internal": false,
           "labels": {
             "PhobosVerdemorrowFirstlight4HousingWaste": "Rack: intact dismantling",
@@ -867,7 +867,7 @@
       ]
     },
     "PhobosManufacturing": {
-      "intro": "Research scaffold only: no registered equipment, loose items, stock or operational recipes. The proposed M4 enclosed mill, heat-sink preform and machining cartridge are designs, not obtainable items. There are therefore no retail prices, salvage yields or maintenance instructions to present as implemented. See [Manufacturing research](manufacturing-research.md) and [implementation status](manufacturing-implementation.md). Future registered items require reference entries before this guide can be regenerated.",
+      "intro": "Research scaffold only: no registered equipment, loose items, stock or operational recipes. The proposed M4 enclosed mill, heat-sink preform and machining cartridge are designs, not obtainable items. There are therefore no retail prices, salvage yields or maintenance instructions to present as implemented. See [Manufacturing research](development/manufacturing-research.md) and [implementation status](development/manufacturing-implementation.md). Future registered items require reference entries before this guide can be regenerated.",
       "groups": []
     }
   },

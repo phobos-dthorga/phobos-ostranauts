@@ -100,7 +100,7 @@ real crop suitability. Neither institution endorses or validates this mod.
 
 Placement and cardinal connectivity reuse the inspected conventions of
 [Blue Bottle Games' Ostranauts](https://bluebottlegames.com/ostranauts), documented
-with local evidence in [the shared-fluid research](fluid-conduits-and-irrigation-research.md).
+with local evidence in [the shared-fluid research](development/fluid-conduits-and-irrigation-research.md).
 They do not imply vanilla has a nutrient-fluid simulation. Existing W2 and pipe
 artwork is reused with live localized formulation text; no new generation or
 artwork licensing claim is introduced. Provenance remains in the water guide.

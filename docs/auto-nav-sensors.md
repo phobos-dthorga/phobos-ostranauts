@@ -104,5 +104,5 @@ Owner gameplay checks for this new integration:
 
 Original native behaviour belongs to Blue Bottle Games. Existing adapted
 guidance retains Gravy/mrkmg attribution in the
-[adaptation guide](auto-navigate-adaptation.md). No engine source or assets are
+[adaptation guide](development/auto-navigate-adaptation.md). No engine source or assets are
 included. Existing arrival, fuel, legality and collision limitations remain.

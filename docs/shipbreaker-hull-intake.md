@@ -158,7 +158,7 @@ virtual cargo. Shipbreaker owns layout, timing, eligibility and power.
 
 Attached-hull cutting still needs finite reach, target eligibility, relative-motion
 limits and ownership of released material. The 25 September
-[autonomous reclamation specification](shipbreaker-autopilot-research.md) now
+[autonomous reclamation specification](development/shipbreaker-autopilot-research.md) now
 requires Auto Nav in the future design and binds one selected G4 by full native
 ID. Current packages retain their existing requirements. Active positioning,
 holding/cutting and movement along a short wall section form the proposed first
@@ -166,11 +166,11 @@ slice, subject to collision-compatible reach. Docking is optional. This guide do
 implemented external cutting. Later delivered R4 recovery and paired routes are
 documented in the current player guide; general routing and ore machinery remain
 separate work. See the
-[residue composition and destination decisions](residue-material-contract.md).
+[residue composition and destination decisions](development/residue-material-contract.md).
 
 Concept files and exact built-in Imagegen prompts:
 [hull-intake artwork](../assets/phobos-hull-intake/README.md).
 
-Related: [mounting history](shipbreaker-hull-mounting.md),
-[underfloor transport](underfloor-material-transport.md),
-[equipment art study](ship-equipment-art-study.md).
+Related: [mounting history](development/shipbreaker-hull-mounting.md),
+[underfloor transport](development/underfloor-material-transport.md),
+[equipment art study](development/ship-equipment-art-study.md).

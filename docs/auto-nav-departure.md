@@ -2,7 +2,7 @@
 
 Prepared for Auto Nav 0.18.0, with Framework 0.24.0 or newer. Existing N1 and
 N2 modules and artwork are reused. Owner gameplay evaluation is separate from
-the automated checks described in [validation](auto-nav-reclamation-validation.md).
+the automated checks described in [validation](development/auto-nav-reclamation-validation.md).
 
 ## Departing
 
@@ -81,4 +81,4 @@ API stability guarantee. Earlier sensing research separately cites
 and [ESA's LIRIS experiment, with Airbus, Jena Optronik and Sodern](https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/ATV/ATV_views_Space_Station_as_never_before).
 Those projects provide context; they do not validate this planner or endorse the
 mod. Existing Auto Navigate upstream attribution and unverified reuse terms remain
-unchanged; see [provenance](auto-navigate-adaptation.md).
+unchanged; see [provenance](development/auto-navigate-adaptation.md).

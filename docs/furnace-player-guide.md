@@ -1,51 +1,41 @@
 # F6 electric furnace: operating guide
 
-The current console redesign uses compact views and checked drafts. See the
-[control-panel guide](control-panel-guide.md) for Apply/Discard, storage selection,
-ship picking, training and the separate Unity validation checklist.
+The F6 turns twenty 1 kg pieces of aluminium scrap into a rough machinery
+housing and a little waste. It needs ship power, room air and somewhere to dump
+the heat. Leave space to load it and collect the finished casting.
 
-This guide describes the implemented furnace in the current source candidate.
-See the [current player guide](player-guide.md) for maintained package versions
-and the [Shipbreaker item reference](shipbreaker-item-reference.md) for current
-acquisition, INSTALL categories and service values. Version notes below identify
-when features were introduced, not the version to install today.
+For the current packages and requirements, use the [player guide](player-guide.md)
+and [installation guide](installing-mods.md). The [item reference](shipbreaker-item-reference.md)
+lists prices, suppliers, construction bills and maintenance materials. These are
+development builds; the full casting cycle still needs owner playtesting.
 
-Ordinary saves remain supported. Prepared packages, verified local installation
-and in-game evaluation are separate states; this public guide does not assert
-which version is installed on a reader's computer. Use the
-[installer verification](installing-mods.md) to check local files and load order.
-Automated checks do not establish gameplay validation.
+## Get the furnace aboard
 
-Version 0.17.0 adds [automatic material routing](furnace-material-routing.md):
-R4 aluminium to the F6 charge bin and released cold furnace products to a hull
-collector. Receiving, batch Start and Release remain separate decisions. This
-release also adds optional finite coolant servicing, documented in the cooling
-and shared fluid guides; it does not replace existing sealed installations.
+- **Starting with sections:** obtain three F6-S sections, 80 kg each. Choose
+  **Assembly information** for the bill, then **Install** on a section or the
+  furnace in **INSTALL > APPS**. Place the outline on suitable flooring. Crew
+  bring the sections separately; final assembly needs Mortorq and soldering tools.
+  Tables still make individual sections. They no longer assemble the whole F6.
+- **Starting with a complete loose furnace:** use its own **Install** action.
+  You do not need to break it into sections first.
+- Choose one cooling assembly below. Buy it or build it at a supported table,
+  install it, then pair it with the furnace. A powered furnace with no usable
+  cooling will not heat a batch.
 
-Version 0.16.0 adds optional [sealed coolant conduits](furnace-coolant-conduits.md)
-for a remote F6-R radiator through shared Framework routes. Existing direct F6-R
-and F6-P attachments remain supported; Agriculture is not required.
-
-Version 0.15.0 adds equipment-specific restoration labour, F6-S merchant stock,
-rare engineering section salvage and explicit recovery of unused cold castings.
-See [equipment economy](equipment-economy.md#shipbreaker-0150-availability-and-casting-recovery)
-for values, work and acquisition details.
-
-The next [repair-casting study](furnace-repair-castings.md) recommends replacement
-heat sinks for future Manufacturing equipment. This remains a proposal. The
-current furnace keeps its original housing recipe, with manual handling or the
-new explicit paired material routes.
+The site keeps delivered parts and progress after saving. Cancel the site's
+construction order to release its delivered parts. For hauling, old table orders
+and the D4/R4 equivalents, see [assembly and maintenance](section-assembly-and-maintenance.md).
 
 ## Installation: choose one cooling assembly
 
 **Phobos' Rivetline F6 Electric Furnace** occupies **6 x 6 tiles**, weighs 240 kg
 empty and is rated for a 50 kg charge. The first supported recipe uses exactly
-20 kg; the rating does not enable arbitrary alloys or larger recipes. Its three
-80 kg construction sections keep each craft within Framework's 100-unit limit.
+20 kg; the rating does not enable arbitrary alloys or larger recipes. Three 80 kg sections make one complete furnace.
 
 **Phobos' Rivetline F6-R Exterior Radiator** is separate **6 x 4**, 100 kg
 equipment. Both can appear in the existing industrial/fixer/scrap stock routes,
-and both retain installation, repair, Restore and mass-balanced dismantling. Make F6-S sections at a table, then choose Install to assemble three at the furnace site; buy or table-build the cooling equipment. D4/R4 also use staged construction-site assembly. See [assembly, recovery and maintenance](section-assembly-and-maintenance.md).
+and both can be installed, repaired, restored and dismantled. Check the
+[item reference](shipbreaker-item-reference.md) for their material bills.
 
 ### Exterior radiator
 
@@ -69,8 +59,8 @@ Use this local layout, rotated together as necessary:
 
 The machines face the same direction; their centres are **six tiles apart**.
 The radiator needs all six rear wall supports and no floor/wall through its fin
-footprint. Furnace placement requires flooring. Pair their full object IDs using
-the Control Panel; pairing requires a player-owned ship. The pair is reciprocal
+footprint. Furnace placement requires flooring. Choose the cooling assembly in **Control Panel** and apply the selection;
+pairing requires a player-owned ship. F3 commands use full object IDs. The pair is reciprocal
 and saved. Moving hardware or breaking the geometry removes usable cooling.
 An intact disconnected radiator continues radiating its own stored heat.
 
@@ -80,7 +70,7 @@ An intact disconnected radiator continues radiating its own stored heat.
 the furnace**, supplied with a complete **100 kg underside radiator assembly**.
 Its base value, construction, installation and maintenance costs equal the F6-R.
 The visible head represents a sealed through-deck connection; its **12 m² effective
-underside radiating area is an simplified equipment model**, not a second deck
+underside radiating area is a simplified equipment model**, not a second deck
 or a new 3D clearance simulation. It consumes no vented cabin air or coolant.
 
 Keep an **intact installed sealed floor** beneath the port. Its floor remains the
@@ -105,10 +95,30 @@ ID and mounting status. The existing pair command accepts either endpoint type.
 
 A furnace has exactly **one** selected cooling assembly. To change installation,
 cool both devices to **50 C or less**, return gas, release the charge, empty both
-feed and product inventories, then Unpair and pair the alternative. A second
+feed and product inventories, drain any serviceable coolant into waste, then
+choose **Disconnect cooling pair** and pair the alternative. Remove the drained
+waste from Products before removal or dismantling. A second
 assembly cannot be added to combine capacities, nor shared with another furnace.
 An unavailable connection retains its saved identity and physical heat. Old F6-R
 links and hot saves need no conversion; adding this update does not replace them.
+
+### Optional pipes and serviceable coolant
+
+For an F6-R farther away, lay [F6-C coolant conduits](furnace-coolant-conduits.md)
+and choose the left or right piped-cooling fitting before pairing. F6-P stays
+beside its furnace; it does not accept a remote pipe connection.
+
+The original sealed cooling mode needs no coolant items. **Serviceable coolant
+is optional and only works with piped F6-R cooling.** To use it, stand beside a
+cool, idle, paused furnace, enable finite coolant servicing and place separate
+1 kg Thermal Service Fluid Charges in **Products**. Load them one at a time;
+six charges fill the 6 kg circuit. Do not put them in the aluminium Feed chamber
+or inside the cooling unit. See [coolant filling, leaks and draining](fluid-network-operations.md#optional-finite-furnace-coolant)
+for route requirements and recovery of caught leakage.
+
+Fill, drain and coolant-mode changes require local access. C1 cannot perform
+those physical service steps. Drain retained fluid before unpairing, changing
+cooling mode or removing equipment; leave room in Products for the waste.
 
 ### Power and heat
 
@@ -234,28 +244,37 @@ furnace locks for inspection instead of retrying. Keep the log, save and cargo;
 do not erase the fault record to force another attempt. Recovery after a crash
 is not guaranteed.
 
-## Controls and technical reference
+## Missing actions and stopped work
 
-Local panels, C1 and F3 use one checked service. Remote physical inventory access
-remains local. Numeric limits use decimal-point input; measurement formatting
-and complete UI messages use localization catalogs. Reading a panel does not
-advance the process or rewrite saved settings.
+Choose **Maintenance information** on the equipment to see what is blocking
+removal. Check both paired machines: a cool furnace cannot be removed while its
+cooling assembly is still unsafe. Empty Feed and Products, finish or release the
+batch, let both machines cool and drain serviceable coolant as required.
 
-Technical artwork details for maintainers: the implementation loads only isolated `GUIShip/GUIReactor` child donors:
-`pnlPower/knobBus`, `pnlCoreTemp/pnlLeds`, `pnlPower/pnlLedsTotal` and
-`pnlInit/pnlStepBus/bmpGreen`. It checks the locally audited game assembly fingerprint, audits the component
-hierarchy, initializes under
-an inactive owned root and explicitly detaches knob callbacks during refresh.
-It also reuses the air-pump title font. No full reactor controller is cloned.
+Older F6-P and F6-R units may contain cargo that their old menus hid. Stand beside
+the unit and choose **Recover stored cargo**, then move the items out through the
+inventory window. New deposits are blocked. Real work reservations, unsafe heat
+or a saved-operation fault can still block recovery; finish or cancel the
+relevant work first. Recovery is also available on loose or damaged cooling units
+when safe. See [cargo recovery](section-assembly-and-maintenance.md#recover-cargo-from-older-cooling-units).
 
-Version 0.14.0 adds the native guarded switch, seven-segment artwork with a
-Phobos formatter, and vertical sliders. Missing readings and overflow blank the
-digits; adjacent signed localized text remains authoritative. Sliders edit a
-draft; Apply sends one checked command. Buttons, numeric fields and scrolling
-remain as accessible controls and diagnosed fallbacks. See the
-[attachment and instrument record](furnace-connections-and-instruments.md). Native layout/scale, click feedback,
-focus and repeated opening need in-game review. Diagnostics identify rejected
-donor paths once; original game assets are never modified or distributed.
+**Repair** fixes a broken form; **Restore** treats ordinary wear. Restore is absent
+when there is no wear to repair. Missing tools, materials or access can also hide
+work. A missing action is not permission to use Bash as an uninstall shortcut.
+
+## Controls and command reference
+
+Local panels and C1 offer the same operating controls. Stand beside the furnace
+to open Feed or Products or service its coolant. Use the scroll area to reach
+more controls; **STOP / ISOLATE HEAT** stays below it. Enter decimal values with
+a point. Sliders and fields are drafts until you choose **Apply**; **Discard**
+keeps the existing settings. Opening the panel does not start a job.
+
+If a gauge is blank or out of range, read the adjacent text and stop reason.
+Buttons and number fields remain available when instrument artwork cannot load.
+See [panel controls](control-panel-guide.md) for the shared layout and
+[the instrument implementation record](development/furnace-connections-and-instruments.md)
+for developer details about reused game widgets and their checks.
 
 F3 entry points:
 
@@ -305,3 +324,20 @@ installation records and mockups are background, not runtime proof.
 ## Crew standing orders
 
 See [crew automation, specialities and time-skips](crew-automation.md) for default-disabled orders, native duty/AutoTask rules, approved stores, training, saved stops and supported onboard work. Industrial batches, exterior missions and crew-launched flight require explicit Resume. Gameplay and UI checks remain owner-run.
+
+## Feature history and further reading
+
+The dated [Shipbreaker changelog](../mods/PhobosShipbreaker/CHANGELOG.md) records
+when features arrived. Earlier furnace studies describe the design at that time;
+they are not the instructions for installing today's packages.
+
+- [Material routing](furnace-material-routing.md): feed aluminium from R4 and
+  send released products to a collector. Receiving, Start and Release are
+  separate controls.
+- [Repair-casting study](furnace-repair-castings.md): proposed heat sinks for
+  future Manufacturing equipment. The implemented furnace still casts housings;
+  the proposed heat sinks and machining are not available.
+- [Electrical heating decision](development/furnace-electrical-direction.md) and
+  [original thermal research](development/fusion-smelter-research.md): evidence and research
+  attribution behind the design, with the earlier fusion-first proposal retained
+  as history. Operating limits and yields here are gameplay choices.

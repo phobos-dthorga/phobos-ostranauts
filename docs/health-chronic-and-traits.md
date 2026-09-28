@@ -4,7 +4,7 @@ Part of the [health reference](health-reference.md). Inspected core version:
 **1.0.1.4**, research date **2026-09-20**. Findings are definition-backed (**D**)
 unless marked as inference (**I**); none were gameplay-tested in this round.
 Source abbreviations and limitations are in the
-[evidence record](health-evidence-and-gaps.md).
+[evidence record](development/health-evidence-and-gaps.md).
 
 ## Chronic ailments
 

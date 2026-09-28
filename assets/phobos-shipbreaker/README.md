@@ -1,7 +1,7 @@
 # Phobos Shipbreaker artwork
 
 New artwork and visual revisions follow the
-[2x/4x resolution policy](../../docs/artwork-resolution-policy.md). The approved
+[2x/4x resolution policy](../../docs/development/artwork-resolution-policy.md). The approved
 masters and existing export dimensions recorded below remain unchanged.
 
 ## Production set — 24 September 2026, Shipbreaker 0.1.4
@@ -102,7 +102,7 @@ the historical v1 reduction retains its original bicubic method.
 
 Original project concept generated with ChatGPT's built-in Imagegen tool from
 the written brief in [prompts.md](prompts.md). The brief incorporates the
-[equipment study and six owner screenshots](../../docs/ship-equipment-art-study.md).
+[equipment study and six owner screenshots](../../docs/development/ship-equipment-art-study.md).
 No game sprite was extracted, composited or supplied as an image-path input to
 this generation. The screenshots remain local research references.
 

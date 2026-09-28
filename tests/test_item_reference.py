@@ -111,6 +111,8 @@ class ItemReferenceTests(unittest.TestCase):
         self.assertIn('| 60 | Mortorq tool, soldering tool |', text)
         self.assertIn('Construction-site assembly', text)
         self.assertEqual(text.count('**Legacy saved-job contract:**'), 3)
+        self.assertEqual(text.count('**Placement:** Choose Install on this section'), 3)
+        self.assertEqual(text.count('**Placement:** INSTALL → APPS starts assembly'), 3)
 
 
 if __name__ == '__main__':

@@ -130,7 +130,7 @@ checks are not in-game tests. Owner gameplay evaluation remains pending.
 
 The owner deferred additional in-game captures on 27 September 2026. Recording
 remains disabled by default; ordinary play is the next evaluation step. See the
-[performance audit](performance-audit.md) for baseline results and limitations.
+[performance audit](development/performance-audit.md) for baseline results and limitations.
 
 Additional scopes cover Auto Nav panel refresh/read, system-prefix work and fire;
 Shipbreaker furnace/capture/reclamation; Framework crew discovery; and Agriculture

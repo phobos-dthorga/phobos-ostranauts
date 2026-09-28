@@ -42,7 +42,7 @@ def report(game, repo):
         raise ValueError("Vanilla retail placement changed; review regional stock coverage.")
     rows = ["# Regional economy: generated native evidence", "",
             "Source: **Blue Bottle Games, installed Ostranauts 1.0.1.5**, inspected 26 September 2026.",
-            "The [economy guide](solar-system-economy.md#sources-and-verification) identifies the native files and original game documentation.",
+            "The [economy guide](../solar-system-economy.md#sources-and-verification) identifies the native files and original game documentation.",
             "Reproduce with `scripts/audit-regional-economy.py --game <game-folder>` or the normal economic audit.",
             "Selected facts only; no saves, live prices or proprietary definitions are exported.", "",
             "Game assembly SHA-256: `" + hashlib.sha256((game / "Ostranauts_Data/Managed/Assembly-CSharp.dll").read_bytes()).hexdigest() + "`.", "",
@@ -74,7 +74,7 @@ if __name__ == "__main__":
     parser.add_argument("--check", action="store_true")
     args = parser.parse_args()
     repo = Path(__file__).resolve().parents[1]
-    output = args.output or repo / "docs/solar-system-economy-evidence.md"
+    output = args.output or repo / "docs/development/solar-system-economy-evidence.md"
     text = report(args.game, repo)
     if args.check:
         if not output.is_file() or output.read_text(encoding="utf-8-sig") != text:

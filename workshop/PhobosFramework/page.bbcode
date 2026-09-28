@@ -3,7 +3,7 @@
 
 [h2]Performance update[/h2]
 Shared display updates now avoid repeated work, and crew equipment searches stay within their own ship. Optional performance recording remains off unless requested. Saved state and gameplay rules are unchanged.
-Offline checks accompany this draft. Measured improvement and in-game interaction still await owner feedback. [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/performance-audit.md]Audit and optional playtesting checks[/url].
+Offline checks accompany this draft. Measured improvement and in-game interaction still await owner feedback. [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/development/performance-audit.md]Audit and optional playtesting checks[/url].
 
 [b]Publication status:[/b] Not published - development candidate
 
@@ -38,14 +38,14 @@ Original artwork uses AI-assisted production; artwork provenance and licensing a
 
 [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/control-panel-guide.md]Controls and verification limits[/url]
 [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/control-panel-guide.md]Console controls, drafts and owner checks[/url]
-[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/framework-bulk-storage.md]Current contracts, compatibility and persistence limits[/url]
-[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/shipbreaker-room-load-mitigation.md]Evidence, limits and reload instructions[/url]
-[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/shipbreaker-room-load-mitigation.md]Evidence, limits and reload check[/url]
+[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/development/framework-bulk-storage.md]Current contracts, compatibility and persistence limits[/url]
+[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/development/shipbreaker-room-load-mitigation.md]Evidence, limits and reload instructions[/url]
+[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/development/shipbreaker-room-load-mitigation.md]Evidence, limits and reload check[/url]
 [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/solar-system-economy.md]Regional coverage, sources and limits[/url]
 [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/shared-completion-cues.md]Supported events and shared controls[/url]
 [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/getting-started.md]Getting started and download status[/url]
 [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/installing-mods.md]Installation and updates[/url]
-[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/framework-author-guide.md]Mod guide[/url]
+[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/development/framework-author-guide.md]Mod guide[/url]
 [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/mods/PhobosFramework/THIRD-PARTY.md]Framework attribution and licences[/url]
 [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/SUPPORT.md]Help and bug reports[/url]
 [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/mods/PhobosFramework/CHANGELOG.md]Full changelog[/url]
@@ -55,7 +55,7 @@ Original artwork uses AI-assisted production; artwork provenance and licensing a
 [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/framework-item-reference.md]Read this mod’s item reference[/url]
 [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3757331189]Valtora’s Ship’s Water 0.16.1[/url]
 [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/agriculture-nutrient-production.md]Operating guide, economic limits and research attribution[/url]
-[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/merchant-stock.md]Current quantities and restocking guide[/url]
+[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/development/merchant-stock.md]Current quantities and restocking guide[/url]
 [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/crew-automation.md]Crew controls, time-skip limits and owner checks[/url]
 [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3789049955]LOGUSS’s Common Sense modules[/url]
 [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3788237703]jossla’s Study at Terminals[/url]
@@ -75,8 +75,11 @@ Add a shared stock-coverage helper that fills omitted item offers without duplic
 
 [b]Item-action audit[/b]
 The complete item-action audit now checks generated native maintenance actions and saved cargo relationships as well as declared actions. Shared safety checks can withhold dismantling for cargo, work lots or stack members. This documentation update does not change runtime behaviour.
-[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/item-handling-audit.md]Complete findings and item ledger[/url]
+[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/development/item-handling-audit.md]Complete findings and item ledger[/url]
 
 [h2]Assembly and maintenance update[/h2]
 Shared construction-site support and read-only item/maintenance information preserve native work and save handling.
 Offline checks are not Unity gameplay approval. See [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/section-assembly-and-maintenance.md]assembly and maintenance instructions[/url].
+
+[h2]Finding current instructions[/h2]
+Use the [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/README.md]operating-guide index[/url] for current controls and requirements. Dated research and design records retain their original scope; they are not installation instructions.

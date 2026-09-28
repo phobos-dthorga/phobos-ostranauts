@@ -41,7 +41,7 @@ def verify(root=ROOT):
         path = root / row['path']
         if not path.exists() or digest(path.read_text(encoding='utf-8-sig')) != row['sha256']:
             errors.append('Review is stale: ' + row['path'])
-    document_paths = {p.relative_to(root).as_posix() for p in (root / 'docs').glob('*.md')
+    document_paths = {p.relative_to(root).as_posix() for p in (root / 'docs').rglob('*.md')
                       if p.name not in ('english-language-audit.md', 'player-language.md')}
     document_paths.update(p.relative_to(root).as_posix() for p in (root / 'workshop').glob('*/page.bbcode'))
     document_paths.update(('README.md', 'SUPPORT.md'))

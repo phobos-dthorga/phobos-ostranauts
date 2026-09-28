@@ -1,7 +1,7 @@
 # F6 furnace artwork and layout study
 
 **25 September 2026 — implementation candidates, owner review pending.**
-The [electrical direction](../../docs/furnace-electrical-direction.md) supersedes
+The [electrical direction](../../docs/development/furnace-electrical-direction.md) supersedes
 the earlier reactor-side coupler. Use the [current operating guide](../../docs/furnace-player-guide.md)
 for the implemented tile layout and first-cycle controls.
 
@@ -71,7 +71,7 @@ placeholders and system fonts; its sample states have no game connection. Its
 direct-fusion coupler installation is explicitly historical. The panel grouping
 informed the runtime view, but the study is not a screenshot of it.
 
-The [UI reuse brief](../../docs/furnace-ui-and-art.md) records native donor paths.
+The [UI reuse brief](../../docs/development/furnace-ui-and-art.md) records native donor paths.
 The implementation uses isolated knob, LED, lamp, guarded-toggle, seven-segment
 artwork and slider donors. Version 0.14.0 completes their adapters. In-game isolation, focus,
 scaling and appearance await owner checks.

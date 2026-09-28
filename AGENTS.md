@@ -3,7 +3,7 @@
 ## Localization and constants
 
 - Owner direction (2026-09-27): all current and future player-facing English
-  across every Ostranauts mod must follow `docs/player-language.md`. Apply this
+  across every Ostranauts mod must follow `docs/development/player-language.md`. Apply this
   retrospectively, including controls, notifications, item/recipe descriptions,
   settings help, player guides and Workshop drafts. Write for players interested
   in ship operation and survival without assuming engineering or coding knowledge.
@@ -29,7 +29,7 @@
   registered copies independently or repeat ad hoc search-and-replace edits.
 - Preview with `--set Key=value`, apply with `--apply`, and verify with
   `--check --format json`. Use `--list` to discover supported fields and
-  `--format json` for machine-readable reports. Follow `docs/updating-constants.md`,
+  `--format json` for machine-readable reports. Follow `docs/development/updating-constants.md`,
   review the diff and reported follow-up items, and run affected builds/checks.
   Updating source values does not rebuild, install or publish packages.
 - Maintain and extend the updater itself as needs arise. When a new recurring
@@ -43,7 +43,7 @@
   routine tuning knobs; those still require their own design and validation.
 
 - Keep player-facing text in per-mod UTF-8 translation catalogs, with embedded
-  English fallbacks and Framework's shared lookup. See `docs/localization.md`.
+  English fallbacks and Framework's shared lookup. See `docs/development/localization.md`.
 - Use stable translation keys and complete messages with placeholders. Never
   translate native IDs, saved-state keys, command names or configuration keys,
   and never use translated status text to drive gameplay decisions.
@@ -56,7 +56,7 @@
 
 - Workshop preparation uses `scripts/prepare-workshop.ps1 -Mod <name> -Build
   -Prepare` and `scripts/prepare-workshop.py --verify <candidate directory>`.
-  Follow `docs/workshop-upload-preparation.md`. These are offline-only tools;
+  Follow `docs/development/workshop-upload-preparation.md`. These are offline-only tools;
   never add uploads to builds or CI. Maintain real item IDs, dependencies and
   publication holds in `config/workshop-publishing.json`; preserve unknown IDs
   as null. Preparation does not authorize Steam login, uploads or visibility changes.
@@ -72,7 +72,7 @@
   links or limitations change. Keep this work in the same change/checkpoint;
   do not defer documentation to the eventual upload or manufacture release history.
 - Main changelogs use the restricted Markdown format in
-  `docs/workshop-publication.md`, with Unreleased plus dated Draft/Released version
+  `docs/development/workshop-publication.md`, with Unreleased plus dated Draft/Released version
   entries. Workshop page text uses Valve's Steam BBCode, not GitHub Markdown.
   Keep direct research/author attribution, licence limits and gameplay caveats.
 - Generate `workshop/<ModId>/releases/<version>.bbcode` from each dated changelog
@@ -87,7 +87,7 @@
   Extend the scripts, catalogue, checks and documentation when formats evolve.
 - Publication records are mandatory maintenance, not authorization to upload,
   subscribe, send announcements or change Steam visibility. Follow
-  `docs/workshop-publication.md` before publishing; preserve older releases and
+  `docs/development/workshop-publication.md` before publishing; preserve older releases and
   correct their source entries explicitly when necessary. Build success is not
   gameplay validation, and a page draft is not evidence that a Workshop item exists.
 
@@ -95,7 +95,7 @@
 
 - Owner memorandum (2026-09-26): stock all offered Phobos goods in substantially
   larger finite lots, especially piping and other high-consumption supplies.
-  Follow `docs/merchant-stock.md`; use content-owned `StockQuantities` for both
+  Follow `docs/development/merchant-stock.md`; use content-owned `StockQuantities` for both
   original and regional merchants. Keep probability separate from physical count.
 - Maintain quantities through the registered `*.stock*` constants and regenerate
   the per-item economic references after changes. New retail offers must explicitly
@@ -105,6 +105,14 @@
 
 ## Per-mod equipment and item references
 
+- Documentation audit follow-up (2026-09-28): current operating guides must lead
+  with player actions and match implemented controls. Keep introduction-version
+  timelines in changelogs or clearly marked history; link maintained current
+  versions/dependency minima rather than copying unregistered numbers. When a
+  workflow changes, check every linked guide, maintained reference input and the
+  reference generator's wording, not only the new feature page. Preserve original
+  research and historical evidence, adding a current-guide pointer where needed.
+
 - Owner memorandum (2026-09-25): maintain one end-user reference per Ostranauts
   mod covering every equipment family, gear item, loose commodity, byproduct and
   supported damaged form. Explain function, use, acquisition, where it appears,
@@ -113,7 +121,7 @@
 - Run `scripts/update-item-reference.ps1` (or double-click its `.cmd` launcher)
   after each relevant update. It reuses the existing economy audits, exports live
   source definitions and regenerates all current references and their index. Read
-  `docs/item-reference-maintenance.md`; `-Check` verifies against fresh native
+  `docs/development/item-reference-maintenance.md`; `-Check` verifies against fresh native
   data without rewriting tracked files. The game path comes from the local
   installer settings or an explicit argument, never a committed machine path.
 - Keep reviewed explanations in `config/item-reference.json`; keep numerical
@@ -137,7 +145,7 @@
   existing item IDs, physical inputs, footprints, work rates and saved state.
   Keep other providers' entries intact. Menu visibility is not free construction.
 - Run the native catalogue coverage checks and maintain
-  `docs/install-catalogue.md`, owning changelogs and Workshop page drafts.
+  `docs/development/install-catalogue.md`, owning changelogs and Workshop page drafts.
   Record genuine exceptions (slot-only modules, non-placeable supplies and
   unimplemented scaffolds); do not invent floor fixtures for them.
 
@@ -155,7 +163,7 @@
 - This policy covers existing equipment as well as future additions. The
   current implementation uses Asterel for electronics, Rivetline for Shipbreaker
   equipment and Verdemorrow Agronomics (short brand: Verdemorrow) for Agriculture.
-  See `docs/equipment-branding.md` for assigned models and agricultural supply lines.
+  See `docs/development/equipment-branding.md` for assigned models and agricultural supply lines.
   When applying a name, update item/damaged forms, construction, shop labels,
   control-panel titles and current player documentation together. Historical
   reports may retain their original names when clearly identified as historical.
@@ -226,7 +234,7 @@
 
 - Owner follow-up: research shared fluid pipes for plant sustenance (water and
   nutrients), taking after vanilla conduits in part. This is distinct from
-  Agriculture cooling. Follow `docs/fluid-conduits-and-irrigation-research.md`:
+  Agriculture cooling. Follow `docs/development/fluid-conduits-and-irrigation-research.md`:
   reusable transport belongs in Framework, equipment/biology in content mods;
   native conduit placement and sprite patterns are candidates for reuse, while
   fluid accounting stays separate from electricity. Water-first/local nutrient
@@ -259,14 +267,14 @@
 - The owner selected a separate Phobos Agriculture content mod requiring Phobos
   Framework, beginning with potatoes and lettuce, automatic environmental control
   and crew planting, harvesting and maintenance. Short configurable growth cycles
-  are authored gameplay balance. Follow `docs/agriculture-research.md`,
-  `docs/agriculture-first-slice.md` and `docs/agriculture-roadmap.md`.
+  are authored gameplay balance. Follow `docs/development/agriculture-research.md`,
+  `docs/development/agriculture-first-slice.md` and `docs/development/agriculture-roadmap.md`.
 - The owner subsequently authorized implementation. Agriculture 0.2.0 supplies
   the Firstlight-4 rack, Hearth-2 portion cooker, potato/lettuce cohorts and finite manual inputs.
   Framework 0.17.0 adds equipment providers and measured liquid transfers;
   Shipbreaker 0.14.0 exposes agriculture through C1. The optional Ship's Water
   adapter is scoped to inspected 0.16.1, with manual fallback for other versions.
-  Follow `docs/agriculture-player-guide.md` and `docs/agriculture-implementation.md`
+  Follow `docs/agriculture-player-guide.md` and `docs/development/agriculture-implementation.md`
   for delivered scope and owner checks. Prepared packages are not installed or
   gameplay-validated. Keep biology in Agriculture, preserving Framework fixed
   batches and their one-hour limit.
@@ -284,14 +292,14 @@
   0.2.0 selects registered native-size compositions from saved crop state through
   native Item.SetAlt; the local panel shares the same stage policy. Preserve the
   4 x 4 / 2 x 2 footprints, four-tray single-cohort meaning and read-only rendering.
-  Follow `docs/agriculture-living-visuals.md` and `assets/phobos-agriculture/layers.json`.
+  Follow `docs/development/agriculture-living-visuals.md` and `assets/phobos-agriculture/layers.json`.
 
 ## Manufacturing direction (2026-09-25)
 
 - The owner approved a separate **Phobos Manufacturing** content mod for dedicated
   machining and finished components, beginning with research for one enclosed
   milling machine/machining centre and heat-sink finishing. Follow
-  `docs/manufacturing-handover.md` in its separate task. Mod creation and research
+  `docs/development/manufacturing-handover.md` in its separate task. Mod creation and research
   are authorized; no Manufacturing equipment is implemented by the handover.
 - Require **Phobos Framework only** as a mod dependency, alongside the normal
   game/loader prerequisites. Do not require Ostranauts Crafting Framework,
@@ -307,7 +315,7 @@
   Research workholding, contained chips/swarf, power/heat, maintenance, finite
   outputs and interruption before expanding machinery or process fluids.
 - The first research round and buildable Manufacturing 0.0.1 scaffold are in
-  `docs/manufacturing-research.md` and `docs/manufacturing-implementation.md`.
+  `docs/development/manufacturing-research.md` and `docs/development/manufacturing-implementation.md`.
   The proposed M4 enclosed mill, two-sink preform and finite machining cartridge
   remain unregistered designs. The scaffold has no operational machinery and
   is not installed. Keep the optional F6 recipe separate from historic housings;
@@ -351,7 +359,7 @@
 - Research industrial ideas as the owner encounters relevant gameplay and can
   test them. Current priority: powered shipbreaking, onboard processing first,
   external cutting and its positioning/autopilot needs later. See
-  `docs/fusion-industry-roadmap.md` and `docs/powered-shipbreaking-research.md`.
+  `docs/development/fusion-industry-roadmap.md` and `docs/development/powered-shipbreaking-research.md`.
 - The owner expanded industrial research on 2026-09-24 to shredders, material
   recyclers and asteroid feedstocks, including new ore types that replenish life
   support. Use native tethered asteroid mining as the acquisition baseline; do
@@ -360,17 +368,17 @@
   and phosphate/salt-bearing feeds where they fill a concrete endurance gap.
   Keep proposed assays/yields distinct from native evidence, preserve existing
   residue and saved-job meaning, and account for every product and remainder.
-  See `docs/shipbreaking-material-processing-research.md` and
-  `docs/asteroid-life-support-research.md`. The combined scrap reclaimer is now
+  See `docs/development/shipbreaking-material-processing-research.md` and
+  `docs/development/asteroid-life-support-research.md`. The combined scrap reclaimer is now
   implemented as described below; ore and life-support processing remain research,
   not implemented features or verified integrations.
 - The owner selected a furnace as Shipbreaker's centrepiece with a tactile
   reactor-like control panel (2026-09-24), initially requesting direct fusion.
   On 2026-09-25 the owner explicitly approved **electrical heating as the first
-  route**. Follow `docs/furnace-electrical-direction.md`; this supersedes the
+  route**. Follow `docs/development/furnace-electrical-direction.md`; this supersedes the
   direct-fusion-first constraint. Reuse native received-electricity accounting
   and remove the reactor-side heat coupler requirement. Follow
-  `docs/fusion-smelter-research.md`: meaningful live gauges, bounded process
+  `docs/development/fusion-smelter-research.md`: meaningful live gauges, bounded process
   controls, automatic recipes plus manual sequencing, local/C1/F3 service access,
   finite heat rejection and preserved hot-state saves. Induction is the researched
   electrical-heater candidate, with hardware/efficiency still provisional.
@@ -385,7 +393,7 @@
   a simulated lower deck or an atmosphere vent.
   Shipbreaker 0.14.0 / Framework 0.17.0 add reactor-inspired named attachment
   points, inward-facing coupling artwork, a rotating installation key and native
-  guarded-toggle/digit/slider adapters. See `docs/furnace-connections-and-instruments.md`.
+  guarded-toggle/digit/slider adapters. See `docs/development/furnace-connections-and-instruments.md`.
   Retain existing placement offsets, thermal rules and saved pairs. Artwork
   selection is presentation only; slider drafts apply through the checked service.
   Follow `docs/furnace-player-guide.md`; gameplay and new art await owner review. Raw fusion heat has no established native outlet and
@@ -397,15 +405,15 @@
   furnace recipes, art and balance. Framework 0.16.0 shares measured receipts,
   thermal/gas primitives and isolated native instruments. Keep hot state, explicit
   resume, exact physical charge, finite gas receiver and guarded output commits.
-  The 2026-09-25 follow-up is `docs/furnace-first-cycle.md`: proposed 20 kg
+  The 2026-09-25 follow-up is `docs/development/furnace-first-cycle.md`: proposed 20 kg
   aluminium housing batch, optional D4/R4 construction use, finite radiator and
   gas receiver; its original direct-fusion source section is superseded. The owner explicitly
-  prefers vanilla UI reuse: follow `docs/furnace-ui-and-art.md`, first isolated
+  prefers vanilla UI reuse: follow `docs/development/furnace-ui-and-art.md`, first isolated
   widgets, then native artwork with adapters, original UI art only for gaps.
   Keep game-derived material local and reference native assets at runtime;
   the browser layouts and offline calculations are not Unity/gameplay validation.
 - Future industrial chemical storage is documented in
-  `docs/chemical-storage-and-process-fluids.md` (owner direction, 2026-09-24).
+  `docs/development/chemical-storage-and-process-fluids.md` (owner direction, 2026-09-24).
   Preserve solvent/reagent reservoirs, quantity-based station refuelling like
   Ship's Water, required inputs for suitable chemical processes, optional salvage
   improvements and contents-driven leaks/ruptures/hazards as later ideas, not current
@@ -422,7 +430,7 @@
   inventory/build snapshots as historical; do not turn them into ordinary-save
   restrictions or claim prepared packages are installed. Include the player guide
   and its direct equipment links through the shared packaging helper.
-- Follow `docs/residue-material-contract.md` and `docs/scrap-reclaimer.md` for
+- Follow `docs/development/residue-material-contract.md` and `docs/scrap-reclaimer.md` for
   the implemented 0.8.0 chain. Legacy 13 kg residue remains unclassified, and
   started revision-1 wall jobs keep their exact outputs. Fresh revision-2 wall
   jobs produce identified 13 kg feed; the combined 4 x 4 reclaimer returns
@@ -440,12 +448,12 @@
   Preserve shared staged delivery and the native powered-job pause on reload.
 - Prefer extending existing mods over duplicating their systems. Steam Workshop
   dependencies are welcome. Refresh the inventory when it matters; see
-  `docs/mod-extension-survey.md`. Use permissive mod licensing as the owner's
+  `docs/development/mod-extension-survey.md`. Use permissive mod licensing as the owner's
   working assumption unless restrictions are explicitly stated; record verified
   terms separately, follow them and preserve attribution. Game assets remain
   subject to the game/repository boundaries below.
 - Plan for dependencies that remain incompatible or unavailable without treating
-  release age alone as failure. Follow `docs/dependency-contingencies.md`: prefer
+  release age alone as failure. Follow `docs/development/dependency-contingencies.md`: prefer
   a working combination, a narrow compatibility fix or a maintained successor;
   fork only where justified, preserving provenance and applicable terms. Protect
   saved identities, inventories and progress before removing a required provider.
@@ -474,7 +482,7 @@
 - Autonomous reclamation follow-up (2026-09-26): the owner selected temporary
   native capture/mooring, release and repositioning as the first arrangement.
   A finite deployed head may later enhance this foundation. Read
-  `docs/shipbreaker-capture.md` and `docs/shipbreaker-close-work-geometry.md`:
+  `docs/development/shipbreaker-capture.md` and `docs/development/shipbreaker-close-work-geometry.md`:
   native deck tiles and navigation collision radii are separate scales. Never
   suppress collisions, expand G4 reach invisibly or turn the grabber into a port.
 - Shipbreaker 0.22.0 / Auto Nav 0.16.0 prepare exact-G4 native capture/release for
@@ -488,7 +496,7 @@
   acquisition/coordination, and Framework supplies existing concrete shared
   services. This capture candidate does not yet cut, transfer target objects,
   reposition automatically or authorize repeated furnace operation. Continue the
-  stages in `docs/shipbreaker-autopilot-handover.md`; the owner has authorized
+  stages in `docs/development/shipbreaker-autopilot-handover.md`; the owner has authorized
   acquisition and processing implementation. Preserve finite buffers, hot jobs,
   material/heat budgets and the current furnace motion guard until a tested
   policy replaces it. Unsupported cargo is retained, never deleted to declare
@@ -521,7 +529,7 @@
   accepts 0.1–100 km arrival requests with native hull clearance; preserve existing
   preferences and capture overrides per flight. Keep diagnostics and panel/F3
   actions on the same service. Obstacle avoidance and continuous working
-  position control remain separate future features. See `docs/auto-navigate-adaptation.md`.
+  position control remain separate future features. See `docs/development/auto-navigate-adaptation.md`.
 - The owner reports successful Auto Nav flight behaviour but wants less RCS waste
   from excessive precision (2026-09-24). Version 0.4.3 captures configurable cruise
   hysteresis per flight, corrects only to the acceptable band and stops chasing
@@ -541,7 +549,7 @@
 - Use native JSON definitions for suitable content and existing behaviours.
 - Owner sensor direction (2026-09-25): use native sensing where appropriate,
   with full instrumentation realism, built-in basic probes and modular specialist
-  instruments. Follow `docs/sensor-integration-research.md`. Measurements need a
+  instruments. Follow `docs/development/sensor-integration-research.md`. Measurements need a
   credible source and scope; unavailable/stale/faulty readings are not zero.
   Native ship IR is not a furnace thermometer, and contact silhouettes do not
   establish grabber clearance. Do not silently enable emitting sensors or use
@@ -558,7 +566,7 @@
   panel closed. See `docs/auto-nav-sensors.md`. Framework 0.13.0 and Shipbreaker
   0.11.0 add shared observations: native room-alarm outputs, built-in R4 cooling
   probes, source/compartment/validity diagnostics and session-only stop evidence.
-  See `docs/shared-console-observations.md`. Panel/F3 reads use the same checked
+  See `docs/development/shared-console-observations.md`. Panel/F3 reads use the same checked
   console boundary; native output witnesses require a fresh evaluation after
   reload, and dock-inclusive ambiguous sampling fails closed. Retain historic
   values only as historic, never erase physical heat when an instrument fails,
@@ -574,14 +582,14 @@
   sliced rendering of the unchanged approved PNG to preserve corner/screw shapes.
   Normalize saved/default
   sizes before native fit checks without moving other modules or bypassing overlap
-  rules. See `docs/auto-nav-panel-layout-audit.md` for the vanilla measurements.
+  rules. See `docs/development/auto-nav-panel-layout-audit.md` for the vanilla measurements.
 - Use C# extensions for behaviour the native data system cannot express cleanly.
 - UI code presents state and delegates actions; gameplay services own mutations.
 - Extract shared code when concrete features establish a shared need. Avoid
   duplicated business logic and premature generalisation.
 - The owner selected our own shareable Ostranauts framework **instead of OCF**
   on 2026-09-24, explicitly correcting an earlier misuse of "in lieu of".
-  Follow `docs/phobos-framework.md`: reusable services belong in Phobos Framework;
+  Follow `docs/development/phobos-framework.md`: reusable services belong in Phobos Framework;
   machines, artwork and balance remain content mods. Other authors should be
   able to use the framework without Shipbreaker. Framework/Shipbreaker 0.2.0
   implement independent construction and native machinery; OCF/SWB are optional.
@@ -619,7 +627,7 @@
 - The owner now requests equipment **Control Panel** interfaces and a central
   industrial console, with research/text mockups before finished graphics
   (2026-09-24). This supersedes the earlier wait-for-testing instruction for that
-  design work. Follow `docs/industrial-control-console.md` and its text mockups;
+  design work. Follow `docs/development/industrial-control-console.md` and its text mockups;
   the 0.10.0 implementation follows these designs. Use a shared panel family and
   current machinery portraits; the recommended new workstation is 3 x 3 with a
   seat. Target clicked objects by full ID, retain local controls, F9 and F3, and
@@ -660,7 +668,7 @@
 
 - Owner direction (2026-09-27): **overhead-first PixelLab requests** for every
   world/inventory sprite. Follow the explicit prompt prefix and inspection rule
-  in `docs/asset-generation-policy.md`: vertical orthographic camera directly
+  in `docs/development/asset-generation-policy.md`: vertical orthographic camera directly
   above, top surfaces only, axis-aligned rectangular edges; set `view="high
   top-down"` and `isometric=false` wherever supported. Describe overhead surfaces,
   not standing product views. Prefer a verified overhead original Phobos reference
@@ -681,20 +689,20 @@
 - Owner direction (2026-09-25): retain PixelLab talking-portrait/mouth-shape
   animation as a possible future tool. It produces visual frames/timing, not
   spoken audio; do not assume it supplies sound or that Ostranauts can consume
-  a GIF directly. Follow `docs/animation-and-sound-direction.md` and the existing
+  a GIF directly. Follow `docs/development/animation-and-sound-direction.md` and the existing
   layered-art/provenance policies. No animation generation is requested now.
 - The same direction supports considering retroactive ChatGPT-assisted sound
   synthesis only where its gameplay usefulness is **HIGH or MEDIUM-HIGH**.
   Samples must be brief, quiet, non-startling, non-alarming and unobtrusive;
   divert attention from other game elements only for an exceptionally strong
   reason. Do not interpret this as permission for an alarm suite, ambient loops
-  or sounds on every action. Follow `docs/animation-and-sound-direction.md`:
+  or sounds on every action. Follow `docs/development/animation-and-sound-direction.md`:
   distinguish owner requirements from proposed defaults, assess native feedback
   first, and retain visual information. Candidate ratings are design judgments,
   not measured player benefits. The authorized first trial is Shipbreaker 0.18.0's
   optional one-shot watched D4/R4 batch cue: original procedural audio, native
   effects mixing, volume/mute, transient watches and burst suppression. Follow
-  `docs/shipbreaker-completion-cue.md`; listening/gameplay review remains pending.
+  `docs/development/shipbreaker-completion-cue.md`; listening/gameplay review remains pending.
 
 - Owner memoranda (2026-09-25): prefer PixelLab for simpler pixel-art assets,
   and explicitly permit ChatGPT-generated high-resolution equipment/furniture
@@ -704,10 +712,10 @@
   pivots/attachment positions, retained masters and deterministic native-size
   exports. Keep runtime lighting, visibility, rotation and damage coherent.
   Authoring layers need not be separate gameplay objects. Follow the Agriculture
-  layering precedent and `docs/asset-generation-policy.md`; no mandatory use of
+  layering precedent and `docs/development/asset-generation-policy.md`; no mandatory use of
   both providers, wholesale art migration or immediate generation is implied.
   This explicit preference supersedes generic imagegen-skill provider defaults.
-- Follow `docs/asset-generation-policy.md`, incorporating the inspected Codename
+- Follow `docs/development/asset-generation-policy.md`, incorporating the inspected Codename
   Gekko PixelLab workflow lessons. Prefer the lowest-cost suitable single-image
   operation; check current allowance and operation cost, preserve prompts/seeds,
   provider IDs and untouched masters, and inspect native-scale exports before
@@ -721,7 +729,7 @@
   instead of silently purchasing credit or switching to a costlier generator.
 
 - Owner direction (2026-09-25): minimize future graphics rework. Follow the
-  production approach in `docs/furnace-ui-and-art.md`: compose panels from
+  production approach in `docs/development/furnace-ui-and-art.md`: compose panels from
   reusable native controls, resizable framing and live localized text; centralize
   donor mappings and keep full/compact views on the same presentation components.
   Keep new machine art in editable registered source layers with stable canvas,
@@ -737,7 +745,7 @@
   active UI. Keep that approved master and pickup sprites unchanged. Version
   0.7.0 introduces a separate faceplate, live rotary propulsion/arrival controls,
   phase/target/range/relative-speed readouts and scrollable Details within the
-  same native 25% x 20% placement bounds. See `docs/auto-nav-instruments.md`.
+  same native 25% x 20% placement bounds. See `docs/development/auto-nav-instruments.md`.
   Preserve captured flight settings and command authority in the service;
   display reads must not advance physics or rewrite saves. AUTO is preference,
   not an assertion of torch clearance. The new design awaits owner evaluation.
@@ -748,7 +756,7 @@
   is 32 pixels or less. These are per-axis multipliers, not increased physical
   footprints. Preserve larger original masters. Keep pixel art crisp with
   integer scaling and nearest-neighbour sampling; enlargement alone adds no
-  detail. See `docs/artwork-resolution-policy.md` for examples and export rules.
+  detail. See `docs/development/artwork-resolution-policy.md` for examples and export rules.
   Native world sprites currently derive size from texture dimensions, so use
   explicit rendering-scale support or code-generated native-size derivatives.
   Do not silently ship larger world PNGs at the old native scale. Preserve
@@ -767,7 +775,7 @@
   the masters and pixel scale when deriving subsequent production forms.
 
 - Before generating Shipbreaker artwork, follow
-  `docs/ship-equipment-art-study.md` (owner-requested equipment study, 2026-09-23).
+  `docs/development/ship-equipment-art-study.md` (owner-requested equipment study, 2026-09-23).
   Installed machinery needs its own reference set; do not simply enlarge the
   AutoNav faceplate or assume all equipment is blue-grey. Plan the 4 x 4 fixture
   around a 64 x 64 world texture, a matching normal map and appropriate damage
@@ -847,7 +855,7 @@
   eligibility, power and timing. Reuse those paths rather than duplicating them.
 
 - The owner authorised research of a reusable hull disposal port with future
-  filters on 2026-09-24. See `docs/material-disposal-port-research.md`. Native
+  filters on 2026-09-24. See `docs/development/material-disposal-port-research.md`. Native
   jettison destroys items, and bare exterior drops do not establish persistent
   independent cargo. The owner then authorised implementation: Framework and
   Shipbreaker 0.4.0 provide a 2 x 1, 20 kg wall collector, four-packet inventory,
@@ -878,7 +886,7 @@
   damaged definitions and wear tiers; show combined output value alongside whole
   value rather than presenting material counts alone. Distinguish definition
   value from merchant quotes and do not claim every regional market is identical.
-  Use `docs/equipment-value-audit.md` and `docs/vanilla-economy-audit.md`; preserve
+  Use `docs/development/equipment-value-audit.md` and `docs/development/vanilla-economy-audit.md`; preserve
   mass without assuming it implies conservation of monetary value.
 - For new machinery, check our material accounting, progress, interruption and
   persistence where we introduce or change that behaviour. Cover power or
@@ -977,9 +985,14 @@
 - Audit direct actions, native maintenance jobs, carrying slots and conditions together. Use Framework `ItemHandling.Apply` after preparing owned definitions; content explicitly declares bulky sections/housings through `ItemHandling.Cumbersome`. Keep ordinary small supplies portable and installed equipment out of carrying slots. Internal compartments are not loose cargo.
 - Reuse native pickup/drop and stack actions where valid; native Pick Up can use the drag slot for cumbersome cargo. Do not add operating-machine controls to unfinished assembly sections. Owner-approved follow-up (2026-09-28): sections now offer Assembly information and native Install for the completed D4/R4/F6 at a construction site; this supersedes the previous blanket exclusion of section installation. Native hauling stages matching parts separately. Keep direct Install on complete loose machinery, saved table actions, delivered lots, cancellation and saved progress. See docs/section-assembly-and-maintenance.md. Retain native food, module, repair, restore and dismantle behaviour.
 - Preserve saved cargo and placement. Correct handling on detached load data, allowing a previously saved hand slot only until successful native release; never silently relocate or destroy an item to enforce a new classification.
-- Maintain the complete [handling ledger](docs/item-handling-audit.md) through the item-reference exporter and `scripts/audit-item-handling.py`. Add regression coverage for changes, including existing saves; definition checks do not establish live context-menu or Unity approval.
+- Maintain the complete [handling ledger](docs/development/item-handling-audit.md) through the item-reference exporter and `scripts/audit-item-handling.py`. Add regression coverage for changes, including existing saves; definition checks do not establish live context-menu or Unity approval.
 
 ## Merchant availability and loot (2026-09-27)
 
 - Owner requests much broader merchant availability and world finds. Current stock floors are content-owned (85% equipment/sections/boards, 95% supplies/food) before Framework availability configuration, with existing finite lots. Maintain through the constants updater and regenerate item references.
-- Fill general-market coverage without duplicating prepared offers; retain native restocking, prices, merchant roles, other providers and saved inventories. Use suitable native leaf/engineering pools and single-item loot choices; never put wholesale lots, installed machinery or fabricated process records into world loot. See [merchant stock](docs/merchant-stock.md).
+- Fill general-market coverage without duplicating prepared offers; retain native restocking, prices, merchant roles, other providers and saved inventories. Use suitable native leaf/engineering pools and single-item loot choices; never put wholesale lots, installed machinery or fabricated process records into world loot. See [merchant stock](docs/development/merchant-stock.md).
+
+## Documentation audiences
+
+- Keep current player operating guides and item references in `docs/`. Put contributor instructions, implementation details, research, design proposals and audit reports in `docs/development/`, with separate indexes. Mixed operating guides may retain necessary limits and direct research credits; link detailed evidence rather than burying the next player action.
+- Preserve dated evidence and citations when moving documents. Update relative links, generator inputs, build/packaging references and review inventories together. Packages must preserve the same player/development separation.

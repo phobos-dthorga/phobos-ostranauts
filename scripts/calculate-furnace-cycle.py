@@ -1,7 +1,7 @@
 """Reproducible DESIGN calculations, not a runtime furnace or native energy adapter.
 
 All equipment parameters are authored candidates. Aluminium uses a documented
-piecewise surrogate (see docs/furnace-first-cycle.md), not an alloy assay.
+piecewise surrogate (see docs/development/furnace-first-cycle.md), not an alloy assay.
 The time integration uses one equilibrated charge/lining node and a finite sink.
 """
 import argparse

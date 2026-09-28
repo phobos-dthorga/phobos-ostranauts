@@ -6,7 +6,7 @@
 [list]
 [*]Correct outgoing ship dimensions after native save trimming. Blue Bottle Games' inspected Ostranauts 1.0.1.5 writes dimensions before trimming but room/zone indices afterwards; removal of edge objects can therefore produce an internally inconsistent save.
 [*]Load an affected save using a uniquely validated smaller grid, requiring the full exterior boundary and all saved room positions to agree. Correct only in-memory dimensions before Shipbreaker's padding guard. Preserve room IDs, atmosphere, zones, items, wear and construction progress; reject missing or ambiguous evidence. Original archives are not edited.
-[*]The supplied later autosave resolves from its stale 64-by-44 header to 63 by 44, restoring all eight room-position lookups offline. The earlier save remains 64 by 44. Both earlier guards ran; trusting the stale header was the remaining Phobos contribution. See the [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/shipbreaker-room-load-mitigation.md]evidence and reload check[/url].
+[*]The supplied later autosave resolves from its stale 64-by-44 header to 63 by 44, restoring all eight room-position lookups offline. The earlier save remains 64 by 44. Both earlier guards ran; trusting the stale header was the remaining Phobos contribution. See the [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/development/shipbreaker-room-load-mitigation.md]evidence and reload check[/url].
 [/list]
 
 [h2]Compatibility and limits[/h2]

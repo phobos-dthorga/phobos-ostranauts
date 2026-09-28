@@ -19,7 +19,7 @@ This changes registration/presentation only, retaining the selected image hashes
 - [Processing manifest and hashes](hub-upscale-provenance.json)
 - [Shared live-control registration](hub-layout.json)
 - [Offline layout preview](previews/flight-hub.html)
-- [Current controls and migration](../../docs/auto-nav-instruments.md)
+- [Current controls and migration](../../docs/development/auto-nav-instruments.md)
 
 The two untouched Imagegen sources in `source/PhobosFlightHub-generated.png` and
 `source/PhobosFlightHub-resolution-attempt.png` are both 992 × 1586. Explicit
@@ -38,7 +38,7 @@ The original Phobos N2 generated artwork is the style reference for the new plat
 ## Earlier artwork records
 
 New artwork and visual revisions follow the
-[2x/4x resolution policy](../../docs/artwork-resolution-policy.md). The approved
+[2x/4x resolution policy](../../docs/development/artwork-resolution-policy.md). The approved
 masters and existing export dimensions recorded below remain unchanged.
 
 ## Current instrument panel — 0.7.0
@@ -50,7 +50,7 @@ the entire layout scales into the existing native 25%-column / 20%-row bounds.
 The pickup sprites and former approved faceplate below remain unchanged.
 This candidate needs owner visual and interaction testing in-game.
 
-See the [instrument guide](../../docs/auto-nav-instruments.md),
+See the [instrument guide](../../docs/development/auto-nav-instruments.md),
 [exact built-in Imagegen prompt and hash](instruments-prompt.md), and
 [interactive browser preview](previews/instruments.html). The preview uses sample
 data and a system font; it is not a Unity or gameplay test.
@@ -170,7 +170,7 @@ and clipping problems without replacing the image.
 Earlier approved art is not an absolute constraint: the owner's new MEDIUM-HIGH/
 HIGH threshold permits future justified replacements. Browser reference renders
 are layout evidence, not a Unity visual sign-off. See the
-[interface report](../../docs/polaris-interface-refresh.md).
+[interface report](../../docs/development/polaris-interface-refresh.md).
 
 ## Native appearance correction (27 September 2026)
 

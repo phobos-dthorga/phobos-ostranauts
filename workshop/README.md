@@ -2,7 +2,7 @@
 
 Maintained page copy and generated per-version change notes. **Nothing in this
 folder establishes that a Workshop item has been published.** Follow the
-[publication workflow](../docs/workshop-publication.md).
+[publication workflow](../docs/development/workshop-publication.md).
 
 | Mod | Main changelog | Steam page draft | Per-version Steam notes |
 | --- | --- | --- | --- |

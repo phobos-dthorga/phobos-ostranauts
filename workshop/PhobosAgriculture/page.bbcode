@@ -3,7 +3,7 @@
 
 [h2]Performance update[/h2]
 Bulk-tank searches and panel refreshes reuse shared helpers. Crop growth, cooking, water, nutrients, power and heat rules are unchanged.
-Offline checks accompany this draft. Measured improvement and in-game interaction still await owner feedback. [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/performance-audit.md]Audit and optional playtesting checks[/url].
+Offline checks accompany this draft. Measured improvement and in-game interaction still await owner feedback. [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/development/performance-audit.md]Audit and optional playtesting checks[/url].
 
 [b]Publication status:[/b] Not published - development candidate
 
@@ -36,7 +36,7 @@ Created by Phobos A. D'thorga (phobosgekko). Independent community work, not end
 NASA plant work and ESA MELiSSA inform the crop and recovery research. Bruce Dunn at Oklahoma State University informs hydroponics; NASA porous-tube research informs root-water delivery; Jay Garland of Bionetics (NASA TM-107557) informs the recovery discussion. The linked research guides distinguish findings from our simplified recipes. Valtora owns Ship's Water; its optional integration does not imply endorsement.
 Original artwork uses AI-assisted production; artwork provenance and licensing are recorded separately.
 
-[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/artwork-completion.md]Coverage, previews and PixelLab provenance[/url]
+[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/development/artwork-completion.md]Coverage, previews and PixelLab provenance[/url]
 [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/control-panel-guide.md]Controls and verification limits[/url]
 [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/control-panel-guide.md]Console controls, drafts and owner checks[/url]
 [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/solar-system-economy.md]Regional coverage, sources and limits[/url]
@@ -44,20 +44,20 @@ Original artwork uses AI-assisted production; artwork provenance and licensing a
 [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/getting-started.md]Getting started and download status[/url]
 [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/installing-mods.md]Installation and updates[/url]
 [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/agriculture-player-guide.md]Mod guide[/url]
-[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/agriculture-research.md]NASA/ESA research, original sources and modelling limits[/url]
+[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/development/agriculture-research.md]NASA/ESA research, original sources and modelling limits[/url]
 [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/agriculture-nutrient-solutions.md]Nutrient solution operation[/url]
-[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/agriculture-loot.md]Loot locations, chances and settings[/url]
+[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/development/agriculture-loot.md]Loot locations, chances and settings[/url]
 [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/SUPPORT.md]Help and bug reports[/url]
 [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/mods/PhobosAgriculture/CHANGELOG.md]Full changelog[/url]
 [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/LICENSE]Licence and exclusions[/url]
 [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/THIRD_PARTY_NOTICES.md]Third-party notices[/url]
 [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/assets/workshop/README.md]Workshop artwork provenance[/url]
 [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/agriculture-item-reference.md]Read this mod’s item reference[/url]
-[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/agriculture-nutrient-recovery.md]Read the researched nutrient-recovery and workup direction[/url]
+[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/development/agriculture-nutrient-recovery.md]Read the researched nutrient-recovery and workup direction[/url]
 [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/agriculture-bulk-storage.md]Current setup, limits and research attribution[/url]
 [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3757331189]Valtora’s Ship’s Water 0.16.1[/url]
 [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/agriculture-nutrient-production.md]Operating guide, economic limits and research attribution[/url]
-[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/merchant-stock.md]Current quantities and restocking guide[/url]
+[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/development/merchant-stock.md]Current quantities and restocking guide[/url]
 [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/crew-automation.md]Crew controls, time-skip limits and owner checks[/url]
 [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3789049955]LOGUSS’s Common Sense modules[/url]
 [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3788237703]jossla’s Study at Terminals[/url]
@@ -74,8 +74,11 @@ Raise equipment offers to at least 85% and supplies to at least 95%, before the 
 
 [b]Item-action audit[/b]
 All current items are covered by the action audit. Removal can be withheld while equipment retains crops, fluids, active work, protected state or an R3 link. Split loose conduit stacks into individual pieces for dismantling. Offline action checks do not establish live menu approval.
-[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/item-handling-audit.md]Complete findings and item ledger[/url]
+[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/development/item-handling-audit.md]Complete findings and item ledger[/url]
 
 [h2]Assembly and maintenance update[/h2]
 Maintenance information explains contents, water/solution, running jobs and tank links that block removal; safety checks remain unchanged.
 Offline checks are not Unity gameplay approval. See [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/section-assembly-and-maintenance.md]assembly and maintenance instructions[/url].
+
+[h2]Finding current instructions[/h2]
+Use the [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/README.md]operating-guide index[/url] for current controls and requirements. Dated research and design records retain their original scope; they are not installation instructions.

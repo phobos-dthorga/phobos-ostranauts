@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "date": "2026-09-28",
   "baseline": "8bd31b3",
-  "rule": "docs/player-language.md",
+  "rule": "docs/development/player-language.md",
   "entries": [
     {
       "mod": "PhobosAgriculture",
@@ -35731,130 +35731,57 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "122257a2bfe8e3ca2d6f5a22ce56e127f9ffc2d699621b382445de78ec16b7e3",
-      "review": "2026-09-28: reviewed Framework 0.31.1 unnamed-trigger fix and related version/reference updates. Preserve native outcomes, named assembly validation and existing messages; no new recurring work. Reproduced null-key failure, then checked compiled hooks; live confirmation pending."
+      "sha256": "08f476dfa61e67c421e67aa5b35fa6b4941dd7d8d1cda0cb9fb650fefbf5a62e",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
     },
     {
       "path": "SUPPORT.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "a7dea122304ed15323c6cede84fb65b946beeed8c6d74f46bd2610870fbcd238"
+      "sha256": "8a1ee1d38104be45d0c3236b1b38a110fc5e7ac15be15220b32625208bd4fbff",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
     },
     {
       "path": "docs/README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "f46f1de9e1b8459f8ce717bf56bf629ce18064eb28ed22529c678fd51a6e840d"
-    },
-    {
-      "path": "docs/agriculture-bulk-storage-art.md",
-      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
-      "decision": "retain",
-      "sha256": "230d070537be00fa4634fb29cf27ae7b45a8dd9e3ba80861d4d1a3639c66dd46"
-    },
-    {
-      "path": "docs/agriculture-bulk-storage-calculations.md",
-      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
-      "decision": "retain",
-      "sha256": "9179c200f94c650daf17f18b8903982044805dcd82318f7b4afe653e7805bbbc",
-      "review": "2026-09-28: reviewed assembly sites, local cargo recovery, maintenance explanations and release/reference consistency; historical evidence and native/Unity validation limits retained."
-    },
-    {
-      "path": "docs/agriculture-bulk-storage-design.md",
-      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
-      "decision": "retain",
-      "sha256": "819619ba6f2197a4a441b8fc820824f1118514512693e2354ff2b47d84fcb363"
-    },
-    {
-      "path": "docs/agriculture-bulk-storage-research.md",
-      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
-      "decision": "retain",
-      "sha256": "234d21f4768167ddadd8402fc00a5cbb8ddd4f7609acb224f8b8c795a9613f21"
+      "sha256": "9e02ff665f77699a0a380ee937e8633b77f3f3ab2f1b5b3315e845ac2189e9f5",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
     },
     {
       "path": "docs/agriculture-bulk-storage.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "1232879691fd203ffe72e3ddf009182c9b0427fd8bfed4ec7c36ef36b6b582f9"
-    },
-    {
-      "path": "docs/agriculture-economy-evidence.md",
-      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
-      "decision": "retain",
-      "sha256": "3304620e06e9f8bc1373b867e4089be6bdac86250a7b327adb8e99c19743b096"
-    },
-    {
-      "path": "docs/agriculture-economy-review.md",
-      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
-      "decision": "retain",
-      "sha256": "219d87fd75b4a112420e2955724d8c0560598fc566442a9361cdac1d294e8b7f"
-    },
-    {
-      "path": "docs/agriculture-first-slice.md",
-      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
-      "decision": "retain",
-      "sha256": "96a627413aaad3914d214ab830d7ee4f9282eb686fb44e96c7dd28f395b1e633"
-    },
-    {
-      "path": "docs/agriculture-implementation.md",
-      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
-      "decision": "retain",
-      "sha256": "9c80b93a96e874b6832fb657b26386c2486c06dbe770da3a6c60cc36c1cce1a7"
+      "sha256": "d921d90559d6da248c230fd1afd2dfad66a25fa7c3d925eda3c918be3f7d63d7",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
     },
     {
       "path": "docs/agriculture-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "9997914c2f226d334dfc9ee9a23fc8c8567f3fe66982dc59c13df1b6c6a50397",
-      "review": "2026-09-28: reviewed assembly sites, local cargo recovery, maintenance explanations and release/reference consistency; historical evidence and native/Unity validation limits retained."
-    },
-    {
-      "path": "docs/agriculture-living-visuals.md",
-      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
-      "decision": "retain",
-      "sha256": "01735b941dd8afe7b5faedf59255efc0cedb0c94ae8aae668f3603fb769fa91f"
-    },
-    {
-      "path": "docs/agriculture-loot.md",
-      "scope": "current player text; technical/history sections retained where labelled",
-      "decision": "retain",
-      "sha256": "e764a267b024e849e7c482c5e49f271b401dad6db0a815819e331ba4fa363b13"
+      "sha256": "5e7bae5e81bfb0a36664c1238b7d5424fe8363b4e95332b1aa95c998ec63f161",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
     },
     {
       "path": "docs/agriculture-nutrient-production.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "0f8fd0d418b0c9b6f4fac1e81e8f2d04485c24e09a6acbad2b81f29f1eba5887"
-    },
-    {
-      "path": "docs/agriculture-nutrient-recovery.md",
-      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
-      "decision": "retain",
-      "sha256": "3892f28c7d3ebaae7a14c20fb9405ea9802880c55c801c2248e260329f9e190a"
+      "sha256": "c6c299420d4c039bf06ea9d4080a2ece077047a96cbe5d0068c625532bd76ad8",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
     },
     {
       "path": "docs/agriculture-nutrient-solutions.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "473c6f6b34007a478d03925fa55b007d42c65927f217abe1415af8304f3dee29"
+      "sha256": "891d5ee53bf64c6d4f50fa909dc297b3bae7692dd0aaea0fcab1f1ab89dae4d5",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
     },
     {
       "path": "docs/agriculture-player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "c3e1366f21ff0d23ab44dcace7bd0f5cccc35816a8237854b4fa4c5816970c72"
-    },
-    {
-      "path": "docs/agriculture-research.md",
-      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
-      "decision": "retain",
-      "sha256": "7900e19615e9c37a66f1ca508d770e21281eb7d0070787876ac451bf992db3bb"
-    },
-    {
-      "path": "docs/agriculture-roadmap.md",
-      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
-      "decision": "retain",
-      "sha256": "0be9a5d6fff44f3d63873af429e64c82bbc002ed7148555b77949d6ca366ac8a"
+      "sha256": "df436beb3a2a64a8f7eb573e766352e387dacf62302cc073a9180d4d1302b458",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
     },
     {
       "path": "docs/agriculture-seed-production.md",
@@ -35863,47 +35790,11 @@
       "sha256": "d2b0ffa8205ba3f7041b74b94f78297580f0124e05f96672e11267e34b9d207b"
     },
     {
-      "path": "docs/agriculture-treatment-economy.md",
-      "scope": "current player text; technical/history sections retained where labelled",
-      "decision": "retain",
-      "sha256": "21fd9307d6cbb5469fd051d76f7023ea5a1ddd5f5a79160b03f0e75b0b3a3e91"
-    },
-    {
       "path": "docs/agriculture-water-conduits.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "9eb8163b15a7f91bda19ca4ebe867a78bd9f0ffc3b4e9e5bbc659fd1dc5f5014"
-    },
-    {
-      "path": "docs/animation-and-sound-direction.md",
-      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
-      "decision": "retain",
-      "sha256": "e69141c28f9fd9f3df41e0530219251356eaeef5381f9d74e210b5043b07a4e6"
-    },
-    {
-      "path": "docs/artwork-completion.md",
-      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
-      "decision": "retain",
-      "sha256": "03ef23f52fa29f00e1ad397f8a65a758a0ec2ad46a0bc5637000367dc4fbc5ba"
-    },
-    {
-      "path": "docs/artwork-resolution-policy.md",
-      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
-      "decision": "retain",
-      "sha256": "5a2e5e1a0c16edf818c98b7a1b32b357430db79954b0bcc28c7bee1ceb98b9a0"
-    },
-    {
-      "path": "docs/asset-generation-policy.md",
-      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
-      "decision": "retain",
-      "sha256": "313fe1ad97c2e50a19f00d4740dc678bf1a44f72d2a96162e18183e22de1c187",
-      "review": "2026-09-27 Polaris review: checked revised controls, versions, generated reference evidence and limitations; preserved scientific attribution and historical records."
-    },
-    {
-      "path": "docs/asteroid-life-support-research.md",
-      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
-      "decision": "retain",
-      "sha256": "8bb6a7dfda5a51a57d527369a5b14a9063d0417e3b184a8acdbb8ed4b439afd5"
+      "sha256": "d6b72b24e85aaf51bb14296fb63619046264b75d6c259ad762c700f199ebbe9d",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
     },
     {
       "path": "docs/auto-nav-combat.md",
@@ -35916,27 +35807,29 @@
       "path": "docs/auto-nav-departure.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "3d83b2fabcc5a1a0cd13c3f92cf662e80525a8d8d3ae624b88c34824e8d690e3"
+      "sha256": "41e1c6eb33938e213369a23656224455f2f461899d0b5322a7a0522df8a053ba",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
     },
     {
       "path": "docs/auto-nav-docking.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "70a4a522c945e286643e46ab56b20cd282887cfd05c484607bbd4bf45f30a8a6",
-      "review": "2026-09-27 Auto Nav 0.22.0: reviewed controls, version, preserved research and unverified live handling; no promised automatic firing or resume."
+      "sha256": "1269632724e08aef136878ecfc64593e310e512a5ae932e3a568b36aa52f5469",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
     },
     {
       "path": "docs/auto-nav-economy.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "2f4dd4320890b825e3ab6ae12b4a95a95b071596bbca6876077416b321757f96"
+      "sha256": "75ee2e80823259ca404015e6ebdaf06c19fb1c6b73a67e4e7f7523f3a562b8ad",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
     },
     {
       "path": "docs/auto-nav-fire-control.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "b6519d916cab3a2bf97de3fb81edd34f74872f6a0b9f6fdd049ad2a5d08554c2",
-      "review": "2026-09-27 Auto Nav 0.22.0: reviewed controls, version, preserved research and unverified live handling; no promised automatic firing or resume."
+      "sha256": "e3453d824097de652701107158a63cae17f8bdae61c9c6659b4f4e01eb5cda9d",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
     },
     {
       "path": "docs/auto-nav-flight-profiles.md",
@@ -35945,67 +35838,32 @@
       "sha256": "c294a47aa3a676afd0b84b8a5e7c56207dc779ddad57cffe7450895cd965d5d0"
     },
     {
-      "path": "docs/auto-nav-hub-validation.md",
-      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
-      "decision": "retain",
-      "sha256": "89deb568f5545b0628dc7ab12adcf20ba9cd989c065dbc80ec70717327061d28"
-    },
-    {
-      "path": "docs/auto-nav-instruments.md",
-      "scope": "current player text; technical/history sections retained where labelled",
-      "decision": "retain",
-      "sha256": "508a65c001da84ac663d5ab5e4da998a3a0979f3aba3aaa7e083cdf7df621edc",
-      "review": "2026-09-27: towing instructions, unchanged native mechanics and scope limits reviewed; historical records preserved."
-    },
-    {
       "path": "docs/auto-nav-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "14147b853f686b7f5bc4c65468976ee123ba5e684ea1959a2be03857d28525bd",
-      "review": "2026-09-27: reviewed secured towing, warning priority, native boundaries and regenerated reference evidence; historical records preserved."
-    },
-    {
-      "path": "docs/auto-nav-outstanding-audit.md",
-      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
-      "decision": "retain",
-      "sha256": "37695fd2490d54fcfd898001e836092c9d6ea0d36cbaf3a206ebcc4f7e3a9e7c"
-    },
-    {
-      "path": "docs/auto-nav-panel-layout-audit.md",
-      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
-      "decision": "retain",
-      "sha256": "09f450eef86f8e91cfd513ccbe989d3a016a9b6fc24c5881ad18cfb0e98bc0be"
+      "sha256": "61eba3ca184978cdab9516cd34656c3837c295048a590eaba5289b1868a7ad3a",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
     },
     {
       "path": "docs/auto-nav-persistence.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "c6efa7ca6d73e5848c456bfc634adf26cb2662b7b5600011c43236adefdba1fd"
-    },
-    {
-      "path": "docs/auto-nav-polaris-startup.md",
-      "scope": "current player text; technical/history sections retained where labelled",
-      "decision": "retain",
-      "sha256": "5ec755a8aefa1e9d43b94f289d7411e0108c5d82fbddb85700b4c5e4350cde7f"
+      "sha256": "372bbcb0395bb7713cf4057ea7cbd0379901cabeb0577001bafbc63bd3a58309",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
     },
     {
       "path": "docs/auto-nav-pursuit.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "ef7d726a996ee45fe4dfd93f0146039e911eeac94e75ae8cedeaed5df0c9f014",
-      "review": "2026-09-27 Auto Nav 0.22.0: reviewed controls, version, preserved research and unverified live handling; no promised automatic firing or resume."
-    },
-    {
-      "path": "docs/auto-nav-reclamation-validation.md",
-      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
-      "decision": "retain",
-      "sha256": "0b57ccc9dba404ac09dc843af3025e00bb6714c2853e60258d0c8d4594da58f1"
+      "sha256": "89622bfd3bfabf4399fbbee017aefe6dfffbb071034de82b8b8e1d60dfe5162c",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
     },
     {
       "path": "docs/auto-nav-sensors.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "87cf4a93b1b647bdc9a4b4a548b5ce32f3e26e0eac4deb1e1c587e2663f96532"
+      "sha256": "e1b174a06a6a355243f38374fb4b358bd46deb0dc8e9cb048334d978bc17df34",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
     },
     {
       "path": "docs/auto-nav-torch.md",
@@ -36021,308 +35879,759 @@
       "review": "2026-09-27: towing instructions, unchanged native mechanics and scope limits reviewed; historical records preserved."
     },
     {
-      "path": "docs/auto-navigate-adaptation.md",
-      "scope": "current player text; technical/history sections retained where labelled",
-      "decision": "rewrite",
-      "sha256": "ea2ae15ccd6ad1c97931942cf42e22da69d8256bee5e098b9bb9c64cf2e53daa"
-    },
-    {
-      "path": "docs/auto-navigate-reuse-review.md",
-      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
-      "decision": "retain",
-      "sha256": "2e750391339d0100ccda745c98ab9412bc3e15f7c06a511cb93c83a891b33d30"
-    },
-    {
       "path": "docs/automatic-material-routing.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
       "sha256": "11fb0db19ea5367999c3050b566cef4ac12df95ce57db4f2d6981bae491b3f6f"
     },
     {
-      "path": "docs/building.md",
-      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
-      "decision": "retain",
-      "sha256": "fd4c2358e8d7a92f2ebd466204ca9f0dbe441655d23c704f73a847acfcb9b8a5"
-    },
-    {
-      "path": "docs/chemical-storage-and-process-fluids.md",
-      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
-      "decision": "retain",
-      "sha256": "ebfde55f7acd9014a965723e56b5ef9115a8fc6fb2d681fd344baa9334926462"
-    },
-    {
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "bb3b8e4729e7abc1036c7c6a38b6569f84961cf38fa3e76d7fea1eab4bcb748e",
-      "review": "2026-09-28: reviewed Framework 0.31.1 unnamed-trigger fix and related version/reference updates. Preserve native outcomes, named assembly validation and existing messages; no new recurring work. Reproduced null-key failure, then checked compiled hooks; live confirmation pending."
+      "sha256": "255f46922d3143c79d33462a5e608edbbbf69ef119f66ed872aa098c5938c9f9",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
     },
     {
       "path": "docs/crew-automation.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "747fc7d70b128f2f4b5eb884a076de09e07715d9b85d5be6032b4504940da2b9"
+      "sha256": "aa3348fd0df4d201e8b4f38caae8d53920d2a8c678cf828d0c23dd2452d5f980",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
     },
     {
-      "path": "docs/dependency-contingencies.md",
+      "path": "docs/development/README.md",
+      "scope": "documentation index/audit; no gameplay behavior",
+      "decision": "review audience separation and evidence limits",
+      "sha256": "0ba42547702b56e22ec28cd446f77e5645cf6c13c2e5294e71a9282e1b0ca495",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+    },
+    {
+      "path": "docs/development/agriculture-bulk-storage-art.md",
+      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
+      "decision": "retain",
+      "sha256": "ba5edb4fcf2e08968797359258a4ecd9eb31379d0580987a620a1419bfa32dd3",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+    },
+    {
+      "path": "docs/development/agriculture-bulk-storage-calculations.md",
+      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
+      "decision": "retain",
+      "sha256": "9179c200f94c650daf17f18b8903982044805dcd82318f7b4afe653e7805bbbc",
+      "review": "2026-09-28: reviewed assembly sites, local cargo recovery, maintenance explanations and release/reference consistency; historical evidence and native/Unity validation limits retained."
+    },
+    {
+      "path": "docs/development/agriculture-bulk-storage-design.md",
+      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
+      "decision": "retain",
+      "sha256": "604a40d58891d66fee111be9951cf3904391b8b0b81f3f8e23452825dd511fbd",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+    },
+    {
+      "path": "docs/development/agriculture-bulk-storage-research.md",
+      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
+      "decision": "retain",
+      "sha256": "68f634bfc3f740eac3b644bd88ce75a4088992245e571158a1e04d738f454be4",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+    },
+    {
+      "path": "docs/development/agriculture-economy-evidence.md",
+      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
+      "decision": "retain",
+      "sha256": "591ea3b39aeb464fd659681bcd9d56a9c81ae94cf8324f0e332df6ebd46267a2",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+    },
+    {
+      "path": "docs/development/agriculture-economy-review.md",
+      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
+      "decision": "retain",
+      "sha256": "70032c9dc905a973f3ca8c9af9c1733be76b36ff6f05d6540a12b5bd19b7d496",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+    },
+    {
+      "path": "docs/development/agriculture-first-slice.md",
+      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
+      "decision": "retain",
+      "sha256": "cd61fcaaae90ea21e046c7f7c834c49215c768ba1abbde134cf95023af0517a6",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+    },
+    {
+      "path": "docs/development/agriculture-implementation.md",
+      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
+      "decision": "retain",
+      "sha256": "4e599f06cb9361cd91737708e80e990db414a7b15f1820b6991a005192d74533",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+    },
+    {
+      "path": "docs/development/agriculture-living-visuals.md",
+      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
+      "decision": "retain",
+      "sha256": "01735b941dd8afe7b5faedf59255efc0cedb0c94ae8aae668f3603fb769fa91f"
+    },
+    {
+      "path": "docs/development/agriculture-loot.md",
+      "scope": "current player text; technical/history sections retained where labelled",
+      "decision": "retain",
+      "sha256": "2b34b29cd80b6c769fd86882b372577589a73520f2a5998c2853fda12dd26067",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+    },
+    {
+      "path": "docs/development/agriculture-nutrient-recovery.md",
+      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
+      "decision": "retain",
+      "sha256": "86591797b0172e2c17b0e0f3e642f35b7024426f04e93f1047b6532e8451b3e0",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+    },
+    {
+      "path": "docs/development/agriculture-research.md",
+      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
+      "decision": "retain",
+      "sha256": "295da73cb99aa3bf17ed0d403fb9f3bbefe58376b1a7f987c16407209f08b674",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+    },
+    {
+      "path": "docs/development/agriculture-roadmap.md",
+      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
+      "decision": "retain",
+      "sha256": "d45f0b8e933a3630291c20a193b3c1cd85d18dcbcaa102f40254e87ee38b442b",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+    },
+    {
+      "path": "docs/development/agriculture-treatment-economy.md",
+      "scope": "current player text; technical/history sections retained where labelled",
+      "decision": "retain",
+      "sha256": "6770f6bfb505326d8813036065e833e94370809105eab35edae85011474af339",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+    },
+    {
+      "path": "docs/development/animation-and-sound-direction.md",
+      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
+      "decision": "retain",
+      "sha256": "3ab4b47c8408518370c23ab9b25464da57c5e3848949805a6dfdd1d5af74f526",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+    },
+    {
+      "path": "docs/development/artwork-completion.md",
+      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
+      "decision": "retain",
+      "sha256": "2ca3e3b5bf1b14145a268a77813a5783ec58e37c7874f0210435f8f8d99fe55b",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+    },
+    {
+      "path": "docs/development/artwork-resolution-policy.md",
+      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
+      "decision": "retain",
+      "sha256": "5a2e5e1a0c16edf818c98b7a1b32b357430db79954b0bcc28c7bee1ceb98b9a0"
+    },
+    {
+      "path": "docs/development/asset-generation-policy.md",
+      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
+      "decision": "retain",
+      "sha256": "313fe1ad97c2e50a19f00d4740dc678bf1a44f72d2a96162e18183e22de1c187",
+      "review": "2026-09-27 Polaris review: checked revised controls, versions, generated reference evidence and limitations; preserved scientific attribution and historical records."
+    },
+    {
+      "path": "docs/development/asteroid-life-support-research.md",
+      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
+      "decision": "retain",
+      "sha256": "8bb6a7dfda5a51a57d527369a5b14a9063d0417e3b184a8acdbb8ed4b439afd5"
+    },
+    {
+      "path": "docs/development/auto-nav-hub-validation.md",
+      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
+      "decision": "retain",
+      "sha256": "7913912f95c31ff28cbf6ce976fa26068e6efc056401d62eb4c7d0554d9b1298",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+    },
+    {
+      "path": "docs/development/auto-nav-instruments.md",
+      "scope": "current player text; technical/history sections retained where labelled",
+      "decision": "retain",
+      "sha256": "d0a2d4428221c00fe21fba48ba5299d0b79bfea48c6cc3f019408a9180b095c2",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+    },
+    {
+      "path": "docs/development/auto-nav-outstanding-audit.md",
+      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
+      "decision": "retain",
+      "sha256": "061867cdf626e28a5a28333c9bb7cd0b9d294dacea1bf4c3fc488a1dc42d07c9",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+    },
+    {
+      "path": "docs/development/auto-nav-panel-layout-audit.md",
+      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
+      "decision": "retain",
+      "sha256": "09f450eef86f8e91cfd513ccbe989d3a016a9b6fc24c5881ad18cfb0e98bc0be"
+    },
+    {
+      "path": "docs/development/auto-nav-polaris-startup.md",
+      "scope": "current player text; technical/history sections retained where labelled",
+      "decision": "retain",
+      "sha256": "5ec755a8aefa1e9d43b94f289d7411e0108c5d82fbddb85700b4c5e4350cde7f"
+    },
+    {
+      "path": "docs/development/auto-nav-reclamation-validation.md",
+      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
+      "decision": "retain",
+      "sha256": "0b57ccc9dba404ac09dc843af3025e00bb6714c2853e60258d0c8d4594da58f1"
+    },
+    {
+      "path": "docs/development/auto-navigate-adaptation.md",
+      "scope": "current player text; technical/history sections retained where labelled",
+      "decision": "rewrite",
+      "sha256": "e44c0ecefb3f572a8f8678c16ec8165b4aa75cbfb898e3c91fdc18c698ae6ed2",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+    },
+    {
+      "path": "docs/development/auto-navigate-reuse-review.md",
+      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
+      "decision": "retain",
+      "sha256": "585eda5246ef7d8437e32803a99c5fda7ca96f7475844fa0f19fa349c19563d4",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+    },
+    {
+      "path": "docs/development/building.md",
+      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
+      "decision": "retain",
+      "sha256": "4173515681819be848a705697f1d1bf91fe75dcf2dbc884b51c4bd011fce7f49",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+    },
+    {
+      "path": "docs/development/chemical-storage-and-process-fluids.md",
+      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
+      "decision": "retain",
+      "sha256": "041f6202820d4e8f692c20675bcaf6de94885b9aa8dd8c59dea70e24af1858e5",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+    },
+    {
+      "path": "docs/development/dependency-contingencies.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
       "sha256": "70d709b7243eb78f049c9374eb8ab65ea5fc548119ae87c1e0393d1da0a5b688"
     },
     {
-      "path": "docs/equipment-branding.md",
+      "path": "docs/development/documentation-consistency-audit.md",
+      "scope": "documentation index/audit; no gameplay behavior",
+      "decision": "review audience separation and evidence limits",
+      "sha256": "27e26c1d6675fcc8f4e121b50049e3b1409c447fa7f552f832665266cd63cb25",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+    },
+    {
+      "path": "docs/development/equipment-branding.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "5af2463ec28b3a7cb0024d17deac0d29b1d3214b542e3168443600fc17e073bb"
+      "sha256": "50956fce7cda2328898ca8592076e9fc64df69a106a91a1495e3990c3fb8fd6d",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
     },
     {
-      "path": "docs/equipment-economy.md",
-      "scope": "current player text; technical/history sections retained where labelled",
-      "decision": "rewrite",
-      "sha256": "ae5ff9108fe8c5fabde51b90ca01436c467ab488b14ed087e7751245cbf3fbe0",
-      "review": "2026-09-28: reviewed assembly sites, local cargo recovery, maintenance explanations and release/reference consistency; historical evidence and native/Unity validation limits retained."
-    },
-    {
-      "path": "docs/equipment-value-audit.md",
+      "path": "docs/development/equipment-value-audit.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
       "sha256": "60798f33391b1cd44c652fb60236041df0c213ae3bcfcbb940bebc33de3496f6"
     },
     {
-      "path": "docs/first-furniture-experiment.md",
+      "path": "docs/development/first-furniture-experiment.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
       "sha256": "74c4655659c444f85ed00ca7bcf70347dddbc53f6207cdf49c2a8907c8ed485e"
     },
     {
-      "path": "docs/fluid-conduits-and-irrigation-research.md",
+      "path": "docs/development/fluid-conduits-and-irrigation-research.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "da3c49d93054ef632b3c635b4130eb7ee5efca1d2c6978cd8646060405f12ed3"
+      "sha256": "6d335ba70d9b829adc98bb63c8b7ad6b49f60d51851cfadd5d6617aa5fb7a9dd",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
     },
     {
-      "path": "docs/fluid-network-operations.md",
-      "scope": "current player text; technical/history sections retained where labelled",
-      "decision": "rewrite",
-      "sha256": "d1a3d206ba4e1c3548d144a4623305f170fd1f3a04389b57e5204c53e35fdc5b"
-    },
-    {
-      "path": "docs/framework-author-guide.md",
+      "path": "docs/development/framework-author-guide.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "71af938ddc87b34623711ccfba12ed568011cd677decf215287f7cdf9318052e",
-      "review": "2026-09-28: reviewed assembly sites, local cargo recovery, maintenance explanations and release/reference consistency; historical evidence and native/Unity validation limits retained."
+      "sha256": "fac2d2a7debdbec8180fd7cda1d7f75d711b0ad6c387795b5d861c63ab020359",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
     },
     {
-      "path": "docs/framework-bulk-storage.md",
+      "path": "docs/development/framework-bulk-storage.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "742e89cc424e88bd70dbfa7a0feaf5adab0c827d0828a9ab4a8d17e9eba5f5c0"
+      "sha256": "9ad81c3a885ab0516aae7fcad21e49cb373eaa752fed6f3ce94188b2760cf0c0",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
     },
     {
-      "path": "docs/framework-item-reference.md",
-      "scope": "generated player reference; reviewed maintained inputs and generator output",
-      "decision": "rewrite",
-      "sha256": "d102489210b3be39fc25af8c20e29fbc7efaea563d4075b5da7813c692187bb0",
-      "review": "2026-09-28: reviewed Framework 0.31.1 unnamed-trigger fix and related version/reference updates. Preserve native outcomes, named assembly validation and existing messages; no new recurring work. Reproduced null-key failure, then checked compiled hooks; live confirmation pending."
-    },
-    {
-      "path": "docs/furnace-connections-and-instruments.md",
+      "path": "docs/development/furnace-connections-and-instruments.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "a32fbbb915ffe07e80a1f71d1cbd881c894bbc5e43257b93be34058f284f9f13"
+      "sha256": "e42c12c78a10e4ff55f0c0184d3e9a8ba39e709fbcd18a4597d662ccd2b36c41",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
     },
     {
-      "path": "docs/furnace-coolant-conduits.md",
+      "path": "docs/development/furnace-electrical-direction.md",
+      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
+      "decision": "retain",
+      "sha256": "7f1a2a1cb2a05b80df303d03eb12dd915f5d141a7bff79213a6f6dfb452966b0",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+    },
+    {
+      "path": "docs/development/furnace-first-cycle.md",
+      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
+      "decision": "retain",
+      "sha256": "e1a0f116edccdc81727712edbc3c2e9872c324b6464b7c54d9a26a0ec5ed311d",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+    },
+    {
+      "path": "docs/development/furnace-ui-and-art.md",
+      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
+      "decision": "retain",
+      "sha256": "86ebbeaf61cddaebd667717a8e71ae4960a7d65c860898cb92a058dfeeb9ffef",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+    },
+    {
+      "path": "docs/development/fusion-industry-roadmap.md",
+      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
+      "decision": "retain",
+      "sha256": "d3e5bb85f726b0a4ba7c030b8e364d89d027ddf828a2ccb236070e513743772d",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+    },
+    {
+      "path": "docs/development/fusion-smelter-research.md",
+      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
+      "decision": "retain",
+      "sha256": "7cc0d3278cff9e131846e296800aaf0caa7a5bf5cce5ba725d9f4bb211ce47da",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+    },
+    {
+      "path": "docs/development/health-evidence-and-gaps.md",
+      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
+      "decision": "retain",
+      "sha256": "dd145d9100eb3da55b4bf01d58844ec6fa3a08bc07d0fa07583bea162a0b0345",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+    },
+    {
+      "path": "docs/development/industrial-control-console.md",
+      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
+      "decision": "retain",
+      "sha256": "f37038b20e5f5cc0216a61737f97daf1505168824016e768ad9876c4f6d7245e",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+    },
+    {
+      "path": "docs/development/industrial-control-mockups.md",
+      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
+      "decision": "retain",
+      "sha256": "7466e88fa943ea8891f07c060e27f44248957465b0f347eb8452d74ac2d6358c",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+    },
+    {
+      "path": "docs/development/install-catalogue.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "9e67cef29bc135e8e5cbe49f2a30aaf37fdff0dc1de0d3cc3a94c408528bc8ef"
+      "sha256": "0235a294d0ef65b9aa089dd010ceed63276efb04b2893dc31c0adcb2d0ef8ee1",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
     },
     {
-      "path": "docs/furnace-electrical-direction.md",
-      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
-      "decision": "retain",
-      "sha256": "66046810c755380b7a21b7cbab8fe48a916218000c265384a34f3dc119ae4ead"
-    },
-    {
-      "path": "docs/furnace-first-cycle.md",
-      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
-      "decision": "retain",
-      "sha256": "963f0477e02741e280b9efc78879475d4b659d0f95f4f1ed8269d6f408c5500b"
-    },
-    {
-      "path": "docs/furnace-material-routing.md",
-      "scope": "current player text; technical/history sections retained where labelled",
-      "decision": "rewrite",
-      "sha256": "9b886ad3eff38e13e8c4442a5828aa3d52ac2c6eff81a19d0869fcca13180b49"
-    },
-    {
-      "path": "docs/furnace-player-guide.md",
-      "scope": "current player text; technical/history sections retained where labelled",
-      "decision": "rewrite",
-      "sha256": "cd9b76ce629c9ba49a8fdab2b4899e7a12e012a1069fadc27e46ef288b7bc8ea",
-      "review": "2026-09-28: reviewed assembly sites, local cargo recovery, maintenance explanations and release/reference consistency; historical evidence and native/Unity validation limits retained."
-    },
-    {
-      "path": "docs/furnace-repair-castings.md",
-      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
-      "decision": "retain",
-      "sha256": "71f50d8a4ae9cd497554f7f06b0293791ac5131c3465c6ec718a34c82f901a25"
-    },
-    {
-      "path": "docs/furnace-ui-and-art.md",
-      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
-      "decision": "retain",
-      "sha256": "e3c97a1fea61dcb4cad67820821d81c13766df89e8412a5c43bc5c634afb28f2"
-    },
-    {
-      "path": "docs/fusion-industry-roadmap.md",
-      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
-      "decision": "retain",
-      "sha256": "e6b20fb2296d1ff729d1f594d5cfaa534ec4a36a25bd3120a1491eae894406a2"
-    },
-    {
-      "path": "docs/fusion-smelter-research.md",
-      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
-      "decision": "retain",
-      "sha256": "8dab05d4554eed7b40954f2c393c39d80064629da60b8479584cadc8b3d9c543"
-    },
-    {
-      "path": "docs/getting-started.md",
-      "scope": "current player text; technical/history sections retained where labelled",
-      "decision": "rewrite",
-      "sha256": "e0d217fa4addc57edbf13f09ecfd6412e211025a20091fd7f6f40473673083f2"
-    },
-    {
-      "path": "docs/health-chronic-and-traits.md",
-      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
-      "decision": "retain",
-      "sha256": "d4e70f93db112323f3529fff4cbade11f5cbee14bcf2ed1306861737a4876c85"
-    },
-    {
-      "path": "docs/health-evidence-and-gaps.md",
-      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
-      "decision": "retain",
-      "sha256": "3740f2b513cb8b8a7946a166fd13449a528ff9e905531d3e42900ee739e3c985"
-    },
-    {
-      "path": "docs/health-reference.md",
-      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
-      "decision": "retain",
-      "sha256": "38ad2004d7dbe128bd434298264a842f4541b9622bc4f86107e86fadc5326c31"
-    },
-    {
-      "path": "docs/health-treatments-and-drugs.md",
-      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
-      "decision": "retain",
-      "sha256": "272b664d9314e44700ca54eca9ce26944b16f9cb70ae3967037d8044b8b26cbd"
-    },
-    {
-      "path": "docs/industrial-console-player-guide.md",
-      "scope": "current player text; technical/history sections retained where labelled",
-      "decision": "update current version/help and retain technical evidence",
-      "sha256": "ff2dbde0edd2891b6676be1d35b72bd11a7c483211a13c255bdfa2befb3caeda",
-      "review": "2026-09-28: reviewed assembly sites, local cargo recovery, maintenance explanations and release/reference consistency; historical evidence and native/Unity validation limits retained."
-    },
-    {
-      "path": "docs/industrial-control-console.md",
-      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
-      "decision": "retain",
-      "sha256": "0f0591f1a01d57c21f29e2ae589b5c688743c693452aaa2bb2f8413a17c13453"
-    },
-    {
-      "path": "docs/industrial-control-mockups.md",
-      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
-      "decision": "retain",
-      "sha256": "75fd36d735ea14aaeb35b431b55f2202f19f5b53b55d59c6d49ccb051151e02d"
-    },
-    {
-      "path": "docs/install-catalogue.md",
-      "scope": "current player text; technical/history sections retained where labelled",
-      "decision": "retain",
-      "sha256": "6ae44058dc8ab0d4df6691e403424b36a011e4a1731b5adbd18a446bf5552d22",
-      "review": "2026-09-28: reviewed assembly sites, local cargo recovery, maintenance explanations and release/reference consistency; historical evidence and native/Unity validation limits retained."
-    },
-    {
-      "path": "docs/installing-mods.md",
-      "scope": "current player text; technical/history sections retained where labelled",
-      "decision": "update current version/help and retain technical evidence",
-      "sha256": "8c3a5bf55d8f502f0582ee8dc0a291070282a29a93fa5150b4c617c456826569",
-      "review": "2026-09-28: reviewed assembly sites, local cargo recovery, maintenance explanations and release/reference consistency; historical evidence and native/Unity validation limits retained."
-    },
-    {
-      "path": "docs/item-handling-audit.md",
+      "path": "docs/development/item-handling-audit.md",
       "scope": "current handling guidance and complete generated definition ledger",
       "decision": "reviewed",
-      "sha256": "a9a5c8da4a884ea2b370bf0480165bab85814e773ee993b6a9c538d7f8cf98ca",
-      "review": "2026-09-28: reviewed assembly sites, local cargo recovery, maintenance explanations and release/reference consistency; historical evidence and native/Unity validation limits retained."
+      "sha256": "00d74ba0cf93cce4058e9147416967e95344e08e767821fc67e0035e8ab6b5a0",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
     },
     {
-      "path": "docs/item-reference-maintenance.md",
+      "path": "docs/development/item-reference-maintenance.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "87aa5661cbaddd1a138b3567ad6331dfe95563bd44fa6eab169e716cfdc18142",
-      "review": "2026-09-27 complete item-action audit: explains inaccessible cooling cargo, existing stack restrictions, native maintenance context and saved cumbersome flags; distinguishes findings from fixes and offline evidence from Unity approval."
+      "sha256": "b52d7b625f4c787d9b40bf0dac7880aabb4f73673b7c80f1f5d1783c312065d1",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
     },
     {
-      "path": "docs/item-references.md",
-      "scope": "generated player reference; reviewed maintained inputs and generator output",
-      "decision": "retain",
-      "sha256": "0ec8eaf77050be55d5fa06e00f01ee7fb1ce2296e024b3dbba8be61cee30c84e"
-    },
-    {
-      "path": "docs/limited-autopilot.md",
+      "path": "docs/development/limited-autopilot.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
       "sha256": "076125e92bd25527b43ef8d7f8e35d6f3b57c0d0c39cc3e7ae3ffc0648e8086a"
     },
     {
-      "path": "docs/localization.md",
+      "path": "docs/development/localization.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "rewrite",
       "sha256": "461f8e69ddeb34dfab259ee5de6b40f23a564a8dee0dab286bc1490c105a5803"
     },
     {
-      "path": "docs/locator-next-steps.md",
+      "path": "docs/development/locator-next-steps.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
       "sha256": "9e9158526100aa0f6b0dc4c4bd60dbb82530e3a979bad7147b4d22acae9707a9"
     },
     {
-      "path": "docs/locator-research.md",
+      "path": "docs/development/locator-research.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
       "sha256": "6b47fe2155684c4c89cbf63d9e5bdb1a295cd5efdfc4e8b84881d89679cdfdc2"
     },
     {
-      "path": "docs/manufacturing-handover.md",
+      "path": "docs/development/manufacturing-handover.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "8bb26aeadb420213e3f58d8eab401793ab06866ed1b4a6fe2522b080f5b2f597"
+      "sha256": "4c0d58646084eeb16672dc68ac1042aa129dda2fa42b1f6f6986527cbc457233",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
     },
     {
-      "path": "docs/manufacturing-implementation.md",
+      "path": "docs/development/manufacturing-implementation.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
       "sha256": "e4c1c4567f29b96b860ad19c37cce387cbf80c651ff83cc1ec17f40595d7cc38"
     },
     {
-      "path": "docs/manufacturing-item-reference.md",
-      "scope": "generated player reference; reviewed maintained inputs and generator output",
-      "decision": "retain",
-      "sha256": "0ab0a91ab8451b94108fb8c1581e7dea3a4de3bf83fde42c78df2d6cdea59577"
-    },
-    {
-      "path": "docs/manufacturing-research.md",
+      "path": "docs/development/manufacturing-research.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
       "sha256": "bc940f575c3f650914040544171996ce75a27a6daaa0c312d698b882b84d112f"
     },
     {
-      "path": "docs/material-disposal-port-research.md",
+      "path": "docs/development/material-disposal-port-research.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "bbab492a112179138e5a3d347646f995c486ddf228a846fdb764533f4c472ec9"
+      "sha256": "67c5684d8ad272ce5d38ae69c502bc4f18833fc996083a36b87fbe73595470dc",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+    },
+    {
+      "path": "docs/development/medical-next-steps.md",
+      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
+      "decision": "retain",
+      "sha256": "20e929c0445c888e62e3ce310b26336b157d0b941bde87c8b3678f3febc9943f"
+    },
+    {
+      "path": "docs/development/medical-research.md",
+      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
+      "decision": "retain",
+      "sha256": "1283799c916ecf301b519cdc992cd8e3f7564cda92bb6e6fc64bb21d86b17795",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+    },
+    {
+      "path": "docs/development/medical-runtime-findings.md",
+      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
+      "decision": "retain",
+      "sha256": "53826539de961a15027dae2de981b05646bae3211a37df1257d8c42de4de9d0d"
+    },
+    {
+      "path": "docs/development/medical-system-vision.md",
+      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
+      "decision": "retain",
+      "sha256": "03b5c07e9a500ff1e7cf0f9f8b19d24ab2fa2b88eb54486fae0fcfef11561e02"
+    },
+    {
+      "path": "docs/development/merchant-stock.md",
+      "scope": "current player text; technical/history sections retained where labelled",
+      "decision": "rewrite",
+      "sha256": "8c8d34ecac328898695ae7c4939941bf44e48e3a3618a12dffdc2db85cbfd32c",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+    },
+    {
+      "path": "docs/development/mod-extension-survey.md",
+      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
+      "decision": "retain",
+      "sha256": "4c0076e7c4fcad4f98c2f5bdb70a25eb96b431eca3580e3155f6e223bb6e59e1",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+    },
+    {
+      "path": "docs/development/modding-notes.md",
+      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
+      "decision": "retain",
+      "sha256": "3f29e4129d86c3ed665e105bfea08759f6c66bd81bc5645201d6f5af90b56a61"
+    },
+    {
+      "path": "docs/development/pda-cartridge-ideas.md",
+      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
+      "decision": "retain",
+      "sha256": "e03a56f986a716835615ae2c75cfcab0087c58ede51458fabe17bf35f59b142c"
+    },
+    {
+      "path": "docs/development/performance-audit.md",
+      "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
+      "decision": "add; explicit measurement limits and practical player actions",
+      "sha256": "140daa1c0d552dc33f8bd7f2f07a0413e8c5d03aa67d395168ddc56a77a83449",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+    },
+    {
+      "path": "docs/development/phobos-framework.md",
+      "scope": "current player text; technical/history sections retained where labelled",
+      "decision": "rewrite",
+      "sha256": "b9d0641fa54e9546df802040145edcdee56905e27146a56ff92a3552dd7215f8",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+    },
+    {
+      "path": "docs/development/polaris-interface-refresh.md",
+      "scope": "current player controls plus labelled implementation/artwork evidence",
+      "decision": "add",
+      "sha256": "a66855b3b771a8439a3a1f6df21e6f24d31d3cbb3c6cf997e4dd958e502901aa",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+    },
+    {
+      "path": "docs/development/powered-shipbreaking-design-findings.md",
+      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
+      "decision": "retain",
+      "sha256": "d2cfe4caa121a1a19cdb25b6e1fd8cfed2351121d67cff5e924a67873943d557"
+    },
+    {
+      "path": "docs/development/powered-shipbreaking-research.md",
+      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
+      "decision": "retain",
+      "sha256": "03cd9e8659035332d72f46ae8c55edd39e5ebd02f287ae7ffa4afa5db4215421"
+    },
+    {
+      "path": "docs/development/processing-job-compatibility.md",
+      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
+      "decision": "retain",
+      "sha256": "093093a88eee9d0558110283b647bb8428ada4a96ae1819968f3ff1fd3768fe8",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+    },
+    {
+      "path": "docs/development/project-direction.md",
+      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
+      "decision": "retain",
+      "sha256": "328a739ff88247c3e78b49fa21696b3703124b8ba1ecdac58a3ae6b7cbe34f70"
+    },
+    {
+      "path": "docs/development/public-release-readiness.md",
+      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
+      "decision": "retain",
+      "sha256": "80a0d25b19b5fdf2da570508e23130448df38c7f1f25560f0150cde04a6de1ed",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+    },
+    {
+      "path": "docs/development/residue-material-contract.md",
+      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
+      "decision": "retain",
+      "sha256": "3fbc2eb220dcc5671ad6d90a3cb2975c626a444b4d06f7d308def450ecbfa367",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+    },
+    {
+      "path": "docs/development/sensor-integration-research.md",
+      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
+      "decision": "retain",
+      "sha256": "78c6f70c9af1250529ccc24b066ec2520ac11754bfcf36c322cbed6a09366d2e",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+    },
+    {
+      "path": "docs/development/shared-console-observations.md",
+      "scope": "current player text; technical/history sections retained where labelled",
+      "decision": "retain",
+      "sha256": "c3221995ef816d15dd083c2b67877abf9045aab8e0ca0a549cd1c598112d90d6"
+    },
+    {
+      "path": "docs/development/ship-equipment-art-study.md",
+      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
+      "decision": "retain",
+      "sha256": "df0de7225b2ba108861a021272338b69e5f90dd164da4a511953572aedd86520",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+    },
+    {
+      "path": "docs/development/shipbreaker-autopilot-handover.md",
+      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
+      "decision": "retain",
+      "sha256": "3566d1a688032f32b240b7b9e630ca2faf6b78b2ebbd633dddf59b8da1d21ba1"
+    },
+    {
+      "path": "docs/development/shipbreaker-autopilot-research.md",
+      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
+      "decision": "retain",
+      "sha256": "e28ba6c55bf2809b0a39977bf6fc5e666aba5c422f4ab15bf2456dbb16f8f217",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+    },
+    {
+      "path": "docs/development/shipbreaker-capture.md",
+      "scope": "current player text; technical/history sections retained where labelled",
+      "decision": "retain",
+      "sha256": "38eff30210db6c0bc9b677514c4953ce0854675db2bf4cb024e33afed25922fe",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+    },
+    {
+      "path": "docs/development/shipbreaker-close-work-geometry.md",
+      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
+      "decision": "retain",
+      "sha256": "684c8ecf8a168a7033ac76d4e549f84ea2f328f16b9e1818fd1b351aa69686cf",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+    },
+    {
+      "path": "docs/development/shipbreaker-completion-cue.md",
+      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
+      "decision": "retain",
+      "sha256": "b0c28f13ac4eacf12abc6007dc692e5b2b0516b04dd1bd561d5593f4524cf240",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+    },
+    {
+      "path": "docs/development/shipbreaker-first-build.md",
+      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
+      "decision": "retain",
+      "sha256": "f8532d6f0296a585c874e93e9c8587fb4354443b3aed1e00e8067b3ee0028bc5",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+    },
+    {
+      "path": "docs/development/shipbreaker-hull-mounting.md",
+      "scope": "current player text; technical/history sections retained where labelled",
+      "decision": "retain",
+      "sha256": "aed936c90a322bf35532c279df3a5795ce9cd8959a57740b4c3f83a3c5278688",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+    },
+    {
+      "path": "docs/development/shipbreaker-room-load-mitigation.md",
+      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
+      "decision": "retain",
+      "sha256": "d80d7c600fa2955a88018465a39b4f920fd753839d3f11bcc7409be493722128",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+    },
+    {
+      "path": "docs/development/shipbreaking-material-processing-research.md",
+      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
+      "decision": "retain",
+      "sha256": "3fc6e4e759e3dbebcc3148ca913f6f5b1b1d6d56b47ca438604ba67b91c62082",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+    },
+    {
+      "path": "docs/development/solar-system-economy-evidence.md",
+      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
+      "decision": "retain",
+      "sha256": "b51ec31a519a730b719fcc516157018fa1d24670898efeb9539902d1339af472",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+    },
+    {
+      "path": "docs/development/terminal-social-network.md",
+      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
+      "decision": "retain",
+      "sha256": "70e5a8fa42ef0e63caede32d4e7abc65f6523c8a5bda13c4d18edeed7d0bb572"
+    },
+    {
+      "path": "docs/development/underfloor-material-transport.md",
+      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
+      "decision": "retain",
+      "sha256": "bb8f673a033c1b5e53cefb3ca088e24cc2d4b5c0e21a8fddebea1c7534e0db40",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+    },
+    {
+      "path": "docs/development/updating-constants.md",
+      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
+      "decision": "rewrite",
+      "sha256": "dd2fa0bb4623864956075af69cece899b954fc46585762c386ee79199f5f62d5",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+    },
+    {
+      "path": "docs/development/vanilla-economy-audit.md",
+      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
+      "decision": "retain",
+      "sha256": "73f2e8343ee2dff7710f0d5168292d5919a6648502d32be18901194c5a176399"
+    },
+    {
+      "path": "docs/development/workshop-publication.md",
+      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
+      "decision": "retain",
+      "sha256": "f9efb1e11317cd1d230925d14898b59abe9b4af6fa4c29d36ea6d423d1d4150b",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+    },
+    {
+      "path": "docs/development/workshop-upload-preparation.md",
+      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
+      "decision": "retain",
+      "sha256": "90a2667c29e7ad84b74bfc8b0d5c116af86ab7b1c3f67d5646e01626b22d8cd2"
+    },
+    {
+      "path": "docs/equipment-economy.md",
+      "scope": "current player text; technical/history sections retained where labelled",
+      "decision": "rewrite",
+      "sha256": "468f29ea466af14ee6a75abef2b86f42e937d09bd395be4f56da696fa6f4e734",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+    },
+    {
+      "path": "docs/fluid-network-operations.md",
+      "scope": "current player text; technical/history sections retained where labelled",
+      "decision": "rewrite",
+      "sha256": "8dc14d1ce6e44b113dcdf695452b061712d8d43e64e43838ba2d1253bb0c3aa3",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+    },
+    {
+      "path": "docs/framework-item-reference.md",
+      "scope": "generated player reference; reviewed maintained inputs and generator output",
+      "decision": "rewrite",
+      "sha256": "69ec638c8bfd694f0b1868a8021ff0f323015f3a6d9bea870de72f51498c8640",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+    },
+    {
+      "path": "docs/furnace-coolant-conduits.md",
+      "scope": "current player text; technical/history sections retained where labelled",
+      "decision": "retain",
+      "sha256": "6cb54cfe7a4b9b218e23dd27db3bbd7f121e7f9727f7cd85235e98e91b8a4af8",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+    },
+    {
+      "path": "docs/furnace-material-routing.md",
+      "scope": "current player text; technical/history sections retained where labelled",
+      "decision": "rewrite",
+      "sha256": "037a6efe5c9710bc2e9c86a7c70488b71b17afe13a83e222bca90ce7a766f6c3",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+    },
+    {
+      "path": "docs/furnace-player-guide.md",
+      "scope": "current player text; technical/history sections retained where labelled",
+      "decision": "rewrite",
+      "sha256": "39e2449f374e4e8951272cb082f525f6c7b15a3d793152ff73e8c417ab073ac3",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+    },
+    {
+      "path": "docs/furnace-repair-castings.md",
+      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
+      "decision": "retain",
+      "sha256": "aa5f7d5ce2f8dbd702470785020533902e53413ba2a7ff92513926e131c6aafd",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+    },
+    {
+      "path": "docs/getting-started.md",
+      "scope": "current player text; technical/history sections retained where labelled",
+      "decision": "rewrite",
+      "sha256": "5fe1794b6cd5ad091a259601e96eb7b05030bad2d2509a2bbad06a31bca84357",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+    },
+    {
+      "path": "docs/health-chronic-and-traits.md",
+      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
+      "decision": "retain",
+      "sha256": "ae4ae9cbc9fe64af51b0709dce71fba970caca069ba0ef88e4a64bb97fe57bb8",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+    },
+    {
+      "path": "docs/health-reference.md",
+      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
+      "decision": "retain",
+      "sha256": "1c4e904dbdbcb9804a210b381e01eea4605dfbde93e4cca997b539fb830ae489",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+    },
+    {
+      "path": "docs/health-treatments-and-drugs.md",
+      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
+      "decision": "retain",
+      "sha256": "dbdeda3bc69fa61cb9aae20f7a39160a8f686f727472b1af8490e77fd3626916",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+    },
+    {
+      "path": "docs/industrial-console-player-guide.md",
+      "scope": "current player text; technical/history sections retained where labelled",
+      "decision": "update current version/help and retain technical evidence",
+      "sha256": "9ed5fd2c70dd4436e554f7bd95912ecb2568e2319f9934669e32df4c75a518df",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+    },
+    {
+      "path": "docs/installing-mods.md",
+      "scope": "current player text; technical/history sections retained where labelled",
+      "decision": "update current version/help and retain technical evidence",
+      "sha256": "245072ce8a41ff8286d9e1c0940b22909279a761dc7cdb013ce16d33e8a5b893",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+    },
+    {
+      "path": "docs/item-references.md",
+      "scope": "generated player reference; reviewed maintained inputs and generator output",
+      "decision": "retain",
+      "sha256": "fcc4529bf09cdfc7cb098c207f8f223c8122cf1a4c6272e21cb0d3282d713199",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+    },
+    {
+      "path": "docs/manufacturing-item-reference.md",
+      "scope": "generated player reference; reviewed maintained inputs and generator output",
+      "decision": "retain",
+      "sha256": "87ab47e402fa0ac62e0e08ef26dae21173e99a7d382e80b8b36e60b1cf5001c0",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
     },
     {
       "path": "docs/material-port-pairing.md",
@@ -36331,321 +36640,32 @@
       "sha256": "94f8757b703b89b1159e8756fb372d39ead1a87b2034a64468a6b36530422347"
     },
     {
-      "path": "docs/medical-next-steps.md",
-      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
-      "decision": "retain",
-      "sha256": "20e929c0445c888e62e3ce310b26336b157d0b941bde87c8b3678f3febc9943f"
-    },
-    {
-      "path": "docs/medical-research.md",
-      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
-      "decision": "retain",
-      "sha256": "ef4312a81d7c775ecc2c95c16b4cb4bb2476d7a5b8ad0b692afbaf4982f06fbb"
-    },
-    {
-      "path": "docs/medical-runtime-findings.md",
-      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
-      "decision": "retain",
-      "sha256": "53826539de961a15027dae2de981b05646bae3211a37df1257d8c42de4de9d0d"
-    },
-    {
-      "path": "docs/medical-system-vision.md",
-      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
-      "decision": "retain",
-      "sha256": "03b5c07e9a500ff1e7cf0f9f8b19d24ab2fa2b88eb54486fae0fcfef11561e02"
-    },
-    {
-      "path": "docs/merchant-stock.md",
-      "scope": "current player text; technical/history sections retained where labelled",
-      "decision": "rewrite",
-      "sha256": "23fdf7e19b075f7ef8311bdab27cce79857adfff92102bd63edf4845ef7efbbe"
-    },
-    {
-      "path": "docs/mod-extension-survey.md",
-      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
-      "decision": "retain",
-      "sha256": "f05b32ba26f21dcac4e4d0600692f74b97721cfdfb94a8695d2a45d85a574c50"
-    },
-    {
-      "path": "docs/modding-notes.md",
-      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
-      "decision": "retain",
-      "sha256": "3f29e4129d86c3ed665e105bfea08759f6c66bd81bc5645201d6f5af90b56a61"
-    },
-    {
-      "path": "docs/pda-cartridge-ideas.md",
-      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
-      "decision": "retain",
-      "sha256": "e03a56f986a716835615ae2c75cfcab0087c58ede51458fabe17bf35f59b142c"
-    },
-    {
-      "path": "docs/performance-audit.md",
-      "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
-      "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "f35d81bb7e63e5c15ba316f9bc5bbe467bfba90acea5c03310c8322e192d7e37",
-      "review": "2026-09-28: reviewed Framework 0.31.1 unnamed-trigger fix and related version/reference updates. Preserve native outcomes, named assembly validation and existing messages; no new recurring work. Reproduced null-key failure, then checked compiled hooks; live confirmation pending."
-    },
-    {
       "path": "docs/performance-captures.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "a7b7a79783e105a7110646572403f1e5405186a93c3a7e44c2175ea69849bb40",
-      "review": "2026-09-27: reviewed performance-update wording/version requirements; existing research and historical evidence retained; no measured speedup claim."
-    },
-    {
-      "path": "docs/phobos-framework.md",
-      "scope": "current player text; technical/history sections retained where labelled",
-      "decision": "rewrite",
-      "sha256": "176149f221bf505dc268cc80d6f3ce4193277c6642325a2cbaec201b8c70c1fc"
+      "sha256": "ecde1d61a21cb410bc0e4aeea822bc2df0fdb46db00df04b72892b39b7a0accf",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
     },
     {
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "37818f87ebde11a230ad02c01261f0ed2d9c0a6957ca502bfb5074beaa8d7bb3",
-      "review": "2026-09-28: reviewed Framework 0.31.1 unnamed-trigger fix and related version/reference updates. Preserve native outcomes, named assembly validation and existing messages; no new recurring work. Reproduced null-key failure, then checked compiled hooks; live confirmation pending."
-    },
-    {
-      "path": "docs/polaris-interface-refresh.md",
-      "scope": "current player controls plus labelled implementation/artwork evidence",
-      "decision": "add",
-      "sha256": "7739642ab8e1a6b4ca49ddbb87b5b8600ad9f0e1fbc4fb3add958c528caa61e3",
-      "review": "2026-09-27 Polaris review: checked revised controls, versions, generated reference evidence and limitations; preserved scientific attribution and historical records."
-    },
-    {
-      "path": "docs/powered-shipbreaking-design-findings.md",
-      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
-      "decision": "retain",
-      "sha256": "d2cfe4caa121a1a19cdb25b6e1fd8cfed2351121d67cff5e924a67873943d557"
-    },
-    {
-      "path": "docs/powered-shipbreaking-research.md",
-      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
-      "decision": "retain",
-      "sha256": "03cd9e8659035332d72f46ae8c55edd39e5ebd02f287ae7ffa4afa5db4215421"
-    },
-    {
-      "path": "docs/processing-job-compatibility.md",
-      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
-      "decision": "retain",
-      "sha256": "f5a2433a9b7f43bfdf30ab79b04ecc604a0b7dcc2bea755ca5d6d902b242d5d7"
-    },
-    {
-      "path": "docs/project-direction.md",
-      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
-      "decision": "retain",
-      "sha256": "328a739ff88247c3e78b49fa21696b3703124b8ba1ecdac58a3ae6b7cbe34f70"
-    },
-    {
-      "path": "docs/public-release-readiness.md",
-      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
-      "decision": "retain",
-      "sha256": "c2c24ab8c5effe31f8c97f7580c0b229266d7b788138aa191b6b2333b9c26a89"
+      "sha256": "9f884db0a730681802cec0cd81efc914fd0b8b5b897613995e1d417b68cc114f",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
     },
     {
       "path": "docs/residue-collector.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "61de15e7b0d14cbdd3f4a0d8747f804253366840d9b635a19c9a4d80d5e6ff3e"
-    },
-    {
-      "path": "docs/residue-material-contract.md",
-      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
-      "decision": "retain",
-      "sha256": "18fd6ed8a38b13a6b2c5530bf6fc625bacd60539f56b1eb8ccf2c248df4d1046"
+      "sha256": "4386cd361358a88434edac4e5fe54dadfd083c866cb15957586447cbad8c7be4",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
     },
     {
       "path": "docs/scrap-reclaimer.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "814e69c106ccdddd551b913a3f8b01772f4018cfa8d9725d51996adf1c08c8d0",
-      "review": "2026-09-28: reviewed assembly sites, local cargo recovery, maintenance explanations and release/reference consistency; historical evidence and native/Unity validation limits retained."
-    },
-    {
-      "path": "docs/sensor-integration-research.md",
-      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
-      "decision": "retain",
-      "sha256": "21024050d076cb642531dc4498234829360aa48500c23262d4297f9d6c29331d"
-    },
-    {
-      "path": "docs/shared-completion-cues.md",
-      "scope": "current player text; technical/history sections retained where labelled",
-      "decision": "rewrite",
-      "sha256": "347486649391170cc28dfc4397a5d8fc914cc30b7b160a056d28b8ce3e2d13f4"
-    },
-    {
-      "path": "docs/shared-console-observations.md",
-      "scope": "current player text; technical/history sections retained where labelled",
-      "decision": "retain",
-      "sha256": "c3221995ef816d15dd083c2b67877abf9045aab8e0ca0a549cd1c598112d90d6"
-    },
-    {
-      "path": "docs/ship-equipment-art-study.md",
-      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
-      "decision": "retain",
-      "sha256": "e1ffcc292bc327208ad2c234aa9ed3d131eae0cd0a5edde975820098caa8adfd"
-    },
-    {
-      "path": "docs/shipbreaker-autopilot-handover.md",
-      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
-      "decision": "retain",
-      "sha256": "3566d1a688032f32b240b7b9e630ca2faf6b78b2ebbd633dddf59b8da1d21ba1"
-    },
-    {
-      "path": "docs/shipbreaker-autopilot-research.md",
-      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
-      "decision": "retain",
-      "sha256": "1d23f3b8fa06905924a12e6451563f9749ba625478dc179eec9cf98d78c1ab2f"
-    },
-    {
-      "path": "docs/shipbreaker-capture.md",
-      "scope": "current player text; technical/history sections retained where labelled",
-      "decision": "retain",
-      "sha256": "95d9a72b5f383031b8df731b51e07afeefabde7d0bd48b157bfd5e94a9323d09"
-    },
-    {
-      "path": "docs/shipbreaker-close-work-geometry.md",
-      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
-      "decision": "retain",
-      "sha256": "6ee1a2ed0a6b96765c25803ab05f1a7973251f62e9cf836a32b0c805a624712a"
-    },
-    {
-      "path": "docs/shipbreaker-completion-cue.md",
-      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
-      "decision": "retain",
-      "sha256": "8a90b8057df633789a4f16b4d5ea82bf207e37b695187745b849077a920366c7"
-    },
-    {
-      "path": "docs/shipbreaker-first-build.md",
-      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
-      "decision": "retain",
-      "sha256": "5922ecbb1f52131625b80c9cfea06e4c6786475719e618de5cbe5397068c30de"
-    },
-    {
-      "path": "docs/shipbreaker-hull-intake.md",
-      "scope": "current player text; technical/history sections retained where labelled",
-      "decision": "rewrite",
-      "sha256": "9563e62d827abde3ab7361ee0a43a785c751125dbf7ae6bad7368ab7506822cb"
-    },
-    {
-      "path": "docs/shipbreaker-hull-mounting.md",
-      "scope": "current player text; technical/history sections retained where labelled",
-      "decision": "retain",
-      "sha256": "569cfc6ebdc153a023698b95d1785f710420a67ad0083164711477eef9ac669f"
-    },
-    {
-      "path": "docs/shipbreaker-item-reference.md",
-      "scope": "generated player reference; reviewed maintained inputs and generator output",
-      "decision": "rewrite",
-      "sha256": "6fbc7910adc31d2cd0bdb123499f5fa07958a0281e52bc31dd54fb7c547e199a",
-      "review": "2026-09-28: reviewed assembly sites, local cargo recovery, maintenance explanations and release/reference consistency; historical evidence and native/Unity validation limits retained."
-    },
-    {
-      "path": "docs/shipbreaker-material-uses.md",
-      "scope": "current player text; technical/history sections retained where labelled",
-      "decision": "retain",
-      "sha256": "a8e25e7c8d32317ca47d372e8b8c188ce8f0739116d3402dcc3fa08633e81e87"
-    },
-    {
-      "path": "docs/shipbreaker-reclamation.md",
-      "scope": "current player text; technical/history sections retained where labelled",
-      "decision": "rewrite",
-      "sha256": "e66ccd1f51d3eb93d9169d51aa89a7ad275a9c6ea432aa18c33c5ac602d9fdc5"
-    },
-    {
-      "path": "docs/shipbreaker-room-load-mitigation.md",
-      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
-      "decision": "retain",
-      "sha256": "c729f8ac7716d88223b4beec046a50c1027abacf8c14acb56d925d2a58d785ff"
-    },
-    {
-      "path": "docs/shipbreaking-material-processing-research.md",
-      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
-      "decision": "retain",
-      "sha256": "69db3a973f4c6f82b4042bc9d46a9a5f6322dd790faf3d0fa5a7f69d5cbaa355"
-    },
-    {
-      "path": "docs/solar-system-economy-evidence.md",
-      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
-      "decision": "retain",
-      "sha256": "9630a4fccec247c811b200cf52e6321dca46ef899d02ee7956298fe2fe5f82c9"
-    },
-    {
-      "path": "docs/solar-system-economy.md",
-      "scope": "current player text; technical/history sections retained where labelled",
-      "decision": "rewrite",
-      "sha256": "b2b6a40403634fc9619ca324bba6859b86dfd7f6c589ec61adc3d29b4eb50867"
-    },
-    {
-      "path": "docs/terminal-social-network.md",
-      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
-      "decision": "retain",
-      "sha256": "70e5a8fa42ef0e63caede32d4e7abc65f6523c8a5bda13c4d18edeed7d0bb572"
-    },
-    {
-      "path": "docs/underfloor-material-transport.md",
-      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
-      "decision": "retain",
-      "sha256": "202b6d63b9a70da5aa9d46df4718fe67c8e5512d3be3adcdc6236037ae346497"
-    },
-    {
-      "path": "docs/updating-constants.md",
-      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
-      "decision": "rewrite",
-      "sha256": "cae65d7931313b3d5f5faa61ce758c7cf0bde215eb9eb6df2fb3f69cc2bb7024"
-    },
-    {
-      "path": "docs/vanilla-economy-audit.md",
-      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
-      "decision": "retain",
-      "sha256": "73f2e8343ee2dff7710f0d5168292d5919a6648502d32be18901194c5a176399"
-    },
-    {
-      "path": "docs/workshop-publication.md",
-      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
-      "decision": "retain",
-      "sha256": "05cacccd776c5010627b3e9f0550662129753073cb62fa3ade943218f0d3f264"
-    },
-    {
-      "path": "docs/workshop-upload-preparation.md",
-      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
-      "decision": "retain",
-      "sha256": "90a2667c29e7ad84b74bfc8b0d5c116af86ab7b1c3f67d5646e01626b22d8cd2"
-    },
-    {
-      "path": "workshop/PhobosAgriculture/page.bbcode",
-      "scope": "current player text; technical/history sections retained where labelled",
-      "decision": "update current version/help and retain technical evidence",
-      "sha256": "b51e3f4cc0c5498de4925afa9817ac7d3aef24267e5b74cd7dcb06d746b8b520",
-      "review": "2026-09-28: reviewed assembly sites, local cargo recovery, maintenance explanations and release/reference consistency; historical evidence and native/Unity validation limits retained."
-    },
-    {
-      "path": "workshop/PhobosAutoNav/page.bbcode",
-      "scope": "current player text; technical/history sections retained where labelled",
-      "decision": "update current version/help and retain technical evidence",
-      "sha256": "7a55e24300a31882f4cbf95b7afa9becdabe7ee625efd3a256612026bd959532",
-      "review": "2026-09-27 complete item-action audit: explains inaccessible cooling cargo, existing stack restrictions, native maintenance context and saved cumbersome flags; distinguishes findings from fixes and offline evidence from Unity approval."
-    },
-    {
-      "path": "workshop/PhobosFramework/page.bbcode",
-      "scope": "current player text; technical/history sections retained where labelled",
-      "decision": "update current version/help and retain technical evidence",
-      "sha256": "879cdfd7929cc56330b5fb650038c9e2b6f0bd4f50bae19b74a6f759999650b3",
-      "review": "2026-09-28: reviewed Framework 0.31.1 unnamed-trigger fix and related version/reference updates. Preserve native outcomes, named assembly validation and existing messages; no new recurring work. Reproduced null-key failure, then checked compiled hooks; live confirmation pending."
-    },
-    {
-      "path": "workshop/PhobosManufacturing/page.bbcode",
-      "scope": "current player text; technical/history sections retained where labelled",
-      "decision": "rewrite",
-      "sha256": "9dde213c18cd8e987c19d7242225be2423a0a0275f9c4f99a5917b878ec1de9c",
-      "review": "2026-09-27: keep publication/installation hold explicit and refer older development installations to the guarded archive procedure."
-    },
-    {
-      "path": "workshop/PhobosShipbreaker/page.bbcode",
-      "scope": "current player text; technical/history sections retained where labelled",
-      "decision": "update current version/help and retain technical evidence",
-      "sha256": "27274743b0b718f7d5507a8c24d090557b5b6fea775a405cd8ad0d5665050f5c",
-      "review": "2026-09-28: reviewed assembly sites, local cargo recovery, maintenance explanations and release/reference consistency; historical evidence and native/Unity validation limits retained."
+      "sha256": "226c7d7884d008f7c977e8c95355e66972dc1c9ba2a9b65e58bd3913ac9060ee",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
     },
     {
       "path": "docs/section-assembly-and-maintenance.md",
@@ -36653,14 +36673,91 @@
       "decision": "new reviewed assembly/recovery guide",
       "sha256": "29f0764941921dd892b3426873110f3ca3df6dd37cee466c6127ce7947ac1021",
       "review": "2026-09-28: reviewed Framework 0.31.1 unnamed-trigger fix and related version/reference updates. Preserve native outcomes, named assembly validation and existing messages; no new recurring work. Reproduced null-key failure, then checked compiled hooks; live confirmation pending."
+    },
+    {
+      "path": "docs/shared-completion-cues.md",
+      "scope": "current player text; technical/history sections retained where labelled",
+      "decision": "rewrite",
+      "sha256": "a06555515dc90a7862c64cf1137ea98d9460c4b5667d52f2ca53daa8019f9dc1",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+    },
+    {
+      "path": "docs/shipbreaker-hull-intake.md",
+      "scope": "current player text; technical/history sections retained where labelled",
+      "decision": "rewrite",
+      "sha256": "947b9ff42cd2c45d46b5f0477e6f4fd365ae7c488c722f6fe5c83b118cc2bb97",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+    },
+    {
+      "path": "docs/shipbreaker-item-reference.md",
+      "scope": "generated player reference; reviewed maintained inputs and generator output",
+      "decision": "rewrite",
+      "sha256": "42d3b73e889e178ad0fb063263468b18245b4166f38fb2ccece058adc5c8840d",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+    },
+    {
+      "path": "docs/shipbreaker-material-uses.md",
+      "scope": "current player text; technical/history sections retained where labelled",
+      "decision": "retain",
+      "sha256": "ead43929af14fe184c098b9efb586ef749ec09f3cc48b2fa549247f4ef479bce",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+    },
+    {
+      "path": "docs/shipbreaker-reclamation.md",
+      "scope": "current player text; technical/history sections retained where labelled",
+      "decision": "rewrite",
+      "sha256": "903f67b309e431aef3dc4adf278d6c1c4bc6179cb78f7fb0708583bad6caae5e",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+    },
+    {
+      "path": "docs/solar-system-economy.md",
+      "scope": "current player text; technical/history sections retained where labelled",
+      "decision": "rewrite",
+      "sha256": "a12dfa672086c6ce646433cf7853b06b626a2e85ca9eb1bb03a27f1371f1afae",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+    },
+    {
+      "path": "workshop/PhobosAgriculture/page.bbcode",
+      "scope": "current player text; technical/history sections retained where labelled",
+      "decision": "update current version/help and retain technical evidence",
+      "sha256": "37e650c7ce69a5aa22e84ed33066d24d1724ff698f83bb90eed2534bc4aef6ab",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+    },
+    {
+      "path": "workshop/PhobosAutoNav/page.bbcode",
+      "scope": "current player text; technical/history sections retained where labelled",
+      "decision": "update current version/help and retain technical evidence",
+      "sha256": "4674b0b7a5d53cce4ba683abcaa6123e757ce4a7f9607b792d1824ed04bfc7fb",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+    },
+    {
+      "path": "workshop/PhobosFramework/page.bbcode",
+      "scope": "current player text; technical/history sections retained where labelled",
+      "decision": "update current version/help and retain technical evidence",
+      "sha256": "4d14b6d0ebb608105431c96b3c6fc90984dfa392a904297c3072674c5d4d05f4",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+    },
+    {
+      "path": "workshop/PhobosManufacturing/page.bbcode",
+      "scope": "current player text; technical/history sections retained where labelled",
+      "decision": "rewrite",
+      "sha256": "99ff0bfb7b0ea34b390c924a39b5b5e826e06de4596e4024bba0dfb8660935ad",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+    },
+    {
+      "path": "workshop/PhobosShipbreaker/page.bbcode",
+      "scope": "current player text; technical/history sections retained where labelled",
+      "decision": "update current version/help and retain technical evidence",
+      "sha256": "25627ade8e0590b0c18b383d70e19fb95208405b2bc0e0fcb76873b134003f20",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
     }
   ],
   "surfaces": [
     {
       "path": "config/item-reference.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "907350e3ec9083db48f7c955687a74acaf9753b3e35ab652a4041713f7c8ebf9",
-      "review": "2026-09-28: reviewed assembly sites, local cargo recovery, maintenance explanations and release/reference consistency; historical evidence and native/Unity validation limits retained."
+      "sha256": "0f93f2a9d85028b8076143d82971311fe85f149617ed9b1ddc7d9e6d9cb15817",
+      "review": "2026-09-28: checked updated documentation paths and player/reference instructions; identifiers, values and gameplay remain unchanged."
     },
     {
       "path": "mods/PhobosAgriculture/framework/equipment-names.json",

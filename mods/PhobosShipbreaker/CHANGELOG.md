@@ -8,6 +8,8 @@ Dates on Draft entries record preparation, not Steam publication.
 
 ### Documentation
 
+- Correct furnace, assembly, coolant-service and cargo-recovery instructions. Distinguish historical console/reclaimer designs from current controls and repair generated section placement descriptions. Documentation only; gameplay and saves are unchanged.
+
 - The initial read-only audit identified inaccessible F6-P/F6-R inventories, the split-stack requirement and D4-S cumbersome handling. The 0.31.0 follow-up below implements recovery, clearer maintenance explanations and construction-site assembly; the original audit alone made no gameplay changes.
 
 - Document the third room-load recurrence: the grid guard trusted dimensions recorded before native save trimming. Framework 0.24.1 corrects validated stale headers before padding and synchronizes future outgoing saves after trimming. The earlier marker-health fix was owner-confirmed; the new before/after archive checks are offline, with gameplay confirmation pending.
@@ -43,7 +45,7 @@ Dates on Draft entries record preparation, not Steam publication.
 ### Changed
 
 - Raise equipment and section offers to at least 85%, and pipes/coolant to at least 95%, before the availability setting. Fill missing functional stock at general local suppliers. Native engineering rolls can now find one of nine intact/damaged machinery families (40% total), one assembly section (15% total), and one pipe/coolant charge (20% total), as separate bounded choices.
-- Applies to future native stock and loot generation; no forced restocks, saved-cargo changes, price changes or live gameplay validation. See [merchant availability and salvage](https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/merchant-stock.md).
+- Applies to future native stock and loot generation; no forced restocks, saved-cargo changes, price changes or live gameplay validation. See [merchant availability and salvage](https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/development/merchant-stock.md).
 
 ## [0.29.2] - 2026-09-27 - Draft
 
@@ -51,7 +53,7 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Correct loose machinery and conduit pickup/drop actions. D4-S, R4-S and F6-S assembly sections now use the native cumbersome/drag family instead of hand-held scrap behaviour. Sections retain dismantling and remain construction inputs, not installed machines.
 - Existing sections in hands or containers remain where saved. Put a held section down once; future handling uses the drag slot. Requires Phobos Framework 0.30.2.
-- Audited all 118 implemented item definitions and checked native action/slot contracts offline. Live menus and loaded inventory handling still require owner testing; see the [item handling audit](https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/item-handling-audit.md).
+- Audited all 118 implemented item definitions and checked native action/slot contracts offline. Live menus and loaded inventory handling still require owner testing; see the [item handling audit](https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/development/item-handling-audit.md).
 
 ## [0.29.1] - 2026-09-27 - Draft
 
@@ -91,7 +93,7 @@ Requires Phobos Framework 0.30.0 or newer; other provider requirements remain un
 ### Compatibility and limits
 
 - Requires Phobos Framework 0.29.0; the existing Auto Nav dependency remains. Save formats, construction, recipes, heat, material and flight-authority rules are unchanged.
-- See docs/performance-audit.md for baseline findings and offline verification. Follow-up measurements are deferred; active machinery performance and Unity interaction remain owner-run checks.
+- See docs/development/performance-audit.md for baseline findings and offline verification. Follow-up measurements are deferred; active machinery performance and Unity interaction remain owner-run checks.
 
 ## [0.28.1] - 2026-09-27 - Draft
 
@@ -99,7 +101,7 @@ Requires Phobos Framework 0.30.0 or newer; other provider requirements remain un
 
 - Separate the plain furnace fault warning from its detailed log message; stopping, saved contents and recovery checks are unchanged.
 - Review English controls, warnings, descriptions and help for practical player language; retain precise diagnostics and established equipment names. Update current guides, item-reference inputs and the Workshop draft.
-- Follow the retrospective language rule and glossary in docs/player-language.md, informed by Blue Bottle Games' official Ostranauts description and Daniel Fedor's developer AMA. This is an interest-based audience interpretation, not measured demographic data.
+- Follow the retrospective language rule and glossary in docs/development/player-language.md, informed by Blue Bottle Games' official Ostranauts description and Daniel Fedor's developer AMA. This is an interest-based audience interpretation, not measured demographic data.
 
 ### Compatibility and limits
 
@@ -217,7 +219,7 @@ Requires Phobos Framework 0.30.0 or newer; other provider requirements remain un
 
 - Phobos Auto Nav 0.16.0+ is now mandatory alongside Framework 0.23.0+. Builder and installer include the dependency. Existing equipment, cargo, recipe and hot-job identities remain unchanged.
 - First stage accepts owned, unoccupied targets only. Cutting, automatic repositioning, repeated furnace cycles and whole-wreck completion remain future work. Stop/release do not brake. Prepared offline, not installed, gameplay-validated or published.
-- See the [capture guide and native evidence](https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/shipbreaker-capture.md). Blue Bottle Games supplies the native mooring/fit precedent; this authored arrangement is not scientific validation.
+- See the [capture guide and native evidence](https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/development/shipbreaker-capture.md). Blue Bottle Games supplies the native mooring/fit precedent; this authored arrangement is not scientific validation.
 
 ## [0.21.0] - 2026-09-26 - Draft
 
@@ -250,7 +252,7 @@ Phobos Framework 0.22.0 or newer. Agriculture and [Valtora's Ship's Water](https
 
 ### Requirements
 
-Phobos Framework 0.21.1 or newer. No saved-state migration or save-file editing. This cannot recover gas already lost before saving. Offline regression and native loader-contract checks passed; the owner reported a successful affected-save reload on 26 September 2026. Broader save/reload coverage remains unverified. See the [investigation and owner check](https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/shipbreaker-room-load-mitigation.md).
+Phobos Framework 0.21.1 or newer. No saved-state migration or save-file editing. This cannot recover gas already lost before saving. Offline regression and native loader-contract checks passed; the owner reported a successful affected-save reload on 26 September 2026. Broader save/reload coverage remains unverified. See the [investigation and owner check](https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/development/shipbreaker-room-load-mitigation.md).
 
 ## [0.19.0] - 2026-09-25 - Draft
 

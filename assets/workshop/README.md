@@ -51,14 +51,14 @@ step; this work does not upload or publish a Workshop listing.
 [Blue Bottle Games' Ostranauts](https://store.steampowered.com/app/1022980/Ostranauts/)
 is the visual and setting reference: overhead ship spaces, legible machinery,
 restrained industrial colour and physical controls. The project's
-[equipment art study](../../docs/ship-equipment-art-study.md) and existing original
+[equipment art study](../../docs/development/ship-equipment-art-study.md) and existing original
 Phobos equipment inform the descriptions. Blue Bottle Games owns the game and
 its artwork; no affiliation or endorsement is implied. No extracted game texture,
 game screenshot, third-party mod sprite or official logo was supplied to the
 generator or included in these covers.
 
 These complex cover compositions use ChatGPT's built-in image generation under
-the [asset policy's complex-art provision](../../docs/asset-generation-policy.md).
+the [asset policy's complex-art provision](../../docs/development/asset-generation-policy.md).
 PixelLab remains preferred for simple pixel assets. Its allowance was checked,
 but no PixelLab generation or credit purchase was made for this set. The built-in
 tool does not disclose a model revision, seed or per-image price; none is invented.

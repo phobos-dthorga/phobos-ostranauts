@@ -115,7 +115,7 @@ Dismantling takes 600 seconds and returns 4 kg steel + 21 kg housing waste
 
 ## Design basis and verification
 
-The [research report](agriculture-bulk-storage-research.md) separates science
+The [research report](development/agriculture-bulk-storage-research.md) separates science
 from authored game balance. Bruce Dunn's [Oklahoma State University hydroponics
 guide](https://extension.okstate.edu/fact-sheets/hydroponics), [NASA's porous-tube
 nutrient-delivery research](https://technology.nasa.gov/patent/ksc-tops-73), and

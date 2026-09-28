@@ -1,6 +1,6 @@
 # Phobos' Asterel N1 Polaris Auto Nav Module: acquisition and servicing
 
-Current stock quantities: [bulk merchant lots](merchant-stock.md) supersede the older single-item offers below. These content versions require Framework 0.24.0+.
+Current stock quantities: [bulk merchant lots](development/merchant-stock.md) supersede the older single-item offers below. Use the [current dependency requirements](installing-mods.md); older version floors below describe their original releases.
 
 Regional acquisition now covers the current vanilla solar system: see the
 [solar-system economy guide](solar-system-economy.md) for availability, native
@@ -21,7 +21,7 @@ trade/maintenance checks. Versions 0.4.1–0.4.3 fix panel dragging/layout and i
 and existing work thresholds are retained.
 No game session or live shop quote was used for this audit.
 
-Current merchant/salvage policy: [expanded availability](merchant-stock.md), Auto Nav 0.22.4 with Framework 0.30.3. Earlier build evidence below is historical. The equipment naming
+Current merchant/salvage policy: [expanded availability](development/merchant-stock.md), Auto Nav 0.22.4 with Framework 0.30.3. Earlier build evidence below is historical. The equipment naming
 introduced in 0.8.1 is unchanged.
 The item and its damaged form are **Phobos' Asterel N1 Polaris Auto Nav Module** and
 **Phobos' Asterel N1 Polaris Auto Nav Module (Damaged)**. The mod manager/package remains
@@ -103,7 +103,7 @@ game. Construction/repair electronics have a combined $29 native base value;
 labour creates the functional product's value. Repair/refurbishment for resale
 is intended, while dismantling for immediate profit is not.
 
-The refreshed [equipment value audit](equipment-value-audit.md) checks both forms,
+The refreshed [equipment value audit](development/equipment-value-audit.md) checks both forms,
 wear/pristine tiers, material mass and adverse Venus buyer multipliers. Expanded
 native checks cover Polaris categories, actual buy/sell filters, slotted-stock
 restrictions, additive/idempotent stock, repair waste, Restore and guarded
@@ -112,5 +112,5 @@ quotes, native service actions or saved modules.
 
 The approved faceplate and intact/damaged item sprites need no raster changes:
 the Polaris title and item labels are live localized text. No game artwork is
-copied and no label is baked into the images. See [Auto Nav operation](auto-navigate-adaptation.md)
+copied and no label is baked into the images. See [Auto Nav operation](development/auto-navigate-adaptation.md)
 and the shared [equipment economy](equipment-economy.md).

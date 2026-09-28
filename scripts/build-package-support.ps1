@@ -2,7 +2,8 @@
 function Copy-PhobosPlayerGuides {
     param(
         [Parameter(Mandatory)][string]$RepoRoot,
-        [Parameter(Mandatory)][string]$Package
+        [Parameter(Mandatory)][string]$Package,
+        [string]$Readme = ""
     )
     # Every suite package has the same entry point and its directly linked guides.
     # Keep their filenames as well as the mod-specific README so links remain usable.
@@ -22,7 +23,9 @@ function Copy-PhobosPlayerGuides {
         'limited-autopilot', 'manufacturing-research', 'manufacturing-implementation',
         'install-catalogue', 'industrial-console-player-guide', 'industrial-control-console', 'industrial-control-mockups', 'shared-console-observations', 'sensor-integration-research', 'fusion-smelter-research', 'framework-author-guide'
     )) {
-        Copy-Item -LiteralPath (Join-Path $RepoRoot "docs/$name.md") -Destination $Package
+        $guideSource = Join-Path $RepoRoot "docs/$name.md"
+        if (-not (Test-Path -LiteralPath $guideSource)) { $guideSource = Join-Path $RepoRoot "docs/development/$name.md" }
+        Copy-Item -LiteralPath $guideSource -Destination $Package
     }
     # Keep the optional audio preview, licence/provenance and reproducible source usable offline.
     $artTarget = Join-Path $Package 'assets/artwork-completion'
@@ -134,6 +137,8 @@ function Copy-PhobosPlayerGuides {
         Copy-Item -LiteralPath (Join-Path $RepoRoot 'assets/workshop/PACKAGE-ARTWORK.md') -Destination (Join-Path $Package 'WORKSHOP-ARTWORK.md')
         Copy-Item -LiteralPath (Join-Path $RepoRoot 'assets/workshop/prompts.json') -Destination (Join-Path $Package 'WORKSHOP-ARTWORK-PROMPTS.json')
     }
+    python (Join-Path $RepoRoot "scripts/package-documentation.py") --package $Package --readme $Readme
+    if ($LASTEXITCODE -ne 0) { throw "Documentation packaging failed." }
 }
 
 function New-PhobosPackage {
@@ -183,7 +188,7 @@ function New-PhobosPackage {
     }
     Copy-Item -LiteralPath (Join-Path $RepoRoot $Readme) -Destination (Join-Path $package 'README.md')
     foreach ($document in $ExtraDocs) { Copy-Item -LiteralPath (Join-Path $RepoRoot $document) -Destination $package }
-    Copy-PhobosPlayerGuides -RepoRoot $RepoRoot -Package $package
+    Copy-PhobosPlayerGuides -RepoRoot $RepoRoot -Package $package -Readme $Readme
     Copy-Item -LiteralPath (Join-Path $source 'THIRD-PARTY.md') -Destination $package
     if (Test-Path -LiteralPath (Join-Path $source 'licenses') -PathType Container) {
         Copy-Item -LiteralPath (Join-Path $source 'licenses') -Destination $package -Recurse

@@ -4,7 +4,7 @@
 
 Current source candidate: **0.31.0**. Game target: **1.0.1.5**. Values below come from offline definitions; they do not establish installation, gameplay validation or a live merchant quote.
 
-Rivetline machinery recovers material and casts rough industrial products. Asterel C1 provides optional central controls. Obtain loose equipment, place it through the indicated native INSTALL tab, supply electricity where required, and keep service approaches accessible. Local panels remain usable without C1. Receiving, processing and hot-furnace controls are separate permissions. Pending-equipment reloads include a bounded room-grid mitigation; see [evidence and limits](shipbreaker-room-load-mitigation.md). It cannot recover atmosphere already lost before saving. Regional offers extend through the current vanilla solar system; see [market coverage and the game's market pricing](solar-system-economy.md). Crew standing orders are opt-in; see [crew work, training and time-skips](crew-automation.md) for eligible work, approved stores, resource limits and resuming industrial and exterior work. Compact controls, unsaved settings and object selection are explained in the [control-panel guide](control-panel-guide.md). In selection fields, Locate opens a temporary marked ship view; Clear is a draft change that requires Apply. Pick on ship marks eligible objects and Escape restores the panel and view.
+Rivetline machinery recovers material and casts rough industrial products. Asterel C1 provides optional central controls. Obtain loose equipment, place it through the indicated native INSTALL tab, supply electricity where required, and keep service approaches accessible. Local panels remain usable without C1. Receiving, processing and hot-furnace controls are separate permissions. Pending-equipment reloads include a bounded room-grid mitigation; see [evidence and limits](development/shipbreaker-room-load-mitigation.md). It cannot recover atmosphere already lost before saving. Regional offers extend through the current vanilla solar system; see [market coverage and the game's market pricing](solar-system-economy.md). Crew standing orders are opt-in; see [crew work, training and time-skips](crew-automation.md) for eligible work, approved stores, resource limits and resuming industrial and exterior work. Compact controls, unsaved settings and object selection are explained in the [control-panel guide](control-panel-guide.md). In selection fields, Locate opens a temporary marked ship view; Clear is a draft change that requires Apply. Pick on ship marks eligible objects and Escape restores the panel and view.
 
 **Reading prices:** credits per complete object at the stated condition, before shop margins, market effects, negotiation and extra wear. Pristine retail can cost more. Mass is the empty/dry definition or fresh commodity template; saved contents and variable recovery packets can weigh differently. Dismantle value is the sum of all listed outputs at base value, excluding labour and tools.
 
@@ -50,11 +50,11 @@ Processes already-detached ordinary wall panels into metal and a retained residu
 
 **Where it appears:** Buy loose or damaged equipment, or build two D4-S sections and assemble the fixture. This item may also appear in eligible engineering-equipment loot; see the exact offers below. Final assembly now takes place at the installation site through Install on a section or INSTALL > APPS; a complete loose machine keeps its direct Install action.
 
-**Placement:** INSTALL → APPS. Obtain the loose item first; the menu does not manufacture it.
+**Placement:** INSTALL → APPS starts assembly from matching sections. A complete loose machine keeps its own direct Install action; damaged forms retain their existing placement path.
 
 It does not cut attached hull walls. Fresh jobs make identified R2 feed; older bound jobs retain their original mixed-residue output. Processing pauses on reload.
 
-Full operating instructions: [D4 Dismantling Fixture guide](shipbreaker-first-build.md).
+Full operating instructions: [D4 Dismantling Fixture guide](development/shipbreaker-first-build.md).
 
 | Form / origin | Max stack | Mass per item (kg) | Base per item (cr) | Dismantle outputs per item (cr) |
 | --- | --- | --- | --- | --- |
@@ -282,7 +282,7 @@ Reclaims identified R2 panel residue into steel, aluminium and terminal rejects.
 
 **Where it appears:** Buy machinery or assemble two R4-S sections. This item may also appear in eligible engineering-equipment loot; see the exact offers below. Final assembly now takes place at the installation site through Install on a section or INSTALL > APPS; a complete loose machine keeps its direct Install action.
 
-**Placement:** INSTALL → APPS. Obtain the loose item first; the menu does not manufacture it.
+**Placement:** INSTALL → APPS starts assembly from matching sections. A complete loose machine keeps its own direct Install action; damaged forms retain their existing placement path.
 
 Legacy mixed residue and terminal rejects are not valid feed. The machine puts heat into cabin gas; vacuum is not free cooling. Receiving and processing pause on reload.
 
@@ -339,7 +339,7 @@ Electrically heats an exact aluminium charge to cast a rough machinery housing.
 
 **Where it appears:** Buy machinery or assemble three F6-S sections. This item may also appear in eligible engineering-equipment loot; see the exact offers below. Final assembly now takes place at the installation site through Install on a section or INSTALL > APPS; a complete loose machine keeps its direct Install action.
 
-**Placement:** INSTALL → APPS. Obtain the loose item first; the menu does not manufacture it.
+**Placement:** INSTALL → APPS starts assembly from matching sections. A complete loose machine keeps its own direct Install action; damaged forms retain their existing placement path.
 
 Requires finite cooling and a valid gas receiver. Direct coupling can transfer heat without power; piped circulation requires pump electricity. Automatic material receipt never authorizes Seal, Start or Release. Hot machinery retains heat across saves.
 
@@ -455,7 +455,7 @@ A sealed deck fitting representing the alternative underside radiator assembly.
 
 The small head represents a complete finite assembly. It keeps the native floor sealed and does not vent cabin air or create a lower deck. If older saves left cargo inside, choose Recover stored cargo while beside the unit and move the items out. New deposits are blocked. Maintenance information identifies contents, coolant, heat and paired-equipment restrictions. Actual work lots remain reserved until their native job finishes or is cancelled.
 
-Full operating instructions: [F6-P Thermal Exhaust Port guide](furnace-connections-and-instruments.md).
+Full operating instructions: [F6-P Thermal Exhaust Port guide](development/furnace-connections-and-instruments.md).
 
 | Form / origin | Max stack | Mass per item (kg) | Base per item (cr) | Dismantle outputs per item (cr) |
 | --- | --- | --- | --- | --- |
@@ -616,7 +616,7 @@ A heavy, unpowered construction component, not a functional machine.
 
 **Where it appears:** Construct from materials, buy the listed section offers, or obtain a native engineering-loot section.
 
-**Placement:** Inventory/module-slot item; no standalone INSTALL entry.
+**Placement:** Choose Install on this section or the completed machine in INSTALL → APPS. This starts a construction site; deliver the full section bill separately.
 
 Sections use the drag slot, not your hands. A section already held in an older save remains there until released. Native site cancellation returns delivered parts; save/reload keeps the site and its work. Dismantle salvages the section rather than assembling it. Old table action identities remain for saved queues, but no longer appear as new offers.
 
@@ -665,7 +665,7 @@ A heavy, unpowered construction component, not a functional machine.
 
 **Where it appears:** Construct from materials, buy the listed section offers, or obtain a native engineering-loot section.
 
-**Placement:** Inventory/module-slot item; no standalone INSTALL entry.
+**Placement:** Choose Install on this section or the completed machine in INSTALL → APPS. This starts a construction site; deliver the full section bill separately.
 
 Sections use the drag slot, not your hands. A section already held in an older save remains there until released. Native site cancellation returns delivered parts; save/reload keeps the site and its work. Dismantle salvages the section rather than assembling it. Old table action identities remain for saved queues, but no longer appear as new offers.
 
@@ -714,7 +714,7 @@ A heavy, unpowered construction component, not a functional machine.
 
 **Where it appears:** Construct from materials, buy the listed section offers, or obtain a native engineering-loot section.
 
-**Placement:** Inventory/module-slot item; no standalone INSTALL entry.
+**Placement:** Choose Install on this section or the completed machine in INSTALL → APPS. This starts a construction site; deliver the full section bill separately.
 
 Sections use the drag slot, not your hands. A section already held in an older save remains there until released. Native site cancellation returns delivered parts; save/reload keeps the site and its work. Dismantle salvages the section rather than assembling it. Old table action identities remain for saved queues, but no longer appear as new offers.
 
@@ -845,7 +845,7 @@ Characterized gameplay feed for the R4.
 
 The authored result is steel, aluminium and terminal R2 rejects. It is not a measured chemical assay.
 
-Full operating instructions: [Identified Panel Residue R2 guide](residue-material-contract.md).
+Full operating instructions: [Identified Panel Residue R2 guide](development/residue-material-contract.md).
 
 | Form / origin | Max stack | Mass per item (kg) | Base per item (cr) | Dismantle outputs per item (cr) |
 | --- | --- | --- | --- | --- |
@@ -871,7 +871,7 @@ Unclassified residue preserved from older D4 jobs and saves.
 
 No conversion to R2 and no R4 recycling; saving or updating does not reclassify it.
 
-Full operating instructions: [Mixed Panel Residue — legacy guide](residue-material-contract.md).
+Full operating instructions: [Mixed Panel Residue — legacy guide](development/residue-material-contract.md).
 
 | Form / origin | Max stack | Mass per item (kg) | Base per item (cr) | Dismantle outputs per item (cr) |
 | --- | --- | --- | --- | --- |
@@ -1158,4 +1158,4 @@ Use an installed native Bar/Dining Table, or a supported optional workbench. Tim
 
 Item names, dry/template masses, prices, service bills, salvage outputs, placement tabs, stock probabilities and table recipes are generated from current Phobos definitions. **Blue Bottle Games’ Ostranauts** native `DataCO.GetBasePrice` supplies the offline valuation used here ([developer’s game page](https://bluebottlegames.com/games/ostranauts)). That page identifies the game; the actual numeric evidence is the locally inspected assembly, whose hash is retained in the generated data snapshot. No proprietary source or game assembly is distributed.
 
-Function/use explanations are maintained in the reviewed catalogue. All fictional prices, yields and simplified processing are Phobos gameplay choices. Research attribution remains beside the relevant claims in the linked operating/research guides. See [reference maintenance](item-reference-maintenance.md) for the one-click updater and coverage checks.
+Function/use explanations are maintained in the reviewed catalogue. All fictional prices, yields and simplified processing are Phobos gameplay choices. Research attribution remains beside the relevant claims in the linked operating/research guides. See [reference maintenance](development/item-reference-maintenance.md) for the one-click updater and coverage checks.

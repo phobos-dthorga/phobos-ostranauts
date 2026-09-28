@@ -15,4 +15,4 @@ no external file loader or network access.
 The raw preview is louder than the default in-game level (35% before the native
 effects mixer). Do not normalize it to full scale. The source amplitude ceiling
 and envelope are deliberate design choices, not hearing-safety certification.
-See [behaviour and owner checks](../../../docs/shipbreaker-completion-cue.md).
+See [behaviour and owner checks](../../../docs/development/shipbreaker-completion-cue.md).

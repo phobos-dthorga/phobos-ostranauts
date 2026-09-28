@@ -41,7 +41,7 @@ current world each time; stopping still releases RCS if torch release fails.
 Phobos lifecycle and orbit-lock integration also follows the inspected upstream
 patching pattern; the new arrival-brake calculation, short-range arrival policy,
 range diagnostics, service, console routing and UI come from Phobos work. See the
-[adaptation record](docs/auto-navigate-adaptation.md) for specific changes.
+[adaptation record](docs/development/auto-navigate-adaptation.md) for specific changes.
 
 No licence file, embedded licence resource or express reuse grant was found in
 the downloaded package. Public terms reviewed so far also did not establish one.

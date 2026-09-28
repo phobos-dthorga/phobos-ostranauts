@@ -36,7 +36,7 @@ Navigation, approach and docking assistance. It can stop short of a destination 
 
 Indefinite position holding is not promised. Sensor quality, braking room, fuel and native restrictions still apply. Docking resumes only after an explicit post-load Resume. Local obstacle avoidance uses tracked contacts; lost tracking requires Resume. Explicit Undock & Depart / Undock & Continue prepare a 1 km hull-gap departure and require every crew member on the company roster aboard; missing or away crew block departure. See [departure and avoidance](auto-nav-departure.md).
 
-Full operating instructions: [N1 Polaris Auto Nav Module guide](auto-navigate-adaptation.md).
+Full operating instructions: [N1 Polaris Auto Nav Module guide](development/auto-navigate-adaptation.md).
 
 | Form / origin | Max stack | Mass per item (kg) | Base per item (cr) | Dismantle outputs per item (cr) |
 | --- | --- | --- | --- | --- |
@@ -141,7 +141,7 @@ In-game names: Phobos' Asterel N2 Polaris Pursuit Module; Phobos' Asterel N2 Pol
 
 Independent weapon observations, bounded offensive volleys and optional RCS aiming. It can operate without N1/N2.
 
-**Use:** Fit to Polaris, open Fire, choose a target and use Weapon group to see installed weapons, including off or damaged ones. Left-click Volleys to increase, right-click to decrease (1–9, wrapping). Engage grants a fresh firing budget. Cease Fire keeps offensive hold; Return to Native releases it. Switching an FCS-held group asks for confirmation: the old group may resume native automatic firing and the new group enters Hold with aiming off. See the [Polaris controls](polaris-interface-refresh.md).
+**Use:** Fit to Polaris, open Fire, choose a target and use Weapon group to see installed weapons, including off or damaged ones. Left-click Volleys to increase, right-click to decrease (1–9, wrapping). Engage grants a fresh firing budget. Cease Fire keeps offensive hold; Return to Native releases it. Switching an FCS-held group asks for confirmation: the old group may resume native automatic firing and the new group enters Hold with aiming off. See the [Polaris controls](development/polaris-interface-refresh.md).
 
 **Where it appears:** Build at a supported table, buy from the listed dealers, or find an N1/N2/N3 board in eligible native module loot. Damaged finds need repair.
 
@@ -269,4 +269,4 @@ Use an installed native Bar/Dining Table, or a supported optional workbench. Tim
 
 Item names, dry/template masses, prices, service bills, salvage outputs, placement tabs, stock probabilities and table recipes are generated from current Phobos definitions. **Blue Bottle Games’ Ostranauts** native `DataCO.GetBasePrice` supplies the offline valuation used here ([developer’s game page](https://bluebottlegames.com/games/ostranauts)). That page identifies the game; the actual numeric evidence is the locally inspected assembly, whose hash is retained in the generated data snapshot. No proprietary source or game assembly is distributed.
 
-Function/use explanations are maintained in the reviewed catalogue. All fictional prices, yields and simplified processing are Phobos gameplay choices. Research attribution remains beside the relevant claims in the linked operating/research guides. See [reference maintenance](item-reference-maintenance.md) for the one-click updater and coverage checks.
+Function/use explanations are maintained in the reviewed catalogue. All fictional prices, yields and simplified processing are Phobos gameplay choices. Research attribution remains beside the relevant claims in the linked operating/research guides. See [reference maintenance](development/item-reference-maintenance.md) for the one-click updater and coverage checks.

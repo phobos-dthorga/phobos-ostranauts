@@ -8,8 +8,8 @@ Offline checks do not establish in-game compatibility. Owner evaluation remains.
 
 **Future autonomous reclamation:** the owner selected research of separately
 authorized repeated batches and finite onward storage. The
-[G4 research](shipbreaker-autopilot-research.md#processing-chain-and-operating-windows)
-and [handover](shipbreaker-autopilot-handover.md) distinguish Receive from permission
+[G4 research](development/shipbreaker-autopilot-research.md#processing-chain-and-operating-windows)
+and [handover](development/shipbreaker-autopilot-handover.md) distinguish Receive from permission
 to seal, heat, equalize and release. They propose reviewing our any-thrust pause
 policy for checked processing during gentle G4 positioning. The current interlock
 remains until a tested motion/power/thermal policy replaces it; this is not an

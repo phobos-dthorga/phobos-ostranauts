@@ -1,6 +1,8 @@
 # F6 sealed coolant conduits
 
-Current extension: [fluid-network operations](fluid-network-operations.md) documents Agriculture 0.6.0 / Framework 0.20.0 fan-out, line contents, treatment and optional Shipbreaker 0.17.0 coolant servicing. Earlier version-specific sections below retain their baseline scope.
+Current operating follow-up: [the furnace guide](furnace-player-guide.md) covers optional serviceable coolant, local cargo recovery and maintenance. Drain serviceable fluid before changing modes or removing equipment. The sealed-loop assumptions below describe the original mode, not a restriction on the later finite-coolant option.
+
+Implementation history: [fluid-network operations](fluid-network-operations.md) documents Agriculture 0.6.0 / Framework 0.20.0 fan-out, line contents, treatment and optional Shipbreaker 0.17.0 coolant servicing. Earlier version-specific sections below retain their baseline scope.
 
 Shipbreaker **0.16.0**, Framework **0.19.0**. Prepared candidate; not installed
 or gameplay-validated. This extends the shared routing begun in
@@ -65,7 +67,7 @@ radiating area, 100 kW transfer bound and insulation model remain authoritative.
 Pipe hold-up, transport delay, pressure drop and separate pipe temperature are
 neglected. The jacket's one kilogram is structural mass. No water or coolant
 commodity is created, consumed, certified or returned to drinking-water tanks.
-A future fill/drain/leak simulation needs an explicit fluid mass/energy contract;
+Historical design boundary at 0.16.0: a fill/drain/leak simulation needed an explicit fluid mass/energy contract (the later optional implementation is linked above);
 the scalar Agriculture water transfer helper cannot supply that by itself.
 
 Piped circulation adds up to **1 kW** of electrical demand, accounted through
@@ -115,7 +117,7 @@ remain separate work with declared products and contaminated returns.
 The physical fitting, native cardinal sheets and installation conventions derive
 from Blue Bottle Games' [Ostranauts](https://bluebottlegames.com/ostranauts), observed
 in installed 1.0.1.5 definitions. The routing code and equipment are Phobos work.
-The existing [first-cycle research](furnace-first-cycle.md) retains the primary
+The existing [first-cycle research](development/furnace-first-cycle.md) retains the primary
 scientific attribution for the thermal baseline. This new route's pump rating,
 distance limit and lumped approximation are gameplay choices, not NASA/ESA
 qualification or an assertion about actual coolant performance.

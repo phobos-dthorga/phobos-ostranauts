@@ -8,7 +8,7 @@ apply; the one-rack restriction belongs to the historical water-only baseline.
 
 25 September 2026. **Agriculture 0.4.0 requires Framework 0.18.0.** Prepared
 implementation candidate, not installed or gameplay-validated. This implements
-the first stage of the [shared-fluid research](fluid-conduits-and-irrigation-research.md).
+the first stage of the [shared-fluid research](development/fluid-conduits-and-irrigation-research.md).
 This page records the water-only baseline. [Agriculture 0.5.0 nutrient-solution
 piping](agriculture-nutrient-solutions.md) extends the same W2 and pipes with
 finite mixed feed and shared liquid capacity. Multiple racks per pump and returns
@@ -59,7 +59,7 @@ two intact source outlets into one circuit blocks pumping: branching supply and
 shared allocation are deliberately outside this first slice. Cardinal corners,
 T-junctions and crosses connect; crosses never represent isolated crossing pipes.
 Normal installation is supported, including the native INSTALL > MISC entry
-(see [catalogue](install-catalogue.md)); continuous drag laying is not verified. Pipes can occupy
+(see [catalogue](development/install-catalogue.md)); continuous drag laying is not verified. Pipes can occupy
 electrical-conduit tiles through independent sockets; visual layering and native
 placement still need owner evaluation. Walls, flex floors and EVA tiles do not
 form valid water paths; there is no hull penetration or atmosphere opening.

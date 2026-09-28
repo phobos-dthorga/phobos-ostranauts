@@ -137,7 +137,7 @@ coverage measurements. No Unity session was run for this follow-up.
 
 ## Polaris readability update
 
-The [Polaris interface refresh](polaris-interface-refresh.md) gives Flight Hub
+The [Polaris interface refresh](development/polaris-interface-refresh.md) gives Flight Hub
 six larger tabs, full warning details, an installed-group picker and reversible
 volley adjustment. Industrial Control uses matching native button faces and
 wrapped navigation/actions at narrow widths. Existing Edit/rescue handling,

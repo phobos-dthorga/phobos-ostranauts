@@ -3,7 +3,7 @@
 Keep the ship moving, turn salvage into useful stock, and grow something worth
 eating. This guide starts with installation and the basic shipbreaking loop.
 
-- [Navigation and flight controls](auto-nav-instruments.md): fit a Polaris module,
+- [Navigation and flight controls](development/auto-nav-instruments.md): fit a Polaris module,
   select a sensor contact and choose Approach or Dock. Disengage leaves you coasting.
 - [Cultivation and cooking](agriculture-player-guide.md): grow potatoes or lettuce,
   cook portions and add irrigation when you need it.
@@ -13,7 +13,7 @@ eating. This guide starts with installation and the basic shipbreaking loop.
 - [Control panels](control-panel-guide.md): Apply/Discard, storage selection and training.
 - [Equipment references](item-references.md): what each item does, where to find it,
   installation, service bills and prices.
-- [Markets](solar-system-economy.md) and [stock quantities](merchant-stock.md):
+- [Markets](solar-system-economy.md) and [stock quantities](development/merchant-stock.md):
   availability depends on ordinary merchant restocking.
 
 **Prepared versions:** Phobos Framework **0.31.1**, Shipbreaker **0.31.0**, Auto Nav
@@ -35,7 +35,7 @@ verification and build instructions. Building is separate from installing.
 Crafting Framework, Salvage Workshop and Auto Navigate are not dependencies.
 Retain other providers when your save or other mods use their content. Original
 Auto Navigate must be disabled for our Auto Nav to engage; installing ours does
-not disable it automatically. Shipbreaker 0.24.0 requires Auto Nav 0.18.0+; [selected-G4 capture](shipbreaker-capture.md) uses existing N1/N2 hardware.
+not disable it automatically. Shipbreaker 0.24.0 requires Auto Nav 0.18.0+; [selected-G4 capture](development/shipbreaker-capture.md) uses existing N1/N2 hardware.
 
 After launch, these F3 commands report the actual loaded versions and readiness:
 
@@ -67,7 +67,7 @@ work. [Prices, bills, stock conditions and maintenance times](equipment-economy.
 are the authoritative balance reference.
 
 Equipment now uses **Phobos' Asterel** electronics and **Phobos' Rivetline**
-industrial model names. See the [equipment name directory](equipment-branding.md)
+industrial model names. See the [equipment name directory](development/equipment-branding.md)
 for the names to look for in shops and construction menus. The role names below
 remain shorthand; commands and saved IDs are unchanged.
 
@@ -146,8 +146,8 @@ Change settings with the game closed, then restart. Shipbreaker uses
 cycle time, electrical demand, queue continuation, transfer time and the F9 key.
 An already-started panel keeps its duration and recipe outputs. Unknown saved
 recipes stop with the panel retained; status explains the next action.
-[Job compatibility](processing-job-compatibility.md) and
-[complete settings and commands](shipbreaker-first-build.md).
+[Job compatibility](development/processing-job-compatibility.md) and
+[complete settings and commands](development/shipbreaker-first-build.md).
 
 | Symptom | Next useful check |
 | --- | --- |
@@ -170,7 +170,7 @@ connected workflow, retained materials and any actual failure you encounter.
 
 ## Auto Nav and current limits
 
-The [Polaris flight hub](auto-nav-instruments.md) is one tall instrument shared by
+The [Polaris flight hub](development/auto-nav-instruments.md) is one tall instrument shared by
 N1, N2 and N3. Use native **Edit** to place its new 25%-wide, 80%-high footprint in a
 clear column. Existing compact placements do not expand automatically or move
 other instruments. Keep the native map, sensors, warnings and Comms available.
@@ -212,12 +212,12 @@ Short-range approaches below **5,000 km** remain the immediate goal. No general
 obstacle avoidance, guaranteed pursuit or intact boarding guarantee is supplied.
 Use a clear route and keep specialist native instruments accessible. Numerical
 checks and offline layout proofs are not gameplay validation; see the
-[validation record](auto-nav-hub-validation.md). No installation or
+[validation record](development/auto-nav-hub-validation.md). No installation or
 publication is implied by this prepared redesign.
 
 ## Industrial controls (0.10.0)
 
-[Console and equipment panel guide](industrial-console-player-guide.md): a 3 x 3 ship-bound workstation, local Control Panels, automatic grouping, search, Attention and routing. The current Shipbreaker 0.31.0 requires Framework 0.31.0 and Auto Nav 0.19.0 and includes [shared observations](shared-console-observations.md) and optional [shared completion cues](shared-completion-cues.md). Prepared for owner testing; no in-game validation claimed.
+[Console and equipment panel guide](industrial-console-player-guide.md): a 3 x 3 ship-bound workstation, local Control Panels, automatic grouping, search, Attention and routing. The current Shipbreaker 0.31.0 requires Framework 0.31.0 and Auto Nav 0.19.0 and includes [shared observations](development/shared-console-observations.md) and optional [shared completion cues](shared-completion-cues.md). Prepared for owner testing; no in-game validation claimed.
 
 Agriculture now supports [finite potato and lettuce nutrient-solution piping](agriculture-nutrient-solutions.md) through its W2 supply and irrigation conduits.
 
@@ -237,4 +237,4 @@ Secured two-ship towing is supported for ordinary flight, FCS and Combat; see [t
 
 ### Moving equipment and assembly sections
 
-Loose machines and bulky assembly sections use the native drag slot. The game may label the action Pick Up; this does not mean the item fits in a hand or ordinary container. Installed equipment must be uninstalled first. D4-S, R4-S and F6-S sections are recipe inputs, so they do not have machine controls or an INSTALL entry. Place them near a supported construction table. Existing saved cargo stays in place; put any previously held heavy section down once to use corrected handling. See the [item handling audit](item-handling-audit.md).
+Loose machines and bulky assembly sections use the native drag slot. The game may label the action Pick Up; this does not mean the item fits in a hand or ordinary container. Installed equipment must be uninstalled first. D4-S, R4-S and F6-S are unfinished sections. Choose Assembly information for instructions, then Install on a section or the completed machine in INSTALL > APPS to place a construction site. Deliver two D4-S, two R4-S or three F6-S separately; final assembly no longer happens at a table. Sections have no operating-machine controls. Existing saved cargo stays in place; put any previously held heavy section down once to use corrected handling. See the [item handling audit](development/item-handling-audit.md).

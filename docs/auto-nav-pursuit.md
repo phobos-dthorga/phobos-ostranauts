@@ -10,12 +10,12 @@ Implemented and checked offline; owner-run gameplay evaluation is still pending.
 The original reported flight has not been reproduced. No installation or save
 changes are implied by this document.
 
-Current Auto Nav 0.22.0 adds [Combat with N3](auto-nav-combat.md): explicitly match a fire target while preserving the previous mission for Resume. The older version-specific implementation record below remains historical.
+Auto Nav 0.22.0 introduced [Combat with N3](auto-nav-combat.md): explicitly match a fire target while preserving the previous mission for Resume. The older version-specific implementation record below remains historical.
 
 ## Operating the N2 instrument
 
 **Phobos' Asterel N2 Polaris Pursuit Module** adds pursuit capability to the
-[shared flight hub](auto-nav-instruments.md) in the existing Auto Nav package.
+[shared flight hub](development/auto-nav-instruments.md) in the existing Auto Nav package.
 N1 is not required. Either module supplies navigation/docking; pursuit requires working N2.
 Fire controls require N3. Any combination produces one hub and one service
 owns flight. Place the new tall hub through native Edit; old compact placements

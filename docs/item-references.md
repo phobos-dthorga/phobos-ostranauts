@@ -12,4 +12,4 @@ Choose your mod for what each object does, how to use it, where it appears, and 
 
 Manufacturing is explicitly empty while it remains a scaffold. Framework documents shared spent parts.
 
-For placement tabs, see [INSTALL catalogue](install-catalogue.md). For refreshing these documents, see [reference maintenance](item-reference-maintenance.md).
+For placement tabs, see [INSTALL catalogue](development/install-catalogue.md). For refreshing these documents, see [reference maintenance](development/item-reference-maintenance.md).

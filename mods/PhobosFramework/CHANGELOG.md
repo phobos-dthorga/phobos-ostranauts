@@ -8,6 +8,8 @@ Dates on Draft entries record preparation, not Steam publication.
 
 ### Documentation
 
+- Audit linked player documentation and correct generated placement wording for section assembly while preserving direct installation of complete machinery. No gameplay or save changes.
+
 - Extend maintained item evidence to actual native maintenance generation, attachment and fresh/worn/contained target checks. Document shared dismantling restrictions for cargo, lots and stacks; add a read-only aggregate save audit. Runtime behaviour is unchanged.
 
 - Investigated additive bulk-storage and station-purchase contracts for Agriculture, including native refuelling and Ship's Water coexistence, custody, reservations and UI isolation. Published a research blueprint; no new runtime API, equipment or service is registered.
@@ -48,7 +50,7 @@ Dates on Draft entries record preparation, not Steam publication.
 ### Changed
 
 - Add a shared stock-coverage helper that fills omitted item offers without duplicating an already prepared lot or replacing its condition. Existing merchant inventories, native pricing and other providers remain untouched.
-- Applies to future native stock and loot generation; no forced restocks, saved-cargo changes, price changes or live gameplay validation. See [merchant availability and salvage](https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/merchant-stock.md).
+- Applies to future native stock and loot generation; no forced restocks, saved-cargo changes, price changes or live gameplay validation. See [merchant availability and salvage](https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/development/merchant-stock.md).
 
 ## [0.30.2] - 2026-09-27 - Draft
 
@@ -56,7 +58,7 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Add opt-in native transport-action normalization shared by content mods: retain useful actions, add missing pickup/drop, match stack actions to stack limits and keep installed machinery out of carry slots.
 - Restore declared cumbersome flags in detached load data for explicitly registered bulky cargo. Preserve saved hand placement until successful native release, then retire the legacy hand attachment. No save files, contents, mass, wear or progress are rewritten.
-- Audited all 118 implemented item definitions and checked native action/slot contracts offline. Live menus and loaded inventory handling still require owner testing; see the [item handling audit](https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/item-handling-audit.md).
+- Audited all 118 implemented item definitions and checked native action/slot contracts offline. Live menus and loaded inventory handling still require owner testing; see the [item handling audit](https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/development/item-handling-audit.md).
 
 ## [0.30.1] - 2026-09-27 - Draft
 
@@ -99,14 +101,14 @@ Additive Framework API update; normal game/loader requirements remain unchanged.
 
 ### Compatibility and limits
 
-- Public helper additions are additive; save formats and gameplay rules are unchanged. See docs/performance-audit.md for the six baseline captures, complete source ledger and offline checks. Follow-up captures and measured improvement targets are deferred by owner direction; Unity interaction and performance remain unverified.
+- Public helper additions are additive; save formats and gameplay rules are unchanged. See docs/development/performance-audit.md for the six baseline captures, complete source ledger and offline checks. Follow-up captures and measured improvement targets are deferred by owner direction; Unity interaction and performance remain unverified.
 
 ## [0.28.1] - 2026-09-27 - Draft
 
 ### Documentation
 
 - Review English controls, warnings, descriptions and help for practical player language; retain precise diagnostics and established equipment names. Update current guides, item-reference inputs and the Workshop draft.
-- Follow the retrospective language rule and glossary in docs/player-language.md, informed by Blue Bottle Games' official Ostranauts description and Daniel Fedor's developer AMA. This is an interest-based audience interpretation, not measured demographic data.
+- Follow the retrospective language rule and glossary in docs/development/player-language.md, informed by Blue Bottle Games' official Ostranauts description and Daniel Fedor's developer AMA. This is an interest-based audience interpretation, not measured demographic data.
 
 ### Compatibility and limits
 
@@ -191,7 +193,7 @@ Additive Framework API update; normal game/loader requirements remain unchanged.
 
 - Correct outgoing ship dimensions after native save trimming. Blue Bottle Games' inspected Ostranauts 1.0.1.5 writes dimensions before trimming but room/zone indices afterwards; removal of edge objects can therefore produce an internally inconsistent save.
 - Load an affected save using a uniquely validated smaller grid, requiring the full exterior boundary and all saved room positions to agree. Correct only in-memory dimensions before Shipbreaker's padding guard. Preserve room IDs, atmosphere, zones, items, wear and construction progress; reject missing or ambiguous evidence. Original archives are not edited.
-- The supplied later autosave resolves from its stale 64-by-44 header to 63 by 44, restoring all eight room-position lookups offline. The earlier save remains 64 by 44. Both earlier guards ran; trusting the stale header was the remaining Phobos contribution. See the [evidence and reload check](https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/shipbreaker-room-load-mitigation.md).
+- The supplied later autosave resolves from its stale 64-by-44 header to 63 by 44, restoring all eight room-position lookups offline. The earlier save remains 64 by 44. Both earlier guards ran; trusting the stale header was the remaining Phobos contribution. See the [evidence and reload check](https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/development/shipbreaker-room-load-mitigation.md).
 
 ### Compatibility and limits
 
@@ -213,7 +215,7 @@ Additive Framework API update; normal game/loader requirements remain unchanged.
 
 ### Compatibility and limits
 
-- Keep Shipbreaker 0.19.1 or newer for its separate saved-grid protection. Framework's health correction does not replace it, restore already-lost gas or recover missing providers. Shipbreaker 0.21.0 was installed for this Framework-only update. Automated checks cover native hook boundaries and both supplied saves; the owner subsequently confirmed the reported reload worked. The separate stale-header recurrence is addressed in 0.24.1. See the [investigation and owner check](https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/shipbreaker-room-load-mitigation.md).
+- Keep Shipbreaker 0.19.1 or newer for its separate saved-grid protection. Framework's health correction does not replace it, restore already-lost gas or recover missing providers. Shipbreaker 0.21.0 was installed for this Framework-only update. Automated checks cover native hook boundaries and both supplied saves; the owner subsequently confirmed the reported reload worked. The separate stale-header recurrence is addressed in 0.24.1. See the [investigation and owner check](https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/development/shipbreaker-room-load-mitigation.md).
 
 ## [0.23.0] - 2026-09-26 - Draft
 
@@ -292,5 +294,5 @@ Ostranauts 1.0.1.5 and BepInEx 5 (inspected baseline 5.4.23.5). No Shipbreaker, 
 
 ### References
 
-- [Current mod guide](https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/framework-author-guide.md)
+- [Current mod guide](https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/development/framework-author-guide.md)
 - [Authorship and third-party terms](https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/THIRD_PARTY_NOTICES.md)

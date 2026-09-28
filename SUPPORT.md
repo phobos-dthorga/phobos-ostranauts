@@ -9,7 +9,7 @@ Support is best-effort, without a promised response time.
 
 | Symptom | What to check |
 | --- | --- |
-| Source ZIP has no DLLs / package missing | Source archives are not installable releases. See [download status](docs/getting-started.md#can-i-download-and-play-today) and [builds](docs/building.md). |
+| Source ZIP has no DLLs / package missing | Source archives are not installable releases. See [download status](docs/getting-started.md#can-i-download-and-play-today) and [builds](docs/development/building.md). |
 | Launcher cannot find PowerShell | Install PowerShell 7; Windows PowerShell 5.1 is insufficient. |
 | Build cannot find Phobos Scope | Run `git submodule update --init --recursive` in a Git clone. ZIPs omit submodules. |
 | No Phobos commands or equipment | Check loader setup, plugin/native files, enabled native entries and startup log. Run installer `-VerifyOnly` for selected mods. |

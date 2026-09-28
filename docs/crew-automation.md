@@ -109,7 +109,7 @@ terminal's existing actions, including those supplied by
 [jossla's Study at Terminals](https://steamcommunity.com/sharedfiles/filedetails/?id=3788237703).
 An unavailable or damaged terminal cannot grant training. These training
 thresholds and the duration factor are gameplay choices, maintained with
-the [constants updater](updating-constants.md).
+the [constants updater](development/updating-constants.md).
 
 ## Time-skip
 

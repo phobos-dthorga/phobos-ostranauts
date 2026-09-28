@@ -47,4 +47,4 @@ The original project artwork and mechanical derivatives are within the repositor
 MIT scope. No exclusive rights in generated imagery or rights over Ostranauts art
 are claimed. The masters and prompts remain available for further revisions.
 
-Related: [transport design discussion](../../docs/underfloor-material-transport.md).
+Related: [transport design discussion](../../docs/development/underfloor-material-transport.md).

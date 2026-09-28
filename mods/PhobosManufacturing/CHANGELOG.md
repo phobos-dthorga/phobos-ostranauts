@@ -37,5 +37,5 @@ Scaffold baseline: Ostranauts 1.0.1.5, BepInEx 5 and Phobos Framework 0.17.0 or 
 
 ### References
 
-- [Current mod guide](https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/manufacturing-implementation.md)
+- [Current mod guide](https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/development/manufacturing-implementation.md)
 - [Authorship and third-party terms](https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/THIRD_PARTY_NOTICES.md)

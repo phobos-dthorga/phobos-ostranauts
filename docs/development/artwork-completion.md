@@ -1,0 +1,74 @@
+# Dedicated item and equipment artwork
+
+Prepared 27 September 2026 for Agriculture 0.15.0, Shipbreaker 0.28.0 and
+Framework 0.28.0. This is original AI-assisted artwork with offline validation;
+owner gameplay and visual approval remain pending. No game installation or
+Steam publication was performed.
+
+## Coverage
+
+| Area | Dedicated additions |
+| --- | --- |
+| Agriculture supplies (7) | Recorded crop residue, recovered concentrate, makeup salts, progressive mixture, spent biomass, Recycler wet rejects, bulk nutrient charge |
+| Shipbreaker supplies/intermediates (8) | Fresh coolant, retained coolant, classified reclaimer feed, terminal reclaimer rejects, melt remainder, housing blank, R4 section, F6 section |
+| Agriculture equipment (4 families) | Firstlight-4 rack, Hearth-2 cooker, W2 supply, B2 workup bench |
+| Shipbreaker equipment (7 families) | Hull chute, exterior grabber, residue collector, R4 reclaimer, F6 furnace, F6-R radiator, F6-P underside thermal port |
+
+Each equipment family has three new registered states: damaged installed,
+packed intact, and packed damaged. Its existing approved installed chassis is
+retained. **48 selected provider masters** produce **136 native PNGs**, including
+matching neutral normal maps, eighteen damaged crop-stage compositions and two
+damaged directional thermal-port compositions. Neutral maps do not provide
+authored surface relief. Protective covers and straps are visual state cues;
+they do not introduce new inventory items or material outputs.
+
+The cooked Hearth potato portion already had dedicated artwork before this
+pass. Existing food, seed and other approved stock art remains intact. R3 already
+has dedicated intact/damaged masters and intentionally shares its chassis with
+the loose forms. Native N2/N3 board art and Framework maintenance waste remain
+intentional reuse of game resources at runtime, with no game textures bundled.
+Manufacturing M4, proposed machining products and underfloor terminal concepts
+remain design-only; their unsettled equipment contracts are not converted into
+production assets by this pass.
+
+## Review and provenance
+
+The [provenance notes](../../assets/artwork-completion/README.md),
+[selected master manifest](../../assets/artwork-completion/manifest.json) and
+[runtime hashes](../../assets/artwork-completion/runtime-hashes.json) retain origins
+and exact export identities. Preview sheets show native sprites beside integer
+enlargements: [supplies](../../assets/artwork-completion/preview-1.png),
+[equipment states](../../assets/artwork-completion/preview-2.png),
+[packed states](../../assets/artwork-completion/preview-3.png).
+
+PixelLab generated the new details. Only original Phobos art or text was supplied;
+no Blue Bottle Games artwork was uploaded. PixelLab's
+[terms of service](https://www.pixellab.ai/termsofservice) are recorded separately
+from code licensing. The account allowance decreased from 1,952 to 1,894 included
+generations during this pass (58), including rejected candidates and retries.
+No credits were purchased or charged; the credit balance remained $0. One B2
+damage request failed with a provider timeout before a successful retry.
+
+The [overhead-first policy](asset-generation-policy.md#overhead-first-pixellab-rule--owner-direction-27-september-2026)
+requires a vertical orthographic prompt, top surfaces only, no visible side
+faces, high top-down/non-isometric settings where supported, and a reviewed
+overhead reference for variants. Inspect the first result before expanding a
+batch. Prompt controls reduce wasted attempts but cannot guarantee projection.
+
+## Integration and verification
+
+Native footprints, pivots, sockets, item IDs, recipe outputs and contents are
+unchanged. The shared Framework binding only assigns image and portrait fields.
+Agriculture retains saved crop-stage overlays when installed machinery is damaged;
+F6-P retains its existing left/right coupling inserts. Registration references
+restore the exact existing silhouette, and selected damage patches retain the
+original chassis outside the authored damaged regions.
+
+In a source checkout with Python and Pillow, run
+`python scripts/export-completion-art.py --check` for byte-for-byte verification
+of retained masters, source resolution and all direct/composed native exports.
+Ordinary builds package committed PNGs and provenance; they never generate art.
+The native checks load the real game definitions to verify all 48 selected item
+bindings, dimensions and presentation-only state binding. Existing crop checks
+also cover the eighteen damaged stages. These checks do not render Unity or
+demonstrate save/load, lighting, wear blending or the owner's in-game approval.

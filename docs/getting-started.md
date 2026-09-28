@@ -15,7 +15,7 @@ An empty page means there is no published package yet. You do not need to learn
 to compile mods to follow the project; GitHub's Watch menu can notify you about
 releases. There is no Phobos Workshop subscription link supplied here yet.
 
-Comfortable building experimental software? Follow [building from source](building.md).
+Comfortable building experimental software? Follow [building from source](development/building.md).
 Clone with submodules: Framework uses the separately maintained Phobos Scope
 recorder. Download ZIP omits that dependency.
 
@@ -58,7 +58,7 @@ named-test-save requirement for the current suite.
 | Process identified residue into metals | [Scrap reclaimer](scrap-reclaimer.md) |
 | Manage machines from one workstation | [Industrial console](industrial-console-player-guide.md) |
 | Cast aluminium housings | [Electric furnace](furnace-player-guide.md) |
-| Approach a target or dock | [Auto Nav](auto-navigate-adaptation.md) and [docking](auto-nav-docking.md) |
+| Approach a target or dock | [Auto Nav](development/auto-navigate-adaptation.md) and [docking](auto-nav-docking.md) |
 | Grow food and cook portions | [Agriculture](agriculture-player-guide.md) |
 
 ## What to expect
@@ -79,7 +79,7 @@ named-test-save requirement for the current suite.
   prefer current player guides for operating instructions.
 - **Updating is not uninstalling.** Do not remove a provider from a save that
   contains its equipment, cargo or jobs. There is no general save-cleanup or
-  guaranteed downgrade tool; see [dependency contingencies](dependency-contingencies.md).
+  guaranteed downgrade tool; see [dependency contingencies](development/dependency-contingencies.md).
 
 ## Useful terms
 

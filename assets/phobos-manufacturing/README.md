@@ -3,7 +3,7 @@
 25 September 2026. **Planning only. No raster assets generated or approved.**
 The working proposal is Phobos' Rivetline M4 Enclosed Machining Centre; M4 is a
 provisional model designation. Its source-backed design is in the repository's
-`docs/manufacturing-research.md` and the prepared package's
+`docs/development/manufacturing-research.md` and the prepared package's
 `manufacturing-research.md`. These notes are packaged as `manufacturing-art-brief.md`.
 
 ## First useful pilot
@@ -13,7 +13,7 @@ overhead base-plus-workpiece composite before expanding the state family.
 The owner's updated 25 September policy permits a ChatGPT high-resolution
 enclosure master when useful, with separate PixelLab workpieces, fittings and
 state sprites. PixelLab remains preferred for simpler layers; neither provider
-nor a dual-provider pass is mandatory. Follow `docs/asset-generation-policy.md`
+nor a dual-provider pass is mandatory. Follow `docs/development/asset-generation-policy.md`
 and the Agriculture layering precedent, without importing its artwork.
 
 Read current capability/allowance/cost before submitting a generation. Research

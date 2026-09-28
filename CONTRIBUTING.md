@@ -2,7 +2,7 @@
 
 Questions, documentation fixes, translations, reproducible bug reports and code
 are welcome. Start with [the player introduction](docs/getting-started.md) or
-[developer setup](docs/building.md), depending on what you want to do.
+[developer setup](docs/development/building.md), depending on what you want to do.
 
 **Temporary maintainer workflow (25 September 2026):** while preparing for Steam
 publication, owner-directed maintainer and agent changes use checked commits and
@@ -18,7 +18,7 @@ and PR instructions below remain available to external contributors.
 2. Fork and create a focused branch. Keep unrelated edits out.
 3. Describe the problem, resulting behaviour, checks and remaining limits.
    Screenshots help with UI changes; prefer GitHub-native Mermaid for flowcharts.
-4. Run the relevant [checks](docs/building.md#contributing-and-checks).
+4. Run the relevant [checks](docs/development/building.md#contributing-and-checks).
    Documentation-only contributions do not require the game or compilation.
 5. Open a pull request. Expect review and possible revisions; there is no fixed
    review timetable.
@@ -28,11 +28,11 @@ for gameplay reports and [SECURITY](SECURITY.md) for sensitive vulnerabilities.
 
 ## Design and testing
 
-Use the [version and constants updater](docs/updating-constants.md) for registered
+Use the [version and constants updater](docs/development/updating-constants.md) for registered
 values instead of editing their copies independently. Its preview and JSON
 verification are also useful when preparing a change for review.
 
-Read [AGENTS.md](AGENTS.md) and [project direction](docs/project-direction.md)
+Read [AGENTS.md](AGENTS.md) and [project direction](docs/development/project-direction.md)
 before changing behaviour. Prefer useful working slices. UI presents state and
 delegates to checked services. Shared services belong in Framework when concrete
 consumers need them; content owns balance. Preserve saved identities, inventories,
@@ -45,14 +45,14 @@ machine paths. Use synthetic fixtures.
 
 ## Writing and translations
 
-Every mod change must maintain its [changelog and Workshop publication records](docs/workshop-publication.md).
+Every mod change must maintain its [changelog and Workshop publication records](docs/development/workshop-publication.md).
 Update the owning changelog and page draft together, regenerate per-version Steam
 notes, and run `python scripts/workshop-release-notes.py --check --format json`.
 Draft records do not authorize publishing or imply a released mod.
 
 Player guides describe implemented behaviour; research distinguishes proposals,
 observations and assumptions. Use complete messages and stable keys in
-[translation catalogs](docs/localization.md), and follow the [brand register](docs/equipment-branding.md).
+[translation catalogs](docs/development/localization.md), and follow the [brand register](docs/development/equipment-branding.md).
 
 Name NASA, ESA, original researchers, game documentation and mod authors beside
 the claims their work supports, with primary-source links. Separate findings

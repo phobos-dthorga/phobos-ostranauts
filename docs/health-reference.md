@@ -17,12 +17,12 @@ in-game treatment trial**. It describes game mechanics, not real-world medicine.
 - [Fatal outcomes and intervention windows](#fatal-outcomes-and-intervention-windows)
 - [Chronic ailments, all scar families, traits and emotional health](health-chronic-and-traits.md)
 - [Medicines, dressings, clinical services and recreational drugs](health-treatments-and-drugs.md)
-- [Sources, coverage, anomalies and verification priorities](health-evidence-and-gaps.md)
+- [Sources, coverage, anomalies and verification priorities](development/health-evidence-and-gaps.md)
 
 **D** means a definition or connected data path was inspected. **C** means selected
 runtime code was also inspected. **I** means a gameplay/design inference, not a
 verified outcome. Every section names its local source entries; full source paths
-are indexed in the [evidence record](health-evidence-and-gaps.md#local-source-map).
+are indexed in the [evidence record](development/health-evidence-and-gaps.md#local-source-map).
 There is no gameplay-tested evidence tier in this research round.
 
 The catalogue covers the medical families found in the installed core data,
@@ -253,6 +253,6 @@ These are **design inferences**, not implemented features.
 
 Implementation should retain native ownership and timing, put mutations in shared
 gameplay services, and keep UI observational. See the existing
-[medical-system vision](medical-system-vision.md),
-[runtime findings](medical-runtime-findings.md) and
-[bounded next experiments](medical-next-steps.md).
+[medical-system vision](development/medical-system-vision.md),
+[runtime findings](development/medical-runtime-findings.md) and
+[bounded next experiments](development/medical-next-steps.md).

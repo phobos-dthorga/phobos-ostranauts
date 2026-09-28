@@ -20,8 +20,8 @@ usage. No generation costs are invented. Original outputs follow the providers'
 recorded terms and the repository asset policy.
 
 Blue Bottle Games' Ostranauts tanks, pumps and instruments were inspected only
-as local references in the [art audit](../../../docs/agriculture-bulk-storage-art.md).
+as local references in the [art audit](../../../docs/development/agriculture-bulk-storage-art.md).
 No native texture was submitted to a generator or added to distributed files.
-Scientific attribution belongs in the [research report](../../../docs/agriculture-bulk-storage-research.md),
+Scientific attribution belongs in the [research report](../../../docs/development/agriculture-bulk-storage-research.md),
 separate from this artwork provenance. Static registration checks do not establish
 in-game lighting, actual rotation/pivot appearance or owner approval.

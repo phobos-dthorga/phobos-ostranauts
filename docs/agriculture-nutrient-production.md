@@ -120,7 +120,7 @@ authored mixture; the model does not simulate individual N/P/K deficiencies.
 These are authored ideal-cycle values before work, electricity, capital,
 losses and merchant adjustments. Makeup costs 30 cr per 40 g; finished mixture
 uses the same 1,500 cr/kg base value as ordinary nutrients. See the regenerated
-[economic evidence](agriculture-economy-evidence.md), including construction,
+[economic evidence](development/agriculture-economy-evidence.md), including construction,
 service, salvage and crop-cost comparisons.
 
 **Jay Garland of Bionetics Corporation**, in **NASA Technical Memorandum
@@ -131,7 +131,7 @@ supports distinguishing recovered fractions from complete formulations.
 and **Stephanie Engeli's Eawag report on
 [VUNA (2018)](https://www.eawag.ch/en/info/portal/news/news-detail/fertiliser-from-urine-set-to-flourish/)**
 support separate waste conversion and treatment, not automatic sewage-to-feed.
-The [research record](agriculture-nutrient-recovery.md) states source access limits
+The [research record](development/agriculture-nutrient-recovery.md) states source access limits
 and distinguishes authors from hosting institutions. None of these sources
 establishes our 60% yield, equal-mass recipe, work rate, energy, price or safety,
 and none endorses the mod.

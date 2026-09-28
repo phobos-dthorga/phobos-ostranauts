@@ -9,7 +9,7 @@ compatibility floors remain supported. Build before installation; preview with
 
 **First visit?** Read [getting started](getting-started.md). This installer needs
 prepared packages; a GitHub source ZIP does not contain them. No installable
-GitHub release is published yet. Developers can [build the packages](building.md).
+GitHub release is published yet. Developers can [build the packages](development/building.md).
 
 For acquisition and operation after installation, use the
 [current player guide](player-guide.md).
@@ -24,12 +24,12 @@ includes its Auto Nav package automatically, including `-PackagePath` overrides
 (the dependency comes from `PackageRoot`). The installer rejects an older Auto
 Nav package before copying anything. `build-shipbreaker.ps1` prepares Auto Nav
 and Framework first. Preview-only artwork updates retain their existing scope.
-See [selected-G4 capture](shipbreaker-capture.md) for controls and current limits.
+See [selected-G4 capture](development/shipbreaker-capture.md) for controls and current limits.
 
 Shipbreaker **0.1.5+ also selects Phobos Framework automatically**. Its prepared
 package must be available beside the content packages. Building Shipbreaker
 prepares both packages. Shipbreaker 0.6.1 and Auto Nav 0.2.0 require Framework 0.6.0+ and are
-independent of OCF/SWB; see the [migration guide](phobos-framework.md).
+independent of OCF/SWB; see the [migration guide](development/phobos-framework.md).
 
 The installer finds Ostranauts through Steam's library records and remembers
 successful installation paths in `.local/install-settings.json` (ignored by Git).
@@ -154,7 +154,7 @@ This is not a transactional installer and does not automatically roll back.
 Its receipt records intended targets and prior existence; previous contents and
 `loading_order.before.json` support inspection and recovery. Use the receipt to investigate or [ask for help](../SUPPORT.md)
 before launching. Do not treat these snapshots as verified gameplay
-rollback versions; see [dependency contingencies](dependency-contingencies.md).
+rollback versions; see [dependency contingencies](development/dependency-contingencies.md).
 
 ## Where updates come from
 

@@ -35,12 +35,11 @@ Intact/damaged overlays are `PhobosNavModFireControl` and
 and `PhobosFireControlBoardDmg`. Construction is `PhobosBuildFireControl`.
 The authored balance matches N2: 0.4 kg, $5,400 intact/$1,350 damaged base value,
 two 0.5 kg electronics parts, 30 minutes and the existing 0.6 kg assembly offcuts.
-Native repair/Restore and mass-balanced 0.4 kg board residue are retained. The
-Polaris merchant has a 60% pristine offer chance. These are gameplay choices,
+Native repair/Restore and mass-balanced 0.4 kg board residue are retained. Current merchant chance and lot size are listed in the [maintained item reference](auto-nav-item-reference.md#n3); the [merchant policy](development/merchant-stock.md) supersedes the old 60% offer. These are gameplay choices,
 not real equipment performance or guaranteed merchant quotes. See the
 [economy guide](auto-nav-economy.md).
 
-Current Auto Nav 0.22.0 adds [explicit Combat and coordinated flight](auto-nav-combat.md).
+Auto Nav 0.22.0 introduced [explicit Combat and coordinated flight](auto-nav-combat.md).
 
 ## Using Fire
 
@@ -159,21 +158,21 @@ engineering proposal implemented here, not a claim about real fire control.
 
 N3 references native board artwork at runtime and reuses the approved tall
 faceplate. No new raster, game-asset redistribution or separate package is needed.
-Existing [artwork provenance](auto-nav-instruments.md#layout-artwork-and-verification) and upstream
+Existing [artwork provenance](development/auto-nav-instruments.md#layout-artwork-and-verification) and upstream
 guidance licence exclusions remain in force. Framework's minimum dependency
 remains 0.17.0; no speculative public navigation API was added.
 
 Offline verification covers capability/damage combinations, independent lifecycle,
 group ownership, finite volleys, native eligibility, save/reload, control loss and
 RCS limits. The compiled hub parser and installed native method/field contracts
-are also checked. See the [validation record](auto-nav-hub-validation.md) for
+are also checked. See the [validation record](development/auto-nav-hub-validation.md) for
 counts, rendered sizes and owner-run scenarios. Doubles and browser renders are
 not a Unity flight/combat session; live weapon consequences, panel dragging,
 missile behavior and mixed-mount pursuit remain owner evaluation items.
 
 ## Interface follow-up, Auto Nav 0.21.0
 
-See the [Polaris interface report](polaris-interface-refresh.md) for the group
+See the [Polaris interface report](development/polaris-interface-refresh.md) for the group
 picker, guided handoff, reverse volley click and visual review. Installed weapon
 inventory is separate from native active/ready weapons. An off Artemis remains
 visible with "Off: check power or control signal". Its native launcher definition

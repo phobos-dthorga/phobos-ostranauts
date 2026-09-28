@@ -1,6 +1,6 @@
 # Equipment economy and maintenance
 
-Current stock quantities: [bulk merchant lots](merchant-stock.md) supersede the older single-item offers below. These content versions require Framework 0.24.0+.
+Current stock quantities: [bulk merchant lots](development/merchant-stock.md) supersede the older single-item offers below. Use the [current dependency requirements](installing-mods.md); older version floors below describe their original releases.
 
 Regional acquisition now covers the current vanilla solar system: see the
 [solar-system economy guide](solar-system-economy.md) for availability, native
@@ -14,7 +14,7 @@ they are not measured gameplay outcomes. Gameplay validation remains pending.
 Auto Nav 0.4.0 rechecked the retained balance against **1.0.1.5**. Version 0.8.1
 now names the equipment **Phobos' Asterel N1 Polaris Auto Nav Module**. Its dedicated
 [acquisition and service guide](auto-nav-economy.md) covers native buy/sell
-filters, materials, timing and naming compatibility. Display names follow the [equipment brand directory](equipment-branding.md);
+filters, materials, timing and naming compatibility. Display names follow the [equipment brand directory](development/equipment-branding.md);
 role labels below are shorthand. This naming pass changes no prices or bills.
 The full value audit is
 regenerated from the current definitions below.
@@ -23,8 +23,8 @@ regenerated from the current definitions below.
 
 Agriculture 0.3.0 implements its separate economic pass: see the
 [current service and supply guide](agriculture-player-guide.md#economy-and-maintenance-030),
-[economic review](agriculture-economy-review.md) and
-[generated evidence](agriculture-economy-evidence.md). Its prices, repairs, salvage
+[economic review](development/agriculture-economy-review.md) and
+[generated evidence](development/agriculture-economy-evidence.md). Its prices, repairs, salvage
 and finite irrigation supplies are authored balance awaiting owner gameplay checks.
 
 Shipbreaker 0.12.0 adds the 240 kg F6 furnace ($24,000 functional / $6,000
@@ -75,9 +75,9 @@ and owner gameplay evaluation remain pending.
 
 The owner clarified that the concern was **dismantling our machines**, based on
 this document before gameplay testing. Material counts alone did not make the
-financial result clear. The [generated equipment audit](equipment-value-audit.md)
+financial result clear. The [generated equipment audit](development/equipment-value-audit.md)
 now calculates every row using the game's own data-only price evaluator, including
-wear. The separate [vanilla comparison](vanilla-economy-audit.md) records native
+wear. The separate [vanilla comparison](development/vanilla-economy-audit.md) records native
 equipment, salvage, repair inputs and merchant multipliers.
 Rerun both with `scripts/audit-economy.ps1 -OstranautsPath <game directory>`
 (`-PythonPath` accepts a Python executable when it is not on PATH). This reads
@@ -132,7 +132,7 @@ requires a versioned recipe and preservation of existing 13 kg residue/jobs.
 Native wall salvage also sometimes increases value, so copying it is insufficient
 as an economic justification. This remains a separate processing-balance decision:
 powered processing may add value, but that is not evidence of a machine-dismantling
-exploit. The [residue contract](residue-material-contract.md) keeps this recipe
+exploit. The [residue contract](development/residue-material-contract.md) keeps this recipe
 unchanged and states the additional value of its future recovery design explicitly.
 
 ## Acquisition and prices

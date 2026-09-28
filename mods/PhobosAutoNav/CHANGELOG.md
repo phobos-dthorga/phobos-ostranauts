@@ -8,6 +8,8 @@ Dates on Draft entries record preparation, not Steam publication.
 
 ### Documentation
 
+- Correct stale dependency and merchant advice and distinguish the old unscrolled hub from current compact controls, Combat and towing. Documentation only; gameplay and saves are unchanged.
+
 - Include all board forms, aliases and residues in the complete item-action audit. Native maintenance actions resolve and attach in offline checks; floor INSTALL is intentionally absent for slot-mounted boards. Live menu approval remains separate.
 
 - Retire the obsolete Approach Assist prototype from source, installer selections, Workshop preparation and item references. Auto Nav remains the supported navigation mod; historical source stays in Git.
@@ -24,14 +26,14 @@ Dates on Draft entries record preparation, not Steam publication.
 ### Changed
 
 - Raise equipment offer chances to at least 85% before the availability setting, fill missing N1/N2/N3 offers at general suppliers, and include all three boards in native module salvage. New configurations default to 30% total per eligible roll; existing saved settings remain authoritative. One board per successful salvage choice, with damaged-only pools preserved.
-- Applies to future native stock and loot generation; no forced restocks, saved-cargo changes, price changes or live gameplay validation. See [merchant availability and salvage](https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/merchant-stock.md).
+- Applies to future native stock and loot generation; no forced restocks, saved-cargo changes, price changes or live gameplay validation. See [merchant availability and salvage](https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/development/merchant-stock.md).
 
 ## [0.22.3] - 2026-09-27 - Draft
 
 ### Fixed
 
 - Keep board and remnant pickup/drop actions consistent with their actual stack limits through the shared handling helper. Preserve module slots, repair, restore, dismantling and navigation behaviour. Requires Phobos Framework 0.30.2.
-- Audited all 118 implemented item definitions and checked native action/slot contracts offline. Live menus and loaded inventory handling still require owner testing; see the [item handling audit](https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/item-handling-audit.md).
+- Audited all 118 implemented item definitions and checked native action/slot contracts offline. Live menus and loaded inventory handling still require owner testing; see the [item handling audit](https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/development/item-handling-audit.md).
 
 ## [0.22.2] - 2026-09-27 - Draft
 
@@ -124,7 +126,7 @@ Requires Phobos Framework 0.30.0 or newer; other provider requirements remain un
 ### Documentation
 
 - Review English controls, warnings, descriptions and help for practical player language; retain precise diagnostics and established equipment names. Update current guides, item-reference inputs and the Workshop draft.
-- Follow the retrospective language rule and glossary in docs/player-language.md, informed by Blue Bottle Games' official Ostranauts description and Daniel Fedor's developer AMA. This is an interest-based audience interpretation, not measured demographic data.
+- Follow the retrospective language rule and glossary in docs/development/player-language.md, informed by Blue Bottle Games' official Ostranauts description and Daniel Fedor's developer AMA. This is an interest-based audience interpretation, not measured demographic data.
 
 ### Compatibility and limits
 
@@ -181,7 +183,7 @@ Requires Phobos Framework 0.30.0 or newer; other provider requirements remain un
 
 - Store departure intent and detachment journals separately on the console. Reload never replays live thrust or blindly repeats a pending native mutation. Ground stations, ambiguous groups and secured towing are excluded.
 - Retain N1/N2 identities, artwork, existing flight preferences and Framework 0.24.0 dependency. Local avoidance is not a promise about hidden contacts or long-distance voyage planning. Existing upstream attribution and binary-distribution hold remain.
-- Add the [departure guide](https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/auto-nav-departure.md) and [offline validation record](https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/auto-nav-reclamation-validation.md). Builds and synthetic/native-boundary checks are not owner gameplay validation; Steam publication remains pending.
+- Add the [departure guide](https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/auto-nav-departure.md) and [offline validation record](https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/development/auto-nav-reclamation-validation.md). Builds and synthetic/native-boundary checks are not owner gameplay validation; Steam publication remains pending.
 
 ## [0.17.0] - 2026-09-26 - Draft
 
@@ -199,7 +201,7 @@ Requires Phobos Framework 0.30.0 or newer; other provider requirements remain un
 
 ### Validation and limits
 
-- Regression checks cover stale native switches, two local consoles, manual torch request, standard native pilots, foreign-console and independent-controller rejection. Build and offline checks do not validate Unity clicking or live flight. [Hub owner checks](https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/auto-nav-hub-validation.md) remain required. Prepared candidate; no Steam publication.
+- Regression checks cover stale native switches, two local consoles, manual torch request, standard native pilots, foreign-console and independent-controller rejection. Build and offline checks do not validate Unity clicking or live flight. [Hub owner checks](https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/development/auto-nav-hub-validation.md) remain required. Prepared candidate; no Steam publication.
 
 ## [0.16.0] - 2026-09-26 - Draft
 
@@ -210,7 +212,7 @@ Requires Phobos Framework 0.30.0 or newer; other provider requirements remain un
 
 ### Limits
 
-- Shipbreaker 0.22.0 uses this service for native capture/release. It does not provide cutting, automatic hull traversal or repeated downstream jobs. See the [capture guide](https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/shipbreaker-capture.md).
+- Shipbreaker 0.22.0 uses this service for native capture/release. It does not provide cutting, automatic hull traversal or repeated downstream jobs. See the [capture guide](https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/development/shipbreaker-capture.md).
 - Prepared offline; gameplay evaluation remains owner-run. Existing upstream provenance and distribution holds remain unchanged. No Steam publication.
 
 ## [0.15.0] - 2026-09-26 - Draft
@@ -300,7 +302,7 @@ Phobos Framework 0.21.0 or newer. Flight rules and saved IDs remain unchanged. G
 
 ### References
 
-- [Flight hub controls, migration and validation](https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/auto-nav-instruments.md)
+- [Flight hub controls, migration and validation](https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/development/auto-nav-instruments.md)
 - [Native docking evidence and preserved attachment contract](https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/auto-nav-docking.md)
 - [Real-ESRGAN by Xintao Wang, Liangbin Xie, Chao Dong and Ying Shan](https://github.com/xinntao/Real-ESRGAN)
 - [Pursuit research with NASA, ESA and original researcher attribution](https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/auto-nav-pursuit.md)
@@ -371,6 +373,6 @@ Ostranauts 1.0.1.5, BepInEx 5 and Phobos Framework 0.15.0 or newer. Original Aut
 
 ### References
 
-- [Current mod guide](https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/auto-navigate-adaptation.md)
+- [Current mod guide](https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/development/auto-navigate-adaptation.md)
 - [Authorship and third-party terms](https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/THIRD_PARTY_NOTICES.md)
 - [Auto Navigate by Gravy / mrkmg](https://steamcommunity.com/sharedfiles/filedetails/?id=3745533691)

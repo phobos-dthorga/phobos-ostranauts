@@ -12,7 +12,7 @@ BepInEx and Unity references are resolved from the owner's installation and are
 not bundled. No game assets or decompiled game source are included.
 
 Research attribution, dates, links and limits are beside the supported claims in
-`manufacturing-research.md` in the package (`docs/manufacturing-research.md` in
+`manufacturing-research.md` in the package (`docs/development/manufacturing-research.md` in
 the repository). NASA, ESA, Made In Space, Tormach and Sandvik Coromant are
 sources, not endorsers of this fictional equipment or its gameplay balance.
 

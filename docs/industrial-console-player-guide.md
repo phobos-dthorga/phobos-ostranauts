@@ -16,14 +16,14 @@ explains preparation, cooling and recovery. F3 uses
 `phobosindustry reclaim-start <console-ID> <G4-ID>` and the matching
 `reclaim-resume`, `reclaim-pause`, `reclaim-stop`, `reclaim-status` verbs.
 
-Shipbreaker 0.19.0 requires Framework 0.21.0. The
+The shared cues were introduced in Shipbreaker 0.19.0 with Framework 0.21.0. The
 [shared cue controls](shared-completion-cues.md) cover D4/R4 and optional Agriculture
 equipment through C1, with one suite-wide volume/mute setting.
 
 D4/R4 panels now offer **Notify on next batch completion**, **Cancel completion
 notification** and cue volume/mute. Watching is optional, never starts a job and
 clears on processing pause, fault or reload. See the
-[completion cue guide](shipbreaker-completion-cue.md) for scope and listening checks.
+[completion cue guide](development/shipbreaker-completion-cue.md) for scope and listening checks.
 
 Current packages: Shipbreaker **0.31.0**. Framework and Auto Nav are required;
 see [installation requirements](installing-mods.md) for current minimum versions.
@@ -100,7 +100,7 @@ replaced mass returns as spent material through Framework maintenance.
 Dismantling intact returns 16 steel, 8 aluminium, 8 mechanical parts, 4 electronics
 and 10 trash; broken returns 12 steel, 6 aluminium, 4 mechanical parts and 20 trash.
 Both retain **40 kg**. Output value is audited against the native whole-item value
-and wear tiers, not assumed equal to mass. See [economy policy](equipment-value-audit.md).
+and wear tiers, not assumed equal to mass. See [economy policy](development/equipment-value-audit.md).
 
 ## Observations
 
@@ -109,7 +109,7 @@ probes, with instrument ID, monitored compartment and validity. Missing readings
 are unknown; stale values are explicitly historical. Attention includes instrument
 problems. Equipment details retain the last recorded processing stop or collector
 fault/block and available probe evidence for this session. See
-[shared observations](shared-console-observations.md) for scope, limitations and
+[shared observations](development/shared-console-observations.md) for scope, limitations and
 the focused test sequence. Use `phobosindustry observations <console-ID>` for
 the same readings through F3. Losing console access also stops observation reads.
 
@@ -156,7 +156,7 @@ overlay, remote PDA commands, cargo locator or new conveyor simulation.
 
 Shipbreaker 0.22.0 requires Auto Nav 0.16.0+. Each G4 equipment entry now offers
 Bind selected target using an exact N1/N2 console, Start/Resume, Stop and Release.
-See [the capture guide](shipbreaker-capture.md) for F3 equivalents, ownership and
+See [the capture guide](development/shipbreaker-capture.md) for F3 equivalents, ownership and
 geometry requirements. Panels can close during approach. Capture does not start
 cutting or authorize the connected processor/furnace; those later stages retain
 separate permissions. Stop/release preserve cargo and do not brake the ship.
@@ -171,7 +171,7 @@ Selected tabs have a gold underline and bold text. Buttons have clearer edges
 and hover, pressed and disabled states. Navigation and fixed actions wrap at
 narrow widths, while equipment and details scroll independently. Draft settings
 and stop controls retain their existing checks. See the
-[Polaris refresh notes](polaris-interface-refresh.md) for controls and optional
+[Polaris refresh notes](development/polaris-interface-refresh.md) for controls and optional
 owner checks; browser previews do not establish Unity interaction approval.
 
 ## Missing maintenance actions

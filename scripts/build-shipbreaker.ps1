@@ -25,11 +25,11 @@ if ($LASTEXITCODE -ne 0) { throw 'Shared observation adapter/access checks faile
 if ($LASTEXITCODE -ne 0) { throw 'Independent construction/native-definition checks failed.' }
 
 . (Join-Path $PSScriptRoot 'build-package-support.ps1')
-$package = New-PhobosPackage -RepoRoot $repoRoot -Id PhobosShipbreaker -Readme 'docs/shipbreaker-first-build.md' -ExtraDocs @(
-    'docs/dependency-contingencies.md', 'docs/shipbreaker-material-uses.md', 'docs/shipbreaker-hull-mounting.md', 'docs/shipbreaker-room-load-mitigation.md',
-    'docs/underfloor-material-transport.md', 'docs/installing-mods.md', 'docs/phobos-framework.md', 'docs/framework-author-guide.md',
-    'docs/shipbreaker-hull-intake.md', 'docs/residue-collector.md', 'docs/material-disposal-port-research.md', 'docs/material-port-pairing.md', 'docs/equipment-economy.md',
-    'docs/equipment-value-audit.md', 'docs/vanilla-economy-audit.md', 'docs/industrial-control-console.md', 'docs/industrial-control-mockups.md', 'docs/industrial-console-player-guide.md'
+$package = New-PhobosPackage -RepoRoot $repoRoot -Id PhobosShipbreaker -Readme 'docs/development/shipbreaker-first-build.md' -ExtraDocs @(
+    'docs/development/dependency-contingencies.md', 'docs/shipbreaker-material-uses.md', 'docs/development/shipbreaker-hull-mounting.md', 'docs/development/shipbreaker-room-load-mitigation.md',
+    'docs/development/underfloor-material-transport.md', 'docs/installing-mods.md', 'docs/development/phobos-framework.md', 'docs/development/framework-author-guide.md',
+    'docs/shipbreaker-hull-intake.md', 'docs/residue-collector.md', 'docs/development/material-disposal-port-research.md', 'docs/material-port-pairing.md', 'docs/equipment-economy.md',
+    'docs/development/equipment-value-audit.md', 'docs/development/vanilla-economy-audit.md', 'docs/development/industrial-control-console.md', 'docs/development/industrial-control-mockups.md', 'docs/industrial-console-player-guide.md'
 )
 $materialGuide = Get-Content -LiteralPath (Join-Path $package 'shipbreaker-material-uses.md') -Raw
 $materialGuide = $materialGuide.Replace('(shipbreaker-first-build.md)', '(README.md)')

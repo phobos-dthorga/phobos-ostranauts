@@ -8,6 +8,8 @@ Dates on Draft entries record preparation, not Steam publication.
 
 ### Documentation
 
+- Point the player guide to current dependencies and explain Maintenance information. Distinguish original loot/roadmap milestones from current installation advice. Documentation only; gameplay and saves are unchanged.
+
 - Include every Agriculture item in the complete action audit. Document why retained crops, fluids, jobs and R3 links can hide removal, and why loose conduit stacks require individual pieces for dismantling. No gameplay change is claimed.
 
 - Added source-backed bulk-storage calculations for 54 farm scenarios, an R3 water-reservoir and larger nutrient-charge proposal, and a local vanilla-art comparison workflow. Existing machinery, recipes, versions and installed files are unchanged; no production artwork was generated.
@@ -40,7 +42,7 @@ Dates on Draft entries record preparation, not Steam publication.
 ### Changed
 
 - Raise equipment offers to at least 85% and supplies to at least 95%, before the availability setting. Fill missing local stock, add regional produce/meal offers and Hearth meals to native food sellers. Engineering loot gains a 30% single-item choice across five intact/damaged equipment families; existing fridge/crate supply choices remain finite.
-- Applies to future native stock and loot generation; no forced restocks, saved-cargo changes, price changes or live gameplay validation. See [merchant availability and salvage](https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/merchant-stock.md).
+- Applies to future native stock and loot generation; no forced restocks, saved-cargo changes, price changes or live gameplay validation. See [merchant availability and salvage](https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/development/merchant-stock.md).
 
 ## [0.15.3] - 2026-09-27 - Draft
 
@@ -48,7 +50,7 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Restore native pickup/drop on loose appliances and conduit parts; remove stack actions from single items. Large Firstlight rack and R3 reservoir housing remains use cumbersome handling. Portable supplies and native food actions remain available.
 - Remove operating-work entries from damaged R3 reservoirs. Saved cargo remains intact, with legacy hand placement preserved until release. Requires Phobos Framework 0.30.2.
-- Audited all 118 implemented item definitions and checked native action/slot contracts offline. Live menus and loaded inventory handling still require owner testing; see the [item handling audit](https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/item-handling-audit.md).
+- Audited all 118 implemented item definitions and checked native action/slot contracts offline. Live menus and loaded inventory handling still require owner testing; see the [item handling audit](https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/development/item-handling-audit.md).
 
 ## [0.15.2] - 2026-09-27 - Draft
 
@@ -60,14 +62,14 @@ Dates on Draft entries record preparation, not Steam publication.
 ### Compatibility and limits
 
 - Requires Phobos Framework 0.29.0. Saved state, water, nutrients, power, heat, crop yields and recipes are unchanged.
-- See docs/performance-audit.md for the source review and baseline evidence. Further captures are deferred by owner direction; measured speedup and Unity interaction are unverified.
+- See docs/development/performance-audit.md for the source review and baseline evidence. Further captures are deferred by owner direction; measured speedup and Unity interaction are unverified.
 
 ## [0.15.1] - 2026-09-27 - Draft
 
 ### Documentation
 
 - Review English controls, warnings, descriptions and help for practical player language; retain precise diagnostics and established equipment names. Update current guides, item-reference inputs and the Workshop draft.
-- Follow the retrospective language rule and glossary in docs/player-language.md, informed by Blue Bottle Games' official Ostranauts description and Daniel Fedor's developer AMA. This is an interest-based audience interpretation, not measured demographic data.
+- Follow the retrospective language rule and glossary in docs/development/player-language.md, informed by Blue Bottle Games' official Ostranauts description and Daniel Fedor's developer AMA. This is an interest-based audience interpretation, not measured demographic data.
 
 ### Compatibility and limits
 

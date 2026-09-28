@@ -441,7 +441,7 @@
           "count": 1
         },
         {
-          "path": "docs/merchant-stock.md",
+          "path": "docs/development/merchant-stock.md",
           "pattern": "^\\| Agriculture\\ equipment \\| (?P<value>[0-9]+) \\|\\r?$",
           "count": 1
         }
@@ -464,7 +464,7 @@
           "count": 1
         },
         {
-          "path": "docs/merchant-stock.md",
+          "path": "docs/development/merchant-stock.md",
           "pattern": "^\\| Agriculture\\ irrigation\\ pipes \\| (?P<value>[0-9]+) \\|\\r?$",
           "count": 1
         }
@@ -487,7 +487,7 @@
           "count": 1
         },
         {
-          "path": "docs/merchant-stock.md",
+          "path": "docs/development/merchant-stock.md",
           "pattern": "^\\| Agriculture\\ consumables \\| (?P<value>[0-9]+) \\|\\r?$",
           "count": 1
         }
@@ -510,7 +510,7 @@
           "count": 1
         },
         {
-          "path": "docs/merchant-stock.md",
+          "path": "docs/development/merchant-stock.md",
           "pattern": "^\\| Shipbreaker\\ equipment \\| (?P<value>[0-9]+) \\|\\r?$",
           "count": 1
         }
@@ -533,7 +533,7 @@
           "count": 1
         },
         {
-          "path": "docs/merchant-stock.md",
+          "path": "docs/development/merchant-stock.md",
           "pattern": "^\\| Shipbreaker\\ assembly\\ sections \\| (?P<value>[0-9]+) \\|\\r?$",
           "count": 1
         }
@@ -556,7 +556,7 @@
           "count": 1
         },
         {
-          "path": "docs/merchant-stock.md",
+          "path": "docs/development/merchant-stock.md",
           "pattern": "^\\| Shipbreaker\\ coolant\\ pipes \\| (?P<value>[0-9]+) \\|\\r?$",
           "count": 1
         }
@@ -579,7 +579,7 @@
           "count": 1
         },
         {
-          "path": "docs/merchant-stock.md",
+          "path": "docs/development/merchant-stock.md",
           "pattern": "^\\| Shipbreaker\\ coolant\\ charges \\| (?P<value>[0-9]+) \\|\\r?$",
           "count": 1
         }
@@ -602,7 +602,7 @@
           "count": 1
         },
         {
-          "path": "docs/merchant-stock.md",
+          "path": "docs/development/merchant-stock.md",
           "pattern": "^\\| Auto\\ Nav\\ boards \\| (?P<value>[0-9]+) \\|\\r?$",
           "count": 1
         }
@@ -893,7 +893,7 @@
           "count": 1
         },
         {
-          "path": "docs/merchant-stock.md",
+          "path": "docs/development/merchant-stock.md",
           "pattern": "\\| Agriculture R3 reservoirs \\| (?P<value>[0-9]+) \\|",
           "count": 1
         }
@@ -915,7 +915,7 @@
           "count": 1
         },
         {
-          "path": "docs/merchant-stock.md",
+          "path": "docs/development/merchant-stock.md",
           "pattern": "\\| Agriculture 500 g nutrient charges \\| (?P<value>[0-9]+) \\|",
           "count": 1
         }

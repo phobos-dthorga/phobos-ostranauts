@@ -29,7 +29,7 @@ if ($LASTEXITCODE -ne 0) { throw 'Presentation and equipment-discovery checks fa
 & dotnet run --project (Join-Path $repoRoot 'tests/PhobosPerformance.Tests') -c Release
 if ($LASTEXITCODE -ne 0) { throw 'Performance capture adapter checks failed.' }
 . (Join-Path $PSScriptRoot 'build-package-support.ps1')
-$package = New-PhobosPackage -RepoRoot $repoRoot -Id PhobosFramework -Readme 'docs/framework-author-guide.md' -ExtraDocs @('docs/phobos-framework.md', 'docs/framework-bulk-storage.md', 'docs/material-port-pairing.md', 'docs/equipment-economy.md', 'docs/equipment-value-audit.md', 'docs/vanilla-economy-audit.md', 'docs/shipbreaker-room-load-mitigation.md')
+$package = New-PhobosPackage -RepoRoot $repoRoot -Id PhobosFramework -Readme 'docs/development/framework-author-guide.md' -ExtraDocs @('docs/development/phobos-framework.md', 'docs/development/framework-bulk-storage.md', 'docs/material-port-pairing.md', 'docs/equipment-economy.md', 'docs/development/equipment-value-audit.md', 'docs/development/vanilla-economy-audit.md', 'docs/development/shipbreaker-room-load-mitigation.md')
 Compress-Archive -Path (Join-Path $package '*') -DestinationPath "$package.zip" -Force
 Write-Output "Package: $package.zip"
 Write-Output 'No game files, load order or saves were changed.'

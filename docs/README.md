@@ -8,129 +8,65 @@ common failures and useful reports.
 
 ## Operating guides
 
-- [Navigation](auto-navigate-adaptation.md), [docking](auto-nav-docking.md) and [sensors](auto-nav-sensors.md).
+- [Flight Hub controls](control-panel-guide.md), [docking](auto-nav-docking.md), [Combat](auto-nav-combat.md), [towing](auto-nav-towing.md) and [sensors](auto-nav-sensors.md).
 - [Shipbreaker](player-guide.md), [reclaimer](scrap-reclaimer.md) and [automatic routing](automatic-material-routing.md).
-- [Industrial console](industrial-console-player-guide.md) and [electric furnace](furnace-player-guide.md).
+- [Industrial console](industrial-console-player-guide.md), [electric furnace](furnace-player-guide.md), and [section assembly and maintenance](section-assembly-and-maintenance.md).
 - [Agriculture](agriculture-player-guide.md) and [equipment acquisition/prices](equipment-economy.md).
 - [Fluid-network operations](fluid-network-operations.md): multi-rack distribution, retained lines, treatment and coolant servicing.
 - [Agriculture nutrient-solution piping](agriculture-nutrient-solutions.md): W2 formulation, finite feed and saved contents.
 
-## Development and evidence
+## More player references
 
-- [Autonomous Shipbreaker research](shipbreaker-autopilot-research.md) and
-  [implementation handover](shipbreaker-autopilot-handover.md) — selected G4,
-  native capture limits, required Auto Nav integration and the finite processing
-  chain; specification only, not delivered autopilot/cutting.
-- [G4 close-work geometry gate](shipbreaker-close-work-geometry.md) — native
-  deck/navigation scale mismatch and the selected native-capture arrangement.
-- [Selected-G4 capture](shipbreaker-capture.md) — prepared capture/release controls,
-  exact bindings, mandatory Auto Nav and the remaining acquisition boundary.
-- [Update versions and maintained constants](updating-constants.md) — previews, batch edits and JSON verification.
-
-- [Building](building.md), [contributing](../CONTRIBUTING.md), [Framework API](framework-author-guide.md) and [localization](localization.md).
-- [Project direction](project-direction.md), [public-source status](public-release-readiness.md), [licence](../LICENSE) and [third-party notices](../THIRD_PARTY_NOTICES.md).
-- [Artwork policy](asset-generation-policy.md) and [equipment branding](equipment-branding.md).
-- [Future animation and restrained sound cues](animation-and-sound-direction.md) — owner constraints, possible retrofits and proposed acceptance criteria.
-- [Quiet watched-batch completion cue](shipbreaker-completion-cue.md) — first optional D4/R4 audio trial, controls and listening checks.
-- [Shared completion cues](shared-completion-cues.md) — current support across Shipbreaker, Agriculture and Auto Nav.
-
-## Full reference index
-
-Research, first-build reports and dated inventories record evidence at the time
-of writing. They can include superseded designs and proposals, not current
-operating instructions. In particular, direct-fusion-first furnace research is
-superseded by the electrical route, Approach Assist is retired (Git history only), and
-Manufacturing/medical/asteroid concepts are not delivered gameplay systems.
-
-- [Phobos Agriculture: first-slice specification](agriculture-first-slice.md)
-- [Agriculture 0.2.0 implementation and validation](agriculture-implementation.md)
-- [Agriculture 0.2.0: living racks and galley furniture](agriculture-living-visuals.md)
-- [Phobos Agriculture 0.2.0](agriculture-player-guide.md)
-- [Phobos Agriculture: research findings](agriculture-research.md)
-- [Phobos Agriculture: endurance roadmap](agriculture-roadmap.md)
-- [Archived Approach Assist P0 prototype](https://github.com/phobos-dthorga/phobos-ostranauts/blob/a288ed2/docs/approach-assist-prototype.md)
-- [Artwork resolution policy](artwork-resolution-policy.md)
-- [Asset generation: layered ChatGPT bases and PixelLab sprites](asset-generation-policy.md)
-- [Asteroid resources for long-term life support](asteroid-life-support-research.md)
-- [Polaris docking â€” Auto Nav 0.8.0](auto-nav-docking.md)
+- [R3 agricultural water and bulk station supplies](agriculture-bulk-storage.md)
+- [Phobos Agriculture: equipment and item reference](agriculture-item-reference.md)
+- [Nutrient production and retained waste](agriculture-nutrient-production.md)
+- [Agriculture nutrient-solution piping](agriculture-nutrient-solutions.md)
+- [Phobos Agriculture](agriculture-player-guide.md)
+- [Lettuce seed production — Agriculture 0.7.0](agriculture-seed-production.md)
+- [Agriculture water conduits](agriculture-water-conduits.md)
+- [Auto Nav 0.22.0: docking repairs and Combat](auto-nav-combat.md)
+- [Local obstacle avoidance and departure](auto-nav-departure.md)
+- [Polaris docking — Auto Nav 0.12.0](auto-nav-docking.md)
 - [Phobos' Asterel N1 Polaris Auto Nav Module: acquisition and servicing](auto-nav-economy.md)
+- [Polaris N3 Fire Control System](auto-nav-fire-control.md)
 - [Auto Nav 0.10.0: flight controls, braking room and salvage](auto-nav-flight-profiles.md)
-- [Polaris instrument panel â€” Auto Nav 0.10.0](auto-nav-instruments.md)
-- [Auto Navigate comparison and current Auto Nav audit](auto-nav-outstanding-audit.md)
-- [Auto Nav panel layout audit](auto-nav-panel-layout-audit.md)
+- [Phobos Auto Nav: equipment and item reference](auto-nav-item-reference.md)
 - [Auto Nav saved flights (introduced 0.5.0; torch addition 0.6.0)](auto-nav-persistence.md)
+- [Polaris pursuit — Auto Nav 0.13.0](auto-nav-pursuit.md)
 - [Auto Nav live sensor contact (0.9.0)](auto-nav-sensors.md)
 - [Auto Nav torch propulsion (0.6.0)](auto-nav-torch.md)
-- [Phobos Auto Nav: standalone adaptation](auto-navigate-adaptation.md)
-- [Auto Navigate: reuse and permissions review](auto-navigate-reuse-review.md)
-- [Automatic material routing â€” 0.9.0](automatic-material-routing.md)
-- [Building from source](building.md)
-- [Chemical storage, process fluids and industrial hazards](chemical-storage-and-process-fluids.md)
-- [Dependency maintenance and fallback plan](dependency-contingencies.md)
-- [Equipment brands and models](equipment-branding.md)
-- [Solar-system economy](solar-system-economy.md) and [native regional evidence](solar-system-economy-evidence.md)
+- [Auto Nav secured towing](auto-nav-towing.md)
+- [Automatic material routing — 0.9.0](automatic-material-routing.md)
+- [Phobos control panels](control-panel-guide.md)
+- [Crew standing orders, training and time-skips](crew-automation.md)
 - [Equipment economy and maintenance](equipment-economy.md)
-- [Phobos equipment value audit](equipment-value-audit.md)
-- [First furniture experiment](first-furniture-experiment.md)
-- [Phobos Framework 0.15.0 â€” author guide](framework-author-guide.md)
-- [F6 attachment and instrument completion](furnace-connections-and-instruments.md)
-- [F6 electrical heating: selected direction](furnace-electrical-direction.md)
-- [F6 first processing cycle: research specification](furnace-first-cycle.md)
-- [F6 material routing: operation and safeguards](furnace-material-routing.md)
-- [F6 electric furnace: operating guide](furnace-player-guide.md)
+- [Fluid networks, treatment and coolant servicing](fluid-network-operations.md)
+- [Phobos Framework: equipment and item reference](framework-item-reference.md)
 - [F6 sealed coolant conduits](furnace-coolant-conduits.md)
+- [F6 material routing](furnace-material-routing.md)
+- [F6 electric furnace: operating guide](furnace-player-guide.md)
 - [F6 repair casting: replacement heat sinks](furnace-repair-castings.md)
-- [F6 vanilla UI reuse, layouts and graphics brief](furnace-ui-and-art.md)
-- [Fusion-powered industry: ideas and research sequence](fusion-industry-roadmap.md)
-- [Shared fluid conduits and plant sustenance](fluid-conduits-and-irrigation-research.md)
-- [Fusion furnace and instrument panel: feasibility and design](fusion-smelter-research.md)
 - [Getting started](getting-started.md)
 - [Chronic ailments, scars, traits and emotional health](health-chronic-and-traits.md)
-- [Health research: evidence, coverage and unresolved behavior](health-evidence-and-gaps.md)
 - [Ostranauts health, injury and drug reference](health-reference.md)
 - [Treatments, medicines and recreational drugs](health-treatments-and-drugs.md)
-- [Industrial controls â€” 0.11.0](industrial-console-player-guide.md)
-- [Industrial control console and equipment panels](industrial-control-console.md)
-- [Industrial control panels: text mockups](industrial-control-mockups.md)
+- [Industrial controls](industrial-console-player-guide.md)
 - [Installing and updating our mods](installing-mods.md)
-- [Limited autopilot nav module](limited-autopilot.md)
-- [Translation catalogs](localization.md)
-- [Locator experiment and decisions](locator-next-steps.md)
-- [PDA locator and installed sensors: research](locator-research.md)
-- [Phobos Manufacturing: handover for a separate task](manufacturing-handover.md)
-- [Phobos Manufacturing: scaffold and implementation plan](manufacturing-implementation.md)
-- [Phobos Manufacturing: first machining research](manufacturing-research.md)
-- [Hull disposal port and material routing](material-disposal-port-research.md)
+- [Phobos equipment and item references](item-references.md)
+- [Phobos Manufacturing: equipment and item reference](manufacturing-item-reference.md)
 - [Saved material-port pairing](material-port-pairing.md)
-- [From research to a useful medical experiment](medical-next-steps.md)
-- [Medical and portable-power research](medical-research.md)
-- [Medical and power runtime findings](medical-runtime-findings.md)
-- [Field and shipboard medical system](medical-system-vision.md)
-- [Installed mods and extension opportunities](mod-extension-survey.md)
-- [Initial modding findings](modding-notes.md)
-- [Alternative PDA cartridge ideas](pda-cartridge-ideas.md)
 - [Opt-in performance captures](performance-captures.md)
-- [Phobos Framework: independent foundation](phobos-framework.md)
 - [Current player guide](player-guide.md)
-- [Powered shipbreaking: power, materials and the first experiment](powered-shipbreaking-design-findings.md)
-- [Powered shipbreaking: feasibility and first observations](powered-shipbreaking-research.md)
-- [Processing jobs across recipe updates](processing-job-compatibility.md)
-- [Project direction](project-direction.md)
-- [Residue Collector â€” Shipbreaker 0.9.0 candidate](residue-collector.md)
-- [Residue composition and saved material contracts](residue-material-contract.md)
-- [Scrap reclaimer â€” prepared 0.9.0 candidate](scrap-reclaimer.md)
-- [Native sensors and Phobos instrumentation](sensor-integration-research.md)
-- [Shared console observations](shared-console-observations.md)
-- [Ship equipment art study: a direction for Phobos Shipbreaker](ship-equipment-art-study.md)
-- [Phobos Shipbreaker: first playable build](shipbreaker-first-build.md)
+- [Residue Collector](residue-collector.md)
+- [Scrap reclaimer — prepared 0.9.0 candidate](scrap-reclaimer.md)
+- [Section assembly and maintenance](section-assembly-and-maintenance.md)
+- [Quiet completion cues across Phobos mods](shared-completion-cues.md)
 - [Hull chute and exterior grabber](shipbreaker-hull-intake.md)
-- [Shipbreaker exterior mounting: owner feedback and design proposal](shipbreaker-hull-mounting.md)
+- [Phobos Shipbreaker: equipment and item reference](shipbreaker-item-reference.md)
 - [Shipbreaker outputs: existing maintenance and construction uses](shipbreaker-material-uses.md)
-- [Shipbreaker expansion: shredding, recycling and asteroid feedstocks](shipbreaking-material-processing-research.md)
-- [Terminal social network](terminal-social-network.md)
-- [Underfloor material transport â€” discussion proposal](underfloor-material-transport.md)
-- [Vanilla economy audit](vanilla-economy-audit.md)
+- [G4 automatic wall reclamation](shipbreaker-reclamation.md)
+- [Phobos economy across the vanilla solar system](solar-system-economy.md)
 
-- [Public source and release status](public-release-readiness.md)
+## For contributors
 
-- [Changelogs and Steam Workshop publication records](workshop-publication.md)
+[Development and research](development/README.md) has build instructions, design records, artwork policy and audits. These are separate from the operating guides above.

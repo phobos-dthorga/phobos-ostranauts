@@ -64,7 +64,7 @@ item is potable. Existing residue/reject identities are not reassayed.
 4. Completion recovers **90% of recorded water** into the nonpotable water
    buffer and **80% of recorded nutrients** into dry nutrient stock. Agriculture
    0.7.0 new jobs spend cartridge medium by batch mass, returning unused capacity;
-   [treatment economics](agriculture-treatment-economy.md) explains the 25 kg rating.
+   [treatment economics](development/agriculture-treatment-economy.md) explains the 25 kg rating.
    Older bound jobs still consume their whole 0.05 kg cartridge. Spent medium and
    unrecovered matter become terminal **Retained Treatment Rejects**.
 5. If water/nutrient capacity or output space is insufficient, all selected inputs

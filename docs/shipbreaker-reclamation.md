@@ -15,7 +15,7 @@ are retained. Prepared implementation and offline checks are not gameplay valida
    Keep its supporting hull walls intact. Provide power, D4 service-room cooling,
    product space and working RCS. Pair and authorize downstream collectors/R4
    separately if wanted.
-3. Bind the target and exact console/module through [G4 capture controls](shipbreaker-capture.md).
+3. Bind the target and exact console/module through [G4 capture controls](development/shipbreaker-capture.md).
    Choose **Start reclamation** locally at G4, or through C1. The mission chooses
    an exposed wall and a separate temporary anchor support, stages through Auto
    Nav, and establishes native physical capture before cutting.
@@ -104,7 +104,7 @@ new structural recipes, long-distance navigation or automatic furnace batching.
 
 Native uninstall, docking grids and collision-scale evidence comes from locally
 inspected [Blue Bottle Games' Ostranauts](https://bluebottlegames.com/ostranauts)
-1.0.1.5. See [geometry evidence](shipbreaker-close-work-geometry.md),
-[departure/avoidance](auto-nav-departure.md) and [offline validation](auto-nav-reclamation-validation.md).
+1.0.1.5. See [geometry evidence](development/shipbreaker-close-work-geometry.md),
+[departure/avoidance](auto-nav-departure.md) and [offline validation](development/auto-nav-reclamation-validation.md).
 The research links in those documents remain context, not institutional validation
 of fictional equipment or authored balance.

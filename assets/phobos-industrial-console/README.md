@@ -61,7 +61,7 @@ modular backplate is MEDIUM here because no remaining layout need warrants it.
 These are editorial judgements. No new images or rejected candidates were
 generated. Original masters and exports remain unchanged. Native button sprites
 are referenced at runtime only, never exported or supplied as generation inputs.
-See [the refresh report](../../docs/polaris-interface-refresh.md). The updated
+See [the refresh report](../../docs/development/polaris-interface-refresh.md). The updated
 policy allows MEDIUM-HIGH/HIGH replacements when a concrete need is demonstrated.
 
 ## Native appearance correction (27 September 2026)

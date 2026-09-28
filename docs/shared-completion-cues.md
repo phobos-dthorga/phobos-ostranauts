@@ -71,7 +71,7 @@ The original [audio records](../assets/phobos-shipbreaker/audio/README.md) retai
 the waveform's provenance: ChatGPT-authored procedural synthesis under the project
 MIT licence, not a recording or audio-model voice. Only Framework embeds it at
 runtime. Documentation previews are not separate audio players. See the
-[first-trial guide](shipbreaker-completion-cue.md).
+[first-trial guide](development/shipbreaker-completion-cue.md).
 
 Automated checks cover separate producers sharing one channel, consumed watches,
 scope, mute, reload, malformed audio, the compiled provider's actual embedded

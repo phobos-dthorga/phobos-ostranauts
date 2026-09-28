@@ -111,12 +111,12 @@ New-Item -ItemType Directory -Force -Path $pluginTarget, $nativeTarget | Out-Nul
 Copy-Item -LiteralPath $plugin -Destination $pluginTarget
 Copy-Item -LiteralPath (Join-Path $repoRoot 'translations/PhobosAutoNav') -Destination (Join-Path $pluginTarget 'translations') -Recurse
 Copy-Item -LiteralPath $source -Destination $nativeTarget -Recurse
-$guide = Get-Content -LiteralPath (Join-Path $repoRoot 'docs/auto-navigate-adaptation.md') -Raw
+$guide = Get-Content -LiteralPath (Join-Path $repoRoot 'docs/development/auto-navigate-adaptation.md') -Raw
 $guide = $guide.Replace('(../THIRD_PARTY_NOTICES.md)', '(THIRD_PARTY_NOTICES.md)')
 $guide = $guide.Replace('(../assets/phobos-autonav/README.md)', '(ARTWORK.md)')
 Set-Content -LiteralPath (Join-Path $package 'README.md') -Value $guide -Encoding utf8
 $notices = Get-Content -LiteralPath (Join-Path $repoRoot 'THIRD_PARTY_NOTICES.md') -Raw
-$notices = $notices.Replace('(docs/auto-navigate-adaptation.md)', '(README.md)')
+$notices = $notices.Replace('(docs/development/auto-navigate-adaptation.md)', '(README.md)')
 $notices = $notices.Replace('(assets/phobos-autonav/README.md)', '(ARTWORK.md)')
 Set-Content -LiteralPath (Join-Path $package 'THIRD_PARTY_NOTICES.md') -Value $notices -Encoding utf8
 $artwork = Get-Content -LiteralPath (Join-Path $repoRoot 'assets/phobos-autonav/README.md') -Raw
@@ -128,7 +128,7 @@ Copy-Item -LiteralPath (Join-Path $repoRoot 'assets/phobos-autonav/prompts.md') 
 Copy-Item -LiteralPath (Join-Path $repoRoot 'assets/phobos-autonav/instruments-prompt.md') -Destination (Join-Path $package 'INSTRUMENTS-PROMPT.md')
 Copy-Item -LiteralPath (Join-Path $repoRoot 'LICENSE') -Destination $package
 . (Join-Path $PSScriptRoot 'build-package-support.ps1')
-Copy-PhobosPlayerGuides -RepoRoot $repoRoot -Package $package
+Copy-PhobosPlayerGuides -RepoRoot $repoRoot -Package $package -Readme "docs/development/auto-navigate-adaptation.md"
 Compress-Archive -Path (Join-Path $package '*') -DestinationPath "$package.zip" -Force
 Write-Output "Standalone prototype: $package.zip"
 Write-Output 'No game files, load order or saves were changed. No in-game tests performed.'

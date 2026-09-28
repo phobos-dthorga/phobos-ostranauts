@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "date": "2026-09-28",
   "baselineCommit": "21c7d68677981236d8385e9289b29d23f8857847",
-  "report": "docs/performance-audit.md",
+  "report": "docs/development/performance-audit.md",
   "reviewBoundary": "First-party mod C# source. Static coverage plus deeper hotspot/caller review; not formal verification, a third-party audit or an after-performance measurement.",
   "files": [
     {

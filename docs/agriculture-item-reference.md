@@ -4,7 +4,7 @@
 
 Current source candidate: **0.16.1**. Game target: **1.0.1.5**. Values below come from offline definitions; they do not establish installation, gameplay validation or a live merchant quote.
 
-Verdemorrow equipment grows potatoes and lettuce, cooks potato portions and manages finite irrigation. These are authored, accelerated gameplay systems. Crop yields and simplified nutrient/treatment chemistry are not research results. The linked research guide attributes the supporting work separately; none of the pricing or yield balance implies NASA/ESA endorsement. See [research and attribution](agriculture-research.md). Regional offers extend through the current vanilla solar system; see [market coverage and the game's market pricing](solar-system-economy.md). Crew standing orders are opt-in; see [crew work, training and time-skips](crew-automation.md) for eligible work, approved stores, resource limits and resuming industrial and exterior work. Compact controls, unsaved settings and object selection are explained in the [control-panel guide](control-panel-guide.md). In selection fields, Locate opens a temporary marked ship view; Clear is a draft change that requires Apply. Pick on ship marks eligible objects and Escape restores the panel and view.
+Verdemorrow equipment grows potatoes and lettuce, cooks potato portions and manages finite irrigation. These are authored, accelerated gameplay systems. Crop yields and simplified nutrient/treatment chemistry are not research results. The linked research guide attributes the supporting work separately; none of the pricing or yield balance implies NASA/ESA endorsement. See [research and attribution](development/agriculture-research.md). Regional offers extend through the current vanilla solar system; see [market coverage and the game's market pricing](solar-system-economy.md). Crew standing orders are opt-in; see [crew work, training and time-skips](crew-automation.md) for eligible work, approved stores, resource limits and resuming industrial and exterior work. Compact controls, unsaved settings and object selection are explained in the [control-panel guide](control-panel-guide.md). In selection fields, Locate opens a temporary marked ship view; Clear is a draft change that requires Apply. Pick on ship marks eligible objects and Escape restores the panel and view.
 
 **Reading prices:** credits per complete object at the stated condition, before shop margins, market effects, negotiation and extra wear. Pristine retail can cost more. Mass is the empty/dry definition or fresh commodity template; saved contents and variable recovery packets can weigh differently. Dismantle value is the sum of all listed outputs at base value, excluding labour and tools.
 
@@ -761,7 +761,7 @@ Terminal housing remainders from equipment dismantling. Several different masses
 
 Not construction stock, planting medium or R4 feed. The distinct identities must not be combined into a new salvage recipe.
 
-Full operating instructions: [Agricultural Housing Waste guide](agriculture-economy-review.md).
+Full operating instructions: [Agricultural Housing Waste guide](development/agriculture-economy-review.md).
 
 | Form / origin | Max stack | Mass per item (kg) | Base per item (cr) | Dismantle outputs per item (cr) |
 | --- | --- | --- | --- | --- |
@@ -1151,4 +1151,4 @@ Use an installed native Bar/Dining Table, or a supported optional workbench. Tim
 
 Item names, dry/template masses, prices, service bills, salvage outputs, placement tabs, stock probabilities and table recipes are generated from current Phobos definitions. **Blue Bottle Games’ Ostranauts** native `DataCO.GetBasePrice` supplies the offline valuation used here ([developer’s game page](https://bluebottlegames.com/games/ostranauts)). That page identifies the game; the actual numeric evidence is the locally inspected assembly, whose hash is retained in the generated data snapshot. No proprietary source or game assembly is distributed.
 
-Function/use explanations are maintained in the reviewed catalogue. All fictional prices, yields and simplified processing are Phobos gameplay choices. Research attribution remains beside the relevant claims in the linked operating/research guides. See [reference maintenance](item-reference-maintenance.md) for the one-click updater and coverage checks.
+Function/use explanations are maintained in the reviewed catalogue. All fictional prices, yields and simplified processing are Phobos gameplay choices. Research attribution remains beside the relevant claims in the linked operating/research guides. See [reference maintenance](development/item-reference-maintenance.md) for the one-click updater and coverage checks.

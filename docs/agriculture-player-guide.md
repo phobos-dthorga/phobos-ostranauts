@@ -4,7 +4,7 @@ Grow a meal between salvage runs. Firstlight-4 grows potatoes or lettuce;
 Hearth-2 turns the potatoes into cooked portions. Keep the plants supplied with
 water, nutrients, light and suitable cabin air. Four trays share one crop cycle.
 
-Agriculture 0.15.0 requires Framework 0.28.0. These are development packages;
+Use the [current package versions](player-guide.md) and [dependency requirements](installing-mods.md). These are development packages;
 the complete loop and Unity layout still need in-game evaluation.
 
 Start with the rack and cooker below. Add [W2 irrigation](agriculture-water-conduits.md),
@@ -15,10 +15,10 @@ up to eight linked racks. For replacement lettuce seed, choose the separate
 
 See [controls](control-panel-guide.md) for Apply/Discard and choosing stores,
 [crew orders](crew-automation.md) for help with routine work, and
-[suppliers](solar-system-economy.md) and [stock lots](merchant-stock.md) for shopping.
+[suppliers](solar-system-economy.md) and [stock lots](development/merchant-stock.md) for shopping.
 Optional [completion alerts](shared-completion-cues.md) tell you when a meal or
 crop is ready; they do not harvest it. The [changelog](../mods/PhobosAgriculture/CHANGELOG.md)
-keeps the version history and [artwork notes](artwork-completion.md) cover the sprites.
+keeps the version history and [artwork notes](development/artwork-completion.md) cover the sprites.
 
 ## Equipment and supplies
 
@@ -26,14 +26,14 @@ keeps the version history and [artwork notes](artwork-completion.md) cover the s
 cultivation racks, **Hearth-2** galley cookers, **Continuance** seed potatoes and
 lettuce seeds, and **Groundwork** formulated nutrients. Harvested produce and
 retained materials also carry the Verdemorrow brand. Full names begin with
-`Phobos' Verdemorrow`; the [brand register](equipment-branding.md) lists them.
+`Phobos' Verdemorrow`; the [brand register](development/equipment-branding.md) lists them.
 
 Buy equipment, planting stock and formulated nutrients from the supply kiosk,
 fixer or suitable general trader after stock refresh. Availability is additive
 and probabilistic. Agriculture **0.6.2** also adds seeds/food to eligible native
 fridge contents and seeds, nutrients, irrigation charges, treatment cartridges
 and loose pipes to locked-crate contents (also used by bulk-cargo loot). These
-are future native rolls, not retroactive refills. See [loot chances and settings](agriculture-loot.md).
+are future native rolls, not retroactive refills. See [loot chances and settings](development/agriculture-loot.md).
 Alternatively, use Framework construction at an ordinary
 Bar/Dining Table, with the required screwdriver and soldering tools:
 
@@ -140,7 +140,7 @@ conditions stops further stress but does not magically restore lost health.
 Clear failed crops into retained residue; Drain unloads water plus unused nutrients
 as recorded non-potable process solution eligible for W2 treatment. Older unrecorded crop residue has no recovery recipe. New recorded residue can
 be processed at [B2](agriculture-nutrient-production.md). Empty the inventory and stored liquids/nutrients before uninstalling/dismantling; cancel cooking
-progress first. Ordinary repair/Restore use native maintenance. Dismantling returns a bounded mix of native parts/materials and retained housing
+progress first. Use **Maintenance information** to identify retained contents, active work, protected transfers or an R3 link that blocks removal. Ordinary repair/Restore use native maintenance. Dismantling returns a bounded mix of native parts/materials and retained housing
 waste; see the condition-specific recovery bills below.
 
 Configuration: `GrowthDurationMultiplier` (0.5–2, captured when planting; total
@@ -157,8 +157,8 @@ not NASA yields. [ESA's MELiSSA concept](https://www.esa.int/Enabling_Support/Sp
 informs later recovery stages; indefinite habitation is an ambition, not a feature
 of this first mod. Neither institution endorses the project.
 
-See [implementation and owner checks](agriculture-implementation.md),
-[research](agriculture-research.md) and [roadmap](agriculture-roadmap.md).
+See [implementation and owner checks](development/agriculture-implementation.md),
+[research](development/agriculture-research.md) and [roadmap](development/agriculture-roadmap.md).
 
 Build with `scripts/build-agriculture.ps1 -OstranautsPath <local game folder>`.
 After exiting the game, use `scripts/install-mods.ps1 -Mods Agriculture -WhatIf`,
@@ -172,7 +172,7 @@ Prices here are base prices chosen for the mod before native condition, merchant
 adjustments. Firstlight-4 is 700 cr (875 pristine, 140 broken); Hearth-2 is 150 cr
 (187.50 pristine, 30 broken). Construction bills and assembly times are unchanged.
 Continuance lettuce seed is 5 cr per sowing. Nutrients remain 60 cr per 40 g.
-See the [native economic evidence](agriculture-economy-evidence.md) for comparisons.
+See the [native economic evidence](development/agriculture-economy-evidence.md) for comparisons.
 
 The fixer can offer worn equipment; VORB scrap stock can offer refurbished or
 broken units. Existing pristine supply/fixer/Halvorson offers remain. Offers are
@@ -208,7 +208,7 @@ water is retained once. Check absent Ship's Water, full output inventory and
 queued work whose supply is removed before completion. Offline native checks do
 not establish merchant availability or crew interaction behavior in a running game.
 
-For the authorized next development direction, see [nutrient recovery and workup research](agriculture-nutrient-recovery.md). It describes proposed production and W2 consumable changes, not additional controls available in this build.
+For the authorized next development direction, see [nutrient recovery and workup research](development/agriculture-nutrient-recovery.md). It describes proposed production and W2 consumable changes, not additional controls available in this build.
 
 ## Nutrient production and gradual dosing
 

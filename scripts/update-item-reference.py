@@ -110,7 +110,12 @@ def render(mod, notes, config):
         out += [f'<a id="{group["key"]}"></a>', '', f'## {group["title"]}', '', group['function'], '',
                 '**Use:** ' + group['use'], '', '**Where it appears:** ' + group['find'], '']
         tabs = sorted({i['installTab'] for i in covered if i['installTab']})
-        out += ['**Placement:** ' + ('INSTALL → ' + ', '.join(tabs) + '. Obtain the loose item first; the menu does not manufacture it.' if tabs else
+        assembly_inputs = [j for i in covered for j in i['jobs'] if j['id'].endswith('SectionAssembly')]
+        assembly_outputs = [j for i in mod['items'] for j in i['jobs'] if j['id'].endswith('SectionAssembly')
+                            and any(o['id'] in group['ids'] for o in j['outputs'])]
+        out += ['**Placement:** ' + ('Choose Install on this section or the completed machine in INSTALL → APPS. This starts a construction site; deliver the full section bill separately.' if assembly_inputs else
+                'INSTALL → APPS starts assembly from matching sections. A complete loose machine keeps its own direct Install action; damaged forms retain their existing placement path.' if assembly_outputs else
+                'INSTALL → ' + ', '.join(tabs) + '. Obtain the loose item first; the menu does not manufacture it.' if tabs else
                 'Built into its parent machine; not separately installable.' if group['internal'] else
                 'Inventory/module-slot item; no standalone INSTALL entry.'), '']
         modes = [mode for item in covered for mode in item.get('operatingModes', [])]
@@ -201,7 +206,7 @@ def render(mod, notes, config):
             'whose hash is retained in the generated data snapshot. No proprietary source or game assembly is distributed.', '',
             'Function/use explanations are maintained in the reviewed catalogue. All fictional prices, yields and simplified processing are Phobos gameplay choices. '
             'Research attribution remains beside the relevant claims in the linked operating/research guides. '
-            'See [reference maintenance](item-reference-maintenance.md) for the one-click updater and coverage checks.', '']
+            'See [reference maintenance](development/item-reference-maintenance.md) for the one-click updater and coverage checks.', '']
     return '\n'.join(out)
 
 
@@ -215,7 +220,7 @@ def generate(root, data, config):
              '| Mod | Reference |', '| --- | --- |']
     index += [f'| {m["name"]} | [Items and equipment]({SLUGS[mid]}-item-reference.md) |' for mid, m in mods.items()]
     index += ['', 'Manufacturing is explicitly empty while it remains a scaffold. Framework documents shared spent parts.', '',
-              'For placement tabs, see [INSTALL catalogue](install-catalogue.md). For refreshing these documents, see [reference maintenance](item-reference-maintenance.md).', '']
+              'For placement tabs, see [INSTALL catalogue](development/install-catalogue.md). For refreshing these documents, see [reference maintenance](development/item-reference-maintenance.md).', '']
     outputs[Path('docs/item-references.md')] = '\n'.join(index)
     return outputs
 

@@ -8,7 +8,7 @@ version descriptions below remain useful background where not superseded.
 Auto Nav 0.10.0 also checks [current braking room](auto-nav-flight-profiles.md)
 before ordinary resume, including restoration after loading. Numeric console
 preferences use a separate saved record; they never replace a captured profile.
-The current package requires Framework 0.14.0. The earlier baseline below records
+Use the [current dependency requirements](installing-mods.md), rather than the original Framework floor. The earlier baseline below records
 when saved flights were introduced.
 
 Auto Nav 0.9.0 adds [fresh sensor validation](auto-nav-sensors.md) before any
@@ -104,7 +104,7 @@ until an explicit forget or a compatible implementation can read them.
 
 These are original Phobos persistence additions around the adapted Auto Navigate
 guidance; upstream attribution and the third-party notice are linked from
-[the adaptation guide](auto-navigate-adaptation.md). No decompiled engine source
+[the adaptation guide](development/auto-navigate-adaptation.md). No decompiled engine source
 or game assets are redistributed.
 
 ## Verification and owner checks
