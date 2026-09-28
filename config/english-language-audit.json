@@ -35902,8 +35902,8 @@
       "path": "docs/development/README.md",
       "scope": "documentation index/audit; no gameplay behavior",
       "decision": "review audience separation and evidence limits",
-      "sha256": "dc37707c6cd586f1a532e2e1fb374424f6688c38c9996fcb53bb375bc40cec14",
-      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+      "sha256": "ee1e83e2d8909321e779d9ae1e87d05d3270173b818d6e86348395bc1d1672cf",
+      "review": "2026-09-28: construction appearance audit/index reviewed; no player catalogue changes. Separate artwork existence, code binding, owner observations and implementation proposals."
     },
     {
       "path": "docs/development/agriculture-bulk-storage-art.md",
@@ -36101,6 +36101,13 @@
       "decision": "retain",
       "sha256": "041f6202820d4e8f692c20675bcaf6de94885b9aa8dd8c59dea70e24af1858e5",
       "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+    },
+    {
+      "path": "docs/development/construction-artwork-audit.md",
+      "scope": "developer-facing construction appearance audit",
+      "decision": "record confirmed code gaps separately from owner observations and unverified Unity rendering",
+      "sha256": "c89ee946ae5422e0814d6d1ff2594f37dbfb892eb07c2c7a30a5e32c23cf37b0",
+      "review": "2026-09-28: construction appearance audit/index reviewed; no player catalogue changes. Separate artwork existence, code binding, owner observations and implementation proposals."
     },
     {
       "path": "docs/development/dependency-contingencies.md",

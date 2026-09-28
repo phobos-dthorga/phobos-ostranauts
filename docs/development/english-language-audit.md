@@ -154,3 +154,7 @@ Framework 0.31.1: reviewed the unnamed-native-trigger correction, current versio
 ## Documentation audit and audience separation, 28 September 2026
 
 Reviewed furnace assembly, coolant servicing, maintenance and cargo recovery instructions against their implementation. Corrected stale current requirements, marked introduction versions and design records as historical, and fixed generated section/machine placement instructions. Player text leads with the next action and its limits. Contributor material now lives in `docs/development/`; player guides retain necessary safety explanations and research credits. The [documentation audit](documentation-consistency-audit.md) records the 151-document baseline screen and its limits. The maintained language inventory now includes 151 documents and 14 other surfaces; 1,791 catalogue entries are unchanged. Link-only moves preserve historical claims and citations.
+
+## Construction appearance audit, 28 September 2026
+
+The [construction artwork audit](construction-artwork-audit.md) records the missing presentation code for D4/R4/F6 and distinguishes the owner’s observed R4 changes from a deliberately implemented stage sequence. It is developer-facing evidence, with no catalogue or runtime changes. Document coverage is now 152; the 1,791 catalogue entries and 14 other surfaces are unchanged.

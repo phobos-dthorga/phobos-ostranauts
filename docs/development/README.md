@@ -106,3 +106,4 @@ The [consistency audit](documentation-consistency-audit.md) records the source c
 - [Changelogs and Steam Workshop publication records](workshop-publication.md)
 - [Preparing Steam Workshop uploads](workshop-upload-preparation.md)
 - [F6 repair casting: replacement heat sinks (proposal)](furnace-repair-castings.md)
+- [Construction artwork audit: D4, R4, F6 and other equipment](construction-artwork-audit.md)
