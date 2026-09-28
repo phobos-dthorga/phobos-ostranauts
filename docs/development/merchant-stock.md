@@ -19,6 +19,7 @@ shop inventories or a scientific/economic claim.
 | Shipbreaker assembly sections | 24 |
 | Shipbreaker coolant pipes | 128 |
 | Shipbreaker coolant charges | 64 |
+| Shipbreaker ingots | 32 |
 | Auto Nav boards | 16 |
 
 Agriculture consumables include planting stock, nutrients, irrigation charges,

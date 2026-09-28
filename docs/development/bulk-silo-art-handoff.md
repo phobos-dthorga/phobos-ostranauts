@@ -10,6 +10,9 @@ sprites** from `scripts/export-silo-placeholder-art.py`:
 | --- | --- | --- |
 | `mods/PhobosShipbreaker/images/phobos/shipbreaker/PhobosProcessSilo.png` (+ `Normal`, `Portrait`) | 48 x 48 (3 tiles) | `assets/phobos-shipbreaker/placeholders/source/PhobosProcessSilo-placeholder-4x.png` |
 | `mods/PhobosShipbreaker/images/phobos/shipbreaker/PhobosIceThaw.png` (+ `Normal`, `Portrait`) | 32 x 32 (2 tiles) | `assets/phobos-shipbreaker/placeholders/source/PhobosIceThaw-placeholder-4x.png` |
+| `mods/PhobosShipbreaker/images/phobos/shipbreaker/StockAluminiumIngot.png` (+ `Normal`) | 16 x 16 (one cell) | `assets/phobos-shipbreaker/placeholders/source/StockAluminiumIngot-placeholder-4x.png` |
+| `mods/PhobosShipbreaker/images/phobos/shipbreaker/StockSteelIngot.png` (+ `Normal`) | 16 x 16 (one cell) | `assets/phobos-shipbreaker/placeholders/source/StockSteelIngot-placeholder-4x.png` |
+| `mods/PhobosShipbreaker/images/phobos/shipbreaker/StockSteelMeltRemainder.png` (+ `Normal`) | 16 x 16 (one cell) | `assets/phobos-shipbreaker/placeholders/source/StockSteelMeltRemainder-placeholder-4x.png` |
 
 The placeholders are flat overhead drawings (rim, lid, hatch, gauge; flat
 normal maps), deterministic and re-exportable with `--check`. They are not
@@ -70,7 +73,7 @@ horizontally and vertically on the canvas. Show no vertical front or side faces.
   the S3 so the pair reads as one Rivetline line.
 - Exports: 32 x 32 colour and normal, 256 x 256 portrait.
 
-## Request 3 (round 3, pending): ingots and steel remainder
+## Request 3 (Shipbreaker 0.38.0, placeholders in use): ingots and steel remainder
 
 - Phobos' Rivetline aluminium ingot: one-cell inventory sprite, 16 x 16 native,
   64 x 64 master; a single cast bar with a chamfered top face seen from above,

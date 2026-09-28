@@ -15,12 +15,25 @@ internal static class FurnaceMaterialNativeChecks
     {
         var collector = definitions.Objects[CollectorRules.Installed];
         check(collector.nContainerWidth == 2 && collector.nContainerHeight == 2, "Furnace automation does not enlarge existing collectors");
-        foreach (var product in new[] { FurnaceRules.Blank, FurnaceRules.Remainder })
+        foreach (var product in FurnaceMaterialRules.ProductIds)
         {
-            var data = new DataCO(definitions.Objects[product]);
+            var data = new DataCO(definitions.Objects.TryGetValue(product, out var own) ? own : DataHandler.dictCOs[product]);
             check(DataHandler.dictCTs[collector.strContainerCT].TriggeredDataCO(data, false), "Actual native collector filter accepts the released furnace product");
             check(FurnaceMaterialRules.Product(product, data.GetCondAmount("StatMass")), "Native product mass agrees with transfer guard");
         }
+        foreach (string ingot in FurnaceRecipes.Ingots)
+        {
+            var co = definitions.Objects[ingot]; var item = definitions.Items[co.strItemDef];
+            check(co.inventoryWidth == 1 && co.inventoryHeight == 1 && item.nCols == 1 && co.nStackLimit == FurnaceRecipes.IngotStack, "Ingots are one-cell stock that stacks to ten: " + ingot);
+            check(EquipmentSaveUpgrade.Amount(co.aStartingConds, "StatMass") == FurnaceRecipes.IngotKg && EquipmentSaveUpgrade.Amount(co.aStartingConds, "IsCategoryMetals") > 0 &&
+                co.strNameFriendly.StartsWith("Phobos' Rivetline ", StringComparison.Ordinal), "Ingots weigh 4 kg, trade as metals and carry the Rivetline name: " + ingot);
+        }
+        check(EquipmentSaveUpgrade.Amount(definitions.Objects[FurnaceRecipes.AluminiumIngot].aStartingConds, "StatBasePrice") == FurnaceRecipes.AluminiumIngotPrice &&
+            EquipmentSaveUpgrade.Amount(definitions.Objects[FurnaceRecipes.SteelIngot].aStartingConds, "StatBasePrice") == FurnaceRecipes.SteelIngotPrice &&
+            EquipmentSaveUpgrade.Amount(definitions.Objects[FurnaceRecipes.SteelRemainder].aStartingConds, "StatBasePrice") == .01, "Authored ingot prices and the technical-minimum steel remainder");
+        var feedTrigger = DataHandler.dictCTs[definitions.Objects[FurnaceRules.Feed].strContainerCT];
+        check(feedTrigger.TriggeredDataCO(new DataCO(DataHandler.dictCOs[FurnaceRecipes.SteelScrap]), false) && feedTrigger.TriggeredDataCO(new DataCO(DataHandler.dictCOs[FurnaceMaterialRules.Aluminium]), false) &&
+            !feedTrigger.TriggeredDataCO(new DataCO(DataHandler.dictCOs["ItmScrapCarbonFiber"]), false), "The chamber admits steel and aluminium at the game level and nothing else");
         var blank = definitions.Objects[FurnaceRules.Blank];
         check(blank.inventoryWidth == 2 && blank.inventoryHeight == 2, "Blank actually occupies the collector's full inventory grid");
         foreach (string state in new[] { "Installed", "InstalledDmg", "Loose", "LooseDmg" })

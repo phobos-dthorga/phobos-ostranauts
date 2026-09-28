@@ -156,6 +156,8 @@ Repair restores functionality, not the pristine designation.
 | Auto Nav module | 0.4 kg | $3,600 | $4,500 | $2,700 | $900 |
 | Process water silo (0.37.0) | 240 kg empty | $4,800 | $6,000 | $3,600 | $1,200 |
 | Ice thaw unit (0.37.0) | 120 kg | $3,200 | $4,000 | $2,400 | $800 |
+| Aluminium ingot (0.38.0) | 4 kg | $12 | $15 | $9 | — |
+| Steel ingot (0.38.0) | 4 kg | $25 | $31.25 | $18.75 | — |
 
 Installed and loose forms have the same base price. Uninstall before trading.
 Sections are unfinished construction stock with no separate wear/broken family.

@@ -18,7 +18,7 @@ internal static partial class FurnaceService
         if (co.objContainer == null || co.objContainer.Locked) return Text.Get("Routing.source_locked");
         if (!input) return null;
         var bin = Feed(co);
-        if (bin?.objContainer == null || bin.HasCond("IsLocked") || bin.objContainer.Locked || bin.objContainer.ContainedCOs.Any(i => !ValidFeed(i)))
+        if (bin?.objContainer == null || bin.HasCond("IsLocked") || bin.objContainer.Locked || bin.objContainer.ContainedCOs.Any(i => !ValidFeed(co, i)))
             return Text.Get("Routing.furnace_bin");
         var endpoint = CoolingEndpoint(co);
         if (endpoint == null || endpoint.HasCond("IsDamaged") || Get(endpoint).Protected || !ProbeValid(co) || Flight(co.ship) || !ChargeReady(s))

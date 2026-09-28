@@ -48,6 +48,14 @@ internal static class FurnaceMaterialChecks
             check(FurnaceMaterialRules.Feed(FurnaceMaterialRules.Aluminium, 1, (mask & 1) != 0, (mask & 2) != 0, (mask & 4) != 0, (mask & 8) != 0) == (mask == 15), "Installed, nested, stacked and repair-lot feeds fail closed");
         check(FurnaceMaterialRules.Product(FurnaceRules.Blank, 19) && FurnaceMaterialRules.Product(FurnaceRules.Remainder, 1) &&
             !FurnaceMaterialRules.Product(FurnaceRules.Blank, 18) && !FurnaceMaterialRules.Product(FurnaceRules.Housing, 18), "Only released first-cycle products at exact mass");
+        check(FurnaceMaterialRules.Product(FurnaceRecipes.AluminiumIngot, 4) && FurnaceMaterialRules.Product(FurnaceRecipes.SteelIngot, 4) && FurnaceMaterialRules.Product(FurnaceRecipes.SteelRemainder, 1) &&
+            FurnaceMaterialRules.Product(FurnaceRecipes.SteelScrap, 1) && !FurnaceMaterialRules.Product(FurnaceRecipes.AluminiumIngot, 5) && !FurnaceMaterialRules.IsProduct(FurnaceRules.Housing),
+            "Ingots, gates and the steel remainder are released products at their exact masses; the finished housing is not");
+        check(FurnaceMaterialRules.Feed(FurnaceRecipes.SteelIngots, FurnaceRecipes.SteelScrap, 1, true, true, true, true) && !FurnaceMaterialRules.Feed(FurnaceRecipes.SteelIngots, FurnaceMaterialRules.Aluminium, 1, true, true, true, true) &&
+            !FurnaceMaterialRules.Feed(FurnaceRecipes.AluminiumIngots, FurnaceRecipes.SteelScrap, 1, true, true, true, true), "The selected recipe decides which metal the chamber takes");
+        check(RoutingRules.FilterIds("furnace-products").Contains(FurnaceRecipes.AluminiumIngot) && RoutingRules.FilterIds("furnace-products").Contains(FurnaceRecipes.SteelRemainder) &&
+            RoutingRules.FilterIds("furnace-products").Contains(FurnaceRules.Blank), "The collector's furnace-products filter follows the recipe catalog");
+        check(FurnaceRecipes.AluminiumIngotPrice > 4 * 1.1 && FurnaceRecipes.SteelIngotPrice > 4 * 3.6, "An ingot is worth more than the four native scraps it recovers to (authored prices against native 1.1 and 3.6)");
         for (int count = 0; count <= 21; count++) check(FurnaceMaterialRules.ChargeFull(count) == (count >= 20), "Twenty-piece stop");
         foreach (FurnacePhase phase in Enum.GetValues(typeof(FurnacePhase)))
         for (int mask = 0; mask < 8; mask++)

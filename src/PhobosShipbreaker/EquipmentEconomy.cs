@@ -153,6 +153,14 @@ internal static class EquipmentEconomy
         Offer("ItmOKLGSupplyKioskInv", "ReclaimSection", ReclaimerRules.Section, .20, StockCondition.Refurbished);
         Offer("ItmTraderSanDiegoHalvorsonInv", "ReclaimSection", ReclaimerRules.Section, .40, StockCondition.Refurbished);
         Offer("ItmOKLGFixer", "ReclaimRefurb", ReclaimerRules.Prefix + "Loose", .10, StockCondition.Refurbished);
+        // Ingots are Manufacturing raw stock: ordinary supplies at every general market and the industrial trader.
+        foreach (string ingot in FurnaceRecipes.Ingots)
+        {
+            Offer("ItmOKLGSupplyKioskInv", "Ingot", ingot, .30, StockCondition.Pristine);
+            Offer("ItmOKLGFixer", "Ingot", ingot, .20, StockCondition.Pristine);
+            Offer("ItmTraderSanDiegoHalvorsonInv", "Ingot", ingot, .50, StockCondition.Pristine);
+            Offer("ItmVORBScrapKioskInv", "Ingot", ingot, .20, StockCondition.Pristine);
+        }
         Offer("ItmOKLGSupplyKioskInv", "FurnaceSection", FurnaceRules.Section, .15, StockCondition.Refurbished);
         Offer("ItmTraderSanDiegoHalvorsonInv", "FurnaceSection", FurnaceRules.Section, .30, StockCondition.Refurbished);
 

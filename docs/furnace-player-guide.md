@@ -1,8 +1,9 @@
 # F6 electric furnace: operating guide
 
-The F6 turns twenty 1 kg pieces of aluminium scrap into a rough machinery
-housing and a little waste. It needs ship power, room air and somewhere to dump
-the heat. Leave space to load it and collect the finished casting.
+The F6 turns twenty 1 kg pieces of scrap into castings: a rough aluminium
+machinery housing, four aluminium ingots, or four steel ingots (since 0.38.0),
+plus a little waste. It needs ship power, room air and somewhere to dump the
+heat. Leave space to load it and collect the finished casting.
 
 For the current packages and requirements, use the [player guide](player-guide.md)
 and [installation guide](installing-mods.md). The [item reference](shipbreaker-item-reference.md)
@@ -190,11 +191,47 @@ These are labour-saving alternative construction routes, not precision parts or
 native repair-recipe replacements. The 240 kg furnace and 100 kg radiator remain
 substantial infrastructure for sustained independent maintenance.
 
+## Recipes: housings and ingots
+
+Since 0.38.0 the furnace has three recipes. Choose the **next charge** on the
+panel, the C1 or with F3 `phobosfurnace recipe <furnace-id> <recipe>` while
+the furnace is idle and cool, its chamber is empty and no repeat run is on. A
+batch already sealed stays bound to the recipe it was sealed with, and a saved
+batch from before 0.38.0 finishes as a housing.
+
+| Recipe | Charge | Released | Cycle |
+|---|---|---|---|
+| `housing` | twenty 1 kg aluminium scraps | one 19 kg rough housing, one 1 kg aluminium melt remainder | the original 700 C aluminium cycle |
+| `aluminium-ingots` | twenty 1 kg aluminium scraps | four 4 kg aluminium ingots, three 1 kg aluminium scrap gates, one 1 kg aluminium melt remainder | the same aluminium cycle |
+| `steel-ingots` | twenty 1 kg steel scraps | four 4 kg steel ingots, three 1 kg steel scrap gates, one 1 kg steel melt remainder | hotter and longer: melts at 1538 C, holds at 1578 C |
+
+The chamber takes only the metal the selected recipe names; the game-level rule
+admits aluminium and steel, and the exact rule refuses the other metal with the
+reason. Every recipe conserves the 20 kg charge. Ingots are one-cell stock that
+stacks to ten, trade as metals, and are the raw stock the coming Phobos
+Manufacturing machining will consume; a table can cut one back into four scraps
+(`Recover aluminium from ingot`, `Recover steel from ingot`, 300 work seconds),
+which loses value. The steel remainder, like the aluminium one, has no recipe.
+
+A steel charge runs through the same lining, sink, radiator and 250 kW rating.
+It needs well over half again the energy of an aluminium charge, so it takes
+longer to reach temperature and longer to cool; the pressure interlock scales
+with the hotter target so the gas the pump already left behind does not refuse
+heating. Offline checks run a full steel cycle to completion and cooling through
+the existing hardware; the real duration on your ship depends on the power you
+supply and on the radiator. The steel numbers (melting point 1811 K, enthalpy of
+fusion 13.81 kJ/mol) are iron data from the
+[NIST Chemistry WebBook, iron](https://webbook.nist.gov/cgi/cbook.cgi?ID=C7439896&Mask=4)
+(National Institute of Standards and Technology); the superheat, the averaged heat
+capacities and the treatment of the game's steel scrap as iron are our
+simplification, not measured properties of an alloy. No endorsement is implied.
+
 ## Repeat batches
 
 **Repeat batches** keeps the F6 casting without a crew trip for every step. Start
 it from the local panel, C1 or F3 once the furnace is paired with a working cooling
-assembly on your own ship. For each full charge of twenty aluminium pieces, the run
+assembly on your own ship. For each full charge of twenty pieces of the selected
+metal, the run
 seals, runs the AUTO sequence, returns chamber and receiver gas to the recorded room
 at or below 50 C, and releases the products. It then turns receiving back on for a
 paired R4 aluminium output, so the next charge can arrive. Without a paired R4, load
@@ -324,6 +361,7 @@ phobosfurnace status <full-furnace-id>
 phobosfurnace stop <full-furnace-id>
 phobosfurnace repeat <full-furnace-id>
 phobosfurnace repeat-stop <full-furnace-id>
+phobosfurnace recipe <full-furnace-id> <housing|aluminium-ingots|steel-ingots>
 ```
 
 C1 also accepts furnace actions through `phobosindustry <action> <console-id>

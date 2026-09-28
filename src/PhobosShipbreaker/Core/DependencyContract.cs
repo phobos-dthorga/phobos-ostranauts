@@ -33,7 +33,8 @@ internal static class DependencyContract
         .SelectMany(group => group.Names.Where(name => !contains(group.Table, name))
             .Select(name => Text.Get("DependencyContract.missing", group.Table, name))).ToList();
     internal static readonly string[] Recipes = { "PhobosCraft_PhobosBuildFurnaceCoolantConduit", "PhobosCraft_PhobosRecoverFurnaceHousingBlank", "PhobosCraft_PhobosRecoverFurnaceHousing", "PhobosCraft_PhobosBuildFurnaceSection", "PhobosCraft_PhobosBuildFurnace", "PhobosCraft_PhobosBuildFurnaceRadiator", "PhobosCraft_PhobosBuildFurnaceThermalPort", "PhobosCraft_PhobosFinishFurnaceHousing", "PhobosCraft_PhobosBuildShipbreakerSectionCast", "PhobosCraft_PhobosBuildReclaimerSectionCast", "PhobosCraft_PhobosBuildShipbreakerSection", "PhobosCraft_PhobosBuildShipbreaker",
-        "PhobosCraft_PhobosBuildHullChute", "PhobosCraft_PhobosBuildExteriorGrabber", "PhobosCraft_PhobosBuildResidueCollector", "PhobosCraft_PhobosBuildReclaimerSection", "PhobosCraft_PhobosBuildReclaimer", "PhobosCraft_PhobosBuildIndustrialConsole" };
+        "PhobosCraft_PhobosBuildHullChute", "PhobosCraft_PhobosBuildExteriorGrabber", "PhobosCraft_PhobosBuildResidueCollector", "PhobosCraft_PhobosBuildReclaimerSection", "PhobosCraft_PhobosBuildReclaimer", "PhobosCraft_PhobosBuildIndustrialConsole",
+        "PhobosCraft_PhobosRecoverAluminiumIngot", "PhobosCraft_PhobosRecoverSteelIngot" };
     internal static List<string> MissingRecipes(Func<string, bool> contains) => Recipes
         .Where(id => !contains(id)).Select(id => Text.Get("DependencyContract.missing_registered_recipe", id)).ToList();
 }

@@ -289,3 +289,15 @@ its own tank-loss line. The new silo guide and artwork handoff, and the crew,
 console, player, economy and bulk-storage guides, state the new rules.
 Coverage is now 2,021 entries, 157 documents and 14 other
 surfaces. Unity wording is unverified.
+
+## Custom ingots, 29 September 2026
+
+Shipbreaker 0.38.0 adds twenty reviewed entries for the F6 recipe catalog
+(three recipe labels, the next-charge control, recipe status, replies and
+refusals, two feed labels, the ingot and steel-remainder names and
+descriptions, and the two recovery recipe names and descriptions) and rewrites
+five (the furnace and chamber descriptions and name now cover every recipe, the
+crew order label covers the selected charge, and the F3 help lists the recipe
+command). The furnace guide gains a recipes section with the NIST iron credit.
+Coverage is now 2,041 entries, 157 documents and 14 other
+surfaces. Unity wording is unverified.

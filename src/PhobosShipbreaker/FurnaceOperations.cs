@@ -76,6 +76,7 @@ internal static partial class FurnaceService
                 if (action == "heat") b.HeatCapKW = n; else if (action == "ramp") b.RampKPerSecond = n; else b.CoolingCapKW = n;
                 Save(s); return true;
             }
+            if (action == "recipe") return SelectRecipe(s, value, out message);
             if (action == "automatic" || action == "step-mode") { b.StepMode = action == "step-mode"; b.StepWaiting = false; Save(s); return true; }
             if (action == "seal") return Seal(s, out message);
             if (action == "equalize") return Equalize(s, binding == null, out message);
@@ -94,6 +95,22 @@ internal static partial class FurnaceService
         }
         catch (Exception ex) { Fault(co, ex); message = s.Notice; return false; }
     }
+    /// <summary>The next charge's recipe. Only an idle, cool, empty furnace changes it; a batch in progress
+    /// stays bound to the recipe it was sealed with, and a repeat run is suspended first.</summary>
+    private static bool SelectRecipe(Session s, string? value, out string message)
+    {
+        var co = s.Object; var b = s.State.Batch;
+        var recipe = FurnaceRecipes.ById(value) ?? (int.TryParse(value, NumberStyles.None, CultureInfo.InvariantCulture, out int revision) ? FurnaceRecipes.ByRevision(revision) : null);
+        if (recipe == null) { message = Text.Get("Furnace.recipe_unknown"); return false; }
+        if (b.Phase != FurnacePhase.Idle || !b.SafeOpen || b.Armed || s.State.NativeMutation || s.RepeatAuthorized || (Feed(co)?.objContainer?.ContainedCOs.Count ?? 1) != 0)
+        { message = Text.Get("Furnace.recipe_block"); return false; }
+        if (s.State.Recipe != recipe.Revision)
+        {
+            s.State.Recipe = recipe.Revision; b.Profile = recipe.Profile; Save(s);
+            if (s.Protected) { message = Text.Get("Furnace.protected"); return false; }
+        }
+        message = Text.Get("Furnace.recipe_set", Text.Get("Furnace.recipe_" + recipe.Id), Text.Get(FurnaceRecipes.FeedLabelKey(recipe))); return true;
+    }
     private static bool Seal(Session s, out string message)
     {
         var co = s.Object; var b = s.State.Batch; var bin = Feed(co);
@@ -101,7 +118,7 @@ internal static partial class FurnaceService
         if (b.Phase != FurnacePhase.Idle || !b.SafeOpen || bin?.objContainer == null || bin.HasCond("IsLocked") ||
             CoolingEndpoint(co) == null || CoolingEndpoint(co)!.HasCond("IsDamaged") || !ProbeValid(co)) return false;
         var items = bin.objContainer.ContainedCOs.ToArray();
-        if (items.Length != FurnaceRules.ChargeUnits || items.Any(c => !ValidFeed(c) || c.objCOParent != bin)) return false;
+        if (items.Length != FurnaceRules.ChargeUnits || items.Any(c => !ValidFeed(co, c) || c.objCOParent != bin)) return false;
         var room = Room(co); var gas = room?.GasContainer;
         if (gas == null) return false;
         gas.Run();
@@ -162,19 +179,20 @@ internal static partial class FurnaceService
         if (b.Phase != FurnacePhase.Ready || !b.SafeOpen || !ChargePresent(s)) return false;
         var radiator = CoolingEndpoint(co); if (radiator == null) return false;
         var sink = Get(radiator); if (sink.Protected) return false;
-        double carried = FurnaceRules.ChargeUnits * FurnaceRules.SolidCp * (b.TemperatureK - FurnaceRules.ReferenceK);
+        double carried = FurnaceRules.ChargeUnits * b.Profile.SolidCp * (b.TemperatureK - FurnaceRules.ReferenceK);
         if (sink.SinkKJ + carried > FurnaceRules.SinkCapacity * (FurnaceRules.SinkMaxK - FurnaceRules.ReferenceK)) return false;
         if (b.Qualified)
         {
-            var products = new List<CondOwner>();
+            var products = new List<CondOwner>(); var specs = new List<ProductSpec>();
             bool committing = false;
             try
             {
-                foreach (string id in new[] { FurnaceRules.Blank, FurnaceRules.Remainder })
+                foreach (var spec in Recipe(s).Products)
+                for (int n = 0; n < spec.Count; n++)
                 {
-                    var p = DataHandler.GetCondOwner(id); if (p == null) throw new InvalidOperationException("Furnace product definition unavailable."); products.Add(p);
+                    var p = DataHandler.GetCondOwner(spec.Id); if (p == null) throw new InvalidOperationException("Furnace product definition unavailable."); products.Add(p); specs.Add(spec);
                 }
-                if (!ProcessRules.MassMatches(products[0].GetTotalMass(), 19) || !ProcessRules.MassMatches(products[1].GetTotalMass(), 1) ||
+                if (products.Where((p, i) => !ProcessRules.MassMatches(p.GetTotalMass(), specs[i].Kg)).Any() ||
                     products.Any(p => p.coStackHead != null || p.aStack.Count != 0 || p.GetCOsSafe(true).Count != 0 || !co.objContainer.AllowedCO(p))) return false;
                 var plan = BatchPlacement.Plan(ProcessingService.Occupancy(co.objContainer), products.Select(p => GUIInventoryItem.GetWidthHeightForCO(p)).Select(p => new ItemSize(p.x, p.y)).ToArray());
                 if (plan == null) return false;
@@ -310,7 +328,8 @@ internal static partial class FurnaceService
             Reading(s.DeliveredKW, "F1"), b.Hold.ToString("F1", CultureInfo.CurrentCulture),
             CoolingConnectionStatus(co), b.HeatCapKW, b.RampKPerSecond, b.CoolingCapKW,
             b.StepMode ? Text.Get("Furnace.step") : Text.Get("Furnace.auto"), s.Notice) + "\n" + cooling + "\n" +
-            Text.Get("Furnace.coolant_mode", Text.Get("Furnace.coolant_" + s.CoolingMode)) + "\n\n" +
+            Text.Get("Furnace.coolant_mode", Text.Get("Furnace.coolant_" + s.CoolingMode)) + "\n" +
+            Text.Get("Furnace.recipe_status", Text.Get("Furnace.recipe_" + Recipe(s).Id), Text.Get(FurnaceRecipes.FeedLabelKey(Recipe(s)))) + "\n\n" +
             Plugin.Collectors.Describe(co) + "\n" + CollectorService.DescribeLink(co, true);
     }
     internal static bool F3(string input, out bool success, out string response)

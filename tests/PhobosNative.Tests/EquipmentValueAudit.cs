@@ -82,18 +82,18 @@ internal static class EquipmentValueAudit
                 string id = recipe.outputs[0].item;
                 if (DataHandler.dictCOOverlays.TryGetValue(id, out var overlay)) id = overlay.strCOBase;
                 double inputs = recipe.ingredients.Sum(i => i.count * Price(i.item));
-                if (recipe.id == "PhobosRecoverFurnaceHousingBlank" || recipe.id == "PhobosRecoverFurnaceHousing")
+                if (recipe.id.StartsWith("PhobosRecover", StringComparison.Ordinal))
                 {
-                    int mass = recipe.id.EndsWith("Blank") ? 19 : 18;
-                    string source = mass == 19 ? FurnaceRules.Blank : FurnaceRules.Housing;
+                    var ingredient = recipe.ingredients[0]; string source = ingredient.item; double mass = ingredient.unitMassKg;
+                    string expectedSource = recipe.id switch { "PhobosRecoverFurnaceHousingBlank" => FurnaceRules.Blank, "PhobosRecoverFurnaceHousing" => FurnaceRules.Housing,
+                        "PhobosRecoverAluminiumIngot" => FurnaceRecipes.AluminiumIngot, "PhobosRecoverSteelIngot" => FurnaceRecipes.SteelIngot, _ => "" };
                     double recovered = recipe.outputs.Sum(o => o.count * Price(o.item));
-                    check(recipe.ingredients.Length == 1 && recipe.ingredients[0].item == source &&
-                        recipe.ingredients[0].trigger == source + "Trigger" && recipe.ingredients[0].count == 1 && recipe.ingredients[0].requireEmpty,
+                    check(recipe.ingredients.Length == 1 && source == expectedSource && ingredient.trigger == source + "Trigger" && ingredient.count == 1 && ingredient.requireEmpty,
                         "Recovery accepts only one exact unused casting: " + recipe.id);
-                    check(recipe.outputs.Length == 1 && id == "ItmScrapAluminum" && recipe.outputs[0].count == mass &&
-                        recipe.outputs[0].unitMassKg == 1 && recipe.ingredients[0].unitMassKg == mass,
-                        "Casting recovery preserves every kilogram without terminal residue: " + recipe.id);
-                    check(recovered < inputs && recipe.workSeconds == 600, "Casting recovery loses sale value and requires cutting labour: " + recipe.id);
+                    check(recipe.outputs.Length == 1 && (id == "ItmScrapAluminum" || id == "ItmScrapSteel") && recipe.outputs[0].count * recipe.outputs[0].unitMassKg == mass &&
+                        recipe.outputs[0].unitMassKg == 1 && (recipe.id.Contains("Steel") == (id == "ItmScrapSteel")),
+                        "Casting recovery preserves every kilogram without terminal residue, to the same metal: " + recipe.id);
+                    check(recovered < inputs && recipe.workSeconds >= 300, "Casting recovery loses sale value and requires cutting labour: " + recipe.id);
                     rows.Add($"| {recipe.name} | ${inputs:N2} | ${recovered:N2} (explicit recovery) |");
                     continue;
                 }

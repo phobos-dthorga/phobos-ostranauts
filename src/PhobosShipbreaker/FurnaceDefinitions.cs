@@ -13,7 +13,7 @@ internal static class FurnaceDefinitions
     {
         FurnaceService.AddCoolantStock(d);
         MachineDefinitions.AddFamily(d, FurnaceRules.Prefix);
-        MachineDefinitions.AddFeed(d, FurnaceRules.Prefix, "IsAluminum");
+        MachineDefinitions.AddFeed(d, FurnaceRules.Prefix, "IsAluminum", FurnaceRecipes.FeedConditions);
         MachineDefinitions.AddFamily(d, FurnaceRules.Radiator, InstallMenu.Hvac);
         MachineDefinitions.AddFamily(d, FurnaceRules.ThermalPort, InstallMenu.Hvac);
         foreach (string p in new[] { FurnaceRules.Prefix, FurnaceRules.Radiator, FurnaceRules.ThermalPort })
@@ -68,17 +68,23 @@ internal static class FurnaceDefinitions
         Packet(d, FurnaceRules.Blank, FurnaceRules.BlankKg, 55, "Furnace.blank_name", "Furnace.blank_description", "PhobosHousingBlankDedicated");
         Packet(d, FurnaceRules.Housing, 18, 60, "Furnace.housing_name", "Furnace.housing_description", "PhobosFurnaceHousing");
         Packet(d, FurnaceRules.Remainder, FurnaceRules.RemainderKg, .01, "Furnace.remainder_name", "Furnace.remainder_description", "StockMeltRemainder");
+        // Custom raw stock for Manufacturing (owner approval, 29 September 2026): one-cell ingots that stack, and the steel melt's own terminal remainder.
+        Packet(d, FurnaceRecipes.AluminiumIngot, FurnaceRecipes.IngotKg, FurnaceRecipes.AluminiumIngotPrice, "Furnace.aluminium_ingot_name", "Furnace.aluminium_ingot_description", "StockAluminiumIngot", 1, FurnaceRecipes.IngotStack);
+        Packet(d, FurnaceRecipes.SteelIngot, FurnaceRecipes.IngotKg, FurnaceRecipes.SteelIngotPrice, "Furnace.steel_ingot_name", "Furnace.steel_ingot_description", "StockSteelIngot", 1, FurnaceRecipes.IngotStack);
+        Packet(d, FurnaceRecipes.SteelRemainder, FurnaceRules.RemainderKg, .01, "Furnace.steel_remainder_name", "Furnace.steel_remainder_description", "StockSteelMeltRemainder", 1, 1);
+        foreach (string ingot in FurnaceRecipes.Ingots) d.Objects[ingot].aStartingConds = d.Objects[ingot].aStartingConds.Concat(new[] { "IsCategoryMetals=1x1" }).ToArray();
         Packet(d, FurnaceRules.Section, FurnaceRules.SectionKg, 6500, "Furnace.section_name", "Furnace.section_description", "PhobosFurnaceSectionDedicated");
         CoolingCargo.Add(d);
     }
     private static string[] Grid(int width, int height, string interior) => Enumerable.Range(0, (height + 2) * (width + 2))
         .Select(i => i % (width + 2) > 0 && i % (width + 2) <= width && i / (width + 2) > 0 && i / (width + 2) <= height ? interior : "Blank").ToArray();
-    private static void Packet(NativeDefinitions d, string id, double mass, double price, string name, string description, string art)
+    private static void Packet(NativeDefinitions d, string id, double mass, double price, string name, string description, string art, int side = 0, int stack = 1)
     {
         var co = NativeDefinitions.Clone(d.Objects[ProcessRules.Residue]); var item = NativeDefinitions.Clone(d.Items[ProcessRules.Residue]);
         co.strName = co.strItemDef = item.strName = id;
         co.strNameFriendly = co.strNameShort = Text.Get(name); co.strDesc = Text.Get(description);
-        int side = id == FurnaceRules.Section ? 4 : id == FurnaceRules.Remainder ? 1 : 2;
+        if (side == 0) side = id == FurnaceRules.Section ? 4 : id == FurnaceRules.Remainder ? 1 : 2;
+        co.nStackLimit = stack;
         co.inventoryWidth = co.inventoryHeight = item.nCols = side;
         co.aStartingConds = new[] { "IsSolid=1x1", "IsRigid=1x1", id + "Identity=1x1" };
         Content.SetStat(co, "StatMass", mass); Content.SetStat(co, "StatBasePrice", price);

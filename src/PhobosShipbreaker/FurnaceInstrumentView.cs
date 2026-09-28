@@ -75,6 +75,10 @@ public sealed class FurnaceInstrumentView : MonoBehaviour
         // Machine repeat run: its own row, so it is never mistaken for a single-batch step.
         var repeatRow=C.Row(root);
         foreach(var a in new[]{"repeat","repeat-stop"}){string action=a;C.Button(repeatRow,Text.Get("Furnace.action_"+a),()=>command(action,null));}
+        // Next charge: which metal the chamber takes and what is released. Changes only while idle, cool and empty.
+        W.Label(root, Text.Get("Furnace.action_recipe"));
+        var recipeRow=C.Row(root);
+        foreach(var r in FurnaceRecipes.All){string id=r.Id;C.Button(recipeRow,Text.Get("Furnace.recipe_"+id),()=>command("recipe",id));}
         Setting("heat", FurnaceRules.MinPowerSettingKW, FurnaceRules.HeatLimitKW, b => b.HeatCapKW);
         Setting("ramp", FurnaceRules.MinRamp, FurnaceRules.MaxRamp, b => b.RampKPerSecond);
         Setting("cool", FurnaceRules.MinPowerSettingKW, FurnaceRules.CoolingKW, b => b.CoolingCapKW);
@@ -120,7 +124,7 @@ public sealed class FurnaceInstrumentView : MonoBehaviour
         bool valid = !s.Protected && FurnaceService.ProbeValid(co);
         if (mode != null) NativeInstruments.Refresh(mode, !b.Armed ? 0 : b.StepMode ? 2 : 1);
         if (heatEnable != null) NativeInstruments.Refresh(heatEnable, b.Armed);
-        if (temperature != null) NativeInstruments.Refresh(temperature, valid ? (b.TemperatureK - 273.15) / 750 : (double?)null);
+        if (temperature != null) NativeInstruments.Refresh(temperature, valid ? (b.TemperatureK - 273.15) / ((b.Profile.TargetK - 273.15) * 1.1) : (double?)null);
         if (heat != null) NativeInstruments.Refresh(heat, valid ? s.DeliveredKW / (FurnaceRules.HeatLimitKW / FurnaceRules.Efficiency + FurnaceRules.HeatAuxKW) : (double?)null);
         var radiator = FurnaceService.CoolingEndpoint(co);
         if (cooling != null) NativeInstruments.Refresh(cooling, valid && radiator != null && !radiator.HasCond("IsDamaged") && !FurnaceService.Get(radiator).Protected ?

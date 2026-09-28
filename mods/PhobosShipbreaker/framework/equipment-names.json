@@ -186,5 +186,17 @@
   "Thaw.feed_name": {
     "brand": "Rivetline",
     "model": "T2"
+  },
+  "Furnace.aluminium_ingot_name": {
+    "brand": "Rivetline",
+    "model": ""
+  },
+  "Furnace.steel_ingot_name": {
+    "brand": "Rivetline",
+    "model": ""
+  },
+  "Furnace.steel_remainder_name": {
+    "brand": "Rivetline",
+    "model": ""
   }
 }

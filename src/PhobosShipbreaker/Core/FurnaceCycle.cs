@@ -69,7 +69,7 @@ public sealed class FurnaceRepeatRecord
         {
             record.ShipId = Id("ship"); record.RoomId = Id("room"); record.CoolingId = Id("cooling");
             // A future recipe revision is protected rather than reinterpreted by this version.
-            record.Revision = Count("revision", 1, FurnaceRules.RecipeRevision);
+            record.Revision = Count("revision", 1, FurnaceRecipes.MaxRevision);
             record.Completed = Count("completed", 0, int.MaxValue);
             return true;
         }

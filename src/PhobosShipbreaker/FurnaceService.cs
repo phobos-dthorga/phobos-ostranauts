@@ -73,19 +73,22 @@ internal static partial class FurnaceService
         var fields = FurnaceRules.Cooling(s.Object.strCODef) ? FurnaceCooling.Save(s.SinkKJ) : s.State.Save();
         if (!s.Store.TryWrite(fields)) { s.Protected = true; s.State.Batch.Armed = false; s.Notice = Text.Get("Furnace.protected"); }
     }
-    internal static bool CanFeed(CondOwner bin, CondOwner input) => !bin.HasCond("IsLocked") &&
-        (Phobos.Ostranauts.Framework.Crew.CrewLogistics.IsUnitPreflight(input) ? CrewFeed(input) : ValidFeed(input)) &&
+    /// <summary>The recipe the furnace is set to (bound while a batch is in progress).</summary>
+    internal static FurnaceRecipe Recipe(Session s) => FurnaceRecipes.ByRevision(s.State.Recipe) ?? FurnaceRecipes.Housing;
+    internal static FurnaceRecipe Recipe(CondOwner furnace) => Recipe(Get(furnace));
+    internal static bool CanFeed(CondOwner bin, CondOwner input) => !bin.HasCond("IsLocked") && bin.objCOParent is CondOwner furnace && FurnaceRules.Machine(furnace.strCODef) &&
+        (Phobos.Ostranauts.Framework.Crew.CrewLogistics.IsUnitPreflight(input) ? CrewFeed(furnace, input) : ValidFeed(furnace, input)) &&
         bin.objContainer != null && (bin.objContainer.ContainedCOs.Contains(input) || !FurnaceMaterialRules.ChargeFull(bin.objContainer.ContainedCOs.Count));
-    internal static bool ValidFeed(CondOwner input) => input != null && !input.bDestroyed && input.Crew == null &&
-        FurnaceMaterialRules.Feed(input.strCODef, input.GetTotalMass(), !input.HasCond("IsInstalled"), input.GetCOsSafe(true).Count == 0,
+    internal static bool ValidFeed(CondOwner furnace, CondOwner input) => input != null && !input.bDestroyed && input.Crew == null &&
+        FurnaceMaterialRules.Feed(Recipe(furnace), input.strCODef, input.GetTotalMass(), !input.HasCond("IsInstalled"), input.GetCOsSafe(true).Count == 0,
             input.coStackHead == null && input.aStack.Count == 0, input.GetLotCOs(true).Count == 0);
-    internal static bool CrewFeed(CondOwner input) => Phobos.Ostranauts.Framework.Crew.CrewLogistics.Loose(input) &&
-        input.strCODef==FurnaceMaterialRules.Aluminium && ProcessRules.MassMatches(input.GetCondAmount("StatMass"),FurnaceRules.FeedUnitKg);
+    internal static bool CrewFeed(CondOwner furnace, CondOwner input) => Phobos.Ostranauts.Framework.Crew.CrewLogistics.Loose(input) &&
+        input.strCODef==Recipe(furnace).FeedId && ProcessRules.MassMatches(input.GetCondAmount("StatMass"),FurnaceRules.FeedUnitKg);
     private static bool ChargePresent(Session s)
     {
         var bin = Feed(s.Object); var items = bin?.objContainer?.ContainedCOs;
         return items != null && items.Count == FurnaceRules.ChargeUnits && s.State.Inputs.Count == FurnaceRules.ChargeUnits &&
-            items.All(c => ValidFeed(c) && c.objCOParent == bin && s.State.Inputs.Contains(c.strID));
+            items.All(c => ValidFeed(s.Object, c) && c.objCOParent == bin && s.State.Inputs.Contains(c.strID));
     }
     private static bool Mounted(CondOwner co) => co != null && !co.bDestroyed && co.HasCond("IsInstalled") &&
         co.objCOParent == null && co.ship != null && (int)co.ship.LoadState >= 2;

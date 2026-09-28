@@ -1,0 +1,21 @@
+[h1]Phobos Shipbreaker 0.38.0[/h1]
+[b]Draft - not published | 2026-09-29[/b]
+
+[h2]Added[/h2]
+
+[list]
+[*]F6 recipes: choose the next charge on the panel, the C1 or with F3 (phobosfurnace recipe). Housing is the unchanged original; aluminium ingots turn twenty aluminium scraps into four 4 kg Phobos' Rivetline aluminium ingots, three scrap gates and the melt remainder; steel ingots turn twenty steel scraps into four 4 kg steel ingots, three steel gates and a steel melt remainder in a hotter, longer cycle (iron melting point and enthalpy of fusion from the NIST Chemistry WebBook; superheat and heat capacities are authored). Every recipe conserves the 20 kg charge and runs through the same lining, sink, radiator and 250 kW rating.
+[*]Ingots are one-cell stock that stacks to ten, trades as metals, is sold at the general markets and regional suppliers in lots of 32, and is the raw stock for coming Phobos Manufacturing machining. Table recipes cut an ingot back into four scraps and lose value.
+[/list]
+
+[h2]Changed[/h2]
+
+[list]
+[*]The charge chamber admits aluminium and steel at the game level; the selected recipe decides which is accepted, and a batch stays bound to the recipe it was sealed with. The heating interlock pressure scales with the recipe's target temperature so a hotter recipe is not refused for the residual gas its own pump left behind. Crew loading orders and R4 delivery bring the selected metal.
+[/list]
+
+[h2]Compatibility and limits[/h2]
+
+[list]
+[*]Requires Framework 0.39.0. Batches saved before 0.38.0 load as the housing recipe and finish as housings; a repeat run suspends if the recipe changes under it. Ingot and steel-remainder artwork are procedural placeholders until the handoff is produced. The real steel cycle length on a ship depends on supplied power and the radiator; offline checks complete and cool a full steel charge. Nothing consumes ingots yet. Offline checks pass; owner play-testing is pending.
+[/list]

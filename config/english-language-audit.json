@@ -25903,13 +25903,13 @@
       "key": "Furnace.description",
       "category": "description",
       "decision": "rewrite",
-      "reason": "Reworded for the situation/action or corrected stale feature wording; formatting and behaviour contracts retained.",
+      "reason": "The furnace now offers three recipes; the description names them and keeps the operating essentials.",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosShipbreaker/FurnaceDefinitions.cs:27"
       ],
       "before": "6 x 6 electric batch furnace; 240 kg empty. Rated for 50 kg; the first recipe accepts exactly twenty separate 1 kg aluminium scraps. Delivers up to 250 kW of accounted heat. Requires one paired cooling assembly: exterior radiator or underside thermal port. Hot contents and gases remain captive until cooled. Control Panel or F3: phobosfurnace help.",
-      "after": "Turn scrap into a fresh casting. 6 x 6 electric batch furnace; 240 kg empty, rated for 50 kg. This recipe takes exactly twenty separate 1 kg aluminium scraps and heats at up to 250 kW. Connect one exterior radiator or underside thermal port. Hot metal and gas stay sealed until cooled. Use Control Panel or F3: phobosfurnace help."
+      "after": "Turn scrap into castings. 6 x 6 electric batch furnace; 240 kg empty, rated for 50 kg. Choose the next charge: twenty separate 1 kg aluminium scraps become a rough machinery housing or four aluminium ingots; twenty steel scraps become four steel ingots in a hotter, longer cycle. Heats at up to 250 kW. Connect one exterior radiator or underside thermal port. Hot metal and gas stay sealed until cooled. Use Control Panel or F3: phobosfurnace help."
     },
     {
       "mod": "PhobosShipbreaker",
@@ -25928,28 +25928,27 @@
       "mod": "PhobosShipbreaker",
       "key": "Furnace.feed_name",
       "category": "control/name/value",
-      "decision": "retain",
-      "reason": "Retain: clear functional label, operational instruction or necessary safety/detail constraint; no forced personality.",
+      "decision": "rewrite",
+      "reason": "The chamber takes either metal by recipe; the aluminium-only name would mislead.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosShipbreaker/FurnaceDefinitions.cs:58",
-        "mods/PhobosShipbreaker/framework/equipment-names.json#Furnace.feed_name"
+        "src/PhobosShipbreaker/FurnaceDefinitions.cs:62"
       ],
       "before": "Aluminium charge chamber",
-      "after": "Aluminium charge chamber"
+      "after": "Charge chamber"
     },
     {
       "mod": "PhobosShipbreaker",
       "key": "Furnace.feed_description",
       "category": "description",
-      "decision": "retain",
-      "reason": "Retain: clear functional label, operational instruction or necessary safety/detail constraint; no forced personality.",
+      "decision": "rewrite",
+      "reason": "States the selected-recipe rule for which metal the chamber takes.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosShipbreaker/FurnaceDefinitions.cs:58"
+        "src/PhobosShipbreaker/FurnaceDefinitions.cs:62"
       ],
       "before": "Accepts twenty separate, empty, unstacked 1 kg native aluminium scraps. The sealed chamber locks its physical feed until safe release.",
-      "after": "Accepts twenty separate, empty, unstacked 1 kg native aluminium scraps. The sealed chamber locks its physical feed until safe release."
+      "after": "Accepts twenty separate, empty, unstacked 1 kg scraps of the metal the selected recipe takes: aluminium, or steel for steel ingots. The sealed chamber locks its physical feed until safe release."
     },
     {
       "mod": "PhobosShipbreaker",
@@ -26457,13 +26456,13 @@
       "key": "Furnace.help",
       "category": "help/settings",
       "decision": "rewrite",
-      "reason": "Added the repeat and repeat-stop commands; existing commands, IDs and limits retained.",
+      "reason": "Adds the recipe command; existing commands unchanged.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosShipbreaker/FurnaceOperations.cs:320"
+        "src/PhobosShipbreaker/FurnaceOperations.cs:339"
       ],
       "before": "phobosfurnace list | controls <full-id> | status <full-id> | pair <furnace-id> <cooling-id> | unpair <full-id> | feed <furnace-id> | products <furnace-id> | seal <furnace-id> | resume <furnace-id> | next <furnace-id> | stop <furnace-id> | equalize <furnace-id> | release <furnace-id> | automatic <furnace-id> | step-mode <furnace-id> | heat <furnace-id> <1-250 kW> | ramp <furnace-id> <0.1-5 K/s> | cool <furnace-id> <1-100 kW>. Full IDs and normal access checks are required.\nphobosfurnace cooling-direct <furnace-ID>\nphobosfurnace cooling-left <furnace-ID>\nphobosfurnace cooling-right <furnace-ID>\nCooling mode changes require a cool, empty furnace and cool paired assembly. Piped modes require F6-C conduits to an F6-R radiator; pair using the existing command.\nphobosfurnace coolant-managed/coolant-sealed/coolant-fill/coolant-drain <furnace-ID>",
-      "after": "phobosfurnace list | controls <full-id> | status <full-id> | pair <furnace-id> <cooling-id> | unpair <full-id> | feed <furnace-id> | products <furnace-id> | seal <furnace-id> | resume <furnace-id> | next <furnace-id> | stop <furnace-id> | equalize <furnace-id> | release <furnace-id> | automatic <furnace-id> | step-mode <furnace-id> | repeat <furnace-id> | repeat-stop <furnace-id> | heat <furnace-id> <1-250 kW> | ramp <furnace-id> <0.1-5 K/s> | cool <furnace-id> <1-100 kW>. Full IDs and normal access checks are required.\nphobosfurnace cooling-direct <furnace-ID>\nphobosfurnace cooling-left <furnace-ID>\nphobosfurnace cooling-right <furnace-ID>\nCooling mode changes require a cool, empty furnace and cool paired assembly. Piped modes require F6-C conduits to an F6-R radiator; pair using the existing command.\nphobosfurnace coolant-managed/coolant-sealed/coolant-fill/coolant-drain <furnace-ID>"
+      "after": "phobosfurnace list | controls <full-id> | status <full-id> | pair <furnace-id> <cooling-id> | unpair <full-id> | feed <furnace-id> | products <furnace-id> | recipe <furnace-id> <housing|aluminium-ingots|steel-ingots> | seal <furnace-id> | resume <furnace-id> | next <furnace-id> | stop <furnace-id> | equalize <furnace-id> | release <furnace-id> | automatic <furnace-id> | step-mode <furnace-id> | repeat <furnace-id> | repeat-stop <furnace-id> | heat <furnace-id> <1-250 kW> | ramp <furnace-id> <0.1-5 K/s> | cool <furnace-id> <1-100 kW>. Full IDs and normal access checks are required.\nphobosfurnace cooling-direct <furnace-ID>\nphobosfurnace cooling-left <furnace-ID>\nphobosfurnace cooling-right <furnace-ID>\nCooling mode changes require a cool, empty furnace and cool paired assembly. Piped modes require F6-C conduits to an F6-R radiator; pair using the existing command.\nphobosfurnace coolant-managed/coolant-sealed/coolant-fill/coolant-drain <furnace-ID>"
     },
     {
       "mod": "PhobosShipbreaker",
@@ -34265,30 +34264,14 @@
       "mod": "PhobosShipbreaker",
       "key": "Crew.recipe_housing",
       "category": "control/name/value",
-      "decision": "retain",
-      "reason": "Retain: clear functional label, operational instruction or necessary safety/detail constraint; no forced personality.",
+      "decision": "rewrite",
+      "reason": "The crew order id stays housing for saved orders; the label now covers every furnace recipe.",
       "trace": "dynamic family",
       "references": [
-        "src/PhobosShipbreaker/CrewProvider.cs:22",
-        "src/PhobosShipbreaker/CrewProvider.cs:31",
-        "src/PhobosShipbreaker/CrewProvider.cs:37",
-        "src/PhobosShipbreaker/CrewProvider.cs:38",
-        "src/PhobosShipbreaker/CrewProvider.cs:39",
-        "src/PhobosShipbreaker/CrewProvider.cs:43",
-        "src/PhobosShipbreaker/CrewProvider.cs:46",
-        "src/PhobosShipbreaker/CrewProvider.cs:62",
-        "src/PhobosShipbreaker/CrewProvider.cs:65",
-        "src/PhobosShipbreaker/CrewProvider.cs:68",
-        "src/PhobosShipbreaker/CrewProvider.cs:80",
-        "src/PhobosShipbreaker/CrewProvider.cs:84",
-        "src/PhobosShipbreaker/CrewProvider.cs:103",
-        "src/PhobosShipbreaker/CrewProvider.cs:107",
-        "src/PhobosShipbreaker/CrewProvider.cs:136",
-        "src/PhobosShipbreaker/CrewProvider.cs:144",
-        "src/PhobosShipbreaker/Plugin.cs:46"
+        "src/PhobosShipbreaker/CrewProvider.cs:52"
       ],
       "before": "Produce aluminium housings",
-      "after": "Produce aluminium housings"
+      "after": "Run the furnace's selected charge"
     },
     {
       "mod": "PhobosShipbreaker",
@@ -38739,6 +38722,268 @@
       ],
       "before": "Send the water to the waste tanks or let a linked process use it before dismantling; dismantling would destroy it. Uninstalling keeps the water in the loose silo.",
       "after": "Send the water to the waste tanks or let a linked process use it before dismantling; dismantling would destroy it. Uninstalling keeps the water in the loose silo."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Furnace.recipe_housing",
+      "category": "control",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/FurnaceInstrumentView.cs:81"
+      ],
+      "before": "Aluminium machinery housing (twenty aluminium)",
+      "after": "Aluminium machinery housing (twenty aluminium)"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Furnace.recipe_aluminium-ingots",
+      "category": "control",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/FurnaceInstrumentView.cs:81"
+      ],
+      "before": "Aluminium ingots (twenty aluminium)",
+      "after": "Aluminium ingots (twenty aluminium)"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Furnace.recipe_steel-ingots",
+      "category": "control",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/FurnaceInstrumentView.cs:81"
+      ],
+      "before": "Steel ingots (twenty steel)",
+      "after": "Steel ingots (twenty steel)"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Furnace.action_recipe",
+      "category": "control",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/FurnaceInstrumentView.cs:79",
+        "src/PhobosShipbreaker/FurnaceInstrumentView.cs:81"
+      ],
+      "before": "Next charge",
+      "after": "Next charge"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Furnace.recipe_status",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/FurnaceOperations.cs:35",
+        "src/PhobosShipbreaker/FurnaceOperations.cs:332"
+      ],
+      "before": "Recipe: {0}. The chamber takes {1}.",
+      "after": "Recipe: {0}. The chamber takes {1}."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Furnace.recipe_set",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/FurnaceOperations.cs:112"
+      ],
+      "before": "Next charge: {0}. The chamber now takes {1}.",
+      "after": "Next charge: {0}. The chamber now takes {1}."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Furnace.recipe_block",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/FurnaceOperations.cs:106"
+      ],
+      "before": "Choose the recipe while the furnace is idle and cool, with an empty charge chamber and no repeat run.",
+      "after": "Choose the recipe while the furnace is idle and cool, with an empty charge chamber and no repeat run."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Furnace.recipe_unknown",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/FurnaceOperations.cs:104"
+      ],
+      "before": "Unknown recipe. Choose housing, aluminium-ingots or steel-ingots.",
+      "after": "Unknown recipe. Choose housing, aluminium-ingots or steel-ingots."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Furnace.feed_aluminium",
+      "category": "label",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/Core/FurnaceRecipes.cs:77"
+      ],
+      "before": "single 1 kg aluminium scraps",
+      "after": "single 1 kg aluminium scraps"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Furnace.feed_steel",
+      "category": "label",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/Core/FurnaceRecipes.cs:77"
+      ],
+      "before": "single 1 kg steel scraps",
+      "after": "single 1 kg steel scraps"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Furnace.aluminium_ingot_name",
+      "category": "item name",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/FurnaceDefinitions.cs:72"
+      ],
+      "before": "Aluminium Ingot",
+      "after": "Aluminium Ingot"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Furnace.aluminium_ingot_description",
+      "category": "item description",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/FurnaceDefinitions.cs:72"
+      ],
+      "before": "A 4 kg cast aluminium ingot from an F6 ingot charge: clean stock for machining and coming Manufacturing work. Every twenty scraps give four ingots, three scrap gates and one remainder. A table can cut it back into four aluminium scraps; that loses value.",
+      "after": "A 4 kg cast aluminium ingot from an F6 ingot charge: clean stock for machining and coming Manufacturing work. Every twenty scraps give four ingots, three scrap gates and one remainder. A table can cut it back into four aluminium scraps; that loses value."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Furnace.steel_ingot_name",
+      "category": "item name",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/FurnaceDefinitions.cs:73"
+      ],
+      "before": "Steel Ingot",
+      "after": "Steel Ingot"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Furnace.steel_ingot_description",
+      "category": "item description",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/FurnaceDefinitions.cs:73"
+      ],
+      "before": "A 4 kg cast steel ingot from an F6 steel charge, the hotter and longer cycle. Clean stock for machining and coming Manufacturing work. A table can cut it back into four steel scraps; that loses value.",
+      "after": "A 4 kg cast steel ingot from an F6 steel charge, the hotter and longer cycle. Clean stock for machining and coming Manufacturing work. A table can cut it back into four steel scraps; that loses value."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Furnace.steel_remainder_name",
+      "category": "item name",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/FurnaceDefinitions.cs:74"
+      ],
+      "before": "Terminal steel melt remainder",
+      "after": "Terminal steel melt remainder"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Furnace.steel_remainder_description",
+      "category": "item description",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/FurnaceDefinitions.cs:74"
+      ],
+      "before": "The last 1 kg from a steel melt: slag and skull. No recipe recovers it. Keep it apart from useful scrap.",
+      "after": "The last 1 kg from a steel melt: slag and skull. No recipe recovers it. Keep it apart from useful scrap."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Recipe.PhobosRecoverAluminiumIngot.name",
+      "category": "recipe name",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "mods/PhobosShipbreaker/framework/recipes.json"
+      ],
+      "before": "Recover aluminium from ingot",
+      "after": "Recover aluminium from ingot"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Recipe.PhobosRecoverAluminiumIngot.description",
+      "category": "recipe description",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "mods/PhobosShipbreaker/framework/recipes.json"
+      ],
+      "before": "Cut one 4 kg aluminium ingot into 4 kg of identified aluminium scrap. All cuttings are retained; this destroys the ingot and loses its value.",
+      "after": "Cut one 4 kg aluminium ingot into 4 kg of identified aluminium scrap. All cuttings are retained; this destroys the ingot and loses its value."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Recipe.PhobosRecoverSteelIngot.name",
+      "category": "recipe name",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "mods/PhobosShipbreaker/framework/recipes.json"
+      ],
+      "before": "Recover steel from ingot",
+      "after": "Recover steel from ingot"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Recipe.PhobosRecoverSteelIngot.description",
+      "category": "recipe description",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "mods/PhobosShipbreaker/framework/recipes.json"
+      ],
+      "before": "Cut one 4 kg steel ingot into 4 kg of identified steel scrap. All cuttings are retained; this destroys the ingot and loses its value.",
+      "after": "Cut one 4 kg steel ingot into 4 kg of identified steel scrap. All cuttings are retained; this destroys the ingot and loses its value."
     }
   ],
   "documents": [
@@ -38746,7 +38991,7 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "8abee389beaf322da2a2bdad1ac2b221c0900aa276e45428248a6a91de8cfffe",
+      "sha256": "d6065e4462aa3fbcba51dedba5b533b3217280b1e0aade4cf2442df093a37880",
       "review": "2026-09-29: version summary; no other wording changed."
     },
     {
@@ -38905,15 +39150,15 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "895c77edfb95d7d7a33633b222049b5caafab5f9e3ecc30270a7b8155fea48fc",
+      "sha256": "333970563cb996efff763e98f13752ba9fac99b811398a3b6421df6ed4e29e3d",
       "review": "2026-09-29: version line; no other wording changed."
     },
     {
       "path": "docs/crew-automation.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "e2c183749b94af343d3f1a186e88a83409978213e83d1b55709ab6f137f1c9ac",
-      "review": "2026-09-29: T2 thaw unit row."
+      "sha256": "8d93e6626089705a2d381ba23908f681cfe8ee69d372105240026c5f35c34d42",
+      "review": "2026-09-29: F6 row names the selected metal."
     },
     {
       "path": "docs/development/README.md",
@@ -39117,8 +39362,8 @@
       "path": "docs/development/bulk-silo-art-handoff.md",
       "scope": "contributor artwork handoff; placeholders are not reviewed art",
       "decision": "add",
-      "sha256": "08508a429e46d8afc6c05797e3305b62c8290ca5eaaf47d88a0d5a765c8a3747",
-      "review": "2026-09-29: new contributor handoff: placeholders, rules, prompt prefix, three requests, review checklist."
+      "sha256": "1ca7f53c0732dc36d43a5494f52b20c2c6c3db0d1776146644a7295f5841438d",
+      "review": "2026-09-29: placeholder rows for the ingot stock sprites; request 3 heading."
     },
     {
       "path": "docs/development/chemical-storage-and-process-fluids.md",
@@ -39165,8 +39410,8 @@
       "path": "docs/development/equipment-value-audit.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "78817dd58a6a8e5649a2adaa1346d13bbde0a93d4876edd004bb3788dacb1f07",
-      "review": "2026-09-29: regenerated audit with the S3 and T2 rows."
+      "sha256": "6e67a646005858fbf9d96969fe62644fa3b6e1ffb91a7d50dd739259f88ed68b",
+      "review": "2026-09-29: regenerated audit with the ingot recovery rows."
     },
     {
       "path": "docs/development/feed-families.md",
@@ -39283,8 +39528,8 @@
       "path": "docs/development/item-handling-audit.md",
       "scope": "current handling guidance and complete generated definition ledger",
       "decision": "reviewed",
-      "sha256": "019e0aa32a514954d50a2947107b71d81b6c22e76cf7d7f8a8ff17801392a3e2",
-      "review": "2026-09-29: regenerated handling ledger with the S3, T2 and ice feed identities."
+      "sha256": "da6684987dd3605171e51bca9486c90c7f6e7c1ef8e64fb5e0827436aa2dfc22",
+      "review": "2026-09-29: regenerated handling ledger with the ingot and steel-remainder identities."
     },
     {
       "path": "docs/development/item-reference-maintenance.md",
@@ -39321,8 +39566,8 @@
       "path": "docs/development/manufacturing-handover.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "ae470c658cf658f0a91e2086910e81eec596c3e24021e388b092506c9d512e63",
-      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+      "sha256": "693b519117e08e5f498a5ed563ae2ac87e4398e4cc2faa3a1da970d6176e0401",
+      "review": "2026-09-29: pointer to the ingots as the provided raw stock."
     },
     {
       "path": "docs/development/manufacturing-implementation.md",
@@ -39372,8 +39617,8 @@
       "path": "docs/development/merchant-stock.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "8c8d34ecac328898695ae7c4939941bf44e48e3a3618a12dffdc2db85cbfd32c",
-      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+      "sha256": "208575bb52217ff942dbf24d064bb49c5db9dd853d3a2b5421b22e38798f48e7",
+      "review": "2026-09-29: ingot lot row."
     },
     {
       "path": "docs/development/mod-extension-survey.md",
@@ -39595,8 +39840,8 @@
       "path": "docs/equipment-economy.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "56a49c0167da457abdcc65fc15a2ea0ff85929bc931089e2b5447748f4328627",
-      "review": "2026-09-29: S3 and T2 rows in the price and work-time tables."
+      "sha256": "0affa94e5a7c626135f06984c34b40c0545f3d2337620aec8a81131e5c852d34",
+      "review": "2026-09-29: ingot rows in the price table."
     },
     {
       "path": "docs/fluid-network-operations.md",
@@ -39630,8 +39875,8 @@
       "path": "docs/furnace-player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "04847b13c8580bbd754319d65aa3db760fdd535eae12ac37b30ebc3ccc867c97",
-      "review": "2026-09-29: one piece per right-click; Load feed by crew brings single pieces; hot steps unchanged."
+      "sha256": "ba63140e633f46576f4824bb6e0ba57a7cbf20cff7bfe06d1d8de85f12c9fc49",
+      "review": "2026-09-29: intro names the three castings; new recipes section with the NIST iron credit; repeat-batches metal wording; recipe command."
     },
     {
       "path": "docs/getting-started.md",
@@ -39665,8 +39910,8 @@
       "path": "docs/industrial-console-player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "60071a4bb48d1ca71a6c0f4dbd5b3042bf09cd68a107861ef07ff8ff485e6d08",
-      "review": "2026-09-29: equipment list names silos and thaw units."
+      "sha256": "453f9676f531e30df1aa36b1954423654c65b38b2ee9a14edd115905cca92ac9",
+      "review": "2026-09-29: version line; no other wording changed."
     },
     {
       "path": "docs/installing-mods.md",
@@ -39707,8 +39952,8 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "e981b832704e9e10329465a668262a557115625e9820272b1385b2836f608846",
-      "review": "2026-09-29: version lines and a pointer paragraph to the silo guide in the hand-fed section."
+      "sha256": "16de90eb20e8fdb581c63ae92a92bad0aefc958b2b463341bf5bf978277331b9",
+      "review": "2026-09-29: version lines; F6 crew loading names the selected metal."
     },
     {
       "path": "docs/residue-collector.md",
@@ -39756,8 +40001,8 @@
       "path": "docs/shipbreaker-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "de90ff0af8d0045e003e0ced2ae932affce09b01b4790219ecf733ffa3ef22fd",
-      "review": "2026-09-29: regenerated from reviewed inputs: S3, T2 and ice-feed entries, version."
+      "sha256": "ed498f47601bd2075cddda8a2c5c14484d90b37ac7daed82bb640fbb32b8bca2",
+      "review": "2026-09-29: regenerated from reviewed inputs: ingot, steel-remainder and compartment entries, version."
     },
     {
       "path": "docs/shipbreaker-material-uses.md",
@@ -39812,16 +40057,16 @@
       "path": "workshop/PhobosShipbreaker/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "a37bbf152f8011479aedd04061b6ba9673fe4ad2606e2eb91a7a841e5df85c4f",
-      "review": "2026-09-29: version, requirements line, 0.37.0 bullet, operating-limits sentence."
+      "sha256": "45f857b99a44ad080f78a989f2b7b7f1773e0e986ad8bd1e68cd86b358a21e5d",
+      "review": "2026-09-29: version, furnace bullets and the 0.38.0 bullet."
     }
   ],
   "surfaces": [
     {
       "path": "config/item-reference.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "e6d80699d82cdf9825c811b86750f02758e96dca723c168769b834ace5b7457a",
-      "review": "2026-09-29: S3 and T2 groups; ice feed in the compartments group."
+      "sha256": "d1ee7709f0bf7e5f5b8514619c00f42f64f8a64970619bbd8b37c774903b5aa5",
+      "review": "2026-09-29: ingot and steel-remainder groups; compartments text."
     },
     {
       "path": "mods/PhobosAgriculture/framework/equipment-names.json",
@@ -39879,18 +40124,19 @@
     {
       "path": "mods/PhobosShipbreaker/framework/equipment-names.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "13101a2b3003cc7e29b4ff2ca9fdc006dfa15b0ff13a01522eafc834367d8fae",
-      "review": "2026-09-29: Rivetline S3 and T2 identities for the silo, thaw unit and its feed."
+      "sha256": "cf54b69ef4e478eba39acf3beb0963e7d645e985d513cfe7f0da8fe03f0a4831",
+      "review": "2026-09-29: Rivetline identities for the ingots and the steel remainder."
     },
     {
       "path": "mods/PhobosShipbreaker/framework/recipes.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "86bbcf4e5a5255b1640af90e62cf7840b85b4414ed6f1ac4b37d3b94b3613e98"
+      "sha256": "47fc493cbaf73203ea60be37f49645bccf82c7dd4d88e3e4cf98d0458f135c99",
+      "review": "2026-09-29: two ingot recovery recipes."
     },
     {
       "path": "mods/PhobosShipbreaker/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "3a285d855cede89e67290482059b5cd4d76c42d155d25f3b631c4d82d0bfbd14",
+      "sha256": "286f9248b2404574eb2d495966513c9178356d7a6f545bd2cd49ed7f5f4ca3db",
       "review": "2026-09-29: version metadata only."
     }
   ],

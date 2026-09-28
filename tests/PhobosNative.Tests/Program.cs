@@ -132,12 +132,12 @@ foreach (string forbidden in new[] { "IsInstalled", "IsOversized" })
 Check(!feedTrigger.TriggeredDataCO(new DataCO(DataHandler.dictCOs[Content.Loose]), false), "Cumbersome machinery cannot enter the wall feed");
 foreach (var machine in prepared.Objects.Values.Where(x => Content.IsMachine(x.strName)))
     Check(!machine.dictSlotsLayout.ContainsKey(Content.InputSlot), "Native feed window retains its title on " + machine.strName);
-Check(prepared.Objects.Count == 70 && prepared.Installables.Count == 150, $"Eleven machine families, coolant conduit, charge chamber, ice feed, preserved/new material identities and five feed-family rejects ({prepared.Objects.Count} objects, {prepared.Installables.Count} actions)");
+Check(prepared.Objects.Count == 73 && prepared.Installables.Count == 150, $"Eleven machine families, coolant conduit, charge chamber, ice feed, preserved/new material identities, two ingots, the steel remainder and five feed-family rejects ({prepared.Objects.Count} objects, {prepared.Installables.Count} actions)");
 var furnaceItem = prepared.Items[FurnaceRules.Prefix + "Installed"];
 var furnaceFeed = DataHandler.dictCTs[prepared.Objects[FurnaceRules.Feed].strContainerCT];
 Check(furnaceItem.nCols == 6 && furnaceItem.aSocketAdds.Length == 36 && furnaceItem.aSocketReqs.Length == 64, "F6 occupies six by six native tiles");
 Check(furnaceFeed.TriggeredDataCO(new DataCO(DataHandler.dictCOs["ItmScrapAluminum"]), false), "Native aluminium enters the furnace feed trigger");
-Check(!furnaceFeed.TriggeredDataCO(new DataCO(DataHandler.dictCOs["ItmScrapSteel"]), false), "Steel is excluded from the first casting recipe");
+Check(furnaceFeed.TriggeredDataCO(new DataCO(DataHandler.dictCOs["ItmScrapSteel"]), false), "Native steel enters the furnace feed trigger since 0.38.0; the selected recipe decides which metal is accepted");
 var aluminium = DataHandler.dictCOs["ItmScrapAluminum"]; var aluminiumItem = DataHandler.dictItemDefs[aluminium.strItemDef];
 int aluminiumWidth = aluminium.inventoryWidth > 0 ? aluminium.inventoryWidth : aluminiumItem.nCols;
 int aluminiumHeight = aluminium.inventoryHeight > 0 ? aluminium.inventoryHeight : aluminiumItem.aSocketAdds.Length / aluminiumItem.nCols;

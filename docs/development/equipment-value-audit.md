@@ -64,6 +64,8 @@ This is a conservative vanilla baseline, not a guarantee across different region
 | Recover aluminium from housing blank | $55.00 | $20.90 (explicit recovery) |
 | Recover aluminium from finished housing | $60.00 | $19.80 (explicit recovery) |
 | Phobos' Rivetline F6-C Sealed Coolant Conduit | $1.10 | $0.01 |
+| Recover aluminium from ingot | $12.00 | $4.40 (explicit recovery) |
+| Recover steel from ingot | $25.00 | $14.40 (explicit recovery) |
 | Phobos' Asterel N1 Polaris Auto Nav Module | $29.00 | $0.01 |
 | Phobos' Asterel N2 Polaris Pursuit Module | $29.00 | $0.01 |
 | Phobos' Asterel N3 Polaris Fire Control System | $29.00 | $0.01 |

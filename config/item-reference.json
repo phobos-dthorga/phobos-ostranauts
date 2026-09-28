@@ -371,6 +371,48 @@
           "labels": {}
         },
         {
+          "key": "aluminium-ingot",
+          "title": "Aluminium ingot",
+          "ids": [
+            "PhobosAluminiumIngot"
+          ],
+          "function": "A 4 kg cast aluminium ingot: the raw stock for coming Phobos Manufacturing machining.",
+          "use": "Choose the aluminium-ingots recipe on the F6 (panel, C1 or F3) and run a twenty-scrap charge: four ingots, three scrap gates and one melt remainder are released. Keep ingots as stock, sell them as metals, or cut one back into four aluminium scraps at a table (Recover aluminium from ingot). See [F6 recipes](furnace-player-guide.md#recipes-housings-and-ingots).",
+          "find": "Released from a completed and cooled F6 aluminium-ingot charge, or bought as ordinary supply from the sellers below.",
+          "notes": "Stacks to ten. Recovery to scrap loses value; the ingot is worth more than the four scraps it holds. No machine consumes ingots until Manufacturing arrives.",
+          "guide": "furnace-player-guide.md",
+          "internal": false,
+          "labels": {}
+        },
+        {
+          "key": "steel-ingot",
+          "title": "Steel ingot",
+          "ids": [
+            "PhobosSteelIngot"
+          ],
+          "function": "A 4 kg cast steel ingot from the F6 steel charge: the raw stock for coming Phobos Manufacturing machining.",
+          "use": "Choose the steel-ingots recipe on the F6 and load twenty 1 kg steel scraps; the hotter, longer cycle releases four ingots, three steel scrap gates and one steel melt remainder. Keep, sell, or cut one back into four steel scraps at a table (Recover steel from ingot). See [F6 recipes](furnace-player-guide.md#recipes-housings-and-ingots).",
+          "find": "Released from a completed and cooled F6 steel-ingot charge, or bought as ordinary supply from the sellers below.",
+          "notes": "Stacks to ten. Recovery to scrap loses value. The steel cycle needs well over half again the energy of an aluminium cycle through the same cooling assembly.",
+          "guide": "furnace-player-guide.md",
+          "internal": false,
+          "labels": {}
+        },
+        {
+          "key": "steel-remainder",
+          "title": "Terminal steel melt remainder",
+          "ids": [
+            "PhobosSteelMeltRemainder"
+          ],
+          "function": "Retained steel casting-process remainder.",
+          "use": "Keep as physical waste or offer to a compatible buyer.",
+          "find": "Appears with released F6 steel-ingot products.",
+          "notes": "No remelting or reclaimer recipe accepts it; its small value is not a recovery yield. Distinct from the aluminium melt remainder.",
+          "guide": "furnace-player-guide.md",
+          "internal": false,
+          "labels": {}
+        },
+        {
           "key": "r2-feed",
           "title": "Identified Panel Residue R2",
           "ids": [
@@ -534,7 +576,7 @@
             "PhobosIceThawInputBin"
           ],
           "function": "Named child inventories built into D4, R4, F6 and T2. They are not separate products.",
-          "use": "Open the compartment from the machine's Control Panel (the ordinary Inventory is the product tray) and put only its accepted structural parts (ordinary walls of any make, floor grates, DuraWal, Whipple and aero panels, windows), R2 residue, single aluminium pieces or single blocks of water ice there, or switch on Load feed by crew.",
+          "use": "Open the compartment from the machine's Control Panel (the ordinary Inventory is the product tray) and put only its accepted structural parts (ordinary walls of any make, floor grates, DuraWal, Whipple and aero panels, windows), R2 residue, single 1 kg pieces of the metal the selected furnace recipe takes, or single blocks of water ice there, or switch on Load feed by crew.",
           "find": "Shown as feed/chamber inventory within their owning machine.",
           "notes": "No purchase, INSTALL, repair, Restore or standalone salvage contract. Empty-machine checks include these compartments.",
           "guide": "industrial-console-player-guide.md",

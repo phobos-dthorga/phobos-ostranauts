@@ -22,7 +22,7 @@ internal sealed class IndustrialCrewProvider : ICrewWorkProvider,ICrewSkipProvid
     {reason=Text.Get("Crew.bound_target");return !ProcessingService.IsGrabber(co)||draft.Target=="none"||Targets(co).Any(s=>s.strRegID==draft.Target);}
     public bool RelevantStore(CondOwner co,StandingOrder draft,CondOwner store,bool output)=>CrewLogistics.Contents(store).Any(c=>output?
         (ThawRules.IsFamily(co.strCODef)?c.strCODef==ThawRules.Gangue:ProcessingService.CrewProduct(co,c)):
-        ThawRules.IsFamily(co.strCODef)?ThawService.CrewFeed(c):FurnaceRules.Machine(co.strCODef)?FurnaceService.CrewFeed(c):ProcessingService.CrewFeed(co,c));
+        ThawRules.IsFamily(co.strCODef)?ThawService.CrewFeed(c):FurnaceRules.Machine(co.strCODef)?FurnaceService.CrewFeed(co,c):ProcessingService.CrewFeed(co,c));
     public string Id=>Plugin.Id;
     public bool Supports(CondOwner c)=>ProcessingService.IsProcessor(c.strCODef) || c.strCODef==CollectorRules.Installed || c.strCODef==CollectorRules.Installed+"Dmg" ||
         FurnaceRules.Machine(c.strCODef) || ProcessingService.IsGrabber(c) || ThawRules.IsFamily(c.strCODef);
@@ -74,17 +74,18 @@ internal sealed class IndustrialCrewProvider : ICrewWorkProvider,ICrewSkipProvid
             if(s.Protected){reason=Text.Get("Furnace.protected");return null;}
             if(b.Phase==FurnacePhase.Idle && b.SafeOpen)
             {
-                var products=CrewLogistics.Output(co,order,co,c=>c.strCODef==FurnaceRules.Blank || c.strCODef==FurnaceRules.Remainder || c.strCODef==FurnaceService.CoolantWaste,CrewRole.Industry);
+                var products=CrewLogistics.Output(co,order,co,c=>FurnaceMaterialRules.IsProduct(c.strCODef) || c.strCODef==FurnaceService.CoolantWaste,CrewRole.Industry);
                 if(products!=null)return products;
                 if(FurnaceService.CrewNeedsCoolant(co))
                 {
                     if(Phobos.Ostranauts.Framework.Inventory.StackUnits.All(co).Any(c=>c.strCODef==FurnaceService.CoolantStock&&!c.bDestroyed))return Act("coolant-fill");
                     return CrewLogistics.Supply(co,order,co,c=>c.strCODef==FurnaceService.CoolantStock,CrewRole.Industry)??Blocked(out reason);
                 }
-                int stock=CrewLogistics.Contents(co).Concat(CrewLogistics.Contents(CrewWork.Resolve(order.Destination))).Count(c=>c.strCODef==FurnaceRules.Blank);
+                string primary=FurnaceService.Recipe(co).Products[0].Id;
+                int stock=CrewLogistics.Contents(co).Concat(CrewLogistics.Contents(CrewWork.Resolve(order.Destination))).Count(c=>c.strCODef==primary);
                 if(stock>=order.Stock){reason=Text.Get("Crew.stock_met");return null;}
                 var feed=FurnaceService.Feed(co);if(feed==null)return null;
-                if(CrewLogistics.Contents(feed).Count()<FurnaceRules.ChargeUnits)return CrewLogistics.Supply(co,order,feed,FurnaceService.CrewFeed,CrewRole.Industry)??Blocked(out reason);
+                if(CrewLogistics.Contents(feed).Count()<FurnaceRules.ChargeUnits)return CrewLogistics.Supply(co,order,feed,c=>FurnaceService.CrewFeed(co,c),CrewRole.Industry)??Blocked(out reason);
             }
             // A machine repeat run owns the hot steps; crew keep hauling and supplying around it.
             if(FurnaceService.RepeatActive(co)){reason=Text.Get("Crew.repeat_run");return null;}

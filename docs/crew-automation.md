@@ -85,7 +85,7 @@ and full destinations leave the work pending.
 | D4 / R4 | Supply valid loose feed (for the D4: ordinary walls of any make, floor grates, DuraWal, Whipple and aero panels, windows), start one checked batch and clear physical products to the approved store; Load feed by crew is the right-click shortcut |
 | C2 collector | Enable its existing configured collection route and clear accepted cargo |
 | T2 thaw unit | Supply single blocks of water ice from the approved store or anywhere aboard, start thawing when the linked vessel has room, and clear gangue to the approved store; Load feed by crew is the right-click shortcut |
-| F6 | Supply exact aluminium units, replenish an already enabled managed coolant circuit, and perform an explicitly permitted seal/run/equalize/release sequence. While the furnace's own [repeat run](furnace-player-guide.md#repeat-batches) is on, crew keep supplying and clearing but leave the hot steps to it |
+| F6 | Supply exact 1 kg pieces of the metal the selected recipe takes, replenish an already enabled managed coolant circuit, and perform an explicitly permitted seal/run/equalize/release sequence. While the furnace's own [repeat run](furnace-player-guide.md#repeat-batches) is on, crew keep supplying and clearing but leave the hot steps to it |
 | G4 | Prepare and launch/resume the existing exact reclamation mission through its recorded capture, equipment and Auto Nav bindings |
 | N1 / N2 at Polaris | Launch one explicitly permitted resume of an already recorded flight to the selected target |
 

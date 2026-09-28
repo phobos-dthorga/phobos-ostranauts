@@ -12,7 +12,7 @@ namespace PhobosShipbreaker;
 internal static partial class FurnaceService
 {
     internal const double RepeatRetrySeconds = 5;
-    private static readonly string[] ManualActions = { "stop", "pause", "isolate", "seal", "resume", "start", "next", "auto-run", "step-run",
+    private static readonly string[] ManualActions = { "stop", "pause", "isolate", "seal", "resume", "start", "next", "auto-run", "step-run", "recipe",
         "automatic", "step-mode", "equalize", "release", "cooling-direct", "cooling-left", "cooling-right", "pair", "unpair" };
     private static ObjectStateStore RepeatStore(CondOwner co) => new(co.mapGUIPropMaps, FurnaceRepeatRecord.StoreName, Text.Owner, FurnaceRepeatRecord.Schema);
     private static void ReadRepeat(Session s)
@@ -44,7 +44,7 @@ internal static partial class FurnaceService
         bool resume = FurnaceCycle.Repeat(b.Phase, b.Armed, b.Qualified, b.SafeOpen, ChargeFull(s)) == FurnaceRepeatAction.Suspend;
         if (resume && !ResumeReady(s)) { message = Text.Get("Furnace.resume_block"); return false; }
         var record = s.Repeat ?? new FurnaceRepeatRecord();
-        record.ShipId = co.ship.strRegID; record.RoomId = room.strID; record.CoolingId = cooling.strID; record.Revision = FurnaceRules.RecipeRevision;
+        record.ShipId = co.ship.strRegID; record.RoomId = room.strID; record.CoolingId = cooling.strID; record.Revision = s.State.Recipe;
         s.Repeat = record;
         if (!WriteRepeat(s)) { s.RepeatProtected = true; message = Text.Get("Furnace.repeat_protected"); return false; }
         // The run always uses the automatic sequence; step mode would wait for a person.
@@ -86,7 +86,7 @@ internal static partial class FurnaceService
         if (s.Protected || s.State.NativeMutation || s.RepeatProtected || r == null) return Text.Get("Furnace.protected");
         if (!ControlsReady(co)) return Text.Get("Furnace.install");
         if (!OwnedByPlayer(co)) return Text.Get("Furnace.owned_ship");
-        if (r.Revision != FurnaceRules.RecipeRevision || co.ship.strRegID != r.ShipId || CoolingEndpoint(co)?.strID != r.CoolingId || Room(co)?.strID != r.RoomId)
+        if (r.Revision != s.State.Recipe || co.ship.strRegID != r.ShipId || CoolingEndpoint(co)?.strID != r.CoolingId || Room(co)?.strID != r.RoomId)
             return Text.Get("Furnace.repeat_changed");
         return null;
     }

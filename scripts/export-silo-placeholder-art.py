@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Deterministic placeholder sprites for the S3 process-water silo and the T2 ice thaw unit.
+"""Deterministic placeholder sprites for the S3 process-water silo, the T2 ice thaw unit and the F6 ingot stock.
 
 These are stand-ins until the handoff in docs/development/bulk-silo-art-handoff.md is produced
 with ChatGPT or PixelLab under the asset-generation policy. They are drawn procedurally at 4x
@@ -150,6 +150,44 @@ def thaw(k: int) -> Canvas:
     return c
 
 
+ALUMINIUM = (196, 200, 206, 255)
+ALUMINIUM_DARK = (140, 146, 154, 255)
+STEEL = (96, 108, 124, 255)
+STEEL_DARK = (58, 66, 78, 255)
+SLAG = (46, 42, 40, 255)
+SLAG_LIGHT = (84, 76, 70, 255)
+
+
+def ingot(k: int, face, edge) -> Canvas:
+    """Overhead view of one cast bar filling a one-cell inventory sprite: a chamfered top face and one stamped recess."""
+    n = TILE * k
+    c = Canvas(n)
+    c.rounded(2 * k, 4 * k, n - 2 * k, n - 4 * k, k, edge)
+    c.rounded(3 * k, 5 * k, n - 3 * k, n - 5 * k, k, face)
+    c.rect(n // 2 - 3 * k, n // 2 - k, n // 2 + 3 * k, n // 2 + k, edge)
+    return c
+
+
+def aluminium_ingot(k: int) -> Canvas:
+    return ingot(k, ALUMINIUM, ALUMINIUM_DARK)
+
+
+def steel_ingot(k: int) -> Canvas:
+    return ingot(k, STEEL, STEEL_DARK)
+
+
+def steel_remainder(k: int) -> Canvas:
+    """An irregular slag packet, distinct from the existing aluminium melt remainder."""
+    n = TILE * k
+    c = Canvas(n)
+    c.disc(n // 2 - k, n // 2 + k, 5 * k, SLAG)
+    c.disc(n // 2 + 3 * k, n // 2 - 2 * k, 4 * k, SLAG)
+    c.disc(n // 2 - 2 * k, n // 2 - 3 * k, 3 * k, SLAG)
+    c.disc(n // 2 + 2 * k, n // 2 - k, 2 * k, SLAG_LIGHT)
+    c.disc(n // 2 - 3 * k, n // 2 + 2 * k, 2 * k, SLAG_LIGHT)
+    return c
+
+
 def outputs():
     for name, draw, tiles in (('PhobosProcessSilo', silo, 3), ('PhobosIceThaw', thaw, 2)):
         master = draw(SCALE)
@@ -160,6 +198,13 @@ def outputs():
         yield RUNTIME / f'{name}Normal.png', png(native.size, native.size, native.normal().rows())
         portrait = native.scale_up(portrait_scale, PORTRAIT)
         yield RUNTIME / f'{name}Portrait.png', png(PORTRAIT, PORTRAIT, portrait.rows())
+    # Stock sprites (inventory item and world image alike, as the other Stock* exports): 16 px native, 4x masters.
+    for name, draw in (('StockAluminiumIngot', aluminium_ingot), ('StockSteelIngot', steel_ingot), ('StockSteelMeltRemainder', steel_remainder)):
+        master = draw(SCALE)
+        native = master.sample(SCALE)
+        yield MASTERS / f'{name}-placeholder-4x.png', png(master.size, master.size, master.rows())
+        yield RUNTIME / f'{name}.png', png(native.size, native.size, native.rows())
+        yield RUNTIME / f'{name}Normal.png', png(native.size, native.size, native.normal().rows())
 
 
 def main(argv):

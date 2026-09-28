@@ -58,7 +58,7 @@ internal static class FurnaceCycleChecks
             loaded.CoolingId == "radiator-3" && loaded.Completed == 4 && loaded.Revision == FurnaceRules.RecipeRevision, "Repeat record round-trips");
         check(!fields.ContainsKey("armed") && !fields.ContainsKey("authorized") && !fields.Keys.Any(k => k.Contains("permission")), "Heating permission is never saved");
         foreach (var damage in new (string Key, string? Value)[] { ("ship", null), ("room", ""), ("cooling", "a=b"), ("completed", "-1"), ("completed", "x"),
-            ("revision", (FurnaceRules.RecipeRevision + 1).ToString()), ("revision", "0"), ("room", "line\nbreak") })
+            ("revision", (FurnaceRecipes.MaxRevision + 1).ToString()), ("revision", "0"), ("room", "line\nbreak") })
         {
             var copy = new Dictionary<string, string>(fields);
             if (damage.Value == null) copy.Remove(damage.Key); else copy[damage.Key] = damage.Value;

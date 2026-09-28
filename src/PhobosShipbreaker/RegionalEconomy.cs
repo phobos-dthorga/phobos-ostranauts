@@ -30,7 +30,7 @@ internal static class RegionalEconomy
     internal static void Apply(NativeDefinitions d)
     {
         foreach (string merchant in new[] { "ItmOKLGSupplyKioskInv", "ItmOKLGFixer", "ItmTraderSanDiegoHalvorsonInv", "ItmVORBScrapKioskInv" })
-        foreach (string item in EquipmentEconomy.Machines.Select(m => m.Prefix + "Loose").Concat(new[] { ProcessRules.AssemblySection, ReclaimerRules.Section, FurnaceRules.Section, FurnaceCooling.Conduit + "Loose", FurnaceService.CoolantStock }))
+        foreach (string item in EquipmentEconomy.Machines.Select(m => m.Prefix + "Loose").Concat(new[] { ProcessRules.AssemblySection, ReclaimerRules.Section, FurnaceRules.Section, FurnaceCooling.Conduit + "Loose", FurnaceService.CoolantStock }).Concat(FurnaceRecipes.Ingots))
             MarketStock.AddMissing(d, merchant, "PhobosExpanded_Shipbreaker_" + merchant + "_" + item,
                 item, StockQuantities.Chance(item, 0), StockCondition.Pristine, StockQuantities.For(item));
         foreach (var profile in Profiles)
@@ -46,6 +46,7 @@ internal static class RegionalEconomy
             Offer(FurnaceCooling.Conduit + "Loose", .65);
             // Consumable charge quality is independent of refurbished machinery.
             RegionalMarkets.Add(d, profile.Region, FurnaceService.CoolantStock, StockQuantities.Chance(FurnaceService.CoolantStock, .65 * profile.Factor), StockCondition.Pristine, StockQuantities.Coolant);
+            foreach (string ingot in FurnaceRecipes.Ingots) RegionalMarkets.Add(d, profile.Region, ingot, StockQuantities.Chance(ingot, .5 * profile.Factor), StockCondition.Pristine, StockQuantities.Ingots);
             void Offer(string item, double chance) => RegionalMarkets.Add(d, profile.Region, item, StockQuantities.Chance(item, chance * profile.Factor), condition, StockQuantities.For(item));
         }
         // Packaged working fluid is an industrial consumable, never potable water.

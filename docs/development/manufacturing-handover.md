@@ -41,6 +41,12 @@ suitable cold stock, such as purchased stock or an audited salvage input. Do not
 make ownership of an F6 furnace a hidden prerequisite. The exact stock source is
 research to resolve, not an already implemented native supply route.
 
+Shipbreaker 0.38.0 now provides the raw stock: Phobos' Rivetline aluminium and
+steel ingots (`PhobosAluminiumIngot`, `PhobosSteelIngot`, 4 kg, stack to ten),
+cast in the F6 from twenty scraps of the metal and sold at the general markets.
+Manufacturing consumes them; preforms and near-net shapes stay Manufacturing-owned.
+See the [F6 recipes](../furnace-player-guide.md#recipes-housings-and-ingots).
+
 Settle one authoritative provider for each new stock/blank/finished-item ID before
 registration. If Shipbreaker supplies a blank, enable its Manufacturing recipe
 only when that provider is present. If Manufacturing owns a common stock item,

@@ -25,6 +25,21 @@ Dates on Draft entries record preparation, not Steam publication.
 - Earlier capture-only research is superseded for supported ordinary walls by the 0.24.0 reclamation implementation below. Broader structural recipes, repeated furnace batches and whole-wreck completion remain outside this round.
 - Keep [NASA Goddard's Raven research](https://www.nasa.gov/general/nasas-hybrid-computer-enables-ravens-autonomous-rendezvous-capability/) and [ESA's LIRIS experiment by Airbus, Jena Optronik and Sodern](https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/ATV/ATV_views_Space_Station_as_never_before) as sensing context, separate from Blue Bottle Games native evidence and authored gameplay choices. No institutional endorsement or gameplay validation is implied.
 
+## [0.38.0] - 2026-09-29 - Draft
+
+### Added
+
+- F6 recipes: choose the next charge on the panel, the C1 or with F3 (phobosfurnace recipe). Housing is the unchanged original; aluminium ingots turn twenty aluminium scraps into four 4 kg Phobos' Rivetline aluminium ingots, three scrap gates and the melt remainder; steel ingots turn twenty steel scraps into four 4 kg steel ingots, three steel gates and a steel melt remainder in a hotter, longer cycle (iron melting point and enthalpy of fusion from the NIST Chemistry WebBook; superheat and heat capacities are authored). Every recipe conserves the 20 kg charge and runs through the same lining, sink, radiator and 250 kW rating.
+- Ingots are one-cell stock that stacks to ten, trades as metals, is sold at the general markets and regional suppliers in lots of 32, and is the raw stock for coming Phobos Manufacturing machining. Table recipes cut an ingot back into four scraps and lose value.
+
+### Changed
+
+- The charge chamber admits aluminium and steel at the game level; the selected recipe decides which is accepted, and a batch stays bound to the recipe it was sealed with. The heating interlock pressure scales with the recipe's target temperature so a hotter recipe is not refused for the residual gas its own pump left behind. Crew loading orders and R4 delivery bring the selected metal.
+
+### Compatibility and limits
+
+- Requires Framework 0.39.0. Batches saved before 0.38.0 load as the housing recipe and finish as housings; a repeat run suspends if the recipe changes under it. Ingot and steel-remainder artwork are procedural placeholders until the handoff is produced. The real steel cycle length on a ship depends on supplied power and the radiator; offline checks complete and cool a full steel charge. Nothing consumes ingots yet. Offline checks pass; owner play-testing is pending.
+
 ## [0.37.0] - 2026-09-29 - Draft
 
 ### Added

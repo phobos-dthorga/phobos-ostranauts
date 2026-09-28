@@ -35,7 +35,7 @@ public static class RoutingRules
         "rejects" => new[] { ReclaimerRules.Reject },
         "legacy" => new[] { ProcessRules.Residue },
         "aluminium" => new[] { FurnaceMaterialRules.Aluminium },
-        "furnace-products" => new[] { FurnaceRules.Blank, FurnaceRules.Remainder },
+        "furnace-products" => FurnaceMaterialRules.ProductIds.ToArray(),
         _ => Array.Empty<string>()
     };
     public static string[] Choices(string? id) => FurnaceRules.Machine(id) ? new[] { "aluminium" } : ReclaimerRules.IsFamily(id) ? new[] { "feed" } : new[] { "all", "feed", "rejects", "legacy", "furnace-products" };

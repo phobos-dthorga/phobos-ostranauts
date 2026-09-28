@@ -13,8 +13,10 @@ public sealed class FurnaceBatch
     public double HeatCapKW = FurnaceRules.HeatLimitKW, RampKPerSecond = 2, CoolingCapKW = FurnaceRules.CoolingKW;
     public bool Qualified, Armed, StepMode, StepWaiting;
     public readonly GasParcel Chamber = new(FurnaceRules.GasCv), Receiver = new(FurnaceRules.GasCv);
-    public double TemperatureK => Phase == FurnacePhase.Idle ? FurnaceRules.ReferenceK + HotKJ / FurnaceRules.LiningCapacity : FurnaceRules.Temperature(HotKJ, Chamber.Moles, out _);
-    public double LiquidFraction { get { FurnaceRules.Temperature(HotKJ, Chamber.Moles, out double liquid); return liquid; } }
+    /// <summary>The charge metal's thermal properties; the recipe sets it and a saved batch restores it.</summary>
+    public FurnaceProfile Profile = FurnaceProfile.Aluminium;
+    public double TemperatureK => Phase == FurnacePhase.Idle ? FurnaceRules.ReferenceK + HotKJ / FurnaceRules.LiningCapacity : FurnaceRules.Temperature(Profile, HotKJ, Chamber.Moles, out _);
+    public double LiquidFraction { get { FurnaceRules.Temperature(Profile, HotKJ, Chamber.Moles, out double liquid); return liquid; } }
     public double SinkK => FurnaceRules.ReferenceK + SinkKJ / FurnaceRules.SinkCapacity;
     public double PressureKPa => Chamber.Moles * FurnaceRules.GasR * TemperatureK / FurnaceRules.ChamberM3;
     public double ReceiverKPa => Receiver.Moles * FurnaceRules.GasR * Receiver.TemperatureK / FurnaceRules.ReceiverM3;
@@ -25,7 +27,7 @@ public sealed class FurnaceBatch
     {
         if (Phase != FurnacePhase.Idle || !SafeOpen || Chamber.Moles != 0) throw new InvalidOperationException("Batch cannot seal.");
         Chamber.Add(captured);
-        HotKJ += FurnaceRules.ChargeUnits * FurnaceRules.SolidCp * (feedKelvin - FurnaceRules.ReferenceK);
+        HotKJ += FurnaceRules.ChargeUnits * Profile.SolidCp * (feedKelvin - FurnaceRules.ReferenceK);
         HotKJ += captured.EnergyKJ - captured.Moles * FurnaceRules.GasCv * FurnaceRules.ReferenceK;
         Phase = FurnacePhase.Sealed; Hold = 0; Qualified = false; PumpSeconds = 0;
         Chamber.SetTemperature(TemperatureK);
@@ -35,7 +37,7 @@ public sealed class FurnaceBatch
     {
         if (Phase == FurnacePhase.Idle || Phase >= FurnacePhase.Equalize) return;
         Armed = true; StepWaiting = false;
-        if (!Qualified && Phase >= FurnacePhase.Solidify) Phase = PressureKPa <= FurnaceRules.HotPressureKPa ? FurnacePhase.Preheat : FurnacePhase.Evacuating;
+        if (!Qualified && Phase >= FurnacePhase.Solidify) Phase = PressureKPa <= Profile.HotPressureKPa ? FurnacePhase.Preheat : FurnacePhase.Evacuating;
         if (Phase == FurnacePhase.Sealed) Phase = FurnacePhase.Evacuating;
     }
     public void AdvanceStep() { StepWaiting = false; }
@@ -45,9 +47,9 @@ public sealed class FurnaceBatch
         if (!Armed || StepWaiting || !coolingConnected || SinkK >= FurnaceRules.SinkMaxK || Phase >= FurnacePhase.Equalize) return 0;
         double headroom = Math.Max(0, FurnaceRules.SinkCapacity * (FurnaceRules.SinkMaxK - SinkK) - reservedSinkKJ);
         double aux = Math.Min(headroom, (Heating || Phase == FurnacePhase.Evacuating ? FurnaceRules.HeatAuxKW : FurnaceRules.CoolAuxKW) * dt);
-        if (!Heating || PressureKPa > FurnaceRules.HotPressureKPa) return aux;
-        double need = Math.Max(0, FurnaceRules.Enthalpy(FurnaceRules.TargetK, 1, Chamber.Moles) - HotKJ);
-        double rate = Math.Min(HeatCapKW, TemperatureK < FurnaceRules.MeltK - .1 ? RampKPerSecond * FurnaceRules.HeatCapacity(Chamber.Moles) : HeatCapKW);
+        if (!Heating || PressureKPa > Profile.HotPressureKPa) return aux;
+        double need = Math.Max(0, FurnaceRules.Enthalpy(Profile, Profile.TargetK, 1, Chamber.Moles) - HotKJ);
+        double rate = Math.Min(HeatCapKW, TemperatureK < Profile.MeltK - .1 ? RampKPerSecond * FurnaceRules.HeatCapacity(Profile, Chamber.Moles) : HeatCapKW);
         double heat = Math.Min(need, rate * dt);
         heat = Math.Min(heat, (headroom - aux) * FurnaceRules.Efficiency / (1 - FurnaceRules.Efficiency));
         return aux + heat / FurnaceRules.Efficiency;
@@ -75,7 +77,7 @@ public sealed class FurnaceBatch
     private double CoolingStep(double seconds, double extraHeadroom = 0)
     {
         double cool = !Heating || !Armed ? Math.Max(0, Math.Min(CoolingCapKW, FurnaceRules.ConductanceKW * (TemperatureK - SinkK))) * seconds : 0;
-        double equilibrium = Phase == FurnacePhase.Idle ? FurnaceRules.LiningCapacity * (SinkK - FurnaceRules.ReferenceK) : FurnaceRules.Enthalpy(SinkK, 0, Chamber.Moles);
+        double equilibrium = Phase == FurnacePhase.Idle ? FurnaceRules.LiningCapacity * (SinkK - FurnaceRules.ReferenceK) : FurnaceRules.Enthalpy(Profile, SinkK, 0, Chamber.Moles);
         cool = Math.Min(cool, Math.Max(0, HotKJ - equilibrium));
         cool = Math.Min(cool, Math.Max(0, FurnaceRules.SinkCapacity * (FurnaceRules.SinkMaxK - SinkK) + extraHeadroom));
         HotKJ -= cool; SinkKJ += cool;
@@ -103,7 +105,7 @@ public sealed class FurnaceBatch
             if (PressureKPa <= FurnaceRules.VacuumKPa + 1e-7) Transition(FurnacePhase.Preheat);
             else if (PumpSeconds >= FurnaceRules.PumpTimeoutSeconds || moles == 0) { Armed = false; }
         }
-        if (SinkK > FurnaceRules.SinkMaxK + 1e-6 || TemperatureK > FurnaceRules.TargetK + FurnaceRules.OvershootTripK) Armed = false;
+        if (SinkK > FurnaceRules.SinkMaxK + 1e-6 || TemperatureK > Profile.TargetK + FurnaceRules.OvershootTripK) Armed = false;
         Chamber.SetTemperature(TemperatureK);
     }
     /// <summary>Passive time always advances independently of heating permission. Room transfer
@@ -122,14 +124,14 @@ public sealed class FurnaceBatch
             double rad = exterior ? FurnaceRules.Radiation(sink) * dt : 0;
             if (connected) CoolingStep(dt, rad);
             HotKJ -= loss; SinkKJ -= rad; radiated += rad; room += loss;
-            if (Heating && Armed && !StepWaiting && probeValid && PressureKPa <= FurnaceRules.HotPressureKPa && Math.Abs(TemperatureK - FurnaceRules.TargetK) <= FurnaceRules.HoldToleranceK)
+            if (Heating && Armed && !StepWaiting && probeValid && PressureKPa <= Profile.HotPressureKPa && Math.Abs(TemperatureK - Profile.TargetK) <= FurnaceRules.HoldToleranceK)
             {
                 if (Phase != FurnacePhase.Hold) Transition(FurnacePhase.Hold);
                 if (!StepWaiting) Hold += dt;
-                if (Hold >= FurnaceRules.HoldSeconds) { Qualified = true; Transition(FurnacePhase.Solidify); }
+                if (Hold >= Profile.HoldSeconds) { Qualified = true; Transition(FurnacePhase.Solidify); }
             }
             else if (Heating) Hold = 0;
-            if (Phase == FurnacePhase.Preheat && TemperatureK >= FurnaceRules.MeltK) Transition(FurnacePhase.Melt);
+            if (Phase == FurnacePhase.Preheat && TemperatureK >= Profile.MeltK) Transition(FurnacePhase.Melt);
             if (Phase == FurnacePhase.Solidify && LiquidFraction == 0) Transition(FurnacePhase.Cool);
             if (Phase == FurnacePhase.Cool && SafeOpen) Transition(FurnacePhase.Equalize);
         }

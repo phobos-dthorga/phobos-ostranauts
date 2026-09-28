@@ -856,6 +856,80 @@
       ],
       "nameKey": "Recipe.PhobosBuildFurnaceCoolantConduit.name",
       "descriptionKey": "Recipe.PhobosBuildFurnaceCoolantConduit.description"
+    },
+    {
+      "id": "PhobosRecoverAluminiumIngot",
+      "name": "Recover aluminium from ingot",
+      "description": "Cut one 4 kg aluminium ingot into 4 kg of identified aluminium scrap. All cuttings are retained; this destroys the ingot and loses its value.",
+      "stationIds": [
+        "ItmTable01",
+        "ItmTable02"
+      ],
+      "optionalStationIds": [
+        "ItmWorkbench01",
+        "SWB_WorkbenchInstalled"
+      ],
+      "ingredients": [
+        {
+          "trigger": "PhobosAluminiumIngotTrigger",
+          "item": "PhobosAluminiumIngot",
+          "count": 1,
+          "unitMassKg": 4,
+          "requireEmpty": true
+        }
+      ],
+      "outputs": [
+        {
+          "item": "ItmScrapAluminum",
+          "count": 4,
+          "unitMassKg": 1
+        }
+      ],
+      "workSeconds": 300,
+      "range": 2,
+      "toolTriggers": [
+        "TIsToolMortorq",
+        "TIsToolWelding"
+      ],
+      "nameKey": "Recipe.PhobosRecoverAluminiumIngot.name",
+      "descriptionKey": "Recipe.PhobosRecoverAluminiumIngot.description"
+    },
+    {
+      "id": "PhobosRecoverSteelIngot",
+      "name": "Recover steel from ingot",
+      "description": "Cut one 4 kg steel ingot into 4 kg of identified steel scrap. All cuttings are retained; this destroys the ingot and loses its value.",
+      "stationIds": [
+        "ItmTable01",
+        "ItmTable02"
+      ],
+      "optionalStationIds": [
+        "ItmWorkbench01",
+        "SWB_WorkbenchInstalled"
+      ],
+      "ingredients": [
+        {
+          "trigger": "PhobosSteelIngotTrigger",
+          "item": "PhobosSteelIngot",
+          "count": 1,
+          "unitMassKg": 4,
+          "requireEmpty": true
+        }
+      ],
+      "outputs": [
+        {
+          "item": "ItmScrapSteel",
+          "count": 4,
+          "unitMassKg": 1
+        }
+      ],
+      "workSeconds": 300,
+      "range": 2,
+      "toolTriggers": [
+        "TIsToolMortorq",
+        "TIsToolWelding"
+      ],
+      "nameKey": "Recipe.PhobosRecoverSteelIngot.name",
+      "descriptionKey": "Recipe.PhobosRecoverSteelIngot.description"
     }
   ]
 }

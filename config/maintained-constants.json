@@ -68,7 +68,7 @@
     "Shipbreaker.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.37.0",
+      "value": "0.38.0",
       "description": "PhobosShipbreaker published source/package version.",
       "targets": [
         {
@@ -1330,6 +1330,80 @@
       ],
       "review": [
         "Run Shipbreaker core and native checks and regenerate item references. Started thaw jobs keep their captured duration; the recipe masses are the game's own."
+      ]
+    },
+    "Shipbreaker.aluminiumIngotPrice": {
+      "type": "number",
+      "value": "12",
+      "min": 4.5,
+      "max": 100000,
+      "description": "Authored base price of one 4 kg aluminium ingot (above its four 1.1 cr scraps).",
+      "targets": [
+        {
+          "path": "src/PhobosShipbreaker/Core/FurnaceRecipes.cs",
+          "pattern": "\\bAluminiumIngotPrice\\s*=\\s*(?P<value>[0-9.]+)",
+          "count": 1
+        }
+      ],
+      "review": [
+        "Run Shipbreaker core and native checks (value audit: an ingot must stay worth more than its four scraps) and regenerate item references."
+      ]
+    },
+    "Shipbreaker.steelIngotPrice": {
+      "type": "number",
+      "value": "25",
+      "min": 14.5,
+      "max": 100000,
+      "description": "Authored base price of one 4 kg steel ingot (above its four 3.6 cr scraps).",
+      "targets": [
+        {
+          "path": "src/PhobosShipbreaker/Core/FurnaceRecipes.cs",
+          "pattern": "\\bSteelIngotPrice\\s*=\\s*(?P<value>[0-9.]+)",
+          "count": 1
+        }
+      ],
+      "review": [
+        "Run Shipbreaker core and native checks (value audit: an ingot must stay worth more than its four scraps) and regenerate item references."
+      ]
+    },
+    "Shipbreaker.stackIngots": {
+      "type": "integer",
+      "min": 1,
+      "max": 100,
+      "value": "10",
+      "description": "Maximum physical objects per storage stack for Shipbreaker.stackIngots.",
+      "targets": [
+        {
+          "path": "src/PhobosShipbreaker/Core/FurnaceRecipes.cs",
+          "pattern": "\\bIngotStack\\s*=\\s*(?P<value>[0-9]+)",
+          "count": 1
+        }
+      ],
+      "review": [
+        "Regenerate item references and run native stack checks; update the StackLimitChecks allowlist to the same value."
+      ]
+    },
+    "Shipbreaker.stockIngots": {
+      "type": "integer",
+      "value": "32",
+      "min": 1,
+      "max": 256,
+      "description": "Shipbreaker ingots quantity per successful merchant offer, including regional suppliers.",
+      "targets": [
+        {
+          "path": "src/PhobosShipbreaker/StockQuantities.cs",
+          "pattern": "\\bIngots\\s*=\\s*(?P<value>[0-9]+)(?=\\s*[,;])",
+          "count": 1
+        },
+        {
+          "path": "docs/development/merchant-stock.md",
+          "pattern": "^\\| Shipbreaker\\ ingots \\| (?P<value>[0-9]+) \\|\\r?$",
+          "count": 1
+        }
+      ],
+      "review": [
+        "Run native stock-quantity and regional checks, then affected builds.",
+        "Run scripts/update-item-reference.ps1; inspect generated quantities. Existing merchant inventories wait for native restocking."
       ]
     }
   }

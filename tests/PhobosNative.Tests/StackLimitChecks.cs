@@ -23,7 +23,9 @@ internal static class StackLimitChecks
             ["PhobosVerdemorrowGroundworkBulkNutrients"] = 3,
             ["PhobosVerdemorrowGroundworkIrrigation"] = 3,
             ["PhobosRivetlineCoolantCharge"] = 3,
-            ["PhobosFloorRejectR1"] = 10
+            ["PhobosFloorRejectR1"] = 10,
+            ["PhobosAluminiumIngot"] = 10,
+            ["PhobosSteelIngot"] = 10
         };
         var seen = new HashSet<string>();
         foreach (var pack in new[] { PhobosAgriculture.Definitions.Prepare(), PhobosShipbreaker.Content.Prepare(), PhobosAutoNav.EquipmentContent.Prepare() })

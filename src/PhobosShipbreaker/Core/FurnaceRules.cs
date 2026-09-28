@@ -28,20 +28,24 @@ public static class FurnaceRules
     public static bool Cooling(string? id) => Family(id, Radiator) || Underside(id);
     public static bool Underside(string? id) => Family(id, ThermalPort);
     private static bool Family(string? id, string prefix) => Phobos.Ostranauts.Framework.Registration.EquipmentIdentity.IsFamily(id, prefix);
-    public static double HeatCapacity(double gasMoles = 0) => LiningCapacity + ChargeUnits * SolidCp + gasMoles * GasCv;
-    public static double Enthalpy(double kelvin, double liquid = 0, double gasMoles = 0)
+    // The aluminium overloads keep the original signatures; every batch carries its recipe's profile.
+    public static double HeatCapacity(double gasMoles = 0) => HeatCapacity(FurnaceProfile.Aluminium, gasMoles);
+    public static double HeatCapacity(FurnaceProfile p, double gasMoles) => LiningCapacity + ChargeUnits * p.SolidCp + gasMoles * GasCv;
+    public static double Enthalpy(double kelvin, double liquid = 0, double gasMoles = 0) => Enthalpy(FurnaceProfile.Aluminium, kelvin, liquid, gasMoles);
+    public static double Enthalpy(FurnaceProfile p, double kelvin, double liquid, double gasMoles)
     {
-        double solid = HeatCapacity(gasMoles), melt = solid * (MeltK - ReferenceK);
-        if (kelvin < MeltK) return solid * (kelvin - ReferenceK);
-        if (kelvin == MeltK) return melt + ChargeUnits * LatentKJ * liquid;
-        return melt + ChargeUnits * LatentKJ + (LiningCapacity + ChargeUnits * LiquidCp + gasMoles * GasCv) * (kelvin - MeltK);
+        double solid = HeatCapacity(p, gasMoles), melt = solid * (p.MeltK - ReferenceK);
+        if (kelvin < p.MeltK) return solid * (kelvin - ReferenceK);
+        if (kelvin == p.MeltK) return melt + ChargeUnits * p.LatentKJ * liquid;
+        return melt + ChargeUnits * p.LatentKJ + (LiningCapacity + ChargeUnits * p.LiquidCp + gasMoles * GasCv) * (kelvin - p.MeltK);
     }
-    public static double Temperature(double kJ, double gasMoles, out double liquid)
+    public static double Temperature(double kJ, double gasMoles, out double liquid) => Temperature(FurnaceProfile.Aluminium, kJ, gasMoles, out liquid);
+    public static double Temperature(FurnaceProfile p, double kJ, double gasMoles, out double liquid)
     {
-        double melt = Enthalpy(MeltK, 0, gasMoles), fusion = ChargeUnits * LatentKJ;
+        double melt = Enthalpy(p, p.MeltK, 0, gasMoles), fusion = ChargeUnits * p.LatentKJ;
         liquid = Math.Max(0, Math.Min(1, (kJ - melt) / fusion));
-        return kJ < melt ? ReferenceK + kJ / HeatCapacity(gasMoles) :
-            kJ <= melt + fusion ? MeltK : MeltK + (kJ - melt - fusion) / (LiningCapacity + ChargeUnits * LiquidCp + gasMoles * GasCv);
+        return kJ < melt ? ReferenceK + kJ / HeatCapacity(p, gasMoles) :
+            kJ <= melt + fusion ? p.MeltK : p.MeltK + (kJ - melt - fusion) / (LiningCapacity + ChargeUnits * p.LiquidCp + gasMoles * GasCv);
     }
     public static double Radiation(double kelvin) => ThermalMath.RadiationKW(kelvin, BackgroundK, RadiatorArea, Emissivity);
 }

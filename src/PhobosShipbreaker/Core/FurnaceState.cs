@@ -14,12 +14,14 @@ public sealed class FurnaceState
     public string ShipId = "", RoomId = "";
     public double LastEpoch;
     public bool NativeMutation;
+    /// <summary>The recipe revision this batch is bound to; while idle, the recipe the next charge will use.</summary>
+    public int Recipe = FurnaceRules.RecipeRevision;
     public Dictionary<string, string> Save()
     {
         var b = Batch;
         var f = new Dictionary<string, string>(StringComparer.Ordinal);
         void Put(string key, double value) => f[key] = value.ToString("R", CultureInfo.InvariantCulture);
-        Put("revision", FurnaceRules.RecipeRevision); Put("phase", (int)b.Phase);
+        Put("revision", Recipe); Put("phase", (int)b.Phase);
         f["nativeCommit"] = NativeMutation ? "1" : "0";
         Put("hot", b.HotKJ); Put("hold", b.Hold); Put("pump", b.PumpSeconds); Put("epoch", LastEpoch);
         Put("heat", b.HeatCapKW); Put("ramp", b.RampKPerSecond); Put("cool", b.CoolingCapKW);
@@ -51,10 +53,12 @@ public sealed class FurnaceState
             }
             int Integer(string key, int min, int max) { double n = Number(key, min, max); if (n != Math.Truncate(n)) throw new FormatException(key); return (int)n; }
             string Id(string key) { if (!fields.TryGetValue(key, out var id) || string.IsNullOrWhiteSpace(id)) throw new FormatException(key); return id!; }
-            if (Integer("revision", 1, 1) != FurnaceRules.RecipeRevision) return false;
+            s.Recipe = Integer("revision", 1, FurnaceRecipes.MaxRevision);
+            var recipe = FurnaceRecipes.ByRevision(s.Recipe); if (recipe == null) return false;
+            b.Profile = recipe.Profile;
             if (Integer("nativeCommit", 0, 1) != 0) return false;
             b.Phase = (FurnacePhase)Integer("phase", 0, (int)FurnacePhase.Ready);
-            b.HotKJ = Number("hot", -15000, 1000000); b.Hold = Number("hold", 0, FurnaceRules.HoldSeconds + 1);
+            b.HotKJ = Number("hot", -15000, 1000000); b.Hold = Number("hold", 0, b.Profile.HoldSeconds + 1);
             b.PumpSeconds = Number("pump", 0, 100000); s.LastEpoch = Number("epoch", 0, double.MaxValue);
             b.HeatCapKW = Number("heat", FurnaceRules.MinPowerSettingKW, FurnaceRules.HeatLimitKW); b.RampKPerSecond = Number("ramp", FurnaceRules.MinRamp, FurnaceRules.MaxRamp);
             b.CoolingCapKW = Number("cool", FurnaceRules.MinPowerSettingKW, FurnaceRules.CoolingKW);

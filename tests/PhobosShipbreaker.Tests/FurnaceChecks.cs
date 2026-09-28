@@ -27,6 +27,21 @@ internal static class FurnaceChecks
         double cold = RunBatch(1, false, check), partial = RunBatch(.5, false, check);
         check(partial > cold, "Partial electricity takes longer to qualify the batch");
         RunBatch(1, true, check);
+        // The steel profile through the same lining, sink, radiator and 250 kW rating: hotter and longer, still completes and cools.
+        double steel = RunBatch(1, false, check, FurnaceProfile.Steel);
+        check(steel > cold, "A steel charge takes longer to qualify than aluminium through the same hardware");
+        RunBatch(1, true, check, FurnaceProfile.Steel);
+        foreach (var recipe in FurnaceRecipes.All)
+            check(Math.Abs(recipe.Products.Sum(p => p.Count * p.Kg) - FurnaceRules.ChargeUnits * FurnaceRules.FeedUnitKg) < 1e-9, "Every furnace recipe conserves the twenty-kilogram charge: " + recipe.Id);
+        check(FurnaceRecipes.All.Select(r => r.Revision).Distinct().Count() == FurnaceRecipes.All.Count && FurnaceRecipes.Housing.Revision == FurnaceRules.RecipeRevision &&
+            FurnaceRecipes.ByRevision(FurnaceRecipes.MaxRevision + 1) == null && FurnaceRecipes.ById("bronze") == null, "Recipe revisions are unique; unknown revisions and ids resolve to nothing");
+        check(FurnaceRecipes.Housing.Products.Select(p => (p.Id, p.Count, p.Kg)).SequenceEqual(new[] { (FurnaceRules.Blank, 1, FurnaceRules.BlankKg), (FurnaceRules.Remainder, 1, FurnaceRules.RemainderKg) }),
+            "The housing recipe is unchanged: one 19 kg blank and one 1 kg remainder");
+        check(FurnaceRecipes.AluminiumIngots.Products.Single(p => p.Id == FurnaceRecipes.AluminiumIngot).Count == 4 && FurnaceRecipes.AluminiumIngots.Products.Single(p => p.Id == FurnaceMaterialRules.Aluminium).Count == 3 &&
+            FurnaceRecipes.SteelIngots.FeedId == FurnaceRecipes.SteelScrap && FurnaceRecipes.SteelIngots.Products.Single(p => p.Id == FurnaceRecipes.SteelRemainder).Kg == 1 &&
+            FurnaceRecipes.SteelIngots.Profile == FurnaceProfile.Steel && FurnaceRecipes.AluminiumIngots.Profile == FurnaceProfile.Aluminium, "Ingot recipes: four 4 kg ingots, three native gates and one remainder, each with its metal's profile");
+        check(FurnaceProfile.Steel.MeltK == 1811 && FurnaceProfile.Steel.LatentKJ == 247 && FurnaceProfile.Aluminium.MeltK == FurnaceRules.MeltK, "Profiles carry NIST melting points and the original aluminium numbers");
+        check(FurnaceRules.Enthalpy(FurnaceProfile.Steel, FurnaceProfile.Steel.TargetK, 1, 0) > 1.5 * FurnaceRules.Enthalpy(FurnaceProfile.Aluminium, FurnaceProfile.Aluminium.TargetK, 1, 0), "A steel charge needs well over half again the energy of an aluminium charge");
         var hot = new FurnaceBatch { Phase = FurnacePhase.Melt, HotKJ = FurnaceRules.Enthalpy(FurnaceRules.MeltK, .5), Armed = true };
         double before = hot.HotKJ;
         hot.Passive(1, false, false, FurnaceRules.ReferenceK, 0, false);
@@ -42,7 +57,13 @@ internal static class FurnaceChecks
             !restored.Batch.Armed && restored.Batch.Hold == 0 && restored.Batch.StepMode && restored.Inputs.SequenceEqual(saved.Inputs), "Hot reload preserves enthalpy, exact input IDs and settings but clears heat permission and continuous hold");
         fields["hot"] = "NaN"; check(!FurnaceState.TryLoad(fields, out _), "Corrupt heat never becomes a cold empty batch");
         fields = saved.Save(); fields["input.1"] = fields["input.0"]; check(!FurnaceState.TryLoad(fields, out _), "Duplicate saved charge identities rejected");
-        fields = saved.Save(); fields["revision"] = "2"; check(!FurnaceState.TryLoad(fields, out _), "Unknown recipe revision retained by native protected-state boundary");
+        fields = saved.Save(); fields["revision"] = (FurnaceRecipes.MaxRevision + 1).ToString(); check(!FurnaceState.TryLoad(fields, out _), "Unknown recipe revision retained by native protected-state boundary");
+        check(FurnaceState.TryLoad(saved.Save(), out var housing) && housing.Recipe == FurnaceRules.RecipeRevision && housing.Batch.Profile == FurnaceProfile.Aluminium, "A batch saved before recipes loads as the housing recipe with the aluminium profile");
+        var steelSaved = new FurnaceState { ShipId = "ship-A", RoomId = "room-A", LastEpoch = 100, Recipe = FurnaceRecipes.SteelIngots.Revision };
+        steelSaved.Batch.Profile = FurnaceProfile.Steel; steelSaved.Inputs.AddRange(Enumerable.Range(0, 20).Select(n => "steel-" + n));
+        steelSaved.Batch.Phase = FurnacePhase.Hold; steelSaved.Batch.HotKJ = FurnaceRules.Enthalpy(FurnaceProfile.Steel, FurnaceProfile.Steel.TargetK, 1, 0);
+        check(FurnaceState.TryLoad(steelSaved.Save(), out var steelLoaded) && steelLoaded.Recipe == 3 && steelLoaded.Batch.Profile == FurnaceProfile.Steel &&
+            Math.Abs(steelLoaded.Batch.TemperatureK - FurnaceProfile.Steel.TargetK) < 1e-6, "A steel batch reloads with its own profile and reads its temperature correctly");
         fields = saved.Save(); fields["phase"] = ((int)FurnacePhase.Delivering).ToString(); check(!FurnaceState.TryLoad(fields, out _), "Interrupted native output commit cannot replay on reload");
         fields = saved.Save(); fields["nativeCommit"] = "1"; check(!FurnaceState.TryLoad(fields, out _), "Interrupted native gas transfer is quarantined rather than replayed");
         var warm = new FurnaceBatch { HotKJ = FurnaceRules.LiningCapacity * 20 };
@@ -55,9 +76,9 @@ internal static class FurnaceChecks
         fullReceiver.Receive(2, 1);
         check(!fullReceiver.Armed && Math.Abs(fullReceiver.Chamber.Moles + fullReceiver.Receiver.Moles - trapped) < 1e-10, "Full gas receiver pauses evacuation without deleting gas");
     }
-    private static double RunBatch(double supply, bool interrupted, Action<bool,string> check)
+    private static double RunBatch(double supply, bool interrupted, Action<bool,string> check, FurnaceProfile? profile = null)
     {
-        var batch = new FurnaceBatch();
+        var batch = new FurnaceBatch { Profile = profile ?? FurnaceProfile.Aluminium };
         var gas = new GasParcel(FurnaceRules.GasCv);
         gas.Add("N2", 100 * FurnaceRules.ChamberM3 / (FurnaceRules.GasR * FurnaceRules.ReferenceK), FurnaceRules.ReferenceK);
         batch.Seal(gas); batch.Resume();
@@ -74,7 +95,7 @@ internal static class FurnaceChecks
             if (Math.Abs(initial + energy - rejected - batch.TotalKJ) > 1e-6) throw new Exception("Furnace energy conservation failed");
             if (batch.SinkK > FurnaceRules.SinkMaxK + 1e-6) throw new Exception("Furnace sink exceeded operating capacity");
         }
-        check(batch.Phase == FurnacePhase.Equalize && batch.Qualified && batch.SafeOpen, "A supplied cycle melts, holds, solidifies and cools before equalization");
+        check(batch.Phase == FurnacePhase.Equalize && batch.Qualified && batch.SafeOpen, $"A supplied cycle melts, holds, solidifies and cools before equalization ({batch.Profile.Id}: phase {batch.Phase}, {batch.TemperatureK:F0} K, sink {batch.SinkK:F0} K, armed {batch.Armed}, {elapsed:F0} s)");
         check(Math.Abs(batch.Chamber.Moles + batch.Receiver.Moles - gas.Moles) < 1e-9, "Evacuation retains every mole");
         return qualifiedAt;
     }
