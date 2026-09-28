@@ -1,6 +1,6 @@
 # Phobos control panels
 
-Framework 0.33.0, Agriculture 0.16.1, Shipbreaker 0.33.0 and Auto Nav 0.23.0
+Framework 0.34.0, Agriculture 0.16.1, Shipbreaker 0.33.0 and Auto Nav 0.24.0
 prepare this interface update. Manufacturing remains a scaffold with no operational
 panel or jobs. These are unpublished development candidates.
 

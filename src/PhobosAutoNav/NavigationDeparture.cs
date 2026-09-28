@@ -69,7 +69,7 @@ internal sealed partial class NavigationService
             if(action=="depart-continue")
             {
                 var target=GUIOrbitDraw.CrossHairTarget?.Ship;
-                if(target==null || target==co.ship || target==peer || !NativeContactReader.Read(co.ship,target.strRegID).Usable)
+                if(target==null || target==co.ship || target==peer || !SenseTarget(co,target.strRegID).Usable)
                 { status=Text.Get("Docking.select"); return; }
                 if((d["operation"]=="follow" || d["operation"]=="rendezvous") && !HasPursuit(co))
                 { status=Text.Get("Pursuit.module_required"); return; }
@@ -225,6 +225,13 @@ internal sealed partial class NavigationService
         previousThreats.Clear();obstacleRoute.Reset();routeTarget="";avoidanceActive=avoidanceBlocked=false;
         if(d!=null) { ReleaseIndustrial(d["permission"]); SaveDeparture(d); }
         status=reason;
+    }
+    // Unfinished departures are resumable work: sensors Auto Nav switched on stay on for them.
+    partial void ReadSensorWork(CondOwner console,ref bool pending)
+    {
+        if(departure?.Console==console) { pending=true; return; }
+        if(DepartureStore(console).Read(out var fields)==SavedStateStatus.Ready && fields.TryGetValue("phase",out var phase) &&
+            phase!="Complete" && phase!="Cancelled") pending=true;
     }
     partial void ResetExtended()
     { departure=null; obstacleRoute.Reset(); previousThreats.Clear(); bodyMotion.Clear(); nextRoute=0; routeTarget=""; }

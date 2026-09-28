@@ -20,6 +20,9 @@ internal sealed partial class TorchDriveController
     private bool writing;
     internal string Reason { get; private set; } = "Torch.rcs";
     internal ContactReading? ContactLoss { get; private set; }
+    // Set by the plugin: a native sensor refresh right after Auto Nav switched sensors on withholds
+    // the burn for that step instead of latching a contact loss.
+    internal static Func<Ship, ContactReading, bool>? SensorSettling { get; set; }
     internal bool HasPendingBurn => forceLimit > 0;
     internal void Align() { Cut(); Reason = "Torch.aligning"; }
     internal bool Owns(Ship? other) => ship != null && ship == other;
@@ -115,6 +118,7 @@ internal sealed partial class TorchDriveController
         var sensing = ContactLoss ?? NativeContactReader.Read(candidate, AutoNavCore.EngagedTarget?.ShipId);
         if (!sensing.Usable)
         {
+            if (ContactLoss == null && SensorSettling?.Invoke(candidate, sensing) == true) { force = 0; Reason = sensing.MessageKey; return; }
             // Do not allow a brief reacquisition to revive an earlier burn.
             // The navigation update consumes this loss and records suspension.
             ContactLoss = sensing; force = forceLimit = leaseUntil = 0;

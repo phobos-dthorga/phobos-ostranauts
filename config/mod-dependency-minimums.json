@@ -3,7 +3,7 @@
   "minimums": {
     "AutoNav.Framework": {
       "since": "0.21.1",
-      "value": "0.30.3"
+      "value": "0.34.0"
     },
     "Shipbreaker.Framework": {
       "since": "0.29.1",

@@ -51,7 +51,10 @@ contacts and asteroid-field rocks that your sensors register, checking their siz
 movement. A weak contact near the route is still avoided, with extra clearance of one
 fifth of its range: the position error the native map shows for such contacts. Weak
 contacts more than 100 km away are left out rather than guessed into the route.
-Sensors are never switched on automatically. Known celestial boundaries are exclusion
+When the target or a weak contact near the route is too faint, Auto Nav may switch on
+the fewest fitted sensors that help, non-emitting ones first, and tells you each
+time; see [automatic sensor engagement](auto-nav-sensors.md#automatic-sensor-engagement-0240).
+Known celestial boundaries are exclusion
 regions; the game also checks collisions against individual rocks in asteroid fields,
 so sensed rocks near the route are avoided like ships.
 

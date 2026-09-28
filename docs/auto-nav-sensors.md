@@ -1,8 +1,87 @@
 # Auto Nav sensors
 
 Auto Nav steers only by what your ship's own sensors can track. This guide covers
-the whole sensor suite, asteroid targets and hazards (0.23.0), then the original
-live-contact rules (0.9.0), which still apply.
+automatic sensor engagement (0.24.0), the whole sensor suite, asteroid targets and
+hazards (0.23.0), then the original live-contact rules (0.9.0), which still apply
+except where noted.
+
+## Automatic sensor engagement (0.24.0)
+
+Prepared on **28 September 2026** against Ostranauts **1.0.1.5**. Builds and
+automated checks are not in-game validation; owner play-testing is pending.
+
+**What happens.** When the target, or a hazard near the route, is too faint to
+track, Auto Nav switches on the fewest fitted sensors that fix it:
+
+- sensors that are already on stay as they are and are never counted as Auto Nav's;
+- optical, infrared and EM come first; radar or LiDAR only when those cannot do
+  it, because they emit and make your ship easier to detect;
+- nothing is switched on when no fitted sensor would help, such as a target behind
+  a planet or an asteroid beyond 1,000 km.
+
+It predicts each sensor's contribution with the game's own signal formula and uses
+the same switch as the native Sensors page.
+
+**How you are told.**
+
+- A line in the crew message log names the sensors, the reason (the target or
+  nearby hazards) and whether they emit.
+- The native nav-map warning banner, with its warning tone, appears when that
+  ship's navigation station is open. It repeats at most once every 20 seconds.
+- While they stay on, the Polaris hub shows **Sensors on for Auto Nav: …**, and
+  Details and `phobosnav sensors` mark them as switched on by Auto Nav.
+
+**When they go off.** When Auto Nav's work ends (arrival, Stop, docking complete,
+a finished departure or released industrial work), it switches off only the sensors
+it switched on and logs a line saying so. It waits about five seconds of game time
+first, so handoffs such as Approach & Dock keep them. They stay on while a flight
+is suspended, so Resume can reacquire. After loading, sensors Auto Nav left on in
+the save are handled the same way.
+
+**Your switch wins.** Switch one of Auto Nav's sensors off yourself, or one of your
+own during the flight, and Auto Nav leaves it off until that work ends. If the track
+then fails, guidance suspends as usual. Switch a sensor on yourself and it is yours:
+Auto Nav never switches it off.
+
+**Setting.** Mod settings, `Sensors` > `AutoEngage`:
+
+| Value | Effect |
+| --- | --- |
+| All (default) | Non-emitting sensors first; radar or LiDAR only when needed |
+| Passive | Never radar or LiDAR |
+| Off | Never switches sensors (the 0.23.0 behaviour) |
+
+**A brief hold.** Switching a sensor on can make the game refresh its sensor list.
+Guidance then holds thrust for a moment ("Sensors coming online"). If the refresh
+does not finish within a short limit, the flight suspends as for any lost contact.
+
+**Limits.**
+
+- Only guidance and the starts you choose switch sensors: Fly, Dock, Approach &
+  Dock, Resume, departure Continue and industrial moves such as Shipbreaker's G4.
+  Displays, route planning queries and F3 status never do.
+- Hazards are checked at most every two game seconds. Only weak contacts near the
+  planned route count, and they keep their extra clearance in the meantime.
+- Power draw, heat and sensor units that carry several sensor types behave exactly
+  as when you use the Sensors page yourself.
+- The 1.2 x headroom over the detection threshold, the five-second grace and the
+  two-second hazard interval are our gameplay choices, not native rules.
+
+Native behaviour inspected in the local 1.0.1.5 game by
+[Blue Bottle Games](https://bluebottlegames.com/ostranauts): the Sensors page
+switch, sensor units keeping their identity and saved properties through power
+mode switches, the nav-map warning banner and the crew message log. No engine
+source or assets are included.
+
+Owner checks for this release:
+
+1. With infrared off, fly toward a ship running its reactor. Confirm Auto Nav
+   switches on infrared, not radar, with the banner, log line and hub line.
+2. Choose a cold derelict only radar can see. Confirm the warning says it emits.
+3. Save and reload mid-flight; confirm the sensors stay on and the flight resumes.
+4. Stop the flight. After a few seconds, Auto Nav's sensors go off; yours stay on.
+5. During a flight, switch one of Auto Nav's sensors off on the Sensors page.
+   Confirm it stays off (the flight may suspend). Then try `AutoEngage` = Off.
 
 ## Using the whole sensor suite (0.23.0)
 
@@ -22,8 +101,7 @@ the combined total against the threshold, and any fitted sensors that are off.
 | EM | Emissions: active sensors, beacons, ships not flying dark | Each EM sensor's contribution is capped |
 | Radar, LiDAR | Reflections from the target's size | Active: they emit and make your ship easier to detect |
 
-**Switching sensors on is your call.** Auto Nav never switches sensors on or off by
-itself. From the navigation console aboard your own ship:
+**Switching sensors on yourself.** From the navigation console aboard your own ship:
 
 ```text
 phobosnav sensors            show the breakdown for the current target
@@ -31,8 +109,9 @@ phobosnav sensors passive    switch on fitted optical, infrared and EM sensors
 phobosnav sensors all        also switch on radar and LiDAR, which emit
 ```
 
-These use the same switch as the native Sensors page, including its power override,
-and nothing is switched off afterwards.
+These use the same switch as the native Sensors page, including its power override.
+Sensors you switch on are yours; Auto Nav never switches them off. In 0.23.0 Auto
+Nav did not switch sensors by itself; since 0.24.0 it can, as described above.
 
 **Asteroids can be flown to.** Put an asteroid under the crosshair and choose Fly.
 It needs a live track within **1,000 km**. Beyond that the native map shows an
@@ -87,8 +166,9 @@ Builds and automated checks are not in-game validation. Installation is separate
 
 Fly, Resume and Dock now require a current contact supplied by the controlled
 ship's native sensors. A remembered station or other map marker is a destination,
-not proof that the ship can currently track it. Radar and LiDAR remain entirely
-under the player's control; Auto Nav never enables them to improve a weak track.
+not proof that the ship can currently track it. In 0.9.0, radar and LiDAR remained
+entirely under the player's control and Auto Nav never switched sensors itself;
+since 0.24.0 it can, with a warning (see [automatic sensor engagement](#automatic-sensor-engagement-0240)).
 Passive sensors can qualify a contact when their combined native signal suffices.
 
 If contact becomes weak, obscured, unavailable or unreadable during guidance:
@@ -107,7 +187,7 @@ If contact becomes weak, obscured, unavailable or unreadable during guidance:
 Tracking continues with the navigation screen closed and does not follow later
 crosshair changes. Native sensor or power refresh pending on the controlled ship
 temporarily makes the reading unavailable; if encountered by guidance this also
-suspends. Failures of the controlling console, RCS, binding or other flight
+suspends (since 0.24.0, except for a brief hold right after Auto Nav's own switching). Failures of the controlling console, RCS, binding or other flight
 interlocks retain their existing stop policies.
 
 After loading, an ordinary active flight follows `ResumeAfterLoad` only after
@@ -140,7 +220,7 @@ The native sensor registry/state is used as maintained by the game. Inspection
 of `Ship.UpdateSensors`, registration/removal and `StarSystem.UpdateShip` shows
 sensor updates outside the navigation UI. The adapter neither rebuilds the
 registry nor calls toggles, threshold setters, visibility UI methods or target
-physics updates. It reads only the selected target and celestial-body collection,
+physics updates; 0.24.0 switching is a separate, explicit step outside the reader. It reads only the selected target and celestial-body collection,
 not every ship in the world. Native damage, power and pooled-update timing still
 need gameplay integration checks; offline doubles do not prove those transitions.
 

@@ -1,0 +1,24 @@
+[h1]Phobos Auto Nav 0.24.0[/h1]
+[b]Draft - not published | 2026-09-28[/b]
+
+[h2]Added[/h2]
+
+[list]
+[*]When the target, or a weak contact near the route, is too faint to track, Auto Nav switches on the fewest fitted sensors that fix it: non-emitting optical, infrared and EM first, radar or LiDAR only when those are not enough, and nothing when no sensor would help. Sensors you already have on are left alone. Each sensor's contribution is predicted with the game's own signal formula, and switching uses the native Sensors page switch.
+[*]Every time, a crew log line names the sensors, the reason and whether they emit. The native nav-map warning banner, with its tone, appears while that ship's navigation station is open, at most once every 20 seconds. The Polaris hub shows Sensors on for Auto Nav while they stay on; Details and phobosnav sensors mark them.
+[*]New AutoEngage setting in the Sensors section: All (default), Passive (never radar or LiDAR) or Off.
+[/list]
+
+[h2]Changed[/h2]
+
+[list]
+[*]When its work ends (arrival, Stop, completed docking or departure, released industrial work), Auto Nav switches off only the sensors it switched on, after about five game seconds, and logs it. Suspended flights keep them for Resume. Your own switch always wins: a sensor you switch off stays off until that work ends, and one you switch on is never switched off by Auto Nav.
+[*]A sensor-list refresh right after Auto Nav's own switching briefly holds thrust instead of suspending. A refresh that does not finish still suspends.
+[*]Requires Phobos Framework 0.34.0.
+[/list]
+
+[h2]Compatibility and limits[/h2]
+
+[list]
+[*]Saved flights, preferences and module identities are unchanged. Notes about Auto Nav's sensors are saved on the sensor units, so switch-off also works after loading; loading never switches sensors immediately. Hazards are surveyed at most every two game seconds. The 1.2 x headroom, the grace and the hazard interval are gameplay choices. Power draw, heat and multi-type sensor units behave as with the native Sensors page. Offline checks pass; owner play-testing is pending.
+[/list]

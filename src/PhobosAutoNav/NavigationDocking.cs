@@ -30,7 +30,7 @@ internal sealed partial class NavigationService
             var selected = boundTarget == null ? GUIOrbitDraw.CrossHairTarget?.Ship : CrewSim.system.GetShipByRegID(boundTarget);
             var target = selected == null ? null : CrewSim.system?.GetShipByRegID(selected.strRegID);
             if (target == null || target == co!.ship) { status = Text.Get("Docking.select"); return; }
-            var sensing = NativeContactReader.Read(co!.ship, target.strRegID);
+            var sensing = SenseTarget(co, target.strRegID);
             if (!sensing.Usable) { status = Text.Get(sensing.MessageKey); return; }
             problem = DockingAdapter.SelectPorts(co!.ship, target, out string ownPort, out string targetPort);
             if (problem != null) { status = Text.Get(problem); return; }
@@ -51,7 +51,7 @@ internal sealed partial class NavigationService
     private string? DockingResumeProblem(CondOwner co, FlightSnapshot snapshot)
     {
         if (co.HasCond("IsDamagedSoftware")) return Text.Get("Docking.software");
-        var sensing = NativeContactReader.Read(co.ship, snapshot.TargetId);
+        var sensing = SenseTarget(co, snapshot.TargetId);
         if (!sensing.Usable) return Text.Get(sensing.MessageKey);
         var target = CrewSim.system?.GetShipByRegID(snapshot.TargetId);
         var problem = DockingAdapter.Check(co.ship, target, snapshot.OwnPort, snapshot.TargetPort, checkFit: true);
@@ -107,8 +107,8 @@ internal sealed partial class NavigationService
             if (problem == null && AutoNavCore.ElapsedSeconds >= DockingRules.MaximumSeconds) problem = Text.Get("Docking.timeout");
             if (problem == null)
             {
-                var sensing = NativeContactReader.Read(own, flight.TargetId);
-                if (!sensing.Usable) { SuspendForContact(sensing); return; }
+                var sensing = SenseTarget(console, flight.TargetId);
+                if (!sensing.Usable) { if (!SensorsSettling(own, sensing)) SuspendForContact(sensing); return; }
             }
             if (problem == null)
             {

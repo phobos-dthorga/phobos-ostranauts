@@ -117,7 +117,9 @@ internal sealed partial class NavigationService
             if (problem == null && (!ArrivalBrake.Finite(dt) || dt <= 0 || dt > Plugin.MaximumStepSeconds.Value ||
                 (industrial != null || DockingActive) && dt > DockingRules.MaximumStep)) problem = Text.Get("Docking.step");
             if(problem!=null) { Disengage(problem);return true; }
-            if(targetSitu==null||!NativeContactReader.Read(own,targetId).Usable) { SuspendAvoidance();return true; }
+            if(targetSitu==null) { SuspendAvoidance();return true; }
+            var targetSensing = SenseTarget(co,targetId);
+            if(!targetSensing.Usable) { if(!SensorsSettling(own,targetSensing)) SuspendAvoidance(); return true; }
             var a = own.objSS; var b = targetSitu;
             var offset = new NavVector((b.vPosx-a.vPosx)/AutoNavCore.M_TO_AU,(b.vPosy-a.vPosy)/AutoNavCore.M_TO_AU);
             var velocity = new NavVector((a.vVelX-b.vVelX)/AutoNavCore.M_TO_AU,(a.vVelY-b.vVelY)/AutoNavCore.M_TO_AU);
@@ -132,6 +134,8 @@ internal sealed partial class NavigationService
             double horizon = Math.Min(ObstacleRoute.MaximumHorizonSeconds, Math.Max(2*dt, velocity.Length/(acceleration*.45)+2*dt));
             var actual = new List<ObstacleDisc>(); var planning = new List<ObstacleDisc>();
             var threats = new HashSet<string>(StringComparer.Ordinal);
+            // Weak contacts near the planned route: candidates for selective sensor engagement.
+            var weakHazards = new List<string>();
             // A threat that fades to a weak contact stays a hazard with wider clearance; losing it entirely suspends.
             if(previousThreats.Any(id=>!TowFlight.Contains(own,CrewSim.system.GetShipByRegID(id)) && !HazardRules.Tracked(NativeContactReader.Read(own,id).State))) { SuspendAvoidance();return true; }
             foreach (var other in CrewSim.system.dictShips.Values.ToArray())
@@ -161,6 +165,7 @@ internal sealed partial class NavigationService
                 double travel = isTarget ? 0 : v.Length*Math.Min(horizon,10);
                 planning.Add(new ObstacleDisc(other.strRegID,p+v*(Math.Min(horizon,10)/2),v,radius+margin+travel/2));
                 threats.Add(other.strRegID);
+                if (!isTarget && reading.State == ContactState.Weak) weakHazards.Add(other.strRegID);
             }
             foreach (var rock in NativeHazards.Asteroids(own, default, goal, velocity.Length*horizon+AsteroidReachM, targetId))
             {
@@ -179,6 +184,7 @@ internal sealed partial class NavigationService
                 if (!p.Finite || !v.Finite || !ArrivalBrake.Finite(radius) || radius <= 0) { Disengage(Text.Get("Docking.unsafe")); return true; }
                 actual.Add(new ObstacleDisc(rock.Id,p,v,radius+margin)); planning.Add(new ObstacleDisc(rock.Id,p,v,radius+margin));
                 threats.Add(rock.Id);
+                if (rock.Reading.State == ContactState.Weak) weakHazards.Add(rock.Id);
             }
             foreach (var body in CrewSim.system.aBOs.Values)
             {
@@ -194,6 +200,8 @@ internal sealed partial class NavigationService
                 actual.Add(new ObstacleDisc(body.strName,p,v,radius));
                 if(ObstacleRoute.Distance(default,goal,p)<=radius+(velocity-v).Length*horizon+1000) planning.Add(new ObstacleDisc(body.strName,p,v,radius));
             }
+            // Weak hazards keep their wider clearance this step; switched-on sensors sharpen later ones.
+            if (weakHazards.Count > 0) RestoreHazardSensors(co, weakHazards);
             previousThreats.Clear(); foreach (var id in threats) previousThreats.Add(id);
             stepObstacles.Clear();stepObstacles.AddRange(actual);stepVelocity=velocity;stepBraking=acceleration*.45;stepEpoch=StarSystem.fEpoch;
             bool direct = ObstacleRoute.Clear(default,goal,planning);

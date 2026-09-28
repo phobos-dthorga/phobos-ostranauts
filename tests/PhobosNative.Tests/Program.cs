@@ -18,6 +18,7 @@ PairingSaveChecks.Run(Check);
 FlightHubNativeChecks.Run(Check);
 PolarisStyleChecks.Run(Check);
 PerformanceNativeChecks.Run(Check);
+SensorNativeChecks.Run(Check);
 void Load<T>(string folder, Dictionary<string,T> destination, Func<T,string> key)
 {
     foreach (string file in Directory.GetFiles(folder, "*.json", SearchOption.AllDirectories))

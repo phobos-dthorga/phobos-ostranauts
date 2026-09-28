@@ -184,6 +184,7 @@ namespace PhobosAutoNav
         internal const string Id = "test", Version = "test";
         internal static NavigationService Service = null!;
         internal static Setting<bool> Enabled = new(true), FuelCheck = new(true), ResumeAfterLoad = new(true), PreferTorch = new(true);
+        internal static Setting<SensorAutoEngage> AutoEngageSensors = new(SensorAutoEngage.All);
         internal static Setting<float> DefaultCruiseMS = new(100), DefaultArriveSpeedMS = new(0), DefaultArriveKM = new(1),
             RotAccelMax = new(.5f), RotSpeedMax = new(.6f), MaximumStepSeconds = new(10), ArrivalSpeedTolerance = new(.5f), TorchMaximumG = new(1), TorchMinimumCorrectionMS = new(5), MaxFlightSimHours = new(48);
         internal static CoastSettings ReadCoastSettings() => new(3,10,.75,2);

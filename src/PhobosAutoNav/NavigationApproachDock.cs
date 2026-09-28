@@ -21,7 +21,7 @@ internal sealed partial class NavigationService
             var selected = boundTarget == null ? GUIOrbitDraw.CrossHairTarget?.Ship : CrewSim.system.GetShipByRegID(boundTarget);
             var target = selected == null ? null : TargetRef.FromShipId(selected.strRegID);
             if (target == null || selected == co!.ship) { status = Text.Get("Docking.select"); return; }
-            var sensing = ReadContact(co, target);
+            var sensing = SenseTarget(co, target.ShipId);
             if (!sensing.Usable) { status = Text.Get(sensing.MessageKey); return; }
             problem = DockingAdapter.SelectPorts(co!.ship, selected!, out string ownPort, out string targetPort);
             if (problem != null) { status = Text.Get(problem); return; }
@@ -46,7 +46,7 @@ internal sealed partial class NavigationService
     {
         if (co.HasCond("IsDamagedSoftware")) return Text.Get("Docking.software");
         if (!FlightBindingValid()) return Text.Get("Persistence.binding_changed");
-        var sensing = NativeContactReader.Read(co.ship, flight.TargetId);
+        var sensing = SenseTarget(co, flight.TargetId);
         if (!sensing.Usable) return Text.Get(sensing.MessageKey);
         string? key = DockingAdapter.Check(co.ship, CrewSim.system?.GetShipByRegID(flight.TargetId),
             flight.OwnPort, flight.TargetPort, checkFit);

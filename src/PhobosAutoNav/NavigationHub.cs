@@ -134,6 +134,11 @@ internal sealed partial class NavigationService
         view.FireReason = !view.WorkingFire ? Text.Get("FCS.module_required") : Text.Get("FCS.readiness", boundFire ? Text.Get(Fire.Reason) : view.Ownership,
             freshFire ? Fire.ReadyCount?.ToString() ?? "—" : "—", freshFire ? Fire.Weapons.Count.ToString() : "—");
         if (view.WorkingFire && !view.Navigation.Warning && (!view.WorkingNavigation || page == "fire" && boundFire && Fire.State == FireState.Fault)) view.Restriction = view.FireReason;
+        // Steady reminder while sensors Auto Nav switched on stay on; faults keep the first line.
+        string sensorsInUse = ""; ReadSensorsInUse(co, ref sensorsInUse);
+        if (sensorsInUse.Length > 0)
+            view.Restriction = string.IsNullOrWhiteSpace(view.Restriction) ? sensorsInUse :
+                view.Navigation.Warning ? view.Restriction + "\n" + sensorsInUse : sensorsInUse + "\n" + view.Restriction;
         if (page == null || page == "fire")
         {
             ReadWeaponInventory(co, view, freshFire);

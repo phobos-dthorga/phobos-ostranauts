@@ -171,6 +171,12 @@ identity from a usable live track. It must work with the nav panel closed, expla
 weak/missing contact, and refresh hardware/operator facts after loading or control
 changes. Do not silently activate emitting sensors or substitute a nearby target.
 
+> Follow-up, 28 September 2026: the owner directed that Auto Nav may switch on the
+> fewest sensors needed for its target and nearby hazards, non-emitting first, with
+> a warning each time, switching off only its own afterwards. Auto Nav 0.24.0 and
+> Framework 0.34.0 implement this; see [automatic sensor engagement](../auto-nav-sensors.md#automatic-sensor-engagement-0240).
+> The rule above still holds: nothing is switched silently.
+
 The later implementation must define contact-loss behaviour separately for
 ordinary approach and docking. Clear owned unsafe actuator requests, suspend
 unsupported target-relative guidance and report the reason. Do not promise that

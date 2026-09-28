@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using PhobosAutoNav;
 using PhobosAutoNav.Core;
 using Phobos.Ostranauts.Framework.Persistence;
@@ -312,6 +313,29 @@ foreach(var mode in new[]{SavedFlightMode.Active,SavedFlightMode.Rendezvous,Save
     Check(AutoNavCore.Engaged,"A threat that fades to a weak contact does not suspend the flight");
     NativeContactReader.ById["faint"]=ContactState.Occluded;f.Service.GuardNavigation(.5);
     Check(!AutoNavCore.Engaged&&f.Console.ship.LastX==0&&f.Console.ship.LastY==0,"Losing a tracked threat entirely suspends and clears thrust");
+}
+// Selective sensor engagement: weak hazards on the route ask for sensors, at a limited rate, and a
+// weak target is restored before guidance would suspend. Nothing switches when nothing can help.
+{
+    f=Setup(4000);f.Service.BeginAvoidanceFlight(f.Console,SavedFlightMode.Active);NativeSensorControl.Reset();
+    var faint=new Ship {strRegID="faint"};faint.objSS.vPosy=1000*AutoNavCore.M_TO_AU;CrewSim.system.Ships[faint.strRegID]=faint;
+    NativeContactReader.ById["faint"]=ContactState.Weak;
+    f.Service.GuardNavigation(.5);
+    Check(NativeSensorControl.Surveys.Count==1&&NativeSensorControl.Surveys[0].SequenceEqual(new[]{"faint"})&&NativeSensorControl.Notices.Count==0&&AutoNavCore.Engaged,
+        "A weak hazard on the route is surveyed; nothing is switched when no sensor can help");
+    NativeSensorControl.Offer=true;f.Service.GuardNavigation(.5);
+    Check(NativeSensorControl.Surveys.Count==1,"Hazard surveys are rate limited in game time");
+    StarSystem.fEpoch+=NavigationService.HazardSurveySeconds;f.Service.GuardNavigation(.5);
+    Check(NativeSensorControl.Surveys.Count==2&&NativeContactReader.ById["faint"]==ContactState.Ready&&NativeSensorControl.Notices.Count==1&&AutoNavCore.Engaged,
+        "A later survey switches a helpful sensor on, with a warning, and the hazard becomes a firm track");
+    f=Setup(4000);f.Service.BeginAvoidanceFlight(f.Console,SavedFlightMode.Active);NativeSensorControl.Reset();NativeSensorControl.Offer=true;
+    NativeContactReader.ById["target"]=ContactState.Weak;
+    f.Service.GuardNavigation(.5);
+    Check(AutoNavCore.Engaged&&NativeContactReader.ById["target"]==ContactState.Ready&&NativeSensorControl.Notices.Count==1,
+        "A weak target is restored by the shared guard before any suspension");
+    NativeSensorControl.Reset();NativeContactReader.ById["target"]=ContactState.Occluded;f.Service.GuardNavigation(.5);
+    Check(!AutoNavCore.Engaged&&NativeSensorControl.Surveys.Count==0,"An obscured target is not a sensor problem and still suspends");
+    NativeSensorControl.Reset();
 }
 {
     f=Setup(4000);f.Service.BeginAvoidanceFlight(f.Console,SavedFlightMode.Active);

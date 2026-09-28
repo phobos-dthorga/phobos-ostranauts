@@ -129,7 +129,7 @@ internal sealed partial class NavigationService
             if (OtherControllerBusy()) { status = Text.Get("NavigationService.disengage_other_flight_automation_first"); return; }
             var target = TargetRef.FromCrossHair();
             if (target == null) { status = Text.Get("NavigationService.target_unavailable"); return; }
-            var sensing = ReadContact(co, target);
+            var sensing = SenseTarget(co, target.ShipId);
             if (!sensing.Usable) { status = Text.Get(sensing.MessageKey); return; }
             if (!ReadPreferences(co!, out var preferences)) { status = Text.Get("Preferences.invalid"); return; }
             double cruise = preferences.CruiseMS, arrival = mode == SavedFlightMode.Active ? preferences.ArrivalMS : 0,
@@ -176,8 +176,12 @@ internal sealed partial class NavigationService
             if (problem == null && AutoNavCore.AutoDockBusy()) problem = Text.Get("NavigationService.auto_dock_took_control");
             if (problem == null && (!ArrivalBrake.Finite(Plugin.ArrivalSpeedTolerance.Value) || !ArrivalBrake.Finite(Plugin.MaximumStepSeconds.Value))) problem = Text.Get("NavigationService.invalid_safety_settings");
             if (problem != null) { Disengage(problem); return; }
-            var sensing = Torch.ContactLoss ?? ReadContact(console, AutoNavCore.EngagedTarget);
-            if (!sensing.Usable) { SuspendForContact(sensing); return; }
+            var sensing = Torch.ContactLoss ?? SenseTarget(console, AutoNavCore.EngagedTarget?.ShipId);
+            if (!sensing.Usable)
+            {
+                if (Torch.ContactLoss == null && SensorsSettling(AutoNavCore.EngagedPlayer, sensing)) return;
+                SuspendForContact(sensing); return;
+            }
             issuing = true;
             try { AutoNavCore.SteerFlight(AutoNavCore.EngagedPlayer, AutoNavCore.EngagedTarget, dt); }
             finally { issuing = false; }

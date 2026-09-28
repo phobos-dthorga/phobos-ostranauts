@@ -572,6 +572,18 @@
   values only as historic, never erase physical heat when an instrument fails,
   and do not infer that an unrelated alarm caused a machine to stop. Furnace
   and specialist instrumentation remain future work.
+- Owner sensor-engagement direction (2026-09-28), superseding earlier "Auto Nav
+  never switches sensors" rules: Auto Nav may switch on the fewest fitted sensors
+  needed to keep its target and nearby hazards tracked. Use non-emitting sensors
+  first, radar/LiDAR only when those cannot help, and nothing when no sensor would.
+  Never claim sensors the player already has on. Warn every time through Framework
+  `PlayerNotices` (native nav-map banner while that station is open, crew log) and
+  keep a steady Polaris hub line. When the work ends, not while suspended, switch
+  off only Auto Nav's own sensors through Framework `SensorLeases` notes on the
+  sensor units. The player's switch always wins, and a player switch-off holds for
+  that operation. Displays and planning queries never switch sensors. Players choose
+  `Sensors.AutoEngage` All/Passive/Off. Auto Nav 0.24.0 / Framework 0.34.0 implement
+  this; see `docs/auto-nav-sensors.md`. Owner gameplay checks remain pending.
 - Navigation panels must explicitly use
   `Ostranauts.ShipGUIs.NavStation.Draggable`, not the game's same-named global
   object-hauling component. Bind `NavModBase.DraggableRef`; the package build
@@ -963,7 +975,8 @@
   record. Owner gameplay evaluation remains separate; do not claim whole-wreck
   deletion, new structural recipes or repeated furnace operation.
 - Sensor/visibility admission precedes contact geometry. Never discard hazards on
-  planner exhaustion, enable sensors implicitly or resume after tracking loss.
+  planner exhaustion or resume after tracking loss. Sensor switching follows the
+  2026-09-28 owner sensor-engagement direction; never switch without telling the player.
   Auto Nav owns flight; manual takeover cancels mission authority. Ordinary Fly
   never undocks. Native departures bind exact attachments and persist intent before
   mutation, without granting clearance, paying fees or repeating uncertain detachments.

@@ -7423,13 +7423,13 @@
       "key": "Sensors.help",
       "category": "help/settings",
       "decision": "rewrite",
-      "reason": "Explains the whole sensor suite, weak-contact avoidance, asteroid targets and the explicit sensors command; existing suspension and resume rules retained.",
+      "reason": "Replaces the retired never-automatic rule with the owner-approved selective engagement, its notices, switch-off and player override.",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosAutoNav/NavigationInstruments.cs:108"
       ],
       "before": "Fly, Dock and Resume require live native sensing. Weak or lost contact suspends guidance and clears Auto Nav thrust; it does not brake blindly or resume automatically when the signal returns. Destination and progress are retained. Radar and LiDAR are never enabled automatically. Range and speed are unknown without a usable track. Sensor Operations skill uses the currently selected crew member aboard this ship, including with the panel closed.",
-      "after": "Fly, Dock and Resume require a live track from this ship's own sensors. Every switched-on sensor counts: optical, infrared, EM, radar and LiDAR signals combine as on the native map. Weak or lost target contact suspends guidance and clears Auto Nav thrust; it does not brake blindly or resume automatically when the signal returns. Destination and progress are retained. Weak contacts near the route are still avoided, with extra clearance. Asteroids can be flown to when sensed within 1,000 km. Radar and LiDAR are never switched on automatically; use the native Sensors page or phobosnav sensors all. Range and speed are unknown without a usable track. Sensor Operations skill uses the currently selected crew member aboard this ship, including with the panel closed."
+      "after": "Fly, Dock and Resume require a live track from this ship's own sensors. Every switched-on sensor counts: optical, infrared, EM, radar and LiDAR signals combine as on the native map. If the target or a hazard near the route is too faint, Auto Nav switches on the fewest fitted sensors that fix it: non-emitting ones first, radar or LiDAR only when those are not enough. It tells you in the crew log and on the nav map, and switches them off when it finishes unless you changed them. Switch one off yourself and Auto Nav leaves it off until it finishes. Mod settings, Sensors > AutoEngage: All, Passive (never radar or LiDAR) or Off. Weak or lost target contact that no sensor can fix suspends guidance and clears Auto Nav thrust; it does not brake blindly or resume automatically when the signal returns. Destination and progress are retained, and sensors stay on while a flight is suspended. Weak contacts near the route are still avoided, with extra clearance. Asteroids can be flown to when sensed within 1,000 km. Range and speed are unknown without a usable track. Sensor Operations skill uses the currently selected crew member aboard this ship, including with the panel closed."
     },
     {
       "mod": "PhobosAutoNav",
@@ -36685,6 +36685,162 @@
       ],
       "before": "Switched on, including emitting sensors: {0}.",
       "after": "Switched on, including emitting sensors: {0}."
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "SensorAssist.engaged",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Owner direction 28 September 2026: say what Auto Nav switched on and why, and that it switches only its own sensors off again.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosAutoNav/NavigationSensorAssist.cs:58"
+      ],
+      "before": "Auto Nav switched on {0} to keep {1} in sight. It switches them off again when it finishes, unless you change them first.",
+      "after": "Auto Nav switched on {0} to keep {1} in sight. It switches them off again when it finishes, unless you change them first."
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "SensorAssist.engaged_emitting",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Emitting sensors are named as such and their consequence (easier detection) is stated plainly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosAutoNav/NavigationSensorAssist.cs:58"
+      ],
+      "before": "Auto Nav switched on {0} to keep {1} in sight. Emitting sensors make your ship easier to detect. Auto Nav switches them off again when it finishes, unless you change them first.",
+      "after": "Auto Nav switched on {0} to keep {1} in sight. Emitting sensors make your ship easier to detect. Auto Nav switches them off again when it finishes, unless you change them first."
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "SensorAssist.reason_target",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosAutoNav/NavigationSensorAssist.cs:32"
+      ],
+      "before": "the target",
+      "after": "the target"
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "SensorAssist.reason_hazard",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosAutoNav/NavigationSensorAssist.cs:39"
+      ],
+      "before": "nearby hazards",
+      "after": "nearby hazards"
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "SensorAssist.banner",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Short native nav-map banner; the crew log carries the full explanation.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosAutoNav/NavigationSensorAssist.cs:59"
+      ],
+      "before": "Auto Nav switched on {0}",
+      "after": "Auto Nav switched on {0}"
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "SensorAssist.banner_emitting",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Short native nav-map banner stating that the ship now emits.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosAutoNav/NavigationSensorAssist.cs:59"
+      ],
+      "before": "Auto Nav switched on {0}. Your ship is now emitting",
+      "after": "Auto Nav switched on {0}. Your ship is now emitting"
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "SensorAssist.emitting_name",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosAutoNav/NavigationSensorAssist.cs:67"
+      ],
+      "before": "{0} (emitting)",
+      "after": "{0} (emitting)"
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "SensorAssist.released",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Confirms the switch-off and that the player's own sensors are untouched.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosAutoNav/NavigationSensorAssist.cs:119"
+      ],
+      "before": "Auto Nav switched off {0}. Sensors you switched on yourself are unchanged.",
+      "after": "Auto Nav switched off {0}. Sensors you switched on yourself are unchanged."
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "SensorAssist.in_use",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosAutoNav/NavigationSensorAssist.cs:150"
+      ],
+      "before": "Sensors on for Auto Nav: {0}",
+      "after": "Sensors on for Auto Nav: {0}"
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "SensorAssist.settling",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Explains a brief thrust hold without implying a fault.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosAutoNav/NavigationSensorAssist.cs:84"
+      ],
+      "before": "Sensors coming online; Auto Nav is holding thrust for a moment",
+      "after": "Sensors coming online; Auto Nav is holding thrust for a moment"
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "SensorAssist.setting",
+      "category": "help/settings",
+      "decision": "add",
+      "reason": "Setting help names each choice and its effect on emitting sensors.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosAutoNav/Plugin.cs:67"
+      ],
+      "before": "Sensors Auto Nav may switch on by itself when its target or a nearby hazard is too faint to track. All: non-emitting sensors first, radar or LiDAR only when those are not enough. Passive: never radar or LiDAR. Off: never. You are told each time, and Auto Nav switches off only what it switched on.",
+      "after": "Sensors Auto Nav may switch on by itself when its target or a nearby hazard is too faint to track. All: non-emitting sensors first, radar or LiDAR only when those are not enough. Passive: never radar or LiDAR. Off: never. You are told each time, and Auto Nav switches off only what it switched on."
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "SensorSuite.by_auto_nav",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosAutoNav/NativeSensorSuite.cs:50"
+      ],
+      "before": "{0}, switched on by Auto Nav",
+      "after": "{0}, switched on by Auto Nav"
     }
   ],
   "documents": [
@@ -36692,8 +36848,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "f6e634e67d8d53dbb5c3084fa309dd2a83fb55eb9e4edfe4402199e1f8b3cb67",
-      "review": "2026-09-28: registered Auto Nav 0.23.0 version update only; no other wording changed."
+      "sha256": "9e9dc61b35e560ed04e8a1bf2fe8a9a668daecface7694a03011d727b5b73e59",
+      "review": "2026-09-28: version summary for Auto Nav 0.24.0 and Framework 0.34.0; no other wording changed."
     },
     {
       "path": "SUPPORT.md",
@@ -36768,8 +36924,8 @@
       "path": "docs/auto-nav-departure.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "a0bd1a2d8cfda6b8566efd2356fea84fb37ad24b356585f5a267edba5365c37b",
-      "review": "2026-09-28: avoidance now describes sensed asteroid rocks, weak-contact clearance and the 100 km reach; loss-versus-fade wording made explicit."
+      "sha256": "799dd2c057b7d1fea7cfb010941b2b8c44996430a3325129c6fe63f64289fde7",
+      "review": "2026-09-28: retired \"never switched on automatically\" statement replaced with the automatic engagement summary and link."
     },
     {
       "path": "docs/auto-nav-docking.md",
@@ -36802,8 +36958,8 @@
       "path": "docs/auto-nav-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "c7f1cfb3ba6d4e0e80259aa7664dc7fb0740bf9fa4ee49df65e017c937ec0da2",
-      "review": "2026-09-28: regenerated from reviewed N1/N2 explanations for asteroid targets, sensor breakdown and hazard avoidance."
+      "sha256": "7d2c5a0c3b36b3e96f8774c8f1872ced4d534dd19596926c2d72524f525f88e9",
+      "review": "2026-09-28: regenerated from reviewed inputs: version and N1/N2 automatic sensor engagement notes."
     },
     {
       "path": "docs/auto-nav-persistence.md",
@@ -36823,8 +36979,8 @@
       "path": "docs/auto-nav-sensors.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "1c348fff0d77eb54833f49b8ccf28e831e8212ffced3a9bf1ad957849bd7eacd",
-      "review": "2026-09-28: new whole-suite section: per-sensor breakdown, explicit switch-on with emitting sensors named, asteroid approach within 1,000 km and tether reach, weak-contact and asteroid hazards, deliberate limits and owner checks. 0.9.0 rules retained under their own heading."
+      "sha256": "0ad6d3610c081978e46a89663128620275a0b530fc8c1d47113f91fd3ac50600",
+      "review": "2026-09-28: new current section on automatic sensor engagement leads with what happens, how the player is told, switch-off, the player's override, the setting, the brief hold and limits; native evidence attributed to Blue Bottle Games; 0.23.0 and 0.9.0 never-switch statements kept as labelled history with pointers."
     },
     {
       "path": "docs/auto-nav-torch.md",
@@ -36850,8 +37006,8 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "8e5873180e4c25f132e31b157ebb3419f4818aea21d5e714c221a5b0da0a4b90",
-      "review": "2026-09-28: registered Auto Nav 0.23.0 version update only; no other wording changed."
+      "sha256": "31158a9debbbc5d61cc41d6325d445fd3b3c877f460710c437a2bd2ebba7c044",
+      "review": "2026-09-28: version line for Auto Nav 0.24.0 and Framework 0.34.0; no other wording changed."
     },
     {
       "path": "docs/crew-automation.md",
@@ -37388,8 +37544,8 @@
       "path": "docs/development/sensor-integration-research.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "78c6f70c9af1250529ccc24b066ec2520ac11754bfcf36c322cbed6a09366d2e",
-      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+      "sha256": "eec5f9da73745addaea36702aae8d206850c84cdf239740cbda96729cc163e3d",
+      "review": "2026-09-28: dated follow-up records the owner-approved automatic engagement and keeps the no-silent-switching rule; original research unchanged."
     },
     {
       "path": "docs/development/shared-console-observations.md",
@@ -37531,8 +37687,8 @@
       "path": "docs/framework-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "fc0f7379dfe418c6254b0215f9ca0427e7913088fe3b869cd23a4a3f867359cb",
-      "review": "2026-09-28: regenerated for Framework 0.33.0; version only."
+      "sha256": "1c39e7a9b5801a60c82ba19ec7ff5efc0c7ae34944890e0cb3eed2e0c8c4f757",
+      "review": "2026-09-28: regenerated from reviewed inputs: version only."
     },
     {
       "path": "docs/furnace-coolant-conduits.md",
@@ -37629,8 +37785,8 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "4f71541f17d5b4cbd412900f7b95ea2be224fbd6df48ef1d7e0ff470d0aa1f56",
-      "review": "2026-09-28: version update plus a pointer to the sensor breakdown and asteroid approach."
+      "sha256": "b7955fef27a7f385d6f3424651c48485d188612dcc229cc3b84e131111ba6c45",
+      "review": "2026-09-28: versions updated; sensor paragraph now points to automatic sensor engagement, stating non-emitting first, the warning and switch-off of Auto Nav's own sensors only."
     },
     {
       "path": "docs/residue-collector.md",
@@ -37706,15 +37862,15 @@
       "path": "workshop/PhobosAutoNav/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "8bde24d1eb3a1a813dd39edb034cd82f559f1ed21a5c05464cfdf1bdf6599f95",
-      "review": "2026-09-28: version plus asteroid approach, whole-suite sensing and wider hazard avoidance; guide link added."
+      "sha256": "c04b617c80ead3c018de1049ecb711b2d3b8b9607cb3d35e9c70b4423c281719",
+      "review": "2026-09-28: version and Framework 0.34.0 requirement; new bullet on automatic sensor engagement, warnings, switch-off and the AutoEngage setting."
     },
     {
       "path": "workshop/PhobosFramework/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "08a136fcfdb2de720743259c765689e9a14193c222c9b76c6f3141ae297f0364",
-      "review": "2026-09-28: version plus one line on the shared store rule."
+      "sha256": "781efa736d10ae84ea73066df1568a3a4cc100f5eb6cbb64d8f77a5f2d5a35e6",
+      "review": "2026-09-28: version; new bullet on shared sensor switching and player notices."
     },
     {
       "path": "workshop/PhobosManufacturing/page.bbcode",
@@ -37735,8 +37891,8 @@
     {
       "path": "config/item-reference.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "013265a1c85a7013d0a475d92106952eb23286106ea6fbfa4bc001c5fec386fd",
-      "review": "2026-09-28: N1/N2 use and notes updated for asteroid targets, sensor breakdown and hazard avoidance."
+      "sha256": "63ff850da33246189f7ce506fff9f9d1de5f7abb5cf36a44c518c435a05abf28",
+      "review": "2026-09-28: N1 use and N1/N2 notes explain automatic sensor engagement with a warning and switch-off of Auto Nav's own sensors."
     },
     {
       "path": "mods/PhobosAgriculture/framework/equipment-names.json",
@@ -37772,8 +37928,8 @@
     {
       "path": "mods/PhobosAutoNav/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "18f9ed296e8b8b266c9b0afed1568db92d86605e1c09d9ee352719a060a5ab2e",
-      "review": "2026-09-28: registered Auto Nav 0.23.0 version update only; no other wording changed."
+      "sha256": "4eeb599290748b905a7bff706dd9bd3383a889d51edd265c6a2ac75899a6d06b",
+      "review": "2026-09-28: version metadata only."
     },
     {
       "path": "mods/PhobosFramework/framework/equipment-names.json",
@@ -37783,8 +37939,8 @@
     {
       "path": "mods/PhobosFramework/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "9d94967dff28120956d97a45c053bee687bca85f6b4c0c2125470a6d9796af3e",
-      "review": "2026-09-28: registered Framework/Shipbreaker 0.33.0 version and dependency update only; no other wording changed."
+      "sha256": "6119aba9a1bbe935454a4861fba1ba6cd720044542dc5ad9f09b93232cee9924",
+      "review": "2026-09-28: version metadata only."
     },
     {
       "path": "mods/PhobosManufacturing/mod_info.json",

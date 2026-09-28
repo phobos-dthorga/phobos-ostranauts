@@ -1,5 +1,5 @@
 [h1]Phobos Auto Nav[/h1]
-[b]Version:[/b] 0.23.0
+[b]Version:[/b] 0.24.0
 
 [h2]Performance update[/h2]
 The console refreshes the visible page up to ten times per second and responds immediately to your actions. It no longer checks whole-ship hull fit just to display docking clearance; starting a docking manoeuvre still checks it. Flight and firing safety checks remain current.
@@ -13,6 +13,7 @@ Give Polaris the long approach while you keep an eye on the ship. Asterel module
 [list]
 [*]N1 handles approaches and docking. Set stopping distance and speed; working sensors, braking room, RCS and fuel are still required.
 [*]Fly to a sensed asteroid within 1,000 km and stop inside native tether reach. Every switched-on sensor counts; Details lists each sensor's signal and any fitted sensors that are off.
+[*]If the target or a nearby hazard is too faint, Auto Nav switches on the fewest sensors that fix it, non-emitting first, and warns you in the crew log and on the nav map. It switches off only its own sensors when it finishes; your switches always win. Choose All, Passive or Off in Sensors > AutoEngage.
 [*]N2 includes navigation and adds Rendezvous to match motion once, or Follow to keep pace.
 [*]N3 handles selected weapon groups, limited volleys and optional RCS aiming. Select a fire target separately and lift the cover to Engage.
 [*]N2 + N3 add explicit Combat on Track: range matching and weapon facing, with permitted RCS/torch manoeuvres. Select the fire target and aim-reference weapon first. Entering suspends the previous flight; Engage remains separate.
@@ -25,7 +26,7 @@ Give Polaris the long approach while you keep an eye on the ship. Asterel module
 Disengage removes thrust; the ship coasts. It is not an emergency brake. Docking needs clearance and the navigation console open for final clamps. Departure, docking and pursuit pause after loading. No guaranteed collision-free flight, successful hit or intact capture. Upstream-derived Auto Navigate code remains excluded from the MIT grant; its unresolved reuse terms keep publication on hold.
 
 [h2]Requirements and installation[/h2]
-Ostranauts 1.0.1.5, BepInEx 5 and Phobos Framework 0.30.3 or newer. Disable original Auto Navigate before engaging Phobos Auto Nav; it is not a dependency.
+Ostranauts 1.0.1.5, BepInEx 5 and Phobos Framework 0.34.0 or newer. Disable original Auto Navigate before engaging Phobos Auto Nav; it is not a dependency.
 
 This is an unpublished development package. Automated checks do not establish in-game readiness or Unity layout approval. Keep required mods installed for saves using their content. Updating does not refill shops or old loot containers. See the installation guide for current download availability.
 

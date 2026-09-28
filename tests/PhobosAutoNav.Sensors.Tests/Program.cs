@@ -761,3 +761,116 @@ Console.WriteLine($"{checks} checks including towing FCS and Combat passed.");
     Check(!AutoNavCore.Engaged, "A weak asteroid track cannot start a flight");
 }
 Console.WriteLine($"{checks} checks including asteroid sensing passed.");
+
+// Selective sensor engagement (owner direction, 28 September 2026): the real guidance service and
+// assist against the native sensor-control boundary. Notices are recorded, not displayed.
+{
+    void Fresh() { NativeSensorControl.Reset(); Plugin.AutoEngageSensors.Value = SensorAutoEngage.All; StarSystem.fEpoch = 0; }
+    NativeSensorControl.FakeSensor Sensor(string key) => NativeSensorControl.Sensors.First(s => s.Key == key);
+    void Settle(NavigationService service, double seconds) { service.UpdatePersistence(); StarSystem.fEpoch += seconds; service.UpdatePersistence(); }
+
+    var a = Setup(); Fresh();
+    NativeSensorControl.Fit("IsSensorIR", "Infrared", .5); NativeSensorControl.Fit("IsSensorRadar", "Radar", 2, emits: true);
+    Signal(a.Own, .1);
+    a.Service.ReadHub(a.Console, "navigation"); a.Service.ReadInstruments(a.Console);
+    Check(NativeSensorControl.Surveys == 0 && !NativeSensorControl.Sensors.Any(s => s.On), "Displays never switch sensors on");
+    a.Service.Engage(a.Console);
+    Check(AutoNavCore.Engaged, "A weak target is restored by switching sensors on before Fly is refused: " + a.Service.StatusForTest);
+    Check(Sensor("IsSensorIR").On && !Sensor("IsSensorRadar").On, "Non-emitting infrared is enough, so radar stays off");
+    var notice = NativeSensorControl.Notices.Single();
+    Check(notice.Caution && notice.Log.StartsWith("SensorAssist.engaged Infrared") && notice.Log.Contains("SensorAssist.reason_target") &&
+        notice.Banner == "SensorAssist.banner Infrared", "The player is warned in the crew log and on the nav map");
+    Check(a.Service.ReadHub(a.Console, "navigation").Restriction.StartsWith("SensorAssist.in_use Infrared"), "The hub keeps a steady line while Auto Nav's sensors stay on");
+    int steering = AutoNavCore.SteeringCalls;
+    a.Service.Tick(a.Own.objSS, 1, false);
+    Check(AutoNavCore.SteeringCalls == steering + 1 && NativeSensorControl.Notices.Count == 1, "The restored track guides without further switching or warnings");
+
+    // A native refresh a frame after the switch is waited out, within a finite budget.
+    a.Own.bCheckSensors = true; steering = AutoNavCore.SteeringCalls;
+    a.Service.Tick(a.Own.objSS, 1, false);
+    Check(AutoNavCore.Engaged && AutoNavCore.SteeringCalls == steering && a.Service.StatusForTest == "SensorAssist.settling",
+        "A sensor refresh right after switching holds guidance instead of suspending");
+    a.Own.bCheckSensors = false; a.Service.Tick(a.Own.objSS, 1, false);
+    Check(AutoNavCore.SteeringCalls == steering + 1, "Guidance continues once the refresh completes");
+    a.Own.bCheckSensors = true;
+    for (int i = 0; i <= NavigationService.SensorSettleChecks && AutoNavCore.Engaged; i++) a.Service.Tick(a.Own.objSS, 1, false);
+    Check(!AutoNavCore.Engaged && Read(a.Console).Mode == SavedFlightMode.Suspended, "A refresh that never completes still suspends the flight");
+    a.Own.bCheckSensors = false;
+
+    // Suspended flights keep their sensors; stopping switches off only Auto Nav's own.
+    Settle(a.Service, 100);
+    Check(Sensor("IsSensorIR").On, "Sensors stay on while a flight is suspended so Resume can reacquire");
+    a.Service.ResumeSaved(a.Console);
+    Check(AutoNavCore.Engaged && NativeSensorControl.Notices.Count == 1, "Resume reacquires with the sensors already on");
+    a.Service.Disengage("stop");
+    a.Service.UpdatePersistence(); StarSystem.fEpoch += NavigationService.SensorReleaseGraceSeconds / 2; a.Service.UpdatePersistence();
+    Check(Sensor("IsSensorIR").On, "A short grace keeps sensors through controller handoffs");
+    StarSystem.fEpoch += NavigationService.SensorReleaseGraceSeconds; a.Service.UpdatePersistence();
+    var released = NativeSensorControl.Notices.Last();
+    Check(!Sensor("IsSensorIR").On && !released.Caution && released.Banner == null && released.Log == "SensorAssist.released Infrared",
+        "When Auto Nav finishes it switches off its own sensors and says so");
+    Check(!a.Service.ReadHub(a.Console, "navigation").Restriction.Contains("SensorAssist.in_use"), "The hub line clears with the sensors");
+
+    // Sensors the player already had on are never claimed or switched off.
+    var b = Setup(); Fresh();
+    var playerIr = NativeSensorControl.Fit("IsSensorIR", "Infrared", .2); playerIr.On = true;
+    NativeSensorControl.Fit("IsSensorOptical", "Optical", .3);
+    Signal(b.Own, .05, .2);
+    b.Service.Engage(b.Console);
+    Check(AutoNavCore.Engaged && Sensor("IsSensorOptical").On && Sensor("IsSensorOptical").LeaseHolder == "console" && playerIr.LeaseHolder == null,
+        "Only switched-off sensors are candidates: " + b.Service.StatusForTest);
+    b.Service.Disengage("stop"); Settle(b.Service, 1); Settle(b.Service, NavigationService.SensorReleaseGraceSeconds);
+    Check(playerIr.On && !Sensor("IsSensorOptical").On, "The player's own sensor stays on after Auto Nav switches its own off");
+
+    // Emitters only when passive sensors cannot help; the Passive and Off settings are honoured.
+    var c = Setup(); Fresh();
+    NativeSensorControl.Fit("IsSensorIR", "Infrared", .05); NativeSensorControl.Fit("IsSensorRadar", "Radar", 2, emits: true);
+    Signal(c.Own, .1);
+    Plugin.AutoEngageSensors.Value = SensorAutoEngage.Off; c.Service.Engage(c.Console);
+    Check(!AutoNavCore.Engaged && NativeSensorControl.Surveys == 0 && c.Service.StatusForTest == "Sensors.Weak", "Off never switches sensors");
+    Plugin.AutoEngageSensors.Value = SensorAutoEngage.Passive; c.Service.Engage(c.Console);
+    Check(!AutoNavCore.Engaged && !NativeSensorControl.Sensors.Any(s => s.On) && NativeSensorControl.Notices.Count == 0,
+        "Passive never uses radar, and switches nothing on that cannot restore the track");
+    Plugin.AutoEngageSensors.Value = SensorAutoEngage.All; c.Service.Engage(c.Console);
+    Check(AutoNavCore.Engaged && Sensor("IsSensorRadar").On && !Sensor("IsSensorIR").On, "Radar alone is used when passive sensors are not enough");
+    var emitting = NativeSensorControl.Notices.Single();
+    Check(emitting.Log.StartsWith("SensorAssist.engaged_emitting SensorAssist.emitting_name Radar") && emitting.Banner!.StartsWith("SensorAssist.banner_emitting"),
+        "Emitting sensors are named in both warnings");
+
+    // The player's own switch wins for the rest of the operation.
+    var d = Setup(); Fresh(); NativeSensorControl.Fit("IsSensorIR", "Infrared", .5); Signal(d.Own, .1);
+    d.Service.Engage(d.Console);
+    NativeSensorControl.PlayerSwitch(d.Own, "IsSensorIR", false);
+    d.Service.Tick(d.Own.objSS, 1, false);
+    Check(!AutoNavCore.Engaged && !Sensor("IsSensorIR").On && Read(d.Console).Mode == SavedFlightMode.Suspended && NativeSensorControl.Notices.Count == 1,
+        "A sensor the player switched off is not switched back on during that flight");
+    d.Service.ResumeSaved(d.Console);
+    Check(!AutoNavCore.Engaged && !Sensor("IsSensorIR").On, "Resume continues the same operation and keeps the player's choice");
+    d.Service.Command(new[] { "phobosnav", "forget" }, out _);
+    Settle(d.Service, 1); Settle(d.Service, NavigationService.SensorReleaseGraceSeconds);
+    Check(Sensor("IsSensorIR").DeclinedBy == null && NativeSensorControl.Notices.Count == 1, "Ending the work clears the player's decline without switching anything");
+    d.Service.Engage(d.Console);
+    Check(AutoNavCore.Engaged && Sensor("IsSensorIR").On, "A new flight may use it again, with a new warning");
+
+    var e = Setup(); Fresh();
+    var ownIr = NativeSensorControl.Fit("IsSensorIR", "Infrared", .5); ownIr.On = true; NativeSensorControl.Fit("IsSensorOptical", "Optical", .5);
+    Signal(e.Own, .5);
+    e.Service.Engage(e.Console);
+    NativeSensorControl.PlayerSwitch(e.Own, "IsSensorIR", false);
+    e.Service.Tick(e.Own.objSS, 1, false);
+    Check(AutoNavCore.Engaged && !ownIr.On && ownIr.DeclinedBy == "console" && Sensor("IsSensorOptical").On,
+        "Switching off one's own sensor mid-flight is respected; Auto Nav uses another one instead");
+
+    // Notes from an earlier session are reconciled after loading.
+    var g = Setup(); Fresh(); NativeSensorControl.Fit("IsSensorIR", "Infrared", .5); Signal(g.Own, .1);
+    g.Service.Engage(g.Console); g.Service.Command(new[] { "phobosnav", "forget" }, out _);
+    g.Service.WorldChanging(); g.Service.WorldLoaded(); g.Service.UpdatePersistence();
+    Check(Sensor("IsSensorIR").On, "Loading never switches sensors immediately");
+    Settle(g.Service, 1); Settle(g.Service, NavigationService.SensorReleaseGraceSeconds);
+    Check(!Sensor("IsSensorIR").On, "Sensors left on by Auto Nav in an earlier session are switched off once no work remains");
+    var h = Setup(); Fresh(); NativeSensorControl.Fit("IsSensorIR", "Infrared", .5); Signal(h.Own, .1);
+    h.Service.Engage(h.Console); h.Service.WorldChanging(); h.Service.WorldLoaded(); h.Service.UpdatePersistence();
+    Settle(h.Service, 1); Settle(h.Service, NavigationService.SensorReleaseGraceSeconds);
+    Check(AutoNavCore.Engaged && Sensor("IsSensorIR").On, "A flight resumed after loading keeps its sensors");
+}
+Console.WriteLine($"{checks} checks including selective sensor engagement passed.");

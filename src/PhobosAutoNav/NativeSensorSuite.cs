@@ -13,6 +13,11 @@ internal static class NativeSensorSuite
 {
     private static readonly (SensorType Type, string Key)[] Types =
     { (SensorType.Optical, "optical"), (SensorType.IR, "ir"), (SensorType.EM, "em"), (SensorType.Radar, "radar"), (SensorType.Lidar, "lidar") };
+    internal static string TypeName(SensorType type)
+    {
+        foreach (var (known, key) in Types) if (known == type) return Text.Get("SensorSuite.type_" + key);
+        return type.ToString();
+    }
 
     /// <summary>Presentation only: native per-sensor signal reads, no toggles or saved state.</summary>
     internal static string Describe(Ship? observer, string? targetId)
@@ -22,7 +27,9 @@ internal static class NativeSensorSuite
             var sensors = observer?.ElectronicSystems?.aElectronicSystems;
             if (observer?.objSS == null || sensors == null || sensors.Count == 0) return Text.Get("SensorSuite.none");
             if (observer.bCheckSensors || observer.bCheckPower) return Text.Get("Sensors.Updating");
-            bool located = TryTarget(observer, targetId, out var signature, out double rangeKM, out float visibility);
+            ShipSignature? signature = null; double rangeKM = double.NaN; float visibility = 0;
+            bool located = targetId != null && NativeContactReader.TryInputs(observer, targetId, out signature, out rangeKM, out visibility, out _);
+            var leased = new HashSet<string>(Phobos.Ostranauts.Framework.Sensors.SensorLeases.InUse(observer, NativeSensorControl.Automation), StringComparer.Ordinal);
             var lines = new List<string> { Text.Get("SensorSuite.heading") };
             bool offFitted = false, offActive = false;
             foreach (var (type, key) in Types)
@@ -38,9 +45,10 @@ internal static class NativeSensorSuite
                     lines.Add(Text.Get(active ? "SensorSuite.off_active" : "SensorSuite.off", name));
                     continue;
                 }
-                lines.Add(located
+                string line = located
                     ? Text.Get("SensorSuite.signal", name, on.Sum(s => s.GetSignalStrength(signature!, rangeKM, visibility)), on.Length, group.Length)
-                    : Text.Get("SensorSuite.on", name, on.Length, group.Length));
+                    : Text.Get("SensorSuite.on", name, on.Length, group.Length);
+                lines.Add(on.Any(s => leased.Contains(s.CondId)) ? Text.Get("SensorSuite.by_auto_nav", line) : line);
             }
             if (located)
             {
@@ -52,28 +60,6 @@ internal static class NativeSensorSuite
             return string.Join("\n", lines);
         }
         catch { return Text.Get("Sensors.Fault"); }
-    }
-
-    // The same target signature, range and visibility the contact reader uses.
-    private static bool TryTarget(Ship observer, string? targetId, out ShipSignature? signature, out double rangeKM, out float visibility)
-    {
-        signature = null; rangeKM = double.NaN; visibility = observer.fVisibilityRangeMod;
-        if (string.IsNullOrEmpty(targetId) || CrewSim.system == null) return false;
-        var ship = CrewSim.system.GetShipByRegID(targetId!);
-        if (ship != null)
-        {
-            if (ship == observer || ship.bDestroyed || ship.objSS == null) return false;
-            signature = new ShipSignature(ship, observer);
-            rangeKM = observer.GetRangeTo(ship) / AutoNavCore.KM_TO_AU;
-            visibility = Math.Min(visibility, ship.fVisibilityRangeMod);
-        }
-        else if (CrewSim.system.dictStellarObjects != null && CrewSim.system.dictStellarObjects.TryGetValue(targetId!, out var stellar) && stellar?.objSS != null)
-        {
-            NativeContactReader.RefreshStellar(stellar.objSS);
-            signature = new ShipSignature(stellar, observer);
-            rangeKM = observer.objSS.GetRangeTo(stellar.objSS) / AutoNavCore.KM_TO_AU;
-        }
-        return signature != null && ArrivalBrake.Finite(rangeKM) && rangeKM >= 0;
     }
 
     /// <summary>F3: phobosnav sensors [passive|all]. Switching on needs the player's local

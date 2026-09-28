@@ -21,6 +21,24 @@ Dates on Draft entries record preparation, not Steam publication.
 - Earlier capture-only research is superseded for supported ordinary walls by Shipbreaker 0.24.0 reclamation, which relies on the 0.16.0 capture flight and 0.18.0 local avoidance and departure entries below. Broader structural recipes, repeated furnace batches and whole-wreck completion remain Shipbreaker work, not Auto Nav flight changes.
 - Keep [NASA Goddard's Raven research](https://www.nasa.gov/general/nasas-hybrid-computer-enables-ravens-autonomous-rendezvous-capability/) and [ESA's LIRIS experiment by Airbus, Jena Optronik and Sodern](https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/ATV/ATV_views_Space_Station_as_never_before) as sensing context, separate from Blue Bottle Games native evidence and authored gameplay choices. No institutional endorsement or gameplay validation is implied.
 
+## [0.24.0] - 2026-09-28 - Draft
+
+### Added
+
+- When the target, or a weak contact near the route, is too faint to track, Auto Nav switches on the fewest fitted sensors that fix it: non-emitting optical, infrared and EM first, radar or LiDAR only when those are not enough, and nothing when no sensor would help. Sensors you already have on are left alone. Each sensor's contribution is predicted with the game's own signal formula, and switching uses the native Sensors page switch.
+- Every time, a crew log line names the sensors, the reason and whether they emit. The native nav-map warning banner, with its tone, appears while that ship's navigation station is open, at most once every 20 seconds. The Polaris hub shows Sensors on for Auto Nav while they stay on; Details and phobosnav sensors mark them.
+- New AutoEngage setting in the Sensors section: All (default), Passive (never radar or LiDAR) or Off.
+
+### Changed
+
+- When its work ends (arrival, Stop, completed docking or departure, released industrial work), Auto Nav switches off only the sensors it switched on, after about five game seconds, and logs it. Suspended flights keep them for Resume. Your own switch always wins: a sensor you switch off stays off until that work ends, and one you switch on is never switched off by Auto Nav.
+- A sensor-list refresh right after Auto Nav's own switching briefly holds thrust instead of suspending. A refresh that does not finish still suspends.
+- Requires Phobos Framework 0.34.0.
+
+### Compatibility and limits
+
+- Saved flights, preferences and module identities are unchanged. Notes about Auto Nav's sensors are saved on the sensor units, so switch-off also works after loading; loading never switches sensors immediately. Hazards are surveyed at most every two game seconds. The 1.2 x headroom, the grace and the hazard interval are gameplay choices. Power draw, heat and multi-type sensor units behave as with the native Sensors page. Offline checks pass; owner play-testing is pending.
+
 ## [0.23.0] - 2026-09-28 - Draft
 
 ### Added

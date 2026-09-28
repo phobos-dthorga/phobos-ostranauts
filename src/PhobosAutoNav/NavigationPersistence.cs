@@ -49,6 +49,7 @@ internal sealed partial class NavigationService
         ResetExtended(); avoidanceActive = avoidanceBlocked = false;
         industrial = null; industrialNotice = Text.Get("Persistence.loading");
         arrivalWatch.Cancel(); ResetPursuit(); Fire.Reset(); Torch.Reset(); AutoNavCore.ResetStatics(); console = null; savedFlight = null;
+        ForgetSensorWork();
         issuing = false; restorePending = false; combinedHandoffPending = false; status = Text.Get("Persistence.loading");
     }
     internal void WorldLoaded() => restorePending = true;
@@ -63,9 +64,11 @@ internal sealed partial class NavigationService
 
     internal void UpdatePersistence()
     {
+        ReconcileSensors();
         if (!restorePending || CrewSim.objInstance == null || !CrewSim.objInstance.FinishedLoading ||
             CrewSim.coPlayer?.ship == null) return;
         restorePending = false;
+        DiscoverSensorHolders(CrewSim.coPlayer.ship);
         try
         {
             // Exclude docked neighbours and cargo. Restoring another ship's
@@ -194,7 +197,7 @@ internal sealed partial class NavigationService
             var target = TargetRef.FromShipId(snapshot.TargetId);
             if (problem == null)
             {
-                var sensing = ReadContact(co, target);
+                var sensing = SenseTarget(co, target?.ShipId);
                 if (!sensing.Usable) problem = Text.Get(sensing.MessageKey);
             }
             if (problem == null && (target == null || !AutoNavCore.TryReadApproach(co.ship, target, snapshot.ArrivalKM, out _, out _)))

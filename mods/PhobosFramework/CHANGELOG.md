@@ -20,6 +20,17 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.34.0] - 2026-09-28 - Draft
+
+### Added
+
+- SensorLeases lets automation switch native ship sensor types on through the native Sensors page switch, noting a lease on each sensor unit, and later switch off only what it switched on. Sensors already on are never claimed. Any other switch clears the lease, or turns a switch-off into a decline for that work. Notes use the existing object-state store, so they follow power mode switches, repairs and saves. IfOn predicts a sensor's contribution with the native formula without writing state, and SwitchedOffByOthers reports other switch-offs.
+- PlayerNotices posts one crew message-log line and, while that ship's navigation station is open, the native nav-map warning banner with its tone, limited to once every 20 seconds per notice kind.
+
+### Compatibility and limits
+
+- Additive services; existing saves and consumers are unaffected. Content mods own their switching policy and wording. Offline checks pass; banner and log appearance in Unity remain owner-tested.
+
 ## [0.33.0] - 2026-09-28 - Draft
 
 ### Added

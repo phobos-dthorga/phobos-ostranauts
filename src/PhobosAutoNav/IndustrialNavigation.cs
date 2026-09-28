@@ -69,7 +69,7 @@ internal sealed partial class NavigationService
         if (co.HasCond("IsDamagedSoftware")) { message = Text.Get("Docking.software"); return false; }
         if (DisplaySnapshot(co) != null || !CanReplaceFlight(co) || !HasIndustrialModule(co, module))
         { message = Text.Get("Industrial.busy"); return false; }
-        var contact = NativeContactReader.Read(co.ship, target);
+        var contact = SenseTarget(co, target);
         if (!contact.Usable) { message = Text.Get(contact.MessageKey); return false; }
         var candidate = new IndustrialFlight { Permission = permission, Console = co, Carrier = co.ship, Module = module,
             Target = target, Player = CrewSim.coPlayer.strID, Ship = co.ship.strRegID,
@@ -110,8 +110,10 @@ internal sealed partial class NavigationService
         var problem = f.Console.ship.IsDocked() ? Text.Get("NavigationService.undock_before_engagement") : HardwareProblem(f.Console) ?? f.BindingProblem();
         if (f.Console.HasCond("IsDamagedSoftware")) return Text.Get("Docking.software");
         if (problem != null) return problem;
-        var contact = NativeContactReader.Read(f.Console.ship, f.Target);
-        return contact.Usable ? null : Text.Get(contact.MessageKey);
+        var contact = SenseTarget(f.Console, f.Target);
+        // A native refresh right after Auto Nav switched sensors on is not a lost track;
+        // pre-physics guidance holds thrust for it before any industrial command.
+        return contact.Usable || SensorsSettling(f.Carrier, contact, hold: false) ? null : Text.Get(contact.MessageKey);
     }
     private static bool IndustrialRead(IndustrialFlight f, double dt, bool hold, out DockingCommand command)
     {

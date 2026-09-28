@@ -191,3 +191,15 @@ offered, and no message implies that Auto Nav switches sensors itself. The weak
 contact reach and asteroid range are stated as numbers the player can act on.
 Placeholders and existing keys are unchanged. Coverage is now 1,864 entries,
 153 documents and 14 other surfaces. The Details layout is unverified in Unity.
+
+## Auto Nav automatic sensor engagement, 28 September 2026
+
+Auto Nav 0.24.0 adds 12 reviewed entries: the log and banner warnings, their emitting
+variants, the switch-off confirmation, the hub line, the brief-hold status, the
+setting help and the Details marker. Sensors help is rewritten to replace the retired
+never-automatic rule. Warnings say what was switched on, why and whether it emits,
+and that only Auto Nav's own sensors are switched off afterwards; no message promises
+a track that sensors cannot provide. The sensor guide, departure guide, player guide,
+item-reference inputs and both Workshop drafts were reviewed together; 0.23.0 and
+0.9.0 statements remain as labelled history. Coverage is now 1,876 entries, 153
+documents and 14 other surfaces. Banner and log appearance in Unity is unverified.

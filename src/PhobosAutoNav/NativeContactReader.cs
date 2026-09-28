@@ -29,15 +29,9 @@ internal static class NativeContactReader
             if (Occluded(system, observer, target.objSS, out bool fault))
                 return new ContactReading(fault ? ContactState.Fault : ContactState.Occluded);
 
-            double rangeKM = observer.GetRangeTo(target) / AutoNavCore.KM_TO_AU;
-            float visibility = Math.Min(observer.fVisibilityRangeMod, target.fVisibilityRangeMod);
-            if (!ArrivalBrake.Finite(rangeKM) || rangeKM < 0 || !ArrivalBrake.Finite(visibility) || visibility < 0)
+            if (!TryInputs(observer, targetId!, out var signature, out double rangeKM, out float visibility, out double threshold))
                 return new ContactReading(ContactState.Fault);
-            var selected = CrewSim.GetSelectedCrew();
-            bool skilled = selected != null && !selected.bDestroyed && selected.ship == observer && selected.HasCond("SkillOpsSensors");
-            double threshold = skilled ? ContactRules.SkilledThreshold : ContactRules.DefaultThreshold;
-            var signature = new ShipSignature(target, observer);
-            return ContactRules.Evaluate(observer.ElectronicSystems.GetSignatureStrength(signature, rangeKM, visibility), threshold);
+            return ContactRules.Evaluate(observer.ElectronicSystems.GetSignatureStrength(signature!, rangeKM, visibility), threshold);
         }
         catch
         {
@@ -58,13 +52,43 @@ internal static class NativeContactReader
         RefreshStellar(stellar.objSS);
         if (Occluded(system, observer, stellar.objSS, out bool fault))
             return new ContactReading(fault ? ContactState.Fault : ContactState.Occluded);
-        double rangeKM = observer.objSS.GetRangeTo(stellar.objSS) / AutoNavCore.KM_TO_AU;
-        float visibility = observer.fVisibilityRangeMod;
-        if (!ArrivalBrake.Finite(rangeKM) || rangeKM < 0 || !ArrivalBrake.Finite(visibility) || visibility < 0)
+        if (!TryInputs(observer, id, out var signature, out double rangeKM, out float visibility, out _, refresh: false))
             return new ContactReading(ContactState.Fault);
-        var signature = new ShipSignature(stellar, observer);
-        return ContactRules.EvaluateStellar(observer.ElectronicSystems.GetSignatureStrength(signature, rangeKM, visibility), rangeKM);
+        return ContactRules.EvaluateStellar(observer.ElectronicSystems.GetSignatureStrength(signature!, rangeKM, visibility), rangeKM);
     }
+
+    /// <summary>The native inputs every contact read uses: signature, range, visibility and detection
+    /// threshold. False when the object or its geometry cannot be read. Occlusion is checked separately.</summary>
+    internal static bool TryInputs(Ship observer, string id, out ShipSignature? signature, out double rangeKM, out float visibility,
+        out double threshold, bool refresh = true)
+    {
+        signature = null; rangeKM = double.NaN; visibility = observer.fVisibilityRangeMod; threshold = ContactRules.DefaultThreshold;
+        var system = CrewSim.system;
+        if (system == null || observer.objSS == null || string.IsNullOrEmpty(id)) return false;
+        var ship = system.GetShipByRegID(id);
+        if (ship != null)
+        {
+            if (ship == observer || ship.bDestroyed || ship.objSS == null) return false;
+            rangeKM = observer.GetRangeTo(ship) / AutoNavCore.KM_TO_AU;
+            visibility = Math.Min(visibility, ship.fVisibilityRangeMod);
+            var selected = CrewSim.GetSelectedCrew();
+            bool skilled = selected != null && !selected.bDestroyed && selected.ship == observer && selected.HasCond("SkillOpsSensors");
+            threshold = skilled ? ContactRules.SkilledThreshold : ContactRules.DefaultThreshold;
+            if (!Finite(rangeKM, visibility)) return false;
+            signature = new ShipSignature(ship, observer);
+            return true;
+        }
+        // Stellar markers: the observer's visibility only and a fixed threshold.
+        if (system.dictStellarObjects == null || !system.dictStellarObjects.TryGetValue(id, out var stellar) || stellar?.objSS == null) return false;
+        if (refresh) RefreshStellar(stellar.objSS);
+        rangeKM = observer.objSS.GetRangeTo(stellar.objSS) / AutoNavCore.KM_TO_AU;
+        if (!Finite(rangeKM, visibility)) return false;
+        signature = new ShipSignature(stellar, observer);
+        return true;
+    }
+
+    private static bool Finite(double rangeKM, float visibility) =>
+        ArrivalBrake.Finite(rangeKM) && rangeKM >= 0 && ArrivalBrake.Finite(visibility) && visibility >= 0;
 
     private static ContactReading? SensorProblem(Ship observer)
     {
