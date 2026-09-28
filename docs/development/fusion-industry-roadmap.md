@@ -7,6 +7,10 @@ now binds exact equipment and uses Auto Nav for approach, followed by checked
 native mooring and explicit release. Cutting, automatic repositioning, repeated
 processing and whole-supported-wreck completion remain subsequent milestones.
 A finite deployed head may later enhance this arrangement.
+**28 September status:** Shipbreaker 0.24.0 and Auto Nav 0.18.0 have since
+delivered bounded cutting, release, traversal and recapture for supported ordinary
+walls; see [reclamation operations](../shipbreaker-reclamation.md). Repeated furnace
+batches, storage endpoints, other wall families and whole-wreck completion remain open.
 
 **Autonomous reclamation, 25 September:** the owner selected research/design for
 one explicitly chosen G4, required Auto Nav with an existing N1/N2, supported
@@ -264,16 +268,16 @@ existing bench, sorter and hauling mods. The first Phobos machine must address a
 observed gap: handling larger workpieces, a meaningful processing choice, or
 sustained throughput. A duplicate broken-item dismantling recipe is insufficient.
 
-**Current next work:** resolve active working geometry and implement the bounded
-ordinary-wall section in the
-[autonomous reclamation handover](shipbreaker-autopilot-handover.md), preserving
-existing D4/R4/F6 recipes and finite outputs. Auto Nav aligns and holds the selected
-G4, then advances between walls without required docking. Establish real reach,
-surface observations and checked concurrent processing during gentle positioning.
-Then extend storage, repeated furnace operation, feed families and traversal.
-Whole completion requires accounted remnants and safe cleanup, not an empty queue.
+**Current next work:** the bounded ordinary-wall section from the
+[autonomous reclamation handover](shipbreaker-autopilot-handover.md) is implemented
+in Shipbreaker 0.24.0 with existing D4/R4/F6 recipes and finite outputs preserved;
+see [reclamation operations](../shipbreaker-reclamation.md). Auto Nav aligns and
+holds the selected G4, then advances between walls without required docking.
+Remaining work is storage endpoints, repeated furnace operation, further feed
+families (other wall types, floors) and traversal beyond one wreck. Whole
+completion requires accounted remnants and safe cleanup, not an empty queue.
 The [earlier framework/cutter brief](powered-shipbreaking-research.md) is historical;
-this research round implements no external cutting or industrial flight controls.
+its research round implemented no external cutting or industrial flight controls.
 
 ## 5. Plasma separation
 

@@ -436,7 +436,11 @@ Write-Output "Native mods: $modRoot"
 if ($VerifyOnly) {
     if ($changedFiles.Count -gt 0 -or $changeOrder -or $null -ne $heldScaffold) {
         $states = ($plans | ForEach-Object { "$($_.Id) load-order status: $($_.LoadOrderStatus)" }) -join '; '
-        throw "Installation differs: $($changedFiles.Count) missing/changed file(s); held scaffold still present: $($null -ne $heldScaffold); $states"
+        $verifyListLimit = 20
+        $names = @($changedFiles | Select-Object -First $verifyListLimit | ForEach-Object { [IO.Path]::GetRelativePath($gameRoot, $_.Target) })
+        if ($changedFiles.Count -gt $verifyListLimit) { $names += "and $($changedFiles.Count - $verifyListLimit) more" }
+        $listed = if ($names.Count -gt 0) { ': ' + ($names -join ', ') } else { '' }
+        throw "Installation differs: $($changedFiles.Count) missing/changed file(s)$listed; held scaffold still present: $($null -ne $heldScaffold); $states"
     }
     Write-Output "Verified $($files.Count) matching files and load-order configuration. In-game startup is not tested."
     return

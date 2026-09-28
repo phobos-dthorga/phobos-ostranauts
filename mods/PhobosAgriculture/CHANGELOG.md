@@ -12,9 +12,9 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Include every Agriculture item in the complete action audit. Document why retained crops, fluids, jobs and R3 links can hide removal, and why loose conduit stacks require individual pieces for dismantling. No gameplay change is claimed.
 
-- Added source-backed bulk-storage calculations for 54 farm scenarios, an R3 water-reservoir and larger nutrient-charge proposal, and a local vanilla-art comparison workflow. Existing machinery, recipes, versions and installed files are unchanged; no production artwork was generated.
+- Added source-backed bulk-storage calculations for 54 farm scenarios, the R3 water-reservoir and larger nutrient-charge proposal later delivered in 0.14.0, and a local vanilla-art comparison workflow. Existing machinery, recipes, versions and installed files are unchanged; no production artwork was generated.
 
-- Research crop-residue nutrient recovery, optional Ship's Water reject capture, a proposed Groundwork workup bench and non-repairable progressive W2 mixtures. These are implementation plans, not delivered recipes or integrations.
+- Research crop-residue nutrient recovery, optional Ship's Water reject capture, a proposed Groundwork workup bench and non-repairable progressive W2 mixtures. These were implementation plans at the time; the 0.9.0 entry below delivers recorded residue recovery, the B2 workup bench and optional reject capture.
 - Expand the native economic audit with electricity sensitivity, repeating seed-production costs and bounded illustrative residue recovery; runtime prices and yields are unchanged.
 
 - Added a maintained per-mod item reference covering function, use, acquisition and applicable economic/service data; generated tables and coverage checks share a one-click updater.

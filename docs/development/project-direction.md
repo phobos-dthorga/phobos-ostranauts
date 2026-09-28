@@ -59,8 +59,10 @@ current game or these prototypes support indefinite survival.
 
 Shipbreaking contributes by supplying the maintenance and fabrication chain.
 Its next useful outputs should address actual repair or life-support needs in
-the owner's installed game. The first panel-processing recipe is an initial
-material-recovery step; it does not yet provide a complete self-maintenance loop.
+the owner's installed game. The delivered chain (D4 wall processing, R4 residue
+reclamation and the F6 housing casting) recovers material and returns aluminium to
+machine construction; it does not yet provide a complete self-maintenance loop,
+since mechanical parts, electronics and life-support consumables are still bought.
 Existing mods may already supply much of the downstream use, so inspect and
 extend them before adding parallel systems.
 

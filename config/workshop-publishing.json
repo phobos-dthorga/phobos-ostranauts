@@ -3,7 +3,7 @@
   "mods": {
     "PhobosFramework": {"itemId": null, "requires": [], "hold": null},
     "PhobosAgriculture": {"itemId": null, "requires": ["PhobosFramework"], "hold": null},
-    "PhobosShipbreaker": {"itemId": null, "requires": ["PhobosFramework"], "hold": null},
+    "PhobosShipbreaker": {"itemId": null, "requires": ["PhobosFramework", "PhobosAutoNav"], "hold": null},
     "PhobosAutoNav": {"itemId": null, "requires": ["PhobosFramework"], "hold": "Upstream adaptation distribution terms remain unresolved."},
     "PhobosManufacturing": {"itemId": null, "requires": ["PhobosFramework"], "hold": "Research scaffold; no operational equipment."}
   },

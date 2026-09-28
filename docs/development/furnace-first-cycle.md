@@ -33,8 +33,9 @@ rough casting, cool it, then finish its mounting faces with ordinary workshop
 tools. It is a casing/support cover, not a pressure vessel, precision bearing,
 motor, circuit board or certified structural alloy.
 
-The design closes a material loop and can reduce attended fabrication work, but
-its gameplay advantage is modest: existing recipes already use scrap. It does
+The design returns recovered aluminium to machine construction and can reduce
+attended fabrication work, but its gameplay advantage is modest: existing recipes
+already use scrap. It does
 not solve the supply of mechanical parts or electronics. Retain this as the
 first **process demonstrator with a real consumer**, not a justification for
 replacing every existing recipe. A 6 x 6 furnace is a substantial investment for

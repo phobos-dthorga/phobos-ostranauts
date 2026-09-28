@@ -101,8 +101,10 @@ owner verification. Extracted source remains ignored and is not distributed.
   cohort. Source masters and native-scale exports remain separate. Dedicated stock
   and damage artwork remains future work; native wear still applies, and supplies
   reference native artwork at runtime. In-game appearance remains unverified.
-- Seed potatoes are reserved now. Lettuce reproduction, nutrient recovery,
-  drainage treatment and asteroid feedstocks remain roadmap work.
+- Seed potatoes are reserved now. Recorded drainage treatment (0.6.0), the lettuce
+  seed-production cycle (0.7.0) and crop-residue nutrient recovery (0.9.0) were
+  delivered later; see the [player guide](../agriculture-player-guide.md).
+  Asteroid feedstocks remain roadmap work.
 
 ## Evidence and scientific boundaries
 

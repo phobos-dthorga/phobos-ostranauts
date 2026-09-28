@@ -5,7 +5,8 @@ Current prepared Agriculture requires Framework 0.31.0 for shared crew work and 
 Current dependency minima come from `config/mod-dependency-minimums.json`,
 maintained with the constants updater and runtime requirements. Historical package
 compatibility floors remain supported. Build before installation; preview with
-`-WhatIf`, then use `-VerifyOnly` to compare installed files.
+`-WhatIf`, then use `-VerifyOnly` to compare installed files; a mismatch names the
+differing files relative to the game folder.
 
 **First visit?** Read [getting started](getting-started.md). This installer needs
 prepared packages; a GitHub source ZIP does not contain them. No installable

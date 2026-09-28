@@ -11,7 +11,9 @@ Current prepared candidate: **Shipbreaker 0.9.0 + Framework 0.9.0**, 24 Septembe
 The owner approved these designs and requested the connected implementation.
 Mounting definitions, physical transfers, construction and runtime sprites are now
 implemented and checked offline. Unity placement, crew access and operation still
-need owner testing. Attached-hull cutting remains future work.
+need owner testing. Bounded G4 cutting of supported, empty ordinary walls on a
+captured ship is now implemented; see [reclamation operations](shipbreaker-reclamation.md).
+Other wall families, floors and whole-wreck completion remain future work.
 
 ## Arrangement and dimensions
 

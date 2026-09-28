@@ -10,6 +10,7 @@ The [consistency audit](documentation-consistency-audit.md) records the source c
 
 ## Reference index
 
+- [Claude Code onboarding handoff](claude-code-handoff.md)
 - [Bulk agricultural storage: artwork audit and pilot brief](agriculture-bulk-storage-art.md)
 - [Agriculture bulk-storage calculations](agriculture-bulk-storage-calculations.md)
 - [R3 first-slice implementation blueprint](agriculture-bulk-storage-design.md)

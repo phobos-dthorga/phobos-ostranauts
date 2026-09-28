@@ -8,7 +8,7 @@ Dates on Draft entries record preparation, not Steam publication.
 
 ### Documentation
 
-- Prepare four construction sprites: D4 and R4 intermediate stages, plus early and intermediate F6 stages. Retain original frames, source images and repeatable exports. These assets are not yet connected to construction progress or included in game packages.
+- Prepare four construction sprites: D4 and R4 intermediate stages, plus early and intermediate F6 stages. Retain original frames, source images and repeatable exports. At preparation time these assets were not yet connected to construction progress or included in game packages; Framework 0.32.0 and Shipbreaker 0.32.0 below bind them to D4, R4 and F6 assembly stages.
 
 - Correct furnace, assembly, coolant-service and cargo-recovery instructions. Distinguish historical console/reclaimer designs from current controls and repair generated section placement descriptions. Documentation only; gameplay and saves are unchanged.
 
@@ -22,7 +22,7 @@ Dates on Draft entries record preparation, not Steam publication.
 
 ### Research and planning
 
-- Earlier capture-only research is superseded for supported ordinary walls by the implementation below. Broader structural recipes, repeated furnace batches and whole-wreck completion remain outside this round.
+- Earlier capture-only research is superseded for supported ordinary walls by the 0.24.0 reclamation implementation below. Broader structural recipes, repeated furnace batches and whole-wreck completion remain outside this round.
 - Keep [NASA Goddard's Raven research](https://www.nasa.gov/general/nasas-hybrid-computer-enables-ravens-autonomous-rendezvous-capability/) and [ESA's LIRIS experiment by Airbus, Jena Optronik and Sodern](https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/ATV/ATV_views_Space_Station_as_never_before) as sensing context, separate from Blue Bottle Games native evidence and authored gameplay choices. No institutional endorsement or gameplay validation is implied.
 
 ## [0.32.0] - 2026-09-28 - Draft

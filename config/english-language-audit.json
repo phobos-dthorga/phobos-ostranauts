@@ -35902,8 +35902,8 @@
       "path": "docs/development/README.md",
       "scope": "documentation index/audit; no gameplay behavior",
       "decision": "review audience separation and evidence limits",
-      "sha256": "ee1e83e2d8909321e779d9ae1e87d05d3270173b818d6e86348395bc1d1672cf",
-      "review": "2026-09-28: construction appearance audit/index reviewed; no player catalogue changes. Separate artwork existence, code binding, owner observations and implementation proposals."
+      "sha256": "b66d157558cbbaa13096ae7a09474ebdee4c08583b57197e458ec976d0782988",
+      "review": "2026-09-28: index gained the Claude Code onboarding handoff link; no player catalogue changes."
     },
     {
       "path": "docs/development/agriculture-bulk-storage-art.md",
@@ -35958,8 +35958,8 @@
       "path": "docs/development/agriculture-implementation.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "4e599f06cb9361cd91737708e80e990db414a7b15f1820b6991a005192d74533",
-      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+      "sha256": "2954b17db8643bbd18576bfb4218ea45aac501d98c0054d4b9d8812bb41c8b24",
+      "review": "2026-09-28: recorded later delivery of drainage treatment, lettuce seed cycle and residue nutrient recovery; asteroid feedstocks remain roadmap work."
     },
     {
       "path": "docs/development/agriculture-living-visuals.md",
@@ -36103,6 +36103,13 @@
       "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
     },
     {
+      "path": "docs/development/claude-code-handoff.md",
+      "scope": "onboarding handoff; contributor instructions, no player catalogue text",
+      "decision": "retain",
+      "sha256": "713d38acf9fcaf8f87c4fda15e487742ca789b095ada85563ac49f1b423fd1fb",
+      "review": "2026-09-28: new onboarding handoff registered; corrected the installer-selection statement for the held Manufacturing scaffold. No player catalogue changes."
+    },
+    {
       "path": "docs/development/construction-artwork-audit.md",
       "scope": "developer-facing construction appearance audit",
       "decision": "record confirmed code gaps separately from owner observations and unverified Unity rendering",
@@ -36145,8 +36152,8 @@
       "path": "docs/development/fluid-conduits-and-irrigation-research.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "6d335ba70d9b829adc98bb63c8b7ad6b49f60d51851cfadd5d6617aa5fb7a9dd",
-      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+      "sha256": "999e1d6b25b32fe8246ac420af930b28d2c81f1171b93bcbd25939cb5b765227",
+      "review": "2026-09-28: pointed the superseded future-work sentence to delivered nutrient solutions (Agriculture 0.5.0) and furnace coolant conduits (Shipbreaker 0.16.0)."
     },
     {
       "path": "docs/development/framework-author-guide.md",
@@ -36180,8 +36187,8 @@
       "path": "docs/development/furnace-first-cycle.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "a26c802b19b180b7fd9c999eb207c6720e170d38136a391fb8b48f358e4a1419",
-      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+      "sha256": "8e50cb607147f27caf5f1e4fa4b279c02a62203febaca56a4cf3c5670183507d",
+      "review": "2026-09-28: replaced the closed-loop claim with the actual aluminium return to machine construction."
     },
     {
       "path": "docs/development/furnace-repair-castings.md",
@@ -36201,8 +36208,8 @@
       "path": "docs/development/fusion-industry-roadmap.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "a5f94a64696d39092dc6d5ac82f47a6da2ad0f35378439a1c9e21127ca985aa3",
-      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+      "sha256": "edae613fb7fef478fc8291b10d787304e55d5dedd0a8471afd7664048b679068",
+      "review": "2026-09-28: added current-status pointers to Shipbreaker 0.24.0 reclamation and narrowed the recorded next work; historical research retained."
     },
     {
       "path": "docs/development/fusion-smelter-research.md",
@@ -36398,7 +36405,8 @@
       "path": "docs/development/project-direction.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "328a739ff88247c3e78b49fa21696b3703124b8ba1ecdac58a3ae6b7cbe34f70"
+      "sha256": "deb8645b1490812aa77cb5317be3df8efb9cd5caf8524c7d40847c9e35382f42",
+      "review": "2026-09-28: described the delivered D4/R4/F6 chain while keeping the incomplete self-maintenance conclusion."
     },
     {
       "path": "docs/development/public-release-readiness.md",
@@ -36438,7 +36446,8 @@
       "path": "docs/development/shipbreaker-autopilot-handover.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "3566d1a688032f32b240b7b9e630ca2faf6b78b2ebbd633dddf59b8da1d21ba1"
+      "sha256": "b59e8a89266e217d89fe3b85017cd52c516d9e39db2b1c8052044ec44a2b4032",
+      "review": "2026-09-28: recorded that bounded cutting, release, traversal and recapture shipped in Shipbreaker 0.24.0 / Auto Nav 0.18.0; historical proposal retained."
     },
     {
       "path": "docs/development/shipbreaker-autopilot-research.md",
@@ -36533,8 +36542,8 @@
       "path": "docs/development/workshop-publication.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "f9efb1e11317cd1d230925d14898b59abe9b4af6fa4c29d36ea6d423d1d4150b",
-      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+      "sha256": "e1c48b3010d68e8e2091c8bf57ee0a3d138a16ec16e9f79e466e7168e4cbbd55",
+      "review": "2026-09-28: corrected the mod count after the Approach Assist retirement."
     },
     {
       "path": "docs/development/workshop-upload-preparation.md",
@@ -36623,8 +36632,8 @@
       "path": "docs/installing-mods.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "19efb8579839677645b9b113ad8010d3f215571810e57d5f5016bca578018ecd",
-      "review": "2026-09-28: reviewed construction stage guidance and registered version/dependency updates; distinguish native completion, saved work and missing-image fallback from pending owner Unity approval. No catalogue changes."
+      "sha256": "5e221d0d7ffc89b021bf761387fecb1d4ba7cd58cc2dc2c75410b3876cd9352e",
+      "review": "2026-09-28: noted that verify-only mismatches now name the differing files; no catalogue changes."
     },
     {
       "path": "docs/item-references.md",
@@ -36692,8 +36701,8 @@
       "path": "docs/shipbreaker-hull-intake.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "947b9ff42cd2c45d46b5f0477e6f4fd365ae7c488c722f6fe5c83b118cc2bb97",
-      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+      "sha256": "994091f251842131d3f5f7fe0113e7d91ab0e1a2dbd33d0333a54385a2242a27",
+      "review": "2026-09-28: corrected the stale future-work statement; bounded supported-wall cutting is implemented, other wall families and floors remain future work."
     },
     {
       "path": "docs/shipbreaker-item-reference.md",

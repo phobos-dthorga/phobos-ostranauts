@@ -12,7 +12,10 @@ validation. The furnace's current fixed cooling attachments remain unchanged.
 artwork later on 25 September. Agriculture 0.4.0 / Framework 0.18.0 now prepare
 the [first water-conduit slice](../agriculture-water-conduits.md). The research below
 retains its original baseline/proposals; it is not the current implementation
-inventory. Nutrient-mixture pipes and furnace coolant networks remain future work.
+inventory. Nutrient-mixture pipes and furnace coolant networks were future work at
+that point; Agriculture 0.5.0 later added [nutrient solutions](../agriculture-nutrient-solutions.md)
+through the same conduits and Shipbreaker 0.16.0 added
+[sealed furnace coolant conduits](../furnace-coolant-conduits.md).
 
 ## Recommendation
 

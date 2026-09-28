@@ -16,8 +16,8 @@ work, not deferred until upload. It does not publish anything automatically.
 | `workshop/<ModId>/page.bbcode` | Current copy-ready Steam description, including title, version, publication status, requirements and limits | Yes; version field also follows the constants updater |
 | `workshop/<ModId>/releases/<version>.bbcode` | One Steam-formatted changelog document per dated version | No; regenerate from the main changelog |
 
-See the [Workshop draft index](../../workshop/README.md). All six existing mods have
-initial **Draft** baseline entries. Their dates record preparation, not release
+See the [Workshop draft index](../../workshop/README.md). All five current mods have
+initial **Draft** baseline entries; the retired Approach Assist prototype has none. Their dates record preparation, not release
 dates, and do not reconstruct an unsupported history of earlier releases.
 Manufacturing is held as a
 scaffold. Auto Nav is held for unresolved upstream provenance before distribution.

@@ -4,8 +4,12 @@
 release and repositioning first, with a finite deployed head as a possible later
 enhancement. [The capture candidate](shipbreaker-capture.md) implements exact G4
 binding, mandatory Auto Nav integration, checked native attachment and explicit
-release. Cutting, automatic repositioning and repeated processing remain later
-stages. The [geometry evidence](shipbreaker-close-work-geometry.md) explains why
+release. Cutting, automatic repositioning and repeated processing were later
+stages at that time; Shipbreaker 0.24.0 and Auto Nav 0.18.0 have since delivered
+bounded cutting, release, traversal and recapture
+([reclamation operations](../shipbreaker-reclamation.md)), while repeated furnace
+batches, storage endpoints and whole-wreck completion remain open.
+The [geometry evidence](shipbreaker-close-work-geometry.md) explains why
 native attachment is needed for this arrangement. The original research below
 is historical proposal text; the capture guide defines current delivered scope.
 
