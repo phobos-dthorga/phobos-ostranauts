@@ -38,7 +38,7 @@ foreach (var crop in new[] { Crop.Potato, Crop.Lettuce, Crop.LettuceSeed })
     var stressed = s.Copy(); stressed.Health = .5; var damagedHarvest = stressed.Harvest(); Check(damagedHarvest.Portions < harvest.Portions, "Damage reduces food");
     Near(damagedHarvest.SeedKg + damagedHarvest.Portions * damagedHarvest.PortionKg + damagedHarvest.ResidueKg, s.Biomass, "Damage retains nonedible matter");
     var afterHarvest = s.Copy(); afterHarvest.ClearCrop(); bool duplicated = false; try { afterHarvest.Harvest(); } catch { duplicated = true; } Check(duplicated, "Cleared cohort cannot be harvested twice");
-    Near(20 - s.Water, crop.Water, "Finite water spent"); Near(.5 - s.Nutrients, crop.Nutrient, "Finite nutrients spent");
+    Near(20 - s.Water, crop.Water - crop.Vapour, "Finite water spent; transpired water condenses back into the reservoir"); Near(.5 - s.Nutrients, crop.Nutrient, "Finite nutrients spent");
     var loaded = CropState.Read(s.Save()); Near(loaded.Biomass, s.Biomass, "Reload keeps biomass"); Check(!loaded.Running && !loaded.Receiving, "Reload cannot restore permissions");
     loaded.Pace = 2; Near(s.Pace, 1, "Saved cohort captured independently");
 }

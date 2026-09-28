@@ -29,6 +29,8 @@ internal static class LiquidDeliveryChecks
         try { LiquidTransferGuard.Commit(source, target, 1, Guard(sm), Guard(dm)); } catch { }
         Near(source.QuantityKg + target.QuantityKg, retained, "Reloaded pending journal prevents a second debit");
         Near(target.QuantityKg, 1, "Evidence retains quantity already accepted before exception");
+        check(Guard(sm).Resolve() && !Guard(sm).Protected && Guard(dm).Protected, "Owner-confirmed resolution closes one endpoint's journal without touching the other");
+        check(Guard(dm).Resolve() && !Guard(dm).Protected, "Both endpoints can be accepted separately");
         var foreign = new Dictionary<string, Dictionary<string,string>> { ["PhobosState.test"] = new() { ["schema"] = "9", ["owner"] = "test.owner", ["data.state"] = "clear" } };
         check(Guard(foreign).Protected && foreign["PhobosState.test"]["schema"] == "9", "Future journal remains untouched");
         sm.Clear(); dm.Clear(); target.FailAfterWrite = false; target.Ship = "other";

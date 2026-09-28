@@ -34,15 +34,28 @@ internal static class ReclaimerHeat
             !ReclaimerRules.CoolingBudget(mols, room!.GetCondAmount("StatGasTemp"), gas.fDGasTemp,
                 room.GetCondAmount("StatGasPressure"), demand, seconds, out _))
         {
-            Plugin.Service.Block(machine, Text.Get("Reclaimer.cooling_block", ReclaimerRules.MinPressureKPa, ReclaimerRules.MaxRoomKelvin - Phobos.Ostranauts.Framework.Units.CelsiusToKelvin));
-            Plugin.Collectors.Block(machine, Text.Get("Reclaimer.cooling_block", ReclaimerRules.MinPressureKPa, ReclaimerRules.MaxRoomKelvin - Phobos.Ostranauts.Framework.Units.CelsiusToKelvin));
+            // Not a stop: no power is drawn this step, the job keeps its permission and progress, and work
+            // continues by itself once the room can take the heat. The status shows the room's numbers.
+            string status = WaitStatus(room, gas, mols);
+            Plugin.Service.HeatWait(machine, status);
+            Plugin.Collectors.HeatWait(machine, status);
             machine.ZeroCondAmount("IsPowered");
             return false;
         }
+        Plugin.Service.HeatReady(machine);
         transfer = new Transfer { Gas = gas, Mols = mols,
             Receipt = NativeEnergyReceipts.Begin(power, machine, amount), WorkSeconds = seconds };
         pending.Add(power, transfer);
         return true;
+    }
+    /// <summary>Why the room cannot take the heat right now, with its temperature, air and pressure, so the
+    /// 40 C rule can be judged in play. Without a room there is no air to warm at all.</summary>
+    internal static string WaitStatus(CondOwner? room, GasContainer? gas, double mols)
+    {
+        double limitC = ReclaimerRules.MaxRoomKelvin - Units.CelsiusToKelvin;
+        if (room == null || gas == null) return Text.Get("Reclaimer.cooling_block", ReclaimerRules.MinPressureKPa, limitC);
+        return Text.Get("Reclaimer.cooling_wait", room.GetCondAmount("StatGasTemp") + gas.fDGasTemp - Units.CelsiusToKelvin, limitC,
+            mols, room.GetCondAmount("StatGasPressure"), ReclaimerRules.MinPressureKPa);
     }
     internal static void Finish(Powered power, CondOwner machine, Transfer? transfer)
     {

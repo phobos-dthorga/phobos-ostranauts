@@ -23,6 +23,26 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Fixed unreachable INSTALL entries; Firstlight-4, Hearth-2 and W2 appear under APPS, and irrigation conduit under MISC, including damaged forms. Existing inputs, placement and saved IDs are preserved.
 
+## [0.17.0] - 2026-09-28 - Draft
+
+### Fixed
+
+- Machines now have a real power state. The game only maintains IsPowered for equipment whose power info names a power-on action, which ours never did, so every running machine read as blocked on the crew console. Every installed appliance keeps its 20 W idle draw, so the state follows the actual connection; that draw is machine heat, not lamp energy.
+- Without Ship's Water, every Agriculture panel used to open as the recycler capture panel, because the game answers an unknown rule name with its always-true fallback. The capture panel now needs Ship's Water and its real recycler rule, and Ship's Water recycler definitions are amended in place rather than republished under their own names.
+- Stacked supplies work. The game stacks matching seeds, nutrients, water rations and raw potatoes dropped into a machine; planting, loading and cooking now take one unit from a stack instead of refusing the whole stack.
+- Water tanks follow the game's own destructibility (owner decision). Cargo-holding tanks no longer block native destruction, detachment or mode switches at the moment they happen, which used to orphan the replacement the game had already created; refusals happen only when maintenance work is offered. Water lost with a destroyed tank is logged.
+- Meals and lettuce keep their authored food values through the game's own eating chain: each has an identity condition and its own eating reply, cloned from the vanilla one and listed ahead of it, instead of a hook that swapped effects at the last moment. Meals and lettuce made before this version eat with the vanilla values.
+- Work actions are refused when they are offered, not half an hour later: an occupied rack, a missing seed, a full reservoir, nothing to harvest or drain, a protected or damaged machine. A refused maintenance finish still closes the game's task for it.
+- Transpired water no longer vanishes. The game's air has no water vapour, so the racks' humidity emission was silently discarded; transpired water now condenses back into the rack's reservoir while it has room, and the crop's water use drops by that amount.
+
+### Added
+
+- Accept contents as they are: a protected machine or tank whose records are readable offers one action (panel, C1 console or F3) that closes interrupted-transfer journals and sets the item's mass back to what the records say. Unreadable records still need repair.
+
+### Compatibility and limits
+
+- Requires Framework 0.37.0. Saved identities and records are unchanged; new identity conditions apply to food made from now on. Offline checks pass; owner play-testing of power state, stacked supplies, tank destruction and eating is pending. Findings and evidence: docs/development/vanilla-precedence-audit.md.
+
 ## [0.16.1] - 2026-09-28 - Draft
 
 ### Added

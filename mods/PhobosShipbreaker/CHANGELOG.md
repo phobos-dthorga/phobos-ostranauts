@@ -25,6 +25,20 @@ Dates on Draft entries record preparation, not Steam publication.
 - Earlier capture-only research is superseded for supported ordinary walls by the 0.24.0 reclamation implementation below. Broader structural recipes, repeated furnace batches and whole-wreck completion remain outside this round.
 - Keep [NASA Goddard's Raven research](https://www.nasa.gov/general/nasas-hybrid-computer-enables-ravens-autonomous-rendezvous-capability/) and [ESA's LIRIS experiment by Airbus, Jena Optronik and Sodern](https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/ATV/ATV_views_Space_Station_as_never_before) as sensing context, separate from Blue Bottle Games native evidence and authored gameplay choices. No institutional endorsement or gameplay validation is implied.
 
+## [0.34.0] - 2026-09-28 - Draft
+
+### Fixed
+
+- Long unobserved intervals are no longer faults. Collectors, storage unloading, the G4 intake and the D4 queue used to pause with a time-gap notice after any gap over the transfer cycle, including a time-skip or a reload; they now catch up like native machines, bounded by the electricity actually received.
+- A room that cannot take the R4 or G4 cutter's heat no longer stops the job for Resume. The machine draws no power that step, keeps its permission and progress, shows the room's temperature, air and pressure against the limits, and continues by itself once the room cools.
+- G4 wall eligibility follows the game's own uninstall rule for the wall (installed and not damaged) instead of refusing any wall with wear below the damage threshold.
+- A refused furnace maintenance finish still closes the game's task for it, as native effects would, instead of leaving that task listed forever.
+- Stacked coolant charges work. The game stacks matching coolant dropped into the F6 bin; coolant fill and the crew's coolant order now take one charge from a stack.
+
+### Compatibility and limits
+
+- Requires Framework 0.37.0. Saved pairs, filters, cargo and hot jobs are unchanged. Offline checks pass; owner play-testing of catch-up, heat waiting and wall eligibility is pending. Findings and evidence: docs/development/vanilla-precedence-audit.md.
+
 ## [0.33.0] - 2026-09-28 - Draft
 
 ### Added

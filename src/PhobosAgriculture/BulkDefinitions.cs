@@ -21,7 +21,7 @@ internal static class BulkDefinitions
             Phobos.Ostranauts.Framework.Crew.CrewSpecialities.RegisterPractical(work.strName,"Agriculture");
         }
         ApplianceDefinitions.Add(d,Tank,Text.Get("bulk_tank"),Text.Get("bulk_tank_desc"),3,DryKg,Price,"phobos/agriculture/Reservoir",Controls,0);
-        d.Power.Remove(Tank+"Power");
+        d.Power.Remove(Tank+"Power");d.Interactions.Remove(Tank+"PowerChange");
         foreach(var form in new[]{"Installed","Loose","InstalledDmg","LooseDmg"})
         {
             var co=d.Objects[Tank+form];co.jsonPI=null;co.aTickers=Array.Empty<string>();

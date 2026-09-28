@@ -227,3 +227,15 @@ kept repair allowance; the author guide records in-place amendment, refusal at
 effects time, unbounded clock steps and the native window stack; the new
 vanilla-precedence audit is a contributor record. Coverage is now 1,914 entries,
 154 documents and 14 other surfaces. Unity wording and layout are unverified.
+
+## Vanilla precedence, round 2, 28 September 2026
+
+Agriculture 0.17.0 adds five reviewed entries (the accept-contents control, its
+two result lines, a lost-water log line and an occupied-rack refusal) and
+Shipbreaker 0.34.0 adds one (the heat-wait status with the room's numbers),
+rewrites the cooling-block line so it no longer instructs a resume, and retires
+five entries that told players to resume after a time gap or a hot room, since
+those machines now continue by themselves. Guides state the vanilla rules for
+power state, stacked supplies, tank destruction, eating, offer-time refusals,
+catch-up after long intervals, heat waiting and wall eligibility. Coverage is now
+1,915 entries, 154 documents and 14 other surfaces. Unity wording is unverified.

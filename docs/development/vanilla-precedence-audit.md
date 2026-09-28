@@ -76,19 +76,22 @@ owner.
 `phobosframework crew` now lists who could claim each order step right now,
 by the same admission the claim uses.
 
-## Round 2: Agriculture and Shipbreaker
+## Round 2: Framework 0.37.0, Agriculture 0.17.0, Shipbreaker 0.34.0
 
 | Finding | Native evidence | Verdict |
 | --- | --- | --- |
-| Without Ship's Water, every Agriculture panel became the recycler capture panel. | Blank-trigger fallback as above. | Planned: gate on the adapter and an existing trigger. |
-| Agriculture appliances never gain `IsPowered`. | Native sets it only when the power info names `strIntPowerOn`. | Planned: power on/off interactions as Shipbreaker machinery has. |
-| Stacked inputs refused. | `StackOrAddToContainer` stacks matching items. | Planned: accept stack heads and members; detach one unit. |
-| Tank mode-switch blocked at effects time, orphaning the replacement the game already created under the old ID. | Native creates the replacement before `ModeSwitch`. | Planned: remove the block; refuse at offer time only (owner decision). |
-| Food effects applied by prefix over the native eating chain. | Vanilla `SeekFoodAllowDirect` replies carry effects loot. | Planned: own eating replies inserted with `InsertInverse`. |
-| Water vapour deleted. | `AddGasMols` ignores an unknown gas; no `StatGasMolH2O`. | Planned: keep vapour in the crop water budget. |
-| R4/D4 heat rule stops the machine and needs Resume. | Native rooms hold 10 kPa/40 C industrial bounds. | Planned: pause and auto-resume; show room mols and temperature. |
-| Wall eligibility from `StatDamage > 0`. | Vanilla wall-uninstall installable's `CTThem`. | Planned. |
-| Protected state after an ambiguous transfer. | Owner-visible re-baseline. | Planned: accept-contents command. |
+| Without Ship's Water, every Agriculture panel became the recycler capture panel. | Blank-trigger fallback as above. | Fixed 0.17.0: gated on the adapter and on `NativeDefinitions.Trigger`; Ship's Water recycler definitions are amended in place. |
+| Agriculture appliances never gained `IsPowered`, so every running machine read as blocked on the crew console. | Native sets and clears it only when the power info names `strIntPowerOn`. | Fixed 0.37.0/0.17.0: appliance power info names a self-targeted power-change action; the game's Run always proceeds; every installed appliance keeps its 20 W idle draw (machine heat, not lamp energy). |
+| Stacked inputs refused (seeds, nutrients, rations, raw potatoes, coolant). | `StackOrAddToContainer` stacks matching items; `RemoveCO` detaches a member by itself. | Fixed 0.37.0/0.17.0/0.34.0: `StackUnits` counts members as units; one member is taken, the head stays. D4/R4 product unloading still moves unstacked products only (untested stacking of products). |
+| Tank mode-switch, destroy, detach and scheduled destruction blocked at effects time, orphaning the replacement the game had created under the old ID. | Native creates the replacement before `ModeSwitch`. | Fixed 0.17.0 (owner decision): blocks removed; contents follow a tank successor; lost water is logged; refusals only at offer time. |
+| Food effects applied by a prefix over the native eating chain. | Vanilla `SeekFoodAllowDirect` replies carry effects loot; openers list replies in order. | Fixed 0.17.0: identity conditions, triggers and cloned replies inserted ahead of the vanilla replies. Food made earlier eats with vanilla values. |
+| Water vapour deleted. | `AddGasMols` ignores an unknown gas; no `StatGasMolH2O`. | Fixed 0.17.0: transpired water condenses back into the reservoir while it has room; crop water use drops by that amount; latent heat nets to zero. Respired water beyond the reservoir stays an accepted small loss. |
+| Work actions failed after the walk. | Offer-time `TriggeredInternal` gate is the native way to withhold an action. | Fixed 0.17.0: `Service.WorkProblem` at offer and at run. |
+| Refused maintenance and furnace finishes stranded the native task. | As round 1. | Fixed 0.17.0/0.34.0 through `NativeEffects.Refuse`. |
+| R4/G4 heat rule stopped the job and needed Resume. | Native rooms hold 10 kPa/40 C industrial bounds. | Fixed 0.34.0: no power that step, job keeps permission, status shows temperature, air and pressure; continues by itself. The per-step interval bound (3,600 s) stays as an authored safety rule. |
+| Shipbreaker "time gap" pauses after any interval over the transfer cycle. | Native machines catch up. | Fixed 0.34.0: removed in collectors, storage, intake and the D4 queue. |
+| Wall eligibility from `StatDamage > 0`. | Vanilla `Wall1x1Uninstall` gates on `TIsWall1x1InstalledUndamaged` (installed, not damaged). | Fixed 0.34.0: the same rule, plus started-job continuity. |
+| Protected state after an interrupted transfer or a mass drift with no way out but repair. | Owner-visible recovery. | Fixed 0.17.0: accept-contents on panel, C1 and F3 for readable records (`LiquidTransferGuard.Resolve`); unreadable records still need repair. |
 
 ## Round 3: Auto Nav 0.25.0
 
@@ -116,5 +119,16 @@ by the same admission the claim uses.
   task in the crew task list.
 - Escape while picking a store closes the picker first, then the panel; pause
   and time-scale keys work while picking.
-- Agriculture panels without Ship's Water show machine controls.
-- Round 2 and 3 checks are listed in their own guides when they land.
+- Agriculture panels without Ship's Water show machine controls; a running rack
+  reads as running, not blocked, on the crew console, and the game's power
+  display shows it powered.
+- Two seed potatoes stacked in a rack plant one at a time; stacked coolant fills
+  one charge at a time.
+- A damaged full tank can be destroyed; the crew log names the water lost.
+- A meal cooked after the update satisfies as before; lettuce gives its authored
+  small value; the eating log line reads as the vanilla one.
+- Planting into an occupied rack is refused in the action menu with the reason.
+- The R4 in a warm room shows the room's temperature and pauses drawing power,
+  then continues when the room cools; a six-hour skip completes queued D4 work.
+- A worn but undamaged wall is cut by G4; a damaged one is not.
+- Round 3 checks are listed in the Auto Nav guides when they land.

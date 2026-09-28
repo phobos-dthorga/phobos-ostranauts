@@ -20,6 +20,19 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.37.0] - 2026-09-28 - Draft
+
+### Added
+
+- Appliance definitions name a self-targeted power-change action in their power info, the native pattern that makes the game itself set and clear IsPowered. Agriculture machines therefore show their real power state to the game, the crew console and the panel.
+- NativeDefinitions.Trigger returns a native trigger by name or null; the game's own lookup returns its always-true Blank trigger for an unknown name, which must never gate an optional provider.
+- StackUnits enumerates the units in a container counting each native stack's members separately, since the game stacks matching items dropped into a container; machines take one member at a time and leave the head in place.
+- LiquidTransferGuard.Resolve closes an interrupted-transfer journal on the owner's say-so, for the new accept-contents commands.
+
+### Compatibility and limits
+
+- Additive API. Required by Agriculture 0.17.0 and Shipbreaker 0.34.0. Offline checks pass; owner play-testing is pending.
+
 ## [0.36.0] - 2026-09-28 - Draft
 
 ### Fixed

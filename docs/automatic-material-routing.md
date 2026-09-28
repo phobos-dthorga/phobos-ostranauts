@@ -113,8 +113,10 @@ it is full, products wait in the tray and unloading continues once there is spac
 Nothing is created, merged, dropped or destroyed. Several machines may choose the
 same container; the choice is saved on each machine, not on the container.
 
-Unloading pauses on reload, after a time jump, and when the container, machine or
-floor route changes; choose **Start unloading to storage** again. Clearing the
+Unloading pauses on reload and when the container, machine or floor route
+changes; choose **Start unloading to storage** again. A long unobserved interval
+is not a fault: like a native machine, unloading catches up, bounded by the
+electricity actually received (0.34.0). Clearing the
 **Storage output** choice forgets it without moving anything. An unreadable saved
 choice is kept until you clear it.
 
@@ -142,8 +144,9 @@ operating demand (`CollectorRules.CycleSeconds`); an existing saved
 seconds, which is the reclaimer feed default rather than the collector default.
 Sending stored output does not add a second sender-side power charge. Short
 native power ticks can overrun a transfer's final fraction; all delivered
-reclaimer energy still becomes heat. Time gaps over the transfer clock's
-60-second limit pause it instead of granting catch-up work.
+reclaimer energy still becomes heat. A long unobserved interval (a time-skip or
+a reload gap) catches up like a native machine, bounded by the electricity
+actually received; earlier versions paused with a time-gap notice (0.34.0).
 
 Shipbreaker settings, read at startup:
 

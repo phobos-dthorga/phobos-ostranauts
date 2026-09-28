@@ -133,7 +133,6 @@ internal sealed class StorageService
             problem = Text.Get("Storage.route_changed");
         if (problem != null) { Disarm(machine, s); s.NeedsAttention = true; s.Status = problem; return false; }
         double now = StarSystem.fEpoch;
-        if (s.Clock != null && !TransferClock.ValidStep(now - s.Last)) { Disarm(machine, s); s.Status = Text.Get("Storage.time_gap"); return false; }
         var tray = machine.objContainer;
         if (s.Item != null && (!tray.Contains(s.Item) || !Payload(machine, s.Item))) { s.Item = null; s.Clock = null; }
         if (s.Item == null)
@@ -156,14 +155,14 @@ internal sealed class StorageService
         if (!sessions.TryGetValue(machine, out var s) || !s.Armed) return;
         try
         {
+            // A long interval (time-skip, reload gap) is not a fault: the paid power interval bounds the work.
             double now = StarSystem.fEpoch, elapsed = now - s.Last; s.Last = now;
-            if (!TransferClock.ValidStep(elapsed)) { Disarm(machine, s); s.Status = Text.Get("Storage.time_gap"); return; }
             var clock = s.Clock;
             if (!Admit(machine, s) || s.Clock == null || s.Item == null) return;
             if (!ReferenceEquals(clock, s.Clock)) elapsed = 0;
             bool powered = requested && machine.HasCond("IsPowered");
             if (!s.Clock.Advance(s.Item.strID, poweredSeconds.HasValue ? Math.Min(elapsed, poweredSeconds.Value) : elapsed, powered))
-            { Disarm(machine, s); s.Status = Text.Get("Storage.time_gap"); return; }
+            { s.Item = null; s.Clock = null; s.Status = Text.Get("Storage.waiting"); return; }
             s.Status = powered ? Text.Get("Storage.moving", s.Clock.Progress.ToString("F0"), s.Clock.Duration.ToString("F0")) : Text.Get("Routing.no_power");
             if (!powered || !s.Clock.Complete) return;
             var move = new NativeItemTransfer(machine.objContainer, s.Store!.objContainer, s.Item);

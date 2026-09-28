@@ -11,7 +11,7 @@ public static class ShipsWaterSupply
     public const string VesselTrigger = "TIsWaterVesselInstalled";
     /// <summary>The game's GetCondTrigger returns its always-true Blank trigger for an unknown name, so
     /// only a rule that actually exists may select tanks.</summary>
-    public static CondTrigger? Rule(string name) => DataHandler.dictCTs != null && DataHandler.dictCTs.ContainsKey(name) ? DataHandler.GetCondTrigger(name) : null;
+    public static CondTrigger? Rule(string name) => Registration.NativeDefinitions.Trigger(name);
     public static double Refill(Ship ship, ILiquidReservoir destination, double requestKg, double crewReserveKg)
         => Refill(ship, destination, requestKg, crewReserveKg, null);
     public static double Refill(Ship ship, ILiquidReservoir destination, double requestKg, double crewReserveKg, LiquidTransferGuard? destinationGuard)

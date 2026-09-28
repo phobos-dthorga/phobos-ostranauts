@@ -17545,21 +17545,6 @@
     },
     {
       "mod": "PhobosShipbreaker",
-      "key": "CollectorService.time_gap_collection_paused_material_retained_resume",
-      "category": "status/warning",
-      "decision": "retain",
-      "reason": "Retain: clear functional label, operational instruction or necessary safety/detail constraint; no forced personality.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosShipbreaker/CollectorService.cs:128",
-        "src/PhobosShipbreaker/CollectorService.cs:156",
-        "src/PhobosShipbreaker/CollectorService.cs:162"
-      ],
-      "before": "Time gap; collection paused, material retained. Resume when ready.",
-      "after": "Time gap; collection paused, material retained. Resume when ready."
-    },
-    {
-      "mod": "PhobosShipbreaker",
       "key": "CollectorService.transfer_blocked_residue_retained",
       "category": "status/warning",
       "decision": "retain",
@@ -18546,19 +18531,6 @@
       ],
       "before": "Intake paused; panels retained.",
       "after": "Intake paused; panels retained."
-    },
-    {
-      "mod": "PhobosShipbreaker",
-      "key": "IntakeService.intake_time_gap_start_again_panel_retained",
-      "category": "status/warning",
-      "decision": "retain",
-      "reason": "Retain: clear functional label, operational instruction or necessary safety/detail constraint; no forced personality.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosShipbreaker/IntakeService.cs:177"
-      ],
-      "before": "Intake time gap; start again. Panel retained.",
-      "after": "Intake time gap; start again. Panel retained."
     },
     {
       "mod": "PhobosShipbreaker",
@@ -19592,20 +19564,6 @@
     },
     {
       "mod": "PhobosShipbreaker",
-      "key": "ProcessingService.time_gap_progress_retained_resume_when_ready",
-      "category": "status/warning",
-      "decision": "retain",
-      "reason": "Retain: clear functional label, operational instruction or necessary safety/detail constraint; no forced personality.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosShipbreaker/ProcessingService.cs:197",
-        "src/PhobosShipbreaker/ProcessingService.cs:240"
-      ],
-      "before": "Time gap; progress retained. Resume when ready.",
-      "after": "Time gap; progress retained. Resume when ready."
-    },
-    {
-      "mod": "PhobosShipbreaker",
       "key": "ProcessingService.unlock_the_fixture_and_feed",
       "category": "control/name/value",
       "decision": "retain",
@@ -20128,15 +20086,14 @@
       "mod": "PhobosShipbreaker",
       "key": "Reclaimer.cooling_block",
       "category": "status/warning",
-      "decision": "retain",
-      "reason": "Retain: clear functional label, operational instruction or necessary safety/detail constraint; no forced personality.",
+      "decision": "rewrite",
+      "reason": "A heat block now waits and resumes by itself instead of stopping for Resume; the instruction to resume is removed.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosShipbreaker/ReclaimerHeat.cs:37",
-        "src/PhobosShipbreaker/ReclaimerHeat.cs:38"
+        "src/PhobosShipbreaker/ReclaimerHeat.cs:56"
       ],
       "before": "Cooling unavailable: needs at least {0} kPa of room atmosphere and enough thermal capacity to stay below {1:F0} °C this step. Cool the room or reduce time acceleration, then resume. Input and work retained.",
-      "after": "Cooling unavailable: needs at least {0} kPa of room atmosphere and enough thermal capacity to stay below {1:F0} °C this step. Cool the room or reduce time acceleration, then resume. Input and work retained."
+      "after": "Cooling unavailable: needs at least {0} kPa of room atmosphere and enough thermal capacity to stay below {1:F0} °C this step. No power is drawn; work continues by itself once the room can take the heat. Input and work retained."
     },
     {
       "mod": "PhobosShipbreaker",
@@ -33665,19 +33622,6 @@
     },
     {
       "mod": "PhobosShipbreaker",
-      "key": "Reclamation.cooling",
-      "category": "status/warning",
-      "decision": "retain",
-      "reason": "Retain: clear functional label, operational instruction or necessary safety/detail constraint; no forced personality.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosShipbreaker/ReclamationPower.cs:22"
-      ],
-      "before": "Cutting paused: the D4 service room needs at least 10 kPa and thermal headroom below 40 C. Vacuum supplies no free cooling.",
-      "after": "Cutting paused: the D4 service room needs at least 10 kPa and thermal headroom below 40 C. Vacuum supplies no free cooling."
-    },
-    {
-      "mod": "PhobosShipbreaker",
       "key": "Reclamation.power",
       "category": "status/warning",
       "decision": "rewrite",
@@ -36107,21 +36051,6 @@
     },
     {
       "mod": "PhobosShipbreaker",
-      "key": "Storage.time_gap",
-      "category": "status/warning",
-      "decision": "add",
-      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosShipbreaker/StorageService.cs:136",
-        "src/PhobosShipbreaker/StorageService.cs:160",
-        "src/PhobosShipbreaker/StorageService.cs:166"
-      ],
-      "before": "Time jump detected. Unloading paused; products stay in the tray. Start unloading to continue.",
-      "after": "Time jump detected. Unloading paused; products stay in the tray. Start unloading to continue."
-    },
-    {
-      "mod": "PhobosShipbreaker",
       "key": "Storage.fault",
       "category": "status/warning",
       "decision": "add",
@@ -37335,6 +37264,88 @@
       ],
       "before": "nobody at the moment (see each crew member's line)",
       "after": "nobody at the moment (see each crew member's line)"
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "accept",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "Control label for the owner-confirmed recovery of a protected machine or tank.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosAgriculture/Plugin.cs:140",
+        "src/PhobosAgriculture/Plugin.cs:144",
+        "src/PhobosAgriculture/Service.cs:236"
+      ],
+      "before": "Accept contents as they are",
+      "after": "Accept contents as they are"
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "accept_done",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Result line after acceptance; says what changed and that the machine can run.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosAgriculture/BulkService.cs:42",
+        "src/PhobosAgriculture/Service.cs:111"
+      ],
+      "before": "Records accepted. The machine's mass now matches them and it can run again.",
+      "after": "Records accepted. The machine's mass now matches them and it can run again."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "accept_unavailable",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Result line when acceptance is refused; says which cases need repair instead.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosAgriculture/BulkService.cs:35",
+        "src/PhobosAgriculture/Service.cs:105"
+      ],
+      "before": "Cannot accept: the saved records are unreadable, or the machine is protected for a reason that needs repair rather than acceptance.",
+      "after": "Cannot accept: the saved records are unreadable, or the machine is protected for a reason that needs repair rather than acceptance."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "bulk_lost",
+      "category": "log/diagnostic",
+      "decision": "add",
+      "reason": "Log line when a tank is destroyed with water inside, since native destruction is no longer blocked.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosAgriculture/BulkHooks.cs:42"
+      ],
+      "before": "Storage tank {0} was destroyed with {1:F1} kg of water inside. That water is gone.",
+      "after": "Storage tank {0} was destroyed with {1:F1} kg of water inside. That water is gone."
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "crop_present",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Offer-time refusal for planting into an occupied rack; says the next action.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosAgriculture/MaterialOperations.cs:38"
+      ],
+      "before": "A crop is already planted. Harvest or clear it first.",
+      "after": "A crop is already planted. Harvest or clear it first."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Reclaimer.cooling_wait",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Status while a heat-limited machine waits for its room; shows the room's temperature, air and pressure against the limits so the rule can be judged in play.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/ReclaimerHeat.cs:57"
+      ],
+      "before": "Waiting for the room to cool: {0:F1} °C now, limit {1:F0} °C; {2:F0} mol of air at {3:F0} kPa (needs {4} kPa). No power is drawn and work continues by itself once the room can take the heat.",
+      "after": "Waiting for the room to cool: {0:F1} °C now, limit {1:F0} °C; {2:F0} mol of air at {3:F0} kPa (needs {4} kPa). No power is drawn and work continues by itself once the room can take the heat."
     }
   ],
   "documents": [
@@ -37342,8 +37353,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "ea7bbb0031f88c789ec1716a420c6866384371fdf6aafbe54419d0266f006025",
-      "review": "2026-09-28: Framework 0.36.0 version summary; no other wording changed."
+      "sha256": "95348774301dfcdbf9f6314b50b30ee39c021d05f2a79f750321a646d9a0c50a",
+      "review": "2026-09-28: Framework 0.37.0, Agriculture 0.17.0 and Shipbreaker 0.34.0 version summary; no other wording changed."
     },
     {
       "path": "SUPPORT.md",
@@ -37370,8 +37381,8 @@
       "path": "docs/agriculture-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "5e7bae5e81bfb0a36664c1238b7d5424fe8363b4e95332b1aa95c998ec63f161",
-      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+      "sha256": "17930ebcf867d3a379de7e1b1e510da7c08972ece300bdaf2e2147f6eb184ec5",
+      "review": "2026-09-28: regenerated from reviewed inputs: version only."
     },
     {
       "path": "docs/agriculture-nutrient-production.md",
@@ -37391,8 +37402,8 @@
       "path": "docs/agriculture-player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "df436beb3a2a64a8f7eb573e766352e387dacf62302cc073a9180d4d1302b458",
-      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+      "sha256": "c5d61cd5698668689c026eaaaf2f6120e12c447777738b02f58c05a78c82ac12",
+      "review": "2026-09-28: accept-contents recovery, stacked supplies and offer-time refusals, and a paragraph on power state, tank destructibility, eating through native actions and condensed transpiration."
     },
     {
       "path": "docs/agriculture-seed-production.md",
@@ -37493,15 +37504,15 @@
       "path": "docs/automatic-material-routing.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "6f9ab1349f77bce31658ac57f687c1550cc8f11e2b68f4e747e2416e018737d4",
-      "review": "2026-09-28: added storage outputs (setup, cost, capacity waits, reload/pause rules, F3); states that stacked items stay put and nothing is created or discarded."
+      "sha256": "2f93af6e9e73e36d3a8d7de1833974fcbb88794e53fcdf291623eec8236f606f",
+      "review": "2026-09-28: long intervals catch up like native machines; time-gap pause wording removed."
     },
     {
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "79acf66d2a689c6548a2dc199a2343b468bb8c0d04a7b4af953264d55c9ff110",
-      "review": "2026-09-28: Framework 0.36.0 version line; no other wording changed."
+      "sha256": "938fe620efc28f7c950e9c73d665c1946b6829d699e7bdf391eaedd8b45a2436",
+      "review": "2026-09-28: version line; no other wording changed."
     },
     {
       "path": "docs/crew-automation.md",
@@ -38154,8 +38165,8 @@
       "path": "docs/development/vanilla-precedence-audit.md",
       "scope": "contributor audit record: findings, native evidence, verdicts and owner checks",
       "decision": "review as contributor documentation; player-facing effects are described in the owning guides",
-      "sha256": "fb514ad87a8cc52d89e8306055145c52006f49552b71bae48cabc8f64347aaa5",
-      "review": "2026-09-28: new document for the 28 September 2026 audit."
+      "sha256": "4ca79485df2b8305df035e88edf89de45b44778788858eee181c5e966f62a888",
+      "review": "2026-09-28: round 2 verdicts recorded as fixed with versions; owner checks extended."
     },
     {
       "path": "docs/development/workshop-publication.md",
@@ -38188,7 +38199,7 @@
       "path": "docs/framework-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "cffaf6a56285e0fdec0149859bfd6966c6de9ada5c67fe430404137c405d3a93",
+      "sha256": "0d185bee6ceef5b4fb00be272d119582e9c4f8bc271d6ea348eaf514cff3d6a3",
       "review": "2026-09-28: regenerated from reviewed inputs: version only."
     },
     {
@@ -38202,8 +38213,8 @@
       "path": "docs/furnace-material-routing.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "c837346beb7b9b5275bdbaba016794cdb8bc8a0664afd793146e4c0ed35b4ffc",
-      "review": "2026-09-28: receiving sequence and interruption table note the separately started repeat run; motion policy unchanged."
+      "sha256": "42e7703506d72525ef59bb940c93d8dc168e1346b0e15ec75ca3836a0486f1eb",
+      "review": "2026-09-28: long intervals catch up; time-gap pause wording removed."
     },
     {
       "path": "docs/furnace-player-guide.md",
@@ -38244,15 +38255,15 @@
       "path": "docs/industrial-console-player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "3f0af089e9bb2f51cbba190bd5767118bb7fd4d46c5825956d336d92c4291cba",
-      "review": "2026-09-28: registered Framework/Shipbreaker 0.33.0 version and dependency update only; no other wording changed."
+      "sha256": "7a80890ce9c90ad9e583cc50b1e175318d8e3f5684ff60c717230e5446fc67e2",
+      "review": "2026-09-28: Shipbreaker version line; no other wording changed."
     },
     {
       "path": "docs/installing-mods.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "4e08bd623d4ead8264177635c1342f627548e482917cd10c4ed93e76c28005b1",
-      "review": "2026-09-28: registered Framework/Shipbreaker 0.33.0 version and dependency update only; no other wording changed."
+      "sha256": "f22ed9093fff81e18aafa3c339102c88b7af8c1b16da1ddd1dc439f0c32600f3",
+      "review": "2026-09-28: Framework minimum lines; no other wording changed."
     },
     {
       "path": "docs/item-references.md",
@@ -38286,8 +38297,8 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "d7998e267125852f54d993eb20080394d0fe152e59135113bffd8be6451da572",
-      "review": "2026-09-28: Framework 0.36.0 version line; no other wording changed."
+      "sha256": "021c79e87d53883e57071aeb9fa381210aff259dfeb6f17f887605d05fdc6316",
+      "review": "2026-09-28: version and minimum lines; no other wording changed."
     },
     {
       "path": "docs/residue-collector.md",
@@ -38300,8 +38311,8 @@
       "path": "docs/scrap-reclaimer.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "226c7d7884d008f7c977e8c95355e66972dc1c9ba2a9b65e58bd3913ac9060ee",
-      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+      "sha256": "35d156da04937986c2d4924cb6275041a30d19d661710577a08f8becb2f1e596",
+      "review": "2026-09-28: heat rule now waits and resumes by itself with the room numbers shown."
     },
     {
       "path": "docs/section-assembly-and-maintenance.md",
@@ -38328,8 +38339,8 @@
       "path": "docs/shipbreaker-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "04b589bf593a33baacff53d2cb075d8c85017abdc401209e68c5c9f5bb16e366",
-      "review": "2026-09-28: regenerated from reviewed D4/R4/F6 explanations for storage outputs and the repeat run."
+      "sha256": "560c6e2511b836ac87f8b18fa6e56699fcf1c0033258bbd3150cf048149537b3",
+      "review": "2026-09-28: regenerated from reviewed inputs: version only."
     },
     {
       "path": "docs/shipbreaker-material-uses.md",
@@ -38342,8 +38353,8 @@
       "path": "docs/shipbreaker-reclamation.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "bc686c12c984e615c2ff26b65f67318d40677adef6fde5c45ea933aa400553f1",
-      "review": "2026-09-28: mission scope now points to the separate repeat run and storage outputs and states that transits pause the run."
+      "sha256": "129ecda08d7bb43a1cf7805e955b8d68f87d467a633ecc44a422a746831d2dc6",
+      "review": "2026-09-28: wall eligibility follows the vanilla uninstall rule."
     },
     {
       "path": "docs/solar-system-economy.md",
@@ -38356,8 +38367,8 @@
       "path": "workshop/PhobosAgriculture/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "37e650c7ce69a5aa22e84ed33066d24d1724ff698f83bb90eed2534bc4aef6ab",
-      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+      "sha256": "087d8fefee16d31b44207b41f17750cb634282e840208c058dc83463793533f9",
+      "review": "2026-09-28: version and minimum; new bullet on the 0.17.0 vanilla-precedence fixes; stacked-supply and old-food limits."
     },
     {
       "path": "workshop/PhobosAutoNav/page.bbcode",
@@ -38370,8 +38381,8 @@
       "path": "workshop/PhobosFramework/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "f30f65ebb1047de34841fe83f8442bd9ec50c30352fb7fc6a289be931a29eff6",
-      "review": "2026-09-28: version; diagnostic bullet extended; new bullet on the 0.36.0 vanilla-precedence fixes."
+      "sha256": "1aef91c44278df1d364c8e2a301f00b651696e3fc6ce127fdeb95214e0831269",
+      "review": "2026-09-28: version only."
     },
     {
       "path": "workshop/PhobosManufacturing/page.bbcode",
@@ -38384,8 +38395,8 @@
       "path": "workshop/PhobosShipbreaker/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "8efc06923fa74468afa8e745117efd81aa78335534fb20b741f1232363678778",
-      "review": "2026-09-28: version plus repeat-batch and storage-output capabilities and their pause limits."
+      "sha256": "002315cbe0a79979f2e943be18ffa47372780dcaf9f1929060af75bb69b1f2e9",
+      "review": "2026-09-28: version and minimum; new bullet on the 0.34.0 vanilla-precedence fixes."
     }
   ],
   "surfaces": [
@@ -38408,8 +38419,8 @@
     {
       "path": "mods/PhobosAgriculture/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "d91e201d6e4a86c73f2a65002dad62d6eefc1ab2e0a85a5fb48c36aa867e4848",
-      "review": "2026-09-28: reviewed assembly sites, local cargo recovery, maintenance explanations and release/reference consistency; historical evidence and native/Unity validation limits retained."
+      "sha256": "2a8c751da453e4691e1869742bc26cce97269eb105d29fd3c958692f590b1df7",
+      "review": "2026-09-28: version metadata only."
     },
     {
       "path": "mods/PhobosAutoNav/data/cooverlays/phobos_approach_assist.json",
@@ -38440,7 +38451,7 @@
     {
       "path": "mods/PhobosFramework/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "34b7e4c39e75a8ac6efd03cad38b9590e950a7af747bda0f647c2a065466f73b",
+      "sha256": "2273c5d5858ce2c327313a86332d3cef028c52c47fb9c4e7edbcdca2ceacf543",
       "review": "2026-09-28: version metadata only."
     },
     {
@@ -38461,8 +38472,8 @@
     {
       "path": "mods/PhobosShipbreaker/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "3529b1acc775188084ea3483331a6b1db39fa5947030119a264d024ff1799f3a",
-      "review": "2026-09-28: registered Framework/Shipbreaker 0.33.0 version and dependency update only; no other wording changed."
+      "sha256": "a702a9f6c5b70e89a9a5dd9f5e8ac5d99f36e15c1c9332f3c7d166d65eed1a15",
+      "review": "2026-09-28: version metadata only."
     }
   ],
   "hardcodedReview": {

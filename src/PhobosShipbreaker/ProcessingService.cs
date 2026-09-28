@@ -21,7 +21,7 @@ internal sealed partial class ProcessingService
         internal IntakeSession? Intake;
         internal bool AwaitingFeed;
         internal bool CrewManaged;
-        internal bool NeedsAttention, CapacityWait;
+        internal bool NeedsAttention, CapacityWait, HeatWait;
         internal readonly CompletionWatch Watch = new CompletionWatch();
         internal string Status = Text.Get("ProcessingService.paused_load_panels_and_start_the_queue");
     }
@@ -190,12 +190,6 @@ internal sealed partial class ProcessingService
         }
         if (!sessions.TryGetValue(machine, out var state) || state.Job?.Running != true)
         { SetWorking(machine, false); return false; }
-        if (IsReclaimer(machine))
-        {
-            double step = StarSystem.fEpoch - state.Last;
-            if (double.IsNaN(step) || double.IsInfinity(step) || step < 0 || step > state.Job.Duration)
-            { Stop(machine, state, Text.Get("ProcessingService.time_gap_progress_retained_resume_when_ready")); return false; }
-        }
         var bin = Feed(machine);
         bool bound = state.Input != null && bin?.objContainer?.ContainedCOs.Contains(state.Input) == true;
         string? problem = MachineProblem(machine);
@@ -235,9 +229,11 @@ internal sealed partial class ProcessingService
             if (!BeforePower(machine)) return;
             var input = state.Input!;
             bool powered = workingRequest && machine.HasCond("IsPowered");
+            // A long interval (time-skip, reload gap) catches up like a native machine; the paid power interval bounds it.
             state.Job.Advance(input.strID, poweredSeconds.HasValue ? Math.Min(elapsed, poweredSeconds.Value) : elapsed, powered, true);
             input.SetCondAmount(ProcessRules.Progress, state.Job.Progress);
-            if (!state.Job.Running) { Stop(machine, state, Text.Get("ProcessingService.time_gap_progress_retained_resume_when_ready")); return; }
+            if (!state.Job.Running) { Stop(machine, state, Text.Get("ProcessingService.input_changed_or_was_removed_queue_paused")); return; }
+            if (!powered && state.HeatWait) return;
             state.Status = powered ? Text.Get("ProcessingService.processing_wall_panel") : Text.Get("ProcessingService.waiting_for_power_progress_retained");
             if (!state.Job.Complete || !powered) return;
             Finish(machine, state, notify: true);
@@ -318,6 +314,11 @@ internal sealed partial class ProcessingService
     }
 
     internal void Block(CondOwner machine, string reason) => Stop(machine, sessions.GetValue(machine, _ => new Session()), reason);
+    /// <summary>The room cannot take this step's heat: no power is drawn, the job keeps its permission and
+    /// progress, the status says why, and work continues by itself once the room cools. Not a stop.</summary>
+    internal void HeatWait(CondOwner machine, string status)
+    { if (sessions.TryGetValue(machine, out var s) && s.Job?.Running == true) { s.HeatWait = true; s.Status = status; } }
+    internal void HeatReady(CondOwner machine) { if (sessions.TryGetValue(machine, out var s)) s.HeatWait = false; }
 
     internal void Fault(CondOwner machine, Exception ex)
     {

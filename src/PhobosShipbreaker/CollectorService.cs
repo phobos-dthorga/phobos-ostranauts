@@ -134,8 +134,6 @@ internal sealed partial class CollectorService
         if (problem == null && s.FilterSignature != FilterSignature(port)) problem = Text.Get("Routing.filter_changed");
         if (problem != null || s.Route == null || !s.Route.Valid(port, s.Source!))
         { s.NeedsAttention = true; s.Status = problem ?? Text.Get("CollectorService.floor_route_changed_restore_it_and_resume"); Disarm(port, s); return false; }
-        if (s.Clock != null && !TransferClock.ValidStep(StarSystem.fEpoch - s.Last))
-        { s.Status = Text.Get("CollectorService.time_gap_collection_paused_material_retained_resume"); Disarm(port, s); return false; }
         if (FurnaceRules.Machine(port.strCODef) && FurnaceMaterialRules.ChargeFull(Destination(port)!.ContainedCOs.Count))
         { ClearTransfer(port, Text.Get("Routing.charge_full", FurnaceRules.ChargeUnits)); return false; }
         var source = s.Source!.objContainer;
@@ -161,15 +159,15 @@ internal sealed partial class CollectorService
         using var measurement = Phobos.Ostranauts.Framework.Diagnostics.Performance.Measure(PerformanceMetrics.RouteAdvance);
         try
         {
+            // A long interval (time-skip, reload gap) is not a fault: the paid power interval bounds the work,
+            // and the route catches up like a native machine would.
             double now = StarSystem.fEpoch, elapsed = now - s.Last; s.Last = now;
-            if (!TransferClock.ValidStep(elapsed))
-            { s.Status = Text.Get("CollectorService.time_gap_collection_paused_material_retained_resume"); Disarm(port, s); return; }
             var clock = s.Clock;
             if (!BeforePower(port) || s.Clock == null || s.Item == null) return;
             if (!ReferenceEquals(clock, s.Clock) || FurnaceRules.Machine(port.strCODef) && !ReferenceEquals(admittedToken, s.Clock)) elapsed = 0;
             bool powered = requested && port.HasCond("IsPowered");
             if (!s.Clock.Advance(s.Item.strID, poweredSeconds.HasValue ? Math.Min(elapsed, poweredSeconds.Value) : elapsed, powered))
-            { s.Status = Text.Get("CollectorService.time_gap_collection_paused_material_retained_resume"); Disarm(port, s); return; }
+            { s.Item = null; s.Clock = null; s.Status = Text.Get("Routing.waiting"); return; }
             s.Status = powered ? Text.Get("CollectorService.collecting_residue_s", s.Clock.Progress.ToString("F0"), s.Clock.Duration.ToString("F0")) : Text.Get("Routing.no_power");
             if (!powered || !s.Clock.Complete) return;
             var move = new NativeItemTransfer(s.Source!.objContainer, Destination(port)!, s.Item);
@@ -184,6 +182,9 @@ internal sealed partial class CollectorService
     }
     internal void Block(CondOwner port, string status)
     { IndustryObservations.RecordStop(port, status); ClearTransfer(port, status); sessions.GetValue(port, _ => new Session()).NeedsAttention = true; }
+    /// <summary>The room cannot take the machine's heat this step: the route keeps its permission and its
+    /// pending item, shows why, and continues by itself once the room cools. Not a stop.</summary>
+    internal void HeatWait(CondOwner port, string status) { if (sessions.TryGetValue(port, out var s) && s.Armed) s.Status = status; }
     internal void Fault(CondOwner port, Exception ex)
     {
         var s = sessions.GetValue(port, _ => new Session()); Disarm(port, s);

@@ -230,5 +230,10 @@
   "Maintenance.tank": "Drain the tank before removing or dismantling it.",
   "Maintenance.link": "Disconnect the empty tank from its paired equipment before removal.",
   "Maintenance.contents": "Unload crops, food, nutrients and retained water or solution before removing this equipment. Check its supply and pipe contents in the control panel.",
-  "Maintenance.job": "Finish or cancel the cooking or workup job before removing this equipment."
+  "Maintenance.job": "Finish or cancel the cooking or workup job before removing this equipment.",
+  "accept": "Accept contents as they are",
+  "accept_done": "Records accepted. The machine's mass now matches them and it can run again.",
+  "accept_unavailable": "Cannot accept: the saved records are unreadable, or the machine is protected for a reason that needs repair rather than acceptance.",
+  "bulk_lost": "Storage tank {0} was destroyed with {1:F1} kg of water inside. That water is gone.",
+  "crop_present": "A crop is already planted. Harvest or clear it first."
 }

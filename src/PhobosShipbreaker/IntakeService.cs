@@ -173,8 +173,9 @@ internal sealed partial class ProcessingService
             if (!BeforeIntakePower(grabber) || state.Clock == null || state.Panel == null) return;
             if (!ReferenceEquals(previousClock, state.Clock)) elapsed = 0;
             bool powered = requested && grabber.HasCond("IsPowered");
+            // Advance refuses only a changed panel now; a long interval catches up like a native machine.
             if (!state.Clock.Advance(state.Panel.strID, elapsed, powered))
-            { state.Status = Text.Get("IntakeService.intake_time_gap_start_again_panel_retained"); state.Armed = false; grabber.ZeroCondAmount(IntakeRules.Working); return; }
+            { state.Status = Text.Get("IntakeService.loading_item_changed_selecting_a_new_panel"); state.Clock = null; state.Panel = null; grabber.ZeroCondAmount(IntakeRules.Working); return; }
             state.Status = powered ? Text.Get("IntakeService.moving_panel_s", state.Clock.Progress.ToString("F0"), state.Clock.Duration.ToString("F0")) : Text.Get("IntakeService.grabber_waiting_for_power");
             if (!powered || !state.Clock.Complete) return;
             var transfer = new NativeItemTransfer(grabber.objContainer, Feed(state.Processor)!.objContainer, state.Panel);

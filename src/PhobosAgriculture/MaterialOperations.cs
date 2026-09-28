@@ -10,15 +10,44 @@ namespace PhobosAgriculture;
 
 internal static partial class Service
 {
+    // The game stacks matching supplies dropped into a machine; a stack member is one unit like any other.
     private static bool IsInput(CondOwner owner, CondOwner item, string id, double kg) =>
-        item.objCOParent == owner && item.strCODef == id && !item.bDestroyed && item.coStackHead == null && item.aStack.Count == 0 &&
-        !item.HasCond("IsInstalled") && item.GetCOsSafe(true).Count == 0 && item.GetLotCOs(true).Count == 0 && Math.Abs(item.GetTotalMass() - kg) < 1e-7;
-    internal static CondOwner? Input(CondOwner co, string id, double kg) => co.objContainer?.ContainedCOs.FirstOrDefault(x => IsInput(co, x, id, kg));
+        StackUnits.Inside(item, owner) && item.strCODef == id && !item.bDestroyed && !item.HasCond("IsInstalled") &&
+        StackUnits.Empty(item) && Math.Abs(StackUnits.UnitMass(item) - kg) < 1e-7;
+    internal static CondOwner? Input(CondOwner co, string id, double kg) => StackUnits.All(co).FirstOrDefault(x => IsInput(co, x, id, kg));
+    private static readonly string[] SupplyWork = { "load-water", "load-irrigation", "load-nutrients", "drain", "recover-solution" };
+    /// <summary>What would stop this work right now, or null. Checked when the action is offered, so crew are
+    /// not sent to fail half an hour later, and again when it runs.</summary>
+    internal static string? WorkProblem(CondOwner co, CondOwner? actor, string action)
+    {
+        if (!Definitions.Ready) return Text.Get("protected");
+        var s = Get(co);
+        if (s.Protected || WaterGuard(co).Protected) return Text.Get("protected");
+        var access = Access(co, null, actor); if (access != null) return access;
+        if (!co.HasCond("IsInstalled") || co.HasCond("IsDamaged")) return Text.Get("repair");
+        if (IrrigationDefinitions.IsSupply(co) && !SupplyWork.Contains(action)) return Text.Get("help");
+        if (WorkupDefinitions.IsBench(co)) return action == "recover-crop" || action == "formulate-nutrients" ? null : Text.Get("help");
+        if (action == "recover-crop" || action == "formulate-nutrients") return Text.Get("help");
+        var b = s.State;
+        if (action == "drain") return b.Water + b.Nutrients + s.Solution.TotalKg + s.Line.TotalKg > 0 ? null : Text.Get("empty");
+        if (action == "harvest") return b.CropId.Length > 0 && b.Ready ? null : Text.Get("not_ready");
+        if (action == "clear") return b.CropId.Length > 0 ? null : Text.Get("not_ready");
+        if (action.StartsWith("plant-", StringComparison.Ordinal))
+        {
+            var crop = action == "plant-potato" ? Crop.Potato : action == "plant-lettuce-seed" ? Crop.LettuceSeed : Crop.Lettuce;
+            if (b.CropId.Length != 0) return Text.Get("crop_present");
+            if (!s.Solution.CanPlant(crop.Id)) return Text.Get("solution_incompatible");
+            return Input(co, crop == Crop.Potato ? Definitions.PotatoSeed : Definitions.LettuceSeed, crop.Seed) != null ? null : Text.Get("missing_input");
+        }
+        if (action == "load-water") return b.Water > s.Solution.PlainWaterCapacity - .25 ? Text.Get("full") : Input(co, "LiquidWater", .25) != null ? null : Text.Get("missing_input");
+        if (action == "load-irrigation") return b.Water > s.Solution.PlainWaterCapacity - Definitions.IrrigationKg ? Text.Get("irrigation_full", Definitions.IrrigationKg) : Input(co, Definitions.Irrigation, Definitions.IrrigationKg) != null ? null : Text.Get("missing_input");
+        if (action == "load-nutrients") return b.Nutrients > s.Solution.DryCapacity - .04 ? Text.Get("full") : Input(co, Definitions.Nutrient, .04) != null ? null : Text.Get("missing_input");
+        return null;
+    }
     internal static bool Work(CondOwner co, CondOwner actor, string action)
     {
         var s = Get(co);
-        if (s.Protected || WaterGuard(co).Protected || Access(co, null, actor) != null || !co.HasCond("IsInstalled") || co.HasCond("IsDamaged") || !Definitions.Ready) return false;
-        if (IrrigationDefinitions.IsSupply(co) && action != "load-water" && action != "load-irrigation" && action != "load-nutrients" && action != "drain" && action != "recover-solution") return false;
+        if (WorkProblem(co, actor, action) is string problem) { s.Notice = problem; return false; }
         try
         {
             if (WorkupDefinitions.IsBench(co)) return action == "recover-crop" ? QueueWorkup(s,"recover") : action == "formulate-nutrients" && QueueWorkup(s,"formulate");
@@ -80,8 +109,7 @@ internal static partial class Service
     private static CondOwner? CookerInput(Session s)
     {
         var input = Resolve(s.State.CookerInput);
-        return input != null && input.objCOParent == s.Object && input.strCODef == Definitions.Raw && input.coStackHead == null && input.aStack.Count == 0 &&
-            input.GetCOsSafe(true).Count == 0 && Math.Abs(input.GetTotalMass() - .4) < 1e-7 ? input : null;
+        return input != null && IsInput(s.Object, input, Definitions.Raw, .4) ? input : null;
     }
     private static bool Deliver(Session s, List<(string Id, double Kg)> specs, CondOwner? input, CropState next, NutrientSolution? nextSolution = null, FluidLine? nextLine=null, CondOwner? additionalInput=null, double cartridgeRemaining=0, Action<CondOwner,string>? initialize=null)
     {

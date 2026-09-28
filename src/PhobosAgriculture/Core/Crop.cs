@@ -63,8 +63,13 @@ public sealed class CropState
         double mixedGrowth = Math.Min(grow, solutionGrowth);
         if (solution != null) solution.Quantity = new(Math.Max(0, solution.Quantity.CarrierKg - mixedGrowth * c.Water), Math.Max(0, solution.Quantity.SoluteKg - mixedGrowth * c.Nutrient));
         Water -= (grow - mixedGrowth) * c.Water; Nutrients -= (grow - mixedGrowth) * c.Nutrient; Biomass += grow * (c.Final - c.Seed); Carbon += grow * c.Carbon; Progress = Math.Min(1, Progress + grow);
-        exchange.CO2Kg = -grow * c.Carbon * 44 / 30; exchange.OxygenKg = grow * c.Carbon * 32 / 30; exchange.VapourKg = grow * c.Vapour;
-        exchange.RoomHeatKWh -= grow * (c.Carbon * HeatPerCarbonKWh + c.Vapour * 2.45 / 3.6);
+        // Transpired water condenses inside the closed rack and returns to the plain-water reservoir while it
+        // has room: the game's atmosphere has no water vapour to receive it, and the latent heat of what
+        // condenses nets to zero. Only an overfull reservoir leaves any vapour.
+        double transpired = grow * c.Vapour, condensed = Math.Min(transpired, Math.Max(0, ReservoirKg - Water - (solution?.TotalKg ?? 0)));
+        Water += condensed;
+        exchange.CO2Kg = -grow * c.Carbon * 44 / 30; exchange.OxygenKg = grow * c.Carbon * 32 / 30; exchange.VapourKg = transpired - condensed;
+        exchange.RoomHeatKWh -= grow * c.Carbon * HeatPerCarbonKWh + (transpired - condensed) * 2.45 / 3.6;
         double dark = Math.Max(0, hours - grow * c.Hours * Pace);
         double respired = Math.Min(Carbon, Math.Min(oxygenKg * 30 / 32, Carbon * (1 - Math.Exp(-dark * .0005))));
         Carbon -= respired; Biomass -= respired;

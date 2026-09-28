@@ -19,7 +19,7 @@ internal static partial class ReclamationService
         double mols=0;
         if(gas==null||!gas.mapGasMols1.TryGetValue("StatGasMolTotal",out mols)||
             !ReclaimerRules.CoolingBudget(mols,room!.GetCondAmount("StatGasTemp"),gas.fDGasTemp,room.GetCondAmount("StatGasPressure"),r.Number("kw"),amount*3600/r.Number("kw"),out _))
-        { s.Notice=Text.Get("Reclamation.cooling");g.ZeroCondAmount(IntakeRules.Working);return false; }
+        { s.Notice=ReclaimerHeat.WaitStatus(room,gas,mols);g.ZeroCondAmount(IntakeRules.Working);return false; }
         transfer=new PowerTransfer { Grabber=g.strID,Gas=gas,Mols=mols,Receipt=NativeEnergyReceipts.Begin(power,g,amount) };return true;
     }
     internal static void FinishPower(Powered power,CondOwner g,PowerTransfer? transfer)

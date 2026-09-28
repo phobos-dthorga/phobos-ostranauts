@@ -29,7 +29,12 @@ public static class ApplianceDefinitions
     public static void Add(NativeDefinitions d, string prefix, string name, string description, int size, double kg, double price, string image, string controls, double kw, string buildCategory)
     {
         d.Conditions[prefix + "Machine"] = new JsonCond { strName = prefix + "Machine", strNameFriendly = name, strColor = "Neutral", nDisplaySelf = 2, nDisplayOther = 2 };
-        d.Power[prefix + "Power"] = new JsonPowerInfo { strName = prefix + "Power", strUsePowerCT = "TIsReadyUsePower", aInputPts = new[] { "PowerA", "PowerB" }, bAllowExtPower = true, fAmount = kw / 3600 };
+        // The game sets and clears IsPowered only for power info that names a power-on interaction; a
+        // self-targeted no-op is the native pattern (see Shipbreaker's machinery), so the appliance's
+        // power state, the crew console and the game's own power display all follow the real connection.
+        d.Power[prefix + "Power"] = new JsonPowerInfo { strName = prefix + "Power", strUsePowerCT = "TIsReadyUsePower", aInputPts = new[] { "PowerA", "PowerB" }, bAllowExtPower = true, fAmount = kw / 3600,
+            strIntPowerOn = prefix + "PowerChange", strIntPowerOff = prefix + "PowerChange" };
+        d.Interactions[prefix + "PowerChange"] = new JsonInteraction { strName = prefix + "PowerChange", strThemType = "Self", bIgnoreFeelings = true, aLootItms = Array.Empty<string>() };
         foreach (string form in new[] { "Installed", "Loose", "InstalledDmg", "LooseDmg" })
         {
             string id = prefix + form; bool installed = form.StartsWith("Installed"), damaged = form.EndsWith("Dmg");

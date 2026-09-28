@@ -47,6 +47,11 @@ public sealed class NativeDefinitions
         foreach (var amendment in amendments) amendment();
     }
 
+    /// <summary>A native trigger by name, or null when none exists. The game's own lookup returns its
+    /// always-true Blank trigger for an unknown name, which must never gate an optional provider.</summary>
+    public static CondTrigger? Trigger(string name) =>
+        !string.IsNullOrEmpty(name) && DataHandler.dictCTs != null && DataHandler.dictCTs.ContainsKey(name) ? DataHandler.GetCondTrigger(name) : null;
+
     /// <summary>A trigger built in code starts with a zero chance and null lists, unlike one loaded
     /// from JSON; the game rolls against that chance, so such a trigger never passes.</summary>
     public static void Validate(CondTrigger trigger)

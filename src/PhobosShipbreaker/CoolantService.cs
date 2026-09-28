@@ -48,7 +48,8 @@ internal static partial class FurnaceService
         if(!s.Coolant.Enabled)return false;
         if(action=="coolant-fill")
         {
-            var item=co.objContainer.ContainedCOs.FirstOrDefault(c=>c.strCODef==CoolantStock&&!c.bDestroyed&&c.coStackHead==null&&c.aStack.Count==0&&c.GetCOsSafe(true).Count==0&&c.GetLotCOs(true).Count==0&&Math.Abs(c.GetTotalMass()-1)<1e-7);
+            // The game stacks matching coolant dropped into the bin; a stack member is one charge like any other.
+            var item=Phobos.Ostranauts.Framework.Inventory.StackUnits.All(co).FirstOrDefault(c=>c.strCODef==CoolantStock&&!c.bDestroyed&&Phobos.Ostranauts.Framework.Inventory.StackUnits.Empty(c)&&Math.Abs(Phobos.Ostranauts.Framework.Inventory.StackUnits.UnitMass(c)-1)<1e-7);
             if(item==null||s.Coolant.TotalKg+1>CoolantCharge.CapacityKg+1e-9)return false;
             if(!ChargeJournal(co).TryWrite(new Dictionary<string,string>{["state"]="pending",["input"]=item.strID}))return false;
             s.State.NativeMutation=true;

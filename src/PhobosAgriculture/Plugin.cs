@@ -13,13 +13,13 @@ using Phobos.Ostranauts.Framework.Construction;
 namespace PhobosAgriculture;
 
 [BepInPlugin(Id, "Phobos Agriculture", Version)]
-[BepInDependency(FrameworkInfo.PluginId, "0.31.0")]
+[BepInDependency(FrameworkInfo.PluginId, "0.37.0")]
 [BepInDependency("com.ostranauts.shipswater", BepInDependency.DependencyFlags.SoftDependency)]
 [BepInDependency("phobosgekko.ostranauts.shipbreaker", BepInDependency.DependencyFlags.SoftDependency)]
 [BepInProcess("Ostranauts.exe")]
 public sealed class Plugin : BaseUnityPlugin
 {
-    public const string Id = "phobosgekko.ostranauts.agriculture", Version = "0.16.1";
+    public const string Id = "phobosgekko.ostranauts.agriculture", Version = "0.17.0";
     internal static Action<string> Log = _ => { };
     internal static ConfigEntry<double> Pace = null!, ReserveLitres = null!;
     internal static ConfigEntry<bool> LootEnabled = null!;
@@ -46,7 +46,7 @@ public sealed class Plugin : BaseUnityPlugin
     }
     private static void Load() { Service.Reset(); RecyclerCapture.Reset(); try { Definitions.Load(); } catch (Exception e) { Definitions.Ready = false; Log(e.ToString()); } }
     private static void Confirm() => Definitions.Ready = ConstructionRegistry.Ready(Id);
-    private void Update() { if (UnityEngine.Time.unscaledTime >= nextScan) { nextScan = UnityEngine.Time.unscaledTime + 2; Service.PassiveScan(); if(CrewSim.objInstance?.FinishedLoading==true)BulkDestroy.Loading=false; } }
+    private void Update() { if (UnityEngine.Time.unscaledTime >= nextScan) { nextScan = UnityEngine.Time.unscaledTime + 2; Service.PassiveScan(); } }
     private void OnDestroy() { Phobos.Ostranauts.Framework.Inventory.CollectorCargo.Unregister(Id); Phobos.Ostranauts.Framework.Liquids.ShipsWaterRejects.Forget(RecyclerCapture.Instance); FrameworkLifecycle.ContentLoading -= Load; FrameworkLifecycle.ContentLoaded -= Confirm; EquipmentProviders.Unregister(Id); Phobos.Ostranauts.Framework.Trading.BulkSupplies.Unregister(Id); harmony?.UnpatchSelf(); Service.Reset(); }
 }
 
@@ -59,11 +59,14 @@ internal static class RunPatch
 [HarmonyPatch(typeof(Powered), "UsePower", new[] { typeof(CondOwner), typeof(double) })]
 internal static class PowerPatch
 {
+    // Only the requested amount is ours; the game's Run always proceeds, because skipping it left IsPowered
+    // unset forever (the game sets and clears it inside Run).
     private static bool Prefix(Powered __instance, CondOwner __0, ref double __1, out EnergyReceipt? __state)
     {
         __state = null; if (!Definitions.Machine(__0)) return true;
-        try { __1 = Service.Requested(__0, __1); if (__1 <= 0) return false; __state = NativeEnergyReceipts.Begin(__instance, __0, __1); return true; }
-        catch (Exception e) { Service.Fault(__0, e); return false; }
+        try { __1 = Service.Requested(__0, __1); if (__1 > 0) __state = NativeEnergyReceipts.Begin(__instance, __0, __1); }
+        catch (Exception e) { Service.Fault(__0, e); __1 = 0; }
+        return true;
     }
     private static void Finalizer(Powered __instance, CondOwner __0, EnergyReceipt? __state)
     {
@@ -76,13 +79,7 @@ internal static class PowerPatch
 [HarmonyPatch(typeof(Interaction), nameof(Interaction.ApplyEffects))]
 internal static class EffectsPatch
 {
-    private static void Prefix(Interaction __instance, bool isCancelIa)
-    {
-        if (isCancelIa) return;
-        var food = __instance.objUs;
-        if (food != null && (__instance.strName == "SeekFoodAllowDirect" || __instance.strName == "SeekFoodAllowDirectPrepared") && (food.strCODef == Definitions.Meal || food.strCODef == Definitions.Leaves))
-            __instance.LootCTsThem = DataHandler.GetLoot(food.strCODef + "Effects");
-    }
+    // Food effects are no longer swapped in here: each food has its own eating reply in the vanilla chain (Definitions).
     private static void Postfix(Interaction __instance, bool isCancelIa)
     {
         if (!isCancelIa && __instance.strName == RecyclerCapture.Controls && RecyclerCapture.IsRecycler(__instance.objThem)) { Panel.Show(__instance.objThem); return; }
@@ -135,10 +132,16 @@ internal sealed class Provider : IEquipmentProvider, IEquipmentPanelFields
     public IReadOnlyList<string> Definitions { get; } = Array.AsReadOnly(new[] { PhobosAgriculture.Definitions.Rack + "Installed", PhobosAgriculture.Definitions.Cooker + "Installed", IrrigationDefinitions.Supply + "Installed", WorkupDefinitions.Bench + "Installed", BulkDefinitions.Tank + "Installed", BulkDefinitions.Tank + "InstalledDmg" });
     public EquipmentSnapshot Snapshot(CondOwner co)
     {
-        if(BulkDefinitions.IsTank(co))return new EquipmentSnapshot(co.strID,co.strNameFriendly,"agriculture",new EquipmentActivity(BulkService.Protected(co)||co.HasCond("IsDamaged")||co.HasCond("IsLocked")||BulkService.Read(co).CatchKg>0?EquipmentState.Blocked:EquipmentState.Ready,BulkService.Describe(co)),new[]{new EquipmentAction("pause",Text.Get("pause"))});
+        // A protected machine offers the owner-confirmed accept action in place of its ordinary controls.
+        if(BulkDefinitions.IsTank(co))
+        {
+            bool tankProtected=BulkService.Protected(co);
+            return new EquipmentSnapshot(co.strID,co.strNameFriendly,"agriculture",new EquipmentActivity(tankProtected||co.HasCond("IsDamaged")||co.HasCond("IsLocked")||BulkService.Read(co).CatchKg>0?EquipmentState.Blocked:EquipmentState.Ready,BulkService.Describe(co)),
+                tankProtected?new[]{new EquipmentAction("bulk-accept",Text.Get("accept")),new EquipmentAction("pause",Text.Get("pause"))}:new[]{new EquipmentAction("pause",Text.Get("pause"))});
+        }
         var s = Service.Get(co); var b = s.State;
         return new EquipmentSnapshot(co.strID, co.strNameFriendly, "agriculture", new EquipmentActivity(s.Protected || b.Health < .5 ? EquipmentState.Blocked : b.Ready ? EquipmentState.Ready : b.Running ? EquipmentState.Running : EquipmentState.Paused, Service.Describe(co)),
-            Service.Actions(co).Select(a => new EquipmentAction(a, Text.Get(a))));
+            (s.Protected ? new[] { "accept" } : Service.Actions(co)).Select(a => new EquipmentAction(a, Text.Get(a))));
     }
     public bool Command(CondOwner co, ConsoleBinding? binding, string action, out string message) => BulkDefinitions.IsTank(co)?BulkService.Command(co,binding,action,out message):Service.Command(co, binding, action, out message);
 }
@@ -148,6 +151,13 @@ internal static class ContentsEligibilityPatch
 {
     internal static bool Blocked(Interaction action, CondOwner? us, CondOwner? them)
         => Reason(action, us, them) != null;
+    /// <summary>Offer-time check for our own work actions, so crew are not sent to fail: the same rule the work
+    /// applies when it runs. Maintenance reasons are checked separately, at offer and at finish.</summary>
+    internal static string? WorkReason(Interaction action, CondOwner? us, CondOwner? them)
+    {
+        var work = Array.Find(Definitions.Work, a => action.strName == Definitions.WorkId(a));
+        return work != null && Definitions.Machine(them) ? Service.WorkProblem(them!, us, work) : null;
+    }
     internal static string? Reason(Interaction action, CondOwner? us, CondOwner? them)
     {
         var co = action.strName.StartsWith("MS", StringComparison.Ordinal) ? us : them;
@@ -171,12 +181,17 @@ internal static class ContentsEligibilityPatch
         return null;
     }
     private static void Postfix(Interaction __instance, CondOwner objUs, CondOwner objThem, ref bool __result)
-    { var reason = __result ? Reason(__instance, objUs, objThem) : null; if (reason != null) { __result = false; __instance.AddFailReason("main", reason); } }
+    { var reason = __result ? Reason(__instance, objUs, objThem) ?? WorkReason(__instance, objUs, objThem) : null; if (reason != null) { __result = false; __instance.AddFailReason("main", reason); } }
 }
+// A refused maintenance finish still closes the game's task for it, as native effects would.
 [HarmonyPatch(typeof(Interaction), nameof(Interaction.ApplyEffects))]
 internal static class ContentsCompletionPatch
 {
-    private static bool Prefix(Interaction __instance) => !ContentsEligibilityPatch.Blocked(__instance, __instance.objUs, __instance.objThem);
+    private static bool Prefix(Interaction __instance)
+    {
+        var reason = ContentsEligibilityPatch.Reason(__instance, __instance.objUs, __instance.objThem);
+        return reason == null || Phobos.Ostranauts.Framework.Registration.NativeEffects.Refuse(__instance, reason);
+    }
 }
 
 [HarmonyPatch(typeof(CondOwner), nameof(CondOwner.ModeSwitch))]

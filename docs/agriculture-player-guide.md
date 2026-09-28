@@ -56,6 +56,11 @@ cohort**, not four separately plantable slots or four times the yield. The local
 panel shows the same composed rack. Growth and health drive the artwork; pausing
 the lamps leaves the plants visible. Successful harvesting/clearing empties the
 trays. A protected unreadable state shows the base rack; consult its panel warning.
+When the panel says a machine or tank is protected because of an interrupted
+transfer or a mass that no longer matches its records, **Accept contents as they
+are** (on the panel, the C1 console or `phobosagriculture accept <id>` in F3)
+closes the journals and sets the item's mass back to what the records say.
+Unreadable records still need repair (since 0.17.0).
 
 The rack has a new sage-green and cream housing. Hearth-2 now includes matching
 galley furniture beneath its separate electric stove insert. The fittings are
@@ -67,7 +72,11 @@ Lettuce's harvest-ready image depicts food leaves, not seed production.
 ## First crop
 
 1. Put one **Continuance 0.2 kg seed potato** or one **Continuance 5 g lettuce seed packet** in the rack's
-   normal Inventory. Supplies must be separate, unstacked items.
+   normal Inventory. Stacked supplies are fine: the game stacks matching items
+   dropped into a machine, and each action takes one unit from the stack
+   (since 0.17.0). A planting, loading, harvest or drain action that cannot
+   succeed is refused when it is offered, with the reason, rather than after
+   the walk.
 2. Put a **Groundwork 5 kg irrigation charge** (50 cr base) and nutrient packets
    in the rack. Choose **Load 5 kg irrigation charge / Load nutrients**; each action
    takes ten seconds. The charge needs 5 kg free reservoir capacity and is consumed
@@ -142,6 +151,16 @@ as recorded non-potable process solution eligible for W2 treatment. Older unreco
 be processed at [B2](agriculture-nutrient-production.md). Empty the inventory and stored liquids/nutrients before uninstalling/dismantling; cancel cooking
 progress first. Use **Maintenance information** to identify retained contents, active work, protected transfers or an R3 link that blocks removal. Ordinary repair/Restore use native maintenance. Dismantling returns a bounded mix of native parts/materials and retained housing
 waste; see the condition-specific recovery bills below.
+
+Since 0.17.0 the game leads in four more places. Machines have a real power
+state: every installed appliance draws 20 W idle, so the game's own power
+display, the crew console and the panel show whether it is connected. Tanks and
+machines follow the game's destructibility: a filled tank that is destroyed or
+detached loses its water (logged), and refusals happen only when maintenance
+work is offered. Meals and lettuce keep their authored food values through the
+game's own eating actions; food made before 0.17.0 eats with the vanilla values.
+Transpired water condenses back into the rack's reservoir while it has room, so
+a crop uses that much less water; the game's air has no water vapour to receive it.
 
 Configuration: `GrowthDurationMultiplier` (0.5–2, captured when planting; total
 cycle energy unchanged) and `CrewReserveLitres` (live). No saved identity, footprint

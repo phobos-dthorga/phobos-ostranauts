@@ -350,5 +350,10 @@ internal static class FurnaceMaintenanceFinish
         return !(removal || repair) ? null : new[] { us, them }.Where(FurnaceService.IsEquipment)
             .Select(c => FurnaceService.MaintenanceReason(c, !removal)).FirstOrDefault(reason => reason != null);
     }
-    private static bool Prefix(Interaction __instance) => !Blocked(__instance.strName, __instance.objUs, __instance.objThem);
+    // A refused finish still closes the game's task for it, as native effects would.
+    private static bool Prefix(Interaction __instance)
+    {
+        var reason = Reason(__instance.strName, __instance.objUs, __instance.objThem);
+        return reason == null || Phobos.Ostranauts.Framework.Registration.NativeEffects.Refuse(__instance, reason);
+    }
 }

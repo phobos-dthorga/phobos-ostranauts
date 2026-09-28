@@ -1,5 +1,5 @@
 [h1]Phobos Shipbreaker[/h1]
-[b]Version:[/b] 0.33.0
+[b]Version:[/b] 0.34.0
 
 [h2]Performance update[/h2]
 Furnace equipment searches create less temporary data, and industrial panels reuse shared display and ship-search helpers. Cooling, processing speed, heat and material accounting are unchanged.
@@ -20,13 +20,14 @@ Make the wreck pay for the next repair. Rivetline equipment brings wall processi
 [*]Choose direct cooling or F6-C pipes to an exterior radiator. Optional coolant servicing uses separate industrial fluid.
 [*]Prepare an owned, empty, depressurized target for G4 capture and powered ordinary-wall cutting. Recover valuables and crew first.
 [*]Use the C1 console for equipment on your own ship, or work beside each machine. Crew orders can supply and run permitted jobs.
+[*]Version 0.34.0 lets the game lead: long unobserved intervals catch up like native machines, a hot room makes the R4 or the cutter wait and resume by itself, G4 wall eligibility follows the game's own uninstall rule, a refused finish closes its task, and stacked coolant charges are used one at a time.
 [/list]
 
 [h2]Operating limits[/h2]
 Keep the supporting hull walls under the sealed chute. Processing needs power, output space and suitable cooling; vacuum is not free cooling. Older unclassified residue has no R4 recipe. Furnace heating and exterior work pause on interruption and require Resume. A repeat run pauses on any manoeuvre, interruption or manual furnace control, and never restarts heating by itself. Repeat runs and storage unloading pause on reload. Capture does not by itself authorize cutting. Loading preserves cargo and work; a fault may block further work for inspection.
 
 [h2]Requirements and installation[/h2]
-Ostranauts 1.0.1.5, BepInEx 5, Phobos Framework 0.33.0 or newer and Phobos Auto Nav 0.19.0 or newer. Crafting Framework and Salvage Workshop are optional. Agriculture integration is optional.
+Ostranauts 1.0.1.5, BepInEx 5, Phobos Framework 0.37.0 or newer and Phobos Auto Nav 0.19.0 or newer. Crafting Framework and Salvage Workshop are optional. Agriculture integration is optional.
 
 This is an unpublished development package. Automated checks do not establish in-game readiness or Unity layout approval. Keep required mods installed for saves using their content. Updating does not refill shops or old loot containers. See the installation guide for current download availability.
 

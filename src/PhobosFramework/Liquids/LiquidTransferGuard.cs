@@ -34,6 +34,9 @@ public sealed class LiquidTransferGuard
         if (!store.TryWrite(new Dictionary<string, string> { ["state"] = "clear" }))
             throw new InvalidOperationException("Liquid transfer journal completion failed.");
     }
+    /// <summary>Owner-confirmed resolution of an interrupted transfer: the quantities now at both ends are
+    /// accepted as they are and the journal is closed. Never call this automatically.</summary>
+    public bool Resolve() => store.TryWrite(new Dictionary<string, string> { ["state"] = "clear" });
     public static LiquidReceipt Commit(ILiquidReservoir source, ILiquidReservoir destination, double requestedKg,
         LiquidTransferGuard sourceGuard, LiquidTransferGuard destinationGuard)
     {

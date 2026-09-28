@@ -64,26 +64,51 @@ internal static partial class Service
     internal static Session Get(CondOwner co)
     {
         if (sessions.TryGetValue(co.strID, out var found) && found.Object == co) return found;
+        var s = Load(co, out _);
+        s.Notice = Text.Get(s.Protected ? "protected" : "paused"); sessions[co.strID] = s; return s;
+    }
+    /// <summary>Reads the saved records. <paramref name="acceptable"/> is true when the records themselves are
+    /// readable and the machine is protected only by evidence an owner may accept: an interrupted transfer
+    /// journal, or an item mass that drifted from the records (a native repair or mode switch).</summary>
+    private static Session Load(CondOwner co, out bool acceptable)
+    {
         var s = new Session { Object = co, Store = new ObjectStateStore(co.mapGUIPropMaps, "Agriculture", Plugin.Id, 1), Last = StarSystem.fEpoch };
         var status = s.Store.Read(out var fields);
+        bool records = true, evidence = false;
         try
         {
             if (status == SavedStateStatus.Ready) s.State = CropState.Read(fields);
-            else if (status != SavedStateStatus.Missing) s.Protected = true;
+            else if (status != SavedStateStatus.Missing) { s.Protected = true; records = false; }
             var solutionStatus = SolutionStore(co).Read(out var solutionFields);
             if (solutionStatus == SavedStateStatus.Ready) s.Solution = NutrientSolution.Read(solutionFields, s.State);
-            else if (solutionStatus != SavedStateStatus.Missing) s.Protected = true;
+            else if (solutionStatus != SavedStateStatus.Missing) { s.Protected = true; records = false; }
             ReadWaterMode(s);
             ReadLine(s);
             ReadRecovery(s);
             ReadWorkup(s);
-            if (WaterGuard(co).Protected) s.Protected = true;
-            if (IrrigationDefinitions.IsSupply(co) && (s.State.CropId.Length != 0 || s.State.CookerInput.Length != 0 || s.State.CookerProgress != 0)) s.Protected = true;
-            if (Definitions.IsCooker(co) && s.Solution.Enabled) s.Protected = true;
-            if (Math.Abs(co.GetCondAmount("StatMass") - Definitions.DryMass(co) - s.State.ContentsMass - s.Solution.TotalKg - s.Line.TotalKg - PhysicalMass(co)) > 1e-5) s.Protected = true;
+            if (s.Protected) records = false;
+            if (WaterGuard(co).Protected) { s.Protected = true; evidence = true; }
+            if (IrrigationDefinitions.IsSupply(co) && (s.State.CropId.Length != 0 || s.State.CookerInput.Length != 0 || s.State.CookerProgress != 0)) { s.Protected = true; records = false; }
+            if (Definitions.IsCooker(co) && s.Solution.Enabled) { s.Protected = true; records = false; }
+            if (Math.Abs(co.GetCondAmount("StatMass") - ExpectedMass(co, s)) > 1e-5) { s.Protected = true; evidence = true; }
         }
-        catch { s.Protected = true; }
-        s.Notice = Text.Get(s.Protected ? "protected" : "paused"); sessions[co.strID] = s; return s;
+        catch { s.Protected = true; records = false; }
+        acceptable = records && evidence;
+        return s;
+    }
+    private static double ExpectedMass(CondOwner co, Session s) => Definitions.DryMass(co) + s.State.ContentsMass + s.Solution.TotalKg + s.Line.TotalKg + PhysicalMass(co);
+    /// <summary>Owner-confirmed recovery of a protected machine: the readable records are trusted, an interrupted
+    /// transfer journal is closed and the item's mass is set back to what the records say. Unreadable or
+    /// inconsistent records cannot be accepted.</summary>
+    internal static bool Accept(CondOwner co, out string message)
+    {
+        message = Text.Get("accept_unavailable");
+        var probe = Load(co, out bool acceptable);
+        if (!acceptable || !WaterGuard(co).Resolve()) return false;
+        co.AddMass(ExpectedMass(co, probe) - co.GetCondAmount("StatMass"), true);
+        sessions.Remove(co.strID);
+        if (Get(co).Protected) return false;
+        message = Text.Get("accept_done"); return true;
     }
     internal static void Save(Session s)
     {
@@ -111,12 +136,16 @@ internal static partial class Service
             room.GetCondAmount("StatGasTemp") + gas.fDGasTemp < 318.15;
     }
     internal static void BeginRun(CondOwner co) { var s = Get(co); s.Received = 0; }
+    /// <summary>The definition's own idle draw. Every installed appliance keeps it, so the game's power state
+    /// (IsPowered) follows the real connection even when nothing runs or the machine is protected.</summary>
+    internal const double StandbyKW = .02;
     internal static double Requested(CondOwner co, double nativeAmount)
     {
         var s = Get(co);
-        if (s.Protected || WaterGuard(co).Protected || !RoomReady(co)) return 0;
-        double kw = WorkupDefinitions.IsBench(co) ? s.State.Running && s.Workup.Mode.Length > 0 ? NutrientRecovery.PowerKW : 0 : IrrigationDefinitions.IsSupply(co) ? SupplyDemand(s) : Definitions.IsCooker(co) ? s.State.Running && CookerInput(s) != null ? 2 : .02 : s.State.DemandKW;
-        return nativeAmount / .02 * kw;
+        double kw = s.Protected || WaterGuard(co).Protected || !RoomReady(co) ? 0 :
+            WorkupDefinitions.IsBench(co) ? s.State.Running && s.Workup.Mode.Length > 0 ? NutrientRecovery.PowerKW : 0 :
+            IrrigationDefinitions.IsSupply(co) ? SupplyDemand(s) : Definitions.IsCooker(co) ? s.State.Running && CookerInput(s) != null ? 2 : 0 : s.State.DemandKW;
+        return nativeAmount / StandbyKW * Math.Max(kw, StandbyKW);
     }
     internal static void Tick(CondOwner co)
     {
@@ -163,8 +192,12 @@ internal static partial class Service
             {
                 double temp = room!.GetCondAmount("StatGasTemp") + gas.fDGasTemp, pressure = room.GetCondAmount("StatGasPressure");
                 bool habitable = co.HasCond("IsInstalled") && !co.HasCond("IsDamaged") && temp >= 291.15 && temp <= 299.15 && pressure >= 70 && pressure <= 110;
-                exchange = s.State.Step(elapsed / 3600, received, Moles(gas, "StatGasMolCO2") * .044, Moles(gas, "StatGasMolO2") * .032, habitable, s.Solution);
-                gas.AddGasMols("CO2", exchange.CO2Kg / .044, false); gas.AddGasMols("O2", exchange.OxygenKg / .032, false); gas.AddGasMols("H2O", exchange.VapourKg / .018, false);
+                // Standby draw is machine heat, not lamp energy. Transpired water stays in the rack: the game's
+                // air has no water vapour species, so an H2O emission was silently discarded.
+                double standby = Math.Min(received, StandbyKW * elapsed / 3600);
+                exchange = s.State.Step(elapsed / 3600, received - standby, Moles(gas, "StatGasMolCO2") * .044, Moles(gas, "StatGasMolO2") * .032, habitable, s.Solution);
+                exchange.RoomHeatKWh += standby;
+                gas.AddGasMols("CO2", exchange.CO2Kg / .044, false); gas.AddGasMols("O2", exchange.OxygenKg / .032, false);
                 gas.Run();
             }
             // Native gas simulation owns room mixing and later cooling. 20.8 J/mol/K follows native heat accounting.
@@ -200,6 +233,7 @@ internal static partial class Service
         message = Access(co, binding) ?? ""; if (message.Length > 0) return false;
         if(IrrigationDefinitions.IsSupply(co)&&action.StartsWith("bulk-link:",StringComparison.Ordinal))return BulkService.Link(co,action.Substring(10),binding,out message);
         if (action == "status") { message = Describe(co); return true; }
+        if (action == "accept") return Accept(co, out message);
         var s = Get(co); if (s.Protected || WaterGuard(co).Protected || !Definitions.Ready) { message = Text.Get("protected"); return false; }
         if (!WorkupDefinitions.IsBench(co) && !IrrigationDefinitions.IsSupply(co) && (action == "watch" || action == "unwatch" || action == "cue-volume"))
         {

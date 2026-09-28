@@ -55,7 +55,7 @@ internal sealed class IndustrialCrewProvider : ICrewWorkProvider,ICrewSkipProvid
                 if(products!=null)return products;
                 if(FurnaceService.CrewNeedsCoolant(co))
                 {
-                    if(CrewLogistics.Contents(co).Any(c=>c.strCODef==FurnaceService.CoolantStock&&c.coStackHead==null&&c.aStack.Count==0))return Act("coolant-fill");
+                    if(Phobos.Ostranauts.Framework.Inventory.StackUnits.All(co).Any(c=>c.strCODef==FurnaceService.CoolantStock&&!c.bDestroyed))return Act("coolant-fill");
                     return CrewLogistics.Supply(co,order,co,c=>c.strCODef==FurnaceService.CoolantStock,CrewRole.Industry)??Blocked(out reason);
                 }
                 int stock=CrewLogistics.Contents(co).Concat(CrewLogistics.Contents(CrewWork.Resolve(order.Destination))).Count(c=>c.strCODef==FurnaceRules.Blank);

@@ -50,10 +50,14 @@ internal static class ReclamationGeometry
         DataHandler.dictInteractions.TryGetValue("MSWall1x1Uninstall",out var action)&&action.objLootModeSwitch=="OutputWall1x1Uninstall"&&
         DataHandler.dictLoot.TryGetValue("MSWall1x1Uninstall",out var trigger)&&trigger.strType=="interaction"&&trigger.aCOs.SequenceEqual(new[]{"MSWall1x1Uninstall=1.0x1"})&&
         DataHandler.dictLoot.TryGetValue("OutputWall1x1Uninstall",out var output)&&output.strType=="item"&&output.aCOs.SequenceEqual(new[]{"ItmWall1x1Loose=1.0x1"});
+    /// <summary>The game's own rule for uninstalling this wall: installed and not damaged. Wear below the
+    /// damage threshold is the game's business, as it is for a crew member with a cutter.</summary>
+    internal const string VanillaWallRule="TIsWall1x1InstalledUndamaged";
     internal static bool Wall(CondOwner g,Ship target,CondOwner wall,CaptureRecord? capture=null,bool started=false)
     {
-        if(!NativeWallContract() || wall.ship!=target || wall.bDestroyed || wall.strCODef!="ItmWall1x1" || wall.objCOParent!=null || wall.Item==null ||
-            !ReclamationRules.CanCut(wall.GetTotalMass(),wall.HasCond("IsInstalled"),wall.HasCond("IsDamaged")||wall.GetCondAmount("StatDamage")>0,
+        var rule=Phobos.Ostranauts.Framework.Registration.NativeDefinitions.Trigger(VanillaWallRule);
+        if(rule==null || !NativeWallContract() || wall.ship!=target || wall.bDestroyed || wall.strCODef!="ItmWall1x1" || wall.objCOParent!=null || wall.Item==null ||
+            !ReclamationRules.CanCut(wall.GetTotalMass(),wall.HasCond("IsInstalled"),!rule.Triggered(wall),
                 wall.GetCOsSafe(true).Count==0,wall.coStackHead!=null||wall.aStack.Count!=0,Exposed(target,wall).Any(),Floor(target,wall),
                 capture!=null&&(wall.strID==capture["support"]||wall.strID==capture["floor"]||wall.strID==capture["targetPort"]))) return false;
         if(!started && wall.GetCondAmount("StatUninstallProgress")!=0) return false;

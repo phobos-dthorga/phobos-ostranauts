@@ -18,6 +18,9 @@ internal static class Definitions
     internal static bool Ready;
     internal static readonly string[] Work = { "recover-crop", "formulate-nutrients", "plant-potato", "plant-lettuce", "plant-lettuce-seed", "load-water", "load-irrigation", "load-nutrients", "recover-solution", "harvest", "clear", "drain" };
     internal static string WorkId(string action) => "PhobosAgricultureWork_" + action.Replace('-', '_');
+    /// <summary>The vanilla direct-eating reply our food replies are cloned from, and the native openers that list it.</summary>
+    internal const string EatTemplate = "SeekFoodAllowDirect";
+    internal static readonly string[] EatOpeners = { "SeekFoodDirect", "SeekFoodDirectLowNeed", "SeekFoodDirectGlutton", "SeekConsumeFoodAirtight" };
     private static readonly System.Collections.Generic.HashSet<string> Machines = new(new[] { Rack, Cooker, IrrigationDefinitions.Supply, WorkupDefinitions.Bench }.SelectMany(prefix => new[] { "Installed", "Loose", "InstalledDmg", "LooseDmg" }.Select(form => prefix + form)), StringComparer.Ordinal);
     internal static bool Machine(CondOwner? co) => co != null && Machines.Contains(co.strCODef);
     internal static bool IsCooker(CondOwner co) => co.strCODef.StartsWith(Cooker, StringComparison.Ordinal);
@@ -39,11 +42,11 @@ internal static class Definitions
         {
             var capture = NativeDefinitions.Clone(controls); capture.strName = RecyclerCapture.Controls; capture.strTitle = capture.strTooltip = Text.Get("capture_controls");
             d.Interactions[capture.strName] = capture;
-            var trigger = DataHandler.GetCondTrigger("TIsWaterRecyclerInstalled", true);
+            // Ship's Water owns its recycler definitions: the capture control is appended to them in place at
+            // publication, never by republishing them under their own names.
+            var trigger = NativeDefinitions.Trigger(RecyclerCapture.RecyclerTrigger);
             if (trigger != null) foreach (var original in DataHandler.dictCOs.Values.Where(c => trigger.TriggeredDataCO(new DataCO(c), false)).ToArray())
-            {
-                var recycler = NativeDefinitions.Clone(original); recycler.aInteractions = (recycler.aInteractions ?? Array.Empty<string>()).Concat(new[] { capture.strName }).Distinct().ToArray(); d.Objects[recycler.strName] = recycler;
-            }
+                d.Amend(() => DefinitionAmendments.AppendInteractions(original, capture.strName));
         }
         foreach (string action in Work)
         {
@@ -73,7 +76,19 @@ internal static class Definitions
         Stock(d, Service.RecoveryReject, .25, .01, "recovery_reject", false);
         Stock(d, Service.RecoveryCartridge, DrainageRecovery.CartridgeKg, TreatmentCartridge.FullPrice, "recovery_cartridge", false);
         foreach (string food in new[] { Meal, Leaves })
+        {
             d.Loot[food + "Effects"] = new Loot { strName = food + "Effects", strType = "trigger", aCOs = new[] { "TDnFood=1x" + (food == Meal ? 5 : 1), "TUpSatiety=1x" + (food == Meal ? 3 : 1), "TDnTeethBrushed=1x1" }, aLoots = Array.Empty<string>() };
+            // Authored food values reach the crew through the game's own direct-eating chain: an identity
+            // condition on the food, a trigger on it and a reply cloned from the vanilla one that carries our
+            // effects, inserted ahead of the vanilla replies in every native seek-food opener.
+            string identity = "Is" + food, trigger = "TIs" + food, reply = food + "AllowDirect";
+            var mark = NativeDefinitions.Clone(DataHandler.dictConds["IsFood"]); mark.strName = identity; d.Conditions[identity] = mark;
+            d.Objects[food].aStartingConds = d.Objects[food].aStartingConds.Concat(new[] { identity + "=1x1" }).ToArray();
+            d.Triggers[trigger] = new CondTrigger { strName = trigger, fChance = 1, fCount = 1, bAND = true, aReqs = new[] { identity }, aForbids = Array.Empty<string>(), aTriggers = Array.Empty<string>() };
+            var eat = NativeDefinitions.Clone(DataHandler.dictInteractions[EatTemplate]); eat.strName = reply; eat.CTTestUs = trigger; eat.LootCTsThem = food + "Effects";
+            d.Interactions[reply] = eat;
+            d.Amend(() => { foreach (string parent in EatOpeners) if (DataHandler.dictInteractions.TryGetValue(parent, out var opener)) DefinitionAmendments.InsertInverse(opener, reply, name => name == "SeekFoodAllowDirectPrepared" || name == EatTemplate); });
+        }
         Stock(d, Irrigation, IrrigationKg, IrrigationPrice, "irrigation", false);
         foreach (string id in new[] { PotatoSeed, LettuceSeed, Nutrient, Irrigation, Service.RecoveryCartridge })
             d.Objects[id].aStartingConds = d.Objects[id].aStartingConds.Concat(new[] { "IsCategoryIndustrialProducts=1x1" }).ToArray();

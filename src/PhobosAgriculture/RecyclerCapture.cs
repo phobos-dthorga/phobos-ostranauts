@@ -5,6 +5,7 @@ using System.Linq;
 using Phobos.Ostranauts.Framework.Inventory;
 using Phobos.Ostranauts.Framework.Liquids;
 using Phobos.Ostranauts.Framework.Persistence;
+using Phobos.Ostranauts.Framework.Registration;
 
 namespace PhobosAgriculture;
 
@@ -17,7 +18,10 @@ internal sealed class RecyclerCapture : IRecyclerRejectSink
     private static readonly HashSet<string> armed=new(StringComparer.Ordinal);
     internal static bool Available;
     internal static void Reset()=>armed.Clear();
-    internal static bool IsRecycler(CondOwner? co)=>co!=null && !co.bDestroyed && DataHandler.GetCondTrigger("TIsWaterRecyclerInstalled",true)?.Triggered(co)==true;
+    internal const string RecyclerTrigger="TIsWaterRecyclerInstalled";
+    // The game's lookup returns its always-true Blank trigger for an unknown name: without Ship's Water,
+    // every machine used to pass this test and every Agriculture panel became the capture panel.
+    internal static bool IsRecycler(CondOwner? co)=>Available && co!=null && !co.bDestroyed && NativeDefinitions.Trigger(RecyclerTrigger)?.Triggered(co)==true;
     private static MaterialPort Sender(CondOwner co)=>new(co.strID,"PhobosAgriculture.RecyclerRejectOut",co.mapGUIPropMaps);
     private static MaterialPort Receiver(CondOwner co)=>new(co.strID,"PhobosShipbreaker.ResidueIn",co.mapGUIPropMaps);
     private static ObjectStateStore Journal(CondOwner co)=>new(co.mapGUIPropMaps,"AgricultureRecyclerCapture",Plugin.Id,1);

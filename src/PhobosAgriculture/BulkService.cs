@@ -27,6 +27,20 @@ internal static class BulkService
     {
         try{Read(co);var status=Journal(co).Read(out var d);return Guard(co).Protected||status!=SavedStateStatus.Missing&&(status!=SavedStateStatus.Ready||d.Count!=1||d["state"]!="clear");}catch{return true;}
     }
+    /// <summary>Owner-confirmed recovery of a protected tank: the readable record is trusted, interrupted
+    /// transfer and conversion journals are closed and the item's mass is set back to dry mass plus record
+    /// plus cargo. An unreadable record cannot be accepted.</summary>
+    internal static bool Accept(CondOwner co,out string reason)
+    {
+        reason=Text.Get("accept_unavailable");
+        var status=Store(co).Read(out var fields);StoredCommodity? s=null;
+        try{s=status==SavedStateStatus.Ready?StoredCommodity.Read(fields,"water",BulkDefinitions.CapacityKg):status==SavedStateStatus.Missing?new StoredCommodity("water",BulkDefinitions.CapacityKg):null;}
+        catch(Exception e){Plugin.Log(e.ToString());}
+        if(s==null||!Guard(co).Resolve()||!Journal(co).TryWrite(new Dictionary<string,string>{["state"]="clear"}))return false;
+        Save(co,s);
+        if(Protected(co))return false;
+        reason=Text.Get("accept_done");return true;
+    }
     internal static void Save(CondOwner co,StoredCommodity state)
     {
         if(!Store(co).TryWrite(state.Save()))throw new InvalidOperationException("Protected bulk save");
@@ -109,6 +123,7 @@ internal static class BulkService
         reason=Text.Get("protected");if(!Definitions.Ready)return false;
         reason=Service.Access(co,binding)??"";if(reason.Length>0)return false;
         if(action.StartsWith("bulk-link:",StringComparison.Ordinal))return Link(co,action.Substring(10),binding,out reason);
+        if(action=="bulk-accept")return Accept(co,out reason);
         if(action!="pause"&&Protected(co)){reason=Text.Get("protected");return false;}
         try
         {

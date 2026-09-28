@@ -131,8 +131,9 @@ native tick overrun. These are authored gameplay budgets, not measured savings.
 
 A full destination retains the original object and its clock at the sender;
 there is no virtual inventory, item cloning or silent disposal. New clock
-progress is never saved or accumulated while unloaded. Time gaps over the
-existing sixty-second bound pause receiving.
+progress is never saved or accumulated while unloaded. A long unobserved
+interval catches up like a native machine, bounded by the electricity actually
+received (0.34.0; earlier versions paused receiving with a time-gap notice).
 
 ## Interruptions and saves
 

@@ -92,9 +92,11 @@ There is no processing while the ship is unloaded.
 
 This first appliance is **air cooled into the surrounding room**, not vacuum
 cooled. It needs at least **10 kPa** at its service edge and a room with enough
-thermal capacity to accept the next step without reaching **40 °C**. Failure
-pauses work before requesting power. Cool/repressurize the room or reduce time
-acceleration, then resume. Native ship cooling handles the room afterwards.
+thermal capacity to accept the next step without reaching **40 °C**. When the
+room cannot take the next step's heat, the reclaimer draws no power that step
+and its status shows the room's temperature, air and pressure against the
+limits; work continues by itself once the room cools (0.34.0; earlier versions
+stopped the job for Resume). Native ship cooling handles the room afterwards.
 
 The electrical path uses native `Powered.UsePower` and its `GatherPower` remaining
 demand result. Actual supplied energy, including partial brownouts, enters the
