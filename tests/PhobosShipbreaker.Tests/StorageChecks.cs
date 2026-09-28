@@ -24,13 +24,16 @@ internal static class StorageChecks
             RoutingRules.OutputPort(r4, true) == RoutingRules.MetalsOut, "Existing residue and aluminium outputs keep their meaning");
 
         var d4Products = StorageRules.Carried(d4).Select(p => (p.Id, p.Kg)).OrderBy(p => p.Id).ToArray();
-        check(d4Products.SequenceEqual(new[] { ("ItmPartsMechSmall01", .5), ("ItmScrapAluminum", 1.0), ("ItmScrapCarbonFiber", 1.0), ("ItmScrapSteel", 1.0) }),
-            "D4 storage carries its ordinary products, including aluminium that has no furnace route");
+        check(d4Products.SequenceEqual(new[] { ("ItmPartsMechSmall01", .5), ("ItmScrapAluminum", 1.0), ("ItmScrapCarbonFiber", 1.0), ("ItmScrapPlastic", .3), ("ItmScrapSteel", 1.0),
+                (FeedFamilies.AeroReject, FeedFamilies.AeroRejectKg), (FeedFamilies.DuraWalReject, FeedFamilies.DuraWalRejectKg), (FeedFamilies.FloorReject, FeedFamilies.FloorRejectKg),
+                (FeedFamilies.WhippleReject, FeedFamilies.WhippleRejectKg), (FeedFamilies.WindowReject, FeedFamilies.WindowRejectKg) }),
+            "D4 storage carries every family's ordinary products and the light families' terminal rejects, including aluminium that has no furnace route");
         check(StorageRules.Carried(r4).Select(p => (p.Id, p.Kg)).SequenceEqual(new[] { ("ItmScrapSteel", 1.0) }),
             "R4 storage carries steel only; aluminium keeps its furnace route and rejects their residue route");
 
         // Every product of every saved revision has exactly one output address: nothing unrouted by design, nothing twice.
-        foreach (var (machine, catalog) in new[] { (d4, ProcessRecipes.WallPanels), (r4, ReclaimerRules.Recipes) })
+        var catalogs = FeedFamilies.All.SelectMany(f => f.AcceptedMasses().Select(kg => (d4, f.Catalog(kg)))).Concat(new[] { (r4, ReclaimerRules.Recipes) });
+        foreach (var (machine, catalog) in catalogs)
         foreach (var recipe in catalog.Recipes)
         foreach (var product in recipe.Products)
         {

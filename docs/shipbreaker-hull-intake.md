@@ -106,8 +106,8 @@ grabber's two power contacts reach the outer cells of the supporting wall row.
 ## Operation and construction
 
 - **Grabber Inventory:** normal 4 x 4 native solid storage accepting cumbersome
-  items and smaller solids. Only separate, empty ordinary walls of any make
-  (14 to 48 kg) are moved.
+  items and smaller solids. Separate, empty structural parts the D4 takes are
+  moved: ordinary walls of any make, floor grates, DuraWal, Whipple and aero panels, windows.
   Unsupported cargo remains untouched, with a reason in the status panel.
 - **Chute:** no user inventory. It is the connection between the two machines.
 - **Processor Inventory:** 8 x 8 products tray. Its four-panel internal feed
@@ -123,7 +123,7 @@ grabber's two power contacts reach the outer cells of the supporting wall row.
 - One transfer takes **5 powered game seconds at 2 kW**, with **0.05 kW idle**.
   `Intake / TransferSeconds` allows 1–60 seconds after restart. Processing keeps
   its separate default 60 seconds / 30 kW and complete material accounting for
-  the wall's own mass.
+  the part's own mass.
 - Pause/cancel disarms intake. Reload leaves it paused; pending motion loses only
   its short delay and retains the actual wall in the grabber. Processing progress
   remains on that wall. Full feed waits; missing/damaged/locked connections stop.

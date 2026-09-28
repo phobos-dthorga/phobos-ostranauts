@@ -141,7 +141,7 @@ internal sealed class IndustrialCrewProvider : ICrewWorkProvider,ICrewSkipProvid
 
 internal sealed partial class ProcessingService
 {
-    internal static bool CrewProduct(CondOwner machine,CondOwner item)=>Recipes(machine).Recipes.Any(r=>r.Products.Any(p=>p.Id==item.strCODef));
+    internal static bool CrewProduct(CondOwner machine,CondOwner item)=>IsReclaimer(machine)?ReclaimerRules.Recipes.Recipes.Any(r=>r.Products.Any(p=>p.Id==item.strCODef)):FeedFamilies.IsProduct(item.strCODef);
     internal static bool CrewFeed(CondOwner machine,CondOwner input)=>UnitFeed(IsReclaimer(machine),input);
     internal bool CrewStart(CondOwner machine)
     {

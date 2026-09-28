@@ -116,6 +116,7 @@ Throws(() => new ProcessJob("A", 0, recipeV1, double.NaN), "Corrupt saved durati
 Throws(() => new ProcessJob("A", 0, recipeV1, 0), "Zero-duration job rejected");
 RecipeChecks.Run(Check, Throws);
 CrewOrderChecks.Run(Check);
+FeedFamilyChecks.Run(Check, Throws);
 ReclaimerChecks.Run(Check, Throws);
 
 var empty = new bool[8, 8];

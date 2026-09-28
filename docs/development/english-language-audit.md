@@ -265,3 +265,14 @@ a hand-fed operation section; the crew, intake, reclaimer, furnace,
 reclamation and console guides state the new rules. Coverage is now
 1,928 entries, 154 documents and 14 other surfaces.
 Unity wording is unverified.
+
+## Feed families, 29 September 2026
+
+Shipbreaker 0.36.0 adds twenty reviewed entries (six family labels, two
+step fragments, two mass refusals that name the family and its range, and five
+reject names with their descriptions), rewrites thirteen wall-only lines so the
+feed, the grabber and the refusals name every part family, and retires the old
+fixed-mass wall refusal. The player guide, intake guide and crew guide name
+the families; the new feed-families record explains each budget and refusal.
+Coverage is now 1,947 entries, 155 documents and 14 other
+surfaces. Unity wording is unverified.

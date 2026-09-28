@@ -141,11 +141,11 @@ internal sealed partial class ProcessingService
         string? problem = LinkProblem(state);
         if (problem != null) { state.Status = problem; state.Armed = false; return false; }
         var source = grabber.objContainer;
-        if (state.Panel != null && (!source.Contains(state.Panel) || !ValidPanel(state.Panel)))
+        if (state.Panel != null && (!source.Contains(state.Panel) || !FeedIdentity.ValidFeed(state.Panel)))
         { state.Clock = null; state.Panel = null; state.Status = Text.Get("IntakeService.loading_item_changed_selecting_a_new_panel"); }
         if (state.Panel == null)
         {
-            state.Panel = source.ContainedCOs.FirstOrDefault(ValidPanel);
+            state.Panel = source.ContainedCOs.FirstOrDefault(FeedIdentity.ValidFeed);
             if (state.Panel == null)
             {
                 state.Status = source.ContainedCOs.Count == 0 ? Text.Get("IntakeService.waiting_for_a_detached_ordinary_wall_in") :

@@ -53,6 +53,8 @@ internal static class EconomyChecks
             check(MaintenanceSafety.SpentPartUnits(kg) == -1, "Unrepresentable repair lot is blocked before effects");
 
         check(Stat(ProcessRules.Residue,"StatBasePrice") == .01, "Panel residue does not invoke native zero-price mass fallback");
+        foreach (string reject in FeedFamilies.RejectKg.Keys)
+            check(Stat(reject,"StatBasePrice") == .01 && Stat(reject,"StatMass") == FeedFamilies.RejectKg[reject], "Feed-family reject carries its mass and the technical minimum price: " + reject);
         check(StockCondition.Worn != StockCondition.Broken && MarketStock.WearFraction(StockCondition.Worn) == .15, "Used functional stock is light wear, separate from broken definitions");
         string merchant = "ItmOKLGSupplyKioskInv";
         var original = DataHandler.dictLoot[merchant];

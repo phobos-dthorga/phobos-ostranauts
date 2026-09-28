@@ -88,6 +88,7 @@ The [consistency audit](documentation-consistency-audit.md) records the source c
 - [Project direction](project-direction.md)
 - [Public source and release status](public-release-readiness.md)
 - [Residue composition and saved material contracts](residue-material-contract.md)
+- [Feed families: what the D4 takes and gives back](feed-families.md)
 - [Native sensors and Phobos instrumentation](sensor-integration-research.md)
 - [Shared console observations](shared-console-observations.md)
 - [Ship equipment art study: a direction for Phobos Shipbreaker](ship-equipment-art-study.md)

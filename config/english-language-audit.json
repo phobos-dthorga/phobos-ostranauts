@@ -17868,13 +17868,13 @@
       "key": "Content.ordinary_loose_wall_panels_only_up_to",
       "category": "status/warning",
       "decision": "rewrite",
-      "reason": "The game's cosmetic wall variants are accepted; the exact make no longer matters.",
+      "reason": "Names the families the feed takes.",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosShipbreaker/Content.cs:97"
       ],
       "before": "Ordinary loose wall panels only. Up to {0} separate, empty panels; no stacks.",
-      "after": "Ordinary loose wall panels of any make, up to {0} at a time. Separate, empty panels only; no stacks."
+      "after": "Loose ordinary walls, floor grates, DuraWal, Whipple and aero panels and windows, any make, up to {0} at a time. Separate, empty parts only; no stacks."
     },
     {
       "mod": "PhobosShipbreaker",
@@ -17972,41 +17972,40 @@
       "mod": "PhobosShipbreaker",
       "key": "Content.wall_panel_feed",
       "category": "control/name/value",
-      "decision": "retain",
-      "reason": "Retain: clear functional label, operational instruction or necessary safety/detail constraint; no forced personality.",
+      "decision": "rewrite",
+      "reason": "The feed takes several part families now.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosShipbreaker/Content.cs:98",
-        "mods/PhobosShipbreaker/framework/equipment-names.json#Content.wall_panel_feed"
+        "src/PhobosShipbreaker/Content.cs:98"
       ],
       "before": "Wall-panel Feed",
-      "after": "Wall-panel Feed"
+      "after": "Part Feed"
     },
     {
       "mod": "PhobosShipbreaker",
       "key": "Content.wall_panel_feed_panels_kg",
       "category": "control/name/value",
       "decision": "rewrite",
-      "reason": "Variant walls weigh 14 to 48 kg; the fixed 96 kg total no longer applies. Placeholder contract changed with the code in 0.35.0 (wall mass range and the wall's own mass); this wording is the new baseline.",
+      "reason": "Names the families the feed takes.",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosShipbreaker/Content.cs:96"
       ],
       "before": "Wall-panel Feed ({0} panels, {1} to {2} kg each)",
-      "after": "Wall-panel Feed ({0} panels, {1} to {2} kg each)"
+      "after": "Part Feed ({0} parts: ordinary walls {1} to {2} kg, floor grates and light panels)"
     },
     {
       "mod": "PhobosShipbreaker",
       "key": "Content.x_industrial_fixture_kg_feed_up_to",
       "category": "status/warning",
       "decision": "rewrite",
-      "reason": "Mass range instead of a fixed 24 kg; names the three ways to load (crew order, feed window, grabber). Placeholder contract changed with the code in 0.35.0 (wall mass range and the wall's own mass); this wording is the new baseline.",
+      "reason": "Names the families, what a wall returns and what the light parts return.",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosShipbreaker/Content.cs:74"
       ],
       "before": "{3} x {3} industrial fixture; {4} kg. Feed up to {5} ordinary loose wall panels of any make, {6} to {7} kg each. {0} opens controls while nearby. A batch takes {1} seconds at {2} kW and returns a {8} kg residue packet plus the rest as parts and scrap. Inventory is the product tray. Right-click Load feed by crew, load the feed window from the controls, or connect an exterior grabber. Reload paused.",
-      "after": "{3} x {3} industrial fixture; {4} kg. Feed up to {5} ordinary loose wall panels of any make, {6} to {7} kg each. {0} opens controls while nearby. A batch takes {1} seconds at {2} kW and returns a {8} kg residue packet plus the rest as parts and scrap. Inventory is the product tray. Right-click Load feed by crew, load the feed window from the controls, or connect an exterior grabber. Reload paused."
+      "after": "{3} x {3} industrial fixture; {4} kg. Feed up to {5} loose structural parts: ordinary walls of any make ({6} to {7} kg), floor grates, DuraWal, Whipple and aero panels and windows. {0} opens controls while nearby. A batch takes {1} seconds at {2} kW; a wall returns a {8} kg residue packet plus parts and scrap, the lighter parts return native scrap plus a terminal reject. Inventory is the product tray. Right-click Load feed by crew, load the feed window from the controls, or connect an exterior grabber. Reload paused."
     },
     {
       "mod": "PhobosShipbreaker",
@@ -18314,13 +18313,13 @@
       "key": "IntakeDefinitions.wide_x_deep_kg_arms_face_space",
       "category": "status/warning",
       "decision": "rewrite",
-      "reason": "Mass range instead of a fixed 24 kg; 'manual intake' renamed to intake. Placeholder contract changed with the code in 0.35.0 (wall mass range and the wall's own mass); this wording is the new baseline.",
+      "reason": "The grabber moves every accepted family.",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosShipbreaker/IntakeDefinitions.cs:28"
       ],
       "before": "{0} wide x {1} deep; {2} kg. Arms face space, rear against a {0} x {3} wall chute. Inventory is the loading point for detached ordinary walls of any make, {4} to {5} kg. Small solids may be stored but are not processed. Start intake from the D4. Explicit Start reclamation at G4/C1 enables powered cutting of supported captured walls, with D4 service-room cooling. Loading and manual movement suspend reclamation; Resume is explicit.",
-      "after": "{0} wide x {1} deep; {2} kg. Arms face space, rear against a {0} x {3} wall chute. Inventory is the loading point for detached ordinary walls of any make, {4} to {5} kg. Small solids may be stored but are not processed. Start intake from the D4. Explicit Start reclamation at G4/C1 enables powered cutting of supported captured walls, with D4 service-room cooling. Loading and manual movement suspend reclamation; Resume is explicit."
+      "after": "{0} wide x {1} deep; {2} kg. Arms face space, rear against a {0} x {3} wall chute. Inventory is the loading point for detached structural parts: ordinary walls of any make ({4} to {5} kg), floor grates, DuraWal, Whipple and aero panels and windows. Small solids may be stored but are not processed. Start intake from the D4. Explicit Start reclamation at G4/C1 enables powered cutting of supported captured walls, with D4 service-room cooling. Loading and manual movement suspend reclamation; Resume is explicit."
     },
     {
       "mod": "PhobosShipbreaker",
@@ -18548,13 +18547,13 @@
       "key": "IntakeService.manual_feed_opened_load_separate_kg_ordinary",
       "category": "status/warning",
       "decision": "rewrite",
-      "reason": "Mass range instead of 24 kg; the queue now waits after one Start. Placeholder contract changed with the code in 0.35.0 (wall mass range and the wall's own mass); this wording is the new baseline.",
+      "reason": "Names the families the feed takes.",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosShipbreaker/IntakeService.cs:237"
       ],
       "before": "Feed window opened. Put separate ordinary walls of any make ({0} to {1} kg) here, then Start once; the queue waits for more.",
-      "after": "Feed window opened. Put separate ordinary walls of any make ({0} to {1} kg) here, then Start once; the queue waits for more."
+      "after": "Feed window opened. Put separate structural parts here (ordinary walls {0} to {1} kg, floor grates, DuraWal, Whipple and aero panels, windows), then Start once; the queue waits for more."
     },
     {
       "mod": "PhobosShipbreaker",
@@ -18588,14 +18587,14 @@
       "mod": "PhobosShipbreaker",
       "key": "IntakeService.no_supported_wall_in_grabber",
       "category": "control/name/value",
-      "decision": "retain",
-      "reason": "Retain: clear functional label, operational instruction or necessary safety/detail constraint; no forced personality.",
+      "decision": "rewrite",
+      "reason": "Part, not wall.",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosShipbreaker/IntakeService.cs:152"
       ],
       "before": "No supported wall in grabber. {0}",
-      "after": "No supported wall in grabber. {0}"
+      "after": "No supported part in the grabber. {0}"
     },
     {
       "mod": "PhobosShipbreaker",
@@ -18692,15 +18691,15 @@
       "mod": "PhobosShipbreaker",
       "key": "IntakeService.waiting_for_a_detached_ordinary_wall_in",
       "category": "status/warning",
-      "decision": "retain",
-      "reason": "Retain: clear functional label, operational instruction or necessary safety/detail constraint; no forced personality.",
+      "decision": "rewrite",
+      "reason": "Part, not wall.",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosShipbreaker/IntakeService.cs:94",
         "src/PhobosShipbreaker/IntakeService.cs:151"
       ],
       "before": "Waiting for a detached ordinary wall in the grabber.",
-      "after": "Waiting for a detached ordinary wall in the grabber."
+      "after": "Waiting for a detached structural part in the grabber."
     },
     {
       "mod": "PhobosShipbreaker",
@@ -18747,17 +18746,16 @@
       "mod": "PhobosShipbreaker",
       "key": "MachineDefinitions.wall_panel_feed",
       "category": "control/name/value",
-      "decision": "retain",
-      "reason": "Retain: clear functional label, operational instruction or necessary safety/detail constraint; no forced personality.",
+      "decision": "rewrite",
+      "reason": "The feed takes several part families now.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosShipbreaker/MachineDefinitions.cs:73",
-        "src/PhobosShipbreaker/MachineDefinitions.cs:74",
-        "src/PhobosShipbreaker/MachineDefinitions.cs:78",
-        "mods/PhobosShipbreaker/framework/equipment-names.json#MachineDefinitions.wall_panel_feed"
+        "src/PhobosShipbreaker/MachineDefinitions.cs:84",
+        "src/PhobosShipbreaker/MachineDefinitions.cs:85",
+        "src/PhobosShipbreaker/MachineDefinitions.cs:89"
       ],
       "before": "Wall-panel Feed",
-      "after": "Wall-panel Feed"
+      "after": "Part Feed"
     },
     {
       "mod": "PhobosShipbreaker",
@@ -19107,27 +19105,14 @@
       "mod": "PhobosShipbreaker",
       "key": "ProcessingService.detach_the_wall_first",
       "category": "control/name/value",
-      "decision": "retain",
-      "reason": "Retain: clear functional label, operational instruction or necessary safety/detail constraint; no forced personality.",
+      "decision": "rewrite",
+      "reason": "Part, not wall.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosShipbreaker/ProcessingService.cs:59"
+        "src/PhobosShipbreaker/FeedIdentity.cs:23"
       ],
       "before": "Detach the wall first.",
-      "after": "Detach the wall first."
-    },
-    {
-      "mod": "PhobosShipbreaker",
-      "key": "ProcessingService.expected_a_kg_wall_actual_mass_is",
-      "category": "status/warning",
-      "decision": "rewrite",
-      "reason": "Reports the accepted range and the actual mass. Placeholder contract changed with the code in 0.35.0 (wall mass range and the wall's own mass); this wording is the new baseline.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosShipbreaker/ProcessingService.cs:70"
-      ],
-      "before": "Expected an ordinary wall of {1} to {2} kg; this one weighs {0:F2} kg.",
-      "after": "Expected an ordinary wall of {1} to {2} kg; this one weighs {0:F2} kg."
+      "after": "Detach the part first."
     },
     {
       "mod": "PhobosShipbreaker",
@@ -19225,13 +19210,13 @@
       "key": "ProcessingService.is_not_a_supported_ordinary_wall",
       "category": "control/name/value",
       "decision": "rewrite",
-      "reason": "Names the families that stay untouched instead of a bare refusal.",
+      "reason": "Names what is taken and what stays untouched.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosShipbreaker/ProcessingService.cs:66"
+        "src/PhobosShipbreaker/FeedIdentity.cs:22"
       ],
       "before": "{0} is not a supported ordinary wall ({1}).",
-      "after": "{0} is not an ordinary wall ({1}). Floors, doors, windows, Whipple, aerodynamic and DuraWal panels stay as they are."
+      "after": "{0} is not a part the fixture takes ({1}). It takes ordinary walls, floor grates, DuraWal, Whipple and aero panels and windows; doors, hatches, conduit, furniture and machinery stay as they are."
     },
     {
       "mod": "PhobosShipbreaker",
@@ -19473,14 +19458,14 @@
       "mod": "PhobosShipbreaker",
       "key": "ProcessingService.remove_anything_attached_to_or_stored_in",
       "category": "status/warning",
-      "decision": "retain",
-      "reason": "Retain: clear functional label, operational instruction or necessary safety/detail constraint; no forced personality.",
+      "decision": "rewrite",
+      "reason": "Part, not wall.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosShipbreaker/ProcessingService.cs:61"
+        "src/PhobosShipbreaker/FeedIdentity.cs:25"
       ],
       "before": "Remove anything attached to or stored in the wall.",
-      "after": "Remove anything attached to or stored in the wall."
+      "after": "Remove anything attached to or stored in the part."
     },
     {
       "mod": "PhobosShipbreaker",
@@ -19525,14 +19510,14 @@
       "mod": "PhobosShipbreaker",
       "key": "ProcessingService.separate_the_wall_stack_first",
       "category": "control/name/value",
-      "decision": "retain",
-      "reason": "Retain: clear functional label, operational instruction or necessary safety/detail constraint; no forced personality.",
+      "decision": "rewrite",
+      "reason": "Floors and Whipple panels stack natively; says why a stack is refused.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosShipbreaker/ProcessingService.cs:60"
+        "src/PhobosShipbreaker/FeedIdentity.cs:24"
       ],
       "before": "Separate the wall stack first.",
-      "after": "Separate the wall stack first."
+      "after": "Separate the stack first; the feed takes single parts."
     },
     {
       "mod": "PhobosShipbreaker",
@@ -37377,14 +37362,14 @@
       "mod": "PhobosShipbreaker",
       "key": "ProcessingService.queue_waiting_for_wall_panels",
       "category": "status/warning",
-      "decision": "add",
-      "reason": "The D4 now waits for feed after one Start, like the R4; says where panels may come from.",
+      "decision": "rewrite",
+      "reason": "Names the families the queue waits for.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosShipbreaker/ProcessingService.cs:114"
+        "src/PhobosShipbreaker/ProcessingService.cs:109"
       ],
       "before": "Queue armed; waiting for wall panels in the feed. They can come from a crew loading order, the feed window in the controls or a connected grabber.",
-      "after": "Queue armed; waiting for wall panels in the feed. They can come from a crew loading order, the feed window in the controls or a connected grabber."
+      "after": "Queue armed; waiting for structural parts in the feed (ordinary walls, floor grates, DuraWal, Whipple and aero panels, windows). They can come from a crew loading order, the feed window in the controls or a connected grabber."
     },
     {
       "mod": "PhobosShipbreaker",
@@ -37516,6 +37501,266 @@
       ],
       "before": "Use anything aboard: deck, stores and trays",
       "after": "Use anything aboard: deck, stores and trays"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "ProcessRecipes.unsupported_family_mass",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Names the family and its accepted range when a part's mass has no recipe.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/Core/FeedFamilies.cs:43"
+      ],
+      "before": "No {0} recipe for a {1} kg part; this family is taken from {2} to {3} kg.",
+      "after": "No {0} recipe for a {1} kg part; this family is taken from {2} to {3} kg."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "ProcessingService.no_recipe_for_family_mass",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Refusal names the part, its mass, its family, the accepted range and the step.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/FeedIdentity.cs:26"
+      ],
+      "before": "{0} weighs {1:F2} kg; {2} are taken from {3} to {4} kg in {5}.",
+      "after": "{0} weighs {1:F2} kg; {2} are taken from {3} to {4} kg in {5}."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Feed.step_half",
+      "category": "label",
+      "decision": "add",
+      "reason": "Fragment for the mass-range refusal.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/FeedIdentity.cs:27"
+      ],
+      "before": "half-kilogram steps",
+      "after": "half-kilogram steps"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Feed.step_whole",
+      "category": "label",
+      "decision": "add",
+      "reason": "Fragment for the mass-range refusal.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/FeedIdentity.cs:27"
+      ],
+      "before": "whole kilograms",
+      "after": "whole kilograms"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Feed.family_wall",
+      "category": "label",
+      "decision": "add",
+      "reason": "Family label for status lines.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/FeedIdentity.cs:19"
+      ],
+      "before": "ordinary walls",
+      "after": "ordinary walls"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Feed.family_floor",
+      "category": "label",
+      "decision": "add",
+      "reason": "Family label for status lines.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/FeedIdentity.cs:19"
+      ],
+      "before": "floor grates",
+      "after": "floor grates"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Feed.family_durawal",
+      "category": "label",
+      "decision": "add",
+      "reason": "Family label for status lines.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/FeedIdentity.cs:19"
+      ],
+      "before": "DuraWal interior walls",
+      "after": "DuraWal interior walls"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Feed.family_window",
+      "category": "label",
+      "decision": "add",
+      "reason": "Family label for status lines.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/FeedIdentity.cs:19"
+      ],
+      "before": "window panels",
+      "after": "window panels"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Feed.family_whipple",
+      "category": "label",
+      "decision": "add",
+      "reason": "Family label for status lines.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/FeedIdentity.cs:19"
+      ],
+      "before": "Whipple shielding panels",
+      "after": "Whipple shielding panels"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Feed.family_aero",
+      "category": "label",
+      "decision": "add",
+      "reason": "Family label for status lines.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/FeedIdentity.cs:19"
+      ],
+      "before": "aerodynamic panels",
+      "after": "aerodynamic panels"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Feed.reject_floor_name",
+      "category": "item name",
+      "decision": "add",
+      "reason": "Branded terminal reject with its unit mass.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/Content.cs:123"
+      ],
+      "before": "Phobos' Floor Grate Rejects R1 (1 kg)",
+      "after": "Phobos' Floor Grate Rejects R1 (1 kg)"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Feed.reject_floor_description",
+      "category": "item description",
+      "decision": "add",
+      "reason": "Says what it is, that nothing more comes out, and what the player can do with it.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/Content.cs:123"
+      ],
+      "before": "What the fixture could not separate from a floor grate: coatings, fasteners and grate fines, one kilogram a unit. Nothing more comes out of it. Store, haul or sell where accepted; it stacks to ten.",
+      "after": "What the fixture could not separate from a floor grate: coatings, fasteners and grate fines, one kilogram a unit. Nothing more comes out of it. Store, haul or sell where accepted; it stacks to ten."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Feed.reject_durawal_name",
+      "category": "item name",
+      "decision": "add",
+      "reason": "Branded terminal reject with its mass.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/Content.cs:123"
+      ],
+      "before": "Phobos' DuraWal Rejects R1 (9.6 kg)",
+      "after": "Phobos' DuraWal Rejects R1 (9.6 kg)"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Feed.reject_durawal_description",
+      "category": "item description",
+      "decision": "add",
+      "reason": "Says what it is and that it is terminal.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/Content.cs:123"
+      ],
+      "before": "The laminated cladding of a DuraWal interior wall, bonded to its filler. The fixture takes the plastic skin, fittings and frame; this is the rest. No further recipe.",
+      "after": "The laminated cladding of a DuraWal interior wall, bonded to its filler. The fixture takes the plastic skin, fittings and frame; this is the rest. No further recipe."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Feed.reject_window_name",
+      "category": "item name",
+      "decision": "add",
+      "reason": "Branded terminal reject with its mass.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/Content.cs:123"
+      ],
+      "before": "Phobos' Window Rejects R1 (6 kg)",
+      "after": "Phobos' Window Rejects R1 (6 kg)"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Feed.reject_window_description",
+      "category": "item description",
+      "decision": "add",
+      "reason": "Says what it is, why (no glass item) and that it is terminal.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/Content.cs:123"
+      ],
+      "before": "Glazing and seals from a window panel. The game has no glass to recover, so this stays waste. No further recipe.",
+      "after": "Glazing and seals from a window panel. The game has no glass to recover, so this stays waste. No further recipe."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Feed.reject_whipple_name",
+      "category": "item name",
+      "decision": "add",
+      "reason": "Branded terminal reject with its mass.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/Content.cs:123"
+      ],
+      "before": "Phobos' Whipple Rejects R1 (1.5 kg)",
+      "after": "Phobos' Whipple Rejects R1 (1.5 kg)"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Feed.reject_whipple_description",
+      "category": "item description",
+      "decision": "add",
+      "reason": "Says what it is and that it is terminal.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/Content.cs:123"
+      ],
+      "before": "Spacer mesh and bonding from a Whipple shielding panel after its aluminium is taken. No further recipe.",
+      "after": "Spacer mesh and bonding from a Whipple shielding panel after its aluminium is taken. No further recipe."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Feed.reject_aero_name",
+      "category": "item name",
+      "decision": "add",
+      "reason": "Branded terminal reject with its mass.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/Content.cs:123"
+      ],
+      "before": "Phobos' Aero Panel Rejects R1 (2.1 kg)",
+      "after": "Phobos' Aero Panel Rejects R1 (2.1 kg)"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Feed.reject_aero_description",
+      "category": "item description",
+      "decision": "add",
+      "reason": "Says what it is and that it is terminal.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/Content.cs:123"
+      ],
+      "before": "Composite core and adhesive from an aerodynamic panel after its skin and aluminium are taken. No further recipe.",
+      "after": "Composite core and adhesive from an aerodynamic panel after its skin and aluminium are taken. No further recipe."
     }
   ],
   "documents": [
@@ -37523,7 +37768,7 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "794a658b2378a1fb5a978dd7d97f97fd0292b69b99491a687aae37770d81a6be",
+      "sha256": "28ec1e66ad7052b18d9c6d23d9722b61b07f33797c43de99bff0cc37188c3762",
       "review": "2026-09-29: version summary; no other wording changed."
     },
     {
@@ -37682,22 +37927,22 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "d44538b17b5b30512dc806742188afe6d5d7bfe97eb5994e5ac49127b73a1814",
-      "review": "2026-09-29: input storage may be anywhere aboard; version line."
+      "sha256": "2952fd27075303819bd87ba23495e0290d2efbb575333092d5e051f7d6674ac3",
+      "review": "2026-09-29: version line; no other wording changed."
     },
     {
       "path": "docs/crew-automation.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "9669a8b486bddf68f1712bed3e7449ddb780d81061c7b7e327166734d5f20b85",
-      "review": "2026-09-29: Anywhere aboard source, deck items, the Load feed by crew toggle, loading orders carry on after reload."
+      "sha256": "043497d9f60f0962644f11cc8acb5230755c1bcd86a8af4d9521038078269714",
+      "review": "2026-09-29: D4 row names the part families."
     },
     {
       "path": "docs/development/README.md",
       "scope": "documentation index/audit; no gameplay behavior",
       "decision": "review audience separation and evidence limits",
-      "sha256": "37b117edc65ff0bed70af7454ddca18d5cefdea8d0c416279058f01a73732e90",
-      "review": "2026-09-28: index link to the vanilla-precedence audit."
+      "sha256": "8e3f8366bdd15cc81ac6f51d0a0135d3d4f011d8cf3399cbc5790024c050f93c",
+      "review": "2026-09-29: index line for the feed-families record."
     },
     {
       "path": "docs/development/agriculture-bulk-storage-art.md",
@@ -37937,6 +38182,13 @@
       "sha256": "60798f33391b1cd44c652fb60236041df0c213ae3bcfcbb940bebc33de3496f6"
     },
     {
+      "path": "docs/development/feed-families.md",
+      "scope": "contributor decision record; player steps live in the player guide",
+      "decision": "add",
+      "sha256": "0c792413befd9566c8041f427edc1718131a10a4b9bbd2f1ed9cd40897e5e188",
+      "review": "2026-09-29: new decision record: families, budgets, refusals, deferrals."
+    },
+    {
       "path": "docs/development/first-furniture-experiment.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
@@ -38044,8 +38296,8 @@
       "path": "docs/development/item-handling-audit.md",
       "scope": "current handling guidance and complete generated definition ledger",
       "decision": "reviewed",
-      "sha256": "8336d278cd7455861569ea4144b16c139cda3fe4185cb618fd3fb45a747472ea",
-      "review": "2026-09-29: regenerated handling ledger from the same native export; no wording changed."
+      "sha256": "c4777e2a8a589eb83deb46733cc1d0caf6738e775128b1752d7dbe9b9b7de915",
+      "review": "2026-09-29: regenerated handling ledger with the five reject identities."
     },
     {
       "path": "docs/development/item-reference-maintenance.md",
@@ -38213,8 +38465,8 @@
       "path": "docs/development/residue-material-contract.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "9205a7146490682df401643e570d83d5a25362f797eb42cf0876b3620ba90cbd",
-      "review": "2026-09-29: wall makes and masses section with the mass-derived revision-2 budget."
+      "sha256": "1318cda6687bf1bf192d32ddca3cc018484ebb3a9fa991f730b7cfdd7b52bff4",
+      "review": "2026-09-29: pointer to the feed families; the 13 kg packet stays wall-only."
     },
     {
       "path": "docs/development/sensor-integration-research.md",
@@ -38426,7 +38678,7 @@
       "path": "docs/industrial-console-player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "2cc8f883f5682f03365375629287137e329716722c585cabb747dc87575d5c6b",
+      "sha256": "afffcb7522376a16b0f10fd9141fd556c708d46447bf46e745d93f4b2e209167",
       "review": "2026-09-29: version line; no other wording changed."
     },
     {
@@ -38468,8 +38720,8 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "128b94a5c92da117b454d2876157d080eeed45bdc434a9787efe6439fc623bc2",
-      "review": "2026-09-29: hand-fed operation section (Load feed by crew, feed window, wall makes 14-48 kg, R4/F6); symptom row; version lines."
+      "sha256": "f93d84f149ad8bd0cd068708ab8dd07337ba8ad24079ad8cc79c85cdd80507bb",
+      "review": "2026-09-29: load steps and the hand-fed section name the part families; symptom row; version line."
     },
     {
       "path": "docs/residue-collector.md",
@@ -38503,15 +38755,15 @@
       "path": "docs/shipbreaker-hull-intake.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "1e6cc7a991dbb8a54dba2256278974e615acae8722bb7ba3d71e93225f82bb87",
-      "review": "2026-09-29: wall makes 14-48 kg; feed window from the Control Panel; Load feed by crew; queue waits after Start."
+      "sha256": "f37d8819c293887760a5771395aedea45852a8a6b677d4b78a909704c33042e5",
+      "review": "2026-09-29: grabber moves every accepted family; accounting for the part's own mass."
     },
     {
       "path": "docs/shipbreaker-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "f8c8ca0ec401fd0f84e5b5ec5b49fef5c9b63fe8b73cbafaadf7a692d23e6005",
-      "review": "2026-09-29: regenerated from reviewed inputs: D4/R4/F6 and compartment use text, version."
+      "sha256": "c3e2fd3921b87ad220e3a664423ec8d5d0c102edbe882c45bac43016c41ec9f3",
+      "review": "2026-09-29: regenerated from reviewed inputs: D4, G4 and compartment text, five reject entries, version."
     },
     {
       "path": "docs/shipbreaker-material-uses.md",
@@ -38566,16 +38818,16 @@
       "path": "workshop/PhobosShipbreaker/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "f2d6afe2a8207e8124a03dfebef1fdc8f8d3085e2368a3fd8d5e28d9862a3971",
-      "review": "2026-09-29: version and minimum; first bullet names the three ways to load; new bullet for 0.35.0."
+      "sha256": "9e2cd6d39de59176c6fe40b3c6eefbb11c8cd4807552ff166793dff97a19826a",
+      "review": "2026-09-29: version; first bullet names the part families; new bullet for 0.36.0."
     }
   ],
   "surfaces": [
     {
       "path": "config/item-reference.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "9c6fbefa73e10e930496f6522ff8d3d021207a8cabd08d56c8df77ba499bba6c",
-      "review": "2026-09-29: D4, R4, F6 and feed-compartment use text: wall makes, Load feed by crew, feed window from the Control Panel."
+      "sha256": "c2d765fca02ce98888198d2a54bd8e7c973accb207906245d14917c24bb925fb",
+      "review": "2026-09-29: D4, G4 and compartment use text; five reject entries."
     },
     {
       "path": "mods/PhobosAgriculture/framework/equipment-names.json",
@@ -38643,7 +38895,7 @@
     {
       "path": "mods/PhobosShipbreaker/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "0a55c2d36c11c20a5c7219ed67b7a0f2b076e1c1bc7e670b99c49b35a942f9df",
+      "sha256": "32bdc3f4c7557437da29ca5c4d0031ef49d1e9edcfa30eb47a1e4d60a4eaa62a",
       "review": "2026-09-29: version metadata only."
     }
   ],

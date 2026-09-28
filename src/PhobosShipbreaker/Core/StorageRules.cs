@@ -17,13 +17,14 @@ public static class StorageRules
     { ProcessRules.Residue, ReclaimerRules.Feedstock, ReclaimerRules.Reject };
     public static string? Port(string? machine) =>
         ReclaimerRules.IsFamily(machine) ? SteelOut : RoutingRules.IsProcessorFamily(machine) ? ProductsOut : null;
-    /// <summary>Derived from every saved recipe revision, so products of historic jobs remain eligible.</summary>
+    /// <summary>Derived from every saved recipe revision of every feed family, so products of historic jobs remain
+    /// eligible; the light families' terminal rejects leave this way too.</summary>
     public static IReadOnlyList<ProductSpec> Carried(string? machine)
     {
-        var catalog = ReclaimerRules.IsFamily(machine) ? ReclaimerRules.Recipes : RoutingRules.IsProcessorFamily(machine) ? ProcessRecipes.WallPanels : null;
-        if (catalog == null) return Array.Empty<ProductSpec>();
         bool reclaimer = ReclaimerRules.IsFamily(machine);
-        return catalog.Recipes.SelectMany(r => r.Products)
+        IEnumerable<ProductSpec> products = reclaimer ? ReclaimerRules.Recipes.Recipes.SelectMany(r => r.Products) :
+            RoutingRules.IsProcessorFamily(machine) ? FeedFamilies.AllProducts() : Array.Empty<ProductSpec>();
+        return products
             // R4 aluminium keeps its separate MetalsOut route to the furnace; no implicit second consumer.
             .Where(p => !RoutedElsewhere.Contains(p.Id) && !(reclaimer && p.Id == FurnaceMaterialRules.Aluminium))
             .GroupBy(p => (p.Id, p.Kg)).Select(g => g.First()).ToArray();

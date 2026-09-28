@@ -120,6 +120,11 @@ internal static class Content
         IntakeDefinitions.Add(prepared);
         CollectorDefinitions.Add(prepared, collectorKW);
         ReclaimerDefinitions.Add(prepared, reclaimerKW);
+        // Terminal remainders of the light feed families: one identity each, technical minimum price, never re-processed.
+        foreach (var reject in FeedFamilies.RejectKg)
+            ReclaimerDefinitions.Packet(prepared, reject.Key, reject.Value, "Feed.reject_" + FeedFamilies.RejectFamily[reject.Key] + "_name",
+                "Feed.reject_" + FeedFamilies.RejectFamily[reject.Key] + "_description", null);
+        prepared.Objects[FeedFamilies.FloorReject].nStackLimit = FeedFamilies.FloorRejectStack;
         FurnaceDefinitions.Add(prepared);
         FurnaceConduitDefinitions.Add(prepared);
         IndustrialDefinitions.Add(prepared);

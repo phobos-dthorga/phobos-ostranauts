@@ -8188,9 +8188,71 @@
     {
       "id": "PhobosShipbreaker",
       "name": "Phobos Shipbreaker",
-      "version": "0.35.0",
+      "version": "0.36.0",
       "gameTarget": "1.0.1.5",
       "items": [
+        {
+          "id": "PhobosAeroRejectR1",
+          "name": "Phobos' Aero Panel Rejects R1 (2.1 kg)",
+          "stackLimit": 1,
+          "actions": [
+            "DropItem",
+            "PickupItem"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
+          "handlingFlags": [],
+          "slots": [
+            "heldL",
+            "heldR"
+          ],
+          "massKg": 2.1,
+          "baseValue": 0.009999999776482582,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [],
+          "aliases": []
+        },
+        {
+          "id": "PhobosDuraWalRejectR1",
+          "name": "Phobos' DuraWal Rejects R1 (9.6 kg)",
+          "stackLimit": 1,
+          "actions": [
+            "DropItem",
+            "PickupItem"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
+          "handlingFlags": [],
+          "slots": [
+            "heldL",
+            "heldR"
+          ],
+          "massKg": 9.6,
+          "baseValue": 0.009999999776482582,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [],
+          "aliases": []
+        },
         {
           "id": "PhobosExteriorGrabberInstalled",
           "name": "Phobos' Rivetline G4 Exterior Grabber",
@@ -8716,6 +8778,39 @@
               ]
             }
           ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosFloorRejectR1",
+          "name": "Phobos' Floor Grate Rejects R1 (1 kg)",
+          "stackLimit": 10,
+          "actions": [
+            "DropItem",
+            "DropItemStack",
+            "PickupItem",
+            "PickupItemStack"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
+          "handlingFlags": [],
+          "slots": [
+            "heldL",
+            "heldR"
+          ],
+          "massKg": 1.0,
+          "baseValue": 0.009999999776482582,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [],
           "aliases": []
         },
         {
@@ -13300,7 +13395,7 @@
         },
         {
           "id": "PhobosShipbreakerInputBin",
-          "name": "Phobos' Rivetline D4 Wall-panel Feed (4 panels, 14 to 48 kg each)",
+          "name": "Phobos' Rivetline D4 Part Feed (4 parts: ordinary walls 14 to 48 kg, floor grates and light panels)",
           "stackLimit": 1,
           "actions": [],
           "missingDirectActions": [],
@@ -13992,6 +14087,68 @@
               ]
             }
           ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosWhippleRejectR1",
+          "name": "Phobos' Whipple Rejects R1 (1.5 kg)",
+          "stackLimit": 1,
+          "actions": [
+            "DropItem",
+            "PickupItem"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
+          "handlingFlags": [],
+          "slots": [
+            "heldL",
+            "heldR"
+          ],
+          "massKg": 1.5,
+          "baseValue": 0.009999999776482582,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [],
+          "aliases": []
+        },
+        {
+          "id": "PhobosWindowRejectR1",
+          "name": "Phobos' Window Rejects R1 (6 kg)",
+          "stackLimit": 1,
+          "actions": [
+            "DropItem",
+            "PickupItem"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
+          "handlingFlags": [],
+          "slots": [
+            "heldL",
+            "heldR"
+          ],
+          "massKg": 6.0,
+          "baseValue": 0.009999999776482582,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [],
           "aliases": []
         }
       ],
@@ -17078,7 +17235,7 @@
     "mods/PhobosShipbreaker/data/condtrigs/phobos_shipbreaker.json": "c7d4104df596d3fd362d9a80f4703178eafc5d3151bd53907814732ec84d3585",
     "mods/PhobosShipbreaker/framework/equipment-names.json": "06ca1a5fe39812844c8f114303e7205b1d366f8466bd614966e39f5f57844db8",
     "mods/PhobosShipbreaker/framework/recipes.json": "86bbcf4e5a5255b1640af90e62cf7840b85b4414ed6f1ac4b37d3b94b3613e98",
-    "mods/PhobosShipbreaker/mod_info.json": "0a55c2d36c11c20a5c7219ed67b7a0f2b076e1c1bc7e670b99c49b35a942f9df",
+    "mods/PhobosShipbreaker/mod_info.json": "32bdc3f4c7557437da29ca5c4d0031ef49d1e9edcfa30eb47a1e4d60a4eaa62a",
     "src/PhobosAgriculture/Artwork.cs": "ccae66ac85e7dbe64d47bb3f93153558ca1b893a039310c688e366a1dd48408f",
     "src/PhobosAgriculture/AssemblyInfo.cs": "441ebc13e73f63e15379d179bdcde910645df15d5847671cdfff7cd313fbf66b",
     "src/PhobosAgriculture/BulkDefinitions.cs": "71863e308bc6aa47a6e5ae8bde7261c854144dfb97003c494fc5fdb9d8aaf20c",
@@ -17306,7 +17463,7 @@
     "src/PhobosShipbreaker/CollectorRoute.cs": "2fac357db0fd152d628aae43c762d217a5f5ea8e57348695ded717cf7f96ff3a",
     "src/PhobosShipbreaker/CollectorService.cs": "1e12f2b90a6e2373cf29eac08747acd4f7197b1bda0872a03abe8efd00b2b8e9",
     "src/PhobosShipbreaker/ConsoleCommands.cs": "a6a197cf3ce0646148c861549ae27dcd017aa45328d2cff596014cf3a72147c7",
-    "src/PhobosShipbreaker/Content.cs": "959a873ef0526b4ff08a88cb6cd8624dad6d1c3b8a485c5a55b326e8c15611a0",
+    "src/PhobosShipbreaker/Content.cs": "e8f389f8e17056aa1751c2e3e36e9c0fdea651cb3577cec69efee2c0d37b97b2",
     "src/PhobosShipbreaker/ControlAuthority.cs": "1bad10780bc839976cd5becf865b51a5c056de92e0390e9242ed428c0feb1039",
     "src/PhobosShipbreaker/CoolantService.cs": "49c16cff77a9fe6a418e96352003aef5a06fb736ea906a9c5e8c362158b82b6d",
     "src/PhobosShipbreaker/CoolingCargo.cs": "615e8c43ceb755efe97d862d6734016f35f963f10f3d3b9337fcaad5fba1b677",
@@ -17317,6 +17474,7 @@
     "src/PhobosShipbreaker/Core/CoolantCharge.cs": "76339dc6670dff12e9d33da4480793bfc76d0961503d6c05975afc6d4ded4432",
     "src/PhobosShipbreaker/Core/CrewOrderRules.cs": "4c21506b4d21e5b788442442c65684ddb1eea72a3eb3788dab705d85ad0fffb7",
     "src/PhobosShipbreaker/Core/DependencyContract.cs": "a21085d9270c30e20d5396f2ba3e53a7ef92220c82383b180ca7d6d5a1340ea3",
+    "src/PhobosShipbreaker/Core/FeedFamilies.cs": "8433c269189085a9b31ce5dab94341bd763f469373076866f1b2569a408412a3",
     "src/PhobosShipbreaker/Core/FurnaceBatch.cs": "a9fbc2a1f9be4c6f55dd7159e0202db6292f861f0704df6fb7ffd8dc19578f12",
     "src/PhobosShipbreaker/Core/FurnaceCooling.cs": "4c090e6c28b0cda7b2b646f4619dd9f3e139af9a4098912c590caeb45300842e",
     "src/PhobosShipbreaker/Core/FurnaceCycle.cs": "83781eea3209e816bc401a079409e444f6a07ce387b66c0679d4ff2a83927555",
@@ -17331,11 +17489,12 @@
     "src/PhobosShipbreaker/Core/ReclamationRules.cs": "af67f6bed2bfc0a97e7ffaa9bc00d4a11d589b0c8319d39914471252573b3b32",
     "src/PhobosShipbreaker/Core/RoutingCommand.cs": "5da9f80e3bbe039c2f3dc63f01d7013a72b56f9283af0c979b5198bdc9812afd",
     "src/PhobosShipbreaker/Core/RoutingRules.cs": "e5e1b5c374cc8bfdbdb16338188e7e2763ce2ddc83514fff8c2cc5e49f1818da",
-    "src/PhobosShipbreaker/Core/StorageRules.cs": "9929c533c127f13564b51b8dbccea3ec58a1ba4664f7d02a48acbcb513f672d0",
-    "src/PhobosShipbreaker/CrewProvider.cs": "51b362ec63f4e25d01c6b173f2230e71e365e4096f78ca0308e308f13b2e4c0f",
+    "src/PhobosShipbreaker/Core/StorageRules.cs": "b1c70ebe17c7aedecb2aed74cd4e21626da5a66808e9931c12fa9d1b042e698c",
+    "src/PhobosShipbreaker/CrewProvider.cs": "d7a3e1ef9923e27b2504adb39b7d25f336bcd64265322d292bda416d1903f704",
     "src/PhobosShipbreaker/EconomySaveCompatibility.cs": "a90b282a12f38a0fac5451702717dbad24ed21824f5976914829809919aa50e3",
-    "src/PhobosShipbreaker/EquipmentEconomy.cs": "c94924c65d0d55b1fec63296c3887d2a9ce13cc3a5d9e5177e9ad1fbb9aa8d80",
+    "src/PhobosShipbreaker/EquipmentEconomy.cs": "c190a0bcb3b17dcfce5b2c0081a6c8d1f125bfd250afc23f4b2eeae1d5bef57f",
     "src/PhobosShipbreaker/EquipmentSnapshots.cs": "334bb5d510f43b577c4b8cd7a4f331e48fce6d223ceee100783277229420d3bd",
+    "src/PhobosShipbreaker/FeedIdentity.cs": "16222689ac7b63fb2dd748eee996b46a859195baa39cbb264551ba8d36d6fc2d",
     "src/PhobosShipbreaker/FixturePanel.cs": "52358f984ab7155d5cf1c51699396735b2927f888bebb18b8af20bec9656ce96",
     "src/PhobosShipbreaker/FurnaceConduitDefinitions.cs": "4169a23c2b52c193c28e234020f2200126cfff185754abfb2e9395a979cd516a",
     "src/PhobosShipbreaker/FurnaceConnectionView.cs": "5816832354a947cde9554020c05b442f0c59dfb89b0eb41c2db1bc5e77bc03a5",
@@ -17353,23 +17512,23 @@
     "src/PhobosShipbreaker/IndustryObservations.cs": "a1dd16b7a9e1bd4eeac52b36962bd18188c6a61bcf7dd03ff58e7907b462d9e9",
     "src/PhobosShipbreaker/IndustryService.cs": "f06d1635a350673594a7599fd8e889b32f8c767b840c056e3de4801936919bb8",
     "src/PhobosShipbreaker/IntakeDefinitions.cs": "1fb3e5951a75c75275f746978de885b60a00912fb297b644152079141484e467",
-    "src/PhobosShipbreaker/IntakeService.cs": "286973e24cfe29f0a1eb970fe9fe344ee437b34feda6dcb50c4a07c8e4a61a93",
-    "src/PhobosShipbreaker/MachineDefinitions.cs": "e8ac8cd1ef2cc058f946eaec2f2f45676d309731f64a80cba745d56e49feab92",
+    "src/PhobosShipbreaker/IntakeService.cs": "3f3523b2227f14fdf805a2af992b230cd34bfd75cce8eced8bc21d4b2415781c",
+    "src/PhobosShipbreaker/MachineDefinitions.cs": "f07ede29b385a3d484bc74401bef44ceaab2322752c64e5ba2c123a5cefe86c4",
     "src/PhobosShipbreaker/NativeAdapter.cs": "8320c05ddf6667060af21a98218e4df82015aba7feaeb124623d5eb57428083b",
     "src/PhobosShipbreaker/PanelConfiguration.cs": "c2dab27f2f0fd7762e5ae6f2b873614e64b0616524dbed8697ec2c94e16b8ece",
     "src/PhobosShipbreaker/PerformanceMetrics.cs": "d46727b5bdae9d235719ea4a9e0a76afd2ec63bfd410ebb5f410bb0ee75ebe9a",
-    "src/PhobosShipbreaker/PhobosShipbreaker.csproj": "264da990f0d608cfc1fff92474a02ced77bccabd9bcd22da9a1bb14c21b4c77c",
+    "src/PhobosShipbreaker/PhobosShipbreaker.csproj": "8269080b9bd5b6fa687db70aa61f0dae7c156a41725b67d70da2808181841bd4",
     "src/PhobosShipbreaker/PlaceholderLoadRepair.cs": "8fdf6627ae35cd6d6c281a92a728e588f516ba7e4138e7204cc5c69549db44c4",
-    "src/PhobosShipbreaker/Plugin.cs": "3cd83a23b918f24931ee5d061eee73b68382ed4d46a508d05fbb42042b73076c",
+    "src/PhobosShipbreaker/Plugin.cs": "8d02fba6a9d4a7e2eead00b83d005aa7deaa0e1e98290e7e1c9f99d797e92376",
     "src/PhobosShipbreaker/ProcessingCommands.cs": "5c0a603a4e2ae406bc94d5fcf0d30bb01b40512f57e474ab9ef5f2ab470a7320",
-    "src/PhobosShipbreaker/ProcessingService.cs": "40aabefb3435f59f8adf23a29ebcae4eaaf10e54b2342effe5787f51c97d1655",
-    "src/PhobosShipbreaker/ReclaimerDefinitions.cs": "a56fa6440c3c3eec6ec4856ff47fdcbba43bffa50faeb92b8ecd5a28157514b2",
+    "src/PhobosShipbreaker/ProcessingService.cs": "263fc61ae430a6a69ef0ff73984a1d4e357c2ec7afbdebd9165557f4e367c1e5",
+    "src/PhobosShipbreaker/ReclaimerDefinitions.cs": "c4e666e2b376368cda9ebaf23f0353b896cb63951d075e65e2f481a87e69df09",
     "src/PhobosShipbreaker/ReclaimerHeat.cs": "ed84f005c78f85b63096c253a115cfce6d79b2f4df2fd94fe532ebcf8e7939b7",
     "src/PhobosShipbreaker/ReclaimerPanel.cs": "2da77d38e57c7e8be13e287809fa87b7a6025fe6b3b84ac7d695798e13d2a6a1",
     "src/PhobosShipbreaker/ReclamationGeometry.cs": "f557a827757fb5620002870132d3c133899f6325990dfdd1a2d41068cb4621ee",
     "src/PhobosShipbreaker/ReclamationPower.cs": "39c03c78a1d5c91d739e7a9c85aabe7c4e1dc167ce3fe39bf73d22fb730c7ca0",
     "src/PhobosShipbreaker/ReclamationService.cs": "63a9e8492c036f5615c50037131dc7ed703790207b4618f63b81ae0edef7956c",
-    "src/PhobosShipbreaker/RegionalEconomy.cs": "65a3a64472eae389cf90a5a986d7717ef6e7f0eddbdf17258cebab8a2e36c26f",
+    "src/PhobosShipbreaker/RegionalEconomy.cs": "e485ad0a926f1696f14dec7a32928784d26c6ad0b22877e15e120506d9feda84",
     "src/PhobosShipbreaker/RoutingCommands.cs": "ecde751bfd3823538dc7e39636520b4474a0d491abc3b3cb4021c820c6cf8810",
     "src/PhobosShipbreaker/Settings.cs": "c3d1ba974f74389895ca3c4f6a19c7be0abd6aeace45e5fe5cb6030139d422b8",
     "src/PhobosShipbreaker/StockQuantities.cs": "e9cd2d30faab8c157f1ed6bb5a2e270d016f07bf517eec7e3e3a96a6dce45548",
@@ -17379,11 +17538,11 @@
     "src/PhobosShipbreaker/WallIdentity.cs": "acca69e2d34c7969088f4b50fa0d92d67304676368646de1a6b69c12bf8548dc",
     "tests/PhobosNative.Tests/EquipmentValueAudit.cs": "cca95052803934b6ac8af32979f066ca064942ca79ac87e4ec94b8b183815cac",
     "tests/PhobosNative.Tests/ItemReferenceExport.cs": "6e9782572ccccd57da850c5df71e0a6fa3c9725ec027d3d65148f23b9a73fe87",
-    "tests/PhobosNative.Tests/Program.cs": "508f87f6d8f889caf81c419db8503084fb16df83c03855db22ec07122af1b7ed",
+    "tests/PhobosNative.Tests/Program.cs": "334dc4fb8466427370d75ec3e52eb3c99d8fae0b2592f099c8aa73f8867e849e",
     "translations/PhobosAgriculture/en.json": "b0ba0b713683069a28481b7efbadc2ddd2a2da35dded32576e45eb0ddee734cf",
     "translations/PhobosAutoNav/en.json": "bc4ecbfe73fa4941720406ddc4124bb9a1f5d2f6a15c636d22853c9f2a542699",
     "translations/PhobosFramework/en.json": "13d9de3215a813663584b47c39ada494c5c46b7aec0632b10ed090916b389030",
     "translations/PhobosManufacturing/en.json": "3b3f3aa7f3c8c1124e6452335a634cf6e591dbe99021b2ec24bc61ae5b0524c0",
-    "translations/PhobosShipbreaker/en.json": "fbc0d5893f50464d0362eb63dc3b876f1f62882dfec7dcfbf7e0a48ea1c6ec71"
+    "translations/PhobosShipbreaker/en.json": "ec356073d01fa1558dd4e2b6de35a6d7c06f3c1956fe6a0fd538996d5c50a711"
   }
 }

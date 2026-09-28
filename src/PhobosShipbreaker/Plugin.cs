@@ -16,7 +16,7 @@ namespace PhobosShipbreaker;
 public sealed class Plugin : BaseUnityPlugin
 {
     public const string Id = "phobosgekko.ostranauts.shipbreaker";
-    public const string Version = "0.35.0";
+    public const string Version = "0.36.0";
     internal static ProcessingService Service { get; private set; } = null!;
     internal static Action<string> Log { get; private set; } = null!;
     internal static Settings Options { get; private set; } = null!;
@@ -188,14 +188,15 @@ internal static class FeedPatch
     }
 }
 
-// Native aluminium normally auto-stacks on insertion. Captive batches require
-// individual persistent identities, so disable stacking only across this bin.
+// Native items normally auto-stack on insertion (aluminium, floor grates, Whipple panels). Feed bins hold
+// individual units with their own saved job state, so disable stacking only across the three feed bins.
 [HarmonyPatch(typeof(CondOwner), nameof(CondOwner.CanStackOnItem))]
 internal static class FurnaceFeedStackPatch
 {
+    private static bool FeedBin(string? id) => id == Core.FurnaceRules.Feed || id == Content.InputBin || id == Core.ReclaimerRules.InputBin;
     private static void Postfix(CondOwner __instance, CondOwner objIncoming, ref int __result)
     {
-        if (__instance.objCOParent?.strCODef == Core.FurnaceRules.Feed || objIncoming?.objCOParent?.strCODef == Core.FurnaceRules.Feed) __result = 0;
+        if (FeedBin(__instance.objCOParent?.strCODef) || FeedBin(objIncoming?.objCOParent?.strCODef)) __result = 0;
     }
 }
 

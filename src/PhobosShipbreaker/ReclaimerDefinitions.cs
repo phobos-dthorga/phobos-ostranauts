@@ -61,7 +61,7 @@ internal static class ReclaimerDefinitions
         d.Triggers[ReclaimerRules.SectionTrigger] = new CondTrigger { strName = ReclaimerRules.SectionTrigger, fChance = 1, fCount = 1, bAND = true,
             aReqs = new[] { ReclaimerRules.SectionCondition }, aForbids = Array.Empty<string>(), aTriggers = Array.Empty<string>() };
     }
-    private static void Packet(NativeDefinitions d, string id, double kg, string name, string description, string? condition)
+    internal static void Packet(NativeDefinitions d, string id, double kg, string name, string description, string? condition)
     {
         var co = NativeDefinitions.Clone(d.Objects[ProcessRules.Residue]);
         var item = NativeDefinitions.Clone(d.Items[ProcessRules.Residue]);

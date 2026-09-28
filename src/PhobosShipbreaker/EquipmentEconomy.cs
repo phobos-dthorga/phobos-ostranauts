@@ -77,6 +77,11 @@ internal static class EquipmentEconomy
         MaintenanceDefinitions.SetStat(d.Objects[ProcessRules.Residue], "StatBasePrice", .01);
         EquipmentSaveUpgrade.Register(d, section.strName, section.strName);
         EquipmentSaveUpgrade.Register(d, ProcessRules.Residue, ProcessRules.Residue);
+        foreach (string reject in FeedFamilies.RejectKg.Keys)
+        {
+            MaintenanceDefinitions.SetStat(d.Objects[reject], "StatBasePrice", .01);
+            EquipmentSaveUpgrade.Register(d, reject, reject);
+        }
         var reclaimSection = d.Objects[ReclaimerRules.Section];
         reclaimSection.aStartingConds = reclaimSection.aStartingConds.Concat(new[] { "IsCategoryIndustrialProducts=1x1", "IsSalvageValueHigh=1x1" }).ToArray();
         MaintenanceDefinitions.SetStat(reclaimSection, "StatBasePrice", 6000);

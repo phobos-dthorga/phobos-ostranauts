@@ -25,6 +25,22 @@ Dates on Draft entries record preparation, not Steam publication.
 - Earlier capture-only research is superseded for supported ordinary walls by the 0.24.0 reclamation implementation below. Broader structural recipes, repeated furnace batches and whole-wreck completion remain outside this round.
 - Keep [NASA Goddard's Raven research](https://www.nasa.gov/general/nasas-hybrid-computer-enables-ravens-autonomous-rendezvous-capability/) and [ESA's LIRIS experiment by Airbus, Jena Optronik and Sodern](https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/ATV/ATV_views_Space_Station_as_never_before) as sensing context, separate from Blue Bottle Games native evidence and authored gameplay choices. No institutional endorsement or gameplay validation is implied.
 
+## [0.36.0] - 2026-09-29 - Draft
+
+### Added
+
+- Feed families: the D4 takes the game's other structural parts by hand, crew order or grabber: floor grates of any make (3 to 13 kg, in half kilograms), DuraWal interior walls, window panels, Whipple shielding panels and aerodynamic panels. Each family has a declared, mass-conserving budget: native steel, aluminium, plastic and mechanical parts plus one terminal reject packet (floor grate 1 kg units that stack to ten, DuraWal 9.6 kg, window 6 kg, Whipple 1.5 kg, aero panel 2.1 kg) priced at the technical minimum and never re-processed. Ordinary walls keep their revision-2 products exactly.
+- The feed bin admits any wall or floor grate at the game level, the same conditions the game's scrap kiosks buy by. Doors, hatches, docking systems, the turbine lifter, conduit, furniture and machinery are refused with the reason, as are floor makes the game weighs at nothing or between half kilograms.
+- The grabber moves every accepted family; rejects leave through the D4 storage output or by hand.
+
+### Changed
+
+- Feed bins refuse merging stacks (floor grates and Whipple panels stack natively), so each unit keeps its own saved job, as the F6 charge bin already did.
+
+### Compatibility and limits
+
+- Requires Framework 0.38.0. Saved wall jobs and their revisions are unchanged. Dismantling every accepted make loses value against selling it whole, audited against live game data. Heavy parts (doors, hatches, airlocks, furniture, machinery) wait for stacked product delivery; the C2 collector does not take the new rejects yet. Offline checks pass; owner play-testing is pending. Budgets and reasons: docs/development/feed-families.md.
+
 ## [0.35.0] - 2026-09-29 - Draft
 
 ### Added

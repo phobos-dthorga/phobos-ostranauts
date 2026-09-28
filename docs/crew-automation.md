@@ -82,7 +82,7 @@ and full destinations leave the work pending.
 | Hearth-2 | Bring raw potatoes, start cooking and store portions |
 | Groundwork B2 | Bring characterized residue or concentrate/makeup, prepare the selected workup, start it and store physical products/rejects |
 | W2 | Finite stock replenishment, configured route operation, recorded-drainage recovery and its cartridge supply; existing route and solution settings remain authoritative |
-| D4 / R4 | Supply valid loose feed (any of the game's ordinary wall makes for the D4), start one checked batch and clear physical products to the approved store; Load feed by crew is the right-click shortcut |
+| D4 / R4 | Supply valid loose feed (for the D4: ordinary walls of any make, floor grates, DuraWal, Whipple and aero panels, windows), start one checked batch and clear physical products to the approved store; Load feed by crew is the right-click shortcut |
 | C2 collector | Enable its existing configured collection route and clear accepted cargo |
 | F6 | Supply exact aluminium units, replenish an already enabled managed coolant circuit, and perform an explicitly permitted seal/run/equalize/release sequence. While the furnace's own [repeat run](furnace-player-guide.md#repeat-batches) is on, crew keep supplying and clearing but leave the hot steps to it |
 | G4 | Prepare and launch/resume the existing exact reclamation mission through its recorded capture, equipment and Auto Nav bindings |

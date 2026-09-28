@@ -51,5 +51,7 @@ internal static class RegionalEconomy
         // Packaged working fluid is an industrial consumable, never potable water.
         MaintenanceDefinitions.SetStat(d.Objects[FurnaceService.CoolantStock], "IsCategoryIndustrialProducts", 1);
         MaintenanceDefinitions.SetStat(d.Objects[FurnaceService.CoolantWaste], "IsCategoryTrash", 1);
+        // Terminal feed-family rejects are waste, never stock.
+        foreach (string reject in FeedFamilies.RejectKg.Keys) MaintenanceDefinitions.SetStat(d.Objects[reject], "IsCategoryTrash", 1);
     }
 }

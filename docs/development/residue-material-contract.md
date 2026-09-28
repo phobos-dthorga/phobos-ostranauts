@@ -62,6 +62,9 @@ no recipe and are refused at the feed.
 
 These remain authored budgets, not assays of the game's cosmetic materials;
 the reclaimer's 13 kg packet and its 3 + 1 + 9 kg outputs are unchanged.
+The other structural part families (floor grates, DuraWal, Whipple and aero
+panels, windows) have their own budgets and terminal rejects and never produce
+the 13 kg packet; see [feed families](feed-families.md) (Shipbreaker 0.36.0).
 
 ## Finite destinations
 

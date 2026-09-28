@@ -107,6 +107,7 @@ prepared.Publish();
 ProcessingSaveChecks.Run(Check, Throws);
 ReclaimerNativeChecks.Run(prepared, Check);
 HandFeedNativeChecks.Run(prepared, Check);
+FeedFamilyNativeChecks.Run(prepared, Check);
 IndustrialNativeChecks.Run(prepared, repo, Check);
 ObservationNativeChecks.Run(Check);
 FurnaceCoolingNativeChecks.Run(prepared, repo, Check);
@@ -120,7 +121,8 @@ Check(!DataHandler.dictCTs["TIsFitContainerSolid"].TriggeredDataCO(wallData, fal
 Check(feedTrigger.TriggeredDataCO(wallData, false), "Feed accepts native ordinary loose wall despite cumbersome flag");
 var floorDefinitions = DataHandler.dictCOs.Values.Where(x => x.strName.StartsWith("ItmFloor", StringComparison.Ordinal) &&
     x.strName.EndsWith("Loose", StringComparison.Ordinal)).ToArray();
-Check(floorDefinitions.Length > 0 && floorDefinitions.All(x => !feedTrigger.TriggeredDataCO(new DataCO(x), false)), "Native loose floors are not panel-feed inputs");
+Check(floorDefinitions.Length > 0 && floorDefinitions.All(x => feedTrigger.TriggeredDataCO(new DataCO(x), false) == new DataCO(x).HasCond("IsFloorGrate")),
+    "Native loose floor grates enter the part feed at the game level; other loose floors (the turbine lifter) do not");
 foreach (string forbidden in new[] { "IsInstalled", "IsOversized" })
 {
     var modifiedWall = new JsonCondOwner { aStartingConds = DataHandler.dictCOs[ProcessRules.Wall].aStartingConds.Concat(new[] { forbidden + "=1.0x1" }).ToArray() };
@@ -129,7 +131,7 @@ foreach (string forbidden in new[] { "IsInstalled", "IsOversized" })
 Check(!feedTrigger.TriggeredDataCO(new DataCO(DataHandler.dictCOs[Content.Loose]), false), "Cumbersome machinery cannot enter the wall feed");
 foreach (var machine in prepared.Objects.Values.Where(x => Content.IsMachine(x.strName)))
     Check(!machine.dictSlotsLayout.ContainsKey(Content.InputSlot), "Native feed window retains its title on " + machine.strName);
-Check(prepared.Objects.Count == 56 && prepared.Installables.Count == 126, $"Nine machine families, coolant conduit, charge chamber and preserved/new material identities ({prepared.Objects.Count} objects, {prepared.Installables.Count} actions)");
+Check(prepared.Objects.Count == 61 && prepared.Installables.Count == 126, $"Nine machine families, coolant conduit, charge chamber, preserved/new material identities and five feed-family rejects ({prepared.Objects.Count} objects, {prepared.Installables.Count} actions)");
 var furnaceItem = prepared.Items[FurnaceRules.Prefix + "Installed"];
 var furnaceFeed = DataHandler.dictCTs[prepared.Objects[FurnaceRules.Feed].strContainerCT];
 Check(furnaceItem.nCols == 6 && furnaceItem.aSocketAdds.Length == 36 && furnaceItem.aSocketReqs.Length == 64, "F6 occupies six by six native tiles");

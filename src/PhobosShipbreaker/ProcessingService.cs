@@ -33,10 +33,11 @@ internal sealed partial class ProcessingService
     internal static bool IsProcessor(string? id) => Content.IsMachine(id) || ReclaimerRules.IsFamily(id);
     internal static bool IsReclaimer(CondOwner machine) => ReclaimerRules.IsFamily(machine.strCODef);
     internal static bool IsInstalledProcessor(CondOwner machine) => machine.strCODef == Content.Installed || machine.strCODef == ReclaimerRules.Installed;
-    private static bool AcceptsInput(CondOwner machine, string? definition) => IsReclaimer(machine) ? definition == ReclaimerRules.Feedstock : WallIdentity.IsLooseOrdinary(definition);
-    /// <summary>The identity family for products and labels; a wall's own catalog depends on its mass.</summary>
+    private static bool AcceptsInput(CondOwner machine, string? definition) => IsReclaimer(machine) ? definition == ReclaimerRules.Feedstock : FeedIdentity.Family(definition) != null;
+    /// <summary>The reference catalog for labels; a part's own catalog depends on its feed family and mass.</summary>
     private static ProcessRecipeCatalog Recipes(CondOwner machine) => IsReclaimer(machine) ? ReclaimerRules.Recipes : ProcessRecipes.WallPanels;
-    private static ProcessRecipeCatalog Recipes(CondOwner machine, CondOwner input) => IsReclaimer(machine) ? ReclaimerRules.Recipes : ProcessRecipes.ForWallMass(input.GetTotalMass());
+    private static ProcessRecipeCatalog Recipes(CondOwner machine, CondOwner input) => IsReclaimer(machine) ? ReclaimerRules.Recipes :
+        (FeedIdentity.Family(input) ?? throw new ArgumentException(FeedIdentity.Problem(input))).Catalog(input.GetTotalMass());
     private double Cycle(CondOwner machine) => IsReclaimer(machine) ? options.ReclaimerSeconds : options.CycleSeconds;
     internal static CondOwner? Feed(CondOwner machine) => machine.compSlots?
         .GetCOs(IsReclaimer(machine) ? ReclaimerRules.InputSlot : Content.InputSlot, true, null)?
@@ -45,30 +46,24 @@ internal sealed partial class ProcessingService
         input.strCODef == id && !input.HasCond("IsInstalled") && input.coStackHead == null &&
         (input.aStack == null || input.aStack.Count == 0) && input.GetCOsSafe(true).Count == 0 &&
         ProcessRules.MassMatches(input.GetTotalMass(), kg);
-    /// <summary>Any of the game's ordinary walls (base identity, its own whole-kilogram mass), detached, single and empty.</summary>
+    /// <summary>Any of the game's ordinary walls (base identity, its own whole-kilogram mass), detached, single and empty:
+    /// the G4 cutter's and the capture mission's rule. The D4 feed itself takes every feed family (FeedIdentity).</summary>
     internal static bool ValidPanel(CondOwner? input) => WallIdentity.OrdinaryLooseWall(input);
     internal static bool ValidInput(CondOwner machine, CondOwner? input) => IsReclaimer(machine) ?
-        ValidInput(input, ReclaimerRules.Feedstock, ReclaimerRules.InputKg) : ValidPanel(input);
+        ValidInput(input, ReclaimerRules.Feedstock, ReclaimerRules.InputKg) : FeedIdentity.ValidFeed(input);
     /// <summary>Crew admission of one unit before it is detached, or the live rule for a placed item.</summary>
-    internal static bool UnitFeed(bool reclaimer, CondOwner input) => Phobos.Ostranauts.Framework.Crew.CrewLogistics.Loose(input) && (reclaimer ?
-        input.strCODef == ReclaimerRules.Feedstock && ProcessRules.MassMatches(input.GetCondAmount("StatMass"), ReclaimerRules.InputKg) :
-        WallIdentity.IsLooseOrdinary(input.strCODef) && ProcessRules.AcceptedWallKg(input.GetCondAmount("StatMass")));
+    internal static bool UnitFeed(bool reclaimer, CondOwner input) => reclaimer ?
+        Phobos.Ostranauts.Framework.Crew.CrewLogistics.Loose(input) && input.strCODef == ReclaimerRules.Feedstock && ProcessRules.MassMatches(input.GetCondAmount("StatMass"), ReclaimerRules.InputKg) :
+        FeedIdentity.UnitFeed(input);
     internal static bool CanFeed(CondOwner bin, CondOwner input)
     {
         bool reclaimer = bin.strCODef == ReclaimerRules.InputBin;
         bool accepted = Phobos.Ostranauts.Framework.Crew.CrewLogistics.IsUnitPreflight(input) ? UnitFeed(reclaimer, input) :
-            reclaimer ? ValidInput(input, ReclaimerRules.Feedstock, ReclaimerRules.InputKg) : ValidPanel(input);
+            reclaimer ? ValidInput(input, ReclaimerRules.Feedstock, ReclaimerRules.InputKg) : FeedIdentity.ValidFeed(input);
         return accepted && bin.objContainer != null && (bin.objContainer.ContainedCOs.Contains(input) || bin.objContainer.ContainedCOs.Count < ProcessRules.FeedCapacity);
     }
 
-    private static string PanelProblem(CondOwner panel)
-    {
-        if (!WallIdentity.IsLooseOrdinary(panel.strCODef)) return Text.Get("ProcessingService.is_not_a_supported_ordinary_wall", panel.strNameFriendly, panel.strCODef);
-        if (panel.HasCond("IsInstalled")) return Text.Get("ProcessingService.detach_the_wall_first");
-        if (panel.coStackHead != null || panel.aStack.Count != 0) return Text.Get("ProcessingService.separate_the_wall_stack_first");
-        if (panel.GetCOsSafe(true).Count != 0) return Text.Get("ProcessingService.remove_anything_attached_to_or_stored_in");
-        return Text.Get("ProcessingService.expected_a_kg_wall_actual_mass_is", panel.GetTotalMass(), ProcessRules.MinimumWallKg, ProcessRules.MaximumWallKg);
-    }
+    private static string PanelProblem(CondOwner panel) => FeedIdentity.Problem(panel);
 
     internal static string? MachineProblem(CondOwner machine)
     {

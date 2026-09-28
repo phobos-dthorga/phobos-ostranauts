@@ -14,7 +14,7 @@ internal static class MachineDefinitions
     {
         var d = new NativeDefinitions();
         AddFamily(d, P);
-        AddFeed(d);
+        AddFeed(d, P, "IsWall1x1", FeedFamilyConditions);
         return d;
     }
 
@@ -63,13 +63,24 @@ internal static class MachineDefinitions
         }
     }
 
-    internal static void AddFeed(NativeDefinitions d, string P = "PhobosShipbreaker", string feedCondition = "IsWall1x1")
+    // The D4 feed admits the game's structural part families at the game level (any wall, any floor grate: the
+    // same conditions the game's scrap kiosks buy by); FeedPatch then applies the feed families' own rule.
+    // IsCategoryHull is not used: it would admit doors, hatches, docking systems and the turbine lifter.
+    internal static readonly string[] FeedFamilyConditions = { "IsWall", "IsFloorGrate" };
+    internal static void AddFeed(NativeDefinitions d, string P = "PhobosShipbreaker", string feedCondition = "IsWall1x1", string[]? familyConditions = null)
     {
         // Native ordinary walls are cumbersome. Keep native containment exclusions,
-        // then narrow acceptance to wall panels; FeedPatch enforces identity/mass/count.
+        // then narrow acceptance to the feed's parts; FeedPatch enforces identity/mass/count.
+        var triggers = new List<string> { "TIsFitContainerSolidCumbersome" };
+        if (familyConditions != null)
+        {
+            d.Triggers.Add(P + "TFeedFamily", new CondTrigger { strName = P + "TFeedFamily", fChance = 1, fCount = 1,
+                bAND = false, aReqs = familyConditions.ToArray(), aForbids = Array.Empty<string>(), aTriggers = Array.Empty<string>() });
+            triggers.Add(P + "TFeedFamily");
+        }
         d.Triggers.Add(P + "TFeed", new CondTrigger { strName = P + "TFeed", fChance = 1, fCount = 1,
-            bAND = true, aReqs = new[] { feedCondition }, aForbids = Array.Empty<string>(),
-            aTriggers = new[] { "TIsFitContainerSolidCumbersome" } });
+            bAND = true, aReqs = familyConditions != null ? Array.Empty<string>() : new[] { feedCondition }, aForbids = Array.Empty<string>(),
+            aTriggers = triggers.ToArray() });
         d.Objects.Add(P + "InputBin", new JsonCondOwner { strName = P + "InputBin", strNameFriendly = Text.Get("MachineDefinitions.wall_panel_feed"),
             strNameShort = Text.Get("MachineDefinitions.wall_panel_feed"), strType = "Item", strItemDef = "Blank", strPortraitImg = "blank",
             strContainerCT = P + "TFeed", nStackLimit = 1, bSlotLocked = true,
