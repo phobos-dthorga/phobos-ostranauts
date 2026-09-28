@@ -1,6 +1,6 @@
 # Installing and updating our mods
 
-Current prepared Shipbreaker requires Auto Nav 0.19.0 and Framework 0.31.0.
+Current prepared Shipbreaker requires Auto Nav 0.19.0 and Framework 0.32.0.
 Current prepared Agriculture requires Framework 0.31.0 for shared crew work and controls.
 Current dependency minima come from `config/mod-dependency-minimums.json`,
 maintained with the constants updater and runtime requirements. Historical package

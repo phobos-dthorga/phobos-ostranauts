@@ -777,3 +777,21 @@ explicitly selected definitions. `Registration.MaintenanceInformation.Register`
 adds shared cargo/lot/stack guidance and an optional content-owned blocker reader.
 Neither authorizes work. Content services retain current-state validation. See
 [section assembly and maintenance](../section-assembly-and-maintenance.md).
+
+### Framework 0.32.0: opt-in construction appearance
+
+After `SectionAssembly.Add`, call `SectionAssembly.SetAppearance(jobId,
+new SectionAssemblyAppearance(earlyImage, intermediateImage, nativeSize))`.
+Paths omit the extension; each colour has a companion `Normal` image. Content owns
+the images and native size. Existing callers remain unchanged.
+
+Only registered section markers receive a view. Early artwork remains until the
+complete, distinct, valid lot is present and finite native work is positive.
+Intermediate remains even at the work limit: only native completion creates the
+finished machine. No visual state is serialized or used to authorize actions.
+The view checks at most ten times per real second per site, clones that marker's
+material once, preserves native property blocks/geometry and changes textures
+only when needed. Disable/destruction releases the clone; changed or foreign
+markers restore their original material. Texture failures log once per image per
+registration and fall back. No global site scan, movement hook or per-frame log
+is added. Unity appearance remains owner-tested.

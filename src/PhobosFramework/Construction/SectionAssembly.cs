@@ -15,6 +15,43 @@ public static class SectionAssembly
         internal string Section = "", Output = "", Selector = "";
         internal int Count;
         internal double Mass, Progress;
+        internal SectionAssemblyAppearance? Appearance;
+    }
+
+    /// <summary>Opt-in marker artwork only; neither stage grants construction permission.</summary>
+    public static void SetAppearance(string jobId, SectionAssemblyAppearance appearance)
+    {
+        if (!Jobs.TryGetValue(jobId, out var contract)) throw new ArgumentException("Unknown section assembly: " + jobId);
+        contract.Appearance = appearance ?? throw new ArgumentNullException(nameof(appearance));
+    }
+
+    internal static bool TryAppearance(Placeholder marker, out SectionAssemblyAppearance? appearance, out bool intermediate)
+    {
+        appearance = null;
+        intermediate = false;
+        if (marker == null || marker.strInstallIA == null || !marker.strInstallIA.StartsWith("ACT", StringComparison.Ordinal) ||
+            !Jobs.TryGetValue(marker.strInstallIA.Substring(3), out var contract) ||
+            marker.strInstalledCO != contract.Output || contract.Appearance == null) return false;
+        var site = marker.GetComponent<CondOwner>();
+        if (site == null || site.bDestroyed || site.Item == null || !site.Item.bPlaceholder) return false;
+        appearance = contract.Appearance;
+        // The native lot and work conditions survive reload. Do not save a parallel visual state.
+        double progress = site.GetCondAmount("StatInstallProgress");
+        intermediate = progress > 0 && !double.IsNaN(progress) && !double.IsInfinity(progress) && HasCompleteBill(contract, site);
+        return true;
+    }
+
+    private static bool HasCompleteBill(Contract contract, CondOwner site)
+    {
+        var parts = site.GetLotCOs(false);
+        if (parts.Count != contract.Count) return false;
+        for (int i = 0; i < parts.Count; i++)
+        {
+            var part = parts[i];
+            if (part == null || part.objCOParent != site || !ValidUnit(contract, part)) return false;
+            for (int j = 0; j < i; j++) if (ReferenceEquals(parts[j], part)) return false;
+        }
+        return site.GetCOsSafe(true).Count == 0;
     }
     private static readonly Dictionary<string, Contract> Jobs = new(StringComparer.Ordinal);
     private static readonly Dictionary<string, Contract> Selectors = new(StringComparer.Ordinal);
@@ -82,7 +119,10 @@ public static class SectionAssembly
         if (placeholder == null || placeholder.strInstallIA == null || !placeholder.strInstallIA.StartsWith("ACT", StringComparison.Ordinal) ||
             !Jobs.TryGetValue(placeholder.strInstallIA.Substring(3), out var c)) return;
         // An old section may have no install-max condition. Change only its new native placeholder.
-        placeholder.GetComponent<CondOwner>().SetCondAmount("StatInstallProgressMax", c.Progress);
+        var site = placeholder.GetComponent<CondOwner>();
+        if (site == null) return;
+        site.SetCondAmount("StatInstallProgressMax", c.Progress);
+        if (c.Appearance != null) SectionAssemblyView.Attach(placeholder);
     }
     internal static bool Finish(Interaction action, bool cancelled)
     {
@@ -93,9 +133,7 @@ public static class SectionAssembly
             if (site == null || site.bDestroyed || site.ship == null || (int)site.ship.LoadState < 2) return false;
             var marker = site.GetComponent<Placeholder>();
             if (marker == null || marker.strInstalledCO != c.Output || marker.strInstallIA != "ACT" + action.strName.Substring(2)) return false;
-            var lot = site.GetLotCOs(false);
-            return lot.Count == c.Count && lot.Distinct().Count() == c.Count &&
-                lot.All(item => item.objCOParent == site && ValidUnit(c, item)) && site.GetCOsSafe(true).Count == 0;
+            return HasCompleteBill(c, site);
         });
     }
     internal static void ResetInteraction(Interaction action) => finishes.Remove(action);

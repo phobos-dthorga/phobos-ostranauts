@@ -198,7 +198,7 @@ foreach (var definition in prepared.Installables.Values)
         Check(DataHandler.dictCOs[definition.strActionCO].aUpdateCommands.Any(x => x.StartsWith("Destructable," + definition.strProgressStat + ",MS" + definition.strName + ",")), "Progress switches use native save-compatible identities");
     }
 }
-AssemblyNativeChecks.Run(prepared, Check);
+AssemblyNativeChecks.Run(prepared, repo, Check);
 FrameworkLifecycle.Begin();
 var filePath = Path.Combine(repo, "mods/PhobosShipbreaker/framework/recipes.json");
 var frameworkText = Phobos.Ostranauts.Framework.Localization.Translations.Register(FrameworkInfo.PluginId,

@@ -1,16 +1,8 @@
 # Section assembly and maintenance
 
-Prepared for Framework 0.31.0, Shipbreaker 0.31.0 and Agriculture 0.16.1.
-These changes have offline checks; native hauling, menus and inventory handling
-still need owner playtesting. Manufacturing remains held and uninstalled.
-
-Framework 0.31.1 corrects the owner's reported null-key exception in the new
-section filter. Native inline conditions can have no name: the filter now leaves
-those checks unchanged, including a native refusal. The information-action hook
-also ignores unnamed interactions. The exact exception was reproduced offline;
-null, empty and unrelated names now pass regression checks through the compiled
-hooks. Assembly bills, saves and gameplay requirements are unchanged. Live Unity
-confirmation remains pending.
+Build the D4, R4 and F6 where they will operate, using separate matching sections.
+For current versions and dependencies, see the [player guide](player-guide.md).
+Manufacturing remains held and uninstalled.
 
 ## Assemble where the machine will operate
 
@@ -36,6 +28,19 @@ heavy sections one at a time using the drag slot.
 4. Once installed, connect power and any required supporting equipment, then
    open **Control Panel**. Dismantling a section produces salvage; it does not
    assemble the machine.
+
+The placed construction site now shows an unfinished frame while parts arrive.
+Once all matching sections are present and work starts, it shows the open,
+partly assembled machine. The finished form appears only when construction
+completes. Pausing work keeps the current stage; removing a required part returns
+the site to its early appearance. A complete-looking work counter alone cannot
+finish a machine without its parts.
+
+The appearance is reconstructed from delivered parts and saved work on reload.
+The placement cursor still uses the native finished-machine outline so you can
+check its footprint. Complete loose-machine installation and older table jobs
+keep their existing appearance. Missing image files fall back to the native
+marker; artwork never changes what parts or tools the job requires.
 
 A complete loose machine keeps its ordinary direct **Install** action. Damaged
 machinery keeps its existing placement and repair path. Final assembly uses the
@@ -106,7 +111,23 @@ Framework owns the reusable section contract, completion guard and read-only
 information panel. Shipbreaker owns section quantities, native work budgets and
 cooling recovery. Agriculture owns its removal explanations. The historical
 table integration retains its attribution to [Ostranauts Crafting Framework](../mods/PhobosFramework/licenses/CraftingFramework-MIT.md).
-No new artwork, industrial process, merchant refresh or save schema is introduced.
+The original assembly update introduced no new artwork. The construction-appearance
+follow-up uses four original PixelLab variants with retained Phobos frames; see
+the [artwork record](../assets/construction-stages/README.md). It adds no industrial
+process, merchant refresh or save schema. The earlier null-key filter fix remains
+in place; unnamed native conditions still keep their original result.
+
+## Owner visual check
+
+The owner previously completed an R4 assembly successfully. That observation
+predates these explicit appearance stages. Offline checks do not establish the
+new Unity appearance or lighting.
+
+- Place a D4, R4 or F6 construction site, rotate it and check its early frame.
+- Deliver the full section bill and start work; check the intermediate stage.
+- Save/reload partway through, then pause/resume work and finish the machine.
+- Cancel another partial site and check that delivered parts return normally.
+- Check selection highlighting and that neighbouring finished machines look unchanged.
 
 Offline coverage includes real native action generation, input/output and tool
 contracts, menu selection, foreign-entry preservation, rejection of new cooling

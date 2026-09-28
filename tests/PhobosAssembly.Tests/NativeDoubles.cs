@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 public class Ship { public int LoadState=2; }
 public class CondOwner {
+ public Item? Item; private UnityEngine.GameObject go=new();
+ public UnityEngine.GameObject gameObject {get {go.owner=this;return go;}}
  public string strCODef="", strID="",strPersistentCO="";public bool bDestroyed;
  public Ship? ship=new();public CondOwner? objCOParent,coStackHead;public Container? objContainer;
  public List<CondOwner> aStack=new(),lot=new(),children=new();public Placeholder? marker;public Interaction? active;
@@ -20,7 +22,8 @@ public class CondOwner {
  public void LogMessage(string msg,string kind,string id){}
 }
 public class Container { public CondOwner CO;public List<CondOwner> ContainedCOs=new();public Container(CondOwner co){CO=co;co.objContainer=this;} public bool AllowedCO(CondOwner coIn)=>false; }
-public class Placeholder { public string strInstallIA="",strInstalledCO="";public CondOwner owner=null!;public T GetComponent<T>() where T:class=> (owner as T)!; }
+public class Placeholder { public string strInstallIA="",strInstalledCO="";public CondOwner owner=null!;public UnityEngine.GameObject gameObject=>owner.gameObject;public T? GetComponent<T>() where T:class=>owner as T ?? gameObject.GetComponent<T>(); }
+public class Item { public bool bPlaceholder=true;public UnityEngine.Renderer rend=new(); }
 public class Interaction { public string strName="",strTitle="";public CondOwner objUs=null!,objThem=null!;public void ApplyEffects(bool isCancelIa=false){}public void ResetObject(){} }
 public class CondTrigger { public string strName="";public float fChance,fCount;public bool bAND;public string[] aReqs=Array.Empty<string>(),aForbids=Array.Empty<string>(),aTriggers=Array.Empty<string>();public bool Triggered(CondOwner co,string action,bool stats)=>true; }
 public class JsonCondOwner {public string strName="";public string[] aStartingConds=Array.Empty<string>(),aInteractions=Array.Empty<string>();}
@@ -31,6 +34,8 @@ public class JsonInstallable {
  public string strAllowLootCTsUs="",strAllowLootCTsThem="",strProgressStat="",strCTThemMultCondUs="",strCTThemMultCondTools="";
 }
 public static class DataHandler {
+ public static Dictionary<string,UnityEngine.Texture2D> textures=new(); public static int loads;
+ public static UnityEngine.Texture2D? LoadPNG(string path,bool bNorm){loads++;return textures.TryGetValue(path,out var t)?t:null;}
  public static Dictionary<string,JsonInstallable> dictInstallables=new();public static Dictionary<string,JsonCondOwner> dictCOs=new();public static Dictionary<string,JsonInteraction> dictInteractions=new();public static void GetCOPlaceholder(){}
 }
 public static class Installables {public static Dictionary<string,Dictionary<string,JsonInstallable>> dictJobBuildOptions=new(),dictJobBuildOptionsListed=new();}
@@ -39,6 +44,7 @@ public class InventoryGUI {public CondOwner? opened;public void SpawnInventoryWi
 namespace Ostranauts.Inventory {public enum InventoryWindowType {Container}}
 namespace HarmonyLib {[AttributeUsage(AttributeTargets.Class)]public class HarmonyPatch:Attribute {public HarmonyPatch(Type t,string name){} public HarmonyPatch(Type t,string name,Type[] args){}}}
 namespace Phobos.Ostranauts.Framework {
+ public static class FrameworkLifecycle {internal static Action<string> Log=_=>{};}
  internal static class Text {internal static string Get(string key,params object[] args)=>key;}
  public static class Units {public const double MassToleranceKg=.000001;}
 }

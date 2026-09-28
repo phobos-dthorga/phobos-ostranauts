@@ -14,6 +14,29 @@ is now retained with registered exports and provenance. This closes the proposed
 new-image requirement, not the missing code binding described below. No runtime
 construction policy or installed package changed; Unity review remains pending.
 
+**Code follow-up, Framework/Shipbreaker 0.32.0:** the binding described by this
+audit is now implemented. The sections below retain the pre-fix evidence.
+`SectionAssembly.SetAppearance` opts the three jobs into early/intermediate
+images. Native completion alone supplies the finished machine. The view derives
+its stage from the exact valid delivered lot and positive finite native work,
+restores native materials on disable/destruction or marker replacement, and has
+no saved appearance state. Whole loose-machine installation is excluded.
+
+Fresh inspection of **Blue Bottle Games' installed assembly** confirmed that
+`DataHandler.GetMaterial` caches by image keys, while `Item.SetAlt` uses that cache.
+The implementation therefore clones each marker's existing material, changing
+only colour/normal textures and disabling the completed-machine damage overlay.
+It preserves the marker shader, queue, aspect, rotation and native property block.
+No collider, item identity, port, work value or physical part is changed.
+
+The production assembly/view checks use doubled Unity boundaries; native checks
+verify all registered image dimensions and actual installed API boundaries.
+Missing artwork, invalid/removed/damaged parts, reload, reused markers, unchanged
+updates and cleanup are covered. Ten-per-second per-site refreshes replace no
+simulation cadence and perform no global scan. See the short
+[owner checklist](../section-assembly-and-maintenance.md#owner-visual-check).
+Live lighting, rotation, highlights and construction transitions remain unverified.
+
 ## Evidence and scope
 
 Reviewed all 16 intact placeable families in the [current native export](../item-reference-data.json), their definition/artwork paths, all three section assembly registrations, Framework's assembly hooks, native placeholder creation/update, existing appearance adapters and test coverage. Damaged and loose forms are considered with their families; internal compartments and portable stock are not separate construction projects.

@@ -35731,8 +35731,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "08f476dfa61e67c421e67aa5b35fa6b4941dd7d8d1cda0cb9fb650fefbf5a62e",
-      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+      "sha256": "fd253e28c82fae64545ebb70944445316627de9c53ca89e0d912dcc1aa58a134",
+      "review": "2026-09-28: reviewed construction stage guidance and registered version/dependency updates; distinguish native completion, saved work and missing-image fallback from pending owner Unity approval. No catalogue changes."
     },
     {
       "path": "SUPPORT.md",
@@ -35888,8 +35888,8 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "255f46922d3143c79d33462a5e608edbbbf69ef119f66ed872aa098c5938c9f9",
-      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+      "sha256": "202fbbe6c02651d30908c00bedbf0d534d112c189bcbcad56dd502f946cf4804",
+      "review": "2026-09-28: reviewed construction stage guidance and registered version/dependency updates; distinguish native completion, saved work and missing-image fallback from pending owner Unity approval. No catalogue changes."
     },
     {
       "path": "docs/crew-automation.md",
@@ -36106,8 +36106,8 @@
       "path": "docs/development/construction-artwork-audit.md",
       "scope": "developer-facing construction appearance audit",
       "decision": "record confirmed code gaps separately from owner observations and unverified Unity rendering",
-      "sha256": "417fb978f45b6598a5c23736a72cce5266cc5b938ac5ec3d58920ffadf176e6e",
-      "review": "2026-09-28: prepared artwork distinguished from live construction behaviour; no installed feature or Unity approval claimed."
+      "sha256": "845e23548b51be023a8c2d3d7cad2eb2d00b0b85ea69a492d1f997781fa53326",
+      "review": "2026-09-28: reviewed construction stage guidance and registered version/dependency updates; distinguish native completion, saved work and missing-image fallback from pending owner Unity approval. No catalogue changes."
     },
     {
       "path": "docs/development/dependency-contingencies.md",
@@ -36152,8 +36152,8 @@
       "path": "docs/development/framework-author-guide.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "fac2d2a7debdbec8180fd7cda1d7f75d711b0ad6c387795b5d861c63ab020359",
-      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+      "sha256": "755fdb4949e7c5819a29d327627d9988354e1c946db30375b95188ad3446665a",
+      "review": "2026-09-28: reviewed construction stage guidance and registered version/dependency updates; distinguish native completion, saved work and missing-image fallback from pending owner Unity approval. No catalogue changes."
     },
     {
       "path": "docs/development/framework-bulk-storage.md",
@@ -36560,8 +36560,8 @@
       "path": "docs/framework-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "69ec638c8bfd694f0b1868a8021ff0f323015f3a6d9bea870de72f51498c8640",
-      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+      "sha256": "ee223dbd0e25dc3addfc0d0e48ebe47125f84b678b536009e72f531782d22ca7",
+      "review": "2026-09-28: reviewed construction stage guidance and registered version/dependency updates; distinguish native completion, saved work and missing-image fallback from pending owner Unity approval. No catalogue changes."
     },
     {
       "path": "docs/furnace-coolant-conduits.md",
@@ -36616,15 +36616,15 @@
       "path": "docs/industrial-console-player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "9ed5fd2c70dd4436e554f7bd95912ecb2568e2319f9934669e32df4c75a518df",
-      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+      "sha256": "09df82fda00c00e8e6d08360888eb5ad6cadfc7e087130813aa88bfb5f577865",
+      "review": "2026-09-28: reviewed construction stage guidance and registered version/dependency updates; distinguish native completion, saved work and missing-image fallback from pending owner Unity approval. No catalogue changes."
     },
     {
       "path": "docs/installing-mods.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "245072ce8a41ff8286d9e1c0940b22909279a761dc7cdb013ce16d33e8a5b893",
-      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+      "sha256": "19efb8579839677645b9b113ad8010d3f215571810e57d5f5016bca578018ecd",
+      "review": "2026-09-28: reviewed construction stage guidance and registered version/dependency updates; distinguish native completion, saved work and missing-image fallback from pending owner Unity approval. No catalogue changes."
     },
     {
       "path": "docs/item-references.md",
@@ -36657,8 +36657,8 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "9f884db0a730681802cec0cd81efc914fd0b8b5b897613995e1d417b68cc114f",
-      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+      "sha256": "9a8006c63c698050d3114931df78e0086e968631b953e51c040b31525eb0553c",
+      "review": "2026-09-28: reviewed construction stage guidance and registered version/dependency updates; distinguish native completion, saved work and missing-image fallback from pending owner Unity approval. No catalogue changes."
     },
     {
       "path": "docs/residue-collector.md",
@@ -36678,8 +36678,8 @@
       "path": "docs/section-assembly-and-maintenance.md",
       "scope": "current player guide and native implementation evidence",
       "decision": "new reviewed assembly/recovery guide",
-      "sha256": "29f0764941921dd892b3426873110f3ca3df6dd37cee466c6127ce7947ac1021",
-      "review": "2026-09-28: reviewed Framework 0.31.1 unnamed-trigger fix and related version/reference updates. Preserve native outcomes, named assembly validation and existing messages; no new recurring work. Reproduced null-key failure, then checked compiled hooks; live confirmation pending."
+      "sha256": "e1bcfb696a613a31ea307baa32ab8d5378ac69115a5536aadc9713c908eb6068",
+      "review": "2026-09-28: reviewed construction stage guidance and registered version/dependency updates; distinguish native completion, saved work and missing-image fallback from pending owner Unity approval. No catalogue changes."
     },
     {
       "path": "docs/shared-completion-cues.md",
@@ -36699,8 +36699,8 @@
       "path": "docs/shipbreaker-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "ab8d7c3df3e90beb78d692583925738a1d1371316102067651d1524511941665",
-      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+      "sha256": "d80c79a534c2bbe5e343bbc6ba32f990a9e09fdae4344f3cbe6d671f62a64749",
+      "review": "2026-09-28: reviewed construction stage guidance and registered version/dependency updates; distinguish native completion, saved work and missing-image fallback from pending owner Unity approval. No catalogue changes."
     },
     {
       "path": "docs/shipbreaker-material-uses.md",
@@ -36741,8 +36741,8 @@
       "path": "workshop/PhobosFramework/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "4d14b6d0ebb608105431c96b3c6fc90984dfa392a904297c3072674c5d4d05f4",
-      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+      "sha256": "4706ac9a771ea0cd45790db73245ca75689d491830971913de7762c9aca96165",
+      "review": "2026-09-28: reviewed construction stage guidance and registered version/dependency updates; distinguish native completion, saved work and missing-image fallback from pending owner Unity approval. No catalogue changes."
     },
     {
       "path": "workshop/PhobosManufacturing/page.bbcode",
@@ -36755,16 +36755,16 @@
       "path": "workshop/PhobosShipbreaker/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "8f40319c0e7e529b42a806bdf52f127e4aa7ee2e87c06bc28baf77f0f7ab65a5",
-      "review": "2026-09-28: prepared artwork distinguished from live construction behaviour; no installed feature or Unity approval claimed."
+      "sha256": "a358e5b403d73561d454907c20e28cf9b94013cb782d1025b8e7ab383c1f65ef",
+      "review": "2026-09-28: reviewed construction stage guidance and registered version/dependency updates; distinguish native completion, saved work and missing-image fallback from pending owner Unity approval. No catalogue changes."
     }
   ],
   "surfaces": [
     {
       "path": "config/item-reference.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "0548407edc36318ec829de798fa129872eadb7a89c17eebb265d65038aaea171",
-      "review": "2026-09-28: checked updated documentation paths and player/reference instructions; identifiers, values and gameplay remain unchanged."
+      "sha256": "13c91d4acc023f9fa0717e3b3bc56757def4d406a90656841f2d9dec2abb6a92",
+      "review": "2026-09-28: reviewed construction stage guidance and registered version/dependency updates; distinguish native completion, saved work and missing-image fallback from pending owner Unity approval. No catalogue changes."
     },
     {
       "path": "mods/PhobosAgriculture/framework/equipment-names.json",
@@ -36811,8 +36811,8 @@
     {
       "path": "mods/PhobosFramework/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "bec967fa6710381845a2e14c45ff79da7a945f9c30e32e67d2f7c6d9c5837254",
-      "review": "2026-09-28: reviewed Framework 0.31.1 unnamed-trigger fix and related version/reference updates. Preserve native outcomes, named assembly validation and existing messages; no new recurring work. Reproduced null-key failure, then checked compiled hooks; live confirmation pending."
+      "sha256": "48dc5f1b88ca4b6f623a6377efa5e2c31293e2b75e9f35002ed7acf7fd9a4042",
+      "review": "2026-09-28: reviewed construction stage guidance and registered version/dependency updates; distinguish native completion, saved work and missing-image fallback from pending owner Unity approval. No catalogue changes."
     },
     {
       "path": "mods/PhobosManufacturing/mod_info.json",
@@ -36832,8 +36832,8 @@
     {
       "path": "mods/PhobosShipbreaker/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "da28d779d77f3c6716ba47182f155a7dfe65a1020db3e779a22f461282f08792",
-      "review": "2026-09-28: reviewed assembly sites, local cargo recovery, maintenance explanations and release/reference consistency; historical evidence and native/Unity validation limits retained."
+      "sha256": "c0089bcad7c4650e40dda567f6edfcb7dae1e05394fc11a00b569f6737f5ab93",
+      "review": "2026-09-28: reviewed construction stage guidance and registered version/dependency updates; distinguish native completion, saved work and missing-image fallback from pending owner Unity approval. No catalogue changes."
     }
   ],
   "hardcodedReview": {

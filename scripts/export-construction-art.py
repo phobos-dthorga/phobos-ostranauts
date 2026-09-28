@@ -1,14 +1,17 @@
 """Export four registered construction layers without calling an image provider.
 
-Outputs are prepared assets, not registered game content. --check writes nothing.
+Outputs include registered runtime copies. --check writes nothing.
 """
 import argparse
 import hashlib
 import io
 import json
+import sys
 from pathlib import Path
 
-from PIL import Image, ImageChops, ImageDraw
+# Build-time hash verification does not need an image-editing dependency.
+if '--verify-runtime' not in sys.argv:
+    from PIL import Image, ImageChops, ImageDraw
 
 ROOT = Path(__file__).resolve().parents[1]
 ASSETS = ROOT / 'assets/construction-stages'
@@ -34,9 +37,23 @@ def read_image(path, expected_hash):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--check', action='store_true')
+    parser.add_argument('--verify-runtime', action='store_true', help='Verify packaged copies using retained export hashes; no Pillow required')
     args = parser.parse_args()
     manifest = json.loads((ASSETS / 'manifest.json').read_text(encoding='utf-8'))
     references = json.loads((ASSETS / 'references.json').read_text(encoding='utf-8'))
+    if args.verify_runtime:
+        records = {r['key']: r for r in json.loads((ASSETS / 'exports.json').read_text(encoding='utf-8'))}
+        for entry in manifest['assets']:
+            if digest((ASSETS / entry['source']).read_bytes()) != entry['sourceSHA256']:
+                raise SystemExit('Retained master changed: ' + entry['key'])
+            for suffix in ['', 'Normal']:
+                path = 'exports/' + entry['key'] + suffix + '.png'
+                expected = records[entry['key']]['exports'][path]
+                for target in [ASSETS / path, ROOT / (entry['runtime'] + suffix + '.png')]:
+                    if digest(target.read_bytes()) != expected:
+                        raise SystemExit('Construction runtime copy changed: ' + str(target))
+        print('Verified eight construction runtime images against retained exports.')
+        return
     for entry in references:
         read_image(entry['copy'], entry['sha256'])
     outputs, records, selected = {}, [], {}
@@ -82,6 +99,7 @@ def main():
             path = ASSETS / 'exports' / (entry['key'] + suffix + '.png')
             payload = png(im)
             outputs[path] = payload
+            outputs[ROOT / (entry['runtime'] + suffix + '.png')] = payload
             record['exports'][path.relative_to(ASSETS).as_posix()] = digest(payload)
         records.append(record)
         selected[entry['key']] = colour
@@ -127,7 +145,7 @@ def main():
             path.write_bytes(payload)
     if stale:
         raise SystemExit('Missing/stale exports: ' + ', '.join(stale))
-    print(f'{"Verified" if args.check else "Exported"} four construction colours, matching normals and stage preview; no runtime registration.')
+    print(f'{"Verified" if args.check else "Exported"} four construction colours, matching normals, runtime copies and stage previews.')
 
 
 if __name__ == '__main__':

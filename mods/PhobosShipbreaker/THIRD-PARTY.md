@@ -92,3 +92,14 @@ and melt-remainder artwork notes above while retaining original masters. The
 packaged assets/artwork-completion records preserve exact requests, registration,
 usage and source/export hashes; complete masters remain in the source repository.
 PixelLab terms remain separate from code licensing. Owner gameplay review is pending.
+
+Shipbreaker 0.32.0 registers four original PixelLab construction variants: D4/R4
+intermediate and F6 early/intermediate. Original Phobos machinery supplied the
+references; no game textures were submitted. Four `edit_image_pixen` requests used
+four included generations, without retries or purchased credits. Native-size
+interiors are composed onto retained Phobos frames. Masters, exact requests,
+provider IDs, source/export hashes and the deterministic exporter remain in the
+[construction artwork record](https://github.com/phobos-dthorga/phobos-ostranauts/tree/main/assets/construction-stages).
+Existing normals are retained outside edits; neutral interior normals and live
+Unity appearance remain subject to review. The same PixelLab terms and generated-art
+licensing qualifications above apply; this is not a claim of owner visual approval.

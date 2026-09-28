@@ -1,6 +1,8 @@
 using System;
 using System.Linq;
 using System.Reflection;
+using System.Collections;
+using System.IO;
 using Ostranauts.Trading;
 using Phobos.Ostranauts.Framework.Construction;
 using Phobos.Ostranauts.Framework.Registration;
@@ -9,7 +11,7 @@ using PhobosShipbreaker.Core;
 
 internal static class AssemblyNativeChecks
 {
-    internal static void Run(NativeDefinitions d, Action<bool,string> check)
+    internal static void Run(NativeDefinitions d, string repo, Action<bool,string> check)
     {
         var selectionHook = typeof(SectionAssembly).Assembly.GetType("Phobos.Ostranauts.Framework.Construction.SectionAssemblySelection")!
             .GetMethod("Postfix", BindingFlags.Static | BindingFlags.NonPublic)!;
@@ -29,6 +31,19 @@ internal static class AssemblyNativeChecks
         foreach (string prefix in new[] { Content.Prefix, ReclaimerRules.Prefix, FurnaceRules.Prefix })
         {
             var job = d.Installables[prefix + "SectionAssembly"];
+            var contracts = (IDictionary)typeof(SectionAssembly).GetField("Jobs", BindingFlags.Static | BindingFlags.NonPublic)!.GetValue(null)!;
+            var contract = contracts[job.strName]!;
+            var appearance = (SectionAssemblyAppearance)contract.GetType().GetField("Appearance", BindingFlags.Instance | BindingFlags.NonPublic)!.GetValue(contract)!;
+            check(appearance != null, "Production assembly opts into artwork: " + prefix);
+            int size = prefix == FurnaceRules.Prefix ? 96 : 64;
+            foreach (string path in new[] { appearance!.Early, appearance.Intermediate })
+            foreach (string suffix in new[] { ".png", "Normal.png" })
+            {
+                byte[] png = File.ReadAllBytes(Path.Combine(repo, "mods/PhobosShipbreaker/images", path + suffix));
+                int width = (png[16] << 24) | (png[17] << 16) | (png[18] << 8) | png[19];
+                int height = (png[20] << 24) | (png[21] << 16) | (png[22] << 8) | png[23];
+                check(width == size && height == size && appearance.Size == size, "Registered construction colour/normal retains native footprint: " + path + suffix);
+            }
             var action = DataHandler.dictInteractions["ACT" + job.strName];
             check(action.aLootItms.Any(x => x.StartsWith("input,")), "Native site input contract replaces simultaneous actor removal: " + prefix);
             check(!action.aLootItms.Any(x => x.StartsWith("removeus,")), "Assembly does not require all sections in actor inventory");
@@ -60,5 +75,10 @@ internal static class AssemblyNativeChecks
         var spawn = typeof(Ship).GetMethod("SpawnItems", BindingFlags.Instance|BindingFlags.NonPublic)!;
         check(PlaceholderLoadChecks.Calls(spawn).Any(m => m.Name == "AddCOSimple"), "Native loading restores legacy children without applying new-deposit admission");
         check(typeof(Container).GetMethod(nameof(Container.AllowedCO))!.GetParameters().Single().Name == "coIn", "Recovery transition Harmony binding matches installed runtime");
+        var create = typeof(DataHandler).GetMethod(nameof(DataHandler.GetCOPlaceholder))!;
+        check(PlaceholderLoadChecks.Calls(create).Any(m => m.DeclaringType == typeof(Item) && m.Name == "SetData"), "Native placeholder initializes the retained Item before appearance attachment");
+        var refresh = typeof(SectionAssemblyView).GetMethod("Refresh", BindingFlags.Instance | BindingFlags.NonPublic)!;
+        var appearanceCalls = PlaceholderLoadChecks.Calls(refresh);
+        check(!appearanceCalls.Any(m => m.Name == "SetAlt" || m.Name == "SetCondAmount" || m.Name == "ModeSwitch"), "Appearance refresh does not use global alternate-material cache or mutate native work/identity");
     }
 }

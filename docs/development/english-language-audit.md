@@ -158,3 +158,13 @@ Reviewed furnace assembly, coolant servicing, maintenance and cargo recovery ins
 ## Construction appearance audit, 28 September 2026
 
 The [construction artwork audit](construction-artwork-audit.md) records the missing presentation code for D4/R4/F6 and distinguishes the owner’s observed R4 changes from a deliberately implemented stage sequence. It is developer-facing evidence, with no catalogue or runtime changes. Document coverage is now 152; the 1,791 catalogue entries and 14 other surfaces are unchanged.
+
+The Framework/Shipbreaker 0.32.0 follow-up now binds those appearances. Reviewed
+current assembly instructions, section-reference notes, Workshop drafts and version
+summaries against the stage policy: early while parts arrive, intermediate only
+with a complete valid bill and positive finite work, finished only through native
+completion. The placement cursor and whole-machine installation remain native.
+Missing images fall back without changing requirements. Historical audit evidence
+is preserved with a dated implementation follow-up. No catalogue messages or
+formatting contracts changed; coverage remains 1,791 entries, 152 documents and
+14 other surfaces. Owner Unity approval is explicitly pending.

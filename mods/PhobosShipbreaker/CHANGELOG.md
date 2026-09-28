@@ -25,6 +25,17 @@ Dates on Draft entries record preparation, not Steam publication.
 - Earlier capture-only research is superseded for supported ordinary walls by the implementation below. Broader structural recipes, repeated furnace batches and whole-wreck completion remain outside this round.
 - Keep [NASA Goddard's Raven research](https://www.nasa.gov/general/nasas-hybrid-computer-enables-ravens-autonomous-rendezvous-capability/) and [ESA's LIRIS experiment by Airbus, Jena Optronik and Sodern](https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/ATV/ATV_views_Space_Station_as_never_before) as sensing context, separate from Blue Bottle Games native evidence and authored gameplay choices. No institutional endorsement or gameplay validation is implied.
 
+## [0.32.0] - 2026-09-28 - Draft
+
+### Added
+
+- D4, R4 and F6 construction sites show unfinished frames while parts arrive, then open machinery once all parts are present and assembly work begins. The finished form appears only after construction completes.
+- Include four retained PixelLab variants with matching normal maps; preserve existing Phobos frames and the full furnace footprint. Stage selection reconstructs after reload and returns to early when required parts are removed.
+
+### Compatibility
+
+- Requires Phobos Framework 0.32.0. Section bills, work budgets, saves, finished equipment and older table jobs keep their existing rules. Missing artwork falls back to the native marker. Offline checks pass; lighting and transitions still need owner playtesting.
+
 ## [0.31.0] - 2026-09-28 - Draft
 
 ### Added

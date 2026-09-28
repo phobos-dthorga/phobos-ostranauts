@@ -139,7 +139,8 @@ function Copy-PhobosPlayerGuides {
     }
     $documentationArgs = @('--package', $Package)
     if ($Readme) { $documentationArgs += @('--readme', $Readme) }
-    python (Join-Path $RepoRoot "scripts/package-documentation.py") @documentationArgs
+    # Status belongs on the host, not in New-PhobosPackage's returned path.
+    python (Join-Path $RepoRoot "scripts/package-documentation.py") @documentationArgs | Out-Host
     if ($LASTEXITCODE -ne 0) { throw "Documentation packaging failed." }
 }
 

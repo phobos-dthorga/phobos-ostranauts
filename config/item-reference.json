@@ -261,7 +261,7 @@
           "function": "A heavy, unpowered construction component, not a functional machine.",
           "use": "Choose Assembly information on the section for instructions. Choose Install on it, or D4 in INSTALL > APPS, and place the construction site. Native hauling delivers two matching sections separately; use Mortorq and soldering tools to finish the installed machine. Final assembly does not use a table. See [construction sites](section-assembly-and-maintenance.md).",
           "find": "Construct from materials, buy the listed section offers, or obtain a native engineering-loot section.",
-          "notes": "Sections use the drag slot, not your hands. A section already held in an older save remains there until released. Native site cancellation returns delivered parts; save/reload keeps the site and its work. Dismantle salvages the section rather than assembling it. Old table action identities remain for saved queues, but no longer appear as new offers.",
+          "notes": "Sections use the drag slot, not your hands. A section already held in an older save remains there until released. Native site cancellation returns delivered parts; save/reload keeps the site and its work. Dismantle salvages the section rather than assembling it. Old table action identities remain for saved queues, but no longer appear as new offers. The site shows an unfinished frame while parts arrive, then open machinery once the full bill is present and work starts; the finished form appears only after completion.",
           "guide": "equipment-economy.md",
           "internal": false,
           "labels": {}
@@ -275,7 +275,7 @@
           "function": "A heavy, unpowered construction component, not a functional machine.",
           "use": "Choose Assembly information on the section for instructions. Choose Install on it, or R4 in INSTALL > APPS, and place the construction site. Native hauling delivers two matching sections separately; use Mortorq and soldering tools to finish the installed machine. Final assembly does not use a table. See [construction sites](section-assembly-and-maintenance.md).",
           "find": "Construct from materials, buy the listed section offers, or obtain a native engineering-loot section.",
-          "notes": "Sections use the drag slot, not your hands. A section already held in an older save remains there until released. Native site cancellation returns delivered parts; save/reload keeps the site and its work. Dismantle salvages the section rather than assembling it. Old table action identities remain for saved queues, but no longer appear as new offers.",
+          "notes": "Sections use the drag slot, not your hands. A section already held in an older save remains there until released. Native site cancellation returns delivered parts; save/reload keeps the site and its work. Dismantle salvages the section rather than assembling it. Old table action identities remain for saved queues, but no longer appear as new offers. The site shows an unfinished frame while parts arrive, then open machinery once the full bill is present and work starts; the finished form appears only after completion.",
           "guide": "scrap-reclaimer.md",
           "internal": false,
           "labels": {}
@@ -289,7 +289,7 @@
           "function": "A heavy, unpowered construction component, not a functional machine.",
           "use": "Choose Assembly information on the section for instructions. Choose Install on it, or F6 in INSTALL > APPS, and place the construction site. Native hauling delivers three matching sections separately; use Mortorq and soldering tools to finish the installed machine. Final assembly does not use a table. See [construction sites](section-assembly-and-maintenance.md).",
           "find": "Construct from materials, buy the listed section offers, or obtain a native engineering-loot section.",
-          "notes": "Sections use the drag slot, not your hands. A section already held in an older save remains there until released. Native site cancellation returns delivered parts; save/reload keeps the site and its work. Dismantle salvages the section rather than assembling it. Old table action identities remain for saved queues, but no longer appear as new offers.",
+          "notes": "Sections use the drag slot, not your hands. A section already held in an older save remains there until released. Native site cancellation returns delivered parts; save/reload keeps the site and its work. Dismantle salvages the section rather than assembling it. Old table action identities remain for saved queues, but no longer appear as new offers. The site shows an unfinished frame while parts arrive, then open machinery once the full bill is present and work starts; the finished form appears only after completion.",
           "guide": "furnace-player-guide.md",
           "internal": false,
           "labels": {}

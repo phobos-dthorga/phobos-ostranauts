@@ -1,5 +1,5 @@
 [h1]Phobos Shipbreaker[/h1]
-[b]Version:[/b] 0.31.0
+[b]Version:[/b] 0.32.0
 
 [h2]Performance update[/h2]
 Furnace equipment searches create less temporary data, and industrial panels reuse shared display and ship-search helpers. Cooling, processing speed, heat and material accounting are unchanged.
@@ -24,7 +24,7 @@ Make the wreck pay for the next repair. Rivetline equipment brings wall processi
 Keep the supporting hull walls under the sealed chute. Processing needs power, output space and suitable cooling; vacuum is not free cooling. Older unclassified residue has no R4 recipe. Furnace heating and exterior work pause on interruption and require Resume. Capture does not by itself authorize cutting. Loading preserves cargo and work; a fault may block further work for inspection.
 
 [h2]Requirements and installation[/h2]
-Ostranauts 1.0.1.5, BepInEx 5, Phobos Framework 0.31.0 or newer and Phobos Auto Nav 0.19.0 or newer. Crafting Framework and Salvage Workshop are optional. Agriculture integration is optional.
+Ostranauts 1.0.1.5, BepInEx 5, Phobos Framework 0.32.0 or newer and Phobos Auto Nav 0.19.0 or newer. Crafting Framework and Salvage Workshop are optional. Agriculture integration is optional.
 
 This is an unpublished development package. Automated checks do not establish in-game readiness or Unity layout approval. Keep required mods installed for saves using their content. Updating does not refill shops or old loot containers. See the installation guide for current download availability.
 
@@ -94,4 +94,4 @@ Offline checks are not Unity gameplay approval. See [url=https://github.com/phob
 Use the [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/README.md]operating-guide index[/url] for current controls and requirements. Dated research and design records retain their original scope; they are not installation instructions.
 
 [b]Construction appearance work[/b]
-Four additional D4/R4/F6 construction sprites are prepared in the source repository. They are not yet connected to assembly progress or included in the current package; they do not change what construction looks like in this version.
+D4/R4/F6 construction sites now show unfinished frames while parts arrive, then open machinery once the full bill is delivered and work begins. The finished form appears only after construction completes. Stages follow saved parts and work on reload; removing required parts returns the early appearance. Requires Framework 0.32.0. Offline checks pass; owner visual approval remains pending.

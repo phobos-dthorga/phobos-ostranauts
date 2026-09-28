@@ -26,6 +26,13 @@ internal static class AssemblyDefinitions
                 spec.Item1 == ReclaimerRules.Prefix ? "PhobosScrapReclaimerTSection" : "PhobosFurnaceSectionTrigger";
             SectionAssembly.Add(d, spec.Item1 + "SectionAssembly", spec.Item2, materialTrigger, spec.Item1 + "Installed",
                 spec.Item3, spec.Item4, progress, new[] { "TIsToolMortorq", "TIsToolSoldering" });
+            const string art = "phobos/shipbreaker/";
+            var appearance = spec.Item1 == Content.Prefix
+                ? new SectionAssemblyAppearance(art + "PhobosShipbreakerSection", art + "ConstructionD4Mid", 64)
+                : spec.Item1 == ReclaimerRules.Prefix
+                    ? new SectionAssemblyAppearance(art + "PhobosReclaimerSectionDedicated", art + "ConstructionR4Mid", 64)
+                    : new SectionAssemblyAppearance(art + "ConstructionF6Early", art + "ConstructionF6Mid", 96);
+            SectionAssembly.SetAppearance(spec.Item1 + "SectionAssembly", appearance);
             int count = spec.Item3;
             ItemInformation.Register(d, spec.Item1 + "AssemblyInformation", Text.Get("Assembly.title"), new[] { spec.Item2 },
                 _ => Text.Get("Assembly.instructions", count, spec.Item4, count * spec.Item4));

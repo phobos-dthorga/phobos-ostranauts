@@ -1,0 +1,21 @@
+[h1]Phobos Framework 0.32.0[/h1]
+[b]Draft - not published | 2026-09-28[/b]
+
+[h2]Added[/h2]
+
+[list]
+[*]Optional unfinished construction images for section-based machinery. Stages follow delivered parts and saved work; native completion still creates the finished machine.
+[*]Construction views preserve native geometry and selection effects, limit routine refreshes to ten per second per site, and release their private materials when removed. Missing images fall back without changing the job.
+[/list]
+
+[h2]Compatibility[/h2]
+
+[list]
+[*]Existing assembly calls, material bills, saved IDs and work rules remain unchanged. No new saved appearance fields. Offline assembly, renderer-adapter and native-boundary checks pass; Unity visual approval remains pending.
+[/list]
+
+[h2]Fixed[/h2]
+
+[list]
+[*]Keep documentation packaging status out of the returned package path so archive creation succeeds after the guide-directory split.
+[/list]

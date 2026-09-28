@@ -1,10 +1,10 @@
 # D4, R4 and F6 construction artwork
 
 Prepared **28 September 2026**, following the owner's four-sprite authorization.
-These are selected **authoring layers and prepared exports**, not registered game
-content. No construction renderer, gameplay behaviour, save, package or installed
-file changes accompany this batch. See the [code audit](../../docs/development/construction-artwork-audit.md)
-for the missing binding and lifecycle checks.
+The generation-only batch retained four selected authoring layers and exports.
+The subsequent Framework/Shipbreaker **0.32.0** implementation registers them on
+native section-construction sites. See the [code audit and follow-up](../../docs/development/construction-artwork-audit.md)
+for the binding, checks and outstanding Unity review. Original image masters are unchanged.
 
 | New sprite | Intended appearance | Retained master | Native export |
 |---|---|---|---|
@@ -13,9 +13,10 @@ for the missing binding and lifecycle checks.
 | F6 early | Open core with temporary cross braces | 192 × 192 | 96 × 96 |
 | F6 intermediate | Open chamber bowl and unfinished service cabinet | 192 × 192 | 96 × 96 |
 
-Existing D4/R4 section sprites provide possible early appearances; existing
-completed sprites provide the finished appearances. Exact delivery/work thresholds
-remain an implementation decision, not something encoded into these images.
+Existing D4/R4 section sprites provide early appearances; F6 uses its new 96-pixel
+early image. Early remains until the complete valid section bill is delivered and
+native work has started; intermediate remains until native completion replaces the
+marker with a finished machine. These thresholds are code policy, not painted information.
 
 ## Review and registration
 
@@ -39,12 +40,15 @@ The export command is:
 ```text
 python scripts/export-construction-art.py
 python scripts/export-construction-art.py --check
+python scripts/export-construction-art.py --verify-runtime
 ```
 
 It requires Pillow, validates retained-input hashes and 2× master resolution,
 reduces with nearest-neighbour sampling and checks unchanged pixels outside the
-approved patch masks. Colour/normal pairs and previews are written only within
-this asset directory. `--check` verifies exact reproducibility without writing.
+approved patch masks. Colour/normal pairs are retained here and copied to the
+Shipbreaker image directory using manifest paths. `--check` verifies exact
+reproducibility without writing. Build-time `--verify-runtime` uses only the Python
+standard library to compare packaged inputs with retained export hashes.
 Coordinates are native pixels with half-open bounds and a centred pivot.
 
 Original chassis normal maps remain outside edited areas; new interiors use
@@ -75,6 +79,6 @@ was checked on 27 September 2026; this batch does not independently re-audit tho
 terms or assert exclusive copyright. Keep generated-art provenance separate from
 the code licence. No new third-party game artwork is redistributed here.
 
-No mod rebuild or installation is needed for these unbound assets. The next code
-change must register stage selection without altering material bills, identities,
-footprints, work progress or completion gates, and then test it in the game.
+The code follow-up requires rebuilt Framework and Shipbreaker packages. It does
+not alter material bills, identities, footprints, work progress or completion
+gates. Installation and owner-run game checks are separate from offline export checks.

@@ -11,6 +11,8 @@ $gameRoot = (Resolve-Path -LiteralPath $OstranautsPath).Path
 & (Join-Path $PSScriptRoot 'export-reclaimer-art.ps1')
 & (Join-Path $PSScriptRoot 'export-furnace-art.ps1')
 & (Join-Path $PSScriptRoot 'export-industrial-console-art.ps1')
+& python (Join-Path $PSScriptRoot 'export-construction-art.py') --verify-runtime
+if ($LASTEXITCODE -ne 0) { throw 'Construction artwork exports are stale or missing.' }
 & dotnet build (Join-Path $repoRoot 'src/PhobosShipbreaker/PhobosShipbreaker.csproj') -c Release "-p:OstranautsPath=$gameRoot"
 if ($LASTEXITCODE -ne 0) { throw 'Shipbreaker build failed.' }
 & dotnet run --project (Join-Path $repoRoot 'tests/PhobosShipbreaker.Tests') -c Release "-p:OstranautsPath=$gameRoot"

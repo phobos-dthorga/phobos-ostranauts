@@ -20,6 +20,21 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.32.0] - 2026-09-28 - Draft
+
+### Added
+
+- Optional unfinished construction images for section-based machinery. Stages follow delivered parts and saved work; native completion still creates the finished machine.
+- Construction views preserve native geometry and selection effects, limit routine refreshes to ten per second per site, and release their private materials when removed. Missing images fall back without changing the job.
+
+### Compatibility
+
+- Existing assembly calls, material bills, saved IDs and work rules remain unchanged. No new saved appearance fields. Offline assembly, renderer-adapter and native-boundary checks pass; Unity visual approval remains pending.
+
+### Fixed
+
+- Keep documentation packaging status out of the returned package path so archive creation succeeds after the guide-directory split.
+
 ## [0.31.1] - 2026-09-28 - Draft
 
 ### Fixed
