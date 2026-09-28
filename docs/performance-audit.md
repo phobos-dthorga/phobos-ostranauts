@@ -1,5 +1,10 @@
 # Performance audit and practical playtesting
 
+Framework 0.31.1 follow-up: unnamed native trigger/interaction hooks return before
+dictionary lookup. This corrects an owner-reported exception without introducing
+scans, logging or recurring work. Native true/false outcomes remain unchanged;
+compiled-hook regression tests pass, with live confirmation pending.
+
 Prepared 27 September 2026 for Framework 0.29.0, Auto Nav 0.20.3,
 Shipbreaker 0.28.2 and Agriculture 0.15.2. Manufacturing 0.0.1 remains held.
 This is an offline-verified development candidate, not a measured speedup or

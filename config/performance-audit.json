@@ -1726,8 +1726,8 @@
       "path": "src/PhobosFramework/Construction/SectionAssembly.cs",
       "role": "native construction, local information or recovery boundary",
       "indicators": {},
-      "sha256": "425cd2af2a7a52faedf1a270b336716d0911cdfb511d6bbce8539a2d5b81da7d",
-      "review": "2026-09-28: reviewed registration, selector/completion hooks, local action reads and native mode-switch scope.",
+      "sha256": "03f03bbf4f52126cb84106f1385ec8c5d360265846693fb4d89c97c5df8d2700",
+      "review": "2026-09-28: reviewed Framework 0.31.1 unnamed-trigger fix and related version/reference updates. Preserve native outcomes, named assembly validation and existing messages; no new recurring work. Reproduced null-key failure, then checked compiled hooks; live confirmation pending.",
       "decision": "Event-driven work only; constant-time registry lookup for unrelated selectors/actions, no new update scan. Recovery permission lookup allocates nothing on the idle admission path. Native hauling cadence unchanged.",
       "findings": [
         "R10"
@@ -1889,8 +1889,8 @@
       "path": "src/PhobosFramework/Controls/ItemInformation.cs",
       "role": "native construction, local information or recovery boundary",
       "indicators": {},
-      "sha256": "53533db29cc1eb0a4f3c56aedfa91efd925596b2fb21850d3e73f84b50fdb30a",
-      "review": "2026-09-28: reviewed registration, selector/completion hooks, local action reads and native mode-switch scope.",
+      "sha256": "92125d1f2254b5b868480462a06b06b631c757f698e9a03b477b93979fc7531b",
+      "review": "2026-09-28: reviewed Framework 0.31.1 unnamed-trigger fix and related version/reference updates. Preserve native outcomes, named assembly validation and existing messages; no new recurring work. Reproduced null-key failure, then checked compiled hooks; live confirmation pending.",
       "decision": "Event-driven work only; constant-time registry lookup for unrelated selectors/actions, no new update scan. Recovery permission lookup allocates nothing on the idle admission path. Native hauling cadence unchanged.",
       "findings": [
         "R10"
@@ -2965,9 +2965,9 @@
     },
     {
       "path": "src/PhobosFramework/Plugin.cs",
-      "sha256": "c41df73040003248050068c0a633133d9d444661761250af07aa1e7660df0710",
+      "sha256": "f994459a111670e10e16f237ba65e7c7979c12cba6cc3e960a3aba8624dc74d0",
       "role": "shared accounting, inventory, crew or native boundary",
-      "review": "2026-09-28: reviewed registration, selector/completion hooks, local action reads and native mode-switch scope.",
+      "review": "2026-09-28: reviewed Framework 0.31.1 unnamed-trigger fix and related version/reference updates. Preserve native outcomes, named assembly validation and existing messages; no new recurring work. Reproduced null-key failure, then checked compiled hooks; live confirmation pending.",
       "decision": "Event-driven work only; constant-time registry lookup for unrelated selectors/actions, no new update scan. Recovery permission lookup allocates nothing on the idle admission path. Native hauling cadence unchanged.",
       "findings": [
         "R3",

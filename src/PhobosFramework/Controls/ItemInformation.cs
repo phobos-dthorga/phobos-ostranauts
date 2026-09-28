@@ -33,7 +33,7 @@ public sealed class ItemInformation : GUIData
     }
     internal static bool Handle(Interaction action, bool cancelled)
     {
-        if (!Entries.TryGetValue(action.strName, out var entry)) return false;
+        if (string.IsNullOrEmpty(action.strName) || !Entries.TryGetValue(action.strName, out var entry)) return false;
         var target = action.objThem;
         if (!cancelled && action.objUs == CrewSim.GetSelectedCrew() && target != null && !target.bDestroyed &&
             entry.Definitions.Contains(target.strCODef)) Show(target, action.strTitle, entry.Read(target));

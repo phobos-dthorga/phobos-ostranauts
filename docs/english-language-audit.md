@@ -148,3 +148,5 @@ Reviewed revised settings help, maintained acquisition explanations, current mer
 ## Assembly and maintenance follow-up, 28 September 2026
 
 Reviewed the new section-site instructions, cargo recovery and specific maintenance blockers against their native and service checks. Coverage is 1,791 catalogue entries, 149 documents and 14 other surfaces. Descriptions distinguish unfinished sections from operating machines and saved table contracts from current construction sites. Instructions preserve tool, mass and safety requirements; recovery promises no automatic cargo movement. Current references and Workshop drafts agree; historical research remains labelled. The [assembly guide](section-assembly-and-maintenance.md) separates offline evidence from owner playtesting.
+
+Framework 0.31.1: reviewed the unnamed-native-trigger correction, current version summaries and generated references. No catalogue messages or formatting contracts changed; the report distinguishes the reproduced exception and passing offline hooks from pending Unity confirmation.

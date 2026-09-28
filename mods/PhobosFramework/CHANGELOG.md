@@ -18,6 +18,16 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.31.1] - 2026-09-28 - Draft
+
+### Fixed
+
+- Leave unnamed native condition triggers unchanged instead of throwing during section selection. The item-information hook also ignores unnamed native interactions. Registered assembly material and completion checks remain intact.
+
+### Validation
+
+- Reproduced the owner's null-key exception before the fix. Regression checks cover null, empty and unrelated names with both native outcomes, including the compiled hooks. Live Unity confirmation remains pending.
+
 ## [0.31.0] - 2026-09-28 - Draft
 
 ### Added

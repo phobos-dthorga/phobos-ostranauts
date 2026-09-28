@@ -35731,8 +35731,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "5ccf2a5b80e5efaf2cbb1eaebf73dd2df7705a4793c80b628cb0fd2e0a4ee7ce",
-      "review": "2026-09-28: reviewed assembly sites, local cargo recovery, maintenance explanations and release/reference consistency; historical evidence and native/Unity validation limits retained."
+      "sha256": "122257a2bfe8e3ca2d6f5a22ce56e127f9ffc2d699621b382445de78ec16b7e3",
+      "review": "2026-09-28: reviewed Framework 0.31.1 unnamed-trigger fix and related version/reference updates. Preserve native outcomes, named assembly validation and existing messages; no new recurring work. Reproduced null-key failure, then checked compiled hooks; live confirmation pending."
     },
     {
       "path": "SUPPORT.md",
@@ -36054,8 +36054,8 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "fa3ff9f01b7a4176ccb67c5f36d5c907c9ee0cbcb2bc8835ac448d01c91cc0e0",
-      "review": "2026-09-28: reviewed assembly sites, local cargo recovery, maintenance explanations and release/reference consistency; historical evidence and native/Unity validation limits retained."
+      "sha256": "bb3b8e4729e7abc1036c7c6a38b6569f84961cf38fa3e76d7fea1eab4bcb748e",
+      "review": "2026-09-28: reviewed Framework 0.31.1 unnamed-trigger fix and related version/reference updates. Preserve native outcomes, named assembly validation and existing messages; no new recurring work. Reproduced null-key failure, then checked compiled hooks; live confirmation pending."
     },
     {
       "path": "docs/crew-automation.md",
@@ -36123,8 +36123,8 @@
       "path": "docs/framework-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "50f28ce3c357dc3a69e471e0132f411e07b3a1db9954d6c08e585fc0c96413dc",
-      "review": "2026-09-28: reviewed assembly sites, local cargo recovery, maintenance explanations and release/reference consistency; historical evidence and native/Unity validation limits retained."
+      "sha256": "d102489210b3be39fc25af8c20e29fbc7efaea563d4075b5da7813c692187bb0",
+      "review": "2026-09-28: reviewed Framework 0.31.1 unnamed-trigger fix and related version/reference updates. Preserve native outcomes, named assembly validation and existing messages; no new recurring work. Reproduced null-key failure, then checked compiled hooks; live confirmation pending."
     },
     {
       "path": "docs/furnace-connections-and-instruments.md",
@@ -36382,8 +36382,8 @@
       "path": "docs/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "5f431c80a825a90ecd3feaaa67a8997c0a6991993c6a4504689c943fe1b22fc7",
-      "review": "2026-09-28: reviewed assembly sites, local cargo recovery, maintenance explanations and release/reference consistency; historical evidence and native/Unity validation limits retained."
+      "sha256": "f35d81bb7e63e5c15ba316f9bc5bbe467bfba90acea5c03310c8322e192d7e37",
+      "review": "2026-09-28: reviewed Framework 0.31.1 unnamed-trigger fix and related version/reference updates. Preserve native outcomes, named assembly validation and existing messages; no new recurring work. Reproduced null-key failure, then checked compiled hooks; live confirmation pending."
     },
     {
       "path": "docs/performance-captures.md",
@@ -36402,8 +36402,8 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "fe13434fdfbfea3f5746c5a69bf7d3dfe5bd17f2f50d7c37ace87356e170b52f",
-      "review": "2026-09-28: reviewed assembly sites, local cargo recovery, maintenance explanations and release/reference consistency; historical evidence and native/Unity validation limits retained."
+      "sha256": "37818f87ebde11a230ad02c01261f0ed2d9c0a6957ca502bfb5074beaa8d7bb3",
+      "review": "2026-09-28: reviewed Framework 0.31.1 unnamed-trigger fix and related version/reference updates. Preserve native outcomes, named assembly validation and existing messages; no new recurring work. Reproduced null-key failure, then checked compiled hooks; live confirmation pending."
     },
     {
       "path": "docs/polaris-interface-refresh.md",
@@ -36630,8 +36630,8 @@
       "path": "workshop/PhobosFramework/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "969ae5f6a7808f2b09c003767367b67c5e72b00f3e62d0f9b19f082bdb584d77",
-      "review": "2026-09-28: reviewed assembly sites, local cargo recovery, maintenance explanations and release/reference consistency; historical evidence and native/Unity validation limits retained."
+      "sha256": "879cdfd7929cc56330b5fb650038c9e2b6f0bd4f50bae19b74a6f759999650b3",
+      "review": "2026-09-28: reviewed Framework 0.31.1 unnamed-trigger fix and related version/reference updates. Preserve native outcomes, named assembly validation and existing messages; no new recurring work. Reproduced null-key failure, then checked compiled hooks; live confirmation pending."
     },
     {
       "path": "workshop/PhobosManufacturing/page.bbcode",
@@ -36651,8 +36651,8 @@
       "path": "docs/section-assembly-and-maintenance.md",
       "scope": "current player guide and native implementation evidence",
       "decision": "new reviewed assembly/recovery guide",
-      "sha256": "1d0a3368a15fab0cb1c68a99c411a410625f95575d142aa52df304b65836d9c7",
-      "review": "2026-09-28: section bills, derived work budgets, cancellation, local recovery restrictions and native evidence checked against implementation; live interaction explicitly unverified."
+      "sha256": "29f0764941921dd892b3426873110f3ca3df6dd37cee466c6127ce7947ac1021",
+      "review": "2026-09-28: reviewed Framework 0.31.1 unnamed-trigger fix and related version/reference updates. Preserve native outcomes, named assembly validation and existing messages; no new recurring work. Reproduced null-key failure, then checked compiled hooks; live confirmation pending."
     }
   ],
   "surfaces": [
@@ -36707,8 +36707,8 @@
     {
       "path": "mods/PhobosFramework/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "1e6ba74fcf5fd240fd2cd8545ef11718e31b9a00a43364e482c98be24fd7111e",
-      "review": "2026-09-28: reviewed assembly sites, local cargo recovery, maintenance explanations and release/reference consistency; historical evidence and native/Unity validation limits retained."
+      "sha256": "bec967fa6710381845a2e14c45ff79da7a945f9c30e32e67d2f7c6d9c5837254",
+      "review": "2026-09-28: reviewed Framework 0.31.1 unnamed-trigger fix and related version/reference updates. Preserve native outcomes, named assembly validation and existing messages; no new recurring work. Reproduced null-key failure, then checked compiled hooks; live confirmation pending."
     },
     {
       "path": "mods/PhobosManufacturing/mod_info.json",

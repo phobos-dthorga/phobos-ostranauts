@@ -66,8 +66,11 @@ public static class SectionAssembly
             if (definition.aInteractions?.Any(actions.Contains) == true)
                 definition.aInteractions = definition.aInteractions.Where(a => !actions.Contains(a)).ToArray();
     }
-    internal static bool Select(string trigger, CondOwner item, bool previous)
+    internal static bool Select(string? trigger, CondOwner item, bool previous)
     {
+        // Native callers also use unnamed, inline conditions. Only registered
+        // assembly selectors belong to us; leave every other native result alone.
+        if (string.IsNullOrEmpty(trigger)) return previous;
         return !Selectors.TryGetValue(trigger, out var c) ? previous : previous && ValidUnit(c, item);
     }
     private static bool ValidUnit(Contract c, CondOwner item) => item != null && !item.bDestroyed &&

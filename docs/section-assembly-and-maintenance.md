@@ -4,6 +4,14 @@ Prepared for Framework 0.31.0, Shipbreaker 0.31.0 and Agriculture 0.16.1.
 These changes have offline checks; native hauling, menus and inventory handling
 still need owner playtesting. Manufacturing remains held and uninstalled.
 
+Framework 0.31.1 corrects the owner's reported null-key exception in the new
+section filter. Native inline conditions can have no name: the filter now leaves
+those checks unchanged, including a native refusal. The information-action hook
+also ignores unnamed interactions. The exact exception was reproduced offline;
+null, empty and unrelated names now pass regression checks through the compiled
+hooks. Assembly bills, saves and gameplay requirements are unchanged. Live Unity
+confirmation remains pending.
+
 ## Assemble where the machine will operate
 
 The D4-S in the screenshot is a section, not a working dismantling fixture.

@@ -12,6 +12,10 @@ string selector=d.Installables["PhobosAssembly"].CTThem;
 var good=Part();Check(SectionAssembly.Select(selector,good,true),"Existing section without new progress fields is eligible");
 Check(!SectionAssembly.Select(selector,good,false),"Native exclusion cannot be overridden");
 Check(SectionAssembly.Select("Foreign",good,true),"Unrelated native selectors untouched");
+foreach (string? name in new string?[] { null, "", "Foreign" })
+foreach (bool nativeResult in new[] { false, true })
+    Check(SectionAssembly.Select(name, null!, nativeResult) == nativeResult,
+        "Unnamed or unrelated native triggers preserve their result without reading a target");
 foreach(string flag in new[]{"IsInstalled","IsDamaged"}) {good.SetCondAmount(flag,1);Check(!SectionAssembly.Select(selector,good,true),"Invalid section flag: "+flag);good.ZeroCondAmount(flag);}
 good.SetCondAmount("StatMass",79);Check(!SectionAssembly.Select(selector,good,true),"Changed mass rejected");good.SetCondAmount("StatMass",80);
 good.children.Add(Part("Cargo"));Check(!SectionAssembly.Select(selector,good,true),"Hidden cargo prevents consumption");good.children.Clear();
