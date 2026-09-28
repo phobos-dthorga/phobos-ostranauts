@@ -25,6 +25,25 @@ Dates on Draft entries record preparation, not Steam publication.
 - Earlier capture-only research is superseded for supported ordinary walls by the 0.24.0 reclamation implementation below. Broader structural recipes, repeated furnace batches and whole-wreck completion remain outside this round.
 - Keep [NASA Goddard's Raven research](https://www.nasa.gov/general/nasas-hybrid-computer-enables-ravens-autonomous-rendezvous-capability/) and [ESA's LIRIS experiment by Airbus, Jena Optronik and Sodern](https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/ATV/ATV_views_Space_Station_as_never_before) as sensing context, separate from Blue Bottle Games native evidence and authored gameplay choices. No institutional endorsement or gameplay validation is implied.
 
+## [0.33.0] - 2026-09-28 - Draft
+
+### Added
+
+- F6 Repeat batches: an opt-in run that seals each full twenty-piece aluminium charge, runs the automatic sequence, returns chamber gas to the recorded room once cool and releases the products. It then re-enables paired R4 aluminium receiving for the next charge. End repeat run stops the automation and leaves the current batch as it is.
+- The run binds the furnace's ship, room and cooling assembly, and never re-arms interrupted heating. Flight manoeuvres, lost power or probes, manual furnace control, a changed room or cooling assembly and faults pause it until you choose Repeat batches again. A partial final charge stays cold and unprocessed.
+- D4 and R4 storage outputs. Choose one unlocked native storage container on the same ship, reachable over structural floor, then start unloading. D4 sends its ordinary products: small mechanical parts, aluminium, carbon fibre and steel scrap. R4 sends steel. Each item uses the existing feeder time and power, paid by the sending machine.
+- A full store leaves products in the tray and unloading continues when space appears. Stacked, nested or installed items stay in the tray. Unloading pauses on reload and when the store, route or machine changes. Several machines may choose the same store.
+- F3 commands: phobosfurnace repeat and repeat-stop; phobosroute stores, store, unstore, unload and pause-unload. The C1 console and local panels show both controls and their status.
+
+### Changed
+
+- Crew F6 standing orders keep bringing aluminium and clearing products during a repeat run, and leave sealing, heating, gas return and release to the run. Otherwise their hot-step choices are unchanged, now through the same shared step selector.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.33.0. Residue, rejects, R4 aluminium, furnace outputs and cooling keep their existing routes. Neither feature starts after loading; batches, pairs, filters and cargo are preserved. No new equipment, recipes or artwork.
+- The furnace still pauses on any manoeuvre or torch demand, so autonomous G4 transits pause a repeat run. Seal, heat, gas return and release happen during ordinary play, not inside a managed time-skip. Offline checks pass; owner gameplay testing is pending.
+
 ## [0.32.0] - 2026-09-28 - Draft
 
 ### Added

@@ -168,3 +168,15 @@ Missing images fall back without changing requirements. Historical audit evidenc
 is preserved with a dated implementation follow-up. No catalogue messages or
 formatting contracts changed; coverage remains 1,791 entries, 152 documents and
 14 other surfaces. Owner Unity approval is explicitly pending.
+
+## Repeat run and storage outputs, 28 September 2026
+
+Shipbreaker 0.33.0 adds 52 reviewed catalogue entries for the F6 repeat run and the
+D4/R4 storage outputs, and extends the furnace and routing F3 help. New messages
+state the situation, what is kept and the next action: a paused run names its cause
+and asks for Repeat batches again; a full store keeps products in the tray. Pause
+conditions never promise automatic recovery, and the partial-charge rule is explicit.
+Existing placeholders, commands and keys are unchanged. Current guides, item-reference
+inputs and both Workshop drafts were reviewed together. Coverage is now 1,843
+entries, 153 documents and 14 other surfaces. Unity layout of the added buttons
+and status lines is unverified.

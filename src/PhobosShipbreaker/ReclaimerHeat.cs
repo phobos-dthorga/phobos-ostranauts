@@ -27,7 +27,7 @@ internal static class ReclaimerHeat
         var room = machine.ship?.GetRoomAtWorldCoords1(machine.GetPos("use"), false)?.CO;
         var gas = room?.GasContainer;
         double demand = RoutingRules.DemandKW(machine.HasCond(ProcessRules.Working), machine.HasCond(RoutingRules.Feeding),
-            Plugin.Options.ReclaimerKW, Plugin.Options.FeederKW);
+            machine.HasCond(StorageRules.Unloading), Plugin.Options.ReclaimerKW, ReclaimerRules.IdleKW, Plugin.Options.FeederKW);
         double seconds = amount * Units.SecondsPerHour / demand;
         double mols = 0;
         if (gas == null || !gas.mapGasMols1.TryGetValue("StatGasMolTotal", out mols) ||

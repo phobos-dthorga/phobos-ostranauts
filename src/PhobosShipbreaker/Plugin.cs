@@ -16,11 +16,12 @@ namespace PhobosShipbreaker;
 public sealed class Plugin : BaseUnityPlugin
 {
     public const string Id = "phobosgekko.ostranauts.shipbreaker";
-    public const string Version = "0.32.0";
+    public const string Version = "0.33.0";
     internal static ProcessingService Service { get; private set; } = null!;
     internal static Action<string> Log { get; private set; } = null!;
     internal static Settings Options { get; private set; } = null!;
     internal static CollectorService Collectors { get; private set; } = null!;
+    internal static StorageService Storage { get; private set; } = null!;
     internal static CollectorPanel CollectorControls { get; private set; } = null!;
     internal static ReclaimerPanel ReclaimerControls { get; private set; } = null!;
     private Harmony? harmony;
@@ -35,6 +36,7 @@ public sealed class Plugin : BaseUnityPlugin
         Options = new Settings(Config);
         Service = new ProcessingService(Log, Options);
         Collectors = new CollectorService(Log, Options);
+        Storage = new StorageService(Log, Options);
         CollectorControls = new CollectorPanel(Collectors);
         ReclaimerControls = new ReclaimerPanel();
         panel = new FixturePanel(Service, Options);
@@ -48,7 +50,7 @@ public sealed class Plugin : BaseUnityPlugin
     }
     private void Update() { panel.Update(); FurnaceService.Update(); CaptureService.Update(); ReclamationService.Update(); }
     private void OnGUI() { panel.Draw(); CollectorControls.Draw(); ReclaimerControls.Draw(); }
-    internal static void ResetServices() { ReclamationService.Reset(); CaptureService.Reset(); Service.Reset(); Collectors.Reset(); CollectorControls.Reset(); ReclaimerControls.Reset(); IndustryObservations.Reset(); FurnaceService.Reset(); }
+    internal static void ResetServices() { ReclamationService.Reset(); CaptureService.Reset(); Service.Reset(); Collectors.Reset(); Storage.Reset(); CollectorControls.Reset(); ReclaimerControls.Reset(); IndustryObservations.Reset(); FurnaceService.Reset(); }
     private static void LoadContent() { ResetServices(); Content.Register(Log); }
     private static void ConfirmContent() => Content.ConfirmRecipes(Log);
     private void OnDestroy()
@@ -57,20 +59,21 @@ public sealed class Plugin : BaseUnityPlugin
         ReclamationService.Reset(); CaptureService.Shutdown();
         Phobos.Ostranauts.Framework.Inventory.CollectorCargo.SetEndpointValidator(null);
         FrameworkLifecycle.ContentLoading -= LoadContent; FrameworkLifecycle.ContentLoaded -= ConfirmContent;
-        Service?.Reset(); Collectors?.Reset(); IndustryObservations.Reset(); harmony?.UnpatchSelf();
+        Service?.Reset(); Collectors?.Reset(); Storage?.Reset(); IndustryObservations.Reset(); harmony?.UnpatchSelf();
     }
 }
 
 [HarmonyPatch(typeof(Powered), "UsePower", new[] { typeof(CondOwner), typeof(double) })]
 internal static class PowerPatch
 {
-    internal sealed class PowerState { internal bool Working, Feeding, Finished, Cutting; internal ReclamationService.PowerTransfer? Cutter; internal ReclaimerHeat.Transfer? Heat; internal FurnaceService.PowerTransfer? Furnace; }
+    internal sealed class PowerState { internal bool Working, Feeding, Unloading, Finished, Cutting; internal ReclamationService.PowerTransfer? Cutter; internal ReclaimerHeat.Transfer? Heat; internal FurnaceService.PowerTransfer? Furnace; }
     private static bool Prefix(Powered __instance, CondOwner __0, ref double __1, out PowerState __state)
     {
         __state = new PowerState { Working = __0 != null && (ProcessingService.IsProcessor(__0.strCODef) && __0.HasCond(Core.ProcessRules.Working) ||
             ProcessingService.IsGrabber(__0) && __0.HasCond(Core.IntakeRules.Working) ||
             Core.CollectorRules.IsFamily(__0.strCODef) && __0.HasCond(Core.CollectorRules.Working)) };
         __state.Feeding = __0 != null && ProcessingService.IsReclaimer(__0) && __0.HasCond(Core.RoutingRules.Feeding);
+        __state.Unloading = __0 != null && ProcessingService.IsInstalledProcessor(__0) && __0.HasCond(Core.StorageRules.Unloading);
         if (__0 != null && Core.FurnaceRules.Machine(__0.strCODef))
         {
             try { return FurnaceService.BeginPower(__instance, __0, ref __1, out __state.Furnace); }
@@ -81,10 +84,11 @@ internal static class PowerPatch
             try { return ReclamationService.BeginPower(__instance,__0,ref __1,out __state.Cutter,out __state.Cutting); }
             catch(Exception ex) { ReclamationService.Fault(__0,ex); return false; }
         }
-        if (__state.Feeding)
+        if (__state.Feeding || __state.Unloading)
         {
-            double baseKW = __state.Working ? Plugin.Options.ReclaimerKW : Core.ReclaimerRules.IdleKW;
-            __1 *= Core.RoutingRules.DemandKW(__state.Working, true, Plugin.Options.ReclaimerKW, Plugin.Options.FeederKW) / baseKW;
+            bool reclaimer = ProcessingService.IsReclaimer(__0!);
+            double work = reclaimer ? Plugin.Options.ReclaimerKW : Plugin.Options.WorkingKW, idle = reclaimer ? Core.ReclaimerRules.IdleKW : Plugin.Options.IdleKW;
+            __1 *= Core.RoutingRules.DemandKW(__state.Working, __state.Feeding, __state.Unloading, work, idle, Plugin.Options.FeederKW) / (__state.Working ? work : idle);
         }
         return __0 == null || ReclaimerHeat.Begin(__instance, __0, __1, out __state.Heat);
     }
@@ -114,6 +118,7 @@ internal static class PowerPatch
         {
             Plugin.Service.AfterPower(__0, __state.Working, __state.Heat?.WorkSeconds);
             if (ProcessingService.IsReclaimer(__0)) Plugin.Collectors.AfterPower(__0, __state.Feeding, __state.Heat?.WorkSeconds);
+            if (ProcessingService.IsInstalledProcessor(__0)) Plugin.Storage.AfterPower(__0, __state.Unloading, __state.Heat?.WorkSeconds);
         }
     }
     private static void Finalizer(Powered __instance, CondOwner __0, PowerState? __state)
@@ -163,6 +168,10 @@ internal static class PowerDemandPatch
         }
         catch (Exception ex)
         { Plugin.Service.Fault(machine, ex); if (ProcessingService.IsReclaimer(machine)) Plugin.Collectors.Fault(machine, ex); }
+        // Storage unloading has its own permission and fault state; it never stops processing.
+        if (!ProcessingService.IsInstalledProcessor(machine)) return;
+        try { Plugin.Storage.BeforePower(machine); }
+        catch (Exception ex) { Plugin.Storage.Fault(machine, ex); }
     }
 }
 

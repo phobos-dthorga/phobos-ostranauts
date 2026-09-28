@@ -7,8 +7,9 @@ binding, mandatory Auto Nav integration, checked native attachment and explicit
 release. Cutting, automatic repositioning and repeated processing were later
 stages at that time; Shipbreaker 0.24.0 and Auto Nav 0.18.0 have since delivered
 bounded cutting, release, traversal and recapture
-([reclamation operations](../shipbreaker-reclamation.md)), while repeated furnace
-batches, storage endpoints and whole-wreck completion remain open.
+([reclamation operations](../shipbreaker-reclamation.md)). Shipbreaker 0.33.0 then
+added storage outputs and a furnace repeat run (see the milestone 3 status below);
+whole-wreck completion remains open.
 The [geometry evidence](shipbreaker-close-work-geometry.md) explains why
 native attachment is needed for this arrangement. The original research below
 is historical proposal text; the capture guide defines current delivered scope.
@@ -165,6 +166,21 @@ work unless separately justified by the demonstrated cutting envelope.
 Owner gameplay evaluation follows preparation, not as a prerequisite for coding.
 
 ### 3. Processing endurance, new structure and broader traversal
+
+**Status, 28 September (Shipbreaker 0.33.0 / Framework 0.33.0):** the processing
+half is delivered as two separately started permissions. D4 ProductsOut and R4
+SteelOut unload into one exact-ID native container, with the selection saved on the
+sender, capacity from the container's own grid and feeder power paid by the sender;
+several machines may share one store. A furnace-owned repeat run binds ship, room
+and cooling assembly, re-enables R4 aluminium receiving after each release and
+suspends on any interruption. Two deliberate differences from the text below: the
+repeat permission belongs to the furnace rather than the mission, so manually fed
+chains can use it; and no checked motion envelope was established, so the any-thrust
+pause remains and suspends the run on every transit. Crew standing orders
+(Shipbreaker 0.25.0) separately cover attended hauling and hot steps. Floors, other
+families and broader traversal remain open. Player guides:
+[repeat batches](../furnace-player-guide.md#repeat-batches) and
+[storage outputs](../automatic-material-routing.md#storage-outputs-for-ordinary-products).
 
 Deliver finite storage endpoints and explicit ordinary-product routes before
 calling the chain unattended. Keep one destination per address; register new

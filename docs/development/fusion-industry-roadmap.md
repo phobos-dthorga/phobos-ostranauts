@@ -9,8 +9,9 @@ processing and whole-supported-wreck completion remain subsequent milestones.
 A finite deployed head may later enhance this arrangement.
 **28 September status:** Shipbreaker 0.24.0 and Auto Nav 0.18.0 have since
 delivered bounded cutting, release, traversal and recapture for supported ordinary
-walls; see [reclamation operations](../shipbreaker-reclamation.md). Repeated furnace
-batches, storage endpoints, other wall families and whole-wreck completion remain open.
+walls; see [reclamation operations](../shipbreaker-reclamation.md). Shipbreaker 0.33.0
+added D4/R4 storage outputs and a separately started furnace repeat run; the furnace
+motion pause is unchanged. Other wall families, floors and whole-wreck completion remain open.
 
 **Autonomous reclamation, 25 September:** the owner selected research/design for
 one explicitly chosen G4, required Auto Nav with an existing N1/N2, supported
@@ -273,8 +274,9 @@ sustained throughput. A duplicate broken-item dismantling recipe is insufficient
 in Shipbreaker 0.24.0 with existing D4/R4/F6 recipes and finite outputs preserved;
 see [reclamation operations](../shipbreaker-reclamation.md). Auto Nav aligns and
 holds the selected G4, then advances between walls without required docking.
-Remaining work is storage endpoints, repeated furnace operation, further feed
-families (other wall types, floors) and traversal beyond one wreck. Whole
+Shipbreaker 0.33.0 added storage outputs and a furnace repeat run. Remaining work is
+a checked motion policy for processing during positioning, further feed families
+(other wall types, floors) and traversal beyond one wreck. Whole
 completion requires accounted remnants and safe cleanup, not an empty queue.
 The [earlier framework/cutter brief](powered-shipbreaking-research.md) is historical;
 its research round implemented no external cutting or industrial flight controls.

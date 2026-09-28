@@ -18,6 +18,9 @@ public readonly struct RoutingCommand
         if (action == "help" && words.Length <= 2) return new RoutingCommand(action);
         if (action == "status" && words.Length <= 3) return new RoutingCommand(action, words.Length == 3 ? words[2] : null);
         if ((action == "start" || action == "pause") && words.Length == 3) return new RoutingCommand(action, words[2]);
+        // Storage outputs: a sender and, for store, one full native store ID (case preserved).
+        if (new[] { "stores", "unstore", "unload", "pause-unload" }.Contains(action) && words.Length == 3) return new RoutingCommand(action, words[2]);
+        if (action == "store" && words.Length == 4) return new RoutingCommand(action, words[2], words[3]);
         if (words.Length == 4 && new[] { "link", "unlink", "filter", "controls" }.Contains(action))
         {
             string argument = action == "link" ? words[3] : words[3].ToLowerInvariant();

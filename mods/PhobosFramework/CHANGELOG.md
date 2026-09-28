@@ -20,6 +20,16 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.33.0] - 2026-09-28 - Draft
+
+### Added
+
+- A public single-container check for crew storage eligibility: finite, unlocked, not a person and not provider-owned equipment. Crew store lists keep the same rule, and Shipbreaker storage outputs now share it instead of copying it.
+
+### Compatibility
+
+- Additive only; saved orders, stores and equipment are unchanged. Required by Shipbreaker 0.33.0. Offline checks are not in-game validation.
+
 ## [0.32.0] - 2026-09-28 - Draft
 
 ### Added

@@ -18,6 +18,7 @@ public static class RoutingRules
         CollectorRules.IsFamily(id) ? CollectorRules.Installed :
         new[] { Processor, Processor + "Dmg", "PhobosShipbreakerLoose", "PhobosShipbreakerLooseDmg" }.Contains(id) ? Processor : null;
     public static bool IsSender(string? id) => Family(id) != null;
+    public static bool IsProcessorFamily(string? id) => Family(id) == Processor;
     public static bool IsReceiver(string? id) => FurnaceRules.Machine(id) || Family(id) == CollectorRules.Installed || Family(id) == ReclaimerRules.Installed;
     public static string OutputPort(string? id, bool metals = false) => FurnaceRules.Machine(id) ? FurnaceOut : metals && ReclaimerRules.IsFamily(id) ? MetalsOut : SendPort;
     public static string InputPort(string? id) => FurnaceRules.Machine(id) ? FurnaceIn : ReclaimerRules.IsFamily(id) ? ReclaimerIn : CollectorIn;
@@ -46,5 +47,8 @@ public static class RoutingRules
     public static bool CompatibleFilter(bool reclaimer, PortFilterSnapshot filter) =>
         CompatibleFilter(reclaimer ? ReclaimerRules.Installed : CollectorRules.Installed, filter);
     public static double DemandKW(bool processing, bool feeding, double workKW, double feedKW) =>
-        (processing ? workKW : ReclaimerRules.IdleKW) + (feeding ? feedKW : 0);
+        DemandKW(processing, feeding, false, workKW, ReclaimerRules.IdleKW, feedKW);
+    /// <summary>Feeding the input bin and unloading into storage each draw the configured feeder power.</summary>
+    public static double DemandKW(bool processing, bool feeding, bool unloading, double workKW, double idleKW, double feedKW) =>
+        (processing ? workKW : idleKW) + (feeding ? feedKW : 0) + (unloading ? feedKW : 0);
 }

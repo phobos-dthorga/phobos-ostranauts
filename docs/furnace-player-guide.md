@@ -186,6 +186,39 @@ These are labour-saving alternative construction routes, not precision parts or
 native repair-recipe replacements. The 240 kg furnace and 100 kg radiator remain
 substantial infrastructure for sustained independent maintenance.
 
+## Repeat batches
+
+**Repeat batches** keeps the F6 casting without a crew trip for every step. Start
+it from the local panel, C1 or F3 once the furnace is paired with a working cooling
+assembly on your own ship. For each full charge of twenty aluminium pieces, the run
+seals, runs the AUTO sequence, returns chamber and receiver gas to the recorded room
+at or below 50 C, and releases the products. It then turns receiving back on for a
+paired R4 aluminium output, so the next charge can arrive. Without a paired R4, load
+aluminium by hand or with a crew order; the run seals once twenty pieces are in.
+
+The run records the furnace's ship, room and cooling assembly when you start it.
+It stops acting, and waits for **Repeat batches** again, when:
+
+- the ship manoeuvres or demands torch thrust, including autonomous G4 transits;
+- power, instruments or cooling fail, or heating stops before the batch finishes;
+- you or C1 use a manual furnace control, such as Stop, Seal, Resume, Equalize or Release;
+- the room, cooling assembly or ship ownership changes, or a fault occurs;
+- the game is loaded.
+
+A pause only withdraws heating permission. Heat, gas, charge and progress stay where
+they are, and passive cooling continues. Choosing **Repeat batches** on an interrupted
+batch is your explicit Resume of that batch. The run never re-arms heating by itself
+and never melts a partial charge: a final charge of fewer than twenty pieces stays
+cold in the bin. **End repeat run** stops the automation and leaves the current batch
+for the normal controls. The status line counts batches released during the run.
+
+Products still need somewhere to go. Release waits while the product tray is full;
+pair the F6 output to a collector with **Released furnace products only**, or let crew
+clear it. Crew F6 standing orders keep bringing aluminium and clearing products during
+a repeat run, and leave sealing, heating, gas return and release to it. Seal, gas return
+and release happen during ordinary play, not inside a managed time-skip; heating already
+under way still follows the power actually supplied.
+
 ## Process and interruptions
 
 | State | Requirement / transition | Retained when interrupted |
@@ -285,6 +318,8 @@ phobosfurnace controls <full-furnace-id>
 phobosfurnace pair <full-furnace-id> <full-cooling-id>
 phobosfurnace status <full-furnace-id>
 phobosfurnace stop <full-furnace-id>
+phobosfurnace repeat <full-furnace-id>
+phobosfurnace repeat-stop <full-furnace-id>
 ```
 
 C1 also accepts furnace actions through `phobosindustry <action> <console-id>
@@ -312,6 +347,9 @@ support have separate messages. Painted pipe details are not a routable network.
   Unpair and removal from both ends; confirm old F6-R links still work. Do the displayed readings and stop reason explain each stop?
 - Save hot, reload, verify retained charge/heat/gas and explicit Resume. Block the
   output tray, then free it and release once. Compare all product masses.
+- With R4 aluminium paired to the F6, start **Repeat batches** and let two charges
+  run. Check that receiving turns back on after each release, that a manoeuvre and a
+  reload each pause the run, and that **End repeat run** leaves the batch unchanged.
 - Open/close local and C1 panels repeatedly; check paused controls, numeric focus,
   smaller UI scales, native donor appearance and always-accessible Stop. Open the
   guard, enable/stop, drag each slider and Apply, then change a value through F3.

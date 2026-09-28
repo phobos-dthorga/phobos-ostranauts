@@ -226,6 +226,7 @@ public sealed class IndustrialPanel : GUIData
             W.Label(actions, Text.Get("Industry.processing"));
             Add(actions, "start"); Add(actions, "pause"); Add(actions, "cancel");
             Add(actions, "watch"); Add(actions, "unwatch");
+            if (StorageService.Supported(target)) { W.Label(actions, Text.Get("Industry.unloading")); Add(actions, "unload"); Add(actions, "pause-unload"); }
             PolarisWidgets.Button(actions, Phobos.Ostranauts.Framework.Audio.CompletionCues.VolumeLabel, () => { Phobos.Ostranauts.Framework.Audio.CompletionCues.CycleVolume(); ShowDetail(); });
             if (!Central) { Add(actions, "feed"); Add(actions, "products"); }
         }
@@ -339,6 +340,13 @@ public sealed class IndustrialPanel : GUIData
         }
         if(RoutingRules.IsSender(target.strCODef))Output(false);
         if(ProcessingService.IsReclaimer(target))Output(true);
+        if(StorageService.Supported(target))
+        {
+            // One chosen native store per machine; locating/clearing remains possible if it no longer resolves.
+            string store=StorageService.Selection(target),label=Text.Get("Storage.destination");
+            C.Field(actions,label,ObjectPresentation.Name(store),()=>Connection(target,"link-store",label,store,()=>StorageService.Candidates(target),"unlink-store"),
+                ()=>ObjectPicker.Locate(shell,CollectorService.Resolve(store)),()=>Setting(target,"unlink-store",label:C.Text("clear")),CollectorService.Resolve(store)!=null,store!="none");
+        }
         void Output(bool metals)
         {
             string peer=PanelConfiguration.Peer(target,true,metals),label=metals?Text.Get("Routing.metals_port"):C.Text("destination"),unlink=metals?"unlink-metals":"unlink-output";

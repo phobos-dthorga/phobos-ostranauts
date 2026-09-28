@@ -24,6 +24,8 @@ FurnaceChecks.Run(Check);
 CaptureChecks.Run(Check);
 ReclamationChecks.Run(Check,Throws);
 FurnaceMaterialChecks.Run(Check);
+FurnaceCycleChecks.Run(Check);
+StorageChecks.Run(Check);
 var recipeV1 = ProcessRecipes.WallPanels.Current;
 var masses = recipeV1.Products.SelectMany(p => Enumerable.Repeat(p.Kg, p.Count)).ToArray();
 Check(ProcessRules.Balanced(24, masses), "Recipe conserves all 24 kg including residue");

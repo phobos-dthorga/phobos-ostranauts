@@ -13,8 +13,10 @@ and [handover](development/shipbreaker-autopilot-handover.md) distinguish Receiv
 to seal, heat, equalize and release. They propose reviewing our any-thrust pause
 policy for checked processing during gentle G4 positioning. The current interlock
 remains until a tested motion/power/thermal policy replaces it; this is not an
-unavoidable native-engine restriction. That automation and policy change are not
-implemented by this routing candidate.
+unavoidable native-engine restriction. Shipbreaker 0.33.0 adds the separately
+started [repeat run](furnace-player-guide.md#repeat-batches) and D4/R4
+[storage outputs](automatic-material-routing.md#storage-outputs-for-ordinary-products);
+the motion policy is unchanged, so any manoeuvre still pauses a repeat run.
 
 ## Operating sequence
 
@@ -41,7 +43,9 @@ F6 cooling connection -------------> existing selected cooling assembly
    pieces. With ContinueFeeding disabled, press Receive for each piece.
 4. Seal and run the batch explicitly, equalize when ready, then Release.
    Receiving never issues these process commands. Seal cancels pending transfer
-   work. Another charge requires another explicit Receive.
+   work. Another charge requires another explicit Receive, unless a
+   [repeat run](furnace-player-guide.md#repeat-batches) is on: it seals, runs,
+   equalizes and releases each full charge, then turns receiving back on itself.
 5. Pair the F6 output to an existing hull collector. Select **Released furnace
    products only**, then start that collector. It accepts the 19 kg housing blank
    and 1 kg melt remainder only after the F6 is idle, cool and unlocked.
@@ -134,7 +138,7 @@ existing sixty-second bound pause receiving.
 
 | Event | Result |
 | --- | --- |
-| Twenty pieces received | Receiving pauses; no automatic Seal or Start |
+| Twenty pieces received | Receiving pauses; no automatic Seal or Start unless a repeat run is on |
 | Seal, active/hot batch, protected native commit | No material movement from captive or protected contents |
 | Full collector | Product stays in the F6 tray until exact native placement fits |
 | Power loss, flight, invalid probe or unusable cooling | F6 receiving pauses; cargo and heat remain; explicit Receive required |

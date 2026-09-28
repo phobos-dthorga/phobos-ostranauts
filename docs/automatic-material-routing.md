@@ -80,9 +80,51 @@ restore the route and explicitly resume. The reclaimer holds at most four
 13 kg packets including its active input, and the collector retains four slots
 and its 52 kg limit. Processing still pauses when its product tray is blocked.
 
-Useful metal stays in product inventories for hauling, maintenance or sale.
+Useful metal stays in product inventories for hauling, maintenance or sale, unless
+you choose a [storage output](#storage-outputs-for-ordinary-products).
 Legacy unclassified residue cannot enter the reclaimer, and terminal rejects
 cannot yield another recovery pass. Nothing is ejected or destroyed by routing.
+
+## Storage outputs for ordinary products
+
+Shipbreaker 0.33.0 gives each D4 and R4 one storage output. It moves ordinary
+products from the product tray into **one storage container you choose**, so a long
+reclamation run does not stop merely because the tray filled.
+
+| Machine | Storage output carries | Existing routes it leaves alone |
+|---|---|---|
+| D4 | Small mechanical parts, aluminium, carbon fibre and steel scrap | Identified or legacy residue |
+| R4 | Steel scrap | Aluminium to the F6; rejects to a collector |
+
+1. Place an ordinary storage container on the same ship, joined to the machine by
+   structural floor. It must be unlocked and have a limited capacity. People,
+   machine trays and Phobos equipment cannot be chosen.
+2. Open the machine's **Routing** page and choose **Storage output**, or use the
+   F3 commands below.
+3. Choose **Start unloading to storage**. Unloading is a separate permission from
+   processing and from any receiving route.
+
+Each item takes the feeder time and adds the feeder power to the sending machine,
+which pays for it: 2 powered seconds and 2 kW at the default settings. R4 unloading
+energy joins its existing room-heat accounting. Items move one at a time by full ID,
+and only unstacked items with nothing inside them. Stacked or nested products stay
+in the tray; separate them by hand. The container's own grid decides what fits. When
+it is full, products wait in the tray and unloading continues once there is space.
+Nothing is created, merged, dropped or destroyed. Several machines may choose the
+same container; the choice is saved on each machine, not on the container.
+
+Unloading pauses on reload, after a time jump, and when the container, machine or
+floor route changes; choose **Start unloading to storage** again. Clearing the
+**Storage output** choice forgets it without moving anything. An unreadable saved
+choice is kept until you clear it.
+
+```text
+phobosroute stores <full D4/R4 ID>
+phobosroute store <full D4/R4 ID> <full storage ID>
+phobosroute unload <full D4/R4 ID>
+phobosroute pause-unload <full D4/R4 ID>
+phobosroute unstore <full D4/R4 ID>
+```
 
 ## Power, time and controls
 

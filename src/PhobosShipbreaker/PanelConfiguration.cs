@@ -10,7 +10,7 @@ namespace PhobosShipbreaker;
 
 internal static class PanelConfiguration
 {
-    internal static string Stamp(CondOwner co)=>ConfigurationStamp.For(co,"PhobosMaterialPort.","PhobosMaterialFilter.","PhobosState.crew-order","PhobosState.FurnaceCoolingMode","PhobosState.Shipbreaker.Capture")+
+    internal static string Stamp(CondOwner co)=>ConfigurationStamp.For(co,"PhobosMaterialPort.","PhobosMaterialFilter.","PhobosState.crew-order","PhobosState.FurnaceCoolingMode","PhobosState.Shipbreaker.Capture","PhobosState."+StorageSelection.StoreName)+
         (FurnaceRules.Machine(co.strCODef)?FurnaceService.SettingsStamp(co)+"|"+FurnaceService.Get(co).Coolant.Enabled:"")+
         (ProcessingService.IsGrabber(co)?"|"+GUIOrbitDraw.CrossHairTarget?.Ship?.strRegID:"");
     internal static string Peer(CondOwner co,bool sending,bool metals=false)=>PortPairing.Read(sending?CollectorService.Sender(co,RoutingRules.OutputPort(co.strCODef,metals)):CollectorService.Receiver(co)).PeerObjectId;

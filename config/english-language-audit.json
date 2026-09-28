@@ -21205,14 +21205,14 @@
       "mod": "PhobosShipbreaker",
       "key": "Routing.help",
       "category": "help/settings",
-      "decision": "retain",
-      "reason": "Retain: clear functional label, operational instruction or necessary safety/detail constraint; no forced personality.",
+      "decision": "rewrite",
+      "reason": "Added storage-output commands; existing commands, filters and reload rule retained.",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosShipbreaker/RoutingCommands.cs:11"
       ],
       "before": "phobosroute status [full object ID]\nphobosroute link <full sender ID> <full receiver ID>\nphobosroute unlink <full object ID> <send|receive|metals>\nphobosroute controls <full object ID> <send|receive|metals>\nphobosroute start|pause <full receiver ID>\nphobosroute filter <full receiver ID> <all|feed|rejects|legacy|furnace-products|aluminium>\nOne pair per port. An R4-to-F6 link uses the separate metals output; send retains its residue meaning. All remains residue-only. Receiving never starts or releases a batch. Routing pauses on reload.",
-      "after": "phobosroute status [full object ID]\nphobosroute link <full sender ID> <full receiver ID>\nphobosroute unlink <full object ID> <send|receive|metals>\nphobosroute controls <full object ID> <send|receive|metals>\nphobosroute start|pause <full receiver ID>\nphobosroute filter <full receiver ID> <all|feed|rejects|legacy|furnace-products|aluminium>\nOne pair per port. An R4-to-F6 link uses the separate metals output; send retains its residue meaning. All remains residue-only. Receiving never starts or releases a batch. Routing pauses on reload."
+      "after": "phobosroute status [full object ID]\nphobosroute link <full sender ID> <full receiver ID>\nphobosroute unlink <full object ID> <send|receive|metals>\nphobosroute controls <full object ID> <send|receive|metals>\nphobosroute start|pause <full receiver ID>\nphobosroute filter <full receiver ID> <all|feed|rejects|legacy|furnace-products|aluminium>\nphobosroute stores <full D4/R4 ID>\nphobosroute store <full D4/R4 ID> <full storage ID>\nphobosroute unstore|unload|pause-unload <full D4/R4 ID>\nOne pair per port. An R4-to-F6 link uses the separate metals output; send retains its residue meaning. All remains residue-only. Receiving never starts or releases a batch. Routing pauses on reload. D4 products and R4 steel unload into one chosen storage container; unloading also pauses on reload."
     },
     {
       "mod": "PhobosShipbreaker",
@@ -26555,14 +26555,14 @@
       "mod": "PhobosShipbreaker",
       "key": "Furnace.help",
       "category": "help/settings",
-      "decision": "retain",
-      "reason": "Retain: clear functional label, operational instruction or necessary safety/detail constraint; no forced personality.",
+      "decision": "rewrite",
+      "reason": "Added the repeat and repeat-stop commands; existing commands, IDs and limits retained.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosShipbreaker/FurnaceOperations.cs:299"
+        "src/PhobosShipbreaker/FurnaceOperations.cs:320"
       ],
       "before": "phobosfurnace list | controls <full-id> | status <full-id> | pair <furnace-id> <cooling-id> | unpair <full-id> | feed <furnace-id> | products <furnace-id> | seal <furnace-id> | resume <furnace-id> | next <furnace-id> | stop <furnace-id> | equalize <furnace-id> | release <furnace-id> | automatic <furnace-id> | step-mode <furnace-id> | heat <furnace-id> <1-250 kW> | ramp <furnace-id> <0.1-5 K/s> | cool <furnace-id> <1-100 kW>. Full IDs and normal access checks are required.\nphobosfurnace cooling-direct <furnace-ID>\nphobosfurnace cooling-left <furnace-ID>\nphobosfurnace cooling-right <furnace-ID>\nCooling mode changes require a cool, empty furnace and cool paired assembly. Piped modes require F6-C conduits to an F6-R radiator; pair using the existing command.\nphobosfurnace coolant-managed/coolant-sealed/coolant-fill/coolant-drain <furnace-ID>",
-      "after": "phobosfurnace list | controls <full-id> | status <full-id> | pair <furnace-id> <cooling-id> | unpair <full-id> | feed <furnace-id> | products <furnace-id> | seal <furnace-id> | resume <furnace-id> | next <furnace-id> | stop <furnace-id> | equalize <furnace-id> | release <furnace-id> | automatic <furnace-id> | step-mode <furnace-id> | heat <furnace-id> <1-250 kW> | ramp <furnace-id> <0.1-5 K/s> | cool <furnace-id> <1-100 kW>. Full IDs and normal access checks are required.\nphobosfurnace cooling-direct <furnace-ID>\nphobosfurnace cooling-left <furnace-ID>\nphobosfurnace cooling-right <furnace-ID>\nCooling mode changes require a cool, empty furnace and cool paired assembly. Piped modes require F6-C conduits to an F6-R radiator; pair using the existing command.\nphobosfurnace coolant-managed/coolant-sealed/coolant-fill/coolant-drain <furnace-ID>"
+      "after": "phobosfurnace list | controls <full-id> | status <full-id> | pair <furnace-id> <cooling-id> | unpair <full-id> | feed <furnace-id> | products <furnace-id> | seal <furnace-id> | resume <furnace-id> | next <furnace-id> | stop <furnace-id> | equalize <furnace-id> | release <furnace-id> | automatic <furnace-id> | step-mode <furnace-id> | repeat <furnace-id> | repeat-stop <furnace-id> | heat <furnace-id> <1-250 kW> | ramp <furnace-id> <0.1-5 K/s> | cool <furnace-id> <1-100 kW>. Full IDs and normal access checks are required.\nphobosfurnace cooling-direct <furnace-ID>\nphobosfurnace cooling-left <furnace-ID>\nphobosfurnace cooling-right <furnace-ID>\nCooling mode changes require a cool, empty furnace and cool paired assembly. Piped modes require F6-C conduits to an F6-R radiator; pair using the existing command.\nphobosfurnace coolant-managed/coolant-sealed/coolant-fill/coolant-drain <furnace-ID>"
     },
     {
       "mod": "PhobosShipbreaker",
@@ -35724,6 +35724,693 @@
         "src/PhobosShipbreaker/CoolingCargo.cs",
         "src/PhobosShipbreaker/FurnaceOperations.cs"
       ]
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Furnace.action_repeat",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/FurnaceInstrumentView.cs:77"
+      ],
+      "before": "Repeat batches",
+      "after": "Repeat batches"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Furnace.action_repeat-stop",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/FurnaceInstrumentView.cs:77"
+      ],
+      "before": "End repeat run",
+      "after": "End repeat run"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Furnace.repeat_started",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/FurnaceRepeat.cs:54"
+      ],
+      "before": "Repeat run on. The furnace seals, runs, equalizes and releases each full charge until you end the run.",
+      "after": "Repeat run on. The furnace seals, runs, equalizes and releases each full charge until you end the run."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Furnace.repeat_ended",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/FurnaceRepeat.cs:65"
+      ],
+      "before": "Repeat run ended. The current batch, charge and stored heat are unchanged; finish it with the normal controls.",
+      "after": "Repeat run ended. The current batch, charge and stored heat are unchanged; finish it with the normal controls."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Furnace.repeat_paused",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/FurnaceRepeat.cs:74"
+      ],
+      "before": "Repeat run paused: {0} Choose Repeat batches to continue.",
+      "after": "Repeat run paused: {0} Choose Repeat batches to continue."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Furnace.repeat_protected",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/FurnaceRepeat.cs:37",
+        "src/PhobosShipbreaker/FurnaceRepeat.cs:49",
+        "src/PhobosShipbreaker/FurnaceRepeat.cs:126",
+        "src/PhobosShipbreaker/FurnaceRepeat.cs:142"
+      ],
+      "before": "The saved repeat-run record cannot be read safely and is kept unchanged. Choose End repeat run to clear it; the furnace, charge and heat are not affected.",
+      "after": "The saved repeat-run record cannot be read safely and is kept unchanged. Choose End repeat run to clear it; the furnace, charge and heat are not affected."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Furnace.repeat_block",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/FurnaceRepeat.cs:42"
+      ],
+      "before": "Repeat needs an installed furnace on your own ship, a room at the furnace and a working, paired cooling assembly.",
+      "after": "Repeat needs an installed furnace on your own ship, a room at the furnace and a working, paired cooling assembly."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Furnace.repeat_changed",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/FurnaceRepeat.cs:90"
+      ],
+      "before": "The furnace's ship, room or cooling assembly changed after the run started.",
+      "after": "The furnace's ship, room or cooling assembly changed after the run started."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Furnace.repeat_interrupted",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/FurnaceRepeat.cs:107"
+      ],
+      "before": "Heating stopped before the batch finished.",
+      "after": "Heating stopped before the batch finished."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Furnace.repeat_manual",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/FurnaceOperations.cs:31"
+      ],
+      "before": "Manual control took over.",
+      "after": "Manual control took over."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Furnace.repeat_heating",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/FurnaceRepeat.cs:115"
+      ],
+      "before": "Charge sealed; batch running.",
+      "after": "Charge sealed; batch running."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Furnace.repeat_equalized",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/FurnaceRepeat.cs:118"
+      ],
+      "before": "Chamber gas returned to the room.",
+      "after": "Chamber gas returned to the room."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Furnace.repeat_released",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/FurnaceRepeat.cs:128"
+      ],
+      "before": "Batch released. Batches released this run: {0}.",
+      "after": "Batch released. Batches released this run: {0}."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Furnace.repeat_returned",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/FurnaceRepeat.cs:128"
+      ],
+      "before": "Unfinished charge returned unchanged. The run will seal it again.",
+      "after": "Unfinished charge returned unchanged. The run will seal it again."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Furnace.repeat_waiting",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/FurnaceRepeat.cs:131"
+      ],
+      "before": "Waiting for a full charge: {0} of {1} aluminium pieces.",
+      "after": "Waiting for a full charge: {0} of {1} aluminium pieces."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Furnace.repeat_cycle",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/FurnaceRepeat.cs:132"
+      ],
+      "before": "Batch in progress: {0}.",
+      "after": "Batch in progress: {0}."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Furnace.repeat_retry",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/FurnaceRepeat.cs:136"
+      ],
+      "before": "Waiting to try again: {0}",
+      "after": "Waiting to try again: {0}"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Furnace.repeat_on",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/FurnaceRepeat.cs:143"
+      ],
+      "before": "Repeat run: on. Batches released: {0}. {1}",
+      "after": "Repeat run: on. Batches released: {0}. {1}"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Furnace.repeat_held",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/FurnaceRepeat.cs:144"
+      ],
+      "before": "Repeat run: paused. Batches released: {0}. {1}",
+      "after": "Repeat run: paused. Batches released: {0}. {1}"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Furnace.repeat_reloaded",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/FurnaceRepeat.cs:144"
+      ],
+      "before": "Paused after loading. Choose Repeat batches to continue.",
+      "after": "Paused after loading. Choose Repeat batches to continue."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Furnace.repeat_off",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/FurnaceRepeat.cs:145"
+      ],
+      "before": "Repeat run: off.",
+      "after": "Repeat run: off."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Crew.repeat_run",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/CrewProvider.cs:67"
+      ],
+      "before": "The furnace's repeat run is handling sealing, heating and release. Crew still bring aluminium and clear products.",
+      "after": "The furnace's repeat run is handling sealing, heating and release. Crew still bring aluminium and clear products."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Storage.paused",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/StorageService.cs:25"
+      ],
+      "before": "Unloading paused. Choose a store on the Routing page, then start unloading.",
+      "after": "Unloading paused. Choose a store on the Routing page, then start unloading."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Storage.paused_manual",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/StorageService.cs:115"
+      ],
+      "before": "Unloading paused; products stay in the tray.",
+      "after": "Unloading paused; products stay in the tray."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Storage.enabled",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/StorageService.cs:107"
+      ],
+      "before": "Unloading on; waiting for products.",
+      "after": "Unloading on; waiting for products."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Storage.waiting",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/StorageService.cs:143"
+      ],
+      "before": "Waiting for products to move.",
+      "after": "Waiting for products to move."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Storage.full",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/StorageService.cs:149"
+      ],
+      "before": "Store full, or it will not take this item. Products wait in the tray; unloading continues once there is space.",
+      "after": "Store full, or it will not take this item. Products wait in the tray; unloading continues once there is space."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Storage.moving",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/StorageService.cs:167"
+      ],
+      "before": "Moving one item to storage: {0} of {1} s.",
+      "after": "Moving one item to storage: {0} of {1} s."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Storage.delivered",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/StorageService.cs:172"
+      ],
+      "before": "Item stored.",
+      "after": "Item stored."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Storage.blocked",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/StorageService.cs:170"
+      ],
+      "before": "Transfer blocked; the item stays in the tray.",
+      "after": "Transfer blocked; the item stays in the tray."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Storage.time_gap",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/StorageService.cs:136",
+        "src/PhobosShipbreaker/StorageService.cs:160",
+        "src/PhobosShipbreaker/StorageService.cs:166"
+      ],
+      "before": "Time jump detected. Unloading paused; products stay in the tray. Start unloading to continue.",
+      "after": "Time jump detected. Unloading paused; products stay in the tray. Start unloading to continue."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Storage.fault",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/StorageService.cs:180"
+      ],
+      "before": "Unloading fault. Paused with products kept in the tray; check the log before starting again.",
+      "after": "Unloading fault. Paused with products kept in the tray; check the log before starting again."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Storage.none",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/StorageService.cs:57"
+      ],
+      "before": "No store chosen. Pick one on the Routing page first.",
+      "after": "No store chosen. Pick one on the Routing page first."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Storage.none_short",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/StorageService.cs:190"
+      ],
+      "before": "not chosen",
+      "after": "not chosen"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Storage.protected",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/StorageService.cs:58",
+        "src/PhobosShipbreaker/StorageService.cs:81",
+        "src/PhobosShipbreaker/StorageService.cs:83"
+      ],
+      "before": "The saved store choice cannot be read safely and is kept unchanged. Unlink storage to clear it; products are not affected.",
+      "after": "The saved store choice cannot be read safely and is kept unchanged. Unlink storage to clear it; products are not affected."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Storage.protected_short",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/StorageService.cs:191"
+      ],
+      "before": "saved choice unreadable",
+      "after": "saved choice unreadable"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Storage.missing",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/StorageService.cs:60"
+      ],
+      "before": "The chosen store is gone. Pick another store.",
+      "after": "The chosen store is gone. Pick another store."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Storage.ineligible",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/StorageService.cs:61",
+        "src/PhobosShipbreaker/StorageService.cs:77"
+      ],
+      "before": "Choose an unlocked storage container with a limited capacity on the same ship. People, machine trays and Phobos equipment cannot be stores.",
+      "after": "Choose an unlocked storage container with a limited capacity on the same ship. People, machine trays and Phobos equipment cannot be stores."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Storage.no_route",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/StorageService.cs:78",
+        "src/PhobosShipbreaker/StorageService.cs:103"
+      ],
+      "before": "No structural floor route between this machine and the store. Restore flooring or choose a closer store.",
+      "after": "No structural floor route between this machine and the store. Restore flooring or choose a closer store."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Storage.route_changed",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/StorageService.cs:133"
+      ],
+      "before": "The store, machine or floor route changed. Unloading paused; check the route and start again.",
+      "after": "The store, machine or floor route changed. Unloading paused; check the route and start again."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Storage.linked",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/StorageService.cs:84"
+      ],
+      "before": "Store chosen: {0}. Start unloading to move products.",
+      "after": "Store chosen: {0}. Start unloading to move products."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Storage.unlinked",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/StorageService.cs:93"
+      ],
+      "before": "Store choice cleared. Products stay where they are.",
+      "after": "Store choice cleared. Products stay where they are."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Storage.unsupported",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/RoutingCommands.cs:35",
+        "src/PhobosShipbreaker/StorageService.cs:51",
+        "src/PhobosShipbreaker/StorageService.cs:89"
+      ],
+      "before": "Only the D4 dismantling fixture and R4 reclaimer unload to storage.",
+      "after": "Only the D4 dismantling fixture and R4 reclaimer unload to storage."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Storage.owned_ship",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/StorageService.cs:52"
+      ],
+      "before": "Storage unloading works only on your own ship.",
+      "after": "Storage unloading works only on your own ship."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Storage.status",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/StorageService.cs:194"
+      ],
+      "before": "Storage output: {0}\nUnloading: {1}\n{2}\nCarries: {3}",
+      "after": "Storage output: {0}\nUnloading: {1}\n{2}\nCarries: {3}"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Storage.state_on",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/StorageService.cs:194"
+      ],
+      "before": "on",
+      "after": "on"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Storage.state_off",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/StorageService.cs:194"
+      ],
+      "before": "paused",
+      "after": "paused"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Storage.no_candidates",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/RoutingCommands.cs:40"
+      ],
+      "before": "No suitable store on this ship. Place an unlocked storage container on structural floor.",
+      "after": "No suitable store on this ship. Place an unlocked storage container on structural floor."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Storage.destination",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/IndustrialPanel.cs:346"
+      ],
+      "before": "Storage output",
+      "after": "Storage output"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Industry.unloading",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/IndustrialPanel.cs:229"
+      ],
+      "before": "UNLOADING TO STORAGE",
+      "after": "UNLOADING TO STORAGE"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Industry.action_unload",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/IndustrialPanel.cs:229"
+      ],
+      "before": "Start unloading to storage",
+      "after": "Start unloading to storage"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Industry.action_pause-unload",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/IndustrialPanel.cs:229"
+      ],
+      "before": "Pause unloading",
+      "after": "Pause unloading"
     }
   ],
   "documents": [
@@ -35731,8 +36418,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "fd253e28c82fae64545ebb70944445316627de9c53ca89e0d912dcc1aa58a134",
-      "review": "2026-09-28: reviewed construction stage guidance and registered version/dependency updates; distinguish native completion, saved work and missing-image fallback from pending owner Unity approval. No catalogue changes."
+      "sha256": "f69e1c5beacc7112e85f96d18033b5a2d488a16d4d8de958836af1944851c1b5",
+      "review": "2026-09-28: registered Framework/Shipbreaker 0.33.0 version and dependency update only; no other wording changed."
     },
     {
       "path": "SUPPORT.md",
@@ -35882,21 +36569,22 @@
       "path": "docs/automatic-material-routing.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "11fb0db19ea5367999c3050b566cef4ac12df95ce57db4f2d6981bae491b3f6f"
+      "sha256": "6f9ab1349f77bce31658ac57f687c1550cc8f11e2b68f4e747e2416e018737d4",
+      "review": "2026-09-28: added storage outputs (setup, cost, capacity waits, reload/pause rules, F3); states that stacked items stay put and nothing is created or discarded."
     },
     {
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "202fbbe6c02651d30908c00bedbf0d534d112c189bcbcad56dd502f946cf4804",
-      "review": "2026-09-28: reviewed construction stage guidance and registered version/dependency updates; distinguish native completion, saved work and missing-image fallback from pending owner Unity approval. No catalogue changes."
+      "sha256": "0af21858387ecd7fdde6b10355e2d08a8c7c38750f412f5d296296c3f82dd7f8",
+      "review": "2026-09-28: registered Framework/Shipbreaker 0.33.0 version and dependency update only; no other wording changed."
     },
     {
       "path": "docs/crew-automation.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "aa3348fd0df4d201e8b4f38caae8d53920d2a8c678cf828d0c23dd2452d5f980",
-      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+      "sha256": "cc64797f5c757551c478c5480e2c5254150e0431a2688b6d521124be25b70471",
+      "review": "2026-09-28: F6 row explains that crew keep supplying and clearing while a repeat run owns the hot steps."
     },
     {
       "path": "docs/development/README.md",
@@ -36208,8 +36896,8 @@
       "path": "docs/development/fusion-industry-roadmap.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "edae613fb7fef478fc8291b10d787304e55d5dedd0a8471afd7664048b679068",
-      "review": "2026-09-28: added current-status pointers to Shipbreaker 0.24.0 reclamation and narrowed the recorded next work; historical research retained."
+      "sha256": "a28477a029b093bee3aa99734a399e7b847170d7800c5a6d59bc5bdc4ec16ad0",
+      "review": "2026-09-28: status updated for Shipbreaker 0.33.0 storage outputs and repeat run; motion pause and remaining work stated."
     },
     {
       "path": "docs/development/fusion-smelter-research.md",
@@ -36446,8 +37134,8 @@
       "path": "docs/development/shipbreaker-autopilot-handover.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "b59e8a89266e217d89fe3b85017cd52c516d9e39db2b1c8052044ec44a2b4032",
-      "review": "2026-09-28: recorded that bounded cutting, release, traversal and recapture shipped in Shipbreaker 0.24.0 / Auto Nav 0.18.0; historical proposal retained."
+      "sha256": "a9675bce4c59ce7dc0350c3957f3e0ff4bc08015c03dfdd070fc677e62b3dbca",
+      "review": "2026-09-28: milestone 3 status added, including the two deliberate deviations (furnace-owned permission, unchanged motion pause); historical specification retained."
     },
     {
       "path": "docs/development/shipbreaker-autopilot-research.md",
@@ -36569,8 +37257,8 @@
       "path": "docs/framework-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "ee223dbd0e25dc3addfc0d0e48ebe47125f84b678b536009e72f531782d22ca7",
-      "review": "2026-09-28: reviewed construction stage guidance and registered version/dependency updates; distinguish native completion, saved work and missing-image fallback from pending owner Unity approval. No catalogue changes."
+      "sha256": "fc0f7379dfe418c6254b0215f9ca0427e7913088fe3b869cd23a4a3f867359cb",
+      "review": "2026-09-28: regenerated for Framework 0.33.0; version only."
     },
     {
       "path": "docs/furnace-coolant-conduits.md",
@@ -36583,15 +37271,15 @@
       "path": "docs/furnace-material-routing.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "78e238d675fd4c98b14840561c874458edadf42ed44c572e0970011698fa4ce9",
-      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+      "sha256": "c837346beb7b9b5275bdbaba016794cdb8bc8a0664afd793146e4c0ed35b4ffc",
+      "review": "2026-09-28: receiving sequence and interruption table note the separately started repeat run; motion policy unchanged."
     },
     {
       "path": "docs/furnace-player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "273f72e1f3d2fe7c3e1cbee4d5cf1eab42d22917992631c98e133f5d1f56edd2",
-      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+      "sha256": "7f7575c65ebdb3887c44defcbbdbe878fe269381792e97553a680a207416747e",
+      "review": "2026-09-28: added Repeat batches section, commands and an owner check; pause conditions and partial-charge rule stated directly."
     },
     {
       "path": "docs/getting-started.md",
@@ -36625,15 +37313,15 @@
       "path": "docs/industrial-console-player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "09df82fda00c00e8e6d08360888eb5ad6cadfc7e087130813aa88bfb5f577865",
-      "review": "2026-09-28: reviewed construction stage guidance and registered version/dependency updates; distinguish native completion, saved work and missing-image fallback from pending owner Unity approval. No catalogue changes."
+      "sha256": "3f0af089e9bb2f51cbba190bd5767118bb7fd4d46c5825956d336d92c4291cba",
+      "review": "2026-09-28: registered Framework/Shipbreaker 0.33.0 version and dependency update only; no other wording changed."
     },
     {
       "path": "docs/installing-mods.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "5e221d0d7ffc89b021bf761387fecb1d4ba7cd58cc2dc2c75410b3876cd9352e",
-      "review": "2026-09-28: noted that verify-only mismatches now name the differing files; no catalogue changes."
+      "sha256": "4e08bd623d4ead8264177635c1342f627548e482917cd10c4ed93e76c28005b1",
+      "review": "2026-09-28: registered Framework/Shipbreaker 0.33.0 version and dependency update only; no other wording changed."
     },
     {
       "path": "docs/item-references.md",
@@ -36653,7 +37341,8 @@
       "path": "docs/material-port-pairing.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "94f8757b703b89b1159e8756fb372d39ead1a87b2034a64468a6b36530422347"
+      "sha256": "0ba450568e327a1a40a807847ce10506e88622ea909ffdb5369e13dacb04e160",
+      "review": "2026-09-28: storage outputs are sender-saved selections, not reciprocal pairs; pair contract unchanged."
     },
     {
       "path": "docs/performance-captures.md",
@@ -36666,8 +37355,8 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "9a8006c63c698050d3114931df78e0086e968631b953e51c040b31525eb0553c",
-      "review": "2026-09-28: reviewed construction stage guidance and registered version/dependency updates; distinguish native completion, saved work and missing-image fallback from pending owner Unity approval. No catalogue changes."
+      "sha256": "276e1db1bc626142c7569e570028e748a397623e9c0d3d0d0588c285f6a01e65",
+      "review": "2026-09-28: version update plus a pointer to storage outputs and repeat batches."
     },
     {
       "path": "docs/residue-collector.md",
@@ -36708,8 +37397,8 @@
       "path": "docs/shipbreaker-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "d80c79a534c2bbe5e343bbc6ba32f990a9e09fdae4344f3cbe6d671f62a64749",
-      "review": "2026-09-28: reviewed construction stage guidance and registered version/dependency updates; distinguish native completion, saved work and missing-image fallback from pending owner Unity approval. No catalogue changes."
+      "sha256": "04b589bf593a33baacff53d2cb075d8c85017abdc401209e68c5c9f5bb16e366",
+      "review": "2026-09-28: regenerated from reviewed D4/R4/F6 explanations for storage outputs and the repeat run."
     },
     {
       "path": "docs/shipbreaker-material-uses.md",
@@ -36722,8 +37411,8 @@
       "path": "docs/shipbreaker-reclamation.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "903f67b309e431aef3dc4adf278d6c1c4bc6179cb78f7fb0708583bad6caae5e",
-      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+      "sha256": "bc686c12c984e615c2ff26b65f67318d40677adef6fde5c45ea933aa400553f1",
+      "review": "2026-09-28: mission scope now points to the separate repeat run and storage outputs and states that transits pause the run."
     },
     {
       "path": "docs/solar-system-economy.md",
@@ -36750,8 +37439,8 @@
       "path": "workshop/PhobosFramework/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "4706ac9a771ea0cd45790db73245ca75689d491830971913de7762c9aca96165",
-      "review": "2026-09-28: reviewed construction stage guidance and registered version/dependency updates; distinguish native completion, saved work and missing-image fallback from pending owner Unity approval. No catalogue changes."
+      "sha256": "08a136fcfdb2de720743259c765689e9a14193c222c9b76c6f3141ae297f0364",
+      "review": "2026-09-28: version plus one line on the shared store rule."
     },
     {
       "path": "workshop/PhobosManufacturing/page.bbcode",
@@ -36764,16 +37453,16 @@
       "path": "workshop/PhobosShipbreaker/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "a358e5b403d73561d454907c20e28cf9b94013cb782d1025b8e7ab383c1f65ef",
-      "review": "2026-09-28: reviewed construction stage guidance and registered version/dependency updates; distinguish native completion, saved work and missing-image fallback from pending owner Unity approval. No catalogue changes."
+      "sha256": "8efc06923fa74468afa8e745117efd81aa78335534fb20b741f1232363678778",
+      "review": "2026-09-28: version plus repeat-batch and storage-output capabilities and their pause limits."
     }
   ],
   "surfaces": [
     {
       "path": "config/item-reference.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "13c91d4acc023f9fa0717e3b3bc56757def4d406a90656841f2d9dec2abb6a92",
-      "review": "2026-09-28: reviewed construction stage guidance and registered version/dependency updates; distinguish native completion, saved work and missing-image fallback from pending owner Unity approval. No catalogue changes."
+      "sha256": "177690afc9c3253d7d89e06c0193c525fdc026d2b4b5d70907b2867350d5117c",
+      "review": "2026-09-28: D4/R4/F6 use and notes updated for storage outputs and the repeat run."
     },
     {
       "path": "mods/PhobosAgriculture/framework/equipment-names.json",
@@ -36820,8 +37509,8 @@
     {
       "path": "mods/PhobosFramework/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "48dc5f1b88ca4b6f623a6377efa5e2c31293e2b75e9f35002ed7acf7fd9a4042",
-      "review": "2026-09-28: reviewed construction stage guidance and registered version/dependency updates; distinguish native completion, saved work and missing-image fallback from pending owner Unity approval. No catalogue changes."
+      "sha256": "9d94967dff28120956d97a45c053bee687bca85f6b4c0c2125470a6d9796af3e",
+      "review": "2026-09-28: registered Framework/Shipbreaker 0.33.0 version and dependency update only; no other wording changed."
     },
     {
       "path": "mods/PhobosManufacturing/mod_info.json",
@@ -36841,8 +37530,8 @@
     {
       "path": "mods/PhobosShipbreaker/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "c0089bcad7c4650e40dda567f6edfcb7dae1e05394fc11a00b569f6737f5ab93",
-      "review": "2026-09-28: reviewed construction stage guidance and registered version/dependency updates; distinguish native completion, saved work and missing-image fallback from pending owner Unity approval. No catalogue changes."
+      "sha256": "3529b1acc775188084ea3483331a6b1db39fa5947030119a264d024ff1799f3a",
+      "review": "2026-09-28: registered Framework/Shipbreaker 0.33.0 version and dependency update only; no other wording changed."
     }
   ],
   "hardcodedReview": {

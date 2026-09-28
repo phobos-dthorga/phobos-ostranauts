@@ -58,6 +58,7 @@ internal static class IndustryService
         if (co.objContainer != null) detail += "\n" + Text.Get("Industry.stored", co.objContainer.ContainedCOs.Count, co.objContainer.ContainedCOs.Sum(c => c.GetTotalMass()));
         if (ProcessingService.IsReclaimer(co)) detail += "\n\n" + Text.Get("Routing.metals_port") + "\n" + CollectorService.DescribeLink(co, true, true);
         if (RoutingRules.IsSender(co.strCODef)) detail += "\n\n" + CollectorService.DescribeLink(co, true);
+        if (StorageService.Supported(co)) { detail += "\n\n" + Plugin.Storage.Describe(co); attention |= Plugin.Storage.NeedsAttention(co); }
         if (RoutingRules.IsReceiver(co.strCODef)) detail += "\n\n" + CollectorService.DescribeLink(co, false) + "\n" + CollectorService.FilterLabel(co);
         return new EquipmentCard { Id = co.strID, Name = ObjectPresentation.Name(co),
             Group = group, State = process.State, Attention = attention, Summary = FirstLine(process.Detail), Detail = detail + IndustryObservations.ExplainStop(co) };
@@ -82,6 +83,14 @@ internal static class IndustryService
         if (FurnaceService.IsEquipment(target) && !new[] { "receive", "pause-receive", "filter", "unlink-input", "unlink-output", "link-input", "link-output", "inventory" }.Contains(action)) return FurnaceService.Command(binding, target, action, value, out message);
         var provider = EquipmentProviders.For(target.strCODef);
         if (provider != null) return provider.Command(target, binding, action, out message);
+        if (StorageService.Supported(target))
+            switch (action)
+            {
+                case "link-store": return Plugin.Storage.Link(target, value, binding, out message);
+                case "unlink-store": return Plugin.Storage.Unlink(target, binding, out message);
+                case "unload": return Plugin.Storage.Start(target, binding, out message);
+                case "pause-unload": return Plugin.Storage.Pause(target, binding, out message);
+            }
         bool processor = ProcessingService.IsProcessor(target.strCODef), receiver = RoutingRules.IsReceiver(target.strCODef);
         bool result;
         switch (action)
@@ -126,6 +135,7 @@ internal static class IndustryService
             }
             if (FurnaceRules.Machine(target.strCODef)) { bool ok = Run(binding, target.strID, "stop", null, out string info); results.Add(target.strNameFriendly + ": " + Text.Get(ok ? "Industry.success" : "Industry.rejected", info)); }
             if (ProcessingService.IsProcessor(target.strCODef)) { bool ok = Run(binding, target.strID, "pause", null, out string info); results.Add(target.strNameFriendly + ": " + Text.Get(ok ? "Industry.success" : "Industry.rejected", info)); }
+            if (StorageService.Supported(target)) Run(binding, target.strID, "pause-unload", null, out _);
             if (RoutingRules.IsReceiver(target.strCODef)) { bool ok = Run(binding, target.strID, "pause-receive", null, out string info); results.Add(target.strNameFriendly + ": " + Text.Get(ok ? "Industry.success" : "Industry.rejected", info)); }
         }
         return results.Count == 0 ? Text.Get("Industry.none") : string.Join("\n\n", results);

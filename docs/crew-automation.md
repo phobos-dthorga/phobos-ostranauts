@@ -62,7 +62,7 @@ and full destinations leave the work pending.
 | W2 | Finite stock replenishment, configured route operation, recorded-drainage recovery and its cartridge supply; existing route and solution settings remain authoritative |
 | D4 / R4 | Supply valid loose feed, start one checked batch and clear physical products to the approved store |
 | C2 collector | Enable its existing configured collection route and clear accepted cargo |
-| F6 | Supply exact aluminium units, replenish an already enabled managed coolant circuit, and perform an explicitly permitted seal/run/equalize/release sequence |
+| F6 | Supply exact aluminium units, replenish an already enabled managed coolant circuit, and perform an explicitly permitted seal/run/equalize/release sequence. While the furnace's own [repeat run](furnace-player-guide.md#repeat-batches) is on, crew keep supplying and clearing but leave the hot steps to it |
 | G4 | Prepare and launch/resume the existing exact reclamation mission through its recorded capture, equipment and Auto Nav bindings |
 | N1 / N2 at Polaris | Launch one explicitly permitted resume of an already recorded flight to the selected target |
 

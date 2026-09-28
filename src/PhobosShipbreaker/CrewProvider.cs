@@ -62,14 +62,18 @@ internal sealed class IndustrialCrewProvider : ICrewWorkProvider,ICrewSkipProvid
                 if(stock>=order.Stock){reason=Text.Get("Crew.stock_met");return null;}
                 var feed=FurnaceService.Feed(co);if(feed==null)return null;
                 if(CrewLogistics.Contents(feed).Count()<FurnaceRules.ChargeUnits)return CrewLogistics.Supply(co,order,feed,FurnaceService.CrewFeed,CrewRole.Industry)??Blocked(out reason);
-                if(!order.Hazardous){reason=Text.Get("Crew.hot_permission");return null;}
-                return Act("seal");
             }
+            // A machine repeat run owns the hot steps; crew keep hauling and supplying around it.
+            if(FurnaceService.RepeatActive(co)){reason=Text.Get("Crew.repeat_run");return null;}
             if(!order.Hazardous){reason=Text.Get("Crew.hot_permission");return null;}
-            if(b.Phase==FurnacePhase.Equalize && b.SafeOpen)return Act("equalize");
-            if(b.Phase==FurnacePhase.Ready && b.SafeOpen)return Act("release");
-            if(b.Phase>FurnacePhase.Idle && b.Phase<FurnacePhase.Equalize && !b.Armed)return Act("auto-run");
-            return null;
+            switch(FurnaceCycle.Next(b.Phase,b.Armed,b.SafeOpen,true))
+            {
+                case FurnaceStep.Seal:return Act("seal");
+                case FurnaceStep.Equalize:return Act("equalize");
+                case FurnaceStep.Release:return Act("release");
+                case FurnaceStep.Resume:return Act("auto-run");
+                default:return null;
+            }
         }
         var output=CrewLogistics.Output(co,order,co,_=>true,CrewRole.Industry);
         if(output!=null)return output;

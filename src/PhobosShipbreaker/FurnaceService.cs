@@ -26,6 +26,11 @@ internal static partial class FurnaceService
         internal CoolantCharge Coolant = new();
         internal double AccountedCoolantKg;
         internal ObjectStateStore Store = null!;
+        // Repeat-run intent is saved; its permission is session-only and never restored by loading.
+        internal FurnaceRepeatRecord? Repeat;
+        internal bool RepeatProtected, RepeatAuthorized;
+        internal string RepeatNotice = "";
+        internal double RepeatRetry;
     }
     internal sealed class PowerTransfer
     { internal Session Session = null!, Cooling = null!; internal EnergyReceipt Receipt = null!; internal double Seconds, MotorKJ; internal bool Routed, Finished; internal object? MaterialToken; }
@@ -57,7 +62,7 @@ internal static partial class FurnaceService
         // Unobserved intervals cannot establish an intact radiator/room history.
         // Retain all heat and reset the time anchor; never simulate offline heating.
         s.State.LastEpoch = s.SinkLast = StarSystem.fEpoch;
-        ReadCoolingMode(s); ReadCharge(s);
+        ReadCoolingMode(s); ReadCharge(s); ReadRepeat(s);
         sessions[co.strID] = s;
         return s;
     }
@@ -161,7 +166,7 @@ internal static partial class FurnaceService
         foreach (var co in DataHandler.mapCOs.Values.Where(IsEquipment).ToArray())
         {
             if (co.bDestroyed || co.ship == null || (int)co.ship.LoadState < 2) continue;
-            try { Advance(Get(co)); } catch (Exception ex) { Fault(co, ex); }
+            try { var s = Get(co); Advance(s); RepeatStep(s); } catch (Exception ex) { Fault(co, ex); }
             FurnaceConnectionView.Refresh(co);
         }
     }
@@ -264,6 +269,7 @@ internal static partial class FurnaceService
     {
         Plugin.Collectors.Interrupt(co, Text.Get("Routing.furnace_interlock"));
         var s = Get(co); s.State.Batch.Armed = false; s.Notice = Text.Get("Furnace.fault_player"); Save(s);
+        SuspendRepeat(s, s.Notice, true);
         if (s.State.NativeMutation || s.State.Batch.Phase == FurnacePhase.Delivering) s.Protected = true;
         Plugin.Log(Text.Get("Furnace.fault", ex.Message));
     }
@@ -272,8 +278,12 @@ internal static partial class FurnaceService
         double.TryParse(raw, NumberStyles.Float, CultureInfo.InvariantCulture, out double cycle) && cycle > 0);
     internal static void FlightCommand(Ship ship)
     {
-        foreach (var s in sessions.Values.Where(s => s.Object.ship == ship && FurnaceRules.Machine(s.Object.strCODef) && (s.State.Batch.Armed || Plugin.Collectors.ReceivingEnabled(s.Object))))
-        { Plugin.Collectors.Interrupt(s.Object, Text.Get("Furnace.flight")); s.State.Batch.Armed = false; s.State.Batch.Hold = 0; s.Notice = Text.Get("Furnace.flight"); Save(s); }
+        foreach (var s in sessions.Values.Where(s => s.Object.ship == ship && FurnaceRules.Machine(s.Object.strCODef) && (s.State.Batch.Armed || s.RepeatAuthorized || Plugin.Collectors.ReceivingEnabled(s.Object))))
+        {
+            Plugin.Collectors.Interrupt(s.Object, Text.Get("Furnace.flight")); s.State.Batch.Armed = false; s.State.Batch.Hold = 0; s.Notice = Text.Get("Furnace.flight"); Save(s);
+            // The run never re-arms on the next guidance pulse; the player resumes it after manoeuvring.
+            SuspendRepeat(s, Text.Get("Furnace.flight"), true);
+        }
     }
 }
 

@@ -112,9 +112,11 @@ public static class CrewWork
     }
     public static IEnumerable<CondOwner> Equipment(Ship ship) => Controls.ShipEquipment.Read(ship,
         c => c.HasCond("IsInstalled") && Provider(c) != null);
-    public static IEnumerable<CondOwner> Stores(Ship ship) => Controls.ShipEquipment.Read(ship, c =>
-        c.objContainer != null && !c.objContainer.Locked && !c.HasCond("IsInfiniteContainer") && !c.HasCond("IsHuman") &&
-        Provider(c) == null).OrderBy(c => c.strID, StringComparer.Ordinal).ToArray();
+    public static IEnumerable<CondOwner> Stores(Ship ship) => Controls.ShipEquipment.Read(ship, IsStore).OrderBy(c => c.strID, StringComparer.Ordinal).ToArray();
+    /// <summary>A finite, unlocked native container that is not a person or provider-owned equipment.
+    /// Shared by crew hauling and machine storage routes; callers still check ship and access.</summary>
+    public static bool IsStore(CondOwner? c) => c != null && !c.bDestroyed && c.objCOParent == null &&
+        c.objContainer != null && !c.objContainer.Locked && !c.HasCond("IsInfiniteContainer") && !c.HasCond("IsHuman") && Provider(c) == null;
     public static bool LocalAccess(CondOwner actor, CondOwner target, double range) => actor != null && target != null && actor.ship == target.ship &&
         (TileUtils.TileRange(actor.GetPos(), target.GetPos("use")) <= range || executing?.Skipping == true && executing.Actor == actor && executing.Equipment == target);
     public static bool Eligible(CondOwner actor, CrewWorkOffer offer, out string reason, bool checkRole = true, int? hour = null)

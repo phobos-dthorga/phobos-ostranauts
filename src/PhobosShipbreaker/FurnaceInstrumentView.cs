@@ -72,6 +72,9 @@ public sealed class FurnaceInstrumentView : MonoBehaviour
         // if a game update removes a native donor. No guard can hide emergency stop.
         var operations=new[]{"seal","resume","next","equalize","release","automatic","step-mode"};
         for(int i=0;i<operations.Length;i+=2){var actions=C.Row(root);foreach(var a in System.Linq.Enumerable.Take(System.Linq.Enumerable.Skip(operations,i),2)){string action=a;C.Button(actions,Text.Get("Furnace.action_"+a),()=>command(action,null));}}
+        // Machine repeat run: its own row, so it is never mistaken for a single-batch step.
+        var repeatRow=C.Row(root);
+        foreach(var a in new[]{"repeat","repeat-stop"}){string action=a;C.Button(repeatRow,Text.Get("Furnace.action_"+a),()=>command(action,null));}
         Setting("heat", FurnaceRules.MinPowerSettingKW, FurnaceRules.HeatLimitKW, b => b.HeatCapKW);
         Setting("ramp", FurnaceRules.MinRamp, FurnaceRules.MaxRamp, b => b.RampKPerSecond);
         Setting("cool", FurnaceRules.MinPowerSettingKW, FurnaceRules.CoolingKW, b => b.CoolingCapKW);
@@ -127,7 +130,8 @@ public sealed class FurnaceInstrumentView : MonoBehaviour
         Measurement(powerDigits, powerCaption, "Furnace.power_reading", valid ? s.DeliveredKW : (double?)null);
         foreach (var refresh in settingRefreshes) refresh();
         status.text = Text.Get("Furnace.live", valid ? (b.TemperatureK - 273.15).ToString("F1", CultureInfo.CurrentCulture) : Text.Get("Furnace.unknown"),
-            valid ? s.DeliveredKW.ToString("F1", CultureInfo.CurrentCulture) : Text.Get("Furnace.unknown"), Text.Get("Furnace.phase_" + b.Phase));
+            valid ? s.DeliveredKW.ToString("F1", CultureInfo.CurrentCulture) : Text.Get("Furnace.unknown"), Text.Get("Furnace.phase_" + b.Phase)) +
+            (s.Protected ? "" : "\n" + FurnaceService.RepeatStatus(co));
     }
     private static void Measurement(GUI7Seg? display, TMP_Text caption, string key, double? value)
     {

@@ -92,9 +92,9 @@
             "PhobosShipbreakerInstalledDmg"
           ],
           "function": "Processes already-detached ordinary wall panels into metal and a retained residue packet.",
-          "use": "Install on cabin flooring, supply power, put supported detached panels in its Wall-panel Feed or use the G4/H4 intake, then enable processing in its local panel. Products appear in the normal machine inventory. Supported crew work is configured through the [standing-order controls](crew-automation.md); orders begin disabled and retain the existing access and supply requirements.",
+          "use": "Install on cabin flooring, supply power, put supported detached panels in its Wall-panel Feed or use the G4/H4 intake, then enable processing in its local panel. Products appear in the normal machine inventory. To move ordinary products out automatically, choose a storage container on the Routing page and Start unloading to storage; see [storage outputs](automatic-material-routing.md#storage-outputs-for-ordinary-products). Supported crew work is configured through the [standing-order controls](crew-automation.md); orders begin disabled and retain the existing access and supply requirements.",
           "find": "Buy loose or damaged equipment, or build two D4-S sections and assemble the fixture. This item may also appear in eligible engineering-equipment loot; see the exact offers below. Final assembly now takes place at the installation site through Install on a section or INSTALL > APPS; a complete loose machine keeps its direct Install action.",
-          "notes": "It does not cut attached hull walls. Fresh jobs make identified R2 feed; older bound jobs retain their original mixed-residue output. Processing pauses on reload.",
+          "notes": "It does not cut attached hull walls. Fresh jobs make identified R2 feed; older bound jobs retain their original mixed-residue output. Processing and storage unloading pause on reload.",
           "guide": "development/shipbreaker-first-build.md",
           "internal": false,
           "labels": {}
@@ -160,9 +160,9 @@
             "PhobosScrapReclaimerInstalledDmg"
           ],
           "function": "Reclaims identified R2 panel residue into steel, aluminium and terminal rejects.",
-          "use": "Supply power and adequate cabin atmosphere, load exact R2 feed locally or enable a paired intake, then start processing. Set residue and metals output links independently. Supported crew work is configured through the [standing-order controls](crew-automation.md); orders begin disabled and retain the existing access and supply requirements.",
+          "use": "Supply power and adequate cabin atmosphere, load exact R2 feed locally or enable a paired intake, then start processing. Set residue, aluminium and steel storage outputs independently; see [storage outputs](automatic-material-routing.md#storage-outputs-for-ordinary-products). Supported crew work is configured through the [standing-order controls](crew-automation.md); orders begin disabled and retain the existing access and supply requirements.",
           "find": "Buy machinery or assemble two R4-S sections. This item may also appear in eligible engineering-equipment loot; see the exact offers below. Final assembly now takes place at the installation site through Install on a section or INSTALL > APPS; a complete loose machine keeps its direct Install action.",
-          "notes": "Legacy mixed residue and terminal rejects are not valid feed. The machine puts heat into cabin gas; vacuum is not free cooling. Receiving and processing pause on reload.",
+          "notes": "Legacy mixed residue and terminal rejects are not valid feed. The machine puts heat into cabin gas; vacuum is not free cooling. Receiving, processing and storage unloading pause on reload.",
           "guide": "scrap-reclaimer.md",
           "internal": false,
           "labels": {}
@@ -177,9 +177,9 @@
             "PhobosFurnaceInstalledDmg"
           ],
           "function": "Electrically heats an exact aluminium charge to cast a rough machinery housing.",
-          "use": "Build or buy the furnace, install it with a compatible cooling endpoint and power. Use the local panel to load, seal, heat and cast, then cool, equalize and release products. Follow the complete cycle guide. Supported crew work is configured through the [standing-order controls](crew-automation.md); orders begin disabled and retain the existing access and supply requirements.",
+          "use": "Build or buy the furnace, install it with a compatible cooling endpoint and power. Use the local panel to load, seal, heat and cast, then cool, equalize and release products. Follow the complete cycle guide, or choose [Repeat batches](furnace-player-guide.md#repeat-batches) to seal, run, equalize and release each full charge automatically. Supported crew work is configured through the [standing-order controls](crew-automation.md); orders begin disabled and retain the existing access and supply requirements.",
           "find": "Buy machinery or assemble three F6-S sections. This item may also appear in eligible engineering-equipment loot; see the exact offers below. Final assembly now takes place at the installation site through Install on a section or INSTALL > APPS; a complete loose machine keeps its direct Install action.",
-          "notes": "Requires finite cooling and a valid gas receiver. Direct coupling can transfer heat without power; piped circulation requires pump electricity. Automatic material receipt never authorizes Seal, Start or Release. Hot machinery retains heat across saves.",
+          "notes": "Requires finite cooling and a valid gas receiver. Direct coupling can transfer heat without power; piped circulation requires pump electricity. Automatic material receipt never authorizes Seal, Start or Release; only an explicitly started repeat run does, and it pauses on any manoeuvre, interruption, manual control or reload. Hot machinery retains heat across saves.",
           "guide": "furnace-player-guide.md",
           "internal": false,
           "labels": {}

@@ -101,6 +101,12 @@ internal sealed class CollectorRoute
         }
         else if (CollectorRules.IsFamily(co.strCODef))
             for (int x = 0; x < CollectorRules.Width; x++) cells.Add(ship.GetTileIndexAtWorldCoords1(Point(co, x - 0.5, -1)));
+        else if (input && !RoutingRules.IsSender(co.strCODef))
+        {
+            // A passive native store: its own floor tile or the tile where crew use it.
+            cells.Add(ship.GetTileIndexAtWorldCoords1(co.GetPos("use")));
+            cells.Add(ship.GetTileIndexAtWorldCoords1(co.GetPos()));
+        }
         else
             for (int y = 0; y < ProcessRules.Footprint; y++)
             for (int x = 0; x < ProcessRules.Footprint; x++) cells.Add(ship.GetTileIndexAtWorldCoords1(Point(co, x - 1.5, y - 1.5)));

@@ -63,7 +63,7 @@ internal static class Content
     {
         var prepared = MachineDefinitions.Create();
 
-        foreach (string condition in new[] { ProcessRules.Progress, ProcessRules.Revision, ProcessRules.Duration, ProcessRules.Working })
+        foreach (string condition in new[] { ProcessRules.Progress, ProcessRules.Revision, ProcessRules.Duration, ProcessRules.Working, StorageRules.Unloading })
             prepared.Conditions[condition] = new JsonCond { strName = condition,
                 strNameFriendly = condition, strColor = "Neutral", nDisplaySelf = 2, nDisplayOther = 2 };
 

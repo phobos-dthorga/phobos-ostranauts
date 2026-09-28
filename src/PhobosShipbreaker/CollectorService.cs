@@ -83,7 +83,17 @@ internal sealed partial class CollectorService
     internal bool Start(CondOwner port, ConsoleBinding? console = null)
     {
         var s = sessions.GetValue(port, _ => new Session());
-        string? problem = EndpointAccess(port, console) ?? MachineProblem(port);
+        string? problem = EndpointAccess(port, console);
+        if (problem != null) { s.Status = problem; return false; }
+        return Arm(port, s);
+    }
+    /// <summary>For a furnace repeat run that already holds explicit, revalidated permission.
+    /// Every machine, pair, route and filter check still applies; only operator presence is not required.</summary>
+    internal bool StartAuthorized(CondOwner port) =>
+        FurnaceService.RepeatActive(port) && !port.HasCond("IsLocked") && Arm(port, sessions.GetValue(port, _ => new Session()));
+    private bool Arm(CondOwner port, Session s)
+    {
+        string? problem = MachineProblem(port);
         if (problem != null) { s.Status = problem; return false; }
         problem = PairProblem(port, out var source, out var link) ?? SourceProblem(port, source) ?? FilterProblem(port) ?? CollectorRoute.MountProblem(port);
         if (problem != null) { s.Status = problem; return false; }

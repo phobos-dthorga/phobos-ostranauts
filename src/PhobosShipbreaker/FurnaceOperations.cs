@@ -18,9 +18,17 @@ internal static partial class FurnaceService
         message = ProcessingService.AccessProblem(co, binding) ?? "";
         if (message.Length > 0) return false;
         var s = Get(co); var b = s.State.Batch;
+        // Ending automation is always available, including for an unreadable repeat record.
+        if (action == "repeat-stop")
+        {
+            if (!FurnaceRules.Machine(co.strCODef)) { message = Text.Get("Industry.unsupported_action"); return false; }
+            return EndRepeat(s, out message);
+        }
         if (s.Protected) { message = Text.Get("Furnace.protected"); return false; }
         try
         {
+            // Local or console intervention always wins over the machine repeat run.
+            if (ManualOverride(action)) SuspendRepeat(s, Text.Get("Furnace.repeat_manual"), false);
             // Isolation remains available with broken instrumentation or missing power.
             if (action == "stop" || action == "pause" || action == "isolate")
             { Phobos.Ostranauts.Framework.Crew.CrewWork.ManualStop(co); Plugin.Collectors.Interrupt(co, Text.Get("Furnace.stopped")); b.Stop(); s.Notice = Text.Get("Furnace.stopped"); Save(s); message = s.Notice; return true; }
@@ -28,6 +36,7 @@ internal static partial class FurnaceService
             if(Content.Ready && action.StartsWith("coolant-",StringComparison.Ordinal))return ChargeCommand(s,action,binding==null,out message);
             if (!Content.Ready || !Intact(co)) { message = Text.Get("Furnace.install"); return false; }
             if (co.HasCond("IsLocked")) { message = Text.Get("Furnace.locked"); return false; }
+            if (action == "repeat") return StartRepeat(s, binding, out message);
             if (action == "cooling-direct" || action == "cooling-left" || action == "cooling-right")
                 return SetCoolingMode(co, action.Substring("cooling-".Length), out message);
             if (action == "pair")
@@ -283,7 +292,8 @@ internal static partial class FurnaceService
         if (!PortPairing.Matches(Port(furnace), Port(endpoint))) return Text.Get("Furnace.connection_unpaired");
         return null;
     }
-    internal static string Describe(CondOwner co) => DescribeCore(co) + "\n" + ChargeStatus(Get(co));
+    internal static string Describe(CondOwner co) => DescribeCore(co) + "\n" + ChargeStatus(Get(co)) +
+        (FurnaceRules.Machine(co.strCODef) && !Get(co).Protected ? "\n" + RepeatStatus(co) : "");
     private static string DescribeCore(CondOwner co)
     {
         var s = Get(co); if (s.Protected) return Text.Get("Furnace.protected");

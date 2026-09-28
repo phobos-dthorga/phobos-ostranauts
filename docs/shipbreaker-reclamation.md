@@ -25,7 +25,11 @@ are retained. Prepared implementation and offline checks are not gameplay valida
 Old captures remain releasable, but lack the separate protected anchor evidence
 required for automatic cutting. Explicitly Release and start a newly planned
 working capture. Starting a mission authorizes only the bound G4 and D4 intake;
-it does not start other machines or repeated furnace batches.
+it does not start other machines or repeated furnace batches. A furnace
+[repeat run](furnace-player-guide.md#repeat-batches) and D4/R4
+[storage outputs](automatic-material-routing.md#storage-outputs-for-ordinary-products)
+are separate permissions you start yourself. The furnace still pauses on every
+manoeuvre, so each transit between work windows pauses a repeat run until you resume it.
 
 ## Controls
 
@@ -84,7 +88,8 @@ unchanged; only this bound-target adapter crosses the capture.
 
 D4/R4 use their existing recipes and material budgets. Full G4/feed/output capacity
 stops further acquisition; a cleared destination can continue while this same
-mission remains authorized. Manual pause, faults and reload revoke that permission.
+mission remains authorized. A D4 storage output or crew hauling keeps the product
+tray clear; without either, the tray fills after a handful of walls. Manual pause, faults and reload revoke that permission.
 
 ## Traversal and completion
 
@@ -100,7 +105,8 @@ apart from the retained final support. **Unreachable remnants** means walls rema
 without an admitted work window. **Capacity wait** retains the current mission;
 **Suspended** requires attention and explicit Resume. The target, final supports,
 floors and other equipment remain registered. This is not whole-wreck deletion,
-new structural recipes, long-distance navigation or automatic furnace batching.
+new structural recipes or long-distance navigation. Furnace batching runs only under
+its own separately started repeat run, which pauses on every transit.
 
 Native uninstall, docking grids and collision-scale evidence comes from locally
 inspected [Blue Bottle Games' Ostranauts](https://bluebottlegames.com/ostranauts)

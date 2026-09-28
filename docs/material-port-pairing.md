@@ -38,6 +38,11 @@ not patch signal routing or write into the native `Electrical` property map.
   before work is allowed. Matching only a human-entered channel label is insufficient.
 - Linking an occupied endpoint is refused; relinking the same existing pair is
   idempotent. Unlink clears the peer only if it still reciprocates that exact pair.
+- [Storage outputs](automatic-material-routing.md#storage-outputs-for-ordinary-products)
+  (Shipbreaker 0.33.0) are not reciprocal pairs. Each D4/R4 saves one chosen native
+  container by full ID on the machine itself, and the passive container records
+  nothing. Several machines may therefore choose the same container; its own grid
+  admits each item. The pair contract above is unchanged.
   This lets the player clear a missing endpoint without breaking another route.
 - Missing, invalid or newer-schema records are retained and block operation until
   explicitly unlinked. No automatic reassignment, repair or nearest-machine fallback.
