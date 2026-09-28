@@ -125,7 +125,7 @@ Prepared package documentation is refreshed separately from installed gameplay f
 | [docs/development/furnace-first-cycle.md](furnace-first-cycle.md) | Retain after screen; dated evidence/design, not an operating guarantee |
 | [docs/furnace-material-routing.md](../furnace-material-routing.md) | Retain after current-instruction/status screen; no related correction identified |
 | [docs/furnace-player-guide.md](../furnace-player-guide.md) | Corrected current guidance or historical/current distinction; reviewed against evidence above |
-| [docs/furnace-repair-castings.md](../furnace-repair-castings.md) | Retain after current-instruction/status screen; no related correction identified |
+| [docs/development/furnace-repair-castings.md](furnace-repair-castings.md) | Retain after current-instruction/status screen; no related correction identified |
 | [docs/development/furnace-ui-and-art.md](furnace-ui-and-art.md) | Retain after current-instruction/status screen; no related correction identified |
 | [docs/development/fusion-industry-roadmap.md](fusion-industry-roadmap.md) | Retain after screen; dated evidence/design, not an operating guarantee |
 | [docs/development/fusion-smelter-research.md](fusion-smelter-research.md) | Retain after screen; dated evidence/design, not an operating guarantee |
@@ -206,9 +206,11 @@ Prepared package documentation is refreshed separately from installed gameplay f
 | [workshop/PhobosManufacturing/page.bbcode](../../workshop/PhobosManufacturing/page.bbcode) | Retain after current-instruction/status screen; no related correction identified |
 | [workshop/PhobosShipbreaker/page.bbcode](../../workshop/PhobosShipbreaker/page.bbcode) | Corrected current guidance or historical/current distinction; reviewed against evidence above |
 
+Housing reference entries also linked to the proposed heat-sink study as operating instructions. Both now link to the furnace guide’s implemented casting and table-finishing steps.
+
 ## Audience separation
 
-Following the owner’s direction, 95 contributor, research, design and audit documents moved to `docs/development/`. The 50 existing player documents remain directly in `docs/`. A separate development index and this new audit extend the reviewed inventory; source history and research findings were not rewritten. Links, generation paths, language coverage and package copies follow the new layout. Packages retain offline guides and direct links to source evidence when source files are not included. No installed runtime changes are required.
+Following the owner’s direction, 96 contributor, research, design and audit documents moved to `docs/development/`. The 49 existing player documents remain directly in `docs/`. A separate development index and this new audit extend the reviewed inventory; source history and research findings were not rewritten. Links, generation paths, language coverage and package copies follow the new layout. Packages retain offline guides and direct links to source evidence when source files are not included. No installed runtime changes are required.
 
 ## Completed verification
 

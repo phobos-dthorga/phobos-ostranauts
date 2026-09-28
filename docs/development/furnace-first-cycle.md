@@ -1,6 +1,6 @@
 # F6 first processing cycle: research specification
 
-**Subsequent research:** see [replacement heat sinks](../furnace-repair-castings.md)
+**Subsequent research:** see [replacement heat sinks](furnace-repair-castings.md)
 for the next proposed useful repair product, and [material routing](../furnace-material-routing.md)
 for planned automation. Neither changes the existing revision-1 housing contract.
 

@@ -137,7 +137,9 @@ function Copy-PhobosPlayerGuides {
         Copy-Item -LiteralPath (Join-Path $RepoRoot 'assets/workshop/PACKAGE-ARTWORK.md') -Destination (Join-Path $Package 'WORKSHOP-ARTWORK.md')
         Copy-Item -LiteralPath (Join-Path $RepoRoot 'assets/workshop/prompts.json') -Destination (Join-Path $Package 'WORKSHOP-ARTWORK-PROMPTS.json')
     }
-    python (Join-Path $RepoRoot "scripts/package-documentation.py") --package $Package --readme $Readme
+    $documentationArgs = @('--package', $Package)
+    if ($Readme) { $documentationArgs += @('--readme', $Readme) }
+    python (Join-Path $RepoRoot "scripts/package-documentation.py") @documentationArgs
     if ($LASTEXITCODE -ne 0) { throw "Documentation packaging failed." }
 }
 

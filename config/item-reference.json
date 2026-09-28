@@ -304,7 +304,7 @@
           "use": "Finish it through the table recipe, or choose explicit aluminium recovery if you no longer need it.",
           "find": "Released from a completed and safely cooled F6 casting batch.",
           "notes": "Its old recipe identity is preserved; it is not a finished Manufacturing heat sink.",
-          "guide": "furnace-repair-castings.md",
+          "guide": "furnace-player-guide.md",
           "internal": false,
           "labels": {}
         },
@@ -318,7 +318,7 @@
           "use": "Use the listed section recipes; alternatively cut it back into aluminium using the explicit recovery recipe.",
           "find": "Finish a rough F6 housing at a supported table.",
           "notes": "This is cargo, not a fixture. Recovery preserves mass but yields much less base value than the whole housing.",
-          "guide": "furnace-repair-castings.md",
+          "guide": "furnace-player-guide.md",
           "internal": false,
           "labels": {}
         },

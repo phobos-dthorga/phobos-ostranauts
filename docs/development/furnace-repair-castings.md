@@ -7,7 +7,7 @@ The existing housing recipe and hot saves retain their current meaning.
 **Subsequent owner decision:** dedicated machining will belong to a separate
 **Phobos Manufacturing** mod, requiring our Phobos Framework, with optional
 Shipbreaker integration and no Crafting Framework/Salvage Workshop dependency.
-See the [Manufacturing handover](development/manufacturing-handover.md). This supersedes the
+See the [Manufacturing handover](manufacturing-handover.md). This supersedes the
 ordinary-table heat-sink finishing proposal below. Its work/tool assumptions,
 proposed finished-item ownership/IDs and machining yield need revision during
 that research; native repair evidence remains useful. The already implemented
@@ -155,6 +155,6 @@ recipe enters production; **no generation was needed for this research**.
 Implementation acceptance: native `TIsHeatSink` repair gathering; exact cold/hot
 mass/energy; old housing reload; blocked finishing output; no casting selection
 mid-cycle; terminal-waste rejection; finite recovery; owner economy/appearance.
-The [routing study](furnace-material-routing.md) can progress independently with
+The [routing study](../furnace-material-routing.md) can progress independently with
 the current housing recipe. No runtime changes, version bump or installation
 result from this report.

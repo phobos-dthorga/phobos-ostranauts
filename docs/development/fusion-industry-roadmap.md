@@ -26,7 +26,7 @@ The [handover](manufacturing-handover.md) starts with an enclosed milling machin
 and heat-sink finishing, superseding the new part's ordinary-table proposal.
 This does not move existing equipment or rewrite the current housing recipe.
 
-**25 September follow-up research:** [replacement heat sinks](../furnace-repair-castings.md)
+**25 September follow-up research:** [replacement heat sinks](furnace-repair-castings.md)
 are the recommended second casting: native life-support repairs already consume
 them. [Furnace material routing](../furnace-material-routing.md) defines a separate
 R4 metals outlet, cold F6 feeding and explicit released-product collection through

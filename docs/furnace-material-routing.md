@@ -160,5 +160,5 @@ Owner checks: run R4 residue collection and F6 feeding together; test native
 stack handling, all four placements, broken floor, brownouts, flight interruption,
 sealing while receiving is enabled, collector backpressure, save/reload and
 local/C1/F3 controls. Artwork and gameplay remain unapproved until evaluated.
-The separate [replacement-casting study](furnace-repair-castings.md) remains
+The separate [replacement-casting study](development/furnace-repair-castings.md) remains
 future Manufacturing work; this release preserves the original housing recipe.

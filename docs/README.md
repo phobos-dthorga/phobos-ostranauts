@@ -45,7 +45,6 @@ common failures and useful reports.
 - [F6 sealed coolant conduits](furnace-coolant-conduits.md)
 - [F6 material routing](furnace-material-routing.md)
 - [F6 electric furnace: operating guide](furnace-player-guide.md)
-- [F6 repair casting: replacement heat sinks](furnace-repair-castings.md)
 - [Getting started](getting-started.md)
 - [Chronic ailments, scars, traits and emotional health](health-chronic-and-traits.md)
 - [Ostranauts health, injury and drug reference](health-reference.md)

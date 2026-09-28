@@ -65,7 +65,7 @@ network before deciding whether the first operation needs one.
 Read `AGENTS.md` first, followed by:
 
 - [Framework architecture](phobos-framework.md) and [author guide](framework-author-guide.md).
-- [F6 operating guide](../furnace-player-guide.md), [repair-casting research](../furnace-repair-castings.md)
+- [F6 operating guide](../furnace-player-guide.md), [repair-casting research](furnace-repair-castings.md)
   and [future material-routing design](../furnace-material-routing.md).
 - [Equipment economics](../equipment-economy.md), [branding](equipment-branding.md),
   [localization](localization.md), [asset-generation policy](asset-generation-policy.md)

@@ -105,3 +105,4 @@ The [consistency audit](documentation-consistency-audit.md) records the source c
 - [Vanilla economy audit](vanilla-economy-audit.md)
 - [Changelogs and Steam Workshop publication records](workshop-publication.md)
 - [Preparing Steam Workshop uploads](workshop-upload-preparation.md)
+- [F6 repair casting: replacement heat sinks (proposal)](furnace-repair-castings.md)

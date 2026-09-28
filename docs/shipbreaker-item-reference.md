@@ -767,7 +767,7 @@ The released rough casting from the first F6 recipe.
 
 Its old recipe identity is preserved; it is not a finished Manufacturing heat sink.
 
-Full operating instructions: [Rough aluminium machinery housing guide](furnace-repair-castings.md).
+Full operating instructions: [Rough aluminium machinery housing guide](furnace-player-guide.md).
 
 | Form / origin | Max stack | Mass per item (kg) | Base per item (cr) | Dismantle outputs per item (cr) |
 | --- | --- | --- | --- | --- |
@@ -793,7 +793,7 @@ A finished construction input for optional D4-S and R4-S casting-based recipes.
 
 This is cargo, not a fixture. Recovery preserves mass but yields much less base value than the whole housing.
 
-Full operating instructions: [Finished aluminium machinery housing guide](furnace-repair-castings.md).
+Full operating instructions: [Finished aluminium machinery housing guide](furnace-player-guide.md).
 
 | Form / origin | Max stack | Mass per item (kg) | Base per item (cr) | Dismantle outputs per item (cr) |
 | --- | --- | --- | --- | --- |

@@ -334,7 +334,7 @@ they are not the instructions for installing today's packages.
 - [Material routing](furnace-material-routing.md): feed aluminium from R4 and
   send released products to a collector. Receiving, Start and Release are
   separate controls.
-- [Repair-casting study](furnace-repair-castings.md): proposed heat sinks for
+- [Repair-casting study](development/furnace-repair-castings.md): proposed heat sinks for
   future Manufacturing equipment. The implemented furnace still casts housings;
   the proposed heat sinks and machining are not available.
 - [Electrical heating decision](development/furnace-electrical-direction.md) and

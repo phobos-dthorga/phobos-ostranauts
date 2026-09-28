@@ -35745,7 +35745,7 @@
       "path": "docs/README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "9e02ff665f77699a0a380ee937e8633b77f3f3ab2f1b5b3315e845ac2189e9f5",
+      "sha256": "061d0897786bed30d98c4b5b7499543a68112f077cad166b1cb5a365130924c7",
       "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
     },
     {
@@ -35902,7 +35902,7 @@
       "path": "docs/development/README.md",
       "scope": "documentation index/audit; no gameplay behavior",
       "decision": "review audience separation and evidence limits",
-      "sha256": "0ba42547702b56e22ec28cd446f77e5645cf6c13c2e5294e71a9282e1b0ca495",
+      "sha256": "dc37707c6cd586f1a532e2e1fb374424f6688c38c9996fcb53bb375bc40cec14",
       "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
     },
     {
@@ -36112,7 +36112,7 @@
       "path": "docs/development/documentation-consistency-audit.md",
       "scope": "documentation index/audit; no gameplay behavior",
       "decision": "review audience separation and evidence limits",
-      "sha256": "27e26c1d6675fcc8f4e121b50049e3b1409c447fa7f552f832665266cd63cb25",
+      "sha256": "a02d99f4cb2a6d12b4f22caf18f8568159f055e4937d0e8a3424f1fad82189f3",
       "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
     },
     {
@@ -36173,7 +36173,14 @@
       "path": "docs/development/furnace-first-cycle.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "e1a0f116edccdc81727712edbc3c2e9872c324b6464b7c54d9a26a0ec5ed311d",
+      "sha256": "a26c802b19b180b7fd9c999eb207c6720e170d38136a391fb8b48f358e4a1419",
+      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+    },
+    {
+      "path": "docs/development/furnace-repair-castings.md",
+      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
+      "decision": "retain",
+      "sha256": "bf7baf00b5ff217d6b06e2362d9e0c3bc2475670e02be1d83710273ee854aae0",
       "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
     },
     {
@@ -36187,7 +36194,7 @@
       "path": "docs/development/fusion-industry-roadmap.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "d3e5bb85f726b0a4ba7c030b8e364d89d027ddf828a2ccb236070e513743772d",
+      "sha256": "a5f94a64696d39092dc6d5ac82f47a6da2ad0f35378439a1c9e21127ca985aa3",
       "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
     },
     {
@@ -36267,7 +36274,7 @@
       "path": "docs/development/manufacturing-handover.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "4c0d58646084eeb16672dc68ac1042aa129dda2fa42b1f6f6986527cbc457233",
+      "sha256": "ae470c658cf658f0a91e2086910e81eec596c3e24021e388b092506c9d512e63",
       "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
     },
     {
@@ -36560,21 +36567,14 @@
       "path": "docs/furnace-material-routing.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "037a6efe5c9710bc2e9c86a7c70488b71b17afe13a83e222bca90ce7a766f6c3",
+      "sha256": "78e238d675fd4c98b14840561c874458edadf42ed44c572e0970011698fa4ce9",
       "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
     },
     {
       "path": "docs/furnace-player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "39e2449f374e4e8951272cb082f525f6c7b15a3d793152ff73e8c417ab073ac3",
-      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
-    },
-    {
-      "path": "docs/furnace-repair-castings.md",
-      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
-      "decision": "retain",
-      "sha256": "aa5f7d5ce2f8dbd702470785020533902e53413ba2a7ff92513926e131c6aafd",
+      "sha256": "273f72e1f3d2fe7c3e1cbee4d5cf1eab42d22917992631c98e133f5d1f56edd2",
       "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
     },
     {
@@ -36692,7 +36692,7 @@
       "path": "docs/shipbreaker-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "42d3b73e889e178ad0fb063263468b18245b4166f38fb2ccece058adc5c8840d",
+      "sha256": "ab8d7c3df3e90beb78d692583925738a1d1371316102067651d1524511941665",
       "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
     },
     {
@@ -36756,7 +36756,7 @@
     {
       "path": "config/item-reference.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "0f93f2a9d85028b8076143d82971311fe85f149617ed9b1ddc7d9e6d9cb15817",
+      "sha256": "0548407edc36318ec829de798fa129872eadb7a89c17eebb265d65038aaea171",
       "review": "2026-09-28: checked updated documentation paths and player/reference instructions; identifiers, values and gameplay remain unchanged."
     },
     {
