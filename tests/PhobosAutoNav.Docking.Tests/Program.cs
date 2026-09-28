@@ -41,7 +41,7 @@ Check(!DockingRules.TryGuide(0,double.NaN,0,0,0,0,200,1,1,1,out _), "Nonfinite m
 
 (NavigationService Service, CondOwner Console, Ship Target) Setup(double metres = 1000)
 {
-    NativeContactReader.State = ContactState.Ready;
+    NativeContactReader.State = ContactState.Ready; NativeContactReader.ById.Clear(); NativeHazards.Rocks.Clear();
     AutoNavCore.ResetStatics(); AutoNavCore.Busy = false; AutoNavCore.FuelAvailable = true;
     HarmonyLib.AccessTools.MethodsAvailable = true;
     StarSystem.fEpoch = 0; CrewSim.system = new(); CrewSim.AttachCalls = 0; CrewSim.DuringAttach = null; CrewSim.Paused = false; CrewSim.objInstance.FinishedLoading = true;
@@ -300,6 +300,35 @@ foreach(var mode in new[]{SavedFlightMode.Active,SavedFlightMode.Rendezvous,Save
     Check(!f.Service.ObstacleBurnAllowed(f.Console.ship,5,1),"Detours inhibit torch for "+mode);
     NativeContactReader.State=ContactState.Weak;f.Service.GuardNavigation(.5);
     Check(!AutoNavCore.Engaged&&f.Console.ship.LastX==0&&f.Console.ship.LastY==0,"Contact loss releases thrust for "+mode);
+}
+// Weak contacts stay hazards with their native position error; only a lost track suspends.
+{
+    f=Setup(4000);f.Service.BeginAvoidanceFlight(f.Console,SavedFlightMode.Active);
+    var faint=new Ship {strRegID="faint"};faint.objSS.vPosy=1000*AutoNavCore.M_TO_AU;CrewSim.system.Ships[faint.strRegID]=faint;
+    NativeContactReader.ById["faint"]=ContactState.Weak;
+    Check(f.Service.GuardNavigation(.5)&&f.Service.avoidanceActive&&AutoNavCore.Engaged,"A weak contact on the leg is still avoided: "+f.Service.Diagnostic);
+    NativeContactReader.ById["faint"]=ContactState.Ready;f.Service.GuardNavigation(.5);
+    NativeContactReader.ById["faint"]=ContactState.Weak;f.Service.GuardNavigation(.5);
+    Check(AutoNavCore.Engaged,"A threat that fades to a weak contact does not suspend the flight");
+    NativeContactReader.ById["faint"]=ContactState.Occluded;f.Service.GuardNavigation(.5);
+    Check(!AutoNavCore.Engaged&&f.Console.ship.LastX==0&&f.Console.ship.LastY==0,"Losing a tracked threat entirely suspends and clears thrust");
+}
+{
+    f=Setup(4000);f.Service.BeginAvoidanceFlight(f.Console,SavedFlightMode.Active);
+    var far=new Ship {strRegID="far-faint"};far.objSS.vPosy=2000*AutoNavCore.M_TO_AU;far.objSS.vPosx=150000*AutoNavCore.M_TO_AU;
+    CrewSim.system.Ships[far.strRegID]=far;NativeContactReader.ById["far-faint"]=ContactState.Weak;
+    f.Service.GuardNavigation(.5);
+    Check(!f.Service.avoidanceActive&&AutoNavCore.Engaged,"A weak contact too distant to place is not guessed into the route");
+}
+{
+    f=Setup(4000);f.Service.BeginAvoidanceFlight(f.Console,SavedFlightMode.Active);
+    var rock=new ShipSitu{vPosy=1000*AutoNavCore.M_TO_AU};
+    NativeHazards.Rocks.Add(new SensedObject("rock",rock,new ContactReading(ContactState.Ready)));
+    Check(f.Service.GuardNavigation(.5)&&f.Service.avoidanceActive&&AutoNavCore.Engaged,"An asteroid-field rock on the leg forces a detour: "+f.Service.Diagnostic);
+    Check(!f.Service.ObstacleBurnAllowed(f.Console.ship,5,1),"Rock detours inhibit torch");
+    NativeHazards.Rocks.Clear();NativeHazards.Rocks.Add(new SensedObject("rock",rock,new ContactReading(ContactState.Occluded)));
+    f.Service.GuardNavigation(.5);
+    Check(!AutoNavCore.Engaged,"Losing a tracked rock suspends guidance");
 }
 // Coupled pre-physics guard, terminal service, native kinematics, post-physics attachment.
 foreach(double dt in new[]{.02,.1,.5,1d})

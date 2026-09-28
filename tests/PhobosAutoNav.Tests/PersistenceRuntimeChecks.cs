@@ -247,7 +247,8 @@ namespace PhobosAutoNav
 
 internal static class GUIOrbitDraw
 {
-    internal sealed class Contact { internal Ship? Ship; }
+    internal sealed class Marker { internal string strID = ""; }
+    internal sealed class Contact { internal Ship? Ship; internal Marker? stellarObj; }
     internal static Contact? CrossHairTarget;
     internal static bool IsOpen() => true;
 }

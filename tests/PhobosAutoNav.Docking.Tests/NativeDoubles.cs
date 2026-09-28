@@ -196,7 +196,7 @@ namespace PhobosAutoNav
     #if !COUPLED
     internal static class AutoNavCore
     {
-        internal const double M_TO_AU = 6.684587122268445E-12;
+        internal const double M_TO_AU = 6.684587122268445E-12, KM_TO_AU = M_TO_AU * 1000;
         internal static bool Engaged, Coasting = false, FuelAvailable = true, Busy;
         internal static Ship? EngagedPlayer;
         internal static TargetRef? EngagedTarget;
@@ -218,6 +218,7 @@ namespace PhobosAutoNav
             double dx = other.objSS.vPosx-own.objSS.vPosx, dy = other.objSS.vPosy-own.objSS.vPosy;
             speed = 0; return ApproachRules.TryPlan(Math.Sqrt(dx*dx+dy*dy)/M_TO_AU/1000, distance, .2, out plan); }
     }
+    internal sealed partial class TargetRef { internal ShipSitu? TargetSitu => CrewSim.system.GetShipByRegID(ShipId)?.objSS; }
     #endif
     internal sealed partial class TorchDouble { internal bool ControlsChanged=>false;internal void Cut() {} internal void Release() { } internal void Reset() { } }
     internal sealed partial class NavigationService

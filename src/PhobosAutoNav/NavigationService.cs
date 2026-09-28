@@ -20,7 +20,7 @@ internal sealed partial class NavigationService
     private bool issuing;
     internal TorchDriveController Torch { get; } = new();
     private string status = Text.Get("NavigationService.idle");
-    private static CondOwner? OpenConsole => GUIOrbitDraw.IsOpen() ? GUIOrbitDraw.Instance.COSelfBase() : null;
+    internal static CondOwner? OpenConsole => GUIOrbitDraw.IsOpen() ? GUIOrbitDraw.Instance.COSelfBase() : null;
     internal NavigationService(Action<string> log) { this.log = log; }
 
     internal string ArrivalCueStatus => Text.Get(arrivalWatch.Armed ? "Cue.watching" : arrivalWatch.Completed ? "Cue.completed" : "Cue.off");
@@ -122,7 +122,9 @@ internal sealed partial class NavigationService
             savedFlight = null;
             if (Throttle <= 0) { status = Text.Get("NavigationService.set_the_nav_console_throttle_above_zero"); return; }
             var contact = GUIOrbitDraw.CrossHairTarget;
-            if (contact?.Ship == null || contact.Ship == co!.ship || contact.Ship.bDestroyed || contact.Ship.HideFromSystem || contact.Ship.IsStationHidden())
+            // Ordinary approach also accepts a native asteroid marker; its live track is checked below.
+            bool asteroid = contact?.Ship == null && contact?.stellarObj != null;
+            if (!asteroid && (contact?.Ship == null || contact.Ship == co!.ship || contact.Ship.bDestroyed || contact.Ship.HideFromSystem || contact.Ship.IsStationHidden()))
             { status = Text.Get("NavigationService.select_another_ship_or_station_planetary_travel"); return; }
             if (OtherControllerBusy()) { status = Text.Get("NavigationService.disengage_other_flight_automation_first"); return; }
             var target = TargetRef.FromCrossHair();
@@ -246,7 +248,7 @@ internal sealed partial class NavigationService
         double requested = AutoNavCore.Engaged ? AutoNavCore.ArriveAU / AutoNavCore.KM_TO_AU : snapshot?.ArrivalKM ?? defaultDistance;
         var target = AutoNavCore.Engaged ? AutoNavCore.EngagedTarget :
             snapshot != null ? TargetRef.FromShipId(snapshot.TargetId) :
-            GUIOrbitDraw.IsOpen() && GUIOrbitDraw.CrossHairTarget?.Ship != null ? TargetRef.FromCrossHair() : null;
+            GUIOrbitDraw.IsOpen() && (GUIOrbitDraw.CrossHairTarget?.Ship != null || GUIOrbitDraw.CrossHairTarget?.stellarObj != null) ? TargetRef.FromCrossHair() : null;
         var ship = AutoNavCore.Engaged ? AutoNavCore.EngagedPlayer : co?.ship;
         var sensing = NativeContactReader.Read(ship, target?.ShipId);
         if (snapshot?.IsDocking == true) return Text.Get("Docking.binding", snapshot.OwnPort, snapshot.TargetPort)

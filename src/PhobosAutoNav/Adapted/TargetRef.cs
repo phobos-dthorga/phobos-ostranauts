@@ -36,7 +36,8 @@ internal sealed class TargetRef
 			{
 				return ship.objSS;
 			}
-			return _stellar?.objSS;
+            // Phobos: an asteroid marker, refreshed from its field; null once removed or tethered away.
+			return LiveStellar()?.objSS;
 		}
 	}
 
@@ -47,8 +48,25 @@ internal sealed class TargetRef
     public static TargetRef FromShipId(string id)
     {
         var ship = CrewSim.system?.GetShipByRegID(id);
-        return ship == null || ship.bDestroyed || ship.HideFromSystem || ship.IsStationHidden() ? null :
+        if (ship == null)
+        {
+            // Phobos: a tethered asteroid becomes a ship with the same ID; until then it is a stellar marker.
+            IStellarObject stellar = null;
+            return id != null && CrewSim.system?.dictStellarObjects != null && CrewSim.system.dictStellarObjects.TryGetValue(id, out stellar) && stellar?.objSS != null
+                ? new TargetRef { _stellar = stellar, _shipRegID = id, DisplayName = id } : null;
+        }
+        return ship.bDestroyed || ship.HideFromSystem || ship.IsStationHidden() ? null :
             new TargetRef { _ship = ship, _shipRegID = id, DisplayName = string.IsNullOrEmpty(ship.publicName) ? id : ship.publicName };
+    }
+    public bool IsStellar => LiveShip() == null && LiveStellar() != null;
+    private IStellarObject LiveStellar()
+    {
+        if (_stellar == null || _shipRegID == null) return _stellar;
+        IStellarObject current = null;
+        if (CrewSim.system?.dictStellarObjects == null || !CrewSim.system.dictStellarObjects.TryGetValue(_shipRegID, out current) || current?.objSS == null) return null;
+        _stellar = current;
+        NativeContactReader.RefreshStellar(current.objSS);
+        return current;
     }
 
 	public static TargetRef FromCrossHair()
@@ -76,6 +94,8 @@ internal sealed class TargetRef
 		if (crossHairTarget.stellarObj != null)
 		{
 			targetRef._stellar = crossHairTarget.stellarObj;
+            // Phobos: keep the stellar marker's ID so persistence and contact reads follow it.
+            targetRef._shipRegID = crossHairTarget.stellarObj.strID;
 			return targetRef;
 		}
 		double fTargetFuture = crossHairTarget.fTargetFuture;

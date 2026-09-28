@@ -29,6 +29,9 @@ internal static class InstrumentChecks
         var service = new NavigationService(); service.BindForTest(co);
         GUIOrbitDraw.CrossHairTarget = new GUIOrbitDraw.Contact { Ship = new Ship { strRegID = "target" } };
         int saves = Plugin.DefaultArriveKM.ConfigFile.Saves;
+        GUIOrbitDraw.CrossHairTarget = new GUIOrbitDraw.Contact { stellarObj = new GUIOrbitDraw.Marker { strID = "rock" } };
+        check(new NavigationService.PresentationRead(co, false).Target?.ShipId == "rock", "An asteroid marker under the crosshair is the presented target");
+        GUIOrbitDraw.CrossHairTarget = new GUIOrbitDraw.Contact { Ship = new Ship { strRegID = "target" } };
         var view = service.ReadInstruments(co);
         check(view.ArrivalKM == .75 && view.CanAdjustArrival && view.CanFly, "Idle instrument keeps custom arrival value and ready target");
         check(co.mapGUIPropMaps.Count == 0 && Plugin.DefaultArriveKM.ConfigFile.Saves == saves, "Reading a panel creates no save or config changes");

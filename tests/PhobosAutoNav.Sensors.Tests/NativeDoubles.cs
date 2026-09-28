@@ -23,11 +23,13 @@ internal sealed class StarSystem
     internal bool IsWithinNoWakeRangeOfAnyStation(ShipSitu situ, double epoch) => NoWake;
     internal Dictionary<string, Ship> Ships = new();
     internal Dictionary<string, BodyOrbit> aBOs = new();
+    internal Dictionary<string, Ostranauts.Ships.IStellarObject> dictStellarObjects = new();
     internal Ship? GetShipByRegID(string id) => Ships.TryGetValue(id, out var ship) ? ship : null;
     internal bool IsInAtmo(Ship ship) => false;
     internal static bool IsLOSBlockedByBO(BodyOrbit body, Ship observer, ShipSitu target) => body.Blocks;
 }
-internal sealed class BodyOrbit { internal bool Blocks, IsAsteroidField; internal int nDrawFlagsBody; }
+internal class BodyOrbit { internal bool Blocks, IsAsteroidField; internal int nDrawFlagsBody; internal string strName = ""; internal double dXReal, dYReal; }
+internal sealed class AsteroidField : BodyOrbit { internal readonly List<SolarSystem.Asteroid> Asteroids = new(); internal AsteroidField() { IsAsteroidField = true; } }
 public sealed class Ship
 {
     internal bool bCheckTowingBraces = false, TowSecured = true, TowMoored = false;
@@ -71,7 +73,11 @@ public sealed class Ship
     internal IEnumerable<CondOwner> GetCOs(object? filter, bool bSubObjects, bool bAllowDocked, bool bAllowLocked)
     { if (bSubObjects || bAllowDocked) throw new Exception("Cross-ship discovery"); return Items; }
 }
-internal sealed class ShipSitu { internal bool bIsBO=false,bBOLocked=false,bGrounded=false; internal double GetRadiusAU()=>100*AutoNavCore.M_TO_AU; internal double vPosx, vPosy, vVelX, vVelY; internal float fRot, fW = 0; internal UnityEngine.Vector2 vAccIn, vAccRCS = default; internal void ResetNavData() { } }
+internal sealed class ShipSitu { internal bool bIsBO=false,bBOLocked=false,bGrounded=false,bOrbitLocked=false; internal string? strBOPORShip; internal double vBOOffsetx, vBOOffsety; internal int Refreshes;
+    // Native zero-length advance of a field-locked marker recomputes its cached position only.
+    internal void TimeAdvance(double time, bool ignoreAcceleration = false) { Refreshes++; if (time != 0) throw new System.Exception("Stellar marker advanced in time"); if (bBOLocked && strBOPORShip != null && CrewSim.system.aBOs.TryGetValue(strBOPORShip, out var field)) { vPosx = field.dXReal + vBOOffsetx; vPosy = field.dYReal + vBOOffsety; } }
+    internal double GetRangeTo(ShipSitu other) => Math.Sqrt((other.vPosx-vPosx)*(other.vPosx-vPosx)+(other.vPosy-vPosy)*(other.vPosy-vPosy));
+    internal double GetRadiusAU()=>100*AutoNavCore.M_TO_AU; internal double vPosx, vPosy, vVelX, vVelY; internal float fRot, fW = 0; internal UnityEngine.Vector2 vAccIn, vAccRCS = default; internal void ResetNavData() { } }
 internal static class CollisionManager { internal static double GetCollisionDistanceAU(ShipSitu own, ShipSitu target)=>200*AutoNavCore.M_TO_AU; internal static double GetCollisionDistanceAU(Ship own, Ship target) => 200 * AutoNavCore.M_TO_AU; }
 internal sealed class PowerReading { internal double PowerConnected = 12; }
 public sealed class CondOwner
@@ -116,7 +122,7 @@ internal sealed class GUIOrbitDraw
     internal static GUIOrbitDraw Instance = new();
     internal static bool Open = true;
     internal static CondOwner? Console;
-    internal sealed class Contact { internal Ship? Ship; }
+    internal sealed class Contact { internal Ship? Ship; internal Ostranauts.Ships.IStellarObject? stellarObj; }
     internal static Contact? CrossHairTarget;
     internal static bool IsOpen() => Open;
     internal CondOwner? COSelfBase() => Console;
@@ -148,7 +154,9 @@ namespace Ostranauts.Ships.Sensors
     internal sealed class ShipSignature
     {
         internal static int Reads;
+        internal static int StellarReads;
         internal ShipSignature(Ship target, Ship observer) { Reads++; }
+        internal ShipSignature(Ostranauts.Ships.IStellarObject target, Ship observer) { StellarReads++; }
     }
     internal sealed class ElectronicSystems
     {
@@ -202,8 +210,13 @@ namespace PhobosAutoNav
         internal string ShipId = "", DisplayName = "";
         internal static int Resolves;
         internal static TargetRef? FromShipId(string id) => CrewSim.system.GetShipByRegID(id) is Ship ship ?
-            new() { ShipId = id, DisplayName = ship.publicName } : null;
-        internal static TargetRef? FromCrossHair() => GUIOrbitDraw.CrossHairTarget?.Ship is Ship ship ? FromShipId(ship.strRegID) : null;
+            new() { ShipId = id, DisplayName = ship.publicName } :
+            CrewSim.system.dictStellarObjects.ContainsKey(id) ? new() { ShipId = id, DisplayName = id } : null;
+        internal static TargetRef? FromCrossHair() => GUIOrbitDraw.CrossHairTarget?.Ship is Ship ship ? FromShipId(ship.strRegID) :
+            GUIOrbitDraw.CrossHairTarget?.stellarObj is Ostranauts.Ships.IStellarObject marker ? FromShipId(marker.strID) : null;
+        internal bool IsStellar => CrewSim.system.GetShipByRegID(ShipId) == null && CrewSim.system.dictStellarObjects.ContainsKey(ShipId);
+        internal ShipSitu? TargetSitu => CrewSim.system.GetShipByRegID(ShipId)?.objSS ??
+            (CrewSim.system.dictStellarObjects.TryGetValue(ShipId, out var marker) ? marker.objSS : null);
         internal bool Resolve(out double x, out double y, out double vx, out double vy)
         { Resolves++; x = y = vx = vy = 0; return true; }
     }
@@ -268,3 +281,5 @@ namespace PhobosAutoNav {
 
 namespace Ostranauts.ShipGUIs.NavStation { internal sealed class NavModCoursePlot { internal NativeToggle chkEngage = new(); } }
 internal static class MathUtils { internal static int RoundToInt(double value) => (int)System.Math.Floor(value + .5); }
+namespace Ostranauts.Ships { internal interface IStellarObject { string strID { get; } ShipSitu objSS { get; } } }
+namespace SolarSystem { internal sealed class Asteroid : Ostranauts.Ships.IStellarObject { public string strID { get; set; } = ""; public ShipSitu objSS { get; set; } = new(); } }

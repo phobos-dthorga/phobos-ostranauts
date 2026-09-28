@@ -5610,14 +5610,14 @@
       "mod": "PhobosAutoNav",
       "key": "NavigationService.phobosnav_help_status_settings_fly_stop_spawn",
       "category": "help/settings",
-      "decision": "retain",
-      "reason": "Retain: clear functional label, operational instruction or necessary safety/detail constraint; no forced personality.",
+      "decision": "rewrite",
+      "reason": "Added the sensors command; existing commands and limits retained.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosAutoNav/NavigationService.cs:272"
+        "src/PhobosAutoNav/NavigationService.cs:274"
       ],
       "before": "phobosnav: status | settings | fly [km] | dock | stop | resume | cruise <m/s> | arrivalspeed <m/s> | arrival <km> | defaults | torch on/off | forget | spawn. Defaults explicitly resets this console’s preferences; forget clears its saved flight. N2: rendezvous [km] | follow [km] | spawnpursuit. N3: firetarget | weapons <1–9> | volley | fireweapon | aimweapon | autoaim | engage | ceasefire | nativefire. Engage requires N3 and a separately selected qualified target, including during manual flight. Cease retains offensive Hold; nativefire releases it and may resume native autofire. Rendezvous/Follow match motion. Native N3 spawn: spawn PhobosNavModFireControl.\nphobosnav approachdock — approach the cleared target and hand over to terminal RCS docking.\nAudio: phobosnav watch | unwatch | cue-volume. Engage Approach/Rendezvous before watching.",
-      "after": "phobosnav: status | settings | fly [km] | dock | stop | resume | cruise <m/s> | arrivalspeed <m/s> | arrival <km> | defaults | torch on/off | forget | spawn. Defaults explicitly resets this console’s preferences; forget clears its saved flight. N2: rendezvous [km] | follow [km] | spawnpursuit. N3: firetarget | weapons <1–9> | volley | fireweapon | aimweapon | autoaim | engage | ceasefire | nativefire. Engage requires N3 and a separately selected qualified target, including during manual flight. Cease retains offensive Hold; nativefire releases it and may resume native autofire. Rendezvous/Follow match motion. Native N3 spawn: spawn PhobosNavModFireControl.\nphobosnav approachdock — approach the cleared target and hand over to terminal RCS docking.\nAudio: phobosnav watch | unwatch | cue-volume. Engage Approach/Rendezvous before watching."
+      "after": "phobosnav: status | settings | sensors [passive|all] | fly [km] | dock | stop | resume | cruise <m/s> | arrivalspeed <m/s> | arrival <km> | defaults | torch on/off | forget | spawn. Defaults explicitly resets this console’s preferences; forget clears its saved flight. N2: rendezvous [km] | follow [km] | spawnpursuit. N3: firetarget | weapons <1–9> | volley | fireweapon | aimweapon | autoaim | engage | ceasefire | nativefire. Engage requires N3 and a separately selected qualified target, including during manual flight. Cease retains offensive Hold; nativefire releases it and may resume native autofire. Rendezvous/Follow match motion. Native N3 spawn: spawn PhobosNavModFireControl.\nphobosnav approachdock — approach the cleared target and hand over to terminal RCS docking.\nAudio: phobosnav watch | unwatch | cue-volume. Engage Approach/Rendezvous before watching."
     },
     {
       "mod": "PhobosAutoNav",
@@ -5818,13 +5818,13 @@
       "key": "NavigationService.select_another_ship_or_station_planetary_travel",
       "category": "status/warning",
       "decision": "rewrite",
-      "reason": "Reworded for the situation/action or corrected stale feature wording; formatting and behaviour contracts retained.",
+      "reason": "Asteroids are now valid approach targets; planetary limit retained.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosAutoNav/NavigationService.cs:126"
+        "src/PhobosAutoNav/NavigationService.cs:128"
       ],
       "before": "Select another ship or station; planetary travel is outside this prototype",
-      "after": "Select another ship or station. Planetary travel is not supported."
+      "after": "Select another ship, station or asteroid. Planetary travel is not supported."
     },
     {
       "mod": "PhobosAutoNav",
@@ -7304,8 +7304,8 @@
       "mod": "PhobosAutoNav",
       "key": "Sensors.Unavailable",
       "category": "control/name/value",
-      "decision": "retain",
-      "reason": "Retain: clear functional label, operational instruction or necessary safety/detail constraint; no forced personality.",
+      "decision": "rewrite",
+      "reason": "Asteroids are now contacts too; meaning otherwise unchanged.",
       "trace": "dynamic family",
       "references": [
         "src/PhobosAutoNav/NavigationInstruments.cs:110",
@@ -7313,7 +7313,7 @@
         "src/PhobosAutoNav/Core/ContactReading.cs:13"
       ],
       "before": "No current ship or station contact available",
-      "after": "No current ship or station contact available"
+      "after": "No current ship, station or asteroid contact available"
     },
     {
       "mod": "PhobosAutoNav",
@@ -7422,14 +7422,14 @@
       "mod": "PhobosAutoNav",
       "key": "Sensors.help",
       "category": "help/settings",
-      "decision": "retain",
-      "reason": "Retain: clear functional label, operational instruction or necessary safety/detail constraint; no forced personality.",
+      "decision": "rewrite",
+      "reason": "Explains the whole sensor suite, weak-contact avoidance, asteroid targets and the explicit sensors command; existing suspension and resume rules retained.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosAutoNav/NavigationInstruments.cs:110"
+        "src/PhobosAutoNav/NavigationInstruments.cs:108"
       ],
       "before": "Fly, Dock and Resume require live native sensing. Weak or lost contact suspends guidance and clears Auto Nav thrust; it does not brake blindly or resume automatically when the signal returns. Destination and progress are retained. Radar and LiDAR are never enabled automatically. Range and speed are unknown without a usable track. Sensor Operations skill uses the currently selected crew member aboard this ship, including with the panel closed.",
-      "after": "Fly, Dock and Resume require live native sensing. Weak or lost contact suspends guidance and clears Auto Nav thrust; it does not brake blindly or resume automatically when the signal returns. Destination and progress are retained. Radar and LiDAR are never enabled automatically. Range and speed are unknown without a usable track. Sensor Operations skill uses the currently selected crew member aboard this ship, including with the panel closed."
+      "after": "Fly, Dock and Resume require a live track from this ship's own sensors. Every switched-on sensor counts: optical, infrared, EM, radar and LiDAR signals combine as on the native map. Weak or lost target contact suspends guidance and clears Auto Nav thrust; it does not brake blindly or resume automatically when the signal returns. Destination and progress are retained. Weak contacts near the route are still avoided, with extra clearance. Asteroids can be flown to when sensed within 1,000 km. Radar and LiDAR are never switched on automatically; use the native Sensors page or phobosnav sensors all. Range and speed are unknown without a usable track. Sensor Operations skill uses the currently selected crew member aboard this ship, including with the panel closed."
     },
     {
       "mod": "PhobosAutoNav",
@@ -36411,6 +36411,280 @@
       ],
       "before": "Pause unloading",
       "after": "Pause unloading"
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "Docking.asteroid",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosAutoNav/NavigationHub.cs:93"
+      ],
+      "before": "Asteroids have no docking ports. Stop within 2.5 km and use the native tether.",
+      "after": "Asteroids have no docking ports. Stop within 2.5 km and use the native tether."
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "SensorSuite.none",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosAutoNav/NativeSensorSuite.cs:23"
+      ],
+      "before": "No ship sensors fitted.",
+      "after": "No ship sensors fitted."
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "SensorSuite.heading",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosAutoNav/NativeSensorSuite.cs:26"
+      ],
+      "before": "SENSOR SUITE",
+      "after": "SENSOR SUITE"
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "SensorSuite.type_optical",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosAutoNav/NativeSensorSuite.cs:15"
+      ],
+      "before": "Optical",
+      "after": "Optical"
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "SensorSuite.type_ir",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosAutoNav/NativeSensorSuite.cs:15"
+      ],
+      "before": "Infrared",
+      "after": "Infrared"
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "SensorSuite.type_em",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosAutoNav/NativeSensorSuite.cs:15"
+      ],
+      "before": "EM",
+      "after": "EM"
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "SensorSuite.type_radar",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosAutoNav/NativeSensorSuite.cs:15"
+      ],
+      "before": "Radar",
+      "after": "Radar"
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "SensorSuite.type_lidar",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosAutoNav/NativeSensorSuite.cs:15"
+      ],
+      "before": "LiDAR",
+      "after": "LiDAR"
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "SensorSuite.not_fitted",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosAutoNav/NativeSensorSuite.cs:32"
+      ],
+      "before": "{0}: not fitted",
+      "after": "{0}: not fitted"
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "SensorSuite.off",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosAutoNav/NativeSensorSuite.cs:38"
+      ],
+      "before": "{0}: fitted, switched off",
+      "after": "{0}: fitted, switched off"
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "SensorSuite.off_active",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosAutoNav/NativeSensorSuite.cs:38"
+      ],
+      "before": "{0}: fitted, switched off (emits when on)",
+      "after": "{0}: fitted, switched off (emits when on)"
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "SensorSuite.on",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosAutoNav/NativeSensorSuite.cs:43"
+      ],
+      "before": "{0}: on ({1} of {2})",
+      "after": "{0}: on ({1} of {2})"
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "SensorSuite.signal",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosAutoNav/NativeSensorSuite.cs:42"
+      ],
+      "before": "{0}: signal {1:F2} ({2} of {3} on)",
+      "after": "{0}: signal {1:F2} ({2} of {3} on)"
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "SensorSuite.total",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosAutoNav/NativeSensorSuite.cs:49"
+      ],
+      "before": "Combined signal {0:F2}; {1:F2} needed. {2}",
+      "after": "Combined signal {0:F2}; {1:F2} needed. {2}"
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "SensorSuite.hint",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosAutoNav/NativeSensorSuite.cs:51"
+      ],
+      "before": "Switch on fitted sensors from the native Sensors page, or enter phobosnav sensors passive.",
+      "after": "Switch on fitted sensors from the native Sensors page, or enter phobosnav sensors passive."
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "SensorSuite.hint_active",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosAutoNav/NativeSensorSuite.cs:51"
+      ],
+      "before": "Switch on fitted sensors from the native Sensors page. phobosnav sensors passive leaves radar and LiDAR off; phobosnav sensors all also switches them on, which makes your ship easier to detect.",
+      "after": "Switch on fitted sensors from the native Sensors page. phobosnav sensors passive leaves radar and LiDAR off; phobosnav sensors all also switches them on, which makes your ship easier to detect."
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "SensorSuite.console_required",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosAutoNav/NativeSensorSuite.cs:87",
+        "src/PhobosAutoNav/NativeSensorSuite.cs:91"
+      ],
+      "before": "Open the navigation console aboard your own ship first.",
+      "after": "Open the navigation console aboard your own ship first."
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "SensorSuite.usage",
+      "category": "help/settings",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosAutoNav/NativeSensorSuite.cs:89"
+      ],
+      "before": "phobosnav sensors | phobosnav sensors passive | phobosnav sensors all",
+      "after": "phobosnav sensors | phobosnav sensors passive | phobosnav sensors all"
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "SensorSuite.nothing_to_switch",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosAutoNav/NativeSensorSuite.cs:105"
+      ],
+      "before": "No fitted sensors needed switching on.",
+      "after": "No fitted sensors needed switching on."
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "SensorSuite.switched",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosAutoNav/NativeSensorSuite.cs:106"
+      ],
+      "before": "Switched on: {0}.",
+      "after": "Switched on: {0}."
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "SensorSuite.switched_active",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosAutoNav/NativeSensorSuite.cs:106"
+      ],
+      "before": "Switched on, including emitting sensors: {0}.",
+      "after": "Switched on, including emitting sensors: {0}."
     }
   ],
   "documents": [
@@ -36418,8 +36692,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "f69e1c5beacc7112e85f96d18033b5a2d488a16d4d8de958836af1944851c1b5",
-      "review": "2026-09-28: registered Framework/Shipbreaker 0.33.0 version and dependency update only; no other wording changed."
+      "sha256": "f6e634e67d8d53dbb5c3084fa309dd2a83fb55eb9e4edfe4402199e1f8b3cb67",
+      "review": "2026-09-28: registered Auto Nav 0.23.0 version update only; no other wording changed."
     },
     {
       "path": "SUPPORT.md",
@@ -36494,8 +36768,8 @@
       "path": "docs/auto-nav-departure.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "41e1c6eb33938e213369a23656224455f2f461899d0b5322a7a0522df8a053ba",
-      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+      "sha256": "a0bd1a2d8cfda6b8566efd2356fea84fb37ad24b356585f5a267edba5365c37b",
+      "review": "2026-09-28: avoidance now describes sensed asteroid rocks, weak-contact clearance and the 100 km reach; loss-versus-fade wording made explicit."
     },
     {
       "path": "docs/auto-nav-docking.md",
@@ -36528,8 +36802,8 @@
       "path": "docs/auto-nav-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "61eba3ca184978cdab9516cd34656c3837c295048a590eaba5289b1868a7ad3a",
-      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+      "sha256": "c7f1cfb3ba6d4e0e80259aa7664dc7fb0740bf9fa4ee49df65e017c937ec0da2",
+      "review": "2026-09-28: regenerated from reviewed N1/N2 explanations for asteroid targets, sensor breakdown and hazard avoidance."
     },
     {
       "path": "docs/auto-nav-persistence.md",
@@ -36549,8 +36823,8 @@
       "path": "docs/auto-nav-sensors.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "e1b174a06a6a355243f38374fb4b358bd46deb0dc8e9cb048334d978bc17df34",
-      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+      "sha256": "1c348fff0d77eb54833f49b8ccf28e831e8212ffced3a9bf1ad957849bd7eacd",
+      "review": "2026-09-28: new whole-suite section: per-sensor breakdown, explicit switch-on with emitting sensors named, asteroid approach within 1,000 km and tether reach, weak-contact and asteroid hazards, deliberate limits and owner checks. 0.9.0 rules retained under their own heading."
     },
     {
       "path": "docs/auto-nav-torch.md",
@@ -36576,8 +36850,8 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "0af21858387ecd7fdde6b10355e2d08a8c7c38750f412f5d296296c3f82dd7f8",
-      "review": "2026-09-28: registered Framework/Shipbreaker 0.33.0 version and dependency update only; no other wording changed."
+      "sha256": "8e5873180e4c25f132e31b157ebb3419f4818aea21d5e714c221a5b0da0a4b90",
+      "review": "2026-09-28: registered Auto Nav 0.23.0 version update only; no other wording changed."
     },
     {
       "path": "docs/crew-automation.md",
@@ -37355,8 +37629,8 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "276e1db1bc626142c7569e570028e748a397623e9c0d3d0d0588c285f6a01e65",
-      "review": "2026-09-28: version update plus a pointer to storage outputs and repeat batches."
+      "sha256": "4f71541f17d5b4cbd412900f7b95ea2be224fbd6df48ef1d7e0ff470d0aa1f56",
+      "review": "2026-09-28: version update plus a pointer to the sensor breakdown and asteroid approach."
     },
     {
       "path": "docs/residue-collector.md",
@@ -37432,8 +37706,8 @@
       "path": "workshop/PhobosAutoNav/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "4674b0b7a5d53cce4ba683abcaa6123e757ce4a7f9607b792d1824ed04bfc7fb",
-      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+      "sha256": "8bde24d1eb3a1a813dd39edb034cd82f559f1ed21a5c05464cfdf1bdf6599f95",
+      "review": "2026-09-28: version plus asteroid approach, whole-suite sensing and wider hazard avoidance; guide link added."
     },
     {
       "path": "workshop/PhobosFramework/page.bbcode",
@@ -37461,8 +37735,8 @@
     {
       "path": "config/item-reference.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "177690afc9c3253d7d89e06c0193c525fdc026d2b4b5d70907b2867350d5117c",
-      "review": "2026-09-28: D4/R4/F6 use and notes updated for storage outputs and the repeat run."
+      "sha256": "013265a1c85a7013d0a475d92106952eb23286106ea6fbfa4bc001c5fec386fd",
+      "review": "2026-09-28: N1/N2 use and notes updated for asteroid targets, sensor breakdown and hazard avoidance."
     },
     {
       "path": "mods/PhobosAgriculture/framework/equipment-names.json",
@@ -37498,8 +37772,8 @@
     {
       "path": "mods/PhobosAutoNav/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "bd32155c6511d0e0e5b67caea8f1069f16fd207669bcc8ef1cf6c5c9f780f8a3",
-      "review": "2026-09-27: towing instructions, unchanged native mechanics and scope limits reviewed; historical records preserved."
+      "sha256": "18f9ed296e8b8b266c9b0afed1568db92d86605e1c09d9ee352719a060a5ab2e",
+      "review": "2026-09-28: registered Auto Nav 0.23.0 version update only; no other wording changed."
     },
     {
       "path": "mods/PhobosFramework/framework/equipment-names.json",

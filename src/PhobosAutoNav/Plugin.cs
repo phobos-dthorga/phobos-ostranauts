@@ -16,7 +16,7 @@ namespace PhobosAutoNav;
 public sealed class Plugin : BaseUnityPlugin
 {
     public const string Id = "phobosgekko.ostranauts.autonav";
-    public const string Version = "0.22.4";
+    public const string Version = "0.23.0";
     internal static NavigationService Service { get; private set; } = null!;
     internal static ConfigEntry<bool> Enabled = null!, VerboseLogging = null!, FuelCheck = null!,
         AbortOnManualThrust = null!, UseThrusterRotation = null!, ResumeAfterLoad = null!, PreferTorch = null!, SalvageEnabled = null!;
@@ -233,7 +233,10 @@ internal static class ConsolePatch
     {
         string[] words = strInput.Trim().Split((char[]?)null, StringSplitOptions.RemoveEmptyEntries);
         if (words.Length == 0 || !words[0].Equals("phobosnav", StringComparison.OrdinalIgnoreCase)) return true;
-        __result = Plugin.Service.Command(words, out string response);
+        string response;
+        // The sensor suite is a ship-wide native read/toggle, separate from flight commands.
+        if (words.Length >= 2 && words[1].Equals("sensors", StringComparison.OrdinalIgnoreCase)) __result = NativeSensorSuite.Command(words, out response);
+        else __result = Plugin.Service.Command(words, out response);
         strInput += "\n" + response;
         return false;
     }

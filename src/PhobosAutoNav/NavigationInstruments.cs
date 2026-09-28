@@ -13,7 +13,7 @@ internal sealed class InstrumentSnapshot
 
 internal sealed partial class NavigationService
 {
-    private static bool IsLocalConsole(CondOwner? co) => co != null && !co.bDestroyed &&
+    internal static bool IsLocalConsole(CondOwner? co) => co != null && !co.bDestroyed &&
         co.HasCond("IsInstalled") && !co.HasCond("IsLocked") && co.ship != null && co.ship == CrewSim.coPlayer?.ship;
 
     // UI reads only. Never Resolve a target or touch actuator/save state when drawing a panel.

@@ -21,6 +21,7 @@ internal sealed class HubSnapshot
     internal double? EffectiveSeparationKM;
     internal SavedFlightMode? Operation;
     internal ContactReading Contact, FireContact;
+    internal string? TargetId;
     internal bool WorkingFire, AutoAiming, FireHeld, CanReturnFire, CanAim, CanChangeGroup;
     internal int Volleys = 1, Remaining;
     internal string WeaponCard = "", WeaponLabel = "", Ownership = "";
@@ -73,20 +74,24 @@ internal sealed partial class NavigationService
         view.Operation = flight?.Mode;
         var target = read.Target;
         view.Contact = read.Contact(target);
+        view.TargetId = target?.ShipId;
         var own = co.ship;
         var other = target == null ? null : CrewSim.system?.GetShipByRegID(target.ShipId);
+        // An asteroid marker has live geometry but no ship: ports, clearance and docking stay ship-only.
+        var situ = other?.objSS ?? (target?.IsStellar == true ? target.TargetSitu : null);
         view.EffectiveSeparationKM = view.Navigation.EffectiveArrivalKM;
-        if (powered && view.Contact.Usable && other?.objSS != null && own.objSS != null)
+        if (powered && view.Contact.Usable && situ != null && own.objSS != null)
         {
-            var offset = new NavVector((other.objSS.vPosx - own.objSS.vPosx) / AutoNavCore.M_TO_AU,
-                (other.objSS.vPosy - own.objSS.vPosy) / AutoNavCore.M_TO_AU);
-            var velocity = new NavVector((own.objSS.vVelX - other.objSS.vVelX) / AutoNavCore.M_TO_AU,
-                (own.objSS.vVelY - other.objSS.vVelY) / AutoNavCore.M_TO_AU);
+            var offset = new NavVector((situ.vPosx - own.objSS.vPosx) / AutoNavCore.M_TO_AU,
+                (situ.vPosy - own.objSS.vPosy) / AutoNavCore.M_TO_AU);
+            var velocity = new NavVector((own.objSS.vVelX - situ.vVelX) / AutoNavCore.M_TO_AU,
+                (own.objSS.vVelY - situ.vVelY) / AutoNavCore.M_TO_AU);
             view.RangeKM = Known(offset.Length / 1000); view.RelativeMS = Known(velocity.Length);
             view.ClosingMS = offset.Length > 0 ? Known(velocity.Dot(offset) / offset.Length, signed: true) : null;
             view.AlignmentDegrees = Known(DockingRules.Wrap(-Math.Atan2(offset.X, offset.Y) - own.objSS.fRot) * 180 / Math.PI, signed: true);
             string? dockingProblem;
-            if (flight?.IsDocking == true || flight?.IsCombinedApproach == true)
+            if (other == null) dockingProblem = "Docking.asteroid";
+            else if (flight?.IsDocking == true || flight?.IsCombinedApproach == true)
             {
                 view.OwnPort = flight.OwnPort; view.TargetPort = flight.TargetPort;
                 dockingProblem = DockingAdapter.Check(own, other, flight.OwnPort, flight.TargetPort, checkFit: false);

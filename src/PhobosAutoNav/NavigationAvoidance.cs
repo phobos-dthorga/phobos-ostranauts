@@ -8,6 +8,8 @@ namespace PhobosAutoNav;
 internal sealed partial class NavigationService
 {
     private readonly ObstacleRoute obstacleRoute = new();
+    // Lateral reach for asteroid pre-filtering beyond braking travel, matching the body margin.
+    private const double AsteroidReachM = 1000;
     private readonly HashSet<string> previousThreats = new(StringComparer.Ordinal);
     private readonly Dictionary<string, (NavVector Position, double Epoch, NavVector Velocity)> bodyMotion = new();
     private NavVector cachedHop; // Relative to the tracked target, like obstacle velocities.
@@ -19,7 +21,7 @@ internal sealed partial class NavigationService
     private double stepBraking,stepEpoch=double.NegativeInfinity;
     internal bool ObstacleBurnAllowed(Ship own,double acceleration,double dt)
     {
-        if(bodyMotion.Values.Any(b=>!b.Velocity.Finite)||avoidanceActive||industrial!=null||own!=console?.ship||stepEpoch!=StarSystem.fEpoch||previousThreats.Any(id=>!TowFlight.Contains(own,CrewSim.system.GetShipByRegID(id)) && !NativeContactReader.Read(own,id).Usable)) return false;
+        if(bodyMotion.Values.Any(b=>!b.Velocity.Finite)||avoidanceActive||industrial!=null||own!=console?.ship||stepEpoch!=StarSystem.fEpoch||previousThreats.Any(id=>!TowFlight.Contains(own,CrewSim.system.GetShipByRegID(id)) && !HazardRules.Tracked(NativeContactReader.Read(own,id).State))) return false;
         var heading=new NavVector(-Math.Sin(own.objSS.fRot),Math.Cos(own.objSS.fRot));
         return ObstacleRoute.BurnAndBrakeSafe(stepVelocity,heading*acceleration,dt+TorchRules.ZoneRefreshSeconds,stepBraking,stepObstacles);
     }
@@ -59,12 +61,24 @@ internal sealed partial class NavigationService
         var obstacles=new List<ObstacleDisc>();
         foreach(var other in CrewSim.system.dictShips.Values.ToArray())
         {
-            if(other==own||other==null||!NativeContactReader.Read(own,other.strRegID).Usable) continue;
+            if(other==own||other==null) continue;
+            var reading=NativeContactReader.Read(own,other.strRegID);
             var p=new NavVector((other.objSS.vPosx-a.vPosx)/AutoNavCore.M_TO_AU,(other.objSS.vPosy-a.vPosy)/AutoNavCore.M_TO_AU);
+            double? uncertainty=other==target?(reading.Usable?0:(double?)null):HazardRules.UncertaintyM(reading.State,p.Length/1000);
+            if(uncertainty==null) continue;
             var v=new NavVector((other.objSS.vVelX-b.vVelX)/AutoNavCore.M_TO_AU,(other.objSS.vVelY-b.vVelY)/AutoNavCore.M_TO_AU);
-            double r=TowFlight.CollisionAU(own,other.objSS)/AutoNavCore.M_TO_AU+Math.Max(25,v.Length*10);
+            double r=TowFlight.CollisionAU(own,other.objSS)/AutoNavCore.M_TO_AU+Math.Max(25,v.Length*10)+uncertainty.Value;
             if(ObstacleRoute.Distance(start,goal,p)>r+gap) continue;
             obstacles.Add(new ObstacleDisc(other.strRegID,p-start,v,r));
+        }
+        foreach(var rock in NativeHazards.Asteroids(own,start,goal,gap+AsteroidReachM,targetId))
+        {
+            var p=new NavVector((rock.Situ.vPosx-a.vPosx)/AutoNavCore.M_TO_AU,(rock.Situ.vPosy-a.vPosy)/AutoNavCore.M_TO_AU);
+            double? uncertainty=HazardRules.UncertaintyM(rock.Reading.State,p.Length/1000);
+            if(uncertainty==null) continue;
+            var v=new NavVector((rock.Situ.vVelX-b.vVelX)/AutoNavCore.M_TO_AU,(rock.Situ.vVelY-b.vVelY)/AutoNavCore.M_TO_AU);
+            double r=TowFlight.CollisionAU(own,rock.Situ)/AutoNavCore.M_TO_AU+Math.Max(25,v.Length*10)+uncertainty.Value;
+            if(ObstacleRoute.Distance(start,goal,p)<=r+gap) obstacles.Add(new ObstacleDisc(rock.Id,p-start,v,r));
         }
         foreach(var body in CrewSim.system.aBOs.Values)
         {
@@ -94,7 +108,8 @@ internal sealed partial class NavigationService
         if (CrewSim.system==null || co == null || targetId == null || CrewSim.Paused || dt == 0) return false;
         try
         {
-            var own = co.ship; var target = CrewSim.system.GetShipByRegID(targetId);
+            var own = co.ship;
+            var targetSitu = industrial != null ? CrewSim.system.GetShipByRegID(targetId)?.objSS : AutoNavCore.EngagedTarget?.TargetSitu;
             string? problem = !Plugin.Enabled.Value ? Text.Get("NavigationService.mod_disabled") : HardwareProblem(co);
             if(problem==null&&industrial==null&&(!FlightBindingValid()||Torch.ControlsChanged||AutoNavCore.AutoDockBusy())) problem=Text.Get("Persistence.binding_changed");
             if(problem==null&&(own.GetRCSRemain()<=0||industrial!=null&&industrial.Elapsed>=DockingRules.MaximumSeconds||AutoNavCore.Engaged&&AutoNavCore.ElapsedSeconds>= (DockingActive?DockingRules.MaximumSeconds:Plugin.MaxFlightSimHours.Value*3600))) problem=Text.Get("Docking.timeout");
@@ -102,11 +117,11 @@ internal sealed partial class NavigationService
             if (problem == null && (!ArrivalBrake.Finite(dt) || dt <= 0 || dt > Plugin.MaximumStepSeconds.Value ||
                 (industrial != null || DockingActive) && dt > DockingRules.MaximumStep)) problem = Text.Get("Docking.step");
             if(problem!=null) { Disengage(problem);return true; }
-            if(target?.objSS==null||!NativeContactReader.Read(own,targetId).Usable) { SuspendAvoidance();return true; }
-            var a = own.objSS; var b = target.objSS;
+            if(targetSitu==null||!NativeContactReader.Read(own,targetId).Usable) { SuspendAvoidance();return true; }
+            var a = own.objSS; var b = targetSitu;
             var offset = new NavVector((b.vPosx-a.vPosx)/AutoNavCore.M_TO_AU,(b.vPosy-a.vPosy)/AutoNavCore.M_TO_AU);
             var velocity = new NavVector((a.vVelX-b.vVelX)/AutoNavCore.M_TO_AU,(a.vVelY-b.vVelY)/AutoNavCore.M_TO_AU);
-            double hull = TowFlight.CollisionAU(own,target.objSS)/AutoNavCore.M_TO_AU;
+            double hull = TowFlight.CollisionAU(own,targetSitu)/AutoNavCore.M_TO_AU;
             double stop = industrial != null || DockingActive ? hull * DockingRules.StandOffRadius : AutoNavCore.EffectiveArriveAU(own, AutoNavCore.EngagedTarget)/AutoNavCore.M_TO_AU;
             var goal = offset.Unit * Math.Max(0, offset.Length-stop);
             if (industrial != null && industrial.Move != IndustrialMove.CaptureApproach)
@@ -117,12 +132,14 @@ internal sealed partial class NavigationService
             double horizon = Math.Min(ObstacleRoute.MaximumHorizonSeconds, Math.Max(2*dt, velocity.Length/(acceleration*.45)+2*dt));
             var actual = new List<ObstacleDisc>(); var planning = new List<ObstacleDisc>();
             var threats = new HashSet<string>(StringComparer.Ordinal);
-            if(previousThreats.Any(id=>!TowFlight.Contains(own,CrewSim.system.GetShipByRegID(id)) && !NativeContactReader.Read(own,id).Usable)) { SuspendAvoidance();return true; }
+            // A threat that fades to a weak contact stays a hazard with wider clearance; losing it entirely suspends.
+            if(previousThreats.Any(id=>!TowFlight.Contains(own,CrewSim.system.GetShipByRegID(id)) && !HazardRules.Tracked(NativeContactReader.Read(own,id).State))) { SuspendAvoidance();return true; }
             foreach (var other in CrewSim.system.dictShips.Values.ToArray())
             {
                 if (other == null || other == own || TowFlight.Contains(own, other)) continue;
                 var reading = NativeContactReader.Read(own,other.strRegID);
-                if (!reading.Usable)
+                bool isTarget = other.strRegID == targetId;
+                if (!HazardRules.Tracked(reading.State))
                 {
                     if (previousThreats.Contains(other.strRegID)) { SuspendAvoidance(); return true; }
                     continue;
@@ -130,16 +147,38 @@ internal sealed partial class NavigationService
                 // Geometry/motion is read only after native sensing has admitted this contact.
                 var c = other.objSS;
                 var p = new NavVector((c.vPosx-a.vPosx)/AutoNavCore.M_TO_AU,(c.vPosy-a.vPosy)/AutoNavCore.M_TO_AU);
+                // A weak contact is avoided with the native partial-contact position error added;
+                // one too distant to place usefully is left out rather than guessed.
+                double? uncertainty = isTarget ? 0 : HazardRules.UncertaintyM(reading.State, p.Length/1000);
+                if (uncertainty == null) continue;
                 var v = new NavVector((c.vVelX-b.vVelX)/AutoNavCore.M_TO_AU,(c.vVelY-b.vVelY)/AutoNavCore.M_TO_AU);
                 double radius = TowFlight.CollisionAU(own,other.objSS)/AutoNavCore.M_TO_AU;
-                double margin = other == target ? (industrial?.Move==IndustrialMove.Egress ? Math.Min(1,radius*.002) : radius*.002) : Math.Max(ObstacleRoute.MinimumMarginM, radius*.05);
+                double margin = (isTarget ? (industrial?.Move==IndustrialMove.Egress ? Math.Min(1,radius*.002) : radius*.002) : Math.Max(ObstacleRoute.MinimumMarginM, radius*.05)) + uncertainty.Value;
                 if (!p.Finite || !v.Finite || !ArrivalBrake.Finite(radius) || radius <= 0) { Disengage(Text.Get("Docking.unsafe")); return true; }
                 actual.Add(new ObstacleDisc(other.strRegID,p,v,radius+margin));
                 threats.Add(other.strRegID);
                 if (ObstacleRoute.Distance(default,goal,p) > radius+margin+(velocity-v).Length*horizon+1000) continue;
-                double travel = other == target ? 0 : v.Length*Math.Min(horizon,10);
+                double travel = isTarget ? 0 : v.Length*Math.Min(horizon,10);
                 planning.Add(new ObstacleDisc(other.strRegID,p+v*(Math.Min(horizon,10)/2),v,radius+margin+travel/2));
                 threats.Add(other.strRegID);
+            }
+            foreach (var rock in NativeHazards.Asteroids(own, default, goal, velocity.Length*horizon+AsteroidReachM, targetId))
+            {
+                if (!HazardRules.Tracked(rock.Reading.State))
+                {
+                    if (previousThreats.Contains(rock.Id)) { SuspendAvoidance(); return true; }
+                    continue;
+                }
+                var c = rock.Situ;
+                var p = new NavVector((c.vPosx-a.vPosx)/AutoNavCore.M_TO_AU,(c.vPosy-a.vPosy)/AutoNavCore.M_TO_AU);
+                double? uncertainty = HazardRules.UncertaintyM(rock.Reading.State, p.Length/1000);
+                if (uncertainty == null) continue;
+                var v = new NavVector((c.vVelX-b.vVelX)/AutoNavCore.M_TO_AU,(c.vVelY-b.vVelY)/AutoNavCore.M_TO_AU);
+                double radius = TowFlight.CollisionAU(own,c)/AutoNavCore.M_TO_AU;
+                double margin = Math.Max(ObstacleRoute.MinimumMarginM, radius*.05) + uncertainty.Value;
+                if (!p.Finite || !v.Finite || !ArrivalBrake.Finite(radius) || radius <= 0) { Disengage(Text.Get("Docking.unsafe")); return true; }
+                actual.Add(new ObstacleDisc(rock.Id,p,v,radius+margin)); planning.Add(new ObstacleDisc(rock.Id,p,v,radius+margin));
+                threats.Add(rock.Id);
             }
             foreach (var body in CrewSim.system.aBOs.Values)
             {

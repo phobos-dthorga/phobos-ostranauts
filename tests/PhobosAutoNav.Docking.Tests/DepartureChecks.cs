@@ -7,7 +7,7 @@ internal static class DepartureChecks
 {
     private static (NavigationService Service,CondOwner Console,Ship Own,Ship Peer) Setup(bool station=false,bool mooring=false)
     {
-        AutoNavCore.ResetStatics();AutoNavCore.Busy=false;NativeContactReader.State=ContactState.Ready;
+        AutoNavCore.ResetStatics();AutoNavCore.Busy=false;NativeContactReader.State=ContactState.Ready;NativeContactReader.ById.Clear();NativeHazards.Rocks.Clear();
         CrewSim.system=new();CrewSim.objInstance.FinishedLoading=true;CrewSim.Paused=false;StarSystem.fEpoch=100;
         CrewSim.DetachCalls=0;CrewSim.DuringDetach=null;CrewSim.aCrew.Clear();
         var own=new Ship { strRegID="own",Attached=true,Moored=mooring };

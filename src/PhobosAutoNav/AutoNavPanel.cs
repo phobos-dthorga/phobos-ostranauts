@@ -404,7 +404,8 @@ public sealed partial class AutoNavPanel : NavModBase
         if (page == "details")
         {
             Caption("cue-volume", Phobos.Ostranauts.Framework.Audio.CompletionCues.VolumeLabel);
-            Caption("details", view.CompletionCue + "\n\n" + nav.Details + "\n\n" + Text.Get("Hub.help") + "\n\n" + Plugin.Service.PursuitSummary(COSelf));
+            Caption("details", view.CompletionCue + "\n\n" + nav.Details + "\n\n" + NativeSensorSuite.Describe(COSelf?.ship, view.TargetId) +
+                "\n\n" + Text.Get("Hub.help") + "\n\n" + Plugin.Service.PursuitSummary(COSelf));
         }
     }
     private void Caption(string id, string value) => Presentation.Text(labels[id], value);

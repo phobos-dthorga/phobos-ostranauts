@@ -46,8 +46,14 @@ leg after fresh checks. Do not remove stored evidence to force a retry.
 ## Avoidance during local flight
 
 Fly, Rendezvous, Follow, docking approaches, industrial movement and departure
-share obstacle observations at the system-update boundary. Avoidance uses visible, tracked ship contacts to check their size and movement. Sensors are never switched on automatically. Known celestial
-boundaries are exclusion regions; asteroid-field markers are not individual rocks.
+share obstacle observations at the system-update boundary. Avoidance uses the ship
+contacts and asteroid-field rocks that your sensors register, checking their size and
+movement. A weak contact near the route is still avoided, with extra clearance of one
+fifth of its range: the position error the native map shows for such contacts. Weak
+contacts more than 100 km away are left out rather than guessed into the route.
+Sensors are never switched on automatically. Known celestial boundaries are exclusion
+regions; the game also checks collisions against individual rocks in asteroid fields,
+so sensed rocks near the route are avoided like ships.
 
 The local planner uses collision radii, relative motion, the simulation interval
 and available RCS braking. It holds a passing side while the route remains valid,
@@ -62,9 +68,10 @@ detours and industrial traversal use RCS. Torch preferences remain available on
 clear cruise segments only after checking the planned burn and subsequent RCS
 braking corridor. Manual takeover always releases automatic authority.
 
-Tracking loss suspends the operation, releases owned thrust and requires explicit
-Resume. Avoidance cannot promise protection from unseen contacts or after tracking
-is lost. Routes and sensor tracks are transient; loading preserves intent, not an
+Losing a tracked hazard entirely, for example behind a celestial body or with the
+sensors off, suspends the operation, releases owned thrust and requires explicit
+Resume. A hazard whose signal only fades to weak stays avoided with wider clearance.
+Avoidance cannot promise protection from unseen contacts or after tracking is lost. Routes and sensor tracks are transient; loading preserves intent, not an
 old route. This remains local navigation, not long-distance voyage planning.
 
 ## Integration and evidence

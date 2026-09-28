@@ -21,6 +21,23 @@ Dates on Draft entries record preparation, not Steam publication.
 - Earlier capture-only research is superseded for supported ordinary walls by Shipbreaker 0.24.0 reclamation, which relies on the 0.16.0 capture flight and 0.18.0 local avoidance and departure entries below. Broader structural recipes, repeated furnace batches and whole-wreck completion remain Shipbreaker work, not Auto Nav flight changes.
 - Keep [NASA Goddard's Raven research](https://www.nasa.gov/general/nasas-hybrid-computer-enables-ravens-autonomous-rendezvous-capability/) and [ESA's LIRIS experiment by Airbus, Jena Optronik and Sodern](https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/ATV/ATV_views_Space_Station_as_never_before) as sensing context, separate from Blue Bottle Games native evidence and authored gameplay choices. No institutional endorsement or gameplay validation is implied.
 
+## [0.23.0] - 2026-09-28 - Draft
+
+### Added
+
+- Fly to an asteroid under the crosshair. It needs a live track within 1,000 km, following the native map's asteroid rule: optical, radar and LiDAR can see asteroids, infrared and EM cannot, and there is no Sensor Operations bonus. The default arrival ends inside native tether reach. The asteroid keeps its identity once tethered. Docking, Rendezvous, Follow and weapons remain ship-only.
+- Details and the phobosnav sensors command list each sensor type's signal on the current target, the combined total against the threshold, and fitted sensors that are switched off.
+- phobosnav sensors passive switches on fitted optical, infrared and EM sensors; phobosnav sensors all also switches on radar and LiDAR, which emit. Both use the native Sensors page switch. Auto Nav still never switches sensors on or off by itself.
+
+### Changed
+
+- Local avoidance, departure checks and industrial route costs also avoid weak contacts within 100 km, with extra clearance of one fifth of their range, the position error the native map shows. Rocks in asteroid fields near the route are avoided too; the game checks collisions against them individually.
+- A hazard that fades from a clear to a weak signal stays avoided. Losing it entirely still suspends guidance for an explicit Resume.
+
+### Compatibility and limits
+
+- Saved flights, preferences and module identities are unchanged; asteroid flights save the asteroid's native ID. Known stations and beacons still need a live sensor track before a flight. The 100 km reach and the clearance use of the map's error are gameplay choices. Offline checks pass; owner play-testing is pending.
+
 ## [0.22.4] - 2026-09-27 - Draft
 
 ### Changed

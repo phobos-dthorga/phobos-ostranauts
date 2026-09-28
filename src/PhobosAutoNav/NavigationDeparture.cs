@@ -88,6 +88,8 @@ internal sealed partial class NavigationService
         }
         catch(Exception ex) { log(ex.ToString()); StopExtended(Text.Get("Departure.uncertain")); }
     }
+    // Rocks are pre-filtered generously: the exit check below allows a minute of relative motion.
+    private const double DepartureRockReachM = 100_000;
     private static string? DepartureProblem(Departure d,bool attached)
     {
         var co=d.Console; var own=co.ship; var peer=CrewSim.system?.GetShipByRegID(d["peer"]);
@@ -124,10 +126,24 @@ internal sealed partial class NavigationService
             }
             foreach(var other in CrewSim.system.dictShips.Values)
             {
-                if(other==null || other==own || other==peer || !NativeContactReader.Read(own,other.strRegID).Usable) continue;
+                if(other==null || other==own || other==peer) continue;
+                // Weak contacts count with their native position error; unsensed ships stay unknown.
+                double? uncertainty=HazardRules.UncertaintyM(NativeContactReader.Read(own,other.strRegID).State,
+                    new NavVector(other.objSS.vPosx-own.objSS.vPosx,other.objSS.vPosy-own.objSS.vPosy).Length/AutoNavCore.KM_TO_AU);
+                if(uncertainty==null) continue;
                 double speed=new NavVector(other.objSS.vVelX-peer.objSS.vVelX,other.objSS.vVelY-peer.objSS.vVelY).Length;
-                double radius=CollisionManager.GetCollisionDistanceAU(own,other)+ObstacleRoute.MinimumMarginM*AutoNavCore.M_TO_AU+speed*60;
+                double radius=CollisionManager.GetCollisionDistanceAU(own,other)+(ObstacleRoute.MinimumMarginM+uncertainty.Value)*AutoNavCore.M_TO_AU+speed*60;
                 if(ObstacleRoute.Distance(new NavVector(own.objSS.vPosx,own.objSS.vPosy),end,new NavVector(other.objSS.vPosx,other.objSS.vPosy))<=radius) return Text.Get("Departure.exit");
+            }
+            var exitM=new NavVector((end.X-own.objSS.vPosx)/AutoNavCore.M_TO_AU,(end.Y-own.objSS.vPosy)/AutoNavCore.M_TO_AU);
+            foreach(var rock in NativeHazards.Asteroids(own,default,exitM,DepartureRockReachM,null))
+            {
+                double? uncertainty=HazardRules.UncertaintyM(rock.Reading.State,
+                    new NavVector(rock.Situ.vPosx-own.objSS.vPosx,rock.Situ.vPosy-own.objSS.vPosy).Length/AutoNavCore.KM_TO_AU);
+                if(uncertainty==null) continue;
+                double speed=new NavVector(rock.Situ.vVelX-peer.objSS.vVelX,rock.Situ.vVelY-peer.objSS.vVelY).Length;
+                double radius=CollisionManager.GetCollisionDistanceAU(own.objSS,rock.Situ)+(ObstacleRoute.MinimumMarginM+uncertainty.Value)*AutoNavCore.M_TO_AU+speed*60;
+                if(ObstacleRoute.Distance(new NavVector(own.objSS.vPosx,own.objSS.vPosy),end,new NavVector(rock.Situ.vPosx,rock.Situ.vPosy))<=radius) return Text.Get("Departure.exit");
             }
         }
         else if(own.IsDocked()||own.IsMoored()) return Text.Get("Departure.attachment");

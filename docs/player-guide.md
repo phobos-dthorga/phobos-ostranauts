@@ -17,7 +17,7 @@ eating. This guide starts with installation and the basic shipbreaking loop.
   availability depends on ordinary merchant restocking.
 
 **Prepared versions:** Phobos Framework **0.33.0**, Shipbreaker **0.33.0**, Auto Nav
-**0.22.4**, built against Ostranauts **1.0.1.5** / BepInEx **5.4.23.5**.
+**0.23.0**, built against Ostranauts **1.0.1.5** / BepInEx **5.4.23.5**.
 These are development packages. Automated checks do not establish in-game
 compatibility or tell you which version is installed locally. Ordinary saves are
 supported; keep required content installed. [Getting started](getting-started.md)
@@ -205,7 +205,10 @@ Pursuit and both docking phases suspend after loading. No fire permission or liv
 thrust is saved; page changes and display refresh cannot authorize actions.
 [Qualified sensor contact](auto-nav-sensors.md) is required throughout. Missing
 measurements are unavailable, not zero. Saved flights keep their exact hardware,
-target and profile; stop before replacing them.
+target and profile; stop before replacing them. Every switched-on sensor counts;
+Details and `phobosnav sensors` show each sensor's signal and any that are off.
+Approach also works on a sensed asteroid within 1,000 km, stopping inside native
+tether reach for mining.
 
 N1/N2 acquisition, repair and salvage remain in the [economy guide](auto-nav-economy.md)
 and [N2 guide](auto-nav-pursuit.md). Either working module supplies navigation and

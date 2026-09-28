@@ -1,0 +1,23 @@
+[h1]Phobos Auto Nav 0.23.0[/h1]
+[b]Draft - not published | 2026-09-28[/b]
+
+[h2]Added[/h2]
+
+[list]
+[*]Fly to an asteroid under the crosshair. It needs a live track within 1,000 km, following the native map's asteroid rule: optical, radar and LiDAR can see asteroids, infrared and EM cannot, and there is no Sensor Operations bonus. The default arrival ends inside native tether reach. The asteroid keeps its identity once tethered. Docking, Rendezvous, Follow and weapons remain ship-only.
+[*]Details and the phobosnav sensors command list each sensor type's signal on the current target, the combined total against the threshold, and fitted sensors that are switched off.
+[*]phobosnav sensors passive switches on fitted optical, infrared and EM sensors; phobosnav sensors all also switches on radar and LiDAR, which emit. Both use the native Sensors page switch. Auto Nav still never switches sensors on or off by itself.
+[/list]
+
+[h2]Changed[/h2]
+
+[list]
+[*]Local avoidance, departure checks and industrial route costs also avoid weak contacts within 100 km, with extra clearance of one fifth of their range, the position error the native map shows. Rocks in asteroid fields near the route are avoided too; the game checks collisions against them individually.
+[*]A hazard that fades from a clear to a weak signal stays avoided. Losing it entirely still suspends guidance for an explicit Resume.
+[/list]
+
+[h2]Compatibility and limits[/h2]
+
+[list]
+[*]Saved flights, preferences and module identities are unchanged; asteroid flights save the asteroid's native ID. Known stations and beacons still need a live sensor track before a flight. The 100 km reach and the clearance use of the map's error are gameplay choices. Offline checks pass; owner play-testing is pending.
+[/list]

@@ -1,11 +1,89 @@
-# Auto Nav live sensor contact (0.9.0)
+# Auto Nav sensors
+
+Auto Nav steers only by what your ship's own sensors can track. This guide covers
+the whole sensor suite, asteroid targets and hazards (0.23.0), then the original
+live-contact rules (0.9.0), which still apply.
+
+## Using the whole sensor suite (0.23.0)
+
+Prepared on **28 September 2026** against Ostranauts **1.0.1.5**. Builds and
+automated checks are not in-game validation; owner play-testing is pending.
+
+**Every switched-on sensor counts.** Optical, infrared, EM, radar and LiDAR signals
+add together exactly as the native navigation map combines them, including the
+three sensors inside a combined EO/IR package. The **Details** page and
+`phobosnav sensors` list each sensor type with its signal on the current target,
+the combined total against the threshold, and any fitted sensors that are off.
+
+| Sensor | What it picks up | Notes |
+| --- | --- | --- |
+| Optical | Size and motion of the target | Short base range; best on slow or head-on targets |
+| Infrared | Heat from thrusters and a running reactor | Cold derelicts and asteroids give no infrared signal |
+| EM | Emissions: active sensors, beacons, ships not flying dark | Each EM sensor's contribution is capped |
+| Radar, LiDAR | Reflections from the target's size | Active: they emit and make your ship easier to detect |
+
+**Switching sensors on is your call.** Auto Nav never switches sensors on or off by
+itself. From the navigation console aboard your own ship:
+
+```text
+phobosnav sensors            show the breakdown for the current target
+phobosnav sensors passive    switch on fitted optical, infrared and EM sensors
+phobosnav sensors all        also switch on radar and LiDAR, which emit
+```
+
+These use the same switch as the native Sensors page, including its power override,
+and nothing is switched off afterwards.
+
+**Asteroids can be flown to.** Put an asteroid under the crosshair and choose Fly.
+It needs a live track within **1,000 km**. Beyond that the native map shows an
+asteroid only as an approximate contact. Optical, radar and LiDAR can see asteroids;
+infrared and EM cannot, because asteroids are cold and silent. The native asteroid
+threshold has no Sensor Operations bonus. The default arrival, 1 km from the surface
+at matched speed, ends inside native tether reach: within 2.5 km of the surface and
+below 50 m/s relative. Tether with the native mooring control; the asteroid keeps
+the same identity once tethered. Docking, Rendezvous, Follow and weapons remain
+ship-only.
+
+**Hazards use more of what the sensors see.** Local avoidance now also avoids:
+
+- weak contacts within 100 km, with extra clearance of one fifth of their range,
+  the position error the native map shows for such contacts;
+- rocks in asteroid fields near the route, which the game checks for collisions
+  individually.
+
+A hazard whose signal fades from clear to weak stays avoided. Losing it entirely,
+behind a body or with the sensors off, suspends guidance for an explicit Resume,
+as before. Weak contacts are never used as flight targets.
+
+**Deliberately unchanged.** Known stations and signal beacons appear on the native map
+from charts and broadcasts, but a flight still needs a live sensor track of its
+target. A map marker is a destination, not a track.
+
+Native behaviour inspected in the local 1.0.1.5 game by
+[Blue Bottle Games](https://bluebottlegames.com/ostranauts): the navigation map's
+ship and stellar-object visibility rules, its partial-contact position error, the
+per-sensor signal formulas, the Sensors page toggle, the asteroid-field collision
+check and the tether admission rule. No engine source or assets are included.
+The 100 km weak-contact reach and the clearance use of the map's error are our
+gameplay choices, not native navigation rules.
+
+Owner checks for this release:
+
+1. With some sensors off, open Details and `phobosnav sensors`; compare the listed
+   types with the native Sensors page. Try `passive`, then `all`.
+2. Fly to a visible asteroid from a few hundred kilometres. Confirm arrival stops
+   within tether reach, then tether with the native control.
+3. Approach an asteroid field and a slow ship that shows only as an approximate
+   contact; watch for detours instead of passing close.
+
+## Live contact rules (0.9.0)
 
 Prepared on **25 September 2026** against Ostranauts **1.0.1.5**, BepInEx
 **5.4.23.5** and Phobos Framework **0.12.0**. This implements the first sensor
 integration priority: navigation that depends on a usable native contact.
 Builds and automated checks are not in-game validation. Installation is separate.
 
-## Operating behaviour
+### Operating behaviour
 
 Fly, Resume and Dock now require a current contact supplied by the controlled
 ship's native sensors. A remembered station or other map marker is a destination,
@@ -40,7 +118,7 @@ No contact reading or burn permission is restored from a save. Existing schema-1
 flight records and item identifiers remain compatible; unsupported records stay
 protected by Framework storage.
 
-## Native boundary and deliberate limits
+### Native boundary and deliberate limits
 
 `NativeContactReader` resolves the observer and selected target in the current
 world by ship registration, rejects hidden/destroyed/self/missing targets and
@@ -80,7 +158,7 @@ Framework's existing object-state store handles persistence; ship-specific
 detection policy stays in Auto Nav. Shared console observations and furnace
 probes remain subsequent work.
 
-## Verification
+### Verification
 
 The build runs production reader/service code against narrow native doubles,
 covering weak/combined signals, operator changes, closed-panel guidance,

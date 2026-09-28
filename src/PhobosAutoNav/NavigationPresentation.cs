@@ -39,7 +39,9 @@ internal sealed partial class NavigationService
             }
             Target = ownsFlight ? AutoNavCore.EngagedTarget : Flight != null ? TargetRef.FromShipId(Flight.TargetId) :
                 GUIOrbitDraw.IsOpen() && GUIOrbitDraw.CrossHairTarget?.Ship != null && GUIOrbitDraw.CrossHairTarget.Ship != co.ship
-                    ? TargetRef.FromShipId(GUIOrbitDraw.CrossHairTarget.Ship.strRegID) : null;
+                    ? TargetRef.FromShipId(GUIOrbitDraw.CrossHairTarget.Ship.strRegID) :
+                GUIOrbitDraw.IsOpen() && GUIOrbitDraw.CrossHairTarget?.Ship == null && GUIOrbitDraw.CrossHairTarget?.stellarObj != null
+                    ? TargetRef.FromShipId(GUIOrbitDraw.CrossHairTarget.stellarObj.strID) : null;
         }
         internal ContactReading Contact(TargetRef? target)
         {

@@ -180,3 +180,14 @@ Existing placeholders, commands and keys are unchanged. Current guides, item-ref
 inputs and both Workshop drafts were reviewed together. Coverage is now 1,843
 entries, 153 documents and 14 other surfaces. Unity layout of the added buttons
 and status lines is unverified.
+
+## Auto Nav sensor suite, 28 September 2026
+
+Auto Nav 0.23.0 adds 21 reviewed entries for the per-sensor breakdown, explicit
+sensor switch-on and asteroid docking refusal, and rewrites four existing entries:
+the F3 help, the target-selection refusal, the unavailable-contact message and the
+sensor help. Emitting sensors are named as such wherever switching them on is
+offered, and no message implies that Auto Nav switches sensors itself. The weak
+contact reach and asteroid range are stated as numbers the player can act on.
+Placeholders and existing keys are unchanged. Coverage is now 1,864 entries,
+153 documents and 14 other surfaces. The Details layout is unverified in Unity.

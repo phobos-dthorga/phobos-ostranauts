@@ -12,6 +12,7 @@ PersistenceRuntimeChecks.Run(Check);
 InstrumentChecks.Run(Check);
 FlightSafetyChecks.Run(Check);
 PreferenceChecks.Run(Check);
+SensorRuleChecks.Run(Check);
 foreach (double face in new[] { 0, Math.PI / 2, Math.PI, -Math.PI / 2 })
 {
     Check(DockingRules.TryGuide(0, 1050, 0, 0, -face, 0, 1000, 1, .5, .5, out var pose, default, face) && pose.Ready,

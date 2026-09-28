@@ -712,3 +712,52 @@ ReadyCombat(); towLoad=AttachLoad(); f.Service.EnterCombat(f.Console); f.Service
 f.Service.WorldChanging(); f.Service.WorldLoaded(); f.Service.UpdatePersistence(); f.Service.RestoreFireOwnership();
 Check(!f.Service.CombatActive && !f.Service.Fire.Permitted && !AutoNavCore.Engaged && f.Service.Fire.Owns(f.Console.strID),"Towing reload restores Hold without movement or shots");
 Console.WriteLine($"{checks} checks including towing FCS and Combat passed.");
+
+// Asteroid markers: native stellar-object sensing through the same reader, hazard scan and Fly.
+{
+    var s = Setup();
+    double km = AutoNavCore.KM_TO_AU;
+    var belt = new AsteroidField { strName = "belt", dXReal = 10 * km, dYReal = 0 };
+    CrewSim.system.aBOs["belt"] = belt;
+    SolarSystem.Asteroid Rock(string id, double x, double y)
+    {
+        var rock = new SolarSystem.Asteroid { strID = id };
+        rock.objSS.bBOLocked = true; rock.objSS.strBOPORShip = "belt"; rock.objSS.vBOOffsetx = x * km; rock.objSS.vBOOffsety = y * km;
+        belt.Asteroids.Add(rock); CrewSim.system.dictStellarObjects[id] = rock; return rock;
+    }
+    var near = Rock("rock-near", 2, 0); var far = Rock("rock-far", 2, 400);
+    Signal(s.Own, .5);
+    var rockReading = NativeContactReader.Read(s.Own, "rock-near");
+    Check(rockReading.Usable && near.objSS.Refreshes == 1 && Math.Abs(near.objSS.vPosx / km - 12) < 1e-9, "Asteroid marker qualifies from its field-refreshed position");
+    Check(Math.Abs(s.Own.ElectronicSystems.LastRange - 12) < 1e-6 && s.Own.ElectronicSystems.LastVisibility == s.Own.fVisibilityRangeMod,
+        "Marker range and the observer's own visibility feed the native signal");
+    Signal(s.Own, .27); CrewSim.Selected!.Conditions.Add("SkillOpsSensors");
+    Check(NativeContactReader.Read(s.Own, "rock-near").State == ContactState.Weak, "Asteroid markers use the fixed native threshold without a skill bonus");
+    Signal(s.Own, .9); belt.dXReal = 2000 * km;
+    Check(NativeContactReader.Read(s.Own, "rock-near").State == ContactState.Weak, "Beyond 1,000 km an asteroid marker is only a partial contact");
+    belt.dXReal = 10 * km; s.Own.ElectronicSystems.On = false;
+    Check(NativeContactReader.Read(s.Own, "rock-near").State == ContactState.NoSensors, "No operating sensors: no asteroid track");
+    s.Own.ElectronicSystems.On = true; CrewSim.system.aBOs["moon"] = new BodyOrbit { Blocks = true };
+    Check(NativeContactReader.Read(s.Own, "rock-near").State == ContactState.Occluded, "A celestial body hides an asteroid marker");
+    CrewSim.system.aBOs.Remove("moon");
+    Check(NativeContactReader.Read(s.Own, "missing-rock").State == ContactState.Unavailable, "Unknown identity is unavailable");
+
+    int stellarReads = Ostranauts.Ships.Sensors.ShipSignature.StellarReads;
+    var hazards = NativeHazards.Asteroids(s.Own, default, new NavVector(20000, 0), 1000, null).ToList();
+    Check(hazards.Count == 1 && hazards[0].Id == "rock-near" && hazards[0].Reading.Usable, "A rock on the leg is returned with its own contact reading");
+    Check(Ostranauts.Ships.Sensors.ShipSignature.StellarReads - stellarReads == 1, "Distant rocks are skipped before any sensor read");
+    Check(!NativeHazards.Asteroids(s.Own, default, new NavVector(20000, 0), 1000, "rock-near").Any(), "The flight's own asteroid target is not its own hazard");
+
+    GUIOrbitDraw.CrossHairTarget = new() { stellarObj = near };
+    s.Service.Engage(s.Console);
+    Check(AutoNavCore.Engaged && AutoNavCore.EngagedTarget?.ShipId == "rock-near" && Read(s.Console).TargetId == "rock-near",
+        "Fly accepts a sensed asteroid marker and saves its identity: " + s.Service.StatusForTest);
+    var hub = s.Service.ReadHub(s.Console, "navigation");
+    Check(hub.TargetId == "rock-near" && hub.RangeKM != null && !hub.CanApproachDock,
+        "Hub shows live asteroid geometry without offering docking");
+    s.Service.Disengage("test");
+    Signal(s.Own, .1); GUIOrbitDraw.CrossHairTarget = new() { stellarObj = far };
+    s.Service.Engage(s.Console);
+    Check(!AutoNavCore.Engaged, "A weak asteroid track cannot start a flight");
+}
+Console.WriteLine($"{checks} checks including asteroid sensing passed.");

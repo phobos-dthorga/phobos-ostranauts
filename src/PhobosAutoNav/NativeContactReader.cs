@@ -5,7 +5,7 @@ using PhobosAutoNav.Core;
 namespace PhobosAutoNav;
 
 // Selected-target reads only: no native visibility UI, sensor toggles, list
-// rebuilds, shared threshold writes, target TimeAdvance or world ship scans.
+// rebuilds, shared threshold writes, ship TimeAdvance or world ship scans.
 internal static class NativeContactReader
 {
     internal static ContactReading Read(Ship? observer, string? targetId)
@@ -18,21 +18,16 @@ internal static class NativeContactReader
                 observer == null || observer.bDestroyed || observer.objSS == null || string.IsNullOrEmpty(targetId) ||
                 system.GetShipByRegID(observer.strRegID) != observer)
                 return new ContactReading(ContactState.Unavailable);
-            var target = system.GetShipByRegID(targetId);
-            if (target == null || target == observer || target.bDestroyed || target.objSS == null ||
+            var target = system.GetShipByRegID(targetId!);
+            // An asteroid remains a native stellar marker until tethered; it then becomes a ship
+            // with the same ID, so one identity covers both forms.
+            if (target == null) return ReadStellar(system, observer, targetId!);
+            if (target == observer || target.bDestroyed || target.objSS == null ||
                 target.HideFromSystem || target.IsStationHidden()) return new ContactReading(ContactState.Unavailable);
-            if (observer.bCheckSensors || observer.bCheckPower) return new ContactReading(ContactState.Updating);
-            var sensors = observer.ElectronicSystems;
-            if (sensors?.aElectronicSystems == null || !sensors.HasAnySensorOn())
-                return new ContactReading(ContactState.NoSensors);
-
-            // Use the native segment/body test without depending on the nav
-            // screen's current main occluder. Ignore nonphysical placeholders.
-            if (system.aBOs == null) return new ContactReading(ContactState.Fault);
-            foreach (var body in system.aBOs.Values)
-                if (body != null && body.nDrawFlagsBody != ContactRules.PlaceholderBodyDrawFlag && !body.IsAsteroidField &&
-                    StarSystem.IsLOSBlockedByBO(body, observer, target.objSS))
-                    return new ContactReading(ContactState.Occluded);
+            var problem = SensorProblem(observer);
+            if (problem != null) return problem.Value;
+            if (Occluded(system, observer, target.objSS, out bool fault))
+                return new ContactReading(fault ? ContactState.Fault : ContactState.Occluded);
 
             double rangeKM = observer.GetRangeTo(target) / AutoNavCore.KM_TO_AU;
             float visibility = Math.Min(observer.fVisibilityRangeMod, target.fVisibilityRangeMod);
@@ -42,7 +37,7 @@ internal static class NativeContactReader
             bool skilled = selected != null && !selected.bDestroyed && selected.ship == observer && selected.HasCond("SkillOpsSensors");
             double threshold = skilled ? ContactRules.SkilledThreshold : ContactRules.DefaultThreshold;
             var signature = new ShipSignature(target, observer);
-            return ContactRules.Evaluate(sensors.GetSignatureStrength(signature, rangeKM, visibility), threshold);
+            return ContactRules.Evaluate(observer.ElectronicSystems.GetSignatureStrength(signature, rangeKM, visibility), threshold);
         }
         catch
         {
@@ -50,5 +45,51 @@ internal static class NativeContactReader
             // treats the same unreadable state as a loss of authority to track.
             return new ContactReading(ContactState.Fault);
         }
+    }
+
+    // Native stellar-object sensing: the same combined signal, the observer's visibility only,
+    // a fixed threshold and a 1,000 km live-track limit. Celestial occlusion matches ship reads.
+    private static ContactReading ReadStellar(StarSystem system, Ship observer, string id)
+    {
+        if (system.dictStellarObjects == null || !system.dictStellarObjects.TryGetValue(id, out var stellar) || stellar?.objSS == null)
+            return new ContactReading(ContactState.Unavailable);
+        var problem = SensorProblem(observer);
+        if (problem != null) return problem.Value;
+        RefreshStellar(stellar.objSS);
+        if (Occluded(system, observer, stellar.objSS, out bool fault))
+            return new ContactReading(fault ? ContactState.Fault : ContactState.Occluded);
+        double rangeKM = observer.objSS.GetRangeTo(stellar.objSS) / AutoNavCore.KM_TO_AU;
+        float visibility = observer.fVisibilityRangeMod;
+        if (!ArrivalBrake.Finite(rangeKM) || rangeKM < 0 || !ArrivalBrake.Finite(visibility) || visibility < 0)
+            return new ContactReading(ContactState.Fault);
+        var signature = new ShipSignature(stellar, observer);
+        return ContactRules.EvaluateStellar(observer.ElectronicSystems.GetSignatureStrength(signature, rangeKM, visibility), rangeKM);
+    }
+
+    private static ContactReading? SensorProblem(Ship observer)
+    {
+        if (observer.bCheckSensors || observer.bCheckPower) return new ContactReading(ContactState.Updating);
+        var sensors = observer.ElectronicSystems;
+        return sensors?.aElectronicSystems == null || !sensors.HasAnySensorOn() ? new ContactReading(ContactState.NoSensors) : null;
+    }
+
+    // The native segment/body test without the nav screen's current main occluder.
+    // Nonphysical placeholders and asteroid-field markers are not bodies that block sight.
+    private static bool Occluded(StarSystem system, Ship observer, ShipSitu target, out bool fault)
+    {
+        fault = false;
+        if (system.aBOs == null) { fault = true; return true; }
+        foreach (var body in system.aBOs.Values)
+            if (body != null && body.nDrawFlagsBody != ContactRules.PlaceholderBodyDrawFlag && !body.IsAsteroidField &&
+                StarSystem.IsLOSBlockedByBO(body, observer, target))
+                return true;
+        return false;
+    }
+
+    /// <summary>Native field-locked asteroids hold a cached position recomputed from their field
+    /// by a zero-length advance, as native collision checks do. No other state changes.</summary>
+    internal static void RefreshStellar(ShipSitu situ)
+    {
+        if (situ.bBOLocked && !situ.bOrbitLocked && situ.strBOPORShip != null) situ.TimeAdvance(0.0);
     }
 }
