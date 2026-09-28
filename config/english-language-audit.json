@@ -39162,10 +39162,10 @@
     },
     {
       "path": "docs/development/README.md",
-      "scope": "documentation index/audit; no gameplay behavior",
+      "scope": "review index/audit; no gameplay behavior",
       "decision": "review audience separation and evidence limits",
-      "sha256": "18216e6b2c797ae68c0e838d1bd09f194d7881b01f7093125c21c7c568d3a1bb",
-      "review": "2026-09-29: index line for the artwork handoff."
+      "sha256": "0dfd3f143349d877a38d7a5fd47be9b31d8d7411a5f35aa0ce2f582db0b81754",
+      "review": "2026-09-29: index line for the PixelLab MCP handoff."
     },
     {
       "path": "docs/development/agriculture-bulk-storage-art.md",
@@ -39376,8 +39376,15 @@
       "path": "docs/development/claude-code-handoff.md",
       "scope": "onboarding handoff; contributor instructions, no player catalogue text",
       "decision": "retain",
-      "sha256": "713d38acf9fcaf8f87c4fda15e487742ca789b095ada85563ac49f1b423fd1fb",
-      "review": "2026-09-28: new onboarding handoff registered; corrected the installer-selection statement for the held Manufacturing scaffold. No player catalogue changes."
+      "sha256": "6445e51b9e559ce7901511553513b18e188bc2ca254b4e1423fc70cca6dedc4b",
+      "review": "2026-09-29: pointer added to the new PixelLab MCP connection handoff, alongside the existing onboarding handoff. No player catalogue changes."
+    },
+    {
+      "path": "docs/development/claude-pixellab-mcp-handoff.md",
+      "scope": "onboarding handoff; MCP connection setup instructions, no player catalogue text",
+      "decision": "retain",
+      "sha256": "ab93ce80f760f020b779a2f9c52543e7dabd0759dc3ab930a4fa6ec8bc4f174e",
+      "review": "2026-09-29: new handoff registered for direct PixelLab MCP access setup. No player catalogue changes."
     },
     {
       "path": "docs/development/construction-artwork-audit.md",

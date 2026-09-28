@@ -5,6 +5,10 @@ onboarding handoff, not a new feature specification or permission to publish.
 Open Claude Code in the repository root and give it this document. Paths below
 are relative to that root unless they are Markdown links.
 
+For direct access to PixelLab's tools, also give Claude the
+[PixelLab MCP connection handoff](claude-pixellab-mcp-handoff.md). It covers the
+official endpoint, private authentication setup and a read-only acceptance check.
+
 ## Instructions to the receiving agent
 
 Help maintain and develop this existing suite of Ostranauts mods. Read the actual
