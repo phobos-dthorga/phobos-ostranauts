@@ -120,6 +120,7 @@ internal static class Content
         IntakeDefinitions.Add(prepared);
         CollectorDefinitions.Add(prepared, collectorKW);
         ReclaimerDefinitions.Add(prepared, reclaimerKW);
+        SiloDefinitions.Add(prepared);
         // Terminal remainders of the light feed families: one identity each, technical minimum price, never re-processed.
         foreach (var reject in FeedFamilies.RejectKg)
             ReclaimerDefinitions.Packet(prepared, reject.Key, reject.Value, "Feed.reject_" + FeedFamilies.RejectFamily[reject.Key] + "_name",
@@ -131,7 +132,8 @@ internal static class Content
         EquipmentEconomy.Apply(prepared);
         AssemblyDefinitions.Add(prepared);
         MaintenanceInformation.Register(prepared, "PhobosShipbreakerMaintenanceInformation", co =>
-            FurnaceService.IsEquipment(co) ? FurnaceService.MaintenanceReason(co, false) ?? Text.Get("Maintenance.ready") : "");
+            FurnaceService.IsEquipment(co) ? FurnaceService.MaintenanceReason(co, false) ?? Text.Get("Maintenance.ready") :
+            SiloRules.IsFamily(co.strCODef) ? SiloService.MaintenanceReason(co, true) ?? Text.Get("Maintenance.ready") : "");
         RegionalEconomy.Apply(prepared);
         foreach (var art in new[] {
             (IntakeRules.Chute, IntakeRules.Chute), (IntakeRules.Grabber, IntakeRules.Grabber),

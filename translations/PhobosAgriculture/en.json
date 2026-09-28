@@ -234,6 +234,5 @@
   "accept": "Accept contents as they are",
   "accept_done": "Records accepted. The machine's mass now matches them and it can run again.",
   "accept_unavailable": "Cannot accept: the saved records are unreadable, or the machine is protected for a reason that needs repair rather than acceptance.",
-  "bulk_lost": "Storage tank {0} was destroyed with {1:F1} kg of water inside. That water is gone.",
   "crop_present": "A crop is already planted. Harvest or clear it first."
 }

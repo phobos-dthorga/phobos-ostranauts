@@ -9,7 +9,7 @@ common failures and useful reports.
 ## Operating guides
 
 - [Flight Hub controls](control-panel-guide.md), [docking](auto-nav-docking.md), [Combat](auto-nav-combat.md), [towing](auto-nav-towing.md) and [sensors](auto-nav-sensors.md).
-- [Shipbreaker](player-guide.md), [reclaimer](scrap-reclaimer.md) and [automatic routing](automatic-material-routing.md).
+- [Shipbreaker](player-guide.md), [reclaimer](scrap-reclaimer.md), [automatic routing](automatic-material-routing.md) and the [process water silo and ice thaw unit](shipbreaker-bulk-silos.md).
 - [Industrial console](industrial-console-player-guide.md), [electric furnace](furnace-player-guide.md), and [section assembly and maintenance](section-assembly-and-maintenance.md).
 - [Agriculture](agriculture-player-guide.md) and [equipment acquisition/prices](equipment-economy.md).
 - [Fluid-network operations](fluid-network-operations.md): multi-rack distribution, retained lines, treatment and coolant servicing.
@@ -60,6 +60,7 @@ common failures and useful reports.
 - [Scrap reclaimer — prepared 0.9.0 candidate](scrap-reclaimer.md)
 - [Section assembly and maintenance](section-assembly-and-maintenance.md)
 - [Quiet completion cues across Phobos mods](shared-completion-cues.md)
+- [Process water silo and ice thaw unit](shipbreaker-bulk-silos.md)
 - [Hull chute and exterior grabber](shipbreaker-hull-intake.md)
 - [Phobos Shipbreaker: equipment and item reference](shipbreaker-item-reference.md)
 - [Shipbreaker outputs: existing maintenance and construction uses](shipbreaker-material-uses.md)

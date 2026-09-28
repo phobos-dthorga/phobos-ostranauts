@@ -14,38 +14,20 @@ namespace PhobosAgriculture;
 internal static class BulkService
 {
     internal const string Out="PhobosAgriculture.BulkOut",In="PhobosAgriculture.BulkIn";
-    internal static ObjectStateStore Store(CondOwner co)=>new(co.mapGUIPropMaps,"AgricultureBulk",Plugin.Id,1);
-    internal static ObjectStateStore Journal(CondOwner co)=>new(co.mapGUIPropMaps,"AgricultureBulkWork",Plugin.Id,1);
-    internal static LiquidTransferGuard Guard(CondOwner co)=>new(co.mapGUIPropMaps,"AgricultureBulkTransfer",Plugin.Id);
-    internal static StoredCommodity Read(CondOwner co)
-    {
-        var status=Store(co).Read(out var fields);var s=status==SavedStateStatus.Ready?StoredCommodity.Read(fields,"water",BulkDefinitions.CapacityKg):status==SavedStateStatus.Missing?new StoredCommodity("water",BulkDefinitions.CapacityKg):throw new InvalidOperationException("Protected bulk state");
-        if(Math.Abs(co.GetCondAmount("StatMass")-BulkDefinitions.DryKg-s.TotalKg-Cargo(co))>1e-5)throw new InvalidOperationException("Bulk physical mass mismatch");return s;
-    }
-    private static double Cargo(CondOwner co)=>co.objContainer?.ContainedCOs.Sum(x=>x.GetTotalMass())??0;
-    internal static bool Protected(CondOwner co)
-    {
-        try{Read(co);var status=Journal(co).Read(out var d);return Guard(co).Protected||status!=SavedStateStatus.Missing&&(status!=SavedStateStatus.Ready||d.Count!=1||d["state"]!="clear");}catch{return true;}
-    }
+    // Custody lives in Framework BulkVessel since Agriculture 0.18.0 (Framework 0.39.0); the R3 declaration keeps
+    // the record, journal and guard names every saved R3 already carries.
+    internal static LiquidTransferGuard Guard(CondOwner co)=>BulkVessel.Guard(co,BulkDefinitions.Spec);
+    internal static StoredCommodity Read(CondOwner co)=>BulkVessel.Read(co,BulkDefinitions.Spec);
+    internal static bool Protected(CondOwner co)=>BulkVessel.Protected(co);
     /// <summary>Owner-confirmed recovery of a protected tank: the readable record is trusted, interrupted
     /// transfer and conversion journals are closed and the item's mass is set back to dry mass plus record
     /// plus cargo. An unreadable record cannot be accepted.</summary>
     internal static bool Accept(CondOwner co,out string reason)
     {
-        reason=Text.Get("accept_unavailable");
-        var status=Store(co).Read(out var fields);StoredCommodity? s=null;
-        try{s=status==SavedStateStatus.Ready?StoredCommodity.Read(fields,"water",BulkDefinitions.CapacityKg):status==SavedStateStatus.Missing?new StoredCommodity("water",BulkDefinitions.CapacityKg):null;}
-        catch(Exception e){Plugin.Log(e.ToString());}
-        if(s==null||!Guard(co).Resolve()||!Journal(co).TryWrite(new Dictionary<string,string>{["state"]="clear"}))return false;
-        Save(co,s);
-        if(Protected(co))return false;
-        reason=Text.Get("accept_done");return true;
+        bool accepted=BulkVessel.Accept(co,Plugin.Log);
+        reason=Text.Get(accepted?"accept_done":"accept_unavailable");return accepted;
     }
-    internal static void Save(CondOwner co,StoredCommodity state)
-    {
-        if(!Store(co).TryWrite(state.Save()))throw new InvalidOperationException("Protected bulk save");
-        co.AddMass(BulkDefinitions.DryKg+state.TotalKg+Cargo(co)-co.GetCondAmount("StatMass"),true);
-    }
+    internal static void Save(CondOwner co,StoredCommodity state)=>BulkVessel.Save(co,BulkDefinitions.Spec,state);
     internal static MaterialPort Port(CondOwner co,bool source)=>new(co.strID,source?Out:In,co.mapGUIPropMaps);
     internal static string Peer(CondOwner co)=>PortPairing.Read(Port(co,BulkDefinitions.IsTank(co))).PeerObjectId;
     internal static bool HasLink(CondOwner co)=>PortPairing.Read(Port(co,BulkDefinitions.IsTank(co))).State!=PortLinkState.Unlinked;
@@ -98,20 +80,14 @@ internal static class BulkService
         if(w2!=null)ConfigurationStamp.SuspendChangedOrder(w2);
         reason=Text.Get("done");return true;
     }
-    internal sealed class Endpoint:ILiquidReservoir
-    {
-        private readonly CondOwner co;internal Endpoint(CondOwner co){this.co=co;}
-        public string Identity=>co.strID;public string ShipId=>co.ship.strRegID;public string Commodity=>"water";
-        public double QuantityKg=>Read(co).ServiceKg;public double CapacityKg=>BulkDefinitions.CapacityKg-Read(co).CatchKg;
-        public void SetQuantity(double kg){var s=Read(co);s.SetService(kg);Save(co,s);}
-    }
+    internal static ILiquidReservoir Endpoint(CondOwner co)=>new BulkVessel.Endpoint(co);
     internal static double Intake(CondOwner w2,ILiquidReservoir destination,double requested,bool commit)
     {
         var tank=Service.Resolve(Peer(w2));if(tank==null||!BulkDefinitions.IsTank(tank)||!Geometry(tank,w2)||!PortPairing.Matches(Port(tank,true),Port(w2,false))||Protected(tank)||CommodityReservations.Held(tank.strID))return 0;
         var s=Read(tank);if(s.CatchKg>1e-8)return 0;
         if(!TryTarget(w2,out double target))return 0;
         double kg=Math.Min(requested,Math.Min(s.AvailableKg,Math.Max(0,Math.Min(target,destination.CapacityKg)-destination.QuantityKg)));
-        return kg<=1e-8?0:commit?LiquidTransferGuard.Commit(new Endpoint(tank),destination,kg,Guard(tank),Service.WaterGuard(w2)).ReceivedKg:kg;
+        return kg<=1e-8?0:commit?LiquidTransferGuard.Commit(Endpoint(tank),destination,kg,Guard(tank),Service.WaterGuard(w2)).ReceivedKg:kg;
     }
     internal static string Describe(CondOwner co)
     {
@@ -167,7 +143,6 @@ internal static class BulkService
         catch(Exception e){Plugin.Log(e.ToString());return false;}
         finally{if(product!=null&&!published&&product.objCOParent==null)product.Destroy();}
     }
-    private static void Pending(CondOwner co,string item,double kg)
-    {if(!Journal(co).TryWrite(new Dictionary<string,string>{["state"]="pending",["item"]=item,["before"]=kg.ToString("R",CultureInfo.InvariantCulture)}))throw new InvalidOperationException("Protected bulk conversion");}
-    private static void Clear(CondOwner co){if(!Journal(co).TryWrite(new Dictionary<string,string>{["state"]="clear"}))throw new InvalidOperationException("Bulk conversion incomplete");}
+    private static void Pending(CondOwner co,string item,double kg)=>BulkVessel.BeginConversion(co,item,kg);
+    private static void Clear(CondOwner co)=>BulkVessel.EndConversion(co);
 }

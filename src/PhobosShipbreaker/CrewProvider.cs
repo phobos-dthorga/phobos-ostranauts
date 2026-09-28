@@ -20,11 +20,12 @@ internal sealed class IndustrialCrewProvider : ICrewWorkProvider,ICrewSkipProvid
     }
     public bool Validate(CondOwner co,StandingOrder draft,out string reason)
     {reason=Text.Get("Crew.bound_target");return !ProcessingService.IsGrabber(co)||draft.Target=="none"||Targets(co).Any(s=>s.strRegID==draft.Target);}
-    public bool RelevantStore(CondOwner co,StandingOrder draft,CondOwner store,bool output)=>CrewLogistics.Contents(store).Any(c=>output?ProcessingService.CrewProduct(co,c):
-        FurnaceRules.Machine(co.strCODef)?FurnaceService.CrewFeed(c):ProcessingService.CrewFeed(co,c));
+    public bool RelevantStore(CondOwner co,StandingOrder draft,CondOwner store,bool output)=>CrewLogistics.Contents(store).Any(c=>output?
+        (ThawRules.IsFamily(co.strCODef)?c.strCODef==ThawRules.Gangue:ProcessingService.CrewProduct(co,c)):
+        ThawRules.IsFamily(co.strCODef)?ThawService.CrewFeed(c):FurnaceRules.Machine(co.strCODef)?FurnaceService.CrewFeed(c):ProcessingService.CrewFeed(co,c));
     public string Id=>Plugin.Id;
     public bool Supports(CondOwner c)=>ProcessingService.IsProcessor(c.strCODef) || c.strCODef==CollectorRules.Installed || c.strCODef==CollectorRules.Installed+"Dmg" ||
-        FurnaceRules.Machine(c.strCODef) || ProcessingService.IsGrabber(c);
+        FurnaceRules.Machine(c.strCODef) || ProcessingService.IsGrabber(c) || ThawRules.IsFamily(c.strCODef);
     // Loading orders carry on after a reload like a painted job (owner decision, 29 September 2026); a
     // hazardous F6 order still suspends, as StandingOrder.Reload requires for hot steps.
     public bool RoutineResume(CondOwner c)=>c.strCODef==CollectorRules.Installed||CrewOrderRules.FeedRecipe(c.strCODef)!=null;
@@ -49,7 +50,7 @@ internal sealed class IndustrialCrewProvider : ICrewWorkProvider,ICrewSkipProvid
         message=Text.Get("Crew.loading_on",co.strNameFriendly)+"\n"+CrewWork.Status(co);return true;
     }
     public IReadOnlyList<string> Recipes(CondOwner c)=>ProcessingService.IsGrabber(c)?new[]{"reclaim"}:FurnaceRules.Machine(c.strCODef)?new[]{"housing"}:
-        c.strCODef==CollectorRules.Installed?new[]{"collect"}:new[]{"process"};
+        ThawRules.IsFamily(c.strCODef)?new[]{"thaw"}:c.strCODef==CollectorRules.Installed?new[]{"collect"}:new[]{"process"};
     public string RecipeLabel(string recipe)=>Text.Get("Crew.recipe_"+recipe);
     public string CaptureBinding(CondOwner co,StandingOrder order)=>ProcessingService.IsGrabber(co)&&CaptureService.Read(co,out var capture)?
         CrewBalance.Binding(new[]{"owner","ship","target","console","module","g4","chute","processor","permission","mount"}.Select(k=>capture[k])):"";
@@ -97,6 +98,17 @@ internal sealed class IndustrialCrewProvider : ICrewWorkProvider,ICrewSkipProvid
                 default:return null;
             }
         }
+        if(ThawRules.IsFamily(co.strCODef))
+        {
+            var gangue=CrewLogistics.Output(co,order,co,c=>c.strCODef==ThawRules.Gangue,CrewRole.Industry);
+            if(gangue!=null)return gangue;
+            var iceBin=ThawService.Feed(co);if(iceBin==null)return null;
+            if(co.HasCond(ProcessRules.Working))return null;
+            int gangueCount=CrewLogistics.Contents(co).Concat(CrewLogistics.Contents(CrewWork.Resolve(order.Destination))).Count(c=>c.strCODef==ThawRules.Gangue);
+            if(gangueCount>=order.Stock){reason=Text.Get("Crew.stock_met");return null;}
+            if(CrewLogistics.Contents(iceBin).Any(c=>ThawService.ValidIce(c)))return Act("thaw");
+            return CrewLogistics.Supply(co,order,iceBin,ThawService.CrewFeed,CrewRole.Industry)??Blocked(out reason);
+        }
         var output=CrewLogistics.Output(co,order,co,_=>true,CrewRole.Industry);
         if(output!=null)return output;
         if(co.strCODef==CollectorRules.Installed)return Plugin.Collectors.ReceivingEnabled(co)?null:Act("collect");
@@ -119,13 +131,14 @@ internal sealed class IndustrialCrewProvider : ICrewWorkProvider,ICrewSkipProvid
             return started;
         }
         if(FurnaceRules.Machine(co.strCODef))return FurnaceService.Command(null,co,offer.Action,null,out reason);
-        bool done=co.strCODef==CollectorRules.Installed?Plugin.Collectors.Start(co):Plugin.Service.CrewStart(co);
-        reason=done?CrewWork.Message("done"):Plugin.Service.Describe(co);return done;
+        bool done=co.strCODef==CollectorRules.Installed?Plugin.Collectors.Start(co):ThawRules.IsFamily(co.strCODef)?ThawService.CrewStart(co):Plugin.Service.CrewStart(co);
+        reason=done?CrewWork.Message("done"):ThawRules.IsFamily(co.strCODef)?ThawService.Describe(co):Plugin.Service.Describe(co);return done;
     }
     public void Suspend(CondOwner co)
     {
         if(ProcessingService.IsGrabber(co))ReclamationService.CrewSuspend(co);
         else if(FurnaceRules.Machine(co.strCODef))FurnaceService.CrewSuspend(co);
+        else if(ThawRules.IsFamily(co.strCODef))ThawService.Block(co,Text.Get("Crew.stopped"));
         else if(ProcessingService.IsProcessor(co.strCODef))Plugin.Service.Block(co,Text.Get("Crew.stopped"));
         else Plugin.Collectors.CrewSuspend(co);
     }

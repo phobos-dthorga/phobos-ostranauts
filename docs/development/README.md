@@ -39,6 +39,7 @@ The [consistency audit](documentation-consistency-audit.md) records the source c
 - [Phobos Auto Nav: standalone adaptation](auto-navigate-adaptation.md)
 - [Auto Navigate: reuse and permissions review](auto-navigate-reuse-review.md)
 - [Building from source](building.md)
+- [Bulk silo, thaw unit and ingot artwork handoff](bulk-silo-art-handoff.md)
 - [Chemical storage, process fluids and industrial hazards](chemical-storage-and-process-fluids.md)
 - [Dependency maintenance and fallback plan](dependency-contingencies.md)
 - [Documentation consistency audit — 28 September 2026](documentation-consistency-audit.md)

@@ -23,6 +23,17 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Fixed unreachable INSTALL entries; Firstlight-4, Hearth-2 and W2 appear under APPS, and irrigation conduit under MISC, including damaged forms. Existing inputs, placement and saved IDs are preserved.
 
+## [0.18.0] - 2026-09-29 - Draft
+
+### Changed
+
+- The R3 reservoir's water custody moved into Framework 0.39.0's shared bulk vessel service. Records, journals and the transfer guard keep their existing names, so a saved R3 reads unchanged; the mode-switch carry-over and destruction log are now Framework's, and Agriculture only pauses the paired W2 on damage.
+- A Shipbreaker T2 ice thaw unit within one tile of an R3 can deliver its thaw water into the reservoir (linked from the T2). Agriculture's own water rules, W2 pairing and station offers are unchanged.
+
+### Compatibility and limits
+
+- Requires Framework 0.39.0. No save migration; no gameplay or balance change on Agriculture's side. Offline checks pass; owner play-testing is pending.
+
 ## [0.17.0] - 2026-09-28 - Draft
 
 ### Fixed

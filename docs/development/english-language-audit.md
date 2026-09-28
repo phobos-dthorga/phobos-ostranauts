@@ -276,3 +276,16 @@ fixed-mass wall refusal. The player guide, intake guide and crew guide name
 the families; the new feed-families record explains each budget and refusal.
 Coverage is now 1,947 entries, 155 documents and 14 other
 surfaces. Unity wording is unverified.
+
+## Bulk silos, 29 September 2026
+
+Shipbreaker 0.37.0 adds seventy-four reviewed entries for the S3 process
+water silo and the T2 ice thaw unit (names and descriptions, the silo status,
+reserve and Ship's Water draw and deposit replies, the thaw queue states and
+the reasons a block waits for its vessel, panel choices, console groups, crew
+recipe and action labels, and one settings help line). Framework 0.39.0 adds
+the shared vessel-loss log line and quote notice; Agriculture 0.18.0 retires
+its own tank-loss line. The new silo guide and artwork handoff, and the crew,
+console, player, economy and bulk-storage guides, state the new rules.
+Coverage is now 2,021 entries, 157 documents and 14 other
+surfaces. Unity wording is unverified.

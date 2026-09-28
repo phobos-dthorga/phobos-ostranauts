@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using Phobos.Ostranauts.Framework.Liquids;
 using Phobos.Ostranauts.Framework.Registration;
 using Phobos.Ostranauts.Framework.Trading;
 
@@ -9,11 +10,15 @@ internal static class BulkDefinitions
     internal const string Tank="PhobosVerdemorrowGroundworkR3",Nutrients="PhobosVerdemorrowGroundworkBulkNutrients",Controls="PhobosAgricultureBulkControls";
     internal const double CapacityKg=120,DryKg=25,Price=450,NutrientKg=.5,NutrientPrice=750,WaterPricePerKg=10;
     internal const int TankStock=4,NutrientStock=8;
+    /// <summary>The R3 as a Framework bulk vessel (Agriculture 0.18.0). Record, journal and guard names are the
+    /// ones every saved R3 already carries, so an existing save reads unchanged; a Shipbreaker T2 may deliver into it.</summary>
+    internal static readonly BulkVesselSpec Spec=new(Tank,"water",CapacityKg,DryKg,Plugin.Id,"AgricultureBulk","AgricultureBulkWork","AgricultureBulkTransfer");
     internal static bool IsTank(CondOwner? co)=>co!=null && EquipmentIdentity.IsFamily(co.strCODef,Tank);
     internal static readonly string[] Work={"bulk-load","bulk-recover","bulk-drain"};
     internal static string WorkId(string action)=>"PhobosAgriculture_"+action;
     internal static void Add(NativeDefinitions d)
     {
+        BulkVessels.Register(Spec);
         var controls=NativeDefinitions.Clone(d.Interactions[Definitions.Controls]);controls.strName=Controls;d.Interactions[Controls]=controls;
         foreach(var action in Work)
         {

@@ -118,6 +118,7 @@ RecipeChecks.Run(Check, Throws);
 CrewOrderChecks.Run(Check);
 FeedFamilyChecks.Run(Check, Throws);
 ReclaimerChecks.Run(Check, Throws);
+SiloChecks.Run(Check, Throws);
 
 var empty = new bool[8, 8];
 var outputSizes = masses.Select(_ => new ItemSize(1, 1)).ToArray();

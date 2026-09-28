@@ -88,6 +88,12 @@ native hydrate/carbon batches into richer material.
 
 ## Water and oxygen: the first useful chain
 
+**Implemented 29 September 2026 (Shipbreaker 0.37.0):** the T2 ice thaw unit
+takes exactly `ItmIce01`, delivers 22.7 kg of process water per block into a
+linked S3 silo or R3 reservoir and drops the game's own 2 kg gangue packet in
+its tray; see the [player guide](../shipbreaker-bulk-silos.md). Hydrates,
+electrolysis, oxygen storage and hydrogen capture remain the research below.
+
 Native `ItmIce01` already describes water ice as requiring industrial processing.
 `ItmIce02` shares the broad `IsIce` trait but is methane. Native damage can turn
 either into the same ice-gangue item. Therefore the first water recipe should

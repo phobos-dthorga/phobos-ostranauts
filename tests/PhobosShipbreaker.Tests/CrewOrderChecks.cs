@@ -9,7 +9,8 @@ internal static class CrewOrderChecks
         check(CrewOrderRules.FeedRecipe("PhobosShipbreakerInstalled") == "process" && CrewOrderRules.FeedRecipe("PhobosScrapReclaimerInstalled") == "process",
             "D4 and R4 loading orders run the processing work");
         check(CrewOrderRules.FeedRecipe(FurnaceRules.Prefix + "Installed") == "housing", "The F6 loading order runs the housing work");
-        foreach (string other in new[] { CollectorRules.Installed, IntakeRules.Grabber + "Installed", FurnaceRules.Radiator + "Installed", IndustrialRules.Prefix + "Installed", "ItmWall1x1", "", null! })
+        check(CrewOrderRules.FeedRecipe(ThawRules.Installed) == "thaw" && CrewOrderRules.FeedRecipe(ThawRules.Installed + "Dmg") == "thaw", "The T2 loading order runs the thaw work");
+        foreach (string other in new[] { CollectorRules.Installed, IntakeRules.Grabber + "Installed", FurnaceRules.Radiator + "Installed", IndustrialRules.Prefix + "Installed", SiloRules.Installed, "ItmWall1x1", "", null! })
             check(CrewOrderRules.FeedRecipe(other) == null, "No loading order for equipment without a feed: " + other);
         check(CrewOrderRules.LoadStock == 256, "A loading order runs to the standing-order maximum, so crew keep going until products have nowhere to go");
         check(IndustrialRules.FeedOrder.StartsWith("Phobos", StringComparison.Ordinal) && IndustrialRules.FeedOrder != IndustrialRules.LocalControls,

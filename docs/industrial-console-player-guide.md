@@ -25,7 +25,7 @@ notification** and cue volume/mute. Watching is optional, never starts a job and
 clears on processing pause, fault or reload. See the
 [completion cue guide](development/shipbreaker-completion-cue.md) for scope and listening checks.
 
-Current packages: Shipbreaker **0.36.0**. Framework and Auto Nav are required;
+Current packages: Shipbreaker **0.37.0**. Framework and Auto Nav are required;
 see [installation requirements](installing-mods.md) for current minimum versions.
 Built against Ostranauts **1.0.1.5** / BepInEx **5.4.23.5**. Automated checks
 passed; the new native panel/seating integration awaits the owner's game test.
@@ -39,7 +39,8 @@ remain awake at that console. Multiple consoles may control the same ship; each
 rechecks its own operator, power and ownership on every command.
 
 The console lists installed dismantling fixtures, reclaimers, residue collectors,
-chutes, grabbers, furnaces and cooling assemblies on its own host ship. Docking, mooring or towing never adds the
+chutes, grabbers, furnaces, cooling assemblies, process water silos and ice thaw
+units on its own host ship. Docking, mooring or towing never adds the
 other ship's equipment, even when both ships belong to the player. Unknown,
 leased and foreign ownership does not grant remote control. Moving/uninstalling
 the console or changing selected crew ends the open session. Losing power or

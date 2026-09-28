@@ -25,6 +25,18 @@ Dates on Draft entries record preparation, not Steam publication.
 - Earlier capture-only research is superseded for supported ordinary walls by the 0.24.0 reclamation implementation below. Broader structural recipes, repeated furnace batches and whole-wreck completion remain outside this round.
 - Keep [NASA Goddard's Raven research](https://www.nasa.gov/general/nasas-hybrid-computer-enables-ravens-autonomous-rendezvous-capability/) and [ESA's LIRIS experiment by Airbus, Jena Optronik and Sodern](https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/ATV/ATV_views_Space_Station_as_never_before) as sensing context, separate from Blue Bottle Games native evidence and authored gameplay choices. No institutional endorsement or gameplay validation is implied.
 
+## [0.37.0] - 2026-09-29 - Draft
+
+### Added
+
+- Phobos' Rivetline S3 Process Water Silo: a passive 3 x 3 vessel (240 kg empty) holding 1,000 kg of process water as a saved record, never a native fuel stat. Fill it at a station under Bulk supplies (Process water, 10 cr/kg in 10 kg steps), from a linked T2, or, with Ship's Water 0.16.1, draw from the drinking-water tanks above a crew reserve (setting Silo/CrewWaterReserveKg, default 50 kg) and send water to its waste tanks for the Recycler. Keep in reserve, Recover trapped water after repair and Accept contents as they are are on the local panel and the C1.
+- Phobos' Rivetline T2 Ice Thaw Unit: a 2 x 2 powered unit that thaws one block of the game's water ice (24.7 kg) at a time into 22.7 kg of process water for a linked silo or Agriculture R3 within one tile, plus the game's own 2 kg gangue packet in its two-cell tray. 6 kW for 40 minutes a block (525 kJ/kg authored, NIST enthalpy of fusion attributed), 15% of it as room heat under the R4's atmosphere rule. Nothing warms until the linked vessel has room for a whole block. Progress lives on the block; reload pauses.
+- Load feed by crew and standing orders on the T2 (ice from anywhere aboard, gangue to an output store); C1 groups for silos and thaw units; F3 through phobosindustry.
+
+### Compatibility and limits
+
+- Requires Framework 0.39.0. Water is the only silo commodity: no fuel or gas silos, no custom gases, no methane recipe. Nothing consumes silo water yet apart from a linked R3. Both machines use procedural placeholder sprites until the artwork handoff (docs/development/bulk-silo-art-handoff.md) is produced. Uninstalling carries the water with the loose silo; a silo holding water refuses Dismantle when offered, and a protected silo refuses removal; a destroyed silo loses its water, logged. Offline checks pass; owner play-testing is pending. Guide: docs/shipbreaker-bulk-silos.md.
+
 ## [0.36.0] - 2026-09-29 - Draft
 
 ### Added

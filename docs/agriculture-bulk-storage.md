@@ -113,6 +113,15 @@ retains its own semantics; this is not insurance against losing a ship.
 Dismantling takes 600 seconds and returns 4 kg steel + 21 kg housing waste
 (damaged: 1 + 24 kg). No R3 fabrication recipe is added.
 
+## Shared vessels since Agriculture 0.18.0
+
+Agriculture 0.18.0 keeps the R3's records, journals and guard under their
+existing names but moves their custody into Framework 0.39.0's shared bulk
+vessel service, the same one Shipbreaker's S3 silo uses. A saved R3 reads
+unchanged. A Shipbreaker T2 ice thaw unit installed within one tile of an R3
+can deliver its thaw water into the reservoir: link it from the T2's panel.
+See the [process water silo and ice thaw unit](shipbreaker-bulk-silos.md).
+
 ## Design basis and verification
 
 The [research report](development/agriculture-bulk-storage-research.md) separates science

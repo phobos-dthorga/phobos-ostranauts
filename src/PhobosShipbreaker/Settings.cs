@@ -21,6 +21,7 @@ internal sealed class Settings
     internal double FeederSeconds { get; }
     internal double FeederKW { get; }
     internal bool FeederContinue { get; }
+    internal double CrewWaterReserveKg { get; }
     internal KeyCode ControlsKey { get; }
 
     internal Settings(ConfigFile config)
@@ -46,6 +47,7 @@ internal sealed class Settings
             Text.Get("Settings.working_electrical_demand_in_kw_including_idle")));
         ContinueQueue = config.Bind("Processing", "ContinueQueue", true,
             Text.Get("Settings.automatically_start_the_next_loaded_panel_after")).Value;
+        CrewWaterReserveKg = Number(config, "Silo", "CrewWaterReserveKg", SiloRules.DefaultCrewReserveKg, 0, 100000, Text.Get("Settings.crew_water_reserve"));
         ControlsKey = config.Bind("Controls", "WindowKey", KeyCode.F9,
             Text.Get("Settings.key_to_open_the_fixture_controls_while")).Value;
     }

@@ -14,6 +14,14 @@ now prepares that narrow water/stock slice with Framework 0.27.0. Named chemical
 reagents, prepared-feed/return tanks, reactive mixing and atmospheric hazards
 remain research. The old API inventory below is a dated baseline.
 
+**29 September bulk silos:** Framework 0.39.0 promotes the R3 model to a shared
+[bulk vessel service](framework-bulk-storage.md#framework-0390-registered-bulk-vessels);
+Shipbreaker 0.37.0 adds the 1,000 kg S3 process water silo and the T2 ice thaw
+unit, station purchase of process water and the optional Ship's Water draw and
+waste-tank deposit ([player guide](../shipbreaker-bulk-silos.md)). Water is the
+only silo commodity; solvents, reagents, fuel and gas silos, leaks and hazards
+remain the future work described below, and no custom gas species exist.
+
 **25 September follow-up:** [shared fluid conduits and irrigation research](fluid-conduits-and-irrigation-research.md)
 examines Agriculture's plant sustenance as the first physical pipe consumer,
 including partial reuse of vanilla conduits. Framework 0.17.0 now has a narrow

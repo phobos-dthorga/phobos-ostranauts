@@ -34,7 +34,9 @@ internal static class EquipmentEconomy
         new Spec(IntakeRules.Grabber, price: 6400, install: 1000, uninstall: 800, repair: 2400, dismantle: 650, new[]{2,1,4,2}, new[]{42,16,12,2,15}, new[]{34,12,6,0,31}, restoreMinutes: 30),
         new Spec(IntakeRules.Chute, price: 1800, install: 500, uninstall: 500, repair: 1500, dismantle: 300, new[]{2,1,2,0}, new[]{20,8,8,2,7}, new[]{16,6,4,0,16}, restoreMinutes: 10),
         new Spec(ReclaimerRules.Prefix, price: 14800, install: 1800, uninstall: 1200, repair: 4200, dismantle: 1200, new[]{4,2,6,4}, new[]{104,42,20,8,20}, new[]{92,34,10,2,48}, restoreMinutes: 75),
-        new Spec(CollectorRules.Prefix, price: 2400, install: 600, uninstall: 500, repair: 1800, dismantle: 350, new[]{0,1,2,2}, new[]{10,3,4,2,4}, new[]{8,2,2,0,9}, restoreMinutes: 15)
+        new Spec(CollectorRules.Prefix, price: 2400, install: 600, uninstall: 500, repair: 1800, dismantle: 350, new[]{0,1,2,2}, new[]{10,3,4,2,4}, new[]{8,2,2,0,9}, restoreMinutes: 15),
+        new Spec(SiloRules.Prefix, price: 4800, install: 1200, uninstall: 900, repair: 2400, dismantle: 800, new[]{2,2,4,0}, new[]{170,40,20,4,18}, new[]{40,10,4,0,188}, restoreMinutes: 30),
+        new Spec(ThawRules.Prefix, price: 3200, install: 800, uninstall: 600, repair: 2000, dismantle: 500, new[]{2,2,4,2}, new[]{70,24,20,8,12}, new[]{30,8,4,0,80}, restoreMinutes: 25)
     };
 
     internal static string[] Products(int[] bill) => bill.SelectMany((count, i) => Enumerable.Repeat(Materials[i], count)).ToArray();
@@ -63,7 +65,7 @@ internal static class EquipmentEconomy
             }
             else Restore(d, id, spec);
             MaintenanceDefinitions.Dismantle(d, id, spec.Dismantle, Products(damaged ? spec.BrokenSalvage : spec.Salvage),
-                emptyInternalBin: spec.Prefix == Content.Prefix ? Content.InputBin : spec.Prefix == ReclaimerRules.Prefix ? ReclaimerRules.InputBin : spec.Prefix == FurnaceRules.Prefix ? FurnaceRules.Feed : null);
+                emptyInternalBin: spec.Prefix == Content.Prefix ? Content.InputBin : spec.Prefix == ReclaimerRules.Prefix ? ReclaimerRules.InputBin : spec.Prefix == FurnaceRules.Prefix ? FurnaceRules.Feed : spec.Prefix == ThawRules.Prefix ? ThawRules.InputBin : null);
             var mount = d.Installables[spec.Prefix + state + (state.StartsWith("Installed") ? "Uninstall" : "Install")];
             mount.aToolCTsUse = new[] { "TIsToolMortorq" };
             mount.strCTThemMultCondTools = "IsToolMortorq";

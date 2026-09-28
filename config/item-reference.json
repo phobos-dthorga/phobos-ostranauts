@@ -253,6 +253,40 @@
           "labels": {}
         },
         {
+          "key": "s3",
+          "title": "S3 Process Water Silo",
+          "ids": [
+            "PhobosProcessSiloLoose",
+            "PhobosProcessSiloLooseDmg",
+            "PhobosProcessSiloInstalled",
+            "PhobosProcessSiloInstalledDmg"
+          ],
+          "function": "Passive 3 x 3 vessel holding up to 1,000 kg of process water as a saved record; a full silo weighs 1,240 kg.",
+          "use": "Install through APPS; no power or inventory. Fill at a station under Bulk supplies, from a linked T2 within one tile, or (with Ship's Water 0.16.1) draw from the drinking-water tanks above the crew reserve; send water to the waste tanks for the Recycler. Set Keep in reserve on the panel or C1. After damage, repair and Recover trapped water; a protected silo offers Accept contents as they are. See [the silo guide](shipbreaker-bulk-silos.md).",
+          "find": "Buy loose hardware from the sellers below. No fabrication recipe. This item may also appear in eligible engineering-equipment loot; see the exact offers below.",
+          "notes": "Process water only: never a drinking-water tank, never fuel. Uninstalling carries the water with the loose silo; Dismantle is refused while water remains, and removal is refused while the silo is protected. Water is lost with a destroyed silo (logged). No process consumes silo water yet apart from a linked Agriculture R3.",
+          "guide": "shipbreaker-bulk-silos.md",
+          "internal": false,
+          "labels": {}
+        },
+        {
+          "key": "t2",
+          "title": "T2 Ice Thaw Unit",
+          "ids": [
+            "PhobosIceThawLoose",
+            "PhobosIceThawLooseDmg",
+            "PhobosIceThawInstalled",
+            "PhobosIceThawInstalledDmg"
+          ],
+          "function": "Thaws one block of the game's water ice (24.7 kg) at a time into 22.7 kg of process water for a linked silo or R3 reservoir plus one 2 kg gangue packet in its tray.",
+          "use": "Install through APPS within one tile of the vessel, connect power, choose Deliver water to on its panel or C1, place single ice blocks in the Ice Feed (Inventory opens the tray and the feed) or switch on Load feed by crew, then Start / resume thawing. 6 kW for 40 minutes a block; part of it warms the room. See [the silo guide](shipbreaker-bulk-silos.md).",
+          "find": "Buy loose hardware from the sellers below. No fabrication recipe. This item may also appear in eligible engineering-equipment loot; see the exact offers below.",
+          "notes": "Methane ice, gangue and stacked blocks are refused. Nothing warms until the linked vessel has room for a whole block; a hot or airless room makes it wait. Reload pauses it; Start or a crew order resumes. Empty the two-cell gangue tray by hand or a crew output store.",
+          "guide": "shipbreaker-bulk-silos.md",
+          "internal": false,
+          "labels": {}
+        },
+        {
           "key": "d4-section",
           "title": "D4-S assembly section",
           "ids": [
@@ -496,10 +530,11 @@
           "ids": [
             "PhobosShipbreakerInputBin",
             "PhobosScrapReclaimerInputBin",
-            "PhobosFurnaceInputBin"
+            "PhobosFurnaceInputBin",
+            "PhobosIceThawInputBin"
           ],
-          "function": "Named child inventories built into D4, R4 and F6. They are not separate products.",
-          "use": "Open the compartment from the machine's Control Panel (the ordinary Inventory is the product tray) and put only its accepted structural parts (ordinary walls of any make, floor grates, DuraWal, Whipple and aero panels, windows), R2 residue or single aluminium pieces there, or switch on Load feed by crew.",
+          "function": "Named child inventories built into D4, R4, F6 and T2. They are not separate products.",
+          "use": "Open the compartment from the machine's Control Panel (the ordinary Inventory is the product tray) and put only its accepted structural parts (ordinary walls of any make, floor grates, DuraWal, Whipple and aero panels, windows), R2 residue, single aluminium pieces or single blocks of water ice there, or switch on Load feed by crew.",
           "find": "Shown as feed/chamber inventory within their owning machine.",
           "notes": "No purchase, INSTALL, repair, Restore or standalone salvage contract. Empty-machine checks include these compartments.",
           "guide": "industrial-console-player-guide.md",

@@ -14,10 +14,28 @@ invent a universal fluid density. The earlier
 | `Controls.IEquipmentPanelFields` | Optional structured labelled choices alongside the unchanged equipment-provider API; C1 renders checked draft Apply through content-owned validation. |
 
 Existing `ILiquidReservoir`, mixture transfers, retained parcels, pairing,
-power accounting and equipment/crew interfaces remain compatible. R3 adapts its
-store to `ILiquidReservoir` and `LiquidTransferGuard`; it does not need another
-general reservoir-provider registry or an additional pipe network. Its kg model
-must not be reused as a litres conversion for a different substance.
+power accounting and equipment/crew interfaces remain compatible. R3 adapted its
+store to `ILiquidReservoir` and `LiquidTransferGuard` in 0.27.0; since Framework
+0.39.0 that custody is the shared bulk vessel service below, with no pipe network.
+A kg record must not be reused as a litres conversion for a different substance.
+
+## Framework 0.39.0: registered bulk vessels
+
+The R3 model became a shared service on 29 September 2026 so Shipbreaker's S3
+silo and T2 thaw unit and Agriculture's R3 use one contract.
+
+| Public mechanism | Boundary |
+|---|---|
+| `Liquids.BulkVesselSpec` | A content declaration: definition family prefix, one commodity id, capacity and dry mass in kg, owner id, and the names of the record, journal and guard. `CapacityFromVolume(m3, density)` needs the content's density; Framework never assumes one. |
+| `Liquids.BulkVessels` | The registry: `Register` (the same owner re-registering a family replaces its declaration; another owner cannot claim it), `SpecFor(definition)`, `Of(object)`, `IsVessel`, `Aboard(ship, commodity)`. |
+| `Liquids.BulkVessel` | Custody of one object: `Read`/`Save` keep native mass equal to dry mass plus contents plus physical cargo; `Protected` (unreadable record, mass mismatch, open transfer or conversion journal); owner-confirmed `Accept`; `BeginConversion`/`EndConversion` around an item becoming contents or contents becoming an item; `Snapshot`; `Endpoint` as an `ILiquidReservoir` whose capacity excludes the catch chamber. |
+| Native patches | Contents follow a mode switch into a successor of the same family and are isolated in the catch when the successor is damaged; contents lost with a destroyed vessel are logged, never blocked (vanilla destructibility). Agriculture's own copies of these patches were retired. |
+| `Trading.VesselSupplyProvider` | A station Bulk supplies provider over registered families with content-declared offers; delivery is the measured change of the vessel's record. |
+| `Liquids.ShipsWaterSupply.DepositWaste` / `WasteCapacityKg` | Optional 0.16.1-pinned deposit into installed Ship's Water waste tanks through guarded transfers, up to the capacity their own public configuration entries declare (read by reflection, size tag by size tag), so their plumbing clamp can never delete deposited water. Litres equal kg for water only. The potable tanks are never written to. |
+
+Records, journals and guards keep their existing names, so a saved R3 reads
+unchanged after the re-point. A vessel commodity is an id in kilograms; nothing
+about it is a native gas or a native fuel stat.
 
 ## Station adapter
 

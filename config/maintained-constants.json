@@ -4,7 +4,7 @@
     "Framework.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.38.0",
+      "value": "0.39.0",
       "description": "PhobosFramework published source/package version.",
       "targets": [
         {
@@ -68,7 +68,7 @@
     "Shipbreaker.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.36.0",
+      "value": "0.37.0",
       "description": "PhobosShipbreaker published source/package version.",
       "targets": [
         {
@@ -206,7 +206,7 @@
     "Agriculture.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.17.0",
+      "value": "0.18.0",
       "description": "PhobosAgriculture published source/package version.",
       "targets": [
         {
@@ -641,7 +641,7 @@
     "Shipbreaker.minimumFramework": {
       "type": "version",
       "parts": 3,
-      "value": "0.38.0",
+      "value": "0.39.0",
       "description": "Current Shipbreaker required Framework version, shared with local installer admission.",
       "targets": [
         {
@@ -713,7 +713,7 @@
     "Agriculture.minimumFramework": {
       "type": "version",
       "parts": 3,
-      "value": "0.37.0",
+      "value": "0.39.0",
       "description": "Current Agriculture required Framework version, shared with local installer admission.",
       "targets": [
         {
@@ -1228,6 +1228,108 @@
       ],
       "review": [
         "Run native loot checks and regenerate acquisition references. Existing generated cargo is preserved."
+      ]
+    },
+    "Shipbreaker.siloCapacityKg": {
+      "type": "number",
+      "value": "1000",
+      "min": 100,
+      "max": 100000,
+      "description": "Authored S3 process water silo capacity in kg.",
+      "targets": [
+        {
+          "path": "src/PhobosShipbreaker/Core/SiloRules.cs",
+          "pattern": "\\bCapacityKg\\s*=\\s*(?P<value>[0-9.]+)",
+          "count": 1
+        }
+      ],
+      "review": [
+        "Run Shipbreaker core and native checks, regenerate item references and review docs/shipbreaker-bulk-silos.md. Existing silo records keep their saved contents; a lowered capacity never discards them."
+      ]
+    },
+    "Shipbreaker.siloPrice": {
+      "type": "number",
+      "value": "4800",
+      "min": 1,
+      "max": 1000000,
+      "description": "Authored S3 silo base price (broken form is one quarter).",
+      "targets": [
+        {
+          "path": "src/PhobosShipbreaker/Core/SiloRules.cs",
+          "pattern": "\\bPrice\\s*=\\s*(?P<value>[0-9.]+)",
+          "count": 1
+        }
+      ],
+      "review": [
+        "Run Shipbreaker core and native checks, regenerate item references and review docs/shipbreaker-bulk-silos.md. Existing silo records keep their saved contents; a lowered capacity never discards them."
+      ]
+    },
+    "Shipbreaker.siloWaterPricePerKg": {
+      "type": "number",
+      "value": "10",
+      "min": 0.01,
+      "max": 10000,
+      "description": "Authored station price of process water per kg.",
+      "targets": [
+        {
+          "path": "src/PhobosShipbreaker/Core/SiloRules.cs",
+          "pattern": "\\bWaterPricePerKg\\s*=\\s*(?P<value>[0-9.]+)",
+          "count": 1
+        }
+      ],
+      "review": [
+        "Run Shipbreaker core and native checks, regenerate item references and review docs/shipbreaker-bulk-silos.md. Existing silo records keep their saved contents; a lowered capacity never discards them."
+      ]
+    },
+    "Shipbreaker.thawPrice": {
+      "type": "number",
+      "value": "3200",
+      "min": 1,
+      "max": 1000000,
+      "description": "Authored T2 thaw unit base price (broken form is one quarter).",
+      "targets": [
+        {
+          "path": "src/PhobosShipbreaker/Core/ThawRules.cs",
+          "pattern": "\\bPrice\\s*=\\s*(?P<value>[0-9.]+)",
+          "count": 1
+        }
+      ],
+      "review": [
+        "Run Shipbreaker core and native checks and regenerate item references. Started thaw jobs keep their captured duration; the recipe masses are the game's own."
+      ]
+    },
+    "Shipbreaker.thawKilowatts": {
+      "type": "number",
+      "value": "6",
+      "min": 0.1,
+      "max": 1000,
+      "description": "Authored T2 working electrical demand, in kW.",
+      "targets": [
+        {
+          "path": "src/PhobosShipbreaker/Core/ThawRules.cs",
+          "pattern": "\\bWorkingKW\\s*=\\s*(?P<value>[0-9.]+)",
+          "count": 1
+        }
+      ],
+      "review": [
+        "Run Shipbreaker core and native checks and regenerate item references. Started thaw jobs keep their captured duration; the recipe masses are the game's own."
+      ]
+    },
+    "Shipbreaker.thawSeconds": {
+      "type": "number",
+      "value": "2400",
+      "min": 1,
+      "max": 3600,
+      "description": "Authored T2 seconds of powered work per block, captured on each started job.",
+      "targets": [
+        {
+          "path": "src/PhobosShipbreaker/Core/ThawRules.cs",
+          "pattern": "\\bCycleSeconds\\s*=\\s*(?P<value>[0-9.]+)",
+          "count": 1
+        }
+      ],
+      "review": [
+        "Run Shipbreaker core and native checks and regenerate item references. Started thaw jobs keep their captured duration; the recipe masses are the game's own."
       ]
     }
   }

@@ -69,11 +69,11 @@ internal static class HandFeedNativeChecks
         check(complete != null && Strings(complete).Contains("ACTReloadItem"), "Completing a step keeps a Reload task listed: it persists until cancelled");
         check(typeof(CondOwner).GetMethod("RootParent", flags) != null && typeof(CondOwner).GetMethod("RemoveFromCurrentHome", flags) != null &&
             typeof(Ship).GetMethod("AddCO", new[] { typeof(CondOwner), typeof(bool) }) != null, "Deck items can be taken and put back through the game's own home handling");
-        // The right-click toggle sits on the three intact installed machines only.
+        // The right-click toggle sits on the four intact installed machines with a feed only.
         var toggle = prepared.Interactions[IndustrialRules.FeedOrder];
         check(toggle.strRaiseUI == null && toggle.strThemType == DataHandler.dictInteractions["Inventory"].strThemType, "The loading toggle raises no window and targets the machine like Inventory");
         var carriers = prepared.Objects.Values.Where(o => o.aInteractions != null && o.aInteractions.Contains(IndustrialRules.FeedOrder)).Select(o => o.strName).OrderBy(n => n, StringComparer.Ordinal).ToArray();
-        check(carriers.SequenceEqual(new[] { FurnaceRules.Prefix + "Installed", "PhobosScrapReclaimerInstalled", "PhobosShipbreakerInstalled" }), "Only the intact installed D4, R4 and F6 offer Load feed by crew: " + string.Join(",", carriers));
+        check(carriers.SequenceEqual(new[] { FurnaceRules.Prefix + "Installed", ThawRules.Installed, "PhobosScrapReclaimerInstalled", "PhobosShipbreakerInstalled" }), "Only the intact installed D4, R4, F6 and T2 offer Load feed by crew: " + string.Join(",", carriers));
         check(carriers.All(n => prepared.Objects[n].aInteractions.Count(i => i == IndustrialRules.FeedOrder) == 1), "The toggle appears once per machine");
     }
 

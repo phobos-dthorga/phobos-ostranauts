@@ -16,7 +16,7 @@ eating. This guide starts with installation and the basic shipbreaking loop.
 - [Markets](solar-system-economy.md) and [stock quantities](development/merchant-stock.md):
   availability depends on ordinary merchant restocking.
 
-**Prepared versions:** Phobos Framework **0.38.0**, Shipbreaker **0.36.0**, Auto Nav
+**Prepared versions:** Phobos Framework **0.39.0**, Shipbreaker **0.37.0**, Auto Nav
 **0.25.0**, built against Ostranauts **1.0.1.5** / BepInEx **5.4.23.5**.
 These are development packages. Automated checks do not establish in-game
 compatibility or tell you which version is installed locally. Ordinary saves are
@@ -181,6 +181,12 @@ hazardous permission or a repeat run. To load the F6 by hand, pick the
 aluminium stack up in the inventory window and right-click on the charge bin
 to place one piece at a time; the bin takes single pieces only.
 
+Since 0.37.0 the chain also stores water: the S3 process water silo holds
+1,000 kg, the T2 ice thaw unit turns the game's water ice into silo water and
+gangue, station Bulk supplies sell process water, and Ship's Water tanks can
+be drawn from or returned to through their waste tanks. See the
+[process water silo and ice thaw unit](shipbreaker-bulk-silos.md).
+
 ## Interruptions and settings
 
 Pause retains panel work. Cancel resets work on panels already inside the
@@ -271,7 +277,7 @@ publication is implied by this prepared redesign.
 
 ## Industrial controls (0.10.0)
 
-[Console and equipment panel guide](industrial-console-player-guide.md): a 3 x 3 ship-bound workstation, local Control Panels, automatic grouping, search, Attention and routing. The current Shipbreaker 0.36.0 requires Framework 0.38.0 and Auto Nav 0.19.0 and includes [shared observations](development/shared-console-observations.md) and optional [shared completion cues](shared-completion-cues.md). Prepared for owner testing; no in-game validation claimed.
+[Console and equipment panel guide](industrial-console-player-guide.md): a 3 x 3 ship-bound workstation, local Control Panels, automatic grouping, search, Attention and routing. The current Shipbreaker 0.37.0 requires Framework 0.39.0 and Auto Nav 0.19.0 and includes [shared observations](development/shared-console-observations.md) and optional [shared completion cues](shared-completion-cues.md). Prepared for owner testing; no in-game validation claimed.
 
 Agriculture now supports [finite potato and lettuce nutrient-solution piping](agriculture-nutrient-solutions.md) through its W2 supply and irrigation conduits.
 

@@ -16,7 +16,7 @@ namespace PhobosShipbreaker;
 public sealed class Plugin : BaseUnityPlugin
 {
     public const string Id = "phobosgekko.ostranauts.shipbreaker";
-    public const string Version = "0.36.0";
+    public const string Version = "0.37.0";
     internal static ProcessingService Service { get; private set; } = null!;
     internal static Action<string> Log { get; private set; } = null!;
     internal static Settings Options { get; private set; } = null!;
@@ -45,12 +45,14 @@ public sealed class Plugin : BaseUnityPlugin
         FrameworkLifecycle.ContentLoading += LoadContent;
         FrameworkLifecycle.ContentLoaded += ConfirmContent;
         Phobos.Ostranauts.Framework.Crew.CrewWork.Register(new IndustrialCrewProvider());
+        Phobos.Ostranauts.Framework.Controls.EquipmentProviders.Register(new VesselProvider());
+        Phobos.Ostranauts.Framework.Trading.BulkSupplies.Register(SiloService.Supplies);
         Phobos.Ostranauts.Framework.Crew.CrewSpecialities.Register(new("IndustrialProcessing",Text.Get("Crew.skill"),Id,Phobos.Ostranauts.Framework.Crew.CrewRole.Industry));
         Log(Text.Get("Plugin.shipbreaker_loaded_with_independent_phobos_framework_construction", Options.ControlsKey));
     }
     private void Update() { panel.Update(); FurnaceService.Update(); CaptureService.Update(); ReclamationService.Update(); }
     private void OnGUI() { panel.Draw(); CollectorControls.Draw(); ReclaimerControls.Draw(); }
-    internal static void ResetServices() { ReclamationService.Reset(); CaptureService.Reset(); Service.Reset(); Collectors.Reset(); Storage.Reset(); CollectorControls.Reset(); ReclaimerControls.Reset(); IndustryObservations.Reset(); FurnaceService.Reset(); }
+    internal static void ResetServices() { ReclamationService.Reset(); CaptureService.Reset(); ThawService.Reset(); Service.Reset(); Collectors.Reset(); Storage.Reset(); CollectorControls.Reset(); ReclaimerControls.Reset(); IndustryObservations.Reset(); FurnaceService.Reset(); }
     private static void LoadContent() { ResetServices(); Content.Register(Log); }
     private static void ConfirmContent() => Content.ConfirmRecipes(Log);
     private void OnDestroy()
@@ -59,14 +61,15 @@ public sealed class Plugin : BaseUnityPlugin
         ReclamationService.Reset(); CaptureService.Shutdown();
         Phobos.Ostranauts.Framework.Inventory.CollectorCargo.SetEndpointValidator(null);
         FrameworkLifecycle.ContentLoading -= LoadContent; FrameworkLifecycle.ContentLoaded -= ConfirmContent;
-        Service?.Reset(); Collectors?.Reset(); Storage?.Reset(); IndustryObservations.Reset(); harmony?.UnpatchSelf();
+        Phobos.Ostranauts.Framework.Controls.EquipmentProviders.Unregister(Id); Phobos.Ostranauts.Framework.Trading.BulkSupplies.Unregister(Id); Phobos.Ostranauts.Framework.Liquids.BulkVessels.Unregister(Id);
+        Service?.Reset(); Collectors?.Reset(); Storage?.Reset(); ThawService.Reset(); IndustryObservations.Reset(); harmony?.UnpatchSelf();
     }
 }
 
 [HarmonyPatch(typeof(Powered), "UsePower", new[] { typeof(CondOwner), typeof(double) })]
 internal static class PowerPatch
 {
-    internal sealed class PowerState { internal bool Working, Feeding, Unloading, Finished, Cutting; internal ReclamationService.PowerTransfer? Cutter; internal ReclaimerHeat.Transfer? Heat; internal FurnaceService.PowerTransfer? Furnace; }
+    internal sealed class PowerState { internal bool Working, Feeding, Unloading, Finished, Cutting; internal ReclamationService.PowerTransfer? Cutter; internal ReclaimerHeat.Transfer? Heat; internal FurnaceService.PowerTransfer? Furnace; internal ThawService.Transfer? Thaw; }
     private static bool Prefix(Powered __instance, CondOwner __0, ref double __1, out PowerState __state)
     {
         __state = new PowerState { Working = __0 != null && (ProcessingService.IsProcessor(__0.strCODef) && __0.HasCond(Core.ProcessRules.Working) ||
@@ -78,6 +81,11 @@ internal static class PowerPatch
         {
             try { return FurnaceService.BeginPower(__instance, __0, ref __1, out __state.Furnace); }
             catch (Exception ex) { FurnaceService.Fault(__0, ex); return false; }
+        }
+        if (__0 != null && Core.ThawRules.IsFamily(__0.strCODef))
+        {
+            try { return ThawService.BeginPower(__instance, __0, ref __1, out __state.Thaw); }
+            catch (Exception ex) { ThawService.Fault(__0, ex); return false; }
         }
         if (__0 != null && ProcessingService.IsGrabber(__0))
         {
@@ -100,6 +108,13 @@ internal static class PowerPatch
             try { ReclamationService.FinishPower(__instance,__0,__state.Cutter); }
             catch(Exception ex) { ReclamationService.Fault(__0,ex); }
             finally { __state.Finished=true; }
+            return;
+        }
+        if (Core.ThawRules.IsFamily(__0.strCODef))
+        {
+            try { ThawService.FinishPower(__instance, __0, __state.Thaw); ThawService.AfterPower(__0, __0.HasCond(Core.ProcessRules.Working), __state.Thaw?.WorkSeconds); }
+            catch (Exception ex) { ThawService.Fault(__0, ex); }
+            finally { __state.Finished = true; }
             return;
         }
         if (Core.FurnaceRules.Machine(__0.strCODef))
@@ -132,11 +147,12 @@ internal static class PowerPatch
                 if (Core.FurnaceRules.Machine(__0.strCODef))
                 { FurnaceService.FinishPower(__instance, __0, __state.Furnace); FurnaceService.Get(__0).State.Batch.Armed = false; }
                 else if (__state.Cutting) { ReclamationService.FinishPower(__instance,__0,__state.Cutter); ReclamationService.Fault(__0,new InvalidOperationException("Interrupted cutter power delivery.")); }
+                else if (Core.ThawRules.IsFamily(__0.strCODef)) ThawService.FinishPower(__instance, __0, __state.Thaw);
                 else ReclaimerHeat.Finish(__instance, __0, __state.Heat);
             }
         }
         catch (Exception ex) { if (__0 != null && Core.FurnaceRules.Machine(__0.strCODef)) FurnaceService.Fault(__0, ex); else Plugin.Log(ex.Message); }
-        finally { ReclaimerHeat.Forget(__instance); }
+        finally { ReclaimerHeat.Forget(__instance); ThawService.Forget(__instance); }
     }
 }
 
@@ -160,6 +176,12 @@ internal static class PowerDemandPatch
             catch (Exception ex) { Plugin.Service.IntakeFault(machine, ex); }
             return;
         }
+        if (Core.ThawRules.IsFamily(machine.strCODef))
+        {
+            try { ThawService.BeforePower(machine); }
+            catch (Exception ex) { ThawService.Fault(machine, ex); }
+            return;
+        }
         if (!ProcessingService.IsProcessor(machine.strCODef)) return;
         try
         {
@@ -181,6 +203,7 @@ internal static class FeedPatch
     private static void Postfix(Container __instance, CondOwner coIn, ref bool __result)
     {
         if (__result && __instance.CO?.strCODef == Core.FurnaceRules.Feed) __result = FurnaceService.CanFeed(__instance.CO, coIn);
+        if (__result && __instance.CO?.strCODef == Core.ThawRules.InputBin) __result = ThawService.CanFeed(__instance.CO, coIn);
         if (__result && __instance.CO != null && (__instance.CO.strCODef == Content.InputBin || __instance.CO.strCODef == Core.ReclaimerRules.InputBin))
             __result = ProcessingService.CanFeed(__instance.CO, coIn);
         if (__result && __instance.CO != null && Core.CollectorRules.IsFamily(__instance.CO.strCODef))
@@ -188,12 +211,12 @@ internal static class FeedPatch
     }
 }
 
-// Native items normally auto-stack on insertion (aluminium, floor grates, Whipple panels). Feed bins hold
-// individual units with their own saved job state, so disable stacking only across the three feed bins.
+// Native items normally auto-stack on insertion (aluminium, floor grates, Whipple panels, water ice). Feed bins
+// hold individual units with their own saved job state, so disable stacking only across the four feed bins.
 [HarmonyPatch(typeof(CondOwner), nameof(CondOwner.CanStackOnItem))]
 internal static class FurnaceFeedStackPatch
 {
-    private static bool FeedBin(string? id) => id == Core.FurnaceRules.Feed || id == Content.InputBin || id == Core.ReclaimerRules.InputBin;
+    private static bool FeedBin(string? id) => id == Core.FurnaceRules.Feed || id == Content.InputBin || id == Core.ReclaimerRules.InputBin || id == Core.ThawRules.InputBin;
     private static void Postfix(CondOwner __instance, CondOwner objIncoming, ref int __result)
     {
         if (FeedBin(__instance.objCOParent?.strCODef) || FeedBin(objIncoming?.objCOParent?.strCODef)) __result = 0;

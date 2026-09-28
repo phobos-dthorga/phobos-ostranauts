@@ -1,0 +1,86 @@
+using System;
+using System.Linq;
+using Ostranauts.Trading;
+using Phobos.Ostranauts.Framework;
+using Phobos.Ostranauts.Framework.Liquids;
+using Phobos.Ostranauts.Framework.Registration;
+using PhobosShipbreaker;
+using PhobosShipbreaker.Core;
+
+/// <summary>The S3 silo and T2 thaw unit against the game's own data: passive vessel definitions, the thaw
+/// unit's feed and power, the native ice masses the recipe depends on, the shared vessel registry across
+/// Shipbreaker and Agriculture, and the optional Ship's Water waste contract.</summary>
+internal static class SiloNativeChecks
+{
+    internal static void Run(NativeDefinitions d, NativeDefinitions agriculture, string repo, Action<bool, string> check)
+    {
+        double Stat(JsonCondOwner co, string key) => EquipmentSaveUpgrade.Amount(co.aStartingConds, key);
+        foreach (string state in new[] { "Installed", "Loose", "InstalledDmg", "LooseDmg" })
+        {
+            var silo = d.Objects[SiloRules.Prefix + state]; var siloItem = d.Items[silo.strItemDef];
+            check(siloItem.nCols == 3 && siloItem.aSocketAdds.Length == 9 && silo.inventoryWidth == 3 && silo.inventoryHeight == 3, "S3 occupies three by three native tiles: " + state);
+            check(silo.jsonPI == null && silo.aTickers.Length == 0 && silo.nContainerWidth == 0 && silo.aSlotsWeHave.Length == 0 && !silo.aStartingConds.Any(s => s.StartsWith("IsContainer=", StringComparison.Ordinal)),
+                "S3 is a passive vessel: no electricity, no container, no feed: " + state);
+            check(Stat(silo, "StatMass") == SiloRules.DryKg, "S3 begins empty at its dry mass: " + state);
+            check(Stat(silo, "StatBasePrice") == (state.EndsWith("Dmg", StringComparison.Ordinal) ? SiloRules.Price / 4 : SiloRules.Price), "S3 authored prices: " + state);
+            check(silo.strNameFriendly.StartsWith("Phobos' Rivetline S3 ", StringComparison.Ordinal), "S3 carries the Rivetline S3 name: " + state);
+            var thaw = d.Objects[ThawRules.Prefix + state]; var thawItem = d.Items[thaw.strItemDef];
+            check(thawItem.nCols == 2 && thawItem.aSocketAdds.Length == 4 && thaw.inventoryWidth == 2 && thaw.inventoryHeight == 2, "T2 occupies two by two native tiles: " + state);
+            check(thaw.nContainerWidth * thaw.nContainerHeight == ThawRules.TrayCells && Stat(thaw, "StatMass") == ThawRules.MachineKg, "T2 tray holds two gangue cells and the unit weighs 120 kg: " + state);
+            check(thaw.strNameFriendly.StartsWith("Phobos' Rivetline T2 ", StringComparison.Ordinal), "T2 carries the Rivetline T2 name: " + state);
+            check(thaw.aSlotsWeHave.Contains(ThawRules.InputSlot), "T2 has its private ice feed: " + state);
+            if (state.StartsWith("Installed", StringComparison.Ordinal))
+            {
+                check(silo.aInteractions.Count(i => i == IndustrialRules.LocalControls) == 1 && !silo.aInteractions.Contains(IndustrialRules.FeedOrder), "Installed S3 has one Control Panel and no loading order: " + state);
+                check(thaw.aInteractions.Count(i => i == IndustrialRules.LocalControls) == 1 && thaw.aInteractions.Contains("Inventory") &&
+                    thaw.aInteractions.Contains(IndustrialRules.FeedOrder) == !state.EndsWith("Dmg", StringComparison.Ordinal), "Installed T2 has Control Panel, Inventory and (intact) Load feed by crew: " + state);
+            }
+        }
+        var feed = d.Objects[ThawRules.InputBin]; var trigger = DataHandler.dictCTs[feed.strContainerCT];
+        check(feed.nContainerWidth * feed.nContainerHeight == ThawRules.FeedCapacity && d.Slots[ThawRules.InputSlot].bHide, "Ice feed holds two blocks as a hidden slot with its own window");
+        check(feed.strNameFriendly.StartsWith("Phobos' Rivetline T2 ", StringComparison.Ordinal), "The ice feed is branded with its machine");
+        var ice = DataHandler.dictCOs[ThawRules.Ice]; var gangue = DataHandler.dictCOs[ThawRules.Gangue]; var methane = DataHandler.dictCOs["ItmIce02"];
+        check(Stat(ice, "StatMass") == ThawRules.IceKg && Stat(gangue, "StatMass") == ThawRules.GangueKg, "The recipe uses the game's own ice and gangue masses (24.7 kg, 2.0 kg)");
+        check(ice.nStackLimit > 1, "Water ice stacks natively, so the feed bin refuses merging");
+        check(trigger.TriggeredDataCO(new DataCO(ice), false), "The ice feed admits water ice at the game level");
+        check(trigger.TriggeredDataCO(new DataCO(methane), false) == new DataCO(methane).HasCond("IsIce"), "Methane ice passes the game-level IsIce rule; the exact identity rule refuses it");
+        foreach (string outside in new[] { ThawRules.Gangue, "ItmScrapSteel", ProcessRules.Wall, "ItmCanisterLH02Loose" })
+            check(trigger.TriggeredDataCO(new DataCO(DataHandler.dictCOs[outside]), false) == new DataCO(DataHandler.dictCOs[outside]).HasCond("IsIce"), "Only ice enters the thaw feed at the game level: " + outside);
+        check(!ThawRules.ValidIce(methane.strName, Stat(methane, "StatMass"), true, true, true), "Methane ice is refused by identity");
+        var gangueItem = DataHandler.dictItemDefs[gangue.strItemDef];
+        check(gangueItem.nCols == 1 && gangueItem.aSocketAdds.Length == 1, "Native gangue is a one-cell item that fits the tray");
+        var power = d.Power[ThawRules.Prefix + "Power"];
+        check(Math.Abs(power.fAmount - ThawRules.IdleKW / Units.SecondsPerHour) < 1e-12 && power.strOverrideCond == ProcessRules.Working &&
+            Math.Abs(power.fOverrideAmount - ThawRules.WorkingKW / Units.SecondsPerHour) < 1e-12 && power.aInputPts.SequenceEqual(new[] { "PowerA" }), "T2 draws 0.1 kW idle and 6 kW thawing through one native input point");
+        check(d.Objects[ThawRules.Installed].mapPoints.Contains("PowerA,0,8") && d.Objects[ThawRules.Installed].jsonPI == ThawRules.Prefix + "Power", "T2 exposes its power point and info");
+        // The shared registry: both mods declare their vessels through Framework, with distinct records.
+        var siloSpec = BulkVessels.SpecFor(SiloRules.Installed); var tankSpec = BulkVessels.SpecFor(PhobosAgriculture.BulkDefinitions.Tank + "Installed");
+        check(siloSpec != null && siloSpec.CapacityKg == 1000 && siloSpec.DryKg == 240 && siloSpec.Commodity == "water" && siloSpec.Record == SiloRules.Record, "S3 is a registered water vessel of 1,000 kg");
+        check(tankSpec != null && tankSpec.CapacityKg == 120 && tankSpec.DryKg == 25 && tankSpec.Commodity == "water" && tankSpec.Record == "AgricultureBulk" && tankSpec.Owner != siloSpec!.Owner,
+            "The R3 reservoir is registered by Agriculture with the record name every saved R3 already carries");
+        check(BulkVesselSpec.CapacityFromVolume(1, 1000) == SiloRules.CapacityKg, "The silo holds one cubic metre of water at the declared density");
+        // Optional Ship's Water waste contract: the trigger and stat names Ship's Water 0.16.1 uses, read here without the plugin.
+        check(ShipsWaterSupply.WasteVesselTrigger == "TIsWasteVesselInstalled" && ShipsWaterSupply.WasteStat == "StatLiqH2OWaste", "The waste deposit binds the inspected Ship's Water names");
+        check(ShipsWaterSupply.WasteCapacityKg(null!) == null, "Without a tank no waste capacity is known; without the plugin none is either (checked in play, not here)");
+        check(typeof(ShipsWaterSupply).GetMethod("DepositWaste") != null && typeof(ShipsWaterSupply).GetMethod("Refill", new[] { typeof(Ship), typeof(ILiquidReservoir), typeof(double), typeof(double), typeof(LiquidTransferGuard) }) != null,
+            "Draw and deposit share the guarded transfer contract");
+        // Economy: dismantling either machine loses value, checked by the shared economy audit; here the bills add up.
+        foreach (var spec in EquipmentEconomy.Machines.Where(m => m.Prefix == SiloRules.Prefix || m.Prefix == ThawRules.Prefix))
+        {
+            double mass = Stat(d.Objects[spec.Prefix + "Installed"], "StatMass");
+            double Bill(int[] bill) => bill.Select((n, i) => n * Stat(DataHandler.dictCOs[EquipmentEconomy.Materials[i]], "StatMass")).Sum();
+            check(Math.Abs(Bill(spec.Salvage) - mass) < 1e-9 && Math.Abs(Bill(spec.BrokenSalvage) - mass) < 1e-9, "Salvage bills conserve the housing mass: " + spec.Prefix);
+        }
+        foreach (string image in new[] { SiloDefinitions.SiloArt, SiloDefinitions.ThawArt })
+        foreach (string suffix in new[] { "", "Normal", "Portrait" })
+        {
+            string path = System.IO.Path.Combine(repo, "mods/PhobosShipbreaker/images/phobos/shipbreaker", image + suffix + ".png");
+            check(System.IO.File.Exists(path), "Placeholder artwork exists until the handoff is produced: " + image + suffix);
+            if (!System.IO.File.Exists(path) || suffix == "Portrait") continue;
+            var png = System.IO.File.ReadAllBytes(path);
+            int Size(int offset) => (png[offset] << 24) | (png[offset + 1] << 16) | (png[offset + 2] << 8) | png[offset + 3];
+            int expected = image == SiloDefinitions.SiloArt ? 48 : 32;
+            check(Size(16) == expected && Size(20) == expected, "Placeholder world sprite uses the native footprint size: " + image + suffix);
+        }
+    }
+}

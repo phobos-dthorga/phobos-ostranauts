@@ -1,5 +1,5 @@
 [h1]Phobos Shipbreaker[/h1]
-[b]Version:[/b] 0.36.0
+[b]Version:[/b] 0.37.0
 
 [h2]Performance update[/h2]
 Furnace equipment searches create less temporary data, and industrial panels reuse shared display and ship-search helpers. Cooling, processing speed, heat and material accounting are unchanged.
@@ -23,13 +23,14 @@ Make the wreck pay for the next repair. Rivetline equipment brings wall processi
 [*]Version 0.34.0 lets the game lead: long unobserved intervals catch up like native machines, a hot room makes the R4 or the cutter wait and resume by itself, G4 wall eligibility follows the game's own uninstall rule, a refused finish closes its task, and stacked coolant charges are used one at a time.
 [*]Version 0.35.0 feeds by hand: right-click Load feed by crew keeps the D4, R4 or F6 loaded from anywhere aboard until you switch it off, the D4 waits for panels after one Start, every make of ordinary wall (14 to 48 kg) is accepted with products by mass, and loading orders carry on after a reload.
 [*]Version 0.36.0 widens the D4 to floor grates, DuraWal, Whipple and aero panels and windows of any make, each with a mass-conserving budget: native scrap and parts plus one terminal reject packet per family.
+[*]Version 0.37.0 adds the S3 process water silo (1,000 kg, filled at a station, from a T2 or from Ship's Water above a crew reserve, and returned to its waste tanks) and the T2 ice thaw unit (one block of water ice at a time into a linked silo or R3, gangue to its tray, 6 kW for 40 minutes). Placeholder artwork until the handoff is produced.
 [/list]
 
 [h2]Operating limits[/h2]
-Keep the supporting hull walls under the sealed chute. Processing needs power, output space and suitable cooling; vacuum is not free cooling. Older unclassified residue has no R4 recipe. Furnace heating and exterior work pause on interruption and require Resume. A repeat run pauses on any manoeuvre, interruption or manual furnace control, and never restarts heating by itself. Repeat runs and storage unloading pause on reload. Capture does not by itself authorize cutting. Loading preserves cargo and work; a fault may block further work for inspection.
+Keep the supporting hull walls under the sealed chute. Processing needs power, output space and suitable cooling; vacuum is not free cooling. Older unclassified residue has no R4 recipe. Furnace heating and exterior work pause on interruption and require Resume. The thaw unit warms nothing until its linked vessel has room; water is the only silo commodity. A repeat run pauses on any manoeuvre, interruption or manual furnace control, and never restarts heating by itself. Repeat runs and storage unloading pause on reload. Capture does not by itself authorize cutting. Loading preserves cargo and work; a fault may block further work for inspection.
 
 [h2]Requirements and installation[/h2]
-Ostranauts 1.0.1.5, BepInEx 5, Phobos Framework 0.38.0 or newer and Phobos Auto Nav 0.19.0 or newer. Crafting Framework and Salvage Workshop are optional. Agriculture integration is optional.
+Ostranauts 1.0.1.5, BepInEx 5, Phobos Framework 0.39.0 or newer and Phobos Auto Nav 0.19.0 or newer. Crafting Framework and Salvage Workshop are optional. Agriculture integration is optional.
 
 This is an unpublished development package. Automated checks do not establish in-game readiness or Unity layout approval. Keep required mods installed for saves using their content. Updating does not refill shops or old loot containers. See the installation guide for current download availability.
 

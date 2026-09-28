@@ -8,5 +8,5 @@ public static class CrewOrderRules
     /// <summary>The standing-order maximum: crew keep loading until the products have nowhere to go.</summary>
     public const int LoadStock = 256;
     public static string? FeedRecipe(string? id) => FurnaceRules.Machine(id) ? "housing" :
-        ReclaimerRules.IsFamily(id) || RoutingRules.IsProcessorFamily(id) ? "process" : null;
+        ReclaimerRules.IsFamily(id) || RoutingRules.IsProcessorFamily(id) ? "process" : ThawRules.IsFamily(id) ? "thaw" : null;
 }

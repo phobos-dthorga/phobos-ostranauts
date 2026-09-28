@@ -37267,19 +37267,6 @@
     },
     {
       "mod": "PhobosAgriculture",
-      "key": "bulk_lost",
-      "category": "log/diagnostic",
-      "decision": "add",
-      "reason": "Log line when a tank is destroyed with water inside, since native destruction is no longer blocked.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosAgriculture/BulkHooks.cs:42"
-      ],
-      "before": "Storage tank {0} was destroyed with {1:F1} kg of water inside. That water is gone.",
-      "after": "Storage tank {0} was destroyed with {1:F1} kg of water inside. That water is gone."
-    },
-    {
-      "mod": "PhobosAgriculture",
       "key": "crop_present",
       "category": "status/warning",
       "decision": "add",
@@ -37761,6 +37748,997 @@
       ],
       "before": "Composite core and adhesive from an aerodynamic panel after its skin and aluminium are taken. No further recipe.",
       "after": "Composite core and adhesive from an aerodynamic panel after its skin and aluminium are taken. No further recipe."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Silo.name",
+      "category": "item name",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/SiloDefinitions.cs:30"
+      ],
+      "before": "Process Water Silo",
+      "after": "Process Water Silo"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Silo.description",
+      "category": "item description",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/SiloDefinitions.cs:31"
+      ],
+      "before": "A sealed {2} x {2} silo holding {1:F0} kg of process water in a {0:F0} kg housing. Fill it at a station under Bulk supplies, from a linked T2 ice thaw unit, or from the ship's drinking-water tanks when Ship's Water is installed; send water back to its waste tanks for the Recycler. Not a drinking-water tank. Damage traps the water in a catch chamber: repair, then recover it.",
+      "after": "A sealed {2} x {2} silo holding {1:F0} kg of process water in a {0:F0} kg housing. Fill it at a station under Bulk supplies, from a linked T2 ice thaw unit, or from the ship's drinking-water tanks when Ship's Water is installed; send water back to its waste tanks for the Recycler. Not a drinking-water tank. Damage traps the water in a catch chamber: repair, then recover it."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Silo.status",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/SiloService.cs:30"
+      ],
+      "before": "Usable water: {0:F1} kg | Trapped water: {1:F1} kg\nCapacity: {2:F0} kg | Keep in reserve: {3:F1} kg\nThaw units delivering here: {4}",
+      "after": "Usable water: {0:F1} kg | Trapped water: {1:F1} kg\nCapacity: {2:F0} kg | Keep in reserve: {3:F1} kg\nThaw units delivering here: {4}"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Silo.protected",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/SiloService.cs:26",
+        "src/PhobosShipbreaker/SiloService.cs:35",
+        "src/PhobosShipbreaker/SiloService.cs:42",
+        "src/PhobosShipbreaker/SiloService.cs:73"
+      ],
+      "before": "Stopped to protect saved water records that could not be checked safely. Accept the contents as they are, or repair. See the log.",
+      "after": "Stopped to protect saved water records that could not be checked safely. Accept the contents as they are, or repair. See the log."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Silo.not_ready",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/SiloService.cs:43"
+      ],
+      "before": "The silo must be installed, undamaged, unlocked and on your own ship, with no transfer in progress.",
+      "after": "The silo must be installed, undamaged, unlocked and on your own ship, with no transfer in progress."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Silo.accept_done",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/SiloService.cs:39"
+      ],
+      "before": "Records accepted. The silo's mass now matches them and it can be used again.",
+      "after": "Records accepted. The silo's mass now matches them and it can be used again."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Silo.accept_unavailable",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/SiloService.cs:39"
+      ],
+      "before": "Cannot accept: the saved records are unreadable, or the silo needs repair rather than acceptance.",
+      "after": "Cannot accept: the saved records are unreadable, or the silo needs repair rather than acceptance."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Silo.catch_wait",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/SiloService.cs:30"
+      ],
+      "before": "Repair the silo and recover the trapped water before filling.",
+      "after": "Repair the silo and recover the trapped water before filling."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Silo.recovered",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/SiloService.cs:51"
+      ],
+      "before": "Recovered {0:F1} kg of trapped water into service.",
+      "after": "Recovered {0:F1} kg of trapped water into service."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Silo.nothing_to_recover",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/SiloService.cs:49"
+      ],
+      "before": "No trapped water to recover.",
+      "after": "No trapped water to recover."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Silo.reserve_field",
+      "category": "control",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/SiloService.cs:90"
+      ],
+      "before": "Keep in reserve",
+      "after": "Keep in reserve"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Silo.draw_field",
+      "category": "control",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/SiloService.cs:92"
+      ],
+      "before": "Draw from the drinking-water tanks",
+      "after": "Draw from the drinking-water tanks"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Silo.waste_field",
+      "category": "control",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/SiloService.cs:93"
+      ],
+      "before": "Send to the waste tanks",
+      "after": "Send to the waste tanks"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Silo.kg",
+      "category": "label",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/SiloService.cs:90",
+        "src/PhobosShipbreaker/SiloService.cs:92",
+        "src/PhobosShipbreaker/SiloService.cs:93"
+      ],
+      "before": "{0:G} kg",
+      "after": "{0:G} kg"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Silo.drawn",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/SiloService.cs:64"
+      ],
+      "before": "Drew {0:F1} kg from the drinking-water tanks, keeping {1:G} kg for the crew.",
+      "after": "Drew {0:F1} kg from the drinking-water tanks, keeping {1:G} kg for the crew."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Silo.nothing_drawn",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/SiloService.cs:64"
+      ],
+      "before": "Nothing drawn: no drinking water above the crew reserve, or no tank ready.",
+      "after": "Nothing drawn: no drinking water above the crew reserve, or no tank ready."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Silo.deposited",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/SiloService.cs:70"
+      ],
+      "before": "Sent {0:F1} kg to the waste tanks. The Recycler decides what comes back as drinking water.",
+      "after": "Sent {0:F1} kg to the waste tanks. The Recycler decides what comes back as drinking water."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Silo.nothing_deposited",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/SiloService.cs:70"
+      ],
+      "before": "Nothing sent: no waste tank with room, or nothing above the reserve.",
+      "after": "Nothing sent: no waste tank with room, or nothing above the reserve."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Silo.no_shipswater",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/SiloService.cs:58"
+      ],
+      "before": "Ship's Water 0.16.1 is not installed. Buy water at a station or thaw ice instead.",
+      "after": "Ship's Water 0.16.1 is not installed. Buy water at a station or thaw ice instead."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Silo.nothing_to_pause",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/SiloService.cs:40"
+      ],
+      "before": "Nothing to pause. A silo only stores water.",
+      "after": "Nothing to pause. A silo only stores water."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Silo.invalid_amount",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/SiloService.cs:56",
+        "src/PhobosShipbreaker/SiloService.cs:59"
+      ],
+      "before": "Choose a whole number of kilograms within the silo's capacity.",
+      "after": "Choose a whole number of kilograms within the silo's capacity."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Silo.done",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/SiloService.cs:57"
+      ],
+      "before": "Done.",
+      "after": "Done."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Silo.offer",
+      "category": "label",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/SiloService.cs:20"
+      ],
+      "before": "Process water (S3)",
+      "after": "Process water (S3)"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Silo.unit_kg",
+      "category": "label",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/SiloService.cs:20"
+      ],
+      "before": "kg",
+      "after": "kg"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Silo.action_accept",
+      "category": "control",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/SiloService.cs:115"
+      ],
+      "before": "Accept contents as they are",
+      "after": "Accept contents as they are"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Silo.action_recover",
+      "category": "control",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/SiloService.cs:116"
+      ],
+      "before": "Recover trapped water",
+      "after": "Recover trapped water"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Thaw.name",
+      "category": "item name",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/SiloDefinitions.cs:58"
+      ],
+      "before": "Ice Thaw Unit",
+      "after": "Ice Thaw Unit"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Thaw.description",
+      "category": "item description",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/SiloDefinitions.cs:59"
+      ],
+      "before": "An enclosed 2 x 2 thaw unit, {0:F0} kg. Melts one {1:G} kg block of water ice at a time into {2:G} kg of process water for a linked silo or reservoir within one tile, and drops {3:G} kg of gangue into its tray. Draws {4:G} kW for {5:G} minutes a block; part of that warms the room, so keep some air around it. Not a drinking-water source.",
+      "after": "An enclosed 2 x 2 thaw unit, {0:F0} kg. Melts one {1:G} kg block of water ice at a time into {2:G} kg of process water for a linked silo or reservoir within one tile, and drops {3:G} kg of gangue into its tray. Draws {4:G} kW for {5:G} minutes a block; part of that warms the room, so keep some air around it. Not a drinking-water source."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Thaw.feed_name",
+      "category": "item name",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/SiloDefinitions.cs:73"
+      ],
+      "before": "Ice Feed",
+      "after": "Ice Feed"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Thaw.feed_description",
+      "category": "item description",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/SiloDefinitions.cs:74"
+      ],
+      "before": "Holds {0} blocks of water ice, {1:G} kg each. Methane ice, gangue and stacked blocks are refused; place one block at a time.",
+      "after": "Holds {0} blocks of water ice, {1:G} kg each. Methane ice, gangue and stacked blocks are refused; place one block at a time."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Thaw.paused",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/ThawService.cs:27"
+      ],
+      "before": "Paused. Load water ice, link a vessel and start.",
+      "after": "Paused. Load water ice, link a vessel and start."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Thaw.feed_empty",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/ThawService.cs:104",
+        "src/PhobosShipbreaker/ThawService.cs:123",
+        "src/PhobosShipbreaker/ThawService.cs:186"
+      ],
+      "before": "Feed empty. Waiting for water ice.",
+      "after": "Feed empty. Waiting for water ice."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Thaw.invalid_feed",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/ThawService.cs:125"
+      ],
+      "before": "Only single, empty {0:G} kg blocks of water ice.",
+      "after": "Only single, empty {0:G} kg blocks of water ice."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Thaw.thawing",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/ThawService.cs:133",
+        "src/PhobosShipbreaker/ThawService.cs:242"
+      ],
+      "before": "Thawing.",
+      "after": "Thawing."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Thaw.waiting_vessel",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/ThawService.cs:129",
+        "src/PhobosShipbreaker/ThawService.cs:258"
+      ],
+      "before": "Waiting to deliver: {0}.",
+      "after": "Waiting to deliver: {0}."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Thaw.no_vessel",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/ThawService.cs:60"
+      ],
+      "before": "no silo or reservoir is linked",
+      "after": "no silo or reservoir is linked"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Thaw.vessel_not_ready",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/ThawService.cs:63"
+      ],
+      "before": "the linked vessel is damaged, locked, moved away or not on this ship",
+      "after": "the linked vessel is damaged, locked, moved away or not on this ship"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Thaw.vessel_protected",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/ThawService.cs:65"
+      ],
+      "before": "the linked vessel is protected or busy; accept its contents or wait",
+      "after": "the linked vessel is protected or busy; accept its contents or wait"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Thaw.vessel_catch",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/ThawService.cs:68"
+      ],
+      "before": "the linked vessel holds trapped water; recover it after repair",
+      "after": "the linked vessel holds trapped water; recover it after repair"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Thaw.vessel_full",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/ThawService.cs:70"
+      ],
+      "before": "the linked vessel has {0:F1} kg of room and a block needs {1:G} kg",
+      "after": "the linked vessel has {0:F1} kg of room and a block needs {1:G} kg"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Thaw.tray_full",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/ThawService.cs:266"
+      ],
+      "before": "Waiting: the gangue tray is full. Empty it.",
+      "after": "Waiting: the gangue tray is full. Empty it."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Thaw.input_changed",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/ThawService.cs:192",
+        "src/PhobosShipbreaker/ThawService.cs:240",
+        "src/PhobosShipbreaker/ThawService.cs:256"
+      ],
+      "before": "The ice block changed or was removed. Queue paused.",
+      "after": "The ice block changed or was removed. Queue paused."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Thaw.output_definition_changed",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/ThawService.cs:264"
+      ],
+      "before": "The game's ice gangue definition changed; the block was not finished.",
+      "after": "The game's ice gangue definition changed; the block was not finished."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Thaw.output_placement_failed",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/ThawService.cs:270"
+      ],
+      "before": "The gangue could not be placed in the tray.",
+      "after": "The gangue could not be placed in the tray."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Thaw.input_not_removed",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/ThawService.cs:279"
+      ],
+      "before": "The ice block could not be removed from the feed.",
+      "after": "The ice block could not be removed from the feed."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Thaw.complete",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/ThawService.cs:293"
+      ],
+      "before": "Block finished. Start again for the next one.",
+      "after": "Block finished. Start again for the next one."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Thaw.waiting_power",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/ThawService.cs:242"
+      ],
+      "before": "Waiting for power. Progress retained.",
+      "after": "Waiting for power. Progress retained."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Thaw.fault",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/ThawService.cs:165",
+        "src/PhobosShipbreaker/ThawService.cs:336"
+      ],
+      "before": "Thaw fault. Queue paused; check the log.",
+      "after": "Thaw fault. Queue paused; check the log."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Thaw.cancelled",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/ThawService.cs:145"
+      ],
+      "before": "Work cancelled. The ice stays in the feed; spent energy is lost.",
+      "after": "Work cancelled. The ice stays in the feed; spent energy is lost."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Thaw.paused_retained",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/ThawService.cs:145"
+      ],
+      "before": "Paused. Progress retained.",
+      "after": "Paused. Progress retained."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Thaw.status",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/ThawService.cs:312"
+      ],
+      "before": "{0}\nIce loaded: {1} of {2} | Work: {3:F0} of {4:F0} s | {5}\nDelivering to: {6}",
+      "after": "{0}\nIce loaded: {1} of {2} | Work: {3:F0} of {4:F0} s | {5}\nDelivering to: {6}"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Thaw.completed_log",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/ThawService.cs:287"
+      ],
+      "before": "Thawed block {0}: {1:G} kg of water into {2}, {3:G} kg of gangue to the tray.",
+      "after": "Thawed block {0}: {1:G} kg of water into {2}, {3:G} kg of gangue to the tray."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Thaw.vessel_field",
+      "category": "control",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/SiloService.cs:96"
+      ],
+      "before": "Deliver water to",
+      "after": "Deliver water to"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Thaw.link_none",
+      "category": "control",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/SiloService.cs:97"
+      ],
+      "before": "No vessel",
+      "after": "No vessel"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Thaw.linked",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/ThawService.cs:330",
+        "src/PhobosShipbreaker/ThawService.cs:332"
+      ],
+      "before": "Linked. Water from each block goes to this vessel.",
+      "after": "Linked. Water from each block goes to this vessel."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Thaw.unlinked",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/ThawService.cs:325"
+      ],
+      "before": "Link cleared.",
+      "after": "Link cleared."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Thaw.link_missing",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/ThawService.cs:328"
+      ],
+      "before": "Choose an installed silo or reservoir within one tile of the thaw unit, on this ship.",
+      "after": "Choose an installed silo or reservoir within one tile of the thaw unit, on this ship."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Thaw.link_busy",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/ThawService.cs:320"
+      ],
+      "before": "Pause the thaw unit before changing where it delivers.",
+      "after": "Pause the thaw unit before changing where it delivers."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Thaw.install_first",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/ThawService.cs:77"
+      ],
+      "before": "Install the undamaged thaw unit first.",
+      "after": "Install the undamaged thaw unit first."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Thaw.repair_first",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/ThawService.cs:78"
+      ],
+      "before": "Repair the thaw unit first.",
+      "after": "Repair the thaw unit first."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Thaw.unlock",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/ThawService.cs:80"
+      ],
+      "before": "Unlock the thaw unit, its feed and its tray.",
+      "after": "Unlock the thaw unit, its feed and its tray."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Thaw.switched_off",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/ThawService.cs:81"
+      ],
+      "before": "The thaw unit is switched off.",
+      "after": "The thaw unit is switched off."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Thaw.missing_feed",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/ThawService.cs:82"
+      ],
+      "before": "The thaw unit is missing its feed or tray.",
+      "after": "The thaw unit is missing its feed or tray."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Thaw.demand",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/ThawService.cs:314"
+      ],
+      "before": "Working power: {0:G} kW, about {1:G} kW of it warming the room.",
+      "after": "Working power: {0:G} kW, about {1:G} kW of it warming the room."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Thaw.action_start",
+      "category": "control",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/SiloService.cs:120"
+      ],
+      "before": "Start / resume thawing",
+      "after": "Start / resume thawing"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Thaw.action_pause",
+      "category": "control",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/SiloService.cs:120"
+      ],
+      "before": "Pause thawing",
+      "after": "Pause thawing"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Thaw.action_cancel",
+      "category": "control",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/SiloService.cs:120"
+      ],
+      "before": "Cancel; keep the ice",
+      "after": "Cancel; keep the ice"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Industry.group_silo",
+      "category": "label",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/IndustrialPanel.cs:158"
+      ],
+      "before": "Process water silos",
+      "after": "Process water silos"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Industry.group_thaw",
+      "category": "label",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/IndustrialPanel.cs:158"
+      ],
+      "before": "Ice thaw units",
+      "after": "Ice thaw units"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Crew.recipe_thaw",
+      "category": "control",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/CrewProvider.cs:53",
+        "src/PhobosShipbreaker/CrewProvider.cs:109"
+      ],
+      "before": "Thaw water ice into the linked vessel",
+      "after": "Thaw water ice into the linked vessel"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Crew.action_thaw",
+      "category": "control",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/CrewProvider.cs:53",
+        "src/PhobosShipbreaker/CrewProvider.cs:109"
+      ],
+      "before": "Start thawing the loaded ice",
+      "after": "Start thawing the loaded ice"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Settings.crew_water_reserve",
+      "category": "settings help",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/Settings.cs:50"
+      ],
+      "before": "Kilograms of drinking water left in the Ship's Water tanks when a silo draws from them.",
+      "after": "Kilograms of drinking water left in the Ship's Water tanks when a silo draws from them."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "BulkVessel.lost",
+      "category": "log",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Liquids/BulkVessel.cs:215"
+      ],
+      "before": "Bulk vessel {0} was destroyed with {2:F1} kg of {1} inside. That material is gone.",
+      "after": "Bulk vessel {0} was destroyed with {2:F1} kg of {1} inside. That material is gone."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "BulkVessel.quote_changed",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Trading/VesselSupplyProvider.cs:52"
+      ],
+      "before": "The destination or its available room changed. Choose the quantity again for a fresh quote.",
+      "after": "The destination or its available room changed. Choose the quantity again for a fresh quote."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Silo.maintenance_water",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/SiloService.cs:40"
+      ],
+      "before": "Send the water to the waste tanks or let a linked process use it before dismantling; dismantling would destroy it. Uninstalling keeps the water in the loose silo.",
+      "after": "Send the water to the waste tanks or let a linked process use it before dismantling; dismantling would destroy it. Uninstalling keeps the water in the loose silo."
     }
   ],
   "documents": [
@@ -37768,7 +38746,7 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "28ec1e66ad7052b18d9c6d23d9722b61b07f33797c43de99bff0cc37188c3762",
+      "sha256": "8abee389beaf322da2a2bdad1ac2b221c0900aa276e45428248a6a91de8cfffe",
       "review": "2026-09-29: version summary; no other wording changed."
     },
     {
@@ -37782,22 +38760,22 @@
       "path": "docs/README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "061d0897786bed30d98c4b5b7499543a68112f077cad166b1cb5a365130924c7",
-      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+      "sha256": "c300902a70d4b6e01582b1e891bf4da32b8e84ce3ec9064c05fe9b0712a8352a",
+      "review": "2026-09-29: operating-guide bullet and reference index line for the silo guide."
     },
     {
       "path": "docs/agriculture-bulk-storage.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "d921d90559d6da248c230fd1afd2dfad66a25fa7c3d925eda3c918be3f7d63d7",
-      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+      "sha256": "ddcd6992b0078ab340b3c57bc8b260fbdbd9d5caf817af9a4dfce7bdccc209a2",
+      "review": "2026-09-29: new shared-vessels section: custody moved to Framework, saves unchanged, T2 delivery."
     },
     {
       "path": "docs/agriculture-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "17930ebcf867d3a379de7e1b1e510da7c08972ece300bdaf2e2147f6eb184ec5",
-      "review": "2026-09-28: regenerated from reviewed inputs: version only."
+      "sha256": "9a49de97fc82939e63161f6df12976abab6166152bfb1b77dbcb08732f8db7e0",
+      "review": "2026-09-29: regenerated from reviewed inputs: version only."
     },
     {
       "path": "docs/agriculture-nutrient-production.md",
@@ -37927,22 +38905,22 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "2952fd27075303819bd87ba23495e0290d2efbb575333092d5e051f7d6674ac3",
+      "sha256": "895c77edfb95d7d7a33633b222049b5caafab5f9e3ecc30270a7b8155fea48fc",
       "review": "2026-09-29: version line; no other wording changed."
     },
     {
       "path": "docs/crew-automation.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "043497d9f60f0962644f11cc8acb5230755c1bcd86a8af4d9521038078269714",
-      "review": "2026-09-29: D4 row names the part families."
+      "sha256": "e2c183749b94af343d3f1a186e88a83409978213e83d1b55709ab6f137f1c9ac",
+      "review": "2026-09-29: T2 thaw unit row."
     },
     {
       "path": "docs/development/README.md",
       "scope": "documentation index/audit; no gameplay behavior",
       "decision": "review audience separation and evidence limits",
-      "sha256": "8e3f8366bdd15cc81ac6f51d0a0135d3d4f011d8cf3399cbc5790024c050f93c",
-      "review": "2026-09-29: index line for the feed-families record."
+      "sha256": "18216e6b2c797ae68c0e838d1bd09f194d7881b01f7093125c21c7c568d3a1bb",
+      "review": "2026-09-29: index line for the artwork handoff."
     },
     {
       "path": "docs/development/agriculture-bulk-storage-art.md",
@@ -37955,8 +38933,8 @@
       "path": "docs/development/agriculture-bulk-storage-calculations.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "7ecd2d0435c946a5657c14314646ddee04e7060c70a1ca67612dbb3fbc0682e0",
-      "review": "2026-09-28: source fingerprints regenerated after the 0.17.0 bulk-storage hook changes; explanatory text unchanged."
+      "sha256": "8806d573feb299fda161ac15062fb28fa6f192389dc51133061c4b24df50f196",
+      "review": "2026-09-29: regenerated: source hash of BulkDefinitions.cs only; figures unchanged."
     },
     {
       "path": "docs/development/agriculture-bulk-storage-design.md",
@@ -38072,7 +39050,8 @@
       "path": "docs/development/asteroid-life-support-research.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "8bb6a7dfda5a51a57d527369a5b14a9063d0417e3b184a8acdbb8ed4b439afd5"
+      "sha256": "c675d9871afa5b838644410b4906545e297763ba208ba75643d168d1c9472d07",
+      "review": "2026-09-29: implementation pointer under the water chain heading; research retained."
     },
     {
       "path": "docs/development/auto-nav-hub-validation.md",
@@ -38135,11 +39114,18 @@
       "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
     },
     {
+      "path": "docs/development/bulk-silo-art-handoff.md",
+      "scope": "contributor artwork handoff; placeholders are not reviewed art",
+      "decision": "add",
+      "sha256": "08508a429e46d8afc6c05797e3305b62c8290ca5eaaf47d88a0d5a765c8a3747",
+      "review": "2026-09-29: new contributor handoff: placeholders, rules, prompt prefix, three requests, review checklist."
+    },
+    {
       "path": "docs/development/chemical-storage-and-process-fluids.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "041f6202820d4e8f692c20675bcaf6de94885b9aa8dd8c59dea70e24af1858e5",
-      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+      "sha256": "b9538b444aa85b3e6f0d1941a692fbf9fce5b714d9f488ba250a8fe2574ab2b5",
+      "review": "2026-09-29: dated bulk-silos paragraph; future work retained."
     },
     {
       "path": "docs/development/claude-code-handoff.md",
@@ -38179,7 +39165,8 @@
       "path": "docs/development/equipment-value-audit.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "60798f33391b1cd44c652fb60236041df0c213ae3bcfcbb940bebc33de3496f6"
+      "sha256": "78817dd58a6a8e5649a2adaa1346d13bbde0a93d4876edd004bb3788dacb1f07",
+      "review": "2026-09-29: regenerated audit with the S3 and T2 rows."
     },
     {
       "path": "docs/development/feed-families.md",
@@ -38212,8 +39199,8 @@
       "path": "docs/development/framework-bulk-storage.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "9ad81c3a885ab0516aae7fcad21e49cb373eaa752fed6f3ce94188b2760cf0c0",
-      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+      "sha256": "e2e8d1a2565494056685bbcfe6bb19161bec81c269a56a9c1e4b0e3b97391578",
+      "review": "2026-09-29: R3 custody note and the new Framework 0.39.0 bulk-vessel section."
     },
     {
       "path": "docs/development/furnace-connections-and-instruments.md",
@@ -38289,15 +39276,15 @@
       "path": "docs/development/install-catalogue.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "0235a294d0ef65b9aa089dd010ceed63276efb04b2893dc31c0adcb2d0ef8ee1",
-      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+      "sha256": "b3a8fde4d53ddae04041b1cbfa0ff552a166e77006c43a7f553e2f87208bc461",
+      "review": "2026-09-29: APPS row names the S3 and T2."
     },
     {
       "path": "docs/development/item-handling-audit.md",
       "scope": "current handling guidance and complete generated definition ledger",
       "decision": "reviewed",
-      "sha256": "c4777e2a8a589eb83deb46733cc1d0caf6738e775128b1752d7dbe9b9b7de915",
-      "review": "2026-09-29: regenerated handling ledger with the five reject identities."
+      "sha256": "019e0aa32a514954d50a2947107b71d81b6c22e76cf7d7f8a8ff17801392a3e2",
+      "review": "2026-09-29: regenerated handling ledger with the S3, T2 and ice feed identities."
     },
     {
       "path": "docs/development/item-reference-maintenance.md",
@@ -38608,8 +39595,8 @@
       "path": "docs/equipment-economy.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "468f29ea466af14ee6a75abef2b86f42e937d09bd395be4f56da696fa6f4e734",
-      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+      "sha256": "56a49c0167da457abdcc65fc15a2ea0ff85929bc931089e2b5447748f4328627",
+      "review": "2026-09-29: S3 and T2 rows in the price and work-time tables."
     },
     {
       "path": "docs/fluid-network-operations.md",
@@ -38622,7 +39609,7 @@
       "path": "docs/framework-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "10c378a5aba873e2b33d18600426bc1ba238119a5726a0886788debc1e4abaae",
+      "sha256": "4c0e0a8b7a8728b8a6c2f26ac92c38c975c9225aed5f0942bb4fd503ef69838a",
       "review": "2026-09-29: regenerated from reviewed inputs: version only."
     },
     {
@@ -38678,15 +39665,15 @@
       "path": "docs/industrial-console-player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "afffcb7522376a16b0f10fd9141fd556c708d46447bf46e745d93f4b2e209167",
-      "review": "2026-09-29: version line; no other wording changed."
+      "sha256": "60071a4bb48d1ca71a6c0f4dbd5b3042bf09cd68a107861ef07ff8ff485e6d08",
+      "review": "2026-09-29: equipment list names silos and thaw units."
     },
     {
       "path": "docs/installing-mods.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "21a6f26051aff6fc3a44afb736c6b8282b0404f87ed25461edd7fa3c2ef51162",
-      "review": "2026-09-29: minimum Framework version; no other wording changed."
+      "sha256": "275bfc3eff421fac972e2a193fedfa425a413cc2ffb2158e1eb0607e2e9620b5",
+      "review": "2026-09-29: dependency minima lines; no other wording changed."
     },
     {
       "path": "docs/item-references.md",
@@ -38720,8 +39707,8 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "f93d84f149ad8bd0cd068708ab8dd07337ba8ad24079ad8cc79c85cdd80507bb",
-      "review": "2026-09-29: load steps and the hand-fed section name the part families; symptom row; version line."
+      "sha256": "e981b832704e9e10329465a668262a557115625e9820272b1385b2836f608846",
+      "review": "2026-09-29: version lines and a pointer paragraph to the silo guide in the hand-fed section."
     },
     {
       "path": "docs/residue-collector.md",
@@ -38752,6 +39739,13 @@
       "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
     },
     {
+      "path": "docs/shipbreaker-bulk-silos.md",
+      "scope": "player operating guide for the S3 silo and T2 thaw unit",
+      "decision": "add",
+      "sha256": "ff820714b3cf3ca77258ce48f0e3bdabacf810eb7ffb9cafbff9914b6501e84b",
+      "review": "2026-09-29: new operating guide: equipment, setup, filling, recovery, heat, limits, research credit."
+    },
+    {
       "path": "docs/shipbreaker-hull-intake.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
@@ -38762,8 +39756,8 @@
       "path": "docs/shipbreaker-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "c3e2fd3921b87ad220e3a664423ec8d5d0c102edbe882c45bac43016c41ec9f3",
-      "review": "2026-09-29: regenerated from reviewed inputs: D4, G4 and compartment text, five reject entries, version."
+      "sha256": "de90ff0af8d0045e003e0ced2ae932affce09b01b4790219ecf733ffa3ef22fd",
+      "review": "2026-09-29: regenerated from reviewed inputs: S3, T2 and ice-feed entries, version."
     },
     {
       "path": "docs/shipbreaker-material-uses.md",
@@ -38790,8 +39784,8 @@
       "path": "workshop/PhobosAgriculture/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "087d8fefee16d31b44207b41f17750cb634282e840208c058dc83463793533f9",
-      "review": "2026-09-28: version and minimum; new bullet on the 0.17.0 vanilla-precedence fixes; stacked-supply and old-food limits."
+      "sha256": "2aa5e196fc77a357028e78d6d9969d6ad58d5a15500a4a72142ee198ad4e0b0a",
+      "review": "2026-09-29: version, requirements line and 0.18.0 bullet."
     },
     {
       "path": "workshop/PhobosAutoNav/page.bbcode",
@@ -38804,8 +39798,8 @@
       "path": "workshop/PhobosFramework/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "a706153a585c9bc0a29ad2f69308214d79b94856024767d0978befe7ceebe8c7",
-      "review": "2026-09-29: version; new bullet on anywhere-aboard supplies."
+      "sha256": "718dd70cfbf2a9776b74d4636d3164592bae0fff14dc5341acfa165981212a3c",
+      "review": "2026-09-29: version and 0.39.0 bullet."
     },
     {
       "path": "workshop/PhobosManufacturing/page.bbcode",
@@ -38818,16 +39812,16 @@
       "path": "workshop/PhobosShipbreaker/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "9e2cd6d39de59176c6fe40b3c6eefbb11c8cd4807552ff166793dff97a19826a",
-      "review": "2026-09-29: version; first bullet names the part families; new bullet for 0.36.0."
+      "sha256": "a37bbf152f8011479aedd04061b6ba9673fe4ad2606e2eb91a7a841e5df85c4f",
+      "review": "2026-09-29: version, requirements line, 0.37.0 bullet, operating-limits sentence."
     }
   ],
   "surfaces": [
     {
       "path": "config/item-reference.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "c2d765fca02ce98888198d2a54bd8e7c973accb207906245d14917c24bb925fb",
-      "review": "2026-09-29: D4, G4 and compartment use text; five reject entries."
+      "sha256": "e6d80699d82cdf9825c811b86750f02758e96dca723c168769b834ace5b7457a",
+      "review": "2026-09-29: S3 and T2 groups; ice feed in the compartments group."
     },
     {
       "path": "mods/PhobosAgriculture/framework/equipment-names.json",
@@ -38842,8 +39836,8 @@
     {
       "path": "mods/PhobosAgriculture/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "2a8c751da453e4691e1869742bc26cce97269eb105d29fd3c958692f590b1df7",
-      "review": "2026-09-28: version metadata only."
+      "sha256": "b73e8e029b36e24b745408a5b569d34e9f8f5a5566a3ace2b053632f8021c3a5",
+      "review": "2026-09-29: version metadata only."
     },
     {
       "path": "mods/PhobosAutoNav/data/cooverlays/phobos_approach_assist.json",
@@ -38874,7 +39868,7 @@
     {
       "path": "mods/PhobosFramework/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "a2a48f10f8e4aed3f9cc5101680b961aa49b99c359d1f3f1588a17ca5b45bd36",
+      "sha256": "c4074cc6b4e8e952816963901b6a1a7e0da0f4d992e2a69a788a4fbbc88ad39b",
       "review": "2026-09-29: version metadata only."
     },
     {
@@ -38885,7 +39879,8 @@
     {
       "path": "mods/PhobosShipbreaker/framework/equipment-names.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "06ca1a5fe39812844c8f114303e7205b1d366f8466bd614966e39f5f57844db8"
+      "sha256": "13101a2b3003cc7e29b4ff2ca9fdc006dfa15b0ff13a01522eafc834367d8fae",
+      "review": "2026-09-29: Rivetline S3 and T2 identities for the silo, thaw unit and its feed."
     },
     {
       "path": "mods/PhobosShipbreaker/framework/recipes.json",
@@ -38895,7 +39890,7 @@
     {
       "path": "mods/PhobosShipbreaker/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "32bdc3f4c7557437da29ca5c4d0031ef49d1e9edcfa30eb47a1e4d60a4eaa62a",
+      "sha256": "3a285d855cede89e67290482059b5cd4d76c42d155d25f3b631c4d82d0bfbd14",
       "review": "2026-09-29: version metadata only."
     }
   ],

@@ -20,6 +20,18 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.39.0] - 2026-09-29 - Draft
+
+### Added
+
+- Bulk vessels: Liquids.BulkVesselSpec declares a family of silos, reservoirs or tanks (definition prefix, one commodity, capacity and dry mass in kg, record names); BulkVessels is the registry; BulkVessel keeps custody (native mass equal to dry mass plus contents plus cargo, transfer and conversion journals, Protected state, owner-confirmed Accept, snapshots and a reservoir endpoint). Contents follow a mode switch into a successor of the same family and are isolated when it is damaged; contents lost with a destroyed vessel are logged, never blocked.
+- Trading.VesselSupplyProvider: a station Bulk supplies provider over registered vessel families with content-declared offers and measured delivery.
+- ShipsWaterSupply.DepositWaste and WasteCapacityKg: optional, 0.16.1-pinned deposit into installed Ship's Water waste tanks through guarded transfers, up to the capacity their own configuration declares; the potable tanks are never written to.
+
+### Compatibility and limits
+
+- Additive API. Agriculture's R3 registers with the record names every saved R3 already carries, so saves read unchanged. Framework never assumes a fluid density; a vessel commodity is an id in kilograms, not a native gas or fuel stat. Required by Shipbreaker 0.37.0 and Agriculture 0.18.0. Offline checks pass; owner play-testing is pending.
+
 ## [0.38.0] - 2026-09-29 - Draft
 
 ### Added

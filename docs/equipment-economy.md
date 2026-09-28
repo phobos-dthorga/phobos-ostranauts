@@ -154,6 +154,8 @@ Repair restores functionality, not the pristine designation.
 | Scrap reclaimer | 180 kg | $14,800 | $18,500 | $11,100 | $3,700 |
 | Reclaimer assembly section | 90 kg | $6,000 | — | — | — |
 | Auto Nav module | 0.4 kg | $3,600 | $4,500 | $2,700 | $900 |
+| Process water silo (0.37.0) | 240 kg empty | $4,800 | $6,000 | $3,600 | $1,200 |
+| Ice thaw unit (0.37.0) | 120 kg | $3,200 | $4,000 | $2,400 | $800 |
 
 Installed and loose forms have the same base price. Uninstall before trading.
 Sections are unfinished construction stock with no separate wear/broken family.
@@ -234,6 +236,8 @@ repair and dismantle values are normalized to **unit work/tool multipliers**.
 | Chute | 30 min | 6 / 6 min | 18 min | 18 min |
 | Collector | 40 min | 7.2 / 6 min | 21.6 min | 21 min |
 | Auto Nav | 30 min | native module placement | 10.8 min | 6 min |
+| Process water silo | purchase only | 14.4 / 10.8 min | 28.8 min | 48 min |
+| Ice thaw unit | purchase only | 9.6 / 7.2 min | 24 min | 30 min |
 
 Native work ticks are 0.001 hours (3.6 seconds). Install/uninstall/repair apply
 five progress units per unmodified tick; dismantle applies one. Chosen progress

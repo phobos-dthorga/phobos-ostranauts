@@ -151,6 +151,15 @@ with nearest-neighbour filtering. These are mechanical exports with no repaintin
 background replacement or generated normal data. The script writes only these
 concept previews, not mod packages or game directories.
 
+## Placeholder silo and thaw-unit sprites — 29 September 2026
+
+Shipbreaker 0.37.0 ships procedural placeholders for the S3 process water silo
+(48 x 48) and the T2 ice thaw unit (32 x 32): `scripts/export-silo-placeholder-art.py`
+draws them at 4x into `placeholders/source/` and exports native colour, flat normal
+and 256 px portrait images. They are deterministic stand-ins, not reviewed art,
+and are replaced by the requests in
+[the artwork handoff](../../docs/development/bulk-silo-art-handoff.md).
+
 ## Provenance
 
 The generated master and mechanical derivatives are Phobos-created project art

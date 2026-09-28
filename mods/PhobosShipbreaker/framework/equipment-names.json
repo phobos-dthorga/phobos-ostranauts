@@ -174,5 +174,17 @@
   "Recipe.PhobosBuildFurnaceThermalPort.name": {
     "brand": "Rivetline",
     "model": "F6-P"
+  },
+  "Silo.name": {
+    "brand": "Rivetline",
+    "model": "S3"
+  },
+  "Thaw.name": {
+    "brand": "Rivetline",
+    "model": "T2"
+  },
+  "Thaw.feed_name": {
+    "brand": "Rivetline",
+    "model": "T2"
   }
 }
