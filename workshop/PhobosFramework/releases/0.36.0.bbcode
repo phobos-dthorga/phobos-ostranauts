@@ -1,0 +1,33 @@
+[h1]Phobos Framework 0.36.0[/h1]
+[b]Draft - not published | 2026-09-28[/b]
+
+[h2]Fixed[/h2]
+
+[list]
+[*]Any crew member the game admits can take a standing-order step. Tasks used to name your own character as their owner, and the game forbids everyone not on an owner list, so no other crew member ever took one.
+[*]Several orders can feed one store. The game keeps one task per target and action unless told otherwise, so later orders on the same store were silently dropped.
+[*]Crew who are merely not rested, sated or slaked, or in moderate pain, are no longer refused work. The game's own pledges put eating, drinking and rest first, as they do for painted jobs; unconsciousness, combat and emergencies still block.
+[*]A step is no longer refused because the equipment's contents changed after the claim (a tidied stack, for example); the provider checks the actual contents when it completes.
+[*]Training credit is no longer lost when the game reuses a pooled action object for a later action.
+[*]Time-skip repairs keep the game's own repair allowance, scaled by the share of on-shift crew time our jobs left free, instead of a replacement count that was up to six times smaller. A skip suspends only orders on the skipping crew's ships that it cannot advance.
+[*]A refused dismantle, repair or construction finish now closes the game's task for it, as native effects do, instead of leaving that task listed forever. The reason goes to the actor's crew log.
+[*]An internal bin counts as empty within the shared mass tolerance rather than at exactly zero.
+[*]Transfer clocks, pump budgets and processing jobs accept long intervals such as a time-skip or a reload gap and catch up like native machines; the electricity actually received bounds the work. Content mods' own "time gap" pauses no longer trigger and are removed in their next versions.
+[*]Without Ship's Water, a missing tank rule no longer counts as always true (the game returns its always-true Blank trigger for an unknown name).
+[*]The unsaved-changes guard applies only to the panel hosting a Phobos shell; closing any other panel proceeds natively.
+[*]Escape closes a store picker before its panel, as with native sub-windows, and pause, time-scale, console and screenshot keys stay live while picking in the world.
+[/list]
+
+[h2]Changed[/h2]
+
+[list]
+[*]Native loot tables and construction stations are amended in place instead of being cloned and republished under their own names; the game's own objects and every other mod's entries stay.
+[*]The standing-order task action is cloned from the vanilla Toggle Power job (Operate duty, tooling animation) rather than from the inventory panel action.
+[*]The F3 command phobosframework crew also names who could take each order step right now.
+[/list]
+
+[h2]Compatibility and limits[/h2]
+
+[list]
+[*]Additive API: NativeDefinitions.Amend and LootBranches, NativeEffects.Refuse, ShipsWaterSupply.Rule and CrewBalance.RepairShare. TransferClock.MaximumStepSeconds is replaced by MaximumCycleSeconds: steps are unbounded, cycles stay 1 to 60 seconds. No saved identities or records change. Content mods built against 0.35.0 keep working; Agriculture and Shipbreaker updates that remove their own time-gap and finish-time workarounds follow. Offline checks pass; owner play-testing is pending. Findings and evidence: docs/development/vanilla-precedence-audit.md.
+[/list]

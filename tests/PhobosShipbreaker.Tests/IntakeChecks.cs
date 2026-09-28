@@ -28,8 +28,10 @@ internal static class IntakeChecks
         var clock = new TransferClock("panel-A", 5);
         check(clock.Advance("panel-A", 2, true) && clock.Progress == 2, "Powered intake advances");
         check(clock.Advance("panel-A", 20, false) && clock.Progress == 2, "Blackout earns no transfer work");
-        foreach (double elapsed in new[] { -1, 61, double.NaN, double.PositiveInfinity })
-            check(!clock.Advance("panel-A", elapsed, true) && clock.Progress == 2, "Clock discontinuity cannot finish a transfer");
+        foreach (double elapsed in new[] { -1, double.NaN, double.PositiveInfinity })
+            check(!clock.Advance("panel-A", elapsed, true) && clock.Progress == 2, "Invalid clock interval cannot finish a transfer");
+        var caughtUp = new TransferClock("panel-A", 5);
+        check(caughtUp.Advance("panel-A", 3600, true) && caughtUp.Complete, "A long powered interval completes intake motion instead of disarming it");
         check(!clock.Advance("panel-B", 3, true) && clock.Progress == 2, "Replacement panel cannot inherit pending motion");
         check(clock.Advance("panel-A", 10, true) && clock.Complete && clock.Progress == 5, "Completed motion caps credit");
         check(new TransferClock("panel-A", 5).Progress == 0, "Reload/re-arm starts a fresh delay without transforming material");

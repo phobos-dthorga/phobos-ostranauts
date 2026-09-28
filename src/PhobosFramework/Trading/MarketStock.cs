@@ -48,11 +48,8 @@ public static class MarketStock
     public static void AddMissing(NativeDefinitions d, string merchantLoot, string offerId, string itemId,
         double probability, StockCondition condition, int quantity)
     {
-        if (d.Loot.TryGetValue(merchantLoot, out var parent) &&
-            (parent.aLoots ?? Array.Empty<string>()).Any(link => {
-                string branch = link.EndsWith("=1x1", StringComparison.Ordinal) ? link.Substring(0, link.Length - 4) : "";
-                return d.Loot.ContainsKey(branch) && Offers.TryGetValue(branch, out var offer) && offer.Item == itemId;
-            })) return;
+        if (d.LootBranches.TryGetValue(merchantLoot, out var branches) &&
+            branches.Any(branch => Offers.TryGetValue(branch, out var offer) && offer.Item == itemId)) return;
         Add(d, merchantLoot, offerId, itemId, probability, condition, quantity);
     }
 

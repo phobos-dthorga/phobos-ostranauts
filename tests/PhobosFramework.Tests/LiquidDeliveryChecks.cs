@@ -9,8 +9,10 @@ internal static class LiquidDeliveryChecks
         void Near(double a, double b, string name) => check(Math.Abs(a-b) < 1e-9, name);
         Near(LiquidDeliveryBudget.Kilograms(10, .0002, .05, .001), .2, "Partial power limits actual delivery");
         Near(LiquidDeliveryBudget.Kilograms(10, 1, .05, .001), .5, "Flow budget limits excess power");
-        foreach (double gap in new[] { -1d, 0, 3601, double.NaN, double.PositiveInfinity })
-            Near(LiquidDeliveryBudget.Kilograms(gap, 1, .05, .001), 0, "No catch-up for invalid or unloaded interval");
+        foreach (double gap in new[] { -1d, 0, double.NaN, double.PositiveInfinity })
+            Near(LiquidDeliveryBudget.Kilograms(gap, 1, .05, .001), 0, "No catch-up for an invalid interval");
+        Near(LiquidDeliveryBudget.Kilograms(3601, 1, .05, .001), 180.05, "A long interval (time-skip, reload gap) delivers what its received electricity and flow allow");
+        Near(LiquidDeliveryBudget.Kilograms(21600, .5, .05, .001), 500, "Received electricity, not the interval length, bounds a long catch-up");
         Near(LiquidDeliveryBudget.Kilograms(10, 0, .05, .001), 0, "No electricity means no pumped water");
         var sm = new Dictionary<string, Dictionary<string, string>>(); var dm = new Dictionary<string, Dictionary<string, string>>();
         LiquidTransferGuard Guard(Dictionary<string, Dictionary<string, string>> maps) => new(maps, "test", "test.owner");

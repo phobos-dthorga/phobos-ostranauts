@@ -20,6 +20,18 @@ public sealed class NativeDefinitions
     public readonly Dictionary<string, JsonInteraction> Interactions = new Dictionary<string, JsonInteraction>(StringComparer.Ordinal);
     public readonly Dictionary<string, Loot> Loot = new Dictionary<string, Loot>(StringComparer.Ordinal);
     public readonly Dictionary<string, JsonInstallable> Installables = new Dictionary<string, JsonInstallable>(StringComparer.Ordinal);
+    /// <summary>Loot branches this set links into native tables in place, by table id (see AdditiveLoot).</summary>
+    public readonly Dictionary<string, HashSet<string>> LootBranches = new Dictionary<string, HashSet<string>>(StringComparer.Ordinal);
+    private readonly List<Action> amendments = new List<Action>();
+
+    /// <summary>Queue an additive, idempotent in-place change to a definition the game or another mod
+    /// owns (see DefinitionAmendments). It runs after this set's own definitions commit, so a failed
+    /// commit amends nothing. Never clone and republish a native definition by name instead.</summary>
+    public void Amend(Action amendment)
+    {
+        if (amendment == null) throw new ArgumentNullException(nameof(amendment));
+        amendments.Add(amendment);
+    }
 
     public void Publish()
     {
@@ -32,6 +44,7 @@ public sealed class NativeDefinitions
         batch.Stage(DataHandler.dictInteractions, Interactions); batch.Stage(DataHandler.dictLoot, Loot);
         batch.Stage(DataHandler.dictInstallables, Installables);
         batch.Commit();
+        foreach (var amendment in amendments) amendment();
     }
 
     /// <summary>A trigger built in code starts with a zero chance and null lists, unlike one loaded

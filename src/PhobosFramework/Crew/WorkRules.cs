@@ -26,6 +26,11 @@ public static class CrewBalance
         !Finite(progress) || progress < 0 || !Finite(productiveSeconds) || productiveSeconds <= 0 ? progress :
         Math.Min(100, progress + productiveSeconds / (3600 * (study ? StudyHours : PracticeHours)) * 100);
     public static double Duration(double seconds, bool skilled) => seconds * (skilled ? SkilledDurationFraction : 1);
+    /// <summary>Share of on-shift crew time a time-skip left for the game's own repairs: 1 when no
+    /// Phobos work was done, 0 when every available crew-second went to Phobos jobs.</summary>
+    public static double RepairShare(double workedSeconds, double availableSeconds) =>
+        !Finite(workedSeconds) || !Finite(availableSeconds) || availableSeconds <= 0 ? 1 :
+        Math.Min(1, Math.Max(0, 1 - Math.Max(0, workedSeconds) / availableSeconds));
     // After a work step fails, wait before offering it again so the worker is free for native
     // tasks, study and rest. The order stays enabled; the wait grows to the last step.
     public static readonly double[] RetryDelaySeconds = { 30, 60, 120, 300, 600 };

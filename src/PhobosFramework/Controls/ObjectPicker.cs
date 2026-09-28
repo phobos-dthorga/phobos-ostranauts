@@ -11,18 +11,27 @@ using Ostranauts.InputControl;
 
 namespace Phobos.Ostranauts.Framework.Controls;
 
-/// <summary>Modal native hit testing without connection commands, targeting or crew selection.</summary>
-public sealed class ObjectPicker : MonoBehaviour, IPointerClickHandler, IScrollHandler, IBeginDragHandler, IDragHandler, IEndDragHandler
+/// <summary>Modal native hit testing without connection commands, targeting or crew selection.
+/// Registered with the game's own window stack, so Escape closes it the way it closes a native
+/// sub-window, before the hosting panel is lowered.</summary>
+public sealed class ObjectPicker : MonoBehaviour, IPointerClickHandler, IScrollHandler, IBeginDragHandler, IDragHandler, IEndDragHandler, global::Ostranauts.ShipGUIs.Interfaces.IDataWindow
 {
     private static ObjectPicker? worldPicker;
     private static readonly PickerInputGate input=new();
     internal static bool CapturesWorldInput=>input.Captures(Time.frameCount);
+    /// <summary>While picking in the world, only world selection is taken over: the game's pause,
+    /// time-scale, console and screenshot keys stay live, and cancel ends the pick.</summary>
     internal static bool AllowCommand(Command command)
     {
         if(!CapturesWorldInput)return true;
-        if(command is CommandUICancel&&worldPicker!=null)worldPicker.Cancel();
-        return false;
+        if(command is CommandUICancel){worldPicker?.Cancel();return false;}
+        return command is CommandPause||command is CommandIncreaseTimeScale||command is CommandDecreaseTimeScale||
+            command is CommandToggleConsole||command is CommandScreenshot;
     }
+    private GUIData? window;
+    public void RegisterWindow(){window=shell!=null?shell.HostData:null;window?.RegisterOpenWindow(this);}
+    public void UnregisterWindow(){window?.UnregisterWindow(this);window=null;}
+    public void CloseExternally()=>Cancel();
     private ConsoleShell shell=null!;
     private Func<IEnumerable<CondOwner>> candidates=null!;
     private Func<CondOwner,bool> relevant=null!;
@@ -46,7 +55,7 @@ public sealed class ObjectPicker : MonoBehaviour, IPointerClickHandler, IScrollH
     private static ObjectPicker Create(ConsoleShell shell,string title,Func<IEnumerable<CondOwner>> candidates,Action<CondOwner> select,Func<CondOwner,bool>? relevant=null)
     {
         var r=PanelWidgets.Rect(shell.transform,"Object picker");PanelWidgets.Fill(r);var p=r.gameObject.AddComponent<ObjectPicker>();
-        p.shell=shell;p.title=title;p.candidates=candidates;p.select=select;p.relevant=relevant??(_=>true);p.Build();p.previousCancel=shell.CancelOverlay;shell.CancelOverlay=p.Cancel;return p;
+        p.shell=shell;p.title=title;p.candidates=candidates;p.select=select;p.relevant=relevant??(_=>true);p.Build();p.previousCancel=shell.CancelOverlay;shell.CancelOverlay=p.Cancel;p.RegisterWindow();return p;
     }
     public static void Locate(ConsoleShell shell,CondOwner? co)
     {
@@ -167,7 +176,7 @@ public sealed class ObjectPicker : MonoBehaviour, IPointerClickHandler, IScrollH
     {Restore();if(shell!=null)shell.CancelOverlay=previousCancel;gameObject.SetActive(false);Destroy(gameObject);}
     private void Restore()
     {
-        if(restored)return;restored=true;
+        if(restored)return;restored=true;UnregisterWindow();
         if(worldPicker==this){worldPicker=null;input.End(Time.frameCount);CrewSim.bJustClickedInput=true;}
         if(hidden!=null){hidden.alpha=oldAlpha;hidden.interactable=oldInteract;hidden.blocksRaycasts=oldRaycast;hidden=null;}
         if(viewCamera!=null&&CrewSim.objInstance!=null&&viewCamera==CrewSim.objInstance.camMain)

@@ -215,3 +215,15 @@ help lists the crew command. The crew guide leads with the terminal action, the
 AutoTask behaviour and the diagnostic; the author guide records the in-place
 amendment rule. Coverage is now 1,911 entries, 153 documents and 14 other surfaces.
 Unity menu wording and animation are unverified.
+
+## Vanilla precedence, round 1, 28 September 2026
+
+Framework 0.36.0 adds four reviewed entries and retires one: a crew-log line for a
+craft action whose recipe is not registered, a developer log line for a failed
+native task closure, and two read-only diagnostic lines naming who could take an
+order step now. The unused "crew need rest" refusal is removed because the game's
+own pledges now decide. The crew guide states the vanilla rule for needs and the
+kept repair allowance; the author guide records in-place amendment, refusal at
+effects time, unbounded clock steps and the native window stack; the new
+vanilla-precedence audit is a contributor record. Coverage is now 1,914 entries,
+154 documents and 14 other surfaces. Unity wording and layout are unverified.

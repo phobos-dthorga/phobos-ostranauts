@@ -108,17 +108,19 @@ internal static class ItemReferenceExport
                     aliases = mod == "PhobosAutoNav" ? DataHandler.dictCOOverlays.Values.Where(o => o.strCOBase == co.strName).Select(o => o.strName).OrderBy(x => x).ToArray() : Array.Empty<string>()
                 }).ToArray();
             var sources = new List<object>();
-            foreach (var table in d.Loot.Values.OrderBy(l => l.strName))
-            foreach (string link in table.aLoots ?? Array.Empty<string>())
+            // Native tables are amended in place at publication; the set records which of its branches
+            // each table links. Walk the live table so link order matches the game's.
+            foreach (var linked in d.LootBranches.OrderBy(p => p.Key, StringComparer.Ordinal))
+            foreach (string link in DataHandler.dictLoot.TryGetValue(linked.Key, out var table) ? table.aLoots ?? Array.Empty<string>() : Array.Empty<string>())
             {
                 string branch = link.Split('=')[0];
-                if (!branch.StartsWith("Phobos", StringComparison.Ordinal) || link != branch + "=1x1" ||
+                if (!linked.Value.Contains(branch) || link != branch + "=1x1" ||
                     !d.Loot.TryGetValue(branch, out var choice) || choice.strType != "item") continue;
                 foreach (string expression in choice.aCOs ?? Array.Empty<string>())
                 foreach (string option in expression.Split('|'))
                 {
                     var bits = option.Split('='); var weights = bits[1].Split('x');
-                    sources.Add(new { table = table.strName, item = bits[0], condition = Condition(branch),
+                    sources.Add(new { table = linked.Key, item = bits[0], condition = Condition(branch),
                         chance = double.Parse(weights[0], CultureInfo.InvariantCulture), count = int.Parse(weights[1], CultureInfo.InvariantCulture) });
                 }
             }

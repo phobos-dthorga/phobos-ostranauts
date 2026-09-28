@@ -72,12 +72,17 @@ finite nonnegative probabilities must sum to at most one. Zero choices disable
 the owned addition. Identifiers accept letters, digits, underscores and dots.
 The branch ID must differ from its parent table ID.
 
-The helper clones unstaged native definitions, keeps native/foreign entries,
-replaces only its own standalone branch, and creates one cumulative native
-choice expression. Each added branch yields at most one item. Publish using
-the existing `NativeDefinitions` transaction after all content has prepared.
-It never restocks merchants or rewrites inventories. Missing/non-item parent
-tables fail preparation rather than silently inventing a replacement pool.
+The helper publishes only your branch as one cumulative native choice
+expression; each added branch yields at most one item. The native table gains
+(or, for zero choices, loses) one standalone link to that branch in place when
+the set publishes, through `NativeDefinitions.Amend`, so the game's own table
+object and every native or foreign entry stay (0.36.0; earlier versions cloned
+and republished the table under its own name). `NativeDefinitions.LootBranches`
+records the branches each set links per table, which `MarketStock.AddMissing`
+uses to avoid duplicate offers. Publish using the existing `NativeDefinitions`
+transaction after all content has prepared. It never restocks merchants or
+rewrites inventories. Missing/non-item parent tables fail preparation rather
+than silently inventing a replacement pool.
 
 `MarketStock` now uses this same helper while retaining its condition hooks and
 availability scaling. Auto Nav 0.10.0 is the salvage consumer: content owns table
@@ -238,6 +243,9 @@ then call `ConstructionRegistry.RegisterPack(yourPluginId, absoluteRecipePath)` 
 Use `ContentLoaded` to check `Ready(owner)` and `Status(owner)` before enabling
 processing dependent on those recipes. Callbacks run on the native loading thread;
 there is no hot-reload API. Clear consumer session state during `ContentLoading`.
+Stations keep their own native definition object: the craft action is appended
+to it in place after the pack commits (0.36.0), the way `Installables.Create`
+appends the game's own actions.
 
 Recipes use schema 1. This example assumes the named item definitions already
 exist, with those explicit unit masses:
@@ -399,11 +407,16 @@ mutations:
 - `ItemDefinitionFilter(IEnumerable<string>)` snapshots an exact, case-sensitive
   allowlist. `Allows(string)` rejects null/unknown IDs. An empty list accepts
   nothing. It does not infer categories, names, value, dimensions or recipe yields.
-- `TransferClock(itemId, duration)` binds 1–60 seconds of work to an item.
-  `Advance(itemId, elapsed, powered)` rejects changed identities, invalid deltas
-  and gaps over 60 seconds; unpowered calls earn nothing. Progress caps at Duration.
-  The owner manages pause/reload, checks current ownership and binds credit to an
-  actual paid power interval. This class neither charges electricity nor saves itself.
+- `TransferClock(itemId, duration)` binds 1–60 seconds of work to an item
+  (`MaximumCycleSeconds`). `Advance(itemId, elapsed, powered)` rejects changed
+  identities and invalid deltas; any finite non-negative interval is credited up
+  to Duration, so a time-skip or reload gap catches up like a native machine
+  (0.36.0; earlier versions treated a gap over 60 seconds as a fault). Unpowered
+  calls earn nothing. The owner manages pause/reload, checks current ownership and
+  binds credit to the electricity actually received, which is what bounds a long
+  interval. This class neither charges electricity nor saves itself.
+  `Liquids.LiquidDeliveryBudget.Kilograms` and `Processing.ProcessJob.Advance`
+  follow the same rule.
 - `GridRoute.Find(columns, rows, starts, goals, allowed, visitLimit = 4096)` returns
   an array of row-major cell indices, including both endpoints, or null. It uses
   cardinal neighbours, never wraps row boundaries, and bounds discovered cells.
@@ -763,7 +776,19 @@ on-shift crew member's study whenever that total rises; the first task after an
 Enable is announced normally. Failed steps back off through
 `CrewBalance.RetryDelay` and keep the order; `CollectTasks` withholds tasks the
 crew member could not claim. `phobosframework crew [name]` reports all of this
-read-only.
+read-only, including who could claim each step now.
+
+Tasks name no owner (0.36.0): `Task2.GetOwnership` forbids everyone not on an
+owner list, so the earlier player-only owner meant no other crew member ever
+took a step. Up to `CrewWork.TasksPerTarget` tasks may target one store, since
+the native `AddTask` default keeps one per target and action. Eligibility has no
+need gate: the game's pledges handle hunger, thirst, rest and pain before work,
+as they do for painted jobs. The task action is cloned from the vanilla
+`ACTTogglePower` Operate job (`CrewSpecialities.WorkTemplate`). Time-skips keep
+the game's own repair allowance (`GUIFFWD.UndamageParts`) and scale it by
+`CrewBalance.RepairShare`, the share of on-shift crew time not spent on Phobos
+jobs; only orders on the skipping crew's ships that the managed skip cannot
+advance are suspended.
 
 ## Presentation and equipment discovery
 
@@ -791,6 +816,24 @@ Consumers must still validate access/current state in their action services.
 `ConsoleShell.UsePolarisStyle()` opts into wrapped navigation and action rows;
 other shells retain existing dimensions and appearance. These additions are
 presentation-only and preserve existing public signatures.
+
+The shell's unsaved-changes guard on `CrewSim.LowerUI` applies only while the
+raised panel hosts that shell; lowering any other panel proceeds natively
+(0.36.0). `ObjectPicker` registers with the game's own window stack
+(`GUIData.RegisterOpenWindow`, `IDataWindow`), so Escape closes it before the
+hosting panel, as with native sub-windows. While picking in the world only
+world selection is taken over; the game's pause, time-scale, console and
+screenshot commands stay live.
+
+### Refusing at effects time (0.36.0)
+
+The game's `Interaction.ApplyEffects` closes the task that queued the action
+(`WorkManager.CompleteTask`) before applying any effect. A Harmony prefix that
+returns false skips that and leaves a painted or standing task listed forever.
+Return `Registration.NativeEffects.Refuse(interaction, reason)` instead: it
+closes the task, logs the reason and writes it to the actor's crew log, then
+returns false. Prefer refusing at offer time (`TriggeredInternal`) so crew are
+not sent to fail; keep effects-time checks for what can only be known then.
 
 ### Native item handling
 

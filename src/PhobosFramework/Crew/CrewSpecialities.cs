@@ -92,9 +92,11 @@ public static class CrewSpecialities
         CrewStudy.Amend(skills.Values);
         CrewStudy.SeedTemplate(skills.Values);
     }
+    /// <summary>The vanilla Operate-duty job our task action is cloned from: a plain painted job with no panel, replies or effects of its own.</summary>
+    public const string WorkTemplate = "ACTTogglePower";
     public static NativeDefinitions PrepareDefinitions()
     {
-        if (!DataHandler.dictInteractions.TryGetValue("Inventory", out var template)) throw new InvalidOperationException("Native Inventory interaction missing.");
+        if (!DataHandler.dictInteractions.TryGetValue(WorkTemplate, out var template)) throw new InvalidOperationException("Native " + WorkTemplate + " interaction missing.");
         var d = new NativeDefinitions();
         d.Triggers[LegacyTerminalTrigger] = new CondTrigger { strName=LegacyTerminalTrigger, fChance=1, fCount=1, bAND=true,
             aReqs=new[]{"IsTerminal","IsInstalled","IsPowered"},aForbids=new[]{"IsDamaged","IsLocked","IsOverrideOff"},aTriggers=Array.Empty<string>() };
@@ -102,7 +104,9 @@ public static class CrewSpecialities
         work.strName = CrewWork.WorkId; work.strTitle = work.strDesc = work.strTooltip = CrewWork.Message("work");
         work.strRaiseUI = null; work.aInverse = Array.Empty<string>(); work.strActionGroup = "Work"; work.strDuty = "Operate";
         work.fDuration = CrewBalance.HandlingSeconds / 3600; work.fTargetPointRange = 2; work.strTargetPoint = "use";
-        work.bIgnoreFeelings = false; work.bHumanOnly = false; work.strAnim = "Tablet";
+        work.bIgnoreFeelings = false; work.bHumanOnly = false; work.bOpener = false;
+        // The template's own switch effects and reply list do not apply; the provider does the work.
+        work.LootCTsUs = null; work.LootCTsThem = null; work.aLootItms = Array.Empty<string>();
         work.CTTestUs = "Blank"; work.CTTestThem = "Blank";
         d.Interactions[work.strName] = work;
         foreach(var skill in skills.Values)
@@ -113,14 +117,22 @@ public static class CrewSpecialities
             var study = NativeDefinitions.Clone(work); study.strName = StudyPrefix + skill.Id;
             study.strTitle = study.strDesc = study.strTooltip = CrewWork.Message("study",skill.Label); study.fDuration = .25;
             // A duty would turn a direct order into a native task; study is a personal action like vanilla's.
-            study.strActionGroup = "Use"; study.fWorkCancelChance = 1; study.strDuty = null;
+            study.strActionGroup = "Use"; study.fWorkCancelChance = 1; study.strDuty = null; study.strAnim = "Tablet";
             study.CTTestUs="TIsHumanAwake"; study.CTTestThem=LegacyTerminalTrigger;
             d.Interactions[study.strName] = study;
         }
         CrewStudy.Prepare(d, skills.Values);
         return d;
     }
+    /// <summary>The game pools and reuses Interaction objects; per-instance bookkeeping ends when one is reset.</summary>
+    internal static void Forget(Interaction interaction) { credited.Remove(interaction); CrewWork.Active.Remove(interaction); }
     internal static void Reset() { credited=new(); }
+}
+
+[HarmonyPatch(typeof(Interaction),nameof(Interaction.ResetObject))]
+internal static class CrewInteractionReset
+{
+    private static void Postfix(Interaction __instance) => CrewSpecialities.Forget(__instance);
 }
 
 [HarmonyPatch(typeof(CondOwner),nameof(CondOwner.QueueInteraction),new[]{typeof(CondOwner),typeof(Interaction),typeof(bool)})]

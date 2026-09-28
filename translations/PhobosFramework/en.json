@@ -132,7 +132,6 @@
   "Crew.unassigned": "Unassigned",
   "Crew.waiting": "Waiting for useful work.",
   "Crew.crew_unavailable": "No available crew: check AutoTask, shift, duty priority, permissions and health.",
-  "Crew.personal_needs": "Crew need rest, food, water or medical attention.",
   "Crew.eva": "EVA access or suit unavailable.",
   "Crew.fault": "Work suspended after a fault: {0}",
   "Crew.haul": "Move {0} to {1}",
@@ -353,5 +352,9 @@
   "Crew.diag_unknown": "unknown",
   "Crew.diag_order": "Order {0}: {1} | {2}",
   "Crew.diag_retry": "retry in {0:0} s",
-  "NativeDefinitions.trigger_never_passes": "Trigger {0} would never pass: its chance is {1}. Set fChance to 1 or a deliberate probability."
+  "NativeDefinitions.trigger_never_passes": "Trigger {0} would never pass: its chance is {1}. Set fChance to 1 or a deliberate probability.",
+  "NativeEffects.refusal_failed": "Could not close the game's task after refusing {0}: {1}",
+  "ConstructionHooks.recipe_not_registered": "{0} is not a registered construction recipe; nothing was built.",
+  "Crew.diag_claimable": "claimable now by: {0}",
+  "Crew.diag_nobody": "nobody at the moment (see each crew member's line)"
 }

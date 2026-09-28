@@ -44,8 +44,10 @@ public static class CrewWork
         internal Interaction? Pickup;
         internal string Lease = Guid.NewGuid().ToString("N");
         internal double Seconds;
-        internal string[] Inputs = Array.Empty<string>();
     }
+    // Several orders may target one store (a rack feeding a tray, a tray feeding a reclaimer); the
+    // native default of one task per target and action would silently drop the later ones.
+    internal const int TasksPerTarget = 16;
     public static void Register(ICrewWorkProvider provider)
     { if (providers.ContainsKey(provider.Id)) throw new ArgumentException("Duplicate crew-work provider."); providers.Add(provider.Id, provider); }
     public static void Unregister(string id) => providers.Remove(id);
@@ -136,9 +138,8 @@ public static class CrewWork
             actor.Company.GetShift(hour??StarSystem.nUTCHour, actor).nID != 2 || checkRole && !CrewSpecialities.Allowed(actor, offer.Role)) return false;
         int duty = Array.IndexOf(JsonCompanyRules.aDutiesNew, offer.Duty);
         if (duty < 0 || duty >= roster.aDutyLvls.Length || roster.aDutyLvls[duty] < JsonCompanyRules.nPriorityMin || roster.aDutyLvls[duty] > JsonCompanyRules.nPriorityMax) return false;
-        if (actor.HasCond("DcPain03") || actor.HasCond("DcPain04")) { reason = Message("personal_needs"); return false; }
-        foreach (var key in new[] { "TIsSleepingAny", "TIsSleepy", "TIsHungry", "TCanDrinkThirsty", "TIsSuffocatingManWalkEmerg" })
-            if (DataHandler.GetCondTrigger(key)?.Triggered(actor) == true) { reason = Message("personal_needs"); return false; }
+        // Needs, pain and sleep are the game's business: a painted job has no such gate either, and the
+        // crew AI already puts eating, drinking, rest and emergencies ahead of work through its pledges.
         // Exterior mission controls are onboard. Native paths retain airlock/EVA checks for actual travel.
         reason = ""; return true;
     }
@@ -163,6 +164,7 @@ public static class CrewWork
         return index >= 0 && actor.Company?.mapRoster?.TryGetValue(actor.strID, out var r) == true && r?.aDutyLvls != null && index < r.aDutyLvls.Length &&
             r.aDutyLvls[index] >= JsonCompanyRules.nPriorityMin && r.aDutyLvls[index] <= JsonCompanyRules.nPriorityMax ? r.aDutyLvls[index] : int.MaxValue;
     }
+    /// <summary>Nothing live queued; cancelled actions and the game's own Wait/QuickWait idling do not count.</summary>
     internal static bool Idle(CondOwner actor) => actor.aQueue != null && !actor.aQueue.Any(i => i == null || !i.bCancel && i.strName != "QuickWait" && i.strName != "Wait");
     internal static long DutyRank(CondOwner actor,string duty)=>(long)DutyPriority(actor,duty)*JsonCompanyRules.aDutiesNew.Length+Array.IndexOf(JsonCompanyRules.aDutiesNew,duty);
     internal static bool NativeWorkPrecedes(CondOwner actor,CrewWorkOffer offer)=>CrewSim.objInstance.workManager.GetAllTasks().Any(t=>
@@ -229,11 +231,13 @@ public static class CrewWork
         {
             var offer = provider.Next(co, o, out var reason); notices[co.strID] = reason;
             if (offer == null || !CrewBalance.Finite(offer.Seconds) || offer.Seconds <= 0) return;
+            // No owner list: like a painted job, any crew member the game admits may take it. An owner
+            // list would forbid everyone but the named person (Task2.GetOwnership).
             var task = new Task2 { strName = WorkId + "." + co.strID, strInteraction = WorkId, strTargetCOID = offer.Target.strID,
-                strDuty = offer.Duty, aOwnerIDs = new[] { CrewSim.coPlayer.strID }, bManual = false };
+                strDuty = offer.Duty, bManual = false };
             var job = new Job { Equipment = co, Provider = provider, Offer = offer, Task = task };
             var manager = CrewSim.objInstance.workManager;
-            if (manager.AddTask(task)) { Jobs.Add(task, job); Announce(co, manager); }
+            if (manager.AddTask(task, TasksPerTarget)) { Jobs.Add(task, job); Announce(co, manager); }
         }
         catch (Exception e) { Fault(co, e); }
     }
@@ -242,7 +246,6 @@ public static class CrewWork
         if (Order(j.Equipment).Permission != WorkPermission.Enabled || !CanManage(j.Equipment) || !Eligible(actor, j.Offer, out var reason)) return false;
         if (!Path(actor, j.Offer.Target) || !CrewLogistics.Prepare(actor, j.Offer) || PreferredAvailable(actor, j.Offer) || !Reservations.Acquire(j.Lease, Keys(j))) return false;
         j.Worker = actor; j.Interaction = ia;
-        j.Inputs=j.Equipment.GetCOsSafe(true).Select(c=>c.strID).ToArray();
         j.Seconds = CrewBalance.Duration(j.Offer.Seconds, CrewSpecialities.Skilled(actor, j.Offer.Skill));
         ia.bManual=false;
         ia.fDuration = ia.fDurationOrig = j.Seconds / 3600; ia.strTitle = j.Offer.Label;
@@ -259,8 +262,8 @@ public static class CrewWork
     internal static bool Complete(Job j, bool skipping = false, int? workHour = null)
     {
         if (j.Worker == null || Order(j.Equipment).Permission != WorkPermission.Enabled || !Eligible(j.Worker, j.Offer, out var reason,hour:workHour)) return false;
-        if(j.Offer.Cargo==null && j.Inputs.Except(j.Equipment.GetCOsSafe(true).Select(c=>c.strID),StringComparer.Ordinal).Any())
-        { Notice(j.Equipment,Message("cargo_blocked")); return false; }
+        // The provider checks the equipment's actual contents when it completes; a snapshot of the
+        // contents at claim time would refuse work merely because a stack was tidied meanwhile.
         executing = new CrewWorkContext(j.Worker, j.Equipment, Order(j.Equipment), skipping);
         try
         {
@@ -299,12 +302,14 @@ public static class CrewWork
         foreach (var task in all.Where(t => t.strInteraction == WorkId && !Jobs.ContainsKey(t)).ToArray()) CrewSim.objInstance.workManager.RemoveTask(task);
     }
     private static void Cancel(CondOwner co) { foreach (var j in Jobs.Values.Where(j => j.Equipment == co).ToArray()) Release(j, true); }
-    internal static void StartSkip()
+    /// <summary>Before a time-skip: release transient jobs and suspend only the orders on the skipping
+    /// crew's ships that the managed skip cannot advance. Orders elsewhere are not touched.</summary>
+    internal static void StartSkip(IEnumerable<Ship> ships)
     {
         foreach (var j in Jobs.Values.ToArray()) Release(j, true);
         SkipStarting?.Invoke();
         foreach (var p in providers.Values.OfType<ICrewSkipProvider>()) p.BeforeSkip();
-        foreach(var co in DataHandler.mapCOs.Values.Where(c=>c!=null&&!c.bDestroyed&&c.ship!=null&&Provider(c)!=null).ToArray())
+        foreach(var ship in ships.Where(s=>s!=null).Distinct().ToArray()) foreach(var co in Equipment(ship).ToArray())
             if(Order(co).Permission==WorkPermission.Enabled && (Provider(co) is not ICrewSkipProvider adapter || !adapter.CanAdvance(co,out _)))
                 SetPermission(co,WorkPermission.Suspended,"skip");
     }

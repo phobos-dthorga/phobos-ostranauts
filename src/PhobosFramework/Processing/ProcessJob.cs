@@ -100,11 +100,12 @@ public sealed class ProcessJob
     public bool MatchesSaved(string inputId, double progress, double revision, double duration) =>
         inputId == InputId && progress == Progress && revision == Recipe.Revision && duration == Duration;
 
+    /// <summary>Credits powered seconds up to the remaining duration. A long interval (time-skip,
+    /// reload gap) is not a fault: the caller bounds it by the electricity actually received.</summary>
     public double Advance(string currentInputId, double seconds, bool powered, bool ready)
     {
         if (!Running) return 0;
-        if (currentInputId != InputId || !ready || double.IsNaN(seconds) || double.IsInfinity(seconds) ||
-            seconds < 0 || seconds > Duration)
+        if (currentInputId != InputId || !ready || double.IsNaN(seconds) || double.IsInfinity(seconds) || seconds < 0)
         { Running = false; return 0; }
         if (!powered) return 0;
         double credited = Math.Min(seconds, Duration - Progress);

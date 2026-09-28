@@ -26,8 +26,26 @@ internal static class CrewNativeChecks
             "Practical duration patch resolves by parameter index");
         check(DataHandler.dictInteractions.ContainsKey("PickupItem")&&DataHandler.dictInteractions["PickupItem"].aInverse.Contains("PickupItemAllow"),
             "Hauling retains native single-item pickup chain");
-        foreach(var trigger in new[]{"TIsHumanAwake","TIsSleepingAny","TIsSleepy","TIsHungry","TCanDrinkThirsty","TIsSuffocatingManWalkEmerg"})
-            check(DataHandler.dictCTs.ContainsKey(trigger),"Native crew eligibility trigger: "+trigger);
+        check(DataHandler.dictCTs.ContainsKey("TIsHumanAwake"),"Native awake trigger for the retired study action");
+        // Vanilla precedence (0.36.0): a task without an owner list is open to every crew member the game
+        // admits; an owner list forbids everyone else. Standing orders therefore name no owner.
+        var open=new Task2{strName="t",strInteraction="PhobosCrewWork",strTargetCOID="x",strDuty="Operate"};
+        var owned=new Task2{strName="t",strInteraction="PhobosCrewWork",strTargetCOID="x",strDuty="Operate",aOwnerIDs=new[]{"player"}};
+        check(open.GetOwnership("anyone")==Task2.Allowed.Allowed&&owned.GetOwnership("anyone")==Task2.Allowed.Forbidden&&owned.GetOwnership("player")==Task2.Allowed.Owned,
+            "Native ownership: no owner list admits any crew member; an owner list forbids everyone else");
+        var addTask=typeof(WorkManager).GetMethod("AddTask");
+        check(addTask?.GetParameters().Length==2&&addTask.GetParameters()[1].Name=="nMax"&&((int)addTask.GetParameters()[1].DefaultValue!)==1,
+            "Native AddTask keeps one task per target and action unless told otherwise");
+        check(typeof(Interaction).GetMethod("ResetObject")!=null,"Pooled interactions are reset for reuse; per-instance bookkeeping ends there");
+        check(typeof(WorkManager).GetMethod("CompleteTask",new[]{typeof(string),typeof(string),typeof(string)})!=null&&
+            PlaceholderLoadChecks.Calls(typeof(Interaction).GetMethod("ApplyEffects")!).Any(m=>m.DeclaringType==typeof(WorkManager)&&m.Name=="CompleteTask"),
+            "Native effects close the queued task; a refusing prefix must do the same");
+        check(typeof(GUIData).GetMethod("RegisterOpenWindow")?.GetParameters().Single().ParameterType==typeof(Ostranauts.ShipGUIs.Interfaces.IDataWindow)&&
+            PlaceholderLoadChecks.Calls(typeof(CrewSim).GetMethod("CloseGUIData",flags)!).Any(m=>m.DeclaringType==typeof(GUIData)&&m.Name=="CloseOutermostWindow"),
+            "Escape closes the outermost registered window before the panel is lowered");
+        check(typeof(Loot).GetProperty("aLoots")?.SetMethod!=null,"Assigning a loot table's list re-parses it in place");
+        check(DataHandler.dictInteractions.TryGetValue(CrewSpecialities.WorkTemplate,out var workTemplate)&&workTemplate.strDuty=="Operate",
+            "The task action is cloned from a vanilla Operate-duty job");
         // The game interrupts every on-shift crew member's study whenever its task total rises; quiet
         // re-adds keep that total in step through the public counter.
         check(typeof(WorkManager).GetField("nTotalTasks")?.FieldType==typeof(int),"Native task counter is public");
@@ -62,8 +80,10 @@ internal static class CrewNativeChecks
         check(prepared.Objects.Count==0,"No native object definition is republished");
         check(prepared.Conditions.Count==6&&new[]{"Agriculture","Cooking","IndustrialProcessing"}.All(id=>prepared.Conditions[CrewSpecialities.Condition(id)].aPer.Length==0),
             "Specialities do not inherit unrelated engineering/yield bonuses and gain a studying mark");
-        check(prepared.Interactions["PhobosCrewWork"].strDuty=="Operate"&&prepared.Interactions["PhobosCrewWork"].aInverse.Length==0,
-            "Native job interaction has no inherited inventory panel/reply effects");
+        var work=prepared.Interactions["PhobosCrewWork"];
+        check(work.strDuty=="Operate"&&work.aInverse.Length==0&&work.strRaiseUI==null&&!work.bOpener&&work.LootCTsUs==null&&work.aLootItms.Length==0&&
+            work.strAnim==DataHandler.dictInteractions[CrewSpecialities.WorkTemplate].strAnim,
+            "Native job interaction keeps the vanilla job's duty and animation with no inherited panel, replies, switch effects or AI opener flag");
         check(prepared.Interactions["PhobosCrewStudy_Agriculture"].strDuty==null&&prepared.Triggers[CrewSpecialities.LegacyTerminalTrigger].fChance==1,
             "Retired study action keeps loading without a duty and with a passable trigger");
         foreach(var id in new[]{"Agriculture","Cooking","IndustrialProcessing"})

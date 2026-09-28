@@ -60,6 +60,7 @@ The [consistency audit](documentation-consistency-audit.md) records the source c
 - [Industrial control panels: text mockups](industrial-control-mockups.md)
 - [Equipment in the native INSTALL catalogue](install-catalogue.md)
 - [Item handling and action audit](item-handling-audit.md)
+- [Vanilla-precedence audit: dead gates and overridden game actions](vanilla-precedence-audit.md)
 - [Updating the equipment and item references](item-reference-maintenance.md)
 - [Limited autopilot nav module](limited-autopilot.md)
 - [Translation catalogs](localization.md)

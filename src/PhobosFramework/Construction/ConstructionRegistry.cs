@@ -92,7 +92,8 @@ public static class ConstructionRegistry
         var selectors = new Dictionary<string, Ingredient>(StringComparer.Ordinal);
         var stationSelectors = new Dictionary<string, Registered>(StringComparer.Ordinal);
         var aliases = new Dictionary<string, string>(StringComparer.Ordinal);
-        var stations = new Dictionary<string, JsonCondOwner>(StringComparer.Ordinal);
+        // Stations keep their own native definition object; the craft action is appended in place.
+        var stationActions = new List<(string Station, string Action)>();
         try
         {
             foreach (var recipe in copies)
@@ -114,10 +115,8 @@ public static class ConstructionRegistry
                 var available = recipe.stationIds.Concat(recipe.optionalStationIds.Where(DataHandler.dictCOs.ContainsKey)).ToArray();
                 foreach (string id in available)
                 {
-                    var station = DataHandler.dictCOs[id];
-                    if (!HasInitialCondition(station, "IsInstalled")) throw new ArgumentException(Text.Get("ConstructionRegistry.station_is_not_installed", id));
-                    if (!stations.TryGetValue(id, out var copy)) stations.Add(id, copy = NativeDefinitions.Clone(station));
-                    copy.aInteractions = (copy.aInteractions ?? Array.Empty<string>()).Concat(new[] { action }).Distinct().ToArray();
+                    if (!HasInitialCondition(DataHandler.dictCOs[id], "IsInstalled")) throw new ArgumentException(Text.Get("ConstructionRegistry.station_is_not_installed", id));
+                    stationActions.Add((id, action));
                 }
                 foreach (var ingredient in recipe.ingredients)
                 {
@@ -170,14 +169,16 @@ public static class ConstructionRegistry
                 if (DataHandler.dictCTs.ContainsKey(key)) throw new ArgumentException(Text.Get("ConstructionRegistry.trigger_collision", key));
             foreach (string key in native.Loot.Keys)
                 if (DataHandler.dictLoot.ContainsKey(key)) throw new ArgumentException(Text.Get("ConstructionRegistry.loot_collision", key));
-            // Publish native definitions, station copies and ownership together. No partial pack.
+            // Publish native definitions and ownership together. No partial pack. Station actions are
+            // then appended to the game's own station definitions in place (additive, idempotent).
             var transaction = new DefinitionTransaction();
             transaction.Stage(DataHandler.dictInteractions, native.Interactions);
             transaction.Stage(DataHandler.dictCTs, native.Triggers); transaction.Stage(DataHandler.dictLoot, native.Loot);
-            transaction.Stage(DataHandler.dictCOs, stations); transaction.Stage(Recipes, registered);
+            transaction.Stage(Recipes, registered);
             transaction.Stage(Selectors, selectors); transaction.Stage(StationSelectors, stationSelectors);
             transaction.Stage(Aliases, aliases);
             transaction.Commit();
+            foreach (var (station, craft) in stationActions) DefinitionAmendments.AppendInteractions(DataHandler.dictCOs[station], craft);
             Owners[owner] = Text.Get("ConstructionRegistry.registered");
             RegisteredOwners.Add(owner);
             FrameworkLifecycle.Log(Text.Get("ConstructionRegistry.registered_independent_construction_recipes", owner, copies.Length));

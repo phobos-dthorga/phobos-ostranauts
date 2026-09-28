@@ -40,8 +40,8 @@ internal static class StockQuantityChecks
                 .Where(id => !id.EndsWith("Dmg", StringComparison.Ordinal)).ToHashSet();
             foreach (string merchant in new[] { "ItmOKLGSupplyKioskInv", "ItmOKLGFixer", "ItmTraderSanDiegoHalvorsonInv", "ItmVORBScrapKioskInv" })
             {
-                var local = d.Loot[merchant].aLoots.Where(link => link.EndsWith("=1x1", StringComparison.Ordinal))
-                    .Select(link => link.Substring(0, link.Length - 4)).Where(id => d.Loot.ContainsKey(id) && offers.Contains(id))
+                check(!d.Loot.ContainsKey(merchant) && d.LootBranches.ContainsKey(merchant), "Merchant tables are linked in place, never republished: " + merchant);
+                var local = d.LootBranches[merchant].Where(id => d.Loot.ContainsKey(id) && offers.Contains(id))
                     .Select(id => Parsed(d.Loot[id]).strName).ToHashSet();
                 check(available.IsSubsetOf(local), "No functional item silently omitted from general market: " + merchant);
             }
@@ -52,16 +52,16 @@ internal static class StockQuantityChecks
         var batch = new NativeDefinitions();
         MarketStock.Add(batch, parent, branchId, "PhobosVerdemorrowWaterConduitLoose", .5, StockCondition.Pristine, 128);
         MarketStock.Add(batch, parent, branchId, "PhobosVerdemorrowWaterConduitLoose", .5, StockCondition.Pristine, 64);
-        check(batch.Loot[parent].aLoots.Count(x => x == branchId + "=1x1") == 1 && Parsed(batch.Loot[branchId]).fMin == 64,
+        check(batch.LootBranches[parent].Count(x => x == branchId) == 1 && Parsed(batch.Loot[branchId]).fMin == 64,
             "Repeat registration replaces the lot without adding a second stock branch");
-        check(original.All(x => batch.Loot[parent].aLoots.Contains(x)) && DataHandler.dictLoot[parent].aLoots.SequenceEqual(original),
+        check(!batch.Loot.ContainsKey(parent) && DataHandler.dictLoot[parent].aLoots.SequenceEqual(original),
             "Bulk preparation preserves live native/foreign stock and changes no inventory");
         foreach (int invalid in new[] { 0, -1, MarketStock.MaximumOfferQuantity + 1, int.MaxValue })
         {
             var rejected = new NativeDefinitions();
             throws(() => MarketStock.Add(rejected, parent, branchId, "PhobosVerdemorrowWaterConduitLoose", .5, StockCondition.Pristine, invalid),
                 "Reject unsafe quantity before publication");
-            check(rejected.Loot.Count == 0, "Rejected quantity leaves no partial registration");
+            check(rejected.Loot.Count == 0 && rejected.LootBranches.Count == 0, "Rejected quantity leaves no partial registration");
         }
         MarketStock.AddMissing(batch, parent, "PhobosShouldNotDuplicate", "PhobosVerdemorrowWaterConduitLoose", .95, StockCondition.Worn, 16);
         check(!batch.Loot.ContainsKey("PhobosShouldNotDuplicate") && Parsed(batch.Loot[branchId]).fMin == 64,

@@ -92,12 +92,17 @@ Check(fresh.Progress == 0, "Different panel begins at zero");
 fresh.Pause();
 fresh.Advance("panel-B", 10, true, true);
 Check(fresh.Progress == 0, "Manual pause prevents work");
-foreach (double delta in new[] { -1.0, 61, double.NaN, double.PositiveInfinity })
+foreach (double delta in new[] { -1.0, double.NaN, double.PositiveInfinity })
 {
     var invalid = new ProcessJob("A", 12, recipeV1, ProcessRules.CycleSeconds);
     invalid.Advance("A", delta, true, true);
-    Check(invalid.Progress == 12 && !invalid.Running, "Unobserved time gap pauses: " + delta);
+    Check(invalid.Progress == 12 && !invalid.Running, "Invalid interval pauses: " + delta);
 }
+var longGap = new ProcessJob("A", 12, recipeV1, ProcessRules.CycleSeconds);
+Check(longGap.Advance("A", 7200, true, true) == ProcessRules.CycleSeconds - 12 && longGap.Complete && longGap.Running,
+    "A long powered interval (time-skip, reload gap) completes the job like a native machine catching up");
+var longUnpowered = new ProcessJob("A", 12, recipeV1, ProcessRules.CycleSeconds);
+Check(longUnpowered.Advance("A", 7200, false, true) == 0 && longUnpowered.Progress == 12 && longUnpowered.Running, "A long unpowered interval credits nothing and keeps the job");
 Throws(() => ProcessJob.CreateOrResume(ProcessRecipes.WallPanels, "A", 12, 99, 60, 60), "Unknown saved recipe revision rejected");
 Throws(() => new ProcessJob("A", 61, recipeV1, ProcessRules.CycleSeconds), "Invalid saved progress rejected");
 var customDuration = new ProcessJob("custom", 45, recipeV1, 90);

@@ -75,9 +75,13 @@ internal static class EconomyChecks
             check(!DataHandler.dictCTs["TIsBarterOKLGSupplyKiosk"].TriggeredDataCO(item,false), "Keep native licensed/high-value resale restriction: " + id);
         }
         throws(() => MarketStock.Add(new NativeDefinitions(), "MissingMerchant", "PhobosMissingOffer", Content.Loose, .2, StockCondition.Worn), "Missing merchant is explicit, not silently unstocked");
-        var engineering = definitions.Loot["ItmLootSpawnEngineering"];
-        check(repeat.Loot["ItmLootSpawnEngineering"].aLoots.SequenceEqual(engineering.aLoots), "Repeated engineering salvage registration is idempotent");
+        var engineering = DataHandler.dictLoot["ItmLootSpawnEngineering"];
+        string[] linked = engineering.aLoots.ToArray();
+        check(!definitions.Loot.ContainsKey("ItmLootSpawnEngineering") && !repeat.Loot.ContainsKey("ItmLootSpawnEngineering"), "Native loot tables are amended in place, never republished by name");
+        Content.Prepare().Publish();
+        check(ReferenceEquals(DataHandler.dictLoot["ItmLootSpawnEngineering"], engineering) && engineering.aLoots.SequenceEqual(linked), "Repeated engineering salvage registration is idempotent and keeps the game's table object");
         check(engineering.aLoots.Contains("ItmRandomEngineeringLoot=0.8x1|ItmScrapTrash=0.1x1-2"), "Engineering salvage retains native choice");
+        check(engineering.aLoots.Count(s => s == "PhobosEngineeringSectionSalvage=1x1") == 1, "Exactly one section-salvage link in the native engineering table");
         var sectionChoice = repeat.Loot["PhobosEngineeringSectionSalvage"];
         check(sectionChoice.aCOs.Length == 1 && sectionChoice.aCOs[0].Split('|').Length == 3 &&
             sectionChoice.aCOs[0].Split('|').All(s => s.EndsWith("=0.05x1")), "Engineering roll adds at most one section at fifteen percent total");

@@ -45,14 +45,25 @@ internal static class CrewDiagnostics
                 text.Append("\n" + CrewWork.Message("diag_terminal", terminal.strNameFriendly, terminal.strID, Outcome(unused, terminal),
                     terminal.GetCondAmount("IsStudyUsedShort"), terminal.GetCondAmount("IsStudyUsersMax"),
                     CrewWork.Message(openers.All(o => terminal.aInteractions?.Contains(o.Opener) == true) ? "diag_yes" : "diag_no")));
+        var crew = CrewRoster.Members();
         foreach (var ship in members.Select(m => m.ship).Where(s => s != null).Distinct())
             foreach (var co in CrewWork.Equipment(ship))
             {
                 var status = CrewWork.ReadStatus(co);
                 double retry = CrewWork.RetrySeconds(co);
                 text.Append("\n" + CrewWork.Message("diag_order", co.strNameFriendly, status.Label, retry > 0 ? CrewWork.Message("diag_retry", retry) : status.Detail));
+                var job = CrewWork.Jobs.Values.FirstOrDefault(j => j.Equipment == co);
+                if (job == null) continue;
+                // Who the native task search would hand this step to right now, by the same admission the claim uses.
+                var claimable = job.Worker != null ? new[] { job.Worker.FriendlyName } : crew.Where(c => Admissible(c, job)).Select(c => c.FriendlyName).ToArray();
+                text.Append("\n  " + CrewWork.Message("diag_claimable", claimable.Length == 0 ? CrewWork.Message("diag_nobody") : string.Join(", ", claimable)));
             }
         return text.ToString();
+    }
+
+    private static bool Admissible(CondOwner member, CrewWork.Job job)
+    {
+        try { return CrewWork.Admissible(member, job); } catch { return false; }
     }
 
     private static string Outcome(CondTrigger? trigger, CondOwner co)

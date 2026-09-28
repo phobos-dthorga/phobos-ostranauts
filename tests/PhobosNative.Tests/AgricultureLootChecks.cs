@@ -17,22 +17,28 @@ internal static class AgricultureLootChecks
             .GetField("aCOLootUnits", BindingFlags.Instance | BindingFlags.NonPublic)!.GetValue(loot)!).Single();
         try
         {
+            var foreignTables = new Dictionary<string, Loot>(StringComparer.Ordinal);
             foreach (string parent in parents)
             {
                 var foreign = NativeDefinitions.Clone(originals[parent]);
                 foreign.aLoots = foreign.aLoots.Concat(new[] { "ForeignAgricultureSupplies=0.1x1" }).ToArray();
-                DataHandler.dictLoot[parent] = foreign;
+                DataHandler.dictLoot[parent] = foreignTables[parent] = foreign;
             }
+            var before = parents.ToDictionary(id => id, id => DataHandler.dictLoot[id].aLoots.ToArray());
             var prepared = new NativeDefinitions();
             LootContent.Add(prepared, true, 1);
-            check(prepared.Loot.Count == 6, "Agriculture adds three contents/engineering branches, not repeated parent/leaf bonuses");
+            check(prepared.Loot.Count == 3 && parents.All(p => !prepared.Loot.ContainsKey(p)),
+                "Agriculture adds three contents/engineering branches and republishes no native table by name");
+            for (int n = 0; n < parents.Length; n++)
+                check(!DataHandler.dictLoot[parents[n]].aLoots.Contains(branches[n] + "=1x1"), "Loot preparation does not mutate live native tables");
+            prepared.Publish();
             for (int n = 0; n < parents.Length; n++)
             {
                 string parent = parents[n], branch = branches[n];
                 var live = DataHandler.dictLoot[parent];
-                var changed = prepared.Loot[parent];
-                check(!live.aLoots.Contains(branch + "=1x1"), "Loot preparation does not mutate live native tables");
-                check(changed.aCOs.SequenceEqual(live.aCOs) && changed.aLoots.SequenceEqual(live.aLoots.Concat(new[] { branch + "=1x1" })), "Native and foreign contents survive additive Agriculture registration");
+                check(ReferenceEquals(live, foreignTables[parent]), "The game's own table object stays after publication: " + parent);
+                check(live.aCOs.SequenceEqual(originals[parent].aCOs) && live.aLoots.SequenceEqual(before[parent].Concat(new[] { branch + "=1x1" })),
+                    "Native and foreign contents survive additive Agriculture registration");
                 var units = Choices(prepared.Loot[branch]);
                 check(units.All(u => u.fMin == 1 && u.fMax == 1) && Math.Abs(units.Sum(u => u.fChance) - (n == 0 ? .22 : .30)) < 1e-7, "Native parser sees one bounded Agriculture item choice per contents roll");
                 foreach (var unit in units)
@@ -41,19 +47,20 @@ internal static class AgricultureLootChecks
                     check(!new[] { Service.CharacterizedDrainage, Service.RecoveryReject, Definitions.Drainage, Definitions.Residue }.Contains(unit.strName), "Loot cannot manufacture measured process records or spent waste");
                     if (n == 1) check(DataHandler.dictCTs["TIsFitCrate"].TriggeredDataCO(new DataCO(content.Objects[unit.strName]), false), "Supply satisfies the real native locked-crate filter");
                 }
-                DataHandler.dictLoot[parent] = changed;
             }
+            var linked = parents.ToDictionary(id => id, id => DataHandler.dictLoot[id].aLoots.ToArray());
             var repeated = new NativeDefinitions();
-            LootContent.Add(repeated, true, 1);
+            LootContent.Add(repeated, true, 1); repeated.Publish();
             for (int n = 0; n < parents.Length; n++)
-                check(repeated.Loot[parents[n]].aLoots.SequenceEqual(prepared.Loot[parents[n]].aLoots), "Repeated registration cannot multiply Agriculture loot branches");
+                check(DataHandler.dictLoot[parents[n]].aLoots.SequenceEqual(linked[parents[n]]), "Repeated registration cannot multiply Agriculture loot branches");
             foreach (var setting in new[] { (false, 1d), (true, 0d) })
             {
-                var off = new NativeDefinitions(); LootContent.Add(off, setting.Item1, setting.Item2);
+                var off = new NativeDefinitions(); LootContent.Add(off, setting.Item1, setting.Item2); off.Publish();
                 for (int n = 0; n < parents.Length; n++)
                 {
-                    check(!off.Loot[parents[n]].aLoots.Contains(branches[n] + "=1x1") && off.Loot[branches[n]].aCOs.Length == 0, "Disabled/zero loot removes its previous future-roll branch");
-                    check(off.Loot[parents[n]].aLoots.Contains("ForeignAgricultureSupplies=0.1x1"), "Disabled loot preserves other providers");
+                    var live = DataHandler.dictLoot[parents[n]];
+                    check(!live.aLoots.Contains(branches[n] + "=1x1") && off.Loot[branches[n]].aCOs.Length == 0, "Disabled/zero loot removes its previous future-roll branch");
+                    check(live.aLoots.Contains("ForeignAgricultureSupplies=0.1x1") && live.aLoots.SequenceEqual(before[parents[n]]), "Disabled loot preserves other providers");
                 }
             }
             var maximum = new NativeDefinitions(); LootContent.Add(maximum, true, LootContent.MaximumMultiplier);

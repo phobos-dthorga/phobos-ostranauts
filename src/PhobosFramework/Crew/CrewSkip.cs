@@ -12,7 +12,10 @@ public static class CrewSkip
 {
     public static bool Active { get; private set; }
     internal static bool Managed;
-    internal static double RepairHours;
+    // Crew-seconds spent on Phobos jobs (with travel) and crew-seconds on work shift during the skip.
+    // The game's own repair allowance is scaled by the share that stayed free for ship repairs.
+    private static double workedSeconds, availableSeconds;
+    internal static double RepairShare => CrewBalance.RepairShare(workedSeconds, availableSeconds);
     private static readonly FieldInfo PowerEpoch = AccessTools.Field(typeof(Powered), "fUpdateLast");
     private static readonly MethodInfo RunPower = AccessTools.Method(typeof(Powered), "Run");
     private static readonly Dictionary<string,double> busy = new(StringComparer.Ordinal);
@@ -62,7 +65,7 @@ public static class CrewSkip
     }
     internal static void Begin(IEnumerable<GUIFFWDRow> rows)
     {
-        Managed=false; RepairHours=0; assignments.Clear(); busy.Clear(); completions.Clear(); unavailable.Clear(); budgets.Clear(); faulted.Clear();
+        Managed=false; workedSeconds=availableSeconds=0; assignments.Clear(); busy.Clear(); completions.Clear(); unavailable.Clear(); budgets.Clear(); faulted.Clear();
         var participants=rows.ToArray(); nativeCare.Clear();
         var contexts=DataHandler.GetLoot("ACTFFWDContextPayloads").GetAllLootNames();
         foreach(var row in participants)
@@ -75,7 +78,7 @@ public static class CrewSkip
         }
         var available=CrewRoster.Members();
         crew=participants.Select(r=>r.CO).Where(c=>available.Contains(c)).Distinct().ToArray(); nextDecision.Clear();
-        CrewWork.StartSkip();
+        CrewWork.StartSkip(crew.Select(c=>c.ship));
     }
     // Replace only the native clock call, retaining the surrounding native risk/events/report lifecycle.
     internal static void Advance(StarSystem system,double seconds)
@@ -97,10 +100,13 @@ public static class CrewSkip
                 foreach(var actor in crew) TryAssign(actor,ships);
                 foreach(var value in busy.Values) if(value>1e-6) step=Math.Min(step,value);
                 int workHour=StarSystem.nUTCHour;
-                var repair=crew.Where(a=>!assignments.ContainsKey(a.strID)&&!unavailable.Contains(a.strID)&&CrewWork.Idle(a)&&
-                    a.OwnsShip(a.ship.strRegID)&&CrewWork.Eligible(a,new CrewWorkOffer("repair","",CrewRole.Industry,a,1,duty:"Repair"),out _,false)).ToArray();
-                foreach(var actor in crew.Where(a=>!assignments.ContainsKey(a.strID)&&!unavailable.Contains(a.strID)))
-                    if(budgets[actor.strID].TrySpend(step,false)&&repair.Contains(actor))RepairHours+=step/3600;
+                // Unassigned on-shift crew spend the step natively (rest, repairs, study); who repairs
+                // and how much is the game's own allowance, scaled afterwards by RepairShare.
+                foreach(var actor in crew.Where(a=>!unavailable.Contains(a.strID)))
+                {
+                    availableSeconds+=step;
+                    if(!assignments.ContainsKey(actor.strID))budgets[actor.strID].TrySpend(step,false);
+                }
                 system.Update(step);
                 TickMachines(ships);
                 foreach(var actor in crew)
@@ -108,7 +114,7 @@ public static class CrewSkip
                     if(!assignments.TryGetValue(actor.strID,out var job)) continue;
                     if(!CrewWork.Eligible(actor,job.Offer,out _,hour:workHour) || unavailable.Contains(actor.strID)) { Drop(actor.strID); continue; }
                     if(!budgets[actor.strID].TrySpend(step,true)) { Drop(actor.strID); continue; }
-                    busy[actor.strID]-=step;
+                    workedSeconds+=step; busy[actor.strID]-=step;
                     if(busy[actor.strID]>1e-6) continue;
                     if(CrewWork.Complete(job,true,workHour)) completions[actor.strID]=completions.TryGetValue(actor.strID,out var n)?n+1:1;
                     Drop(actor.strID);
@@ -166,7 +172,6 @@ public static class CrewSkip
             var offer=job.Offer;
             if(CrewWork.PreferredAvailable(actor,offer,c=>CrewWork.Idle(c)&&!assignments.ContainsKey(c.strID)&&!unavailable.Contains(c.strID))) continue;
             if(!CrewWork.Reservations.Acquire(job.Lease,CrewWork.Keys(job))) continue;
-            job.Inputs=job.Equipment.GetCOsSafe(true).Select(c=>c.strID).ToArray();
             job.Seconds=CrewBalance.Duration(offer.Seconds,CrewSpecialities.Skilled(actor,offer.Skill));
             // SFF charges handling plus conservative walking time; no carried item is cloned.
             double travel=Travel(actor,offer.Target);
@@ -239,8 +244,10 @@ internal static class CrewSkipEffects
 {
     private static void Postfix(GUIFFWDRow __instance,ref string __result) { if(CrewSkip.Managed) __result+="\n"+CrewSkip.Report(__instance.CO); }
 }
+// The game computes the repair allowance from its own preview (ship-duty hours, skip length and
+// its 2.25 factor). Keep that formula; only the share of crew time our jobs took is deducted.
 [HarmonyPatch(typeof(GUIFFWD),"UndamageParts")]
 internal static class CrewSkipRepairs
 {
-    private static void Prefix(ref double fAmount) { if(CrewSkip.Managed) fAmount=CrewSkip.RepairHours*2.25; }
+    private static void Prefix(ref double fAmount) { if(CrewSkip.Managed) fAmount*=CrewSkip.RepairShare; }
 }

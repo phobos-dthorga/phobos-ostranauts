@@ -33,9 +33,14 @@ and destination store, then Apply and Enable / Resume. Turn on AutoTask and enab
 Operate or Haul duty for the intended worker. Native repair, construction,
 restoration and demolition remain native tasks; this feature does not replace them.
 
-Crew work only during their work shift. Sleep, hunger, thirst, serious pain,
-unconsciousness, emergencies, access restrictions and direct queued orders
-take precedence. Agriculture, Cooking and Industry permissions initially
+Crew work only during their work shift. Any crew member the game admits may
+take a step, as with a painted job. Needs are the game's business: hunger,
+thirst, tiredness and pain do not block a step, because the crew's own pledges
+send them to eat, drink or rest first. Unconsciousness, combat, emergencies,
+access restrictions and direct queued orders still take precedence. (Since
+Framework 0.36.0. Earlier versions refused work for crew who were merely not
+rested, sated or slaked, and only your own character could ever take a task.)
+Agriculture, Cooking and Industry permissions initially
 allow eligible crew; Exterior permission starts off. Change permissions per
 person under Crew & Training, then Apply. Turning off AutoTask or a duty cancels that worker's
 generated work without deleting cargo.
@@ -166,8 +171,10 @@ Ordinary play uses actual walking and carrying.
 The existing native abstract rest/personal-care/context effects, risk/event rolls,
 fuel, payroll and end-of-skip condition handling remain native. A native active
 context from the frozen native preview or an existing direct action reserves that worker instead of allowing
-simultaneous Phobos labour. Native repair allowance receives only eligible,
-unspent work time. Phobos does not simulate additional meals, sleep sessions or
+simultaneous Phobos labour. The game's own repair allowance is kept and scaled
+by the share of on-shift crew time that Phobos jobs left free (Framework
+0.36.0; earlier versions replaced it with a much smaller count). Phobos does
+not simulate additional meals, sleep sessions or
 Common Sense errands behind that abstraction. Queued native actions retain their
 native catch-up behaviour.
 
@@ -262,7 +269,17 @@ Gameplay validation remains owner-run. Check these on a copy of an ordinary save
   privacy or self-respect needs picks Phobos study by themselves.
 - A machine that cannot start shows the retry wait on its order and the worker
   goes idle; PDA uninstall/repair painting on a terminal still works;
-  `phobosframework crew` explains any blocker.
+  `phobosframework crew` explains any blocker and names who could take each
+  step right now.
+- An NPC crew member with AutoTask on takes a rack or tray order; a thirsty or
+  tired crew member keeps working until the game's own pledge sends them to
+  drink or rest; two orders that feed one tray both run.
+- A six-hour skip repairs about as much as the unmodded game; with heavy
+  Phobos work it repairs proportionally less. Training progress keeps rising
+  after many sessions.
+- Cancelling a dismantle or repair finish with cargo present leaves no stuck
+  task in the crew task list. Escape while picking a store closes the picker
+  first, then the panel; pause and time-scale keys work while picking.
 - Roster/equipment/time-skip controls at the owner's UI scale. Native component
   checks do not verify Unity layout, pathfinding or live patch interoperability.
 

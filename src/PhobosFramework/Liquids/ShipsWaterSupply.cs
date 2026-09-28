@@ -8,13 +8,17 @@ namespace Phobos.Ostranauts.Framework.Liquids;
 public static class ShipsWaterSupply
 {
     public static bool Available => Chainloader.PluginInfos.Values.Any(p => p.Instance != null && p.Instance.GetType().FullName == "ShipsWater.Plugin" && p.Metadata.Version == new Version(0, 16, 1));
+    public const string VesselTrigger = "TIsWaterVesselInstalled";
+    /// <summary>The game's GetCondTrigger returns its always-true Blank trigger for an unknown name, so
+    /// only a rule that actually exists may select tanks.</summary>
+    public static CondTrigger? Rule(string name) => DataHandler.dictCTs != null && DataHandler.dictCTs.ContainsKey(name) ? DataHandler.GetCondTrigger(name) : null;
     public static double Refill(Ship ship, ILiquidReservoir destination, double requestKg, double crewReserveKg)
         => Refill(ship, destination, requestKg, crewReserveKg, null);
     public static double Refill(Ship ship, ILiquidReservoir destination, double requestKg, double crewReserveKg, LiquidTransferGuard? destinationGuard)
     {
         if (!Available || ship == null || destination.ShipId != ship.strRegID || (int)ship.LoadState < 2 || CrewSim.system?.GetShipOwner(ship.strRegID) != CrewSim.coPlayer?.strID) return 0;
         double total = 0;
-        var trigger = DataHandler.GetCondTrigger("TIsWaterVesselInstalled");
+        var trigger = Rule(VesselTrigger);
         if (trigger == null) return 0;
         var vessels = ship.GetCOs(null, false, false, true).Where(c => c != null && !c.bDestroyed && c.ship == ship && c.objCOParent == null &&
             c.HasCond("IsInstalled") && !c.HasCond("IsDamaged") && !c.HasCond("IsLocked") && trigger.Triggered(c) &&

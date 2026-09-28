@@ -31,22 +31,30 @@ internal static class RegionalEconomyChecks
             var pack = prepare();
             check(profiles.Select(p => p.Region).ToHashSet().SetEquals(newMarkets), "Content covers every additional placed vanilla supply/scrap endpoint");
             check(profiles.Length == newMarkets.Count, "No duplicate regional profiles");
+            // Native tables are amended in place at publication; compare the live table before and after.
+            var before = profiles.ToDictionary(p => RegionalMarkets.SupplyTable(p.Region), p => (
+                Table: DataHandler.dictLoot[RegionalMarkets.SupplyTable(p.Region)],
+                COs: (DataHandler.dictLoot[RegionalMarkets.SupplyTable(p.Region)].aCOs ?? Array.Empty<string>()).ToArray(),
+                Loots: (DataHandler.dictLoot[RegionalMarkets.SupplyTable(p.Region)].aLoots ?? Array.Empty<string>()).ToArray()));
+            pack.Publish();
             foreach (var profile in profiles)
             {
                 string table = RegionalMarkets.SupplyTable(profile.Region);
-                var native = DataHandler.dictLoot[table];
-                var added = pack.Loot[table];
-                check((native.aCOs ?? Array.Empty<string>()).SequenceEqual(added.aCOs), "Preserve native direct stock");
-                check((native.aLoots ?? Array.Empty<string>()).All(x => added.aLoots.Contains(x)), "Preserve native and foreign stock branches");
-                foreach (var branch in pack.Loot.Values.Where(x => x.strName.StartsWith("PhobosRegional_" + profile.Region + "_", StringComparison.Ordinal)))
+                var live = DataHandler.dictLoot[table];
+                check(!pack.Loot.ContainsKey(table) && ReferenceEquals(live, before[table].Table), "Regional stock amends the game's own table object in place");
+                check(before[table].COs.SequenceEqual(live.aCOs ?? Array.Empty<string>()), "Preserve native direct stock");
+                check(before[table].Loots.All(x => live.aLoots.Contains(x)), "Preserve native and foreign stock branches");
+                var regional = pack.Loot.Values.Where(x => x.strName.StartsWith("PhobosRegional_" + profile.Region + "_", StringComparison.Ordinal)).ToArray();
+                check(regional.Length > 0 && pack.LootBranches.TryGetValue(table, out var linked) && regional.All(b => linked.Contains(b.strName)),
+                    "Regional branches are recorded against their table for the same set");
+                foreach (var branch in regional)
                 {
-                    check(added.aLoots.Count(x => x == branch.strName + "=1x1") == 1, "Regional branch occurs once on repeated preparation");
+                    check(live.aLoots.Count(x => x == branch.strName + "=1x1") == 1, "Regional branch occurs once on repeated preparation");
                     check(branch.aCOs.Length == 1 && int.Parse(branch.aCOs[0].Split('x').Last()) > 1, "Regional offer requests a bounded bulk lot");
                     double chance = double.Parse(branch.aCOs[0].Split('=')[1].Split('x')[0], CultureInfo.InvariantCulture);
                     check(chance > 0 && chance <= 1, "Bounded regional offer probability");
                 }
             }
-            pack.Publish();
         }
         // Exercise native collection membership and price lookup, not a second pricing implementation.
         DataHandler.dictDataCOs = DataHandler.dictCOs.ToDictionary(x => x.Key, x => new DataCO(x.Value));

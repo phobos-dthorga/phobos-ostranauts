@@ -62,6 +62,10 @@ internal static class CrewWorkChecks
         check(Near(CrewBalance.Credit(95,3600,true),100),"Training is capped");
         check(CrewBalance.Credit(10,0,false)==10&&CrewBalance.Credit(10,double.NaN,false)==10,"No idle or invalid credit");
         check(Near(CrewBalance.Duration(900,true),720)&&CrewBalance.Duration(900,false)==900,"Proficiency changes hands-on time only");
+        check(CrewBalance.RepairShare(0,7200)==1&&Near(CrewBalance.RepairShare(1800,7200),.75)&&CrewBalance.RepairShare(7200,7200)==0&&CrewBalance.RepairShare(9000,7200)==0,
+            "The game's repair allowance is scaled by the crew time left free of Phobos work");
+        check(CrewBalance.RepairShare(0,0)==1&&CrewBalance.RepairShare(double.NaN,3600)==1&&CrewBalance.RepairShare(-5,3600)==1,
+            "No available crew time or invalid accounting leaves the native repair allowance untouched");
         foreach(int hours in new[]{1,6})
         {
             var budget=new CrewTimeBudget(hours*3600);

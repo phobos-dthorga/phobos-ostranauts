@@ -22,9 +22,10 @@ internal static class MaintenanceSafety
     {
         foreach (string action in new[] { "ACT" + id, "ACT" + id + "Allow", "MS" + id }) Actions[action] = internalBin;
     }
+    // An internal bin's own mass is a rounded native stat; compare within the shared mass tolerance.
     internal static bool Empty(CondOwner? item, string? internalBin) => item != null && !item.bDestroyed &&
         item.GetLotCOs(true).Count == 0 && item.GetCOsSafe(true).All(child =>
-            internalBin != null && child.strCODef == internalBin && child.GetTotalMass() == 0 &&
+            internalBin != null && child.strCODef == internalBin && Math.Abs(child.GetTotalMass()) <= Units.MassToleranceKg &&
             child.GetCOsSafe(true).Count == 0 && child.GetLotCOs(true).Count == 0);
     internal static string? Reason(CondOwner? item, string? internalBin)
     {
@@ -61,16 +62,17 @@ internal static class RepairRemainderPatch
     {
         if (!MaintenanceSafety.Repairs.TryGetValue(__instance.strName, out var output)) return true;
         var item = __instance.objUs;
-        if (item == null || item.bDestroyed) return false;
+        if (item == null) return false;
+        if (item.bDestroyed) return NativeEffects.Refuse(__instance, Text.Get("MaintenanceInfo.gone"));
         // Native ModeSwitch destroys the repair lot. Return exactly that mass,
         // not a guessed bill. Reject unfamiliar fractional/huge lots before effects.
         var lot = item.GetLotCOs(false);
         if (lot.Any(co => co == null || co.bDestroyed || !Construction.ConstructionHooks.HasNoContents(co) || co.GetLotCOs(true).Count != 0))
-        { FrameworkLifecycle.Log(Text.Get("MaintenanceSafety.repair_paused_service_material_contains_cargo_for", item.strID)); return false; }
+            return NativeEffects.Refuse(__instance, Text.Get("MaintenanceSafety.repair_paused_service_material_contains_cargo_for", item.strID));
         double kg = lot.Sum(co => co.GetTotalMass());
         int units = MaintenanceSafety.SpentPartUnits(kg);
         if (units < 0)
-        { FrameworkLifecycle.Log(Text.Get("MaintenanceSafety.repair_paused_unsupported_service_material_mass_for", item.strID)); return false; }
+            return NativeEffects.Refuse(__instance, Text.Get("MaintenanceSafety.repair_paused_unsupported_service_material_mass_for", item.strID));
         __instance.objLootModeSwitch = new Loot { strName = "PhobosRepairReturn", strType = "item",
             aCOs = new[] { output + "=1x1" }.Concat(Enumerable.Repeat(MaintenanceDefinitions.SpentParts + "=1x1", units)).ToArray(),
             aLoots = Array.Empty<string>() };
@@ -92,7 +94,8 @@ internal static class DismantleEligibilityPatch
 }
 
 // Recheck at effects time, including the destruction handler's self-targeted
-// finish action. Cargo may have been inserted since the worker started.
+// finish action. Cargo may have been inserted since the worker started. A refusal
+// still closes the game's task for the action, as native effects would.
 [HarmonyPatch(typeof(Interaction), nameof(Interaction.ApplyEffects))]
 internal static class DismantleCompletionPatch
 {
@@ -101,7 +104,8 @@ internal static class DismantleCompletionPatch
         if (!MaintenanceSafety.Actions.TryGetValue(__instance.strName, out var bin)) return true;
         bool finish = __instance.strName.StartsWith("MS", StringComparison.Ordinal);
         var item = finish ? __instance.objUs : __instance.objThem;
-        if (!MaintenanceSafety.Empty(item, bin)) return false;
+        if (!MaintenanceSafety.Empty(item, bin))
+            return NativeEffects.Refuse(__instance, MaintenanceSafety.Reason(item, bin) ?? Text.Get("MaintenanceSafety.empty_the_equipment_its_feed_and_any"));
         if (finish && bin != null)
             foreach (var child in item.GetCOsSafe(true).Where(c => c.strCODef == bin).ToArray()) child.Destroy();
         return true;

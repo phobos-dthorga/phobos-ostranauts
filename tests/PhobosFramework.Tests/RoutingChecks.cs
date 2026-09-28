@@ -29,5 +29,10 @@ internal static class RoutingChecks
         check(clock.Advance("cargo-A",30,false) && clock.Progress==2,"Blocked/unpowered interval earns no work");
         check(!clock.Advance("cargo-B",3,true) && clock.Progress==2,"A competing removal/replacement cannot inherit progress");
         check(clock.Advance("cargo-A",3,true) && clock.Complete,"Retained work resumes without changing the item");
+        var gap = new TransferClock("cargo-C",5);
+        check(gap.Advance("cargo-C",7200,true) && gap.Complete && gap.Progress==5,"A long powered interval completes the cycle instead of disarming it");
+        check(!gap.Advance("cargo-C",double.NaN,true) && !gap.Advance("cargo-C",-1,true),"Invalid intervals are still refused");
+        bool tooLong=false; try { new TransferClock("cargo-D",TransferClock.MaximumCycleSeconds+1); } catch { tooLong=true; }
+        check(tooLong,"Transfer cycles stay bounded even though steps are not");
     }
 }

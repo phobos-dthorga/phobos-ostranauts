@@ -86,7 +86,8 @@ internal static class FurnaceMaterialChecks
         }
         var clock = new TransferClock("exact-item", RoutingRules.FeedSeconds);
         check(clock.Advance("exact-item", 1, true) && !clock.Complete && !clock.Advance("replacement", 1, true) && clock.Progress == 1, "Replacement cargo cannot inherit work");
-        check(clock.Advance("exact-item", 30, false) && clock.Progress == 1 && !clock.Advance("exact-item", 61, true), "No free power or long-interval progress");
+        check(clock.Advance("exact-item", 30, false) && clock.Progress == 1, "No free power, no progress");
+        check(clock.Advance("exact-item", 61, true) && clock.Complete && clock.Progress == RoutingRules.FeedSeconds, "A long powered interval completes the feed cycle instead of disarming it");
         check(new TransferClock("exact-item", RoutingRules.FeedSeconds).Progress == 0, "Reload reconstructs no transfer credit");
     }
 }

@@ -128,13 +128,19 @@ public sealed class ConsoleShell : MonoBehaviour
         if(EmergencyStop!=null)ConsoleWidgets.Button(card,ConsoleWidgets.Text("stop"),()=>{Dismiss();EmergencyStop?.Invoke();});
     }
     private void Dismiss(){if(dialog!=null)Destroy(dialog);dialog=null;}
+    /// <summary>The LowerUI guard only applies while the raised panel is the one hosting this shell;
+    /// closing any other panel proceeds natively. Overlays registered with the game's window stack
+    /// (ObjectPicker) already close on Escape before LowerUI is reached.</summary>
     internal static bool Closing()
     {
-        if(active==null||active.forceClose)return true;
+        if(active==null||active.forceClose||!active.Hosted)return true;
         if(active.CancelOverlay!=null){active.CancelOverlay();return false;}
         if(active.Dirty?.Invoke()!=true)return true;
         var owner=active;owner.Confirm(()=>{owner.forceClose=true;CrewSim.LowerUI();});return false;
     }
+    internal bool Hosted=>this!=null&&gameObject!=null&&gameObject.activeInHierarchy&&CrewSim.goUI!=null&&transform.IsChildOf(CrewSim.goUI.transform);
+    /// <summary>The game's window list for the raised panel hosting this shell, if it has one.</summary>
+    internal GUIData? HostData=>GetComponentInParent<GUIData>()??(CrewSim.goUI!=null&&transform.IsChildOf(CrewSim.goUI.transform)?CrewSim.goUI.GetComponent<GUIData>():null);
     private void OnDestroy(){if(active==this)active=null;if(frameSprite!=null)Destroy(frameSprite);if(frameTexture!=null)Destroy(frameTexture);CrewSim.EndTyping();}
 }
 [HarmonyPatch(typeof(CrewSim),nameof(CrewSim.LowerUI))]

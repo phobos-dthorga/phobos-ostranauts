@@ -13764,19 +13764,6 @@
     },
     {
       "mod": "PhobosFramework",
-      "key": "Crew.personal_needs",
-      "category": "status/warning",
-      "decision": "retain",
-      "reason": "Retain: clear functional label, operational instruction or necessary safety/detail constraint; no forced personality.",
-      "trace": "dynamic family",
-      "references": [
-        "src/PhobosFramework/Crew/CrewWork.cs:28"
-      ],
-      "before": "Crew need rest, food, water or medical attention.",
-      "after": "Crew need rest, food, water or medical attention."
-    },
-    {
-      "mod": "PhobosFramework",
       "key": "Crew.eva",
       "category": "status/warning",
       "decision": "retain",
@@ -37296,6 +37283,58 @@
       ],
       "before": "Trigger {0} would never pass: its chance is {1}. Set fChance to 1 or a deliberate probability.",
       "after": "Trigger {0} would never pass: its chance is {1}. Set fChance to 1 or a deliberate probability."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "NativeEffects.refusal_failed",
+      "category": "log/diagnostic",
+      "decision": "add",
+      "reason": "Developer log line for a failed native task closure after a refused finish; names the action and the error.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Registration/NativeEffects.cs:25"
+      ],
+      "before": "Could not close the game's task after refusing {0}: {1}",
+      "after": "Could not close the game's task after refusing {0}: {1}"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "ConstructionHooks.recipe_not_registered",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Crew log line when a queued craft action has no registered recipe; says what happened and that nothing was built.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Construction/ConstructionHooks.cs:98"
+      ],
+      "before": "{0} is not a registered construction recipe; nothing was built.",
+      "after": "{0} is not a registered construction recipe; nothing was built."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Crew.diag_claimable",
+      "category": "log/diagnostic",
+      "decision": "add",
+      "reason": "Read-only F3 diagnostic line naming who could take an order step right now.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Crew/CrewWork.cs:35"
+      ],
+      "before": "claimable now by: {0}",
+      "after": "claimable now by: {0}"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Crew.diag_nobody",
+      "category": "log/diagnostic",
+      "decision": "add",
+      "reason": "Read-only F3 diagnostic line when no crew member can take an order step right now.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Crew/CrewWork.cs:35"
+      ],
+      "before": "nobody at the moment (see each crew member's line)",
+      "after": "nobody at the moment (see each crew member's line)"
     }
   ],
   "documents": [
@@ -37303,8 +37342,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "72b9185ae9af423b999f0600f4327bfbb2b5cd63b09d4e171bf5dbfaa84af545",
-      "review": "2026-09-28: Framework 0.35.0 version summary; no other wording changed."
+      "sha256": "ea7bbb0031f88c789ec1716a420c6866384371fdf6aafbe54419d0266f006025",
+      "review": "2026-09-28: Framework 0.36.0 version summary; no other wording changed."
     },
     {
       "path": "SUPPORT.md",
@@ -37461,22 +37500,22 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "927416d545d1a3dc60597307cab1d11760cd0451351d35b07d3e2b687f5bfa36",
-      "review": "2026-09-28: Framework 0.35.0 version line; no other wording changed."
+      "sha256": "79acf66d2a689c6548a2dc199a2343b468bb8c0d04a7b4af953264d55c9ff110",
+      "review": "2026-09-28: Framework 0.36.0 version line; no other wording changed."
     },
     {
       "path": "docs/crew-automation.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "070520dc9acec6355cd46a961f1d859d4da46a09f9350b9330c83ea1edfee520",
-      "review": "2026-09-28: order announcement and retry paragraph; study section rewritten for the vanilla-style terminal action, AutoTask self-study, AI-history seeding and the crew diagnostic; owner checks extended. Retired action named as retired."
+      "sha256": "8523722c0b628f389f3ded84a5a3002bf122b960f2a8650902ad7fe959617f3d",
+      "review": "2026-09-28: eligibility paragraph states the vanilla rule for needs and open tasks; repair allowance paragraph; owner checks extended for round 1."
     },
     {
       "path": "docs/development/README.md",
       "scope": "documentation index/audit; no gameplay behavior",
       "decision": "review audience separation and evidence limits",
-      "sha256": "b66d157558cbbaa13096ae7a09474ebdee4c08583b57197e458ec976d0782988",
-      "review": "2026-09-28: index gained the Claude Code onboarding handoff link; no player catalogue changes."
+      "sha256": "37b117edc65ff0bed70af7454ddca18d5cefdea8d0c416279058f01a73732e90",
+      "review": "2026-09-28: index link to the vanilla-precedence audit."
     },
     {
       "path": "docs/development/agriculture-bulk-storage-art.md",
@@ -37732,8 +37771,8 @@
       "path": "docs/development/framework-author-guide.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "deeea6cd79eb9a837cbc52f39252e8cf532af88005af8c4ecc6e438bc3cee6d5",
-      "review": "2026-09-28: same-name republish caveat, DefinitionAmendments, trigger validation, CrewStudy chain, AI-history seeding, quiet task re-adds and retry backoff."
+      "sha256": "d0f82b5254f80273be871d1816272fca435cc0da4596edfac93f823447c3c6d9",
+      "review": "2026-09-28: in-place loot and station amendment, unbounded clock steps, refusal at effects time, LowerUI guard scope and native window registration, task ownership, nMax, repair share."
     },
     {
       "path": "docs/development/framework-bulk-storage.md",
@@ -38112,6 +38151,13 @@
       "sha256": "73f2e8343ee2dff7710f0d5168292d5919a6648502d32be18901194c5a176399"
     },
     {
+      "path": "docs/development/vanilla-precedence-audit.md",
+      "scope": "contributor audit record: findings, native evidence, verdicts and owner checks",
+      "decision": "review as contributor documentation; player-facing effects are described in the owning guides",
+      "sha256": "fb514ad87a8cc52d89e8306055145c52006f49552b71bae48cabc8f64347aaa5",
+      "review": "2026-09-28: new document for the 28 September 2026 audit."
+    },
+    {
       "path": "docs/development/workshop-publication.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
@@ -38142,7 +38188,7 @@
       "path": "docs/framework-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "4a3604a13295015415050d092400f2a1410381895c9b35ae65979726b8582867",
+      "sha256": "cffaf6a56285e0fdec0149859bfd6966c6de9ada5c67fe430404137c405d3a93",
       "review": "2026-09-28: regenerated from reviewed inputs: version only."
     },
     {
@@ -38240,8 +38286,8 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "8d74c43b5af001fe5cdb2cc8f37e23d3dc84ae15d14a70aff493fac2fb84f5a9",
-      "review": "2026-09-28: Framework 0.35.0 version line; no other wording changed."
+      "sha256": "d7998e267125852f54d993eb20080394d0fe152e59135113bffd8be6451da572",
+      "review": "2026-09-28: Framework 0.36.0 version line; no other wording changed."
     },
     {
       "path": "docs/residue-collector.md",
@@ -38324,8 +38370,8 @@
       "path": "workshop/PhobosFramework/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "e4fd1e2911d73fbabb470a3e2cb094e41c9bfcf2f2ba95d03fb5b295f5ff2728",
-      "review": "2026-09-28: version; new bullet on vanilla-style speciality study, uninterrupted study, retry waits and the crew diagnostic."
+      "sha256": "f30f65ebb1047de34841fe83f8442bd9ec50c30352fb7fc6a289be931a29eff6",
+      "review": "2026-09-28: version; diagnostic bullet extended; new bullet on the 0.36.0 vanilla-precedence fixes."
     },
     {
       "path": "workshop/PhobosManufacturing/page.bbcode",
@@ -38394,7 +38440,7 @@
     {
       "path": "mods/PhobosFramework/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "5f11309645b1495cd5a6d7dbe15440587743262d7458a468fc4086d79cb4e27a",
+      "sha256": "34b7e4c39e75a8ac6efd03cad38b9590e950a7af747bda0f647c2a065466f73b",
       "review": "2026-09-28: version metadata only."
     },
     {

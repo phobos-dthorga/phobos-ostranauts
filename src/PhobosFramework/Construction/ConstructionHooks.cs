@@ -90,18 +90,20 @@ internal static class ConstructionReset
 [HarmonyPatch(typeof(Interaction), "ApplyEffects")]
 internal static class ConstructionCompletion
 {
+    // A refusal here skips the native effects, so it must close the game's task itself (NativeEffects.Refuse).
     private static bool Prefix(Interaction __instance, bool isCancelIa)
     {
         if (__instance.strName == null || !__instance.strName.StartsWith(RecipeRules.ActionPrefix, StringComparison.Ordinal)) return true;
-        if (!ConstructionRegistry.Recipes.TryGetValue(__instance.strName, out var entry)) return false;
+        if (!ConstructionRegistry.Recipes.TryGetValue(__instance.strName, out var entry))
+            return Registration.NativeEffects.Refuse(__instance, Text.Get("ConstructionHooks.recipe_not_registered", __instance.strName));
         try
         {
             bool result = ConstructionHooks.Completions.GetOrCreateValue(__instance)
                 .TryBegin(isCancelIa, () => ConstructionHooks.Validate(__instance, entry));
-            if (!result && !isCancelIa) FrameworkLifecycle.Log(Text.Get("ConstructionHooks.construction_blocked_or_already_applied_check_station", __instance.strName));
-            return result;
+            return result || Registration.NativeEffects.Refuse(__instance, isCancelIa ? "" :
+                Text.Get("ConstructionHooks.construction_blocked_or_already_applied_check_station", __instance.strName));
         }
-        catch (Exception ex) { FrameworkLifecycle.Log(Text.Get("ConstructionHooks.construction_blocked_before_native_effects", ex)); return false; }
+        catch (Exception ex) { return Registration.NativeEffects.Refuse(__instance, Text.Get("ConstructionHooks.construction_blocked_before_native_effects", ex)); }
     }
 
     private static Exception? Finalizer(Interaction __instance, Exception? __exception)
