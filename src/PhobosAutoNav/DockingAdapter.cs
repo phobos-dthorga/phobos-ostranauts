@@ -15,7 +15,8 @@ internal static class DockingAdapter
     {
         if (target == null || target == own || target.bDestroyed || target.HideFromSystem || target.IsStationHidden() || target.objSS == null)
             return "Docking.target_lost";
-        if (own.IsDocked() || own.IsMoored() || own.TowBraceSecured(target.strRegID)) return "Docking.attached";
+        // The game's clamp button allows docking a further ship while one is attached if a port is still open.
+        if (own.IsDocked() && own.GetOpenDockingPorts().Count == 0 || own.IsMoored() || own.TowBraceSecured(target.strRegID)) return "Docking.attached";
         var clearance = own.Comms?.Clearance;
         if (clearance == null || clearance.TargetRegId != target.strRegID || clearance.ClearanceType != "DOCK" || clearance.DockID != targetPort)
             return "Docking.clearance";
@@ -82,36 +83,41 @@ internal static class DockingAdapter
         return ArrivalBrake.Finite(own.DeltaVRemainingRCS) && own.DeltaVRemainingRCS / AutoNavCore.M_TO_AU >= budget;
     }
 
-    internal static bool Attach(CondOwner console, Ship target, string ownPort, string targetPort, float throttle, double dt)
+    internal enum ClampResult { NotYet, Started, Refused }
+    // The docking console's private button members, resolved when needed so a changed native integration
+    // refuses cleanly instead of attaching through an assumption.
+    private static System.Reflection.MethodInfo? NativeCanDock => AccessTools.Method(typeof(GUIDockSys), "CanDock");
+    private static System.Reflection.MethodInfo? NativeClamp => AccessTools.Method(typeof(GUIDockSys), "ClampEngage");
+    private static string? NativeClearedShip => AccessTools.Property(typeof(GUIDockSys), "ClearedShipRegID")?.GetValue(GUIDockSys.instance) as string;
+
+    /// <summary>The game's own clamp button. Its CanDock geometry admits the clamp and its ClampEngage
+    /// sequence attaches: alignment, port choice, crime checks, docking events, autosave and the MFD change
+    /// all stay native. Refused when our clearance, port or motion checks fail or the native members are
+    /// missing; NotYet while the game's own geometry is not satisfied; Started once the native sequence is
+    /// running over the next frames.</summary>
+    internal static ClampResult Clamp(CondOwner console, Ship target, string ownPort, string targetPort, float throttle, double dt)
     {
         var own = console.ship;
+        var canDock = NativeCanDock; var clamp = NativeClamp;
         if (!ConsoleOpen(console) || console.HasCond("IsDamagedSoftware") || Check(own, target, ownPort, targetPort, checkFit: true) != null ||
-            !Read(own, target, throttle, dt, out var command) || !command.Ready) return false;
-        if (target.IsStation() || target.IsSubStation())
-        {
-            var breakLocks = AccessTools.Method(typeof(GUIDockSys), "BreakAllLocks");
-            if (breakLocks == null) return false;
-            breakLocks.Invoke(GUIDockSys.instance, null);
-        }
-        // The normal attachment API owns pressure/room placement, dock groups and fees.
-        // Reach it only after our distance, velocity, heading and port checks.
-        GUIDockSys.instance!.CheckForCrimeIllegalSalvagingOKLG(target.strRegID, CrewSim.coPlayer);
-        var attached = CrewSim.DockShip(own, target.strRegID, targetPort, ownPort, own.Comms.Clearance!);
-        return attached != null && own.IsDockedWith(target);
+            !Read(own, target, throttle, dt, out var command) || !command.Ready || canDock == null || clamp == null ||
+            NativeClearedShip != target.strRegID) return ClampResult.Refused;
+        if (!(bool)canDock.Invoke(GUIDockSys.instance, null)!) return ClampResult.NotYet;
+        clamp.Invoke(GUIDockSys.instance, new object[] { false });
+        return ClampResult.Started;
     }
 
-    // Called only after the saved flight is marked complete, so native autosaves cannot capture a live maneuver.
-    internal static void NotifyAttached(Ship target)
+    /// <summary>The game's own clamp release for a docked ship, when its docking console is open here and
+    /// cleared for that ship: stolen-ship check, grace period, free-pass reset, undock event, achievement and
+    /// ring rotation stay native and run over the next frames. False when that button would not release.</summary>
+    internal static bool ReleaseClamps(CondOwner console, Ship peer)
     {
-        var crew = CrewSim.GetSelectedCrew();
-        if (crew != null)
-        {
-            crew.ZeroCondAmount("TutorialNavDockWithDerelictWaiting");
-            crew.ZeroCondAmount("TutorialNavSeriesInProgress");
-            MonoSingleton<ObjectiveTracker>.Instance.CheckObjective(crew.strID);
-        }
-        GUIDockSys.DockEvent.Invoke(target.strRegID);
-        BeatManager.AutoSaveBeforePirateEncounter(target);
-        GUIMFDPageHost.OnRequestMFDChange?.Invoke(new MFDDockInfo(GUIMFDPageHost.DefaultCommsScreen));
+        var own = console.ship;
+        var clamp = NativeClamp;
+        if (!ConsoleOpen(console) || console.HasCond("IsDamagedSoftware") || clamp == null ||
+            own.Comms?.Clearance == null || !own.IsDockedWith(peer) || own.TowBraceSecured(peer.strRegID) ||
+            NativeClearedShip != peer.strRegID) return false;
+        clamp.Invoke(GUIDockSys.instance, new object[] { false });
+        return true;
     }
 }

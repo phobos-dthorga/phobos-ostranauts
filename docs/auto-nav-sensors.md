@@ -52,8 +52,13 @@ Auto Nav never switches it off.
 | Off | Never switches sensors (the 0.23.0 behaviour) |
 
 **A brief hold.** Switching a sensor on can make the game refresh its sensor list.
-Guidance then holds thrust for a moment ("Sensors coming online"). If the refresh
-does not finish within a short limit, the flight suspends as for any lost contact.
+Guidance then holds thrust for a moment ("Sensors coming online"). Since 0.25.0
+any native sensor or power refresh, whoever caused it (a power switch, a repair,
+your own sensor change), is the same short hold for flights, docking, capture
+moves, combat and fire control. If the refresh does not finish within the
+settle budget, the flight suspends as for any lost contact. Ships the game's own
+nav station always shows, this ship's docked partners, signal beacons and the
+tutorial derelict, count as tracked without a signal test.
 
 **Limits.**
 

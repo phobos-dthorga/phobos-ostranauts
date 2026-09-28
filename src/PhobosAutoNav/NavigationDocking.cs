@@ -65,7 +65,7 @@ internal sealed partial class NavigationService
     {
         string? problem = DockingResumeProblem(co, snapshot);
         if (problem != null) { FinishSavedFlight(SavedFlightMode.DockingSuspended); status = problem; return; }
-        CeaseFire(); dockTrack.Reset(); dockStableSeconds = 0; dockHolding = true;
+        CeaseFire(); dockTrack.Reset(); dockStableSeconds = 0; dockHolding = true; attachDeadline = 0;
         AutoNavCore.RestoreFlight(co.ship, target, snapshot);
         if (Plugin.FuelCheck.Value && !DockingAdapter.HasFuel(co.ship, CrewSim.system.GetShipByRegID(snapshot.TargetId)!, Throttle))
         {
@@ -103,8 +103,10 @@ internal sealed partial class NavigationService
             string? problem = !Plugin.Enabled.Value ? Text.Get("Docking.unavailable") : HardwareProblem(console);
             if (problem == null && console.HasCond("IsDamagedSoftware")) problem = Text.Get("Docking.software");
             if (problem == null && (!FlightBindingValid() || OtherControllerBusy())) problem = Text.Get("Persistence.binding_changed");
-            if (problem == null && (!ArrivalBrake.Finite(dt) || dt <= 0 || dt > DockingRules.MaximumStep)) problem = Text.Get("Docking.step");
+            if (problem == null && (!ArrivalBrake.Finite(dt) || dt <= 0)) problem = Text.Get("Docking.step");
             if (problem == null && AutoNavCore.ElapsedSeconds >= DockingRules.MaximumSeconds) problem = Text.Get("Docking.timeout");
+            // An oversized step (heavy time compression) is held, not a reason to abandon the docking.
+            if (problem == null && dt > DockingRules.MaximumStep) { if (!afterPhysics) HoldThrust(own, Text.Get("NavigationService.step_hold")); return; }
             if (problem == null)
             {
                 var sensing = SenseTarget(console, flight.TargetId);
@@ -123,8 +125,8 @@ internal sealed partial class NavigationService
                 (target.objSS.vVelY - own.objSS.vVelY) / AutoNavCore.M_TO_AU), StarSystem.fEpoch,
                 new NavVector(own.objSS.vAccRCS.x / AutoNavCore.M_TO_AU, own.objSS.vAccRCS.y / AutoNavCore.M_TO_AU));
             double authority = own.RCSAccelMax / AutoNavCore.M_TO_AU * Throttle * TerminalAuthorityShare;
-            bool stable = dockTrack.Samples >= 2 && dockTrack.Acceleration.Length < authority && dockTrack.ErrorMS < MaximumResidualMS &&
-                ArrivalBrake.Finite(target.objSS.fW) && Math.Abs(target.objSS.fW) <= DockingRules.ClampSpinRadians;
+            // The target's own spin is no gate: the game's CanDock has none, and derelicts spawn tumbling.
+            bool stable = dockTrack.Samples >= 2 && dockTrack.Acceleration.Length < authority && dockTrack.ErrorMS < MaximumResidualMS;
             if (!stable) dockStableSeconds = 0;
             else if (!afterPhysics) dockStableSeconds += dt;
             dockHolding = dockStableSeconds < StableMotionSeconds;
@@ -137,19 +139,25 @@ internal sealed partial class NavigationService
             }
             if (afterPhysics)
             {
+                if (attachDeadline > 0)
+                {
+                    // The game's own clamp sequence runs over the next frames; success shows as a docked ship above.
+                    if (AutoNavCore.ElapsedSeconds < attachDeadline) return;
+                    CompleteDocking(false); return;
+                }
                 if (dockHolding || !command.Ready) return;
                 if (!DockingAdapter.ConsoleOpen(console)) { status = Text.Get("Docking.open_console"); return; }
                 // Never attach during a ship's physics iteration. Recheck actual motion after all ships advance.
+                // Admission and attachment are the game's own: its CanDock geometry and its clamp button.
                 issuing = true; dockingAttachmentPending = true;
                 try
                 {
                     Torch.Release(); own.Maneuver(0, 0, 0, 0, (float)dt);
-                    bool success = DockingAdapter.Attach(console, target!, flight.OwnPort, flight.TargetPort, Throttle, dt);
-                    CompleteDocking(success);
-                    if (success)
+                    switch (DockingAdapter.Clamp(console, target!, flight.OwnPort, flight.TargetPort, Throttle, dt))
                     {
-                        // A UI/notification failure must not erase an already completed docking record.
-                        try { DockingAdapter.NotifyAttached(target!); } catch (Exception ex) { log(ex.ToString()); }
+                        case DockingAdapter.ClampResult.Started: attachDeadline = AutoNavCore.ElapsedSeconds + ClampSettleSeconds; status = Text.Get("Docking.clamping"); break;
+                        case DockingAdapter.ClampResult.Refused: CompleteDocking(false); break;
+                        default: status = Text.Get("Docking.aligning"); break;
                     }
                 }
                 finally { issuing = false; dockingAttachmentPending = false; }
@@ -165,8 +173,12 @@ internal sealed partial class NavigationService
         catch (Exception ex) { log(ex.ToString()); Disengage(Text.Get("Docking.error")); }
     }
 
+    // Game seconds the game's own clamp sequence may take before the attempt counts as failed.
+    private const double ClampSettleSeconds = 5;
+    private double attachDeadline;
     private void CompleteDocking(bool success)
     {
+        attachDeadline = 0;
         // The native attachment can throw or refuse after changing state; do not retry or forcibly undock.
         AutoNavCore.EndFlight(AutoNavCore.EngagedPlayer, success ? "DOCKED" : "ABORTED");
         FinishSavedFlight(success ? SavedFlightMode.Docked : SavedFlightMode.Stopped);

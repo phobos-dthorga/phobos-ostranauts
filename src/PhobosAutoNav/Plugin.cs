@@ -16,7 +16,7 @@ namespace PhobosAutoNav;
 public sealed class Plugin : BaseUnityPlugin
 {
     public const string Id = "phobosgekko.ostranauts.autonav";
-    public const string Version = "0.24.0";
+    public const string Version = "0.25.0";
     internal static NavigationService Service { get; private set; } = null!;
     internal static ConfigEntry<bool> Enabled = null!, VerboseLogging = null!, FuelCheck = null!,
         AbortOnManualThrust = null!, UseThrusterRotation = null!, ResumeAfterLoad = null!, PreferTorch = null!, SalvageEnabled = null!;
@@ -210,6 +210,8 @@ internal static class LifecyclePatch
     private static void Prefix() => Plugin.Service.WorldChanging();
 }
 
+// A native orbit lock on the engaged ship (the pilot's orbital mode, or the game's own anchoring) is a
+// takeover: Auto Nav steps aside and the game's lock proceeds, instead of being silently swallowed.
 [HarmonyPatch]
 internal static class OrbitLockPatch
 {
@@ -218,17 +220,18 @@ internal static class OrbitLockPatch
         AccessTools.Method(typeof(ShipSitu), "LockToBO", new[] { typeof(BodyOrbit), typeof(double) }),
         AccessTools.Method(typeof(ShipSitu), "LockToOrbit", new[] { typeof(BodyOrbit), typeof(double) })
     };
-    private static bool Prefix(ShipSitu __instance) => !AutoNavCore.Engaged || AutoNavCore.EngagedPlayer?.objSS != __instance;
+    private static void Prefix(ShipSitu __instance)
+    {
+        if (AutoNavCore.Engaged && AutoNavCore.EngagedPlayer?.objSS == __instance) Plugin.Service.Disengage(Text.Get("NavigationService.stopped_by_pilot_coasting"));
+    }
 }
 
 [HarmonyPatch(typeof(Ship), "LockToOrbit")]
 internal static class ShipOrbitLockPatch
 {
-    private static bool Prefix(Ship __instance, ref BodyOrbit? __result)
+    private static void Prefix(Ship __instance)
     {
-        if (!AutoNavCore.Engaged || AutoNavCore.EngagedPlayer != __instance) return true;
-        __result = null;
-        return false;
+        if (AutoNavCore.Engaged && AutoNavCore.EngagedPlayer == __instance) Plugin.Service.Disengage(Text.Get("NavigationService.stopped_by_pilot_coasting"));
     }
 }
 

@@ -37,7 +37,11 @@ Obtain native **PUSHBACK & TAXI** clearance from a station or a connection to a
 ship you do not own. An owned native mooring needs no invented ATC clearance.
 The service reports missing preparation; it does not close doors, recover crew,
 pay bills or grant clearance. Native undocking/unmooring retains its legal and
-physical consequences. An obstructed exit is refused before detachment.
+physical consequences. An obstructed exit is refused before detachment. When the
+docking console is open on that station and cleared for the connected ship, the
+release is the game's own clamp button (0.25.0): the stolen-ship check, grace
+period, free-pass reset and undock event apply, and the departure waits a few
+seconds for the clamps to let go. Otherwise the plain native undock is used.
 
 If interrupted during detachment, **Resume departure** reads the actual connection
 and exact ports. If a disconnect is still unconfirmed, it stops for inspection instead of trying again. A confirmed detached ship may resume the outward

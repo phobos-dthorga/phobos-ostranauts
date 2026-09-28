@@ -191,6 +191,7 @@ internal sealed partial class NavigationService
             if (problem == null && !FlightBindingValid()) problem = Text.Get("Persistence.binding_changed");
             if (problem == null && Throttle <= 0) problem = Text.Get("NavigationService.throttle_zero_or_unavailable");
             if (problem == null && OtherControllerBusy()) problem = Text.Get("NavigationService.disengage_other_flight_automation_first");
+            // The saved elapsed budget is preserved across suspension and reload (owner direction); a used-up budget is refused here.
             if (problem == null && (!ArrivalBrake.Finite(Plugin.MaxFlightSimHours.Value) ||
                 snapshot.ElapsedSeconds >= Plugin.MaxFlightSimHours.Value * Phobos.Ostranauts.Framework.Units.SecondsPerHour))
                 problem = Text.Get("Flight.result.TIMEOUT");

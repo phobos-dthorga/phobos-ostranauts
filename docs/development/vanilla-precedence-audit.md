@@ -97,15 +97,25 @@ by the same admission the claim uses.
 
 | Finding | Native evidence | Verdict |
 | --- | --- | --- |
-| Torch burns cut whenever Auto Nav flies: the step snapshot compared exact epochs, but the game advances the epoch inside `StarSystem.Update` after our prefix. | `StarSystem.Update` adds `fTimeDelta` to `fEpoch` in its body; `FusionIC.Update` runs on its own 0.27 s cadence. | Planned: validity by step window. |
-| Final approach crawls: the target sat in the imminent-obstacle sweep. | Straight-coast sweep about four times the braking distance. | Planned: exclude the target. |
-| Zero-duration manoeuvre calls do nothing. | `Ship.Maneuver` returns when `fDeltaTime <= 0`. | Planned: minimal positive duration. |
-| Tumbling derelicts can never be docked or captured. | Derelicts spawn with spin up to 0.5 rad/s; native `CanDock` has no spin rule. | Planned: drop the spin gate; native clamp engagement. |
-| Departure bypasses fees, the free pass, stolen-ship checks and the grace period. | Native `ScheduleUnDock` path. | Planned. |
-| Any Updating sensor reading suspended the flight. | Native contact qualification settles over time. | Planned: hold up to the settle budget. |
+| Torch burns cut whenever Auto Nav flies: the step snapshot compared exact epochs, but the game advances the epoch inside `StarSystem.Update` after our prefix. | `StarSystem.Update` adds `fTimeDelta` to `fEpoch` in its body; `FusionIC.Update` runs on its own 0.27 s cadence. | Fixed 0.25.0: the picture is valid for the step plus the zone refresh (`NavigationAvoidance.StepFresh`). |
+| Final approach crawls: the target sat in the imminent-obstacle sweep. | Straight-coast sweep about four times the braking distance. | Fixed 0.25.0: the target is excluded from that sweep; the arrival controller owns the approach. |
+| Any tracked ship that later faded suspended the flight; a destroyed or despawned ship counted as a lost track; a clear direct leg was refused above the planner's obstacle count. | Corridor threats are the only ones the planner uses. | Fixed 0.25.0: only corridor threats carry forward; a ship that left the world is gone; a clear direct leg needs no plan. |
+| Zero-duration manoeuvre calls do nothing. | `Ship.Maneuver` returns when `fDeltaTime <= 0`. | Fixed 0.25.0: smallest positive duration (`HoldThrust`). |
+| Tumbling derelicts can never be docked or captured. | Derelicts spawn with spin up to 0.5 rad/s; native `CanDock` has no spin rule. | Fixed 0.25.0: target-spin gates removed from docking and capture stability. |
+| Attachment bypassed the game's clamp admission and sequence. | `GUIDockSys.CanDock` and `ClampEngage` (alignment, port choice, crime checks, events, autosave). | Fixed 0.25.0: `DockingAdapter.Clamp` admits through native `CanDock` and presses native `ClampEngage`; the flight waits for the docked state. Our own attach and notification code is gone. |
+| Departure bypassed the stolen-ship check, grace period, free pass and undock event. | `GUIDockSys.ClampEngage` (undock branch) and its `Undock` coroutine. | Fixed 0.25.0 when the docking console is open on that station and cleared for the peer (`DockingAdapter.ReleaseClamps`); otherwise the plain native `UndockShip` as before, with the clearance rule already enforced. |
+| Any Updating sensor reading suspended the flight. | Native contact qualification settles over time. | Fixed 0.25.0: any refresh is held up to the settle budget, for flight, docking, capture, combat and fire. |
+| Targets the game's own nav station always shows needed a signal test. | `GUIOrbitDraw.VisibleFromNavStation`: docked partners, signal beacons, tutorial derelict, known stations. | Fixed 0.25.0 for docked partners, beacons and the tutorial derelict. Known stations still take the signal test: their "known" record belongs to the station's own map. |
+| Native orbit locks on the engaged ship were silently swallowed. | `ShipSitu.LockToBO/LockToOrbit`, `Ship.LockToOrbit`. | Fixed 0.25.0: a pilot takeover; Auto Nav disengages and the lock proceeds. |
+| An oversized simulation step ended the flight, docking, capture move or fire control; Resume admission assumed the configured cap. | Steps grow with time compression. | Fixed 0.25.0: the step is held; admission uses the last real step. |
+| Throttle slider used raw. | The game maps the slider with `MathUtils.ExpMap` for the pilot's RCS. | Fixed 0.25.0. |
+| Resume refused a flight whose time budget was used up. | The saved elapsed budget is preserved across suspension and reload by owner direction (Auto Nav persistence, 2026-09-24). | Kept: a used-up budget is refused; the player starts a new flight. |
+| Body velocity from finite differences (first sample unknown). | `BodyOrbit.dVelX` is a per-update position delta, not a velocity. | Kept: positions are differenced as before. |
+| Physics finalizer disengages on any exception in `StarSystem.Update`. | Our own ticks catch their exceptions; what reaches the finalizer is native or third-party. | Kept: a physics exception leaves ship state uncertain, so stepping aside is the safe reading. |
 | Native close-range guidance refuses under 5,000 km. | `FlyToAutoPilot`. | Kept: Auto Nav's own guidance is the reason the mod exists. |
 | Sensor auto-engage, `knobRatio` write, time-scale reset, conveyor transfers, merchant stock floors. | Owner directions. | Kept. |
 | Replacing crew hauling with the native "Give" loot effect. | Reviewer suggestion. | Deferred: it would drop the route, reservation and single-item pickup checks for no gameplay gain. |
+| Hub flow control gating, no-wake margin from relative velocity, nearest-body occlusion, coasting threshold relative to the plan, recording issued RCS commands, native toggle listeners. | Refinements, not dead gates. | Deferred to a later round with in-game observations. |
 
 ## Owner checks (copy of an ordinary save)
 
@@ -131,4 +141,11 @@ by the same admission the claim uses.
 - The R4 in a warm room shows the room's temperature and pauses drawing power,
   then continues when the room cools; a six-hour skip completes queued D4 work.
 - A worn but undamaged wall is cut by G4; a damaged one is not.
-- Round 3 checks are listed in the Auto Nav guides when they land.
+- A torch-preferred approach burns continuously on the cruise leg; the final
+  approach keeps cruise speed until braking begins.
+- Docking a tumbling derelict with the docking console open: Auto Nav holds at
+  the clamp position, the console's own clamp engages, and the flight ends
+  docked; flipping a power switch mid-flight holds briefly instead of suspending.
+- Undock and Depart with the docking console open releases through the console
+  and the grace period applies; selecting orbital mode during a flight hands
+  control back; heavy time compression holds a step instead of stopping.

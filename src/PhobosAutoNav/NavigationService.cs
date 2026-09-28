@@ -96,7 +96,8 @@ internal sealed partial class NavigationService
         try
         {
             if (ship.Reactor != null) ship.SetReactorGPMValue("slidCycle", "0");
-            ship.SetThrust(0); ship.Maneuver(0, 0, 0, 0, 0);
+            // The game ignores a zero-duration manoeuvre; the smallest positive duration carries the zero command.
+            ship.SetThrust(0); ship.Maneuver(0, 0, 0, 0, 1E-10f);
         }
         finally { issuing = false; }
         status = Text.Get("Controls.released"); log(status);
@@ -171,11 +172,14 @@ internal sealed partial class NavigationService
             string? problem = !Plugin.Enabled.Value ? Text.Get("NavigationService.mod_disabled") : HardwareProblem(console);
             if (problem == null && !FlightBindingValid()) problem = Text.Get("Persistence.binding_changed");
             if (problem == null && Torch.ControlsChanged) problem = Text.Get("Torch.manual");
-            if (problem == null && (!ArrivalBrake.Finite(dt) || dt < 0 || dt > Plugin.MaximumStepSeconds.Value)) problem = Text.Get("NavigationService.simulation_step_too_large_or_invalid_reduce");
+            if (problem == null && (!ArrivalBrake.Finite(dt) || dt < 0)) problem = Text.Get("NavigationService.simulation_step_too_large_or_invalid_reduce");
             if (problem == null && Throttle <= 0) problem = Text.Get("NavigationService.throttle_zero_or_unavailable");
             if (problem == null && AutoNavCore.AutoDockBusy()) problem = Text.Get("NavigationService.auto_dock_took_control");
             if (problem == null && (!ArrivalBrake.Finite(Plugin.ArrivalSpeedTolerance.Value) || !ArrivalBrake.Finite(Plugin.MaximumStepSeconds.Value))) problem = Text.Get("NavigationService.invalid_safety_settings");
             if (problem != null) { Disengage(problem); return; }
+            LastStepSeconds = dt;
+            // An oversized step (heavy time compression) is held, not a reason to abandon the flight.
+            if (dt > Plugin.MaximumStepSeconds.Value) { HoldThrust(AutoNavCore.EngagedPlayer!, Text.Get("NavigationService.step_hold")); return; }
             var sensing = Torch.ContactLoss ?? SenseTarget(console, AutoNavCore.EngagedTarget?.ShipId);
             if (!sensing.Usable)
             {

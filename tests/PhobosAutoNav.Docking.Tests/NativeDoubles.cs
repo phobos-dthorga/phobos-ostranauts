@@ -134,9 +134,28 @@ internal sealed class GUIDockSys
     internal CondOwner COSelf = new();
     internal bool bActive = true;
     internal static Signal DockEvent = new();
-    internal int BrokenLocks;
+    internal int BrokenLocks, ClampCalls;
+    // The native button's own admission and sequence, reached by reflection like the real ones.
+    internal bool CanDockResult = true, ClampAttaches = true;
+    private string ClearedShipRegID => COSelf.ship.Comms.Clearance?.TargetRegId ?? "";
+    private bool CanDock() => CanDockResult;
+    private void ClampEngage(bool wasTurnedOn)
+    {
+        ClampCalls++;
+        var own = COSelf.ship;
+        if (own.IsDocked() && own.Attachments.Values.Any(s => s.strRegID == ClearedShipRegID)) { CrewSim.UndockShip(own, own.Attachments.Values.First(s => s.strRegID == ClearedShipRegID), true); return; }
+        if (!CanDock() || own.Comms.Clearance == null || !ClampAttaches) return;
+        // The native Dock coroutine: AI lock cleanup for stations, then the shared docking API with its own port choice.
+        var target = CrewSim.system.GetShipByRegID(ClearedShipRegID);
+        if (target != null && target.IsStation()) BreakAllLocks();
+        CrewSim.DockShip(own, ClearedShipRegID, "", "", own.Comms.Clearance);
+    }
     private void BreakAllLocks() { BrokenLocks++; }
     internal void CheckForCrimeIllegalSalvagingOKLG(string target, CondOwner player) { }
+}
+internal static class MathUtils
+{
+    internal static float ExpMap(float x, float baseValue = 10f) { x = Math.Clamp(x, 0f, 1f); return (float)((Math.Pow(baseValue, x) - 1.0) / (baseValue - 1.0)); }
 }
 internal sealed class Signal { internal int Count; internal void Invoke(string target) { Count++; } }
 internal static partial class CollisionManager
@@ -157,7 +176,8 @@ namespace HarmonyLib
     internal static class AccessTools
     {
         internal static Type? TypeByName(string name) => null;
-        internal static System.Reflection.PropertyInfo? Property(Type type, string name) => null;
+        internal static System.Reflection.PropertyInfo? Property(Type type, string name) => MethodsAvailable ?
+            type.GetProperty(name, System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance) : null;
         internal static bool MethodsAvailable = true;
         internal static System.Reflection.MethodInfo? Method(Type type, string name) => MethodsAvailable ?
             type.GetMethod(name, System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance) : null;

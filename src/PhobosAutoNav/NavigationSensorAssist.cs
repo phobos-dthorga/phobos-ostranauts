@@ -11,8 +11,7 @@ namespace PhobosAutoNav;
 // Sensors stay on while a flight is suspended so Resume can reacquire. Displays never switch sensors.
 internal sealed partial class NavigationService
 {
-    // Guidance checks that may wait out a native sensor refresh right after Auto Nav switched sensors on.
-    internal const int SensorSettleChecks = 60;
+    // SensorSettleChecks (the settle budget) lives in NavigationSensors.cs, which every consumer compiles.
     // Game seconds without Auto Nav work before its sensors are switched off; covers controller handoffs.
     internal const double SensorReleaseGraceSeconds = 5;
     // Game seconds between hazard surveys; weak hazards keep their wider clearance meanwhile.
@@ -78,10 +77,7 @@ internal sealed partial class NavigationService
         settling = true;
         if (!hold) return;
         settleChecks--;
-        Torch.Cut();
-        issuing = true;
-        try { own.Maneuver(0, 0, 0, 0, 0); } finally { issuing = false; }
-        status = Text.Get("SensorAssist.settling");
+        HoldThrust(own, Text.Get("SensorAssist.settling"));
     }
 
     // Resumable flights keep their sensors while suspended. Departure reports its own saved work.

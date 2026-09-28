@@ -24,6 +24,11 @@ internal static class NativeContactReader
             if (target == null) return ReadStellar(system, observer, targetId!);
             if (target == observer || target.bDestroyed || target.objSS == null ||
                 target.HideFromSystem || target.IsStationHidden()) return new ContactReading(ContactState.Unavailable);
+            // What the game's own navigation station shows without a signal test (GUIOrbitDraw.VisibleFromNavStation):
+            // this ship's docked partners, signal beacons and the tutorial derelict. Known stations need the
+            // station's own record and are still read through the signal test.
+            if (target.IsDockedWith(observer) || target.Classification == Ship.TypeClassification.SignalBeacon || target.ShipCO?.HasCond("IsTutorialDerelict") == true)
+                return new ContactReading(ContactState.Ready, 1, ContactRules.DefaultThreshold);
             var problem = SensorProblem(observer);
             if (problem != null) return problem.Value;
             if (Occluded(system, observer, target.objSS, out bool fault))

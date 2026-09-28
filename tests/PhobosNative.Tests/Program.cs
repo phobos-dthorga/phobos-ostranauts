@@ -15,6 +15,7 @@ int checks = 0;
 void Check(bool condition, string message) { if (!condition) throw new Exception(message); checks++; }
 void Throws(Action call, string message) { bool threw = false; try { call(); } catch { threw = true; } Check(threw, message); }
 PairingSaveChecks.Run(Check);
+AutoNavPrecedenceNativeChecks.Run(Check);
 FlightHubNativeChecks.Run(Check);
 PolarisStyleChecks.Run(Check);
 PerformanceNativeChecks.Run(Check);

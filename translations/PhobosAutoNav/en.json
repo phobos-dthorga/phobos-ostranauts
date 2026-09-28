@@ -24,7 +24,7 @@
   "Docking.select": "Select the ship or station for which you have docking clearance.",
   "Docking.unsafe": "Docking cannot guide this approach: remain within 10 km of the hull with room to brake, working RCS and nonzero throttle. Use Fly or manual braking first.",
   "Docking.timeout": "Docking timed out after 30 simulated minutes. Guidance disengaged; ship coasts.",
-  "Docking.step": "Docking stopped: simulation step exceeds one second or is invalid. Reduce time acceleration and start again.",
+  "Docking.step": "Docking stopped: the simulation step is invalid. Start again.",
   "Docking.error": "Docking stopped after an error. Check the clamps and log before retrying.",
   "Docking.engaged": "Docking engaged. RCS approach, motion matching and alignment; keep the navigation console open for final clamps.",
   "Docking.progress": "Hull gap {0:0.0} m / relative speed {1:0.00} m/s",
@@ -146,7 +146,7 @@
   "NavigationService.ready_to_select_target": "Ready to select target",
   "NavigationService.select_another_ship_or_station_planetary_travel": "Select another ship, station or asteroid. Planetary travel is not supported.",
   "NavigationService.set_the_nav_console_throttle_above_zero": "Set the nav console throttle above zero",
-  "NavigationService.simulation_step_too_large_or_invalid_reduce": "Simulation step too large or invalid; reduce time compression",
+  "NavigationService.simulation_step_too_large_or_invalid_reduce": "Simulation step invalid; flight stopped",
   "NavigationService.stop_approach_assist_s_test_pulse_first": "Stop Approach Assist's test pulse first",
   "NavigationService.stop_failed": "Stop failed: {0}",
   "NavigationService.stopped": "Stopped",
@@ -375,7 +375,7 @@
   "FCS.guidance": "Flight priority",
   "FCS.complete": "Volley complete",
   "FCS.dispatch_fault": "Firing fault",
-  "FCS.step": "Time step too large",
+  "FCS.step": "Time step invalid",
   "FCS.binding": "Control connection lost",
   "FCS.weapons_changed": "Weapon group changed",
   "FCS.unavailable": "Unavailable",
@@ -560,5 +560,9 @@
   "SensorAssist.in_use": "Sensors on for Auto Nav: {0}",
   "SensorAssist.settling": "Sensors coming online; Auto Nav is holding thrust for a moment",
   "SensorAssist.setting": "Sensors Auto Nav may switch on by itself when its target or a nearby hazard is too faint to track. All: non-emitting sensors first, radar or LiDAR only when those are not enough. Passive: never radar or LiDAR. Off: never. You are told each time, and Auto Nav switches off only what it switched on.",
-  "SensorSuite.by_auto_nav": "{0}, switched on by Auto Nav"
+  "SensorSuite.by_auto_nav": "{0}, switched on by Auto Nav",
+  "NavigationService.step_hold": "Simulation step too large this frame; holding thrust until the next one. Reduce time compression to keep guiding.",
+  "Docking.clamping": "Clamps engaging through the docking console's own sequence.",
+  "Docking.aligning": "In position; waiting for the docking console's own alignment check to admit the clamp.",
+  "Departure.releasing": "Clamps releasing through the docking console's own sequence."
 }

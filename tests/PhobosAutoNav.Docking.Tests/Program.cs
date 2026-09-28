@@ -80,7 +80,8 @@ GUIOrbitDraw.CrossHairTarget = null; Tick(f.Service); Check(AutoNavCore.Engaged,
 f.Console.ship.Comms.Clearance!.DockID = "changed"; Tick(f.Service); Check(!AutoNavCore.Engaged, "Port reassignment cancels before further thrust");
 f = Setup(); f.Service.Dock(f.Console); f.Target.Ports.Clear(); Tick(f.Service); Check(!AutoNavCore.Engaged, "Occupied or removed port cancels");
 f = Setup(); f.Service.Dock(f.Console); f.Service.HardwareFailure = "power"; Tick(f.Service); Check(!AutoNavCore.Engaged, "Hardware failure cancels");
-f = Setup(); f.Service.Dock(f.Console); Tick(f.Service, 2); Check(!AutoNavCore.Engaged, "Fast-forward beyond docking step limit cancels");
+f = Setup(); f.Service.Dock(f.Console); Tick(f.Service, 2); Check(AutoNavCore.Engaged && f.Console.ship.LastX == 0 && f.Console.ship.LastY == 0 && f.Console.ship.LastTurn == 0, "Fast-forward beyond docking step limit holds thrust for that step instead of cancelling");
+Tick(f.Service); Check(AutoNavCore.Engaged, "Guidance continues on the next ordinary step");
 f = Setup(); f.Service.Dock(f.Console); AutoNavCore.Busy = true; Tick(f.Service); Check(!AutoNavCore.Engaged, "Other automation wins");
 f = Setup(); f.Service.Dock(f.Console); AutoNavCore.ElapsedSeconds = DockingRules.MaximumSeconds; Tick(f.Service); Check(!AutoNavCore.Engaged, "Cumulative timeout cancels");
 f = Setup(); f.Service.Dock(f.Console); CrewSim.Paused = true; Tick(f.Service); Check(AutoNavCore.ElapsedSeconds == 0, "Paused physics does not consume timeout"); CrewSim.Paused = false;
@@ -90,16 +91,23 @@ f.Service.ResumeSaved(f.Console); Check(AutoNavCore.Engaged, "Resume revalidates
 f.Service.WorldChanging(); f.Service.WorldLoaded(); f.Service.UpdatePersistence(); f.Target.Ports.Clear(); f.Service.ResumeSaved(f.Console);
 Check(!AutoNavCore.Engaged && Read(f.Console).TargetPort == "assigned", "Unavailable saved port stays suspended without replacement");
 f = Setup(210); f.Service.Dock(f.Console); Settle(f.Service); f.Service.TickDocking(CrewSim.system,.1,true);
-Check(CrewSim.AttachCalls == 1 && !AutoNavCore.Engaged && Read(f.Console).Mode == SavedFlightMode.Docked, "Clamps attach once through native boundary");
-Check(CrewSim.LastOwnPort == "own" && CrewSim.LastTargetPort == "assigned", "Native attachment uses captured pair");
-f.Service.TickDocking(CrewSim.system,.1,true); Check(CrewSim.AttachCalls == 1, "No repeated attachment");
+Check(CrewSim.AttachCalls == 1 && GUIDockSys.instance!.ClampCalls == 1 && AutoNavCore.Engaged, "The clamp is the docking console's own button, pressed once when its geometry admits");
+f.Service.TickDocking(CrewSim.system,.1,false);
+Check(!AutoNavCore.Engaged && Read(f.Console).Mode == SavedFlightMode.Docked, "The flight ends docked once the game's own sequence has attached");
+f.Service.TickDocking(CrewSim.system,.1,true); Check(CrewSim.AttachCalls == 1 && GUIDockSys.instance!.ClampCalls == 1, "No repeated attachment");
+f = Setup(210); f.Service.Dock(f.Console); Settle(f.Service); GUIDockSys.instance!.CanDockResult = false; f.Service.TickDocking(CrewSim.system,.1,true);
+Check(CrewSim.AttachCalls == 0 && GUIDockSys.instance!.ClampCalls == 0 && AutoNavCore.Engaged, "Auto Nav holds until the console's own alignment check admits the clamp");
+f = Setup(210); f.Service.Dock(f.Console); Settle(f.Service); GUIDockSys.instance!.ClampAttaches = false; f.Service.TickDocking(CrewSim.system,.1,true);
+Check(GUIDockSys.instance!.ClampCalls == 1 && AutoNavCore.Engaged, "A started native clamp sequence is waited for");
+AutoNavCore.ElapsedSeconds += 6; f.Service.TickDocking(CrewSim.system,.1,true);
+Check(!AutoNavCore.Engaged && Read(f.Console).Mode == SavedFlightMode.Stopped, "A clamp sequence that never connects ends the attempt as failed, without a retry");
 f = Setup(210); f.Service.Dock(f.Console); Settle(f.Service); GUIDockSys.instance = null; f.Service.TickDocking(CrewSim.system,.1,true);
 Check(CrewSim.AttachCalls == 0 && AutoNavCore.Engaged, "Closed console holds instead of bypassing native UI legal check");
 GUIDockSys.instance = new() { COSelf = f.Console }; f.Target.Pairs.Clear(); f.Service.TickDocking(CrewSim.system,.1,true);
 Check(CrewSim.AttachCalls == 0, "Final clamp rechecks fit even between periodic checks");
-f = Setup(210); Check(!DockingAdapter.Attach(f.Console, f.Target, "own", "wrong",1,.1), "Attachment boundary rejects wrong pair independently");
+f = Setup(210); Check(DockingAdapter.Clamp(f.Console, f.Target, "own", "wrong",1,.1)==DockingAdapter.ClampResult.Refused, "Attachment boundary rejects wrong pair independently");
 f.Target.objSS.vVelX = AutoNavCore.M_TO_AU;
-Check(!DockingAdapter.Attach(f.Console,f.Target,"own","assigned",1,.1), "Attachment boundary independently rejects motion");
+Check(DockingAdapter.Clamp(f.Console,f.Target,"own","assigned",1,.1)==DockingAdapter.ClampResult.Refused, "Attachment boundary independently rejects motion");
 
 f = Setup(); f.Console.ship.Maneuver(.2f,.1f,0,0,.1f); f.Console.ship.DeltaVRemainingRCS = 0; f.Service.Dock(f.Console);
 Check(!AutoNavCore.Engaged && Read(f.Console).Mode == SavedFlightMode.DockingSuspended, "Actual RCS budget gates docking even inside ordinary Fly arrival radius");
@@ -168,7 +176,7 @@ Check(DockingRules.TryHold(new(0,250),new(0,2),new(0,.5),0,0,200,1,.5,.1,out var
     Math.Abs(hold.X)+Math.Abs(hold.Y)+Math.Abs(hold.Turn)<=.500001,"Hold remains bounded and cannot authorize clamps");
 f=Setup(210); f.Service.Dock(f.Console); Settle(f.Service); f.Target.objSS.fW=.01f;
 f.Service.TickDocking(CrewSim.system,.1,true);
-Check(CrewSim.AttachCalls==0 && AutoNavCore.Engaged,"Rotating target holds final capture despite matched translation");
+Check(CrewSim.AttachCalls==1 && GUIDockSys.instance!.ClampCalls==1,"A tumbling target does not block the clamp: the game's own docking has no spin rule");
 // Combined approach-to-terminal mission: real service and persistence, doubled engine boundary.
 foreach (string module in new[] { NavigationService.ModuleId, NavigationService.PursuitId })
 {
@@ -269,7 +277,10 @@ f.Console.Items[0].strID = "replacement"; f.Service.TickIndustrial(.1, false);
 Check(!IndustrialNavigation.Observe("lease", out _, out _), "Replacement N1 cannot inherit captured module identity");
 f = Setup(); IndustrialNavigation.Request("lease", f.Console, "module", "target", 0, () => null, out _);
 f.Service.TickIndustrial(2, false);
-Check(!IndustrialNavigation.Observe("lease", out _, out _), "Excessive terminal time compression suspends");
+Check(IndustrialNavigation.Observe("lease", out _, out _) && f.Console.ship.LastX == 0 && f.Console.ship.LastY == 0 && f.Console.ship.LastTurn == 0,
+    "Excessive terminal time compression holds thrust for that step and keeps the industrial permission");
+f.Service.TickIndustrial(.1, false);
+Check(IndustrialNavigation.Observe("lease", out _, out _), "The move continues on the next ordinary step");
 f = Setup(); IndustrialNavigation.Request("lease", f.Console, "module", "target", 0, () => null, out _);
 f.Service.HardwareFailure = "power"; f.Service.TickIndustrial(.1, false);
 Check(!IndustrialNavigation.Observe("lease", out _, out _), "Power/fuel hardware boundary loss ends industrial permission");
@@ -282,7 +293,7 @@ Check(!IndustrialNavigation.Observe("lease", out _, out _) && !AutoNavCore.Engag
 f = Setup(210); IndustrialNavigation.Request("lease", f.Console, "module", "target", 0, () => null, out _);
 f.Target.objSS.fW = .02f;
 for (int i = 0; i < 65; i++) { f.Service.TickIndustrial(.1, false); StarSystem.fEpoch += .1; f.Service.TickIndustrial(.1, true); }
-Check(IndustrialNavigation.Observe("lease", out ready, out _) && !ready, "Rotating targets never receive ready-to-clamp status");
+Check(IndustrialNavigation.Observe("lease", out ready, out _) && ready, "A tumbling target still reaches ready-to-clamp: derelicts spawn tumbling and the game's docking has no spin rule");
 f = Setup(); f.Console.ship.DeltaVRemainingRCS = 0;
 Check(!IndustrialNavigation.Request("lease", f.Console, "module", "target", 0, () => null, out _), "Industrial fuel admission cannot be disabled by caller permission");
 f = Setup(); IndustrialNavigation.Request("lease", f.Console, "module", "target", 0, () => null, out _);

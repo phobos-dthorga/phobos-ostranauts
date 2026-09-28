@@ -150,6 +150,16 @@ foreach (var state in new[] { "off", "removed", "refresh", "power", "occluded", 
         case "fault": f.Own.ElectronicSystems.Throw = true; break;
     }
     f.Service.Tick(f.Own.objSS, 1, false);
+    if (state == "refresh" || state == "power")
+    {
+        // A native sensor or power refresh, whoever caused it, is a short hold within the settle budget, not a loss.
+        Check(AutoNavCore.Engaged && AutoNavCore.SteeringCalls == 0 && f.Service.StatusForTest == "SensorAssist.settling",
+            "A native refresh holds guidance instead of suspending: " + state);
+        for (int i = 0; i < NavigationService.SensorSettleChecks && AutoNavCore.Engaged; i++) f.Service.Tick(f.Own.objSS, 1, false);
+        Check(!AutoNavCore.Engaged && Read(f.Console).Mode == SavedFlightMode.Suspended && AutoNavCore.SteeringCalls == 0,
+            "A refresh that never completes still suspends the flight: " + state);
+        continue;
+    }
     Check(!AutoNavCore.Engaged && Read(f.Console).Mode == SavedFlightMode.Suspended && AutoNavCore.SteeringCalls == 0,
         "Changed sensing suspends before guidance: " + state);
 }
@@ -339,7 +349,7 @@ Check(original==Raw(f.Console) && f.Own.Maneuvers==maneuvers,"N3 display cannot 
 f.Service.StepWeapons(f.Console); Check(f.Service.ReadHub(f.Console).WeaponGroup==1,"Held group cannot change without Native return");
 f.Service.CeaseFire(); Check(f.Service.Fire.Owns(f.Console.strID)&&!f.Service.Fire.Permitted,"Cease persists offensive ownership");
 f.Service.EngageWeapons(f.Console); f.Service.TickFire(2,false);
-Check(!f.Service.Fire.Permitted && f.Service.Fire.Owns(f.Console.strID),"Large simulation step revokes but retains hold");
+Check(f.Service.Fire.Permitted && f.Service.Fire.Owns(f.Console.strID),"A large simulation step is skipped; fire permission and the hold are retained");
 f.Service.EngageWeapons(f.Console); Signal(f.Own,.1); f.Service.TickFire(.25,false);
 Check(!f.Service.Fire.Permitted,"Independent contact loss revokes fire");
 Signal(f.Own,1); f.Service.TickFire(.25,false); Check(!f.Service.Fire.Permitted,"Independent reacquisition cannot rearm");

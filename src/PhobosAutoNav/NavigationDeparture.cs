@@ -149,14 +149,26 @@ internal sealed partial class NavigationService
         else if(own.IsDocked()||own.IsMoored()) return Text.Get("Departure.attachment");
         return null;
     }
+    // Game seconds the game's own clamp release may take before the detachment counts as uncertain.
+    private const double DetachSettleSeconds = 10;
+    private double detachDeadline;
     private void CommitDeparture(Departure d)
     {
         var problem=DepartureProblem(d,true); if(problem!=null) { status=problem; departure=null; return; }
         d["phase"]="DetachPending"; if(!SaveDeparture(d)) { status=Text.Get("Persistence.write_failed"); departure=null; return; }
         CeaseFire(); Torch.Release();
         var own=d.Console.ship; var peer=CrewSim.system.GetShipByRegID(d["peer"])!;
+        // The game's own clamp release (stolen-ship check, grace period, free-pass reset, undock event) when its
+        // docking console is open here and cleared for the peer; it runs over the next frames. Otherwise the
+        // plain native undock, with the clearance rule already checked above.
+        if(DockingAdapter.ReleaseClamps(d.Console,peer)) { detachDeadline=StarSystem.fEpoch+DetachSettleSeconds; status=Text.Get("Departure.releasing"); return; }
         if(d["kind"]=="Moor") CrewSim.UnMoorShip(own,peer); else CrewSim.UndockShip(own,peer,true);
-        if(own.IsDockedWith(peer)) { StopExtended(Text.Get("Departure.uncertain")); return; }
+        FinishDetach(d);
+    }
+    private void FinishDetach(Departure d)
+    {
+        var own=d.Console.ship; var peer=CrewSim.system.GetShipByRegID(d["peer"]);
+        if(peer==null||own.IsDockedWith(peer)) { StopExtended(Text.Get("Departure.uncertain")); return; }
         d["phase"]="Detached"; if(!SaveDeparture(d)) { StopExtended(Text.Get("Persistence.write_failed")); return; }
         BeginEgress(d);
     }
@@ -196,6 +208,13 @@ internal sealed partial class NavigationService
     {
         if(departure==null || CrewSim.Paused || dt<=0) return;
         var d=departure;
+        if(d["phase"]=="DetachPending")
+        {
+            var peer=CrewSim.system.GetShipByRegID(d["peer"]);
+            if(peer==null||!d.Console.ship.IsDockedWith(peer)) FinishDetach(d);
+            else if(StarSystem.fEpoch>detachDeadline) StopExtended(Text.Get("Departure.uncertain"));
+            return;
+        }
         if(d["phase"]!="Departing") return;
         if(!ObserveIndustrial(d["permission"],out bool ready,out var message)) { StopExtended(message); return; }
         if(!ready) return;

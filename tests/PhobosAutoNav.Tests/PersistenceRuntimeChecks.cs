@@ -117,6 +117,8 @@ internal sealed class CrewSim
 internal sealed class Ship
 {
     internal bool IsDocked() => false;
+    internal int Maneuvers;
+    internal void Maneuver(float x, float y, float r, float throttle, float dt) { if (dt <= 0) throw new Exception("Zero-duration manoeuvre is ignored by the game"); Maneuvers++; }
     internal ShipSitu objSS = new();
     internal string strRegID = "";
     internal List<CondOwner> Items = new();
@@ -253,3 +255,7 @@ internal static class GUIOrbitDraw
     internal static bool IsOpen() => true;
 }
 internal static class StarSystem { internal static double fEpoch => 0; }
+internal static class MathUtils
+{
+    internal static float ExpMap(float x, float baseValue = 10f) { x = Math.Clamp(x, 0f, 1f); return (float)((Math.Pow(baseValue, x) - 1.0) / (baseValue - 1.0)); }
+}

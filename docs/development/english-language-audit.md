@@ -239,3 +239,15 @@ those machines now continue by themselves. Guides state the vanilla rules for
 power state, stacked supplies, tank destruction, eating, offer-time refusals,
 catch-up after long intervals, heat waiting and wall eligibility. Coverage is now
 1,915 entries, 154 documents and 14 other surfaces. Unity wording is unverified.
+
+## Vanilla precedence, round 3, 28 September 2026
+
+Auto Nav 0.25.0 adds four reviewed entries (a held oversized step, the clamp and
+release sequences running through the docking console, and holding for the
+console's own alignment check) and rewrites three step lines that now cover
+only an invalid step, since oversized steps are held rather than ending the
+work. The docking, sensors, departure and torch guides state the vanilla rules:
+no target-spin gate, the clamp as the game's own button, a refresh as a short
+hold, the native release when the console is open, and the step-valid torch
+guard. Coverage is now 1,919 entries, 154 documents and 14 other surfaces.
+Unity wording is unverified.

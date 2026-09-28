@@ -21,6 +21,27 @@ Dates on Draft entries record preparation, not Steam publication.
 - Earlier capture-only research is superseded for supported ordinary walls by Shipbreaker 0.24.0 reclamation, which relies on the 0.16.0 capture flight and 0.18.0 local avoidance and departure entries below. Broader structural recipes, repeated furnace batches and whole-wreck completion remain Shipbreaker work, not Auto Nav flight changes.
 - Keep [NASA Goddard's Raven research](https://www.nasa.gov/general/nasas-hybrid-computer-enables-ravens-autonomous-rendezvous-capability/) and [ESA's LIRIS experiment by Airbus, Jena Optronik and Sodern](https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/ATV/ATV_views_Space_Station_as_never_before) as sensing context, separate from Blue Bottle Games native evidence and authored gameplay choices. No institutional endorsement or gameplay validation is implied.
 
+## [0.25.0] - 2026-09-28 - Draft
+
+### Fixed
+
+- Torch burns are no longer cut whenever Auto Nav flies. The obstacle picture taken before each physics step was compared with the exact epoch, but the game advances the epoch inside its update and the reactor's own thrust update runs on its own cadence, so the guard refused every burn. The picture now stays valid for the whole step and the zone refresh.
+- Final approaches no longer crawl. The flight's own target was swept as an imminent obstacle across the whole braking phase, handing it to slow avoidance; the target is the arrival controller's business and is left out of that sweep.
+- A distant tracked ship that later fades no longer suspends the flight; only obstacles in the flight corridor are carried forward as threats, and a ship that leaves the world (destroyed, despawned, hidden) is gone rather than a lost track. A clear direct leg needs no route plan however many contacts are around.
+- Any native sensor or power refresh, not only one Auto Nav caused, is a short hold rather than a lost contact, for flights, docking, capture moves, combat and fire control, up to the same settle budget.
+- Ships the game's own navigation station always shows, this ship's docked partners, signal beacons and the tutorial derelict, count as tracked without a signal test.
+- Tumbling targets can be docked and captured. The clamp and capture stability checks required the target's spin to be nearly zero, which derelicts never satisfy; the game's own docking has no spin rule.
+- Clearing thrust works. Three places asked the game for a zero-duration manoeuvre, which it ignores, leaving RCS acceleration running; the smallest positive duration now carries the zero command.
+- Docking attaches through the game's own clamp button: its alignment check admits the clamp and its clamp sequence does the port choice, crime checks, docking events, autosave and MFD change. Auto Nav holds in position until that check admits. Docking a further ship while one is attached is allowed when a port is open, as the game allows.
+- Undock and Depart releases the clamps through the game's own clamp button when the docking console is open on that station and cleared for the connected ship, so the stolen-ship check, grace period, free-pass reset and undock event apply; otherwise the plain native undock is used as before.
+- A native orbit lock on the engaged ship (orbital mode, the game's own anchoring) is a pilot takeover: Auto Nav steps aside and the lock proceeds, instead of being silently swallowed.
+- An oversized simulation step (heavy time compression) is held for that step instead of ending the flight, docking, capture move or fire control. Resume admission uses the step the game actually ran.
+- The throttle slider is mapped the way the game maps it for the pilot's own RCS commands, so Auto Nav's RCS authority matches manual flying at the same setting.
+
+### Compatibility and limits
+
+- Saved flights, ports and preferences are unchanged. Known stations still go through the signal test (their record belongs to the navigation station). Body velocities are still measured from positions, since the game keeps only per-update deltas. Offline checks pass; owner play-testing of torch approaches, tumbling-target docking, the clamp hand-off and time-compressed flights is pending. Findings and evidence: docs/development/vanilla-precedence-audit.md.
+
 ## [0.24.0] - 2026-09-28 - Draft
 
 ### Added

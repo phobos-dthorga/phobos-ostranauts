@@ -46,7 +46,10 @@ permission expires without fresh guidance. Station motion and the native
 order of updating global time, station positions and free ships are covered by
 a conservative whole-step position allowance. This can cut the torch earlier
 near a moving station or at high time acceleration. A station approach therefore
-finishes on RCS. Unrestricted approaches to other ships can use the torch much
+finishes on RCS. Since 0.25.0 the obstacle picture taken before a physics step
+stays valid for that whole step and the zone refresh; earlier versions compared
+it with the exact epoch, which the game advances inside its update, so every
+burn was refused while Auto Nav flew. Unrestricted approaches to other ships can use the torch much
 closer. Future third-party restricted-zone systems would need explicit adapters;
 this integration covers the inspected native rules.
 

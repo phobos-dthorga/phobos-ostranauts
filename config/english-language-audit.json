@@ -3818,16 +3818,16 @@
       "mod": "PhobosAutoNav",
       "key": "Docking.step",
       "category": "status/warning",
-      "decision": "retain",
-      "reason": "Retain: clear functional label, operational instruction or necessary safety/detail constraint; no forced personality.",
+      "decision": "rewrite",
+      "reason": "Oversized steps are now held, so this line covers only an invalid step.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosAutoNav/IndustrialNavigation.cs:153",
-        "src/PhobosAutoNav/NavigationAvoidance.cs:103",
-        "src/PhobosAutoNav/NavigationDocking.cs:100"
+        "src/PhobosAutoNav/IndustrialNavigation.cs:154",
+        "src/PhobosAutoNav/NavigationAvoidance.cs:138",
+        "src/PhobosAutoNav/NavigationDocking.cs:106"
       ],
       "before": "Docking stopped: simulation step exceeds one second or is invalid. Reduce time acceleration and start again.",
-      "after": "Docking stopped: simulation step exceeds one second or is invalid. Reduce time acceleration and start again."
+      "after": "Docking stopped: the simulation step is invalid. Start again."
     },
     {
       "mod": "PhobosAutoNav",
@@ -5843,14 +5843,14 @@
       "mod": "PhobosAutoNav",
       "key": "NavigationService.simulation_step_too_large_or_invalid_reduce",
       "category": "status/warning",
-      "decision": "retain",
-      "reason": "Retain: clear functional label, operational instruction or necessary safety/detail constraint; no forced personality.",
+      "decision": "rewrite",
+      "reason": "Oversized steps are now held, so this line covers only an invalid step.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosAutoNav/NavigationService.cs:172"
+        "src/PhobosAutoNav/NavigationService.cs:175"
       ],
       "before": "Simulation step too large or invalid; reduce time compression",
-      "after": "Simulation step too large or invalid; reduce time compression"
+      "after": "Simulation step invalid; flight stopped"
     },
     {
       "mod": "PhobosAutoNav",
@@ -9978,14 +9978,14 @@
       "mod": "PhobosAutoNav",
       "key": "FCS.step",
       "category": "control/name/value",
-      "decision": "retain",
-      "reason": "Retain: clear functional label, operational instruction or necessary safety/detail constraint; no forced personality.",
+      "decision": "rewrite",
+      "reason": "Oversized steps are now skipped, so this line covers only an invalid step.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosAutoNav/NavigationPursuit.cs:185"
+        "src/PhobosAutoNav/NavigationPursuit.cs:204"
       ],
       "before": "Time step too large",
-      "after": "Time step too large"
+      "after": "Time step invalid"
     },
     {
       "mod": "PhobosAutoNav",
@@ -37346,6 +37346,60 @@
       ],
       "before": "Waiting for the room to cool: {0:F1} °C now, limit {1:F0} °C; {2:F0} mol of air at {3:F0} kPa (needs {4} kPa). No power is drawn and work continues by itself once the room can take the heat.",
       "after": "Waiting for the room to cool: {0:F1} °C now, limit {1:F0} °C; {2:F0} mol of air at {3:F0} kPa (needs {4} kPa). No power is drawn and work continues by itself once the room can take the heat."
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "NavigationService.step_hold",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Status while an oversized simulation step is held rather than ending the flight; says what the player can do.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosAutoNav/IndustrialNavigation.cs:159",
+        "src/PhobosAutoNav/NavigationDocking.cs:109",
+        "src/PhobosAutoNav/NavigationService.cs:182"
+      ],
+      "before": "Simulation step too large this frame; holding thrust until the next one. Reduce time compression to keep guiding.",
+      "after": "Simulation step too large this frame; holding thrust until the next one. Reduce time compression to keep guiding."
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "Docking.clamping",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Status while the game's own clamp sequence runs after Auto Nav pressed it.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosAutoNav/NavigationDocking.cs:158"
+      ],
+      "before": "Clamps engaging through the docking console's own sequence.",
+      "after": "Clamps engaging through the docking console's own sequence."
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "Docking.aligning",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Status while Auto Nav holds at the clamp position until the game's own geometry admits the clamp.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosAutoNav/NavigationDocking.cs:160"
+      ],
+      "before": "In position; waiting for the docking console's own alignment check to admit the clamp.",
+      "after": "In position; waiting for the docking console's own alignment check to admit the clamp."
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "Departure.releasing",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Status while the game's own clamp release runs during Undock and Depart.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosAutoNav/NavigationDeparture.cs:164"
+      ],
+      "before": "Clamps releasing through the docking console's own sequence.",
+      "after": "Clamps releasing through the docking console's own sequence."
     }
   ],
   "documents": [
@@ -37353,8 +37407,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "95348774301dfcdbf9f6314b50b30ee39c021d05f2a79f750321a646d9a0c50a",
-      "review": "2026-09-28: Framework 0.37.0, Agriculture 0.17.0 and Shipbreaker 0.34.0 version summary; no other wording changed."
+      "sha256": "06ca45849b45ea2815fcbcf3801b09d57104237630fe1a1246e25d64769d27c4",
+      "review": "2026-09-28: Auto Nav 0.25.0 version summary; no other wording changed."
     },
     {
       "path": "SUPPORT.md",
@@ -37429,15 +37483,15 @@
       "path": "docs/auto-nav-departure.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "799dd2c057b7d1fea7cfb010941b2b8c44996430a3325129c6fe63f64289fde7",
-      "review": "2026-09-28: retired \"never switched on automatically\" statement replaced with the automatic engagement summary and link."
+      "sha256": "78aeea574b3881c69260314f3df164718258062e2289ecb7d0fa06e154498464",
+      "review": "2026-09-28: native clamp release when the docking console is open and cleared."
     },
     {
       "path": "docs/auto-nav-docking.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "1269632724e08aef136878ecfc64593e310e512a5ae932e3a568b36aa52f5469",
-      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+      "sha256": "84fea89143ecd5b28156806e94bd469b08ad5b5560202122b1c3d24772abf29c",
+      "review": "2026-09-28: no target-spin gate; the clamp as the game's own button with the alignment wait; docking with an open port while attached."
     },
     {
       "path": "docs/auto-nav-economy.md",
@@ -37463,8 +37517,8 @@
       "path": "docs/auto-nav-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "7d2c5a0c3b36b3e96f8774c8f1872ced4d534dd19596926c2d72524f525f88e9",
-      "review": "2026-09-28: regenerated from reviewed inputs: version and N1/N2 automatic sensor engagement notes."
+      "sha256": "9cacef5ed51ecee9224ee7463cd8959b1e34375cca9f7ed67c13c504078e54be",
+      "review": "2026-09-28: regenerated from reviewed inputs: version only."
     },
     {
       "path": "docs/auto-nav-persistence.md",
@@ -37484,14 +37538,15 @@
       "path": "docs/auto-nav-sensors.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "0ad6d3610c081978e46a89663128620275a0b530fc8c1d47113f91fd3ac50600",
-      "review": "2026-09-28: new current section on automatic sensor engagement leads with what happens, how the player is told, switch-off, the player's override, the setting, the brief hold and limits; native evidence attributed to Blue Bottle Games; 0.23.0 and 0.9.0 never-switch statements kept as labelled history with pointers."
+      "sha256": "d5862cb14dbe56eb8d7388cc295eb704fa6f761705f40c137baa07a309e65aed",
+      "review": "2026-09-28: any sensor or power refresh is a short hold; ships the nav station always shows count as tracked."
     },
     {
       "path": "docs/auto-nav-torch.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "57546cc70ad89295b3fefd154beb3bc36cbc4787150197155c74bf5b285359fb"
+      "sha256": "c036158d7a21de65747c17af96b5def9b6c1407095659ded0a13d4a99f6d24c3",
+      "review": "2026-09-28: step-valid obstacle picture for the torch guard."
     },
     {
       "path": "docs/auto-nav-towing.md",
@@ -37511,7 +37566,7 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "938fe620efc28f7c950e9c73d665c1946b6829d699e7bdf391eaedd8b45a2436",
+      "sha256": "5fc7f0041aa3ae7ff4b81691ef9fef10ee4bea0d68e13b88c69c49bdfa43abe8",
       "review": "2026-09-28: version line; no other wording changed."
     },
     {
@@ -37539,8 +37594,8 @@
       "path": "docs/development/agriculture-bulk-storage-calculations.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "9179c200f94c650daf17f18b8903982044805dcd82318f7b4afe653e7805bbbc",
-      "review": "2026-09-28: reviewed assembly sites, local cargo recovery, maintenance explanations and release/reference consistency; historical evidence and native/Unity validation limits retained."
+      "sha256": "7ecd2d0435c946a5657c14314646ddee04e7060c70a1ca67612dbb3fbc0682e0",
+      "review": "2026-09-28: source fingerprints regenerated after the 0.17.0 bulk-storage hook changes; explanatory text unchanged."
     },
     {
       "path": "docs/development/agriculture-bulk-storage-design.md",
@@ -38165,8 +38220,8 @@
       "path": "docs/development/vanilla-precedence-audit.md",
       "scope": "contributor audit record: findings, native evidence, verdicts and owner checks",
       "decision": "review as contributor documentation; player-facing effects are described in the owning guides",
-      "sha256": "4ca79485df2b8305df035e88edf89de45b44778788858eee181c5e966f62a888",
-      "review": "2026-09-28: round 2 verdicts recorded as fixed with versions; owner checks extended."
+      "sha256": "4642f11888d428e6bb51846c99f042cb6dca3a405be15e82d6d3b095e535b48c",
+      "review": "2026-09-28: round 3 verdicts recorded as fixed, kept or deferred; owner checks extended."
     },
     {
       "path": "docs/development/workshop-publication.md",
@@ -38297,8 +38352,8 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "021c79e87d53883e57071aeb9fa381210aff259dfeb6f17f887605d05fdc6316",
-      "review": "2026-09-28: version and minimum lines; no other wording changed."
+      "sha256": "fba6a8fe37edb7e0ead9363999d10cbca7f0545d1eb872ef36eb49d9dd33b280",
+      "review": "2026-09-28: version line; no other wording changed."
     },
     {
       "path": "docs/residue-collector.md",
@@ -38374,8 +38429,8 @@
       "path": "workshop/PhobosAutoNav/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "c04b617c80ead3c018de1049ecb711b2d3b8b9607cb3d35e9c70b4423c281719",
-      "review": "2026-09-28: version and Framework 0.34.0 requirement; new bullet on automatic sensor engagement, warnings, switch-off and the AutoEngage setting."
+      "sha256": "0e6ef747dadd86e40466ec5b28dde1a06d4d9b01b31341d174430a1dc26600e0",
+      "review": "2026-09-28: version; new bullet on the 0.25.0 vanilla-precedence fixes."
     },
     {
       "path": "workshop/PhobosFramework/page.bbcode",
@@ -38440,7 +38495,7 @@
     {
       "path": "mods/PhobosAutoNav/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "4eeb599290748b905a7bff706dd9bd3383a889d51edd265c6a2ac75899a6d06b",
+      "sha256": "2aab44731063cbfe4a69cc034316bc51dc0df540a67af3ea039bd94a158a08f2",
       "review": "2026-09-28: version metadata only."
     },
     {

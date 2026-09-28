@@ -68,6 +68,10 @@ public sealed class Ship
     internal double RangeKM = 80, Thrust;
     internal bool IsStationHidden() => Hidden;
     internal bool IsDocked() => Attachments.Count>0;
+    internal bool IsDockedWith(Ship other) => Attachments.Values.Contains(other);
+    internal enum TypeClassification { Ship, SignalBeacon }
+    internal TypeClassification Classification = TypeClassification.Ship;
+    internal CondOwner ShipCO = new();
     internal double GetRangeTo(Ship other) => RangeKM * AutoNavCore.KM_TO_AU;
     internal double GetRCSRemain() => 100;
     internal IEnumerable<CondOwner> GetCOs(object? filter, bool bSubObjects, bool bAllowDocked, bool bAllowLocked)
@@ -281,6 +285,10 @@ namespace PhobosAutoNav {
 }
 
 namespace Ostranauts.ShipGUIs.NavStation { internal sealed class NavModCoursePlot { internal NativeToggle chkEngage = new(); } }
-internal static class MathUtils { internal static int RoundToInt(double value) => (int)System.Math.Floor(value + .5); }
+internal static class MathUtils
+{
+    internal static int RoundToInt(double value) => (int)System.Math.Floor(value + .5);
+    internal static float ExpMap(float x, float baseValue = 10f) { x = System.Math.Clamp(x, 0f, 1f); return (float)((System.Math.Pow(baseValue, x) - 1.0) / (baseValue - 1.0)); }
+}
 namespace Ostranauts.Ships { internal interface IStellarObject { string strID { get; } ShipSitu objSS { get; } } }
 namespace SolarSystem { internal sealed class Asteroid : Ostranauts.Ships.IStellarObject { public string strID { get; set; } = ""; public ShipSitu objSS { get; set; } = new(); } }

@@ -62,12 +62,22 @@ docking implicitly. Terminal attachment follows the preserved contract below.
 - Native clamp distance is **1.1 × collision distance**. Guidance aims for
   **1.05 ×** and refuses to guide inside **1.005 ×**. Clamp request additionally
   requires total relative speed ≤ **0.2 m/s**, heading error ≤ **0.004 radians**
-  (about 0.23°) and spin ≤ **0.002 radians/s**. This tighter accuracy applies to
-  final docking, not ordinary coasting flights.
-- Spaceborne ships and stations only. No undocking, mooring, asteroid tethering,
-  ground landing, arbitrary obstacle avoidance or route planning around hulls.
-  Use a clear approach. Existing dock/mooring and a secured brace to the target
-  block engagement. A manual maneuver takes control back from Polaris.
+  (about 0.23°) and your own spin ≤ **0.002 radians/s**. The target's spin is no
+  gate (0.25.0): tumbling derelicts dock the way they do for a pilot, and the
+  game's own docking has no spin rule. This tighter accuracy applies to final
+  docking, not ordinary coasting flights.
+- The clamp itself is the game's own button (0.25.0). With the docking console
+  open, Auto Nav holds in position until the console's alignment check admits
+  the clamp ("waiting for the docking console's own alignment check"), then
+  presses it; the game chooses the ports, runs its crime checks, docking events
+  and autosave, and the flight ends when the ships are docked. If the sequence
+  does not connect within a few seconds the attempt ends as failed.
+- Spaceborne ships and stations only. No mooring, asteroid tethering, ground
+  landing, arbitrary obstacle avoidance or route planning around hulls. Use a
+  clear approach. A mooring, a secured brace to the target, or a dock with no
+  open port left block engagement; docking a further ship while one is attached
+  is allowed when a port is open, as the game allows. A manual maneuver takes
+  control back from Polaris.
 
 ## Persistence and Framework
 

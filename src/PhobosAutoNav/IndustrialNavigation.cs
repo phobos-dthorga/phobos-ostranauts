@@ -151,16 +151,18 @@ internal sealed partial class NavigationService
         if (f == null || CrewSim.Paused || dt == 0) return;
         try
         {
-            string? problem = !ArrivalBrake.Finite(dt) || dt <= 0 || dt > DockingRules.MaximumStep ||
-                f.Elapsed >= DockingRules.MaximumSeconds ? Text.Get("Docking.step") : IndustrialProblem(f);
+            string? problem = !ArrivalBrake.Finite(dt) || dt <= 0 ? Text.Get("Docking.step") :
+                f.Elapsed >= DockingRules.MaximumSeconds ? Text.Get("Docking.timeout") : IndustrialProblem(f);
             if (problem != null) { EndIndustrial(problem); return; }
             var own = f.Carrier; var target = CrewSim.system.GetShipByRegID(f.Target)!;
+            // An oversized step (heavy time compression) is held, not a reason to end the move.
+            if (dt > DockingRules.MaximumStep) { if (!afterPhysics) HoldThrust(own, Text.Get("NavigationService.step_hold")); return; }
             f.Track.Observe(new NavVector((target.objSS.vVelX - own.objSS.vVelX) / AutoNavCore.M_TO_AU,
                 (target.objSS.vVelY - own.objSS.vVelY) / AutoNavCore.M_TO_AU), StarSystem.fEpoch,
                 new NavVector(own.objSS.vAccRCS.x / AutoNavCore.M_TO_AU, own.objSS.vAccRCS.y / AutoNavCore.M_TO_AU));
+            // The target's own spin is no gate: derelicts spawn tumbling and the game's docking has no spin rule.
             bool stable = f.Track.Samples >= 2 && f.Track.ErrorMS < MaximumResidualMS &&
-                f.Track.Acceleration.Length < own.RCSAccelMax / AutoNavCore.M_TO_AU * ReadThrottle(f.Console) * TerminalAuthorityShare &&
-                ArrivalBrake.Finite(target.objSS.fW) && Math.Abs(target.objSS.fW) <= DockingRules.ClampSpinRadians;
+                f.Track.Acceleration.Length < own.RCSAccelMax / AutoNavCore.M_TO_AU * ReadThrottle(f.Console) * TerminalAuthorityShare;
             if (!stable) f.Stable = 0;
             else if (!afterPhysics) f.Stable += dt;
             bool hold = f.Stable < StableMotionSeconds;
@@ -196,7 +198,7 @@ internal sealed partial class NavigationService
         var f = industrial; industrial = null; industrialNotice = reason;
         if (f?.Carrier.objSS == null || f.Carrier.bDestroyed) return;
         issuing = true;
-        try { f.Carrier.Maneuver(0, 0, 0, 0, 0); }
+        try { f.Carrier.Maneuver(0, 0, 0, 0, 1E-10f); }
         catch (Exception ex) { log(ex.ToString()); }
         finally { issuing = false; }
     }

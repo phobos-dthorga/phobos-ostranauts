@@ -18,12 +18,26 @@ internal sealed partial class NavigationService
     private bool cachedRouted;
     private readonly List<ObstacleDisc> stepObstacles=new();
     private NavVector stepVelocity;
-    private double stepBraking,stepEpoch=double.NegativeInfinity;
+    private double stepBraking,stepDt,stepEpoch=double.NegativeInfinity;
+    // The game advances the epoch inside StarSystem.Update, after this planner's prefix, and the reactor's
+    // own thrust update runs on its own cadence; a step's obstacle picture stays valid for that step and
+    // the zone refresh, not only at the exact epoch it was taken.
+    private bool StepFresh=>ArrivalBrake.Finite(stepEpoch)&&StarSystem.fEpoch>=stepEpoch&&StarSystem.fEpoch<=stepEpoch+stepDt+TorchRules.ZoneRefreshSeconds;
     internal bool ObstacleBurnAllowed(Ship own,double acceleration,double dt)
     {
-        if(bodyMotion.Values.Any(b=>!b.Velocity.Finite)||avoidanceActive||industrial!=null||own!=console?.ship||stepEpoch!=StarSystem.fEpoch||previousThreats.Any(id=>!TowFlight.Contains(own,CrewSim.system.GetShipByRegID(id)) && !HazardRules.Tracked(NativeContactReader.Read(own,id).State))) return false;
+        if(bodyMotion.Values.Any(b=>!b.Velocity.Finite)||avoidanceActive||industrial!=null||own!=console?.ship||!StepFresh||previousThreats.ToArray().Any(id=>LostTrack(own,id))) return false;
         var heading=new NavVector(-Math.Sin(own.objSS.fRot),Math.Cos(own.objSS.fRot));
         return ObstacleRoute.BurnAndBrakeSafe(stepVelocity,heading*acceleration,dt+TorchRules.ZoneRefreshSeconds,stepBraking,stepObstacles);
+    }
+    // A corridor threat whose track faded is a loss; one that left the world (destroyed, despawned or
+    // hidden by the game, which the reader reports as Unavailable) is simply gone and stops being a threat.
+    private bool LostTrack(Ship own,string id)
+    {
+        if(TowFlight.Contains(own,CrewSim.system.GetShipByRegID(id))) return false;
+        var reading=NativeContactReader.Read(own,id);
+        if(HazardRules.Tracked(reading.State)) return false;
+        if(reading.State==ContactState.Unavailable) { previousThreats.Remove(id); return false; }
+        return true;
     }
     internal void FilterAvoidanceCommand(Ship own,ref float x,ref float y,ref float turn,double dt)
     {
@@ -137,10 +151,11 @@ internal sealed partial class NavigationService
             // Weak contacts near the planned route: candidates for selective sensor engagement.
             var weakHazards = new List<string>();
             // A threat that fades to a weak contact stays a hazard with wider clearance; losing it entirely suspends.
-            if(previousThreats.Any(id=>!TowFlight.Contains(own,CrewSim.system.GetShipByRegID(id)) && !HazardRules.Tracked(NativeContactReader.Read(own,id).State))) { SuspendAvoidance();return true; }
+            if(previousThreats.ToArray().Any(id=>LostTrack(own,id))) { SuspendAvoidance();return true; }
             foreach (var other in CrewSim.system.dictShips.Values.ToArray())
             {
                 if (other == null || other == own || TowFlight.Contains(own, other)) continue;
+                if (other.bDestroyed || other.HideFromSystem || other.IsStationHidden()) { previousThreats.Remove(other.strRegID); continue; }
                 var reading = NativeContactReader.Read(own,other.strRegID);
                 bool isTarget = other.strRegID == targetId;
                 if (!HazardRules.Tracked(reading.State))
@@ -160,7 +175,8 @@ internal sealed partial class NavigationService
                 double margin = (isTarget ? (industrial?.Move==IndustrialMove.Egress ? Math.Min(1,radius*.002) : radius*.002) : Math.Max(ObstacleRoute.MinimumMarginM, radius*.05)) + uncertainty.Value;
                 if (!p.Finite || !v.Finite || !ArrivalBrake.Finite(radius) || radius <= 0) { Disengage(Text.Get("Docking.unsafe")); return true; }
                 actual.Add(new ObstacleDisc(other.strRegID,p,v,radius+margin));
-                threats.Add(other.strRegID);
+                // Only corridor obstacles are carried forward as threats; a distant tracked ship that later
+                // fades must not suspend the flight.
                 if (ObstacleRoute.Distance(default,goal,p) > radius+margin+(velocity-v).Length*horizon+1000) continue;
                 double travel = isTarget ? 0 : v.Length*Math.Min(horizon,10);
                 planning.Add(new ObstacleDisc(other.strRegID,p+v*(Math.Min(horizon,10)/2),v,radius+margin+travel/2));
@@ -203,11 +219,14 @@ internal sealed partial class NavigationService
             // Weak hazards keep their wider clearance this step; switched-on sensors sharpen later ones.
             if (weakHazards.Count > 0) RestoreHazardSensors(co, weakHazards);
             previousThreats.Clear(); foreach (var id in threats) previousThreats.Add(id);
-            stepObstacles.Clear();stepObstacles.AddRange(actual);stepVelocity=velocity;stepBraking=acceleration*.45;stepEpoch=StarSystem.fEpoch;
+            stepObstacles.Clear();stepObstacles.AddRange(actual);stepVelocity=velocity;stepBraking=acceleration*.45;stepDt=dt;stepEpoch=StarSystem.fEpoch;
             bool direct = ObstacleRoute.Clear(default,goal,planning);
-            // Check the whole immediate braking horizon even on otherwise direct legs.
-            bool imminent = !ObstacleRoute.SweepSafe(velocity,default,horizon,actual);
-            if (direct && !imminent && planning.Count <= ObstacleRoute.MaximumObstacles)
+            // Check the whole immediate braking horizon even on otherwise direct legs. The flight's own
+            // target is where the ship is going: its approach is the arrival controller's business, and
+            // sweeping it here used to hand the whole braking phase to slow avoidance.
+            bool imminent = !ObstacleRoute.SweepSafe(velocity,default,horizon,actual.Where(o=>o.Id!=targetId).ToList());
+            // A clear direct leg needs no plan, however many obstacles are around.
+            if (direct && !imminent)
             { routeTarget=""; obstacleRoute.Reset(); return false; }
             avoidanceActive = true; if (industrial != null) industrial.Ready=false;
             HoldFireForGuidance(); Torch.Cut();

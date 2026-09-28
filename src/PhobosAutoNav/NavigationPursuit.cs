@@ -201,9 +201,14 @@ internal sealed partial class NavigationService
             if (!Plugin.Enabled.Value || hardwareProblem != null || !FirePreferences(co, out int group, out _, out _))
             { FireFault(hardwareProblem ?? "FCS.unavailable"); return; }
             if (AttachedFireTarget(co, FireTarget)) { FireFault("FCS.attached_target"); return; }
-            if (!ArrivalBrake.Finite(dt) || dt <= 0 || dt > FireRules.MaximumStep) { FireFault("FCS.step"); return; }
+            if (!ArrivalBrake.Finite(dt) || dt <= 0) { FireFault("FCS.step"); return; }
+            // An oversized step is skipped, not a fault; a native sensor refresh is a short wait, not a lost binding.
+            if (dt > FireRules.MaximumStep) return;
+            var fireContact = ReadContact(co, FireTarget);
+            if (fireContact.Usable) updatingHolds = 0;
+            else if (UpdatingHold(fireContact)) return;
             if ((Fire.Permitted || autoAim) && (ship != fireShip || fireModule == null || FireModule(co) != fireModule || CrewSim.coPlayer != firePlayer ||
-                !ReadContact(co, FireTarget).Usable)) { FireFault("FCS.binding"); return; }
+                !fireContact.Usable)) { FireFault("FCS.binding"); return; }
             if (dispatch)
             {
                 bool safe = !avoidanceActive && CoordinatedFlight(co) && (!AutoNavCore.Engaged ||
