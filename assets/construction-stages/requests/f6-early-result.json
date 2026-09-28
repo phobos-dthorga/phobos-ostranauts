@@ -1,0 +1,8 @@
+{
+  "queued": [
+    "id: 7c67ff13-c89e-4f40-addb-f84216c8103d\njob_id: 7c67ff13-c89e-4f40-addb-f84216c8103d\nmodel: pixen\nedit: ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. Edit to an EARLY furnace construction frame: remove the circular chamber, lid and upper-left cabinet cover. Show sparse bare cross braces and open floor through the central ring. Keep square chassis, feet, left/right/rear sockets, position fixed. No text.\nsource: 96x96px\nsize: 192x192px\ntransparent: True\nseed: 20260930\nasset_id: b5bab27c-b2ef-5bf1-85e3-34b3b8b62082\nasset_status: pending (saved when generation completes)\ncost: 1 generation\nstatus: processing (~10-40s)\n\nhint: get_image(job_id=\"7c67ff13-c89e-4f40-addb-f84216c8103d\")"
+  ],
+  "result": [
+    "status: completed\nid: 7c67ff13-c89e-4f40-addb-f84216c8103d\njob_id: 7c67ff13-c89e-4f40-addb-f84216c8103d\nframes: 1\ntransparent: yes\nasset_id: b5bab27c-b2ef-5bf1-85e3-34b3b8b62082\nasset_type: image\nasset_status: saved\ngallery: saved to your PixelLab gallery (pixellab.ai/create)\ndownload: https://api.pixellab.ai/mcp/images/7c67ff13-c89e-4f40-addb-f84216c8103d/download"
+  ]
+}

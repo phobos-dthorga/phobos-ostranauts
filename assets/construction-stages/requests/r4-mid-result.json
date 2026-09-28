@@ -1,0 +1,8 @@
+{
+  "queued": [
+    "id: ce5c737a-646a-4c7b-b58c-cd08c2c16474\njob_id: ce5c737a-646a-4c7b-b58c-cd08c2c16474\nmodel: pixen\nedit: ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. Edit to a partly assembled R4: remove the central tan lid to expose two unfinished shredder rollers and bare cross braces; leave the small upper-left service cover off with visible wiring. Keep frame, feet, yellow guards, right pipe, silhouette, position fixed. No text.\nsource: 64x64px\nsize: 128x128px\ntransparent: True\nseed: 20260929\nasset_id: 11103503-8d08-5ee1-96a1-a4c7958e375f\nasset_status: pending (saved when generation completes)\ncost: 1 generation\nstatus: processing (~10-40s)\n\nhint: get_image(job_id=\"ce5c737a-646a-4c7b-b58c-cd08c2c16474\")"
+  ],
+  "result": [
+    "status: completed\nid: ce5c737a-646a-4c7b-b58c-cd08c2c16474\njob_id: ce5c737a-646a-4c7b-b58c-cd08c2c16474\nframes: 1\ntransparent: yes\nasset_id: 11103503-8d08-5ee1-96a1-a4c7958e375f\nasset_type: image\nasset_status: saved\ngallery: saved to your PixelLab gallery (pixellab.ai/create)\ndownload: https://api.pixellab.ai/mcp/images/ce5c737a-646a-4c7b-b58c-cd08c2c16474/download"
+  ]
+}

@@ -36106,8 +36106,8 @@
       "path": "docs/development/construction-artwork-audit.md",
       "scope": "developer-facing construction appearance audit",
       "decision": "record confirmed code gaps separately from owner observations and unverified Unity rendering",
-      "sha256": "c89ee946ae5422e0814d6d1ff2594f37dbfb892eb07c2c7a30a5e32c23cf37b0",
-      "review": "2026-09-28: construction appearance audit/index reviewed; no player catalogue changes. Separate artwork existence, code binding, owner observations and implementation proposals."
+      "sha256": "417fb978f45b6598a5c23736a72cce5266cc5b938ac5ec3d58920ffadf176e6e",
+      "review": "2026-09-28: prepared artwork distinguished from live construction behaviour; no installed feature or Unity approval claimed."
     },
     {
       "path": "docs/development/dependency-contingencies.md",
@@ -36755,8 +36755,8 @@
       "path": "workshop/PhobosShipbreaker/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "25627ade8e0590b0c18b383d70e19fb95208405b2bc0e0fcb76873b134003f20",
-      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+      "sha256": "8f40319c0e7e529b42a806bdf52f127e4aa7ee2e87c06bc28baf77f0f7ab65a5",
+      "review": "2026-09-28: prepared artwork distinguished from live construction behaviour; no installed feature or Unity approval claimed."
     }
   ],
   "surfaces": [

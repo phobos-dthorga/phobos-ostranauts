@@ -1,0 +1,8 @@
+{
+  "queued": [
+    "id: 409c4591-13cc-4d19-ae37-f3a5fd511b50\njob_id: 409c4591-13cc-4d19-ae37-f3a5fd511b50\nmodel: pixen\nedit: ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. Edit to a PARTLY BUILT furnace: central circular chamber fitted but its lid absent, exposing an empty dark refractory bowl; upper-left cabinet open with unfinished wiring. Keep chassis, feet, left/right/rear sockets, position fixed. No glow or text.\nsource: 96x96px\nsize: 192x192px\ntransparent: True\nseed: 20260931\nasset_id: c9503dda-19fa-5d2c-b7f5-6a96437afd10\nasset_status: pending (saved when generation completes)\ncost: 1 generation\nstatus: processing (~10-40s)\n\nhint: get_image(job_id=\"409c4591-13cc-4d19-ae37-f3a5fd511b50\")"
+  ],
+  "result": [
+    "status: completed\nid: 409c4591-13cc-4d19-ae37-f3a5fd511b50\njob_id: 409c4591-13cc-4d19-ae37-f3a5fd511b50\nframes: 1\ntransparent: yes\nasset_id: c9503dda-19fa-5d2c-b7f5-6a96437afd10\nasset_type: image\nasset_status: saved\ngallery: saved to your PixelLab gallery (pixellab.ai/create)\ndownload: https://api.pixellab.ai/mcp/images/409c4591-13cc-4d19-ae37-f3a5fd511b50/download"
+  ]
+}

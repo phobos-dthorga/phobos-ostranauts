@@ -1,0 +1,7 @@
+{
+  "jobId": "b9e5de3c-7793-41fa-ab9b-bee4dd243070",
+  "assetId": "319c1f48-e0a7-5285-9981-2c1dba46b62a",
+  "result": [
+    "status: completed\nid: b9e5de3c-7793-41fa-ab9b-bee4dd243070\njob_id: b9e5de3c-7793-41fa-ab9b-bee4dd243070\nframes: 1\ntransparent: yes\nasset_id: 319c1f48-e0a7-5285-9981-2c1dba46b62a\nasset_type: image\nasset_status: saved\ngallery: saved to your PixelLab gallery (pixellab.ai/create)\ndownload: https://api.pixellab.ai/mcp/images/b9e5de3c-7793-41fa-ab9b-bee4dd243070/download"
+  ]
+}

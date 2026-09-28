@@ -1,0 +1,30 @@
+[
+  {
+    "key": "d4-mid",
+    "exports": {
+      "exports/d4-mid.png": "6c8017c63effacafb95388aa68a0357db6cf9ef49bda007f026fe0db7e55302f",
+      "exports/d4-midNormal.png": "685bb2587ac8e8b1d65051088fc856294566c19168cda399ec46514fd1e39564"
+    }
+  },
+  {
+    "key": "r4-mid",
+    "exports": {
+      "exports/r4-mid.png": "ef31a5006c17821ffbfa5537e26b9e7e43030a3a0f31aba40c8484b61e3ac2e2",
+      "exports/r4-midNormal.png": "d2fae94c946d14c214d862e9e50de97582c23bbfddf2b24a89026526908c617a"
+    }
+  },
+  {
+    "key": "f6-early",
+    "exports": {
+      "exports/f6-early.png": "90c0c4772e7bd98357e721217a7bd79f8aef7c5fdfeb145dc4f2ea1daf6808b3",
+      "exports/f6-earlyNormal.png": "a5500c7cfd6f638bd77b10bc84bcf63e1afa9081145da1207e662c4f28d7fee8"
+    }
+  },
+  {
+    "key": "f6-mid",
+    "exports": {
+      "exports/f6-mid.png": "70aaa14590bd3665c56af944d7760c775a8c6da87ff044ab423fdd084c285ac1",
+      "exports/f6-midNormal.png": "fd9c1e94656802a1d2905aaa829d7eaf2e25a41c8f09f673b7ba2c5b72261090"
+    }
+  }
+]

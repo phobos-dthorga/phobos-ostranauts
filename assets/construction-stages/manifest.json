@@ -1,0 +1,163 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-09-28",
+  "status": "Four prepared construction variants; runtime stage binding and owner Unity review pending",
+  "provider": "PixelLab",
+  "operation": "edit_image_pixen",
+  "generationCalls": 4,
+  "allowanceBefore": 1894,
+  "allowanceAfter": 1890,
+  "creditBalanceBeforeUSD": 0,
+  "creditBalanceAfterUSD": 0,
+  "projection": "Orthographic vertical overhead",
+  "coordinateContract": "Native pixels; half-open patch boxes, centered pivot, unchanged outer canvas and silhouette. Nearest-neighbour reduction; generated interiors on retained original Phobos chassis.",
+  "normalPolicy": "Retain existing original normal maps outside patches; neutral tangent normals inside. Interior relief and live lighting remain unverified.",
+  "termsReference": "../artwork-completion/manifest.json (PixelLab terms checked 2026-09-27; no new licence claim)",
+  "assets": [
+    {
+      "key": "d4-mid",
+      "status": "selected interior layer; prepared, not registered",
+      "source": "source/d4-mid.png",
+      "reference": "references/PhobosShipbreakerInstalled.png",
+      "normalReference": "references/PhobosShipbreakerInstalledNormal.png",
+      "nativeSize": [
+        64,
+        64
+      ],
+      "masterSize": [
+        128,
+        128
+      ],
+      "pivot": [
+        32,
+        32
+      ],
+      "patches": [
+        {
+          "shape": "rectangle",
+          "box": [
+            7,
+            8,
+            28,
+            20
+          ]
+        }
+      ],
+      "review": "Late assembly: service cover absent, wiring exposed; generated workbed remains largely finished.",
+      "sourceSHA256": "5def713458bf1e3e263389c41b6dc77700441b1e117d2661c21cb56996e19d68",
+      "referenceSHA256": "42d34f04b1abb078f0576ee9a6d5efde6ff4b5ece0f412b7dd459ba8bb5a2ce3",
+      "normalReferenceSHA256": "3d5d7f5deec4d33b6b0b35b5eb75c585745a46705e6f766b92de30ace607980b"
+    },
+    {
+      "key": "r4-mid",
+      "status": "selected interior layer; prepared, not registered",
+      "source": "source/r4-mid.png",
+      "reference": "references/PhobosScrapReclaimer.png",
+      "normalReference": "references/PhobosScrapReclaimerNormal.png",
+      "nativeSize": [
+        64,
+        64
+      ],
+      "masterSize": [
+        128,
+        128
+      ],
+      "pivot": [
+        32,
+        32
+      ],
+      "patches": [
+        {
+          "shape": "rectangle",
+          "box": [
+            6,
+            14,
+            48,
+            51
+          ]
+        }
+      ],
+      "review": "Open roller compartment; original perimeter, feet and external plumbing retained.",
+      "sourceSHA256": "9bce5ab2d28dbd8c9fd4671e80b8719473777522f9bc8a721dad0723536a9874",
+      "referenceSHA256": "5e17de64e4ac75edebfaeea68ad6416d34cf5be05579a43c84b143ece6309938",
+      "normalReferenceSHA256": "999949245995a2cfd2b4aedb4719e24955130a8df1901fc0272c430c3c8639a2"
+    },
+    {
+      "key": "f6-early",
+      "status": "selected interior layer; prepared, not registered",
+      "source": "source/f6-early.png",
+      "reference": "references/PhobosFurnaceSockets.png",
+      "normalReference": "references/PhobosFurnaceNormal.png",
+      "nativeSize": [
+        96,
+        96
+      ],
+      "masterSize": [
+        192,
+        192
+      ],
+      "pivot": [
+        48,
+        48
+      ],
+      "patches": [
+        {
+          "shape": "ellipse",
+          "box": [
+            22,
+            19,
+            75,
+            72
+          ]
+        }
+      ],
+      "review": "Open braced core with dark backing; not a transparent hole through the ship floor.",
+      "sourceSHA256": "27958a48679a998ac19338ef146591104f7d4612194740f2e7abf611a9ffe263",
+      "referenceSHA256": "31fa068ae62c7b5dd6794df38701b2cb36245dd84242e88bb843f8052f00601c",
+      "normalReferenceSHA256": "c6bf87d3609743035d16dea4ffedf0be671b48993c76d25fe9fcb5c03334afd5"
+    },
+    {
+      "key": "f6-mid",
+      "status": "selected interior layer; prepared, not registered",
+      "source": "source/f6-mid.png",
+      "reference": "references/PhobosFurnaceSockets.png",
+      "normalReference": "references/PhobosFurnaceNormal.png",
+      "nativeSize": [
+        96,
+        96
+      ],
+      "masterSize": [
+        192,
+        192
+      ],
+      "pivot": [
+        48,
+        48
+      ],
+      "patches": [
+        {
+          "shape": "ellipse",
+          "box": [
+            22,
+            19,
+            75,
+            72
+          ]
+        },
+        {
+          "shape": "rectangle",
+          "box": [
+            2,
+            16,
+            20,
+            37
+          ]
+        }
+      ],
+      "review": "Chamber bowl installed without lid; service cabinet open.",
+      "sourceSHA256": "02d8704d50ea1677cfc9a50e75d64af7a66722af665cf2bbab8858bbaf1aba45",
+      "referenceSHA256": "31fa068ae62c7b5dd6794df38701b2cb36245dd84242e88bb843f8052f00601c",
+      "normalReferenceSHA256": "c6bf87d3609743035d16dea4ffedf0be671b48993c76d25fe9fcb5c03334afd5"
+    }
+  ]
+}

@@ -8,6 +8,12 @@ The owner successfully assembled R4, observed image changes and automatic collec
 
 Audit only: no runtime, artwork, balance, save or installation changes.
 
+**Subsequent artwork preparation, 28 September:** the owner then authorized the
+four-image batch. [D4/R4 intermediate and F6 early/intermediate artwork](../../assets/construction-stages/README.md)
+is now retained with registered exports and provenance. This closes the proposed
+new-image requirement, not the missing code binding described below. No runtime
+construction policy or installed package changed; Unity review remains pending.
+
 ## Evidence and scope
 
 Reviewed all 16 intact placeable families in the [current native export](../item-reference-data.json), their definition/artwork paths, all three section assembly registrations, Framework's assembly hooks, native placeholder creation/update, existing appearance adapters and test coverage. Damaged and loose forms are considered with their families; internal compartments and portable stock are not separate construction projects.

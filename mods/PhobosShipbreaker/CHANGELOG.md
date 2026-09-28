@@ -8,6 +8,8 @@ Dates on Draft entries record preparation, not Steam publication.
 
 ### Documentation
 
+- Prepare four construction sprites: D4 and R4 intermediate stages, plus early and intermediate F6 stages. Retain original frames, source images and repeatable exports. These assets are not yet connected to construction progress or included in game packages.
+
 - Correct furnace, assembly, coolant-service and cargo-recovery instructions. Distinguish historical console/reclaimer designs from current controls and repair generated section placement descriptions. Documentation only; gameplay and saves are unchanged.
 
 - The initial read-only audit identified inaccessible F6-P/F6-R inventories, the split-stack requirement and D4-S cumbersome handling. The 0.31.0 follow-up below implements recovery, clearer maintenance explanations and construction-site assembly; the original audit alone made no gameplay changes.
