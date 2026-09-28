@@ -45,6 +45,14 @@ a portrait does not make that person the worker. The job reserves its equipment,
 inputs and output space, then checks them again before finishing. Tasks from
 other mods remain available.
 
+Enabling an order announces one task to the crew, as painting a job does: the
+game then interrupts study for everyone on shift, once. Later steps of the same
+order are added quietly, so a crew member already studying finishes that session
+before taking the work. A step that fails (a machine that cannot start, a full
+store) is retried after 30 seconds, then 1, 2, 5 and 10 minutes; the order stays
+enabled, its status shows the wait and the reason, and the worker is free for
+native tasks, study and rest in between. Since Framework 0.35.0.
+
 Stock targets count output units in the equipment and its approved destination.
 Industrial processors count their recipe products, excluding unrelated cargo.
 A complete recipe or crop harvest can exceed the target; recipes are never
@@ -104,12 +112,35 @@ resource efficiency or award credit for idle machinery. Cancelled and failed
 operations grant no training. Travel/hauling does not train a production speciality.
 Existing engineering/EVA/piloting skills retain their native roles.
 
-Powered terminals gain separate 15-minute study actions. These preserve the
+**Studying at a terminal (0.35.0).** Right-click a powered terminal and choose
+Study Agriculture, Study Cooking or Study Industrial Processing. The session runs
+exactly like studying a native skill: the same stages, tablet animation, side
+interests and challenges; it stops when the crew member is already proficient,
+would rather find meaning or company, or another crew member is using the
+terminal; the work shift interrupts it; Stop cancels it; and a time-skip
+continues it hour by hour. Each completed study step credits the speciality. The
 terminal's existing actions, including those supplied by
-[jossla's Study at Terminals](https://steamcommunity.com/sharedfiles/filedetails/?id=3788237703).
-An unavailable or damaged terminal cannot grant training. These training
-thresholds and the duration factor are gameplay choices, maintained with
-the [constants updater](development/updating-constants.md).
+[jossla's Study at Terminals](https://steamcommunity.com/sharedfiles/filedetails/?id=3788237703),
+are kept. An unpowered, loose or damaged terminal is not study material, as in
+the game. The earlier 15-minute study action is retired; a save that queued one
+still loads.
+
+**AutoTask crew study on their own.** The game picks study from each crew
+member's AI history for needs such as privacy and self-respect. On load, the
+vanilla construction-study entries are copied for each speciality into every
+crew member's history and into the new-crew template, only where absent; the
+game keeps learning from there. Nothing learned is overwritten or removed. A
+crew member with AutoTask off, on a work shift with tasks available, asleep, in
+combat or drafted does not study, as in the game.
+
+**Finding out why nobody studies.** In the F3 console type `phobosframework crew`
+(or `phobosframework crew Name`). It lists, per crew member, AutoTask, shift, the
+current action and whether they can study; per terminal, whether the game admits
+study there and how many are using it; whether Phobos study is in each crew
+member's AI history; and each order's retry wait. It changes nothing.
+
+These training thresholds and the duration factor are gameplay choices,
+maintained with the [constants updater](development/updating-constants.md).
 
 ## Time-skip
 
@@ -223,6 +254,15 @@ Gameplay validation remains owner-run. Check these on a copy of an ordinary save
   on the next ordinary frame.
 - Save/reload with active, suspended and manually stopped orders; native
   terminal study and repair tasks; Common Sense present, absent and disabled.
+- With a rack order enabled, a crew member who starts studying at a terminal
+  keeps studying while hauling steps come and go; a fresh Enable interrupts once.
+- Study Agriculture from a terminal's menu: stages, animation, Stop, the
+  work-shift interruption and progress in Crew & Training; a one-hour skip while
+  studying credits an hour. Later, an idle AutoTask crew member with unmet
+  privacy or self-respect needs picks Phobos study by themselves.
+- A machine that cannot start shows the retry wait on its order and the worker
+  goes idle; PDA uninstall/repair painting on a terminal still works;
+  `phobosframework crew` explains any blocker.
 - Roster/equipment/time-skip controls at the owner's UI scale. Native component
   checks do not verify Unity layout, pathfinding or live patch interoperability.
 

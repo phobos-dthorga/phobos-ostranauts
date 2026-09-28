@@ -104,9 +104,6 @@ public static class CrewSkip
                 system.Update(step);
                 TickMachines(ships);
                 foreach(var actor in crew)
-                    foreach(var ia in (actor.aQueue??Enumerable.Empty<Interaction>()).Where(i=>i?.strName?.StartsWith(CrewSpecialities.StudyPrefix,StringComparison.Ordinal)==true))
-                        if(!CrewSpecialities.StudyReady(actor,ia.objThem))ia.bCancel=true;
-                foreach(var actor in crew)
                 {
                     if(!assignments.TryGetValue(actor.strID,out var job)) continue;
                     if(!CrewWork.Eligible(actor,job.Offer,out _,hour:workHour) || unavailable.Contains(actor.strID)) { Drop(actor.strID); continue; }
@@ -156,7 +153,7 @@ public static class CrewSkip
         foreach(var co in CrewWork.Equipment(actor.ship).Where(c=>!faulted.Contains(c.strID)))
         {
             var order=CrewWork.Order(co); var provider=CrewWork.Provider(co)!;
-            if(order.Protected || order.Permission!=WorkPermission.Enabled || provider is not ICrewSkipProvider support || !support.CanAdvance(co,out _)) continue;
+            if(order.Protected || order.Permission!=WorkPermission.Enabled || CrewWork.RetryPending(co) || provider is not ICrewSkipProvider support || !support.CanAdvance(co,out _)) continue;
             CrewWorkOffer? offer;
             try { offer=provider.Next(co,order,out var reason); CrewWork.Notice(co,reason); }
             catch(Exception error) { faulted.Add(co.strID); CrewWork.Fault(co,error); continue; }

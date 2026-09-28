@@ -30,12 +30,11 @@ public static class CrewSpecialities
         if(Math.Abs(interaction.fDurationOrig-definition.fDuration)<1e-10)
         { interaction.fDuration*=CrewBalance.SkilledDurationFraction; interaction.fDurationOrig*=CrewBalance.SkilledDurationFraction; }
     }
-    internal static bool StudyReady(CondOwner? actor,CondOwner? terminal)=>actor!=null&&actor.bAlive&&!actor.HasCond("Unconscious")&&
-        DataHandler.GetCondTrigger("TIsHumanAwake")?.Triggered(actor)==true&&terminal!=null&&!terminal.bDestroyed&&
-        terminal.HasCond("IsTerminal")&&terminal.HasCond("IsInstalled")&&terminal.HasCond("IsPowered")&&!terminal.HasCond("IsDamaged")&&
-        !terminal.HasCond("IsLocked")&&!terminal.HasCond("IsOverrideOff")&&actor.ship==terminal.ship;
     public static IEnumerable<CrewSpeciality> All => skills.Values;
+    // Retired 15-minute terminal actions (0.25.0 to 0.34.0). Their definitions stay registered so a save
+    // that queued one still loads; terminals no longer offer them. Study now follows the vanilla chain.
     internal const string StudyPrefix = "PhobosCrewStudy_";
+    public const string LegacyTerminalTrigger = "PhobosCrewStudyTerminal";
     public static void Register(CrewSpeciality skill)
     { if (skills.ContainsKey(skill.Id)) throw new ArgumentException("Duplicate speciality."); skills.Add(skill.Id, skill); }
     public static string Condition(string id) => "PhobosSkill_" + id;
@@ -85,13 +84,20 @@ public static class CrewSpecialities
         foreach(var role in roles){if(!Enum.IsDefined(typeof(CrewRole),role.Key))return false;next[role.Key.ToString()]=role.Value?"1":"0";}
         reason=Controls.ConsoleText.Get("protected");bool saved=store.TryWrite(next);if(saved)reason=Controls.ConsoleText.Get("applied");return saved;
     }
-    internal static void Definitions() => PrepareDefinitions().Publish();
+    // ContentLoaded: after every mod's data and the game's own installable generation. Nothing native is
+    // republished by name; the vanilla study chain is joined in place (see CrewStudy).
+    internal static void Definitions()
+    {
+        PrepareDefinitions().Publish();
+        CrewStudy.Amend(skills.Values);
+        CrewStudy.SeedTemplate(skills.Values);
+    }
     public static NativeDefinitions PrepareDefinitions()
     {
         if (!DataHandler.dictInteractions.TryGetValue("Inventory", out var template)) throw new InvalidOperationException("Native Inventory interaction missing.");
         var d = new NativeDefinitions();
-        d.Triggers["PhobosCrewStudyTerminal"] = new CondTrigger { strName="PhobosCrewStudyTerminal",
-            aReqs=new[]{"IsTerminal","IsInstalled","IsPowered"},aForbids=new[]{"IsDamaged","IsLocked","IsOverrideOff"},bAND=true };
+        d.Triggers[LegacyTerminalTrigger] = new CondTrigger { strName=LegacyTerminalTrigger, fChance=1, fCount=1, bAND=true,
+            aReqs=new[]{"IsTerminal","IsInstalled","IsPowered"},aForbids=new[]{"IsDamaged","IsLocked","IsOverrideOff"},aTriggers=Array.Empty<string>() };
         var work = NativeDefinitions.Clone(template);
         work.strName = CrewWork.WorkId; work.strTitle = work.strDesc = work.strTooltip = CrewWork.Message("work");
         work.strRaiseUI = null; work.aInverse = Array.Empty<string>(); work.strActionGroup = "Work"; work.strDuty = "Operate";
@@ -106,16 +112,12 @@ public static class CrewSpecialities
             c.aPer = Array.Empty<string>(); d.Conditions[c.strName] = c;
             var study = NativeDefinitions.Clone(work); study.strName = StudyPrefix + skill.Id;
             study.strTitle = study.strDesc = study.strTooltip = CrewWork.Message("study",skill.Label); study.fDuration = .25;
-            study.strActionGroup = "Use"; study.fWorkCancelChance = 1;
-            study.CTTestUs="TIsHumanAwake"; study.CTTestThem="PhobosCrewStudyTerminal";
+            // A duty would turn a direct order into a native task; study is a personal action like vanilla's.
+            study.strActionGroup = "Use"; study.fWorkCancelChance = 1; study.strDuty = null;
+            study.CTTestUs="TIsHumanAwake"; study.CTTestThem=LegacyTerminalTrigger;
             d.Interactions[study.strName] = study;
         }
-        foreach(var original in DataHandler.dictCOs.Values.Where(c => c.aStartingConds?.Any(s=>s.StartsWith("IsTerminal=",StringComparison.Ordinal)) == true).ToArray())
-        {
-            var terminal=NativeDefinitions.Clone(original);
-            terminal.aInteractions=(terminal.aInteractions??Array.Empty<string>()).Concat(skills.Keys.Select(id=>StudyPrefix+id)).Distinct().ToArray();
-            d.Objects[terminal.strName]=terminal;
-        }
+        CrewStudy.Prepare(d, skills.Values);
         return d;
     }
     internal static void Reset() { credited=new(); }
@@ -133,9 +135,11 @@ internal static class CrewStudyFinish
 {
     private static void Postfix(Interaction __instance, bool isCancelIa)
     {
-        if (isCancelIa || __instance.bCancel || !__instance.strName.StartsWith(CrewSpecialities.StudyPrefix,StringComparison.Ordinal)) return;
+        if (isCancelIa || __instance.bCancel || string.IsNullOrEmpty(__instance.strName)) return;
+        if (!__instance.strName.StartsWith(CrewSpecialities.StudyPrefix,StringComparison.Ordinal)) { CrewStudy.Credit(__instance, isCancelIa); return; }
         var actor=__instance.objUs; var terminal=__instance.objThem;
-        if(!CrewSpecialities.StudyReady(actor,terminal) || !CrewWork.LocalAccess(actor,terminal,2) || !CrewSpecialities.ClaimCredit(__instance)) return;
+        if(actor==null || !actor.bAlive || terminal==null || terminal.bDestroyed || !terminal.HasCond("IsTerminal") ||
+            !CrewWork.LocalAccess(actor,terminal,2) || !CrewSpecialities.ClaimCredit(__instance)) return;
         CrewSpecialities.Credit(actor,__instance.strName.Substring(CrewSpecialities.StudyPrefix.Length),Math.Min(900,__instance.fDurationOrig*3600),true);
     }
 }

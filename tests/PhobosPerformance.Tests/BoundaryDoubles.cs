@@ -21,6 +21,8 @@ namespace Phobos.Ostranauts.Framework
 }
 namespace Phobos.Ostranauts.Framework.Construction
 { public static class ConstructionRegistry { public static string Describe(bool recipes) => recipes ? "recipes" : "status"; } }
+namespace Phobos.Ostranauts.Framework.Crew
+{ internal static class CrewDiagnostics { internal static string Describe(string? filter) => "crew:" + (filter ?? ""); } }
 namespace Phobos.Ostranauts.Framework.Diagnostics
 {
     internal static class NativePerformance

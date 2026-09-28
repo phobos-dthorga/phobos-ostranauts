@@ -26,6 +26,10 @@ public static class CrewBalance
         !Finite(progress) || progress < 0 || !Finite(productiveSeconds) || productiveSeconds <= 0 ? progress :
         Math.Min(100, progress + productiveSeconds / (3600 * (study ? StudyHours : PracticeHours)) * 100);
     public static double Duration(double seconds, bool skilled) => seconds * (skilled ? SkilledDurationFraction : 1);
+    // After a work step fails, wait before offering it again so the worker is free for native
+    // tasks, study and rest. The order stays enabled; the wait grows to the last step.
+    public static readonly double[] RetryDelaySeconds = { 30, 60, 120, 300, 600 };
+    public static double RetryDelay(int failures) => failures <= 0 ? 0 : RetryDelaySeconds[Math.Min(failures, RetryDelaySeconds.Length) - 1];
     public static string Binding(IEnumerable<string> fields)
     {
         using var hash=SHA256.Create();
@@ -76,6 +80,7 @@ public sealed class WorkReservations
 {
     private readonly Dictionary<string,string> owners = new(StringComparer.Ordinal);
     public bool Available(string key, string owner) => !owners.TryGetValue(key, out var current) || current == owner;
+    public bool Available(string owner, IEnumerable<string> keys) => keys.All(k => Available(k, owner));
     public bool Acquire(string owner, IEnumerable<string> keys)
     {
         var all = keys.Distinct(StringComparer.Ordinal).ToArray();
@@ -86,6 +91,25 @@ public sealed class WorkReservations
     public void Release(string owner)
     { foreach (var k in owners.Where(p => p.Value == owner).Select(p => p.Key).ToArray()) owners.Remove(k); }
     public void Clear() => owners.Clear();
+}
+
+/// <summary>Which study actions to add to a crew member's AI history so the idle picker can choose
+/// them like vanilla study. Additive only: an entry is planned where the vanilla template entry
+/// exists for that need and ours is absent. Nothing is ever changed or removed.</summary>
+public static class StudyHistorySeed
+{
+    public static IReadOnlyList<(string Need, string Opener)> Plan(IEnumerable<(string Need, IReadOnlyCollection<string> Entries)> histories,
+        string templateOpener, IEnumerable<string> openers)
+    {
+        var wanted = openers.Where(o => !string.IsNullOrEmpty(o)).Distinct(StringComparer.Ordinal).ToArray();
+        var plan = new List<(string, string)>();
+        foreach (var (need, entries) in histories)
+        {
+            if (entries == null || !entries.Contains(templateOpener)) continue;
+            foreach (string opener in wanted) if (!entries.Contains(opener)) plan.Add((need, opener));
+        }
+        return plan;
+    }
 }
 
 /// <summary>One budget per worker: no overlapping sleep, labour, study or native repair credit.</summary>

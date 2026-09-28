@@ -297,6 +297,17 @@ must not use it to claim another author's definitions. It is a native adapter,
 not a generic machine generator. See Shipbreaker's `MachineDefinitions` for a
 content-specific consumer.
 
+Never republish a native definition by its own name after `ContentLoading`. The
+game's `PostModLoadMainThread` fills private state on the loaded objects (for
+example `JsonCondOwner` job actions from installable generation) that a clone
+cannot carry, and a same-name republish at `ContentLoaded` silently drops it.
+To add to a native definition, amend it in place with
+`Registration.DefinitionAmendments`: `AppendInteractions` (definition or live
+object, refreshing the game's action flags), `InsertInverse` (a reply before a
+chosen reply) and `AppendLoot`. All are additive and idempotent, like the game's
+own `Installables.Create`. `Publish` also validates staged triggers: an explicit
+zero chance is refused and missing lists are restored (0.35.0).
+
 ## Grid placement
 
 ```csharp
@@ -727,6 +738,32 @@ successful completion; its per-interaction guard prevents duplicate credit.
 Never credit idle machine time or award progress while preparing/previewing an
 offer. The shared saved-order, training and permission maps use Framework's
 protected `ObjectStateStore`; generated tasks and reservations are transient.
+
+`Crew.CrewStudy` (0.35.0) teaches every registered speciality through the game's
+own study chain, cloned from the software-engineering family: an opener
+(`PhobosStudySkill_<Id>`, `bOpener`, no duty) the idle AI can pick, a chooser
+that sets the `PhobosStudying_<Id>` mark, a continuation chooser gated on that
+mark and inserted into `ACTStudySkillAllowCont` before the vanilla skills, a
+refusal once `PhobosSkill_<Id>` is held, and a time-skip tick listed in
+`ACTFFWDContextPayloads`. Study material is any terminal the vanilla
+`TIsStudyMaterialUnused` rule admits, so saved terminals qualify without a new
+condition. Completed `ACTStudySkillCont*` steps credit the marked speciality;
+each skipped hour credits an hour. Content mods register nothing extra.
+
+The game only chooses study actions present in a crew member's AI history
+(`mapIAHist`, seeded from `dictAIPersonalities["Abner"]` when a person is
+created and saved with them). `CrewStudy` therefore copies the vanilla
+`ACTStudySkillEngConstruction` entries for each opener into the template at
+`ContentLoaded` and into the player's crew on the first poll after a world
+loads, only where absent. Never overwrite or remove learned entries.
+
+`CrewWork` keeps the native task total in step (`WorkManager.nTotalTasks`) when
+it re-adds a task for a continuing order, because the game interrupts every
+on-shift crew member's study whenever that total rises; the first task after an
+Enable is announced normally. Failed steps back off through
+`CrewBalance.RetryDelay` and keep the order; `CollectTasks` withholds tasks the
+crew member could not claim. `phobosframework crew [name]` reports all of this
+read-only.
 
 ## Presentation and equipment discovery
 

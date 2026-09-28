@@ -19,6 +19,12 @@ internal static class FrameworkConsole
             return false;
         }
         string command = words.Length == 1 ? "help" : words[1].ToLowerInvariant();
+        if (command == "crew" && words.Length <= 3)
+        {
+            __result = true;
+            strInput += "\n" + Crew.CrewDiagnostics.Describe(words.Length == 3 ? words[2] : null);
+            return false;
+        }
         __result = words.Length <= 2 && (command == "help" || command == "status" || command == "recipes");
         string response = Text.Get("FrameworkConsole.phobos_framework", FrameworkInfo.Version);
         if (!__result || command == "help") response += Text.Get("FrameworkConsole.commands_phobosframework_status_recipes_help_read_only");

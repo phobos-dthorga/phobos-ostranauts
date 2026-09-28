@@ -203,3 +203,15 @@ a track that sensors cannot provide. The sensor guide, departure guide, player g
 item-reference inputs and both Workshop drafts were reviewed together; 0.23.0 and
 0.9.0 statements remain as labelled history. Coverage is now 1,876 entries, 153
 documents and 14 other surfaces. Banner and log appearance in Unity is unverified.
+
+## Crew study through the vanilla chain, 28 September 2026
+
+Framework 0.35.0 adds 35 reviewed entries: the per-speciality study action titles,
+descriptions and tooltip mirror the vanilla study actions with the speciality named
+and the same grammar tokens; the studying condition, retry status, AI-history log
+lines and the read-only crew diagnostic state what is happening and what the player
+can check. The retired 15-minute action label now says it is retired, and the console
+help lists the crew command. The crew guide leads with the terminal action, the
+AutoTask behaviour and the diagnostic; the author guide records the in-place
+amendment rule. Coverage is now 1,911 entries, 153 documents and 14 other surfaces.
+Unity menu wording and animation are unverified.

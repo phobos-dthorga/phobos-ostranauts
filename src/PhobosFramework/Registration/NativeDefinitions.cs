@@ -24,6 +24,7 @@ public sealed class NativeDefinitions
     public void Publish()
     {
         InstallMenu.Validate(Installables.Values);
+        foreach (var trigger in Triggers.Values) Validate(trigger);
         var batch = new DefinitionTransaction();
         batch.Stage(DataHandler.dictCOs, Objects); batch.Stage(DataHandler.dictItemDefs, Items);
         batch.Stage(DataHandler.dictSlots, Slots); batch.Stage(DataHandler.dictConds, Conditions);
@@ -31,6 +32,17 @@ public sealed class NativeDefinitions
         batch.Stage(DataHandler.dictInteractions, Interactions); batch.Stage(DataHandler.dictLoot, Loot);
         batch.Stage(DataHandler.dictInstallables, Installables);
         batch.Commit();
+    }
+
+    /// <summary>A trigger built in code starts with a zero chance and null lists, unlike one loaded
+    /// from JSON; the game rolls against that chance, so such a trigger never passes.</summary>
+    public static void Validate(CondTrigger trigger)
+    {
+        if (trigger == null) throw new ArgumentNullException(nameof(trigger));
+        if (!(trigger.fChance > 0)) throw new ArgumentException(Text.Get("NativeDefinitions.trigger_never_passes", trigger.strName, trigger.fChance));
+        trigger.aReqs ??= Array.Empty<string>(); trigger.aForbids ??= Array.Empty<string>();
+        trigger.aTriggers ??= Array.Empty<string>(); trigger.aTriggersForbid ??= Array.Empty<string>();
+        trigger.aLowerConds ??= Array.Empty<string>();
     }
 
     private static readonly JsonSerializerSettings Settings = new JsonSerializerSettings {

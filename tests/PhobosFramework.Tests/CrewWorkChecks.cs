@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Phobos.Ostranauts.Framework.Crew;
 using Phobos.Ostranauts.Framework.Persistence;
 
@@ -37,6 +38,16 @@ internal static class CrewWorkChecks
         check(store.TryWrite(order.Save())&&ObjectStateStore.SafeValue(order.Binding),"Mission binding fits native saved-value limits");
         check(order.Binding!=CrewBalance.Binding(new[]{"ship","other-module","processor","target"}),"A replaced module changes mission scope");
         check(CrewBalance.Binding(new[]{"a|b","c"})!=CrewBalance.Binding(new[]{"a","b|c"}),"Binding delimiters cannot broaden target identity");
+        check(CrewBalance.RetryDelay(0)==0&&CrewBalance.RetryDelay(1)==30&&CrewBalance.RetryDelay(2)==60&&CrewBalance.RetryDelay(5)==600&&CrewBalance.RetryDelay(50)==600,
+            "Failed steps back off to a bounded wait and keep the order");
+        var plan=StudyHistorySeed.Plan(new[]{
+            ("StatPrivacy",(IReadOnlyCollection<string>)new[]{"ACTStudySkillEngConstruction","ACTStudySkill"}),
+            ("StatMeaning",(IReadOnlyCollection<string>)new[]{"ACTStudySkill"}),
+            ("StatSelfRespect",(IReadOnlyCollection<string>)new[]{"ACTStudySkillEngConstruction","PhobosStudySkill_Agriculture"})},
+            "ACTStudySkillEngConstruction",new[]{"PhobosStudySkill_Agriculture","PhobosStudySkill_Cooking",""});
+        check(plan.Count==3&&plan.Contains(("StatPrivacy","PhobosStudySkill_Agriculture"))&&plan.Contains(("StatPrivacy","PhobosStudySkill_Cooking"))&&
+            plan.Contains(("StatSelfRespect","PhobosStudySkill_Cooking"))&&!plan.Any(p=>p.Need=="StatMeaning"),
+            "AI history seeding adds only where the vanilla template exists and ours is absent");
         var leases=new WorkReservations();
         check(leases.Acquire("one",new[]{"machine","input","capacity"}),"First worker reserves all requirements");
         check(!leases.Acquire("two",new[]{"another-machine","capacity"}),"Competing worker cannot overbook destination");

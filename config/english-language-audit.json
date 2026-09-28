@@ -12614,14 +12614,14 @@
       "mod": "PhobosFramework",
       "key": "FrameworkConsole.commands_phobosframework_status_recipes_help_read_only",
       "category": "help/settings",
-      "decision": "retain",
-      "reason": "Retain: clear functional label, operational instruction or necessary safety/detail constraint; no forced personality.",
+      "decision": "rewrite",
+      "reason": "Adds the crew diagnostic command.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosFramework/FrameworkConsole.cs:24"
+        "src/PhobosFramework/FrameworkConsole.cs:30"
       ],
       "before": "Commands: phobosframework status | recipes | help | perf help. Performance capture is opt-in and does not change gameplay. No hot reload.",
-      "after": "Commands: phobosframework status | recipes | help | perf help. Performance capture is opt-in and does not change gameplay. No hot reload."
+      "after": "Commands: phobosframework status | recipes | crew [name] | help | perf help. crew explains why each crew member is or is not studying or working. Performance capture is opt-in and does not change gameplay. No hot reload."
     },
     {
       "mod": "PhobosFramework",
@@ -13883,14 +13883,14 @@
       "mod": "PhobosFramework",
       "key": "Crew.study",
       "category": "control/name/value",
-      "decision": "retain",
-      "reason": "Retain: clear functional label, operational instruction or necessary safety/detail constraint; no forced personality.",
+      "decision": "rewrite",
+      "reason": "Retired action retained for old saves; the label says so.",
       "trace": "dynamic family",
       "references": [
         "src/PhobosFramework/Crew/CrewWork.cs:28"
       ],
       "before": "Study {0} (15 minutes)",
-      "after": "Study {0} (15 minutes)"
+      "after": "Study {0} (retired 15-minute action)"
     },
     {
       "mod": "PhobosFramework",
@@ -36841,6 +36841,461 @@
       ],
       "before": "{0}, switched on by Auto Nav",
       "after": "{0}, switched on by Auto Nav"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Crew.study_title",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "Mirrors the vanilla per-skill study action title so Phobos study reads like the game's own.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Crew/CrewWork.cs:28"
+      ],
+      "before": "Study {0}",
+      "after": "Study {0}"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Crew.study_description",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Vanilla grammar tokens; names the speciality and the terminal.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Crew/CrewWork.cs:28"
+      ],
+      "before": "[us] [decides] to study {0} at [them].",
+      "after": "[us] [decides] to study {0} at [them]."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Crew.study_tooltip",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Same consequences vanilla states for study: privacy and achievement, possible tiredness and loneliness.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Crew/CrewWork.cs:28"
+      ],
+      "before": "Studies to slowly build toward {0} proficiency. Gains privacy and a sense of achievement, but may get tiresome or lonesome.",
+      "after": "Studies to slowly build toward {0} proficiency. Gains privacy and a sense of achievement, but may get tiresome or lonesome."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Crew.study_stage_title",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "Vanilla chooser title, unchanged so sessions look identical.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Crew/CrewWork.cs:28"
+      ],
+      "before": "Choosing Next Study Stage",
+      "after": "Choosing Next Study Stage"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Crew.study_stage",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Vanilla chooser wording with the speciality named.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Crew/CrewWork.cs:28"
+      ],
+      "before": "[us] [chooses] the next phase of studying {0}.",
+      "after": "[us] [chooses] the next phase of studying {0}."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Crew.study_already_title",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "Vanilla refusal title.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Crew/CrewWork.cs:28"
+      ],
+      "before": "Already Proficient",
+      "after": "Already Proficient"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Crew.study_already",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Vanilla refusal wording with the speciality named.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Crew/CrewWork.cs:28"
+      ],
+      "before": "[us] [is] already skilled in {0}.",
+      "after": "[us] [is] already skilled in {0}."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Crew.study_skip_title",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "Time-skip active effect, matching vanilla training titles.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Crew/CrewWork.cs:28"
+      ],
+      "before": "{0} Training",
+      "after": "{0} Training"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Crew.study_skip",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Time-skip description, matching vanilla training descriptions.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Crew/CrewWork.cs:28"
+      ],
+      "before": "Focus on {0} training during down time.",
+      "after": "Focus on {0} training during down time."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Crew.studying",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "Condition name shown on the crew member, matching vanilla studying conditions.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Crew/CrewWork.cs:28"
+      ],
+      "before": "Studying {0}",
+      "after": "Studying {0}"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Crew.studying_description",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Condition description with vanilla grammar tokens.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Crew/CrewWork.cs:28"
+      ],
+      "before": "[us] [is] currently studying to practise {0}.",
+      "after": "[us] [is] currently studying to practise {0}."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Crew.study_seeded",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Log line; says what changed and that the game continues to learn.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Crew/CrewWork.cs:28"
+      ],
+      "before": "Crew AI history gained {0} Phobos study choices; the game keeps learning from here.",
+      "after": "Crew AI history gained {0} Phobos study choices; the game keeps learning from here."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Crew.study_seed_failed",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Log line with the failure detail; nothing else is promised.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Crew/CrewWork.cs:28"
+      ],
+      "before": "Phobos study could not be added to the crew AI history: {0}",
+      "after": "Phobos study could not be added to the crew AI history: {0}"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Crew.retry",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Order status: states the wait and the last reason; the order stays enabled.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Crew/CrewWork.cs:28"
+      ],
+      "before": "Last step failed; retrying in {0:0} s. {1}",
+      "after": "Last step failed; retrying in {0:0} s. {1}"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Crew.diag_loading",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Console reply while the world loads.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Crew/CrewWork.cs:28"
+      ],
+      "before": "World still loading.",
+      "after": "World still loading."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Crew.diag_header",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Console summary line for the crew diagnostic.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Crew/CrewWork.cs:28"
+      ],
+      "before": "Crew study and work: {0} tasks listed, game count {1}.",
+      "after": "Crew study and work: {0} tasks listed, game count {1}."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Crew.diag_none",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Console reply when the name filter matches nobody.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Crew/CrewWork.cs:28"
+      ],
+      "before": "No matching crew.",
+      "after": "No matching crew."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Crew.diag_member",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "One line per crew member: AutoTask, shift, current action and study eligibility.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Crew/CrewWork.cs:28"
+      ],
+      "before": "{0}: AutoTask {1} | shift: {2} | doing: {3} | can study: {4}",
+      "after": "{0}: AutoTask {1} | shift: {2} | doing: {3} | can study: {4}"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Crew.diag_on",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Crew/CrewWork.cs:28"
+      ],
+      "before": "on",
+      "after": "on"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Crew.diag_off",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Crew/CrewWork.cs:28"
+      ],
+      "before": "off",
+      "after": "off"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Crew.diag_shift_work",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Crew/CrewWork.cs:28"
+      ],
+      "before": "work",
+      "after": "work"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Crew.diag_shift_sleep",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Crew/CrewWork.cs:28"
+      ],
+      "before": "sleep",
+      "after": "sleep"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Crew.diag_shift_free",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Crew/CrewWork.cs:28"
+      ],
+      "before": "free time",
+      "after": "free time"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Crew.diag_shift_unknown",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Crew/CrewWork.cs:28"
+      ],
+      "before": "unknown",
+      "after": "unknown"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Crew.diag_idle",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Crew/CrewWork.cs:28"
+      ],
+      "before": "nothing queued",
+      "after": "nothing queued"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Crew.diag_history",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Whether the game can pick this study for the crew member and for which needs.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Crew/CrewWork.cs:28"
+      ],
+      "before": "{0}: in AI history; chosen for {1} needs ({2})",
+      "after": "{0}: in AI history; chosen for {1} needs ({2})"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Crew.diag_no_history",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "The crew member's AI history lacks this study choice.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Crew/CrewWork.cs:28"
+      ],
+      "before": "{0}: not in AI history yet",
+      "after": "{0}: not in AI history yet"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Crew.diag_terminal",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Per terminal: vanilla study admission, current users and whether Phobos study is offered.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Crew/CrewWork.cs:28"
+      ],
+      "before": "Terminal {0} [{1}]: free to study: {2} | users {3:0} of {4:0} | Phobos study offered: {5}",
+      "after": "Terminal {0} [{1}]: free to study: {2} | users {3:0} of {4:0} | Phobos study offered: {5}"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Crew.diag_yes",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Crew/CrewWork.cs:28"
+      ],
+      "before": "yes",
+      "after": "yes"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Crew.diag_no",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Crew/CrewWork.cs:28"
+      ],
+      "before": "no",
+      "after": "no"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Crew.diag_blocked",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Native failure reason shown verbatim after no.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Crew/CrewWork.cs:28"
+      ],
+      "before": "no ({0})",
+      "after": "no ({0})"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Crew.diag_unknown",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Crew/CrewWork.cs:28"
+      ],
+      "before": "unknown",
+      "after": "unknown"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Crew.diag_order",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Per standing order: state and detail or retry wait.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Crew/CrewWork.cs:28"
+      ],
+      "before": "Order {0}: {1} | {2}",
+      "after": "Order {0}: {1} | {2}"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Crew.diag_retry",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Retry countdown for a failed step.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Crew/CrewWork.cs:28"
+      ],
+      "before": "retry in {0:0} s",
+      "after": "retry in {0:0} s"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "NativeDefinitions.trigger_never_passes",
+      "category": "diagnostic",
+      "decision": "add",
+      "reason": "Developer-facing registration error naming the trigger and the fix.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Registration/NativeDefinitions.cs:42"
+      ],
+      "before": "Trigger {0} would never pass: its chance is {1}. Set fChance to 1 or a deliberate probability.",
+      "after": "Trigger {0} would never pass: its chance is {1}. Set fChance to 1 or a deliberate probability."
     }
   ],
   "documents": [
@@ -36848,8 +37303,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "9e9dc61b35e560ed04e8a1bf2fe8a9a668daecface7694a03011d727b5b73e59",
-      "review": "2026-09-28: version summary for Auto Nav 0.24.0 and Framework 0.34.0; no other wording changed."
+      "sha256": "72b9185ae9af423b999f0600f4327bfbb2b5cd63b09d4e171bf5dbfaa84af545",
+      "review": "2026-09-28: Framework 0.35.0 version summary; no other wording changed."
     },
     {
       "path": "SUPPORT.md",
@@ -37006,15 +37461,15 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "31158a9debbbc5d61cc41d6325d445fd3b3c877f460710c437a2bd2ebba7c044",
-      "review": "2026-09-28: version line for Auto Nav 0.24.0 and Framework 0.34.0; no other wording changed."
+      "sha256": "927416d545d1a3dc60597307cab1d11760cd0451351d35b07d3e2b687f5bfa36",
+      "review": "2026-09-28: Framework 0.35.0 version line; no other wording changed."
     },
     {
       "path": "docs/crew-automation.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "cc64797f5c757551c478c5480e2c5254150e0431a2688b6d521124be25b70471",
-      "review": "2026-09-28: F6 row explains that crew keep supplying and clearing while a repeat run owns the hot steps."
+      "sha256": "070520dc9acec6355cd46a961f1d859d4da46a09f9350b9330c83ea1edfee520",
+      "review": "2026-09-28: order announcement and retry paragraph; study section rewritten for the vanilla-style terminal action, AutoTask self-study, AI-history seeding and the crew diagnostic; owner checks extended. Retired action named as retired."
     },
     {
       "path": "docs/development/README.md",
@@ -37277,8 +37732,8 @@
       "path": "docs/development/framework-author-guide.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "755fdb4949e7c5819a29d327627d9988354e1c946db30375b95188ad3446665a",
-      "review": "2026-09-28: reviewed construction stage guidance and registered version/dependency updates; distinguish native completion, saved work and missing-image fallback from pending owner Unity approval. No catalogue changes."
+      "sha256": "deeea6cd79eb9a837cbc52f39252e8cf532af88005af8c4ecc6e438bc3cee6d5",
+      "review": "2026-09-28: same-name republish caveat, DefinitionAmendments, trigger validation, CrewStudy chain, AI-history seeding, quiet task re-adds and retry backoff."
     },
     {
       "path": "docs/development/framework-bulk-storage.md",
@@ -37687,7 +38142,7 @@
       "path": "docs/framework-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "1c39e7a9b5801a60c82ba19ec7ff5efc0c7ae34944890e0cb3eed2e0c8c4f757",
+      "sha256": "4a3604a13295015415050d092400f2a1410381895c9b35ae65979726b8582867",
       "review": "2026-09-28: regenerated from reviewed inputs: version only."
     },
     {
@@ -37785,8 +38240,8 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "b7955fef27a7f385d6f3424651c48485d188612dcc229cc3b84e131111ba6c45",
-      "review": "2026-09-28: versions updated; sensor paragraph now points to automatic sensor engagement, stating non-emitting first, the warning and switch-off of Auto Nav's own sensors only."
+      "sha256": "8d74c43b5af001fe5cdb2cc8f37e23d3dc84ae15d14a70aff493fac2fb84f5a9",
+      "review": "2026-09-28: Framework 0.35.0 version line; no other wording changed."
     },
     {
       "path": "docs/residue-collector.md",
@@ -37869,8 +38324,8 @@
       "path": "workshop/PhobosFramework/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "781efa736d10ae84ea73066df1568a3a4cc100f5eb6cbb64d8f77a5f2d5a35e6",
-      "review": "2026-09-28: version; new bullet on shared sensor switching and player notices."
+      "sha256": "e4fd1e2911d73fbabb470a3e2cb094e41c9bfcf2f2ba95d03fb5b295f5ff2728",
+      "review": "2026-09-28: version; new bullet on vanilla-style speciality study, uninterrupted study, retry waits and the crew diagnostic."
     },
     {
       "path": "workshop/PhobosManufacturing/page.bbcode",
@@ -37939,7 +38394,7 @@
     {
       "path": "mods/PhobosFramework/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "6119aba9a1bbe935454a4861fba1ba6cd720044542dc5ad9f09b93232cee9924",
+      "sha256": "5f11309645b1495cd5a6d7dbe15440587743262d7458a468fc4086d79cb4e27a",
       "review": "2026-09-28: version metadata only."
     },
     {

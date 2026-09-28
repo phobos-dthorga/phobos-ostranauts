@@ -20,6 +20,27 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.35.0] - 2026-09-28 - Draft
+
+### Fixed
+
+- Standing orders no longer interrupt crew study. The game cancels every on-shift crew member's study whenever its task list grows, and each completed order step used to add a new task. An order now announces one task when it is enabled, like a painted job, and later steps are added quietly.
+- A failed order step is retried after 30 seconds, then 1, 2, 5 and 10 minutes, instead of every 2 seconds. The order stays enabled and shows the wait and the reason; the worker is free for native tasks, study and rest in between.
+- A step a crew member cannot take (no route, nothing to carry, a skilled colleague available, or a reservation held) is withheld from that crew member's task search instead of ending it, so lower-priority native tasks stay reachable.
+- Terminal definitions are amended in place rather than cloned and republished, so PDA job painting on terminals keeps its native actions. The retired 15-minute study action no longer carries a work duty, so an old queued one cannot turn a direct order into a task.
+
+### Changed
+
+- Specialities are studied through the game's own study chain: powered terminals offer Study Agriculture, Cooking and Industrial Processing with the vanilla stages, refusals, tablet animation, work-shift interruption, Stop and time-skip continuation. Each completed study step credits the speciality; a skipped hour credits an hour. The 10-hour study balance is unchanged.
+- AutoTask crew can choose Phobos study on their own. The game only picks actions present in a crew member's AI history, so on load the vanilla construction-study entries are copied for each speciality into every crew member's history and the new-crew template, only where absent. Nothing is overwritten or removed.
+- The retired 15-minute study action is no longer offered on terminals; its definition stays registered so older saves load.
+- New F3 command phobosframework crew, optionally followed by a crew member's name, explains per crew member AutoTask, shift, current action and study eligibility, each terminal's study admission and users, AI-history entries for Phobos study, order retry waits and the game's task count.
+- Registration refuses a trigger whose chance is zero and restores missing lists before publishing.
+
+### Compatibility and limits
+
+- Additive changes to saved crew AI history and to live terminal action lists; no saved identities change. Existing saved terminals qualify for study through the vanilla rule without a power cycle. Content mods need no update. Offline checks pass; owner play-testing of study, interruption and retry behaviour is pending.
+
 ## [0.34.0] - 2026-09-28 - Draft
 
 ### Added

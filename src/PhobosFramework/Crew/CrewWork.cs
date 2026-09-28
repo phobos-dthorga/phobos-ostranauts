@@ -20,6 +20,13 @@ public static class CrewWork
     internal static readonly WorkReservations Reservations = new();
     private static float nextScan;
     private static CrewWorkContext? executing;
+    // Equipment whose first task since Enable has been announced to the native task list; later
+    // re-adds are quiet so continuing an order never interrupts other crew members' study.
+    private static readonly HashSet<string> announced = new(StringComparer.Ordinal);
+    private static readonly Dictionary<string,int> failures = new(StringComparer.Ordinal);
+    private static readonly Dictionary<string,double> nextAttempt = new(StringComparer.Ordinal);
+    private static readonly Dictionary<string,string> retryReason = new(StringComparer.Ordinal);
+    private static bool worldReady;
     public static CondOwner? Actor => executing?.Actor;
     public static bool IsExecuting => executing != null;
     public static bool AllCrewAboard(Ship ship) => CrewRoster.AllAboard(ship);
@@ -61,7 +68,7 @@ public static class CrewWork
         var next = StandingOrder.Read(Order(co).Save()); edit(next);
         next = StandingOrder.Read(next.Save());
         if (next.Protected || !Store(co, "crew-order").TryWrite(next.Save())) return false;
-        Cancel(co); orders[co.strID] = next;
+        Cancel(co); orders[co.strID] = next; Forget(co.strID);
         if (next.Permission != WorkPermission.Enabled) Provider(co)?.Suspend(co);
         return true;
     }
@@ -171,6 +178,33 @@ public static class CrewWork
             (available?.Invoke(other) ?? Idle(other)) && DutyPriority(other, offer.Duty) == DutyPriority(actor, offer.Duty) &&
             CrewSpecialities.Skilled(other, offer.Skill) && Eligible(other, offer, out _) && Path(other, offer.Target) && CrewLogistics.Prepare(other, offer));
     internal static void Notice(CondOwner co, string reason) => notices[co.strID] = reason;
+    private static void Forget(string id) { announced.Remove(id); failures.Remove(id); nextAttempt.Remove(id); retryReason.Remove(id); }
+    /// <summary>Seconds of game time before a failed step is offered again, or zero.</summary>
+    public static double RetrySeconds(CondOwner co) => nextAttempt.TryGetValue(co.strID, out var at) ? Math.Max(0, at - StarSystem.fEpoch) : 0;
+    internal static bool RetryPending(CondOwner co)
+    {
+        if (RetrySeconds(co) <= 0) return false;
+        Notice(co, Message("retry", RetrySeconds(co), retryReason.TryGetValue(co.strID, out var why) ? why : ""));
+        return true;
+    }
+    private static void RecordOutcome(CondOwner co, bool done, string reason)
+    {
+        if (done) { failures.Remove(co.strID); nextAttempt.Remove(co.strID); retryReason.Remove(co.strID); return; }
+        int count = (failures.TryGetValue(co.strID, out var n) ? n : 0) + 1;
+        failures[co.strID] = count; nextAttempt[co.strID] = StarSystem.fEpoch + CrewBalance.RetryDelay(count); retryReason[co.strID] = reason;
+    }
+    // The game interrupts every on-shift crew member's study whenever its task total rises. A standing
+    // order is one job: announce its first task after Enable like a painted job, then keep re-adds quiet.
+    private static void Announce(CondOwner co, WorkManager manager)
+    {
+        if (announced.Add(co.strID)) return;
+        try { manager.nTotalTasks = Math.Max(manager.nTotalTasks, CrewDiagnostics.TaskCount(manager)); }
+        catch (Exception e) { Notice(co, Message("fault", e.Message)); }
+    }
+    /// <summary>Everything a claim would check, so an unclaimable task is withheld from the native
+    /// search instead of ending it and hiding lower-priority vanilla work.</summary>
+    internal static bool Admissible(CondOwner actor, Job j) => Eligible(actor, j.Offer, out _) && Path(actor, j.Offer.Target) &&
+        CrewLogistics.Prepare(actor, j.Offer) && !PreferredAvailable(actor, j.Offer) && Reservations.Available(j.Lease, Keys(j));
     internal static void Fault(CondOwner co, Exception error)
     { Notice(co, Message("fault", error.Message)); SetPermission(co, WorkPermission.Suspended,"fault"); }
     public static void Poll()
@@ -179,10 +213,8 @@ public static class CrewWork
             DataHandler.mapCOs == null || CrewSim.coPlayer == null || CrewSim.Paused || CrewSkip.Active || Time.unscaledTime < nextScan) return;
         nextScan = Time.unscaledTime + (float)CrewBalance.DiscoverySeconds;
         using var measurement = Diagnostics.Performance.Measure(Diagnostics.Performance.CrewDiscovery);
+        if (!worldReady) { worldReady = true; CrewStudy.WorldReady(CrewSpecialities.All, FrameworkLifecycle.Log); }
         var crew = CrewRoster.Members();
-        foreach(var actor in crew)
-            foreach(var ia in actor.aQueue.Where(i=>i?.strName?.StartsWith(CrewSpecialities.StudyPrefix,StringComparison.Ordinal)==true))
-                if(!CrewSpecialities.StudyReady(actor,ia.objThem))ia.bCancel=true;
         Reconcile(crew);
         var ships = crew.Select(c => c.ship).Distinct().ToArray();
         foreach (var ship in ships) foreach (var co in Equipment(ship)) Discover(co);
@@ -191,6 +223,7 @@ public static class CrewWork
     {
         if (!CanManage(co) || Jobs.Values.Any(j => j.Equipment == co)) return;
         var o = Order(co); if (o.Protected || o.Permission != WorkPermission.Enabled) return;
+        if (RetryPending(co)) return;
         var provider = Provider(co)!;
         try
         {
@@ -199,7 +232,8 @@ public static class CrewWork
             var task = new Task2 { strName = WorkId + "." + co.strID, strInteraction = WorkId, strTargetCOID = offer.Target.strID,
                 strDuty = offer.Duty, aOwnerIDs = new[] { CrewSim.coPlayer.strID }, bManual = false };
             var job = new Job { Equipment = co, Provider = provider, Offer = offer, Task = task };
-            if (CrewSim.objInstance.workManager.AddTask(task)) Jobs.Add(task, job);
+            var manager = CrewSim.objInstance.workManager;
+            if (manager.AddTask(task)) { Jobs.Add(task, job); Announce(co, manager); }
         }
         catch (Exception e) { Fault(co, e); }
     }
@@ -232,6 +266,7 @@ public static class CrewWork
         {
             bool done = j.Offer.Cargo != null ? CrewLogistics.Deliver(executing, j.Offer, out reason) : j.Provider.Complete(executing, j.Offer, out reason);
             notices[j.Equipment.strID] = reason;
+            RecordOutcome(j.Equipment, done, reason);
             if (done) CrewSpecialities.Credit(j.Worker, j.Offer.Skill, j.Seconds, false);
             return done;
         }
@@ -275,7 +310,10 @@ public static class CrewWork
     }
     internal static void FinishSkip() { foreach (var p in providers.Values.OfType<ICrewSkipProvider>()) p.AfterSkip(); }
     internal static void Reset()
-    { Jobs.Clear(); Active.Clear(); orders.Clear(); notices.Clear(); Reservations.Clear(); executing = null; nextScan = 0; CrewSpecialities.Reset(); }
+    {
+        Jobs.Clear(); Active.Clear(); orders.Clear(); notices.Clear(); Reservations.Clear(); executing = null; nextScan = 0;
+        announced.Clear(); failures.Clear(); nextAttempt.Clear(); retryReason.Clear(); worldReady = false; CrewSpecialities.Reset();
+    }
 }
 
 [HarmonyPatch(typeof(WorkManager), "CollectTasks")]
@@ -284,7 +322,7 @@ internal static class CrewTaskFilter
     [HarmonyPriority(Priority.Last)]
     private static void Postfix(CondOwner co, ref List<Task2> __result)
     {
-        __result.RemoveAll(t => t.strInteraction == CrewWork.WorkId && (!CrewWork.Jobs.TryGetValue(t, out var j) || !CrewWork.Eligible(co, j.Offer, out _)));
+        __result.RemoveAll(t => t.strInteraction == CrewWork.WorkId && (!CrewWork.Jobs.TryGetValue(t, out var j) || !CrewWork.Admissible(co, j)));
     }
 }
 [HarmonyPatch(typeof(WorkManager), "FinalizeTask")]

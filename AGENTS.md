@@ -584,6 +584,19 @@
   that operation. Displays and planning queries never switch sensors. Players choose
   `Sensors.AutoEngage` All/Passive/Off. Auto Nav 0.24.0 / Framework 0.34.0 implement
   this; see `docs/auto-nav-sensors.md`. Owner gameplay checks remain pending.
+- Owner crew-study direction (2026-09-28): vanilla behaviour is the reference.
+  Crew study at terminals through the game's own study chain, and Phobos
+  specialities join that chain (openers the idle AI can pick, chooser, continuation
+  gated on our studying mark, refusal once skilled, time-skip tick, credit per
+  completed step) instead of bespoke actions. Framework 0.35.0 implements this;
+  see `docs/crew-automation.md`. Never republish a native definition by name after
+  loading (the game keeps private state on it); amend lists in place through
+  `Registration.DefinitionAmendments`. Standing orders announce one native task
+  per Enable and keep later re-adds quiet, because the game interrupts every
+  on-shift crew member's study when its task total rises. Failed steps back off
+  (30 s to 10 min) and keep the order. AI-history seeding copies the vanilla
+  construction-study entries only where absent; never overwrite or remove
+  learned history. Keep `phobosframework crew` read-only.
 - Navigation panels must explicitly use
   `Ostranauts.ShipGUIs.NavStation.Draggable`, not the game's same-named global
   object-hauling component. Bind `NavModBase.DraggableRef`; the package build
