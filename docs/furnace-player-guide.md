@@ -155,7 +155,11 @@ selected cooling assembly. Conversion losses also enter that finite store.
 2. Open **Feed** locally. Insert **twenty separate, unstacked native Scrap
    Aluminum items**, each 1 kg and carrying nothing. Other identities, including
    finished housings and historic residue, are not accepted. Native auto-stacking
-   is disabled only for items entering or leaving the F6 charge bin.
+   is disabled only for items entering or leaving the F6 charge bin. Pick a
+   stack up in the inventory window and right-click on the bin to place one
+   piece at a time, or switch on **Load feed by crew** on the furnace so crew
+   bring single pieces from anywhere aboard; the hot steps below still need
+   the hazardous permission or a repeat run.
 3. **Seal and verify charge**. The cool lining, exact feed, room atmosphere and
    finite receiver are checked. The feed chamber closes and holds 80 litres of cabin gas.
 4. **Enable / resume sequence**. AUTO evacuates, preheats, melts and holds at

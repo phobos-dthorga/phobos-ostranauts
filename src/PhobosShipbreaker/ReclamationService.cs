@@ -200,7 +200,7 @@ internal static partial class ReclamationService
         if(r.Phase==ReclamationPhase.TransferPending&&cargo!=null&&ProcessingService.ValidPanel(cargo))
         { r.CompleteTransfer();if(!Save(s)) Suspend(s,Text.Get("Capture.save"));return; }
         var wall=ReclamationGeometry.Resolve(target,r["wall"]);
-        if(wall!=null&&wall.strCODef=="ItmWall1x1"&&r.Phase==ReclamationPhase.UninstallPending)
+        if(wall!=null&&WallIdentity.IsInstalledOrdinary(wall.strCODef)&&r.Phase==ReclamationPhase.UninstallPending)
         { if(s.PendingSince==0) s.PendingSince=StarSystem.fEpoch;
           if(StarSystem.fEpoch-s.PendingSince>30) Suspend(s,Text.Get("Reclamation.uncertain")); else s.Notice=Text.Get("Reclamation.native_wait");return; }
         if(wall==null||!ProcessingService.ValidPanel(wall)||!ReclamationGeometry.Reach(g,wall)||!Attached(s,capture))
@@ -265,7 +265,7 @@ internal static partial class ReclamationService
         if(Plugin.Service.MissionPendingFeed(s.Grabber,s.Record["processor"],out bool capacity))
         {s.Notice=Text.Get(capacity?"Reclamation.capacity":"Reclamation.feeding");return;}
         CaptureService.Read(s.Grabber,out var capture);
-        bool remaining=target.LoadState>=Ship.Loaded.Edit?target.GetCOs(null,false,false,true).Any(c=>c.strCODef=="ItmWall1x1"&&c.strID!=capture["support"]):CaptureGeometry.Parts(target).Any(c=>c.strName=="ItmWall1x1");
+        bool remaining=target.LoadState>=Ship.Loaded.Edit?target.GetCOs(null,false,false,true).Any(c=>WallIdentity.IsInstalledOrdinary(c.strCODef)&&c.strID!=capture["support"]):CaptureGeometry.Parts(target).Any(c=>WallIdentity.IsInstalledOrdinary(c.strName));
         s.Record.Phase=remaining?ReclamationPhase.Remnants:ReclamationPhase.Exhausted;
         Save(s);Suspend(s,Text.Get("Reclamation.phase_"+s.Record.Phase));
     }

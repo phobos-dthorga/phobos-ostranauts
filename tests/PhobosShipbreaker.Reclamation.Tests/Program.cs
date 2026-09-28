@@ -6,7 +6,7 @@ using PhobosAutoNav;
 using Phobos.Ostranauts.Framework.Persistence;
 int checks=0;
 void Check(bool ok,string text){checks++;if(!ok)throw new Exception(text);}
-CondOwner Setup(int walls=1)
+CondOwner Setup(int walls=1,string wall="ItmWall1x1")
 {
     ReclamationService.Reset();Plugin.Service=new();CrewSim.system=new();StarSystem.fEpoch=100;
     IndustrialNavigation.Permission=null;IndustrialNavigation.Visible=IndustrialNavigation.Ready=true;IndustrialNavigation.Moves.Clear();
@@ -16,7 +16,7 @@ CondOwner Setup(int walls=1)
     var g=new CondOwner {strID="g4",ship=own};World.Grabber=g;
     var r=new CaptureRecord();foreach(var key in new[]{"owner","ship","target","console","module","g4","chute","processor","permission","mount","wall","ownPort","targetPort","floor"})r[key]=key;
     r["support"]="retained-support";r.Phase=CapturePhase.Captured;World.Capture=r;
-    for(int i=0;i<walls;i++)target.Items.Add(new CondOwner {strID="wall"+i,strCODef="ItmWall1x1",ship=target,Reach=i==0});
+    for(int i=0;i<walls;i++)target.Items.Add(new CondOwner {strID="wall"+i,strCODef=wall,ship=target,Reach=i==0});
     return g;
 }
 ReclamationRecord Read(CondOwner g)
@@ -55,6 +55,13 @@ void Pay(CondOwner g)
     var cargo=g.objContainer.ContainedCOs[0];g.objContainer.ContainedCOs.Clear();cargo.objCOParent=new CondOwner();
     Plugin.Service.PendingFeed=true;Update();Check(Plugin.Service.Armed&&Read(g).Phase==ReclamationPhase.Seeking,"Last D4 input finishes before terminal mission status");
     Plugin.Service.PendingFeed=false;Update();Check(!Plugin.Service.Armed&&Read(g).Phase==ReclamationPhase.Exhausted,"Drained D4 completes supported-wall mission without discarding a paid job");
+}
+{
+    // A wreck built from one of the game's cosmetic wall variants (the common case) is cut and fed like the plain wall.
+    var g=Setup(2,"ItmWallTSDO01");Check(ReclamationService.Command(null,g,"reclaim-start",out _),"Variant walls are supported work");
+    Check(ReclamationService.PreparePower(g),"A variant wall requests cutter power");Pay(g);Update();Update();
+    Check(World.UninstallCalls==1&&g.objContainer.ContainedCOs.Count==1&&g.objContainer.ContainedCOs[0].strCODef=="ItmWallTSDO01Loose"&&Read(g).Number("completed")==1,
+        "The variant's loose replacement is transferred and the journal settles");
 }
 foreach(bool relocate in new[]{false,true})
 {

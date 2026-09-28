@@ -10,7 +10,7 @@ internal sealed class IndustrialCrewProvider : ICrewWorkProvider,ICrewSkipProvid
 {
     public OrderFields Fields(CondOwner co)=>ProcessingService.IsGrabber(co)?OrderFields.Target|OrderFields.Hazardous:
         co.strCODef.StartsWith(CollectorRules.Installed,StringComparison.Ordinal)?OrderFields.Destination|OrderFields.Routine:
-        OrderFields.Stock|OrderFields.Source|OrderFields.Destination|(FurnaceRules.Machine(co.strCODef)?OrderFields.Hazardous:OrderFields.None);
+        OrderFields.Stock|OrderFields.Source|OrderFields.Destination|OrderFields.Routine|(FurnaceRules.Machine(co.strCODef)?OrderFields.Hazardous:OrderFields.None);
     public IEnumerable<Ship> Targets(CondOwner co)=>ProcessingService.IsGrabber(co)&&CaptureService.Read(co,out var c)&&CrewSim.system.GetShipByRegID(c["target"]) is Ship s?new[]{s}:Array.Empty<Ship>();
     public OrderState Activity(CondOwner co,StandingOrder order)
     {
@@ -25,7 +25,29 @@ internal sealed class IndustrialCrewProvider : ICrewWorkProvider,ICrewSkipProvid
     public string Id=>Plugin.Id;
     public bool Supports(CondOwner c)=>ProcessingService.IsProcessor(c.strCODef) || c.strCODef==CollectorRules.Installed || c.strCODef==CollectorRules.Installed+"Dmg" ||
         FurnaceRules.Machine(c.strCODef) || ProcessingService.IsGrabber(c);
-    public bool RoutineResume(CondOwner c)=>c.strCODef==CollectorRules.Installed;
+    // Loading orders carry on after a reload like a painted job (owner decision, 29 September 2026); a
+    // hazardous F6 order still suspends, as StandingOrder.Reload requires for hot steps.
+    public bool RoutineResume(CondOwner c)=>c.strCODef==CollectorRules.Installed||CrewOrderRules.FeedRecipe(c.strCODef)!=null;
+    /// <summary>Right-click "Load feed by crew": switch the machine's loading order on or off. On enables the
+    /// family's standing work with supplies from anywhere aboard (a store already chosen in the panel is kept)
+    /// and no practical stock limit; off is a manual stop. F6 hot steps still need the hazardous permission.</summary>
+    internal static bool ToggleFeeding(CondOwner co,out string message)
+    {
+        string? recipe=CrewOrderRules.FeedRecipe(co.strCODef);
+        if(recipe==null||!co.HasCond("IsInstalled")||co.bDestroyed){message=Text.Get("Crew.loading_unsupported");return false;}
+        if(!CrewWork.CanManage(co)){message=Text.Get("Crew.loading_not_owned");return false;}
+        var order=CrewWork.Order(co);
+        if(order.Protected){message=CrewWork.Message("protected");return false;}
+        if(order.Permission==WorkPermission.Enabled&&order.Recipe==recipe)
+        {
+            CrewWork.SetPermission(co,WorkPermission.Stopped);
+            message=Text.Get("Crew.loading_off",co.strNameFriendly);return true;
+        }
+        bool configured=CrewWork.Configure(co,o=>{o.Recipe=recipe;if(o.Source=="none")o.Source=StandingOrder.ShipWide;o.Stock=CrewOrderRules.LoadStock;o.ResumeRoutine=true;});
+        if(configured)CrewWork.SetPermission(co,WorkPermission.Enabled);
+        if(!configured||CrewWork.Order(co).Permission!=WorkPermission.Enabled){message=CrewWork.Message("protected");return false;}
+        message=Text.Get("Crew.loading_on",co.strNameFriendly)+"\n"+CrewWork.Status(co);return true;
+    }
     public IReadOnlyList<string> Recipes(CondOwner c)=>ProcessingService.IsGrabber(c)?new[]{"reclaim"}:FurnaceRules.Machine(c.strCODef)?new[]{"housing"}:
         c.strCODef==CollectorRules.Installed?new[]{"collect"}:new[]{"process"};
     public string RecipeLabel(string recipe)=>Text.Get("Crew.recipe_"+recipe);
@@ -120,8 +142,7 @@ internal sealed class IndustrialCrewProvider : ICrewWorkProvider,ICrewSkipProvid
 internal sealed partial class ProcessingService
 {
     internal static bool CrewProduct(CondOwner machine,CondOwner item)=>Recipes(machine).Recipes.Any(r=>r.Products.Any(p=>p.Id==item.strCODef));
-    internal static bool CrewFeed(CondOwner machine,CondOwner input)=>CrewLogistics.Loose(input) &&
-        input.strCODef==InputDefinition(machine) && ProcessRules.MassMatches(input.GetCondAmount("StatMass"),Recipes(machine).Current.InputKg);
+    internal static bool CrewFeed(CondOwner machine,CondOwner input)=>UnitFeed(IsReclaimer(machine),input);
     internal bool CrewStart(CondOwner machine)
     {
         if(AccessProblem(machine)!=null || MachineProblem(machine)!=null)return false;

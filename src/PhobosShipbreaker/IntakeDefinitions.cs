@@ -25,7 +25,7 @@ internal static class IntakeDefinitions
                 bool installed = state.StartsWith("Installed", StringComparison.Ordinal), damaged = state.EndsWith("Dmg", StringComparison.Ordinal);
                 var co = d.Objects[id]; var item = d.Items[id];
                 co.strNameFriendly = co.strNameShort = (grabber ? Text.Get("IntakeDefinitions.phobos_exterior_panel_grabber") : Text.Get("IntakeDefinitions.phobos_sealed_hull_chute")) + (damaged ? Text.Get("IntakeDefinitions.damaged") : "");
-                co.strDesc = grabber ? Text.Get("IntakeDefinitions.wide_x_deep_kg_arms_face_space", IntakeRules.Width, IntakeRules.GrabberDepth, IntakeRules.GrabberKg, IntakeRules.ChuteDepth, ProcessRules.InputKg)
+                co.strDesc = grabber ? Text.Get("IntakeDefinitions.wide_x_deep_kg_arms_face_space", IntakeRules.Width, IntakeRules.GrabberDepth, IntakeRules.GrabberKg, IntakeRules.ChuteDepth, ProcessRules.MinimumWallKg, ProcessRules.MaximumWallKg)
                     : Text.Get("IntakeDefinitions.wide_x_deep_kg_install_over_four", IntakeRules.Width, IntakeRules.ChuteDepth, IntakeRules.ChuteKg);
                 co.strLoot = "Blank";
                 co.aSlotsWeHave = Array.Empty<string>();

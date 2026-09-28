@@ -16,7 +16,7 @@ eating. This guide starts with installation and the basic shipbreaking loop.
 - [Markets](solar-system-economy.md) and [stock quantities](development/merchant-stock.md):
   availability depends on ordinary merchant restocking.
 
-**Prepared versions:** Phobos Framework **0.37.0**, Shipbreaker **0.34.0**, Auto Nav
+**Prepared versions:** Phobos Framework **0.38.0**, Shipbreaker **0.35.0**, Auto Nav
 **0.25.0**, built against Ostranauts **1.0.1.5** / BepInEx **5.4.23.5**.
 These are development packages. Automated checks do not establish in-game
 compatibility or tell you which version is installed locally. Ordinary saves are
@@ -100,9 +100,9 @@ the processor. It does not cross gaps, cargo webbing or a docked ship.
 ## Load, run and unload
 
 1. With crew able to reach the exterior grabber, right-click it and choose
-   **Inventory**. Load a detached **ordinary wall**, not a floor, Whipple,
-   aerodynamic or DuraWal panel. Use separate, empty, uninstalled 24 kg panels;
-   separate stacks before loading. The grabber can hold other solids, but that
+   **Inventory**. Load a detached **ordinary wall** of any make (14 to 48 kg),
+   not a floor, Whipple, aerodynamic or DuraWal panel. Use separate, empty,
+   uninstalled panels; separate stacks before loading. The grabber can hold other solids, but that
    does not make them valid processing inputs.
 2. Select awake crew beside the processor, press **F9**, and choose
    **Start / resume pipeline**. At defaults, intake takes 5 powered seconds and
@@ -110,7 +110,9 @@ the processor. It does not cross gaps, cargo webbing or a docked ship.
    processing handles one at a time.
 3. Right-click the processor and choose **Inventory** to collect its products:
    two small mechanical parts, two aluminium scraps, two carbon-fibre scraps,
-   six steel scraps and one 13 kg identified R2 residue packet. Total mass is 24 kg.
+   six steel scraps and one 13 kg identified R2 residue packet from a plain 24 kg
+   wall. A lighter or heavier make gives fewer or more steel scraps; the total
+   always equals the wall's own mass.
    Started revision-1 jobs still yield the old unclassified mixed residue.
 4. To collect residue automatically, right-click the collector → **Control Panel**,
    select the processor with **Link**, then **Start transfers**. Alternatively
@@ -130,13 +132,43 @@ the processor. It does not cross gaps, cargo webbing or a docked ship.
    to storage**. For repeated F6 casting, see
    [Repeat batches](furnace-player-guide.md#repeat-batches).
 
-**The processor's normal Inventory is output.** For standalone operation, F9 →
-**Manual feed (fallback)** opens its separate wall feed; load there and Start.
-The chute has no inventory. This distinction explains why a wall cannot be fed
-through the processor's ordinary Inventory.
+**The processor's normal Inventory is output.** The feed is a separate window;
+a wall cannot be fed through the processor's ordinary Inventory, and the chute
+has no inventory.
 
-Current processor controls are F9/F3. Its own right-click Control Panel is planned
-after the current gameplay evaluation; the collector already has that action.
+## Hand-fed operation without the grabber
+
+Ships that cannot fit the grabber and chute still run every machine. Take the
+wreck apart with the game's own **Uninstall** on its walls (a structure cutter,
+undamaged walls only), carry the loose panels aboard and leave them on the deck
+or in any unlocked store. Then either:
+
+- Right-click the D4 and choose **Load feed by crew (on/off)**. Crew with
+  AutoTask on and the Haul duty keep bringing ordinary walls from anywhere
+  aboard (the deck, unlocked stores and other machines' product trays, nearest
+  first). The D4 processes them as they arrive, and the order stays on through
+  time-skips and reloads until you switch it off. The same order appears under
+  [Crew standing orders](crew-automation.md), where you can pin one input store
+  instead.
+- Or open the feed window yourself: right-click the D4, choose **Control Panel**,
+  then **Open feed inventory** (or F3 `phobosshipbreaker feed`), drop the panels
+  in and choose **Start / resume processing** once. The queue then waits for
+  more panels from any source.
+
+Any of the game's ordinary wall makes is accepted, 14 to 48 kg. Each panel
+yields the 13 kg identified residue packet plus parts, aluminium, carbon fibre
+and steel for the rest: a plain 24 kg wall gives exactly the products above,
+a light Aero-series wall gives the packet and the parts, and a heavy
+Glory-series wall gives more steel. A heavy wall needs room for all its pieces
+in the tray; the queue waits while the tray is full.
+
+The R4 and the F6 work the same way. **Load feed by crew** on the R4 brings
+identified residue packets from anywhere aboard, including the D4's product
+tray when the two are not paired. On the F6 it brings single aluminium pieces
+until the charge is full; sealing, heating and release still need the
+hazardous permission or a repeat run. To load the F6 by hand, pick the
+aluminium stack up in the inventory window and right-click on the charge bin
+to place one piece at a time; the bin takes single pieces only.
 
 ## Interruptions and settings
 
@@ -156,7 +188,7 @@ recipes stop with the panel retained; status explains the next action.
 
 | Symptom | Next useful check |
 | --- | --- |
-| Wall rejected or inventory grey | Use grabber Inventory or explicit Manual feed; check crew reach and exact wall type, stack and contents |
+| Wall rejected or inventory grey | The processor's own Inventory is the product tray: use the grabber's Inventory, the feed window in the controls or Load feed by crew; check crew reach, that it is an ordinary wall (any make, 14 to 48 kg), stacks and contents |
 | Pipeline not connected | Check flush placement, facing, intact supporting walls and clear exterior cells |
 | Processor waiting | Read F9/status for power, feed eligibility or space for a complete output batch |
 | Collector waiting | Check pair, Collect state, floor route, clear mouth and its four-packet capacity |
@@ -228,7 +260,7 @@ publication is implied by this prepared redesign.
 
 ## Industrial controls (0.10.0)
 
-[Console and equipment panel guide](industrial-console-player-guide.md): a 3 x 3 ship-bound workstation, local Control Panels, automatic grouping, search, Attention and routing. The current Shipbreaker 0.34.0 requires Framework 0.37.0 and Auto Nav 0.19.0 and includes [shared observations](development/shared-console-observations.md) and optional [shared completion cues](shared-completion-cues.md). Prepared for owner testing; no in-game validation claimed.
+[Console and equipment panel guide](industrial-console-player-guide.md): a 3 x 3 ship-bound workstation, local Control Panels, automatic grouping, search, Attention and routing. The current Shipbreaker 0.35.0 requires Framework 0.38.0 and Auto Nav 0.19.0 and includes [shared observations](development/shared-console-observations.md) and optional [shared completion cues](shared-completion-cues.md). Prepared for owner testing; no in-game validation claimed.
 
 Agriculture now supports [finite potato and lettuce nutrient-solution piping](agriculture-nutrient-solutions.md) through its W2 supply and irrigation conduits.
 

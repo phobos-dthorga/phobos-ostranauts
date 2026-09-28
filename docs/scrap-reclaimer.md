@@ -52,6 +52,9 @@ a **four-packet / 52 kg feed**, and a separate **8 x 8 output inventory**.
 1. Right-click the reclaimer and choose **Control Panel**.
 2. Choose **Reclaimer feed** and load separate, empty **Identified panel residue
    R2 (13 kg)** packets, produced by newly started wall jobs in this version.
+   Or right-click the reclaimer and switch on **Load feed by crew**: crew with
+   AutoTask and the Haul duty bring identified packets from anywhere aboard,
+   including an unpaired D4's product tray, until you switch it off.
 3. Choose **Start / resume reclaimer**. Default operation takes **120 powered
    seconds at 12 kW**, nominally **0.4 kWh** per batch. Native power ticks can
    overrun the final fraction of a cycle; their delivered energy still makes heat.

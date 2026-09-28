@@ -90,7 +90,7 @@ a local panel selects the clicked full object ID, not the nearest machine.
 
 | Equipment | Status to present | Useful controls and limits |
 | --- | --- | --- |
-| Dismantling fixture | Intake assembly, feed count including active input, current recipe/progress, product capacity, power state, residue destination and block reason | Start/resume pipeline, pause pipeline, output routing. Manual feed and collect products stay local inventory actions. Starting the pipeline retains today's coupled grabber behaviour. |
+| Dismantling fixture | Intake assembly, feed count including active input, current recipe/progress, product capacity, power state, residue destination and block reason | Start/resume pipeline, pause pipeline, output routing. Opening the feed window and collecting products stay local inventory actions. Starting the pipeline retains today's coupled grabber behaviour. |
 | Exterior grabber | Linked chute/fixture, detached input eligibility, intake progress and power | Open the linked pipeline's controls. Start/pause is explicitly labelled as a pipeline action, because independent grabber control is not implemented. No hull-cutting button. |
 | Hull chute | Supporting walls, alignment, adjacent grabber/fixture, installation and damage | Inspect connected pipeline. Passive hardware: no fabricated power switch, progress meter or airlock cycle. |
 | Scrap reclaimer | Processing permission, receiving permission, four-packet feed, job progress, output space, input/output pairs, ambient room temperature/pressure, cooling block reason | Separate process and receive start/pause; input/output routing and filter. Feed/products are local inventory actions. |

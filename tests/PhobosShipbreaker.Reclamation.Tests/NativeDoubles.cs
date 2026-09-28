@@ -39,7 +39,8 @@ internal sealed class CondOwner
         {
             World.UninstallCalls++;
             if(World.InterruptUninstall) throw new InvalidOperationException("native uninstall");
-            var replacement=new CondOwner {strID=strID,strCODef="ItmWall1x1Loose",ship=ship,Reach=!World.Relocate};replacement.Conditions.Remove("IsInstalled");
+            // The game keeps a cosmetic variant on the loose replacement (COOverlay.ModeSwitch).
+            var replacement=new CondOwner {strID=strID,strCODef=strCODef=="ItmWallTSDO01"?"ItmWallTSDO01Loose":"ItmWall1x1Loose",ship=ship,Reach=!World.Relocate};replacement.Conditions.Remove("IsInstalled");
             ship.Items.Remove(this);ship.Items.Add(replacement);bDestroyed=true;
         }
         else if(value==0)Conditions.Remove(key);else Conditions.Add(key);
@@ -118,7 +119,13 @@ namespace PhobosShipbreaker
         internal bool MissionIntakeActive(CondOwner g,string processor)=>Armed;
         internal bool ArmMission(CondOwner g,string processor,out string message) {message="intake";Armed=true;return true;}
         internal void StopMission(CondOwner g,string processor)=>Armed=false;
-        internal static bool ValidPanel(CondOwner item)=>item.strCODef=="ItmWall1x1Loose"&&!item.bDestroyed;
+        internal static bool ValidPanel(CondOwner item)=>WallIdentity.IsLooseOrdinary(item.strCODef)&&!item.bDestroyed;
+    }
+    // Two of the game's overlay variants stand in for the whole family.
+    internal static class WallIdentity
+    {
+        internal static bool IsInstalledOrdinary(string? d)=>d=="ItmWall1x1"||d=="ItmWallTSDO01";
+        internal static bool IsLooseOrdinary(string? d)=>d=="ItmWall1x1Loose"||d=="ItmWallTSDO01Loose";
     }
     internal static class CollectorService {internal static CondOwner Resolve(string id)=>new(){strID=id,ship=World.Grabber.ship};}
     internal static class CaptureService
@@ -137,7 +144,7 @@ namespace PhobosShipbreaker
         internal static bool ExactAttachment(Ship own,Ship target,CaptureRecord r)=>own.Attached&&target.Attached;
         internal static string? TargetProblem(Ship own,Ship target)=>null;
         internal static JsonItem[] Parts(Ship target)=>target.Items.Select(c=>new JsonItem {strName=c.strCODef}).ToArray();
-        internal static IEnumerable<(string Id,int Outward)> Windows(Ship target)=>target.Items.Where(c=>c.strCODef=="ItmWall1x1").Select(c=>(c.strID,0));
+        internal static IEnumerable<(string Id,int Outward)> Windows(Ship target)=>target.Items.Where(c=>WallIdentity.IsInstalledOrdinary(c.strCODef)).Select(c=>(c.strID,0));
         internal static bool TryPlan(CondOwner g,Ship target,out object? plan,string wall,int outward,bool working) {plan=null;return World.CaptureFit;}
     }
     internal static class ReclamationGeometry
@@ -146,7 +153,7 @@ namespace PhobosShipbreaker
         internal static CondOwner? Resolve(Ship target,string id)=>target.Items.FirstOrDefault(c=>c.strID==id);
         internal static string? TargetProblem(CondOwner g,Ship target)=>null;
         internal static bool Support(Ship target,CaptureRecord record)=>record["support"]=="retained-support";
-        internal static bool Wall(CondOwner g,Ship target,CondOwner wall,CaptureRecord? capture=null,bool started=false)=>wall.strCODef=="ItmWall1x1"&&wall.ValidWall;
+        internal static bool Wall(CondOwner g,Ship target,CondOwner wall,CaptureRecord? capture=null,bool started=false)=>WallIdentity.IsInstalledOrdinary(wall.strCODef)&&wall.ValidWall;
         internal static bool Reach(CondOwner g,CondOwner wall)=>wall.Reach;
     }
 }

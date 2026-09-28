@@ -22,16 +22,42 @@ internal static class RecipeChecks
 
         // Synthetic revision: only test code knows these outputs. Not a gameplay recipe.
         var source = new[] { new ProductSpec("TestOnlyNewResidue", 1, 13), new ProductSpec("ItmScrapSteel", 11, 1) };
-        var v2 = new ProcessRecipe(2, ProcessRules.InputKg, source);
+        var v2 = new ProcessRecipe(2, ProcessRules.StandardWallKg, source);
         var future = new ProcessRecipeCatalog(2, new[] { v1, v2 });
         source[0] = new ProductSpec("MutatedResidue", 1, 13);
         check(v2.Products[0].Id == "TestOnlyNewResidue", "Caller cannot mutate a published recipe through its source array");
         throws(() => ((IList<ProductSpec>)v2.Products)[0] = source[0], "Published product collection is read-only");
         throws(() => new ProcessRecipeCatalog(2, new[] { v1 }), "Missing active revision is a registration error");
         throws(() => new ProcessRecipeCatalog(1, new[] { v1, v1 }), "Duplicate revisions cannot overwrite historical outputs");
-        throws(() => new ProcessRecipe(2, ProcessRules.InputKg, new[] { new ProductSpec("X", 1, 23) }), "Recipe rejects lost mass");
-        throws(() => new ProcessRecipe(2, ProcessRules.InputKg, new[] { new ProductSpec("X", 1, 25) }), "Recipe rejects invented mass");
-        throws(() => new ProcessRecipe(2, ProcessRules.InputKg, new[] { new ProductSpec("X", -1, -24) }), "Negative counts and masses cannot balance a recipe");
+        throws(() => new ProcessRecipe(2, ProcessRules.StandardWallKg, new[] { new ProductSpec("X", 1, 23) }), "Recipe rejects lost mass");
+        throws(() => new ProcessRecipe(2, ProcessRules.StandardWallKg, new[] { new ProductSpec("X", 1, 25) }), "Recipe rejects invented mass");
+        throws(() => new ProcessRecipe(2, ProcessRules.StandardWallKg, new[] { new ProductSpec("X", -1, -24) }), "Negative counts and masses cannot balance a recipe");
+
+        // The game's ordinary walls are cosmetic variants of one base with their own masses (14 to 48 kg in
+        // the shipped data). Revision 2 is derived from the wall's mass; the plain 24 kg wall is unchanged.
+        foreach (double kg in new[] { 14, 20, 24, 25, 27, 28, 48 })
+        {
+            var catalog = ProcessRecipes.ForWallMass(kg);
+            check(catalog.Current.Revision == 2 && catalog.Current.InputKg == kg &&
+                ProcessRules.Balanced(kg, catalog.Current.Products.SelectMany(p => Enumerable.Repeat(p.Kg, p.Count))),
+                "Mass-derived recipe conserves the whole wall: " + kg);
+            check(catalog.Current.Products.Count(p => p.Id == ReclaimerRules.Feedstock && p.Kg == ReclaimerRules.InputKg && p.Count == 1) == 1,
+                "Every wall yields exactly one 13 kg identified residue packet: " + kg);
+            check(ReferenceEquals(catalog, ProcessRecipes.ForWallMass(kg)), "One catalog per whole kilogram: " + kg);
+            check((kg == 24) == catalog.TryGet(1, out _), "Revision 1 exists only for the plain 24 kg wall it was stamped on: " + kg);
+        }
+        check(ReferenceEquals(ProcessRecipes.ForWallMass(24), ProcessRecipes.WallPanels) &&
+            ProcessRecipes.WallPanels.Current.Products.Select(p => (p.Id, p.Count, p.Kg)).SequenceEqual(new[] {
+                ("ItmPartsMechSmall01", 2, .5), ("ItmScrapAluminum", 2, 1.0), ("ItmScrapCarbonFiber", 2, 1.0), ("ItmScrapSteel", 6, 1.0),
+                (ReclaimerRules.Feedstock, 1, 13.0) }), "The plain 24 kg wall keeps the shipped revision-2 products exactly");
+        check(ProcessRecipes.ForWallMass(14).Current.Products.Select(p => (p.Id, p.Count, p.Kg)).SequenceEqual(new[] {
+                ("ItmPartsMechSmall01", 2, .5), (ReclaimerRules.Feedstock, 1, 13.0) }), "A 14 kg Aero-series wall yields the residue packet and the parts only");
+        check(ProcessRecipes.ForWallMass(48).Current.Products.Single(p => p.Id == "ItmScrapSteel").Count == 30, "A 48 kg Glory-series wall yields thirty steel");
+        check(ProcessRecipes.ForWallMass(20).Current.Products.Single(p => p.Id == "ItmScrapSteel").Count == 2, "A 20 kg wall yields two steel");
+        foreach (double kg in new[] { 13, 49, 24.5, 0, -24, double.NaN, double.PositiveInfinity })
+            throws(() => ProcessRecipes.ForWallMass(kg), "No recipe outside the whole-kilogram wall range: " + kg);
+        check(ProcessRules.AcceptedWallKg(24 + 1e-9) && !ProcessRules.AcceptedWallKg(24.01) && !ProcessRules.AcceptedWallKg(13) && ProcessRules.AcceptedWallKg(48),
+            "Accepted wall masses are whole kilograms within the shipped range, to the shared mass tolerance");
 
         ProcessJob Restore(double progress, double revision, double duration, double newSeconds = 180) =>
             ProcessJob.CreateOrResume(future, "old-panel", progress, revision, duration, newSeconds);

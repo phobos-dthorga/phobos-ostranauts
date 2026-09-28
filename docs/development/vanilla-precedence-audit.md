@@ -117,6 +117,26 @@ by the same admission the claim uses.
 | Replacing crew hauling with the native "Give" loot effect. | Reviewer suggestion. | Deferred: it would drop the route, reservation and single-item pickup checks for no gameplay gain. |
 | Hub flow control gating, no-wake margin from relative velocity, nearest-body occlusion, coasting threshold relative to the plan, recording issued RCS commands, native toggle listeners. | Refinements, not dead gates. | Deferred to a later round with in-game observations. |
 
+## Round 4: Framework 0.38.0, Shipbreaker 0.35.0 (29 September 2026)
+
+Owner request: load every Shipbreaker machine by hand on ships that cannot fit
+the grabber chain, with "Load feed" as something the crew keep doing until
+cancelled, through the hourly time-skip. Owner decisions: a loading order
+carries on after a reload like a painted job (F6 hot steps still need the
+hazardous permission); crew draw from anywhere aboard.
+
+| Finding | Native evidence | Verdict |
+| --- | --- | --- |
+| The D4 feed, the grabber intake, crew supply, the G4 cutter and the capture planner demanded the exact name `ItmWall1x1Loose` / `ItmWall1x1` at exactly 24 kg, so the game's cosmetic wall variants (63,163 of 63,273 ordinary walls in the shipped ship templates) were refused everywhere. | `COOverlay.Init` applies the variant's condition loot (mass delta) and sets `strCODef` to the variant name; `CondOwner.ModeSwitch` keeps the variant on the loose replacement; `DataHandler.GetDataCO` prebuilds overlays under their own keys and `DataCO.Name` returns the overlay name. Loose variants weigh 14, 20, 24, 25, 27, 28 and 48 kg. | Fixed 0.35.0: identity is the definition base (`WallIdentity`), mass any whole kilogram from 14 to 48; revision 2 is derived from the wall's mass with the 13 kg packet fixed and steel as the remainder, so the plain 24 kg wall keeps its shipped products. |
+| The D4 refused to wait for feed: Start with an empty feed and no grabber returned false, and a wall placed by hand started only while a job was already running. | The R4 already armed a waiting queue on Start. | Fixed 0.35.0: every processor waits after one Start; `FeedArrived` applies to all. |
+| Hand loading was a one-shot window; nothing kept a machine fed. | The PDA's LOAD paints `ACTReloadItem<rule>` (`WorkManager.GetReloadInteraction`, duty Haul); `ClaimNextTask` searches the ship (`Ship.GetCOs(rule, subObjects: true, docked: false, locked: false)`, skipping stack members and carried items); `CompleteTask` never removes a reload task. | Fixed 0.35.0: right-click **Load feed by crew (on/off)** toggles a standing order with the reload job's search scope; our hauling is kept (round-3 deferral: route, reservation and single-unit checks) because the managed skip advances only our orders. |
+| Standing orders drew from one chosen store and refused an item lying on the deck. | The reload job searches the whole ship, deck included. | Fixed 0.38.0: `StandingOrder.ShipWide` source, `CrewLogistics.Aboard` (deck, unlocked containers, other machines' trays, nearest first), deck items as cargo in play and in a skip. |
+| Every industrial order suspended on reload. | A painted job survives a reload. | Fixed 0.35.0 (owner decision): D4, R4 and non-hazardous F6 orders resume routine work; hazardous F6 orders still wait, as `StandingOrder.Reload` requires. |
+| Stock target defaulted to four products, so a loading order stopped after one batch. | The reload job has no target. | Fixed 0.35.0: the toggle sets the order maximum; crew stop when the products have nowhere to go. |
+| F6 bin refuses stacks. | The game's own right-click places one unit off a stack (`GUIInventoryItem.OnRightClickDownSelected`, `PopHeadFromStack`); the charge records twenty individual identities. | Deferred: hand loading works the vanilla way; crew bring single pieces. |
+| The selected character does not load with AutoTask off. | Painted jobs need AutoTask and the Haul duty too (`WorkManager.CollectTasks` gives manual crew only owned tasks). | Kept: the game's convention; the order status names the blocker. |
+| Floors, doors, windows and other wall families. | Each needs its own authored budget. | Deferred (roadmap). |
+
 ## Owner checks (copy of an ordinary save)
 
 - An NPC crew member with AutoTask on takes a rack or tray order.
@@ -149,3 +169,16 @@ by the same admission the claim uses.
 - Undock and Depart with the docking console open releases through the console
   and the grace period applies; selecting orbital mode during a flight hands
   control back; heavy time compression holds a step instead of stopping.
+- Round 4: uninstall a Tsukuda or Minsheng wall by hand, carry it aboard and
+  leave it on the deck; right-click the D4 and switch on Load feed by crew; a
+  crew member with AutoTask on and the Haul duty carries it in, the D4 starts,
+  and the order keeps going as more walls appear; switching it off stops it.
+- A one-hour skip with the order on moves walls and completes batches; after a
+  save and reload the loading continues without Resume.
+- A 14 kg Aero-series wall yields the residue packet plus two parts; a 48 kg
+  Glory-series wall waits for tray space while the tray is full.
+- With Load feed by crew on at the R4 and no pairing, a residue packet in the
+  D4 tray is carried to the R4 feed. On the F6 the bin fills with single pieces
+  and Seal still waits for the hazardous permission; picking up an aluminium
+  stack and right-clicking the bin places one piece by hand.
+- The G4 captures and cuts a wreck built from variant walls.

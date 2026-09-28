@@ -1,6 +1,6 @@
 # Phobos control panels
 
-Framework 0.37.0, Agriculture 0.17.0, Shipbreaker 0.34.0 and Auto Nav 0.25.0
+Framework 0.38.0, Agriculture 0.17.0, Shipbreaker 0.35.0 and Auto Nav 0.25.0
 prepare this interface update. Manufacturing remains a scaffold with no operational
 panel or jobs. These are unpublished development candidates.
 
@@ -36,7 +36,8 @@ harvest a crop, drain supplies, undock or fire weapons.
 
 **Change** opens a searchable list. Approved stores with relevant
 contents sort first; Include empty / unsuitable makes the other eligible stores
-visible. Missing saved selections are retained and labelled unavailable. Connection
+visible. For an input store, **Use anything aboard** chooses the whole ship
+instead of one store: the deck, unlocked stores and other machines' product trays. Missing saved selections are retained and labelled unavailable. Connection
 pickers retain their content mod's candidate rules. Mission targets are limited
 to the already bound mission or saved resumable flight; no new target is acquired.
 

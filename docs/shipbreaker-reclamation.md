@@ -71,7 +71,7 @@ cut; vacuum is not free cooling. The existing furnace motion interlocks are unch
 
 ## What the mission will remove
 
-Only exposed, empty, unstacked, native **24 kg ordinary walls** that the game's
+Only exposed, empty, unstacked, native **ordinary walls of any make (14 to 48 kg)** that the game's
 own uninstall rule accepts qualify: installed and not damaged, where wear below
 the damage threshold does not disqualify (0.34.0). The wall needs intact floor
 support and must be removable by the game.

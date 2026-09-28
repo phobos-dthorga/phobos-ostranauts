@@ -33,6 +33,15 @@ and destination store, then Apply and Enable / Resume. Turn on AutoTask and enab
 Operate or Haul duty for the intended worker. Native repair, construction,
 restoration and demolition remain native tasks; this feature does not replace them.
 
+The input store may be **Anywhere aboard** (Framework 0.38.0): crew then take
+supplies from the deck, unlocked stores and other machines' product trays on
+the same ship, nearest first, the way the game's own PDA Reload job searches.
+Items lying on the deck are carried like items in a store, in ordinary play
+and during a time-skip. On the Shipbreaker D4, R4 and F6, right-click
+**Load feed by crew (on/off)** switches such an order on (anywhere aboard, no
+practical stock limit) or off without opening the panel; a store already
+chosen in the panel is kept. Shipbreaker 0.35.0.
+
 Crew work only during their work shift. Any crew member the game admits may
 take a step, as with a painted job. Needs are the game's business: hunger,
 thirst, tiredness and pain do not block a step, because the crew's own pledges
@@ -73,7 +82,7 @@ and full destinations leave the work pending.
 | Hearth-2 | Bring raw potatoes, start cooking and store portions |
 | Groundwork B2 | Bring characterized residue or concentrate/makeup, prepare the selected workup, start it and store physical products/rejects |
 | W2 | Finite stock replenishment, configured route operation, recorded-drainage recovery and its cartridge supply; existing route and solution settings remain authoritative |
-| D4 / R4 | Supply valid loose feed, start one checked batch and clear physical products to the approved store |
+| D4 / R4 | Supply valid loose feed (any of the game's ordinary wall makes for the D4), start one checked batch and clear physical products to the approved store; Load feed by crew is the right-click shortcut |
 | C2 collector | Enable its existing configured collection route and clear accepted cargo |
 | F6 | Supply exact aluminium units, replenish an already enabled managed coolant circuit, and perform an explicitly permitted seal/run/equalize/release sequence. While the furnace's own [repeat run](furnace-player-guide.md#repeat-batches) is on, crew keep supplying and clearing but leave the hot steps to it |
 | G4 | Prepare and launch/resume the existing exact reclamation mission through its recorded capture, equipment and Auto Nav bindings |
@@ -193,8 +202,10 @@ cooling or input limit.
 
 Standing orders, permissions, exact bindings, training and stop reasons are saved
 in Framework's versioned object maps. Routine Agriculture and collector orders
-can revalidate after load; each has a resume-after-loading option. Industrial
-batches, exterior missions and crew-launched flights require Resume. A manual
+can revalidate after load; each has a resume-after-loading option. Shipbreaker
+loading orders on the D4, R4 and a non-hazardous F6 order carry on after loading
+like a painted job (owner decision, 29 September 2026); hazardous F6 orders,
+exterior missions and crew-launched flights require Resume. A manual
 Stop is sticky. Unknown or corrupt saved records are retained and blocked.
 Transient task claims and reservations are rebuilt from the saved intent.
 

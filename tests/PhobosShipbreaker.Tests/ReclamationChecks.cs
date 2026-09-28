@@ -24,11 +24,13 @@ internal static class ReclamationChecks
         {
             bool[] states={true,false,true,false,true,true,false};
             double mass=24;
-            if(failure==0) mass=23;
+            if(failure==0) mass=13;
             else if(failure<=7) states[failure-1]=!states[failure-1];
             bool valid=ReclamationRules.CanCut(mass,states[0],states[1],states[2],states[3],states[4],states[5],states[6]);
             check(valid==(failure==8),"Mass, installation, damage, contents, stacks, exposure, floors and anchors gate cutting");
         }
+        check(ReclamationRules.CanCut(25,true,false,true,false,true,true,false)&&ReclamationRules.CanCut(48,true,false,true,false,true,true,false)&&
+            !ReclamationRules.CanCut(24.5,true,false,true,false,true,true,false),"The cutter takes the game's variant walls by whole-kilogram mass, not only the plain 24 kg wall");
         foreach(int angle in new[]{0,90,180,270})
         foreach(double x in new[]{-1.5,-.5,.5,1.5})
         {

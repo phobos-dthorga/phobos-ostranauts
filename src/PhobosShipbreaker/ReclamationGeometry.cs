@@ -56,7 +56,7 @@ internal static class ReclamationGeometry
     internal static bool Wall(CondOwner g,Ship target,CondOwner wall,CaptureRecord? capture=null,bool started=false)
     {
         var rule=Phobos.Ostranauts.Framework.Registration.NativeDefinitions.Trigger(VanillaWallRule);
-        if(rule==null || !NativeWallContract() || wall.ship!=target || wall.bDestroyed || wall.strCODef!="ItmWall1x1" || wall.objCOParent!=null || wall.Item==null ||
+        if(rule==null || !NativeWallContract() || wall.ship!=target || wall.bDestroyed || !WallIdentity.IsInstalledOrdinary(wall.strCODef) || wall.objCOParent!=null || wall.Item==null ||
             !ReclamationRules.CanCut(wall.GetTotalMass(),wall.HasCond("IsInstalled"),!rule.Triggered(wall),
                 wall.GetCOsSafe(true).Count==0,wall.coStackHead!=null||wall.aStack.Count!=0,Exposed(target,wall).Any(),Floor(target,wall),
                 capture!=null&&(wall.strID==capture["support"]||wall.strID==capture["floor"]||wall.strID==capture["targetPort"]))) return false;

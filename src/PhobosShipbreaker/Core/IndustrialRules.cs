@@ -6,6 +6,8 @@ public static class IndustrialRules
 {
     public const string Prefix = "PhobosIndustrialConsole", Controls = "PhobosIndustrialControls";
     public const string LocalControls = "PhobosEquipmentControls";
+    /// <summary>Right-click toggle: crew keep this machine's feed loaded until switched off.</summary>
+    public const string FeedOrder = "PhobosEquipmentFeedOrder";
     public const int Footprint = 3;
     public const double MassKg = 40, PowerKW = 0.08, AccessTiles = 2.5, RefreshSeconds = 0.5;
     public const int CompactWidth = 900;

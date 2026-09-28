@@ -45,6 +45,7 @@ foreach (var record in Newtonsoft.Json.Linq.JArray.Parse(File.ReadAllText(file))
 Load(Path.Combine(native, "condtrigs"), DataHandler.dictCTs, x => x.strName);
 Load(Path.Combine(native, "interactions"), DataHandler.dictInteractions, x => x.strName);
 Load(Path.Combine(native, "loot"), DataHandler.dictLoot, x => x.strName);
+Load(Path.Combine(native, "cooverlays"), DataHandler.dictCOOverlays, x => x.strName);
 CrewNativeChecks.Run(Check);
 Load(Path.Combine(repo, "mods/PhobosShipbreaker/data/conditions"), DataHandler.dictConds, x => x.strName);
 Load(Path.Combine(repo, "mods/PhobosShipbreaker/data/condtrigs"), DataHandler.dictCTs, x => x.strName);
@@ -105,6 +106,7 @@ foreach (var equipment in prepared.Objects.Values)
 prepared.Publish();
 ProcessingSaveChecks.Run(Check, Throws);
 ReclaimerNativeChecks.Run(prepared, Check);
+HandFeedNativeChecks.Run(prepared, Check);
 IndustrialNativeChecks.Run(prepared, repo, Check);
 ObservationNativeChecks.Run(Check);
 FurnaceCoolingNativeChecks.Run(prepared, repo, Check);

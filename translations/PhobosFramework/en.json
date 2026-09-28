@@ -356,5 +356,7 @@
   "NativeEffects.refusal_failed": "Could not close the game's task after refusing {0}: {1}",
   "ConstructionHooks.recipe_not_registered": "{0} is not a registered construction recipe; nothing was built.",
   "Crew.diag_claimable": "claimable now by: {0}",
-  "Crew.diag_nobody": "nobody at the moment (see each crew member's line)"
+  "Crew.diag_nobody": "nobody at the moment (see each crew member's line)",
+  "Console.ship_wide": "Anywhere aboard",
+  "Console.ship_wide_choose": "Use anything aboard: deck, stores and trays"
 }

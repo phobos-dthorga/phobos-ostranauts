@@ -150,6 +150,8 @@ public sealed class CrewPanel : GUIData
         C.Field(shell.Detail,C.Text(output?"output_storage":"input_storage"),ObjectPresentation.Name(selected),
             ()=>ObjectPicker.Show(shell,C.Text(output?"output_storage":"input_storage"),()=>CrewWork.Stores(co.ship),c=>Set(c.strID),c=>presentation?.RelevantStore(co,draft!.Value,c,output)??true),
             ()=>ObjectPicker.Locate(shell,CrewWork.Resolve(selected)),()=>Set("none"),CrewWork.Resolve(selected)!=null,!string.IsNullOrEmpty(selected)&&selected!="none");
+        // Supplies may also come from anywhere aboard, as the game's own Reload job searches.
+        if(!output&&selected!=StandingOrder.ShipWide)C.Button(shell.Detail,C.Text("ship_wide_choose"),()=>Set(StandingOrder.ShipWide));
     }
     private void Choices(string title,IEnumerable<(string Id,string Label)> choices,Action<string> choose)
     {

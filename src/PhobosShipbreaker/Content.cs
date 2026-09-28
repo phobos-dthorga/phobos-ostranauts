@@ -71,7 +71,7 @@ internal static class Content
         {
             var co = prepared.Objects[variant];
             co.strNameFriendly = co.strNameShort = Text.Get("Content.phobos_powered_dismantling_fixture", (variant.EndsWith("Dmg", StringComparison.Ordinal) ? Text.Get("Content.damaged") : ""));
-            co.strDesc = Text.Get("Content.x_industrial_fixture_kg_feed_up_to", controlsKey, cycleSeconds, workingKW, ProcessRules.Footprint, ProcessRules.MachineKg, ProcessRules.FeedCapacity, ProcessRules.InputKg - ProcessRules.LegacyResidueKg, ProcessRules.LegacyResidueKg);
+            co.strDesc = Text.Get("Content.x_industrial_fixture_kg_feed_up_to", controlsKey, cycleSeconds, workingKW, ProcessRules.Footprint, ProcessRules.MachineKg, ProcessRules.FeedCapacity, ProcessRules.MinimumWallKg, ProcessRules.MaximumWallKg, ReclaimerRules.InputKg);
             co.nContainerWidth = co.nContainerHeight = ProcessRules.OutputSize;
             co.inventoryWidth = co.inventoryHeight = ProcessRules.Footprint;
             co.nStackLimit = 1;
@@ -93,7 +93,7 @@ internal static class Content
             item.aSocketReqs = Border(installed ? "TILFloor" : "Blank");
         }
         var bin = prepared.Objects[InputBin];
-        bin.strNameFriendly = bin.strNameShort = Text.Get("Content.wall_panel_feed_panels_kg", ProcessRules.FeedCapacity, ProcessRules.FeedCapacity * ProcessRules.InputKg);
+        bin.strNameFriendly = bin.strNameShort = Text.Get("Content.wall_panel_feed_panels_kg", ProcessRules.FeedCapacity, ProcessRules.MinimumWallKg, ProcessRules.MaximumWallKg);
         bin.strDesc = Text.Get("Content.ordinary_loose_wall_panels_only_up_to", ProcessRules.FeedCapacity);
         prepared.Slots[InputSlot].strNameFriendly = Text.Get("Content.wall_panel_feed");
         prepared.Slots[InputSlot].bHide = true;

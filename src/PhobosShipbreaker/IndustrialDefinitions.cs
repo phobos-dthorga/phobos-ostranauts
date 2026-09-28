@@ -51,6 +51,14 @@ internal static class IndustrialDefinitions
         foreach (var co in d.Objects.Values.Where(x => IndustrialRules.Equipment(x.strName) && x.strName.Contains("Installed")))
             co.aInteractions = co.aInteractions.Where(x => x != ReclaimerRules.Controls && x != CollectorRules.Controls)
                 .Concat(new[] { IndustrialRules.LocalControls }).Distinct().ToArray();
+        // "Load feed by crew": a toggle like the game's own Toggle Power, on the intact installed D4, R4 and F6.
+        var feed = NativeDefinitions.Clone(DataHandler.dictInteractions["Inventory"]);
+        feed.strName = IndustrialRules.FeedOrder; feed.strTitle = Text.Get("Industry.feed_order_title");
+        feed.strDesc = Text.Get("Industry.feed_order_action"); feed.strTooltip = Text.Get("Industry.feed_order_tooltip");
+        feed.strRaiseUI = null; feed.fTargetPointRange = 2;
+        d.Interactions[feed.strName] = feed;
+        foreach (var co in d.Objects.Values.Where(x => CrewOrderRules.FeedRecipe(x.strName) != null && x.strName.EndsWith("Installed", StringComparison.Ordinal)))
+            co.aInteractions = co.aInteractions.Concat(new[] { IndustrialRules.FeedOrder }).Distinct().ToArray();
     }
     private static string[] Padded(string interior) => Enumerable.Range(0, 25)
         .Select(i => i / 5 >= 1 && i / 5 <= 3 && i % 5 >= 1 && i % 5 <= 3 ? interior : "Blank").ToArray();

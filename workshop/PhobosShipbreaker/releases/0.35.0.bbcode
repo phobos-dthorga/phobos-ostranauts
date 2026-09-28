@@ -1,0 +1,22 @@
+[h1]Phobos Shipbreaker 0.35.0[/h1]
+[b]Draft - not published | 2026-09-29[/b]
+
+[h2]Added[/h2]
+
+[list]
+[*]Load feed by crew (on/off): a right-click toggle on the installed D4, R4 and F6. Crew with AutoTask and the Haul duty keep the machine's feed loaded from anywhere aboard until you switch it off, through time-skips and reloads. It is the ordinary standing order, so the crew panel can still pin one input store. F6 sealing, heating and release still need the hazardous permission or a repeat run.
+[*]The D4 waits for feed after one Start, like the R4: walls placed by hand, by crew, by the grabber or by a route are processed as they arrive.
+[*]Loading orders on the D4, R4 and a non-hazardous F6 carry on after a save and reload like a painted job (owner decision, 29 September 2026).
+[/list]
+
+[h2]Fixed[/h2]
+
+[list]
+[*]The game's ordinary wall makes are accepted. Almost every wall on a real wreck is a cosmetic variant with its own name and mass (14 to 48 kg); the feed, the grabber intake, crew supply, the G4 cutter and the capture planner used to accept only the plain 24 kg wall. Each panel now yields the 13 kg identified residue packet plus parts, aluminium, carbon fibre and steel for the rest, so the plain 24 kg wall keeps its products exactly, a light Aero-series wall gives the packet and the parts, and a heavy Glory-series wall gives more steel.
+[/list]
+
+[h2]Compatibility and limits[/h2]
+
+[list]
+[*]Requires Framework 0.38.0. Saved jobs, revision numbers, pairs, filters and cargo are unchanged; started 24 kg jobs finish as before. Floors, doors, windows, Whipple, aerodynamic and DuraWal panels are still not feed. The F6 bin still takes single aluminium pieces; the game's right-click places one piece off a stack. Offline checks pass; owner play-testing is pending. Findings and evidence: docs/development/vanilla-precedence-audit.md.
+[/list]

@@ -17867,14 +17867,14 @@
       "mod": "PhobosShipbreaker",
       "key": "Content.ordinary_loose_wall_panels_only_up_to",
       "category": "status/warning",
-      "decision": "retain",
-      "reason": "Retain: clear functional label, operational instruction or necessary safety/detail constraint; no forced personality.",
+      "decision": "rewrite",
+      "reason": "The game's cosmetic wall variants are accepted; the exact make no longer matters.",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosShipbreaker/Content.cs:97"
       ],
       "before": "Ordinary loose wall panels only. Up to {0} separate, empty panels; no stacks.",
-      "after": "Ordinary loose wall panels only. Up to {0} separate, empty panels; no stacks."
+      "after": "Ordinary loose wall panels of any make, up to {0} at a time. Separate, empty panels only; no stacks."
     },
     {
       "mod": "PhobosShipbreaker",
@@ -17986,28 +17986,27 @@
       "mod": "PhobosShipbreaker",
       "key": "Content.wall_panel_feed_panels_kg",
       "category": "control/name/value",
-      "decision": "retain",
-      "reason": "Retain: clear functional label, operational instruction or necessary safety/detail constraint; no forced personality.",
+      "decision": "rewrite",
+      "reason": "Variant walls weigh 14 to 48 kg; the fixed 96 kg total no longer applies. Placeholder contract changed with the code in 0.35.0 (wall mass range and the wall's own mass); this wording is the new baseline.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosShipbreaker/Content.cs:96",
-        "mods/PhobosShipbreaker/framework/equipment-names.json#Content.wall_panel_feed_panels_kg"
+        "src/PhobosShipbreaker/Content.cs:96"
       ],
-      "before": "Wall-panel Feed ({0} panels / {1} kg)",
-      "after": "Wall-panel Feed ({0} panels / {1} kg)"
+      "before": "Wall-panel Feed ({0} panels, {1} to {2} kg each)",
+      "after": "Wall-panel Feed ({0} panels, {1} to {2} kg each)"
     },
     {
       "mod": "PhobosShipbreaker",
       "key": "Content.x_industrial_fixture_kg_feed_up_to",
       "category": "status/warning",
-      "decision": "retain",
-      "reason": "Retain: clear functional label, operational instruction or necessary safety/detail constraint; no forced personality.",
+      "decision": "rewrite",
+      "reason": "Mass range instead of a fixed 24 kg; names the three ways to load (crew order, feed window, grabber). Placeholder contract changed with the code in 0.35.0 (wall mass range and the wall's own mass); this wording is the new baseline.",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosShipbreaker/Content.cs:74"
       ],
-      "before": "{3} x {3} industrial fixture; {4} kg. Feed up to {5} ordinary loose wall panels. {0} opens controls while nearby. A new batch takes {1} seconds at {2} kW and recovers {6} kg of parts/scrap plus {7} kg of retained mixed residue. Inventory is the product tray. Load walls at a connected exterior grabber, or use Manual feed in controls. Reload paused.",
-      "after": "{3} x {3} industrial fixture; {4} kg. Feed up to {5} ordinary loose wall panels. {0} opens controls while nearby. A new batch takes {1} seconds at {2} kW and recovers {6} kg of parts/scrap plus {7} kg of retained mixed residue. Inventory is the product tray. Load walls at a connected exterior grabber, or use Manual feed in controls. Reload paused."
+      "before": "{3} x {3} industrial fixture; {4} kg. Feed up to {5} ordinary loose wall panels of any make, {6} to {7} kg each. {0} opens controls while nearby. A batch takes {1} seconds at {2} kW and returns a {8} kg residue packet plus the rest as parts and scrap. Inventory is the product tray. Right-click Load feed by crew, load the feed window from the controls, or connect an exterior grabber. Reload paused.",
+      "after": "{3} x {3} industrial fixture; {4} kg. Feed up to {5} ordinary loose wall panels of any make, {6} to {7} kg each. {0} opens controls while nearby. A batch takes {1} seconds at {2} kW and returns a {8} kg residue packet plus the rest as parts and scrap. Inventory is the product tray. Right-click Load feed by crew, load the feed window from the controls, or connect an exterior grabber. Reload paused."
     },
     {
       "mod": "PhobosShipbreaker",
@@ -18143,20 +18142,6 @@
       ],
       "before": "Load detached ordinary walls at the exterior grabber using Inventory. Start here to move them through the wall chute and process them. Collect products from this fixture's Inventory. Stand beside the fixture for controls.",
       "after": "Load detached ordinary walls at the exterior grabber using Inventory. Start here to move them through the wall chute and process them. Collect products from this fixture's Inventory. Stand beside the fixture for controls."
-    },
-    {
-      "mod": "PhobosShipbreaker",
-      "key": "FixturePanel.manual_feed_fallback",
-      "category": "control/name/value",
-      "decision": "rewrite",
-      "reason": "Reworded for the situation/action or corrected stale feature wording; formatting and behaviour contracts retained.",
-      "trace": "catalogue compatibility fallback; no direct lexical caller found",
-      "references": [
-        "src/PhobosShipbreaker/Text.cs",
-        "translations/PhobosShipbreaker/en.json#FixturePanel.manual_feed_fallback"
-      ],
-      "before": "Manual feed (fallback)",
-      "after": "Manual feed"
     },
     {
       "mod": "PhobosShipbreaker",
@@ -18328,14 +18313,14 @@
       "mod": "PhobosShipbreaker",
       "key": "IntakeDefinitions.wide_x_deep_kg_arms_face_space",
       "category": "status/warning",
-      "decision": "retain",
-      "reason": "Retain: clear functional label, operational instruction or necessary safety/detail constraint; no forced personality.",
+      "decision": "rewrite",
+      "reason": "Mass range instead of a fixed 24 kg; 'manual intake' renamed to intake. Placeholder contract changed with the code in 0.35.0 (wall mass range and the wall's own mass); this wording is the new baseline.",
       "trace": "literal/name/recipe reference",
       "references": [
         "src/PhobosShipbreaker/IntakeDefinitions.cs:28"
       ],
-      "before": "{0} wide x {1} deep; {2} kg. Arms face space, rear against a {0} x {3} wall chute. Inventory is the loading point for detached ordinary {4} kg walls. Small solids may be stored but are not processed. Start manual intake from D4. Explicit Start reclamation at G4/C1 enables powered cutting of supported captured walls, with D4 service-room cooling. Loading and manual movement suspend reclamation; Resume is explicit.",
-      "after": "{0} wide x {1} deep; {2} kg. Arms face space, rear against a {0} x {3} wall chute. Inventory is the loading point for detached ordinary {4} kg walls. Small solids may be stored but are not processed. Start manual intake from D4. Explicit Start reclamation at G4/C1 enables powered cutting of supported captured walls, with D4 service-room cooling. Loading and manual movement suspend reclamation; Resume is explicit."
+      "before": "{0} wide x {1} deep; {2} kg. Arms face space, rear against a {0} x {3} wall chute. Inventory is the loading point for detached ordinary walls of any make, {4} to {5} kg. Small solids may be stored but are not processed. Start intake from the D4. Explicit Start reclamation at G4/C1 enables powered cutting of supported captured walls, with D4 service-room cooling. Loading and manual movement suspend reclamation; Resume is explicit.",
+      "after": "{0} wide x {1} deep; {2} kg. Arms face space, rear against a {0} x {3} wall chute. Inventory is the loading point for detached ordinary walls of any make, {4} to {5} kg. Small solids may be stored but are not processed. Start intake from the D4. Explicit Start reclamation at G4/C1 enables powered cutting of supported captured walls, with D4 service-room cooling. Loading and manual movement suspend reclamation; Resume is explicit."
     },
     {
       "mod": "PhobosShipbreaker",
@@ -18562,14 +18547,14 @@
       "mod": "PhobosShipbreaker",
       "key": "IntakeService.manual_feed_opened_load_separate_kg_ordinary",
       "category": "status/warning",
-      "decision": "retain",
-      "reason": "Retain: clear functional label, operational instruction or necessary safety/detail constraint; no forced personality.",
+      "decision": "rewrite",
+      "reason": "Mass range instead of 24 kg; the queue now waits after one Start. Placeholder contract changed with the code in 0.35.0 (wall mass range and the wall's own mass); this wording is the new baseline.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosShipbreaker/IntakeService.cs:236"
+        "src/PhobosShipbreaker/IntakeService.cs:237"
       ],
-      "before": "Manual feed opened: load separate 24 kg ordinary walls, then Start.",
-      "after": "Manual feed opened: load separate 24 kg ordinary walls, then Start."
+      "before": "Feed window opened. Put separate ordinary walls of any make ({0} to {1} kg) here, then Start once; the queue waits for more.",
+      "after": "Feed window opened. Put separate ordinary walls of any make ({0} to {1} kg) here, then Start once; the queue waits for more."
     },
     {
       "mod": "PhobosShipbreaker",
@@ -19109,14 +19094,14 @@
       "mod": "PhobosShipbreaker",
       "key": "ProcessingService.completed_panel_with_recipe_revision_total_kg",
       "category": "status/warning",
-      "decision": "retain",
-      "reason": "Retain: clear functional label, operational instruction or necessary safety/detail constraint; no forced personality.",
+      "decision": "rewrite",
+      "reason": "The total is the wall's own mass, no longer always 24 kg. Placeholder contract changed with the code in 0.35.0 (wall mass range and the wall's own mass); this wording is the new baseline.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosShipbreaker/ProcessingService.cs:258"
+        "src/PhobosShipbreaker/ProcessingService.cs:264"
       ],
-      "before": "Completed input {0} with recipe revision {1}: {2}; total 24 kg.",
-      "after": "Completed input {0} with recipe revision {1}: {2}; total 24 kg."
+      "before": "Completed input {0} with recipe revision {1}: {2}; total {3} kg.",
+      "after": "Completed input {0} with recipe revision {1}: {2}; total {3} kg."
     },
     {
       "mod": "PhobosShipbreaker",
@@ -19135,14 +19120,14 @@
       "mod": "PhobosShipbreaker",
       "key": "ProcessingService.expected_a_kg_wall_actual_mass_is",
       "category": "status/warning",
-      "decision": "retain",
-      "reason": "Retain: clear functional label, operational instruction or necessary safety/detail constraint; no forced personality.",
+      "decision": "rewrite",
+      "reason": "Reports the accepted range and the actual mass. Placeholder contract changed with the code in 0.35.0 (wall mass range and the wall's own mass); this wording is the new baseline.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosShipbreaker/ProcessingService.cs:62"
+        "src/PhobosShipbreaker/ProcessingService.cs:70"
       ],
-      "before": "Expected a {1} kg wall; actual mass is {0:F2} kg.",
-      "after": "Expected a {1} kg wall; actual mass is {0:F2} kg."
+      "before": "Expected an ordinary wall of {1} to {2} kg; this one weighs {0:F2} kg.",
+      "after": "Expected an ordinary wall of {1} to {2} kg; this one weighs {0:F2} kg."
     },
     {
       "mod": "PhobosShipbreaker",
@@ -19239,14 +19224,14 @@
       "mod": "PhobosShipbreaker",
       "key": "ProcessingService.is_not_a_supported_ordinary_wall",
       "category": "control/name/value",
-      "decision": "retain",
-      "reason": "Retain: clear functional label, operational instruction or necessary safety/detail constraint; no forced personality.",
+      "decision": "rewrite",
+      "reason": "Names the families that stay untouched instead of a bare refusal.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosShipbreaker/ProcessingService.cs:58"
+        "src/PhobosShipbreaker/ProcessingService.cs:66"
       ],
       "before": "{0} is not a supported ordinary wall ({1}).",
-      "after": "{0} is not a supported ordinary wall ({1})."
+      "after": "{0} is not an ordinary wall ({1}). Floors, doors, windows, Whipple, aerodynamic and DuraWal panels stay as they are."
     },
     {
       "mod": "PhobosShipbreaker",
@@ -19587,19 +19572,6 @@
       ],
       "before": "Unprepared batch",
       "after": "Unprepared batch"
-    },
-    {
-      "mod": "PhobosShipbreaker",
-      "key": "ProcessingService.use_manual_feed_for_standalone_processing",
-      "category": "status/warning",
-      "decision": "retain",
-      "reason": "Retain: clear functional label, operational instruction or necessary safety/detail constraint; no forced personality.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosShipbreaker/ProcessingService.cs:104"
-      ],
-      "before": "{0} Use Manual feed for standalone processing.",
-      "after": "{0} Use Manual feed for standalone processing."
     },
     {
       "mod": "PhobosShipbreaker",
@@ -20059,14 +20031,14 @@
       "mod": "PhobosShipbreaker",
       "key": "Reclaimer.load_feed",
       "category": "status/warning",
-      "decision": "retain",
-      "reason": "Retain: clear functional label, operational instruction or necessary safety/detail constraint; no forced personality.",
+      "decision": "rewrite",
+      "reason": "Names the new right-click toggle beside the panel route.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosShipbreaker/IntakeService.cs:236"
+        "src/PhobosShipbreaker/IntakeService.cs:237"
       ],
       "before": "Open Reclaimer feed from Control Panel and load identified R2 panel residue.",
-      "after": "Open Reclaimer feed from Control Panel and load identified R2 panel residue."
+      "after": "Open the reclaimer feed from the Control Panel, or switch on Load feed by crew, and load identified R2 panel residue."
     },
     {
       "mod": "PhobosShipbreaker",
@@ -37400,6 +37372,150 @@
       ],
       "before": "Clamps releasing through the docking console's own sequence.",
       "after": "Clamps releasing through the docking console's own sequence."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "ProcessingService.queue_waiting_for_wall_panels",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "The D4 now waits for feed after one Start, like the R4; says where panels may come from.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/ProcessingService.cs:114"
+      ],
+      "before": "Queue armed; waiting for wall panels in the feed. They can come from a crew loading order, the feed window in the controls or a connected grabber.",
+      "after": "Queue armed; waiting for wall panels in the feed. They can come from a crew loading order, the feed window in the controls or a connected grabber."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "ProcessRecipes.unsupported_wall_mass",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Names the accepted wall mass range when a wall's mass has no recipe.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/Core/ProcessRecipes.cs:27",
+        "src/PhobosShipbreaker/Core/ProcessRecipes.cs:46"
+      ],
+      "before": "No panel recipe for a {0} kg wall. Ordinary walls weigh {1} to {2} kg.",
+      "after": "No panel recipe for a {0} kg wall. Ordinary walls weigh {1} to {2} kg."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Industry.feed_order_title",
+      "category": "control",
+      "decision": "add",
+      "reason": "Right-click toggle named like the game's own Toggle Power; says what it loads and that it stays on.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/IndustrialDefinitions.cs:56"
+      ],
+      "before": "Load feed by crew (on/off)",
+      "after": "Load feed by crew (on/off)"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Industry.feed_order_action",
+      "category": "control",
+      "decision": "add",
+      "reason": "Native action description in the game's [us]/[them] form.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/IndustrialDefinitions.cs:57"
+      ],
+      "before": "[us] [switches] crew loading of [them] on or off.",
+      "after": "[us] [switches] crew loading of [them] on or off."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Industry.feed_order_tooltip",
+      "category": "help",
+      "decision": "add",
+      "reason": "States persistence through skips and reloads and the one thing it does not authorise.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/IndustrialDefinitions.cs:57"
+      ],
+      "before": "Crew keep this feed loaded with what is aboard until you switch it off. Carries on through time-skips and reloads. Furnace heating still needs the hazardous permission.",
+      "after": "Crew keep this feed loaded with what is aboard until you switch it off. Carries on through time-skips and reloads. Furnace heating still needs the hazardous permission."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Crew.loading_on",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Confirms the order and names the crew requirement (AutoTask, Haul duty) and the source scope.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/CrewProvider.cs:49"
+      ],
+      "before": "Crew loading on for {0}. Crew with AutoTask and the Haul duty bring supplies from anywhere aboard until you switch it off.",
+      "after": "Crew loading on for {0}. Crew with AutoTask and the Haul duty bring supplies from anywhere aboard until you switch it off."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Crew.loading_off",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Confirms the stop and that nothing is moved or lost.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/CrewProvider.cs:44"
+      ],
+      "before": "Crew loading off for {0}. Cargo and work stay where they are.",
+      "after": "Crew loading off for {0}. Cargo and work stay where they are."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Crew.loading_not_owned",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Ownership refusal in plain words.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/CrewProvider.cs:38"
+      ],
+      "before": "Crew loading needs equipment on your own ship.",
+      "after": "Crew loading needs equipment on your own ship."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Crew.loading_unsupported",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Refusal for equipment without a loading order.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/CrewProvider.cs:37"
+      ],
+      "before": "Crew loading is not available for this equipment.",
+      "after": "Crew loading is not available for this equipment."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Console.ship_wide",
+      "category": "label",
+      "decision": "add",
+      "reason": "Label for the ship-wide input source of a standing order.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Controls/ConsoleText.cs:6"
+      ],
+      "before": "Anywhere aboard",
+      "after": "Anywhere aboard"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Console.ship_wide_choose",
+      "category": "control",
+      "decision": "add",
+      "reason": "Button that chooses the ship-wide source; names the three places crew will look.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Controls/ConsoleText.cs:6"
+      ],
+      "before": "Use anything aboard: deck, stores and trays",
+      "after": "Use anything aboard: deck, stores and trays"
     }
   ],
   "documents": [
@@ -37407,8 +37523,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "06ca45849b45ea2815fcbcf3801b09d57104237630fe1a1246e25d64769d27c4",
-      "review": "2026-09-28: Auto Nav 0.25.0 version summary; no other wording changed."
+      "sha256": "794a658b2378a1fb5a978dd7d97f97fd0292b69b99491a687aae37770d81a6be",
+      "review": "2026-09-29: version summary; no other wording changed."
     },
     {
       "path": "SUPPORT.md",
@@ -37566,15 +37682,15 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "5fc7f0041aa3ae7ff4b81691ef9fef10ee4bea0d68e13b88c69c49bdfa43abe8",
-      "review": "2026-09-28: version line; no other wording changed."
+      "sha256": "d44538b17b5b30512dc806742188afe6d5d7bfe97eb5994e5ac49127b73a1814",
+      "review": "2026-09-29: input storage may be anywhere aboard; version line."
     },
     {
       "path": "docs/crew-automation.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "8523722c0b628f389f3ded84a5a3002bf122b960f2a8650902ad7fe959617f3d",
-      "review": "2026-09-28: eligibility paragraph states the vanilla rule for needs and open tasks; repair allowance paragraph; owner checks extended for round 1."
+      "sha256": "9669a8b486bddf68f1712bed3e7449ddb780d81061c7b7e327166734d5f20b85",
+      "review": "2026-09-29: Anywhere aboard source, deck items, the Load feed by crew toggle, loading orders carry on after reload."
     },
     {
       "path": "docs/development/README.md",
@@ -37907,8 +38023,8 @@
       "path": "docs/development/industrial-control-console.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "f37038b20e5f5cc0216a61737f97daf1505168824016e768ad9876c4f6d7245e",
-      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+      "sha256": "ca6ce5d33f781cb463a631c0db9b4e9ae474aeaafc43e5ad4d56474a9315828f",
+      "review": "2026-09-29: feed window wording replaces Manual feed."
     },
     {
       "path": "docs/development/industrial-control-mockups.md",
@@ -37928,8 +38044,8 @@
       "path": "docs/development/item-handling-audit.md",
       "scope": "current handling guidance and complete generated definition ledger",
       "decision": "reviewed",
-      "sha256": "00d74ba0cf93cce4058e9147416967e95344e08e767821fc67e0035e8ab6b5a0",
-      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+      "sha256": "8336d278cd7455861569ea4144b16c139cda3fe4185cb618fd3fb45a747472ea",
+      "review": "2026-09-29: regenerated handling ledger from the same native export; no wording changed."
     },
     {
       "path": "docs/development/item-reference-maintenance.md",
@@ -38097,8 +38213,8 @@
       "path": "docs/development/residue-material-contract.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "3fbc2eb220dcc5671ad6d90a3cb2975c626a444b4d06f7d308def450ecbfa367",
-      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+      "sha256": "9205a7146490682df401643e570d83d5a25362f797eb42cf0876b3620ba90cbd",
+      "review": "2026-09-29: wall makes and masses section with the mass-derived revision-2 budget."
     },
     {
       "path": "docs/development/sensor-integration-research.md",
@@ -38159,8 +38275,8 @@
       "path": "docs/development/shipbreaker-first-build.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "f8532d6f0296a585c874e93e9c8587fb4354443b3aed1e00e8067b3ee0028bc5",
-      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+      "sha256": "68c4e46809a028e8a7eed4501dc3702a23fca3ce8d7b1888f1f3c0a6cc934925",
+      "review": "2026-09-29: feed window and Load feed by crew replace the retired Manual feed (fallback) wording."
     },
     {
       "path": "docs/development/shipbreaker-hull-mounting.md",
@@ -38220,8 +38336,8 @@
       "path": "docs/development/vanilla-precedence-audit.md",
       "scope": "contributor audit record: findings, native evidence, verdicts and owner checks",
       "decision": "review as contributor documentation; player-facing effects are described in the owning guides",
-      "sha256": "4642f11888d428e6bb51846c99f042cb6dca3a405be15e82d6d3b095e535b48c",
-      "review": "2026-09-28: round 3 verdicts recorded as fixed, kept or deferred; owner checks extended."
+      "sha256": "5115e33fcc4ecc763a79d085e9a97c5a98bc26a69763fabfad9256661b580c9c",
+      "review": "2026-09-29: round 4 findings, native evidence and owner checks."
     },
     {
       "path": "docs/development/workshop-publication.md",
@@ -38254,8 +38370,8 @@
       "path": "docs/framework-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "0d185bee6ceef5b4fb00be272d119582e9c4f8bc271d6ea348eaf514cff3d6a3",
-      "review": "2026-09-28: regenerated from reviewed inputs: version only."
+      "sha256": "10c378a5aba873e2b33d18600426bc1ba238119a5726a0886788debc1e4abaae",
+      "review": "2026-09-29: regenerated from reviewed inputs: version only."
     },
     {
       "path": "docs/furnace-coolant-conduits.md",
@@ -38275,8 +38391,8 @@
       "path": "docs/furnace-player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "7f7575c65ebdb3887c44defcbbdbe878fe269381792e97553a680a207416747e",
-      "review": "2026-09-28: added Repeat batches section, commands and an owner check; pause conditions and partial-charge rule stated directly."
+      "sha256": "04847b13c8580bbd754319d65aa3db760fdd535eae12ac37b30ebc3ccc867c97",
+      "review": "2026-09-29: one piece per right-click; Load feed by crew brings single pieces; hot steps unchanged."
     },
     {
       "path": "docs/getting-started.md",
@@ -38310,15 +38426,15 @@
       "path": "docs/industrial-console-player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "7a80890ce9c90ad9e583cc50b1e175318d8e3f5684ff60c717230e5446fc67e2",
-      "review": "2026-09-28: Shipbreaker version line; no other wording changed."
+      "sha256": "2cc8f883f5682f03365375629287137e329716722c585cabb747dc87575d5c6b",
+      "review": "2026-09-29: version line; no other wording changed."
     },
     {
       "path": "docs/installing-mods.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "f22ed9093fff81e18aafa3c339102c88b7af8c1b16da1ddd1dc439f0c32600f3",
-      "review": "2026-09-28: Framework minimum lines; no other wording changed."
+      "sha256": "21a6f26051aff6fc3a44afb736c6b8282b0404f87ed25461edd7fa3c2ef51162",
+      "review": "2026-09-29: minimum Framework version; no other wording changed."
     },
     {
       "path": "docs/item-references.md",
@@ -38352,8 +38468,8 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "fba6a8fe37edb7e0ead9363999d10cbca7f0545d1eb872ef36eb49d9dd33b280",
-      "review": "2026-09-28: version line; no other wording changed."
+      "sha256": "128b94a5c92da117b454d2876157d080eeed45bdc434a9787efe6439fc623bc2",
+      "review": "2026-09-29: hand-fed operation section (Load feed by crew, feed window, wall makes 14-48 kg, R4/F6); symptom row; version lines."
     },
     {
       "path": "docs/residue-collector.md",
@@ -38366,8 +38482,8 @@
       "path": "docs/scrap-reclaimer.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "35d156da04937986c2d4924cb6275041a30d19d661710577a08f8becb2f1e596",
-      "review": "2026-09-28: heat rule now waits and resumes by itself with the room numbers shown."
+      "sha256": "d9ebf1e0923e2b377707506b7f17e16119d9614d27fb1b92140769130abb6d31",
+      "review": "2026-09-29: Load feed by crew as the alternative to the panel feed."
     },
     {
       "path": "docs/section-assembly-and-maintenance.md",
@@ -38387,15 +38503,15 @@
       "path": "docs/shipbreaker-hull-intake.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "994091f251842131d3f5f7fe0113e7d91ab0e1a2dbd33d0333a54385a2242a27",
-      "review": "2026-09-28: corrected the stale future-work statement; bounded supported-wall cutting is implemented, other wall families and floors remain future work."
+      "sha256": "1e6cc7a991dbb8a54dba2256278974e615acae8722bb7ba3d71e93225f82bb87",
+      "review": "2026-09-29: wall makes 14-48 kg; feed window from the Control Panel; Load feed by crew; queue waits after Start."
     },
     {
       "path": "docs/shipbreaker-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "560c6e2511b836ac87f8b18fa6e56699fcf1c0033258bbd3150cf048149537b3",
-      "review": "2026-09-28: regenerated from reviewed inputs: version only."
+      "sha256": "f8c8ca0ec401fd0f84e5b5ec5b49fef5c9b63fe8b73cbafaadf7a692d23e6005",
+      "review": "2026-09-29: regenerated from reviewed inputs: D4/R4/F6 and compartment use text, version."
     },
     {
       "path": "docs/shipbreaker-material-uses.md",
@@ -38408,8 +38524,8 @@
       "path": "docs/shipbreaker-reclamation.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "129ecda08d7bb43a1cf7805e955b8d68f87d467a633ecc44a422a746831d2dc6",
-      "review": "2026-09-28: wall eligibility follows the vanilla uninstall rule."
+      "sha256": "502691b7f0fe385fcc7b184abf40b4746a6bff47fce80c153a1eed3159ce34cc",
+      "review": "2026-09-29: ordinary walls of any make (14-48 kg) qualify for cutting."
     },
     {
       "path": "docs/solar-system-economy.md",
@@ -38436,8 +38552,8 @@
       "path": "workshop/PhobosFramework/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "1aef91c44278df1d364c8e2a301f00b651696e3fc6ce127fdeb95214e0831269",
-      "review": "2026-09-28: version only."
+      "sha256": "a706153a585c9bc0a29ad2f69308214d79b94856024767d0978befe7ceebe8c7",
+      "review": "2026-09-29: version; new bullet on anywhere-aboard supplies."
     },
     {
       "path": "workshop/PhobosManufacturing/page.bbcode",
@@ -38450,16 +38566,16 @@
       "path": "workshop/PhobosShipbreaker/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "002315cbe0a79979f2e943be18ffa47372780dcaf9f1929060af75bb69b1f2e9",
-      "review": "2026-09-28: version and minimum; new bullet on the 0.34.0 vanilla-precedence fixes."
+      "sha256": "f2d6afe2a8207e8124a03dfebef1fdc8f8d3085e2368a3fd8d5e28d9862a3971",
+      "review": "2026-09-29: version and minimum; first bullet names the three ways to load; new bullet for 0.35.0."
     }
   ],
   "surfaces": [
     {
       "path": "config/item-reference.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "63ff850da33246189f7ce506fff9f9d1de5f7abb5cf36a44c518c435a05abf28",
-      "review": "2026-09-28: N1 use and N1/N2 notes explain automatic sensor engagement with a warning and switch-off of Auto Nav's own sensors."
+      "sha256": "9c6fbefa73e10e930496f6522ff8d3d021207a8cabd08d56c8df77ba499bba6c",
+      "review": "2026-09-29: D4, R4, F6 and feed-compartment use text: wall makes, Load feed by crew, feed window from the Control Panel."
     },
     {
       "path": "mods/PhobosAgriculture/framework/equipment-names.json",
@@ -38506,8 +38622,8 @@
     {
       "path": "mods/PhobosFramework/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "2273c5d5858ce2c327313a86332d3cef028c52c47fb9c4e7edbcdca2ceacf543",
-      "review": "2026-09-28: version metadata only."
+      "sha256": "a2a48f10f8e4aed3f9cc5101680b961aa49b99c359d1f3f1588a17ca5b45bd36",
+      "review": "2026-09-29: version metadata only."
     },
     {
       "path": "mods/PhobosManufacturing/mod_info.json",
@@ -38527,8 +38643,8 @@
     {
       "path": "mods/PhobosShipbreaker/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "a702a9f6c5b70e89a9a5dd9f5e8ac5d99f36e15c1c9332f3c7d166d65eed1a15",
-      "review": "2026-09-28: version metadata only."
+      "sha256": "0a55c2d36c11c20a5c7219ed67b7a0f2b076e1c1bc7e670b99c49b35a942f9df",
+      "review": "2026-09-29: version metadata only."
     }
   ],
   "hardcodedReview": {

@@ -8,12 +8,19 @@ namespace PhobosShipbreaker.Core;
 public static class ProcessRules
 {
     public const string Wall = "ItmWall1x1Loose";
+    public const string InstalledWall = "ItmWall1x1";
     public const string Residue = "PhobosShipbreakerResidue";
     public const string Progress = "PhobosShipbreakerProgress";
     public const string Revision = "PhobosShipbreakerRecipeRevision";
     public const string Duration = "PhobosShipbreakerJobSeconds";
     public const string Working = "PhobosShipbreakerWorking";
-    public const double InputKg = 24;
+    /// <summary>The plain ordinary wall's mass and the reference for revision 1.</summary>
+    public const double StandardWallKg = 24;
+    // The game's ordinary walls are cosmetic variants of one base with their own masses (14 to 48 kg
+    // in the shipped data). A wall must carry the residue packet plus at least the parts.
+    public const double MinimumWallKg = LegacyResidueKg + 1;
+    // Heaviest ordinary wall the game ships (Langdon-Phillips "Glory Series", 48 kg).
+    public const double MaximumWallKg = 48;
     public const double CycleSeconds = 60;
     public const double ActiveKW = 30;
     public const double IdleKW = 0.12;
@@ -32,4 +39,11 @@ public static class ProcessRules
 
     public static bool MassMatches(double actual, double expected) => ProcessMaterial.MassMatches(actual, expected);
     public static bool Balanced(double input, IEnumerable<double> outputs) => ProcessMaterial.Balanced(input, outputs);
+    /// <summary>A whole-kilogram wall mass the panel recipe can account for.</summary>
+    public static bool AcceptedWallKg(double mass)
+    {
+        if (double.IsNaN(mass) || double.IsInfinity(mass)) return false;
+        double rounded = Math.Round(mass);
+        return MassMatches(mass, rounded) && rounded >= MinimumWallKg && rounded <= MaximumWallKg;
+    }
 }

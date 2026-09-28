@@ -40,6 +40,29 @@ reloading, changing settings or switching machines cannot reroll these yields.
 Useful native scrap goes directly to existing repair/construction or trade; it
 needs no mandatory extra shredding stage.
 
+## Wall makes and masses (Shipbreaker 0.35.0)
+
+The game's ordinary walls are one base definition plus cosmetic overlay
+variants with their own masses: 14 kg (Testudo Aero series), 20 kg (MSS
+white), 24 kg (plain and Caylon), 25 kg (Tsukuda, Minsheng), 27 kg (VH), 28 kg
+(Ryobi) and 48 kg (Langdon-Phillips Glory series). Almost every wall on a real
+wreck is a variant. Revision 2 is therefore derived from the wall's own mass:
+the **13 kg identified residue packet is fixed**, then 1 kg of mechanical parts,
+up to 2 kg aluminium and up to 2 kg carbon fibre are taken, and every remaining
+whole kilogram is steel scrap. The plain 24 kg wall keeps exactly the shipped
+revision-2 products. Masses outside 14 to 48 kg, or not whole kilograms, have
+no recipe and are refused at the feed.
+
+| Wall mass | Parts | Aluminium | Carbon fibre | Steel | Residue packet |
+| ---: | ---: | ---: | ---: | ---: | ---: |
+| 14 kg | 1 kg | 0 | 0 | 0 | 13 kg |
+| 20 kg | 1 kg | 2 kg | 2 kg | 2 kg | 13 kg |
+| 24 kg | 1 kg | 2 kg | 2 kg | 6 kg | 13 kg |
+| 48 kg | 1 kg | 2 kg | 2 kg | 30 kg | 13 kg |
+
+These remain authored budgets, not assays of the game's cosmetic materials;
+the reclaimer's 13 kg packet and its 3 + 1 + 9 kg outputs are unchanged.
+
 ## Finite destinations
 
 - Legacy residue: processor → collector or ordinary storage; no recovery recipe.

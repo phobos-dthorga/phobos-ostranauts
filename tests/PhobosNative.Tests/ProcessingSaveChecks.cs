@@ -12,7 +12,7 @@ internal static class ProcessingSaveChecks
         var v1 = ProcessRecipes.WallPanels.Recipes.Single(r => r.Revision == 1);
         // Local-only synthetic revision, using real scrap definitions to exercise
         // native output dimensions without registering another runtime recipe.
-        var v2 = new ProcessRecipe(2, ProcessRules.InputKg, new[] { new ProductSpec("ItmScrapSteel", 24, 1) });
+        var v2 = new ProcessRecipe(2, ProcessRules.StandardWallKg, new[] { new ProductSpec("ItmScrapSteel", 24, 1) });
         var future = new ProcessRecipeCatalog(2, new[] { v1, v2 });
         var saved = new JsonItem { strName = ProcessRules.Wall, strID = "saved-panel-123" };
         saved.SetCondAmount(ProcessRules.Progress, 22.25);

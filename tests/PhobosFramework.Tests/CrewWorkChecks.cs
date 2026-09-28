@@ -24,6 +24,13 @@ internal static class CrewWorkChecks
         check(restored.Permission==WorkPermission.Suspended,"Hazardous routine permission still requires Resume");
         order.Hazardous=false; order.ResumeRoutine=false; restored=StandingOrder.Read(order.Save()); restored.Reload(true);
         check(restored.Permission==WorkPermission.Suspended,"Routine resume opt-out persists");
+        var aboard=new StandingOrder{Permission=WorkPermission.Enabled,Recipe="process",Source=StandingOrder.ShipWide,Stock=256};
+        var aboardRestored=StandingOrder.Read(aboard.Save());aboardRestored.Reload(true);
+        check(!aboardRestored.Protected&&aboardRestored.Source==StandingOrder.ShipWide&&aboardRestored.Permission==WorkPermission.Enabled,
+            "A ship-wide loading order round-trips and carries on after a reload when its provider resumes routine work");
+        aboard.Hazardous=true;aboardRestored=StandingOrder.Read(aboard.Save());aboardRestored.Reload(true);
+        check(aboardRestored.Permission==WorkPermission.Suspended,"A hazardous loading order still waits for Resume after a reload");
+        check(ObjectStateStore.SafeValue(StandingOrder.ShipWide)&&StandingOrder.ShipWide!="none","The ship-wide source is a safe saved value distinct from no selection");
         order.Permission=WorkPermission.Stopped;order.StopReason="manual";
         restored=StandingOrder.Read(order.Save());restored.Reload(true);
         check(restored.Permission==WorkPermission.Stopped&&restored.StopReason=="manual","Manual stop survives every resume policy");

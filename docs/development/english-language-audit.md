@@ -251,3 +251,17 @@ no target-spin gate, the clamp as the game's own button, a refresh as a short
 hold, the native release when the console is open, and the step-valid torch
 guard. Coverage is now 1,919 entries, 154 documents and 14 other surfaces.
 Unity wording is unverified.
+
+## Vanilla precedence, round 4, 29 September 2026
+
+Shipbreaker 0.35.0 adds nine reviewed entries (the armed-queue status, the
+unsupported-mass refusal, the Load feed by crew action with its description and
+tooltip, and four crew-loading replies), rewrites nine (feed and fixture
+descriptions, the wall refusals and the completion line now state the wall
+mass range rather than a fixed 24 kg, and the reclaimer feed hint names the
+toggle) and retires two that told players to use a Manual feed. Framework
+0.38.0 adds the Anywhere aboard label and its button. The player guide gains
+a hand-fed operation section; the crew, intake, reclaimer, furnace,
+reclamation and console guides state the new rules. Coverage is now
+1,928 entries, 154 documents and 14 other surfaces.
+Unity wording is unverified.

@@ -19,7 +19,7 @@ public static class ObjectPresentation
     }
     public static string Name(CondOwner co){var n=Nickname(co);return n.Length>0?n:co.FriendlyName;}
     public static string ListName(CondOwner co){var n=Name(co);return n.StartsWith("Phobos' ",StringComparison.Ordinal)?n.Substring(8):n;}
-    public static string Name(string? id)=>CrewWork.Resolve(id) is CondOwner co?Name(co):ConsoleWidgets.Text(id=="none"||string.IsNullOrEmpty(id)?"not_selected":"missing_selection");
+    public static string Name(string? id)=>id==StandingOrder.ShipWide?ConsoleWidgets.Text("ship_wide"):CrewWork.Resolve(id) is CondOwner co?Name(co):ConsoleWidgets.Text(id=="none"||string.IsNullOrEmpty(id)?"not_selected":"missing_selection");
     public static bool Rename(CondOwner co,string expected,string name,out string reason)
     {
         reason=ConsoleWidgets.Text("stale");if(!CrewWork.CanManage(co)||CrewSim.GetSelectedCrew()?.ship!=co.ship||Nickname(co)!=expected)return false;

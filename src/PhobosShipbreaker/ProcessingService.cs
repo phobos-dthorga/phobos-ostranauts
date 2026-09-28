@@ -33,8 +33,10 @@ internal sealed partial class ProcessingService
     internal static bool IsProcessor(string? id) => Content.IsMachine(id) || ReclaimerRules.IsFamily(id);
     internal static bool IsReclaimer(CondOwner machine) => ReclaimerRules.IsFamily(machine.strCODef);
     internal static bool IsInstalledProcessor(CondOwner machine) => machine.strCODef == Content.Installed || machine.strCODef == ReclaimerRules.Installed;
-    private static string InputDefinition(CondOwner machine) => IsReclaimer(machine) ? ReclaimerRules.Feedstock : ProcessRules.Wall;
+    private static bool AcceptsInput(CondOwner machine, string? definition) => IsReclaimer(machine) ? definition == ReclaimerRules.Feedstock : WallIdentity.IsLooseOrdinary(definition);
+    /// <summary>The identity family for products and labels; a wall's own catalog depends on its mass.</summary>
     private static ProcessRecipeCatalog Recipes(CondOwner machine) => IsReclaimer(machine) ? ReclaimerRules.Recipes : ProcessRecipes.WallPanels;
+    private static ProcessRecipeCatalog Recipes(CondOwner machine, CondOwner input) => IsReclaimer(machine) ? ReclaimerRules.Recipes : ProcessRecipes.ForWallMass(input.GetTotalMass());
     private double Cycle(CondOwner machine) => IsReclaimer(machine) ? options.ReclaimerSeconds : options.CycleSeconds;
     internal static CondOwner? Feed(CondOwner machine) => machine.compSlots?
         .GetCOs(IsReclaimer(machine) ? ReclaimerRules.InputSlot : Content.InputSlot, true, null)?
@@ -43,23 +45,29 @@ internal sealed partial class ProcessingService
         input.strCODef == id && !input.HasCond("IsInstalled") && input.coStackHead == null &&
         (input.aStack == null || input.aStack.Count == 0) && input.GetCOsSafe(true).Count == 0 &&
         ProcessRules.MassMatches(input.GetTotalMass(), kg);
-    internal static bool ValidPanel(CondOwner? input) => ValidInput(input, ProcessRules.Wall, ProcessRules.InputKg);
-    internal static bool ValidInput(CondOwner machine, CondOwner? input) => ValidInput(input, InputDefinition(machine), Recipes(machine).Current.InputKg);
-    internal static bool CanFeed(CondOwner bin, CondOwner input) =>
-        (Phobos.Ostranauts.Framework.Crew.CrewLogistics.IsUnitPreflight(input) ?
-            Phobos.Ostranauts.Framework.Crew.CrewLogistics.Loose(input) && input.strCODef == (bin.strCODef == ReclaimerRules.InputBin ? ReclaimerRules.Feedstock : ProcessRules.Wall) &&
-            ProcessRules.MassMatches(input.GetCondAmount("StatMass"), bin.strCODef == ReclaimerRules.InputBin ? ReclaimerRules.InputKg : ProcessRules.InputKg) :
-            ValidInput(input, bin.strCODef == ReclaimerRules.InputBin ? ReclaimerRules.Feedstock : ProcessRules.Wall,
-                bin.strCODef == ReclaimerRules.InputBin ? ReclaimerRules.InputKg : ProcessRules.InputKg)) &&
-        bin.objContainer != null && (bin.objContainer.ContainedCOs.Contains(input) || bin.objContainer.ContainedCOs.Count < ProcessRules.FeedCapacity);
+    /// <summary>Any of the game's ordinary walls (base identity, its own whole-kilogram mass), detached, single and empty.</summary>
+    internal static bool ValidPanel(CondOwner? input) => WallIdentity.OrdinaryLooseWall(input);
+    internal static bool ValidInput(CondOwner machine, CondOwner? input) => IsReclaimer(machine) ?
+        ValidInput(input, ReclaimerRules.Feedstock, ReclaimerRules.InputKg) : ValidPanel(input);
+    /// <summary>Crew admission of one unit before it is detached, or the live rule for a placed item.</summary>
+    internal static bool UnitFeed(bool reclaimer, CondOwner input) => Phobos.Ostranauts.Framework.Crew.CrewLogistics.Loose(input) && (reclaimer ?
+        input.strCODef == ReclaimerRules.Feedstock && ProcessRules.MassMatches(input.GetCondAmount("StatMass"), ReclaimerRules.InputKg) :
+        WallIdentity.IsLooseOrdinary(input.strCODef) && ProcessRules.AcceptedWallKg(input.GetCondAmount("StatMass")));
+    internal static bool CanFeed(CondOwner bin, CondOwner input)
+    {
+        bool reclaimer = bin.strCODef == ReclaimerRules.InputBin;
+        bool accepted = Phobos.Ostranauts.Framework.Crew.CrewLogistics.IsUnitPreflight(input) ? UnitFeed(reclaimer, input) :
+            reclaimer ? ValidInput(input, ReclaimerRules.Feedstock, ReclaimerRules.InputKg) : ValidPanel(input);
+        return accepted && bin.objContainer != null && (bin.objContainer.ContainedCOs.Contains(input) || bin.objContainer.ContainedCOs.Count < ProcessRules.FeedCapacity);
+    }
 
     private static string PanelProblem(CondOwner panel)
     {
-        if (panel.strCODef != ProcessRules.Wall) return Text.Get("ProcessingService.is_not_a_supported_ordinary_wall", panel.strNameFriendly, panel.strCODef);
+        if (!WallIdentity.IsLooseOrdinary(panel.strCODef)) return Text.Get("ProcessingService.is_not_a_supported_ordinary_wall", panel.strNameFriendly, panel.strCODef);
         if (panel.HasCond("IsInstalled")) return Text.Get("ProcessingService.detach_the_wall_first");
         if (panel.coStackHead != null || panel.aStack.Count != 0) return Text.Get("ProcessingService.separate_the_wall_stack_first");
         if (panel.GetCOsSafe(true).Count != 0) return Text.Get("ProcessingService.remove_anything_attached_to_or_stored_in");
-        return Text.Get("ProcessingService.expected_a_kg_wall_actual_mass_is", panel.GetTotalMass(), ProcessRules.InputKg);
+        return Text.Get("ProcessingService.expected_a_kg_wall_actual_mass_is", panel.GetTotalMass(), ProcessRules.MinimumWallKg, ProcessRules.MaximumWallKg);
     }
 
     internal static string? MachineProblem(CondOwner machine)
@@ -96,12 +104,14 @@ internal sealed partial class ProcessingService
             IndustryObservations.ClearStop(machine);
             state.CrewManaged = false;
             state.NeedsAttention = false;
-            if (IsReclaimer(machine)) state.AwaitingFeed = true;
+            // Start arms the queue: the machine waits for feed from any source (a hand, a crew order, the
+            // grabber or a route) and processes as it arrives, until paused or stopped by a fault.
+            state.AwaitingFeed = true;
             string intakeMessage = "";
             bool connected = !IsReclaimer(machine) && ArmIntake(machine, out intakeMessage);
             if (state.Job?.Running == true) return true;
             if (Feed(machine)!.objContainer.ContainedCOs.Count == 0)
-            { state.Status = IsReclaimer(machine) ? Text.Get("Routing.queue_waiting") : connected ? Text.Get("ProcessingService.pipeline_started_waiting_for_the_grabber") : Text.Get("ProcessingService.use_manual_feed_for_standalone_processing", intakeMessage); return connected || IsReclaimer(machine); }
+            { state.Status = IsReclaimer(machine) ? Text.Get("Routing.queue_waiting") : connected ? Text.Get("ProcessingService.pipeline_started_waiting_for_the_grabber") : Text.Get("ProcessingService.queue_waiting_for_wall_panels"); return true; }
             bool started = StartNext(machine, state);
             if (!started) { state.AwaitingFeed = false; DisarmIntake(machine); }
             return started;
@@ -137,7 +147,7 @@ internal sealed partial class ProcessingService
             c.GetCondAmount(ProcessRules.Progress) != 0 || c.GetCondAmount(ProcessRules.Duration) != 0)
         .ThenByDescending(c => c.GetCondAmount(ProcessRules.Progress)).FirstOrDefault();
 
-    private ProcessJob ReadJob(CondOwner machine, CondOwner input) => ProcessJob.CreateOrResume(Recipes(machine),
+    private ProcessJob ReadJob(CondOwner machine, CondOwner input) => ProcessJob.CreateOrResume(Recipes(machine, input),
         input.strID, input.GetCondAmount(ProcessRules.Progress), input.GetCondAmount(ProcessRules.Revision),
         input.GetCondAmount(ProcessRules.Duration), Cycle(machine));
 
@@ -157,7 +167,7 @@ internal sealed partial class ProcessingService
         // Include saved jobs after reload, when no session binding exists yet.
         foreach (var input in Feed(machine)?.objContainer?.ContainedCOs ?? Array.Empty<CondOwner>())
         {
-            if (input.strCODef != InputDefinition(machine)) continue;
+            if (!AcceptsInput(machine, input.strCODef)) continue;
             input.ZeroCondAmount(ProcessRules.Progress); input.ZeroCondAmount(ProcessRules.Revision);
             input.ZeroCondAmount(ProcessRules.Duration);
         }
@@ -193,7 +203,7 @@ internal sealed partial class ProcessingService
         var bin = Feed(machine);
         bool bound = state.Input != null && bin?.objContainer?.ContainedCOs.Contains(state.Input) == true;
         string? problem = MachineProblem(machine);
-        if (!bound || !ValidInput(machine, state.Input) || problem != null)
+        if (!bound || !ValidInput(machine, state.Input) || !ProcessRules.MassMatches(state.Input!.GetTotalMass(), state.Job.Recipe.InputKg) || problem != null)
         { Stop(machine, state, problem ?? Text.Get("ProcessingService.input_changed_or_was_removed_queue_paused")); return false; }
         if (!MatchesJob(state.Input!, state.Job))
         { Stop(machine, state, Text.Get("ProcessingService.saved_job_changed_queue_paused_without_overwriting")); return false; }
@@ -211,7 +221,7 @@ internal sealed partial class ProcessingService
     // Pause, faults and reload clear permission independently of the saved pair.
     internal void FeedArrived(CondOwner machine)
     {
-        if (!IsReclaimer(machine) || !sessions.TryGetValue(machine, out var state) || !state.AwaitingFeed || state.Job?.Running == true) return;
+        if (!sessions.TryGetValue(machine, out var state) || !state.AwaitingFeed || state.Job?.Running == true) return;
         var problem = MachineProblem(machine);
         if (problem != null) { Stop(machine, state, problem); return; }
         if (Feed(machine)?.objContainer?.ContainedCOs.Count == 0) { state.Status = Text.Get("Routing.queue_waiting"); return; }
@@ -251,7 +261,7 @@ internal sealed partial class ProcessingService
         var delivery = new NativeDelivery(machine, state.Input!, state.Job!);
         if (BatchDelivery.Commit(delivery) == DeliveryResult.Blocked)
         { Stop(machine, state, Text.Get("ProcessingService.output_changed_progress_retained_clear_space_and")); return false; }
-        log(Text.Get("ProcessingService.completed_panel_with_recipe_revision_total_kg", state.Job!.InputId, state.Job.Recipe.Revision, string.Join(", ", state.Job.Recipe.Products.Select(p => Text.Get("ProcessingService.x", p.Count, p.Id)))));
+        log(Text.Get("ProcessingService.completed_panel_with_recipe_revision_total_kg", state.Job!.InputId, state.Job.Recipe.Revision, string.Join(", ", state.Job.Recipe.Products.Select(p => Text.Get("ProcessingService.x", p.Count, p.Id))), state.Job.Recipe.InputKg));
         state.Job = null; state.Input = null;
         NotifyCommitted(machine, state, notify);
         if (!state.CrewManaged && (options.ContinueQueue || state.Intake?.Mission==true&&state.Intake.Armed))
@@ -302,9 +312,6 @@ internal sealed partial class ProcessingService
         }
         catch { state.Watch.Cancel(); } // Optional presentation can never invalidate committed output.
     }
-
-    internal static string NewPanelProducts() => string.Join(", ", ProcessRecipes.WallPanels.Current.Products.Select(p =>
-        Text.Get("ProcessingService.product_count", p.Count, DataHandler.GetCondOwnerDef(p.Id)?.strNameFriendly ?? p.Id)));
 
     internal void Reset()
     {

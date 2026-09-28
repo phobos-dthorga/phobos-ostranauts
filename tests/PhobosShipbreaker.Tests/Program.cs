@@ -115,6 +115,7 @@ Check(customResumed.Progress == 90 && customResumed.Complete, "Custom duration c
 Throws(() => new ProcessJob("A", 0, recipeV1, double.NaN), "Corrupt saved duration rejected");
 Throws(() => new ProcessJob("A", 0, recipeV1, 0), "Zero-duration job rejected");
 RecipeChecks.Run(Check, Throws);
+CrewOrderChecks.Run(Check);
 ReclaimerChecks.Run(Check, Throws);
 
 var empty = new bool[8, 8];

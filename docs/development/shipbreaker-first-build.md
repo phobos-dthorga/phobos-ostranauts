@@ -15,8 +15,9 @@ Version 0.10.0 adds [local and central industrial control panels](../industrial-
 The approved **4 x 3 exterior grabber + 4 x 1 wall chute + 4 x 4 processor** now
 form a connected intake. Load detached walls at the grabber; the chute carries
 the same objects to the processor. Collect products from the processor's normal
-Inventory. The internal feed remains saved, but opens only through the explicit
-**Manual feed (fallback)** control. See the [placement and first-test guide](../shipbreaker-hull-intake.md).
+Inventory. The internal feed remains saved and opens through the Control Panel's
+**Open feed inventory**; since 0.35.0 **Load feed by crew** keeps it loaded without
+the grabber. See the [placement and first-test guide](../shipbreaker-hull-intake.md).
 
 The 0.2.1 cumbersome-filter correction passed the native data check, but the owner
 still reported a grey inventory and rejected walls. No successful in-game feed or
@@ -189,8 +190,10 @@ Then stand beside the processor, press F9, check the connection status and choos
 **Start / resume pipeline**. Collect the full result from the processor's Inventory.
 A small solid may fit in the grabber without being a supported processing input.
 
-For standalone processing, use **Manual feed (fallback)** in F9 or
-`phobosshipbreaker feed`, put a wall in that explicitly named window, then Start.
+For standalone processing, open the feed window from the Control Panel
+(**Open feed inventory**) or `phobosshipbreaker feed`, put a wall in that
+explicitly named window, then Start once; the queue waits for more. Or right-click
+the fixture and switch on **Load feed by crew**.
 The usual processor Inventory is output storage. Its saved internal feed and the
 8 x 8 output tray retain their original identities and capacities.
 

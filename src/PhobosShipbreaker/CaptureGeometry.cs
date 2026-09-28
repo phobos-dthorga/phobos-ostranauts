@@ -43,7 +43,7 @@ internal static class CaptureGeometry
         var gp = grabber.GetPos();
         int attempts = 0;
         // Existing native fit testing includes the two full ship grids. No collision exemptions.
-        foreach (var wall in b.Where(c => c.Value != null && c.Value.DataCO.Name == "ItmWall1x1" &&
+        foreach (var wall in b.Where(c => c.Value != null && WallIdentity.IsInstalledOrdinary(c.Value.DataCO.Name) &&
             !string.IsNullOrEmpty(c.Value.ID) && (selectedWall == null || c.Value.ID == selectedWall)).OrderBy(c => c.Value.ID, StringComparer.Ordinal))
         foreach (int outward in new[] { 0, 90, 180, 270 })
         {
@@ -90,7 +90,7 @@ internal static class CaptureGeometry
     internal static System.Collections.Generic.IEnumerable<(string Id,int Outward)> Windows(Ship target)
     {
         var grid=GridUtils.CreateFullGrid(target,target.GetDockedShipsAndPortIDs().Values.SingleOrDefault()?.strRegID);
-        foreach(var cell in grid.Where(c=>c.Value!=null&&c.Value.DataCO.Name=="ItmWall1x1"&&!string.IsNullOrEmpty(c.Value.ID)).OrderBy(c=>c.Value.ID,StringComparer.Ordinal))
+        foreach(var cell in grid.Where(c=>c.Value!=null&&WallIdentity.IsInstalledOrdinary(c.Value.DataCO.Name)&&!string.IsNullOrEmpty(c.Value.ID)).OrderBy(c=>c.Value.ID,StringComparer.Ordinal))
         foreach(int angle in new[]{0,90,180,270})
         {
             var delta=IntakeRules.Rotate(0,1,angle);int x=cell.Key.x+(int)Math.Round(delta.X),y=cell.Key.y+(int)Math.Round(delta.Y);
@@ -101,7 +101,7 @@ internal static class CaptureGeometry
     {
         var wall = target.GetCOs(null, false, false, true).FirstOrDefault(c => c.strID == wallId);
         if (wall == null || wall.ship != target || wall.bDestroyed || wall.objCOParent != null ||
-            wall.strCODef != "ItmWall1x1" || !wall.HasCond("IsInstalled") || wall.HasCond("IsDamaged")) return false;
+            !WallIdentity.IsInstalledOrdinary(wall.strCODef) || !wall.HasCond("IsInstalled") || wall.HasCond("IsDamaged")) return false;
         var g = grabber.GetPos(); var w = wall.GetPos();
         return CaptureRules.InContact(g.x, g.y, grabber.Item.TF.eulerAngles.z, w.x, w.y);
     }

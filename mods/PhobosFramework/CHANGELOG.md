@@ -20,6 +20,17 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.38.0] - 2026-09-29 - Draft
+
+### Added
+
+- Standing orders may take supplies from anywhere aboard: choose Use anything aboard for the input store, and crew search the deck, unlocked stores and other machines' product trays on the same ship, nearest first, the way the game's own PDA Reload job searches. Items lying on the deck are carried like items in a store, in ordinary play and during a managed time-skip.
+- StandingOrder.ShipWide names that source for content mods; CrewLogistics.Aboard lists what an order may take.
+
+### Compatibility and limits
+
+- Additive API. Existing orders and chosen stores are unchanged. Crew never take from a hidden feed bin, a locked container, the equipment itself or someone's hands. Required by Shipbreaker 0.35.0. Offline checks pass; owner play-testing is pending.
+
 ## [0.37.0] - 2026-09-28 - Draft
 
 ### Added

@@ -46,6 +46,9 @@ public static class CrewBalance
 /// <summary>Only explicit user edits change intent. A blocked job does not erase its order.</summary>
 public sealed class StandingOrder
 {
+    /// <summary>A source that means anywhere aboard: the deck, unlocked containers and other machines'
+    /// trays on the same ship, as the game's own Reload job searches. Saved like a store ID.</summary>
+    public const string ShipWide = "ship";
     public WorkPermission Permission;
     public string Recipe = "default", Source = "none", Destination = "none", Target = "none", Binding = "";
     public int Stock = 4;

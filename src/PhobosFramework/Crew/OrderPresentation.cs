@@ -53,7 +53,7 @@ public static class OrderConfiguration
         reason=ConsoleText.Get("invalid_process");if(next.Protected||provider==null||!provider.Recipes(co).Contains(next.Recipe))return false;
         var fields=Fields(co);
         foreach(var pair in new[]{(OrderFields.Source,next.Source,CrewWork.Order(co).Source),(OrderFields.Destination,next.Destination,CrewWork.Order(co).Destination)})
-            if(fields.HasFlag(pair.Item1)&&pair.Item2!="none"&&pair.Item2!=pair.Item3 && !CrewWork.Stores(co.ship).Any(c=>c.strID==pair.Item2))
+            if(fields.HasFlag(pair.Item1)&&pair.Item2!="none"&&!(pair.Item1==OrderFields.Source&&pair.Item2==StandingOrder.ShipWide)&&pair.Item2!=pair.Item3 && !CrewWork.Stores(co.ship).Any(c=>c.strID==pair.Item2))
             {reason=ConsoleText.Get("invalid_store");return false;}
         if(provider is ICrewOrderPresentation presentation && !presentation.Validate(co,next,out reason))return false;
         next=OrderDraft.Commit(next);

@@ -49,5 +49,5 @@ internal static class ReclamationRules
     internal static bool Finite(double n) => !double.IsNaN(n) && !double.IsInfinity(n);
     internal static bool ValidWork(double progress,double seconds,double kw) => Finite(progress)&&Finite(seconds)&&Finite(kw)&&progress>=0&&seconds>0&&seconds<=3600&&progress<=seconds&&kw>0&&kw<=1000;
     internal static bool CanCut(double mass,bool installed,bool damaged,bool empty,bool stacked,bool exposed,bool floor,bool protectedSupport) =>
-        ProcessRules.MassMatches(mass,ProcessRules.InputKg)&&installed&&!damaged&&empty&&!stacked&&exposed&&floor&&!protectedSupport;
+        ProcessRules.AcceptedWallKg(mass)&&installed&&!damaged&&empty&&!stacked&&exposed&&floor&&!protectedSupport;
 }

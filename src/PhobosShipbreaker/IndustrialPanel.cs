@@ -371,6 +371,12 @@ internal static class IndustrialControlsPatch
     {
         if (!isCancelIa && (__instance.strName == IndustrialRules.Controls || __instance.strName == IndustrialRules.LocalControls) &&
             __instance.objUs == CrewSim.GetSelectedCrew() && __instance.objThem != null) IndustrialPanel.Open(__instance.objThem);
+        if (!isCancelIa && __instance.strName == IndustrialRules.FeedOrder && __instance.objUs == CrewSim.GetSelectedCrew() && __instance.objThem != null)
+        {
+            bool done = IndustrialCrewProvider.ToggleFeeding(__instance.objThem, out string message);
+            var actor = __instance.objUs;
+            if (actor != null && !actor.bDestroyed && actor.HasCond("IsHuman")) actor.LogMessage(message, done ? "Neutral" : "Bad", "Game");
+        }
     }
 }
 

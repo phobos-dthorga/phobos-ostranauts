@@ -106,19 +106,24 @@ grabber's two power contacts reach the outer cells of the supporting wall row.
 ## Operation and construction
 
 - **Grabber Inventory:** normal 4 x 4 native solid storage accepting cumbersome
-  items and smaller solids. Only separate, empty ordinary 24 kg walls are moved.
+  items and smaller solids. Only separate, empty ordinary walls of any make
+  (14 to 48 kg) are moved.
   Unsupported cargo remains untouched, with a reason in the status panel.
 - **Chute:** no user inventory. It is the connection between the two machines.
-- **Processor Inventory:** 8 x 8 products tray. Its existing four-panel internal
-  feed remains saved and accessible through F9 **Manual feed (fallback)** or
+- **Processor Inventory:** 8 x 8 products tray. Its four-panel internal feed
+  remains saved and opens through the Control Panel's **Open feed inventory** or
   `phobosshipbreaker feed`; ordinary Inventory no longer opens the second grid.
+  **Load feed by crew** keeps it loaded without the grabber; see the
+  [player guide](player-guide.md#hand-fed-operation-without-the-grabber).
 - **Start / resume pipeline:** validates the layout and arms transfer plus
-  processing. An empty feed can wait for the grabber. Start while beside the
+  processing. An empty feed waits for panels from the grabber, the feed window
+  or a crew order. Start while beside the
   processor; loading the exterior grabber uses the game's ordinary nearby/EVA
   inventory access. There is no remote pickup or crew teleportation.
 - One transfer takes **5 powered game seconds at 2 kW**, with **0.05 kW idle**.
   `Intake / TransferSeconds` allows 1–60 seconds after restart. Processing keeps
-  its separate default 60 seconds / 30 kW and complete 24 kg material accounting.
+  its separate default 60 seconds / 30 kW and complete material accounting for
+  the wall's own mass.
 - Pause/cancel disarms intake. Reload leaves it paused; pending motion loses only
   its short delay and retains the actual wall in the grabber. Processing progress
   remains on that wall. Full feed waits; missing/damaged/locked connections stop.
