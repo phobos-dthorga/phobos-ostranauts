@@ -62,24 +62,7 @@ internal static class LegacyConstructionTryLookup
     private static void Prefix(ref string __0, ref JsonInteractionSave __2) => ConstructionHooks.Translate(ref __0, ref __2);
 }
 
-[HarmonyPatch(typeof(CondTrigger), "Triggered", new[] { typeof(CondOwner), typeof(string), typeof(bool) })]
-internal static class ConstructionSelection
-{
-    private static void Postfix(CondTrigger __instance, CondOwner objOwner, ref bool __result)
-    {
-        if (!__result || __instance?.strName == null) return;
-        if (ConstructionRegistry.Selectors.TryGetValue(__instance.strName, out var ingredient))
-        {
-            __result = objOwner != null && !objOwner.bDestroyed && objOwner.strCODef == ingredient.item
-                && RecipeRules.MassMatches(objOwner.GetCondAmount("StatMass"), ingredient.unitMassKg)
-                && ConstructionHooks.HasNoContents(objOwner);
-            if (__result && objOwner != null && ingredient.requireEmpty)
-                __result = objOwner.coStackHead == null && (objOwner.aStack == null || objOwner.aStack.Count == 0);
-        }
-        else if (ConstructionRegistry.StationSelectors.TryGetValue(__instance.strName, out var entry))
-            __result = objOwner != null && ConstructionRegistry.Ready(entry.Owner) && entry.Stations.Contains(objOwner.strCODef);
-    }
-}
+// Ingredient and station selectors refine the game's trigger check through the single TriggerRefinements hook.
 
 [HarmonyPatch(typeof(Interaction), nameof(Interaction.ResetObject))]
 internal static class ConstructionReset

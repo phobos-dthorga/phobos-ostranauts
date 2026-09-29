@@ -207,7 +207,32 @@ described in its stage's entry below as it lands:
 Baseline captures for this pass (owner-run, 29 September, summary mode, 30 s,
 fast-forward, little Phobos equipment installed) are kept locally under
 `.local/performance-captures/before-fastforward/`; the earlier six speed-1
-captures remain separate evidence.
+captures remain separate evidence. Two distinct captures at speed 8 with the nav
+console closed: median frame 24.8 and 25.9 ms, 95th percentile 125 and 140 ms,
+99th 174 and 238 ms, 205 and 222 of about 800 frames over 33 ms, 64 and 63 over
+100 ms; `shipbreaker.furnace.scan_objects` 5.2 and 5.0 million in 30 s (about
+174,000 objects a second), `agriculture.scan_objects` 0.68 and 0.73 million,
+`framework.crew.discovery` 3.5 and 5.3 ms per second with 12 and 21 ms maxima.
+The existing scopes attribute little of the frame time: the costs of this pass sat
+in unscoped hooks.
+
+### Stage 2: Framework 0.45.0 and Agriculture 0.21.0 (FF1, FF2, FF4, FF5)
+
+| Finding | Evidence | Decision |
+|---|---|---|
+| F-B two `CondTrigger.Triggered` postfixes | Up to three string lookups per call on the game's most frequent method; the section postfix ran even on false results | One hook, `Construction.TriggerRefinements`, returns on a false result, a null name or an empty table before any lookup; selectors register into one merged table rebuilt with each registration |
+| F-A crew task filter | `Admissible` ran two A* searches per task per crew member per AI turn, plus two more per other crew member; keys were rebuilt as strings per check | Cheap facts first, then `Path` and `Prepare`, each memoised per step (`StepMemo`); keys built once per step per job; `Admit` still checks fresh, so withholding semantics are unchanged |
+| F-C `NativeFluidRoute.Find` | Full ship scan with the six-condition endpoint check before the cheap segment test; a list and a query per visited cell; irrigation ran one search per other supply per power step | Segment test first and reused buffers in the uncached search; `FluidRouteCache` keeps one topology per ship and family for two real seconds with native invalidation, and answers the second-source rule by component membership. Endpoints stay fresh. This supersedes the P3/P4 deferral for fluid topology only |
+| F-D RCS prefixes | Three collections and a pass array per fuel query; a lock and a closure per object; a substring per species | One input list per ship per step, a static pass order, a copy-on-write feed array and a precomputed species table |
+| F-E, F-K bulk vessels and buffered draws | `Snapshot` read the record twice and threw on a protected vessel every poll; each settle wrote a log line | `TryRead` and one journal read; protected vessels remembered until accepted; settle lines at Debug level |
+| F-F saved state | Character-by-character queries per validation; every save replaced the map | Loops; `TryWriteIfChanged` and `Status`; `SaveBoundary` for cadence-settled records |
+| F-G Ship's Water | Plugin enumeration with reflection, a full ship scan and a quadratic sum per rack per power step, even for a zero request | Zero requests return at once; the plugin answer is remembered after world load; installed tanks per ship reread every two real seconds; the pool summed once; capacity fields cached |
+| F-H, F-I, F-J, F-M alarms, receipts, skip, study | Six concatenations per sensor run; a weak-table probe per gather; reflection per skip step; per-skill concatenation per completed interaction | Static name tables, a pending count, compiled accessors |
+| A-A, A-B Agriculture hooks | About 24 allocations per true native offer before our object was checked | Set lookups first; the ladder prefixes built once |
+| A-C, A-D irrigation and saves | Routes twice per step, a SHA-256 per pump step, six record replacements per tick | One route per pair per step through the cache; the route key hashed per distinct path; changed-only writes; the world scan without query allocations |
+
+Trade-offs taken (owner-accepted): a pipe or tank change is seen within two real
+seconds; log verbosity for settled draws. No saved format changed.
 
 ## 28 September: construction and maintenance follow-up
 

@@ -56,7 +56,15 @@ public static class SectionAssembly
     private static readonly Dictionary<string, Contract> Jobs = new(StringComparer.Ordinal);
     private static readonly Dictionary<string, Contract> Selectors = new(StringComparer.Ordinal);
     private static ConditionalWeakTable<Interaction, CompletionGate> finishes = new();
-    internal static void Reset() { Jobs.Clear(); Selectors.Clear(); finishes = new(); }
+    /// <summary>Raised when the selector table changes; the shared trigger hook rebuilds its table from it. A
+    /// delegate rather than a direct call keeps this file compilable against the test doubles on its own.</summary>
+    internal static Action SelectorsChanged = () => { };
+    internal static void Reset() { Jobs.Clear(); Selectors.Clear(); finishes = new(); SelectorsChanged(); }
+    /// <summary>Our assembly selectors, for the shared trigger hook: a true native result stands only for a valid unit.</summary>
+    internal static void AddRefinements(Dictionary<string, Func<CondOwner?, bool>> into)
+    {
+        foreach (var pair in Selectors) { var c = pair.Value; into[pair.Key] = item => item != null && ValidUnit(c, item); }
+    }
 
     public static void Add(NativeDefinitions d, string jobId, string section, string sectionTrigger, string installed, int count,
         double unitMass, double workProgress, string[] tools)
@@ -73,6 +81,7 @@ public static class SectionAssembly
             Count = count, Mass = unitMass, Progress = workProgress };
         Jobs[jobId] = contract;
         Selectors[selector] = contract;
+        SelectorsChanged();
         MaintenanceDefinitions.SetStat(d.Objects[section], "StatInstallProgressMax", workProgress);
         d.Installables[jobId] = new JsonInstallable {
             strName = jobId, strActionCO = section, strActionGroup = "Work", strJobType = "install",
@@ -103,10 +112,11 @@ public static class SectionAssembly
             if (definition.aInteractions?.Any(actions.Contains) == true)
                 definition.aInteractions = definition.aInteractions.Where(a => !actions.Contains(a)).ToArray();
     }
+    /// <summary>The assembly selector rule on its own (the live hook is <see cref="TriggerRefinements"/>): native
+    /// callers also use unnamed, inline conditions, and only registered assembly selectors belong to us, so every
+    /// other native result is left alone.</summary>
     internal static bool Select(string? trigger, CondOwner item, bool previous)
     {
-        // Native callers also use unnamed, inline conditions. Only registered
-        // assembly selectors belong to us; leave every other native result alone.
         if (string.IsNullOrEmpty(trigger)) return previous;
         return !Selectors.TryGetValue(trigger, out var c) ? previous : previous && ValidUnit(c, item);
     }
@@ -139,12 +149,6 @@ public static class SectionAssembly
     internal static void ResetInteraction(Interaction action) => finishes.Remove(action);
 }
 
-[HarmonyPatch(typeof(CondTrigger), "Triggered", new[] { typeof(CondOwner), typeof(string), typeof(bool) })]
-internal static class SectionAssemblySelection
-{
-    private static void Postfix(CondTrigger __instance, CondOwner objOwner, ref bool __result) =>
-        __result = SectionAssembly.Select(__instance.strName, objOwner, __result);
-}
 [HarmonyPatch(typeof(DataHandler), nameof(DataHandler.GetCOPlaceholder))]
 internal static class SectionAssemblyPlaceholder
 {

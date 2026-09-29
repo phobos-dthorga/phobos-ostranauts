@@ -23,6 +23,17 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Fixed unreachable INSTALL entries; Firstlight-4, Hearth-2 and W2 appear under APPS, and irrigation conduit under MISC, including damaged forms. Existing inputs, placement and saved IDs are preserved.
 
+## [0.21.0] - 2026-09-29 - Draft
+
+### Changed
+
+- Performance pass, stage 2. Irrigation routes come from Framework's shared topology snapshot and are computed once per power step for both the demand check and the pump; the second-source check on a circuit is a membership lookup instead of one search per other W2. The route identity is hashed once per distinct path. Machine records are written only when a value changed. The interaction hooks recognise our machines and supplies by set lookup before searching action names. The two-second world scan keeps its cadence and scope but allocates nothing for objects that are not ours. Ship's Water refills skip zero requests.
+- Recorder scopes agriculture.irrigation.route and agriculture.saves.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.45.0 or newer. A pipe laid or cut is noticed within two real seconds rather than on the same step. Saved data is unchanged.
+
 ## [0.20.0] - 2026-09-29 - Draft
 
 ### Added

@@ -18,6 +18,10 @@ internal static class Definitions
     internal static bool Ready;
     internal static readonly string[] Work = { "recover-crop", "formulate-nutrients", "plant-potato", "plant-lettuce", "plant-lettuce-seed", "load-water", "load-irrigation", "load-nutrients", "recover-solution", "harvest", "clear", "drain" };
     internal static string WorkId(string action) => "PhobosAgricultureWork_" + action.Replace('-', '_');
+    /// <summary>Work action ids to their actions, and the consumable supplies, built once for the interaction hooks
+    /// that run on every native offer and completion.</summary>
+    internal static readonly System.Collections.Generic.Dictionary<string, string> WorkIds = Work.ToDictionary(WorkId, a => a, StringComparer.Ordinal);
+    internal static readonly System.Collections.Generic.HashSet<string> Supplies = new(new[] { Nutrient, BulkDefinitions.Nutrients, WorkupDefinitions.Makeup, WorkupDefinitions.Mixture, WorkupDefinitions.Concentrate, Service.RecoveryCartridge }, StringComparer.Ordinal);
     /// <summary>The vanilla direct-eating reply our food replies are cloned from, and the native openers that list it.</summary>
     internal const string EatTemplate = "SeekFoodAllowDirect";
     internal static readonly string[] EatOpeners = { "SeekFoodDirect", "SeekFoodDirectLowNeed", "SeekFoodDirectGlutton", "SeekConsumeFoodAirtight" };

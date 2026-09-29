@@ -25,6 +25,15 @@ internal static class NativePerformance
             Performance.RoomAlarmRead = Performance.RegisterOperation("framework.room_alarm.read", "observations");
             Performance.CrewDiscovery = Performance.RegisterOperation("framework.crew.discovery", "discovery");
             Performance.ShipCandidates = Performance.RegisterIncrement("framework.equipment.scan_objects", "discovery", "items");
+            Performance.FluidRouteFind = Performance.RegisterOperation("framework.fluid_route.find", "routing");
+            Performance.FluidRouteObjects = Performance.RegisterIncrement("framework.fluid_route.scan_objects", "routing", "items");
+            Performance.CrewTaskFilter = Performance.RegisterOperation("framework.crew.task_filter", "discovery");
+            Performance.CrewPathChecks = Performance.RegisterIncrement("framework.crew.path_checks", "discovery", "searches");
+            Performance.RcsCollect = Performance.RegisterOperation("framework.rcs.collect", "navigation");
+            Performance.StateWrite = Performance.RegisterOperation("framework.state.write", "persistence");
+            Performance.StateWritesSkipped = Performance.RegisterIncrement("framework.state.writes_skipped", "persistence", "writes");
+            Performance.WaterRefill = Performance.RegisterOperation("framework.water_supply.refill", "processing");
+            Performance.SkipMachineStep = Performance.RegisterOperation("framework.skip.machine_step", "processing");
             frames = new FrameMeasurements();
             Performance.RegisterContext("game.allocations.available", () => frames.AllocationSupported ? "true" : "false");
             Performance.RegisterContext("game.speed_multiplier", () => Time.timeScale.ToString("R", CultureInfo.InvariantCulture));

@@ -13,13 +13,13 @@ using Phobos.Ostranauts.Framework.Construction;
 namespace PhobosAgriculture;
 
 [BepInPlugin(Id, "Phobos Agriculture", Version)]
-[BepInDependency(FrameworkInfo.PluginId, "0.44.0")]
+[BepInDependency(FrameworkInfo.PluginId, "0.45.0")]
 [BepInDependency("com.ostranauts.shipswater", BepInDependency.DependencyFlags.SoftDependency)]
 [BepInDependency("phobosgekko.ostranauts.shipbreaker", BepInDependency.DependencyFlags.SoftDependency)]
 [BepInProcess("Ostranauts.exe")]
 public sealed class Plugin : BaseUnityPlugin
 {
-    public const string Id = "phobosgekko.ostranauts.agriculture", Version = "0.20.0";
+    public const string Id = "phobosgekko.ostranauts.agriculture", Version = "0.21.0";
     internal static Action<string> Log = _ => { };
     internal static ConfigEntry<double> Pace = null!, ReserveLitres = null!;
     internal static ConfigEntry<bool> LootEnabled = null!;
@@ -154,17 +154,23 @@ internal static class ContentsEligibilityPatch
         => Reason(action, us, them) != null;
     /// <summary>Offer-time check for our own work actions, so crew are not sent to fail: the same rule the work
     /// applies when it runs. Maintenance reasons are checked separately, at offer and at finish.</summary>
+    // These run for every native offer and completion in the game: our objects are recognised first, by set
+    // lookup, and only then are action names searched.
     internal static string? WorkReason(Interaction action, CondOwner? us, CondOwner? them)
     {
-        var work = Array.Find(Definitions.Work, a => action.strName == Definitions.WorkId(a));
-        return work != null && Definitions.Machine(them) ? Service.WorkProblem(them!, us, work) : null;
+        if (action.strName == null || !Definitions.Machine(them) || !Definitions.WorkIds.TryGetValue(action.strName, out var work)) return null;
+        return Service.WorkProblem(them!, us, work);
     }
     internal static string? Reason(Interaction action, CondOwner? us, CondOwner? them)
     {
-        var co = action.strName.StartsWith("MS", StringComparison.Ordinal) ? us : them;
-        bool supply = new[] { Definitions.Nutrient, BulkDefinitions.Nutrients, WorkupDefinitions.Makeup, WorkupDefinitions.Mixture, WorkupDefinitions.Concentrate, Service.RecoveryCartridge }.Contains(co?.strCODef);
-        if (supply && (action.strName.Contains("Repair") || action.strName.Contains("Restore") || action.strName.Contains("Undamage"))) return Text.Get("consumable_no_repair");
-        return action.strName.Contains("Dismantle") || action.strName.Contains("Uninstall") ? RemovalReason(co) : null;
+        string name = action.strName;
+        if (string.IsNullOrEmpty(name)) return null;
+        var co = name.StartsWith("MS", StringComparison.Ordinal) ? us : them;
+        if (co == null) return null;
+        bool supply = Definitions.Supplies.Contains(co.strCODef);
+        if (supply) return name.Contains("Repair") || name.Contains("Restore") || name.Contains("Undamage") ? Text.Get("consumable_no_repair") : null;
+        if (!BulkDefinitions.IsTank(co) && !Definitions.Machine(co)) return null;
+        return name.Contains("Dismantle") || name.Contains("Uninstall") ? RemovalReason(co) : null;
     }
     internal static string? RemovalReason(CondOwner? co)
     {

@@ -37,5 +37,21 @@ internal static class SavedStateChecks
             "Validation never retains a stale native snapshot");
         check(new ObjectStateStore(secondWorld, "Tests.Flight", "console-1", 1).Read(out _) == SavedStateStatus.Missing,
             "Identical IDs in another save cannot leak state through globals");
+
+        // Changed-only writes: an identical payload leaves the native map untouched, anything else still writes or refuses.
+        var settled = new ObjectStateStore(maps, "Tests.Settle", "console-1", 1);
+        var payload = new Dictionary<string, string> { ["mode"] = "active", ["elapsed"] = "12" };
+        check(settled.Status() == SavedStateStatus.Missing && settled.TryWriteIfChanged(payload) && settled.Status() == SavedStateStatus.Ready, "The first changed-only write creates the record");
+        var written = maps["PhobosState.Tests.Settle"];
+        check(settled.TryWriteIfChanged(new Dictionary<string, string> { ["mode"] = "active", ["elapsed"] = "12" }) && ReferenceEquals(written, maps["PhobosState.Tests.Settle"]),
+            "An identical payload keeps the existing native map");
+        payload["elapsed"] = "13";
+        check(settled.TryWriteIfChanged(payload) && !ReferenceEquals(written, maps["PhobosState.Tests.Settle"]) && settled.Read(out var after) == SavedStateStatus.Ready && after["elapsed"] == "13",
+            "A changed value writes a new detached map");
+        check(!settled.TryWriteIfChanged(new Dictionary<string, string> { ["mode"] = "bad=value" }), "Changed-only writes still refuse unsafe values");
+        check(settled.TryWriteIfChanged(new Dictionary<string, string> { ["mode"] = "active" }) && settled.Read(out var fewer) == SavedStateStatus.Ready && fewer.Count == 1,
+            "A payload with fewer fields is a change");
+        maps["PhobosState.Tests.Settle"]["schema"] = "nonsense";
+        check(settled.Status() == SavedStateStatus.Invalid && !settled.TryWriteIfChanged(payload), "A corrupt envelope is retained by changed-only writes too");
     }
 }

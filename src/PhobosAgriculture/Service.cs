@@ -30,8 +30,14 @@ internal static partial class Service
         internal double Last, Received, DeliveredKW, LastPower = double.NegativeInfinity;
         internal bool Protected, Routed;
         internal string Notice = "";
+        // Per-session caches for the per-step paths: the water port bank (its ports read the maps live) and the
+        // last irrigation route key, hashed once per distinct path instead of once per pump step.
+        internal Phobos.Ostranauts.Framework.Inventory.PortBank? Bank;
+        internal string RouteKey = "", RouteKeySource = "";
+        internal int[]? RouteKeyPath;
     }
     private static readonly Dictionary<string, Session> sessions = new(StringComparer.Ordinal);
+    private static readonly List<CondOwner> scanned = new();
     internal static void Reset() => sessions.Clear();
     internal static void ModeChanged(CondOwner replacement, Session previous)
     {
@@ -47,7 +53,11 @@ internal static partial class Service
         if (CrewSim.objInstance == null || !CrewSim.objInstance.FinishedLoading || DataHandler.mapCOs == null) return;
         using var measurement = Phobos.Ostranauts.Framework.Diagnostics.Performance.Measure(PerformanceMetrics.Scan);
         Phobos.Ostranauts.Framework.Diagnostics.Performance.Increment(PerformanceMetrics.Candidates, DataHandler.mapCOs.Count);
-        foreach (var co in DataHandler.mapCOs.Values.Where(c => Definitions.Machine(c) && !c.bDestroyed && c.ship != null && (int)c.ship.LoadState >= 2).ToArray())
+        // One plain pass over the world: a set lookup per object, no query allocations for the 45,000 that are not ours.
+        scanned.Clear();
+        foreach (var c in DataHandler.mapCOs.Values)
+            if (c != null && Definitions.Machine(c) && !c.bDestroyed && c.ship != null && (int)c.ship.LoadState >= 2) scanned.Add(c);
+        foreach (var co in scanned)
         {
             if (!co.HasCond("IsInstalled") || co.HasCond("IsDamaged")) { BeginRun(co); Tick(co); }
             var display = Get(co);
@@ -115,11 +125,13 @@ internal static partial class Service
         if (s.Protected) throw new InvalidOperationException(Text.Get("protected"));
         var solutionFields = s.Solution.Save(s.State);
         SaveRecovery(s);
-        if (!DosingStore(s.Object).TryWrite(DosingBinding.Save(s.DoseId))) throw new InvalidOperationException("Protected dosing binding.");
-        if (!WorkupStore(s.Object).TryWrite(s.Workup.Save())) throw new InvalidOperationException("Protected workup state.");
-        if (!LineStore(s.Object).TryWrite(s.Line.Save())) { s.Protected=true; throw new InvalidOperationException(Text.Get("protected")); }
-        if (!s.Store.TryWrite(s.State.Save())) { s.Protected = true; throw new InvalidOperationException(Text.Get("protected")); }
-        if (!SolutionStore(s.Object).TryWrite(solutionFields)) { s.Protected = true; throw new InvalidOperationException(Text.Get("protected")); }
+        // Every record is validated on each save; a record that already holds these values is left as it is.
+        Phobos.Ostranauts.Framework.Diagnostics.Performance.Increment(PerformanceMetrics.Saves);
+        if (!DosingStore(s.Object).TryWriteIfChanged(DosingBinding.Save(s.DoseId))) throw new InvalidOperationException("Protected dosing binding.");
+        if (!WorkupStore(s.Object).TryWriteIfChanged(s.Workup.Save())) throw new InvalidOperationException("Protected workup state.");
+        if (!LineStore(s.Object).TryWriteIfChanged(s.Line.Save())) { s.Protected=true; throw new InvalidOperationException(Text.Get("protected")); }
+        if (!s.Store.TryWriteIfChanged(s.State.Save())) { s.Protected = true; throw new InvalidOperationException(Text.Get("protected")); }
+        if (!SolutionStore(s.Object).TryWriteIfChanged(solutionFields)) { s.Protected = true; throw new InvalidOperationException(Text.Get("protected")); }
         // Native containers already include child cargo in StatMass. Keep it and propagate
         // only the numerical reservoir/biomass difference to any native parent.
         s.Object.AddMass(Definitions.DryMass(s.Object) + s.State.ContentsMass + s.Solution.TotalKg + s.Line.TotalKg + PhysicalMass(s.Object) - s.Object.GetCondAmount("StatMass"), true);

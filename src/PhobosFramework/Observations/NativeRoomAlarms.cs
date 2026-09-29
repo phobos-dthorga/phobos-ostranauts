@@ -22,7 +22,13 @@ public static class NativeRoomAlarms
     }
     private static ConditionalWeakTable<CondOwner, Witness> witnesses = new ConditionalWeakTable<CondOwner, Witness>();
     private static readonly string[] Families = { "O2", "N2", "CO2", "Smoke", "Contaminants", "Temp" };
-    public static string? Kind(CondOwner source) => Families.FirstOrDefault(f => source.HasCond("IsAlarm" + f));
+    // The condition names are built once: this runs for every sensor the game evaluates, alarm or not.
+    private static readonly string[] AlarmConditions = { "IsAlarmO2", "IsAlarmN2", "IsAlarmCO2", "IsAlarmSmoke", "IsAlarmContaminants", "IsAlarmTemp" };
+    public static string? Kind(CondOwner source)
+    {
+        for (int i = 0; i < AlarmConditions.Length; i++) if (source.HasCond(AlarmConditions[i])) return Families[i];
+        return null;
+    }
 
     public static string? HardwareProblem(CondOwner source)
     {

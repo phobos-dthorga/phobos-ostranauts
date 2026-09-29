@@ -44,14 +44,24 @@ public static class CrewWork
         internal Interaction? Pickup;
         internal string Lease = Guid.NewGuid().ToString("N");
         internal double Seconds;
+        // Reservation keys, rebuilt once per step: the filter asks for them for every crew member.
+        internal string[]? KeysNow; internal long KeysStep = long.MinValue;
     }
     // Several orders may target one store (a rack feeding a tray, a tray feeding a reclaimer); the
     // native default of one task per target and action would silently drop the later ones.
     internal const int TasksPerTarget = 16;
+    private static ICrewWorkProvider[] providerList = Array.Empty<ICrewWorkProvider>();
     public static void Register(ICrewWorkProvider provider)
-    { if (providers.ContainsKey(provider.Id)) throw new ArgumentException("Duplicate crew-work provider."); providers.Add(provider.Id, provider); }
-    public static void Unregister(string id) => providers.Remove(id);
-    public static ICrewWorkProvider? Provider(CondOwner co) => providers.Values.FirstOrDefault(p => p.Supports(co));
+    { if (providers.ContainsKey(provider.Id)) throw new ArgumentException("Duplicate crew-work provider."); providers.Add(provider.Id, provider); providerList = providers.Values.ToArray(); }
+    public static void Unregister(string id) { providers.Remove(id); providerList = providers.Values.ToArray(); }
+    /// <summary>The provider that supports an object. A plain loop: this runs for every root object of every crew
+    /// ship at each discovery pass, and one provider (Auto Nav) reads a live condition, so no memo by definition.</summary>
+    public static ICrewWorkProvider? Provider(CondOwner co)
+    {
+        var current = providerList;
+        for (int i = 0; i < current.Length; i++) if (current[i].Supports(co)) return current[i];
+        return null;
+    }
     public static CondOwner? Resolve(string? id) => id != null && DataHandler.mapCOs != null && DataHandler.mapCOs.TryGetValue(id, out var c) && c != null && !c.bDestroyed ? c : null;
     internal static ObjectStateStore Store(CondOwner co, string name) => new(co.mapGUIPropMaps, name, FrameworkInfo.PluginId, 1);
     public static StandingOrder Order(CondOwner co)
@@ -143,20 +153,43 @@ public static class CrewWork
         // Exterior mission controls are onboard. Native paths retain airlock/EVA checks for actual travel.
         reason = ""; return true;
     }
+    /// <summary>A fresh native path check (an A* search); the claim uses this directly.</summary>
     internal static bool Path(CondOwner actor, CondOwner target)
     {
         if (actor.ship != target.ship || target.HasCond("IsLocked") || target.objContainer?.Locked == true) return false;
+        Diagnostics.Performance.Increment(Diagnostics.Performance.CrewPathChecks);
         var ia = DataHandler.GetInteraction(WorkId);
         return ia != null && ia.Triggered(actor, target, bStats: false, bIgnoreItems: false, bCheckPath: true, bFetchItems: false);
     }
+    // The native task search asks about every Phobos task for every crew member on each AI turn; within one step
+    // nothing moves, so a path or preparation answer is reused for that step and forgotten with it. The claim
+    // itself (Admit) always checks fresh.
+    private static readonly Processing.StepMemo<(CondOwner, CondOwner), bool> paths = new();
+    private static readonly Processing.StepMemo<(CondOwner, CrewWorkOffer), bool> preparations = new();
+    internal static bool PathThisStep(CondOwner actor, CondOwner target)
+    {
+        long step = Processing.NativeSteps.Frame;
+        if (paths.TryGet(step, (actor, target), out bool known)) return known;
+        bool result = Path(actor, target); paths.Set(step, (actor, target), result); return result;
+    }
+    internal static bool PreparedThisStep(CondOwner actor, CrewWorkOffer offer)
+    {
+        long step = Processing.NativeSteps.Frame;
+        if (preparations.TryGet(step, (actor, offer), out bool known)) return known;
+        bool result = CrewLogistics.Prepare(actor, offer); preparations.Set(step, (actor, offer), result); return result;
+    }
     internal static IEnumerable<string> Keys(Job j)
     {
-        yield return "equipment:" + j.Equipment.strID;
-        if (j.Offer.Cargo != null) yield return "item:" + j.Offer.Cargo.strID;
-        if (j.Offer.Destination != null) yield return "capacity:" + j.Offer.Destination.strID;
-        if (j.Offer.Origin != null) yield return "capacity:" + j.Offer.Origin.strID;
-        yield return "capacity:" + j.Equipment.strID;
-        foreach (var item in j.Equipment.GetCOsSafe(true)) yield return "item:" + item.strID;
+        long step = Processing.NativeSteps.Frame;
+        if (j.KeysNow != null && j.KeysStep == step) return j.KeysNow;
+        var keys = new List<string> { "equipment:" + j.Equipment.strID };
+        if (j.Offer.Cargo != null) keys.Add("item:" + j.Offer.Cargo.strID);
+        if (j.Offer.Destination != null) keys.Add("capacity:" + j.Offer.Destination.strID);
+        if (j.Offer.Origin != null) keys.Add("capacity:" + j.Offer.Origin.strID);
+        keys.Add("capacity:" + j.Equipment.strID);
+        foreach (var item in j.Equipment.GetCOsSafe(true)) keys.Add("item:" + item.strID);
+        j.KeysNow = keys.ToArray(); j.KeysStep = step;
+        return j.KeysNow;
     }
     internal static int DutyPriority(CondOwner actor, string duty)
     {
@@ -178,7 +211,7 @@ public static class CrewWork
     internal static bool PreferredAvailable(CondOwner actor, CrewWorkOffer offer, Func<CondOwner,bool>? available = null) =>
         !CrewSpecialities.Skilled(actor, offer.Skill) && CrewRoster.Members().Any(other => other != actor &&
             (available?.Invoke(other) ?? Idle(other)) && DutyPriority(other, offer.Duty) == DutyPriority(actor, offer.Duty) &&
-            CrewSpecialities.Skilled(other, offer.Skill) && Eligible(other, offer, out _) && Path(other, offer.Target) && CrewLogistics.Prepare(other, offer));
+            CrewSpecialities.Skilled(other, offer.Skill) && Eligible(other, offer, out _) && PathThisStep(other, offer.Target) && PreparedThisStep(other, offer));
     internal static void Notice(CondOwner co, string reason) => notices[co.strID] = reason;
     private static void Forget(string id) { announced.Remove(id); failures.Remove(id); nextAttempt.Remove(id); retryReason.Remove(id); }
     /// <summary>Seconds of game time before a failed step is offered again, or zero.</summary>
@@ -204,9 +237,10 @@ public static class CrewWork
         catch (Exception e) { Notice(co, Message("fault", e.Message)); }
     }
     /// <summary>Everything a claim would check, so an unclaimable task is withheld from the native
-    /// search instead of ending it and hiding lower-priority vanilla work.</summary>
-    internal static bool Admissible(CondOwner actor, Job j) => Eligible(actor, j.Offer, out _) && Path(actor, j.Offer.Target) &&
-        CrewLogistics.Prepare(actor, j.Offer) && !PreferredAvailable(actor, j.Offer) && Reservations.Available(j.Lease, Keys(j));
+    /// search instead of ending it and hiding lower-priority vanilla work. Cheap facts first, the path
+    /// searches last, each reused within the step.</summary>
+    internal static bool Admissible(CondOwner actor, Job j) => Reservations.Available(j.Lease, Keys(j)) && Eligible(actor, j.Offer, out _) &&
+        PathThisStep(actor, j.Offer.Target) && PreparedThisStep(actor, j.Offer) && !PreferredAvailable(actor, j.Offer);
     internal static void Fault(CondOwner co, Exception error)
     { Notice(co, Message("fault", error.Message)); SetPermission(co, WorkPermission.Suspended,"fault"); }
     public static void Poll()
@@ -327,6 +361,8 @@ internal static class CrewTaskFilter
     [HarmonyPriority(Priority.Last)]
     private static void Postfix(CondOwner co, ref List<Task2> __result)
     {
+        if (CrewWork.Jobs.Count == 0 || __result == null) return;
+        using var measurement = Phobos.Ostranauts.Framework.Diagnostics.Performance.Measure(Phobos.Ostranauts.Framework.Diagnostics.Performance.CrewTaskFilter);
         __result.RemoveAll(t => t.strInteraction == CrewWork.WorkId && (!CrewWork.Jobs.TryGetValue(t, out var j) || !CrewWork.Admissible(co, j)));
     }
 }

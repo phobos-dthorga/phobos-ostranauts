@@ -30,8 +30,17 @@ public static class BulkVesselSizes
     public static VesselSize? SizeOf(string? definition, string smallPrefix)
     {
         if (definition == null) return null;
-        foreach (var size in All) if (EquipmentIdentity.IsFamily(definition, Prefix(smallPrefix, size))) return size;
+        var prefixes = Prefixes(smallPrefix);
+        for (int i = 0; i < prefixes.Length; i++) if (EquipmentIdentity.IsFamily(definition, prefixes[i])) return All[i];
         return null;
+    }
+    // The three prefixes of a ladder are built once per family, not concatenated on every classification.
+    private static readonly Dictionary<string, string[]> ladderPrefixes = new(StringComparer.Ordinal);
+    private static string[] Prefixes(string smallPrefix)
+    {
+        if (!ladderPrefixes.TryGetValue(smallPrefix, out var prefixes))
+            ladderPrefixes[smallPrefix] = prefixes = new[] { Prefix(smallPrefix, VesselSize.Small), Prefix(smallPrefix, VesselSize.Medium), Prefix(smallPrefix, VesselSize.Large) };
+        return prefixes;
     }
     public static bool InLadder(string? definition, string smallPrefix) => SizeOf(definition, smallPrefix) != null;
 

@@ -30,6 +30,9 @@ public static class Performance
     internal static PerformanceMetric? RoomAlarmRead;
     internal static PerformanceMetric? CrewDiscovery = null;
     internal static PerformanceMetric? ShipCandidates = null;
+    // 29 September 2026 pass: the Framework hot paths the fast-forward captures attribute.
+    internal static PerformanceMetric? FluidRouteFind = null, FluidRouteObjects = null, CrewTaskFilter = null, CrewPathChecks = null, RcsCollect = null,
+        StateWrite = null, StateWritesSkipped = null, WaterRefill = null, SkipMachineStep = null;
     public static bool IsRecording => Session?.IsRecording == true;
     public static PerformanceMetric? RegisterOperation(string name, string category)
     {

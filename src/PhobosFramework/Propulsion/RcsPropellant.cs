@@ -38,33 +38,50 @@ public static class RcsPropellant
         }
         return mass > 0 ? weighted / mass : 1;
     }
+    /// <summary>The game's per-species mole keys ("StatGasMolO2") with each gas's molar mass and worth, built once so a
+    /// container reading per physics step neither substrings nor allocates.</summary>
+    private static readonly Dictionary<string, (double KgPerMol, double Ratio)> moleKeys = BuildMoleKeys();
+    private static Dictionary<string, (double, double)> BuildMoleKeys()
+    {
+        var keys = new Dictionary<string, (double, double)>(StringComparer.Ordinal);
+        foreach (var pair in NativeGasCanister.KgPerMol) keys["StatGasMol" + pair.Key] = (pair.Value, ExhaustRatio(pair.Key));
+        return keys;
+    }
     /// <summary>The ratio of what a native gas container holds now, from its committed moles.</summary>
     internal static double ContainerRatio(GasContainer gas)
     {
         if (gas?.mapGasMols1 == null) return 1;
-        var parts = new List<KeyValuePair<string, double>>();
+        double mass = 0, weighted = 0;
         foreach (var pair in gas.mapGasMols1)
         {
-            if (!pair.Key.StartsWith("StatGasMol", StringComparison.Ordinal) || pair.Key == "StatGasMolTotal") continue;
-            string species = pair.Key.Substring("StatGasMol".Length);
-            if (NativeGasCanister.KgPerMol.TryGetValue(species, out double kgPerMol)) parts.Add(new KeyValuePair<string, double>(species, pair.Value * kgPerMol));
+            if (!moleKeys.TryGetValue(pair.Key, out var species)) continue;
+            double kg = pair.Value * species.KgPerMol;
+            if (double.IsNaN(kg) || double.IsInfinity(kg) || kg <= 0) continue;
+            mass += kg; weighted += kg * species.Ratio;
         }
-        return MixtureRatio(parts);
+        return mass > 0 ? weighted / mass : 1;
     }
 
-    private static readonly List<IRcsPropellantFeed> feeds = new();
+    // Feeds are a copy-on-write array: registration is rare, lookups happen on every RCS query.
+    private static volatile IRcsPropellantFeed[] feeds = Array.Empty<IRcsPropellantFeed>();
     /// <summary>Registers a content feed (a manifold drawing from bulk stores). One per owner id.</summary>
     public static void Register(IRcsPropellantFeed feed)
     {
         if (feed == null || string.IsNullOrWhiteSpace(feed.Id)) throw new ArgumentException("Invalid propellant feed.");
-        lock (feeds) { feeds.RemoveAll(f => f.Id == feed.Id); feeds.Add(feed); }
+        lock (Gamma) feeds = feeds.Where(f => f.Id != feed.Id).Append(feed).ToArray();
     }
-    public static void Unregister(string id) { lock (feeds) feeds.RemoveAll(f => f.Id == id); }
+    public static void Unregister(string id) { lock (Gamma) feeds = feeds.Where(f => f.Id != id).ToArray(); }
     internal static IRcsPropellantFeed? FeedFor(CondOwner co)
     {
-        lock (feeds) return feeds.FirstOrDefault(f => { try { return f.IsFeed(co); } catch { return false; } });
+        var current = feeds;
+        for (int i = 0; i < current.Length; i++)
+        {
+            try { if (current[i].IsFeed(co)) return current[i]; }
+            catch { }
+        }
+        return null;
     }
-    internal static bool AnyFeeds { get { lock (feeds) return feeds.Count > 0; } }
+    internal static bool AnyFeeds => feeds.Length > 0;
 }
 
 /// <summary>A content object on a regulator's gas-input tile that supplies RCS remass from somewhere the engine

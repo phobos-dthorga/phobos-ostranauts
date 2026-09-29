@@ -97,7 +97,7 @@ internal static partial class Service
     {
         var co=source.Object;
         if(!NativeFluidRoute.EndpointReady(co)||source.Protected||WaterGuard(co).Protected) yield break;
-        foreach(var port in WaterBank(co).Ports)
+        foreach(var port in (source.Bank ??= WaterBank(co)).Ports)
         {
             var link=PortPairing.Read(port); var peer=link.State==PortLinkState.Linked?Resolve(link.PeerObjectId):null;
             if(peer==null||!Definitions.Machine(peer)||Definitions.IsCooker(peer)||IrrigationDefinitions.IsSupply(peer)||peer.ship!=co.ship||!NativeFluidRoute.EndpointReady(peer)||!PortPairing.Matches(port,WaterPort(peer))) continue;
@@ -105,17 +105,31 @@ internal static partial class Service
             if(!target.Protected&&!WaterGuard(peer).Protected&&!LineGuard(peer).Protected&&target.Routed&&CompatibleSolution(source,target)&&(!requireReceiving||target.State.Receiving)) yield return target;
         }
     }
+    private static readonly FluidSegmentFamily WaterPipes = new("PhobosAgriculture.Water", c => c.strCODef == IrrigationDefinitions.Pipe + "Installed");
+    // A power step asks for the same routes from the demand check and the pump; one answer per step per pair.
+    private static readonly Phobos.Ostranauts.Framework.Processing.StepMemo<(CondOwner, CondOwner), int[]?> routes = new();
+    private static readonly Phobos.Ostranauts.Framework.Processing.StepMemo<Ship, CondOwner[]> supplies = new();
+    private static CondOwner[] SuppliesAboard(Ship ship) => supplies.GetOrAdd(Phobos.Ostranauts.Framework.Processing.NativeSteps.Frame, ship,
+        s => s.GetCOs(null, false, false, true).Where(o => o != null && o.ship == s && Definitions.Machine(o) && IrrigationDefinitions.IsSupply(o)).ToArray());
     private static int[]? Route(Session source, Session target)
     {
-        bool Segment(CondOwner c) => c.strCODef == IrrigationDefinitions.Pipe + "Installed";
-        var path = NativeFluidRoute.Find(source.Object, IrrigationDefinitions.Outlet, target.Object, IrrigationDefinitions.Inlet, Segment);
+        long step = Phobos.Ostranauts.Framework.Processing.NativeSteps.Frame;
+        if (routes.TryGet(step, (source.Object, target.Object), out var known)) return known;
+        var path = RouteNow(source, target);
+        routes.Set(step, (source.Object, target.Object), path);
+        return path;
+    }
+    private static int[]? RouteNow(Session source, Session target)
+    {
+        using var measurement = Phobos.Ostranauts.Framework.Diagnostics.Performance.Measure(PerformanceMetrics.Route);
+        var path = FluidRouteCache.Find(source.Object, IrrigationDefinitions.Outlet, target.Object, IrrigationDefinitions.Inlet, WaterPipes);
         if (path == null || path.Length > RouteTileLimit) return null;
         // First slice has one pump authority per connected component. Additional independent
         // circuits are fine; joining two live source outlets blocks delivery instead of multiplying flow.
-        foreach (var other in source.Object.ship.GetCOs(null, false, false, true))
-            if (other != source.Object && Definitions.Machine(other) && IrrigationDefinitions.IsSupply(other) &&
-                other.ship == source.Object.ship && NativeFluidRoute.EndpointReady(other) &&
-                NativeFluidRoute.Find(source.Object, IrrigationDefinitions.Outlet, other, IrrigationDefinitions.Outlet, Segment) != null) return null;
+        var outlet = source.Object.GetPos(IrrigationDefinitions.Outlet);
+        foreach (var other in SuppliesAboard(source.Object.ship))
+            if (other != source.Object && NativeFluidRoute.EndpointReady(other) &&
+                FluidRouteCache.SharesCircuit(source.Object, outlet, other, other.GetPos(IrrigationDefinitions.Outlet), WaterPipes)) return null;
         return path;
     }
     private static double SupplyDemand(Session s)

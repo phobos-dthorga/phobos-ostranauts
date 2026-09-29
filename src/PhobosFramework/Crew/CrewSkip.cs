@@ -16,8 +16,9 @@ public static class CrewSkip
     // The game's own repair allowance is scaled by the share that stayed free for ship repairs.
     private static double workedSeconds, availableSeconds;
     internal static double RepairShare => CrewBalance.RepairShare(workedSeconds, availableSeconds);
-    private static readonly FieldInfo PowerEpoch = AccessTools.Field(typeof(Powered), "fUpdateLast");
-    private static readonly MethodInfo RunPower = AccessTools.Method(typeof(Powered), "Run");
+    // Compiled accessors: a skip steps every consumer once per simulated second, so no boxing or Invoke per step.
+    private static readonly AccessTools.FieldRef<Powered, double> PowerEpoch = AccessTools.FieldRefAccess<Powered, double>("fUpdateLast");
+    private static readonly Action<Powered> RunPower = AccessTools.MethodDelegate<Action<Powered>>(AccessTools.Method(typeof(Powered), "Run"));
     private static readonly Dictionary<string,double> busy = new(StringComparer.Ordinal);
     private static readonly Dictionary<string,CrewWork.Job> assignments = new(StringComparer.Ordinal);
     private static readonly Dictionary<string,int> completions = new(StringComparer.Ordinal);
@@ -204,18 +205,19 @@ public static class CrewSkip
             if(ship.Reactor!=null) ship.Reactor.GetComponent<FusionIC>()?.CatchUp();
             foreach(var co in consumers.Where(c=>c!=null && !c.bDestroyed && c.ship==ship))
             {
+                using var measurement=Diagnostics.Performance.Measure(Diagnostics.Performance.SkipMachineStep);
                 var provider=CrewWork.Provider(co);
                 bool supported=provider==null || provider is ICrewSkipProvider p && p.CanAdvance(co,out _);
                 if(!supported || faulted.Contains(co.strID))
-                { if(co.Pwr!=null)PowerEpoch.SetValue(co.Pwr,StarSystem.fEpoch); continue; }
+                { if(co.Pwr!=null)PowerEpoch(co.Pwr)=StarSystem.fEpoch; continue; }
                 if(co.Pwr!=null)
                 {
-                    var last=(double)PowerEpoch.GetValue(co.Pwr);
+                    double last=PowerEpoch(co.Pwr);
                     if(StarSystem.fEpoch-last>=1)
                     {
-                        try { RunPower.Invoke(co.Pwr,null); }
+                        try { RunPower(co.Pwr); }
                         catch(Exception error) { faulted.Add(co.strID); if(provider!=null)CrewWork.Fault(co,error); }
-                        finally { PowerEpoch.SetValue(co.Pwr,StarSystem.fEpoch); }
+                        finally { PowerEpoch(co.Pwr)=StarSystem.fEpoch; }
                     }
                 }
                 if(co.GasContainer!=null) co.GasContainer.Run();

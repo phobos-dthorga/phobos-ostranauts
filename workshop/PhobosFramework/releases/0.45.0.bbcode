@@ -1,0 +1,17 @@
+[h1]Phobos Framework 0.45.0[/h1]
+[b]Draft - not published | 2026-09-29[/b]
+
+[h2]Changed[/h2]
+
+[list]
+[*]Performance pass, stage 2 (owner request: the game crawls at fast-forward with every mod active). The game's trigger check, its hottest method, now passes through one Framework hook that returns before any lookup unless a registered selector is involved. Crew task admission checks cheap facts first and reuses each path search within a step; the claim itself still checks fresh. RCS fuel queries share one input list per step and allocate nothing per query. Bulk vessel readings, damaged-vessel checks and the Ship's Water adapter no longer throw, rescan or reflect on every poll. The power-receipt, room-alarm and time-skip hooks lose their per-call allocations and reflection.
+[*]Saved records can be written only when they changed (TryWriteIfChanged), and services that settle on a real-time cadence flush before every native save through one shared save boundary. Every validation rule is unchanged.
+[*]Fluid routes (irrigation, coolant, gas line) can be answered from a topology snapshot per ship that is reread every two real seconds or at once when a part changes mode, is destroyed, or joins or leaves the ship; endpoints are still checked fresh on every call. A pipe that just broke is noticed within two seconds instead of on the same step. Content mods opt in per segment family.
+[*]New shared helpers for content mods: a definition index, a per-step memo, a real-time cadence, deferred status text and the save boundary. Recorder scopes for the fluid route, crew filter, RCS collection, state writes, water refill and time-skip machine steps.
+[/list]
+
+[h2]Compatibility and limits[/h2]
+
+[list]
+[*]Settled draws are logged at Debug level (BepInEx leaves it out of the disk log by default); the saved record is unchanged. No save or definition changes. Offline checks are not gameplay validation; owner before/after captures are pending.
+[/list]

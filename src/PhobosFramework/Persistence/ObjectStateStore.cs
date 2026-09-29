@@ -38,6 +38,9 @@ public sealed class ObjectStateStore
         return SavedStateStatus.Ready;
     }
 
+    /// <summary>The record's status without copying it: the same validation as <see cref="Read"/>.</summary>
+    public SavedStateStatus Status() => Validate(out _);
+
     // Validate current native data on every call; do not cache mutable property maps.
     private SavedStateStatus Validate(out Dictionary<string, string>? map)
     {
@@ -57,20 +60,32 @@ public sealed class ObjectStateStore
     }
 
     /// <summary>Replaces our map with a detached snapshot. Unknown schemas/owners remain untouched.</summary>
-    public bool TryWrite(IReadOnlyDictionary<string, string> fields)
+    public bool TryWrite(IReadOnlyDictionary<string, string> fields) => Write(fields, false);
+    /// <summary>As <see cref="TryWrite"/>, but leaves a record that already holds exactly these fields untouched.
+    /// Every validation rule still applies; only the replacement of an identical map is skipped, so services that
+    /// save on every power step write nothing while nothing changed.</summary>
+    public bool TryWriteIfChanged(IReadOnlyDictionary<string, string> fields) => Write(fields, true);
+    private bool Write(IReadOnlyDictionary<string, string> fields, bool skipUnchanged)
     {
-        var state = Validate(out _);
+        using var measurement = Diagnostics.Performance.Measure(Diagnostics.Performance.StateWrite);
+        var state = Validate(out var current);
         if (state != SavedStateStatus.Missing && state != SavedStateStatus.Ready) return false;
+        foreach (var pair in fields) if (!SafeKey(pair.Key) || !SafeValue(pair.Value)) return false;
+        if (skipUnchanged && state == SavedStateStatus.Ready && Unchanged(current!, fields))
+        { Diagnostics.Performance.Increment(Diagnostics.Performance.StateWritesSkipped); return true; }
         var copy = new Dictionary<string, string>(StringComparer.Ordinal)
         {
             ["schema"] = version.ToString(CultureInfo.InvariantCulture), ["owner"] = owner
         };
-        foreach (var pair in fields)
-        {
-            if (!SafeKey(pair.Key) || !SafeValue(pair.Value)) return false;
-            copy.Add(FieldPrefix + pair.Key, pair.Value);
-        }
+        foreach (var pair in fields) copy.Add(FieldPrefix + pair.Key, pair.Value);
         maps[key] = copy;
+        return true;
+    }
+    private static bool Unchanged(Dictionary<string, string> current, IReadOnlyDictionary<string, string> fields)
+    {
+        if (current.Count != fields.Count + 2) return false;
+        foreach (var pair in fields)
+            if (!current.TryGetValue(FieldPrefix + pair.Key, out var value) || !string.Equals(value, pair.Value, StringComparison.Ordinal)) return false;
         return true;
     }
 
@@ -83,6 +98,14 @@ public sealed class ObjectStateStore
             if (!char.IsLetterOrDigit(value[i]) && value[i] != '.' && value[i] != '_' && value[i] != '-') return false;
         return true;
     }
-    public static bool SafeValue(string? value) => !string.IsNullOrWhiteSpace(value) && value!.Length <= 512 &&
-        !value.Any(c => char.IsControl(c) || c == '=' || c == ',');
+    public static bool SafeValue(string? value)
+    {
+        if (string.IsNullOrWhiteSpace(value) || value!.Length > 512) return false;
+        for (int i = 0; i < value.Length; i++)
+        {
+            char c = value[i];
+            if (char.IsControl(c) || c == '=' || c == ',') return false;
+        }
+        return true;
+    }
 }

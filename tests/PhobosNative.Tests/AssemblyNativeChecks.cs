@@ -13,7 +13,8 @@ internal static class AssemblyNativeChecks
 {
     internal static void Run(NativeDefinitions d, string repo, Action<bool,string> check)
     {
-        var selectionHook = typeof(SectionAssembly).Assembly.GetType("Phobos.Ostranauts.Framework.Construction.SectionAssemblySelection")!
+        // The one shared trigger hook (29 September 2026 pass) carries the section selectors as well as construction's.
+        var selectionHook = typeof(SectionAssembly).Assembly.GetType("Phobos.Ostranauts.Framework.Construction.TriggerRefinementPatch")!
             .GetMethod("Postfix", BindingFlags.Static | BindingFlags.NonPublic)!;
         var informationHook = typeof(SectionAssembly).Assembly.GetType("Phobos.Ostranauts.Framework.Controls.ItemInformationAction")!
             .GetMethod("Prefix", BindingFlags.Static | BindingFlags.NonPublic)!;

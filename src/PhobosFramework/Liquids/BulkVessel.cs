@@ -81,6 +81,7 @@ public sealed class BulkVesselSnapshot
 public static class BulkVessels
 {
     private static readonly List<BulkVesselSpec> specs = new();
+    private static readonly DefinitionIndex<BulkVesselSpec> index = new();
     /// <summary>Registers a family. Registering the same family again for the same owner replaces the earlier
     /// declaration (content prepares definitions on every load); another owner cannot claim a registered family.</summary>
     public static void Register(BulkVesselSpec spec)
@@ -89,11 +90,12 @@ public static class BulkVessels
         if (specs.Any(s => s.Family == spec.Family && s.Owner != spec.Owner || s.Record == spec.Record && s.Owner == spec.Owner && s.Family != spec.Family))
             throw new ArgumentException("Bulk vessel family or record already registered by another declaration: " + spec.Family);
         specs.RemoveAll(s => s.Family == spec.Family);
-        specs.Add(spec);
+        specs.Add(spec); index.Add(spec.Family, spec);
     }
-    public static void Unregister(string owner) => specs.RemoveAll(s => s.Owner == owner);
+    public static void Unregister(string owner) { specs.RemoveAll(s => s.Owner == owner); index.Remove(s => s.Owner == owner); }
     public static IReadOnlyList<BulkVesselSpec> All => specs.AsReadOnly();
-    public static BulkVesselSpec? SpecFor(string? definition) => definition == null ? null : specs.FirstOrDefault(s => EquipmentIdentity.IsFamily(definition, s.Family));
+    /// <summary>The family a definition id belongs to, through the definition index (one dictionary probe on hot paths).</summary>
+    public static BulkVesselSpec? SpecFor(string? definition) => index.Get(definition);
     /// <summary>The declaration for a live object, by its definition id (a distinct name keeps the string lookup
     /// usable from code that does not reference the game assembly).</summary>
     public static BulkVesselSpec? Of(CondOwner? co) => co == null ? null : SpecFor(co.strCODef);
@@ -145,11 +147,25 @@ public static class BulkVessel
         if (!MassMatches(co.GetCondAmount("StatMass"), ExpectedMassKg(spec, s, Cargo(co)))) throw new InvalidOperationException("Bulk vessel physical mass mismatch.");
         return s;
     }
+    /// <summary>The saved contents when the record is readable and the native mass agrees, else null; the
+    /// non-throwing form the per-step readers use, so a protected vessel costs no exception per poll.</summary>
+    public static StoredCommodity? TryRead(CondOwner co, BulkVesselSpec spec)
+    {
+        StoredCommodity? s;
+        try { s = ReadRecord(co, spec); } catch { return null; }
+        return s != null && MassMatches(co.GetCondAmount("StatMass"), ExpectedMassKg(spec, s, Cargo(co))) ? s : null;
+    }
     private static StoredCommodity? ReadRecord(CondOwner co, BulkVesselSpec spec)
     {
         var status = Store(co, spec).Read(out var fields);
         return status == SavedStateStatus.Ready ? StoredCommodity.Read(fields, spec.Commodity, spec.CapacityKg) :
             status == SavedStateStatus.Missing ? new StoredCommodity(spec.Commodity, spec.CapacityKg) : null;
+    }
+    /// <summary>Whether the journals leave the vessel protected: an open conversion or transfer journal.</summary>
+    private static bool JournalsProtected(CondOwner co, BulkVesselSpec spec)
+    {
+        var status = Journal(co, spec).Read(out var d);
+        return Guard(co, spec).Protected || status != SavedStateStatus.Missing && (status != SavedStateStatus.Ready || d.Count != 1 || d["state"] != "clear");
     }
     public static void Save(CondOwner co, StoredCommodity state) => Save(co, Spec(co), state);
     public static void Save(CondOwner co, BulkVesselSpec spec, StoredCommodity state)
@@ -162,12 +178,7 @@ public static class BulkVessel
     {
         var spec = BulkVessels.Of(co);
         if (spec == null) return true;
-        try
-        {
-            Read(co, spec);
-            var status = Journal(co, spec).Read(out var d);
-            return Guard(co, spec).Protected || status != SavedStateStatus.Missing && (status != SavedStateStatus.Ready || d.Count != 1 || d["state"] != "clear");
-        }
+        try { return TryRead(co, spec) == null || JournalsProtected(co, spec); }
         catch { return true; }
     }
     /// <summary>Owner-confirmed recovery: a readable record is trusted, interrupted transfer and conversion
@@ -182,6 +193,7 @@ public static class BulkVessel
         catch (Exception e) { log?.Invoke(e.ToString()); }
         if (s == null || !Guard(co, spec).Resolve() || !Journal(co, spec).TryWrite(new Dictionary<string, string> { ["state"] = "clear" })) return false;
         Save(co, spec, s);
+        BufferedDrains.Forget(co);
         return !Protected(co);
     }
     public static BulkVesselSnapshot Snapshot(CondOwner co)
@@ -189,8 +201,10 @@ public static class BulkVessel
         var spec = Spec(co);
         try
         {
-            var s = Read(co, spec);
-            return new BulkVesselSnapshot(co.strID, co.ship?.strRegID ?? "", spec.Commodity, s.ServiceKg, s.CatchKg, s.ReserveKg, spec.CapacityKg, s.Revision, Protected(co));
+            // One record read, one journal read and the guard: the same answer Read plus Protected gave, at half the cost.
+            var s = TryRead(co, spec);
+            if (s == null) return new BulkVesselSnapshot(co.strID, co.ship?.strRegID ?? "", spec.Commodity, 0, 0, 0, spec.CapacityKg, 0, true);
+            return new BulkVesselSnapshot(co.strID, co.ship?.strRegID ?? "", spec.Commodity, s.ServiceKg, s.CatchKg, s.ReserveKg, spec.CapacityKg, s.Revision, JournalsProtected(co, spec));
         }
         catch { return new BulkVesselSnapshot(co.strID, co.ship?.strRegID ?? "", spec.Commodity, 0, 0, 0, spec.CapacityKg, 0, true); }
     }

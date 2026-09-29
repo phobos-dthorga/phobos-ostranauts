@@ -100,7 +100,9 @@ public sealed class CropState
     public Dictionary<string, string> Save()
     {
         Validate(); var d = new Dictionary<string, string> { ["crop"] = CropId.Length == 0 ? "empty" : CropId, ["cohort"] = Cohort.Length == 0 ? "none" : Cohort, ["cookerInput"] = CookerInput.Length == 0 ? "none" : CookerInput };
-        foreach (var p in new Dictionary<string, double> { ["progress"] = Progress, ["health"] = Health, ["water"] = Water, ["nutrients"] = Nutrients, ["biomass"] = Biomass, ["carbon"] = Carbon, ["pace"] = Pace, ["dark"] = DarkHours, ["cooker"] = CookerProgress }) d[p.Key] = p.Value.ToString("R", CultureInfo.InvariantCulture);
+        string N(double v) => v.ToString("R", CultureInfo.InvariantCulture);
+        d["progress"] = N(Progress); d["health"] = N(Health); d["water"] = N(Water); d["nutrients"] = N(Nutrients); d["biomass"] = N(Biomass);
+        d["carbon"] = N(Carbon); d["pace"] = N(Pace); d["dark"] = N(DarkHours); d["cooker"] = N(CookerProgress);
         d["recoveryRevision"] = RecoveryRevision.ToString(CultureInfo.InvariantCulture);
         return d; // Run/receive permission deliberately does not survive reload.
     }

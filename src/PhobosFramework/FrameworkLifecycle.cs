@@ -10,6 +10,8 @@ public static class FrameworkLifecycle
     public static event Action? ContentLoading;
     public static event Action? ContentLoaded;
     internal static Action<string> Log = _ => { };
+    /// <summary>Routine bookkeeping lines (settled draws) at BepInEx's Debug level, which its disk log leaves out by default.</summary>
+    internal static Action<string> LogDebug = _ => { };
 
     private static void Notify(Action? handlers)
     {
@@ -30,6 +32,8 @@ public static class FrameworkLifecycle
         FrameworkPlugin.RefreshLanguage();
         ConstructionRegistry.BeginLoad();
         Construction.SectionAssembly.Reset();
+        Liquids.FluidRouteCache.InvalidateAll();
+        Liquids.ShipsWaterSupply.Reset();
         Controls.ItemInformation.Reset();
         Trading.MarketStock.BeginLoad();
         Registration.MaintenanceSafety.Actions.Clear();

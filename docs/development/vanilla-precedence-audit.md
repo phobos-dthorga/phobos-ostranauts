@@ -227,3 +227,12 @@ room through Framework `RoomGas`, the same clamped path as the X2's cabin
 fallback. It does not replace the native air pump, scrubbers or room gas rules. It
 only adds gas, stops below 10 kPa and never raises oxygen past 30% of the air.
 Verdict: additive.
+
+## Trigger refinement hook (Framework 0.45.0, 29 September 2026)
+
+The two postfixes on `CondTrigger.Triggered` (construction selectors, section
+assembly selectors) are one postfix, `TriggerRefinements`. It still only refines a
+true native result for a registered selector name; unnamed and unknown triggers,
+including the game's Blank trigger, keep their native outcome, and nothing is
+gated on a name pattern. Checked natively with null, empty and unrelated names.
+Verdict: the same amendment, one hook.

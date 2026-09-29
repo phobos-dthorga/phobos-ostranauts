@@ -49,7 +49,7 @@ public static class ConstructionRegistry
         complete = false; loading = true;
         Recipes.Clear(); Selectors.Clear(); StationSelectors.Clear(); Aliases.Clear(); Owners.Clear();
         RegisteredOwners.Clear(); ReadyOwners.Clear();
-        ConstructionHooks.ResetAll();
+        ConstructionHooks.ResetAll(); TriggerRefinements.Clear();
     }
     internal static void CompleteLoad()
     {
@@ -177,7 +177,8 @@ public static class ConstructionRegistry
             transaction.Stage(Recipes, registered);
             transaction.Stage(Selectors, selectors); transaction.Stage(StationSelectors, stationSelectors);
             transaction.Stage(Aliases, aliases);
-            transaction.Commit();
+            // A rolled-back commit restores the selector tables, so the refinement table follows them either way.
+            try { transaction.Commit(); } finally { TriggerRefinements.Rebuild(); }
             foreach (var (station, craft) in stationActions) DefinitionAmendments.AppendInteractions(DataHandler.dictCOs[station], craft);
             Owners[owner] = Text.Get("ConstructionRegistry.registered");
             RegisteredOwners.Add(owner);

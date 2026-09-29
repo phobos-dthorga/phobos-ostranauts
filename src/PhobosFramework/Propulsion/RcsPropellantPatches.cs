@@ -14,13 +14,28 @@ namespace Phobos.Ostranauts.Framework.Propulsion;
 internal static class RcsInputs
 {
     internal sealed class Input { internal CondOwner Co = null!; internal IRcsPropellantFeed? Feed; }
+    /// <summary>Draw passes: feeds that asked to go first, then the native canisters, then the other feeds.</summary>
+    internal static readonly int[] Passes = { 0, 1, 2 };
+    private static readonly HashSet<CondOwner> seen = new();
+    private static readonly List<CondOwner> list = new();
+    private static readonly StepMemo<Ship, List<Input>> inputsByStep = new();
+    /// <summary>The ship's inputs for this step: the tiles and their occupants do not change within one step, and
+    /// drawing changes masses, not the list, so the nav display, the flight controller and the manoeuvre all share
+    /// one collection per step.</summary>
+    internal static List<Input> Collect(Ship ship, List<CondOwner>? distros, CondTrigger? nativeInput)
+    {
+        if (inputsByStep.TryGet(NativeSteps.Frame, ship, out var cached)) return cached;
+        using var measurement = Diagnostics.Performance.Measure(Diagnostics.Performance.RcsCollect);
+        var inputs = Collect(distros, nativeInput);
+        inputsByStep.Set(NativeSteps.Frame, ship, inputs);
+        return inputs;
+    }
     /// <summary>Everything on the regulators' gas-input tiles, in the native order.</summary>
     internal static List<Input> Collect(List<CondOwner>? distros, CondTrigger? nativeInput)
     {
         var inputs = new List<Input>();
         if (distros == null) return inputs;
-        var seen = new HashSet<CondOwner>();
-        var list = new List<CondOwner>();
+        seen.Clear();
         foreach (var distro in distros)
         {
             if (distro == null || distro.ship == null || distro.mapPoints == null) continue;
@@ -51,10 +66,10 @@ internal static class RcsInputs
             if (fMassNeeded <= 0 || !Loaded(__instance)) return true;
             try
             {
-                var inputs = Collect(___aRCSDistros, ___ctRCSGasInput);
+                var inputs = Collect(__instance, ___aRCSDistros, ___ctRCSGasInput);
                 double need = fMassNeeded, served = 0;
                 // Feeds that asked to go first, then the native canisters, then the other feeds.
-                foreach (int pass in new[] { 0, 1, 2 })
+                foreach (int pass in Passes)
                     foreach (var input in inputs)
                     {
                         if (need - served <= 1e-9) break;
@@ -89,7 +104,7 @@ internal static class RcsInputs
             try
             {
                 double total = 0;
-                foreach (var input in Collect(___aRCSDistros, ___ctRCSGasInput))
+                foreach (var input in Collect(__instance, ___aRCSDistros, ___ctRCSGasInput))
                     total += input.Feed != null ? Math.Max(0, input.Feed.ReserveEquivalentKg(input.Co))
                         : input.Co.GasContainer.Mass * RcsPropellant.ContainerRatio(input.Co.GasContainer);
                 __result = total;
@@ -108,7 +123,7 @@ internal static class RcsInputs
             try
             {
                 double total = 0;
-                foreach (var input in Collect(___aRCSDistros, ___ctRCSGasInput))
+                foreach (var input in Collect(__instance, ___aRCSDistros, ___ctRCSGasInput))
                 {
                     if (input.Feed != null) { total += Math.Max(0, input.Feed.CapacityEquivalentKg(input.Co)); continue; }
                     // The game's own capacity arithmetic at its 293 K, in the canister's rated species (nitrogen when unknown).

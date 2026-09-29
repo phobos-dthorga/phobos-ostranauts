@@ -36,10 +36,15 @@ public static class CrewLogistics
         var ship = equipment.ship;
         if (ship == null) return Array.Empty<CondOwner>();
         var origin = equipment.GetPos("use");
-        return ship.GetCOs(null, true, false, false)
-            .Where(c => c != null && !c.bDestroyed && c.ship == ship && c.coStackHead == null && Loose(c) && Available(c, equipment, destination))
+        return LooseHeads(ship)
+            .Where(c => !c.bDestroyed && Available(c, equipment, destination))
             .OrderBy(c => TileUtils.TileRange(c.GetPos(), origin)).ThenBy(c => c.strID, StringComparer.Ordinal).ToArray();
     }
+    // One discovery pass asks for every starved machine on a ship in the same step; the walk over every nested
+    // object aboard is shared for that step, and each machine sorts its own view of the loose stack heads.
+    private static readonly Phobos.Ostranauts.Framework.Processing.StepMemo<Ship, CondOwner[]> looseHeads = new();
+    private static CondOwner[] LooseHeads(Ship ship) => looseHeads.GetOrAdd(Phobos.Ostranauts.Framework.Processing.NativeSteps.Frame, ship, s =>
+        s.GetCOs(null, true, false, false).Where(c => c != null && !c.bDestroyed && c.ship == s && c.coStackHead == null && Loose(c)).ToArray());
     private static bool Available(CondOwner unit, CondOwner equipment, CondOwner destination)
     {
         var parent = unit.objCOParent;

@@ -8,22 +8,24 @@ namespace Phobos.Ostranauts.Framework.Processing;
 public static class NativeEnergyReceipts
 {
     private static readonly ConditionalWeakTable<Powered, EnergyReceipt> Pending = new();
+    // The gather hook runs for every powered object in the world; with no receipt open it returns on one integer.
+    private static int pending;
     public static EnergyReceipt Begin(Powered power, CondOwner machine, double requestedKWh)
     {
         if (Pending.TryGetValue(power, out _)) throw new InvalidOperationException("Nested electrical receipt for one appliance.");
         var receipt = new EnergyReceipt(requestedKWh, machine.GetCondAmount("StatPower"));
-        Pending.Add(power, receipt); return receipt;
+        Pending.Add(power, receipt); pending++; return receipt;
     }
     public static double Complete(Powered power, CondOwner machine, EnergyReceipt receipt)
     {
         if (!Pending.TryGetValue(power, out var current) || !ReferenceEquals(current, receipt))
             throw new InvalidOperationException("Electrical receipt is no longer current.");
-        Pending.Remove(power);
+        if (Pending.Remove(power)) pending--;
         return receipt.Consume(machine.GetCondAmount("StatPower"));
     }
-    public static void Forget(Powered power) => Pending.Remove(power);
+    public static void Forget(Powered power) { if (Pending.Remove(power)) pending--; }
     internal static void Gather(Powered power, double requested, double remaining)
-    { if (Pending.TryGetValue(power, out var receipt)) receipt.Gather(requested, remaining); }
+    { if (pending > 0 && Pending.TryGetValue(power, out var receipt)) receipt.Gather(requested, remaining); }
 }
 
 [HarmonyPatch(typeof(Powered), "GatherPower")]

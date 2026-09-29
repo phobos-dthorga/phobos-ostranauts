@@ -12,7 +12,7 @@ namespace Phobos.Ostranauts.Framework;
 public static class FrameworkInfo
 {
     public const string PluginId = "phobosgekko.ostranauts.framework";
-    public const string Version = "0.44.0";
+    public const string Version = "0.45.0";
 }
 
 [BepInPlugin(FrameworkInfo.PluginId, "Phobos Framework", FrameworkInfo.Version)]
@@ -47,6 +47,7 @@ public sealed class FrameworkPlugin : BaseUnityPlugin
             new BepInEx.Configuration.ConfigDescription(Text.Get("Plugin.chance_multiplier_for_registered_equipment_offers_to"),
                 new BepInEx.Configuration.AcceptableValueRange<double>(.25, 4))).Value;
         FrameworkLifecycle.Log = message => Logger.LogInfo(message);
+        FrameworkLifecycle.LogDebug = message => Logger.LogDebug(message);
         Sensors.SensorLeases.Log = message => Logger.LogWarning(message);
         Diagnostics.NativePerformance.Initialize(message => Logger.LogWarning(message));
         harmony = new Harmony(FrameworkInfo.PluginId);

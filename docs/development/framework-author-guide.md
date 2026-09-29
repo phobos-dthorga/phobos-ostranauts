@@ -987,3 +987,36 @@ families, so a single station line fills every size.
 `Registration.ApplianceDefinitions.SetRack(d, prefix, trigger, width, height)`
 turns an appliance's tray into a restricted rack behind the game's own Inventory
 window.
+
+## Performance primitives (0.45.0)
+
+The 29 September 2026 performance pass added small shared helpers; use them where a
+content mod would otherwise scan, format, write or search on every power step.
+
+- `Registration.DefinitionIndex<T>`: family prefix to value, one dictionary probe per
+  definition id after the first look. It indexes immutable definitions, never live
+  membership; `BulkVessels.SpecFor` uses it. Clear it with your registrations.
+- `Processing.StepMemo<TKey,TValue>` and `NativeSteps.Frame`: a value that holds for one
+  step (Unity's frame count) and vanishes with it; `Invalidate()` when what it
+  measures changed. Never key on an exact epoch.
+- `Cadence`: a real-time gate (`Time.unscaledTime`) for topology rechecks, discovery,
+  candidate lists and record settlement. Conserved accounting stays on game time
+  inside the native hooks.
+- `ObjectStateStore.TryWriteIfChanged` and `Status()`: the same validation as
+  `TryWrite`, with an identical record left untouched.
+- `Persistence.SaveBoundary.BeforeShipSave`: settle cadence-written records before
+  the game serialises a ship. `BufferedDrains` subscribes; a failing handler is
+  logged and never stops the save.
+- `Localization.DeferredMessage`: a status kept as key plus arguments, formatted
+  only when read (`Resolve`/`ToString`); `Set` returns false and allocates nothing
+  when nothing changed. Presentation only.
+- `Construction.TriggerRefinements`: the single `CondTrigger.Triggered` postfix.
+  Construction ingredient and station selectors and section assembly selectors
+  register into its table through the existing registries; do not add another
+  postfix on that method.
+- `Liquids.FluidSegmentFamily` and `FluidRouteCache`: declare your segment family
+  once (`new FluidSegmentFamily("Owner.Water", c => c.strCODef == Pipe + "Installed")`)
+  and ask `Find` for routes or `SharesCircuit` for the second-source rule. Endpoints
+  are checked fresh on every call; the pipe and floor layout is reread every two real
+  seconds or on a mode switch, destruction or ship membership change. `NativeFluidRoute.Find`
+  remains the uncached search.

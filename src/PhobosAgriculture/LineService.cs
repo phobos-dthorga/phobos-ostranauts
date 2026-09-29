@@ -26,10 +26,19 @@ internal static partial class Service
         }
         if(!s.Line.Empty && (IrrigationDefinitions.IsSupply(s.Object)||Definitions.IsCooker(s.Object)||s.Line.Profile!=s.Solution.Profile)) s.Protected=true;
     }
-    private static double PumpLine(Session source,Session target,int[] path,double elapsed,double share)
+    /// <summary>The saved route identity of one source, target and path (a SHA-256 hex digest, unchanged format),
+    /// hashed once per distinct path rather than on every pump step.</summary>
+    private static string RouteKey(Session source,Session target,int[] path)
     {
+        if(target.RouteKeyPath!=null && target.RouteKeySource==source.Object.strID && target.RouteKeyPath.AsSpan().SequenceEqual(path)) return target.RouteKey;
         using var digest=System.Security.Cryptography.SHA256.Create();
         string route=BitConverter.ToString(digest.ComputeHash(System.Text.Encoding.UTF8.GetBytes(source.Object.ship.strRegID+"|"+source.Object.strID+"|"+target.Object.strID+"|"+string.Join(";",path)))).Replace("-","");
+        target.RouteKey=route; target.RouteKeySource=source.Object.strID; target.RouteKeyPath=(int[])path.Clone();
+        return route;
+    }
+    private static double PumpLine(Session source,Session target,int[] path,double elapsed,double share)
+    {
+        string route=RouteKey(source,target,path);
         if(!target.Line.Empty && target.Line.Route!=route) { target.Notice=Text.Get("line_drain"); return 0; }
         target.Line.Configure(route,source.Solution.Profile,path.Length*LineKgPerTile,path.Length*TransitPerTile);
         double flow=HydraulicRoute.FlowFraction(path.Length,ResistanceTiles);

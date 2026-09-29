@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using HarmonyLib;
+using Phobos.Ostranauts.Framework.Persistence;
 
 namespace Phobos.Ostranauts.Framework.Liquids;
 
@@ -28,19 +29,23 @@ public sealed class DrawLedger
 /// <summary>Buffered draws on bulk vessels for consumers that take a little every frame (RCS remass). Each vessel's
 /// draws accumulate in memory and settle to its saved record every couple of seconds, before the game saves the
 /// ship, and when asked. A reload drops unsettled draws with the session they belong to. What is lost on a crash
-/// is at most the last couple of seconds of draws. A protected vessel offers nothing.</summary>
+/// is at most the last couple of seconds of draws. A protected vessel offers nothing, and is remembered as
+/// protected until its owner accepts it, so a query does not re-read its records every frame.</summary>
 public static class BufferedDrains
 {
     public const double SettleSeconds = 2;
     private sealed class Entry { internal CondOwner Vessel = null!; internal DrawLedger Ledger = null!; internal string Reason = ""; internal float Refreshed; }
     private static readonly Dictionary<CondOwner, Entry> entries = new();
+    private static readonly HashSet<CondOwner> protectedVessels = new();
     private static float nextSettle;
+    static BufferedDrains() { SaveBoundary.BeforeShipSave += ship => { if (entries.Count > 0) SettleAll(ship); }; }
 
     private static Entry? For(CondOwner vessel)
     {
         if (vessel == null || vessel.bDestroyed || BulkVessels.Of(vessel) == null) return null;
         if (entries.TryGetValue(vessel, out var e)) return e;
-        if (BulkVessel.Protected(vessel)) return null;
+        if (protectedVessels.Contains(vessel)) return null;
+        if (BulkVessel.Protected(vessel)) { protectedVessels.Add(vessel); return null; }
         e = new Entry { Vessel = vessel, Ledger = new DrawLedger(BulkVessel.Snapshot(vessel).AvailableKg), Refreshed = UnityEngine.Time.unscaledTime };
         entries[vessel] = e;
         return e;
@@ -55,7 +60,9 @@ public static class BufferedDrains
         e.Reason = reason;
         return e.Ledger.Take(kg);
     }
-    /// <summary>Writes every owed draw to its vessel's record (one write and one log line each).</summary>
+    /// <summary>A vessel accepted or repaired by its owner may be drawn from again.</summary>
+    public static void Forget(CondOwner vessel) { if (vessel != null) protectedVessels.Remove(vessel); }
+    /// <summary>Writes every owed draw to its vessel's record (one write each; the amount goes to the debug log).</summary>
     public static void SettleAll(Ship? ship = null)
     {
         foreach (var e in entries.Values.ToArray())
@@ -79,11 +86,12 @@ public static class BufferedDrains
             if (owed > 1e-9)
             {
                 double removed = BulkVessel.Drain(e.Vessel, owed, e.Reason, false);
-                FrameworkLifecycle.Log(Text.Get("BulkVessel.drained", e.Vessel.strID, BulkVessels.Of(e.Vessel)?.Commodity ?? "", removed, e.Reason));
+                FrameworkLifecycle.LogDebug(Text.Get("BulkVessel.drained", e.Vessel.strID, BulkVessels.Of(e.Vessel)?.Commodity ?? "", removed, e.Reason));
             }
             // A fresh reading picks up anything else that changed the vessel (a transfer in, a leak, a vent).
-            if (BulkVessel.Protected(e.Vessel)) { entries.Remove(e.Vessel); return; }
-            e.Ledger.Settled(BulkVessel.Snapshot(e.Vessel).AvailableKg);
+            var snapshot = BulkVessel.Snapshot(e.Vessel);
+            if (snapshot.Protected) { entries.Remove(e.Vessel); protectedVessels.Add(e.Vessel); return; }
+            e.Ledger.Settled(snapshot.AvailableKg);
             e.Refreshed = UnityEngine.Time.unscaledTime;
         }
         catch (Exception ex) { entries.Remove(e.Vessel); FrameworkLifecycle.Log(ex.ToString()); }
@@ -94,14 +102,8 @@ public static class BufferedDrains
         nextSettle = UnityEngine.Time.unscaledTime + (float)SettleSeconds;
         SettleAll();
     }
-    internal static void Reset() => entries.Clear();
+    internal static void Reset() { entries.Clear(); protectedVessels.Clear(); }
 
-    // Settle before the game serialises a ship, so the saved records carry every draw already made.
-    [HarmonyPatch(typeof(Ship), nameof(Ship.GetJSON))]
-    private static class SavePatch
-    {
-        private static void Prefix(Ship __instance, bool bSaveGame) { if (bSaveGame && entries.Count > 0) SettleAll(__instance); }
-    }
     [HarmonyPatch]
     private static class ReloadPatch
     {

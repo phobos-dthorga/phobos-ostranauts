@@ -148,20 +148,32 @@ public static class CrewStudy
         return plan.Count;
     }
 
+    // Per-speciality names are built once; this runs for every completed interaction of every object.
+    private static readonly Dictionary<string, string> tickSkills = new(StringComparer.Ordinal);
+    private static readonly List<(string Skill, string Studying)> studyingSkills = new();
+    private static int namedSkills = -1;
+    private static void EnsureNames()
+    {
+        int count = 0; foreach (var _ in CrewSpecialities.All) count++;
+        if (count == namedSkills) return;
+        tickSkills.Clear(); studyingSkills.Clear();
+        foreach (var skill in CrewSpecialities.All) { tickSkills[Tick(skill.Id)] = skill.Id; studyingSkills.Add((skill.Id, Studying(skill.Id))); }
+        namedSkills = count;
+    }
     /// <summary>Completed study steps credit the speciality being studied; each skipped hour credits an hour.</summary>
     internal static void Credit(Interaction ia, bool cancelled)
     {
         if (cancelled || ia.bCancel || ia.objUs == null || string.IsNullOrEmpty(ia.strName)) return;
+        EnsureNames();
         var actor = ia.objUs;
-        foreach (var skill in CrewSpecialities.All)
-        {
-            if (ia.strName == Tick(skill.Id)) { CrewSpecialities.Credit(actor, skill.Id, SkipHourSeconds, true); return; }
-            if (Array.IndexOf(Continuations, ia.strName) >= 0 && actor.HasCond(Studying(skill.Id)))
+        if (tickSkills.TryGetValue(ia.strName, out var ticked)) { CrewSpecialities.Credit(actor, ticked, SkipHourSeconds, true); return; }
+        if (Array.IndexOf(Continuations, ia.strName) < 0) return;
+        foreach (var (skill, studying) in studyingSkills)
+            if (actor.HasCond(studying))
             {
-                if (CrewSpecialities.ClaimCredit(ia)) CrewSpecialities.Credit(actor, skill.Id, ia.fDurationOrig * 3600, true);
+                if (CrewSpecialities.ClaimCredit(ia)) CrewSpecialities.Credit(actor, skill, ia.fDurationOrig * 3600, true);
                 return;
             }
-        }
     }
 
     private static JsonInteraction Clone(string name) => NativeDefinitions.Clone(DataHandler.dictInteractions[name]);
