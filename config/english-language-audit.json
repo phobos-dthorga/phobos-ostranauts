@@ -38015,14 +38015,14 @@
       "mod": "PhobosShipbreaker",
       "key": "Silo.offer",
       "category": "label",
-      "decision": "add",
-      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "decision": "rewrite",
+      "reason": "Updated for the new feature; existing wording, placeholders and commands retained.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosShipbreaker/SiloService.cs:20"
+        "src/PhobosShipbreaker/SiloService.cs:24"
       ],
       "before": "Process water (S3)",
-      "after": "Process water (S3)"
+      "after": "Process water (Rivetline S-series silos)"
     },
     {
       "mod": "PhobosShipbreaker",
@@ -45179,6 +45179,34 @@
       ],
       "before": "Carbon dioxide: {0:F1} of {1:F0} kg.",
       "after": "Carbon dioxide: {0:F1} of {1:F0} kg."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Silo.name_medium",
+      "category": "item name",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/Core/SiloRules.cs:23",
+        "src/PhobosShipbreaker/SiloDefinitions.cs:30"
+      ],
+      "before": "Process Water Silo",
+      "after": "Process Water Silo"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Silo.name_large",
+      "category": "item name",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/Core/SiloRules.cs:23",
+        "src/PhobosShipbreaker/SiloDefinitions.cs:30"
+      ],
+      "before": "Process Water Silo",
+      "after": "Process Water Silo"
     }
   ],
   "documents": [
@@ -45186,8 +45214,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "64e2440e29be5b470c0cdf00fad126fa2ca31f0ac0bee67aae15601a90877577",
-      "review": "2026-09-29 (gas store sizes and L2): Manufacturing summary names the store sizes and the L2."
+      "sha256": "ad4c2a196fc7861c50649164e7bc831b04f46faf50d4cc5ca6ae0dcf020a8a24",
+      "review": "2026-09-29 (S4/S5 silos): reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "SUPPORT.md",
@@ -45346,8 +45374,8 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "b8fc1abbacf6014958cc387f94884a1e1e5b43d10f3718073fea8e97cbea5bde",
-      "review": "2026-09-29 (gas store sizes and L2): maintained version links only."
+      "sha256": "32a54cd071f60fe9f6c8ab1197846783ef6219bda70f7e48318aebbd12bb700e",
+      "review": "2026-09-29 (S4/S5 silos): reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "docs/crew-automation.md",
@@ -45558,8 +45586,8 @@
       "path": "docs/development/bulk-silo-art-handoff.md",
       "scope": "contributor artwork handoff; placeholders are not reviewed art",
       "decision": "add",
-      "sha256": "4fb312565bc682035e7826a2d55aac6480b13620d9047eda9c20f0fd9403aead",
-      "review": "2026-09-29: owner ruling: no silo level gauge, contrary to the vanilla art style; overlay withdrawn."
+      "sha256": "29329d9e74d825fbbf779d81a7f14a4e35025ec2264e2d07e65851325f171e43",
+      "review": "2026-09-29 (S4/S5 silos): reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "docs/development/chemical-storage-and-process-fluids.md",
@@ -45613,15 +45641,15 @@
       "path": "docs/development/equipment-branding.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "7460a8441f76976ceed26477d9affd32db715511c1e6acaf2e8fc17e60aa059b",
-      "review": "2026-09-29 (gas store sizes and L2): store size models, O/N/C stores and L2 rows; gas line rename."
+      "sha256": "2ce153cf80048aab247d53a15076fcfb4441bf3715313046ecd3c12c0009dd58",
+      "review": "2026-09-29 (S4/S5 silos): reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "docs/development/equipment-value-audit.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "6e67a646005858fbf9d96969fe62644fa3b6e1ffb91a7d50dd739259f88ed68b",
-      "review": "2026-09-29: regenerated audit with the ingot recovery rows."
+      "sha256": "29a9bd0e0af9aaaac37a5134b33fb1950f752d89025dd6812fc355554e5165d1",
+      "review": "2026-09-29 (S4/S5 silos): reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "docs/development/feed-families.md",
@@ -45731,15 +45759,15 @@
       "path": "docs/development/install-catalogue.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "8fbbd84db8e28b6b3922f32301023b2aa2804e8b32606c86c3894459b705aaa9",
-      "review": "2026-09-29 (gas store sizes and L2): APPS and HVAC rows for the new stores and the L2."
+      "sha256": "439858cc0cda66439056e431aba27e37c2ee37c4405705735aa4e1dfbd5e39e8",
+      "review": "2026-09-29 (S4/S5 silos): reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "docs/development/item-handling-audit.md",
       "scope": "current handling guidance and complete generated definition ledger",
       "decision": "reviewed",
-      "sha256": "37141ac1b9a9a9473412bf818e68c47a37010c5e93d065bd928c39c618e2c316",
-      "review": "2026-09-29 (gas store sizes and L2): regenerated rows for the new families."
+      "sha256": "8336bdf88d773460e6e305e91c506dd7dc68c6fa538799c2f55656699286348c",
+      "review": "2026-09-29 (S4/S5 silos): reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "docs/development/item-reference-maintenance.md",
@@ -46067,8 +46095,8 @@
       "path": "docs/equipment-economy.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "4b6dc348ae793ef2d5ab3e97c1647b0c7e04f446a5368c2129a752a078af0046",
-      "review": "2026-09-29 (gas store sizes and L2): store size and L2 economy tables."
+      "sha256": "72823d3b2bd7d4bc50287e1fff4af2074948b976e2aa9f68b849c17c21df19e4",
+      "review": "2026-09-29 (S4/S5 silos): reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "docs/fluid-network-operations.md",
@@ -46137,15 +46165,15 @@
       "path": "docs/industrial-console-player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "433e6963dc73e04bd387bb9fae74674391c8d0a630f2a8b3a3d47bcbf394362e",
-      "review": "2026-09-29: version line; no other wording changed."
+      "sha256": "0b7cb9a017b5c7d8904e4b68c735ba3df9cfac328264e7faef31221cbfa32714",
+      "review": "2026-09-29 (S4/S5 silos): reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "docs/installing-mods.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "e6c83d80dd04ab9bb2c1f59ace35aa5d58e8cd91fa6ea45950a8c3dde84708cb",
-      "review": "2026-09-29 (gas store sizes and L2): maintained version minimum only."
+      "sha256": "b18038ee9d9767708667cc527c341db7f1a4a484dd7f5a8dae4e87799e22d4d3",
+      "review": "2026-09-29 (S4/S5 silos): reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "docs/item-references.md",
@@ -46186,8 +46214,8 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "e1e1c47dcec17f110d6228837d5dc996bb6065aec951415c6a4ca765dffff91b",
-      "review": "2026-09-29 (gas store sizes and L2): maintained version minimum only."
+      "sha256": "b6e229f9b2a8f70e15bc0e99efe56ee5d6ddc37885e818e3755fb3bd49842899",
+      "review": "2026-09-29 (S4/S5 silos): reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "docs/residue-collector.md",
@@ -46221,8 +46249,8 @@
       "path": "docs/shipbreaker-bulk-silos.md",
       "scope": "player operating guide for the S3 silo and T2 thaw unit",
       "decision": "add",
-      "sha256": "6717a8f08a0865ac7b4898ffe64437952463803cc18acb0c8a88746b2bbab3f7",
-      "review": "2026-09-29: flowchart added with a one-sentence lead-in; stale statements corrected where found (ingot recipes, silo consumers, collector products, dependency minima link, Manufacturing crew orders)."
+      "sha256": "9d43c27783bfe5fd01d4552e30624aeb33bc7e73286660909fa16f68651fc6dc",
+      "review": "2026-09-29 (S4/S5 silos): S4 and S5 rows, reserve steps and offer name; gas stores linked for bulk gas."
     },
     {
       "path": "docs/shipbreaker-hull-intake.md",
@@ -46235,8 +46263,8 @@
       "path": "docs/shipbreaker-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "46afd2ab8d9c1c69337fb4bc262382dc8ef8f40046bb030640672e43d9cd2895",
-      "review": "2026-09-29: regenerated from reviewed inputs: ingot engineering finds; version."
+      "sha256": "7639b2f31a246a0416ebfc5a9573bbcd083d4cf94e6d004215b0ef9628fb6bbb",
+      "review": "2026-09-29 (S4/S5 silos): generated S-series entries reviewed from config wording."
     },
     {
       "path": "docs/shipbreaker-material-uses.md",
@@ -46291,8 +46319,8 @@
       "path": "workshop/PhobosShipbreaker/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "fdfaa63c398a9783e3ce3108742cb8bf99ff581f268d6955df43a10d0a5e2b40",
-      "review": "2026-09-29: rewritten as a current, player-first Workshop description under Steam's 8,000-byte limit: capabilities, getting started, requirements, Workshop installation, saves and limits, credits and de-duplicated guide links; per-version update sections moved out to the changelog."
+      "sha256": "0fcae4feb9c016f75136fb609eebcf2c91dc34e16260fdee87a59b7ca843c1a9",
+      "review": "2026-09-29 (S4/S5 silos): reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "docs/war-declared-player-guide.md",
@@ -46327,8 +46355,8 @@
     {
       "path": "config/item-reference.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "b1892acc5361c96879c3d77d77ed31ef18e8239c62dbda148f027e2031bf086c",
-      "review": "2026-09-29 (gas store sizes and L2): store ladder groups, O/N/C stores and L2 groups; gas line wording."
+      "sha256": "87053f99a3230c6c1fabf32c5eb7c8114d7ef74d9667a37fd808f2f57db50c9f",
+      "review": "2026-09-29 (S4/S5 silos): reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "mods/PhobosAgriculture/framework/equipment-names.json",
@@ -46387,8 +46415,8 @@
     {
       "path": "mods/PhobosShipbreaker/framework/equipment-names.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "cf54b69ef4e478eba39acf3beb0963e7d645e985d513cfe7f0da8fe03f0a4831",
-      "review": "2026-09-29: Rivetline identities for the ingots and the steel remainder."
+      "sha256": "cad28bca06777e71bdbd2bc5adde5dd113741e5e3eb23283c13c9a15506286a4",
+      "review": "2026-09-29 (S4/S5 silos): reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "mods/PhobosShipbreaker/framework/recipes.json",
@@ -46399,8 +46427,8 @@
     {
       "path": "mods/PhobosShipbreaker/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "22c1006e7edc2a013c11066da700973d9d9a748273d43f0ed6d15d12c61e0f5a",
-      "review": "2026-09-29: version metadata only."
+      "sha256": "15af4dc829ec5326d54edcf9872dabe369a4fcd69b177526221a584d04016f6a",
+      "review": "2026-09-29 (S4/S5 silos): reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "mods/PhobosWarDeclared/mod_info.json",

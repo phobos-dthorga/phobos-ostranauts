@@ -179,6 +179,14 @@
     "brand": "Rivetline",
     "model": "S3"
   },
+  "Silo.name_medium": {
+    "brand": "Rivetline",
+    "model": "S4"
+  },
+  "Silo.name_large": {
+    "brand": "Rivetline",
+    "model": "S5"
+  },
   "Thaw.name": {
     "brand": "Rivetline",
     "model": "T2"

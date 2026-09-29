@@ -22846,7 +22846,7 @@
     {
       "id": "PhobosShipbreaker",
       "name": "Phobos Shipbreaker",
-      "version": "0.39.0",
+      "version": "0.40.0",
       "gameTarget": "1.0.1.5",
       "items": [
         {
@@ -27630,6 +27630,516 @@
           "aliases": []
         },
         {
+          "id": "PhobosProcessSiloLargeInstalled",
+          "name": "Phobos' Rivetline S5 Process Water Silo",
+          "stackLimit": 1,
+          "actions": [
+            "PhobosEquipmentControls",
+            "PhobosShipbreakerMaintenanceInformation"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
+          "handlingFlags": [
+            "IsInstalled"
+          ],
+          "slots": [],
+          "massKg": 465.0,
+          "baseValue": 8860.0,
+          "installed": true,
+          "operatingModes": [],
+          "installTab": "APPS",
+          "jobs": [
+            {
+              "id": "PhobosProcessSiloLargeInstalledDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosProcessSiloLargeInstalledDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 1200.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 338,
+                  "baseValue": 1216.799967765808
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 79,
+                  "baseValue": 86.90000188350677
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 20,
+                  "baseValue": 100.0
+                },
+                {
+                  "id": "ItmPartsElecSmall01",
+                  "name": "Small Electronic Parts",
+                  "count": 4,
+                  "baseValue": 58.0
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 36,
+                  "baseValue": 1.8000000268220901
+                }
+              ]
+            },
+            {
+              "id": "PhobosProcessSiloLargeInstalledRestore",
+              "kind": "restore",
+              "action": "ACTPhobosProcessSiloLargeInstalledRestore",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsUndamageableNotContained",
+              "targetPassOnFreshDefinition": false,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 20.0,
+              "outputs": []
+            },
+            {
+              "id": "PhobosProcessSiloLargeInstalledUninstall",
+              "kind": "uninstall",
+              "action": "ACTPhobosProcessSiloLargeInstalledUninstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosProcessSiloLargeTInstalled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 1500.0,
+              "outputs": [
+                {
+                  "id": "PhobosProcessSiloLargeLoose",
+                  "name": "Phobos' Rivetline S5 Process Water Silo",
+                  "count": 1,
+                  "baseValue": 8860.0
+                }
+              ]
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosProcessSiloLargeInstalledDmg",
+          "name": "Phobos' Rivetline S5 Process Water Silo (Damaged)",
+          "stackLimit": 1,
+          "actions": [
+            "PhobosEquipmentControls",
+            "PhobosShipbreakerMaintenanceInformation"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
+          "handlingFlags": [
+            "IsDamaged",
+            "IsInstalled"
+          ],
+          "slots": [],
+          "massKg": 465.0,
+          "baseValue": 2215.0,
+          "installed": true,
+          "operatingModes": [],
+          "installTab": "APPS",
+          "jobs": [
+            {
+              "id": "PhobosProcessSiloLargeInstalledDmgDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosProcessSiloLargeInstalledDmgDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 1200.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 78,
+                  "baseValue": 280.79999256134033
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 19,
+                  "baseValue": 20.9000004529953
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 4,
+                  "baseValue": 20.0
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 366,
+                  "baseValue": 18.30000027269125
+                }
+              ]
+            },
+            {
+              "id": "PhobosProcessSiloLargeInstalledDmgUninstall",
+              "kind": "uninstall",
+              "action": "ACTPhobosProcessSiloLargeInstalledDmgUninstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosProcessSiloLargeTInstalledDmg",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 1500.0,
+              "outputs": [
+                {
+                  "id": "PhobosProcessSiloLargeLooseDmg",
+                  "name": "Phobos' Rivetline S5 Process Water Silo (Damaged)",
+                  "count": 1,
+                  "baseValue": 2215.0
+                }
+              ]
+            },
+            {
+              "id": "PhobosProcessSiloLargeInstalledRepair",
+              "kind": "repair",
+              "action": "ACTPhobosProcessSiloLargeInstalledRepair",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsRepairableNotContained",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [
+                "TIsScrapSteel=1x4",
+                "TIsScrapAluminum=1x4",
+                "TIsPartsMechSmall=1x8"
+              ],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 3600.0,
+              "outputs": [
+                {
+                  "id": "PhobosProcessSiloLargeInstalled",
+                  "name": "Phobos' Rivetline S5 Process Water Silo",
+                  "count": 1,
+                  "baseValue": 8860.0
+                }
+              ]
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosProcessSiloLargeLoose",
+          "name": "Phobos' Rivetline S5 Process Water Silo",
+          "stackLimit": 1,
+          "actions": [
+            "PhobosShipbreakerMaintenanceInformation",
+            "DropItem",
+            "PickupItem"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
+          "handlingFlags": [
+            "IsCumbersome"
+          ],
+          "slots": [
+            "drag"
+          ],
+          "massKg": 465.0,
+          "baseValue": 8860.0,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [
+            {
+              "id": "PhobosProcessSiloLargeLooseDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosProcessSiloLargeLooseDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 1200.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 338,
+                  "baseValue": 1216.799967765808
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 79,
+                  "baseValue": 86.90000188350677
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 20,
+                  "baseValue": 100.0
+                },
+                {
+                  "id": "ItmPartsElecSmall01",
+                  "name": "Small Electronic Parts",
+                  "count": 4,
+                  "baseValue": 58.0
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 36,
+                  "baseValue": 1.8000000268220901
+                }
+              ]
+            },
+            {
+              "id": "PhobosProcessSiloLargeLooseInstall",
+              "kind": "install",
+              "action": "ACTPhobosProcessSiloLargeLooseInstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosProcessSiloLargeTLoose",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "PhobosProcessSiloLargeTLoose=1.0x1"
+              ],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 2000.0,
+              "outputs": [
+                {
+                  "id": "PhobosProcessSiloLargeInstalled",
+                  "name": "Phobos' Rivetline S5 Process Water Silo",
+                  "count": 1,
+                  "baseValue": 8860.0
+                }
+              ]
+            },
+            {
+              "id": "PhobosProcessSiloLargeLooseRestore",
+              "kind": "restore",
+              "action": "ACTPhobosProcessSiloLargeLooseRestore",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsUndamageableNotContained",
+              "targetPassOnFreshDefinition": false,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 20.0,
+              "outputs": []
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosProcessSiloLargeLooseDmg",
+          "name": "Phobos' Rivetline S5 Process Water Silo (Damaged)",
+          "stackLimit": 1,
+          "actions": [
+            "PhobosShipbreakerMaintenanceInformation",
+            "DropItem",
+            "PickupItem"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
+          "handlingFlags": [
+            "IsCumbersome",
+            "IsDamaged"
+          ],
+          "slots": [
+            "drag"
+          ],
+          "massKg": 465.0,
+          "baseValue": 2215.0,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [
+            {
+              "id": "PhobosProcessSiloLargeLooseDmgDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosProcessSiloLargeLooseDmgDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 1200.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 78,
+                  "baseValue": 280.79999256134033
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 19,
+                  "baseValue": 20.9000004529953
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 4,
+                  "baseValue": 20.0
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 366,
+                  "baseValue": 18.30000027269125
+                }
+              ]
+            },
+            {
+              "id": "PhobosProcessSiloLargeLooseDmgInstall",
+              "kind": "install",
+              "action": "ACTPhobosProcessSiloLargeLooseDmgInstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosProcessSiloLargeTLooseDmg",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "PhobosProcessSiloLargeTLooseDmg=1.0x1"
+              ],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 2000.0,
+              "outputs": [
+                {
+                  "id": "PhobosProcessSiloLargeInstalledDmg",
+                  "name": "Phobos' Rivetline S5 Process Water Silo (Damaged)",
+                  "count": 1,
+                  "baseValue": 2215.0
+                }
+              ]
+            },
+            {
+              "id": "PhobosProcessSiloLargeLooseRepair",
+              "kind": "repair",
+              "action": "ACTPhobosProcessSiloLargeLooseRepair",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsRepairableNotContained",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [
+                "TIsScrapSteel=1x4",
+                "TIsScrapAluminum=1x4",
+                "TIsPartsMechSmall=1x8"
+              ],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 3600.0,
+              "outputs": [
+                {
+                  "id": "PhobosProcessSiloLargeLoose",
+                  "name": "Phobos' Rivetline S5 Process Water Silo",
+                  "count": 1,
+                  "baseValue": 8860.0
+                }
+              ]
+            }
+          ],
+          "aliases": []
+        },
+        {
           "id": "PhobosProcessSiloLoose",
           "name": "Phobos' Rivetline S3 Process Water Silo",
           "stackLimit": 1,
@@ -27883,6 +28393,516 @@
                   "name": "Phobos' Rivetline S3 Process Water Silo",
                   "count": 1,
                   "baseValue": 4800.0
+                }
+              ]
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosProcessSiloMediumInstalled",
+          "name": "Phobos' Rivetline S4 Process Water Silo",
+          "stackLimit": 1,
+          "actions": [
+            "PhobosEquipmentControls",
+            "PhobosShipbreakerMaintenanceInformation"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
+          "handlingFlags": [
+            "IsInstalled"
+          ],
+          "slots": [],
+          "massKg": 365.0,
+          "baseValue": 6780.0,
+          "installed": true,
+          "operatingModes": [],
+          "installTab": "APPS",
+          "jobs": [
+            {
+              "id": "PhobosProcessSiloMediumInstalledDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosProcessSiloMediumInstalledDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 1000.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 263,
+                  "baseValue": 946.7999749183655
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 62,
+                  "baseValue": 68.20000147819519
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 20,
+                  "baseValue": 100.0
+                },
+                {
+                  "id": "ItmPartsElecSmall01",
+                  "name": "Small Electronic Parts",
+                  "count": 4,
+                  "baseValue": 58.0
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 28,
+                  "baseValue": 1.4000000208616257
+                }
+              ]
+            },
+            {
+              "id": "PhobosProcessSiloMediumInstalledRestore",
+              "kind": "restore",
+              "action": "ACTPhobosProcessSiloMediumInstalledRestore",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsUndamageableNotContained",
+              "targetPassOnFreshDefinition": false,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 20.0,
+              "outputs": []
+            },
+            {
+              "id": "PhobosProcessSiloMediumInstalledUninstall",
+              "kind": "uninstall",
+              "action": "ACTPhobosProcessSiloMediumInstalledUninstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosProcessSiloMediumTInstalled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 1200.0,
+              "outputs": [
+                {
+                  "id": "PhobosProcessSiloMediumLoose",
+                  "name": "Phobos' Rivetline S4 Process Water Silo",
+                  "count": 1,
+                  "baseValue": 6780.0
+                }
+              ]
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosProcessSiloMediumInstalledDmg",
+          "name": "Phobos' Rivetline S4 Process Water Silo (Damaged)",
+          "stackLimit": 1,
+          "actions": [
+            "PhobosEquipmentControls",
+            "PhobosShipbreakerMaintenanceInformation"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
+          "handlingFlags": [
+            "IsDamaged",
+            "IsInstalled"
+          ],
+          "slots": [],
+          "massKg": 365.0,
+          "baseValue": 1695.0,
+          "installed": true,
+          "operatingModes": [],
+          "installTab": "APPS",
+          "jobs": [
+            {
+              "id": "PhobosProcessSiloMediumInstalledDmgDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosProcessSiloMediumInstalledDmgDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 1000.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 61,
+                  "baseValue": 219.59999418258667
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 15,
+                  "baseValue": 16.50000035762787
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 4,
+                  "baseValue": 20.0
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 287,
+                  "baseValue": 14.350000213831663
+                }
+              ]
+            },
+            {
+              "id": "PhobosProcessSiloMediumInstalledDmgUninstall",
+              "kind": "uninstall",
+              "action": "ACTPhobosProcessSiloMediumInstalledDmgUninstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosProcessSiloMediumTInstalledDmg",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 1200.0,
+              "outputs": [
+                {
+                  "id": "PhobosProcessSiloMediumLooseDmg",
+                  "name": "Phobos' Rivetline S4 Process Water Silo (Damaged)",
+                  "count": 1,
+                  "baseValue": 1695.0
+                }
+              ]
+            },
+            {
+              "id": "PhobosProcessSiloMediumInstalledRepair",
+              "kind": "repair",
+              "action": "ACTPhobosProcessSiloMediumInstalledRepair",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsRepairableNotContained",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [
+                "TIsScrapSteel=1x3",
+                "TIsScrapAluminum=1x3",
+                "TIsPartsMechSmall=1x6"
+              ],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 3000.0,
+              "outputs": [
+                {
+                  "id": "PhobosProcessSiloMediumInstalled",
+                  "name": "Phobos' Rivetline S4 Process Water Silo",
+                  "count": 1,
+                  "baseValue": 6780.0
+                }
+              ]
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosProcessSiloMediumLoose",
+          "name": "Phobos' Rivetline S4 Process Water Silo",
+          "stackLimit": 1,
+          "actions": [
+            "PhobosShipbreakerMaintenanceInformation",
+            "DropItem",
+            "PickupItem"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
+          "handlingFlags": [
+            "IsCumbersome"
+          ],
+          "slots": [
+            "drag"
+          ],
+          "massKg": 365.0,
+          "baseValue": 6780.0,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [
+            {
+              "id": "PhobosProcessSiloMediumLooseDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosProcessSiloMediumLooseDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 1000.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 263,
+                  "baseValue": 946.7999749183655
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 62,
+                  "baseValue": 68.20000147819519
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 20,
+                  "baseValue": 100.0
+                },
+                {
+                  "id": "ItmPartsElecSmall01",
+                  "name": "Small Electronic Parts",
+                  "count": 4,
+                  "baseValue": 58.0
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 28,
+                  "baseValue": 1.4000000208616257
+                }
+              ]
+            },
+            {
+              "id": "PhobosProcessSiloMediumLooseInstall",
+              "kind": "install",
+              "action": "ACTPhobosProcessSiloMediumLooseInstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosProcessSiloMediumTLoose",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "PhobosProcessSiloMediumTLoose=1.0x1"
+              ],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 1600.0,
+              "outputs": [
+                {
+                  "id": "PhobosProcessSiloMediumInstalled",
+                  "name": "Phobos' Rivetline S4 Process Water Silo",
+                  "count": 1,
+                  "baseValue": 6780.0
+                }
+              ]
+            },
+            {
+              "id": "PhobosProcessSiloMediumLooseRestore",
+              "kind": "restore",
+              "action": "ACTPhobosProcessSiloMediumLooseRestore",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsUndamageableNotContained",
+              "targetPassOnFreshDefinition": false,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 20.0,
+              "outputs": []
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosProcessSiloMediumLooseDmg",
+          "name": "Phobos' Rivetline S4 Process Water Silo (Damaged)",
+          "stackLimit": 1,
+          "actions": [
+            "PhobosShipbreakerMaintenanceInformation",
+            "DropItem",
+            "PickupItem"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
+          "handlingFlags": [
+            "IsCumbersome",
+            "IsDamaged"
+          ],
+          "slots": [
+            "drag"
+          ],
+          "massKg": 365.0,
+          "baseValue": 1695.0,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [
+            {
+              "id": "PhobosProcessSiloMediumLooseDmgDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosProcessSiloMediumLooseDmgDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 1000.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 61,
+                  "baseValue": 219.59999418258667
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 15,
+                  "baseValue": 16.50000035762787
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 4,
+                  "baseValue": 20.0
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 287,
+                  "baseValue": 14.350000213831663
+                }
+              ]
+            },
+            {
+              "id": "PhobosProcessSiloMediumLooseDmgInstall",
+              "kind": "install",
+              "action": "ACTPhobosProcessSiloMediumLooseDmgInstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosProcessSiloMediumTLooseDmg",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "PhobosProcessSiloMediumTLooseDmg=1.0x1"
+              ],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 1600.0,
+              "outputs": [
+                {
+                  "id": "PhobosProcessSiloMediumInstalledDmg",
+                  "name": "Phobos' Rivetline S4 Process Water Silo (Damaged)",
+                  "count": 1,
+                  "baseValue": 1695.0
+                }
+              ]
+            },
+            {
+              "id": "PhobosProcessSiloMediumLooseRepair",
+              "kind": "repair",
+              "action": "ACTPhobosProcessSiloMediumLooseRepair",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsRepairableNotContained",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [
+                "TIsScrapSteel=1x3",
+                "TIsScrapAluminum=1x3",
+                "TIsPartsMechSmall=1x6"
+              ],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 3000.0,
+              "outputs": [
+                {
+                  "id": "PhobosProcessSiloMediumLoose",
+                  "name": "Phobos' Rivetline S4 Process Water Silo",
+                  "count": 1,
+                  "baseValue": 6780.0
                 }
               ]
             }
@@ -30051,6 +31071,20 @@
         },
         {
           "table": "ItmFlotillaScrapKioskInv",
+          "item": "PhobosProcessSiloMediumLoose",
+          "condition": "Refurbished",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmFlotillaScrapKioskInv",
+          "item": "PhobosProcessSiloLargeLoose",
+          "condition": "Refurbished",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmFlotillaScrapKioskInv",
           "item": "PhobosShipbreakerSection",
           "condition": "Refurbished",
           "chance": 0.85,
@@ -30394,6 +31428,20 @@
         },
         {
           "table": "ItmOKLGFixer",
+          "item": "PhobosProcessSiloMediumLoose",
+          "condition": "Worn",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmOKLGFixer",
+          "item": "PhobosProcessSiloLargeLoose",
+          "condition": "Worn",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmOKLGFixer",
           "item": "PhobosShipbreakerLoose",
           "condition": "Refurbished",
           "chance": 0.85,
@@ -30534,6 +31582,20 @@
         },
         {
           "table": "ItmOKLGSupplyKioskInv",
+          "item": "PhobosProcessSiloMediumLooseDmg",
+          "condition": "Broken",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmOKLGSupplyKioskInv",
+          "item": "PhobosProcessSiloLargeLooseDmg",
+          "condition": "Broken",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmOKLGSupplyKioskInv",
           "item": "PhobosShipbreakerSection",
           "condition": "Refurbished",
           "chance": 0.85,
@@ -30645,6 +31707,20 @@
           "count": 8
         },
         {
+          "table": "ItmOKLGSupplyKioskInv",
+          "item": "PhobosProcessSiloMediumLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmOKLGSupplyKioskInv",
+          "item": "PhobosProcessSiloLargeLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
           "table": "ItmSupplyKioskBCERInv",
           "item": "PhobosFurnaceLoose",
           "condition": "Pristine",
@@ -30717,6 +31793,20 @@
         {
           "table": "ItmSupplyKioskBCERInv",
           "item": "PhobosIceThawLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskBCERInv",
+          "item": "PhobosProcessSiloMediumLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskBCERInv",
+          "item": "PhobosProcessSiloLargeLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
@@ -30849,6 +31939,20 @@
         },
         {
           "table": "ItmSupplyKioskBCRSInv",
+          "item": "PhobosProcessSiloMediumLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskBCRSInv",
+          "item": "PhobosProcessSiloLargeLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskBCRSInv",
           "item": "PhobosShipbreakerSection",
           "condition": "Pristine",
           "chance": 0.85,
@@ -30975,6 +32079,20 @@
         },
         {
           "table": "ItmSupplyKioskEJDRInv",
+          "item": "PhobosProcessSiloMediumLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskEJDRInv",
+          "item": "PhobosProcessSiloLargeLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskEJDRInv",
           "item": "PhobosShipbreakerSection",
           "condition": "Pristine",
           "chance": 0.85,
@@ -31101,6 +32219,20 @@
         },
         {
           "table": "ItmSupplyKioskHQCHInv",
+          "item": "PhobosProcessSiloMediumLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskHQCHInv",
+          "item": "PhobosProcessSiloLargeLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskHQCHInv",
           "item": "PhobosShipbreakerSection",
           "condition": "Pristine",
           "chance": 0.85,
@@ -31227,6 +32359,20 @@
         },
         {
           "table": "ItmSupplyKioskJATLInv",
+          "item": "PhobosProcessSiloMediumLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskJATLInv",
+          "item": "PhobosProcessSiloLargeLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskJATLInv",
           "item": "PhobosShipbreakerSection",
           "condition": "Pristine",
           "chance": 0.85,
@@ -31353,6 +32499,20 @@
         },
         {
           "table": "ItmSupplyKioskJFTSInv",
+          "item": "PhobosProcessSiloMediumLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskJFTSInv",
+          "item": "PhobosProcessSiloLargeLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskJFTSInv",
           "item": "PhobosShipbreakerSection",
           "condition": "Pristine",
           "chance": 0.85,
@@ -31479,6 +32639,20 @@
         },
         {
           "table": "ItmSupplyKioskMHNGInv",
+          "item": "PhobosProcessSiloMediumLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskMHNGInv",
+          "item": "PhobosProcessSiloLargeLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskMHNGInv",
           "item": "PhobosShipbreakerSection",
           "condition": "Pristine",
           "chance": 0.85,
@@ -31605,6 +32779,20 @@
         },
         {
           "table": "ItmSupplyKioskMSUZInv",
+          "item": "PhobosProcessSiloMediumLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskMSUZInv",
+          "item": "PhobosProcessSiloLargeLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskMSUZInv",
           "item": "PhobosShipbreakerSection",
           "condition": "Pristine",
           "chance": 0.85,
@@ -31725,6 +32913,20 @@
         {
           "table": "ItmSupplyKioskMTRSInv",
           "item": "PhobosIceThawLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskMTRSInv",
+          "item": "PhobosProcessSiloMediumLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskMTRSInv",
+          "item": "PhobosProcessSiloLargeLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
@@ -31857,6 +33059,20 @@
         },
         {
           "table": "ItmSupplyKioskMVOLInv",
+          "item": "PhobosProcessSiloMediumLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskMVOLInv",
+          "item": "PhobosProcessSiloLargeLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskMVOLInv",
           "item": "PhobosShipbreakerSection",
           "condition": "Pristine",
           "chance": 0.85,
@@ -31983,6 +33199,20 @@
         },
         {
           "table": "ItmSupplyKioskSVIRInv",
+          "item": "PhobosProcessSiloMediumLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskSVIRInv",
+          "item": "PhobosProcessSiloLargeLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskSVIRInv",
           "item": "PhobosShipbreakerSection",
           "condition": "Pristine",
           "chance": 0.85,
@@ -32109,6 +33339,20 @@
         },
         {
           "table": "ItmSupplyKioskVCBRInv",
+          "item": "PhobosProcessSiloMediumLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskVCBRInv",
+          "item": "PhobosProcessSiloLargeLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskVCBRInv",
           "item": "PhobosShipbreakerSection",
           "condition": "Pristine",
           "chance": 0.85,
@@ -32235,6 +33479,20 @@
         },
         {
           "table": "ItmSupplyKioskVENCInv",
+          "item": "PhobosProcessSiloMediumLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskVENCInv",
+          "item": "PhobosProcessSiloLargeLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskVENCInv",
           "item": "PhobosShipbreakerSection",
           "condition": "Pristine",
           "chance": 0.85,
@@ -32355,6 +33613,20 @@
         {
           "table": "ItmSupplyKioskVNCAInv",
           "item": "PhobosIceThawLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskVNCAInv",
+          "item": "PhobosProcessSiloMediumLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskVNCAInv",
+          "item": "PhobosProcessSiloLargeLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
@@ -32495,6 +33767,20 @@
         {
           "table": "ItmTraderSanDiegoHalvorsonInv",
           "item": "PhobosIceThawLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmTraderSanDiegoHalvorsonInv",
+          "item": "PhobosProcessSiloMediumLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmTraderSanDiegoHalvorsonInv",
+          "item": "PhobosProcessSiloLargeLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
@@ -32613,6 +33899,20 @@
         },
         {
           "table": "ItmVORBScrapKioskInv",
+          "item": "PhobosProcessSiloMediumLooseDmg",
+          "condition": "Broken",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmVORBScrapKioskInv",
+          "item": "PhobosProcessSiloLargeLooseDmg",
+          "condition": "Broken",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmVORBScrapKioskInv",
           "item": "PhobosAluminiumIngot",
           "condition": "Pristine",
           "chance": 0.95,
@@ -32698,6 +33998,20 @@
         {
           "table": "ItmVORBScrapKioskInv",
           "item": "PhobosIceThawLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmVORBScrapKioskInv",
+          "item": "PhobosProcessSiloMediumLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmVORBScrapKioskInv",
+          "item": "PhobosProcessSiloLargeLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
@@ -33744,9 +35058,9 @@
     "mods/PhobosShipbreaker/crafting/recipes.json": "8b0f034a7c732fec44ac31585321347040ee2074cd330cd3e5ecb90bb4ab7df4",
     "mods/PhobosShipbreaker/data/conditions/phobos_shipbreaker.json": "4163d90a49167ef2178e2bfd00636e8288db73511c66c0f423e828642d4f1e44",
     "mods/PhobosShipbreaker/data/condtrigs/phobos_shipbreaker.json": "c7d4104df596d3fd362d9a80f4703178eafc5d3151bd53907814732ec84d3585",
-    "mods/PhobosShipbreaker/framework/equipment-names.json": "cf54b69ef4e478eba39acf3beb0963e7d645e985d513cfe7f0da8fe03f0a4831",
+    "mods/PhobosShipbreaker/framework/equipment-names.json": "cad28bca06777e71bdbd2bc5adde5dd113741e5e3eb23283c13c9a15506286a4",
     "mods/PhobosShipbreaker/framework/recipes.json": "47fc493cbaf73203ea60be37f49645bccf82c7dd4d88e3e4cf98d0458f135c99",
-    "mods/PhobosShipbreaker/mod_info.json": "22c1006e7edc2a013c11066da700973d9d9a748273d43f0ed6d15d12c61e0f5a",
+    "mods/PhobosShipbreaker/mod_info.json": "15af4dc829ec5326d54edcf9872dabe369a4fcd69b177526221a584d04016f6a",
     "mods/PhobosWarDeclared/data/conditions/phobos_war_declared.json": "da01a00806e4e3ac5ab1b0be205872ba036fbe0d9ce4771772aca04c22d65913",
     "mods/PhobosWarDeclared/mod_info.json": "3c3305b1ab67f22a2b5946ed3e4cd4425b18efdd7464eb5f8669e444e5e38070",
     "mods/PhobosWarDeclared/schematics/everything.json": "663766fb98b9c6f83b3ad0eb2b4b24f8c0c0530d9529857cf4ca85de28f1ccc3",
@@ -34032,7 +35346,7 @@
     "src/PhobosShipbreaker/Core/Commands.cs": "6e4a786128d0f4f86b8401057a2f90df96628279d0eda360fece0a902d5b488f",
     "src/PhobosShipbreaker/Core/CoolantCharge.cs": "76339dc6670dff12e9d33da4480793bfc76d0961503d6c05975afc6d4ded4432",
     "src/PhobosShipbreaker/Core/CrewOrderRules.cs": "fa0f5d521a4c97e415373f9d6ffc99130f13c7f3ab4bf2ed14cc95b95f6dbf6a",
-    "src/PhobosShipbreaker/Core/DependencyContract.cs": "4fca687900af04d1d42b15a2f8bd717265968a992adc03d98c3e29cb73d15385",
+    "src/PhobosShipbreaker/Core/DependencyContract.cs": "be2d9304a0865df20ada96d81b5aa9a19144b7d5efdca8dee623a888a57ca5b7",
     "src/PhobosShipbreaker/Core/FeedFamilies.cs": "8433c269189085a9b31ce5dab94341bd763f469373076866f1b2569a408412a3",
     "src/PhobosShipbreaker/Core/FurnaceBatch.cs": "583449cad05e980895c2c6705c51e3b7695e3861579153602617ce507ee09997",
     "src/PhobosShipbreaker/Core/FurnaceCooling.cs": "4c090e6c28b0cda7b2b646f4619dd9f3e139af9a4098912c590caeb45300842e",
@@ -34049,12 +35363,12 @@
     "src/PhobosShipbreaker/Core/ReclamationRules.cs": "af67f6bed2bfc0a97e7ffaa9bc00d4a11d589b0c8319d39914471252573b3b32",
     "src/PhobosShipbreaker/Core/RoutingCommand.cs": "5da9f80e3bbe039c2f3dc63f01d7013a72b56f9283af0c979b5198bdc9812afd",
     "src/PhobosShipbreaker/Core/RoutingRules.cs": "c916440921dc1401896998a2d486ba4b3d2d1225f3c07f208e4bf775cc0bc88d",
-    "src/PhobosShipbreaker/Core/SiloRules.cs": "5fe74828eb8e318a7cb3f99f34e5adf744fc200c7be579684849538b8beda1e8",
+    "src/PhobosShipbreaker/Core/SiloRules.cs": "1182ea31f88a89c664118b42695e9e7b9e2edb504f9027d673820c3e50e2c029",
     "src/PhobosShipbreaker/Core/StorageRules.cs": "b1c70ebe17c7aedecb2aed74cd4e21626da5a66808e9931c12fa9d1b042e698c",
     "src/PhobosShipbreaker/Core/ThawRules.cs": "5b973d84b8787797520c7989c2df132a1eaf3c857bd7a64c483d9fc34d72d2d1",
     "src/PhobosShipbreaker/CrewProvider.cs": "8ef0dce0c3e0a5e25f49766b5b7d110c645f4e6746e8cb98aee340816600f47d",
     "src/PhobosShipbreaker/EconomySaveCompatibility.cs": "a90b282a12f38a0fac5451702717dbad24ed21824f5976914829809919aa50e3",
-    "src/PhobosShipbreaker/EquipmentEconomy.cs": "d1865a45ea3ded35bae3b4a6615c0fe4e16a10b0daee9f74be08d3dc6b9a5c01",
+    "src/PhobosShipbreaker/EquipmentEconomy.cs": "459b8a19e909558d18b313b696b1510d125c732f9e3c381de8a181e00b154363",
     "src/PhobosShipbreaker/EquipmentSnapshots.cs": "334bb5d510f43b577c4b8cd7a4f331e48fce6d223ceee100783277229420d3bd",
     "src/PhobosShipbreaker/FeedIdentity.cs": "16222689ac7b63fb2dd748eee996b46a859195baa39cbb264551ba8d36d6fc2d",
     "src/PhobosShipbreaker/FixturePanel.cs": "52358f984ab7155d5cf1c51699396735b2927f888bebb18b8af20bec9656ce96",
@@ -34079,9 +35393,9 @@
     "src/PhobosShipbreaker/NativeAdapter.cs": "8320c05ddf6667060af21a98218e4df82015aba7feaeb124623d5eb57428083b",
     "src/PhobosShipbreaker/PanelConfiguration.cs": "c2dab27f2f0fd7762e5ae6f2b873614e64b0616524dbed8697ec2c94e16b8ece",
     "src/PhobosShipbreaker/PerformanceMetrics.cs": "d46727b5bdae9d235719ea4a9e0a76afd2ec63bfd410ebb5f410bb0ee75ebe9a",
-    "src/PhobosShipbreaker/PhobosShipbreaker.csproj": "d4f44e1ba48114317016b2f6b35bff73f50c49d417c68c97b471e8564e377919",
+    "src/PhobosShipbreaker/PhobosShipbreaker.csproj": "521d362615775c4b1e2e99356c97274889859495c93fbd5b30c89eb689fd8284",
     "src/PhobosShipbreaker/PlaceholderLoadRepair.cs": "8fdf6627ae35cd6d6c281a92a728e588f516ba7e4138e7204cc5c69549db44c4",
-    "src/PhobosShipbreaker/Plugin.cs": "2346e62e27b29e061dc0dc2f37fd288ffff9731867f06965165bffb2e1305999",
+    "src/PhobosShipbreaker/Plugin.cs": "39a961488891a35a4b52db0de6e5a01bb4d7fd88cf805ac06858fa50a69ff18c",
     "src/PhobosShipbreaker/ProcessingCommands.cs": "5c0a603a4e2ae406bc94d5fcf0d30bb01b40512f57e474ab9ef5f2ab470a7320",
     "src/PhobosShipbreaker/ProcessingService.cs": "263fc61ae430a6a69ef0ff73984a1d4e357c2ec7afbdebd9165557f4e367c1e5",
     "src/PhobosShipbreaker/ReclaimerDefinitions.cs": "c4e666e2b376368cda9ebaf23f0353b896cb63951d075e65e2f481a87e69df09",
@@ -34093,8 +35407,8 @@
     "src/PhobosShipbreaker/RegionalEconomy.cs": "66654fb1ca42c53ee8248739eb148992ea87466210e16db815304be9c0cfa19e",
     "src/PhobosShipbreaker/RoutingCommands.cs": "ecde751bfd3823538dc7e39636520b4474a0d491abc3b3cb4021c820c6cf8810",
     "src/PhobosShipbreaker/Settings.cs": "1e7c7e7c848019f0bed74ae8271d67199dda26732eed54b3ea823571672f9cd9",
-    "src/PhobosShipbreaker/SiloDefinitions.cs": "1f71a8df78dc4703dfc3db4481019140347b53419f2111963c2c3073c8e942a1",
-    "src/PhobosShipbreaker/SiloService.cs": "4624430eaec945caf039306def28563a602d41a05ec6ddb0288cc0fe760f456e",
+    "src/PhobosShipbreaker/SiloDefinitions.cs": "73d9892c06a60f635f9dc8587f50fd19f2bd1e2e055b2062908209b3eb6c7717",
+    "src/PhobosShipbreaker/SiloService.cs": "d3073cfd8eee3a4af589b73d8f44de4e9b0143bc2db9ea2f89c088645ee358f3",
     "src/PhobosShipbreaker/StockQuantities.cs": "ae221fad93df673c174760e282ae106e6d5c460044268d7a6222a3a92902fe52",
     "src/PhobosShipbreaker/StorageService.cs": "162f1dd936f28d09b9438f3ca47cc5af2f45af3b951a638c82818afac0dae5e8",
     "src/PhobosShipbreaker/TargetWallTransfer.cs": "674edc235e6b466056adc486b8063ebf1e3660697a1cf8a2ff8aae5eaa57a5ae",
@@ -34114,12 +35428,12 @@
     "src/PhobosWarDeclared/WarService.cs": "5c81a198d4ddf0b0de70f64c72bb66166b1620204250945e3a536c5a0b121c6a",
     "tests/PhobosNative.Tests/EquipmentValueAudit.cs": "04da4c56b10a281828951965d9ee26639babae37738781c379ea4df828d17f45",
     "tests/PhobosNative.Tests/ItemReferenceExport.cs": "37ce8fc3f3ba2ab22a1ceebb784eaf3bc7f3baf4f6d2660ffa6a8d969c7cecfb",
-    "tests/PhobosNative.Tests/Program.cs": "d303161d6e031ca84fb129ddb1e0df0c140aee4dae7ed714c3a866f61b996a09",
+    "tests/PhobosNative.Tests/Program.cs": "099513ccd107da78b84bcbaa6bb6fe5d4ceaac195e6e5cc1a1b6812ae0a53505",
     "translations/PhobosAgriculture/en.json": "24c7184bf4580061f11f5556c34a7afd2142e938d8b67282af6eeaf676d19934",
     "translations/PhobosAutoNav/en.json": "505b519cde5fb1a5cc15a3f52cf825145b7f0c85eb36a1d6c5de3a0ffd56cb3a",
     "translations/PhobosFramework/en.json": "bab9d6bff8a46a9a120bab386be1d48a8bf2dc9250d170646d71b696aeb73d6b",
     "translations/PhobosManufacturing/en.json": "3818cb8ec02d18733ce14e6ee6d8050be0db3dd3dcd55e8ae31cf2774fb0ae55",
-    "translations/PhobosShipbreaker/en.json": "8085d0bf11c015b92696dc8252db717ab19aea43a06ccee1658e91b8e6f7fee0",
+    "translations/PhobosShipbreaker/en.json": "2a711e5f12f993182764789c7375005f6edae1c2eb104623dadf2a27f5e3f64a",
     "translations/PhobosWarDeclared/en.json": "568072580efb7a412b6d5a38b782346bea46847b87ad4f940be7b8e4894b1019"
   }
 }

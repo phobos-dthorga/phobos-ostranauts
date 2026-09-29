@@ -25,6 +25,21 @@ Dates on Draft entries record preparation, not Steam publication.
 - Earlier capture-only research is superseded for supported ordinary walls by the 0.24.0 reclamation implementation below. Broader structural recipes, repeated furnace batches and whole-wreck completion remain outside this round.
 - Keep [NASA Goddard's Raven research](https://www.nasa.gov/general/nasas-hybrid-computer-enables-ravens-autonomous-rendezvous-capability/) and [ESA's LIRIS experiment by Airbus, Jena Optronik and Sodern](https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/ATV/ATV_views_Space_Station_as_never_before) as sensing context, separate from Blue Bottle Games native evidence and authored gameplay choices. No institutional endorsement or gameplay validation is implied.
 
+## [0.40.0] - 2026-09-29 - Draft
+
+### Added
+
+- Phobos' Rivetline S4 (4 x 4, holds 1,960 kg, 6,780 cr) and S5 (5 x 5, holds 3,330 kg, 8,860 cr) Process Water Silos, the medium and large sizes of the S3 (owner direction: every bulk family comes in three sizes). They work exactly like the S3 with the T2, station Bulk supplies, Ship's Water and every Phobos water consumer, and hold more for less per kilogram of capacity.
+- Two PixelLab sprites in the S3's colours.
+
+### Changed
+
+- The station offer now reads Process water (Rivetline S-series silos) and fills any size; Keep in reserve steps follow the silo's size (the S3's are unchanged).
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.44.0 or newer. Existing S3 silos keep their identity, water and records. The S4 and S5 are purchase-only and never turn up in salvage.
+
 ## [0.39.0] - 2026-09-29 - Draft
 
 ### Changed

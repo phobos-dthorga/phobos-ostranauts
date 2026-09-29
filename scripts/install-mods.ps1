@@ -365,6 +365,12 @@ foreach ($mod in $Mods) {
             }
         }
         'Shipbreaker' {
+            # 0.40.0 adds the S4 and S5 process-water silos.
+            if ($version -ge [version]'0.40.0') {
+                foreach ($image in @('PhobosProcessSiloMedium', 'PhobosProcessSiloLarge')) {
+                    "images/phobos/shipbreaker/$image.png"; "images/phobos/shipbreaker/${image}Normal.png"
+                }
+            }
             if ($version -ge [version]'0.16.0') {
                 foreach ($suffix in @('', 'Normal', 'Sheet', 'SheetNormal')) {
                     "images/phobos/shipbreaker/FurnaceCoolantPipe$suffix.png"

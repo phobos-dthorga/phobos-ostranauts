@@ -10,9 +10,12 @@ pending, including how the machines' artwork looks in play. Use the
 | Item | Size and mass | Base price | Where |
 | --- | --- | --- | --- |
 | Phobos' Rivetline S3 Process Water Silo | 3 x 3 tiles; 240 kg empty; holds 1,000 kg of water (1,240 kg full) | 4,800 cr, broken 1,200 cr | K-Leg supply kiosk and fixer, San Diego Halvorson, the Venus scrap kiosk and regional markets, in lots of eight; INSTALL > APPS. Purchase only: no fabrication recipe. |
+| Phobos' Rivetline S4 Process Water Silo | 4 x 4 tiles; 365 kg empty; holds 1,960 kg of water | 6,780 cr, broken 1,695 cr | The same sellers; INSTALL > APPS. Purchase only; too big to turn up in salvage. |
+| Phobos' Rivetline S5 Process Water Silo | 5 x 5 tiles; 465 kg empty; holds 3,330 kg of water | 8,860 cr, broken 2,215 cr | The same sellers; INSTALL > APPS. Purchase only; too big to turn up in salvage. |
 | Phobos' Rivetline T2 Ice Thaw Unit | 2 x 2 tiles; 120 kg; one native power point | 3,200 cr, broken 800 cr | The same sellers; INSTALL > APPS. Purchase only: no fabrication recipe. |
 
-The silo stores **process water** only. It is not a drinking-water tank and
+The S4 and S5 work exactly like the S3 and hold more water for less per
+kilogram of capacity. Everything below applies to every size. The silo stores **process water** only. It is not a drinking-water tank and
 never joins Ship's Water's potable tanks. The water is a saved record on the
 silo, not a native stat, so the station's fuel kiosk and the reactor never read
 it as fuel. A full silo weighs what it holds: the ship's mass readouts include it.
@@ -62,8 +65,8 @@ flowchart LR
 ```
 
 - **At a station:** open the refuelling terminal, then **Bulk supplies**, then
-  **Process water (S3)**. Water costs 10 cr/kg in 10 kg steps; one quote can
-  fill an empty silo. The usual quote, destination and payment checks apply
+  **Process water (Rivetline S-series silos)**. Water costs 10 cr/kg in 10 kg
+  steps; one quote can fill any empty silo. The usual quote, destination and payment checks apply
   (see [R3 agricultural water](agriculture-bulk-storage.md#station-purchasing)).
 - **From Ship's Water (optional, 0.16.1 only):** the silo's panel and the C1 offer
   **Draw from the drinking-water tanks** (50, 100, 250 or 500 kg) and **Send to
@@ -72,7 +75,8 @@ flowchart LR
   up to the capacity Ship's Water itself configures for them; its Recycler then
   decides what returns as drinking water, with its own loss. Nothing is ever
   put into the potable tanks.
-- **Keep in reserve** (0 to 1,000 kg): water below the reserve is never sent
+- **Keep in reserve** (none, a tenth, a quarter, half or all of the silo):
+  water below the reserve is never sent
   to the waste tanks; a T2 still fills above it.
 - **Consumers:** a linked Agriculture R3 reservoir takes thaw water for
   irrigation. With [Phobos Manufacturing](manufacturing-player-guide.md), an X2
@@ -109,9 +113,10 @@ itself. Vacuum is not free cooling.
 
 ## Limits
 
-Water is the only silo commodity. There are no fuel or gas silos: the game's
-own canisters already hold He3, D2O, O2, N2 and CO2. No custom gas species are
-created, and nothing is vented. Methane ice has no recipe until something
+Water is the only Shipbreaker silo commodity. Bulk gases live in
+[Phobos Manufacturing's gas stores](manufacturing-player-guide.md#gas-stores),
+which also come in three sizes. No custom gas species are created, and nothing
+is vented. Methane ice has no recipe until something
 consumes methane. Ship's Water support is pinned to version 0.16.1; other
 versions get no draw or deposit and the silo still works through station
 purchase and the T2.

@@ -14,7 +14,9 @@
     "scratch:silo-init-96.png": "7e60d9dc23ad0acf314ca9b9fd6c4e777f9bb659d8e9e4ae7455d3de13c6cddb",
     "scratch:al-ingot-init-64.png": "31cf7e79a87b3f6deee82ba90872951d85e2ba55c529fc8b4f3d1b6967c72504",
     "scratch:steel-remainder-init-64.png": "013f0f798f329e5da89d6027e3f29e2a35d3b5bacd67389606b33939b84cd2ae",
-    "archived:aluminium-ingot-start.png": "31cf7e79a87b3f6deee82ba90872951d85e2ba55c529fc8b4f3d1b6967c72504"
+    "archived:aluminium-ingot-start.png": "31cf7e79a87b3f6deee82ba90872951d85e2ba55c529fc8b4f3d1b6967c72504",
+    "references/s4-silo-start.png": "53f3a4c24a6608e2059c13fcfe5b8df3a22ec537e298a4974f3b47a29e7372e6",
+    "references/s5-silo-start.png": "691d236a1ead06f8346e56417148efae73d10f77bd5e20061dadcba3071ca086"
   },
   "derived": {
     "steel-ingot": {
@@ -394,6 +396,50 @@
       "review": "Reads as a riveted floor hatch, not an ingot.",
       "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/1df5784356d8ee2f583032c42ce14032d73b5df0/assets/artwork-completion/source/aluminium-ingot-rejected-hatch.png",
       "archiveSHA256": "16e569afdcaf17a14a1d70b7d38920d0d3c2c92f5ade373788dce06d8b784879"
+    },
+    {
+      "key": "s4-silo",
+      "operation": "create_image_pixflux",
+      "jobId": "9e78a7d8-3aee-4efe-a9cd-9372c1e6885b",
+      "costGenerations": 1,
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. The whole square canvas is the top of a medium sealed industrial spacecraft process-water silo: a square dark slate steel deck plate reaching every canvas edge with a thin blue painted rim and a yellow clamp in each corner; on it four large circular pale cream steel pressure domes in a two by two grid, each lit from the upper left with a soft highlight and darker lower-right shading, each with one thin teal service band ringing it and a small dark round inspection hatch in its centre crossed by one short steel grab bar; subtle weld seams and scuffs. Coarse deliberate pixel clusters, three-tone shading, utilitarian retro spaceship salvage machinery. No perspective, no ground shadow, no pipes, no gauges, no text, numbers, symbols or logos.",
+        "width": 128,
+        "height": 128,
+        "seed": 9290521,
+        "init_image_strength": 130,
+        "shading": "medium shading",
+        "outline": "selective outline",
+        "detail": "medium detail",
+        "no_background": false,
+        "isometric": false,
+        "view": "high top-down"
+      },
+      "initImage": "references/s4-silo-start.png",
+      "decision": "selected",
+      "review": "Overhead, no side faces; four domes on one deck, matching the S3 at 64 px. Shipbreaker 0.40.0 pass; allowance 1,780 to 1,778."
+    },
+    {
+      "key": "s5-silo",
+      "operation": "create_image_pixflux",
+      "jobId": "3fda023c-b0ea-472e-bf68-16a66067d789",
+      "costGenerations": 1,
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. The whole square canvas is the top of a large sealed industrial spacecraft process-water silo: a square dark slate steel deck plate reaching every canvas edge with a thin blue painted rim and a yellow clamp in each corner; on it nine circular pale cream steel pressure domes in a three by three grid, each lit from the upper left with a soft highlight and darker lower-right shading, each with one thin teal service band ringing it and a small dark round inspection hatch in its centre crossed by one short steel grab bar; subtle weld seams and scuffs. Coarse deliberate pixel clusters, three-tone shading, utilitarian retro spaceship salvage machinery. No perspective, no ground shadow, no pipes, no gauges, no text, numbers, symbols or logos.",
+        "width": 160,
+        "height": 160,
+        "seed": 9290522,
+        "init_image_strength": 130,
+        "shading": "medium shading",
+        "outline": "selective outline",
+        "detail": "medium detail",
+        "no_background": false,
+        "isometric": false,
+        "view": "high top-down"
+      },
+      "initImage": "references/s5-silo-start.png",
+      "decision": "selected",
+      "review": "Overhead, no side faces; nine domes on one deck, matching the S3 at 80 px. Shipbreaker 0.40.0 pass; allowance 1,780 to 1,778."
     }
   ],
   "rejectedArchive": {

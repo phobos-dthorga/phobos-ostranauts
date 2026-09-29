@@ -32,6 +32,7 @@ a real company, seed cultivar, research programme or institutional endorsement.
 | Phobos' Rivetline F6-P Thermal Exhaust Port | One-tile sealed deck fitting and complete underside radiator assembly |
 | Phobos' Rivetline F6-S Furnace Assembly Section | Eighty-kilogram construction section |
 | Phobos' Rivetline C2 Residue Collector | Two-wide collecting endpoint |
+| Phobos' Rivetline S3, S4 and S5 Process Water Silos | Passive water silos in three sizes; the model digit is the footprint (S4 and S5 from Shipbreaker 0.40.0) |
 | Phobos' Rivetline D4-S Dismantling Fixture Assembly Section | Processor construction section |
 | Phobos' Rivetline R4-S Scrap Reclaimer Assembly Section | Reclaimer construction section |
 | Phobos' Verdemorrow Firstlight-4 Cultivation Rack | Four-by-four finite cultivation rack |

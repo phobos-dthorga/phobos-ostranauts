@@ -95,10 +95,10 @@ internal static class EconomyChecks
         var machineryChoice = ((System.Collections.Generic.List<System.Collections.Generic.List<LootUnit>>)typeof(Loot)
             .GetField("aCOLootUnits", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic)!
             .GetValue(repeat.Loot["PhobosShipbreakerMachinerySalvage"])!).Single();
-        check(machineryChoice.Count == EquipmentEconomy.Machines.Length * 2 &&
+        check(machineryChoice.Count == EquipmentEconomy.Machines.Count(m => m.Loot) * 2 && !machineryChoice.Any(u => u.strName.Contains("Medium") || u.strName.Contains("Large")) &&
             machineryChoice.All(u => u.fMin == 1 && u.fMax == 1 && (u.strName.EndsWith("Loose") || u.strName.EndsWith("LooseDmg"))) &&
             Math.Abs(machineryChoice.Sum(u => u.fChance) - EquipmentEconomy.MachinerySalvageChance) < 1e-7,
-            "Engineering machinery is one bounded loose intact/damaged choice across every implemented family");
+            "Engineering machinery is one bounded loose intact/damaged choice across every implemented family; the S4 and S5 are too big to be found");
         var ingotChoice = ((System.Collections.Generic.List<System.Collections.Generic.List<LootUnit>>)typeof(Loot)
             .GetField("aCOLootUnits", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic)!
             .GetValue(repeat.Loot["PhobosShipbreakerIngotSalvage"])!).Single();

@@ -804,7 +804,7 @@
   "Silo.nothing_to_pause": "Nothing to pause. A silo only stores water.",
   "Silo.invalid_amount": "Choose a whole number of kilograms within the silo's capacity.",
   "Silo.done": "Done.",
-  "Silo.offer": "Process water (S3)",
+  "Silo.offer": "Process water (Rivetline S-series silos)",
   "Silo.unit_kg": "kg",
   "Silo.action_accept": "Accept contents as they are",
   "Silo.action_recover": "Recover trapped water",
@@ -874,5 +874,7 @@
   "Recipe.PhobosRecoverAluminiumIngot.name": "Recover aluminium from ingot",
   "Recipe.PhobosRecoverAluminiumIngot.description": "Cut one 4 kg aluminium ingot into 4 kg of identified aluminium scrap. All cuttings are retained; this destroys the ingot and loses its value.",
   "Recipe.PhobosRecoverSteelIngot.name": "Recover steel from ingot",
-  "Recipe.PhobosRecoverSteelIngot.description": "Cut one 4 kg steel ingot into 4 kg of identified steel scrap. All cuttings are retained; this destroys the ingot and loses its value."
+  "Recipe.PhobosRecoverSteelIngot.description": "Cut one 4 kg steel ingot into 4 kg of identified steel scrap. All cuttings are retained; this destroys the ingot and loses its value.",
+  "Silo.name_medium": "Process Water Silo",
+  "Silo.name_large": "Process Water Silo"
 }

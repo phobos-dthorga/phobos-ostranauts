@@ -6,7 +6,7 @@ namespace PhobosShipbreaker.Core;
 
 internal static class DependencyContract
 {
-    internal const string MinimumFramework = "0.39.0";
+    internal const string MinimumFramework = "0.44.0";
     internal const string MinimumAutoNav = "0.19.0";
     internal static readonly string[] Materials = { "ItmScrapTrash", "ItmScrapSteel", "ItmScrapAluminum",
         "ItmScrapCarbonFiber", "ItmPartsMechSmall01", "ItmPartsElecSmall01" };

@@ -614,3 +614,15 @@ mechanical parts and 68 kg of trash.
 Bulk oxygen, nitrogen and carbon dioxide are sold into installed stores through
 the station Bulk supplies view at the game's own gas price per kilogram, in steps
 of 10 kg. Nothing sells back.
+
+## Shipbreaker 0.40.0: S4 and S5 silos
+
+The S4 and S5 scale from the S3 through Framework's shared size ladder (the same
+rule as the gas stores): capacity 1,960 and 3,330 kg, dry mass 365 and 465 kg,
+price $6,780 and $8,860 (broken a quarter). Work grows with the footprint: install
+1600 and 2000, uninstall 1200 and 1500, repair 3000 and 3600, dismantle 1000 and
+1200, Restore 40 and 50 minutes. Repair takes 3/3/6 and 4/4/8 steel, aluminium and
+mechanical parts. Salvage keeps the S3's fittings (20 mechanical, 4 electronic
+parts intact; 4 mechanical broken) and fills the rest of the dry mass with steel,
+aluminium and retained trash in the S3's proportions. They are sold on the S3's
+routes and never appear in salvage loot.

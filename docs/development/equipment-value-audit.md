@@ -28,6 +28,10 @@ All dollar figures below are **whole-object values**, not prices per kilogram or
 | Phobos' Rivetline S3 Process Water Silo (Damaged) | $1,200.00 | $300.00 | $184.40 | 15.37% | $120.00 / $92.20 |
 | Phobos' Rivetline T2 Ice Thaw Unit | $3,200.00 | $800.00 | $495.00 | 15.47% | $320.00 / $247.50 |
 | Phobos' Rivetline T2 Ice Thaw Unit (Damaged) | $800.00 | $200.00 | $140.80 | 17.60% | $80.00 / $70.40 |
+| Phobos' Rivetline S4 Process Water Silo | $6,780.00 | $1,695.00 | $1,174.40 | 17.32% | $678.00 / $587.20 |
+| Phobos' Rivetline S4 Process Water Silo (Damaged) | $1,695.00 | $423.75 | $270.45 | 15.96% | $169.50 / $135.22 |
+| Phobos' Rivetline S5 Process Water Silo | $8,860.00 | $2,215.00 | $1,463.50 | 16.52% | $886.00 / $731.75 |
+| Phobos' Rivetline S5 Process Water Silo (Damaged) | $2,215.00 | $553.75 | $340.00 | 15.35% | $221.50 / $170.00 |
 | Phobos' Rivetline D4-S Dismantling Fixture Assembly Section | $4,800.00 | $4,800.00 | $257.05 | 5.36% | $1,920.00 / $128.52 |
 | Phobos' Rivetline R4-S Scrap Reclaimer Assembly Section | $6,000.00 | $6,000.00 | $318.80 | 5.31% | $2,400.00 / $159.40 |
 | Phobos' Rivetline F6-S Furnace Assembly Section | $6,500.00 | $6,500.00 | $298.80 | 4.60% | $2,600.00 / $149.40 |
@@ -85,6 +89,8 @@ The processor's final assembly consumes two priced sections. Raw materials for b
 | Phobos' Rivetline C2 Residue Collector | $40.10 |
 | Phobos' Rivetline S3 Process Water Silo | $29.40 |
 | Phobos' Rivetline T2 Ice Thaw Unit | $58.40 |
+| Phobos' Rivetline S4 Process Water Silo | $44.10 |
+| Phobos' Rivetline S5 Process Water Silo | $58.80 |
 | Phobos' Asterel N1 Polaris Auto Nav Module | $29.00 |
 
 Repair values exclude purchasing markups, reusable tools, work and subsequent Restore. Repair returns equal-mass spent material; it does not mint fresh valuable components.

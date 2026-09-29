@@ -7,7 +7,7 @@ is still pending.
 
 | Mod | Tab | Equipment |
 | --- | --- | --- |
-| Phobos Shipbreaker | APPS | D4 dismantling fixture, exterior grabber, intake chute, floor/hull collector, R4 scrap reclaimer, F6 furnace, S3 process water silo and T2 ice thaw unit |
+| Phobos Shipbreaker | APPS | D4 dismantling fixture, exterior grabber, intake chute, floor/hull collector, R4 scrap reclaimer, F6 furnace, S3, S4 and S5 process water silos and T2 ice thaw unit |
 | Phobos Shipbreaker | HVAC | F6-R exterior radiator, F6-P underside cooling head and F6-C coolant conduit |
 | Phobos Shipbreaker | CTRL | C1 industrial control console |
 | Phobos Agriculture | APPS | Firstlight-4 cultivation rack, Hearth-2 portion cooker, Groundwork W2 supply, B2 workup bench and R3 reservoir |

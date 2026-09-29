@@ -126,3 +126,12 @@ horizontally and vertically on the canvas. Show no vertical front or side faces.
   Done: manifest, request record and archive commit `1df5784`.
 - Placeholders removed from `assets/phobos-shipbreaker/placeholders/` and the
   export script retired or repointed in the same change. Done.
+
+## Shipbreaker 0.40.0: S4 and S5 (29 September 2026)
+
+One Pixflux pass each (strength 130) over an original procedural start drawing in
+the S3's own colours (slate deck, blue rim, yellow corner clamps, cream domes with
+teal bands): four domes for the S4 (64 px native, 128 px master) and nine for the
+S5 (80 px, 160 px). Both selected; two included generations (allowance 1,780 to
+1,778), $0 credit. No gauges are painted, per the owner ruling. Requests and
+start-drawing hashes are in `assets/artwork-completion/bulk-silo-requests.json`.

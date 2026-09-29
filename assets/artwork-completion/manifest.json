@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "date": "2026-09-27",
-  "status": "77 selected masters; native export review complete; owner gameplay and visual approval pending",
+  "status": "79 selected masters; native export review complete; owner gameplay and visual approval pending",
   "projection": "Orthographic vertical overhead, no visible vertical faces",
   "registration": "Whole transparent source canvas, centred pivot, unchanged native footprint; nearest-neighbour exports",
   "allowanceBefore": 1952,
@@ -2073,6 +2073,56 @@
       "review": "Overhead and native-scale export inspected; Fennmark family and the game's gas colour convention checked. Owner in-game review pending.",
       "fullFootprint": true,
       "jobId": "30d9270c-80b1-4e4e-9410-3a1a95374feb"
+    },
+    {
+      "key": "s4-silo",
+      "mod": "PhobosShipbreaker",
+      "definition": "PhobosProcessSiloMediumInstalled",
+      "nativeSize": [
+        64,
+        64
+      ],
+      "masterSize": [
+        128,
+        128
+      ],
+      "pivot": [
+        32,
+        32
+      ],
+      "runtime": "phobos/shipbreaker/PhobosProcessSiloMedium",
+      "status": "selected",
+      "source": "source/s4-silo.png",
+      "sourceSHA256": "b3527effed4ccb587520bff458c7220254e616104600286f4c0cc76c645d2821",
+      "requestRecord": "bulk-silo-requests.json",
+      "review": "Overhead and native-scale export inspected; S3 colour language (slate deck, yellow clamps, cream domes, teal bands) kept. Owner in-game review pending.",
+      "fullFootprint": true,
+      "jobId": "9e78a7d8-3aee-4efe-a9cd-9372c1e6885b"
+    },
+    {
+      "key": "s5-silo",
+      "mod": "PhobosShipbreaker",
+      "definition": "PhobosProcessSiloLargeInstalled",
+      "nativeSize": [
+        80,
+        80
+      ],
+      "masterSize": [
+        160,
+        160
+      ],
+      "pivot": [
+        40,
+        40
+      ],
+      "runtime": "phobos/shipbreaker/PhobosProcessSiloLarge",
+      "status": "selected",
+      "source": "source/s5-silo.png",
+      "sourceSHA256": "07b30e88d20168ca1546bec9389e2aa2bc00b4572337477a86fa79edb25c4865",
+      "requestRecord": "bulk-silo-requests.json",
+      "review": "Overhead and native-scale export inspected; S3 colour language (slate deck, yellow clamps, cream domes, teal bands) kept. Owner in-game review pending.",
+      "fullFootprint": true,
+      "jobId": "3fda023c-b0ea-472e-bf68-16a66067d789"
     }
   ],
   "records": [
@@ -2403,9 +2453,31 @@
       ],
       "costGenerations": 1,
       "review": "30d9270c selected"
+    },
+    {
+      "key": "s4-silo",
+      "attempts": [
+        "bulk-silo-requests.json"
+      ],
+      "jobs": [
+        "9e78a7d8-3aee-4efe-a9cd-9372c1e6885b"
+      ],
+      "costGenerations": 1,
+      "review": "9e78a7d8 selected"
+    },
+    {
+      "key": "s5-silo",
+      "attempts": [
+        "bulk-silo-requests.json"
+      ],
+      "jobs": [
+        "3fda023c-b0ea-472e-bf68-16a66067d789"
+      ],
+      "costGenerations": 1,
+      "review": "3fda023c selected"
     }
   ],
-  "allowanceAfter": 1780,
-  "allowanceDelta": 172,
+  "allowanceAfter": 1778,
+  "allowanceDelta": 174,
   "creditBalanceAfterUSD": 0
 }

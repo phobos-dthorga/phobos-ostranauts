@@ -24,6 +24,17 @@ internal static class SiloNativeChecks
             check(Stat(silo, "StatMass") == SiloRules.DryKg, "S3 begins empty at its dry mass: " + state);
             check(Stat(silo, "StatBasePrice") == (state.EndsWith("Dmg", StringComparison.Ordinal) ? SiloRules.Price / 4 : SiloRules.Price), "S3 authored prices: " + state);
             check(silo.strNameFriendly.StartsWith("Phobos' Rivetline S3 ", StringComparison.Ordinal), "S3 carries the Rivetline S3 name: " + state);
+            foreach (var size in SiloRules.Sizes.Skip(1))
+            {
+                var big = d.Objects[size.Prefix + state]; var bigItem = d.Items[big.strItemDef];
+                check(bigItem.nCols == size.Footprint && bigItem.aSocketAdds.Length == size.Footprint * size.Footprint && big.inventoryWidth == size.Footprint && big.jsonPI == null &&
+                    big.nContainerWidth == 0 && Stat(big, "StatMass") == size.DryKg, "Each larger silo is a passive vessel of its own footprint at its dry mass: " + size.Prefix + state);
+                check(big.strNameFriendly.StartsWith("Phobos' Rivetline S" + size.Footprint + " ", StringComparison.Ordinal) &&
+                    Stat(big, "StatBasePrice") == (state.EndsWith("Dmg", StringComparison.Ordinal) ? (int)size.Price / 4 : (int)size.Price), "Each larger silo carries its Rivetline model and price: " + size.Prefix + state);
+                check(BulkVessels.SpecFor(size.Prefix + state)?.CapacityKg == size.CapacityKg && BulkVessels.SpecFor(size.Prefix + state)?.Record == size.Record,
+                    "Each larger silo is its own registered water vessel: " + size.Prefix + state);
+                check(big.mapPoints.Contains("use,0," + (-8 * size.Footprint - 8)) && d.Installables.ContainsKey(size.Prefix + state + "Dismantle"), "Each larger silo has a use point and native jobs: " + size.Prefix + state);
+            }
             var thaw = d.Objects[ThawRules.Prefix + state]; var thawItem = d.Items[thaw.strItemDef];
             check(thawItem.nCols == 2 && thawItem.aSocketAdds.Length == 4 && thaw.inventoryWidth == 2 && thaw.inventoryHeight == 2, "T2 occupies two by two native tiles: " + state);
             check(thaw.nContainerWidth * thaw.nContainerHeight == ThawRules.TrayCells && Stat(thaw, "StatMass") == ThawRules.MachineKg, "T2 tray holds two gangue cells and the unit weighs 120 kg: " + state);
@@ -65,7 +76,7 @@ internal static class SiloNativeChecks
         check(typeof(ShipsWaterSupply).GetMethod("DepositWaste") != null && typeof(ShipsWaterSupply).GetMethod("Refill", new[] { typeof(Ship), typeof(ILiquidReservoir), typeof(double), typeof(double), typeof(LiquidTransferGuard) }) != null,
             "Draw and deposit share the guarded transfer contract");
         // Economy: dismantling either machine loses value, checked by the shared economy audit; here the bills add up.
-        foreach (var spec in EquipmentEconomy.Machines.Where(m => m.Prefix == SiloRules.Prefix || m.Prefix == ThawRules.Prefix))
+        foreach (var spec in EquipmentEconomy.Machines.Where(m => SiloRules.IsFamily(m.Prefix + "Installed") || m.Prefix == ThawRules.Prefix))
         {
             double mass = Stat(d.Objects[spec.Prefix + "Installed"], "StatMass");
             double Bill(int[] bill) => bill.Select((n, i) => n * Stat(DataHandler.dictCOs[EquipmentEconomy.Materials[i]], "StatMass")).Sum();

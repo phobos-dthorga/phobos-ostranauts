@@ -15,20 +15,20 @@ internal static class SiloDefinitions
     internal const string SiloArt = "PhobosProcessSilo", ThawArt = "PhobosIceThaw";
     internal static void Add(NativeDefinitions d)
     {
-        BulkVessels.Register(SiloService.Spec);
-        AddSilo(d);
+        foreach (var spec in SiloService.Specs) BulkVessels.Register(spec);
+        foreach (var size in SiloRules.Sizes) AddSilo(d, size);
         AddThaw(d);
     }
-    private static void AddSilo(NativeDefinitions d)
+    private static void AddSilo(NativeDefinitions d, SiloSize size)
     {
-        string p = SiloRules.Prefix;
+        string p = size.Prefix; int footprint = size.Footprint;
         MachineDefinitions.AddFamily(d, p);
         foreach (string state in new[] { "Installed", "Loose", "InstalledDmg", "LooseDmg" })
         {
             bool installed = state.StartsWith("Installed", StringComparison.Ordinal), damaged = state.EndsWith("Dmg", StringComparison.Ordinal);
             var co = d.Objects[p + state]; var item = d.Items[p + state];
-            co.strNameFriendly = co.strNameShort = Text.Get("Silo.name") + (damaged ? Text.Get("Content.damaged") : "");
-            co.strDesc = Text.Get("Silo.description", SiloRules.DryKg, SiloRules.CapacityKg, SiloRules.Footprint);
+            co.strNameFriendly = co.strNameShort = Text.Get(size.NameKey) + (damaged ? Text.Get("Content.damaged") : "");
+            co.strDesc = Text.Get("Silo.description", size.DryKg, size.CapacityKg, footprint);
             // A passive vessel: no container, no feed, no electricity, no tickers. Its water is a saved record.
             co.strLoot = "Blank"; co.aSlotsWeHave = Array.Empty<string>(); co.strContainerCT = null;
             co.nContainerWidth = co.nContainerHeight = 0;
@@ -36,16 +36,16 @@ internal static class SiloDefinitions
             co.mapGUIPropMaps = Array.Empty<string>();
             co.jsonPI = null; co.aTickers = Array.Empty<string>();
             co.aInteractions = Array.Empty<string>();
-            co.inventoryWidth = co.inventoryHeight = SiloRules.Footprint;
-            Content.SetStat(co, "StatMass", SiloRules.DryKg);
-            co.mapPoints = new[] { "use,0,-32" };
-            item.nCols = SiloRules.Footprint; item.fZScale = 0.5f;
-            item.aSocketAdds = Enumerable.Repeat(installed ? "TILFixtureAdds" : "TILItemAdds", SiloRules.Footprint * SiloRules.Footprint).ToArray();
-            item.aSocketReqs = Border(SiloRules.Footprint, installed ? "TILFloor" : "Blank");
-            item.aSocketForbids = Border(SiloRules.Footprint, installed ? "TILObstruction" : "TILItemForbids");
+            co.inventoryWidth = co.inventoryHeight = footprint;
+            Content.SetStat(co, "StatMass", size.DryKg);
+            co.mapPoints = new[] { "use,0," + (-8 * footprint - 8) };
+            item.nCols = footprint; item.fZScale = 0.5f;
+            item.aSocketAdds = Enumerable.Repeat(installed ? "TILFixtureAdds" : "TILItemAdds", footprint * footprint).ToArray();
+            item.aSocketReqs = Border(footprint, installed ? "TILFloor" : "Blank");
+            item.aSocketForbids = Border(footprint, installed ? "TILObstruction" : "TILItemForbids");
             // One dedicated overhead sprite for every form, as the inventory portrait too; damaged forms use the
             // game's damage tint. The master and its provenance are in assets/artwork-completion.
-            Content.ApplyArtwork(co, item, SiloArt, SiloArt);
+            Content.ApplyArtwork(co, item, size.Art, size.Art);
             co.strPortraitImg = item.strImg;
         }
     }

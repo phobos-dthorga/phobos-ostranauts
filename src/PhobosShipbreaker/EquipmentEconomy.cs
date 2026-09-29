@@ -15,17 +15,19 @@ internal static class EquipmentEconomy
         internal string Prefix;
         internal int Price, Install, Uninstall, Repair, Dismantle, RestoreMinutes;
         internal int[] RepairBill, Salvage, BrokenSalvage;
+        /// <summary>Whether a loose unit can turn up in engineering salvage; the larger silos are too big to.</summary>
+        internal bool Loot;
         internal Spec(string prefix, int price, int install, int uninstall, int repair, int dismantle,
-            int[] repairBill, int[] salvage, int[] brokenSalvage, int restoreMinutes)
+            int[] repairBill, int[] salvage, int[] brokenSalvage, int restoreMinutes, bool loot = true)
         { Prefix = prefix; Price = price; Install = install; Uninstall = uninstall; Repair = repair;
           Dismantle = dismantle; RepairBill = repairBill; Salvage = salvage; BrokenSalvage = brokenSalvage;
-          RestoreMinutes = restoreMinutes; }
+          RestoreMinutes = restoreMinutes; Loot = loot; }
     }
     // Native work-progress targets, not wall-clock seconds. Bills below are steel,
     // aluminium, mechanical parts, electronic parts, retained trash.
     internal static readonly string[] Materials = { "ItmScrapSteel", "ItmScrapAluminum", "ItmPartsMechSmall01", "ItmPartsElecSmall01", "ItmScrapTrash" };
     private static readonly string[] Triggers = { "TIsScrapSteel", "TIsScrapAluminum", "TIsPartsMechSmall", "TIsPartsElecSmall" };
-    internal static readonly Spec[] Machines = {
+    internal static readonly Spec[] Machines = new[] {
         new Spec(FurnaceRules.Prefix, price: 24000, install: 2400, uninstall: 1800, repair: 4800, dismantle: 1800, new[]{4,4,8,6}, new[]{140,50,24,12,32}, new[]{120,40,12,4,72}, restoreMinutes: 80),
         new Spec(FurnaceRules.Radiator, price: 7200, install: 1200, uninstall: 900, repair: 3000, dismantle: 800, new[]{2,4,4,0}, new[]{28,50,8,0,18}, new[]{20,38,4,0,40}, restoreMinutes: 20),
         new Spec(FurnaceRules.ThermalPort, price: 7200, install: 1200, uninstall: 900, repair: 3000, dismantle: 800, new[]{2,4,4,0}, new[]{28,50,8,0,18}, new[]{20,38,4,0,40}, restoreMinutes: 20),
@@ -37,7 +39,22 @@ internal static class EquipmentEconomy
         new Spec(CollectorRules.Prefix, price: 2400, install: 600, uninstall: 500, repair: 1800, dismantle: 350, new[]{0,1,2,2}, new[]{10,3,4,2,4}, new[]{8,2,2,0,9}, restoreMinutes: 15),
         new Spec(SiloRules.Prefix, price: 4800, install: 1200, uninstall: 900, repair: 2400, dismantle: 800, new[]{2,2,4,0}, new[]{170,40,20,4,18}, new[]{40,10,4,0,188}, restoreMinutes: 30),
         new Spec(ThawRules.Prefix, price: 3200, install: 800, uninstall: 600, repair: 2000, dismantle: 500, new[]{2,2,4,2}, new[]{70,24,20,8,12}, new[]{30,8,4,0,80}, restoreMinutes: 25)
-    };
+    }.Concat(SiloRules.Sizes.Skip(1).Select(SiloSpec)).ToArray();
+    /// <summary>The S4 and S5 on the S3's pattern: work and repair grow with the footprint, and salvage keeps the S3's
+    /// fittings and fills the rest of the dry mass with steel, aluminium and retained trash in the S3's proportions.</summary>
+    internal static Spec SiloSpec(SiloSize size)
+    {
+        int step = size.Footprint - SiloRules.Footprint;
+        int[] Split(double fittingsKg, int[] fittings, double steelShare, double aluminiumShare)
+        {
+            double rest = size.DryKg - fittingsKg;
+            int steel = (int)Math.Round(rest * steelShare), aluminium = (int)Math.Round(rest * aluminiumShare);
+            return new[] { steel, aluminium }.Concat(fittings).Concat(new[] { (int)Math.Round(rest - steel - aluminium) }).ToArray();
+        }
+        return new Spec(size.Prefix, price: (int)size.Price, install: 1200 + 400 * step, uninstall: 900 + 300 * step, repair: 2400 + 600 * step, dismantle: 800 + 200 * step,
+            new[] { 2 + step, 2 + step, 4 + 2 * step, 0 }, Split(12, new[] { 20, 4 }, 170.0 / 228, 40.0 / 228), Split(2, new[] { 4, 0 }, 40.0 / 238, 10.0 / 238),
+            restoreMinutes: 30 + 10 * step, loot: false);
+    }
 
     internal static string[] Products(int[] bill) => bill.SelectMany((count, i) => Enumerable.Repeat(Materials[i], count)).ToArray();
     internal static void Apply(NativeDefinitions d)
@@ -94,7 +111,7 @@ internal static class EquipmentEconomy
         MaintenanceDefinitions.Dismantle(d, FurnaceRules.Section, 600, Products(new[]{44,20,12,4,8}));
         EquipmentSaveUpgrade.Register(d, FurnaceRules.Section, FurnaceRules.Section);
         AddStock(d);
-        var machinery = Machines.SelectMany(m => new[] { m.Prefix + "Loose", m.Prefix + "LooseDmg" }).ToArray();
+        var machinery = Machines.Where(m => m.Loot).SelectMany(m => new[] { m.Prefix + "Loose", m.Prefix + "LooseDmg" }).ToArray();
         AdditiveLoot.SetItemChoice(d, "ItmLootSpawnEngineering", "PhobosShipbreakerMachinerySalvage",
             machinery.ToDictionary(id => id, _ => MachinerySalvageChance / machinery.Length));
         AdditiveLoot.SetItemChoice(d, "ItmLootSpawnEngineering", "PhobosShipbreakerServiceSalvage",

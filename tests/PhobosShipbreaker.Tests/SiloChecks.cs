@@ -41,6 +41,19 @@ internal static class SiloChecks
         check(SiloRules.CapacityKg == 1000 && SiloRules.DryKg == 240 && SiloRules.Footprint == 3, "S3: 1,000 kg of water in a 240 kg 3 x 3 housing");
         check(SiloRules.ReserveChoices.All(SiloRules.ValidAmount) && SiloRules.TransferChoices.All(SiloRules.ValidAmount), "Every panel choice is a valid amount");
         check(SiloRules.PurchaseStepKg * SiloRules.PurchaseSteps == SiloRules.CapacityKg, "One station quote can fill an empty silo");
+        // The S3, S4 and S5 ladder: the S3 unchanged, one tile wider per step, more water for less per kilogram.
+        var sizes = SiloRules.Sizes;
+        check(sizes.Count == 3 && sizes[0].Prefix == SiloRules.Prefix && sizes[0].Record == SiloRules.Record && sizes[0].CapacityKg == 1000 && sizes[0].DryKg == 240 && sizes[0].Price == 4800,
+            "The S3 keeps its identity, record and ratings");
+        check(sizes[1].Prefix == "PhobosProcessSiloMedium" && sizes[1].Footprint == 4 && sizes[1].CapacityKg == 1960 && sizes[1].DryKg == 365 &&
+              sizes[2].Prefix == "PhobosProcessSiloLarge" && sizes[2].Footprint == 5 && sizes[2].CapacityKg == 3330 && sizes[2].DryKg == 465, "S4 holds 1,960 kg and S5 3,330 kg");
+        check(sizes[1].CapacityKg / sizes[1].Price > sizes[0].CapacityKg / sizes[0].Price && sizes[2].CapacityKg / sizes[2].Price > sizes[1].CapacityKg / sizes[1].Price, "Bigger silos cost less per kilogram held");
+        check(sizes.Select(s => s.Record).Concat(sizes.Select(s => s.Journal)).Concat(sizes.Select(s => s.Guard)).Distinct().Count() == 9, "Every size keeps its own records");
+        check(SiloRules.IsFamily("PhobosProcessSiloLargeInstalledDmg") && SiloRules.For("PhobosProcessSiloMediumLoose") == sizes[1] && SiloRules.For("PhobosIceThawInstalled") == null,
+            "Every form resolves to its own size; other machines do not");
+        check(SiloRules.ReserveChoicesFor(1000).SequenceEqual(SiloRules.ReserveChoices) && sizes.All(s => SiloRules.ReserveChoicesFor(s.CapacityKg).All(k => SiloRules.ValidAmount(k, s.CapacityKg))),
+            "Reserve steps scale with the silo and stay valid amounts; the S3's are unchanged");
+        check(SiloRules.ValidAmount(3000, 3330) && !SiloRules.ValidAmount(3000, 1000), "Amounts are checked against the chosen silo's own capacity");
 
         var job = ProcessJob.CreateOrResume(ThawRules.Recipes, "ice-1", 1200, 1, 2400, 2400);
         check(job.Progress == 1200 && !job.Complete, "A saved half-thawed block resumes where it was");

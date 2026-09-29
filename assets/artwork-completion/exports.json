@@ -2088,5 +2088,57 @@
     "registrationReference": null,
     "patches": null,
     "fullFootprint": true
+  },
+  {
+    "key": "s4-silo",
+    "sourceSHA256": "b3527effed4ccb587520bff458c7220254e616104600286f4c0cc76c645d2821",
+    "nativeSize": [
+      64,
+      64
+    ],
+    "pivot": [
+      32,
+      32
+    ],
+    "sourceBounds": [
+      0,
+      0,
+      128,
+      128
+    ],
+    "exports": {
+      "mods/PhobosShipbreaker/images/phobos/shipbreaker/PhobosProcessSiloMedium.png": "22981444f1d4e0f933d734ac3647223e4de2bbba4418577292d41ed52e9c7e2c",
+      "mods/PhobosShipbreaker/images/phobos/shipbreaker/PhobosProcessSiloMediumNormal.png": "072b54cf18c7b6527f75471c798c9fd23e7ba7163f0a2f02e651f8caa08f30b5"
+    },
+    "normal": "Neutral tangent normal with matching alpha; no authored relief",
+    "registrationReference": null,
+    "patches": null,
+    "fullFootprint": true
+  },
+  {
+    "key": "s5-silo",
+    "sourceSHA256": "07b30e88d20168ca1546bec9389e2aa2bc00b4572337477a86fa79edb25c4865",
+    "nativeSize": [
+      80,
+      80
+    ],
+    "pivot": [
+      40,
+      40
+    ],
+    "sourceBounds": [
+      0,
+      0,
+      160,
+      160
+    ],
+    "exports": {
+      "mods/PhobosShipbreaker/images/phobos/shipbreaker/PhobosProcessSiloLarge.png": "7c55eeb8a66559153b29e8ff9889b12d9179407e857efe0ee8eb45e8423f245b",
+      "mods/PhobosShipbreaker/images/phobos/shipbreaker/PhobosProcessSiloLargeNormal.png": "559c253bac93c89f0b42a47079720c0de65383dcfdf5869ed946ba69cc8c6773"
+    },
+    "normal": "Neutral tangent normal with matching alpha; no authored relief",
+    "registrationReference": null,
+    "patches": null,
+    "fullFootprint": true
   }
 ]

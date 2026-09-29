@@ -422,3 +422,10 @@ transfers. The store status and description keys moved to new keys (`level`,
 its keys. The propellant line is now the gas line in every current text; the
 player guide gains Gas stores and Canister filling station sections that lead
 with the steps. Coverage is 2504 entries. Unity wording is unverified.
+
+## S4 and S5 silos (Shipbreaker 0.40.0), 29 September 2026
+
+Shipbreaker 0.40.0 adds the S4 and S5 process water silos. Two new name entries
+reuse the S3's wording; the station offer now reads Process water (Rivetline
+S-series silos). The silo guide, player guide, economy guide, item reference and
+Workshop page follow. Unity wording is unverified.

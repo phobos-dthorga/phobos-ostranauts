@@ -15,11 +15,15 @@ namespace PhobosShipbreaker;
 /// Framework's guarded transfers; the silo itself runs nothing.</summary>
 internal static class SiloService
 {
-    internal static readonly BulkVesselSpec Spec = new(SiloRules.Prefix, SiloRules.Commodity, SiloRules.CapacityKg, SiloRules.DryKg, Plugin.Id, SiloRules.Record, SiloRules.Journal, SiloRules.Guard);
+    /// <summary>Every silo size's declaration, S3 first; the S3's is <see cref="Spec"/>.</summary>
+    internal static readonly BulkVesselSpec[] Specs = SiloRules.Sizes.Select(s => new BulkVesselSpec(s.Prefix, SiloRules.Commodity, s.CapacityKg, s.DryKg, Plugin.Id, s.Record, s.Journal, s.Guard)).ToArray();
+    internal static BulkVesselSpec Spec => Specs[0];
     /// <summary>The station Bulk supplies offer: process water into an installed S3 at the authored price.</summary>
+    /// <summary>One offer fills every silo size; a quote is bounded by the chosen silo's room and the largest silo's steps.</summary>
     internal static readonly VesselSupplyProvider Supplies = new(Plugin.Id, () => Content.Ready ?
-        new[] { (new BulkSupplyOffer("shipbreaker.water", Text.Get("Silo.offer"), Text.Get("Silo.unit_kg"), SiloRules.WaterPricePerKg, SiloRules.PurchaseStepKg, SiloRules.PurchaseSteps), SiloRules.Prefix) } :
-        Array.Empty<(BulkSupplyOffer, string)>());
+        new[] { (new BulkSupplyOffer("shipbreaker.water", Text.Get("Silo.offer"), Text.Get("Silo.unit_kg"), SiloRules.WaterPricePerKg, SiloRules.PurchaseStepKg,
+            (int)Math.Ceiling(SiloRules.Sizes.Max(s => s.CapacityKg) / SiloRules.PurchaseStepKg)), (IReadOnlyList<string>)SiloRules.Sizes.Select(s => s.Prefix).ToArray()) } :
+        Array.Empty<(BulkSupplyOffer, IReadOnlyList<string>)>());
     internal static IEnumerable<CondOwner> ThawUnits(CondOwner silo) => (silo.ship?.GetCOs(null, false, false, true) ?? Enumerable.Empty<CondOwner>())
         .Where(c => c != null && !c.bDestroyed && ThawRules.IsFamily(c.strCODef) && ThawService.Peer(c) == silo.strID).OrderBy(c => c.strID, StringComparer.Ordinal).ToArray();
     internal static string Describe(CondOwner co)
@@ -54,19 +58,19 @@ internal static class SiloService
         {
             if (action == "recover")
             {
-                var s = BulkVessel.Read(co, Spec);
+                var s = BulkVessel.Read(co, BulkVessel.Spec(co));
                 if (s.CatchKg <= 0) { message = Text.Get("Silo.nothing_to_recover"); return false; }
-                double trapped = s.CatchKg; s.Recover(); BulkVessel.Save(co, Spec, s);
+                double trapped = s.CatchKg; s.Recover(); BulkVessel.Save(co, BulkVessel.Spec(co), s);
                 message = Text.Get("Silo.recovered", trapped); return true;
             }
             string verb = new[] { "reserve:", "draw:", "to-waste:" }.FirstOrDefault(v => action.StartsWith(v, StringComparison.Ordinal)) ?? "";
             if (verb.Length == 0) { message = Text.Get("Industry.unsupported_action"); return false; }
-            if (!double.TryParse(action.Substring(verb.Length), NumberStyles.Float, CultureInfo.InvariantCulture, out double kg) || !SiloRules.ValidAmount(kg))
+            if (!double.TryParse(action.Substring(verb.Length), NumberStyles.Float, CultureInfo.InvariantCulture, out double kg) || !SiloRules.ValidAmount(kg, BulkVessel.Spec(co).CapacityKg))
             { message = Text.Get("Silo.invalid_amount"); return false; }
-            if (verb == "reserve:") { var s = BulkVessel.Read(co, Spec); s.SetReserve(kg); BulkVessel.Save(co, Spec, s); message = Text.Get("Silo.done"); return true; }
+            if (verb == "reserve:") { var s = BulkVessel.Read(co, BulkVessel.Spec(co)); s.SetReserve(kg); BulkVessel.Save(co, BulkVessel.Spec(co), s); message = Text.Get("Silo.done"); return true; }
             if (!ShipsWaterSupply.Available) { message = Text.Get("Silo.no_shipswater"); return false; }
             if (kg <= 0) { message = Text.Get("Silo.invalid_amount"); return false; }
-            var endpoint = new BulkVessel.Endpoint(co); var guard = BulkVessel.Guard(co, Spec);
+            var endpoint = new BulkVessel.Endpoint(co); var guard = BulkVessel.Guard(co);
             if (verb == "draw:")
             {
                 double got = ShipsWaterSupply.Refill(co.ship, endpoint, kg, Plugin.Options.CrewWaterReserveKg, guard);
@@ -88,7 +92,8 @@ internal static class SiloService
 internal sealed class VesselProvider : IEquipmentProvider, IEquipmentPanelFields
 {
     public string Id => Plugin.Id;
-    public IReadOnlyList<string> Definitions { get; } = Array.AsReadOnly(new[] { SiloRules.Installed, SiloRules.Installed + "Dmg", ThawRules.Installed, ThawRules.Installed + "Dmg" });
+    public IReadOnlyList<string> Definitions { get; } = Array.AsReadOnly(SiloRules.Sizes.Select(s => s.Installed).Concat(new[] { ThawRules.Installed })
+        .SelectMany(id => new[] { id, id + "Dmg" }).ToArray());
     private static string N(double value) => value.ToString("R", CultureInfo.InvariantCulture);
     public IEnumerable<EquipmentField> Fields(CondOwner co)
     {
@@ -96,7 +101,7 @@ internal sealed class VesselProvider : IEquipmentProvider, IEquipmentPanelFields
         {
             if (BulkVessel.Protected(co)) yield break;
             var s = BulkVessel.Snapshot(co);
-            yield return new(Text.Get("Silo.reserve_field"), Text.Get("Silo.kg", s.ReserveKg), SiloRules.ReserveChoices.Select(n => ("reserve:" + N(n), Text.Get("Silo.kg", n))));
+            yield return new(Text.Get("Silo.reserve_field"), Text.Get("Silo.kg", s.ReserveKg), SiloRules.ReserveChoicesFor(s.CapacityKg).Select(n => ("reserve:" + N(n), Text.Get("Silo.kg", n))));
             if (!ShipsWaterSupply.Available) yield break;
             yield return new(Text.Get("Silo.draw_field"), Text.Get("Silo.kg", s.AvailableKg), SiloRules.TransferChoices.Select(n => ("draw:" + N(n), Text.Get("Silo.kg", n))));
             yield return new(Text.Get("Silo.waste_field"), Text.Get("Silo.kg", s.AvailableKg), SiloRules.TransferChoices.Select(n => ("to-waste:" + N(n), Text.Get("Silo.kg", n))));
@@ -107,7 +112,7 @@ internal sealed class VesselProvider : IEquipmentProvider, IEquipmentPanelFields
     }
     public bool IsConfiguration(string action) => action.StartsWith("reserve:", StringComparison.Ordinal) || action.StartsWith("draw:", StringComparison.Ordinal) ||
         action.StartsWith("to-waste:", StringComparison.Ordinal) || action.StartsWith("link:", StringComparison.Ordinal);
-    public string ConfigurationStamp(CondOwner co) => Phobos.Ostranauts.Framework.Controls.ConfigurationStamp.For(co, "PhobosMaterialPort.", "PhobosState.crew-order", "PhobosState." + SiloRules.Record);
+    public string ConfigurationStamp(CondOwner co) => Phobos.Ostranauts.Framework.Controls.ConfigurationStamp.For(co, new[] { "PhobosMaterialPort.", "PhobosState.crew-order" }.Concat(SiloRules.Sizes.Select(s => "PhobosState." + s.Record)).ToArray());
     public bool ApplyConfiguration(CondOwner co, ConsoleBinding? binding, string expected, string action, out string reason)
     {
         reason = ConsoleText.Get("stale");
