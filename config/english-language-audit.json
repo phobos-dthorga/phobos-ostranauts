@@ -45948,8 +45948,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "79dc47dc7a0c289806c0329a2288065d1636cf3dcfa71307a9d582956e76843d",
-      "review": "29 September 2026 performance pass, stage 6 (War Declared 0.1.1): reviewed with this change; wording, links and maintained values checked."
+      "sha256": "403ffae2d3fdf7c19d05555eee92ae65174e6304c2ffbc6ba138e6498365fc85",
+      "review": "30 September 2026, Framework 0.45.1 repair: reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "SUPPORT.md",
@@ -46108,8 +46108,8 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "a576fc12992009e9018afcee557097e6c830ab532862cd574f1f001660a05327",
-      "review": "29 September 2026 performance pass, stage 5 (Auto Nav 0.28.0): reviewed with this change; wording, links and maintained values checked."
+      "sha256": "f6cf501d9c1ebf28e7dd93daae985dc16ec633d8dad97af64d4b2b450d3660cd",
+      "review": "30 September 2026, Framework 0.45.1 repair: reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "docs/crew-automation.md",
@@ -46631,8 +46631,8 @@
       "path": "docs/development/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "47103851b884fbfba5041ad4eb5f46e6f28bec50be7fd9e11a07a2efc4242a56",
-      "review": "29 September 2026 performance pass, stage 7 (installer, captures guide, audit record): reviewed with this change; wording, links and maintained values checked."
+      "sha256": "5c7934e7e9ebf6f60705bb14428ee2cffd9edf65e7da6905c4b3ab5f8714d0d2",
+      "review": "30 September 2026, Framework 0.45.1 repair: reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "docs/development/phobos-framework.md",
@@ -46843,8 +46843,8 @@
       "path": "docs/framework-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "b712d7140e97267b1a3cfb12bea5192ce6c6aab9a76808e00c7a086f84ba9cbd",
-      "review": "Performance pass stage 2 (Framework 0.45.0, Agriculture 0.21.0), 29 September 2026: reviewed with this change; wording, links and maintained values checked."
+      "sha256": "8caa36ace2fc241e9006ea5e5d22b2e52bb54cc3734856464ce1c0fea1d18280",
+      "review": "30 September 2026, Framework 0.45.1 repair: reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "docs/furnace-coolant-conduits.md",
@@ -46906,8 +46906,8 @@
       "path": "docs/installing-mods.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "5c16c9261de11ba222b77d7109520e00fb37ae365b9cdc51eb65e5e52e55d131",
-      "review": "29 September 2026 performance pass, stage 7 (installer, captures guide, audit record): reviewed with this change; wording, links and maintained values checked."
+      "sha256": "e1f79a934bc87cb1d862b0839d2bc9c3d2fff98143ee94abb86725d55ea0cc5a",
+      "review": "30 September 2026, Framework 0.45.1 repair: reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "docs/item-references.md",
@@ -46948,8 +46948,8 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "481943987c9b66a302086e6024bea0ea68a46821adc86623a9822fb6d206e704",
-      "review": "29 September 2026 performance pass, stage 5 (Auto Nav 0.28.0): reviewed with this change; wording, links and maintained values checked."
+      "sha256": "a8b3e5cce0660d91638e75e5ad4fdd3123c0d0493de1fec7558360795fc66679",
+      "review": "30 September 2026, Framework 0.45.1 repair: reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "docs/residue-collector.md",
@@ -47025,36 +47025,36 @@
       "path": "workshop/PhobosAgriculture/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "78e66297077c05e4729261ab37c069ee28061cff1e80f1978addf611bbe8641f",
-      "review": "Performance pass stage 2 (Framework 0.45.0, Agriculture 0.21.0), 29 September 2026: reviewed with this change; wording, links and maintained values checked."
+      "sha256": "a1add945466b020a4f752891852a29fcabe5e9cb701cb6aa41a4f875c73adcbd",
+      "review": "30 September 2026, Framework 0.45.1 repair: reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "workshop/PhobosAutoNav/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "c6938a4fb0c10c808fe40063a51eb6ac6d60edc8f056ff687a7907d49a2eb4f3",
-      "review": "29 September 2026 performance pass, stage 5 (Auto Nav 0.28.0): reviewed with this change; wording, links and maintained values checked."
+      "sha256": "4ae7f7e90c3235d783cfbcba518f7d3a4c30d855dfe1e73861b7df6f8288f4e5",
+      "review": "30 September 2026, Framework 0.45.1 repair: reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "workshop/PhobosFramework/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "6c251499d428c838be0a3a62400351b828e40037c6912f09f7f44b66828c3d31",
-      "review": "Performance pass stage 2 (Framework 0.45.0, Agriculture 0.21.0), 29 September 2026: reviewed with this change; wording, links and maintained values checked."
+      "sha256": "de9af15b43e414bf806cd27aa00f03e87c131e6b4e01cd75610ddb34b8ba2b70",
+      "review": "30 September 2026, Framework 0.45.1 repair: reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "workshop/PhobosManufacturing/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "890e43d745a14ab561f605634a5f165bfe6db5c0e02d45230ac4e819d69a9cf0",
-      "review": "Performance pass stage 4 (Manufacturing 0.6.0), 29 September 2026: reviewed with this change; wording, links and maintained values checked."
+      "sha256": "430fbf3c0c545310aa5a232e5b780816c60a77ca57b95d779c11db923bfac991",
+      "review": "30 September 2026, Framework 0.45.1 repair: reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "workshop/PhobosShipbreaker/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "bc919079feb073e54ed7d86cd77fb7609b7762b555d1508c11345c3194c2e9d0",
-      "review": "Performance pass stage 3 (Shipbreaker 0.41.0), 29 September 2026: reviewed with this change; wording, links and maintained values checked."
+      "sha256": "319d162b16513865dc0f3b54259a723026fff0de5cd0f6f98fe97e6b644bad75",
+      "review": "30 September 2026, Framework 0.45.1 repair: reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "docs/war-declared-player-guide.md",
@@ -47081,8 +47081,8 @@
       "path": "workshop/PhobosWarDeclared/page.bbcode",
       "scope": "current Workshop page draft (held)",
       "decision": "new",
-      "sha256": "51e5285ce538ed4e91c87df2efb46fd4d07af0f11f23d329b2456f9da10a6e86",
-      "review": "29 September 2026 performance pass, stage 6 (War Declared 0.1.1): reviewed with this change; wording, links and maintained values checked."
+      "sha256": "f325c79084ef5b470669b6b3e8c4504c59614bbadd81380f791a141290d6eb0d",
+      "review": "30 September 2026, Framework 0.45.1 repair: reviewed with this change; wording, links and maintained values checked."
     }
   ],
   "surfaces": [
@@ -47138,8 +47138,8 @@
     {
       "path": "mods/PhobosFramework/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "c69b4f70f271fc2c45e0dc1dcfe904156b657ad9349f36c949b2b105533c14b0",
-      "review": "Performance pass stage 2 (Framework 0.45.0, Agriculture 0.21.0), 29 September 2026: reviewed with this change; wording, links and maintained values checked."
+      "sha256": "019b854c8588d186db75763d248b7ee7128c4a7d6f54cefa5dcf3e322103707e",
+      "review": "30 September 2026, Framework 0.45.1 repair: reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "mods/PhobosManufacturing/mod_info.json",
@@ -47168,8 +47168,8 @@
     {
       "path": "mods/PhobosWarDeclared/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "5ad99811b58aa2a4fc3a39afa790385cf9cf2dd01a0d2426285a7171046e9211",
-      "review": "29 September 2026 performance pass, stage 6 (War Declared 0.1.1): reviewed with this change; wording, links and maintained values checked."
+      "sha256": "2dc3de4d9837be56ebcc302b3345659a9a50e9ac00a317aa0f21149ee571ab61",
+      "review": "30 September 2026, Framework 0.45.1 repair: reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "mods/PhobosWarDeclared/schematics/safe.json",

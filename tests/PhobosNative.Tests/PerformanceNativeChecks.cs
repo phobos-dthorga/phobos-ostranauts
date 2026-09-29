@@ -39,9 +39,8 @@ internal static class PerformanceNativeChecks
             PhobosShipbreaker.FurnaceService.IsEquipmentDefinition(PhobosShipbreaker.Core.FurnaceRules.ThermalPort + "LooseDmg") &&
             !PhobosShipbreaker.FurnaceService.IsEquipmentDefinition("ItmWall1x1") && !PhobosShipbreaker.FurnaceService.IsEquipmentDefinition(null), "Furnace-family discovery classifies by definition");
         for (int i = 0; i < 1000; i++) { PhobosShipbreaker.PowerKinds.Classify("ItmAirPumpInstalled"); PhobosShipbreaker.FurnaceService.IsEquipmentDefinition("ItmAirPumpInstalled"); }
-        long before = GC.GetAllocatedBytesForCurrentThread();
-        for (int i = 0; i < 42000; i++) { PhobosShipbreaker.PowerKinds.Classify("ItmAirPumpInstalled"); PhobosShipbreaker.FurnaceService.IsEquipmentDefinition("ItmAirPumpInstalled"); }
-        check(GC.GetAllocatedBytesForCurrentThread() == before, "Classifying a foreign appliance allocates nothing on the test runtime");
+        check(AllocatesNothing(() => { for (int i = 0; i < 42000; i++) { PhobosShipbreaker.PowerKinds.Classify("ItmAirPumpInstalled"); PhobosShipbreaker.FurnaceService.IsEquipmentDefinition("ItmAirPumpInstalled"); } }),
+            "Classifying a foreign appliance allocates nothing on the test runtime");
 
         // Manufacturing's hooks classify the same way.
         PhobosManufacturing.MachineKinds.Reset();
@@ -54,9 +53,23 @@ internal static class PerformanceNativeChecks
         check(PhobosManufacturing.MachineKinds.IsOurs(PhobosManufacturing.Core.ManifoldRules.Installed) && PhobosManufacturing.MachineKinds.IsOurs(PhobosManufacturing.Core.GasStores.Hydrogen.Installed + "Dmg") &&
             PhobosManufacturing.MachineKinds.IsOurs(PhobosManufacturing.Core.RegulatorRules.Installed) && !PhobosManufacturing.MachineKinds.IsOurs("ItmAirPumpInstalled") && !PhobosManufacturing.MachineKinds.IsOurs(null),
             "Every Manufacturing family is ours by definition; foreign ids are not");
-        for (int i = 0; i < 1000; i++) PhobosManufacturing.MachineKinds.IsOurs("ItmAirPumpInstalled");
-        before = GC.GetAllocatedBytesForCurrentThread();
-        for (int i = 0; i < 42000; i++) { PhobosManufacturing.MachineKinds.Classify("ItmAirPumpInstalled"); PhobosManufacturing.MachineKinds.IsOurs("ItmAirPumpInstalled"); }
-        check(GC.GetAllocatedBytesForCurrentThread() == before, "Manufacturing classification of a foreign appliance allocates nothing on the test runtime");
+        for (int i = 0; i < 1000; i++) { PhobosManufacturing.MachineKinds.IsOurs("ItmAirPumpInstalled"); PhobosManufacturing.MachineKinds.Classify("ItmAirPumpInstalled"); }
+        check(AllocatesNothing(() => { for (int i = 0; i < 42000; i++) { PhobosManufacturing.MachineKinds.Classify("ItmAirPumpInstalled"); PhobosManufacturing.MachineKinds.IsOurs("ItmAirPumpInstalled"); } }),
+            "Manufacturing classification of a foreign appliance allocates nothing on the test runtime");
+    }
+
+    /// <summary>True when the action allocates nothing on the current thread in at least one of three attempts. The counter also
+    /// sees the test runtime's own tiered-compilation work landing inside the window, which is not the code under test; code
+    /// that really allocates per call does so on every attempt and still fails.</summary>
+    internal static bool AllocatesNothing(Action action)
+    {
+        for (int attempt = 0; attempt < 3; attempt++)
+        {
+            long before = GC.GetAllocatedBytesForCurrentThread();
+            action();
+            if (GC.GetAllocatedBytesForCurrentThread() == before) return true;
+            System.Threading.Thread.Sleep(200);
+        }
+        return false;
     }
 }

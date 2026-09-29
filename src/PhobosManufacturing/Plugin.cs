@@ -18,7 +18,7 @@ public sealed class Plugin : BaseUnityPlugin
 {
     public const string Id = ManufacturingRules.Owner;
     public const string Version = "0.6.0";
-    public const string MinimumFrameworkVersion = "0.45.0";
+    public const string MinimumFrameworkVersion = "0.45.1";
     internal static Action<string> Log = _ => { };
     private Harmony? harmony;
     private float nextScan;

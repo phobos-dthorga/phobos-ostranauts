@@ -104,8 +104,12 @@ public static class FluidRouteCache
     private static class ModeSwitchPatch { private static void Postfix() { if (snapshots.Count > 0) InvalidateAll(); } }
     [HarmonyPatch(typeof(CondOwner), nameof(CondOwner.Destroy))]
     private static class DestroyPatch { private static void Prefix(CondOwner __instance) { if (snapshots.Count > 0) Invalidate(__instance?.ship); } }
-    [HarmonyPatch(typeof(Ship), nameof(Ship.AddCO))]
+    // Ship.AddCO has two overloads; each is named by its parameter types or Harmony cannot resolve the patch and
+    // aborts the whole plugin's PatchAll (PatchResolutionChecks in the native suite resolves every patch).
+    [HarmonyPatch(typeof(Ship), nameof(Ship.AddCO), typeof(CondOwner), typeof(bool))]
     private static class AddPatch { private static void Postfix(Ship __instance) { if (snapshots.Count > 0) Invalidate(__instance); } }
+    [HarmonyPatch(typeof(Ship), nameof(Ship.AddCO), typeof(CondOwner), typeof(bool), typeof(bool))]
+    private static class AddSkipPatch { private static void Postfix(Ship __instance) { if (snapshots.Count > 0) Invalidate(__instance); } }
     [HarmonyPatch(typeof(Ship), nameof(Ship.RemoveCO))]
     private static class RemovePatch { private static void Postfix(Ship __instance) { if (snapshots.Count > 0) Invalidate(__instance); } }
     [HarmonyPatch]

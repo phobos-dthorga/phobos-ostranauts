@@ -19,7 +19,7 @@ public sealed class Plugin : BaseUnityPlugin
 {
     public const string Id = WarRules.Owner;
     public const string Version = "0.1.1";
-    public const string MinimumFrameworkVersion = "0.45.0";
+    public const string MinimumFrameworkVersion = "0.45.1";
     internal static Action<string> Log = _ => { };
     private static ConfigEntry<string>? schematic;
     private Harmony? harmony;

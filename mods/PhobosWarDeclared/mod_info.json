@@ -5,6 +5,6 @@
     "strModURL": "https://github.com/phobos-dthorga/phobos-ostranauts",
     "strGameVersion": "1.0.1.5",
     "strModVersion": "0.1.1",
-    "strNotes": "Logs installed parts destroyed on your own ships during battle and, when you stand down, lays the game's own build sites where they stood, vanilla and modded parts alike. Crew rebuild them with real replacement parts. Rebuild schematics (safe, everything, hull-only or your own files) decide what is laid, held or left alone. Requires Phobos Framework 0.45.0 or newer and the normal game/BepInEx prerequisites. Not gameplay-validated."
+    "strNotes": "Logs installed parts destroyed on your own ships during battle and, when you stand down, lays the game's own build sites where they stood, vanilla and modded parts alike. Crew rebuild them with real replacement parts. Rebuild schematics (safe, everything, hull-only or your own files) decide what is laid, held or left alone. Requires Phobos Framework 0.45.1 or newer and the normal game/BepInEx prerequisites. Not gameplay-validated."
   }
 ]

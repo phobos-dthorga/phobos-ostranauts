@@ -19,6 +19,7 @@ AutoNavPrecedenceNativeChecks.Run(Check);
 FlightHubNativeChecks.Run(Check);
 PolarisStyleChecks.Run(Check);
 PerformanceNativeChecks.Run(Check);
+PatchResolutionChecks.Run(Check);
 SensorNativeChecks.Run(Check);
 void Load<T>(string folder, Dictionary<string,T> destination, Func<T,string> key)
 {

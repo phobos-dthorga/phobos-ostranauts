@@ -68,9 +68,7 @@ internal static class WarDeclaredNativeChecks
         check(WarService.Facts("ItmWall1x1").Conditions.Contains("IsWall") && WarService.Facts("ItmWall1x1").Menu == "HULL", "Schematic facts carry tile conditions and the INSTALL tab");
         // 29 September 2026 pass (FF7): facts are built once per part until content reloads.
         check(ReferenceEquals(WarService.Facts("ItmWall1x1"), WarService.Facts("ItmWall1x1")), "A part's schematic facts are remembered");
-        long allocated = GC.GetAllocatedBytesForCurrentThread();
-        for (int i = 0; i < 10000; i++) WarService.Facts("ItmWall1x1");
-        check(GC.GetAllocatedBytesForCurrentThread() == allocated, "Remembered facts allocate nothing");
+        check(PerformanceNativeChecks.AllocatesNothing(() => { for (int i = 0; i < 10000; i++) WarService.Facts("ItmWall1x1"); }), "Remembered facts allocate nothing");
         WarService.Reset();
         check(!ReferenceEquals(WarService.Facts("ItmWall1x1"), WarService.Facts("ItmFloorGrate01")) && WarService.Facts("ItmWall1x1").Conditions.Contains("IsWall"), "A content reload rebuilds the facts");
         check(WarRules.RetrySeconds > WarRules.PollSeconds, "Blocked build sites are retried less often than the poll runs");

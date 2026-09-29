@@ -20,6 +20,17 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.45.1] - 2026-09-30 - Draft
+
+### Fixed
+
+- Framework 0.45.0 failed part-way through starting up. Its pipe-layout cache patched the game's Ship.AddCO by name alone, and the game has two versions of that method, so Harmony refused the patch and stopped installing the rest of Framework's hooks. The game's player log (Player.log, not BepInEx's LogOutput.log) showed an AmbiguousMatchException from Framework's start-up, and Framework's per-frame work (crew orders, buffered draws, performance frame samples) never ran. Both versions are now named, and every declared patch in every Phobos plugin is now resolved by an automated check, so this cannot ship again. Do not use 0.45.0; the other Phobos mods now require 0.45.1.
+- Two allocation checks in the offline test suites, which measure the classification of vanilla appliances, no longer fail when the test runtime's own compilation lands inside the measurement.
+
+### Compatibility and limits
+
+- No saved data changes. Offline checks are not gameplay validation.
+
 ## [0.45.0] - 2026-09-29 - Draft
 
 ### Changed

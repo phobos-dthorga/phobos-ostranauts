@@ -32,7 +32,7 @@ Dates on Draft entries record preparation, not Steam publication.
 
 ### Compatibility and limits
 
-- Requires Phobos Framework 0.45.0 or newer. A pipe laid or cut is noticed within two real seconds rather than on the same step. Saved data is unchanged.
+- Requires Phobos Framework 0.45.1 or newer. A pipe laid or cut is noticed within two real seconds rather than on the same step. Saved data is unchanged.
 
 ## [0.20.0] - 2026-09-29 - Draft
 

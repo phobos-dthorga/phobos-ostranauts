@@ -15,7 +15,7 @@ not Steam publication.
 
 ### Compatibility and limits
 
-- Requires Phobos Framework 0.45.0 or newer. Saved battle logs, schematics and orders are unchanged. Offline checks are not gameplay validation.
+- Requires Phobos Framework 0.45.1 or newer. Saved battle logs, schematics and orders are unchanged. Offline checks are not gameplay validation.
 
 ## [0.1.0] - 2026-09-29 - Draft
 

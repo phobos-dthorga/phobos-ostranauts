@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "date": "2026-09-29",
-  "baselineCommit": "8f020768d889a8d46c07eac23b8530c2fb442374",
+  "date": "2026-09-30",
+  "baselineCommit": "7e3efe4caa3eb108d75b735a86d58378f5f7e190",
   "report": "docs/development/performance-audit.md",
   "reviewBoundary": "First-party mod C# source. Static coverage plus deeper hotspot/caller review; not formal verification, a third-party audit or an after-performance measurement.",
   "files": [
@@ -474,10 +474,10 @@
     },
     {
       "path": "src/PhobosAgriculture/Plugin.cs",
-      "sha256": "b0c4f372a4d266fe89f27b0f17f04e2d18267b561fe759d89ab5901da12ec6c2",
+      "sha256": "81fa70b28804002404786e0219c800ab2b1859e6b5ea7215f29881d72ba8d122",
       "role": "biology, fluids, native boundary or process policy",
       "review": "2026-09-28: reviewed registration, selector/completion hooks, local action reads and native mode-switch scope.",
-      "decision": "Reviewed in the 2026-09-29 performance pass; see the linked findings for the disposition.",
+      "decision": "Framework 0.45.1: both Ship.AddCO overloads patched explicitly after 0.45.0 aborted Framework start-up; dependency floors raised to 0.45.1. Every declared patch is now resolved by PatchResolutionChecks.",
       "findings": [
         "R1",
         "E1",
@@ -514,7 +514,7 @@
           145
         ]
       },
-      "reviewed": "2026-09-29"
+      "reviewed": "2026-09-30"
     },
     {
       "path": "src/PhobosAgriculture/RecoveryService.cs",
@@ -1742,10 +1742,10 @@
     },
     {
       "path": "src/PhobosAutoNav/Plugin.cs",
-      "sha256": "8488b8f425a13f889341de7f9e65210b2f7537d4ffe18cbb4d4fab8a612f59e3",
+      "sha256": "b44172187af563474882995138a69011b8387b5f8e9f3a373757c3c2a316eca9",
       "role": "navigation, native boundary or flight policy",
       "review": "2026-09-27 towing: reviewed attachment ownership, clearance and native-policy boundaries; bounded UI refresh preserved.",
-      "decision": "Reviewed in the 2026-09-29 performance pass; see the linked findings for the disposition.",
+      "decision": "Framework 0.45.1: both Ship.AddCO overloads patched explicitly after 0.45.0 aborted Framework start-up; dependency floors raised to 0.45.1. Every declared patch is now resolved by PatchResolutionChecks.",
       "findings": [
         "R2",
         "P8",
@@ -1754,7 +1754,8 @@
         "E1",
         "FF0",
         "FF5",
-        "FF6"
+        "FF6",
+        "FF1"
       ],
       "indicators": {
         "runtime_hook": [
@@ -1780,7 +1781,7 @@
           216
         ]
       },
-      "reviewed": "2026-09-29"
+      "reviewed": "2026-09-30"
     },
     {
       "path": "src/PhobosAutoNav/RegionalEconomy.cs",
@@ -3305,10 +3306,10 @@
     },
     {
       "path": "src/PhobosFramework/Liquids/FluidRouteCache.cs",
-      "sha256": "e5e1d5e6affab82afa617fc7e0698ba07aa728828de617f7ba44d52465995bfa",
+      "sha256": "ccbe06ee6e14dbdc98ef6521cd9cab6e637bb1227add4ba5dab6e37f1d45e7b8",
       "role": "shared accounting, inventory, crew or native boundary",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Reviewed in the 2026-09-29 performance pass; see the linked findings for the disposition.",
+      "decision": "Framework 0.45.1: both Ship.AddCO overloads patched explicitly after 0.45.0 aborted Framework start-up; dependency floors raised to 0.45.1. Every declared patch is now resolved by PatchResolutionChecks.",
       "findings": [
         "FF1",
         "FF2"
@@ -3324,15 +3325,16 @@
         "runtime_hook": [
           103,
           105,
-          107,
           109,
-          111
+          111,
+          113,
+          115
         ],
         "collection": [
-          115
+          119
         ]
       },
-      "reviewed": "2026-09-29"
+      "reviewed": "2026-09-30"
     },
     {
       "path": "src/PhobosFramework/Liquids/FluidTopology.cs",
@@ -3766,10 +3768,10 @@
     },
     {
       "path": "src/PhobosFramework/Plugin.cs",
-      "sha256": "c12eea204abb9d2dc4466d92f090442424cbdcea110bad789dc24d48c1cdfd6c",
+      "sha256": "b0bc1b76f134b467ace11cd4a400c5150d74dfcb4eb0a2dbfaec812a78778454",
       "role": "shared accounting, inventory, crew or native boundary",
       "review": "2026-09-28: reviewed Framework 0.31.1 unnamed-trigger fix and related version/reference updates. Preserve native outcomes, named assembly validation and existing messages; no new recurring work. Reproduced null-key failure, then checked compiled hooks; live confirmation pending.",
-      "decision": "Reviewed in the 2026-09-29 performance pass; see the linked findings for the disposition.",
+      "decision": "Framework 0.45.1: both Ship.AddCO overloads patched explicitly after 0.45.0 aborted Framework start-up; dependency floors raised to 0.45.1. Every declared patch is now resolved by PatchResolutionChecks.",
       "findings": [
         "R3",
         "P8",
@@ -3787,7 +3789,7 @@
           58
         ]
       },
-      "reviewed": "2026-09-29"
+      "reviewed": "2026-09-30"
     },
     {
       "path": "src/PhobosFramework/Processing/EnergyReceipt.cs",
@@ -4853,16 +4855,17 @@
     },
     {
       "path": "src/PhobosManufacturing/Plugin.cs",
-      "sha256": "762f714c7d6b628dcacc775766bf6ceee3b6aedea16e01ff169857e02735f18d",
+      "sha256": "6d817d067ad787a237ba01549407d6f9c1e7d9815beea25ad002780bbafaadf5",
       "role": "startup scaffold",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Reviewed in the 2026-09-29 performance pass; see the linked findings for the disposition.",
+      "decision": "Framework 0.45.1: both Ship.AddCO overloads patched explicitly after 0.45.0 aborted Framework start-up; dependency floors raised to 0.45.1. Every declared patch is now resolved by PatchResolutionChecks.",
       "findings": [
         "R6",
         "FF0",
         "FF3",
         "FF4",
-        "FF5"
+        "FF5",
+        "FF1"
       ],
       "indicators": {
         "persistence_or_io": [
@@ -4902,7 +4905,7 @@
           280
         ]
       },
-      "reviewed": "2026-09-29"
+      "reviewed": "2026-09-30"
     },
     {
       "path": "src/PhobosManufacturing/ProcessorService.cs",
@@ -5552,10 +5555,10 @@
     },
     {
       "path": "src/PhobosShipbreaker/Core/DependencyContract.cs",
-      "sha256": "1ee977b20db87a0b4ec2a96e4c7dc8bceffa9a6e1e6e4ea3f5f83b0de12e4d70",
+      "sha256": "97a53a5d55f9bf6aa04eb3646c225657c943afc93b2f8372b61f70cc8735496e",
       "role": "industrial service, native boundary or process policy",
       "review": "2026-09-28: reviewed registration, selector/completion hooks, local action reads and native mode-switch scope.",
-      "decision": "Reviewed in the 2026-09-29 performance pass; see the linked findings for the disposition.",
+      "decision": "Framework 0.45.1: both Ship.AddCO overloads patched explicitly after 0.45.0 aborted Framework start-up; dependency floors raised to 0.45.1. Every declared patch is now resolved by PatchResolutionChecks.",
       "findings": [
         "R3",
         "P8",
@@ -5564,7 +5567,8 @@
         "FF0",
         "FF3",
         "FF4",
-        "FF5"
+        "FF5",
+        "FF1"
       ],
       "indicators": {
         "collection": [
@@ -5574,7 +5578,7 @@
           39
         ]
       },
-      "reviewed": "2026-09-29"
+      "reviewed": "2026-09-30"
     },
     {
       "path": "src/PhobosShipbreaker/Core/FeedFamilies.cs",
@@ -7040,13 +7044,14 @@
     },
     {
       "path": "src/PhobosWarDeclared/Plugin.cs",
-      "sha256": "0ed64e107d38f308bdb95fd599e059ad4edd01a11f6c8e895873071831a58cde",
+      "sha256": "fa8d33e0790b6d670c1a7981ee85cdd5cb187a98e78d1b138971d24a3f6e529d",
       "role": "industrial service, native boundary or process policy",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Reviewed in the 2026-09-29 performance pass; see the linked findings for the disposition.",
+      "decision": "Framework 0.45.1: both Ship.AddCO overloads patched explicitly after 0.45.0 aborted Framework start-up; dependency floors raised to 0.45.1. Every declared patch is now resolved by PatchResolutionChecks.",
       "findings": [
         "FF0",
-        "FF7"
+        "FF7",
+        "FF1"
       ],
       "indicators": {
         "persistence_or_io": [
@@ -7075,7 +7080,7 @@
           168
         ]
       },
-      "reviewed": "2026-09-29"
+      "reviewed": "2026-09-30"
     },
     {
       "path": "src/PhobosWarDeclared/Schematics.cs",

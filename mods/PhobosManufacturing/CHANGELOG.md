@@ -17,7 +17,7 @@ Dates on Draft entries record preparation, not Steam publication.
 
 ### Compatibility and limits
 
-- Requires Phobos Framework 0.45.0 or newer. A gas line laid or cut is noticed within two real seconds; missing vessels and links are rechecked every five real seconds. Saved data is unchanged. Offline checks are not gameplay validation.
+- Requires Phobos Framework 0.45.1 or newer. A gas line laid or cut is noticed within two real seconds; missing vessels and links are rechecked every five real seconds. Saved data is unchanged. Offline checks are not gameplay validation.
 
 ## [0.5.0] - 2026-09-29 - Draft
 

@@ -306,6 +306,18 @@ site waits up to ten real seconds after the item is put away.
 - The captures guide lists every scope this pass added and advises summary mode at
   fast-forward. The ledger is fully stamped (FF0 to FF7) and CI verifies it.
 
+### Defect found by the after-captures: Framework 0.45.1
+
+The first after-captures (30 September, builds 0.45.0 / 0.28.0 / 0.41.0 / 0.21.0 / 0.6.0) had no frame-time
+samples and no crew-discovery calls. The Unity player log showed why: Framework 0.45.0 threw an
+`AmbiguousMatchException` while installing its patches, because `Ship.AddCO` has two overloads and the pipe
+cache's patch named it by name alone. Framework's start-up stopped there. Those captures therefore show the
+other mods' changes but not a working Framework, and their frame percentiles do not exist. 0.45.1 names both
+overloads. The native suite now resolves every attribute-declared Harmony patch in all six plugins to exactly one
+game method (`PatchResolutionChecks`); the check was shown to fail on the 0.45.0 patch and pass on the fix. The
+lesson for this audit: the offline suites never start a plugin, so patch resolution is checked by reflection, and
+an after-capture is only valid when the BepInEx or player log shows every plugin starting without an exception.
+
 ### Cadence policy
 
 Conserved accounting (power receipts, transfers, thermal and crop steps, elapsed

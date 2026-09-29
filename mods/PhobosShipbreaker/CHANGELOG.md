@@ -37,7 +37,7 @@ Dates on Draft entries record preparation, not Steam publication.
 
 ### Compatibility and limits
 
-- Requires Phobos Framework 0.45.0 or newer. A crash (never a save) can lose up to two real seconds of furnace record progress; a coolant conduit laid or cut is noticed within two real seconds. Saved data is unchanged. Offline checks are not gameplay validation.
+- Requires Phobos Framework 0.45.1 or newer. A crash (never a save) can lose up to two real seconds of furnace record progress; a coolant conduit laid or cut is noticed within two real seconds. Saved data is unchanged. Offline checks are not gameplay validation.
 
 ## [0.40.0] - 2026-09-29 - Draft
 
