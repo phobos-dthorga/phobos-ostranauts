@@ -1,17 +1,28 @@
 # Refinery, electrolysis cell and hydrogen store
 
-Phobos Manufacturing 0.1.0 with Framework 0.41.0. Implemented and checked
-offline; owner gameplay checks are pending, including how the artwork looks in
-play. Use the [current dependency requirements](installing-mods.md). Shipbreaker
-0.38.0 or newer is optional: it adds the steel charge and its S3 water silo.
+Use the [current versions and dependency requirements](installing-mods.md);
+Framework 0.41.0 or newer is required. Implemented and checked offline; owner
+gameplay checks are pending, including how the artwork looks in play.
+Shipbreaker 0.38.0 or newer is optional: it adds the steel charge and its S3
+water silo.
 
 ## Equipment
 
+This is late-game plant: priced alongside the game's own radars, heavy lift
+rotors and missile launchers, below a fusion reactor. Save up for it.
+
 | Item | Size and mass | Base price | Where |
 | --- | --- | --- | --- |
-| Phobos' Fennmark V4 Volatiles Refinery | 4 x 4 tiles; 180 kg; two power points; 24 kW working | 15,600 cr, broken 3,900 cr | K-Leg supply kiosk and fixer, San Diego Halvorson, the Venus scrap kiosk and regional markets, in lots of eight; INSTALL > APPS. Purchase only. |
-| Phobos' Fennmark X2 Chemical Processor | 2 x 2 tiles; 130 kg; one power point; 6 kW working | 5,600 cr, broken 1,400 cr | The same sellers; INSTALL > APPS. Purchase only. |
-| Phobos' Fennmark H2 Hydrogen Store | 2 x 2 tiles; 160 kg empty; holds 24 kg of hydrogen | 5,200 cr, broken 1,300 cr | The same sellers; INSTALL > APPS. Purchase only. |
+| Phobos' Fennmark V4 Volatiles Refinery | 4 x 4 tiles; 180 kg; two power points; 24 kW working | 64,000 cr, broken 16,000 cr | K-Leg supply kiosk (broken) and fixer (worn), San Diego Halvorson (new), the Venus scrap kiosk (broken and refurbished) and the regional supply kiosks, in lots of eight; INSTALL > APPS. Purchase only. |
+| Phobos' Fennmark X2 Chemical Processor | 2 x 2 tiles; 130 kg; one power point; 6 kW working | 38,000 cr, broken 9,500 cr | The same sellers; INSTALL > APPS. Purchase only. |
+| Phobos' Fennmark H2 Hydrogen Store | 2 x 2 tiles; 160 kg empty; holds 24 kg of hydrogen | 22,000 cr, broken 5,500 cr | The same sellers; INSTALL > APPS. Purchase only. |
+
+Selling one back works like the game's other high-value salvage: the K-Leg
+fixer buys an intact machine, the Venus scrap kiosk buys intact or broken, and
+the K-Leg supplies kiosk does not buy them. About one engineering-salvage find
+in twenty is a Fennmark machine, usually broken. Repairs need real components
+(motors, mainboards, heat sinks and, for the V4, a screen); see the
+[equipment economy](equipment-economy.md#manufacturing-011-late-game-plant).
 
 Ores are mined, never bought. Nothing this mod makes is sold in shops.
 
@@ -28,8 +39,12 @@ what went in, sorted.
 | 1 meteoric iron block (20 kg, mined) | 4 nickel-iron ingots (4 kg each); 1 gangue; 1 refinery slag (1 kg) | 40 min |
 | 4 nickel-iron ingots + 1 carbon stock (Shipbreaker only) | 4 Rivetline steel ingots (4 kg each); 1 steel melt remainder (1 kg) | 33 min |
 
-Refining loses money against selling the ore whole (four ingots are worth 80 cr;
-the iron block 450 cr). What you gain is material aboard, away from stations.
+Refining loses money against selling the ore whole (four ingots are worth 96 cr;
+the iron block 450 cr), and carburising loses a little more (four steel ingots
+are worth 100 cr; the four nickel-iron ingots and carbon that make them, 106 cr).
+Only the machines are late-game priced; ingots, carbon, ore and remainders keep
+ordinary raw-material prices.
+What you gain is material aboard, away from stations.
 
 ## Set up
 

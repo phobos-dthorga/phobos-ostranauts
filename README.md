@@ -40,7 +40,7 @@ published-release or installed-version claims. Current build baseline:
 | **Phobos Shipbreaker** | 0.39.0 | Captured-wall reclamation and detached-wall processing, metal recovery, material routing, industrial console and electric furnace | Experimental; [player guide](docs/player-guide.md), [furnace](docs/furnace-player-guide.md) |
 | **Phobos Auto Nav** | 0.27.0 | Shared Polaris hub: N1 navigation/docking, N2 pursuit and N3 limited volleys/optional aiming | Earlier guidance has owner-reported gameplay success; current features need evaluation; [guide](docs/development/auto-navigate-adaptation.md) |
 | **Phobos Agriculture** | 0.19.0 | Potato/lettuce cultivation, visible growth, nutrient-solution piping and galley cooking | First gameplay candidate; [guide](docs/agriculture-player-guide.md) |
-| **Phobos Manufacturing** | 0.1.0 | Fennmark V4 volatiles refinery, X2 electrolysis cell and H2 hydrogen store: mined ore into water, metal stock and oxygen | Requires Framework 0.41.0; water from an S3 or R3; [player guide](docs/manufacturing-player-guide.md) |
+| **Phobos Manufacturing** | 0.1.1 | Fennmark V4 volatiles refinery, X2 electrolysis cell and H2 hydrogen store: mined ore into water, metal stock and oxygen | Requires Framework 0.41.0; water from an S3 or R3; [player guide](docs/manufacturing-player-guide.md) |
 
 Approach Assist has been retired and removed; its prototype remains in Git history. Medical systems and asteroid life-support processing remain proposals.
 External hull cutting is bounded to supported ordinary walls; broader structural

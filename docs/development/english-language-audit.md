@@ -368,3 +368,13 @@ player guide and two development records join the reviewed documents; the
 Workshop page is rewritten as an unpublished draft. Coverage is now
 2,215 entries, 162 documents and 14 other surfaces.
 Unity wording is unverified.
+
+## Manufacturing 0.1.1 late-game economy, 29 September 2026
+
+Manufacturing 0.1.1 prices its three machines as late-game plant. No translation
+entries change. The player guide gains the late-game prices, buy-back routes,
+rare finds and component repairs, and says plainly that only the machines are
+late-game priced; the economy guide gains a Manufacturing section; the refinery
+record, audit record, item-reference inputs and Workshop draft follow. Coverage
+is 2,215 entries, 162 documents and 14 other surfaces.
+Unity wording is unverified.

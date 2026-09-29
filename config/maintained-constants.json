@@ -265,7 +265,7 @@
     "Manufacturing.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.1.0",
+      "value": "0.1.1",
       "description": "PhobosManufacturing published source/package version.",
       "targets": [
         {
@@ -1444,7 +1444,7 @@
     },
     "Manufacturing.refineryPrice": {
       "type": "number",
-      "value": "15600",
+      "value": "64000",
       "min": 1,
       "max": 1000000,
       "description": "Authored V4 volatiles refinery base price (broken form is one quarter).",
@@ -1461,7 +1461,7 @@
     },
     "Manufacturing.processorPrice": {
       "type": "number",
-      "value": "5600",
+      "value": "38000",
       "min": 1,
       "max": 1000000,
       "description": "Authored X2 chemical processor base price (broken form is one quarter).",
@@ -1478,7 +1478,7 @@
     },
     "Manufacturing.hydrogenStorePrice": {
       "type": "number",
-      "value": "5200",
+      "value": "22000",
       "min": 1,
       "max": 1000000,
       "description": "Authored H2 hydrogen store base price (broken form is one quarter).",
@@ -1584,6 +1584,59 @@
       ],
       "review": [
         "Run the native checks (the chunk must appear exactly once in each amended table) and regenerate item references. Existing deposits already rolled are unchanged."
+      ]
+    },
+    "Manufacturing.nickelIronIngotPrice": {
+      "type": "number",
+      "value": "24",
+      "min": 0.01,
+      "max": 111,
+      "description": "Authored base price of one 4 kg nickel-iron ingot.",
+      "targets": [
+        {
+          "path": "src/PhobosManufacturing/Core/Materials.cs",
+          "pattern": "\\bIngotPrice\\s*=\\s*(?P<value>[0-9.]+)",
+          "count": 1
+        }
+      ],
+      "review": [
+        "Every refinery charge must lose value (native check at live prices): 4 x nickel-iron ingot + $2 gangue < $450 meteoric iron; 5 x carbon + $10 water + $2 gangue < $99 carbide ore; 4 x Shipbreaker steel ingot < 4 x nickel-iron ingot + 1 x carbon.",
+        "Run scripts/build-manufacturing.ps1 and regenerate item references. Existing ingots keep their identity; prices are definition values."
+      ]
+    },
+    "Manufacturing.carbonStockPrice": {
+      "type": "number",
+      "value": "10",
+      "min": 0.01,
+      "max": 17,
+      "description": "Authored base price of one 1 kg carbon stock.",
+      "targets": [
+        {
+          "path": "src/PhobosManufacturing/Core/Materials.cs",
+          "pattern": "\\bCarbonPrice\\s*=\\s*(?P<value>[0-9.]+)",
+          "count": 1
+        }
+      ],
+      "review": [
+        "Every refinery charge must lose value (native check at live prices): 4 x nickel-iron ingot + $2 gangue < $450 meteoric iron; 5 x carbon + $10 water + $2 gangue < $99 carbide ore; 4 x Shipbreaker steel ingot < 4 x nickel-iron ingot + 1 x carbon.",
+        "Run scripts/build-manufacturing.ps1 and regenerate item references."
+      ]
+    },
+    "Manufacturing.machinerySalvageChance": {
+      "type": "number",
+      "value": "0.05",
+      "min": 0,
+      "max": 0.05,
+      "description": "Chance per native engineering-loot roll of one Manufacturing machine (three in four broken), split evenly across the three families.",
+      "targets": [
+        {
+          "path": "src/PhobosManufacturing/EquipmentEconomy.cs",
+          "pattern": "\\bMachinerySalvageChance\\s*=\\s*(?P<value>[0-9.]+)",
+          "count": 1
+        }
+      ],
+      "review": [
+        "Late-game plant stays a rare find (owner direction, 29 September 2026); the native check caps it at 0.05. Regenerate item references. Existing containers are unchanged."
       ]
     }
   }

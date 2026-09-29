@@ -9,7 +9,11 @@ using PhobosManufacturing.Core;
 namespace PhobosManufacturing;
 
 /// <summary>Authored prices, work, repair bills and mass-balanced salvage for the three machines, with the same
-/// merchant, loot and regional routes as their Shipbreaker siblings. Salvage bills equal each machine's mass.</summary>
+/// merchant and regional routes as their Shipbreaker siblings. Owner direction (29 September 2026): Manufacturing
+/// equipment is mid-to-late-game plant, priced and maintained like the game's own late-game kit (IC fusion reactor
+/// $141,000, heavy lift rotor $56,774, radars $30,000-42,000, towing brace $23,944): component repair bills with
+/// motors, mainboards, heat sinks and screens, long work, the game's high-salvage mark, and rare world finds.
+/// Salvage bills equal each machine's mass.</summary>
 internal static class EquipmentEconomy
 {
     internal sealed class Spec
@@ -19,15 +23,26 @@ internal static class EquipmentEconomy
         internal int[] RepairBill, Salvage, BrokenSalvage;
         internal string? InternalBin;
         internal Spec(string prefix, int price, int install, int uninstall, int repair, int dismantle, int[] repairBill, int[] salvage, int[] brokenSalvage, int restoreMinutes, string? internalBin = null)
-        { Prefix = prefix; Price = price; Install = install; Uninstall = uninstall; Repair = repair; Dismantle = dismantle; RepairBill = repairBill; Salvage = salvage; BrokenSalvage = brokenSalvage; RestoreMinutes = restoreMinutes; InternalBin = internalBin; }
+        {
+            if (repairBill.Length != Triggers.Length || salvage.Length != Materials.Length || brokenSalvage.Length != Materials.Length)
+                throw new ArgumentException("Bill length does not match the material list: " + prefix);
+            Prefix = prefix; Price = price; Install = install; Uninstall = uninstall; Repair = repair; Dismantle = dismantle; RepairBill = repairBill; Salvage = salvage; BrokenSalvage = brokenSalvage; RestoreMinutes = restoreMinutes; InternalBin = internalBin;
+        }
     }
-    // Bills are steel, aluminium, mechanical parts, electronic parts, retained trash (1, 1, 0.5, 0.5, 1 kg units).
-    internal static readonly string[] Materials = { "ItmScrapSteel", "ItmScrapAluminum", "ItmPartsMechSmall01", "ItmPartsElecSmall01", "ItmScrapTrash" };
-    private static readonly string[] Triggers = { "TIsScrapSteel", "TIsScrapAluminum", "TIsPartsMechSmall", "TIsPartsElecSmall" };
+    // Bills are steel, aluminium, mechanical parts, electronic parts, motors, mainboards, heat sinks, screens and
+    // (salvage only) retained trash: 1, 1, 0.5, 0.5, 2.5, 0.5, 1.5, 6 and 1 kg units, the game's own items.
+    internal static readonly string[] Materials = { "ItmScrapSteel", "ItmScrapAluminum", "ItmPartsMechSmall01", "ItmPartsElecSmall01",
+        "ItmComponentMotor01", "ItmComponentMobo01", "ItmHeatSink01", "ItmPartsScreen01", "ItmScrapTrash" };
+    private static readonly string[] Triggers = { "TIsScrapSteel", "TIsScrapAluminum", "TIsPartsMechSmall", "TIsPartsElecSmall",
+        "TIsMotor", "TIsMobo", "TIsHeatSink", "TIsScreen" };
+    /// <summary>The game's own mark on its late-game equipment: the K-Leg fixer buys it intact, the ordinary
+    /// supplies kiosk does not; Venus buys either. Every native loose item above $20,000 carries it.</summary>
+    internal const string HighSalvageMark = "IsSalvageValueHigh";
     internal static readonly Spec[] Machines = {
-        new Spec(RefineryRules.Prefix, price: (int)RefineryRules.Price, install: 1800, uninstall: 1200, repair: 4200, dismantle: 1200, new[]{4,2,6,4}, new[]{104,42,20,8,20}, new[]{92,34,10,2,48}, restoreMinutes: 75, RefineryRules.InputBin),
-        new Spec(ProcessorRules.Prefix, price: (int)ProcessorRules.Price, install: 900, uninstall: 700, repair: 2200, dismantle: 600, new[]{2,2,4,2}, new[]{76,28,20,12,10}, new[]{34,10,4,0,84}, restoreMinutes: 30),
-        new Spec(HydrogenRules.Prefix, price: (int)HydrogenRules.Price, install: 1000, uninstall: 800, repair: 2400, dismantle: 700, new[]{2,2,4,0}, new[]{110,30,12,2,13}, new[]{40,10,4,0,108}, restoreMinutes: 30)
+        //                                                                                                          repair: St Al Me El Mo Mb HS Sc     salvage:  St  Al Me El Mo Mb HS Sc Tr          broken: St Al Me El Mo Mb HS Sc Tr
+        new Spec(RefineryRules.Prefix, price: (int)RefineryRules.Price, install: 2000, uninstall: 1600, repair: 6000, dismantle: 1600, new[]{4,2,6,8,2,2,2,1}, new[]{100,40,20,10,2,2,2,1,10}, new[]{90,32,10,4,1,0,1,0,47}, restoreMinutes: 150, RefineryRules.InputBin),
+        new Spec(ProcessorRules.Prefix, price: (int)ProcessorRules.Price, install: 1200, uninstall: 1000, repair: 3600, dismantle: 900, new[]{2,2,3,8,1,3,2,0}, new[]{70,26,16,12,1,3,2,0,13}, new[]{34,10,4,0,0,1,1,0,82}, restoreMinutes: 90),
+        new Spec(HydrogenRules.Prefix, price: (int)HydrogenRules.Price, install: 1200, uninstall: 1000, repair: 3000, dismantle: 900, new[]{6,2,6,2,0,1,0,0}, new[]{110,30,12,3,0,1,0,0,12}, new[]{40,10,4,0,0,0,0,0,108}, restoreMinutes: 60)
     };
     internal static string[] Products(int[] bill) => bill.SelectMany((count, i) => Enumerable.Repeat(Materials[i], count)).ToArray();
     internal static void Apply(NativeDefinitions d)
@@ -38,6 +53,8 @@ internal static class EquipmentEconomy
             string id = spec.Prefix + state;
             bool damaged = state.EndsWith("Dmg", StringComparison.Ordinal);
             var co = d.Objects[id];
+            if (!co.aStartingConds.Any(s => s.StartsWith(HighSalvageMark + "=", StringComparison.Ordinal)))
+                co.aStartingConds = co.aStartingConds.Concat(new[] { HighSalvageMark + "=1x1" }).ToArray();
             MaintenanceDefinitions.SetStat(co, "StatBasePrice", damaged ? spec.Price / 4 : spec.Price);
             MaintenanceDefinitions.SetStat(co, "StatInstallProgressMax", spec.Install);
             MaintenanceDefinitions.SetStat(co, "StatUninstallProgressMax", spec.Uninstall);
@@ -58,10 +75,15 @@ internal static class EquipmentEconomy
             EquipmentSaveUpgrade.Register(d, id, id);
         }
         AddStock(d);
-        var machinery = Machines.SelectMany(m => new[] { m.Prefix + "Loose", m.Prefix + "LooseDmg" }).ToArray();
-        AdditiveLoot.SetItemChoice(d, "ItmLootSpawnEngineering", "PhobosManufacturingMachinerySalvage", machinery.ToDictionary(id => id, _ => MachinerySalvageChance / machinery.Length));
+        AdditiveLoot.SetItemChoice(d, "ItmLootSpawnEngineering", "PhobosManufacturingMachinerySalvage", SalvageChances());
     }
-    internal const double MachinerySalvageChance = 0.4;
+    /// <summary>Late-game plant is a rare find: one engineering roll in twenty yields a machine, three times in four
+    /// a broken one, split evenly across the three families.</summary>
+    internal const double MachinerySalvageChance = 0.05, BrokenSalvageShare = 0.75;
+    internal static Dictionary<string, double> SalvageChances() => Machines
+        .SelectMany(m => new[] { (m.Prefix + "LooseDmg", MachinerySalvageChance * BrokenSalvageShare / Machines.Length),
+                                 (m.Prefix + "Loose", MachinerySalvageChance * (1 - BrokenSalvageShare) / Machines.Length) })
+        .ToDictionary(p => p.Item1, p => p.Item2);
     /// <summary>Restore removes wear at an equipment-specific rate; the native Restore job already exists.</summary>
     internal static void SetRestoreRate(NativeDefinitions d, string id, string effect, int minutes)
     {

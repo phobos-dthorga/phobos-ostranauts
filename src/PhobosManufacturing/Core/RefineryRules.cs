@@ -21,7 +21,7 @@ public static class RefineryRules
     public const string SteelIngot = "PhobosSteelIngot", SteelRemainder = "PhobosSteelMeltRemainder";
     public const double HydratesKg = 10, IronKg = 20, CarbidesKg = 10, GangueKg = 3, SteelIngotKg = 4, SteelRemainderKg = 1;
     public const int Footprint = 4, FeedCapacity = 6;
-    public const double MachineKg = 180, Price = 15600;
+    public const double MachineKg = 180, Price = 64000;
     public const double WorkingKW = 24, IdleKW = 0.1, RoomHeatFraction = 0.15;
     public static bool IsFamily(string? id) => EquipmentIdentity.IsFamily(id, Prefix);
     /// <summary>Electricity that warms the room: the authored fraction while working, all of the idle draw.</summary>

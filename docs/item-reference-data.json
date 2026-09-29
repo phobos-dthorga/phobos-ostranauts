@@ -8234,7 +8234,7 @@
     {
       "id": "PhobosManufacturing",
       "name": "Phobos Manufacturing",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "gameTarget": "1.0.1.5",
       "items": [
         {
@@ -8324,7 +8324,7 @@
           ],
           "slots": [],
           "massKg": 130.0,
-          "baseValue": 5600.0,
+          "baseValue": 38000.0,
           "installed": true,
           "operatingModes": [],
           "installTab": "APPS",
@@ -8344,25 +8344,25 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
-              "workProgress": 600.0,
+              "workProgress": 900.0,
               "outputs": [
                 {
                   "id": "ItmScrapSteel",
                   "name": "Scrap Steel",
-                  "count": 76,
-                  "baseValue": 273.5999927520752
+                  "count": 70,
+                  "baseValue": 251.99999332427979
                 },
                 {
                   "id": "ItmScrapAluminum",
                   "name": "Scrap Aluminum",
-                  "count": 28,
-                  "baseValue": 30.80000066757202
+                  "count": 26,
+                  "baseValue": 28.600000619888306
                 },
                 {
                   "id": "ItmPartsMechSmall01",
                   "name": "Small Mechanical Parts",
-                  "count": 20,
-                  "baseValue": 100.0
+                  "count": 16,
+                  "baseValue": 80.0
                 },
                 {
                   "id": "ItmPartsElecSmall01",
@@ -8371,10 +8371,28 @@
                   "baseValue": 174.0
                 },
                 {
+                  "id": "ItmComponentMotor01",
+                  "name": "Component: Motor",
+                  "count": 1,
+                  "baseValue": 37.5
+                },
+                {
+                  "id": "ItmComponentMobo01",
+                  "name": "Component: Motherboard",
+                  "count": 3,
+                  "baseValue": 52.5
+                },
+                {
+                  "id": "ItmHeatSink01",
+                  "name": "Component: Heat Sink",
+                  "count": 2,
+                  "baseValue": 55.0
+                },
+                {
                   "id": "ItmScrapTrash",
                   "name": "Trash",
-                  "count": 10,
-                  "baseValue": 0.5000000074505806
+                  "count": 13,
+                  "baseValue": 0.6500000096857548
                 }
               ]
             },
@@ -8410,13 +8428,13 @@
               "tools": [
                 "TIsToolMortorq"
               ],
-              "workProgress": 700.0,
+              "workProgress": 1000.0,
               "outputs": [
                 {
                   "id": "PhobosChemicalProcessorLoose",
                   "name": "Phobos' Fennmark X2 Chemical Processor",
                   "count": 1,
-                  "baseValue": 5600.0
+                  "baseValue": 38000.0
                 }
               ]
             }
@@ -8447,7 +8465,7 @@
           ],
           "slots": [],
           "massKg": 130.0,
-          "baseValue": 1400.0,
+          "baseValue": 9500.0,
           "installed": true,
           "operatingModes": [],
           "installTab": "APPS",
@@ -8467,7 +8485,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
-              "workProgress": 600.0,
+              "workProgress": 900.0,
               "outputs": [
                 {
                   "id": "ItmScrapSteel",
@@ -8488,10 +8506,22 @@
                   "baseValue": 20.0
                 },
                 {
+                  "id": "ItmComponentMobo01",
+                  "name": "Component: Motherboard",
+                  "count": 1,
+                  "baseValue": 17.5
+                },
+                {
+                  "id": "ItmHeatSink01",
+                  "name": "Component: Heat Sink",
+                  "count": 1,
+                  "baseValue": 27.5
+                },
+                {
                   "id": "ItmScrapTrash",
                   "name": "Trash",
-                  "count": 84,
-                  "baseValue": 4.200000062584877
+                  "count": 82,
+                  "baseValue": 4.100000061094761
                 }
               ]
             },
@@ -8508,20 +8538,23 @@
               "inputs": [
                 "TIsScrapSteel=1x2",
                 "TIsScrapAluminum=1x2",
-                "TIsPartsMechSmall=1x4",
-                "TIsPartsElecSmall=1x2"
+                "TIsPartsMechSmall=1x3",
+                "TIsPartsElecSmall=1x8",
+                "TIsMotor=1x1",
+                "TIsMobo=1x3",
+                "TIsHeatSink=1x2"
               ],
               "tools": [
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
-              "workProgress": 2200.0,
+              "workProgress": 3600.0,
               "outputs": [
                 {
                   "id": "PhobosChemicalProcessorInstalled",
                   "name": "Phobos' Fennmark X2 Chemical Processor",
                   "count": 1,
-                  "baseValue": 5600.0
+                  "baseValue": 38000.0
                 }
               ]
             },
@@ -8539,13 +8572,13 @@
               "tools": [
                 "TIsToolMortorq"
               ],
-              "workProgress": 700.0,
+              "workProgress": 1000.0,
               "outputs": [
                 {
                   "id": "PhobosChemicalProcessorLooseDmg",
                   "name": "Phobos' Fennmark X2 Chemical Processor (Damaged)",
                   "count": 1,
-                  "baseValue": 1400.0
+                  "baseValue": 9500.0
                 }
               ]
             }
@@ -8578,7 +8611,7 @@
             "drag"
           ],
           "massKg": 130.0,
-          "baseValue": 5600.0,
+          "baseValue": 38000.0,
           "installed": false,
           "operatingModes": [],
           "installTab": null,
@@ -8598,25 +8631,25 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
-              "workProgress": 600.0,
+              "workProgress": 900.0,
               "outputs": [
                 {
                   "id": "ItmScrapSteel",
                   "name": "Scrap Steel",
-                  "count": 76,
-                  "baseValue": 273.5999927520752
+                  "count": 70,
+                  "baseValue": 251.99999332427979
                 },
                 {
                   "id": "ItmScrapAluminum",
                   "name": "Scrap Aluminum",
-                  "count": 28,
-                  "baseValue": 30.80000066757202
+                  "count": 26,
+                  "baseValue": 28.600000619888306
                 },
                 {
                   "id": "ItmPartsMechSmall01",
                   "name": "Small Mechanical Parts",
-                  "count": 20,
-                  "baseValue": 100.0
+                  "count": 16,
+                  "baseValue": 80.0
                 },
                 {
                   "id": "ItmPartsElecSmall01",
@@ -8625,10 +8658,28 @@
                   "baseValue": 174.0
                 },
                 {
+                  "id": "ItmComponentMotor01",
+                  "name": "Component: Motor",
+                  "count": 1,
+                  "baseValue": 37.5
+                },
+                {
+                  "id": "ItmComponentMobo01",
+                  "name": "Component: Motherboard",
+                  "count": 3,
+                  "baseValue": 52.5
+                },
+                {
+                  "id": "ItmHeatSink01",
+                  "name": "Component: Heat Sink",
+                  "count": 2,
+                  "baseValue": 55.0
+                },
+                {
                   "id": "ItmScrapTrash",
                   "name": "Trash",
-                  "count": 10,
-                  "baseValue": 0.5000000074505806
+                  "count": 13,
+                  "baseValue": 0.6500000096857548
                 }
               ]
             },
@@ -8648,13 +8699,13 @@
               "tools": [
                 "TIsToolMortorq"
               ],
-              "workProgress": 900.0,
+              "workProgress": 1200.0,
               "outputs": [
                 {
                   "id": "PhobosChemicalProcessorInstalled",
                   "name": "Phobos' Fennmark X2 Chemical Processor",
                   "count": 1,
-                  "baseValue": 5600.0
+                  "baseValue": 38000.0
                 }
               ]
             },
@@ -8706,7 +8757,7 @@
             "drag"
           ],
           "massKg": 130.0,
-          "baseValue": 1400.0,
+          "baseValue": 9500.0,
           "installed": false,
           "operatingModes": [],
           "installTab": null,
@@ -8726,7 +8777,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
-              "workProgress": 600.0,
+              "workProgress": 900.0,
               "outputs": [
                 {
                   "id": "ItmScrapSteel",
@@ -8747,10 +8798,22 @@
                   "baseValue": 20.0
                 },
                 {
+                  "id": "ItmComponentMobo01",
+                  "name": "Component: Motherboard",
+                  "count": 1,
+                  "baseValue": 17.5
+                },
+                {
+                  "id": "ItmHeatSink01",
+                  "name": "Component: Heat Sink",
+                  "count": 1,
+                  "baseValue": 27.5
+                },
+                {
                   "id": "ItmScrapTrash",
                   "name": "Trash",
-                  "count": 84,
-                  "baseValue": 4.200000062584877
+                  "count": 82,
+                  "baseValue": 4.100000061094761
                 }
               ]
             },
@@ -8770,13 +8833,13 @@
               "tools": [
                 "TIsToolMortorq"
               ],
-              "workProgress": 900.0,
+              "workProgress": 1200.0,
               "outputs": [
                 {
                   "id": "PhobosChemicalProcessorInstalledDmg",
                   "name": "Phobos' Fennmark X2 Chemical Processor (Damaged)",
                   "count": 1,
-                  "baseValue": 1400.0
+                  "baseValue": 9500.0
                 }
               ]
             },
@@ -8793,20 +8856,23 @@
               "inputs": [
                 "TIsScrapSteel=1x2",
                 "TIsScrapAluminum=1x2",
-                "TIsPartsMechSmall=1x4",
-                "TIsPartsElecSmall=1x2"
+                "TIsPartsMechSmall=1x3",
+                "TIsPartsElecSmall=1x8",
+                "TIsMotor=1x1",
+                "TIsMobo=1x3",
+                "TIsHeatSink=1x2"
               ],
               "tools": [
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
-              "workProgress": 2200.0,
+              "workProgress": 3600.0,
               "outputs": [
                 {
                   "id": "PhobosChemicalProcessorLoose",
                   "name": "Phobos' Fennmark X2 Chemical Processor",
                   "count": 1,
-                  "baseValue": 5600.0
+                  "baseValue": 38000.0
                 }
               ]
             }
@@ -8870,7 +8936,7 @@
           ],
           "slots": [],
           "massKg": 160.0,
-          "baseValue": 5200.0,
+          "baseValue": 22000.0,
           "installed": true,
           "operatingModes": [],
           "installTab": "APPS",
@@ -8890,7 +8956,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
-              "workProgress": 700.0,
+              "workProgress": 900.0,
               "outputs": [
                 {
                   "id": "ItmScrapSteel",
@@ -8913,14 +8979,20 @@
                 {
                   "id": "ItmPartsElecSmall01",
                   "name": "Small Electronic Parts",
-                  "count": 2,
-                  "baseValue": 29.0
+                  "count": 3,
+                  "baseValue": 43.5
+                },
+                {
+                  "id": "ItmComponentMobo01",
+                  "name": "Component: Motherboard",
+                  "count": 1,
+                  "baseValue": 17.5
                 },
                 {
                   "id": "ItmScrapTrash",
                   "name": "Trash",
-                  "count": 13,
-                  "baseValue": 0.6500000096857548
+                  "count": 12,
+                  "baseValue": 0.6000000089406967
                 }
               ]
             },
@@ -8956,13 +9028,13 @@
               "tools": [
                 "TIsToolMortorq"
               ],
-              "workProgress": 800.0,
+              "workProgress": 1000.0,
               "outputs": [
                 {
                   "id": "PhobosHydrogenStoreLoose",
                   "name": "Phobos' Fennmark H2 Hydrogen Store",
                   "count": 1,
-                  "baseValue": 5200.0
+                  "baseValue": 22000.0
                 }
               ]
             }
@@ -8993,7 +9065,7 @@
           ],
           "slots": [],
           "massKg": 160.0,
-          "baseValue": 1300.0,
+          "baseValue": 5500.0,
           "installed": true,
           "operatingModes": [],
           "installTab": "APPS",
@@ -9013,7 +9085,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
-              "workProgress": 700.0,
+              "workProgress": 900.0,
               "outputs": [
                 {
                   "id": "ItmScrapSteel",
@@ -9052,21 +9124,23 @@
               "targetPassWithWear": true,
               "targetPassInContainer": true,
               "inputs": [
-                "TIsScrapSteel=1x2",
+                "TIsScrapSteel=1x6",
                 "TIsScrapAluminum=1x2",
-                "TIsPartsMechSmall=1x4"
+                "TIsPartsMechSmall=1x6",
+                "TIsPartsElecSmall=1x2",
+                "TIsMobo=1x1"
               ],
               "tools": [
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
-              "workProgress": 2400.0,
+              "workProgress": 3000.0,
               "outputs": [
                 {
                   "id": "PhobosHydrogenStoreInstalled",
                   "name": "Phobos' Fennmark H2 Hydrogen Store",
                   "count": 1,
-                  "baseValue": 5200.0
+                  "baseValue": 22000.0
                 }
               ]
             },
@@ -9084,13 +9158,13 @@
               "tools": [
                 "TIsToolMortorq"
               ],
-              "workProgress": 800.0,
+              "workProgress": 1000.0,
               "outputs": [
                 {
                   "id": "PhobosHydrogenStoreLooseDmg",
                   "name": "Phobos' Fennmark H2 Hydrogen Store (Damaged)",
                   "count": 1,
-                  "baseValue": 1300.0
+                  "baseValue": 5500.0
                 }
               ]
             }
@@ -9123,7 +9197,7 @@
             "drag"
           ],
           "massKg": 160.0,
-          "baseValue": 5200.0,
+          "baseValue": 22000.0,
           "installed": false,
           "operatingModes": [],
           "installTab": null,
@@ -9143,7 +9217,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
-              "workProgress": 700.0,
+              "workProgress": 900.0,
               "outputs": [
                 {
                   "id": "ItmScrapSteel",
@@ -9166,14 +9240,20 @@
                 {
                   "id": "ItmPartsElecSmall01",
                   "name": "Small Electronic Parts",
-                  "count": 2,
-                  "baseValue": 29.0
+                  "count": 3,
+                  "baseValue": 43.5
+                },
+                {
+                  "id": "ItmComponentMobo01",
+                  "name": "Component: Motherboard",
+                  "count": 1,
+                  "baseValue": 17.5
                 },
                 {
                   "id": "ItmScrapTrash",
                   "name": "Trash",
-                  "count": 13,
-                  "baseValue": 0.6500000096857548
+                  "count": 12,
+                  "baseValue": 0.6000000089406967
                 }
               ]
             },
@@ -9193,13 +9273,13 @@
               "tools": [
                 "TIsToolMortorq"
               ],
-              "workProgress": 1000.0,
+              "workProgress": 1200.0,
               "outputs": [
                 {
                   "id": "PhobosHydrogenStoreInstalled",
                   "name": "Phobos' Fennmark H2 Hydrogen Store",
                   "count": 1,
-                  "baseValue": 5200.0
+                  "baseValue": 22000.0
                 }
               ]
             },
@@ -9251,7 +9331,7 @@
             "drag"
           ],
           "massKg": 160.0,
-          "baseValue": 1300.0,
+          "baseValue": 5500.0,
           "installed": false,
           "operatingModes": [],
           "installTab": null,
@@ -9271,7 +9351,7 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
-              "workProgress": 700.0,
+              "workProgress": 900.0,
               "outputs": [
                 {
                   "id": "ItmScrapSteel",
@@ -9315,13 +9395,13 @@
               "tools": [
                 "TIsToolMortorq"
               ],
-              "workProgress": 1000.0,
+              "workProgress": 1200.0,
               "outputs": [
                 {
                   "id": "PhobosHydrogenStoreInstalledDmg",
                   "name": "Phobos' Fennmark H2 Hydrogen Store (Damaged)",
                   "count": 1,
-                  "baseValue": 1300.0
+                  "baseValue": 5500.0
                 }
               ]
             },
@@ -9336,21 +9416,23 @@
               "targetPassWithWear": true,
               "targetPassInContainer": true,
               "inputs": [
-                "TIsScrapSteel=1x2",
+                "TIsScrapSteel=1x6",
                 "TIsScrapAluminum=1x2",
-                "TIsPartsMechSmall=1x4"
+                "TIsPartsMechSmall=1x6",
+                "TIsPartsElecSmall=1x2",
+                "TIsMobo=1x1"
               ],
               "tools": [
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
-              "workProgress": 2400.0,
+              "workProgress": 3000.0,
               "outputs": [
                 {
                   "id": "PhobosHydrogenStoreLoose",
                   "name": "Phobos' Fennmark H2 Hydrogen Store",
                   "count": 1,
-                  "baseValue": 5200.0
+                  "baseValue": 22000.0
                 }
               ]
             }
@@ -9383,7 +9465,7 @@
             "heldR"
           ],
           "massKg": 4.0,
-          "baseValue": 20.0,
+          "baseValue": 24.0,
           "installed": false,
           "operatingModes": [],
           "installTab": null,
@@ -9478,7 +9560,7 @@
           ],
           "slots": [],
           "massKg": 180.0,
-          "baseValue": 15600.0,
+          "baseValue": 64000.0,
           "installed": true,
           "operatingModes": [],
           "installTab": "APPS",
@@ -9498,19 +9580,19 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
-              "workProgress": 1200.0,
+              "workProgress": 1600.0,
               "outputs": [
                 {
                   "id": "ItmScrapSteel",
                   "name": "Scrap Steel",
-                  "count": 104,
-                  "baseValue": 374.3999900817871
+                  "count": 100,
+                  "baseValue": 359.99999046325684
                 },
                 {
                   "id": "ItmScrapAluminum",
                   "name": "Scrap Aluminum",
-                  "count": 42,
-                  "baseValue": 46.20000100135803
+                  "count": 40,
+                  "baseValue": 44.000000953674316
                 },
                 {
                   "id": "ItmPartsMechSmall01",
@@ -9521,14 +9603,38 @@
                 {
                   "id": "ItmPartsElecSmall01",
                   "name": "Small Electronic Parts",
-                  "count": 8,
-                  "baseValue": 116.0
+                  "count": 10,
+                  "baseValue": 145.0
+                },
+                {
+                  "id": "ItmComponentMotor01",
+                  "name": "Component: Motor",
+                  "count": 2,
+                  "baseValue": 75.0
+                },
+                {
+                  "id": "ItmComponentMobo01",
+                  "name": "Component: Motherboard",
+                  "count": 2,
+                  "baseValue": 35.0
+                },
+                {
+                  "id": "ItmHeatSink01",
+                  "name": "Component: Heat Sink",
+                  "count": 2,
+                  "baseValue": 55.0
+                },
+                {
+                  "id": "ItmPartsScreen01",
+                  "name": "Spare Screen",
+                  "count": 1,
+                  "baseValue": 245.0
                 },
                 {
                   "id": "ItmScrapTrash",
                   "name": "Trash",
-                  "count": 20,
-                  "baseValue": 1.0000000149011612
+                  "count": 10,
+                  "baseValue": 0.5000000074505806
                 }
               ]
             },
@@ -9564,13 +9670,13 @@
               "tools": [
                 "TIsToolMortorq"
               ],
-              "workProgress": 1200.0,
+              "workProgress": 1600.0,
               "outputs": [
                 {
                   "id": "PhobosVolatilesRefineryLoose",
                   "name": "Phobos' Fennmark V4 Volatiles Refinery",
                   "count": 1,
-                  "baseValue": 15600.0
+                  "baseValue": 64000.0
                 }
               ]
             }
@@ -9604,7 +9710,7 @@
           ],
           "slots": [],
           "massKg": 180.0,
-          "baseValue": 3900.0,
+          "baseValue": 16000.0,
           "installed": true,
           "operatingModes": [],
           "installTab": "APPS",
@@ -9624,19 +9730,19 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
-              "workProgress": 1200.0,
+              "workProgress": 1600.0,
               "outputs": [
                 {
                   "id": "ItmScrapSteel",
                   "name": "Scrap Steel",
-                  "count": 92,
-                  "baseValue": 331.1999912261963
+                  "count": 90,
+                  "baseValue": 323.99999141693115
                 },
                 {
                   "id": "ItmScrapAluminum",
                   "name": "Scrap Aluminum",
-                  "count": 34,
-                  "baseValue": 37.40000081062317
+                  "count": 32,
+                  "baseValue": 35.20000076293945
                 },
                 {
                   "id": "ItmPartsMechSmall01",
@@ -9647,14 +9753,26 @@
                 {
                   "id": "ItmPartsElecSmall01",
                   "name": "Small Electronic Parts",
-                  "count": 2,
-                  "baseValue": 29.0
+                  "count": 4,
+                  "baseValue": 58.0
+                },
+                {
+                  "id": "ItmComponentMotor01",
+                  "name": "Component: Motor",
+                  "count": 1,
+                  "baseValue": 37.5
+                },
+                {
+                  "id": "ItmHeatSink01",
+                  "name": "Component: Heat Sink",
+                  "count": 1,
+                  "baseValue": 27.5
                 },
                 {
                   "id": "ItmScrapTrash",
                   "name": "Trash",
-                  "count": 48,
-                  "baseValue": 2.400000035762787
+                  "count": 47,
+                  "baseValue": 2.350000035017729
                 }
               ]
             },
@@ -9672,19 +9790,23 @@
                 "TIsScrapSteel=1x4",
                 "TIsScrapAluminum=1x2",
                 "TIsPartsMechSmall=1x6",
-                "TIsPartsElecSmall=1x4"
+                "TIsPartsElecSmall=1x8",
+                "TIsMotor=1x2",
+                "TIsMobo=1x2",
+                "TIsHeatSink=1x2",
+                "TIsScreen=1x1"
               ],
               "tools": [
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
-              "workProgress": 4200.0,
+              "workProgress": 6000.0,
               "outputs": [
                 {
                   "id": "PhobosVolatilesRefineryInstalled",
                   "name": "Phobos' Fennmark V4 Volatiles Refinery",
                   "count": 1,
-                  "baseValue": 15600.0
+                  "baseValue": 64000.0
                 }
               ]
             },
@@ -9702,13 +9824,13 @@
               "tools": [
                 "TIsToolMortorq"
               ],
-              "workProgress": 1200.0,
+              "workProgress": 1600.0,
               "outputs": [
                 {
                   "id": "PhobosVolatilesRefineryLooseDmg",
                   "name": "Phobos' Fennmark V4 Volatiles Refinery (Damaged)",
                   "count": 1,
-                  "baseValue": 3900.0
+                  "baseValue": 16000.0
                 }
               ]
             }
@@ -9744,7 +9866,7 @@
             "drag"
           ],
           "massKg": 180.0,
-          "baseValue": 15600.0,
+          "baseValue": 64000.0,
           "installed": false,
           "operatingModes": [],
           "installTab": null,
@@ -9764,19 +9886,19 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
-              "workProgress": 1200.0,
+              "workProgress": 1600.0,
               "outputs": [
                 {
                   "id": "ItmScrapSteel",
                   "name": "Scrap Steel",
-                  "count": 104,
-                  "baseValue": 374.3999900817871
+                  "count": 100,
+                  "baseValue": 359.99999046325684
                 },
                 {
                   "id": "ItmScrapAluminum",
                   "name": "Scrap Aluminum",
-                  "count": 42,
-                  "baseValue": 46.20000100135803
+                  "count": 40,
+                  "baseValue": 44.000000953674316
                 },
                 {
                   "id": "ItmPartsMechSmall01",
@@ -9787,14 +9909,38 @@
                 {
                   "id": "ItmPartsElecSmall01",
                   "name": "Small Electronic Parts",
-                  "count": 8,
-                  "baseValue": 116.0
+                  "count": 10,
+                  "baseValue": 145.0
+                },
+                {
+                  "id": "ItmComponentMotor01",
+                  "name": "Component: Motor",
+                  "count": 2,
+                  "baseValue": 75.0
+                },
+                {
+                  "id": "ItmComponentMobo01",
+                  "name": "Component: Motherboard",
+                  "count": 2,
+                  "baseValue": 35.0
+                },
+                {
+                  "id": "ItmHeatSink01",
+                  "name": "Component: Heat Sink",
+                  "count": 2,
+                  "baseValue": 55.0
+                },
+                {
+                  "id": "ItmPartsScreen01",
+                  "name": "Spare Screen",
+                  "count": 1,
+                  "baseValue": 245.0
                 },
                 {
                   "id": "ItmScrapTrash",
                   "name": "Trash",
-                  "count": 20,
-                  "baseValue": 1.0000000149011612
+                  "count": 10,
+                  "baseValue": 0.5000000074505806
                 }
               ]
             },
@@ -9814,13 +9960,13 @@
               "tools": [
                 "TIsToolMortorq"
               ],
-              "workProgress": 1800.0,
+              "workProgress": 2000.0,
               "outputs": [
                 {
                   "id": "PhobosVolatilesRefineryInstalled",
                   "name": "Phobos' Fennmark V4 Volatiles Refinery",
                   "count": 1,
-                  "baseValue": 15600.0
+                  "baseValue": 64000.0
                 }
               ]
             },
@@ -9875,7 +10021,7 @@
             "drag"
           ],
           "massKg": 180.0,
-          "baseValue": 3900.0,
+          "baseValue": 16000.0,
           "installed": false,
           "operatingModes": [],
           "installTab": null,
@@ -9895,19 +10041,19 @@
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
-              "workProgress": 1200.0,
+              "workProgress": 1600.0,
               "outputs": [
                 {
                   "id": "ItmScrapSteel",
                   "name": "Scrap Steel",
-                  "count": 92,
-                  "baseValue": 331.1999912261963
+                  "count": 90,
+                  "baseValue": 323.99999141693115
                 },
                 {
                   "id": "ItmScrapAluminum",
                   "name": "Scrap Aluminum",
-                  "count": 34,
-                  "baseValue": 37.40000081062317
+                  "count": 32,
+                  "baseValue": 35.20000076293945
                 },
                 {
                   "id": "ItmPartsMechSmall01",
@@ -9918,14 +10064,26 @@
                 {
                   "id": "ItmPartsElecSmall01",
                   "name": "Small Electronic Parts",
-                  "count": 2,
-                  "baseValue": 29.0
+                  "count": 4,
+                  "baseValue": 58.0
+                },
+                {
+                  "id": "ItmComponentMotor01",
+                  "name": "Component: Motor",
+                  "count": 1,
+                  "baseValue": 37.5
+                },
+                {
+                  "id": "ItmHeatSink01",
+                  "name": "Component: Heat Sink",
+                  "count": 1,
+                  "baseValue": 27.5
                 },
                 {
                   "id": "ItmScrapTrash",
                   "name": "Trash",
-                  "count": 48,
-                  "baseValue": 2.400000035762787
+                  "count": 47,
+                  "baseValue": 2.350000035017729
                 }
               ]
             },
@@ -9945,13 +10103,13 @@
               "tools": [
                 "TIsToolMortorq"
               ],
-              "workProgress": 1800.0,
+              "workProgress": 2000.0,
               "outputs": [
                 {
                   "id": "PhobosVolatilesRefineryInstalledDmg",
                   "name": "Phobos' Fennmark V4 Volatiles Refinery (Damaged)",
                   "count": 1,
-                  "baseValue": 3900.0
+                  "baseValue": 16000.0
                 }
               ]
             },
@@ -9969,19 +10127,23 @@
                 "TIsScrapSteel=1x4",
                 "TIsScrapAluminum=1x2",
                 "TIsPartsMechSmall=1x6",
-                "TIsPartsElecSmall=1x4"
+                "TIsPartsElecSmall=1x8",
+                "TIsMotor=1x2",
+                "TIsMobo=1x2",
+                "TIsHeatSink=1x2",
+                "TIsScreen=1x1"
               ],
               "tools": [
                 "TIsToolMortorq",
                 "TIsToolSoldering"
               ],
-              "workProgress": 4200.0,
+              "workProgress": 6000.0,
               "outputs": [
                 {
                   "id": "PhobosVolatilesRefineryLoose",
                   "name": "Phobos' Fennmark V4 Volatiles Refinery",
                   "count": 1,
-                  "baseValue": 15600.0
+                  "baseValue": 64000.0
                 }
               ]
             }
@@ -10096,42 +10258,42 @@
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosChemicalProcessorLoose",
           "condition": "Loot",
-          "chance": 0.06666666666666667,
+          "chance": 0.004166666666666667,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosChemicalProcessorLooseDmg",
           "condition": "Loot",
-          "chance": 0.06666666666666667,
+          "chance": 0.012500000000000002,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosHydrogenStoreLoose",
           "condition": "Loot",
-          "chance": 0.06666666666666667,
+          "chance": 0.004166666666666667,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosHydrogenStoreLooseDmg",
           "condition": "Loot",
-          "chance": 0.06666666666666667,
+          "chance": 0.012500000000000002,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosVolatilesRefineryLoose",
           "condition": "Loot",
-          "chance": 0.06666666666666667,
+          "chance": 0.004166666666666667,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosVolatilesRefineryLooseDmg",
           "condition": "Loot",
-          "chance": 0.06666666666666667,
+          "chance": 0.012500000000000002,
           "count": 1
         },
         {
@@ -21466,7 +21628,7 @@
     "mods/PhobosManufacturing/data/conditions/phobos_manufacturing.json": "0ac5bff75779f21f3bcd269f28e09d882833f3b94fee174190a00b4d98001c63",
     "mods/PhobosManufacturing/data/explosions/phobos_manufacturing.json": "33e0a37a22450d2ca64e33cc461efb87f19f4c69b90655af20280d67c6982ba3",
     "mods/PhobosManufacturing/framework/equipment-names.json": "cf81cbd49341a4552d36cec1959734cba55e12f023914e6640fd09f335c79bd5",
-    "mods/PhobosManufacturing/mod_info.json": "f180c8af23c129ced488d100d11401f4b3c7531181728201d771aa1430598130",
+    "mods/PhobosManufacturing/mod_info.json": "06a902b5fb159ab9d99403b94a517a8d54adcfe55f93658795ee2abb4c2500a8",
     "mods/PhobosShipbreaker/crafting/recipes.json": "8b0f034a7c732fec44ac31585321347040ee2074cd330cd3e5ecb90bb4ab7df4",
     "mods/PhobosShipbreaker/data/conditions/phobos_shipbreaker.json": "4163d90a49167ef2178e2bfd00636e8288db73511c66c0f423e828642d4f1e44",
     "mods/PhobosShipbreaker/data/condtrigs/phobos_shipbreaker.json": "c7d4104df596d3fd362d9a80f4703178eafc5d3151bd53907814732ec84d3585",
@@ -21696,19 +21858,19 @@
     "src/PhobosFramework/Units.cs": "b66b1134d9b9e2ff57055c41b5354f280ec21233a395224ec6ba213668b22cf3",
     "src/PhobosManufacturing/AssemblyInfo.cs": "a442448369b44ef8921362eea7215eab4e7fb557881cded3213f00b5d7600549",
     "src/PhobosManufacturing/Content.cs": "6777dd51cfa2782d54cc61a8123237a61b44adfe99cd43fe2c7f54ab480577f9",
-    "src/PhobosManufacturing/Core/HydrogenRules.cs": "4c84f1825c6c10305029b655c6e174e34f3fd1924c879d01dc49aac95c279a1b",
+    "src/PhobosManufacturing/Core/HydrogenRules.cs": "17934b26a0bf0d5dda69b50de9405dc2605e34ff486fc4690c1c706131cf69f6",
     "src/PhobosManufacturing/Core/ManufacturingRules.cs": "e478aa778c9874e466c809ab8a6d84dcb63595d645e1c64b8248d06607a202be",
-    "src/PhobosManufacturing/Core/Materials.cs": "7ddf498fc54c4f6c90cce3c0678863739423598a0de98c778b716327d994e2ef",
-    "src/PhobosManufacturing/Core/ProcessorRules.cs": "7c40c9be36534e61c32b4ee2fa9e9cbd7915554f17ae7f843dc8cee8f25b6fad",
+    "src/PhobosManufacturing/Core/Materials.cs": "638659608f0b9bd36eb5376d1c022b98c8f903e96e4c2394c61688cf108e3545",
+    "src/PhobosManufacturing/Core/ProcessorRules.cs": "0542052acd781d6df70146ca7ace4ea57a9c8558a5e0eeff4cebbc1d183ff17f",
     "src/PhobosManufacturing/Core/ProcessorState.cs": "ad039a60d06b8750124bfe454e30860a073f0b863fe44cc9efa097755136a692",
-    "src/PhobosManufacturing/Core/RefineryRules.cs": "71e5e662e25885ec6f8178e05d1df7a1235e3c257054ebacad7700bcb0de5639",
+    "src/PhobosManufacturing/Core/RefineryRules.cs": "5c4f66076235de2c06c09277a6aebee36cfc2d96bd1db3e8fb61e738e67e2bc6",
     "src/PhobosManufacturing/Core/RefineryState.cs": "49e892de92b7008c44b54d9f47b78c72c524ea803aeb2be2b6d20f4e9f6dd8e4",
     "src/PhobosManufacturing/Definitions.cs": "fcf80c6d8b528c1c17388d06844031d1dfa826cb687b688b8a19072b59b77ff5",
-    "src/PhobosManufacturing/EquipmentEconomy.cs": "9b4764ebce020f0e24adfc63465d11486ba02d923c7bca5d630e16c622ffd686",
+    "src/PhobosManufacturing/EquipmentEconomy.cs": "a63055ef452a1b5deb49f10581a7c49b7964a41ffdb9385bb049fa50d63723be",
     "src/PhobosManufacturing/HydrogenService.cs": "9c3a16520479cc9a4112e9736b1c6b9efa311bc410e5934ae2fdcca05e04d1f7",
     "src/PhobosManufacturing/Panel.cs": "9beaab6e7e20a1111c2400a6ed02fe1c164ea78958627686556dfc03c3bb8c24",
-    "src/PhobosManufacturing/PhobosManufacturing.csproj": "72c0bf53c451a5447059dbb968e17b48bf2f8b715cf051b48782ec2428509128",
-    "src/PhobosManufacturing/Plugin.cs": "213554e1829eae762875ec0fd09fbe2f7c58643fe4d32ae5cc79c8a7653e13fb",
+    "src/PhobosManufacturing/PhobosManufacturing.csproj": "e88b987e938490d348ba04bd17dc1f2bbcd2c4d0973465ed3a05c07b646665db",
+    "src/PhobosManufacturing/Plugin.cs": "44b0b16273b4e601d3f08e3441bb8cd4bf41b19f5842bd6623c6520b9304459e",
     "src/PhobosManufacturing/ProcessorService.cs": "9961006ea4cc471091c85ccaeae6521fff12a1635f9bc5b4a4c11ca88b85d35e",
     "src/PhobosManufacturing/Provider.cs": "e656a18c7d9377fd5d7e6e0898ba65a62dc566df65765a7316913000603685f5",
     "src/PhobosManufacturing/RefineryService.cs": "b20a41eeeda387d50cc2c0ad404c6bff42a08896f2eac6a96cd21d6e5b644fba",

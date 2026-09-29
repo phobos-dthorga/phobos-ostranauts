@@ -84,6 +84,8 @@ internal static class RefineryChecks
         // Prices keep the recovery rule.
         check(4 * Materials.Ingot.Price < 450 && 5 * Materials.Carbon.Price + 10 < 99 && Materials.Slag.Price == .01 && Materials.Residue.Price == .01 && Materials.Clay.Price == 180,
             "Four ingots are worth less than the iron block, five carbon plus water less than the carbide ore; remainders are trash; the clay chunk sells like hydrates");
+        // Shipbreaker's steel ingot is $25; the native checks repeat this against its live definition.
+        check(4 * 25 + Materials.TerminalPrice < 4 * Materials.Ingot.Price + Materials.Carbon.Price, "Carburising loses value: four steel ingots are worth less than four nickel-iron ingots and one carbon");
         check(Materials.IsTerminal(Materials.RefinerySlag) && Materials.IsTerminal(Materials.AnhydrousResidue) && !Materials.IsTerminal(Materials.CarbonStock) && Materials.IsStock(Materials.NickelIronIngot), "Terminal and stock identities are distinct");
 
         // The saved record.

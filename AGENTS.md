@@ -339,6 +339,17 @@
   fills a linked native O2 canister to its rated pressure through Framework
   `NativeGasCanister`, or the cabin when none is linked. The M4 mill remains a
   design; nickel-iron joins ingots as its stock. Owner gameplay checks pending.
+- Owner direction (2026-09-29): Manufacturing equipment is mid-to-late-game and
+  rather expensive. Anchor its prices, work, Restore and component repair bills
+  on vanilla's late-game kit (IC fusion reactor, radars, heavy lift rotor),
+  carry the game's `IsSalvageValueHigh` mark on every form and keep world finds
+  rare (Manufacturing 0.1.1: V4 $64,000, X2 $38,000, H2 $22,000, 5% engineering
+  finds). Keep stock lots and availability floors as the stock memoranda set
+  them; price is the gate. Only machinery is late-game priced (owner correction,
+  same day): ingots, carbon, ore, reagents and remainders keep ordinary
+  raw-material prices, capped by the vanilla ore they come from because every
+  charge must lose value; see
+  `docs/equipment-economy.md` and the refinery record.
 
 ## Working style
 

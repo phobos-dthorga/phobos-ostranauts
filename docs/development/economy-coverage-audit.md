@@ -57,8 +57,25 @@ for each regional offer.
 The three Fennmark machines follow the audited pattern from the start: the same
 five merchant routes as the S3/T2 (K-Leg supply broken, fixer used, Halvorson
 new, Venus broken and refurbished), regional supply kiosks, one bounded
-engineering-loot choice over the six loose forms, repair bills equal to their
-mass, dismantling below whole value, Restore rates and `EquipmentSaveUpgrade`.
+engineering-loot choice over the six loose forms, mass-balanced dismantling
+below whole value, Restore rates and `EquipmentSaveUpgrade`.
+
+Manufacturing 0.1.1 (owner direction, 29 September 2026: mid-to-late-game
+equipment, rather expensive) re-anchors them on vanilla's late-game kit instead
+of Shipbreaker's: V4 $64,000, X2 $38,000, H2 $22,000 (IC fusion reactor
+$141,000, heavy lift rotor $56,774, radars $30,000–42,000, towing brace
+$23,944). Findings and changes:
+
+| Finding | Evidence | Change |
+| --- | --- | --- |
+| At 0.1.0 prices the machines read as mid-game Shipbreaker plant | Vanilla loose equipment above $20,000 is sensors, weapons, rotors, reactors | Prices above; install/repair/dismantle work and Restore times lengthened toward the reactor and radar thresholds |
+| Repair bills were scrap only | Every vanilla late-game repair uses motors, mainboards, heat sinks and screens | Component bills ($100–573 of parts), component-bearing dismantling, still mass-balanced and 1.7–3.3% of whole value |
+| No high-salvage mark | Every native loose item above $20,000 carries `IsSalvageValueHigh`, all forms | Added to all forms: the K-Leg fixer now buys them intact, the supplies kiosk no longer does, Venus buys either |
+| A 40% engineering-loot chance | At late-game prices that is a money printer | 5%, three in four broken, a registered constant capped by a native check |
+| The steel charge gained value (0.1.0: 4 x $20 + $10 in, 4 x $25 out) | Live-price computation | Nickel-iron ingot $24 (the smallest fix; carbon stays $10); a native check now proves every charge loses value at live prices. Stock stays ordinary-priced: only the machinery is late-game (owner correction) |
+
+Lots stay at eight and the 85% equipment floor stays, per the stock memoranda;
+price, not scarcity, is the late-game gate.
 Nickel-iron ingots and carbon stock are `AnyMetal` / `AnyIndustrialProducts`
 so the Venus, K-Leg supply and furnishings buyers accept them; scrap kiosks do
 not (the ingot rule above). Slag and anhydrous residue carry the Trash category.

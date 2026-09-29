@@ -93,6 +93,17 @@ internal static class ManufacturingNativeChecks
         check(RefineryRecipes.Available(true).Count() == 5 && RefineryRecipes.Available(false).Count() == 4 && withoutShipbreaker.Objects.Count == d.Objects.Count, "Shipbreaker's presence changes only the available charges, never the definitions");
         check(ShipbreakerStock.Definitions(), "Shipbreaker's steel ingot and remainder are published at the masses the steel charge expects");
 
+        // The recovery rule on every charge, at live prices (Shipbreaker's steel ingot included): the products,
+        // water at the station's bulk price, are worth less than the charge sold whole. Off-gas has no value.
+        double Price(string id) => id == ManufacturingRules.Water ? PhobosShipbreaker.Core.SiloRules.WaterPricePerKg
+            : Stat(d.Objects.TryGetValue(id, out var own) ? own : DataHandler.dictCOs[id], "StatBasePrice");
+        foreach (var recipe in RefineryRecipes.All)
+        {
+            double inValue = recipe.Inputs.Sum(i => i.Count * Price(i.Id));
+            double outValue = recipe.Products.Sum(p => p.Count * (p.Id == ManufacturingRules.Water ? p.Kg * Price(p.Id) : Price(p.Id)));
+            check(outValue < inValue, $"The {recipe.Id} charge loses value: {outValue:F2} out of {inValue:F2} in");
+        }
+
         // The clay chunk joins the game's own mining tables once each, and no shop.
         foreach (string table in MiningLoot.Tables)
         {
@@ -144,9 +155,25 @@ internal static class ManufacturingNativeChecks
             check(d.LootBranches.TryGetValue(merchant, out var branches) && branches.Any(b => d.Loot[b].aCOs.Any(c => c.StartsWith(e.Prefix + "Loose", StringComparison.Ordinal))), "Every general merchant offers the machine: " + e.Prefix + " at " + merchant);
         foreach (var e in EquipmentEconomy.Machines)
         {
-            var loose = new DataCO(d.Objects[e.Prefix + "Loose"]);
+            var loose = new DataCO(d.Objects[e.Prefix + "Loose"]); var broken = new DataCO(d.Objects[e.Prefix + "LooseDmg"]);
             check(DataHandler.dictCTs["TIsBarterSanDiegoHalvorsonSell"].TriggeredDataCO(loose, false) && DataHandler.dictCTs["TIsBarterVORBScrapKiosk"].TriggeredDataCO(loose, false), "Native sell and buy filters accept the machine: " + e.Prefix);
+            // Late-game kit trades like the game's own: the fixer buys it intact, the ordinary supplies kiosk does not, Venus buys either.
+            check(Definitions.Forms.All(s => Has(d.Objects[e.Prefix + s], EquipmentEconomy.HighSalvageMark)) && Has(DataHandler.dictCOs["ItmReactorIC03OffLoose"], EquipmentEconomy.HighSalvageMark),
+                "Every form carries the game's high-salvage mark, as the IC fusion reactor does: " + e.Prefix);
+            check(DataHandler.dictCTs["TIsBarterOKLGFixerBuy"].TriggeredDataCO(loose, false) && !DataHandler.dictCTs["TIsBarterOKLGFixerBuy"].TriggeredDataCO(broken, false) &&
+                !DataHandler.dictCTs["TIsBarterOKLGSupplyKiosk"].TriggeredDataCO(loose, false) && DataHandler.dictCTs["TIsBarterVORBScrapKiosk"].TriggeredDataCO(broken, false),
+                "The K-Leg fixer buys the intact machine, the supplies kiosk does not, Venus buys the broken one: " + e.Prefix);
+            // Priced among the game's late-game equipment: above the towing brace's loose half, below the IC fusion reactor.
+            double price = Stat(d.Objects[e.Prefix + "Loose"], "StatBasePrice");
+            check(price > Stat(DataHandler.dictCOs["ItmTowingBrace01Loose"], "StatBasePrice") && price < Stat(DataHandler.dictCOs["ItmReactorIC03OffLoose"], "StatBasePrice"),
+                "Late-game price band: " + e.Prefix);
         }
+        // World finds are rare and mostly broken.
+        var salvage = d.Loot["PhobosManufacturingMachinerySalvage"].aCOs.Single().Split('|')
+            .ToDictionary(c => c.Split('=')[0], c => double.Parse(c.Split('=')[1].Split('x')[0], System.Globalization.CultureInfo.InvariantCulture));
+        check(Math.Abs(salvage.Values.Sum() - EquipmentEconomy.MachinerySalvageChance) < 1e-9 && EquipmentEconomy.MachinerySalvageChance <= 0.05 &&
+            Math.Abs(salvage.Where(p => p.Key.EndsWith("Dmg", StringComparison.Ordinal)).Sum(p => p.Value) - 0.75 * EquipmentEconomy.MachinerySalvageChance) < 1e-9 && salvage.Count == 6,
+            "At most one engineering roll in twenty yields a machine, three in four of those broken");
 
         // The hazard model's native foundations: the fire gas-respire, the spread trigger, the explosion entries.
         string data = Path.Combine(game, "Ostranauts_Data", "StreamingAssets", "data");

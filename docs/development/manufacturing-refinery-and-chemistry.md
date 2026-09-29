@@ -46,11 +46,22 @@ against 2.26 MJ/kg for water evaporation (NIST, below) plus heating the rock.
 Fifteen percent of the working power warms the room under the same 10 kPa /
 40 C bounds as Shipbreaker's R4 (`RoomHeat`, Framework 0.41.0).
 
-Value loss (the dismantling rule): 450 cr of meteoric iron becomes 80 cr of
-ingots and 2 cr of gangue; 99 cr of carbides becomes 50 cr of carbon, water
-and 2 cr of gangue; 150 cr of hydrates becomes 1 kg of water and 6 cr of
-gangue; 180 cr of clay hydrates becomes 2 kg of water and a 0.01 cr residue.
-Refining trades money for material aboard; it is never a profit route.
+Value loss (the dismantling rule), at 0.1.1 prices with water at the station's
+10 cr/kg bulk price: 450 cr of meteoric iron becomes 96 cr of ingots and 2 cr
+of gangue; 99 cr of carbides becomes 50 cr of carbon, 10 cr of water and 2 cr
+of gangue; 150 cr of hydrates becomes 10 cr of water and 6 cr of gangue; 180 cr
+of clay hydrates becomes 20 cr of water and a 0.01 cr residue; 106 cr of
+nickel-iron and carbon becomes 100 cr of Rivetline steel ingots. Refining trades
+money for material aboard; it is never a profit route. The native checks compute
+this for every charge from live definitions, Shipbreaker's steel ingot included.
+
+Stock is ordinary-priced raw material (owner correction, 29 September 2026:
+only the machinery is late-game priced), and the vanilla ore prices are its
+ceiling anyway: a nickel-iron ingot above about 111 cr, or carbon above about
+17 cr, would make a charge profitable. Manufacturing 0.1.0 priced the ingot at
+20 cr, which made the steel charge gain value (80 + 10 cr in, 100 cr out);
+0.1.1 moves the ingot only as far as that fix needs, to 24 cr, and leaves carbon
+at 10 cr. The machines themselves carry the late-game price (see [the equipment economy](../equipment-economy.md#manufacturing-011-late-game-plant)).
 
 ## Electrolysis
 

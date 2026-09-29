@@ -1014,7 +1014,7 @@
       ]
     },
     "PhobosManufacturing": {
-      "intro": "Phobos Manufacturing 0.1.0 refines what the crew mines and runs the first chemistry aboard: the Fennmark V4 Volatiles Refinery, the X2 Chemical Processor (water electrolysis) and the H2 Hydrogen Store, with nickel-iron ingots and carbon stock as raw stock, two terminal remainders and one new minable chunk. Every charge conserves mass and is recorded with its chemistry and sources in [the refinery design record](development/manufacturing-refinery-and-chemistry.md); operating instructions are in [the player guide](manufacturing-player-guide.md). Machines are purchase-only; ores and chunks are mined, never bought; nothing new is sold in shops. Prices, salvage and repair follow the same rules as the sibling mods.",
+      "intro": "Phobos Manufacturing 0.1.0 refines what the crew mines and runs the first chemistry aboard: the Fennmark V4 Volatiles Refinery, the X2 Chemical Processor (water electrolysis) and the H2 Hydrogen Store, with nickel-iron ingots and carbon stock as raw stock, two terminal remainders and one new minable chunk. Every charge conserves mass and is recorded with its chemistry and sources in [the refinery design record](development/manufacturing-refinery-and-chemistry.md); operating instructions are in [the player guide](manufacturing-player-guide.md). Machines are purchase-only; ores and chunks are mined, never bought; nothing new is sold in shops. The machines are late-game plant, priced among the game's own radars, heavy lift rotors and missile launchers; they carry the game's high-salvage mark, need component repairs and are rare world finds. See [the equipment economy](equipment-economy.md#manufacturing-011-late-game-plant).",
       "groups": [
         {
           "key": "v4",
@@ -1027,7 +1027,7 @@
           ],
           "function": "A 4 x 4 electric hearth and drying retort. One charge at a time: hydrates (10 kg) to 1 kg of water and three gangue; clay hydrates to 2 kg of water and an 8 kg anhydrous residue; carbon ore to five carbon stock, 1 kg of water, one gangue and 1 kg of CO2, CO and smoke breathed into the room; meteoric iron to four nickel-iron ingots, one gangue and 1 kg of slag; with Shipbreaker, four nickel-iron ingots and one carbon stock to four steel ingots and a melt remainder.",
           "use": "Install through APPS, connect power, link a water vessel (S3 or R3 within one tile) on its panel or C1 for the water charges, load one charge into its feed (the Inventory opens the tray and the feed), then Start. 24 kW while working; part of it warms the room. Run a scrubber in its room for the carbon charge. See [the player guide](manufacturing-player-guide.md).",
-          "find": "Buy loose hardware from the sellers below. No fabrication recipe. This item may also appear in eligible engineering-equipment loot; see the exact offers below.",
+          "find": "Buy loose hardware from the sellers below; it is late-game equipment with late-game prices. No fabrication recipe. About one engineering-loot roll in twenty yields a Fennmark machine, usually broken; see the exact offers below. The K-Leg fixer buys it back intact and the Venus scrap kiosk intact or broken.",
           "notes": "A melt (nickel-iron or steel) left waiting for a cool room longer than its own run freezes into slag. Reload pauses it; Start resumes the bound charge. A steel charge saved before Shipbreaker is removed is kept, never overwritten. Empty the tray by hand.",
           "guide": "manufacturing-player-guide.md",
           "internal": false,
@@ -1044,7 +1044,7 @@
           ],
           "function": "A 2 x 2 water electrolysis cell. Each one-hour cycle at 6 kW splits 1.125 kg of water into 1.000 kg of oxygen and 0.125 kg of hydrogen (2 H2O to 2 H2 + O2).",
           "use": "Install through APPS within one tile of a water vessel and an H2 store, connect power, link both on its panel or C1, choose an installed O2 canister within one tile (or leave it on cabin air), then Start. It runs only while every output has room; a full canister or store makes it wait.",
-          "find": "Buy loose hardware from the sellers below. No fabrication recipe. This item may also appear in eligible engineering-equipment loot; see the exact offers below.",
+          "find": "Buy loose hardware from the sellers below; it is late-game equipment with late-game prices. No fabrication recipe. About one engineering-loot roll in twenty yields a Fennmark machine, usually broken; see the exact offers below. The K-Leg fixer buys it back intact and the Venus scrap kiosk intact or broken.",
           "notes": "Oxygen into the cabin raises the oxygen partial pressure, which raises the game's own fire chance. Reload pauses it; Start resumes with the held water and cycle energy kept. Cancel forfeits the cycle's energy, never the water.",
           "guide": "manufacturing-player-guide.md",
           "internal": false,
@@ -1061,7 +1061,7 @@
           ],
           "function": "A passive 2 x 2 pressurised store for 24 kg of electrolysis hydrogen, kept as a kilogram record (hydrogen has no game gas).",
           "use": "Install through APPS within one tile of an X2 and link it from the cell. Vent hydrogen overboard from its panel or C1 (vent). Repair damage at once and vent before uninstalling.",
-          "find": "Buy loose hardware from the sellers below. No fabrication recipe. This item may also appear in eligible engineering-equipment loot; see the exact offers below.",
+          "find": "Buy loose hardware from the sellers below; it is late-game equipment with late-game prices. No fabrication recipe. About one engineering-loot roll in twenty yields a Fennmark machine, usually broken; see the exact offers below. The K-Leg fixer buys it back intact and the Venus scrap kiosk intact or broken.",
           "notes": "Damaged, it leaks about 2 kg an hour to space until repaired. With oxygen in the room and a fire, a working V4 hearth or a sparking damaged device, its contents burn: the room loses oxygen and warms, and the game's own explosion follows. Dismantling refuses while it holds hydrogen.",
           "guide": "manufacturing-player-guide.md",
           "internal": false,
@@ -1077,7 +1077,7 @@
           "function": "Nickel-iron ingots (4 kg, cast meteoric iron: iron with a few percent of nickel) and carbon stock (1 kg) are the refinery's products and Manufacturing's raw stock. Four ingots with one carbon make steel in the V4 when Shipbreaker is present; the coming machining centre consumes ingots.",
           "use": "Made in the V4. Carry, stack (ten per stack) and sell at any general buyer; feed them back into the V4 as a steel charge.",
           "find": "Made in the V4 from meteoric iron and carbon ore. Never sold in shops.",
-          "notes": "Four ingots ($80) are worth less than the $450 meteoric iron block and five carbon ($50) less than the $99 carbide ore: refining loses money and gains material aboard. Scrap kiosks do not buy them, so they are never furnace or processor feed.",
+          "notes": "Ordinary raw-material prices; only the machines are late-game priced. Four ingots ($96) are worth less than the $450 meteoric iron block, five carbon ($50) plus water less than the $99 carbide ore, and four steel ingots ($100) less than the four nickel-iron ingots and carbon that make them ($106): refining loses money and gains material aboard. Scrap kiosks do not buy them, so they are never furnace or processor feed.",
           "guide": "manufacturing-player-guide.md",
           "internal": false,
           "labels": {}
@@ -1187,6 +1187,10 @@
     "TIsToolWelding": "welding tool",
     "PhobosShipbreakerSectionAssemblyMaterial": "D4-S assembly section",
     "PhobosScrapReclaimerSectionAssemblyMaterial": "R4-S assembly section",
-    "PhobosFurnaceSectionAssemblyMaterial": "F6-S assembly section"
+    "PhobosFurnaceSectionAssemblyMaterial": "F6-S assembly section",
+    "TIsMotor": "motor",
+    "TIsMobo": "mainboard",
+    "TIsHeatSink": "heat sink",
+    "TIsScreen": "screen"
   }
 }

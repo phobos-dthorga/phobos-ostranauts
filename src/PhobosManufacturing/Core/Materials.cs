@@ -25,17 +25,21 @@ public sealed class Material
 }
 
 /// <summary>The materials Manufacturing adds (owner decisions, 29 September 2026): cast nickel-iron and carbon
-/// stock with real consumers, two terminal remainders, and one minable CI-type clay hydrate chunk. Prices keep
-/// the recovery rule: four nickel-iron ingots ($80) are worth less than the $450 meteoric iron block, five
-/// carbon units ($50) plus water less than the $99 carbide ore; the clay chunk sells like the game's hydrates.</summary>
+/// stock with real consumers, two terminal remainders, and one minable CI-type clay hydrate chunk. Every charge
+/// loses value (the recovery rule), checked natively against live prices: four nickel-iron ingots ($96) are
+/// worth less than the $450 meteoric iron block, five carbon units ($50) plus water less than the $99 carbide
+/// ore, and four Rivetline steel ingots ($100) less than the four nickel-iron ingots and carbon they come from
+/// ($106). Stock is ordinary-priced raw material (owner, 29 September 2026: only machinery is late-game); the
+/// vanilla ore prices are its ceiling. The clay chunk sells like the game's hydrates.</summary>
 public static class Materials
 {
     public const string NickelIronIngot = "PhobosNickelIronIngot", CarbonStock = "PhobosCarbonStock", RefinerySlag = "PhobosRefinerySlag",
         AnhydrousResidue = "PhobosAnhydrousResidue", ClayHydrates = "PhobosClayHydrates";
     public const double IngotKg = 4, CarbonKg = 1, SlagKg = 1, ResidueKg = 8, ClayKg = 10;
     public const double TerminalPrice = .01;
-    public static readonly Material Ingot = new(NickelIronIngot, IngotKg, 10, 20, "IsCategoryMetals", false, 1, "StockNickelIronIngot");
-    public static readonly Material Carbon = new(CarbonStock, CarbonKg, 10, 10, "IsCategoryIndustrialProducts", false, 1, "StockCarbon");
+    public const double IngotPrice = 24, CarbonPrice = 10;
+    public static readonly Material Ingot = new(NickelIronIngot, IngotKg, 10, IngotPrice, "IsCategoryMetals", false, 1, "StockNickelIronIngot");
+    public static readonly Material Carbon = new(CarbonStock, CarbonKg, 10, CarbonPrice, "IsCategoryIndustrialProducts", false, 1, "StockCarbon");
     public static readonly Material Slag = new(RefinerySlag, SlagKg, 10, TerminalPrice, "IsCategoryTrash", true, 1, "StockRefinerySlag");
     public static readonly Material Residue = new(AnhydrousResidue, ResidueKg, 1, TerminalPrice, "IsCategoryTrash", true, 2, "StockAnhydrousResidue");
     /// <summary>Mined, never sold: a chunk the dark-regolith rock tables and C-class deposits can yield.</summary>

@@ -486,3 +486,81 @@ value, $1,350 damaged value and 0.4 kg mass. Its Polaris pristine merchant offer
 0.6 kg existing board offcuts; repair consumes two electronics parts and dismantling
 retains 0.4 kg existing board residue. N1 stock, salvage and old saved IDs are unchanged.
 These are game balance choices, not actual electronics manufacturing yields.
+
+## Manufacturing 0.1.1: late-game plant
+
+Owner direction, 29 September 2026: Phobos Manufacturing's equipment is meant
+for the middle-to-late game and is priced, stocked and maintained like the
+game's own late-game kit rather than like Shipbreaker's working machinery.
+Vanilla anchors, from the installed 1.0.1.5 definitions: IC fusion reactor
+$141,000, active stabilizer $156,774, missile launchers $86,000–93,000, heavy
+lift rotor $56,774, Zhuangzi and NASA radars $42,000 and $30,000, towing brace
+$23,944. These are authored balance choices, not measured gameplay outcomes.
+
+| Equipment | Mass | Base price | Pristine reference | Lightly worn reference | Broken base |
+|---|---:|---:|---:|---:|---:|
+| Fennmark V4 volatiles refinery | 180 kg | $64,000 | $80,000 | $48,000 | $16,000 |
+| Fennmark X2 chemical processor | 130 kg | $38,000 | $47,500 | $28,500 | $9,500 |
+| Fennmark H2 hydrogen store | 160 kg empty | $22,000 | $27,500 | $16,500 | $5,500 |
+| Nickel-iron ingot | 4 kg | $24 | — | — | — |
+| Carbon stock | 1 kg | $10 | — | — | — |
+
+San Diego's traders add their own markup (sell 2–3×, per the
+[vanilla audit](development/vanilla-economy-audit.md#merchant-multipliers)).
+Only the machinery is late-game priced (owner correction, 29 September 2026);
+ingots, carbon, ore and remainders keep ordinary raw-material prices, and the
+vanilla ore they come from caps them anyway: every refinery charge must lose value, which the native checks verify from live definitions (see
+[the refinery record](development/manufacturing-refinery-and-chemistry.md)).
+
+**Where to buy and sell.** The same routes as the Shipbreaker S3/T2, in lots of
+eight: K-Leg supplies (broken), the K-Leg fixer (worn), San Diego Halvorson
+(new), the Venus scrap kiosk (broken and refurbished), and the fifteen regional
+supply kiosks, each at the 85% equipment floor. Every form carries the game's
+own high-salvage mark (`IsSalvageValueHigh`), as every native loose item above
+$20,000 does, so the machines sell back like the game's high-value salvage: the
+K-Leg fixer buys them intact, the Venus scrap kiosk buys intact or broken, and
+the K-Leg supplies kiosk does not buy them.
+
+**World finds** are rare: one engineering-loot roll in twenty
+(`Manufacturing.machinerySalvageChance`, 0.05) yields a machine, three times in
+four a broken one, split evenly across the three families. Manufacturing 0.1.0
+had a 40% chance, which at these prices would have been a money printer.
+
+**Work** (unit tool and skill multipliers; progress thresholds in brackets):
+
+| Equipment | Install / uninstall | Repair broken | Dismantle | Full wear-bar Restore | Repair + Restore |
+|---|---:|---:|---:|---:|---:|
+| V4 refinery | 24 / 19.2 min (2000/1600) | 72 min (6000) | 96 min (1600) | 150 min | 207 min |
+| X2 processor | 14.4 / 12 min (1200/1000) | 43.2 min (3600) | 54 min (900) | 90 min | 124.2 min |
+| H2 store | 14.4 / 12 min (1200/1000) | 36 min (3000) | 54 min (900) | 60 min | 90 min |
+
+The IC fusion reactor's thresholds are 2000/2000 with a 6000 repair; the radars
+1000/1000 with 1600; the heavy lift rotor's repair is 5000.
+
+**Repair bills** use the game's own components, as its late-game kit does (the IC
+fusion reactor needs a motor, a screen, two heat sinks, two mainboards, seven
+electronic and five mechanical parts and three steel):
+
+| Repaired equipment | Steel | Aluminium | Mechanical | Electronic | Motor | Mainboard | Heat sink | Screen | Base value | Spent material returned |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| V4 refinery | 4 | 2 | 6 | 8 | 2 | 2 | 2 | 1 | $572.60 | 28 kg |
+| X2 processor | 2 | 2 | 3 | 8 | 1 | 3 | 2 | 0 | $285.40 | 16.5 kg |
+| H2 store | 6 | 2 | 6 | 2 | 0 | 1 | 0 | 0 | $100.30 | 12.5 kg |
+
+**Dismantling** conserves mass and returns components too (motor 2.5 kg,
+mainboard 0.5 kg, heat sink 1.5 kg, screen 6 kg; other units as above):
+
+| Equipment/state | Steel | Aluminium | Mechanical | Electronic | Motor | Mainboard | Heat sink | Screen | Trash | Total | Value / whole |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| V4 intact | 100 | 40 | 20 | 10 | 2 | 2 | 2 | 1 | 10 | 180 kg | $1,059.50 / 1.7% |
+| V4 broken | 90 | 32 | 10 | 4 | 1 | 0 | 1 | 0 | 47 | 180 kg | $534.55 / 3.3% |
+| X2 intact | 70 | 26 | 16 | 12 | 1 | 3 | 2 | 0 | 13 | 130 kg | $680.25 / 1.8% |
+| X2 broken | 34 | 10 | 4 | 0 | 0 | 1 | 1 | 0 | 82 | 130 kg | $202.50 / 2.1% |
+| H2 intact | 110 | 30 | 12 | 3 | 0 | 1 | 0 | 0 | 12 | 160 kg | $550.60 / 2.5% |
+| H2 broken | 40 | 10 | 4 | 0 | 0 | 0 | 0 | 0 | 108 | 160 kg | $180.40 / 3.3% |
+
+Recovery sits within the vanilla range (RCS cluster 1.0%, battery 2.5%, towing
+brace 2.6%). Empty the V4's feed and tray, the X2's hold and the H2 store before
+dismantling; the shared guards refuse otherwise. Existing saved machines keep
+their identities and state; the new prices and bills apply to definitions, and
+merchants update at their normal restock.

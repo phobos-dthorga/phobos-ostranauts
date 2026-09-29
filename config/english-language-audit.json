@@ -41332,8 +41332,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "51de312125b63701c88221d499affe52552a2cbb3dc0ca57985eef0200e661d8",
-      "review": "2026-09-29: Manufacturing row and dependency graph label for 0.1.0; Framework 0.41.0."
+      "sha256": "317b5f9351acbf837c0f212d74d38d8a288727063483eceb4f99079212857e83",
+      "review": "2026-09-29: version summary; no other wording changed."
     },
     {
       "path": "SUPPORT.md",
@@ -41752,8 +41752,8 @@
       "path": "docs/development/economy-coverage-audit.md",
       "scope": "development audit record; current player text limited to the changelog links",
       "decision": "rewrite",
-      "sha256": "6175f8d8ac74ce535799f1d47fc2407188ae1022636a81d150602f68c8f98a88",
-      "review": "2026-09-29: Manufacturing 0.1.0 section."
+      "sha256": "43cd51f09cc46d906b31dad359a92487b27a556a526e85ac1175ecf34166f371",
+      "review": "2026-09-29: Manufacturing 0.1.1 findings table."
     },
     {
       "path": "docs/development/equipment-branding.md",
@@ -41943,8 +41943,8 @@
       "path": "docs/development/manufacturing-refinery-and-chemistry.md",
       "scope": "development design record; player text limited to names",
       "decision": "rewrite",
-      "sha256": "c70071b39efef5bfced9c06792a40c8c96de6b4375fc92fff8a46ede02735394",
-      "review": "2026-09-29: new record: rule, charges, electrolysis, store, hazards, sources."
+      "sha256": "cd57784cb5392d66a476287b9a5fb93cac1fd7e938ea4ffa1b15a18e22639c27",
+      "review": "2026-09-29: value-loss paragraph at 0.1.1 prices; stock-price ceiling."
     },
     {
       "path": "docs/development/manufacturing-research.md",
@@ -42212,8 +42212,8 @@
       "path": "docs/equipment-economy.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "13768de54c69298a62946f49fe6761f4562c7450fdf901ea459fb267a4598575",
-      "review": "2026-09-29: terminal-remainder trash category corrected; purchase-only decision; S3/T2 Restore rows; missing repair-bill and dismantle-yield rows added from definitions."
+      "sha256": "e2faf7a6be8aa3175cd519a4ab5acccb57ab37839633e11a582f0f9cce3c99cf",
+      "review": "2026-09-29: new Manufacturing late-game plant section."
     },
     {
       "path": "docs/fluid-network-operations.md",
@@ -42303,15 +42303,15 @@
       "path": "docs/manufacturing-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "retain",
-      "sha256": "d16de232872207616fb543c946913d57c32ec2981bd17b026dc0b1ec44e234fe",
+      "sha256": "68f72b8253156697eeb851f447604c9c3ca6601dcae34e7e42901963dd9122d2",
       "review": "2026-09-29: regenerated from reviewed inputs."
     },
     {
       "path": "docs/manufacturing-player-guide.md",
       "scope": "current player operating guide",
       "decision": "rewrite",
-      "sha256": "4a07aa561f5c6b5f1c1501fc6420535abc50441d882276a5c58f0ff725f1c262",
-      "review": "2026-09-29: new guide: equipment, set-up, cell, store, reload, dangers, limits, owner checks, sources."
+      "sha256": "2a128ae0b1b42912ba6db01d07bea710c2d45df08c10d3d3c0b19977a869cc97",
+      "review": "2026-09-29: late-game prices, trade routes, rare finds, component repairs; version line now links the maintained requirements."
     },
     {
       "path": "docs/material-port-pairing.md",
@@ -42429,8 +42429,8 @@
       "path": "workshop/PhobosManufacturing/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "95517a464bee0e3e2e45077911816fce95f83470a23aee826c24ac25edbc6535",
-      "review": "2026-09-29: rewritten for the first operational release; unpublished draft."
+      "sha256": "ebe018dbe503433714529347e5e0fc4661e20d9ec688fbb5b4f41767286b87a5",
+      "review": "2026-09-29: version and late-game plant bullet."
     },
     {
       "path": "workshop/PhobosShipbreaker/page.bbcode",
@@ -42444,8 +42444,8 @@
     {
       "path": "config/item-reference.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "6d69134129a118a0072a4a6f2be8c9b64a56020622951280644994c12f04e9d6",
-      "review": "2026-09-29: Manufacturing intro, eight groups and three mining-table source labels."
+      "sha256": "da9f0608c6781f4399f9259164419d6d4bac7549dc10b714aa1f3352da03503e",
+      "review": "2026-09-29: Manufacturing intro, machine acquisition text, stock notes and four component trigger labels."
     },
     {
       "path": "mods/PhobosAgriculture/framework/equipment-names.json",
@@ -42498,7 +42498,7 @@
     {
       "path": "mods/PhobosManufacturing/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "f180c8af23c129ced488d100d11401f4b3c7531181728201d771aa1430598130",
+      "sha256": "06a902b5fb159ab9d99403b94a517a8d54adcfe55f93658795ee2abb4c2500a8",
       "review": "2026-09-29: version metadata only."
     },
     {
