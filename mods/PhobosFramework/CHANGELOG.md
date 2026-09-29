@@ -20,6 +20,18 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.46.0] - 2026-09-30 - Draft
+
+### Changed
+
+- Performance pass, stage 8. Agriculture, Manufacturing and the Shipbreaker furnace each walked every object in the world (about 49,000 in the owner's save) every two real seconds, costing about 8.5 ms each time. Framework now keeps one shared record of which world objects belong to each mod's families. One sweep of the world runs every two real seconds, spread over the frames in between, so no single frame pays for it; the first sweep after a load runs at once. An object that is destroyed or leaves the world drops out the moment it is next read; a new object is found within about four real seconds, or at once when a mod hands it over (a damaged or repaired replacement part).
+- Capture timings of the game's own main loop, simulation step, ship update, appliance updates and crew offer checks, with a count of trigger checks. They are installed only while a performance capture records and removed when it stops, so ordinary play pays nothing. They show where long frames sit, and how much time every mod's hooks on the offer check take in total.
+- Recorder scopes framework.world.sweep and framework.world.sweep_objects, and the capture timings game.crewsim.update, game.sim.advance, game.starsystem.update, game.powered.update, game.interaction.offer_check, game.interaction.offer_postfixes and game.condtrigger.calls.
+
+### Compatibility and limits
+
+- No saved data changes. Offline checks are not gameplay validation.
+
 ## [0.45.1] - 2026-09-30 - Draft
 
 ### Fixed

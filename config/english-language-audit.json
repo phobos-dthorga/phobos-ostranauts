@@ -45941,6 +45941,19 @@
       ],
       "before": "The rack's bottles are charged. Choose a destination store in the Crew panel for the crew to take them away.",
       "after": "The rack's bottles are charged. Choose a destination store in the Crew panel for the crew to take them away."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "Performance.probes_failed",
+      "category": "developer diagnostics",
+      "decision": "add",
+      "reason": "Log-only diagnostic for owner-run captures; says what failed, that play is unaffected and when it recovers.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Diagnostics/CaptureProbes.cs:66"
+      ],
+      "before": "Capture timings of the game's main loop could not be installed ({0}) and are off until the game restarts. Recording and gameplay continue.",
+      "after": "Capture timings of the game's main loop could not be installed ({0}) and are off until the game restarts. Recording and gameplay continue."
     }
   ],
   "documents": [
@@ -45948,8 +45961,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "403ffae2d3fdf7c19d05555eee92ae65174e6304c2ffbc6ba138e6498365fc85",
-      "review": "30 September 2026, Framework 0.45.1 repair: reviewed with this change; wording, links and maintained values checked."
+      "sha256": "20b9d4514e824055f6a78e7bf1d13a9b0bc99bd0b5346af5a8de07f1f6fd6315",
+      "review": "30 September 2026 performance pass, stage 8 (shared world sweep, capture probes): reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "SUPPORT.md",
@@ -45976,8 +45989,8 @@
       "path": "docs/agriculture-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "73067f1c2a651030be5fe43818811213c7e876cb4003fcfd1be89ddbd97eebb9",
-      "review": "Performance pass stage 2 (Framework 0.45.0, Agriculture 0.21.0), 29 September 2026: reviewed with this change; wording, links and maintained values checked."
+      "sha256": "c4a6b2e287acace6b2100a306cc1a5deceb841293fd184bd9abaf6af72926b7c",
+      "review": "30 September 2026 performance pass, stage 8 (shared world sweep, capture probes): reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "docs/agriculture-nutrient-production.md",
@@ -46108,8 +46121,8 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "f6cf501d9c1ebf28e7dd93daae985dc16ec633d8dad97af64d4b2b450d3660cd",
-      "review": "30 September 2026, Framework 0.45.1 repair: reviewed with this change; wording, links and maintained values checked."
+      "sha256": "7c14cb5601b519372020024c67e7f7beda011211fd3bd37093f7dca9ea5d9d41",
+      "review": "30 September 2026 performance pass, stage 8 (shared world sweep, capture probes): reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "docs/crew-automation.md",
@@ -46136,8 +46149,8 @@
       "path": "docs/development/agriculture-bulk-storage-calculations.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "c05e5daba7abfe07cca121584b4f7a01cd1d0c4e26b1a798013bc80f83c3ee5e",
-      "review": "Performance pass stage 2 (Framework 0.45.0, Agriculture 0.21.0), 29 September 2026: reviewed with this change; wording, links and maintained values checked."
+      "sha256": "f65a99f92b019c68cd6f4e41cf5d50d67f238a41f94018d6792cff1a8d1d69ae",
+      "review": "30 September 2026 performance pass, stage 8: reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "docs/development/agriculture-bulk-storage-design.md",
@@ -46409,8 +46422,8 @@
       "path": "docs/development/framework-author-guide.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "e75b2190a53b99f743c27dab69aa4e19a6c0a1282febea0732bfda9d60388f54",
-      "review": "Performance pass stage 2 (Framework 0.45.0, Agriculture 0.21.0), 29 September 2026: reviewed with this change; wording, links and maintained values checked."
+      "sha256": "0eaaae3fa3783d5b2b35143236ea70990ff8bb5fbeee1074aa304daa5629068d",
+      "review": "30 September 2026 performance pass, stage 8 (shared world sweep, capture probes): reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "docs/development/framework-bulk-storage.md",
@@ -46631,8 +46644,8 @@
       "path": "docs/development/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "5c7934e7e9ebf6f60705bb14428ee2cffd9edf65e7da6905c4b3ab5f8714d0d2",
-      "review": "30 September 2026, Framework 0.45.1 repair: reviewed with this change; wording, links and maintained values checked."
+      "sha256": "c4b3a53f024de4194dad7c1f81766fa9f8fe47705d9f46dd493ab8c74271c7b0",
+      "review": "30 September 2026 performance pass, stage 8 (shared world sweep, capture probes): reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "docs/development/phobos-framework.md",
@@ -46843,8 +46856,8 @@
       "path": "docs/framework-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "8caa36ace2fc241e9006ea5e5d22b2e52bb54cc3734856464ce1c0fea1d18280",
-      "review": "30 September 2026, Framework 0.45.1 repair: reviewed with this change; wording, links and maintained values checked."
+      "sha256": "760f82ee37ccf867b54eb3a893e2481de5b144f549fad9344f44409a796e1f2b",
+      "review": "30 September 2026 performance pass, stage 8 (shared world sweep, capture probes): reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "docs/furnace-coolant-conduits.md",
@@ -46899,15 +46912,15 @@
       "path": "docs/industrial-console-player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "2faed7124ead4c558d1bb324c9dbc352c9b7df72f27a6b468ce2494d2e570371",
-      "review": "Performance pass stage 3 (Shipbreaker 0.41.0), 29 September 2026: reviewed with this change; wording, links and maintained values checked."
+      "sha256": "2995a25ae3dfe1472affaa70851ea09e598a83f8fb37f731d3f8d28e2ac14871",
+      "review": "30 September 2026 performance pass, stage 8 (shared world sweep, capture probes): reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "docs/installing-mods.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "e1f79a934bc87cb1d862b0839d2bc9c3d2fff98143ee94abb86725d55ea0cc5a",
-      "review": "30 September 2026, Framework 0.45.1 repair: reviewed with this change; wording, links and maintained values checked."
+      "sha256": "7d7ed2d58a0431c949f4288f742ddd0b17b99be5e82a540bca224272eb1b3034",
+      "review": "30 September 2026 performance pass, stage 8 (shared world sweep, capture probes): reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "docs/item-references.md",
@@ -46920,8 +46933,8 @@
       "path": "docs/manufacturing-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "retain",
-      "sha256": "4f272a419d0d371af759ade650f8556ff2f2bc726729565e6315fd1c2eaa6f87",
-      "review": "Performance pass stage 4 (Manufacturing 0.6.0), 29 September 2026: reviewed with this change; wording, links and maintained values checked."
+      "sha256": "53c6dc81ce1ce57a29264f4b36bc762d2708c0783a1758792a2298a2b9e7fd82",
+      "review": "30 September 2026 performance pass, stage 8 (shared world sweep, capture probes): reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "docs/manufacturing-player-guide.md",
@@ -46941,15 +46954,15 @@
       "path": "docs/performance-captures.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "b193964231f2a9bcd50b3d23d0f9b95850fa5db2661ce36b56098dd9e1a42255",
-      "review": "29 September 2026 performance pass, stage 7 (installer, captures guide, audit record): reviewed with this change; wording, links and maintained values checked."
+      "sha256": "cada6659ec9e76e2f125f0077b38d729a4973d716fb89d40dbb2b2b2f6b90c69",
+      "review": "30 September 2026 performance pass, stage 8 (shared world sweep, capture probes): reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "a8b3e5cce0660d91638e75e5ad4fdd3123c0d0493de1fec7558360795fc66679",
-      "review": "30 September 2026, Framework 0.45.1 repair: reviewed with this change; wording, links and maintained values checked."
+      "sha256": "9619ae426c350f75c30cac47184addf282c93af15fdc686e5e133bd6608ec2d6",
+      "review": "30 September 2026 performance pass, stage 8 (shared world sweep, capture probes): reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "docs/residue-collector.md",
@@ -46997,8 +47010,8 @@
       "path": "docs/shipbreaker-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "cd7238c2b3e6cca546486eb9a4b5cc89ac670830752232a46ae62048fffb889f",
-      "review": "Performance pass stage 3 (Shipbreaker 0.41.0), 29 September 2026: reviewed with this change; wording, links and maintained values checked."
+      "sha256": "209ebfadbf01c139d3e47d21deefdd4a10b5a930cb7c55366bd90e3b978b9d11",
+      "review": "30 September 2026 performance pass, stage 8 (shared world sweep, capture probes): reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "docs/shipbreaker-material-uses.md",
@@ -47025,8 +47038,8 @@
       "path": "workshop/PhobosAgriculture/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "a1add945466b020a4f752891852a29fcabe5e9cb701cb6aa41a4f875c73adcbd",
-      "review": "30 September 2026, Framework 0.45.1 repair: reviewed with this change; wording, links and maintained values checked."
+      "sha256": "47ca5c9114084dff50fc75aa222adc44a6760c0d2c921c6d35c77cd23fbb872e",
+      "review": "30 September 2026 performance pass, stage 8 (shared world sweep, capture probes): reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "workshop/PhobosAutoNav/page.bbcode",
@@ -47039,22 +47052,22 @@
       "path": "workshop/PhobosFramework/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "de9af15b43e414bf806cd27aa00f03e87c131e6b4e01cd75610ddb34b8ba2b70",
-      "review": "30 September 2026, Framework 0.45.1 repair: reviewed with this change; wording, links and maintained values checked."
+      "sha256": "1633a89738511e72896e1902c6abee2a20c63c197b294dd518259c41160dc3d6",
+      "review": "30 September 2026 performance pass, stage 8 (shared world sweep, capture probes): reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "workshop/PhobosManufacturing/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "430fbf3c0c545310aa5a232e5b780816c60a77ca57b95d779c11db923bfac991",
-      "review": "30 September 2026, Framework 0.45.1 repair: reviewed with this change; wording, links and maintained values checked."
+      "sha256": "60301434c14686958855f6842bad3e26c127c2d1a17199497697ae3fc05a0d69",
+      "review": "30 September 2026 performance pass, stage 8 (shared world sweep, capture probes): reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "workshop/PhobosShipbreaker/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "319d162b16513865dc0f3b54259a723026fff0de5cd0f6f98fe97e6b644bad75",
-      "review": "30 September 2026, Framework 0.45.1 repair: reviewed with this change; wording, links and maintained values checked."
+      "sha256": "fe07e952b166438f42f29bcbcc5e14f063ea665b1fe6b8d3188e0173cd4674de",
+      "review": "30 September 2026 performance pass, stage 8 (shared world sweep, capture probes): reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "docs/war-declared-player-guide.md",
@@ -47106,8 +47119,8 @@
     {
       "path": "mods/PhobosAgriculture/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "21d15bc8eae29c88568318d7f0dd12a0b07c66ef2ce90ed4575a1ae73f00f4b7",
-      "review": "Performance pass stage 2 (Framework 0.45.0, Agriculture 0.21.0), 29 September 2026: reviewed with this change; wording, links and maintained values checked."
+      "sha256": "6358de9c36b19eb7ed03741acd2a4ac479c116bc8c6fa7b9218b11127c997254",
+      "review": "30 September 2026 performance pass, stage 8 (shared world sweep, capture probes): reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "mods/PhobosAutoNav/data/cooverlays/phobos_approach_assist.json",
@@ -47138,14 +47151,14 @@
     {
       "path": "mods/PhobosFramework/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "019b854c8588d186db75763d248b7ee7128c4a7d6f54cefa5dcf3e322103707e",
-      "review": "30 September 2026, Framework 0.45.1 repair: reviewed with this change; wording, links and maintained values checked."
+      "sha256": "d12974082658b4df47533ba1ee64f01e53a105fdf11ed8d1128789438c2c61a1",
+      "review": "30 September 2026 performance pass, stage 8 (shared world sweep, capture probes): reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "mods/PhobosManufacturing/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "33c71252aa5e4aecfe4f050cfa3a0ec645466bf839de44cd81bc236fa3efc664",
-      "review": "Performance pass stage 4 (Manufacturing 0.6.0), 29 September 2026: reviewed with this change; wording, links and maintained values checked."
+      "sha256": "fbd190ca24749c9e8916bd3744e2a050aa53c9c2f5c8f98e89d703b9119fc588",
+      "review": "30 September 2026 performance pass, stage 8 (shared world sweep, capture probes): reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "mods/PhobosShipbreaker/framework/equipment-names.json",
@@ -47162,8 +47175,8 @@
     {
       "path": "mods/PhobosShipbreaker/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "c03b0d00dade78c04727548b0fa5548a8b3bed67530b003738acb1e9ef993e03",
-      "review": "Performance pass stage 3 (Shipbreaker 0.41.0), 29 September 2026: reviewed with this change; wording, links and maintained values checked."
+      "sha256": "21aa121201d8b1d6d73d2bec848b057c85557ae27674909c3c01b5defbf23ffc",
+      "review": "30 September 2026 performance pass, stage 8 (shared world sweep, capture probes): reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "mods/PhobosWarDeclared/mod_info.json",

@@ -89,6 +89,9 @@ that sat in unscoped hooks before it:
 | `manufacturing.scan`, `manufacturing.power.hook`, `manufacturing.machine.step`, `manufacturing.manifold.refresh`, `manufacturing.regulator.tick` | The two-second world scan, the power hooks, machine steps, manifold rechecks and regulator ticks |
 | `autonav.guard.update`, `autonav.hazards.scan`, `autonav.persist.write`, `autonav.foreign_controller.check`, `autonav.contact.reads` | The pre-physics guard sweep, the asteroid scan, flight record writes, the other-controller check and the count of native contact reads |
 | `war.poll`, `war.lay_pending` | The two-second ship poll and the laying pass |
+| `framework.world.sweep`, `framework.world.sweep_objects` | Framework 0.46.0's shared world sweep that replaced each mod's own pass, and the objects it examined |
+| `game.crewsim.update`, `game.sim.advance`, `game.starsystem.update`, `game.powered.update`, `game.interaction.offer_check` | The game's own main loop, simulation step, ship update, appliance updates and crew offer checks, including every mod's hooks inside them. Installed only while a capture records (Framework 0.46.0) |
+| `game.interaction.offer_postfixes`, `game.condtrigger.calls` | Milliseconds spent in all mods' postfixes on the offer check, and how many trigger checks ran |
 
 `shipbreaker.routing.candidate_items` is an **increment** in items: the candidate
 collection size when routing starts selecting another item. It is neither active

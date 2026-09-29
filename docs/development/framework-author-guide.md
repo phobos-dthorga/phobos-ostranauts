@@ -990,6 +990,15 @@ window.
 
 ## Performance primitives (0.45.0)
 
+Since 0.46.0, `Discovery.WorldFamilies` replaces a content mod's own pass over every
+world object: register once (`WorldFamilies.Register(key, definitionId => ...)`, a pure
+definition-id predicate) and read `family.Members(list)` when you need the objects.
+Members are checked on every read (alive and registered in the world under their id);
+new objects are found by one shared sweep every two real seconds, spread across frames,
+or at once through `family.Offer(co)` (a mode-switch replacement). The pure logic is
+`Discovery.WorldIndex<T>`. Keep filters that depend on live state (installed, damaged,
+ship loaded) in your own loop over the members.
+
 The 29 September 2026 performance pass added small shared helpers; use them where a
 content mod would otherwise scan, format, write or search on every power step.
 

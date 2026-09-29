@@ -34,6 +34,9 @@ internal static class NativePerformance
             Performance.StateWritesSkipped = Performance.RegisterIncrement("framework.state.writes_skipped", "persistence", "writes");
             Performance.WaterRefill = Performance.RegisterOperation("framework.water_supply.refill", "processing");
             Performance.SkipMachineStep = Performance.RegisterOperation("framework.skip.machine_step", "processing");
+            Performance.WorldSweep = Performance.RegisterOperation("framework.world.sweep", "discovery");
+            Performance.WorldSweepObjects = Performance.RegisterIncrement("framework.world.sweep_objects", "discovery", "items");
+            CaptureProbes.Initialize(log);
             frames = new FrameMeasurements();
             Performance.RegisterContext("game.allocations.available", () => frames.AllocationSupported ? "true" : "false");
             Performance.RegisterContext("game.speed_multiplier", () => Time.timeScale.ToString("R", CultureInfo.InvariantCulture));
@@ -68,9 +71,10 @@ internal static class NativePerformance
     {
         Performance.Session?.Poll();
         frames?.Poll();
+        CaptureProbes.Poll(Performance.IsRecording);
     }
     internal static void WorldChanging() => Performance.Session?.Stop(StopReason.WorldChange);
-    internal static void Shutdown() => Performance.Session?.Stop(StopReason.ApplicationExit);
+    internal static void Shutdown() { Performance.Session?.Stop(StopReason.ApplicationExit); CaptureProbes.Poll(false); }
     internal static bool Command(string[] words, out string response)
     {
         if (Performance.Session != null) return Performance.Session.Command(words, out response);

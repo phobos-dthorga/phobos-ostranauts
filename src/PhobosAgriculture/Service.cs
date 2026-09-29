@@ -38,6 +38,9 @@ internal static partial class Service
     }
     private static readonly Dictionary<string, Session> sessions = new(StringComparer.Ordinal);
     private static readonly List<CondOwner> scanned = new();
+    // Stage 8: the machines come from Framework's shared world sweep instead of a pass over every world object here.
+    private static readonly Phobos.Ostranauts.Framework.Discovery.WorldFamily machines =
+        Phobos.Ostranauts.Framework.Discovery.WorldFamilies.Register(Plugin.Id + ".machines", Definitions.MachineDefinition);
     internal static void Reset() => sessions.Clear();
     internal static void ModeChanged(CondOwner replacement, Session previous)
     {
@@ -52,11 +55,9 @@ internal static partial class Service
     {
         if (CrewSim.objInstance == null || !CrewSim.objInstance.FinishedLoading || DataHandler.mapCOs == null) return;
         using var measurement = Phobos.Ostranauts.Framework.Diagnostics.Performance.Measure(PerformanceMetrics.Scan);
-        Phobos.Ostranauts.Framework.Diagnostics.Performance.Increment(PerformanceMetrics.Candidates, DataHandler.mapCOs.Count);
-        // One plain pass over the world: a set lookup per object, no query allocations for the 45,000 that are not ours.
-        scanned.Clear();
-        foreach (var c in DataHandler.mapCOs.Values)
-            if (c != null && Definitions.Machine(c) && !c.bDestroyed && c.ship != null && (int)c.ship.LoadState >= 2) scanned.Add(c);
+        machines.Members(scanned);
+        Phobos.Ostranauts.Framework.Diagnostics.Performance.Increment(PerformanceMetrics.Candidates, scanned.Count);
+        scanned.RemoveAll(c => c.ship == null || (int)c.ship.LoadState < 2);
         foreach (var co in scanned)
         {
             if (!co.HasCond("IsInstalled") || co.HasCond("IsDamaged")) { BeginRun(co); Tick(co); }

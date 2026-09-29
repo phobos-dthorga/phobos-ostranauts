@@ -47,6 +47,8 @@ public static class FrameworkLifecycle
     {
         ConstructionRegistry.CompleteLoad();
         Notify(ContentLoaded);
+        // Family predicates read content-owned definition tables; remembered answers start again with them.
+        Discovery.WorldFamilies.Reset();
     }
 }
 

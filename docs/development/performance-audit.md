@@ -318,6 +318,42 @@ game method (`PatchResolutionChecks`); the check was shown to fail on the 0.45.0
 lesson for this audit: the offline suites never start a plugin, so patch resolution is checked by reflection, and
 an after-capture is only valid when the BepInEx or player log shows every plugin starting without an exception.
 
+### Stage 8: after-captures with 0.45.1 and the shared world sweep (Framework 0.46.0)
+
+Two valid after-captures (30 September, 07:44; speed 8, navigation console closed; the player log showed every
+Phobos plugin starting without an exception) against the two baseline captures:
+
+| Measure | Before | After (0.45.1) |
+|---|---|---|
+| Median frame | 24.8 / 25.9 ms | 24.2 / 20.3 ms |
+| 95th percentile | 125 / 140 ms | 124 / 45 ms |
+| Frames over 100 ms in 30 s | 64 / 63 | 62 / 32 |
+| Frames rendered in 30 s | 822 / 732 | 866 / 1,130 |
+| Measured Phobos time per real second | about 37 ms | about 15 ms |
+
+The furnace update fell from about 30 to 3.8 ms per second and crew discovery from 3.5 to 5.3 down to 1.5 to 1.8.
+The frames over 100 ms recur every 0.1 to 0.7 s, far more often than any Phobos pass runs, so most of that time is
+outside the measured code: the game's own simulation at speed 8 on a very large save (the Little Patch recovery
+log reports its save JSON above 512 MiB), other mods, or Phobos hooks inside native methods that no scope covered.
+Only two matched runs were taken on each side, and conditions differed between the two after-runs.
+
+What remained measurable was three full passes over every world object (about 49,000): Agriculture's machine
+scan, Manufacturing's store and regulator scan and the furnace discovery, each about 8.5 ms every two real
+seconds. Decision, revising P3 and P4 for these three scans: Framework's `Discovery.WorldFamilies` (pure logic in
+`WorldIndex<T>`) runs one sweep every two real seconds spread across frames, with a full pass right after a load.
+Lifecycle equivalence: every read rechecks each member (alive and registered in `DataHandler.mapCOs` under its
+current id), so removals are exact; the game adds objects to that map in many places (a local IL survey found
+more than a dozen writers), so additions are found by the sweep rather than hooks, within one to two cycles, or at
+once through `Offer`. Trade-off: a newly placed machine is picked up within about four real seconds instead of two.
+
+To find the rest, Framework 0.46.0 adds capture probes: timings of `CrewSim.Update`, `CrewSim.AdvanceSim`,
+`StarSystem.Update`, `Powered.Update` and `Interaction.TriggeredInternal`, the total of every mod's postfixes on
+the last, and a count of `CondTrigger.Triggered`. Seven Phobos postfixes sit on that offer check (one per mod and
+three in Shipbreaker); each exits after a dictionary probe or two, so their total is bounded by the probe. The
+probes are patched in when a capture starts recording and removed when it stops (their own Harmony id), so they
+cost nothing in ordinary play; the native suite resolves their targets by exact signature. The next captures
+decide whether the long frames sit in the game's own simulation or in hooks worth consolidating.
+
 ### Cadence policy
 
 Conserved accounting (power receipts, transfers, thermal and crop steps, elapsed

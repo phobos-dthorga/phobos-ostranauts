@@ -33,6 +33,8 @@ public static class Performance
     // 29 September 2026 pass: the Framework hot paths the fast-forward captures attribute.
     internal static PerformanceMetric? FluidRouteFind = null, FluidRouteObjects = null, CrewTaskFilter = null, CrewPathChecks = null, RcsCollect = null,
         StateWrite = null, StateWritesSkipped = null, WaterRefill = null, SkipMachineStep = null;
+    // Stage 8: the shared world sweep that replaced each mod's full pass.
+    internal static PerformanceMetric? WorldSweep = null, WorldSweepObjects = null;
     public static bool IsRecording => Session?.IsRecording == true;
     public static PerformanceMetric? RegisterOperation(string name, string category)
     {

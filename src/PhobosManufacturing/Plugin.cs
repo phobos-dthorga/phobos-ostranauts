@@ -17,8 +17,8 @@ namespace PhobosManufacturing;
 public sealed class Plugin : BaseUnityPlugin
 {
     public const string Id = ManufacturingRules.Owner;
-    public const string Version = "0.6.0";
-    public const string MinimumFrameworkVersion = "0.45.1";
+    public const string Version = "0.7.0";
+    public const string MinimumFrameworkVersion = "0.46.0";
     internal static Action<string> Log = _ => { };
     private Harmony? harmony;
     private float nextScan;
@@ -37,7 +37,10 @@ public sealed class Plugin : BaseUnityPlugin
     }
     private static void Load() { ResetServices(); Content.Register(Log); }
     internal static void ResetServices() { MachineKinds.Reset(); RefineryService.Reset(); ProcessorService.Reset(); SabatierService.Reset(); StoreService.Reset(); ManifoldService.Reset(); FillerService.Reset(); RegulatorService.Reset(); }
-    private readonly List<CondOwner> damagedStores = new(), regulators = new();
+    private readonly List<CondOwner> damagedStores = new(), regulators = new(), members = new();
+    // Stage 8: regulators and gas stores come from Framework's shared world sweep, not a pass over every world object.
+    private static readonly Phobos.Ostranauts.Framework.Discovery.WorldFamily machines =
+        Phobos.Ostranauts.Framework.Discovery.WorldFamilies.Register(Id + ".scanned", id => id == RegulatorRules.Installed || GasStores.IsFamily(id));
     /// <summary>A damaged fuel store has no native tick of its own: every couple of seconds its leak advances, and every
     /// A2 regulator checks its room. One plain pass over the world, one dictionary probe per object.</summary>
     private void Update()
@@ -47,9 +50,9 @@ public sealed class Plugin : BaseUnityPlugin
         if (!Content.Ready || CrewSim.objInstance == null || !CrewSim.objInstance.FinishedLoading || DataHandler.mapCOs == null) return;
         using var measurement = Phobos.Ostranauts.Framework.Diagnostics.Performance.Measure(PerformanceMetrics.Scan);
         damagedStores.Clear(); regulators.Clear();
-        foreach (var c in DataHandler.mapCOs.Values)
+        machines.Members(members);
+        foreach (var c in members)
         {
-            if (c == null) continue;
             if (c.strCODef == RegulatorRules.Installed) regulators.Add(c);
             else if (GasStores.IsFamily(c.strCODef) && c.HasCond("IsDamaged") && c.HasCond("IsInstalled")) damagedStores.Add(c);
         }

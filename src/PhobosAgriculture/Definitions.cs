@@ -27,6 +27,7 @@ internal static class Definitions
     internal static readonly string[] EatOpeners = { "SeekFoodDirect", "SeekFoodDirectLowNeed", "SeekFoodDirectGlutton", "SeekConsumeFoodAirtight" };
     private static readonly System.Collections.Generic.HashSet<string> Machines = new(new[] { Rack, Cooker, IrrigationDefinitions.Supply, WorkupDefinitions.Bench }.SelectMany(prefix => new[] { "Installed", "Loose", "InstalledDmg", "LooseDmg" }.Select(form => prefix + form)), StringComparer.Ordinal);
     internal static bool Machine(CondOwner? co) => co != null && Machines.Contains(co.strCODef);
+    internal static bool MachineDefinition(string? id) => id != null && Machines.Contains(id);
     /// <summary>Every tradeable Agriculture machine family, including the R3 vessel; shared by stock and loot.</summary>
     internal static readonly string[] MachineFamilies = { Rack, Cooker, IrrigationDefinitions.Supply, WorkupDefinitions.Bench, BulkDefinitions.Tank };
     /// <summary>Everything merchants sell: the machine families plus the R4 and R5 reservoirs, which are too big for salvage loot.</summary>

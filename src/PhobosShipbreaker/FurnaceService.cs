@@ -60,7 +60,10 @@ internal static partial class FurnaceService
     static FurnaceService() { SaveBoundary.BeforeShipSave += FlushAll; }
     internal static void Reset() { sessions.Clear(); nextScan = 0; tracked.Clear(); discovery.Invalidate(); }
     /// <summary>A replacement object (damage, repair, installation) joins the tracked set at once.</summary>
-    internal static void Track(CondOwner? co) { if (co != null && !co.bDestroyed && IsEquipment(co) && !tracked.Contains(co)) tracked.Add(co); }
+    internal static void Track(CondOwner? co) { if (co != null && !co.bDestroyed && IsEquipment(co)) family.Offer(co); }
+    // Stage 8: furnace-family parts come from Framework's shared world sweep instead of a pass over every world object.
+    private static readonly Phobos.Ostranauts.Framework.Discovery.WorldFamily family =
+        Phobos.Ostranauts.Framework.Discovery.WorldFamilies.Register(Plugin.Id + ".furnace", IsEquipmentDefinition);
     internal static CondOwner? Feed(CondOwner co) => co.compSlots?.GetCOs(FurnaceRules.Slot, true, null)?.FirstOrDefault(c => c != null && c.strCODef == FurnaceRules.Feed);
     private static MaterialPort Port(CondOwner co) => new(co.strID, "PhobosFurnace.Cooling", co.mapGUIPropMaps);
     internal static Session Get(CondOwner co)
@@ -205,11 +208,10 @@ internal static partial class FurnaceService
         if (CrewSim.objInstance?.FinishedLoading != true || !Content.Ready || Time.unscaledTime < nextScan) return;
         nextScan = Time.unscaledTime + .25f;
         using var measurement = Phobos.Ostranauts.Framework.Diagnostics.Performance.Measure(PerformanceMetrics.Furnace);
+        family.Members(tracked);
         if (discovery.Due())
         {
-            Phobos.Ostranauts.Framework.Diagnostics.Performance.Increment(PerformanceMetrics.FurnaceCandidates, DataHandler.mapCOs.Count);
-            tracked.Clear();
-            foreach (var co in DataHandler.mapCOs.Values) if (co != null && !co.bDestroyed && IsEquipmentDefinition(co.strCODef)) tracked.Add(co);
+            Phobos.Ostranauts.Framework.Diagnostics.Performance.Increment(PerformanceMetrics.FurnaceCandidates, tracked.Count);
             foreach (var id in sessions.Where(p => p.Value.Object == null || p.Value.Object.bDestroyed).Select(p => p.Key).ToArray()) sessions.Remove(id);
         }
         for (int i = tracked.Count - 1; i >= 0; i--)

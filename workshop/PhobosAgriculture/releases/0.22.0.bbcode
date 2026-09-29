@@ -1,0 +1,14 @@
+[h1]Phobos Agriculture 0.22.0[/h1]
+[b]Draft - not published | 2026-09-30[/b]
+
+[h2]Changed[/h2]
+
+[list]
+[*]Performance pass, stage 8. The two-second check of your racks, cookers, benches and supplies now reads its machines from one shared sweep of the world in Phobos Framework 0.46.0 instead of walking every object in the world itself (about 8.5 ms each time in the owner's save). A newly placed machine is picked up within about four real seconds; one that is destroyed or removed drops out at once.
+[/list]
+
+[h2]Compatibility and limits[/h2]
+
+[list]
+[*]Requires Phobos Framework 0.46.0 or newer. Saved data is unchanged. Offline checks are not gameplay validation.
+[/list]

@@ -1,0 +1,14 @@
+[h1]Phobos Shipbreaker 0.42.0[/h1]
+[b]Draft - not published | 2026-09-30[/b]
+
+[h2]Changed[/h2]
+
+[list]
+[*]Performance pass, stage 8. Furnace, radiator and coolant parts, including their passive cooling with the panel closed, are now found through one shared sweep of the world in Phobos Framework 0.46.0 instead of walking every object in the world itself (about 8.5 ms each time in the owner's save). A newly placed machine is picked up within about four real seconds; one that is destroyed or removed drops out at once.
+[/list]
+
+[h2]Compatibility and limits[/h2]
+
+[list]
+[*]Requires Phobos Framework 0.46.0 or newer. Saved data is unchanged. Offline checks are not gameplay validation.
+[/list]

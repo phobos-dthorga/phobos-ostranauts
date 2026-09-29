@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "date": "2026-09-30",
-  "baselineCommit": "7e3efe4caa3eb108d75b735a86d58378f5f7e190",
+  "baselineCommit": "5e847d804d2eebd316087ca67fd897a7766d4181",
   "report": "docs/development/performance-audit.md",
   "reviewBoundary": "First-party mod C# source. Static coverage plus deeper hotspot/caller review; not formal verification, a third-party audit or an after-performance measurement.",
   "files": [
@@ -246,10 +246,10 @@
     },
     {
       "path": "src/PhobosAgriculture/Definitions.cs",
-      "sha256": "bfe77c1b5e59aeeaa5544cbe74eb0ed583eb52af85dcd5914c67ee8eb642b297",
+      "sha256": "96f249809280f53cdb3bf278c8471344c5c605cbb16928a994a252ba6b3ef30e",
       "role": "registration, metadata or event-driven content",
       "review": "2026-09-28: reviewed registration, selector/completion hooks, local action reads and native mode-switch scope.",
-      "decision": "Reviewed in the 2026-09-29 performance pass; see the linked findings for the disposition.",
+      "decision": "Stage 8 (Framework 0.46.0): each mod's full world pass replaced by the shared, spread WorldFamilies sweep with live-read parity; capture-only probes on the game's main loop.",
       "findings": [
         "R4",
         "H1",
@@ -262,18 +262,18 @@
       "indicators": {
         "collection": [
           28,
-          33,
-          56,
-          72,
+          34,
+          57,
           73,
-          78,
-          94,
-          102,
+          74,
+          79,
+          95,
           103,
-          105
+          104,
+          106
         ]
       },
-      "reviewed": "2026-09-29"
+      "reviewed": "2026-09-30"
     },
     {
       "path": "src/PhobosAgriculture/EquipmentEconomy.cs",
@@ -474,10 +474,10 @@
     },
     {
       "path": "src/PhobosAgriculture/Plugin.cs",
-      "sha256": "81fa70b28804002404786e0219c800ab2b1859e6b5ea7215f29881d72ba8d122",
+      "sha256": "751774fb30cc6084f3526c703818e0924bccce10a2abb4a14d61845d4823467a",
       "role": "biology, fluids, native boundary or process policy",
       "review": "2026-09-28: reviewed registration, selector/completion hooks, local action reads and native mode-switch scope.",
-      "decision": "Framework 0.45.1: both Ship.AddCO overloads patched explicitly after 0.45.0 aborted Framework start-up; dependency floors raised to 0.45.1. Every declared patch is now resolved by PatchResolutionChecks.",
+      "decision": "Stage 8 (Framework 0.46.0): each mod's full world pass replaced by the shared, spread WorldFamilies sweep with live-read parity; capture-only probes on the game's main loop.",
       "findings": [
         "R1",
         "E1",
@@ -586,10 +586,10 @@
     },
     {
       "path": "src/PhobosAgriculture/Service.cs",
-      "sha256": "203cc242452fe7bae11bf4c2a5720c977167e64e267979198524e46bf202e9fe",
+      "sha256": "295cc9c02840a773c2f87598265f4258def313b764845ce5343fd9381c774fcd",
       "role": "biology, fluids, native boundary or process policy",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Reviewed in the 2026-09-29 performance pass; see the linked findings for the disposition.",
+      "decision": "Stage 8 (Framework 0.46.0): each mod's full world pass replaced by the shared, spread WorldFamilies sweep with live-read parity; capture-only probes on the game's main loop.",
       "findings": [
         "R1",
         "FF0",
@@ -598,31 +598,29 @@
       ],
       "indicators": {
         "persistence_or_io": [
-          45,
-          85,
+          48,
           86,
-          92,
-          141
+          87,
+          93,
+          142
         ],
         "discovery": [
-          53,
-          55,
-          58,
-          73
+          56,
+          74
         ],
         "profiling": [
-          54,
-          55,
-          129,
-          164
+          57,
+          59,
+          130,
+          165
         ],
         "collection": [
-          66,
-          265,
-          324
+          67,
+          266,
+          325
         ]
       },
-      "reviewed": "2026-09-29"
+      "reviewed": "2026-09-30"
     },
     {
       "path": "src/PhobosAgriculture/SolutionService.cs",
@@ -2914,6 +2912,32 @@
       "reviewed": "2026-09-29"
     },
     {
+      "path": "src/PhobosFramework/Diagnostics/CaptureProbes.cs",
+      "sha256": "118daf5b3feefea9dd31b5b4a60dd5707aa86d66e41b1a2c258d4cf766bf5c64",
+      "role": "shared accounting, inventory, crew or native boundary",
+      "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
+      "decision": "Stage 8 (Framework 0.46.0): each mod's full world pass replaced by the shared, spread WorldFamilies sweep with live-read parity; capture-only probes on the game's main loop.",
+      "findings": [
+        "FF1",
+        "FF0"
+      ],
+      "indicators": {
+        "runtime_hook": [
+          54
+        ],
+        "profiling": [
+          93,
+          94,
+          95,
+          96,
+          97,
+          101,
+          102
+        ]
+      },
+      "reviewed": "2026-09-30"
+    },
+    {
       "path": "src/PhobosFramework/Diagnostics/FrameMeasurements.cs",
       "sha256": "f4317aaaddcbf79aee2f3ad4b280086af98fa47966e27330df67bb26b485b7d3",
       "role": "bounded opt-in recording",
@@ -2941,41 +2965,45 @@
     },
     {
       "path": "src/PhobosFramework/Diagnostics/NativePerformance.cs",
-      "sha256": "9a92c0390c99e68cc1b885b3599f51eb32076c41c8d0f0d7d4a068351c44e627",
+      "sha256": "edf6bda5f521320e07c93b492637f6e2cc988b7df0f389221631e408b1560a11",
       "role": "bounded opt-in recording",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Reviewed in the 2026-09-29 performance pass; see the linked findings for the disposition.",
+      "decision": "Stage 8 (Framework 0.46.0): each mod's full world pass replaced by the shared, spread WorldFamilies sweep with live-read parity; capture-only probes on the game's main loop.",
       "findings": [
         "P7",
         "FF1",
-        "FF2"
+        "FF2",
+        "FF0"
       ],
       "indicators": {
         "runtime_hook": [
-          67,
-          69,
           70,
-          81
+          72,
+          73,
+          74,
+          77,
+          85
         ],
         "collection": [
-          85
+          89
         ]
       },
-      "reviewed": "2026-09-29"
+      "reviewed": "2026-09-30"
     },
     {
       "path": "src/PhobosFramework/Diagnostics/Performance.cs",
-      "sha256": "9a85f01277ac68622207e1e93e43ce93d350f56f59ab3280e9d61dd26348dc59",
+      "sha256": "985c3ef4b228a9dab29aa1d5c497d55ae91612b519e75d3a1c5436f296d46155",
       "role": "bounded opt-in recording",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Reviewed in the 2026-09-29 performance pass; see the linked findings for the disposition.",
+      "decision": "Stage 8 (Framework 0.46.0): each mod's full world pass replaced by the shared, spread WorldFamilies sweep with live-read parity; capture-only probes on the game's main loop.",
       "findings": [
         "P7",
         "FF1",
-        "FF2"
+        "FF2",
+        "FF0"
       ],
       "indicators": {},
-      "reviewed": "2026-09-29"
+      "reviewed": "2026-09-30"
     },
     {
       "path": "src/PhobosFramework/Diagnostics/PerformanceSession.cs",
@@ -2996,6 +3024,58 @@
       }
     },
     {
+      "path": "src/PhobosFramework/Discovery/WorldFamilies.cs",
+      "sha256": "3b26a76904e2e01e5358a3c952dddc7f444d873c99b462ea5327329196012b59",
+      "role": "shared accounting, inventory, crew or native boundary",
+      "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
+      "decision": "Stage 8 (Framework 0.46.0): each mod's full world pass replaced by the shared, spread WorldFamilies sweep with live-read parity; capture-only probes on the game's main loop.",
+      "findings": [
+        "FF1",
+        "FF0"
+      ],
+      "indicators": {
+        "discovery": [
+          45,
+          46,
+          47,
+          65,
+          81
+        ],
+        "profiling": [
+          64,
+          66,
+          80,
+          86,
+          87
+        ],
+        "runtime_hook": [
+          71,
+          90
+        ],
+        "collection": [
+          94
+        ]
+      },
+      "reviewed": "2026-09-30"
+    },
+    {
+      "path": "src/PhobosFramework/Discovery/WorldIndex.cs",
+      "sha256": "b1e4255934cddde5fb466c294f6304aee0ff4c2ed6238cc1b6c642e088485c10",
+      "role": "shared accounting, inventory, crew or native boundary",
+      "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
+      "decision": "Stage 8 (Framework 0.46.0): each mod's full world pass replaced by the shared, spread WorldFamilies sweep with live-read parity; capture-only probes on the game's main loop.",
+      "findings": [
+        "FF1",
+        "FF0"
+      ],
+      "indicators": {
+        "collection": [
+          48
+        ]
+      },
+      "reviewed": "2026-09-30"
+    },
+    {
       "path": "src/PhobosFramework/FrameworkConsole.cs",
       "sha256": "756b0a3d272bce26f0a8fe2d4866092c45d9d46497bc0e0373e2c76abb96b07b",
       "role": "shared accounting, inventory, crew or native boundary",
@@ -3014,26 +3094,27 @@
     },
     {
       "path": "src/PhobosFramework/FrameworkLifecycle.cs",
-      "sha256": "d167472295341824e2e9f153c4043f822c9de9a1619a5a084aff906709eec90c",
+      "sha256": "f668b1e39f04f91b3de335bd68fd8f0fb7237139d184aff8cf67e77f4c4acef7",
       "role": "registration, metadata or event-driven content",
       "review": "2026-09-28: reviewed registration, selector/completion hooks, local action reads and native mode-switch scope.",
-      "decision": "Reviewed in the 2026-09-29 performance pass; see the linked findings for the disposition.",
+      "decision": "Stage 8 (Framework 0.46.0): each mod's full world pass replaced by the shared, spread WorldFamilies sweep with live-read parity; capture-only probes on the game's main loop.",
       "findings": [
         "R4",
         "H1",
         "R10",
         "FF1",
-        "FF2"
+        "FF2",
+        "FF0"
       ],
       "indicators": {
         "persistence_or_io": [
           22
         ],
         "runtime_hook": [
-          53
+          55
         ]
       },
-      "reviewed": "2026-09-29"
+      "reviewed": "2026-09-30"
     },
     {
       "path": "src/PhobosFramework/Hazards/NativeExplosions.cs",
@@ -3768,10 +3849,10 @@
     },
     {
       "path": "src/PhobosFramework/Plugin.cs",
-      "sha256": "b0bc1b76f134b467ace11cd4a400c5150d74dfcb4eb0a2dbfaec812a78778454",
+      "sha256": "ed2f564e55b9f031e1307b7567b5e07f0d19b5741ca62057e2940b7988648da9",
       "role": "shared accounting, inventory, crew or native boundary",
       "review": "2026-09-28: reviewed Framework 0.31.1 unnamed-trigger fix and related version/reference updates. Preserve native outcomes, named assembly validation and existing messages; no new recurring work. Reproduced null-key failure, then checked compiled hooks; live confirmation pending.",
-      "decision": "Framework 0.45.1: both Ship.AddCO overloads patched explicitly after 0.45.0 aborted Framework start-up; dependency floors raised to 0.45.1. Every declared patch is now resolved by PatchResolutionChecks.",
+      "decision": "Stage 8 (Framework 0.46.0): each mod's full world pass replaced by the shared, spread WorldFamilies sweep with live-read parity; capture-only probes on the game's main loop.",
       "findings": [
         "R3",
         "P8",
@@ -4855,10 +4936,10 @@
     },
     {
       "path": "src/PhobosManufacturing/Plugin.cs",
-      "sha256": "6d817d067ad787a237ba01549407d6f9c1e7d9815beea25ad002780bbafaadf5",
+      "sha256": "8b0d8de7dc37a7d97b87ba3757e9bb844eab89af9673c933d37ed1f63c57550f",
       "role": "startup scaffold",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Framework 0.45.1: both Ship.AddCO overloads patched explicitly after 0.45.0 aborted Framework start-up; dependency floors raised to 0.45.1. Every declared patch is now resolved by PatchResolutionChecks.",
+      "decision": "Stage 8 (Framework 0.46.0): each mod's full world pass replaced by the shared, spread WorldFamilies sweep with live-read parity; capture-only probes on the game's main loop.",
       "findings": [
         "R6",
         "FF0",
@@ -4870,39 +4951,38 @@
       "indicators": {
         "persistence_or_io": [
           36,
-          60,
-          144
+          63,
+          147
         ],
         "runtime_hook": [
-          43,
-          72,
-          150,
-          170,
-          180,
-          189,
-          196,
-          207,
-          221,
-          232,
-          251,
-          261,
-          272
+          46,
+          75,
+          153,
+          173,
+          183,
+          192,
+          199,
+          210,
+          224,
+          235,
+          254,
+          264,
+          275
         ],
         "discovery": [
-          47,
           50,
-          280
+          283
         ],
         "profiling": [
-          48,
-          59,
-          84,
-          105,
-          159
+          51,
+          62,
+          87,
+          108,
+          162
         ],
         "collection": [
-          192,
-          280
+          195,
+          283
         ]
       },
       "reviewed": "2026-09-30"
@@ -5555,10 +5635,10 @@
     },
     {
       "path": "src/PhobosShipbreaker/Core/DependencyContract.cs",
-      "sha256": "97a53a5d55f9bf6aa04eb3646c225657c943afc93b2f8372b61f70cc8735496e",
+      "sha256": "a9c876b1bc0ab92327703fddaa90da5d7e1b2163db278b52d8fc7ea3a44ebf1b",
       "role": "industrial service, native boundary or process policy",
       "review": "2026-09-28: reviewed registration, selector/completion hooks, local action reads and native mode-switch scope.",
-      "decision": "Framework 0.45.1: both Ship.AddCO overloads patched explicitly after 0.45.0 aborted Framework start-up; dependency floors raised to 0.45.1. Every declared patch is now resolved by PatchResolutionChecks.",
+      "decision": "Stage 8 (Framework 0.46.0): each mod's full world pass replaced by the shared, spread WorldFamilies sweep with live-read parity; capture-only probes on the game's main loop.",
       "findings": [
         "R3",
         "P8",
@@ -6167,52 +6247,51 @@
     },
     {
       "path": "src/PhobosShipbreaker/FurnaceService.cs",
-      "sha256": "81408f0cecb21be60995e3023d9cb91be008ce75075465fcedaa74a6f030cc32",
+      "sha256": "61aa391864284122092722697b8ebc4374ed16017e2191e7f7daa33a14c24522",
       "role": "industrial service, native boundary or process policy",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Reviewed in the 2026-09-29 performance pass; see the linked findings for the disposition.",
+      "decision": "Stage 8 (Framework 0.46.0): each mod's full world pass replaced by the shared, spread WorldFamilies sweep with live-read parity; capture-only probes on the game's main loop.",
       "findings": [
         "P3",
         "FF0",
         "FF3",
         "FF4",
-        "FF5"
+        "FF5",
+        "FF1"
       ],
       "indicators": {
         "discovery": [
-          64,
-          179,
-          210,
-          212
+          67,
+          182
         ],
         "persistence_or_io": [
-          65,
-          69,
-          70,
-          114,
-          323,
-          326,
-          329
+          68,
+          72,
+          73,
+          117,
+          325,
+          328,
+          331
         ],
         "profiling": [
-          105,
-          207,
-          210
+          108,
+          210,
+          214
         ],
         "collection": [
-          145,
-          178,
-          213,
-          333
+          148,
+          181,
+          215,
+          335
         ],
         "runtime_hook": [
-          203,
-          343,
-          348,
-          354
+          206,
+          345,
+          350,
+          356
         ]
       },
-      "reviewed": "2026-09-29"
+      "reviewed": "2026-09-30"
     },
     {
       "path": "src/PhobosShipbreaker/IndustrialDefinitions.cs",
@@ -6488,10 +6567,10 @@
     },
     {
       "path": "src/PhobosShipbreaker/Plugin.cs",
-      "sha256": "40163261caa13c3c82b2521144ded4ba3ef7de6ad1e0f898539cbf587d5ea50f",
+      "sha256": "87fbbccfd31a9620aed3fe9689757aa182e7c797842103621eb759c4a521a9e8",
       "role": "industrial service, native boundary or process policy",
       "review": "2026-09-28: reviewed registration, selector/completion hooks, local action reads and native mode-switch scope.",
-      "decision": "Reviewed in the 2026-09-29 performance pass; see the linked findings for the disposition.",
+      "decision": "Stage 8 (Framework 0.46.0): each mod's full world pass replaced by the shared, spread WorldFamilies sweep with live-read parity; capture-only probes on the game's main loop.",
       "findings": [
         "R3",
         "P8",
@@ -6500,7 +6579,8 @@
         "FF0",
         "FF3",
         "FF4",
-        "FF5"
+        "FF5",
+        "FF1"
       ],
       "indicators": {
         "persistence_or_io": [
@@ -6524,7 +6604,7 @@
           237
         ]
       },
-      "reviewed": "2026-09-29"
+      "reviewed": "2026-09-30"
     },
     {
       "path": "src/PhobosShipbreaker/PowerKinds.cs",

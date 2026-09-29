@@ -23,6 +23,16 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Fixed unreachable INSTALL entries; Firstlight-4, Hearth-2 and W2 appear under APPS, and irrigation conduit under MISC, including damaged forms. Existing inputs, placement and saved IDs are preserved.
 
+## [0.22.0] - 2026-09-30 - Draft
+
+### Changed
+
+- Performance pass, stage 8. The two-second check of your racks, cookers, benches and supplies now reads its machines from one shared sweep of the world in Phobos Framework 0.46.0 instead of walking every object in the world itself (about 8.5 ms each time in the owner's save). A newly placed machine is picked up within about four real seconds; one that is destroyed or removed drops out at once.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.46.0 or newer. Saved data is unchanged. Offline checks are not gameplay validation.
+
 ## [0.21.0] - 2026-09-29 - Draft
 
 ### Changed

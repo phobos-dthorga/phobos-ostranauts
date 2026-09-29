@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Phobos.Ostranauts.Framework;
+using Phobos.Ostranauts.Framework.Discovery;
 using Phobos.Ostranauts.Framework.Inventory;
 using Phobos.Ostranauts.Framework.Liquids;
 using Phobos.Ostranauts.Framework.Localization;
@@ -72,5 +73,84 @@ internal static class PrimitiveChecks
         check(overflow.Overflow && !overflow.Connected(0, 1) && overflow.Path(0, 1) == null, "More segments than the limit trusts no route, as the old search did");
         check(FluidTopology.Build(4, 4, 0, new[] { -1, 99 }).AllowedCount == 0, "Cells off the grid are ignored");
         Reject(() => FluidTopology.Build(0, 4, 0, Array.Empty<int>()), "An empty grid is refused");
+
+        WorldIndexChecks(check, Reject);
+    }
+
+    private sealed class Thing { internal string? Definition; internal bool Alive = true; internal Thing(string? d) { Definition = d; } }
+
+    /// <summary>Stage 8: one spread sweep finds every family's objects; reads drop anything that left the world.</summary>
+    private static void WorldIndexChecks(Action<bool, string> check, Action<Action, string> reject)
+    {
+        int asked = 0;
+        var world = new WorldIndex<Thing>(t => t.Definition, t => t.Alive);
+        int racks = world.Register("racks", d => { asked++; return d.StartsWith("Rack", StringComparison.Ordinal); });
+        int stores = world.Register("stores", d => d == "Store" || d == "RackStore");
+        var things = new List<Thing>();
+        for (int i = 0; i < 1000; i++) things.Add(new Thing(i % 100 == 0 ? "RackInstalled" : i % 250 == 1 ? "Store" : "ItmWall"));
+        var shared = new Thing("RackStore"); things.Add(shared); things.Add(null!); things.Add(new Thing(null));
+        var found = new List<Thing>();
+        check(!world.Primed, "A new index has not swept yet");
+        world.Begin(things);
+        check(world.Sweeping && world.Pending == 1002, "A sweep snapshots the world, leaving out missing objects");
+        int examined = 0, frames = 0;
+        while (world.Sweeping) { examined += world.Advance(64); frames++; }
+        check(world.Primed && examined == 1002 && frames == 16, "The sweep is spread in slices and completes the index");
+        world.Members(racks, found);
+        check(found.Count == 11 && found.All(t => t.Definition!.StartsWith("Rack")) && found.Contains(shared), "Every family object is found, in the order met");
+        world.Members(stores, found);
+        check(found.Count == 5 && found.Contains(shared), "An object can belong to several families");
+        check(asked == 4, "Each of the four definitions is classified once, whatever the number of objects carrying it");
+        check(world.Belongs(racks, "RackLoose") && !world.Belongs(racks, "Store") && !world.Belongs(stores, null), "Definition membership is answered directly");
+
+        world.Begin(things); world.Advance(int.MaxValue);
+        world.Members(racks, found);
+        check(found.Count == 11, "A repeat sweep adds nothing twice");
+        things[0].Alive = false;
+        world.Members(racks, found);
+        check(found.Count == 10 && !found.Contains(things[0]), "An object that left the world drops out on the next read");
+        things[0].Alive = true;
+        world.Members(racks, found);
+        check(found.Count == 10, "A dropped object returns only when a sweep or an offer finds it again");
+        world.Offer(things[0]);
+        world.Members(racks, found);
+        check(found.Count == 11, "An offered object joins at once");
+
+        int fresh = world.Register("fresh", d => d == "Store");
+        world.Members(racks, found);
+        check(!world.Primed && found.Count == 11, "A late registration keeps the other families' members and asks for a new sweep");
+        world.Members(fresh, found);
+        check(found.Count == 0, "A late family is empty until the sweep reaches its objects");
+        world.Begin(things); world.Advance(int.MaxValue);
+        world.Members(fresh, found);
+        check(world.Primed && found.Count == 4, "The next sweep completes the late family");
+        world.Unregister("fresh");
+        world.Members(fresh, found);
+        check(found.Count == 0 && !world.Belongs(fresh, "Store"), "An unregistered family matches nothing");
+        world.Reset();
+        world.Members(racks, found);
+        check(!world.Primed && found.Count == 0, "A reset forgets every member");
+        world.Begin(Array.Empty<Thing>());
+        check(world.Primed && !world.Sweeping, "An empty world completes at once");
+        reject(() => world.Register("", d => true), "A family needs a key");
+        var many = new WorldIndex<Thing>(t => t.Definition, t => t.Alive);
+        for (int i = 0; i < WorldIndex<Thing>.MaximumFamilies; i++) many.Register("f" + i, d => false);
+        reject(() => many.Register("one too many", d => false), "The family bound is enforced");
+
+        world.Begin(things); world.Advance(int.MaxValue);
+        for (int i = 0; i < 20; i++) world.Members(racks, found);
+        check(Allocates(() => { for (int i = 0; i < 1000; i++) world.Members(racks, found); }) == false, "Reading a family allocates nothing on the test runtime");
+    }
+
+    private static bool Allocates(Action action)
+    {
+        for (int attempt = 0; attempt < 3; attempt++)
+        {
+            long before = GC.GetAllocatedBytesForCurrentThread();
+            action();
+            if (GC.GetAllocatedBytesForCurrentThread() == before) return false;
+            System.Threading.Thread.Sleep(200);
+        }
+        return true;
     }
 }

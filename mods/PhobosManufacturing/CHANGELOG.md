@@ -6,6 +6,16 @@ Dates on Draft entries record preparation, not Steam publication.
 
 ## [Unreleased]
 
+## [0.7.0] - 2026-09-30 - Draft
+
+### Changed
+
+- Performance pass, stage 8. The two-second check of damaged gas stores and cabin air regulators now reads its machines from one shared sweep of the world in Phobos Framework 0.46.0 instead of walking every object in the world itself (about 8.5 ms each time in the owner's save). A newly placed machine is picked up within about four real seconds; one that is destroyed or removed drops out at once.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.46.0 or newer. Saved data is unchanged. Offline checks are not gameplay validation.
+
 ## [0.6.0] - 2026-09-29 - Draft
 
 ### Changed

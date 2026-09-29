@@ -56,6 +56,12 @@ internal static class PerformanceNativeChecks
         for (int i = 0; i < 1000; i++) { PhobosManufacturing.MachineKinds.IsOurs("ItmAirPumpInstalled"); PhobosManufacturing.MachineKinds.Classify("ItmAirPumpInstalled"); }
         check(AllocatesNothing(() => { for (int i = 0; i < 42000; i++) { PhobosManufacturing.MachineKinds.Classify("ItmAirPumpInstalled"); PhobosManufacturing.MachineKinds.IsOurs("ItmAirPumpInstalled"); } }),
             "Manufacturing classification of a foreign appliance allocates nothing on the test runtime");
+
+        // Stage 8: capture probes resolve their game methods by exact signature; the shared world families classify ours only.
+        foreach (var (name, target) in Phobos.Ostranauts.Framework.Diagnostics.CaptureProbes.Targets())
+            check(target != null && target.DeclaringType?.Assembly == typeof(CrewSim).Assembly, "Capture probe target resolves in the game: " + name);
+        check(PhobosAgriculture.Definitions.MachineDefinition(PhobosAgriculture.Definitions.Rack + "Installed") && PhobosAgriculture.Definitions.MachineDefinition(PhobosAgriculture.Definitions.Cooker + "LooseDmg") &&
+            !PhobosAgriculture.Definitions.MachineDefinition("ItmAirPumpInstalled") && !PhobosAgriculture.Definitions.MachineDefinition(null), "Agriculture's world family is its machines by definition");
     }
 
     /// <summary>True when the action allocates nothing on the current thread in at least one of three attempts. The counter also
