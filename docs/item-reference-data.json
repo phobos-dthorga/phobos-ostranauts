@@ -8188,7 +8188,7 @@
     {
       "id": "PhobosShipbreaker",
       "name": "Phobos Shipbreaker",
-      "version": "0.38.0",
+      "version": "0.38.1",
       "gameTarget": "1.0.1.5",
       "items": [
         {
@@ -19062,7 +19062,7 @@
     "mods/PhobosShipbreaker/data/condtrigs/phobos_shipbreaker.json": "c7d4104df596d3fd362d9a80f4703178eafc5d3151bd53907814732ec84d3585",
     "mods/PhobosShipbreaker/framework/equipment-names.json": "cf54b69ef4e478eba39acf3beb0963e7d645e985d513cfe7f0da8fe03f0a4831",
     "mods/PhobosShipbreaker/framework/recipes.json": "47fc493cbaf73203ea60be37f49645bccf82c7dd4d88e3e4cf98d0458f135c99",
-    "mods/PhobosShipbreaker/mod_info.json": "286f9248b2404574eb2d495966513c9178356d7a6f545bd2cd49ed7f5f4ca3db",
+    "mods/PhobosShipbreaker/mod_info.json": "508090278859322fade532a198c044cbbbad9321c86e8db63786476a95389672",
     "src/PhobosAgriculture/Artwork.cs": "ccae66ac85e7dbe64d47bb3f93153558ca1b893a039310c688e366a1dd48408f",
     "src/PhobosAgriculture/AssemblyInfo.cs": "441ebc13e73f63e15379d179bdcde910645df15d5847671cdfff7cd313fbf66b",
     "src/PhobosAgriculture/BulkDefinitions.cs": "050593f744d819b06cd53dd31623e5ad41b6e5b2f53f4a38af0aaae4ccf05522",
@@ -19349,9 +19349,9 @@
     "src/PhobosShipbreaker/NativeAdapter.cs": "8320c05ddf6667060af21a98218e4df82015aba7feaeb124623d5eb57428083b",
     "src/PhobosShipbreaker/PanelConfiguration.cs": "c2dab27f2f0fd7762e5ae6f2b873614e64b0616524dbed8697ec2c94e16b8ece",
     "src/PhobosShipbreaker/PerformanceMetrics.cs": "d46727b5bdae9d235719ea4a9e0a76afd2ec63bfd410ebb5f410bb0ee75ebe9a",
-    "src/PhobosShipbreaker/PhobosShipbreaker.csproj": "049b15f461021aa8c4e536f705689df317c27bb2a712153c65eba80574c6c756",
+    "src/PhobosShipbreaker/PhobosShipbreaker.csproj": "2d6348c3ae78b655c82a673952cc7a6b4b357fc69777b29574534cf15a09cddb",
     "src/PhobosShipbreaker/PlaceholderLoadRepair.cs": "8fdf6627ae35cd6d6c281a92a728e588f516ba7e4138e7204cc5c69549db44c4",
-    "src/PhobosShipbreaker/Plugin.cs": "0db9a93fa1e994ef0467c6b8006a10498a1247f149649f88a3aa4b75d7b6771b",
+    "src/PhobosShipbreaker/Plugin.cs": "d405bbe87f7815a9b2befa8e5d8178cb8072ca4a0897d588399fa78b9ef1b4da",
     "src/PhobosShipbreaker/ProcessingCommands.cs": "5c0a603a4e2ae406bc94d5fcf0d30bb01b40512f57e474ab9ef5f2ab470a7320",
     "src/PhobosShipbreaker/ProcessingService.cs": "263fc61ae430a6a69ef0ff73984a1d4e357c2ec7afbdebd9165557f4e367c1e5",
     "src/PhobosShipbreaker/ReclaimerDefinitions.cs": "c4e666e2b376368cda9ebaf23f0353b896cb63951d075e65e2f481a87e69df09",
@@ -19363,7 +19363,7 @@
     "src/PhobosShipbreaker/RegionalEconomy.cs": "09996786b38d063c011667d25d02f3776a2994b7660b1f797458094e979a05e5",
     "src/PhobosShipbreaker/RoutingCommands.cs": "ecde751bfd3823538dc7e39636520b4474a0d491abc3b3cb4021c820c6cf8810",
     "src/PhobosShipbreaker/Settings.cs": "1e7c7e7c848019f0bed74ae8271d67199dda26732eed54b3ea823571672f9cd9",
-    "src/PhobosShipbreaker/SiloDefinitions.cs": "fd681edba8a9e43d90730ff7c7565b7a73d0e073523d1639d3c402a32633f645",
+    "src/PhobosShipbreaker/SiloDefinitions.cs": "1f71a8df78dc4703dfc3db4481019140347b53419f2111963c2c3073c8e942a1",
     "src/PhobosShipbreaker/SiloService.cs": "4624430eaec945caf039306def28563a602d41a05ec6ddb0288cc0fe760f456e",
     "src/PhobosShipbreaker/StockQuantities.cs": "ae221fad93df673c174760e282ae106e6d5c460044268d7a6222a3a92902fe52",
     "src/PhobosShipbreaker/StorageService.cs": "162f1dd936f28d09b9438f3ca47cc5af2f45af3b951a638c82818afac0dae5e8",

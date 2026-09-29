@@ -43,7 +43,10 @@ internal static class SiloDefinitions
             item.aSocketAdds = Enumerable.Repeat(installed ? "TILFixtureAdds" : "TILItemAdds", SiloRules.Footprint * SiloRules.Footprint).ToArray();
             item.aSocketReqs = Border(SiloRules.Footprint, installed ? "TILFloor" : "Blank");
             item.aSocketForbids = Border(SiloRules.Footprint, installed ? "TILObstruction" : "TILItemForbids");
+            // One dedicated overhead sprite for every form, as the inventory portrait too; damaged forms use the
+            // game's damage tint. The master and its provenance are in assets/artwork-completion.
             Content.ApplyArtwork(co, item, SiloArt, SiloArt);
+            co.strPortraitImg = item.strImg;
         }
     }
     private static void AddThaw(NativeDefinitions d)
@@ -67,7 +70,10 @@ internal static class SiloDefinitions
             item.aSocketAdds = Enumerable.Repeat(installed ? "TILFixtureAdds" : "TILItemAdds", ThawRules.Footprint * ThawRules.Footprint).ToArray();
             item.aSocketReqs = Border(ThawRules.Footprint, installed ? "TILFloor" : "Blank");
             item.aSocketForbids = Border(ThawRules.Footprint, installed ? "TILObstruction" : "TILItemForbids");
+            // One dedicated overhead sprite for every form, as the inventory portrait too; damaged forms use the
+            // game's damage tint. The master and its provenance are in assets/artwork-completion.
             Content.ApplyArtwork(co, item, ThawArt, ThawArt);
+            co.strPortraitImg = item.strImg;
         }
         var feed = d.Objects[ThawRules.InputBin];
         feed.strNameFriendly = feed.strNameShort = Text.Get("Thaw.feed_name");

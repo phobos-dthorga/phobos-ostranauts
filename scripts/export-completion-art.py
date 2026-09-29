@@ -40,9 +40,15 @@ def main():
         if master.size != tuple(entry['masterSize']) or any(a < b * factor for a, b in zip(master.size, native)):
             raise ValueError(f'Insufficient/unexpected master dimensions: {source}')
         bounds = master.getchannel('A').getbbox()
-        if not bounds or master.getchannel('A').getextrema()[0] != 0:
+        # A full-footprint fixture (a deck-mounted tank or cabinet, like the game's own square-deck machinery)
+        # deliberately covers its whole tile square: it must be opaque edge to edge rather than padded.
+        full = entry.get('fullFootprint', False)
+        if full:
+            if bounds != (0, 0, master.width, master.height) or master.getchannel('A').getextrema() != (255, 255):
+                raise ValueError(f'Full-footprint master must be opaque across its whole canvas: {source}')
+        elif not bounds or master.getchannel('A').getextrema()[0] != 0:
             raise ValueError(f'Missing object/transparency: {source}')
-        if not entry.get('registrationReference') and (min(bounds[:2]) <= 0 or bounds[2] >= master.width or bounds[3] >= master.height):
+        if not full and not entry.get('registrationReference') and (min(bounds[:2]) <= 0 or bounds[2] >= master.width or bounds[3] >= master.height):
             raise ValueError(f'Clipped silhouette: {source}')
         pixels = master.resize(native, Image.Resampling.NEAREST)
         if entry.get('registrationReference'):
@@ -77,7 +83,7 @@ def main():
                         'pivot': entry['pivot'], 'sourceBounds': bounds, 'exports': hashes,
                         'normal': 'Neutral tangent normal with matching alpha; no authored relief',
                         'registrationReference': entry.get('registrationReference'),
-                        'patches': entry.get('patches')})
+                        'patches': entry.get('patches'), **({'fullFootprint': True} if full else {})})
         previews.append((entry['key'], pixels))
         selected[entry['key']] = pixels
     # Keep saved crop-stage imagery when the installed chassis is damaged.

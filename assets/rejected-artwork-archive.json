@@ -159,6 +159,85 @@
       "sha256": "1b3cb1491b22560e4ddbda4479ae0c874e2190c643444994dedab56529d6fe78",
       "reason": "Unselected resolution retry; see hub-prompt.md. Original selected source and upscaled master remain on main.",
       "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/c86bbc03436b7fb4e8d1cffec4dc3111e67e9a1d/assets/phobos-autonav/source/PhobosFlightHub-resolution-attempt.png"
+    },
+    {
+      "path": "assets/artwork-completion/source/s3-silo-rejected-transparent-1.png",
+      "sha256": "4eac621a78bc157e3f5549b328315af70018c1002f76d14476063aa94bb4b10f",
+      "reason": "S3 pass 1: background removal made the tank dome and frame transparent.",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/1df5784356d8ee2f583032c42ce14032d73b5df0/assets/artwork-completion/source/s3-silo-rejected-transparent-1.png"
+    },
+    {
+      "path": "assets/artwork-completion/source/s3-silo-rejected-transparent-2.png",
+      "sha256": "c9bc75de928db57aee9a086843eaf589ce0a56cae868a4a97c549327129e4859",
+      "reason": "S3 pass 2: targeted correction kept the transparent dome defect.",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/1df5784356d8ee2f583032c42ce14032d73b5df0/assets/artwork-completion/source/s3-silo-rejected-transparent-2.png"
+    },
+    {
+      "path": "assets/artwork-completion/source/s3-silo-rejected-grey.png",
+      "sha256": "7f657d8b58375edbd50dbcb1abee9190bf10bb7fd0886b7db34b98bcbc28f608",
+      "reason": "S3 pass 3: opaque and overhead, but monochrome grey off the Rivetline family colours.",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/1df5784356d8ee2f583032c42ce14032d73b5df0/assets/artwork-completion/source/s3-silo-rejected-grey.png"
+    },
+    {
+      "path": "assets/artwork-completion/references/s3-silo-rejected-start.png",
+      "sha256": "7e60d9dc23ad0acf314ca9b9fd6c4e777f9bb659d8e9e4ae7455d3de13c6cddb",
+      "reason": "Grey S3 start drawing used only by the three rejected S3 passes; the selected pass used references/s3-silo-start.png.",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/1df5784356d8ee2f583032c42ce14032d73b5df0/assets/artwork-completion/references/s3-silo-rejected-start.png"
+    },
+    {
+      "path": "assets/artwork-completion/source/aluminium-ingot-rejected-flat.png",
+      "sha256": "43a63bc99819eccc0f6b315d2a3f813a0a302b0c957a2fc2baa1655224a4a03a",
+      "reason": "Aluminium ingot: near copy of the flat start drawing.",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/1df5784356d8ee2f583032c42ce14032d73b5df0/assets/artwork-completion/source/aluminium-ingot-rejected-flat.png"
+    },
+    {
+      "path": "assets/artwork-completion/source/aluminium-ingot-superseded-pixflux.png",
+      "sha256": "628e8f2f3c876a59992920c0f847da805dca2fb001c257fe38148cce5ac2a95b",
+      "reason": "Aluminium ingot: plain Pixflux bar, superseded by the Pixen bar before commit.",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/1df5784356d8ee2f583032c42ce14032d73b5df0/assets/artwork-completion/source/aluminium-ingot-superseded-pixflux.png"
+    },
+    {
+      "path": "assets/artwork-completion/source/aluminium-ingot-rejected-angle.png",
+      "sha256": "4e4bc374076d5e8b68bf61988e555a0bc5744914532132a41454d7f72aa59dcf",
+      "reason": "Aluminium ingot: darker lower half reads as a front face (projection failure).",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/1df5784356d8ee2f583032c42ce14032d73b5df0/assets/artwork-completion/source/aluminium-ingot-rejected-angle.png"
+    },
+    {
+      "path": "assets/artwork-completion/source/aluminium-ingot-rejected-cutout.png",
+      "sha256": "97f8574ca0ece1f7d8e9545f7ef77f6a37c9c5d87f57dfa785359985aab7d3e0",
+      "reason": "Aluminium ingot: background removal deleted the light bar.",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/1df5784356d8ee2f583032c42ce14032d73b5df0/assets/artwork-completion/source/aluminium-ingot-rejected-cutout.png"
+    },
+    {
+      "path": "assets/artwork-completion/source/aluminium-ingot-rejected-logo.png",
+      "sha256": "893b8b3af2180d73c1c8d9d49dcd65ea46e6bf18f786067aef1ae13444859edd",
+      "reason": "Aluminium ingot (Pixen): generator added a logo and a box-like read.",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/1df5784356d8ee2f583032c42ce14032d73b5df0/assets/artwork-completion/source/aluminium-ingot-rejected-logo.png"
+    },
+    {
+      "path": "assets/artwork-completion/source/aluminium-ingot-rejected-hatch.png",
+      "sha256": "16e569afdcaf17a14a1d70b7d38920d0d3c2c92f5ade373788dce06d8b784879",
+      "reason": "Aluminium ingot (Pixen): reads as a riveted floor hatch.",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/1df5784356d8ee2f583032c42ce14032d73b5df0/assets/artwork-completion/source/aluminium-ingot-rejected-hatch.png"
+    },
+    {
+      "path": "assets/artwork-completion/references/aluminium-ingot-start.png",
+      "sha256": "31cf7e79a87b3f6deee82ba90872951d85e2ba55c529fc8b4f3d1b6967c72504",
+      "reason": "Aluminium ingot start drawing, input only of the four rejected/superseded Pixflux passes.",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/1df5784356d8ee2f583032c42ce14032d73b5df0/assets/artwork-completion/references/aluminium-ingot-start.png"
+    },
+    {
+      "path": "assets/artwork-completion/source/steel-melt-remainder-rejected-flat.png",
+      "sha256": "d63fbd2a036871ba5c6925e5725b931f0cbcd6b9771f095f72efde482565e9b1",
+      "reason": "Steel melt remainder: near copy of the flat start drawing.",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/1df5784356d8ee2f583032c42ce14032d73b5df0/assets/artwork-completion/source/steel-melt-remainder-rejected-flat.png"
+    }
+  ],
+  "additions": [
+    {
+      "commit": "1df5784356d8ee2f583032c42ce14032d73b5df0",
+      "date": "2026-09-29",
+      "note": "Bulk-silo PixelLab pass: rejected and superseded outputs never committed to main, archived directly. Requests, seeds and reasons: assets/artwork-completion/bulk-silo-requests.json."
     }
   ]
 }

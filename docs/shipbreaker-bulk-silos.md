@@ -2,8 +2,7 @@
 
 Shipbreaker 0.37.0 with Framework 0.39.0 (Agriculture 0.18.0 shares the same
 water vessels). Implemented and checked offline; owner gameplay checks are
-pending. Both machines use placeholder sprites until the
-[artwork handoff](development/bulk-silo-art-handoff.md) is produced. Use the
+pending, including how the machines' artwork looks in play. Use the
 [current dependency requirements](installing-mods.md).
 
 ## Equipment

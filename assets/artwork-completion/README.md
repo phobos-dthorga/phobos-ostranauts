@@ -48,3 +48,19 @@ contracts are settled. Native circuit boards and generic maintenance waste
 intentionally reuse game resources at runtime. R3 already has dedicated intact
 and damaged masters shared with its loose forms. No gameplay systems, scientific
 claims or material outputs are added by artwork.
+
+## Bulk silo pass — 29 September 2026
+
+Shipbreaker 0.38.1 adds five selected masters: `source/s3-silo.png`,
+`source/t2-thaw-unit.png`, `source/aluminium-ingot.png`, `source/steel-ingot.png`
+and `source/steel-melt-remainder.png`. Every request, seed, setting, job ID,
+cost and review is in [bulk-silo-requests.json](bulk-silo-requests.json); the
+original start drawings the selected jobs used are kept in `references/`.
+Pixflux and Pixen created the masters; the steel ingot is a recorded luminance
+recolour of the aluminium ingot, not a generation. The S3 and T2 are marked
+`fullFootprint` in the manifest: they are opaque edge to edge because they fill
+their deck squares. The allowance decreased from 1,890 to 1,875 (15 included
+generations) with $0 credit and no purchases. Only original Phobos drawings were
+uploaded. Rejected and superseded outputs are archived at commit `1df5784` on the
+archive branch; the design record is
+[the bulk silo handoff](../../docs/development/bulk-silo-art-handoff.md).

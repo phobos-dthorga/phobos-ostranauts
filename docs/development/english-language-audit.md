@@ -301,3 +301,13 @@ crew order label covers the selected charge, and the F3 help lists the recipe
 command). The furnace guide gains a recipes section with the NIST iron credit.
 Coverage is now 2,041 entries, 157 documents and 14 other
 surfaces. Unity wording is unverified.
+
+## Bulk silo artwork, 29 September 2026
+
+Shipbreaker 0.38.1 replaces the S3, T2, ingot and steel-remainder placeholder
+drawings with selected artwork. No translation entries change. The bulk silo
+guide drops its placeholder sentence, the artwork handoff becomes a produced
+record with its deviations explained, the Workshop page loses its placeholder
+note and gains a 0.38.1 bullet, and version lines move to 0.38.1. Coverage is
+now 2,041 entries, 158 documents and 14 other surfaces.
+Unity wording is unverified.

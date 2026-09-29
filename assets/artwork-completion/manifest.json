@@ -1355,6 +1355,128 @@
       "jobId": "d6a5bc13-18ac-4660-b691-65db9893b95c",
       "review": "Overhead and native-scale export inspected; registered silhouette retained where applicable. Owner in-game review pending.",
       "registrationSHA256": "4ad032a2fc0d8995093b8d9c1c5f211d031158cddd4994068e9c83bcf88b72df"
+    },
+    {
+      "key": "s3-silo",
+      "mod": "PhobosShipbreaker",
+      "definition": "PhobosProcessSiloInstalled",
+      "nativeSize": [
+        48,
+        48
+      ],
+      "masterSize": [
+        96,
+        96
+      ],
+      "pivot": [
+        24,
+        24
+      ],
+      "runtime": "phobos/shipbreaker/PhobosProcessSilo",
+      "status": "selected",
+      "source": "source/s3-silo.png",
+      "sourceSHA256": "84de49a925e771741ca64149bd335c93a0a3ea69ecf38e1e11b5762e66206204",
+      "requestRecord": "bulk-silo-requests.json",
+      "review": "Overhead and native-scale export inspected; Rivetline/vanilla colour language checked against approved family. Owner in-game review pending.",
+      "fullFootprint": true,
+      "jobId": "3553be2c-f8b1-4935-adaf-47db209f26c7"
+    },
+    {
+      "key": "t2-thaw-unit",
+      "mod": "PhobosShipbreaker",
+      "definition": "PhobosIceThawInstalled",
+      "nativeSize": [
+        32,
+        32
+      ],
+      "masterSize": [
+        128,
+        128
+      ],
+      "pivot": [
+        16,
+        16
+      ],
+      "runtime": "phobos/shipbreaker/PhobosIceThaw",
+      "status": "selected",
+      "source": "source/t2-thaw-unit.png",
+      "sourceSHA256": "95915b71eeeefbbc46e542f5a7d18532ecd829012058922ef28a8054ef6c8e3c",
+      "requestRecord": "bulk-silo-requests.json",
+      "review": "Overhead and native-scale export inspected; Rivetline/vanilla colour language checked against approved family. Owner in-game review pending.",
+      "fullFootprint": true,
+      "jobId": "de7fe18b-0c12-43cc-a19e-57a592a0e262"
+    },
+    {
+      "key": "aluminium-ingot",
+      "mod": "PhobosShipbreaker",
+      "definition": "PhobosAluminiumIngot",
+      "nativeSize": [
+        16,
+        16
+      ],
+      "masterSize": [
+        64,
+        64
+      ],
+      "pivot": [
+        8,
+        8
+      ],
+      "runtime": "phobos/shipbreaker/StockAluminiumIngot",
+      "status": "selected",
+      "source": "source/aluminium-ingot.png",
+      "sourceSHA256": "f9eb4dd0ca941b4675b867bba007493fb762c209776e905da9bd93b8933a754f",
+      "requestRecord": "bulk-silo-requests.json",
+      "review": "Pixen overhead bar inspected at master and native size against the approved stock sprites. Owner in-game review pending.",
+      "jobId": "e52b5cea-58f5-414c-b231-735d431db367"
+    },
+    {
+      "key": "steel-ingot",
+      "mod": "PhobosShipbreaker",
+      "definition": "PhobosSteelIngot",
+      "nativeSize": [
+        16,
+        16
+      ],
+      "masterSize": [
+        64,
+        64
+      ],
+      "pivot": [
+        8,
+        8
+      ],
+      "runtime": "phobos/shipbreaker/StockSteelIngot",
+      "status": "selected",
+      "source": "source/steel-ingot.png",
+      "sourceSHA256": "e7fd1eb0eeaec468a420d56e622cc61a4d097aa55134d58134b503afc6a73c7a",
+      "requestRecord": "bulk-silo-requests.json",
+      "review": "Exact palette-only derivative of the selected overhead aluminium ingot (map in bulk-silo-requests.json). Owner in-game review pending.",
+      "derivedFrom": "source/aluminium-ingot.png"
+    },
+    {
+      "key": "steel-melt-remainder",
+      "mod": "PhobosShipbreaker",
+      "definition": "PhobosSteelMeltRemainder",
+      "nativeSize": [
+        16,
+        16
+      ],
+      "masterSize": [
+        64,
+        64
+      ],
+      "pivot": [
+        8,
+        8
+      ],
+      "runtime": "phobos/shipbreaker/StockSteelMeltRemainder",
+      "status": "selected",
+      "source": "source/steel-melt-remainder.png",
+      "sourceSHA256": "5799ffdd0a3d0654710ca8788c2186d67d4199a3203f80fba1d2152a63e94883",
+      "requestRecord": "bulk-silo-requests.json",
+      "review": "Overhead and native-scale export inspected; Rivetline/vanilla colour language checked against approved family. Owner in-game review pending.",
+      "jobId": "5e842dea-0fde-4126-9775-02f0beba171a"
     }
   ],
   "records": [
@@ -1370,6 +1492,61 @@
       ],
       "costGenerations": 2,
       "review": "First rejected for isometric projection; Pixen correction selected for native-size review."
+    },
+    {
+      "key": "s3-silo",
+      "attempts": [
+        "bulk-silo-requests.json"
+      ],
+      "jobs": [
+        "4f1afc0d-0776-437d-82e7-6186c3a92e3a",
+        "75c53071-469f-435f-bfcf-32da476bff24",
+        "741e9a8e-2fdc-4d41-8381-1143d00e381d",
+        "3553be2c-f8b1-4935-adaf-47db209f26c7"
+      ],
+      "costGenerations": 4,
+      "review": "4f1afc0d rejected; 75c53071 rejected; 741e9a8e rejected; 3553be2c selected"
+    },
+    {
+      "key": "t2-thaw-unit",
+      "attempts": [
+        "bulk-silo-requests.json"
+      ],
+      "jobs": [
+        "288eb773-a48a-4e54-a60a-39af919f1509",
+        "de7fe18b-0c12-43cc-a19e-57a592a0e262"
+      ],
+      "costGenerations": 2,
+      "review": "288eb773 superseded; de7fe18b selected"
+    },
+    {
+      "key": "aluminium-ingot",
+      "attempts": [
+        "bulk-silo-requests.json"
+      ],
+      "jobs": [
+        "4a5f3a22-7f4b-4576-a5a3-2200554f12c1",
+        "2631149d-3df9-43af-aa17-246fb45b6a17",
+        "fb94517a-c726-4698-8c6d-54b74cc8fc8b",
+        "754c728d-fab8-4141-8d95-87f82a0edbee",
+        "e52b5cea-58f5-414c-b231-735d431db367",
+        "aed6744b-97a1-4973-85e1-648a6abd3b41",
+        "c91c02f6-351f-495c-8f81-cb71fd30b605"
+      ],
+      "costGenerations": 7,
+      "review": "4a5f3a22 rejected; 2631149d superseded; fb94517a rejected; 754c728d rejected; e52b5cea selected; aed6744b rejected; c91c02f6 rejected"
+    },
+    {
+      "key": "steel-melt-remainder",
+      "attempts": [
+        "bulk-silo-requests.json"
+      ],
+      "jobs": [
+        "27822d37-fd2a-491d-aec5-a7a743ee42b1",
+        "5e842dea-0fde-4126-9775-02f0beba171a"
+      ],
+      "costGenerations": 2,
+      "review": "27822d37 rejected; 5e842dea selected"
     }
   ],
   "allowanceAfter": 1894,

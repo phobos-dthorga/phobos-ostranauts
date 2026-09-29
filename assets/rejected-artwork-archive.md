@@ -2,9 +2,9 @@
 
 Rejected and unselected image originals are preserved on [codex/rejected-artwork](https://github.com/phobos-dthorga/phobos-ostranauts/tree/codex/rejected-artwork). The branch starts from the complete pre-cleanup repository snapshot, retaining original paths and contemporaneous provenance. Do not merge its rejected binaries back into main.
 
-The 26 images below were removed from the current main tree on 27 September 2026. Selected masters, required generation inputs, native exports and textual provenance stay on main. This is ordinary branch cleanup, not a history rewrite; older main commits still contain these files.
+The first 26 images below were removed from the current main tree on 27 September 2026. Selected masters, required generation inputs, native exports and textual provenance stay on main. This is ordinary branch cleanup, not a history rewrite; older main commits still contain these files.
 
-[Machine-readable inventory and SHA-256 hashes](https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/assets/rejected-artwork-archive.json). Each image link is pinned to the preserved snapshot commit so it remains stable if the archive branch grows.
+[Machine-readable inventory and SHA-256 hashes](https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/assets/rejected-artwork-archive.json). Each image link is pinned to the commit that archived it, so it remains stable as the archive branch grows.
 
 | Original path / archived image | Reason |
 | --- | --- |
@@ -34,3 +34,22 @@ The 26 images below were removed from the current main tree on 27 September 2026
 | [assets/phobos-agriculture/source/lettuce-bolting.png](https://github.com/phobos-dthorga/phobos-ostranauts/blob/c86bbc03436b7fb4e8d1cffec4dc3111e67e9a1d/assets/phobos-agriculture/source/lettuce-bolting.png) | Rejected first seed-stage pair; selected v2 sources retain appropriate reproductive detail. |
 | [assets/phobos-agriculture/source/lettuce-seed.png](https://github.com/phobos-dthorga/phobos-ostranauts/blob/c86bbc03436b7fb4e8d1cffec4dc3111e67e9a1d/assets/phobos-agriculture/source/lettuce-seed.png) | Rejected first seed-stage pair; selected v2 sources retain appropriate reproductive detail. |
 | [assets/phobos-autonav/source/PhobosFlightHub-resolution-attempt.png](https://github.com/phobos-dthorga/phobos-ostranauts/blob/c86bbc03436b7fb4e8d1cffec4dc3111e67e9a1d/assets/phobos-autonav/source/PhobosFlightHub-resolution-attempt.png) | Unselected resolution retry; see hub-prompt.md. Original selected source and upscaled master remain on main. |
+
+## Added 29 September 2026
+
+The bulk-silo PixelLab pass (S3 silo, T2 thaw unit, ingots and steel melt remainder) archived its rejected and superseded outputs directly; they were never committed to main. Requests, seeds, job IDs and review notes are in [bulk-silo-requests.json](artwork-completion/bulk-silo-requests.json). The selected masters and the start drawings they used stay on main.
+
+| Archived image | Reason |
+| --- | --- |
+| [assets/artwork-completion/source/s3-silo-rejected-transparent-1.png](https://github.com/phobos-dthorga/phobos-ostranauts/blob/1df5784356d8ee2f583032c42ce14032d73b5df0/assets/artwork-completion/source/s3-silo-rejected-transparent-1.png) | S3 pass 1: background removal made the tank dome and frame transparent. |
+| [assets/artwork-completion/source/s3-silo-rejected-transparent-2.png](https://github.com/phobos-dthorga/phobos-ostranauts/blob/1df5784356d8ee2f583032c42ce14032d73b5df0/assets/artwork-completion/source/s3-silo-rejected-transparent-2.png) | S3 pass 2: targeted correction kept the transparent dome defect. |
+| [assets/artwork-completion/source/s3-silo-rejected-grey.png](https://github.com/phobos-dthorga/phobos-ostranauts/blob/1df5784356d8ee2f583032c42ce14032d73b5df0/assets/artwork-completion/source/s3-silo-rejected-grey.png) | S3 pass 3: opaque and overhead, but monochrome grey off the Rivetline family colours. |
+| [assets/artwork-completion/references/s3-silo-rejected-start.png](https://github.com/phobos-dthorga/phobos-ostranauts/blob/1df5784356d8ee2f583032c42ce14032d73b5df0/assets/artwork-completion/references/s3-silo-rejected-start.png) | Grey S3 start drawing used only by the three rejected S3 passes; the selected pass used references/s3-silo-start.png. |
+| [assets/artwork-completion/source/aluminium-ingot-rejected-flat.png](https://github.com/phobos-dthorga/phobos-ostranauts/blob/1df5784356d8ee2f583032c42ce14032d73b5df0/assets/artwork-completion/source/aluminium-ingot-rejected-flat.png) | Aluminium ingot: near copy of the flat start drawing. |
+| [assets/artwork-completion/source/aluminium-ingot-superseded-pixflux.png](https://github.com/phobos-dthorga/phobos-ostranauts/blob/1df5784356d8ee2f583032c42ce14032d73b5df0/assets/artwork-completion/source/aluminium-ingot-superseded-pixflux.png) | Aluminium ingot: plain Pixflux bar, superseded by the Pixen bar before commit. |
+| [assets/artwork-completion/source/aluminium-ingot-rejected-angle.png](https://github.com/phobos-dthorga/phobos-ostranauts/blob/1df5784356d8ee2f583032c42ce14032d73b5df0/assets/artwork-completion/source/aluminium-ingot-rejected-angle.png) | Aluminium ingot: darker lower half reads as a front face (projection failure). |
+| [assets/artwork-completion/source/aluminium-ingot-rejected-cutout.png](https://github.com/phobos-dthorga/phobos-ostranauts/blob/1df5784356d8ee2f583032c42ce14032d73b5df0/assets/artwork-completion/source/aluminium-ingot-rejected-cutout.png) | Aluminium ingot: background removal deleted the light bar. |
+| [assets/artwork-completion/source/aluminium-ingot-rejected-logo.png](https://github.com/phobos-dthorga/phobos-ostranauts/blob/1df5784356d8ee2f583032c42ce14032d73b5df0/assets/artwork-completion/source/aluminium-ingot-rejected-logo.png) | Aluminium ingot (Pixen): generator added a logo and a box-like read. |
+| [assets/artwork-completion/source/aluminium-ingot-rejected-hatch.png](https://github.com/phobos-dthorga/phobos-ostranauts/blob/1df5784356d8ee2f583032c42ce14032d73b5df0/assets/artwork-completion/source/aluminium-ingot-rejected-hatch.png) | Aluminium ingot (Pixen): reads as a riveted floor hatch. |
+| [assets/artwork-completion/references/aluminium-ingot-start.png](https://github.com/phobos-dthorga/phobos-ostranauts/blob/1df5784356d8ee2f583032c42ce14032d73b5df0/assets/artwork-completion/references/aluminium-ingot-start.png) | Aluminium ingot start drawing, input only of the four rejected/superseded Pixflux passes. |
+| [assets/artwork-completion/source/steel-melt-remainder-rejected-flat.png](https://github.com/phobos-dthorga/phobos-ostranauts/blob/1df5784356d8ee2f583032c42ce14032d73b5df0/assets/artwork-completion/source/steel-melt-remainder-rejected-flat.png) | Steel melt remainder: near copy of the flat start drawing. |

@@ -1341,5 +1341,132 @@
     "normal": "Neutral tangent normal with matching alpha; no authored relief",
     "registrationReference": "references/thermal-port-loose.png",
     "patches": null
+  },
+  {
+    "key": "s3-silo",
+    "sourceSHA256": "84de49a925e771741ca64149bd335c93a0a3ea69ecf38e1e11b5762e66206204",
+    "nativeSize": [
+      48,
+      48
+    ],
+    "pivot": [
+      24,
+      24
+    ],
+    "sourceBounds": [
+      0,
+      0,
+      96,
+      96
+    ],
+    "exports": {
+      "mods/PhobosShipbreaker/images/phobos/shipbreaker/PhobosProcessSilo.png": "78352a8dbb1700ba3d2ab5e188cc27720c8bba0b7055cef795f90a1187851439",
+      "mods/PhobosShipbreaker/images/phobos/shipbreaker/PhobosProcessSiloNormal.png": "df50bbd4e122efd8a6fbf5efc01e3cd8d6678c45b0486c05b0c14e0a71af953a"
+    },
+    "normal": "Neutral tangent normal with matching alpha; no authored relief",
+    "registrationReference": null,
+    "patches": null,
+    "fullFootprint": true
+  },
+  {
+    "key": "t2-thaw-unit",
+    "sourceSHA256": "95915b71eeeefbbc46e542f5a7d18532ecd829012058922ef28a8054ef6c8e3c",
+    "nativeSize": [
+      32,
+      32
+    ],
+    "pivot": [
+      16,
+      16
+    ],
+    "sourceBounds": [
+      0,
+      0,
+      128,
+      128
+    ],
+    "exports": {
+      "mods/PhobosShipbreaker/images/phobos/shipbreaker/PhobosIceThaw.png": "3c257af2672d378ea6444b263185213984c0b37935b4bfab981331b2e7bdb1c1",
+      "mods/PhobosShipbreaker/images/phobos/shipbreaker/PhobosIceThawNormal.png": "7e4297a0c170e01336e183a0cfa61b23f5bf84a0d480bd40c09a68f2b5e9ae12"
+    },
+    "normal": "Neutral tangent normal with matching alpha; no authored relief",
+    "registrationReference": null,
+    "patches": null,
+    "fullFootprint": true
+  },
+  {
+    "key": "aluminium-ingot",
+    "sourceSHA256": "f9eb4dd0ca941b4675b867bba007493fb762c209776e905da9bd93b8933a754f",
+    "nativeSize": [
+      16,
+      16
+    ],
+    "pivot": [
+      8,
+      8
+    ],
+    "sourceBounds": [
+      2,
+      16,
+      62,
+      47
+    ],
+    "exports": {
+      "mods/PhobosShipbreaker/images/phobos/shipbreaker/StockAluminiumIngot.png": "eddbb5fbf708a342f4d99fe0e8d54dea1b9818f2580ea2c5c6be9eb1b4a346b2",
+      "mods/PhobosShipbreaker/images/phobos/shipbreaker/StockAluminiumIngotNormal.png": "c84c390798df799791a412c25aeee2e1a864033bcd117ce2a699bc758a19c186"
+    },
+    "normal": "Neutral tangent normal with matching alpha; no authored relief",
+    "registrationReference": null,
+    "patches": null
+  },
+  {
+    "key": "steel-ingot",
+    "sourceSHA256": "e7fd1eb0eeaec468a420d56e622cc61a4d097aa55134d58134b503afc6a73c7a",
+    "nativeSize": [
+      16,
+      16
+    ],
+    "pivot": [
+      8,
+      8
+    ],
+    "sourceBounds": [
+      2,
+      16,
+      62,
+      47
+    ],
+    "exports": {
+      "mods/PhobosShipbreaker/images/phobos/shipbreaker/StockSteelIngot.png": "49af8372d65a281e2fe7dcfe4f2806e0eecf4f1918de58b75e193f27aa958e49",
+      "mods/PhobosShipbreaker/images/phobos/shipbreaker/StockSteelIngotNormal.png": "c84c390798df799791a412c25aeee2e1a864033bcd117ce2a699bc758a19c186"
+    },
+    "normal": "Neutral tangent normal with matching alpha; no authored relief",
+    "registrationReference": null,
+    "patches": null
+  },
+  {
+    "key": "steel-melt-remainder",
+    "sourceSHA256": "5799ffdd0a3d0654710ca8788c2186d67d4199a3203f80fba1d2152a63e94883",
+    "nativeSize": [
+      16,
+      16
+    ],
+    "pivot": [
+      8,
+      8
+    ],
+    "sourceBounds": [
+      7,
+      7,
+      60,
+      56
+    ],
+    "exports": {
+      "mods/PhobosShipbreaker/images/phobos/shipbreaker/StockSteelMeltRemainder.png": "461dc8b7c538b1e7b19361a2269e6bf83a0a5e0afa41114e18d430deca606a87",
+      "mods/PhobosShipbreaker/images/phobos/shipbreaker/StockSteelMeltRemainderNormal.png": "582e9cb0c117745761551568d52f48afc026ae4a6a36022c665473015df68fb4"
+    },
+    "normal": "Neutral tangent normal with matching alpha; no authored relief",
+    "registrationReference": null,
+    "patches": null
   }
 ]

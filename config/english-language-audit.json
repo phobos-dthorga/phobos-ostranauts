@@ -38991,7 +38991,7 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "d6065e4462aa3fbcba51dedba5b533b3217280b1e0aade4cf2442df093a37880",
+      "sha256": "96d0b2e42eb8737737f7bf901a627195f2d0a927c569200f809eed0886a4bc0d",
       "review": "2026-09-29: version summary; no other wording changed."
     },
     {
@@ -39150,7 +39150,7 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "333970563cb996efff763e98f13752ba9fac99b811398a3b6421df6ed4e29e3d",
+      "sha256": "42f00a8bf7ce1689874fa27fb33ac134a7e0728d0057d9f8cfedf3d906bedc5d",
       "review": "2026-09-29: version line; no other wording changed."
     },
     {
@@ -39275,8 +39275,8 @@
       "path": "docs/development/artwork-completion.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "2ca3e3b5bf1b14145a268a77813a5783ec58e37c7874f0210435f8f8d99fe55b",
-      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+      "sha256": "1a224aa2fe006f7ca08109e3485cb083d7fad08a4d0e96d9e7e702f6c6d2a856",
+      "review": "2026-09-29: bulk silo pass section; native checks cover every selected binding."
     },
     {
       "path": "docs/development/artwork-resolution-policy.md",
@@ -39362,8 +39362,8 @@
       "path": "docs/development/bulk-silo-art-handoff.md",
       "scope": "contributor artwork handoff; placeholders are not reviewed art",
       "decision": "add",
-      "sha256": "1ca7f53c0732dc36d43a5494f52b20c2c6c3db0d1776146644a7295f5841438d",
-      "review": "2026-09-29: placeholder rows for the ingot stock sprites; request 3 heading."
+      "sha256": "7e826ae6b3f998f150daf139e6788512ee525c7367095cbb880841de9a934432",
+      "review": "2026-09-29: produced record: result table, deviations with reasons, original requests kept, checklist completed."
     },
     {
       "path": "docs/development/chemical-storage-and-process-fluids.md",
@@ -39917,7 +39917,7 @@
       "path": "docs/industrial-console-player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "453f9676f531e30df1aa36b1954423654c65b38b2ee9a14edd115905cca92ac9",
+      "sha256": "c2f4595e9af2fb0d6ce411dc78dc5a2f9d1dc7da9665145fc650010452ffa5ab",
       "review": "2026-09-29: version line; no other wording changed."
     },
     {
@@ -39959,8 +39959,8 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "16de90eb20e8fdb581c63ae92a92bad0aefc958b2b463341bf5bf978277331b9",
-      "review": "2026-09-29: version lines; F6 crew loading names the selected metal."
+      "sha256": "bb7f5780359297e4201904bce5a7040b6c291a09ee74965c98dc9c174b073601",
+      "review": "2026-09-29: version lines; no other wording changed."
     },
     {
       "path": "docs/residue-collector.md",
@@ -39994,8 +39994,8 @@
       "path": "docs/shipbreaker-bulk-silos.md",
       "scope": "player operating guide for the S3 silo and T2 thaw unit",
       "decision": "add",
-      "sha256": "ff820714b3cf3ca77258ce48f0e3bdabacf810eb7ffb9cafbff9914b6501e84b",
-      "review": "2026-09-29: new operating guide: equipment, setup, filling, recovery, heat, limits, research credit."
+      "sha256": "e6b84541091906e4ae3e0c5b7f558e453435c76634d2c1f3017e9c2af8a2f452",
+      "review": "2026-09-29: placeholder sentence removed; pending owner checks include the artwork."
     },
     {
       "path": "docs/shipbreaker-hull-intake.md",
@@ -40008,8 +40008,8 @@
       "path": "docs/shipbreaker-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "ed498f47601bd2075cddda8a2c5c14484d90b37ac7daed82bb640fbb32b8bca2",
-      "review": "2026-09-29: regenerated from reviewed inputs: ingot, steel-remainder and compartment entries, version."
+      "sha256": "227bf23c5e39b3944cba298099f1327ef971cc846767f0829a3e8bec21af3dd0",
+      "review": "2026-09-29: regenerated from reviewed inputs: version only."
     },
     {
       "path": "docs/shipbreaker-material-uses.md",
@@ -40064,8 +40064,8 @@
       "path": "workshop/PhobosShipbreaker/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "45f857b99a44ad080f78a989f2b7b7f1773e0e986ad8bd1e68cd86b358a21e5d",
-      "review": "2026-09-29: version, furnace bullets and the 0.38.0 bullet."
+      "sha256": "07375e3925200e994d267dc0c1eab7c34237735ad9107ae16047f16ba5372f3b",
+      "review": "2026-09-29: version, placeholder note removed, 0.38.1 artwork bullet."
     }
   ],
   "surfaces": [
@@ -40143,7 +40143,7 @@
     {
       "path": "mods/PhobosShipbreaker/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "286f9248b2404574eb2d495966513c9178356d7a6f545bd2cd49ed7f5f4ca3db",
+      "sha256": "508090278859322fade532a198c044cbbbad9321c86e8db63786476a95389672",
       "review": "2026-09-29: version metadata only."
     }
   ],

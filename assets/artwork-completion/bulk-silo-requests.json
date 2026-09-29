@@ -1,0 +1,402 @@
+{
+  "date": "2026-09-29",
+  "provider": "PixelLab",
+  "operation": "create_image_pixflux and create_image_pixen",
+  "allowanceBefore": 1890,
+  "allowanceAfter": 1875,
+  "creditBalanceUSD": 0,
+  "inputProvenance": "Start images are original Phobos procedural drawings or earlier outputs of this pass; no game or third-party imagery uploaded. Init images are sent base64; their files and hashes are listed here.",
+  "initImageHashes": {
+    "references/s3-silo-start.png": "cad8b8d9e35683c72976bc11a31e58e3c1d43268e0ce74df1eae027365bec497",
+    "references/t2-thaw-start.png": "c18163649dd8aa367a1c0c6c28a454332afae68ac3ceca2efce19077c064691a",
+    "references/t2-thaw-first-pass.png": "857064ab0ff638da8127d45b12c969260f313705ed4a465548c09b9317261ca0",
+    "references/steel-melt-remainder-start.png": "013f0f798f329e5da89d6027e3f29e2a35d3b5bacd67389606b33939b84cd2ae",
+    "scratch:silo-init-96.png": "7e60d9dc23ad0acf314ca9b9fd6c4e777f9bb659d8e9e4ae7455d3de13c6cddb",
+    "scratch:al-ingot-init-64.png": "31cf7e79a87b3f6deee82ba90872951d85e2ba55c529fc8b4f3d1b6967c72504",
+    "scratch:steel-remainder-init-64.png": "013f0f798f329e5da89d6027e3f29e2a35d3b5bacd67389606b33939b84cd2ae",
+    "archived:aluminium-ingot-start.png": "31cf7e79a87b3f6deee82ba90872951d85e2ba55c529fc8b4f3d1b6967c72504"
+  },
+  "derived": {
+    "steel-ingot": {
+      "from": "source/aluminium-ingot.png",
+      "method": "per-pixel luminance map onto a steel ramp; alpha and pixel placement unchanged",
+      "luminance": "0.299 R + 0.587 G + 0.114 B",
+      "channel = a * luminance + b (rounded, clamped)": {
+        "r": [
+          0.52,
+          14
+        ],
+        "g": [
+          0.56,
+          18
+        ],
+        "b": [
+          0.62,
+          28
+        ]
+      }
+    }
+  },
+  "attempts": [
+    {
+      "key": "s3-silo",
+      "operation": "create_image_pixflux",
+      "jobId": "4f1afc0d-0776-437d-82e7-6186c3a92e3a",
+      "assetId": "9189562b-078d-5d94-b5ce-1ae63c3de4a9",
+      "costGenerations": 1,
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. Draw the flat top of a sealed industrial spacecraft process-water silo inside a square steel deck frame: a large circular pressure dome filling the frame, a bolted outer rim, one thin teal service band ringing the dome, a central round inspection hatch with a single lift handle, a narrow vertical level-gauge strip along the right edge, four corner fasteners. Worn grey-blue painted steel, restrained contrast, coarse deliberate pixel clusters, utilitarian retro spaceship salvage-yard machinery. Complete silhouette filling the square canvas, transparent outside the frame. No perspective, no ground shadow, no pipes leaving the frame, no text, numbers or logos.",
+        "width": 96,
+        "height": 96,
+        "seed": 9290301,
+        "init_image_strength": 130,
+        "no_background": true,
+        "isometric": false,
+        "view": "high top-down",
+        "outline": "selective outline",
+        "shading": "basic shading",
+        "detail": "medium detail"
+      },
+      "initImage": "silo-init-96.png",
+      "decision": "rejected",
+      "review": "Overhead, but background removal made the dome fill and frame transparent (floating rings); hatch handle reads as a warning sign.",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/1df5784356d8ee2f583032c42ce14032d73b5df0/assets/artwork-completion/source/s3-silo-rejected-transparent-1.png",
+      "archiveSHA256": "4eac621a78bc157e3f5549b328315af70018c1002f76d14476063aa94bb4b10f"
+    },
+    {
+      "key": "s3-silo",
+      "operation": "create_image_pixflux",
+      "jobId": "75c53071-469f-435f-bfcf-32da476bff24",
+      "assetId": "b81fe200-7579-5487-8f84-b57b6b5ad574",
+      "costGenerations": 1,
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. Draw the flat top of a sealed industrial spacecraft process-water silo: a SOLID OPAQUE square grey-blue steel deck plate filling the whole canvas edge to edge, with four bolts in the corners; on it a SOLID OPAQUE large circular steel pressure dome painted worn grey-blue with subtle weld seams and scuffs, a bolted rim, one thin teal service band ringing the dome, a central round inspection hatch crossed by one straight grab bar, and a narrow vertical level-gauge window strip along the right edge of the plate. Every surface is filled and opaque, no holes, no see-through areas. Coarse deliberate pixel clusters, three-tone shading, utilitarian retro spaceship salvage machinery. No perspective, no ground shadow, no pipes leaving the plate, no text, numbers, symbols or logos.",
+        "width": 96,
+        "height": 96,
+        "seed": 9290302,
+        "init_image_strength": 70,
+        "no_background": true,
+        "isometric": false,
+        "view": "high top-down",
+        "outline": "selective outline",
+        "shading": "medium shading",
+        "detail": "medium detail"
+      },
+      "initImage": "silo-init-96.png",
+      "decision": "rejected",
+      "review": "Targeted correction failed: same transparent dome defect under background removal.",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/1df5784356d8ee2f583032c42ce14032d73b5df0/assets/artwork-completion/source/s3-silo-rejected-transparent-2.png",
+      "archiveSHA256": "c9bc75de928db57aee9a086843eaf589ce0a56cae868a4a97c549327129e4859"
+    },
+    {
+      "key": "s3-silo",
+      "operation": "create_image_pixflux",
+      "jobId": "741e9a8e-2fdc-4d41-8381-1143d00e381d",
+      "assetId": "78fc4fdc-db20-5c1a-8c66-2d7da7849253",
+      "costGenerations": 1,
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. The whole square canvas is the top of a sealed industrial spacecraft process-water silo: a square grey-blue steel deck plate reaching every canvas edge, with a bolt in each corner; on it a large circular steel pressure dome painted worn grey-blue, lit from the upper left with a soft highlight and darker lower-right shading, subtle weld seams and scuffs, a bolted rim, one thin teal service band ringing the dome, a central round inspection hatch crossed by one straight grab bar, and a narrow vertical level-gauge window strip along the right edge of the plate. Coarse deliberate pixel clusters, three-tone shading, utilitarian retro spaceship salvage machinery. No perspective, no ground shadow, no pipes, no text, numbers, symbols or logos.",
+        "width": 96,
+        "height": 96,
+        "seed": 9290303,
+        "init_image_strength": 70,
+        "no_background": false,
+        "isometric": false,
+        "view": "high top-down",
+        "outline": "selective outline",
+        "shading": "medium shading",
+        "detail": "medium detail"
+      },
+      "initImage": "silo-init-96.png",
+      "decision": "rejected",
+      "review": "Opaque approach fixed the transparency defect and passed projection, but monochrome grey is off the Rivetline/vanilla colour language; hatch reads as a magnifying glass; stray clutter.",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/1df5784356d8ee2f583032c42ce14032d73b5df0/assets/artwork-completion/source/s3-silo-rejected-grey.png",
+      "archiveSHA256": "7f657d8b58375edbd50dbcb1abee9190bf10bb7fd0886b7db34b98bcbc28f608"
+    },
+    {
+      "key": "s3-silo",
+      "operation": "create_image_pixflux",
+      "jobId": "3553be2c-f8b1-4935-adaf-47db209f26c7",
+      "assetId": "664e84d9-3f39-5e89-bf9f-25004df3cafb",
+      "costGenerations": 1,
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. The whole square canvas is the top of a sealed spacecraft process-water tank installed in a square frame: a blue painted steel frame with yellow corner clamps around a dark grey deck recess; in the middle a large round cream-white tank top lit from the upper left, with a thin teal band ringing it, a small round dark grey access hatch with one straight bar in the centre, a narrow teal level-gauge window on the right frame, and one small grey valve block lower left. Utilitarian retro spaceship equipment: crisp dark outlines, small readable colour regions, restrained shading, sparse purposeful details, a little wear. No perspective, no ground shadow, no pipes leaving the frame, no text, numbers, symbols or logos.",
+        "width": 96,
+        "height": 96,
+        "seed": 9290304,
+        "init_image_strength": 90,
+        "no_background": false,
+        "isometric": false,
+        "view": "high top-down",
+        "outline": "single color black outline",
+        "shading": "basic shading",
+        "detail": "medium detail"
+      },
+      "initImage": "references/s3-silo-start.png",
+      "decision": "selected",
+      "review": "Overhead with no side faces; Rivetline family colours (blue frame, yellow clamps, cream tank, teal band); reads at 48 px. The right-frame level gauge did not survive."
+    },
+    {
+      "key": "aluminium-ingot",
+      "operation": "create_image_pixflux",
+      "jobId": "4a5f3a22-7f4b-4576-a5a3-2200554f12c1",
+      "assetId": "06d32e1f-fcee-501a-8c97-a3987d0e896c",
+      "costGenerations": 1,
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. Draw one cast aluminium ingot seen from directly above: a single horizontal rectangular bar with a flat bright silver-grey top face, a darker chamfered rim all round, and one small stamped rectangular recess in the middle. Original coarse pixel art, restrained three-tone shading, utilitarian spaceship workshop stock. Centre the complete silhouette on a transparent 64 x 64 canvas with 8-pixel side margins; intended native export 16 x 16. No perspective, no side walls, no scene, no ground shadow, no text, letters or logos.",
+        "width": 64,
+        "height": 64,
+        "seed": 9290311,
+        "init_image_strength": 130,
+        "no_background": true,
+        "isometric": false,
+        "view": "high top-down",
+        "outline": "selective outline",
+        "shading": "basic shading",
+        "detail": "low detail"
+      },
+      "initImage": "references/aluminium-ingot-start.png",
+      "decision": "rejected",
+      "review": "Overhead but a near copy of the flat two-colour start drawing; no added rendering.",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/1df5784356d8ee2f583032c42ce14032d73b5df0/assets/artwork-completion/source/aluminium-ingot-rejected-flat.png",
+      "archiveSHA256": "43a63bc99819eccc0f6b315d2a3f813a0a302b0c957a2fc2baa1655224a4a03a"
+    },
+    {
+      "key": "aluminium-ingot",
+      "operation": "create_image_pixflux",
+      "jobId": "2631149d-3df9-43af-aa17-246fb45b6a17",
+      "assetId": "c0203367-d8ee-5a5e-a2b3-790031fbf889",
+      "costGenerations": 1,
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. Draw one cast aluminium ingot seen from directly above: a single horizontal rectangular bar with a flat bright silver top face showing a soft cast sheen and a few tiny pits, a slightly darker bevelled rim all round, a crisp one-pixel highlight on the upper edge, and one small stamped rectangular recess in the middle. Clearly clean new metal stock, bright and cool silver. Original coarse pixel art, three-tone shading, utilitarian spaceship workshop stock. Centre the complete silhouette on a transparent 64 x 64 canvas with 8-pixel side margins; intended native export 16 x 16. No perspective, no side walls, no scene, no ground shadow, no text, letters or logos.",
+        "width": 64,
+        "height": 64,
+        "seed": 9290312,
+        "init_image_strength": 60,
+        "no_background": true,
+        "isometric": false,
+        "view": "high top-down",
+        "outline": "selective outline",
+        "shading": "medium shading",
+        "detail": "medium detail"
+      },
+      "initImage": "references/aluminium-ingot-start.png",
+      "decision": "superseded",
+      "review": "Overhead bevelled bar, no side faces; plain but clean at 16 px. Later attempts failed projection or transparency. Superseded by Pixen job e52b5cea; archived.",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/1df5784356d8ee2f583032c42ce14032d73b5df0/assets/artwork-completion/source/aluminium-ingot-superseded-pixflux.png",
+      "archiveSHA256": "628e8f2f3c876a59992920c0f847da805dca2fb001c257fe38148cce5ac2a95b"
+    },
+    {
+      "key": "aluminium-ingot",
+      "operation": "create_image_pixflux",
+      "jobId": "fb94517a-c726-4698-8c6d-54b74cc8fc8b",
+      "assetId": "aad7f0f6-c209-5da6-9db7-4969bc6e4345",
+      "costGenerations": 1,
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. Draw one cast aluminium ingot seen from directly above: a single chunky horizontal rectangular bar, bright cool silver, with a rough mottled cast texture, speckled pale highlights along the upper edge, soft grey-blue shading toward the lower edge, slightly rounded corners, and a small shallow stamped recess in the middle. Reads clearly as clean new metal stock. Small game inventory icon style: textured, softly shaded clusters of colour, no heavy black outline. Centre the complete silhouette on a transparent 64 x 64 canvas with 8-pixel side margins; intended native export 16 x 16. No perspective, no side walls, no scene, no ground shadow, no text, letters or logos.",
+        "width": 64,
+        "height": 64,
+        "seed": 9290313,
+        "init_image_strength": 55,
+        "no_background": true,
+        "isometric": false,
+        "view": "high top-down",
+        "outline": "lineless",
+        "shading": "detailed shading",
+        "detail": "medium detail"
+      },
+      "initImage": "references/aluminium-ingot-start.png",
+      "decision": "rejected",
+      "review": "Projection failure: the darker lower half reads as a visible front face.",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/1df5784356d8ee2f583032c42ce14032d73b5df0/assets/artwork-completion/source/aluminium-ingot-rejected-angle.png",
+      "archiveSHA256": "4e4bc374076d5e8b68bf61988e555a0bc5744914532132a41454d7f72aa59dcf"
+    },
+    {
+      "key": "aluminium-ingot",
+      "operation": "create_image_pixflux",
+      "jobId": "754c728d-fab8-4141-8d95-87f82a0edbee",
+      "assetId": "4a38b817-e66c-5dd9-8ad2-47c15a943dde",
+      "costGenerations": 1,
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. Same overhead aluminium ingot, same silhouette and bevelled rim: repaint only the flat top face as bright cool silver cast metal with a fine mottled cast texture, a few speckled pale highlights near the upper-left corner, an even slightly darker bevel ring all the way round, and one small shallow stamped rectangular recess in the centre. Small game inventory icon style: softly shaded clusters of colour. Keep the complete silhouette centred on the transparent 64 x 64 canvas. No perspective, no front face, no scene, no ground shadow, no text or logos.",
+        "width": 64,
+        "height": 64,
+        "seed": 9290314,
+        "init_image_strength": 200,
+        "no_background": true,
+        "isometric": false,
+        "view": "high top-down",
+        "outline": "selective outline",
+        "shading": "medium shading",
+        "detail": "medium detail"
+      },
+      "initImage": "source/aluminium-ingot.png (job 2631149d)",
+      "decision": "rejected",
+      "review": "Background removal deleted the light-grey bar; only corner specks remained.",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/1df5784356d8ee2f583032c42ce14032d73b5df0/assets/artwork-completion/source/aluminium-ingot-rejected-cutout.png",
+      "archiveSHA256": "97f8574ca0ece1f7d8e9545f7ef77f6a37c9c5d87f57dfa785359985aab7d3e0"
+    },
+    {
+      "key": "steel-melt-remainder",
+      "operation": "create_image_pixflux",
+      "jobId": "27822d37-fd2a-491d-aec5-a7a743ee42b1",
+      "assetId": "8adf4bf8-48eb-59d6-965d-23c0ff50b729",
+      "costGenerations": 1,
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. Draw one small irregular lump of dark grey-black steel furnace slag and skull seen from directly above: a rough knobbly blob made of three or four fused rounded clumps, charcoal and dull brown-grey with a few lighter grey highlights. Clearly waste, not ore, not food, not a rock pile. Original coarse pixel art, restrained shading. Centre the complete silhouette on a transparent 64 x 64 canvas with 8-pixel margins; intended native export 16 x 16. No perspective, no scene, no ground shadow, no glow, no text or logos.",
+        "width": 64,
+        "height": 64,
+        "seed": 9290321,
+        "init_image_strength": 120,
+        "no_background": true,
+        "isometric": false,
+        "view": "high top-down",
+        "outline": "selective outline",
+        "shading": "basic shading",
+        "detail": "low detail"
+      },
+      "initImage": "references/steel-melt-remainder-start.png",
+      "decision": "rejected",
+      "review": "Overhead but a near copy of the flat two-colour start drawing.",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/1df5784356d8ee2f583032c42ce14032d73b5df0/assets/artwork-completion/source/steel-melt-remainder-rejected-flat.png",
+      "archiveSHA256": "d63fbd2a036871ba5c6925e5725b931f0cbcd6b9771f095f72efde482565e9b1"
+    },
+    {
+      "key": "steel-melt-remainder",
+      "operation": "create_image_pixflux",
+      "jobId": "5e842dea-0fde-4126-9775-02f0beba171a",
+      "assetId": "4d4cabe2-96d1-5aa5-b955-1daa3d3d4093",
+      "costGenerations": 1,
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. Draw one small irregular lump of steel furnace slag seen from directly above: a rough knobbly blob of three or four fused rounded clumps, charcoal black with dull rust-brown streaks, a glassy dark-blue sheen on one clump, pitted bubbly texture and a few lighter grey highlights on the upper edges. Clearly spent industrial waste, not ore, not food, not a rock pile. Original coarse pixel art, three-tone shading. Centre the complete silhouette on a transparent 64 x 64 canvas with 8-pixel margins; intended native export 16 x 16. No perspective, no scene, no ground shadow, no glow, no text or logos.",
+        "width": 64,
+        "height": 64,
+        "seed": 9290322,
+        "init_image_strength": 60,
+        "no_background": true,
+        "isometric": false,
+        "view": "high top-down",
+        "outline": "selective outline",
+        "shading": "medium shading",
+        "detail": "medium detail"
+      },
+      "initImage": "references/steel-melt-remainder-start.png",
+      "decision": "selected",
+      "review": "Overhead textured dark lump with a rust streak; reads as spent waste at 16 px, in the manner of the game's mottled small items."
+    },
+    {
+      "key": "t2-thaw-unit",
+      "operation": "create_image_pixflux",
+      "jobId": "288eb773-a48a-4e54-a60a-39af919f1509",
+      "assetId": "9cf42a95-dde8-5655-8fdd-c4fdfad9f373",
+      "costGenerations": 1,
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. The whole square canvas is the top of a compact spacecraft ice thaw cabinet: a cream-white steel lid with blue painted side rails and small yellow latches on the rails; on the upper left of the lid a square frosted inspection window showing pale blue-white ice; on the upper right a row of four short dark vent slots; along the bottom a low grey hinged tray hatch; a small teal water outlet stub on the right edge. Utilitarian retro spaceship equipment: crisp dark outlines, small readable colour regions, restrained shading, sparse purposeful details, a little wear. No perspective, no ground shadow, no pipes leaving the cabinet, no text, numbers, symbols or logos.",
+        "width": 128,
+        "height": 128,
+        "seed": 9290331,
+        "init_image_strength": 90,
+        "no_background": false,
+        "isometric": false,
+        "view": "high top-down",
+        "outline": "single color black outline",
+        "shading": "basic shading",
+        "detail": "medium detail"
+      },
+      "initImage": "references/t2-thaw-start.png",
+      "decision": "superseded",
+      "review": "Overhead and on-family but very flat; retained on main as the input of the selected second pass."
+    },
+    {
+      "key": "t2-thaw-unit",
+      "operation": "create_image_pixflux",
+      "jobId": "de7fe18b-0c12-43cc-a19e-57a592a0e262",
+      "assetId": "4115065c-d3bb-5f93-803a-5d97428d14da",
+      "costGenerations": 1,
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. Same overhead ice thaw cabinet with the same layout, repainted as worn working spacecraft equipment: the cream-white steel lid lit from the upper left with soft shading toward the lower right, a few scuffs and rivet dots along the edges, a slight frost sheen and a few small ice lumps visible through the square window, blue painted side rails with chipped paint and yellow latches, dark vent slots with a lighter lip, a grey tray hatch with a small handle, a teal outlet stub. Crisp dark outlines, small readable colour regions, restrained shading. No perspective, no ground shadow, no text, numbers, symbols or logos.",
+        "width": 128,
+        "height": 128,
+        "seed": 9290332,
+        "init_image_strength": 120,
+        "no_background": false,
+        "isometric": false,
+        "view": "high top-down",
+        "outline": "single color black outline",
+        "shading": "medium shading",
+        "detail": "medium detail"
+      },
+      "initImage": "references/t2-thaw-first-pass.png",
+      "decision": "selected",
+      "review": "Overhead, same family as the S3; restrained detail in the manner of the game's small equipment; reads at 32 px."
+    },
+    {
+      "key": "aluminium-ingot",
+      "operation": "create_image_pixen",
+      "jobId": "e52b5cea-58f5-414c-b231-735d431db367",
+      "assetId": "5e6fc8ef-5c29-58dc-b098-942956b0203b",
+      "costGenerations": 1,
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. One cast aluminium ingot seen from directly above: a chunky horizontal rectangular bar, bright cool silver top face with a subtle mottled cast texture, an even darker bevelled rim all the way round, a small pale highlight in the upper-left corner, and a small stamped rectangular recess in the centre. Clean new metal stock. Small spaceship game inventory icon, softly shaded, centred with generous transparent margins. No perspective, no scene, no ground shadow, no text or logos.",
+        "width": 64,
+        "height": 64,
+        "seed": 9290341,
+        "no_background": true,
+        "view": "high top-down",
+        "outline": "selective outline",
+        "detail": "medium detail"
+      },
+      "initImage": null,
+      "decision": "selected",
+      "review": "Overhead bar with lugs, bevel rim, stamped recess and dark outline; 27 colours; reads as refined metal stock at 16 px. Supersedes Pixflux job 2631149d."
+    },
+    {
+      "key": "aluminium-ingot",
+      "operation": "create_image_pixen",
+      "jobId": "aed6744b-97a1-4973-85e1-648a6abd3b41",
+      "assetId": "64d12a57-3dc6-5e40-8e4d-18d40d5ecbe4",
+      "costGenerations": 1,
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. One small aluminium ingot seen straight down from above, like a plan drawing: a rectangle top face in bright silver with speckled cast texture, surrounded on all four sides by an equal narrow sloped bevel in mid grey, a thin dark outline, one small stamped maker's recess. Reads as a bar of refined metal stock at a tiny size. Small spaceship game inventory icon, textured and softly shaded, centred with transparent margins. No perspective, no scene, no shadow, no text or logos.",
+        "width": 64,
+        "height": 64,
+        "seed": 9290342,
+        "no_background": true,
+        "view": "high top-down",
+        "outline": "single color black outline",
+        "detail": "medium detail"
+      },
+      "initImage": null,
+      "decision": "rejected",
+      "review": "True overhead frustum, but the generator added a rocket logo (forbidden) and a square box-like read.",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/1df5784356d8ee2f583032c42ce14032d73b5df0/assets/artwork-completion/source/aluminium-ingot-rejected-logo.png",
+      "archiveSHA256": "893b8b3af2180d73c1c8d9d49dcd65ea46e6bf18f786067aef1ae13444859edd"
+    },
+    {
+      "key": "aluminium-ingot",
+      "operation": "create_image_pixen",
+      "jobId": "c91c02f6-351f-495c-8f81-cb71fd30b605",
+      "assetId": "a8fb9d85-dca9-5fac-973a-7862b8525a56",
+      "costGenerations": 1,
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. One cast aluminium ingot in flat plan view: a horizontal rounded-corner rectangle of bright silver metal with cool blue-grey shading at the lower right, fine cast pitting, a crisp bevel line inset from the edge on all four sides and a short stamped bar in the middle. Utilitarian refined stock for a spaceship workshop. Small game inventory icon, centred with transparent margins. No perspective, no scene, no shadow, no text or logos.",
+        "width": 64,
+        "height": 64,
+        "seed": 9290343,
+        "no_background": true,
+        "view": "high top-down",
+        "outline": "selective outline",
+        "detail": "low detail"
+      },
+      "initImage": null,
+      "decision": "rejected",
+      "review": "Reads as a riveted floor hatch, not an ingot.",
+      "archiveURL": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/1df5784356d8ee2f583032c42ce14032d73b5df0/assets/artwork-completion/source/aluminium-ingot-rejected-hatch.png",
+      "archiveSHA256": "16e569afdcaf17a14a1d70b7d38920d0d3c2c92f5ade373788dce06d8b784879"
+    }
+  ],
+  "rejectedArchive": {
+    "branch": "codex/rejected-artwork",
+    "commit": "1df5784356d8ee2f583032c42ce14032d73b5df0"
+  }
+}

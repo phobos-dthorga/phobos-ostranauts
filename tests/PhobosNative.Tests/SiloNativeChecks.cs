@@ -71,16 +71,24 @@ internal static class SiloNativeChecks
             double Bill(int[] bill) => bill.Select((n, i) => n * Stat(DataHandler.dictCOs[EquipmentEconomy.Materials[i]], "StatMass")).Sum();
             check(Math.Abs(Bill(spec.Salvage) - mass) < 1e-9 && Math.Abs(Bill(spec.BrokenSalvage) - mass) < 1e-9, "Salvage bills conserve the housing mass: " + spec.Prefix);
         }
-        foreach (string image in new[] { SiloDefinitions.SiloArt, SiloDefinitions.ThawArt })
-        foreach (string suffix in new[] { "", "Normal", "Portrait" })
+        // Dedicated artwork (assets/artwork-completion): one overhead sprite serves every form and the portrait;
+        // CompletionArtworkChecks verifies the installed forms' bindings, sizes and hashes against the manifest.
+        foreach (var (prefix, image, size) in new[] { (SiloRules.Prefix, SiloDefinitions.SiloArt, 48), (ThawRules.Prefix, SiloDefinitions.ThawArt, 32) })
         {
-            string path = System.IO.Path.Combine(repo, "mods/PhobosShipbreaker/images/phobos/shipbreaker", image + suffix + ".png");
-            check(System.IO.File.Exists(path), "Placeholder artwork exists until the handoff is produced: " + image + suffix);
-            if (!System.IO.File.Exists(path) || suffix == "Portrait") continue;
-            var png = System.IO.File.ReadAllBytes(path);
-            int Size(int offset) => (png[offset] << 24) | (png[offset + 1] << 16) | (png[offset + 2] << 8) | png[offset + 3];
-            int expected = image == SiloDefinitions.SiloArt ? 48 : 32;
-            check(Size(16) == expected && Size(20) == expected, "Placeholder world sprite uses the native footprint size: " + image + suffix);
+            string runtime = "phobos/shipbreaker/" + image;
+            foreach (string state in new[] { "Installed", "Loose", "InstalledDmg", "LooseDmg" })
+            {
+                var co = d.Objects[prefix + state]; var item = d.Items[co.strItemDef];
+                check(item.strImg == runtime && item.strImgNorm == runtime + "Normal" && co.strPortraitImg == runtime && item.strImgDamaged == runtime,
+                    "Every form uses the dedicated overhead sprite, its normal and its portrait: " + prefix + state);
+            }
+            foreach (string suffix in new[] { "", "Normal" })
+            {
+                var png = System.IO.File.ReadAllBytes(System.IO.Path.Combine(repo, "mods/PhobosShipbreaker/images", runtime + suffix + ".png"));
+                int Size(int offset) => (png[offset] << 24) | (png[offset + 1] << 16) | (png[offset + 2] << 8) | png[offset + 3];
+                check(Size(16) == size && Size(20) == size, "World sprite uses the native footprint size: " + image + suffix);
+            }
+            check(!System.IO.File.Exists(System.IO.Path.Combine(repo, "mods/PhobosShipbreaker/images", runtime + "Portrait.png")), "The retired placeholder portrait is gone: " + image);
         }
     }
 }

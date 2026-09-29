@@ -1,30 +1,58 @@
 # Bulk silo, thaw unit and ingot artwork handoff
 
 Prepared 29 September 2026 for Shipbreaker 0.37.0 (S3 silo, T2 thaw unit) and
-the planned 0.38.0 ingots. No paid generation was run in this round (owner
-direction: create the handoff; PixelLab's MCP follows). Until the requests
-below are produced and reviewed, the runtime uses **procedural placeholder
-sprites** from `scripts/export-silo-placeholder-art.py`:
+0.38.0 (ingots), when both shipped procedural placeholders. **Produced the same
+day with PixelLab** and integrated as Shipbreaker 0.38.1: the placeholders,
+their masters and `scripts/export-silo-placeholder-art.py` are retired. Owner
+review of the art in play (scale, lighting, damage tint) is pending.
 
-| Runtime image | Native size | Placeholder master (4x) |
-| --- | --- | --- |
-| `mods/PhobosShipbreaker/images/phobos/shipbreaker/PhobosProcessSilo.png` (+ `Normal`, `Portrait`) | 48 x 48 (3 tiles) | `assets/phobos-shipbreaker/placeholders/source/PhobosProcessSilo-placeholder-4x.png` |
-| `mods/PhobosShipbreaker/images/phobos/shipbreaker/PhobosIceThaw.png` (+ `Normal`, `Portrait`) | 32 x 32 (2 tiles) | `assets/phobos-shipbreaker/placeholders/source/PhobosIceThaw-placeholder-4x.png` |
-| `mods/PhobosShipbreaker/images/phobos/shipbreaker/StockAluminiumIngot.png` (+ `Normal`) | 16 x 16 (one cell) | `assets/phobos-shipbreaker/placeholders/source/StockAluminiumIngot-placeholder-4x.png` |
-| `mods/PhobosShipbreaker/images/phobos/shipbreaker/StockSteelIngot.png` (+ `Normal`) | 16 x 16 (one cell) | `assets/phobos-shipbreaker/placeholders/source/StockSteelIngot-placeholder-4x.png` |
-| `mods/PhobosShipbreaker/images/phobos/shipbreaker/StockSteelMeltRemainder.png` (+ `Normal`) | 16 x 16 (one cell) | `assets/phobos-shipbreaker/placeholders/source/StockSteelMeltRemainder-placeholder-4x.png` |
+## Result
 
-The placeholders are flat overhead drawings (rim, lid, hatch, gauge; flat
-normal maps), deterministic and re-exportable with `--check`. They are not
-reviewed art and are **not** listed as selected in
-`assets/artwork-completion/manifest.json`. Both loose and damaged forms reuse
-the one sprite with the game's damage tint, as the R4 does. Replace them by
-producing the requests below, exporting through the same script pattern
-(master kept, nearest-neighbour native export, neutral or authored normal map,
-256 px portrait), recording provenance in the manifest, and deleting the
-placeholder masters in the same change.
+| Asset | Native / master | Operation and selected job | Notes |
+| --- | --- | --- | --- |
+| S3 process water silo (`PhobosProcessSilo`) | 48 / 96 px | Pixflux from an original Rivetline-coloured start drawing, strength 90, job `3553be2c` | Blue frame, yellow clamps, cream tank, teal band, hatch |
+| T2 ice thaw unit (`PhobosIceThaw`) | 32 / 128 px | Pixflux second pass over the first pass, strength 120, job `de7fe18b` | Same family as the S3; frosted window, vents, tray hatch |
+| Aluminium ingot (`StockAluminiumIngot`) | 16 / 64 px | Pixen, job `e52b5cea` | Overhead bar with bevel rim and stamped recess |
+| Steel ingot (`StockSteelIngot`) | 16 / 64 px | Derived: per-pixel luminance recolour of the aluminium master | Same drawing, darker steel tones; no generation |
+| Steel melt remainder (`StockSteelMeltRemainder`) | 16 / 64 px | Pixflux from an original start drawing, strength 60, job `5e842dea` | Dark lump with a rust streak, distinct from `StockMeltRemainder` |
 
-## Rules that apply
+Masters, hashes and exports are registered in
+[the artwork-completion manifest](../../assets/artwork-completion/manifest.json);
+every prompt, seed, setting, job ID, cost and review, including the rejected
+attempts, is in
+[bulk-silo-requests.json](../../assets/artwork-completion/bulk-silo-requests.json).
+The pass used 15 included generations (allowance 1,890 to 1,875), with $0
+credit and no purchases. Rejected and superseded outputs are archived on
+`codex/rejected-artwork` ([inventory](../../assets/rejected-artwork-archive.md)).
+Only original Phobos drawings were uploaded as start images; no game art was.
+
+Deviations from the requests below, and why:
+
+- **No level-gauge strip on the silo, no separate layers.** Pixflux returns one
+  flattened image; the gauge did not survive as a readable element at 48 px. The
+  water level is live text on the Control Panel and the C1, which is where the
+  player reads it anyway. A filled-state overlay would be a new request.
+- **No separate 256 px portraits.** The S3 and T2 use their world sprite as the
+  inventory portrait on every form (`strPortraitImg`), like the other
+  artwork-completion equipment; the placeholder portraits were deleted.
+- **Full-footprint masters.** Background removal made the silo's light dome and
+  frame transparent twice, so the machines were generated as opaque squares that
+  fill their whole footprint, like the game's square-deck machinery. The exporter
+  checks this with its `fullFootprint` rule instead of requiring a padded
+  silhouette.
+- **Rivetline colours instead of worn grey-blue.** A monochrome grey silo passed
+  projection but read as off-family; the selected pass uses the approved
+  Shipbreaker/Rivetline colours (blue frame, yellow clamps, cream housing).
+- **Steel ingot derived, not generated.** A deterministic recolour keeps the two
+  ingots registered and distinct by tone alone; it cost nothing and cannot drift.
+  The requested mill-scale edge was dropped as unreadable at 16 px.
+
+## Original requests
+
+The requests below are kept as issued. The placeholder table they referred to
+was removed with the placeholders.
+
+### Rules that apply
 
 - [Asset generation policy](asset-generation-policy.md): overhead-first prompt
   prefix on every world/inventory sprite, `view="high top-down"` and
@@ -40,13 +68,13 @@ placeholder masters in the same change.
   generator. Check the allowance and the operation's cost first; record
   prompt, seed or job id, cost, allowance before and after, and the review.
 
-## Prompt prefix (verbatim, first in every request)
+### Prompt prefix (verbatim, first in every request)
 
 ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking
 straight down at the object's TOP SURFACE ONLY. Rectangular edges run
 horizontally and vertically on the canvas. Show no vertical front or side faces.
 
-## Request 1: S3 process water silo (pilot)
+### Request 1: S3 process water silo (pilot)
 
 - Canvas: square, transparent, whole canvas is the 3 x 3 footprint; centred pivot.
 - Subject: the top of a sealed industrial water silo in a square deck frame:
@@ -63,7 +91,7 @@ horizontally and vertically on the canvas. Show no vertical front or side faces.
   portrait. Inspect at native size for a visible side face or a diamond
   silhouette before accepting.
 
-## Request 2: T2 ice thaw unit
+### Request 2: T2 ice thaw unit
 
 - Canvas: square, transparent, 2 x 2 footprint, centred pivot.
 - Subject: the top of a boxy enclosed thaw cabinet: a lid with a square
@@ -73,7 +101,7 @@ horizontally and vertically on the canvas. Show no vertical front or side faces.
   the S3 so the pair reads as one Rivetline line.
 - Exports: 32 x 32 colour and normal, 256 x 256 portrait.
 
-## Request 3 (Shipbreaker 0.38.0, placeholders in use): ingots and steel remainder
+### Request 3 (Shipbreaker 0.38.0): ingots and steel remainder
 
 - Phobos' Rivetline aluminium ingot: one-cell inventory sprite, 16 x 16 native,
   64 x 64 master; a single cast bar with a chamfered top face seen from above,
@@ -85,10 +113,13 @@ horizontally and vertically on the canvas. Show no vertical front or side faces.
 - These follow the existing Shipbreaker stock exports (`StockCoolantCharge`
   pattern) and join `assets/artwork-completion/manifest.json` when selected.
 
-## Review checklist
+### Review checklist (completed 29 September 2026)
 
-- Overhead only: no visible vertical faces, no isometric diamond.
-- Native-size inspection (48, 32, 16 px) before any family expansion.
+- Overhead only: no visible vertical faces, no isometric diamond. Checked on
+  every selected master and at native size.
+- Native-size inspection (48, 32, 16 px) before any family expansion. Done
+  against the approved Shipbreaker equipment and stock sprites.
 - Masters retained, hashes and prompts recorded, rejected attempts archived.
+  Done: manifest, request record and archive commit `1df5784`.
 - Placeholders removed from `assets/phobos-shipbreaker/placeholders/` and the
-  export script retired or repointed in the same change.
+  export script retired or repointed in the same change. Done.

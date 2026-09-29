@@ -25,6 +25,16 @@ Dates on Draft entries record preparation, not Steam publication.
 - Earlier capture-only research is superseded for supported ordinary walls by the 0.24.0 reclamation implementation below. Broader structural recipes, repeated furnace batches and whole-wreck completion remain outside this round.
 - Keep [NASA Goddard's Raven research](https://www.nasa.gov/general/nasas-hybrid-computer-enables-ravens-autonomous-rendezvous-capability/) and [ESA's LIRIS experiment by Airbus, Jena Optronik and Sodern](https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/ATV/ATV_views_Space_Station_as_never_before) as sensing context, separate from Blue Bottle Games native evidence and authored gameplay choices. No institutional endorsement or gameplay validation is implied.
 
+## [0.38.1] - 2026-09-29 - Draft
+
+### Artwork
+
+- Give the S3 process water silo, the T2 ice thaw unit, the aluminium and steel ingots and the steel melt remainder their own overhead artwork in Rivetline colours, replacing the placeholder drawings. The silo and thaw unit use one picture for every form and for the inventory; damaged forms keep the game's damage tint. The steel ingot is the aluminium ingot's drawing in darker steel tones.
+
+### Compatibility and limits
+
+- Artwork only: item IDs, placement, recipes, prices, saves and gameplay are unchanged, and Framework 0.39.0 is still the minimum. The silo picture has no painted level gauge; read the water level on its Control Panel or the C1. Normal maps are flat. Offline image and definition checks do not show how the art looks in play; owner review of scale and lighting is pending. Requests, job IDs and rejected attempts are kept with the [artwork records](https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/assets/artwork-completion/bulk-silo-requests.json).
+
 ## [0.38.0] - 2026-09-29 - Draft
 
 ### Added
