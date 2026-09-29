@@ -7,7 +7,7 @@
   "Config.quiet": "Minutes of game time without a hit, a hostile lock or your own weapons lock before battle stations end on their own. A Battle stations order holds until you stand down.",
   "Config.damage": "Hull damage from any cause (weapons, collisions, explosions) starts battle stations. Off: only hostile locks, your own weapons lock or your Battle stations order do.",
   "Config.lay_during": "Lay build sites while the fight is still on. Off: wait until you stand down, so crew are not sent into open breaches under fire.",
-  "Config.schematic": "Which rebuild schematic decides what gets a build site: safe, everything, hull-only, or the name of your own file in BepInEx/config/PhobosWarDeclared/schematics.",
+  "Config.schematic": "Which rebuild schematic decides what gets a build site: safe, safe-walls, everything, hull-only, or the name of your own file in BepInEx/config/PhobosWarDeclared/schematics.",
   "Order.BattleStations.title": "Battle stations",
   "Order.BattleStations.action": "[us] calls the crew to battle stations.",
   "Order.BattleStations.tooltip": "Start recording destroyed parts on this ship until you stand down, even before the first shot.",

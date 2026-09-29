@@ -104,11 +104,15 @@ last damage event time this session. It never touches weapons, targets or AI sta
   calls `TryLay`, `hold` keeps them for Lay held, `ignore` drops them to the report.
   Not fitting holds; a held inventory item retries; unexpected failures hold after
   three attempts; no install job drops with a report line.
-- **Schematics** (`Core/Schematic`): shipped `safe`, `everything` and `hull-only`
+- **Schematics** (`Core/Schematic`): shipped `safe`, `safe-walls`, `everything` and `hull-only`
   are embedded and also packaged in `mods/PhobosWarDeclared/schematics` as examples;
   player files in `BepInEx/config/PhobosWarDeclared/schematics` override by name.
   First matching rule wins; fields: `parts` (wildcards), `conditions` (starting and
-  tile conditions), `menus`, `footprint`. Unknown fields are refused.
+  tile conditions), `menus`, `footprint`. Unknown fields are refused. `safe-walls`
+  (`safe` plus walls) shows the pattern: hold passages first (`ItmHatch*`, and the
+  `IsPortal` and `IsDockSys` tile conditions that doors and docking ports carry
+  alongside `IsWall`), then lay HULL parts carrying `IsWall`, then lay walkable parts.
+  The native checks sweep every HULL part with `IsWall` against this rule set.
 - **Controls:** three orders appended in place to every installed navigation-station
   definition (`DefinitionAmendments`), offered only when they would do something;
   F3 `phoboswar` mirrors them. UI code only delegates to `WarService`.

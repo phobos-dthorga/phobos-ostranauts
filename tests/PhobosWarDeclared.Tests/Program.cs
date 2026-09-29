@@ -45,7 +45,7 @@ const double Quiet = 300;
 string repo = FindRepo();
 var shipped = Directory.GetFiles(Path.Combine(repo, "mods", "PhobosWarDeclared", "schematics"), "*.json")
     .ToDictionary(p => Schematic.KeyFromFileName(Path.GetFileName(p))!, p => Schematic.Parse(Schematic.KeyFromFileName(Path.GetFileName(p))!, File.ReadAllText(p)));
-Check(shipped.ContainsKey(WarRules.DefaultSchematic) && shipped.ContainsKey("everything") && shipped.ContainsKey("hull-only"), "the three shipped schematics parse");
+Check(shipped.ContainsKey(WarRules.DefaultSchematic) && shipped.ContainsKey("everything") && shipped.ContainsKey("hull-only") && shipped.ContainsKey("safe-walls"), "the four shipped schematics parse");
 
 PartFacts Part(string id, PartFootprint footprint, string? menu = "HULL", params string[] conditions) => new(id, conditions, menu, footprint);
 var floor = Part("ItmFloorGrate01", PartFootprint.Walkable, "HULL", "IsFloor", "IsFloorGrate");
@@ -54,6 +54,11 @@ var door = Part("ItmDoor01Closed", PartFootprint.Blocks, "HULL", "IsWall", "IsPo
 var reactor = Part("ItmFusionReactor", PartFootprint.Blocks, "POWR", "IsObstruction");
 var conduit = Part("ItmConduitPower", PartFootprint.Walkable, "POWR");
 var mystery = Part("ItmMystery", PartFootprint.Unknown, null);
+var windowWall = Part("ItmWallWindow1x1", PartFootprint.Blocks, "HULL", "IsWall", "IsObstruction");
+var blisterSeal = Part("ItmSealTemp01", PartFootprint.Blocks, "HULL", "IsWall", "IsObstruction");
+var hatch = Part("ItmHatch01Closed", PartFootprint.Blocks, "HULL", "IsWall", "IsObstruction");
+var dockingPort = Part("ItmDockSys03Closed", PartFootprint.Blocks, "HULL", "IsWall", "IsObstruction", "IsPortal", "IsDockSys");
+var cargoPod = Part("ItmCargoPod01", PartFootprint.Blocks, "FURN", "IsWall", "IsObstruction", "IsFixture", "IsSubTile");
 
 var safe = shipped["safe"];
 Check(safe.Evaluate(floor, out _) == SchematicAction.Lay && safe.Evaluate(conduit, out _) == SchematicAction.Lay, "safe lays walk-over parts");
@@ -64,6 +69,13 @@ Check(new[] { floor, wall, door, reactor, conduit, mystery }.All(p => everything
 var hull = shipped["hull-only"];
 Check(hull.Evaluate(floor, out _) == SchematicAction.Lay && hull.Evaluate(wall, out _) == SchematicAction.Hold &&
       hull.Evaluate(reactor, out _) == SchematicAction.Ignore && hull.Evaluate(conduit, out _) == SchematicAction.Ignore, "hull-only lays floors, holds hull and ignores the rest");
+
+var safeWalls = shipped["safe-walls"];
+Check(new[] { floor, conduit, wall, windowWall, blisterSeal }.All(p => safeWalls.Evaluate(p, out _) == SchematicAction.Lay), "safe-walls lays floors, conduit, walls, window walls and blister seals");
+Check(new[] { door, hatch, dockingPort, reactor, cargoPod, mystery }.All(p => safeWalls.Evaluate(p, out _) == SchematicAction.Hold), "safe-walls still holds doors, hatches, docking ports, machinery, wall-mounted pods and unknown parts");
+Check(safeWalls.Evaluate(door, out var doorRule) == SchematicAction.Hold && doorRule != null && doorRule.Conditions.Contains("IsPortal"), "a door is held by the portal rule, not by the default");
+Check(new[] { floor, conduit, reactor, door, mystery }.All(p => safe.Evaluate(p, out _) == safeWalls.Evaluate(p, out _)), "safe-walls agrees with safe on everything that is not a wall");
+Check(safe.Evaluate(wall, out _) == SchematicAction.Hold && safeWalls.Evaluate(wall, out _) == SchematicAction.Lay, "walls are the difference between safe and safe-walls");
 
 var custom = Schematic.Parse("mine", @"{ ""title"": ""Mine"", ""default"": ""lay"", ""rules"": [
     { ""action"": ""ignore"", ""parts"": [ ""ItmFusion*"" ] },

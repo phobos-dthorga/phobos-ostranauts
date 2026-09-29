@@ -42845,8 +42845,8 @@
       "references": [
         "src/PhobosWarDeclared/Plugin.cs:40"
       ],
-      "before": "Which rebuild schematic decides what gets a build site: safe, everything, hull-only, or the name of your own file in BepInEx/config/PhobosWarDeclared/schematics.",
-      "after": "Which rebuild schematic decides what gets a build site: safe, everything, hull-only, or the name of your own file in BepInEx/config/PhobosWarDeclared/schematics."
+      "before": "Which rebuild schematic decides what gets a build site: safe, safe-walls, everything, hull-only, or the name of your own file in BepInEx/config/PhobosWarDeclared/schematics.",
+      "after": "Which rebuild schematic decides what gets a build site: safe, safe-walls, everything, hull-only, or the name of your own file in BepInEx/config/PhobosWarDeclared/schematics."
     },
     {
       "mod": "PhobosWarDeclared",
@@ -47060,8 +47060,8 @@
       "path": "docs/war-declared-player-guide.md",
       "scope": "current player operating guide",
       "decision": "new",
-      "sha256": "94c6c90b7ddf94521f1852807bc5900c435b8a6999f8155a5a8af373a03ea19f",
-      "review": "2026-09-29 (War Has Been Declared, documentation pass): Illustration and flowcharts (fight, per-part decisions, battle stations, rule choice); shipped-schematic matrix, rule examples, orders table and troubleshooting table; steps and limits unchanged."
+      "sha256": "005a822de34e0c6a464c71e020ab2ca13f0468e33ca3afb0b36352fe22a89049",
+      "review": "2026-09-29 (safe-walls schematic): Documents the Safe plus walls schematic: table row, four-column part matrix, and why to choose it; steps and limits unchanged."
     },
     {
       "path": "docs/war-declared-item-reference.md",
@@ -47074,15 +47074,15 @@
       "path": "docs/development/war-declared-design.md",
       "scope": "developer design record",
       "decision": "new",
-      "sha256": "b5a7a7479219d856237b28e35bd90c0b6343dce00abcb167f9e1fd838c2132aa",
-      "review": "2026-09-29 (War Has Been Declared, documentation pass): Adds architecture, capture, rebuild-target and lay flowcharts; content unchanged."
+      "sha256": "6f45cea74c2d02ef6fd1dd0b8cbf5e1c4249148c1854e9ca123ba062403da35e",
+      "review": "2026-09-29 (safe-walls schematic): Names the fourth shipped schematic and the rule pattern it demonstrates."
     },
     {
       "path": "workshop/PhobosWarDeclared/page.bbcode",
       "scope": "current Workshop page draft (held)",
       "decision": "new",
-      "sha256": "a478bb2e860d85e82eb85d9b43dd7bce3182b623f25b585331240ef70466d41b",
-      "review": "2026-09-29 (War Has Been Declared 0.1.0): Held draft: what it does, schematics, getting started, requirements, limits."
+      "sha256": "2dad2d1caf442f96107071e571351d54a8c8f7f06cfc51f47a7c6b27984c794b",
+      "review": "2026-09-29 (safe-walls schematic): Adds the Safe plus walls bullet; still a held draft."
     }
   ],
   "surfaces": [
@@ -47188,6 +47188,12 @@
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
       "sha256": "59232a88c702c701dabd9aab65b8f014ee77a8120c4424b9ee47e280b19c8946",
       "review": "2026-09-29 (War Has Been Declared 0.1.0): Shipped example schematic title, description and rule notes."
+    },
+    {
+      "path": "mods/PhobosWarDeclared/schematics/safe-walls.json",
+      "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
+      "sha256": "3d1fd7b7191dbade977650358276f475cfed3a1f16818bb3bf18383da1e90722",
+      "review": "2026-09-29 (safe-walls schematic): Shipped schematic title and description shown by phoboswar schematics; says unbuilt walls block walking and which passages stay held."
     }
   ],
   "hardcodedReview": {

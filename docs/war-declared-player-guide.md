@@ -109,6 +109,10 @@ blocks walking exactly as the finished part would, so laying them all at once ca
 cut off a corridor or shut crew in a room they cannot leave to fetch parts. The
 default **Safe** schematic therefore lays only build sites crew can walk through
 (floors, conduit and other parts crew walk over) and holds the rest for you.
+**Safe plus walls** adds the walls, so a breached hull closes up on its own: it
+still holds doors, hatches, docking ports and bulky machines, because those are the
+ways crew get around. An unbuilt wall blocks the tile it stands on, so use it when
+you would rather have the hull sealed than every gap walkable.
 
 ## Rebuild schematics
 
@@ -118,21 +122,23 @@ you stand down, held for Lay held, or left for you to place by hand.
 | Schematic | What it does |
 | --- | --- |
 | `safe` (default) | Lays walk-through build sites; holds walls, doors and bulky machinery. |
+| `safe-walls` | Everything `safe` lays, plus walls, window walls and temporary blister seals. Doors, hatches, docking ports and bulky machinery stay held. |
 | `everything` | Lays every build site at once. Corridors may be blocked until the crew finish. |
 | `hull-only` | An example: lays floors, holds the rest of the HULL tab, leaves everything else to you. |
 
 What each shipped schematic does with a destroyed part:
 
-| Destroyed part | `safe` | `everything` | `hull-only` |
-| --- | --- | --- | --- |
-| Floor plate | Laid | Laid | Laid |
-| Conduit or another part crew can walk over | Laid | Laid | Left to you |
-| Wall | Held | Laid | Held |
-| Door | Held | Laid | Held |
-| Machine or furniture that blocks walking | Held | Laid | Left to you |
-| A part the mod cannot classify | Held | Laid | Left to you |
+| Destroyed part | `safe` | `safe-walls` | `everything` | `hull-only` |
+| --- | --- | --- | --- | --- |
+| Floor plate | Laid | Laid | Laid | Laid |
+| Conduit or another part crew can walk over | Laid | Laid | Laid | Left to you |
+| Wall, window wall or blister seal | Held | Laid | Laid | Held |
+| Door | Held | Held | Laid | Held |
+| Access hatch or docking port | Held | Held | Laid | Held |
+| Machine or furniture that blocks walking | Held | Held | Laid | Left to you |
+| A part the mod cannot classify | Held | Held | Laid | Left to you |
 
-Choose one in the F3 console with `phoboswar schematic everything`, or set
+Choose one in the F3 console with `phoboswar schematic safe-walls`, or set
 `Schematic` under `[Rebuild]` in `BepInEx/config/phobosgekko.ostranauts.wardeclared.cfg`.
 Switching schematic also changes what happens to parts still waiting to be laid.
 **Lay held build sites** always lays every held part, whatever the schematic says.

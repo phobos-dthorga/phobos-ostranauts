@@ -328,7 +328,7 @@ foreach ($mod in $Mods) {
         'Framework' { 'data/conditions/phobos_framework.json' }
         'WarDeclared' {
             # The shipped schematics are embedded in the plugin; the folder copies are the players' examples.
-            'data/conditions/phobos_war_declared.json'; 'schematics/safe.json'; 'schematics/everything.json'; 'schematics/hull-only.json'
+            'data/conditions/phobos_war_declared.json'; 'schematics/safe.json'; 'schematics/everything.json'; 'schematics/hull-only.json'; 'schematics/safe-walls.json'
         }
         'Manufacturing' {
             # The 0.0.1 scaffold shipped no content; from 0.1.0 the package carries its marker, explosions, names and sprites.

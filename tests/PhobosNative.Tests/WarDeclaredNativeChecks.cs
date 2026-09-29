@@ -67,6 +67,27 @@ internal static class WarDeclaredNativeChecks
         check(safe.Evaluate(WarService.Facts("ItmDoor01Open"), out _) == SchematicAction.Hold, "Safe holds a real door");
         check(WarService.Facts("ItmWall1x1").Conditions.Contains("IsWall") && WarService.Facts("ItmWall1x1").Menu == "HULL", "Schematic facts carry tile conditions and the INSTALL tab");
 
+        // safe-walls: walls join what safe lays; doors, hatches and docking ports stay held. The sweep covers every
+        // HULL part carrying the wall tile condition, so a future game-data change to a passage is noticed here.
+        var safeWalls = Schematic.Parse("safe-walls", File.ReadAllText(Path.Combine(FindRepo(), "mods", "PhobosWarDeclared", "schematics", "safe-walls.json")));
+        var laid = new System.Collections.Generic.List<string>();
+        foreach (var part in Installables.dictJobBuildOptions.Values.SelectMany(menu => menu.Keys).Distinct().OrderBy(k => k, StringComparer.Ordinal))
+        {
+            var facts = WarService.Facts(part);
+            if (facts.Menu != "HULL" || !facts.Conditions.Contains("IsWall")) continue;
+            bool passage = facts.Conditions.Contains("IsPortal") || facts.Conditions.Contains("IsDockSys") || part.StartsWith("ItmHatch", StringComparison.Ordinal);
+            var action = safeWalls.Evaluate(facts, out _);
+            check(action == (passage ? SchematicAction.Hold : SchematicAction.Lay), $"safe-walls {(passage ? "holds the passage" : "lays the wall")}: {part}");
+            if (action == SchematicAction.Lay) laid.Add(part);
+        }
+        check(new[] { "ItmWall1x1", "ItmWallWindow1x1", "ItmSealTemp01" }.All(laid.Contains), "safe-walls lays the ordinary wall, window wall and blister seal");
+        check(laid.Count >= 8, $"safe-walls lays every plain hull wall variant ({laid.Count})");
+        foreach (var held in new[] { "ItmDoor01Open", "ItmHatch01Closed", "ItmDockSys03Closed", "ItmCargoPod01", "ItmTowingBrace01" })
+            check(safeWalls.Evaluate(WarService.Facts(held), out _) == SchematicAction.Hold, "safe-walls holds " + held);
+        foreach (var free in new[] { "ItmFloorGrate01", "ItmConduit01" })
+            check(safeWalls.Evaluate(WarService.Facts(free), out _) == safe.Evaluate(WarService.Facts(free), out _) &&
+                  safeWalls.Evaluate(WarService.Facts(free), out _) == SchematicAction.Lay, "safe-walls agrees with safe on " + free);
+
         // Orders on the game's own navigation stations, amended in place and only once.
         var prepared = Content.Prepare();
         check(prepared.Interactions.Count == 3 && Content.Orders.All(prepared.Interactions.ContainsKey), "Three battle orders are prepared");

@@ -401,7 +401,7 @@
   parts, never free materials; a limited default because placeholders block
   pathfinding, and an all-inclusive option for players who accept that risk.
 - Owner follow-up the same day: what is replaced is decided by player-editable
-  **schematic files** (shipped `safe`, `everything`, `hull-only`; player files in
+  **schematic files** (shipped `safe`, `safe-walls`, `everything`, `hull-only`; player files in
   `BepInEx/config/PhobosWarDeclared/schematics` override by name). Keep the format
   strict (unknown fields refused), first-match rules and the documented fields;
   extend it with tests and the player guide together.
