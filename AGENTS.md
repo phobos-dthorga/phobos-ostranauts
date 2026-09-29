@@ -701,6 +701,9 @@
   vertical side/front faces and diamond projection. These weak provider settings
   reduce ambiguity but do not guarantee correct output. UI faceplates are exempt
   from the world-camera rule. Preserve prompts, rejected attempts and review evidence.
+  Owner ruling (2026-09-29): world sprites carry no painted live-state instruments
+  such as level gauges, which are contrary to the vanilla art style; readings stay
+  live text on panels and consoles.
 
 - Owner follow-up: apply the quiet cue where appropriate across the suite.
   Framework 0.21.0 owns one native-effects player, shared volume/mute and a

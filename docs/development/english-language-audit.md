@@ -311,3 +311,13 @@ record with its deviations explained, the Workshop page loses its placeholder
 note and gains a 0.38.1 bullet, and version lines move to 0.38.1. Coverage is
 now 2,041 entries, 158 documents and 14 other surfaces.
 Unity wording is unverified.
+
+## Silo gauge ruling, 29 September 2026
+
+The owner ruled that the S3 silo needs no painted level gauge, which is
+contrary to the vanilla art style. The artwork handoff records the ruling and
+withdraws the filled-state overlay, the asset generation policy gains a rule
+against painted live-state instruments on world sprites, and the Shipbreaker
+0.38.1 changelog moves its water-level pointer out of the limits. No translation
+entries change. Coverage is now 2,041 entries, 158 documents and
+14 other surfaces. Unity wording is unverified.

@@ -134,7 +134,8 @@
       },
       "initImage": "references/s3-silo-start.png",
       "decision": "selected",
-      "review": "Overhead with no side faces; Rivetline family colours (blue frame, yellow clamps, cream tank, teal band); reads at 48 px. The right-frame level gauge did not survive."
+      "review": "Overhead with no side faces; Rivetline family colours (blue frame, yellow clamps, cream tank, teal band); reads at 48 px. The right-frame level gauge did not survive.",
+      "ownerReview": "2026-09-29: the silo needs no level gauge; a painted gauge is contrary to the vanilla art style. The level stays live text on the Control Panel and the C1."
     },
     {
       "key": "aluminium-ingot",

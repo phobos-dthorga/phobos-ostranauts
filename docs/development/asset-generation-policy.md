@@ -116,6 +116,11 @@ interfaces and are outside this world-camera rule.
   Avoid product-photography wording that invites a standing container or a
   three-quarter view. Express height/capacity in game definitions and live text,
   not through visible side walls. Do not use an isometric image as a style input.
+- Paint no instruments that report live state, such as a level gauge or fill
+  strip, into a world sprite. The owner ruled on 29 September 2026 that they
+  are contrary to the vanilla art style; readings stay live text on the
+  equipment's panel and consoles. Physical state variants, such as crop growth
+  stages, are unaffected.
 - For a related state, prefer editing an already verified **overhead Phobos
   reference**, preserving canvas, footprint, pivot and attachments, instead of
   asking the generator to rediscover the camera. Only original project imagery

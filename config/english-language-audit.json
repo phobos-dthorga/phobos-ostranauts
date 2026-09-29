@@ -39288,8 +39288,8 @@
       "path": "docs/development/asset-generation-policy.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "313fe1ad97c2e50a19f00d4740dc678bf1a44f72d2a96162e18183e22de1c187",
-      "review": "2026-09-27 Polaris review: checked revised controls, versions, generated reference evidence and limitations; preserved scientific attribution and historical records."
+      "sha256": "1df91b7af021b064838458dea2f7698b6637ede94d794840689bca6137d9d831",
+      "review": "2026-09-29: rule added: no painted live-state instruments on world sprites; physical state variants unaffected."
     },
     {
       "path": "docs/development/asteroid-life-support-research.md",
@@ -39362,8 +39362,8 @@
       "path": "docs/development/bulk-silo-art-handoff.md",
       "scope": "contributor artwork handoff; placeholders are not reviewed art",
       "decision": "add",
-      "sha256": "7e826ae6b3f998f150daf139e6788512ee525c7367095cbb880841de9a934432",
-      "review": "2026-09-29: produced record: result table, deviations with reasons, original requests kept, checklist completed."
+      "sha256": "4fb312565bc682035e7826a2d55aac6480b13620d9047eda9c20f0fd9403aead",
+      "review": "2026-09-29: owner ruling: no silo level gauge, contrary to the vanilla art style; overlay withdrawn."
     },
     {
       "path": "docs/development/chemical-storage-and-process-fluids.md",

@@ -28,10 +28,12 @@ Only original Phobos drawings were uploaded as start images; no game art was.
 
 Deviations from the requests below, and why:
 
-- **No level-gauge strip on the silo, no separate layers.** Pixflux returns one
-  flattened image; the gauge did not survive as a readable element at 48 px. The
-  water level is live text on the Control Panel and the C1, which is where the
-  player reads it anyway. A filled-state overlay would be a new request.
+- **No level-gauge strip on the silo, no separate layers.** The request asked
+  for a gauge strip on its own layer so a filled state could be composed later.
+  The owner ruled on 29 September 2026 that the silo needs no gauge: a painted
+  level indicator is contrary to the vanilla art style. The water level stays
+  live text on the Control Panel and the C1, and no filled-state overlay is
+  planned. Pixflux returns one flattened image, so there were no layers to keep.
 - **No separate 256 px portraits.** The S3 and T2 use their world sprite as the
   inventory portrait on every form (`strPortraitImg`), like the other
   artwork-completion equipment; the placeholder portraits were deleted.
@@ -50,7 +52,8 @@ Deviations from the requests below, and why:
 ## Original requests
 
 The requests below are kept as issued. The placeholder table they referred to
-was removed with the placeholders.
+was removed with the placeholders, and the silo's gauge strip and its layer were
+withdrawn by the owner (see the deviations above).
 
 ### Rules that apply
 
