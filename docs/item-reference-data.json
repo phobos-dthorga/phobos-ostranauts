@@ -8234,7 +8234,7 @@
     {
       "id": "PhobosManufacturing",
       "name": "Phobos Manufacturing",
-      "version": "0.1.1",
+      "version": "0.2.0",
       "gameTarget": "1.0.1.5",
       "items": [
         {
@@ -9440,6 +9440,532 @@
           "aliases": []
         },
         {
+          "id": "PhobosMethaneStoreInstalled",
+          "name": "Phobos' Fennmark M2 Methane Store",
+          "stackLimit": 1,
+          "actions": [
+            "PhobosManufacturingControls",
+            "PhobosManufacturingMaintenanceInformation"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
+          "handlingFlags": [
+            "IsInstalled"
+          ],
+          "slots": [],
+          "massKg": 160.0,
+          "baseValue": 21000.0,
+          "installed": true,
+          "operatingModes": [],
+          "installTab": "APPS",
+          "jobs": [
+            {
+              "id": "PhobosMethaneStoreInstalledDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosMethaneStoreInstalledDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 900.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 110,
+                  "baseValue": 395.9999895095825
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 30,
+                  "baseValue": 33.00000071525574
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 12,
+                  "baseValue": 60.0
+                },
+                {
+                  "id": "ItmPartsElecSmall01",
+                  "name": "Small Electronic Parts",
+                  "count": 3,
+                  "baseValue": 43.5
+                },
+                {
+                  "id": "ItmComponentMobo01",
+                  "name": "Component: Motherboard",
+                  "count": 1,
+                  "baseValue": 17.5
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 12,
+                  "baseValue": 0.6000000089406967
+                }
+              ]
+            },
+            {
+              "id": "PhobosMethaneStoreInstalledRestore",
+              "kind": "restore",
+              "action": "ACTPhobosMethaneStoreInstalledRestore",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsUndamageableNotContained",
+              "targetPassOnFreshDefinition": false,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 20.0,
+              "outputs": []
+            },
+            {
+              "id": "PhobosMethaneStoreInstalledUninstall",
+              "kind": "uninstall",
+              "action": "ACTPhobosMethaneStoreInstalledUninstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosMethaneStoreInstalledTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 1000.0,
+              "outputs": [
+                {
+                  "id": "PhobosMethaneStoreLoose",
+                  "name": "Phobos' Fennmark M2 Methane Store",
+                  "count": 1,
+                  "baseValue": 21000.0
+                }
+              ]
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosMethaneStoreInstalledDmg",
+          "name": "Phobos' Fennmark M2 Methane Store (Damaged)",
+          "stackLimit": 1,
+          "actions": [
+            "PhobosManufacturingControls",
+            "PhobosManufacturingMaintenanceInformation"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
+          "handlingFlags": [
+            "IsDamaged",
+            "IsInstalled"
+          ],
+          "slots": [],
+          "massKg": 160.0,
+          "baseValue": 5250.0,
+          "installed": true,
+          "operatingModes": [],
+          "installTab": "APPS",
+          "jobs": [
+            {
+              "id": "PhobosMethaneStoreInstalledDmgDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosMethaneStoreInstalledDmgDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 900.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 40,
+                  "baseValue": 143.99999618530273
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 10,
+                  "baseValue": 11.000000238418579
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 4,
+                  "baseValue": 20.0
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 108,
+                  "baseValue": 5.4000000804662704
+                }
+              ]
+            },
+            {
+              "id": "PhobosMethaneStoreInstalledDmgRepair",
+              "kind": "repair",
+              "action": "ACTPhobosMethaneStoreInstalledDmgRepair",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosMethaneStoreInstalledDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "TIsScrapSteel=1x6",
+                "TIsScrapAluminum=1x2",
+                "TIsPartsMechSmall=1x6",
+                "TIsPartsElecSmall=1x2",
+                "TIsMobo=1x1"
+              ],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 3000.0,
+              "outputs": [
+                {
+                  "id": "PhobosMethaneStoreInstalled",
+                  "name": "Phobos' Fennmark M2 Methane Store",
+                  "count": 1,
+                  "baseValue": 21000.0
+                }
+              ]
+            },
+            {
+              "id": "PhobosMethaneStoreInstalledDmgUninstall",
+              "kind": "uninstall",
+              "action": "ACTPhobosMethaneStoreInstalledDmgUninstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosMethaneStoreInstalledDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 1000.0,
+              "outputs": [
+                {
+                  "id": "PhobosMethaneStoreLooseDmg",
+                  "name": "Phobos' Fennmark M2 Methane Store (Damaged)",
+                  "count": 1,
+                  "baseValue": 5250.0
+                }
+              ]
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosMethaneStoreLoose",
+          "name": "Phobos' Fennmark M2 Methane Store",
+          "stackLimit": 1,
+          "actions": [
+            "PhobosManufacturingMaintenanceInformation",
+            "DropItem",
+            "PickupItem"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
+          "handlingFlags": [
+            "IsCumbersome"
+          ],
+          "slots": [
+            "drag"
+          ],
+          "massKg": 160.0,
+          "baseValue": 21000.0,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [
+            {
+              "id": "PhobosMethaneStoreLooseDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosMethaneStoreLooseDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 900.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 110,
+                  "baseValue": 395.9999895095825
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 30,
+                  "baseValue": 33.00000071525574
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 12,
+                  "baseValue": 60.0
+                },
+                {
+                  "id": "ItmPartsElecSmall01",
+                  "name": "Small Electronic Parts",
+                  "count": 3,
+                  "baseValue": 43.5
+                },
+                {
+                  "id": "ItmComponentMobo01",
+                  "name": "Component: Motherboard",
+                  "count": 1,
+                  "baseValue": 17.5
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 12,
+                  "baseValue": 0.6000000089406967
+                }
+              ]
+            },
+            {
+              "id": "PhobosMethaneStoreLooseInstall",
+              "kind": "install",
+              "action": "ACTPhobosMethaneStoreLooseInstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosMethaneStoreLooseTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "PhobosMethaneStoreLooseTest=1x1"
+              ],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 1200.0,
+              "outputs": [
+                {
+                  "id": "PhobosMethaneStoreInstalled",
+                  "name": "Phobos' Fennmark M2 Methane Store",
+                  "count": 1,
+                  "baseValue": 21000.0
+                }
+              ]
+            },
+            {
+              "id": "PhobosMethaneStoreLooseRestore",
+              "kind": "restore",
+              "action": "ACTPhobosMethaneStoreLooseRestore",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsUndamageableNotContained",
+              "targetPassOnFreshDefinition": false,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 20.0,
+              "outputs": []
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosMethaneStoreLooseDmg",
+          "name": "Phobos' Fennmark M2 Methane Store (Damaged)",
+          "stackLimit": 1,
+          "actions": [
+            "PhobosManufacturingMaintenanceInformation",
+            "DropItem",
+            "PickupItem"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
+          "handlingFlags": [
+            "IsCumbersome",
+            "IsDamaged"
+          ],
+          "slots": [
+            "drag"
+          ],
+          "massKg": 160.0,
+          "baseValue": 5250.0,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [
+            {
+              "id": "PhobosMethaneStoreLooseDmgDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosMethaneStoreLooseDmgDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 900.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 40,
+                  "baseValue": 143.99999618530273
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 10,
+                  "baseValue": 11.000000238418579
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 4,
+                  "baseValue": 20.0
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 108,
+                  "baseValue": 5.4000000804662704
+                }
+              ]
+            },
+            {
+              "id": "PhobosMethaneStoreLooseDmgInstall",
+              "kind": "install",
+              "action": "ACTPhobosMethaneStoreLooseDmgInstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosMethaneStoreLooseDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "PhobosMethaneStoreLooseDmgTest=1x1"
+              ],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 1200.0,
+              "outputs": [
+                {
+                  "id": "PhobosMethaneStoreInstalledDmg",
+                  "name": "Phobos' Fennmark M2 Methane Store (Damaged)",
+                  "count": 1,
+                  "baseValue": 5250.0
+                }
+              ]
+            },
+            {
+              "id": "PhobosMethaneStoreLooseDmgRepair",
+              "kind": "repair",
+              "action": "ACTPhobosMethaneStoreLooseDmgRepair",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosMethaneStoreLooseDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "TIsScrapSteel=1x6",
+                "TIsScrapAluminum=1x2",
+                "TIsPartsMechSmall=1x6",
+                "TIsPartsElecSmall=1x2",
+                "TIsMobo=1x1"
+              ],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 3000.0,
+              "outputs": [
+                {
+                  "id": "PhobosMethaneStoreLoose",
+                  "name": "Phobos' Fennmark M2 Methane Store",
+                  "count": 1,
+                  "baseValue": 21000.0
+                }
+              ]
+            }
+          ],
+          "aliases": []
+        },
+        {
           "id": "PhobosNickelIronIngot",
           "name": "Phobos' Fennmark Nickel-Iron Ingot",
           "stackLimit": 10,
@@ -9503,6 +10029,584 @@
           "operatingModes": [],
           "installTab": null,
           "jobs": [],
+          "aliases": []
+        },
+        {
+          "id": "PhobosSabatierReactorInstalled",
+          "name": "Phobos' Fennmark K2 Sabatier Reactor",
+          "stackLimit": 1,
+          "actions": [
+            "PhobosManufacturingControls",
+            "PhobosManufacturingMaintenanceInformation"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
+          "handlingFlags": [
+            "IsInstalled"
+          ],
+          "slots": [],
+          "massKg": 150.0,
+          "baseValue": 44000.0,
+          "installed": true,
+          "operatingModes": [],
+          "installTab": "APPS",
+          "jobs": [
+            {
+              "id": "PhobosSabatierReactorInstalledDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosSabatierReactorInstalledDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 900.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 80,
+                  "baseValue": 287.99999237060547
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 30,
+                  "baseValue": 33.00000071525574
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 16,
+                  "baseValue": 80.0
+                },
+                {
+                  "id": "ItmPartsElecSmall01",
+                  "name": "Small Electronic Parts",
+                  "count": 11,
+                  "baseValue": 159.5
+                },
+                {
+                  "id": "ItmComponentMotor01",
+                  "name": "Component: Motor",
+                  "count": 1,
+                  "baseValue": 37.5
+                },
+                {
+                  "id": "ItmComponentMobo01",
+                  "name": "Component: Motherboard",
+                  "count": 2,
+                  "baseValue": 35.0
+                },
+                {
+                  "id": "ItmHeatSink01",
+                  "name": "Component: Heat Sink",
+                  "count": 2,
+                  "baseValue": 55.0
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 20,
+                  "baseValue": 1.0000000149011612
+                }
+              ]
+            },
+            {
+              "id": "PhobosSabatierReactorInstalledRestore",
+              "kind": "restore",
+              "action": "ACTPhobosSabatierReactorInstalledRestore",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsUndamageableNotContained",
+              "targetPassOnFreshDefinition": false,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 20.0,
+              "outputs": []
+            },
+            {
+              "id": "PhobosSabatierReactorInstalledUninstall",
+              "kind": "uninstall",
+              "action": "ACTPhobosSabatierReactorInstalledUninstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosSabatierReactorInstalledTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 1000.0,
+              "outputs": [
+                {
+                  "id": "PhobosSabatierReactorLoose",
+                  "name": "Phobos' Fennmark K2 Sabatier Reactor",
+                  "count": 1,
+                  "baseValue": 44000.0
+                }
+              ]
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosSabatierReactorInstalledDmg",
+          "name": "Phobos' Fennmark K2 Sabatier Reactor (Damaged)",
+          "stackLimit": 1,
+          "actions": [
+            "PhobosManufacturingControls",
+            "PhobosManufacturingMaintenanceInformation"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
+          "handlingFlags": [
+            "IsDamaged",
+            "IsInstalled"
+          ],
+          "slots": [],
+          "massKg": 150.0,
+          "baseValue": 11000.0,
+          "installed": true,
+          "operatingModes": [],
+          "installTab": "APPS",
+          "jobs": [
+            {
+              "id": "PhobosSabatierReactorInstalledDmgDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosSabatierReactorInstalledDmgDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 900.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 36,
+                  "baseValue": 129.59999656677246
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 12,
+                  "baseValue": 13.200000286102295
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 4,
+                  "baseValue": 20.0
+                },
+                {
+                  "id": "ItmComponentMobo01",
+                  "name": "Component: Motherboard",
+                  "count": 1,
+                  "baseValue": 17.5
+                },
+                {
+                  "id": "ItmHeatSink01",
+                  "name": "Component: Heat Sink",
+                  "count": 1,
+                  "baseValue": 27.5
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 98,
+                  "baseValue": 4.90000007301569
+                }
+              ]
+            },
+            {
+              "id": "PhobosSabatierReactorInstalledDmgRepair",
+              "kind": "repair",
+              "action": "ACTPhobosSabatierReactorInstalledDmgRepair",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosSabatierReactorInstalledDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "TIsScrapSteel=1x3",
+                "TIsScrapAluminum=1x2",
+                "TIsPartsMechSmall=1x4",
+                "TIsPartsElecSmall=1x6",
+                "TIsMotor=1x1",
+                "TIsMobo=1x2",
+                "TIsHeatSink=1x2"
+              ],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 3600.0,
+              "outputs": [
+                {
+                  "id": "PhobosSabatierReactorInstalled",
+                  "name": "Phobos' Fennmark K2 Sabatier Reactor",
+                  "count": 1,
+                  "baseValue": 44000.0
+                }
+              ]
+            },
+            {
+              "id": "PhobosSabatierReactorInstalledDmgUninstall",
+              "kind": "uninstall",
+              "action": "ACTPhobosSabatierReactorInstalledDmgUninstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosSabatierReactorInstalledDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 1000.0,
+              "outputs": [
+                {
+                  "id": "PhobosSabatierReactorLooseDmg",
+                  "name": "Phobos' Fennmark K2 Sabatier Reactor (Damaged)",
+                  "count": 1,
+                  "baseValue": 11000.0
+                }
+              ]
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosSabatierReactorLoose",
+          "name": "Phobos' Fennmark K2 Sabatier Reactor",
+          "stackLimit": 1,
+          "actions": [
+            "PhobosManufacturingMaintenanceInformation",
+            "DropItem",
+            "PickupItem"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
+          "handlingFlags": [
+            "IsCumbersome"
+          ],
+          "slots": [
+            "drag"
+          ],
+          "massKg": 150.0,
+          "baseValue": 44000.0,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [
+            {
+              "id": "PhobosSabatierReactorLooseDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosSabatierReactorLooseDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 900.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 80,
+                  "baseValue": 287.99999237060547
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 30,
+                  "baseValue": 33.00000071525574
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 16,
+                  "baseValue": 80.0
+                },
+                {
+                  "id": "ItmPartsElecSmall01",
+                  "name": "Small Electronic Parts",
+                  "count": 11,
+                  "baseValue": 159.5
+                },
+                {
+                  "id": "ItmComponentMotor01",
+                  "name": "Component: Motor",
+                  "count": 1,
+                  "baseValue": 37.5
+                },
+                {
+                  "id": "ItmComponentMobo01",
+                  "name": "Component: Motherboard",
+                  "count": 2,
+                  "baseValue": 35.0
+                },
+                {
+                  "id": "ItmHeatSink01",
+                  "name": "Component: Heat Sink",
+                  "count": 2,
+                  "baseValue": 55.0
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 20,
+                  "baseValue": 1.0000000149011612
+                }
+              ]
+            },
+            {
+              "id": "PhobosSabatierReactorLooseInstall",
+              "kind": "install",
+              "action": "ACTPhobosSabatierReactorLooseInstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosSabatierReactorLooseTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "PhobosSabatierReactorLooseTest=1x1"
+              ],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 1200.0,
+              "outputs": [
+                {
+                  "id": "PhobosSabatierReactorInstalled",
+                  "name": "Phobos' Fennmark K2 Sabatier Reactor",
+                  "count": 1,
+                  "baseValue": 44000.0
+                }
+              ]
+            },
+            {
+              "id": "PhobosSabatierReactorLooseRestore",
+              "kind": "restore",
+              "action": "ACTPhobosSabatierReactorLooseRestore",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsUndamageableNotContained",
+              "targetPassOnFreshDefinition": false,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 20.0,
+              "outputs": []
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosSabatierReactorLooseDmg",
+          "name": "Phobos' Fennmark K2 Sabatier Reactor (Damaged)",
+          "stackLimit": 1,
+          "actions": [
+            "PhobosManufacturingMaintenanceInformation",
+            "DropItem",
+            "PickupItem"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
+          "handlingFlags": [
+            "IsCumbersome",
+            "IsDamaged"
+          ],
+          "slots": [
+            "drag"
+          ],
+          "massKg": 150.0,
+          "baseValue": 11000.0,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [
+            {
+              "id": "PhobosSabatierReactorLooseDmgDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosSabatierReactorLooseDmgDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 900.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 36,
+                  "baseValue": 129.59999656677246
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 12,
+                  "baseValue": 13.200000286102295
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 4,
+                  "baseValue": 20.0
+                },
+                {
+                  "id": "ItmComponentMobo01",
+                  "name": "Component: Motherboard",
+                  "count": 1,
+                  "baseValue": 17.5
+                },
+                {
+                  "id": "ItmHeatSink01",
+                  "name": "Component: Heat Sink",
+                  "count": 1,
+                  "baseValue": 27.5
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 98,
+                  "baseValue": 4.90000007301569
+                }
+              ]
+            },
+            {
+              "id": "PhobosSabatierReactorLooseDmgInstall",
+              "kind": "install",
+              "action": "ACTPhobosSabatierReactorLooseDmgInstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosSabatierReactorLooseDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "PhobosSabatierReactorLooseDmgTest=1x1"
+              ],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 1200.0,
+              "outputs": [
+                {
+                  "id": "PhobosSabatierReactorInstalledDmg",
+                  "name": "Phobos' Fennmark K2 Sabatier Reactor (Damaged)",
+                  "count": 1,
+                  "baseValue": 11000.0
+                }
+              ]
+            },
+            {
+              "id": "PhobosSabatierReactorLooseDmgRepair",
+              "kind": "repair",
+              "action": "ACTPhobosSabatierReactorLooseDmgRepair",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosSabatierReactorLooseDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "TIsScrapSteel=1x3",
+                "TIsScrapAluminum=1x2",
+                "TIsPartsMechSmall=1x4",
+                "TIsPartsElecSmall=1x6",
+                "TIsMotor=1x1",
+                "TIsMobo=1x2",
+                "TIsHeatSink=1x2"
+              ],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 3600.0,
+              "outputs": [
+                {
+                  "id": "PhobosSabatierReactorLoose",
+                  "name": "Phobos' Fennmark K2 Sabatier Reactor",
+                  "count": 1,
+                  "baseValue": 44000.0
+                }
+              ]
+            }
+          ],
           "aliases": []
         },
         {
@@ -10152,7 +11256,7 @@
         },
         {
           "id": "SysPhobosDeflagrationLarge",
-          "name": "Hydrogen deflagration",
+          "name": "Gas deflagration",
           "stackLimit": 1,
           "actions": [],
           "missingDirectActions": [],
@@ -10179,7 +11283,7 @@
         },
         {
           "id": "SysPhobosDeflagrationMedium",
-          "name": "Hydrogen deflagration",
+          "name": "Gas deflagration",
           "stackLimit": 1,
           "actions": [],
           "missingDirectActions": [],
@@ -10206,7 +11310,7 @@
         },
         {
           "id": "SysPhobosDeflagrationSmall",
-          "name": "Hydrogen deflagration",
+          "name": "Gas deflagration",
           "stackLimit": 1,
           "actions": [],
           "missingDirectActions": [],
@@ -10255,45 +11359,87 @@
           "count": 8
         },
         {
+          "table": "ItmFlotillaScrapKioskInv",
+          "item": "PhobosSabatierReactorLoose",
+          "condition": "Refurbished",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmFlotillaScrapKioskInv",
+          "item": "PhobosMethaneStoreLoose",
+          "condition": "Refurbished",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosChemicalProcessorLoose",
           "condition": "Loot",
-          "chance": 0.004166666666666667,
+          "chance": 0.0025,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosChemicalProcessorLooseDmg",
           "condition": "Loot",
-          "chance": 0.012500000000000002,
+          "chance": 0.0075000000000000015,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosHydrogenStoreLoose",
           "condition": "Loot",
-          "chance": 0.004166666666666667,
+          "chance": 0.0025,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosHydrogenStoreLooseDmg",
           "condition": "Loot",
-          "chance": 0.012500000000000002,
+          "chance": 0.0075000000000000015,
+          "count": 1
+        },
+        {
+          "table": "ItmLootSpawnEngineering",
+          "item": "PhobosMethaneStoreLoose",
+          "condition": "Loot",
+          "chance": 0.0025,
+          "count": 1
+        },
+        {
+          "table": "ItmLootSpawnEngineering",
+          "item": "PhobosMethaneStoreLooseDmg",
+          "condition": "Loot",
+          "chance": 0.0075000000000000015,
+          "count": 1
+        },
+        {
+          "table": "ItmLootSpawnEngineering",
+          "item": "PhobosSabatierReactorLoose",
+          "condition": "Loot",
+          "chance": 0.0025,
+          "count": 1
+        },
+        {
+          "table": "ItmLootSpawnEngineering",
+          "item": "PhobosSabatierReactorLooseDmg",
+          "condition": "Loot",
+          "chance": 0.0075000000000000015,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosVolatilesRefineryLoose",
           "condition": "Loot",
-          "chance": 0.004166666666666667,
+          "chance": 0.0025,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosVolatilesRefineryLooseDmg",
           "condition": "Loot",
-          "chance": 0.012500000000000002,
+          "chance": 0.0075000000000000015,
           "count": 1
         },
         {
@@ -10313,6 +11459,20 @@
         {
           "table": "ItmOKLGFixer",
           "item": "PhobosHydrogenStoreLoose",
+          "condition": "Worn",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmOKLGFixer",
+          "item": "PhobosSabatierReactorLoose",
+          "condition": "Worn",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmOKLGFixer",
+          "item": "PhobosMethaneStoreLoose",
           "condition": "Worn",
           "chance": 0.85,
           "count": 8
@@ -10334,6 +11494,20 @@
         {
           "table": "ItmOKLGSupplyKioskInv",
           "item": "PhobosHydrogenStoreLooseDmg",
+          "condition": "Broken",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmOKLGSupplyKioskInv",
+          "item": "PhobosSabatierReactorLooseDmg",
+          "condition": "Broken",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmOKLGSupplyKioskInv",
+          "item": "PhobosMethaneStoreLooseDmg",
           "condition": "Broken",
           "chance": 0.85,
           "count": 8
@@ -10355,6 +11529,20 @@
         {
           "table": "ItmOKLGSupplyKioskInv",
           "item": "PhobosHydrogenStoreLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmOKLGSupplyKioskInv",
+          "item": "PhobosSabatierReactorLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmOKLGSupplyKioskInv",
+          "item": "PhobosMethaneStoreLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
@@ -10402,6 +11590,20 @@
           "count": 8
         },
         {
+          "table": "ItmSupplyKioskBCERInv",
+          "item": "PhobosSabatierReactorLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskBCERInv",
+          "item": "PhobosMethaneStoreLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
           "table": "ItmSupplyKioskBCRSInv",
           "item": "PhobosVolatilesRefineryLoose",
           "condition": "Pristine",
@@ -10418,6 +11620,20 @@
         {
           "table": "ItmSupplyKioskBCRSInv",
           "item": "PhobosHydrogenStoreLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskBCRSInv",
+          "item": "PhobosSabatierReactorLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskBCRSInv",
+          "item": "PhobosMethaneStoreLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
@@ -10444,6 +11660,20 @@
           "count": 8
         },
         {
+          "table": "ItmSupplyKioskEJDRInv",
+          "item": "PhobosSabatierReactorLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskEJDRInv",
+          "item": "PhobosMethaneStoreLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
           "table": "ItmSupplyKioskHQCHInv",
           "item": "PhobosVolatilesRefineryLoose",
           "condition": "Pristine",
@@ -10460,6 +11690,20 @@
         {
           "table": "ItmSupplyKioskHQCHInv",
           "item": "PhobosHydrogenStoreLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskHQCHInv",
+          "item": "PhobosSabatierReactorLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskHQCHInv",
+          "item": "PhobosMethaneStoreLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
@@ -10486,6 +11730,20 @@
           "count": 8
         },
         {
+          "table": "ItmSupplyKioskJATLInv",
+          "item": "PhobosSabatierReactorLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskJATLInv",
+          "item": "PhobosMethaneStoreLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
           "table": "ItmSupplyKioskJFTSInv",
           "item": "PhobosVolatilesRefineryLoose",
           "condition": "Pristine",
@@ -10502,6 +11760,20 @@
         {
           "table": "ItmSupplyKioskJFTSInv",
           "item": "PhobosHydrogenStoreLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskJFTSInv",
+          "item": "PhobosSabatierReactorLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskJFTSInv",
+          "item": "PhobosMethaneStoreLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
@@ -10528,6 +11800,20 @@
           "count": 8
         },
         {
+          "table": "ItmSupplyKioskMHNGInv",
+          "item": "PhobosSabatierReactorLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskMHNGInv",
+          "item": "PhobosMethaneStoreLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
           "table": "ItmSupplyKioskMSUZInv",
           "item": "PhobosVolatilesRefineryLoose",
           "condition": "Pristine",
@@ -10544,6 +11830,20 @@
         {
           "table": "ItmSupplyKioskMSUZInv",
           "item": "PhobosHydrogenStoreLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskMSUZInv",
+          "item": "PhobosSabatierReactorLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskMSUZInv",
+          "item": "PhobosMethaneStoreLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
@@ -10570,6 +11870,20 @@
           "count": 8
         },
         {
+          "table": "ItmSupplyKioskMTRSInv",
+          "item": "PhobosSabatierReactorLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskMTRSInv",
+          "item": "PhobosMethaneStoreLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
           "table": "ItmSupplyKioskMVOLInv",
           "item": "PhobosVolatilesRefineryLoose",
           "condition": "Pristine",
@@ -10586,6 +11900,20 @@
         {
           "table": "ItmSupplyKioskMVOLInv",
           "item": "PhobosHydrogenStoreLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskMVOLInv",
+          "item": "PhobosSabatierReactorLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskMVOLInv",
+          "item": "PhobosMethaneStoreLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
@@ -10612,6 +11940,20 @@
           "count": 8
         },
         {
+          "table": "ItmSupplyKioskSVIRInv",
+          "item": "PhobosSabatierReactorLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskSVIRInv",
+          "item": "PhobosMethaneStoreLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
           "table": "ItmSupplyKioskVCBRInv",
           "item": "PhobosVolatilesRefineryLoose",
           "condition": "Pristine",
@@ -10628,6 +11970,20 @@
         {
           "table": "ItmSupplyKioskVCBRInv",
           "item": "PhobosHydrogenStoreLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskVCBRInv",
+          "item": "PhobosSabatierReactorLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskVCBRInv",
+          "item": "PhobosMethaneStoreLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
@@ -10654,6 +12010,20 @@
           "count": 8
         },
         {
+          "table": "ItmSupplyKioskVENCInv",
+          "item": "PhobosSabatierReactorLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskVENCInv",
+          "item": "PhobosMethaneStoreLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
           "table": "ItmSupplyKioskVNCAInv",
           "item": "PhobosVolatilesRefineryLoose",
           "condition": "Pristine",
@@ -10675,6 +12045,20 @@
           "count": 8
         },
         {
+          "table": "ItmSupplyKioskVNCAInv",
+          "item": "PhobosSabatierReactorLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskVNCAInv",
+          "item": "PhobosMethaneStoreLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
           "table": "ItmTraderSanDiegoHalvorsonInv",
           "item": "PhobosVolatilesRefineryLoose",
           "condition": "Pristine",
@@ -10691,6 +12075,20 @@
         {
           "table": "ItmTraderSanDiegoHalvorsonInv",
           "item": "PhobosHydrogenStoreLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmTraderSanDiegoHalvorsonInv",
+          "item": "PhobosSabatierReactorLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmTraderSanDiegoHalvorsonInv",
+          "item": "PhobosMethaneStoreLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
@@ -10733,6 +12131,34 @@
         {
           "table": "ItmVORBScrapKioskInv",
           "item": "PhobosHydrogenStoreLoose",
+          "condition": "Refurbished",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmVORBScrapKioskInv",
+          "item": "PhobosSabatierReactorLooseDmg",
+          "condition": "Broken",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmVORBScrapKioskInv",
+          "item": "PhobosSabatierReactorLoose",
+          "condition": "Refurbished",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmVORBScrapKioskInv",
+          "item": "PhobosMethaneStoreLooseDmg",
+          "condition": "Broken",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmVORBScrapKioskInv",
+          "item": "PhobosMethaneStoreLoose",
           "condition": "Refurbished",
           "chance": 0.85,
           "count": 8
@@ -21627,8 +23053,8 @@
     "mods/PhobosFramework/mod_info.json": "1b2c692bc0f1bd8f4b3dcb75f537ad01c9b4e88150d4dd9c32ca02209a46b424",
     "mods/PhobosManufacturing/data/conditions/phobos_manufacturing.json": "0ac5bff75779f21f3bcd269f28e09d882833f3b94fee174190a00b4d98001c63",
     "mods/PhobosManufacturing/data/explosions/phobos_manufacturing.json": "33e0a37a22450d2ca64e33cc461efb87f19f4c69b90655af20280d67c6982ba3",
-    "mods/PhobosManufacturing/framework/equipment-names.json": "cf81cbd49341a4552d36cec1959734cba55e12f023914e6640fd09f335c79bd5",
-    "mods/PhobosManufacturing/mod_info.json": "06a902b5fb159ab9d99403b94a517a8d54adcfe55f93658795ee2abb4c2500a8",
+    "mods/PhobosManufacturing/framework/equipment-names.json": "b205cb735ec2d78fd39c8f8ed55030d6863fda2fda0f090e252c65c9016b4d16",
+    "mods/PhobosManufacturing/mod_info.json": "0adb783ee68e1319eee1bd877e7ae7e87fb3ab09e7ca56ee5e2397af89be26b2",
     "mods/PhobosShipbreaker/crafting/recipes.json": "8b0f034a7c732fec44ac31585321347040ee2074cd330cd3e5ecb90bb4ab7df4",
     "mods/PhobosShipbreaker/data/conditions/phobos_shipbreaker.json": "4163d90a49167ef2178e2bfd00636e8288db73511c66c0f423e828642d4f1e44",
     "mods/PhobosShipbreaker/data/condtrigs/phobos_shipbreaker.json": "c7d4104df596d3fd362d9a80f4703178eafc5d3151bd53907814732ec84d3585",
@@ -21857,24 +23283,28 @@
     "src/PhobosFramework/Trading/VesselSupplyProvider.cs": "b4c7f5639ce0b00e4fb422753da04383afd408745b3d075a8786d9df21de5f93",
     "src/PhobosFramework/Units.cs": "b66b1134d9b9e2ff57055c41b5354f280ec21233a395224ec6ba213668b22cf3",
     "src/PhobosManufacturing/AssemblyInfo.cs": "a442448369b44ef8921362eea7215eab4e7fb557881cded3213f00b5d7600549",
-    "src/PhobosManufacturing/Content.cs": "6777dd51cfa2782d54cc61a8123237a61b44adfe99cd43fe2c7f54ab480577f9",
-    "src/PhobosManufacturing/Core/HydrogenRules.cs": "17934b26a0bf0d5dda69b50de9405dc2605e34ff486fc4690c1c706131cf69f6",
-    "src/PhobosManufacturing/Core/ManufacturingRules.cs": "e478aa778c9874e466c809ab8a6d84dcb63595d645e1c64b8248d06607a202be",
+    "src/PhobosManufacturing/Content.cs": "e529078aba7ee0dd209233e5e31e6c61e1993a1f4307982bdd26929ac380cb1b",
+    "src/PhobosManufacturing/Core/FuelStoreRules.cs": "27cb0b8b368b27b41ad6da54817ac8dad2a5d8184817e69b83eebe7cd7ea2c52",
+    "src/PhobosManufacturing/Core/HydrogenRules.cs": "dd4d383b41928286b82adca97fd8f053f62ea07e97eae61821812f5dc79371e4",
+    "src/PhobosManufacturing/Core/ManufacturingRules.cs": "ead9451e1420d83653c639fe63f8d191918f8c33f3b21f5e245d49329529fecb",
     "src/PhobosManufacturing/Core/Materials.cs": "638659608f0b9bd36eb5376d1c022b98c8f903e96e4c2394c61688cf108e3545",
-    "src/PhobosManufacturing/Core/ProcessorRules.cs": "0542052acd781d6df70146ca7ace4ea57a9c8558a5e0eeff4cebbc1d183ff17f",
+    "src/PhobosManufacturing/Core/ProcessorRules.cs": "cb0c1734b2db899b326a89f2602699632086ef6a77edebc09cd742ab3f4c221c",
     "src/PhobosManufacturing/Core/ProcessorState.cs": "ad039a60d06b8750124bfe454e30860a073f0b863fe44cc9efa097755136a692",
     "src/PhobosManufacturing/Core/RefineryRules.cs": "5c4f66076235de2c06c09277a6aebee36cfc2d96bd1db3e8fb61e738e67e2bc6",
     "src/PhobosManufacturing/Core/RefineryState.cs": "49e892de92b7008c44b54d9f47b78c72c524ea803aeb2be2b6d20f4e9f6dd8e4",
-    "src/PhobosManufacturing/Definitions.cs": "fcf80c6d8b528c1c17388d06844031d1dfa826cb687b688b8a19072b59b77ff5",
-    "src/PhobosManufacturing/EquipmentEconomy.cs": "a63055ef452a1b5deb49f10581a7c49b7964a41ffdb9385bb049fa50d63723be",
-    "src/PhobosManufacturing/HydrogenService.cs": "9c3a16520479cc9a4112e9736b1c6b9efa311bc410e5934ae2fdcca05e04d1f7",
+    "src/PhobosManufacturing/Core/SabatierRules.cs": "e34ab7499438dd8a0103524b07e1a9acc1cb6257c1f36fb21160e50cf825ed85",
+    "src/PhobosManufacturing/Core/SabatierState.cs": "04ca6b0626dc94a204c2f120ed847db1bacf3ef37911dbf031a8c5efb716e5f8",
+    "src/PhobosManufacturing/Definitions.cs": "66f8c46ba240b8db4c46c795f626475ec226f06c2a18181b7f50a21626e85e56",
+    "src/PhobosManufacturing/EquipmentEconomy.cs": "cb64697259f95ea722fb84ecf5be1bfb0cdf1b5ed26180510f4f8e96bada6ced",
     "src/PhobosManufacturing/Panel.cs": "9beaab6e7e20a1111c2400a6ed02fe1c164ea78958627686556dfc03c3bb8c24",
-    "src/PhobosManufacturing/PhobosManufacturing.csproj": "e88b987e938490d348ba04bd17dc1f2bbcd2c4d0973465ed3a05c07b646665db",
-    "src/PhobosManufacturing/Plugin.cs": "44b0b16273b4e601d3f08e3441bb8cd4bf41b19f5842bd6623c6520b9304459e",
+    "src/PhobosManufacturing/PhobosManufacturing.csproj": "55733fac130b1d0215aba034bcd37e195c6bfc72527853007da1efa0fb6d384a",
+    "src/PhobosManufacturing/Plugin.cs": "87921c18305c875b23c9f4a7328b827a2c9966b518f3123ee2639a87f0bb218f",
     "src/PhobosManufacturing/ProcessorService.cs": "9961006ea4cc471091c85ccaeae6521fff12a1635f9bc5b4a4c11ca88b85d35e",
-    "src/PhobosManufacturing/Provider.cs": "e656a18c7d9377fd5d7e6e0898ba65a62dc566df65765a7316913000603685f5",
+    "src/PhobosManufacturing/Provider.cs": "22aa5a5196395ce70c88443df7ae3215d9d6b886b33195cd6720902a3c83be48",
     "src/PhobosManufacturing/RefineryService.cs": "b20a41eeeda387d50cc2c0ad404c6bff42a08896f2eac6a96cd21d6e5b644fba",
+    "src/PhobosManufacturing/SabatierService.cs": "160fc5aba10754040807767f68e6fa0facbde6cba393d7d4b72c02626e08691e",
     "src/PhobosManufacturing/ShipbreakerStock.cs": "2800c3119c93d9f74f86dea8db91d1c91ccf3085b652d1125f8934826e80a8f3",
+    "src/PhobosManufacturing/StoreService.cs": "df8ef87a2b97fdb494eda73e0d7e0c097e26365693aebb3a6ec1fb7a40554c5c",
     "src/PhobosManufacturing/Text.cs": "11027c810635f113c7989c4ab070a02885a535793c5197988027b5efebe74fda",
     "src/PhobosShipbreaker/AssemblyDefinitions.cs": "eaab35ed8f833910404a23053fe69f6684525deb8d20dcba53a6df59cd5fcf49",
     "src/PhobosShipbreaker/AssemblyInfo.cs": "a442448369b44ef8921362eea7215eab4e7fb557881cded3213f00b5d7600549",
@@ -21973,7 +23403,7 @@
     "translations/PhobosAgriculture/en.json": "24c7184bf4580061f11f5556c34a7afd2142e938d8b67282af6eeaf676d19934",
     "translations/PhobosAutoNav/en.json": "505b519cde5fb1a5cc15a3f52cf825145b7f0c85eb36a1d6c5de3a0ffd56cb3a",
     "translations/PhobosFramework/en.json": "bab9d6bff8a46a9a120bab386be1d48a8bf2dc9250d170646d71b696aeb73d6b",
-    "translations/PhobosManufacturing/en.json": "826dea0526a4d6f56fb7a601c1f6a77ade9cf221029d1ee6608daf494c0f4226",
+    "translations/PhobosManufacturing/en.json": "dcbd3b3e1645a713864b42c26173b7bc27ca15d2177089dff9e80dfe2eaf0633",
     "translations/PhobosShipbreaker/en.json": "8085d0bf11c015b92696dc8252db717ab19aea43a06ccee1658e91b8e6f7fee0"
   }
 }

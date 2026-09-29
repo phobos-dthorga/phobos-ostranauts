@@ -39400,15 +39400,14 @@
       "mod": "PhobosManufacturing",
       "key": "Panel.help",
       "category": "control/help",
-      "decision": "add",
-      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "decision": "rewrite",
+      "reason": "Updated for the new feature; existing wording, placeholders and commands retained.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosManufacturing/Panel.cs:50",
         "src/PhobosManufacturing/Panel.cs:59"
       ],
       "before": "Start binds a charge or arms the cell. Pause keeps the work; Cancel forfeits it. Connections link a water vessel, a hydrogen store and an oxygen canister within one tile. After a reload, press Start to resume.",
-      "after": "Start binds a charge or arms the cell. Pause keeps the work; Cancel forfeits it. Connections link a water vessel, a hydrogen store and an oxygen canister within one tile. After a reload, press Start to resume."
+      "after": "Start binds a charge or arms the machine. Pause keeps the work; Cancel forfeits it. Connections link water vessels, hydrogen and methane stores, and oxygen or CO2 canisters within one tile. After a reload, press Start to resume."
     },
     {
       "mod": "PhobosManufacturing",
@@ -39428,14 +39427,14 @@
       "mod": "PhobosManufacturing",
       "key": "Console.help",
       "category": "console help",
-      "decision": "add",
-      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "decision": "rewrite",
+      "reason": "Updated for the new feature; existing wording, placeholders and commands retained.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosManufacturing/Plugin.cs:205"
+        "src/PhobosManufacturing/Plugin.cs:232"
       ],
       "before": "phobosmanufacturing list | status|start|pause|cancel|accept <id> | link|water|store|canister <id> <target or none> | vent <id> <kg>",
-      "after": "phobosmanufacturing list | status|start|pause|cancel|accept <id> | link|water|store|canister <id> <target or none> | vent <id> <kg>"
+      "after": "phobosmanufacturing list | status|start|pause|cancel|accept <id> | link|water|store|hydrogen|methane|canister <id> <target or none> | vent <id> <kg>"
     },
     {
       "mod": "PhobosManufacturing",
@@ -40787,14 +40786,14 @@
       "mod": "PhobosManufacturing",
       "key": "Store.deflagration",
       "category": "status/warning",
-      "decision": "add",
-      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "decision": "rewrite",
+      "reason": "Updated for the new feature; existing wording, placeholders and commands retained.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosManufacturing/Definitions.cs:149"
+        "src/PhobosManufacturing/Definitions.cs:171"
       ],
       "before": "Hydrogen deflagration",
-      "after": "Hydrogen deflagration"
+      "after": "Gas deflagration"
     },
     {
       "mod": "PhobosManufacturing",
@@ -41325,6 +41324,940 @@
       ],
       "before": "A chunk of dark, water-rich clay minerals of the kind sampled from carbonaceous asteroids, about a fifth of it bound water. Bake it in a refinery for water; the government kiosks buy it like other ore.",
       "after": "A chunk of dark, water-rich clay minerals of the kind sampled from carbonaceous asteroids, about a fifth of it bound water. Bake it in a refinery for water; the government kiosks buy it like other ore."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Condition.PhobosManufacturingReacting",
+      "category": "status/name",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Definitions.cs:24"
+      ],
+      "before": "Reactor working",
+      "after": "Reactor working"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Maintenance.reactor",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/SabatierService.cs:396"
+      ],
+      "before": "The reactor holds gas, water or a part-run cycle. Cancel it and let its products go to their vessels first.",
+      "after": "The reactor holds gas, water or a part-run cycle. Cancel it and let its products go to their vessels first."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Provider.hydrogen_field",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Provider.cs:35"
+      ],
+      "before": "Hydrogen from",
+      "after": "Hydrogen from"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Provider.co2_field",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Provider.cs:37"
+      ],
+      "before": "CO2 canister",
+      "after": "CO2 canister"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Provider.water_out_field",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Provider.cs:39"
+      ],
+      "before": "Water to",
+      "after": "Water to"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Provider.methane_field",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Provider.cs:41"
+      ],
+      "before": "Methane to",
+      "after": "Methane to"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Sabatier.name",
+      "category": "item name",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Definitions.cs:84",
+        "src/PhobosManufacturing/Definitions.cs:92"
+      ],
+      "before": "Sabatier Reactor",
+      "after": "Sabatier Reactor"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Sabatier.description",
+      "category": "item description",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Definitions.cs:84"
+      ],
+      "before": "A 2 x 2, {0:F0} kg catalytic Sabatier reactor: carbon dioxide and hydrogen into methane and water, CO2 + 4 H2 -> CH4 + 2 H2O. Each one-hour cycle at {1:F1} kW takes {2:F3} kg of hydrogen from a linked store and {3:F3} kg of CO2 from an installed CO2 canister within one tile, and makes {4:F3} kg of water for a linked S3 or R3 and {5:F3} kg of methane for a linked methane store. The reaction gives off heat, so the room warms. Run with the X2 and the crew's scrubbed CO2 comes back as about half its water.",
+      "after": "A 2 x 2, {0:F0} kg catalytic Sabatier reactor: carbon dioxide and hydrogen into methane and water, CO2 + 4 H2 -> CH4 + 2 H2O. Each one-hour cycle at {1:F1} kW takes {2:F3} kg of hydrogen from a linked store and {3:F3} kg of CO2 from an installed CO2 canister within one tile, and makes {4:F3} kg of water for a linked S3 or R3 and {5:F3} kg of methane for a linked methane store. The reaction gives off heat, so the room warms. Run with the X2 and the crew's scrubbed CO2 comes back as about half its water."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Sabatier.paused",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/SabatierService.cs:30",
+        "src/PhobosManufacturing/SabatierService.cs:66"
+      ],
+      "before": "Paused.",
+      "after": "Paused."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Sabatier.protected",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/SabatierService.cs:48",
+        "src/PhobosManufacturing/SabatierService.cs:54",
+        "src/PhobosManufacturing/SabatierService.cs:155",
+        "src/PhobosManufacturing/SabatierService.cs:193",
+        "src/PhobosManufacturing/SabatierService.cs:215",
+        "src/PhobosManufacturing/SabatierService.cs:226",
+        "src/PhobosManufacturing/SabatierService.cs:241"
+      ],
+      "before": "This reactor's record or holds could not be verified. Check it, then Accept its state from the panel.",
+      "after": "This reactor's record or holds could not be verified. Check it, then Accept its state from the panel."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Sabatier.armed",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/SabatierService.cs:156"
+      ],
+      "before": "Armed. Waiting for hydrogen, CO2, somewhere for the products, and power.",
+      "after": "Armed. Waiting for hydrogen, CO2, somewhere for the products, and power."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Sabatier.cancelled",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/SabatierService.cs:165"
+      ],
+      "before": "Cancelled. The cycle's energy is forfeited; held gas and made products stay for the next cycle.",
+      "after": "Cancelled. The cycle's energy is forfeited; held gas and made products stay for the next cycle."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Sabatier.paused_retained",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/SabatierService.cs:165"
+      ],
+      "before": "Paused. Held gas, made products and the cycle's progress are kept.",
+      "after": "Paused. Held gas, made products and the cycle's progress are kept."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Sabatier.fault",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/SabatierService.cs:178",
+        "src/PhobosManufacturing/SabatierService.cs:400"
+      ],
+      "before": "The reactor stopped on a fault. See the log.",
+      "after": "The reactor stopped on a fault. See the log."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Sabatier.heat_wait",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/SabatierService.cs:260"
+      ],
+      "before": "Waiting for the room to cool.",
+      "after": "Waiting for the room to cool."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Sabatier.working",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/SabatierService.cs:284"
+      ],
+      "before": "Reacting: {0:F2} of {1:F2} kWh this cycle.",
+      "after": "Reacting: {0:F2} of {1:F2} kWh this cycle."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Sabatier.waiting_power",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/SabatierService.cs:284"
+      ],
+      "before": "Waiting for power.",
+      "after": "Waiting for power."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Sabatier.waiting_output",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/SabatierService.cs:200",
+        "src/PhobosManufacturing/SabatierService.cs:201",
+        "src/PhobosManufacturing/SabatierService.cs:239"
+      ],
+      "before": "Waiting for somewhere to put the products: {0}",
+      "after": "Waiting for somewhere to put the products: {0}"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Sabatier.waiting_hydrogen",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/SabatierService.cs:213"
+      ],
+      "before": "Waiting for hydrogen: {0}",
+      "after": "Waiting for hydrogen: {0}"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Sabatier.waiting_co2",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/SabatierService.cs:222",
+        "src/PhobosManufacturing/SabatierService.cs:227"
+      ],
+      "before": "Waiting for CO2: {0}",
+      "after": "Waiting for CO2: {0}"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Sabatier.hydrogen_none",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/SabatierService.cs:95",
+        "src/PhobosManufacturing/SabatierService.cs:108"
+      ],
+      "before": "no hydrogen store linked",
+      "after": "no hydrogen store linked"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Sabatier.hydrogen_not_ready",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/SabatierService.cs:95",
+        "src/PhobosManufacturing/SabatierService.cs:108"
+      ],
+      "before": "the linked hydrogen store is not installed, not adjacent or not ready",
+      "after": "the linked hydrogen store is not installed, not adjacent or not ready"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Sabatier.hydrogen_short",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/SabatierService.cs:111"
+      ],
+      "before": "the linked store offers {0:F3} kg and a cycle needs {1:F3} kg",
+      "after": "the linked store offers {0:F3} kg and a cycle needs {1:F3} kg"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Sabatier.water_none",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/SabatierService.cs:95",
+        "src/PhobosManufacturing/SabatierService.cs:116"
+      ],
+      "before": "no water vessel linked",
+      "after": "no water vessel linked"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Sabatier.water_not_ready",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/SabatierService.cs:95",
+        "src/PhobosManufacturing/SabatierService.cs:116"
+      ],
+      "before": "the linked water vessel is not installed, not adjacent or not ready",
+      "after": "the linked water vessel is not installed, not adjacent or not ready"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Sabatier.water_full",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/SabatierService.cs:120"
+      ],
+      "before": "the water vessel has {0:F2} kg of room and the reactor has {1:F3} kg to deliver",
+      "after": "the water vessel has {0:F2} kg of room and the reactor has {1:F3} kg to deliver"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Sabatier.methane_none",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/SabatierService.cs:95",
+        "src/PhobosManufacturing/SabatierService.cs:117"
+      ],
+      "before": "no methane store linked",
+      "after": "no methane store linked"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Sabatier.methane_not_ready",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/SabatierService.cs:95",
+        "src/PhobosManufacturing/SabatierService.cs:117"
+      ],
+      "before": "the linked methane store is not installed, not adjacent or not ready",
+      "after": "the linked methane store is not installed, not adjacent or not ready"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Sabatier.methane_full",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/SabatierService.cs:120"
+      ],
+      "before": "the methane store has {0:F2} kg of room and the reactor has {1:F3} kg to deliver; vent it or add another",
+      "after": "the methane store has {0:F2} kg of room and the reactor has {1:F3} kg to deliver; vent it or add another"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Sabatier.vessel_protected",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/SabatierService.cs:100"
+      ],
+      "before": "a linked vessel needs its owner's attention",
+      "after": "a linked vessel needs its owner's attention"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Sabatier.vessel_catch",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/SabatierService.cs:102"
+      ],
+      "before": "a linked vessel holds contents in its catch chamber; recover them first",
+      "after": "a linked vessel holds contents in its catch chamber; recover them first"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Sabatier.canister_none",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/SabatierService.cs:125"
+      ],
+      "before": "no CO2 canister chosen",
+      "after": "no CO2 canister chosen"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Sabatier.canister_missing",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/SabatierService.cs:128"
+      ],
+      "before": "the chosen canister is no longer an installed CO2 canister within one tile",
+      "after": "the chosen canister is no longer an installed CO2 canister within one tile"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Sabatier.canister_damaged",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/SabatierService.cs:130"
+      ],
+      "before": "the chosen canister is damaged and leaking; repair or replace it",
+      "after": "the chosen canister is damaged and leaking; repair or replace it"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Sabatier.canister_short",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/SabatierService.cs:133",
+        "src/PhobosManufacturing/SabatierService.cs:227"
+      ],
+      "before": "the canister holds {0:F3} kg of CO2 and a cycle needs {1:F3} kg; run a CO2 scrubber into it",
+      "after": "the canister holds {0:F3} kg of CO2 and a cycle needs {1:F3} kg; run a CO2 scrubber into it"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Sabatier.install_first",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/SabatierService.cs:141"
+      ],
+      "before": "Install the reactor first.",
+      "after": "Install the reactor first."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Sabatier.repair_first",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/SabatierService.cs:142",
+        "src/PhobosManufacturing/SabatierService.cs:329"
+      ],
+      "before": "Repair the reactor first.",
+      "after": "Repair the reactor first."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Sabatier.unlock",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/SabatierService.cs:144"
+      ],
+      "before": "Unlock the reactor first.",
+      "after": "Unlock the reactor first."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Sabatier.switched_off",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/SabatierService.cs:145"
+      ],
+      "before": "The reactor is switched off at its power control.",
+      "after": "The reactor is switched off at its power control."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Sabatier.cycle_log",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/SabatierService.cs:246"
+      ],
+      "before": "{0}: cycle done. {1:F3} kg of water and {2:F3} kg of methane delivered.",
+      "after": "{0}: cycle done. {1:F3} kg of water and {2:F3} kg of methane delivered."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Sabatier.damaged_log",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/SabatierService.cs:316"
+      ],
+      "before": "{0} was damaged and dumped its gas: {1:F3} kg of CO2 and {2:F3} kg of methane into the room; {3:F3} kg of hydrogen {4}.",
+      "after": "{0} was damaged and dumped its gas: {1:F3} kg of CO2 and {2:F3} kg of methane into the room; {3:F3} kg of hydrogen {4}."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Sabatier.destroyed_log",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/SabatierService.cs:321"
+      ],
+      "before": "{0} was destroyed and dumped its gas: {1:F3} kg of CO2 and {2:F3} kg of methane into the room; {3:F3} kg of hydrogen {4}.",
+      "after": "{0} was destroyed and dumped its gas: {1:F3} kg of CO2 and {2:F3} kg of methane into the room; {3:F3} kg of hydrogen {4}."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Sabatier.burn_log",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/SabatierService.cs:338"
+      ],
+      "before": "{0}: {1:F3} kg of hydrogen burned with {2:F3} kg of the room's oxygen ({3:F1} MJ); {4:F3} kg escaped.",
+      "after": "{0}: {1:F3} kg of hydrogen burned with {2:F3} kg of the room's oxygen ({3:F1} MJ); {4:F3} kg escaped."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Sabatier.hydrogen_burned",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/SabatierService.cs:339"
+      ],
+      "before": "burned",
+      "after": "burned"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Sabatier.hydrogen_escaped",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/SabatierService.cs:339"
+      ],
+      "before": "escaped",
+      "after": "escaped"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Sabatier.dump_banner",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/SabatierService.cs:341"
+      ],
+      "before": "Reactor damaged: gas released",
+      "after": "Reactor damaged: gas released"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Sabatier.status",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/SabatierService.cs:355"
+      ],
+      "before": "{0}\nHeld: {1:F3} kg hydrogen, {2:F3} kg CO2. Made, waiting to go out: {3:F3} kg water, {4:F3} kg methane.\nCycle: {5:F2} of {6:F2} kWh. Cycles: {7}. Delivered {8:F1} kg of water and {9:F1} kg of methane from {10:F1} kg of CO2.\nPower: {11}. Hydrogen from: {12}. CO2 from: {13}. Water to: {14}. Methane to: {15}.",
+      "after": "{0}\nHeld: {1:F3} kg hydrogen, {2:F3} kg CO2. Made, waiting to go out: {3:F3} kg water, {4:F3} kg methane.\nCycle: {5:F2} of {6:F2} kWh. Cycles: {7}. Delivered {8:F1} kg of water and {9:F1} kg of methane from {10:F1} kg of CO2.\nPower: {11}. Hydrogen from: {12}. CO2 from: {13}. Water to: {14}. Methane to: {15}."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Sabatier.demand",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/SabatierService.cs:359"
+      ],
+      "before": "Draws {0:F1} kW working; with the reaction's own heat, {1:F1} kW goes into the room.",
+      "after": "Draws {0:F1} kW working; with the reaction's own heat, {1:F1} kW goes into the room."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Sabatier.link_busy",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/SabatierService.cs:367"
+      ],
+      "before": "Stop the reactor before changing its connections.",
+      "after": "Stop the reactor before changing its connections."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Sabatier.link_missing",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/SabatierService.cs:370",
+        "src/PhobosManufacturing/SabatierService.cs:385"
+      ],
+      "before": "That is not a suitable vessel, store or canister within one tile of the reactor.",
+      "after": "That is not a suitable vessel, store or canister within one tile of the reactor."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Sabatier.linked",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/SabatierService.cs:372",
+        "src/PhobosManufacturing/SabatierService.cs:387",
+        "src/PhobosManufacturing/SabatierService.cs:389"
+      ],
+      "before": "Linked.",
+      "after": "Linked."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Sabatier.unlinked",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/SabatierService.cs:372",
+        "src/PhobosManufacturing/SabatierService.cs:383"
+      ],
+      "before": "Unlinked.",
+      "after": "Unlinked."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Sabatier.accept_done",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/SabatierService.cs:410"
+      ],
+      "before": "Accepted. The reactor's record is trusted again.",
+      "after": "Accepted. The reactor's record is trusted again."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Sabatier.accept_unavailable",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/SabatierService.cs:410"
+      ],
+      "before": "The record cannot be accepted as it is.",
+      "after": "The record cannot be accepted as it is."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Methane.name",
+      "category": "item name",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/StoreService.cs:28",
+        "src/PhobosManufacturing/Definitions.cs:34"
+      ],
+      "before": "Methane Store",
+      "after": "Methane Store"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Methane.description",
+      "category": "item description",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Definitions.cs:34"
+      ],
+      "before": "A 2 x 2, {0:F0} kg pressurised store for up to {1:F0} kg of Sabatier methane, kept until something aboard can use it. Passive: no power, no cargo. Methane crowds out the air you breathe and it burns: a damaged store leaks about {2:F0} kg an hour into the room until repaired, and with oxygen and anything to light it, its contents burn into carbon dioxide. Repair damage at once and vent it before uninstalling.",
+      "after": "A 2 x 2, {0:F0} kg pressurised store for up to {1:F0} kg of Sabatier methane, kept until something aboard can use it. Passive: no power, no cargo. Methane crowds out the air you breathe and it burns: a damaged store leaks about {2:F0} kg an hour into the room until repaired, and with oxygen and anything to light it, its contents burn into carbon dioxide. Repair damage at once and vent it before uninstalling."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Methane.status",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/StoreService.cs:28",
+        "src/PhobosManufacturing/Definitions.cs:34"
+      ],
+      "before": "Methane: {0:F1} of {1:F0} kg. Reactors feeding it: {2}.",
+      "after": "Methane: {0:F1} of {1:F0} kg. Reactors feeding it: {2}."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Methane.leaking",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/StoreService.cs:28",
+        "src/PhobosManufacturing/Definitions.cs:34"
+      ],
+      "before": "Damaged: leaking about {0:F0} kg an hour into the room. Repair it.",
+      "after": "Damaged: leaking about {0:F0} kg an hour into the room. Repair it."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Methane.maintenance_methane",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/StoreService.cs:28",
+        "src/PhobosManufacturing/Definitions.cs:34"
+      ],
+      "before": "The store still holds methane. Vent it first.",
+      "after": "The store still holds methane. Vent it first."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Methane.vented",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/StoreService.cs:28",
+        "src/PhobosManufacturing/Definitions.cs:34"
+      ],
+      "before": "Vented {0:F2} kg of methane overboard.",
+      "after": "Vented {0:F2} kg of methane overboard."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Methane.vent_log",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/StoreService.cs:28",
+        "src/PhobosManufacturing/Definitions.cs:34"
+      ],
+      "before": "{0}: {1:F2} kg of methane vented overboard.",
+      "after": "{0}: {1:F2} kg of methane vented overboard."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Methane.damaged_log",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/StoreService.cs:28",
+        "src/PhobosManufacturing/Definitions.cs:34"
+      ],
+      "before": "{0} burst: {1:F2} kg of methane burned with {2:F1} kg of the room's oxygen ({3:F0} MJ), leaving carbon dioxide behind; {4:F2} kg was lost with the blast.",
+      "after": "{0} burst: {1:F2} kg of methane burned with {2:F1} kg of the room's oxygen ({3:F0} MJ), leaving carbon dioxide behind; {4:F2} kg was lost with the blast."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Methane.destroyed_log",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/StoreService.cs:28",
+        "src/PhobosManufacturing/Definitions.cs:34"
+      ],
+      "before": "{0} was destroyed: {1:F2} kg of methane burned with {2:F1} kg of the room's oxygen ({3:F0} MJ), leaving carbon dioxide behind; {4:F2} kg was lost with the blast.",
+      "after": "{0} was destroyed: {1:F2} kg of methane burned with {2:F1} kg of the room's oxygen ({3:F0} MJ), leaving carbon dioxide behind; {4:F2} kg was lost with the blast."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Methane.leak_notice",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/StoreService.cs:28",
+        "src/PhobosManufacturing/Definitions.cs:34"
+      ],
+      "before": "{0} is damaged and leaking methane into the room, about {1:F0} kg an hour. Repair it and ventilate before anything lights it.",
+      "after": "{0} is damaged and leaking methane into the room, about {1:F0} kg an hour. Repair it and ventilate before anything lights it."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Methane.leak_banner",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/StoreService.cs:28",
+        "src/PhobosManufacturing/Definitions.cs:34"
+      ],
+      "before": "Methane store damaged: leaking",
+      "after": "Methane store damaged: leaking"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Methane.leak_reason",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/StoreService.cs:28",
+        "src/PhobosManufacturing/Definitions.cs:34"
+      ],
+      "before": "leaked into the room through damage",
+      "after": "leaked into the room through damage"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Methane.leak_reason_space",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/StoreService.cs:28",
+        "src/PhobosManufacturing/Definitions.cs:34"
+      ],
+      "before": "leaked to space through damage",
+      "after": "leaked to space through damage"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Methane.deflagration_banner",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/StoreService.cs:28",
+        "src/PhobosManufacturing/Definitions.cs:34"
+      ],
+      "before": "Methane fire",
+      "after": "Methane fire"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Store.drawing",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/StoreService.cs:40"
+      ],
+      "before": "Reactors drawing from it: {0}.",
+      "after": "Reactors drawing from it: {0}."
     }
   ],
   "documents": [
@@ -41332,8 +42265,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "317b5f9351acbf837c0f212d74d38d8a288727063483eceb4f99079212857e83",
-      "review": "2026-09-29: version summary; no other wording changed."
+      "sha256": "13b166dea6802c604c8891d3c0bb9f7e622fd74fed728a88e2974aa1450e52ce",
+      "review": "2026-09-29: Manufacturing version 0.2.0."
     },
     {
       "path": "SUPPORT.md",
@@ -41752,15 +42685,15 @@
       "path": "docs/development/economy-coverage-audit.md",
       "scope": "development audit record; current player text limited to the changelog links",
       "decision": "rewrite",
-      "sha256": "43cd51f09cc46d906b31dad359a92487b27a556a526e85ac1175ecf34166f371",
-      "review": "2026-09-29: Manufacturing 0.1.1 findings table."
+      "sha256": "4dd4632da9579ccdf2348f3fdf5435fdd005de9ef8c740af91391ca9b0bb4233",
+      "review": "2026-09-29: K2 and M2 join the late-game terms."
     },
     {
       "path": "docs/development/equipment-branding.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "414d31c13446df2319d9fec114d30ef2b65f987e1c4cbb60d19b4bdda8b0bd44",
-      "review": "2026-09-29: Fennmark rows and family paragraph."
+      "sha256": "35750354342dc54f97dd030e3d420b8485e0a2b686fea8c5dfab9ce89be3770b",
+      "review": "2026-09-29: Fennmark K2 and M2 rows; model letters."
     },
     {
       "path": "docs/development/equipment-value-audit.md",
@@ -41877,15 +42810,15 @@
       "path": "docs/development/install-catalogue.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "77507c371cbef8398371a971d7706e74c639e731b9606e4ee5707aa0938f880e",
-      "review": "2026-09-29: Manufacturing APPS row; other-equipment paragraph."
+      "sha256": "2b77b860ceb75c74f0dd4e1e558957db115c9110ea10c6784bd9e51e74bfa1f3",
+      "review": "2026-09-29: Manufacturing APPS row lists five machines."
     },
     {
       "path": "docs/development/item-handling-audit.md",
       "scope": "current handling guidance and complete generated definition ledger",
       "decision": "reviewed",
-      "sha256": "3dbc16f41eeaeccdd804f491eacb3ff3a834a1092f73299c1957df1e095091f4",
-      "review": "2026-09-29: regenerated ledger with the Manufacturing items."
+      "sha256": "1f23540a2f3dd23274561592a992618bd86782eb07a1c942ebf6fb9022cd2b4a",
+      "review": "2026-09-29: regenerated ledger with the K2 and M2 families."
     },
     {
       "path": "docs/development/item-reference-maintenance.md",
@@ -41922,8 +42855,8 @@
       "path": "docs/development/manufacturing-art-handoff.md",
       "scope": "development artwork record",
       "decision": "rewrite",
-      "sha256": "ccdbc4ffec659a412ce00f3db2265e1c6e7fd74960f368fb3f071dad86df63c4",
-      "review": "2026-09-29: new record: Fennmark requests, results and deviations."
+      "sha256": "38968fa7737a84738905723426e4d838bf0be6bd8157540d939cd9c3207cd34a",
+      "review": "2026-09-29: 0.2.0 artwork pass."
     },
     {
       "path": "docs/development/manufacturing-handover.md",
@@ -41936,15 +42869,15 @@
       "path": "docs/development/manufacturing-implementation.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "6249b58789ea70e2a00383ddd64ee4c5afd08c2783183b365e4b004ebd0b8d45",
-      "review": "2026-09-29: rewritten for 0.1.0."
+      "sha256": "b6148bba637293307713f3179ea25b4805bfb622cbfe3d1b0d1bdb8416f60a84",
+      "review": "2026-09-29: 0.2.0 layout, identities, saved holds and verification."
     },
     {
       "path": "docs/development/manufacturing-refinery-and-chemistry.md",
       "scope": "development design record; player text limited to names",
       "decision": "rewrite",
-      "sha256": "cd57784cb5392d66a476287b9a5fb93cac1fd7e938ea4ffa1b15a18e22639c27",
-      "review": "2026-09-29: value-loss paragraph at 0.1.1 prices; stock-price ceiling."
+      "sha256": "d411b8a39f75f47c130a1924ec40e5f47888a07927ebd346b342b9f701e23daa",
+      "review": "2026-09-29: Sabatier section, methane store and burn, sources."
     },
     {
       "path": "docs/development/manufacturing-research.md",
@@ -42212,8 +43145,8 @@
       "path": "docs/equipment-economy.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "e2faf7a6be8aa3175cd519a4ab5acccb57ab37839633e11a582f0f9cce3c99cf",
-      "review": "2026-09-29: new Manufacturing late-game plant section."
+      "sha256": "1bfc8eb3fa37b9eeb42b34822aa74344b905d22f599d580cca5c9f222be01260",
+      "review": "2026-09-29: K2 and M2 prices, work, repair bills and dismantling rows."
     },
     {
       "path": "docs/fluid-network-operations.md",
@@ -42303,15 +43236,15 @@
       "path": "docs/manufacturing-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "retain",
-      "sha256": "68f72b8253156697eeb851f447604c9c3ca6601dcae34e7e42901963dd9122d2",
+      "sha256": "47fd6d88da552062c98ceb618c1f689b20426cbcf0bd4c4bc2570684020ca01a",
       "review": "2026-09-29: regenerated from reviewed inputs."
     },
     {
       "path": "docs/manufacturing-player-guide.md",
       "scope": "current player operating guide",
       "decision": "rewrite",
-      "sha256": "2a128ae0b1b42912ba6db01d07bea710c2d45df08c10d3d3c0b19977a869cc97",
-      "review": "2026-09-29: late-game prices, trade routes, rare finds, component repairs; version line now links the maintained requirements."
+      "sha256": "28a10273535e1a92be27bf169ff0c4924149ab2fe24c01a171006e9b3e4a4496",
+      "review": "2026-09-29: Sabatier reactor and methane store sections, prices and dangers; limits updated."
     },
     {
       "path": "docs/material-port-pairing.md",
@@ -42429,8 +43362,8 @@
       "path": "workshop/PhobosManufacturing/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "ebe018dbe503433714529347e5e0fc4661e20d9ec688fbb5b4f41767286b87a5",
-      "review": "2026-09-29: version and late-game plant bullet."
+      "sha256": "1b2c391cd3e5456a679377c58e7e8425cfda09f9af3d54e13a1364277d0b4294",
+      "review": "2026-09-29: version 0.2.0, K2/M2 bullet, limits line (minimal edit; the page rewrite is a separate change)."
     },
     {
       "path": "workshop/PhobosShipbreaker/page.bbcode",
@@ -42444,8 +43377,8 @@
     {
       "path": "config/item-reference.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "da9f0608c6781f4399f9259164419d6d4bac7549dc10b714aa1f3352da03503e",
-      "review": "2026-09-29: Manufacturing intro, machine acquisition text, stock notes and four component trigger labels."
+      "sha256": "db5c952058af016ddff2c43474eac8bc6064b09a4a4aedcff02a8cfc7228640d",
+      "review": "2026-09-29: K2 and M2 groups, H2 use text, gas deflagration wording, component trigger labels."
     },
     {
       "path": "mods/PhobosAgriculture/framework/equipment-names.json",
@@ -42498,7 +43431,7 @@
     {
       "path": "mods/PhobosManufacturing/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "06a902b5fb159ab9d99403b94a517a8d54adcfe55f93658795ee2abb4c2500a8",
+      "sha256": "0adb783ee68e1319eee1bd877e7ae7e87fb3ab09e7ca56ee5e2397af89be26b2",
       "review": "2026-09-29: version metadata only."
     },
     {

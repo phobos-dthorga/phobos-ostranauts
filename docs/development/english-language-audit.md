@@ -378,3 +378,13 @@ late-game priced; the economy guide gains a Manufacturing section; the refinery
 record, audit record, item-reference inputs and Workshop draft follow. Coverage
 is 2,215 entries, 162 documents and 14 other surfaces.
 Unity wording is unverified.
+
+## Manufacturing 0.2.0 Sabatier and methane, 29 September 2026
+
+Manufacturing 0.2.0 adds the Fennmark K2 Sabatier reactor and M2 methane store.
+New catalogue entries cover the reactor's controls, waits, logs and hazards, the
+methane store's text and four connection labels; three entries are rewritten (the
+explosion object now reads "Gas deflagration", the panel help and the console
+help). The player guide, design and implementation records, economy guide and item
+reference follow. Coverage is 2,284 entries, 162 documents and
+14 other surfaces. Unity wording is unverified.

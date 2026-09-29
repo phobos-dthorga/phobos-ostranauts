@@ -29,13 +29,6 @@ public static class ProcessorRules
     public static bool Balanced() => Math.Abs(WaterKgPerCycle - OxygenKgPerCycle - HydrogenKgPerCycle) < Phobos.Ostranauts.Framework.Units.MassToleranceKg;
     /// <summary>Electricity that warms the room: the share above the chemical minimum while running, all of the idle draw.</summary>
     public static double RoomHeatKW(bool working) => working ? WorkingKW * RoomHeatFraction : IdleKW;
-    /// <summary>Credits supplied energy to the current cycle; never more than one cycle completes per step, and
-    /// energy beyond a completion is refused rather than banked.</summary>
-    public static (double CycleKWh, bool Complete) Advance(double cycleKWh, double suppliedKWh)
-    {
-        if (!ManufacturingRules.Finite(cycleKWh) || !ManufacturingRules.Finite(suppliedKWh) || cycleKWh < 0 || suppliedKWh < 0 || cycleKWh >= CycleKWh)
-            throw new ArgumentException("Invalid cycle energy.");
-        double credited = Math.Min(cycleKWh + suppliedKWh, CycleKWh);
-        return (credited, credited >= CycleKWh - 1e-9);
-    }
+    /// <summary>Credits supplied energy to the current cycle (the shared one-cycle-per-step rule).</summary>
+    public static (double CycleKWh, bool Complete) Advance(double cycleKWh, double suppliedKWh) => ManufacturingRules.AdvanceCycle(cycleKWh, suppliedKWh, CycleKWh);
 }

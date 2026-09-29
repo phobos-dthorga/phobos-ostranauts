@@ -7,9 +7,10 @@ namespace PhobosManufacturing.Core;
 public static class ManufacturingRules
 {
     public const string Owner = "phobosgekko.ostranauts.manufacturing";
-    public const string Working = "PhobosManufacturingWorking", Electrolysing = "PhobosManufacturingElectrolysing", Content = "PhobosManufacturingContent";
+    public const string Working = "PhobosManufacturingWorking", Electrolysing = "PhobosManufacturingElectrolysing", Reacting = "PhobosManufacturingReacting",
+        Content = "PhobosManufacturingContent";
     /// <summary>The commodity every registered water vessel holds (Shipbreaker's S3, Agriculture's R3) and ours.</summary>
-    public const string Water = "water", Hydrogen = "hydrogen";
+    public const string Water = "water", Hydrogen = "hydrogen", Methane = "methane";
     public const double LocalAccessTiles = 2.5, ConsoleAccessTiles = 2.5;
     public const double VesselRecheckSeconds = 5;
     /// <summary>Two square footprints lie within one tile of each other: the distance between centres, on the
@@ -22,4 +23,13 @@ public static class ManufacturingRules
         return distance + 1e-6 >= reach && distance <= reach + 1 + 1e-6;
     }
     public static bool Finite(double x) => !double.IsNaN(x) && !double.IsInfinity(x);
+    /// <summary>Credits supplied energy to a cycle of <paramref name="cycleKWh"/>; never more than one cycle completes
+    /// per step, and energy beyond a completion is refused rather than banked.</summary>
+    public static (double CycleKWh, bool Complete) AdvanceCycle(double creditedKWh, double suppliedKWh, double cycleKWh)
+    {
+        if (!Finite(creditedKWh) || !Finite(suppliedKWh) || !Finite(cycleKWh) || cycleKWh <= 0 || creditedKWh < 0 || suppliedKWh < 0 || creditedKWh >= cycleKWh)
+            throw new ArgumentException("Invalid cycle energy.");
+        double credited = Math.Min(creditedKWh + suppliedKWh, cycleKWh);
+        return (credited, credited >= cycleKWh - 1e-9);
+    }
 }

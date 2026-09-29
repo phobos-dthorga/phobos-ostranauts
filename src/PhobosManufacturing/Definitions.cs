@@ -9,17 +9,18 @@ using PhobosManufacturing.Core;
 
 namespace PhobosManufacturing;
 
-/// <summary>Native definitions for the three Fennmark machines, the five materials, and the three deflagration
+/// <summary>Native definitions for the five Fennmark machines, the five materials, and the three deflagration
 /// objects. Machines use Framework's appliance contract; materials clone the game's own scrap and hydrate
 /// definitions so pickup, stacking, damage and market behaviour stay vanilla.</summary>
 internal static class Definitions
 {
     internal const string Controls = "PhobosManufacturingControls", ImagePath = "phobos/manufacturing/";
-    internal const string RefineryArt = "PhobosVolatilesRefinery", ProcessorArt = "PhobosChemicalProcessor", StoreArt = "PhobosHydrogenStore";
+    internal const string RefineryArt = "PhobosVolatilesRefinery", ProcessorArt = "PhobosChemicalProcessor", StoreArt = "PhobosHydrogenStore",
+        ReactorArt = "PhobosSabatierReactor", MethaneArt = "PhobosMethaneStore";
     internal static readonly string[] Forms = { "Installed", "Loose", "InstalledDmg", "LooseDmg" };
     internal static void Add(NativeDefinitions d, bool steelStock)
     {
-        foreach (string condition in new[] { ManufacturingRules.Working, ManufacturingRules.Electrolysing, ManufacturingRules.Content })
+        foreach (string condition in new[] { ManufacturingRules.Working, ManufacturingRules.Electrolysing, ManufacturingRules.Reacting, ManufacturingRules.Content })
             d.Conditions[condition] = new JsonCond { strName = condition, strNameFriendly = Text.Get("Condition." + condition), strColor = "Neutral", nDisplaySelf = 2, nDisplayOther = 2 };
         var controls = NativeDefinitions.Clone(DataHandler.dictInteractions["Inventory"]);
         controls.strName = Controls; controls.strTitle = Text.Get("Panel.controls"); controls.strDesc = controls.strTooltip = Text.Get("Panel.controls_tooltip");
@@ -28,7 +29,9 @@ internal static class Definitions
         AddMaterials(d);
         AddRefinery(d, steelStock);
         AddProcessor(d);
-        AddStore(d);
+        AddReactor(d);
+        AddStore(d, FuelStores.Hydrogen, Text.Get("Store.description", HydrogenRules.DryKg, HydrogenRules.CapacityKg, HydrogenRules.LeakKgPerHour), StoreArt);
+        AddStore(d, FuelStores.Methane, Text.Get("Methane.description", MethaneRules.DryKg, MethaneRules.CapacityKg, MethaneRules.LeakKgPerHour), MethaneArt);
         AddDeflagrations(d);
     }
 
@@ -74,19 +77,38 @@ internal static class Definitions
         }
     }
 
-    private static void AddStore(NativeDefinitions d)
+    /// <summary>The K2 Sabatier reactor: a powered 2 x 2 appliance with no container; its gases are a saved record.</summary>
+    private static void AddReactor(NativeDefinitions d)
     {
-        string p = HydrogenRules.Prefix;
-        BulkVessels.Register(HydrogenRules.Spec);
-        ApplianceDefinitions.Add(d, p, Text.Get("Store.name"), Text.Get("Store.description", HydrogenRules.DryKg, HydrogenRules.CapacityKg, HydrogenRules.LeakKgPerHour),
-            HydrogenRules.Footprint, HydrogenRules.DryKg, HydrogenRules.Price, ImagePath + StoreArt, Controls, 0, InstallMenu.Appliances);
-        // A passive vessel: no electricity, no tickers, no container. Its hydrogen is a saved record.
+        string p = SabatierRules.Prefix;
+        ApplianceDefinitions.Add(d, p, Text.Get("Sabatier.name"), Text.Get("Sabatier.description", SabatierRules.MachineKg, SabatierRules.WorkingKW, SabatierRules.HydrogenKgPerCycle,
+                SabatierRules.CarbonDioxideKgPerCycle, SabatierRules.WaterKgPerCycle, SabatierRules.MethaneKgPerCycle),
+            SabatierRules.Footprint, SabatierRules.MachineKg, SabatierRules.Price, ImagePath + ReactorArt, Controls, SabatierRules.IdleKW, InstallMenu.Appliances);
+        ApplianceDefinitions.SetPowerOverride(d, p, SabatierRules.IdleKW, SabatierRules.WorkingKW, ManufacturingRules.Reacting, "PowerA");
+        foreach (string form in Forms)
+        {
+            var co = d.Objects[p + form]; var item = d.Items[p + form];
+            bool damaged = form.EndsWith("Dmg", StringComparison.Ordinal);
+            co.strNameFriendly = co.strNameShort = Text.Get("Sabatier.name") + (damaged ? Text.Get("Content.damaged") : "");
+            StripContainer(co);
+            co.aInteractions = co.aInteractions.Where(i => i != "Inventory").ToArray();
+            co.mapPoints = new[] { "use,0,-24", "PowerA,0,8", "PhobosGasIn,-8,0", "PhobosGasOut,8,0" };
+            co.strPortraitImg = item.strImg;
+        }
+    }
+
+    private static void AddStore(NativeDefinitions d, FuelStore fuel, string description, string art)
+    {
+        string p = fuel.Prefix, name = Text.Get(fuel.TextPrefix + ".name");
+        BulkVessels.Register(fuel.Spec);
+        ApplianceDefinitions.Add(d, p, name, description, 2, fuel.DryKg, fuel.Price, ImagePath + art, Controls, 0, InstallMenu.Appliances);
+        // A passive vessel: no electricity, no tickers, no container. Its contents are a saved record.
         d.Power.Remove(p + "Power"); d.Interactions.Remove(p + "PowerChange");
         foreach (string form in Forms)
         {
             var co = d.Objects[p + form]; var item = d.Items[p + form];
             bool damaged = form.EndsWith("Dmg", StringComparison.Ordinal);
-            co.strNameFriendly = co.strNameShort = Text.Get("Store.name") + (damaged ? Text.Get("Content.damaged") : "");
+            co.strNameFriendly = co.strNameShort = name + (damaged ? Text.Get("Content.damaged") : "");
             StripContainer(co);
             co.jsonPI = null; co.aTickers = Array.Empty<string>();
             co.aInteractions = co.aInteractions.Where(i => i != "Inventory").ToArray();
@@ -145,7 +167,7 @@ internal static class Definitions
     {
         foreach (string size in new[] { "Small", "Medium", "Large" })
         {
-            string id = HydrogenRules.DeflagrationPrefix + size;
+            string id = FuelStores.DeflagrationPrefix + size;
             d.Objects[id] = new JsonCondOwner { strName = id, strItemDef = id, strType = "Item", strNameFriendly = Text.Get("Store.deflagration"), strNameShort = Text.Get("Store.deflagration"),
                 aStartingConds = new[] { "IsNonHighlightable=1x1", "IsSystem=1x1" }, aUpdateCommands = new[] { "Explosion,PhobosDeflagration" + size }, strPortraitImg = "blank",
                 aInteractions = Array.Empty<string>(), mapSlotEffects = Array.Empty<string>(), mapPoints = Array.Empty<string>() };

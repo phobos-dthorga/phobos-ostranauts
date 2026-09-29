@@ -10,7 +10,7 @@ using Phobos.Ostranauts.Framework.Registration;
 using PhobosManufacturing;
 using PhobosManufacturing.Core;
 
-/// <summary>Manufacturing 0.1.0 against the game's own data: the three Fennmark machines, the five materials,
+/// <summary>Manufacturing against the game's own data: the five Fennmark machines, the five materials,
 /// the feed rule at the game level, the native feed masses the chemistry depends on, the mining tables the clay
 /// chunk joins, the native oxygen canister the electrolyser fills, the hydrogen vessel, the economy contract,
 /// and the native fire and explosion machinery the hazards rely on.</summary>
@@ -37,10 +37,19 @@ internal static class ManufacturingNativeChecks
             check(storeItem.nCols == 2 && store.jsonPI == null && store.aTickers.Length == 0 && store.nContainerWidth == 0 && !Has(store, "IsContainer") && Stat(store, "StatMass") == HydrogenRules.DryKg,
                 "H2 store is a passive two by two vessel at its dry mass: " + state);
             check(store.strNameFriendly.StartsWith("Phobos' Fennmark H2 ", StringComparison.Ordinal), "H2 store carries the Fennmark H2 name: " + state);
+            var reactor = d.Objects[SabatierRules.Prefix + state]; var reactorItem = d.Items[reactor.strItemDef];
+            check(reactorItem.nCols == 2 && reactorItem.aSocketAdds.Length == 4 && reactor.nContainerWidth == 0 && !Has(reactor, "IsContainer") && Stat(reactor, "StatMass") == SabatierRules.MachineKg,
+                "K2 is a two by two reactor with no cargo: its gases are records: " + state);
+            check(reactor.strNameFriendly.StartsWith("Phobos' Fennmark K2 ", StringComparison.Ordinal) && (reactor.jsonPI == SabatierRules.Prefix + "Power") == (installed && !damaged),
+                "K2 carries its Fennmark name and draws power only when installed and intact: " + state);
+            var methane = d.Objects[MethaneRules.Prefix + state];
+            check(d.Items[methane.strItemDef].nCols == 2 && methane.jsonPI == null && methane.aTickers.Length == 0 && !Has(methane, "IsContainer") && Stat(methane, "StatMass") == MethaneRules.DryKg,
+                "M2 store is a passive two by two vessel at its dry mass: " + state);
+            check(methane.strNameFriendly.StartsWith("Phobos' Fennmark M2 ", StringComparison.Ordinal), "M2 store carries the Fennmark M2 name: " + state);
             if (installed)
-                foreach (var co in new[] { refinery, processor, store })
+                foreach (var co in new[] { refinery, processor, store, reactor, methane })
                     check(co.aInteractions.Count(i => i == Definitions.Controls) == 1, "Installed machine offers one Control Panel: " + co.strName);
-            foreach (var prefix in new[] { RefineryRules.Prefix, ProcessorRules.Prefix, HydrogenRules.Prefix })
+            foreach (var prefix in new[] { RefineryRules.Prefix, ProcessorRules.Prefix, HydrogenRules.Prefix, SabatierRules.Prefix, MethaneRules.Prefix })
             {
                 check(d.Installables.ContainsKey(prefix + state + "Dismantle") && d.Installables.ContainsKey(prefix + state + (installed ? "Uninstall" : "Install")), "Native removal and dismantle jobs exist: " + prefix + state);
                 check(damaged ? d.Installables.ContainsKey(prefix + state + "Repair") : d.Installables.ContainsKey(prefix + state + "Restore"), "Repair on damaged forms, Restore on intact ones: " + prefix + state);
@@ -69,7 +78,23 @@ internal static class ManufacturingNativeChecks
         var cell = d.Power[ProcessorRules.Prefix + "Power"];
         check(Math.Abs(cell.fAmount - ProcessorRules.IdleKW / Units.SecondsPerHour) < 1e-12 && cell.strOverrideCond == ManufacturingRules.Electrolysing && Math.Abs(cell.fOverrideAmount - ProcessorRules.WorkingKW / Units.SecondsPerHour) < 1e-12 && cell.aInputPts.SequenceEqual(new[] { "PowerA" }),
             "X2 draws 0.02 kW idle and 6 kW electrolysing through one input point");
-        check(!d.Power.ContainsKey(HydrogenRules.Prefix + "Power"), "The hydrogen store has no power info");
+        check(!d.Power.ContainsKey(HydrogenRules.Prefix + "Power") && !d.Power.ContainsKey(MethaneRules.Prefix + "Power"), "The fuel stores have no power info");
+        var bed = d.Power[SabatierRules.Prefix + "Power"];
+        check(Math.Abs(bed.fAmount - SabatierRules.IdleKW / Units.SecondsPerHour) < 1e-12 && bed.strOverrideCond == ManufacturingRules.Reacting && Math.Abs(bed.fOverrideAmount - SabatierRules.WorkingKW / Units.SecondsPerHour) < 1e-12 && bed.aInputPts.SequenceEqual(new[] { "PowerA" }),
+            "K2 draws 0.02 kW idle and 1.2 kW reacting through one input point");
+        // Sabatier with the game's own molar masses, and the game's own CO2 canister rule.
+        check(SabatierRules.Balanced() && NativeGasCanister.IsRoomSpecies(SabatierRules.CarbonDioxide) && NativeGasCanister.IsRoomSpecies(SabatierRules.MethaneSpecies),
+            "The reactor conserves mass with the game's molar masses, and CO2 and CH4 are game gases");
+        var co2Trigger = DataHandler.dictCTs[SabatierRules.CanisterTrigger];
+        check(co2Trigger.TriggeredDataCO(new DataCO(DataHandler.dictCOs["ItmRTACO2"]), false) && !co2Trigger.TriggeredDataCO(new DataCO(DataHandler.dictCOs["ItmRTACO2Loose"]), false) &&
+            !co2Trigger.TriggeredDataCO(new DataCO(DataHandler.dictCOs["ItmRTAO2"]), false), "The game's own trigger names installed CO2 canisters only");
+        check(NativeGasCanister.Species(null) == null && DataHandler.dictCOs["ItmRTACO2"].aStartingConds.Any(s => s.StartsWith("IsVesselCO2=", StringComparison.Ordinal)),
+            "The native CO2 canister is rated for CO2, the species the reactor draws");
+        var methaneSpec = BulkVessels.SpecFor(MethaneRules.Installed);
+        check(methaneSpec != null && methaneSpec.Commodity == "methane" && methaneSpec.CapacityKg == MethaneRules.CapacityKg && methaneSpec.DamagePolicy == VesselDamagePolicy.Leak && methaneSpec.Owner == Plugin.Id,
+            "The M2 store is a registered leaking methane vessel");
+        check(new[] { BulkVessels.SpecFor(HydrogenRules.Installed), methaneSpec, BulkVessels.SpecFor("PhobosProcessSiloInstalled") }.Select(s => s?.Commodity).Distinct().Count() == 3,
+            "Water, hydrogen and methane vessels coexist in the registry");
 
         // Materials: clones of the game's own scrap and hydrates with our identity, mass, price and category.
         foreach (var m in Materials.All)
@@ -172,7 +197,7 @@ internal static class ManufacturingNativeChecks
         var salvage = d.Loot["PhobosManufacturingMachinerySalvage"].aCOs.Single().Split('|')
             .ToDictionary(c => c.Split('=')[0], c => double.Parse(c.Split('=')[1].Split('x')[0], System.Globalization.CultureInfo.InvariantCulture));
         check(Math.Abs(salvage.Values.Sum() - EquipmentEconomy.MachinerySalvageChance) < 1e-9 && EquipmentEconomy.MachinerySalvageChance <= 0.05 &&
-            Math.Abs(salvage.Where(p => p.Key.EndsWith("Dmg", StringComparison.Ordinal)).Sum(p => p.Value) - 0.75 * EquipmentEconomy.MachinerySalvageChance) < 1e-9 && salvage.Count == 6,
+            Math.Abs(salvage.Where(p => p.Key.EndsWith("Dmg", StringComparison.Ordinal)).Sum(p => p.Value) - 0.75 * EquipmentEconomy.MachinerySalvageChance) < 1e-9 && salvage.Count == 2 * EquipmentEconomy.Machines.Length,
             "At most one engineering roll in twenty yields a machine, three in four of those broken");
 
         // The hazard model's native foundations: the fire gas-respire, the spread trigger, the explosion entries.

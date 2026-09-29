@@ -75,7 +75,10 @@ $23,944). Findings and changes:
 | The steel charge gained value (0.1.0: 4 x $20 + $10 in, 4 x $25 out) | Live-price computation | Nickel-iron ingot $24 (the smallest fix; carbon stays $10); a native check now proves every charge loses value at live prices. Stock stays ordinary-priced: only the machinery is late-game (owner correction) |
 
 Lots stay at eight and the 85% equipment floor stays, per the stock memoranda;
-price, not scarcity, is the late-game gate.
+price, not scarcity, is the late-game gate. Manufacturing 0.2.0 adds the K2 Sabatier
+reactor ($44,000) and M2 methane store ($21,000) on the same terms: component
+repair bills, the high-salvage mark, the same routes, and a share of the same 5%
+engineering-loot chance, now split across five machines.
 Nickel-iron ingots and carbon stock are `AnyMetal` / `AnyIndustrialProducts`
 so the Venus, K-Leg supply and furnishings buyers accept them; scrap kiosks do
 not (the ingot rule above). Slag and anhydrous residue carry the Trash category.

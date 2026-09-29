@@ -17,7 +17,7 @@ namespace PhobosManufacturing;
 public sealed class Plugin : BaseUnityPlugin
 {
     public const string Id = ManufacturingRules.Owner;
-    public const string Version = "0.1.1";
+    public const string Version = "0.2.0";
     public const string MinimumFrameworkVersion = "0.41.0";
     internal static Action<string> Log = _ => { };
     private Harmony? harmony;
@@ -32,15 +32,15 @@ public sealed class Plugin : BaseUnityPlugin
         Log(Text.Get("Plugin.loaded", Version, ShipbreakerStock.PluginPresent ? Text.Get("Plugin.with_shipbreaker") : Text.Get("Plugin.without_shipbreaker")));
     }
     private static void Load() { ResetServices(); Content.Register(Log); }
-    internal static void ResetServices() { RefineryService.Reset(); ProcessorService.Reset(); HydrogenService.Reset(); }
-    /// <summary>A damaged hydrogen store has no native tick of its own: every couple of seconds its leak advances.</summary>
+    internal static void ResetServices() { RefineryService.Reset(); ProcessorService.Reset(); SabatierService.Reset(); StoreService.Reset(); }
+    /// <summary>A damaged fuel store has no native tick of its own: every couple of seconds its leak advances.</summary>
     private void Update()
     {
         if (UnityEngine.Time.unscaledTime < nextScan) return;
         nextScan = UnityEngine.Time.unscaledTime + 2;
         if (!Content.Ready || CrewSim.objInstance == null || !CrewSim.objInstance.FinishedLoading || DataHandler.mapCOs == null) return;
-        foreach (var co in DataHandler.mapCOs.Values.Where(c => c != null && HydrogenRules.IsFamily(c.strCODef) && c.HasCond("IsDamaged") && c.HasCond("IsInstalled")).ToArray())
-            HydrogenService.Tick(co);
+        foreach (var co in DataHandler.mapCOs.Values.Where(c => c != null && FuelStores.IsFamily(c.strCODef) && c.HasCond("IsDamaged") && c.HasCond("IsInstalled")).ToArray())
+            StoreService.Tick(co);
     }
     private void OnDestroy()
     {
@@ -53,7 +53,7 @@ public sealed class Plugin : BaseUnityPlugin
 [HarmonyPatch(typeof(Powered), "UsePower", new[] { typeof(CondOwner), typeof(double) })]
 internal static class PowerPatch
 {
-    internal sealed class PowerState { internal bool Finished; internal RefineryService.Transfer? Refinery; internal ProcessorService.Transfer? Processor; }
+    internal sealed class PowerState { internal bool Finished; internal RefineryService.Transfer? Refinery; internal ProcessorService.Transfer? Processor; internal SabatierService.Transfer? Reactor; }
     private static bool Prefix(Powered __instance, CondOwner __0, ref double __1, out PowerState __state)
     {
         __state = new PowerState();
@@ -67,6 +67,11 @@ internal static class PowerPatch
         {
             try { return ProcessorService.BeginPower(__instance, __0, ref __1, out __state.Processor); }
             catch (Exception ex) { ProcessorService.Fault(__0, ex); return false; }
+        }
+        if (SabatierRules.IsFamily(__0.strCODef))
+        {
+            try { return SabatierService.BeginPower(__instance, __0, ref __1, out __state.Reactor); }
+            catch (Exception ex) { SabatierService.Fault(__0, ex); return false; }
         }
         return true;
     }
@@ -85,6 +90,12 @@ internal static class PowerPatch
             catch (Exception ex) { ProcessorService.Fault(__0, ex); }
             finally { __state.Finished = true; }
         }
+        else if (SabatierRules.IsFamily(__0.strCODef))
+        {
+            try { SabatierService.FinishPower(__instance, __0, __state.Reactor); }
+            catch (Exception ex) { SabatierService.Fault(__0, ex); }
+            finally { __state.Finished = true; }
+        }
     }
     private static void Finalizer(Powered __instance, CondOwner __0, PowerState? __state)
     {
@@ -95,10 +106,15 @@ internal static class PowerPatch
             {
                 if (RefineryRules.IsFamily(__0.strCODef)) RefineryService.FinishPower(__instance, __0, __state.Refinery);
                 else if (ProcessorRules.IsFamily(__0.strCODef)) ProcessorService.FinishPower(__instance, __0, __state.Processor);
+                else if (SabatierRules.IsFamily(__0.strCODef)) SabatierService.FinishPower(__instance, __0, __state.Reactor);
             }
         }
         catch (Exception ex) { Plugin.Log(ex.Message); }
-        finally { if (__0 != null && (RefineryRules.IsFamily(__0.strCODef) || ProcessorRules.IsFamily(__0.strCODef))) { RefineryService.Forget(__instance); ProcessorService.Forget(__instance); } }
+        finally
+        {
+            if (__0 != null && (RefineryRules.IsFamily(__0.strCODef) || ProcessorRules.IsFamily(__0.strCODef) || SabatierRules.IsFamily(__0.strCODef)))
+            { RefineryService.Forget(__instance); ProcessorService.Forget(__instance); SabatierService.Forget(__instance); }
+        }
     }
 }
 
@@ -112,6 +128,7 @@ internal static class PowerDemandPatch
         if (machine == null) return;
         if (RefineryRules.IsFamily(machine.strCODef)) { try { RefineryService.BeforePower(machine); } catch (Exception ex) { RefineryService.Fault(machine, ex); } }
         else if (ProcessorRules.IsFamily(machine.strCODef)) { try { ProcessorService.BeforePower(machine); } catch (Exception ex) { ProcessorService.Fault(machine, ex); } }
+        else if (SabatierRules.IsFamily(machine.strCODef)) { try { SabatierService.BeforePower(machine); } catch (Exception ex) { SabatierService.Fault(machine, ex); } }
     }
 }
 
@@ -180,16 +197,26 @@ internal static class MaintenanceFinish
     }
 }
 
-// The hydrogen store's hazard follows the native damage switch and destruction; nothing is blocked.
+// The stores' and the reactor's hazards follow the native damage switch and destruction; nothing is blocked.
 [HarmonyPatch(typeof(CondOwner), nameof(CondOwner.ModeSwitch))]
 internal static class StoreDamagePatch
 {
-    private static void Postfix(CondOwner coNew) { if (coNew != null && HydrogenRules.IsFamily(coNew.strCODef) && coNew.HasCond("IsDamaged")) HydrogenService.Damaged(coNew); }
+    private static void Postfix(CondOwner coNew)
+    {
+        if (coNew == null || !coNew.HasCond("IsDamaged")) return;
+        if (FuelStores.IsFamily(coNew.strCODef)) StoreService.Damaged(coNew);
+        else if (SabatierRules.IsFamily(coNew.strCODef)) SabatierService.Damaged(coNew);
+    }
 }
 [HarmonyPatch(typeof(CondOwner), nameof(CondOwner.Destroy))]
 internal static class StoreDestroyPatch
 {
-    private static void Prefix(CondOwner __instance) { if (__instance != null && HydrogenRules.IsFamily(__instance.strCODef)) HydrogenService.Destroying(__instance); }
+    private static void Prefix(CondOwner __instance)
+    {
+        if (__instance == null) return;
+        if (FuelStores.IsFamily(__instance.strCODef)) StoreService.Destroying(__instance);
+        else if (SabatierRules.IsFamily(__instance.strCODef)) SabatierService.Destroying(__instance);
+    }
 }
 
 [HarmonyPatch(typeof(ConsoleResolver), nameof(ConsoleResolver.ResolveString))]
@@ -203,7 +230,7 @@ internal static class ConsolePatch
         { strInput += "\n" + string.Join("\n", CrewSim.GetSelectedCrew()?.ship?.GetCOs(null, false, false, true).Where(Content.Machine).Select(c => c.strNameFriendly + " " + c.strID) ?? Array.Empty<string>()); __result = true; return false; }
         var co = parts.Length >= 3 ? Content.Resolve(parts[2]) : null;
         string message = Text.Get("Console.help");
-        string action = parts.Length == 4 && new[] { "link", "water", "store", "canister", "vent" }.Contains(parts[1]) ? parts[1] + ":" + parts[3] : parts[1];
+        string action = parts.Length == 4 && new[] { "link", "water", "store", "canister", "vent", "hydrogen", "methane" }.Contains(parts[1]) ? parts[1] + ":" + parts[3] : parts[1];
         var provider = new Provider();
         __result = Content.Machine(co) && provider.Command(co!, null, action, out message); strInput += "\n" + message; return false;
     }

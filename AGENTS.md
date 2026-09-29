@@ -350,6 +350,13 @@
   raw-material prices, capped by the vanilla ore they come from because every
   charge must lose value; see
   `docs/equipment-economy.md` and the refinery record.
+- Owner decisions (2026-09-29), Manufacturing 0.2.0: the Sabatier stage is a
+  separate Fennmark K2 reactor (not an X2 mode), and its methane goes to a new
+  Fennmark M2 methane store rather than overboard. This is an explicit owner
+  exception to "add a bulk commodity only with a concrete consumer"; do not treat
+  it as permission for other consumer-less commodities. Methane is a native gas:
+  the store leaks it into the room and a burn leaves CO2. Keep the reactor's saved
+  reactant/product holds and its one-step conversion; follow the refinery record.
 
 ## Working style
 

@@ -79,3 +79,9 @@ passes used are kept in `references/`. The allowance decreased from 1,875 to
 Phobos drawings were uploaded. Nothing was archived: every unselected output
 is a retained input of a selected one. The design record is
 [the Fennmark art handoff](../../docs/development/manufacturing-art-handoff.md).
+
+Manufacturing 0.2.0 adds `source/k2-reactor.png` and `source/m2-methane-store.png`
+(full footprint, 32 px native from 128 px masters) with their start drawings and
+first passes in `references/`; four included generations (1,865 to 1,861), $0
+credit, no purchases, nothing archived. Requests are appended to
+[manufacturing-requests.json](manufacturing-requests.json).

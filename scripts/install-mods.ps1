@@ -318,6 +318,12 @@ foreach ($mod in $Mods) {
                     "images/phobos/manufacturing/$image.png"; "images/phobos/manufacturing/${image}Normal.png"
                 }
             }
+            # 0.2.0 adds the Sabatier reactor and methane store.
+            if ($version -ge [version]'0.2.0') {
+                foreach ($image in @('PhobosSabatierReactor', 'PhobosMethaneStore')) {
+                    "images/phobos/manufacturing/$image.png"; "images/phobos/manufacturing/${image}Normal.png"
+                }
+            }
         }
         'AutoNav' {
             if ($version -ge [version]'0.2.0') { 'framework/recipes.json' }

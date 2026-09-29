@@ -265,7 +265,7 @@
     "Manufacturing.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.1.1",
+      "value": "0.2.0",
       "description": "PhobosManufacturing published source/package version.",
       "targets": [
         {
@@ -1637,6 +1637,40 @@
       ],
       "review": [
         "Late-game plant stays a rare find (owner direction, 29 September 2026); the native check caps it at 0.05. Regenerate item references. Existing containers are unchanged."
+      ]
+    },
+    "Manufacturing.sabatierPrice": {
+      "type": "number",
+      "value": "44000",
+      "min": 1,
+      "max": 1000000,
+      "description": "Authored K2 Sabatier reactor base price (broken form is one quarter).",
+      "targets": [
+        {
+          "path": "src/PhobosManufacturing/Core/SabatierRules.cs",
+          "pattern": "\\bPrice\\s*=\\s*(?P<value>[0-9.]+)",
+          "count": 1
+        }
+      ],
+      "review": [
+        "Run scripts/build-manufacturing.ps1 (pure chemistry checks and native checks) and regenerate item references. Late-game price band: above the towing brace loose half, below the IC fusion reactor (native check)."
+      ]
+    },
+    "Manufacturing.methaneStorePrice": {
+      "type": "number",
+      "value": "21000",
+      "min": 1,
+      "max": 1000000,
+      "description": "Authored M2 methane store base price (broken form is one quarter).",
+      "targets": [
+        {
+          "path": "src/PhobosManufacturing/Core/FuelStoreRules.cs",
+          "pattern": "CapacityKg = 160, DryKg = 160, Price = (?P<value>[0-9.]+)",
+          "count": 1
+        }
+      ],
+      "review": [
+        "Run scripts/build-manufacturing.ps1 (pure chemistry checks and native checks) and regenerate item references. Late-game price band: above the towing brace loose half, below the IC fusion reactor (native check)."
       ]
     }
   }

@@ -80,6 +80,35 @@ pressure over R T, R = 0.008314 kPa m3 / mol K): the native 0.787 m3, 41,400 kPa
 293 K O2 canister holds 13,373 mol, about 428 kg. Framework's `NativeGasCanister`
 clamps every addition to that headroom; a damaged canister is refused.
 
+## Sabatier (0.2.0)
+
+| Cycle | Inputs | Outputs | Basis |
+| --- | --- | --- | --- |
+| One hour at 1.2 kW | 0.125 kg H2 (62.0 mol) from the H2 store; 0.682 kg CO2 (15.5 mol) from an installed native CO2 canister | 0.2487 kg CH4 into the M2 store; 0.5585 kg water into the linked vessel | CO2 + 4 H2 -> CH4 + 2 H2O. Masses use the game's molar masses; water is the balancing remainder and agrees with 2 x 15.5 mol x 18.015 g within 0.01%. Complete conversion of the limiting hydrogen is an authored simplification |
+
+The reactor mirrors NASA's ISS Carbon Dioxide Reduction Assembly (the Sabatier
+system delivered in 2010), which reduces the CO2 the crew's air revitalisation
+removes with hydrogen from the Oxygen Generation Assembly, returns the water and
+vents the methane; here the owner chose to keep the methane (29 September 2026).
+With the X2, 0.559 of every 1.125 kg of water split comes back, about half, which
+matches the ISS system's hydrogen-limited recovery in character. The electricity
+figure (compressor, bed heaters, condenser fan) is authored.
+
+Heat: from NIST standard enthalpies of formation, CO2(g) -393.51, CH4(g) -74.87
+and H2O(l) -285.83 kJ/mol, the reaction releases 253.02 kJ per mole of CO2 with
+the water condensed, 1.09 kWh per cycle. That and the 1.2 kW of electricity go
+into the room (about 2.3 kW while working) under the same 10 kPa / 40 C bounds.
+
+The methane store holds 160 kg (the native canister volume at 41.4 MPa holds
+roughly 200 kg of compressed methane; authored below that). Methane is one of the
+game's gas species, so a damaged store leaks into its room, not to space, and a
+burn follows CH4 + 2 O2 -> CO2 + 2 H2O: 3.99 kg of oxygen per kilogram, 2.74 kg
+of carbon dioxide into the room, 55.5 MJ/kg (NIST higher heating value, 890.6
+kJ/mol). The water vapour has no game species and leaves with the blast, as for
+hydrogen. Blast size now follows energy: small below the energy of 2 kg of
+hydrogen, medium below 8 kg, so hydrogen sizes are unchanged. A damaged reactor
+dumps its held CO2 and methane into the room and its hydrogen burns or escapes.
+
 ## The hydrogen store
 
 24 kg capacity: the native canister volume at 41.4 MPa and 293 K holds about
@@ -130,6 +159,13 @@ time of writing it is marked *from memory*; verify before quoting numbers.
   (standard enthalpy of formation -285.83 kJ/mol; enthalpy of vaporization).
   https://webbook.nist.gov/cgi/cbook.cgi?ID=C7732185 — supports the
   electrolysis minimum, the drying energies and the hydrogen heating value.
+- NASA, International Space Station Carbon Dioxide Reduction Assembly (the
+  Sabatier reactor, launched 2010): CO2 + 4 H2 -> CH4 + 2 H2O on crew CO2 and
+  OGA hydrogen, water returned, methane vented. Described in NASA's ECLSS
+  overview linked below; *from memory of the programme history, verify the date
+  and figures before quoting*. Supports the K2's role, not its authored numbers.
+- NIST Chemistry WebBook, methane: standard enthalpy of formation and of
+  combustion (890.6 kJ/mol). https://webbook.nist.gov/cgi/cbook.cgi?ID=C74828
 - NASA, International Space Station Environmental Control and Life Support
   System, Oxygen Generation Assembly: water electrolysis with hydrogen vented or
   sent to Sabatier. https://www.nasa.gov/international-space-station/space-station-environmental-control-and-life-support-system/

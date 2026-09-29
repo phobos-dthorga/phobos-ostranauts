@@ -42,7 +42,9 @@ internal static class EquipmentEconomy
         //                                                                                                          repair: St Al Me El Mo Mb HS Sc     salvage:  St  Al Me El Mo Mb HS Sc Tr          broken: St Al Me El Mo Mb HS Sc Tr
         new Spec(RefineryRules.Prefix, price: (int)RefineryRules.Price, install: 2000, uninstall: 1600, repair: 6000, dismantle: 1600, new[]{4,2,6,8,2,2,2,1}, new[]{100,40,20,10,2,2,2,1,10}, new[]{90,32,10,4,1,0,1,0,47}, restoreMinutes: 150, RefineryRules.InputBin),
         new Spec(ProcessorRules.Prefix, price: (int)ProcessorRules.Price, install: 1200, uninstall: 1000, repair: 3600, dismantle: 900, new[]{2,2,3,8,1,3,2,0}, new[]{70,26,16,12,1,3,2,0,13}, new[]{34,10,4,0,0,1,1,0,82}, restoreMinutes: 90),
-        new Spec(HydrogenRules.Prefix, price: (int)HydrogenRules.Price, install: 1200, uninstall: 1000, repair: 3000, dismantle: 900, new[]{6,2,6,2,0,1,0,0}, new[]{110,30,12,3,0,1,0,0,12}, new[]{40,10,4,0,0,0,0,0,108}, restoreMinutes: 60)
+        new Spec(HydrogenRules.Prefix, price: (int)HydrogenRules.Price, install: 1200, uninstall: 1000, repair: 3000, dismantle: 900, new[]{6,2,6,2,0,1,0,0}, new[]{110,30,12,3,0,1,0,0,12}, new[]{40,10,4,0,0,0,0,0,108}, restoreMinutes: 60),
+        new Spec(SabatierRules.Prefix, price: (int)SabatierRules.Price, install: 1200, uninstall: 1000, repair: 3600, dismantle: 900, new[]{3,2,4,6,1,2,2,0}, new[]{80,30,16,11,1,2,2,0,20}, new[]{36,12,4,0,0,1,1,0,98}, restoreMinutes: 90),
+        new Spec(MethaneRules.Prefix, price: (int)MethaneRules.Price, install: 1200, uninstall: 1000, repair: 3000, dismantle: 900, new[]{6,2,6,2,0,1,0,0}, new[]{110,30,12,3,0,1,0,0,12}, new[]{40,10,4,0,0,0,0,0,108}, restoreMinutes: 60)
     };
     internal static string[] Products(int[] bill) => bill.SelectMany((count, i) => Enumerable.Repeat(Materials[i], count)).ToArray();
     internal static void Apply(NativeDefinitions d)

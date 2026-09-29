@@ -12,7 +12,7 @@ is still pending.
 | Phobos Shipbreaker | CTRL | C1 industrial control console |
 | Phobos Agriculture | APPS | Firstlight-4 cultivation rack, Hearth-2 portion cooker, Groundwork W2 supply, B2 workup bench and R3 reservoir |
 | Phobos Agriculture | MISC | Irrigation conduit |
-| Phobos Manufacturing | APPS | Fennmark V4 volatiles refinery, X2 chemical processor and H2 hydrogen store |
+| Phobos Manufacturing | APPS | Fennmark V4 volatiles refinery, X2 chemical processor, H2 hydrogen store, K2 Sabatier reactor and M2 methane store |
 
 The native coverage checks include every implemented intact/damaged placement family. R3 has no fabrication recipe: buy the loose hardware before installation.
 D4, R4 and F6 entries now consume two D4-S, two R4-S or three F6-S sections at the site. Native hauling stages them separately. Complete loose machinery still has its direct Install action; damaged placement keeps its existing loose input. Other entries consume existing loose equipment and retain their work, placement and access requirements. See [section assembly](../section-assembly-and-maintenance.md). Obtain or construct the equipment first;
@@ -25,7 +25,7 @@ use native placement; continuous drag-laying behaviour has not been verified.
 Auto Nav's N1 and N2 boards are inserted in Polaris module slots through the
 existing [Auto Nav workflow](auto-navigate-adaptation.md). They have no standalone
 floor-installed form and are deliberately absent from this placement catalogue.
-Framework adds shared services. Manufacturing 0.1.0's three machines are
+Framework adds shared services. Manufacturing's five machines are
 purchase-only APPS entries; its proposed M4 machining centre must receive a
 catalogue entry when it becomes operational. Supplies, produce, ore, ingots,
 castings and waste remain cargo. Assembly sections are also cargo, but their Install action starts construction of the complete machine rather than installing a section as furniture.

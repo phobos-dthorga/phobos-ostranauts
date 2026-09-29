@@ -13,11 +13,12 @@ player instructions in [the player guide](../manufacturing-player-guide.md).
 
 | Location | Purpose |
 | --- | --- |
-| `src/PhobosManufacturing/Core/` | Pure rules compiled into the pure tests: `ManufacturingRules` (conditions, commodities, adjacency), `Materials`, `RefineryRules` (+ `ChargeRecipe`, `RefineryRecipes`), `RefineryState`, `ProcessorRules`, `ProcessorState`, `HydrogenRules` |
+| `src/PhobosManufacturing/Core/` | Pure rules compiled into the pure tests: `ManufacturingRules` (conditions, commodities, adjacency, the shared cycle rule), `Materials`, `RefineryRules` (+ `ChargeRecipe`, `RefineryRecipes`), `RefineryState`, `ProcessorRules`, `ProcessorState`, `SabatierRules`, `SabatierState`, `FuelStoreRules` (`FuelStore`, `FuelStores`, `MethaneRules`), `HydrogenRules` |
 | `Definitions.cs` | Three `ApplianceDefinitions` families, the V4 feed bin and triggers, the X2 and H2 store, cloned materials, deflagration objects, `MiningLoot` |
 | `RefineryService.cs` | F6-style charge model: Start binds the feed's exact multiset to a recipe; `BeforePower/BeginPower/FinishPower/AfterPower` credit seconds of powered work, admit room heat, emit off-gas, spoil a waiting melt; `Finish` delivers solids through `BatchPlacement` and water through `BulkVessel` conversion |
 | `ProcessorService.cs` | Batch pattern: water hold drawn through `LiquidTransferGuard`, cycle energy credited per step, oxygen through `NativeGasCanister.TryAdd` or `RoomGas.Emit`, hydrogen into the store |
-| `HydrogenService.cs` | Thin `BulkVessel` adapter: status, vent, damage/destroy decision (leak or deflagration), 2-second leak scan |
+| `SabatierService.cs` | K2 (0.2.0): reactant hold charged from the H2 store (guarded) and the native CO2 canister (`NativeGasCanister.TryTake`), measured electricity plus reaction heat into the room, one saved conversion step from reactant hold to product hold, guarded delivery of water and methane, damage dump |
+| `StoreService.cs` | Both fuel stores over `BulkVessel`: status, vent, damage/destroy decision (leak or burn), leak to space (hydrogen) or into the room (methane), 2-second leak scan; `Ignite` for a reactor's hydrogen |
 | `ShipbreakerStock.cs` | Soft detection of Shipbreaker 0.38.0+ and resolution of its ingot/remainder definitions; `Content.Prepare(bool steelStock)` for tests |
 | `EquipmentEconomy.cs` | Prices, work, repair bills, mass-balanced salvage, Restore rates, merchants, regional markets, engineering loot |
 | `Provider.cs`, `Panel.cs`, `Plugin.cs` | C1 provider and panel fields, the local Control Panel over `ConsoleShell`, Harmony patches and the `phobosmanufacturing` console |
@@ -80,3 +81,30 @@ gameplay validation; the owner checks are listed in the player guide.
   `ItmRTAN2`; silicates -> O2 by molten-regolith electrolysis; plastics only
   with real polymer chemistry; the M4 mill consuming nickel-iron and steel;
   construction of advanced equipment; a 16 px master for the clay chunk.
+
+## 0.2.0: Sabatier and methane
+
+Owner decisions, 29 September 2026: a separate reactor rather than a second X2
+mode, and a methane store rather than venting (an explicit exception to the rule
+that a commodity needs a consumer). New save-stable identities:
+`PhobosSabatierReactor*`, `PhobosMethaneStore*`, condition
+`PhobosManufacturingReacting`, commodity `methane`, records `ManufacturingSabatier`
+and `ManufacturingMethane` (with their journals and guards), and vessel-side ports
+`PhobosManufacturing.SabatierVesselIn` and `PhobosManufacturing.StoreOut` (distinct
+from the refinery's and the X2's, so one vessel serves all three). The CO2 canister
+is a one-sided saved id, as the X2's oxygen canister is.
+
+The reactor's record keeps reactants and products apart: a completed cycle turns
+the reactant hold into the product hold in one saved step, and each product then
+leaves under both transfer guards, so a reload during delivery cannot deliver twice
+(the X2 keeps its 0.1.0 pattern). The hydrogen store's service became `StoreService`
+over a `FuelStore` description shared with the methane store; hydrogen identities,
+records, text and behaviour are unchanged, except that blast size is now chosen by
+energy (identical results for hydrogen) and the explosion object's name reads "Gas
+deflagration".
+
+Verification, 29 September 2026: Manufacturing pure checks 135 PASS (Sabatier
+stoichiometry and heat, the record's conversion and corrupt-record refusal, port
+distinctness, methane store and burn); native checks 16,755 PASS (both families'
+forms, names, power, the game's installed-CO2-canister trigger, the methane vessel
+registration, economy parity and value); art export check. Not gameplay validation.

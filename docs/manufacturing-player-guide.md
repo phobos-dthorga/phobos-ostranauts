@@ -16,6 +16,8 @@ rotors and missile launchers, below a fusion reactor. Save up for it.
 | Phobos' Fennmark V4 Volatiles Refinery | 4 x 4 tiles; 180 kg; two power points; 24 kW working | 64,000 cr, broken 16,000 cr | K-Leg supply kiosk (broken) and fixer (worn), San Diego Halvorson (new), the Venus scrap kiosk (broken and refurbished) and the regional supply kiosks, in lots of eight; INSTALL > APPS. Purchase only. |
 | Phobos' Fennmark X2 Chemical Processor | 2 x 2 tiles; 130 kg; one power point; 6 kW working | 38,000 cr, broken 9,500 cr | The same sellers; INSTALL > APPS. Purchase only. |
 | Phobos' Fennmark H2 Hydrogen Store | 2 x 2 tiles; 160 kg empty; holds 24 kg of hydrogen | 22,000 cr, broken 5,500 cr | The same sellers; INSTALL > APPS. Purchase only. |
+| Phobos' Fennmark K2 Sabatier Reactor | 2 x 2 tiles; 150 kg; one power point; 1.2 kW working | 44,000 cr, broken 11,000 cr | The same sellers; INSTALL > APPS. Purchase only. |
+| Phobos' Fennmark M2 Methane Store | 2 x 2 tiles; 160 kg empty; holds 160 kg of methane | 21,000 cr, broken 5,250 cr | The same sellers; INSTALL > APPS. Purchase only. |
 
 Selling one back works like the game's other high-value salvage: the K-Leg
 fixer buys an intact machine, the Venus scrap kiosk buys intact or broken, and
@@ -92,6 +94,36 @@ and 0.125 kg of hydrogen.
 cycle's energy; the held water stays for the next cycle. A damaged canister is
 refused: repair or replace it.
 
+## The Sabatier reactor
+
+The K2 closes the oxygen loop. Each one-hour cycle at 1.2 kW takes 0.125 kg
+of hydrogen (exactly one X2 cycle's output) and 0.682 kg of carbon dioxide and
+makes 0.559 kg of water and 0.249 kg of methane: CO2 + 4 H2 -> CH4 + 2 H2O.
+With the X2, about half the water the cell splits comes back, the rest leaves
+as the hydrogen in the methane. That is how NASA's ISS system works too.
+
+1. Install the K2 within one tile of an H2 store, an installed CO2 canister,
+   a water vessel (S3 or R3) and an M2 methane store, and connect its power
+   point. One vessel can serve a refinery, an X2 and a K2 at once.
+2. Fill the CO2 canister with the game's own CO2 scrubber: that is where the
+   crew's breathing CO2 ends up, and nothing else in the game empties it.
+3. Open its **Control Panel** > **Connections** and set **Hydrogen from**,
+   **CO2 canister**, **Water to** and **Methane to**. Apply, then **Start**.
+4. At the start of each cycle it draws the hydrogen and CO2 into its own hold;
+   at the end the products go to their vessels, and the next cycle starts only
+   when they have. A short input or a full output makes it wait, with the reason.
+
+The reaction gives off heat: with its electricity, about 2.3 kW goes into the
+room while it works, and it waits for the room to cool at 40 C. Pause keeps
+held gas, made products and progress; Cancel forfeits only the cycle's energy.
+
+## The methane store
+
+The M2 keeps methane for the day something aboard can use it; nothing burns it
+as fuel yet. Its panel shows the kilograms held and which reactors fill it.
+**Vent methane** (or `vent <id> <kg>` on the console) discharges it overboard.
+Vent it before uninstalling or dismantling; both refuse while it holds methane.
+
 ## The hydrogen store
 
 The H2 store is passive: no power, no cargo, no inventory. Its panel shows the
@@ -121,6 +153,14 @@ releases it.
 - **Oxygen into the cabin raises the fire risk.** With no canister linked, the
   X2 raises the room's oxygen partial pressure; the game's fires spread more
   readily in rich air. Link a canister.
+- **Methane leaks into the room.** A damaged M2 leaks about 2 kg an hour of
+  the game's own methane gas into its room until repaired; it crowds out the
+  air. With oxygen and a fire, a working V4 or a sparking device, the store's
+  contents burn instead: 4 kg of the room's oxygen and 2.7 kg of CO2 left behind
+  per kilogram of methane, with the game's own explosion.
+- **A damaged reactor dumps its gas.** The CO2 and methane in a K2's hold go
+  into the room; its hydrogen burns by the rule below if it can, otherwise it
+  escapes. The water stays in the reactor until you repair it.
 - **Hydrogen burns.** A damaged H2 store leaks about 2 kg an hour to space and
   keeps leaking until repaired; the crew log and the nav banner say so. If the
   room holds oxygen (5 kPa or more) and there is a fire, a V4 working in the
@@ -136,8 +176,11 @@ releases it.
 - No crew loading orders yet; load the feed by hand or with a crew output
   store on the tray.
 - No construction recipes: buy the machines.
-- No Sabatier stage yet: hydrogen accumulates until vented; the store is its
-  only sink. Nothing turns hydrogen into a game gas; it is a kilogram record.
+- Nothing burns the stored methane as fuel yet; vent it when the store fills.
+  Hydrogen and methane are kilogram records in their stores; methane becomes the
+  game's own gas only when it leaks or burns.
+- The reactor converts all of its hydrogen each cycle; real reactors convert
+  most, not all. That is an authored simplification.
 - The clay hydrates chunk uses the game's hydrate artwork until it has its own.
 - Offline checks are not gameplay validation; see the owner checks below.
 

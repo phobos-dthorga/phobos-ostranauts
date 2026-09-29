@@ -1,6 +1,6 @@
 # Manufacturing artwork brief and provenance boundary
 
-29 September 2026. Manufacturing 0.1.0's seven sprites (Fennmark V4, X2 and H2
+29 September 2026. Manufacturing's nine sprites (Fennmark V4, X2, H2, K2 and M2
 machines; nickel-iron ingot, carbon stock, refinery slag and anhydrous residue)
 were produced with PixelLab and live in the shared artwork-completion pipeline:
 masters in `assets/artwork-completion/source/`, generation inputs in

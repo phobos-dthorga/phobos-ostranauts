@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "date": "2026-09-27",
-  "status": "60 selected masters; native export review complete; owner gameplay and visual approval pending",
+  "status": "62 selected masters; native export review complete; owner gameplay and visual approval pending",
   "projection": "Orthographic vertical overhead, no visible vertical faces",
   "registration": "Whole transparent source canvas, centred pivot, unchanged native footprint; nearest-neighbour exports",
   "allowanceBefore": 1952,
@@ -1648,6 +1648,56 @@
       "requestRecord": "manufacturing-requests.json",
       "review": "Overhead and native-scale export inspected; Fennmark colour language checked against the approved Rivetline family. Owner in-game review pending.",
       "jobId": "eb34bd07-f335-419c-a70c-f75fb432ce15"
+    },
+    {
+      "key": "k2-reactor",
+      "mod": "PhobosManufacturing",
+      "definition": "PhobosSabatierReactorInstalled",
+      "nativeSize": [
+        32,
+        32
+      ],
+      "masterSize": [
+        128,
+        128
+      ],
+      "pivot": [
+        16,
+        16
+      ],
+      "runtime": "phobos/manufacturing/PhobosSabatierReactor",
+      "status": "selected",
+      "source": "source/k2-reactor.png",
+      "sourceSHA256": "978000171eaa58e6f8c7a24170a8fb434ba38629891b185f5c430c1bb90fb69e",
+      "requestRecord": "manufacturing-requests.json",
+      "review": "Overhead and native-scale export inspected; Fennmark colour language checked against the V4/X2/H2 family. Owner in-game review pending.",
+      "fullFootprint": true,
+      "jobId": "a9be2935-92a1-44ad-aca2-689b32c47535"
+    },
+    {
+      "key": "m2-methane-store",
+      "mod": "PhobosManufacturing",
+      "definition": "PhobosMethaneStoreInstalled",
+      "nativeSize": [
+        32,
+        32
+      ],
+      "masterSize": [
+        128,
+        128
+      ],
+      "pivot": [
+        16,
+        16
+      ],
+      "runtime": "phobos/manufacturing/PhobosMethaneStore",
+      "status": "selected",
+      "source": "source/m2-methane-store.png",
+      "sourceSHA256": "387f9c187c1ce82928df000a161810edc519c53b220d2349fe37b02771281a40",
+      "requestRecord": "manufacturing-requests.json",
+      "review": "Overhead and native-scale export inspected; Fennmark colour language checked against the V4/X2/H2 family. Owner in-game review pending.",
+      "fullFootprint": true,
+      "jobId": "221e8728-cef3-4d76-bf83-517a7ce445a7"
     }
   ],
   "records": [
@@ -1788,9 +1838,33 @@
       ],
       "costGenerations": 1,
       "review": "eb34bd07 selected"
+    },
+    {
+      "key": "k2-reactor",
+      "attempts": [
+        "manufacturing-requests.json"
+      ],
+      "jobs": [
+        "c02ebd90-cf2b-4309-9329-af07923dd20c",
+        "a9be2935-92a1-44ad-aca2-689b32c47535"
+      ],
+      "costGenerations": 2,
+      "review": "c02ebd90 superseded; a9be2935 selected"
+    },
+    {
+      "key": "m2-methane-store",
+      "attempts": [
+        "manufacturing-requests.json"
+      ],
+      "jobs": [
+        "540ad895-db99-4dca-9888-d152fa348de8",
+        "221e8728-cef3-4d76-bf83-517a7ce445a7"
+      ],
+      "costGenerations": 2,
+      "review": "540ad895 superseded; 221e8728 selected"
     }
   ],
-  "allowanceAfter": 1865,
-  "allowanceDelta": 87,
+  "allowanceAfter": 1861,
+  "allowanceDelta": 91,
   "creditBalanceAfterUSD": 0
 }

@@ -20,7 +20,7 @@ and, for the machining proposal, `manufacturing-research.md`. NASA, NIST, the
 OSIRIS-REx science team, ESA, Made In Space, Tormach and Sandvik Coromant are
 sources, not endorsers of this fictional equipment or its gameplay balance.
 
-Artwork: the seven Fennmark sprites were generated with PixelLab (subscription
+Artwork: the nine Fennmark sprites (seven in 0.1.0, the K2 and M2 in 0.2.0) were generated with PixelLab (subscription
 allowance, no purchases) from original Phobos text and start drawings, under
 PixelLab's terms of service as checked on the generation date. Prompts, seeds,
 job IDs, costs, hashes and reviews are in `assets/artwork-completion/manufacturing-requests.json`

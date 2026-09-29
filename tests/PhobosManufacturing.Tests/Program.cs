@@ -6,4 +6,5 @@ void Throws(Action action, string message) { bool failed = false; try { action()
 RefineryChecks.Run(Check, Throws);
 ProcessorChecks.Run(Check, Throws);
 HydrogenChecks.Run(Check, Throws);
+SabatierChecks.Run(Check, Throws);
 Console.WriteLine($"PASS: {checks} Manufacturing chemistry, charge, record and hazard checks on numbers alone. No game session was run.");

@@ -271,6 +271,114 @@
       "initImage": "references/anhydrous-residue-start.png",
       "decision": "selected",
       "review": "Overhead pale tan cracked chunk; reads as dry mineral waste at 16 px, distinct from the ores and gangue."
+    },
+    {
+      "key": "k2-reactor",
+      "operation": "create_image_pixflux",
+      "jobId": "c02ebd90-cf2b-4309-9329-af07923dd20c",
+      "assetId": "66f99890-a9b0-5f6f-afc2-a9945cafe642",
+      "costGenerations": 1,
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. The whole square canvas is the top of a compact spacecraft Sabatier catalytic reactor installed in a square frame: a dark graphite painted steel frame with burnt-orange corner clamps around a pale sand-coloured steel lid lit from the upper left; upper left a large round steel catalyst bed dome with a bolted rim and a burnt-orange heater ring around a dark centre port; on the right a tall dark finned condenser block with horizontal cooling fins; a short copper pipe joining the dome to the condenser; lower left a small teal water trap sight glass; lower right a dark control plate; a small dark orange power socket on the bottom frame; a few scuffs and rivet dots. Utilitarian retro spaceship equipment: crisp dark outlines, small readable colour regions, restrained shading, sparse purposeful details, a little wear. No perspective, no ground shadow, no pipes leaving the frame, no text, numbers, symbols or logos.",
+        "width": 128,
+        "height": 128,
+        "seed": 9290461,
+        "init_image_strength": 100,
+        "shading": "basic shading",
+        "outline": "single color black outline",
+        "detail": "medium detail",
+        "no_background": false,
+        "isometric": false,
+        "view": "high top-down"
+      },
+      "initImage": "references/k2-reactor-start.png",
+      "decision": "superseded",
+      "review": "Overhead and on-family, flat (eight colours); retained on main as the input of the selected second pass."
+    },
+    {
+      "key": "k2-reactor",
+      "operation": "create_image_pixflux",
+      "jobId": "a9be2935-92a1-44ad-aca2-689b32c47535",
+      "assetId": "df79a61a-ce85-5398-9c42-20aa431f4941",
+      "costGenerations": 1,
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. Same overhead Sabatier catalytic reactor with the same layout, repainted as worn working spacecraft equipment: the pale sand steel lid lit from the upper left with soft shading toward the lower right, a few scuffs and rivet dots along the frame, the round steel catalyst dome with a bolted rim, a soft highlight on its upper left and a burnt-orange heater ring around a dark centre port, the dark finned condenser block on the right with lighter fin edges, a copper pipe joining them, the teal water trap sight glass with a small reflection lower left, the dark control plate lower right with two tiny indicator dots, a small dark orange power socket on the bottom frame. Crisp dark outlines, small readable colour regions, restrained shading. No perspective, no ground shadow, no text, numbers, symbols or logos.",
+        "width": 128,
+        "height": 128,
+        "seed": 9290462,
+        "init_image_strength": 120,
+        "shading": "medium shading",
+        "outline": "single color black outline",
+        "detail": "medium detail",
+        "no_background": false,
+        "isometric": false,
+        "view": "high top-down"
+      },
+      "initImage": "references/k2-reactor-first-pass.png",
+      "decision": "selected",
+      "review": "Overhead, no side faces; catalyst dome with heater ring, finned condenser, teal water trap and control plate read at 32 px; same family as the X2. The copper pipe did not survive."
+    },
+    {
+      "key": "m2-methane-store",
+      "operation": "create_image_pixflux",
+      "jobId": "540ad895-db99-4dca-9888-d152fa348de8",
+      "assetId": "572e9704-1bb6-5f6c-8e27-dbe8bd5ebc47",
+      "costGenerations": 1,
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. The whole square canvas is the top of a compact spacecraft pressurised methane store installed in a square frame: a dark graphite painted steel frame with burnt-orange corner clamps around a dark recessed cradle; in it one large round spherical tank top painted dull olive green, lit from the upper left with a soft highlight and darker lower-right shading, a thin burnt-orange band ringing it, a small round steel valve cap in its centre; a small round burnt-orange vent valve wheel in the upper right corner of the frame and a copper manifold stub on the left frame; a few scuffs and rivet dots. Utilitarian retro spaceship equipment: crisp dark outlines, small readable colour regions, restrained shading, sparse purposeful details, a little wear. No perspective, no ground shadow, no pipes leaving the frame, no text, numbers, symbols or logos.",
+        "width": 128,
+        "height": 128,
+        "seed": 9290471,
+        "init_image_strength": 100,
+        "shading": "basic shading",
+        "outline": "single color black outline",
+        "detail": "medium detail",
+        "no_background": false,
+        "isometric": false,
+        "view": "high top-down"
+      },
+      "initImage": "references/m2-methane-store-start.png",
+      "decision": "superseded",
+      "review": "Overhead and on-family; retained on main as the input of the selected second pass."
+    },
+    {
+      "key": "m2-methane-store",
+      "operation": "create_image_pixflux",
+      "jobId": "221e8728-cef3-4d76-bf83-517a7ce445a7",
+      "assetId": "5a86e52d-9a36-5183-a42b-33761a40b14d",
+      "costGenerations": 1,
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. Same overhead pressurised methane store with the same layout, repainted as worn working spacecraft equipment: the large round olive-green tank top lit from the upper left with a soft rounded highlight and gradual darker shading toward the lower right so it reads as a dome, a few scuffs on the paint, the thin burnt-orange band ringing it, the small round steel valve cap in its centre with a dark rim, the graphite frame with rivet dots and burnt-orange corner clamps, the small burnt-orange vent valve wheel in the upper right corner with a dark hub, a copper manifold stub on the left frame. Crisp dark outlines, small readable colour regions, restrained shading. No perspective, no ground shadow, no text, numbers, symbols or logos.",
+        "width": 128,
+        "height": 128,
+        "seed": 9290472,
+        "init_image_strength": 120,
+        "shading": "medium shading",
+        "outline": "single color black outline",
+        "detail": "medium detail",
+        "no_background": false,
+        "isometric": false,
+        "view": "high top-down"
+      },
+      "initImage": "references/m2-methane-store-first-pass.png",
+      "decision": "selected",
+      "review": "Overhead, no side faces; one olive dome with an orange band and valve cap, distinct at 32 px from the H2 store's twin graphite cylinders."
+    }
+  ],
+  "passes": [
+    {
+      "version": "0.2.0",
+      "date": "2026-09-29",
+      "allowanceBefore": 1865,
+      "allowanceAfter": 1861,
+      "creditBalanceUSD": 0,
+      "initImageHashes": {
+        "references/k2-reactor-start.png": "499aa077f383843b420304a0c388ff53fa1bb9ac3bc8d4cacfd9b826dd0f2327",
+        "references/k2-reactor-first-pass.png": "019973f33e1ae9966519069c346a6a793f551dda41edb2440668679fa0ccefd3",
+        "references/m2-methane-store-start.png": "5d55da1e7bad8e460aa6baa331c9ac01921ae62fbcf95092e428f5892131d969",
+        "references/m2-methane-store-first-pass.png": "5d88884f94f70e075f066b6996cb06456d65a306c0a16a209231965456b2012a"
+      },
+      "note": "K2 Sabatier reactor and M2 methane store. Start drawings are original Phobos procedural art; first passes sent by their PixelLab download URL."
     }
   ]
 }

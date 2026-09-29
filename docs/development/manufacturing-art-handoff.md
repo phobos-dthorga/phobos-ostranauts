@@ -96,3 +96,18 @@ baked clay chunk), 16 x 16 native from 64 x 64 masters, transparent with
 - Native-size inspection (64, 32, 16 px) against the approved Rivetline
   equipment and stock sprites. Done.
 - Masters retained, hashes and prompts recorded, generation inputs kept. Done.
+
+## Manufacturing 0.2.0 pass (29 September 2026)
+
+| Asset | Native / master | Operation and selected job | Notes |
+| --- | --- | --- | --- |
+| K2 Sabatier reactor (`PhobosSabatierReactor`) | 32 / 128 px, full footprint | Pixflux second pass over the first, strength 120, job `a9be2935` | Steel catalyst dome with an orange heater ring, finned condenser, teal water trap, control plate |
+| M2 methane store (`PhobosMethaneStore`) | 32 / 128 px, full footprint | Pixflux second pass, strength 120, job `221e8728` | One olive dome with an orange band and a steel valve cap, distinct from the H2 store's twin cylinders |
+
+Same method as the 0.1.0 machines: an original Fennmark start drawing, a Pixflux
+first pass, one repaint pass kept on its layout. Four included generations
+(allowance 1,865 to 1,861), $0 credit, no purchases; both first passes are retained
+as the inputs of the selected passes, so nothing was archived. The copper pipe on
+the reactor did not survive; connections are separate objects and live text.
+Requests, seeds and reviews are appended to
+[manufacturing-requests.json](../../assets/artwork-completion/manufacturing-requests.json).

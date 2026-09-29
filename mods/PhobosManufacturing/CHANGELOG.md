@@ -6,6 +6,23 @@ Dates on Draft entries record preparation, not Steam publication.
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-09-29 - Draft
+
+### Added
+
+- Phobos' Fennmark K2 Sabatier Reactor (2 x 2, 150 kg, 1.2 kW working, 44,000 cr): one carbon dioxide and four hydrogen molecules become one methane and two water molecules. Each one-hour cycle takes 0.125 kg of hydrogen from the H2 store (one X2 cycle's output) and 0.682 kg of CO2 from an installed native CO2 canister (fill it with the game's CO2 scrubber), and makes 0.559 kg of water for a linked S3 or R3 and 0.249 kg of methane for a linked methane store. With the X2, about half the water the cell splits comes back, as on the ISS. The reaction heat and the electricity, about 2.3 kW, warm the room.
+- Phobos' Fennmark M2 Methane Store (2 x 2, 160 kg empty, holds 160 kg, 21,000 cr): keeps the methane until something aboard can use it (owner decision), with an explicit vent overboard.
+- Hazards: a damaged methane store leaks the game's own methane gas into its room until repaired, and with oxygen and an ignition source its contents burn into carbon dioxide through the game's own explosion. A damaged reactor dumps the CO2 and methane it holds into the room; its hydrogen burns or escapes.
+- Original Fennmark artwork for both machines, produced with PixelLab from original start drawings. Same merchants, loot, repair, Restore and dismantle routes as the other Fennmark machines; the engineering-loot chance stays 5% in total, now shared by five machines.
+
+### Changed
+
+- The explosion object's name now reads "Gas deflagration"; blast size is chosen by the energy released, which gives the same sizes for hydrogen as before.
+
+### Compatibility and limits
+
+- Saved V4, X2 and H2 machines, records and contents are unchanged. The reactor pauses after reload until Start and starts a new cycle only once the last cycle's products are delivered. Nothing burns the stored methane as fuel yet; the reactor converts all of its hydrogen, an authored simplification. Owner gameplay checks remain pending.
+
 ## [0.1.1] - 2026-09-29 - Draft
 
 ### Balance
