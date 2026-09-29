@@ -105,6 +105,7 @@ materials, waste and Manufacturing's unimplemented designs remain excluded.
 | Engineering equipment | One of nine Shipbreaker machines, intact or damaged | 40% |
 | Engineering equipment | One D4/R4/F6 assembly section | 15% |
 | Engineering equipment | One coolant pipe or clean coolant charge | 20% |
+| Engineering equipment | One aluminium (6%) or steel (4%) ingot, since Shipbreaker 0.39.0 | 10% |
 | Engineering equipment | One of five Agriculture machines, intact or damaged | 30% |
 | Navigation-module leaf pools | One N1/N2/N3 board | 30% for new configurations |
 
@@ -147,3 +148,12 @@ Player confirmation remains outstanding: check a normally restocked supplier and
 newly generated engineering/nav-module loot, then reload without duplicated cargo.
 Large equipment still needs native placement space; definitions alone cannot prove
 that every rolled find fits or that every merchant has room for every offered lot.
+
+## Coverage audit — 29 September 2026
+
+The [economy coverage audit](economy-coverage-audit.md) rechecked every item across
+the five mods. Shipbreaker 0.39.0, Agriculture 0.19.0 and Auto Nav 0.26.0 close its
+gaps: every machine family now has used, refurbished and broken routes; single
+ingots join engineering salvage; the remaining terminal remainders trade as trash.
+Native checks now also confirm that a native buyer accepts every retail identity.
+The S3, T2 and R3 stay purchase-only by owner decision.

@@ -23,6 +23,8 @@ internal static class Definitions
     internal static readonly string[] EatOpeners = { "SeekFoodDirect", "SeekFoodDirectLowNeed", "SeekFoodDirectGlutton", "SeekConsumeFoodAirtight" };
     private static readonly System.Collections.Generic.HashSet<string> Machines = new(new[] { Rack, Cooker, IrrigationDefinitions.Supply, WorkupDefinitions.Bench }.SelectMany(prefix => new[] { "Installed", "Loose", "InstalledDmg", "LooseDmg" }.Select(form => prefix + form)), StringComparer.Ordinal);
     internal static bool Machine(CondOwner? co) => co != null && Machines.Contains(co.strCODef);
+    /// <summary>Every tradeable Agriculture machine family, including the R3 vessel; shared by stock and loot.</summary>
+    internal static readonly string[] MachineFamilies = { Rack, Cooker, IrrigationDefinitions.Supply, WorkupDefinitions.Bench, BulkDefinitions.Tank };
     internal static bool IsCooker(CondOwner co) => co.strCODef.StartsWith(Cooker, StringComparison.Ordinal);
     internal static double DryMass(CondOwner co) => WorkupDefinitions.IsBench(co) ? WorkupDefinitions.DryKg : IrrigationDefinitions.IsSupply(co) ? IrrigationDefinitions.DryKg : IsCooker(co) ? 12 : 80;
     internal static void Load()
@@ -99,11 +101,12 @@ internal static class Definitions
         foreach (string merchant in new[] { "ItmOKLGSupplyKioskInv", "ItmOKLGFixer", "ItmTraderSanDiegoHalvorsonInv" })
         foreach (string item in new[] { Rack + "Loose", Cooker + "Loose", PotatoSeed, LettuceSeed, Nutrient, Irrigation, Service.RecoveryCartridge })
             MarketStock.Add(d, merchant, "PhobosAgricultureStock_" + merchant + "_" + item, item, StockQuantities.Chance(item, item == Nutrient || item == Irrigation ? 1 : .65), StockCondition.Pristine, StockQuantities.For(item));
-        foreach (string prefix in new[] { Rack, Cooker })
+        // Every machine has the same second-hand routes: used at the K-Leg fixer, refurbished and broken at Venus scrap.
+        foreach (string prefix in MachineFamilies)
         {
-            MarketStock.Add(d, "ItmOKLGFixer", prefix + "UsedOffer", prefix + "Loose", StockQuantities.Chance(prefix + "Loose", .3), StockCondition.Worn, StockQuantities.Machines);
-            MarketStock.Add(d, "ItmVORBScrapKioskInv", prefix + "RefurbishedOffer", prefix + "Loose", StockQuantities.Chance(prefix + "Loose", .2), StockCondition.Refurbished, StockQuantities.Machines);
-            MarketStock.Add(d, "ItmVORBScrapKioskInv", prefix + "BrokenOffer", prefix + "LooseDmg", StockQuantities.Chance(prefix + "LooseDmg", .25), StockCondition.Broken, StockQuantities.Machines);
+            MarketStock.Add(d, "ItmOKLGFixer", prefix + "UsedOffer", prefix + "Loose", StockQuantities.Chance(prefix + "Loose", .3), StockCondition.Worn, StockQuantities.For(prefix + "Loose"));
+            MarketStock.Add(d, "ItmVORBScrapKioskInv", prefix + "RefurbishedOffer", prefix + "Loose", StockQuantities.Chance(prefix + "Loose", .2), StockCondition.Refurbished, StockQuantities.For(prefix + "Loose"));
+            MarketStock.Add(d, "ItmVORBScrapKioskInv", prefix + "BrokenOffer", prefix + "LooseDmg", StockQuantities.Chance(prefix + "LooseDmg", .25), StockCondition.Broken, StockQuantities.For(prefix + "LooseDmg"));
         }
         LootContent.Add(d, lootEnabled, lootMultiplier);
         RegionalEconomy.Apply(d);

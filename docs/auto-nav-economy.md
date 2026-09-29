@@ -52,7 +52,9 @@ negotiation and market/category modifiers; they are not guaranteed purchase quot
 Each successful current offer supplies the board lot in the stock guide. Framework's stock-availability setting
 can scale the chances. Merchants must restock normally; we do not replace their
 inventories, force refreshes or guarantee availability after restarting. No new
-merchant or geographic distribution is introduced.
+merchant or geographic distribution is introduced. Since 0.26.0 the N2 and N3
+have the same fixer, K-Leg supplies and Venus offers as the N1; the Polaris dealer
+sells all three new.
 
 Native filters accept both forms for buying/selling at the Polaris dealer,
 K-Leg supplies and Venus scrap kiosk. The fixer can sell its worn offer; do not

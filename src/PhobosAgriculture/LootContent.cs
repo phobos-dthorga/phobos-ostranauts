@@ -32,8 +32,7 @@ internal static class LootContent
             [Service.RecoveryCartridge] = .05, [IrrigationDefinitions.Pipe + "Loose"] = .04
         });
 
-        string[] machinery = new[] { Definitions.Rack, Definitions.Cooker, IrrigationDefinitions.Supply, WorkupDefinitions.Bench, BulkDefinitions.Tank }
-            .SelectMany(id => new[] { id + "Loose", id + "LooseDmg" }).ToArray();
+        string[] machinery = Definitions.MachineFamilies.SelectMany(id => new[] { id + "Loose", id + "LooseDmg" }).ToArray();
         AddChoice("ItmLootSpawnEngineering", "PhobosAgricultureMachinerySalvage",
             machinery.ToDictionary(id => id, _ => EquipmentChance / machinery.Length));
 

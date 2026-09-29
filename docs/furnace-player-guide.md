@@ -211,7 +211,7 @@ reason. Every recipe conserves the 20 kg charge. Ingots are one-cell stock that
 stacks to ten, trade as metals, and are the raw stock the coming Phobos
 Manufacturing machining will consume; a table can cut one back into four scraps
 (`Recover aluminium from ingot`, `Recover steel from ingot`, 300 work seconds),
-which loses value. The steel remainder, like the aluminium one, has no recipe.
+which loses value. Single ingots also turn up now and then in engineering salvage. The steel remainder, like the aluminium one, has no recipe.
 
 A steel charge runs through the same lining, sink, radiator and 250 kW rating.
 It needs well over half again the energy of an aluminium charge, so it takes

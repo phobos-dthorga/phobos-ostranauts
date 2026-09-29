@@ -9,8 +9,8 @@ pending, including how the machines' artwork looks in play. Use the
 
 | Item | Size and mass | Base price | Where |
 | --- | --- | --- | --- |
-| Phobos' Rivetline S3 Process Water Silo | 3 x 3 tiles; 240 kg empty; holds 1,000 kg of water (1,240 kg full) | 4,800 cr, broken 1,200 cr | K-Leg supply kiosk and fixer, San Diego Halvorson, the Venus scrap kiosk and regional markets, in lots of eight; INSTALL > APPS. No fabrication recipe. |
-| Phobos' Rivetline T2 Ice Thaw Unit | 2 x 2 tiles; 120 kg; one native power point | 3,200 cr, broken 800 cr | The same sellers; INSTALL > APPS. No fabrication recipe. |
+| Phobos' Rivetline S3 Process Water Silo | 3 x 3 tiles; 240 kg empty; holds 1,000 kg of water (1,240 kg full) | 4,800 cr, broken 1,200 cr | K-Leg supply kiosk and fixer, San Diego Halvorson, the Venus scrap kiosk and regional markets, in lots of eight; INSTALL > APPS. Purchase only: no fabrication recipe. |
+| Phobos' Rivetline T2 Ice Thaw Unit | 2 x 2 tiles; 120 kg; one native power point | 3,200 cr, broken 800 cr | The same sellers; INSTALL > APPS. Purchase only: no fabrication recipe. |
 
 The silo stores **process water** only. It is not a drinking-water tank and
 never joins Ship's Water's potable tanks. The water is a saved record on the

@@ -25,6 +25,17 @@ Dates on Draft entries record preparation, not Steam publication.
 - Earlier capture-only research is superseded for supported ordinary walls by the 0.24.0 reclamation implementation below. Broader structural recipes, repeated furnace batches and whole-wreck completion remain outside this round.
 - Keep [NASA Goddard's Raven research](https://www.nasa.gov/general/nasas-hybrid-computer-enables-ravens-autonomous-rendezvous-capability/) and [ESA's LIRIS experiment by Airbus, Jena Optronik and Sodern](https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/ATV/ATV_views_Space_Station_as_never_before) as sensing context, separate from Blue Bottle Games native evidence and authored gameplay choices. No institutional endorsement or gameplay validation is implied.
 
+## [0.39.0] - 2026-09-29 - Draft
+
+### Changed
+
+- Engineering salvage can now turn up a single aluminium ingot (6%) or steel ingot (4%) per eligible roll, next to the loose metal the game's own engineering loot already carries. Never a merchant lot, and merchant stock is unchanged.
+- The R4's 9 kg terminal reject and both furnace melt remainders now count as trash at native markets, like the feed-family rejects and retained coolant. Their $0.01 price, mass and identities are unchanged.
+
+### Compatibility and limits
+
+- Framework 0.39.0 is still the minimum. The S3 silo and T2 thaw unit stay purchase-only: construction of anything beyond semi-advanced equipment waits for the Manufacturing mod. Remainders already in a save may keep their old market category; the price is $0.01 either way. Ingot finds appear only in newly generated loot. See the [economy coverage audit](https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/development/economy-coverage-audit.md).
+
 ## [0.38.1] - 2026-09-29 - Draft
 
 ### Artwork

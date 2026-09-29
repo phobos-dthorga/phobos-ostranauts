@@ -99,6 +99,10 @@ internal static class EquipmentEconomy
             machinery.ToDictionary(id => id, _ => MachinerySalvageChance / machinery.Length));
         AdditiveLoot.SetItemChoice(d, "ItmLootSpawnEngineering", "PhobosShipbreakerServiceSalvage",
             new Dictionary<string, double> { [FurnaceCooling.Conduit + "Loose"] = .10, [FurnaceService.CoolantStock] = .10 });
+        // The game's own engineering loot already carries loose metal (ItmRandomPartsScrap);
+        // one ingot at most per roll, never a merchant lot.
+        AdditiveLoot.SetItemChoice(d, "ItmLootSpawnEngineering", "PhobosShipbreakerIngotSalvage",
+            new Dictionary<string, double> { [FurnaceRecipes.AluminiumIngot] = AluminiumIngotSalvageChance, [FurnaceRecipes.SteelIngot] = SteelIngotSalvageChance });
         // The native engineering spawn already supplies loose ship equipment.
         // One cumulative choice adds at most one section, never dismantling yields.
         const double SectionSalvageChance = .05;
@@ -111,6 +115,7 @@ internal static class EquipmentEconomy
     }
 
     internal const double MachinerySalvageChance = .4;
+    internal const double AluminiumIngotSalvageChance = .06, SteelIngotSalvageChance = .04;
 
     private static void Restore(NativeDefinitions d, string id, Spec spec)
     {

@@ -193,8 +193,9 @@ adjustments. Firstlight-4 is 700 cr (875 pristine, 140 broken); Hearth-2 is 150 
 Continuance lettuce seed is 5 cr per sowing. Nutrients remain 60 cr per 40 g.
 See the [native economic evidence](development/agriculture-economy-evidence.md) for comparisons.
 
-The fixer can offer worn equipment; VORB scrap stock can offer refurbished or
-broken units. Existing pristine supply/fixer/Halvorson offers remain. Offers are
+For every machine, including the W2, B2 and R3 since 0.19.0, the fixer can
+offer worn equipment and VORB scrap stock can offer refurbished or broken units.
+Existing pristine supply/fixer/Halvorson offers remain. Offers are
 probabilistic and do not refresh existing inventories. Native supply and VORB
 buyers accept empty loose Agriculture goods; the generic fixer and Halvorson
 buyer filters do not. Being a seller does not guarantee buying the item back.

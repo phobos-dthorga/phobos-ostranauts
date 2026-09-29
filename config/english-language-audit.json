@@ -38991,7 +38991,7 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "96d0b2e42eb8737737f7bf901a627195f2d0a927c569200f809eed0886a4bc0d",
+      "sha256": "a3eecda1cb881875b0e9b9d23a5397ed3ca3b2565e9603c619ed4bb413f9c467",
       "review": "2026-09-29: version summary; no other wording changed."
     },
     {
@@ -39019,8 +39019,8 @@
       "path": "docs/agriculture-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "9a49de97fc82939e63161f6df12976abab6166152bfb1b77dbcb08732f8db7e0",
-      "review": "2026-09-29: regenerated from reviewed inputs: version only."
+      "sha256": "ac645dee0cfe4221ab1c4ee5404d0cddec55ea7903e1f01c8b5fea24e839db65",
+      "review": "2026-09-29: regenerated from reviewed inputs: new W2/B2/R3 used, refurbished and broken offers; version."
     },
     {
       "path": "docs/agriculture-nutrient-production.md",
@@ -39040,8 +39040,8 @@
       "path": "docs/agriculture-player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "c5d61cd5698668689c026eaaaf2f6120e12c447777738b02f58c05a78c82ac12",
-      "review": "2026-09-28: accept-contents recovery, stacked supplies and offer-time refusals, and a paragraph on power state, tank destructibility, eating through native actions and condensed transpiration."
+      "sha256": "90ac17b96b68d582bce949be1a062f787edf5aba774fda2b8fbec01029d83d72",
+      "review": "2026-09-29: second-hand routes cover every machine since 0.19.0."
     },
     {
       "path": "docs/agriculture-seed-production.md",
@@ -39081,8 +39081,8 @@
       "path": "docs/auto-nav-economy.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "75ee2e80823259ca404015e6ebdaf06c19fb1c6b73a67e4e7f7523f3a562b8ad",
-      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+      "sha256": "064a542ca7a35db8efd0ef3a787f8dcae702854062d453f5790d7bfe468e5659",
+      "review": "2026-09-29: N2/N3 share the N1 second-hand offers since 0.26.0."
     },
     {
       "path": "docs/auto-nav-fire-control.md",
@@ -39101,8 +39101,8 @@
       "path": "docs/auto-nav-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "9cacef5ed51ecee9224ee7463cd8959b1e34375cca9f7ed67c13c504078e54be",
-      "review": "2026-09-28: regenerated from reviewed inputs: version only."
+      "sha256": "cc4084bade38bff012347e3fbf615da4cd7f7a5ab42b6dd62dfc7cc1954c09f4",
+      "review": "2026-09-29: regenerated from reviewed inputs: new N2/N3 used, broken and refurbished offers; version."
     },
     {
       "path": "docs/auto-nav-persistence.md",
@@ -39150,7 +39150,7 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "42f00a8bf7ce1689874fa27fb33ac134a7e0728d0057d9f8cfedf3d906bedc5d",
+      "sha256": "685e7d9fd92bdc121a2e1e1d8cce1022b6765d35d6f60ad8d59dbf365aef51a4",
       "review": "2026-09-29: version line; no other wording changed."
     },
     {
@@ -39164,8 +39164,8 @@
       "path": "docs/development/README.md",
       "scope": "review index/audit; no gameplay behavior",
       "decision": "review audience separation and evidence limits",
-      "sha256": "0dfd3f143349d877a38d7a5fd47be9b31d8d7411a5f35aa0ce2f582db0b81754",
-      "review": "2026-09-29: index line for the PixelLab MCP handoff."
+      "sha256": "7d7629593ac8b0c7904b517fe3eccd58f3c1ee4efbcb9289cdb39bfd7ee60f82",
+      "review": "2026-09-29: index link to the economy coverage audit."
     },
     {
       "path": "docs/development/agriculture-bulk-storage-art.md",
@@ -39178,8 +39178,8 @@
       "path": "docs/development/agriculture-bulk-storage-calculations.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "8806d573feb299fda161ac15062fb28fa6f192389dc51133061c4b24df50f196",
-      "review": "2026-09-29: regenerated: source hash of BulkDefinitions.cs only; figures unchanged."
+      "sha256": "bc71db307bc244c2ee3e71523d1f1531bfa772b2775e26bd0df23a28416e85b3",
+      "review": "2026-09-29: regenerated: Definitions.cs source digest only."
     },
     {
       "path": "docs/development/agriculture-bulk-storage-design.md",
@@ -39407,6 +39407,13 @@
       "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
     },
     {
+      "path": "docs/development/economy-coverage-audit.md",
+      "scope": "development audit record; current player text limited to the changelog links",
+      "decision": "rewrite",
+      "sha256": "c86e7460109c929d88a88140a89695bd534d34acc840d51e82fd2343144ea182",
+      "review": "2026-09-29: new audit record: method, native trade rules, findings, held decisions and coverage."
+    },
+    {
       "path": "docs/development/equipment-branding.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
@@ -39624,8 +39631,8 @@
       "path": "docs/development/merchant-stock.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "208575bb52217ff942dbf24d064bb49c5db9dd853d3a2b5421b22e38798f48e7",
-      "review": "2026-09-29: ingot lot row."
+      "sha256": "fcf4268f89467fb67fe3af5c28c07aa243f7825a5e0fdd3023fc6092c11ae82c",
+      "review": "2026-09-29: ingot world-find row; coverage audit section."
     },
     {
       "path": "docs/development/mod-extension-survey.md",
@@ -39847,8 +39854,8 @@
       "path": "docs/equipment-economy.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "0affa94e5a7c626135f06984c34b40c0545f3d2337620aec8a81131e5c852d34",
-      "review": "2026-09-29: ingot rows in the price table."
+      "sha256": "13768de54c69298a62946f49fe6761f4562c7450fdf901ea459fb267a4598575",
+      "review": "2026-09-29: terminal-remainder trash category corrected; purchase-only decision; S3/T2 Restore rows; missing repair-bill and dismantle-yield rows added from definitions."
     },
     {
       "path": "docs/fluid-network-operations.md",
@@ -39882,8 +39889,8 @@
       "path": "docs/furnace-player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "ba63140e633f46576f4824bb6e0ba57a7cbf20cff7bfe06d1d8de85f12c9fc49",
-      "review": "2026-09-29: intro names the three castings; new recipes section with the NIST iron credit; repeat-batches metal wording; recipe command."
+      "sha256": "1679e11d382e5641483121c17a369013fce4a104aeb496f7380a09cdaee27723",
+      "review": "2026-09-29: single ingots in engineering salvage."
     },
     {
       "path": "docs/getting-started.md",
@@ -39917,7 +39924,7 @@
       "path": "docs/industrial-console-player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "c2f4595e9af2fb0d6ce411dc78dc5a2f9d1dc7da9665145fc650010452ffa5ab",
+      "sha256": "433e6963dc73e04bd387bb9fae74674391c8d0a630f2a8b3a3d47bcbf394362e",
       "review": "2026-09-29: version line; no other wording changed."
     },
     {
@@ -39959,7 +39966,7 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "bb7f5780359297e4201904bce5a7040b6c291a09ee74965c98dc9c174b073601",
+      "sha256": "507238b4f61d6bde41599b72824e807bc557e9ada3fb994ccce977ba6ebc0ef0",
       "review": "2026-09-29: version lines; no other wording changed."
     },
     {
@@ -39994,8 +40001,8 @@
       "path": "docs/shipbreaker-bulk-silos.md",
       "scope": "player operating guide for the S3 silo and T2 thaw unit",
       "decision": "add",
-      "sha256": "e6b84541091906e4ae3e0c5b7f558e453435c76634d2c1f3017e9c2af8a2f452",
-      "review": "2026-09-29: placeholder sentence removed; pending owner checks include the artwork."
+      "sha256": "59a4b87f11d3cb2d4346f447c28862118892b1c99f055ded397600b5df4d6cd8",
+      "review": "2026-09-29: S3/T2 marked purchase-only."
     },
     {
       "path": "docs/shipbreaker-hull-intake.md",
@@ -40008,8 +40015,8 @@
       "path": "docs/shipbreaker-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "227bf23c5e39b3944cba298099f1327ef971cc846767f0829a3e8bec21af3dd0",
-      "review": "2026-09-29: regenerated from reviewed inputs: version only."
+      "sha256": "46afd2ab8d9c1c69337fb4bc262382dc8ef8f40046bb030640672e43d9cd2895",
+      "review": "2026-09-29: regenerated from reviewed inputs: ingot engineering finds; version."
     },
     {
       "path": "docs/shipbreaker-material-uses.md",
@@ -40036,15 +40043,15 @@
       "path": "workshop/PhobosAgriculture/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "2aa5e196fc77a357028e78d6d9969d6ad58d5a15500a4a72142ee198ad4e0b0a",
-      "review": "2026-09-29: version, requirements line and 0.18.0 bullet."
+      "sha256": "e888f8593c6efdf8425fb91ae6932e00a85d6a5914a56ffa031c136cc03c0e79",
+      "review": "2026-09-29: version and 0.19.0 bullet."
     },
     {
       "path": "workshop/PhobosAutoNav/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "0e6ef747dadd86e40466ec5b28dde1a06d4d9b01b31341d174430a1dc26600e0",
-      "review": "2026-09-28: version; new bullet on the 0.25.0 vanilla-precedence fixes."
+      "sha256": "cc721ad914ae80195550e8abbc2fbc91dd541c5d4d3b57a39ed0549fb31287d8",
+      "review": "2026-09-29: version and 0.26.0 bullet."
     },
     {
       "path": "workshop/PhobosFramework/page.bbcode",
@@ -40064,8 +40071,8 @@
       "path": "workshop/PhobosShipbreaker/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "07375e3925200e994d267dc0c1eab7c34237735ad9107ae16047f16ba5372f3b",
-      "review": "2026-09-29: version, placeholder note removed, 0.38.1 artwork bullet."
+      "sha256": "5d23d13214cc36a2c076f58b36c8a8133f823c59677331e0595f8780e5c424bc",
+      "review": "2026-09-29: version and 0.39.0 bullet."
     }
   ],
   "surfaces": [
@@ -40088,7 +40095,7 @@
     {
       "path": "mods/PhobosAgriculture/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "b73e8e029b36e24b745408a5b569d34e9f8f5a5566a3ace2b053632f8021c3a5",
+      "sha256": "de1510acb8bca6776fde48dfb2f84c7a7ef9981f14e54d159e537f68ce5da5e4",
       "review": "2026-09-29: version metadata only."
     },
     {
@@ -40109,8 +40116,8 @@
     {
       "path": "mods/PhobosAutoNav/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "2aab44731063cbfe4a69cc034316bc51dc0df540a67af3ea039bd94a158a08f2",
-      "review": "2026-09-28: version metadata only."
+      "sha256": "00637ba7bbb39314f8746d6da00cc87a21e63513ff0bdca5cea680e7ef6106d7",
+      "review": "2026-09-29: version metadata only."
     },
     {
       "path": "mods/PhobosFramework/framework/equipment-names.json",
@@ -40143,7 +40150,7 @@
     {
       "path": "mods/PhobosShipbreaker/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "508090278859322fade532a198c044cbbbad9321c86e8db63786476a95389672",
+      "sha256": "22c1006e7edc2a013c11066da700973d9d9a748273d43f0ed6d15d12c61e0f5a",
       "review": "2026-09-29: version metadata only."
     }
   ],

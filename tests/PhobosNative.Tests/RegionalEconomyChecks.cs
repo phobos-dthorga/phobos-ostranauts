@@ -73,6 +73,9 @@ internal static class RegionalEconomyChecks
                 ? "TIsBarterFlotillaScrapKioskSell" : "TIsBarterChargen";
             check(DataHandler.dictCTs[filter].TriggeredDataCO(DataHandler.dictDataCOs[item], false),
                 "Native regional merchant sell filter accepts " + item);
+            // The player can always sell it back: Venus Orbital's scrap kiosk buys any tradeable item.
+            check(DataHandler.dictCTs["TIsBarterVORBScrapKiosk"].TriggeredDataCO(DataHandler.dictDataCOs[item], false),
+                "A native buyer accepts " + item);
         }
         foreach (var pair in new[] {
             (PhobosAutoNav.NavigationService.ModuleId, "AnyControlSystems"),
@@ -80,6 +83,13 @@ internal static class RegionalEconomyChecks
             (PhobosAutoNav.NavigationService.FireControlId, "AnyControlSystems"),
             (PhobosShipbreaker.Content.Loose, "AnyIndustrialProducts"),
             (PhobosShipbreaker.FurnaceService.CoolantStock, "AnyIndustrialProducts"),
+            (PhobosShipbreaker.Core.SiloRules.Prefix + "Loose", "AnyIndustrialProducts"),
+            (PhobosShipbreaker.Core.ThawRules.Prefix + "Loose", "AnyIndustrialProducts"),
+            (PhobosShipbreaker.Core.FurnaceRecipes.AluminiumIngot, "AnyMetal"),
+            (PhobosShipbreaker.Core.FurnaceRecipes.SteelIngot, "AnyMetal"),
+            (PhobosShipbreaker.Core.ReclaimerRules.Reject, "AnyTrash"),
+            (PhobosShipbreaker.Core.FurnaceRules.Remainder, "AnyTrash"),
+            (PhobosShipbreaker.Core.FurnaceRecipes.SteelRemainder, "AnyTrash"),
             (PhobosAgriculture.WorkupDefinitions.Makeup, "AnyIndustrialProducts"),
             (PhobosAgriculture.Definitions.Meal, "AnyFood"),
             (PhobosAgriculture.Definitions.Raw, "AnyFood"),

@@ -5,7 +5,7 @@
     {
       "id": "PhobosAgriculture",
       "name": "Phobos Agriculture",
-      "version": "0.18.0",
+      "version": "0.19.0",
       "gameTarget": "1.0.1.5",
       "items": [
         {
@@ -4119,6 +4119,27 @@
         },
         {
           "table": "ItmOKLGFixer",
+          "item": "PhobosVerdemorrowGroundworkW2Loose",
+          "condition": "Worn",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmOKLGFixer",
+          "item": "PhobosVerdemorrowGroundworkB2Loose",
+          "condition": "Worn",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmOKLGFixer",
+          "item": "PhobosVerdemorrowGroundworkR3Loose",
+          "condition": "Worn",
+          "chance": 0.85,
+          "count": 4
+        },
+        {
+          "table": "ItmOKLGFixer",
           "item": "PhobosVerdemorrowRawPotatoes",
           "condition": "Pristine",
           "chance": 0.95,
@@ -6024,21 +6045,42 @@
         {
           "table": "ItmVORBScrapKioskInv",
           "item": "PhobosVerdemorrowGroundworkW2Loose",
-          "condition": "Pristine",
+          "condition": "Refurbished",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmVORBScrapKioskInv",
+          "item": "PhobosVerdemorrowGroundworkW2LooseDmg",
+          "condition": "Broken",
           "chance": 0.85,
           "count": 8
         },
         {
           "table": "ItmVORBScrapKioskInv",
           "item": "PhobosVerdemorrowGroundworkB2Loose",
-          "condition": "Pristine",
+          "condition": "Refurbished",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmVORBScrapKioskInv",
+          "item": "PhobosVerdemorrowGroundworkB2LooseDmg",
+          "condition": "Broken",
           "chance": 0.85,
           "count": 8
         },
         {
           "table": "ItmVORBScrapKioskInv",
           "item": "PhobosVerdemorrowGroundworkR3Loose",
-          "condition": "Pristine",
+          "condition": "Refurbished",
+          "chance": 0.85,
+          "count": 4
+        },
+        {
+          "table": "ItmVORBScrapKioskInv",
+          "item": "PhobosVerdemorrowGroundworkR3LooseDmg",
+          "condition": "Broken",
           "chance": 0.85,
           "count": 4
         },
@@ -6406,7 +6448,7 @@
     {
       "id": "PhobosAutoNav",
       "name": "Phobos Auto Nav",
-      "version": "0.25.0",
+      "version": "0.26.0",
       "gameTarget": "1.0.1.5",
       "items": [
         {
@@ -7600,20 +7642,34 @@
         {
           "table": "ItmOKLGFixer",
           "item": "PhobosNavModPursuit",
-          "condition": "Pristine",
+          "condition": "Worn",
           "chance": 0.85,
           "count": 16
         },
         {
           "table": "ItmOKLGFixer",
           "item": "PhobosNavModFireControl",
-          "condition": "Pristine",
+          "condition": "Worn",
           "chance": 0.85,
           "count": 16
         },
         {
           "table": "ItmOKLGSupplyKioskInv",
           "item": "PhobosNavModAutoNavDmg",
+          "condition": "Broken",
+          "chance": 0.85,
+          "count": 16
+        },
+        {
+          "table": "ItmOKLGSupplyKioskInv",
+          "item": "PhobosNavModPursuitDmg",
+          "condition": "Broken",
+          "chance": 0.85,
+          "count": 16
+        },
+        {
+          "table": "ItmOKLGSupplyKioskInv",
+          "item": "PhobosNavModFireControlDmg",
           "condition": "Broken",
           "chance": 0.85,
           "count": 16
@@ -7985,14 +8041,14 @@
         {
           "table": "ItmVORBScrapKioskInv",
           "item": "PhobosNavModPursuit",
-          "condition": "Pristine",
+          "condition": "Refurbished",
           "chance": 0.85,
           "count": 16
         },
         {
           "table": "ItmVORBScrapKioskInv",
           "item": "PhobosNavModFireControl",
-          "condition": "Pristine",
+          "condition": "Refurbished",
           "chance": 0.85,
           "count": 16
         }
@@ -8188,7 +8244,7 @@
     {
       "id": "PhobosShipbreaker",
       "name": "Phobos Shipbreaker",
-      "version": "0.38.1",
+      "version": "0.39.0",
       "gameTarget": "1.0.1.5",
       "items": [
         {
@@ -15610,6 +15666,20 @@
         },
         {
           "table": "ItmLootSpawnEngineering",
+          "item": "PhobosAluminiumIngot",
+          "condition": "Loot",
+          "chance": 0.06,
+          "count": 1
+        },
+        {
+          "table": "ItmLootSpawnEngineering",
+          "item": "PhobosSteelIngot",
+          "condition": "Loot",
+          "chance": 0.04,
+          "count": 1
+        },
+        {
+          "table": "ItmLootSpawnEngineering",
           "item": "PhobosFurnaceSection",
           "condition": "Loot",
           "chance": 0.05,
@@ -19046,12 +19116,12 @@
   "sourceHashes": {
     "mods/PhobosAgriculture/framework/equipment-names.json": "aad5c48acf15576e70469fdb9ff245de55e82b3fa2a4453afedf786d99c55174",
     "mods/PhobosAgriculture/framework/recipes.json": "35f866781942bbf18cad299a4e2b0f33c246c7333e9b8cd17e1cdbd31ae0405a",
-    "mods/PhobosAgriculture/mod_info.json": "b73e8e029b36e24b745408a5b569d34e9f8f5a5566a3ace2b053632f8021c3a5",
+    "mods/PhobosAgriculture/mod_info.json": "de1510acb8bca6776fde48dfb2f84c7a7ef9981f14e54d159e537f68ce5da5e4",
     "mods/PhobosAutoNav/data/cooverlays/phobos_approach_assist.json": "980e9511be952b459d684accedc4fc82df41a80a1023719524b5f4f74719b898",
     "mods/PhobosAutoNav/data/guipropmaps/phobos_approach_assist.json": "b58a900cf980995085aaf4db06e4dbf2d6bd7287762475662035d4947d7eac0b",
     "mods/PhobosAutoNav/framework/equipment-names.json": "478a9416b2eb043c18fd5aac3b1720d512fdc9aa363c8411f831fa2fc9dfbee2",
     "mods/PhobosAutoNav/framework/recipes.json": "b03ff79d6c08b75c89b4bf30cd459e46de410366a505aa93ca5190b1ce1d90c4",
-    "mods/PhobosAutoNav/mod_info.json": "2aab44731063cbfe4a69cc034316bc51dc0df540a67af3ea039bd94a158a08f2",
+    "mods/PhobosAutoNav/mod_info.json": "00637ba7bbb39314f8746d6da00cc87a21e63513ff0bdca5cea680e7ef6106d7",
     "mods/PhobosFramework/data/conditions/phobos_framework.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
     "mods/PhobosFramework/framework/equipment-names.json": "8d64a49207830ca57808d0de92ac82feaf95fb200dd550888e795bb7ed37afb7",
     "mods/PhobosFramework/mod_info.json": "c4074cc6b4e8e952816963901b6a1a7e0da0f4d992e2a69a788a4fbbc88ad39b",
@@ -19062,7 +19132,7 @@
     "mods/PhobosShipbreaker/data/condtrigs/phobos_shipbreaker.json": "c7d4104df596d3fd362d9a80f4703178eafc5d3151bd53907814732ec84d3585",
     "mods/PhobosShipbreaker/framework/equipment-names.json": "cf54b69ef4e478eba39acf3beb0963e7d645e985d513cfe7f0da8fe03f0a4831",
     "mods/PhobosShipbreaker/framework/recipes.json": "47fc493cbaf73203ea60be37f49645bccf82c7dd4d88e3e4cf98d0458f135c99",
-    "mods/PhobosShipbreaker/mod_info.json": "508090278859322fade532a198c044cbbbad9321c86e8db63786476a95389672",
+    "mods/PhobosShipbreaker/mod_info.json": "22c1006e7edc2a013c11066da700973d9d9a748273d43f0ed6d15d12c61e0f5a",
     "src/PhobosAgriculture/Artwork.cs": "ccae66ac85e7dbe64d47bb3f93153558ca1b893a039310c688e366a1dd48408f",
     "src/PhobosAgriculture/AssemblyInfo.cs": "441ebc13e73f63e15379d179bdcde910645df15d5847671cdfff7cd313fbf66b",
     "src/PhobosAgriculture/BulkDefinitions.cs": "050593f744d819b06cd53dd31623e5ad41b6e5b2f53f4a38af0aaae4ccf05522",
@@ -19079,21 +19149,21 @@
     "src/PhobosAgriculture/Core/RecyclerAttachment.cs": "f30d14ce5775f04f521d8d4a141ca2d8e161575aa02d8b196f26dfc65d37166f",
     "src/PhobosAgriculture/Core/TreatmentCartridge.cs": "904486b97a333d4a193a7e6208637222dfe3b08e579d4d15dddca395043363d9",
     "src/PhobosAgriculture/CrewProvider.cs": "418d1d04f3f33b5fa09a94f517be8c9fa10e94ee0ad1af7d716d8aea0299dd20",
-    "src/PhobosAgriculture/Definitions.cs": "3f46f2c2a877574b7c007c118ac7b24f00d4b55c4f5dd7a68c77d9c3548bb5e3",
+    "src/PhobosAgriculture/Definitions.cs": "64b88ec457d2a600ada956dd24699b82a61c4335c80be80619e02310ba8a37ab",
     "src/PhobosAgriculture/EquipmentEconomy.cs": "8273cee6d1b4ff1633f690eb6cfbffc2810ed972f4f1f4b83944382dae96c340",
     "src/PhobosAgriculture/IrrigationDefinitions.cs": "d0adbe0a8424804d7fc6caea394fd5e0b5f45c7c03196c0cc0e23d96ec65110c",
     "src/PhobosAgriculture/IrrigationService.cs": "dbda414e08127beef40fa455aef253f3f5f5ebaadac93a17a2d3b7e5217d708c",
     "src/PhobosAgriculture/LineService.cs": "ff3dcabc978cd2252b5ab328c5a2b634c5825231492f9f2d0873c8d4a877d4e3",
-    "src/PhobosAgriculture/LootContent.cs": "91d71f4d4e89fa30d4829d2e6b8322e10beb1679c235cc58589b09dc5cda61a6",
+    "src/PhobosAgriculture/LootContent.cs": "c3f3d2c04021754cff8b876c8bf39d42ed9c3b0a6fe491c6ec4ac171ad7d822a",
     "src/PhobosAgriculture/MaterialOperations.cs": "7715c52d021c0fd5af50f072dbfe5c6bbde6e51e42f840308bd02c6147f8ef91",
     "src/PhobosAgriculture/Panel.cs": "bbc54e2982e9653bf1bcf8ac908cfa6cd643d3e0c196635f9e280ce164afb85c",
     "src/PhobosAgriculture/PanelConfiguration.cs": "5c0a35b39f385a1a9c3515970b6f93e66677a2ac7f3d7e4bcb2b91cfef713003",
     "src/PhobosAgriculture/PerformanceMetrics.cs": "22b973d198593f8f38d1ef56579299ecf70fe373236443ff0e6723dc6d63ae56",
-    "src/PhobosAgriculture/PhobosAgriculture.csproj": "a693608a27c6fad3bd00759d4df4881566821485183453b1d63f8f3e38c1e936",
-    "src/PhobosAgriculture/Plugin.cs": "ae312289953bf89612f55df22be27d91577f6b2bc99f8a96ceb4a0914814bccf",
+    "src/PhobosAgriculture/PhobosAgriculture.csproj": "8ccf9dd21a173122a55b625c5007ccf0f34befb174a5f1cda84fd237ab295708",
+    "src/PhobosAgriculture/Plugin.cs": "331b3bb6910abcae9a9e1c29e8d2b2e6e01c3dd85a97084dcacee07f45399f6d",
     "src/PhobosAgriculture/RecoveryService.cs": "fa5bd63314d8c6abfe7f225a927c36d92203bd11f1bfdf8f7085a71615b92f6e",
     "src/PhobosAgriculture/RecyclerCapture.cs": "5cff7b22a1403278edd7049c6edf04e339aed3d5aee797741ab7e90f5dedd78d",
-    "src/PhobosAgriculture/RegionalEconomy.cs": "0cd481a0f6050f7d995e20b0fec17faec5dd95e7c259f5579d6f1877a0ad6d76",
+    "src/PhobosAgriculture/RegionalEconomy.cs": "07b4cfdf14e7cbcd73194c2e81a9a56cbc40343a94119d53141bd9d3b47ef98a",
     "src/PhobosAgriculture/Service.cs": "8e9155ca7aea8a7ab7136e017f1bfcd4e6d6f18a18193fcc5d75c7b9d2a9b379",
     "src/PhobosAgriculture/SolutionService.cs": "b0124863ac541413458ca930eb49d252e95e9c9a766245ac664f7ef23b5c0c33",
     "src/PhobosAgriculture/StackLimits.cs": "821b2e3427b23676c50e3959b1953023c99711d326b29396d2f3c645db4196ae",
@@ -19126,7 +19196,7 @@
     "src/PhobosAutoNav/Core/TorchRules.cs": "400327d85cb0db9e2ea6c93f7d4afea074d33726d0018f4f25a99e3057a8fd04",
     "src/PhobosAutoNav/CrewProvider.cs": "916e080293e9cc07f450b7447b60482d248600d2fa5c8753df5328870fd27e24",
     "src/PhobosAutoNav/DockingAdapter.cs": "0025ce1e120b8a8ee36e096be2ce43c5c949aef91c75a45d8ab1c5b34aac3765",
-    "src/PhobosAutoNav/EquipmentContent.cs": "84ca8cbca8a90d4e9e6e10e4a1a2112b8bf51f390389b496048debe6b469e1ba",
+    "src/PhobosAutoNav/EquipmentContent.cs": "a066d7662c9a1c47d3d5e7ead8948a0cb54b82492fba2edb6f6e932f0e70f77c",
     "src/PhobosAutoNav/FireControlController.cs": "e75b8accca48fb532fe95d3493a5b73dcd9aa3643097c843ac69bc656da84603",
     "src/PhobosAutoNav/HubLayout.cs": "f662c428a1477185375bcfd6572a940f632dd22a22896faa7f9294601c85b628",
     "src/PhobosAutoNav/IndustrialNavigation.cs": "dd47bda0e931146a26629d642205d81a4b2cc97f77e297122228492c365ce6dc",
@@ -19154,8 +19224,8 @@
     "src/PhobosAutoNav/NavigationWeaponGroups.cs": "c16d4083974271128e1004a367501dbf89ae7bc4d0006282336a025245320ea1",
     "src/PhobosAutoNav/PanelDepartureSettings.cs": "41101e08241fa63f112fe8b009420996e25b40a643e9da6d10bfcd908b510bdf",
     "src/PhobosAutoNav/PerformanceMetrics.cs": "96592809c9ecff271b3ee5d30db98d8bcd8215d04a90c6d6dbd448d4128ca414",
-    "src/PhobosAutoNav/PhobosAutoNav.csproj": "19b833a9dab889390a1d408083660501145beec4677db9d11135c6f08ce87d7e",
-    "src/PhobosAutoNav/Plugin.cs": "b82e3299bf2ffc7436407676205476a982161a21fc87a6915fa35a99124e2ee1",
+    "src/PhobosAutoNav/PhobosAutoNav.csproj": "f8ff64f539127c9cecc3eb6b4547d2f5d38acb97f697cf41377ebeab4ab24bcb",
+    "src/PhobosAutoNav/Plugin.cs": "1eb0020ec774e0514ba0b7749db503375c90aa199e4db978af3f660907f4ea4a",
     "src/PhobosAutoNav/RegionalEconomy.cs": "77ad3ffee98fedbc03a6ec7efe9cbbdb8b0fe55e483065d0cf9f5c8384540422",
     "src/PhobosAutoNav/RotarySelector.cs": "2e2005b2e02dc8a1ddd2080a4b127bc7c326e19ff17cb56f35ad567917580d3e",
     "src/PhobosAutoNav/StockQuantities.cs": "18ee9844fbb571f55fae48f9228b1eb31fdcdf57c275f7c8f0923dc2ab8869c4",
@@ -19324,7 +19394,7 @@
     "src/PhobosShipbreaker/Core/ThawRules.cs": "5b973d84b8787797520c7989c2df132a1eaf3c857bd7a64c483d9fc34d72d2d1",
     "src/PhobosShipbreaker/CrewProvider.cs": "8ef0dce0c3e0a5e25f49766b5b7d110c645f4e6746e8cb98aee340816600f47d",
     "src/PhobosShipbreaker/EconomySaveCompatibility.cs": "a90b282a12f38a0fac5451702717dbad24ed21824f5976914829809919aa50e3",
-    "src/PhobosShipbreaker/EquipmentEconomy.cs": "4ec9a5e80946bf453cdf33957af5e6101ac77c0c4be0eaa7528df4d867f8c1b1",
+    "src/PhobosShipbreaker/EquipmentEconomy.cs": "d1865a45ea3ded35bae3b4a6615c0fe4e16a10b0daee9f74be08d3dc6b9a5c01",
     "src/PhobosShipbreaker/EquipmentSnapshots.cs": "334bb5d510f43b577c4b8cd7a4f331e48fce6d223ceee100783277229420d3bd",
     "src/PhobosShipbreaker/FeedIdentity.cs": "16222689ac7b63fb2dd748eee996b46a859195baa39cbb264551ba8d36d6fc2d",
     "src/PhobosShipbreaker/FixturePanel.cs": "52358f984ab7155d5cf1c51699396735b2927f888bebb18b8af20bec9656ce96",
@@ -19349,9 +19419,9 @@
     "src/PhobosShipbreaker/NativeAdapter.cs": "8320c05ddf6667060af21a98218e4df82015aba7feaeb124623d5eb57428083b",
     "src/PhobosShipbreaker/PanelConfiguration.cs": "c2dab27f2f0fd7762e5ae6f2b873614e64b0616524dbed8697ec2c94e16b8ece",
     "src/PhobosShipbreaker/PerformanceMetrics.cs": "d46727b5bdae9d235719ea4a9e0a76afd2ec63bfd410ebb5f410bb0ee75ebe9a",
-    "src/PhobosShipbreaker/PhobosShipbreaker.csproj": "2d6348c3ae78b655c82a673952cc7a6b4b357fc69777b29574534cf15a09cddb",
+    "src/PhobosShipbreaker/PhobosShipbreaker.csproj": "d4f44e1ba48114317016b2f6b35bff73f50c49d417c68c97b471e8564e377919",
     "src/PhobosShipbreaker/PlaceholderLoadRepair.cs": "8fdf6627ae35cd6d6c281a92a728e588f516ba7e4138e7204cc5c69549db44c4",
-    "src/PhobosShipbreaker/Plugin.cs": "d405bbe87f7815a9b2befa8e5d8178cb8072ca4a0897d588399fa78b9ef1b4da",
+    "src/PhobosShipbreaker/Plugin.cs": "2346e62e27b29e061dc0dc2f37fd288ffff9731867f06965165bffb2e1305999",
     "src/PhobosShipbreaker/ProcessingCommands.cs": "5c0a603a4e2ae406bc94d5fcf0d30bb01b40512f57e474ab9ef5f2ab470a7320",
     "src/PhobosShipbreaker/ProcessingService.cs": "263fc61ae430a6a69ef0ff73984a1d4e357c2ec7afbdebd9165557f4e367c1e5",
     "src/PhobosShipbreaker/ReclaimerDefinitions.cs": "c4e666e2b376368cda9ebaf23f0353b896cb63951d075e65e2f481a87e69df09",
@@ -19360,7 +19430,7 @@
     "src/PhobosShipbreaker/ReclamationGeometry.cs": "f557a827757fb5620002870132d3c133899f6325990dfdd1a2d41068cb4621ee",
     "src/PhobosShipbreaker/ReclamationPower.cs": "39c03c78a1d5c91d739e7a9c85aabe7c4e1dc167ce3fe39bf73d22fb730c7ca0",
     "src/PhobosShipbreaker/ReclamationService.cs": "63a9e8492c036f5615c50037131dc7ed703790207b4618f63b81ae0edef7956c",
-    "src/PhobosShipbreaker/RegionalEconomy.cs": "09996786b38d063c011667d25d02f3776a2994b7660b1f797458094e979a05e5",
+    "src/PhobosShipbreaker/RegionalEconomy.cs": "66654fb1ca42c53ee8248739eb148992ea87466210e16db815304be9c0cfa19e",
     "src/PhobosShipbreaker/RoutingCommands.cs": "ecde751bfd3823538dc7e39636520b4474a0d491abc3b3cb4021c820c6cf8810",
     "src/PhobosShipbreaker/Settings.cs": "1e7c7e7c848019f0bed74ae8271d67199dda26732eed54b3ea823571672f9cd9",
     "src/PhobosShipbreaker/SiloDefinitions.cs": "1f71a8df78dc4703dfc3db4481019140347b53419f2111963c2c3073c8e942a1",

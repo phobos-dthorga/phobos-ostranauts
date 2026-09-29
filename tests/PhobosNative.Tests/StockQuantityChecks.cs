@@ -47,6 +47,27 @@ internal static class StockQuantityChecks
             }
         }
 
+        // Every machine family has the same second-hand routes as its siblings: used and refurbished
+        // intact stock, and a broken offer of its damaged form.
+        string ConditionOf(string branch) { object offer = offers[branch]!;
+            return offer.GetType().GetField("Condition", BindingFlags.Instance | BindingFlags.NonPublic)!.GetValue(offer)!.ToString()!; }
+        var families = new (NativeDefinitions Definitions, (string Intact, string Broken)[] Machines)[] {
+            (packs[0].Definitions, PhobosAgriculture.Definitions.MachineFamilies.Select(p => (p + "Loose", p + "LooseDmg")).ToArray()),
+            (packs[1].Definitions, PhobosShipbreaker.EquipmentEconomy.Machines.Select(m => (m.Prefix + "Loose", m.Prefix + "LooseDmg")).ToArray()),
+            (packs[2].Definitions, new[] { PhobosAutoNav.NavigationService.ModuleId, PhobosAutoNav.NavigationService.PursuitId, PhobosAutoNav.NavigationService.FireControlId }
+                .Select(id => (id, id + "Dmg")).ToArray())
+        };
+        foreach (var (d, machines) in families)
+        {
+            var routes = d.Loot.Values.Where(l => offers.Contains(l.strName))
+                .ToLookup(l => Parsed(l).strName, l => ConditionOf(l.strName));
+            foreach (var (intact, broken) in machines)
+            {
+                check(routes[intact].Contains("Worn") && routes[intact].Contains("Refurbished"), "Used and refurbished stock exist for " + intact);
+                check(routes[broken].Contains("Broken"), "A broken offer exists for " + broken);
+            }
+        }
+
         const string parent = "ItmOKLGSupplyKioskInv", branchId = "PhobosQuantityTest";
         string[] original = DataHandler.dictLoot[parent].aLoots.ToArray();
         var batch = new NativeDefinitions();

@@ -94,6 +94,14 @@ internal static class EquipmentContent
         Offer("ItmVORBScrapKioskInv", "Refurb", NavigationService.ModuleId, EquipmentRules.VenusRefurbishedChance, StockCondition.Refurbished);
         Offer("ItmTraderSanDiegoPolarisInv", "PursuitNew", NavigationService.PursuitId, EquipmentRules.PolarisPristineChance, StockCondition.Pristine);
         Offer("ItmTraderSanDiegoPolarisInv", "FireControlNew", NavigationService.FireControlId, EquipmentRules.PolarisPristineChance, StockCondition.Pristine);
+        // N2 and N3 share the N1's second-hand routes: used at the fixer, broken at K-Leg supplies, refurbished at Venus scrap.
+        foreach (var (tag, module, damaged) in new[] { ("Pursuit", NavigationService.PursuitId, NavigationService.PursuitDamagedId),
+            ("FireControl", NavigationService.FireControlId, NavigationService.FireControlDamagedId) })
+        {
+            Offer("ItmOKLGFixer", tag + "Used", module, EquipmentRules.FixerWornChance, StockCondition.Worn);
+            Offer("ItmOKLGSupplyKioskInv", tag + "Broken", damaged, EquipmentRules.KLegBrokenChance, StockCondition.Broken);
+            Offer("ItmVORBScrapKioskInv", tag + "Refurb", module, EquipmentRules.VenusRefurbishedChance, StockCondition.Refurbished);
+        }
         foreach (string table in EquipmentRules.SalvageTables)
         {
             double chance = salvageEnabled ? salvageChance : 0;

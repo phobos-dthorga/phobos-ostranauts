@@ -27,6 +27,8 @@ internal static class RegionalEconomy
         ("VNCA", 1.25)
     };
 
+    internal static readonly string[] TerminalRemainders = { ReclaimerRules.Reject, FurnaceRules.Remainder, FurnaceRecipes.SteelRemainder };
+
     internal static void Apply(NativeDefinitions d)
     {
         foreach (string merchant in new[] { "ItmOKLGSupplyKioskInv", "ItmOKLGFixer", "ItmTraderSanDiegoHalvorsonInv", "ItmVORBScrapKioskInv" })
@@ -52,7 +54,7 @@ internal static class RegionalEconomy
         // Packaged working fluid is an industrial consumable, never potable water.
         MaintenanceDefinitions.SetStat(d.Objects[FurnaceService.CoolantStock], "IsCategoryIndustrialProducts", 1);
         MaintenanceDefinitions.SetStat(d.Objects[FurnaceService.CoolantWaste], "IsCategoryTrash", 1);
-        // Terminal feed-family rejects are waste, never stock.
-        foreach (string reject in FeedFamilies.RejectKg.Keys) MaintenanceDefinitions.SetStat(d.Objects[reject], "IsCategoryTrash", 1);
+        // Terminal rejects and melt remainders are waste, never stock.
+        foreach (string reject in FeedFamilies.RejectKg.Keys.Concat(TerminalRemainders)) MaintenanceDefinitions.SetStat(d.Objects[reject], "IsCategoryTrash", 1);
     }
 }

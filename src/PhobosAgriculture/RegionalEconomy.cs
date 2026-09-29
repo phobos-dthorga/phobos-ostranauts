@@ -37,7 +37,7 @@ internal static class RegionalEconomy
         foreach (var profile in Profiles)
         {
             var condition = profile.Region == "OFLT" ? StockCondition.Refurbished : StockCondition.Pristine;
-            foreach (string machine in new[] { Definitions.Rack, Definitions.Cooker, IrrigationDefinitions.Supply, WorkupDefinitions.Bench, BulkDefinitions.Tank })
+            foreach (string machine in Definitions.MachineFamilies)
                 RegionalMarkets.Add(d, profile.Region, machine + "Loose", StockQuantities.Chance(machine + "Loose", .25 * profile.Factor), condition, StockQuantities.For(machine+"Loose"));
             foreach (string item in new[] { Definitions.PotatoSeed, Definitions.LettuceSeed, Definitions.Nutrient,
                 BulkDefinitions.Nutrients, Definitions.Irrigation, Service.RecoveryCartridge, WorkupDefinitions.Makeup, IrrigationDefinitions.Pipe + "Loose", Definitions.Raw, Definitions.Leaves, Definitions.Meal })

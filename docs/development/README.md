@@ -44,6 +44,7 @@ The [consistency audit](documentation-consistency-audit.md) records the source c
 - [Chemical storage, process fluids and industrial hazards](chemical-storage-and-process-fluids.md)
 - [Dependency maintenance and fallback plan](dependency-contingencies.md)
 - [Documentation consistency audit — 28 September 2026](documentation-consistency-audit.md)
+- [Economy coverage audit — 29 September 2026](economy-coverage-audit.md)
 - [English language audit — 27 September 2026](english-language-audit.md)
 - [Equipment brands and models](equipment-branding.md)
 - [Phobos equipment value audit](equipment-value-audit.md)

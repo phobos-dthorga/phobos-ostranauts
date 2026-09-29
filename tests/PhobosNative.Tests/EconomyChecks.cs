@@ -99,6 +99,16 @@ internal static class EconomyChecks
             machineryChoice.All(u => u.fMin == 1 && u.fMax == 1 && (u.strName.EndsWith("Loose") || u.strName.EndsWith("LooseDmg"))) &&
             Math.Abs(machineryChoice.Sum(u => u.fChance) - EquipmentEconomy.MachinerySalvageChance) < 1e-7,
             "Engineering machinery is one bounded loose intact/damaged choice across every implemented family");
+        var ingotChoice = ((System.Collections.Generic.List<System.Collections.Generic.List<LootUnit>>)typeof(Loot)
+            .GetField("aCOLootUnits", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic)!
+            .GetValue(repeat.Loot["PhobosShipbreakerIngotSalvage"])!).Single();
+        check(engineering.aLoots.Count(s => s == "PhobosShipbreakerIngotSalvage=1x1") == 1 && ingotChoice.Count == FurnaceRecipes.Ingots.Length &&
+            ingotChoice.All(u => u.fMin == 1 && u.fMax == 1 && FurnaceRecipes.Ingots.Contains(u.strName)) &&
+            Math.Abs(ingotChoice.Sum(u => u.fChance) - (EquipmentEconomy.AluminiumIngotSalvageChance + EquipmentEconomy.SteelIngotSalvageChance)) < 1e-7,
+            "Engineering salvage adds at most one ingot per roll, never a merchant lot");
+        foreach (string remainder in RegionalEconomy.TerminalRemainders)
+            check(Stat(remainder, "IsCategoryTrash") == 1 && Stat(remainder, "StatBasePrice") == .01,
+                "Terminal remainder is native trash at the technical minimum price: " + remainder);
         foreach (string merchantId in new[] { "ItmOKLGSupplyKioskInv", "ItmTraderSanDiegoHalvorsonInv" })
             check(repeat.Loot.ContainsKey("PhobosStock_FurnaceSection_" + merchantId + "_" + FurnaceRules.Section), "F6 section has explicit stock: " + merchantId);
         foreach (double probability in new[] { 0, -1, double.NaN, 1.1 })
@@ -171,8 +181,8 @@ internal static class EconomyChecks
         check(navRestore.bNoDestructable && navRestore.aInputs.Length == 0 && navRestore.strAllowLootCTsThem == "CONDUndamageProgress",
             "Restore remains in-place wear maintenance without a material bill");
         var navOffers = nav.Loot.Values.Where(l => l.strName.StartsWith("PhobosAutoNavStock_", StringComparison.Ordinal)).ToArray();
-        check(navOffers.Length == 6 && navOffers.All(l => l.aCOs.Length == 1 && l.aCOs[0].EndsWith("x" + PhobosAutoNav.StockQuantities.Boards, StringComparison.Ordinal)),
-            "Four N1 offers, N2 and N3 request their configured board lots");
+        check(navOffers.Length == 12 && navOffers.All(l => l.aCOs.Length == 1 && l.aCOs[0].EndsWith("x" + PhobosAutoNav.StockQuantities.Boards, StringComparison.Ordinal)),
+            "Four offers each for N1, N2 and N3 request their configured board lots");
         check(Stat("PhobosFireControlBoard", "StatBasePrice") == 5400 && Stat("PhobosFireControlBoardDmg", "StatBasePrice") == 1350,
             "N3 matches the approved N2 authored prices without changing N2");
         check(nav.Installables["PhobosFireControlBoardDmgRepair"].aLootCOs.SequenceEqual(new[]{"PhobosNavModFireControl"}) &&

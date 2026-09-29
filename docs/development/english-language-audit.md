@@ -321,3 +321,14 @@ against painted live-state instruments on world sprites, and the Shipbreaker
 0.38.1 changelog moves its water-level pointer out of the limits. No translation
 entries change. Coverage is now 2,041 entries, 158 documents and
 14 other surfaces. Unity wording is unverified.
+
+## Economy coverage audit, 29 September 2026
+
+Shipbreaker 0.39.0, Agriculture 0.19.0 and Auto Nav 0.26.0 record the economy
+coverage audit. No translation entries change. The new audit record joins the
+reviewed documents; the economy guide corrects its remainder-category sentence
+and gains missing S3/T2 and older repair and dismantle rows; the Agriculture,
+Auto Nav, bulk-silo and furnace guides gain one sentence each on the new offers,
+ingot finds and purchase-only machines; version lines move. Coverage is now
+2,041 entries, 159 documents and 14 other surfaces.
+Unity wording is unverified.

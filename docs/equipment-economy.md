@@ -166,8 +166,11 @@ The processor's two sections cost $9,600 before assembly labour adds value.
 Mixed panel residue (13 kg), spent service parts (0.5 kg), Auto Nav board residue
 (0.4 kg), and Auto Nav assembly offcuts (0.6 kg) each have a nominal **$0.01** base
 value. They are outputs, never retail offers. Zero is deliberately avoided:
-native `GetBasePrice` substitutes mass when the price stat is zero. These materials
-are not tagged as ordinary sortable trash and have no refining recipes yet.
+native `GetBasePrice` substitutes mass when the price stat is zero. Terminal
+remainders carry the game's Trash market category: spent parts, board residue,
+offcuts, feed-family rejects, retained coolant and, since Shipbreaker 0.39.0, the
+R4 reject and both melt remainders. None is the game's own Trash item, and none
+has a refining recipe yet. Mixed panel residue is R4 feed and stays unclassified.
 Native scrap and useful parts produced by the processor retain native prices.
 The hidden zero-mass feed is an internal system, not an item for sale.
 
@@ -241,6 +244,11 @@ repair and dismantle values are normalized to **unit work/tool multipliers**.
 | Process water silo | purchase only | 14.4 / 10.8 min | 28.8 min | 48 min |
 | Ice thaw unit | purchase only | 9.6 / 7.2 min | 24 min | 30 min |
 
+The S3 and T2 stay purchase-only by owner decision (29 September 2026):
+construction of anything beyond semi-advanced equipment waits for the Phobos
+Manufacturing mod to decide where and when it belongs. The Agriculture R3
+reservoir is likewise sold, not built.
+
 Native work ticks are 0.001 hours (3.6 seconds). Install/uninstall/repair apply
 five progress units per unmodified tick; dismantle applies one. Chosen progress
 thresholds, in that order, are processor 1500/1000/3600/1000, grabber
@@ -263,6 +271,8 @@ Auto Nav remain unchanged. These are authored labour choices, not measured playt
 | H4 chute | 10 min | 9 min | 27 min |
 | R4 reclaimer | 75 min | 67.5 min | 117.9 min |
 | C2 collector | 15 min | 13.5 min | 35.1 min |
+| S3 silo | 30 min | 27 min | 55.8 min |
+| T2 thaw unit | 25 min | 22.5 min | 46.5 min |
 
 Figures use unit multipliers and exclude fetching, interruptions and tick rounding.
 A full wear bar is a rate comparison, not a functional item at destruction threshold.
@@ -299,6 +309,12 @@ Repair replacement bills:
 | Grabber | 2 | 1 | 4 | 2 | 6 kg |
 | Chute | 2 | 1 | 2 | 0 | 4 kg |
 | Collector | 0 | 1 | 2 | 2 | 3 kg |
+| R4 reclaimer | 4 | 2 | 6 | 4 | 11 kg |
+| C1 console | 1 | 1 | 2 | 4 | 5 kg |
+| F6 furnace | 4 | 4 | 8 | 6 | 15 kg |
+| F6-R radiator / F6-P port | 2 | 4 | 4 | 0 | 8 kg |
+| S3 silo | 2 | 2 | 4 | 0 | 6 kg |
+| T2 thaw unit | 2 | 2 | 4 | 2 | 7 kg |
 | Auto Nav | 0 | 0 | 0 | 2 | 1 kg |
 
 Repair leaves equipment mass unchanged and returns the replaced mass as separate
@@ -326,7 +342,21 @@ No money, lost material or unspawned abstract output completes the mass balance.
 | Chute broken | 16 | 6 | 4 | 0 | 16 | 40 kg |
 | Collector intact | 10 | 3 | 4 | 2 | 4 | 20 kg |
 | Collector broken | 8 | 2 | 2 | 0 | 9 | 20 kg |
+| R4 reclaimer intact | 104 | 42 | 20 | 8 | 20 | 180 kg |
+| R4 reclaimer broken | 92 | 34 | 10 | 2 | 48 | 180 kg |
+| C1 console intact | 16 | 8 | 8 | 4 | 10 | 40 kg |
+| C1 console broken | 12 | 6 | 4 | 0 | 20 | 40 kg |
+| F6 furnace intact | 140 | 50 | 24 | 12 | 32 | 240 kg |
+| F6 furnace broken | 120 | 40 | 12 | 4 | 72 | 240 kg |
+| F6-R radiator / F6-P port intact | 28 | 50 | 8 | 0 | 18 | 100 kg |
+| F6-R radiator / F6-P port broken | 20 | 38 | 4 | 0 | 40 | 100 kg |
+| S3 silo intact | 170 | 40 | 20 | 4 | 18 | 240 kg |
+| S3 silo broken | 40 | 10 | 4 | 0 | 188 | 240 kg |
+| T2 thaw unit intact | 70 | 24 | 20 | 8 | 12 | 120 kg |
+| T2 thaw unit broken | 30 | 8 | 4 | 0 | 80 | 120 kg |
 | Assembly section | 46 | 20 | 8 | 2 | 9 | 80 kg |
+| R4-S assembly section | 52 | 21 | 10 | 4 | 10 | 90 kg |
+| F6-S assembly section | 44 | 20 | 12 | 4 | 8 | 80 kg |
 
 Either Auto Nav state yields one **0.4 kg board-residue** item. A module cannot
 honestly yield a native 0.5 kg electronics bundle, much less the native generic

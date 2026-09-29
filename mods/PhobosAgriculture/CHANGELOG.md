@@ -23,6 +23,16 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Fixed unreachable INSTALL entries; Firstlight-4, Hearth-2 and W2 appear under APPS, and irrigation conduit under MISC, including damaged forms. Existing inputs, placement and saved IDs are preserved.
 
+## [0.19.0] - 2026-09-29 - Draft
+
+### Changed
+
+- The W2 water supply, B2 workup bench and R3 reservoir gain the Firstlight-4 and Hearth-2's second-hand routes: lightly worn at the K-Leg fixer, refurbished and broken at the Venus Orbital scrap kiosk. R3 offers come in lots of four, the others in lots of eight.
+
+### Compatibility and limits
+
+- Framework 0.39.0 is still the minimum. Prices, bills, salvage and saves are unchanged, and the R3 stays purchase-only. New offers appear at normal restocks; existing shop inventories are not refilled. See the [economy coverage audit](https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/development/economy-coverage-audit.md).
+
 ## [0.18.0] - 2026-09-29 - Draft
 
 ### Changed
