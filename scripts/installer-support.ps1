@@ -149,6 +149,11 @@ function Get-RetiredInstalledFiles([string]$Mod, [string]$Path) {
     foreach ($entry in @($catalogue.retired | Where-Object { $_.mod -eq $Mod })) {
         if ($entry.area -notin @('native', 'plugin') -or $entry.path -notmatch '^[A-Za-z0-9_./-]+$' -or $entry.path.Contains('..') -or
             $entry.sha256 -notmatch '^[0-9A-Fa-f]{64}$') { throw "Invalid retired-file entry: $($entry.path)" }
-        [pscustomobject]@{ Area = $entry.area; Relative = ($entry.path -replace '/', [IO.Path]::DirectorySeparatorChar); Hash = $entry.sha256.ToUpperInvariant() }
+        # An optional folder names the plugin or native folder of a retired mod that this mod superseded (for
+        # example the Approach Assist prototype beside Auto Nav). Its listed files are archived when this mod is
+        # installed; without a folder the entry belongs to this mod's own folder.
+        $folder = if ($entry.ContainsKey('folder') -and $null -ne $entry.folder) { [string]$entry.folder } else { '' }
+        if ($folder -ne '' -and ($folder -notmatch '^[A-Za-z0-9_-]+$' -or $folder -eq ('Phobos' + $Mod))) { throw "Invalid retired-file folder: $folder" }
+        [pscustomobject]@{ Area = $entry.area; Folder = $folder; Relative = ($entry.path -replace '/', [IO.Path]::DirectorySeparatorChar); Hash = $entry.sha256.ToUpperInvariant() }
     }
 }

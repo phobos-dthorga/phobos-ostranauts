@@ -469,13 +469,30 @@ foreach ($mod in $Mods) {
                 # any other extra file is still the owner's to inspect.
                 $relativeExisting = [IO.Path]::GetRelativePath($folder, $existing.FullName)
                 $area = if ($folder -eq $nativeTarget) { 'native' } else { 'plugin' }
-                $retired = @($retiredCatalogue | Where-Object { $_.Area -eq $area -and $_.Relative -eq $relativeExisting })
+                $retired = @($retiredCatalogue | Where-Object { $_.Area -eq $area -and $_.Folder -eq '' -and $_.Relative -eq $relativeExisting })
                 if ($retired.Count -eq 1 -and (Get-FileHash -LiteralPath $existing.FullName -Algorithm SHA256).Hash -eq $retired[0].Hash) {
-                    $retiredFiles += [pscustomobject]@{ Target = $existing.FullName; Backup = "$id/retired/$area/$relativeExisting"; Hash = $retired[0].Hash }
+                    $retiredFiles += [pscustomobject]@{ Target = $existing.FullName; Backup = "$id/retired/$area/$relativeExisting"; Hash = $retired[0].Hash; Folder = '' }
                     continue
                 }
                 throw "Unmanaged installed file; inspect before updating: $($existing.FullName)"
             }
+        }
+    }
+    # Folders of retired mods this package superseded (the Approach Assist prototype beside Auto Nav): every file
+    # there must be a listed exact-hash retirement, or the update stops for inspection. The emptied folder goes too.
+    foreach ($group in @($retiredCatalogue | Where-Object { $_.Folder -ne '' } | Group-Object -Property Area, Folder)) {
+        $first = $group.Group[0]
+        $foreignRoot = if ($first.Area -eq 'native') { Join-Path $modRoot $first.Folder } else { Join-Path $gameRoot "BepInEx/plugins/$($first.Folder)" }
+        if (-not (Test-Path -LiteralPath $foreignRoot -PathType Container)) { continue }
+        Assert-NoLinks $foreignRoot -Tree
+        foreach ($existing in Get-ChildItem -LiteralPath $foreignRoot -Recurse -File -Force) {
+            $relativeExisting = [IO.Path]::GetRelativePath($foreignRoot, $existing.FullName)
+            $retired = @($group.Group | Where-Object { $_.Relative -eq $relativeExisting })
+            if ($retired.Count -eq 1 -and (Get-FileHash -LiteralPath $existing.FullName -Algorithm SHA256).Hash -eq $retired[0].Hash) {
+                $retiredFiles += [pscustomobject]@{ Target = $existing.FullName; Backup = "$id/retired/$($first.Area)/$($first.Folder)/$relativeExisting"; Hash = $retired[0].Hash; Folder = $foreignRoot }
+                continue
+            }
+            throw "Unmanaged installed file; inspect before updating: $($existing.FullName)"
         }
     }
     $moduleIndices = @()
@@ -594,6 +611,9 @@ try {
         if ((Get-FileHash -LiteralPath $retiredFile.Target -Algorithm SHA256).Hash -ne $retiredFile.Hash) { throw "Retired file changed during copying: $($retiredFile.Target)" }
         Remove-Item -LiteralPath $retiredFile.Target
         if (Test-Path -LiteralPath $retiredFile.Target) { throw "Retired file remains in the loader directory: $($retiredFile.Target)" }
+    }
+    foreach ($emptied in @($retiredFiles | Where-Object { $_.Folder -ne '' } | Select-Object -ExpandProperty Folder -Unique)) {
+        if ((Test-Path -LiteralPath $emptied -PathType Container) -and @(Get-ChildItem -LiteralPath $emptied -Recurse -Force).Count -eq 0) { Remove-Item -LiteralPath $emptied }
     }
     if ($null -ne $heldScaffold) {
         if (Get-Process -Name Ostranauts -ErrorAction SilentlyContinue) { throw 'Ostranauts started; held scaffold was not removed.' }

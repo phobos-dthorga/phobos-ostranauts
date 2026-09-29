@@ -406,6 +406,53 @@ $retiredReceipt = Get-Content -LiteralPath (Join-Path $retiredBackup 'receipt.js
 Check (@($retiredReceipt.RetiredFiles).Count -eq 1 -and $retiredReceipt.RetiredFiles[0].Hash -eq $retiredHash) 'Receipt does not record the retired file'
 & $installer @retired -RetiredCataloguePath $retiredCatalogue -VerifyOnly | Out-Null
 Check $true 'Verification passes once the retired file is gone'
+
+# A retired mod's own plugin folder (the Approach Assist prototype beside Auto Nav) is archived the same way,
+# only when its successor is selected and every file in that folder is a listed exact-hash retirement.
+$foreign = Fixture 'retired-foreign'
+& $installer @foreign | Out-Null
+$prototypeFolder = Join-Path $foreign.OstranautsPath 'BepInEx/plugins/PhobosApproachAssist'
+New-Item -ItemType Directory -Path $prototypeFolder -Force | Out-Null
+$prototypeFile = Join-Path $prototypeFolder 'PhobosApproachAssist.dll'
+Set-Content -LiteralPath $prototypeFile -Value 'prototype plugin'
+$prototypeHash = (Get-FileHash -LiteralPath $prototypeFile -Algorithm SHA256).Hash
+$foreignCatalogue = Join-Path $fixtures 'retired-foreign.json'
+function WriteForeignCatalogue([string]$Mod, [string]$Hash) {
+    ConvertTo-Json -InputObject @{ schemaVersion = 1; retired = @(@{ mod = $Mod; area = 'plugin'; folder = 'PhobosApproachAssist'; path = 'PhobosApproachAssist.dll'; sha256 = $Hash; retiredIn = '0.0.0'; reason = 'fixture' }) } -Depth 5 |
+        Set-Content -LiteralPath $foreignCatalogue
+}
+& $installer @foreign -RetiredCataloguePath $retiredEmpty -VerifyOnly | Out-Null
+Check (Test-Path -LiteralPath $prototypeFile) 'An unlisted foreign folder was touched'
+WriteForeignCatalogue 'Agriculture' $prototypeHash
+& $installer @foreign -RetiredCataloguePath $foreignCatalogue -VerifyOnly | Out-Null
+Check (Test-Path -LiteralPath $prototypeFile) 'An unselected mod''s successor entry retired the prototype'
+WriteForeignCatalogue 'AutoNav' ('0' * 64)
+Fails { & $installer @foreign -RetiredCataloguePath $foreignCatalogue | Out-Null } 'Unmanaged installed file'
+Check (Test-Path -LiteralPath $prototypeFile) 'A prototype with a different hash was removed'
+WriteForeignCatalogue 'AutoNav' $prototypeHash
+Fails { & $installer @foreign -RetiredCataloguePath $foreignCatalogue -VerifyOnly | Out-Null } 'retired file(s) still installed'
+& $installer @foreign -RetiredCataloguePath $foreignCatalogue -WhatIf | Out-Null
+Check (Test-Path -LiteralPath $prototypeFile) 'Preview removed the prototype'
+$prototypeNote = Join-Path $prototypeFolder 'notes.txt'
+Set-Content -LiteralPath $prototypeNote -Value 'keep'
+Fails { & $installer @foreign -RetiredCataloguePath $foreignCatalogue | Out-Null } 'Unmanaged installed file'
+Check ((Test-Path -LiteralPath $prototypeFile) -and (Test-Path -LiteralPath $prototypeNote)) 'A folder with an unlisted file was changed'
+Remove-Item -LiteralPath $prototypeNote
+$global:PhobosInstallerTestGameRunning = $true
+Fails { & $installer @foreign -RetiredCataloguePath $foreignCatalogue | Out-Null } 'Exit Ostranauts'
+$global:PhobosInstallerTestGameRunning = $false
+Check (Test-Path -LiteralPath $prototypeFile) 'The prototype was archived while the game ran'
+$foreignBackup = BackupPath (& $installer @foreign -RetiredCataloguePath $foreignCatalogue)
+Check (-not (Test-Path -LiteralPath $prototypeFolder)) 'The emptied prototype folder remains'
+Check ((Get-FileHash -LiteralPath (Join-Path $foreignBackup 'PhobosAutoNav/retired/plugin/PhobosApproachAssist/PhobosApproachAssist.dll') -Algorithm SHA256).Hash -eq $prototypeHash) 'The prototype was not archived'
+$foreignReceipt = Get-Content -LiteralPath (Join-Path $foreignBackup 'receipt.json') -Raw | ConvertFrom-Json
+Check (@($foreignReceipt.RetiredFiles).Count -eq 1 -and $foreignReceipt.RetiredFiles[0].Hash -eq $prototypeHash) 'Receipt does not record the archived prototype'
+& $installer @foreign -RetiredCataloguePath $foreignCatalogue -VerifyOnly | Out-Null
+Check $true 'Verification passes once the prototype is archived'
+Set-Content -LiteralPath $foreignCatalogue -Value ('{"schemaVersion":1,"retired":[{"mod":"AutoNav","area":"plugin","folder":"PhobosAutoNav","path":"x.dll","sha256":"' + ('0' * 64) + '","retiredIn":"0.0.0","reason":"fixture"}]}')
+Fails { Get-RetiredInstalledFiles 'AutoNav' $foreignCatalogue | Out-Null } 'Invalid retired-file folder'
+$maintainedPrototype = @(Get-RetiredInstalledFiles 'AutoNav' (Join-Path $repoRoot 'config/retired-installed-files.json') | Where-Object { $_.Folder -eq 'PhobosApproachAssist' })
+Check ($maintainedPrototype.Count -eq 1 -and $maintainedPrototype[0].Relative -eq 'PhobosApproachAssist.dll' -and $maintainedPrototype[0].Area -eq 'plugin') 'Maintained catalogue lists the Approach Assist prototype for Auto Nav'
 # The maintained catalogue itself is well formed and its files exist nowhere in the current packages.
 $maintainedRetired = @(Get-RetiredInstalledFiles 'Shipbreaker' (Join-Path $repoRoot 'config/retired-installed-files.json'))
 Check ($maintainedRetired.Count -ge 2) 'Maintained catalogue lists the retired silo portraits'

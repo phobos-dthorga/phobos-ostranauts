@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "description": "Files an earlier package installed that later packages no longer ship. The installer backs up and removes a file listed here only when its SHA-256 matches exactly; any other extra file still stops the update for inspection. Paths are relative to the mod's own folder in the native mods directory or the BepInEx plugin folder.",
+  "description": "Files an earlier package installed that later packages no longer ship. The installer backs up and removes a file listed here only when its SHA-256 matches exactly; any other extra file still stops the update for inspection. Paths are relative to the mod's own folder in the native mods directory or the BepInEx plugin folder, or, with folder set, to that folder of a retired mod the listed mod superseded (archived when the listed mod is installed; the emptied folder is removed).",
   "retired": [
     {
       "mod": "Shipbreaker",
@@ -17,6 +17,15 @@
       "sha256": "5E7C554A56474E8D4A4AE7AD9FB9FCB2F9BD8DEF449092B47C3E7D336A2832AB",
       "retiredIn": "0.38.1",
       "reason": "Bulk silo artwork replaced the placeholder portraits; the S3 no longer ships a separate portrait."
+    },
+    {
+      "mod": "AutoNav",
+      "area": "plugin",
+      "folder": "PhobosApproachAssist",
+      "path": "PhobosApproachAssist.dll",
+      "sha256": "EC4841B5B12E0ED015237AEE6299BA14530AB55B728910E12BE9E1267DB477A8",
+      "retiredIn": "0.28.0",
+      "reason": "The retired Approach Assist 0.1.2 prototype was still loading beside Auto Nav and its patches ran every frame; Auto Nav supersedes it."
     }
   ]
 }

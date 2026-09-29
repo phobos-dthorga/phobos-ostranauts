@@ -32,6 +32,11 @@ phobosframework perf stop
 phobosframework perf export
 ```
 
+At fast-forward use summary mode: detailed mode fills its record cap within seconds
+and the capture stops early. The 29 September 2026 pass used
+`phobosframework perf start summary 30 20000` at speed 8 with the navigation console
+closed, and compares captures taken the same way before and after installing.
+
 Start options are positional: mode (`detailed` or `summary`), integer real seconds
 (1–3600), retained records (1–20000). Defaults are detailed / 60 seconds / 20000
 records. `perf help` gives the syntax. Extra arguments and user-supplied export
@@ -68,6 +73,22 @@ and export remain available; restart after investigating a recorder fault.
 | `shipbreaker.routing.check` | Existing receiver/route checks and candidate selection |
 | `shipbreaker.routing.advance` | Armed receiver progress and delivery work |
 | `shipbreaker.panel.refresh` | Industrial/local panel refresh, including delegated reads |
+
+Scopes added by the 29 September 2026 fast-forward pass, which attribute the costs
+that sat in unscoped hooks before it:
+
+| Stable operation key | Coverage |
+|---|---|
+| `framework.fluid_route.find` / `framework.fluid_route.scan_objects` | Shared pipe, gas-line and coolant topology walks and the objects they examine |
+| `framework.crew.task_filter` / `framework.crew.path_checks` | Crew task admission and the path searches it still runs |
+| `framework.rcs.collect` | RCS propellant input collection per ship per step |
+| `framework.state.write` / `framework.state.writes_skipped` | Saved-state writes and identical writes skipped |
+| `framework.water_supply.refill`, `framework.skip.machine_step` | Ship's Water refills; machine steps inside the managed time-skip |
+| `agriculture.irrigation.route`, `agriculture.saves` | Irrigation route lookups; crop and rack record writes |
+| `shipbreaker.power.hook`, `shipbreaker.furnace.route`, `shipbreaker.furnace.saves` | The power hooks for our machines; coolant route lookups; furnace record writes |
+| `manufacturing.scan`, `manufacturing.power.hook`, `manufacturing.machine.step`, `manufacturing.manifold.refresh`, `manufacturing.regulator.tick` | The two-second world scan, the power hooks, machine steps, manifold rechecks and regulator ticks |
+| `autonav.guard.update`, `autonav.hazards.scan`, `autonav.persist.write`, `autonav.foreign_controller.check`, `autonav.contact.reads` | The pre-physics guard sweep, the asteroid scan, flight record writes, the other-controller check and the count of native contact reads |
+| `war.poll`, `war.lay_pending` | The two-second ship poll and the laying pass |
 
 `shipbreaker.routing.candidate_items` is an **increment** in items: the candidate
 collection size when routing starts selecting another item. It is neither active
@@ -128,9 +149,11 @@ checks are not in-game tests. Owner gameplay evaluation remains pending.
 
 ## Current audit and deferred comparisons
 
-The owner deferred additional in-game captures on 27 September 2026. Recording
-remains disabled by default; ordinary play is the next evaluation step. See the
-[performance audit](development/performance-audit.md) for baseline results and limitations.
+The owner recorded fast-forward baseline captures on 29 September 2026 before the
+performance pass; matched after-captures with the new builds are the next step, and
+`scripts/compare-performance.py` reports the difference. Recording remains disabled
+by default. See the [performance audit](development/performance-audit.md) for the
+baseline numbers, the findings and their limitations.
 
 Additional scopes cover Auto Nav panel refresh/read, system-prefix work and fire;
 Shipbreaker furnace/capture/reclamation; Framework crew discovery; and Agriculture

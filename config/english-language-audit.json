@@ -46631,8 +46631,8 @@
       "path": "docs/development/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "3928831d747a0ecce423c7dd0b7de885da91274895f031fd52630fbb72b76f29",
-      "review": "29 September 2026 performance pass, stage 6 (War Declared 0.1.1): reviewed with this change; wording, links and maintained values checked."
+      "sha256": "47103851b884fbfba5041ad4eb5f46e6f28bec50be7fd9e11a07a2efc4242a56",
+      "review": "29 September 2026 performance pass, stage 7 (installer, captures guide, audit record): reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "docs/development/phobos-framework.md",
@@ -46906,8 +46906,8 @@
       "path": "docs/installing-mods.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "662e340cd0f14727031a5b3427078341032c438ccb98a6029a9d4cb16e134b5d",
-      "review": "29 September 2026 performance pass, stage 6 (War Declared 0.1.1): reviewed with this change; wording, links and maintained values checked."
+      "sha256": "5c16c9261de11ba222b77d7109520e00fb37ae365b9cdc51eb65e5e52e55d131",
+      "review": "29 September 2026 performance pass, stage 7 (installer, captures guide, audit record): reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "docs/item-references.md",
@@ -46941,8 +46941,8 @@
       "path": "docs/performance-captures.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "ecde1d61a21cb410bc0e4aeea822bc2df0fdb46db00df04b72892b39b7a0accf",
-      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+      "sha256": "b193964231f2a9bcd50b3d23d0f9b95850fa5db2661ce36b56098dd9e1a42255",
+      "review": "29 September 2026 performance pass, stage 7 (installer, captures guide, audit record): reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "docs/player-guide.md",

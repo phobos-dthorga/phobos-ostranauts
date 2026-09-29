@@ -177,7 +177,7 @@ Content-owned handling choices are normalized once during definition preparation
 
 Stock probability floors, missing-offer checks and new loot branches run only during definition preparation. Coverage uses the prepared merchant branches and existing offer registry; no merchant inventory scans, per-frame hooks, forced restocks or recurring allocations were added. Existing generation hooks and content-owned balance are retained.
 
-## 29 September: fast-forward pass (in progress)
+## 29 September: fast-forward pass
 
 The owner reports the game slowing to a crawl at accelerated time, and often at
 normal speed, with every mod active and little Phobos equipment installed. Three
@@ -293,6 +293,68 @@ physics step; sensor release decided twice a second.
 Not changed: the damage-check and mode-switch hooks already return on a dictionary
 probe; the poll cadence (2 s real) was already right. Trade-off: a blocked build
 site waits up to ten real seconds after the item is put away.
+
+### Stage 7: installer, records and evidence
+
+- The retired Approach Assist 0.1.2 prototype (`BepInEx/plugins/PhobosApproachAssist/
+  PhobosApproachAssist.dll`, SHA-256 `EC4841B5…77A8`) was still loading beside Auto
+  Nav on the owner's machine, and its patches ran every frame. The installer's
+  retired-file catalogue now accepts an entry with a `folder`: when Auto Nav is
+  installed, that folder is archived and removed if every file in it is a listed
+  exact-hash retirement; anything else there stops the update. Same backup, receipt
+  and game-closed guards as other retirements (`tests/install-mods.tests.ps1`).
+- The captures guide lists every scope this pass added and advises summary mode at
+  fast-forward. The ledger is fully stamped (FF0 to FF7) and CI verifies it.
+
+### Cadence policy
+
+Conserved accounting (power receipts, transfers, thermal and crop steps, elapsed
+flight budgets) stays on game time inside the native hooks. Topology, discovery,
+candidate lists, presentation and record settlement run on unscaled real time:
+2 s for topology and settlement, 5 s for machine link rechecks, 10 s for blocked
+build sites, with explicit invalidation where a cheap native hook exists (mode
+switch, destroy, ship add/remove, our own sensor switches, content reload).
+
+### Trade-offs taken (owner-accepted)
+
+- Crew task admissibility is shared within one frame; supply scans for starved
+  machines are shared per poll.
+- Pipe, gas-line, coolant, floor and water-tank topology changes are noticed within
+  2 real seconds (at once where a native hook fires); at high speed that is up to
+  about 100 game-seconds of flow along a route that just broke, bounded by pump
+  rate and still journaled; no mass is created.
+- Furnace, Auto Nav, Agriculture and Manufacturing records settle every 2 real
+  seconds, on every state transition and before every native save; a crash (never
+  a save) can lose up to 2 s of record progress or elapsed flight budget.
+- Contact readings, hardware verdicts and docked partners are shared within one
+  physics step; Auto Nav sensor release is decided twice a second.
+- Manufacturing links and vessels are rechecked every 5 real seconds; War Declared
+  retries blocked build sites every 10 real seconds.
+- Settle log lines go to Debug level; journals are unchanged.
+
+### After-capture protocol (owner)
+
+Install the new builds with the game closed (`scripts/install-mods.ps1`; the
+installer also archives the prototype DLL), load the same save and scene as the
+baseline, speed 8, navigation console closed, and record two or three captures:
+
+```text
+phobosframework perf start summary 30 20000
+phobosframework perf export
+```
+
+Then compare: `python scripts/compare-performance.py --before <baseline files>
+--after <new files> --output <report.json>`. The report gives frame percentiles,
+long-frame counts and per-scope cost per second; the new scopes attribute what the
+after-captures still spend. Expect `shipbreaker.furnace.scan_objects` and
+`agriculture.scan_objects` to fall to zero or near it, and
+`framework.crew.discovery` to shrink; the frame percentiles are the outcome that
+matters. Ordinary-play checks after the install: crew loading orders still fetch
+within seconds; furnace passive cooling continues with the panel closed; irrigation
+and coolant routes still refuse a joined second source; a freshly laid or cut pipe
+is noticed within two seconds; an Auto Nav flight resumes after reload with elapsed
+time within two seconds; the BepInEx log no longer lists Approach Assist. Offline
+checks are not gameplay validation; the after-captures and these checks are.
 
 ## 28 September: construction and maintenance follow-up
 

@@ -34,6 +34,7 @@ Dates on Draft entries record preparation, not Steam publication.
 ### Compatibility and limits
 
 - Requires Phobos Framework 0.45.0 or newer. Saved data, flight rules, admission checks and sensor policy are unchanged. Offline checks are not gameplay validation.
+- The repository installer archives the retired Approach Assist 0.1.2 prototype plugin when it installs this version; that prototype was still loading beside Auto Nav and its patches ran every frame. Workshop installs are unaffected.
 
 ## [0.27.0] - 2026-09-29 - Draft
 

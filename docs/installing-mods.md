@@ -152,7 +152,12 @@ directly without interacting with your mouse or opening a launcher window.
 ./scripts/install-mods.ps1 -PreviewsOnly -VerifyOnly
 ```
 
-Approach Assist is retired and no longer offered by the installer.
+Approach Assist is retired and no longer offered by the installer. Installing
+Auto Nav 0.28.0 or later also archives the old prototype plugin folder
+(`BepInEx/plugins/PhobosApproachAssist`) when its only file is the recorded 0.1.2
+build: that build was still loading beside Auto Nav and its patches ran every
+frame. Any other file in that folder stops the update for inspection; previews and
+`-VerifyOnly` report the prototype as still installed.
 Manufacturing 0.1.x is an ordinary operational package; see its
 [player guide](manufacturing-player-guide.md). Installing it also installs
 Framework and refuses a Framework older than the maintained minimum; it checks
@@ -221,6 +226,9 @@ files: when a later package stops shipping a file, list it with its SHA-256 in
 installed file up under `.local/installations/`, records it in the receipt as a
 retired file and removes it; previews and `-VerifyOnly` report it as still installed.
 A file whose content differs from the recorded hash is treated like any other extra.
+An entry with a `folder` names the folder of a retired mod that the listed mod
+superseded; its listed files are archived when that mod is installed and the
+emptied folder is removed.
 Unexpected extra files in our destination folders stop an update for inspection,
 so obsolete code and user additions are not silently retained or deleted.
 
