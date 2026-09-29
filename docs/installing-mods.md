@@ -95,8 +95,13 @@ directly without interacting with your mouse or opening a launcher window.
 ```
 
 Approach Assist is retired and no longer offered by the installer.
-Manufacturing 0.1.0 is an ordinary operational package; see its
-[player guide](manufacturing-player-guide.md). If an earlier development install
+Manufacturing 0.1.x is an ordinary operational package; see its
+[player guide](manufacturing-player-guide.md). Installing it also installs
+Framework and refuses a Framework older than the maintained minimum; it checks
+that the package carries its explosion definitions, equipment names and every
+sprite before copying anything, and adds a reminder when Shipbreaker is not part
+of the same run (Shipbreaker is optional and only adds the refinery's steel charge).
+Manufacturing has no mod-menu cover yet, so `-PreviewsOnly` stops with a missing-cover message if you select it; the default selection is unaffected. If an earlier development install
 left the 0.0.1 scaffold plugin behind and you do not want 0.1.0 yet,
 `-HoldManufacturing` backs up and removes that DLL from the loader
 directory after checking its identity and verifying the backup. Its native entry

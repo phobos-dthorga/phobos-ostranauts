@@ -292,6 +292,8 @@ Fails { & $installer @incomplete -Mods AutoNav | Out-Null } 'Selected equipment 
 Fails { & $installer @incomplete -Mods Shipbreaker | Out-Null } 'Selected equipment requires Phobos Framework'
 Copy-Item -LiteralPath (Join-Path $PackageRoot 'PhobosAgriculture-P0') -Destination (Join-Path $badPackages 'PhobosAgriculture-P0') -Recurse
 Fails { & $installer @incomplete -Mods Agriculture | Out-Null } 'Selected equipment requires Phobos Framework'
+Copy-Item -LiteralPath (Join-Path $PackageRoot 'PhobosManufacturing-P0') -Destination (Join-Path $badPackages 'PhobosManufacturing-P0') -Recurse
+Fails { & $installer @incomplete -Mods Manufacturing | Out-Null } 'Selected equipment requires Phobos Framework 0.41.0'
 Check ((InstalledFiles $incomplete) -eq $before) 'Equipment naming provider minimum was not enforced'
 foreach ($relative in @($frameworkMetadataRelative, $frameworkDllRelative)) {
     Copy-Item -LiteralPath (Join-Path $PackageRoot $relative) -Destination (Join-Path $badPackages $relative) -Force
@@ -467,6 +469,25 @@ $farmMissing.PackageRoot = $farmBrokenPackages
 $farmMissingBefore = InstalledFiles $farmMissing
 Fails { & $installer @farmMissing -Mods Agriculture | Out-Null } 'Package is incomplete: PhobosAgriculture/data/README.md'
 Check ((InstalledFiles $farmMissing) -eq $farmMissingBefore) 'Missing native data directory must fail before installation'
+
+# A Manufacturing 0.1.x package missing any runtime file fails before anything is installed.
+$shopBrokenPackages = Join-Path $fixtures 'manufacturing-missing-packages'
+New-Item -ItemType Directory -Path $shopBrokenPackages | Out-Null
+foreach ($id in @('PhobosFramework', 'PhobosManufacturing')) {
+    Copy-Item -LiteralPath (Join-Path $PackageRoot "$id-P0") -Destination $shopBrokenPackages -Recurse
+}
+$shopNative = Join-Path $shopBrokenPackages 'PhobosManufacturing-P0/Mods/PhobosManufacturing'
+foreach ($missing in @('data/explosions/phobos_manufacturing.json', 'framework/equipment-names.json', 'images/phobos/manufacturing/PhobosHydrogenStoreNormal.png')) {
+    $held = Join-Path $shopNative $missing
+    $stash = "$held.stashed"
+    Move-Item -LiteralPath $held -Destination $stash
+    $shopMissing = Fixture ('manufacturing-missing-' + ($missing -replace '[^a-zA-Z0-9]', '-')) @('core')
+    $shopMissing.PackageRoot = $shopBrokenPackages
+    $shopMissingBefore = InstalledFiles $shopMissing
+    Fails { & $installer @shopMissing -Mods Manufacturing | Out-Null } "Package is incomplete: PhobosManufacturing/$missing"
+    Check ((InstalledFiles $shopMissing) -eq $shopMissingBefore) "Missing Manufacturing file must fail before installation: $missing"
+    Move-Item -LiteralPath $stash -Destination $held
+}
 
 $manufacturing = Fixture 'manufacturing-only' @('core')
 $manufacturingBefore = InstalledFiles $manufacturing

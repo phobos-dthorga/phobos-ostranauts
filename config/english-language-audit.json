@@ -42289,8 +42289,8 @@
       "path": "docs/installing-mods.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "7749dd4b70f91bc2d1700cb428a707e3d07c1819a192357701b0b2912100cbc0",
-      "review": "2026-09-29: Manufacturing 0.1.0 is an ordinary package; dependency line; hold option wording."
+      "sha256": "e3e745083ba34712cfe14bbdc2eac3fe33c70bb6303387a13eff5fa43007e053",
+      "review": "2026-09-29: Manufacturing 0.1.x installer behaviour (Framework floor, package completeness, Shipbreaker reminder, no cover yet)."
     },
     {
       "path": "docs/item-references.md",

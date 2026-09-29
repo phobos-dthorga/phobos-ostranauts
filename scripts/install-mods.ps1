@@ -309,6 +309,16 @@ foreach ($mod in $Mods) {
             }
         }
         'Framework' { 'data/conditions/phobos_framework.json' }
+        'Manufacturing' {
+            # The 0.0.1 scaffold shipped no content; from 0.1.0 the package carries its marker, explosions, names and sprites.
+            if ($version -ge [version]'0.1.0') {
+                'data/conditions/phobos_manufacturing.json'; 'data/explosions/phobos_manufacturing.json'; 'framework/equipment-names.json'
+                foreach ($image in @('PhobosVolatilesRefinery', 'PhobosChemicalProcessor', 'PhobosHydrogenStore', 'StockNickelIronIngot',
+                    'StockCarbon', 'StockRefinerySlag', 'StockAnhydrousResidue')) {
+                    "images/phobos/manufacturing/$image.png"; "images/phobos/manufacturing/${image}Normal.png"
+                }
+            }
+        }
         'AutoNav' {
             if ($version -ge [version]'0.2.0') { 'framework/recipes.json' }
             if ($version -ge [version]'0.7.0') { 'images/phobos/autonav/PhobosAutoNavInstruments.png' }
@@ -356,6 +366,7 @@ foreach ($mod in $Mods) {
     }
     $needsEquipmentNames = ($mod -eq 'Framework' -and $version -ge [version]'0.12.0') -or
         ($mod -eq 'Shipbreaker' -and $version -ge [version]'0.10.1') -or
+        ($mod -eq 'Manufacturing' -and $version -ge [version]'0.1.0') -or
         ($mod -eq 'AutoNav' -and $version -ge [version]'0.8.1')
     if ($needsEquipmentNames -and -not (Test-Path -LiteralPath (Join-Path $nativeSource 'framework/equipment-names.json') -PathType Leaf)) {
         throw "Package is incomplete: $id/framework/equipment-names.json"
@@ -454,6 +465,9 @@ $changedFiles = @($files | Where-Object {
 })
 $description = ($plans | ForEach-Object { "$($_.Id) $($_.Version)" }) -join ', '
 Write-Output "Selected: $description"
+if ('Manufacturing' -in $Mods -and 'Shipbreaker' -notin $Mods -and -not $PreviewsOnly) {
+    Write-Output 'Note: Manufacturing works alone; Shipbreaker 0.38.0 or newer (select or install it separately) adds the refinery''s steel charge and its S3 water silo.'
+}
 Write-Output "Game: $gameRoot"
 Write-Output "Native mods: $modRoot"
 if ($VerifyOnly) {
