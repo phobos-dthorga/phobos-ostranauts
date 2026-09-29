@@ -366,6 +366,49 @@ New-Item -ItemType Junction -Path (Join-Path (Split-Path -Parent $linked.LoadOrd
 Fails { & $installer @linked | Out-Null } 'Filesystem link'
 Check (@(Get-ChildItem -LiteralPath $outside).Count -eq 0) 'Installation followed a junction'
 
+# Retired files: a file an earlier package installed is archived and removed only on an exact
+# catalogue hash match; a modified copy, an unlisted file or another mod's file still stops the update.
+$retired = Fixture 'retired'
+& $installer @retired | Out-Null
+$retiredNative = Split-Path -Parent $retired.LoadOrderPath
+$retiredRelative = 'images/phobos/shipbreaker/PhobosRetiredTest.png'
+$retiredFile = Join-Path $retiredNative ('PhobosShipbreaker/' + $retiredRelative)
+Set-Content -LiteralPath $retiredFile -Value 'old artwork'
+$retiredHash = (Get-FileHash -LiteralPath $retiredFile -Algorithm SHA256).Hash
+$retiredCatalogue = Join-Path $fixtures 'retired-catalogue.json'
+function WriteCatalogue([string]$Mod, [string]$Hash) {
+    ConvertTo-Json -InputObject @{ schemaVersion = 1; retired = @(@{ mod = $Mod; area = 'native'; path = $retiredRelative; sha256 = $Hash; retiredIn = '0.0.0'; reason = 'fixture' }) } -Depth 5 |
+        Set-Content -LiteralPath $retiredCatalogue
+}
+WriteCatalogue 'Shipbreaker' $retiredHash
+$retiredEmpty = Join-Path $fixtures 'retired-empty.json'
+Set-Content -LiteralPath $retiredEmpty -Value '{"schemaVersion":1,"retired":[]}'
+Fails { & $installer @retired -RetiredCataloguePath $retiredEmpty | Out-Null } 'Unmanaged installed file'
+Check (Test-Path -LiteralPath $retiredFile) 'An unlisted file was removed'
+Fails { & $installer @retired -RetiredCataloguePath $retiredCatalogue -VerifyOnly | Out-Null } 'retired file(s) still installed'
+& $installer @retired -RetiredCataloguePath $retiredCatalogue -WhatIf | Out-Null
+Check (Test-Path -LiteralPath $retiredFile) 'Preview removed a retired file'
+WriteCatalogue 'AutoNav' $retiredHash
+Fails { & $installer @retired -RetiredCataloguePath $retiredCatalogue | Out-Null } 'Unmanaged installed file'
+Check (Test-Path -LiteralPath $retiredFile) 'Another mod''s catalogue entry removed this mod''s file'
+WriteCatalogue 'Shipbreaker' ('0' * 64)
+Fails { & $installer @retired -RetiredCataloguePath $retiredCatalogue | Out-Null } 'Unmanaged installed file'
+Check ((Get-Content -LiteralPath $retiredFile -Raw).Trim() -eq 'old artwork') 'A file with a different hash was removed'
+WriteCatalogue 'Shipbreaker' $retiredHash
+$retiredBackup = BackupPath (& $installer @retired -RetiredCataloguePath $retiredCatalogue)
+Check (-not (Test-Path -LiteralPath $retiredFile)) 'Retired file remains installed'
+Check ((Get-FileHash -LiteralPath (Join-Path $retiredBackup ('PhobosShipbreaker/retired/native/' + $retiredRelative.Replace('/', [IO.Path]::DirectorySeparatorChar))) -Algorithm SHA256).Hash -eq $retiredHash) 'Retired file was not archived in the backup'
+$retiredReceipt = Get-Content -LiteralPath (Join-Path $retiredBackup 'receipt.json') -Raw | ConvertFrom-Json
+Check (@($retiredReceipt.RetiredFiles).Count -eq 1 -and $retiredReceipt.RetiredFiles[0].Hash -eq $retiredHash) 'Receipt does not record the retired file'
+& $installer @retired -RetiredCataloguePath $retiredCatalogue -VerifyOnly | Out-Null
+Check $true 'Verification passes once the retired file is gone'
+# The maintained catalogue itself is well formed and its files exist nowhere in the current packages.
+$maintainedRetired = @(Get-RetiredInstalledFiles 'Shipbreaker' (Join-Path $repoRoot 'config/retired-installed-files.json'))
+Check ($maintainedRetired.Count -ge 2) 'Maintained catalogue lists the retired silo portraits'
+foreach ($entry in $maintainedRetired) {
+    Check (-not (Test-Path -LiteralPath (Join-Path $PackageRoot ('PhobosShipbreaker-P0/Mods/PhobosShipbreaker/' + $entry.Relative)))) "Retired file $($entry.Relative) is still shipped in the current package"
+}
+
 # Saved paths are tested in a separate file; no real machine settings are changed.
 $settings = Join-Path $fixtures 'settings.json'
 $savedLocations = [ordered]@{ OstranautsPath = $fresh.OstranautsPath; LoadOrderPath = $fresh.LoadOrderPath }

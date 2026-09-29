@@ -16,6 +16,8 @@ param(
     [switch]$KeepInstalledFramework,
     # Remove only the known, non-operational Manufacturing 0.0.1 scaffold DLL from loading.
     [switch]$HoldManufacturing,
+    # Test override for the catalogue of files earlier packages installed and later ones no longer ship.
+    [string]$RetiredCataloguePath = (Join-Path (Split-Path -Parent $PSScriptRoot) 'config/retired-installed-files.json'),
     [switch]$NoRememberPaths
 )
 $ErrorActionPreference = 'Stop'
@@ -153,6 +155,8 @@ $files = @()
 $plans = @()
 $changeOrder = $false
 $heldScaffold = $null
+# Files earlier packages installed that this package no longer ships, matched by exact hash only.
+$retiredFiles = @()
 if ($HoldManufacturing) {
     $scaffoldDll = Join-Path $gameRoot 'BepInEx/plugins/PhobosManufacturing/PhobosManufacturing.dll'
     Assert-NoLinks $scaffoldDll
@@ -386,10 +390,21 @@ foreach ($mod in $Mods) {
         if (Test-Path -LiteralPath $file.Target -PathType Container) { throw "A directory occupies an intended file destination: $($file.Target)" }
         Add-Member -InputObject $file -NotePropertyName Hash -NotePropertyValue (Get-FileHash -LiteralPath $file.Source -Algorithm SHA256).Hash
     }
+    $retiredCatalogue = @(Get-RetiredInstalledFiles $mod $RetiredCataloguePath)
     foreach ($folder in @($pluginTarget, $nativeTarget)) {
         if (Test-Path -LiteralPath $folder) {
             foreach ($existing in Get-ChildItem -LiteralPath $folder -Recurse -File -Force) {
-                if ($existing.FullName -notin $modFiles.Target) { throw "Unmanaged installed file; inspect before updating: $($existing.FullName)" }
+                if ($existing.FullName -in $modFiles.Target) { continue }
+                # A file this mod used to ship is retired only on an exact hash match; a modified copy or
+                # any other extra file is still the owner's to inspect.
+                $relativeExisting = [IO.Path]::GetRelativePath($folder, $existing.FullName)
+                $area = if ($folder -eq $nativeTarget) { 'native' } else { 'plugin' }
+                $retired = @($retiredCatalogue | Where-Object { $_.Area -eq $area -and $_.Relative -eq $relativeExisting })
+                if ($retired.Count -eq 1 -and (Get-FileHash -LiteralPath $existing.FullName -Algorithm SHA256).Hash -eq $retired[0].Hash) {
+                    $retiredFiles += [pscustomobject]@{ Target = $existing.FullName; Backup = "$id/retired/$area/$relativeExisting"; Hash = $retired[0].Hash }
+                    continue
+                }
+                throw "Unmanaged installed file; inspect before updating: $($existing.FullName)"
             }
         }
     }
@@ -434,25 +449,26 @@ Write-Output "Selected: $description"
 Write-Output "Game: $gameRoot"
 Write-Output "Native mods: $modRoot"
 if ($VerifyOnly) {
-    if ($changedFiles.Count -gt 0 -or $changeOrder -or $null -ne $heldScaffold) {
+    if ($changedFiles.Count -gt 0 -or $retiredFiles.Count -gt 0 -or $changeOrder -or $null -ne $heldScaffold) {
         $states = ($plans | ForEach-Object { "$($_.Id) load-order status: $($_.LoadOrderStatus)" }) -join '; '
         $verifyListLimit = 20
         $names = @($changedFiles | Select-Object -First $verifyListLimit | ForEach-Object { [IO.Path]::GetRelativePath($gameRoot, $_.Target) })
         if ($changedFiles.Count -gt $verifyListLimit) { $names += "and $($changedFiles.Count - $verifyListLimit) more" }
         $listed = if ($names.Count -gt 0) { ': ' + ($names -join ', ') } else { '' }
-        throw "Installation differs: $($changedFiles.Count) missing/changed file(s)$listed; held scaffold still present: $($null -ne $heldScaffold); $states"
+        $retiredListed = if ($retiredFiles.Count -gt 0) { "; $($retiredFiles.Count) retired file(s) still installed: " + (($retiredFiles | ForEach-Object { [IO.Path]::GetRelativePath($gameRoot, $_.Target) }) -join ', ') } else { '' }
+        throw "Installation differs: $($changedFiles.Count) missing/changed file(s)$listed$retiredListed; held scaffold still present: $($null -ne $heldScaffold); $states"
     }
     Write-Output "Verified $($files.Count) matching files and load-order configuration. In-game startup is not tested."
     return
 }
-if ($changedFiles.Count -eq 0 -and -not $changeOrder -and $null -eq $heldScaffold) {
+if ($changedFiles.Count -eq 0 -and $retiredFiles.Count -eq 0 -and -not $changeOrder -and $null -eq $heldScaffold) {
     if (-not $NoRememberPaths -and $PSCmdlet.ShouldProcess($settingsFile, 'Remember verified installation paths')) {
         Save-InstallLocations $locations $settingsFile
     }
     Write-Output 'Already installed and verified. No game files changed.'
     return
 }
-if (-not $PSCmdlet.ShouldProcess($gameRoot, "Install/update $description; $($changedFiles.Count) files; update load order: $changeOrder; archive held scaffold: $($null -ne $heldScaffold)")) { return }
+if (-not $PSCmdlet.ShouldProcess($gameRoot, "Install/update $description; $($changedFiles.Count) files; retire $($retiredFiles.Count) obsolete file(s); update load order: $changeOrder; archive held scaffold: $($null -ne $heldScaffold)")) { return }
 if (Get-Process -Name Ostranauts -ErrorAction SilentlyContinue) { throw 'Ostranauts started during preflight; installation stopped.' }
 if ((Get-FileHash -LiteralPath $orderFile -Algorithm SHA256).Hash -ne $orderHash) { throw 'Load order changed during preflight; retry.' }
 # Recheck sources before touching destinations (e.g. a build in another terminal).
@@ -483,6 +499,14 @@ if ($null -ne $heldScaffold) {
     if ((Get-FileHash -LiteralPath $heldBackup -Algorithm SHA256).Hash -ne $heldScaffold.Hash) { throw 'Held scaffold backup failed verification.' }
     $receipt.HeldScaffold = $heldScaffold
 }
+foreach ($retiredFile in $retiredFiles) {
+    if ((Get-FileHash -LiteralPath $retiredFile.Target -Algorithm SHA256).Hash -ne $retiredFile.Hash) { throw "Retired file changed during preflight: $($retiredFile.Target)" }
+    $retiredBackup = Join-Path $backupRoot $retiredFile.Backup
+    New-Item -ItemType Directory -Path (Split-Path -Parent $retiredBackup) -Force | Out-Null
+    Copy-Item -LiteralPath $retiredFile.Target -Destination $retiredBackup
+    if ((Get-FileHash -LiteralPath $retiredBackup -Algorithm SHA256).Hash -ne $retiredFile.Hash) { throw "Retired file backup failed verification: $($retiredFile.Target)" }
+}
+if ($retiredFiles.Count -gt 0) { $receipt.RetiredFiles = $retiredFiles }
 $receipt | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath $receiptFile -Encoding utf8
 try {
     foreach ($file in $changedFiles) {
@@ -491,6 +515,12 @@ try {
     }
     foreach ($file in $files) {
         if ((Get-FileHash -LiteralPath $file.Target -Algorithm SHA256).Hash -ne $file.Hash) { throw "Installed file mismatch: $($file.Target)" }
+    }
+    foreach ($retiredFile in $retiredFiles) {
+        if (Get-Process -Name Ostranauts -ErrorAction SilentlyContinue) { throw 'Ostranauts started; retired files were not removed.' }
+        if ((Get-FileHash -LiteralPath $retiredFile.Target -Algorithm SHA256).Hash -ne $retiredFile.Hash) { throw "Retired file changed during copying: $($retiredFile.Target)" }
+        Remove-Item -LiteralPath $retiredFile.Target
+        if (Test-Path -LiteralPath $retiredFile.Target) { throw "Retired file remains in the loader directory: $($retiredFile.Target)" }
     }
     if ($null -ne $heldScaffold) {
         if (Get-Process -Name Ostranauts -ErrorAction SilentlyContinue) { throw 'Ostranauts started; held scaffold was not removed.' }

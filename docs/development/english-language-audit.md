@@ -348,3 +348,11 @@ the seizure rules, the flight-profiles guide the slider curve and authority
 readout, the author guide the NativeReactor paragraph, the audit its round 5,
 and version lines move. Coverage is now 2,053 entries, 159 documents
 and 14 other surfaces. Unity wording is unverified.
+
+## Installer retired files, 29 September 2026
+
+The installation guide describes the retired-file catalogue: a file an earlier
+package installed and later packages no longer ship is backed up, recorded in the
+receipt and removed only when its SHA-256 matches the catalogue, and previews and
+verification report it. No translation entries change. Coverage is unchanged at
+2,053 entries, 159 documents and 14 other surfaces. Unity wording is unverified.

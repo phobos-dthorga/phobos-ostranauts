@@ -40012,8 +40012,8 @@
       "path": "docs/installing-mods.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "275bfc3eff421fac972e2a193fedfa425a413cc2ffb2158e1eb0607e2e9620b5",
-      "review": "2026-09-29: dependency minima lines; no other wording changed."
+      "sha256": "3e2c7a7d0aa8c52bc88594254dc5de211b994405bd0736fc56b450529b4cacf0",
+      "review": "2026-09-29: retired-file catalogue paragraph in the file-removal and unexpected-file rules."
     },
     {
       "path": "docs/item-references.md",

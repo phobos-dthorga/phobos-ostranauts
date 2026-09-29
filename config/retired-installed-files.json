@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "description": "Files an earlier package installed that later packages no longer ship. The installer backs up and removes a file listed here only when its SHA-256 matches exactly; any other extra file still stops the update for inspection. Paths are relative to the mod's own folder in the native mods directory or the BepInEx plugin folder.",
+  "retired": [
+    {
+      "mod": "Shipbreaker",
+      "area": "native",
+      "path": "images/phobos/shipbreaker/PhobosIceThawPortrait.png",
+      "sha256": "5DCC39258AD3B6F0D22AD1FF1E7E8C53BCBD263865CCC6733F10A8632FB7BBD9",
+      "retiredIn": "0.38.1",
+      "reason": "Bulk silo artwork replaced the placeholder portraits; the T2 no longer ships a separate portrait."
+    },
+    {
+      "mod": "Shipbreaker",
+      "area": "native",
+      "path": "images/phobos/shipbreaker/PhobosProcessSiloPortrait.png",
+      "sha256": "5E7C554A56474E8D4A4AE7AD9FB9FCB2F9BD8DEF449092B47C3E7D336A2832AB",
+      "retiredIn": "0.38.1",
+      "reason": "Bulk silo artwork replaced the placeholder portraits; the S3 no longer ships a separate portrait."
+    }
+  ]
+}

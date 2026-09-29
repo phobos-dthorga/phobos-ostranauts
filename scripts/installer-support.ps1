@@ -139,3 +139,16 @@ function Get-MaintainedDependencyMinimum([string]$Key, [version]$PackageVersion,
     if ($PackageVersion -ge [version]$entry.since -and ($null -eq $Fallback -or [version]$entry.value -gt $Fallback)) { return [version]$entry.value }
     return $Fallback
 }
+
+# Files an earlier package installed and later packages no longer ship (config/retired-installed-files.json).
+# The installer may back up and remove one only when its SHA-256 matches the recorded value exactly;
+# anything else in a destination folder is still treated as unmanaged and stops the update.
+function Get-RetiredInstalledFiles([string]$Mod, [string]$Path) {
+    $catalogue = Get-Content -LiteralPath $Path -Raw | ConvertFrom-Json -AsHashtable
+    if ($catalogue.schemaVersion -ne 1) { throw 'Unsupported retired-file catalogue version.' }
+    foreach ($entry in @($catalogue.retired | Where-Object { $_.mod -eq $Mod })) {
+        if ($entry.area -notin @('native', 'plugin') -or $entry.path -notmatch '^[A-Za-z0-9_./-]+$' -or $entry.path.Contains('..') -or
+            $entry.sha256 -notmatch '^[0-9A-Fa-f]{64}$') { throw "Invalid retired-file entry: $($entry.path)" }
+        [pscustomobject]@{ Area = $entry.area; Relative = ($entry.path -replace '/', [IO.Path]::DirectorySeparatorChar); Hash = $entry.sha256.ToUpperInvariant() }
+    }
+}

@@ -146,7 +146,12 @@ Older package versions retain their historical dependency thresholds.
 The installer refuses actual updates while Ostranauts is running. Close it
 normally and run again. It never stops the game, launches it, accesses saves,
 changes player settings or overwrites original game data. File removal is limited
-to the explicitly requested held-scaffold operation described above.
+to the explicitly requested held-scaffold operation described above and to retired
+files: when a later package stops shipping a file, list it with its SHA-256 in
+`config/retired-installed-files.json`. The installer then backs the matching
+installed file up under `.local/installations/`, records it in the receipt as a
+retired file and removes it; previews and `-VerifyOnly` report it as still installed.
+A file whose content differs from the recorded hash is treated like any other extra.
 Unexpected extra files in our destination folders stop an update for inspection,
 so obsolete code and user additions are not silently retained or deleted.
 
