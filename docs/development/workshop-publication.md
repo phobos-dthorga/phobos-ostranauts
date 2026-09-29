@@ -16,10 +16,11 @@ work, not deferred until upload. It does not publish anything automatically.
 | `workshop/<ModId>/page.bbcode` | Current copy-ready Steam description, including title, version, publication status, requirements and limits | Yes; version field also follows the constants updater |
 | `workshop/<ModId>/releases/<version>.bbcode` | One Steam-formatted changelog document per dated version | No; regenerate from the main changelog |
 
-See the [Workshop draft index](../../workshop/README.md). All five current mods have
+See the [Workshop draft index](../../workshop/README.md). All six current mods have
 initial **Draft** baseline entries; the retired Approach Assist prototype has none. Their dates record preparation, not release
 dates, and do not reconstruct an unsupported history of earlier releases.
-Manufacturing is held until owner gameplay checks. The owner lifted Auto Nav's
+Manufacturing and War Has Been Declared are held until owner gameplay checks;
+War Has Been Declared also needs a Workshop cover. The owner lifted Auto Nav's
 provenance hold on 29 September 2026; see [public-release readiness](public-release-readiness.md).
 Phobos Scope is a separate toolkit and is outside this Workshop inventory.
 

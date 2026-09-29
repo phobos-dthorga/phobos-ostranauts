@@ -34,6 +34,13 @@
         "PhobosFramework"
       ],
       "hold": "Unpublished draft: first operational release awaiting owner gameplay checks."
+    },
+    "PhobosWarDeclared": {
+      "itemId": null,
+      "requires": [
+        "PhobosFramework"
+      ],
+      "hold": "Held draft: first release awaiting owner gameplay checks and a Workshop cover."
     }
   },
   "externalRequiredItems": [

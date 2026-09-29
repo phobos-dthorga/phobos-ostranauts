@@ -27,6 +27,8 @@ internal static class ItemReferenceExport
         // Shipbreaker publishes first so the steel charge's identities exist, as the game's load order gives.
         packs["PhobosShipbreaker"].Publish();
         packs["PhobosManufacturing"] = PhobosManufacturing.Content.Prepare(true);
+        // War Has Been Declared adds no items, only orders on the game's navigation stations.
+        packs["PhobosWarDeclared"] = PhobosWarDeclared.Content.Prepare();
         // Publish only to this audit process's in-memory dictionaries for native valuation.
         foreach (var pack in packs.Values) pack.Publish();
         var shared = new NativeDefinitions();

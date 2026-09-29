@@ -8192,7 +8192,7 @@
     {
       "id": "PhobosFramework",
       "name": "Phobos Framework",
-      "version": "0.42.0",
+      "version": "0.43.0",
       "gameTarget": "1.0.1.5",
       "items": [
         {
@@ -24203,6 +24203,16 @@
         "PhobosAluminiumIngot": "Phobos' Rivetline Aluminium Ingot",
         "PhobosSteelIngot": "Phobos' Rivetline Steel Ingot"
       }
+    },
+    {
+      "id": "PhobosWarDeclared",
+      "name": "Phobos' War Has Been Declared",
+      "version": "0.1.0",
+      "gameTarget": "1.0.1.5",
+      "items": [],
+      "sources": [],
+      "recipes": [],
+      "recipeItemNames": {}
     }
   ],
   "sourceHashes": {
@@ -24216,7 +24226,7 @@
     "mods/PhobosAutoNav/mod_info.json": "7104b75222365d05b9aa7700f6d582645a2bf4f26018582de8323f503f6ef9ec",
     "mods/PhobosFramework/data/conditions/phobos_framework.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
     "mods/PhobosFramework/framework/equipment-names.json": "8d64a49207830ca57808d0de92ac82feaf95fb200dd550888e795bb7ed37afb7",
-    "mods/PhobosFramework/mod_info.json": "e39c8c80b7521ffb80315ad55fe24dcf706746b6f46384402386a811986a8ca5",
+    "mods/PhobosFramework/mod_info.json": "7438f7a68407744ed9d3d01117ce530e04480c728e14c1f0ff975eb1c1a82832",
     "mods/PhobosManufacturing/data/conditions/phobos_manufacturing.json": "0ac5bff75779f21f3bcd269f28e09d882833f3b94fee174190a00b4d98001c63",
     "mods/PhobosManufacturing/data/explosions/phobos_manufacturing.json": "33e0a37a22450d2ca64e33cc461efb87f19f4c69b90655af20280d67c6982ba3",
     "mods/PhobosManufacturing/framework/equipment-names.json": "d1b3592edb0d617f6f1bf382a3a665aac9745faf8fff467c288fa87292696d27",
@@ -24227,6 +24237,11 @@
     "mods/PhobosShipbreaker/framework/equipment-names.json": "cf54b69ef4e478eba39acf3beb0963e7d645e985d513cfe7f0da8fe03f0a4831",
     "mods/PhobosShipbreaker/framework/recipes.json": "47fc493cbaf73203ea60be37f49645bccf82c7dd4d88e3e4cf98d0458f135c99",
     "mods/PhobosShipbreaker/mod_info.json": "22c1006e7edc2a013c11066da700973d9d9a748273d43f0ed6d15d12c61e0f5a",
+    "mods/PhobosWarDeclared/data/conditions/phobos_war_declared.json": "da01a00806e4e3ac5ab1b0be205872ba036fbe0d9ce4771772aca04c22d65913",
+    "mods/PhobosWarDeclared/mod_info.json": "3c3305b1ab67f22a2b5946ed3e4cd4425b18efdd7464eb5f8669e444e5e38070",
+    "mods/PhobosWarDeclared/schematics/everything.json": "663766fb98b9c6f83b3ad0eb2b4b24f8c0c0530d9529857cf4ca85de28f1ccc3",
+    "mods/PhobosWarDeclared/schematics/hull-only.json": "59232a88c702c701dabd9aab65b8f014ee77a8120c4424b9ee47e280b19c8946",
+    "mods/PhobosWarDeclared/schematics/safe.json": "4ee6980986fb18728540f9ddcc71ae58847c5e1cb1236b61b1c84661d0fc6aee",
     "src/PhobosAgriculture/Artwork.cs": "ccae66ac85e7dbe64d47bb3f93153558ca1b893a039310c688e366a1dd48408f",
     "src/PhobosAgriculture/AssemblyInfo.cs": "441ebc13e73f63e15379d179bdcde910645df15d5847671cdfff7cd313fbf66b",
     "src/PhobosAgriculture/BulkDefinitions.cs": "050593f744d819b06cd53dd31623e5ad41b6e5b2f53f4a38af0aaae4ccf05522",
@@ -24334,6 +24349,7 @@
     "src/PhobosFramework/Audio/CompletionWatch.cs": "460deb0d5e2e284c0c18a54ba768072eadb8c8a1c8354c1b8986288653fa854c",
     "src/PhobosFramework/Construction/ConstructionHooks.cs": "17b81ce849c15a441618d82e256804ef69e6615dde0fbce931e91d5b63ba91f2",
     "src/PhobosFramework/Construction/ConstructionRegistry.cs": "9e3dd447d2e98261038114a9c1a8f0508505ab1590e29335d4ec1c68fdd1c6f3",
+    "src/PhobosFramework/Construction/NativePlaceholders.cs": "931edae95205549a657aec39c6c4b430b28dc48aae6d00415cc83a24a1c8b2a5",
     "src/PhobosFramework/Construction/Recipe.cs": "a4c751f3f1816730818cbd56cc3e58ab1d45dd4b83f71bcba8a9bc57ae810e90",
     "src/PhobosFramework/Construction/SectionAssembly.cs": "a88880fbaab24a38e74e347817a8b6dc1b1ff200caabe646f4257114b7b8bcfb",
     "src/PhobosFramework/Construction/SectionAssemblyAppearance.cs": "1c409615db913c1479655fe62b0ca0a2c003e008dda5d9a9d6f951e3179dbc2c",
@@ -24408,6 +24424,7 @@
     "src/PhobosFramework/Localization/TranslationCatalog.cs": "6ec43200d5dba3be1c9d90a1550abad94043c90d60626b948c8c2072d5c59353",
     "src/PhobosFramework/Notices/NoticeCooldown.cs": "c95ab4f52c7e708cf4f3f441c7fd79a39d14ba1bc1c40f96a4d78fb165c7af7e",
     "src/PhobosFramework/Notices/PlayerNotices.cs": "8523123efb59abf46e61c3458303ed2b6cafb4480de799061430d660d36bd364",
+    "src/PhobosFramework/Observations/NativeCombat.cs": "b92e3c5eeffe0a94b50a4daef23dfc289f82409089232d1d4229fba5140d731c",
     "src/PhobosFramework/Observations/NativeRoomAlarms.cs": "4466b92c4dcedc667a99599054826b67803281b858123e38388fc0192ff9d1f7",
     "src/PhobosFramework/Observations/Observation.cs": "a7e18264f2898f7f50199ac789f4863d94a70f01bc37f1a42fbf6cd4623ab399",
     "src/PhobosFramework/Persistence/ObjectStateStore.cs": "9f9ec57b117f91b3ea8578da18c4a4a07487e523325c7b99365f92b46f5cfa58",
@@ -24416,8 +24433,8 @@
     "src/PhobosFramework/Persistence/SavedGridHeader.cs": "b7ef65702f570dfb2d267b97c726e2ba02b420bfbbc2c5471ef4ac7479874bb2",
     "src/PhobosFramework/Persistence/SavedPlaceholderHealth.cs": "358c35db2a5f73335cc5930e808c25817da5fa6b1d9d91c217c5a119f26db91d",
     "src/PhobosFramework/Persistence/SavedRoomGrid.cs": "d7d70aba54e777d96d3079318f75320fb981a6dba8f3728570c84b8e54072fbe",
-    "src/PhobosFramework/PhobosFramework.csproj": "3db3f2ddd077ef1c73ea2199480a1d36be02cb289b3414499a409d8a392431e4",
-    "src/PhobosFramework/Plugin.cs": "37193689cae8946a06eef5a64cd21ce2c673092cd824eba26eec9e40489b6f79",
+    "src/PhobosFramework/PhobosFramework.csproj": "1c28303726f678e7bbe8278bad88b18c9c481bf2dad24c9daeea190852dcf112",
+    "src/PhobosFramework/Plugin.cs": "0e157e6add2cb7463c45a02d7cca180bea7189da95079434c67f2f3efad660dc",
     "src/PhobosFramework/Processing/EnergyReceipt.cs": "cb31cd45ea69ee8d182b0578f50540393bd70e63e918a161f04f2b6a290199b2",
     "src/PhobosFramework/Processing/GasParcel.cs": "814357580cf3b2f7257a67042454823b454437f1fda38488521b66621e081fa3",
     "src/PhobosFramework/Processing/NativeEnergyReceipts.cs": "ed52382413127a5acd3700070f5d19975aec54c953d2fb2fa09eef08836fbe5e",
@@ -24568,13 +24585,25 @@
     "src/PhobosShipbreaker/Text.cs": "2a0b7890addcbb0f4f8f71c48373cf352d7af8379905b01b1bc48bd0f84f7846",
     "src/PhobosShipbreaker/ThawService.cs": "11834a23e2da5c555d2f84720f4eb5f67be8a1a1e397550fe0e15d474a99bf2a",
     "src/PhobosShipbreaker/WallIdentity.cs": "acca69e2d34c7969088f4b50fa0d92d67304676368646de1a6b69c12bf8548dc",
+    "src/PhobosWarDeclared/AssemblyInfo.cs": "a442448369b44ef8921362eea7215eab4e7fb557881cded3213f00b5d7600549",
+    "src/PhobosWarDeclared/Content.cs": "5dac86cad352b34bb38b9484ebe36c290a2ab600eb1824a7dce4290e16a04670",
+    "src/PhobosWarDeclared/Core/CombatWindow.cs": "8bd2c900950f8766e53190f80ee1fc2db56f1b43966aa38fa3f813cbdd2f195a",
+    "src/PhobosWarDeclared/Core/Schematic.cs": "9d35d56112cfdaaed6f80664f8ab4e7491d01766e5440ca68f78c29727785992",
+    "src/PhobosWarDeclared/Core/WarLedger.cs": "c3f66470084aac1f90a5f00c6af09e4600f9ee5d9a138814e532e9f6ede031bf",
+    "src/PhobosWarDeclared/Core/WarRules.cs": "118fb11686beaf2666f54341f4ff4286204bf5bc075dc9e4093f736e10ae1c5f",
+    "src/PhobosWarDeclared/PhobosWarDeclared.csproj": "8002d020ee8407cc4b183ffd6fe2ab3d85200acafdffc980bc77c17c42e2f348",
+    "src/PhobosWarDeclared/Plugin.cs": "3ac0dd43450b8fa9e23d84e86eb915305e3bafa953dcfe7270916f1e573ab8c8",
+    "src/PhobosWarDeclared/Schematics.cs": "2c0897817f3e0fed289199720683c52805d7a13864ac951e6acffdd27dd8859c",
+    "src/PhobosWarDeclared/Text.cs": "33db90b24e941e0e8feec304132a46fbfa5a19049012fd67811982483d9eaa24",
+    "src/PhobosWarDeclared/WarService.cs": "5c81a198d4ddf0b0de70f64c72bb66166b1620204250945e3a536c5a0b121c6a",
     "tests/PhobosNative.Tests/EquipmentValueAudit.cs": "04da4c56b10a281828951965d9ee26639babae37738781c379ea4df828d17f45",
-    "tests/PhobosNative.Tests/ItemReferenceExport.cs": "ba924ecc623651b1cd7a5187090bc9b1da33f59d1dcd66be83519dc0bbfe50e6",
-    "tests/PhobosNative.Tests/Program.cs": "8e6cd97dc42548596b90408a2e8d0aeb03ad410a7e7dec1180153d4cda9a6ef2",
+    "tests/PhobosNative.Tests/ItemReferenceExport.cs": "37ce8fc3f3ba2ab22a1ceebb784eaf3bc7f3baf4f6d2660ffa6a8d969c7cecfb",
+    "tests/PhobosNative.Tests/Program.cs": "d303161d6e031ca84fb129ddb1e0df0c140aee4dae7ed714c3a866f61b996a09",
     "translations/PhobosAgriculture/en.json": "24c7184bf4580061f11f5556c34a7afd2142e938d8b67282af6eeaf676d19934",
     "translations/PhobosAutoNav/en.json": "505b519cde5fb1a5cc15a3f52cf825145b7f0c85eb36a1d6c5de3a0ffd56cb3a",
     "translations/PhobosFramework/en.json": "bab9d6bff8a46a9a120bab386be1d48a8bf2dc9250d170646d71b696aeb73d6b",
     "translations/PhobosManufacturing/en.json": "8a195344823dacfe2fb63b079e109467aae87c1b0c178d2c94d1fdbdf01d7de6",
-    "translations/PhobosShipbreaker/en.json": "8085d0bf11c015b92696dc8252db717ab19aea43a06ccee1658e91b8e6f7fee0"
+    "translations/PhobosShipbreaker/en.json": "8085d0bf11c015b92696dc8252db717ab19aea43a06ccee1658e91b8e6f7fee0",
+    "translations/PhobosWarDeclared/en.json": "568072580efb7a412b6d5a38b782346bea46847b87ad4f940be7b8e4894b1019"
   }
 }

@@ -63,6 +63,7 @@ named-test-save requirement for the current suite.
 | Approach a target or dock | [Auto Nav](development/auto-navigate-adaptation.md) and [docking](auto-nav-docking.md) |
 | Grow food and cook portions | [Agriculture](agriculture-player-guide.md) |
 | Refine ore, split water into oxygen and hydrogen | [Manufacturing](manufacturing-player-guide.md) |
+| Put build sites back where battle damage destroyed parts | [War Has Been Declared](war-declared-player-guide.md) |
 
 ## What to expect
 
@@ -81,6 +82,9 @@ named-test-save requirement for the current suite.
 - **Manufacturing is late-game and newly operational.** Its refinery, electrolysis
   cell, Sabatier reactor and stores work, but owner gameplay checks are still
   pending. Research pages include ideas; use the player guides for operation.
+- **War Has Been Declared lays build sites, not parts.** The crew still need
+  replacement parts and still do the building; unbuilt walls and machines block
+  walking, which is why the default schematic holds them. In-game checks are pending.
 - **Updating is not uninstalling.** Do not remove a provider from a save that
   contains its equipment, cargo or jobs. There is no general save-cleanup or
   guaranteed downgrade tool; see [dependency contingencies](development/dependency-contingencies.md).

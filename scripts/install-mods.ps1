@@ -2,7 +2,7 @@
 # Prepared packages are installed locally; this script never builds, downloads or launches anything.
 [CmdletBinding(SupportsShouldProcess)]
 param(
-    [ValidateSet('AutoNav', 'Shipbreaker', 'Framework', 'Agriculture', 'Manufacturing')]
+    [ValidateSet('AutoNav', 'Shipbreaker', 'Framework', 'Agriculture', 'Manufacturing', 'WarDeclared')]
     [string[]]$Mods = @('AutoNav', 'Shipbreaker'),
     [string]$OstranautsPath,
     [string]$LoadOrderPath,
@@ -136,6 +136,19 @@ if ('Manufacturing' -in $Mods) {
     }
     $Mods = @('Framework') + @($Mods | Where-Object { $_ -ne 'Framework' })
 }
+if ('WarDeclared' -in $Mods) {
+    $needsPhobosFramework = $true
+    $warPackage = if ($overrideMod -eq 'WarDeclared') { $PackagePath } else { Join-Path $PackageRoot 'PhobosWarDeclared-P0' }
+    $warMetadata = Join-Path $warPackage 'Mods/PhobosWarDeclared/mod_info.json'
+    if (Test-Path -LiteralPath $warMetadata -PathType Leaf) {
+        $warInfo = @(Get-Content -LiteralPath $warMetadata -Raw | ConvertFrom-Json)
+        if ($warInfo.Count -ne 1) { throw 'Expected exactly one native mod metadata entry for PhobosWarDeclared.' }
+        $minimumPhobosFramework = Get-MaintainedDependencyMinimum 'WarDeclared.Framework' ([version]$warInfo[0].strModVersion) $minimumPhobosFramework
+    }
+    # Every War Has Been Declared package needs the build-site services first shipped in Framework 0.43.0.
+    if ($minimumPhobosFramework -lt [version]'0.43.0') { $minimumPhobosFramework = [version]'0.43.0' }
+    $Mods = @('Framework') + @($Mods | Where-Object { $_ -ne 'Framework' })
+}
 $locations = Resolve-InstallLocations $OstranautsPath $LoadOrderPath $settingsFile
 $gameRoot = $locations.OstranautsPath
 $orderFile = $locations.LoadOrderPath
@@ -181,7 +194,7 @@ if ($HoldManufacturing) {
 }
 foreach ($mod in $Mods) {
     $id = 'Phobos' + $mod
-    $label = switch ($mod) { 'AutoNav' { 'Auto Nav' } 'Shipbreaker' { 'Shipbreaker' } 'Framework' { 'Framework' } 'Agriculture' { 'Agriculture' } 'Manufacturing' { 'Manufacturing' } }
+    $label = switch ($mod) { 'AutoNav' { 'Auto Nav' } 'Shipbreaker' { 'Shipbreaker' } 'Framework' { 'Framework' } 'Agriculture' { 'Agriculture' } 'Manufacturing' { 'Manufacturing' } 'WarDeclared' { 'War Has Been Declared' } }
     $package = if ($overrideMod -eq $mod) { $PackagePath } else { Join-Path $PackageRoot ($id + '-P0') }
     if (-not (Test-Path -LiteralPath $package -PathType Container)) {
         throw "Prepared package missing: $package. Run the corresponding build script first."
@@ -309,6 +322,10 @@ foreach ($mod in $Mods) {
             }
         }
         'Framework' { 'data/conditions/phobos_framework.json' }
+        'WarDeclared' {
+            # The shipped schematics are embedded in the plugin; the folder copies are the players' examples.
+            'data/conditions/phobos_war_declared.json'; 'schematics/safe.json'; 'schematics/everything.json'; 'schematics/hull-only.json'
+        }
         'Manufacturing' {
             # The 0.0.1 scaffold shipped no content; from 0.1.0 the package carries its marker, explosions, names and sprites.
             if ($version -ge [version]'0.1.0') {
@@ -396,7 +413,7 @@ foreach ($mod in $Mods) {
         $modFiles += [pscustomobject]@{ Source = $scopeSource; Target = $scopeTarget; Backup = "$id/plugin/Phobos.Scope.Recording.dll" }
     }
     $translationSource = Join-Path (Split-Path -Parent $dllSource) 'translations'
-    $needsTranslations = ($mod -in @('Agriculture', 'Manufacturing')) -or ($mod -eq 'AutoNav' -and $version -ge [version]'0.3.0') -or
+    $needsTranslations = ($mod -in @('Agriculture', 'Manufacturing', 'WarDeclared')) -or ($mod -eq 'AutoNav' -and $version -ge [version]'0.3.0') -or
         ($mod -in @('Framework', 'Shipbreaker') -and $version -ge [version]'0.7.0')
     if ($needsTranslations -and -not (Test-Path -LiteralPath (Join-Path $translationSource 'en.json') -PathType Leaf)) {
         throw "Package is incomplete: $id/translations/en.json"

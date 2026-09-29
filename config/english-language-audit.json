@@ -42837,6 +42837,808 @@
       ],
       "before": "Feed off",
       "after": "Feed off"
+    },
+    {
+      "mod": "PhobosWarDeclared",
+      "key": "Plugin.loaded",
+      "category": "log",
+      "decision": "add",
+      "reason": "New player text for War Has Been Declared 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; placeholders, commands and setting names kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosWarDeclared/Plugin.cs:46"
+      ],
+      "before": "Phobos' War Has Been Declared {0} loaded; rebuild schematic: {1}.",
+      "after": "Phobos' War Has Been Declared {0} loaded; rebuild schematic: {1}."
+    },
+    {
+      "mod": "PhobosWarDeclared",
+      "key": "Content.missing_package",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for War Has Been Declared 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; placeholders, commands and setting names kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosWarDeclared/Content.cs:22"
+      ],
+      "before": "The Phobos' War Has Been Declared mod folder is not enabled in the game's mod list.",
+      "after": "The Phobos' War Has Been Declared mod folder is not enabled in the game's mod list."
+    },
+    {
+      "mod": "PhobosWarDeclared",
+      "key": "Content.ready",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for War Has Been Declared 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; placeholders, commands and setting names kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosWarDeclared/Content.cs:26"
+      ],
+      "before": "War Has Been Declared ready: battle orders added to {0} navigation station types.",
+      "after": "War Has Been Declared ready: battle orders added to {0} navigation station types."
+    },
+    {
+      "mod": "PhobosWarDeclared",
+      "key": "Content.failed",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for War Has Been Declared 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; placeholders, commands and setting names kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosWarDeclared/Content.cs:28"
+      ],
+      "before": "War Has Been Declared could not register its orders. See the log.",
+      "after": "War Has Been Declared could not register its orders. See the log."
+    },
+    {
+      "mod": "PhobosWarDeclared",
+      "key": "Config.enabled",
+      "category": "help/settings",
+      "decision": "add",
+      "reason": "New player text for War Has Been Declared 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; placeholders, commands and setting names kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosWarDeclared/Plugin.cs:33"
+      ],
+      "before": "Record parts destroyed in battle and lay build sites for them afterwards.",
+      "after": "Record parts destroyed in battle and lay build sites for them afterwards."
+    },
+    {
+      "mod": "PhobosWarDeclared",
+      "key": "Config.quiet",
+      "category": "help/settings",
+      "decision": "add",
+      "reason": "New player text for War Has Been Declared 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; placeholders, commands and setting names kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosWarDeclared/Plugin.cs:34"
+      ],
+      "before": "Minutes of game time without a hit, a hostile lock or your own weapons lock before battle stations end on their own. A Battle stations order holds until you stand down.",
+      "after": "Minutes of game time without a hit, a hostile lock or your own weapons lock before battle stations end on their own. A Battle stations order holds until you stand down."
+    },
+    {
+      "mod": "PhobosWarDeclared",
+      "key": "Config.damage",
+      "category": "help/settings",
+      "decision": "add",
+      "reason": "New player text for War Has Been Declared 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; placeholders, commands and setting names kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosWarDeclared/Plugin.cs:36"
+      ],
+      "before": "Hull damage from any cause (weapons, collisions, explosions) starts battle stations. Off: only hostile locks, your own weapons lock or your Battle stations order do.",
+      "after": "Hull damage from any cause (weapons, collisions, explosions) starts battle stations. Off: only hostile locks, your own weapons lock or your Battle stations order do."
+    },
+    {
+      "mod": "PhobosWarDeclared",
+      "key": "Config.lay_during",
+      "category": "help/settings",
+      "decision": "add",
+      "reason": "New player text for War Has Been Declared 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; placeholders, commands and setting names kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosWarDeclared/Plugin.cs:37"
+      ],
+      "before": "Lay build sites while the fight is still on. Off: wait until you stand down, so crew are not sent into open breaches under fire.",
+      "after": "Lay build sites while the fight is still on. Off: wait until you stand down, so crew are not sent into open breaches under fire."
+    },
+    {
+      "mod": "PhobosWarDeclared",
+      "key": "Config.schematic",
+      "category": "help/settings",
+      "decision": "add",
+      "reason": "New player text for War Has Been Declared 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; placeholders, commands and setting names kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosWarDeclared/Plugin.cs:40"
+      ],
+      "before": "Which rebuild schematic decides what gets a build site: safe, everything, hull-only, or the name of your own file in BepInEx/config/PhobosWarDeclared/schematics.",
+      "after": "Which rebuild schematic decides what gets a build site: safe, everything, hull-only, or the name of your own file in BepInEx/config/PhobosWarDeclared/schematics."
+    },
+    {
+      "mod": "PhobosWarDeclared",
+      "key": "Order.BattleStations.title",
+      "category": "control/help",
+      "decision": "add",
+      "reason": "New player text for War Has Been Declared 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; placeholders, commands and setting names kept.",
+      "trace": "dynamic family",
+      "references": [
+        "src/PhobosWarDeclared/Content.cs:39",
+        "src/PhobosWarDeclared/Content.cs:40"
+      ],
+      "before": "Battle stations",
+      "after": "Battle stations"
+    },
+    {
+      "mod": "PhobosWarDeclared",
+      "key": "Order.BattleStations.action",
+      "category": "control/help",
+      "decision": "add",
+      "reason": "New player text for War Has Been Declared 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; placeholders, commands and setting names kept.",
+      "trace": "dynamic family",
+      "references": [
+        "src/PhobosWarDeclared/Content.cs:39",
+        "src/PhobosWarDeclared/Content.cs:40"
+      ],
+      "before": "[us] calls the crew to battle stations.",
+      "after": "[us] calls the crew to battle stations."
+    },
+    {
+      "mod": "PhobosWarDeclared",
+      "key": "Order.BattleStations.tooltip",
+      "category": "control/help",
+      "decision": "add",
+      "reason": "New player text for War Has Been Declared 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; placeholders, commands and setting names kept.",
+      "trace": "dynamic family",
+      "references": [
+        "src/PhobosWarDeclared/Content.cs:39",
+        "src/PhobosWarDeclared/Content.cs:40"
+      ],
+      "before": "Start recording destroyed parts on this ship until you stand down, even before the first shot.",
+      "after": "Start recording destroyed parts on this ship until you stand down, even before the first shot."
+    },
+    {
+      "mod": "PhobosWarDeclared",
+      "key": "Order.StandDown.title",
+      "category": "control/help",
+      "decision": "add",
+      "reason": "New player text for War Has Been Declared 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; placeholders, commands and setting names kept.",
+      "trace": "dynamic family",
+      "references": [
+        "src/PhobosWarDeclared/Content.cs:39",
+        "src/PhobosWarDeclared/Content.cs:40"
+      ],
+      "before": "Stand down",
+      "after": "Stand down"
+    },
+    {
+      "mod": "PhobosWarDeclared",
+      "key": "Order.StandDown.action",
+      "category": "control/help",
+      "decision": "add",
+      "reason": "New player text for War Has Been Declared 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; placeholders, commands and setting names kept.",
+      "trace": "dynamic family",
+      "references": [
+        "src/PhobosWarDeclared/Content.cs:39",
+        "src/PhobosWarDeclared/Content.cs:40"
+      ],
+      "before": "[us] stands the crew down.",
+      "after": "[us] stands the crew down."
+    },
+    {
+      "mod": "PhobosWarDeclared",
+      "key": "Order.StandDown.tooltip",
+      "category": "control/help",
+      "decision": "add",
+      "reason": "New player text for War Has Been Declared 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; placeholders, commands and setting names kept.",
+      "trace": "dynamic family",
+      "references": [
+        "src/PhobosWarDeclared/Content.cs:39",
+        "src/PhobosWarDeclared/Content.cs:40"
+      ],
+      "before": "End battle stations now and lay build sites for what was destroyed, as the rebuild schematic allows.",
+      "after": "End battle stations now and lay build sites for what was destroyed, as the rebuild schematic allows."
+    },
+    {
+      "mod": "PhobosWarDeclared",
+      "key": "Order.LayHeld.title",
+      "category": "control/help",
+      "decision": "add",
+      "reason": "New player text for War Has Been Declared 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; placeholders, commands and setting names kept.",
+      "trace": "dynamic family",
+      "references": [
+        "src/PhobosWarDeclared/Content.cs:39",
+        "src/PhobosWarDeclared/Content.cs:40"
+      ],
+      "before": "Lay held build sites",
+      "after": "Lay held build sites"
+    },
+    {
+      "mod": "PhobosWarDeclared",
+      "key": "Order.LayHeld.action",
+      "category": "control/help",
+      "decision": "add",
+      "reason": "New player text for War Has Been Declared 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; placeholders, commands and setting names kept.",
+      "trace": "dynamic family",
+      "references": [
+        "src/PhobosWarDeclared/Content.cs:39",
+        "src/PhobosWarDeclared/Content.cs:40"
+      ],
+      "before": "[us] marks out the held repairs.",
+      "after": "[us] marks out the held repairs."
+    },
+    {
+      "mod": "PhobosWarDeclared",
+      "key": "Order.LayHeld.tooltip",
+      "category": "control/help",
+      "decision": "add",
+      "reason": "New player text for War Has Been Declared 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; placeholders, commands and setting names kept.",
+      "trace": "dynamic family",
+      "references": [
+        "src/PhobosWarDeclared/Content.cs:39",
+        "src/PhobosWarDeclared/Content.cs:40"
+      ],
+      "before": "Lay build sites for every held part now, walls and doors included. Unbuilt walls and machines block walking until the crew finish them.",
+      "after": "Lay build sites for every held part now, walls and doors included. Unbuilt walls and machines block walking until the crew finish them."
+    },
+    {
+      "mod": "PhobosWarDeclared",
+      "key": "Notice.detected",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for War Has Been Declared 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; placeholders, commands and setting names kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosWarDeclared/WarService.cs:126"
+      ],
+      "before": "{0}: battle stations. Destroyed parts are being logged for rebuilding.",
+      "after": "{0}: battle stations. Destroyed parts are being logged for rebuilding."
+    },
+    {
+      "mod": "PhobosWarDeclared",
+      "key": "Notice.declared",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for War Has Been Declared 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; placeholders, commands and setting names kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosWarDeclared/WarService.cs:126"
+      ],
+      "before": "{0}: battle stations ordered. Destroyed parts are being logged for rebuilding until you stand down.",
+      "after": "{0}: battle stations ordered. Destroyed parts are being logged for rebuilding until you stand down."
+    },
+    {
+      "mod": "PhobosWarDeclared",
+      "key": "Notice.declared_banner",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for War Has Been Declared 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; placeholders, commands and setting names kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosWarDeclared/WarService.cs:127"
+      ],
+      "before": "Battle stations",
+      "after": "Battle stations"
+    },
+    {
+      "mod": "PhobosWarDeclared",
+      "key": "Notice.stood_down",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for War Has Been Declared 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; placeholders, commands and setting names kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosWarDeclared/WarService.cs:133"
+      ],
+      "before": "{0}: standing down. Laying build sites for what was lost.",
+      "after": "{0}: standing down. Laying build sites for what was lost."
+    },
+    {
+      "mod": "PhobosWarDeclared",
+      "key": "Notice.quiet",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for War Has Been Declared 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; placeholders, commands and setting names kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosWarDeclared/WarService.cs:133"
+      ],
+      "before": "{0}: quiet for a while now, standing down. Laying build sites for what was lost.",
+      "after": "{0}: quiet for a while now, standing down. Laying build sites for what was lost."
+    },
+    {
+      "mod": "PhobosWarDeclared",
+      "key": "Report.title",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for War Has Been Declared 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; placeholders, commands and setting names kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosWarDeclared/WarService.cs:291"
+      ],
+      "before": "{0} after-action:",
+      "after": "{0} after-action:"
+    },
+    {
+      "mod": "PhobosWarDeclared",
+      "key": "Report.laid",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for War Has Been Declared 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; placeholders, commands and setting names kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosWarDeclared/WarService.cs:292"
+      ],
+      "before": "{0} build sites laid; crew need matching replacement parts to finish them.",
+      "after": "{0} build sites laid; crew need matching replacement parts to finish them."
+    },
+    {
+      "mod": "PhobosWarDeclared",
+      "key": "Report.held",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for War Has Been Declared 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; placeholders, commands and setting names kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosWarDeclared/WarService.cs:294"
+      ],
+      "before": "{0} parts held because their build sites would block walking. Use Lay held build sites at the navigation station when ready.",
+      "after": "{0} parts held because their build sites would block walking. Use Lay held build sites at the navigation station when ready."
+    },
+    {
+      "mod": "PhobosWarDeclared",
+      "key": "Report.ignored",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for War Has Been Declared 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; placeholders, commands and setting names kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosWarDeclared/WarService.cs:295"
+      ],
+      "before": "{0} parts left for you to place by hand ({1} schematic).",
+      "after": "{0} parts left for you to place by hand ({1} schematic)."
+    },
+    {
+      "mod": "PhobosWarDeclared",
+      "key": "Report.not_rebuildable",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for War Has Been Declared 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; placeholders, commands and setting names kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosWarDeclared/WarService.cs:296"
+      ],
+      "before": "{0} parts have no install job in the game and cannot be given build sites.",
+      "after": "{0} parts have no install job in the game and cannot be given build sites."
+    },
+    {
+      "mod": "PhobosWarDeclared",
+      "key": "Report.overflow",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for War Has Been Declared 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; placeholders, commands and setting names kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosWarDeclared/WarService.cs:297"
+      ],
+      "before": "{0} further losses were not logged because this ship's list is full.",
+      "after": "{0} further losses were not logged because this ship's list is full."
+    },
+    {
+      "mod": "PhobosWarDeclared",
+      "key": "Report.lost",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for War Has Been Declared 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; placeholders, commands and setting names kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosWarDeclared/WarService.cs:298"
+      ],
+      "before": "Loose items destroyed: {0}.",
+      "after": "Loose items destroyed: {0}."
+    },
+    {
+      "mod": "PhobosWarDeclared",
+      "key": "Report.lost_count",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for War Has Been Declared 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; placeholders, commands and setting names kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosWarDeclared/WarService.cs:299"
+      ],
+      "before": "{0} x {1}",
+      "after": "{0} x {1}"
+    },
+    {
+      "mod": "PhobosWarDeclared",
+      "key": "Order.declared",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for War Has Been Declared 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; placeholders, commands and setting names kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosWarDeclared/WarService.cs:311"
+      ],
+      "before": "{0} is at battle stations.",
+      "after": "{0} is at battle stations."
+    },
+    {
+      "mod": "PhobosWarDeclared",
+      "key": "Order.not_at_stations",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for War Has Been Declared 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; placeholders, commands and setting names kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosWarDeclared/WarService.cs:319"
+      ],
+      "before": "{0} is not at battle stations.",
+      "after": "{0} is not at battle stations."
+    },
+    {
+      "mod": "PhobosWarDeclared",
+      "key": "Order.stood_down",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for War Has Been Declared 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; placeholders, commands and setting names kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosWarDeclared/WarService.cs:322"
+      ],
+      "before": "{0} has stood down.",
+      "after": "{0} has stood down."
+    },
+    {
+      "mod": "PhobosWarDeclared",
+      "key": "Order.nothing_held",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for War Has Been Declared 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; placeholders, commands and setting names kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosWarDeclared/WarService.cs:333"
+      ],
+      "before": "No build sites are being held for this ship.",
+      "after": "No build sites are being held for this ship."
+    },
+    {
+      "mod": "PhobosWarDeclared",
+      "key": "Order.laid_held",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for War Has Been Declared 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; placeholders, commands and setting names kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosWarDeclared/WarService.cs:346"
+      ],
+      "before": "Laid {0} build sites. Still held: {1} (no room yet, or something in the way). Not rebuildable: {2}.",
+      "after": "Laid {0} build sites. Still held: {1} (no room yet, or something in the way). Not rebuildable: {2}."
+    },
+    {
+      "mod": "PhobosWarDeclared",
+      "key": "Order.put_item_away",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for War Has Been Declared 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; placeholders, commands and setting names kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosWarDeclared/WarService.cs:347"
+      ],
+      "before": "Put away the item in hand, then try again.",
+      "after": "Put away the item in hand, then try again."
+    },
+    {
+      "mod": "PhobosWarDeclared",
+      "key": "Order.disabled",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for War Has Been Declared 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; placeholders, commands and setting names kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosWarDeclared/WarService.cs:377"
+      ],
+      "before": "War Has Been Declared is switched off in its settings.",
+      "after": "War Has Been Declared is switched off in its settings."
+    },
+    {
+      "mod": "PhobosWarDeclared",
+      "key": "Order.not_your_ship",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for War Has Been Declared 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; placeholders, commands and setting names kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosWarDeclared/WarService.cs:378"
+      ],
+      "before": "Battle orders only work aboard a ship you own.",
+      "after": "Battle orders only work aboard a ship you own."
+    },
+    {
+      "mod": "PhobosWarDeclared",
+      "key": "Order.protected",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for War Has Been Declared 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; placeholders, commands and setting names kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosWarDeclared/WarService.cs:380"
+      ],
+      "before": "This ship's battle log could not be read safely and is left untouched ({0}). See the log.",
+      "after": "This ship's battle log could not be read safely and is left untouched ({0}). See the log."
+    },
+    {
+      "mod": "PhobosWarDeclared",
+      "key": "Status.at_ease",
+      "category": "status/name",
+      "decision": "add",
+      "reason": "New player text for War Has Been Declared 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; placeholders, commands and setting names kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosWarDeclared/WarService.cs:361"
+      ],
+      "before": "at ease",
+      "after": "at ease"
+    },
+    {
+      "mod": "PhobosWarDeclared",
+      "key": "Status.declared",
+      "category": "status/name",
+      "decision": "add",
+      "reason": "New player text for War Has Been Declared 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; placeholders, commands and setting names kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosWarDeclared/WarService.cs:361"
+      ],
+      "before": "battle stations (ordered; holds until you stand down)",
+      "after": "battle stations (ordered; holds until you stand down)"
+    },
+    {
+      "mod": "PhobosWarDeclared",
+      "key": "Status.detected",
+      "category": "status/name",
+      "decision": "add",
+      "reason": "New player text for War Has Been Declared 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; placeholders, commands and setting names kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosWarDeclared/WarService.cs:362"
+      ],
+      "before": "battle stations (stands down after about {0} quiet minutes)",
+      "after": "battle stations (stands down after about {0} quiet minutes)"
+    },
+    {
+      "mod": "PhobosWarDeclared",
+      "key": "Status.line",
+      "category": "status/name",
+      "decision": "add",
+      "reason": "New player text for War Has Been Declared 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; placeholders, commands and setting names kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosWarDeclared/WarService.cs:365"
+      ],
+      "before": "{0}: {1}. Schematic: {2}. Waiting to lay: {3}. Held: {4}.",
+      "after": "{0}: {1}. Schematic: {2}. Waiting to lay: {3}. Held: {4}."
+    },
+    {
+      "mod": "PhobosWarDeclared",
+      "key": "Status.entry",
+      "category": "status/name",
+      "decision": "add",
+      "reason": "New player text for War Has Been Declared 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; placeholders, commands and setting names kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosWarDeclared/WarService.cs:368"
+      ],
+      "before": "  {0} at {1}, {2}: {3} ({4})",
+      "after": "  {0} at {1}, {2}: {3} ({4})"
+    },
+    {
+      "mod": "PhobosWarDeclared",
+      "key": "Status.held",
+      "category": "status/name",
+      "decision": "add",
+      "reason": "New player text for War Has Been Declared 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; placeholders, commands and setting names kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosWarDeclared/WarService.cs:369"
+      ],
+      "before": "held",
+      "after": "held"
+    },
+    {
+      "mod": "PhobosWarDeclared",
+      "key": "Status.pending",
+      "category": "status/name",
+      "decision": "add",
+      "reason": "New player text for War Has Been Declared 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; placeholders, commands and setting names kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosWarDeclared/WarService.cs:369"
+      ],
+      "before": "waiting",
+      "after": "waiting"
+    },
+    {
+      "mod": "PhobosWarDeclared",
+      "key": "Status.more",
+      "category": "status/name",
+      "decision": "add",
+      "reason": "New player text for War Has Been Declared 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; placeholders, commands and setting names kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosWarDeclared/WarService.cs:370"
+      ],
+      "before": "  ...and {0} more.",
+      "after": "  ...and {0} more."
+    },
+    {
+      "mod": "PhobosWarDeclared",
+      "key": "Schematic.bad_name",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for War Has Been Declared 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; placeholders, commands and setting names kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosWarDeclared/Schematics.cs:49"
+      ],
+      "before": "Skipped schematic {0}: file names use lower-case letters, digits, - and _ and end in .json.",
+      "after": "Skipped schematic {0}: file names use lower-case letters, digits, - and _ and end in .json."
+    },
+    {
+      "mod": "PhobosWarDeclared",
+      "key": "Schematic.bad_file",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for War Has Been Declared 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; placeholders, commands and setting names kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosWarDeclared/Schematics.cs:52"
+      ],
+      "before": "Skipped schematic {0}: {1}",
+      "after": "Skipped schematic {0}: {1}"
+    },
+    {
+      "mod": "PhobosWarDeclared",
+      "key": "Schematic.no_folder",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for War Has Been Declared 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; placeholders, commands and setting names kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosWarDeclared/Schematics.cs:56"
+      ],
+      "before": "Could not read the schematics folder {0}: {1}",
+      "after": "Could not read the schematics folder {0}: {1}"
+    },
+    {
+      "mod": "PhobosWarDeclared",
+      "key": "Schematic.missing",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for War Has Been Declared 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; placeholders, commands and setting names kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosWarDeclared/Schematics.cs:62"
+      ],
+      "before": "Schematic {0} was not found; using {1}.",
+      "after": "Schematic {0} was not found; using {1}."
+    },
+    {
+      "mod": "PhobosWarDeclared",
+      "key": "Schematic.unknown",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for War Has Been Declared 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; placeholders, commands and setting names kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosWarDeclared/Schematics.cs:71"
+      ],
+      "before": "No schematic called {0}. Available: {1}.",
+      "after": "No schematic called {0}. Available: {1}."
+    },
+    {
+      "mod": "PhobosWarDeclared",
+      "key": "Schematic.selected",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for War Has Been Declared 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; placeholders, commands and setting names kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosWarDeclared/Schematics.cs:73"
+      ],
+      "before": "Rebuild schematic set to {0} ({1}).",
+      "after": "Rebuild schematic set to {0} ({1})."
+    },
+    {
+      "mod": "PhobosWarDeclared",
+      "key": "Schematic.line",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for War Has Been Declared 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; placeholders, commands and setting names kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosWarDeclared/Schematics.cs:79"
+      ],
+      "before": "  {0}: {1}. {2}",
+      "after": "  {0}: {1}. {2}"
+    },
+    {
+      "mod": "PhobosWarDeclared",
+      "key": "Schematic.line_active",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for War Has Been Declared 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; placeholders, commands and setting names kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosWarDeclared/Schematics.cs:79"
+      ],
+      "before": "* {0}: {1}. {2}",
+      "after": "* {0}: {1}. {2}"
+    },
+    {
+      "mod": "PhobosWarDeclared",
+      "key": "Schematic.folder",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for War Has Been Declared 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; placeholders, commands and setting names kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosWarDeclared/Schematics.cs:80"
+      ],
+      "before": "Your own schematics go in {0}. Type phoboswar reload after editing.",
+      "after": "Your own schematics go in {0}. Type phoboswar reload after editing."
+    },
+    {
+      "mod": "PhobosWarDeclared",
+      "key": "Console.help",
+      "category": "console help",
+      "decision": "add",
+      "reason": "New player text for War Has Been Declared 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; placeholders, commands and setting names kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosWarDeclared/Plugin.cs:190"
+      ],
+      "before": "phoboswar status | battle | standdown | lay | schematics | schematic <name> | reload",
+      "after": "phoboswar status | battle | standdown | lay | schematics | schematic <name> | reload"
+    },
+    {
+      "mod": "PhobosWarDeclared",
+      "key": "Log.protected",
+      "category": "log/diagnostic",
+      "decision": "add",
+      "reason": "New player text for War Has Been Declared 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; placeholders, commands and setting names kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosWarDeclared/WarService.cs:71"
+      ],
+      "before": "Ship {0}: the saved battle log could not be read ({1}); it is kept unchanged and nothing new is saved over it.",
+      "after": "Ship {0}: the saved battle log could not be read ({1}); it is kept unchanged and nothing new is saved over it."
+    },
+    {
+      "mod": "PhobosWarDeclared",
+      "key": "Log.save_failed",
+      "category": "log/diagnostic",
+      "decision": "add",
+      "reason": "New player text for War Has Been Declared 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; placeholders, commands and setting names kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosWarDeclared/WarService.cs:90"
+      ],
+      "before": "Ship {0}: the battle log could not be saved.",
+      "after": "Ship {0}: the battle log could not be saved."
+    },
+    {
+      "mod": "PhobosWarDeclared",
+      "key": "Log.lay_failed",
+      "category": "log/diagnostic",
+      "decision": "add",
+      "reason": "New player text for War Has Been Declared 0.1.0: working-spacer voice; says what happened, what it means and what the player can do; placeholders, commands and setting names kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosWarDeclared/WarService.cs:274"
+      ],
+      "before": "Could not lay a build site for {0} (was {1}): {2}",
+      "after": "Could not lay a build site for {0} (was {1}): {2}"
     }
   ],
   "documents": [
@@ -42844,8 +43646,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "fedc7f23eddea0d23152028eb6fd9fd710b5b5c2cfc28316f5015ed1ac322612",
-      "review": "2026-09-29 (RCS propellant): version rows; Manufacturing summary names the K2, M2 and P1."
+      "sha256": "2f67a5b1cc47e23b621f15835a50ac0ca905ba285c07c9cc44ca8fce97738f13",
+      "review": "2026-09-29 (War Has Been Declared 0.1.0): Framework 0.43.0 row; new War Has Been Declared row and flowchart node."
     },
     {
       "path": "SUPPORT.md",
@@ -42858,8 +43660,8 @@
       "path": "docs/README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "12231049da84af57ce34ffe9b58900a8d404590662ffaf0f2b2d8229d78cb90e",
-      "review": "2026-09-29 (RCS propellant): index link text follows the Manufacturing guide title."
+      "sha256": "c7f704fab0a2e41ac7ddbd66be074baff9d41bd1d401316fd13bffc38892d70b",
+      "review": "2026-09-29 (War Has Been Declared 0.1.0): Index link to the War Has Been Declared player guide."
     },
     {
       "path": "docs/agriculture-bulk-storage.md",
@@ -43004,8 +43806,8 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "050c32f073bdd20581d6d0d358c7a191acde5bd98d6359d877454c02d1eb8ba6",
-      "review": "2026-09-29 (RCS propellant): maintained version links only."
+      "sha256": "473db1892a17a48636755a90b5ea52e83bd014f99b9d11f173d58a84e9665ed4",
+      "review": "2026-09-29 (War Has Been Declared 0.1.0): Framework version summary only (0.43.0)."
     },
     {
       "path": "docs/crew-automation.md",
@@ -43018,8 +43820,8 @@
       "path": "docs/development/README.md",
       "scope": "review index/audit; no gameplay behavior",
       "decision": "review audience separation and evidence limits",
-      "sha256": "257f828f6d8ba89683e037bbf380e542d53b47f41622bdda9a433cd5f0279234",
-      "review": "2026-09-29: index links to the new Manufacturing records."
+      "sha256": "4bfd7082bc309f3f55c0be95181ac74aa4303c89ad063ea8ce081347f0fabe1d",
+      "review": "2026-09-29 (War Has Been Declared 0.1.0): Index link to the War Has Been Declared design record."
     },
     {
       "path": "docs/development/agriculture-bulk-storage-art.md",
@@ -43209,8 +44011,8 @@
       "path": "docs/development/building.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "4173515681819be848a705697f1d1bf91fe75dcf2dbc884b51c4bd011fce7f49",
-      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+      "sha256": "696e7289d79b80cf6f5d8e8aa2d716e232334a3421ba84ad04b4879be8270466",
+      "review": "2026-09-29 (War Has Been Declared 0.1.0): Names the War Has Been Declared build script and installer selection."
     },
     {
       "path": "docs/development/bulk-silo-art-handoff.md",
@@ -43396,8 +44198,8 @@
       "path": "docs/development/item-handling-audit.md",
       "scope": "current handling guidance and complete generated definition ledger",
       "decision": "reviewed",
-      "sha256": "4eb23ce7e3552f813f9d45203853a6df442493cd9c421ce26779af5a6408d533",
-      "review": "2026-09-29 (RCS propellant): regenerated ledger rows for the new families."
+      "sha256": "2c72ad72c2d04efe10bc583385853ef0c6b92a1c128a3fbe11a392c567f6f998",
+      "review": "2026-09-29 (War Has Been Declared 0.1.0): Regenerated: six-mod count; War Has Been Declared adds no items."
     },
     {
       "path": "docs/development/item-reference-maintenance.md",
@@ -43691,8 +44493,8 @@
       "path": "docs/development/updating-constants.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "rewrite",
-      "sha256": "dd2fa0bb4623864956075af69cece899b954fc46585762c386ee79199f5f62d5",
-      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+      "sha256": "65214d84da45aaac95b7d39943fede12387a8b185feddf250afaca5a38049cf4",
+      "review": "2026-09-29 (War Has Been Declared 0.1.0): Adds WarDeclared.version to the managed version keys."
     },
     {
       "path": "docs/development/vanilla-economy-audit.md",
@@ -43711,8 +44513,8 @@
       "path": "docs/development/workshop-publication.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "c1786eb3b736b33e38ee767f40b77efbbab2d325120ae4ff9cc5154b811c22ba",
-      "review": "2026-09-29: owner lifted the Auto Nav publication hold; credit and MIT exclusion for the adapted files retained."
+      "sha256": "c50c0a64e97c5eb6ee4843926cdfe45e5aa7b4caec6666b3fb43e48dd484a81f",
+      "review": "2026-09-29 (War Has Been Declared 0.1.0): Six mods with Draft baselines; War Has Been Declared held for owner checks and a cover."
     },
     {
       "path": "docs/development/workshop-upload-preparation.md",
@@ -43739,8 +44541,8 @@
       "path": "docs/framework-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "08f3c5128267a72e76c506fb04e2f27345a6efdf81b7511936d5292a74d3205e",
-      "review": "2026-09-29 (RCS propellant): generated version line."
+      "sha256": "94df699a3f5550661f8966eeb01068ac207cba9a34308d766a51bc0f865f63b8",
+      "review": "2026-09-29 (War Has Been Declared 0.1.0): Regenerated for Framework 0.43.0; no item changes."
     },
     {
       "path": "docs/furnace-coolant-conduits.md",
@@ -43767,8 +44569,8 @@
       "path": "docs/getting-started.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "1832b37f57910e5d6a621f4ba12389f729cc2f397284a879b118f2242e2e22b1",
-      "review": "2026-09-29: Workshop as the intended player route, flowchart updated, Manufacturing status and first-activity row corrected."
+      "sha256": "395d0a89def5812ea142084475de611105c589f6d2ab880523b33055cd4c0de0",
+      "review": "2026-09-29 (War Has Been Declared 0.1.0): Task row and expectation bullet for War Has Been Declared (build sites, not parts)."
     },
     {
       "path": "docs/health-chronic-and-traits.md",
@@ -43802,15 +44604,15 @@
       "path": "docs/installing-mods.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "f9b1828fc438546c740bad2828098db009ca08b06ee403a3d63cc8897d85ca92",
-      "review": "2026-09-29 (RCS propellant): maintained version minimum only."
+      "sha256": "ea53e9603703e9ad783b5d02d3c4ce4371884d09d423544c7b42b9ea5d0bc426",
+      "review": "2026-09-29 (War Has Been Declared 0.1.0): War Has Been Declared Framework minimum and install example."
     },
     {
       "path": "docs/item-references.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "retain",
-      "sha256": "fd5aca75aefa3bb50c0d3ba21c130f3ccd3388f628478bd8f24c63cda78541c7",
-      "review": "2026-09-29: regenerated index."
+      "sha256": "cbeda11584b3d0abad461e2c38d13526a85f7429ee7f768a06e3b64040d08ef6",
+      "review": "2026-09-29 (War Has Been Declared 0.1.0): Row for War Has Been Declared (no items; orders only)."
     },
     {
       "path": "docs/manufacturing-item-reference.md",
@@ -43844,8 +44646,8 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "f8399a1f9b8371b5897c2be66fe94f6510f81b72a7cdbe5c7e7fa6b017d87993",
-      "review": "2026-09-29 (RCS propellant): maintained version minimum only."
+      "sha256": "959493d6f2afdc987273b5d1fb7eafd5797034bb708adfc5bdd602c41adadc4d",
+      "review": "2026-09-29 (War Has Been Declared 0.1.0): Framework version summary only (0.43.0)."
     },
     {
       "path": "docs/residue-collector.md",
@@ -43935,8 +44737,8 @@
       "path": "workshop/PhobosFramework/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "31a8ef8a85da6c5cbe1e4e4c4b1cd9bc83ff5515fe818520aac8a7df524ffbf8",
-      "review": "2026-09-29 (RCS propellant): RCS worth bullet; nitrogen unchanged stated first."
+      "sha256": "95f1fc87b35e61aa8d0e42efacbff0677b5c156748ba9abdeb7a3cbdbcf7a615",
+      "review": "2026-09-29 (War Has Been Declared 0.1.0): Version 0.43.0; build-site service line; War Has Been Declared among content mods."
     },
     {
       "path": "workshop/PhobosManufacturing/page.bbcode",
@@ -43951,14 +44753,42 @@
       "decision": "update current version/help and retain technical evidence",
       "sha256": "fdfaa63c398a9783e3ce3108742cb8bf99ff581f268d6955df43a10d0a5e2b40",
       "review": "2026-09-29: rewritten as a current, player-first Workshop description under Steam's 8,000-byte limit: capabilities, getting started, requirements, Workshop installation, saves and limits, credits and de-duplicated guide links; per-version update sections moved out to the changelog."
+    },
+    {
+      "path": "docs/war-declared-player-guide.md",
+      "scope": "current player operating guide",
+      "decision": "new",
+      "sha256": "aecf2a0c1247010f89d08668bbe580b8d2d3e1cdc319244cb740253fa5d1c8ce",
+      "review": "2026-09-29 (War Has Been Declared 0.1.0): Steps first: battle stations, stand down, build sites, Lay held; schematic format; F3, settings, limits and owner checks."
+    },
+    {
+      "path": "docs/war-declared-item-reference.md",
+      "scope": "generated player item reference",
+      "decision": "new",
+      "sha256": "dd348ae13cee4364109c03f3e09195e5c67c81004cc7ddbd4dd8bfcab324879e",
+      "review": "2026-09-29 (War Has Been Declared 0.1.0): Generated: no items; orders on the game's navigation stations."
+    },
+    {
+      "path": "docs/development/war-declared-design.md",
+      "scope": "developer design record",
+      "decision": "new",
+      "sha256": "d212a36f169ea914c4f1f18eb9cedcbde294f72687e75e72c44e8e351a36aeac",
+      "review": "2026-09-29 (War Has Been Declared 0.1.0): Owner decisions, engine evidence, Framework services, content design, deferred walk-through build sites."
+    },
+    {
+      "path": "workshop/PhobosWarDeclared/page.bbcode",
+      "scope": "current Workshop page draft (held)",
+      "decision": "new",
+      "sha256": "a478bb2e860d85e82eb85d9b43dd7bce3182b623f25b585331240ef70466d41b",
+      "review": "2026-09-29 (War Has Been Declared 0.1.0): Held draft: what it does, schematics, getting started, requirements, limits."
     }
   ],
   "surfaces": [
     {
       "path": "config/item-reference.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "12cfe875257e4dd881f00524fae18f9c4e1e95db58b53df1f6ce2665163327fa",
-      "review": "2026-09-29 (RCS propellant): P1 and propellant line groups; H2/M2 use lines mention the manifold."
+      "sha256": "0f61bfab8b7624635b66f2ec3a08c0c280365c2fc974502e19829c6fb7670c5a",
+      "review": "2026-09-29 (War Has Been Declared 0.1.0): War Has Been Declared introduction (no items, three navigation-station orders)."
     },
     {
       "path": "mods/PhobosAgriculture/framework/equipment-names.json",
@@ -44005,8 +44835,8 @@
     {
       "path": "mods/PhobosFramework/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "e39c8c80b7521ffb80315ad55fe24dcf706746b6f46384402386a811986a8ca5",
-      "review": "2026-09-29 (RCS propellant): version only."
+      "sha256": "7438f7a68407744ed9d3d01117ce530e04480c728e14c1f0ff975eb1c1a82832",
+      "review": "2026-09-29 (War Has Been Declared 0.1.0): Version metadata only."
     },
     {
       "path": "mods/PhobosManufacturing/mod_info.json",
@@ -44031,6 +44861,30 @@
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
       "sha256": "22c1006e7edc2a013c11066da700973d9d9a748273d43f0ed6d15d12c61e0f5a",
       "review": "2026-09-29: version metadata only."
+    },
+    {
+      "path": "mods/PhobosWarDeclared/mod_info.json",
+      "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
+      "sha256": "3c3305b1ab67f22a2b5946ed3e4cd4425b18efdd7464eb5f8669e444e5e38070",
+      "review": "2026-09-29 (War Has Been Declared 0.1.0): Native mod list notes: what it does, Framework minimum, not gameplay-validated."
+    },
+    {
+      "path": "mods/PhobosWarDeclared/schematics/safe.json",
+      "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
+      "sha256": "4ee6980986fb18728540f9ddcc71ae58847c5e1cb1236b61b1c84661d0fc6aee",
+      "review": "2026-09-29 (War Has Been Declared 0.1.0): Shipped schematic title and description shown by phoboswar schematics."
+    },
+    {
+      "path": "mods/PhobosWarDeclared/schematics/everything.json",
+      "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
+      "sha256": "663766fb98b9c6f83b3ad0eb2b4b24f8c0c0530d9529857cf4ca85de28f1ccc3",
+      "review": "2026-09-29 (War Has Been Declared 0.1.0): Shipped schematic title and description; warns that corridors may be blocked."
+    },
+    {
+      "path": "mods/PhobosWarDeclared/schematics/hull-only.json",
+      "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
+      "sha256": "59232a88c702c701dabd9aab65b8f014ee77a8120c4424b9ee47e280b19c8946",
+      "review": "2026-09-29 (War Has Been Declared 0.1.0): Shipped example schematic title, description and rule notes."
     }
   ],
   "hardcodedReview": {

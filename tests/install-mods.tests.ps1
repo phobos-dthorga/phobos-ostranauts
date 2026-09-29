@@ -36,7 +36,7 @@ Check ((Get-MaintainedDependencyMinimum 'Shipbreaker.Framework' ([version]'0.28.
 Check ((Get-MaintainedDependencyMinimum 'Agriculture.Framework' ([version]'0.15.1') ([version]'0.28.0')) -eq [version]'0.28.0') 'Previous Agriculture package inherited the new dependency floor'
 # The maintained catalogue owns the current floors; check the rule, not a copied number.
 $maintainedMinimums = (Get-Content -LiteralPath (Join-Path $repoRoot 'config/mod-dependency-minimums.json') -Raw | ConvertFrom-Json -AsHashtable).minimums
-foreach ($key in @('AutoNav.Framework', 'Shipbreaker.Framework', 'Agriculture.Framework', 'Manufacturing.Framework')) {
+foreach ($key in @('AutoNav.Framework', 'Shipbreaker.Framework', 'Agriculture.Framework', 'Manufacturing.Framework', 'WarDeclared.Framework')) {
     $since = [version]$maintainedMinimums[$key].since
     $floor = [version]$maintainedMinimums[$key].value
     Check ($floor -ge [version]'0.30.1') "$key floor never drops below the Polaris fix baseline"
@@ -501,6 +501,30 @@ Check (((ReadOrder $manufacturing).aLoadOrder -join ',') -eq 'core,PhobosFramewo
 $manufacturingInstalled = InstalledFiles $manufacturing
 & $installer @manufacturing -Mods Manufacturing | Out-Null
 Check ((InstalledFiles $manufacturing) -eq $manufacturingInstalled) 'Manufacturing repeat install changed files'
+
+# War Has Been Declared needs only Framework; a package without its example schematics fails before installing.
+$warBrokenPackages = Join-Path $fixtures 'war-missing-packages'
+New-Item -ItemType Directory -Path $warBrokenPackages | Out-Null
+foreach ($id in @('PhobosFramework', 'PhobosWarDeclared')) {
+    Copy-Item -LiteralPath (Join-Path $PackageRoot "$id-P0") -Destination $warBrokenPackages -Recurse
+}
+Remove-Item -LiteralPath (Join-Path $warBrokenPackages 'PhobosWarDeclared-P0/Mods/PhobosWarDeclared/schematics/safe.json')
+$warMissing = Fixture 'war-missing-schematic' @('core')
+$warMissing.PackageRoot = $warBrokenPackages
+$warMissingBefore = InstalledFiles $warMissing
+Fails { & $installer @warMissing -Mods WarDeclared | Out-Null } 'Package is incomplete: PhobosWarDeclared/schematics/safe.json'
+Check ((InstalledFiles $warMissing) -eq $warMissingBefore) 'Missing War Has Been Declared schematic must fail before installation'
+
+$war = Fixture 'war-only' @('core')
+$warBefore = InstalledFiles $war
+& $installer @war -Mods WarDeclared -WhatIf | Out-Null
+Check ((InstalledFiles $war) -eq $warBefore) 'War Has Been Declared preview changed files'
+& $installer @war -Mods WarDeclared | Out-Null
+Check (((ReadOrder $war).aLoadOrder -join ',') -eq 'core,PhobosFramework,PhobosWarDeclared') 'War Has Been Declared must select Framework and nothing else'
+& $installer @war -Mods WarDeclared -VerifyOnly | Out-Null
+$warInstalled = InstalledFiles $war
+& $installer @war -Mods WarDeclared | Out-Null
+Check ((InstalledFiles $war) -eq $warInstalled) 'War Has Been Declared repeat install changed files'
 
 # Cover-only updates preserve gameplay files and intentionally disabled entries,
 # even when the prepared gameplay package is newer than the installed one.

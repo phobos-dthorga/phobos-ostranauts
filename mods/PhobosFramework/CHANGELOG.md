@@ -20,6 +20,17 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.43.0] - 2026-09-29 - Draft
+
+### Added
+
+- Construction.NativePlaceholders: lays the game's own construction build sites from code for any part with an INSTALL job, vanilla or modded, the way the game rebuilds saved build sites when a ship loads. It finds the part to rebuild from a destroyed form: damage is followed back to the intact part (cosmetic variants such as branded conduit included), and a working state with no install job of its own, such as a closed or locked door or a lit alarm, is rebuilt through the loose part its uninstall job yields. It also says whether a build site would block walking, which it does whenever the finished part would. First consumer: Phobos' War Has Been Declared 0.1.0.
+- Observations.NativeCombat: read-only combat facts for a ship: another ship engaged with it, its own weapons target, and the last time it took damage this session. It never touches weapons, targets or AI.
+
+### Compatibility and limits
+
+- No existing behaviour or saved data changes. A build site carries its part's full footprint, as a player-placed one does.
+
 ## [0.42.0] - 2026-09-29 - Draft
 
 ### Added

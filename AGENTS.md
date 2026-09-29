@@ -373,6 +373,31 @@
   order, up to four stores, all off by default) and its own propellant-line family
   are the first feed. Record further RCS changes in the vanilla-precedence audit.
 
+## War Has Been Declared direction (2026-09-29)
+
+- Owner request: a separate mod, **Phobos' War Has Been Declared** (`PhobosWarDeclared`,
+  Framework only), puts the game's own construction placeholders back where
+  installed parts were destroyed on the player's ships during combat, vanilla and
+  modded alike, so post-battle repair is not tile-by-tile re-placement. Owner
+  decisions: automatic combat detection plus a manual Battle stations / Stand down
+  order (the game has no combat mode); native build sites built by crew with real
+  parts, never free materials; a limited default because placeholders block
+  pathfinding, and an all-inclusive option for players who accept that risk.
+- Owner follow-up the same day: what is replaced is decided by player-editable
+  **schematic files** (shipped `safe`, `everything`, `hull-only`; player files in
+  `BepInEx/config/PhobosWarDeclared/schematics` override by name). Keep the format
+  strict (unknown fields refused), first-match rules and the documented fields;
+  extend it with tests and the player guide together.
+- Framework 0.43.0 owns `Construction.NativePlaceholders` (rebuild target through
+  damage chains, overlays and uninstall-to-install state variants; footprint; the
+  save-load-path lay) and `Observations.NativeCombat` (read-only facts). Content
+  owns the battle window, ledger, schematics and orders. Never block native
+  destruction or mode switches; capture only damage-driven switches of installed
+  parts on player-owned ships. Walk-through placeholders are deferred research
+  (matched tile-condition counts across save reload). Follow
+  `docs/war-declared-player-guide.md` and `docs/development/war-declared-design.md`.
+  Owner gameplay checks remain pending.
+
 ## Working style
 
 - Keep this a practical, small-team project. Prefer a working slice over a

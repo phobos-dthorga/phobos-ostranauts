@@ -4,7 +4,7 @@ Reviewed 27 September 2026 and updated 28 September after implementing the appro
 
 ## Coverage and result
 
-All **173 implemented definitions** across five mods: PhobosAgriculture: 54; PhobosAutoNav: 8; PhobosFramework: 1; PhobosManufacturing: 38; PhobosShipbreaker: 72. Manufacturing has no implemented objects and remains held.
+All **173 implemented definitions** across 6 mods: PhobosAgriculture: 54; PhobosAutoNav: 8; PhobosFramework: 1; PhobosManufacturing: 38; PhobosShipbreaker: 72; PhobosWarDeclared: 0. PhobosWarDeclared adds no items.
 
 Handling inventory: 50 installed forms, 51 cumbersome loose forms/sections/housings, 64 portable boards/supplies/materials/foods, and 8 internal feed compartments. Intact and damaged forms are counted separately.
 

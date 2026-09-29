@@ -1,0 +1,5 @@
+{
+  "title": "Everything",
+  "description": "Lays a build site for every destroyed part as soon as you stand down. Walls, doors and machines block walking until the crew build them, which can cut off corridors or trap crew.",
+  "default": "lay"
+}

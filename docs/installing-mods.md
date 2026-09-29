@@ -3,6 +3,7 @@
 Current prepared Shipbreaker requires Auto Nav 0.19.0 and Framework 0.39.0.
 Current prepared Agriculture requires Framework 0.39.0 for shared crew work and controls.
 Current prepared Manufacturing requires Framework 0.42.0 for room heat, native gas and vessel damage services.
+Current prepared War Has Been Declared requires Framework 0.43.0 for the shared build-site and combat-observation services.
 Current dependency minima come from `config/mod-dependency-minimums.json`,
 maintained with the constants updater and runtime requirements. Historical package
 compatibility floors remain supported. Build before installation; preview with
@@ -123,6 +124,9 @@ directly without interacting with your mouse or opening a launcher window.
 # includes Framework; add Shipbreaker for its steel charge and water silo.
 ./scripts/install-mods.ps1 -Mods Manufacturing
 ./scripts/install-mods.ps1 -Mods Shipbreaker,Manufacturing
+
+# War Has Been Declared (battle-damage build sites) is opt-in and needs only Framework.
+./scripts/install-mods.ps1 -Mods WarDeclared
 
 # Keep an older Manufacturing 0.0.1 scaffold out of the loader without installing 0.1.0.
 ./scripts/install-mods.ps1 -Mods AutoNav,Shipbreaker,Agriculture -HoldManufacturing

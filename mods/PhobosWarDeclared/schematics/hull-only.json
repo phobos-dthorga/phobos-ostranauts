@@ -1,0 +1,9 @@
+{
+  "title": "Hull only",
+  "description": "An example to copy: floors are laid, walls and other hull parts are held for Lay held, and everything else (machines, furniture, conduit) is left for you to place by hand.",
+  "default": "ignore",
+  "rules": [
+    { "note": "Floor tiles are safe to lay at once.", "action": "lay", "conditions": [ "IsFloor" ] },
+    { "note": "Walls and the rest of the HULL tab wait for Lay held.", "action": "hold", "menus": [ "HULL" ] }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "title": "Safe",
+  "description": "Lays build sites crew can walk through straight away. Walls, doors and bulky machines wait for Lay held, so no corridor is sealed off before you are ready.",
+  "default": "hold",
+  "rules": [
+    { "note": "Floors, conduit, lights and other walk-over parts.", "action": "lay", "footprint": "walkable" },
+    { "note": "Walls, doors, airlocks and machinery would block walking until built.", "action": "hold", "footprint": "blocks" }
+  ]
+}

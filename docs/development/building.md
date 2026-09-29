@@ -40,6 +40,8 @@ version. Native `mod_info.json` records the version.
 Framework alone uses `scripts/build-framework.ps1`. Manufacturing has
 `scripts/build-manufacturing.ps1`, but no operational machine and no supported
 installer selection. Approach Assist is retired and no longer built.
+War Has Been Declared uses `scripts/build-war-declared.ps1` and the installer's
+`WarDeclared` selection.
 
 ## Preview, install and verify
 
