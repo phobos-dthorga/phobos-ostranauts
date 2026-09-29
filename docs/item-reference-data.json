@@ -37127,6 +37127,7 @@
     "mods/PhobosWarDeclared/mod_info.json": "3c3305b1ab67f22a2b5946ed3e4cd4425b18efdd7464eb5f8669e444e5e38070",
     "mods/PhobosWarDeclared/schematics/everything.json": "663766fb98b9c6f83b3ad0eb2b4b24f8c0c0530d9529857cf4ca85de28f1ccc3",
     "mods/PhobosWarDeclared/schematics/hull-only.json": "59232a88c702c701dabd9aab65b8f014ee77a8120c4424b9ee47e280b19c8946",
+    "mods/PhobosWarDeclared/schematics/safe-walls.json": "3d1fd7b7191dbade977650358276f475cfed3a1f16818bb3bf18383da1e90722",
     "mods/PhobosWarDeclared/schematics/safe.json": "4ee6980986fb18728540f9ddcc71ae58847c5e1cb1236b61b1c84661d0fc6aee",
     "src/PhobosAgriculture/Artwork.cs": "ccae66ac85e7dbe64d47bb3f93153558ca1b893a039310c688e366a1dd48408f",
     "src/PhobosAgriculture/AssemblyInfo.cs": "441ebc13e73f63e15379d179bdcde910645df15d5847671cdfff7cd313fbf66b",
@@ -37499,6 +37500,6 @@
     "translations/PhobosFramework/en.json": "bab9d6bff8a46a9a120bab386be1d48a8bf2dc9250d170646d71b696aeb73d6b",
     "translations/PhobosManufacturing/en.json": "52781da1efe42869cd017cace09e628e9db75c0a93d3f47a12fa58188fdd28f1",
     "translations/PhobosShipbreaker/en.json": "2a711e5f12f993182764789c7375005f6edae1c2eb104623dadf2a27f5e3f64a",
-    "translations/PhobosWarDeclared/en.json": "568072580efb7a412b6d5a38b782346bea46847b87ad4f940be7b8e4894b1019"
+    "translations/PhobosWarDeclared/en.json": "36a8c3ec5ea2e701f1e65418ee2f6111da0f5254f38d6c80fb9af798f378de90"
   }
 }

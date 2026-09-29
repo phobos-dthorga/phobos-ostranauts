@@ -45,6 +45,8 @@ jobs:
           python3 scripts/audit-item-handling.py --check
       - name: Exercise item reference failure and check-only cases
         run: python3 -m unittest discover -s tests -p test_item_reference.py -v
+      - name: Verify the performance review ledger covers every source file at its current hash
+        run: python3 scripts/audit-performance.py
       - name: Verify bulk-storage research calculations and source freshness
         run: python3 -m unittest discover -s tests -p test_agriculture_storage.py -v
       - name: Exercise remaining offline maintenance checks

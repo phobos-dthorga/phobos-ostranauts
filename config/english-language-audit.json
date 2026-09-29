@@ -46631,8 +46631,8 @@
       "path": "docs/development/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "140daa1c0d552dc33f8bd7f2f07a0413e8c5d03aa67d395168ddc56a77a83449",
-      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+      "sha256": "6bcd16a30a1c54a90dac3cadc3747701e99437df365775479aa98ea38abb8a88",
+      "review": "Performance pass stage 1 (ledger generator), 29 September 2026: reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "docs/development/phobos-framework.md",
