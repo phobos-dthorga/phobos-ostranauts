@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "date": "2026-09-30",
-  "baselineCommit": "5e847d804d2eebd316087ca67fd897a7766d4181",
+  "baselineCommit": "f6a99ab60e7b71cf0792b2ef6f9af14279d4f62e",
   "report": "docs/development/performance-audit.md",
   "reviewBoundary": "First-party mod C# source. Static coverage plus deeper hotspot/caller review; not formal verification, a third-party audit or an after-performance measurement.",
   "files": [
@@ -2109,20 +2109,21 @@
     },
     {
       "path": "src/PhobosFramework/Construction/TriggerRefinements.cs",
-      "sha256": "929c622e4120d9a6246df2614a922b7d1ab772da6677250a9cb9b7e88338df86",
+      "sha256": "5b3237817323d9ec9bc9bcb4e1a586369761ec49653deda00ee0a8422cefd29c",
       "role": "shared accounting, inventory, crew or native boundary",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Reviewed in the 2026-09-29 performance pass; see the linked findings for the disposition.",
+      "decision": "Stage 9 (Framework 0.47.0): trigger-name pre-filter before the refinement lookup; bulk sweep snapshot; capture probe counts flushed once per frame.",
       "findings": [
         "FF1",
-        "FF2"
+        "FF2",
+        "FF0"
       ],
       "indicators": {
         "runtime_hook": [
-          44
+          74
         ]
       },
-      "reviewed": "2026-09-29"
+      "reviewed": "2026-09-30"
     },
     {
       "path": "src/PhobosFramework/Controls/CompactText.cs",
@@ -2913,10 +2914,10 @@
     },
     {
       "path": "src/PhobosFramework/Diagnostics/CaptureProbes.cs",
-      "sha256": "118daf5b3feefea9dd31b5b4a60dd5707aa86d66e41b1a2c258d4cf766bf5c64",
+      "sha256": "f903184c24403e7b7428688a11770061ae6e207fc8467a0f9ab017793fb83732",
       "role": "shared accounting, inventory, crew or native boundary",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Stage 8 (Framework 0.46.0): each mod's full world pass replaced by the shared, spread WorldFamilies sweep with live-read parity; capture-only probes on the game's main loop.",
+      "decision": "Stage 9 (Framework 0.47.0): trigger-name pre-filter before the refinement lookup; bulk sweep snapshot; capture probe counts flushed once per frame.",
       "findings": [
         "FF1",
         "FF0"
@@ -2926,13 +2927,13 @@
           54
         ],
         "profiling": [
+          92,
           93,
-          94,
-          95,
-          96,
-          97,
           101,
-          102
+          102,
+          103,
+          104,
+          105
         ]
       },
       "reviewed": "2026-09-30"
@@ -3060,17 +3061,17 @@
     },
     {
       "path": "src/PhobosFramework/Discovery/WorldIndex.cs",
-      "sha256": "b1e4255934cddde5fb466c294f6304aee0ff4c2ed6238cc1b6c642e088485c10",
+      "sha256": "3945bff9497707e184171283dee56e742b5ffd319a34ed53c57bccbe87890fb0",
       "role": "shared accounting, inventory, crew or native boundary",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
-      "decision": "Stage 8 (Framework 0.46.0): each mod's full world pass replaced by the shared, spread WorldFamilies sweep with live-read parity; capture-only probes on the game's main loop.",
+      "decision": "Stage 9 (Framework 0.47.0): trigger-name pre-filter before the refinement lookup; bulk sweep snapshot; capture probe counts flushed once per frame.",
       "findings": [
         "FF1",
         "FF0"
       ],
       "indicators": {
         "collection": [
-          48
+          49
         ]
       },
       "reviewed": "2026-09-30"
@@ -3849,10 +3850,10 @@
     },
     {
       "path": "src/PhobosFramework/Plugin.cs",
-      "sha256": "ed2f564e55b9f031e1307b7567b5e07f0d19b5741ca62057e2940b7988648da9",
+      "sha256": "471591539315f3397407e040c90e9abe53f413940e7fd02d77c712b38babf869",
       "role": "shared accounting, inventory, crew or native boundary",
       "review": "2026-09-28: reviewed Framework 0.31.1 unnamed-trigger fix and related version/reference updates. Preserve native outcomes, named assembly validation and existing messages; no new recurring work. Reproduced null-key failure, then checked compiled hooks; live confirmation pending.",
-      "decision": "Stage 8 (Framework 0.46.0): each mod's full world pass replaced by the shared, spread WorldFamilies sweep with live-read parity; capture-only probes on the game's main loop.",
+      "decision": "Stage 9 (Framework 0.47.0): trigger-name pre-filter before the refinement lookup; bulk sweep snapshot; capture probe counts flushed once per frame.",
       "findings": [
         "R3",
         "P8",

@@ -20,6 +20,21 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.47.0] - 2026-09-30 - Draft
+
+### Changed
+
+- Performance pass, stage 9. Captures with 0.46.0 counted about 400,000 trigger checks a second at speed 8. Framework's one hook on those checks now rules out a trigger by its name length and first letter, two reads, before any table lookup; only names that could be registered construction or assembly selectors reach the table. Results are unchanged.
+- The shared world sweep takes its snapshot of the world with one bulk copy instead of going through the world's objects one by one, removing a pause of about 6 ms every two real seconds.
+
+### Fixed
+
+- Capture timings added in 0.46.0 recorded every trigger check as a separate record. That filled the capture's record limit within about a second and pushed out the frame-time samples. Counts are now summed in memory and recorded once per frame.
+
+### Compatibility and limits
+
+- No saved data changes. Offline checks are not gameplay validation.
+
 ## [0.46.0] - 2026-09-30 - Draft
 
 ### Changed

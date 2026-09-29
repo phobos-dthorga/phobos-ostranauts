@@ -354,6 +354,40 @@ probes are patched in when a capture starts recording and removed when it stops 
 cost nothing in ordinary play; the native suite resolves their targets by exact signature. The next captures
 decide whether the long frames sit in the game's own simulation or in hooks worth consolidating.
 
+### Stage 9: what the capture probes showed (Framework 0.47.0)
+
+Three captures with 0.46.0 (30 September, 08:11 to 08:13; speed 8, navigation console closed; every Phobos plugin
+started cleanly). The owner had disabled George Dorn's Orbital Trajectory Fixes (Workshop 3801852103) for unrelated
+trouble, so these runs are not like-for-like with the baseline. The probe counters wrote one record per call and
+filled the 20,000-record limit, so the frame samples were lost (fixed in 0.47.0); the timed operations are
+aggregates and are complete.
+
+| Per real second | Run 1 | Run 2 | Run 3 |
+|---|---|---|---|
+| `game.crewsim.update` (the game's whole main loop) | 452 ms | 327 ms | 356 ms |
+| `game.sim.advance` (crew and object simulation) | 377 ms | 244 ms | 280 ms |
+| Worst single simulation step | 180 ms | 178 ms | 196 ms |
+| `game.interaction.offer_check` (about 215 calls a second) | 133 ms | 90 ms | 98 ms |
+| `game.starsystem.update` | 69 ms | 76 ms | 70 ms |
+| `game.powered.update` (about 14,000 calls a second) | 22 ms | 24 ms | 23 ms |
+| All measured Phobos scopes | about 10 ms | about 10 ms | about 10 ms |
+
+Findings. The long frames are the game's own crew and object simulation: single `AdvanceSim` steps of 180 to 196
+ms at speed 8 on this save. All mods' postfixes on the offer check summed to a fraction of a millisecond over each
+capture, so the seven Phobos hooks there are negligible. Appliance updates cost about 1.6 microseconds each
+including every hook. The scans replaced in stage 8 now cost microseconds; the shared sweep costs about 7 ms per
+second with a peak of about 6 ms when it snapshots the world.
+
+The trigger check (`CondTrigger.Triggered`) runs about 400,000 times a second (about 20,000 counter records filled
+in the first half-second). Framework's single postfix there did a dictionary lookup for every passing trigger.
+Decision: `NameFilter`, an exact negative test on name length and first character built from the registered
+selectors (`PhobosCraftSelect_`, `PhobosCraftStation_`, section job ids), returns before any hashing for the game's
+own names (`TIs...`, `Blank`); the table still decides every name that passes. The sweep snapshot now uses the
+collection's bulk `CopyTo` instead of an interface enumeration. Neither change alters results.
+
+What is left is not ours to change: the game's simulation cost at speed 8 on a very large save. The next captures,
+with frame samples restored, show the frame times with these fixes.
+
 ### Cadence policy
 
 Conserved accounting (power receipts, transfers, thermal and crop steps, elapsed

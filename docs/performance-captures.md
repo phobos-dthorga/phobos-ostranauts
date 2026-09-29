@@ -91,7 +91,7 @@ that sat in unscoped hooks before it:
 | `war.poll`, `war.lay_pending` | The two-second ship poll and the laying pass |
 | `framework.world.sweep`, `framework.world.sweep_objects` | Framework 0.46.0's shared world sweep that replaced each mod's own pass, and the objects it examined |
 | `game.crewsim.update`, `game.sim.advance`, `game.starsystem.update`, `game.powered.update`, `game.interaction.offer_check` | The game's own main loop, simulation step, ship update, appliance updates and crew offer checks, including every mod's hooks inside them. Installed only while a capture records (Framework 0.46.0) |
-| `game.interaction.offer_postfixes`, `game.condtrigger.calls` | Milliseconds spent in all mods' postfixes on the offer check, and how many trigger checks ran |
+| `game.interaction.offer_postfixes`, `game.condtrigger.calls` | Milliseconds spent in all mods' postfixes on the offer check, and how many trigger checks ran; summed in memory and recorded once per frame (Framework 0.47.0; 0.46.0 recorded one record per call and overflowed captures) |
 
 `shipbreaker.routing.candidate_items` is an **increment** in items: the candidate
 collection size when routing starts selecting another item. It is neither active

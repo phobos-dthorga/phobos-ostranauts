@@ -18,7 +18,7 @@ internal static class CaptureProbes
     private const int Open = Priority.First, SpanStart = Priority.First, SpanEnd = Priority.Last + 1, Close = Priority.Last;
     private static Harmony? harmony;
     private static bool applied, failed;
-    private static long postfixStart;
+    private static long postfixStart, postfixTicks, triggerCalls;
     private static double millisecondsPerTick = 1000d / Stopwatch.Frequency;
     internal static PerformanceMetric? GameUpdate, SimAdvance, SystemUpdate, PoweredUpdate, OfferCheck, OfferPostfixes, TriggerCalls;
     private static Action<string> log = _ => { };
@@ -53,6 +53,9 @@ internal static class CaptureProbes
     /// A failure removes whatever was installed and disables the probes for the rest of the session.</summary>
     internal static void Poll(bool recording)
     {
+        // Per-call counts are summed in memory and recorded once per frame: a record per call (400,000 trigger checks a
+        // second) filled the capture record limit within a second and pushed out the frame samples.
+        if (applied) Flush();
         if (failed || recording == applied) return;
         try
         {
@@ -83,7 +86,12 @@ internal static class CaptureProbes
         applied = true;
     }
 
-    private static void Remove() { harmony?.UnpatchSelf(); applied = false; }
+    private static void Remove() { harmony?.UnpatchSelf(); applied = false; postfixTicks = triggerCalls = 0; }
+    private static void Flush()
+    {
+        if (triggerCalls > 0) { Performance.Increment(TriggerCalls, triggerCalls); triggerCalls = 0; }
+        if (postfixTicks > 0) { Performance.Increment(OfferPostfixes, postfixTicks * millisecondsPerTick); postfixTicks = 0; }
+    }
 
     private static HarmonyMethod Hook(string name, int priority) =>
         new(typeof(CaptureProbes).GetMethod(name, BindingFlags.Static | BindingFlags.NonPublic)) { priority = priority };
@@ -98,6 +106,6 @@ internal static class CaptureProbes
     private static void Stop(PerformanceScope __state) => __state.Dispose();
     // Everything between these two runs every postfix on the offer check: Phobos mods' and any other mod's.
     private static void PostfixSpanStart() => postfixStart = Stopwatch.GetTimestamp();
-    private static void PostfixSpanEnd() => Performance.Increment(OfferPostfixes, (Stopwatch.GetTimestamp() - postfixStart) * millisecondsPerTick);
-    private static void TriggerPrefix() => Performance.Increment(TriggerCalls);
+    private static void PostfixSpanEnd() => postfixTicks += Stopwatch.GetTimestamp() - postfixStart;
+    private static void TriggerPrefix() => triggerCalls++;
 }

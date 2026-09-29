@@ -75,6 +75,35 @@ internal static class PrimitiveChecks
         Reject(() => FluidTopology.Build(0, 4, 0, Array.Empty<int>()), "An empty grid is refused");
 
         WorldIndexChecks(check, Reject);
+        NameFilterChecks(check);
+    }
+
+    /// <summary>The trigger-name pre-filter: false only for names that are certainly not registered.</summary>
+    private static void NameFilterChecks(Action<bool, string> check)
+    {
+        var registered = new[] { "PhobosCraftSelect_PhobosShipbreakerD4_0", "PhobosCraftStation_PhobosFurnace", "PhobosShipbreakerF6SectionMaterial", "\u00e9t\u00e9" };
+        var filter = new Phobos.Ostranauts.Framework.Construction.NameFilter();
+        foreach (var name in registered) filter.Add(name);
+        check(registered.All(filter.MayContain), "Every registered name passes the filter");
+        var random = new Random(7); int rejected = 0, tried = 0;
+        foreach (var vanilla in new[] { "TIsHuman", "TIsInstalled", "TIsAirPumpInstalledNotDamaged", "Blank", "TCanStackItem", "TIsPoweredConsole" })
+        { tried++; if (!filter.MayContain(vanilla)) rejected++; }
+        bool exact = true;
+        for (int i = 0; i < 20000; i++)
+        {
+            var chars = new char[random.Next(1, 80)];
+            for (int c = 0; c < chars.Length; c++) chars[c] = (char)random.Next(32, 300);
+            var name = new string(chars);
+            exact &= filter.MayContain(name) || !registered.Contains(name);
+            // Near misses: a registered name with its last character changed keeps length and first character.
+            var near = registered[i % registered.Length]; near = near.Substring(0, near.Length - 1) + (char)(near[near.Length - 1] + 1);
+            exact &= filter.MayContain(near) && !registered.Contains(near);
+        }
+        check(exact, "A name the filter rejects is never registered, and near misses still reach the table");
+        check(rejected == tried, "The game's usual trigger names are rejected without a table lookup");
+        check(!filter.MayContain("") && !filter.MayContain("P"), "Empty and unregistered short names are rejected");
+        filter.Clear();
+        check(!filter.MayContain(registered[0]), "A cleared filter rejects everything");
     }
 
     private sealed class Thing { internal string? Definition; internal bool Alive = true; internal Thing(string? d) { Definition = d; } }
@@ -92,10 +121,10 @@ internal static class PrimitiveChecks
         var found = new List<Thing>();
         check(!world.Primed, "A new index has not swept yet");
         world.Begin(things);
-        check(world.Sweeping && world.Pending == 1002, "A sweep snapshots the world, leaving out missing objects");
+        check(world.Sweeping && world.Pending == 1003, "A sweep snapshots the whole world in one copy; missing entries are skipped as it goes");
         int examined = 0, frames = 0;
         while (world.Sweeping) { examined += world.Advance(64); frames++; }
-        check(world.Primed && examined == 1002 && frames == 16, "The sweep is spread in slices and completes the index");
+        check(world.Primed && examined == 1003 && frames == 16, "The sweep is spread in slices and completes the index");
         world.Members(racks, found);
         check(found.Count == 11 && found.All(t => t.Definition!.StartsWith("Rack")) && found.Contains(shared), "Every family object is found, in the order met");
         world.Members(stores, found);

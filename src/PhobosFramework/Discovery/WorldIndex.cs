@@ -18,8 +18,9 @@ public sealed class WorldIndex<T> where T : class
     private readonly Dictionary<string, int> masks = new(StringComparer.Ordinal);
     private readonly List<List<T>> members = new();
     private readonly List<HashSet<T>> sets = new();
-    private readonly List<T> sweep = new();
-    private int cursor;
+    // The sweep's snapshot of the world, taken by one bulk copy of references rather than an enumeration.
+    private T[] sweep = Array.Empty<T>();
+    private int sweepCount, cursor;
 
     public WorldIndex(Func<T, string?> definition, Func<T, bool> live)
     {
@@ -30,9 +31,9 @@ public sealed class WorldIndex<T> where T : class
     public int FamilyCount => families.Count;
     /// <summary>A full sweep has completed since the last reset.</summary>
     public bool Primed { get; private set; }
-    public bool Sweeping => cursor < sweep.Count;
+    public bool Sweeping => cursor < sweepCount;
     /// <summary>Objects of the current sweep not yet examined.</summary>
-    public int Pending => sweep.Count - cursor;
+    public int Pending => sweepCount - cursor;
 
     /// <summary>Registers a family by a definition-id predicate; the same key replaces its predicate. The index then
     /// needs a fresh sweep before that family is complete; other families keep their members.</summary>
@@ -65,7 +66,7 @@ public sealed class WorldIndex<T> where T : class
     private void Forget(int family)
     {
         members[family].Clear(); sets[family].Clear();
-        masks.Clear(); sweep.Clear(); cursor = 0; Primed = false;
+        masks.Clear(); EndSweep(); Primed = false;
     }
 
     /// <summary>Forgets every member, remembered definition answer and sweep in progress (world or content change).</summary>
@@ -73,25 +74,32 @@ public sealed class WorldIndex<T> where T : class
     {
         foreach (var list in members) list.Clear();
         foreach (var set in sets) set.Clear();
-        masks.Clear(); sweep.Clear(); cursor = 0; Primed = false;
+        masks.Clear(); EndSweep(); Primed = false;
     }
 
-    /// <summary>Starts a sweep over a snapshot of the world, replacing any sweep in progress.</summary>
-    public void Begin(IEnumerable<T> world)
+    /// <summary>Starts a sweep over a snapshot of the world, replacing any sweep in progress. The collection's own bulk
+    /// copy takes the snapshot; missing entries are skipped as the sweep reaches them.</summary>
+    public void Begin(ICollection<T> world)
     {
-        sweep.Clear(); cursor = 0;
-        foreach (var item in world) if (item != null) sweep.Add(item);
-        if (sweep.Count == 0) Primed = true;
+        EndSweep();
+        int count = world.Count;
+        if (sweep.Length < count) sweep = new T[Math.Max(count, sweep.Length * 2)];
+        world.CopyTo(sweep, 0);
+        sweepCount = count;
+        if (count == 0) Primed = true;
     }
+
+    // Releases the snapshot so objects that left the world are not kept alive by it.
+    private void EndSweep() { if (sweepCount > 0) Array.Clear(sweep, 0, sweepCount); sweepCount = 0; cursor = 0; }
 
     /// <summary>Examines up to <paramref name="count"/> objects of the current sweep; returns how many were examined.</summary>
     public int Advance(int count)
     {
-        if (count <= 0 || cursor >= sweep.Count) return 0;
-        int end = count >= sweep.Count - cursor ? sweep.Count : cursor + count, examined = end - cursor;
+        if (count <= 0 || cursor >= sweepCount) return 0;
+        int end = count >= sweepCount - cursor ? sweepCount : cursor + count, examined = end - cursor;
         for (int i = cursor; i < end; i++) Offer(sweep[i]);
         cursor = end;
-        if (cursor >= sweep.Count) { sweep.Clear(); cursor = 0; Primed = true; }
+        if (cursor >= sweepCount) { EndSweep(); Primed = true; }
         return examined;
     }
 
