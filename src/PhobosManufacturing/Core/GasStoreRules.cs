@@ -154,10 +154,14 @@ public static class GasStores
         CarbonDioxidePrice, 2, "ManufacturingCarbonDioxide", "ManufacturingCarbonDioxideWork", "ManufacturingCarbonDioxideTransfer", null);
     public static readonly IReadOnlyList<GasFamily> Families = new[] { HydrogenFamily, MethaneFamily, OxygenFamily, NitrogenFamily, CarbonDioxideFamily };
     public static readonly IReadOnlyList<GasStore> All = Families.SelectMany(f => f.Sizes).ToArray();
+    // One dictionary probe per definition on the hot paths (every powered object, every destroyed object, the
+    // two-second world scan), instead of a query over fifteen sizes with string comparisons.
+    private static readonly DefinitionIndex<GasStore> index = BuildIndex();
+    private static DefinitionIndex<GasStore> BuildIndex() { var i = new DefinitionIndex<GasStore>(); foreach (var store in All) i.Add(store.Prefix, store); return i; }
     /// <summary>The original small stores, by their historic names.</summary>
     public static GasStore Hydrogen => HydrogenFamily.Small;
     public static GasStore Methane => MethaneFamily.Small;
-    public static GasStore? For(string? definition) => All.FirstOrDefault(f => f.IsFamily(definition));
+    public static GasStore? For(string? definition) => index.Get(definition);
     public static bool IsFamily(string? definition) => For(definition) != null;
     public static GasFamily? FamilyOf(string? commodity) => Families.FirstOrDefault(f => f.Commodity == commodity);
     /// <summary>Whether a definition is any size of the store family holding <paramref name="commodity"/>.</summary>

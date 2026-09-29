@@ -19,6 +19,15 @@ internal static class GasStoreChecks
             "The original H2 and M2 keep their identities, capacities and saved records");
         check(GasStores.All.Select(s => s.Spec.Record).Concat(GasStores.All.Select(s => s.Spec.Journal)).Concat(GasStores.All.Select(s => s.Spec.Guard)).Distinct().Count() == 45,
             "Every size keeps its own record, journal and guard");
+        // The definition index answers exactly as the query over every size did, for every form of every size.
+        foreach (var store in GasStores.All)
+            foreach (string form in new[] { "Installed", "InstalledDmg", "Loose", "LooseDmg" })
+                check(GasStores.For(store.Prefix + form) == store && GasStores.All.FirstOrDefault(f => f.IsFamily(store.Prefix + form)) == store, "Indexed lookup matches the size ladder: " + store.Prefix + form);
+        check(GasStores.For("ItmCanisterO2Installed") == null && GasStores.For(null) == null && GasStores.For(GasStores.Hydrogen.Prefix + "InstalledExtra") == null, "Foreign and extended ids belong to no store");
+        for (int i = 0; i < 1000; i++) GasStores.IsFamily("ItmAirPumpInstalled");
+        long before = GC.GetAllocatedBytesForCurrentThread();
+        for (int i = 0; i < 42000; i++) GasStores.IsFamily("ItmAirPumpInstalled");
+        check(GC.GetAllocatedBytesForCurrentThread() == before, "Classifying a foreign appliance allocates nothing on the test runtime");
         foreach (var family in GasStores.Families)
         {
             var sizes = family.Sizes;

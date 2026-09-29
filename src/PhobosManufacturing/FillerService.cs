@@ -78,13 +78,18 @@ internal static class FillerService
             FillerRules.Species.Contains(g.Family.Species) && GasLine.Connection(co, FillerRules.Inlet, c) != null)
         .OrderBy(c => c.strID, StringComparer.Ordinal).ToArray();
     private static bool CanisterReady(CondOwner co, CondOwner c) => !c.bDestroyed && c.ship == co.ship && c.HasCond("IsInstalled") && ProcessorService.Adjacent(co, c) && NativeGasVessel.TryRead(c, out _);
-    private static bool StoreReady(CondOwner co, Session s, CondOwner store) => !store.bDestroyed && store.ship == co.ship && GasStores.IsFamily(store.strCODef) && NativeFluidRoute.EndpointReady(store) &&
-        !BulkVessel.Protected(store) && !CommodityReservations.Held(store.strID) && BulkVessel.Snapshot(store).CatchKg <= 1e-8 && Connected(co, s, store);
+    private static bool StoreReady(CondOwner co, Session s, CondOwner store)
+    {
+        if (store.bDestroyed || store.ship != co.ship || !GasStores.IsFamily(store.strCODef) || !NativeFluidRoute.EndpointReady(store) || CommodityReservations.Held(store.strID)) return false;
+        var snapshot = BulkVessel.Snapshot(store);
+        return !snapshot.Protected && snapshot.CatchKg <= 1e-8 && Connected(co, s, store);
+    }
+    // Connection rechecks follow real time: a game-time interval would shrink to every frame at fast-forward.
     private static bool Connected(CondOwner co, Session s, CondOwner store)
     {
-        if (s.Routes.TryGetValue(store.strID, out var cached) && StarSystem.fEpoch < cached.Until) return cached.Connected;
+        if (s.Routes.TryGetValue(store.strID, out var cached) && Cadence.RealTime < cached.Until) return cached.Connected;
         bool connected = GasLine.Connection(co, FillerRules.Inlet, store) != null;
-        s.Routes[store.strID] = (StarSystem.fEpoch + FillerRules.RecheckSeconds, connected);
+        s.Routes[store.strID] = (Cadence.RealTime + FillerRules.RecheckSeconds, connected);
         return connected;
     }
     private static IEnumerable<CondOwner> Linked(CondOwner co, Session s, FillerLinkKind kind, bool enabledOnly) =>
@@ -196,13 +201,13 @@ internal static class FillerService
         var problem = MachineProblem(co);
         if (problem != null) { Stop(co, s, problem); return; }
         if (s.Protected) { Stop(co, s, Text.Get("Filler.protected")); return; }
-        if (StarSystem.fEpoch < s.NextCheck && !co.HasCond(ManufacturingRules.Filling)) return;
+        if (Cadence.RealTime < s.NextCheck && !co.HasCond(ManufacturingRules.Filling)) return;
         try
         {
             var job = NextJob(co, s, out string why, out bool finished);
             if (job == null)
             {
-                s.NextCheck = StarSystem.fEpoch + FillerRules.RecheckSeconds; SetWorking(co, false);
+                s.NextCheck = Cadence.RealTime + FillerRules.RecheckSeconds; SetWorking(co, false);
                 s.Status = Text.Get("Filler.waiting", why);
                 // Everything linked is full (or empty, when decanting): the watched run is complete.
                 if (s.Watch.Armed && finished)
@@ -242,16 +247,19 @@ internal static class FillerService
         if (!sessions.TryGetValue(co, out var s) || !s.Running || !co.HasCond(ManufacturingRules.Filling) || s.Protected) return;
         // Idle draw is not work: only the share above the idle demand moves gas.
         double work = supplied * Math.Max(0, FillerRules.WorkingKW - FillerRules.IdleKW) / FillerRules.WorkingKW;
-        for (int i = 0; i < 8 && work > 1e-12; i++)
+        // One job is chosen per step and kept while it still has room and its source still gives; the next
+        // vessel is looked for only when this one is done or its source fell short.
+        var job = NextJob(co, s, out _, out _);
+        for (int i = 0; i < 8 && work > 1e-12 && job != null; i++)
         {
-            var job = NextJob(co, s, out _, out _);
-            if (job == null) break;
             double kg = FillerRules.KgFor(work, job.KWhPerKg, job.WantedKg);
             double moved = kg <= 0 ? 0 : Move(job, kg);
-            if (moved <= 1e-9) { s.NextCheck = StarSystem.fEpoch + FillerRules.RecheckSeconds; break; }
+            if (moved <= 1e-9) { s.NextCheck = Cadence.RealTime + FillerRules.RecheckSeconds; break; }
             work -= moved * job.KWhPerKg;
             if (job.Decant) s.State.DecantedKg += moved; else s.State.FilledKg += moved;
             s.Status = Text.Get(job.Decant ? "Filler.decanting" : "Filler.filling", ObjectPresentation.Name(job.Vessel), Gas(job.Species), ObjectPresentation.Name(job.Other));
+            job.WantedKg -= moved;
+            if (job.WantedKg <= 1e-9 || moved < kg - 1e-9) job = NextJob(co, s, out _, out _);
         }
         Save(co, s);
     }

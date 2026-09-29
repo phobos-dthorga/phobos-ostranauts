@@ -24,7 +24,8 @@ internal sealed class ManifoldService : IRcsPropellantFeed
     {
         internal ManifoldState State = new();
         internal bool Protected;
-        internal double NextCheck;
+        // Connection rechecks follow real time: at fast-forward a game-time interval would shrink to every frame.
+        internal readonly Cadence Recheck = new(ManifoldRules.RecheckSeconds);
         internal Dictionary<string, string> Why = new(StringComparer.Ordinal);
         internal List<CondOwner> Ready = new();
         internal string LastSource = "";
@@ -44,8 +45,16 @@ internal sealed class ManifoldService : IRcsPropellantFeed
     }
     private static bool Save(CondOwner co, Session s)
     {
-        if (Store(co).TryWrite(s.State.Save())) { s.NextCheck = 0; return true; }
+        if (Store(co).TryWrite(s.State.Save())) { s.Recheck.Invalidate(); return true; }
         s.Protected = true; return false;
+    }
+    // The draw reason is one fixed line of text; formatted once per language, not per store per physics step.
+    private static string drawReason = "", drawReasonLanguage = "";
+    private static string DrawReason()
+    {
+        string language = Phobos.Ostranauts.Framework.Localization.Translations.Language;
+        if (drawReasonLanguage != language) { drawReason = Text.Get("Manifold.draw_reason"); drawReasonLanguage = language; }
+        return drawReason;
     }
 
     /// <summary>Whether the manifold sits on one of an installed RCS Intake Regulator's gas-input tiles.</summary>
@@ -70,8 +79,8 @@ internal sealed class ManifoldService : IRcsPropellantFeed
     /// <summary>Refreshes the cached list of switched-on stores that can feed right now, with a reason for each that cannot.</summary>
     private static void Refresh(CondOwner co, Session s)
     {
-        if (StarSystem.fEpoch < s.NextCheck) return;
-        s.NextCheck = StarSystem.fEpoch + ManifoldRules.RecheckSeconds;
+        if (!s.Recheck.Due()) return;
+        using var measurement = Phobos.Ostranauts.Framework.Diagnostics.Performance.Measure(PerformanceMetrics.ManifoldRefresh);
         s.Ready.Clear(); s.Why.Clear();
         foreach (var source in s.State.Sources)
         {
@@ -106,7 +115,7 @@ internal sealed class ManifoldService : IRcsPropellantFeed
             if (remaining <= 1e-12) break;
             string commodity = BulkVessels.Of(store)?.Commodity ?? "";
             double want = ManifoldRules.KilogramsFor(commodity, remaining);
-            double taken = BufferedDrains.Take(store, want, Text.Get("Manifold.draw_reason"));
+            double taken = BufferedDrains.Take(store, want, DrawReason());
             if (taken <= 0) continue;
             remaining -= ManifoldRules.EquivalentKg(commodity, taken);
             s.LastSource = store.strID;

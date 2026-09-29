@@ -92,18 +92,24 @@ internal static class SabatierService
     }
 
     /// <summary>A linked vessel ready for this transfer, or null with the reason.</summary>
+    // Runs every power step while the reactor works: reasons are formatted only on the way out, the vessel read once.
     private static CondOwner? Linked(CondOwner co, string peer, Func<CondOwner, MaterialPort> ours, Func<CondOwner, MaterialPort> theirs, string commodity, string keyPrefix, out string reason)
     {
-        reason = Text.Get(keyPrefix + "_none");
         var vessel = CrewWork.Resolve(peer);
-        if (vessel == null || BulkVessels.SpecFor(vessel.strCODef)?.Commodity != commodity) return null;
-        reason = Text.Get(keyPrefix + "_not_ready");
-        if (vessel.ship != co.ship || !NativeFluidRoute.EndpointReady(vessel) || !PortPairing.Matches(ours(co), theirs(vessel)) || !ProcessorService.Adjacent(co, vessel)) return null;
-        reason = Text.Get("Sabatier.vessel_protected");
-        if (BulkVessel.Protected(vessel) || CommodityReservations.Held(vessel.strID)) return null;
-        reason = Text.Get("Sabatier.vessel_catch");
-        if (BulkVessel.Snapshot(vessel).CatchKg > 1e-8) return null;
+        if (vessel == null || BulkVessels.SpecFor(vessel.strCODef)?.Commodity != commodity) { reason = Text.Get(keyPrefix + "_none"); return null; }
+        if (vessel.ship != co.ship || !NativeFluidRoute.EndpointReady(vessel) || !PortPairing.Matches(ours(co), theirs(vessel)) || !ProcessorService.Adjacent(co, vessel)) { reason = Text.Get(keyPrefix + "_not_ready"); return null; }
+        var snapshot = BulkVessel.Snapshot(vessel);
+        if (snapshot.Protected || CommodityReservations.Held(vessel.strID)) { reason = Text.Get("Sabatier.vessel_protected"); return null; }
+        if (snapshot.CatchKg > 1e-8) { reason = Text.Get("Sabatier.vessel_catch"); return null; }
         reason = ""; return vessel;
+    }
+    /// <summary>Whether one object is among the CO2 sources <see cref="CanisterCandidates"/> would list, without listing them.</summary>
+    private static bool IsCanisterCandidate(CondOwner co, CondOwner c)
+    {
+        if (c == null || c.bDestroyed || c == co || c.ship != co.ship || !ProcessorService.Adjacent(co, c)) return false;
+        if (BulkVessels.Of(c)?.Commodity == ManufacturingRules.CarbonDioxide && c.HasCond("IsInstalled") && NativeFluidRoute.EndpointReady(c)) return true;
+        var trigger = NativeDefinitions.Trigger(SabatierRules.CanisterTrigger);
+        return trigger != null && trigger.Triggered(c);
     }
     private static CondOwner? HydrogenSource(CondOwner co, double needKg, out string reason)
     {
@@ -128,7 +134,7 @@ internal static class SabatierService
         if (s.State.Canister.Length == 0) return null;
         var canister = CrewWork.Resolve(s.State.Canister);
         reason = Text.Get("Sabatier.canister_missing");
-        if (canister == null || !CanisterCandidates(co).Contains(canister)) return null;
+        if (canister == null || !IsCanisterCandidate(co, canister)) return null;
         reason = Text.Get("Sabatier.canister_damaged");
         if (canister.HasCond("IsDamaged")) return null;
         if (BulkVessels.IsVessel(canister))
@@ -192,7 +198,8 @@ internal static class SabatierService
     }
     private static void Wait(CondOwner co, Session s, string status)
     {
-        s.OutputWait = true; s.NextCheck = StarSystem.fEpoch + ManufacturingRules.VesselRecheckSeconds; s.Status = status; SetWorking(co, false);
+        // Rechecks follow real time: a game-time interval would shrink to every frame at fast-forward.
+        s.OutputWait = true; s.NextCheck = Cadence.RealTime + ManufacturingRules.VesselRecheckSeconds; s.Status = status; SetWorking(co, false);
     }
 
     /// <summary>Before the native power step: deliver waiting products first, then charge the reactor, and work
@@ -203,7 +210,7 @@ internal static class SabatierService
         var problem = MachineProblem(co);
         if (problem != null) { Stop(co, s, problem); return; }
         if (s.Protected) { Stop(co, s, Text.Get("Sabatier.protected")); return; }
-        if (s.OutputWait && StarSystem.fEpoch < s.NextCheck) { SetWorking(co, false); return; }
+        if (s.OutputWait && Cadence.RealTime < s.NextCheck) { SetWorking(co, false); return; }
         s.OutputWait = false;
         try
         {

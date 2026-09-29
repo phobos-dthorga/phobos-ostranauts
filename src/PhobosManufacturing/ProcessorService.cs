@@ -86,35 +86,37 @@ internal static class ProcessorService
             co.ship.GetCOs(null, false, false, true).Where(c => c != null && !c.bDestroyed && c.ship == co.ship && c != co && trigger.Triggered(c) && Adjacent(co, c));
         return canisters.Concat(BulkVessels.Aboard(co.ship, ManufacturingRules.Oxygen).Where(v => v != co && Adjacent(co, v))).Distinct().OrderBy(c => c.strID, StringComparer.Ordinal).ToArray();
     }
+    // These run every power step while the cell works: reasons are formatted only on the way out, and a vessel is
+    // read once (the snapshot carries its protection).
     private static CondOwner? Vessel(CondOwner co, out string reason)
     {
-        reason = Text.Get("Processor.no_vessel");
         var vessel = CrewWork.Resolve(WaterPeer(co));
-        if (vessel == null || !BulkVessels.IsVessel(vessel)) return null;
-        reason = Text.Get("Processor.vessel_not_ready");
-        if (vessel.ship != co.ship || !NativeFluidRoute.EndpointReady(vessel) || !PortPairing.Matches(WaterIn(co), VesselOut(vessel)) || !Adjacent(co, vessel)) return null;
-        reason = Text.Get("Processor.vessel_protected");
-        if (BulkVessel.Protected(vessel) || CommodityReservations.Held(vessel.strID)) return null;
+        if (vessel == null || !BulkVessels.IsVessel(vessel)) { reason = Text.Get("Processor.no_vessel"); return null; }
+        if (vessel.ship != co.ship || !NativeFluidRoute.EndpointReady(vessel) || !PortPairing.Matches(WaterIn(co), VesselOut(vessel)) || !Adjacent(co, vessel)) { reason = Text.Get("Processor.vessel_not_ready"); return null; }
         var s = BulkVessel.Snapshot(vessel);
-        reason = Text.Get("Processor.vessel_catch");
-        if (s.CatchKg > 1e-8) return null;
-        reason = Text.Get("Processor.vessel_empty", s.AvailableKg, ProcessorRules.WaterKgPerCycle);
-        if (s.AvailableKg + 1e-8 < ProcessorRules.WaterKgPerCycle) return null;
+        if (s.Protected || CommodityReservations.Held(vessel.strID)) { reason = Text.Get("Processor.vessel_protected"); return null; }
+        if (s.CatchKg > 1e-8) { reason = Text.Get("Processor.vessel_catch"); return null; }
+        if (s.AvailableKg + 1e-8 < ProcessorRules.WaterKgPerCycle) { reason = Text.Get("Processor.vessel_empty", s.AvailableKg, ProcessorRules.WaterKgPerCycle); return null; }
         reason = ""; return vessel;
     }
     private static CondOwner? HydrogenStore(CondOwner co, out string reason)
     {
-        reason = Text.Get("Processor.no_store");
         var store = CrewWork.Resolve(StorePeer(co));
-        if (store == null || !HydrogenRules.AnySize(store.strCODef)) return null;
-        reason = Text.Get("Processor.store_not_ready");
-        if (store.ship != co.ship || !NativeFluidRoute.EndpointReady(store) || !PortPairing.Matches(HydrogenOut(co), StoreIn(store)) || !Adjacent(co, store)) return null;
-        reason = Text.Get("Processor.store_protected");
-        if (BulkVessel.Protected(store) || CommodityReservations.Held(store.strID)) return null;
+        if (store == null || !HydrogenRules.AnySize(store.strCODef)) { reason = Text.Get("Processor.no_store"); return null; }
+        if (store.ship != co.ship || !NativeFluidRoute.EndpointReady(store) || !PortPairing.Matches(HydrogenOut(co), StoreIn(store)) || !Adjacent(co, store)) { reason = Text.Get("Processor.store_not_ready"); return null; }
         var s = BulkVessel.Snapshot(store);
-        reason = Text.Get("Processor.store_full", s.HeadroomKg);
-        if (s.HeadroomKg + 1e-8 < ProcessorRules.HydrogenKgPerCycle) return null;
+        if (s.Protected || CommodityReservations.Held(store.strID)) { reason = Text.Get("Processor.store_protected"); return null; }
+        if (s.HeadroomKg + 1e-8 < ProcessorRules.HydrogenKgPerCycle) { reason = Text.Get("Processor.store_full", s.HeadroomKg); return null; }
         reason = ""; return store;
+    }
+    /// <summary>Whether one object is among the oxygen destinations <see cref="CanisterCandidates"/> would list, without
+    /// listing them: the same rules applied to that object alone.</summary>
+    private static bool IsCanisterCandidate(CondOwner co, CondOwner c)
+    {
+        if (c == null || c.bDestroyed || c == co || c.ship != co.ship || !Adjacent(co, c)) return false;
+        if (BulkVessels.Of(c)?.Commodity == ManufacturingRules.Oxygen && c.HasCond("IsInstalled") && NativeFluidRoute.EndpointReady(c)) return true;
+        var trigger = NativeDefinitions.Trigger(ProcessorRules.CanisterTrigger);
+        return trigger != null && trigger.Triggered(c);
     }
     /// <summary>The linked canister when it can take one cycle's oxygen; null with an empty reason means cabin air.</summary>
     private static CondOwner? Canister(CondOwner co, Session s, out string reason)
@@ -122,23 +124,19 @@ internal static class ProcessorService
         reason = "";
         if (s.State.Canister.Length == 0) return null;
         var canister = CrewWork.Resolve(s.State.Canister);
-        reason = Text.Get("Processor.canister_missing");
-        if (canister == null || !CanisterCandidates(co).Contains(canister)) return null;
-        reason = Text.Get("Processor.canister_damaged");
-        if (canister.HasCond("IsDamaged")) return null;
+        if (canister == null || !IsCanisterCandidate(co, canister)) { reason = Text.Get("Processor.canister_missing"); return null; }
+        if (canister.HasCond("IsDamaged")) { reason = Text.Get("Processor.canister_damaged"); return null; }
         if (BulkVessels.IsVessel(canister))
         {
             // A bulk oxygen store: ready, unreserved and with room for one cycle.
-            reason = Text.Get("Processor.store_protected");
-            if (!NativeFluidRoute.EndpointReady(canister) || BulkVessel.Protected(canister) || CommodityReservations.Held(canister.strID)) return null;
             var snapshot = BulkVessel.Snapshot(canister);
-            reason = Text.Get("Processor.oxygen_store_full", snapshot.HeadroomKg);
-            if (snapshot.CatchKg > 1e-8 || snapshot.HeadroomKg + 1e-8 < ProcessorRules.OxygenKgPerCycle) return null;
-            reason = ""; return canister;
+            if (!NativeFluidRoute.EndpointReady(canister) || snapshot.Protected || CommodityReservations.Held(canister.strID)) { reason = Text.Get("Processor.store_protected"); return null; }
+            if (snapshot.CatchKg > 1e-8 || snapshot.HeadroomKg + 1e-8 < ProcessorRules.OxygenKgPerCycle) { reason = Text.Get("Processor.oxygen_store_full", snapshot.HeadroomKg); return null; }
+            return canister;
         }
-        reason = Text.Get("Processor.canister_full");
-        if (!NativeGasCanister.TryRead(canister, out var reading) || reading.Species != ProcessorRules.OxygenSpecies || reading.HeadroomMoles + 1e-9 < ProcessorRules.OxygenMolesPerCycle) return null;
-        reason = ""; return canister;
+        if (!NativeGasCanister.TryRead(canister, out var reading) || reading.Species != ProcessorRules.OxygenSpecies || reading.HeadroomMoles + 1e-9 < ProcessorRules.OxygenMolesPerCycle)
+        { reason = Text.Get("Processor.canister_full"); return null; }
+        return canister;
     }
     internal static string? MachineProblem(CondOwner co)
     {
@@ -193,7 +191,7 @@ internal static class ProcessorService
         var problem = MachineProblem(co);
         if (problem != null) { Stop(co, s, problem); return; }
         if (s.Protected) { Stop(co, s, Text.Get("Processor.protected")); return; }
-        if (s.OutputWait && StarSystem.fEpoch < s.NextCheck) { SetWorking(co, false); return; }
+        if (s.OutputWait && Cadence.RealTime < s.NextCheck) { SetWorking(co, false); return; }
         s.OutputWait = false;
         try
         {
@@ -214,7 +212,8 @@ internal static class ProcessorService
     }
     private static void Wait(CondOwner co, Session s, string status)
     {
-        s.OutputWait = true; s.NextCheck = StarSystem.fEpoch + ManufacturingRules.VesselRecheckSeconds; s.Status = status; SetWorking(co, false);
+        // Rechecks follow real time: a game-time interval would shrink to every frame at fast-forward.
+        s.OutputWait = true; s.NextCheck = Cadence.RealTime + ManufacturingRules.VesselRecheckSeconds; s.Status = status; SetWorking(co, false);
     }
     internal static bool BeginPower(Powered power, CondOwner co, ref double amount, out Transfer? transfer)
     {

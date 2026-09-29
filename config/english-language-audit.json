@@ -45948,8 +45948,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "742d397a51bc2002a34e903caa887f98f67de09211d5bd509bba02912f95af66",
-      "review": "Performance pass stage 3 (Shipbreaker 0.41.0), 29 September 2026: reviewed with this change; wording, links and maintained values checked."
+      "sha256": "ad49c379598e2c7178db2f348836e7cc9ee217832d6aa6ce3b4fea68f9cc2908",
+      "review": "Performance pass stage 4 (Manufacturing 0.6.0), 29 September 2026: reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "SUPPORT.md",
@@ -46631,8 +46631,8 @@
       "path": "docs/development/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "f38f05698a2cdab348a8b0fbe5385902384431206e4afea7c5a1396b5aa83a5e",
-      "review": "Performance pass stage 3 (Shipbreaker 0.41.0), 29 September 2026: reviewed with this change; wording, links and maintained values checked."
+      "sha256": "1c69daff7636e6323045a9bd250f8566f3cfe07bfdbb97eb2b792519f8ca3343",
+      "review": "Performance pass stage 4 (Manufacturing 0.6.0), 29 September 2026: reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "docs/development/phobos-framework.md",
@@ -46906,8 +46906,8 @@
       "path": "docs/installing-mods.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "33cbc36a02f55886e56080082a95cedc5e2d4575e78637706b7cb050a99a54b1",
-      "review": "Performance pass stage 3 (Shipbreaker 0.41.0), 29 September 2026: reviewed with this change; wording, links and maintained values checked."
+      "sha256": "0b247f34557a6f67c87feb39699d1b09e00d7822dda11e5ebf021aadd7752826",
+      "review": "Performance pass stage 4 (Manufacturing 0.6.0), 29 September 2026: reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "docs/item-references.md",
@@ -46920,8 +46920,8 @@
       "path": "docs/manufacturing-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "retain",
-      "sha256": "eed48833916d888e3c0b5b98469976265ceb1c0f4ff5c393030d4e9debc6a172",
-      "review": "Manufacturing 0.5.0 (A2 cabin air regulator, crew bottle order), 29 September 2026: reviewed with this change; wording, links and maintained values checked."
+      "sha256": "4f272a419d0d371af759ade650f8556ff2f2bc726729565e6315fd1c2eaa6f87",
+      "review": "Performance pass stage 4 (Manufacturing 0.6.0), 29 September 2026: reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "docs/manufacturing-player-guide.md",
@@ -47046,8 +47046,8 @@
       "path": "workshop/PhobosManufacturing/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "77d1c3580a14a468246b0b4e77022b208c6f2442acbf90af7aaf9a0bf9f70b8e",
-      "review": "Manufacturing 0.5.0 (A2 cabin air regulator, crew bottle order), 29 September 2026: reviewed with this change; wording, links and maintained values checked."
+      "sha256": "890e43d745a14ab561f605634a5f165bfe6db5c0e02d45230ac4e819d69a9cf0",
+      "review": "Performance pass stage 4 (Manufacturing 0.6.0), 29 September 2026: reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "workshop/PhobosShipbreaker/page.bbcode",
@@ -47144,8 +47144,8 @@
     {
       "path": "mods/PhobosManufacturing/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "01658554670ca2016b516448875cc33b0a842f554abb4fbfdc02d88111cdda9a",
-      "review": "Manufacturing 0.5.0 (A2 cabin air regulator), 29 September 2026: reviewed with this change; wording, links and maintained values checked."
+      "sha256": "33c71252aa5e4aecfe4f050cfa3a0ec645466bf839de44cd81bc236fa3efc664",
+      "review": "Performance pass stage 4 (Manufacturing 0.6.0), 29 September 2026: reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "mods/PhobosShipbreaker/framework/equipment-names.json",

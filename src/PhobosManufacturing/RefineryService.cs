@@ -93,10 +93,19 @@ internal static class RefineryService
         if (co == null || co.bDestroyed || co.strCODef != RefineryRules.Installed || !co.HasCond("IsInstalled")) return Text.Get("Refinery.install_first");
         if (co.HasCond("IsDamaged")) return Text.Get("Refinery.repair_first");
         if (co.ship == null || (int)co.ship.LoadState < 2) return Text.Get("Content.ship_not_loaded");
-        if (co.HasCond("IsLocked") || Feed(co)?.HasCond("IsLocked") == true || co.objContainer?.Locked == true || Feed(co)?.objContainer?.Locked == true) return Text.Get("Refinery.unlock");
+        var feed = Feed(co);
+        if (co.HasCond("IsLocked") || feed?.HasCond("IsLocked") == true || co.objContainer?.Locked == true || feed?.objContainer?.Locked == true) return Text.Get("Refinery.unlock");
         if (co.HasCond("IsOverrideOff") || co.HasCond("IsSignalOff")) return Text.Get("Refinery.switched_off");
-        if (co.objContainer == null || Feed(co)?.objContainer == null) return Text.Get("Refinery.missing_feed");
+        if (co.objContainer == null || feed?.objContainer == null) return Text.Get("Refinery.missing_feed");
         return null;
+    }
+    // The working line names the recipe; it is formatted once per recipe and language, not on every power step.
+    private static readonly Dictionary<string, string> workingText = new(StringComparer.Ordinal);
+    private static string WorkingStatus(ChargeRecipe recipe)
+    {
+        string key = Phobos.Ostranauts.Framework.Localization.Translations.Language + "|" + recipe.Id;
+        if (!workingText.TryGetValue(key, out var text)) workingText[key] = text = Text.Get("Refinery.working", Text.Get("Recipe." + recipe.Id));
+        return text;
     }
     private static void SetWorking(CondOwner co, bool value) => co.SetCondAmount(ManufacturingRules.Working, value ? 1 : 0);
     private static ChargeRecipe? Recipe(Session s) => s.State.Bound ? RefineryRecipes.ByRevision(s.State.Revision) : null;
@@ -161,7 +170,7 @@ internal static class RefineryService
     private static bool Run(CondOwner co, Session s, ChargeRecipe recipe)
     {
         double water = recipe.Products.Where(p => p.Id == ManufacturingRules.Water).Sum(p => p.Kg * p.Count);
-        if (water > 0 && Vessel(co, water, out string why) == null) { s.VesselWait = true; s.NextVesselCheck = StarSystem.fEpoch + ManufacturingRules.VesselRecheckSeconds; s.Status = Text.Get("Refinery.waiting_vessel", why); return false; }
+        if (water > 0 && Vessel(co, water, out string why) == null) { s.VesselWait = true; s.NextVesselCheck = Phobos.Ostranauts.Framework.Cadence.RealTime + ManufacturingRules.VesselRecheckSeconds; s.Status = Text.Get("Refinery.waiting_vessel", why); return false; }
         s.State.Running = true; s.Last = StarSystem.fEpoch; s.VesselWait = false;
         s.Status = Text.Get("Refinery.working", Text.Get("Recipe." + recipe.Id));
         if (s.State.ProgressSeconds >= recipe.Seconds) return Finish(co, s);
@@ -197,9 +206,10 @@ internal static class RefineryService
     internal static void BeforePower(CondOwner co)
     {
         if (!sessions.TryGetValue(co, out var s)) { SetWorking(co, false); return; }
-        if (s.VesselWait && StarSystem.fEpoch >= s.NextVesselCheck)
+        // Rechecks follow real time: a game-time interval would shrink to every frame at fast-forward.
+        if (s.VesselWait && Phobos.Ostranauts.Framework.Cadence.RealTime >= s.NextVesselCheck)
         {
-            s.NextVesselCheck = StarSystem.fEpoch + ManufacturingRules.VesselRecheckSeconds;
+            s.NextVesselCheck = Phobos.Ostranauts.Framework.Cadence.RealTime + ManufacturingRules.VesselRecheckSeconds;
             var fault = MachineProblem(co);
             if (fault != null) { Stop(co, s, fault); return; }
             var recipe = Recipe(s);
@@ -283,7 +293,7 @@ internal static class RefineryService
             var recipe = Recipe(s);
             if (recipe == null) { Stop(co, s, Text.Get("Refinery.charge_changed")); return; }
             if (s.HeatWait) { double waited = StarSystem.fEpoch - s.WaitSince; if (RefineryRecipes.Spoiled(recipe, s.State.WaitSeconds + Math.Max(0, waited))) { SettleWait(co, s); Finish(co, s); } return; }
-            s.Status = co.HasCond("IsPowered") ? Text.Get("Refinery.working", Text.Get("Recipe." + recipe.Id)) : Text.Get("Refinery.waiting_power");
+            s.Status = co.HasCond("IsPowered") ? WorkingStatus(recipe) : Text.Get("Refinery.waiting_power");
             if (s.State.ProgressSeconds >= recipe.Seconds && co.HasCond("IsPowered")) Finish(co, s);
         }
         catch (Exception ex) { Fault(co, ex); }
@@ -302,7 +312,7 @@ internal static class RefineryService
         double water = products.Where(p => p.Id == ManufacturingRules.Water).Sum(p => p.Kg * p.Count);
         CondOwner? vessel = null;
         if (water > 0 && (vessel = Vessel(co, water, out string why)) == null)
-        { s.VesselWait = true; s.NextVesselCheck = StarSystem.fEpoch + ManufacturingRules.VesselRecheckSeconds; s.Status = Text.Get("Refinery.waiting_vessel", why); return false; }
+        { s.VesselWait = true; s.NextVesselCheck = Phobos.Ostranauts.Framework.Cadence.RealTime + ManufacturingRules.VesselRecheckSeconds; s.Status = Text.Get("Refinery.waiting_vessel", why); return false; }
         var delivery = new ChargeDelivery(co, units, products.Where(p => p.Id != ManufacturingRules.Water).ToList(), recipe.ChargeKg - recipe.OffGasKg - water);
         StoredCommodity? state = null;
         if (vessel != null) { state = BulkVessel.Read(vessel); BulkVessel.BeginConversion(vessel, units[0].strID, state.TotalKg); }
@@ -310,7 +320,7 @@ internal static class RefineryService
         if (result != DeliveryResult.Completed)
         {
             if (vessel != null) BulkVessel.EndConversion(vessel);
-            s.VesselWait = true; s.NextVesselCheck = StarSystem.fEpoch + ManufacturingRules.VesselRecheckSeconds; s.Status = Text.Get("Refinery.tray_full"); return false;
+            s.VesselWait = true; s.NextVesselCheck = Phobos.Ostranauts.Framework.Cadence.RealTime + ManufacturingRules.VesselRecheckSeconds; s.Status = Text.Get("Refinery.tray_full"); return false;
         }
         if (vessel != null && state != null) { state.SetService(state.ServiceKg + water); BulkVessel.Save(vessel, state); BulkVessel.EndConversion(vessel); }
         Plugin.Log(Text.Get(spoiled ? "Refinery.spoiled_log" : "Refinery.completed_log", Text.Get("Recipe." + recipe.Id), co.strID));

@@ -1,0 +1,17 @@
+[h1]Phobos Manufacturing 0.6.0[/h1]
+[b]Draft - not published | 2026-09-29[/b]
+
+[h2]Changed[/h2]
+
+[list]
+[*]Performance pass, stage 4 (the game crawls at fast-forward). The power hooks the game calls for every powered object in the world classify each object by one dictionary probe and keep no state for appliances that are not ours. The two-second world scan (damaged stores, regulators) is one plain pass with one probe per object; before this it ran two queries over every world object with a scan of fifteen store sizes each.
+[*]Gas-line connections come from Framework's shared pipe topology, and the manifold, filling station, electrolysis cell, reactor and refinery recheck missing links and vessels on real time (five seconds) rather than game time, which at fast-forward had shrunk to every frame.
+[*]Per-step work while machines run: the filling station keeps one job per step instead of searching for the next up to eight times; the electrolysis cell and reactor check their linked canister directly instead of listing every candidate aboard, read each vessel once and format a reason only when refusing; the refinery looks its feed up once per check and formats its working line once per recipe. The manifold's draw reason is formatted once per language. Store panels list the machines aboard once per refresh. The regulator writes its record only when a value changed. The maintenance hooks recognise our machines before searching action names.
+[*]Recorder scopes manufacturing.scan, manufacturing.power.hook, manufacturing.machine.step, manufacturing.manifold.refresh and manufacturing.regulator.tick.
+[/list]
+
+[h2]Compatibility and limits[/h2]
+
+[list]
+[*]Requires Phobos Framework 0.45.0 or newer. A gas line laid or cut is noticed within two real seconds; missing vessels and links are rechecked every five real seconds. Saved data is unchanged. Offline checks are not gameplay validation.
+[/list]

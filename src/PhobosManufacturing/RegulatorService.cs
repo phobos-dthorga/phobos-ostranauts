@@ -44,7 +44,8 @@ internal static class RegulatorService
     }
     private static bool Save(CondOwner co, Session s)
     {
-        if (Store(co).TryWrite(s.State.Save())) return true;
+        // A holding regulator changes nothing between ticks; its record is then left untouched.
+        if (Store(co).TryWriteIfChanged(s.State.Save())) return true;
         s.Protected = true; s.Status = Text.Get("Regulator.protected"); return false;
     }
     internal static RegulatorState StateOf(CondOwner co) => Get(co).State;

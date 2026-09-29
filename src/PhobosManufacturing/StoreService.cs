@@ -90,8 +90,15 @@ internal static class StoreService
         Plugin.Log(co.strID + ": " + message);
         return true;
     }
-    private static IEnumerable<CondOwner> Linked(CondOwner store, Func<CondOwner, bool> match) => (store.ship?.GetCOs(null, false, false, true) ?? Enumerable.Empty<CondOwner>())
-        .Where(c => c != null && !c.bDestroyed && match(c)).OrderBy(c => c.strID, StringComparer.Ordinal).ToArray();
+    // The console asks every store aboard for its links in one refresh: the machines aboard are listed once per step.
+    private static readonly StepMemo<Ship, CondOwner[]> machinesAboard = new();
+    private static IEnumerable<CondOwner> Linked(CondOwner store, Func<CondOwner, bool> match)
+    {
+        if (store.ship == null) return Enumerable.Empty<CondOwner>();
+        var machines = machinesAboard.GetOrAdd(NativeSteps.Frame, store.ship, ship => ship.GetCOs(null, false, false, true)
+            .Where(c => c != null && !c.bDestroyed && MachineKinds.Classify(c.strCODef) != MachineKind.None || c != null && ManifoldRules.IsFamily(c.strCODef)).ToArray());
+        return machines.Where(c => !c.bDestroyed && match(c)).OrderBy(c => c.strID, StringComparer.Ordinal).ToArray();
+    }
     internal static EquipmentState State(CondOwner co) => BulkVessel.Protected(co) || co.HasCond("IsDamaged") || co.HasCond("IsLocked") ? EquipmentState.Blocked : EquipmentState.Ready;
     internal static string? MaintenanceReason(CondOwner co, bool dismantle)
     {

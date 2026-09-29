@@ -249,6 +249,20 @@ Deferred: status strings for active routes still format per step (one call each)
 two real seconds of furnace record progress on a crash; conduit changes seen within
 two seconds.
 
+### Stage 4: Manufacturing 0.6.0 (FF3, FF4, FF5)
+
+| Finding | Evidence | Decision |
+|---|---|---|
+| M-A two-second world scan | Two queries over every world object, each classifying against fifteen store sizes with a closure; about 80,000 allocations per pass with no Manufacturing item built | `GasStores.For` through the definition index; one plain pass, one probe per object |
+| M-B power hooks | A state object and four family checks per hook per appliance, eight more in the finalizer | `MachineKinds.Classify` remembered per definition; null state for foreign appliances |
+| M-C per-step paths | Filler `NextJob` up to eight times per step; processor and reactor listing every candidate aboard to test one linked canister; reasons formatted on success paths; the refinery's feed looked up three times and its working line formatted twice per step | One job kept per step; direct candidate tests; reasons formatted on refusal only; one vessel read per check; feed looked up once; working line cached per recipe and language |
+| M-D, M-E game-time rechecks | Manifold, filler, cell, reactor, refinery and regulator rechecks keyed on the game clock, every frame at high speed; gas-line searches uncached for the regulator | `Cadence`/real-time rechecks; `GasLine` through `FluidRouteCache`; the manifold's draw reason cached per language; regulator records changed-only |
+| M-F, M-G hooks and panels | Name searches on every native offer; a ship scan per store per panel refresh | Our-object test first (`MachineKinds.IsOurs`); machines aboard listed once per step |
+
+Deferred: idle machines still take their idle receipt through `RoomHeat` each step
+(the idle heat share is part of the accounting). Trade-offs: gas-line changes seen
+within two seconds; missing links rechecked every five real seconds.
+
 ## 28 September: construction and maintenance follow-up
 
 R10 — Section assembly uses native work scheduling, hauling and saved lots. There

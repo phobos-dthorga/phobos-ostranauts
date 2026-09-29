@@ -42,5 +42,21 @@ internal static class PerformanceNativeChecks
         long before = GC.GetAllocatedBytesForCurrentThread();
         for (int i = 0; i < 42000; i++) { PhobosShipbreaker.PowerKinds.Classify("ItmAirPumpInstalled"); PhobosShipbreaker.FurnaceService.IsEquipmentDefinition("ItmAirPumpInstalled"); }
         check(GC.GetAllocatedBytesForCurrentThread() == before, "Classifying a foreign appliance allocates nothing on the test runtime");
+
+        // Manufacturing's hooks classify the same way.
+        PhobosManufacturing.MachineKinds.Reset();
+        foreach (var (id, kind) in new[] {
+            (PhobosManufacturing.Core.RefineryRules.Installed, PhobosManufacturing.MachineKind.Refinery), (PhobosManufacturing.Core.ProcessorRules.Installed + "Dmg", PhobosManufacturing.MachineKind.Processor),
+            (PhobosManufacturing.Core.SabatierRules.Installed, PhobosManufacturing.MachineKind.Sabatier), (PhobosManufacturing.Core.FillerRules.Installed, PhobosManufacturing.MachineKind.Filler),
+            (PhobosManufacturing.Core.ManifoldRules.Installed, PhobosManufacturing.MachineKind.None), (PhobosManufacturing.Core.GasStores.Hydrogen.Installed, PhobosManufacturing.MachineKind.None),
+            ("ItmAirPumpInstalled", PhobosManufacturing.MachineKind.None), (null!, PhobosManufacturing.MachineKind.None) })
+            check(PhobosManufacturing.MachineKinds.Classify(id) == kind, "Manufacturing power hook classification: " + (id ?? "null") + " -> " + kind);
+        check(PhobosManufacturing.MachineKinds.IsOurs(PhobosManufacturing.Core.ManifoldRules.Installed) && PhobosManufacturing.MachineKinds.IsOurs(PhobosManufacturing.Core.GasStores.Hydrogen.Installed + "Dmg") &&
+            PhobosManufacturing.MachineKinds.IsOurs(PhobosManufacturing.Core.RegulatorRules.Installed) && !PhobosManufacturing.MachineKinds.IsOurs("ItmAirPumpInstalled") && !PhobosManufacturing.MachineKinds.IsOurs(null),
+            "Every Manufacturing family is ours by definition; foreign ids are not");
+        for (int i = 0; i < 1000; i++) PhobosManufacturing.MachineKinds.IsOurs("ItmAirPumpInstalled");
+        before = GC.GetAllocatedBytesForCurrentThread();
+        for (int i = 0; i < 42000; i++) { PhobosManufacturing.MachineKinds.Classify("ItmAirPumpInstalled"); PhobosManufacturing.MachineKinds.IsOurs("ItmAirPumpInstalled"); }
+        check(GC.GetAllocatedBytesForCurrentThread() == before, "Manufacturing classification of a foreign appliance allocates nothing on the test runtime");
     }
 }

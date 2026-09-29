@@ -17,14 +17,15 @@ namespace PhobosManufacturing;
 public sealed class Plugin : BaseUnityPlugin
 {
     public const string Id = ManufacturingRules.Owner;
-    public const string Version = "0.5.0";
-    public const string MinimumFrameworkVersion = "0.44.0";
+    public const string Version = "0.6.0";
+    public const string MinimumFrameworkVersion = "0.45.0";
     internal static Action<string> Log = _ => { };
     private Harmony? harmony;
     private float nextScan;
     private void Awake()
     {
         Log = x => Logger.LogInfo(x); Text.EnsureLoaded();
+        PerformanceMetrics.Initialize();
         harmony = new Harmony(Id); harmony.PatchAll(typeof(Plugin).Assembly);
         ShipbreakerStock.Detect();
         FrameworkLifecycle.ContentLoading += Load;
@@ -35,18 +36,27 @@ public sealed class Plugin : BaseUnityPlugin
         Log(Text.Get("Plugin.loaded", Version, ShipbreakerStock.PluginPresent ? Text.Get("Plugin.with_shipbreaker") : Text.Get("Plugin.without_shipbreaker")));
     }
     private static void Load() { ResetServices(); Content.Register(Log); }
-    internal static void ResetServices() { RefineryService.Reset(); ProcessorService.Reset(); SabatierService.Reset(); StoreService.Reset(); ManifoldService.Reset(); FillerService.Reset(); RegulatorService.Reset(); }
+    internal static void ResetServices() { MachineKinds.Reset(); RefineryService.Reset(); ProcessorService.Reset(); SabatierService.Reset(); StoreService.Reset(); ManifoldService.Reset(); FillerService.Reset(); RegulatorService.Reset(); }
+    private readonly List<CondOwner> damagedStores = new(), regulators = new();
     /// <summary>A damaged fuel store has no native tick of its own: every couple of seconds its leak advances, and every
-    /// A2 regulator checks its room.</summary>
+    /// A2 regulator checks its room. One plain pass over the world, one dictionary probe per object.</summary>
     private void Update()
     {
         if (UnityEngine.Time.unscaledTime < nextScan) return;
         nextScan = UnityEngine.Time.unscaledTime + 2;
         if (!Content.Ready || CrewSim.objInstance == null || !CrewSim.objInstance.FinishedLoading || DataHandler.mapCOs == null) return;
-        foreach (var co in DataHandler.mapCOs.Values.Where(c => c != null && GasStores.IsFamily(c.strCODef) && c.HasCond("IsDamaged") && c.HasCond("IsInstalled")).ToArray())
-            StoreService.Tick(co);
-        foreach (var co in DataHandler.mapCOs.Values.Where(c => c != null && c.strCODef == RegulatorRules.Installed).ToArray())
+        using var measurement = Phobos.Ostranauts.Framework.Diagnostics.Performance.Measure(PerformanceMetrics.Scan);
+        damagedStores.Clear(); regulators.Clear();
+        foreach (var c in DataHandler.mapCOs.Values)
         {
+            if (c == null) continue;
+            if (c.strCODef == RegulatorRules.Installed) regulators.Add(c);
+            else if (GasStores.IsFamily(c.strCODef) && c.HasCond("IsDamaged") && c.HasCond("IsInstalled")) damagedStores.Add(c);
+        }
+        foreach (var co in damagedStores) StoreService.Tick(co);
+        foreach (var co in regulators)
+        {
+            using var tick = Phobos.Ostranauts.Framework.Diagnostics.Performance.Measure(PerformanceMetrics.RegulatorTick);
             try { RegulatorService.Tick(co); } catch (Exception ex) { Log(ex.ToString()); }
         }
     }
@@ -62,80 +72,77 @@ public sealed class Plugin : BaseUnityPlugin
 [HarmonyPatch(typeof(Powered), "UsePower", new[] { typeof(CondOwner), typeof(double) })]
 internal static class PowerPatch
 {
-    internal sealed class PowerState { internal bool Finished; internal RefineryService.Transfer? Refinery; internal ProcessorService.Transfer? Processor; internal SabatierService.Transfer? Reactor; internal FillerService.Transfer? Filler; }
-    private static bool Prefix(Powered __instance, CondOwner __0, ref double __1, out PowerState __state)
+    // The game calls these for every powered object in the world; an appliance that is not ours is classified by one
+    // dictionary probe and leaves no state behind (29 September 2026 performance pass, FF3).
+    internal sealed class PowerState { internal MachineKind Kind; internal bool Finished; internal RefineryService.Transfer? Refinery; internal ProcessorService.Transfer? Processor; internal SabatierService.Transfer? Reactor; internal FillerService.Transfer? Filler; }
+    private static bool Prefix(Powered __instance, CondOwner __0, ref double __1, out PowerState? __state)
     {
-        __state = new PowerState();
+        __state = null;
         if (__0 == null) return true;
-        if (RefineryRules.IsFamily(__0.strCODef))
+        var kind = MachineKinds.Classify(__0.strCODef);
+        if (kind == MachineKind.None) return true;
+        using var measurement = Phobos.Ostranauts.Framework.Diagnostics.Performance.Measure(PerformanceMetrics.PowerHook);
+        var state = __state = new PowerState { Kind = kind };
+        switch (kind)
         {
-            try { return RefineryService.BeginPower(__instance, __0, ref __1, out __state.Refinery); }
-            catch (Exception ex) { RefineryService.Fault(__0, ex); return false; }
+            case MachineKind.Refinery:
+                try { return RefineryService.BeginPower(__instance, __0, ref __1, out state.Refinery); }
+                catch (Exception ex) { RefineryService.Fault(__0, ex); return false; }
+            case MachineKind.Processor:
+                try { return ProcessorService.BeginPower(__instance, __0, ref __1, out state.Processor); }
+                catch (Exception ex) { ProcessorService.Fault(__0, ex); return false; }
+            case MachineKind.Sabatier:
+                try { return SabatierService.BeginPower(__instance, __0, ref __1, out state.Reactor); }
+                catch (Exception ex) { SabatierService.Fault(__0, ex); return false; }
+            default:
+                try { return FillerService.BeginPower(__instance, __0, ref __1, out state.Filler); }
+                catch (Exception ex) { FillerService.Fault(__0, ex); return false; }
         }
-        if (ProcessorRules.IsFamily(__0.strCODef))
-        {
-            try { return ProcessorService.BeginPower(__instance, __0, ref __1, out __state.Processor); }
-            catch (Exception ex) { ProcessorService.Fault(__0, ex); return false; }
-        }
-        if (SabatierRules.IsFamily(__0.strCODef))
-        {
-            try { return SabatierService.BeginPower(__instance, __0, ref __1, out __state.Reactor); }
-            catch (Exception ex) { SabatierService.Fault(__0, ex); return false; }
-        }
-        if (FillerRules.IsFamily(__0.strCODef))
-        {
-            try { return FillerService.BeginPower(__instance, __0, ref __1, out __state.Filler); }
-            catch (Exception ex) { FillerService.Fault(__0, ex); return false; }
-        }
-        return true;
     }
-    private static void Postfix(Powered __instance, CondOwner __0, PowerState __state)
+    private static void Postfix(Powered __instance, CondOwner __0, PowerState? __state)
     {
-        if (__0 == null) return;
-        if (RefineryRules.IsFamily(__0.strCODef))
+        if (__state == null || __0 == null) return;
+        using var measurement = Phobos.Ostranauts.Framework.Diagnostics.Performance.Measure(PerformanceMetrics.PowerHook);
+        try
         {
-            try { RefineryService.FinishPower(__instance, __0, __state.Refinery); RefineryService.AfterPower(__0); }
-            catch (Exception ex) { RefineryService.Fault(__0, ex); }
-            finally { __state.Finished = true; }
+            switch (__state.Kind)
+            {
+                case MachineKind.Refinery: RefineryService.FinishPower(__instance, __0, __state.Refinery); RefineryService.AfterPower(__0); break;
+                case MachineKind.Processor: ProcessorService.FinishPower(__instance, __0, __state.Processor); break;
+                case MachineKind.Sabatier: SabatierService.FinishPower(__instance, __0, __state.Reactor); break;
+                default: FillerService.FinishPower(__instance, __0, __state.Filler); break;
+            }
         }
-        else if (ProcessorRules.IsFamily(__0.strCODef))
+        catch (Exception ex) { Fault(__state.Kind, __0, ex); }
+        finally { __state.Finished = true; }
+    }
+    private static void Fault(MachineKind kind, CondOwner co, Exception ex)
+    {
+        switch (kind)
         {
-            try { ProcessorService.FinishPower(__instance, __0, __state.Processor); }
-            catch (Exception ex) { ProcessorService.Fault(__0, ex); }
-            finally { __state.Finished = true; }
-        }
-        else if (SabatierRules.IsFamily(__0.strCODef))
-        {
-            try { SabatierService.FinishPower(__instance, __0, __state.Reactor); }
-            catch (Exception ex) { SabatierService.Fault(__0, ex); }
-            finally { __state.Finished = true; }
-        }
-        else if (FillerRules.IsFamily(__0.strCODef))
-        {
-            try { FillerService.FinishPower(__instance, __0, __state.Filler); }
-            catch (Exception ex) { FillerService.Fault(__0, ex); }
-            finally { __state.Finished = true; }
+            case MachineKind.Refinery: RefineryService.Fault(co, ex); break;
+            case MachineKind.Processor: ProcessorService.Fault(co, ex); break;
+            case MachineKind.Sabatier: SabatierService.Fault(co, ex); break;
+            default: FillerService.Fault(co, ex); break;
         }
     }
     private static void Finalizer(Powered __instance, CondOwner __0, PowerState? __state)
     {
+        if (__state == null || __0 == null) return;
         // An exceptional native call can already have debited electricity: account its witnessed delivery once.
         try
         {
-            if (__state != null && !__state.Finished && __0 != null)
-            {
-                if (RefineryRules.IsFamily(__0.strCODef)) RefineryService.FinishPower(__instance, __0, __state.Refinery);
-                else if (ProcessorRules.IsFamily(__0.strCODef)) ProcessorService.FinishPower(__instance, __0, __state.Processor);
-                else if (SabatierRules.IsFamily(__0.strCODef)) SabatierService.FinishPower(__instance, __0, __state.Reactor);
-                else if (FillerRules.IsFamily(__0.strCODef)) FillerService.FinishPower(__instance, __0, __state.Filler);
-            }
+            if (!__state.Finished)
+                switch (__state.Kind)
+                {
+                    case MachineKind.Refinery: RefineryService.FinishPower(__instance, __0, __state.Refinery); break;
+                    case MachineKind.Processor: ProcessorService.FinishPower(__instance, __0, __state.Processor); break;
+                    case MachineKind.Sabatier: SabatierService.FinishPower(__instance, __0, __state.Reactor); break;
+                    default: FillerService.FinishPower(__instance, __0, __state.Filler); break;
+                }
         }
         catch (Exception ex) { Plugin.Log(ex.Message); }
-        finally
-        {
-            if (__0 != null && (RefineryRules.IsFamily(__0.strCODef) || ProcessorRules.IsFamily(__0.strCODef) || SabatierRules.IsFamily(__0.strCODef) || FillerRules.IsFamily(__0.strCODef)))
-            { RefineryService.Forget(__instance); ProcessorService.Forget(__instance); SabatierService.Forget(__instance); FillerService.Forget(__instance); }
-        }
+        finally { RefineryService.Forget(__instance); ProcessorService.Forget(__instance); SabatierService.Forget(__instance); FillerService.Forget(__instance); }
     }
 }
 
@@ -147,10 +154,16 @@ internal static class PowerDemandPatch
     {
         var machine = __instance.CO;
         if (machine == null) return;
-        if (RefineryRules.IsFamily(machine.strCODef)) { try { RefineryService.BeforePower(machine); } catch (Exception ex) { RefineryService.Fault(machine, ex); } }
-        else if (ProcessorRules.IsFamily(machine.strCODef)) { try { ProcessorService.BeforePower(machine); } catch (Exception ex) { ProcessorService.Fault(machine, ex); } }
-        else if (SabatierRules.IsFamily(machine.strCODef)) { try { SabatierService.BeforePower(machine); } catch (Exception ex) { SabatierService.Fault(machine, ex); } }
-        else if (FillerRules.IsFamily(machine.strCODef)) { try { FillerService.BeforePower(machine); } catch (Exception ex) { FillerService.Fault(machine, ex); } }
+        var kind = MachineKinds.Classify(machine.strCODef);
+        if (kind == MachineKind.None) return;
+        using var measurement = Phobos.Ostranauts.Framework.Diagnostics.Performance.Measure(PerformanceMetrics.MachineStep);
+        switch (kind)
+        {
+            case MachineKind.Refinery: try { RefineryService.BeforePower(machine); } catch (Exception ex) { RefineryService.Fault(machine, ex); } break;
+            case MachineKind.Processor: try { ProcessorService.BeforePower(machine); } catch (Exception ex) { ProcessorService.Fault(machine, ex); } break;
+            case MachineKind.Sabatier: try { SabatierService.BeforePower(machine); } catch (Exception ex) { SabatierService.Fault(machine, ex); } break;
+            default: try { FillerService.BeforePower(machine); } catch (Exception ex) { FillerService.Fault(machine, ex); } break;
+        }
     }
 }
 
@@ -210,7 +223,9 @@ internal static class MaintenanceOffer
 {
     private static void Postfix(Interaction __instance, CondOwner objUs, CondOwner objThem, ref bool __result)
     {
-        var reason = __result ? MaintenanceFinish.Reason(__instance.strName, objUs, objThem) : null;
+        // This runs for every offer the game evaluates: our machines are recognised before any name search.
+        if (!__result || __instance.strName == null || !Content.Machine(objUs) && !Content.Machine(objThem)) return;
+        var reason = MaintenanceFinish.Reason(__instance.strName, objUs, objThem);
         if (reason != null) { __instance.AddFailReason("main", reason); __result = false; }
     }
 }
@@ -219,11 +234,11 @@ internal static class MaintenanceFinish
 {
     internal static string? Reason(string action, CondOwner? us, CondOwner? them)
     {
+        var machine = Content.Machine(us) ? us : Content.Machine(them) ? them : null;
+        if (machine == null || action == null) return null;
         bool dismantle = action.IndexOf("Dismantle", StringComparison.OrdinalIgnoreCase) >= 0;
         bool removal = dismantle || action.IndexOf("Uninstall", StringComparison.OrdinalIgnoreCase) >= 0;
-        if (!removal) return null;
-        var machine = new[] { us, them }.FirstOrDefault(Content.Machine);
-        return machine == null ? null : Content.MaintenanceReason(machine, dismantle);
+        return removal ? Content.MaintenanceReason(machine, dismantle) : null;
     }
     private static bool Prefix(Interaction __instance)
     {
