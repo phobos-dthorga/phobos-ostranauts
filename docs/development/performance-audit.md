@@ -282,6 +282,18 @@ still format per step. Trade-offs: up to two real seconds of elapsed flight budg
 crash (never on a save); contact readings and hardware verdicts shared within one
 physics step; sensor release decided twice a second.
 
+### Stage 6: War Declared 0.1.1 (FF7)
+
+| Finding | Evidence | Decision |
+|---|---|---|
+| W-A poll allocations | Every two real seconds: a LINQ pass and array over the damage marks, a LINQ pass and array over the world's ships | Reused lists; the damage sweep runs only when marks exist (`war.poll`) |
+| W-B schematic facts | `Facts(part)` rebuilt a conditions set from three native lookups on every sort comparison (`Rank`) and again per evaluation, every poll while sites were pending | One `PartFacts` per part until content reloads; `Reset` clears it |
+| W-C blocked sites | A site refused because the player held an item or the ship was not editable was retried on every poll, re-sorting and re-evaluating the whole pending list | `WarRules.RetrySeconds` (10 s real) per ship after a retry disposition; stand-down, a new loss in combat and Lay held clear the wait (`war.lay_pending`) |
+
+Not changed: the damage-check and mode-switch hooks already return on a dictionary
+probe; the poll cadence (2 s real) was already right. Trade-off: a blocked build
+site waits up to ten real seconds after the item is put away.
+
 ## 28 September: construction and maintenance follow-up
 
 R10 — Section assembly uses native work scheduling, hauling and saved lots. There

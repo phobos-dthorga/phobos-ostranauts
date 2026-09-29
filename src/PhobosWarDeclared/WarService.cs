@@ -36,6 +36,8 @@ internal static class WarService
         /// <summary>The saved record could not be read; it is left untouched and nothing new is saved over it.</summary>
         internal bool Protected;
         internal string ProtectedReason = "";
+        /// <summary>Real time before which pending build sites that could not be laid are not tried again.</summary>
+        internal double RetryAt = double.NegativeInfinity;
     }
 
     internal static Settings Options { get; set; } = new();
@@ -43,16 +45,28 @@ internal static class WarService
     private static readonly Dictionary<string, Tally> tallies = new(StringComparer.Ordinal);
     /// <summary>Object IDs whose damage check queued a native switch, with the game time and whether it destroys.</summary>
     private static readonly Dictionary<string, (double At, bool Destroys)> damaged = new(StringComparer.Ordinal);
+    // 29 September 2026 pass (FF7): schematic facts are built once per part until content reloads, and the poll's
+    // working lists are reused rather than allocated.
+    private static readonly Dictionary<string, PartFacts> partFacts = new(StringComparer.Ordinal);
+    private static readonly List<Ship> playerShips = new();
+    private static readonly List<string> expiredDamage = new();
 
-    internal static void Reset() { records.Clear(); tallies.Clear(); damaged.Clear(); }
+    internal static void Reset() { records.Clear(); tallies.Clear(); damaged.Clear(); partFacts.Clear(); }
 
     // ---- Ship scope ------------------------------------------------------------------------------
 
     internal static bool PlayerShip(Ship? ship) => ship != null && !ship.bDestroyed && !string.IsNullOrEmpty(ship.strRegID) &&
         CrewSim.coPlayer != null && CrewSim.system?.GetShipOwner(ship.strRegID) == CrewSim.coPlayer.strID;
 
-    private static IEnumerable<Ship> PlayerShips() => CrewSim.system?.dictShips?.Values
-        .Where(s => PlayerShip(s) && s.LoadState >= Ship.Loaded.Edit).ToArray() ?? Array.Empty<Ship>();
+    private static List<Ship> PlayerShips()
+    {
+        playerShips.Clear();
+        var ships = CrewSim.system?.dictShips;
+        if (ships != null)
+            foreach (var s in ships.Values)
+                if (PlayerShip(s) && s.LoadState >= Ship.Loaded.Edit) playerShips.Add(s);
+        return playerShips;
+    }
 
     private static Record For(Ship ship)
     {
@@ -101,9 +115,16 @@ internal static class WarService
     internal static void Poll()
     {
         if (!Options.Enabled || CrewSim.objInstance == null || !CrewSim.objInstance.FinishedLoading) return;
+        using var measurement = Phobos.Ostranauts.Framework.Diagnostics.Performance.Measure(PerformanceMetrics.Poll);
         double now = StarSystem.fEpoch;
-        foreach (var id in damaged.Where(p => now - p.Value.At > WarRules.PendingDamageSeconds || p.Value.At > now).Select(p => p.Key).ToArray())
-            damaged.Remove(id);
+        if (damaged.Count > 0)
+        {
+            expiredDamage.Clear();
+            foreach (var p in damaged) if (now - p.Value.At > WarRules.PendingDamageSeconds || p.Value.At > now) expiredDamage.Add(p.Key);
+            foreach (var id in expiredDamage) damaged.Remove(id);
+            expiredDamage.Clear();
+        }
+        double real = Phobos.Ostranauts.Framework.Cadence.RealTime;
         foreach (var ship in PlayerShips())
         {
             var record = For(ship);
@@ -113,23 +134,25 @@ internal static class WarService
             var facts = NativeCombat.Facts(ship);
             var change = ledger.Window.Observe(now, facts.Engaged || facts.Targeting,
                 Options.DamageStartsBattle ? facts.LastDamageEpoch : null, Options.QuietSeconds);
-            if (change == WindowChange.Opened) Opened(ship, manual: false);
+            if (change == WindowChange.Opened) Opened(ship, record, manual: false);
             else if (change == WindowChange.Closed) Closed(ship, record, manual: false);
-            if (ledger.LayDue && (!ledger.Window.Open || Options.LayDuringCombat)) LayPending(ship, record);
+            // Build sites that could not be laid (an item in hand, the ship not yet editable) wait RetrySeconds
+            // before the next attempt; a stand-down, a new loss or a Lay held order tries at once.
+            if (ledger.LayDue && (!ledger.Window.Open || Options.LayDuringCombat) && real >= record.RetryAt) LayPending(ship, record);
             if (change != WindowChange.None) Save(ship, record);
         }
     }
 
-    private static void Opened(Ship ship, bool manual)
+    private static void Opened(Ship ship, Record record, bool manual)
     {
-        tallies.Remove(ship.strRegID);
+        tallies.Remove(ship.strRegID); record.RetryAt = double.NegativeInfinity;
         PlayerNotices.Post(ship, "war-open", NoticeLevel.Caution, Text.Get(manual ? "Notice.declared" : "Notice.detected", Name(ship)),
             Text.Get("Notice.declared_banner"));
     }
 
     private static void Closed(Ship ship, Record record, bool manual)
     {
-        record.Ledger.LayDue = record.Ledger.Count(EntryState.Pending) > 0;
+        record.Ledger.LayDue = record.Ledger.Count(EntryState.Pending) > 0; record.RetryAt = double.NegativeInfinity;
         PlayerNotices.Post(ship, "war-close", NoticeLevel.Info, Text.Get(manual ? "Notice.stood_down" : "Notice.quiet", Name(ship)));
         if (!record.Ledger.LayDue) Summarize(ship, record);
     }
@@ -205,7 +228,7 @@ internal static class WarService
             if (record.Ledger.Entries.All(e => e.Id != id)) TallyFor(ship).Overflow++;
             return;
         }
-        if (Options.LayDuringCombat) record.Ledger.LayDue = true;
+        if (Options.LayDuringCombat) { record.Ledger.LayDue = true; record.RetryAt = double.NegativeInfinity; }
         Save(ship, record);
     }
 
@@ -217,15 +240,23 @@ internal static class WarService
 
     // ---- Laying ----------------------------------------------------------------------------------
 
-    /// <summary>Schematic "conditions" match both the part's own starting conditions and those it puts on its tiles.</summary>
-    internal static PartFacts Facts(string part) => new(part,
-        NativePlaceholders.StartingConditions(part).Concat(NativePlaceholders.TileConditions(part) ?? Array.Empty<string>()), NativePlaceholders.MenuFor(part),
-        NativePlaceholders.Footprint(part) switch
-        {
-            PlaceholderFootprint.Walkable => PartFootprint.Walkable,
-            PlaceholderFootprint.Blocks => PartFootprint.Blocks,
-            _ => PartFootprint.Unknown
-        });
+    /// <summary>Schematic "conditions" match both the part's own starting conditions and those it puts on its tiles.
+    /// Facts depend only on the game's definitions, so each part's are built once until content reloads.</summary>
+    internal static PartFacts Facts(string part)
+    {
+        part ??= "";
+        if (partFacts.TryGetValue(part, out var known)) return known;
+        var facts = new PartFacts(part,
+            NativePlaceholders.StartingConditions(part).Concat(NativePlaceholders.TileConditions(part) ?? Array.Empty<string>()), NativePlaceholders.MenuFor(part),
+            NativePlaceholders.Footprint(part) switch
+            {
+                PlaceholderFootprint.Walkable => PartFootprint.Walkable,
+                PlaceholderFootprint.Blocks => PartFootprint.Blocks,
+                _ => PartFootprint.Unknown
+            });
+        partFacts[part] = facts;
+        return facts;
+    }
 
     /// <summary>Floors before anything that stands on them, then walls, then everything else.</summary>
     private static int Rank(LedgerEntry e)
@@ -237,18 +268,21 @@ internal static class WarService
 
     private static void LayPending(Ship ship, Record record)
     {
+        using var measurement = Phobos.Ostranauts.Framework.Diagnostics.Performance.Measure(PerformanceMetrics.LayPending);
         var ledger = record.Ledger;
         var schematic = Schematics.Active;
         var tally = TallyFor(ship);
-        bool changed = false;
+        bool changed = false, retry = false;
         foreach (var entry in ledger.LayOrder(EntryState.Pending, Rank))
         {
             var action = schematic.Evaluate(Facts(entry.Part), out _);
             if (action == SchematicAction.Ignore) { ledger.Remove(entry); tally.Ignored++; changed = true; continue; }
             if (action == SchematicAction.Hold) { entry.State = EntryState.Held; entry.Reason = "Schematic"; tally.Held++; changed = true; continue; }
             var disposition = ledger.Apply(entry, Lay(ship, entry));
+            if (disposition == LayDisposition.Retry) retry = true;
             changed |= Count(tally, disposition);
         }
+        record.RetryAt = retry ? Phobos.Ostranauts.Framework.Cadence.RealTime + WarRules.RetrySeconds : double.NegativeInfinity;
         if (ledger.Count(EntryState.Pending) == 0)
         {
             ledger.LayDue = false; changed = true;
@@ -306,7 +340,7 @@ internal static class WarService
     {
         if (!Usable(ship, out message)) return false;
         var record = For(ship!);
-        if (record.Ledger.Window.Declare(StarSystem.fEpoch) == WindowChange.Opened) Opened(ship!, manual: true);
+        if (record.Ledger.Window.Declare(StarSystem.fEpoch) == WindowChange.Opened) Opened(ship!, record, manual: true);
         Save(ship!, record);
         message = Text.Get("Order.declared", Name(ship!));
         return true;
@@ -342,6 +376,7 @@ internal static class WarService
                 default: busy++; entry.State = EntryState.Held; break;
             }
         }
+        record.RetryAt = double.NegativeInfinity; // A player order restarts the automatic attempts at once.
         Save(ship!, record);
         message = Text.Get("Order.laid_held", laid, still + busy, gone);
         if (busy > 0) message += " " + Text.Get("Order.put_item_away");

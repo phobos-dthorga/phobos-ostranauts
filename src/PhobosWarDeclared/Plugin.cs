@@ -18,8 +18,8 @@ namespace PhobosWarDeclared;
 public sealed class Plugin : BaseUnityPlugin
 {
     public const string Id = WarRules.Owner;
-    public const string Version = "0.1.0";
-    public const string MinimumFrameworkVersion = "0.43.0";
+    public const string Version = "0.1.1";
+    public const string MinimumFrameworkVersion = "0.45.0";
     internal static Action<string> Log = _ => { };
     private static ConfigEntry<string>? schematic;
     private Harmony? harmony;
@@ -28,6 +28,7 @@ public sealed class Plugin : BaseUnityPlugin
     private void Awake()
     {
         Log = x => Logger.LogInfo(x); Text.EnsureLoaded();
+        PerformanceMetrics.Initialize();
         var options = new WarService.Settings
         {
             Enabled = Config.Bind("General", "Enabled", true, Text.Get("Config.enabled")).Value,

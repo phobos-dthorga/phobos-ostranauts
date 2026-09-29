@@ -18,6 +18,10 @@ public static class WarRules
     public const string DefaultSchematic = "safe";
     /// <summary>How often ships are checked for combat facts and due work (real seconds).</summary>
     public const float PollSeconds = 2;
+    /// <summary>Real seconds before build sites that could not be laid (an item in hand, the ship not yet editable,
+    /// an unexpected failure with attempts left) are tried again. They stay pending; a Lay held order or a fresh
+    /// stand-down tries at once.</summary>
+    public const double RetrySeconds = 10;
     /// <summary>A damage switch the game queued but never ran is forgotten after this much game time.</summary>
     public const double PendingDamageSeconds = 300;
     /// <summary>Attempts before a part that keeps failing for an unexpected reason is held for the player.</summary>

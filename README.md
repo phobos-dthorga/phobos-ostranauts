@@ -42,7 +42,7 @@ published-release or installed-version claims. Current build baseline:
 | **Phobos Auto Nav** | 0.28.0 | Shared Polaris hub: N1 navigation/docking, N2 pursuit and N3 limited volleys/optional aiming | Earlier guidance has owner-reported gameplay success; current features need evaluation; [guide](docs/development/auto-navigate-adaptation.md) |
 | **Phobos Agriculture** | 0.21.0 | Potato/lettuce cultivation, visible growth, nutrient-solution piping and galley cooking | First gameplay candidate; [guide](docs/agriculture-player-guide.md) |
 | **Phobos Manufacturing** | 0.6.0 | Fennmark V4 refinery, X2 electrolysis cell, K2 Sabatier reactor, gas stores in three sizes, L2 canister filling station, A2 cabin air regulator and P1 RCS manifold: mined ore into water, metal stock, oxygen, cabin air, bottled gas and thruster propellant | Requires Framework 0.45.0; water from an S3 or R3; [player guide](docs/manufacturing-player-guide.md) |
-| **Phobos' War Has Been Declared** | 0.1.0 | Battle stations log parts destroyed on your ships; standing down lays the game's own build sites where they stood, filtered by player-editable rebuild schematics | Requires Framework 0.43.0; no items; [player guide](docs/war-declared-player-guide.md) |
+| **Phobos' War Has Been Declared** | 0.1.1 | Battle stations log parts destroyed on your ships; standing down lays the game's own build sites where they stood, filtered by player-editable rebuild schematics | Requires Framework 0.45.0; no items; [player guide](docs/war-declared-player-guide.md) |
 
 Approach Assist has been retired and removed; its prototype remains in Git history. Medical systems and asteroid life-support processing remain proposals.
 External hull cutting is bounded to supported ordinary walls; broader structural

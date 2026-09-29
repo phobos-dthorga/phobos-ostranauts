@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "date": "2026-09-29",
-  "baselineCommit": "112c621c20423d331757de1a5b1e021d376ae444",
+  "baselineCommit": "8f020768d889a8d46c07eac23b8530c2fb442374",
   "report": "docs/development/performance-audit.md",
   "reviewBoundary": "First-party mod C# source. Static coverage plus deeper hotspot/caller review; not formal verification, a third-party audit or an after-performance measurement.",
   "files": [
@@ -7015,50 +7015,64 @@
     },
     {
       "path": "src/PhobosWarDeclared/Core/WarRules.cs",
-      "sha256": "118fb11686beaf2666f54341f4ff4286204bf5bc075dc9e4093f736e10ae1c5f",
+      "sha256": "790b3d750fb7679067558ce1424478ebad98507784a27f994db2b9d696a55aa2",
       "role": "registration, metadata or event-driven content",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
       "decision": "Reviewed in the 2026-09-29 performance pass; see the linked findings for the disposition.",
       "findings": [
-        "FF0"
+        "FF0",
+        "FF7"
+      ],
+      "indicators": {},
+      "reviewed": "2026-09-29"
+    },
+    {
+      "path": "src/PhobosWarDeclared/PerformanceMetrics.cs",
+      "sha256": "a8e67eaf216a84fa3ef802b8189c0765fb6e3f681cf8280a537cf592f9fbfec0",
+      "role": "industrial service, native boundary or process policy",
+      "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
+      "decision": "Reviewed in the 2026-09-29 performance pass; see the linked findings for the disposition.",
+      "findings": [
+        "FF7"
       ],
       "indicators": {},
       "reviewed": "2026-09-29"
     },
     {
       "path": "src/PhobosWarDeclared/Plugin.cs",
-      "sha256": "3ac0dd43450b8fa9e23d84e86eb915305e3bafa953dcfe7270916f1e573ab8c8",
+      "sha256": "0ed64e107d38f308bdb95fd599e059ad4edd01a11f6c8e895873071831a58cde",
       "role": "industrial service, native boundary or process policy",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
       "decision": "Reviewed in the 2026-09-29 performance pass; see the linked findings for the disposition.",
       "findings": [
-        "FF0"
+        "FF0",
+        "FF7"
       ],
       "indicators": {
         "persistence_or_io": [
-          46,
-          52,
-          77,
-          107,
-          119,
-          124,
-          134
+          47,
+          53,
+          78,
+          108,
+          120,
+          125,
+          135
         ],
         "collection": [
-          59,
-          105,
-          141
+          60,
+          106,
+          142
         ],
         "runtime_hook": [
-          71,
-          76,
-          89,
-          112,
-          128,
-          138,
-          146,
-          155,
-          167
+          72,
+          77,
+          90,
+          113,
+          129,
+          139,
+          147,
+          156,
+          168
         ]
       },
       "reviewed": "2026-09-29"
@@ -7100,35 +7114,38 @@
     },
     {
       "path": "src/PhobosWarDeclared/WarService.cs",
-      "sha256": "5c81a198d4ddf0b0de70f64c72bb66166b1620204250945e3a536c5a0b121c6a",
+      "sha256": "f77441f37d1f28cba53713780f0ccb1f89eca2fbe6d14ee3c8af16b4ec571baa",
       "role": "industrial service, native boundary or process policy",
       "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
       "decision": "Reviewed in the 2026-09-29 performance pass; see the linked findings for the disposition.",
       "findings": [
-        "FF0"
+        "FF0",
+        "FF7"
       ],
       "indicators": {
         "discovery": [
-          54
-        ],
-        "collection": [
-          55,
-          105,
-          291,
-          299,
-          363
+          64
         ],
         "persistence_or_io": [
-          64,
-          71,
-          80,
-          81,
-          89,
-          90,
-          274
+          78,
+          85,
+          94,
+          95,
+          103,
+          104,
+          308
         ],
         "runtime_hook": [
-          101
+          115
+        ],
+        "profiling": [
+          118,
+          271
+        ],
+        "collection": [
+          325,
+          333,
+          398
         ]
       },
       "reviewed": "2026-09-29"

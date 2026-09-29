@@ -45948,8 +45948,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "98638fe87475dec32afe4519dd291778de5b4e6915cf89b00eac757595026b75",
-      "review": "29 September 2026 performance pass, stage 5 (Auto Nav 0.28.0): reviewed with this change; wording, links and maintained values checked."
+      "sha256": "79dc47dc7a0c289806c0329a2288065d1636cf3dcfa71307a9d582956e76843d",
+      "review": "29 September 2026 performance pass, stage 6 (War Declared 0.1.1): reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "SUPPORT.md",
@@ -46631,8 +46631,8 @@
       "path": "docs/development/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "3e5efba9a4d1ffa0f4755cc079ddadc0268060668dd7d50c0e1eea08607da8cd",
-      "review": "29 September 2026 performance pass, stage 5 (Auto Nav 0.28.0): reviewed with this change; wording, links and maintained values checked."
+      "sha256": "3928831d747a0ecce423c7dd0b7de885da91274895f031fd52630fbb72b76f29",
+      "review": "29 September 2026 performance pass, stage 6 (War Declared 0.1.1): reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "docs/development/phobos-framework.md",
@@ -46906,8 +46906,8 @@
       "path": "docs/installing-mods.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "0b247f34557a6f67c87feb39699d1b09e00d7822dda11e5ebf021aadd7752826",
-      "review": "Performance pass stage 4 (Manufacturing 0.6.0), 29 September 2026: reviewed with this change; wording, links and maintained values checked."
+      "sha256": "662e340cd0f14727031a5b3427078341032c438ccb98a6029a9d4cb16e134b5d",
+      "review": "29 September 2026 performance pass, stage 6 (War Declared 0.1.1): reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "docs/item-references.md",
@@ -47067,8 +47067,8 @@
       "path": "docs/war-declared-item-reference.md",
       "scope": "generated player item reference",
       "decision": "new",
-      "sha256": "dd348ae13cee4364109c03f3e09195e5c67c81004cc7ddbd4dd8bfcab324879e",
-      "review": "2026-09-29 (War Has Been Declared 0.1.0): Generated: no items; orders on the game's navigation stations."
+      "sha256": "8545ce5bbbf417b550cdb655f30dfeb9f7da54b0a1169bfee31b707b31dff181",
+      "review": "29 September 2026 performance pass, stage 6 (War Declared 0.1.1): reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "docs/development/war-declared-design.md",
@@ -47081,8 +47081,8 @@
       "path": "workshop/PhobosWarDeclared/page.bbcode",
       "scope": "current Workshop page draft (held)",
       "decision": "new",
-      "sha256": "2dad2d1caf442f96107071e571351d54a8c8f7f06cfc51f47a7c6b27984c794b",
-      "review": "2026-09-29 (safe-walls schematic): Adds the Safe plus walls bullet; still a held draft."
+      "sha256": "51e5285ce538ed4e91c87df2efb46fd4d07af0f11f23d329b2456f9da10a6e86",
+      "review": "29 September 2026 performance pass, stage 6 (War Declared 0.1.1): reviewed with this change; wording, links and maintained values checked."
     }
   ],
   "surfaces": [
@@ -47168,8 +47168,8 @@
     {
       "path": "mods/PhobosWarDeclared/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "3c3305b1ab67f22a2b5946ed3e4cd4425b18efdd7464eb5f8669e444e5e38070",
-      "review": "2026-09-29 (War Has Been Declared 0.1.0): Native mod list notes: what it does, Framework minimum, not gameplay-validated."
+      "sha256": "5ad99811b58aa2a4fc3a39afa790385cf9cf2dd01a0d2426285a7171046e9211",
+      "review": "29 September 2026 performance pass, stage 6 (War Declared 0.1.1): reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "mods/PhobosWarDeclared/schematics/safe.json",

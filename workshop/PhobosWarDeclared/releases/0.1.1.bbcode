@@ -1,0 +1,16 @@
+[h1]Phobos' War Has Been Declared 0.1.1[/h1]
+[b]Draft - not published | 2026-09-29[/b]
+
+[h2]Changed[/h2]
+
+[list]
+[*]Performance pass, stage 6 (the game crawls at fast-forward). The two-second check over your ships no longer allocates lists of ships and expired damage marks each time, and a part's schematic facts (its conditions, INSTALL tab and footprint) are worked out once per part instead of on every sort comparison and evaluation while build sites are being laid.
+[*]Build sites that could not be laid because you were holding an item, or because the ship was not yet editable, are tried again every ten real seconds rather than at every check. They stay pending; standing down, a new loss during combat or Lay held build sites tries at once.
+[*]Recorder scopes war.poll and war.lay_pending.
+[/list]
+
+[h2]Compatibility and limits[/h2]
+
+[list]
+[*]Requires Phobos Framework 0.45.0 or newer. Saved battle logs, schematics and orders are unchanged. Offline checks are not gameplay validation.
+[/list]
