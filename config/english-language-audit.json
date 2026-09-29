@@ -44513,8 +44513,8 @@
       "path": "docs/development/workshop-publication.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "c50c0a64e97c5eb6ee4843926cdfe45e5aa7b4caec6666b3fb43e48dd484a81f",
-      "review": "2026-09-29 (War Has Been Declared 0.1.0): Six mods with Draft baselines; War Has Been Declared held for owner checks and a cover."
+      "sha256": "591b411e7b48c3c5b2359997cf7e7cd03e46f655715e7f774ba1400d86d3d878",
+      "review": "2026-09-29 (War Has Been Declared, documentation pass): War Has Been Declared no longer awaits a cover; both held mods wait on owner gameplay checks."
     },
     {
       "path": "docs/development/workshop-upload-preparation.md",
@@ -44646,8 +44646,8 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "959493d6f2afdc987273b5d1fb7eafd5797034bb708adfc5bdd602c41adadc4d",
-      "review": "2026-09-29 (War Has Been Declared 0.1.0): Framework version summary only (0.43.0)."
+      "sha256": "d5bed3bc17e346f32bada39c634d1bba01e71c58a8d2cc02a311ea64b169121e",
+      "review": "2026-09-29 (War Has Been Declared, documentation pass): Link to the War Has Been Declared guide in the current-guide list."
     },
     {
       "path": "docs/residue-collector.md",
@@ -44758,8 +44758,8 @@
       "path": "docs/war-declared-player-guide.md",
       "scope": "current player operating guide",
       "decision": "new",
-      "sha256": "aecf2a0c1247010f89d08668bbe580b8d2d3e1cdc319244cb740253fa5d1c8ce",
-      "review": "2026-09-29 (War Has Been Declared 0.1.0): Steps first: battle stations, stand down, build sites, Lay held; schematic format; F3, settings, limits and owner checks."
+      "sha256": "94c6c90b7ddf94521f1852807bc5900c435b8a6999f8155a5a8af373a03ea19f",
+      "review": "2026-09-29 (War Has Been Declared, documentation pass): Illustration and flowcharts (fight, per-part decisions, battle stations, rule choice); shipped-schematic matrix, rule examples, orders table and troubleshooting table; steps and limits unchanged."
     },
     {
       "path": "docs/war-declared-item-reference.md",
@@ -44772,8 +44772,8 @@
       "path": "docs/development/war-declared-design.md",
       "scope": "developer design record",
       "decision": "new",
-      "sha256": "d212a36f169ea914c4f1f18eb9cedcbde294f72687e75e72c44e8e351a36aeac",
-      "review": "2026-09-29 (War Has Been Declared 0.1.0): Owner decisions, engine evidence, Framework services, content design, deferred walk-through build sites."
+      "sha256": "b5a7a7479219d856237b28e35bd90c0b6343dce00abcb167f9e1fd838c2132aa",
+      "review": "2026-09-29 (War Has Been Declared, documentation pass): Adds architecture, capture, rebuild-target and lay flowcharts; content unchanged."
     },
     {
       "path": "workshop/PhobosWarDeclared/page.bbcode",

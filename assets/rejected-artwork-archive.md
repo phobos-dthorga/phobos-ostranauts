@@ -53,3 +53,11 @@ The bulk-silo PixelLab pass (S3 silo, T2 thaw unit, ingots and steel melt remain
 | [assets/artwork-completion/source/aluminium-ingot-rejected-hatch.png](https://github.com/phobos-dthorga/phobos-ostranauts/blob/1df5784356d8ee2f583032c42ce14032d73b5df0/assets/artwork-completion/source/aluminium-ingot-rejected-hatch.png) | Aluminium ingot (Pixen): reads as a riveted floor hatch. |
 | [assets/artwork-completion/references/aluminium-ingot-start.png](https://github.com/phobos-dthorga/phobos-ostranauts/blob/1df5784356d8ee2f583032c42ce14032d73b5df0/assets/artwork-completion/references/aluminium-ingot-start.png) | Aluminium ingot start drawing, input only of the four rejected/superseded Pixflux passes. |
 | [assets/artwork-completion/source/steel-melt-remainder-rejected-flat.png](https://github.com/phobos-dthorga/phobos-ostranauts/blob/1df5784356d8ee2f583032c42ce14032d73b5df0/assets/artwork-completion/source/steel-melt-remainder-rejected-flat.png) | Steel melt remainder: near copy of the flat start drawing. |
+
+## Added 29 September 2026 (War Has Been Declared)
+
+The mod's guide storyboard (intact corridor, after the fight, build sites laid) was tried once with PixelLab and rejected; it was never committed to main. The request, seed, job ID and review note are in [composed.json](workshop/composed.json) under `rejected`. The selected cover scene and its composition stay on main.
+
+| Archived image | Reason |
+| --- | --- |
+| [assets/workshop/sources/PhobosWarDeclared-storyboard-rejected.png](https://github.com/phobos-dthorga/phobos-ostranauts/blob/1255c3b3dc515ed1747948424bc740aa9f158959/assets/workshop/sources/PhobosWarDeclared-storyboard-rejected.png) | Third panel drew the build sites as a cracked-glass overlay plus one dark tile, which would misrepresent the game's half-strength build sites; the cover scene shows them correctly. |

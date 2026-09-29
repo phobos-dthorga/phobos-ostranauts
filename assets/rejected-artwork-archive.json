@@ -238,6 +238,11 @@
       "commit": "1df5784356d8ee2f583032c42ce14032d73b5df0",
       "date": "2026-09-29",
       "note": "Bulk-silo PixelLab pass: rejected and superseded outputs never committed to main, archived directly. Requests, seeds and reasons: assets/artwork-completion/bulk-silo-requests.json."
+    },
+    {
+      "commit": "1255c3b3dc515ed1747948424bc740aa9f158959",
+      "date": "2026-09-29",
+      "note": "War Has Been Declared guide storyboard: one rejected PixelLab output, never committed to main, archived directly. Request, seed and reason: assets/workshop/composed.json (rejected)."
     }
   ]
 }

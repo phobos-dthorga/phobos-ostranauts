@@ -3,6 +3,7 @@ from pathlib import Path
 import argparse
 import os
 import re
+import shutil
 
 ROOT = Path(__file__).resolve().parents[1]
 REMOTE = 'https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/'
@@ -53,6 +54,14 @@ def package_documents(package, readme='', root=ROOT):
         'assets/phobos-furnace/coolant-conduit-reuse.md': 'coolant-conduit-reuse.md',
     }.items():
         if (package / output).exists():
+            mapping[(root / source).resolve()] = package / output
+    # Guide illustrations are copied so the flattened guides show them offline.
+    for source, output in {
+        'assets/workshop/previews/PhobosWarDeclared-512.png': 'images/war-declared-cover.png',
+    }.items():
+        if (root / source).is_file():
+            (package / output).parent.mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(root / source, package / output)
             mapping[(root / source).resolve()] = package / output
     for source in sources:
         destination = mapping[source.resolve()]

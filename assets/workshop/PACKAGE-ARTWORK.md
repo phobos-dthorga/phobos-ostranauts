@@ -20,6 +20,13 @@ as design references. The prompt, seed, provider IDs and composition steps are
 included in `WORKSHOP-ARTWORK-COMPOSITION.json`. Generated output is subject to
 [PixelLab's terms of service](https://pixellab.ai/termsofservice).
 
+**War Has Been Declared:** composed on 29 September 2026 the same way from one
+PixelLab scene (`create_image_pro`, 244 x 170), with the Shipbreaker cover as its
+style image. The pale-blue outlines stand for the game's own build sites; the image
+is an illustration of the idea, not a gameplay screenshot. Its prompt, seed and
+provider IDs are in `WORKSHOP-ARTWORK-COMPOSITION.json`. Generated output is subject
+to [PixelLab's terms of service](https://pixellab.ai/termsofservice).
+
 [Blue Bottle Games' Ostranauts](https://store.steampowered.com/app/1022980/Ostranauts/)
 informs the industrial pixel-art style and setting. No game textures, game
 screenshots, third-party mod sprites or official logos were generation inputs.

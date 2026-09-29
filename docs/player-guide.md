@@ -10,6 +10,7 @@ eating. This guide starts with installation and the basic shipbreaking loop.
 - [Electric furnace](furnace-player-guide.md): cast aluminium housings or aluminium
   and steel ingots with power, cooling and room for the products.
 - [Crew orders](crew-automation.md): choose work and approved stores, then enable it.
+- [Battle damage](war-declared-player-guide.md): stand down after a fight and the game's own build sites go back where destroyed parts stood.
 - [Control panels](control-panel-guide.md): Apply/Discard, storage selection and training.
 - [Equipment references](item-references.md): what each item does, where to find it,
   installation, service bills and prices.

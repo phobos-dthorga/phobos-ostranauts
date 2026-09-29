@@ -113,6 +113,82 @@ last damage event time this session. It never touches weapons, targets or AI sta
   definition (`DefinitionAmendments`), offered only when they would do something;
   F3 `phoboswar` mirrors them. UI code only delegates to `WarService`.
 
+## Diagrams
+
+How the pieces divide, with Framework owning the game-facing lookups and content
+owning policy:
+
+```mermaid
+flowchart LR
+    subgraph Framework["Phobos Framework 0.43.0"]
+        NP["Construction.NativePlaceholders: rebuild target, footprint, lay"]
+        NC["Observations.NativeCombat: engaged, targeting, last damage"]
+        OS["Persistence.ObjectStateStore"]
+        PN["Notices.PlayerNotices"]
+    end
+    subgraph Content["War Has Been Declared 0.1.0"]
+        WS["WarService: windows, capture, laying, orders"]
+        CW["Core.CombatWindow"]
+        WL["Core.WarLedger"]
+        SC["Core.Schematic + Schematics loader"]
+    end
+    Game["Ostranauts: DestCheck, ModeSwitch, Destroy, placeholders"] --> WS
+    NC --> WS
+    WS --> CW
+    WS --> WL
+    WS --> SC
+    WS --> NP
+    NP --> Game
+    WL --> OS
+    WS --> PN
+```
+
+The capture pipeline. Nothing here blocks or alters the game's own destruction:
+
+```mermaid
+flowchart TD
+    DC["DestCheck.DamageCheck: StatDamage reaches its maximum and the game queues its switch"] --> Note["DamageQueued: note the object ID and whether the switch destroys"]
+    Note --> Pre["ModeSwitch prefix, BeforeSwitch: keep ID, definition, position, rotation"]
+    Pre --> Post["ModeSwitch postfix, AfterSwitch"]
+    Post --> Q{"Is the new object still an installed part?"}
+    Q -->|"Yes: damaged form"| Stay["Nothing recorded; the game's Repair jobs cover it"]
+    Q -->|"No: wrecked"| Rec["RecordPart: RebuildTarget, ledger entry, save"]
+    Post --> Loose{"Was it a loose item that the switch destroys?"}
+    Loose -->|Yes| Tally["Counted for the after-action line"]
+    Des["CondOwner.Destroy prefix: a damaged installed part removed without a switch"] --> Rec
+```
+
+How a destroyed definition becomes a part to lay (`NativePlaceholders.RebuildTarget`):
+
+```mermaid
+flowchart TD
+    Def["Destroyed definition, for example ItmDoor01ClosedLocked"] --> Intact["IntactFormOf: follow damage back; an overlay follows its base"]
+    Intact --> J1{"Tabbed INSTALL job for it?"}
+    J1 -->|Yes| Use["Rebuild target"]
+    J1 -->|No| U["The game's uninstall job yields a loose part, for example ItmDoor01ClosedLoose"]
+    U --> J2{"Tabbed INSTALL job that takes that loose part?"}
+    J2 -->|Yes| Use2["Its part, for example ItmDoor01Open"]
+    J2 -->|No| None["No rebuild target: reported, never laid"]
+```
+
+Laying one build site (`NativePlaceholders.TryLay`), mirroring the game's own
+save-load path:
+
+```mermaid
+flowchart TD
+    Start["TryLay: ship, part, position, rotation"] --> S1{"Ship loaded for editing?"}
+    S1 -->|No| R1["ShipUnavailable: try again later"]
+    S1 -->|Yes| S2{"Install job and action object known?"}
+    S2 -->|No| R2["NoInstallJob or UnknownPart: reported, dropped"]
+    S2 -->|Yes| S3{"Player holding an inventory item?"}
+    S3 -->|Yes| R3["PlayerBusy: try again later"]
+    S3 -->|No| S4["Temporary part at the spot; Item.CheckFit"]
+    S4 --> S5{"Fits?"}
+    S5 -->|No| R4["DoesNotFit: held"]
+    S5 -->|Yes| S6["GetCOPlaceholder, then Ship.AddCO; temporaries destroyed"]
+    S6 --> R5["Laid: leaves the ledger"]
+```
+
 ## Deferred: walk-through build sites
 
 A patch could skip obstruction conditions for our own tagged placeholders so they

@@ -20,17 +20,25 @@ MANIFEST = 'assets/workshop/composed.json'
 TITLE = {
     'A': ['.XXXX.', 'XXXXXX', 'XX..XX', 'XX..XX', 'XX..XX', 'XXXXXX', 'XXXXXX', 'XX..XX', 'XX..XX', 'XX..XX'],
     'C': ['.XXXXX', 'XXXXXX', 'XX....', 'XX....', 'XX....', 'XX....', 'XX....', 'XX....', 'XXXXXX', '.XXXXX'],
+    'D': ['XXXXX.', 'XXXXXX', 'XX..XX', 'XX..XX', 'XX..XX', 'XX..XX', 'XX..XX', 'XX..XX', 'XXXXXX', 'XXXXX.'],
+    'E': ['XXXXXX', 'XXXXXX', 'XX....', 'XX....', 'XXXXX.', 'XXXXX.', 'XX....', 'XX....', 'XXXXXX', 'XXXXXX'],
     'F': ['XXXXXX', 'XXXXXX', 'XX....', 'XX....', 'XXXXX.', 'XXXXX.', 'XX....', 'XX....', 'XX....', 'XX....'],
     'G': ['.XXXXX', 'XXXXXX', 'XX....', 'XX....', 'XX.XXX', 'XX.XXX', 'XX..XX', 'XX..XX', 'XXXXXX', '.XXXXX'],
     'I': ['XX'] * 10,
+    'L': ['XX....'] * 8 + ['XXXXXX', 'XXXXXX'],
     'M': ['XX....XX', 'XXX..XXX', 'XXXXXXXX', 'XX.XX.XX', 'XX.XX.XX', 'XX....XX', 'XX....XX', 'XX....XX', 'XX....XX', 'XX....XX'],
     'N': ['XX..XX', 'XXX.XX', 'XXX.XX', 'XXXXXX', 'XXXXXX', 'XX.XXX', 'XX.XXX', 'XX..XX', 'XX..XX', 'XX..XX'],
     'R': ['XXXXX.', 'XXXXXX', 'XX..XX', 'XX..XX', 'XXXXXX', 'XXXXX.', 'XX.XX.', 'XX..XX', 'XX..XX', 'XX..XX'],
     'T': ['XXXXXX', 'XXXXXX', '..XX..', '..XX..', '..XX..', '..XX..', '..XX..', '..XX..', '..XX..', '..XX..'],
     'U': ['XX..XX'] * 8 + ['XXXXXX', '.XXXX.'],
+    'W': ['XX....XX'] * 3 + ['XX.XX.XX'] * 3 + ['XXXXXXXX', 'XXXXXXXX', 'XXX..XXX', 'XX....XX'],
+    ' ': ['...'] * 10,
 }
 # Thin 5 x 7 subtitle glyphs, emboldened and stretched to 6 x 8 when drawn.
 SUBTITLE = {
+    'A': ['.XXX.', 'X...X', 'X...X', 'XXXXX', 'X...X', 'X...X', 'X...X'],
+    'B': ['XXXX.', 'X...X', 'X...X', 'XXXX.', 'X...X', 'X...X', 'XXXX.'],
+    'D': ['XXXX.', 'X...X', 'X...X', 'X...X', 'X...X', 'X...X', 'XXXX.'],
     'E': ['XXXXX', 'X....', 'X....', 'XXXX.', 'X....', 'X....', 'XXXXX'],
     'F': ['XXXXX', 'X....', 'X....', 'XXXX.', 'X....', 'X....', 'X....'],
     'I': ['XXX', '.X.', '.X.', '.X.', '.X.', '.X.', 'XXX'],
@@ -41,6 +49,8 @@ SUBTITLE = {
     'R': ['XXXX.', 'X...X', 'X...X', 'XXXX.', 'X.X..', 'X..X.', 'X...X'],
     'S': ['.XXXX', 'X....', 'X....', '.XXX.', '....X', '....X', 'XXXX.'],
     'T': ['XXXXX', '..X..', '..X..', '..X..', '..X..', '..X..', '..X..'],
+    'U': ['X...X'] * 6 + ['.XXX.'],
+    'W': ['X...X', 'X...X', 'X...X', 'X.X.X', 'X.X.X', 'XX.XX', 'X...X'],
     '/': ['....X', '...X.', '...X.', '..X..', '.X...', '.X...', 'X....'],
     ' ': ['.....'] * 7,
 }

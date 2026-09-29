@@ -34,3 +34,17 @@ class DocumentationPackagingTests(unittest.TestCase):
             self.assertTrue((package / 'GUIDES.md').exists())
             module.package_documents(package, 'docs/development/research.md', root)
             self.assertTrue((package / 'development/research.md').exists())
+
+    def test_guide_illustration_is_copied_and_linked_offline(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            (root / 'docs').mkdir()
+            previews = root / 'assets/workshop/previews'
+            previews.mkdir(parents=True)
+            (previews / 'PhobosWarDeclared-512.png').write_bytes(b'png')
+            (root / 'docs/guide.md').write_text('![Cover](../assets/workshop/previews/PhobosWarDeclared-512.png)', encoding='utf-8')
+            package = root / 'package'
+            package.mkdir()
+            module.package_documents(package, '', root)
+            self.assertEqual((package / 'images/war-declared-cover.png').read_bytes(), b'png')
+            self.assertIn('(images/war-declared-cover.png)', (package / 'guide.md').read_text())

@@ -104,6 +104,120 @@
         ],
         "review": "First pilot accepted: matches the sibling covers' palette and pixel density and depicts the V4, X2 and H2 designs. Cylinders show some curvature; acceptable for promotional art, which is exempt from the world-sprite overhead rule."
       }
+    },
+    {
+      "id": "PhobosWarDeclared",
+      "frame": {
+        "path": "assets/workshop/previews/PhobosShipbreaker-512.png",
+        "sha256": "DA1C37E468E7E3129107D048888F3D44066D763E6B8A1E3898C773E50233312E",
+        "note": "Reuses the Shipbreaker cover's border, PHOBOS label and footer; its title, subtitle and scene are replaced."
+      },
+      "scene": {
+        "path": "assets/workshop/sources/PhobosWarDeclared-scene.png",
+        "sha256": "A6BC0AC8A8E8810E5FDCC805A011E825A1008E0E667609D06719B83DA90CF534",
+        "crop": [
+          0,
+          0,
+          244,
+          170
+        ],
+        "scale": 2,
+        "window": [
+          12,
+          141,
+          498,
+          480
+        ]
+      },
+      "header": {
+        "background": [
+          24,
+          29,
+          32
+        ],
+        "clear": [
+          [
+            28,
+            44,
+            499,
+            106
+          ],
+          [
+            24,
+            113,
+            494,
+            136
+          ]
+        ],
+        "title": {
+          "text": "WAR DECLARED",
+          "x": 49,
+          "y": 50,
+          "cell": 5,
+          "body": [
+            237,
+            225,
+            202
+          ],
+          "highlight": [
+            255,
+            250,
+            225
+          ]
+        },
+        "subtitle": {
+          "text": "STAND DOWN / REBUILD",
+          "centre": 254,
+          "y": 120,
+          "advance": 12,
+          "colour": [
+            237,
+            225,
+            202
+          ]
+        }
+      },
+      "generation": {
+        "provider": "PixelLab",
+        "operation": "create_image_pro",
+        "date": "2026-09-29",
+        "jobId": "2f71c67a-c67a-461b-897f-02bea8cf3417",
+        "assetId": "d008ada6-3621-5c04-8772-94b2cdc4e31c",
+        "seed": 29092101,
+        "width": 244,
+        "height": 170,
+        "noBackground": false,
+        "costGenerations": 20,
+        "styleImage": "assets/workshop/previews/PhobosShipbreaker-512.png (public raw GitHub URL of the committed export)",
+        "references": [],
+        "referenceUsage": [],
+        "prompt": "Vertical orthographic camera directly above: overhead top-down view of a cramped spaceship corridor bay just after a battle, top surfaces only, axis-aligned rectangular pieces, no perspective side faces. A stretch of hull is torn open: scorched, cracked grey steel deck plates, a missing wall segment along the top edge showing black space, blackened scorch marks, scattered debris. In the gaps stand translucent pale-blue ghost outlines of a wall segment, floor plates and a doorway, drawn at half strength like construction blueprints where the new parts will go. At the bottom, a neat stack of grey loose wall panels and floor plates on a hand trolley, with a yellow-black hazard-striped toolbox. Two small crew members in worn orange overalls carry a panel toward a ghost outline. Restrained industrial colours: charcoal, slate blue, cream, amber, copper orange, with a pale cyan-blue for the ghost build sites. Chunky readable pixel art, crisp dark outlines, no text.",
+        "review": "First pilot accepted: palette and pixel density match the sibling covers. The pale-blue outlines are the mod's build sites (the game draws its own at half strength); the mod adds no items, so no design references were supplied. The crew show slight three-quarter perspective, acceptable for promotional art, which is exempt from the world-sprite overhead rule. The image illustrates the idea; it is not a gameplay screenshot."
+      }
+    }
+  ],
+  "rejected": [
+    {
+      "id": "PhobosWarDeclared-storyboard",
+      "provider": "PixelLab",
+      "operation": "create_image_pro",
+      "date": "2026-09-29",
+      "jobId": "b638e67b-4ebc-4b5d-b016-3a892b2bad7f",
+      "assetId": "1fc1cf57-3560-5db3-8301-175391d2cbd0",
+      "seed": 29092102,
+      "width": 432,
+      "height": 160,
+      "noBackground": false,
+      "costGenerations": 40,
+      "styleImage": "assets/workshop/previews/PhobosShipbreaker-512.png (public raw GitHub URL of the committed export)",
+      "prompt": "Vertical orthographic camera directly above: a three-panel storyboard strip in one image, three equal square panels side by side separated by thin dark borders, showing the same short stretch of a spaceship corridor in overhead top-down view, top surfaces only, axis-aligned, no perspective side faces. LEFT panel: the intact corridor, a continuous grey steel wall along the top edge, clean grey deck floor plates, a small wall control panel. MIDDLE panel: the same corridor after a battle, a jagged hole where a section of the wall and three floor plates were destroyed, showing black space, scorch marks and debris. RIGHT panel: the same damaged corridor with translucent pale-blue ghost outlines drawn over the gap in the exact shapes of the missing wall section and floor plates, like half-strength blueprints, and one small crew member in orange overalls carrying a grey panel toward the outline. Restrained industrial colours: charcoal, slate blue, cream, copper orange, pale cyan-blue for the ghost outlines. Chunky readable pixel art, crisp dark outlines, no text.",
+      "archived": {
+        "branch": "codex/rejected-artwork",
+        "commit": "1255c3b3dc515ed1747948424bc740aa9f158959",
+        "path": "assets/workshop/sources/PhobosWarDeclared-storyboard-rejected.png",
+        "sha256": "fcf3978af0c8e31ef2c1beb911ea40272e5571ebc9162ba025705a1fbb2a9e57"
+      },
+      "reason": "Not selected: the third panel drew the build sites as a cracked-glass overlay plus one dark tile, and the hole in the second panel did not correspond to the wall in the first. It would misrepresent the game's half-strength build sites. Not retried: the cover scene already shows them correctly."
     }
   ]
 }

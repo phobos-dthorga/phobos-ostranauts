@@ -1,7 +1,7 @@
 # Workshop preview artwork
 
-Five coordinated cover illustrations for Phobos Framework, Auto Nav,
-Shipbreaker, Agriculture and Manufacturing. These are promotional illustrations,
+Six coordinated cover illustrations for Phobos Framework, Auto Nav,
+Shipbreaker, Agriculture, Manufacturing and War Has Been Declared. These are promotional illustrations,
 not gameplay screenshots or a claim of release readiness. Approach Assist and Phobos Scope
 are deliberately outside this set, as selected by the owner on 25 September 2026.
 The owner approved the set and requested native-menu integration on the same day.
@@ -19,6 +19,7 @@ and cultivation. It does not promise unlimited resources or perfect recycling.
 | Phobos Shipbreaker | [512px](previews/PhobosShipbreaker-512.png) | [256px](previews/PhobosShipbreaker-256.png) | Detached-panel processing, electrical casting, recovered materials and retained waste. |
 | Phobos Agriculture | [512px](previews/PhobosAgriculture-512.png) | [256px](previews/PhobosAgriculture-256.png) | Potato and lettuce cultivation; explicitly marked **in development**. |
 | Phobos Manufacturing | [512px](previews/PhobosManufacturing-512.png) | [256px](previews/PhobosManufacturing-256.png) | Volatiles refinery, water-splitting cell and hydrogen store; composed cover (see below). |
+| Phobos' War Has Been Declared | [512px](previews/PhobosWarDeclared-512.png) | [256px](previews/PhobosWarDeclared-256.png) | A torn hull with pale-blue build sites laid where parts were lost and two crew carrying a panel; composed cover (see below). An illustration of the idea, not a screenshot. |
 
 ## Files and branches
 
@@ -92,6 +93,30 @@ holds the prompt, seed, provider IDs, source hashes and layout. Use `--check` to
 verify committed exports without writing. The script writes both preview sizes and
 `mods/PhobosManufacturing/preview.png`. PixelLab output is subject to
 [PixelLab's terms of service](https://pixellab.ai/termsofservice).
+
+## War Has Been Declared: a composed cover
+
+On **29 September 2026** PixelLab's `create_image_pro` produced one 244 x 170 scene
+([retained unchanged](sources/PhobosWarDeclared-scene.png), 20 generations from the
+subscription allowance, no credit purchase). Its style image was the committed
+Shipbreaker cover. The mod adds no items, so no design references were supplied.
+The first pilot was accepted: its palette and pixel density match the set. The
+pale-blue outlines stand for the game's own build sites, which the game draws at
+half strength. The crew show slight three-quarter perspective, acceptable for
+promotional art (the overhead-only rule governs world sprites, not covers).
+
+`python scripts/compose-workshop-cover.py` composes it exactly as for Manufacturing;
+[the composition record](composed.json) holds the prompt, seed, provider IDs and
+layout, and the glyph tables gained the letters this title and subtitle need.
+The same script writes `mods/PhobosWarDeclared/preview.png`, and the player guide
+shows the 512px cover (packaged guides carry a copy in `images/`).
+
+A second generation, a three-panel storyboard (intact, after the fight, build sites
+laid) for the player guide, was **not selected**: it drew the build sites as a
+cracked-glass overlay, which would misrepresent the game's build sites. It cost 40
+generations and was not retried. Its request and reason are in `composed.json`
+under `rejected`; the image lives only on the `codex/rejected-artwork` branch (see
+[the archive record](../rejected-artwork-archive.md)).
 
 ## Native-menu integration
 
