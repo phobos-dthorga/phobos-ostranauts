@@ -5,6 +5,8 @@ metal recovery to replenishing the resources needed to live away from stations.
 New asteroid feedstocks are welcome where they fill a real gap. This document
 records candidates, not implemented ore, guaranteed deposits or verified adapters.
 It complements the [Shipbreaker processing research](shipbreaking-material-processing-research.md).
+The 30 September [feedstock gap record](asteroid-feedstock-gaps.md) maps the
+native mining tables, current Phobos consumers and every candidate new feedstock.
 
 ## Recommended starting point
 

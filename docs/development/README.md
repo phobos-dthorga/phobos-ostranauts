@@ -30,6 +30,7 @@ The [consistency audit](documentation-consistency-audit.md) records the source c
 - [Dedicated item and equipment artwork](artwork-completion.md)
 - [Artwork resolution policy](artwork-resolution-policy.md)
 - [Asset generation: layered ChatGPT bases and PixelLab sprites](asset-generation-policy.md)
+- [Asteroid feedstocks: vanilla inventory, gaps and possibilities](asteroid-feedstock-gaps.md)
 - [Asteroid resources for long-term life support](asteroid-life-support-research.md)
 - [Flight hub validation — Auto Nav 0.14.1](auto-nav-hub-validation.md)
 - [Polaris flight hub — Auto Nav 0.14.1](auto-nav-instruments.md)
