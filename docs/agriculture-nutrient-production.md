@@ -12,6 +12,22 @@ Fixer or Halvorson, or build its loose form at a supported table. Install the
 is 250 cr. Its sealed chamber and original artwork represent an authored
 aggregate recovery process, not a validated digester, sterilizer or chemical lab.
 
+The bench works in two stages, each prepared by crew and then started. What
+comes out the end goes back to the racks through a W2.
+
+```mermaid
+flowchart LR
+    Residue["Recorded Crop Residue"] --> Recovery["B2 crop-residue recovery"]
+    Recovery --> Conc["Recovered Nutrient Concentrate"]
+    Recovery --> Biomass["Spent Crop Biomass, no further recovery"]
+    Conc --> Form["B2 nutrient formulation"]
+    Salts["Groundwork Makeup Salts, bought"] -->|equal mass| Form
+    Form --> Mix["Recovered Crop Nutrient Mixture"]
+    Form --> Spare["Any unused makeup packet"]
+    Mix -->|select the charge| W2["W2 supply unit"]
+    W2 --> Racks["Linked racks"]
+```
+
 1. Harvest or clear a crop planted with this version. Put its **Recorded Crop
    Residue** in B2 Inventory. Older cohorts and old residue retain their existing
    uncharacterized identity and cannot enter this process.

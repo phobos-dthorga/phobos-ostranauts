@@ -1,106 +1,64 @@
 [h1]Phobos Shipbreaker[/h1]
 [b]Version:[/b] 0.39.0
-
-[h2]Performance update[/h2]
-Furnace equipment searches create less temporary data, and industrial panels reuse shared display and ship-search helpers. Cooling, processing speed, heat and material accounting are unchanged.
-Offline checks accompany this draft. Measured improvement and in-game interaction still await owner feedback. [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/development/performance-audit.md]Audit and optional playtesting checks[/url].
-
 [b]Publication status:[/b] Not published - development candidate
 
-Make the wreck pay for the next repair. Rivetline equipment brings wall processing, scrap recovery and aluminium casting aboard your ship.
+Make the wreck pay for the next repair. Rivetline machinery brings wall processing, scrap recovery, metal casting and process water aboard, so a salvage run leaves you with stock, not just a hold full of panels.
 
 [h2]What it does[/h2]
 [list]
-[*]Feed detached structural parts (ordinary walls of any make, floor grates, DuraWal, Whipple and aero panels, windows) through G4 and H4 into D4, load its feed window by hand, or switch on Load feed by crew.
-[*]R4 recovers steel and aluminium from identified R2 panel residue. Rejects remain aboard; running them again yields nothing.
-[*]C2 collects supported residue and products. Link receivers and start transfers separately from processing.
-[*]F6 casts aluminium housings, aluminium ingots or steel ingots using electricity and one cooling assembly. Hot metal and gas stay sealed until safe release.
-[*]Repeat batches lets F6 seal, run, cool, return gas and release each full charge without crew trips, then take the next charge from its paired R4.
-[*]D4 and R4 can unload ordinary products and steel into one chosen storage container over structural floor. Each item costs feeder power; a full store leaves products in the tray.
-[*]Choose direct cooling or F6-C pipes to an exterior radiator. Optional coolant servicing uses separate industrial fluid.
-[*]Prepare an owned, empty, depressurized target for G4 capture and powered ordinary-wall cutting. Recover valuables and crew first.
-[*]Use the C1 console for equipment on your own ship, or work beside each machine. Crew orders can supply and run permitted jobs.
-[*]Version 0.34.0 lets the game lead: long unobserved intervals catch up like native machines, a hot room makes the R4 or the cutter wait and resume by itself, G4 wall eligibility follows the game's own uninstall rule, a refused finish closes its task, and stacked coolant charges are used one at a time.
-[*]Version 0.35.0 feeds by hand: right-click Load feed by crew keeps the D4, R4 or F6 loaded from anywhere aboard until you switch it off, the D4 waits for panels after one Start, every make of ordinary wall (14 to 48 kg) is accepted with products by mass, and loading orders carry on after a reload.
-[*]Version 0.36.0 widens the D4 to floor grates, DuraWal, Whipple and aero panels and windows of any make, each with a mass-conserving budget: native scrap and parts plus one terminal reject packet per family.
-[*]Version 0.37.0 adds the S3 process water silo (1,000 kg, filled at a station, from a T2 or from Ship's Water above a crew reserve, and returned to its waste tanks) and the T2 ice thaw unit (one block of water ice at a time into a linked silo or R3, gangue to its tray, 6 kW for 40 minutes).
-[*]Version 0.38.0 adds F6 recipes: the unchanged housing, four aluminium ingots per charge, or four steel ingots in a hotter, longer cycle. Ingots stack, sell at the general markets and are the raw stock for the coming Manufacturing mod; cutting one back into scrap loses value.
-[*]Version 0.38.1 gives the silo, the thaw unit, both ingots and the steel melt remainder their own overhead artwork.
-[*]Version 0.39.0 lets engineering salvage turn up a single ingot, and the R4 reject and melt remainders trade as trash like the other rejects. The S3 and T2 stay purchase-only.
+[*][b]G4 Exterior Grabber, H4 Sealed Hull Chute and D4 Dismantling Fixture:[/b] break detached walls of any make, floor grates, DuraWal, Whipple and aero panels and windows into native scrap and parts. The products add up to the part's own mass.
+[*][b]R4 Scrap Reclaimer:[/b] recovers steel and aluminium from identified panel residue. Rejects stay aboard and never yield more.
+[*][b]F6 Electric Furnace:[/b] casts aluminium housings, aluminium ingots or steel ingots with electricity and one cooling assembly: direct cooling, or F6-C pipes to an exterior radiator. Hot metal stays sealed until safe release. Repeat batches can draw charges from a paired R4.
+[*][b]C2 Residue Collector[/b] and storage unloading move residue and products over structural floor. A full store leaves cargo in the tray.
+[*][b]S3 Process Water Silo[/b] (1,000 kg) and [b]T2 Ice Thaw Unit[/b]: thaw water ice into the silo, fill it at a station, or draw from Valtora's Ship's Water above a crew reserve.
+[*][b]G4 reclamation:[/b] with Auto Nav, capture an owned, empty, depressurized target and cut its ordinary walls. Recover valuables and crew first.
+[*][b]Phobos' Asterel C1 Industrial Control Console[/b] runs equipment on your own ship from one seat. Crew orders can keep the D4, R4 and F6 loaded from anywhere aboard.
+[/list]
+Full names begin Phobos' Rivetline, for example Phobos' Rivetline F6 Electric Furnace.
+
+[h2]Getting started[/h2]
+[list]
+[*]Buy machinery at the K-Leg and VORB scrap suppliers (broken), the K-Leg fixer (used) or San Diego's Halvorson (new). Build smaller equipment and D4, R4 and F6 sections at an installed Bar or Dining Table, then assemble the machine on site through INSTALL > APPS. The S3 and T2 are purchase-only.
+[*]Arrange grabber, chute and D4 flush in a line, the chute over four intact hull walls. Keep those walls: they are the pressure seal.
+[*]Load parts through the grabber's Inventory, then select crew beside the D4, press F9 and choose Start / resume pipeline. Right-click a machine for Inventory, Control Panel and Load feed by crew.
+[*]In the F3 console, phobosshipbreaker status reports what loaded.
 [/list]
 
-[h2]Operating limits[/h2]
-Keep the supporting hull walls under the sealed chute. Processing needs power, output space and suitable cooling; vacuum is not free cooling. Older unclassified residue has no R4 recipe. Furnace heating and exterior work pause on interruption and require Resume. The thaw unit warms nothing until its linked vessel has room; water is the only silo commodity. A repeat run pauses on any manoeuvre, interruption or manual furnace control, and never restarts heating by itself. Repeat runs and storage unloading pause on reload. Capture does not by itself authorize cutting. Loading preserves cargo and work; a fault may block further work for inspection.
+[h2]Requirements[/h2]
+[list]
+[*]Ostranauts 1.0.1.5, BepInEx 5, Phobos Framework 0.39.0 or newer and Phobos Auto Nav 0.19.0 or newer.
+[*]BepInEx 5 through EddieSM / EsMM27's [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3741030124]BepInEx Mod Loader[/url], including its one-time setup.
+[*]Optional: Phobos Agriculture, Phobos Manufacturing, Valtora's Ship's Water 0.16.1, Crafting Framework and Salvage Workshop.
+[/list]
 
-[h2]Requirements and installation[/h2]
-Ostranauts 1.0.1.5, BepInEx 5, Phobos Framework 0.39.0 or newer and Phobos Auto Nav 0.19.0 or newer. Crafting Framework and Salvage Workshop are optional. Agriculture integration is optional.
+[h2]Installing from the Workshop[/h2]
+[list]
+[*]Subscribe to the BepInEx Mod Loader and follow its setup instructions.
+[*]Subscribe to Phobos Shipbreaker and the Phobos items listed under Required items.
+[*]Start Ostranauts once so the loader copies the plugins, then restart it once so they load. Do the same after each update.
+[*]Check that the mods are enabled in the MODS screen.
+[*]Used the repository's local installer before? Remove those local copies first so only one copy loads. See the [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/installing-mods.md]installation guide[/url].
+[/list]
 
-This is an unpublished development package. Automated checks do not establish in-game readiness or Unity layout approval. Keep required mods installed for saves using their content. Updating does not refill shops or old loot containers. See the installation guide for current download availability.
+[h2]Saves and limits[/h2]
+Ordinary saves are supported. Keep required mods installed while a save uses their content. Updating does not refill existing shops or old loot containers.
+Processing needs power, output space and cooling; vacuum is not free cooling. Furnace heating and exterior work pause on interruption and wait for Resume. Repeat runs and storage unloading pause on reload; crew loading orders carry on. Capture alone does not permit cutting. Older unclassified residue has no R4 recipe. Automated checks pass; in-game evaluation of recent features is ongoing.
 
-[h2]English wording update[/h2]
-Controls, warnings and descriptions use clearer language. Equipment identities, saved progress, recipes and gameplay values are unchanged.
+[h2]Credits and sources[/h2]
+Created by Phobos A. D'thorga (phobosgekko). Independent community work, not endorsed by Blue Bottle Games, Kitfox Games or the research institutions cited in the guides. Research informs design; compact equipment, yields and operating limits remain gameplay choices.
+NASA Goddard's Raven and ESA's LIRIS experiment (Airbus, Jena Optronik and Sodern) inform the capture sensing research; NIST water data informs the ice thaw energy. The linked guides cite each source beside its claim.
+Optional integrations remain their authors' work: [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3757331189]Valtora's Ship's Water[/url], [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3789049955]LOGUSS's Common Sense modules[/url] and [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3788237703]jossla's Study at Terminals[/url].
+Original artwork uses AI-assisted production, including PixelLab; the completion cue is original audio. Provenance and licensing are recorded separately.
 
-[h2]Guides, sources and credits[/h2]
-Created by Phobos A. D'thorga (phobosgekko). Independent community work, not endorsed by Blue Bottle Games, Kitfox Games or the research institutions cited below. Research informs design; compact equipment, yields and operating limits remain gameplay choices.
-The linked guides preserve Blue Bottle Games game evidence and the original research authors beside their claims. Valtora owns the optional Ship's Water integration. LOGUSS's Common Sense modules and jossla's Study at Terminals retain their own work and attribution.
-Original artwork uses AI-assisted production; artwork provenance and licensing are recorded separately.
-
-[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/development/artwork-completion.md]Coverage, previews and PixelLab provenance[/url]
-[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/control-panel-guide.md]Controls and verification limits[/url]
-[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/control-panel-guide.md]Console controls, drafts and owner checks[/url]
-[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/shipbreaker-reclamation.md]Reclamation setup, cooling, limits and recovery[/url]
-[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/development/shipbreaker-capture.md]Capture controls, native evidence and limits[/url]
-[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/solar-system-economy.md]Regional coverage, sources and limits[/url]
-[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/development/shipbreaker-room-load-mitigation.md]Evidence, limits and reload check[/url]
-[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/shared-completion-cues.md]Shared controls and limits[/url]
-[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/development/shipbreaker-completion-cue.md]Completion cue controls and listening checks[/url]
-[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/getting-started.md]Getting started and download status[/url]
-[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/installing-mods.md]Installation and updates[/url]
-[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/player-guide.md]Mod guide[/url]
-[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/furnace-player-guide.md]Furnace operating guide[/url]
-[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/furnace-coolant-conduits.md]Coolant conduit scope[/url]
-[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/development/shipbreaker-autopilot-research.md]Autonomous reclamation research[/url]
-[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/development/shipbreaker-autopilot-handover.md]Implementation sequence[/url]
-[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/development/shipbreaker-close-work-geometry.md]Evidence and selected arrangement[/url]
-[url=https://www.nasa.gov/general/nasas-hybrid-computer-enables-ravens-autonomous-rendezvous-capability/]NASA Goddard's Raven research[/url]
-[url=https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/ATV/ATV_views_Space_Station_as_never_before]ESA's LIRIS experiment, developed by Airbus with Jena Optronik and Sodern[/url]
-[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/SUPPORT.md]Help and bug reports[/url]
-[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/mods/PhobosShipbreaker/CHANGELOG.md]Full changelog[/url]
-[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/assets/phobos-shipbreaker/audio/README.md]Audio provenance and licence[/url]
-[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/LICENSE]Licence and exclusions[/url]
-[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/THIRD_PARTY_NOTICES.md]Third-party notices[/url]
-[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/assets/workshop/README.md]Workshop artwork provenance[/url]
-[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/shipbreaker-item-reference.md]Read this mod’s item reference[/url]
-[url=https://steamcommunity.com/sharedfiles/filedetails/?id=3757331189]Valtora’s Ship’s Water 0.16.1[/url]
-[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/agriculture-nutrient-production.md]Operating guide, economic limits and research attribution[/url]
-[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/development/merchant-stock.md]Current quantities and restocking guide[/url]
-[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/crew-automation.md]Crew controls, time-skip limits and owner checks[/url]
-[url=https://steamcommunity.com/sharedfiles/filedetails/?id=3789049955]LOGUSS’s Common Sense modules[/url]
-[url=https://steamcommunity.com/sharedfiles/filedetails/?id=3788237703]jossla’s Study at Terminals[/url]
-
-[h2]Polaris interface update[/h2]
-Industrial Control has clearer native buttons and selected tabs, with wrapped navigation and actions at narrow widths. Processing, storage and resource accounting are unchanged.
-Browser checks do not establish Unity interaction approval. The recent refresh pacing remains in place; further performance recordings are deferred.
-
-[h2]Polaris readability correction[/h2]
-Dark button faces now keep labels readable in every interaction state. This fixes the white-button regression reported in game. The corrected native appearance still awaits owner playtesting.
-
-[b]Item handling correction[/b]
-Correct loose machinery and conduit pickup/drop actions. D4-S, R4-S and F6-S assembly sections now use the native cumbersome/drag family instead of hand-held scrap behaviour. Sections retain dismantling and remain construction inputs, not installed machines. Existing sections in hands or containers remain where saved. Put a held section down once; future handling uses the drag slot. Requires Phobos Framework 0.30.2. Live menu and inventory handling remain owner-tested.
-
-[b]Merchant and salvage update[/b]
-Raise equipment and section offers to at least 85%, and pipes/coolant to at least 95%, before the availability setting. Fill missing functional stock at general local suppliers. Native engineering rolls can now find one of nine intact/damaged machinery families (40% total), one assembly section (15% total), and one pipe/coolant charge (20% total), as separate bounded choices. Normal restocking and new loot generation are required; existing inventories stay as they are. Offline checks are not gameplay validation.
-
-[b]Item-action audit[/b]
-The complete item-action audit identified an unresolved inventory-access fault in all F6-P thermal port and F6-R radiator forms. Cargo can remain inside without an Inventory button, hiding Uninstall/Dismantle even when cold. Existing saves must retain that cargo; no recovery fix is included in the audit. Loose conduit stacks require an individual piece for dismantling. D4-S remains a cumbersome construction section, not a finished machine.
-[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/development/item-handling-audit.md]Complete findings and item ledger[/url]
-
-[h2]Assembly and maintenance update[/h2]
-D4/R4/F6 final assembly now uses native construction sites, with sections hauled separately. Choose Assembly information on a section. Complete loose machines retain Install. Recover stored cargo provides local access to old F6-P/F6-R contents while blocking new deposits. Maintenance information explains the current blocker.
-Offline checks are not Unity gameplay approval. See [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/section-assembly-and-maintenance.md]assembly and maintenance instructions[/url].
-
-[h2]Finding current instructions[/h2]
-Use the [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/README.md]operating-guide index[/url] for current controls and requirements. Dated research and design records retain their original scope; they are not installation instructions.
-
-[b]Construction appearance work[/b]
-D4/R4/F6 construction sites now show unfinished frames while parts arrive, then open machinery once the full bill is delivered and work begins. The finished form appears only after construction completes. Stages follow saved parts and work on reload; removing required parts returns the early appearance. Requires Framework 0.32.0. Offline checks pass; owner visual approval remains pending.
+[h2]Guides and support[/h2]
+[list]
+[*][url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/player-guide.md]Player guide[/url] and [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/furnace-player-guide.md]furnace guide[/url]
+[*][url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/shipbreaker-reclamation.md]G4 reclamation[/url] and [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/shipbreaker-bulk-silos.md]water silo and thaw unit[/url]
+[*][url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/industrial-console-player-guide.md]Industrial console[/url] and [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/crew-automation.md]crew orders[/url]
+[*][url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/shipbreaker-item-reference.md]Item reference[/url]
+[*][url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/SUPPORT.md]Help and bug reports[/url]
+[*][url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/mods/PhobosShipbreaker/CHANGELOG.md]Changelog[/url]
+[*][url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/LICENSE]Licence and exclusions[/url]
+[*][url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/THIRD_PARTY_NOTICES.md]Third-party notices[/url]
+[*][url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/assets/workshop/README.md]Artwork provenance[/url] and [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/assets/phobos-shipbreaker/audio/README.md]audio provenance[/url]
+[/list]

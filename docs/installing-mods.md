@@ -16,6 +16,60 @@ GitHub release is published yet. Developers can [build the packages](development
 For acquisition and operation after installation, use the
 [current player guide](player-guide.md).
 
+There are two ways to install: **Steam Workshop subscriptions** (the route for
+ordinary players once the items are published) or the **local installer** below
+(for people who build the packages themselves). Use one route per mod, not both.
+
+## From the Steam Workshop
+
+**Not available yet:** no Phobos item has been published on the Workshop. These
+steps describe how it will work; the Workshop pages will link the items.
+
+```mermaid
+flowchart TD
+    Loader["Subscribe to the BepInEx Mod Loader and do its one-time setup"] --> Mods["Subscribe to Phobos Framework and the content mods you want"]
+    Mods --> Local{"Used the local installer before?"}
+    Local -->|Yes| Remove["Close the game; remove the local copies"]
+    Local -->|No| First["Start Ostranauts once"]
+    Remove --> First
+    First --> Restart["Quit and start it again"]
+    Restart --> Check["MODS screen: Phobos mods enabled; F3 status commands"]
+```
+
+1. Subscribe to EddieSM / EsMM27's
+   [BepInEx Mod Loader](https://steamcommunity.com/sharedfiles/filedetails/?id=3741030124)
+   and follow its setup instructions, including installing BepInEx 5 if you have
+   not already. The loader copies Workshop plugins into place; our mods cannot
+   load without it.
+2. Subscribe to **Phobos Framework** and each content mod you want. Every Phobos
+   Workshop page lists its required items; Shipbreaker also needs Auto Nav.
+3. Start Ostranauts once, quit, then start it again. The loader copies new or
+   updated plugins while the game starts, after BepInEx has already loaded, so
+   they only run from the next start. Do the same after each Phobos update.
+4. On the **MODS** screen, check the Phobos mods are enabled. In the F3 console,
+   `phobosframework status` and each mod's status command report what loaded.
+
+Steam downloads updates for you. Keep required mods subscribed while a save uses
+their equipment, cargo or jobs, and back up saves before changing mods.
+
+### Switching from local copies to the Workshop
+
+Two copies of the same Phobos plugin must not load at once. Close the game, then
+remove the locally installed copies of the mods you now subscribe to:
+
+```powershell
+./scripts/remove-local-mods.ps1 -Mods Framework,AutoNav,Shipbreaker -WhatIf
+./scripts/remove-local-mods.ps1 -Mods Framework,AutoNav,Shipbreaker
+```
+
+It removes only `Ostranauts_Data/Mods/Phobos…` and `BepInEx/plugins/Phobos…`
+for the named mods, plus their load-order entries. Workshop subscriptions, other
+mods, saves and settings stay as they are. Each removed file is first copied to
+`.local/installations/<time>-removed/` and checked. To go back to local copies,
+unsubscribe on Steam and run the installer below for the same mods.
+
+## From prepared packages (local installer)
+
 Close Ostranauts, then double-click **`Install or Update Mods.cmd`** in the
 repository root. It installs or updates the latest **prepared packages** for
 Phobos Auto Nav and Phobos Shipbreaker. Use the same launcher for subsequent
@@ -101,7 +155,7 @@ Framework and refuses a Framework older than the maintained minimum; it checks
 that the package carries its explosion definitions, equipment names and every
 sprite before copying anything, and adds a reminder when Shipbreaker is not part
 of the same run (Shipbreaker is optional and only adds the refinery's steel charge).
-Manufacturing has no mod-menu cover yet, so `-PreviewsOnly` stops with a missing-cover message if you select it; the default selection is unaffected. If an earlier development install
+If an earlier development install
 left the 0.0.1 scaffold plugin behind and you do not want 0.1.0 yet,
 `-HoldManufacturing` backs up and removes that DLL from the loader
 directory after checking its identity and verifying the backup. Its native entry
@@ -112,12 +166,13 @@ or versions and cannot be combined with selecting Manufacturing or `-PreviewsOnl
 recorder, required files and enabled load-order entry, then retains its files.
 It does not compare that dependency with the newly prepared Framework build.
 The ordinary default still updates the dependency from its prepared package.
-The four selected suite covers are native `preview.png` files; their
+The five suite covers are native `preview.png` files; their
 [artwork and integration notes](../assets/workshop/README.md) explain the shared
 mod-menu/Workshop path. `-PreviewsOnly` changes only covers, retains installed
 versions and disabled/enabled states, and refuses mods not already installed.
-It still requires Ostranauts to be closed for writes. Agriculture's prepared
-package includes its cover, but this option does not install Agriculture itself.
+It still requires Ostranauts to be closed for writes. Agriculture's and
+Manufacturing's prepared packages include their covers, but this option does not
+install either mod itself.
 Installing AutoNav does not remove that old plugin or enable original Auto
 Navigate. AutoNav still enforces its runtime navigation-conflict checks.
 
@@ -180,7 +235,8 @@ Each prepared package includes `player-guide.md` and the equipment/material guid
 it links directly, alongside the mod-specific `README.md`. These describe the
 prepared versions; the status commands establish what is loaded in the game.
 The installer does not rebuild source code, download releases or alter Workshop
-subscriptions. After code or artwork changes, Codex should run the corresponding
+subscriptions; `remove-local-mods.ps1` above is the separate way to take local
+copies out before subscribing. After code or artwork changes, Codex should run the corresponding
 existing build script, then this installer. A missing package reports that step.
 `-PackageRoot` selects another prepared-package directory; `-PackagePath` selects
 one unpacked package when exactly one mod is selected. These overrides are not

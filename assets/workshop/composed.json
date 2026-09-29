@@ -1,0 +1,109 @@
+{
+  "schemaVersion": 1,
+  "resampling": "nearest-neighbour",
+  "exportSizes": [
+    512,
+    256
+  ],
+  "maxPreviewBytes": 1000000,
+  "covers": [
+    {
+      "id": "PhobosManufacturing",
+      "frame": {
+        "path": "assets/workshop/previews/PhobosShipbreaker-512.png",
+        "sha256": "DA1C37E468E7E3129107D048888F3D44066D763E6B8A1E3898C773E50233312E",
+        "note": "Reuses the Shipbreaker cover's border, PHOBOS label and footer; its title, subtitle and scene are replaced."
+      },
+      "scene": {
+        "path": "assets/workshop/sources/PhobosManufacturing-scene.png",
+        "sha256": "2ADD9D7CBDB05107F51B5C28890D4221619C376012DE566DDA8A658FEAF9E8A2",
+        "crop": [
+          0,
+          0,
+          244,
+          170
+        ],
+        "scale": 2,
+        "window": [
+          12,
+          141,
+          498,
+          480
+        ]
+      },
+      "header": {
+        "background": [
+          24,
+          29,
+          32
+        ],
+        "clear": [
+          [
+            28,
+            44,
+            499,
+            106
+          ],
+          [
+            24,
+            113,
+            494,
+            136
+          ]
+        ],
+        "title": {
+          "text": "MANUFACTURING",
+          "x": 34,
+          "y": 50,
+          "cell": 5,
+          "body": [
+            237,
+            225,
+            202
+          ],
+          "highlight": [
+            255,
+            250,
+            225
+          ]
+        },
+        "subtitle": {
+          "text": "REFINE / SPLIT / STORE",
+          "centre": 254,
+          "y": 120,
+          "advance": 12,
+          "colour": [
+            237,
+            225,
+            202
+          ]
+        }
+      },
+      "generation": {
+        "provider": "PixelLab",
+        "operation": "create_image_pro",
+        "date": "2026-09-29",
+        "jobId": "55a4df25-a567-4254-857d-1ba61a16db74",
+        "assetId": "496ae4d9-1274-5e9d-bc16-490f6826093e",
+        "seed": 29092026,
+        "width": 244,
+        "height": 170,
+        "noBackground": false,
+        "costGenerations": 20,
+        "styleImage": "assets/workshop/previews/PhobosShipbreaker-512.png (public raw GitHub URL of the committed export)",
+        "references": [
+          "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosVolatilesRefinery.png",
+          "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosChemicalProcessor.png",
+          "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosHydrogenStore.png"
+        ],
+        "prompt": "Vertical orthographic camera directly above: overhead top-down view of a cramped spaceship industrial processing bay, top surfaces only, axis-aligned rectangular machines, no perspective side faces. Left: a large square cream-coloured volatiles refinery machine with a round dark crucible glowing orange-hot in its top, a small inspection window with bronze bars, a hatch and vent grille, brass corner bolts. Centre-right: a smaller square chemical processor (water electrolysis cell) with a tall pale-green cell panel, one grey-white oxygen sphere and one copper-orange hydrogen sphere, with pipes running to a long dark grey horizontal hydrogen storage tank wrapped with orange bands at the right. A green oxygen canister rack beside it. Bottom: open crates of dark ore chunks and stacked grey metal ingots, a floor drain, yellow-black hazard stripes. Grey steel deck plates, dark wall panels at edges, blue equipment lockers, restrained industrial colours: cream, charcoal, slate blue, amber, copper orange. Chunky readable pixel art, crisp dark outlines, no text, no people.",
+        "referenceUsage": [
+          "design of the large refinery machine (overhead in-game sprite): cream housing, round orange crucible, barred window, hatch, vents",
+          "design of the chemical processor (overhead in-game sprite): green cell panel, grey oxygen sphere, orange hydrogen sphere",
+          "design of the hydrogen storage tank (overhead in-game sprite): dark horizontal tank with orange bands"
+        ],
+        "review": "First pilot accepted: matches the sibling covers' palette and pixel density and depicts the V4, X2 and H2 designs. Cylinders show some curvature; acceptable for promotional art, which is exempt from the world-sprite overhead rule."
+      }
+    }
+  ]
+}

@@ -15,12 +15,18 @@ its current artwork; no extra belt appliance or construction bill is required.
 
 ## Connect the equipment
 
-The simplest chain is:
+The simplest chain runs grabber, chute, dismantling fixture, reclaimer, then a
+residue collector for the rejects. A buffer collector may sit between the
+fixture and the reclaimer:
 
-```text
-Grabber → chute → dismantling fixture
-                         output → reclaimer input
-                                  reclaimer output → residue collector
+```mermaid
+flowchart LR
+    Grabber["Grabber"] --> Chute["Chute"]
+    Chute --> Fixture["Dismantling fixture"]
+    Fixture -->|output to reclaimer input| Reclaimer["Reclaimer"]
+    Fixture -.->|or| Buffer["Buffer collector"]
+    Buffer -.->|its output| Reclaimer
+    Reclaimer -->|output| Rejects["Collector set to Terminal rejects only"]
 ```
 
 Alternatively, retain an existing fixture → collector pair and use that collector

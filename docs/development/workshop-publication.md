@@ -1,7 +1,7 @@
 # Changelogs and Steam Workshop publication records
 
-For offline upload staging, private VDF drafts, saved item IDs and verification,
-see [Workshop upload preparation](workshop-upload-preparation.md).
+For offline staging, the owner-run uploader, required items, the subscription
+test and going public, see [preparing and uploading](workshop-upload-preparation.md).
 
 Owner memorandum, **25 September 2026**: every Ostranauts mod maintains its own
 changelog, current Workshop page draft and generated Steam-formatted notes for
@@ -19,8 +19,8 @@ work, not deferred until upload. It does not publish anything automatically.
 See the [Workshop draft index](../../workshop/README.md). All five current mods have
 initial **Draft** baseline entries; the retired Approach Assist prototype has none. Their dates record preparation, not release
 dates, and do not reconstruct an unsupported history of earlier releases.
-Manufacturing is held as a
-scaffold. Auto Nav is held for unresolved upstream provenance before distribution.
+Manufacturing is held until owner gameplay checks. Auto Nav is held for
+unresolved upstream provenance before distribution, which also holds Shipbreaker.
 Phobos Scope is a separate toolkit and is outside this Workshop inventory.
 
 ## Routine maintenance
@@ -123,9 +123,11 @@ headings through h3, italic and underline. These are text drafts, not screenshot
 or a claim that the live Workshop editor has been tested. Preview the exact text
 in Steam before submission; render/layout differences may need adjustment.
 
-Copy a mod's page document into its description editor and its version document
-into the corresponding change-note editor. The page title, required-item links,
-tags, visibility and preview image also need review in Steam's separate fields.
+The uploader sends the page as the description and the current version's
+document as the change note, so edit them here, not on Steam. Pages must stay at
+or below 7,500 UTF-8 bytes (Steam's limit is 8,000) and contain no ASCII double
+quotes or backslashes; the check enforces both. Required items, tags and a first
+visual check still happen in Steam's own editor after upload.
 Do not invent item IDs or dependency links while the items do not exist. Once an
 item is published, record its actual URL and current status in the page document,
 and replace the pre-publication/download wording with verified instructions.

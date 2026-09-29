@@ -42265,8 +42265,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "13b166dea6802c604c8891d3c0bb9f7e622fd74fed728a88e2974aa1450e52ce",
-      "review": "2026-09-29: Manufacturing version 0.2.0."
+      "sha256": "55d7de3ae4a951244cd19837c2d605786358b2888409a3dad54b787890bedb67",
+      "review": "2026-09-29: Workshop preparation status in the welcome paragraph."
     },
     {
       "path": "SUPPORT.md",
@@ -42300,8 +42300,8 @@
       "path": "docs/agriculture-nutrient-production.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "c6c299420d4c039bf06ea9d4080a2ece077047a96cbe5d0068c625532bd76ad8",
-      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+      "sha256": "5dc8da90e78a88ad06b525a294695686cccc89366109b4eb1f26981122b0c718",
+      "review": "2026-09-29: flowchart added with a one-sentence lead-in; stale statements corrected where found (ingot recipes, silo consumers, collector products, dependency minima link, Manufacturing crew orders)."
     },
     {
       "path": "docs/agriculture-nutrient-solutions.md",
@@ -42314,8 +42314,8 @@
       "path": "docs/agriculture-player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "90ac17b96b68d582bce949be1a062f787edf5aba774fda2b8fbec01029d83d72",
-      "review": "2026-09-29: second-hand routes cover every machine since 0.19.0."
+      "sha256": "1b24df2f21b8a7dcb6aa8e822b534bbadb25bf919a9bf1cc44bb476a045dfa30",
+      "review": "2026-09-29: flowchart added with a one-sentence lead-in; stale statements corrected where found (ingot recipes, silo consumers, collector products, dependency minima link, Manufacturing crew orders)."
     },
     {
       "path": "docs/agriculture-seed-production.md",
@@ -42418,8 +42418,8 @@
       "path": "docs/automatic-material-routing.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "2f93af6e9e73e36d3a8d7de1833974fcbb88794e53fcdf291623eec8236f606f",
-      "review": "2026-09-28: long intervals catch up like native machines; time-gap pause wording removed."
+      "sha256": "02476e2305a573b6e3c53e087e825a3478b25d0cc57e7fc836a1c66246760b32",
+      "review": "2026-09-29: flowchart added with a one-sentence lead-in; stale statements corrected where found (ingot recipes, silo consumers, collector products, dependency minima link, Manufacturing crew orders)."
     },
     {
       "path": "docs/control-panel-guide.md",
@@ -42432,8 +42432,8 @@
       "path": "docs/crew-automation.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "8d93e6626089705a2d381ba23908f681cfe8ee69d372105240026c5f35c34d42",
-      "review": "2026-09-29: F6 row names the selected metal."
+      "sha256": "310db66af7f3424a58dcf9ecf8650535780c9072933bbfc7168186d4fc156f56",
+      "review": "2026-09-29: flowchart added with a one-sentence lead-in; stale statements corrected where found (ingot recipes, silo consumers, collector products, dependency minima link, Manufacturing crew orders)."
     },
     {
       "path": "docs/development/README.md",
@@ -43132,14 +43132,15 @@
       "path": "docs/development/workshop-publication.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "e1c48b3010d68e8e2091c8bf57ee0a3d138a16ec16e9f79e466e7168e4cbbd55",
-      "review": "2026-09-28: corrected the mod count after the Approach Assist retirement."
+      "sha256": "ee860ffdca180031bb575fe9e90b1c0cc920668ffbe00f55c27340a123988f7a",
+      "review": "2026-09-29: uploader, page size and quote rules, and current holds."
     },
     {
       "path": "docs/development/workshop-upload-preparation.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "90a2667c29e7ad84b74bfc8b0d5c116af86ab7b1c3f67d5646e01626b22d8cd2"
+      "sha256": "04b45309a5cc54ae8dfac730e1b01bf8b11ef76d908c0f24e23f0a13bb608d40",
+      "review": "2026-09-29: rewritten as the preparation and owner-run upload runbook, with order, holds, receipts, required items and the subscription test."
     },
     {
       "path": "docs/equipment-economy.md",
@@ -43152,8 +43153,8 @@
       "path": "docs/fluid-network-operations.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "8dc14d1ce6e44b113dcdf695452b061712d8d43e64e43838ba2d1253bb0c3aa3",
-      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+      "sha256": "9b645a786c051c5062e551488e48cfbfd3e4ccc8aee0d3da67e13d71a884e439",
+      "review": "2026-09-29: flowchart added with a one-sentence lead-in; stale statements corrected where found (ingot recipes, silo consumers, collector products, dependency minima link, Manufacturing crew orders)."
     },
     {
       "path": "docs/framework-item-reference.md",
@@ -43173,22 +43174,22 @@
       "path": "docs/furnace-material-routing.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "42e7703506d72525ef59bb940c93d8dc168e1346b0e15ec75ca3836a0486f1eb",
-      "review": "2026-09-28: long intervals catch up; time-gap pause wording removed."
+      "sha256": "3acd4951d663963fc0f6a889e4a59f1d6969d766626c89455ef718587716cd40",
+      "review": "2026-09-29: flowchart added with a one-sentence lead-in; stale statements corrected where found (ingot recipes, silo consumers, collector products, dependency minima link, Manufacturing crew orders)."
     },
     {
       "path": "docs/furnace-player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "1679e11d382e5641483121c17a369013fce4a104aeb496f7380a09cdaee27723",
-      "review": "2026-09-29: single ingots in engineering salvage."
+      "sha256": "6a7a8b532554c78481180ad3e0701e4d4493ade4dc8dce00e46b341f815d9ec8",
+      "review": "2026-09-29: flowchart added with a one-sentence lead-in; stale statements corrected where found (ingot recipes, silo consumers, collector products, dependency minima link, Manufacturing crew orders)."
     },
     {
       "path": "docs/getting-started.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "5fe1794b6cd5ad091a259601e96eb7b05030bad2d2509a2bbad06a31bca84357",
-      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+      "sha256": "1832b37f57910e5d6a621f4ba12389f729cc2f397284a879b118f2242e2e22b1",
+      "review": "2026-09-29: Workshop as the intended player route, flowchart updated, Manufacturing status and first-activity row corrected."
     },
     {
       "path": "docs/health-chronic-and-traits.md",
@@ -43222,8 +43223,8 @@
       "path": "docs/installing-mods.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "e3e745083ba34712cfe14bbdc2eac3fe33c70bb6303387a13eff5fa43007e053",
-      "review": "2026-09-29: Manufacturing 0.1.x installer behaviour (Framework floor, package completeness, Shipbreaker reminder, no cover yet)."
+      "sha256": "bf3d6858ce0f0ea422ebbe36284c6afb6a7f8e4b274faff2d1291df4e09eaca8",
+      "review": "2026-09-29: Steam Workshop installation route with flowchart, switching from local copies, and the Manufacturing cover note corrected."
     },
     {
       "path": "docs/item-references.md",
@@ -43243,8 +43244,8 @@
       "path": "docs/manufacturing-player-guide.md",
       "scope": "current player operating guide",
       "decision": "rewrite",
-      "sha256": "28a10273535e1a92be27bf169ff0c4924149ab2fe24c01a171006e9b3e4a4496",
-      "review": "2026-09-29: Sabatier reactor and methane store sections, prices and dangers; limits updated."
+      "sha256": "b8e5625e0324d6006fbf0ba74ffb3dddeb7f1fa45f66fe1aa86fc6f9b11b1a16",
+      "review": "2026-09-29: flowchart added with a one-sentence lead-in; stale statements corrected where found (ingot recipes, silo consumers, collector products, dependency minima link, Manufacturing crew orders)."
     },
     {
       "path": "docs/material-port-pairing.md",
@@ -43264,8 +43265,8 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "e712dd0b04aec138c04f051d680fc8d8fbf3800cee77ff1702799d1c41358fcf",
-      "review": "2026-09-29: version lines; no other wording changed."
+      "sha256": "8918df820de78ff1b84cbb90c18809690376cdd259456735265a0d77fbb33539",
+      "review": "2026-09-29: flowchart added with a one-sentence lead-in; stale statements corrected where found (ingot recipes, silo consumers, collector products, dependency minima link, Manufacturing crew orders)."
     },
     {
       "path": "docs/residue-collector.md",
@@ -43299,8 +43300,8 @@
       "path": "docs/shipbreaker-bulk-silos.md",
       "scope": "player operating guide for the S3 silo and T2 thaw unit",
       "decision": "add",
-      "sha256": "59a4b87f11d3cb2d4346f447c28862118892b1c99f055ded397600b5df4d6cd8",
-      "review": "2026-09-29: S3/T2 marked purchase-only."
+      "sha256": "6717a8f08a0865ac7b4898ffe64437952463803cc18acb0c8a88746b2bbab3f7",
+      "review": "2026-09-29: flowchart added with a one-sentence lead-in; stale statements corrected where found (ingot recipes, silo consumers, collector products, dependency minima link, Manufacturing crew orders)."
     },
     {
       "path": "docs/shipbreaker-hull-intake.md",
@@ -43341,36 +43342,36 @@
       "path": "workshop/PhobosAgriculture/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "e888f8593c6efdf8425fb91ae6932e00a85d6a5914a56ffa031c136cc03c0e79",
-      "review": "2026-09-29: version and 0.19.0 bullet."
+      "sha256": "d1379a91389ade9f8f1f606e73dd90546da39587700e689fd748ed64b8fe865d",
+      "review": "2026-09-29: rewritten as a current, player-first Workshop description under Steam's 8,000-byte limit: capabilities, getting started, requirements, Workshop installation, saves and limits, credits and de-duplicated guide links; per-version update sections moved out to the changelog."
     },
     {
       "path": "workshop/PhobosAutoNav/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "734244a8961cdb304948beb94928a73d0d0f3a342292ba6dcdbb212c427d7948",
-      "review": "2026-09-29: version, Framework 0.40.0 requirement and the 0.27.0 bullet."
+      "sha256": "acc260e88dc27baa5732d5a1f6d7af0a9bd56c2d6ea4d982f3235290a6760419",
+      "review": "2026-09-29: rewritten as a current, player-first Workshop description under Steam's 8,000-byte limit: capabilities, getting started, requirements, Workshop installation, saves and limits, credits and de-duplicated guide links; per-version update sections moved out to the changelog."
     },
     {
       "path": "workshop/PhobosFramework/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "d836befcb2a54d4f996aba13d9782190def8d94b32431d2c284ee8be41753d2e",
-      "review": "2026-09-29: version and 0.41.0 bullet."
+      "sha256": "ac795932b8bf9d6a176c613158adf546a56b8ab3d009e7d92c077ebb8e629026",
+      "review": "2026-09-29: rewritten as a current, player-first Workshop description under Steam's 8,000-byte limit: capabilities, getting started, requirements, Workshop installation, saves and limits, credits and de-duplicated guide links; per-version update sections moved out to the changelog."
     },
     {
       "path": "workshop/PhobosManufacturing/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "1b2c391cd3e5456a679377c58e7e8425cfda09f9af3d54e13a1364277d0b4294",
-      "review": "2026-09-29: version 0.2.0, K2/M2 bullet, limits line (minimal edit; the page rewrite is a separate change)."
+      "sha256": "5bd4e80de2f30c79a7283c578bb08aae9fb10e1092ff3c7b4a4a53cf519d0b96",
+      "review": "2026-09-29: rewritten as a current, player-first Workshop description under Steam's 8,000-byte limit: capabilities, getting started, requirements, Workshop installation, saves and limits, credits and de-duplicated guide links; per-version update sections moved out to the changelog."
     },
     {
       "path": "workshop/PhobosShipbreaker/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "5d23d13214cc36a2c076f58b36c8a8133f823c59677331e0595f8780e5c424bc",
-      "review": "2026-09-29: version and 0.39.0 bullet."
+      "sha256": "fdfaa63c398a9783e3ce3108742cb8bf99ff581f268d6955df43a10d0a5e2b40",
+      "review": "2026-09-29: rewritten as a current, player-first Workshop description under Steam's 8,000-byte limit: capabilities, getting started, requirements, Workshop installation, saves and limits, credits and de-duplicated guide links; per-version update sections moved out to the changelog."
     }
   ],
   "surfaces": [

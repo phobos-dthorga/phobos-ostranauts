@@ -5,15 +5,14 @@ Framework supplies their shared services.
 
 ## Can I download and play today?
 
-**No ready-to-install GitHub release is published as of 25 September 2026.**
-The repository contains source and original artwork. Its `dist/` packages are
-local build outputs and are not included in GitHub's source ZIP.
+**Not as an ordinary download yet.** The mods are being prepared for the Steam
+Workshop, which will be the normal way to install them: subscribe, and Steam
+keeps them updated. No Phobos Workshop item is published yet; this guide and the
+[installation guide](installing-mods.md) will link them when they are.
 
-For ordinary player downloads, check the
-[Releases page](https://github.com/phobos-dthorga/phobos-ostranauts/releases).
-An empty page means there is no published package yet. You do not need to learn
-to compile mods to follow the project; GitHub's Watch menu can notify you about
-releases. There is no Phobos Workshop subscription link supplied here yet.
+There is no ready-to-install GitHub release either. The repository contains
+source and original artwork; its `dist/` packages are local build outputs and are
+not in GitHub's source ZIP. GitHub's Watch menu can notify you about releases.
 
 Comfortable building experimental software? Follow [building from source](development/building.md).
 Clone with submodules: Framework uses the separately maintained Phobos Scope
@@ -21,14 +20,16 @@ recorder. Download ZIP omits that dependency.
 
 ```mermaid
 flowchart TD
-    Start["Start here"] --> Choice{"Have prepared mod packages?"}
-    Choice -->|No| Source{"Want to build from source?"}
-    Source -->|No| Releases["Follow GitHub Releases for player downloads"]
+    Start["Start here"] --> Workshop{"Phobos items on the Steam Workshop yet?"}
+    Workshop -->|Yes| Subscribe["Subscribe: BepInEx Mod Loader, Framework, content mods"]
+    Subscribe --> Twice["Start the game once, then again"]
+    Workshop -->|Not yet| Source{"Want to build from source?"}
+    Source -->|No| Wait["Watch the repository for the Workshop launch"]
     Source -->|Yes| Build["Read building from source"]
     Build --> Packages["Build selected packages and Framework"]
-    Choice -->|Yes| Install["Close game; preview and run installer"]
-    Packages --> Install
+    Packages --> Install["Close game; preview and run the local installer"]
     Install --> Verify["Verify files; launch; check F3 status"]
+    Twice --> Verify
     Verify --> Play["Follow the equipment player guide"]
 ```
 
@@ -41,10 +42,11 @@ flowchart TD
   including one-time setup. Subscription alone does not prove installation.
   The [BepInEx project documentation](https://docs.bepinex.dev/articles/user_guide/installation/index.html)
   explains the loader; do not substitute BepInEx 6 for this build baseline.
-- **Windows and PowerShell 7** for the supplied installer and equipment-art
-  build workflow. Other operating systems are not supported by these scripts.
-- Prepared packages for your selected mods and compatible Phobos Framework.
-  Shipbreaker 0.22.0 also requires Auto Nav 0.16.0+; its builder/installer include it.
+- For the local route only: **Windows and PowerShell 7** for the supplied
+  installer and build scripts. Other operating systems are not supported by them.
+- Your selected mods and a compatible Phobos Framework, from the Workshop or as
+  prepared packages. Shipbreaker also requires Auto Nav; its Workshop page lists
+  it as a required item, and the local builder/installer include it.
 
 Then follow [installation and verification](installing-mods.md). Keep your normal
 save backups before changing mods. Ordinary saves are supported; there is no
@@ -60,6 +62,7 @@ named-test-save requirement for the current suite.
 | Cast aluminium housings | [Electric furnace](furnace-player-guide.md) |
 | Approach a target or dock | [Auto Nav](development/auto-navigate-adaptation.md) and [docking](auto-nav-docking.md) |
 | Grow food and cook portions | [Agriculture](agriculture-player-guide.md) |
+| Refine ore, split water into oxygen and hydrogen | [Manufacturing](manufacturing-player-guide.md) |
 
 ## What to expect
 
@@ -75,8 +78,9 @@ named-test-save requirement for the current suite.
 - **Nothing grants perfect recycling.** Rejects remain, cooling is finite, and
   agriculture consumes inputs. Growth speed, yields and simplified chemistry
   are gameplay choices made for this mod.
-- **Manufacturing is not playable machinery yet.** Research pages include ideas;
-  prefer current player guides for operating instructions.
+- **Manufacturing is late-game and newly operational.** Its refinery, electrolysis
+  cell, Sabatier reactor and stores work, but owner gameplay checks are still
+  pending. Research pages include ideas; use the player guides for operation.
 - **Updating is not uninstalling.** Do not remove a provider from a save that
   contains its equipment, cargo or jobs. There is no general save-cleanup or
   guaranteed downgrade tool; see [dependency contingencies](development/dependency-contingencies.md).
@@ -85,7 +89,8 @@ named-test-save requirement for the current suite.
 
 **Framework:** shared mod required by content mods. **BepInEx:** loader for C#
 plugins. **Prepared package:** locally built plugin plus native definitions,
-artwork and notices. **C1:** industrial console. **F3:** the game's command
+artwork and notices. **Workshop:** Steam's mod hosting; subscribing downloads
+and updates a mod. **C1:** industrial console. **F3:** the game's command
 console. **Native:** supplied by Ostranauts rather than simulated separately.
 
 Stuck? See [troubleshooting and help](../SUPPORT.md).

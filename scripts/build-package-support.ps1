@@ -125,17 +125,21 @@ function Copy-PhobosPlayerGuides {
     }
     # Covers are native preview.png files, copied with the native mod directory.
     # Validate against the committed derivative; ordinary builds need no art branch.
-    $covers = Get-Content -LiteralPath (Join-Path $RepoRoot 'assets/workshop/exports.json') -Raw | ConvertFrom-Json
-    foreach ($cover in $covers.assets) {
-        $native = Join-Path $Package "Mods/$($cover.id)"
+    # Resized covers come from exports.json; composed covers (scene layer in a cover frame) from composed.json.
+    $covers = @((Get-Content -LiteralPath (Join-Path $RepoRoot 'assets/workshop/exports.json') -Raw | ConvertFrom-Json).assets |
+        ForEach-Object { [pscustomobject]@{ Id = $_.id; Tool = 'export-workshop-art.ps1'; Record = 'prompts.json'; Copy = 'WORKSHOP-ARTWORK-PROMPTS.json' } })
+    $covers += @((Get-Content -LiteralPath (Join-Path $RepoRoot 'assets/workshop/composed.json') -Raw | ConvertFrom-Json).covers |
+        ForEach-Object { [pscustomobject]@{ Id = $_.id; Tool = 'compose-workshop-cover.py'; Record = 'composed.json'; Copy = 'WORKSHOP-ARTWORK-COMPOSITION.json' } })
+    foreach ($cover in $covers) {
+        $native = Join-Path $Package "Mods/$($cover.Id)"
         if (-not (Test-Path -LiteralPath $native -PathType Container)) { continue }
-        $expected = Join-Path $RepoRoot "assets/workshop/previews/$($cover.id)-512.png"
+        $expected = Join-Path $RepoRoot "assets/workshop/previews/$($cover.Id)-512.png"
         $actual = Join-Path $native 'preview.png'
         if (-not (Test-Path -LiteralPath $actual -PathType Leaf) -or (Get-FileHash -LiteralPath $actual).Hash -ne (Get-FileHash -LiteralPath $expected).Hash) {
-            throw "Missing or stale mod-menu preview for $($cover.id). Run export-workshop-art.ps1."
+            throw "Missing or stale mod-menu preview for $($cover.Id). Run $($cover.Tool)."
         }
         Copy-Item -LiteralPath (Join-Path $RepoRoot 'assets/workshop/PACKAGE-ARTWORK.md') -Destination (Join-Path $Package 'WORKSHOP-ARTWORK.md')
-        Copy-Item -LiteralPath (Join-Path $RepoRoot 'assets/workshop/prompts.json') -Destination (Join-Path $Package 'WORKSHOP-ARTWORK-PROMPTS.json')
+        Copy-Item -LiteralPath (Join-Path $RepoRoot "assets/workshop/$($cover.Record)") -Destination (Join-Path $Package $cover.Copy)
     }
     $documentationArgs = @('--package', $Package)
     if ($Readme) { $documentationArgs += @('--readme', $Readme) }

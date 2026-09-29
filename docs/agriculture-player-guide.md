@@ -71,6 +71,22 @@ Lettuce's harvest-ready image depicts food leaves, not seed production.
 
 ## First crop
 
+One crop runs like this. Planting and harvesting are crew work you choose;
+growth runs by itself while the rack's needs are met.
+
+```mermaid
+flowchart TD
+    Stock["Seed potato or lettuce seed in rack Inventory"] --> Plant["Choose Plant, 15 min crew work"]
+    Supplies["Irrigation charge and nutrients loaded"] --> Plant
+    Plant --> Grow["Automatic growth"]
+    Needs["Water, nutrients, CO2, power, 18-26 C, 70-110 kPa"] --> Grow
+    Grow --> Harvest["Choose Harvest and retain stock, 30 min crew work"]
+    Harvest --> Produce["Produce and residue, if the whole output fits"]
+    Produce --> Cook["Hearth-2 cooks one potato portion per Start"]
+    Produce --> B2["Recorded residue to B2 recovery"]
+    Produce -->|potatoes also give one seed potato| Stock
+```
+
 1. Put one **Continuance 0.2 kg seed potato** or one **Continuance 5 g lettuce seed packet** in the rack's
    normal Inventory. Stacked supplies are fine: the game stacks matching items
    dropped into a machine, and each action takes one unit from the stack

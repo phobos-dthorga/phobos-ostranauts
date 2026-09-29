@@ -12,8 +12,9 @@ Community mods for making a ship a home: navigation, salvage, recycling,
 shipboard farming and the machinery that keeps a crew going in hostile space.
 
 **Welcome! This is an experimental development project, not a stable mod pack.**
-There are currently no published installable GitHub releases. **Code → Download
-ZIP** gives you source files, not ready-to-play mods. Start with
+The mods are being prepared for the Steam Workshop; no Workshop item or installable
+GitHub release is published yet. **Code → Download ZIP** gives you source files,
+not ready-to-play mods. Start with
 [getting started](docs/getting-started.md) before installing anything.
 
 ## Choose your starting point

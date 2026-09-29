@@ -7,8 +7,8 @@ eating. This guide starts with installation and the basic shipbreaking loop.
   select a sensor contact and choose Approach or Dock. Disengage leaves you coasting.
 - [Cultivation and cooking](agriculture-player-guide.md): grow potatoes or lettuce,
   cook portions and add irrigation when you need it.
-- [Electric furnace](furnace-player-guide.md): cast aluminium housings with power,
-  cooling and room for the products.
+- [Electric furnace](furnace-player-guide.md): cast aluminium housings or aluminium
+  and steel ingots with power, cooling and room for the products.
 - [Crew orders](crew-automation.md): choose work and approved stores, then enable it.
 - [Control panels](control-panel-guide.md): Apply/Discard, storage selection and training.
 - [Equipment references](item-references.md): what each item does, where to find it,
@@ -35,7 +35,8 @@ verification and build instructions. Building is separate from installing.
 Crafting Framework, Salvage Workshop and Auto Navigate are not dependencies.
 Retain other providers when your save or other mods use their content. Original
 Auto Navigate must be disabled for our Auto Nav to engage; installing ours does
-not disable it automatically. Shipbreaker 0.24.0 requires Auto Nav 0.18.0+; [selected-G4 capture](development/shipbreaker-capture.md) uses existing N1/N2 hardware.
+not disable it automatically. Shipbreaker requires Auto Nav; see the
+[current dependency minima](installing-mods.md). [Selected-G4 capture](development/shipbreaker-capture.md) uses existing N1/N2 hardware.
 
 After launch, these F3 commands report the actual loaded versions and readiness:
 
@@ -98,6 +99,28 @@ It requires its own electrical connection and a structural-floor route from
 the processor. It does not cross gaps, cargo webbing or a docked ship.
 
 ## Load, run and unload
+
+Here is where salvage goes, from loose parts to finished stock. The collector,
+reclaimer and furnace are optional steps; the D4 works on its own.
+
+```mermaid
+flowchart LR
+    Parts["Loose walls, grates and panels"] --> Grabber["Exterior grabber Inventory"]
+    Grabber --> Chute["Hull chute"]
+    Chute --> D4["D4 dismantling fixture feed"]
+    Parts -->|Load feed by crew or by hand| D4
+    D4 --> Tray["D4 tray: parts, aluminium, carbon fibre, steel"]
+    D4 --> Packet["13 kg identified R2 residue packet"]
+    Packet --> Collector["Residue collector, optional buffer"]
+    Packet --> R4["R4 scrap reclaimer"]
+    Collector --> R4
+    R4 --> Steel["3 kg steel scrap"]
+    R4 --> Alu["1 kg aluminium scrap"]
+    R4 --> Rejects["9 kg rejects to a collector"]
+    Alu -->|paired aluminium output| F6["F6 furnace: housing or ingots"]
+    Tray --> Store["Storage output or crew hauling"]
+    Steel --> Store
+```
 
 1. With crew able to reach the exterior grabber, right-click it and choose
    **Inventory**. Load detached structural parts: an **ordinary wall** of any

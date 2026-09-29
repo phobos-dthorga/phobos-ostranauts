@@ -1,100 +1,69 @@
 [h1]Phobos Auto Nav[/h1]
 [b]Version:[/b] 0.27.0
-
-[h2]Performance update[/h2]
-The console refreshes the visible page up to ten times per second and responds immediately to your actions. It no longer checks whole-ship hull fit just to display docking clearance; starting a docking manoeuvre still checks it. Flight and firing safety checks remain current.
-Offline checks accompany this draft. Measured improvement and in-game interaction still await owner feedback. [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/development/performance-audit.md]Audit and optional playtesting checks[/url].
-
 [b]Publication status:[/b] Not published - development candidate
 
-Give Polaris the long approach while you keep an eye on the ship. Asterel modules add navigation, pursuit and separate fire controls.
+Give Polaris the long approach while you keep an eye on the ship. Asterel boards plug into the Polaris navigation station and fly, dock, pursue and aim using the ship's own thrusters, torch, sensors and weapons.
 
 [h2]What it does[/h2]
 [list]
-[*]N1 handles approaches and docking. Set stopping distance and speed; working sensors, braking room, RCS and fuel are still required.
-[*]Fly to a sensed asteroid within 1,000 km and stop inside native tether reach. Every switched-on sensor counts; Details lists each sensor's signal and any fitted sensors that are off.
-[*]If the target or a nearby hazard is too faint, Auto Nav switches on the fewest sensors that fix it, non-emitting first, and warns you in the crew log and on the nav map. It switches off only its own sensors when it finishes; your switches always win. Choose All, Passive or Off in Sensors > AutoEngage.
-[*]N2 includes navigation and adds Rendezvous to match motion once, or Follow to keep pace.
-[*]N3 handles selected weapon groups, limited volleys and optional RCS aiming. Select a fire target separately and lift the cover to Engage.
-[*]N2 + N3 add explicit Combat on Track: range matching and weapon facing, with permitted RCS/torch manoeuvres. Select the fire target and aim-reference weapon first. Entering suspends the previous flight; Engage remains separate.
-[*]Cease Fire stops automatic offensive fire and aiming while Follow or Combat range matching can continue. Return to Native exits Combat and releases the hold, which can allow normal automatic firing again. Leave Combat or Disengage retains the previous flight for explicit Resume. Combat never restarts on reload.
-[*]Undock & Depart checks crew, clearance and connections, then moves to at least a 1 km hull gap. Ordinary Fly never disconnects the ship.
-[*]Local avoidance uses tracked contacts, weak nearby contacts with extra clearance, and rocks in asteroid fields. Losing contact releases thrust and requires Resume after contact returns.
-[*]Version 0.25.0 lets the game lead: torch burns are no longer cut during automated flight, the final approach keeps cruise speed until braking, tumbling derelicts can be docked and captured, the clamp is the docking console's own button, a sensor refresh is a short hold rather than a lost contact, an orbit lock hands control back to you, heavy time compression holds a step instead of ending the flight, and the throttle slider means what it means for manual flying.
-[*]Version 0.26.0 adds used, broken and refurbished offers for the N2 and N3, matching the N1.
-[*]Version 0.27.0 makes the torch actually light and run the reactor like the game's own course plot: Cycle for the acceleration needed, Flow steered to hold the core near ideal under the console torch safety, a stop and hand-back if the core leaves the safe band. Approaches in station clusters no longer circle under the avoidance planner, turning plans on the authority the throttle slider grants, and heavy time compression holds a step instead of ending the flight. Requires Phobos Framework 0.40.0.
+[*][b]Phobos' Asterel N1 Polaris Auto Nav Module:[/b] fly to a tracked ship, station or asteroid and stop at your chosen distance, or Dock and Approach & Dock. Asteroids within 1,000 km, Fly only, stopping inside tether reach.
+[*][b]Phobos' Asterel N2 Polaris Pursuit Module:[/b] everything the N1 does, plus Rendezvous to match a target's motion once, or Follow to keep pace.
+[*][b]Phobos' Asterel N3 Polaris Fire Control System:[/b] selected weapon groups, limited volleys and optional RCS aiming. Select a fire target separately and lift the cover to Engage. Cease Fire stops firing and aiming at once.
+[*]With N2 and N3 fitted, Combat on Track matches range and keeps weapons facing the fire target.
+[*]Torch burns run the reactor the way the game's own course plot does, under the console's torch safety limit. Auto Nav never ignites, repairs or refuels the reactor.
+[*]If the target or a nearby hazard is too faint, Auto Nav switches on the fewest sensors that fix it, non-emitting first, and tells you in the crew log and on the nav map. It switches off only its own sensors; your switches always win. Choose All, Passive or Off in Sensors > AutoEngage.
+[*]Local avoidance steers around tracked contacts and asteroid-field rocks. Undock & Depart checks crew, clearance and connections, then opens at least a 1 km gap. Ordinary Fly never undocks.
+[*]Flights, fire control and Combat support one securely braced tow in free space.
 [/list]
 
-[h2]Operating limits[/h2]
-Disengage removes thrust; the ship coasts. It is not an emergency brake. Docking needs clearance and the navigation console open for final clamps. Departure, docking and pursuit pause after loading. No guaranteed collision-free flight, successful hit or intact capture. Upstream-derived Auto Navigate code remains excluded from the MIT grant; its unresolved reuse terms keep publication on hold.
+[h2]Getting started[/h2]
+[list]
+[*]Buy boards new at regional supply kiosks, used at the K-Leg fixer, broken at the K-Leg supply kiosk or refurbished at the Venus and Flotilla scrap kiosks. You can also build one at an installed Bar or Dining Table, or find one in module salvage. Broken boards need Repair.
+[*]Fit the board into a module slot of the Polaris navigation station; it has no floor INSTALL tile. Open the Phobos flight hub on the station, select a target your sensors track, set arrival preferences and choose Fly, Dock or Approach & Dock.
+[*]Disengage releases the controls. The throttle slider sets how hard Auto Nav may use RCS.
+[*]In the F3 console, phobosnav status reports the current flight.
+[/list]
 
-[h2]Requirements and installation[/h2]
-Ostranauts 1.0.1.5, BepInEx 5 and Phobos Framework 0.40.0 or newer. Disable original Auto Navigate before engaging Phobos Auto Nav; it is not a dependency.
+[h2]Requirements[/h2]
+[list]
+[*]Ostranauts 1.0.1.5, BepInEx 5 and Phobos Framework 0.40.0 or newer.
+[*]BepInEx 5 through EddieSM / EsMM27's [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3741030124]BepInEx Mod Loader[/url], including its one-time setup.
+[*]Disable the original Auto Navigate before engaging Phobos Auto Nav. It is not a dependency, and installing ours does not disable it.
+[/list]
 
-This is an unpublished development package. Automated checks do not establish in-game readiness or Unity layout approval. Keep required mods installed for saves using their content. Updating does not refill shops or old loot containers. See the installation guide for current download availability.
+[h2]Installing from the Workshop[/h2]
+[list]
+[*]Subscribe to the BepInEx Mod Loader and follow its setup instructions.
+[*]Subscribe to Phobos Auto Nav and the Phobos items listed under Required items.
+[*]Start Ostranauts once so the loader copies the plugins, then restart it once so they load. Do the same after each update.
+[*]Check that the mods are enabled in the MODS screen.
+[*]Used the repository's local installer before? Remove those local copies first so only one copy loads. See the [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/installing-mods.md]installation guide[/url].
+[/list]
 
-[h2]English wording update[/h2]
-Controls, warnings and descriptions use clearer language. Equipment identities, saved progress, recipes and gameplay values are unchanged.
+[h2]Saves and limits[/h2]
+[list]
+[*][b]Disengage and Stop are not a brake.[/b] They remove thrust and the ship keeps coasting. Leave braking room.
+[*]No guaranteed collision-free flight, successful hit or intact capture. Losing track of the target or a hazard releases thrust and waits for Resume.
+[*]Docking needs clearance and the docking console open for the final clamp. Departure, docking and pursuit pause after loading, and Combat never restarts on reload.
+[*]Ordinary saves are supported; saved flights keep their settings. Keep required mods installed while a save uses their content. Updating does not refill existing shops or old loot containers.
+[*]Automated checks pass; in-game checks of torch and station-cluster approaches are still in progress.
+[/list]
 
-[h2]Guides, sources and credits[/h2]
-Created by Phobos A. D'thorga (phobosgekko). Independent community work, not endorsed by Blue Bottle Games, Kitfox Games or the research institutions cited below. Research informs design; compact equipment, yields and operating limits remain gameplay choices.
-Guidance adapts Auto Navigate by Gravy / mrkmg; see the upstream link and third-party notices. NASA Goddard Raven, Zhou at NASA Langley, ESA LIRIS (Airbus, Jena Optronik and Sodern), Hartley, Trodden, Richards and Maciejowski (ORCSAT), and ESA ATV inform the sensing and guidance research, not validation of this controller. Daniel Fedor / Blue Bottle Games supplies the historical combat context.
-Original artwork uses AI-assisted production; artwork provenance and licensing are recorded separately.
+[h2]Credits and sources[/h2]
+Created by Phobos A. D'thorga (phobosgekko). Independent community work, not endorsed by Blue Bottle Games, Kitfox Games or the research institutions cited below. Research informs design; operating limits remain gameplay choices.
+Guidance and target tracking adapt [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3745533691]Auto Navigate by Gravy / mrkmg[/url]. That upstream-derived code remains excluded from the MIT grant; its unresolved reuse terms keep publication on hold. See the third-party notices.
+Sensing and guidance research, not validation of this controller: NASA Goddard's Raven, Zhou at NASA Langley (2012), ESA's LIRIS experiment (Airbus, Jena Optronik and Sodern), Hartley, Trodden, Richards and Maciejowski in ESA's ORCSAT project (2012) and ESA ATV operations. Daniel Fedor of Blue Bottle Games supplies the combat context. The departure, pursuit and fire-control guides link each source beside its claim.
+Original artwork uses AI-assisted production; provenance and licensing are recorded separately.
 
-[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/control-panel-guide.md]Console controls, drafts and owner checks[/url]
-[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/auto-nav-departure.md]Departure, avoidance and recovery guide[/url]
-[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/auto-nav-sensors.md]Sensors, asteroid approaches and owner checks[/url]
-[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/development/shipbreaker-capture.md]Capture integration and limits[/url]
-[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/solar-system-economy.md]Regional coverage, sources and limits[/url]
-[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/shared-completion-cues.md]Shared controls, limits and original audio provenance[/url]
-[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/auto-nav-pursuit.md]Pursuit controls, tested conditions, research and limits[/url]
-[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/development/auto-nav-instruments.md]Flight hub controls and layout migration[/url]
-[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/auto-nav-fire-control.md]N3 controls, ownership, volley meaning and native restrictions[/url]
-[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/development/shipbreaker-autopilot-research.md]G4 research and limits[/url]
-[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/development/shipbreaker-autopilot-handover.md]Implementation handover[/url]
-[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/development/shipbreaker-close-work-geometry.md]26 September native geometry checks[/url]
-[url=https://www.nasa.gov/general/nasas-hybrid-computer-enables-ravens-autonomous-rendezvous-capability/]NASA Goddard's Raven research[/url]
-[url=https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/ATV/ATV_views_Space_Station_as_never_before]ESA's LIRIS experiment by Airbus, Jena Optronik and Sodern[/url]
-[url=https://store.steampowered.com/news/app/1022980/view/503954886346412815]Daniel Fedor, Blue Bottle Games, July 2025 combat preview[/url]
-[url=https://ntrs.nasa.gov/citations/20120014309]Zhou, NASA Langley (2012)[/url]
-[url=https://eprints.whiterose.ac.uk/id/eprint/90483/1/orcsatpaper_final.pdf]Hartley, Trodden, Richards and Maciejowski, ESA ORCSAT (2012)[/url]
-[url=https://www.esa.int/Enabling_Support/Operations/ATV_i_Jules_Verne_i]ESA ATV operations[/url]
-[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/getting-started.md]Getting started and download status[/url]
-[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/installing-mods.md]Installation and updates[/url]
-[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/development/auto-navigate-adaptation.md]Mod guide[/url]
-[url=https://steamcommunity.com/sharedfiles/filedetails/?id=3745533691]Auto Navigate by Gravy / mrkmg[/url]
-[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/THIRD_PARTY_NOTICES.md]Adaptation and unresolved upstream terms[/url]
-[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/SUPPORT.md]Help and bug reports[/url]
-[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/mods/PhobosAutoNav/CHANGELOG.md]Full changelog[/url]
-[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/LICENSE]Licence and exclusions[/url]
-[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/THIRD_PARTY_NOTICES.md]Third-party notices[/url]
-[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/assets/workshop/README.md]Workshop artwork provenance[/url]
-[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/auto-nav-item-reference.md]Read this mod’s item reference[/url]
-[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/development/merchant-stock.md]Current quantities and restocking guide[/url]
-[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/crew-automation.md]Crew controls, time-skip limits and owner checks[/url]
-[url=https://steamcommunity.com/sharedfiles/filedetails/?id=3789049955]LOGUSS’s Common Sense modules[/url]
-[url=https://steamcommunity.com/sharedfiles/filedetails/?id=3788237703]jossla’s Study at Terminals[/url]
-
-[h2]Polaris interface update[/h2]
-Clearer controls across all six tabs, full warning details and an installed weapon-group picker. Switched-off weapons stay visible with an explanation. Confirm group handoffs explicitly: the old group may resume native automatic fire; the new group stays held. Left-click Volleys to increase, right-click to decrease; both wrap from 1 to 9. Existing automatic missile restrictions remain in place.
-Browser checks do not establish Unity interaction approval. The recent refresh pacing remains in place; further performance recordings are deferred.
-
-[h2]Polaris readability correction[/h2]
-Dark button faces now keep labels readable in every interaction state. This fixes the white-button regression reported in game. The corrected native appearance still awaits owner playtesting.
-Separate live frames, smaller command/help text and compact buttons keep controls within their sections. Departure, Info and dialogs scroll inside inset areas; Resume, Disengage and Cease Fire stay fixed below them.
-
-[b]Secured towing[/b]
-Approach, Rendezvous, Follow, FCS and Combat support one securely braced tow in free space, using native RCS/torch controls and clearance for both hulls. Engage still grants firing permission separately; an attached ship cannot be selected as the fire target. Brace faults cancel aiming and firing without automatic restart. Release the tow before Dock, Approach & Dock or industrial close work. Stations, mooring, towing chains and unsecured attachments remain blocked. Live towing handling awaits owner testing.
-
-[b]Item handling correction[/b]
-Keep board and remnant pickup/drop actions consistent with their actual stack limits through the shared handling helper. Preserve module slots, repair, restore, dismantling and navigation behaviour. Requires Phobos Framework 0.30.2. Live menu and inventory handling remain owner-tested.
-
-[b]Merchant and salvage update[/b]
-Raise equipment offer chances to at least 85% before the availability setting, fill missing N1/N2/N3 offers at general suppliers, and include all three boards in native module salvage. New configurations default to 30% total per eligible roll; existing saved settings remain authoritative. One board per successful salvage choice, with damaged-only pools preserved. Normal restocking and new loot generation are required; existing inventories stay as they are. Offline checks are not gameplay validation.
-
-[b]Item-action audit[/b]
-The complete item-action audit covers all boards and residues. Boards fit native module slots rather than floor INSTALL; offline maintenance registration checks do not establish live menu approval.
-[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/development/item-handling-audit.md]Complete findings and item ledger[/url]
-
-[h2]Finding current instructions[/h2]
-Use the [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/README.md]operating-guide index[/url] for current controls and requirements. Dated research and design records retain their original scope; they are not installation instructions.
+[h2]Guides and support[/h2]
+[list]
+[*][url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/development/auto-navigate-adaptation.md]N1 operating guide[/url] and [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/control-panel-guide.md]flight hub controls[/url]
+[*][url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/auto-nav-docking.md]Docking[/url] and [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/auto-nav-fire-control.md]fire control[/url]
+[*][url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/README.md]All guides: departure, sensors, towing, pursuit and Combat[/url]
+[*][url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/auto-nav-item-reference.md]Item reference[/url]
+[*][url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/SUPPORT.md]Help and bug reports[/url]
+[*][url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/mods/PhobosAutoNav/CHANGELOG.md]Changelog[/url]
+[*][url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/LICENSE]Licence and exclusions[/url]
+[*][url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/THIRD_PARTY_NOTICES.md]Third-party notices and upstream terms[/url]
+[*][url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/assets/workshop/README.md]Artwork provenance[/url]
+[/list]

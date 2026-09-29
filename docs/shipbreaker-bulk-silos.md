@@ -45,6 +45,22 @@ can pin an input store and an output store for the gangue.
 
 ## Fill and use the silo
 
+Water reaches the silo three ways and leaves it by the links you choose. Ice
+gives water and a little gangue; nothing else is made or lost on the way.
+
+```mermaid
+flowchart LR
+    Ice["Water ice block in the Ice Feed"] --> T2["T2 ice thaw unit, 40 min at 6 kW"]
+    T2 -->|2 kg ice gangue| Tray["T2 gangue tray"]
+    T2 -->|22.7 kg water| S3["S3 process water silo, holds 1,000 kg"]
+    T2 -->|or 22.7 kg water| R3["Agriculture R3 reservoir"]
+    Kiosk["Station Bulk supplies"] --> S3
+    Drink["Ship's Water drinking tanks"] -->|Draw, above the crew reserve| S3
+    S3 -->|Send, above Keep in reserve| Waste["Ship's Water waste tanks"]
+    Waste --> Recycler["Their Recycler decides what returns"]
+    S3 -->|within one tile| X2["Manufacturing X2 electrolysis cell"]
+```
+
 - **At a station:** open the refuelling terminal, then **Bulk supplies**, then
   **Process water (S3)**. Water costs 10 cr/kg in 10 kg steps; one quote can
   fill an empty silo. The usual quote, destination and payment checks apply
@@ -59,8 +75,11 @@ can pin an input store and an output store for the gangue.
 - **Keep in reserve** (0 to 1,000 kg): water below the reserve is never sent
   to the waste tanks; a T2 still fills above it.
 - **Consumers:** a linked Agriculture R3 reservoir takes thaw water for
-  irrigation. No other process consumes silo water yet; electrolysis, filter
-  regeneration and Manufacturing process fluids are recorded as later work in
+  irrigation. With [Phobos Manufacturing](manufacturing-player-guide.md), an X2
+  electrolysis cell within one tile draws its water from the silo, and a V4
+  refinery within one tile delivers the water from its ore charges into it;
+  pick the silo on that machine's panel. Filter regeneration and other process
+  fluids are recorded as later work in
   [asteroid resources for life support](development/asteroid-life-support-research.md)
   and [chemical storage](development/chemical-storage-and-process-fluids.md).
 

@@ -2,41 +2,65 @@
 [b]Version:[/b] 0.2.0
 [b]Publication status:[/b] Not published - unpublished draft
 
-Refining and chemistry aboard your ship: turn what the crew mines into water, metal stock and oxygen, and keep the hydrogen. Realistic chemistry within the game's units, with the game's own dangers when it goes wrong.
+Refining and chemistry aboard your ship: turn what the crew mines into water, metal stock and oxygen, and do something useful with the hydrogen. Outputs follow realistic chemistry within the game's units, and when it goes wrong, the game's own dangers apply.
 
 [h2]What it does[/h2]
 [list]
-[*]Fennmark V4 Volatiles Refinery (4 x 4, 24 kW): bake hydrates or the new clay hydrates chunk for water, roast carbon ore for carbon stock (it breathes CO2, CO and smoke into the room: run a scrubber), cast meteoric iron into nickel-iron ingots, and with Shipbreaker melt four ingots with one carbon into its steel ingots. Water goes to a linked S3 or R3 vessel within one tile.
-[*]Fennmark X2 Chemical Processor (2 x 2, 6 kW): water electrolysis. Every hour 1.125 kg of water becomes 1.000 kg of oxygen, into a linked O2 canister or the cabin air, and 0.125 kg of hydrogen into a linked H2 store.
-[*]Fennmark H2 Hydrogen Store (2 x 2): 24 kg of hydrogen with a vent overboard. Damaged, it leaks to space; with oxygen and a spark, fire or hot hearth nearby, it burns through the game's own explosion.
-[*]Clay hydrates now turn up in dark-regolith rock and C-class deposits. Ores are mined, never bought; nothing new is sold in shops.
-[*]Fennmark K2 Sabatier Reactor (2 x 2, 1.2 kW): CO2 from an installed CO2 canister and hydrogen from the H2 store become water for the S3 or R3 and methane for the new Fennmark M2 Methane Store (160 kg). With the X2 it returns about half the water, as the ISS system does. A damaged M2 leaks methane into the room and burns into CO2 with a spark; a damaged K2 dumps its gas.
-[*]Late-game plant: the V4 costs 64,000 cr, the X2 38,000 cr and the H2 22,000 cr, with component repairs (motors, mainboards, heat sinks, a screen for the V4). They sell back like the game's other high-value salvage and are rare world finds.
-[*]Version 0.1.0 is the first operational release: the three machines, five materials, a local Control Panel, C1 listing with Shipbreaker, and the same merchant and salvage routes as the sibling mods.
+[*][b]Phobos' Fennmark V4 Volatiles Refinery[/b] (4 x 4, 24 kW): bake hydrates or the new clay hydrates chunk for water, roast carbon ore for carbon stock (it breathes CO2, CO and smoke into the room, so run a scrubber), and cast meteoric iron into nickel-iron ingots. With Shipbreaker it also melts four nickel-iron ingots and one carbon stock into four steel ingots.
+[*][b]Phobos' Fennmark X2 Chemical Processor[/b] (2 x 2, 6 kW): water electrolysis. Each hour, 1.125 kg of water becomes 1.000 kg of oxygen, into a linked O2 canister or the cabin air, and 0.125 kg of hydrogen into a linked H2 store.
+[*][b]Phobos' Fennmark H2 Hydrogen Store[/b] (2 x 2): holds 24 kg of hydrogen, with a vent overboard.
+[*][b]Phobos' Fennmark K2 Sabatier Reactor[/b] (2 x 2, 1.2 kW): CO2 from an installed CO2 canister and hydrogen from the H2 store become water for your silo or reservoir, and methane for the [b]Phobos' Fennmark M2 Methane Store[/b] (holds 160 kg). Paired with the X2, it wins back about half the water, as NASA's Sabatier system on the ISS does.
+[*]Clay hydrates now turn up in dark-regolith rock and C-class deposits. Ores are mined, never bought.
 [/list]
 
-[h2]Operating limits[/h2]
-The V4 and X2 pause after a reload until you press Start. A melt left waiting for a cool room longer than its own run freezes into slag. Water needs a Shipbreaker S3 or Agriculture R3 within one tile. The steel charge needs Shipbreaker 0.38.0 or newer. No crew loading orders, no construction recipes (buy the machines), nothing burns the stored methane as fuel yet. Offline checks are not gameplay validation; in-game review is pending.
+[h2]Getting started[/h2]
+[list]
+[*]This is late-game plant, priced alongside the game's radars and heavy lift rotors: the V4 costs 64,000 cr. Buy Fennmark machines at the K-Leg fixer (used), the K-Leg supply kiosk (broken), the Venus scrap kiosk (broken or refurbished), San Diego's Halvorson (new) and regional supply kiosks, or find one, usually broken, in engineering salvage. They install from INSTALL > APPS; there are no construction recipes.
+[*]Water charges and the X2 need a Shipbreaker S3 silo or Agriculture R3 reservoir within one tile.
+[*]Right-click a machine and choose Control Panel. Link its vessel, store or canister under Connections, load one charge into the V4's Refinery charge window, then choose Start.
+[*]In the F3 console, phobosmanufacturing lists your Fennmark machines.
+[/list]
 
-[h2]Requirements and installation[/h2]
-Ostranauts 1.0.1.5, BepInEx 5 and Phobos Framework 0.41.0 or newer. Shipbreaker 0.38.0 or newer and Agriculture are optional.
+[h2]Requirements[/h2]
+[list]
+[*]Ostranauts 1.0.1.5, BepInEx 5 and Phobos Framework 0.41.0 or newer.
+[*]BepInEx 5 through EddieSM / EsMM27's [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3741030124]BepInEx Mod Loader[/url], including its one-time setup.
+[*]Optional: Phobos Shipbreaker 0.38.0 or newer (S3 silo and the steel charge) and Phobos Agriculture (R3 reservoir). Water work needs one of them.
+[/list]
 
-This is an unpublished development package. Automated checks do not establish in-game readiness or Unity layout approval. Keep required mods installed for saves using their content. Updating does not refill shops or old loot containers. See the installation guide for current download availability.
+[h2]Installing from the Workshop[/h2]
+[list]
+[*]Subscribe to the BepInEx Mod Loader and follow its setup instructions.
+[*]Subscribe to Phobos Manufacturing and the Phobos items listed under Required items.
+[*]Start Ostranauts once so the loader copies the plugins, then restart it once so they load. Do the same after each update.
+[*]Check that the mods are enabled in the MODS screen.
+[*]Used the repository's local installer before? Remove those local copies first so only one copy loads. See the [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/installing-mods.md]installation guide[/url].
+[/list]
 
-[h2]English wording update[/h2]
-Controls, warnings and descriptions use clearer language. Equipment identities, saved progress, recipes and gameplay values are unchanged.
+[h2]Saves and limits[/h2]
+[list]
+[*]Ordinary saves are supported. Keep required mods installed while a save uses their content. Updating does not refill existing shops or old loot containers.
+[*]Working machines pause after a reload until you press Start, keeping their charge and progress.
+[*]Hydrogen and methane stay stored as kilogram records. Vent the H2 store before removing it.
+[*]A damaged H2 store leaks hydrogen to space; with oxygen in the room and a spark, fire or working refinery, it burns through the game's own explosion. A damaged M2 leaks methane into the room, which burns to CO2 with a spark; a damaged K2 dumps its gas. Oxygen sent into the cabin air raises the fire risk.
+[*]A metal melt left waiting for a cool room too long freezes into slag. No crew loading orders yet.
+[*]Automated checks pass; in-game checks are still pending.
+[/list]
 
-[h2]Guides, sources and credits[/h2]
-Created by Phobos A. D'thorga (phobosgekko). Independent community work, not endorsed by Blue Bottle Games, Kitfox Games or the research institutions cited in the guides. Research informs design; compact equipment, yields and operating limits remain gameplay choices.
-Original artwork uses AI-assisted production; artwork provenance and licensing are recorded separately.
+[h2]Credits and sources[/h2]
+Created by Phobos A. D'thorga (phobosgekko). Independent community work, not endorsed by Blue Bottle Games, Kitfox Games or the research institutions cited in the guides. Research informs design; compact equipment and operating limits remain gameplay choices.
+Every recipe conserves mass. Reactions, energies and hazards draw on NIST, NASA, the OSIRIS-REx science team and iron-meteorite mineralogy; yields rounded to item units are labelled as ours. The chemistry record cites each source beside its claim.
+Original artwork uses AI-assisted production, including PixelLab; provenance and licensing are recorded separately.
 
-[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/getting-started.md]Getting started and download status[/url]
-[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/installing-mods.md]Installation and updates[/url]
-[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/manufacturing-player-guide.md]Player guide[/url]
-[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/development/manufacturing-refinery-and-chemistry.md]Chemistry, hazards and sources[/url]
-[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/development/manufacturing-research.md]Machining research and sources[/url]
-[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/SUPPORT.md]Help and bug reports[/url]
-[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/mods/PhobosManufacturing/CHANGELOG.md]Full changelog[/url]
-[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/LICENSE]Licence and exclusions[/url]
-[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/THIRD_PARTY_NOTICES.md]Third-party notices[/url]
-[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/manufacturing-item-reference.md]Read this mod’s item reference[/url]
+[h2]Guides and support[/h2]
+[list]
+[*][url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/manufacturing-player-guide.md]Player guide[/url]
+[*][url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/manufacturing-item-reference.md]Item reference[/url]
+[*][url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/development/manufacturing-refinery-and-chemistry.md]Chemistry, hazards and sources[/url]
+[*][url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/getting-started.md]Getting started[/url]
+[*][url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/SUPPORT.md]Help and bug reports[/url]
+[*][url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/mods/PhobosManufacturing/CHANGELOG.md]Changelog[/url]
+[*][url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/LICENSE]Licence and exclusions[/url]
+[*][url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/THIRD_PARTY_NOTICES.md]Third-party notices[/url]
+[*][url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/assets/workshop/README.md]Artwork provenance[/url]
+[/list]

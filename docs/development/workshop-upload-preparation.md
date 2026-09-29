@@ -1,118 +1,201 @@
-# Preparing Steam Workshop uploads
+# Preparing and uploading to the Steam Workshop
 
-This workflow prepares local candidates only. Neither script logs in to Steam,
-starts SteamCMD, uploads files, changes visibility, or marks a release published.
-Steam credentials and API keys are not inputs. Source/package checks cannot prove
-that a future subscriber can load the mod: that requires a private subscription test.
+Two separate steps. **Preparation** (`prepare-workshop.ps1` / `.py`) stages and
+checks a candidate offline: no login, no network, safe for agents and CI.
+**Upload** (`upload-workshop.ps1`) is run by the owner, who types their Steam
+password and Steam Guard code into SteamCMD's own prompt. Uploads are never
+part of builds, CI or preparation, and agents do not run them. The owner asked
+for an uploader on 29 September 2026; that request is not standing permission
+for anyone else to upload, subscribe or change visibility.
 
-## Commands
-
-```powershell
-# Inspect an existing prepared package without writing anything; JSON output.
-python scripts/prepare-workshop.py --mod Framework
-
-# Build with the existing local game settings, then stage a candidate.
-./scripts/prepare-workshop.ps1 -Mod Framework -Build -Prepare
-
-# Stage an already rebuilt package; does not compile or install it.
-python scripts/prepare-workshop.py --mod Agriculture --prepare
-
-# Recheck every staged file and the upload draft against its saved manifest.
-python scripts/prepare-workshop.py --verify '<candidate directory>'
-
-# Regression tests (no game installation or Steam account needed).
-python -m unittest discover -s tests -p test_workshop_preparation.py
+```mermaid
+flowchart TD
+    Status["prepare-workshop.py --status"] --> Build["prepare-workshop.ps1 -Mod X -Build -Prepare"]
+    Build --> Private["upload-workshop.ps1 -Operation Create (always Private)"]
+    Private --> Required["Steam page: set Required items, check text and cover"]
+    Required --> Test["Private subscription test on a clean setup"]
+    Test --> Next{"Next mod depends on this one?"}
+    Next -->|Yes| Status
+    Next -->|All tested| Public["Fresh candidate; -Operation Update -Visibility Public -ConfirmPublic"]
+    Public --> Records["Mark Released, update page status, regenerate notes"]
 ```
 
-Use `-OstranautsPath` with the PowerShell wrapper to override the saved local game
-path. Python 3.10+ and PowerShell 7 are required; builds also need the prerequisites
-in [building](building.md). Use `-Build` after code changes: the offline checker
-compares packaged DLLs to compiled outputs, not C# source to machine code.
+## Order and current blockers
 
-Each preparation creates a fresh directory under ignored `.local/workshop-staging/`.
-It contains `content/`, `manifest.json` and `workshop.vdf.draft`. Older candidates
-are retained; no automatic deletion occurs. The manifest records version, source
-commit, dirty-tree status, operation, required-item IDs, blockers and SHA-256 hashes.
-A successful preparation means **offline staging succeeded**, even when publication
-blockers remain. `uploadEnabled` is always false. Exit 1 means validation failed;
-exit 2 is invalid arguments. Default operation is a read-only preview.
+Publish dependencies first; `--status` prints the order and each mod's blockers:
+Framework, then Agriculture, Auto Nav and Manufacturing, then Shipbreaker. A mod
+cannot list a required item that does not exist yet, so its dependencies must be
+created first (a private item has an ID and is enough for a private test).
 
-## Content layout and checks
+Holds in `config/workshop-publishing.json` as of 29 September 2026:
 
-The Workshop content root contains native `mod_info.json`, `data/`, artwork and
-framework definitions. The mod's own plugin folder is at `BepInEx/plugins/<ModId>/`;
-Framework additionally carries its pinned Phobos Scope recorder. Supporting package
-documentation is under `documentation/`. The installer ZIP's outer `Mods/<ModId>/`
-wrapper must not become the Workshop root.
+- **Auto Nav:** Gravy / mrkmg's Auto Navigate reuse terms are unresolved (see
+  [public-release readiness](public-release-readiness.md)). Because Shipbreaker
+  requires Auto Nav, **Shipbreaker cannot go public until Auto Nav can**. The
+  owner must obtain terms or replace the derived code; the tools cannot decide it.
+- **Manufacturing:** first operational release awaiting owner gameplay checks.
+
+A private upload with `-AcknowledgeHold` may pass a hold or an unpublished
+dependency, for the owner's own subscription test; it is recorded in the receipt.
+Private items are visible only to their owner. Public or wider visibility never
+passes a blocker. A missing cover or a text-limit error cannot be waived.
+
+## Preparation (offline)
+
+```powershell
+# Every mod: package freshness, blockers, sizes and order. Read-only.
+python scripts/prepare-workshop.py --status
+
+# Build with the saved game path, then stage a candidate.
+./scripts/prepare-workshop.ps1 -Mod Framework -Build -Prepare
+
+# Stage an already rebuilt package; re-check a staged candidate.
+python scripts/prepare-workshop.py --mod Agriculture --prepare
+python scripts/prepare-workshop.py --verify '<candidate directory>'
+
+# Regression tests (no game or Steam account needed).
+python -m unittest discover -s tests -p test_workshop_preparation.py
+pwsh -File tests/workshop-upload.tests.ps1
+```
+
+Each preparation creates a fresh directory under ignored `.local/workshop-staging/`
+with `content/`, `manifest.json` and a private `workshop.vdf.draft`. Older
+candidates are kept. The manifest records version, title, source commit, dirty-tree
+status, operation, required items, blockers, text sizes and SHA-256 hashes of every
+file. `uploadEnabled` is always false in preparation output. Exit 1 means validation
+failed; exit 2 is invalid arguments. Prepare from a committed tree for anything
+beyond a private test: the uploader refuses a dirty candidate for wider visibility.
+
+Checks: native source against the package, required `data/` content, DLLs against
+compiled output, translations, permitted payload types, filesystem links, generated
+release notes, page title/version, and Steam's text limits. Steamworks accepts a
+title under 129 bytes and a description or change note under 8,000 UTF-8 bytes
+(`k_cchPublishedDocumentTitleMax`, `k_cchPublishedDocumentDescriptionMax`,
+`k_cchPublishedDocumentChangeDescriptionMax` in Valve's
+[ISteamUGC documentation](https://partner.steamgames.com/doc/api/ISteamUGC)). The
+page check in `workshop-release-notes.py` keeps pages at or below 7,500 bytes so a
+small correction does not suddenly block an upload.
+
+Workshop text travels inside a SteamCMD VDF string. Valve does not document its
+escape handling, so the tools avoid needing any: text keeps literal line breaks,
+paths use forward slashes, and ASCII double quotes and backslashes are refused.
+The release-notes generator turns changelog quotes into typographic ones.
+
+## Content layout
+
+The Workshop content root holds native `mod_info.json`, `data/`, artwork and
+framework definitions. The mod's plugin folder is `BepInEx/plugins/<ModId>/`;
+Framework also carries its pinned Phobos Scope recorder. Package documentation
+sits under `documentation/`. The installer ZIP's outer `Mods/<ModId>/` wrapper
+must not become the Workshop root.
 
 This follows **EddieSM / EsMM27's BepInEx Workshop bridge**
-[documented layout and synchronization behaviour](https://github.com/EsMM27/BepInEx_Loader_Ostranauts#readme).
-The bridge copies enabled Workshop plugin payloads to its managed installation
-area. BepInEx itself still needs its normal installation; see the
-[author's Workshop page](https://steamcommunity.com/sharedfiles/filedetails/?id=3741030124).
-This is source-backed packaging preparation, not a tested subscription install.
-Do not leave duplicate local and Workshop copies of the same Phobos plugin active
-when eventually testing. Plan migration and backup before changing an existing save.
+[documented layout and synchronization](https://github.com/EsMM27/BepInEx_Loader_Ostranauts#readme):
+at startup it copies enabled Workshop plugins to
+`BepInEx/plugins/Workshop/<item id>/`, and notes that newly copied plugins need a
+restart because BepInEx scans plugins before the bridge runs. Our player
+instructions therefore say to start the game once and then again after
+subscribing or updating. BepInEx itself still needs its normal installation; see
+the [author's Workshop page](https://steamcommunity.com/sharedfiles/filedetails/?id=3741030124).
 
-Preparation checks current native source files against the package, generated notes,
-page version/title, required data content, DLL presence and compiled-byte agreement,
-translation freshness and permitted payload types. It rejects filesystem links.
-Hashes detect accidental staging changes, not malicious manifest replacement or
-proof of remote installation. Rebuild and regenerate instead of editing staged files.
+Our plugins find their native folder through the game's own mod list by name
+(`DataHandler.dictModInfos`), and translations beside their DLL, so a Workshop
+folder under `steamapps/workshop/content/1022980/` should work. That is source
+inspection, not a subscription test. Two copies of one Phobos mod (local and
+Workshop) must not load together: `scripts/remove-local-mods.ps1` backs up and
+removes local copies (see [installing](../installing-mods.md)).
 
-## Item IDs, holds and prerequisites
+## Uploading (owner only)
 
-`config/workshop-publishing.json` holds the game App ID, per-mod item IDs and
-required Phobos mods. Item IDs remain null until Steam actually creates them.
-Never invent IDs. Copy verified real IDs into the catalogue in a normal commit;
-subsequent drafts then select an update rather than creation. Keep dependencies in
-sync with the actual plugin requirements as the mods evolve.
+One-time setup: install [Valve's SteamCMD](https://developer.valvesoftware.com/wiki/SteamCMD)
+yourself (the script never downloads it). The account must own Ostranauts. Pass
+`-SteamCmdPath` and `-SteamUser` once; they are remembered in ignored
+`.local/workshop-settings.json`. Your password is never an argument.
 
-The BepInEx Workshop bridge is listed as an external required item. Framework must
-receive its real item ID before its consumers can have complete dependency lists.
-SteamCMD's basic VDF does not configure these required-item relationships: set and
-verify them separately through the Workshop editor or a future UGC integration.
-Optional providers must not become mandatory required items.
+```powershell
+# See the plan without contacting Steam.
+./scripts/upload-workshop.ps1 -Mod Framework -Operation Create -SteamUser <account> -SteamCmdPath C:/steamcmd/steamcmd.exe -WhatIf
 
-Auto Nav remains held for unresolved upstream distribution terms. Manufacturing
-retains its scaffold hold. Missing covers and
-unpublished dependency IDs are reported as blockers. Do not treat a generated draft
-as permission to bypass these holds. Resolve them in the source catalogue/docs.
+# Create the item (always Private). SteamCMD asks for password / Steam Guard.
+./scripts/upload-workshop.ps1 -Mod Framework -Operation Create
 
-## Later: an explicitly authorized private upload
+# Later versions: prepare a fresh candidate, then update.
+./scripts/upload-workshop.ps1 -Mod Framework -Operation Update
 
-**No upload has been performed by preparing these tools.** Before enabling one:
+# After a successful private subscription test, from a committed candidate.
+./scripts/upload-workshop.ps1 -Mod Framework -Operation Update -Visibility Public -ConfirmPublic
+```
 
-1. Review the exact candidate, manifest, distribution rights and blockers; run
-   `--verify`. Build a fresh candidate if the source or description changed.
-2. Validate the SteamCMD installation and log in interactively with the publishing
-   account. Enter passwords and Steam Guard in Steam's prompt, never in a script,
-   argument, repository or report. A Web API key is not this account session.
-3. Following a separate authorization, supply the reviewed VDF to SteamCMD's
-   `workshop_build_item` command. Drafts specify private visibility (`2`). Valve
-   documents this route for testing. The `.draft` suffix is a review convention,
-   not a technical lock; SteamCMD must never be invoked by preparation tooling.
-4. A zero item ID creates a new item. Valve says SteamCMD writes the resulting ID
-   back into the VDF. After an error or timeout, inspect the account and upload logs
-   before retrying creation: a retry might create a duplicate. Preserve the original
-   candidate, returned ID and logs as a local receipt. Record the verified ID in the
-   catalogue before any later update. A Steam-mutated draft will fail `--verify`;
-   retain it as evidence and generate a new candidate for subsequent work.
-5. Check the actual item's app, owner, private visibility, title, description,
-   changelog, cover and required items. Accept Workshop legal terms manually if
-   prompted. A successful upload response alone is insufficient verification.
-6. Test a clean subscription installation with BepInEx and the bridge, check startup
-   logs and native recognition, and test gameplay. Only then consider public release.
-   Public visibility and Released changelog status require actual publication.
+What it does, in order:
 
-Primary reference: **Valve**, [Steam Workshop implementation guide, SteamCMD
-integration](https://partner.steamgames.com/doc/features/workshop/implementation#SteamCmd).
-Valve also documents the Steamworks UGC creation/update path there. An independently
-registered publishing application may require game-developer configuration; it is
-not assumed to be available to our account. This task has not validated SteamCMD
-account permissions, real uploads, BBCode rendering or remote metadata readback.
+1. Picks the newest candidate for the mod (or `-Candidate`), re-verifies every
+   file hash, and checks it matches the current source version, the catalogue's
+   item ID and the requested `-Operation`. A catalogue that already has an ID
+   refuses Create; a candidate prepared before an ID was recorded is refused too.
+2. Applies the rules above: blockers, Private-only creation, clean tree and
+   `-ConfirmPublic` for Public, and no second Create while an earlier one is
+   unresolved.
+3. Writes `upload.vdf` (with the chosen visibility) and `receipt.json` under
+   `.local/workshop-receipts/<ModId>/<time>-<version>-<operation>/` **before**
+   starting SteamCMD. The candidate itself is never modified.
+4. Runs `steamcmd +login <account> +workshop_build_item <vdf> +quit` in the same
+   console, so SteamCMD's own prompts work. It keeps SteamCMD's fresh log files
+   with the receipt.
+5. For Create, SteamCMD writes the new item ID back into the VDF (Valve's
+   [SteamCMD Workshop guide](https://partner.steamgames.com/doc/features/workshop/implementation#SteamCmd)).
+   The script records it in `config/workshop-publishing.json` (commit that). If
+   no ID comes back, check your Workshop items on Steam **before** retrying, then:
+   `./scripts/upload-workshop.ps1 -Reconcile <receipt dir> -ItemId <id>` or
+   `-NotCreated`. A blind retry could create a duplicate.
 
-A future uploader should consume this manifest, require explicit create/update and
-visibility selection, refuse blockers, save a pending receipt before contacting
-Steam, preserve failures for reconciliation, and verify the remote result. It must
-not upload automatically on Git commits or be added to the documentation CI job.
+SteamCMD's exit code is not proof of success, so receipts end as
+`created-unverified` or `submitted-unverified`. Every upload replaces the Workshop
+title, description (from `page.bbcode`), change note and cover with the candidate's;
+edit the repository copy, not the Steam page text.
+
+### After each upload, on Steam
+
+- Open the item page (the script prints the link). Check the title, description,
+  change note, cover and visibility. Accept the Workshop legal agreement if asked.
+- **Owner controls → Add/Remove Required Items:** add every item the script
+  listed (the BepInEx Mod Loader and the required Phobos items). SteamCMD's VDF
+  cannot set these. Never add optional integrations as required.
+- Tags and other page fields are set in Steam's editor if wanted.
+
+### Private subscription test
+
+On the owner's machine: close the game, run `remove-local-mods.ps1` for the mods
+under test, subscribe to the private items and their dependencies, start the game
+twice, then check the MODS screen, `BepInEx/LogOutput.log` and each mod's F3 status
+command, and a short gameplay check. Record the result in the changelog's Unreleased
+or Draft notes. To return to local builds, unsubscribe and run `install-mods.ps1`.
+
+### Going public
+
+Only after the private test passes and the blockers are resolved: commit, prepare
+a fresh candidate, then run the Update with `-Visibility Public -ConfirmPublic`.
+Afterwards mark that version **Released** with the real publication date in the
+mod's changelog, set the page's Publication status and add the item link, then
+regenerate release notes (`python scripts/workshop-release-notes.py --write`) and
+commit. See [changelogs and publication records](workshop-publication.md).
+
+## The game's own UPLOAD button (fallback)
+
+Ostranauts 1.0.1.5 has its own uploader (`SteamWorkshopManager`, observed in local
+research copies of the game code, which stay out of the repository). A load-order
+entry ending in `|edit` shows an **UPLOAD** button on that mod's MODS-screen row.
+It uploads the whole folder, takes the title from `strName` and the first
+description from `strNotes`, sends `preview.png` and the fixed change note
+“Update from game”, writes the new ID into that folder's `mod_info.json`, and sets
+no visibility. Pointing an `|edit` entry at a staged `content/` folder would work
+but loads a second copy of the mod and gives no receipts, required items or
+visibility control. Prefer the script; use this only if SteamCMD is refused for
+the account.
+
+## Limits of this tooling
+
+No real upload has been made with it. The fake-SteamCMD tests cover the script's
+own rules, receipts and catalogue updates, not Valve's service, account
+permissions, BBCode rendering or remote readback. Hashes detect accidental staging
+changes, not malicious replacement. A future UGC-based uploader would need a
+registered application and is not assumed to be available.

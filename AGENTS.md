@@ -55,11 +55,18 @@
 ## Changelogs and Steam Workshop publication records
 
 - Workshop preparation uses `scripts/prepare-workshop.ps1 -Mod <name> -Build
-  -Prepare` and `scripts/prepare-workshop.py --verify <candidate directory>`.
+  -Prepare`, `scripts/prepare-workshop.py --status` and `--verify <candidate>`.
   Follow `docs/development/workshop-upload-preparation.md`. These are offline-only tools;
   never add uploads to builds or CI. Maintain real item IDs, dependencies and
   publication holds in `config/workshop-publishing.json`; preserve unknown IDs
   as null. Preparation does not authorize Steam login, uploads or visibility changes.
+- Owner request (2026-09-29): `scripts/upload-workshop.ps1` is the owner-run
+  SteamCMD uploader (receipts, Private-only creation, blocker and duplicate-create
+  guards, item-ID recording); `scripts/remove-local-mods.ps1` retires local copies
+  before a Workshop subscription test. Agents maintain and test them with the fake
+  SteamCMD in `tests/workshop-upload.tests.ps1` but never run a real upload, handle
+  credentials or change visibility. Keep pages at or below 7,500 bytes, without
+  ASCII double quotes or backslashes (SteamCMD VDF strings).
 
 - Owner memorandum (2026-09-25), effective immediately for every Ostranauts mod:
   maintain `mods/<ModId>/CHANGELOG.md` and `workshop/<ModId>/page.bbcode` as part

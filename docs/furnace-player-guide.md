@@ -151,6 +151,23 @@ selected cooling assembly. Conversion losses also enter that finite store.
 
 ## First casting
 
+A batch runs in this order. Every step marked Choose is a control you press,
+unless [Repeat batches](#repeat-batches) is on; the AUTO sequence runs by itself.
+
+```mermaid
+flowchart TD
+    Pair["Choose and pair one cooling assembly"] --> Load["Load twenty 1 kg pieces into Feed"]
+    Load --> Seal["Choose Seal and verify charge"]
+    Seal --> Run["Choose Enable / resume sequence"]
+    Run --> Auto["AUTO: evacuate, preheat, melt, hold, solidify, cool"]
+    Auto --> Cool{"At or below 50 C?"}
+    Cool -->|Not yet| Wait["Wait while it cools"]
+    Wait --> Cool
+    Cool -->|Yes| Gas["Choose to return chamber and receiver gas"]
+    Gas --> Release["Choose Release cool charge, with room for all products"]
+    Release --> Products["Casting or ingots plus remainder in Products"]
+```
+
 1. Open **Control Panel**, choose one cooling assembly and pair it. Allow a powered
    instrument update. If the instrument artwork is unavailable, use the fallback controls.
 2. Open **Feed** locally. Insert **twenty separate, unstacked native Scrap
@@ -415,7 +432,8 @@ they are not the instructions for installing today's packages.
   send released products to a collector. Receiving, Start and Release are
   separate controls.
 - [Repair-casting study](development/furnace-repair-castings.md): proposed heat sinks for
-  future Manufacturing equipment. The implemented furnace still casts housings;
+  future Manufacturing equipment. The implemented furnace casts housings and,
+  since 0.38.0, aluminium and steel ingots ([recipes](#recipes-housings-and-ingots));
   the proposed heat sinks and machining are not available.
 - [Electrical heating decision](development/furnace-electrical-direction.md) and
   [original thermal research](development/fusion-smelter-research.md): evidence and research

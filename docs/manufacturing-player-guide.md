@@ -41,6 +41,19 @@ what went in, sorted.
 | 1 meteoric iron block (20 kg, mined) | 4 nickel-iron ingots (4 kg each); 1 gangue; 1 refinery slag (1 kg) | 40 min |
 | 4 nickel-iron ingots + 1 carbon stock (Shipbreaker only) | 4 Rivetline steel ingots (4 kg each); 1 steel melt remainder (1 kg) | 33 min |
 
+Every charge sorts into three places: solids to the tray, water to the linked
+vessel and, for carbon ore only, gas into the room. Tray products can go back in
+as the steel charge.
+
+```mermaid
+flowchart LR
+    Feed["One charge in the Refinery charge feed"] --> V4["V4 refinery, after Start"]
+    V4 -->|water from hydrates, clay or carbon ore| Vessel["Linked S3 or R3 water vessel"]
+    V4 -->|solids| Tray["V4 tray, emptied by hand"]
+    V4 -->|carbon ore only, 1 kg pyrolysis gas| Room["Room air"]
+    Tray -->|4 nickel-iron ingots and 1 carbon stock, with Shipbreaker| Feed
+```
+
 Refining loses money against selling the ore whole (four ingots are worth 96 cr;
 the iron block 450 cr), and carburising loses a little more (four steel ingots
 are worth 100 cr; the four nickel-iron ingots and carbon that make them, 106 cr).
@@ -101,6 +114,24 @@ of hydrogen (exactly one X2 cycle's output) and 0.682 kg of carbon dioxide and
 makes 0.559 kg of water and 0.249 kg of methane: CO2 + 4 H2 -> CH4 + 2 H2O.
 With the X2, about half the water the cell splits comes back, the rest leaves
 as the hydrogen in the methane. That is how NASA's ISS system works too.
+
+Here is the whole loop, per one-hour cycle of each machine. Every vessel,
+canister and store is linked on the machine's panel and sits within one tile.
+
+```mermaid
+flowchart LR
+    Vessel["S3 or R3 water vessel"] -->|1.125 kg water| X2["X2 electrolysis cell, 6 kW"]
+    X2 -->|1.000 kg oxygen| O2{"O2 canister linked?"}
+    O2 -->|Yes| Canister["O2 canister, up to rated pressure"]
+    O2 -->|None| Cabin["Cabin air"]
+    X2 -->|0.125 kg hydrogen| H2["H2 hydrogen store"]
+    Scrubber["Game's CO2 scrubber"] --> CO2["Installed CO2 canister"]
+    H2 -->|0.125 kg hydrogen| K2["K2 Sabatier reactor, 1.2 kW"]
+    CO2 -->|0.682 kg carbon dioxide| K2
+    K2 -->|0.559 kg water| Vessel
+    K2 -->|0.249 kg methane| M2["M2 methane store"]
+    M2 -->|Vent methane, your choice| Space["Overboard"]
+```
 
 1. Install the K2 within one tile of an H2 store, an installed CO2 canister,
    a water vessel (S3 or R3) and an M2 methane store, and connect its power

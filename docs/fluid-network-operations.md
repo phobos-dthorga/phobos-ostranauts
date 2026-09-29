@@ -7,6 +7,21 @@ prepared/delivered; no new Steam publication is implied.
 
 ## Multiple racks and retained irrigation lines
 
+Water and nutrients reach the racks through one W2. Drained solution can come
+back to the W2 for treatment; nothing returns as drinking water.
+
+```mermaid
+flowchart LR
+    Hand["Charges, rations and nutrient packets, by hand"] --> W2["W2 supply unit"]
+    SW["Ship's Water tanks, optional inlet"] --> W2
+    R3["R3 reservoir, optional, replaces that inlet"] --> W2
+    W2 -->|irrigation conduit, up to 64 tiles| Racks["Up to eight linked racks"]
+    Racks -->|Drain| Sol["Recorded Process Solution"]
+    Sol --> Treat["W2 drainage treatment, with a cartridge"]
+    Treat -->|90% of water, 80% of nutrients| W2
+    Treat --> Rej["Retained Treatment Rejects"]
+```
+
 One W2 can explicitly pair with **eight racks** using the existing Pair controls.
 An existing saved pair occupies slot zero unchanged. Each rack still accepts one
 supplier, chooses its own receiving permission and must match the W2 formulation.

@@ -388,3 +388,14 @@ explosion object now reads "Gas deflagration", the panel help and the console
 help). The player guide, design and implementation records, economy guide and item
 reference follow. Coverage is 2,284 entries, 162 documents and
 14 other surfaces. Unity wording is unverified.
+
+## Workshop readiness, 29 September 2026
+
+All five Workshop pages are rewritten as current, player-first descriptions under
+Steam's 8,000-byte description limit (6.0 to 6.8 KB each): what the mod does,
+getting started, requirements, Workshop installation, saves and limits, credits
+and one list of guides. Per-version update sections now live only in changelogs.
+The installation and getting-started guides gain the Workshop route; ten player
+guides gain flowcharts with one-sentence lead-ins, and several stale statements
+found on the way are corrected. No translation entries change. Coverage is 2,284
+entries, 162 documents and 14 other surfaces. Unity wording is unverified.

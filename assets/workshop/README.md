@@ -1,8 +1,8 @@
 # Workshop preview artwork
 
-Four coordinated cover illustrations for Phobos Framework, Auto Nav,
-Shipbreaker and Agriculture. These are promotional illustrations, not gameplay
-screenshots or a claim of release readiness. Approach Assist and Phobos Scope
+Five coordinated cover illustrations for Phobos Framework, Auto Nav,
+Shipbreaker, Agriculture and Manufacturing. These are promotional illustrations,
+not gameplay screenshots or a claim of release readiness. Approach Assist and Phobos Scope
 are deliberately outside this set, as selected by the owner on 25 September 2026.
 The owner approved the set and requested native-menu integration on the same day.
 
@@ -10,7 +10,7 @@ The design connects each mod to the project's ambition of longer habitation in
 hostile space: shared dependable systems, careful navigation, material recovery
 and cultivation. It does not promise unlimited resources or perfect recycling.
 
-![Four coordinated Phobos Workshop covers](previews/collection.png)
+![The original four Phobos Workshop covers](previews/collection.png)
 
 | Mod | Workshop preview | Small preview | Cover meaning |
 | --- | --- | --- | --- |
@@ -18,6 +18,7 @@ and cultivation. It does not promise unlimited resources or perfect recycling.
 | Phobos Auto Nav | [512px](previews/PhobosAutoNav-512.png) | [256px](previews/PhobosAutoNav-256.png) | Controlled approach, braking and docking. |
 | Phobos Shipbreaker | [512px](previews/PhobosShipbreaker-512.png) | [256px](previews/PhobosShipbreaker-256.png) | Detached-panel processing, electrical casting, recovered materials and retained waste. |
 | Phobos Agriculture | [512px](previews/PhobosAgriculture-512.png) | [256px](previews/PhobosAgriculture-256.png) | Potato and lettuce cultivation; explicitly marked **in development**. |
+| Phobos Manufacturing | [512px](previews/PhobosManufacturing-512.png) | [256px](previews/PhobosManufacturing-256.png) | Volatiles refinery, water-splitting cell and hydrogen store; composed cover (see below). |
 
 ## Files and branches
 
@@ -72,9 +73,30 @@ is baked into this English-language promotional artwork, separate from the live
 localized in-game interfaces. Future translated covers need separately reviewed
 artwork. No runtime equipment artwork, identifiers or gameplay has changed.
 
+## Manufacturing: a composed cover
+
+Manufacturing arrived after the original set, so its cover was assembled rather
+than generated whole. On **29 September 2026** PixelLab's `create_image_pro`
+produced one 244 x 170 scene ([retained unchanged](sources/PhobosManufacturing-scene.png),
+20 generations from the subscription allowance, no credit purchase). Its style
+image was the committed Shipbreaker cover; its design references were the mod's
+own V4, X2 and H2 world sprites. The first pilot was accepted: its palette and
+pixel density match the set. The tanks show some curvature, acceptable for
+promotional art (the overhead-only rule governs world sprites, not covers).
+
+`python scripts/compose-workshop-cover.py` doubles the scene with nearest-neighbour
+sampling, places it in the Shipbreaker cover's frame (border, PHOBOS label and
+footer), and draws the title and subtitle from original pixel glyphs in the script.
+No font file or game asset is involved. [The composition record](composed.json)
+holds the prompt, seed, provider IDs, source hashes and layout. Use `--check` to
+verify committed exports without writing. The script writes both preview sizes and
+`mods/PhobosManufacturing/preview.png`. PixelLab output is subject to
+[PixelLab's terms of service](https://pixellab.ai/termsofservice).
+
 ## Native-menu integration
 
-The exporter also writes each 512px cover to `mods/<ModId>/preview.png`.
+The exporter (and, for Manufacturing, the composer) also writes each 512px cover
+to `mods/<ModId>/preview.png`.
 Existing package builders copy the native folder, and the shared packaging helper
 checks that the cover matches its committed derivative. Packages include separate
 artwork provenance and exact prompts. Ordinary package builds do not fetch masters.

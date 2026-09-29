@@ -14,6 +14,7 @@ Dates on Draft entries record preparation, not Steam publication.
 - Phobos' Fennmark M2 Methane Store (2 x 2, 160 kg empty, holds 160 kg, 21,000 cr): keeps the methane until something aboard can use it (owner decision), with an explicit vent overboard.
 - Hazards: a damaged methane store leaks the game's own methane gas into its room until repaired, and with oxygen and an ignition source its contents burn into carbon dioxide through the game's own explosion. A damaged reactor dumps the CO2 and methane it holds into the room; its hydrogen burns or escapes.
 - Original Fennmark artwork for both machines, produced with PixelLab from original start drawings. Same merchants, loot, repair, Restore and dismantle routes as the other Fennmark machines; the engineering-loot chance stays 5% in total, now shared by five machines.
+- A mod-menu and Workshop cover, matching the other Phobos covers: a PixelLab scene of the V4, X2 and H2 in the Shipbreaker cover's frame.
 
 ### Changed
 

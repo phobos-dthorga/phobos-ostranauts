@@ -1,95 +1,64 @@
 [h1]Phobos Framework[/h1]
 [b]Version:[/b] 0.41.0
-
-[h2]Performance update[/h2]
-Shared display updates now avoid repeated work, and crew equipment searches stay within their own ship. Optional performance recording remains off unless requested. Saved state and gameplay rules are unchanged.
-Offline checks accompany this draft. Measured improvement and in-game interaction still await owner feedback. [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/development/performance-audit.md]Audit and optional playtesting checks[/url].
-
 [b]Publication status:[/b] Not published - development candidate
 
-Version 0.31.1 fixes an error when the game checks an unnamed condition during section selection. Assembly requirements stay unchanged. Offline regression checks pass; live confirmation remains pending.
-
-Shared controls and services for the Phobos mods. Install it with the content mods that need it; Framework is not a ship full of new machinery.
+The shared toolbox behind the Phobos mods. On its own it adds no new machinery; install it with the Phobos content mods that need it, and it keeps their controls, crew work and supplies behaving the same way from one machine to the next.
 
 [h2]What it does[/h2]
 [list]
-[*]Use shared machinery controls, store selection, crew standing orders and training.
-[*]Give crew a chosen job and approved supplies. Orders begin disabled; shifts, needs, access and direct orders still matter.
-[*]Supported onboard work can run during time-skip. Exterior work and flight pause and need Resume.
-[*]Shared translation support uses English when a translation is missing. Completion alerts share one volume control.
-[*]Construction, supply transfers and station purchases check materials, space and power. A full destination keeps cargo at its source.
-[*]Crew hauling and machine storage routes use one rule for suitable containers: finite, unlocked, and not a person or other equipment.
-[*]Automation that switches ship sensors on uses the native Sensors page switch, remembers what it switched and switches off only that. Your own switch always wins. Notices use the crew log and the native nav-map warning banner.
-[*]Crew study Phobos specialities at powered terminals through the game's own study actions, and AutoTask crew choose them on their own. Standing orders no longer interrupt study, and a failed step waits before it is retried. Type phobosframework crew in the F3 console to see why someone is or is not studying, and who could take each order step now.
-[*]Version 0.36.0 lets the game lead: any crew member the game admits takes an order step (not only your own character), needs are handled by the crew's own pledges rather than a stricter gate, time-skip repairs keep the game's allowance, refused finishes close their task, long unobserved intervals catch up like native machines, and Escape closes a store picker before its panel.
-[*]Version 0.38.0 lets standing orders take supplies from anywhere aboard (deck, stores and other machines' trays, nearest first), as the game's own Reload job searches; items on the deck count as cargo in play and in a time-skip.
-[*]Version 0.39.0 adds shared bulk vessels: silos, reservoirs and tanks whose contents are a saved record with the object's mass kept honest, journals around every transfer, owner-confirmed acceptance, station purchase, and an optional deposit into Ship's Water waste tanks. Agriculture's R3 and Shipbreaker's S3 silo use it.
-[*]Version 0.40.0 adds shared reactor rules: the game's fusion reactor facts, readiness and no-wake reads, guarded Flow and Cycle writes that tell automation's commands from the pilot's and hand idle settings back, and the course plot's flow regulation with a tighter hot side. Auto Nav 0.27.0 is the first user. Nothing here ignites, repairs or refuels a reactor.
+[*]Shared control panels: Apply/Discard settings, store selection, crew standing orders and training, with native-looking buttons and one volume control for the quiet completion alerts.
+[*]Crew standing orders: give crew a chosen job and approved supplies. Orders begin disabled; shifts, needs, access and the game's AutoTask and Haul duties still apply. Crew can take supplies from anywhere aboard, nearest first, as the game's own Reload job does.
+[*]Crew study Phobos specialities at powered terminals through the game's own study actions, and AutoTask crew choose them on their own.
+[*]Supported onboard work carries on through time-skip. Exterior work and flight pause and wait for Resume.
+[*]Construction, supply transfers and station purchases check materials, space and power. A full destination keeps cargo where it was; nothing is silently thrown away.
+[*]Shared bulk storage for silos and reservoirs, with the object's mass kept honest and station purchase through the refuelling kiosk's Bulk supplies view.
+[*]When a Phobos autopilot switches ship sensors on, it remembers what it switched and turns off only those. Your own switch always wins, and you are told every time in the crew log and on the nav map.
+[*]Shared merchant stock, salvage finds, repair, Restore and dismantling rules for the content mods, without refilling or rewriting existing shops or saves.
+[*]Shared translation support that falls back to English when a line is missing.
 [/list]
 
-[h2]Operating limits[/h2]
-Framework provides common systems, not new recipes for every material. Saved-state faults stop the affected work for inspection. Other mods keep their own inventories and tasks.
+[h2]Getting started[/h2]
+[list]
+[*]Install Framework together with Phobos Shipbreaker, Auto Nav, Agriculture or Manufacturing. Each content mod names the Framework version it needs.
+[*]Right-click Phobos equipment and choose Control Panel for its settings and crew orders.
+[*]In the F3 console, phobosframework status reports what loaded; phobosframework crew shows who is studying or could take each order step, and why.
+[/list]
+Mod authors: see the [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/development/framework-author-guide.md]Framework author guide[/url].
 
-[h2]Requirements and installation[/h2]
-Ostranauts 1.0.1.5 and BepInEx 5. Content mods specify the Framework version they need. Phobos Scope is a separate optional performance-analysis toolkit.
+[h2]Requirements[/h2]
+[list]
+[*]Ostranauts 1.0.1.5.
+[*]BepInEx 5 through EddieSM / EsMM27's [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3741030124]BepInEx Mod Loader[/url], including its one-time setup.
+[*]Optional, not required: Valtora's Ship's Water, LOGUSS's Common Sense modules and jossla's Study at Terminals work alongside it.
+[/list]
 
-This is an unpublished development package. Automated checks do not establish in-game readiness or Unity layout approval. Keep required mods installed for saves using their content. Updating does not refill shops or old loot containers. See the installation guide for current download availability.
+[h2]Installing from the Workshop[/h2]
+[list]
+[*]Subscribe to the BepInEx Mod Loader and follow its setup instructions.
+[*]Subscribe to Phobos Framework and the Phobos content mods you want.
+[*]Start Ostranauts once so the loader copies the plugins, then restart it once so they load. Do the same after each update.
+[*]Check that the mods are enabled in the MODS screen.
+[*]Used the repository's local installer before? Remove those local copies first so only one copy loads. See the [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/installing-mods.md]installation guide[/url].
+[/list]
 
-[h2]English wording update[/h2]
-Controls, warnings and descriptions use clearer language. Equipment identities, saved progress, recipes and gameplay values are unchanged.
+[h2]Saves and limits[/h2]
+Ordinary saves are supported. Keep Framework and the content mods installed while a save uses their content; removing them is not a clean uninstall. Updating does not refill existing shops or old loot containers. Saved contents or settings that cannot be checked safely stop the affected work for inspection rather than being guessed at. Automated checks pass, but in-game evaluation of recent features is ongoing.
 
-[h2]Guides, sources and credits[/h2]
-Created by Phobos A. D'thorga (phobosgekko). Independent community work, not endorsed by Blue Bottle Games, Kitfox Games or the research institutions cited below. Research informs design; compact equipment, yields and operating limits remain gameplay choices.
-The linked guides preserve Blue Bottle Games game evidence and the original research authors beside their claims. Valtora owns the optional Ship's Water integration. LOGUSS's Common Sense modules and jossla's Study at Terminals retain their own work and attribution.
-Original artwork uses AI-assisted production; artwork provenance and licensing are recorded separately.
+[h2]Credits and sources[/h2]
+Created by Phobos A. D'thorga (phobosgekko). Independent community work, not endorsed by Blue Bottle Games, Kitfox Games or any research institution cited in the guides. Research informs the design; compact equipment, yields and operating limits remain gameplay choices.
+The optional integrations remain the work of their authors: [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3757331189]Valtora's Ship's Water[/url], [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3789049955]LOGUSS's Common Sense modules[/url] and [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3788237703]jossla's Study at Terminals[/url]. Linking to them does not imply their endorsement.
+Original artwork uses AI-assisted production; provenance and licensing are recorded separately.
 
-[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/control-panel-guide.md]Controls and verification limits[/url]
-[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/control-panel-guide.md]Console controls, drafts and owner checks[/url]
-[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/development/framework-bulk-storage.md]Current contracts, compatibility and persistence limits[/url]
-[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/development/shipbreaker-room-load-mitigation.md]Evidence, limits and reload instructions[/url]
-[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/development/shipbreaker-room-load-mitigation.md]Evidence, limits and reload check[/url]
-[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/solar-system-economy.md]Regional coverage, sources and limits[/url]
-[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/shared-completion-cues.md]Supported events and shared controls[/url]
-[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/getting-started.md]Getting started and download status[/url]
-[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/installing-mods.md]Installation and updates[/url]
-[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/development/framework-author-guide.md]Mod guide[/url]
-[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/mods/PhobosFramework/THIRD-PARTY.md]Framework attribution and licences[/url]
-[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/SUPPORT.md]Help and bug reports[/url]
-[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/mods/PhobosFramework/CHANGELOG.md]Full changelog[/url]
-[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/LICENSE]Licence and exclusions[/url]
-[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/THIRD_PARTY_NOTICES.md]Third-party notices[/url]
-[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/assets/workshop/README.md]Workshop artwork provenance[/url]
-[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/framework-item-reference.md]Read this mod’s item reference[/url]
-[url=https://steamcommunity.com/sharedfiles/filedetails/?id=3757331189]Valtora’s Ship’s Water 0.16.1[/url]
-[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/agriculture-nutrient-production.md]Operating guide, economic limits and research attribution[/url]
-[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/development/merchant-stock.md]Current quantities and restocking guide[/url]
-[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/crew-automation.md]Crew controls, time-skip limits and owner checks[/url]
-[url=https://steamcommunity.com/sharedfiles/filedetails/?id=3789049955]LOGUSS’s Common Sense modules[/url]
-[url=https://steamcommunity.com/sharedfiles/filedetails/?id=3788237703]jossla’s Study at Terminals[/url]
-
-[h2]Polaris interface update[/h2]
-Optional shared Polaris controls reuse native button artwork, provide secondary-click actions and wrap navigation at narrow widths. Existing interfaces remain compatible.
-Browser checks do not establish Unity interaction approval. The recent refresh pacing remains in place; further performance recordings are deferred.
-
-[h2]Polaris readability correction[/h2]
-Dark button faces now keep labels readable in every interaction state. This fixes the white-button regression reported in game. The corrected native appearance still awaits owner playtesting.
-
-[b]Item handling correction[/b]
-Add opt-in native transport-action normalization shared by content mods: retain useful actions, add missing pickup/drop, match stack actions to stack limits and keep installed machinery out of carry slots. Restore declared cumbersome flags in detached load data for explicitly registered bulky cargo. Preserve saved hand placement until successful native release, then retire the legacy hand attachment. No save files, contents, mass, wear or progress are rewritten. Live menu and inventory handling remain owner-tested.
-
-[b]Merchant and salvage update[/b]
-Add a shared stock-coverage helper that fills omitted item offers without duplicating an already prepared lot or replacing its condition. Existing merchant inventories, native pricing and other providers remain untouched. Normal restocking and new loot generation are required; existing inventories stay as they are. Offline checks are not gameplay validation.
-
-[b]Item-action audit[/b]
-The complete item-action audit now checks generated native maintenance actions and saved cargo relationships as well as declared actions. Shared safety checks can withhold dismantling for cargo, work lots or stack members. This documentation update does not change runtime behaviour.
-[url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/development/item-handling-audit.md]Complete findings and item ledger[/url]
-
-[h2]Assembly and maintenance update[/h2]
-Shared construction-site support and read-only item/maintenance information preserve native work and save handling.
-Offline checks are not Unity gameplay approval. See [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/section-assembly-and-maintenance.md]assembly and maintenance instructions[/url].
-
-[h2]Finding current instructions[/h2]
-Use the [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/README.md]operating-guide index[/url] for current controls and requirements. Dated research and design records retain their original scope; they are not installation instructions.
-
-[b]Construction appearance[/b]
-Optional section-construction stages follow delivered parts and saved work without changing construction requirements. Private marker materials preserve native geometry and selection effects; unchanged stages do not rewrite materials. Offline checks pass; Unity visuals remain unverified.
+[h2]Guides and support[/h2]
+[list]
+[*][url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/getting-started.md]Getting started[/url]
+[*][url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/control-panel-guide.md]Control panels[/url]
+[*][url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/crew-automation.md]Crew orders, study and time-skips[/url]
+[*][url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/framework-item-reference.md]Item reference[/url]
+[*][url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/README.md]All player guides[/url]
+[*][url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/SUPPORT.md]Help and bug reports[/url]
+[*][url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/mods/PhobosFramework/CHANGELOG.md]Changelog[/url]
+[*][url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/LICENSE]Licence and exclusions[/url]
+[*][url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/THIRD_PARTY_NOTICES.md]Third-party notices[/url] and [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/mods/PhobosFramework/THIRD-PARTY.md]Framework attribution[/url]
+[*][url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/assets/workshop/README.md]Artwork provenance[/url]
+[/list]

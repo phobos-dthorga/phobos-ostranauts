@@ -38,5 +38,8 @@
   },
   "externalRequiredItems": [
     "3741030124"
-  ]
+  ],
+  "externalRequiredItemNames": {
+    "3741030124": "BepInEx Mod Loader by EddieSM / EsMM27"
+  }
 }

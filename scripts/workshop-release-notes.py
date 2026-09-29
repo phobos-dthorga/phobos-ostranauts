@@ -14,6 +14,9 @@ import sys
 import tempfile
 
 ROOT = Path(__file__).resolve().parents[1]
+# Steamworks k_cchPublishedDocumentDescriptionMax is 8000 bytes including the terminator;
+# keep headroom so a small correction does not suddenly block an upload.
+PAGE_MAX_BYTES = 7500
 RELEASE = re.compile(r"^## \[(\d+\.\d+\.\d+)\] - (\d{4}-\d{2}-\d{2}) - (Draft|Released)$")
 
 
@@ -25,6 +28,10 @@ def plain_inline(text):
     """Small deliberate Markdown subset; fail rather than silently lose formatting."""
     if "![" in text or any(ord(c) < 32 for c in text):
         raise NotesError("Images and control characters are unsupported in release text")
+    if "\\" in text:
+        raise NotesError("Backslashes are unsupported in release text")
+    # Steam change notes travel inside a SteamCMD VDF string; typographic quotes need no escaping.
+    text = re.sub(r'(^|[\s(\[])"', "\\1\u201c", text).replace('"', "\u201d")
     tokens = []
     def keep(value):
         tokens.append(value)
@@ -170,6 +177,10 @@ def plan(root, selected, version):
             raise NotesError(f"{name}: current version {current} needs a dated Draft/Released changelog entry")
         page_text = inputs[page].decode("utf-8-sig")
         validate_bbcode(page_text)
+        if '"' in page_text or "\\" in page_text:
+            raise NotesError(f"{name}: page text must not contain ASCII double quotes or backslashes; use typographic quotes")
+        if len(page_text.encode("utf-8")) > PAGE_MAX_BYTES:
+            raise NotesError(f"{name}: page is {len(page_text.encode('utf-8'))} UTF-8 bytes; Steam descriptions must stay under 8,000 (limit here {PAGE_MAX_BYTES})")
         expected = f"[b]Version:[/b] {current}"
         if page_text.splitlines().count(expected) != 1 or f"[h1]{title}[/h1]" not in page_text:
             raise NotesError(f"{name}: stale page title/version; expected {expected}")

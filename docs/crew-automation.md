@@ -42,6 +42,21 @@ and during a time-skip. On the Shipbreaker D4, R4 and F6, right-click
 practical stock limit) or off without opening the panel; a store already
 chosen in the panel is kept. Shipbreaker 0.35.0.
 
+This is how an enabled order finds its supplies and what happens when a step
+fails.
+
+```mermaid
+flowchart TD
+    Order["Order enabled"] --> Source{"Input store?"}
+    Source -->|Anywhere aboard| Near["Deck, unlocked stores, other machines' trays, nearest first"]
+    Source -->|A chosen store| Store["That store only"]
+    Near --> Worker["On-shift crew with AutoTask and the Operate or Haul duty carry one item at a time"]
+    Store --> Worker
+    Worker --> Step{"Step succeeds?"}
+    Step -->|Yes| Next["Next step is added quietly"]
+    Step -->|No| Retry["Retry after 30 s, then 1, 2, 5 and 10 min, order stays on"]
+```
+
 Crew work only during their work shift. Any crew member the game admits may
 take a step, as with a painted job. Needs are the game's business: hunger,
 thirst, tiredness and pain do not block a step, because the crew's own pledges
@@ -111,7 +126,8 @@ occupancy, sensors, capture and flight-authority checks remain in force. There i
 no automatic target acquisition, purchase, sale, disposal or enlargement of a mission.
 Changing the recorded equipment chain, flight settings or docking ports also
 requires a fresh Enable/Resume; the stored permission cannot authorize a replacement.
-Manufacturing is still a held scaffold and registers no operational jobs.
+Manufacturing's machines operate, but it registers no crew orders yet: load
+their feeds by hand.
 
 ## Learnable specialities
 

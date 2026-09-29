@@ -23,7 +23,7 @@ class PreparationTests(unittest.TestCase):
             target.write_text(text, encoding='utf-8')
         self.put = put
         self.name = 'PhobosExample'
-        put('config/workshop-publishing.json', json.dumps({'appId':'1022980', 'mods':{self.name:{'itemId':None,'requires':[],'hold':None}}, 'externalRequiredItems':['3741030124']}))
+        put('config/workshop-publishing.json', json.dumps({'appId':'1022980', 'mods':{self.name:{'itemId':None,'requires':[],'hold':None}}, 'externalRequiredItems':['3741030124'], 'externalRequiredItemNames':{'3741030124':'BepInEx Mod Loader'}}))
         put('mods/PhobosExample/mod_info.json', '[{"strName":"Example","strModVersion":"1.0.0"}]')
         put('mods/PhobosExample/data/README.md', 'Keep data')
         put('mods/PhobosExample/preview.png', 'fixture cover')
@@ -81,6 +81,8 @@ class PreparationTests(unittest.TestCase):
         draft = (target / 'workshop.vdf.draft').read_text()
         self.assertIn('"visibility" "2"', draft)
         self.assertIn('"publishedfileid" "0"', draft)
+        self.assertNotIn('\\', draft)
+        self.assertIn('[h1]Example[/h1]\n[b]Version', draft)
         (target / 'content/data/README.md').write_text('tampered')
         with self.assertRaisesRegex(ValueError, 'changed'):
             w.verify(target)
@@ -98,10 +100,50 @@ class PreparationTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'Item IDs'):
             w.plan(self.root, self.name)
 
-    def test_vdf_escaping(self):
-        self.assertEqual(w.quote('a"b\\c\nd'), '"a\\"b\\\\c\\nd"')
-        with self.assertRaises(ValueError):
-            w.quote('bad\x00')
+    def test_vdf_values(self):
+        # Literal newlines; quotes and backslashes refused rather than escaped for SteamCMD.
+        self.assertEqual(w.quote('line one\r\nline two'), '"line one\nline two"')
+        for bad in ('say "hi"', 'C:\\path', 'bad\x00'):
+            with self.assertRaises(ValueError):
+                w.quote(bad)
+
+    def test_steam_text_limits(self):
+        self.put('workshop/PhobosExample/page.bbcode', '[h1]Example[/h1]\n[b]Version:[/b] 1.0.0\n[b]Publication status:[/b] Draft\n' + 'x' * 8000 + '\n')
+        with self.assertRaisesRegex(ValueError, 'page'):
+            w.plan(self.root, self.name)
+
+    def test_upload_vdf_status_and_item_record(self):
+        with patch.object(w.subprocess, 'check_output', side_effect=['abc\n', b'']):
+            target = Path(w.prepare(self.root, self.name)['directory'])
+        output = self.root / 'upload.vdf'
+        result = w.upload_vdf(target, 'unlisted', output)
+        text = output.read_text(encoding='utf-8')
+        self.assertEqual(result['operation'], 'create')
+        self.assertIn('"visibility" "3"', text)
+        self.assertIn('"contentfolder" "' + (target / 'content').resolve().as_posix() + '"', text)
+        with self.assertRaisesRegex(ValueError, 'already exists'):
+            w.upload_vdf(target, 'private', output)
+        self.assertEqual(w.verify(target)['status'], 'verified-offline')
+        overview = w.status(self.root)
+        self.assertEqual(overview['publicationOrder'], [self.name])
+        self.assertEqual(overview['mods'][0]['package'], 'ready')
+        with self.assertRaisesRegex(ValueError, 'decimal'):
+            w.record_item_id(self.root, self.name, '12a')
+        with self.assertRaisesRegex(ValueError, 'another entry'):
+            w.record_item_id(self.root, self.name, '3741030124')
+        self.assertEqual(w.record_item_id(self.root, self.name, '4242')['status'], 'recorded')
+        self.assertEqual(w.record_item_id(self.root, self.name, '4242')['status'], 'unchanged')
+        with self.assertRaisesRegex(ValueError, 'already has'):
+            w.record_item_id(self.root, self.name, '5555')
+        self.assertEqual(w.plan(self.root, self.name)[0]['operation'], 'update')
+        self.assertNotIn(b'\r\n', (self.root / 'config/workshop-publishing.json').read_bytes())
+
+    def test_publication_order(self):
+        config = {'mods': {'PhobosB': {'requires': ['PhobosA']}, 'PhobosA': {'requires': []}, 'PhobosC': {'requires': ['PhobosB', 'PhobosA']}}}
+        self.assertEqual(w.publication_order(config), ['PhobosA', 'PhobosB', 'PhobosC'])
+        config['mods']['PhobosA']['requires'] = ['PhobosC']
+        with self.assertRaisesRegex(ValueError, 'Circular'):
+            w.publication_order(config)
 
 if __name__ == '__main__':
     unittest.main()

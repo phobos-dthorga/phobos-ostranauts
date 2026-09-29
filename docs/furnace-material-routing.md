@@ -20,15 +20,23 @@ the motion policy is unchanged, so any manoeuvre still pauses a repeat run.
 
 ## Operating sequence
 
-```
-R4 product tray -- aluminium only --> F6 physical charge bin
-                                      |
-                        crew seals, starts, equalizes and releases
-                                      |
-F6 released product tray -----------> hull collector --> crew hauling
+Aluminium arrives from the R4 when you press Receive. Sealing, running,
+equalizing and release stay your steps unless a repeat run is on. Released
+products go to a collector for hauling.
 
-R4 residue outlet -----------------> its existing residue collector
-F6 cooling connection -------------> existing selected cooling assembly
+```mermaid
+flowchart TD
+    R4["R4 product tray"] -->|aluminium only, after Receive| Bin["F6 charge bin, stops at twenty pieces"]
+    Bin --> Repeat{"Repeat run on?"}
+    Repeat -->|No| Manual["Crew seals, starts, equalizes and releases"]
+    Repeat -->|Yes| Auto["Repeat run seals, runs, equalizes and releases"]
+    Auto -->|turns receiving back on| Bin
+    Manual --> Out["F6 released product tray"]
+    Auto --> Out
+    Out -->|Released furnace products only| Collector["Hull collector"]
+    Collector --> Haul["Crew hauling"]
+    R4 -->|residue outlet| RCol["Its existing residue collector"]
+    Cooling["F6 cooling connection"] --> Assembly["Existing selected cooling assembly"]
 ```
 
 1. Install and power the R4 and F6 on the same player-owned ship. Prepare the
@@ -41,17 +49,23 @@ F6 cooling connection -------------> existing selected cooling assembly
    one-kilogram aluminium scrap pieces qualify. Separate native stacks locally;
    this first route does not split them automatically. Receiving stops at twenty
    pieces. With ContinueFeeding disabled, press Receive for each piece.
+   This route carries aluminium only. For the steel-ingot recipe, load 1 kg
+   steel scrap by hand or switch on **Load feed by crew** on the F6.
 4. Seal and run the batch explicitly, equalize when ready, then Release.
    Receiving never issues these process commands. Seal cancels pending transfer
    work. Another charge requires another explicit Receive, unless a
    [repeat run](furnace-player-guide.md#repeat-batches) is on: it seals, runs,
    equalizes and releases each full charge, then turns receiving back on itself.
 5. Pair the F6 output to an existing hull collector. Select **Released furnace
-   products only**, then start that collector. It accepts the 19 kg housing blank
-   and 1 kg melt remainder only after the F6 is idle, cool and unlocked.
+   products only**, then start that collector. It accepts every product of the
+   three recipes: the 19 kg housing blank, 4 kg aluminium and steel ingots, the
+   1 kg aluminium or steel scrap gates and both 1 kg melt remainders, only after
+   the F6 is idle, cool and unlocked.
 6. Haul cargo away from the collector. The 2 x 2 blank fills its 2 x 2 grid;
-   the other product waits upstream until space exists. Item ordering uses full
-   IDs, so the remainder may arrive first. The four-item / 52 kg limits remain.
+   the other product waits upstream until space exists. An ingot charge releases
+   eight pieces, so at most four fit at once and the rest wait in the F6 tray.
+   Item ordering uses full IDs, so the remainder may arrive first. The four-item /
+   52 kg limits remain.
 
 Manual loading and collection still work. The collector's default **All** filter
 continues to mean all supported residue, not all possible cargo. Changing its
