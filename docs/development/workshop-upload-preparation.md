@@ -29,11 +29,12 @@ created first (a private item has an ID and is enough for a private test).
 
 Holds in `config/workshop-publishing.json` as of 29 September 2026:
 
-- **Auto Nav:** Gravy / mrkmg's Auto Navigate reuse terms are unresolved (see
-  [public-release readiness](public-release-readiness.md)). Because Shipbreaker
-  requires Auto Nav, **Shipbreaker cannot go public until Auto Nav can**. The
-  owner must obtain terms or replace the derived code; the tools cannot decide it.
 - **Manufacturing:** first operational release awaiting owner gameplay checks.
+
+Auto Nav's provenance hold was lifted by the owner on 29 September 2026; its
+upstream-derived files keep their credit and MIT exclusion (see
+[public-release readiness](public-release-readiness.md)). Shipbreaker requires
+Auto Nav, so publish Auto Nav before Shipbreaker.
 
 A private upload with `-AcknowledgeHold` may pass a hold or an unpublished
 dependency, for the owner's own subscription test; it is recorded in the receipt.

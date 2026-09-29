@@ -8,7 +8,7 @@ folder establishes that a Workshop item has been published.** Follow the
 | --- | --- | --- | --- |
 | Framework | [Changelog](../mods/PhobosFramework/CHANGELOG.md) | [Page](PhobosFramework/page.bbcode) | [Versions](PhobosFramework/releases) |
 | Shipbreaker | [Changelog](../mods/PhobosShipbreaker/CHANGELOG.md) | [Page](PhobosShipbreaker/page.bbcode) | [Versions](PhobosShipbreaker/releases) |
-| Auto Nav — provenance hold (also holds Shipbreaker) | [Changelog](../mods/PhobosAutoNav/CHANGELOG.md) | [Page](PhobosAutoNav/page.bbcode) | [Versions](PhobosAutoNav/releases) |
+| Auto Nav — owner lifted provenance hold (29 Sep 2026) | [Changelog](../mods/PhobosAutoNav/CHANGELOG.md) | [Page](PhobosAutoNav/page.bbcode) | [Versions](PhobosAutoNav/releases) |
 | Agriculture | [Changelog](../mods/PhobosAgriculture/CHANGELOG.md) | [Page](PhobosAgriculture/page.bbcode) | [Versions](PhobosAgriculture/releases) |
 | Manufacturing — held for owner gameplay checks | [Changelog](../mods/PhobosManufacturing/CHANGELOG.md) | [Page](PhobosManufacturing/page.bbcode) | [Versions](PhobosManufacturing/releases) |
 

@@ -400,6 +400,9 @@
   third-party reuse terms. Preserve authorship, notices and provenance, including
   Auto Nav's unverified upstream terms and explicit MIT exclusions. Do not publish
   binary releases as a side effect of documentation or visibility changes.
+  Owner decision (2026-09-29): Auto Nav's Workshop publication hold is lifted; keep
+  the Gravy / mrkmg credit, notices and MIT exclusion on `Adapted/` files unless
+  they are independently rewritten or the author's terms are recorded.
 - Research industrial ideas as the owner encounters relevant gameplay and can
   test them. Current priority: powered shipbreaking, onboard processing first,
   external cutting and its positioning/autopilot needs later. See

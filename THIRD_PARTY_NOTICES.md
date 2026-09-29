@@ -47,8 +47,9 @@ No licence file, embedded licence resource or express reuse grant was found in
 the downloaded package. Public terms reviewed so far also did not establish one.
 The owner's permissive working assumption is recorded separately from verified
 terms. **The repository's MIT licence does not relicense these upstream-derived
-files or their contribution to the compiled plugin.** Public release is intended;
-the upstream terms remain an unresolved provenance item for release preparation.
+files or their contribution to the compiled plugin.** On 29 September 2026 the
+owner authorized public Workshop distribution with this credit and exclusion in
+place; the upstream terms themselves remain unverified.
 Credit is not represented here as an author-issued grant or endorsement.
 
 No original DLL, upstream image, game binary or extracted game artwork is shipped

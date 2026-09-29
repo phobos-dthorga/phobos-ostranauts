@@ -19,8 +19,8 @@ work, not deferred until upload. It does not publish anything automatically.
 See the [Workshop draft index](../../workshop/README.md). All five current mods have
 initial **Draft** baseline entries; the retired Approach Assist prototype has none. Their dates record preparation, not release
 dates, and do not reconstruct an unsupported history of earlier releases.
-Manufacturing is held until owner gameplay checks. Auto Nav is held for
-unresolved upstream provenance before distribution, which also holds Shipbreaker.
+Manufacturing is held until owner gameplay checks. The owner lifted Auto Nav's
+provenance hold on 29 September 2026; see [public-release readiness](public-release-readiness.md).
 Phobos Scope is a separate toolkit and is outside this Workshop inventory.
 
 ## Routine maintenance

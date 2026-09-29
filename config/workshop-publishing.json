@@ -26,7 +26,7 @@
       "requires": [
         "PhobosFramework"
       ],
-      "hold": "Upstream adaptation distribution terms remain unresolved."
+      "hold": null
     },
     "PhobosManufacturing": {
       "itemId": null,

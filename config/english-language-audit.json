@@ -42995,8 +42995,8 @@
       "path": "docs/development/public-release-readiness.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "80a0d25b19b5fdf2da570508e23130448df38c7f1f25560f0150cde04a6de1ed",
-      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+      "sha256": "8793d066c20d35d775df3004507d71cdbee8920985b99a2d8c49270e4801abee",
+      "review": "2026-09-29: owner lifted the Auto Nav publication hold; credit and MIT exclusion for the adapted files retained."
     },
     {
       "path": "docs/development/residue-material-contract.md",
@@ -43132,15 +43132,15 @@
       "path": "docs/development/workshop-publication.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "ee860ffdca180031bb575fe9e90b1c0cc920668ffbe00f55c27340a123988f7a",
-      "review": "2026-09-29: uploader, page size and quote rules, and current holds."
+      "sha256": "c1786eb3b736b33e38ee767f40b77efbbab2d325120ae4ff9cc5154b811c22ba",
+      "review": "2026-09-29: owner lifted the Auto Nav publication hold; credit and MIT exclusion for the adapted files retained."
     },
     {
       "path": "docs/development/workshop-upload-preparation.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "04b45309a5cc54ae8dfac730e1b01bf8b11ef76d908c0f24e23f0a13bb608d40",
-      "review": "2026-09-29: rewritten as the preparation and owner-run upload runbook, with order, holds, receipts, required items and the subscription test."
+      "sha256": "ea4744950a2c1c9a4303b4c2f5fbfe4960c7e799d52449617bc26e8098c6755e",
+      "review": "2026-09-29: owner lifted the Auto Nav publication hold; credit and MIT exclusion for the adapted files retained."
     },
     {
       "path": "docs/equipment-economy.md",
@@ -43349,8 +43349,8 @@
       "path": "workshop/PhobosAutoNav/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "acc260e88dc27baa5732d5a1f6d7af0a9bd56c2d6ea4d982f3235290a6760419",
-      "review": "2026-09-29: rewritten as a current, player-first Workshop description under Steam's 8,000-byte limit: capabilities, getting started, requirements, Workshop installation, saves and limits, credits and de-duplicated guide links; per-version update sections moved out to the changelog."
+      "sha256": "4336e511d8510e563baffa2cc3c6d28043452cc66bfe223471d0e02be729f59e",
+      "review": "2026-09-29: owner lifted the Auto Nav publication hold; credit and MIT exclusion for the adapted files retained."
     },
     {
       "path": "workshop/PhobosFramework/page.bbcode",

@@ -26,9 +26,19 @@ The package investigation and exact provenance remain in
 assumption is not verified upstream permission. These portions remain excluded
 from our MIT grant. No author contact or approval is claimed.
 
-Public visibility does not resolve this issue. Before binary distribution or
-claiming the entire suite is MIT, obtain and record applicable upstream terms or
-replace the affected implementation with independently authored work.
+Public visibility does not resolve this issue, and the suite is not entirely MIT.
+
+**Owner decision, 29 September 2026:** the owner lifted Auto Nav's publication
+hold and authorized Workshop distribution, regarding the project as its own work
+inspired by Auto Navigate. Recorded facts at that decision: Auto Nav had about
+7,200 lines of C#; `Adapted/AutoNavCore.cs` and `Adapted/TargetRef.cs` (768 lines)
+began as a reconstruction of the Auto Navigate 1.2.0 DLL, and about 300 of their
+current lines were still identical to that first reconstruction (about half of
+AutoNavCore, 81% of TargetRef). The owner was shown these figures and chose to
+publish rather than rewrite the two files or ask the author first. Upstream terms
+remain unverified; the credit, notices and MIT exclusion for those files stay.
+Rewriting them as independently authored work, or obtaining the author's terms,
+would remove the exclusion.
 
 ## Publication checks and limits
 
