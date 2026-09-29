@@ -1,0 +1,14 @@
+[h1]Phobos Auto Nav 0.29.0[/h1]
+[b]Draft - not published | 2026-09-30[/b]
+
+[h2]Fixed[/h2]
+
+[list]
+[*]Flights stopped with Physics interrupted whenever the game's own ship update failed. In the owner's save the game throws a null-reference error in that update from time to time while it spawns an NPC ship in the background, which stopped Auto Nav seven times in one session. A failure that did not come from Auto Nav's own code is now ridden out: Auto Nav clears its thrust for that step and guidance carries on the next frame. If the game's update fails more than three times within ten real seconds, the flight, docking or capture move is suspended rather than stopped, keeping its destination, ports and elapsed time for Resume. A fault in Auto Nav's own code still stops the flight, as before.
+[/list]
+
+[h2]Compatibility and limits[/h2]
+
+[list]
+[*]The error itself is in the game and is not changed; Auto Nav only decides how to respond to it. Saved data is unchanged. Offline checks are not gameplay validation.
+[/list]

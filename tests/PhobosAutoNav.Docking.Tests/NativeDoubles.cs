@@ -208,6 +208,8 @@ namespace PhobosAutoNav
         internal static CoastSettings ReadCoastSettings() => new(3,10,.75,2);
     }
     internal static class Text { internal static string Get(string key, params object[] values) => key; }
+    // Stands in for a fault inside Auto Nav's own code (a frame in the PhobosAutoNav namespace).
+    internal static class InterruptionProbe { internal static void Fail() => throw new InvalidOperationException("Auto Nav fault"); }
     internal sealed partial class TargetRef
     {
         internal string ShipId = "target", DisplayName = "target";

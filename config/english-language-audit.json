@@ -6359,14 +6359,15 @@
       "mod": "PhobosAutoNav",
       "key": "Plugin.physics_interrupted",
       "category": "control/name/value",
-      "decision": "retain",
-      "reason": "Retain: clear functional label, operational instruction or necessary safety/detail constraint; no forced personality.",
+      "decision": "rewrite",
+      "reason": "Now used only for faults in Auto Nav's own code; says the flight stopped, the ship coasts and where details are.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosAutoNav/Plugin.cs:110"
+        "src/PhobosAutoNav/NavigationInterruptions.cs:19",
+        "src/PhobosAutoNav/NavigationInterruptions.cs:34"
       ],
       "before": "Physics interrupted",
-      "after": "Physics interrupted"
+      "after": "Auto Nav hit a fault during the ship update and stopped. The ship coasts; details are in the log."
     },
     {
       "mod": "PhobosAutoNav",
@@ -45954,6 +45955,32 @@
       ],
       "before": "Capture timings of the game's main loop could not be installed ({0}) and are off until the game restarts. Recording and gameplay continue.",
       "after": "Capture timings of the game's main loop could not be installed ({0}) and are off until the game restarts. Recording and gameplay continue."
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "Plugin.physics_held",
+      "category": "status",
+      "decision": "add",
+      "reason": "Says what happened, that the flight continues and nothing is needed from the player.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosAutoNav/NavigationInterruptions.cs:28"
+      ],
+      "before": "The game's ship update failed this step. Auto Nav held its thrust for the step and carries on.",
+      "after": "The game's ship update failed this step. Auto Nav held its thrust for the step and carries on."
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "Plugin.physics_repeated",
+      "category": "warning",
+      "decision": "add",
+      "reason": "Says what happened, that intent is kept and the recovery action (Resume).",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosAutoNav/NavigationInterruptions.cs:56"
+      ],
+      "before": "The game's ship update failed {0} times in {1} seconds. Auto Nav suspended the flight and the ship coasts. Press Resume once it settles.",
+      "after": "The game's ship update failed {0} times in {1} seconds. Auto Nav suspended the flight and the ship coasts. Press Resume once it settles."
     }
   ],
   "documents": [
@@ -45961,8 +45988,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "4c6e9bdcc582e850253ac3e34b010fdd55a34cb84cadc7fc70279a2e2e410ee0",
-      "review": "30 September 2026 performance pass, stage 9 (Framework 0.47.0): reviewed with this change; wording, links and maintained values checked."
+      "sha256": "fa305f9d8532fabb73bf98b6ed853e02bb2b0d6cfea5082b09a0ba412c19edf0",
+      "review": "30 September 2026, Auto Nav 0.29.0 (riding out the game's ship-update failures): reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "SUPPORT.md",
@@ -46072,15 +46099,15 @@
       "path": "docs/auto-nav-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "2c6ced2d5b829731b15a826161a028ccd22ecb1daaa16809ef8453eea3a93971",
-      "review": "29 September 2026 performance pass, stage 5 (Auto Nav 0.28.0): reviewed with this change; wording, links and maintained values checked."
+      "sha256": "140f78fcc819b7fffd2cdc528c9dfb328280fdda48996851cde9d10417c6d40a",
+      "review": "30 September 2026, Auto Nav 0.29.0 (riding out the game's ship-update failures): reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "docs/auto-nav-persistence.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "3c04f84d5938dd53d23bbb29444f4b55c1e7bd8b0b480d412ef59ad38e8eb782",
-      "review": "29 September 2026 performance pass, stage 5 (Auto Nav 0.28.0): reviewed with this change; wording, links and maintained values checked."
+      "sha256": "9b47c454cb64b976b3ce3412557a82ec39d3c928cefbd9ca527cf43ae0b39784",
+      "review": "30 September 2026, Auto Nav 0.29.0 (riding out the game's ship-update failures): reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "docs/auto-nav-pursuit.md",
@@ -46121,8 +46148,8 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "23bab94446eb7a5425de1fb5398e2ef7f2176496ee55bfac251c9a249b883917",
-      "review": "30 September 2026 performance pass, stage 9 (Framework 0.47.0): reviewed with this change; wording, links and maintained values checked."
+      "sha256": "6bf29eb7560767f6822b050cf476f5f9a1bb2436252041c76c7aa5e63a8d113f",
+      "review": "30 September 2026, Auto Nav 0.29.0 (riding out the game's ship-update failures): reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "docs/crew-automation.md",
@@ -46644,8 +46671,8 @@
       "path": "docs/development/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "f0f0eb600dd1cbde89b2ff15479a6d2d48883e91adbd98ad339f89174f8e5cd4",
-      "review": "30 September 2026 performance pass, stage 9 (Framework 0.47.0): reviewed with this change; wording, links and maintained values checked."
+      "sha256": "7c6a8c5b8e2e71bccabfe24ece13539cb19ea43232f2e7caf44d65f2f8e701bf",
+      "review": "30 September 2026, Auto Nav 0.29.0 (riding out the game's ship-update failures): reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "docs/development/phobos-framework.md",
@@ -46961,8 +46988,8 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "3552ab249de5a6304c93eb8a4c1175883bcad9e121f44655b1ecee5ffa4b9010",
-      "review": "30 September 2026 performance pass, stage 9 (Framework 0.47.0): reviewed with this change; wording, links and maintained values checked."
+      "sha256": "0b6e90bcce92b0f670b952a842bc29df8d734f837eaa56f20cd196ad62b10b98",
+      "review": "30 September 2026, Auto Nav 0.29.0 (riding out the game's ship-update failures): reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "docs/residue-collector.md",
@@ -47045,8 +47072,8 @@
       "path": "workshop/PhobosAutoNav/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "4ae7f7e90c3235d783cfbcba518f7d3a4c30d855dfe1e73861b7df6f8288f4e5",
-      "review": "30 September 2026, Framework 0.45.1 repair: reviewed with this change; wording, links and maintained values checked."
+      "sha256": "2bf96e829f437cd93b07597a4d12797de1a68b376a5824c7c2b439867101a56a",
+      "review": "30 September 2026, Auto Nav 0.29.0 (riding out the game's ship-update failures): reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "workshop/PhobosFramework/page.bbcode",
@@ -47140,8 +47167,8 @@
     {
       "path": "mods/PhobosAutoNav/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "9347b0dddc52e9c7225f8ba0e615f222ff76dd2eb39c600a8157cad8705760dc",
-      "review": "29 September 2026 performance pass, stage 5 (Auto Nav 0.28.0): reviewed with this change; wording, links and maintained values checked."
+      "sha256": "59f27ca2ed449addede320ac9dfb08d09e0c6506da73e6503b78290de2ce75fd",
+      "review": "30 September 2026, Auto Nav 0.29.0 (riding out the game's ship-update failures): reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "mods/PhobosFramework/framework/equipment-names.json",

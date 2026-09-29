@@ -76,6 +76,16 @@ missing targets and other ownership mismatches do not silently rebind a flight.
 Docked neighbours are excluded from discovery. Hardware can be repaired and a
 suspended flight retried; replacing hardware requires a fresh flight.
 
+### When the game's ship update fails
+
+The game's own ship update occasionally throws an error, for example while it spawns
+an NPC ship in the background. Since Auto Nav 0.29.0 a failure that did not come from
+Auto Nav's code costs one step: Auto Nav clears its own thrust for that step and flies
+on. More than three such failures within ten real seconds suspend the flight, docking
+or capture move with its destination, ports and elapsed time kept; press Resume once
+the game settles. A fault inside Auto Nav's own code still stops the flight and is
+written to the log.
+
 ## Storage and engine evidence
 
 Framework's `Persistence.ObjectStateStore` owns the namespaced, versioned envelope

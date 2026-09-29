@@ -388,6 +388,19 @@ collection's bulk `CopyTo` instead of an interface enumeration. Neither change a
 What is left is not ours to change: the game's simulation cost at speed 8 on a very large save. The next captures,
 with frame samples restored, show the frame times with these fixes.
 
+### Follow-up: the game's ship-update exception and Auto Nav 0.29.0
+
+The owner's session after stage 9 logged seven `NullReferenceException`s thrown by `StarSystem.Update`'s own body
+(the stack shows only the patched method and `CrewSim.Update`), each in the frame the game spawned an NPC ship in
+the background, and each stopped Auto Nav through its finalizer. The previous session with the same Phobos builds had
+none, and no capture was running, so neither the performance pass nor the capture probes caused them; the game's
+update dereferences ships, stellar objects, the selected crew member and the player's ship without null checks.
+Auto Nav 0.29.0 rides out a failure whose stack holds no Auto Nav frame (one step of held thrust, three within ten
+real seconds, then a resumable suspension) and still stops on a fault in its own code. The same session's load
+warnings (`Could not deserialize System.String[]`, `Blackboard Deserializer, found unknown type: System.Char`) come
+from the game's `Ostranauts.Core.Blackboard`, which saves a text value as a list of characters and cannot read it
+back; no Phobos mod uses that store.
+
 ### Cadence policy
 
 Conserved accounting (power receipts, transfers, thermal and crop steps, elapsed

@@ -175,7 +175,7 @@
   "Plugin.master_switch_switching_off_aborts_an_active": "Master switch; switching off aborts an active flight.",
   "Plugin.maximum_requested_spin_rate": "Maximum requested spin rate.",
   "Plugin.maximum_rotation_command": "Maximum rotation command.",
-  "Plugin.physics_interrupted": "Physics interrupted",
+  "Plugin.physics_interrupted": "Auto Nav hit a fault during the ship update and stopped. The ship coasts; details are in the log.",
   "Plugin.plugin_unloaded": "Plugin unloaded",
   "Plugin.simulation_time_timeout_aborts_and_coasts": "Simulation-time timeout; aborts and coasts.",
   "Plugin.use_rcs_turning_false_retains_upstream_s": "Legacy setting retained for configuration compatibility. Guidance always uses bounded physical RCS turning.",
@@ -570,5 +570,7 @@
   "NavigationService.step_hold": "Simulation step too large this frame; holding thrust until the next one. Reduce time compression to keep guiding.",
   "Docking.clamping": "Clamps engaging through the docking console's own sequence.",
   "Docking.aligning": "In position; waiting for the docking console's own alignment check to admit the clamp.",
-  "Departure.releasing": "Clamps releasing through the docking console's own sequence."
+  "Departure.releasing": "Clamps releasing through the docking console's own sequence.",
+  "Plugin.physics_held": "The game's ship update failed this step. Auto Nav held its thrust for the step and carries on.",
+  "Plugin.physics_repeated": "The game's ship update failed {0} times in {1} seconds. Auto Nav suspended the flight and the ship coasts. Press Resume once it settles."
 }

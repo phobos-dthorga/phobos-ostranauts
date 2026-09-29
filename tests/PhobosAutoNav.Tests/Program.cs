@@ -124,5 +124,13 @@ Check(PanelLayoutRules.TryBounds(1, 100, 0, 1, out var narrow) && narrow.Right =
 Check(!PanelLayoutRules.TryBounds(1440, 720, float.NaN, 1, out _), "Reject corrupt position");
 Check(PanelLayoutRules.TryBounds(1440, 720, .9f, 1.1f, out var outside) && outside.Right > 1 && outside.Top > 1,
     "Native fit checks retain responsibility for rejecting off-board drops");
+// Interruption budget: three failures ride out inside ten real seconds; older ones age out.
+{
+    var budget = new InterruptionBudget();
+    Check(budget.TryHold(0) && budget.TryHold(1) && budget.TryHold(2) && !budget.TryHold(3), "The fourth failure within the window is refused");
+    Check(budget.TryHold(10.5) && budget.Recent == 3, "A failure older than the window no longer counts");
+    budget.Reset(); Check(budget.Recent == 0 && budget.TryHold(50), "Reset forgets every failure");
+    Check(budget.TryHold(40) && budget.Recent == 1, "A clock that went backwards forgets the later entries");
+}
 checks += CoastChecks.Run();
 Console.WriteLine($"{checks} numerical assertions passed. These are not in-game tests.");

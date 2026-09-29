@@ -407,6 +407,34 @@ foreach(double mirror in new[]{-1d,1d})
     }
     Check(CrewSim.AttachCalls==1,$"Coupled docking converges dt={dt} mirror={mirror} avoided={avoided} reason={f.Service.Diagnostic} x={own.objSS.vPosx/AutoNavCore.M_TO_AU} y={own.objSS.vPosy/AutoNavCore.M_TO_AU}");
 }
+// Owner request (30 September 2026): a failure in the game's own ship update is ridden out; Auto Nav's own fault stops.
+{
+    Exception Caught(Action action) { try { action(); } catch (Exception ex) { return ex; } throw new Exception("expected a throw"); }
+    var game = Caught(() => { object? missing = null; _ = missing!.ToString(); });
+    var ours = Caught(PhobosAutoNav.InterruptionProbe.Fail);
+    Check(!NavigationService.ThrownByAutoNav(game) && NavigationService.ThrownByAutoNav(ours), "A fault is attributed to Auto Nav only when its own code is on the stack");
+    double clock = 100; NavigationService.RealClock = () => clock;
+    var g = Setup(); g.Service.Dock(g.Console);
+    Check(AutoNavCore.Engaged, "Docking engaged for the interruption checks");
+    g.Console.ship.LastX = 1;
+    g.Service.PhysicsInterrupted(game);
+    Check(AutoNavCore.Engaged && g.Service.PhysicsHolds == 1 && g.Console.ship.LastX == 0 && g.Service.Diagnostic.Contains("physics_held"),
+        "A failure in the game's update holds Auto Nav's thrust for the step and keeps the flight");
+    clock += 1; g.Service.PhysicsInterrupted(game); clock += 1; g.Service.PhysicsInterrupted(game);
+    Check(AutoNavCore.Engaged && g.Service.PhysicsHolds == 3, "Up to three failures in ten real seconds are ridden out");
+    clock += 1; g.Service.PhysicsInterrupted(game);
+    Check(!AutoNavCore.Engaged && Read(g.Console).Mode == SavedFlightMode.DockingSuspended && Read(g.Console).TargetPort == "assigned" && g.Service.Diagnostic.Contains("physics_repeated"),
+        "A fourth failure inside the window suspends the flight with its destination and ports kept for Resume");
+    var h = Setup(); h.Service.Dock(h.Console); clock = 1000;
+    for (int i = 0; i < 6; i++) { clock += 6; h.Service.PhysicsInterrupted(game); }
+    Check(AutoNavCore.Engaged && h.Service.PhysicsHolds == 6, "Occasional failures further apart than the window never suspend");
+    h.Service.PhysicsInterrupted(ours);
+    Check(!AutoNavCore.Engaged && Read(h.Console).Mode == SavedFlightMode.Stopped, "A fault in Auto Nav's own code still stops the flight");
+    var idle = Setup(); idle.Service.PhysicsInterrupted(game);
+    Check(!AutoNavCore.Engaged && idle.Service.PhysicsHolds == 0, "With nothing flying, a failure in the game's update changes nothing");
+    double advancing = 0; NavigationService.RealClock = () => advancing += 10;
+}
+
 // 29 September 2026 pass (FF5): manual-takeover handlers are kept as one array rebuilt on subscription.
 {
     int yields = 0; Action<Ship> handler = _ => yields++; Action<Ship> faulty = _ => throw new InvalidOperationException("consumer fault");

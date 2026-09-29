@@ -16,7 +16,7 @@ namespace PhobosAutoNav;
 public sealed class Plugin : BaseUnityPlugin
 {
     public const string Id = "phobosgekko.ostranauts.autonav";
-    public const string Version = "0.28.0";
+    public const string Version = "0.29.0";
     internal static NavigationService Service { get; private set; } = null!;
     internal static ConfigEntry<bool> Enabled = null!, VerboseLogging = null!, FuelCheck = null!,
         AbortOnManualThrust = null!, UseThrusterRotation = null!, ResumeAfterLoad = null!, PreferTorch = null!, SalvageEnabled = null!;
@@ -110,7 +110,8 @@ internal static class DockingTickPatch
     }
     private static Exception? Finalizer(Exception? __exception)
     {
-        if (__exception != null) Plugin.Service.Disengage(Text.Get("Plugin.physics_interrupted"));
+        // The game's own update can throw (for example while it spawns an NPC ship); Auto Nav rides that out.
+        if (__exception != null) Plugin.Service.PhysicsInterrupted(__exception);
         return __exception;
     }
 }

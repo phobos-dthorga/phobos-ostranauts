@@ -21,6 +21,16 @@ Dates on Draft entries record preparation, not Steam publication.
 - Earlier capture-only research is superseded for supported ordinary walls by Shipbreaker 0.24.0 reclamation, which relies on the 0.16.0 capture flight and 0.18.0 local avoidance and departure entries below. Broader structural recipes, repeated furnace batches and whole-wreck completion remain Shipbreaker work, not Auto Nav flight changes.
 - Keep [NASA Goddard's Raven research](https://www.nasa.gov/general/nasas-hybrid-computer-enables-ravens-autonomous-rendezvous-capability/) and [ESA's LIRIS experiment by Airbus, Jena Optronik and Sodern](https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/ATV/ATV_views_Space_Station_as_never_before) as sensing context, separate from Blue Bottle Games native evidence and authored gameplay choices. No institutional endorsement or gameplay validation is implied.
 
+## [0.29.0] - 2026-09-30 - Draft
+
+### Fixed
+
+- Flights stopped with Physics interrupted whenever the game's own ship update failed. In the owner's save the game throws a null-reference error in that update from time to time while it spawns an NPC ship in the background, which stopped Auto Nav seven times in one session. A failure that did not come from Auto Nav's own code is now ridden out: Auto Nav clears its thrust for that step and guidance carries on the next frame. If the game's update fails more than three times within ten real seconds, the flight, docking or capture move is suspended rather than stopped, keeping its destination, ports and elapsed time for Resume. A fault in Auto Nav's own code still stops the flight, as before.
+
+### Compatibility and limits
+
+- The error itself is in the game and is not changed; Auto Nav only decides how to respond to it. Saved data is unchanged. Offline checks are not gameplay validation.
+
 ## [0.28.0] - 2026-09-29 - Draft
 
 ### Changed

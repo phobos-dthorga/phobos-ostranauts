@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "date": "2026-09-30",
-  "baselineCommit": "f6a99ab60e7b71cf0792b2ef6f9af14279d4f62e",
+  "baselineCommit": "220691b230445b5f507343d4a3e965048e2431d1",
   "report": "docs/development/performance-audit.md",
   "reviewBoundary": "First-party mod C# source. Static coverage plus deeper hotspot/caller review; not formal verification, a third-party audit or an after-performance measurement.",
   "files": [
@@ -955,6 +955,18 @@
       "indicators": {}
     },
     {
+      "path": "src/PhobosAutoNav/Core/InterruptionBudget.cs",
+      "sha256": "1e1b2e8213d910449d40808ca7688f09bd4a282cee4c5832b813ad169ee15980",
+      "role": "registration, metadata or event-driven content",
+      "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
+      "decision": "Auto Nav 0.29.0: a failure in the game's own StarSystem.Update (no Auto Nav frame on the stack) holds thrust for one step; three within ten real seconds suspend for Resume; Auto Nav's own faults still stop.",
+      "findings": [
+        "FF6"
+      ],
+      "indicators": {},
+      "reviewed": "2026-09-30"
+    },
+    {
       "path": "src/PhobosAutoNav/Core/ObstacleRoute.cs",
       "sha256": "dfa3a1d3a5e3707a02ad0cc282712795bd83e24a9a5f68ce31556d6a7708abcb",
       "role": "navigation, native boundary or flight policy",
@@ -1463,6 +1475,18 @@
       "reviewed": "2026-09-29"
     },
     {
+      "path": "src/PhobosAutoNav/NavigationInterruptions.cs",
+      "sha256": "55a4150baa2e23504d74add0e6226e31d9830ec1465228d30d1a355cfb9085f5",
+      "role": "navigation, native boundary or flight policy",
+      "review": "Static runtime-entry, collection, discovery, persistence/IO and presentation call-site inventory; disposition reviewed with the report findings.",
+      "decision": "Auto Nav 0.29.0: a failure in the game's own StarSystem.Update (no Auto Nav frame on the stack) holds thrust for one step; three within ten real seconds suspend for Resume; Auto Nav's own faults still stop.",
+      "findings": [
+        "FF6"
+      ],
+      "indicators": {},
+      "reviewed": "2026-09-30"
+    },
+    {
       "path": "src/PhobosAutoNav/NavigationPersistence.cs",
       "sha256": "1df47b22c5828e43c6baf2d89dfff44fd2911d984cc79d6003eb7e4a7d8cfb45",
       "role": "navigation, native boundary or flight policy",
@@ -1740,10 +1764,10 @@
     },
     {
       "path": "src/PhobosAutoNav/Plugin.cs",
-      "sha256": "b44172187af563474882995138a69011b8387b5f8e9f3a373757c3c2a316eca9",
+      "sha256": "443214047556be0532caf053ce0eb93ee4b874579ae36dc3e2739fa0f82f3d61",
       "role": "navigation, native boundary or flight policy",
       "review": "2026-09-27 towing: reviewed attachment ownership, clearance and native-policy boundaries; bounded UI refresh preserved.",
-      "decision": "Framework 0.45.1: both Ship.AddCO overloads patched explicitly after 0.45.0 aborted Framework start-up; dependency floors raised to 0.45.1. Every declared patch is now resolved by PatchResolutionChecks.",
+      "decision": "Auto Nav 0.29.0: a failure in the game's own StarSystem.Update (no Auto Nav frame on the stack) holds thrust for one step; three within ten real seconds suspend for Resume; Auto Nav's own faults still stop.",
       "findings": [
         "R2",
         "P8",
@@ -1759,24 +1783,24 @@
         "runtime_hook": [
           86,
           100,
-          118,
-          126,
-          136,
-          146,
-          164,
-          173,
-          180,
-          187,
-          197,
-          206,
-          212,
-          222,
-          236,
-          245
+          119,
+          127,
+          137,
+          147,
+          165,
+          174,
+          181,
+          188,
+          198,
+          207,
+          213,
+          223,
+          237,
+          246
         ],
         "collection": [
-          154,
-          216
+          155,
+          217
         ]
       },
       "reviewed": "2026-09-30"
