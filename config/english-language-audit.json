@@ -42279,8 +42279,8 @@
       "path": "docs/README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "aa473bc56e94152e0e389a2a64f21eadde3fc5cc4966daa4cc69c45c0fccdf7a",
-      "review": "2026-09-29: index link to the Manufacturing player guide."
+      "sha256": "bf767223d56bbc655089161dff0e83deaca74ea5df094f9eb809840196d04a09",
+      "review": "2026-09-29: index link text follows the Manufacturing guide title."
     },
     {
       "path": "docs/agriculture-bulk-storage.md",
@@ -43244,8 +43244,8 @@
       "path": "docs/manufacturing-player-guide.md",
       "scope": "current player operating guide",
       "decision": "rewrite",
-      "sha256": "b8e5625e0324d6006fbf0ba74ffb3dddeb7f1fa45f66fe1aa86fc6f9b11b1a16",
-      "review": "2026-09-29: flowchart added with a one-sentence lead-in; stale statements corrected where found (ingot recipes, silo consumers, collector products, dependency minima link, Manufacturing crew orders)."
+      "sha256": "785d0b6898da5b800485fddf29deca712a89d07e5e9c0452c5e92ece4805eda7",
+      "review": "2026-09-29: title covers the K2 and M2; the K2 reload behaviour; K2/M2 owner checks. Diagrams unchanged."
     },
     {
       "path": "docs/material-port-pairing.md",

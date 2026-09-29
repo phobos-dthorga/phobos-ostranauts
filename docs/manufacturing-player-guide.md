@@ -1,4 +1,4 @@
-# Refinery, electrolysis cell and hydrogen store
+# Refinery, electrolysis, Sabatier reactor and fuel stores
 
 Use the [current versions and dependency requirements](installing-mods.md);
 Framework 0.41.0 or newer is required. Implemented and checked offline; owner
@@ -165,8 +165,10 @@ hydrogen.
 
 ## After a reload
 
-The V4 and X2 pause after every reload and keep their bound charge, hold and
-progress. Press **Start** to continue. A bound steel charge on a ship whose
+The V4, X2 and K2 pause after every reload and keep their bound charge, holds
+and progress. Press **Start** to continue. The K2 keeps the gas it holds and any
+products it has made; it delivers waiting products first and starts a new cycle
+only once they have gone to their vessels. A bound steel charge on a ship whose
 Shipbreaker has been removed is kept and reported, never overwritten; Cancel
 releases it.
 
@@ -230,6 +232,18 @@ the alarms, then with scrubbers; run the X2 without a canister and watch cabin
 oxygen; damage the store once with a fire in the room and once without
 (deflagration against leak; repair stops the leak); interrupt a casting charge
 through a long heat wait and confirm slag instead of ingots.
+
+Sabatier and methane (0.2.0): install a K2 within one tile of an H2 store, an
+installed CO2 canister, an S3 and an M2, and link all four. Fill the canister
+with the game's CO2 scrubber, run an X2 into the same H2 store, and Start the K2.
+Watch the hydrogen fall and, each hour, about 0.56 kg of water and 0.25 kg of
+methane arrive. Empty the canister, empty the H2 store, fill the M2 and fill
+the vessel in turn, and confirm each wait gives its reason. Save and reload
+mid-cycle, then confirm the pause until Start and that the products arrive once.
+Watch the room warm by about 2.3 kW while it runs. Vent methane from the M2.
+Hazards: damage the M2 once without and once with a fire in the room (methane
+rising in the room against a burn that leaves CO2), and damage a running K2
+(its CO2 and methane go into the room; its hydrogen burns or escapes).
 
 ## Sources
 

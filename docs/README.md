@@ -53,7 +53,7 @@ common failures and useful reports.
 - [Installing and updating our mods](installing-mods.md)
 - [Phobos equipment and item references](item-references.md)
 - [Phobos Manufacturing: equipment and item reference](manufacturing-item-reference.md)
-- [Phobos Manufacturing: refinery, electrolysis cell and hydrogen store](manufacturing-player-guide.md)
+- [Phobos Manufacturing: refinery, electrolysis, Sabatier reactor and fuel stores](manufacturing-player-guide.md)
 - [Saved material-port pairing](material-port-pairing.md)
 - [Opt-in performance captures](performance-captures.md)
 - [Current player guide](player-guide.md)
