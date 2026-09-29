@@ -5,7 +5,7 @@ using PhobosShipbreaker.Core;
 
 internal static class InstallMenuChecks
 {
-    internal static void Run(NativeDefinitions farm, NativeDefinitions industry, Action<bool,string> check, Action<Action,string> throws)
+    internal static void Run(NativeDefinitions farm, NativeDefinitions industry, NativeDefinitions manufacturing, Action<bool,string> check, Action<Action,string> throws)
     {
         // Exercise the actual native registration, not a replica of the menu algorithm.
         var foreign = new JsonInstallable { strName = "ForeignInstall", strJobType = "install",
@@ -13,7 +13,8 @@ internal static class InstallMenuChecks
         Installables.dictJobBuildOptionsListed["APPS"]["ForeignFixture"] = foreign;
         farm.Publish();
         foreach (var job in farm.Installables.Values) Installables.Create(job);
-        foreach (var definitions in new[] { farm, industry })
+        foreach (var job in manufacturing.Installables.Values) Installables.Create(job);
+        foreach (var definitions in new[] { farm, industry, manufacturing })
         {
             InstallMenu.Validate(definitions.Installables.Values);
             foreach (var co in definitions.Objects.Values.Where(c => c.aStartingConds?.Any(s => s.Split('=')[0] == "IsInstalled") == true))

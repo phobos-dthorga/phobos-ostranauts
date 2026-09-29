@@ -126,6 +126,14 @@ if ('Agriculture' -in $Mods) {
 if ('Manufacturing' -in $Mods) {
     $needsPhobosFramework = $true
     if ($minimumPhobosFramework -lt [version]'0.17.0') { $minimumPhobosFramework = [version]'0.17.0' }
+    $shopPackage = if ($overrideMod -eq 'Manufacturing') { $PackagePath } else { Join-Path $PackageRoot 'PhobosManufacturing-P0' }
+    $shopMetadata = Join-Path $shopPackage 'Mods/PhobosManufacturing/mod_info.json'
+    if (Test-Path -LiteralPath $shopMetadata -PathType Leaf) {
+        $shopInfo = @(Get-Content -LiteralPath $shopMetadata -Raw | ConvertFrom-Json)
+        if ($shopInfo.Count -ne 1) { throw 'Expected exactly one native mod metadata entry for PhobosManufacturing.' }
+        # The 0.0.1 scaffold kept the 0.17.0 floor; operational packages follow the maintained catalogue.
+        $minimumPhobosFramework = Get-MaintainedDependencyMinimum 'Manufacturing.Framework' ([version]$shopInfo[0].strModVersion) $minimumPhobosFramework
+    }
     $Mods = @('Framework') + @($Mods | Where-Object { $_ -ne 'Framework' })
 }
 $locations = Resolve-InstallLocations $OstranautsPath $LoadOrderPath $settingsFile

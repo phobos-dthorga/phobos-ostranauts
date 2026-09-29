@@ -8,6 +8,11 @@ using Phobos.Ostranauts.Framework.Registration;
 
 namespace Phobos.Ostranauts.Framework.Liquids;
 
+/// <summary>What happens to contents when a vessel's native damage mode switch fires: <c>Isolate</c> traps them in
+/// the catch chamber for later recovery (silos, reservoirs); <c>Leak</c> leaves them in service and the owning
+/// service drains them at the declared rate until repaired (pressurised stores).</summary>
+public enum VesselDamagePolicy { Isolate, Leak }
+
 /// <summary>What a content mod declares for a family of bulk vessels (silos, reservoirs, tanks): the definition
 /// prefix, the one commodity it holds, its capacity and dry mass, and the names of its saved records. Framework
 /// keeps the quantity as its own saved record (never a native stat), keeps the object's native mass equal to
@@ -22,13 +27,28 @@ public sealed class BulkVesselSpec
     public string Record { get; }
     public string Journal { get; }
     public string Guard { get; }
+    public VesselDamagePolicy DamagePolicy { get; }
+    /// <summary>Contents lost per hour while damaged, for the Leak policy; zero otherwise.</summary>
+    public double LeakKgPerHour { get; }
     public BulkVesselSpec(string family, string commodity, double capacityKg, double dryKg, string owner, string record, string journal, string guard)
+        : this(family, commodity, capacityKg, dryKg, owner, record, journal, guard, VesselDamagePolicy.Isolate, 0) { }
+    public BulkVesselSpec(string family, string commodity, double capacityKg, double dryKg, string owner, string record, string journal, string guard,
+        VesselDamagePolicy damagePolicy, double leakKgPerHour)
     {
         if (string.IsNullOrWhiteSpace(family) || string.IsNullOrWhiteSpace(commodity) || string.IsNullOrWhiteSpace(owner) ||
             string.IsNullOrWhiteSpace(record) || string.IsNullOrWhiteSpace(journal) || string.IsNullOrWhiteSpace(guard) ||
             new[] { record, journal, guard }.Distinct(StringComparer.Ordinal).Count() != 3 ||
             !Finite(capacityKg) || capacityKg <= 0 || !Finite(dryKg) || dryKg < 0) throw new ArgumentException("Invalid bulk vessel specification.");
+        if (!Finite(leakKgPerHour) || leakKgPerHour < 0 || (damagePolicy == VesselDamagePolicy.Leak) != (leakKgPerHour > 0))
+            throw new ArgumentException("A leaking vessel declares a positive leak rate; an isolating vessel declares none.");
         Family = family; Commodity = commodity; CapacityKg = capacityKg; DryKg = dryKg; Owner = owner; Record = record; Journal = journal; Guard = guard;
+        DamagePolicy = damagePolicy; LeakKgPerHour = leakKgPerHour;
+    }
+    /// <summary>Contents a damaged leaking vessel loses over <paramref name="hours"/>, bounded by what it holds.</summary>
+    public double LeakKg(double hours, double heldKg)
+    {
+        if (!Finite(hours) || hours < 0 || !Finite(heldKg) || heldKg < 0) throw new ArgumentException("Invalid leak interval.");
+        return Math.Min(heldKg, LeakKgPerHour * hours);
     }
     /// <summary>Capacity from a volume at a density the content declares (kg per cubic metre); water is 1,000,
     /// heavy water 1,107, liquid helium-3 129 in the game's own refuelling code. Framework never picks one.</summary>
@@ -168,6 +188,22 @@ public static class BulkVessel
     {
         if (!Journal(co, Spec(co)).TryWrite(new Dictionary<string, string> { ["state"] = "clear" })) throw new InvalidOperationException("Bulk vessel conversion incomplete.");
     }
+    /// <summary>Contents that leave the vessel without a receiver (a leak, an explicit discharge overboard):
+    /// service contents fall by up to <paramref name="kg"/>, the loss is logged, and the kilograms actually
+    /// removed are returned. A protected vessel loses nothing here.</summary>
+    public static double Drain(CondOwner co, double kg, string reason)
+    {
+        if (!BulkVesselSpec.Finite(kg) || kg < 0) throw new ArgumentException("Invalid drain amount.");
+        var spec = Spec(co);
+        if (Protected(co)) return 0;
+        var s = Read(co, spec);
+        double removed = Math.Min(kg, s.ServiceKg);
+        if (removed <= 0) return 0;
+        s.SetService(s.ServiceKg - removed);
+        Save(co, spec, s);
+        FrameworkLifecycle.Log(Text.Get("BulkVessel.drained", co.strID, spec.Commodity, removed, reason));
+        return removed;
+    }
     /// <summary>The vessel as a reservoir for guarded transfers; contents in the catch chamber take capacity.</summary>
     public sealed class Endpoint : ILiquidReservoir
     {
@@ -183,7 +219,8 @@ public static class BulkVessel
 }
 
 // The game creates the replacement under the old ID before it calls ModeSwitch, so blocking here would orphan
-// that replacement. Contents follow into a successor of the same family; a damaged successor isolates them.
+// that replacement. Contents follow into a successor of the same family; a damaged successor isolates them
+// (Isolate policy) or keeps them in service for the owner's leak (Leak policy).
 // Owner decision (28 September 2026): vanilla destructibility, with refusals only when work is offered.
 [HarmonyPatch(typeof(CondOwner), nameof(CondOwner.ModeSwitch))]
 internal static class BulkVesselModeSwitch
@@ -200,7 +237,7 @@ internal static class BulkVesselModeSwitch
         if (__state == null) return;
         try
         {
-            if (coNew.HasCond("IsDamaged")) __state.Isolate();
+            if (coNew.HasCond("IsDamaged") && BulkVessels.Of(coNew)?.DamagePolicy == VesselDamagePolicy.Isolate) __state.Isolate();
             BulkVessel.Save(coNew, __state);
         }
         catch (Exception e) { FrameworkLifecycle.Log(e.ToString()); }

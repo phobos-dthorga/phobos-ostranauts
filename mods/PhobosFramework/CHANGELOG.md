@@ -20,6 +20,20 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.41.0] - 2026-09-29 - Draft
+
+### Added
+
+- Processing.RoomHeat: the shared air-cooled operating rule (10 kPa floor, 40 C ceiling, the game's 20.7 J per mol K) as one budget, a room reader, admission and a deposit into the room's pending temperature. Shipbreaker and Agriculture keep their own copies unchanged.
+- Processing.NativeGasCanister and RoomGas: the game's gas species and molar masses, a rated canister's capacity by the game's own refuelling arithmetic, guarded adds (capped at the rated pressure, which the game itself does not cap) and takes (clamped to contents, because a negative total corrupts the game's count) on installed O2, CO2 and N2 canisters, and kilogram-based emission into or consumption from a room's air, native species only.
+- Hazards.NativeExplosions.Spawn: places one of the game's own explosion objects on a ship so the native Explosion component runs.
+- Liquids.VesselDamagePolicy: a bulk vessel family may declare Leak with a rate instead of the default Isolate; a damaged leaking vessel keeps its contents in service for its owner to drain. BulkVessel.Drain removes contents without a receiver and logs the loss.
+- Registration.ApplianceDefinitions.AddFeedBin and SetPowerOverride, and Controls.ConsoleAuthority.Check: the hidden feed compartment, the idle/working demand override and the remote-console rule that three content mods had each written for themselves. First consumer: Manufacturing 0.1.0.
+
+### Compatibility and limits
+
+- Additive API; no saves, definitions or behaviour of existing mods change (every existing vessel keeps Isolate). Nothing here starts a fire or ignites gas by itself, models pressure inside a Phobos vessel, or creates a gas species the game lacks. Offline checks pass; owner play-testing is pending.
+
 ## [0.40.0] - 2026-09-29 - Draft
 
 ### Added

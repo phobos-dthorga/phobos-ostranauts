@@ -17,7 +17,8 @@ internal static class StockQuantityChecks
         var packs = new (NativeDefinitions Definitions, Func<string,int> Quantity)[] {
             (PhobosAgriculture.Definitions.Prepare(), PhobosAgriculture.StockQuantities.For),
             (PhobosShipbreaker.Content.Prepare(), PhobosShipbreaker.StockQuantities.For),
-            (PhobosAutoNav.EquipmentContent.Prepare(), _ => PhobosAutoNav.StockQuantities.Boards)
+            (PhobosAutoNav.EquipmentContent.Prepare(), _ => PhobosAutoNav.StockQuantities.Boards),
+            (PhobosManufacturing.Content.Prepare(true), PhobosManufacturing.StockQuantities.For)
         };
         foreach (var (d, quantity) in packs)
         {
@@ -55,7 +56,8 @@ internal static class StockQuantityChecks
             (packs[0].Definitions, PhobosAgriculture.Definitions.MachineFamilies.Select(p => (p + "Loose", p + "LooseDmg")).ToArray()),
             (packs[1].Definitions, PhobosShipbreaker.EquipmentEconomy.Machines.Select(m => (m.Prefix + "Loose", m.Prefix + "LooseDmg")).ToArray()),
             (packs[2].Definitions, new[] { PhobosAutoNav.NavigationService.ModuleId, PhobosAutoNav.NavigationService.PursuitId, PhobosAutoNav.NavigationService.FireControlId }
-                .Select(id => (id, id + "Dmg")).ToArray())
+                .Select(id => (id, id + "Dmg")).ToArray()),
+            (packs[3].Definitions, PhobosManufacturing.EquipmentEconomy.Machines.Select(m => (m.Prefix + "Loose", m.Prefix + "LooseDmg")).ToArray())
         };
         foreach (var (d, machines) in families)
         {

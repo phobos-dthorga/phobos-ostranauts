@@ -8192,7 +8192,7 @@
     {
       "id": "PhobosFramework",
       "name": "Phobos Framework",
-      "version": "0.40.0",
+      "version": "0.41.0",
       "gameTarget": "1.0.1.5",
       "items": [
         {
@@ -8234,10 +8234,2348 @@
     {
       "id": "PhobosManufacturing",
       "name": "Phobos Manufacturing",
-      "version": "0.0.1",
+      "version": "0.1.0",
       "gameTarget": "1.0.1.5",
-      "items": [],
-      "sources": [],
+      "items": [
+        {
+          "id": "PhobosAnhydrousResidue",
+          "name": "Phobos' Fennmark Anhydrous Residue",
+          "stackLimit": 1,
+          "actions": [
+            "DropItem",
+            "PickupItem"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
+          "handlingFlags": [],
+          "slots": [
+            "heldL",
+            "heldR"
+          ],
+          "massKg": 8.0,
+          "baseValue": 0.009999999776482582,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [],
+          "aliases": []
+        },
+        {
+          "id": "PhobosCarbonStock",
+          "name": "Phobos' Fennmark Carbon Stock",
+          "stackLimit": 10,
+          "actions": [
+            "DropItem",
+            "DropItemStack",
+            "PickupItem",
+            "PickupItemStack"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
+          "handlingFlags": [],
+          "slots": [
+            "heldL",
+            "heldR"
+          ],
+          "massKg": 1.0,
+          "baseValue": 10.0,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [],
+          "aliases": []
+        },
+        {
+          "id": "PhobosChemicalProcessorInstalled",
+          "name": "Phobos' Fennmark X2 Chemical Processor",
+          "stackLimit": 1,
+          "actions": [
+            "PhobosManufacturingControls",
+            "PhobosManufacturingMaintenanceInformation"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
+          "handlingFlags": [
+            "IsInstalled"
+          ],
+          "slots": [],
+          "massKg": 130.0,
+          "baseValue": 5600.0,
+          "installed": true,
+          "operatingModes": [],
+          "installTab": "APPS",
+          "jobs": [
+            {
+              "id": "PhobosChemicalProcessorInstalledDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosChemicalProcessorInstalledDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 600.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 76,
+                  "baseValue": 273.5999927520752
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 28,
+                  "baseValue": 30.80000066757202
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 20,
+                  "baseValue": 100.0
+                },
+                {
+                  "id": "ItmPartsElecSmall01",
+                  "name": "Small Electronic Parts",
+                  "count": 12,
+                  "baseValue": 174.0
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 10,
+                  "baseValue": 0.5000000074505806
+                }
+              ]
+            },
+            {
+              "id": "PhobosChemicalProcessorInstalledRestore",
+              "kind": "restore",
+              "action": "ACTPhobosChemicalProcessorInstalledRestore",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsUndamageableNotContained",
+              "targetPassOnFreshDefinition": false,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 20.0,
+              "outputs": []
+            },
+            {
+              "id": "PhobosChemicalProcessorInstalledUninstall",
+              "kind": "uninstall",
+              "action": "ACTPhobosChemicalProcessorInstalledUninstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosChemicalProcessorInstalledTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 700.0,
+              "outputs": [
+                {
+                  "id": "PhobosChemicalProcessorLoose",
+                  "name": "Phobos' Fennmark X2 Chemical Processor",
+                  "count": 1,
+                  "baseValue": 5600.0
+                }
+              ]
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosChemicalProcessorInstalledDmg",
+          "name": "Phobos' Fennmark X2 Chemical Processor (Damaged)",
+          "stackLimit": 1,
+          "actions": [
+            "PhobosManufacturingControls",
+            "PhobosManufacturingMaintenanceInformation"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
+          "handlingFlags": [
+            "IsDamaged",
+            "IsInstalled"
+          ],
+          "slots": [],
+          "massKg": 130.0,
+          "baseValue": 1400.0,
+          "installed": true,
+          "operatingModes": [],
+          "installTab": "APPS",
+          "jobs": [
+            {
+              "id": "PhobosChemicalProcessorInstalledDmgDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosChemicalProcessorInstalledDmgDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 600.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 34,
+                  "baseValue": 122.39999675750732
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 10,
+                  "baseValue": 11.000000238418579
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 4,
+                  "baseValue": 20.0
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 84,
+                  "baseValue": 4.200000062584877
+                }
+              ]
+            },
+            {
+              "id": "PhobosChemicalProcessorInstalledDmgRepair",
+              "kind": "repair",
+              "action": "ACTPhobosChemicalProcessorInstalledDmgRepair",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosChemicalProcessorInstalledDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "TIsScrapSteel=1x2",
+                "TIsScrapAluminum=1x2",
+                "TIsPartsMechSmall=1x4",
+                "TIsPartsElecSmall=1x2"
+              ],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 2200.0,
+              "outputs": [
+                {
+                  "id": "PhobosChemicalProcessorInstalled",
+                  "name": "Phobos' Fennmark X2 Chemical Processor",
+                  "count": 1,
+                  "baseValue": 5600.0
+                }
+              ]
+            },
+            {
+              "id": "PhobosChemicalProcessorInstalledDmgUninstall",
+              "kind": "uninstall",
+              "action": "ACTPhobosChemicalProcessorInstalledDmgUninstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosChemicalProcessorInstalledDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 700.0,
+              "outputs": [
+                {
+                  "id": "PhobosChemicalProcessorLooseDmg",
+                  "name": "Phobos' Fennmark X2 Chemical Processor (Damaged)",
+                  "count": 1,
+                  "baseValue": 1400.0
+                }
+              ]
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosChemicalProcessorLoose",
+          "name": "Phobos' Fennmark X2 Chemical Processor",
+          "stackLimit": 1,
+          "actions": [
+            "PhobosManufacturingMaintenanceInformation",
+            "DropItem",
+            "PickupItem"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
+          "handlingFlags": [
+            "IsCumbersome"
+          ],
+          "slots": [
+            "drag"
+          ],
+          "massKg": 130.0,
+          "baseValue": 5600.0,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [
+            {
+              "id": "PhobosChemicalProcessorLooseDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosChemicalProcessorLooseDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 600.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 76,
+                  "baseValue": 273.5999927520752
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 28,
+                  "baseValue": 30.80000066757202
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 20,
+                  "baseValue": 100.0
+                },
+                {
+                  "id": "ItmPartsElecSmall01",
+                  "name": "Small Electronic Parts",
+                  "count": 12,
+                  "baseValue": 174.0
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 10,
+                  "baseValue": 0.5000000074505806
+                }
+              ]
+            },
+            {
+              "id": "PhobosChemicalProcessorLooseInstall",
+              "kind": "install",
+              "action": "ACTPhobosChemicalProcessorLooseInstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosChemicalProcessorLooseTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "PhobosChemicalProcessorLooseTest=1x1"
+              ],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 900.0,
+              "outputs": [
+                {
+                  "id": "PhobosChemicalProcessorInstalled",
+                  "name": "Phobos' Fennmark X2 Chemical Processor",
+                  "count": 1,
+                  "baseValue": 5600.0
+                }
+              ]
+            },
+            {
+              "id": "PhobosChemicalProcessorLooseRestore",
+              "kind": "restore",
+              "action": "ACTPhobosChemicalProcessorLooseRestore",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsUndamageableNotContained",
+              "targetPassOnFreshDefinition": false,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 20.0,
+              "outputs": []
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosChemicalProcessorLooseDmg",
+          "name": "Phobos' Fennmark X2 Chemical Processor (Damaged)",
+          "stackLimit": 1,
+          "actions": [
+            "PhobosManufacturingMaintenanceInformation",
+            "DropItem",
+            "PickupItem"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
+          "handlingFlags": [
+            "IsCumbersome",
+            "IsDamaged"
+          ],
+          "slots": [
+            "drag"
+          ],
+          "massKg": 130.0,
+          "baseValue": 1400.0,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [
+            {
+              "id": "PhobosChemicalProcessorLooseDmgDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosChemicalProcessorLooseDmgDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 600.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 34,
+                  "baseValue": 122.39999675750732
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 10,
+                  "baseValue": 11.000000238418579
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 4,
+                  "baseValue": 20.0
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 84,
+                  "baseValue": 4.200000062584877
+                }
+              ]
+            },
+            {
+              "id": "PhobosChemicalProcessorLooseDmgInstall",
+              "kind": "install",
+              "action": "ACTPhobosChemicalProcessorLooseDmgInstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosChemicalProcessorLooseDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "PhobosChemicalProcessorLooseDmgTest=1x1"
+              ],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 900.0,
+              "outputs": [
+                {
+                  "id": "PhobosChemicalProcessorInstalledDmg",
+                  "name": "Phobos' Fennmark X2 Chemical Processor (Damaged)",
+                  "count": 1,
+                  "baseValue": 1400.0
+                }
+              ]
+            },
+            {
+              "id": "PhobosChemicalProcessorLooseDmgRepair",
+              "kind": "repair",
+              "action": "ACTPhobosChemicalProcessorLooseDmgRepair",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosChemicalProcessorLooseDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "TIsScrapSteel=1x2",
+                "TIsScrapAluminum=1x2",
+                "TIsPartsMechSmall=1x4",
+                "TIsPartsElecSmall=1x2"
+              ],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 2200.0,
+              "outputs": [
+                {
+                  "id": "PhobosChemicalProcessorLoose",
+                  "name": "Phobos' Fennmark X2 Chemical Processor",
+                  "count": 1,
+                  "baseValue": 5600.0
+                }
+              ]
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosClayHydrates",
+          "name": "Phobos' Fennmark Clay Hydrates",
+          "stackLimit": 6,
+          "actions": [
+            "DropItem",
+            "DropItemStack",
+            "PickupItem",
+            "PickupItemStack"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
+          "handlingFlags": [],
+          "slots": [
+            "heldL",
+            "heldR",
+            "drag"
+          ],
+          "massKg": 10.0,
+          "baseValue": 180.0,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [],
+          "aliases": []
+        },
+        {
+          "id": "PhobosHydrogenStoreInstalled",
+          "name": "Phobos' Fennmark H2 Hydrogen Store",
+          "stackLimit": 1,
+          "actions": [
+            "PhobosManufacturingControls",
+            "PhobosManufacturingMaintenanceInformation"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
+          "handlingFlags": [
+            "IsInstalled"
+          ],
+          "slots": [],
+          "massKg": 160.0,
+          "baseValue": 5200.0,
+          "installed": true,
+          "operatingModes": [],
+          "installTab": "APPS",
+          "jobs": [
+            {
+              "id": "PhobosHydrogenStoreInstalledDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosHydrogenStoreInstalledDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 700.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 110,
+                  "baseValue": 395.9999895095825
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 30,
+                  "baseValue": 33.00000071525574
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 12,
+                  "baseValue": 60.0
+                },
+                {
+                  "id": "ItmPartsElecSmall01",
+                  "name": "Small Electronic Parts",
+                  "count": 2,
+                  "baseValue": 29.0
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 13,
+                  "baseValue": 0.6500000096857548
+                }
+              ]
+            },
+            {
+              "id": "PhobosHydrogenStoreInstalledRestore",
+              "kind": "restore",
+              "action": "ACTPhobosHydrogenStoreInstalledRestore",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsUndamageableNotContained",
+              "targetPassOnFreshDefinition": false,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 20.0,
+              "outputs": []
+            },
+            {
+              "id": "PhobosHydrogenStoreInstalledUninstall",
+              "kind": "uninstall",
+              "action": "ACTPhobosHydrogenStoreInstalledUninstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosHydrogenStoreInstalledTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 800.0,
+              "outputs": [
+                {
+                  "id": "PhobosHydrogenStoreLoose",
+                  "name": "Phobos' Fennmark H2 Hydrogen Store",
+                  "count": 1,
+                  "baseValue": 5200.0
+                }
+              ]
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosHydrogenStoreInstalledDmg",
+          "name": "Phobos' Fennmark H2 Hydrogen Store (Damaged)",
+          "stackLimit": 1,
+          "actions": [
+            "PhobosManufacturingControls",
+            "PhobosManufacturingMaintenanceInformation"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
+          "handlingFlags": [
+            "IsDamaged",
+            "IsInstalled"
+          ],
+          "slots": [],
+          "massKg": 160.0,
+          "baseValue": 1300.0,
+          "installed": true,
+          "operatingModes": [],
+          "installTab": "APPS",
+          "jobs": [
+            {
+              "id": "PhobosHydrogenStoreInstalledDmgDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosHydrogenStoreInstalledDmgDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 700.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 40,
+                  "baseValue": 143.99999618530273
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 10,
+                  "baseValue": 11.000000238418579
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 4,
+                  "baseValue": 20.0
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 108,
+                  "baseValue": 5.4000000804662704
+                }
+              ]
+            },
+            {
+              "id": "PhobosHydrogenStoreInstalledDmgRepair",
+              "kind": "repair",
+              "action": "ACTPhobosHydrogenStoreInstalledDmgRepair",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosHydrogenStoreInstalledDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "TIsScrapSteel=1x2",
+                "TIsScrapAluminum=1x2",
+                "TIsPartsMechSmall=1x4"
+              ],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 2400.0,
+              "outputs": [
+                {
+                  "id": "PhobosHydrogenStoreInstalled",
+                  "name": "Phobos' Fennmark H2 Hydrogen Store",
+                  "count": 1,
+                  "baseValue": 5200.0
+                }
+              ]
+            },
+            {
+              "id": "PhobosHydrogenStoreInstalledDmgUninstall",
+              "kind": "uninstall",
+              "action": "ACTPhobosHydrogenStoreInstalledDmgUninstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosHydrogenStoreInstalledDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 800.0,
+              "outputs": [
+                {
+                  "id": "PhobosHydrogenStoreLooseDmg",
+                  "name": "Phobos' Fennmark H2 Hydrogen Store (Damaged)",
+                  "count": 1,
+                  "baseValue": 1300.0
+                }
+              ]
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosHydrogenStoreLoose",
+          "name": "Phobos' Fennmark H2 Hydrogen Store",
+          "stackLimit": 1,
+          "actions": [
+            "PhobosManufacturingMaintenanceInformation",
+            "DropItem",
+            "PickupItem"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
+          "handlingFlags": [
+            "IsCumbersome"
+          ],
+          "slots": [
+            "drag"
+          ],
+          "massKg": 160.0,
+          "baseValue": 5200.0,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [
+            {
+              "id": "PhobosHydrogenStoreLooseDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosHydrogenStoreLooseDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 700.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 110,
+                  "baseValue": 395.9999895095825
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 30,
+                  "baseValue": 33.00000071525574
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 12,
+                  "baseValue": 60.0
+                },
+                {
+                  "id": "ItmPartsElecSmall01",
+                  "name": "Small Electronic Parts",
+                  "count": 2,
+                  "baseValue": 29.0
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 13,
+                  "baseValue": 0.6500000096857548
+                }
+              ]
+            },
+            {
+              "id": "PhobosHydrogenStoreLooseInstall",
+              "kind": "install",
+              "action": "ACTPhobosHydrogenStoreLooseInstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosHydrogenStoreLooseTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "PhobosHydrogenStoreLooseTest=1x1"
+              ],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 1000.0,
+              "outputs": [
+                {
+                  "id": "PhobosHydrogenStoreInstalled",
+                  "name": "Phobos' Fennmark H2 Hydrogen Store",
+                  "count": 1,
+                  "baseValue": 5200.0
+                }
+              ]
+            },
+            {
+              "id": "PhobosHydrogenStoreLooseRestore",
+              "kind": "restore",
+              "action": "ACTPhobosHydrogenStoreLooseRestore",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsUndamageableNotContained",
+              "targetPassOnFreshDefinition": false,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 20.0,
+              "outputs": []
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosHydrogenStoreLooseDmg",
+          "name": "Phobos' Fennmark H2 Hydrogen Store (Damaged)",
+          "stackLimit": 1,
+          "actions": [
+            "PhobosManufacturingMaintenanceInformation",
+            "DropItem",
+            "PickupItem"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
+          "handlingFlags": [
+            "IsCumbersome",
+            "IsDamaged"
+          ],
+          "slots": [
+            "drag"
+          ],
+          "massKg": 160.0,
+          "baseValue": 1300.0,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [
+            {
+              "id": "PhobosHydrogenStoreLooseDmgDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosHydrogenStoreLooseDmgDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 700.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 40,
+                  "baseValue": 143.99999618530273
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 10,
+                  "baseValue": 11.000000238418579
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 4,
+                  "baseValue": 20.0
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 108,
+                  "baseValue": 5.4000000804662704
+                }
+              ]
+            },
+            {
+              "id": "PhobosHydrogenStoreLooseDmgInstall",
+              "kind": "install",
+              "action": "ACTPhobosHydrogenStoreLooseDmgInstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosHydrogenStoreLooseDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "PhobosHydrogenStoreLooseDmgTest=1x1"
+              ],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 1000.0,
+              "outputs": [
+                {
+                  "id": "PhobosHydrogenStoreInstalledDmg",
+                  "name": "Phobos' Fennmark H2 Hydrogen Store (Damaged)",
+                  "count": 1,
+                  "baseValue": 1300.0
+                }
+              ]
+            },
+            {
+              "id": "PhobosHydrogenStoreLooseDmgRepair",
+              "kind": "repair",
+              "action": "ACTPhobosHydrogenStoreLooseDmgRepair",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosHydrogenStoreLooseDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "TIsScrapSteel=1x2",
+                "TIsScrapAluminum=1x2",
+                "TIsPartsMechSmall=1x4"
+              ],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 2400.0,
+              "outputs": [
+                {
+                  "id": "PhobosHydrogenStoreLoose",
+                  "name": "Phobos' Fennmark H2 Hydrogen Store",
+                  "count": 1,
+                  "baseValue": 5200.0
+                }
+              ]
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosNickelIronIngot",
+          "name": "Phobos' Fennmark Nickel-Iron Ingot",
+          "stackLimit": 10,
+          "actions": [
+            "DropItem",
+            "DropItemStack",
+            "PickupItem",
+            "PickupItemStack"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
+          "handlingFlags": [],
+          "slots": [
+            "heldL",
+            "heldR"
+          ],
+          "massKg": 4.0,
+          "baseValue": 20.0,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [],
+          "aliases": []
+        },
+        {
+          "id": "PhobosRefinerySlag",
+          "name": "Phobos' Fennmark Refinery Slag",
+          "stackLimit": 10,
+          "actions": [
+            "DropItem",
+            "DropItemStack",
+            "PickupItem",
+            "PickupItemStack"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
+          "handlingFlags": [],
+          "slots": [
+            "heldL",
+            "heldR"
+          ],
+          "massKg": 1.0,
+          "baseValue": 0.009999999776482582,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [],
+          "aliases": []
+        },
+        {
+          "id": "PhobosVolatilesRefineryInputBin",
+          "name": "Phobos' Fennmark V4 Refinery charge",
+          "stackLimit": 1,
+          "actions": [],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "PhobosVolatilesRefineryTFeed",
+            "width": 6,
+            "height": 1,
+            "flag": true,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
+          "handlingFlags": [
+            "IsSystem"
+          ],
+          "slots": [
+            "PhobosVolatilesRefineryInput"
+          ],
+          "massKg": 0.0,
+          "baseValue": 0.0,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [],
+          "aliases": []
+        },
+        {
+          "id": "PhobosVolatilesRefineryInstalled",
+          "name": "Phobos' Fennmark V4 Volatiles Refinery",
+          "stackLimit": 1,
+          "actions": [
+            "Inventory",
+            "PhobosManufacturingControls",
+            "PhobosManufacturingMaintenanceInformation"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "TIsFitContainerSolid",
+            "width": 8,
+            "height": 8,
+            "flag": true,
+            "inventoryAction": true,
+            "ownedSlots": [
+              "PhobosVolatilesRefineryInput"
+            ],
+            "loot": "PhobosVolatilesRefineryCompartments"
+          },
+          "handlingFlags": [
+            "IsInstalled"
+          ],
+          "slots": [],
+          "massKg": 180.0,
+          "baseValue": 15600.0,
+          "installed": true,
+          "operatingModes": [],
+          "installTab": "APPS",
+          "jobs": [
+            {
+              "id": "PhobosVolatilesRefineryInstalledDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosVolatilesRefineryInstalledDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 1200.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 104,
+                  "baseValue": 374.3999900817871
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 42,
+                  "baseValue": 46.20000100135803
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 20,
+                  "baseValue": 100.0
+                },
+                {
+                  "id": "ItmPartsElecSmall01",
+                  "name": "Small Electronic Parts",
+                  "count": 8,
+                  "baseValue": 116.0
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 20,
+                  "baseValue": 1.0000000149011612
+                }
+              ]
+            },
+            {
+              "id": "PhobosVolatilesRefineryInstalledRestore",
+              "kind": "restore",
+              "action": "ACTPhobosVolatilesRefineryInstalledRestore",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsUndamageableNotContained",
+              "targetPassOnFreshDefinition": false,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 20.0,
+              "outputs": []
+            },
+            {
+              "id": "PhobosVolatilesRefineryInstalledUninstall",
+              "kind": "uninstall",
+              "action": "ACTPhobosVolatilesRefineryInstalledUninstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosVolatilesRefineryInstalledTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 1200.0,
+              "outputs": [
+                {
+                  "id": "PhobosVolatilesRefineryLoose",
+                  "name": "Phobos' Fennmark V4 Volatiles Refinery",
+                  "count": 1,
+                  "baseValue": 15600.0
+                }
+              ]
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosVolatilesRefineryInstalledDmg",
+          "name": "Phobos' Fennmark V4 Volatiles Refinery (Damaged)",
+          "stackLimit": 1,
+          "actions": [
+            "Inventory",
+            "PhobosManufacturingControls",
+            "PhobosManufacturingMaintenanceInformation"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "TIsFitContainerSolid",
+            "width": 8,
+            "height": 8,
+            "flag": true,
+            "inventoryAction": true,
+            "ownedSlots": [
+              "PhobosVolatilesRefineryInput"
+            ],
+            "loot": "PhobosVolatilesRefineryCompartments"
+          },
+          "handlingFlags": [
+            "IsDamaged",
+            "IsInstalled"
+          ],
+          "slots": [],
+          "massKg": 180.0,
+          "baseValue": 3900.0,
+          "installed": true,
+          "operatingModes": [],
+          "installTab": "APPS",
+          "jobs": [
+            {
+              "id": "PhobosVolatilesRefineryInstalledDmgDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosVolatilesRefineryInstalledDmgDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 1200.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 92,
+                  "baseValue": 331.1999912261963
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 34,
+                  "baseValue": 37.40000081062317
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 10,
+                  "baseValue": 50.0
+                },
+                {
+                  "id": "ItmPartsElecSmall01",
+                  "name": "Small Electronic Parts",
+                  "count": 2,
+                  "baseValue": 29.0
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 48,
+                  "baseValue": 2.400000035762787
+                }
+              ]
+            },
+            {
+              "id": "PhobosVolatilesRefineryInstalledDmgRepair",
+              "kind": "repair",
+              "action": "ACTPhobosVolatilesRefineryInstalledDmgRepair",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosVolatilesRefineryInstalledDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "TIsScrapSteel=1x4",
+                "TIsScrapAluminum=1x2",
+                "TIsPartsMechSmall=1x6",
+                "TIsPartsElecSmall=1x4"
+              ],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 4200.0,
+              "outputs": [
+                {
+                  "id": "PhobosVolatilesRefineryInstalled",
+                  "name": "Phobos' Fennmark V4 Volatiles Refinery",
+                  "count": 1,
+                  "baseValue": 15600.0
+                }
+              ]
+            },
+            {
+              "id": "PhobosVolatilesRefineryInstalledDmgUninstall",
+              "kind": "uninstall",
+              "action": "ACTPhobosVolatilesRefineryInstalledDmgUninstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosVolatilesRefineryInstalledDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 1200.0,
+              "outputs": [
+                {
+                  "id": "PhobosVolatilesRefineryLooseDmg",
+                  "name": "Phobos' Fennmark V4 Volatiles Refinery (Damaged)",
+                  "count": 1,
+                  "baseValue": 3900.0
+                }
+              ]
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosVolatilesRefineryLoose",
+          "name": "Phobos' Fennmark V4 Volatiles Refinery",
+          "stackLimit": 1,
+          "actions": [
+            "Inventory",
+            "PhobosManufacturingMaintenanceInformation",
+            "DropItem",
+            "PickupItem"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "TIsFitContainerSolid",
+            "width": 8,
+            "height": 8,
+            "flag": true,
+            "inventoryAction": true,
+            "ownedSlots": [
+              "PhobosVolatilesRefineryInput"
+            ],
+            "loot": "PhobosVolatilesRefineryCompartments"
+          },
+          "handlingFlags": [
+            "IsCumbersome"
+          ],
+          "slots": [
+            "drag"
+          ],
+          "massKg": 180.0,
+          "baseValue": 15600.0,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [
+            {
+              "id": "PhobosVolatilesRefineryLooseDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosVolatilesRefineryLooseDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 1200.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 104,
+                  "baseValue": 374.3999900817871
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 42,
+                  "baseValue": 46.20000100135803
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 20,
+                  "baseValue": 100.0
+                },
+                {
+                  "id": "ItmPartsElecSmall01",
+                  "name": "Small Electronic Parts",
+                  "count": 8,
+                  "baseValue": 116.0
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 20,
+                  "baseValue": 1.0000000149011612
+                }
+              ]
+            },
+            {
+              "id": "PhobosVolatilesRefineryLooseInstall",
+              "kind": "install",
+              "action": "ACTPhobosVolatilesRefineryLooseInstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosVolatilesRefineryLooseTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "PhobosVolatilesRefineryLooseTest=1x1"
+              ],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 1800.0,
+              "outputs": [
+                {
+                  "id": "PhobosVolatilesRefineryInstalled",
+                  "name": "Phobos' Fennmark V4 Volatiles Refinery",
+                  "count": 1,
+                  "baseValue": 15600.0
+                }
+              ]
+            },
+            {
+              "id": "PhobosVolatilesRefineryLooseRestore",
+              "kind": "restore",
+              "action": "ACTPhobosVolatilesRefineryLooseRestore",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsUndamageableNotContained",
+              "targetPassOnFreshDefinition": false,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 20.0,
+              "outputs": []
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosVolatilesRefineryLooseDmg",
+          "name": "Phobos' Fennmark V4 Volatiles Refinery (Damaged)",
+          "stackLimit": 1,
+          "actions": [
+            "Inventory",
+            "PhobosManufacturingMaintenanceInformation",
+            "DropItem",
+            "PickupItem"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "TIsFitContainerSolid",
+            "width": 8,
+            "height": 8,
+            "flag": true,
+            "inventoryAction": true,
+            "ownedSlots": [
+              "PhobosVolatilesRefineryInput"
+            ],
+            "loot": "PhobosVolatilesRefineryCompartments"
+          },
+          "handlingFlags": [
+            "IsCumbersome",
+            "IsDamaged"
+          ],
+          "slots": [
+            "drag"
+          ],
+          "massKg": 180.0,
+          "baseValue": 3900.0,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [
+            {
+              "id": "PhobosVolatilesRefineryLooseDmgDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosVolatilesRefineryLooseDmgDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 1200.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 92,
+                  "baseValue": 331.1999912261963
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 34,
+                  "baseValue": 37.40000081062317
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 10,
+                  "baseValue": 50.0
+                },
+                {
+                  "id": "ItmPartsElecSmall01",
+                  "name": "Small Electronic Parts",
+                  "count": 2,
+                  "baseValue": 29.0
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 48,
+                  "baseValue": 2.400000035762787
+                }
+              ]
+            },
+            {
+              "id": "PhobosVolatilesRefineryLooseDmgInstall",
+              "kind": "install",
+              "action": "ACTPhobosVolatilesRefineryLooseDmgInstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosVolatilesRefineryLooseDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "PhobosVolatilesRefineryLooseDmgTest=1x1"
+              ],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 1800.0,
+              "outputs": [
+                {
+                  "id": "PhobosVolatilesRefineryInstalledDmg",
+                  "name": "Phobos' Fennmark V4 Volatiles Refinery (Damaged)",
+                  "count": 1,
+                  "baseValue": 3900.0
+                }
+              ]
+            },
+            {
+              "id": "PhobosVolatilesRefineryLooseDmgRepair",
+              "kind": "repair",
+              "action": "ACTPhobosVolatilesRefineryLooseDmgRepair",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosVolatilesRefineryLooseDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "TIsScrapSteel=1x4",
+                "TIsScrapAluminum=1x2",
+                "TIsPartsMechSmall=1x6",
+                "TIsPartsElecSmall=1x4"
+              ],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 4200.0,
+              "outputs": [
+                {
+                  "id": "PhobosVolatilesRefineryLoose",
+                  "name": "Phobos' Fennmark V4 Volatiles Refinery",
+                  "count": 1,
+                  "baseValue": 15600.0
+                }
+              ]
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "SysPhobosDeflagrationLarge",
+          "name": "Hydrogen deflagration",
+          "stackLimit": 1,
+          "actions": [],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
+          "handlingFlags": [
+            "IsSystem"
+          ],
+          "slots": [],
+          "massKg": 0.0,
+          "baseValue": 0.0,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [],
+          "aliases": []
+        },
+        {
+          "id": "SysPhobosDeflagrationMedium",
+          "name": "Hydrogen deflagration",
+          "stackLimit": 1,
+          "actions": [],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
+          "handlingFlags": [
+            "IsSystem"
+          ],
+          "slots": [],
+          "massKg": 0.0,
+          "baseValue": 0.0,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [],
+          "aliases": []
+        },
+        {
+          "id": "SysPhobosDeflagrationSmall",
+          "name": "Hydrogen deflagration",
+          "stackLimit": 1,
+          "actions": [],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
+          "handlingFlags": [
+            "IsSystem"
+          ],
+          "slots": [],
+          "massKg": 0.0,
+          "baseValue": 0.0,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [],
+          "aliases": []
+        }
+      ],
+      "sources": [
+        {
+          "table": "ItmFlotillaScrapKioskInv",
+          "item": "PhobosVolatilesRefineryLoose",
+          "condition": "Refurbished",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmFlotillaScrapKioskInv",
+          "item": "PhobosChemicalProcessorLoose",
+          "condition": "Refurbished",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmFlotillaScrapKioskInv",
+          "item": "PhobosHydrogenStoreLoose",
+          "condition": "Refurbished",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmLootSpawnEngineering",
+          "item": "PhobosChemicalProcessorLoose",
+          "condition": "Loot",
+          "chance": 0.06666666666666667,
+          "count": 1
+        },
+        {
+          "table": "ItmLootSpawnEngineering",
+          "item": "PhobosChemicalProcessorLooseDmg",
+          "condition": "Loot",
+          "chance": 0.06666666666666667,
+          "count": 1
+        },
+        {
+          "table": "ItmLootSpawnEngineering",
+          "item": "PhobosHydrogenStoreLoose",
+          "condition": "Loot",
+          "chance": 0.06666666666666667,
+          "count": 1
+        },
+        {
+          "table": "ItmLootSpawnEngineering",
+          "item": "PhobosHydrogenStoreLooseDmg",
+          "condition": "Loot",
+          "chance": 0.06666666666666667,
+          "count": 1
+        },
+        {
+          "table": "ItmLootSpawnEngineering",
+          "item": "PhobosVolatilesRefineryLoose",
+          "condition": "Loot",
+          "chance": 0.06666666666666667,
+          "count": 1
+        },
+        {
+          "table": "ItmLootSpawnEngineering",
+          "item": "PhobosVolatilesRefineryLooseDmg",
+          "condition": "Loot",
+          "chance": 0.06666666666666667,
+          "count": 1
+        },
+        {
+          "table": "ItmOKLGFixer",
+          "item": "PhobosVolatilesRefineryLoose",
+          "condition": "Worn",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmOKLGFixer",
+          "item": "PhobosChemicalProcessorLoose",
+          "condition": "Worn",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmOKLGFixer",
+          "item": "PhobosHydrogenStoreLoose",
+          "condition": "Worn",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmOKLGSupplyKioskInv",
+          "item": "PhobosVolatilesRefineryLooseDmg",
+          "condition": "Broken",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmOKLGSupplyKioskInv",
+          "item": "PhobosChemicalProcessorLooseDmg",
+          "condition": "Broken",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmOKLGSupplyKioskInv",
+          "item": "PhobosHydrogenStoreLooseDmg",
+          "condition": "Broken",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmOKLGSupplyKioskInv",
+          "item": "PhobosVolatilesRefineryLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmOKLGSupplyKioskInv",
+          "item": "PhobosChemicalProcessorLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmOKLGSupplyKioskInv",
+          "item": "PhobosHydrogenStoreLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmRandomMineralCClass",
+          "item": "PhobosClayHydrates",
+          "condition": "Loot",
+          "chance": 0.1,
+          "count": 1
+        },
+        {
+          "table": "ItmRock05SalvageOutput",
+          "item": "PhobosClayHydrates",
+          "condition": "Loot",
+          "chance": 0.1,
+          "count": 1
+        },
+        {
+          "table": "ItmRock06SalvageOutput",
+          "item": "PhobosClayHydrates",
+          "condition": "Loot",
+          "chance": 0.1,
+          "count": 1
+        },
+        {
+          "table": "ItmSupplyKioskBCERInv",
+          "item": "PhobosVolatilesRefineryLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskBCERInv",
+          "item": "PhobosChemicalProcessorLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskBCERInv",
+          "item": "PhobosHydrogenStoreLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskBCRSInv",
+          "item": "PhobosVolatilesRefineryLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskBCRSInv",
+          "item": "PhobosChemicalProcessorLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskBCRSInv",
+          "item": "PhobosHydrogenStoreLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskEJDRInv",
+          "item": "PhobosVolatilesRefineryLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskEJDRInv",
+          "item": "PhobosChemicalProcessorLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskEJDRInv",
+          "item": "PhobosHydrogenStoreLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskHQCHInv",
+          "item": "PhobosVolatilesRefineryLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskHQCHInv",
+          "item": "PhobosChemicalProcessorLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskHQCHInv",
+          "item": "PhobosHydrogenStoreLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskJATLInv",
+          "item": "PhobosVolatilesRefineryLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskJATLInv",
+          "item": "PhobosChemicalProcessorLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskJATLInv",
+          "item": "PhobosHydrogenStoreLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskJFTSInv",
+          "item": "PhobosVolatilesRefineryLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskJFTSInv",
+          "item": "PhobosChemicalProcessorLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskJFTSInv",
+          "item": "PhobosHydrogenStoreLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskMHNGInv",
+          "item": "PhobosVolatilesRefineryLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskMHNGInv",
+          "item": "PhobosChemicalProcessorLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskMHNGInv",
+          "item": "PhobosHydrogenStoreLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskMSUZInv",
+          "item": "PhobosVolatilesRefineryLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskMSUZInv",
+          "item": "PhobosChemicalProcessorLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskMSUZInv",
+          "item": "PhobosHydrogenStoreLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskMTRSInv",
+          "item": "PhobosVolatilesRefineryLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskMTRSInv",
+          "item": "PhobosChemicalProcessorLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskMTRSInv",
+          "item": "PhobosHydrogenStoreLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskMVOLInv",
+          "item": "PhobosVolatilesRefineryLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskMVOLInv",
+          "item": "PhobosChemicalProcessorLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskMVOLInv",
+          "item": "PhobosHydrogenStoreLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskSVIRInv",
+          "item": "PhobosVolatilesRefineryLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskSVIRInv",
+          "item": "PhobosChemicalProcessorLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskSVIRInv",
+          "item": "PhobosHydrogenStoreLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskVCBRInv",
+          "item": "PhobosVolatilesRefineryLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskVCBRInv",
+          "item": "PhobosChemicalProcessorLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskVCBRInv",
+          "item": "PhobosHydrogenStoreLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskVENCInv",
+          "item": "PhobosVolatilesRefineryLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskVENCInv",
+          "item": "PhobosChemicalProcessorLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskVENCInv",
+          "item": "PhobosHydrogenStoreLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskVNCAInv",
+          "item": "PhobosVolatilesRefineryLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskVNCAInv",
+          "item": "PhobosChemicalProcessorLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskVNCAInv",
+          "item": "PhobosHydrogenStoreLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmTraderSanDiegoHalvorsonInv",
+          "item": "PhobosVolatilesRefineryLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmTraderSanDiegoHalvorsonInv",
+          "item": "PhobosChemicalProcessorLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmTraderSanDiegoHalvorsonInv",
+          "item": "PhobosHydrogenStoreLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmVORBScrapKioskInv",
+          "item": "PhobosVolatilesRefineryLooseDmg",
+          "condition": "Broken",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmVORBScrapKioskInv",
+          "item": "PhobosVolatilesRefineryLoose",
+          "condition": "Refurbished",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmVORBScrapKioskInv",
+          "item": "PhobosChemicalProcessorLooseDmg",
+          "condition": "Broken",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmVORBScrapKioskInv",
+          "item": "PhobosChemicalProcessorLoose",
+          "condition": "Refurbished",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmVORBScrapKioskInv",
+          "item": "PhobosHydrogenStoreLooseDmg",
+          "condition": "Broken",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmVORBScrapKioskInv",
+          "item": "PhobosHydrogenStoreLoose",
+          "condition": "Refurbished",
+          "chance": 0.85,
+          "count": 8
+        }
+      ],
       "recipes": [],
       "recipeItemNames": {}
     },
@@ -19124,9 +21462,11 @@
     "mods/PhobosAutoNav/mod_info.json": "7104b75222365d05b9aa7700f6d582645a2bf4f26018582de8323f503f6ef9ec",
     "mods/PhobosFramework/data/conditions/phobos_framework.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
     "mods/PhobosFramework/framework/equipment-names.json": "8d64a49207830ca57808d0de92ac82feaf95fb200dd550888e795bb7ed37afb7",
-    "mods/PhobosFramework/mod_info.json": "dbcc1adc6b39740f74579c0e8f78b3412e140d4f716d65d745985b780e406500",
-    "mods/PhobosManufacturing/data/conditions/phobos_manufacturing.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
-    "mods/PhobosManufacturing/mod_info.json": "ca699100a8084899d77a65e2a54e6d94c9b67f808addfe5367ea2306d4fce21b",
+    "mods/PhobosFramework/mod_info.json": "1b2c692bc0f1bd8f4b3dcb75f537ad01c9b4e88150d4dd9c32ca02209a46b424",
+    "mods/PhobosManufacturing/data/conditions/phobos_manufacturing.json": "0ac5bff75779f21f3bcd269f28e09d882833f3b94fee174190a00b4d98001c63",
+    "mods/PhobosManufacturing/data/explosions/phobos_manufacturing.json": "33e0a37a22450d2ca64e33cc461efb87f19f4c69b90655af20280d67c6982ba3",
+    "mods/PhobosManufacturing/framework/equipment-names.json": "cf81cbd49341a4552d36cec1959734cba55e12f023914e6640fd09f335c79bd5",
+    "mods/PhobosManufacturing/mod_info.json": "f180c8af23c129ced488d100d11401f4b3c7531181728201d771aa1430598130",
     "mods/PhobosShipbreaker/crafting/recipes.json": "8b0f034a7c732fec44ac31585321347040ee2074cd330cd3e5ecb90bb4ab7df4",
     "mods/PhobosShipbreaker/data/conditions/phobos_shipbreaker.json": "4163d90a49167ef2178e2bfd00636e8288db73511c66c0f423e828642d4f1e44",
     "mods/PhobosShipbreaker/data/condtrigs/phobos_shipbreaker.json": "c7d4104df596d3fd362d9a80f4703178eafc5d3151bd53907814732ec84d3585",
@@ -19246,6 +21586,7 @@
     "src/PhobosFramework/Controls/CompactText.cs": "db07f9c3094de46881933ed2ab07156d59007cbeee0d862ffc4f9b2ad558111e",
     "src/PhobosFramework/Controls/ConfigurationSheet.cs": "f0a8c2f86b4fc6aff4c391f781c303c5df5430a937ede824408fd8fd884bb4b8",
     "src/PhobosFramework/Controls/ConfigurationStamp.cs": "6a5e6d010164ae936bc5a5d15cd26779a3581ba551ab00ac05ef1420dce164e1",
+    "src/PhobosFramework/Controls/ConsoleAuthority.cs": "e39c91d6b99688dd6de2fee72dd107e61946c439223f9a4219c57e5c4bba399b",
     "src/PhobosFramework/Controls/ConsoleBinding.cs": "2b3c4a14965d274e1845cb8e39164b3399458320c41b597dd95dca1a392ae50e",
     "src/PhobosFramework/Controls/ConsoleShell.cs": "bd86019e99d66f55f6136831855b244f9fab1c1b3d4b84f1e08579dc61d181a6",
     "src/PhobosFramework/Controls/ConsoleText.cs": "9a6b47e6b81a8b8566afbd9adbe717bf1d427852b311c881637f9f84090a8377",
@@ -19285,6 +21626,7 @@
     "src/PhobosFramework/Diagnostics/PerformanceSession.cs": "6d38efe649a4461ccdd977f26fdd01932c399818dc6989e703a04705f243acf4",
     "src/PhobosFramework/FrameworkConsole.cs": "756b0a3d272bce26f0a8fe2d4866092c45d9d46497bc0e0373e2c76abb96b07b",
     "src/PhobosFramework/FrameworkLifecycle.cs": "7acbaf89bf946b5af7b1a6c011c0d2671f95db027d64f0a7a85af1cb81730466",
+    "src/PhobosFramework/Hazards/NativeExplosions.cs": "1274833f31025a446d86fd636481b44d3c3b399be99b94e49ae1f05cc7a96201",
     "src/PhobosFramework/Inventory/BatchPlacement.cs": "2717d661636337f41b782aef9f3307dae27fa9b1ce3c403230ae8a7deff2bbcb",
     "src/PhobosFramework/Inventory/CollectorCargo.cs": "6e08c64cbce9799d4e1d38d3e8a7bd03bbc7b1976ddca167985d1cefe9430ffb",
     "src/PhobosFramework/Inventory/GridRoute.cs": "9cb05c97bdd83ee2b4d27185f8a1beae9c0aabd7d3213ccccf35091bf1d62b28",
@@ -19296,7 +21638,7 @@
     "src/PhobosFramework/Inventory/SavedPortFilter.cs": "95f70df5e4208b5482790b0df96bb4e782c1da93787fe7a44048464e3ac8a8a8",
     "src/PhobosFramework/Inventory/StackUnits.cs": "286642d040f637286ed65998c23c35926e8cec898d483544dbde74f498885fbd",
     "src/PhobosFramework/Inventory/TransferClock.cs": "c4ad66a777b7d510fe93f5e805fb29ddee60a989a28613e53290b6e71155df50",
-    "src/PhobosFramework/Liquids/BulkVessel.cs": "59fd73aadce987f86adebbf96d224131c3d10b6ccb3ed9e77053e5781a5535c4",
+    "src/PhobosFramework/Liquids/BulkVessel.cs": "3843a6aae8c4c65a16e73a1884f4abb15ebf72034bc9780384ebe388bd6c9866",
     "src/PhobosFramework/Liquids/FiniteLiquidTransfer.cs": "8e94596828ed11bec3239d174f68bed491213b89cad87387cb9ff6421e6e9cd3",
     "src/PhobosFramework/Liquids/FluidLine.cs": "e7a558e7e497c07474f16e3208db193537506d3c13c48f9384bcf0ebb56dfde7",
     "src/PhobosFramework/Liquids/HydraulicRoute.cs": "26c87ba46776311f7af91c8e89db11622c7002603b03ba544cb4f4832793fcad",
@@ -19319,16 +21661,19 @@
     "src/PhobosFramework/Persistence/SavedGridHeader.cs": "b7ef65702f570dfb2d267b97c726e2ba02b420bfbbc2c5471ef4ac7479874bb2",
     "src/PhobosFramework/Persistence/SavedPlaceholderHealth.cs": "358c35db2a5f73335cc5930e808c25817da5fa6b1d9d91c217c5a119f26db91d",
     "src/PhobosFramework/Persistence/SavedRoomGrid.cs": "d7d70aba54e777d96d3079318f75320fb981a6dba8f3728570c84b8e54072fbe",
-    "src/PhobosFramework/PhobosFramework.csproj": "3dbebd7ef13fe77d4cb07dfb478573b79fa97e0c40f72965e9ef674de0d717d3",
-    "src/PhobosFramework/Plugin.cs": "4e49cea9aa309a69180d9d7587a7087defe471dfcca27c8e5f989b8d19427e99",
+    "src/PhobosFramework/PhobosFramework.csproj": "701d715c79e9361174a0142c7a63e76fff3b5acd50a91fa9bb5de0c5d07399e6",
+    "src/PhobosFramework/Plugin.cs": "9b5b77348b163065130c0170f102b98537c97c2146c6cb3d2e44990068c7cedf",
     "src/PhobosFramework/Processing/EnergyReceipt.cs": "cb31cd45ea69ee8d182b0578f50540393bd70e63e918a161f04f2b6a290199b2",
     "src/PhobosFramework/Processing/GasParcel.cs": "814357580cf3b2f7257a67042454823b454437f1fda38488521b66621e081fa3",
     "src/PhobosFramework/Processing/NativeEnergyReceipts.cs": "ed52382413127a5acd3700070f5d19975aec54c953d2fb2fa09eef08836fbe5e",
+    "src/PhobosFramework/Processing/NativeGasCanister.cs": "09b9b1da818d3c30dea24dbb8aaadb15a11d85813fae1127ae330efd59a1dd72",
     "src/PhobosFramework/Processing/NativeReactor.cs": "1900e6dab163b6cd8eda290e7920d506fd501f7c5b4822d7273ad020624d2483",
     "src/PhobosFramework/Processing/ProcessJob.cs": "1be049804abd5463bc3592954f3b9db06157769864734c7f811842867c695fd5",
+    "src/PhobosFramework/Processing/RoomGas.cs": "0590929630399524ca3964de12578dc544e7bf94a2f0f1fb8b938d9891a5d8cb",
+    "src/PhobosFramework/Processing/RoomHeat.cs": "2e949551d29c8639135e0b4143fe3d6cf555dd64367c1c1b4bdc029ba6f9c8eb",
     "src/PhobosFramework/Processing/ThermalMath.cs": "62a98ea93497801a84194c3ddb52b15f12ec97c0f0da141e9a764956a96ca2bc",
     "src/PhobosFramework/Registration/AdditiveLoot.cs": "62e70fbb898f7318ab0722de5879042fa0a9c42942d08d9d53062f637026ecc4",
-    "src/PhobosFramework/Registration/ApplianceDefinitions.cs": "fc10548ab1f4706fa8490d38324203d5f28a79452c4defb2220531bc4ac01815",
+    "src/PhobosFramework/Registration/ApplianceDefinitions.cs": "7af1867939d957a340b1c52fc8e75e5e19f96c158cb0aa67ee8a1ea661a412a4",
     "src/PhobosFramework/Registration/DefinitionAmendments.cs": "af06706f181371dd73669754a331fbeed89d72a2eafdb15ccab5fe7d93d13b74",
     "src/PhobosFramework/Registration/DefinitionTransaction.cs": "32b8094092aa4645e4b0a19c0f7a59263c76dfe7f7fe26819232eff46d6cead9",
     "src/PhobosFramework/Registration/EquipmentIdentity.cs": "1522b1f841bd754679665e35b1222e926c903913c07e0230094d1133bc96cabf",
@@ -19349,8 +21694,26 @@
     "src/PhobosFramework/Trading/RegionalMarkets.cs": "486cf2e817ba38174be51d290378208cc253c9577a94248c1551461fa3051ffd",
     "src/PhobosFramework/Trading/VesselSupplyProvider.cs": "b4c7f5639ce0b00e4fb422753da04383afd408745b3d075a8786d9df21de5f93",
     "src/PhobosFramework/Units.cs": "b66b1134d9b9e2ff57055c41b5354f280ec21233a395224ec6ba213668b22cf3",
-    "src/PhobosManufacturing/PhobosManufacturing.csproj": "6669cb7319a67c1786e1d91c700ec7e1a24fc3cb6bd2585fcf7939711f9f00d5",
-    "src/PhobosManufacturing/Plugin.cs": "145edfcafef1e1b0c4a53de5270298f6bb4c16a6e98080760b37a5efebd25642",
+    "src/PhobosManufacturing/AssemblyInfo.cs": "a442448369b44ef8921362eea7215eab4e7fb557881cded3213f00b5d7600549",
+    "src/PhobosManufacturing/Content.cs": "6777dd51cfa2782d54cc61a8123237a61b44adfe99cd43fe2c7f54ab480577f9",
+    "src/PhobosManufacturing/Core/HydrogenRules.cs": "4c84f1825c6c10305029b655c6e174e34f3fd1924c879d01dc49aac95c279a1b",
+    "src/PhobosManufacturing/Core/ManufacturingRules.cs": "e478aa778c9874e466c809ab8a6d84dcb63595d645e1c64b8248d06607a202be",
+    "src/PhobosManufacturing/Core/Materials.cs": "7ddf498fc54c4f6c90cce3c0678863739423598a0de98c778b716327d994e2ef",
+    "src/PhobosManufacturing/Core/ProcessorRules.cs": "7c40c9be36534e61c32b4ee2fa9e9cbd7915554f17ae7f843dc8cee8f25b6fad",
+    "src/PhobosManufacturing/Core/ProcessorState.cs": "ad039a60d06b8750124bfe454e30860a073f0b863fe44cc9efa097755136a692",
+    "src/PhobosManufacturing/Core/RefineryRules.cs": "71e5e662e25885ec6f8178e05d1df7a1235e3c257054ebacad7700bcb0de5639",
+    "src/PhobosManufacturing/Core/RefineryState.cs": "49e892de92b7008c44b54d9f47b78c72c524ea803aeb2be2b6d20f4e9f6dd8e4",
+    "src/PhobosManufacturing/Definitions.cs": "fcf80c6d8b528c1c17388d06844031d1dfa826cb687b688b8a19072b59b77ff5",
+    "src/PhobosManufacturing/EquipmentEconomy.cs": "9b4764ebce020f0e24adfc63465d11486ba02d923c7bca5d630e16c622ffd686",
+    "src/PhobosManufacturing/HydrogenService.cs": "9c3a16520479cc9a4112e9736b1c6b9efa311bc410e5934ae2fdcca05e04d1f7",
+    "src/PhobosManufacturing/Panel.cs": "9beaab6e7e20a1111c2400a6ed02fe1c164ea78958627686556dfc03c3bb8c24",
+    "src/PhobosManufacturing/PhobosManufacturing.csproj": "72c0bf53c451a5447059dbb968e17b48bf2f8b715cf051b48782ec2428509128",
+    "src/PhobosManufacturing/Plugin.cs": "213554e1829eae762875ec0fd09fbe2f7c58643fe4d32ae5cc79c8a7653e13fb",
+    "src/PhobosManufacturing/ProcessorService.cs": "9961006ea4cc471091c85ccaeae6521fff12a1635f9bc5b4a4c11ca88b85d35e",
+    "src/PhobosManufacturing/Provider.cs": "e656a18c7d9377fd5d7e6e0898ba65a62dc566df65765a7316913000603685f5",
+    "src/PhobosManufacturing/RefineryService.cs": "b20a41eeeda387d50cc2c0ad404c6bff42a08896f2eac6a96cd21d6e5b644fba",
+    "src/PhobosManufacturing/ShipbreakerStock.cs": "2800c3119c93d9f74f86dea8db91d1c91ccf3085b652d1125f8934826e80a8f3",
+    "src/PhobosManufacturing/Text.cs": "11027c810635f113c7989c4ab070a02885a535793c5197988027b5efebe74fda",
     "src/PhobosShipbreaker/AssemblyDefinitions.cs": "eaab35ed8f833910404a23053fe69f6684525deb8d20dcba53a6df59cd5fcf49",
     "src/PhobosShipbreaker/AssemblyInfo.cs": "a442448369b44ef8921362eea7215eab4e7fb557881cded3213f00b5d7600549",
     "src/PhobosShipbreaker/CaptureGeometry.cs": "98a0f045fb1146aebef4f204e4a7566667d48c3e8ed755ce1b1cff280f937c37",
@@ -19443,12 +21806,12 @@
     "src/PhobosShipbreaker/ThawService.cs": "11834a23e2da5c555d2f84720f4eb5f67be8a1a1e397550fe0e15d474a99bf2a",
     "src/PhobosShipbreaker/WallIdentity.cs": "acca69e2d34c7969088f4b50fa0d92d67304676368646de1a6b69c12bf8548dc",
     "tests/PhobosNative.Tests/EquipmentValueAudit.cs": "04da4c56b10a281828951965d9ee26639babae37738781c379ea4df828d17f45",
-    "tests/PhobosNative.Tests/ItemReferenceExport.cs": "6e9782572ccccd57da850c5df71e0a6fa3c9725ec027d3d65148f23b9a73fe87",
-    "tests/PhobosNative.Tests/Program.cs": "93ea3055eb7d6261d2ad0f9c01a48d33e066e6b92f62925444811cae7127f004",
+    "tests/PhobosNative.Tests/ItemReferenceExport.cs": "ba924ecc623651b1cd7a5187090bc9b1da33f59d1dcd66be83519dc0bbfe50e6",
+    "tests/PhobosNative.Tests/Program.cs": "8e6cd97dc42548596b90408a2e8d0aeb03ad410a7e7dec1180153d4cda9a6ef2",
     "translations/PhobosAgriculture/en.json": "24c7184bf4580061f11f5556c34a7afd2142e938d8b67282af6eeaf676d19934",
     "translations/PhobosAutoNav/en.json": "505b519cde5fb1a5cc15a3f52cf825145b7f0c85eb36a1d6c5de3a0ffd56cb3a",
-    "translations/PhobosFramework/en.json": "8fddd2da301f0bb31e109ce3815a296f014ec74ec2bb82f53b0fa01c07b8e0c6",
-    "translations/PhobosManufacturing/en.json": "3b3f3aa7f3c8c1124e6452335a634cf6e591dbe99021b2ec24bc61ae5b0524c0",
+    "translations/PhobosFramework/en.json": "bab9d6bff8a46a9a120bab386be1d48a8bf2dc9250d170646d71b696aeb73d6b",
+    "translations/PhobosManufacturing/en.json": "826dea0526a4d6f56fb7a601c1f6a77ade9cf221029d1ee6608daf494c0f4226",
     "translations/PhobosShipbreaker/en.json": "8085d0bf11c015b92696dc8252db717ab19aea43a06ccee1658e91b8e6f7fee0"
   }
 }

@@ -1,0 +1,35 @@
+[
+  {
+    "strName": "PhobosDeflagrationSmall",
+    "strAudioEmitter": "ExplosionSmall02",
+    "strStat": null,
+    "strAMode": "AModeExplosionTradSmall",
+    "nRaysMin": 3, "nRaysMax": 6,
+    "fDmgRayMin": 6.0, "fDmgRayMax": 10.0,
+    "fDmgRadiusMin": 15.0, "fDmgRadiusMax": 30.0,
+    "fRadius": 1.0, "fRadiusRay": 3.0,
+    "fRadiusStat": 0.0, "fStatMin": 0.0, "fStatMax": 0.0
+  },
+  {
+    "strName": "PhobosDeflagrationMedium",
+    "strAudioEmitter": "Explosion02",
+    "strStat": null,
+    "strAMode": "AModeExplosionTrad",
+    "nRaysMin": 4, "nRaysMax": 8,
+    "fDmgRayMin": 20.0, "fDmgRayMax": 40.0,
+    "fDmgRadiusMin": 30.0, "fDmgRadiusMax": 55.0,
+    "fRadius": 2.0, "fRadiusRay": 6.0,
+    "fRadiusStat": 0.0, "fStatMin": 0.0, "fStatMax": 0.0
+  },
+  {
+    "strName": "PhobosDeflagrationLarge",
+    "strAudioEmitter": "Explosion02",
+    "strStat": null,
+    "strAMode": "AModeExplosionTrad",
+    "nRaysMin": 8, "nRaysMax": 14,
+    "fDmgRayMin": 40.0, "fDmgRayMax": 80.0,
+    "fDmgRadiusMin": 50.0, "fDmgRadiusMax": 90.0,
+    "fRadius": 4.0, "fRadiusRay": 12.0,
+    "fRadiusStat": 0.0, "fStatMin": 0.0, "fStatMax": 0.0
+  }
+]

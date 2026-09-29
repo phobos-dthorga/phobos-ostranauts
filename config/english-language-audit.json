@@ -16155,19 +16155,6 @@
       "after": "Bulk supplies: {0}, quantity {1:G}"
     },
     {
-      "mod": "PhobosManufacturing",
-      "key": "Scaffold.loaded",
-      "category": "developer diagnostics",
-      "decision": "retain",
-      "reason": "Retain precise diagnostic terminology for fault investigation; not ordinary descriptive prose.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosManufacturing/Plugin.cs:19"
-      ],
-      "before": "Phobos Manufacturing {0}: research scaffold loaded. No machining equipment, stock or recipes are registered.",
-      "after": "Phobos Manufacturing {0}: research scaffold loaded. No machining equipment, stock or recipes are registered."
-    },
-    {
       "mod": "PhobosShipbreaker",
       "key": "PlaceholderLoadRepair.restored",
       "category": "developer diagnostics",
@@ -39064,6 +39051,2280 @@
       ],
       "before": "Avoidance has not taken the controls this flight",
       "after": "Avoidance has not taken the controls this flight"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "BulkVessel.drained",
+      "category": "log/diagnostic",
+      "decision": "add",
+      "reason": "Crew-log line when a vessel's contents leave without a receiver (a leak, a vent overboard); names the vessel, the amount and the reason.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Liquids/BulkVessel.cs:204"
+      ],
+      "before": "{0} lost {2:F3} kg of {1}: {3}.",
+      "after": "{0} lost {2:F3} kg of {1}: {3}."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Plugin.loaded",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Plugin.cs:32"
+      ],
+      "before": "Phobos Manufacturing {0} loaded, {1}.",
+      "after": "Phobos Manufacturing {0} loaded, {1}."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Plugin.with_shipbreaker",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Plugin.cs:32"
+      ],
+      "before": "with Shipbreaker's steel stock available",
+      "after": "with Shipbreaker's steel stock available"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Plugin.without_shipbreaker",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Plugin.cs:32"
+      ],
+      "before": "without Shipbreaker (no carburised steel charge)",
+      "after": "without Shipbreaker (no carburised steel charge)"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Content.loading",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Content.cs:20"
+      ],
+      "before": "Manufacturing definitions are still loading.",
+      "after": "Manufacturing definitions are still loading."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Content.missing_package",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Content.cs:25"
+      ],
+      "before": "The Phobos Manufacturing mod folder is not enabled in the game's mod list.",
+      "after": "The Phobos Manufacturing mod folder is not enabled in the game's mod list."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Content.ready",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Content.cs:28"
+      ],
+      "before": "Manufacturing ready. Shipbreaker is not loaded, so the refinery cannot make steel.",
+      "after": "Manufacturing ready. Shipbreaker is not loaded, so the refinery cannot make steel."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Content.ready_steel",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Content.cs:28"
+      ],
+      "before": "Manufacturing ready, with Shipbreaker's steel stock.",
+      "after": "Manufacturing ready, with Shipbreaker's steel stock."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Content.failed",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Content.cs:31"
+      ],
+      "before": "Manufacturing definitions failed to register. See the log.",
+      "after": "Manufacturing definitions failed to register. See the log."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Content.access",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Content.cs:52",
+        "src/PhobosManufacturing/Content.cs:53",
+        "src/PhobosManufacturing/Content.cs:54"
+      ],
+      "before": "Stand within reach of the machine, or use a working C1 console on this ship.",
+      "after": "Stand within reach of the machine, or use a working C1 console on this ship."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Content.ship_not_loaded",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ProcessorService.cs:137",
+        "src/PhobosManufacturing/RefineryService.cs:95"
+      ],
+      "before": "This ship is not loaded yet.",
+      "after": "This ship is not loaded yet."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Content.powered",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ProcessorService.cs:304",
+        "src/PhobosManufacturing/RefineryService.cs:406"
+      ],
+      "before": "powered",
+      "after": "powered"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Content.no_power",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ProcessorService.cs:304",
+        "src/PhobosManufacturing/RefineryService.cs:406"
+      ],
+      "before": "no power",
+      "after": "no power"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Content.last_stop",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ProcessorService.cs:306",
+        "src/PhobosManufacturing/RefineryService.cs:408"
+      ],
+      "before": "Last stop: {0}",
+      "after": "Last stop: {0}"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Content.unsupported_action",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/HydrogenService.cs:54",
+        "src/PhobosManufacturing/ProcessorService.cs:354",
+        "src/PhobosManufacturing/RefineryService.cs:443"
+      ],
+      "before": "That command is not one this machine understands.",
+      "after": "That command is not one this machine understands."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Content.damaged",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Definitions.cs:53",
+        "src/PhobosManufacturing/Definitions.cs:69",
+        "src/PhobosManufacturing/Definitions.cs:89"
+      ],
+      "before": " (Damaged)",
+      "after": " (Damaged)"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Content.missing_table",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Definitions.cs:170"
+      ],
+      "before": "The game's mining table {0} was not found; clay hydrates will not appear in it.",
+      "after": "The game's mining table {0} was not found; clay hydrates will not appear in it."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Condition.PhobosManufacturingWorking",
+      "category": "status/name",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Definitions.cs:23"
+      ],
+      "before": "Refinery working",
+      "after": "Refinery working"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Condition.PhobosManufacturingElectrolysing",
+      "category": "status/name",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Definitions.cs:23"
+      ],
+      "before": "Electrolysing",
+      "after": "Electrolysing"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Condition.PhobosManufacturingContent",
+      "category": "status/name",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Definitions.cs:23"
+      ],
+      "before": "Phobos Manufacturing content",
+      "after": "Phobos Manufacturing content"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Panel.controls",
+      "category": "control/help",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Definitions.cs:25",
+        "src/PhobosManufacturing/Panel.cs:50"
+      ],
+      "before": "Control Panel",
+      "after": "Control Panel"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Panel.controls_tooltip",
+      "category": "control/help",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Definitions.cs:25",
+        "src/PhobosManufacturing/Panel.cs:50"
+      ],
+      "before": "Open this machine's Control Panel.",
+      "after": "Open this machine's Control Panel."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Panel.operation",
+      "category": "control/help",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Panel.cs:23",
+        "src/PhobosManufacturing/Panel.cs:49",
+        "src/PhobosManufacturing/Panel.cs:50"
+      ],
+      "before": "Operation",
+      "after": "Operation"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Panel.connections",
+      "category": "control/help",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Panel.cs:49",
+        "src/PhobosManufacturing/Panel.cs:50",
+        "src/PhobosManufacturing/Panel.cs:60"
+      ],
+      "before": "Connections",
+      "after": "Connections"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Panel.details",
+      "category": "control/help",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Panel.cs:49",
+        "src/PhobosManufacturing/Panel.cs:50",
+        "src/PhobosManufacturing/Panel.cs:59",
+        "src/PhobosManufacturing/Panel.cs:77"
+      ],
+      "before": "Details",
+      "after": "Details"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Panel.help",
+      "category": "control/help",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Panel.cs:50",
+        "src/PhobosManufacturing/Panel.cs:59"
+      ],
+      "before": "Start binds a charge or arms the cell. Pause keeps the work; Cancel forfeits it. Connections link a water vessel, a hydrogen store and an oxygen canister within one tile. After a reload, press Start to resume.",
+      "after": "Start binds a charge or arms the cell. Pause keeps the work; Cancel forfeits it. Connections link a water vessel, a hydrogen store and an oxygen canister within one tile. After a reload, press Start to resume."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Panel.no_connections",
+      "category": "control/help",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Panel.cs:50",
+        "src/PhobosManufacturing/Panel.cs:68"
+      ],
+      "before": "This machine has no connections to set.",
+      "after": "This machine has no connections to set."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Console.help",
+      "category": "console help",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Plugin.cs:205"
+      ],
+      "before": "phobosmanufacturing list | status|start|pause|cancel|accept <id> | link|water|store|canister <id> <target or none> | vent <id> <kg>",
+      "after": "phobosmanufacturing list | status|start|pause|cancel|accept <id> | link|water|store|canister <id> <target or none> | vent <id> <kg>"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Refinery.name",
+      "category": "item name",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Definitions.cs:38",
+        "src/PhobosManufacturing/Definitions.cs:53"
+      ],
+      "before": "Volatiles Refinery",
+      "after": "Volatiles Refinery"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Refinery.description",
+      "category": "item description",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Definitions.cs:38"
+      ],
+      "before": "A {2} x {2}, {0:F0} kg electric hearth and drying retort. Load one charge into its feed: a block of hydrates, clay hydrates or carbon ore, a block of meteoric iron, or four nickel-iron ingots with one carbon stock for steel. It draws {1:F0} kW while working, warms its room, and breathes the carbon charge's pyrolysis gas into the air, so keep a scrubber running. Solids go to its tray; water goes to a linked S3 or R3 vessel within one tile. A melt left waiting for a cool room too long freezes into slag.",
+      "after": "A {2} x {2}, {0:F0} kg electric hearth and drying retort. Load one charge into its feed: a block of hydrates, clay hydrates or carbon ore, a block of meteoric iron, or four nickel-iron ingots with one carbon stock for steel. It draws {1:F0} kW while working, warms its room, and breathes the carbon charge's pyrolysis gas into the air, so keep a scrubber running. Solids go to its tray; water goes to a linked S3 or R3 vessel within one tile. A melt left waiting for a cool room too long freezes into slag."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Refinery.feed_name",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Definitions.cs:46"
+      ],
+      "before": "Refinery charge",
+      "after": "Refinery charge"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Refinery.feed_description",
+      "category": "item description",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Definitions.cs:47"
+      ],
+      "before": "Up to {0} loose units: ore blocks at their full mass, or nickel-iron ingots and carbon stock. The refinery binds one exact charge at a time.",
+      "after": "Up to {0} loose units: ore blocks at their full mass, or nickel-iron ingots and carbon stock. The refinery binds one exact charge at a time."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Refinery.paused",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/RefineryService.cs:29"
+      ],
+      "before": "Paused.",
+      "after": "Paused."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Refinery.protected",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/RefineryService.cs:123",
+        "src/PhobosManufacturing/RefineryService.cs:51",
+        "src/PhobosManufacturing/RefineryService.cs:56"
+      ],
+      "before": "This refinery's record could not be read. Repair it, then Accept its contents from the panel.",
+      "after": "This refinery's record could not be read. Repair it, then Accept its contents from the panel."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Refinery.retained",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/RefineryService.cs:52"
+      ],
+      "before": "A {0} charge is bound and waiting. Start resumes it.",
+      "after": "A {0} charge is bound and waiting. Start resumes it."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Refinery.retained_unavailable",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/RefineryService.cs:139"
+      ],
+      "before": "A {0} charge is bound, but this installation cannot finish it (Shipbreaker is not loaded). It is kept as it is.",
+      "after": "A {0} charge is bound, but this installation cannot finish it (Shipbreaker is not loaded). It is kept as it is."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Refinery.charge_changed",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/RefineryService.cs:140",
+        "src/PhobosManufacturing/RefineryService.cs:218",
+        "src/PhobosManufacturing/RefineryService.cs:284",
+        "src/PhobosManufacturing/RefineryService.cs:299",
+        "src/PhobosManufacturing/RefineryService.cs:357"
+      ],
+      "before": "The bound charge is no longer complete in the feed. Put it back, or Cancel to release it.",
+      "after": "The bound charge is no longer complete in the feed. Put it back, or Cancel to release it."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Refinery.feed_empty",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/RefineryService.cs:148",
+        "src/PhobosManufacturing/RefineryService.cs:213"
+      ],
+      "before": "The feed is empty. Load a charge.",
+      "after": "The feed is empty. Load a charge."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Refinery.invalid_feed",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/RefineryService.cs:151",
+        "src/PhobosManufacturing/RefineryService.cs:154"
+      ],
+      "before": "Nothing in the feed is a valid charge unit.",
+      "after": "Nothing in the feed is a valid charge unit."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Refinery.no_charge",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/RefineryService.cs:151"
+      ],
+      "before": "The feed holds no complete charge: one ore block, or four nickel-iron ingots with one carbon stock.",
+      "after": "The feed holds no complete charge: one ore block, or four nickel-iron ingots with one carbon stock."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Refinery.waiting_vessel",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/RefineryService.cs:164",
+        "src/PhobosManufacturing/RefineryService.cs:305"
+      ],
+      "before": "Waiting for a water vessel: {0}",
+      "after": "Waiting for a water vessel: {0}"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Refinery.working",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/RefineryService.cs:166",
+        "src/PhobosManufacturing/RefineryService.cs:286"
+      ],
+      "before": "Working: {0}.",
+      "after": "Working: {0}."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Refinery.cancelled",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/RefineryService.cs:178"
+      ],
+      "before": "Cancelled. The charge units stay in the feed; the work is forfeited.",
+      "after": "Cancelled. The charge units stay in the feed; the work is forfeited."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Refinery.paused_retained",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/RefineryService.cs:178"
+      ],
+      "before": "Paused. The bound charge and its progress are kept.",
+      "after": "Paused. The bound charge and its progress are kept."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Refinery.fault",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/RefineryService.cs:193",
+        "src/PhobosManufacturing/RefineryService.cs:433"
+      ],
+      "before": "The refinery stopped on a fault. See the log.",
+      "after": "The refinery stopped on a fault. See the log."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Refinery.heat_wait",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/RefineryService.cs:237"
+      ],
+      "before": "Waiting for the room to cool. A melt that waits longer than its own run freezes.",
+      "after": "Waiting for the room to cool. A melt that waits longer than its own run freezes."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Refinery.waiting_power",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/RefineryService.cs:286"
+      ],
+      "before": "Waiting for power.",
+      "after": "Waiting for power."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Refinery.tray_full",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/RefineryService.cs:313"
+      ],
+      "before": "The tray has no room for the products. Clear it.",
+      "after": "The tray has no room for the products. Clear it."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Refinery.spoiled_log",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/RefineryService.cs:316"
+      ],
+      "before": "{0} at {1}: the melt froze while waiting for a cool room. Slag, not metal.",
+      "after": "{0} at {1}: the melt froze while waiting for a cool room. Slag, not metal."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Refinery.completed_log",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/RefineryService.cs:316"
+      ],
+      "before": "{0} at {1}: charge finished.",
+      "after": "{0} at {1}: charge finished."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Refinery.spoiled_notice",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/RefineryService.cs:317"
+      ],
+      "before": "{0}: the melt froze while waiting for a cool room and is now slag.",
+      "after": "{0}: the melt froze while waiting for a cool room and is now slag."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Refinery.complete",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/RefineryService.cs:320"
+      ],
+      "before": "Finished. The feed is empty.",
+      "after": "Finished. The feed is empty."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Refinery.no_charge_bound",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/RefineryService.cs:404"
+      ],
+      "before": "No charge bound.",
+      "after": "No charge bound."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Refinery.charge",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/RefineryService.cs:404"
+      ],
+      "before": "{0}: {1:F0} of {2:F0} s of work, {3:F0} s waited for cooling.",
+      "after": "{0}: {1:F0} of {2:F0} s of work, {3:F0} s waited for cooling."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Refinery.status",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/RefineryService.cs:405"
+      ],
+      "before": "{0}\nFeed: {1} of {2} units. {3}\nPower: {4}. Water vessel: {5}. Charges finished: {6}.",
+      "after": "{0}\nFeed: {1} of {2} units. {3}\nPower: {4}. Water vessel: {5}. Charges finished: {6}."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Refinery.demand",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/RefineryService.cs:407"
+      ],
+      "before": "Draws {0:F0} kW working; {1:F1} kW of that warms the room.",
+      "after": "Draws {0:F0} kW working; {1:F1} kW of that warms the room."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Refinery.no_steel",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/RefineryService.cs:408"
+      ],
+      "before": "Shipbreaker is not loaded: no carburised steel charge.",
+      "after": "Shipbreaker is not loaded: no carburised steel charge."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Refinery.link_busy",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/RefineryService.cs:414"
+      ],
+      "before": "Stop the refinery before changing its water vessel.",
+      "after": "Stop the refinery before changing its water vessel."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Refinery.unlinked",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/RefineryService.cs:416"
+      ],
+      "before": "Water vessel unlinked.",
+      "after": "Water vessel unlinked."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Refinery.link_missing",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/RefineryService.cs:418"
+      ],
+      "before": "That vessel is not a registered water vessel within one tile of the refinery.",
+      "after": "That vessel is not a registered water vessel within one tile of the refinery."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Refinery.linked",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/RefineryService.cs:420",
+        "src/PhobosManufacturing/RefineryService.cs:422"
+      ],
+      "before": "Water vessel linked.",
+      "after": "Water vessel linked."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Refinery.missing_output",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/RefineryService.cs:335"
+      ],
+      "before": "Product definition unavailable: {0}.",
+      "after": "Product definition unavailable: {0}."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Refinery.output_definition_changed",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/RefineryService.cs:338"
+      ],
+      "before": "Product definition changed: {0}.",
+      "after": "Product definition changed: {0}."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Refinery.unbalanced",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/RefineryService.cs:341"
+      ],
+      "before": "The charge would not conserve mass; nothing was delivered.",
+      "after": "The charge would not conserve mass; nothing was delivered."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Refinery.unprepared",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/RefineryService.cs:348"
+      ],
+      "before": "The batch was not prepared.",
+      "after": "The batch was not prepared."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Refinery.output_placement_failed",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/RefineryService.cs:352"
+      ],
+      "before": "A product could not be placed in the tray.",
+      "after": "A product could not be placed in the tray."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Refinery.input_not_removed",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/RefineryService.cs:363"
+      ],
+      "before": "A charge unit could not be removed from the feed.",
+      "after": "A charge unit could not be removed from the feed."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Refinery.install_first",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/RefineryService.cs:93"
+      ],
+      "before": "Install the refinery first.",
+      "after": "Install the refinery first."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Refinery.repair_first",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/RefineryService.cs:94"
+      ],
+      "before": "Repair the refinery first.",
+      "after": "Repair the refinery first."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Refinery.unlock",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/RefineryService.cs:96"
+      ],
+      "before": "Unlock the refinery and its feed first.",
+      "after": "Unlock the refinery and its feed first."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Refinery.switched_off",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/RefineryService.cs:97"
+      ],
+      "before": "The refinery is switched off at its power control.",
+      "after": "The refinery is switched off at its power control."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Refinery.missing_feed",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/RefineryService.cs:98"
+      ],
+      "before": "The refinery's feed compartment is missing.",
+      "after": "The refinery's feed compartment is missing."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Refinery.no_vessel",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/RefineryService.cs:76"
+      ],
+      "before": "no water vessel linked",
+      "after": "no water vessel linked"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Refinery.vessel_not_ready",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/RefineryService.cs:79"
+      ],
+      "before": "the linked vessel is not installed, not adjacent or not ready",
+      "after": "the linked vessel is not installed, not adjacent or not ready"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Refinery.vessel_protected",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/RefineryService.cs:81"
+      ],
+      "before": "the linked vessel needs its owner's attention",
+      "after": "the linked vessel needs its owner's attention"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Refinery.vessel_catch",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/RefineryService.cs:84"
+      ],
+      "before": "the linked vessel holds water in its catch chamber; recover it first",
+      "after": "the linked vessel holds water in its catch chamber; recover it first"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Refinery.vessel_full",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/RefineryService.cs:86"
+      ],
+      "before": "the linked vessel has {0:F1} kg of room and the charge yields {1:F1} kg",
+      "after": "the linked vessel has {0:F1} kg of room and the charge yields {1:F1} kg"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Recipe.hydrates",
+      "category": "name",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/RefineryService.cs:166",
+        "src/PhobosManufacturing/RefineryService.cs:286",
+        "src/PhobosManufacturing/RefineryService.cs:316",
+        "src/PhobosManufacturing/RefineryService.cs:404"
+      ],
+      "before": "hydrate dehydration",
+      "after": "hydrate dehydration"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Recipe.clay",
+      "category": "name",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/RefineryService.cs:166",
+        "src/PhobosManufacturing/RefineryService.cs:286",
+        "src/PhobosManufacturing/RefineryService.cs:316",
+        "src/PhobosManufacturing/RefineryService.cs:404"
+      ],
+      "before": "clay hydrate dehydration",
+      "after": "clay hydrate dehydration"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Recipe.carbon",
+      "category": "name",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/RefineryService.cs:166",
+        "src/PhobosManufacturing/RefineryService.cs:286",
+        "src/PhobosManufacturing/RefineryService.cs:316",
+        "src/PhobosManufacturing/RefineryService.cs:404"
+      ],
+      "before": "carbon extraction",
+      "after": "carbon extraction"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Recipe.nickel-iron",
+      "category": "name",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/RefineryService.cs:166",
+        "src/PhobosManufacturing/RefineryService.cs:286",
+        "src/PhobosManufacturing/RefineryService.cs:316",
+        "src/PhobosManufacturing/RefineryService.cs:404"
+      ],
+      "before": "nickel-iron casting",
+      "after": "nickel-iron casting"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Recipe.steel",
+      "category": "name",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/RefineryService.cs:166",
+        "src/PhobosManufacturing/RefineryService.cs:286",
+        "src/PhobosManufacturing/RefineryService.cs:316",
+        "src/PhobosManufacturing/RefineryService.cs:404"
+      ],
+      "before": "carburised steel",
+      "after": "carburised steel"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Maintenance.protected",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/HydrogenService.cs:41",
+        "src/PhobosManufacturing/ProcessorService.cs:337",
+        "src/PhobosManufacturing/RefineryService.cs:428"
+      ],
+      "before": "This machine needs its owner's attention before it is moved or taken apart.",
+      "after": "This machine needs its owner's attention before it is moved or taken apart."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Maintenance.charge",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/RefineryService.cs:429"
+      ],
+      "before": "A charge is bound in the refinery. Cancel or finish it first.",
+      "after": "A charge is bound in the refinery. Cancel or finish it first."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Maintenance.cycle",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ProcessorService.cs:338"
+      ],
+      "before": "The cell holds water or a part-run cycle. Cancel it and let the hold empty first.",
+      "after": "The cell holds water or a part-run cycle. Cancel it and let the hold empty first."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Processor.name",
+      "category": "item name",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Definitions.cs:62",
+        "src/PhobosManufacturing/Definitions.cs:69"
+      ],
+      "before": "Chemical Processor",
+      "after": "Chemical Processor"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Processor.description",
+      "category": "item description",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Definitions.cs:62"
+      ],
+      "before": "A 2 x 2, {0:F0} kg water electrolysis cell. Each one-hour cycle at {1:F0} kW splits {2:F3} kg of water from a linked S3 or R3 vessel into {3:F3} kg of oxygen and {4:F3} kg of hydrogen. Oxygen goes into a linked O2 canister, or into the cabin air when none is linked; hydrogen goes into a linked H2 store. It runs only while every output has room.",
+      "after": "A 2 x 2, {0:F0} kg water electrolysis cell. Each one-hour cycle at {1:F0} kW splits {2:F3} kg of water from a linked S3 or R3 vessel into {3:F3} kg of oxygen and {4:F3} kg of hydrogen. Oxygen goes into a linked O2 canister, or into the cabin air when none is linked; hydrogen goes into a linked H2 store. It runs only while every output has room."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Processor.paused",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ProcessorService.cs:29",
+        "src/PhobosManufacturing/ProcessorService.cs:66"
+      ],
+      "before": "Paused.",
+      "after": "Paused."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Processor.protected",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ProcessorService.cs:149",
+        "src/PhobosManufacturing/ProcessorService.cs:184",
+        "src/PhobosManufacturing/ProcessorService.cs:196",
+        "src/PhobosManufacturing/ProcessorService.cs:47",
+        "src/PhobosManufacturing/ProcessorService.cs:53"
+      ],
+      "before": "This cell's record or hold could not be verified. Accept its state from the panel after checking it.",
+      "after": "This cell's record or hold could not be verified. Accept its state from the panel after checking it."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Processor.armed",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ProcessorService.cs:151"
+      ],
+      "before": "Armed. Waiting for water, a hydrogen store and power.",
+      "after": "Armed. Waiting for water, a hydrogen store and power."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Processor.cancelled",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ProcessorService.cs:161"
+      ],
+      "before": "Cancelled. The cycle's energy is forfeited; held water stays for the next cycle.",
+      "after": "Cancelled. The cycle's energy is forfeited; held water stays for the next cycle."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Processor.paused_retained",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ProcessorService.cs:161"
+      ],
+      "before": "Paused. The held water and the cycle's progress are kept.",
+      "after": "Paused. The held water and the cycle's progress are kept."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Processor.fault",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ProcessorService.cs:174",
+        "src/PhobosManufacturing/ProcessorService.cs:342"
+      ],
+      "before": "The cell stopped on a fault. See the log.",
+      "after": "The cell stopped on a fault. See the log."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Processor.heat_wait",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ProcessorService.cs:218"
+      ],
+      "before": "Waiting for the room to cool.",
+      "after": "Waiting for the room to cool."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Processor.working",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ProcessorService.cs:238"
+      ],
+      "before": "Electrolysing: {0:F1} of {1:F1} kWh this cycle.",
+      "after": "Electrolysing: {0:F1} of {1:F1} kWh this cycle."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Processor.waiting_power",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ProcessorService.cs:238"
+      ],
+      "before": "Waiting for power.",
+      "after": "Waiting for power."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Processor.waiting_water",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ProcessorService.cs:193"
+      ],
+      "before": "Waiting for water: {0}",
+      "after": "Waiting for water: {0}"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Processor.waiting_store",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ProcessorService.cs:198",
+        "src/PhobosManufacturing/ProcessorService.cs:248"
+      ],
+      "before": "Waiting for the hydrogen store: {0}",
+      "after": "Waiting for the hydrogen store: {0}"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Processor.waiting_canister",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ProcessorService.cs:199",
+        "src/PhobosManufacturing/ProcessorService.cs:250"
+      ],
+      "before": "Waiting for the oxygen canister: {0}",
+      "after": "Waiting for the oxygen canister: {0}"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Processor.no_vessel",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ProcessorService.cs:90"
+      ],
+      "before": "no water vessel linked",
+      "after": "no water vessel linked"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Processor.vessel_not_ready",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ProcessorService.cs:93"
+      ],
+      "before": "the linked vessel is not installed, not adjacent or not ready",
+      "after": "the linked vessel is not installed, not adjacent or not ready"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Processor.vessel_protected",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ProcessorService.cs:95"
+      ],
+      "before": "the linked vessel needs its owner's attention",
+      "after": "the linked vessel needs its owner's attention"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Processor.vessel_catch",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ProcessorService.cs:98"
+      ],
+      "before": "the linked vessel holds water in its catch chamber; recover it first",
+      "after": "the linked vessel holds water in its catch chamber; recover it first"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Processor.vessel_empty",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ProcessorService.cs:100"
+      ],
+      "before": "the linked vessel offers {0:F2} kg above its reserve and a cycle needs {1:F3} kg",
+      "after": "the linked vessel offers {0:F2} kg above its reserve and a cycle needs {1:F3} kg"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Processor.no_store",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ProcessorService.cs:106"
+      ],
+      "before": "no hydrogen store linked",
+      "after": "no hydrogen store linked"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Processor.store_not_ready",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ProcessorService.cs:109"
+      ],
+      "before": "the linked store is not installed, not adjacent or not ready",
+      "after": "the linked store is not installed, not adjacent or not ready"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Processor.store_protected",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ProcessorService.cs:111"
+      ],
+      "before": "the linked store needs its owner's attention",
+      "after": "the linked store needs its owner's attention"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Processor.store_full",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ProcessorService.cs:114"
+      ],
+      "before": "the linked store has {0:F2} kg of room; vent it or add another",
+      "after": "the linked store has {0:F2} kg of room; vent it or add another"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Processor.canister_missing",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ProcessorService.cs:124"
+      ],
+      "before": "the chosen canister is no longer an installed O2 canister within one tile",
+      "after": "the chosen canister is no longer an installed O2 canister within one tile"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Processor.canister_damaged",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ProcessorService.cs:126"
+      ],
+      "before": "the chosen canister is damaged and leaking; repair or replace it",
+      "after": "the chosen canister is damaged and leaking; repair or replace it"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Processor.canister_full",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ProcessorService.cs:128"
+      ],
+      "before": "the chosen canister is at its rated pressure",
+      "after": "the chosen canister is at its rated pressure"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Processor.install_first",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ProcessorService.cs:135"
+      ],
+      "before": "Install the cell first.",
+      "after": "Install the cell first."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Processor.repair_first",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ProcessorService.cs:136"
+      ],
+      "before": "Repair the cell first.",
+      "after": "Repair the cell first."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Processor.unlock",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ProcessorService.cs:138"
+      ],
+      "before": "Unlock the cell first.",
+      "after": "Unlock the cell first."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Processor.switched_off",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ProcessorService.cs:139"
+      ],
+      "before": "The cell is switched off at its power control.",
+      "after": "The cell is switched off at its power control."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Processor.cycle_log",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ProcessorService.cs:265"
+      ],
+      "before": "{0}: cycle done. {1:F3} kg of oxygen to {2}, {3:F3} kg of hydrogen to {4}.",
+      "after": "{0}: cycle done. {1:F3} kg of oxygen to {2}, {3:F3} kg of hydrogen to {4}."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Processor.cabin",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ProcessorService.cs:265",
+        "src/PhobosManufacturing/ProcessorService.cs:305",
+        "src/PhobosManufacturing/ProcessorService.cs:332",
+        "src/PhobosManufacturing/Provider.cs:30"
+      ],
+      "before": "the cabin air",
+      "after": "the cabin air"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Processor.status",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ProcessorService.cs:303"
+      ],
+      "before": "{0}\nHold: {1:F3} kg of water. Cycle: {2:F1} of {3:F1} kWh. Cycles: {4}. Made {5:F1} kg of oxygen ({7:F1} kg into cabins) and {6:F2} kg of hydrogen.\nPower: {8}. Water: {9}. Hydrogen store: {10}. Oxygen to: {11}.",
+      "after": "{0}\nHold: {1:F3} kg of water. Cycle: {2:F1} of {3:F1} kWh. Cycles: {4}. Made {5:F1} kg of oxygen ({7:F1} kg into cabins) and {6:F2} kg of hydrogen.\nPower: {8}. Water: {9}. Hydrogen store: {10}. Oxygen to: {11}."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Processor.demand",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ProcessorService.cs:306"
+      ],
+      "before": "Draws {0:F0} kW working; {1:F1} kW of that warms the room.",
+      "after": "Draws {0:F0} kW working; {1:F1} kW of that warms the room."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Processor.link_busy",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ProcessorService.cs:313"
+      ],
+      "before": "Stop the cell before changing its connections.",
+      "after": "Stop the cell before changing its connections."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Processor.link_missing",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ProcessorService.cs:316",
+        "src/PhobosManufacturing/ProcessorService.cs:326"
+      ],
+      "before": "That is not a suitable vessel, store or canister within one tile of the cell.",
+      "after": "That is not a suitable vessel, store or canister within one tile of the cell."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Processor.cabin_selected",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ProcessorService.cs:318"
+      ],
+      "before": "Oxygen will go into the cabin air.",
+      "after": "Oxygen will go into the cabin air."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Processor.linked",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ProcessorService.cs:318",
+        "src/PhobosManufacturing/ProcessorService.cs:328",
+        "src/PhobosManufacturing/ProcessorService.cs:330"
+      ],
+      "before": "Linked.",
+      "after": "Linked."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Processor.unlinked",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ProcessorService.cs:324"
+      ],
+      "before": "Unlinked.",
+      "after": "Unlinked."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Processor.accept_done",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ProcessorService.cs:352"
+      ],
+      "before": "Accepted. The cell's record is trusted again.",
+      "after": "Accepted. The cell's record is trusted again."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Processor.accept_unavailable",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ProcessorService.cs:352"
+      ],
+      "before": "The record cannot be accepted as it is.",
+      "after": "The record cannot be accepted as it is."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Store.name",
+      "category": "item name",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Definitions.cs:81",
+        "src/PhobosManufacturing/Definitions.cs:89"
+      ],
+      "before": "Hydrogen Store",
+      "after": "Hydrogen Store"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Store.description",
+      "category": "item description",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Definitions.cs:81"
+      ],
+      "before": "A 2 x 2, {0:F0} kg pressurised store for up to {1:F0} kg of electrolysis hydrogen. Passive: no power, no cargo. A damaged store leaks about {2:F0} kg an hour to space until repaired, and if the room holds oxygen and anything to light it, its contents burn. Keep it away from fire and working hearths, repair damage at once, and vent it before uninstalling.",
+      "after": "A 2 x 2, {0:F0} kg pressurised store for up to {1:F0} kg of electrolysis hydrogen. Passive: no power, no cargo. A damaged store leaks about {2:F0} kg an hour to space until repaired, and if the room holds oxygen and anything to light it, its contents burn. Keep it away from fire and working hearths, repair damage at once, and vent it before uninstalling."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Store.deflagration",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Definitions.cs:149"
+      ],
+      "before": "Hydrogen deflagration",
+      "after": "Hydrogen deflagration"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Store.protected",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/HydrogenService.cs:29",
+        "src/PhobosManufacturing/HydrogenService.cs:46",
+        "src/PhobosManufacturing/HydrogenService.cs:53",
+        "src/PhobosManufacturing/HydrogenService.cs:63"
+      ],
+      "before": "This store's record could not be verified. Accept it from the panel after checking it.",
+      "after": "This store's record could not be verified. Accept it from the panel after checking it."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Store.status",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/HydrogenService.cs:33"
+      ],
+      "before": "Hydrogen: {0:F2} of {1:F0} kg. Cells feeding it: {2}.",
+      "after": "Hydrogen: {0:F2} of {1:F0} kg. Cells feeding it: {2}."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Store.leaking",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/HydrogenService.cs:33"
+      ],
+      "before": "Damaged: leaking about {0:F0} kg an hour to space. Repair it.",
+      "after": "Damaged: leaking about {0:F0} kg an hour to space. Repair it."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Store.maintenance_hydrogen",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/HydrogenService.cs:42"
+      ],
+      "before": "The store still holds hydrogen. Vent it first.",
+      "after": "The store still holds hydrogen. Vent it first."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Store.accept_done",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/HydrogenService.cs:50"
+      ],
+      "before": "Accepted. The store's record is trusted again.",
+      "after": "Accepted. The store's record is trusted again."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Store.accept_unavailable",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/HydrogenService.cs:50"
+      ],
+      "before": "The record cannot be accepted as it is.",
+      "after": "The record cannot be accepted as it is."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Store.nothing_to_pause",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/HydrogenService.cs:51"
+      ],
+      "before": "A hydrogen store runs nothing.",
+      "after": "A hydrogen store runs nothing."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Store.invalid_amount",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/HydrogenService.cs:55"
+      ],
+      "before": "Give a positive amount of hydrogen in kilograms.",
+      "after": "Give a positive amount of hydrogen in kilograms."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Store.vent_reason",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/HydrogenService.cs:58"
+      ],
+      "before": "vented overboard by the crew",
+      "after": "vented overboard by the crew"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Store.vented",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/HydrogenService.cs:59"
+      ],
+      "before": "Vented {0:F2} kg of hydrogen overboard.",
+      "after": "Vented {0:F2} kg of hydrogen overboard."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Store.nothing_vented",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/HydrogenService.cs:59"
+      ],
+      "before": "The store is empty.",
+      "after": "The store is empty."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Store.vent_log",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/HydrogenService.cs:60"
+      ],
+      "before": "{0}: {1:F2} kg of hydrogen vented overboard.",
+      "after": "{0}: {1:F2} kg of hydrogen vented overboard."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Store.damaged_log",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/HydrogenService.cs:73",
+        "src/PhobosManufacturing/HydrogenService.cs:93"
+      ],
+      "before": "{0} burst: {1:F2} kg of hydrogen burned with {2:F1} kg of the room's oxygen ({3:F0} MJ); {4:F2} kg was lost with the blast.",
+      "after": "{0} burst: {1:F2} kg of hydrogen burned with {2:F1} kg of the room's oxygen ({3:F0} MJ); {4:F2} kg was lost with the blast."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Store.destroyed_log",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/HydrogenService.cs:81"
+      ],
+      "before": "{0} was destroyed: {1:F2} kg of hydrogen burned with {2:F1} kg of the room's oxygen ({3:F0} MJ); {4:F2} kg was lost with the blast.",
+      "after": "{0} was destroyed: {1:F2} kg of hydrogen burned with {2:F1} kg of the room's oxygen ({3:F0} MJ); {4:F2} kg was lost with the blast."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Store.leak_notice",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/HydrogenService.cs:73"
+      ],
+      "before": "{0} is damaged and leaking hydrogen to space, about {1:F0} kg an hour. Repair it before anything lights it.",
+      "after": "{0} is damaged and leaking hydrogen to space, about {1:F0} kg an hour. Repair it before anything lights it."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Store.leak_banner",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/HydrogenService.cs:73"
+      ],
+      "before": "Hydrogen store damaged: leaking",
+      "after": "Hydrogen store damaged: leaking"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Store.leak_reason",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/HydrogenService.cs:96"
+      ],
+      "before": "leaked to space through damage",
+      "after": "leaked to space through damage"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Store.deflagration_reason",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/HydrogenService.cs:112"
+      ],
+      "before": "deflagration",
+      "after": "deflagration"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Store.deflagration_banner",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/HydrogenService.cs:122"
+      ],
+      "before": "Hydrogen deflagration",
+      "after": "Hydrogen deflagration"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Provider.vessel_field",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Provider.cs:21"
+      ],
+      "before": "Water vessel",
+      "after": "Water vessel"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Provider.water_field",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Provider.cs:25"
+      ],
+      "before": "Water vessel",
+      "after": "Water vessel"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Provider.store_field",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Provider.cs:27"
+      ],
+      "before": "Hydrogen store",
+      "after": "Hydrogen store"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Provider.canister_field",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Provider.cs:29"
+      ],
+      "before": "Oxygen to",
+      "after": "Oxygen to"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Provider.vent_field",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Provider.cs:33"
+      ],
+      "before": "Vent hydrogen",
+      "after": "Vent hydrogen"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Provider.link_none",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Provider.cs:22",
+        "src/PhobosManufacturing/Provider.cs:26",
+        "src/PhobosManufacturing/Provider.cs:28"
+      ],
+      "before": "None",
+      "after": "None"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Provider.kg",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Provider.cs:33"
+      ],
+      "before": "{0:F1} kg",
+      "after": "{0:F1} kg"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Provider.action_start",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Provider.cs:49",
+        "src/PhobosManufacturing/Provider.cs:52"
+      ],
+      "before": "Start",
+      "after": "Start"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Provider.action_pause",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Provider.cs:49",
+        "src/PhobosManufacturing/Provider.cs:52"
+      ],
+      "before": "Pause",
+      "after": "Pause"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Provider.action_cancel",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Provider.cs:49",
+        "src/PhobosManufacturing/Provider.cs:52"
+      ],
+      "before": "Cancel",
+      "after": "Cancel"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Provider.action_accept",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Provider.cs:52",
+        "src/PhobosManufacturing/Provider.cs:54"
+      ],
+      "before": "Accept",
+      "after": "Accept"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Material.PhobosNickelIronIngot",
+      "category": "item name/description",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Definitions.cs:115"
+      ],
+      "before": "Nickel-Iron Ingot",
+      "after": "Nickel-Iron Ingot"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Material.PhobosNickelIronIngot_description",
+      "category": "item description",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Definitions.cs:115"
+      ],
+      "before": "A 4 kg ingot cast from meteoric iron as it comes: iron with a few percent of nickel and a trace of cobalt. Sound structural stock for machining, and the feed for carburised steel. Not steel by itself.",
+      "after": "A 4 kg ingot cast from meteoric iron as it comes: iron with a few percent of nickel and a trace of cobalt. Sound structural stock for machining, and the feed for carburised steel. Not steel by itself."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Material.PhobosCarbonStock",
+      "category": "item name/description",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Definitions.cs:115"
+      ],
+      "before": "Carbon Stock",
+      "after": "Carbon Stock"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Material.PhobosCarbonStock_description",
+      "category": "item description",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Definitions.cs:115"
+      ],
+      "before": "One kilogram of carbon driven out of carbon ore in the refinery. Melted in excess with four nickel-iron ingots it makes nickel steel.",
+      "after": "One kilogram of carbon driven out of carbon ore in the refinery. Melted in excess with four nickel-iron ingots it makes nickel steel."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Material.PhobosRefinerySlag",
+      "category": "item name/description",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Definitions.cs:115"
+      ],
+      "before": "Refinery Slag",
+      "after": "Refinery Slag"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Material.PhobosRefinerySlag_description",
+      "category": "item description",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Definitions.cs:115"
+      ],
+      "before": "A kilogram of sulfide, phosphide and oxide slag skimmed from a cast, or a frozen melt broken out of the hearth. Nothing recovers it.",
+      "after": "A kilogram of sulfide, phosphide and oxide slag skimmed from a cast, or a frozen melt broken out of the hearth. Nothing recovers it."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Material.PhobosAnhydrousResidue",
+      "category": "item name/description",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Definitions.cs:115"
+      ],
+      "before": "Anhydrous Residue",
+      "after": "Anhydrous Residue"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Material.PhobosAnhydrousResidue_description",
+      "category": "item description",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Definitions.cs:115"
+      ],
+      "before": "Eight kilograms of baked clay minerals with their water driven off. Nothing recovers it.",
+      "after": "Eight kilograms of baked clay minerals with their water driven off. Nothing recovers it."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Material.PhobosClayHydrates",
+      "category": "item name/description",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Definitions.cs:115"
+      ],
+      "before": "Clay Hydrates",
+      "after": "Clay Hydrates"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Material.PhobosClayHydrates_description",
+      "category": "item description",
+      "decision": "add",
+      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Definitions.cs:115"
+      ],
+      "before": "A chunk of dark, water-rich clay minerals of the kind sampled from carbonaceous asteroids, about a fifth of it bound water. Bake it in a refinery for water; the government kiosks buy it like other ore.",
+      "after": "A chunk of dark, water-rich clay minerals of the kind sampled from carbonaceous asteroids, about a fifth of it bound water. Bake it in a refinery for water; the government kiosks buy it like other ore."
     }
   ],
   "documents": [
@@ -39071,8 +41332,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "42c21d94f8dcc20fa36d0125f25e43f08217cd9aef60660c94eda789c91553be",
-      "review": "2026-09-29: Framework 0.40.0 and Auto Nav 0.27.0 version summary; no other wording changed."
+      "sha256": "51de312125b63701c88221d499affe52552a2cbb3dc0ca57985eef0200e661d8",
+      "review": "2026-09-29: Manufacturing row and dependency graph label for 0.1.0; Framework 0.41.0."
     },
     {
       "path": "SUPPORT.md",
@@ -39085,8 +41346,8 @@
       "path": "docs/README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "c300902a70d4b6e01582b1e891bf4da32b8e84ce3ec9064c05fe9b0712a8352a",
-      "review": "2026-09-29: operating-guide bullet and reference index line for the silo guide."
+      "sha256": "aa473bc56e94152e0e389a2a64f21eadde3fc5cc4966daa4cc69c45c0fccdf7a",
+      "review": "2026-09-29: index link to the Manufacturing player guide."
     },
     {
       "path": "docs/agriculture-bulk-storage.md",
@@ -39231,8 +41492,8 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "230b21259528afe1b3d57d567aeb22258b3a7ad180abdf573775ed053b356488",
-      "review": "2026-09-29: Framework 0.40.0 and Auto Nav 0.27.0 version line."
+      "sha256": "9c9ae135fe766fd0038a8835a3544d75f4b19976f7a7bac6bc0a1041293b7c83",
+      "review": "2026-09-29: version line; no other wording changed."
     },
     {
       "path": "docs/crew-automation.md",
@@ -39245,8 +41506,8 @@
       "path": "docs/development/README.md",
       "scope": "review index/audit; no gameplay behavior",
       "decision": "review audience separation and evidence limits",
-      "sha256": "7d7629593ac8b0c7904b517fe3eccd58f3c1ee4efbcb9289cdb39bfd7ee60f82",
-      "review": "2026-09-29: index link to the economy coverage audit."
+      "sha256": "257f828f6d8ba89683e037bbf380e542d53b47f41622bdda9a433cd5f0279234",
+      "review": "2026-09-29: index links to the new Manufacturing records."
     },
     {
       "path": "docs/development/agriculture-bulk-storage-art.md",
@@ -39491,15 +41752,15 @@
       "path": "docs/development/economy-coverage-audit.md",
       "scope": "development audit record; current player text limited to the changelog links",
       "decision": "rewrite",
-      "sha256": "c86e7460109c929d88a88140a89695bd534d34acc840d51e82fd2343144ea182",
-      "review": "2026-09-29: new audit record: method, native trade rules, findings, held decisions and coverage."
+      "sha256": "6175f8d8ac74ce535799f1d47fc2407188ae1022636a81d150602f68c8f98a88",
+      "review": "2026-09-29: Manufacturing 0.1.0 section."
     },
     {
       "path": "docs/development/equipment-branding.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "50956fce7cda2328898ca8592076e9fc64df69a106a91a1495e3990c3fb8fd6d",
-      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+      "sha256": "414d31c13446df2319d9fec114d30ef2b65f987e1c4cbb60d19b4bdda8b0bd44",
+      "review": "2026-09-29: Fennmark rows and family paragraph."
     },
     {
       "path": "docs/development/equipment-value-audit.md",
@@ -39512,8 +41773,8 @@
       "path": "docs/development/feed-families.md",
       "scope": "contributor decision record; player steps live in the player guide",
       "decision": "add",
-      "sha256": "0c792413befd9566c8041f427edc1718131a10a4b9bbd2f1ed9cd40897e5e188",
-      "review": "2026-09-29: new decision record: families, budgets, refusals, deferrals."
+      "sha256": "1b8a6e7ead7f5e9503cdeca50ebc04fd5a038c2aa71d34ffbd585cc082dc33ac",
+      "review": "2026-09-29: ingot consumer sentence."
     },
     {
       "path": "docs/development/first-furniture-experiment.md",
@@ -39532,8 +41793,8 @@
       "path": "docs/development/framework-author-guide.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "068093fd7e3a3a75481653cffe5cff417532934316e3b8cce9c6896d22239ace",
-      "review": "2026-09-29: Processing.NativeReactor paragraph for Framework 0.40.0."
+      "sha256": "2234b0608c048b7c1b996c3927587c11a65e00b58afd562b3e7c16a219d8a53b",
+      "review": "2026-09-29: new 0.41.0 section: room heat, native gas, vessel damage."
     },
     {
       "path": "docs/development/framework-bulk-storage.md",
@@ -39616,15 +41877,15 @@
       "path": "docs/development/install-catalogue.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "b3a8fde4d53ddae04041b1cbfa0ff552a166e77006c43a7f553e2f87208bc461",
-      "review": "2026-09-29: APPS row names the S3 and T2."
+      "sha256": "77507c371cbef8398371a971d7706e74c639e731b9606e4ee5707aa0938f880e",
+      "review": "2026-09-29: Manufacturing APPS row; other-equipment paragraph."
     },
     {
       "path": "docs/development/item-handling-audit.md",
       "scope": "current handling guidance and complete generated definition ledger",
       "decision": "reviewed",
-      "sha256": "da6684987dd3605171e51bca9486c90c7f6e7c1ef8e64fb5e0827436aa2dfc22",
-      "review": "2026-09-29: regenerated handling ledger with the ingot and steel-remainder identities."
+      "sha256": "3dbc16f41eeaeccdd804f491eacb3ff3a834a1092f73299c1957df1e095091f4",
+      "review": "2026-09-29: regenerated ledger with the Manufacturing items."
     },
     {
       "path": "docs/development/item-reference-maintenance.md",
@@ -39658,23 +41919,39 @@
       "sha256": "6b47fe2155684c4c89cbf63d9e5bdb1a295cd5efdfc4e8b84881d89679cdfdc2"
     },
     {
+      "path": "docs/development/manufacturing-art-handoff.md",
+      "scope": "development artwork record",
+      "decision": "rewrite",
+      "sha256": "ccdbc4ffec659a412ce00f3db2265e1c6e7fd74960f368fb3f071dad86df63c4",
+      "review": "2026-09-29: new record: Fennmark requests, results and deviations."
+    },
+    {
       "path": "docs/development/manufacturing-handover.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "693b519117e08e5f498a5ed563ae2ac87e4398e4cc2faa3a1da970d6176e0401",
-      "review": "2026-09-29: pointer to the ingots as the provided raw stock."
+      "sha256": "9d895c2c65aa40e640d5c323c19c022a085478ecdf73df46245c60d9ebf74fcd",
+      "review": "2026-09-29: historical banner points at 0.1.0."
     },
     {
       "path": "docs/development/manufacturing-implementation.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "e4c1c4567f29b96b860ad19c37cce387cbf80c651ff83cc1ec17f40595d7cc38"
+      "sha256": "6249b58789ea70e2a00383ddd64ee4c5afd08c2783183b365e4b004ebd0b8d45",
+      "review": "2026-09-29: rewritten for 0.1.0."
+    },
+    {
+      "path": "docs/development/manufacturing-refinery-and-chemistry.md",
+      "scope": "development design record; player text limited to names",
+      "decision": "rewrite",
+      "sha256": "c70071b39efef5bfced9c06792a40c8c96de6b4375fc92fff8a46ede02735394",
+      "review": "2026-09-29: new record: rule, charges, electrolysis, store, hazards, sources."
     },
     {
       "path": "docs/development/manufacturing-research.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "bc940f575c3f650914040544171996ce75a27a6daaa0c312d698b882b84d112f"
+      "sha256": "509d7f6848510cd564e450176d0eebee6d7367caee45b5027fecf5c7b474c840",
+      "review": "2026-09-29: banner points at 0.1.0."
     },
     {
       "path": "docs/development/material-disposal-port-research.md",
@@ -39712,8 +41989,8 @@
       "path": "docs/development/merchant-stock.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "fcf4268f89467fb67fe3af5c28c07aa243f7825a5e0fdd3023fc6092c11ae82c",
-      "review": "2026-09-29: ingot world-find row; coverage audit section."
+      "sha256": "4f8b04154258b8fabb552e18108097b7b0467d5f401b025f07b13236189133eb",
+      "review": "2026-09-29: Manufacturing equipment lot row."
     },
     {
       "path": "docs/development/mod-extension-survey.md",
@@ -39949,8 +42226,8 @@
       "path": "docs/framework-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "123a54148a787a51c78957fa29f9c5a860876ada1682cf041443e140c9387596",
-      "review": "2026-09-29: regenerated from reviewed inputs; Framework 0.40.0 version."
+      "sha256": "396ad185d869364be79ea2ac74d50d308a7be8dc1f4ab55681f0b0a780c5f3fd",
+      "review": "2026-09-29: regenerated from reviewed inputs."
     },
     {
       "path": "docs/furnace-coolant-conduits.md",
@@ -40012,22 +42289,29 @@
       "path": "docs/installing-mods.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "3e2c7a7d0aa8c52bc88594254dc5de211b994405bd0736fc56b450529b4cacf0",
-      "review": "2026-09-29: retired-file catalogue paragraph in the file-removal and unexpected-file rules."
+      "sha256": "7749dd4b70f91bc2d1700cb428a707e3d07c1819a192357701b0b2912100cbc0",
+      "review": "2026-09-29: Manufacturing 0.1.0 is an ordinary package; dependency line; hold option wording."
     },
     {
       "path": "docs/item-references.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "retain",
-      "sha256": "fcc4529bf09cdfc7cb098c207f8f223c8122cf1a4c6272e21cb0d3282d713199",
-      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+      "sha256": "fd5aca75aefa3bb50c0d3ba21c130f3ccd3388f628478bd8f24c63cda78541c7",
+      "review": "2026-09-29: regenerated index."
     },
     {
       "path": "docs/manufacturing-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "retain",
-      "sha256": "87ab47e402fa0ac62e0e08ef26dae21173e99a7d382e80b8b36e60b1cf5001c0",
-      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+      "sha256": "d16de232872207616fb543c946913d57c32ec2981bd17b026dc0b1ec44e234fe",
+      "review": "2026-09-29: regenerated from reviewed inputs."
+    },
+    {
+      "path": "docs/manufacturing-player-guide.md",
+      "scope": "current player operating guide",
+      "decision": "rewrite",
+      "sha256": "4a07aa561f5c6b5f1c1501fc6420535abc50441d882276a5c58f0ff725f1c262",
+      "review": "2026-09-29: new guide: equipment, set-up, cell, store, reload, dangers, limits, owner checks, sources."
     },
     {
       "path": "docs/material-port-pairing.md",
@@ -40047,8 +42331,8 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "f27649940f990c3e499da27ede8998dbf200e111e835e8ac6c495c4394ec8d2f",
-      "review": "2026-09-29: Framework 0.40.0 and Auto Nav 0.27.0 prepared versions."
+      "sha256": "e712dd0b04aec138c04f051d680fc8d8fbf3800cee77ff1702799d1c41358fcf",
+      "review": "2026-09-29: version lines; no other wording changed."
     },
     {
       "path": "docs/residue-collector.md",
@@ -40138,15 +42422,15 @@
       "path": "workshop/PhobosFramework/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "41908256130b7818c6eaa33f1edcef827098eeac207f80e21c75ab19feb0c63d",
-      "review": "2026-09-29: version and the 0.40.0 bullet."
+      "sha256": "d836befcb2a54d4f996aba13d9782190def8d94b32431d2c284ee8be41753d2e",
+      "review": "2026-09-29: version and 0.41.0 bullet."
     },
     {
       "path": "workshop/PhobosManufacturing/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "99ff0bfb7b0ea34b390c924a39b5b5e826e06de4596e4024bba0dfb8660935ad",
-      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+      "sha256": "95517a464bee0e3e2e45077911816fce95f83470a23aee826c24ac25edbc6535",
+      "review": "2026-09-29: rewritten for the first operational release; unpublished draft."
     },
     {
       "path": "workshop/PhobosShipbreaker/page.bbcode",
@@ -40160,8 +42444,8 @@
     {
       "path": "config/item-reference.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "d1ee7709f0bf7e5f5b8514619c00f42f64f8a64970619bbd8b37c774903b5aa5",
-      "review": "2026-09-29: ingot and steel-remainder groups; compartments text."
+      "sha256": "6d69134129a118a0072a4a6f2be8c9b64a56020622951280644994c12f04e9d6",
+      "review": "2026-09-29: Manufacturing intro, eight groups and three mining-table source labels."
     },
     {
       "path": "mods/PhobosAgriculture/framework/equipment-names.json",
@@ -40208,13 +42492,14 @@
     {
       "path": "mods/PhobosFramework/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "dbcc1adc6b39740f74579c0e8f78b3412e140d4f716d65d745985b780e406500",
-      "review": "2026-09-29: version 0.40.0."
+      "sha256": "1b2c692bc0f1bd8f4b3dcb75f537ad01c9b4e88150d4dd9c32ca02209a46b424",
+      "review": "2026-09-29: version metadata only."
     },
     {
       "path": "mods/PhobosManufacturing/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "ca699100a8084899d77a65e2a54e6d94c9b67f808addfe5367ea2306d4fce21b"
+      "sha256": "f180c8af23c129ced488d100d11401f4b3c7531181728201d771aa1430598130",
+      "review": "2026-09-29: version metadata only."
     },
     {
       "path": "mods/PhobosShipbreaker/framework/equipment-names.json",

@@ -1,14 +1,18 @@
 # Manufacturing content registration
 
-Scaffold 0.0.1 registers no construction or processing recipes. The native
-`data/conditions` empty array preserves the data-directory convention required
-by the game's mod loader.
+Manufacturing 0.1.0 registers its equipment in code through Framework's
+`ApplianceDefinitions` (three families: `PhobosVolatilesRefinery*`,
+`PhobosChemicalProcessor*`, `PhobosHydrogenStore*`), its materials by cloning
+native items (`PhobosNickelIronIngot`, `PhobosCarbonStock`, `PhobosRefinerySlag`,
+`PhobosAnhydrousResidue`, `PhobosClayHydrates`) and its hydrogen deflagrations
+as native explosion objects (`SysPhobosDeflagrationSmall/Medium/Large`, with
+their entries in `data/explosions`). These identities are save-stable from 0.1.0.
 
-The first-slice proposal is in `docs/development/manufacturing-research.md` in the repository
-and `manufacturing-research.md` in the prepared package. Manufacturing will own
-its machine, cold stock, tooling/service cartridge, finished sink and spent
-cartridge identities. No proposed identity is registered or save-stable yet.
+`equipment-names.json` is the content-owned `Localization.EquipmentNames` map:
+brand Fennmark, models V4, X2 and H2, and the branded materials. Translations
+localize the type descriptors; the `Phobos'` prefix and model names stay.
 
-Add the equipment-name map and construction pack here with the actual content;
-keep machining in the dedicated machine service. No OCF recipe directory or
-legacy aliases are needed for this new mod.
+There are no construction recipes: the machines are purchase-only, and ores are
+mined. No OCF recipe directory or legacy aliases exist for this mod. The
+`data/conditions` file carries the `PhobosManufacturingContent` marker the
+plugin checks to confirm the native mod folder is enabled.

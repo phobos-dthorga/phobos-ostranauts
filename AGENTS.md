@@ -320,6 +320,25 @@
   remain unregistered designs. The scaffold has no operational machinery and
   is not installed. Keep the optional F6 recipe separate from historic housings;
   follow `assets/phobos-manufacturing/README.md` for layered artwork planning.
+- Owner direction (2026-09-29): Manufacturing begins with a refinery and a
+  chemical processor, taking inspiration only (no code, data or art) from
+  Rusty150's Salvage Workshop and Crafting Framework. Manufacturing 0.1.0 with
+  Framework 0.41.0 ships the **Fennmark** V4 Volatiles Refinery (4 x 4, one
+  bound charge at a time: hydrates, the new clay hydrates chunk, carbon ore,
+  meteoric iron, and with Shipbreaker 0.38.0+ four nickel-iron ingots plus one
+  carbon stock into its steel ingots), the X2 Chemical Processor (2 x 2 water
+  electrolysis, 1.125 kg water + 6 kWh into 1.000 kg O2 and 0.125 kg H2 per
+  hour) and the H2 Hydrogen Store (24 kg Framework bulk vessel, Leak policy).
+  Follow `docs/development/manufacturing-refinery-and-chemistry.md` and
+  `docs/manufacturing-player-guide.md`. Machines are purchase-only; ores and
+  chunks are mined, never sold; the refuelling kiosk's Bulk supplies view is
+  the only commodity purchase route and sells nothing new this round. Water
+  comes from any registered Framework water vessel (S3 or R3) within one tile;
+  Manufacturing requires Framework only. The V4 and X2 use the Phobos batch
+  pattern (explicit Start, repeat while supplied, pause after reload). Oxygen
+  fills a linked native O2 canister to its rated pressure through Framework
+  `NativeGasCanister`, or the cabin when none is linked. The M4 mill remains a
+  design; nickel-iron joins ingots as its stock. Owner gameplay checks pending.
 
 ## Working style
 
@@ -1056,6 +1075,30 @@
 - Ship's Water stays reclaim-not-join: `ShipsWaterSupply.Refill` draws above a crew reserve, `DepositWaste` fills their waste tanks up to the capacity their own public configuration declares (reflection on `ShipsWater.Plugin`, 0.16.1 pin), never their potable tanks or kiosk row. Station purchase goes through `Trading.VesselSupplyProvider` and the existing Bulk supplies view.
 - Artwork for the S3, T2, both ingots and the steel melt remainder was produced with PixelLab on 29 September 2026 (Shipbreaker 0.38.1) through `docs/development/bulk-silo-art-handoff.md`; the placeholders and their exporter are retired. The selected masters live in `assets/artwork-completion` with requests in `bulk-silo-requests.json`; the S3 and T2 are full-footprint masters (opaque edge to edge) whose world sprite is also the portrait, and the steel ingot is a recorded luminance recolour of the aluminium ingot. Revise them through the existing artwork and provenance rules; never reintroduce placeholder masters as reviewed art.
 - Owner decision (2026-09-29, economy coverage audit): the S3, T2 and Agriculture R3 stay **purchase-only**. Construction of anything beyond semi-advanced equipment waits for Phobos Manufacturing to decide where and when it belongs; do not add ingot- or section-based recipes for them before then. Keep every machine family's merchant, loot, repair, Restore and dismantle coverage at parity with its siblings, checked natively (`docs/development/economy-coverage-audit.md`).
+
+## Realistic chemistry and hazards (2026-09-29)
+
+- Owner direction, applied from Manufacturing 0.1.0 to every Phobos Ostranauts
+  recipe: **outputs are only what the inputs can realistically yield**, as close
+  to real stoichiometry as item units allow. Add new materials or minable asteroid
+  chunks through our mods where honest chemistry needs them (the clay hydrates
+  chunk, nickel-iron ingots, carbon stock and the two terminal remainders are the
+  first). Round to item units and state the rounding; record each recipe's
+  reaction, mass balance, energy and a primary source beside the claim, and label
+  authored percentages as ours. The owner is an applied chemist; do not present
+  fixed-reward yields, mass-creating recipes or money-printing conversions.
+- **Hazards use only the game's own machinery** and are welcome where a reaction
+  goes bad, a store is damaged or a machine off-gasses: native fire (`SysFire`),
+  explosions (`Explosion,<name>` objects from a mod `data/explosions` folder),
+  damage mode switches, canister leaks and poisoning bands. Only native gas species
+  (CH4, CO, CO2, H2SO4, N2, NH3, O2, Smoke) ever enter a room or canister, always
+  clamped through Framework `RoomGas` / `NativeGasCanister`; hydrogen and every
+  other missing chemical stay kilogram records and never enter a room as gas.
+  Every hazard conserves mass, is journaled, warns the player through
+  `PlayerNotices` and never blocks native destruction. Framework 0.41.0 owns
+  `RoomHeat`, `RoomGas`, `NativeGasCanister`, `NativeExplosions`,
+  `ConsoleAuthority`, `ApplianceDefinitions.AddFeedBin/SetPowerOverride` and the
+  bulk-vessel `DamagePolicy.Leak`; content owns thresholds, recipes and balance.
 
 ## Documentation audiences
 

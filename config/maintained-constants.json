@@ -4,7 +4,7 @@
     "Framework.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.40.0",
+      "value": "0.41.0",
       "description": "PhobosFramework published source/package version.",
       "targets": [
         {
@@ -265,7 +265,7 @@
     "Manufacturing.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.0.1",
+      "value": "0.1.0",
       "description": "PhobosManufacturing published source/package version.",
       "targets": [
         {
@@ -1404,6 +1404,186 @@
       "review": [
         "Run native stock-quantity and regional checks, then affected builds.",
         "Run scripts/update-item-reference.ps1; inspect generated quantities. Existing merchant inventories wait for native restocking."
+      ]
+    },
+    "Manufacturing.minimumFramework": {
+      "type": "version",
+      "parts": 3,
+      "value": "0.41.0",
+      "description": "Current Manufacturing required Framework version, shared with local installer admission.",
+      "targets": [
+        {
+          "path": "src/PhobosManufacturing/Plugin.cs",
+          "pattern": "MinimumFrameworkVersion = \"(?P<value>[0-9.]+)\"",
+          "count": 1
+        },
+        {
+          "path": "config/mod-dependency-minimums.json",
+          "pattern": "\"Manufacturing\\.Framework\":\\s*\\{\\s*\"since\": \"[0-9.]+\",\\s*\"value\": \"(?P<value>[0-9.]+)\"",
+          "count": 1
+        },
+        {
+          "path": "docs/installing-mods.md",
+          "pattern": "Current prepared Manufacturing requires Framework (?P<value>[0-9]+\\.[0-9]+\\.[0-9]+)",
+          "count": 1
+        },
+        {
+          "path": "README.md",
+          "pattern": "\\| \\*\\*Phobos Manufacturing\\*\\* \\| [0-9.]+ \\|[^|]*\\| Requires Framework (?P<value>[0-9]+\\.[0-9]+\\.[0-9]+)",
+          "count": 1
+        },
+        {
+          "path": "workshop/PhobosManufacturing/page.bbcode",
+          "pattern": "Ostranauts 1\\.0\\.1\\.5, BepInEx 5 and Phobos Framework (?P<value>[0-9]+\\.[0-9]+\\.[0-9]+)",
+          "count": 1
+        }
+      ],
+      "review": [
+        "Build affected mods and run installer checks. Current minimums are conservative for packages at/after their recorded compatibility floor; retain historic version gates."
+      ]
+    },
+    "Manufacturing.refineryPrice": {
+      "type": "number",
+      "value": "15600",
+      "min": 1,
+      "max": 1000000,
+      "description": "Authored V4 volatiles refinery base price (broken form is one quarter).",
+      "targets": [
+        {
+          "path": "src/PhobosManufacturing/Core/RefineryRules.cs",
+          "pattern": "\\bPrice\\s*=\\s*(?P<value>[0-9.]+)",
+          "count": 1
+        }
+      ],
+      "review": [
+        "Run scripts/build-manufacturing.ps1 (pure chemistry checks and native checks) and regenerate item references. Bound charges keep their captured recipe; existing store records keep their contents."
+      ]
+    },
+    "Manufacturing.processorPrice": {
+      "type": "number",
+      "value": "5600",
+      "min": 1,
+      "max": 1000000,
+      "description": "Authored X2 chemical processor base price (broken form is one quarter).",
+      "targets": [
+        {
+          "path": "src/PhobosManufacturing/Core/ProcessorRules.cs",
+          "pattern": "\\bPrice\\s*=\\s*(?P<value>[0-9.]+)",
+          "count": 1
+        }
+      ],
+      "review": [
+        "Run scripts/build-manufacturing.ps1 (pure chemistry checks and native checks) and regenerate item references. Bound charges keep their captured recipe; existing store records keep their contents."
+      ]
+    },
+    "Manufacturing.hydrogenStorePrice": {
+      "type": "number",
+      "value": "5200",
+      "min": 1,
+      "max": 1000000,
+      "description": "Authored H2 hydrogen store base price (broken form is one quarter).",
+      "targets": [
+        {
+          "path": "src/PhobosManufacturing/Core/HydrogenRules.cs",
+          "pattern": "\\bPrice\\s*=\\s*(?P<value>[0-9.]+)",
+          "count": 1
+        }
+      ],
+      "review": [
+        "Run scripts/build-manufacturing.ps1 (pure chemistry checks and native checks) and regenerate item references. Bound charges keep their captured recipe; existing store records keep their contents."
+      ]
+    },
+    "Manufacturing.refineryKilowatts": {
+      "type": "number",
+      "value": "24",
+      "min": 0.1,
+      "max": 1000,
+      "description": "Authored V4 working electrical demand, in kW; charge durations are fixed, so this also sets each charge energy.",
+      "targets": [
+        {
+          "path": "src/PhobosManufacturing/Core/RefineryRules.cs",
+          "pattern": "\\bWorkingKW\\s*=\\s*(?P<value>[0-9.]+)",
+          "count": 1
+        }
+      ],
+      "review": [
+        "Run scripts/build-manufacturing.ps1 (pure chemistry checks and native checks) and regenerate item references. Bound charges keep their captured recipe; existing store records keep their contents.",
+        "Review docs/development/manufacturing-refinery-and-chemistry.md: casting must stay above the stated sensible-plus-latent minimum."
+      ]
+    },
+    "Manufacturing.processorKilowatts": {
+      "type": "number",
+      "value": "6",
+      "min": 0.1,
+      "max": 1000,
+      "description": "Authored X2 working electrical demand in kW over a one-hour cycle; must stay above the 4.9 kWh water-splitting minimum per cycle.",
+      "targets": [
+        {
+          "path": "src/PhobosManufacturing/Core/ProcessorRules.cs",
+          "pattern": "\\bWorkingKW\\s*=\\s*(?P<value>[0-9.]+)",
+          "count": 1
+        }
+      ],
+      "review": [
+        "Run scripts/build-manufacturing.ps1 (pure chemistry checks and native checks) and regenerate item references. Bound charges keep their captured recipe; existing store records keep their contents.",
+        "The pure checks refuse a cycle energy below the NIST higher heating value of the hydrogen made."
+      ]
+    },
+    "Manufacturing.stockMachines": {
+      "type": "integer",
+      "value": "8",
+      "min": 1,
+      "max": 256,
+      "description": "Manufacturing machines quantity per successful merchant offer, including regional suppliers.",
+      "targets": [
+        {
+          "path": "src/PhobosManufacturing/EquipmentEconomy.cs",
+          "pattern": "\\bMachines\\s*=\\s*(?P<value>[0-9]+)(?=\\s*[,;])",
+          "count": 1
+        },
+        {
+          "path": "docs/development/merchant-stock.md",
+          "pattern": "^\\| Manufacturing\\ equipment \\| (?P<value>[0-9]+) \\|\\r?$",
+          "count": 1
+        }
+      ],
+      "review": [
+        "Run native stock-quantity and regional checks, then affected builds.",
+        "Run scripts/update-item-reference.ps1; inspect generated quantities. Existing merchant inventories wait for native restocking."
+      ]
+    },
+    "Manufacturing.stockEquipmentChance": {
+      "type": "number",
+      "value": "0.85",
+      "min": 0.01,
+      "max": 1,
+      "description": "Minimum authored Manufacturing merchant offer probability before the global availability setting.",
+      "targets": [
+        {
+          "path": "src/PhobosManufacturing/EquipmentEconomy.cs",
+          "pattern": "\\bEquipmentChance\\s*=\\s*(?P<value>[0-9.]+)",
+          "count": 1
+        }
+      ],
+      "review": [
+        "Regenerate item references and run native merchant/loot checks. Existing inventories remain unchanged."
+      ]
+    },
+    "Manufacturing.clayHydratesChance": {
+      "type": "number",
+      "value": "0.10",
+      "min": 0,
+      "max": 1,
+      "description": "Chance that one clay hydrates chunk joins each native dark-regolith rock or C-class deposit mining roll (one bounded choice, never a shop).",
+      "targets": [
+        {
+          "path": "src/PhobosManufacturing/Definitions.cs",
+          "pattern": "\\bDefaultChance\\s*=\\s*(?P<value>[0-9.]+)",
+          "count": 1
+        }
+      ],
+      "review": [
+        "Run the native checks (the chunk must appear exactly once in each amended table) and regenerate item references. Existing deposits already rolled are unchanged."
       ]
     }
   }

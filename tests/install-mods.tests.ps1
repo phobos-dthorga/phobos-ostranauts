@@ -36,7 +36,7 @@ Check ((Get-MaintainedDependencyMinimum 'Shipbreaker.Framework' ([version]'0.28.
 Check ((Get-MaintainedDependencyMinimum 'Agriculture.Framework' ([version]'0.15.1') ([version]'0.28.0')) -eq [version]'0.28.0') 'Previous Agriculture package inherited the new dependency floor'
 # The maintained catalogue owns the current floors; check the rule, not a copied number.
 $maintainedMinimums = (Get-Content -LiteralPath (Join-Path $repoRoot 'config/mod-dependency-minimums.json') -Raw | ConvertFrom-Json -AsHashtable).minimums
-foreach ($key in @('AutoNav.Framework', 'Shipbreaker.Framework', 'Agriculture.Framework')) {
+foreach ($key in @('AutoNav.Framework', 'Shipbreaker.Framework', 'Agriculture.Framework', 'Manufacturing.Framework')) {
     $since = [version]$maintainedMinimums[$key].since
     $floor = [version]$maintainedMinimums[$key].value
     Check ($floor -ge [version]'0.30.1') "$key floor never drops below the Polaris fix baseline"
@@ -536,7 +536,19 @@ Write-Output "$script:passed checks including Auto Nav dependency downgrade prot
 $held = Fixture 'held-scaffold' @('core', 'PhobosManufacturing|disabled')
 $heldPath = Join-Path $held.OstranautsPath 'BepInEx/plugins/PhobosManufacturing/PhobosManufacturing.dll'
 New-Item -ItemType Directory -Path (Split-Path -Parent $heldPath) -Force | Out-Null
-Copy-Item -LiteralPath (Join-Path $PackageRoot 'PhobosManufacturing-P0/BepInEx/plugins/PhobosManufacturing/PhobosManufacturing.dll') -Destination $heldPath
+# The prepared package is operational 0.1.0 now; the hold only ever accepts the retired 0.0.1 scaffold identity,
+# so the fixture compiles a stand-in assembly carrying exactly that name and version.
+# Add-Type -OutputAssembly gives the assembly a random name, so the stand-in is emitted through Roslyn (loaded by Add-Type) with the exact name.
+Add-Type -TypeDefinition 'public static class PhobosInstallerTestRoslynWarmup { }' | Out-Null
+$heldTree = [Microsoft.CodeAnalysis.CSharp.CSharpSyntaxTree]::ParseText('[assembly: System.Reflection.AssemblyVersion("0.0.1.0")] namespace PhobosManufacturing { public static class HeldScaffold { } }')
+$heldRefs = [Microsoft.CodeAnalysis.MetadataReference[]]@([Microsoft.CodeAnalysis.MetadataReference]::CreateFromFile([object].Assembly.Location))
+$heldOptions = [Microsoft.CodeAnalysis.CSharp.CSharpCompilationOptions]::new([Microsoft.CodeAnalysis.OutputKind]::DynamicallyLinkedLibrary)
+$heldCompilation = [Microsoft.CodeAnalysis.CSharp.CSharpCompilation]::Create('PhobosManufacturing', [Microsoft.CodeAnalysis.SyntaxTree[]]@($heldTree), $heldRefs, $heldOptions)
+$heldStream = [IO.File]::Create($heldPath)
+try { $heldEmit = $heldCompilation.Emit($heldStream) } finally { $heldStream.Dispose() }
+Check $heldEmit.Success "Held-scaffold stand-in did not compile: $($heldEmit.Diagnostics -join '; ')"
+$heldIdentity = [Reflection.AssemblyName]::GetAssemblyName($heldPath)
+Check ($heldIdentity.Name -eq 'PhobosManufacturing' -and $heldIdentity.Version -eq [version]'0.0.1.0') 'Held-scaffold stand-in has the wrong identity'
 $heldHash = (Get-FileHash -LiteralPath $heldPath).Hash
 & $installer @held -Mods AutoNav -HoldManufacturing -WhatIf | Out-Null
 Check (Test-Path -LiteralPath $heldPath) 'Hold preview removed the scaffold'

@@ -1,1 +1,9 @@
-[]
+[
+  {
+    "strName": "PhobosManufacturingContent",
+    "strNameFriendly": "Phobos Manufacturing content",
+    "strColor": "Neutral",
+    "nDisplaySelf": 2,
+    "nDisplayOther": 2
+  }
+]

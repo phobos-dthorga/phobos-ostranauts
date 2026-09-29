@@ -888,3 +888,44 @@ only when needed. Disable/destruction releases the clone; changed or foreign
 markers restore their original material. Texture failures log once per image per
 registration and fall back. No global site scan, movement hook or per-frame log
 is added. Unity appearance remains owner-tested.
+
+## Room heat, native gas and vessel damage (0.41.0)
+
+`Processing.RoomHeat` is the air-cooled operating rule every powered Phobos
+machine follows: `Budget(mols, kelvin, pendingKelvin, pressureKPa, kw, seconds,
+out rise)` refuses a room below 10 kPa, any vacuum, and any step that would take
+the room past 40 C, using the game's own 20.7 J per mol K. `Read(machine, point)`
+returns the room's `Air` (or null: never free cooling), `Admit` applies the budget
+to it, and `Deposit(air, kWh, fraction)` adds the declared share of supplied energy
+to the room's pending temperature for the game's mixing to settle. Shipbreaker's
+`ReclaimerRules.CoolingBudget` and Agriculture's own rule are unchanged copies.
+
+`Processing.NativeGasCanister` holds the game's species and molar masses (the
+constants in its `GetGasMass`), `CapacityMoles(m3, maxKPa, K)` by the game's
+refuelling arithmetic, and guarded reads and writes on an installed rated O2, CO2
+or N2 canister: `TryAdd` is capped at the rated pressure because the game caps
+nothing, `TryTake` is clamped to contents because a negative total corrupts the
+game's internal count. `Processing.RoomGas.Emit/Consume(air, species, kg)` do the
+same for a room's air, in kilograms, for the eight room species only; hydrogen,
+water vapour and helium are never created anywhere. The game's alarms, poisoning,
+scrubbers and fires respond to the result on their own.
+
+`Hazards.NativeExplosions.Spawn(ship, position, definitionId)` places a
+definition that carries the native `Explosion,<name>` update command, exactly as
+a mode-switch loot does for an armed charge; the game's `Explosion` component
+applies the damage, shrapnel and fire rolls and removes the object. Content
+declares its own entries under `data/explosions` and `data/condowners`.
+
+`Liquids.BulkVesselSpec` gains `VesselDamagePolicy` and `LeakKgPerHour`. The
+eight-argument declaration keeps the default `Isolate` (contents trapped in the
+catch chamber on damage). A pressurised store declares `Leak` with a rate; on
+damage its contents stay in service and the owning service drains them with
+`BulkVessel.Drain(co, kg, reason)`, which logs each loss, until the vessel is
+repaired. Nothing models pressure inside a Phobos vessel.
+
+`Registration.ApplianceDefinitions.AddFeedBin(d, prefix, containerTrigger, cells,
+name)` adds the hidden locked feed compartment and its slot to an appliance
+family; `SetPowerOverride(d, prefix, idleKW, workingKW, workingCondition, points)`
+sets the two-level electrical demand. `Controls.ConsoleAuthority.Check(target,
+binding, accessTiles, consoleDefinition)` is the remote-command rule; wording
+stays with the caller.

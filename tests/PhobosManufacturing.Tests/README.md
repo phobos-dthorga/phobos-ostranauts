@@ -1,27 +1,27 @@
-# Manufacturing verification plan
+# Manufacturing checks
 
-Scaffold 0.0.1 has no processing logic and no test runner. Its meaningful current
-checks are the compiled loader dependency, embedded translation, package contents
-and read-only native evidence audit. Do not report this directory as passing
-machining tests. Add a test project alongside the first actual gameplay rules.
+`dotnet run --project tests/PhobosManufacturing.Tests -c Release` compiles the
+mod's `Core/*.cs` sources directly (no game references) and checks the pure
+rules: every refinery charge conserves mass and lists exactly its products;
+`Match` accepts only exact charge multisets (the steel charge only with
+Shipbreaker's stock); durations, energies and room-heat shares; adjacency;
+electrolysis balance and oxygen moles; `Advance` never runs two cycles in one
+step and refuses NaN; state records round-trip and reject bad payloads; the
+hydrogen spec, leak rate, `Burn` (min of hydrogen and an eighth of the oxygen,
+8 kg O2 per kg H2, never more than the room holds), deflagration sizes and the
+ignition rule; spoilage conserves mass; off-gas shares sum to the charge's gas
+and `OffGasDueKg` never over-emits; price rules (four ingots below one iron
+block, five carbon plus water below one carbide block).
 
-Prioritize these concrete new boundaries:
+`tests/PhobosNative.Tests/ManufacturingNativeChecks.cs` runs with the local
+game: forms, sizes, masses, Fennmark names, power info, feed-trigger admission
+and refusals at the game level, native ore masses and stacking, `Prepare(true)`
+against `Prepare(false)`, the clay chunk once in each amended mining table and
+in no shop, the O2 canister capacity formula, the hydrogen vessel registration,
+economy parity with the S3/T2 offer sets, a native buyer for every retail
+identity, APPS placement, artwork bindings, and the deflagration entries loaded
+through the game's own `DataHandler` with the `Explosion` command.
 
-1. Two-input identity binding, exact mass, no charged-stock escape, cartridge
-   exhaustion, capture of immutable recipe/duration and protected invalid state.
-2. Partial/zero/excess native energy, elapsed-time cap, final-tick overrun, finite
-   heat/headroom, vacuum, stale probe and propulsion interruption.
-3. No progress from UI reads; permission cleared on reload; no offline catch-up;
-   same-ship access and identical local/F3/C1 interlocks.
-4. Complete product placement, blocked tray retention, consumption failure after
-   one of two inputs and an interrupted commit marker that cannot replay.
-5. Native `TIsHeatSink` gathering with the actual new sink, merchant additive
-   entries with foreign entries retained, and operation with Framework alone.
-6. Damage/repair mode switches retaining stock/progress/heat; loaded uninstall
-   and dismantle rejection; safe cancellation only before cutting begins.
-
-Do not retest unrelated mods for documentation-only changes. Reuse Framework
-checks for unchanged helpers and add consumer cases for the actual integration.
-Leave appearance, hauling, full machining cycles and repair acceptance in the
-running game to the owner. Optional F6 registration and old housing saves need
-their own regression cases when that separate extension is implemented.
+Not covered, by design: live Unity layout, crew hauling, in-game fire and
+explosion behaviour, canister pressure display and shop restocking. Those are
+the owner's gameplay checks listed in the player guide.

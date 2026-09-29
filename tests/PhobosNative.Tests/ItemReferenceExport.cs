@@ -24,12 +24,14 @@ internal static class ItemReferenceExport
             ["PhobosAgriculture"] = PhobosAgriculture.Definitions.Prepare(),
             ["PhobosAutoNav"] = PhobosAutoNav.EquipmentContent.Prepare()
         };
+        // Shipbreaker publishes first so the steel charge's identities exist, as the game's load order gives.
+        packs["PhobosShipbreaker"].Publish();
+        packs["PhobosManufacturing"] = PhobosManufacturing.Content.Prepare(true);
         // Publish only to this audit process's in-memory dictionaries for native valuation.
         foreach (var pack in packs.Values) pack.Publish();
         var shared = new NativeDefinitions();
         shared.Objects[MaintenanceDefinitions.SpentParts] = DataHandler.dictCOs[MaintenanceDefinitions.SpentParts];
         packs["PhobosFramework"] = shared;
-        packs["PhobosManufacturing"] = new NativeDefinitions();
         var installedSources = Directory.GetDirectories(Path.Combine(repo, "mods"))
             .Where(path => File.Exists(Path.Combine(path, "mod_info.json"))).Select(Path.GetFileName).ToHashSet();
         if (!installedSources.SetEquals(packs.Keys))

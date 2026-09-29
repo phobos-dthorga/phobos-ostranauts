@@ -1014,8 +1014,134 @@
       ]
     },
     "PhobosManufacturing": {
-      "intro": "Research scaffold only: no registered equipment, loose items, stock or operational recipes. The proposed M4 enclosed mill, heat-sink preform and machining cartridge are designs, not obtainable items. There are therefore no retail prices, salvage yields or maintenance instructions to present as implemented. See [Manufacturing research](development/manufacturing-research.md) and [implementation status](development/manufacturing-implementation.md). Future registered items require reference entries before this guide can be regenerated.",
-      "groups": []
+      "intro": "Phobos Manufacturing 0.1.0 refines what the crew mines and runs the first chemistry aboard: the Fennmark V4 Volatiles Refinery, the X2 Chemical Processor (water electrolysis) and the H2 Hydrogen Store, with nickel-iron ingots and carbon stock as raw stock, two terminal remainders and one new minable chunk. Every charge conserves mass and is recorded with its chemistry and sources in [the refinery design record](development/manufacturing-refinery-and-chemistry.md); operating instructions are in [the player guide](manufacturing-player-guide.md). Machines are purchase-only; ores and chunks are mined, never bought; nothing new is sold in shops. Prices, salvage and repair follow the same rules as the sibling mods.",
+      "groups": [
+        {
+          "key": "v4",
+          "title": "V4 Volatiles Refinery",
+          "ids": [
+            "PhobosVolatilesRefineryLoose",
+            "PhobosVolatilesRefineryLooseDmg",
+            "PhobosVolatilesRefineryInstalled",
+            "PhobosVolatilesRefineryInstalledDmg"
+          ],
+          "function": "A 4 x 4 electric hearth and drying retort. One charge at a time: hydrates (10 kg) to 1 kg of water and three gangue; clay hydrates to 2 kg of water and an 8 kg anhydrous residue; carbon ore to five carbon stock, 1 kg of water, one gangue and 1 kg of CO2, CO and smoke breathed into the room; meteoric iron to four nickel-iron ingots, one gangue and 1 kg of slag; with Shipbreaker, four nickel-iron ingots and one carbon stock to four steel ingots and a melt remainder.",
+          "use": "Install through APPS, connect power, link a water vessel (S3 or R3 within one tile) on its panel or C1 for the water charges, load one charge into its feed (the Inventory opens the tray and the feed), then Start. 24 kW while working; part of it warms the room. Run a scrubber in its room for the carbon charge. See [the player guide](manufacturing-player-guide.md).",
+          "find": "Buy loose hardware from the sellers below. No fabrication recipe. This item may also appear in eligible engineering-equipment loot; see the exact offers below.",
+          "notes": "A melt (nickel-iron or steel) left waiting for a cool room longer than its own run freezes into slag. Reload pauses it; Start resumes the bound charge. A steel charge saved before Shipbreaker is removed is kept, never overwritten. Empty the tray by hand.",
+          "guide": "manufacturing-player-guide.md",
+          "internal": false,
+          "labels": {}
+        },
+        {
+          "key": "x2",
+          "title": "X2 Chemical Processor",
+          "ids": [
+            "PhobosChemicalProcessorLoose",
+            "PhobosChemicalProcessorLooseDmg",
+            "PhobosChemicalProcessorInstalled",
+            "PhobosChemicalProcessorInstalledDmg"
+          ],
+          "function": "A 2 x 2 water electrolysis cell. Each one-hour cycle at 6 kW splits 1.125 kg of water into 1.000 kg of oxygen and 0.125 kg of hydrogen (2 H2O to 2 H2 + O2).",
+          "use": "Install through APPS within one tile of a water vessel and an H2 store, connect power, link both on its panel or C1, choose an installed O2 canister within one tile (or leave it on cabin air), then Start. It runs only while every output has room; a full canister or store makes it wait.",
+          "find": "Buy loose hardware from the sellers below. No fabrication recipe. This item may also appear in eligible engineering-equipment loot; see the exact offers below.",
+          "notes": "Oxygen into the cabin raises the oxygen partial pressure, which raises the game's own fire chance. Reload pauses it; Start resumes with the held water and cycle energy kept. Cancel forfeits the cycle's energy, never the water.",
+          "guide": "manufacturing-player-guide.md",
+          "internal": false,
+          "labels": {}
+        },
+        {
+          "key": "h2",
+          "title": "H2 Hydrogen Store",
+          "ids": [
+            "PhobosHydrogenStoreLoose",
+            "PhobosHydrogenStoreLooseDmg",
+            "PhobosHydrogenStoreInstalled",
+            "PhobosHydrogenStoreInstalledDmg"
+          ],
+          "function": "A passive 2 x 2 pressurised store for 24 kg of electrolysis hydrogen, kept as a kilogram record (hydrogen has no game gas).",
+          "use": "Install through APPS within one tile of an X2 and link it from the cell. Vent hydrogen overboard from its panel or C1 (vent). Repair damage at once and vent before uninstalling.",
+          "find": "Buy loose hardware from the sellers below. No fabrication recipe. This item may also appear in eligible engineering-equipment loot; see the exact offers below.",
+          "notes": "Damaged, it leaks about 2 kg an hour to space until repaired. With oxygen in the room and a fire, a working V4 hearth or a sparking damaged device, its contents burn: the room loses oxygen and warms, and the game's own explosion follows. Dismantling refuses while it holds hydrogen.",
+          "guide": "manufacturing-player-guide.md",
+          "internal": false,
+          "labels": {}
+        },
+        {
+          "key": "stock",
+          "title": "Raw stock",
+          "ids": [
+            "PhobosNickelIronIngot",
+            "PhobosCarbonStock"
+          ],
+          "function": "Nickel-iron ingots (4 kg, cast meteoric iron: iron with a few percent of nickel) and carbon stock (1 kg) are the refinery's products and Manufacturing's raw stock. Four ingots with one carbon make steel in the V4 when Shipbreaker is present; the coming machining centre consumes ingots.",
+          "use": "Made in the V4. Carry, stack (ten per stack) and sell at any general buyer; feed them back into the V4 as a steel charge.",
+          "find": "Made in the V4 from meteoric iron and carbon ore. Never sold in shops.",
+          "notes": "Four ingots ($80) are worth less than the $450 meteoric iron block and five carbon ($50) less than the $99 carbide ore: refining loses money and gains material aboard. Scrap kiosks do not buy them, so they are never furnace or processor feed.",
+          "guide": "manufacturing-player-guide.md",
+          "internal": false,
+          "labels": {}
+        },
+        {
+          "key": "remainders",
+          "title": "Terminal remainders",
+          "ids": [
+            "PhobosRefinerySlag",
+            "PhobosAnhydrousResidue"
+          ],
+          "function": "Refinery slag (1 kg: sulfide, phosphide and oxide skimmings, or a frozen melt) and anhydrous residue (8 kg of baked clay minerals). Trash at the technical minimum price; nothing recovers them.",
+          "use": "Carry them out of the tray and sell or discard them.",
+          "find": "Left in the V4 tray by its charges. Never sold.",
+          "notes": "Terminal: never re-processed, never the game's own Trash item.",
+          "guide": "manufacturing-player-guide.md",
+          "internal": false,
+          "labels": {}
+        },
+        {
+          "key": "clay",
+          "title": "Clay hydrates",
+          "ids": [
+            "PhobosClayHydrates"
+          ],
+          "function": "A 10 kg chunk of dark, water-rich clay minerals of the kind sampled from carbonaceous asteroids, about a fifth of it bound water.",
+          "use": "Bake it in the V4 for 2 kg of water and an 8 kg residue, or sell it to a government kiosk like other ore.",
+          "find": "Mined: it turns up in the game's dark-regolith rock and C-class deposit tables as one bounded choice. Never sold.",
+          "notes": "Authored from the CI-chondrite range (18 to 22 percent water by weight) with the game's own hydrate art until its own sprite exists.",
+          "guide": "manufacturing-player-guide.md",
+          "internal": false,
+          "labels": {}
+        },
+        {
+          "key": "compartments",
+          "title": "Built-in charge feed",
+          "ids": [
+            "PhobosVolatilesRefineryInputBin"
+          ],
+          "function": "The V4's charge feed, a named child inventory built into the machine. Not a separate product.",
+          "use": "Open it from the machine's Inventory and put single ore blocks, clay chunks, nickel-iron ingots or carbon stock there; the refinery binds one exact charge at a time.",
+          "find": "Shown as feed inventory within the V4.",
+          "notes": "No purchase, INSTALL, repair, Restore or standalone salvage contract.",
+          "guide": "manufacturing-player-guide.md",
+          "internal": true,
+          "labels": {}
+        },
+        {
+          "key": "deflagration",
+          "title": "Hydrogen deflagration",
+          "ids": [
+            "SysPhobosDeflagrationSmall",
+            "SysPhobosDeflagrationMedium",
+            "SysPhobosDeflagrationLarge"
+          ],
+          "function": "The game's own explosion objects in three sizes, spawned for a moment when a damaged or destroyed H2 store burns. Not items.",
+          "use": "Not usable. They apply the game's radius damage, shrapnel and fire rolls and remove themselves.",
+          "find": "Only at a burning hydrogen store.",
+          "notes": "Their entries live in the mod's data/explosions file.",
+          "guide": "manufacturing-player-guide.md",
+          "internal": true,
+          "labels": {}
+        }
+      ]
     }
   },
   "sources": {
@@ -1046,7 +1172,10 @@
     "ItmFlotillaScrapKioskInv": "Flotilla scrap kiosk",
     "ItmOKLGFoodCart01KioskInv": "K-Leg food cart 1",
     "ItmOKLGFoodCart02KioskInv": "K-Leg food cart 2",
-    "ItmTraderSanDiegoFutureFoodsInv": "San Diego Future Foods"
+    "ItmTraderSanDiegoFutureFoodsInv": "San Diego Future Foods",
+    "ItmRock05SalvageOutput": "dark regolith rock (type 5) salvage",
+    "ItmRock06SalvageOutput": "dark regolith rock (type 6) salvage",
+    "ItmRandomMineralCClass": "C-class asteroid deposit"
   },
   "triggers": {
     "TIsPartsMechSmall": "small mechanical parts",

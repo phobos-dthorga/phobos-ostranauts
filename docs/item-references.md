@@ -10,6 +10,6 @@ Choose your mod for what each object does, how to use it, where it appears, and 
 | Phobos Manufacturing | [Items and equipment](manufacturing-item-reference.md) |
 | Phobos Shipbreaker | [Items and equipment](shipbreaker-item-reference.md) |
 
-Manufacturing is explicitly empty while it remains a scaffold. Framework documents shared spent parts.
+Framework documents shared spent parts.
 
 For placement tabs, see [INSTALL catalogue](development/install-catalogue.md). For refreshing these documents, see [reference maintenance](development/item-reference-maintenance.md).

@@ -1,11 +1,42 @@
 {
   "appId": "1022980",
   "mods": {
-    "PhobosFramework": {"itemId": null, "requires": [], "hold": null},
-    "PhobosAgriculture": {"itemId": null, "requires": ["PhobosFramework"], "hold": null},
-    "PhobosShipbreaker": {"itemId": null, "requires": ["PhobosFramework", "PhobosAutoNav"], "hold": null},
-    "PhobosAutoNav": {"itemId": null, "requires": ["PhobosFramework"], "hold": "Upstream adaptation distribution terms remain unresolved."},
-    "PhobosManufacturing": {"itemId": null, "requires": ["PhobosFramework"], "hold": "Research scaffold; no operational equipment."}
+    "PhobosFramework": {
+      "itemId": null,
+      "requires": [],
+      "hold": null
+    },
+    "PhobosAgriculture": {
+      "itemId": null,
+      "requires": [
+        "PhobosFramework"
+      ],
+      "hold": null
+    },
+    "PhobosShipbreaker": {
+      "itemId": null,
+      "requires": [
+        "PhobosFramework",
+        "PhobosAutoNav"
+      ],
+      "hold": null
+    },
+    "PhobosAutoNav": {
+      "itemId": null,
+      "requires": [
+        "PhobosFramework"
+      ],
+      "hold": "Upstream adaptation distribution terms remain unresolved."
+    },
+    "PhobosManufacturing": {
+      "itemId": null,
+      "requires": [
+        "PhobosFramework"
+      ],
+      "hold": "Unpublished draft: first operational release awaiting owner gameplay checks."
+    }
   },
-  "externalRequiredItems": ["3741030124"]
+  "externalRequiredItems": [
+    "3741030124"
+  ]
 }

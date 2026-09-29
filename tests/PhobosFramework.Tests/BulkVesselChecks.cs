@@ -63,5 +63,16 @@ internal static class BulkVesselChecks
         check(snapshot.AvailableKg == 250 && snapshot.HeadroomKg == 800, "A snapshot reports available (above reserve) and headroom (capacity less service and catch)");
         check(new BulkVesselSnapshot("silo-1", "ship-1", "water", 300, 100, 50, 1200, 3, true).HeadroomKg == 0, "A protected vessel offers no headroom");
         BulkVessels.Unregister("test.owner");
+
+        // Damage policy: silos isolate into the catch chamber; a pressurised store declares a leak instead.
+        check(silo.DamagePolicy == VesselDamagePolicy.Isolate && silo.LeakKgPerHour == 0, "The eight-argument declaration isolates, as every existing vessel does");
+        var tank = new BulkVesselSpec("PhobosTestStore", "hydrogen", 24, 160, "test.owner", "TestStore", "TestStoreWork", "TestStoreTransfer", VesselDamagePolicy.Leak, 2);
+        check(tank.DamagePolicy == VesselDamagePolicy.Leak && tank.LeakKgPerHour == 2, "A leaking vessel declares its rate");
+        check(tank.LeakKg(0.5, 24) == 1 && tank.LeakKg(20, 5) == 5 && tank.LeakKg(0, 24) == 0 && silo.LeakKg(10, 300) == 0,
+            "The leak is rate times hours, never more than the contents, and an isolating vessel never leaks");
+        Reject(() => new BulkVesselSpec("PhobosTestStore", "hydrogen", 24, 160, "o", "a", "b", "c", VesselDamagePolicy.Leak, 0), "A leaking vessel needs a positive rate");
+        Reject(() => new BulkVesselSpec("PhobosTestStore", "hydrogen", 24, 160, "o", "a", "b", "c", VesselDamagePolicy.Isolate, 2), "An isolating vessel declares no rate");
+        Reject(() => new BulkVesselSpec("PhobosTestStore", "hydrogen", 24, 160, "o", "a", "b", "c", VesselDamagePolicy.Leak, double.NaN), "An invalid rate is refused");
+        Reject(() => tank.LeakKg(-1, 24), "A negative interval is refused");
     }
 }

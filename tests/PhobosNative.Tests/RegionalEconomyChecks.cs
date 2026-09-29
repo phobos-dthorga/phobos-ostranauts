@@ -24,7 +24,8 @@ internal static class RegionalEconomyChecks
         var packs = new (Func<NativeDefinitions> Prepare, (string Region, double Factor)[] Profiles)[] {
             (() => PhobosShipbreaker.Content.Prepare(), PhobosShipbreaker.RegionalEconomy.Profiles),
             (() => PhobosAgriculture.Definitions.Prepare(), PhobosAgriculture.RegionalEconomy.Profiles),
-            (() => PhobosAutoNav.EquipmentContent.Prepare(), PhobosAutoNav.RegionalEconomy.Profiles)
+            (() => PhobosAutoNav.EquipmentContent.Prepare(), PhobosAutoNav.RegionalEconomy.Profiles),
+            (() => PhobosManufacturing.Content.Prepare(true), PhobosManufacturing.RegionalEconomy.Profiles)
         };
         foreach (var (prepare, profiles) in packs)
         {
@@ -90,6 +91,10 @@ internal static class RegionalEconomyChecks
             (PhobosShipbreaker.Core.ReclaimerRules.Reject, "AnyTrash"),
             (PhobosShipbreaker.Core.FurnaceRules.Remainder, "AnyTrash"),
             (PhobosShipbreaker.Core.FurnaceRecipes.SteelRemainder, "AnyTrash"),
+            (PhobosManufacturing.Core.RefineryRules.Prefix + "Loose", "AnyIndustrialProducts"),
+            (PhobosManufacturing.Core.Materials.NickelIronIngot, "AnyMetal"),
+            (PhobosManufacturing.Core.Materials.RefinerySlag, "AnyTrash"),
+            (PhobosManufacturing.Core.Materials.ClayHydrates, "AnyOres"),
             (PhobosAgriculture.WorkupDefinitions.Makeup, "AnyIndustrialProducts"),
             (PhobosAgriculture.Definitions.Meal, "AnyFood"),
             (PhobosAgriculture.Definitions.Raw, "AnyFood"),

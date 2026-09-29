@@ -36,6 +36,17 @@ a real company, seed cultivar, research programme or institutional endorsement.
 | Phobos' Rivetline R4-S Scrap Reclaimer Assembly Section | Reclaimer construction section |
 | Phobos' Verdemorrow Firstlight-4 Cultivation Rack | Four-by-four finite cultivation rack |
 | Phobos' Verdemorrow Hearth-2 Galley Cooker | Two-by-two portion cooker |
+| Phobos' Fennmark V4 Volatiles Refinery | Four-by-four electric hearth and drying retort (Manufacturing) |
+| Phobos' Fennmark X2 Chemical Processor | Two-by-two water electrolysis cell (Manufacturing) |
+| Phobos' Fennmark H2 Hydrogen Store | Two-by-two passive pressurised hydrogen store (Manufacturing) |
+
+**Fennmark** is Manufacturing's separate fictional manufacturer (owner choice,
+29 September 2026): refining and process chemistry. V, X and H identify the
+refinery, chemical-cell and hydrogen-store roles; the digit is the footprint
+width. Its materials carry the brand without model numbers: Phobos' Fennmark
+Nickel-Iron Ingot, Carbon Stock, Refinery Slag, Anhydrous Residue and Clay
+Hydrates (the last is a mined chunk, branded only because every Phobos item is).
+See [the refinery record](manufacturing-refinery-and-chemistry.md).
 
 N and C identify navigation/control electronics; D, G, H, R and C identify the
 industrial product roles. The industrial digits reflect the current equipment's

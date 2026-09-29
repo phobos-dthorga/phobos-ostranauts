@@ -1,0 +1,9 @@
+using System;
+
+int checks = 0;
+void Check(bool condition, string message) { if (!condition) throw new Exception(message); checks++; }
+void Throws(Action action, string message) { bool failed = false; try { action(); } catch { failed = true; } Check(failed, message); }
+RefineryChecks.Run(Check, Throws);
+ProcessorChecks.Run(Check, Throws);
+HydrogenChecks.Run(Check, Throws);
+Console.WriteLine($"PASS: {checks} Manufacturing chemistry, charge, record and hazard checks on numbers alone. No game session was run.");

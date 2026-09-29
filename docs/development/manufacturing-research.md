@@ -2,7 +2,9 @@
 
 25 September 2026. **First-round research and proposed balance; no operational
 machining is implemented.** The companion [implementation record](manufacturing-implementation.md)
-describes the buildable 0.0.1 scaffold. This follows the
+describes what Manufacturing 0.1.0 ships instead (refinery, electrolysis cell,
+hydrogen store); nickel-iron ingots now join Shipbreaker's ingots as candidate
+machining stock for the M4 proposed here. This follows the
 [owner's handover](manufacturing-handover.md); it does not revise shipped housing
 recipes, saved furnace jobs or residue identities.
 

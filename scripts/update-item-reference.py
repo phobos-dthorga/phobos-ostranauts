@@ -219,7 +219,7 @@ def generate(root, data, config):
              'Tables are generated from the current definitions; operating notes are reviewed separately.', '',
              '| Mod | Reference |', '| --- | --- |']
     index += [f'| {m["name"]} | [Items and equipment]({SLUGS[mid]}-item-reference.md) |' for mid, m in mods.items()]
-    index += ['', 'Manufacturing is explicitly empty while it remains a scaffold. Framework documents shared spent parts.', '',
+    index += ['', 'Framework documents shared spent parts.', '',
               'For placement tabs, see [INSTALL catalogue](development/install-catalogue.md). For refreshing these documents, see [reference maintenance](development/item-reference-maintenance.md).', '']
     outputs[Path('docs/item-references.md')] = '\n'.join(index)
     return outputs

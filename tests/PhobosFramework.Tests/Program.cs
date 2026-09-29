@@ -31,6 +31,8 @@ BulkStorageChecks.Run(Check);
 BulkVesselChecks.Run(Check);
 CrewWorkChecks.Run(Check);
 ReactorChecks.Run(Check);
+RoomHeatChecks.Run(Check);
+GasCanisterChecks.Run(Check);
 
 // Consume the built public assembly, without compiling private copies of its code.
 Check(typeof(BatchPlacement).Assembly.GetName().Name == "PhobosFramework", "Consumer uses the shared assembly");

@@ -1,0 +1,276 @@
+{
+  "date": "2026-09-29",
+  "provider": "PixelLab",
+  "operation": "create_image_pixflux",
+  "mod": "PhobosManufacturing",
+  "allowanceBefore": 1875,
+  "allowanceAfter": 1865,
+  "creditBalanceUSD": 0,
+  "inputProvenance": "Start images are original Phobos procedural drawings (Fennmark colours) or first passes of this record; no game or third-party imagery uploaded. Start drawings were sent base64, first passes by their PixelLab download URL; all are retained under references/ with hashes here.",
+  "initImageHashes": {
+    "references/v4-refinery-start.png": "f8e78d201161f230e5f97ca18536ef424241964a4139b335f51ac090ab9e8a7d",
+    "references/v4-refinery-first-pass.png": "de005a70e4a91de741584f54f6096eac0348143887bd371c2d9302b99cc19609",
+    "references/x2-processor-start.png": "63cf11ba30f4c62609eddd2514786c1b9a2f266a858538d9752a30c2633b906d",
+    "references/x2-processor-first-pass.png": "26d556fbf096270f50bc1111588185e41beeb6e62197d0c7ceaf15213dc4c9b9",
+    "references/h2-store-start.png": "fd67f3e8c11d23e7dd5f2d091552c11d7a2079a7a6086a83969cd97088296ecb",
+    "references/h2-store-first-pass.png": "eb4c43c19abb4464edebb23c9595f992811ab6a6e7308a56f3b4c11718f6cf58",
+    "references/carbon-stock-start.png": "31fa6bcbb7b7611c355c3e6a207896d52c8fab440be6e91f7fc1eea048d6616c",
+    "references/carbon-stock-first-pass.png": "33dfbb4c547afb2327e2275a3b4108e719a33094c81a9e90226937c6200ffab5",
+    "references/refinery-slag-start.png": "55215d7118150fb1beaa62b356f8fff98d98aa05704d3995115e90fce67c9512",
+    "references/anhydrous-residue-start.png": "01d02b61d7d867aeb0d98eb4120484d8e4e792e338d427d1320c0dfa2568c6ef"
+  },
+  "derived": {
+    "nickel-iron-ingot": {
+      "from": "source/aluminium-ingot.png",
+      "method": "per-pixel luminance map onto a warm iron ramp; alpha and pixel placement unchanged",
+      "luminance": "0.299 R + 0.587 G + 0.114 B",
+      "channel = a * luminance + b (rounded, clamped)": {
+        "r": [
+          0.6,
+          30
+        ],
+        "g": [
+          0.54,
+          24
+        ],
+        "b": [
+          0.5,
+          22
+        ]
+      }
+    }
+  },
+  "rejectedArchive": "Nothing archived: every unselected output is a retained generation input of a selected one.",
+  "attempts": [
+    {
+      "key": "v4-refinery",
+      "operation": "create_image_pixflux",
+      "jobId": "9203a547-0eb8-44f0-9d03-4e84657eb5ce",
+      "assetId": "76ba2c1c-8196-5929-865a-18c2ab52a59c",
+      "costGenerations": 1,
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. The whole square canvas is the top of a compact spacecraft volatiles refinery installed in a square frame: a dark graphite painted steel frame with burnt-orange corner clamps around a pale sand-coloured steel deck plate lit from the upper left; upper left a large round hearth lid in dark graphite with a bolted rim and a small glowing orange sight port in its centre; upper right the top of a horizontal steel drying retort drum with two copper bands; lower left a square graphite charge hatch with one straight orange handle bar; lower right a recessed dark output tray with thin horizontal grille slats; a copper water outlet stub on the right frame; two small dark orange power sockets on the left frame; a few scuffs and rivet dots. Utilitarian retro spaceship equipment: crisp dark outlines, small readable colour regions, restrained shading, sparse purposeful details, a little wear. No perspective, no ground shadow, no pipes leaving the frame, no text, numbers, symbols or logos.",
+        "width": 128,
+        "height": 128,
+        "seed": 9290401,
+        "init_image_strength": 100,
+        "isometric": false,
+        "view": "high top-down",
+        "outline": "single color black outline",
+        "detail": "medium detail",
+        "no_background": false,
+        "shading": "basic shading"
+      },
+      "initImage": "references/v4-refinery-start.png",
+      "decision": "superseded",
+      "review": "Overhead and on-family but flat (nine colours) and the retort drum reads as a barred box; retained on main as the input of the selected second pass."
+    },
+    {
+      "key": "v4-refinery",
+      "operation": "create_image_pixflux",
+      "jobId": "1cabd3c2-d5f0-4c02-90af-4ff6c025dd9d",
+      "assetId": "a8f7933a-0712-58d8-88a2-ec2f4458bb3d",
+      "costGenerations": 1,
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. Same overhead volatiles refinery with the same layout, repainted as worn working spacecraft equipment: the pale sand steel deck plate lit from the upper left with soft shading toward the lower right, a few scuffs and rivet dots along the frame, the round graphite hearth lid with a bolted rim and a warm orange glow spilling from its small sight port, the drying retort drum on the upper right rendered as a rounded horizontal cylinder top with a light ridge, two copper bands and small end caps, the charge hatch with a worn orange handle bar and hinge marks, the output tray as a recessed dark grille with a lighter lip, a copper water outlet stub on the right frame, two small dark orange power sockets on the left frame. Crisp dark outlines, small readable colour regions, restrained shading. No perspective, no ground shadow, no text, numbers, symbols or logos.",
+        "width": 128,
+        "height": 128,
+        "seed": 9290402,
+        "init_image_strength": 120,
+        "isometric": false,
+        "view": "high top-down",
+        "outline": "single color black outline",
+        "detail": "medium detail",
+        "no_background": false,
+        "shading": "medium shading"
+      },
+      "initImage": "references/v4-refinery-first-pass.png",
+      "decision": "selected",
+      "review": "Overhead, no side faces; Fennmark colours (graphite frame, orange clamps, sand plate, copper bands); hearth, retort, hatch and tray read at 64 px. The retort still reads more as a banded panel than a drum; the outlet stub and sockets did not survive (connections are live text and separate objects)."
+    },
+    {
+      "key": "x2-processor",
+      "operation": "create_image_pixflux",
+      "jobId": "b0100f50-cc16-4fc7-a9c5-87c161f97bad",
+      "assetId": "acfbb143-d7df-5d05-863e-56977e43a582",
+      "costGenerations": 1,
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. The whole square canvas is the top of a compact spacecraft water electrolysis cell installed in a square frame: a dark graphite painted steel frame with burnt-orange corner clamps around a pale sand-coloured steel lid lit from the upper left; on the left a tall rectangular pale green sight glass showing the cell's water with a small bright reflection; on the right two round gas domes stacked vertically, the upper one pale grey steel and the lower one painted burnt orange, each with a bolted rim; along the bottom a small dark control plate; a copper water inlet stub on the left frame and a small dark orange power socket on the bottom frame; a few scuffs and rivet dots. Utilitarian retro spaceship equipment: crisp dark outlines, small readable colour regions, restrained shading, sparse purposeful details, a little wear. No perspective, no ground shadow, no pipes leaving the frame, no text, numbers, symbols or logos.",
+        "width": 128,
+        "height": 128,
+        "seed": 9290411,
+        "init_image_strength": 100,
+        "isometric": false,
+        "view": "high top-down",
+        "outline": "single color black outline",
+        "detail": "medium detail",
+        "no_background": false,
+        "shading": "basic shading"
+      },
+      "initImage": "references/x2-processor-start.png",
+      "decision": "superseded",
+      "review": "Overhead and on-family, flat; retained on main as the input of the selected second pass."
+    },
+    {
+      "key": "x2-processor",
+      "operation": "create_image_pixflux",
+      "jobId": "eead4e3d-54c8-4ad9-a01a-2eedc740216d",
+      "assetId": "6d9080d2-d195-5297-a1ee-0444dd1b3b5a",
+      "costGenerations": 1,
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. Same overhead water electrolysis cell with the same layout, repainted as worn working spacecraft equipment: the pale sand steel lid lit from the upper left with soft shading toward the lower right, a few scuffs and rivet dots along the frame, the tall pale green sight glass with a bright reflection and a dark frame, the two round gas domes with bolted rims and small highlights, the upper one pale grey steel and the lower one burnt orange, the dark control plate along the bottom with two tiny indicator dots, a copper water inlet stub on the left frame and a small dark orange power socket on the bottom frame. Crisp dark outlines, small readable colour regions, restrained shading. No perspective, no ground shadow, no text, numbers, symbols or logos.",
+        "width": 128,
+        "height": 128,
+        "seed": 9290412,
+        "init_image_strength": 120,
+        "isometric": false,
+        "view": "high top-down",
+        "outline": "single color black outline",
+        "detail": "medium detail",
+        "no_background": false,
+        "shading": "medium shading"
+      },
+      "initImage": "references/x2-processor-first-pass.png",
+      "decision": "selected",
+      "review": "Overhead, no side faces; sight glass, two domes and control plate read at 32 px; same family as the V4."
+    },
+    {
+      "key": "h2-store",
+      "operation": "create_image_pixflux",
+      "jobId": "00ec9adb-f410-45f5-a725-d7dad6b1fc0c",
+      "assetId": "42dd289c-2439-5396-82c4-9ab17d04ca68",
+      "costGenerations": 1,
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. The whole square canvas is the top of a compact spacecraft pressurised hydrogen store installed in a square frame: a dark graphite painted steel frame with burnt-orange corner clamps around a dark recessed cradle; in it two horizontal graphite steel gas cylinders lying side by side, one above the other, each lit from the upper left with a lighter top edge and a darker lower edge, each strapped by two burnt-orange bands; a small round burnt-orange vent valve wheel on the right frame and a copper manifold stub on the left frame; a few scuffs and rivet dots. Utilitarian retro spaceship equipment: crisp dark outlines, small readable colour regions, restrained shading, sparse purposeful details, a little wear. No perspective, no ground shadow, no pipes leaving the frame, no text, numbers, symbols or logos.",
+        "width": 128,
+        "height": 128,
+        "seed": 9290421,
+        "init_image_strength": 100,
+        "isometric": false,
+        "view": "high top-down",
+        "outline": "single color black outline",
+        "detail": "medium detail",
+        "no_background": false,
+        "shading": "basic shading"
+      },
+      "initImage": "references/h2-store-start.png",
+      "decision": "superseded",
+      "review": "Overhead and on-family with a stray yellow mark on the cradle; retained on main as the input of the selected second pass."
+    },
+    {
+      "key": "h2-store",
+      "operation": "create_image_pixflux",
+      "jobId": "1ede8a48-1320-4c41-a412-81fd96197bfc",
+      "assetId": "418e79ac-dfde-59e3-a81a-83673098eefa",
+      "costGenerations": 1,
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. Same overhead pressurised hydrogen store with the same layout, repainted as worn working spacecraft equipment: two horizontal graphite steel gas cylinders lying in a dark cradle, each rendered as a rounded cylinder top lit from the upper left with a light ridge along its upper edge and a darker lower edge, small rounded end caps, two burnt-orange straps each with a small buckle, a few scuffs and rivet dots along the graphite frame, the small burnt-orange vent valve wheel on the right frame with a dark hub, a copper manifold stub on the left frame. Crisp dark outlines, small readable colour regions, restrained shading. No perspective, no ground shadow, no text, numbers, symbols or logos.",
+        "width": 128,
+        "height": 128,
+        "seed": 9290422,
+        "init_image_strength": 120,
+        "isometric": false,
+        "view": "high top-down",
+        "outline": "single color black outline",
+        "detail": "medium detail",
+        "no_background": false,
+        "shading": "medium shading"
+      },
+      "initImage": "references/h2-store-first-pass.png",
+      "decision": "selected",
+      "review": "Overhead, no side faces; two strapped cylinders and the vent wheel read at 32 px; six colours, deliberately plain. The manifold stub came out grey rather than copper."
+    },
+    {
+      "key": "carbon-stock",
+      "operation": "create_image_pixflux",
+      "jobId": "f86d7da4-9114-4dba-b32d-6f3d8173d2fc",
+      "assetId": "c2e10560-cd89-5c5d-a4b7-669f9d5a665f",
+      "costGenerations": 1,
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. Draw one small block of refined carbon stock seen from directly above: a single horizontal rounded rectangular graphite briquette, matte charcoal black with a faint dark-grey sheen and a few tiny lighter grey flecks along the upper-left edge, slightly rounded corners, a subtle pressed groove across the middle. Clearly clean industrial carbon stock, not coal ore, not food. Original coarse pixel art, three-tone shading, utilitarian spaceship workshop stock. Centre the complete silhouette on a transparent 64 x 64 canvas with 8-pixel side margins; intended native export 16 x 16. No perspective, no side walls, no scene, no ground shadow, no text, letters or logos.",
+        "width": 64,
+        "height": 64,
+        "seed": 9290431,
+        "init_image_strength": 60,
+        "isometric": false,
+        "view": "high top-down",
+        "outline": "selective outline",
+        "shading": "medium shading",
+        "detail": "medium detail",
+        "no_background": true
+      },
+      "initImage": "references/carbon-stock-start.png",
+      "decision": "superseded",
+      "review": "Overhead but too dark to read against the game's dark inventory background at 16 px; retained on main as the input of the selected second pass."
+    },
+    {
+      "key": "carbon-stock",
+      "operation": "create_image_pixflux",
+      "jobId": "d36d57e3-c660-40bd-a580-2c7094699a90",
+      "assetId": "c8c09c83-5f18-567a-837e-af796b2a2ea7",
+      "costGenerations": 1,
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. Draw one small block of refined carbon stock seen from directly above: a single horizontal rounded rectangular graphite briquette with a medium dark-grey top face carrying a soft silvery graphite sheen and several small lighter grey flecks, a darker charcoal rim all the way round, a crisp light grey highlight along its upper-left edge, and a shallow pressed groove across the middle. Readable against a dark background: the top face is clearly lighter than the rim. Clearly clean industrial carbon stock, not coal ore, not food. Original coarse pixel art, three-tone shading, utilitarian spaceship workshop stock. Centre the complete silhouette on a transparent 64 x 64 canvas with 8-pixel side margins; intended native export 16 x 16. No perspective, no side walls, no scene, no ground shadow, no text, letters or logos.",
+        "width": 64,
+        "height": 64,
+        "seed": 9290432,
+        "init_image_strength": 70,
+        "isometric": false,
+        "view": "high top-down",
+        "outline": "selective outline",
+        "shading": "medium shading",
+        "detail": "medium detail",
+        "no_background": true
+      },
+      "initImage": "references/carbon-stock-first-pass.png",
+      "decision": "selected",
+      "review": "Overhead briquette with a lighter flecked top face and a dark rim; reads as carbon stock at 16 px against a dark background."
+    },
+    {
+      "key": "refinery-slag",
+      "operation": "create_image_pixflux",
+      "jobId": "921c4375-99da-4dba-af35-54439376da62",
+      "assetId": "c831deeb-b135-51ba-989c-43e92ed19cf0",
+      "costGenerations": 1,
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. Draw one small irregular lump of refinery slag seen from directly above: a rough knobbly blob of three fused rounded clumps, dark purple-grey and charcoal with one dull rust-orange streak, a small glassy blue-black sheen on one clump, pitted bubbly texture and a few lighter grey highlights on the upper edges. Clearly spent industrial waste, not ore, not food, not a rock pile. Original coarse pixel art, three-tone shading. Centre the complete silhouette on a transparent 64 x 64 canvas with 8-pixel margins; intended native export 16 x 16. No perspective, no scene, no ground shadow, no glow, no text or logos.",
+        "width": 64,
+        "height": 64,
+        "seed": 9290441,
+        "init_image_strength": 60,
+        "isometric": false,
+        "view": "high top-down",
+        "outline": "selective outline",
+        "shading": "medium shading",
+        "detail": "medium detail",
+        "no_background": true
+      },
+      "initImage": "references/refinery-slag-start.png",
+      "decision": "selected",
+      "review": "Overhead purple-grey lump with a rust streak; distinct in hue from Shipbreaker's two melt remainders at 16 px."
+    },
+    {
+      "key": "anhydrous-residue",
+      "operation": "create_image_pixflux",
+      "jobId": "eb34bd07-f335-419c-a70c-f75fb432ce15",
+      "assetId": "3acef4d1-fa3a-530c-b2cd-f03aff87a9d9",
+      "costGenerations": 1,
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. Draw one chunk of dry baked clay residue seen from directly above: a single angular pale grey-tan lump with a flat cracked top, two or three dark hairline cracks, a slightly lighter dusty upper-left region and a darker tan lower-right edge, a few pale crumbs at its edge. Clearly dry spent mineral waste, not ore, not food, not bread. Original coarse pixel art, three-tone shading. Centre the complete silhouette on a transparent 64 x 64 canvas with 8-pixel margins; intended native export 16 x 16. No perspective, no scene, no ground shadow, no glow, no text or logos.",
+        "width": 64,
+        "height": 64,
+        "seed": 9290451,
+        "init_image_strength": 60,
+        "isometric": false,
+        "view": "high top-down",
+        "outline": "selective outline",
+        "shading": "medium shading",
+        "detail": "medium detail",
+        "no_background": true
+      },
+      "initImage": "references/anhydrous-residue-start.png",
+      "decision": "selected",
+      "review": "Overhead pale tan cracked chunk; reads as dry mineral waste at 16 px, distinct from the ores and gangue."
+    }
+  ]
+}

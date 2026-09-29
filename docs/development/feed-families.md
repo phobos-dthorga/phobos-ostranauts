@@ -87,4 +87,8 @@ and machinery shells (fluid or electronic contents the budget cannot vouch for).
 - An R4 trash sink (the game's own market maps convert 5 trash to 1 metal) and
   structural residue units need a multi-unit input contract; `ProcessJob` binds
   one input identity today.
-- Conduit, and any refined metal without a consumer.
+- Conduit, and any refined metal without a consumer. Manufacturing 0.1.0's
+  nickel-iron ingots and carbon stock have consumers (the V4's steel charge and
+  the coming machining centre); see
+  [the refinery record](manufacturing-refinery-and-chemistry.md). They are not
+  D4 feed and are not scrap.

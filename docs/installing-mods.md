@@ -2,6 +2,7 @@
 
 Current prepared Shipbreaker requires Auto Nav 0.19.0 and Framework 0.39.0.
 Current prepared Agriculture requires Framework 0.39.0 for shared crew work and controls.
+Current prepared Manufacturing requires Framework 0.41.0 for room heat, native gas and vessel damage services.
 Current dependency minima come from `config/mod-dependency-minimums.json`,
 maintained with the constants updater and runtime requirements. Historical package
 compatibility floors remain supported. Build before installation; preview with
@@ -64,10 +65,12 @@ directly without interacting with your mouse or opening a launcher window.
 # Agriculture is opt-in and automatically includes Framework.
 ./scripts/install-mods.ps1 -Mods Agriculture
 
-# Manufacturing is an opt-in research scaffold, with no operational equipment.
+# Manufacturing (refinery, electrolysis cell and hydrogen store) is opt-in and
+# includes Framework; add Shipbreaker for its steel charge and water silo.
 ./scripts/install-mods.ps1 -Mods Manufacturing
+./scripts/install-mods.ps1 -Mods Shipbreaker,Manufacturing
 
-# Keep an older Manufacturing 0.0.1 scaffold out of the loader while held.
+# Keep an older Manufacturing 0.0.1 scaffold out of the loader without installing 0.1.0.
 ./scripts/install-mods.ps1 -Mods AutoNav,Shipbreaker,Agriculture -HoldManufacturing
 
 # Explicitly select all five current mods.
@@ -92,8 +95,10 @@ directly without interacting with your mouse or opening a launcher window.
 ```
 
 Approach Assist is retired and no longer offered by the installer.
-Manufacturing remains held. If an earlier development install left its 0.0.1
-plugin behind, `-HoldManufacturing` backs up and removes that DLL from the loader
+Manufacturing 0.1.0 is an ordinary operational package; see its
+[player guide](manufacturing-player-guide.md). If an earlier development install
+left the 0.0.1 scaffold plugin behind and you do not want 0.1.0 yet,
+`-HoldManufacturing` backs up and removes that DLL from the loader
 directory after checking its identity and verifying the backup. Its native entry
 must already be disabled or absent; native files and other plugin files remain
 untouched. The receipt records the backup. This option rejects other assemblies

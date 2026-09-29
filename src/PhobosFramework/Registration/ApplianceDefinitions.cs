@@ -22,6 +22,39 @@ public static class ApplianceDefinitions
         }
     }
 
+    /// <summary>A hidden feed compartment on an appliance family: a locked system bin admitted by
+    /// <paramref name="containerTrigger"/>, its slot, and the loot that fits it. Content narrows admission
+    /// further with its own container patch; the bin's cells are <paramref name="cells"/> x 1.</summary>
+    public static void AddFeedBin(NativeDefinitions d, string prefix, string containerTrigger, int cells, string name)
+    {
+        if (cells < 1) throw new ArgumentException("A feed bin needs at least one cell.");
+        string bin = prefix + "InputBin", slot = prefix + "Input", loot = prefix + "Compartments";
+        d.Objects[bin] = new JsonCondOwner { strName = bin, strNameFriendly = name, strNameShort = name, strType = "Item", strItemDef = "Blank",
+            strPortraitImg = "blank", strContainerCT = containerTrigger, nStackLimit = 1, bSlotLocked = true, nContainerWidth = cells, nContainerHeight = 1,
+            aInteractions = Array.Empty<string>(), aStartingConds = new[] { "IsContainer=1x1", "IsSystem=1x1" }, mapSlotEffects = new[] { slot, "Blank" } };
+        d.Slots[slot] = new JsonSlot { strName = slot, strNameFriendly = name, strHitboxImage = "blank", nItems = 1, nDepth = 15, bCarried = true, bHide = true };
+        d.Loot[loot] = new Loot { strName = loot, strType = "item", aCOs = new[] { bin + "=1x1" }, aLoots = Array.Empty<string>() };
+        foreach (string form in new[] { "Installed", "Loose", "InstalledDmg", "LooseDmg" })
+        {
+            var co = d.Objects[prefix + form];
+            co.strLoot = loot; co.aSlotsWeHave = new[] { slot };
+            // The feed opens as its own titled window beside the ordinary tray.
+            co.dictSlotsLayout = new Dictionary<string, UnityEngine.Vector3> { ["self"] = UnityEngine.Vector3.zero };
+        }
+    }
+
+    /// <summary>Idle and working electrical demand on the family's power info: the working amount applies while
+    /// the machine carries <paramref name="workingCondition"/>, which content sets from its own service.</summary>
+    public static void SetPowerOverride(NativeDefinitions d, string prefix, double idleKW, double workingKW, string workingCondition, params string[] inputPoints)
+    {
+        if (idleKW < 0 || workingKW <= 0 || double.IsNaN(idleKW) || double.IsNaN(workingKW)) throw new ArgumentException("Invalid electrical demand.");
+        var power = d.Power[prefix + "Power"];
+        if (inputPoints.Length > 0) power.aInputPts = inputPoints;
+        power.fAmount = idleKW / Units.SecondsPerHour;
+        power.strOverrideCond = workingCondition;
+        power.fOverrideAmount = workingKW / Units.SecondsPerHour;
+    }
+
     // Preserve the existing public signature for already-compiled content consumers.
     public static void Add(NativeDefinitions d, string prefix, string name, string description, int size, double kg, double price, string image, string controls, double kw) =>
         Add(d, prefix, name, description, size, kg, price, image, controls, kw, InstallMenu.Appliances);

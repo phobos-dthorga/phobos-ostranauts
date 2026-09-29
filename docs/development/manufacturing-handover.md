@@ -1,7 +1,9 @@
 # Phobos Manufacturing: handover for a separate task
 
-**Historical task handover.** Manufacturing now has a buildable, held scaffold,
-but no operating machinery. See [current implementation status](manufacturing-implementation.md).
+**Historical task handover.** Manufacturing 0.1.0 now ships the Fennmark V4
+volatiles refinery, X2 chemical processor and H2 hydrogen store; the M4 machining
+centre below remains a design. See [current implementation status](manufacturing-implementation.md)
+and [the refinery record](manufacturing-refinery-and-chemistry.md).
 Shipbreaker now has [furnace material routing](../furnace-material-routing.md).
 The original instructions and visibility assumptions below record the earlier handover.
 

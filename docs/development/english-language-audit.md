@@ -356,3 +356,15 @@ package installed and later packages no longer ship is backed up, recorded in th
 receipt and removed only when its SHA-256 matches the catalogue, and previews and
 verification report it. No translation entries change. Coverage is unchanged at
 2,053 entries, 159 documents and 14 other surfaces. Unity wording is unverified.
+
+## Manufacturing 0.1.0, 29 September 2026
+
+Manufacturing 0.1.0 and Framework 0.41.0 add the Fennmark refinery, chemical
+processor and hydrogen store. Every Manufacturing catalog entry is new (168
+strings, reviewed against the player-language rule: situation, meaning and next
+action; IDs, units, commands and placeholders kept) and the 0.0.1 scaffold
+diagnostic is removed. Framework adds one vessel-loss journal line. The new
+player guide and two development records join the reviewed documents; the
+Workshop page is rewritten as an unpublished draft. Coverage is now
+2,215 entries, 162 documents and 14 other surfaces.
+Unity wording is unverified.

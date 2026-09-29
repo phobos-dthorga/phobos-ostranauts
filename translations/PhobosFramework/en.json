@@ -360,5 +360,6 @@
   "Console.ship_wide": "Anywhere aboard",
   "Console.ship_wide_choose": "Use anything aboard: deck, stores and trays",
   "BulkVessel.lost": "Bulk vessel {0} was destroyed with {2:F1} kg of {1} inside. That material is gone.",
-  "BulkVessel.quote_changed": "The destination or its available room changed. Choose the quantity again for a fresh quote."
+  "BulkVessel.quote_changed": "The destination or its available room changed. Choose the quantity again for a fresh quote.",
+  "BulkVessel.drained": "{0} lost {2:F3} kg of {1}: {3}."
 }

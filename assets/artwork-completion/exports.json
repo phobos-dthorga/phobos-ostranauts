@@ -1468,5 +1468,183 @@
     "normal": "Neutral tangent normal with matching alpha; no authored relief",
     "registrationReference": null,
     "patches": null
+  },
+  {
+    "key": "v4-refinery",
+    "sourceSHA256": "db0a71cb23f4b500a10c3128b153629b87419dafe7d0857d6dfd7cf399c38040",
+    "nativeSize": [
+      64,
+      64
+    ],
+    "pivot": [
+      32,
+      32
+    ],
+    "sourceBounds": [
+      0,
+      0,
+      128,
+      128
+    ],
+    "exports": {
+      "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosVolatilesRefinery.png": "dca37cd9f14fbfbe10f3d7ec92ae2ae76d921effda50dcbd78d6bdba3720132c",
+      "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosVolatilesRefineryNormal.png": "072b54cf18c7b6527f75471c798c9fd23e7ba7163f0a2f02e651f8caa08f30b5"
+    },
+    "normal": "Neutral tangent normal with matching alpha; no authored relief",
+    "registrationReference": null,
+    "patches": null,
+    "fullFootprint": true
+  },
+  {
+    "key": "x2-processor",
+    "sourceSHA256": "af7f666626c09fdfaf0c9b3e4345e181af84ad3fa281fb50ded43d51c7b2f815",
+    "nativeSize": [
+      32,
+      32
+    ],
+    "pivot": [
+      16,
+      16
+    ],
+    "sourceBounds": [
+      0,
+      0,
+      128,
+      128
+    ],
+    "exports": {
+      "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosChemicalProcessor.png": "0d919c0492915a383fcc7204d0723d65b382a48203eb7ac7a0575f2082025a90",
+      "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosChemicalProcessorNormal.png": "7e4297a0c170e01336e183a0cfa61b23f5bf84a0d480bd40c09a68f2b5e9ae12"
+    },
+    "normal": "Neutral tangent normal with matching alpha; no authored relief",
+    "registrationReference": null,
+    "patches": null,
+    "fullFootprint": true
+  },
+  {
+    "key": "h2-store",
+    "sourceSHA256": "5599c29c7849847c6dbd56699955f137f81aea64af81cac5442aa5007bb23015",
+    "nativeSize": [
+      32,
+      32
+    ],
+    "pivot": [
+      16,
+      16
+    ],
+    "sourceBounds": [
+      0,
+      0,
+      128,
+      128
+    ],
+    "exports": {
+      "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosHydrogenStore.png": "aa9509211d2398332bf967a44b22615d629060b3dbc74dd39b23e73fb6a23df1",
+      "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosHydrogenStoreNormal.png": "7e4297a0c170e01336e183a0cfa61b23f5bf84a0d480bd40c09a68f2b5e9ae12"
+    },
+    "normal": "Neutral tangent normal with matching alpha; no authored relief",
+    "registrationReference": null,
+    "patches": null,
+    "fullFootprint": true
+  },
+  {
+    "key": "nickel-iron-ingot",
+    "sourceSHA256": "3039220aeeced6e74d2940f2dad6d55f726fb1a6985fda01bbf74f25a58411e8",
+    "nativeSize": [
+      16,
+      16
+    ],
+    "pivot": [
+      8,
+      8
+    ],
+    "sourceBounds": [
+      2,
+      16,
+      62,
+      47
+    ],
+    "exports": {
+      "mods/PhobosManufacturing/images/phobos/manufacturing/StockNickelIronIngot.png": "68129dd53a3969b1995bdf4f0b7f56073834ce779167b76708f05ac7f48c6c11",
+      "mods/PhobosManufacturing/images/phobos/manufacturing/StockNickelIronIngotNormal.png": "c84c390798df799791a412c25aeee2e1a864033bcd117ce2a699bc758a19c186"
+    },
+    "normal": "Neutral tangent normal with matching alpha; no authored relief",
+    "registrationReference": null,
+    "patches": null
+  },
+  {
+    "key": "carbon-stock",
+    "sourceSHA256": "d139ff0d5c3dac235f29740c9068fde836e7348d8c8668f3aa9a0cbc3167a07d",
+    "nativeSize": [
+      16,
+      16
+    ],
+    "pivot": [
+      8,
+      8
+    ],
+    "sourceBounds": [
+      13,
+      20,
+      51,
+      43
+    ],
+    "exports": {
+      "mods/PhobosManufacturing/images/phobos/manufacturing/StockCarbon.png": "f6a9c28445c8694a80b156b3705c2f6b87b65674b29b22a8180b468b5559a8e9",
+      "mods/PhobosManufacturing/images/phobos/manufacturing/StockCarbonNormal.png": "f199ea2623558c3ef7b6868818f5431e877f08850ba33552e9755399f9aa0793"
+    },
+    "normal": "Neutral tangent normal with matching alpha; no authored relief",
+    "registrationReference": null,
+    "patches": null
+  },
+  {
+    "key": "refinery-slag",
+    "sourceSHA256": "a01d317ea51a1c8fc2e310bdb7d5409d6c1b302a1a1774e74e9afc456ab113df",
+    "nativeSize": [
+      16,
+      16
+    ],
+    "pivot": [
+      8,
+      8
+    ],
+    "sourceBounds": [
+      13,
+      14,
+      51,
+      50
+    ],
+    "exports": {
+      "mods/PhobosManufacturing/images/phobos/manufacturing/StockRefinerySlag.png": "51c3b425d0c6ff339be97455473b6ae860718ff7bd236de23c0795ea68c1c4d5",
+      "mods/PhobosManufacturing/images/phobos/manufacturing/StockRefinerySlagNormal.png": "1a13c6a6b7cffa502fccaad72716ac2310e6456772d03539086e4133016c6963"
+    },
+    "normal": "Neutral tangent normal with matching alpha; no authored relief",
+    "registrationReference": null,
+    "patches": null
+  },
+  {
+    "key": "anhydrous-residue",
+    "sourceSHA256": "62c2633dff42239c713b1cb912de28c51ae5db2f296ddbca2d7abb42a1f6d036",
+    "nativeSize": [
+      16,
+      16
+    ],
+    "pivot": [
+      8,
+      8
+    ],
+    "sourceBounds": [
+      13,
+      15,
+      51,
+      49
+    ],
+    "exports": {
+      "mods/PhobosManufacturing/images/phobos/manufacturing/StockAnhydrousResidue.png": "64246e3eda0c0a7ec80776b4350249ec5b72f4ad96d75d6be425619be4397c60",
+      "mods/PhobosManufacturing/images/phobos/manufacturing/StockAnhydrousResidueNormal.png": "229b26a10a0176e0f4a92cd32b699967ac576be6cf23f86479b4899b905c0127"
+    },
+    "normal": "Neutral tangent normal with matching alpha; no authored relief",
+    "registrationReference": null,
+    "patches": null
   }
 ]

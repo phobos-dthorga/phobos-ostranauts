@@ -52,6 +52,20 @@ for each regional offer.
 | The economy guide lacked S3/T2 Restore, repair and dismantle rows, and several older rows | `docs/equipment-economy.md` | Rows added from the definitions |
 | No check confirmed a native buyer for every retail item | Native checks | Added, with categories for ingots (`AnyMetal`), the S3/T2 (`AnyIndustrialProducts`) and remainders (`AnyTrash`) |
 
+## Manufacturing 0.1.0 (29 September 2026)
+
+The three Fennmark machines follow the audited pattern from the start: the same
+five merchant routes as the S3/T2 (K-Leg supply broken, fixer used, Halvorson
+new, Venus broken and refurbished), regional supply kiosks, one bounded
+engineering-loot choice over the six loose forms, repair bills equal to their
+mass, dismantling below whole value, Restore rates and `EquipmentSaveUpgrade`.
+Nickel-iron ingots and carbon stock are `AnyMetal` / `AnyIndustrialProducts`
+so the Venus, K-Leg supply and furnishings buyers accept them; scrap kiosks do
+not (the ingot rule above). Slag and anhydrous residue carry the Trash category.
+Clay hydrates are ore: a bounded mining-table choice, bought by the government
+kiosks, sold by nobody. Every refinery charge loses money against selling its
+input whole; the table is in [the refinery record](manufacturing-refinery-and-chemistry.md).
+
 ## Held deliberately
 
 - **S3, T2 and R3 stay purchase-only** (owner decision, 29 September 2026).

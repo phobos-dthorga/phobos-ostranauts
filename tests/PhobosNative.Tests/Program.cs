@@ -49,6 +49,7 @@ Load(Path.Combine(native, "cooverlays"), DataHandler.dictCOOverlays, x => x.strN
 CrewNativeChecks.Run(Check);
 Load(Path.Combine(repo, "mods/PhobosShipbreaker/data/conditions"), DataHandler.dictConds, x => x.strName);
 Load(Path.Combine(repo, "mods/PhobosShipbreaker/data/condtrigs"), DataHandler.dictCTs, x => x.strName);
+Load(Path.Combine(repo, "mods/PhobosManufacturing/data/conditions"), DataHandler.dictConds, x => x.strName);
 PlaceholderHealthChecks.Run(Check);
 SavedGridHeaderChecks.Run(Check);
 if (args.Length == 5 && args[2] == "--audit-room-grid")
@@ -113,6 +114,12 @@ ObservationNativeChecks.Run(Check);
 FurnaceCoolingNativeChecks.Run(prepared, repo, Check);
 FurnaceMaterialNativeChecks.Run(prepared, Check);
 SiloNativeChecks.Run(prepared, agriculture, repo, Check);
+// Manufacturing prepares after Shipbreaker has published, as the soft dependency orders it in the game.
+var manufacturing = PhobosManufacturing.Content.Prepare(true);
+foreach (var equipment in manufacturing.Objects.Values)
+    Check(equipment.strNameFriendly.StartsWith("Phobos' ", StringComparison.Ordinal) || equipment.strName.StartsWith("SysPhobos", StringComparison.Ordinal), "Branded Manufacturing machine or material: " + equipment.strName);
+manufacturing.Publish();
+ManufacturingNativeChecks.Run(manufacturing, PhobosManufacturing.Content.Prepare(false), game, repo, Check, Throws);
 // Exercise the game's own data-only trigger evaluator against its actual wall
 // definition: the ordinary solid-container filter caused the grey inventory bug.
 var wallData = new DataCO(DataHandler.dictCOs[ProcessRules.Wall]);
@@ -278,7 +285,7 @@ Check(!ConstructionRegistry.Ready("ConflictAfter") && ConstructionRegistry.Statu
 ClearConstruction();
 EconomyChecks.Run(repo, Check, Throws);
 EquipmentValueAudit.Run(repo, Check, args.Length > 2 ? args[2] : null);
-InstallMenuChecks.Run(agriculture, prepared, Check, Throws);
+InstallMenuChecks.Run(agriculture, prepared, manufacturing, Check, Throws);
 AutoNavHubChecks.Run(repo, Check, Throws);
 FireNativeChecks.Run(Check);
 ShipbreakerGeometryChecks.Run(Check);

@@ -43,8 +43,8 @@ and their Open RAIL-M reference remain applicable. Provider terms are separate
 from code licensing, statutory copyright and third-party clearance. Only original
 Phobos imagery or text was submitted; no Blue Bottle Games assets were uploaded.
 
-Manufacturing and underfloor terminal concepts remain design-only until equipment
-contracts are settled. Native circuit boards and generic maintenance waste
+Underfloor terminal concepts remain design-only until equipment contracts are
+settled; Manufacturing's first equipment has its own pass below. Native circuit boards and generic maintenance waste
 intentionally reuse game resources at runtime. R3 already has dedicated intact
 and damaged masters shared with its loose forms. No gameplay systems, scientific
 claims or material outputs are added by artwork.
@@ -64,3 +64,18 @@ generations) with $0 credit and no purchases. Only original Phobos drawings were
 uploaded. Rejected and superseded outputs are archived at commit `1df5784` on the
 archive branch; the design record is
 [the bulk silo handoff](../../docs/development/bulk-silo-art-handoff.md).
+
+## Manufacturing 0.1.0 pass, 29 September 2026
+
+Seven selected masters for the Fennmark family: `source/v4-refinery.png`,
+`source/x2-processor.png`, `source/h2-store.png` (full footprint, world sprite
+as portrait), `source/carbon-stock.png`, `source/refinery-slag.png`,
+`source/anhydrous-residue.png`, and `source/nickel-iron-ingot.png`, a recorded
+luminance recolour of the aluminium ingot. Every request, seed, setting, job
+ID, cost and review is in [manufacturing-requests.json](manufacturing-requests.json);
+the original start drawings and the first passes that the selected second
+passes used are kept in `references/`. The allowance decreased from 1,875 to
+1,865 (10 included generations) with $0 credit and no purchases. Only original
+Phobos drawings were uploaded. Nothing was archived: every unselected output
+is a retained input of a selected one. The design record is
+[the Fennmark art handoff](../../docs/development/manufacturing-art-handoff.md).

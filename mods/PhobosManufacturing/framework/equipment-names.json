@@ -1,0 +1,11 @@
+{
+  "Refinery.name": { "brand": "Fennmark", "model": "V4" },
+  "Refinery.feed_name": { "brand": "Fennmark", "model": "V4" },
+  "Processor.name": { "brand": "Fennmark", "model": "X2" },
+  "Store.name": { "brand": "Fennmark", "model": "H2" },
+  "Material.PhobosNickelIronIngot": { "brand": "Fennmark", "model": "" },
+  "Material.PhobosCarbonStock": { "brand": "Fennmark", "model": "" },
+  "Material.PhobosRefinerySlag": { "brand": "Fennmark", "model": "" },
+  "Material.PhobosAnhydrousResidue": { "brand": "Fennmark", "model": "" },
+  "Material.PhobosClayHydrates": { "brand": "Fennmark", "model": "" }
+}
