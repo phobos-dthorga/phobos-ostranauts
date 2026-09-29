@@ -8192,7 +8192,7 @@
     {
       "id": "PhobosFramework",
       "name": "Phobos Framework",
-      "version": "0.41.0",
+      "version": "0.42.0",
       "gameTarget": "1.0.1.5",
       "items": [
         {
@@ -8234,7 +8234,7 @@
     {
       "id": "PhobosManufacturing",
       "name": "Phobos Manufacturing",
-      "version": "0.2.0",
+      "version": "0.3.0",
       "gameTarget": "1.0.1.5",
       "items": [
         {
@@ -9999,6 +9999,983 @@
           "aliases": []
         },
         {
+          "id": "PhobosPropellantLineInstalled",
+          "name": "Phobos' Fennmark Propellant Line",
+          "stackLimit": 1,
+          "actions": [
+            "PhobosManufacturingMaintenanceInformation"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
+          "handlingFlags": [
+            "IsInstalled",
+            "IsPocketable"
+          ],
+          "slots": [],
+          "massKg": 1.0,
+          "baseValue": 3.0,
+          "installed": true,
+          "operatingModes": [],
+          "installTab": "HVAC",
+          "jobs": [
+            {
+              "id": "PhobosPropellantLineInstalledDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosPropellantLineInstalledDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 120.0,
+              "outputs": [
+                {
+                  "id": "PhobosPropellantLineWaste",
+                  "name": "Phobos' Fennmark Retained propellant line waste",
+                  "count": 1,
+                  "baseValue": 0.009999999776482582
+                }
+              ]
+            },
+            {
+              "id": "PhobosPropellantLineInstalledRestore",
+              "kind": "restore",
+              "action": "ACTPhobosPropellantLineInstalledRestore",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsUndamageableNotContained",
+              "targetPassOnFreshDefinition": false,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 20.0,
+              "outputs": []
+            },
+            {
+              "id": "PhobosPropellantLineInstalledUninstall",
+              "kind": "uninstall",
+              "action": "ACTPhobosPropellantLineInstalledUninstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosPropellantLineInstalledTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 800.0,
+              "outputs": [
+                {
+                  "id": "PhobosPropellantLineLoose",
+                  "name": "Phobos' Fennmark Propellant Line",
+                  "count": 1,
+                  "baseValue": 3.0
+                }
+              ]
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosPropellantLineInstalledDmg",
+          "name": "Phobos' Fennmark Propellant Line (Damaged)",
+          "stackLimit": 1,
+          "actions": [
+            "PhobosManufacturingMaintenanceInformation"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
+          "handlingFlags": [
+            "IsDamaged",
+            "IsInstalled",
+            "IsPocketable"
+          ],
+          "slots": [],
+          "massKg": 1.0,
+          "baseValue": 0.6000000238418579,
+          "installed": true,
+          "operatingModes": [],
+          "installTab": "HVAC",
+          "jobs": [
+            {
+              "id": "PhobosPropellantLineInstalledDmgDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosPropellantLineInstalledDmgDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 120.0,
+              "outputs": [
+                {
+                  "id": "PhobosPropellantLineWaste",
+                  "name": "Phobos' Fennmark Retained propellant line waste",
+                  "count": 1,
+                  "baseValue": 0.009999999776482582
+                }
+              ]
+            },
+            {
+              "id": "PhobosPropellantLineInstalledDmgRepair",
+              "kind": "repair",
+              "action": "ACTPhobosPropellantLineInstalledDmgRepair",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosPropellantLineInstalledDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "TIsScrapAluminum=1x1"
+              ],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 120.0,
+              "outputs": [
+                {
+                  "id": "PhobosPropellantLineInstalled",
+                  "name": "Phobos' Fennmark Propellant Line",
+                  "count": 1,
+                  "baseValue": 3.0
+                }
+              ]
+            },
+            {
+              "id": "PhobosPropellantLineInstalledDmgUninstall",
+              "kind": "uninstall",
+              "action": "ACTPhobosPropellantLineInstalledDmgUninstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosPropellantLineInstalledDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 800.0,
+              "outputs": [
+                {
+                  "id": "PhobosPropellantLineLooseDmg",
+                  "name": "Phobos' Fennmark Propellant Line (Damaged)",
+                  "count": 1,
+                  "baseValue": 0.6000000238418579
+                }
+              ]
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosPropellantLineLoose",
+          "name": "Phobos' Fennmark Propellant Line",
+          "stackLimit": 10,
+          "actions": [
+            "PhobosManufacturingMaintenanceInformation",
+            "DropItem",
+            "PickupItem",
+            "DropItemStack",
+            "PickupItemStack"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
+          "handlingFlags": [
+            "IsPocketable"
+          ],
+          "slots": [
+            "heldL",
+            "heldR"
+          ],
+          "massKg": 1.0,
+          "baseValue": 3.0,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [
+            {
+              "id": "PhobosPropellantLineLooseDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosPropellantLineLooseDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 120.0,
+              "outputs": [
+                {
+                  "id": "PhobosPropellantLineWaste",
+                  "name": "Phobos' Fennmark Retained propellant line waste",
+                  "count": 1,
+                  "baseValue": 0.009999999776482582
+                }
+              ]
+            },
+            {
+              "id": "PhobosPropellantLineLooseInstall",
+              "kind": "install",
+              "action": "ACTPhobosPropellantLineLooseInstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosPropellantLineLooseTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "PhobosPropellantLineLooseTest=1x1"
+              ],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 1000.0,
+              "outputs": [
+                {
+                  "id": "PhobosPropellantLineInstalled",
+                  "name": "Phobos' Fennmark Propellant Line",
+                  "count": 1,
+                  "baseValue": 3.0
+                }
+              ]
+            },
+            {
+              "id": "PhobosPropellantLineLooseRestore",
+              "kind": "restore",
+              "action": "ACTPhobosPropellantLineLooseRestore",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsUndamageableNotContained",
+              "targetPassOnFreshDefinition": false,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 20.0,
+              "outputs": []
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosPropellantLineLooseDmg",
+          "name": "Phobos' Fennmark Propellant Line (Damaged)",
+          "stackLimit": 10,
+          "actions": [
+            "PhobosManufacturingMaintenanceInformation",
+            "DropItem",
+            "PickupItem",
+            "DropItemStack",
+            "PickupItemStack"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
+          "handlingFlags": [
+            "IsDamaged",
+            "IsPocketable"
+          ],
+          "slots": [
+            "heldL",
+            "heldR"
+          ],
+          "massKg": 1.0,
+          "baseValue": 0.6000000238418579,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [
+            {
+              "id": "PhobosPropellantLineLooseDmgDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosPropellantLineLooseDmgDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 120.0,
+              "outputs": [
+                {
+                  "id": "PhobosPropellantLineWaste",
+                  "name": "Phobos' Fennmark Retained propellant line waste",
+                  "count": 1,
+                  "baseValue": 0.009999999776482582
+                }
+              ]
+            },
+            {
+              "id": "PhobosPropellantLineLooseDmgInstall",
+              "kind": "install",
+              "action": "ACTPhobosPropellantLineLooseDmgInstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosPropellantLineLooseDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "PhobosPropellantLineLooseDmgTest=1x1"
+              ],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 1000.0,
+              "outputs": [
+                {
+                  "id": "PhobosPropellantLineInstalledDmg",
+                  "name": "Phobos' Fennmark Propellant Line (Damaged)",
+                  "count": 1,
+                  "baseValue": 0.6000000238418579
+                }
+              ]
+            },
+            {
+              "id": "PhobosPropellantLineLooseDmgRepair",
+              "kind": "repair",
+              "action": "ACTPhobosPropellantLineLooseDmgRepair",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosPropellantLineLooseDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "TIsScrapAluminum=1x1"
+              ],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 120.0,
+              "outputs": [
+                {
+                  "id": "PhobosPropellantLineLoose",
+                  "name": "Phobos' Fennmark Propellant Line",
+                  "count": 1,
+                  "baseValue": 3.0
+                }
+              ]
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosPropellantLineWaste",
+          "name": "Phobos' Fennmark Retained propellant line waste",
+          "stackLimit": 1,
+          "actions": [
+            "DropItem",
+            "PickupItem"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
+          "handlingFlags": [],
+          "slots": [
+            "heldL",
+            "heldR"
+          ],
+          "massKg": 1.0,
+          "baseValue": 0.009999999776482582,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [],
+          "aliases": []
+        },
+        {
+          "id": "PhobosPropellantManifoldInstalled",
+          "name": "Phobos' Fennmark P1 RCS Propellant Manifold",
+          "stackLimit": 1,
+          "actions": [
+            "PhobosManufacturingControls",
+            "PhobosManufacturingMaintenanceInformation"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
+          "handlingFlags": [
+            "IsInstalled"
+          ],
+          "slots": [],
+          "massKg": 10.0,
+          "baseValue": 24000.0,
+          "installed": true,
+          "operatingModes": [],
+          "installTab": "HVAC",
+          "jobs": [
+            {
+              "id": "PhobosPropellantManifoldInstalledDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosPropellantManifoldInstalledDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 300.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 4,
+                  "baseValue": 14.399999618530273
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 2,
+                  "baseValue": 2.200000047683716
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 2,
+                  "baseValue": 10.0
+                },
+                {
+                  "id": "ItmPartsElecSmall01",
+                  "name": "Small Electronic Parts",
+                  "count": 2,
+                  "baseValue": 29.0
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 2,
+                  "baseValue": 0.10000000149011612
+                }
+              ]
+            },
+            {
+              "id": "PhobosPropellantManifoldInstalledRestore",
+              "kind": "restore",
+              "action": "ACTPhobosPropellantManifoldInstalledRestore",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsUndamageableNotContained",
+              "targetPassOnFreshDefinition": false,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 20.0,
+              "outputs": []
+            },
+            {
+              "id": "PhobosPropellantManifoldInstalledUninstall",
+              "kind": "uninstall",
+              "action": "ACTPhobosPropellantManifoldInstalledUninstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosPropellantManifoldInstalledTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 500.0,
+              "outputs": [
+                {
+                  "id": "PhobosPropellantManifoldLoose",
+                  "name": "Phobos' Fennmark P1 RCS Propellant Manifold",
+                  "count": 1,
+                  "baseValue": 24000.0
+                }
+              ]
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosPropellantManifoldInstalledDmg",
+          "name": "Phobos' Fennmark P1 RCS Propellant Manifold (Damaged)",
+          "stackLimit": 1,
+          "actions": [
+            "PhobosManufacturingControls",
+            "PhobosManufacturingMaintenanceInformation"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
+          "handlingFlags": [
+            "IsDamaged",
+            "IsInstalled"
+          ],
+          "slots": [],
+          "massKg": 10.0,
+          "baseValue": 6000.0,
+          "installed": true,
+          "operatingModes": [],
+          "installTab": "HVAC",
+          "jobs": [
+            {
+              "id": "PhobosPropellantManifoldInstalledDmgDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosPropellantManifoldInstalledDmgDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 300.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 3,
+                  "baseValue": 10.799999713897705
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 1,
+                  "baseValue": 1.100000023841858
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 2,
+                  "baseValue": 10.0
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 5,
+                  "baseValue": 0.2500000037252903
+                }
+              ]
+            },
+            {
+              "id": "PhobosPropellantManifoldInstalledDmgRepair",
+              "kind": "repair",
+              "action": "ACTPhobosPropellantManifoldInstalledDmgRepair",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosPropellantManifoldInstalledDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "TIsScrapSteel=1x1",
+                "TIsScrapAluminum=1x1",
+                "TIsPartsMechSmall=1x2",
+                "TIsPartsElecSmall=1x2",
+                "TIsMobo=1x1"
+              ],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 1800.0,
+              "outputs": [
+                {
+                  "id": "PhobosPropellantManifoldInstalled",
+                  "name": "Phobos' Fennmark P1 RCS Propellant Manifold",
+                  "count": 1,
+                  "baseValue": 24000.0
+                }
+              ]
+            },
+            {
+              "id": "PhobosPropellantManifoldInstalledDmgUninstall",
+              "kind": "uninstall",
+              "action": "ACTPhobosPropellantManifoldInstalledDmgUninstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosPropellantManifoldInstalledDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 500.0,
+              "outputs": [
+                {
+                  "id": "PhobosPropellantManifoldLooseDmg",
+                  "name": "Phobos' Fennmark P1 RCS Propellant Manifold (Damaged)",
+                  "count": 1,
+                  "baseValue": 6000.0
+                }
+              ]
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosPropellantManifoldLoose",
+          "name": "Phobos' Fennmark P1 RCS Propellant Manifold",
+          "stackLimit": 1,
+          "actions": [
+            "PhobosManufacturingMaintenanceInformation",
+            "DropItem",
+            "PickupItem"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
+          "handlingFlags": [
+            "IsCumbersome"
+          ],
+          "slots": [
+            "drag"
+          ],
+          "massKg": 10.0,
+          "baseValue": 24000.0,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [
+            {
+              "id": "PhobosPropellantManifoldLooseDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosPropellantManifoldLooseDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 300.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 4,
+                  "baseValue": 14.399999618530273
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 2,
+                  "baseValue": 2.200000047683716
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 2,
+                  "baseValue": 10.0
+                },
+                {
+                  "id": "ItmPartsElecSmall01",
+                  "name": "Small Electronic Parts",
+                  "count": 2,
+                  "baseValue": 29.0
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 2,
+                  "baseValue": 0.10000000149011612
+                }
+              ]
+            },
+            {
+              "id": "PhobosPropellantManifoldLooseInstall",
+              "kind": "install",
+              "action": "ACTPhobosPropellantManifoldLooseInstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosPropellantManifoldLooseTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "PhobosPropellantManifoldLooseTest=1x1"
+              ],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 600.0,
+              "outputs": [
+                {
+                  "id": "PhobosPropellantManifoldInstalled",
+                  "name": "Phobos' Fennmark P1 RCS Propellant Manifold",
+                  "count": 1,
+                  "baseValue": 24000.0
+                }
+              ]
+            },
+            {
+              "id": "PhobosPropellantManifoldLooseRestore",
+              "kind": "restore",
+              "action": "ACTPhobosPropellantManifoldLooseRestore",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsUndamageableNotContained",
+              "targetPassOnFreshDefinition": false,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 20.0,
+              "outputs": []
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosPropellantManifoldLooseDmg",
+          "name": "Phobos' Fennmark P1 RCS Propellant Manifold (Damaged)",
+          "stackLimit": 1,
+          "actions": [
+            "PhobosManufacturingMaintenanceInformation",
+            "DropItem",
+            "PickupItem"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
+          "handlingFlags": [
+            "IsCumbersome",
+            "IsDamaged"
+          ],
+          "slots": [
+            "drag"
+          ],
+          "massKg": 10.0,
+          "baseValue": 6000.0,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [
+            {
+              "id": "PhobosPropellantManifoldLooseDmgDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosPropellantManifoldLooseDmgDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 300.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 3,
+                  "baseValue": 10.799999713897705
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 1,
+                  "baseValue": 1.100000023841858
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 2,
+                  "baseValue": 10.0
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 5,
+                  "baseValue": 0.2500000037252903
+                }
+              ]
+            },
+            {
+              "id": "PhobosPropellantManifoldLooseDmgInstall",
+              "kind": "install",
+              "action": "ACTPhobosPropellantManifoldLooseDmgInstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosPropellantManifoldLooseDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "PhobosPropellantManifoldLooseDmgTest=1x1"
+              ],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 600.0,
+              "outputs": [
+                {
+                  "id": "PhobosPropellantManifoldInstalledDmg",
+                  "name": "Phobos' Fennmark P1 RCS Propellant Manifold (Damaged)",
+                  "count": 1,
+                  "baseValue": 6000.0
+                }
+              ]
+            },
+            {
+              "id": "PhobosPropellantManifoldLooseDmgRepair",
+              "kind": "repair",
+              "action": "ACTPhobosPropellantManifoldLooseDmgRepair",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosPropellantManifoldLooseDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "TIsScrapSteel=1x1",
+                "TIsScrapAluminum=1x1",
+                "TIsPartsMechSmall=1x2",
+                "TIsPartsElecSmall=1x2",
+                "TIsMobo=1x1"
+              ],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 1800.0,
+              "outputs": [
+                {
+                  "id": "PhobosPropellantManifoldLoose",
+                  "name": "Phobos' Fennmark P1 RCS Propellant Manifold",
+                  "count": 1,
+                  "baseValue": 24000.0
+                }
+              ]
+            }
+          ],
+          "aliases": []
+        },
+        {
           "id": "PhobosRefinerySlag",
           "name": "Phobos' Fennmark Refinery Slag",
           "stackLimit": 10,
@@ -11373,73 +12350,94 @@
           "count": 8
         },
         {
+          "table": "ItmFlotillaScrapKioskInv",
+          "item": "PhobosPropellantManifoldLoose",
+          "condition": "Refurbished",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosChemicalProcessorLoose",
           "condition": "Loot",
-          "chance": 0.0025,
+          "chance": 0.0020833333333333333,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosChemicalProcessorLooseDmg",
           "condition": "Loot",
-          "chance": 0.0075000000000000015,
+          "chance": 0.006250000000000001,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosHydrogenStoreLoose",
           "condition": "Loot",
-          "chance": 0.0025,
+          "chance": 0.0020833333333333333,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosHydrogenStoreLooseDmg",
           "condition": "Loot",
-          "chance": 0.0075000000000000015,
+          "chance": 0.006250000000000001,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosMethaneStoreLoose",
           "condition": "Loot",
-          "chance": 0.0025,
+          "chance": 0.0020833333333333333,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosMethaneStoreLooseDmg",
           "condition": "Loot",
-          "chance": 0.0075000000000000015,
+          "chance": 0.006250000000000001,
+          "count": 1
+        },
+        {
+          "table": "ItmLootSpawnEngineering",
+          "item": "PhobosPropellantManifoldLoose",
+          "condition": "Loot",
+          "chance": 0.0020833333333333333,
+          "count": 1
+        },
+        {
+          "table": "ItmLootSpawnEngineering",
+          "item": "PhobosPropellantManifoldLooseDmg",
+          "condition": "Loot",
+          "chance": 0.006250000000000001,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosSabatierReactorLoose",
           "condition": "Loot",
-          "chance": 0.0025,
+          "chance": 0.0020833333333333333,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosSabatierReactorLooseDmg",
           "condition": "Loot",
-          "chance": 0.0075000000000000015,
+          "chance": 0.006250000000000001,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosVolatilesRefineryLoose",
           "condition": "Loot",
-          "chance": 0.0025,
+          "chance": 0.0020833333333333333,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosVolatilesRefineryLooseDmg",
           "condition": "Loot",
-          "chance": 0.0075000000000000015,
+          "chance": 0.006250000000000001,
           "count": 1
         },
         {
@@ -11476,6 +12474,20 @@
           "condition": "Worn",
           "chance": 0.85,
           "count": 8
+        },
+        {
+          "table": "ItmOKLGFixer",
+          "item": "PhobosPropellantManifoldLoose",
+          "condition": "Worn",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmOKLGFixer",
+          "item": "PhobosPropellantLineLoose",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 128
         },
         {
           "table": "ItmOKLGSupplyKioskInv",
@@ -11514,6 +12526,20 @@
         },
         {
           "table": "ItmOKLGSupplyKioskInv",
+          "item": "PhobosPropellantManifoldLooseDmg",
+          "condition": "Broken",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmOKLGSupplyKioskInv",
+          "item": "PhobosPropellantLineLoose",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 128
+        },
+        {
+          "table": "ItmOKLGSupplyKioskInv",
           "item": "PhobosVolatilesRefineryLoose",
           "condition": "Pristine",
           "chance": 0.85,
@@ -11543,6 +12569,13 @@
         {
           "table": "ItmOKLGSupplyKioskInv",
           "item": "PhobosMethaneStoreLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmOKLGSupplyKioskInv",
+          "item": "PhobosPropellantManifoldLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
@@ -11604,6 +12637,13 @@
           "count": 8
         },
         {
+          "table": "ItmSupplyKioskBCERInv",
+          "item": "PhobosPropellantManifoldLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
           "table": "ItmSupplyKioskBCRSInv",
           "item": "PhobosVolatilesRefineryLoose",
           "condition": "Pristine",
@@ -11634,6 +12674,13 @@
         {
           "table": "ItmSupplyKioskBCRSInv",
           "item": "PhobosMethaneStoreLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskBCRSInv",
+          "item": "PhobosPropellantManifoldLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
@@ -11674,6 +12721,13 @@
           "count": 8
         },
         {
+          "table": "ItmSupplyKioskEJDRInv",
+          "item": "PhobosPropellantManifoldLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
           "table": "ItmSupplyKioskHQCHInv",
           "item": "PhobosVolatilesRefineryLoose",
           "condition": "Pristine",
@@ -11704,6 +12758,13 @@
         {
           "table": "ItmSupplyKioskHQCHInv",
           "item": "PhobosMethaneStoreLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskHQCHInv",
+          "item": "PhobosPropellantManifoldLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
@@ -11744,6 +12805,13 @@
           "count": 8
         },
         {
+          "table": "ItmSupplyKioskJATLInv",
+          "item": "PhobosPropellantManifoldLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
           "table": "ItmSupplyKioskJFTSInv",
           "item": "PhobosVolatilesRefineryLoose",
           "condition": "Pristine",
@@ -11774,6 +12842,13 @@
         {
           "table": "ItmSupplyKioskJFTSInv",
           "item": "PhobosMethaneStoreLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskJFTSInv",
+          "item": "PhobosPropellantManifoldLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
@@ -11814,6 +12889,13 @@
           "count": 8
         },
         {
+          "table": "ItmSupplyKioskMHNGInv",
+          "item": "PhobosPropellantManifoldLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
           "table": "ItmSupplyKioskMSUZInv",
           "item": "PhobosVolatilesRefineryLoose",
           "condition": "Pristine",
@@ -11844,6 +12926,13 @@
         {
           "table": "ItmSupplyKioskMSUZInv",
           "item": "PhobosMethaneStoreLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskMSUZInv",
+          "item": "PhobosPropellantManifoldLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
@@ -11884,6 +12973,13 @@
           "count": 8
         },
         {
+          "table": "ItmSupplyKioskMTRSInv",
+          "item": "PhobosPropellantManifoldLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
           "table": "ItmSupplyKioskMVOLInv",
           "item": "PhobosVolatilesRefineryLoose",
           "condition": "Pristine",
@@ -11914,6 +13010,13 @@
         {
           "table": "ItmSupplyKioskMVOLInv",
           "item": "PhobosMethaneStoreLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskMVOLInv",
+          "item": "PhobosPropellantManifoldLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
@@ -11954,6 +13057,13 @@
           "count": 8
         },
         {
+          "table": "ItmSupplyKioskSVIRInv",
+          "item": "PhobosPropellantManifoldLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
           "table": "ItmSupplyKioskVCBRInv",
           "item": "PhobosVolatilesRefineryLoose",
           "condition": "Pristine",
@@ -11989,6 +13099,13 @@
           "count": 8
         },
         {
+          "table": "ItmSupplyKioskVCBRInv",
+          "item": "PhobosPropellantManifoldLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
           "table": "ItmSupplyKioskVENCInv",
           "item": "PhobosVolatilesRefineryLoose",
           "condition": "Pristine",
@@ -12024,6 +13141,13 @@
           "count": 8
         },
         {
+          "table": "ItmSupplyKioskVENCInv",
+          "item": "PhobosPropellantManifoldLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
           "table": "ItmSupplyKioskVNCAInv",
           "item": "PhobosVolatilesRefineryLoose",
           "condition": "Pristine",
@@ -12059,6 +13183,13 @@
           "count": 8
         },
         {
+          "table": "ItmSupplyKioskVNCAInv",
+          "item": "PhobosPropellantManifoldLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
           "table": "ItmTraderSanDiegoHalvorsonInv",
           "item": "PhobosVolatilesRefineryLoose",
           "condition": "Pristine",
@@ -12092,6 +13223,20 @@
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
+        },
+        {
+          "table": "ItmTraderSanDiegoHalvorsonInv",
+          "item": "PhobosPropellantManifoldLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmTraderSanDiegoHalvorsonInv",
+          "item": "PhobosPropellantLineLoose",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 128
         },
         {
           "table": "ItmVORBScrapKioskInv",
@@ -12162,6 +13307,27 @@
           "condition": "Refurbished",
           "chance": 0.85,
           "count": 8
+        },
+        {
+          "table": "ItmVORBScrapKioskInv",
+          "item": "PhobosPropellantManifoldLooseDmg",
+          "condition": "Broken",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmVORBScrapKioskInv",
+          "item": "PhobosPropellantManifoldLoose",
+          "condition": "Refurbished",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmVORBScrapKioskInv",
+          "item": "PhobosPropellantLineLoose",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 128
         }
       ],
       "recipes": [],
@@ -23050,11 +24216,11 @@
     "mods/PhobosAutoNav/mod_info.json": "7104b75222365d05b9aa7700f6d582645a2bf4f26018582de8323f503f6ef9ec",
     "mods/PhobosFramework/data/conditions/phobos_framework.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
     "mods/PhobosFramework/framework/equipment-names.json": "8d64a49207830ca57808d0de92ac82feaf95fb200dd550888e795bb7ed37afb7",
-    "mods/PhobosFramework/mod_info.json": "1b2c692bc0f1bd8f4b3dcb75f537ad01c9b4e88150d4dd9c32ca02209a46b424",
+    "mods/PhobosFramework/mod_info.json": "e39c8c80b7521ffb80315ad55fe24dcf706746b6f46384402386a811986a8ca5",
     "mods/PhobosManufacturing/data/conditions/phobos_manufacturing.json": "0ac5bff75779f21f3bcd269f28e09d882833f3b94fee174190a00b4d98001c63",
     "mods/PhobosManufacturing/data/explosions/phobos_manufacturing.json": "33e0a37a22450d2ca64e33cc461efb87f19f4c69b90655af20280d67c6982ba3",
-    "mods/PhobosManufacturing/framework/equipment-names.json": "b205cb735ec2d78fd39c8f8ed55030d6863fda2fda0f090e252c65c9016b4d16",
-    "mods/PhobosManufacturing/mod_info.json": "0adb783ee68e1319eee1bd877e7ae7e87fb3ab09e7ca56ee5e2397af89be26b2",
+    "mods/PhobosManufacturing/framework/equipment-names.json": "d1b3592edb0d617f6f1bf382a3a665aac9745faf8fff467c288fa87292696d27",
+    "mods/PhobosManufacturing/mod_info.json": "7439958241ad88867ae3bfa98f4c39fe8db58febe30050658aed00a603c8586b",
     "mods/PhobosShipbreaker/crafting/recipes.json": "8b0f034a7c732fec44ac31585321347040ee2074cd330cd3e5ecb90bb4ab7df4",
     "mods/PhobosShipbreaker/data/conditions/phobos_shipbreaker.json": "4163d90a49167ef2178e2bfd00636e8288db73511c66c0f423e828642d4f1e44",
     "mods/PhobosShipbreaker/data/condtrigs/phobos_shipbreaker.json": "c7d4104df596d3fd362d9a80f4703178eafc5d3151bd53907814732ec84d3585",
@@ -23226,7 +24392,8 @@
     "src/PhobosFramework/Inventory/SavedPortFilter.cs": "95f70df5e4208b5482790b0df96bb4e782c1da93787fe7a44048464e3ac8a8a8",
     "src/PhobosFramework/Inventory/StackUnits.cs": "286642d040f637286ed65998c23c35926e8cec898d483544dbde74f498885fbd",
     "src/PhobosFramework/Inventory/TransferClock.cs": "c4ad66a777b7d510fe93f5e805fb29ddee60a989a28613e53290b6e71155df50",
-    "src/PhobosFramework/Liquids/BulkVessel.cs": "3843a6aae8c4c65a16e73a1884f4abb15ebf72034bc9780384ebe388bd6c9866",
+    "src/PhobosFramework/Liquids/BufferedDrains.cs": "46c56b29eebe05ff995c0482ae9594247320d3d60b44fb0370be9333e8ac8dc1",
+    "src/PhobosFramework/Liquids/BulkVessel.cs": "d2e73c0491f768fa656db4f32e8d580b8a616def8b62e5ab55d5d62defb762d3",
     "src/PhobosFramework/Liquids/FiniteLiquidTransfer.cs": "8e94596828ed11bec3239d174f68bed491213b89cad87387cb9ff6421e6e9cd3",
     "src/PhobosFramework/Liquids/FluidLine.cs": "e7a558e7e497c07474f16e3208db193537506d3c13c48f9384bcf0ebb56dfde7",
     "src/PhobosFramework/Liquids/HydraulicRoute.cs": "26c87ba46776311f7af91c8e89db11622c7002603b03ba544cb4f4832793fcad",
@@ -23249,8 +24416,8 @@
     "src/PhobosFramework/Persistence/SavedGridHeader.cs": "b7ef65702f570dfb2d267b97c726e2ba02b420bfbbc2c5471ef4ac7479874bb2",
     "src/PhobosFramework/Persistence/SavedPlaceholderHealth.cs": "358c35db2a5f73335cc5930e808c25817da5fa6b1d9d91c217c5a119f26db91d",
     "src/PhobosFramework/Persistence/SavedRoomGrid.cs": "d7d70aba54e777d96d3079318f75320fb981a6dba8f3728570c84b8e54072fbe",
-    "src/PhobosFramework/PhobosFramework.csproj": "701d715c79e9361174a0142c7a63e76fff3b5acd50a91fa9bb5de0c5d07399e6",
-    "src/PhobosFramework/Plugin.cs": "9b5b77348b163065130c0170f102b98537c97c2146c6cb3d2e44990068c7cedf",
+    "src/PhobosFramework/PhobosFramework.csproj": "3db3f2ddd077ef1c73ea2199480a1d36be02cb289b3414499a409d8a392431e4",
+    "src/PhobosFramework/Plugin.cs": "37193689cae8946a06eef5a64cd21ce2c673092cd824eba26eec9e40489b6f79",
     "src/PhobosFramework/Processing/EnergyReceipt.cs": "cb31cd45ea69ee8d182b0578f50540393bd70e63e918a161f04f2b6a290199b2",
     "src/PhobosFramework/Processing/GasParcel.cs": "814357580cf3b2f7257a67042454823b454437f1fda38488521b66621e081fa3",
     "src/PhobosFramework/Processing/NativeEnergyReceipts.cs": "ed52382413127a5acd3700070f5d19975aec54c953d2fb2fa09eef08836fbe5e",
@@ -23260,6 +24427,8 @@
     "src/PhobosFramework/Processing/RoomGas.cs": "0590929630399524ca3964de12578dc544e7bf94a2f0f1fb8b938d9891a5d8cb",
     "src/PhobosFramework/Processing/RoomHeat.cs": "2e949551d29c8639135e0b4143fe3d6cf555dd64367c1c1b4bdc029ba6f9c8eb",
     "src/PhobosFramework/Processing/ThermalMath.cs": "62a98ea93497801a84194c3ddb52b15f12ec97c0f0da141e9a764956a96ca2bc",
+    "src/PhobosFramework/Propulsion/RcsPropellant.cs": "2e9807b8c84f939e38a95f12c41b6d081612c939a31c164a77fe2a49914a29a9",
+    "src/PhobosFramework/Propulsion/RcsPropellantPatches.cs": "d4a85397fe74d22631ecc5cece0874df04c2b5a621d0d82eb994da88abb88ef7",
     "src/PhobosFramework/Registration/AdditiveLoot.cs": "62e70fbb898f7318ab0722de5879042fa0a9c42942d08d9d53062f637026ecc4",
     "src/PhobosFramework/Registration/ApplianceDefinitions.cs": "7af1867939d957a340b1c52fc8e75e5e19f96c158cb0aa67ee8a1ea661a412a4",
     "src/PhobosFramework/Registration/DefinitionAmendments.cs": "af06706f181371dd73669754a331fbeed89d72a2eafdb15ccab5fe7d93d13b74",
@@ -23283,9 +24452,10 @@
     "src/PhobosFramework/Trading/VesselSupplyProvider.cs": "b4c7f5639ce0b00e4fb422753da04383afd408745b3d075a8786d9df21de5f93",
     "src/PhobosFramework/Units.cs": "b66b1134d9b9e2ff57055c41b5354f280ec21233a395224ec6ba213668b22cf3",
     "src/PhobosManufacturing/AssemblyInfo.cs": "a442448369b44ef8921362eea7215eab4e7fb557881cded3213f00b5d7600549",
-    "src/PhobosManufacturing/Content.cs": "e529078aba7ee0dd209233e5e31e6c61e1993a1f4307982bdd26929ac380cb1b",
+    "src/PhobosManufacturing/Content.cs": "f27a407a577fc315667ead3e5fde3a28e238f39956324548f3009c4feca13b13",
     "src/PhobosManufacturing/Core/FuelStoreRules.cs": "27cb0b8b368b27b41ad6da54817ac8dad2a5d8184817e69b83eebe7cd7ea2c52",
     "src/PhobosManufacturing/Core/HydrogenRules.cs": "dd4d383b41928286b82adca97fd8f053f62ea07e97eae61821812f5dc79371e4",
+    "src/PhobosManufacturing/Core/ManifoldRules.cs": "f22fcdced1cf2dfd33bf8e9df2382d2006e97683ad13d0bd43d93f071764c8f0",
     "src/PhobosManufacturing/Core/ManufacturingRules.cs": "ead9451e1420d83653c639fe63f8d191918f8c33f3b21f5e245d49329529fecb",
     "src/PhobosManufacturing/Core/Materials.cs": "638659608f0b9bd36eb5376d1c022b98c8f903e96e4c2394c61688cf108e3545",
     "src/PhobosManufacturing/Core/ProcessorRules.cs": "cb0c1734b2db899b326a89f2602699632086ef6a77edebc09cd742ab3f4c221c",
@@ -23294,13 +24464,14 @@
     "src/PhobosManufacturing/Core/RefineryState.cs": "49e892de92b7008c44b54d9f47b78c72c524ea803aeb2be2b6d20f4e9f6dd8e4",
     "src/PhobosManufacturing/Core/SabatierRules.cs": "e34ab7499438dd8a0103524b07e1a9acc1cb6257c1f36fb21160e50cf825ed85",
     "src/PhobosManufacturing/Core/SabatierState.cs": "04ca6b0626dc94a204c2f120ed847db1bacf3ef37911dbf031a8c5efb716e5f8",
-    "src/PhobosManufacturing/Definitions.cs": "66f8c46ba240b8db4c46c795f626475ec226f06c2a18181b7f50a21626e85e56",
-    "src/PhobosManufacturing/EquipmentEconomy.cs": "cb64697259f95ea722fb84ecf5be1bfb0cdf1b5ed26180510f4f8e96bada6ced",
+    "src/PhobosManufacturing/Definitions.cs": "77c178e0bd2698a0714643289864aace68465dd35eb6e30fae15880e57d834a1",
+    "src/PhobosManufacturing/EquipmentEconomy.cs": "b7d09d5b64542e75b3090aac8a9d91165aeb6f6b8b64734cdb4710fcd253ecdc",
+    "src/PhobosManufacturing/ManifoldService.cs": "0514316ef4dc492cc1b8e1a637bf1fd15ef37b9bdcc3df49714ec9c4df67cc9b",
     "src/PhobosManufacturing/Panel.cs": "9beaab6e7e20a1111c2400a6ed02fe1c164ea78958627686556dfc03c3bb8c24",
-    "src/PhobosManufacturing/PhobosManufacturing.csproj": "55733fac130b1d0215aba034bcd37e195c6bfc72527853007da1efa0fb6d384a",
-    "src/PhobosManufacturing/Plugin.cs": "87921c18305c875b23c9f4a7328b827a2c9966b518f3123ee2639a87f0bb218f",
+    "src/PhobosManufacturing/PhobosManufacturing.csproj": "51077bf2149e4303227cc825fc4e78e8445fd137d35213c2bd725e963647a39c",
+    "src/PhobosManufacturing/Plugin.cs": "7b262f1b6e7462e60b36171efac632b8b53b1171c0854c51039f32821dd3fb44",
     "src/PhobosManufacturing/ProcessorService.cs": "9961006ea4cc471091c85ccaeae6521fff12a1635f9bc5b4a4c11ca88b85d35e",
-    "src/PhobosManufacturing/Provider.cs": "22aa5a5196395ce70c88443df7ae3215d9d6b886b33195cd6720902a3c83be48",
+    "src/PhobosManufacturing/Provider.cs": "79a33a2b1b68672710201842f871684ce69dd932b5e3ced0b80e2b12c2c8e02c",
     "src/PhobosManufacturing/RefineryService.cs": "b20a41eeeda387d50cc2c0ad404c6bff42a08896f2eac6a96cd21d6e5b644fba",
     "src/PhobosManufacturing/SabatierService.cs": "160fc5aba10754040807767f68e6fa0facbde6cba393d7d4b72c02626e08691e",
     "src/PhobosManufacturing/ShipbreakerStock.cs": "2800c3119c93d9f74f86dea8db91d1c91ccf3085b652d1125f8934826e80a8f3",
@@ -23403,7 +24574,7 @@
     "translations/PhobosAgriculture/en.json": "24c7184bf4580061f11f5556c34a7afd2142e938d8b67282af6eeaf676d19934",
     "translations/PhobosAutoNav/en.json": "505b519cde5fb1a5cc15a3f52cf825145b7f0c85eb36a1d6c5de3a0ffd56cb3a",
     "translations/PhobosFramework/en.json": "bab9d6bff8a46a9a120bab386be1d48a8bf2dc9250d170646d71b696aeb73d6b",
-    "translations/PhobosManufacturing/en.json": "dcbd3b3e1645a713864b42c26173b7bc27ca15d2177089dff9e80dfe2eaf0633",
+    "translations/PhobosManufacturing/en.json": "8a195344823dacfe2fb63b079e109467aae87c1b0c178d2c94d1fdbdf01d7de6",
     "translations/PhobosShipbreaker/en.json": "8085d0bf11c015b92696dc8252db717ab19aea43a06ccee1658e91b8e6f7fee0"
   }
 }

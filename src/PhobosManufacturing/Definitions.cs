@@ -9,14 +9,14 @@ using PhobosManufacturing.Core;
 
 namespace PhobosManufacturing;
 
-/// <summary>Native definitions for the five Fennmark machines, the five materials, and the three deflagration
+/// <summary>Native definitions for the six Fennmark machines, the propellant line, the five materials, and the three deflagration
 /// objects. Machines use Framework's appliance contract; materials clone the game's own scrap and hydrate
 /// definitions so pickup, stacking, damage and market behaviour stay vanilla.</summary>
 internal static class Definitions
 {
     internal const string Controls = "PhobosManufacturingControls", ImagePath = "phobos/manufacturing/";
     internal const string RefineryArt = "PhobosVolatilesRefinery", ProcessorArt = "PhobosChemicalProcessor", StoreArt = "PhobosHydrogenStore",
-        ReactorArt = "PhobosSabatierReactor", MethaneArt = "PhobosMethaneStore";
+        ReactorArt = "PhobosSabatierReactor", MethaneArt = "PhobosMethaneStore", ManifoldArt = "PhobosPropellantManifold", LineArt = "PropellantPipe";
     internal static readonly string[] Forms = { "Installed", "Loose", "InstalledDmg", "LooseDmg" };
     internal static void Add(NativeDefinitions d, bool steelStock)
     {
@@ -32,6 +32,8 @@ internal static class Definitions
         AddReactor(d);
         AddStore(d, FuelStores.Hydrogen, Text.Get("Store.description", HydrogenRules.DryKg, HydrogenRules.CapacityKg, HydrogenRules.LeakKgPerHour), StoreArt);
         AddStore(d, FuelStores.Methane, Text.Get("Methane.description", MethaneRules.DryKg, MethaneRules.CapacityKg, MethaneRules.LeakKgPerHour), MethaneArt);
+        AddPropellantLine(d);
+        AddManifold(d);
         AddDeflagrations(d);
     }
 
@@ -116,6 +118,79 @@ internal static class Definitions
             co.strPortraitImg = item.strImg;
         }
     }
+    /// <summary>The P1 manifold: a passive 1 x 1 valve block for a regulator's gas-input tile. Deliberately not
+    /// airtight and not a gas container, so the game never treats it as a canister (no refuelling into it); the
+    /// Framework RCS patch finds it on the tile and asks it for remass.</summary>
+    private static void AddManifold(NativeDefinitions d)
+    {
+        string p = ManifoldRules.Prefix;
+        ApplianceDefinitions.Add(d, p, Text.Get("Manifold.name"), Text.Get("Manifold.description", ManifoldRules.MachineKg),
+            ManifoldRules.Footprint, ManifoldRules.MachineKg, ManifoldRules.Price, ImagePath + ManifoldArt, Controls, 0, InstallMenu.Hvac);
+        d.Power.Remove(p + "Power"); d.Interactions.Remove(p + "PowerChange");
+        foreach (string form in Forms)
+        {
+            var co = d.Objects[p + form]; var item = d.Items[p + form];
+            bool damaged = form.EndsWith("Dmg", StringComparison.Ordinal);
+            co.strNameFriendly = co.strNameShort = Text.Get("Manifold.name") + (damaged ? Text.Get("Content.damaged") : "");
+            StripContainer(co);
+            co.jsonPI = null; co.aTickers = Array.Empty<string>();
+            co.aInteractions = co.aInteractions.Where(i => i != "Inventory").ToArray();
+            co.aStartingConds = co.aStartingConds.Where(s => !s.StartsWith("IsAirtight=", StringComparison.Ordinal)).ToArray();
+            // The line port is the neighbouring tile on the manifold's local -Y side, rotating with it.
+            co.mapPoints = new[] { "use,0,0", ManifoldRules.Inlet + ",0,-16" };
+            co.strPortraitImg = item.strImg;
+            if (form.StartsWith("Installed", StringComparison.Ordinal)) { item.aSocketAdds[0] = PropellantLineRules.Prefix + "FixturePort"; item.ctSpriteSheet = PropellantLineRules.Prefix + "Sprite"; }
+        }
+    }
+
+    /// <summary>The Fennmark propellant line, on the shared conduit pattern with its own identity and sprite trigger,
+    /// so it never joins coolant or irrigation lines. Its art is a recorded recolour of the shared pipe sheet.</summary>
+    private static void AddPropellantLine(NativeDefinitions d)
+    {
+        string pipe = PropellantLineRules.Prefix;
+        foreach (string key in new[] { PropellantLineRules.Segment, PropellantLineRules.WorkingSegment })
+            d.Conditions[key] = new JsonCond { strName = key, strNameFriendly = Text.Get("Line.name"), strColor = "Neutral", nDisplaySelf = 2, nDisplayOther = 2 };
+        d.Triggers[pipe + "Sprite"] = new CondTrigger { strName = pipe + "Sprite", fChance = 1, fCount = 1, bAND = true, aReqs = new[] { PropellantLineRules.Segment }, aForbids = Array.Empty<string>(), aTriggers = Array.Empty<string>() };
+        foreach (bool intact in new[] { true, false })
+        {
+            string key = pipe + (intact ? "Adds" : "Off");
+            d.Loot[key] = new Loot { strName = key, strType = "condition", aCOs = intact ? new[] { PropellantLineRules.Segment + "=1x1", PropellantLineRules.WorkingSegment + "=1x1" } : new[] { PropellantLineRules.Segment + "=1x1" }, aLoots = Array.Empty<string>() };
+        }
+        d.Loot[pipe + "FixturePort"] = new Loot { strName = pipe + "FixturePort", strType = "condition", aCOs = new[] { PropellantLineRules.Segment + "=1x1" }, aLoots = new[] { "TILFixtureAdds=1x1" } };
+        ApplianceDefinitions.Add(d, pipe, Text.Get("Line.name"), Text.Get("Line.description"), 1, PropellantLineRules.Kg, PropellantLineRules.Price, ImagePath + LineArt, Controls, 0, InstallMenu.Hvac);
+        d.Power.Remove(pipe + "Power"); d.Interactions.Remove(pipe + "PowerChange");
+        foreach (string form in Forms)
+        {
+            bool installed = form.StartsWith("Installed", StringComparison.Ordinal), damaged = form.EndsWith("Dmg", StringComparison.Ordinal);
+            var co = d.Objects[pipe + form]; var item = d.Items[co.strItemDef];
+            co.strNameFriendly = co.strNameShort = Text.Get("Line.name") + (damaged ? Text.Get("Content.damaged") : "");
+            co.nStackLimit = installed ? 1 : EquipmentEconomy.LineStack;
+            co.jsonPI = null; co.aTickers = Array.Empty<string>(); co.aInteractions = Array.Empty<string>();
+            co.mapPoints = new[] { "use,0,-16" };
+            co.aStartingConds = co.aStartingConds.Where(x => !x.StartsWith("IsContainer=", StringComparison.Ordinal) && !x.StartsWith("IsCumbersome=", StringComparison.Ordinal)).Concat(new[] { "IsPocketable=1x1" }).ToArray();
+            co.nContainerWidth = co.nContainerHeight = 0; co.mapGUIPropMaps = Array.Empty<string>(); co.strContainerCT = null;
+            item.fZScale = 1.01f;
+            if (installed)
+            {
+                item.strImg = ImagePath + LineArt + "Sheet"; item.strImgNorm = item.strImg + "Normal";
+                item.bHasSpriteSheet = true; item.ctSpriteSheet = pipe + "Sprite";
+                item.aSocketAdds = new[] { pipe + (damaged ? "Off" : "Adds") };
+                item.aSocketForbids = Enumerable.Range(0, 9).Select(i => i == 4 ? pipe + "Off" : "Blank").ToArray();
+                item.aSocketReqs = Enumerable.Range(0, 9).Select(i => i == 4 ? "TILFloor" : "Blank").ToArray();
+            }
+        }
+        // The fuel stores gain a line port on the neighbouring tile of their local +X side, with pipe art joining them.
+        foreach (var fuel in FuelStores.All)
+            foreach (string form in Forms)
+            {
+                var co = d.Objects[fuel.Prefix + form];
+                co.mapPoints = co.mapPoints.Concat(new[] { ManifoldRules.StoreOutlet + ",24,8" }).ToArray();
+                if (!form.StartsWith("Installed", StringComparison.Ordinal)) continue;
+                var item = d.Items[fuel.Prefix + form];
+                item.aSocketAdds[1] = pipe + "FixturePort"; item.ctSpriteSheet = pipe + "Sprite";
+            }
+    }
+
     private static void StripContainer(JsonCondOwner co)
     {
         co.strLoot = "Blank"; co.aSlotsWeHave = Array.Empty<string>(); co.strContainerCT = null;

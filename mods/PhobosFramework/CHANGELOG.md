@@ -20,6 +20,14 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.42.0] - 2026-09-29 - Draft
+
+### Added
+
+- RCS thrusters burn each gas at its real cold-gas worth instead of treating every kilogram alike: hydrogen about 3.7 times nitrogen, methane about 1.45, oxygen 0.94, carbon dioxide 0.90. RCS fuel, delta-v and Auto Nav's planning all count in nitrogen-equivalent kilograms, so a ship that only uses nitrogen flies exactly as before. Distant, unloaded ships and station refuelling are unchanged.
+- Content mods can register an RCS propellant feed: an object on a regulator's gas-input tile that supplies remass from somewhere the game cannot see (Phobos Manufacturing's propellant manifold uses it).
+- Buffered draws on bulk vessels for consumers that take a little every frame; they settle into the vessel's record every couple of seconds and before a save.
+
 ## [0.41.0] - 2026-09-29 - Draft
 
 ### Added

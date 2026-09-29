@@ -45,7 +45,7 @@ internal static class Content
     }
     internal static CondOwner? Resolve(string? id) => CrewWork.Resolve(id);
     internal static bool Machine(CondOwner? co) => co != null && (RefineryRules.IsFamily(co.strCODef) || ProcessorRules.IsFamily(co.strCODef) ||
-        SabatierRules.IsFamily(co.strCODef) || FuelStores.IsFamily(co.strCODef));
+        SabatierRules.IsFamily(co.strCODef) || FuelStores.IsFamily(co.strCODef) || ManifoldRules.IsFamily(co.strCODef));
     /// <summary>Null when the acting crew member may command this machine locally or through the bound console.</summary>
     internal static string? Access(CondOwner co, ConsoleBinding? binding = null, CondOwner? worker = null)
     {
@@ -62,6 +62,7 @@ internal static class Content
         if (ProcessorRules.IsFamily(co.strCODef)) return ProcessorService.MaintenanceReason(co);
         if (SabatierRules.IsFamily(co.strCODef)) return SabatierService.MaintenanceReason(co);
         if (FuelStores.IsFamily(co.strCODef)) return StoreService.MaintenanceReason(co, dismantle);
+        if (ManifoldRules.IsFamily(co.strCODef)) return ManifoldService.MaintenanceReason(co);
         return null;
     }
 }

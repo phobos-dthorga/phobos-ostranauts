@@ -4,7 +4,7 @@
     "Framework.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.41.0",
+      "value": "0.42.0",
       "description": "PhobosFramework published source/package version.",
       "targets": [
         {
@@ -265,7 +265,7 @@
     "Manufacturing.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.2.0",
+      "value": "0.3.0",
       "description": "PhobosManufacturing published source/package version.",
       "targets": [
         {
@@ -1409,7 +1409,7 @@
     "Manufacturing.minimumFramework": {
       "type": "version",
       "parts": 3,
-      "value": "0.41.0",
+      "value": "0.42.0",
       "description": "Current Manufacturing required Framework version, shared with local installer admission.",
       "targets": [
         {
@@ -1671,6 +1671,45 @@
       ],
       "review": [
         "Run scripts/build-manufacturing.ps1 (pure chemistry checks and native checks) and regenerate item references. Late-game price band: above the towing brace loose half, below the IC fusion reactor (native check)."
+      ]
+    },
+    "Manufacturing.manifoldPrice": {
+      "type": "number",
+      "value": "24000",
+      "min": 1,
+      "max": 1000000,
+      "description": "Authored P1 RCS propellant manifold base price (broken form is one quarter).",
+      "targets": [
+        {
+          "path": "src/PhobosManufacturing/Core/ManifoldRules.cs",
+          "pattern": "MachineKg = 10, Price = (?P<value>[0-9.]+)",
+          "count": 1
+        }
+      ],
+      "review": [
+        "Run scripts/build-manufacturing.ps1 and regenerate item references. Late-game price band is checked natively."
+      ]
+    },
+    "Manufacturing.stockPipes": {
+      "type": "integer",
+      "value": "128",
+      "min": 1,
+      "max": 1024,
+      "description": "Propellant line quantity per successful merchant offer.",
+      "targets": [
+        {
+          "path": "src/PhobosManufacturing/EquipmentEconomy.cs",
+          "pattern": "\\bPipes\\s*=\\s*(?P<value>[0-9]+)(?=\\s*[,;])",
+          "count": 1
+        },
+        {
+          "path": "docs/development/merchant-stock.md",
+          "pattern": "^\\| Manufacturing\\ propellant\\ line \\| (?P<value>[0-9]+) \\|\\r?$",
+          "count": 1
+        }
+      ],
+      "review": [
+        "Run native stock-quantity checks and regenerate item references. Existing inventories wait for native restocking."
       ]
     }
   }

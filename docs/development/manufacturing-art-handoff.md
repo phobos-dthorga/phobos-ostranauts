@@ -111,3 +111,15 @@ as the inputs of the selected passes, so nothing was archived. The copper pipe o
 the reactor did not survive; connections are separate objects and live text.
 Requests, seeds and reviews are appended to
 [manufacturing-requests.json](../../assets/artwork-completion/manufacturing-requests.json).
+
+## Manufacturing 0.3.0 pass (29 September 2026)
+
+| Asset | Native / master | Operation and selected job | Notes |
+| --- | --- | --- | --- |
+| P1 RCS propellant manifold (`PhobosPropellantManifold`) | 16 / 64 px, full footprint | Pixflux second pass over the first, job `e0dcf9fb` | Steel valve block with a header pipe, three orange handwheels and an amber line stub at the bottom edge |
+| Propellant line (`PropellantPipe`, `PropellantPipeSheet`) | 16 px tile, 64 px sheet | No generation: deterministic amber recolour of Agriculture's water line | Same joint layout as the other conduit families; normal maps copied unchanged |
+
+Two included generations (allowance 1,861 to 1,859), $0 credit, no purchases. The
+first pass is retained as the input of the selected pass. The line recolour is
+reproduced and checked by `scripts/export-propellant-line-art.py --check`, which
+the Manufacturing build runs.

@@ -191,7 +191,10 @@ public static class BulkVessel
     /// <summary>Contents that leave the vessel without a receiver (a leak, an explicit discharge overboard):
     /// service contents fall by up to <paramref name="kg"/>, the loss is logged, and the kilograms actually
     /// removed are returned. A protected vessel loses nothing here.</summary>
-    public static double Drain(CondOwner co, double kg, string reason)
+    public static double Drain(CondOwner co, double kg, string reason) => Drain(co, kg, reason, true);
+    /// <summary>As <see cref="Drain(CondOwner, double, string)"/>; <paramref name="log"/> false leaves the loss unlogged
+    /// for callers that settle many small draws and log once themselves (<see cref="BufferedDrains"/>).</summary>
+    public static double Drain(CondOwner co, double kg, string reason, bool log)
     {
         if (!BulkVesselSpec.Finite(kg) || kg < 0) throw new ArgumentException("Invalid drain amount.");
         var spec = Spec(co);
@@ -201,7 +204,7 @@ public static class BulkVessel
         if (removed <= 0) return 0;
         s.SetService(s.ServiceKg - removed);
         Save(co, spec, s);
-        FrameworkLifecycle.Log(Text.Get("BulkVessel.drained", co.strID, spec.Commodity, removed, reason));
+        if (log) FrameworkLifecycle.Log(Text.Get("BulkVessel.drained", co.strID, spec.Commodity, removed, reason));
         return removed;
     }
     /// <summary>The vessel as a reservoir for guarded transfers; contents in the catch chamber take capacity.</summary>

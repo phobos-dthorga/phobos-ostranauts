@@ -929,3 +929,29 @@ family; `SetPowerOverride(d, prefix, idleKW, workingKW, workingCondition, points
 sets the two-level electrical demand. `Controls.ConsoleAuthority.Check(target,
 binding, accessTiles, consoleDefinition)` is the remote-command rule; wording
 stays with the caller.
+
+## RCS propellant and buffered draws (0.42.0)
+
+`Propulsion.RcsPropellant` keeps every RCS quantity in the engine's own unit,
+nitrogen-equivalent kilograms. `ExhaustRatio(species)` is the ideal cold-gas worth
+of a kilogram relative to nitrogen at one temperature (N2 exactly 1, unknown
+species 1), and `MixtureRatio` weights a mixture by mass. For loaded ships Framework
+serves `Ship.RemoveGasMass`, `GetRCSRemain` and `GetRCSMax` itself in the game's
+order: regulators, their `GasInput*` points, the game's `TIsRCSValidInput` rule and
+each container's own removal. Shallow ships, refuelling and thrust stay native, and
+a failure falls back to the native method.
+
+A content mod adds remass the game cannot see by registering an
+`IRcsPropellantFeed` (`RcsPropellant.Register`, `Unregister(id)` on unload). A feed
+is an object on a regulator's gas-input tile: `IsFeed(co)` claims it, `DrawFirst`
+chooses before or after the tile's canisters, `Offer(feed, kg)` returns the
+nitrogen-equivalent it actually supplied, and `ReserveEquivalentKg` and
+`CapacityEquivalentKg` feed the fuel and delta-v readings. Keep feed objects
+non-airtight so the game's refuelling never treats them as canisters.
+
+`Liquids.BufferedDrains` is for consumers that take a little every frame.
+`AvailableKg(vessel)` is the service amount less what is owed, `Take(vessel, kg,
+reason)` never takes more, and the owed total settles through the quiet
+`BulkVessel.Drain(co, kg, reason, log: false)` every two seconds and before
+`Ship.GetJSON` saves, with one log line per settlement. A load or new game forgets
+unsettled draws, so a crash loses at most about two seconds of them.

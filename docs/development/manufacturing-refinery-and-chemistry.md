@@ -109,6 +109,34 @@ hydrogen. Blast size now follows energy: small below the energy of 2 kg of
 hydrogen, medium below 8 kg, so hydrogen sizes are unchanged. A damaged reactor
 dumps its held CO2 and methane into the room and its hydrogen burns or escapes.
 
+## RCS propellant (Framework 0.42.0, Manufacturing 0.3.0)
+
+The game's RCS is species-blind: `Ship.Maneuver` asks `Ship.RemoveGasMass` for a
+mass of gas from whatever airtight containers sit on the regulators' gas-input
+tiles, and thrust is that mass times a fixed exhaust speed of 5.26077e-9 AU/s,
+787 m/s. That is exactly nitrogen expanding to vacuum from about 298 K. Ideal
+cold-gas expansion gives v_e = sqrt(2γ/(γ−1)·RT/M) (standard rocket-propulsion
+result, for example Sutton and Biblarz, *Rocket Propulsion Elements*; *from
+memory of the text, verify the edition*), so at one temperature each gas is worth
+sqrt((γ/(γ−1))/M) relative to nitrogen: hydrogen 3.69, methane 1.45, carbon
+monoxide 1.00, oxygen 0.94, carbon dioxide 0.90, with γ from standard gas tables
+near 298 K and the game's molar masses. A mixture is taken at its mass-weighted
+worth, a stated approximation. Real cold-gas thrusters reach close to, not
+exactly, the ideal figure.
+
+Framework keeps every RCS quantity in the engine's own unit, nitrogen-equivalent
+kilograms: it serves `RemoveGasMass` in the game's own order (regulators, their
+gas-input points, the game's input rule, each container's own removal) at each
+gas's worth, and adds registered feeds on the same tiles; `GetRCSRemain` and
+`GetRCSMax` report the same unit, so delta-v and Auto Nav's planning follow. A
+nitrogen-only ship is unchanged. Distant, shallow-loaded ships keep the vanilla
+model. Station refuelling, which fills only nitrogen, is untouched.
+
+The P1 manifold is Manufacturing's feed: its switched-on stores supply the
+nitrogen-equivalent asked for, converted back to their own kilograms, through
+Framework's buffered draws (settled every couple of seconds and before a save).
+Hydrogen and methane leave the ship as exhaust, not into any room.
+
 ## The hydrogen store
 
 24 kg capacity: the native canister volume at 41.4 MPa and 293 K holds about

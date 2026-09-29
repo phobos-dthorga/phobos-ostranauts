@@ -1698,5 +1698,31 @@
     "registrationReference": null,
     "patches": null,
     "fullFootprint": true
+  },
+  {
+    "key": "p1-manifold",
+    "sourceSHA256": "a8cac768458f9ecd4ee507080092cb4b77247f96c8418da01d23b1d367cfde51",
+    "nativeSize": [
+      16,
+      16
+    ],
+    "pivot": [
+      8,
+      8
+    ],
+    "sourceBounds": [
+      0,
+      0,
+      64,
+      64
+    ],
+    "exports": {
+      "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosPropellantManifold.png": "c0258a2bc897e71e2d956a76f3017c8d9a37494777baf057e37ed5ab9bfe0c5a",
+      "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosPropellantManifoldNormal.png": "30dd0e95d3fda123a8b48a8fe9859aa66ef2e862fb1b5b5c7aec114c5ac3adff"
+    },
+    "normal": "Neutral tangent normal with matching alpha; no authored relief",
+    "registrationReference": null,
+    "patches": null,
+    "fullFootprint": true
   }
 ]

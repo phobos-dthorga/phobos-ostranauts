@@ -399,3 +399,15 @@ The installation and getting-started guides gain the Workshop route; ten player
 guides gain flowcharts with one-sentence lead-ins, and several stale statements
 found on the way are corrected. No translation entries change. Coverage is 2,284
 entries, 162 documents and 14 other surfaces. Unity wording is unverified.
+
+## RCS propellant (Framework 0.42.0, Manufacturing 0.3.0), 29 September 2026
+
+Manufacturing 0.3.0 adds the Fennmark P1 RCS propellant manifold and the Fennmark
+propellant line; Framework 0.42.0 gives each RCS gas its real cold-gas worth. New
+catalogue entries cover the manifold's switches, draw order, per-store rows,
+waits and logs, and the line's names and remainder. The player guide gains an RCS
+propellant section that leads with the three set-up steps; the Workshop pages,
+design and implementation records, economy guide and item references follow.
+Nitrogen-equivalent kilograms are named wherever a fuel reading is explained.
+Coverage is 2,327 entries, 162 documents and 14 other surfaces. Unity wording is
+unverified.

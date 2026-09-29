@@ -13,7 +13,7 @@ namespace PhobosManufacturing;
 internal sealed class Provider : IEquipmentProvider, IEquipmentPanelFields
 {
     public string Id => Plugin.Id;
-    public IReadOnlyList<string> Definitions { get; } = Array.AsReadOnly(new[] { RefineryRules.Installed, ProcessorRules.Installed, SabatierRules.Installed, HydrogenRules.Installed, MethaneRules.Installed }
+    public IReadOnlyList<string> Definitions { get; } = Array.AsReadOnly(new[] { RefineryRules.Installed, ProcessorRules.Installed, SabatierRules.Installed, HydrogenRules.Installed, MethaneRules.Installed, ManifoldRules.Installed }
         .SelectMany(id => new[] { id, id + "Dmg" }).ToArray());
     private static string N(double value) => value.ToString("R", CultureInfo.InvariantCulture);
     public IEnumerable<EquipmentField> Fields(CondOwner co)
@@ -41,13 +41,27 @@ internal sealed class Provider : IEquipmentProvider, IEquipmentPanelFields
             yield return new(Text.Get("Provider.methane_field"), ObjectPresentation.Name(SabatierService.MethanePeer(co)),
                 SabatierService.MethaneCandidates(co).Select(v => ("methane:" + v.strID, ObjectPresentation.Name(v))).Concat(new[] { ("methane:none", Text.Get("Provider.link_none")) }));
         }
+        else if (ManifoldRules.IsFamily(co.strCODef))
+        {
+            yield return new(Text.Get("Provider.feed_field"), Text.Get(ManifoldService.On(co) ? "Provider.on" : "Provider.off"),
+                new[] { ("feed:on", Text.Get("Provider.on")), ("feed:off", Text.Get("Provider.off")) });
+            yield return new(Text.Get("Provider.order_field"), Text.Get(ManifoldService.First(co) ? "Provider.order_first" : "Provider.order_last"),
+                new[] { ("order:first", Text.Get("Provider.order_first")), ("order:last", Text.Get("Provider.order_last")) });
+            foreach (var source in ManifoldService.Sources(co))
+                yield return new(ObjectPresentation.Name(source.Id), Text.Get(source.Enabled ? "Provider.on" : "Provider.off"),
+                    new[] { ("source-on:" + source.Id, Text.Get("Provider.on")), ("source-off:" + source.Id, Text.Get("Provider.off")), ("unlink:" + source.Id, Text.Get("Provider.unlink")) });
+            if (ManifoldService.Sources(co).Count < ManifoldRules.MaxSources)
+                yield return new(Text.Get("Provider.add_source_field"), Text.Get("Provider.link_none"),
+                    ManifoldService.Candidates(co).Where(c => ManifoldService.Sources(co).All(x => x.Id != c.strID)).Select(c => ("link:" + c.strID, ObjectPresentation.Name(c))));
+        }
         else if (FuelStores.For(co.strCODef) is FuelStore fuel && !BulkVessel.Protected(co))
             yield return new(Text.Get("Provider.vent_field"), Text.Get("Provider.kg", BulkVessel.Snapshot(co).ServiceKg), StoreService.VentChoices(fuel).Select(n => ("vent:" + N(n), Text.Get("Provider.kg", n))));
     }
-    public bool IsConfiguration(string action) => new[] { "link:", "water:", "store:", "canister:", "vent:", "hydrogen:", "methane:" }.Any(p => action.StartsWith(p, StringComparison.Ordinal));
+    public bool IsConfiguration(string action) => new[] { "link:", "water:", "store:", "canister:", "vent:", "hydrogen:", "methane:", "feed:", "order:", "source-on:", "source-off:", "unlink:" }
+        .Any(p => action.StartsWith(p, StringComparison.Ordinal));
     public string ConfigurationStamp(CondOwner co) => Phobos.Ostranauts.Framework.Controls.ConfigurationStamp.For(co, "PhobosMaterialPort.", "PhobosState.crew-order",
         "PhobosState." + RefineryRules.Record, "PhobosState." + ProcessorRules.Record, "PhobosState." + SabatierRules.Record,
-        "PhobosState." + HydrogenRules.Record, "PhobosState." + MethaneRules.Record);
+        "PhobosState." + HydrogenRules.Record, "PhobosState." + MethaneRules.Record, "PhobosState." + ManifoldRules.Record);
     public bool ApplyConfiguration(CondOwner co, ConsoleBinding? binding, string expected, string action, out string reason)
     {
         reason = ConsoleText.Get("stale");
@@ -63,6 +77,8 @@ internal sealed class Provider : IEquipmentProvider, IEquipmentPanelFields
         if (ProcessorRules.IsFamily(co.strCODef))
             return new EquipmentSnapshot(co.strID, co.strNameFriendly, "processor", new EquipmentActivity(ProcessorService.State(co), ProcessorService.Describe(co)),
                 ProcessorService.Protected(co) ? Actions("accept", "pause") : Actions("start", "pause", "cancel"));
+        if (ManifoldRules.IsFamily(co.strCODef))
+            return new EquipmentSnapshot(co.strID, co.strNameFriendly, "manifold", new EquipmentActivity(ManifoldService.State(co), ManifoldService.Describe(co)), Actions("on", "off"));
         if (SabatierRules.IsFamily(co.strCODef))
             return new EquipmentSnapshot(co.strID, co.strNameFriendly, "reactor", new EquipmentActivity(SabatierService.State(co), SabatierService.Describe(co)),
                 SabatierService.Protected(co) ? Actions("accept", "pause") : Actions("start", "pause", "cancel"));
@@ -74,5 +90,6 @@ internal sealed class Provider : IEquipmentProvider, IEquipmentPanelFields
     public bool Command(CondOwner co, ConsoleBinding? binding, string action, out string message) =>
         RefineryRules.IsFamily(co.strCODef) ? RefineryService.Command(co, binding, action, out message) :
         ProcessorRules.IsFamily(co.strCODef) ? ProcessorService.Command(co, binding, action, out message) :
-        SabatierRules.IsFamily(co.strCODef) ? SabatierService.Command(co, binding, action, out message) : StoreService.Command(co, binding, action, out message);
+        SabatierRules.IsFamily(co.strCODef) ? SabatierService.Command(co, binding, action, out message) :
+        ManifoldRules.IsFamily(co.strCODef) ? ManifoldService.Command(co, binding, action, out message) : StoreService.Command(co, binding, action, out message);
 }

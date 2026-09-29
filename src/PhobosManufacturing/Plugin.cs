@@ -17,8 +17,8 @@ namespace PhobosManufacturing;
 public sealed class Plugin : BaseUnityPlugin
 {
     public const string Id = ManufacturingRules.Owner;
-    public const string Version = "0.2.0";
-    public const string MinimumFrameworkVersion = "0.41.0";
+    public const string Version = "0.3.0";
+    public const string MinimumFrameworkVersion = "0.42.0";
     internal static Action<string> Log = _ => { };
     private Harmony? harmony;
     private float nextScan;
@@ -29,10 +29,11 @@ public sealed class Plugin : BaseUnityPlugin
         ShipbreakerStock.Detect();
         FrameworkLifecycle.ContentLoading += Load;
         EquipmentProviders.Register(new Provider());
+        Phobos.Ostranauts.Framework.Propulsion.RcsPropellant.Register(ManifoldService.Instance);
         Log(Text.Get("Plugin.loaded", Version, ShipbreakerStock.PluginPresent ? Text.Get("Plugin.with_shipbreaker") : Text.Get("Plugin.without_shipbreaker")));
     }
     private static void Load() { ResetServices(); Content.Register(Log); }
-    internal static void ResetServices() { RefineryService.Reset(); ProcessorService.Reset(); SabatierService.Reset(); StoreService.Reset(); }
+    internal static void ResetServices() { RefineryService.Reset(); ProcessorService.Reset(); SabatierService.Reset(); StoreService.Reset(); ManifoldService.Reset(); }
     /// <summary>A damaged fuel store has no native tick of its own: every couple of seconds its leak advances.</summary>
     private void Update()
     {
@@ -46,6 +47,7 @@ public sealed class Plugin : BaseUnityPlugin
     {
         FrameworkLifecycle.ContentLoading -= Load;
         EquipmentProviders.Unregister(Id); Phobos.Ostranauts.Framework.Liquids.BulkVessels.Unregister(Id);
+        Phobos.Ostranauts.Framework.Propulsion.RcsPropellant.Unregister(ManifoldService.Instance.Id);
         ResetServices(); harmony?.UnpatchSelf();
     }
 }
@@ -230,7 +232,7 @@ internal static class ConsolePatch
         { strInput += "\n" + string.Join("\n", CrewSim.GetSelectedCrew()?.ship?.GetCOs(null, false, false, true).Where(Content.Machine).Select(c => c.strNameFriendly + " " + c.strID) ?? Array.Empty<string>()); __result = true; return false; }
         var co = parts.Length >= 3 ? Content.Resolve(parts[2]) : null;
         string message = Text.Get("Console.help");
-        string action = parts.Length == 4 && new[] { "link", "water", "store", "canister", "vent", "hydrogen", "methane" }.Contains(parts[1]) ? parts[1] + ":" + parts[3] : parts[1];
+        string action = parts.Length == 4 && new[] { "link", "water", "store", "canister", "vent", "hydrogen", "methane", "feed", "order", "source-on", "source-off", "unlink" }.Contains(parts[1]) ? parts[1] + ":" + parts[3] : parts[1];
         var provider = new Provider();
         __result = Content.Machine(co) && provider.Command(co!, null, action, out message); strInput += "\n" + message; return false;
     }

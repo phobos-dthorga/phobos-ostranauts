@@ -318,9 +318,14 @@ foreach ($mod in $Mods) {
                     "images/phobos/manufacturing/$image.png"; "images/phobos/manufacturing/${image}Normal.png"
                 }
             }
-            # 0.2.0 adds the Sabatier reactor and methane store.
+            # 0.2.0 adds the Sabatier reactor and methane store; 0.3.0 the propellant manifold and line.
             if ($version -ge [version]'0.2.0') {
                 foreach ($image in @('PhobosSabatierReactor', 'PhobosMethaneStore')) {
+                    "images/phobos/manufacturing/$image.png"; "images/phobos/manufacturing/${image}Normal.png"
+                }
+            }
+            if ($version -ge [version]'0.3.0') {
+                foreach ($image in @('PhobosPropellantManifold', 'PropellantPipe', 'PropellantPipeSheet')) {
                     "images/phobos/manufacturing/$image.png"; "images/phobos/manufacturing/${image}Normal.png"
                 }
             }

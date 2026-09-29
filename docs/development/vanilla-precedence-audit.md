@@ -195,3 +195,17 @@ Owner report (2026-09-29): every mode held range from the target, drifted into n
   and Seal still waits for the hazardous permission; picking up an aluminium
   stack and right-clicking the bin places one piece by hand.
 - The G4 captures and cuts a wreck built from variant walls.
+
+## RCS propellant (Framework 0.42.0, 29 September 2026)
+
+Owner request: RCS thrusters burn the bulk gases at their real worth, and the game's
+own O2 and CO2 canisters are corrected too. For loaded ships Framework serves
+`Ship.RemoveGasMass`, `GetRCSRemain` and `GetRCSMax` itself instead of amending them,
+because the native loops return one species-blind mass and have no hook for a per-gas
+worth or a non-canister feed. The replacement keeps everything the game decides:
+regulators in the game's order, their `GasInput*` points, the game's `TIsRCSValidInput`
+rule, and each container's own `GasContainer.RemoveGasMass`. It changes only the worth
+of each kilogram (nitrogen exactly 1, so nitrogen-only ships are unchanged) and adds
+registered feeds found on the same tiles. Shallow-loaded ships, `Maneuver`, refuelling
+(`RefuelRCS`, `GUIStationRefuel`) and the thrust formula stay native. A failure in the
+replacement falls back to the native method. Verdict: justified replacement, recorded.

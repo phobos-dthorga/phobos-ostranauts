@@ -504,6 +504,8 @@ $23,944. These are authored balance choices, not measured gameplay outcomes.
 | Fennmark H2 hydrogen store | 160 kg empty | $22,000 | $27,500 | $16,500 | $5,500 |
 | Fennmark K2 Sabatier reactor (0.2.0) | 150 kg | $44,000 | $55,000 | $33,000 | $11,000 |
 | Fennmark M2 methane store (0.2.0) | 160 kg empty | $21,000 | $26,250 | $15,750 | $5,250 |
+| Fennmark P1 RCS propellant manifold (0.3.0) | 10 kg | $24,000 | $30,000 | $18,000 | $6,000 |
+| Fennmark propellant line (0.3.0, ordinary supply) | 1 kg | $3 | — | — | — |
 | Nickel-iron ingot | 4 kg | $24 | — | — | — |
 | Carbon stock | 1 kg | $10 | — | — | — |
 
@@ -537,6 +539,7 @@ had a 40% chance, which at these prices would have been a money printer.
 | H2 store | 14.4 / 12 min (1200/1000) | 36 min (3000) | 54 min (900) | 60 min | 90 min |
 | K2 reactor | 14.4 / 12 min (1200/1000) | 43.2 min (3600) | 54 min (900) | 90 min | 124.2 min |
 | M2 store | 14.4 / 12 min (1200/1000) | 36 min (3000) | 54 min (900) | 60 min | 90 min |
+| P1 manifold | 7.2 / 6 min (600/500) | 21.6 min (1800) | 18 min (300) | 30 min | 48.6 min |
 
 The IC fusion reactor's thresholds are 2000/2000 with a 6000 repair; the radars
 1000/1000 with 1600; the heavy lift rotor's repair is 5000.
@@ -552,6 +555,7 @@ electronic and five mechanical parts and three steel):
 | H2 store | 6 | 2 | 6 | 2 | 0 | 1 | 0 | 0 | $100.30 | 12.5 kg |
 | K2 reactor | 3 | 2 | 4 | 6 | 1 | 2 | 2 | 0 | $247.50 | 16.5 kg |
 | M2 store | 6 | 2 | 6 | 2 | 0 | 1 | 0 | 0 | $100.30 | 12.5 kg |
+| P1 manifold | 1 | 1 | 2 | 2 | 0 | 1 | 0 | 0 | $61.20 | 4.5 kg |
 
 **Dismantling** conserves mass and returns components too (motor 2.5 kg,
 mainboard 0.5 kg, heat sink 1.5 kg, screen 6 kg; other units as above):
@@ -567,6 +571,8 @@ mainboard 0.5 kg, heat sink 1.5 kg, screen 6 kg; other units as above):
 | K2 intact | 80 | 30 | 16 | 11 | 1 | 2 | 2 | 0 | 20 | 150 kg | $689.00 / 1.6% |
 | K2 broken | 36 | 12 | 4 | 0 | 0 | 1 | 1 | 0 | 98 | 150 kg | $212.70 / 1.9% |
 | M2 intact / broken | as the H2 store | | | | | | | | | 160 kg | $550.60 / 2.6%, $180.40 / 3.4% |
+| P1 intact | 4 | 2 | 2 | 2 | 0 | 0 | 0 | 0 | 2 | 10 kg | $55.70 / 0.2% |
+| P1 broken | 3 | 1 | 2 | 0 | 0 | 0 | 0 | 0 | 5 | 10 kg | $22.15 / 0.4% |
 
 Recovery sits within the vanilla range (RCS cluster 1.0%, battery 2.5%, towing
 brace 2.6%). Empty the V4's feed and tray, the X2's hold and the H2 store before

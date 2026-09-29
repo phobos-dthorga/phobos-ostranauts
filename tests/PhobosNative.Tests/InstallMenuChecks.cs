@@ -19,7 +19,8 @@ internal static class InstallMenuChecks
             InstallMenu.Validate(definitions.Installables.Values);
             foreach (var co in definitions.Objects.Values.Where(c => c.aStartingConds?.Any(s => s.Split('=')[0] == "IsInstalled") == true))
             {
-                string expected = co.strName.StartsWith(FurnaceRules.Radiator) || co.strName.StartsWith(FurnaceRules.ThermalPort) || co.strName.StartsWith(FurnaceCooling.Conduit) ? "HVAC" :
+                string expected = co.strName.StartsWith(FurnaceRules.Radiator) || co.strName.StartsWith(FurnaceRules.ThermalPort) || co.strName.StartsWith(FurnaceCooling.Conduit) ||
+                    co.strName.StartsWith(PhobosManufacturing.Core.ManifoldRules.Prefix) || co.strName.StartsWith(PhobosManufacturing.Core.PropellantLineRules.Prefix) ? "HVAC" :
                     co.strName.StartsWith(IndustrialRules.Prefix) ? "CTRL" :
                     co.strName.StartsWith(PhobosAgriculture.IrrigationDefinitions.Pipe) ? "MISC" : "APPS";
                 check(Installables.dictJobBuildOptionsListed.TryGetValue(expected, out var tab) && tab.ContainsKey(co.strName), "Native INSTALL tab covers intact/damaged fixture: " + co.strName);

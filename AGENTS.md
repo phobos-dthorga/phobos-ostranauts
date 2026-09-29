@@ -364,6 +364,14 @@
   it as permission for other consumer-less commodities. Methane is a native gas:
   the store leaks it into the room and a burn leaves CO2. Keep the reactor's saved
   reactant/product holds and its one-step conversion; follow the refinery record.
+- Owner request (2026-09-29), Framework 0.42.0 / Manufacturing 0.3.0: RCS thrusters
+  burn bulk gases at their real cold-gas worth, and native O2/CO2 canisters are
+  corrected too. Framework `Propulsion.RcsPropellant` serves the engine's RCS gas
+  loops in nitrogen-equivalent kilograms (nitrogen-only ships unchanged; shallow ships
+  and refuelling stay native) and takes registered `IRcsPropellantFeed`s; bulk-vessel
+  draws go through `BufferedDrains`. Manufacturing's P1 manifold (switchable, draw
+  order, up to four stores, all off by default) and its own propellant-line family
+  are the first feed. Record further RCS changes in the vanilla-precedence audit.
 
 ## Working style
 

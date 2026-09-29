@@ -42258,6 +42258,585 @@
       ],
       "before": "Reactors drawing from it: {0}.",
       "after": "Reactors drawing from it: {0}."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Manifold.name",
+      "category": "item name",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Definitions.cs:127",
+        "src/PhobosManufacturing/Definitions.cs:134"
+      ],
+      "before": "RCS Propellant Manifold",
+      "after": "RCS Propellant Manifold"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Manifold.description",
+      "category": "item description",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Definitions.cs:127"
+      ],
+      "before": "A passive {0:F0} kg valve block that feeds your RCS thrusters from bulk gas stores. Install it where a gas canister would go, on one of an RCS Intake Regulator's gas-input tiles, with its line port facing away. Link hydrogen or methane stores within one tile or along a propellant line, switch each one on, and choose whether the thrusters draw from the manifold before or after the regulator's own canisters. Every gas pushes by its own worth: a kilogram of methane gives about 1.45 times the push of nitrogen, hydrogen about 3.7 times. Everything starts switched off.",
+      "after": "A passive {0:F0} kg valve block that feeds your RCS thrusters from bulk gas stores. Install it where a gas canister would go, on one of an RCS Intake Regulator's gas-input tiles, with its line port facing away. Link hydrogen or methane stores within one tile or along a propellant line, switch each one on, and choose whether the thrusters draw from the manifold before or after the regulator's own canisters. Every gas pushes by its own worth: a kilogram of methane gives about 1.45 times the push of nitrogen, hydrogen about 3.7 times. Everything starts switched off."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Manifold.protected",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ManifoldService.cs:137",
+        "src/PhobosManufacturing/ManifoldService.cs:177",
+        "src/PhobosManufacturing/ManifoldService.cs:197"
+      ],
+      "before": "This manifold's record could not be read. Check it, then Accept its state from the panel.",
+      "after": "This manifold's record could not be read. Check it, then Accept its state from the panel."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Manifold.on",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ManifoldService.cs:141"
+      ],
+      "before": "Feeding the thrusters.",
+      "after": "Feeding the thrusters."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Manifold.off",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ManifoldService.cs:141"
+      ],
+      "before": "Switched off.",
+      "after": "Switched off."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Manifold.order_first",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ManifoldService.cs:141",
+        "src/PhobosManufacturing/ManifoldService.cs:186"
+      ],
+      "before": "Drawn before the regulator's canisters.",
+      "after": "Drawn before the regulator's canisters."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Manifold.order_last",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ManifoldService.cs:141",
+        "src/PhobosManufacturing/ManifoldService.cs:186"
+      ],
+      "before": "Drawn after the regulator's canisters.",
+      "after": "Drawn after the regulator's canisters."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Manifold.placed",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ManifoldService.cs:142"
+      ],
+      "before": "Sits on a regulator's gas input.",
+      "after": "Sits on a regulator's gas input."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Manifold.not_placed",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ManifoldService.cs:142"
+      ],
+      "before": "Not on a regulator's gas input: install it where a gas canister would go.",
+      "after": "Not on a regulator's gas input: install it where a gas canister would go."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Manifold.source_line",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ManifoldService.cs:150"
+      ],
+      "before": "{0}: {1:F1} kg ({2:F1} kg nitrogen-equivalent), {3}",
+      "after": "{0}: {1:F1} kg ({2:F1} kg nitrogen-equivalent), {3}"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Manifold.source_feeding",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ManifoldService.cs:151"
+      ],
+      "before": "feeding",
+      "after": "feeding"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Manifold.source_missing",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ManifoldService.cs:85"
+      ],
+      "before": "missing or on another ship",
+      "after": "missing or on another ship"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Manifold.source_not_ready",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ManifoldService.cs:86"
+      ],
+      "before": "not installed, damaged, locked or not yours",
+      "after": "not installed, damaged, locked or not yours"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Manifold.source_protected",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ManifoldService.cs:87"
+      ],
+      "before": "needs its owner's attention",
+      "after": "needs its owner's attention"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Manifold.source_unconnected",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ManifoldService.cs:88"
+      ],
+      "before": "not within one tile and no propellant line reaches it",
+      "after": "not within one tile and no propellant line reaches it"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Manifold.source_off",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ManifoldService.cs:89"
+      ],
+      "before": "switched off",
+      "after": "switched off"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Manifold.no_sources",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ManifoldService.cs:153"
+      ],
+      "before": "No stores linked. Add one from Connections.",
+      "after": "No stores linked. Add one from Connections."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Manifold.reserve",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ManifoldService.cs:154"
+      ],
+      "before": "Ready for the thrusters: {0:F1} of {1:F1} kg nitrogen-equivalent.",
+      "after": "Ready for the thrusters: {0:F1} of {1:F1} kg nitrogen-equivalent."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Manifold.last_source",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ManifoldService.cs:155"
+      ],
+      "before": "Last drew from {0}.",
+      "after": "Last drew from {0}."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Manifold.draw_reason",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ManifoldService.cs:114"
+      ],
+      "before": "fed to the RCS thrusters",
+      "after": "fed to the RCS thrusters"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Manifold.accept_done",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ManifoldService.cs:175"
+      ],
+      "before": "Accepted. The manifold's record is trusted again.",
+      "after": "Accepted. The manifold's record is trusted again."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Manifold.accept_unavailable",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ManifoldService.cs:173",
+        "src/PhobosManufacturing/ManifoldService.cs:175"
+      ],
+      "before": "The record cannot be accepted as it is.",
+      "after": "The record cannot be accepted as it is."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Manifold.switched_on",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ManifoldService.cs:183",
+        "src/PhobosManufacturing/ManifoldService.cs:185"
+      ],
+      "before": "Manifold on: switched-on stores now feed the thrusters.",
+      "after": "Manifold on: switched-on stores now feed the thrusters."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Manifold.switched_off",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ManifoldService.cs:184",
+        "src/PhobosManufacturing/ManifoldService.cs:185"
+      ],
+      "before": "Manifold off: the thrusters use only the regulator's canisters.",
+      "after": "Manifold off: the thrusters use only the regulator's canisters."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Manifold.full",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ManifoldService.cs:188"
+      ],
+      "before": "The manifold already has four stores. Unlink one first.",
+      "after": "The manifold already has four stores. Unlink one first."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Manifold.link_missing",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ManifoldService.cs:188",
+        "src/PhobosManufacturing/ManifoldService.cs:190",
+        "src/PhobosManufacturing/ManifoldService.cs:192"
+      ],
+      "before": "That store is not linked, or no longer reachable.",
+      "after": "That store is not linked, or no longer reachable."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Manifold.linked",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ManifoldService.cs:189"
+      ],
+      "before": "Linked, switched off. Switch it on to feed the thrusters.",
+      "after": "Linked, switched off. Switch it on to feed the thrusters."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Manifold.unlinked",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ManifoldService.cs:190"
+      ],
+      "before": "Unlinked.",
+      "after": "Unlinked."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Manifold.source_switched_on",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ManifoldService.cs:192"
+      ],
+      "before": "Store switched on.",
+      "after": "Store switched on."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Manifold.source_switched_off",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ManifoldService.cs:192"
+      ],
+      "before": "Store switched off.",
+      "after": "Store switched off."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Line.name",
+      "category": "item name",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Definitions.cs:152",
+        "src/PhobosManufacturing/Definitions.cs:160",
+        "src/PhobosManufacturing/Definitions.cs:166"
+      ],
+      "before": "Propellant Line",
+      "after": "Propellant Line"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Line.description",
+      "category": "item description",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Definitions.cs:160"
+      ],
+      "before": "Sealed gas line for hydrogen and methane between Fennmark stores and a propellant manifold. Lay it tile by tile on intact floor like other conduit; it does not join coolant or irrigation lines.",
+      "after": "Sealed gas line for hydrogen and methane between Fennmark stores and a propellant manifold. Lay it tile by tile on intact floor like other conduit; it does not join coolant or irrigation lines."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Line.waste",
+      "category": "item name",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/EquipmentEconomy.cs:108"
+      ],
+      "before": "Retained propellant line waste",
+      "after": "Retained propellant line waste"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Provider.feed_field",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Provider.cs:46"
+      ],
+      "before": "Feed",
+      "after": "Feed"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Provider.order_field",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Provider.cs:48"
+      ],
+      "before": "Draw order",
+      "after": "Draw order"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Provider.order_first",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Provider.cs:48",
+        "src/PhobosManufacturing/Provider.cs:49"
+      ],
+      "before": "Manifold first",
+      "after": "Manifold first"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Provider.order_last",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Provider.cs:48",
+        "src/PhobosManufacturing/Provider.cs:49"
+      ],
+      "before": "Canisters first",
+      "after": "Canisters first"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Provider.add_source_field",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Provider.cs:54"
+      ],
+      "before": "Add a store",
+      "after": "Add a store"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Provider.on",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Provider.cs:46",
+        "src/PhobosManufacturing/Provider.cs:47",
+        "src/PhobosManufacturing/Provider.cs:51",
+        "src/PhobosManufacturing/Provider.cs:52"
+      ],
+      "before": "On",
+      "after": "On"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Provider.off",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Provider.cs:46",
+        "src/PhobosManufacturing/Provider.cs:47",
+        "src/PhobosManufacturing/Provider.cs:51",
+        "src/PhobosManufacturing/Provider.cs:52"
+      ],
+      "before": "Off",
+      "after": "Off"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Provider.unlink",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Provider.cs:52"
+      ],
+      "before": "Unlink",
+      "after": "Unlink"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Provider.action_on",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Provider.cs:81"
+      ],
+      "before": "Feed on",
+      "after": "Feed on"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Provider.action_off",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Provider.cs:81"
+      ],
+      "before": "Feed off",
+      "after": "Feed off"
     }
   ],
   "documents": [
@@ -42265,8 +42844,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "55d7de3ae4a951244cd19837c2d605786358b2888409a3dad54b787890bedb67",
-      "review": "2026-09-29: Workshop preparation status in the welcome paragraph."
+      "sha256": "fedc7f23eddea0d23152028eb6fd9fd710b5b5c2cfc28316f5015ed1ac322612",
+      "review": "2026-09-29 (RCS propellant): version rows; Manufacturing summary names the K2, M2 and P1."
     },
     {
       "path": "SUPPORT.md",
@@ -42279,8 +42858,8 @@
       "path": "docs/README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "bf767223d56bbc655089161dff0e83deaca74ea5df094f9eb809840196d04a09",
-      "review": "2026-09-29: index link text follows the Manufacturing guide title."
+      "sha256": "12231049da84af57ce34ffe9b58900a8d404590662ffaf0f2b2d8229d78cb90e",
+      "review": "2026-09-29 (RCS propellant): index link text follows the Manufacturing guide title."
     },
     {
       "path": "docs/agriculture-bulk-storage.md",
@@ -42425,8 +43004,8 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "9c9ae135fe766fd0038a8835a3544d75f4b19976f7a7bac6bc0a1041293b7c83",
-      "review": "2026-09-29: version line; no other wording changed."
+      "sha256": "050c32f073bdd20581d6d0d358c7a191acde5bd98d6359d877454c02d1eb8ba6",
+      "review": "2026-09-29 (RCS propellant): maintained version links only."
     },
     {
       "path": "docs/crew-automation.md",
@@ -42692,8 +43271,8 @@
       "path": "docs/development/equipment-branding.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "35750354342dc54f97dd030e3d420b8485e0a2b686fea8c5dfab9ce89be3770b",
-      "review": "2026-09-29: Fennmark K2 and M2 rows; model letters."
+      "sha256": "db546b8d1354af2c5087175e136210491ce4bbcce356cd52ba68d79510c5ee87",
+      "review": "2026-09-29 (RCS propellant): P1 manifold and propellant line rows."
     },
     {
       "path": "docs/development/equipment-value-audit.md",
@@ -42726,8 +43305,8 @@
       "path": "docs/development/framework-author-guide.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "2234b0608c048b7c1b996c3927587c11a65e00b58afd562b3e7c16a219d8a53b",
-      "review": "2026-09-29: new 0.41.0 section: room heat, native gas, vessel damage."
+      "sha256": "8713c467defd4e40024062bb4d8ad1dce8a07d41a317c4836a952ad28f51be50",
+      "review": "2026-09-29 (RCS propellant): RCS propellant feeds and buffered draws section; implementation terms kept for authors."
     },
     {
       "path": "docs/development/framework-bulk-storage.md",
@@ -42810,15 +43389,15 @@
       "path": "docs/development/install-catalogue.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "2b77b860ceb75c74f0dd4e1e558957db115c9110ea10c6784bd9e51e74bfa1f3",
-      "review": "2026-09-29: Manufacturing APPS row lists five machines."
+      "sha256": "ff323edb9b21d608675b16a78c2c021fd8ec5777bf29f8d516053f45bb3002e9",
+      "review": "2026-09-29 (RCS propellant): HVAC row for the P1 and propellant line."
     },
     {
       "path": "docs/development/item-handling-audit.md",
       "scope": "current handling guidance and complete generated definition ledger",
       "decision": "reviewed",
-      "sha256": "1f23540a2f3dd23274561592a992618bd86782eb07a1c942ebf6fb9022cd2b4a",
-      "review": "2026-09-29: regenerated ledger with the K2 and M2 families."
+      "sha256": "4eb23ce7e3552f813f9d45203853a6df442493cd9c421ce26779af5a6408d533",
+      "review": "2026-09-29 (RCS propellant): regenerated ledger rows for the new families."
     },
     {
       "path": "docs/development/item-reference-maintenance.md",
@@ -42855,8 +43434,8 @@
       "path": "docs/development/manufacturing-art-handoff.md",
       "scope": "development artwork record",
       "decision": "rewrite",
-      "sha256": "38968fa7737a84738905723426e4d838bf0be6bd8157540d939cd9c3207cd34a",
-      "review": "2026-09-29: 0.2.0 artwork pass."
+      "sha256": "4b55afe23dfc172851072e9e2da399d37281bc473043f031b47a215bec2ad47e",
+      "review": "2026-09-29 (RCS propellant): 0.3.0 art pass record."
     },
     {
       "path": "docs/development/manufacturing-handover.md",
@@ -42869,15 +43448,15 @@
       "path": "docs/development/manufacturing-implementation.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "b6148bba637293307713f3179ea25b4805bfb622cbfe3d1b0d1bdb8416f60a84",
-      "review": "2026-09-29: 0.2.0 layout, identities, saved holds and verification."
+      "sha256": "e11bbc321a503bc7313d78c7321e8c40e2a2e89e3e8a76e457c5463f499c8981",
+      "review": "2026-09-29 (RCS propellant): 0.3.0 implementation section."
     },
     {
       "path": "docs/development/manufacturing-refinery-and-chemistry.md",
       "scope": "development design record; player text limited to names",
       "decision": "rewrite",
-      "sha256": "d411b8a39f75f47c130a1924ec40e5f47888a07927ebd346b342b9f701e23daa",
-      "review": "2026-09-29: Sabatier section, methane store and burn, sources."
+      "sha256": "cdd9857b78187801b427a9e49ccbb9930201d65952c0f8c692a23927f44382e8",
+      "review": "2026-09-29 (RCS propellant): cold-gas physics with source note marked to verify; our model labelled."
     },
     {
       "path": "docs/development/manufacturing-research.md",
@@ -42922,8 +43501,8 @@
       "path": "docs/development/merchant-stock.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "4f8b04154258b8fabb552e18108097b7b0467d5f401b025f07b13236189133eb",
-      "review": "2026-09-29: Manufacturing equipment lot row."
+      "sha256": "e269e381248dffda7df743e5d252f381729624c95351ad53dd2a442ee8ceaa56",
+      "review": "2026-09-29 (RCS propellant): propellant line lot row."
     },
     {
       "path": "docs/development/mod-extension-survey.md",
@@ -43125,8 +43704,8 @@
       "path": "docs/development/vanilla-precedence-audit.md",
       "scope": "contributor audit record: findings, native evidence, verdicts and owner checks",
       "decision": "review as contributor documentation; player-facing effects are described in the owning guides",
-      "sha256": "05c2337ebad0b5dcedf5c3a1697f0110b59222ec4398dc65e74b52dc517e2b34",
-      "review": "2026-09-29: round 5 (Auto Nav 0.27.0, Framework 0.40.0) and the round 3 torch row note."
+      "sha256": "1aa26cdaf329f80c7632b88e9ee2b5673ca0c829e5ef0abecd525344a0690e0b",
+      "review": "2026-09-29 (RCS propellant): recorded RCS replacement and verdict."
     },
     {
       "path": "docs/development/workshop-publication.md",
@@ -43146,8 +43725,8 @@
       "path": "docs/equipment-economy.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "1bfc8eb3fa37b9eeb42b34822aa74344b905d22f599d580cca5c9f222be01260",
-      "review": "2026-09-29: K2 and M2 prices, work, repair bills and dismantling rows."
+      "sha256": "604729e8223f365af81e1be429f5700497da20272c4a7d3679f60aff45aa76fb",
+      "review": "2026-09-29 (RCS propellant): P1/line price, service, repair and dismantle rows."
     },
     {
       "path": "docs/fluid-network-operations.md",
@@ -43160,8 +43739,8 @@
       "path": "docs/framework-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "396ad185d869364be79ea2ac74d50d308a7be8dc1f4ab55681f0b0a780c5f3fd",
-      "review": "2026-09-29: regenerated from reviewed inputs."
+      "sha256": "08f3c5128267a72e76c506fb04e2f27345a6efdf81b7511936d5292a74d3205e",
+      "review": "2026-09-29 (RCS propellant): generated version line."
     },
     {
       "path": "docs/furnace-coolant-conduits.md",
@@ -43223,8 +43802,8 @@
       "path": "docs/installing-mods.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "bf3d6858ce0f0ea422ebbe36284c6afb6a7f8e4b274faff2d1291df4e09eaca8",
-      "review": "2026-09-29: Steam Workshop installation route with flowchart, switching from local copies, and the Manufacturing cover note corrected."
+      "sha256": "f9b1828fc438546c740bad2828098db009ca08b06ee403a3d63cc8897d85ca92",
+      "review": "2026-09-29 (RCS propellant): maintained version minimum only."
     },
     {
       "path": "docs/item-references.md",
@@ -43237,15 +43816,15 @@
       "path": "docs/manufacturing-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "retain",
-      "sha256": "47fd6d88da552062c98ceb618c1f689b20426cbcf0bd4c4bc2570684020ca01a",
-      "review": "2026-09-29: regenerated from reviewed inputs."
+      "sha256": "b67cb4f2665a41403b74679dd599df0d0175018e5e1df260c4336625fd18e700",
+      "review": "2026-09-29 (RCS propellant): generated P1 and propellant line entries reviewed from config wording."
     },
     {
       "path": "docs/manufacturing-player-guide.md",
       "scope": "current player operating guide",
       "decision": "rewrite",
-      "sha256": "785d0b6898da5b800485fddf29deca712a89d07e5e9c0452c5e92ece4805eda7",
-      "review": "2026-09-29: title covers the K2 and M2; the K2 reload behaviour; K2/M2 owner checks. Diagrams unchanged."
+      "sha256": "d7bd492682ca6522770765558feade4577689d3fecc26bed173ba12a45c7d5a4",
+      "review": "2026-09-29 (RCS propellant): new RCS propellant section: steps first, gas worth table, limits and owner checks."
     },
     {
       "path": "docs/material-port-pairing.md",
@@ -43265,8 +43844,8 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "8918df820de78ff1b84cbb90c18809690376cdd259456735265a0d77fbb33539",
-      "review": "2026-09-29: flowchart added with a one-sentence lead-in; stale statements corrected where found (ingot recipes, silo consumers, collector products, dependency minima link, Manufacturing crew orders)."
+      "sha256": "f8399a1f9b8371b5897c2be66fe94f6510f81b72a7cdbe5c7e7fa6b017d87993",
+      "review": "2026-09-29 (RCS propellant): maintained version minimum only."
     },
     {
       "path": "docs/residue-collector.md",
@@ -43356,15 +43935,15 @@
       "path": "workshop/PhobosFramework/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "ac795932b8bf9d6a176c613158adf546a56b8ab3d009e7d92c077ebb8e629026",
-      "review": "2026-09-29: rewritten as a current, player-first Workshop description under Steam's 8,000-byte limit: capabilities, getting started, requirements, Workshop installation, saves and limits, credits and de-duplicated guide links; per-version update sections moved out to the changelog."
+      "sha256": "31a8ef8a85da6c5cbe1e4e4c4b1cd9bc83ff5515fe818520aac8a7df524ffbf8",
+      "review": "2026-09-29 (RCS propellant): RCS worth bullet; nitrogen unchanged stated first."
     },
     {
       "path": "workshop/PhobosManufacturing/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "5bd4e80de2f30c79a7283c578bb08aae9fb10e1092ff3c7b4a4a53cf519d0b96",
-      "review": "2026-09-29: rewritten as a current, player-first Workshop description under Steam's 8,000-byte limit: capabilities, getting started, requirements, Workshop installation, saves and limits, credits and de-duplicated guide links; per-version update sections moved out to the changelog."
+      "sha256": "d558b3968229e6c51c283618196d0631035da09d90f465b3a72c3e02c707eb28",
+      "review": "2026-09-29 (RCS propellant): P1 manifold bullet; everything starts off."
     },
     {
       "path": "workshop/PhobosShipbreaker/page.bbcode",
@@ -43378,8 +43957,8 @@
     {
       "path": "config/item-reference.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "db5c952058af016ddff2c43474eac8bc6064b09a4a4aedcff02a8cfc7228640d",
-      "review": "2026-09-29: K2 and M2 groups, H2 use text, gas deflagration wording, component trigger labels."
+      "sha256": "12cfe875257e4dd881f00524fae18f9c4e1e95db58b53df1f6ce2665163327fa",
+      "review": "2026-09-29 (RCS propellant): P1 and propellant line groups; H2/M2 use lines mention the manifold."
     },
     {
       "path": "mods/PhobosAgriculture/framework/equipment-names.json",
@@ -43426,14 +44005,14 @@
     {
       "path": "mods/PhobosFramework/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "1b2c692bc0f1bd8f4b3dcb75f537ad01c9b4e88150d4dd9c32ca02209a46b424",
-      "review": "2026-09-29: version metadata only."
+      "sha256": "e39c8c80b7521ffb80315ad55fe24dcf706746b6f46384402386a811986a8ca5",
+      "review": "2026-09-29 (RCS propellant): version only."
     },
     {
       "path": "mods/PhobosManufacturing/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "0adb783ee68e1319eee1bd877e7ae7e87fb3ab09e7ca56ee5e2397af89be26b2",
-      "review": "2026-09-29: version metadata only."
+      "sha256": "7439958241ad88867ae3bfa98f4c39fe8db58febe30050658aed00a603c8586b",
+      "review": "2026-09-29 (RCS propellant): version only."
     },
     {
       "path": "mods/PhobosShipbreaker/framework/equipment-names.json",

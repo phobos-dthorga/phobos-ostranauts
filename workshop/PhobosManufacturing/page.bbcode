@@ -1,5 +1,5 @@
 [h1]Phobos Manufacturing[/h1]
-[b]Version:[/b] 0.2.0
+[b]Version:[/b] 0.3.0
 [b]Publication status:[/b] Not published - unpublished draft
 
 Refining and chemistry aboard your ship: turn what the crew mines into water, metal stock and oxygen, and do something useful with the hydrogen. Outputs follow realistic chemistry within the game's units, and when it goes wrong, the game's own dangers apply.
@@ -10,6 +10,7 @@ Refining and chemistry aboard your ship: turn what the crew mines into water, me
 [*][b]Phobos' Fennmark X2 Chemical Processor[/b] (2 x 2, 6 kW): water electrolysis. Each hour, 1.125 kg of water becomes 1.000 kg of oxygen, into a linked O2 canister or the cabin air, and 0.125 kg of hydrogen into a linked H2 store.
 [*][b]Phobos' Fennmark H2 Hydrogen Store[/b] (2 x 2): holds 24 kg of hydrogen, with a vent overboard.
 [*][b]Phobos' Fennmark K2 Sabatier Reactor[/b] (2 x 2, 1.2 kW): CO2 from an installed CO2 canister and hydrogen from the H2 store become water for your silo or reservoir, and methane for the [b]Phobos' Fennmark M2 Methane Store[/b] (holds 160 kg). Paired with the X2, it wins back about half the water, as NASA's Sabatier system on the ISS does.
+[*][b]Phobos' Fennmark P1 RCS Propellant Manifold[/b] (1 x 1, INSTALL > HVAC): set on an RCS regulator's gas input where a canister would go, it feeds your thrusters from up to four H2 or M2 stores, within one tile or along the new Fennmark propellant line. Each gas pushes by its real worth: methane about 1.45 times nitrogen per kilogram, hydrogen about 3.7. Each store has its own switch, and everything starts off.
 [*]Clay hydrates now turn up in dark-regolith rock and C-class deposits. Ores are mined, never bought.
 [/list]
 
@@ -23,7 +24,7 @@ Refining and chemistry aboard your ship: turn what the crew mines into water, me
 
 [h2]Requirements[/h2]
 [list]
-[*]Ostranauts 1.0.1.5, BepInEx 5 and Phobos Framework 0.41.0 or newer.
+[*]Ostranauts 1.0.1.5, BepInEx 5 and Phobos Framework 0.42.0 or newer.
 [*]BepInEx 5 through EddieSM / EsMM27's [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3741030124]BepInEx Mod Loader[/url], including its one-time setup.
 [*]Optional: Phobos Shipbreaker 0.38.0 or newer (S3 silo and the steel charge) and Phobos Agriculture (R3 reservoir). Water work needs one of them.
 [/list]

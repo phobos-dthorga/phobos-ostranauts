@@ -108,3 +108,22 @@ stoichiometry and heat, the record's conversion and corrupt-record refusal, port
 distinctness, methane store and burn); native checks 16,755 PASS (both families'
 forms, names, power, the game's installed-CO2-canister trigger, the methane vessel
 registration, economy parity and value); art export check. Not gameplay validation.
+
+## 0.3.0: RCS propellant manifold (Framework 0.42.0)
+
+Owner request, 29 September 2026: RCS thrusters burn the bulk gases, with a dedicated
+switchable machine and piping. New save-stable identities: `PhobosPropellantManifold*`,
+`PhobosPropellantLine*` (with `PhobosPropellantLineWaste`), conditions
+`PhobosPropellantLinePresent`/`Intact`, the record `ManufacturingManifold`, and the map
+points `PhobosPropellantIn` (manifold) and `PhobosPropellantOut` (both fuel stores). The
+manifold's store links are one-sided saved ids, up to four, each with its own switch,
+plus a master switch and the draw order; all start off.
+
+`ManifoldService` implements Framework's `IRcsPropellantFeed`: Framework finds the
+manifold on a regulator's gas-input tile while serving the engine's RCS draw and asks it
+for nitrogen-equivalent mass; the manifold converts to each store's own kilograms and
+takes them through `BufferedDrains`. Connection checks (within one tile, or a
+`NativeFluidRoute` over intact propellant line, 64 tiles at most) are cached for five
+seconds. The manifold is not airtight and not a gas container, so the game's own
+refuelling never treats it as a canister (checked natively). The line art is a recorded
+recolour of the shared conduit sheet (`scripts/export-propellant-line-art.py`).

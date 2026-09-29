@@ -123,6 +123,8 @@
   "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosSabatierReactorNormal.png": "7e4297a0c170e01336e183a0cfa61b23f5bf84a0d480bd40c09a68f2b5e9ae12",
   "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosMethaneStore.png": "14dbaf222ff244d6bdcb3a05bc37b09c367ebd0eea0be5800633244f137501b0",
   "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosMethaneStoreNormal.png": "7e4297a0c170e01336e183a0cfa61b23f5bf84a0d480bd40c09a68f2b5e9ae12",
+  "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosPropellantManifold.png": "c0258a2bc897e71e2d956a76f3017c8d9a37494777baf057e37ed5ab9bfe0c5a",
+  "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosPropellantManifoldNormal.png": "30dd0e95d3fda123a8b48a8fe9859aa66ef2e862fb1b5b5c7aec114c5ac3adff",
   "mods/PhobosAgriculture/images/phobos/agriculture/Rack-Potato-sproutDamaged.png": "5783bfd13388f640b7918ed89b53200a89d205894c323f4db3b0593d4a162788",
   "mods/PhobosAgriculture/images/phobos/agriculture/Rack-Potato-sproutDamagedNormal.png": "4c13ad3feeb605ac7648a6c17489bf2cbb612ebdaf051f92e7b4b081dca05a5d",
   "mods/PhobosAgriculture/images/phobos/agriculture/Rack-Potato-youngDamaged.png": "a7b0d1ca7aee003c581cbba712e8ccd160a1793058b8b7c33378a188eaa9a743",

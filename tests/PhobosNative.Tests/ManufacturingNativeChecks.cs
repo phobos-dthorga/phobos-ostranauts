@@ -46,10 +46,22 @@ internal static class ManufacturingNativeChecks
             check(d.Items[methane.strItemDef].nCols == 2 && methane.jsonPI == null && methane.aTickers.Length == 0 && !Has(methane, "IsContainer") && Stat(methane, "StatMass") == MethaneRules.DryKg,
                 "M2 store is a passive two by two vessel at its dry mass: " + state);
             check(methane.strNameFriendly.StartsWith("Phobos' Fennmark M2 ", StringComparison.Ordinal), "M2 store carries the Fennmark M2 name: " + state);
+            var manifold = d.Objects[ManifoldRules.Prefix + state]; var manifoldItem = d.Items[manifold.strItemDef];
+            check(manifoldItem.nCols == 1 && manifold.jsonPI == null && !Has(manifold, "IsAirtight") && !Has(manifold, "IsContainer") && Stat(manifold, "StatMass") == ManifoldRules.MachineKg,
+                "P1 is a passive one-tile valve block, not airtight and not a container: " + state);
+            check(manifold.strNameFriendly.StartsWith("Phobos' Fennmark P1 ", StringComparison.Ordinal) && manifold.mapPoints.Contains(ManifoldRules.Inlet + ",0,-16"),
+                "P1 carries the Fennmark P1 name and a line port on its neighbouring tile: " + state);
+            check(!DataHandler.dictCTs["TIsRCSValidInput"].TriggeredDataCO(new DataCO(manifold), false),
+                "The game's own RCS input rule refuses the manifold, so vanilla refuels never pour nitrogen into it: " + state);
+            var line = d.Objects[PropellantLineRules.Prefix + state];
+            check(Stat(line, "StatMass") == PropellantLineRules.Kg && (damaged ? Stat(line, "StatBasePrice") < PropellantLineRules.Price : Stat(line, "StatBasePrice") == PropellantLineRules.Price) &&
+                d.Installables.ContainsKey(PropellantLineRules.Prefix + state + "Dismantle"), "The propellant line is ordinary pipe supply: " + state);
+            foreach (var fuel in FuelStores.All)
+                check(d.Objects[fuel.Prefix + state].mapPoints.Contains(ManifoldRules.StoreOutlet + ",24,8"), "Fuel stores carry a propellant-line port: " + fuel.Prefix + state);
             if (installed)
-                foreach (var co in new[] { refinery, processor, store, reactor, methane })
+                foreach (var co in new[] { refinery, processor, store, reactor, methane, manifold })
                     check(co.aInteractions.Count(i => i == Definitions.Controls) == 1, "Installed machine offers one Control Panel: " + co.strName);
-            foreach (var prefix in new[] { RefineryRules.Prefix, ProcessorRules.Prefix, HydrogenRules.Prefix, SabatierRules.Prefix, MethaneRules.Prefix })
+            foreach (var prefix in new[] { RefineryRules.Prefix, ProcessorRules.Prefix, HydrogenRules.Prefix, SabatierRules.Prefix, MethaneRules.Prefix, ManifoldRules.Prefix })
             {
                 check(d.Installables.ContainsKey(prefix + state + "Dismantle") && d.Installables.ContainsKey(prefix + state + (installed ? "Uninstall" : "Install")), "Native removal and dismantle jobs exist: " + prefix + state);
                 check(damaged ? d.Installables.ContainsKey(prefix + state + "Repair") : d.Installables.ContainsKey(prefix + state + "Restore"), "Repair on damaged forms, Restore on intact ones: " + prefix + state);
@@ -78,7 +90,17 @@ internal static class ManufacturingNativeChecks
         var cell = d.Power[ProcessorRules.Prefix + "Power"];
         check(Math.Abs(cell.fAmount - ProcessorRules.IdleKW / Units.SecondsPerHour) < 1e-12 && cell.strOverrideCond == ManufacturingRules.Electrolysing && Math.Abs(cell.fOverrideAmount - ProcessorRules.WorkingKW / Units.SecondsPerHour) < 1e-12 && cell.aInputPts.SequenceEqual(new[] { "PowerA" }),
             "X2 draws 0.02 kW idle and 6 kW electrolysing through one input point");
-        check(!d.Power.ContainsKey(HydrogenRules.Prefix + "Power") && !d.Power.ContainsKey(MethaneRules.Prefix + "Power"), "The fuel stores have no power info");
+        check(!d.Power.ContainsKey(HydrogenRules.Prefix + "Power") && !d.Power.ContainsKey(MethaneRules.Prefix + "Power") && !d.Power.ContainsKey(ManifoldRules.Prefix + "Power") &&
+            !d.Power.ContainsKey(PropellantLineRules.Prefix + "Power"), "The fuel stores, the manifold and the line have no power info");
+        // The propellant line is its own pipe family: its own segment condition and sprite trigger, never coolant or irrigation.
+        var lineTrigger = d.Triggers[PropellantLineRules.Prefix + "Sprite"];
+        check(lineTrigger.aReqs.SequenceEqual(new[] { PropellantLineRules.Segment }) && d.Items[PropellantLineRules.Installed].ctSpriteSheet == PropellantLineRules.Prefix + "Sprite" &&
+            d.Items[PropellantLineRules.Installed].bHasSpriteSheet, "The propellant line joins only its own segments");
+        check(new[] { PropellantLineRules.Segment, "PhobosFurnaceCoolantSegment", "PhobosWaterConduitPresent" }.Distinct().Count() == 3, "Propellant, coolant and irrigation segments are distinct");
+        // Both regulators put their gas inputs on neighbouring tiles, where a one-tile canister or manifold sits.
+        foreach (string regulator in new[] { "ItmRCSDistro01", "ItmRCSDistro02" })
+            check(DataHandler.dictCOs[regulator].mapPoints.Any(m => m.StartsWith("GasInput", StringComparison.Ordinal)) && DataHandler.dictItemDefs[DataHandler.dictCOs["ItmRTAN2"].strItemDef].nCols == 1,
+                "The regulator has gas-input points and a canister is one tile: " + regulator);
         var bed = d.Power[SabatierRules.Prefix + "Power"];
         check(Math.Abs(bed.fAmount - SabatierRules.IdleKW / Units.SecondsPerHour) < 1e-12 && bed.strOverrideCond == ManufacturingRules.Reacting && Math.Abs(bed.fOverrideAmount - SabatierRules.WorkingKW / Units.SecondsPerHour) < 1e-12 && bed.aInputPts.SequenceEqual(new[] { "PowerA" }),
             "K2 draws 0.02 kW idle and 1.2 kW reacting through one input point");

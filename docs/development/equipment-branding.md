@@ -41,6 +41,8 @@ a real company, seed cultivar, research programme or institutional endorsement.
 | Phobos' Fennmark H2 Hydrogen Store | Two-by-two passive pressurised hydrogen store (Manufacturing) |
 | Phobos' Fennmark K2 Sabatier Reactor | Two-by-two catalytic CO2 reduction reactor (Manufacturing 0.2.0) |
 | Phobos' Fennmark M2 Methane Store | Two-by-two passive pressurised methane store (Manufacturing 0.2.0) |
+| Phobos' Fennmark P1 RCS Propellant Manifold | One-tile passive valve block feeding the RCS from bulk stores (Manufacturing 0.3.0) |
+| Phobos' Fennmark Propellant Line | Sealed gas line segment; ordinary supply without a model number (Manufacturing 0.3.0) |
 
 **Fennmark** is Manufacturing's separate fictional manufacturer (owner choice,
 29 September 2026): refining and process chemistry. V, X and H identify the

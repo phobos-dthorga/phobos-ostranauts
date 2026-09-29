@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "date": "2026-09-27",
-  "status": "62 selected masters; native export review complete; owner gameplay and visual approval pending",
+  "status": "63 selected masters; native export review complete; owner gameplay and visual approval pending",
   "projection": "Orthographic vertical overhead, no visible vertical faces",
   "registration": "Whole transparent source canvas, centred pivot, unchanged native footprint; nearest-neighbour exports",
   "allowanceBefore": 1952,
@@ -1698,6 +1698,31 @@
       "review": "Overhead and native-scale export inspected; Fennmark colour language checked against the V4/X2/H2 family. Owner in-game review pending.",
       "fullFootprint": true,
       "jobId": "221e8728-cef3-4d76-bf83-517a7ce445a7"
+    },
+    {
+      "key": "p1-manifold",
+      "mod": "PhobosManufacturing",
+      "definition": "PhobosPropellantManifoldInstalled",
+      "nativeSize": [
+        16,
+        16
+      ],
+      "masterSize": [
+        64,
+        64
+      ],
+      "pivot": [
+        8,
+        8
+      ],
+      "runtime": "phobos/manufacturing/PhobosPropellantManifold",
+      "status": "selected",
+      "source": "source/p1-manifold.png",
+      "sourceSHA256": "a8cac768458f9ecd4ee507080092cb4b77247f96c8418da01d23b1d367cfde51",
+      "requestRecord": "manufacturing-requests.json",
+      "review": "Overhead and native-scale export inspected; Fennmark colour language checked. Owner in-game review pending.",
+      "fullFootprint": true,
+      "jobId": "e0dcf9fb-4c87-4066-b68d-0c2389082b1c"
     }
   ],
   "records": [
@@ -1862,9 +1887,21 @@
       ],
       "costGenerations": 2,
       "review": "540ad895 superseded; 221e8728 selected"
+    },
+    {
+      "key": "p1-manifold",
+      "attempts": [
+        "manufacturing-requests.json"
+      ],
+      "jobs": [
+        "3333a036-5ea7-4168-b51f-8e499d2e2644",
+        "e0dcf9fb-4c87-4066-b68d-0c2389082b1c"
+      ],
+      "costGenerations": 2,
+      "review": "3333a036 superseded; e0dcf9fb selected"
     }
   ],
-  "allowanceAfter": 1861,
-  "allowanceDelta": 91,
+  "allowanceAfter": 1859,
+  "allowanceDelta": 93,
   "creditBalanceAfterUSD": 0
 }

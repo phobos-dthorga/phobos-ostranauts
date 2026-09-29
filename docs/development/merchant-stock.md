@@ -22,6 +22,7 @@ shop inventories or a scientific/economic claim.
 | Shipbreaker ingots | 32 |
 | Auto Nav boards | 16 |
 | Manufacturing equipment | 8 |
+| Manufacturing propellant line | 128 |
 
 Agriculture consumables include planting stock, nutrients, irrigation charges,
 treatment cartridges and nutrient makeup. Equipment lots cover both working and

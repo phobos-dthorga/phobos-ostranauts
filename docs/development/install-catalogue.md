@@ -13,6 +13,7 @@ is still pending.
 | Phobos Agriculture | APPS | Firstlight-4 cultivation rack, Hearth-2 portion cooker, Groundwork W2 supply, B2 workup bench and R3 reservoir |
 | Phobos Agriculture | MISC | Irrigation conduit |
 | Phobos Manufacturing | APPS | Fennmark V4 volatiles refinery, X2 chemical processor, H2 hydrogen store, K2 Sabatier reactor and M2 methane store |
+| Phobos Manufacturing | HVAC | Fennmark P1 RCS propellant manifold and propellant line |
 
 The native coverage checks include every implemented intact/damaged placement family. R3 has no fabrication recipe: buy the loose hardware before installation.
 D4, R4 and F6 entries now consume two D4-S, two R4-S or three F6-S sections at the site. Native hauling stages them separately. Complete loose machinery still has its direct Install action; damaged placement keeps its existing loose input. Other entries consume existing loose equipment and retain their work, placement and access requirements. See [section assembly](../section-assembly-and-maintenance.md). Obtain or construct the equipment first;

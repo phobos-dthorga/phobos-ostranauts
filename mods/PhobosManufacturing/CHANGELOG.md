@@ -6,6 +6,19 @@ Dates on Draft entries record preparation, not Steam publication.
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-09-29 - Draft
+
+### Added
+
+- Phobos' Fennmark P1 RCS Propellant Manifold (1 x 1, 10 kg, passive, 24,000 cr, the INSTALL menu HVAC tab): installed where a gas canister would go, on an RCS Intake Regulator's gas-input tile, it feeds the thrusters from up to four linked hydrogen or methane stores. Each store has its own on/off switch, the manifold has a master switch, and Draw order chooses manifold first or canisters first. Everything starts switched off.
+- Phobos' Fennmark Propellant Line (3 cr, lots of 128, the INSTALL menu HVAC tab): sealed gas line from a store's new line port to the manifold, on the same pattern as the other conduits but its own family. Stores within one tile need no line.
+- Each gas pushes by its real cold-gas worth (Phobos Framework 0.42.0): methane about 1.45 times nitrogen per kilogram, hydrogen about 3.7 times. A full M2 store is worth about 232 kg of nitrogen, a full H2 store about 88 kg.
+- Original amber line art (a recorded recolour of the shared conduit sheet) and a PixelLab manifold sprite.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.42.0 or newer. RCS readings count the stores in nitrogen-equivalent kilograms. Draws settle into the stores every couple of seconds and before a save. Owner gameplay checks remain pending.
+
 ## [0.2.0] - 2026-09-29 - Draft
 
 ### Added

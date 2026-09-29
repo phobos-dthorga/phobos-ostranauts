@@ -363,6 +363,52 @@
       "initImage": "references/m2-methane-store-first-pass.png",
       "decision": "selected",
       "review": "Overhead, no side faces; one olive dome with an orange band and valve cap, distinct at 32 px from the H2 store's twin graphite cylinders."
+    },
+    {
+      "key": "p1-manifold",
+      "operation": "create_image_pixflux",
+      "jobId": "3333a036-5ea7-4168-b51f-8e499d2e2644",
+      "assetId": "a1c530c1-70f6-52fd-a856-29d9d555c863",
+      "costGenerations": 1,
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. The whole square canvas is the top of a small spacecraft gas propellant manifold block, one deck tile: a dark graphite painted steel frame around a pale sand-coloured steel top plate; across the middle a horizontal steel header pipe with three small round burnt-orange valve handwheels on it; a short amber pipe stub leaving the middle of the bottom edge; four small dark corner bolts; a few scuffs. Utilitarian retro spaceship equipment: crisp dark outlines, small readable colour regions, restrained shading, sparse purposeful details. No perspective, no ground shadow, no text, numbers, symbols or logos.",
+        "width": 64,
+        "height": 64,
+        "seed": 9290481,
+        "init_image_strength": 100,
+        "shading": "basic shading",
+        "outline": "single color black outline",
+        "detail": "medium detail",
+        "no_background": false,
+        "isometric": false,
+        "view": "high top-down"
+      },
+      "initImage": "references/p1-manifold-start.png",
+      "decision": "superseded",
+      "review": "Overhead and on-family; retained on main as the input of the selected second pass."
+    },
+    {
+      "key": "p1-manifold",
+      "operation": "create_image_pixflux",
+      "jobId": "e0dcf9fb-4c87-4066-b68d-0c2389082b1c",
+      "assetId": "d81684c4-3e2d-51eb-8df8-09e150cdb54e",
+      "costGenerations": 1,
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. Same overhead gas propellant manifold block with the same layout, repainted as worn working spacecraft equipment: the pale sand steel top plate lit from the upper left with soft shading toward the lower right, the horizontal steel header pipe with a light top edge, three burnt-orange valve handwheels each with a dark hub and small highlight, the short amber pipe stub at the bottom edge, graphite frame with small rivet dots and dark corner bolts. Crisp dark outlines, small readable colour regions, restrained shading. No perspective, no ground shadow, no text, numbers, symbols or logos.",
+        "width": 64,
+        "height": 64,
+        "seed": 9290482,
+        "init_image_strength": 120,
+        "shading": "medium shading",
+        "outline": "single color black outline",
+        "detail": "medium detail",
+        "no_background": false,
+        "isometric": false,
+        "view": "high top-down"
+      },
+      "initImage": "references/p1-manifold-first-pass.png",
+      "decision": "selected",
+      "review": "Overhead, no side faces; header pipe with three orange valve wheels and the amber line stub read at 16 px; same family as the Fennmark machines."
     }
   ],
   "passes": [
@@ -379,6 +425,18 @@
         "references/m2-methane-store-first-pass.png": "5d88884f94f70e075f066b6996cb06456d65a306c0a16a209231965456b2012a"
       },
       "note": "K2 Sabatier reactor and M2 methane store. Start drawings are original Phobos procedural art; first passes sent by their PixelLab download URL."
+    },
+    {
+      "version": "0.3.0",
+      "date": "2026-09-29",
+      "allowanceBefore": 1861,
+      "allowanceAfter": 1859,
+      "creditBalanceUSD": 0,
+      "initImageHashes": {
+        "references/p1-manifold-start.png": "e25021917108ca6372561f12a87f1ab00b9059b211a1074e980aac44216d13ef",
+        "references/p1-manifold-first-pass.png": "e7ac702b3e7b3902ed985511ed2da12a49e428352399f09876b52a7afe8a820c"
+      },
+      "note": "P1 RCS propellant manifold. The propellant line art is a recorded deterministic recolour (scripts/export-propellant-line-art.py), not a generation."
     }
   ]
 }

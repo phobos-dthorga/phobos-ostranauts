@@ -293,7 +293,9 @@ Fails { & $installer @incomplete -Mods Shipbreaker | Out-Null } 'Selected equipm
 Copy-Item -LiteralPath (Join-Path $PackageRoot 'PhobosAgriculture-P0') -Destination (Join-Path $badPackages 'PhobosAgriculture-P0') -Recurse
 Fails { & $installer @incomplete -Mods Agriculture | Out-Null } 'Selected equipment requires Phobos Framework'
 Copy-Item -LiteralPath (Join-Path $PackageRoot 'PhobosManufacturing-P0') -Destination (Join-Path $badPackages 'PhobosManufacturing-P0') -Recurse
-Fails { & $installer @incomplete -Mods Manufacturing | Out-Null } 'Selected equipment requires Phobos Framework 0.41.0'
+# The expected minimum is the maintained one, not a copy.
+$manufacturingFloor = (Get-Content -LiteralPath (Join-Path $repoRoot 'config/mod-dependency-minimums.json') -Raw | ConvertFrom-Json).minimums.'Manufacturing.Framework'.value
+Fails { & $installer @incomplete -Mods Manufacturing | Out-Null } "Selected equipment requires Phobos Framework $manufacturingFloor"
 Check ((InstalledFiles $incomplete) -eq $before) 'Equipment naming provider minimum was not enforced'
 foreach ($relative in @($frameworkMetadataRelative, $frameworkDllRelative)) {
     Copy-Item -LiteralPath (Join-Path $PackageRoot $relative) -Destination (Join-Path $badPackages $relative) -Force

@@ -1,4 +1,4 @@
-# Refinery, electrolysis, Sabatier reactor and fuel stores
+# Refinery, electrolysis, Sabatier reactor, fuel stores and RCS propellant
 
 Use the [current versions and dependency requirements](installing-mods.md);
 Framework 0.41.0 or newer is required. Implemented and checked offline; owner
@@ -18,6 +18,8 @@ rotors and missile launchers, below a fusion reactor. Save up for it.
 | Phobos' Fennmark H2 Hydrogen Store | 2 x 2 tiles; 160 kg empty; holds 24 kg of hydrogen | 22,000 cr, broken 5,500 cr | The same sellers; INSTALL > APPS. Purchase only. |
 | Phobos' Fennmark K2 Sabatier Reactor | 2 x 2 tiles; 150 kg; one power point; 1.2 kW working | 44,000 cr, broken 11,000 cr | The same sellers; INSTALL > APPS. Purchase only. |
 | Phobos' Fennmark M2 Methane Store | 2 x 2 tiles; 160 kg empty; holds 160 kg of methane | 21,000 cr, broken 5,250 cr | The same sellers; INSTALL > APPS. Purchase only. |
+| Phobos' Fennmark P1 RCS Propellant Manifold | 1 x 1 tile; 10 kg; passive | 24,000 cr, broken 6,000 cr | The same sellers; INSTALL > HVAC. Purchase only. |
+| Phobos' Fennmark Propellant Line | 1 tile per segment; 1 kg | 3 cr | K-Leg supply kiosk and fixer, Halvorson and the Venus scrap kiosk, in lots of 128; INSTALL > HVAC. |
 
 Selling one back works like the game's other high-value salvage: the K-Leg
 fixer buys an intact machine, the Venus scrap kiosk buys intact or broken, and
@@ -155,6 +157,38 @@ as fuel yet. Its panel shows the kilograms held and which reactors fill it.
 **Vent methane** (or `vent <id> <kg>` on the console) discharges it overboard.
 Vent it before uninstalling or dismantling; both refuse while it holds methane.
 
+## RCS propellant
+
+Your RCS thrusters can burn the gas in your hydrogen and methane stores. The
+game's thrusters push the same per kilogram whatever gas they get; Phobos
+Framework gives each gas its real cold-gas worth instead:
+
+| Gas | Push per kilogram, nitrogen = 1 | A full store |
+| --- | --- | --- |
+| Hydrogen (H2 store) | about 3.7 | 24 kg, as good as about 88 kg of nitrogen |
+| Methane (M2 store) | about 1.45 | 160 kg, as good as about 232 kg of nitrogen |
+| Nitrogen (the game's canister) | 1 | 375 kg |
+| Oxygen, carbon dioxide (the game's canisters) | 0.94, 0.90 | slightly less than nitrogen |
+
+1. Install a **P1 RCS Propellant Manifold** where a gas canister would go: on
+   one of an RCS Intake Regulator's gas-input tiles. Rotate it so its line port
+   (the amber stub) faces away from the regulator.
+2. Put an H2 or M2 store within one tile of it, or lay **propellant line** from
+   the store's line port to the manifold's. The line is its own family; it
+   never joins coolant or irrigation lines.
+3. Open the manifold's **Control Panel** > **Connections**: add the store, set
+   it **On**, choose **Draw order** (**Manifold first** burns the stores before
+   the regulator's canisters; **Canisters first** keeps the stores as a
+   reserve), and set **Feed** **On**. Everything starts switched off, so no
+   methane or Sabatier hydrogen is burned by surprise.
+
+The panel shows each store's kilograms and their nitrogen-equivalent, and the
+total ready for the thrusters. Auto Nav's fuel and delta-v readings, and the
+game's own, count every gas in nitrogen-equivalent kilograms, so a methane store
+shows as more fuel than its weight. A ship that only uses nitrogen flies exactly
+as before. Draws settle into the stores every couple of seconds and before a
+save; station refuelling still fills only the game's own nitrogen canisters.
+
 ## The hydrogen store
 
 The H2 store is passive: no power, no cargo, no inventory. Its panel shows the
@@ -214,6 +248,9 @@ releases it.
   game's own gas only when it leaks or burns.
 - The reactor converts all of its hydrogen each cycle; real reactors convert
   most, not all. That is an authored simplification.
+- RCS worth is ideal cold-gas physics at one temperature: no hot-gas or
+  methane-oxygen thrusters. Distant, unloaded ships keep the game's nitrogen
+  model. Up to about two seconds of propellant draws can be lost on a crash.
 - The clay hydrates chunk uses the game's hydrate artwork until it has its own.
 - Offline checks are not gameplay validation; see the owner checks below.
 
@@ -244,6 +281,13 @@ Watch the room warm by about 2.3 kW while it runs. Vent methane from the M2.
 Hazards: damage the M2 once without and once with a fire in the room (methane
 rising in the room against a burn that leaves CO2), and damage a running K2
 (its CO2 and methane go into the room; its hydrogen burns or escapes).
+
+RCS propellant (0.3.0): fly a nitrogen-only ship and confirm nothing changed.
+Install a P1 on a regulator input, link an M2 by propellant line, switch it on,
+and watch the methane fall and the RCS fuel and delta-v readings rise by about
+1.45 times its mass. Flip the draw order and watch which empties first. Put an
+O2 canister on a regulator and confirm slightly less push per kilogram. Save
+and reload mid-burn and confirm the store levels carry over.
 
 ## Sources
 

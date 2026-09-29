@@ -44,7 +44,8 @@ internal static class EquipmentEconomy
         new Spec(ProcessorRules.Prefix, price: (int)ProcessorRules.Price, install: 1200, uninstall: 1000, repair: 3600, dismantle: 900, new[]{2,2,3,8,1,3,2,0}, new[]{70,26,16,12,1,3,2,0,13}, new[]{34,10,4,0,0,1,1,0,82}, restoreMinutes: 90),
         new Spec(HydrogenRules.Prefix, price: (int)HydrogenRules.Price, install: 1200, uninstall: 1000, repair: 3000, dismantle: 900, new[]{6,2,6,2,0,1,0,0}, new[]{110,30,12,3,0,1,0,0,12}, new[]{40,10,4,0,0,0,0,0,108}, restoreMinutes: 60),
         new Spec(SabatierRules.Prefix, price: (int)SabatierRules.Price, install: 1200, uninstall: 1000, repair: 3600, dismantle: 900, new[]{3,2,4,6,1,2,2,0}, new[]{80,30,16,11,1,2,2,0,20}, new[]{36,12,4,0,0,1,1,0,98}, restoreMinutes: 90),
-        new Spec(MethaneRules.Prefix, price: (int)MethaneRules.Price, install: 1200, uninstall: 1000, repair: 3000, dismantle: 900, new[]{6,2,6,2,0,1,0,0}, new[]{110,30,12,3,0,1,0,0,12}, new[]{40,10,4,0,0,0,0,0,108}, restoreMinutes: 60)
+        new Spec(MethaneRules.Prefix, price: (int)MethaneRules.Price, install: 1200, uninstall: 1000, repair: 3000, dismantle: 900, new[]{6,2,6,2,0,1,0,0}, new[]{110,30,12,3,0,1,0,0,12}, new[]{40,10,4,0,0,0,0,0,108}, restoreMinutes: 60),
+        new Spec(ManifoldRules.Prefix, price: (int)ManifoldRules.Price, install: 600, uninstall: 500, repair: 1800, dismantle: 300, new[]{1,1,2,2,0,1,0,0}, new[]{4,2,2,2,0,0,0,0,2}, new[]{3,1,2,0,0,0,0,0,5}, restoreMinutes: 30)
     };
     internal static string[] Products(int[] bill) => bill.SelectMany((count, i) => Enumerable.Repeat(Materials[i], count)).ToArray();
     internal static void Apply(NativeDefinitions d)
@@ -77,11 +78,14 @@ internal static class EquipmentEconomy
             EquipmentSaveUpgrade.Register(d, id, id);
         }
         AddStock(d);
+        AddLine(d);
         AdditiveLoot.SetItemChoice(d, "ItmLootSpawnEngineering", "PhobosManufacturingMachinerySalvage", SalvageChances());
     }
     /// <summary>Late-game plant is a rare find: one engineering roll in twenty yields a machine, three times in four
     /// a broken one, split evenly across the three families.</summary>
     internal const double MachinerySalvageChance = 0.05, BrokenSalvageShare = 0.75;
+    /// <summary>Loose propellant line stacks like the other mods' pipes.</summary>
+    internal const int LineStack = 10;
     internal static Dictionary<string, double> SalvageChances() => Machines
         .SelectMany(m => new[] { (m.Prefix + "LooseDmg", MachinerySalvageChance * BrokenSalvageShare / Machines.Length),
                                  (m.Prefix + "Loose", MachinerySalvageChance * (1 - BrokenSalvageShare) / Machines.Length) })
@@ -95,6 +99,28 @@ internal static class EquipmentEconomy
         double removal = maximum * job.fDuration * MinutesPerHour / minutes;
         d.Loot[effect] = new Loot { strName = effect, strType = "trigger", aCOs = new[] { "TDnStatDamage=1x" + removal.ToString("R", CultureInfo.InvariantCulture) }, aLoots = Array.Empty<string>() };
         job.strAllowLootCTsThem = effect;
+    }
+    /// <summary>The propellant line is ordinary supply, not late-game plant: priced and stocked like the other mods'
+    /// pipes, repaired with a little aluminium, dismantled to its own retained waste.</summary>
+    private static void AddLine(NativeDefinitions d)
+    {
+        string pipe = PropellantLineRules.Prefix, waste = pipe + "Waste";
+        MaintenanceDefinitions.Remainder(d, waste, Text.Get("Line.waste"), PropellantLineRules.Kg);
+        foreach (string state in Definitions.Forms)
+        {
+            string id = pipe + state; var co = d.Objects[id];
+            if (state.EndsWith("Dmg", StringComparison.Ordinal))
+            {
+                MaintenanceDefinitions.SetStat(co, "StatRepairProgressMax", 120);
+                var repair = d.Installables[id + "Repair"];
+                repair.aInputs = new[] { "TIsScrapAluminum=1x1" };
+                MaintenanceDefinitions.ReturnRepairMaterials(d, repair);
+            }
+            MaintenanceDefinitions.Dismantle(d, id, 120, new[] { waste });
+            EquipmentSaveUpgrade.Register(d, id, id);
+        }
+        foreach (string merchant in new[] { "ItmOKLGSupplyKioskInv", "ItmOKLGFixer", "ItmTraderSanDiegoHalvorsonInv", "ItmVORBScrapKioskInv" })
+            MarketStock.Add(d, merchant, "PhobosStock_Line_" + merchant, pipe + "Loose", StockQuantities.Chance(pipe + "Loose", 0), StockCondition.Pristine, StockQuantities.For(pipe + "Loose"));
     }
     private static void AddStock(NativeDefinitions d)
     {
@@ -114,10 +140,11 @@ internal static class EquipmentEconomy
 /// <summary>Wholesale lots per successful offer and the shared availability floor, as the sibling mods use.</summary>
 internal static class StockQuantities
 {
-    internal const double EquipmentChance = 0.85;
-    internal const int Machines = 8;
-    internal static double Chance(string item, double original) => Math.Min(1, Math.Max(EquipmentChance, original));
-    internal static int For(string item) => Machines;
+    internal const double EquipmentChance = 0.85, SupplyChance = 0.95;
+    internal const int Machines = 8, Pipes = 128;
+    private static bool Line(string item) => item.StartsWith(PropellantLineRules.Prefix, StringComparison.Ordinal);
+    internal static double Chance(string item, double original) => Math.Min(1, Math.Max(Line(item) ? SupplyChance : EquipmentChance, original));
+    internal static int For(string item) => Line(item) ? Pipes : Machines;
 }
 
 /// <summary>Regional availability across the vanilla solar system, with Shipbreaker's industrial factors.</summary>
