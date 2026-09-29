@@ -22,11 +22,13 @@ internal static class EquipmentEconomy
         internal int Price, Install, Uninstall, Repair, Dismantle, RestoreMinutes;
         internal int[] RepairBill, Salvage, BrokenSalvage;
         internal string? InternalBin;
-        internal Spec(string prefix, int price, int install, int uninstall, int repair, int dismantle, int[] repairBill, int[] salvage, int[] brokenSalvage, int restoreMinutes, string? internalBin = null)
+        /// <summary>Whether a loose unit can turn up in engineering salvage (only machines and small stores fit a container).</summary>
+        internal bool Loot;
+        internal Spec(string prefix, int price, int install, int uninstall, int repair, int dismantle, int[] repairBill, int[] salvage, int[] brokenSalvage, int restoreMinutes, string? internalBin = null, bool loot = true)
         {
             if (repairBill.Length != Triggers.Length || salvage.Length != Materials.Length || brokenSalvage.Length != Materials.Length)
                 throw new ArgumentException("Bill length does not match the material list: " + prefix);
-            Prefix = prefix; Price = price; Install = install; Uninstall = uninstall; Repair = repair; Dismantle = dismantle; RepairBill = repairBill; Salvage = salvage; BrokenSalvage = brokenSalvage; RestoreMinutes = restoreMinutes; InternalBin = internalBin;
+            Prefix = prefix; Price = price; Install = install; Uninstall = uninstall; Repair = repair; Dismantle = dismantle; RepairBill = repairBill; Salvage = salvage; BrokenSalvage = brokenSalvage; RestoreMinutes = restoreMinutes; InternalBin = internalBin; Loot = loot;
         }
     }
     // Bills are steel, aluminium, mechanical parts, electronic parts, motors, mainboards, heat sinks, screens and
@@ -38,15 +40,32 @@ internal static class EquipmentEconomy
     /// <summary>The game's own mark on its late-game equipment: the K-Leg fixer buys it intact, the ordinary
     /// supplies kiosk does not; Venus buys either. Every native loose item above $20,000 carries it.</summary>
     internal const string HighSalvageMark = "IsSalvageValueHigh";
-    internal static readonly Spec[] Machines = {
+    internal static readonly Spec[] Machines = new[] {
         //                                                                                                          repair: St Al Me El Mo Mb HS Sc     salvage:  St  Al Me El Mo Mb HS Sc Tr          broken: St Al Me El Mo Mb HS Sc Tr
         new Spec(RefineryRules.Prefix, price: (int)RefineryRules.Price, install: 2000, uninstall: 1600, repair: 6000, dismantle: 1600, new[]{4,2,6,8,2,2,2,1}, new[]{100,40,20,10,2,2,2,1,10}, new[]{90,32,10,4,1,0,1,0,47}, restoreMinutes: 150, RefineryRules.InputBin),
         new Spec(ProcessorRules.Prefix, price: (int)ProcessorRules.Price, install: 1200, uninstall: 1000, repair: 3600, dismantle: 900, new[]{2,2,3,8,1,3,2,0}, new[]{70,26,16,12,1,3,2,0,13}, new[]{34,10,4,0,0,1,1,0,82}, restoreMinutes: 90),
-        new Spec(HydrogenRules.Prefix, price: (int)HydrogenRules.Price, install: 1200, uninstall: 1000, repair: 3000, dismantle: 900, new[]{6,2,6,2,0,1,0,0}, new[]{110,30,12,3,0,1,0,0,12}, new[]{40,10,4,0,0,0,0,0,108}, restoreMinutes: 60),
         new Spec(SabatierRules.Prefix, price: (int)SabatierRules.Price, install: 1200, uninstall: 1000, repair: 3600, dismantle: 900, new[]{3,2,4,6,1,2,2,0}, new[]{80,30,16,11,1,2,2,0,20}, new[]{36,12,4,0,0,1,1,0,98}, restoreMinutes: 90),
-        new Spec(MethaneRules.Prefix, price: (int)MethaneRules.Price, install: 1200, uninstall: 1000, repair: 3000, dismantle: 900, new[]{6,2,6,2,0,1,0,0}, new[]{110,30,12,3,0,1,0,0,12}, new[]{40,10,4,0,0,0,0,0,108}, restoreMinutes: 60),
-        new Spec(ManifoldRules.Prefix, price: (int)ManifoldRules.Price, install: 600, uninstall: 500, repair: 1800, dismantle: 300, new[]{1,1,2,2,0,1,0,0}, new[]{4,2,2,2,0,0,0,0,2}, new[]{3,1,2,0,0,0,0,0,5}, restoreMinutes: 30)
-    };
+        new Spec(ManifoldRules.Prefix, price: (int)ManifoldRules.Price, install: 600, uninstall: 500, repair: 1800, dismantle: 300, new[]{1,1,2,2,0,1,0,0}, new[]{4,2,2,2,0,0,0,0,2}, new[]{3,1,2,0,0,0,0,0,5}, restoreMinutes: 30),
+        new Spec(FillerRules.Prefix, price: (int)FillerRules.Price, install: 1200, uninstall: 1000, repair: 3000, dismantle: 900, new[]{3,2,4,4,1,1,1,0}, new[]{70,20,11,6,1,1,1,0,17}, new[]{40,10,4,0,0,0,0,0,68}, restoreMinutes: 60)
+    }.Concat(GasStores.All.Select(StoreSpec)).ToArray();
+    /// <summary>Every gas store size on the same pattern: late-game price from the size ladder, work and repair growing
+    /// with the footprint, and mass-balanced salvage whose steel, aluminium and retained trash fill the dry mass
+    /// around a fixed set of fittings (the small stores' original bills exactly).</summary>
+    internal static Spec StoreSpec(GasStore store)
+    {
+        int step = store.Footprint - store.Family.SmallFootprint;
+        double dry = store.DryKg;
+        int[] Split(double fittingsKg, int[] fittings, double steelShare, double aluminiumShare)
+        {
+            double rest = dry - fittingsKg;
+            int steel = (int)Math.Round(rest * steelShare), aluminium = (int)Math.Round(rest * aluminiumShare), trash = (int)Math.Round(rest - steel - aluminium);
+            return new[] { steel, aluminium }.Concat(fittings).Concat(new[] { trash }).ToArray();
+        }
+        var salvage = Split(8, new[] { 12, 3, 0, 1, 0, 0 }, 110.0 / 152, 30.0 / 152);
+        var broken = Split(2, new[] { 4, 0, 0, 0, 0, 0 }, 40.0 / 158, 10.0 / 158);
+        return new Spec(store.Prefix, price: (int)store.Price, install: 1200 + 400 * step, uninstall: 1000 + 300 * step, repair: 3000 + 900 * step, dismantle: 900 + 300 * step,
+            new[] { 6 + 2 * step, 2 + step, 6 + 2 * step, 2 + step, 0, 1 + step / 2, 0, 0 }, salvage, broken, restoreMinutes: 60 + 15 * step, loot: store.Size == Phobos.Ostranauts.Framework.Liquids.VesselSize.Small);
+    }
     internal static string[] Products(int[] bill) => bill.SelectMany((count, i) => Enumerable.Repeat(Materials[i], count)).ToArray();
     internal static void Apply(NativeDefinitions d)
     {
@@ -86,10 +105,13 @@ internal static class EquipmentEconomy
     internal const double MachinerySalvageChance = 0.05, BrokenSalvageShare = 0.75;
     /// <summary>Loose propellant line stacks like the other mods' pipes.</summary>
     internal const int LineStack = 10;
-    internal static Dictionary<string, double> SalvageChances() => Machines
-        .SelectMany(m => new[] { (m.Prefix + "LooseDmg", MachinerySalvageChance * BrokenSalvageShare / Machines.Length),
-                                 (m.Prefix + "Loose", MachinerySalvageChance * (1 - BrokenSalvageShare) / Machines.Length) })
-        .ToDictionary(p => p.Item1, p => p.Item2);
+    internal static Dictionary<string, double> SalvageChances()
+    {
+        var found = Machines.Where(m => m.Loot).ToArray();
+        return found.SelectMany(m => new[] { (m.Prefix + "LooseDmg", MachinerySalvageChance * BrokenSalvageShare / found.Length),
+                                             (m.Prefix + "Loose", MachinerySalvageChance * (1 - BrokenSalvageShare) / found.Length) })
+            .ToDictionary(p => p.Item1, p => p.Item2);
+    }
     /// <summary>Restore removes wear at an equipment-specific rate; the native Restore job already exists.</summary>
     internal static void SetRestoreRate(NativeDefinitions d, string id, string effect, int minutes)
     {

@@ -9,18 +9,19 @@ using PhobosManufacturing.Core;
 
 namespace PhobosManufacturing;
 
-/// <summary>Native definitions for the six Fennmark machines, the propellant line, the five materials, and the three deflagration
-/// objects. Machines use Framework's appliance contract; materials clone the game's own scrap and hydrate
+/// <summary>Native definitions for the Fennmark machines, every size of gas store, the gas line, the five materials, and
+/// the three deflagration objects. Machines use Framework's appliance contract; materials clone the game's own scrap and hydrate
 /// definitions so pickup, stacking, damage and market behaviour stay vanilla.</summary>
 internal static class Definitions
 {
     internal const string Controls = "PhobosManufacturingControls", ImagePath = "phobos/manufacturing/";
     internal const string RefineryArt = "PhobosVolatilesRefinery", ProcessorArt = "PhobosChemicalProcessor", StoreArt = "PhobosHydrogenStore",
-        ReactorArt = "PhobosSabatierReactor", MethaneArt = "PhobosMethaneStore", ManifoldArt = "PhobosPropellantManifold", LineArt = "PropellantPipe";
+        ReactorArt = "PhobosSabatierReactor", MethaneArt = "PhobosMethaneStore", ManifoldArt = "PhobosPropellantManifold", LineArt = "PropellantPipe",
+        FillerArt = "PhobosCanisterFiller";
     internal static readonly string[] Forms = { "Installed", "Loose", "InstalledDmg", "LooseDmg" };
     internal static void Add(NativeDefinitions d, bool steelStock)
     {
-        foreach (string condition in new[] { ManufacturingRules.Working, ManufacturingRules.Electrolysing, ManufacturingRules.Reacting, ManufacturingRules.Content })
+        foreach (string condition in new[] { ManufacturingRules.Working, ManufacturingRules.Electrolysing, ManufacturingRules.Reacting, ManufacturingRules.Filling, ManufacturingRules.Content })
             d.Conditions[condition] = new JsonCond { strName = condition, strNameFriendly = Text.Get("Condition." + condition), strColor = "Neutral", nDisplaySelf = 2, nDisplayOther = 2 };
         var controls = NativeDefinitions.Clone(DataHandler.dictInteractions["Inventory"]);
         controls.strName = Controls; controls.strTitle = Text.Get("Panel.controls"); controls.strDesc = controls.strTooltip = Text.Get("Panel.controls_tooltip");
@@ -30,10 +31,12 @@ internal static class Definitions
         AddRefinery(d, steelStock);
         AddProcessor(d);
         AddReactor(d);
-        AddStore(d, FuelStores.Hydrogen, Text.Get("Store.description", HydrogenRules.DryKg, HydrogenRules.CapacityKg, HydrogenRules.LeakKgPerHour), StoreArt);
-        AddStore(d, FuelStores.Methane, Text.Get("Methane.description", MethaneRules.DryKg, MethaneRules.CapacityKg, MethaneRules.LeakKgPerHour), MethaneArt);
+        // Every size of every gas store; each size's art is named after its own definition prefix.
+        foreach (var store in GasStores.All)
+            AddStore(d, store, Text.Get(store.TextPrefix + ".details", store.DryKg, store.CapacityKg, store.LeakKgPerHour, store.Footprint), store.Prefix);
         AddPropellantLine(d);
         AddManifold(d);
+        AddFiller(d);
         AddDeflagrations(d);
     }
 
@@ -99,11 +102,11 @@ internal static class Definitions
         }
     }
 
-    private static void AddStore(NativeDefinitions d, FuelStore fuel, string description, string art)
+    private static void AddStore(NativeDefinitions d, GasStore fuel, string description, string art)
     {
-        string p = fuel.Prefix, name = Text.Get(fuel.TextPrefix + ".name");
+        string p = fuel.Prefix, name = Text.Get(fuel.NameKey);
         BulkVessels.Register(fuel.Spec);
-        ApplianceDefinitions.Add(d, p, name, description, 2, fuel.DryKg, fuel.Price, ImagePath + art, Controls, 0, InstallMenu.Appliances);
+        ApplianceDefinitions.Add(d, p, name, description, fuel.Footprint, fuel.DryKg, fuel.Price, ImagePath + art, Controls, 0, InstallMenu.Appliances);
         // A passive vessel: no electricity, no tickers, no container. Its contents are a saved record.
         d.Power.Remove(p + "Power"); d.Interactions.Remove(p + "PowerChange");
         foreach (string form in Forms)
@@ -114,8 +117,33 @@ internal static class Definitions
             StripContainer(co);
             co.jsonPI = null; co.aTickers = Array.Empty<string>();
             co.aInteractions = co.aInteractions.Where(i => i != "Inventory").ToArray();
-            co.mapPoints = new[] { "use,0,-24" };
+            co.mapPoints = new[] { "use,0," + (-8 * fuel.Footprint - 8) };
             co.strPortraitImg = item.strImg;
+        }
+    }
+    /// <summary>The L2 filling station: a powered 2 x 2 appliance whose ordinary tray becomes a four-cell rack for suit
+    /// O2 bottles (the game's own Inventory window). It is not airtight and not a gas container itself: the gas it
+    /// moves goes straight from a store or a canister into the vessel being filled.</summary>
+    private static void AddFiller(NativeDefinitions d)
+    {
+        string p = FillerRules.Prefix;
+        ApplianceDefinitions.Add(d, p, Text.Get("Filler.name"), Text.Get("Filler.description", FillerRules.MachineKg, FillerRules.WorkingKW, FillerRules.RackCells, FillerRules.FillFraction * 100),
+            FillerRules.Footprint, FillerRules.MachineKg, FillerRules.Price, ImagePath + FillerArt, Controls, FillerRules.IdleKW, InstallMenu.Hvac);
+        ApplianceDefinitions.SetPowerOverride(d, p, FillerRules.IdleKW, FillerRules.WorkingKW, ManufacturingRules.Filling, "PowerA");
+        // The rack admits only the game's handheld O2 bottles.
+        d.Triggers[FillerRules.RackTrigger] = new CondTrigger { strName = FillerRules.RackTrigger, fChance = 1, fCount = 1, bAND = true,
+            aReqs = new[] { "IsVesselO2", "IsHandheld" }, aForbids = new[] { "IsInstalled" }, aTriggers = Array.Empty<string>() };
+        ApplianceDefinitions.SetRack(d, p, FillerRules.RackTrigger, FillerRules.RackCells, 1);
+        foreach (string form in Forms)
+        {
+            var co = d.Objects[p + form]; var item = d.Items[p + form];
+            bool damaged = form.EndsWith("Dmg", StringComparison.Ordinal);
+            co.strNameFriendly = co.strNameShort = Text.Get("Filler.name") + (damaged ? Text.Get("Content.damaged") : "");
+            co.aStartingConds = co.aStartingConds.Where(s => !s.StartsWith("IsAirtight=", StringComparison.Ordinal)).ToArray();
+            // Power on the local -X side, the gas line port on the neighbouring tile of the local +X side.
+            co.mapPoints = new[] { "use,0,-24", "PowerA,-8,8", FillerRules.Inlet + ",24,8" };
+            co.strPortraitImg = item.strImg;
+            if (form.StartsWith("Installed", StringComparison.Ordinal)) { item.aSocketAdds[1] = PropellantLineRules.Prefix + "FixturePort"; item.ctSpriteSheet = PropellantLineRules.Prefix + "Sprite"; }
         }
     }
     /// <summary>The P1 manifold: a passive 1 x 1 valve block for a regulator's gas-input tile. Deliberately not
@@ -179,15 +207,17 @@ internal static class Definitions
                 item.aSocketReqs = Enumerable.Range(0, 9).Select(i => i == 4 ? "TILFloor" : "Blank").ToArray();
             }
         }
-        // The fuel stores gain a line port on the neighbouring tile of their local +X side, with pipe art joining them.
-        foreach (var fuel in FuelStores.All)
+        // Every gas store gains a line port on the neighbouring tile of its local +X side, in the middle row, with pipe
+        // art joining it at the footprint tile beside the port.
+        foreach (var fuel in GasStores.All)
             foreach (string form in Forms)
             {
                 var co = d.Objects[fuel.Prefix + form];
-                co.mapPoints = co.mapPoints.Concat(new[] { ManifoldRules.StoreOutlet + ",24,8" }).ToArray();
+                var outlet = fuel.Outlet;
+                co.mapPoints = co.mapPoints.Concat(new[] { ManifoldRules.StoreOutlet + "," + outlet.X + "," + outlet.Y }).ToArray();
                 if (!form.StartsWith("Installed", StringComparison.Ordinal)) continue;
                 var item = d.Items[fuel.Prefix + form];
-                item.aSocketAdds[1] = pipe + "FixturePort"; item.ctSpriteSheet = pipe + "Sprite";
+                item.aSocketAdds[outlet.SocketIndex] = pipe + "FixturePort"; item.ctSpriteSheet = pipe + "Sprite";
             }
     }
 
@@ -242,7 +272,7 @@ internal static class Definitions
     {
         foreach (string size in new[] { "Small", "Medium", "Large" })
         {
-            string id = FuelStores.DeflagrationPrefix + size;
+            string id = GasStores.DeflagrationPrefix + size;
             d.Objects[id] = new JsonCondOwner { strName = id, strItemDef = id, strType = "Item", strNameFriendly = Text.Get("Store.deflagration"), strNameShort = Text.Get("Store.deflagration"),
                 aStartingConds = new[] { "IsNonHighlightable=1x1", "IsSystem=1x1" }, aUpdateCommands = new[] { "Explosion,PhobosDeflagration" + size }, strPortraitImg = "blank",
                 aInteractions = Array.Empty<string>(), mapSlotEffects = Array.Empty<string>(), mapPoints = Array.Empty<string>() };

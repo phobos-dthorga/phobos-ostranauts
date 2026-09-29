@@ -409,6 +409,314 @@
       "initImage": "references/p1-manifold-first-pass.png",
       "decision": "selected",
       "review": "Overhead, no side faces; header pipe with three orange valve wheels and the amber line stub read at 16 px; same family as the Fennmark machines."
+    },
+    {
+      "key": "o2-oxygen-store",
+      "operation": "create_image_pixflux",
+      "jobId": "b6d6bffc-bd25-43af-8286-4378d9e70754",
+      "costGenerations": 1,
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. The whole square canvas is the top of a compact spacecraft pressurised oxygen store installed in a square frame: a dark graphite painted steel frame with burnt-orange corner clamps around a dark recessed cradle; in it one large round spherical tank top painted dark bottle green, lit from the upper left with a soft rounded highlight and darker lower-right shading so it reads as a dome, a thin pale grey band ringing it, a small round steel valve cap in its centre with a dark rim; a short amber pipe stub on the right edge of the frame; a few scuffs and rivet dots. Utilitarian retro spaceship equipment: crisp dark outlines, small readable colour regions, restrained shading, sparse purposeful details, a little wear. No perspective, no ground shadow, no text, numbers, symbols or logos.",
+        "width": 128,
+        "height": 128,
+        "seed": 9290501,
+        "init_image_strength": 130,
+        "shading": "basic shading",
+        "outline": "single color black outline",
+        "detail": "medium detail",
+        "no_background": false,
+        "isometric": false,
+        "view": "high top-down"
+      },
+      "initImage": "references/o2-oxygen-store-start.png",
+      "decision": "selected",
+      "review": "Overhead, no side faces; one bottle-green dome with a pale band; reads as the oxygen family at 32 px. One pass kept on the start layout."
+    },
+    {
+      "key": "n2-nitrogen-store",
+      "operation": "create_image_pixflux",
+      "jobId": "2867bca1-a8e9-4695-b3d5-961eb54a16ac",
+      "costGenerations": 1,
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. The whole square canvas is the top of a compact spacecraft pressurised nitrogen store installed in a square frame: a dark graphite painted steel frame with burnt-orange corner clamps around a dark recessed cradle; in it one large round spherical tank top painted medium cobalt blue, lit from the upper left with a soft rounded highlight and darker lower-right shading so it reads as a dome, a thin pale grey band ringing it, a small round steel valve cap in its centre with a dark rim; a short amber pipe stub on the right edge of the frame; a few scuffs and rivet dots. Utilitarian retro spaceship equipment: crisp dark outlines, small readable colour regions, restrained shading, sparse purposeful details, a little wear. No perspective, no ground shadow, no text, numbers, symbols or logos.",
+        "width": 128,
+        "height": 128,
+        "seed": 9290502,
+        "init_image_strength": 130,
+        "shading": "basic shading",
+        "outline": "single color black outline",
+        "detail": "medium detail",
+        "no_background": false,
+        "isometric": false,
+        "view": "high top-down"
+      },
+      "initImage": "references/n2-nitrogen-store-start.png",
+      "decision": "selected",
+      "review": "Overhead, no side faces; one cobalt dome with a pale band; nitrogen blue at 32 px. One pass kept on the start layout."
+    },
+    {
+      "key": "c2-carbon-dioxide-store",
+      "operation": "create_image_pixflux",
+      "jobId": "0e42192c-3160-4397-a0d0-d8d8d8b9c617",
+      "costGenerations": 1,
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. The whole square canvas is the top of a compact spacecraft pressurised carbon dioxide store installed in a square frame: a dark graphite painted steel frame with burnt-orange corner clamps around a dark recessed cradle; in it one large round spherical tank top painted pale light grey, lit from the upper left with a soft white highlight and cooler grey lower-right shading so it reads as a dome, a thin dark charcoal band ringing it, a small round steel valve cap in its centre with a dark rim; a short amber pipe stub on the right edge of the frame; a few scuffs and rivet dots. Utilitarian retro spaceship equipment: crisp dark outlines, small readable colour regions, restrained shading, sparse purposeful details, a little wear. No perspective, no ground shadow, no text, numbers, symbols or logos.",
+        "width": 128,
+        "height": 128,
+        "seed": 9290503,
+        "init_image_strength": 130,
+        "shading": "basic shading",
+        "outline": "single color black outline",
+        "detail": "medium detail",
+        "no_background": false,
+        "isometric": false,
+        "view": "high top-down"
+      },
+      "initImage": "references/c2-carbon-dioxide-store-start.png",
+      "decision": "selected",
+      "review": "Overhead, no side faces; one pale grey dome with a dark band; CO2 grey at 32 px. One pass kept on the start layout."
+    },
+    {
+      "key": "m3-methane-store",
+      "operation": "create_image_pixflux",
+      "jobId": "8d8e6022-14f2-4a74-9024-d417e28fb698",
+      "costGenerations": 1,
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. The whole square canvas is the top of a medium spacecraft pressurised methane store installed in a square frame: a dark graphite painted steel frame with burnt-orange corner clamps around a dark recessed cradle; in it four round spherical tank tops in a two by two grid, each painted dull olive green, lit from the upper left with a soft rounded highlight and darker lower-right shading so they read as domes, each with a thin burnt-orange band ringing it and a small round steel valve cap in its centre; a short amber pipe stub on the right edge of the frame; a few scuffs and rivet dots. Utilitarian retro spaceship equipment: crisp dark outlines, small readable colour regions, restrained shading, sparse purposeful details, a little wear. No perspective, no ground shadow, no text, numbers, symbols or logos.",
+        "width": 192,
+        "height": 192,
+        "seed": 9290504,
+        "init_image_strength": 130,
+        "shading": "basic shading",
+        "outline": "single color black outline",
+        "detail": "medium detail",
+        "no_background": false,
+        "isometric": false,
+        "view": "high top-down"
+      },
+      "initImage": "references/m3-methane-store-start.png",
+      "decision": "selected",
+      "review": "Overhead, no side faces; four olive domes with orange bands, matching the M2 at 48 px. One pass kept on the start layout."
+    },
+    {
+      "key": "o3-oxygen-store",
+      "operation": "create_image_pixflux",
+      "jobId": "d72e3d5f-4904-4132-add6-2d6a9210efad",
+      "costGenerations": 1,
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. The whole square canvas is the top of a medium spacecraft pressurised oxygen store installed in a square frame: a dark graphite painted steel frame with burnt-orange corner clamps around a dark recessed cradle; in it four round spherical tank tops in a two by two grid, each painted dark bottle green, lit from the upper left with a soft rounded highlight and darker lower-right shading so they read as domes, each with a thin pale grey band ringing it and a small round steel valve cap in its centre; a short amber pipe stub on the right edge of the frame; a few scuffs and rivet dots. Utilitarian retro spaceship equipment: crisp dark outlines, small readable colour regions, restrained shading, sparse purposeful details, a little wear. No perspective, no ground shadow, no text, numbers, symbols or logos.",
+        "width": 192,
+        "height": 192,
+        "seed": 9290505,
+        "init_image_strength": 130,
+        "shading": "basic shading",
+        "outline": "single color black outline",
+        "detail": "medium detail",
+        "no_background": false,
+        "isometric": false,
+        "view": "high top-down"
+      },
+      "initImage": "references/o3-oxygen-store-start.png",
+      "decision": "selected",
+      "review": "Overhead, no side faces; four green domes at 48 px. One pass kept on the start layout."
+    },
+    {
+      "key": "n3-nitrogen-store",
+      "operation": "create_image_pixflux",
+      "jobId": "268d1411-4213-4750-9296-e7f7925bea6f",
+      "costGenerations": 1,
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. The whole square canvas is the top of a medium spacecraft pressurised nitrogen store installed in a square frame: a dark graphite painted steel frame with burnt-orange corner clamps around a dark recessed cradle; in it four round spherical tank tops in a two by two grid, each painted medium cobalt blue, lit from the upper left with a soft rounded highlight and darker lower-right shading so they read as domes, each with a thin pale grey band ringing it and a small round steel valve cap in its centre; a short amber pipe stub on the right edge of the frame; a few scuffs and rivet dots. Utilitarian retro spaceship equipment: crisp dark outlines, small readable colour regions, restrained shading, sparse purposeful details, a little wear. No perspective, no ground shadow, no text, numbers, symbols or logos.",
+        "width": 192,
+        "height": 192,
+        "seed": 9290506,
+        "init_image_strength": 130,
+        "shading": "basic shading",
+        "outline": "single color black outline",
+        "detail": "medium detail",
+        "no_background": false,
+        "isometric": false,
+        "view": "high top-down"
+      },
+      "initImage": "references/n3-nitrogen-store-start.png",
+      "decision": "selected",
+      "review": "Overhead, no side faces; four blue domes at 48 px. One pass kept on the start layout."
+    },
+    {
+      "key": "c3-carbon-dioxide-store",
+      "operation": "create_image_pixflux",
+      "jobId": "30dc915f-1ab6-4a78-909e-a6c72addf506",
+      "costGenerations": 1,
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. The whole square canvas is the top of a medium spacecraft pressurised carbon dioxide store installed in a square frame: a dark graphite painted steel frame with burnt-orange corner clamps around a dark recessed cradle; in it four round spherical tank tops in a two by two grid, each painted pale light grey, lit from the upper left with a soft white highlight and cooler grey lower-right shading so they read as domes, each with a thin dark charcoal band ringing it and a small round steel valve cap in its centre; a short amber pipe stub on the right edge of the frame; a few scuffs and rivet dots. Utilitarian retro spaceship equipment: crisp dark outlines, small readable colour regions, restrained shading, sparse purposeful details, a little wear. No perspective, no ground shadow, no text, numbers, symbols or logos.",
+        "width": 192,
+        "height": 192,
+        "seed": 9290507,
+        "init_image_strength": 130,
+        "shading": "basic shading",
+        "outline": "single color black outline",
+        "detail": "medium detail",
+        "no_background": false,
+        "isometric": false,
+        "view": "high top-down"
+      },
+      "initImage": "references/c3-carbon-dioxide-store-start.png",
+      "decision": "selected",
+      "review": "Overhead, no side faces; four grey domes at 48 px. One pass kept on the start layout."
+    },
+    {
+      "key": "m4-methane-store",
+      "operation": "create_image_pixflux",
+      "jobId": "63c15351-ea30-4641-9015-374c4980523b",
+      "costGenerations": 1,
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. The whole square canvas is the top of a large spacecraft pressurised methane store installed in a square frame: a dark graphite painted steel frame with burnt-orange corner clamps around a dark recessed cradle; in it nine round spherical tank tops in a three by three grid, each painted dull olive green, lit from the upper left with a soft rounded highlight and darker lower-right shading so they read as domes, each with a thin burnt-orange band ringing it and a small round steel valve cap in its centre; a short amber pipe stub on the right edge of the frame; a few scuffs and rivet dots. Utilitarian retro spaceship equipment: crisp dark outlines, small readable colour regions, restrained shading, sparse purposeful details, a little wear. No perspective, no ground shadow, no text, numbers, symbols or logos.",
+        "width": 256,
+        "height": 256,
+        "seed": 9290508,
+        "init_image_strength": 130,
+        "shading": "basic shading",
+        "outline": "single color black outline",
+        "detail": "medium detail",
+        "no_background": false,
+        "isometric": false,
+        "view": "high top-down"
+      },
+      "initImage": "references/m4-methane-store-start.png",
+      "decision": "selected",
+      "review": "Overhead, no side faces; nine olive domes at 64 px. One pass kept on the start layout."
+    },
+    {
+      "key": "o4-oxygen-store",
+      "operation": "create_image_pixflux",
+      "jobId": "03841313-db88-4179-aa04-004f17ebdc39",
+      "costGenerations": 1,
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. The whole square canvas is the top of a large spacecraft pressurised oxygen store installed in a square frame: a dark graphite painted steel frame with burnt-orange corner clamps around a dark recessed cradle; in it nine round spherical tank tops in a three by three grid, each painted dark bottle green, lit from the upper left with a soft rounded highlight and darker lower-right shading so they read as domes, each with a thin pale grey band ringing it and a small round steel valve cap in its centre; a short amber pipe stub on the right edge of the frame; a few scuffs and rivet dots. Utilitarian retro spaceship equipment: crisp dark outlines, small readable colour regions, restrained shading, sparse purposeful details, a little wear. No perspective, no ground shadow, no text, numbers, symbols or logos.",
+        "width": 256,
+        "height": 256,
+        "seed": 9290509,
+        "init_image_strength": 130,
+        "shading": "basic shading",
+        "outline": "single color black outline",
+        "detail": "medium detail",
+        "no_background": false,
+        "isometric": false,
+        "view": "high top-down"
+      },
+      "initImage": "references/o4-oxygen-store-start.png",
+      "decision": "selected",
+      "review": "Overhead, no side faces; nine green domes at 64 px. One pass kept on the start layout."
+    },
+    {
+      "key": "n4-nitrogen-store",
+      "operation": "create_image_pixflux",
+      "jobId": "4be22edc-e770-4732-a846-835b8161c787",
+      "costGenerations": 1,
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. The whole square canvas is the top of a large spacecraft pressurised nitrogen store installed in a square frame: a dark graphite painted steel frame with burnt-orange corner clamps around a dark recessed cradle; in it nine round spherical tank tops in a three by three grid, each painted medium cobalt blue, lit from the upper left with a soft rounded highlight and darker lower-right shading so they read as domes, each with a thin pale grey band ringing it and a small round steel valve cap in its centre; a short amber pipe stub on the right edge of the frame; a few scuffs and rivet dots. Utilitarian retro spaceship equipment: crisp dark outlines, small readable colour regions, restrained shading, sparse purposeful details, a little wear. No perspective, no ground shadow, no text, numbers, symbols or logos.",
+        "width": 256,
+        "height": 256,
+        "seed": 9290510,
+        "init_image_strength": 130,
+        "shading": "basic shading",
+        "outline": "single color black outline",
+        "detail": "medium detail",
+        "no_background": false,
+        "isometric": false,
+        "view": "high top-down"
+      },
+      "initImage": "references/n4-nitrogen-store-start.png",
+      "decision": "selected",
+      "review": "Overhead, no side faces; nine blue domes at 64 px. One pass kept on the start layout."
+    },
+    {
+      "key": "c4-carbon-dioxide-store",
+      "operation": "create_image_pixflux",
+      "jobId": "fb23ed89-34cd-436b-932d-5bde679ebf11",
+      "costGenerations": 1,
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. The whole square canvas is the top of a large spacecraft pressurised carbon dioxide store installed in a square frame: a dark graphite painted steel frame with burnt-orange corner clamps around a dark recessed cradle; in it nine round spherical tank tops in a three by three grid, each painted pale light grey, lit from the upper left with a soft white highlight and cooler grey lower-right shading so they read as domes, each with a thin dark charcoal band ringing it and a small round steel valve cap in its centre; a short amber pipe stub on the right edge of the frame; a few scuffs and rivet dots. Utilitarian retro spaceship equipment: crisp dark outlines, small readable colour regions, restrained shading, sparse purposeful details, a little wear. No perspective, no ground shadow, no text, numbers, symbols or logos.",
+        "width": 256,
+        "height": 256,
+        "seed": 9290511,
+        "init_image_strength": 130,
+        "shading": "basic shading",
+        "outline": "single color black outline",
+        "detail": "medium detail",
+        "no_background": false,
+        "isometric": false,
+        "view": "high top-down"
+      },
+      "initImage": "references/c4-carbon-dioxide-store-start.png",
+      "decision": "selected",
+      "review": "Overhead, no side faces; nine grey domes at 64 px. One pass kept on the start layout."
+    },
+    {
+      "key": "h3-hydrogen-store",
+      "operation": "create_image_pixflux",
+      "jobId": "4e1c8061-f983-4281-bd81-1bf462a31968",
+      "costGenerations": 1,
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. The whole square canvas is the top of a medium spacecraft pressurised hydrogen store installed in a square frame: a dark graphite painted steel frame with burnt-orange corner clamps around a dark recessed cradle; in it three long horizontal cylindrical gas bottles lying side by side, dark gunmetal grey, each lit along its upper edge with a thin highlight and shaded darker below so it reads as a rounded cylinder, each held by two burnt-orange strap clamps; a small round burnt-orange valve wheel in the upper right corner of the frame; a short amber pipe stub on the right edge of the frame; a few scuffs and rivet dots. Utilitarian retro spaceship equipment: crisp dark outlines, small readable colour regions, restrained shading, sparse purposeful details, a little wear. No perspective, no ground shadow, no text, numbers, symbols or logos.",
+        "width": 192,
+        "height": 192,
+        "seed": 9290512,
+        "init_image_strength": 130,
+        "shading": "basic shading",
+        "outline": "single color black outline",
+        "detail": "medium detail",
+        "no_background": false,
+        "isometric": false,
+        "view": "high top-down"
+      },
+      "initImage": "references/h3-hydrogen-store-start.png",
+      "decision": "selected",
+      "review": "Overhead, no side faces; three strapped gunmetal cylinders, matching the H2 twin cylinders at 48 px. One pass kept on the start layout."
+    },
+    {
+      "key": "h4-hydrogen-store",
+      "operation": "create_image_pixflux",
+      "jobId": "c2cd8bb4-8cb4-4396-ad57-af70b3603bf6",
+      "costGenerations": 1,
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. The whole square canvas is the top of a large spacecraft pressurised hydrogen store installed in a square frame: a dark graphite painted steel frame with burnt-orange corner clamps around a dark recessed cradle; in it four long horizontal cylindrical gas bottles lying side by side, dark gunmetal grey, each lit along its upper edge with a thin highlight and shaded darker below so it reads as a rounded cylinder, each held by two burnt-orange strap clamps; a small round burnt-orange valve wheel in the upper right corner of the frame; a short amber pipe stub on the right edge of the frame; a few scuffs and rivet dots. Utilitarian retro spaceship equipment: crisp dark outlines, small readable colour regions, restrained shading, sparse purposeful details, a little wear. No perspective, no ground shadow, no text, numbers, symbols or logos.",
+        "width": 256,
+        "height": 256,
+        "seed": 9290513,
+        "init_image_strength": 130,
+        "shading": "basic shading",
+        "outline": "single color black outline",
+        "detail": "medium detail",
+        "no_background": false,
+        "isometric": false,
+        "view": "high top-down"
+      },
+      "initImage": "references/h4-hydrogen-store-start.png",
+      "decision": "selected",
+      "review": "Overhead, no side faces; four strapped cylinders at 64 px. One pass kept on the start layout."
+    },
+    {
+      "key": "l2-canister-filler",
+      "operation": "create_image_pixflux",
+      "jobId": "30d9270c-80b1-4e4e-9410-3a1a95374feb",
+      "costGenerations": 1,
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. The whole square canvas is the top of a compact spacecraft gas canister filling station in a square frame: a dark graphite painted steel frame with burnt-orange corner clamps; on the left half a dark steel rack holding four small upright suit oxygen bottles seen from directly above as round dark green caps with small steel valve tops, each with a short amber hose running right; on the right half a grey compressor housing with a round slotted fan grille, and above it a small grey control plate with a dark green readout window and a burnt-orange lever handle; a short amber pipe stub on the right edge of the frame; a few scuffs and rivet dots. Utilitarian retro spaceship equipment: crisp dark outlines, small readable colour regions, restrained shading, sparse purposeful details, a little wear. No perspective, no ground shadow, no text, numbers, symbols or logos.",
+        "width": 128,
+        "height": 128,
+        "seed": 9290514,
+        "init_image_strength": 130,
+        "shading": "basic shading",
+        "outline": "single color black outline",
+        "detail": "medium detail",
+        "no_background": false,
+        "isometric": false,
+        "view": "high top-down"
+      },
+      "initImage": "references/l2-canister-filler-start.png",
+      "decision": "selected",
+      "review": "Overhead, no side faces; bottle rack, compressor grille and control plate read at 32 px. One pass kept on the start layout."
     }
   ],
   "passes": [
@@ -437,6 +745,30 @@
         "references/p1-manifold-first-pass.png": "e7ac702b3e7b3902ed985511ed2da12a49e428352399f09876b52a7afe8a820c"
       },
       "note": "P1 RCS propellant manifold. The propellant line art is a recorded deterministic recolour (scripts/export-propellant-line-art.py), not a generation."
+    },
+    {
+      "version": "0.4.0",
+      "date": "2026-09-29",
+      "allowanceBefore": 1794,
+      "allowanceAfter": 1780,
+      "creditBalanceUSD": 0,
+      "initImageHashes": {
+        "references/o2-oxygen-store-start.png": "c3abe99bff1f8ee95efd3c82793308030b529bd5b17e9405bdf0dba03b33dd88",
+        "references/n2-nitrogen-store-start.png": "87f85bc5c88018e48cb76171bd27325d402f076ac062883218d8c049c3b8ed29",
+        "references/c2-carbon-dioxide-store-start.png": "554994961effca42b5682cac3489b47db32cc00b93dabe3851127a87d318cdd0",
+        "references/m3-methane-store-start.png": "51c7585d26bef81d6ad306dcad258614544b8902878b3f7709e52b45b9be4277",
+        "references/o3-oxygen-store-start.png": "92869f46346f72e5bab95ceebcea97a0e068f916bea1f4b0bde05d240cfc6cf8",
+        "references/n3-nitrogen-store-start.png": "ad611f91f6bac71057d0fdfc4bb57c2a0f77013651384d3a52e118e39fb9a974",
+        "references/c3-carbon-dioxide-store-start.png": "2733219b793fb34c3d7836ea64cbd48998e7f9bbbf7b67ebf848e9b1bc9b9591",
+        "references/m4-methane-store-start.png": "675a6d5adc9bdd4e8344336b2aaa81afa1e97674df63d8a0d2c2994a2bcb36c2",
+        "references/o4-oxygen-store-start.png": "4b5be645d817dbdfa0fc3ae2601fec60435de3da1351f728797a01419598ca81",
+        "references/n4-nitrogen-store-start.png": "14a1f2869287d82669c93088a75e667d2bf4a0b9bad4ce476d7ef39542eed6eb",
+        "references/c4-carbon-dioxide-store-start.png": "7d14d5f19e2fbcaa4f938fb07cc69762e256b378b8db896a6d8d336315874dee",
+        "references/h3-hydrogen-store-start.png": "fbb2d5f610bd78c9f41b0f9b682598382564afbf38cd74876d28141b2965c1fb",
+        "references/h4-hydrogen-store-start.png": "407ea7a6542d50e2af401e1a464cd142e8739478a1436f4f02c36a2d5e7b5c20",
+        "references/l2-canister-filler-start.png": "33600f7352da5f853c7cae5911fea0b9e09b42b3ba236ccef1b5010feec0ead2"
+      },
+      "note": "Gas store size ladder (H3/H4, M3/M4), the O, N and C store families in three sizes, and the L2 canister filling station. Gas colours echo the game's canister convention by name only (green oxygen, blue nitrogen, pale grey carbon dioxide); no game imagery was uploaded. One pass per sprite from an original procedural start drawing; a first M4 upload was refused as truncated before generation and not charged."
     }
   ]
 }

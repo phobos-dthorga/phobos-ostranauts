@@ -127,3 +127,29 @@ takes them through `BufferedDrains`. Connection checks (within one tile, or a
 seconds. The manifold is not airtight and not a gas container, so the game's own
 refuelling never treats it as a canister (checked natively). The line art is a recorded
 recolour of the shared conduit sheet (`scripts/export-propellant-line-art.py`).
+
+## 0.4.0: gas store ladder, oxygen/nitrogen/CO2 stores and the L2 (Framework 0.44.0)
+
+Owner request, 29 September 2026: medium and large variants of every bulk family,
+applied retroactively, bulk O2/N2/CO2 stores (reversing the earlier "no gas
+silos" rule, because the game has canisters only for those three), and a safe
+canister filling station. New save-stable identities:
+
+- **Store sizes:** `PhobosHydrogenStoreMedium/Large`, `PhobosMethaneStoreMedium/Large`,
+  and `PhobosOxygenStore*`, `PhobosNitrogenStore*`, `PhobosCarbonDioxideStore*` in
+  all three sizes, with records named after the small ones plus the size.
+- **Filler:** `PhobosCanisterFiller*`, the record `ManufacturingFiller`, the
+  condition `PhobosManufacturingFilling`, the rack trigger
+  `TIsFitContainerPhobosCanisterFillerRack` and the map point `PhobosGasLineIn`.
+- **Commodities:** `oxygen`, `nitrogen` and `carbon dioxide`.
+
+`GasStores` replaces the fuel-store table: five `GasFamily` declarations, each
+built into three `GasStore` sizes through Framework `BulkVesselSizes`. A family's
+optional `Combustion` keeps the hydrogen and methane burns. The line port moves
+with the footprint (`GasStore.Outlet`). The X2's oxygen destination and the K2's
+CO2 source accept bulk stores within one tile as well as canisters, through
+guarded transfers; the manifold accepts all five gases. `FillerService` follows
+the X2's power-receipt pattern and moves gas through Framework `GasTransfers`,
+settling the RCS manifold's buffered draws first. Medium and large stores are not
+salvage loot; the engineering-loot share is split across machines and small
+stores only.

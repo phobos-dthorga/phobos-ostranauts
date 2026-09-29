@@ -411,3 +411,14 @@ design and implementation records, economy guide and item references follow.
 Nitrogen-equivalent kilograms are named wherever a fuel reading is explained.
 Coverage is 2,327 entries, 162 documents and 14 other surfaces. Unity wording is
 unverified.
+
+## Gas store sizes and canister filling (Framework 0.44.0, Manufacturing 0.4.0), 29 September 2026
+
+Manufacturing 0.4.0 adds medium and large gas stores, oxygen, nitrogen and carbon
+dioxide stores and the L2 canister filling station. New catalogue entries cover
+each gas's store text, the L2's controls, waits and rack lines, and store
+transfers. The store status and description keys moved to new keys (`level`,
+`details`) because their placeholders changed; the old wording is retired with
+its keys. The propellant line is now the gas line in every current text; the
+player guide gains Gas stores and Canister filling station sections that lead
+with the steps. Coverage is 2504 entries. Unity wording is unverified.

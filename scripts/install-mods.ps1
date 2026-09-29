@@ -346,6 +346,15 @@ foreach ($mod in $Mods) {
                     "images/phobos/manufacturing/$image.png"; "images/phobos/manufacturing/${image}Normal.png"
                 }
             }
+            # 0.4.0 adds medium and large gas stores, the oxygen, nitrogen and carbon dioxide stores, and the L2.
+            if ($version -ge [version]'0.4.0') {
+                $stores = foreach ($family in @('PhobosHydrogenStore', 'PhobosMethaneStore', 'PhobosOxygenStore', 'PhobosNitrogenStore', 'PhobosCarbonDioxideStore')) {
+                    foreach ($size in @('', 'Medium', 'Large')) { "$family$size" }
+                }
+                foreach ($image in @($stores | Where-Object { $_ -notin @('PhobosHydrogenStore', 'PhobosMethaneStore') }) + 'PhobosCanisterFiller') {
+                    "images/phobos/manufacturing/$image.png"; "images/phobos/manufacturing/${image}Normal.png"
+                }
+            }
         }
         'AutoNav' {
             if ($version -ge [version]'0.2.0') { 'framework/recipes.json' }

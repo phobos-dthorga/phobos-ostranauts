@@ -64,6 +64,12 @@ public static class BufferedDrains
             Settle(e);
         }
     }
+    /// <summary>Settles one vessel now: call before changing its record directly, so earlier buffered draws land
+    /// first and the next draw starts from a fresh reading.</summary>
+    public static void Settle(CondOwner vessel)
+    {
+        if (vessel != null && entries.TryGetValue(vessel, out var e)) Settle(e);
+    }
     private static void Settle(Entry e)
     {
         try

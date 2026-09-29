@@ -8,4 +8,5 @@ ProcessorChecks.Run(Check, Throws);
 HydrogenChecks.Run(Check, Throws);
 SabatierChecks.Run(Check, Throws);
 ManifoldChecks.Run(Check, Throws);
+GasStoreChecks.Run(Check, Throws);
 Console.WriteLine($"PASS: {checks} Manufacturing chemistry, charge, record and hazard checks on numbers alone. No game session was run.");

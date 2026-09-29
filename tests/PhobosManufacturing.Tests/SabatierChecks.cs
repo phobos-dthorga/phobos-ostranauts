@@ -59,22 +59,22 @@ internal static class SabatierChecks
             "Every vessel-side port is distinct, so one vessel can serve a refinery, a cell and a reactor at once");
 
         // The methane store and its burn.
-        var methane = FuelStores.Methane;
+        var methane = GasStores.Methane;
         check(methane.Spec.Commodity == "methane" && methane.CapacityKg == 160 && methane.DryKg == 160 && methane.Spec.DamagePolicy == VesselDamagePolicy.Leak && methane.LeakSpecies == "CH4",
             "The methane store holds 160 kg, leaks when damaged, and leaks into the room as the game's CH4");
-        check(FuelStores.Hydrogen.LeakSpecies == null && FuelStores.For("PhobosMethaneStoreLooseDmg") == methane && FuelStores.For("PhobosHydrogenStoreInstalled") == FuelStores.Hydrogen && FuelStores.For("PhobosVolatilesRefineryInstalled") == null,
+        check(GasStores.Hydrogen.LeakSpecies == null && GasStores.For("PhobosMethaneStoreLooseDmg") == methane && GasStores.For("PhobosHydrogenStoreInstalled") == GasStores.Hydrogen && GasStores.For("PhobosVolatilesRefineryInstalled") == null,
             "Hydrogen leaks to space; families resolve to their fuel");
-        check(Math.Abs(methane.OxygenPerFuel - 3.989) < 0.001 && Math.Abs(methane.RoomProductsPerKg["CO2"] - 2.743) < 0.001 && Math.Abs(methane.HeatingKJPerKg / 1000 - 55.51) < 0.02,
+        check(Math.Abs(methane.Family.Fuel!.OxygenPerFuel - 3.989) < 0.001 && Math.Abs(methane.Family.Fuel!.RoomProductsPerKg["CO2"] - 2.743) < 0.001 && Math.Abs(methane.Family.Fuel!.HeatingKJPerKg / 1000 - 55.51) < 0.02,
             "CH4 + 2 O2 -> CO2 + 2 H2O: 3.99 kg of oxygen and 2.74 kg of CO2 per kg, 55.5 MJ/kg (NIST)");
         var burn = methane.Burn(10, 20);
-        check(Math.Abs(burn.BurnedKg - 20 / methane.OxygenPerFuel) < 1e-9 && Math.Abs(burn.OxygenKg - 20) < 1e-9 && Math.Abs(burn.RoomProductsKg["CO2"] - burn.BurnedKg * 2.7433) < 0.01 &&
+        check(Math.Abs(burn.BurnedKg - 20 / methane.Family.Fuel!.OxygenPerFuel) < 1e-9 && Math.Abs(burn.OxygenKg - 20) < 1e-9 && Math.Abs(burn.RoomProductsKg["CO2"] - burn.BurnedKg * 2.7433) < 0.01 &&
             Math.Abs(burn.LostKg + burn.BurnedKg - 10) < 1e-12, "A methane burn is bounded by the room's oxygen and leaves carbon dioxide");
-        check(FuelStores.SizeFor(283799) == "Small" && FuelStores.SizeFor(283800) == "Medium" && FuelStores.SizeFor(1135200) == "Large",
+        check(GasStores.SizeFor(283799) == "Small" && GasStores.SizeFor(283800) == "Medium" && GasStores.SizeFor(1135200) == "Large",
             "Blast size follows energy: the energy of 2 kg and 8 kg of hydrogen");
         check(methane.Burn(160, 1e6).Size == "Large" && methane.Burn(4, 1e6).Size == "Small", "A full methane store is a large blast; a few kilograms a small one");
         check(HydrogenRules.Burn(1, 100).RoomProductsKg.Count == 0, "Burning hydrogen adds no game gas (its water vapour has no species)");
         throws(() => methane.Burn(double.PositiveInfinity, 1), "Invalid fuel is refused");
-        check(methane.Spec.Journal != FuelStores.Hydrogen.Spec.Journal && methane.Spec.Guard != FuelStores.Hydrogen.Spec.Guard && methane.Spec.Record != FuelStores.Hydrogen.Spec.Record,
+        check(methane.Spec.Journal != GasStores.Hydrogen.Spec.Journal && methane.Spec.Guard != GasStores.Hydrogen.Spec.Guard && methane.Spec.Record != GasStores.Hydrogen.Spec.Record,
             "The two stores keep separate records, journals and guards");
         check(NativeGasCanister.IsRoomSpecies("CH4") && NativeGasCanister.IsRoomSpecies("CO2"), "Methane and CO2 are the game's own gases");
     }

@@ -43,6 +43,22 @@ public static class ApplianceDefinitions
         }
     }
 
+    /// <summary>A visible restricted rack in place of the appliance's ordinary tray: the same native Inventory
+    /// window, <paramref name="width"/> x <paramref name="height"/> cells, admitting only what
+    /// <paramref name="containerTrigger"/> accepts (the game applies it on every form, loose or installed).</summary>
+    public static void SetRack(NativeDefinitions d, string prefix, string containerTrigger, int width, int height)
+    {
+        if (width < 1 || height < 1 || string.IsNullOrWhiteSpace(containerTrigger)) throw new ArgumentException("A rack needs a trigger and at least one cell.");
+        foreach (string form in new[] { "Installed", "Loose", "InstalledDmg", "LooseDmg" })
+        {
+            var co = d.Objects[prefix + form];
+            co.strContainerCT = containerTrigger; co.nContainerWidth = width; co.nContainerHeight = height;
+            if (!co.aStartingConds.Any(s => s.StartsWith("IsContainer=", StringComparison.Ordinal))) co.aStartingConds = co.aStartingConds.Concat(new[] { "IsContainer=1x1" }).ToArray();
+            if (!co.aInteractions.Contains("Inventory")) co.aInteractions = new[] { "Inventory" }.Concat(co.aInteractions).ToArray();
+            co.mapGUIPropMaps = new[] { "GUIInv", "Inventory" };
+        }
+    }
+
     /// <summary>Idle and working electrical demand on the family's power info: the working amount applies while
     /// the machine carries <paramref name="workingCondition"/>, which content sets from its own service.</summary>
     public static void SetPowerOverride(NativeDefinitions d, string prefix, double idleKW, double workingKW, string workingCondition, params string[] inputPoints)

@@ -123,3 +123,17 @@ Two included generations (allowance 1,861 to 1,859), $0 credit, no purchases. Th
 first pass is retained as the input of the selected pass. The line recolour is
 reproduced and checked by `scripts/export-propellant-line-art.py --check`, which
 the Manufacturing build runs.
+
+## Manufacturing 0.4.0 pass (29 September 2026)
+
+Fourteen sprites, one Pixflux pass each over an original procedural start drawing
+(strength 130), all selected: the H3/H4 hydrogen stores (three and four strapped
+cylinders), the M3/M4 methane stores and the O, N and C stores in three sizes (one,
+four or nine domes), and the L2 filling station (bottle rack, compressor grille,
+control plate). Masters are four times native: 128 px for 2 x 2, 192 px for 3 x 3
+and 256 px for 4 x 4. Gas colours echo the game's canister convention by name only
+(green oxygen, blue nitrogen, pale grey carbon dioxide); no game imagery was
+uploaded. Fourteen included generations (allowance 1,794 to 1,780), $0 credit, no
+purchases; one M4 upload was refused as truncated before generation and not
+charged. Requests, seeds and start-drawing hashes are in
+[manufacturing-requests.json](../../assets/artwork-completion/manufacturing-requests.json).

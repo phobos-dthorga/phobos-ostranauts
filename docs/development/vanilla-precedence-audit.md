@@ -209,3 +209,15 @@ of each kilogram (nitrogen exactly 1, so nitrogen-only ships are unchanged) and 
 registered feeds found on the same tiles. Shallow-loaded ships, `Maneuver`, refuelling
 (`RefuelRCS`, `GUIStationRefuel`) and the thrust formula stay native. A failure in the
 replacement falls back to the native method. Verdict: justified replacement, recorded.
+
+## Canister filling (Framework 0.44.0, Manufacturing 0.4.0, 29 September 2026)
+
+Owner request: a safe way to refill the game's own canisters and suit bottles. The
+native air pump (`GasPump.Pump`) fills without checking the destination's rated
+pressure, which is why bottles burst; it is left untouched. The L2 is an additional
+appliance that works on the game's own vessels through the same `GasContainer`
+moles the game uses (`AddGasMols`), stopping at 99% of the vessel's own rating and
+counting every species. It never changes the pump, the burst rule
+(`CheckPressureDifference`), station refuelling or the vessels' definitions, and a
+bottle in its rack stays an ordinary item the crew can take out at any time.
+Verdict: additive, no native path replaced.

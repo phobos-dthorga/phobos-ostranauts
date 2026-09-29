@@ -579,3 +579,38 @@ brace 2.6%). Empty the V4's feed and tray, the X2's hold and the H2 store before
 dismantling; the shared guards refuse otherwise. Existing saved machines keep
 their identities and state; the new prices and bills apply to definitions, and
 merchants update at their normal restock.
+
+## Manufacturing 0.4.0: store sizes and the L2
+
+Every gas store comes in three sizes through Framework's shared ladder (see
+[the refinery record](development/manufacturing-refinery-and-chemistry.md)): the
+medium and large sizes hold 2.475 and 4.8 times the small one, weigh 1.9 and 2.8
+times as much, and cost about 1.63 and 2.3 times as much. Their broken price is a
+quarter. Work, repair bills and salvage grow with the footprint:
+
+| Store size | Install / uninstall | Repair broken | Dismantle | Restore | Repair bill (St Al Me El Mb) |
+|---|---:|---:|---:|---:|---|
+| Small (2 x 2) | 1200 / 1000 | 3000 | 900 | 60 min | 6 2 6 2 1 |
+| Medium (3 x 3) | 1600 / 1300 | 3900 | 1200 | 75 min | 8 3 8 3 1 |
+| Large (4 x 4) | 2000 / 1600 | 4800 | 1500 | 90 min | 10 4 10 4 2 |
+
+Salvage keeps the small stores' fittings (12 mechanical, 3 electronic parts and a
+mainboard intact; 4 mechanical parts broken) and fills the rest of the dry mass
+with steel, aluminium and retained trash in the small stores' proportions, so
+every size conserves mass. The medium and large sizes are sold through the same
+merchant and regional routes but are never salvage loot; the one-in-twenty
+engineering find is split across the machines and the small stores.
+
+| Equipment | Mass | Base price | Broken base | Install / uninstall | Repair | Dismantle | Restore |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| Fennmark L2 canister filling station | 120 kg | $26,000 | $6,500 | 1200 / 1000 | 3000 | 900 | 60 min |
+
+The L2's repair bill is 3 steel, 2 aluminium, 4 mechanical and 4 electronic
+parts, a motor, a mainboard and a heat sink. It dismantles to 70 steel, 20
+aluminium, 11 mechanical and 6 electronic parts, a motor, a mainboard, a heat
+sink and 17 kg of retained trash (120 kg); broken, to 40 steel, 10 aluminium, 4
+mechanical parts and 68 kg of trash.
+
+Bulk oxygen, nitrogen and carbon dioxide are sold into installed stores through
+the station Bulk supplies view at the game's own gas price per kilogram, in steps
+of 10 kg. Nothing sells back.

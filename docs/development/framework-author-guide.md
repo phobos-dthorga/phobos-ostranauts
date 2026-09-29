@@ -955,3 +955,35 @@ reason)` never takes more, and the owed total settles through the quiet
 `BulkVessel.Drain(co, kg, reason, log: false)` every two seconds and before
 `Ship.GetJSON` saves, with one log line per settlement. A load or new game forgets
 unsettled draws, so a crash loses at most about two seconds of them.
+
+## Bulk vessel sizes, native gas vessels and gas transfers (0.44.0)
+
+`Liquids.BulkVesselSizes` is the shared size ladder. `Prefix`/`Name(small, size)`
+keep the small size's original identity and records and append `Medium` or
+`Large` for the others. `Footprint` adds one tile per step, and `SizeOf` or
+`InLadder` resolve a definition within one family. `Spec(...)` builds one size's
+`BulkVesselSpec`, scaling capacity (floor area plus 10% per step), dry mass (floor
+area less 15% per step) and, through `PriceFactor`, price (area to the power 0.6),
+rounded by `Round`. Register each size as its own family: records must stay
+distinct per owner.
+
+`Processing.NativeGasVessel` reads any of the game's rated O2, N2 or CO2 vessels,
+installed or loose canister or suit bottle. `TryRead` counts every species in
+`TotalMoles`; `HeadroomMoles(fraction)` stops below a fraction of the rating
+(`SafeFillFraction`, 99%, below the game's burst margin even in vacuum). `TryFill`
+refuses damaged vessels; `TryDrain` is clamped to contents; `PricePerKg` reads the
+game's own gas price table.
+
+`Liquids.GasTransfers` moves gas between a bulk vessel's record and a native
+vessel (`StoreToVessel`, `VesselToStore`) under the store's conversion journal,
+changing the record first when gas leaves a store and last when it enters one, so
+an interruption can lose gas but never create it. `VesselToVessel` decants
+between two native vessels and puts back whatever the target cannot take. Both
+settle `BufferedDrains` first; `BufferedDrains.Settle(vessel)` is public for any
+consumer that changes a record directly.
+
+`Trading.VesselSupplyProvider` also takes one offer per commodity naming several
+families, so a single station line fills every size.
+`Registration.ApplianceDefinitions.SetRack(d, prefix, trigger, width, height)`
+turns an appliance's tray into a restricted rack behind the game's own Inventory
+window.

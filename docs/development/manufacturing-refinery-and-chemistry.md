@@ -137,6 +137,53 @@ nitrogen-equivalent asked for, converted back to their own kilograms, through
 Framework's buffered draws (settled every couple of seconds and before a save).
 Hydrogen and methane leave the ship as exhaust, not into any room.
 
+## Gas stores in three sizes (Framework 0.44.0, Manufacturing 0.4.0)
+
+Owner direction, 29 September 2026: every bulk family offers small, medium and
+large sizes unless its commodity is niche or high-value. Each size is one tile
+wider. Framework's shared ladder scales the small size's values, and every rule
+below is our authored balance, not measured hardware:
+
+- **Capacity:** floor area plus a 10% housing-efficiency gain per step (walls and
+  fittings take a smaller share of a bigger vessel): x2.475 for 3 x 3, x4.8 for
+  4 x 4 against 2 x 2.
+- **Housing mass:** floor area less 15% per step.
+- **Price:** floor area to the power 0.6, an economy of scale.
+
+The new oxygen, nitrogen and carbon dioxide stores use the same vessel as the H2
+and M2: the game's own RTA canister volume (0.787 m3) at its rated 41.4 MPa and
+293 K holds about 13,400 mol of ideal gas (n = PV / RT with the game's own R).
+Authored at 80% of that, about 10,700 mol: 340 kg of oxygen, 300 kg of nitrogen
+and 470 kg of carbon dioxide. Real carbon dioxide at that pressure is a dense
+supercritical fluid and would hold more; the game treats every gas as ideal, so
+the stores do too. A small store therefore holds about one game canister's worth
+in four tiles, because the game's canisters are very dense; bulk gas pays off in
+the larger sizes.
+
+Station bulk purchase uses the game's own gas price table (`GasPrices`, the one
+the refuelling kiosk charges from): oxygen 13.2, nitrogen 4.10 and carbon dioxide
+1.3 credits per kilogram in 1.0.1.5, read live. Nothing sells back.
+
+## Canister filling (the L2)
+
+Observed game behaviour (1.0.1.5, local assembly): the air pump moves gas each
+tick without checking the destination's rated pressure, and
+`GasContainer.CheckPressureDifference` damages a vessel once its pressure
+difference to the surrounding room passes its rating plus 150 kPa. A suit bottle
+(0.003 m3, 20,684 kPa) filled to 99% sits 207 kPa under its rating, below the
+burst margin even in vacuum; so does a canister at 99% of 41,400 kPa. The L2
+counts every species in the vessel, not only the rated one.
+
+Electricity per kilogram is isothermal compression from an authored 10 MPa
+suction to the vessel's rating, W = (R T / M) ln(P2 / P1), at an authored 50%
+efficiency (the standard ideal-gas result; see any engineering thermodynamics
+text, for example Cengel and Boles, *Thermodynamics: An Engineering Approach*;
+*cited from memory, verify the edition*). Oxygen into a canister costs about
+0.06 kWh/kg: at 3 kW a full 428 kg canister takes about 8.6 hours and a suit
+bottle about 30 seconds of compressor time. A minimum pressure ratio of 1.5
+keeps low-rated vessels from filling for free. All the electricity ends as heat
+in the room: the gas warms on compression and cools back to the room.
+
 ## The hydrogen store
 
 24 kg capacity: the native canister volume at 41.4 MPa and 293 K holds about

@@ -56,12 +56,30 @@ internal static class ManufacturingNativeChecks
             var line = d.Objects[PropellantLineRules.Prefix + state];
             check(Stat(line, "StatMass") == PropellantLineRules.Kg && (damaged ? Stat(line, "StatBasePrice") < PropellantLineRules.Price : Stat(line, "StatBasePrice") == PropellantLineRules.Price) &&
                 d.Installables.ContainsKey(PropellantLineRules.Prefix + state + "Dismantle"), "The propellant line is ordinary pipe supply: " + state);
-            foreach (var fuel in FuelStores.All)
-                check(d.Objects[fuel.Prefix + state].mapPoints.Contains(ManifoldRules.StoreOutlet + ",24,8"), "Fuel stores carry a propellant-line port: " + fuel.Prefix + state);
+            foreach (var fuel in GasStores.All)
+            {
+                var gas = d.Objects[fuel.Prefix + state]; var gasItem = d.Items[gas.strItemDef]; var port = fuel.Outlet;
+                check(gas.mapPoints.Contains(ManifoldRules.StoreOutlet + "," + port.X + "," + port.Y), "Gas stores carry a gas-line port beside their middle row: " + fuel.Prefix + state);
+                check(gasItem.nCols == fuel.Footprint && gasItem.aSocketAdds.Length == fuel.Footprint * fuel.Footprint && gas.inventoryWidth == fuel.Footprint && gas.jsonPI == null &&
+                    !Has(gas, "IsContainer") && Stat(gas, "StatMass") == fuel.DryKg, "Each size is a passive vessel of its own footprint at its dry mass: " + fuel.Prefix + state);
+                check(gas.strNameFriendly.StartsWith("Phobos' Fennmark " + fuel.Family.Model + fuel.Footprint + " ", StringComparison.Ordinal), "Each size carries its Fennmark model: " + fuel.Prefix + state);
+                check(Stat(gas, "StatBasePrice") == (damaged ? (int)fuel.Price / 4 : (int)fuel.Price) && Has(gas, EquipmentEconomy.HighSalvageMark), "Each size carries its late-game price: " + fuel.Prefix + state);
+                check(installed ? gasItem.aSocketAdds[port.SocketIndex] == PropellantLineRules.Prefix + "FixturePort" : true, "The pipe joint sits on the footprint tile beside the port: " + fuel.Prefix + state);
+                check(d.Installables.ContainsKey(fuel.Prefix + state + "Dismantle") && (damaged ? d.Installables.ContainsKey(fuel.Prefix + state + "Repair") : d.Installables.ContainsKey(fuel.Prefix + state + "Restore")),
+                    "Every size has native dismantle, repair and Restore jobs: " + fuel.Prefix + state);
+                check(BulkVessels.SpecFor(fuel.Prefix + state) == fuel.Spec, "Every form resolves to its own registered size: " + fuel.Prefix + state);
+            }
+            var filler = d.Objects[FillerRules.Prefix + state]; var fillerItem = d.Items[filler.strItemDef];
+            check(fillerItem.nCols == 2 && filler.inventoryWidth == 2 && filler.nContainerWidth == FillerRules.RackCells && filler.nContainerHeight == 1 && filler.strContainerCT == FillerRules.RackTrigger &&
+                !Has(filler, "IsAirtight") && Stat(filler, "StatMass") == FillerRules.MachineKg && filler.aInteractions.Contains("Inventory"),
+                "L2 is a two by two station with a four-cell bottle rack behind the game's own Inventory window: " + state);
+            check(filler.strNameFriendly.StartsWith("Phobos' Fennmark L2 ", StringComparison.Ordinal) && filler.mapPoints.Contains(FillerRules.Inlet + ",24,8") &&
+                (filler.jsonPI == FillerRules.Prefix + "Power") == (installed && !damaged), "L2 carries its Fennmark name, a gas-line port and power only when installed and intact: " + state);
+            check(!DataHandler.dictCTs["TIsRCSValidInput"].TriggeredDataCO(new DataCO(filler), false), "The game's own RCS input rule refuses the station: " + state);
             if (installed)
-                foreach (var co in new[] { refinery, processor, store, reactor, methane, manifold })
+                foreach (var co in new[] { refinery, processor, store, reactor, methane, manifold, filler })
                     check(co.aInteractions.Count(i => i == Definitions.Controls) == 1, "Installed machine offers one Control Panel: " + co.strName);
-            foreach (var prefix in new[] { RefineryRules.Prefix, ProcessorRules.Prefix, HydrogenRules.Prefix, SabatierRules.Prefix, MethaneRules.Prefix, ManifoldRules.Prefix })
+            foreach (var prefix in new[] { RefineryRules.Prefix, ProcessorRules.Prefix, HydrogenRules.Prefix, SabatierRules.Prefix, MethaneRules.Prefix, ManifoldRules.Prefix, FillerRules.Prefix })
             {
                 check(d.Installables.ContainsKey(prefix + state + "Dismantle") && d.Installables.ContainsKey(prefix + state + (installed ? "Uninstall" : "Install")), "Native removal and dismantle jobs exist: " + prefix + state);
                 check(damaged ? d.Installables.ContainsKey(prefix + state + "Repair") : d.Installables.ContainsKey(prefix + state + "Restore"), "Repair on damaged forms, Restore on intact ones: " + prefix + state);
@@ -117,6 +135,21 @@ internal static class ManufacturingNativeChecks
             "The M2 store is a registered leaking methane vessel");
         check(new[] { BulkVessels.SpecFor(HydrogenRules.Installed), methaneSpec, BulkVessels.SpecFor("PhobosProcessSiloInstalled") }.Select(s => s?.Commodity).Distinct().Count() == 3,
             "Water, hydrogen and methane vessels coexist in the registry");
+        check(GasStores.All.All(s => BulkVessels.SpecFor(s.Installed) == s.Spec) && BulkVessels.All.Count(s => s.Owner == Plugin.Id) == GasStores.All.Count,
+            "Every gas store size is registered once, by this mod");
+        // The L2 rack admits the game's suit O2 bottles only; the power override follows the filling condition.
+        var rack = DataHandler.dictCTs[FillerRules.RackTrigger];
+        check(rack.TriggeredDataCO(new DataCO(DataHandler.dictCOs["ItmCanisterO2Small"]), false), "The rack admits the game's suit O2 bottle");
+        foreach (string outside in new[] { "ItmRTAO2Loose", "ItmRTAN2", "ItmScrapSteel", "ItmCanisterLH02Loose" })
+            check(!rack.TriggeredDataCO(new DataCO(DataHandler.dictCOs[outside]), false), "The rack refuses anything else: " + outside);
+        var booster = d.Power[FillerRules.Prefix + "Power"];
+        check(Math.Abs(booster.fAmount - FillerRules.IdleKW / Units.SecondsPerHour) < 1e-12 && booster.strOverrideCond == ManufacturingRules.Filling &&
+            Math.Abs(booster.fOverrideAmount - FillerRules.WorkingKW / Units.SecondsPerHour) < 1e-12, "L2 draws 0.05 kW idle and 3 kW filling");
+        // The game's own vessels the station fills: rated O2, N2 and CO2 canisters and the suit bottle.
+        foreach (string vessel in new[] { "ItmRTAO2", "ItmRTAN2", "ItmRTACO2", "ItmCanisterO2Small" })
+            check(NativeGasCanister.Species(null) == null && DataHandler.dictCOs[vessel].aStartingConds.Any(s => s.StartsWith("StatGasPressureMax=", StringComparison.Ordinal)) &&
+                DataHandler.dictCOs[vessel].aStartingConds.Any(s => s.StartsWith("IsVessel", StringComparison.Ordinal)), "A native vessel carries its rated pressure and species: " + vessel);
+        check(DataHandler.dictCOs["ItmCanisterO2Small"].aStartingConds.Any(s => s.StartsWith("IsHandheld=", StringComparison.Ordinal)), "The suit bottle is handheld, which the rack and the fill rule use");
 
         // Materials: clones of the game's own scrap and hydrates with our identity, mass, price and category.
         foreach (var m in Materials.All)
@@ -219,8 +252,8 @@ internal static class ManufacturingNativeChecks
         var salvage = d.Loot["PhobosManufacturingMachinerySalvage"].aCOs.Single().Split('|')
             .ToDictionary(c => c.Split('=')[0], c => double.Parse(c.Split('=')[1].Split('x')[0], System.Globalization.CultureInfo.InvariantCulture));
         check(Math.Abs(salvage.Values.Sum() - EquipmentEconomy.MachinerySalvageChance) < 1e-9 && EquipmentEconomy.MachinerySalvageChance <= 0.05 &&
-            Math.Abs(salvage.Where(p => p.Key.EndsWith("Dmg", StringComparison.Ordinal)).Sum(p => p.Value) - 0.75 * EquipmentEconomy.MachinerySalvageChance) < 1e-9 && salvage.Count == 2 * EquipmentEconomy.Machines.Length,
-            "At most one engineering roll in twenty yields a machine, three in four of those broken");
+            Math.Abs(salvage.Where(p => p.Key.EndsWith("Dmg", StringComparison.Ordinal)).Sum(p => p.Value) - 0.75 * EquipmentEconomy.MachinerySalvageChance) < 1e-9 && salvage.Count == 2 * EquipmentEconomy.Machines.Count(m => m.Loot) && !salvage.Keys.Any(k => k.Contains("Medium") || k.Contains("Large")),
+            "At most one engineering roll in twenty yields a machine, three in four of those broken; medium and large stores never turn up in salvage");
 
         // The hazard model's native foundations: the fire gas-respire, the spread trigger, the explosion entries.
         string data = Path.Combine(game, "Ostranauts_Data", "StreamingAssets", "data");

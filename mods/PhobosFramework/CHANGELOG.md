@@ -20,6 +20,15 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.44.0] - 2026-09-29 - Draft
+
+### Added
+
+- Shared size ladder for bulk storage: content mods declare a small vessel and get matching medium and large sizes, one tile wider each, with capacity, housing mass and price scaled by one rule. The small size keeps its original identity and saved records.
+- Safe filling of the game's own gas vessels: installed or loose O2, N2 and CO2 canisters and suit O2 bottles are filled to 99% of their rating, counting everything inside, and never past it.
+- Journalled gas moves between bulk stores and the game's canisters and bottles, so an interrupted move can lose gas but never create it.
+- Station bulk supply offers can fill every size of a family from one line, and equipment can offer a restricted rack through the game's own Inventory window.
+
 ## [0.43.0] - 2026-09-29 - Draft
 
 ### Added

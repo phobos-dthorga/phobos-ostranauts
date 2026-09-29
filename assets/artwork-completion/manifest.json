@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "date": "2026-09-27",
-  "status": "63 selected masters; native export review complete; owner gameplay and visual approval pending",
+  "status": "77 selected masters; native export review complete; owner gameplay and visual approval pending",
   "projection": "Orthographic vertical overhead, no visible vertical faces",
   "registration": "Whole transparent source canvas, centred pivot, unchanged native footprint; nearest-neighbour exports",
   "allowanceBefore": 1952,
@@ -1723,6 +1723,356 @@
       "review": "Overhead and native-scale export inspected; Fennmark colour language checked. Owner in-game review pending.",
       "fullFootprint": true,
       "jobId": "e0dcf9fb-4c87-4066-b68d-0c2389082b1c"
+    },
+    {
+      "key": "o2-oxygen-store",
+      "mod": "PhobosManufacturing",
+      "definition": "PhobosOxygenStoreInstalled",
+      "nativeSize": [
+        32,
+        32
+      ],
+      "masterSize": [
+        128,
+        128
+      ],
+      "pivot": [
+        16,
+        16
+      ],
+      "runtime": "phobos/manufacturing/PhobosOxygenStore",
+      "status": "selected",
+      "source": "source/o2-oxygen-store.png",
+      "sourceSHA256": "69399b34c1a83fe17cbb77d1717527dc2848fe6862d320d11793a848f2a7325a",
+      "requestRecord": "manufacturing-requests.json",
+      "review": "Overhead and native-scale export inspected; Fennmark family and the game's gas colour convention checked. Owner in-game review pending.",
+      "fullFootprint": true,
+      "jobId": "b6d6bffc-bd25-43af-8286-4378d9e70754"
+    },
+    {
+      "key": "n2-nitrogen-store",
+      "mod": "PhobosManufacturing",
+      "definition": "PhobosNitrogenStoreInstalled",
+      "nativeSize": [
+        32,
+        32
+      ],
+      "masterSize": [
+        128,
+        128
+      ],
+      "pivot": [
+        16,
+        16
+      ],
+      "runtime": "phobos/manufacturing/PhobosNitrogenStore",
+      "status": "selected",
+      "source": "source/n2-nitrogen-store.png",
+      "sourceSHA256": "4ac46c0a6ae75d356830e7d961cad145f10300893b0e56505a65febf6e2b7912",
+      "requestRecord": "manufacturing-requests.json",
+      "review": "Overhead and native-scale export inspected; Fennmark family and the game's gas colour convention checked. Owner in-game review pending.",
+      "fullFootprint": true,
+      "jobId": "2867bca1-a8e9-4695-b3d5-961eb54a16ac"
+    },
+    {
+      "key": "c2-carbon-dioxide-store",
+      "mod": "PhobosManufacturing",
+      "definition": "PhobosCarbonDioxideStoreInstalled",
+      "nativeSize": [
+        32,
+        32
+      ],
+      "masterSize": [
+        128,
+        128
+      ],
+      "pivot": [
+        16,
+        16
+      ],
+      "runtime": "phobos/manufacturing/PhobosCarbonDioxideStore",
+      "status": "selected",
+      "source": "source/c2-carbon-dioxide-store.png",
+      "sourceSHA256": "9f09c39e379b60c83047d2afe2be2f8a5aa7de4730c5e23126f1a882b5436017",
+      "requestRecord": "manufacturing-requests.json",
+      "review": "Overhead and native-scale export inspected; Fennmark family and the game's gas colour convention checked. Owner in-game review pending.",
+      "fullFootprint": true,
+      "jobId": "0e42192c-3160-4397-a0d0-d8d8d8b9c617"
+    },
+    {
+      "key": "m3-methane-store",
+      "mod": "PhobosManufacturing",
+      "definition": "PhobosMethaneStoreMediumInstalled",
+      "nativeSize": [
+        48,
+        48
+      ],
+      "masterSize": [
+        192,
+        192
+      ],
+      "pivot": [
+        24,
+        24
+      ],
+      "runtime": "phobos/manufacturing/PhobosMethaneStoreMedium",
+      "status": "selected",
+      "source": "source/m3-methane-store.png",
+      "sourceSHA256": "c8716e54b0967d7300117e624990a0f2fbe2150c359ffb38c98ab2148b96c3fe",
+      "requestRecord": "manufacturing-requests.json",
+      "review": "Overhead and native-scale export inspected; Fennmark family and the game's gas colour convention checked. Owner in-game review pending.",
+      "fullFootprint": true,
+      "jobId": "8d8e6022-14f2-4a74-9024-d417e28fb698"
+    },
+    {
+      "key": "o3-oxygen-store",
+      "mod": "PhobosManufacturing",
+      "definition": "PhobosOxygenStoreMediumInstalled",
+      "nativeSize": [
+        48,
+        48
+      ],
+      "masterSize": [
+        192,
+        192
+      ],
+      "pivot": [
+        24,
+        24
+      ],
+      "runtime": "phobos/manufacturing/PhobosOxygenStoreMedium",
+      "status": "selected",
+      "source": "source/o3-oxygen-store.png",
+      "sourceSHA256": "e21cbfc9ec3f5d2e37bf2460af768d02fe32ccca42284c322e44e299445fefc4",
+      "requestRecord": "manufacturing-requests.json",
+      "review": "Overhead and native-scale export inspected; Fennmark family and the game's gas colour convention checked. Owner in-game review pending.",
+      "fullFootprint": true,
+      "jobId": "d72e3d5f-4904-4132-add6-2d6a9210efad"
+    },
+    {
+      "key": "n3-nitrogen-store",
+      "mod": "PhobosManufacturing",
+      "definition": "PhobosNitrogenStoreMediumInstalled",
+      "nativeSize": [
+        48,
+        48
+      ],
+      "masterSize": [
+        192,
+        192
+      ],
+      "pivot": [
+        24,
+        24
+      ],
+      "runtime": "phobos/manufacturing/PhobosNitrogenStoreMedium",
+      "status": "selected",
+      "source": "source/n3-nitrogen-store.png",
+      "sourceSHA256": "a2fb85769080f431b69368d57c03a3149a845606247fec1c3a53a72919e4a4a7",
+      "requestRecord": "manufacturing-requests.json",
+      "review": "Overhead and native-scale export inspected; Fennmark family and the game's gas colour convention checked. Owner in-game review pending.",
+      "fullFootprint": true,
+      "jobId": "268d1411-4213-4750-9296-e7f7925bea6f"
+    },
+    {
+      "key": "c3-carbon-dioxide-store",
+      "mod": "PhobosManufacturing",
+      "definition": "PhobosCarbonDioxideStoreMediumInstalled",
+      "nativeSize": [
+        48,
+        48
+      ],
+      "masterSize": [
+        192,
+        192
+      ],
+      "pivot": [
+        24,
+        24
+      ],
+      "runtime": "phobos/manufacturing/PhobosCarbonDioxideStoreMedium",
+      "status": "selected",
+      "source": "source/c3-carbon-dioxide-store.png",
+      "sourceSHA256": "53705c8687287c9da2091a0ac855355582c4836c4c1981b6956258f395501b78",
+      "requestRecord": "manufacturing-requests.json",
+      "review": "Overhead and native-scale export inspected; Fennmark family and the game's gas colour convention checked. Owner in-game review pending.",
+      "fullFootprint": true,
+      "jobId": "30dc915f-1ab6-4a78-909e-a6c72addf506"
+    },
+    {
+      "key": "m4-methane-store",
+      "mod": "PhobosManufacturing",
+      "definition": "PhobosMethaneStoreLargeInstalled",
+      "nativeSize": [
+        64,
+        64
+      ],
+      "masterSize": [
+        256,
+        256
+      ],
+      "pivot": [
+        32,
+        32
+      ],
+      "runtime": "phobos/manufacturing/PhobosMethaneStoreLarge",
+      "status": "selected",
+      "source": "source/m4-methane-store.png",
+      "sourceSHA256": "e8408d36d6d60c3b99dff136ac8e37c0e45017b86d77cfbe1a2dc334be4862dc",
+      "requestRecord": "manufacturing-requests.json",
+      "review": "Overhead and native-scale export inspected; Fennmark family and the game's gas colour convention checked. Owner in-game review pending.",
+      "fullFootprint": true,
+      "jobId": "63c15351-ea30-4641-9015-374c4980523b"
+    },
+    {
+      "key": "o4-oxygen-store",
+      "mod": "PhobosManufacturing",
+      "definition": "PhobosOxygenStoreLargeInstalled",
+      "nativeSize": [
+        64,
+        64
+      ],
+      "masterSize": [
+        256,
+        256
+      ],
+      "pivot": [
+        32,
+        32
+      ],
+      "runtime": "phobos/manufacturing/PhobosOxygenStoreLarge",
+      "status": "selected",
+      "source": "source/o4-oxygen-store.png",
+      "sourceSHA256": "aa64b6bb4bad981b5bb6d5d1d42ef9adeeb424ef1065674bd63b17d4c536a5cb",
+      "requestRecord": "manufacturing-requests.json",
+      "review": "Overhead and native-scale export inspected; Fennmark family and the game's gas colour convention checked. Owner in-game review pending.",
+      "fullFootprint": true,
+      "jobId": "03841313-db88-4179-aa04-004f17ebdc39"
+    },
+    {
+      "key": "n4-nitrogen-store",
+      "mod": "PhobosManufacturing",
+      "definition": "PhobosNitrogenStoreLargeInstalled",
+      "nativeSize": [
+        64,
+        64
+      ],
+      "masterSize": [
+        256,
+        256
+      ],
+      "pivot": [
+        32,
+        32
+      ],
+      "runtime": "phobos/manufacturing/PhobosNitrogenStoreLarge",
+      "status": "selected",
+      "source": "source/n4-nitrogen-store.png",
+      "sourceSHA256": "dd0db5364124d4ea7493209e977dbe49c8ab2a7e476388457b1283872f1a5666",
+      "requestRecord": "manufacturing-requests.json",
+      "review": "Overhead and native-scale export inspected; Fennmark family and the game's gas colour convention checked. Owner in-game review pending.",
+      "fullFootprint": true,
+      "jobId": "4be22edc-e770-4732-a846-835b8161c787"
+    },
+    {
+      "key": "c4-carbon-dioxide-store",
+      "mod": "PhobosManufacturing",
+      "definition": "PhobosCarbonDioxideStoreLargeInstalled",
+      "nativeSize": [
+        64,
+        64
+      ],
+      "masterSize": [
+        256,
+        256
+      ],
+      "pivot": [
+        32,
+        32
+      ],
+      "runtime": "phobos/manufacturing/PhobosCarbonDioxideStoreLarge",
+      "status": "selected",
+      "source": "source/c4-carbon-dioxide-store.png",
+      "sourceSHA256": "a71dd734c2119e2cb774a644cbf1c77a38f60ca29dcb17cca22c305e146e778c",
+      "requestRecord": "manufacturing-requests.json",
+      "review": "Overhead and native-scale export inspected; Fennmark family and the game's gas colour convention checked. Owner in-game review pending.",
+      "fullFootprint": true,
+      "jobId": "fb23ed89-34cd-436b-932d-5bde679ebf11"
+    },
+    {
+      "key": "h3-hydrogen-store",
+      "mod": "PhobosManufacturing",
+      "definition": "PhobosHydrogenStoreMediumInstalled",
+      "nativeSize": [
+        48,
+        48
+      ],
+      "masterSize": [
+        192,
+        192
+      ],
+      "pivot": [
+        24,
+        24
+      ],
+      "runtime": "phobos/manufacturing/PhobosHydrogenStoreMedium",
+      "status": "selected",
+      "source": "source/h3-hydrogen-store.png",
+      "sourceSHA256": "3a389289aa2a2e3dd7011164fa39c4106f496cca2f1749a7b3b80ebce47d4b16",
+      "requestRecord": "manufacturing-requests.json",
+      "review": "Overhead and native-scale export inspected; Fennmark family and the game's gas colour convention checked. Owner in-game review pending.",
+      "fullFootprint": true,
+      "jobId": "4e1c8061-f983-4281-bd81-1bf462a31968"
+    },
+    {
+      "key": "h4-hydrogen-store",
+      "mod": "PhobosManufacturing",
+      "definition": "PhobosHydrogenStoreLargeInstalled",
+      "nativeSize": [
+        64,
+        64
+      ],
+      "masterSize": [
+        256,
+        256
+      ],
+      "pivot": [
+        32,
+        32
+      ],
+      "runtime": "phobos/manufacturing/PhobosHydrogenStoreLarge",
+      "status": "selected",
+      "source": "source/h4-hydrogen-store.png",
+      "sourceSHA256": "9cba95940a4c4cbe47283a20936998daeb1f53d54d62bebe210122f150c65c8c",
+      "requestRecord": "manufacturing-requests.json",
+      "review": "Overhead and native-scale export inspected; Fennmark family and the game's gas colour convention checked. Owner in-game review pending.",
+      "fullFootprint": true,
+      "jobId": "c2cd8bb4-8cb4-4396-ad57-af70b3603bf6"
+    },
+    {
+      "key": "l2-canister-filler",
+      "mod": "PhobosManufacturing",
+      "definition": "PhobosCanisterFillerInstalled",
+      "nativeSize": [
+        32,
+        32
+      ],
+      "masterSize": [
+        128,
+        128
+      ],
+      "pivot": [
+        16,
+        16
+      ],
+      "runtime": "phobos/manufacturing/PhobosCanisterFiller",
+      "status": "selected",
+      "source": "source/l2-canister-filler.png",
+      "sourceSHA256": "e2ab0cd80204b17042cc1c9cf7d64ad08ba83f62afeb018c67cd5b47bce52158",
+      "requestRecord": "manufacturing-requests.json",
+      "review": "Overhead and native-scale export inspected; Fennmark family and the game's gas colour convention checked. Owner in-game review pending.",
+      "fullFootprint": true,
+      "jobId": "30d9270c-80b1-4e4e-9410-3a1a95374feb"
     }
   ],
   "records": [
@@ -1899,9 +2249,163 @@
       ],
       "costGenerations": 2,
       "review": "3333a036 superseded; e0dcf9fb selected"
+    },
+    {
+      "key": "o2-oxygen-store",
+      "attempts": [
+        "manufacturing-requests.json"
+      ],
+      "jobs": [
+        "b6d6bffc-bd25-43af-8286-4378d9e70754"
+      ],
+      "costGenerations": 1,
+      "review": "b6d6bffc selected"
+    },
+    {
+      "key": "n2-nitrogen-store",
+      "attempts": [
+        "manufacturing-requests.json"
+      ],
+      "jobs": [
+        "2867bca1-a8e9-4695-b3d5-961eb54a16ac"
+      ],
+      "costGenerations": 1,
+      "review": "2867bca1 selected"
+    },
+    {
+      "key": "c2-carbon-dioxide-store",
+      "attempts": [
+        "manufacturing-requests.json"
+      ],
+      "jobs": [
+        "0e42192c-3160-4397-a0d0-d8d8d8b9c617"
+      ],
+      "costGenerations": 1,
+      "review": "0e42192c selected"
+    },
+    {
+      "key": "m3-methane-store",
+      "attempts": [
+        "manufacturing-requests.json"
+      ],
+      "jobs": [
+        "8d8e6022-14f2-4a74-9024-d417e28fb698"
+      ],
+      "costGenerations": 1,
+      "review": "8d8e6022 selected"
+    },
+    {
+      "key": "o3-oxygen-store",
+      "attempts": [
+        "manufacturing-requests.json"
+      ],
+      "jobs": [
+        "d72e3d5f-4904-4132-add6-2d6a9210efad"
+      ],
+      "costGenerations": 1,
+      "review": "d72e3d5f selected"
+    },
+    {
+      "key": "n3-nitrogen-store",
+      "attempts": [
+        "manufacturing-requests.json"
+      ],
+      "jobs": [
+        "268d1411-4213-4750-9296-e7f7925bea6f"
+      ],
+      "costGenerations": 1,
+      "review": "268d1411 selected"
+    },
+    {
+      "key": "c3-carbon-dioxide-store",
+      "attempts": [
+        "manufacturing-requests.json"
+      ],
+      "jobs": [
+        "30dc915f-1ab6-4a78-909e-a6c72addf506"
+      ],
+      "costGenerations": 1,
+      "review": "30dc915f selected"
+    },
+    {
+      "key": "m4-methane-store",
+      "attempts": [
+        "manufacturing-requests.json"
+      ],
+      "jobs": [
+        "63c15351-ea30-4641-9015-374c4980523b"
+      ],
+      "costGenerations": 1,
+      "review": "63c15351 selected"
+    },
+    {
+      "key": "o4-oxygen-store",
+      "attempts": [
+        "manufacturing-requests.json"
+      ],
+      "jobs": [
+        "03841313-db88-4179-aa04-004f17ebdc39"
+      ],
+      "costGenerations": 1,
+      "review": "03841313 selected"
+    },
+    {
+      "key": "n4-nitrogen-store",
+      "attempts": [
+        "manufacturing-requests.json"
+      ],
+      "jobs": [
+        "4be22edc-e770-4732-a846-835b8161c787"
+      ],
+      "costGenerations": 1,
+      "review": "4be22edc selected"
+    },
+    {
+      "key": "c4-carbon-dioxide-store",
+      "attempts": [
+        "manufacturing-requests.json"
+      ],
+      "jobs": [
+        "fb23ed89-34cd-436b-932d-5bde679ebf11"
+      ],
+      "costGenerations": 1,
+      "review": "fb23ed89 selected"
+    },
+    {
+      "key": "h3-hydrogen-store",
+      "attempts": [
+        "manufacturing-requests.json"
+      ],
+      "jobs": [
+        "4e1c8061-f983-4281-bd81-1bf462a31968"
+      ],
+      "costGenerations": 1,
+      "review": "4e1c8061 selected"
+    },
+    {
+      "key": "h4-hydrogen-store",
+      "attempts": [
+        "manufacturing-requests.json"
+      ],
+      "jobs": [
+        "c2cd8bb4-8cb4-4396-ad57-af70b3603bf6"
+      ],
+      "costGenerations": 1,
+      "review": "c2cd8bb4 selected"
+    },
+    {
+      "key": "l2-canister-filler",
+      "attempts": [
+        "manufacturing-requests.json"
+      ],
+      "jobs": [
+        "30d9270c-80b1-4e4e-9410-3a1a95374feb"
+      ],
+      "costGenerations": 1,
+      "review": "30d9270c selected"
     }
   ],
-  "allowanceAfter": 1859,
-  "allowanceDelta": 93,
+  "allowanceAfter": 1780,
+  "allowanceDelta": 172,
   "creditBalanceAfterUSD": 0
 }

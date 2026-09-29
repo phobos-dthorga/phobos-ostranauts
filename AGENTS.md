@@ -372,6 +372,17 @@
   draws go through `BufferedDrains`. Manufacturing's P1 manifold (switchable, draw
   order, up to four stores, all off by default) and its own propellant-line family
   are the first feed. Record further RCS changes in the vanilla-precedence audit.
+- Owner direction (2026-09-29), Framework 0.44.0 / Manufacturing 0.4.0: every bulk
+  chemical or reagent family offers small, medium and large sizes, retroactively and
+  for future families, unless the commodity is niche or high-value. Use Framework
+  `Liquids.BulkVesselSizes` (one tile wider per step; small keeps its IDs and records).
+  Medium and large sizes are purchase-only, never salvage loot. The owner reversed
+  "no fuel or gas silos": bulk O2, N2 and CO2 stores exist because the game's only
+  canisters are O2/N2/CO2, sold through Bulk supplies at the game's own gas price.
+  The Fennmark L2 fills native canisters and suit bottles to 99% of their rating
+  (`NativeGasVessel`, `GasTransfers`), never patching the native air pump. Shipbreaker
+  S4/S5 and Agriculture R4/R5 (with W2 intake from any adjacent water vessel) and the
+  A2 cabin air regulator follow in later stages.
 
 ## War Has Been Declared direction (2026-09-29)
 

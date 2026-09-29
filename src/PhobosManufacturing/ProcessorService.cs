@@ -25,7 +25,7 @@ internal static class ProcessorService
     {
         internal ProcessorState State = new();
         internal bool Protected, Running, HeatWait, OutputWait, NeedsAttention;
-        internal double Last, NextCheck, PendingH2;
+        internal double Last, NextCheck, PendingH2, PendingO2;
         internal string Status = Text.Get("Processor.paused");
         internal string? LastStop;
     }
@@ -77,13 +77,15 @@ internal static class ProcessorService
     internal static string StorePeer(CondOwner co) => PortPairing.Read(HydrogenOut(co)).PeerObjectId;
     internal static IEnumerable<CondOwner> WaterCandidates(CondOwner co) => BulkVessels.Aboard(co.ship, ManufacturingRules.Water).Where(v => v != co && Adjacent(co, v));
     internal static IEnumerable<CondOwner> StoreCandidates(CondOwner co) => BulkVessels.Aboard(co.ship, ManufacturingRules.Hydrogen).Where(v => v != co && Adjacent(co, v));
-    /// <summary>Installed native oxygen canisters within one tile, by the game's own trigger.</summary>
+    /// <summary>Where the oxygen can go: installed native oxygen canisters within one tile (the game's own trigger)
+    /// and bulk oxygen stores of any size within one tile.</summary>
     internal static IEnumerable<CondOwner> CanisterCandidates(CondOwner co)
     {
         var trigger = NativeDefinitions.Trigger(ProcessorRules.CanisterTrigger);
-        if (trigger == null || co.ship == null) return Enumerable.Empty<CondOwner>();
-        return co.ship.GetCOs(null, false, false, true).Where(c => c != null && !c.bDestroyed && c.ship == co.ship && c != co && trigger.Triggered(c) && Adjacent(co, c))
-            .OrderBy(c => c.strID, StringComparer.Ordinal).ToArray();
+        if (co.ship == null) return Enumerable.Empty<CondOwner>();
+        var canisters = trigger == null ? Enumerable.Empty<CondOwner>() :
+            co.ship.GetCOs(null, false, false, true).Where(c => c != null && !c.bDestroyed && c.ship == co.ship && c != co && trigger.Triggered(c) && Adjacent(co, c));
+        return canisters.Concat(BulkVessels.Aboard(co.ship, ManufacturingRules.Oxygen).Where(v => v != co && Adjacent(co, v))).Distinct().OrderBy(c => c.strID, StringComparer.Ordinal).ToArray();
     }
     private static CondOwner? Vessel(CondOwner co, out string reason)
     {
@@ -105,7 +107,7 @@ internal static class ProcessorService
     {
         reason = Text.Get("Processor.no_store");
         var store = CrewWork.Resolve(StorePeer(co));
-        if (store == null || !HydrogenRules.IsFamily(store.strCODef)) return null;
+        if (store == null || !HydrogenRules.AnySize(store.strCODef)) return null;
         reason = Text.Get("Processor.store_not_ready");
         if (store.ship != co.ship || !NativeFluidRoute.EndpointReady(store) || !PortPairing.Matches(HydrogenOut(co), StoreIn(store)) || !Adjacent(co, store)) return null;
         reason = Text.Get("Processor.store_protected");
@@ -125,6 +127,16 @@ internal static class ProcessorService
         if (canister == null || !CanisterCandidates(co).Contains(canister)) return null;
         reason = Text.Get("Processor.canister_damaged");
         if (canister.HasCond("IsDamaged")) return null;
+        if (BulkVessels.IsVessel(canister))
+        {
+            // A bulk oxygen store: ready, unreserved and with room for one cycle.
+            reason = Text.Get("Processor.store_protected");
+            if (!NativeFluidRoute.EndpointReady(canister) || BulkVessel.Protected(canister) || CommodityReservations.Held(canister.strID)) return null;
+            var snapshot = BulkVessel.Snapshot(canister);
+            reason = Text.Get("Processor.oxygen_store_full", snapshot.HeadroomKg);
+            if (snapshot.CatchKg > 1e-8 || snapshot.HeadroomKg + 1e-8 < ProcessorRules.OxygenKgPerCycle) return null;
+            reason = ""; return canister;
+        }
         reason = Text.Get("Processor.canister_full");
         if (!NativeGasCanister.TryRead(canister, out var reading) || reading.Species != ProcessorRules.OxygenSpecies || reading.HeadroomMoles + 1e-9 < ProcessorRules.OxygenMolesPerCycle) return null;
         reason = ""; return canister;
@@ -253,7 +265,13 @@ internal static class ProcessorService
         LiquidTransferGuard.Commit(new HydrogenHold(co, s), new BulkVessel.Endpoint(store), ProcessorRules.HydrogenKgPerCycle, Guard(co), BulkVessel.Guard(store));
         if (s.PendingH2 > 1e-9) throw new InvalidOperationException("Hydrogen was not delivered.");
         double moles = ProcessorRules.OxygenMolesPerCycle;
-        if (canister != null)
+        if (canister != null && BulkVessels.IsVessel(canister))
+        {
+            s.PendingO2 = ProcessorRules.OxygenKgPerCycle;
+            LiquidTransferGuard.Commit(new OxygenHold(co, s), new BulkVessel.Endpoint(canister), ProcessorRules.OxygenKgPerCycle, Guard(co), BulkVessel.Guard(canister));
+            if (s.PendingO2 > 1e-9) throw new InvalidOperationException("Oxygen was not delivered.");
+        }
+        else if (canister != null)
         {
             double added = NativeGasCanister.TryAdd(canister, ProcessorRules.OxygenSpecies, moles);
             if (added + 1e-9 < moles) throw new InvalidOperationException("Oxygen canister refused a checked delivery.");
@@ -275,6 +293,18 @@ internal static class ProcessorService
         public double QuantityKg => s.State.HoldKg;
         public double CapacityKg => ProcessorRules.WaterKgPerCycle;
         public void SetQuantity(double kg) { s.State.HoldKg = kg; Save(co, s); }
+    }
+    /// <summary>The oxygen a completed cycle has just made, on its way into a bulk oxygen store.</summary>
+    private sealed class OxygenHold : ILiquidReservoir
+    {
+        private readonly CondOwner co; private readonly Session s;
+        internal OxygenHold(CondOwner co, Session s) { this.co = co; this.s = s; }
+        public string Identity => co.strID + ".oxygen";
+        public string ShipId => co.ship.strRegID;
+        public string Commodity => ManufacturingRules.Oxygen;
+        public double QuantityKg => s.PendingO2;
+        public double CapacityKg => ProcessorRules.OxygenKgPerCycle;
+        public void SetQuantity(double kg) => s.PendingO2 = kg;
     }
     /// <summary>The hydrogen a completed cycle has just made, on its way into the store.</summary>
     private sealed class HydrogenHold : ILiquidReservoir
@@ -329,6 +359,7 @@ internal static class ProcessorService
         if (!PortPairing.TryLink(ours, theirs(target), out reason)) return false;
         reason = Text.Get("Processor.linked"); return true;
     }
+    internal static string CanisterId(CondOwner co) => Get(co).State.Canister;
     internal static string CanisterName(CondOwner co) { var s = Get(co); return s.State.Canister.Length == 0 ? Text.Get("Processor.cabin") : ObjectPresentation.Name(s.State.Canister); }
     internal static string? MaintenanceReason(CondOwner co)
     {

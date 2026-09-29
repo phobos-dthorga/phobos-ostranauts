@@ -40771,19 +40771,6 @@
     },
     {
       "mod": "PhobosManufacturing",
-      "key": "Store.description",
-      "category": "item description",
-      "decision": "add",
-      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosManufacturing/Definitions.cs:81"
-      ],
-      "before": "A 2 x 2, {0:F0} kg pressurised store for up to {1:F0} kg of electrolysis hydrogen. Passive: no power, no cargo. A damaged store leaks about {2:F0} kg an hour to space until repaired, and if the room holds oxygen and anything to light it, its contents burn. Keep it away from fire and working hearths, repair damage at once, and vent it before uninstalling.",
-      "after": "A 2 x 2, {0:F0} kg pressurised store for up to {1:F0} kg of electrolysis hydrogen. Passive: no power, no cargo. A damaged store leaks about {2:F0} kg an hour to space until repaired, and if the room holds oxygen and anything to light it, its contents burn. Keep it away from fire and working hearths, repair damage at once, and vent it before uninstalling."
-    },
-    {
-      "mod": "PhobosManufacturing",
       "key": "Store.deflagration",
       "category": "status/warning",
       "decision": "rewrite",
@@ -40813,19 +40800,6 @@
     },
     {
       "mod": "PhobosManufacturing",
-      "key": "Store.status",
-      "category": "status/warning",
-      "decision": "add",
-      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosManufacturing/HydrogenService.cs:33"
-      ],
-      "before": "Hydrogen: {0:F2} of {1:F0} kg. Cells feeding it: {2}.",
-      "after": "Hydrogen: {0:F2} of {1:F0} kg. Cells feeding it: {2}."
-    },
-    {
-      "mod": "PhobosManufacturing",
       "key": "Store.leaking",
       "category": "status/warning",
       "decision": "add",
@@ -40836,19 +40810,6 @@
       ],
       "before": "Damaged: leaking about {0:F0} kg an hour to space. Repair it.",
       "after": "Damaged: leaking about {0:F0} kg an hour to space. Repair it."
-    },
-    {
-      "mod": "PhobosManufacturing",
-      "key": "Store.maintenance_hydrogen",
-      "category": "status/warning",
-      "decision": "add",
-      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosManufacturing/HydrogenService.cs:42"
-      ],
-      "before": "The store still holds hydrogen. Vent it first.",
-      "after": "The store still holds hydrogen. Vent it first."
     },
     {
       "mod": "PhobosManufacturing",
@@ -40880,27 +40841,27 @@
       "mod": "PhobosManufacturing",
       "key": "Store.nothing_to_pause",
       "category": "status/warning",
-      "decision": "add",
-      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "decision": "rewrite",
+      "reason": "Updated for the new feature; existing wording, placeholders and commands retained.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosManufacturing/HydrogenService.cs:51"
+        "src/PhobosManufacturing/StoreService.cs:111"
       ],
       "before": "A hydrogen store runs nothing.",
-      "after": "A hydrogen store runs nothing."
+      "after": "A gas store runs nothing."
     },
     {
       "mod": "PhobosManufacturing",
       "key": "Store.invalid_amount",
       "category": "status/warning",
-      "decision": "add",
-      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "decision": "rewrite",
+      "reason": "Updated for the new feature; existing wording, placeholders and commands retained.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosManufacturing/HydrogenService.cs:55"
+        "src/PhobosManufacturing/StoreService.cs:120"
       ],
       "before": "Give a positive amount of hydrogen in kilograms.",
-      "after": "Give a positive amount of hydrogen in kilograms."
+      "after": "Give a positive amount in kilograms."
     },
     {
       "mod": "PhobosManufacturing",
@@ -41102,14 +41063,14 @@
       "mod": "PhobosManufacturing",
       "key": "Provider.vent_field",
       "category": "control/name/value",
-      "decision": "add",
-      "reason": "New player text for Manufacturing 0.1.0: says what happened, what it means and what the player can do; IDs, units and placeholders kept.",
+      "decision": "rewrite",
+      "reason": "Updated for the new feature; existing wording, placeholders and commands retained.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosManufacturing/Provider.cs:33"
+        "src/PhobosManufacturing/Provider.cs:82"
       ],
       "before": "Vent hydrogen",
-      "after": "Vent hydrogen"
+      "after": "Vent overboard"
     },
     {
       "mod": "PhobosManufacturing",
@@ -42067,33 +42028,6 @@
     },
     {
       "mod": "PhobosManufacturing",
-      "key": "Methane.description",
-      "category": "item description",
-      "decision": "add",
-      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosManufacturing/Definitions.cs:34"
-      ],
-      "before": "A 2 x 2, {0:F0} kg pressurised store for up to {1:F0} kg of Sabatier methane, kept until something aboard can use it. Passive: no power, no cargo. Methane crowds out the air you breathe and it burns: a damaged store leaks about {2:F0} kg an hour into the room until repaired, and with oxygen and anything to light it, its contents burn into carbon dioxide. Repair damage at once and vent it before uninstalling.",
-      "after": "A 2 x 2, {0:F0} kg pressurised store for up to {1:F0} kg of Sabatier methane, kept until something aboard can use it. Passive: no power, no cargo. Methane crowds out the air you breathe and it burns: a damaged store leaks about {2:F0} kg an hour into the room until repaired, and with oxygen and anything to light it, its contents burn into carbon dioxide. Repair damage at once and vent it before uninstalling."
-    },
-    {
-      "mod": "PhobosManufacturing",
-      "key": "Methane.status",
-      "category": "status/warning",
-      "decision": "add",
-      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosManufacturing/StoreService.cs:28",
-        "src/PhobosManufacturing/Definitions.cs:34"
-      ],
-      "before": "Methane: {0:F1} of {1:F0} kg. Reactors feeding it: {2}.",
-      "after": "Methane: {0:F1} of {1:F0} kg. Reactors feeding it: {2}."
-    },
-    {
-      "mod": "PhobosManufacturing",
       "key": "Methane.leaking",
       "category": "status/warning",
       "decision": "add",
@@ -42105,20 +42039,6 @@
       ],
       "before": "Damaged: leaking about {0:F0} kg an hour into the room. Repair it.",
       "after": "Damaged: leaking about {0:F0} kg an hour into the room. Repair it."
-    },
-    {
-      "mod": "PhobosManufacturing",
-      "key": "Methane.maintenance_methane",
-      "category": "status/warning",
-      "decision": "add",
-      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosManufacturing/StoreService.cs:28",
-        "src/PhobosManufacturing/Definitions.cs:34"
-      ],
-      "before": "The store still holds methane. Vent it first.",
-      "after": "The store still holds methane. Vent it first."
     },
     {
       "mod": "PhobosManufacturing",
@@ -42248,19 +42168,6 @@
     },
     {
       "mod": "PhobosManufacturing",
-      "key": "Store.drawing",
-      "category": "status/warning",
-      "decision": "add",
-      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosManufacturing/StoreService.cs:40"
-      ],
-      "before": "Reactors drawing from it: {0}.",
-      "after": "Reactors drawing from it: {0}."
-    },
-    {
-      "mod": "PhobosManufacturing",
       "key": "Manifold.name",
       "category": "item name",
       "decision": "add",
@@ -42277,14 +42184,14 @@
       "mod": "PhobosManufacturing",
       "key": "Manifold.description",
       "category": "item description",
-      "decision": "add",
-      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "decision": "rewrite",
+      "reason": "Updated for the new feature; existing wording, placeholders and commands retained.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosManufacturing/Definitions.cs:127"
+        "src/PhobosManufacturing/Definitions.cs:155"
       ],
       "before": "A passive {0:F0} kg valve block that feeds your RCS thrusters from bulk gas stores. Install it where a gas canister would go, on one of an RCS Intake Regulator's gas-input tiles, with its line port facing away. Link hydrogen or methane stores within one tile or along a propellant line, switch each one on, and choose whether the thrusters draw from the manifold before or after the regulator's own canisters. Every gas pushes by its own worth: a kilogram of methane gives about 1.45 times the push of nitrogen, hydrogen about 3.7 times. Everything starts switched off.",
-      "after": "A passive {0:F0} kg valve block that feeds your RCS thrusters from bulk gas stores. Install it where a gas canister would go, on one of an RCS Intake Regulator's gas-input tiles, with its line port facing away. Link hydrogen or methane stores within one tile or along a propellant line, switch each one on, and choose whether the thrusters draw from the manifold before or after the regulator's own canisters. Every gas pushes by its own worth: a kilogram of methane gives about 1.45 times the push of nitrogen, hydrogen about 3.7 times. Everything starts switched off."
+      "after": "A passive {0:F0} kg valve block that feeds your RCS thrusters from bulk gas stores. Install it where a gas canister would go, on one of an RCS Intake Regulator's gas-input tiles, with its line port facing away. Link gas stores within one tile or along a gas line, switch each one on, and choose whether the thrusters draw from the manifold before or after the regulator's own canisters. Every gas pushes by its own worth: a kilogram of methane gives about 1.45 times the push of nitrogen, hydrogen about 3.7 times. Everything starts switched off."
     },
     {
       "mod": "PhobosManufacturing",
@@ -42450,14 +42357,14 @@
       "mod": "PhobosManufacturing",
       "key": "Manifold.source_unconnected",
       "category": "status/warning",
-      "decision": "add",
-      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "decision": "rewrite",
+      "reason": "Updated for the new feature; existing wording, placeholders and commands retained.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosManufacturing/ManifoldService.cs:88"
+        "src/PhobosManufacturing/ManifoldService.cs:83"
       ],
       "before": "not within one tile and no propellant line reaches it",
-      "after": "not within one tile and no propellant line reaches it"
+      "after": "not within one tile and no gas line reaches it"
     },
     {
       "mod": "PhobosManufacturing",
@@ -42663,42 +42570,42 @@
       "mod": "PhobosManufacturing",
       "key": "Line.name",
       "category": "item name",
-      "decision": "add",
-      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "decision": "rewrite",
+      "reason": "Updated for the new feature; existing wording, placeholders and commands retained.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosManufacturing/Definitions.cs:152",
-        "src/PhobosManufacturing/Definitions.cs:160",
-        "src/PhobosManufacturing/Definitions.cs:166"
+        "src/PhobosManufacturing/Definitions.cs:180",
+        "src/PhobosManufacturing/Definitions.cs:188",
+        "src/PhobosManufacturing/Definitions.cs:194"
       ],
       "before": "Propellant Line",
-      "after": "Propellant Line"
+      "after": "Gas Line"
     },
     {
       "mod": "PhobosManufacturing",
       "key": "Line.description",
       "category": "item description",
-      "decision": "add",
-      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "decision": "rewrite",
+      "reason": "Updated for the new feature; existing wording, placeholders and commands retained.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosManufacturing/Definitions.cs:160"
+        "src/PhobosManufacturing/Definitions.cs:188"
       ],
       "before": "Sealed gas line for hydrogen and methane between Fennmark stores and a propellant manifold. Lay it tile by tile on intact floor like other conduit; it does not join coolant or irrigation lines.",
-      "after": "Sealed gas line for hydrogen and methane between Fennmark stores and a propellant manifold. Lay it tile by tile on intact floor like other conduit; it does not join coolant or irrigation lines."
+      "after": "Sealed gas line between Fennmark gas stores and the machines they feed: the P1 manifold, the L2 filling station and other stores. Lay it tile by tile on intact floor like other conduit; it does not join coolant or irrigation lines."
     },
     {
       "mod": "PhobosManufacturing",
       "key": "Line.waste",
       "category": "item name",
-      "decision": "add",
-      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "decision": "rewrite",
+      "reason": "Updated for the new feature; existing wording, placeholders and commands retained.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosManufacturing/EquipmentEconomy.cs:108"
+        "src/PhobosManufacturing/EquipmentEconomy.cs:130"
       ],
       "before": "Retained propellant line waste",
-      "after": "Retained propellant line waste"
+      "after": "Retained gas line waste"
     },
     {
       "mod": "PhobosManufacturing",
@@ -43639,6 +43546,1639 @@
       ],
       "before": "Could not lay a build site for {0} (was {1}): {2}",
       "after": "Could not lay a build site for {0} (was {1}): {2}"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Oxygen.name",
+      "category": "item name",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Core/GasStoreRules.cs:95",
+        "src/PhobosManufacturing/Definitions.cs:36"
+      ],
+      "before": "Oxygen Store",
+      "after": "Oxygen Store"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Oxygen.name_medium",
+      "category": "item name",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Core/GasStoreRules.cs:95",
+        "src/PhobosManufacturing/Definitions.cs:36"
+      ],
+      "before": "Oxygen Store",
+      "after": "Oxygen Store"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Oxygen.name_large",
+      "category": "item name",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Core/GasStoreRules.cs:95",
+        "src/PhobosManufacturing/Definitions.cs:36"
+      ],
+      "before": "Oxygen Store",
+      "after": "Oxygen Store"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Oxygen.leaking",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/StoreService.cs:52"
+      ],
+      "before": "Damaged: leaking about {0:F0} kg an hour into the room. Repair it.",
+      "after": "Damaged: leaking about {0:F0} kg an hour into the room. Repair it."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Oxygen.maintenance",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/StoreService.cs:52"
+      ],
+      "before": "The store still holds oxygen. Vent it or pour it into another store first.",
+      "after": "The store still holds oxygen. Vent it or pour it into another store first."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Oxygen.vented",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/StoreService.cs:52"
+      ],
+      "before": "Vented {0:F2} kg of oxygen overboard.",
+      "after": "Vented {0:F2} kg of oxygen overboard."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Oxygen.vent_log",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/StoreService.cs:52"
+      ],
+      "before": "{0}: {1:F2} kg of oxygen vented overboard.",
+      "after": "{0}: {1:F2} kg of oxygen vented overboard."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Oxygen.leak_notice",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/StoreService.cs:52"
+      ],
+      "before": "{0} is damaged and leaking oxygen into the room, about {1:F0} kg an hour. Rich air burns hot: repair it and keep flames away.",
+      "after": "{0} is damaged and leaking oxygen into the room, about {1:F0} kg an hour. Rich air burns hot: repair it and keep flames away."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Oxygen.leak_banner",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/StoreService.cs:52"
+      ],
+      "before": "Oxygen store damaged: leaking",
+      "after": "Oxygen store damaged: leaking"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Oxygen.leak_reason",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/StoreService.cs:52"
+      ],
+      "before": "leaked into the room through damage",
+      "after": "leaked into the room through damage"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Oxygen.leak_reason_space",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/StoreService.cs:52"
+      ],
+      "before": "leaked to space through damage",
+      "after": "leaked to space through damage"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Oxygen.transferred",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/StoreService.cs:52"
+      ],
+      "before": "Poured {0:F1} kg of oxygen into {1}.",
+      "after": "Poured {0:F1} kg of oxygen into {1}."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Oxygen.released_log",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/StoreService.cs:52"
+      ],
+      "before": "{0} was destroyed and released {1:F1} kg of oxygen into the room. Rich air burns hot; keep flames away.",
+      "after": "{0} was destroyed and released {1:F1} kg of oxygen into the room. Rich air burns hot; keep flames away."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Oxygen.offer",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/StoreService.cs:40"
+      ],
+      "before": "Bulk oxygen (Fennmark O-series stores)",
+      "after": "Bulk oxygen (Fennmark O-series stores)"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Nitrogen.name",
+      "category": "item name",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Core/GasStoreRules.cs:95",
+        "src/PhobosManufacturing/Definitions.cs:36"
+      ],
+      "before": "Nitrogen Store",
+      "after": "Nitrogen Store"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Nitrogen.name_medium",
+      "category": "item name",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Core/GasStoreRules.cs:95",
+        "src/PhobosManufacturing/Definitions.cs:36"
+      ],
+      "before": "Nitrogen Store",
+      "after": "Nitrogen Store"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Nitrogen.name_large",
+      "category": "item name",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Core/GasStoreRules.cs:95",
+        "src/PhobosManufacturing/Definitions.cs:36"
+      ],
+      "before": "Nitrogen Store",
+      "after": "Nitrogen Store"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Nitrogen.leaking",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/StoreService.cs:52"
+      ],
+      "before": "Damaged: leaking about {0:F0} kg an hour into the room. Repair it.",
+      "after": "Damaged: leaking about {0:F0} kg an hour into the room. Repair it."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Nitrogen.maintenance",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/StoreService.cs:52"
+      ],
+      "before": "The store still holds nitrogen. Vent it or pour it into another store first.",
+      "after": "The store still holds nitrogen. Vent it or pour it into another store first."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Nitrogen.vented",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/StoreService.cs:52"
+      ],
+      "before": "Vented {0:F2} kg of nitrogen overboard.",
+      "after": "Vented {0:F2} kg of nitrogen overboard."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Nitrogen.vent_log",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/StoreService.cs:52"
+      ],
+      "before": "{0}: {1:F2} kg of nitrogen vented overboard.",
+      "after": "{0}: {1:F2} kg of nitrogen vented overboard."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Nitrogen.leak_notice",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/StoreService.cs:52"
+      ],
+      "before": "{0} is damaged and leaking nitrogen into the room, about {1:F0} kg an hour. It thins the air without warning: repair it and watch the oxygen.",
+      "after": "{0} is damaged and leaking nitrogen into the room, about {1:F0} kg an hour. It thins the air without warning: repair it and watch the oxygen."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Nitrogen.leak_banner",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/StoreService.cs:52"
+      ],
+      "before": "Nitrogen store damaged: leaking",
+      "after": "Nitrogen store damaged: leaking"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Nitrogen.leak_reason",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/StoreService.cs:52"
+      ],
+      "before": "leaked into the room through damage",
+      "after": "leaked into the room through damage"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Nitrogen.leak_reason_space",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/StoreService.cs:52"
+      ],
+      "before": "leaked to space through damage",
+      "after": "leaked to space through damage"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Nitrogen.transferred",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/StoreService.cs:52"
+      ],
+      "before": "Poured {0:F1} kg of nitrogen into {1}.",
+      "after": "Poured {0:F1} kg of nitrogen into {1}."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Nitrogen.released_log",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/StoreService.cs:52"
+      ],
+      "before": "{0} was destroyed and released {1:F1} kg of nitrogen into the room. Check the air before anyone breathes it.",
+      "after": "{0} was destroyed and released {1:F1} kg of nitrogen into the room. Check the air before anyone breathes it."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Nitrogen.offer",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/StoreService.cs:40"
+      ],
+      "before": "Bulk nitrogen (Fennmark N-series stores)",
+      "after": "Bulk nitrogen (Fennmark N-series stores)"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "CarbonDioxide.name",
+      "category": "item name",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Core/GasStoreRules.cs:95",
+        "src/PhobosManufacturing/Definitions.cs:36"
+      ],
+      "before": "Carbon Dioxide Store",
+      "after": "Carbon Dioxide Store"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "CarbonDioxide.name_medium",
+      "category": "item name",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Core/GasStoreRules.cs:95",
+        "src/PhobosManufacturing/Definitions.cs:36"
+      ],
+      "before": "Carbon Dioxide Store",
+      "after": "Carbon Dioxide Store"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "CarbonDioxide.name_large",
+      "category": "item name",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Core/GasStoreRules.cs:95",
+        "src/PhobosManufacturing/Definitions.cs:36"
+      ],
+      "before": "Carbon Dioxide Store",
+      "after": "Carbon Dioxide Store"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "CarbonDioxide.leaking",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/StoreService.cs:52"
+      ],
+      "before": "Damaged: leaking about {0:F0} kg an hour into the room. Repair it.",
+      "after": "Damaged: leaking about {0:F0} kg an hour into the room. Repair it."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "CarbonDioxide.maintenance",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/StoreService.cs:52"
+      ],
+      "before": "The store still holds carbon dioxide. Vent it or pour it into another store first.",
+      "after": "The store still holds carbon dioxide. Vent it or pour it into another store first."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "CarbonDioxide.vented",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/StoreService.cs:52"
+      ],
+      "before": "Vented {0:F2} kg of carbon dioxide overboard.",
+      "after": "Vented {0:F2} kg of carbon dioxide overboard."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "CarbonDioxide.vent_log",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/StoreService.cs:52"
+      ],
+      "before": "{0}: {1:F2} kg of carbon dioxide vented overboard.",
+      "after": "{0}: {1:F2} kg of carbon dioxide vented overboard."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "CarbonDioxide.leak_notice",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/StoreService.cs:52"
+      ],
+      "before": "{0} is damaged and leaking carbon dioxide into the room, about {1:F0} kg an hour. It poisons the crew: repair it and run the scrubbers.",
+      "after": "{0} is damaged and leaking carbon dioxide into the room, about {1:F0} kg an hour. It poisons the crew: repair it and run the scrubbers."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "CarbonDioxide.leak_banner",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/StoreService.cs:52"
+      ],
+      "before": "Carbon dioxide store damaged: leaking",
+      "after": "Carbon dioxide store damaged: leaking"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "CarbonDioxide.leak_reason",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/StoreService.cs:52"
+      ],
+      "before": "leaked into the room through damage",
+      "after": "leaked into the room through damage"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "CarbonDioxide.leak_reason_space",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/StoreService.cs:52"
+      ],
+      "before": "leaked to space through damage",
+      "after": "leaked to space through damage"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "CarbonDioxide.transferred",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/StoreService.cs:52"
+      ],
+      "before": "Poured {0:F1} kg of carbon dioxide into {1}.",
+      "after": "Poured {0:F1} kg of carbon dioxide into {1}."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "CarbonDioxide.released_log",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/StoreService.cs:52"
+      ],
+      "before": "{0} was destroyed and released {1:F1} kg of carbon dioxide into the room. Get the crew clear and run the scrubbers.",
+      "after": "{0} was destroyed and released {1:F1} kg of carbon dioxide into the room. Get the crew clear and run the scrubbers."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "CarbonDioxide.offer",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/StoreService.cs:40"
+      ],
+      "before": "Bulk carbon dioxide (Fennmark C-series stores)",
+      "after": "Bulk carbon dioxide (Fennmark C-series stores)"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Store.name_medium",
+      "category": "item name",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Core/GasStoreRules.cs:95",
+        "src/PhobosManufacturing/Definitions.cs:36"
+      ],
+      "before": "Hydrogen Store",
+      "after": "Hydrogen Store"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Store.name_large",
+      "category": "item name",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Core/GasStoreRules.cs:95",
+        "src/PhobosManufacturing/Definitions.cs:36"
+      ],
+      "before": "Hydrogen Store",
+      "after": "Hydrogen Store"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Methane.name_medium",
+      "category": "item name",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Core/GasStoreRules.cs:95",
+        "src/PhobosManufacturing/Definitions.cs:36"
+      ],
+      "before": "Methane Store",
+      "after": "Methane Store"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Methane.name_large",
+      "category": "item name",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Core/GasStoreRules.cs:95",
+        "src/PhobosManufacturing/Definitions.cs:36"
+      ],
+      "before": "Methane Store",
+      "after": "Methane Store"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Store.maintenance",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/StoreService.cs:52"
+      ],
+      "before": "The store still holds hydrogen. Vent it or pour it into another store first.",
+      "after": "The store still holds hydrogen. Vent it or pour it into another store first."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Methane.maintenance",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/StoreService.cs:52"
+      ],
+      "before": "The store still holds methane. Vent it or pour it into another store first.",
+      "after": "The store still holds methane. Vent it or pour it into another store first."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Store.transferred",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/StoreService.cs:52"
+      ],
+      "before": "Poured {0:F2} kg of hydrogen into {1}.",
+      "after": "Poured {0:F2} kg of hydrogen into {1}."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Methane.transferred",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/StoreService.cs:52"
+      ],
+      "before": "Poured {0:F1} kg of methane into {1}.",
+      "after": "Poured {0:F1} kg of methane into {1}."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Methane.released_log",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/StoreService.cs:52"
+      ],
+      "before": "{0} was destroyed and released {1:F1} kg of methane into the room. Ventilate before anything lights it.",
+      "after": "{0} was destroyed and released {1:F1} kg of methane into the room. Ventilate before anything lights it."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Store.linked",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/StoreService.cs:60"
+      ],
+      "before": "Linked machines: {0}.",
+      "after": "Linked machines: {0}."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Store.transfer_missing",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/StoreService.cs:83"
+      ],
+      "before": "That store holds another gas, or no gas line or shared edge joins them.",
+      "after": "That store holds another gas, or no gas line or shared edge joins them."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Store.transfer_protected",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/StoreService.cs:84"
+      ],
+      "before": "One of the stores needs its owner's attention or is busy with another transfer.",
+      "after": "One of the stores needs its owner's attention or is busy with another transfer."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Store.transfer_nothing",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/StoreService.cs:87"
+      ],
+      "before": "Nothing to pour: this store is empty or the other one is full.",
+      "after": "Nothing to pour: this store is empty or the other one is full."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Store.unit_kg",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/StoreService.cs:41"
+      ],
+      "before": "kg",
+      "after": "kg"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Provider.transfer_field",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Provider.cs:85"
+      ],
+      "before": "Pour into",
+      "after": "Pour into"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Provider.mode_field",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Provider.cs:60"
+      ],
+      "before": "Mode",
+      "after": "Mode"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Provider.mode_fill",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Provider.cs:60",
+        "src/PhobosManufacturing/Provider.cs:61"
+      ],
+      "before": "Fill",
+      "after": "Fill"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Provider.mode_decant",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Provider.cs:60",
+        "src/PhobosManufacturing/Provider.cs:61"
+      ],
+      "before": "Decant",
+      "after": "Decant"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Provider.role_target",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Provider.cs:66",
+        "src/PhobosManufacturing/Provider.cs:69"
+      ],
+      "before": "Fill it",
+      "after": "Fill it"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Provider.role_source",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Provider.cs:66",
+        "src/PhobosManufacturing/Provider.cs:69"
+      ],
+      "before": "Draw from it",
+      "after": "Draw from it"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Provider.add_canister_field",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Provider.cs:77"
+      ],
+      "before": "Add a canister",
+      "after": "Add a canister"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Processor.oxygen_store_full",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/ProcessorService.cs:136"
+      ],
+      "before": "the linked oxygen store has only {0:F2} kg of room",
+      "after": "the linked oxygen store has only {0:F2} kg of room"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Condition.PhobosManufacturingFilling",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Definitions.cs:24"
+      ],
+      "before": "Filling",
+      "after": "Filling"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Filler.name",
+      "category": "item name",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Definitions.cs:130",
+        "src/PhobosManufacturing/Definitions.cs:141"
+      ],
+      "before": "Canister Filling Station",
+      "after": "Canister Filling Station"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Filler.description",
+      "category": "item description",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Definitions.cs:130"
+      ],
+      "before": "A {0:F0} kg powered booster, {1:F1} kW while working, that tops up standard gas vessels to a safe {3:F0}% of their rated pressure and then stops: up to {2} suit O2 bottles in its rack, and O2, N2 or CO2 canisters installed beside it. Gas comes from linked bulk stores, within one tile or along a gas line, or from a canister beside it set as a source. In Decant mode it empties them back into the stores. Link everything in the Control Panel, then press Start.",
+      "after": "A {0:F0} kg powered booster, {1:F1} kW while working, that tops up standard gas vessels to a safe {3:F0}% of their rated pressure and then stops: up to {2} suit O2 bottles in its rack, and O2, N2 or CO2 canisters installed beside it. Gas comes from linked bulk stores, within one tile or along a gas line, or from a canister beside it set as a source. In Decant mode it empties them back into the stores. Link everything in the Control Panel, then press Start."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Filler.paused",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/FillerService.cs:28",
+        "src/PhobosManufacturing/FillerService.cs:173",
+        "src/PhobosManufacturing/FillerService.cs:313"
+      ],
+      "before": "Paused. Press Start when the rack and links are ready.",
+      "after": "Paused. Press Start when the rack and links are ready."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Filler.protected",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/FillerService.cs:52",
+        "src/PhobosManufacturing/FillerService.cs:59",
+        "src/PhobosManufacturing/FillerService.cs:158",
+        "src/PhobosManufacturing/FillerService.cs:189",
+        "src/PhobosManufacturing/FillerService.cs:268",
+        "src/PhobosManufacturing/FillerService.cs:316",
+        "src/PhobosManufacturing/FillerService.cs:340"
+      ],
+      "before": "This station's record could not be verified. Accept it from the panel after checking it.",
+      "after": "This station's record could not be verified. Accept it from the panel after checking it."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Filler.nothing_linked",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/FillerService.cs:93",
+        "src/PhobosManufacturing/FillerService.cs:109"
+      ],
+      "before": "nothing to work on: put suit bottles in the rack or link a canister",
+      "after": "nothing to work on: put suit bottles in the rack or link a canister"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Filler.nothing_to_decant",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/FillerService.cs:93"
+      ],
+      "before": "everything linked is already empty",
+      "after": "everything linked is already empty"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Filler.no_store_room",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/FillerService.cs:101"
+      ],
+      "before": "no switched-on store has room for {0}",
+      "after": "no switched-on store has room for {0}"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Filler.all_full",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/FillerService.cs:109"
+      ],
+      "before": "everything linked is full",
+      "after": "everything linked is full"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Filler.no_source",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/FillerService.cs:124"
+      ],
+      "before": "no switched-on source holds {0}",
+      "after": "no switched-on source holds {0}"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Filler.gas_O2",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/FillerService.cs:139"
+      ],
+      "before": "oxygen",
+      "after": "oxygen"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Filler.gas_N2",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/FillerService.cs:139"
+      ],
+      "before": "nitrogen",
+      "after": "nitrogen"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Filler.gas_CO2",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/FillerService.cs:139"
+      ],
+      "before": "carbon dioxide",
+      "after": "carbon dioxide"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Filler.install_first",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/FillerService.cs:145"
+      ],
+      "before": "Install the station first.",
+      "after": "Install the station first."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Filler.repair_first",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/FillerService.cs:146"
+      ],
+      "before": "Repair the station first.",
+      "after": "Repair the station first."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Filler.unlock",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/FillerService.cs:148"
+      ],
+      "before": "Unlock the station first.",
+      "after": "Unlock the station first."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Filler.switched_off",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/FillerService.cs:149"
+      ],
+      "before": "The station is switched off.",
+      "after": "The station is switched off."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Filler.armed_fill",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/FillerService.cs:160"
+      ],
+      "before": "Started: filling.",
+      "after": "Started: filling."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Filler.armed_decant",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/FillerService.cs:160"
+      ],
+      "before": "Started: decanting.",
+      "after": "Started: decanting."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Filler.fault",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/FillerService.cs:181"
+      ],
+      "before": "Stopped by a fault. Check the log, then press Start.",
+      "after": "Stopped by a fault. Check the log, then press Start."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Filler.waiting",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/FillerService.cs:197"
+      ],
+      "before": "Waiting: {0}.",
+      "after": "Waiting: {0}."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Filler.heat_wait",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/FillerService.cs:217"
+      ],
+      "before": "Waiting: the room is too hot or too thin to cool the compressor.",
+      "after": "Waiting: the room is too hot or too thin to cool the compressor."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Filler.filling",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/FillerService.cs:245"
+      ],
+      "before": "Filling {0} with {1} from {2}.",
+      "after": "Filling {0} with {1} from {2}."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Filler.decanting",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/FillerService.cs:245"
+      ],
+      "before": "Emptying the {1} in {0} into {2}.",
+      "after": "Emptying the {1} in {0} into {2}."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Filler.vessel_unreadable",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/FillerService.cs:262"
+      ],
+      "before": "{0}: its gauge cannot be read.",
+      "after": "{0}: its gauge cannot be read."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Filler.vessel_line",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/FillerService.cs:263"
+      ],
+      "before": "{0}: {1}, {2:F2} kg, {3:F0}% of rating.",
+      "after": "{0}: {1}, {2:F2} kg, {3:F0}% of rating."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Filler.mode_fill",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/FillerService.cs:272",
+        "src/PhobosManufacturing/FillerService.cs:325"
+      ],
+      "before": "Mode: fill.",
+      "after": "Mode: fill."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Filler.mode_decant",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/FillerService.cs:272",
+        "src/PhobosManufacturing/FillerService.cs:325"
+      ],
+      "before": "Mode: decant.",
+      "after": "Mode: decant."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Filler.totals",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/FillerService.cs:272"
+      ],
+      "before": "Filled {0:F1} kg and decanted {1:F1} kg so far.",
+      "after": "Filled {0:F1} kg and decanted {1:F1} kg so far."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Filler.rack_empty",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/FillerService.cs:276"
+      ],
+      "before": "Rack: empty.",
+      "after": "Rack: empty."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Filler.rack_header",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/FillerService.cs:276"
+      ],
+      "before": "Rack: {0} of {1} bottles.",
+      "after": "Rack: {0} of {1} bottles."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Filler.role_store",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/FillerService.cs:281"
+      ],
+      "before": "store",
+      "after": "store"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Filler.role_source",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/FillerService.cs:281"
+      ],
+      "before": "source",
+      "after": "source"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Filler.role_target",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/FillerService.cs:281"
+      ],
+      "before": "fill",
+      "after": "fill"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Filler.link_missing_line",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/FillerService.cs:283"
+      ],
+      "before": "{0} ({1}): missing.",
+      "after": "{0} ({1}): missing."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Filler.store_line",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/FillerService.cs:287"
+      ],
+      "before": "{0} ({1}, {2}): {3:F1} of {4:F0} kg.",
+      "after": "{0} ({1}, {2}): {3:F1} of {4:F0} kg."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Filler.demand",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/FillerService.cs:291"
+      ],
+      "before": "Draws {0:F1} kW while working and stops at {1:F0}% of rating.",
+      "after": "Draws {0:F1} kW while working and stops at {1:F0}% of rating."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Filler.accept_done",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/FillerService.cs:313"
+      ],
+      "before": "Accepted. The station's record is trusted again.",
+      "after": "Accepted. The station's record is trusted again."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Filler.accept_unavailable",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/FillerService.cs:311",
+        "src/PhobosManufacturing/FillerService.cs:313"
+      ],
+      "before": "The record cannot be accepted as it is.",
+      "after": "The record cannot be accepted as it is."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Filler.link_busy",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/FillerService.cs:323"
+      ],
+      "before": "Pause the station before changing its mode.",
+      "after": "Pause the station before changing its mode."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Filler.full",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/FillerService.cs:329"
+      ],
+      "before": "Every link slot of that kind is taken.",
+      "after": "Every link slot of that kind is taken."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Filler.link_missing",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/FillerService.cs:329",
+        "src/PhobosManufacturing/FillerService.cs:332",
+        "src/PhobosManufacturing/FillerService.cs:334",
+        "src/PhobosManufacturing/FillerService.cs:337"
+      ],
+      "before": "That is not within reach or not linked.",
+      "after": "That is not within reach or not linked."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Filler.store_linked",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/FillerService.cs:330"
+      ],
+      "before": "Store linked and switched off. Switch it on to use it.",
+      "after": "Store linked and switched off. Switch it on to use it."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Filler.canister_linked",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/FillerService.cs:330"
+      ],
+      "before": "Canister linked for filling.",
+      "after": "Canister linked for filling."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Filler.unlinked",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/FillerService.cs:332"
+      ],
+      "before": "Unlinked.",
+      "after": "Unlinked."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Filler.source_on",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/FillerService.cs:334"
+      ],
+      "before": "Store switched on.",
+      "after": "Store switched on."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Filler.source_off",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/FillerService.cs:334"
+      ],
+      "before": "Store switched off.",
+      "after": "Store switched off."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Filler.role_source_set",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/FillerService.cs:337"
+      ],
+      "before": "The station now draws from that canister.",
+      "after": "The station now draws from that canister."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Filler.role_target_set",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/FillerService.cs:337"
+      ],
+      "before": "The station now fills that canister.",
+      "after": "The station now fills that canister."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Store.details",
+      "category": "item description",
+      "decision": "add",
+      "reason": "Replaces Store.description with a new placeholder contract (store footprint added, linked machines moved to Store.linked); wording reviewed for every store size.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Definitions.cs:81"
+      ],
+      "before": "A {3} x {3}, {0:F0} kg pressurised store for up to {1:F0} kg of electrolysis hydrogen. Passive: no power, no cargo. A damaged store leaks about {2:F0} kg an hour to space until repaired, and if the room holds oxygen and anything to light it, its contents burn. Keep it away from fire and working hearths, repair damage at once, and vent it before uninstalling.",
+      "after": "A {3} x {3}, {0:F0} kg pressurised store for up to {1:F0} kg of electrolysis hydrogen. Passive: no power, no cargo. A damaged store leaks about {2:F0} kg an hour to space until repaired, and if the room holds oxygen and anything to light it, its contents burn. Keep it away from fire and working hearths, repair damage at once, and vent it before uninstalling."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Store.level",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Replaces Store.status with a new placeholder contract (store footprint added, linked machines moved to Store.linked); wording reviewed for every store size.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/HydrogenService.cs:33"
+      ],
+      "before": "Hydrogen: {0:F2} of {1:F0} kg.",
+      "after": "Hydrogen: {0:F2} of {1:F0} kg."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Methane.details",
+      "category": "item description",
+      "decision": "add",
+      "reason": "Replaces Methane.description with a new placeholder contract (store footprint added, linked machines moved to Store.linked); wording reviewed for every store size.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Definitions.cs:34"
+      ],
+      "before": "A {3} x {3}, {0:F0} kg pressurised store for up to {1:F0} kg of Sabatier methane, which a P1 manifold can feed to the RCS. Passive: no power, no cargo. Methane crowds out the air you breathe and it burns: a damaged store leaks about {2:F0} kg an hour into the room until repaired, and with oxygen and anything to light it, its contents burn into carbon dioxide. Repair damage at once and vent it before uninstalling.",
+      "after": "A {3} x {3}, {0:F0} kg pressurised store for up to {1:F0} kg of Sabatier methane, which a P1 manifold can feed to the RCS. Passive: no power, no cargo. Methane crowds out the air you breathe and it burns: a damaged store leaks about {2:F0} kg an hour into the room until repaired, and with oxygen and anything to light it, its contents burn into carbon dioxide. Repair damage at once and vent it before uninstalling."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Methane.level",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Replaces Methane.status with a new placeholder contract (store footprint added, linked machines moved to Store.linked); wording reviewed for every store size.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/StoreService.cs:28",
+        "src/PhobosManufacturing/Definitions.cs:34"
+      ],
+      "before": "Methane: {0:F1} of {1:F0} kg.",
+      "after": "Methane: {0:F1} of {1:F0} kg."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Oxygen.details",
+      "category": "item description",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Definitions.cs:36"
+      ],
+      "before": "A {3} x {3}, {0:F0} kg pressurised store for up to {1:F0} kg of oxygen, from an X2 cell or bought in bulk at a station. Passive: no power, no cargo. It feeds an L2 filling station to top up canisters and suit bottles, or the RCS through a P1 manifold. Oxygen makes any fire worse: a damaged store leaks about {2:F0} kg an hour into the room until repaired. Repair damage at once and vent it before uninstalling.",
+      "after": "A {3} x {3}, {0:F0} kg pressurised store for up to {1:F0} kg of oxygen, from an X2 cell or bought in bulk at a station. Passive: no power, no cargo. It feeds an L2 filling station to top up canisters and suit bottles, or the RCS through a P1 manifold. Oxygen makes any fire worse: a damaged store leaks about {2:F0} kg an hour into the room until repaired. Repair damage at once and vent it before uninstalling."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Oxygen.level",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/StoreService.cs:52"
+      ],
+      "before": "Oxygen: {0:F1} of {1:F0} kg.",
+      "after": "Oxygen: {0:F1} of {1:F0} kg."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Nitrogen.details",
+      "category": "item description",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Definitions.cs:36"
+      ],
+      "before": "A {3} x {3}, {0:F0} kg pressurised store for up to {1:F0} kg of nitrogen, bought in bulk at a station. Passive: no power, no cargo. It feeds an L2 filling station to refill RCS and air-pump canisters far from port, or the RCS through a P1 manifold. Nitrogen crowds out the oxygen you breathe: a damaged store leaks about {2:F0} kg an hour into the room until repaired. Repair damage at once and vent it before uninstalling.",
+      "after": "A {3} x {3}, {0:F0} kg pressurised store for up to {1:F0} kg of nitrogen, bought in bulk at a station. Passive: no power, no cargo. It feeds an L2 filling station to refill RCS and air-pump canisters far from port, or the RCS through a P1 manifold. Nitrogen crowds out the oxygen you breathe: a damaged store leaks about {2:F0} kg an hour into the room until repaired. Repair damage at once and vent it before uninstalling."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Nitrogen.level",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/StoreService.cs:52"
+      ],
+      "before": "Nitrogen: {0:F1} of {1:F0} kg.",
+      "after": "Nitrogen: {0:F1} of {1:F0} kg."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "CarbonDioxide.details",
+      "category": "item description",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Definitions.cs:36"
+      ],
+      "before": "A {3} x {3}, {0:F0} kg pressurised store for up to {1:F0} kg of carbon dioxide, bought in bulk at a station. Passive: no power, no cargo. It feeds a K2 Sabatier reactor, an L2 filling station, or the RCS through a P1 manifold. Carbon dioxide poisons the crew: a damaged store leaks about {2:F0} kg an hour into the room until repaired. Repair damage at once and vent it before uninstalling.",
+      "after": "A {3} x {3}, {0:F0} kg pressurised store for up to {1:F0} kg of carbon dioxide, bought in bulk at a station. Passive: no power, no cargo. It feeds a K2 Sabatier reactor, an L2 filling station, or the RCS through a P1 manifold. Carbon dioxide poisons the crew: a damaged store leaks about {2:F0} kg an hour into the room until repaired. Repair damage at once and vent it before uninstalling."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "CarbonDioxide.level",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/StoreService.cs:52"
+      ],
+      "before": "Carbon dioxide: {0:F1} of {1:F0} kg.",
+      "after": "Carbon dioxide: {0:F1} of {1:F0} kg."
     }
   ],
   "documents": [
@@ -43646,8 +45186,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "2f67a5b1cc47e23b621f15835a50ac0ca905ba285c07c9cc44ca8fce97738f13",
-      "review": "2026-09-29 (War Has Been Declared 0.1.0): Framework 0.43.0 row; new War Has Been Declared row and flowchart node."
+      "sha256": "64e2440e29be5b470c0cdf00fad126fa2ca31f0ac0bee67aae15601a90877577",
+      "review": "2026-09-29 (gas store sizes and L2): Manufacturing summary names the store sizes and the L2."
     },
     {
       "path": "SUPPORT.md",
@@ -43660,8 +45200,8 @@
       "path": "docs/README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "c7f704fab0a2e41ac7ddbd66be074baff9d41bd1d401316fd13bffc38892d70b",
-      "review": "2026-09-29 (War Has Been Declared 0.1.0): Index link to the War Has Been Declared player guide."
+      "sha256": "75c00d434f189a5e2cd39d8d4dc14574c42f07f81660426cdd7a54518ed7a5bb",
+      "review": "2026-09-29 (gas store sizes and L2): index link follows the Manufacturing guide title."
     },
     {
       "path": "docs/agriculture-bulk-storage.md",
@@ -43806,8 +45346,8 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "473db1892a17a48636755a90b5ea52e83bd014f99b9d11f173d58a84e9665ed4",
-      "review": "2026-09-29 (War Has Been Declared 0.1.0): Framework version summary only (0.43.0)."
+      "sha256": "b8fc1abbacf6014958cc387f94884a1e1e5b43d10f3718073fea8e97cbea5bde",
+      "review": "2026-09-29 (gas store sizes and L2): maintained version links only."
     },
     {
       "path": "docs/crew-automation.md",
@@ -44073,8 +45613,8 @@
       "path": "docs/development/equipment-branding.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "db546b8d1354af2c5087175e136210491ce4bbcce356cd52ba68d79510c5ee87",
-      "review": "2026-09-29 (RCS propellant): P1 manifold and propellant line rows."
+      "sha256": "7460a8441f76976ceed26477d9affd32db715511c1e6acaf2e8fc17e60aa059b",
+      "review": "2026-09-29 (gas store sizes and L2): store size models, O/N/C stores and L2 rows; gas line rename."
     },
     {
       "path": "docs/development/equipment-value-audit.md",
@@ -44107,8 +45647,8 @@
       "path": "docs/development/framework-author-guide.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "8713c467defd4e40024062bb4d8ad1dce8a07d41a317c4836a952ad28f51be50",
-      "review": "2026-09-29 (RCS propellant): RCS propellant feeds and buffered draws section; implementation terms kept for authors."
+      "sha256": "11e130208772380497aeca1594e2706acaa6c463c05c4a491c1c260c1f8e4339",
+      "review": "2026-09-29 (gas store sizes and L2): size ladder, native gas vessels and gas transfers section."
     },
     {
       "path": "docs/development/framework-bulk-storage.md",
@@ -44191,15 +45731,15 @@
       "path": "docs/development/install-catalogue.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "ff323edb9b21d608675b16a78c2c021fd8ec5777bf29f8d516053f45bb3002e9",
-      "review": "2026-09-29 (RCS propellant): HVAC row for the P1 and propellant line."
+      "sha256": "8fbbd84db8e28b6b3922f32301023b2aa2804e8b32606c86c3894459b705aaa9",
+      "review": "2026-09-29 (gas store sizes and L2): APPS and HVAC rows for the new stores and the L2."
     },
     {
       "path": "docs/development/item-handling-audit.md",
       "scope": "current handling guidance and complete generated definition ledger",
       "decision": "reviewed",
-      "sha256": "2c72ad72c2d04efe10bc583385853ef0c6b92a1c128a3fbe11a392c567f6f998",
-      "review": "2026-09-29 (War Has Been Declared 0.1.0): Regenerated: six-mod count; War Has Been Declared adds no items."
+      "sha256": "37141ac1b9a9a9473412bf818e68c47a37010c5e93d065bd928c39c618e2c316",
+      "review": "2026-09-29 (gas store sizes and L2): regenerated rows for the new families."
     },
     {
       "path": "docs/development/item-reference-maintenance.md",
@@ -44236,8 +45776,8 @@
       "path": "docs/development/manufacturing-art-handoff.md",
       "scope": "development artwork record",
       "decision": "rewrite",
-      "sha256": "4b55afe23dfc172851072e9e2da399d37281bc473043f031b47a215bec2ad47e",
-      "review": "2026-09-29 (RCS propellant): 0.3.0 art pass record."
+      "sha256": "1d187fcc8355c59c10117f9b7a976e9f3f92a7f48ab4ba2db5bb9866f6850b4e",
+      "review": "2026-09-29 (gas store sizes and L2): 0.4.0 art pass record."
     },
     {
       "path": "docs/development/manufacturing-handover.md",
@@ -44250,15 +45790,15 @@
       "path": "docs/development/manufacturing-implementation.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "e11bbc321a503bc7313d78c7321e8c40e2a2e89e3e8a76e457c5463f499c8981",
-      "review": "2026-09-29 (RCS propellant): 0.3.0 implementation section."
+      "sha256": "9714c8895de73d568327dd562b4f2bcf238709da107343c3ff7ffa37a2214ed3",
+      "review": "2026-09-29 (gas store sizes and L2): 0.4.0 implementation section."
     },
     {
       "path": "docs/development/manufacturing-refinery-and-chemistry.md",
       "scope": "development design record; player text limited to names",
       "decision": "rewrite",
-      "sha256": "cdd9857b78187801b427a9e49ccbb9930201d65952c0f8c692a23927f44382e8",
-      "review": "2026-09-29 (RCS propellant): cold-gas physics with source note marked to verify; our model labelled."
+      "sha256": "1dc24e116f92adac097a5c20b5d0a767544d7288eacd5b4ed72c9b141ddd2dee",
+      "review": "2026-09-29 (gas store sizes and L2): store sizing basis, bulk gas price and filling physics with a citation marked to verify."
     },
     {
       "path": "docs/development/manufacturing-research.md",
@@ -44506,8 +46046,8 @@
       "path": "docs/development/vanilla-precedence-audit.md",
       "scope": "contributor audit record: findings, native evidence, verdicts and owner checks",
       "decision": "review as contributor documentation; player-facing effects are described in the owning guides",
-      "sha256": "1aa26cdaf329f80c7632b88e9ee2b5673ca0c829e5ef0abecd525344a0690e0b",
-      "review": "2026-09-29 (RCS propellant): recorded RCS replacement and verdict."
+      "sha256": "6f32eed271c38abfdc0da1c71bf6a8ef4f55769ae67d597f41d326b2add9c51a",
+      "review": "2026-09-29 (gas store sizes and L2): canister filling recorded as additive."
     },
     {
       "path": "docs/development/workshop-publication.md",
@@ -44527,8 +46067,8 @@
       "path": "docs/equipment-economy.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "604729e8223f365af81e1be429f5700497da20272c4a7d3679f60aff45aa76fb",
-      "review": "2026-09-29 (RCS propellant): P1/line price, service, repair and dismantle rows."
+      "sha256": "4b6dc348ae793ef2d5ab3e97c1647b0c7e04f446a5368c2129a752a078af0046",
+      "review": "2026-09-29 (gas store sizes and L2): store size and L2 economy tables."
     },
     {
       "path": "docs/fluid-network-operations.md",
@@ -44541,8 +46081,8 @@
       "path": "docs/framework-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "94df699a3f5550661f8966eeb01068ac207cba9a34308d766a51bc0f865f63b8",
-      "review": "2026-09-29 (War Has Been Declared 0.1.0): Regenerated for Framework 0.43.0; no item changes."
+      "sha256": "ea76f1b75b29058780dfad44e37cd21ba06456c85653b00c2f73b07eaa098471",
+      "review": "2026-09-29 (gas store sizes and L2): generated version line."
     },
     {
       "path": "docs/furnace-coolant-conduits.md",
@@ -44604,8 +46144,8 @@
       "path": "docs/installing-mods.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "ea53e9603703e9ad783b5d02d3c4ce4371884d09d423544c7b42b9ea5d0bc426",
-      "review": "2026-09-29 (War Has Been Declared 0.1.0): War Has Been Declared Framework minimum and install example."
+      "sha256": "e6c83d80dd04ab9bb2c1f59ace35aa5d58e8cd91fa6ea45950a8c3dde84708cb",
+      "review": "2026-09-29 (gas store sizes and L2): maintained version minimum only."
     },
     {
       "path": "docs/item-references.md",
@@ -44618,15 +46158,15 @@
       "path": "docs/manufacturing-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "retain",
-      "sha256": "b67cb4f2665a41403b74679dd599df0d0175018e5e1df260c4336625fd18e700",
-      "review": "2026-09-29 (RCS propellant): generated P1 and propellant line entries reviewed from config wording."
+      "sha256": "2da3f3e89d7988cf3453de7fbca3d671d603f154e1a7174d663210743187c0b1",
+      "review": "2026-09-29 (gas store sizes and L2): generated entries for the new stores and the L2 reviewed from config wording."
     },
     {
       "path": "docs/manufacturing-player-guide.md",
       "scope": "current player operating guide",
       "decision": "rewrite",
-      "sha256": "d7bd492682ca6522770765558feade4577689d3fecc26bed173ba12a45c7d5a4",
-      "review": "2026-09-29 (RCS propellant): new RCS propellant section: steps first, gas worth table, limits and owner checks."
+      "sha256": "a82299f94cee4e13b064038237812c4b19cc99351229e324909c4e041102a8da",
+      "review": "2026-09-29 (gas store sizes and L2): gas stores and canister filling sections lead with steps; table, dangers, limits and owner checks updated; stale version line replaced by a link."
     },
     {
       "path": "docs/material-port-pairing.md",
@@ -44646,8 +46186,8 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "d5bed3bc17e346f32bada39c634d1bba01e71c58a8d2cc02a311ea64b169121e",
-      "review": "2026-09-29 (War Has Been Declared, documentation pass): Link to the War Has Been Declared guide in the current-guide list."
+      "sha256": "e1e1c47dcec17f110d6228837d5dc996bb6065aec951415c6a4ca765dffff91b",
+      "review": "2026-09-29 (gas store sizes and L2): maintained version minimum only."
     },
     {
       "path": "docs/residue-collector.md",
@@ -44737,15 +46277,15 @@
       "path": "workshop/PhobosFramework/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "95f1fc87b35e61aa8d0e42efacbff0677b5c156748ba9abdeb7a3cbdbcf7a615",
-      "review": "2026-09-29 (War Has Been Declared 0.1.0): Version 0.43.0; build-site service line; War Has Been Declared among content mods."
+      "sha256": "03b2dd48fb7cfa5f4019a063529e66cfd9e1acc5202e071e55a18dd7fbe54491",
+      "review": "2026-09-29 (gas store sizes and L2): bulk storage sizes and safe filling bullet."
     },
     {
       "path": "workshop/PhobosManufacturing/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "d558b3968229e6c51c283618196d0631035da09d90f465b3a72c3e02c707eb28",
-      "review": "2026-09-29 (RCS propellant): P1 manifold bullet; everything starts off."
+      "sha256": "eea5057b41a3dac10a3a40376aab015014d1c5a7c8cea5a8ca4b85cba6cc098c",
+      "review": "2026-09-29 (gas store sizes and L2): store sizes and L2 bullets."
     },
     {
       "path": "workshop/PhobosShipbreaker/page.bbcode",
@@ -44787,8 +46327,8 @@
     {
       "path": "config/item-reference.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "0f61bfab8b7624635b66f2ec3a08c0c280365c2fc974502e19829c6fb7670c5a",
-      "review": "2026-09-29 (War Has Been Declared 0.1.0): War Has Been Declared introduction (no items, three navigation-station orders)."
+      "sha256": "b1892acc5361c96879c3d77d77ed31ef18e8239c62dbda148f027e2031bf086c",
+      "review": "2026-09-29 (gas store sizes and L2): store ladder groups, O/N/C stores and L2 groups; gas line wording."
     },
     {
       "path": "mods/PhobosAgriculture/framework/equipment-names.json",
@@ -44835,14 +46375,14 @@
     {
       "path": "mods/PhobosFramework/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "7438f7a68407744ed9d3d01117ce530e04480c728e14c1f0ff975eb1c1a82832",
-      "review": "2026-09-29 (War Has Been Declared 0.1.0): Version metadata only."
+      "sha256": "23b883d55eb06df4e9b662ea7dbd992d5332b94377c7bb1df65b1166ded3a3e9",
+      "review": "2026-09-29 (gas store sizes and L2): version only."
     },
     {
       "path": "mods/PhobosManufacturing/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "7439958241ad88867ae3bfa98f4c39fe8db58febe30050658aed00a603c8586b",
-      "review": "2026-09-29 (RCS propellant): version only."
+      "sha256": "99f59a973e5565853179d99e70d85b5062393b82858f03adac5a468a164ff39f",
+      "review": "2026-09-29 (gas store sizes and L2): version only."
     },
     {
       "path": "mods/PhobosShipbreaker/framework/equipment-names.json",

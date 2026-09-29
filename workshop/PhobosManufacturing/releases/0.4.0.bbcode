@@ -1,0 +1,26 @@
+[h1]Phobos Manufacturing 0.4.0[/h1]
+[b]Draft - not published | 2026-09-29[/b]
+
+[h2]Added[/h2]
+
+[list]
+[*]Every gas store now comes in three sizes (owner direction): small 2 x 2, medium 3 x 3 and large 4 x 4. The H3/H4 hydrogen stores hold 59 and 115 kg and the M3/M4 methane stores 395 and 770 kg. Bigger stores hold more for less per kilogram of capacity; the medium and large sizes are bought, never found in salvage.
+[*]Phobos' Fennmark oxygen (O2/O3/O4), nitrogen (N2/N3/N4) and carbon dioxide (C2/C3/C4) stores, holding 340 to 1,630 kg of oxygen, 300 to 1,440 kg of nitrogen and 470 to 2,260 kg of carbon dioxide. Stations sell these three gases through the Bulk supplies view at the refuelling kiosk's own price per kilogram; nothing sells back. The X2 can send its oxygen to an oxygen store, the K2 can draw its CO2 from a carbon dioxide store, and the P1 manifold accepts all five gases.
+[*]Phobos' Fennmark L2 Canister Filling Station (2 x 2, 3 kW, 26,000 cr, the INSTALL menu HVAC tab): tops up suit O2 bottles in its four-cell rack and O2, N2 or CO2 canisters installed beside it to a safe 99% of their rating and stops, from linked stores or a canister set as a source. Decant mode empties them back into stores. It waits for Start after a reload and plays the quiet completion cue when a watched run finishes.
+[*]Pour into: any gas store can move everything that fits into another store of the same gas within one tile or along a gas line.
+[*]Fourteen new PixelLab sprites in the Fennmark family, with the game's canister colours for each gas.
+[/list]
+
+[h2]Changed[/h2]
+
+[list]
+[*]The propellant line is now the Fennmark gas line; its identities and saved routes are unchanged.
+[*]Store panels list every machine linked to the store, vent in readable steps sized to the store, and the vent control reads Vent overboard.
+[/list]
+
+[h2]Compatibility and limits[/h2]
+
+[list]
+[*]Requires Phobos Framework 0.44.0 or newer. Existing H2 and M2 stores keep their identities, contents and records.
+[*]A damaged oxygen, nitrogen or carbon dioxide store leaks into its room, and a destroyed one releases what it held. The game has no hydrogen or methane canisters, so the L2 cannot bottle them. Owner gameplay checks remain pending.
+[/list]

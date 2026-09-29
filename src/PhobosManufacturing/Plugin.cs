@@ -17,8 +17,8 @@ namespace PhobosManufacturing;
 public sealed class Plugin : BaseUnityPlugin
 {
     public const string Id = ManufacturingRules.Owner;
-    public const string Version = "0.3.0";
-    public const string MinimumFrameworkVersion = "0.42.0";
+    public const string Version = "0.4.0";
+    public const string MinimumFrameworkVersion = "0.44.0";
     internal static Action<string> Log = _ => { };
     private Harmony? harmony;
     private float nextScan;
@@ -30,23 +30,24 @@ public sealed class Plugin : BaseUnityPlugin
         FrameworkLifecycle.ContentLoading += Load;
         EquipmentProviders.Register(new Provider());
         Phobos.Ostranauts.Framework.Propulsion.RcsPropellant.Register(ManifoldService.Instance);
+        Phobos.Ostranauts.Framework.Trading.BulkSupplies.Register(StoreService.GasSupplies);
         Log(Text.Get("Plugin.loaded", Version, ShipbreakerStock.PluginPresent ? Text.Get("Plugin.with_shipbreaker") : Text.Get("Plugin.without_shipbreaker")));
     }
     private static void Load() { ResetServices(); Content.Register(Log); }
-    internal static void ResetServices() { RefineryService.Reset(); ProcessorService.Reset(); SabatierService.Reset(); StoreService.Reset(); ManifoldService.Reset(); }
+    internal static void ResetServices() { RefineryService.Reset(); ProcessorService.Reset(); SabatierService.Reset(); StoreService.Reset(); ManifoldService.Reset(); FillerService.Reset(); }
     /// <summary>A damaged fuel store has no native tick of its own: every couple of seconds its leak advances.</summary>
     private void Update()
     {
         if (UnityEngine.Time.unscaledTime < nextScan) return;
         nextScan = UnityEngine.Time.unscaledTime + 2;
         if (!Content.Ready || CrewSim.objInstance == null || !CrewSim.objInstance.FinishedLoading || DataHandler.mapCOs == null) return;
-        foreach (var co in DataHandler.mapCOs.Values.Where(c => c != null && FuelStores.IsFamily(c.strCODef) && c.HasCond("IsDamaged") && c.HasCond("IsInstalled")).ToArray())
+        foreach (var co in DataHandler.mapCOs.Values.Where(c => c != null && GasStores.IsFamily(c.strCODef) && c.HasCond("IsDamaged") && c.HasCond("IsInstalled")).ToArray())
             StoreService.Tick(co);
     }
     private void OnDestroy()
     {
         FrameworkLifecycle.ContentLoading -= Load;
-        EquipmentProviders.Unregister(Id); Phobos.Ostranauts.Framework.Liquids.BulkVessels.Unregister(Id);
+        EquipmentProviders.Unregister(Id); Phobos.Ostranauts.Framework.Liquids.BulkVessels.Unregister(Id); Phobos.Ostranauts.Framework.Trading.BulkSupplies.Unregister(Id);
         Phobos.Ostranauts.Framework.Propulsion.RcsPropellant.Unregister(ManifoldService.Instance.Id);
         ResetServices(); harmony?.UnpatchSelf();
     }
@@ -55,7 +56,7 @@ public sealed class Plugin : BaseUnityPlugin
 [HarmonyPatch(typeof(Powered), "UsePower", new[] { typeof(CondOwner), typeof(double) })]
 internal static class PowerPatch
 {
-    internal sealed class PowerState { internal bool Finished; internal RefineryService.Transfer? Refinery; internal ProcessorService.Transfer? Processor; internal SabatierService.Transfer? Reactor; }
+    internal sealed class PowerState { internal bool Finished; internal RefineryService.Transfer? Refinery; internal ProcessorService.Transfer? Processor; internal SabatierService.Transfer? Reactor; internal FillerService.Transfer? Filler; }
     private static bool Prefix(Powered __instance, CondOwner __0, ref double __1, out PowerState __state)
     {
         __state = new PowerState();
@@ -74,6 +75,11 @@ internal static class PowerPatch
         {
             try { return SabatierService.BeginPower(__instance, __0, ref __1, out __state.Reactor); }
             catch (Exception ex) { SabatierService.Fault(__0, ex); return false; }
+        }
+        if (FillerRules.IsFamily(__0.strCODef))
+        {
+            try { return FillerService.BeginPower(__instance, __0, ref __1, out __state.Filler); }
+            catch (Exception ex) { FillerService.Fault(__0, ex); return false; }
         }
         return true;
     }
@@ -98,6 +104,12 @@ internal static class PowerPatch
             catch (Exception ex) { SabatierService.Fault(__0, ex); }
             finally { __state.Finished = true; }
         }
+        else if (FillerRules.IsFamily(__0.strCODef))
+        {
+            try { FillerService.FinishPower(__instance, __0, __state.Filler); }
+            catch (Exception ex) { FillerService.Fault(__0, ex); }
+            finally { __state.Finished = true; }
+        }
     }
     private static void Finalizer(Powered __instance, CondOwner __0, PowerState? __state)
     {
@@ -109,13 +121,14 @@ internal static class PowerPatch
                 if (RefineryRules.IsFamily(__0.strCODef)) RefineryService.FinishPower(__instance, __0, __state.Refinery);
                 else if (ProcessorRules.IsFamily(__0.strCODef)) ProcessorService.FinishPower(__instance, __0, __state.Processor);
                 else if (SabatierRules.IsFamily(__0.strCODef)) SabatierService.FinishPower(__instance, __0, __state.Reactor);
+                else if (FillerRules.IsFamily(__0.strCODef)) FillerService.FinishPower(__instance, __0, __state.Filler);
             }
         }
         catch (Exception ex) { Plugin.Log(ex.Message); }
         finally
         {
-            if (__0 != null && (RefineryRules.IsFamily(__0.strCODef) || ProcessorRules.IsFamily(__0.strCODef) || SabatierRules.IsFamily(__0.strCODef)))
-            { RefineryService.Forget(__instance); ProcessorService.Forget(__instance); SabatierService.Forget(__instance); }
+            if (__0 != null && (RefineryRules.IsFamily(__0.strCODef) || ProcessorRules.IsFamily(__0.strCODef) || SabatierRules.IsFamily(__0.strCODef) || FillerRules.IsFamily(__0.strCODef)))
+            { RefineryService.Forget(__instance); ProcessorService.Forget(__instance); SabatierService.Forget(__instance); FillerService.Forget(__instance); }
         }
     }
 }
@@ -131,6 +144,7 @@ internal static class PowerDemandPatch
         if (RefineryRules.IsFamily(machine.strCODef)) { try { RefineryService.BeforePower(machine); } catch (Exception ex) { RefineryService.Fault(machine, ex); } }
         else if (ProcessorRules.IsFamily(machine.strCODef)) { try { ProcessorService.BeforePower(machine); } catch (Exception ex) { ProcessorService.Fault(machine, ex); } }
         else if (SabatierRules.IsFamily(machine.strCODef)) { try { SabatierService.BeforePower(machine); } catch (Exception ex) { SabatierService.Fault(machine, ex); } }
+        else if (FillerRules.IsFamily(machine.strCODef)) { try { FillerService.BeforePower(machine); } catch (Exception ex) { FillerService.Fault(machine, ex); } }
     }
 }
 
@@ -206,7 +220,7 @@ internal static class StoreDamagePatch
     private static void Postfix(CondOwner coNew)
     {
         if (coNew == null || !coNew.HasCond("IsDamaged")) return;
-        if (FuelStores.IsFamily(coNew.strCODef)) StoreService.Damaged(coNew);
+        if (GasStores.IsFamily(coNew.strCODef)) StoreService.Damaged(coNew);
         else if (SabatierRules.IsFamily(coNew.strCODef)) SabatierService.Damaged(coNew);
     }
 }
@@ -216,7 +230,7 @@ internal static class StoreDestroyPatch
     private static void Prefix(CondOwner __instance)
     {
         if (__instance == null) return;
-        if (FuelStores.IsFamily(__instance.strCODef)) StoreService.Destroying(__instance);
+        if (GasStores.IsFamily(__instance.strCODef)) StoreService.Destroying(__instance);
         else if (SabatierRules.IsFamily(__instance.strCODef)) SabatierService.Destroying(__instance);
     }
 }
@@ -232,7 +246,8 @@ internal static class ConsolePatch
         { strInput += "\n" + string.Join("\n", CrewSim.GetSelectedCrew()?.ship?.GetCOs(null, false, false, true).Where(Content.Machine).Select(c => c.strNameFriendly + " " + c.strID) ?? Array.Empty<string>()); __result = true; return false; }
         var co = parts.Length >= 3 ? Content.Resolve(parts[2]) : null;
         string message = Text.Get("Console.help");
-        string action = parts.Length == 4 && new[] { "link", "water", "store", "canister", "vent", "hydrogen", "methane", "feed", "order", "source-on", "source-off", "unlink" }.Contains(parts[1]) ? parts[1] + ":" + parts[3] : parts[1];
+        string action = parts.Length == 4 && new[] { "link", "water", "store", "canister", "vent", "hydrogen", "methane", "feed", "order", "source-on", "source-off", "unlink",
+            "mode", "target", "draw", "transfer" }.Contains(parts[1]) ? parts[1] + ":" + parts[3] : parts[1];
         var provider = new Provider();
         __result = Content.Machine(co) && provider.Command(co!, null, action, out message); strInput += "\n" + message; return false;
     }

@@ -7,7 +7,7 @@ namespace PhobosManufacturing.Core;
 /// <summary>The H2 Hydrogen Store: a 2 x 2 pressurised vessel holding electrolysis hydrogen as a kilogram record
 /// (hydrogen has no game species and never enters a room as gas). A damaged store leaks to space, or, with
 /// oxygen in the room and an ignition source, deflagrates through the game's own explosion machinery. The
-/// shared fuel-store rules are in <see cref="FuelStores"/>.</summary>
+/// shared gas-store rules are in <see cref="GasStores"/>.</summary>
 public static class HydrogenRules
 {
     public const string Prefix = "PhobosHydrogenStore", Installed = Prefix + "Installed";
@@ -18,14 +18,16 @@ public static class HydrogenRules
     public const double CapacityKg = 24, DryKg = 160, Price = 22000, LeakKgPerHour = 2;
     /// <summary>Higher heating value of hydrogen, 285.83 kJ/mol of water formed (NIST), 141.9 MJ per kilogram.</summary>
     public const double HHVKJPerKg = 141900, OxygenPerHydrogen = 8;
-    public const double IgnitionOxygenKPa = FuelStores.IgnitionOxygenKPa;
+    public const double IgnitionOxygenKPa = GasStores.IgnitionOxygenKPa;
     public const double SmallKg = 2, MediumKg = 8;
-    public const string DeflagrationPrefix = FuelStores.DeflagrationPrefix;
-    public static readonly FuelStore Store = new(Prefix, ManufacturingRules.Hydrogen, "Store", CapacityKg, DryKg, Price, LeakKgPerHour, HHVKJPerKg, OxygenPerHydrogen,
-        new Dictionary<string, double>(StringComparer.Ordinal), null, Record, Journal, Guard);
+    public const string DeflagrationPrefix = GasStores.DeflagrationPrefix;
+    /// <summary>The small (original) store; the medium and large sizes are in <see cref="GasStores"/>.</summary>
+    public static GasStore Store => GasStores.Hydrogen;
     public static BulkVesselSpec Spec => Store.Spec;
     public static bool IsFamily(string? id) => Store.IsFamily(id);
-    public static HydrogenFate Fate(double oxygenKPa, bool fireInRoom, bool hearthWorking, bool sparkingDevice) => FuelStores.Fate(oxygenKPa, fireInRoom, hearthWorking, sparkingDevice);
+    /// <summary>Any size of hydrogen store.</summary>
+    public static bool AnySize(string? id) => GasStores.HydrogenFamily.InFamily(id);
+    public static HydrogenFate Fate(double oxygenKPa, bool fireInRoom, bool hearthWorking, bool sparkingDevice) => GasStores.Fate(oxygenKPa, fireInRoom, hearthWorking, sparkingDevice);
     public static Deflagration Burn(double hydrogenKg, double oxygenAvailableKg) => Store.Burn(hydrogenKg, oxygenAvailableKg);
-    public static string DeflagrationDefinition(Deflagration d) => FuelStores.DeflagrationDefinition(d);
+    public static string DeflagrationDefinition(Deflagration d) => GasStores.DeflagrationDefinition(d);
 }

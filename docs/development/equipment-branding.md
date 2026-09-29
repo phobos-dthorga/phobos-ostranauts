@@ -42,7 +42,12 @@ a real company, seed cultivar, research programme or institutional endorsement.
 | Phobos' Fennmark K2 Sabatier Reactor | Two-by-two catalytic CO2 reduction reactor (Manufacturing 0.2.0) |
 | Phobos' Fennmark M2 Methane Store | Two-by-two passive pressurised methane store (Manufacturing 0.2.0) |
 | Phobos' Fennmark P1 RCS Propellant Manifold | One-tile passive valve block feeding the RCS from bulk stores (Manufacturing 0.3.0) |
-| Phobos' Fennmark Propellant Line | Sealed gas line segment; ordinary supply without a model number (Manufacturing 0.3.0) |
+| Phobos' Fennmark Gas Line | Sealed gas line segment; ordinary supply without a model number (Manufacturing 0.3.0 as the propellant line, renamed 0.4.0) |
+| Phobos' Fennmark H3 and H4 Hydrogen Stores; M3 and M4 Methane Stores | Medium (3 x 3) and large (4 x 4) sizes; the model digit is the footprint (Manufacturing 0.4.0) |
+| Phobos' Fennmark O2, O3 and O4 Oxygen Stores | Oxygen stores in three sizes (Manufacturing 0.4.0) |
+| Phobos' Fennmark N2, N3 and N4 Nitrogen Stores | Nitrogen stores in three sizes; distinct from the Asterel N-series nav modules by brand and type (Manufacturing 0.4.0) |
+| Phobos' Fennmark C2, C3 and C4 Carbon Dioxide Stores | Carbon dioxide stores in three sizes; distinct from the Rivetline C2 collector by brand and type (Manufacturing 0.4.0) |
+| Phobos' Fennmark L2 Canister Filling Station | Two-by-two safe filling booster for canisters and suit bottles (Manufacturing 0.4.0) |
 
 **Fennmark** is Manufacturing's separate fictional manufacturer (owner choice,
 29 September 2026): refining and process chemistry. V, X and H identify the

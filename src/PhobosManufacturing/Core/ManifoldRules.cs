@@ -24,7 +24,7 @@ public static class ManifoldRules
     public const int RouteTileLimit = 64;
     public static bool IsFamily(string? id) => EquipmentIdentity.IsFamily(id, Prefix);
     /// <summary>The game gas each store commodity is, for its RCS worth.</summary>
-    public static string? Species(string? commodity) => commodity == ManufacturingRules.Hydrogen ? "H2" : commodity == ManufacturingRules.Methane ? "CH4" : null;
+    public static string? Species(string? commodity) => GasStores.FamilyOf(commodity)?.Species;
     public static double Ratio(string? commodity) => RcsPropellant.ExhaustRatio(Species(commodity));
     public static double EquivalentKg(string? commodity, double kg) => kg * Ratio(commodity);
     public static double KilogramsFor(string? commodity, double equivalentKg) => equivalentKg / Ratio(commodity);

@@ -63,15 +63,10 @@ internal sealed class ManifoldService : IRcsPropellantFeed
     }
     /// <summary>Fuel stores this manifold could draw from: on the same ship, within one tile or on a propellant line.</summary>
     internal static IEnumerable<CondOwner> Candidates(CondOwner co) => (co.ship?.GetCOs(null, false, false, true) ?? Enumerable.Empty<CondOwner>())
-        .Where(c => c != null && !c.bDestroyed && c.ship == co.ship && FuelStores.IsFamily(c.strCODef) && c.HasCond("IsInstalled") && Connection(co, c) != null)
+        .Where(c => c != null && !c.bDestroyed && c.ship == co.ship && GasStores.IsFamily(c.strCODef) && c.HasCond("IsInstalled") && Connection(co, c) != null)
         .OrderBy(c => c.strID, StringComparer.Ordinal).ToArray();
     /// <summary>How a store reaches the manifold: "adjacent", "line", or null when it does not.</summary>
-    private static string? Connection(CondOwner manifold, CondOwner store)
-    {
-        if (ProcessorService.Adjacent(manifold, store)) return "adjacent";
-        var path = NativeFluidRoute.Find(store, ManifoldRules.StoreOutlet, manifold, ManifoldRules.Inlet, c => PropellantLineRules.IsSegment(c.strCODef));
-        return path != null && path.Length <= ManifoldRules.RouteTileLimit ? "line" : null;
-    }
+    private static string? Connection(CondOwner manifold, CondOwner store) => GasLine.Connection(manifold, ManifoldRules.Inlet, store);
     /// <summary>Refreshes the cached list of switched-on stores that can feed right now, with a reason for each that cannot.</summary>
     private static void Refresh(CondOwner co, Session s)
     {
@@ -82,7 +77,7 @@ internal sealed class ManifoldService : IRcsPropellantFeed
         {
             string why;
             var store = CrewWork.Resolve(source.Id);
-            if (store == null || store.ship != co.ship || !FuelStores.IsFamily(store.strCODef)) why = Text.Get("Manifold.source_missing");
+            if (store == null || store.ship != co.ship || !GasStores.IsFamily(store.strCODef)) why = Text.Get("Manifold.source_missing");
             else if (!NativeFluidRoute.EndpointReady(store)) why = Text.Get("Manifold.source_not_ready");
             else if (BulkVessel.Protected(store) || CommodityReservations.Held(store.strID)) why = Text.Get("Manifold.source_protected");
             else if (Connection(co, store) == null) why = Text.Get("Manifold.source_unconnected");

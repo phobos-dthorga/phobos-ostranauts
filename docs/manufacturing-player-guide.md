@@ -1,7 +1,7 @@
-# Refinery, electrolysis, Sabatier reactor, fuel stores and RCS propellant
+# Refinery, electrolysis, Sabatier reactor, gas stores, canister filling and RCS propellant
 
 Use the [current versions and dependency requirements](installing-mods.md);
-Framework 0.41.0 or newer is required. Implemented and checked offline; owner
+Phobos Framework is required at the version listed there. Implemented and checked offline; owner
 gameplay checks are pending, including how the artwork looks in play.
 Shipbreaker 0.38.0 or newer is optional: it adds the steel charge and its S3
 water silo.
@@ -15,11 +15,18 @@ rotors and missile launchers, below a fusion reactor. Save up for it.
 | --- | --- | --- | --- |
 | Phobos' Fennmark V4 Volatiles Refinery | 4 x 4 tiles; 180 kg; two power points; 24 kW working | 64,000 cr, broken 16,000 cr | K-Leg supply kiosk (broken) and fixer (worn), San Diego Halvorson (new), the Venus scrap kiosk (broken and refurbished) and the regional supply kiosks, in lots of eight; INSTALL > APPS. Purchase only. |
 | Phobos' Fennmark X2 Chemical Processor | 2 x 2 tiles; 130 kg; one power point; 6 kW working | 38,000 cr, broken 9,500 cr | The same sellers; INSTALL > APPS. Purchase only. |
-| Phobos' Fennmark H2 Hydrogen Store | 2 x 2 tiles; 160 kg empty; holds 24 kg of hydrogen | 22,000 cr, broken 5,500 cr | The same sellers; INSTALL > APPS. Purchase only. |
+| Phobos' Fennmark H2, H3 and H4 Hydrogen Stores | 2 x 2, 3 x 3 and 4 x 4 tiles; 160, 305 and 450 kg empty; hold 24, 59 and 115 kg of hydrogen | 22,000, 35,790 and 50,540 cr | The same sellers; INSTALL > APPS. Purchase only. |
 | Phobos' Fennmark K2 Sabatier Reactor | 2 x 2 tiles; 150 kg; one power point; 1.2 kW working | 44,000 cr, broken 11,000 cr | The same sellers; INSTALL > APPS. Purchase only. |
-| Phobos' Fennmark M2 Methane Store | 2 x 2 tiles; 160 kg empty; holds 160 kg of methane | 21,000 cr, broken 5,250 cr | The same sellers; INSTALL > APPS. Purchase only. |
+| Phobos' Fennmark M2, M3 and M4 Methane Stores | 2 x 2, 3 x 3 and 4 x 4 tiles; hold 160, 395 and 770 kg of methane | 21,000, 34,160 and 48,250 cr | The same sellers; INSTALL > APPS. Purchase only. |
+| Phobos' Fennmark O2, O3 and O4 Oxygen Stores | 2 x 2, 3 x 3 and 4 x 4 tiles; hold 340, 840 and 1,630 kg of oxygen | 21,000, 34,160 and 48,250 cr | The same sellers; INSTALL > APPS. Purchase only. |
+| Phobos' Fennmark N2, N3 and N4 Nitrogen Stores | 2 x 2, 3 x 3 and 4 x 4 tiles; hold 300, 745 and 1,440 kg of nitrogen | 20,000, 32,530 and 45,950 cr | The same sellers; INSTALL > APPS. Purchase only. |
+| Phobos' Fennmark C2, C3 and C4 Carbon Dioxide Stores | 2 x 2, 3 x 3 and 4 x 4 tiles; hold 470, 1,160 and 2,260 kg of carbon dioxide | 20,000, 32,530 and 45,950 cr | The same sellers; INSTALL > APPS. Purchase only. |
+| Phobos' Fennmark L2 Canister Filling Station | 2 x 2 tiles; 120 kg; one power point; 3 kW working | 26,000 cr, broken 6,500 cr | The same sellers; INSTALL > HVAC. Purchase only. |
 | Phobos' Fennmark P1 RCS Propellant Manifold | 1 x 1 tile; 10 kg; passive | 24,000 cr, broken 6,000 cr | The same sellers; INSTALL > HVAC. Purchase only. |
-| Phobos' Fennmark Propellant Line | 1 tile per segment; 1 kg | 3 cr | K-Leg supply kiosk and fixer, Halvorson and the Venus scrap kiosk, in lots of 128; INSTALL > HVAC. |
+| Phobos' Fennmark Gas Line | 1 tile per segment; 1 kg | 3 cr | K-Leg supply kiosk and fixer, Halvorson and the Venus scrap kiosk, in lots of 128; INSTALL > HVAC. |
+
+Every store's broken price is a quarter of its price. The medium and large
+stores are too big to turn up in salvage; buy them.
 
 Selling one back works like the game's other high-value salvage: the K-Leg
 fixer buys an intact machine, the Venus scrap kiosk buys intact or broken, and
@@ -28,7 +35,10 @@ in twenty is a Fennmark machine, usually broken. Repairs need real components
 (motors, mainboards, heat sinks and, for the V4, a screen); see the
 [equipment economy](equipment-economy.md#manufacturing-011-late-game-plant).
 
-Ores are mined, never bought. Nothing this mod makes is sold in shops.
+Ores are mined, never bought. Stations sell bulk oxygen, nitrogen and carbon
+dioxide through the refuelling kiosk's **Bulk supplies** view, straight into an
+installed store of that gas, at the kiosk's own price per kilogram. Nothing
+sells back.
 
 ## What the refinery makes
 
@@ -150,12 +160,62 @@ The reaction gives off heat: with its electricity, about 2.3 kW goes into the
 room while it works, and it waits for the room to cool at 40 C. Pause keeps
 held gas, made products and progress; Cancel forfeits only the cycle's energy.
 
-## The methane store
+## Gas stores
 
-The M2 keeps methane for the day something aboard can use it; nothing burns it
-as fuel yet. Its panel shows the kilograms held and which reactors fill it.
-**Vent methane** (or `vent <id> <kg>` on the console) discharges it overboard.
-Vent it before uninstalling or dismantling; both refuse while it holds methane.
+Every gas store comes in three sizes: small (2 x 2), medium (3 x 3) and large
+(4 x 4). A bigger store holds more for less per kilogram of capacity. Pick the
+gas by colour: olive methane, dark grey hydrogen cylinders, green oxygen, blue
+nitrogen and pale grey carbon dioxide, like the game's own canisters.
+
+| Gas | Filled by | Used by |
+| --- | --- | --- |
+| Hydrogen (H) | an X2 | a K2, the RCS through a P1 |
+| Methane (M) | a K2 | the RCS through a P1 |
+| Oxygen (O) | an X2 (set the store as its oxygen destination), Bulk supplies | an L2 (canisters and suit bottles), the RCS |
+| Nitrogen (N) | Bulk supplies | an L2 (RCS and air-pump canisters), the RCS |
+| Carbon dioxide (C) | Bulk supplies | a K2 (set the store as its CO2 source), an L2, the RCS |
+
+Each store's panel shows the kilograms held and every machine linked to it.
+
+- **Vent overboard** (or `vent <id> <kg>` on the console) discharges gas.
+- **Pour into** moves everything that fits into another store of the same gas,
+  within one tile or along a gas line (or `transfer <id> <other id>`). Use it
+  to move a small store's contents into a large one when you upgrade.
+
+Empty a store before uninstalling or dismantling it; both refuse while it
+holds gas.
+
+## Canister filling station
+
+The L2 tops up the game's own gas vessels and stops at a safe **99%** of their
+rated pressure, even at fast-forward. The game's air pump has no cut-off, which
+is how suit bottles burst.
+
+1. Install the **L2** through INSTALL > HVAC and run conduit to it.
+2. Put suit **O2 bottles** in its rack (right-click, **Inventory**; four cells).
+3. To fill canisters, install O2, N2 or CO2 canisters on tiles next to it and
+   add each under **Add a canister**. They start as **Fill it**.
+4. Add **oxygen, nitrogen or carbon dioxide stores** under **Add a store**,
+   within one tile or along a gas line, and switch each **On**. A linked
+   canister set to **Draw from it** can be the source instead.
+5. Choose **Mode**: **Fill**, or **Decant** to empty bottles and canisters back
+   into their stores. Press **Start**.
+
+It works one vessel at a time, from a store first and a source canister
+second, and waits when everything is full (or empty, when decanting). It draws
+3 kW while working. Compressing the gas costs about 0.06 kWh per kilogram of
+oxygen into a canister, so a full canister takes several hours and a suit
+bottle about a minute. All of that electricity ends up as heat in the room.
+
+```mermaid
+flowchart LR
+    Kiosk[Station Bulk supplies] --> Stores[O, N or C store]
+    X2[X2 cell] --> Stores
+    Stores -->|gas line or one tile| L2[L2 filling station]
+    L2 --> Bottles[Suit O2 bottles in the rack]
+    L2 --> Cans[Canisters beside it]
+    Stores -->|gas line or one tile| P1[P1 manifold] --> RCS[RCS thrusters]
+```
 
 ## RCS propellant
 
@@ -173,7 +233,7 @@ Framework gives each gas its real cold-gas worth instead:
 1. Install a **P1 RCS Propellant Manifold** where a gas canister would go: on
    one of an RCS Intake Regulator's gas-input tiles. Rotate it so its line port
    (the amber stub) faces away from the regulator.
-2. Put an H2 or M2 store within one tile of it, or lay **propellant line** from
+2. Put a gas store of any size within one tile of it, or lay **gas line** from
    the store's line port to the manifold's. The line is its own family; it
    never joins coolant or irrigation lines.
 3. Open the manifold's **Control Panel** > **Connections**: add the store, set
@@ -191,16 +251,14 @@ save; station refuelling still fills only the game's own nitrogen canisters.
 
 ## The hydrogen store
 
-The H2 store is passive: no power, no cargo, no inventory. Its panel shows the
-kilograms held and which cells feed it. **Vent hydrogen** on the panel (or
-`vent <id> <kg>` on the console) discharges a chosen amount overboard and logs
-it. Vent it before uninstalling or dismantling: both refuse while it holds
-hydrogen.
+The hydrogen stores are passive: no power, no cargo, no inventory. Hydrogen has
+no game gas, so it only ever leaves by the X2, the K2, the P1, a vent or a leak
+to space.
 
 ## After a reload
 
-The V4, X2 and K2 pause after every reload and keep their bound charge, holds
-and progress. Press **Start** to continue. The K2 keeps the gas it holds and any
+The V4, X2, K2 and L2 pause after every reload and keep their bound charge,
+holds, links and progress. Press **Start** to continue. The K2 keeps the gas it holds and any
 products it has made; it delivers waiting products first and starts a new cycle
 only once they have gone to their vessels. A bound steel charge on a ship whose
 Shipbreaker has been removed is kept and reported, never overwritten; Cancel
@@ -225,6 +283,10 @@ releases it.
   air. With oxygen and a fire, a working V4 or a sparking device, the store's
   contents burn instead: 4 kg of the room's oxygen and 2.7 kg of CO2 left behind
   per kilogram of methane, with the game's own explosion.
+- **Oxygen, nitrogen and carbon dioxide stores leak into the room.** A damaged
+  store leaks about 2, 3 or 4 kg an hour by size until repaired. Oxygen makes
+  any fire worse, nitrogen thins the air without warning, and carbon dioxide
+  poisons. A destroyed store releases everything it held into the room.
 - **A damaged reactor dumps its gas.** The CO2 and methane in a K2's hold go
   into the room; its hydrogen burns by the rule below if it can, otherwise it
   escapes. The water stays in the reactor until you repair it.
@@ -243,9 +305,14 @@ releases it.
 - No crew loading orders yet; load the feed by hand or with a crew output
   store on the tray.
 - No construction recipes: buy the machines.
-- Nothing burns the stored methane as fuel yet; vent it when the store fills.
-  Hydrogen and methane are kilogram records in their stores; methane becomes the
-  game's own gas only when it leaks or burns.
+- Stored gases are kilogram records in their stores; a game gas becomes room
+  gas only when it leaks, is released or burns.
+- The game has no canister for hydrogen or methane, so the L2 cannot bottle
+  them. They stay in their stores for the K2 and the RCS.
+- A small gas store holds about as much as one of the game's canisters, which
+  are very dense. Bulk gas pays off in the medium and large sizes.
+- The L2's electricity cost is ideal compression at an authored efficiency;
+  line hold-up and pressure drop are neglected.
 - The reactor converts all of its hydrogen each cycle; real reactors convert
   most, not all. That is an authored simplification.
 - RCS worth is ideal cold-gas physics at one temperature: no hot-gas or
@@ -288,6 +355,16 @@ and watch the methane fall and the RCS fuel and delta-v readings rise by about
 1.45 times its mass. Flip the draw order and watch which empties first. Put an
 O2 canister on a regulator and confirm slightly less push per kilogram. Save
 and reload mid-burn and confirm the store levels carry over.
+
+Gas stores and canister filling (0.4.0): buy an N3 at a station and fill it
+through Bulk supplies; lay gas line to an L2, install an N2 canister beside the
+L2, add both, switch the store on and press Start. Watch the canister rise and
+stop at 99%, even at fast-forward, and the store fall. Put a half-empty suit O2
+bottle in the rack with an O2 store linked and confirm it fills and stops.
+Switch to Decant and empty a canister back into a store. Pour a small store
+into a large one. Link a C2 to a K2 as its CO2 source, and an O2 store to an X2
+as its oxygen destination. Damage an O2 store and watch the room's oxygen rise.
+Save and reload mid-fill and confirm the pause until Start.
 
 ## Sources
 
