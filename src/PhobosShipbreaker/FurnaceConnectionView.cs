@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using PhobosShipbreaker.Core;
 
 namespace PhobosShipbreaker;
@@ -7,26 +8,35 @@ namespace PhobosShipbreaker;
 internal static class FurnaceConnectionView
 {
     private static bool diagnosed;
+    private sealed class Artwork { internal string Path = "", Normal = "", Damaged = ""; }
+    // Twelve possible appearances; their paths are built once, not on every quarter-second pass per port.
+    private static readonly Dictionary<(FurnaceCooling.Socket Socket, bool Loose, bool Damaged), Artwork> artwork = new();
+    private static Artwork ArtworkFor((FurnaceCooling.Socket Socket, bool Loose, bool Damaged) key)
+    {
+        if (artwork.TryGetValue(key, out var found)) return found;
+        string art = FurnaceRules.ThermalPort;
+        if (key.Loose) art += key.Damaged ? "LooseDamaged" : "Loose";
+        else
+        {
+            if (key.Socket == FurnaceCooling.Socket.Left) art += "ConnectRight";
+            if (key.Socket == FurnaceCooling.Socket.Right) art += "ConnectLeft";
+            if (key.Damaged) art += "Damaged";
+        }
+        string path = "phobos/shipbreaker/" + art;
+        found = new Artwork { Path = path, Normal = key.Loose || key.Damaged ? path + "Normal" : "phobos/shipbreaker/" + FurnaceRules.ThermalPort + "Normal", Damaged = key.Damaged ? path : path + "Damaged" };
+        artwork[key] = found;
+        return found;
+    }
     internal static void Refresh(CondOwner co)
     {
         if (!FurnaceRules.Underside(co.strCODef)) return;
         try
         {
-            string art = FurnaceRules.ThermalPort;
             bool loose = co.strCODef.EndsWith("Loose", StringComparison.Ordinal) || co.strCODef.EndsWith("LooseDmg", StringComparison.Ordinal);
             bool damaged = co.strCODef.EndsWith("Dmg", StringComparison.Ordinal);
-            var socket = FurnaceService.ConnectedSocket(co);
-            if (loose) art += damaged ? "LooseDamaged" : "Loose";
-            else
-            {
-                if (socket == FurnaceCooling.Socket.Left) art += "ConnectRight";
-                if (socket == FurnaceCooling.Socket.Right) art += "ConnectLeft";
-                if (damaged) art += "Damaged";
-            }
-            string path = "phobos/shipbreaker/" + art;
+            var art = ArtworkFor((FurnaceService.ConnectedSocket(co), loose, damaged));
             var item = co.GetComponent<Item>();
-            if (item != null && item.ImgOverride != path)
-                item.SetAlt(path, loose || damaged ? path + "Normal" : "phobos/shipbreaker/" + FurnaceRules.ThermalPort + "Normal", damaged ? path : path + "Damaged", item.jid.strDmgColor);
+            if (item != null && item.ImgOverride != art.Path) item.SetAlt(art.Path, art.Normal, art.Damaged, item.jid.strDmgColor);
         }
         catch (Exception ex)
         {

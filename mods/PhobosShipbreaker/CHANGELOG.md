@@ -25,6 +25,20 @@ Dates on Draft entries record preparation, not Steam publication.
 - Earlier capture-only research is superseded for supported ordinary walls by the 0.24.0 reclamation implementation below. Broader structural recipes, repeated furnace batches and whole-wreck completion remain outside this round.
 - Keep [NASA Goddard's Raven research](https://www.nasa.gov/general/nasas-hybrid-computer-enables-ravens-autonomous-rendezvous-capability/) and [ESA's LIRIS experiment by Airbus, Jena Optronik and Sodern](https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/ATV/ATV_views_Space_Station_as_never_before) as sensing context, separate from Blue Bottle Games native evidence and authored gameplay choices. No institutional endorsement or gameplay validation is implied.
 
+## [0.41.0] - 2026-09-29 - Draft
+
+### Changed
+
+- Performance pass, stage 3 (the game crawls at fast-forward). The two power hooks the game calls for every powered object in the world now classify each object by one dictionary probe and keep no state for appliances that are not ours; before this every appliance in the world paid an allocation and several lookups per power step.
+- Furnace records (furnaces, radiators, underside ports, coolant charges) settle every two real seconds, on a fault and before every native save, instead of being rewritten several times per power step; a record that did not change is left untouched. Furnace-family discovery runs every two real seconds (a damaged, repaired or installed replacement is tracked at once); passive cooling and detached hot items still advance every quarter second with the console closed.
+- The coolant route between a furnace and its cooling endpoint is found once per power step and shared by admission, settlement and the collector checks (it was searched nine to eleven times per step, each with two scans of the ship), through Framework's shared pipe topology; the second-source rule is a membership lookup.
+- Collector, processing, storage and intake routes keep a true admission for the rest of its step instead of validating twice per power step. The central console builds detail text only for the card being read. Reclamation resolves target parts by their ids instead of scanning the target ship. The maintenance hooks recognise our equipment before searching action names. Underside-port artwork paths are built once.
+- Recorder scopes shipbreaker.power.hook, shipbreaker.furnace.route and shipbreaker.furnace.saves.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.45.0 or newer. A crash (never a save) can lose up to two real seconds of furnace record progress; a coolant conduit laid or cut is noticed within two real seconds. Saved data is unchanged. Offline checks are not gameplay validation.
+
 ## [0.40.0] - 2026-09-29 - Draft
 
 ### Added

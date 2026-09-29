@@ -30,7 +30,7 @@ internal static partial class FurnaceService
     private static void SaveCharge(Session s)
     {
         if(!FurnaceRules.Machine(s.Object.strCODef))return;
-        if(!ChargeStore(s.Object).TryWrite(s.Coolant.Save())) {s.Protected=true;throw new InvalidOperationException("Protected coolant charge.");}
+        if(!ChargeStore(s.Object).TryWriteIfChanged(s.Coolant.Save())) {s.Protected=true;throw new InvalidOperationException("Protected coolant charge.");}
         s.Object.AddMass(s.Coolant.TotalKg-s.AccountedCoolantKg,true);s.AccountedCoolantKg=s.Coolant.TotalKg;
     }
     private static int ChargeCells(Session s)

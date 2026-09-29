@@ -19,6 +19,8 @@ internal sealed partial class ProcessingService
         internal double Last;
         internal string Status = Text.Get("IntakeService.intake_paused");
         internal readonly CondOwner?[] Walls = new CondOwner?[IntakeRules.Width];
+        // A true admission holds for the rest of its step (native power in between changes no panel or feed).
+        internal long AdmittedStep = long.MinValue;
     }
     private ConditionalWeakTable<CondOwner, IntakeSession> intakes = new ConditionalWeakTable<CondOwner, IntakeSession>();
 
@@ -135,6 +137,13 @@ internal sealed partial class ProcessingService
     }
 
     internal bool BeforeIntakePower(CondOwner grabber)
+    {
+        if (intakes.TryGetValue(grabber, out var admitted) && admitted.Armed && admitted.AdmittedStep == Phobos.Ostranauts.Framework.Processing.NativeSteps.Frame && admitted.Panel != null && admitted.Clock != null) return true;
+        bool verdict = BeforeIntakePowerNow(grabber);
+        if (verdict && intakes.TryGetValue(grabber, out var s)) s.AdmittedStep = Phobos.Ostranauts.Framework.Processing.NativeSteps.Frame;
+        return verdict;
+    }
+    private bool BeforeIntakePowerNow(CondOwner grabber)
     {
         grabber.ZeroCondAmount(IntakeRules.Working);
         if (!intakes.TryGetValue(grabber, out var state) || !state.Armed) return false;

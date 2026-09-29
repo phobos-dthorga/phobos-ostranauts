@@ -23,6 +23,8 @@ internal sealed partial class ProcessingService
         internal bool CrewManaged;
         internal bool NeedsAttention, CapacityWait, HeatWait;
         internal readonly CompletionWatch Watch = new CompletionWatch();
+        // A true admission holds for the rest of its step (native power in between changes no input or tray).
+        internal long AdmittedStep = long.MinValue;
         internal string Status = Text.Get("ProcessingService.paused_load_panels_and_start_the_queue");
     }
     private ConditionalWeakTable<CondOwner, Session> sessions = new ConditionalWeakTable<CondOwner, Session>();
@@ -182,6 +184,13 @@ internal sealed partial class ProcessingService
     }
 
     internal bool BeforePower(CondOwner machine)
+    {
+        if (sessions.TryGetValue(machine, out var admitted) && admitted.AdmittedStep == Phobos.Ostranauts.Framework.Processing.NativeSteps.Frame && admitted.Job?.Running == true && admitted.Input != null) return true;
+        bool verdict = BeforePowerNow(machine);
+        if (verdict && sessions.TryGetValue(machine, out var s)) s.AdmittedStep = Phobos.Ostranauts.Framework.Processing.NativeSteps.Frame;
+        return verdict;
+    }
+    private bool BeforePowerNow(CondOwner machine)
     {
         if (!IsProcessor(machine.strCODef)) return false;
         using var measurement = Phobos.Ostranauts.Framework.Diagnostics.Performance.Measure(PerformanceMetrics.ProcessCheck);

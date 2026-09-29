@@ -68,7 +68,7 @@
     "Shipbreaker.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.40.0",
+      "value": "0.41.0",
       "description": "PhobosShipbreaker published source/package version.",
       "targets": [
         {
@@ -641,7 +641,7 @@
     "Shipbreaker.minimumFramework": {
       "type": "version",
       "parts": 3,
-      "value": "0.44.0",
+      "value": "0.45.0",
       "description": "Current Shipbreaker required Framework version, shared with local installer admission.",
       "targets": [
         {

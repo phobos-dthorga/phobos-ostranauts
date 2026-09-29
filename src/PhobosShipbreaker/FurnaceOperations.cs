@@ -354,7 +354,9 @@ internal static class FurnaceMaintenanceOffer
 {
     private static void Postfix(Interaction __instance, CondOwner objUs, CondOwner objThem, ref bool __result)
     {
-        var reason = __result ? FurnaceMaintenanceFinish.Reason(__instance.strName, objUs, objThem) : null;
+        // This runs for every offer the game evaluates: our equipment is recognised before any name search.
+        if (!__result || __instance.strName == null || !FurnaceService.IsEquipment(objUs) && !FurnaceService.IsEquipment(objThem)) return;
+        var reason = FurnaceMaintenanceFinish.Reason(__instance.strName, objUs, objThem);
         if (reason != null) { __instance.AddFailReason("main", reason); __result = false; }
     }
 }
@@ -364,6 +366,7 @@ internal static class FurnaceMaintenanceFinish
     internal static bool Blocked(string action, CondOwner us, CondOwner them) => Reason(action, us, them) != null;
     internal static string? Reason(string action, CondOwner us, CondOwner them)
     {
+        if (action == null || !FurnaceService.IsEquipment(us) && !FurnaceService.IsEquipment(them)) return null;
         bool removal = action.IndexOf("Uninstall", StringComparison.OrdinalIgnoreCase) >= 0 || action.IndexOf("Dismantle", StringComparison.OrdinalIgnoreCase) >= 0;
         bool repair = action.IndexOf("Repair", StringComparison.OrdinalIgnoreCase) >= 0 || action.IndexOf("Undamage", StringComparison.OrdinalIgnoreCase) >= 0 || action.IndexOf("Restore", StringComparison.OrdinalIgnoreCase) >= 0;
         return !(removal || repair) ? null : new[] { us, them }.Where(FurnaceService.IsEquipment)

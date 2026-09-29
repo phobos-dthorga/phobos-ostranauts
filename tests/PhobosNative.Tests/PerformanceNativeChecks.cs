@@ -21,5 +21,26 @@ internal static class PerformanceNativeChecks
         check(nativeQuery.GetParameters().Select(p => p.Name).SequenceEqual(new[] { "ct", "bSubObjects", "bAllowDocked", "bAllowLocked" }) ||
             nativeQuery.GetParameters().Skip(1).Select(p => p.Name).SequenceEqual(new[] { "bSubObjects", "bAllowDocked", "bAllowLocked" }),
             "Native discovery scope switches retain their audited meaning");
+
+        // 29 September 2026 pass (FF3): the power hooks classify every powered object by one probe per definition and
+        // leave no state for appliances that are not ours.
+        PhobosShipbreaker.PowerKinds.Reset();
+        foreach (var (id, kind) in new[] {
+            (PhobosShipbreaker.Content.Installed, PhobosShipbreaker.PowerKind.Processor), (PhobosShipbreaker.Content.Installed + "Dmg", PhobosShipbreaker.PowerKind.Processor),
+            (PhobosShipbreaker.Core.ReclaimerRules.Installed, PhobosShipbreaker.PowerKind.Reclaimer),
+            (PhobosShipbreaker.Core.IntakeRules.Grabber + "Installed", PhobosShipbreaker.PowerKind.Grabber),
+            (PhobosShipbreaker.Core.CollectorRules.Installed, PhobosShipbreaker.PowerKind.Collector),
+            (PhobosShipbreaker.Core.FurnaceRules.Prefix + "Installed", PhobosShipbreaker.PowerKind.Furnace), (PhobosShipbreaker.Core.FurnaceRules.Prefix + "InstalledDmg", PhobosShipbreaker.PowerKind.Furnace),
+            (PhobosShipbreaker.Core.ThawRules.Installed, PhobosShipbreaker.PowerKind.Thaw),
+            (PhobosShipbreaker.Core.FurnaceRules.Radiator + "Installed", PhobosShipbreaker.PowerKind.None),
+            ("ItmWall1x1", PhobosShipbreaker.PowerKind.None), ("ItmAirPumpInstalled", PhobosShipbreaker.PowerKind.None), (null!, PhobosShipbreaker.PowerKind.None) })
+            check(PhobosShipbreaker.PowerKinds.Classify(id) == kind, "Power hook classification: " + (id ?? "null") + " -> " + kind);
+        check(PhobosShipbreaker.FurnaceService.IsEquipmentDefinition(PhobosShipbreaker.Core.FurnaceRules.Radiator + "Installed") &&
+            PhobosShipbreaker.FurnaceService.IsEquipmentDefinition(PhobosShipbreaker.Core.FurnaceRules.ThermalPort + "LooseDmg") &&
+            !PhobosShipbreaker.FurnaceService.IsEquipmentDefinition("ItmWall1x1") && !PhobosShipbreaker.FurnaceService.IsEquipmentDefinition(null), "Furnace-family discovery classifies by definition");
+        for (int i = 0; i < 1000; i++) { PhobosShipbreaker.PowerKinds.Classify("ItmAirPumpInstalled"); PhobosShipbreaker.FurnaceService.IsEquipmentDefinition("ItmAirPumpInstalled"); }
+        long before = GC.GetAllocatedBytesForCurrentThread();
+        for (int i = 0; i < 42000; i++) { PhobosShipbreaker.PowerKinds.Classify("ItmAirPumpInstalled"); PhobosShipbreaker.FurnaceService.IsEquipmentDefinition("ItmAirPumpInstalled"); }
+        check(GC.GetAllocatedBytesForCurrentThread() == before, "Classifying a foreign appliance allocates nothing on the test runtime");
     }
 }

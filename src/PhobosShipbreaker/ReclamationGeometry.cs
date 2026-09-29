@@ -9,7 +9,9 @@ namespace PhobosShipbreaker;
 
 internal static class ReclamationGeometry
 {
-    internal static CondOwner? Resolve(Ship target,string id) => target.GetCOs(null,false,false,true).FirstOrDefault(c=>c.strID==id && !c.bDestroyed);
+    /// <summary>A root object of the target ship by its full id: the game's own map, not a scan of every object aboard.</summary>
+    internal static CondOwner? Resolve(Ship target,string id) => id!=null && DataHandler.mapCOs!=null && DataHandler.mapCOs.TryGetValue(id,out var c) &&
+        c!=null && !c.bDestroyed && c.ship==target && c.objCOParent==null ? c : null;
     internal static bool Reach(CondOwner g,CondOwner wall) => wall.objCOParent==null &&
         CaptureRules.InContact(g.GetPos().x,g.GetPos().y,g.Item.TF.eulerAngles.z,wall.GetPos().x,wall.GetPos().y);
     internal static bool Floor(Ship target,CondOwner wall) => target.GetCOs(null,false,false,true).Any(c=>c.HasCond("IsFloor")&&

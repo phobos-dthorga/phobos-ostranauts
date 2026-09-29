@@ -16,7 +16,7 @@ namespace PhobosShipbreaker;
 public sealed class Plugin : BaseUnityPlugin
 {
     public const string Id = "phobosgekko.ostranauts.shipbreaker";
-    public const string Version = "0.40.0";
+    public const string Version = "0.41.0";
     internal static ProcessingService Service { get; private set; } = null!;
     internal static Action<string> Log { get; private set; } = null!;
     internal static Settings Options { get; private set; } = null!;
@@ -52,7 +52,7 @@ public sealed class Plugin : BaseUnityPlugin
     }
     private void Update() { panel.Update(); FurnaceService.Update(); CaptureService.Update(); ReclamationService.Update(); }
     private void OnGUI() { panel.Draw(); CollectorControls.Draw(); ReclaimerControls.Draw(); }
-    internal static void ResetServices() { ReclamationService.Reset(); CaptureService.Reset(); ThawService.Reset(); Service.Reset(); Collectors.Reset(); Storage.Reset(); CollectorControls.Reset(); ReclaimerControls.Reset(); IndustryObservations.Reset(); FurnaceService.Reset(); }
+    internal static void ResetServices() { PowerKinds.Reset(); ReclamationService.Reset(); CaptureService.Reset(); ThawService.Reset(); Service.Reset(); Collectors.Reset(); Storage.Reset(); CollectorControls.Reset(); ReclaimerControls.Reset(); IndustryObservations.Reset(); FurnaceService.Reset(); }
     private static void LoadContent() { ResetServices(); Content.Register(Log); }
     private static void ConfirmContent() => Content.ConfirmRecipes(Log);
     private void OnDestroy()
@@ -66,43 +66,48 @@ public sealed class Plugin : BaseUnityPlugin
     }
 }
 
+// The game calls these for every powered object in the world; an appliance that is not ours is classified by one
+// dictionary probe and leaves no state behind (29 September 2026 performance pass, FF3).
 [HarmonyPatch(typeof(Powered), "UsePower", new[] { typeof(CondOwner), typeof(double) })]
 internal static class PowerPatch
 {
-    internal sealed class PowerState { internal bool Working, Feeding, Unloading, Finished, Cutting; internal ReclamationService.PowerTransfer? Cutter; internal ReclaimerHeat.Transfer? Heat; internal FurnaceService.PowerTransfer? Furnace; internal ThawService.Transfer? Thaw; }
-    private static bool Prefix(Powered __instance, CondOwner __0, ref double __1, out PowerState __state)
+    internal sealed class PowerState { internal PowerKind Kind; internal bool Working, Feeding, Unloading, Finished, Cutting; internal ReclamationService.PowerTransfer? Cutter; internal ReclaimerHeat.Transfer? Heat; internal FurnaceService.PowerTransfer? Furnace; internal ThawService.Transfer? Thaw; }
+    private static bool Prefix(Powered __instance, CondOwner __0, ref double __1, out PowerState? __state)
     {
-        __state = new PowerState { Working = __0 != null && (ProcessingService.IsProcessor(__0.strCODef) && __0.HasCond(Core.ProcessRules.Working) ||
-            ProcessingService.IsGrabber(__0) && __0.HasCond(Core.IntakeRules.Working) ||
-            Core.CollectorRules.IsFamily(__0.strCODef) && __0.HasCond(Core.CollectorRules.Working)) };
-        __state.Feeding = __0 != null && ProcessingService.IsReclaimer(__0) && __0.HasCond(Core.RoutingRules.Feeding);
-        __state.Unloading = __0 != null && ProcessingService.IsInstalledProcessor(__0) && __0.HasCond(Core.StorageRules.Unloading);
-        if (__0 != null && Core.FurnaceRules.Machine(__0.strCODef))
+        __state = null;
+        if (__0 == null) return true;
+        var kind = PowerKinds.Classify(__0.strCODef);
+        if (kind == PowerKind.None) return true;
+        using var measurement = Phobos.Ostranauts.Framework.Diagnostics.Performance.Measure(PerformanceMetrics.PowerHook);
+        var state = __state = new PowerState { Kind = kind };
+        switch (kind)
         {
-            try { return FurnaceService.BeginPower(__instance, __0, ref __1, out __state.Furnace); }
-            catch (Exception ex) { FurnaceService.Fault(__0, ex); return false; }
+            case PowerKind.Furnace:
+                try { return FurnaceService.BeginPower(__instance, __0, ref __1, out state.Furnace); }
+                catch (Exception ex) { FurnaceService.Fault(__0, ex); return false; }
+            case PowerKind.Thaw:
+                try { return ThawService.BeginPower(__instance, __0, ref __1, out state.Thaw); }
+                catch (Exception ex) { ThawService.Fault(__0, ex); return false; }
+            case PowerKind.Grabber:
+                state.Working = __0.HasCond(Core.IntakeRules.Working);
+                try { return ReclamationService.BeginPower(__instance,__0,ref __1,out state.Cutter,out state.Cutting); }
+                catch(Exception ex) { ReclamationService.Fault(__0,ex); return false; }
         }
-        if (__0 != null && Core.ThawRules.IsFamily(__0.strCODef))
+        state.Working = kind == PowerKind.Collector ? __0.HasCond(Core.CollectorRules.Working) : __0.HasCond(Core.ProcessRules.Working);
+        state.Feeding = kind == PowerKind.Reclaimer && __0.HasCond(Core.RoutingRules.Feeding);
+        state.Unloading = ProcessingService.IsInstalledProcessor(__0) && __0.HasCond(Core.StorageRules.Unloading);
+        if (state.Feeding || state.Unloading)
         {
-            try { return ThawService.BeginPower(__instance, __0, ref __1, out __state.Thaw); }
-            catch (Exception ex) { ThawService.Fault(__0, ex); return false; }
-        }
-        if (__0 != null && ProcessingService.IsGrabber(__0))
-        {
-            try { return ReclamationService.BeginPower(__instance,__0,ref __1,out __state.Cutter,out __state.Cutting); }
-            catch(Exception ex) { ReclamationService.Fault(__0,ex); return false; }
-        }
-        if (__state.Feeding || __state.Unloading)
-        {
-            bool reclaimer = ProcessingService.IsReclaimer(__0!);
+            bool reclaimer = kind == PowerKind.Reclaimer;
             double work = reclaimer ? Plugin.Options.ReclaimerKW : Plugin.Options.WorkingKW, idle = reclaimer ? Core.ReclaimerRules.IdleKW : Plugin.Options.IdleKW;
-            __1 *= Core.RoutingRules.DemandKW(__state.Working, __state.Feeding, __state.Unloading, work, idle, Plugin.Options.FeederKW) / (__state.Working ? work : idle);
+            __1 *= Core.RoutingRules.DemandKW(state.Working, state.Feeding, state.Unloading, work, idle, Plugin.Options.FeederKW) / (state.Working ? work : idle);
         }
-        return __0 == null || ReclaimerHeat.Begin(__instance, __0, __1, out __state.Heat);
+        return kind != PowerKind.Reclaimer || ReclaimerHeat.Begin(__instance, __0, __1, out state.Heat);
     }
-    private static void Postfix(Powered __instance, CondOwner __0, PowerState __state)
+    private static void Postfix(Powered __instance, CondOwner __0, PowerState? __state)
     {
-        if (__0 == null) return;
+        if (__state == null || __0 == null) return;
+        using var measurement = Phobos.Ostranauts.Framework.Diagnostics.Performance.Measure(PerformanceMetrics.PowerHook);
         if (__state.Cutting)
         {
             try { ReclamationService.FinishPower(__instance,__0,__state.Cutter); }
@@ -110,48 +115,52 @@ internal static class PowerPatch
             finally { __state.Finished=true; }
             return;
         }
-        if (Core.ThawRules.IsFamily(__0.strCODef))
+        if (__state.Kind == PowerKind.Thaw)
         {
             try { ThawService.FinishPower(__instance, __0, __state.Thaw); ThawService.AfterPower(__0, __0.HasCond(Core.ProcessRules.Working), __state.Thaw?.WorkSeconds); }
             catch (Exception ex) { ThawService.Fault(__0, ex); }
             finally { __state.Finished = true; }
             return;
         }
-        if (Core.FurnaceRules.Machine(__0.strCODef))
+        if (__state.Kind == PowerKind.Furnace)
         {
             try { FurnaceService.FinishPower(__instance, __0, __state.Furnace); }
             catch (Exception ex) { FurnaceService.Fault(__0, ex); }
             finally { __state.Finished = true; }
             return;
         }
-        try { ReclaimerHeat.Finish(__instance, __0, __state.Heat); }
-        catch (Exception ex) { Plugin.Service.Fault(__0, ex); Plugin.Collectors.Fault(__0, ex); return; }
-        finally { __state.Finished = true; }
-        if (Core.CollectorRules.IsFamily(__0.strCODef)) Plugin.Collectors.AfterPower(__0, __state.Working);
-        else if (ProcessingService.IsGrabber(__0)) Plugin.Service.AfterIntakePower(__0, __state.Working);
+        if (__state.Kind == PowerKind.Reclaimer)
+        {
+            try { ReclaimerHeat.Finish(__instance, __0, __state.Heat); }
+            catch (Exception ex) { Plugin.Service.Fault(__0, ex); Plugin.Collectors.Fault(__0, ex); __state.Finished = true; return; }
+        }
+        __state.Finished = true;
+        if (__state.Kind == PowerKind.Collector) Plugin.Collectors.AfterPower(__0, __state.Working);
+        else if (__state.Kind == PowerKind.Grabber) Plugin.Service.AfterIntakePower(__0, __state.Working);
         else
         {
             Plugin.Service.AfterPower(__0, __state.Working, __state.Heat?.WorkSeconds);
-            if (ProcessingService.IsReclaimer(__0)) Plugin.Collectors.AfterPower(__0, __state.Feeding, __state.Heat?.WorkSeconds);
+            if (__state.Kind == PowerKind.Reclaimer) Plugin.Collectors.AfterPower(__0, __state.Feeding, __state.Heat?.WorkSeconds);
             if (ProcessingService.IsInstalledProcessor(__0)) Plugin.Storage.AfterPower(__0, __state.Unloading, __state.Heat?.WorkSeconds);
         }
     }
     private static void Finalizer(Powered __instance, CondOwner __0, PowerState? __state)
     {
+        if (__state == null || __0 == null) return;
         // An exceptional native call can already have debited electricity. Account
         // its witnessed partial delivery once before discarding the session receipt.
         try
         {
-            if (__state != null && !__state.Finished && __0 != null)
+            if (!__state.Finished)
             {
-                if (Core.FurnaceRules.Machine(__0.strCODef))
+                if (__state.Kind == PowerKind.Furnace)
                 { FurnaceService.FinishPower(__instance, __0, __state.Furnace); FurnaceService.Get(__0).State.Batch.Armed = false; }
                 else if (__state.Cutting) { ReclamationService.FinishPower(__instance,__0,__state.Cutter); ReclamationService.Fault(__0,new InvalidOperationException("Interrupted cutter power delivery.")); }
-                else if (Core.ThawRules.IsFamily(__0.strCODef)) ThawService.FinishPower(__instance, __0, __state.Thaw);
-                else ReclaimerHeat.Finish(__instance, __0, __state.Heat);
+                else if (__state.Kind == PowerKind.Thaw) ThawService.FinishPower(__instance, __0, __state.Thaw);
+                else if (__state.Kind == PowerKind.Reclaimer) ReclaimerHeat.Finish(__instance, __0, __state.Heat);
             }
         }
-        catch (Exception ex) { if (__0 != null && Core.FurnaceRules.Machine(__0.strCODef)) FurnaceService.Fault(__0, ex); else Plugin.Log(ex.Message); }
+        catch (Exception ex) { if (__state.Kind == PowerKind.Furnace) FurnaceService.Fault(__0, ex); else Plugin.Log(ex.Message); }
         finally { ReclaimerHeat.Forget(__instance); ThawService.Forget(__instance); }
     }
 }
@@ -164,32 +173,30 @@ internal static class PowerDemandPatch
     {
         var machine = __instance.CO;
         if (machine == null) return;
-        if (Core.CollectorRules.IsFamily(machine.strCODef))
+        var kind = PowerKinds.Classify(machine.strCODef);
+        switch (kind)
         {
-            try { Plugin.Collectors.BeforePower(machine); }
-            catch (Exception ex) { Plugin.Collectors.Fault(machine, ex); }
-            return;
+            case PowerKind.None: case PowerKind.Furnace: return;
+            case PowerKind.Collector:
+                try { Plugin.Collectors.BeforePower(machine); }
+                catch (Exception ex) { Plugin.Collectors.Fault(machine, ex); }
+                return;
+            case PowerKind.Grabber:
+                try { if (!ReclamationService.PreparePower(machine)) Plugin.Service.BeforeIntakePower(machine); }
+                catch (Exception ex) { Plugin.Service.IntakeFault(machine, ex); }
+                return;
+            case PowerKind.Thaw:
+                try { ThawService.BeforePower(machine); }
+                catch (Exception ex) { ThawService.Fault(machine, ex); }
+                return;
         }
-        if (ProcessingService.IsGrabber(machine))
-        {
-            try { if (!ReclamationService.PreparePower(machine)) Plugin.Service.BeforeIntakePower(machine); }
-            catch (Exception ex) { Plugin.Service.IntakeFault(machine, ex); }
-            return;
-        }
-        if (Core.ThawRules.IsFamily(machine.strCODef))
-        {
-            try { ThawService.BeforePower(machine); }
-            catch (Exception ex) { ThawService.Fault(machine, ex); }
-            return;
-        }
-        if (!ProcessingService.IsProcessor(machine.strCODef)) return;
         try
         {
             Plugin.Service.BeforePower(machine);
-            if (ProcessingService.IsReclaimer(machine)) Plugin.Collectors.BeforePower(machine);
+            if (kind == PowerKind.Reclaimer) Plugin.Collectors.BeforePower(machine);
         }
         catch (Exception ex)
-        { Plugin.Service.Fault(machine, ex); if (ProcessingService.IsReclaimer(machine)) Plugin.Collectors.Fault(machine, ex); }
+        { Plugin.Service.Fault(machine, ex); if (kind == PowerKind.Reclaimer) Plugin.Collectors.Fault(machine, ex); }
         // Storage unloading has its own permission and fault state; it never stops processing.
         if (!ProcessingService.IsInstalledProcessor(machine)) return;
         try { Plugin.Storage.BeforePower(machine); }

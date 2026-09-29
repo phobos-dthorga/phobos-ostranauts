@@ -234,6 +234,21 @@ in unscoped hooks.
 Trade-offs taken (owner-accepted): a pipe or tank change is seen within two real
 seconds; log verbosity for settled draws. No saved format changed.
 
+### Stage 3: Shipbreaker 0.41.0 (FF3, FF4, FF5)
+
+| Finding | Evidence | Decision |
+|---|---|---|
+| S-A `Powered.UsePower`/`Run` hooks | A state object, about 35 string compares and five weak-table removals per call for every powered object in the world | `PowerKinds.Classify` remembers each definition's kind; a foreign appliance costs one probe and no state; the finalizer keeps accounting witnessed partial delivery for our machines |
+| S-B furnace scan and saves | Every quarter second a query over every world object; every furnace-family object saved about four times per power step, coolant charge included; artwork paths rebuilt per pass | Discovery every two real seconds plus the mode-switch hook; passive physics every quarter second as before (P3); `Flush` on a two-second cadence, on faults and at the save boundary with changed-only writes; artwork paths built once per appearance |
+| S-C coolant route | Nine to eleven route searches per furnace power step, each with two ship scans and one more search per other endpoint | One route per furnace and endpoint per step through `FluidRouteCache`; second-source rule by component membership; one ship scan per step to list other endpoints |
+| S-D routing double validation | `AfterPower` re-ran the whole admission it had just passed | A true admission holds for its step, guarded by the item and clock still being present; a false verdict is always recomputed |
+| S-E, S-F, S-G console, reclamation, hooks | Every card's detail built each refresh; target parts resolved by scanning the target ship; name searches on every native offer | Lazy card detail (P2 pattern); id lookups; our-object test first |
+
+Deferred: status strings for active routes still format per step (one call each), and
+`CollectorRoute.Valid` still walks its route tiles per admission. Trade-offs: up to
+two real seconds of furnace record progress on a crash; conduit changes seen within
+two seconds.
+
 ## 28 September: construction and maintenance follow-up
 
 R10 — Section assembly uses native work scheduling, hauling and saved lots. There

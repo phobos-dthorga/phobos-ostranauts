@@ -23,6 +23,8 @@ internal sealed class StorageService
         internal CollectorRoute? Route;
         internal double Last;
         internal string Status = Text.Get("Storage.paused");
+        // A true admission holds for the rest of its step (native power in between changes no item or store).
+        internal long AdmittedStep = long.MinValue;
     }
     private ConditionalWeakTable<CondOwner, Session> sessions = new();
     private readonly Action<string> log;
@@ -124,6 +126,13 @@ internal sealed class StorageService
         return sessions.TryGetValue(machine, out var s) && s.Armed && Admit(machine, s);
     }
     private bool Admit(CondOwner machine, Session s)
+    {
+        if (s.AdmittedStep == Phobos.Ostranauts.Framework.Processing.NativeSteps.Frame && s.Armed && s.Item != null && s.Clock != null) return true;
+        bool verdict = AdmitNow(machine, s);
+        if (verdict) s.AdmittedStep = Phobos.Ostranauts.Framework.Processing.NativeSteps.Frame;
+        return verdict;
+    }
+    private bool AdmitNow(CondOwner machine, Session s)
     {
         SetUnloading(machine, false);
         CondOwner? store = null;

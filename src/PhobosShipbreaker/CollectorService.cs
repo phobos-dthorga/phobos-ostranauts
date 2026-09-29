@@ -19,6 +19,8 @@ internal sealed partial class CollectorService
         internal double Last;
         internal string PairId = "";
         internal string FilterSignature = "";
+        // A true admission holds for the rest of its step (native power in between changes no item or route).
+        internal long AdmittedStep = long.MinValue;
         internal string Status = Text.Get("CollectorService.paused_link_endpoints_if_needed_then_press");
     }
     private ConditionalWeakTable<CondOwner, Session> sessions = new ConditionalWeakTable<CondOwner, Session>();
@@ -123,6 +125,13 @@ internal sealed partial class CollectorService
     internal void Interrupt(CondOwner port, string status) { if (sessions.TryGetValue(port, out var s) && s.Armed) ClearTransfer(port, status); }
     internal void CancelPending(CondOwner port, string status) => ClearTransfer(port, status);
     internal bool BeforePower(CondOwner port)
+    {
+        if (sessions.TryGetValue(port, out var admitted) && admitted.Armed && admitted.AdmittedStep == Phobos.Ostranauts.Framework.Processing.NativeSteps.Frame && admitted.Item != null && admitted.Clock != null) return true;
+        bool verdict = BeforePowerNow(port);
+        if (verdict && sessions.TryGetValue(port, out var s)) s.AdmittedStep = Phobos.Ostranauts.Framework.Processing.NativeSteps.Frame;
+        return verdict;
+    }
+    private bool BeforePowerNow(CondOwner port)
     {
         using var measurement = Phobos.Ostranauts.Framework.Diagnostics.Performance.Measure(PerformanceMetrics.RouteCheck);
         SetWorking(port, false);

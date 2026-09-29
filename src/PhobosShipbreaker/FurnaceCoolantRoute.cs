@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Phobos.Ostranauts.Framework.Liquids;
 using Phobos.Ostranauts.Framework.Persistence;
+using Phobos.Ostranauts.Framework.Processing;
 using PhobosShipbreaker.Core;
 using UnityEngine;
 
@@ -28,27 +29,41 @@ internal static partial class FurnaceService
         var rotated = IntakeRules.Rotate(offset.X, offset.Y, co.tf.eulerAngles.z);
         return new Vector2((float)(p.x + rotated.X), (float)(p.y + rotated.Y));
     }
+    private static readonly FluidSegmentFamily CoolantConduits = new("PhobosShipbreaker.Coolant", c => c.strCODef == FurnaceCooling.Conduit + "Installed");
     private static int[]? PipePath(CondOwner furnace, string side, CondOwner endpoint, string endpointSide = "") =>
-        NativeFluidRoute.Find(furnace, CoolantPoint(furnace, side), endpoint, CoolantPoint(endpoint, endpointSide),
-            c => c.strCODef == FurnaceCooling.Conduit + "Installed", allowLockedEndpoints: true, allowDamagedEndpoints: true);
-
+        FluidRouteCache.Find(furnace, CoolantPoint(furnace, side), endpoint, CoolantPoint(endpoint, endpointSide), CoolantConduits,
+            allowLockedEndpoints: true, allowDamagedEndpoints: true);
+    // Advance, admission, settlement and the collector checks ask for the same route several times in one power
+    // step; one answer per furnace and endpoint per step.
+    private static readonly StepMemo<(CondOwner, CondOwner), int> routes = new();
     private static bool CoolantRoute(CondOwner furnace, CondOwner endpoint, out int cells)
     {
-        cells = 0;
-        if (FurnaceRules.Underside(endpoint.strCODef) || !CoolingMounted(endpoint)) return false;
+        long step = NativeSteps.Frame;
+        if (!routes.TryGet(step, (furnace, endpoint), out cells)) { cells = CoolantRouteNow(furnace, endpoint); routes.Set(step, (furnace, endpoint), cells); }
+        return cells > 0;
+    }
+    private static int CoolantRouteNow(CondOwner furnace, CondOwner endpoint)
+    {
+        using var measurement = Phobos.Ostranauts.Framework.Diagnostics.Performance.Measure(PerformanceMetrics.FurnaceRoute);
+        if (FurnaceRules.Underside(endpoint.strCODef) || !CoolingMounted(endpoint)) return 0;
         string side = Get(furnace).CoolingMode;
         var path = PipePath(furnace, side, endpoint);
-        if (path == null || path.Length > FurnaceCooling.RouteLimit) return false;
+        if (path == null || path.Length > FurnaceCooling.RouteLimit) return 0;
         // A shared circuit cannot multiply pumping or radiator capacity. Include even
         // damaged/idle endpoints; no unpaired machine may silently share this loop.
+        var outlet = CoolantPoint(furnace, side);
         foreach (var other in furnace.ship.GetCOs(null, false, false, true))
         {
-            if (other == furnace || other == endpoint || !IsEquipment(other) || FurnaceRules.Underside(other.strCODef) ||
+            if (other == furnace || other == endpoint || !IsEquipmentDefinition(other.strCODef) || FurnaceRules.Underside(other.strCODef) ||
                 other.ship != furnace.ship || !NativeFluidRoute.EndpointReady(other, true, true)) continue;
-            foreach (string port in FurnaceRules.Machine(other.strCODef) ? new[] { "left", "right" } : new[] { "" })
-                if (PipePath(furnace, side, other, port) != null) return false;
+            if (FurnaceRules.Machine(other.strCODef))
+            {
+                if (FluidRouteCache.SharesCircuit(furnace, outlet, other, CoolantPoint(other, "left"), CoolantConduits, allowLockedEndpoints: true, allowDamagedEndpoints: true) ||
+                    FluidRouteCache.SharesCircuit(furnace, outlet, other, CoolantPoint(other, "right"), CoolantConduits, allowLockedEndpoints: true, allowDamagedEndpoints: true)) return 0;
+            }
+            else if (FluidRouteCache.SharesCircuit(furnace, outlet, other, CoolantPoint(other, ""), CoolantConduits, allowLockedEndpoints: true, allowDamagedEndpoints: true)) return 0;
         }
-        cells = path.Length; return true;
+        return path.Length;
     }
     private static bool SetCoolingMode(CondOwner furnace, string mode, out string message)
     {

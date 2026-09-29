@@ -154,11 +154,12 @@ internal static class SiloMaintenanceFinish
 {
     internal static string? Reason(string action, CondOwner? us, CondOwner? them)
     {
+        // This runs for every offer and completion in the game: a silo is recognised before any name search.
+        var silo = us != null && SiloRules.IsFamily(us.strCODef) ? us : them != null && SiloRules.IsFamily(them.strCODef) ? them : null;
+        if (silo == null || action == null) return null;
         bool dismantle = action.IndexOf("Dismantle", StringComparison.OrdinalIgnoreCase) >= 0;
         bool removal = dismantle || action.IndexOf("Uninstall", StringComparison.OrdinalIgnoreCase) >= 0;
-        if (!removal) return null;
-        var silo = new[] { us, them }.FirstOrDefault(c => c != null && SiloRules.IsFamily(c.strCODef));
-        return silo == null ? null : SiloService.MaintenanceReason(silo, dismantle);
+        return removal ? SiloService.MaintenanceReason(silo, dismantle) : null;
     }
     private static bool Prefix(Interaction __instance)
     {

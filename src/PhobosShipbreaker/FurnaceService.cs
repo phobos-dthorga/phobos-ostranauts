@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using HarmonyLib;
+using Phobos.Ostranauts.Framework;
 using Phobos.Ostranauts.Framework.Controls;
 using Phobos.Ostranauts.Framework.Inventory;
 using Phobos.Ostranauts.Framework.Persistence;
@@ -31,13 +32,35 @@ internal static partial class FurnaceService
         internal bool RepeatProtected, RepeatAuthorized;
         internal string RepeatNotice = "";
         internal double RepeatRetry;
+        // Records settle every couple of real seconds and before every native save, not on every advance.
+        internal bool Dirty;
+        internal readonly Cadence Settle = new(SettleSeconds);
     }
     internal sealed class PowerTransfer
     { internal Session Session = null!, Cooling = null!; internal EnergyReceipt Receipt = null!; internal double Seconds, MotorKJ; internal bool Routed, Finished; internal object? MaterialToken; }
+    internal const double SettleSeconds = 2, DiscoverySeconds = 2;
     private static readonly Dictionary<string, Session> sessions = new(StringComparer.Ordinal);
     private static float nextScan;
-    internal static bool IsEquipment(CondOwner? co) => co != null && (FurnaceRules.Machine(co.strCODef) || FurnaceRules.Cooling(co.strCODef));
-    internal static void Reset() { sessions.Clear(); nextScan = 0; }
+    // Furnace-family objects anywhere in the loaded world, reread every couple of real seconds and on a mode switch;
+    // passive physics still advances every quarter second for each of them (audit P3).
+    private static readonly List<CondOwner> tracked = new();
+    private static readonly Cadence discovery = new(DiscoverySeconds);
+    private static readonly Dictionary<string, bool> equipmentDefinitions = new(StringComparer.Ordinal);
+    internal static bool IsEquipment(CondOwner? co) => co != null && IsEquipmentDefinition(co.strCODef);
+    internal static bool IsEquipmentDefinition(string? id)
+    {
+        if (id == null) return false;
+        if (!equipmentDefinitions.TryGetValue(id, out bool yes))
+        {
+            yes = FurnaceRules.Machine(id) || FurnaceRules.Cooling(id);
+            if (equipmentDefinitions.Count < 65536) equipmentDefinitions[id] = yes;
+        }
+        return yes;
+    }
+    static FurnaceService() { SaveBoundary.BeforeShipSave += FlushAll; }
+    internal static void Reset() { sessions.Clear(); nextScan = 0; tracked.Clear(); discovery.Invalidate(); }
+    /// <summary>A replacement object (damage, repair, installation) joins the tracked set at once.</summary>
+    internal static void Track(CondOwner? co) { if (co != null && !co.bDestroyed && IsEquipment(co) && !tracked.Contains(co)) tracked.Add(co); }
     internal static CondOwner? Feed(CondOwner co) => co.compSlots?.GetCOs(FurnaceRules.Slot, true, null)?.FirstOrDefault(c => c != null && c.strCODef == FurnaceRules.Feed);
     private static MaterialPort Port(CondOwner co) => new(co.strID, "PhobosFurnace.Cooling", co.mapGUIPropMaps);
     internal static Session Get(CondOwner co)
@@ -66,12 +89,29 @@ internal static partial class FurnaceService
         sessions[co.strID] = s;
         return s;
     }
+    /// <summary>Marks the session's records for settlement; they are written on the session's real-time cadence,
+    /// on a fault, and before every native save. Between settlements a crash loses at most that interval.</summary>
     private static void Save(Session s)
     {
         if (s.Protected) return;
+        s.Dirty = true;
+        if (s.Settle.Due()) Flush(s);
+    }
+    /// <summary>Writes a dirty session now; a record that already holds these values is left untouched.</summary>
+    internal static void Flush(Session s)
+    {
+        if (s.Protected || !s.Dirty) return;
+        s.Dirty = false;
+        Phobos.Ostranauts.Framework.Diagnostics.Performance.Increment(PerformanceMetrics.FurnaceSaves);
         SaveCharge(s);
         var fields = FurnaceRules.Cooling(s.Object.strCODef) ? FurnaceCooling.Save(s.SinkKJ) : s.State.Save();
-        if (!s.Store.TryWrite(fields)) { s.Protected = true; s.State.Batch.Armed = false; s.Notice = Text.Get("Furnace.protected"); }
+        if (!s.Store.TryWriteIfChanged(fields)) { s.Protected = true; s.State.Batch.Armed = false; s.Notice = Text.Get("Furnace.protected"); }
+    }
+    private static void FlushAll(Ship? ship)
+    {
+        foreach (var s in sessions.Values)
+            if (s.Dirty && s.Object != null && !s.Object.bDestroyed && (ship == null || s.Object.ship == ship))
+            { try { Flush(s); } catch (Exception ex) { Plugin.Log(ex.ToString()); } }
     }
     /// <summary>The recipe the furnace is set to (bound while a batch is in progress).</summary>
     internal static FurnaceRecipe Recipe(Session s) => FurnaceRecipes.ByRevision(s.State.Recipe) ?? FurnaceRecipes.Housing;
@@ -165,10 +205,18 @@ internal static partial class FurnaceService
         if (CrewSim.objInstance?.FinishedLoading != true || !Content.Ready || Time.unscaledTime < nextScan) return;
         nextScan = Time.unscaledTime + .25f;
         using var measurement = Phobos.Ostranauts.Framework.Diagnostics.Performance.Measure(PerformanceMetrics.Furnace);
-        Phobos.Ostranauts.Framework.Diagnostics.Performance.Increment(PerformanceMetrics.FurnaceCandidates, DataHandler.mapCOs.Count);
-        foreach (var co in DataHandler.mapCOs.Values.Where(IsEquipment).ToArray())
+        if (discovery.Due())
         {
-            if (co.bDestroyed || co.ship == null || (int)co.ship.LoadState < 2) continue;
+            Phobos.Ostranauts.Framework.Diagnostics.Performance.Increment(PerformanceMetrics.FurnaceCandidates, DataHandler.mapCOs.Count);
+            tracked.Clear();
+            foreach (var co in DataHandler.mapCOs.Values) if (co != null && !co.bDestroyed && IsEquipmentDefinition(co.strCODef)) tracked.Add(co);
+            foreach (var id in sessions.Where(p => p.Value.Object == null || p.Value.Object.bDestroyed).Select(p => p.Key).ToArray()) sessions.Remove(id);
+        }
+        for (int i = tracked.Count - 1; i >= 0; i--)
+        {
+            var co = tracked[i];
+            if (co.bDestroyed) { tracked.RemoveAt(i); continue; }
+            if (co.ship == null || (int)co.ship.LoadState < 2) continue;
             try { var s = Get(co); Advance(s); RepeatStep(s); } catch (Exception ex) { Fault(co, ex); }
             FurnaceConnectionView.Refresh(co);
         }
@@ -272,6 +320,7 @@ internal static partial class FurnaceService
     {
         Plugin.Collectors.Interrupt(co, Text.Get("Routing.furnace_interlock"));
         var s = Get(co); s.State.Batch.Armed = false; s.Notice = Text.Get("Furnace.fault_player"); Save(s);
+        try { Flush(s); } catch (Exception flush) { Plugin.Log(flush.ToString()); }
         SuspendRepeat(s, s.Notice, true);
         if (s.State.NativeMutation || s.State.Batch.Phase == FurnacePhase.Delivering) s.Protected = true;
         Plugin.Log(Text.Get("Furnace.fault", ex.Message));
@@ -290,6 +339,12 @@ internal static partial class FurnaceService
     }
 }
 
+// A damage, repair or installation replacement is tracked at once rather than at the next discovery pass.
+[HarmonyPatch(typeof(CondOwner), nameof(CondOwner.ModeSwitch))]
+internal static class FurnaceTrackPatch
+{
+    private static void Postfix(CondOwner coNew) => FurnaceService.Track(coNew);
+}
 [HarmonyPatch(typeof(Ship), nameof(Ship.Maneuver))]
 internal static class FurnaceManeuverPriority
 {

@@ -8,9 +8,13 @@ namespace PhobosShipbreaker;
 
 internal sealed class EquipmentCard
 {
-    internal string Id = "", Name = "", Group = "", Detail = "", Summary = "", InstrumentStatus = "", SearchScope = "";
+    internal string Id = "", Name = "", Group = "", Summary = "", InstrumentStatus = "", SearchScope = "";
     internal EquipmentState State;
     internal bool Attention, Instrument;
+    // The console lists every card but shows one detail; a card's detail text is built when it is read (audit P2).
+    private string? detail;
+    internal Func<string>? DetailSource;
+    internal string Detail { get => detail ??= DetailSource?.Invoke() ?? ""; set => detail = value; }
 }
 
 /// <summary>One command boundary for local panels, central console and F3. No ambient remote bypass.</summary>
@@ -38,30 +42,36 @@ internal static class IndustryService
             var receiving = FurnaceRules.Machine(co.strCODef) ? Plugin.Collectors.ActiveReceiving(co) : null;
             return new EquipmentCard { Id = co.strID, Name = ObjectPresentation.Name(co),
                 Group = IndustrialRules.Group(co.strCODef), State = s.State.Batch.Armed ? EquipmentState.Running : receiving?.State ?? EquipmentState.Paused,
-                Attention = s.Protected || s.Notice.Length > 0 || receiving?.NeedsAttention == true, Summary = s.Notice, Detail = FurnaceService.Describe(co) };
+                Attention = s.Protected || s.Notice.Length > 0 || receiving?.NeedsAttention == true, Summary = s.Notice, DetailSource = () => FurnaceService.Describe(co) };
         }
         var group = IndustrialRules.Group(co.strCODef);
         var process = ProcessingService.IsProcessor(co.strCODef) ? Plugin.Service.Activity(co) :
             group == "collector" ? Plugin.Collectors.Activity(co) : intake ?? Plugin.Service.IntakeActivity(co);
         bool attention = process.NeedsAttention;
-        string detail = process.Detail;
-        if (group == "reclaimer")
+        EquipmentActivity? reclaimerReceiving = null;
+        if (group == "reclaimer") { var activity = Plugin.Collectors.Activity(co); reclaimerReceiving = activity; attention |= activity.NeedsAttention; }
+        if (StorageService.Supported(co)) attention |= Plugin.Storage.NeedsAttention(co);
+        string Detail()
         {
-            var receiving = Plugin.Collectors.Activity(co); attention |= receiving.NeedsAttention;
-            detail += "\n\n" + Text.Get("Industry.receiving") + ": " + StateName(receiving.State) + "\n" + receiving.Detail;
-            detail += "\n\n" + IndustryObservations.ProbeDetails(co);
+            string detail = process.Detail;
+            if (reclaimerReceiving.HasValue)
+            {
+                detail += "\n\n" + Text.Get("Industry.receiving") + ": " + StateName(reclaimerReceiving.Value.State) + "\n" + reclaimerReceiving.Value.Detail;
+                detail += "\n\n" + IndustryObservations.ProbeDetails(co);
+            }
+            if (group == "fixture") detail += "\n\n" + (intake?.Detail ?? Plugin.Service.DescribeIntake(co));
+            if (group == "grabber") detail += "\n\n" + CaptureService.Describe(co) + "\n\n" + ReclamationService.Describe(co);
+            double demand = group == "fixture" ? Plugin.Options.WorkingKW : group == "reclaimer" ? Plugin.Options.ReclaimerKW : group == "collector" ? Plugin.Options.CollectorKW : group == "grabber" ? IntakeRules.WorkingKW : 0;
+            if (demand > 0) detail += "\n\n" + Text.Get("Industry.demand", demand) + (group == "reclaimer" ? Text.Get("Industry.feed_demand", Plugin.Options.FeederKW) : "");
+            if (co.objContainer != null) detail += "\n" + Text.Get("Industry.stored", co.objContainer.ContainedCOs.Count, co.objContainer.ContainedCOs.Sum(c => c.GetTotalMass()));
+            if (ProcessingService.IsReclaimer(co)) detail += "\n\n" + Text.Get("Routing.metals_port") + "\n" + CollectorService.DescribeLink(co, true, true);
+            if (RoutingRules.IsSender(co.strCODef)) detail += "\n\n" + CollectorService.DescribeLink(co, true);
+            if (StorageService.Supported(co)) detail += "\n\n" + Plugin.Storage.Describe(co);
+            if (RoutingRules.IsReceiver(co.strCODef)) detail += "\n\n" + CollectorService.DescribeLink(co, false) + "\n" + CollectorService.FilterLabel(co);
+            return detail + IndustryObservations.ExplainStop(co);
         }
-        if (group == "fixture") detail += "\n\n" + (intake?.Detail ?? Plugin.Service.DescribeIntake(co));
-        if (group == "grabber") detail += "\n\n" + CaptureService.Describe(co) + "\n\n" + ReclamationService.Describe(co);
-        double demand = group == "fixture" ? Plugin.Options.WorkingKW : group == "reclaimer" ? Plugin.Options.ReclaimerKW : group == "collector" ? Plugin.Options.CollectorKW : group == "grabber" ? IntakeRules.WorkingKW : 0;
-        if (demand > 0) detail += "\n\n" + Text.Get("Industry.demand", demand) + (group == "reclaimer" ? Text.Get("Industry.feed_demand", Plugin.Options.FeederKW) : "");
-        if (co.objContainer != null) detail += "\n" + Text.Get("Industry.stored", co.objContainer.ContainedCOs.Count, co.objContainer.ContainedCOs.Sum(c => c.GetTotalMass()));
-        if (ProcessingService.IsReclaimer(co)) detail += "\n\n" + Text.Get("Routing.metals_port") + "\n" + CollectorService.DescribeLink(co, true, true);
-        if (RoutingRules.IsSender(co.strCODef)) detail += "\n\n" + CollectorService.DescribeLink(co, true);
-        if (StorageService.Supported(co)) { detail += "\n\n" + Plugin.Storage.Describe(co); attention |= Plugin.Storage.NeedsAttention(co); }
-        if (RoutingRules.IsReceiver(co.strCODef)) detail += "\n\n" + CollectorService.DescribeLink(co, false) + "\n" + CollectorService.FilterLabel(co);
         return new EquipmentCard { Id = co.strID, Name = ObjectPresentation.Name(co),
-            Group = group, State = process.State, Attention = attention, Summary = FirstLine(process.Detail), Detail = detail + IndustryObservations.ExplainStop(co) };
+            Group = group, State = process.State, Attention = attention, Summary = FirstLine(process.Detail), DetailSource = Detail };
     }
     // Presentation only. Gameplay decisions use EquipmentState and the checked services.
     private static string FirstLine(string detail) => detail.Split(new[]{'\r','\n'},StringSplitOptions.RemoveEmptyEntries).FirstOrDefault()??"";
