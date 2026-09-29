@@ -263,6 +263,25 @@ Deferred: idle machines still take their idle receipt through `RoomHeat` each st
 (the idle heat share is part of the accounting). Trade-offs: gas-line changes seen
 within two seconds; missing links rechecked every five real seconds.
 
+### Stage 5: Auto Nav 0.28.0 (FF5, FF6)
+
+| Finding | Evidence | Decision |
+|---|---|---|
+| N-A foreign-controller reflection | `AutoDockBusy` resolved an assembly-qualified type on every call (guard and tick, once per frame while flying); the Approach Assist check resolved a type and two properties on every admission check and panel read | Both resolved once per session; live values still read per call (`autonav.foreign_controller.check`) |
+| N-B contact reads per step | The guard read every ship in the system, the previous threats again, then the target again in the tick, fire control per weapon and the hazard sweep per rock; each read walks every celestial body for occlusion and builds a native signature | `NativeContactReader` keeps one reading per (observer, target) for the open step through `StepMemo`; the service opens and closes the step at the physics boundary; Auto Nav's own sensor switches invalidate; reads outside a step are fresh (counter `autonav.contact.reads`) |
+| N-C repeated verdicts | `HardwareProblem` (five conditions, tow check, RCS reserve), `FlightBindingValid` (a module search) and `GetRCSRemain` ran two to four times per step | `NavigationStep`: one verdict per step for the same console, flight record and ship |
+| N-D docked partners | `TowFlight.Contains`/`RadiusAU` asked the game for the docked-partner dictionary per other ship and per obstacle | One partner list and envelope radius per ship per step |
+| N-E record writes | `PersistProgress` encoded and rewrote the saved map every step | Settles every 2 s real, on every mode or engagement change, at commit points and on `SaveBoundary`; `Valid` and the envelope `Status` still checked every step so a corrupt record aborts at once (`autonav.persist.write`) |
+| N-F sweep allocations | Lists, four hash sets, `ToArray` of the ship table and of previous threats, LINQ `Where/ToList/OrderBy` per step; the hazard scan allocated an iterator and a candidate list | Persistent buffers cleared per step; `NativeHazards.Asteroids` fills a caller's list (`autonav.guard.update`, `autonav.hazards.scan`) |
+| N-G native hooks | The weapon hooks copied and filtered the game's list on every `ShootAuto`/aim call with no lease; `Yield` allocated the invocation list on every `Ship.Maneuver` of every ship | Idle early return; handler array rebuilt on subscription |
+| N-H housekeeping | `ReconcileSensors` decoded the flight record every frame while a holder existed (indefinitely with a suspended flight); `TargetRef` looked up its generic name on every construction | 0.5 s real cadence; lazy name |
+
+Deferred: fire control's `Observe` still builds its weapon readings with LINQ each
+step while a fire console is bound (combat only); status strings for active flights
+still format per step. Trade-offs: up to two real seconds of elapsed flight budget on a
+crash (never on a save); contact readings and hardware verdicts shared within one
+physics step; sensor release decided twice a second.
+
 ## 28 September: construction and maintenance follow-up
 
 R10 — Section assembly uses native work scheduling, hauling and saved lots. There

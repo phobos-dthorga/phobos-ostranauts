@@ -49,6 +49,7 @@ internal sealed partial class NavigationService
         ResetExtended(); avoidanceActive = avoidanceBlocked = false;
         industrial = null; industrialNotice = Text.Get("Persistence.loading");
         arrivalWatch.Cancel(); ResetPursuit(); Fire.Reset(); Torch.Reset(); AutoNavCore.ResetStatics(); console = null; savedFlight = null;
+        persistedFlight = null; persistCadence.Invalidate();
         ForgetSensorWork();
         issuing = false; restorePending = false; combinedHandoffPending = false; status = Text.Get("Persistence.loading");
     }
@@ -133,16 +134,48 @@ internal sealed partial class NavigationService
         savedFlight.Matches(console.strID, console.GetCOsSafe(true).FirstOrDefault(item => item.strID == savedFlight.ModuleId &&
             (savedFlight.IsPursuit ? HasId(item, PursuitId) : (HasId(item, ModuleId) || HasId(item, PursuitId))) && !item.HasCond("IsDamaged"))?.strID ?? "", console.ship?.strRegID ?? "", CrewSim.coPlayer?.strID ?? "");
 
-    private void PersistProgress()
+    // 29 September 2026 pass (FF6): the flight record settles on real time. The in-memory snapshot follows every
+    // step; the native map is written every PersistSeconds, on every mode or engagement change, at explicit commit
+    // points, and before every native save (FlushProgress on the Framework save boundary). The snapshot's own
+    // validity and the record's envelope are still checked every step, so a corrupt record aborts at once, as it
+    // did when every step wrote. A crash (never a save) can lose up to PersistSeconds of elapsed budget.
+    internal const double PersistSeconds = 2;
+    private static readonly System.Diagnostics.Stopwatch realClock = System.Diagnostics.Stopwatch.StartNew();
+    /// <summary>Real seconds on a monotonic clock, unaffected by pause and fast-forward; the test suites substitute it.</summary>
+    internal static Func<double> RealClock = () => realClock.Elapsed.TotalSeconds;
+    private readonly Phobos.Ostranauts.Framework.Cadence persistCadence = new(PersistSeconds);
+    private FlightSnapshot? persistedFlight;
+    private SavedFlightMode persistedMode;
+    private bool persistedEngaged;
+    internal int ProgressWrites { get; private set; }
+
+    /// <summary>Framework save boundary: an engaged flight's latest progress reaches the record before the game serialises its ship.</summary>
+    internal void FlushProgress(Ship ship)
+    {
+        if (AutoNavCore.Engaged && console != null && console.ship == ship) PersistProgress(force: true);
+    }
+
+    private void PersistProgress(bool force = false)
     {
         if (combatActive) { if (!AutoNavCore.Engaged) { CeaseFire(); DropCombat(); } return; }
         if (savedFlight == null || console == null || console.bDestroyed || savedFlight.ConsoleId != console.strID) return;
         savedFlight.ElapsedSeconds = AutoNavCore.ElapsedSeconds;
         savedFlight.Coasting = AutoNavCore.Coasting;
         if (!AutoNavCore.Engaged) savedFlight.Mode = AutoNavCore.LastResult == "ARRIVED" ? SavedFlightMode.Arrived : SavedFlightMode.Stopped;
-        if (!savedFlight.Valid || !Store(console).TryWrite(savedFlight.Encode()))
+        bool transition = !ReferenceEquals(persistedFlight, savedFlight) || persistedMode != savedFlight.Mode || persistedEngaged != AutoNavCore.Engaged;
+        var store = Store(console);
+        var envelope = store.Status();
+        bool failed = !savedFlight.Valid || envelope != SavedStateStatus.Ready && envelope != SavedStateStatus.Missing;
+        if (!failed && (force || transition || persistCadence.Due(RealClock())))
+        {
+            using var measurement = Phobos.Ostranauts.Framework.Diagnostics.Performance.Measure(PerformanceMetrics.Persist);
+            failed = !store.TryWriteIfChanged(savedFlight.Encode());
+            if (!failed) { ProgressWrites++; persistedFlight = savedFlight; persistedMode = savedFlight.Mode; persistedEngaged = AutoNavCore.Engaged; }
+        }
+        if (failed)
         {
             // A persistence failure cannot leave unrecorded automation running.
+            persistedFlight = null;
             CeaseFire(); issuing = true;
             try { if (AutoNavCore.Engaged) AutoNavCore.EndFlight(AutoNavCore.EngagedPlayer, "ABORTED"); }
             finally { AutoNavCore.ResetStatics(); issuing = false; }
@@ -167,6 +200,7 @@ internal sealed partial class NavigationService
             if (AutoNavCore.Engaged)
             { savedFlight.ElapsedSeconds = AutoNavCore.ElapsedSeconds; savedFlight.Coasting = AutoNavCore.Coasting; }
             savedFlight.Mode = mode;
+            persistedFlight = null; // The next progress write is a transition, whatever the cadence says.
             return savedFlight.Valid && Store(console).TryWrite(savedFlight.Encode());
         }
         catch (Exception ex)
@@ -233,12 +267,27 @@ internal sealed partial class NavigationService
 
     private static bool OtherControllerBusy()
         => Plugin.Service?.industrial != null || OtherControllerBusyExceptIndustrial();
+    // 29 September 2026 pass (FF6): the retired Approach Assist prototype is looked up once per session (its
+    // type and Service property), not on every panel read and admission check; a controller loaded after
+    // startup was never supported. The live Active value is still read on every call.
+    private static bool foreignControllersResolved;
+    private static System.Reflection.PropertyInfo? approachAssistService, approachAssistActive;
+    private static Type? approachAssistServiceType;
     private static bool OtherControllerBusyExceptIndustrial()
     {
+        using var measurement = Phobos.Ostranauts.Framework.Diagnostics.Performance.Measure(PerformanceMetrics.ForeignController);
         if (Chainloader.PluginInfos.ContainsKey("com.mrkmg.ostranauts.autonavigate") || AutoNavCore.AutoDockBusy()) return true;
-        Type? type = AccessTools.TypeByName("PhobosApproachAssist.Plugin");
-        object? service = type == null ? null : AccessTools.Property(type, "Service")?.GetValue(null);
-        return service != null && (bool)(AccessTools.Property(service.GetType(), "Active")?.GetValue(service) ?? false);
+        if (!foreignControllersResolved)
+        {
+            foreignControllersResolved = true;
+            Type? type = AccessTools.TypeByName("PhobosApproachAssist.Plugin");
+            approachAssistService = type == null ? null : AccessTools.Property(type, "Service");
+        }
+        object? service = approachAssistService?.GetValue(null);
+        if (service == null) return false;
+        if (approachAssistServiceType != service.GetType())
+        { approachAssistServiceType = service.GetType(); approachAssistActive = AccessTools.Property(approachAssistServiceType, "Active"); }
+        return (bool)(approachAssistActive?.GetValue(service) ?? false);
     }
 
     internal bool HasResumableFlight(CondOwner co) => !AutoNavCore.Engaged && DisplaySnapshot(co) != null;

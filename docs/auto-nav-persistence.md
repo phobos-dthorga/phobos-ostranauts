@@ -31,7 +31,10 @@ Save normally during an Auto Nav flight. The console records the target's exact
 ship registration, the console/module/ship/player identities, cruise and arrival
 settings, captured coasting settings, elapsed simulation time and coasting latch.
 Stopped and arrived states also persist. Each save carries its own copy; no
-external sidecar or global last-destination file is used.
+external sidecar or global last-destination file is used. Since Auto Nav 0.28.0
+the record settles every two real seconds, on every state change and before
+every save, so a saved game always carries the latest elapsed budget; a crash,
+never a save, can lose up to two seconds of elapsed flight budget.
 
 After loading completes, an active flight resumes by default if its original
 hardware, player ship, target, power, fuel, throttle, timeout and competing-control

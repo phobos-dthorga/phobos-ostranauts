@@ -25,7 +25,14 @@ internal sealed class TargetRef
 
 	private bool _isFixed;
 
-	public string DisplayName { get; private set; } = Text.Get("Flight.target");
+	// Phobos: the generic name is looked up only when a target has no name of its own, not on every construction.
+	private string _displayName;
+
+	public string DisplayName
+	{
+		get => _displayName ??= Text.Get("Flight.target");
+		private set => _displayName = value;
+	}
 
 	public ShipSitu TargetSitu
 	{

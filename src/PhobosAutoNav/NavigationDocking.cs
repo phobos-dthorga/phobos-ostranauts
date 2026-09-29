@@ -77,7 +77,7 @@ internal sealed partial class NavigationService
         }
         co.ship.UnlockFromOrbit(); co.ship.objSS.ResetNavData(); Torch.Release();
         snapshot.Mode = SavedFlightMode.Docking; nextDockFitCheck = 0;
-        CrewSim.ResetTimeScale(); PersistProgress();
+        CrewSim.ResetTimeScale(); PersistProgress(force: true);
         if (AutoNavCore.Engaged) status = Text.Get("Docking.engaged");
     }
 
@@ -100,9 +100,9 @@ internal sealed partial class NavigationService
             var target = system.GetShipByRegID(flight.TargetId);
             if (target != null && own.IsDockedWith(target))
             { CompleteDocking(true); return; }
-            string? problem = !Plugin.Enabled.Value ? Text.Get("Docking.unavailable") : HardwareProblem(console);
+            string? problem = !Plugin.Enabled.Value ? Text.Get("Docking.unavailable") : HardwareProblemNow(console);
             if (problem == null && console.HasCond("IsDamagedSoftware")) problem = Text.Get("Docking.software");
-            if (problem == null && (!FlightBindingValid() || OtherControllerBusy())) problem = Text.Get("Persistence.binding_changed");
+            if (problem == null && (!FlightBindingValidNow() || OtherControllerBusy())) problem = Text.Get("Persistence.binding_changed");
             if (problem == null && (!ArrivalBrake.Finite(dt) || dt <= 0)) problem = Text.Get("Docking.step");
             if (problem == null && AutoNavCore.ElapsedSeconds >= DockingRules.MaximumSeconds) problem = Text.Get("Docking.timeout");
             // An oversized step (heavy time compression) is held, not a reason to abandon the docking.

@@ -12,11 +12,11 @@ namespace PhobosAutoNav;
 
 [BepInPlugin(Id, "Phobos Auto Nav", Version)]
 [BepInProcess("Ostranauts.exe")]
-[BepInDependency(FrameworkInfo.PluginId, "0.40.0")]
+[BepInDependency(FrameworkInfo.PluginId, "0.45.0")]
 public sealed class Plugin : BaseUnityPlugin
 {
     public const string Id = "phobosgekko.ostranauts.autonav";
-    public const string Version = "0.27.0";
+    public const string Version = "0.28.0";
     internal static NavigationService Service { get; private set; } = null!;
     internal static ConfigEntry<bool> Enabled = null!, VerboseLogging = null!, FuelCheck = null!,
         AbortOnManualThrust = null!, UseThrusterRotation = null!, ResumeAfterLoad = null!, PreferTorch = null!, SalvageEnabled = null!;
@@ -69,6 +69,8 @@ public sealed class Plugin : BaseUnityPlugin
         TorchDriveController.Notify = (ship, key, text) =>
             Phobos.Ostranauts.Framework.Notices.PlayerNotices.Post(ship, key, Phobos.Ostranauts.Framework.Notices.NoticeLevel.Caution, text, text);
         Phobos.Ostranauts.Framework.Sensors.SensorLeases.SwitchedOffByOthers += Service.SensorSwitchedOff;
+        // Flight records settle on a real-time cadence; every native save first receives the latest progress.
+        Phobos.Ostranauts.Framework.Persistence.SaveBoundary.BeforeShipSave += Service.FlushProgress;
         CrewSim.OnGameFinishedLoading.AddListener(Service.WorldLoaded);
         harmony = new Harmony(Id);
         harmony.PatchAll(typeof(Plugin).Assembly);
@@ -86,6 +88,7 @@ public sealed class Plugin : BaseUnityPlugin
     {
         Phobos.Ostranauts.Framework.Crew.CrewWork.SkipStarting -= Service.SuspendForSkip;
         Phobos.Ostranauts.Framework.Sensors.SensorLeases.SwitchedOffByOthers -= Service.SensorSwitchedOff;
+        Phobos.Ostranauts.Framework.Persistence.SaveBoundary.BeforeShipSave -= Service.FlushProgress;
         TorchDriveController.SensorSettling = null;
         TorchDriveController.Notify = null;
         FrameworkLifecycle.ContentLoading -= EquipmentContent.Register;
@@ -146,7 +149,8 @@ internal static class PursuitWeaponFirePatch
     private static bool Prefix(Ostranauts.Ships.WeaponsSystem __instance, ref List<CondOwner> weaponsToFire, ShipSitu target, ref bool __result)
     {
         Plugin.Service.RestoreFireOwnership();
-        if (weaponsToFire == null) return true;
+        // Without a lease nothing is filtered: the game's own list goes through untouched and uncopied.
+        if (weaponsToFire == null || Plugin.Service.Fire.Idle) return true;
         weaponsToFire = new List<CondOwner>(weaponsToFire);
         Plugin.Service.Fire.FilterNative(__instance, weaponsToFire, target);
         if (weaponsToFire.Count > 0) return true;

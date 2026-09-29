@@ -69,7 +69,7 @@ internal sealed partial class NavigationService
         { SuspendCombined(Text.Get("NavigationService.insufficient_estimated_delta_v")); return; }
         CeaseFire(); co.ship.UnlockFromOrbit(); co.ship.objSS.ResetNavData();
         flight.Mode = SavedFlightMode.ApproachDock; nextDockFitCheck = AutoNavCore.ElapsedSeconds + FitCheckSeconds;
-        CrewSim.ResetTimeScale(); PersistProgress();
+        CrewSim.ResetTimeScale(); PersistProgress(force: true);
         if (AutoNavCore.Engaged) status = Text.Get("Hub.approach_stage");
     }
 

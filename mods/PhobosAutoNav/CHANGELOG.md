@@ -21,6 +21,20 @@ Dates on Draft entries record preparation, not Steam publication.
 - Earlier capture-only research is superseded for supported ordinary walls by Shipbreaker 0.24.0 reclamation, which relies on the 0.16.0 capture flight and 0.18.0 local avoidance and departure entries below. Broader structural recipes, repeated furnace batches and whole-wreck completion remain Shipbreaker work, not Auto Nav flight changes.
 - Keep [NASA Goddard's Raven research](https://www.nasa.gov/general/nasas-hybrid-computer-enables-ravens-autonomous-rendezvous-capability/) and [ESA's LIRIS experiment by Airbus, Jena Optronik and Sodern](https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/ATV/ATV_views_Space_Station_as_never_before) as sensing context, separate from Blue Bottle Games native evidence and authored gameplay choices. No institutional endorsement or gameplay validation is implied.
 
+## [0.28.0] - 2026-09-29 - Draft
+
+### Changed
+
+- Performance pass, stage 5 (the game crawls at fast-forward). While a flight, docking, capture move or fire control runs, every controller asked the game about the same things again each physics step: the target and every other ship's contact reading, the console's hardware state, the flight's binding to the console, the RCS reserve and the own ship's docked partners. Each is now read once per step and shared by the guard, the guidance tick, docking, fire control and the hazard sweep; Auto Nav's own sensor switches refresh the shared readings at once, and panels, the torch controller and other mods still read fresh.
+- The flight record no longer rewrites the console's saved map on every step. Progress settles every two real seconds, on every state change (engaged, suspended, arrived, stopped, ports assigned) and before every native save, so a saved game always carries the latest elapsed budget. A crash, never a save, can lose up to two seconds of elapsed flight budget. A corrupt record still stops the flight on the very next step.
+- The two checks for other flight controllers resolved their types by reflection on every call, once per frame while flying and on every panel read. The AutoDock assembly and the retired Approach Assist prototype are looked up once per session; their live state is still read on every call.
+- Hazard sweeps reuse their working buffers instead of allocating lists, sets and copies of the ship table every step; the native weapon hooks pass the game's own lists through untouched while no weapon group is leased; manual-takeover handlers are kept as one array rebuilt on subscription; sensor housekeeping decodes the flight record twice a second instead of every frame; a target's generic display name is looked up only when needed.
+- Recorder scopes autonav.guard.update, autonav.hazards.scan, autonav.persist.write and autonav.foreign_controller.check, and the counter autonav.contact.reads.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.45.0 or newer. Saved data, flight rules, admission checks and sensor policy are unchanged. Offline checks are not gameplay validation.
+
 ## [0.27.0] - 2026-09-29 - Draft
 
 ### Added

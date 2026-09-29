@@ -1,5 +1,6 @@
 using System;
 using Ostranauts.Ships.Sensors;
+using Phobos.Ostranauts.Framework.Processing;
 using PhobosAutoNav.Core;
 
 namespace PhobosAutoNav;
@@ -8,9 +9,32 @@ namespace PhobosAutoNav;
 // rebuilds, shared threshold writes, ship TimeAdvance or world ship scans.
 internal static class NativeContactReader
 {
+    // 29 September 2026 pass (FF5): within one native physics step the guard, the guidance tick, fire control and
+    // the hazard sweep all ask about the same contacts. One reading per (observer, target) is kept for that step
+    // only; the service opens and closes the step, and Auto Nav's own sensor switches invalidate it. Reads outside
+    // a step (panels, the torch controller, other mods) are always fresh.
+    private static readonly StepMemo<(string Observer, string Target), ContactReading> readings = new();
+    private static long step;
+    private static bool sharing;
+    internal static bool Sharing => sharing;
+    internal static void BeginStep() { step++; sharing = true; readings.Invalidate(); }
+    internal static void EndStep() { sharing = false; readings.Invalidate(); }
+    internal static void Invalidate() => readings.Invalidate();
+
     internal static ContactReading Read(Ship? observer, string? targetId)
     {
+        if (!sharing || observer == null || string.IsNullOrEmpty(targetId)) return ReadNow(observer, targetId);
+        var key = (observer.strRegID ?? "", targetId!);
+        if (readings.TryGet(step, key, out var known)) return known;
+        var reading = ReadNow(observer, targetId);
+        readings.Set(step, key, reading);
+        return reading;
+    }
+
+    private static ContactReading ReadNow(Ship? observer, string? targetId)
+    {
         using var measurement = Phobos.Ostranauts.Framework.Diagnostics.Performance.Measure(PerformanceMetrics.Contact);
+        Phobos.Ostranauts.Framework.Diagnostics.Performance.Increment(PerformanceMetrics.ContactReads);
         try
         {
             var system = CrewSim.system;

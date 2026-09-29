@@ -86,4 +86,17 @@ Check(!FireRules.TryLead(new(0, 1000), new(0, -100), 100, out _), "Native quadra
 for (double throttle = .1; throttle <= 1; throttle += .1)
     Check(Math.Abs(FireRules.Turn(2, .2, .25, throttle, .5, .6)) <= throttle * .5, "RCS rotation respects throttle");
 Check(FireRules.Turn(1, 0, 2, 1, .5, .6) == 0 && FireRules.Turn(1, 0, .25, 0, .5, .6) == 0, "Invalid interval/zero authority cannot turn");
+// 29 September 2026 pass (FF3): with no lease the native hooks have nothing to filter.
+{
+    var idle = Setup(); var native = new List<CondOwner> { idle.Weapon, idle.Weapon };
+    Check(idle.Control.Idle, "A fresh controller holds no lease");
+    idle.Control.FilterNative(idle.Own.WeaponsSystem, native, idle.Target.objSS);
+    Check(native.Count == 2 && idle.Control.AllowsNative(idle.Own.WeaponsSystem, idle.Weapon, idle.Target.objSS), "Without a lease every native shot passes untouched");
+    idle.Control.SetOwnership("console", idle.Own, 1, true);
+    Check(!idle.Control.Idle, "A lease makes the hooks filter again");
+    idle.Control.FilterNative(idle.Own.WeaponsSystem, native, idle.Target.objSS);
+    Check(native.Count == 0, "A leased group's offensive native shots are held");
+    idle.Control.SetOwnership("console", idle.Own, 1, false);
+    Check(idle.Control.Idle, "Releasing the lease returns the hooks to idle");
+}
 Console.WriteLine($"{checks} N3 fire-control/ownership/volley assertions passed; no in-game tests performed.");

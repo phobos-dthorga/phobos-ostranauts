@@ -67,17 +67,29 @@ internal sealed class FireControlController
         Remaining = volleys; Permitted = true; State = FireState.Armed; Reason = "FCS.armed";
         return true;
     }
+    /// <summary>No lease anywhere: every native shot is allowed and the native hooks have nothing to filter.</summary>
+    internal bool Idle => leases.Count == 0;
     internal bool AllowsNative(WeaponsSystem system, CondOwner weapon, ShipSitu? destination)
     {
+        if (leases.Count == 0) return true;
         if (dispatch && owner?.WeaponsSystem == system && captured.Contains(weapon.strID) && destination == CrewSim.system.GetShipByRegID(targetId!)?.objSS) return true;
-        bool offensive = destination == null || CrewSim.system.dictShips.Values.Any(s => s != null &&
-            s.objSS == destination && s.Classification != Ship.TypeClassification.Projectile);
-        if (!offensive) return true;
+        if (destination != null && !Offensive(destination)) return true;
         int selectedGroup = MathUtils.RoundToInt(weapon.GetCondAmount("IsShipWeaponFiringGroup")) + 1;
-        return !leases.Values.Any(l => l.Ship.WeaponsSystem == system && l.Group == selectedGroup);
+        foreach (var lease in leases.Values) if (lease.Ship.WeaponsSystem == system && lease.Group == selectedGroup) return false;
+        return true;
     }
-    internal void FilterNative(WeaponsSystem system, List<CondOwner> weapons, ShipSitu? destination) =>
+    // A destination that is a ship (not a projectile) is an offensive shot.
+    private static bool Offensive(ShipSitu destination)
+    {
+        foreach (var s in CrewSim.system.dictShips.Values)
+            if (s != null && s.objSS == destination && s.Classification != Ship.TypeClassification.Projectile) return true;
+        return false;
+    }
+    internal void FilterNative(WeaponsSystem system, List<CondOwner> weapons, ShipSitu? destination)
+    {
+        if (leases.Count == 0) return;
         weapons.RemoveAll(w => w != null && !AllowsNative(system, w, destination));
+    }
     private static int FiringMode(CondOwner weapon) => (weapon.HasCond("IsShipWeaponFiringModeManual") ? 1 : 0) | (weapon.HasCond("IsPDCTargetModeMMMOnly") ? 2 : 0);
     private bool BindingChanged(IEnumerable<CondOwner> weapons)
     {

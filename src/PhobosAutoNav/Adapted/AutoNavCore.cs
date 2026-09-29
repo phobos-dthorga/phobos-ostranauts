@@ -460,36 +460,23 @@ internal static class AutoNavCore
 		}
 	}
 
+	// Phobos (29 September 2026 pass, FF6): the type and field are resolved once per session. The original
+	// resolved them on every call, which at fast-forward was an assembly lookup per frame while flying; a
+	// controller loaded after startup was never supported. The field's value is still read on every call.
+	private static bool autoDockResolved;
+
+	private static FieldInfo autoDockEngaged;
+
 	public static bool AutoDockBusy()
 	{
 		try
 		{
-			Type type = Type.GetType("AutoDock.AutoDockCore, AutoDock");
-			if (type == null)
+			if (!autoDockResolved)
 			{
-				return false;
+				autoDockResolved = true;
+				autoDockEngaged = Type.GetType("AutoDock.AutoDockCore, AutoDock")?.GetField("Engaged");
 			}
-			FieldInfo field = type.GetField("Engaged");
-			bool flag = default(bool);
-			int num;
-			if (field != null)
-			{
-				object value = field.GetValue(null);
-				if (value is bool)
-				{
-					flag = (bool)value;
-					num = 1;
-				}
-				else
-				{
-					num = 0;
-				}
-			}
-			else
-			{
-				num = 0;
-			}
-			return (byte)((uint)num & (flag ? 1u : 0u)) != 0;
+			return autoDockEngaged != null && autoDockEngaged.GetValue(null) is bool engaged && engaged;
 		}
 		catch
 		{

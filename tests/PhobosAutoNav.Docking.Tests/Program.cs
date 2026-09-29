@@ -6,6 +6,8 @@ using Phobos.Ostranauts.Framework.Persistence;
 
 int count = 0;
 void Check(bool result, string message) { count++; if (!result) throw new Exception(message); }
+// Real-time cadences are always due in this suite: each clock read advances it.
+double realSeconds = 0; NavigationService.RealClock = () => realSeconds += 10;
 
 DepartureChecks.Run(Check);
 
@@ -404,6 +406,20 @@ foreach(double mirror in new[]{-1d,1d})
         if(!f.Service.avoidanceActive)f.Service.TickDocking(CrewSim.system,dt,true);
     }
     Check(CrewSim.AttachCalls==1,$"Coupled docking converges dt={dt} mirror={mirror} avoided={avoided} reason={f.Service.Diagnostic} x={own.objSS.vPosx/AutoNavCore.M_TO_AU} y={own.objSS.vPosy/AutoNavCore.M_TO_AU}");
+}
+// 29 September 2026 pass (FF5): manual-takeover handlers are kept as one array rebuilt on subscription.
+{
+    int yields = 0; Action<Ship> handler = _ => yields++; Action<Ship> faulty = _ => throw new InvalidOperationException("consumer fault");
+    IndustrialNavigation.ManualTakeover += faulty; IndustrialNavigation.ManualTakeover += handler;
+    var yieldShip = new Ship { strRegID = "yield" };
+    IndustrialNavigation.Yield(yieldShip); IndustrialNavigation.Yield(yieldShip);
+    Check(yields == 2 && IndustrialNavigation.HandlerCount == 2, "Every subscribed handler is called, a faulty one never blocks the rest");
+    IndustrialNavigation.ManualTakeover -= handler; IndustrialNavigation.ManualTakeover -= faulty;
+    IndustrialNavigation.Yield(yieldShip);
+    Check(yields == 2 && IndustrialNavigation.HandlerCount == 0, "Unsubscribed handlers are gone at once");
+    long allocated = GC.GetAllocatedBytesForCurrentThread();
+    for (int i = 0; i < 10000; i++) IndustrialNavigation.Yield(yieldShip);
+    Check(GC.GetAllocatedBytesForCurrentThread() == allocated, "Yielding with no consumer allocates nothing");
 }
 Console.WriteLine($"{count} docking/industrial assertions passed. Numerical and native-boundary doubles; no in-game testing.");
 internal enum LegacyMode { Active, Suspended, Stopped, Arrived }

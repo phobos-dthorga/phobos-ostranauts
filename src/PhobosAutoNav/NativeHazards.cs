@@ -17,15 +17,22 @@ internal readonly struct SensedObject
 /// skip distant rocks before sensing; every returned rock carries its own contact reading.</summary>
 internal static class NativeHazards
 {
+    // Candidates are gathered before any is sensed (a stellar read refreshes the rock's cached position);
+    // the buffer is reused between calls, which run on the main thread only.
+    private static readonly List<IStellarObject> candidates = new();
+
     /// <param name="startM">Leg start relative to the own ship, metres.</param>
     /// <param name="goalM">Leg end relative to the own ship, metres.</param>
     /// <param name="reachM">Extra lateral distance to consider beyond collision contact.</param>
-    internal static IEnumerable<SensedObject> Asteroids(Ship own, NavVector startM, NavVector goalM, double reachM, string? skipId)
+    /// <param name="into">Receives the sensed rocks; cleared first.</param>
+    internal static void Asteroids(Ship own, NavVector startM, NavVector goalM, double reachM, string? skipId, List<SensedObject> into)
     {
+        into.Clear();
+        using var measurement = Phobos.Ostranauts.Framework.Diagnostics.Performance.Measure(PerformanceMetrics.Hazards);
         var system = CrewSim.system;
-        if (system?.aBOs == null || own?.objSS == null || !ArrivalBrake.Finite(reachM) || reachM < 0) yield break;
+        if (system?.aBOs == null || own?.objSS == null || !ArrivalBrake.Finite(reachM) || reachM < 0) return;
         double ownX = own.objSS.vPosx, ownY = own.objSS.vPosy, ownRadius = own.objSS.GetRadiusAU();
-        var candidates = new List<IStellarObject>();
+        candidates.Clear();
         foreach (var body in system.aBOs.Values)
         {
             if (body is not AsteroidField field || field.Asteroids == null) continue;
@@ -42,6 +49,7 @@ internal static class NativeHazards
             }
         }
         foreach (var rock in candidates)
-            yield return new SensedObject(rock.strID, rock.objSS, NativeContactReader.Read(own, rock.strID));
+            into.Add(new SensedObject(rock.strID, rock.objSS, NativeContactReader.Read(own, rock.strID)));
+        candidates.Clear();
     }
 }

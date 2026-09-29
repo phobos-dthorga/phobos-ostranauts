@@ -94,7 +94,7 @@ internal sealed partial class NavigationService
     }
 
     private bool CombatBindingValid() => !combatActive || console != null && AutoNavCore.Engaged &&
-        AutoNavCore.EngagedPlayer == console.ship && FlightBindingValid() && HasPursuit(console) &&
+        AutoNavCore.EngagedPlayer == console.ship && FlightBindingValidNow() && HasPursuit(console) &&
         FireHardwareProblem(console) == null && console == fireConsole && fireShip == console.ship &&
         fireModule != null && FireModule(console) == fireModule && firePlayer == CrewSim.coPlayer &&
         combatOperator == CrewSim.GetSelectedCrew() && Fire.Owns(console.strID) &&

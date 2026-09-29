@@ -283,4 +283,11 @@ tug.Attachments["own"]=tow;tow.Attachments["peer"]=tug;
 Check(Plugin.Service.Torch.Available(tug,true,.1,out _),"Secured tow permits native torch availability");
 tug.TowSecured=false;
 Check(!Plugin.Service.Torch.Available(tug,true,.1,out _),"Unsecured tow cannot acquire a torch burn");
+// 29 September 2026 pass (FF6): the foreign AutoDock probe resolves its type once; repeated calls allocate nothing.
+Check(!AutoNavCore.AutoDockBusy(), "No AutoDock assembly on the test runtime");
+{
+    long allocated = GC.GetAllocatedBytesForCurrentThread();
+    for (int i = 0; i < 10000; i++) AutoNavCore.AutoDockBusy();
+    Check(GC.GetAllocatedBytesForCurrentThread() == allocated, "The absent controller is remembered: no assembly lookup per call");
+}
 Console.WriteLine($"{checks} checks including secured tow torch admission passed.");

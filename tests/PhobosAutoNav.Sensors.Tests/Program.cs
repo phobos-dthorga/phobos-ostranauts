@@ -6,6 +6,8 @@ using Phobos.Ostranauts.Framework.Persistence;
 
 int checks = 0;
 void Check(bool ok, string message) { checks++; if (!ok) throw new Exception(message); }
+// Real-time cadences (record settlement, sensor housekeeping) are always due here: each read advances the clock.
+double realSeconds = 0; NavigationService.RealClock = () => realSeconds += 10;
 (NavigationService Service, CondOwner Console, Ship Own, Ship Target) Setup()
 {
     AIShipManager.Current = null; BepInEx.Bootstrap.Chainloader.PluginInfos.Clear(); GUIOrbitDraw.Instance = new();
@@ -753,10 +755,26 @@ Console.WriteLine($"{checks} checks including towing FCS and Combat passed.");
     Check(NativeContactReader.Read(s.Own, "missing-rock").State == ContactState.Unavailable, "Unknown identity is unavailable");
 
     int stellarReads = Ostranauts.Ships.Sensors.ShipSignature.StellarReads;
-    var hazards = NativeHazards.Asteroids(s.Own, default, new NavVector(20000, 0), 1000, null).ToList();
+    var hazards = new System.Collections.Generic.List<SensedObject>(); NativeHazards.Asteroids(s.Own, default, new NavVector(20000, 0), 1000, null, hazards);
     Check(hazards.Count == 1 && hazards[0].Id == "rock-near" && hazards[0].Reading.Usable, "A rock on the leg is returned with its own contact reading");
     Check(Ostranauts.Ships.Sensors.ShipSignature.StellarReads - stellarReads == 1, "Distant rocks are skipped before any sensor read");
-    Check(!NativeHazards.Asteroids(s.Own, default, new NavVector(20000, 0), 1000, "rock-near").Any(), "The flight's own asteroid target is not its own hazard");
+    NativeHazards.Asteroids(s.Own, default, new NavVector(20000, 0), 1000, "rock-near", hazards);
+    Check(hazards.Count == 0, "The flight's own asteroid target is not its own hazard");
+
+    // 29 September 2026 pass (FF5): within one open step the same contact is read natively once; a sensor
+    // switch invalidates the shared readings; outside a step every read is fresh.
+    Signal(s.Own, 1); int shipReads = Ostranauts.Ships.Sensors.ShipSignature.Reads;
+    NativeContactReader.Read(s.Own, "target"); NativeContactReader.Read(s.Own, "target");
+    Check(Ostranauts.Ships.Sensors.ShipSignature.Reads - shipReads == 2 && !NativeContactReader.Sharing, "Outside a step every contact read is fresh");
+    NativeContactReader.BeginStep(); shipReads = Ostranauts.Ships.Sensors.ShipSignature.Reads;
+    var shared = NativeContactReader.Read(s.Own, "target"); NativeContactReader.Read(s.Own, "target"); NativeContactReader.Read(s.Own, "target");
+    Check(shared.Usable && Ostranauts.Ships.Sensors.ShipSignature.Reads - shipReads == 1, "Within a step the same contact is read natively once");
+    Signal(s.Own, .1);
+    Check(NativeContactReader.Read(s.Own, "target").Usable, "The shared reading holds for the step");
+    NativeContactReader.Invalidate();
+    Check(!NativeContactReader.Read(s.Own, "target").Usable, "A sensor switch invalidates the shared readings");
+    NativeContactReader.EndStep(); Signal(s.Own, 1);
+    Check(NativeContactReader.Read(s.Own, "target").Usable && !NativeContactReader.Sharing, "After the step reads are fresh again");
 
     GUIOrbitDraw.CrossHairTarget = new() { stellarObj = near };
     s.Service.Engage(s.Console);

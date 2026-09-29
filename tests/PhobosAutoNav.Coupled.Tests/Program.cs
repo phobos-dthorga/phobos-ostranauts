@@ -48,6 +48,7 @@ foreach(double mirror in new[]{-1d,1d})
         load.objSS.vPosy=own.objSS.vPosy;load.objSS.vVelX=own.objSS.vVelX;load.objSS.vVelY=own.objSS.vVelY;
         service.BeforeNavigationPhysics(CrewSim.system,.1);
         if(service.avoidanceActive)throw new Exception("Attached load incorrectly became a collision obstacle");
+        if(NativeContactReader.Sharing||NavigationService.StepOpen)throw new Exception("The shared step must close before native physics moves anything");
         own.objSS.Integrate(.1);target.objSS.Integrate(.1);StarSystem.fEpoch+=.1;service.AfterNavigationPhysics(CrewSim.system,.1);
     }
     if(AutoNavCore.LastResult!="ARRIVED")throw new Exception("Secured tow failed approach: "+AutoNavCore.LastResult);

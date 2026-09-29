@@ -8,14 +8,21 @@ internal sealed partial class NavigationService
     {
         if (system != CrewSim.system) return;
         using var measurement = Phobos.Ostranauts.Framework.Diagnostics.Performance.Measure(PerformanceMetrics.Background);
-        TickDeparture(dt);
-        ValidateCombat();
-        if (GuardNavigation(dt)) return;
-        TickIndustrial(dt, false);
-        TickFire(dt, false);
-        TickDocking(system, dt, false);
-        if (AutoNavCore.EngagedPlayer?.objSS != null) Tick(AutoNavCore.EngagedPlayer.objSS, dt, false);
-        TickFire(dt, true);
+        // Contact readings, hardware verdicts and docked partners are shared by every controller below for this
+        // step only; the step closes before native physics moves anything.
+        BeginStep();
+        try
+        {
+            TickDeparture(dt);
+            ValidateCombat();
+            if (GuardNavigation(dt)) return;
+            TickIndustrial(dt, false);
+            TickFire(dt, false);
+            TickDocking(system, dt, false);
+            if (AutoNavCore.EngagedPlayer?.objSS != null) Tick(AutoNavCore.EngagedPlayer.objSS, dt, false);
+            TickFire(dt, true);
+        }
+        finally { EndStep(); }
     }
 
     internal void AfterNavigationPhysics(StarSystem system, double dt)

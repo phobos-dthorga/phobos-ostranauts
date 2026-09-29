@@ -50,6 +50,8 @@ internal sealed partial class NavigationService
             if (chosen.Count == 0) return false;
             var engaged = NativeSensorControl.Engage(own, chosen, co.strID);
             if (engaged.Count == 0) return false;
+            // Readings shared within this step were taken before the switch.
+            NativeContactReader.Invalidate();
             Track(co, own);
             settlingShip = own.strRegID; settleChecks = SensorSettleChecks;
             string names = SensorNames(engaged.Select(o => (o.Name, o.Emits)));
@@ -91,19 +93,32 @@ internal sealed partial class NavigationService
         return pending;
     }
 
+    // Real seconds between holder reconciliations: deciding whether Auto Nav still needs its sensors decodes the
+    // console's flight record, which ran every frame while a flight was suspended (29 September 2026 pass).
+    internal const double SensorReconcileSeconds = 0.5;
+    private readonly Phobos.Ostranauts.Framework.Cadence sensorCadence = new(SensorReconcileSeconds);
+    private readonly List<string> releasedHolders = new();
+
     partial void ReconcileSensors()
     {
-        if (sensorHolders.Count == 0 || CrewSim.objInstance == null || !CrewSim.objInstance.FinishedLoading || CrewSim.Paused) return;
-        foreach (var pair in sensorHolders.ToArray())
+        if (sensorHolders.Count == 0 || CrewSim.objInstance == null || !CrewSim.objInstance.FinishedLoading || CrewSim.Paused || !sensorCadence.Due(RealClock())) return;
+        releasedHolders.Clear();
+        foreach (var pair in sensorHolders)
         {
             var holder = pair.Value;
-            if (holder.Ship == null || holder.Ship.bDestroyed) { sensorHolders.Remove(pair.Key); continue; }
+            if (holder.Ship == null || holder.Ship.bDestroyed) { releasedHolders.Add(pair.Key); continue; }
             if (SensorWorkPending(holder)) { holder.IdleSince = double.NaN; continue; }
             if (double.IsNaN(holder.IdleSince) || StarSystem.fEpoch < holder.IdleSince) { holder.IdleSince = StarSystem.fEpoch; continue; }
             if (StarSystem.fEpoch - holder.IdleSince < SensorReleaseGraceSeconds) continue;
-            sensorHolders.Remove(pair.Key);
-            ReleaseSensors(holder.Ship, pair.Key);
+            releasedHolders.Add(pair.Key);
         }
+        foreach (string key in releasedHolders)
+        {
+            var holder = sensorHolders[key];
+            sensorHolders.Remove(key);
+            if (holder.Ship != null && !holder.Ship.bDestroyed) ReleaseSensors(holder.Ship, key);
+        }
+        releasedHolders.Clear();
     }
 
     private void ReleaseSensors(Ship ship, string holder)
@@ -112,6 +127,7 @@ internal sealed partial class NavigationService
         {
             var off = NativeSensorControl.Release(ship, holder);
             if (off.Count == 0) return;
+            NativeContactReader.Invalidate();
             string message = Text.Get("SensorAssist.released", SensorNames(off));
             NativeSensorControl.Notify(ship, false, message, null);
             log(message);

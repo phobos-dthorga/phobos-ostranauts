@@ -45948,8 +45948,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "ad49c379598e2c7178db2f348836e7cc9ee217832d6aa6ce3b4fea68f9cc2908",
-      "review": "Performance pass stage 4 (Manufacturing 0.6.0), 29 September 2026: reviewed with this change; wording, links and maintained values checked."
+      "sha256": "98638fe87475dec32afe4519dd291778de5b4e6915cf89b00eac757595026b75",
+      "review": "29 September 2026 performance pass, stage 5 (Auto Nav 0.28.0): reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "SUPPORT.md",
@@ -46059,15 +46059,15 @@
       "path": "docs/auto-nav-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "7971e2bf2c634624229d3424f94a13980d94f896fdd47a6280c8aa52f3b95d75",
-      "review": "2026-09-29: regenerated from reviewed inputs after the 0.27.0 source change; version."
+      "sha256": "2c6ced2d5b829731b15a826161a028ccd22ecb1daaa16809ef8453eea3a93971",
+      "review": "29 September 2026 performance pass, stage 5 (Auto Nav 0.28.0): reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "docs/auto-nav-persistence.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "372bbcb0395bb7713cf4057ea7cbd0379901cabeb0577001bafbc63bd3a58309",
-      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+      "sha256": "3c04f84d5938dd53d23bbb29444f4b55c1e7bd8b0b480d412ef59ad38e8eb782",
+      "review": "29 September 2026 performance pass, stage 5 (Auto Nav 0.28.0): reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "docs/auto-nav-pursuit.md",
@@ -46108,8 +46108,8 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "9a7dbb2ec15086ca712100fefc8311d9e628da3db9ba59fce867cc917ccc7c7b",
-      "review": "Performance pass stage 3 (Shipbreaker 0.41.0), 29 September 2026: reviewed with this change; wording, links and maintained values checked."
+      "sha256": "a576fc12992009e9018afcee557097e6c830ab532862cd574f1f001660a05327",
+      "review": "29 September 2026 performance pass, stage 5 (Auto Nav 0.28.0): reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "docs/crew-automation.md",
@@ -46631,8 +46631,8 @@
       "path": "docs/development/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "1c69daff7636e6323045a9bd250f8566f3cfe07bfdbb97eb2b792519f8ca3343",
-      "review": "Performance pass stage 4 (Manufacturing 0.6.0), 29 September 2026: reviewed with this change; wording, links and maintained values checked."
+      "sha256": "3e5efba9a4d1ffa0f4755cc079ddadc0268060668dd7d50c0e1eea08607da8cd",
+      "review": "29 September 2026 performance pass, stage 5 (Auto Nav 0.28.0): reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "docs/development/phobos-framework.md",
@@ -46948,8 +46948,8 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "701a8c624edaffbe1bcc729e6380abe61854794ed05ea66b7d5a4a5b199a0515",
-      "review": "Performance pass stage 3 (Shipbreaker 0.41.0), 29 September 2026: reviewed with this change; wording, links and maintained values checked."
+      "sha256": "481943987c9b66a302086e6024bea0ea68a46821adc86623a9822fb6d206e704",
+      "review": "29 September 2026 performance pass, stage 5 (Auto Nav 0.28.0): reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "docs/residue-collector.md",
@@ -47032,8 +47032,8 @@
       "path": "workshop/PhobosAutoNav/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "4336e511d8510e563baffa2cc3c6d28043452cc66bfe223471d0e02be729f59e",
-      "review": "2026-09-29: owner lifted the Auto Nav publication hold; credit and MIT exclusion for the adapted files retained."
+      "sha256": "c6938a4fb0c10c808fe40063a51eb6ac6d60edc8f056ff687a7907d49a2eb4f3",
+      "review": "29 September 2026 performance pass, stage 5 (Auto Nav 0.28.0): reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "workshop/PhobosFramework/page.bbcode",
@@ -47127,8 +47127,8 @@
     {
       "path": "mods/PhobosAutoNav/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "7104b75222365d05b9aa7700f6d582645a2bf4f26018582de8323f503f6ef9ec",
-      "review": "2026-09-29: version 0.27.0."
+      "sha256": "9347b0dddc52e9c7225f8ba0e615f222ff76dd2eb39c600a8157cad8705760dc",
+      "review": "29 September 2026 performance pass, stage 5 (Auto Nav 0.28.0): reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "mods/PhobosFramework/framework/equipment-names.json",

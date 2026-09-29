@@ -14,6 +14,7 @@
     <Compile Include="../../src/PhobosAutoNav/NavigationSensorAssist.cs" Link="NavigationSensorAssist.cs" />
     <Compile Include="../../src/PhobosAutoNav/NativeFlightPanel.cs" Link="NativeFlightPanel.cs" />
     <Compile Include="../../src/PhobosAutoNav/NavigationService.cs" Link="NavigationService.cs" />
+    <Compile Include="../../src/PhobosAutoNav/NavigationStep.cs" Link="NavigationStep.cs" />
     <Compile Include="../../src/PhobosAutoNav/IndustrialNavigation.cs" Link="IndustrialNavigation.cs" />
     <Compile Include="../../src/PhobosAutoNav/NavigationPersistence.cs" Link="NavigationPersistence.cs" />
     <Compile Include="../../src/PhobosAutoNav/NavigationInstruments.cs" Link="NavigationInstruments.cs" />

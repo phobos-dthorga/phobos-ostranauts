@@ -142,7 +142,7 @@
     "AutoNav.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.27.0",
+      "value": "0.28.0",
       "description": "PhobosAutoNav published source/package version.",
       "targets": [
         {
@@ -615,7 +615,7 @@
     "AutoNav.minimumFramework": {
       "type": "version",
       "parts": 3,
-      "value": "0.40.0",
+      "value": "0.45.0",
       "description": "Current AutoNav required Framework version, shared with local installer admission.",
       "targets": [
         {

@@ -136,7 +136,9 @@ internal sealed partial class NavigationService
                 if(ObstacleRoute.Distance(new NavVector(own.objSS.vPosx,own.objSS.vPosy),end,new NavVector(other.objSS.vPosx,other.objSS.vPosy))<=radius) return Text.Get("Departure.exit");
             }
             var exitM=new NavVector((end.X-own.objSS.vPosx)/AutoNavCore.M_TO_AU,(end.Y-own.objSS.vPosy)/AutoNavCore.M_TO_AU);
-            foreach(var rock in NativeHazards.Asteroids(own,default,exitM,DepartureRockReachM,null))
+            var exitRocks=new System.Collections.Generic.List<SensedObject>();
+            NativeHazards.Asteroids(own,default,exitM,DepartureRockReachM,null,exitRocks);
+            foreach(var rock in exitRocks)
             {
                 double? uncertainty=HazardRules.UncertaintyM(rock.Reading.State,
                     new NavVector(rock.Situ.vPosx-own.objSS.vPosx,rock.Situ.vPosy-own.objSS.vPosy).Length/AutoNavCore.KM_TO_AU);

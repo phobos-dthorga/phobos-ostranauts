@@ -104,6 +104,33 @@ internal static class PersistenceRuntimeChecks
         f.Service.ResumeSaved(f.Console);
         check(!AutoNavCore.Engaged && ReferenceEquals(retained, f.Console.mapGUIPropMaps["PhobosState.AutoNav.Flight"]),
             "Resume cannot mutate a console aboard another ship");
+
+        // 29 September 2026 pass (FF6): progress settles on real time; transitions, commit points and the save
+        // boundary write at once; a corrupt record still aborts on the very next step.
+        double clock = 0; NavigationService.RealClock = () => clock;
+        f = Setup(); Load(f.Service);
+        check(AutoNavCore.Engaged, "Resumed for the settlement checks");
+        AutoNavCore.ElapsedSeconds += 1; f.Service.SaveProgressForTest();
+        check(Read(f.Console).ElapsedSeconds == 1235, "The first step after a resume settles at once");
+        var settled = f.Console.mapGUIPropMaps["PhobosState.AutoNav.Flight"]; int writes = f.Service.ProgressWrites;
+        AutoNavCore.ElapsedSeconds += 1; clock = 1; f.Service.SaveProgressForTest();
+        check(ReferenceEquals(settled, f.Console.mapGUIPropMaps["PhobosState.AutoNav.Flight"]) && Read(f.Console).ElapsedSeconds == 1235 &&
+            f.Service.ProgressWrites == writes && AutoNavCore.Engaged, "Within the settlement interval the record is left alone and the flight continues");
+        clock = 2.5; f.Service.SaveProgressForTest();
+        check(Read(f.Console).ElapsedSeconds == 1236 && f.Service.ProgressWrites == writes + 1, "The interval settles the elapsed budget");
+        AutoNavCore.ElapsedSeconds += 1; f.Service.FlushProgress(new Ship { strRegID = "elsewhere" });
+        check(Read(f.Console).ElapsedSeconds == 1236, "Another ship's save does not settle this flight");
+        f.Service.FlushProgress(f.Console.ship);
+        check(Read(f.Console).ElapsedSeconds == 1237 && f.Service.ProgressWrites == writes + 2, "The save boundary settles at once");
+        AutoNavCore.ElapsedSeconds += 1; f.Service.SaveProgressForTest();
+        check(Read(f.Console).ElapsedSeconds == 1237, "The boundary write restarts nothing: the interval still gates the next step");
+        f.Console.mapGUIPropMaps["PhobosState.AutoNav.Flight"]["schema"] = "99";
+        AutoNavCore.ElapsedSeconds += 1; f.Service.SaveProgressForTest();
+        check(!AutoNavCore.Engaged && f.Service.Diagnostic.StartsWith("Persistence.write_failed"), "A corrupt record aborts on the next step, not at the next interval");
+        f = Setup(); Load(f.Service); clock = 0; AutoNavCore.ElapsedSeconds += 3; f.Service.SaveProgressForTest();
+        AutoNavCore.Engaged = false; AutoNavCore.LastResult = "ARRIVED"; f.Service.SaveProgressForTest();
+        check(Read(f.Console).Mode == SavedFlightMode.Arrived && Read(f.Console).ElapsedSeconds == 1237, "Arrival is a transition and is written inside the interval");
+        double advancing = 0; NavigationService.RealClock = () => advancing += 10;
     }
 }
 

@@ -12,12 +12,27 @@ public enum IndustrialStatus { Approaching, Holding, Ready, Blocked, Suspended }
 
 public static class IndustrialNavigation
 {
-    public static event Action<Ship>? ManualTakeover;
+    // The handler list is rebuilt when a consumer subscribes or leaves, not on every native manoeuvre
+    // (the game calls Ship.Maneuver for every ship it steers, each frame).
+    private static Action<Ship>? manualTakeover;
+    private static Action<Ship>[] takeoverHandlers = Array.Empty<Action<Ship>>();
+    public static event Action<Ship>? ManualTakeover
+    {
+        add { manualTakeover += value; RebuildHandlers(); }
+        remove { manualTakeover -= value; RebuildHandlers(); }
+    }
+    private static void RebuildHandlers()
+    {
+        var list = manualTakeover?.GetInvocationList();
+        takeoverHandlers = list == null ? Array.Empty<Action<Ship>>() : Array.ConvertAll(list, d => (Action<Ship>)d);
+    }
+    internal static int HandlerCount => takeoverHandlers.Length;
     internal static void Yield(Ship own)
     {
         // A consumer failure must never prevent the native manual command or other consumers yielding.
-        foreach(Action<Ship> handler in ManualTakeover?.GetInvocationList()??Array.Empty<Delegate>())
-            try {handler(own);} catch { }
+        var handlers = takeoverHandlers;
+        for (int i = 0; i < handlers.Length; i++)
+            try { handlers[i](own); } catch { }
     }
     public static bool CanTrack(Ship own,string target) => NativeContactReader.Read(own,target).Usable;
     public static bool RouteCost(CondOwner console,string module,string target,double bearing,double gap,out double cost) =>

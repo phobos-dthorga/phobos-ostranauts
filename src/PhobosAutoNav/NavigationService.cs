@@ -52,7 +52,7 @@ internal sealed partial class NavigationService
         string? nativeProblem = NativeControlProblem(co);
         if (nativeProblem != null) return nativeProblem;
         if (CrewSim.system == null || CrewSim.system.IsInAtmo(co.ship)) return Text.Get("NavigationService.free_space_flight_only");
-        if (co.ship.RCSCount <= 0 || (presentation?.Fuel ?? co.ship.GetRCSRemain()) <= 0) return Text.Get("NavigationService.working_rcs_and_fuel_required");
+        if (co.ship.RCSCount <= 0 || (presentation?.Fuel ?? RcsRemainNow(co.ship)) <= 0) return Text.Get("NavigationService.working_rcs_and_fuel_required");
         if (co.ship.objSS == null || !ArrivalBrake.Finite(co.ship.RCSAccelMax) || co.ship.RCSAccelMax <= 0) return Text.Get("NavigationService.rcs_acceleration_unavailable");
         return null;
     }
@@ -171,8 +171,8 @@ internal sealed partial class NavigationService
         using var measurement = Phobos.Ostranauts.Framework.Diagnostics.Performance.Measure(PerformanceMetrics.Guidance);
         try
         {
-            string? problem = !Plugin.Enabled.Value ? Text.Get("NavigationService.mod_disabled") : HardwareProblem(console);
-            if (problem == null && !FlightBindingValid()) problem = Text.Get("Persistence.binding_changed");
+            string? problem = !Plugin.Enabled.Value ? Text.Get("NavigationService.mod_disabled") : HardwareProblemNow(console);
+            if (problem == null && !FlightBindingValidNow()) problem = Text.Get("Persistence.binding_changed");
             if (problem == null && Torch.ControlsChanged) problem = Text.Get("Torch.manual");
             if (problem == null && (!ArrivalBrake.Finite(dt) || dt < 0)) problem = Text.Get("NavigationService.simulation_step_too_large_or_invalid_reduce");
             if (problem == null && Throttle <= 0) problem = Text.Get("NavigationService.throttle_zero_or_unavailable");
