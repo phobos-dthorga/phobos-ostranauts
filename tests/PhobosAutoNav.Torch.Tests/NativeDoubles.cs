@@ -83,8 +83,10 @@ internal sealed class CondOwner
     internal HashSet<string> Conditions = new() { "IsInstalled", "IsReadyFusion" };
     internal double Temperature = TorchRules.NativeCoreTemperature;
     internal Dictionary<string, string> Props = new() { ["slidCycle"] = "0", ["slidFlow"] = "0.2", ["knobRatio"] = "0", ["bNWZ"] = "false" };
+    internal Dictionary<string, Dictionary<string, string>> mapGUIPropMaps = new();
     internal FusionIC Fusion;
     internal bool FailControlWrite;
+    internal int Writes;
     internal CondOwner(Ship owner) { ship = owner; Fusion = new FusionIC(this); }
     internal bool HasCond(string key) => Conditions.Contains(key);
     internal double GetCondAmount(string key) => key == "StatICCoreTemp" ? Temperature : 8;
@@ -93,25 +95,36 @@ internal sealed class CondOwner
     internal void ApplyGPMChanges(string[] changes)
     {
         if (FailControlWrite) throw new InvalidOperationException("Native control write failed");
+        Writes++;
         foreach (var change in changes) { var parts = change.Split(','); Props[parts[1]] = parts[2]; }
     }
 }
+// The native reactor update: runs on its own cadence with whatever the panel holds at that moment, and
+// follows the inspected FusionIC.Run core model (cycle cools, pellet flow heats, cryos pull down to the ideal).
 internal sealed class FusionIC
 {
     private readonly CondOwner core;
     internal bool Deliver = true;
-    internal int Runs;
+    internal int Runs, Cryos = 1;
+    internal double Heating; // A test fault: extra core heating per update the controls cannot remove.
     internal double LastEpoch = double.NegativeInfinity;
     internal FusionIC(CondOwner core) { this.core = core; }
-    internal void CatchUp()
+    internal void Update()
     {
-        if (StarSystem.fEpoch - LastEpoch < .27) return;
+        if (StarSystem.fEpoch - LastEpoch < Phobos.Ostranauts.Framework.Processing.ReactorRules.FusionPeriodSeconds) return;
+        double dt = double.IsInfinity(LastEpoch) ? Phobos.Ostranauts.Framework.Processing.ReactorRules.FusionPeriodSeconds : Math.Min(1, StarSystem.fEpoch - LastEpoch);
         LastEpoch = StarSystem.fEpoch; Runs++;
-        if (!Deliver) { core.ship.SetThrust(0); return; }
         float cycle = float.Parse(core.Props["slidCycle"], CultureInfo.InvariantCulture);
-        core.ship.SetThrust(core.ship.GetMaxTorchThrust(cycle) / AutoNavCore.M_TO_AU *
-            core.ship.Mass * core.Temperature / TorchRules.NativeCoreTemperature);
+        double flow = double.Parse(core.Props["slidFlow"], CultureInfo.InvariantCulture);
+        double ideal = Phobos.Ostranauts.Framework.Processing.ReactorRules.IdealCoreMeV;
+        double pelletMax = 8, idleRate = pelletMax + (.001 - pelletMax) * Math.Min(core.Temperature / ideal, 1);
+        double pelletRate = idleRate + (pelletMax - idleRate) * flow;
+        core.Temperature += (-cycle * .2 + pelletRate * .04) * dt + Heating;
+        if (Cryos > 0 && core.Temperature > ideal) core.Temperature = Math.Max(ideal, core.Temperature - .08 * dt * Cryos);
+        if (!Deliver) { core.ship.SetThrust(0); return; }
+        core.ship.SetThrust(core.ship.GetMaxTorchThrust(cycle) / AutoNavCore.M_TO_AU * core.ship.Mass * core.Temperature / ideal);
     }
+    internal void CatchUp() => Update();
 }
 internal sealed class CrewSim
 {
@@ -186,8 +199,9 @@ namespace PhobosAutoNav
         internal string ControlDiagnostic => "test boundary";
         internal TorchDriveController Torch = new();
         internal float Throttle { get; set; } = 1;
+        internal CondOwner? Console { get; set; }
     }
-    internal static class Text { internal static string Get(string key) => key; }
+    internal static class Text { internal static string Get(string key, params object[] args) => key; }
     internal sealed class TargetRef
     {
         internal string ShipId = "target";

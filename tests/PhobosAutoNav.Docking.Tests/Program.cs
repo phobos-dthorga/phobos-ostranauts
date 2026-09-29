@@ -355,6 +355,29 @@ foreach(var mode in new[]{SavedFlightMode.Active,SavedFlightMode.Rendezvous,Save
     f.Service.GuardNavigation(.5);
     Check(!f.Service.avoidanceActive&&AutoNavCore.Engaged,"A weak contact too distant to place is not guessed into the route");
 }
+// The target's docked partner and a weak contact far along the coast line do not seize a clear approach;
+// the same contact firmly tracked does. Takeovers are counted for the status report.
+{
+    f=Setup(40000);f.Service.BeginAvoidanceFlight(f.Console,SavedFlightMode.Active);
+    var tender=new Ship {strRegID="tender",Attached=true};tender.objSS.vPosy=f.Target.objSS.vPosy-250*AutoNavCore.M_TO_AU;
+    f.Target.Attachments["port"]=tender;CrewSim.system.Ships[tender.strRegID]=tender;
+    var neighbour=new Ship {strRegID="neighbour"};neighbour.objSS.vPosx=6000*AutoNavCore.M_TO_AU;neighbour.objSS.vPosy=20000*AutoNavCore.M_TO_AU;
+    CrewSim.system.Ships[neighbour.strRegID]=neighbour;NativeContactReader.ById["neighbour"]=ContactState.Weak;
+    f.Console.ship.objSS.vVelX=30*AutoNavCore.M_TO_AU;f.Console.ship.objSS.vVelY=100*AutoNavCore.M_TO_AU;
+    Check(!f.Service.GuardNavigation(.5)&&!f.Service.avoidanceActive&&AutoNavCore.Engaged&&f.Service.AvoidanceSteps==0,
+        "A ship docked at the target and a weak contact 20 km out leave the approach to the arrival controller: "+f.Service.Diagnostic);
+    NativeContactReader.ById["neighbour"]=ContactState.Ready;
+    Check(f.Service.GuardNavigation(.5)&&f.Service.avoidanceActive&&f.Service.Diagnostic.Contains("Avoidance."),
+        "The same contact, firmly tracked on the coast line, still takes the controls: "+f.Service.Diagnostic);
+    Check(f.Service.AvoidanceSteps==1&&f.Service.AvoidanceSummary=="Avoidance.summary","Takeovers are counted for the status report");
+}
+// Heavy time compression holds the step instead of ending the flight; the next ordinary step resumes.
+{
+    f=Setup(4000);f.Service.BeginAvoidanceFlight(f.Console,SavedFlightMode.Active);f.Console.ship.LastX=.4;
+    Check(f.Service.GuardNavigation(20)&&AutoNavCore.Engaged&&f.Console.ship.LastX==0&&f.Console.ship.LastY==0&&f.Service.Diagnostic.Contains("step_hold"),
+        "An oversized flight step is held with thrust cleared, not disengaged: "+f.Service.Diagnostic);
+    Check(!f.Service.GuardNavigation(.5)&&AutoNavCore.Engaged,"Guidance resumes on the next ordinary step");
+}
 {
     f=Setup(4000);f.Service.BeginAvoidanceFlight(f.Console,SavedFlightMode.Active);
     var rock=new ShipSitu{vPosy=1000*AutoNavCore.M_TO_AU};

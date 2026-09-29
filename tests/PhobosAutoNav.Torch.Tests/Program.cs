@@ -55,9 +55,9 @@ Check(TorchDriveController.ThrustRequested(own), "Pending manual torch request i
 Check(!torch.Available(own, true, 1, out _), "Existing manual torch is not appropriated");
 own.Reactor.Props["slidCycle"] = "0";
 own.Reactor.Fusion.Deliver = false;
-Check(!torch.Burn(own, 2, 1) && own.LargestThrust == 0, "A requested burn cannot create thrust without native delivery");
+Check(torch.Burn(own, 2, 1) != BurnState.Burning && own.LargestThrust == 0, "A requested burn cannot create thrust without native delivery");
 own.Reactor.Fusion.Deliver = true; StarSystem.fEpoch++;
-Check(torch.Burn(own, 2, 1) && own.LargestThrust <= own.Mass * 2 + .001, "Native supplied thrust is capped to guidance demand");
+Check(torch.Burn(own, 2, 1) == BurnState.Burning && own.LargestThrust <= own.Mass * 2 + .001, "Native supplied thrust is capped to guidance demand");
 Check(!torch.ChangedByPilot(own, "slidCycle", own.Reactor.Props["slidCycle"]) &&
     torch.ChangedByPilot(own, "slidCycle", "0") && !torch.ChangedByPilot(new Ship(), "slidCycle", "1"),
     "Only changed owned reactor controls cause manual takeover");
@@ -100,9 +100,10 @@ Check(torch.Available(own, true, 10, out _), "Station classification follows the
     AutoNavCore.CruiseAU = 100 * AutoNavCore.M_TO_AU; AutoNavCore.ArrSpdAU = 0;
     AutoNavCore.ArriveAU = 1000 * AutoNavCore.M_TO_AU;
     AutoNavCore.BeginFlight(ship, target, new CoastSettings(3, 10, .75, 2), prefer);
-    for (int i = 0; i < 100000 && AutoNavCore.Engaged; i++)
+    for (double t = 0; t < 30000 && AutoNavCore.Engaged; t += dt)
     {
         StarSystem.fEpoch += dt;
+        ship.Reactor.Fusion.Update(); // The reactor's own update runs first in a frame, on its own cadence.
         AutoNavCore.SteerFlight(ship, target, dt);
         Check(Math.Abs(ship.LastX) + Math.Abs(ship.LastY) + Math.Abs(ship.LastTurn) <= throttle + 1e-7,
             "Every integrated flight command respects selected aggregate throttle");
@@ -129,6 +130,72 @@ Fly(true, false, 85000, 1);
 Fly(true, false, 85000, 10);
 Fly(false, false, 3000, .25, .1f, Math.PI / 3);
 Fly(true, false, 3000, 1, .25f, -Math.PI / 2);
+// The game's throttle curve: slider 0.5 grants 24% RCS authority; the torch must still light and brake,
+// through the reactor's own cadence and with the heading controller planning on the granted turn authority.
+var mapped = Fly(true, false, 85000, .1, .24f);
+Check(mapped.Ship.PositiveThrusts > 0 && mapped.Ship.RetrogradeBurns > 0, "Torch lights and brakes with the mapped mid-slider RCS authority");
+
+// Ignition through the reactor's own update: the written command must survive until that tick.
+own = Setup(); torch = Plugin.Service.Torch; own.Reactor.Fusion.LastEpoch = StarSystem.fEpoch;
+Check(torch.Burn(own, 2, .05) == BurnState.Pending && torch.HasPendingBurn && own.Reactor.Props["slidCycle"] != "0" &&
+    !own.IsUsingTorchDrive && torch.Reason == "Torch.waiting", "A burn the reactor has not read yet stays written as pending");
+StarSystem.fEpoch += .05; own.Reactor.Fusion.Update();
+Check(torch.Burn(own, 2, .05) == BurnState.Pending && own.Reactor.Props["slidCycle"] != "0" && own.Reactor.Props["knobRatio"] == "1",
+    "Pending keeps cycle and mode written across steps");
+StarSystem.fEpoch += .3; own.Reactor.Fusion.Update();
+Check(own.IsUsingTorchDrive && torch.Burn(own, 2, .05) == BurnState.Burning, "The reactor's own update lights the kept command and the controller carries it");
+torch.Release();
+// A reactor that accepts controls but never delivers hands back to RCS and waits before retrying.
+own = Setup(); torch = Plugin.Service.Torch; own.Reactor.Fusion.Deliver = false;
+double waitStart = StarSystem.fEpoch; BurnState last = BurnState.Refused;
+for (int i = 0; i < 80; i++) { StarSystem.fEpoch += .05; own.Reactor.Fusion.Update(); last = torch.Burn(own, 2, .05); if (last == BurnState.Refused) break; }
+Check(last == BurnState.Refused && StarSystem.fEpoch - waitStart <= TorchRules.StartupWaitSeconds + .1 && own.Reactor.Props["slidCycle"] == "0" &&
+    torch.Reason == "Torch.unavailable", "A reactor that delivers nothing within the startup wait hands back to RCS");
+int afterCut = own.Reactor.Writes; StarSystem.fEpoch += .05;
+Check(torch.Burn(own, 2, .05) == BurnState.Refused && own.Reactor.Writes == afterCut, "The hold-off refuses without rewriting the reactor controls");
+StarSystem.fEpoch += TorchRules.StartupHoldoffSeconds; own.Reactor.Fusion.Deliver = true; own.Reactor.Fusion.LastEpoch = double.NegativeInfinity;
+Check(torch.Burn(own, 2, .05) == BurnState.Burning, "After the hold-off a delivering reactor is used again");
+torch.Release();
+// No-wake rules still gate a pending command.
+own = Setup(); torch = Plugin.Service.Torch; own.Reactor.Fusion.LastEpoch = StarSystem.fEpoch;
+Check(torch.Burn(own, 2, .05) == BurnState.Pending, "Zone fixture is pending");
+CrewSim.system!.Restricted = true; force = 10000; torch.FilterThrust(own, ref force);
+Check(force == 0, "A no-wake zone entered while pending delivers no thrust");
+StarSystem.fEpoch += .05;
+Check(torch.Burn(own, 2, .05) == BurnState.Refused && own.Reactor.Props["slidCycle"] == "0", "The next step cuts the pending command inside the zone");
+CrewSim.system.Restricted = false; torch.Release();
+// Reactor Flow and Cycle are driven like the course plot: a core that leaves the safe band stops the
+// torch once, hands the idle controls back, tells the crew, and waits until the core settles.
+own = Setup(); torch = Plugin.Service.Torch; var notices = new System.Collections.Generic.List<string>();
+TorchDriveController.Notify = (s, key, text) => notices.Add(key);
+Check(torch.Burn(own, 2, .25) == BurnState.Burning && own.Reactor.Props["knobRatio"] == "1" && own.Reactor.Props["slidFlow"] != "0.2",
+    "A burn drives mode, flow and cycle");
+own.Reactor.Fusion.Cryos = 0; own.Reactor.Fusion.Heating = .03;
+for (int i = 0; i < 400 && torch.Reason != "Torch.core"; i++)
+{ StarSystem.fEpoch += .25; own.Reactor.Fusion.Update(); torch.WatchCore(own); if (torch.Reason != "Torch.core") torch.Burn(own, 2, .25); }
+Check(torch.Reason == "Torch.core" && !own.IsUsingTorchDrive && own.Reactor.Props["slidCycle"] == "0" && own.Reactor.Props["slidFlow"] == "0.2" &&
+    notices.Count == 1 && notices[0] == "Torch.core", "A core outside the safe band stops the torch once, restores idle controls and tells the crew");
+Check(!torch.Available(own, true, .25, out _) && torch.Reason == "Torch.core", "New burns wait while the core is outside the correction band");
+own.Reactor.Fusion.Heating = 0; own.Reactor.Fusion.Cryos = 1; own.Reactor.Temperature = TorchRules.NativeCoreTemperature;
+Check(torch.Available(own, true, .25, out _), "A settled core makes the torch available again");
+TorchDriveController.Notify = null; torch.Release();
+// Flow regulation follows the core; a pilot flow move is respected for the game's grace.
+own = Setup(); torch = Plugin.Service.Torch;
+Check(torch.Burn(own, 2, .25) == BurnState.Burning, "Flow fixture burns");
+own.Reactor.Props["slidFlow"] = "0.35"; own.Reactor.Props["fFlowEpochResume"] = (StarSystem.fEpoch + 2).ToString(CultureInfo.InvariantCulture);
+StarSystem.fEpoch += .25; own.Reactor.Temperature = TorchRules.NativeCoreTemperature * 1.1; torch.Burn(own, 2, .25);
+Check(own.Reactor.Props["slidFlow"] == "0.35", "A pilot flow move is respected for the grace period");
+StarSystem.fEpoch += 2; own.Reactor.Temperature = TorchRules.NativeCoreTemperature * 1.1; torch.Burn(own, 2, .25);
+Check(own.Reactor.Props["slidFlow"] != "0.35" && double.Parse(own.Reactor.Props["slidFlow"], CultureInfo.InvariantCulture) < .35,
+    "After the grace a hot core has its flow reduced toward the ideal");
+Check(!torch.ControlsChanged, "The controller's own flow adjustments are never read as a pilot takeover");
+torch.Release();
+// The console torch safety keeps the game's limiter; a pilot who releases it may use the whole cycle range.
+own = Setup(); torch = Plugin.Service.Torch; var consoleCo = new CondOwner(own); Plugin.Service.Console = consoleCo; Plugin.TorchMaximumG.Value = 2;
+Check(torch.Available(own, true, .25, out double withSafety), "Safety fixture available");
+consoleCo.mapGUIPropMaps["Panel A"] = new System.Collections.Generic.Dictionary<string, string> { ["bTorchSafety"] = "false" };
+Check(torch.Available(own, true, .25, out double withoutSafety) && withoutSafety > withSafety, "Releasing the console torch safety allows the whole cycle range, still capped by the g setting");
+Plugin.TorchMaximumG.Value = 1; Plugin.Service.Console = null;
 
 own = Setup(); torch = Plugin.Service.Torch;
 torch.Burn(own, 2, 1); torch.Cut();
@@ -157,12 +224,12 @@ var manualFlow = own.Reactor.Props["slidFlow"]; torch.YieldToPilot();
 Check(!own.IsUsingTorchDrive && own.Reactor.Props["slidCycle"] == "0" &&
     own.Reactor.Props["knobRatio"] == "1" && own.Reactor.Props["slidFlow"] == manualFlow && !torch.Owns(own),
     "Incoming native manual cycle can take over without Auto Nav undoing its mode/flow");
-own = Setup(); torch = Plugin.Service.Torch; Check(torch.Burn(own, 2, 1), "Contact fixture begins with native torch delivery");
+own = Setup(); torch = Plugin.Service.Torch; Check(torch.Burn(own, 2, 1) == BurnState.Burning, "Contact fixture begins with native torch delivery");
 NativeContactReader.State = ContactState.Weak; force = 10000; torch.FilterThrust(own, ref force);
 Check(force == 0 && torch.Reason == "Sensors.Weak", "Native fusion update cannot deliver an earlier burn after contact loss");
 NativeContactReader.State = ContactState.Ready; force = 10000; torch.FilterThrust(own, ref force);
 Check(force == 0 && torch.ContactLoss?.State == ContactState.Weak, "Brief reacquisition cannot revive the old burn before suspension is recorded");
-Check(!torch.Burn(own, 2, 1), "Lost contact cannot acquire a fresh torch burn");
+Check(torch.Burn(own, 2, 1) == BurnState.Refused, "Lost contact cannot acquire a fresh torch burn");
 AutoNavCore.EndFlight(own, "CONTACT LOST");
 Check(!AutoNavCore.Engaged && own.objSS.vAccRCS.magnitude == 0 && !own.IsUsingTorchDrive,
     "Contact-loss stop releases native torch and RCS commands");

@@ -11094,27 +11094,27 @@
       "mod": "PhobosAutoNav",
       "key": "Avoidance.detour",
       "category": "status/warning",
-      "decision": "retain",
-      "reason": "Retain: clear functional label, operational instruction or necessary safety/detail constraint; no forced personality.",
+      "decision": "rewrite",
+      "reason": "Auto Nav 0.27.0 adds the obstacle range and a weak-contact mark so the player can judge the takeover; the held-commands statement and behaviour contract are retained.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosAutoNav/NavigationAvoidance.cs:187"
+        "src/PhobosAutoNav/NavigationAvoidance.cs:279"
       ],
-      "before": "RCS detour around {0}. Weapon-facing and torch commands are held.",
-      "after": "RCS detour around {0}. Weapon-facing and torch commands are held."
+      "before": "RCS detour around {0} at {1:0.0} km{2}. Weapon-facing and torch commands are held.",
+      "after": "RCS detour around {0} at {1:0.0} km{2}. Weapon-facing and torch commands are held."
     },
     {
       "mod": "PhobosAutoNav",
       "key": "Avoidance.blocked",
       "category": "status/warning",
-      "decision": "retain",
-      "reason": "Retain: clear functional label, operational instruction or necessary safety/detail constraint; no forced personality.",
+      "decision": "rewrite",
+      "reason": "Auto Nav 0.27.0 adds the obstacle range and a weak-contact mark so the player can judge the hold; the braking/holding statement and behaviour contract are retained.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosAutoNav/NavigationAvoidance.cs:187"
+        "src/PhobosAutoNav/NavigationAvoidance.cs:279"
       ],
-      "before": "Route blocked by {0}, or planning limit reached. Braking/holding while tracking remains valid.",
-      "after": "Route blocked by {0}, or planning limit reached. Braking/holding while tracking remains valid."
+      "before": "Route blocked by {0} at {1:0.0} km{2}, or planning limit reached. Braking/holding while tracking remains valid.",
+      "after": "Route blocked by {0} at {1:0.0} km{2}, or planning limit reached. Braking/holding while tracking remains valid."
     },
     {
       "mod": "PhobosAutoNav",
@@ -38984,6 +38984,86 @@
       ],
       "before": "Cut one 4 kg steel ingot into 4 kg of identified steel scrap. All cuttings are retained; this destroys the ingot and loses its value.",
       "after": "Cut one 4 kg steel ingot into 4 kg of identified steel scrap. All cuttings are retained; this destroys the ingot and loses its value."
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "Torch.core",
+      "category": "status/warning",
+      "decision": "retain",
+      "reason": "New in Auto Nav 0.27.0: says what stopped the torch, that RCS continues and when the torch returns; no promise beyond the implementation.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosAutoNav/TorchDriveController.cs:65",
+        "src/PhobosAutoNav/TorchDriveController.cs:240",
+        "src/PhobosAutoNav/TorchDriveController.cs:241"
+      ],
+      "before": "Torch stopped: reactor core outside the safe band. RCS continues; the torch returns once the core settles.",
+      "after": "Torch stopped: reactor core outside the safe band. RCS continues; the torch returns once the core settles."
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "Torch.core_log",
+      "category": "status/warning",
+      "decision": "retain",
+      "reason": "New in Auto Nav 0.27.0: crew log line for the reactor core stop with the measured ratio placeholder.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosAutoNav/TorchDriveController.cs:241"
+      ],
+      "before": "Auto Nav stopped the torch: reactor core at {0:0%} of ideal, outside the safe band. Flying on RCS until it settles.",
+      "after": "Auto Nav stopped the torch: reactor core at {0:0%} of ideal, outside the safe band. Flying on RCS until it settles."
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "NavigationService.authority",
+      "category": "status/warning",
+      "decision": "retain",
+      "reason": "New in Auto Nav 0.27.0: reports the RCS authority the throttle slider grants and the one action that raises it.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosAutoNav/NavigationService.cs:377"
+      ],
+      "before": "RCS authority {0:0.###} m/s² at throttle {1:0}% (the slider curve is the game's own; raise it for firmer braking and turning)",
+      "after": "RCS authority {0:0.###} m/s² at throttle {1:0}% (the slider curve is the game's own; raise it for firmer braking and turning)"
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "Avoidance.weak_contact",
+      "category": "status/warning",
+      "decision": "retain",
+      "reason": "New in Auto Nav 0.27.0: suffix marking a weak contact with its wider clearance in Detour/Blocked notices.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosAutoNav/NavigationAvoidance.cs:280"
+      ],
+      "before": " (weak contact, wide clearance)",
+      "after": " (weak contact, wide clearance)"
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "Avoidance.summary",
+      "category": "status/warning",
+      "decision": "retain",
+      "reason": "New in Auto Nav 0.27.0: status count of avoidance takeovers this flight with the last reason.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosAutoNav/NavigationAvoidance.cs:25"
+      ],
+      "before": "Avoidance took the controls for {0} steps this flight; last reason: {1}",
+      "after": "Avoidance took the controls for {0} steps this flight; last reason: {1}"
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "Avoidance.none",
+      "category": "status/warning",
+      "decision": "retain",
+      "reason": "New in Auto Nav 0.27.0: status line when avoidance has not taken the controls.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosAutoNav/NavigationAvoidance.cs:25"
+      ],
+      "before": "Avoidance has not taken the controls this flight",
+      "after": "Avoidance has not taken the controls this flight"
     }
   ],
   "documents": [
@@ -38991,8 +39071,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "a3eecda1cb881875b0e9b9d23a5397ed3ca3b2565e9603c619ed4bb413f9c467",
-      "review": "2026-09-29: version summary; no other wording changed."
+      "sha256": "42c21d94f8dcc20fa36d0125f25e43f08217cd9aef60660c94eda789c91553be",
+      "review": "2026-09-29: Framework 0.40.0 and Auto Nav 0.27.0 version summary; no other wording changed."
     },
     {
       "path": "SUPPORT.md",
@@ -39067,8 +39147,8 @@
       "path": "docs/auto-nav-departure.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "78aeea574b3881c69260314f3df164718258062e2289ecb7d0fa06e154498464",
-      "review": "2026-09-28: native clamp release when the docking console is open and cleared."
+      "sha256": "5a79a4bc94a456353c7d106b1ffdb74a8897d40e6ac4556d27d2e1b077ed7572",
+      "review": "2026-09-29: weak contacts beyond 10 km and docked partners of the target no longer seize the approach; notice ranges; status count."
     },
     {
       "path": "docs/auto-nav-docking.md",
@@ -39095,14 +39175,15 @@
       "path": "docs/auto-nav-flight-profiles.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "c294a47aa3a676afd0b84b8a5e7c56207dc779ddad57cffe7450895cd965d5d0"
+      "sha256": "e0cddb6f63f17f71b8c5512e8390a2dcc60685c2509d3d2f14c73ecd5f80fdd8",
+      "review": "2026-09-29: the game slider curve, the authority readout and turn planning on the granted authority."
     },
     {
       "path": "docs/auto-nav-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "cc4084bade38bff012347e3fbf615da4cd7f7a5ab42b6dd62dfc7cc1954c09f4",
-      "review": "2026-09-29: regenerated from reviewed inputs: new N2/N3 used, broken and refurbished offers; version."
+      "sha256": "7971e2bf2c634624229d3424f94a13980d94f896fdd47a6280c8aa52f3b95d75",
+      "review": "2026-09-29: regenerated from reviewed inputs after the 0.27.0 source change; version."
     },
     {
       "path": "docs/auto-nav-persistence.md",
@@ -39129,8 +39210,8 @@
       "path": "docs/auto-nav-torch.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "c036158d7a21de65747c17af96b5def9b6c1407095659ded0a13d4a99f6d24c3",
-      "review": "2026-09-28: step-valid obstacle picture for the torch guard."
+      "sha256": "c11b4ad91952eaa74b85be9bca232ba78768904d5a5419fc5059ea0ab831cadf",
+      "review": "2026-09-29: reactor Flow and Cycle section (course-plot rules, startup wait, safe-band stop) and the 0.27.0 ignition note."
     },
     {
       "path": "docs/auto-nav-towing.md",
@@ -39150,8 +39231,8 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "685e7d9fd92bdc121a2e1e1d8cce1022b6765d35d6f60ad8d59dbf365aef51a4",
-      "review": "2026-09-29: version line; no other wording changed."
+      "sha256": "230b21259528afe1b3d57d567aeb22258b3a7ad180abdf573775ed053b356488",
+      "review": "2026-09-29: Framework 0.40.0 and Auto Nav 0.27.0 version line."
     },
     {
       "path": "docs/crew-automation.md",
@@ -39451,8 +39532,8 @@
       "path": "docs/development/framework-author-guide.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "d0f82b5254f80273be871d1816272fca435cc0da4596edfac93f823447c3c6d9",
-      "review": "2026-09-28: in-place loot and station amendment, unbounded clock steps, refusal at effects time, LowerUI guard scope and native window registration, task ownership, nMax, repair share."
+      "sha256": "068093fd7e3a3a75481653cffe5cff417532934316e3b8cce9c6896d22239ace",
+      "review": "2026-09-29: Processing.NativeReactor paragraph for Framework 0.40.0."
     },
     {
       "path": "docs/development/framework-bulk-storage.md",
@@ -39834,8 +39915,8 @@
       "path": "docs/development/vanilla-precedence-audit.md",
       "scope": "contributor audit record: findings, native evidence, verdicts and owner checks",
       "decision": "review as contributor documentation; player-facing effects are described in the owning guides",
-      "sha256": "5115e33fcc4ecc763a79d085e9a97c5a98bc26a69763fabfad9256661b580c9c",
-      "review": "2026-09-29: round 4 findings, native evidence and owner checks."
+      "sha256": "05c2337ebad0b5dcedf5c3a1697f0110b59222ec4398dc65e74b52dc517e2b34",
+      "review": "2026-09-29: round 5 (Auto Nav 0.27.0, Framework 0.40.0) and the round 3 torch row note."
     },
     {
       "path": "docs/development/workshop-publication.md",
@@ -39868,8 +39949,8 @@
       "path": "docs/framework-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "4c0e0a8b7a8728b8a6c2f26ac92c38c975c9225aed5f0942bb4fd503ef69838a",
-      "review": "2026-09-29: regenerated from reviewed inputs: version only."
+      "sha256": "123a54148a787a51c78957fa29f9c5a860876ada1682cf041443e140c9387596",
+      "review": "2026-09-29: regenerated from reviewed inputs; Framework 0.40.0 version."
     },
     {
       "path": "docs/furnace-coolant-conduits.md",
@@ -39966,8 +40047,8 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "507238b4f61d6bde41599b72824e807bc557e9ada3fb994ccce977ba6ebc0ef0",
-      "review": "2026-09-29: version lines; no other wording changed."
+      "sha256": "f27649940f990c3e499da27ede8998dbf200e111e835e8ac6c495c4394ec8d2f",
+      "review": "2026-09-29: Framework 0.40.0 and Auto Nav 0.27.0 prepared versions."
     },
     {
       "path": "docs/residue-collector.md",
@@ -40050,15 +40131,15 @@
       "path": "workshop/PhobosAutoNav/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "cc721ad914ae80195550e8abbc2fbc91dd541c5d4d3b57a39ed0549fb31287d8",
-      "review": "2026-09-29: version and 0.26.0 bullet."
+      "sha256": "734244a8961cdb304948beb94928a73d0d0f3a342292ba6dcdbb212c427d7948",
+      "review": "2026-09-29: version, Framework 0.40.0 requirement and the 0.27.0 bullet."
     },
     {
       "path": "workshop/PhobosFramework/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "718dd70cfbf2a9776b74d4636d3164592bae0fff14dc5341acfa165981212a3c",
-      "review": "2026-09-29: version and 0.39.0 bullet."
+      "sha256": "41908256130b7818c6eaa33f1edcef827098eeac207f80e21c75ab19feb0c63d",
+      "review": "2026-09-29: version and the 0.40.0 bullet."
     },
     {
       "path": "workshop/PhobosManufacturing/page.bbcode",
@@ -40116,8 +40197,8 @@
     {
       "path": "mods/PhobosAutoNav/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "00637ba7bbb39314f8746d6da00cc87a21e63513ff0bdca5cea680e7ef6106d7",
-      "review": "2026-09-29: version metadata only."
+      "sha256": "7104b75222365d05b9aa7700f6d582645a2bf4f26018582de8323f503f6ef9ec",
+      "review": "2026-09-29: version 0.27.0."
     },
     {
       "path": "mods/PhobosFramework/framework/equipment-names.json",
@@ -40127,8 +40208,8 @@
     {
       "path": "mods/PhobosFramework/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "c4074cc6b4e8e952816963901b6a1a7e0da0f4d992e2a69a788a4fbbc88ad39b",
-      "review": "2026-09-29: version metadata only."
+      "sha256": "dbcc1adc6b39740f74579c0e8f78b3412e140d4f716d65d745985b780e406500",
+      "review": "2026-09-29: version 0.40.0."
     },
     {
       "path": "mods/PhobosManufacturing/mod_info.json",

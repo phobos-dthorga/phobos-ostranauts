@@ -19,6 +19,13 @@ the selected budget. This applies to approach guidance, arrival braking,
 coasting spin correction, torch alignment and docking. It fixes an inherited
 command-budget error; it is not a measured claim about in-game fuel savings.
 
+Since 0.25.0 the slider follows the game's own curve for manual flying and its
+station-keeping autopilot: half slider grants about a quarter of the RCS, a
+quarter slider about a tenth. Weak braking or turning is usually a low slider.
+phobosnav status shows the authority the current setting grants; raise the
+slider for firmer braking and turning. Since 0.27.0 turning and torch alignment
+plan on that same granted authority, so the heading settles instead of overshooting.
+
 Ordinary **Fly** and **Resume**, including automatic restoration after loading,
 check braking room using current qualified contact, relative motion, hull size,
 arrival settings, RCS acceleration and console throttle. The calculation reserves

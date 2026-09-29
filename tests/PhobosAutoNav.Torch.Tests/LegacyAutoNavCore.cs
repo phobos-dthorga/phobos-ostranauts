@@ -413,7 +413,7 @@ internal static class LegacyAutoNavCore
                 if (TorchRules.Aligned(torchError, shipSitu.fW, fTime + TorchRules.ZoneRefreshSeconds))
                 {
                     double demand = TorchRules.BurnAcceleration(errorX, errorY, shipSitu.fRot, torchAcceleration, fTime);
-                    bool burning = torch.Burn(player, demand, fTime);
+                    bool burning = torch.Burn(player, demand, fTime) == BurnState.Burning;
                     if (burning || (!braking && torch.HasPendingBurn))
                     {
                         // No translational RCS alongside torch; no attitude change

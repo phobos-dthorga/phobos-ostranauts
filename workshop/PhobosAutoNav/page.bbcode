@@ -1,5 +1,5 @@
 [h1]Phobos Auto Nav[/h1]
-[b]Version:[/b] 0.26.0
+[b]Version:[/b] 0.27.0
 
 [h2]Performance update[/h2]
 The console refreshes the visible page up to ten times per second and responds immediately to your actions. It no longer checks whole-ship hull fit just to display docking clearance; starting a docking manoeuvre still checks it. Flight and firing safety checks remain current.
@@ -22,13 +22,14 @@ Give Polaris the long approach while you keep an eye on the ship. Asterel module
 [*]Local avoidance uses tracked contacts, weak nearby contacts with extra clearance, and rocks in asteroid fields. Losing contact releases thrust and requires Resume after contact returns.
 [*]Version 0.25.0 lets the game lead: torch burns are no longer cut during automated flight, the final approach keeps cruise speed until braking, tumbling derelicts can be docked and captured, the clamp is the docking console's own button, a sensor refresh is a short hold rather than a lost contact, an orbit lock hands control back to you, heavy time compression holds a step instead of ending the flight, and the throttle slider means what it means for manual flying.
 [*]Version 0.26.0 adds used, broken and refurbished offers for the N2 and N3, matching the N1.
+[*]Version 0.27.0 makes the torch actually light and run the reactor like the game's own course plot: Cycle for the acceleration needed, Flow steered to hold the core near ideal under the console torch safety, a stop and hand-back if the core leaves the safe band. Approaches in station clusters no longer circle under the avoidance planner, turning plans on the authority the throttle slider grants, and heavy time compression holds a step instead of ending the flight. Requires Phobos Framework 0.40.0.
 [/list]
 
 [h2]Operating limits[/h2]
 Disengage removes thrust; the ship coasts. It is not an emergency brake. Docking needs clearance and the navigation console open for final clamps. Departure, docking and pursuit pause after loading. No guaranteed collision-free flight, successful hit or intact capture. Upstream-derived Auto Navigate code remains excluded from the MIT grant; its unresolved reuse terms keep publication on hold.
 
 [h2]Requirements and installation[/h2]
-Ostranauts 1.0.1.5, BepInEx 5 and Phobos Framework 0.34.0 or newer. Disable original Auto Navigate before engaging Phobos Auto Nav; it is not a dependency.
+Ostranauts 1.0.1.5, BepInEx 5 and Phobos Framework 0.40.0 or newer. Disable original Auto Navigate before engaging Phobos Auto Nav; it is not a dependency.
 
 This is an unpublished development package. Automated checks do not establish in-game readiness or Unity layout approval. Keep required mods installed for saves using their content. Updating does not refill shops or old loot containers. See the installation guide for current download availability.
 

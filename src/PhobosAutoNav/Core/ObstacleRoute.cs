@@ -87,8 +87,10 @@ internal sealed class ObstacleRoute
         if(!ArrivalBrake.Finite(braking)||braking<=0||!SweepSafe(velocity,acceleration,burnSeconds,obstacles)) return false;
         var end=velocity*burnSeconds+acceleration*(.5*burnSeconds*burnSeconds);
         var speed=velocity+acceleration*burnSeconds;
+        // The braking chord is one straight sweep however long the stop takes; the RCS stopping
+        // envelope itself is the guidance's business (SafeSpeed, TorchSequenceSafe), not this check's.
         double seconds=Math.Max(.001,speed.Length/braking);
-        if(seconds>MaximumHorizonSeconds) return false;
+        if(!ArrivalBrake.Finite(seconds)) return false;
         var moved=obstacles.Select(o=>new ObstacleDisc(o.Id,o.Position+o.Velocity*burnSeconds-end,o.Velocity,o.Radius)).ToArray();
         return SweepSafe(speed,-speed.Unit*braking,seconds,moved);
     }

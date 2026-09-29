@@ -34,6 +34,8 @@ internal sealed partial class NavigationService
     }
 
     internal float Throttle => ReadThrottle(console);
+    /// <summary>The console that owns the current flight, for readers of its native panel settings.</summary>
+    internal CondOwner? Console => console;
 
     private static bool HasId(CondOwner co, string id) => !co.bDestroyed && (co.strName == id || co.strCODef == id);
     private static bool PropOn(CondOwner co, string key) => co.mapGUIPropMaps.TryGetValue("Panel A", out var props)
@@ -281,7 +283,8 @@ internal sealed partial class NavigationService
             {
                 case "help": response = Text.Get("NavigationService.phobosnav_help_status_settings_fly_stop_spawn"); return true;
                 case "status": response = Text.Get("NavigationService.phobos_auto_nav_engaged", Plugin.Version, AutoNavCore.Engaged, status, EquipmentContent.Status)
-                    + "\n" + ApproachSummary(OpenConsole, detailed: true) + "\n" + Text.Get(Torch.Reason); return true;
+                    + "\n" + ApproachSummary(OpenConsole, detailed: true) + "\n" + Text.Get(Torch.Reason) + AuthorityLine(OpenConsole ?? console);
+                    AvoidanceStatus(ref response); return true;
                 case "settings":
                     var snapshot = DisplaySnapshot(OpenConsole ?? console);
                     var settingsConsole = OpenConsole ?? console;
@@ -360,6 +363,18 @@ internal sealed partial class NavigationService
             }
         }
         catch (Exception ex) { log(ex.ToString()); response = Text.Get("NavigationService.command_failed_see_bepinex_log"); return false; }
+    }
+
+    partial void AvoidanceStatus(ref string response);
+    // The RCS authority the game's slider curve actually grants, so a weak brake or turn is visible at once.
+    private static string AuthorityLine(CondOwner? co)
+    {
+        var ship = co?.ship;
+        float? throttle = ReadThrottleReading(co);
+        if (ship?.objSS == null || throttle == null || !ArrivalBrake.Finite(ship.RCSAccelMax) || ship.RCSAccelMax <= 0) return "";
+        double slider = co!.mapGUIPropMaps.TryGetValue("Panel A", out var props) && props.TryGetValue("slidThrottle", out var text) &&
+            double.TryParse(text, NumberStyles.Float, CultureInfo.InvariantCulture, out double value) ? value : double.NaN;
+        return "\n" + Text.Get("NavigationService.authority", ship.RCSAccelMax / AutoNavCore.M_TO_AU * throttle.Value, slider * 100);
     }
 
     private static string ArrivalUsage() => Text.Get("NavigationService.arrival_usage",

@@ -144,18 +144,20 @@ internal static class PredictiveGuidance
     }
 
     // Turn/startup time is part of the propulsion choice. A rapidly rotating
-    // correction should use RCS until a useful, sustained torch leg exists.
+    // correction should use RCS until a useful, sustained torch leg exists. The turn must fit the
+    // window the correction stays valid for: the prediction horizon, or on a braking leg the time
+    // the RCS would take to shed the speed anyway (a retrograde heading does not go stale while braking).
     internal static bool TorchWorthwhile(NavVector correction, double heading, double spin, double turnAcceleration,
         double turnSpeed, double torchAcceleration, double rcsAcceleration, double trustedHorizon, double minimumCorrection,
-        out double delay)
+        out double delay, double brakingSeconds = 0)
     {
         delay = double.PositiveInfinity;
         if (!correction.Finite || !TorchRules.Finite(heading, spin, turnAcceleration, turnSpeed, torchAcceleration,
-            rcsAcceleration, trustedHorizon, minimumCorrection) || correction.Length < minimumCorrection ||
-            turnAcceleration <= 0 || turnSpeed <= 0 || torchAcceleration <= rcsAcceleration) return false;
+            rcsAcceleration, trustedHorizon, minimumCorrection, brakingSeconds) || correction.Length < minimumCorrection ||
+            turnAcceleration <= 0 || turnSpeed <= 0 || torchAcceleration <= rcsAcceleration || brakingSeconds < 0) return false;
         double angle = Math.Abs(DockingRules.Wrap(-Math.Atan2(correction.X, correction.Y) - heading));
         delay = Math.Max(angle / turnSpeed, 2 * Math.Sqrt(angle / turnAcceleration)) + Math.Abs(spin) / turnAcceleration + TorchRules.ZoneRefreshSeconds;
-        return delay < trustedHorizon && delay + correction.Length / torchAcceleration < correction.Length / rcsAcceleration;
+        return delay < Math.Max(trustedHorizon, brakingSeconds) && delay + correction.Length / torchAcceleration < correction.Length / rcsAcceleration;
     }
 
     // Conservative turn / one burn interval / RCS braking envelope. Evaluate both

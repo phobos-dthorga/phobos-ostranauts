@@ -1,0 +1,14 @@
+[h1]Phobos Framework 0.40.0[/h1]
+[b]Draft - not published | 2026-09-29[/b]
+
+[h2]Added[/h2]
+
+[list]
+[*]Processing.ReactorRules, IReactorPanel, IReactorState, ReactorControls and NativeReactor: shared facts about the game's fusion reactor (its 0.27 second update cadence, the ideal core, the course plot's correction and abort bands, the wall-damage temperature, the pilot flow grace), read-only readiness and no-wake reads, guarded flight-control writes that tell an owner's own commands from a pilot's and hand the idle settings back on release, and the vanilla flow regulation with a tighter hot side. First consumer: Auto Nav 0.27.0.
+[/list]
+
+[h2]Compatibility and limits[/h2]
+
+[list]
+[*]Additive API; no saves, definitions or behaviour of existing mods change. The rules are pure so consumers and offline checks share one copy; the game-facing helpers wrap a CondOwner. Nothing here ignites, repairs or refuels a reactor. Offline checks pass; owner play-testing is pending.
+[/list]

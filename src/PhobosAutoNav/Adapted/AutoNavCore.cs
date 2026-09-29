@@ -282,6 +282,7 @@ internal static class AutoNavCore
             var demand = _coasting ? default : plan.Acceleration;
             var correction = plan.Correction;
             var torch = Plugin.Service.Torch;
+            torch.WatchCore(player);
             double available = 0;
             bool useTorch = !_coasting && torch.Available(player, FlightPrefersTorch, fTime, out available);
             // Do not rely on a future torch burn to recover from today's closing speed.
@@ -289,9 +290,13 @@ internal static class AutoNavCore
                 velocity.Length, arrival, full * throttle, fTime);
             if (useTorch && !plan.Braking && velocity.Length >= safe) useTorch = false;
             var legCorrection = plan.Braking ? correction.Unit * Math.Max(correction.Length, velocity.Length - arrival) : correction;
+            // While braking the RCS keeps translating during the turn, so turning has only its combined share;
+            // an acceleration-leg alignment turns alone and may use the whole selected budget.
+            double turnAuthority = RcsBudget.TurnAuthority(Plugin.RotAccelMax.Value, throttle, plan.Braking);
+            double brakingSeconds = plan.Braking ? Math.Max(0, velocity.Length - arrival) / CoastRules.BrakingAcceleration(full * throttle) : 0;
             if (useTorch && PredictiveGuidance.TorchWorthwhile(legCorrection, shipSitu.fRot, shipSitu.fW,
-                Plugin.RotAccelMax.Value * throttle, Plugin.RotSpeedMax.Value, available, full * throttle,
-                plan.Horizon, Plugin.TorchMinimumCorrectionMS.Value, out var delay) &&
+                turnAuthority, Plugin.RotSpeedMax.Value, available, full * throttle,
+                plan.Horizon, Plugin.TorchMinimumCorrectionMS.Value, out var delay, brakingSeconds) &&
                 PredictiveGuidance.TorchSequenceSafe(offset, velocity, acceleration, plan.RequestedAcceleration,
                     hull, full * throttle, available, delay, fTime))
             {
@@ -301,18 +306,29 @@ internal static class AutoNavCore
                 {
                     double burn = TorchRules.BurnAcceleration(plan.RequestedAcceleration.X * fTime, plan.RequestedAcceleration.Y * fTime, shipSitu.fRot, available, fTime);
                     if (!plan.Braking) burn = Math.Min(burn, Math.Max(0, safe - velocity.Length) / fTime);
-                    if (burn > 0 && torch.Burn(player, burn, fTime))
+                    var state = burn > 0 ? torch.Burn(player, burn, fTime) : BurnState.Refused;
+                    if (state == BurnState.Burning)
                     {
                         player.Maneuver(0, 0, 0, 0, (float)fTime);
                         lastAcceleration = new NavVector(shipSitu.vAccIn.x / M_TO_AU, shipSitu.vAccIn.y / M_TO_AU);
                         CurrentPhase = plan.Braking ? Phase.Decel : Phase.Accel;
                         return;
                     }
+                    if (state == BurnState.Pending)
+                    {
+                        // The reactor's own update has not read the command yet: keep the heading it was
+                        // written for. A braking leg keeps braking on RCS meanwhile; an acceleration leg
+                        // waits rather than spending RCS on a correction the torch is about to make.
+                        float hold = ComputeRotInput(shipSitu, torchError, fTime, TorchRules.MaximumHeadingRadians / 2, turnAuthority);
+                        ApplyPredictiveRcs(player, plan.Braking ? demand : default, hold, full, fTime);
+                        CurrentPhase = plan.Braking ? Phase.Decel : Phase.Align;
+                        return;
+                    }
                 }
                 else
                 {
                     torch.Align();
-                    float turning = ComputeRotInput(shipSitu, torchError, fTime, TorchRules.MaximumHeadingRadians / 2);
+                    float turning = ComputeRotInput(shipSitu, torchError, fTime, TorchRules.MaximumHeadingRadians / 2, turnAuthority);
                     // RCS keeps correcting while torch turns; a target cannot make us coast indefinitely by changing heading.
                     ApplyPredictiveRcs(player, demand, turning, full, fTime);
                     CurrentPhase = plan.Braking ? Phase.Decel : Phase.Align;
@@ -322,8 +338,10 @@ internal static class AutoNavCore
             torch.Cut();
             double desiredHeading = FaceTarget && WeaponHeading.HasValue && !plan.Braking && !plan.Limited ? WeaponHeading.Value : -Math.Atan2(offset.X, offset.Y);
             double face = WrapPi(desiredHeading - shipSitu.fRot);
-            float turn = _coasting && !FaceTarget ? (float)CoastRules.CoastRotation(shipSitu.fW, fTime, Plugin.RotAccelMax.Value) :
-                ComputeRotInput(shipSitu, face, fTime, FlightCoastSettings.BurnHeadingToleranceDegrees * CoastRules.DegreesToRadians);
+            bool translating = demand.X != 0 || demand.Y != 0;
+            float turn = _coasting && !FaceTarget ? (float)CoastRules.CoastRotation(shipSitu.fW, fTime, RcsBudget.TurnAuthority(Plugin.RotAccelMax.Value, throttle, translating)) :
+                ComputeRotInput(shipSitu, face, fTime, FlightCoastSettings.BurnHeadingToleranceDegrees * CoastRules.DegreesToRadians,
+                    RcsBudget.TurnAuthority(Plugin.RotAccelMax.Value, throttle, translating));
             ApplyPredictiveRcs(player, demand, turn, full, fTime);
             CurrentPhase = _coasting || plan.Holding ? Phase.Coast : plan.Braking ? Phase.Decel : Phase.Accel;
             _logAccum += fTime;
@@ -493,9 +511,11 @@ internal static class AutoNavCore
 		return a;
 	}
 
-	private static float ComputeRotInput(ShipSitu ps, double headErr, double fTime, double deadband)
+	// Plans the turn with the authority the budget will actually grant (RcsBudget.TurnAuthority), so the
+	// heading settles instead of overshooting a cap the controller never saw.
+	private static float ComputeRotInput(ShipSitu ps, double headErr, double fTime, double deadband, double authority)
 	{
-		double num = ((Plugin.RotAccelMax != null) ? ((double)Plugin.RotAccelMax.Value) : 0.5);
+		double num = authority;
 		double val = ((Plugin.RotSpeedMax != null) ? ((double)Plugin.RotSpeedMax.Value) : 0.6);
 		if (num <= 0.0 || fTime <= 0.0)
 		{

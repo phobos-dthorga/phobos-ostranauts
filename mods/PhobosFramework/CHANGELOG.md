@@ -20,6 +20,16 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.40.0] - 2026-09-29 - Draft
+
+### Added
+
+- Processing.ReactorRules, IReactorPanel, IReactorState, ReactorControls and NativeReactor: shared facts about the game's fusion reactor (its 0.27 second update cadence, the ideal core, the course plot's correction and abort bands, the wall-damage temperature, the pilot flow grace), read-only readiness and no-wake reads, guarded flight-control writes that tell an owner's own commands from a pilot's and hand the idle settings back on release, and the vanilla flow regulation with a tighter hot side. First consumer: Auto Nav 0.27.0.
+
+### Compatibility and limits
+
+- Additive API; no saves, definitions or behaviour of existing mods change. The rules are pure so consumers and offline checks share one copy; the game-facing helpers wrap a CondOwner. Nothing here ignites, repairs or refuels a reactor. Offline checks pass; owner play-testing is pending.
+
 ## [0.39.0] - 2026-09-29 - Draft
 
 ### Added

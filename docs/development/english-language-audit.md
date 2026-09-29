@@ -332,3 +332,19 @@ Auto Nav, bulk-silo and furnace guides gain one sentence each on the new offers,
 ingot finds and purchase-only machines; version lines move. Coverage is now
 2,041 entries, 159 documents and 14 other surfaces.
 Unity wording is unverified.
+
+## Vanilla precedence, round 5 (Auto Nav 0.27.0, Framework 0.40.0), 29 September 2026
+
+Auto Nav 0.27.0 and Framework 0.40.0 record the torch ignition and reactor
+control round. Six new Auto Nav entries: the reactor core stop notice and its
+crew log line (what stopped, that RCS continues, when the torch returns), the
+RCS authority status line with the one action that raises it, the weak-contact
+suffix, and the avoidance takeover count and its idle form. Two rewrites: the
+Detour and Blocked notices gain the obstacle range and a weak-contact mark;
+their held-commands and braking statements are retained. Torch starting is
+now shown for a real reactor wait and keeps its wording. Reviewed documents:
+the torch guide gains the reactor Flow and Cycle section, the departure guide
+the seizure rules, the flight-profiles guide the slider curve and authority
+readout, the author guide the NativeReactor paragraph, the audit its round 5,
+and version lines move. Coverage is now 2,053 entries, 159 documents
+and 14 other surfaces. Unity wording is unverified.

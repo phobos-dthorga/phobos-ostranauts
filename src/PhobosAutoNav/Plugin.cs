@@ -12,11 +12,11 @@ namespace PhobosAutoNav;
 
 [BepInPlugin(Id, "Phobos Auto Nav", Version)]
 [BepInProcess("Ostranauts.exe")]
-[BepInDependency(FrameworkInfo.PluginId, "0.34.0")]
+[BepInDependency(FrameworkInfo.PluginId, "0.40.0")]
 public sealed class Plugin : BaseUnityPlugin
 {
     public const string Id = "phobosgekko.ostranauts.autonav";
-    public const string Version = "0.26.0";
+    public const string Version = "0.27.0";
     internal static NavigationService Service { get; private set; } = null!;
     internal static ConfigEntry<bool> Enabled = null!, VerboseLogging = null!, FuelCheck = null!,
         AbortOnManualThrust = null!, UseThrusterRotation = null!, ResumeAfterLoad = null!, PreferTorch = null!, SalvageEnabled = null!;
@@ -66,6 +66,8 @@ public sealed class Plugin : BaseUnityPlugin
         ResumeAfterLoad = Config.Bind("Persistence", "ResumeAfterLoad", true, Text.Get("Persistence.resume_setting"));
         AutoEngageSensors = Config.Bind("Sensors", "AutoEngage", SensorAutoEngage.All, Text.Get("SensorAssist.setting"));
         TorchDriveController.SensorSettling = Service.SensorsSettlingForTorch;
+        TorchDriveController.Notify = (ship, key, text) =>
+            Phobos.Ostranauts.Framework.Notices.PlayerNotices.Post(ship, key, Phobos.Ostranauts.Framework.Notices.NoticeLevel.Caution, text, text);
         Phobos.Ostranauts.Framework.Sensors.SensorLeases.SwitchedOffByOthers += Service.SensorSwitchedOff;
         CrewSim.OnGameFinishedLoading.AddListener(Service.WorldLoaded);
         harmony = new Harmony(Id);
@@ -85,6 +87,7 @@ public sealed class Plugin : BaseUnityPlugin
         Phobos.Ostranauts.Framework.Crew.CrewWork.SkipStarting -= Service.SuspendForSkip;
         Phobos.Ostranauts.Framework.Sensors.SensorLeases.SwitchedOffByOthers -= Service.SensorSwitchedOff;
         TorchDriveController.SensorSettling = null;
+        TorchDriveController.Notify = null;
         FrameworkLifecycle.ContentLoading -= EquipmentContent.Register;
         if (Service != null) CrewSim.OnGameFinishedLoading.RemoveListener(Service.WorldLoaded);
         Service?.Disengage(Text.Get("Plugin.plugin_unloaded")); harmony?.UnpatchSelf();

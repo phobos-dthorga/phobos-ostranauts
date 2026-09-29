@@ -53,6 +53,34 @@ burn was refused while Auto Nav flew. Unrestricted approaches to other ships can
 closer. Future third-party restricted-zone systems would need explicit adapters;
 this integration covers the inspected native rules.
 
+## Reactor Flow and Cycle (0.27.0)
+
+While a torch burn is commanded, Auto Nav runs the reactor's flight controls the
+way the game's own long-range course plot does. It sets **Cycle** for the
+acceleration the approach needs, under your g setting and the console's torch
+safety limiter (release the safety and the whole cycle range is allowed, as in
+the game). It seeds **Flow** from the game's flow-for-cycle rule and then steers
+it every step to hold the core near its ideal: when the core runs hot or cold it
+scales flow toward the ideal; when the core is settled it nudges flow so actual
+thrust matches the commanded cycle. The hot side corrects from the temperature at
+which the game starts to damage the reactor wall, a little earlier than the
+course plot does. Moving a reactor slider yourself hands control back.
+
+The reactor's own update runs every 0.27 s, not every physics step, so a fresh
+command shows **Torch starting** until the reactor delivers. If nothing arrives
+within about a second and a half the burn is given up and RCS carries on for
+five seconds before another attempt. If the core leaves the game's safe band
+(80 to 120 percent of ideal) the torch stops, Flow and Cycle return to their
+pre-flight settings, a crew log line says so, and RCS keeps flying; the torch
+comes back once the core is within 5 percent of ideal. Auto Nav never ignites,
+repairs or refuels the reactor. No-wake rules apply to a waiting command exactly
+as to a burning one. The shared rules live in Phobos Framework
+(`Processing.ReactorRules`, `ReactorControls`); Auto Nav owns when and how hard to burn.
+
+Before 0.27.0 the torch could not light at all: the burn command was written and
+cancelled within one physics step, before the reactor's own update read it. The
+0.25.0 note below about refused burns described a different, earlier guard.
+
 ## Operation and settings
 
 Start and maintain the reactor normally. Auto Nav does not ignite a cold

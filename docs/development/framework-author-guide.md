@@ -1,5 +1,18 @@
 # Phobos Framework 0.15.0 — author guide
 
+Framework 0.40.0 adds `Processing.ReactorRules`, `IReactorPanel`, `IReactorState`,
+`ReactorControls` and `NativeReactor`: facts about the game's fusion reactor with
+native citations (0.27 s update cadence, ideal core 0.725, the course plot's 5 %
+correction and 0.8–1.2 abort bands, wall damage above 0.75, the 2 s pilot flow
+grace), read-only `Intact`/`Ready`/`IsNoWake`/`PilotTouchedFlow` reads, the vanilla
+flow regulation (`InitialFlow`, `AdjustFlow`, hot side corrected from the
+wall-damage temperature) and guarded flight-control writes that remember what
+the owner commanded and the idle settings to hand back. The rules are pure over
+`IReactorPanel`; `NativeReactor` wraps a `CondOwner`. Consumers keep policy: when to
+burn, how hard, and what to do when the core leaves the band. First consumer:
+Auto Nav 0.27.0 ([torch guide](../auto-nav-torch.md)). Nothing here ignites,
+repairs or refuels a reactor.
+
 Framework 0.28.0 adds `ApplianceDefinitions.ApplyStateArtwork`. Call it after
 registering a complete Installed/InstalledDmg/Loose/LooseDmg appliance family.
 Supply a content-owned image base plus Damaged, Loose and LooseDamaged exports

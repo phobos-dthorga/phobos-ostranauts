@@ -21,6 +21,24 @@ Dates on Draft entries record preparation, not Steam publication.
 - Earlier capture-only research is superseded for supported ordinary walls by Shipbreaker 0.24.0 reclamation, which relies on the 0.16.0 capture flight and 0.18.0 local avoidance and departure entries below. Broader structural recipes, repeated furnace batches and whole-wreck completion remain Shipbreaker work, not Auto Nav flight changes.
 - Keep [NASA Goddard's Raven research](https://www.nasa.gov/general/nasas-hybrid-computer-enables-ravens-autonomous-rendezvous-capability/) and [ESA's LIRIS experiment by Airbus, Jena Optronik and Sodern](https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/ATV/ATV_views_Space_Station_as_never_before) as sensing context, separate from Blue Bottle Games native evidence and authored gameplay choices. No institutional endorsement or gameplay validation is implied.
 
+## [0.27.0] - 2026-09-29 - Draft
+
+### Added
+
+- Torch burns now run the reactor the way the game's own long-range course plot does. Auto Nav sets Cycle for the acceleration the approach needs and steers Flow to hold the core near its ideal, correcting on the hot side from the temperature at which the game begins to damage the reactor wall. Cycle stays under the console's torch safety limiter and your g setting. A core that drifts outside the game's safe band (80 to 120 percent of ideal) stops the torch, hands the pre-flight Flow and Cycle back, tells the crew, and RCS carries on; the torch returns once the core has settled within 5 percent of ideal. The panel shows Torch starting while the reactor takes the command.
+- phobosnav status reports the RCS authority the throttle slider actually grants, and how often avoidance took the controls this flight and why. Detour and Blocked notices name the obstacle's range and mark weak contacts.
+
+### Fixed
+
+- The torch never lit. The burn command was written and cancelled within one physics step, so the reactor's own update, which runs on its own 0.27 second cadence, always read a zero cycle. The command now stays written until that update delivers thrust, with a short startup wait and a five second hold-off for a reactor that accepts controls but delivers nothing. No-wake rules gate the waiting command exactly as before.
+- Ordinary approaches in station clusters no longer circle or hold range under the avoidance planner. Ships docked at your target count as part of the target; a weak contact farther than 10 km no longer seizes the controls on its inflated position error, though it still shapes the route and asks for sensors; and the torch guard no longer refuses every burn whose RCS stop would take over ten minutes.
+- Turning and torch alignment plan on the turn authority the throttle slider actually grants, so the heading settles instead of overshooting. A braking leg judges the turn against the time the RCS would need to shed the speed, not only the target-prediction horizon.
+- Heavy time compression holds a flight step instead of ending the flight, as 0.25.0 intended; the shared guard used to disengage before that hold was reached.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.40.0. Saved flights, ports and preferences are unchanged. Auto Nav never ignites, repairs or refuels the reactor, drives Flow and Cycle only while a burn is commanded, and a pilot slider move still hands control back. The 0.25.0 torch note was incomplete: that fix removed one always-false guard, this one the ignition handshake. Offline checks pass, including a reactor double with the game's core model; owner play-testing of torch approaches and cluster approaches is pending. Findings and evidence: docs/development/vanilla-precedence-audit.md.
+
 ## [0.26.0] - 2026-09-29 - Draft
 
 ### Changed

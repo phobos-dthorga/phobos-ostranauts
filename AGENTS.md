@@ -612,6 +612,16 @@
 - UI code presents state and delegates actions; gameplay services own mutations.
 - Extract shared code when concrete features establish a shared need. Avoid
   duplicated business logic and premature generalisation.
+- Owner standing order (2026-09-29): make use of Phobos Framework wherever it is
+  appropriate, now and as the Ostranauts mods grow. When a change touches a
+  native system or a rule that another current or plausible Phobos mod would
+  also need (reactor state and guarded controls, notices, observations,
+  persistence, transfers, instruments), put the concrete service in Framework
+  in the same change as its first consumer; keep policy, balance and art in the
+  content mod; record the Framework version and dependency minimum through the
+  constants catalogue. One real consumer plus a plausible second is enough;
+  this refines the rule above rather than replacing it. First applied:
+  Framework 0.40.0 `Processing.NativeReactor` for Auto Nav 0.27.0.
 - The owner selected our own shareable Ostranauts framework **instead of OCF**
   on 2026-09-24, explicitly correcting an earlier misuse of "in lieu of".
   Follow `docs/development/phobos-framework.md`: reusable services belong in Phobos Framework;

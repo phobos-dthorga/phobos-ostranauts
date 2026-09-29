@@ -9,6 +9,12 @@ internal static class RcsBudget
     internal const double MinimumTranslationShare = 1 - CombinedRotationShare;
     internal const double TwoAxisCost = 1.4142135623730951;
 
+    // The turning authority actually left after the selected throttle and, while translating, the
+    // combined-motion share; the heading controller must plan with this, not the raw setting.
+    internal static double TurnAuthority(double rotAccelMax, double throttle, bool translating) =>
+        !TorchRules.Finite(rotAccelMax, throttle) || rotAccelMax <= 0 || throttle <= 0 ? 0 :
+        rotAccelMax * Math.Min(1, throttle) * (translating ? CombinedRotationShare : 1);
+
     internal static bool TryLimit(double x, double y, double turn, double throttle,
         double rotationShare, out RcsCommand command)
     {

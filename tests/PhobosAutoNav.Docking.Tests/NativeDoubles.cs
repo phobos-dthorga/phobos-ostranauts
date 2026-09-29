@@ -264,6 +264,7 @@ namespace PhobosAutoNav
         internal float Throttle { get; set; } = 1;
         internal string? HardwareFailure=null;
         internal string Diagnostic => status + issuing;
+        partial void AvoidanceStatus(ref string response);
         private string? HardwareProblem(CondOwner? co) => HardwareFailure;
         private static string? NativeControlProblem(CondOwner co)=>co.mapGUIPropMaps.ContainsKey("chkEngage")?"native":null;
         private static string? AdmissionProblem(CondOwner co, TargetRef target, double km, double speed) => null;

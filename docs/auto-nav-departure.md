@@ -55,6 +55,11 @@ contacts and asteroid-field rocks that your sensors register, checking their siz
 movement. A weak contact near the route is still avoided, with extra clearance of one
 fifth of its range: the position error the native map shows for such contacts. Weak
 contacts more than 100 km away are left out rather than guessed into the route.
+Since 0.27.0 a weak contact more than 10 km away shapes the route and asks for
+sensors but does not by itself take the controls, and ships docked at your target
+count as part of the target rather than as obstacles on the arrival line. Detour and
+Blocked notices name the obstacle's range and mark weak contacts; phobosnav status
+reports how often avoidance took the controls this flight.
 When the target or a weak contact near the route is too faint, Auto Nav may switch on
 the fewest fitted sensors that help, non-emitting ones first, and tells you each
 time; see [automatic sensor engagement](auto-nav-sensors.md#automatic-sensor-engagement-0240).

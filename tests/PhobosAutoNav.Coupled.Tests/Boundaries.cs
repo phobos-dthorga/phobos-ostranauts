@@ -28,10 +28,12 @@ namespace PhobosAutoNav
         internal bool Resolve(out double x,out double y,out double vx,out double vy)
         {var s=TargetSitu;x=s.vPosx;y=s.vPosy;vx=s.vVelX;vy=s.vVelY;return true;}
     }
+    internal enum BurnState { Refused, Pending, Burning }
     internal sealed partial class TorchDouble
     {
         internal bool Available(Ship ship,bool prefer,double dt,out double acceleration){acceleration=0;return false;}
-        internal bool Burn(Ship ship,double acceleration,double dt)=>false;
+        internal BurnState Burn(Ship ship,double acceleration,double dt)=>BurnState.Refused;
         internal void Align(){}
+        internal void WatchCore(Ship ship){}
     }
 }

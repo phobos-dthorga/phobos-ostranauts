@@ -1,41 +1,54 @@
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using Ostranauts.ShipGUIs.NavStation;
-using Ostranauts.ShipGUIs.Utilities;
+using Phobos.Ostranauts.Framework.Processing;
 using PhobosAutoNav.Core;
 
 namespace PhobosAutoNav;
 
-// Owns only an already-running native reactor's flight controls. FusionIC still
-// owns ignition, reactant use, heat, wear, power generation and actual thrust.
+/// <summary>Where a requested burn stands after this step.</summary>
+internal enum BurnState
+{
+    /// <summary>No burn: controls are idle or being handed back; RCS carries the correction.</summary>
+    Refused,
+    /// <summary>Controls are written and the lease is live; the reactor's own update has not delivered thrust yet.</summary>
+    Pending,
+    /// <summary>The reactor is delivering thrust under this controller's cap.</summary>
+    Burning
+}
+
+// Owns only an already-running native reactor's flight controls, driving Flow and Cycle the way the
+// game's long-range course plot does (Framework ReactorRules). FusionIC still owns ignition, reactant
+// use, heat, wear, power generation and actual thrust.
 internal sealed partial class TorchDriveController
 {
     partial void CheckObstacleBurn(Ship candidate,double acceleration,double dt,ref bool allowed);
-    internal const string Panel = "Panel A", Cycle = "slidCycle", Flow = "slidFlow", Ratio = "knobRatio";
+    internal const string Panel = ReactorRules.Panel, Cycle = ReactorRules.Cycle, Flow = ReactorRules.Flow, Ratio = ReactorRules.Ratio;
     private Ship? ship;
     private CondOwner? reactor;
-    private readonly Dictionary<string, string> idle = new(), commanded = new();
-    private double forceLimit, leaseUntil, commandHeading;
-    private bool writing;
+    private ReactorControls? controls;
+    private double forceLimit, leaseUntil, commandHeading, pendingSince = double.NaN, holdoffUntil = double.NegativeInfinity;
+    private bool coreFault;
     internal string Reason { get; private set; } = "Torch.rcs";
     internal ContactReading? ContactLoss { get; private set; }
     // Set by the plugin: a native sensor refresh right after Auto Nav switched sensors on withholds
     // the burn for that step instead of latching a contact loss.
     internal static Func<Ship, ContactReading, bool>? SensorSettling { get; set; }
+    // Set by the plugin: tells the crew (log line, nav-map banner) that the torch stopped for a reactor reason.
+    internal static Action<Ship, string, string>? Notify { get; set; }
     internal bool HasPendingBurn => forceLimit > 0;
+    /// <summary>The last cycle and flow this controller commanded, for instruments; NaN when idle.</summary>
+    internal double CommandedCycle { get; private set; } = double.NaN;
+    internal double CommandedFlow { get; private set; } = double.NaN;
     internal void Align() { Cut(); Reason = "Torch.aligning"; }
     internal bool Owns(Ship? other) => ship != null && ship == other;
     internal bool OwnsReactor(CondOwner? other) => reactor != null && reactor == other;
     internal static bool ThrustRequested(Ship other) => other.IsUsingTorchDrive ||
-        (other.Reactor != null && Parse(other.Reactor, Cycle) > 0);
+        (other.Reactor != null && ReactorRules.Number(PanelOf(other.Reactor), Cycle) > 0);
 
-    internal bool ChangedByPilot(Ship other, string key, string value) => !writing && Owns(other) &&
-        (key == Cycle || key == Flow || key == Ratio) && Read(reactor!, key) != value;
+    internal bool ChangedByPilot(Ship other, string key, string value) => Owns(other) && controls != null && controls.ChangedByPilot(key, value);
 
-    internal bool ControlsChanged => reactor != null && Ready(reactor) && !IsNoWake(reactor) &&
-        commanded.Count == 3 && (Read(reactor, Cycle) != commanded[Cycle] ||
-            Read(reactor, Flow) != commanded[Flow] || Read(reactor, Ratio) != commanded[Ratio]);
+    internal bool ControlsChanged => reactor != null && controls != null && Ready(reactor) && !IsNoWake(reactor) && controls.Differs;
 
     internal bool Available(Ship candidate, bool preferred, double dt, out double acceleration)
     {
@@ -45,14 +58,16 @@ internal sealed partial class TorchDriveController
         if (!preferred || !Plugin.PreferTorch.Value) return false;
         var core = candidate.Reactor;
         Reason = "Torch.unavailable";
-        if (core == null || !Ready(core) || candidate.bCheckFusion || TowFlight.Problem(candidate) != null ||
+        if (core == null || candidate.bCheckFusion || TowFlight.Problem(candidate) != null ||
             !candidate.bFusionReactorRunning || !ArrivalBrake.Finite(candidate.fShallowFusionRemain) ||
             candidate.fShallowFusionRemain <= dt + TorchRules.ZoneRefreshSeconds ||
             core.GetComponent<FusionIC>() == null || !ValidControls(core)) return false;
+        if (!CoreUsable(core)) { Reason = "Torch.core"; return false; }
+        if (!Ready(core)) return false;
         if (!Owns(candidate) && ThrustRequested(candidate)) return false;
         if (reactor != null && reactor != core) return false;
         double maxG = Plugin.TorchMaximumG.Value;
-        double full = candidate.GetMaxTorchThrust(NavModTorchDrive.GetLimiterSafetyMax(candidate)) / AutoNavCore.M_TO_AU;
+        double full = candidate.GetMaxTorchThrust(CycleLimit(candidate)) / AutoNavCore.M_TO_AU;
         if (!TorchRules.Finite(full, maxG) || full <= 0 || maxG <= 0 || maxG > 2) return false;
         acceleration = Math.Min(full, maxG * TorchRules.StandardGravity);
         Reason = "Torch.zone";
@@ -61,46 +76,107 @@ internal sealed partial class TorchDriveController
         return true;
     }
 
-    internal bool Burn(Ship candidate, double acceleration, double dt)
+    // The course plot aborts outside the 0.8-1.2 core band. Here that stops the torch (RCS carries on)
+    // and new burns wait until the core is back inside the correction band, so a marginal core cannot
+    // flap the reactor controls every step.
+    private bool CoreUsable(CondOwner core)
+    {
+        double ratio = ReactorRules.CoreRatio(core.GetCondAmount(ReactorRules.CoreTemperature));
+        if (coreFault)
+        {
+            if (!ReactorRules.WithinBand(ratio, ReactorRules.CoreCorrectionBand)) return false;
+            coreFault = false;
+        }
+        return ReactorRules.WithinBand(ratio, ReactorRules.CoreAbortBand);
+    }
+
+    // The console's torch safety keeps the game's 2 g limiter; a pilot who has switched it off may use the whole slider.
+    private static float CycleLimit(Ship candidate) => TorchSafetyOn(candidate) ? NavModTorchDrive.GetLimiterSafetyMax(candidate) : 1f;
+    private static bool TorchSafetyOn(Ship candidate)
+    {
+        try
+        {
+            var console = Plugin.Service.Console;
+            if (console == null || console.ship != candidate || !console.mapGUIPropMaps.TryGetValue(Panel, out var map) ||
+                !map.TryGetValue("bTorchSafety", out var safe) || !bool.TryParse(safe, out bool on)) return true;
+            return on;
+        }
+        catch { return true; }
+    }
+
+    internal BurnState Burn(Ship candidate, double acceleration, double dt)
     {
         if (!Available(candidate, true, dt, out double maximum) || !ArrivalBrake.Finite(acceleration) || acceleration <= 0)
-        { Cut(); return false; }
+        { Cut(); return BurnState.Refused; }
+        if (StarSystem.fEpoch < holdoffUntil) { Reason = "Torch.unavailable"; return BurnState.Refused; }
         var core = candidate.Reactor;
         if (ship == null)
         {
             ship = candidate; reactor = core;
-            foreach (string key in new[] { Flow, Ratio }) idle[key] = Read(core, key);
-            idle[Cycle] = "0";
+            controls = new ReactorControls(PanelOf(core));
+            controls.Adopt();
         }
         acceleration = Math.Min(acceleration, maximum);
         bool obstacleAllowed=true; CheckObstacleBurn(candidate,acceleration,dt,ref obstacleAllowed);
-        if(!obstacleAllowed) { Cut(); Reason="Avoidance.torch"; return false; }
+        if(!obstacleAllowed) { Cut(); Reason="Avoidance.torch"; return BurnState.Refused; }
         // Native limiter is nonlinear: invert it instead of treating CYCLE as
-        // a linear throttle. Keep the native 2 g safety ceiling even if overridden manually.
-        float low = 0, high = NavModTorchDrive.GetLimiterSafetyMax(candidate);
-        double temperature = core.GetCondAmount("StatICCoreTemp") / TorchRules.NativeCoreTemperature;
+        // a linear throttle. Keep the native 2 g safety ceiling unless the pilot has released it.
+        float low = 0, high = CycleLimit(candidate);
+        double temperature = core.GetCondAmount(ReactorRules.CoreTemperature) / TorchRules.NativeCoreTemperature;
         for (int i = 0; i < TorchRules.LimiterSearchIterations; i++)
         {
             float mid = (low + high) / 2;
             if (candidate.GetMaxTorchThrust(mid) / AutoNavCore.M_TO_AU * temperature > acceleration) high = mid;
             else low = mid;
         }
-        double flow = NavData.GetFLOWforCYCLE(core, low);
-        if (!TorchRules.Finite(flow, candidate.Mass) || flow < 0 || flow > 1 || candidate.Mass <= 0 || low <= 0)
-        { Reason = "Torch.unavailable"; Cut(); return false; }
+        if (!TorchRules.Finite(low, candidate.Mass) || candidate.Mass <= 0 || low <= 0)
+        { Reason = "Torch.unavailable"; Cut(); return BurnState.Refused; }
+        double flow = RegulatedFlow(candidate, core, low);
+        if (!TorchRules.Finite(flow) || flow < 0 || flow > 1)
+        { Reason = "Torch.unavailable"; Cut(); return BurnState.Refused; }
+        bool starting = forceLimit <= 0;
         forceLimit = acceleration * candidate.Mass;
         commandHeading = candidate.objSS.fRot;
         leaseUntil = StarSystem.fEpoch + dt + TorchRules.ZoneRefreshSeconds;
-        Write(Ratio, "1"); Write(Flow, Number(flow)); Write(Cycle, Number(low));
+        controls!.WriteIfChanged(Ratio, "1");
+        controls.WriteIfChanged(Flow, ReactorRules.Text(flow));
+        controls.WriteIfChanged(Cycle, ReactorRules.Text(low));
+        CommandedCycle = low; CommandedFlow = flow;
         core.GetComponent<FusionIC>().CatchUp(); // Native scheduler decides whether a fuel/heat update is due.
-        if (!Ready(core) || IsNoWake(core)) { Reason = "Torch.unavailable"; Cut(); return false; }
+        if (!Ready(core) || IsNoWake(core)) { Reason = "Torch.unavailable"; Cut(); return BurnState.Refused; }
         // Carry forward only thrust already supplied by native FusionIC. Reorient
         // and cap it for this physics step; this never manufactures positive thrust.
         double supplied = candidate.objSS.vAccIn.magnitude / AutoNavCore.M_TO_AU * candidate.Mass;
-        if (!ArrivalBrake.Finite(supplied)) { Cut(); return false; }
-        candidate.SetThrust(Math.Min(supplied, forceLimit));
-        Reason = candidate.IsUsingTorchDrive ? "Torch.burning" : "Torch.waiting";
-        return candidate.IsUsingTorchDrive;
+        if (!ArrivalBrake.Finite(supplied)) { Cut(); return BurnState.Refused; }
+        if (supplied > 0)
+        {
+            candidate.SetThrust(Math.Min(supplied, forceLimit));
+            if (candidate.IsUsingTorchDrive) { pendingSince = double.NaN; Reason = "Torch.burning"; return BurnState.Burning; }
+        }
+        // The command stays written for the reactor's own next update; a reactor that accepts the
+        // controls but delivers nothing within the startup wait falls back to RCS for a while.
+        if (starting || double.IsNaN(pendingSince)) pendingSince = StarSystem.fEpoch;
+        if (StarSystem.fEpoch - pendingSince > TorchRules.StartupWaitSeconds)
+        {
+            holdoffUntil = StarSystem.fEpoch + TorchRules.StartupHoldoffSeconds;
+            Cut(); Reason = "Torch.unavailable"; return BurnState.Refused;
+        }
+        Reason = "Torch.waiting";
+        return BurnState.Pending;
+    }
+
+    // Flow follows the course plot: the native flow-for-cycle value when a burn starts, then the vanilla
+    // adjustment toward the ideal core and the thrust target. A pilot who has just moved the flow slider
+    // keeps it for the same grace the game gives.
+    private double RegulatedFlow(Ship candidate, CondOwner core, double cycle)
+    {
+        var panel = PanelOf(core);
+        double current = ReactorRules.Number(panel, Flow);
+        if (forceLimit <= 0 || !TorchRules.Finite(current))
+            return ReactorRules.InitialFlow(cycle, core.GetCondAmount(ReactorRules.PelletMaxTheory), core.GetCondAmount(ReactorRules.PelletMax));
+        if (ReactorRules.PilotTouchedFlow(panel, StarSystem.fEpoch)) return current;
+        double ratio = ReactorRules.CoreRatio(core.GetCondAmount(ReactorRules.CoreTemperature));
+        return ReactorRules.AdjustFlow(ratio, current, candidate.objSS.vAccIn.magnitude, candidate.GetMaxTorchThrust((float)cycle));
     }
 
     // Fusion runs on a different update boundary to ShipSitu.TimeAdvance. A
@@ -140,19 +216,29 @@ internal sealed partial class TorchDriveController
 
     internal void Cut()
     {
-        forceLimit = 0; leaseUntil = 0;
+        forceLimit = 0; leaseUntil = 0; pendingSince = double.NaN;
+        CommandedCycle = CommandedFlow = double.NaN;
         if (Reason == "Torch.burning" || Reason == "Torch.ready" || Reason == "Torch.waiting" || Reason == "Torch.aligning") Reason = "Torch.rcs";
-        if (ship == null || reactor == null) return;
-        // Never restart a stopped/damaged reactor while relinquishing controls.
+        if (ship == null || reactor == null || controls == null) return;
+        // Never restart a stopped/damaged reactor while relinquishing controls. An intact reactor takes its
+        // idle flow and mode back whatever its core is doing: the idle settings are what kept it stable.
         try
         {
-            if (!reactor.bDestroyed)
-            {
-                Write(Cycle, "0");
-                if (Ready(reactor)) { Write(Flow, idle[Flow]); Write(Ratio, IsNoWake(reactor) ? "0" : idle[Ratio]); }
-            }
+            if (!reactor.bDestroyed) controls.RestoreIdle(ReactorRules.Intact(PanelOf(reactor)), IsNoWake(reactor));
         }
         finally { ship.SetThrust(0); }
+    }
+
+    /// <summary>Called each guarded step while this controller owns the reactor: a core that has left the
+    /// abort band stops the torch, tells the crew once and keeps RCS guidance going.</summary>
+    internal void WatchCore(Ship candidate)
+    {
+        if (!Owns(candidate) || reactor == null || coreFault) return;
+        double ratio = ReactorRules.CoreRatio(reactor.GetCondAmount(ReactorRules.CoreTemperature));
+        if (ReactorRules.WithinBand(ratio, ReactorRules.CoreAbortBand)) return;
+        coreFault = true;
+        Cut(); Reason = "Torch.core";
+        try { Notify?.Invoke(candidate, "Torch.core", Text.Get("Torch.core_log", ratio)); } catch { }
     }
 
     internal void Release() { try { Cut(); } finally { Reset(); } }
@@ -160,37 +246,34 @@ internal sealed partial class TorchDriveController
     {
         // Called before a native manual command executes. Clear OUR cycle, but
         // retain the current flow/mode so the incoming cycle command can work.
-        forceLimit = leaseUntil = 0;
-        try { if (reactor != null && !reactor.bDestroyed) Write(Cycle, "0"); }
+        forceLimit = leaseUntil = 0; pendingSince = double.NaN;
+        try { if (reactor != null && !reactor.bDestroyed) controls?.ClearCycle(); }
         finally { try { ship?.SetThrust(0); } finally { Reset(); } }
     }
     // World teardown: references only, no writes to the departing save/world.
     internal void Reset()
     {
-        ship = null; reactor = null; idle.Clear(); commanded.Clear(); forceLimit = leaseUntil = 0;
+        controls?.Forget();
+        ship = null; reactor = null; controls = null; forceLimit = leaseUntil = 0; pendingSince = double.NaN;
+        holdoffUntil = double.NegativeInfinity; coreFault = false;
+        CommandedCycle = CommandedFlow = double.NaN;
         ContactLoss = null;
         Reason = "Torch.rcs";
     }
 
     internal void PrepareSavedControls(CondOwner co, JsonItem saved)
     {
-        if (!OwnsReactor(co) || saved?.aGPMSettings == null) return;
+        if (!OwnsReactor(co) || controls == null || saved?.aGPMSettings == null) return;
         foreach (var map in saved.aGPMSettings)
         {
             if (map.strName != Panel) continue;
             var props = DataHandler.ConvertStringArrayToDict(map.dictGUIPropMap);
-            foreach (var entry in idle) props[entry.Key] = entry.Value;
+            foreach (var entry in controls.Idle) props[entry.Key] = entry.Value;
             map.dictGUIPropMap = DataHandler.ConvertDictToStringArray(props);
         }
     }
 
-    internal static bool Ready(CondOwner core)
-    {
-        double temperature = core.GetCondAmount("StatICCoreTemp") / TorchRules.NativeCoreTemperature;
-        return !core.bDestroyed && core.HasCond("IsInstalled") && core.HasCond("IsReadyFusion") &&
-            !core.HasCond("IsOff") && !core.HasCond("IsOverrideOff") && !core.HasCond("IsShuttingDown") && !core.HasCond("IsDamaged") &&
-            ArrivalBrake.Finite(temperature) && Math.Abs(temperature - 1) <= TorchRules.CoreTemperatureTolerance;
-    }
+    internal static bool Ready(CondOwner core) => ReactorRules.Ready(PanelOf(core));
 
     private bool ZoneClear(Ship candidate, double acceleration, double dt)
     {
@@ -220,18 +303,20 @@ internal sealed partial class TorchDriveController
         return true;
     }
 
-    private void Write(string key, string value)
+    private static IReactorState PanelOf(CondOwner core) => new CondOwnerReactor(core);
+    private static bool IsNoWake(CondOwner core) => ReactorRules.IsNoWake(PanelOf(core));
+    private static bool ValidControls(CondOwner core) => ReactorRules.ValidControls(PanelOf(core));
+
+    // The same adapter Framework's NativeReactor uses, over this assembly's view of the reactor
+    // (offline checks substitute their reactor double here).
+    private sealed class CondOwnerReactor : IReactorState
     {
-        writing = true;
-        try { reactor!.ApplyGPMChanges(new[] { Panel + "," + key + "," + value }); commanded[key] = value; }
-        finally { writing = false; }
+        private readonly CondOwner core;
+        internal CondOwnerReactor(CondOwner core) { this.core = core; }
+        public bool Destroyed => core.bDestroyed;
+        public bool Has(string condition) => core.HasCond(condition);
+        public double CoreTemperatureMeV => core.GetCondAmount(ReactorRules.CoreTemperature);
+        public string Read(string key) => core.GetGPMInfo(Panel, key) ?? "";
+        public void Write(string key, string value) => core.ApplyGPMChanges(new[] { Panel + "," + key + "," + value });
     }
-    private static string Read(CondOwner core, string key) => core.GetGPMInfo(Panel, key);
-    private static double Parse(CondOwner core, string key) => double.TryParse(Read(core, key), NumberStyles.Float,
-        CultureInfo.InvariantCulture, out var value) ? value : double.NaN;
-    private static string Number(double value) => value.ToString("R", CultureInfo.InvariantCulture);
-    private static bool IsNoWake(CondOwner core) => !bool.TryParse(Read(core, "bNWZ"), out bool restricted) || restricted;
-    private static bool ValidControls(CondOwner core) => TorchRules.Finite(Parse(core, Cycle), Parse(core, Flow), Parse(core, Ratio)) &&
-        Parse(core, Cycle) >= 0 && Parse(core, Cycle) <= 1 && Parse(core, Flow) >= 0 && Parse(core, Flow) <= 1 &&
-        (Parse(core, Ratio) == 0 || Parse(core, Ratio) == 1);
 }

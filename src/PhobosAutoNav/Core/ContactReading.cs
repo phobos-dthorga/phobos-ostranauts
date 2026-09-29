@@ -46,7 +46,12 @@ internal static class HazardRules
     // Authored reach: beyond this a weak contact's native position error exceeds 20 km,
     // too coarse to place usefully in local avoidance.
     internal const double WeakHazardRangeKM = 100;
+    // Authored reach for seizing the flight: a weak contact farther than this is planned around and
+    // offered to sensor engagement, but its inflated disc alone does not take the controls.
+    internal const double ImminentWeakRangeKM = 10;
     internal static bool Tracked(ContactState state) => state == ContactState.Ready || state == ContactState.Weak;
+    internal static bool MaySeize(ContactState state, double rangeKM) =>
+        state == ContactState.Ready || state == ContactState.Weak && ArrivalBrake.Finite(rangeKM) && rangeKM <= ImminentWeakRangeKM;
     // Extra clearance in metres, or null when the object is not a local hazard.
     internal static double? UncertaintyM(ContactState state, double rangeKM) =>
         !ArrivalBrake.Finite(rangeKM) || rangeKM < 0 ? null :

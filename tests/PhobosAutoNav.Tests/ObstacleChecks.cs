@@ -24,6 +24,11 @@ internal static class ObstacleChecks
         var torchHazard=new[]{new ObstacleDisc("braking corridor",new NavVector(180,0),default,10)};
         check(ObstacleRoute.SweepSafe(default,new NavVector(10,0),2,torchHazard)&&!ObstacleRoute.BurnAndBrakeSafe(default,new NavVector(10,0),2,1,torchHazard),"Torch denied when its burn fits but subsequent RCS braking does not");
         check(ObstacleRoute.BurnAndBrakeSafe(default,new NavVector(1,0),1,1,Array.Empty<ObstacleDisc>()),"Unobstructed burn retains torch preference");
+        // A weak RCS makes the stop long, not unsafe: the braking chord is swept however long it takes.
+        var farHazard=new[]{new ObstacleDisc("beyond the stop",new NavVector(60000,0),default,50)};
+        var chordHazard=new[]{new ObstacleDisc("on the chord",new NavVector(20000,0),default,50)};
+        check(ObstacleRoute.BurnAndBrakeSafe(new NavVector(90,0),default,1,.1,farHazard),"A 900 s RCS stop with clear geometry keeps the torch");
+        check(!ObstacleRoute.BurnAndBrakeSafe(new NavVector(90,0),default,1,.1,chordHazard),"A 900 s RCS stop whose chord crosses a disc refuses the torch");
         // Traverse two windows on opposite sides of a target without crossing its hull.
         var position=new NavVector(-1300,0);var destination=new NavVector(1300,0);var velocity=default(NavVector);
         bool arrived=false;planner.Reset();

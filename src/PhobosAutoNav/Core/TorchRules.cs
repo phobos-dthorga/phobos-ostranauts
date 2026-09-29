@@ -12,8 +12,13 @@ internal static class TorchRules
     internal const double MaximumHeadingRadians = Math.PI / 180;
     internal const double MaximumBurnSpin = 0.002;
     internal const double NativeCoreTemperature = 0.7250000238418579;
-    internal const double CoreTemperatureTolerance = 0.2;
+    internal const double CoreTemperatureTolerance = Phobos.Ostranauts.Framework.Processing.ReactorRules.CoreAbortBand;
     internal const int LimiterSearchIterations = 24;
+    // The reactor's own update runs every FusionPeriodSeconds, not every physics step: a written
+    // command needs to survive until that tick. Two periods plus the zone refresh covers a tick that
+    // has just passed; a reactor that accepted controls but delivered nothing waits before a retry.
+    internal const double StartupWaitSeconds = 2 * Phobos.Ostranauts.Framework.Processing.ReactorRules.FusionPeriodSeconds + ZoneRefreshSeconds;
+    internal const double StartupHoldoffSeconds = 5;
 
     // Distance to the entire relative-velocity segment, inflated by a bound on
     // acceleration. Checking only endpoints misses fast crossings through a zone.
