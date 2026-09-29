@@ -316,6 +316,10 @@ foreach ($mod in $Mods) {
     $required = switch ($mod) {
         'Agriculture' {
             'data/README.md'
+            # 0.20.0 adds the R4 and R5 reservoirs.
+            if ($version -ge [version]'0.20.0') {
+                foreach ($image in @('ReservoirMedium', 'ReservoirLarge')) { "images/phobos/agriculture/$image.png"; "images/phobos/agriculture/${image}Normal.png" }
+            }
             'framework/recipes.json'; 'framework/equipment-names.json'
             foreach ($image in @('Rack', 'RackNormal', 'Cooker', 'CookerNormal', 'Potato-sprout', 'Potato-young', 'Potato-mature', 'Potato-harvest', 'Potato-wilted', 'Potato-dead')) {
                 "images/phobos/agriculture/$image.png"

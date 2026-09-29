@@ -1,4 +1,4 @@
-# R3 agricultural water and bulk station supplies
+# R3, R4 and R5 agricultural water and bulk station supplies
 
 Agriculture 0.14.0 / Framework 0.27.0 implement the first bulk-storage slice.
 Shipbreaker 0.27.0 adds the corresponding compact selectors to C1. These are
@@ -10,9 +10,12 @@ No Steam publication is implied.
 | Item | Capacity / mass | Acquisition and base price |
 |---|---|---|
 | Phobos' Verdemorrow Groundwork R3 Agricultural Water Reservoir | 3 x 3 tiles; 120 kg water; 25 kg empty, 145 kg full, plus physical inventory cargo | Empty loose hardware, 450 cr; Agriculture merchants, four per successful offer; INSTALL → APPS |
+| Phobos' Verdemorrow Groundwork R4 Agricultural Water Reservoir | 4 x 4 tiles; 235 kg water; 38 kg empty | 635 cr; the same merchants; INSTALL → APPS; never found in salvage |
+| Phobos' Verdemorrow Groundwork R5 Agricultural Water Reservoir | 5 x 5 tiles; 400 kg water; 49 kg empty | 830 cr; the same merchants; INSTALL → APPS; never found in salvage |
 | Phobos' Verdemorrow Groundwork Bulk Nutrient Charge | One inventory slot; 0.5 kg dry formulated nutrient stock | 750 cr; eight per merchant offer, or one per station purchase |
 
-R3 is optional. Existing racks, W2, B2, small packets and Ship's Water retain
+The R4 and R5 work exactly like the R3 and hold more for less per kilogram of
+capacity; everything below applies to every size. R3 is optional. Existing racks, W2, B2, small packets and Ship's Water retain
 their roles. R3 holds clean agricultural water only. It is neither a potable
 tank nor a nutrient-solution/recovery receiver. No new chemical assay, crop
 yield, growth speed or pump power is introduced. The 500 g charge uses the same
@@ -20,17 +23,18 @@ aggregate formulation and value per kilogram as the existing selected charges.
 
 ## Set up a reservoir
 
-1. Install R3 on intact floor. Place W2 on its right side, facing the same way,
-   with its entire two-tile edge against R3. The two allowed W2 centre offsets
-   are R3-local `(2.5, +0.5)` and `(2.5, -0.5)` tiles. Rotate both together.
-   Leave the front (-Y) service rows of both machines clear and walkable.
+1. Install the reservoir on intact floor and put the W2 within one tile of it:
+   touching or with one tile between them, on any side, diagonals included.
+   A Shipbreaker S3, S4 or S5 process water silo can feed a W2 the same way.
+   The original R3 layout (W2 against its right edge) still works.
 2. Pause W2 operation and receiving. Open either local Supplies panel, choose
    **Reservoir / supply connection**, select the other machine, and Apply.
    C1 exposes the same checked connection and reserve/target choices.
 3. Fill R3 using station **Bulk supplies**, or put ordinary 5 kg irrigation
    charges in its inventory and choose **Load one 5 kg irrigation charge**.
    Each successful local load requires ten seconds before skill modifiers.
-4. Select how much water to keep in R3 (0–120 kg). Choose W2's refill target
+4. Select how much water to keep in the reservoir (0 to all of it, in steps of
+   its size; 0–120 kg for the R3). Choose W2's refill target
    (5, 10, 15 or 19.5 kg; default 19.5). Live W2 headroom can reduce it further.
 5. Explicitly enable W2 receiving and Resume distribution. Existing rack pairs,
    conduits and receiving permissions still apply.
@@ -71,7 +75,7 @@ retains identities/contents but W2 intake remains paused for explicit Resume.
 Open the native refuelling interface at a serviced dock, then **Bulk supplies**.
 Choose agricultural water or a nutrient charge, the exact destination and
 quantity. Review the quote and use its separate **Buy quoted quantity** button.
-Water is 10 cr/kg in 0.25 kg steps, up to 120 kg per quote into one R3. Nutrients
+Water is 10 cr/kg in 0.25 kg steps; one quote can fill the chosen reservoir. Nutrients
 are one 500 g charge at 750 cr into an accessible W2 inventory per purchase.
 These are limits chosen for gameplay; station stock is not simulated as a finite supply.
 
@@ -94,7 +98,7 @@ adapters and in-game coexistence still require owner evaluation.
 
 ## Damage and recovery
 
-Damage isolates service water in a catch chamber; both share the same 120 kg
+Damage isolates service water in a catch chamber; both share the reservoir's
 capacity. Repeated damage cannot create another catch. Repair uses the W2-style
 bill (one mechanical small part, one electrical small part, one aluminium
 scrap), retains actual spent repair material, and does not recover or resume
@@ -111,7 +115,9 @@ silently dropping their water. This conservative first slice does **not** add
 rupture drops or atmospheric spills. Native whole-ship destruction/despawn
 retains its own semantics; this is not insurance against losing a ship.
 Dismantling takes 600 seconds and returns 4 kg steel + 21 kg housing waste
-(damaged: 1 + 24 kg). No R3 fabrication recipe is added.
+(damaged: 1 + 24 kg). The R4 and R5 return twice and three times the steel
+with the rest of their housing as waste, and take longer to repair and dismantle.
+No reservoir fabrication recipe is added.
 
 ## Shared vessels since Agriculture 0.18.0
 

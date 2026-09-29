@@ -626,3 +626,12 @@ mechanical parts. Salvage keeps the S3's fittings (20 mechanical, 4 electronic
 parts intact; 4 mechanical broken) and fills the rest of the dry mass with steel,
 aluminium and retained trash in the S3's proportions. They are sold on the S3's
 routes and never appear in salvage loot.
+
+## Agriculture 0.20.0: R4 and R5 reservoirs
+
+The R4 and R5 scale from the R3 through Framework's shared size ladder: 235 and
+400 kg of water, 38 and 49 kg empty, $635 and $830 (broken a fifth, as the R3).
+Repair needs 2 and 3 small mechanical parts and aluminium scraps plus one
+electrical part, over 2400 and 3000 progress; dismantling returns 8 and 12 steel
+scraps (2 and 3 broken) with the rest of the housing as waste, over 800 and 1000.
+They are sold on the R3's routes and never appear in salvage loot.

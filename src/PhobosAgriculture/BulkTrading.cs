@@ -14,7 +14,8 @@ internal sealed class AgricultureBulkSupplies : IBulkSupplyProvider
         get
         {
             if(!Definitions.Ready)yield break;
-            yield return new("agriculture.water",Text.Get("bulk_water_offer"),Text.Get("bulk_unit_kg"),BulkDefinitions.WaterPricePerKg,.25,480);
+            // One quote can fill the largest reservoir; the chosen reservoir's own room bounds it.
+            yield return new("agriculture.water",Text.Get("bulk_water_offer"),Text.Get("bulk_unit_kg"),BulkDefinitions.WaterPricePerKg,.25,(int)Math.Ceiling(BulkDefinitions.Sizes.Max(s=>s.CapacityKg)/.25));
             yield return new("agriculture.nutrients",Text.Get("bulk_nutrients"),Text.Get("bulk_unit_charge"),BulkDefinitions.NutrientPrice,1,1);
         }
     }
@@ -22,12 +23,12 @@ internal sealed class AgricultureBulkSupplies : IBulkSupplyProvider
     private static bool Eligible(CondOwner c,string offer)=>Phobos.Ostranauts.Framework.Liquids.NativeFluidRoute.EndpointReady(c)&&
         (offer=="agriculture.water"?BulkDefinitions.IsTank(c)&&!BulkService.Protected(c)&&BulkService.Read(c).CatchKg==0:
         offer=="agriculture.nutrients"&&IrrigationDefinitions.IsSupply(c)&&!Service.Get(c).Protected&&c.objContainer!=null&&!c.objContainer.Locked);
-    public string Revision(CondOwner c,BulkSupplyOffer offer)=>ConfigurationStamp.For(c,"PhobosState.AgricultureBulk","PhobosMaterialPort.")+":"+
+    public string Revision(CondOwner c,BulkSupplyOffer offer)=>ConfigurationStamp.For(c,new[]{"PhobosState."+(Phobos.Ostranauts.Framework.Liquids.BulkVessels.Of(c)?.Record??"AgricultureBulk"),"PhobosMaterialPort."})+":"+
         string.Join(";",c.objContainer?.ContainedCOs.Select(x=>x.strID).OrderBy(x=>x,StringComparer.Ordinal)??Enumerable.Empty<string>());
     public double Available(CondOwner c,BulkSupplyOffer offer)
     {
         if(!Eligible(c,offer.Id))return 0;
-        if(offer.Id=="agriculture.water")return BulkDefinitions.CapacityKg-BulkService.Read(c).TotalKg;
+        if(offer.Id=="agriculture.water")return BulkDefinitions.CapacityOf(c)-BulkService.Read(c).TotalKg;
         // The authored charge occupies one slot. This is only a read-only estimate;
         // the native acceptance and exact item bounds are checked again on delivery.
         return c.objContainer.gridLayout.FindFirstUnoccupiedTile(1,1,"").IsValid()?1:0;

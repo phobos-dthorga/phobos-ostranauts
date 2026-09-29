@@ -37,6 +37,12 @@ internal static class VesselSizeChecks
         Reject(() => BulkVesselSizes.Prefix(" ", VesselSize.Medium), "A blank family is refused");
         Reject(() => BulkVesselSizes.Round(double.NaN), "An invalid quantity is refused");
 
+        // Within one tile: touching or one tile apart on the longer axis, diagonals included, never overlapping.
+        check(BulkVessels.WithinOneTile(0, 0, 3, 2.5, 0.5, 2) && BulkVessels.WithinOneTile(0, 0, 3, 3.5, 0, 2) && BulkVessels.WithinOneTile(0, 0, 3, 2.5, 2.5, 2),
+            "A 3 x 3 vessel touching a 2 x 2 machine, one tile away or diagonal is within reach");
+        check(!BulkVessels.WithinOneTile(0, 0, 3, 4.5, 0, 2) && !BulkVessels.WithinOneTile(0, 0, 3, 1, 0, 2) && !BulkVessels.WithinOneTile(double.NaN, 0, 3, 2.5, 0, 2) &&
+              !BulkVessels.WithinOneTile(0, 0, 0, 2.5, 0, 2), "Two tiles away, overlapping or invalid geometry is out of reach");
+        check(BulkVessels.WithinOneTile(0, 0, 5, 3.5, 1.5, 2) && BulkVessels.WithinOneTile(0, 0, 4, 3, 1, 2), "Larger vessels reach from their own edge");
         // Safe fill: stop at a fraction of the rating, counting everything inside.
         double bottle = NativeGasCanister.CapacityMoles(0.003, 20684, 293);
         check(Math.Abs(NativeGasVessel.Headroom(0, bottle, NativeGasVessel.SafeFillFraction) - bottle * .99) < 1e-9, "An empty bottle takes 99% of its rating");

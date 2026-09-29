@@ -3019,20 +3019,6 @@
     },
     {
       "mod": "PhobosAgriculture",
-      "key": "bulk_tank_desc",
-      "category": "description",
-      "decision": "rewrite",
-      "reason": "Reworded for the situation/action or corrected stale feature wording; formatting and behaviour contracts retained.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosAgriculture/BulkDefinitions.cs:23",
-        "src/PhobosAgriculture/Panel.cs:109"
-      ],
-      "before": "R3: passive 3 x 3 reservoir, 120 kg of agricultural water. Pair one adjacent W2 along the right side with both service approaches clear. W2 supplies pumping power. Damage isolates contents in a finite catch; repair, then explicitly recover. Drain before uninstalling or dismantling. Not a potable-water vessel.",
-      "after": "R3: 120 kg of water for the next growing shift. A passive 3 x 3 tank; the adjacent W2 on its right supplies pumping power. Keep both service approaches clear. Damage traps water in a catch tank: repair, then recover it. Drain before moving or dismantling. Not for drinking water."
-    },
-    {
-      "mod": "PhobosAgriculture",
       "key": "bulk_nutrients",
       "category": "control/name/value",
       "decision": "retain",
@@ -3136,14 +3122,14 @@
       "mod": "PhobosAgriculture",
       "key": "bulk_pair",
       "category": "status/warning",
-      "decision": "retain",
-      "reason": "Retain: clear functional label, operational instruction or necessary safety/detail constraint; no forced personality.",
+      "decision": "rewrite",
+      "reason": "The W2 now accepts any water vessel within one tile; the old edge-to-edge rule is retired.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosAgriculture/BulkService.cs:77"
+        "src/PhobosAgriculture/BulkService.cs:63"
       ],
       "before": "Place an intact R3 and W2 edge to edge, facing the same direction, with both front service approaches clear. The W2 must be on the R3’s right side.",
-      "after": "Place an intact R3 and W2 edge to edge, facing the same direction, with both front service approaches clear. The W2 must be on the R3’s right side."
+      "after": "Place an intact water reservoir or silo within one tile of the W2 (touching or one tile apart, diagonals count), on the same ship."
     },
     {
       "mod": "PhobosAgriculture",
@@ -3221,14 +3207,14 @@
       "mod": "PhobosAgriculture",
       "key": "bulk_water_offer",
       "category": "control/name/value",
-      "decision": "retain",
-      "reason": "Retain: clear functional label, operational instruction or necessary safety/detail constraint; no forced personality.",
+      "decision": "rewrite",
+      "reason": "Updated for the new feature; existing wording, placeholders and commands retained.",
       "trace": "literal/name/recipe reference",
       "references": [
-        "src/PhobosAgriculture/BulkTrading.cs:17"
+        "src/PhobosAgriculture/BulkTrading.cs:18"
       ],
       "before": "Agricultural water (R3)",
-      "after": "Agricultural water (R3)"
+      "after": "Agricultural water (Groundwork reservoirs)"
     },
     {
       "mod": "PhobosAgriculture",
@@ -45207,6 +45193,47 @@
       ],
       "before": "Process Water Silo",
       "after": "Process Water Silo"
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "bulk_tank_medium",
+      "category": "item name",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosAgriculture/BulkDefinitions.cs:20",
+        "src/PhobosAgriculture/BulkDefinitions.cs:60"
+      ],
+      "before": "Agricultural Water Reservoir",
+      "after": "Agricultural Water Reservoir"
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "bulk_tank_large",
+      "category": "item name",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosAgriculture/BulkDefinitions.cs:20",
+        "src/PhobosAgriculture/BulkDefinitions.cs:60"
+      ],
+      "before": "Agricultural Water Reservoir",
+      "after": "Agricultural Water Reservoir"
+    },
+    {
+      "mod": "PhobosAgriculture",
+      "key": "bulk_tank_details",
+      "category": "item description",
+      "decision": "add",
+      "reason": "Replaces bulk_tank_desc with a new placeholder contract so every reservoir size states its own capacity, footprint and mass.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosAgriculture/BulkDefinitions.cs:60"
+      ],
+      "before": "{0:F0} kg of water for the next growing shift in a passive {1} x {1} tank, {2:F0} kg empty. A W2 within one tile draws from it and supplies the pumping power. Damage traps water in a catch tank: repair, then recover it. Drain before moving or dismantling. Not for drinking water.",
+      "after": "{0:F0} kg of water for the next growing shift in a passive {1} x {1} tank, {2:F0} kg empty. A W2 within one tile draws from it and supplies the pumping power. Damage traps water in a catch tank: repair, then recover it. Drain before moving or dismantling. Not for drinking water."
     }
   ],
   "documents": [
@@ -45214,8 +45241,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "ad4c2a196fc7861c50649164e7bc831b04f46faf50d4cc5ca6ae0dcf020a8a24",
-      "review": "2026-09-29 (S4/S5 silos): reviewed with this change; wording, links and maintained values checked."
+      "sha256": "febe90dd53771b7549f03db28f887ac66303c510443f9eae4cd8fab7caa104bd",
+      "review": "2026-09-29 (R4/R5 reservoirs): reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "SUPPORT.md",
@@ -45235,15 +45262,15 @@
       "path": "docs/agriculture-bulk-storage.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "ddcd6992b0078ab340b3c57bc8b260fbdbd9d5caf817af9a4dfce7bdccc209a2",
-      "review": "2026-09-29: new shared-vessels section: custody moved to Framework, saves unchanged, T2 delivery."
+      "sha256": "825eab41de0475670eed60655ad5de586b5aa18c26535bef725e8905d20f1b8a",
+      "review": "2026-09-29 (R4/R5 reservoirs): R4 and R5 rows; set-up now any water vessel within one tile; reserve and quote follow size."
     },
     {
       "path": "docs/agriculture-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "ac645dee0cfe4221ab1c4ee5404d0cddec55ea7903e1f01c8b5fea24e839db65",
-      "review": "2026-09-29: regenerated from reviewed inputs: new W2/B2/R3 used, refurbished and broken offers; version."
+      "sha256": "adb71d2eb7546e937da333686a04325e79eb8cd2f89b975b2d8e36f322b7b110",
+      "review": "2026-09-29 (R4/R5 reservoirs): generated reservoir and housing waste entries reviewed from config wording."
     },
     {
       "path": "docs/agriculture-nutrient-production.md",
@@ -45374,8 +45401,8 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "32a54cd071f60fe9f6c8ab1197846783ef6219bda70f7e48318aebbd12bb700e",
-      "review": "2026-09-29 (S4/S5 silos): reviewed with this change; wording, links and maintained values checked."
+      "sha256": "b79aa70c6426a7cdf9a75cb60b85015d19a4b2ab646d8df7c6847600e865012a",
+      "review": "2026-09-29 (R4/R5 reservoirs): reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "docs/crew-automation.md",
@@ -45402,8 +45429,8 @@
       "path": "docs/development/agriculture-bulk-storage-calculations.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "bc71db307bc244c2ee3e71523d1f1531bfa772b2775e26bd0df23a28416e85b3",
-      "review": "2026-09-29: regenerated: Definitions.cs source digest only."
+      "sha256": "2932cc14d34091ae38c55fd49a283c1f34cfc1e42b0ac2ccd144e184afd0380e",
+      "review": "2026-09-29 (R4/R5 reservoirs): reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "docs/development/agriculture-bulk-storage-design.md",
@@ -45423,8 +45450,8 @@
       "path": "docs/development/agriculture-economy-evidence.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "591ea3b39aeb464fd659681bcd9d56a9c81ae94cf8324f0e332df6ebd46267a2",
-      "review": "2026-09-28: reviewed documentation consistency corrections and/or mechanical audience-directory/link changes. Current furnace, assembly, maintenance and requirements checked against source; historical findings retained. See docs/development/documentation-consistency-audit.md for the per-document screen and limits."
+      "sha256": "8a06f1cc50d951b6463d391fdc063758f06b8998ebcd459264fc973ded817ad9",
+      "review": "2026-09-29 (R4/R5 reservoirs): reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "docs/development/agriculture-economy-review.md",
@@ -45586,8 +45613,8 @@
       "path": "docs/development/bulk-silo-art-handoff.md",
       "scope": "contributor artwork handoff; placeholders are not reviewed art",
       "decision": "add",
-      "sha256": "29329d9e74d825fbbf779d81a7f14a4e35025ec2264e2d07e65851325f171e43",
-      "review": "2026-09-29 (S4/S5 silos): reviewed with this change; wording, links and maintained values checked."
+      "sha256": "bc4d83d13cfe6b9832ba082fb40209f6c97bd7830273fe3d3847430bdfb361cc",
+      "review": "2026-09-29 (R4/R5 reservoirs): reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "docs/development/chemical-storage-and-process-fluids.md",
@@ -45641,8 +45668,8 @@
       "path": "docs/development/equipment-branding.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "2ce153cf80048aab247d53a15076fcfb4441bf3715313046ecd3c12c0009dd58",
-      "review": "2026-09-29 (S4/S5 silos): reviewed with this change; wording, links and maintained values checked."
+      "sha256": "7ebad4338b12b9e26b83be444947e92ede0a80ffadb7bf1f4d9d1183f75fef78",
+      "review": "2026-09-29 (R4/R5 reservoirs): reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "docs/development/equipment-value-audit.md",
@@ -45759,15 +45786,15 @@
       "path": "docs/development/install-catalogue.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "439858cc0cda66439056e431aba27e37c2ee37c4405705735aa4e1dfbd5e39e8",
-      "review": "2026-09-29 (S4/S5 silos): reviewed with this change; wording, links and maintained values checked."
+      "sha256": "580a8887bc4629aff103017f5a8a07d756bcda1112f89a913372f64f930a7dbf",
+      "review": "2026-09-29 (R4/R5 reservoirs): reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "docs/development/item-handling-audit.md",
       "scope": "current handling guidance and complete generated definition ledger",
       "decision": "reviewed",
-      "sha256": "8336bdf88d773460e6e305e91c506dd7dc68c6fa538799c2f55656699286348c",
-      "review": "2026-09-29 (S4/S5 silos): reviewed with this change; wording, links and maintained values checked."
+      "sha256": "af0043942be209ee8689206f2e9018da2f2d02856e09445dedbd4c3e49aad944",
+      "review": "2026-09-29 (R4/R5 reservoirs): reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "docs/development/item-reference-maintenance.md",
@@ -46095,8 +46122,8 @@
       "path": "docs/equipment-economy.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "72823d3b2bd7d4bc50287e1fff4af2074948b976e2aa9f68b849c17c21df19e4",
-      "review": "2026-09-29 (S4/S5 silos): reviewed with this change; wording, links and maintained values checked."
+      "sha256": "596afee29ad4353382cff4a711abb9b7365472dc4655dc6270eedff633c8b49e",
+      "review": "2026-09-29 (R4/R5 reservoirs): reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "docs/fluid-network-operations.md",
@@ -46172,8 +46199,8 @@
       "path": "docs/installing-mods.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "b18038ee9d9767708667cc527c341db7f1a4a484dd7f5a8dae4e87799e22d4d3",
-      "review": "2026-09-29 (S4/S5 silos): reviewed with this change; wording, links and maintained values checked."
+      "sha256": "fba08263e7ffa04f7ec8b5417635121a855cabe915a01ed45575aab3ad04480b",
+      "review": "2026-09-29 (R4/R5 reservoirs): reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "docs/item-references.md",
@@ -46291,8 +46318,8 @@
       "path": "workshop/PhobosAgriculture/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "d1379a91389ade9f8f1f606e73dd90546da39587700e689fd748ed64b8fe865d",
-      "review": "2026-09-29: rewritten as a current, player-first Workshop description under Steam's 8,000-byte limit: capabilities, getting started, requirements, Workshop installation, saves and limits, credits and de-duplicated guide links; per-version update sections moved out to the changelog."
+      "sha256": "eab5d6348512f0c63c6224126e4aed1d3133c114c7b354116c763251f5572b74",
+      "review": "2026-09-29 (R4/R5 reservoirs): reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "workshop/PhobosAutoNav/page.bbcode",
@@ -46305,15 +46332,15 @@
       "path": "workshop/PhobosFramework/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "03b2dd48fb7cfa5f4019a063529e66cfd9e1acc5202e071e55a18dd7fbe54491",
-      "review": "2026-09-29 (gas store sizes and L2): bulk storage sizes and safe filling bullet."
+      "sha256": "9b99b38907dadd82f6352c6e27fe9ba017dbb12f187e317357328ca1cc558f40",
+      "review": "2026-09-29 (R4/R5 reservoirs): bulk storage bullet mentions the within-one-tile link rule."
     },
     {
       "path": "workshop/PhobosManufacturing/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "eea5057b41a3dac10a3a40376aab015014d1c5a7c8cea5a8ca4b85cba6cc098c",
-      "review": "2026-09-29 (gas store sizes and L2): store sizes and L2 bullets."
+      "sha256": "df1fc405d4f4cb818aa5a704f75bd579d88ba10014930e88a454a4f2fb2fae98",
+      "review": "2026-09-29 (R4/R5 reservoirs): water sources list every silo and reservoir size."
     },
     {
       "path": "workshop/PhobosShipbreaker/page.bbcode",
@@ -46355,13 +46382,14 @@
     {
       "path": "config/item-reference.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "87053f99a3230c6c1fabf32c5eb7c8114d7ef74d9667a37fd808f2f57db50c9f",
-      "review": "2026-09-29 (S4/S5 silos): reviewed with this change; wording, links and maintained values checked."
+      "sha256": "2bae103f5e39a2bd9aced24675c61698d3217aeb12aff9a2b3498f76b20dd6c8",
+      "review": "2026-09-29 (R4/R5 reservoirs): reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "mods/PhobosAgriculture/framework/equipment-names.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "aad5c48acf15576e70469fdb9ff245de55e82b3fa2a4453afedf786d99c55174"
+      "sha256": "53bbc29557319786fd5a7c96855f611f8418db27a82511a9ba7846e7d743535c",
+      "review": "2026-09-29 (R4/R5 reservoirs): reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "mods/PhobosAgriculture/framework/recipes.json",
@@ -46371,8 +46399,8 @@
     {
       "path": "mods/PhobosAgriculture/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "de1510acb8bca6776fde48dfb2f84c7a7ef9981f14e54d159e537f68ce5da5e4",
-      "review": "2026-09-29: version metadata only."
+      "sha256": "37be5991a4c4554deae9279f229a7e2a64f0dc1590894973f27422030c8c323d",
+      "review": "2026-09-29 (R4/R5 reservoirs): reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "mods/PhobosAutoNav/data/cooverlays/phobos_approach_assist.json",

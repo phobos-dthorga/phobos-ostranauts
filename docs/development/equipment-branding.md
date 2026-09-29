@@ -170,3 +170,7 @@ live panel/item names. See [operation and authored economy](../auto-nav-pursuit.
 Agriculture 0.9.0 adds **Phobos' Verdemorrow Groundwork B2 Workup Bench**.
 Recovered concentrate, makeup salts and finished mixtures share Groundwork
 naming; variable crop biomass and wet rejects have no machine model number.
+
+Agriculture 0.20.0 adds the medium and large reservoir sizes: **Phobos' Verdemorrow
+Groundwork R4 Agricultural Water Reservoir** (4 x 4) and **R5** (5 x 5). The model
+digit is the footprint, as for the R3; the definition IDs extend the R3's own prefix.

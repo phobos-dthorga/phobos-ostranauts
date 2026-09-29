@@ -429,3 +429,12 @@ Shipbreaker 0.40.0 adds the S4 and S5 process water silos. Two new name entries
 reuse the S3's wording; the station offer now reads Process water (Rivetline
 S-series silos). The silo guide, player guide, economy guide, item reference and
 Workshop page follow. Unity wording is unverified.
+
+## R4 and R5 reservoirs (Agriculture 0.20.0), 29 September 2026
+
+Agriculture 0.20.0 adds the R4 and R5 reservoirs and lets a W2 draw from any water
+vessel within one tile. The reservoir description moves to a new key with its size
+placeholders (the old fixed wording is retired), the pairing message states the
+one-tile rule, and the station offer names the Groundwork reservoirs. The storage
+guide, item reference, economy guide and Workshop page follow. Unity wording is
+unverified.

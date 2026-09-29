@@ -13,13 +13,13 @@ using Phobos.Ostranauts.Framework.Construction;
 namespace PhobosAgriculture;
 
 [BepInPlugin(Id, "Phobos Agriculture", Version)]
-[BepInDependency(FrameworkInfo.PluginId, "0.39.0")]
+[BepInDependency(FrameworkInfo.PluginId, "0.44.0")]
 [BepInDependency("com.ostranauts.shipswater", BepInDependency.DependencyFlags.SoftDependency)]
 [BepInDependency("phobosgekko.ostranauts.shipbreaker", BepInDependency.DependencyFlags.SoftDependency)]
 [BepInProcess("Ostranauts.exe")]
 public sealed class Plugin : BaseUnityPlugin
 {
-    public const string Id = "phobosgekko.ostranauts.agriculture", Version = "0.19.0";
+    public const string Id = "phobosgekko.ostranauts.agriculture", Version = "0.20.0";
     internal static Action<string> Log = _ => { };
     internal static ConfigEntry<double> Pace = null!, ReserveLitres = null!;
     internal static ConfigEntry<bool> LootEnabled = null!;
@@ -118,7 +118,7 @@ internal sealed class Provider : IEquipmentProvider, IEquipmentPanelFields
     {
         if(!BulkDefinitions.IsTank(co)&&!IrrigationDefinitions.IsSupply(co))yield break;
         yield return new(Text.Get("bulk_connection"),ObjectPresentation.Name(BulkService.Peer(co)),BulkService.Candidates(co).Select(c=>("bulk-link:"+c.strID,ObjectPresentation.Name(c))).Concat(new[]{("bulk-link:none",Text.Get("bulk-link:none"))}));
-        if(BulkDefinitions.IsTank(co)&&!BulkService.Protected(co))yield return new(Text.Get("bulk_reserve"),Text.Get("bulk_kg",BulkService.Read(co).ReserveKg),new[]{0,5,10,20,40,80,120}.Select(n=>("bulk-reserve:"+n,Text.Get("bulk_kg",n))));
+        if(BulkDefinitions.IsTank(co)&&!BulkService.Protected(co))yield return new(Text.Get("bulk_reserve"),Text.Get("bulk_kg",BulkService.Read(co).ReserveKg),BulkDefinitions.ReserveChoices(BulkDefinitions.CapacityOf(co)).Select(n=>("bulk-reserve:"+n.ToString(System.Globalization.CultureInfo.InvariantCulture),Text.Get("bulk_kg",n))));
         if(IrrigationDefinitions.IsSupply(co))yield return new(Text.Get("bulk_target"),BulkService.TryTarget(co,out double target)?Text.Get("bulk_kg",target):Text.Get("protected"),new[]{5d,10d,15d,19.5}.Select(n=>("bulk-target:"+n.ToString(System.Globalization.CultureInfo.InvariantCulture),Text.Get("bulk_kg",n))));
     }
     public bool IsConfiguration(string action)=>action.StartsWith("mix-",StringComparison.Ordinal)||action.StartsWith("dose-",StringComparison.Ordinal)||action=="water-only"||action=="water-routed"||action=="water-legacy"||action=="unlink-water"||action.StartsWith("bulk-link:",StringComparison.Ordinal)||action.StartsWith("bulk-reserve:",StringComparison.Ordinal)||action.StartsWith("bulk-target:",StringComparison.Ordinal);
@@ -129,7 +129,8 @@ internal sealed class Provider : IEquipmentProvider, IEquipmentPanelFields
         bool saved=Command(co,binding,action,out reason);if(saved)Phobos.Ostranauts.Framework.Controls.ConfigurationStamp.SuspendChangedOrder(co);return saved;
     }
     public string Id => Plugin.Id;
-    public IReadOnlyList<string> Definitions { get; } = Array.AsReadOnly(new[] { PhobosAgriculture.Definitions.Rack + "Installed", PhobosAgriculture.Definitions.Cooker + "Installed", IrrigationDefinitions.Supply + "Installed", WorkupDefinitions.Bench + "Installed", BulkDefinitions.Tank + "Installed", BulkDefinitions.Tank + "InstalledDmg" });
+    public IReadOnlyList<string> Definitions { get; } = Array.AsReadOnly(new[] { PhobosAgriculture.Definitions.Rack + "Installed", PhobosAgriculture.Definitions.Cooker + "Installed", IrrigationDefinitions.Supply + "Installed", WorkupDefinitions.Bench + "Installed", BulkDefinitions.Tank + "Installed", BulkDefinitions.Tank + "InstalledDmg" }
+        .Concat(BulkDefinitions.Sizes.Skip(1).SelectMany(s => new[] { s.Prefix + "Installed", s.Prefix + "InstalledDmg" })).ToArray());
     public EquipmentSnapshot Snapshot(CondOwner co)
     {
         // A protected machine offers the owner-confirmed accept action in place of its ordinary controls.

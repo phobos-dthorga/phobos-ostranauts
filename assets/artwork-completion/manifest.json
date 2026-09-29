@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "date": "2026-09-27",
-  "status": "79 selected masters; native export review complete; owner gameplay and visual approval pending",
+  "status": "81 selected masters; native export review complete; owner gameplay and visual approval pending",
   "projection": "Orthographic vertical overhead, no visible vertical faces",
   "registration": "Whole transparent source canvas, centred pivot, unchanged native footprint; nearest-neighbour exports",
   "allowanceBefore": 1952,
@@ -2123,6 +2123,56 @@
       "review": "Overhead and native-scale export inspected; S3 colour language (slate deck, yellow clamps, cream domes, teal bands) kept. Owner in-game review pending.",
       "fullFootprint": true,
       "jobId": "3fda023c-b0ea-472e-bf68-16a66067d789"
+    },
+    {
+      "key": "r4-reservoir",
+      "mod": "PhobosAgriculture",
+      "definition": "PhobosVerdemorrowGroundworkR3MediumInstalled",
+      "nativeSize": [
+        64,
+        64
+      ],
+      "masterSize": [
+        128,
+        128
+      ],
+      "pivot": [
+        32,
+        32
+      ],
+      "runtime": "phobos/agriculture/ReservoirMedium",
+      "status": "selected",
+      "source": "source/r4-reservoir.png",
+      "sourceSHA256": "85f7540b32632718b36890fdf29c01557afb9d725f7e0822bba850278ac9f2c7",
+      "requestRecord": "bulk-silo-requests.json",
+      "review": "Overhead and native-scale export inspected; R3 colour language (charcoal frame, cream lids, sage service panel) kept. Owner in-game review pending.",
+      "fullFootprint": true,
+      "jobId": "a4f99e51-5550-4c77-b283-e42ba22ce500"
+    },
+    {
+      "key": "r5-reservoir",
+      "mod": "PhobosAgriculture",
+      "definition": "PhobosVerdemorrowGroundworkR3LargeInstalled",
+      "nativeSize": [
+        80,
+        80
+      ],
+      "masterSize": [
+        160,
+        160
+      ],
+      "pivot": [
+        40,
+        40
+      ],
+      "runtime": "phobos/agriculture/ReservoirLarge",
+      "status": "selected",
+      "source": "source/r5-reservoir.png",
+      "sourceSHA256": "d3c48eed3a1a8d1be6ad4050f5645de0ae05fbf7d78acf9d3086cc3dc111054a",
+      "requestRecord": "bulk-silo-requests.json",
+      "review": "Overhead and native-scale export inspected; R3 colour language (charcoal frame, cream lids, sage service panel) kept. Owner in-game review pending.",
+      "fullFootprint": true,
+      "jobId": "06adb136-4bdb-4b09-9b69-f3e2062c38d4"
     }
   ],
   "records": [
@@ -2475,9 +2525,31 @@
       ],
       "costGenerations": 1,
       "review": "3fda023c selected"
+    },
+    {
+      "key": "r4-reservoir",
+      "attempts": [
+        "bulk-silo-requests.json"
+      ],
+      "jobs": [
+        "a4f99e51-5550-4c77-b283-e42ba22ce500"
+      ],
+      "costGenerations": 1,
+      "review": "a4f99e51 selected"
+    },
+    {
+      "key": "r5-reservoir",
+      "attempts": [
+        "bulk-silo-requests.json"
+      ],
+      "jobs": [
+        "06adb136-4bdb-4b09-9b69-f3e2062c38d4"
+      ],
+      "costGenerations": 1,
+      "review": "06adb136 selected"
     }
   ],
-  "allowanceAfter": 1778,
-  "allowanceDelta": 174,
+  "allowanceAfter": 1776,
+  "allowanceDelta": 176,
   "creditBalanceAfterUSD": 0
 }

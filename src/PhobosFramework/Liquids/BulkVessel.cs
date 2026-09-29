@@ -98,6 +98,23 @@ public static class BulkVessels
     /// usable from code that does not reference the game assembly).</summary>
     public static BulkVesselSpec? Of(CondOwner? co) => co == null ? null : SpecFor(co.strCODef);
     public static bool IsVessel(CondOwner? co) => Of(co) != null;
+    /// <summary>Two square footprints lie within one tile of each other: the distance between centres on the longer
+    /// axis is at least half of both footprints (no overlap) and at most that plus one tile. Tile coordinates.</summary>
+    public static bool WithinOneTile(double ax, double ay, int aFootprint, double bx, double by, int bFootprint)
+    {
+        foreach (double v in new[] { ax, ay, bx, by }) if (double.IsNaN(v) || double.IsInfinity(v)) return false;
+        if (aFootprint < 1 || bFootprint < 1) return false;
+        double reach = (aFootprint + bFootprint) / 2.0, distance = Math.Max(Math.Abs(ax - bx), Math.Abs(ay - by));
+        return distance + 1e-6 >= reach && distance <= reach + 1 + 1e-6;
+    }
+    /// <summary>Whether two installed objects on the same ship sit within one tile of each other, by their definitions' footprints.</summary>
+    public static bool Adjacent(CondOwner? a, CondOwner? b)
+    {
+        if (a == null || b == null || a == b || a.ship == null || a.ship != b.ship) return false;
+        int Footprint(CondOwner co) => Math.Max(1, DataHandler.GetCondOwnerDef(co.strCODef)?.inventoryWidth ?? 1);
+        var p = a.GetPos(); var q = b.GetPos();
+        return WithinOneTile(p.x, p.y, Footprint(a), q.x, q.y, Footprint(b));
+    }
     /// <summary>Installed, undamaged, ready vessels of one commodity aboard a ship.</summary>
     public static IEnumerable<CondOwner> Aboard(Ship? ship, string commodity) => ship == null ? Enumerable.Empty<CondOwner>() :
         ship.GetCOs(null, false, false, true).Where(c => c != null && !c.bDestroyed && c.ship == ship && Of(c)?.Commodity == commodity &&

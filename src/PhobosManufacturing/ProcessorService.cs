@@ -67,8 +67,7 @@ internal static class ProcessorService
         return !s.Protected;
     }
 
-    private static int Footprint(CondOwner co) => Math.Max(1, DataHandler.GetCondOwnerDef(co.strCODef)?.inventoryWidth ?? 1);
-    internal static bool Adjacent(CondOwner a, CondOwner b) { var p = a.GetPos(); var q = b.GetPos(); return ManufacturingRules.Adjacent(p.x, p.y, Footprint(a), q.x, q.y, Footprint(b)); }
+    internal static bool Adjacent(CondOwner a, CondOwner b) => BulkVessels.Adjacent(a, b);
     internal static MaterialPort WaterIn(CondOwner co) => new(co.strID, ProcessorRules.WaterInPort, co.mapGUIPropMaps);
     internal static MaterialPort VesselOut(CondOwner vessel) => new(vessel.strID, ProcessorRules.VesselOutPort, vessel.mapGUIPropMaps);
     internal static MaterialPort HydrogenOut(CondOwner co) => new(co.strID, ProcessorRules.HydrogenOutPort, co.mapGUIPropMaps);

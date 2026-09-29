@@ -10,12 +10,12 @@ is still pending.
 | Phobos Shipbreaker | APPS | D4 dismantling fixture, exterior grabber, intake chute, floor/hull collector, R4 scrap reclaimer, F6 furnace, S3, S4 and S5 process water silos and T2 ice thaw unit |
 | Phobos Shipbreaker | HVAC | F6-R exterior radiator, F6-P underside cooling head and F6-C coolant conduit |
 | Phobos Shipbreaker | CTRL | C1 industrial control console |
-| Phobos Agriculture | APPS | Firstlight-4 cultivation rack, Hearth-2 portion cooker, Groundwork W2 supply, B2 workup bench and R3 reservoir |
+| Phobos Agriculture | APPS | Firstlight-4 cultivation rack, Hearth-2 portion cooker, Groundwork W2 supply, B2 workup bench and R3, R4 and R5 reservoirs |
 | Phobos Agriculture | MISC | Irrigation conduit |
 | Phobos Manufacturing | APPS | Fennmark V4 volatiles refinery, X2 chemical processor, K2 Sabatier reactor, and the hydrogen, methane, oxygen, nitrogen and carbon dioxide stores in all three sizes |
 | Phobos Manufacturing | HVAC | Fennmark P1 RCS propellant manifold, L2 canister filling station and gas line |
 
-The native coverage checks include every implemented intact/damaged placement family. R3 has no fabrication recipe: buy the loose hardware before installation.
+The native coverage checks include every implemented intact/damaged placement family. The R3, R4 and R5 have no fabrication recipe: buy the loose hardware before installation.
 D4, R4 and F6 entries now consume two D4-S, two R4-S or three F6-S sections at the site. Native hauling stages them separately. Complete loose machinery still has its direct Install action; damaged placement keeps its existing loose input. Other entries consume existing loose equipment and retain their work, placement and access requirements. See [section assembly](../section-assembly-and-maintenance.md). Obtain or construct the equipment first;
 selecting a catalogue entry does not create a free machine or replace the
 [construction recipes and equipment economy](../equipment-economy.md). Pipe entries

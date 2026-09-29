@@ -25,6 +25,8 @@ internal static class Definitions
     internal static bool Machine(CondOwner? co) => co != null && Machines.Contains(co.strCODef);
     /// <summary>Every tradeable Agriculture machine family, including the R3 vessel; shared by stock and loot.</summary>
     internal static readonly string[] MachineFamilies = { Rack, Cooker, IrrigationDefinitions.Supply, WorkupDefinitions.Bench, BulkDefinitions.Tank };
+    /// <summary>Everything merchants sell: the machine families plus the R4 and R5 reservoirs, which are too big for salvage loot.</summary>
+    internal static readonly string[] SaleFamilies = MachineFamilies.Concat(BulkDefinitions.Sizes.Skip(1).Select(s => s.Prefix)).ToArray();
     internal static bool IsCooker(CondOwner co) => co.strCODef.StartsWith(Cooker, StringComparison.Ordinal);
     internal static double DryMass(CondOwner co) => WorkupDefinitions.IsBench(co) ? WorkupDefinitions.DryKg : IrrigationDefinitions.IsSupply(co) ? IrrigationDefinitions.DryKg : IsCooker(co) ? 12 : 80;
     internal static void Load()
@@ -102,7 +104,7 @@ internal static class Definitions
         foreach (string item in new[] { Rack + "Loose", Cooker + "Loose", PotatoSeed, LettuceSeed, Nutrient, Irrigation, Service.RecoveryCartridge })
             MarketStock.Add(d, merchant, "PhobosAgricultureStock_" + merchant + "_" + item, item, StockQuantities.Chance(item, item == Nutrient || item == Irrigation ? 1 : .65), StockCondition.Pristine, StockQuantities.For(item));
         // Every machine has the same second-hand routes: used at the K-Leg fixer, refurbished and broken at Venus scrap.
-        foreach (string prefix in MachineFamilies)
+        foreach (string prefix in SaleFamilies)
         {
             MarketStock.Add(d, "ItmOKLGFixer", prefix + "UsedOffer", prefix + "Loose", StockQuantities.Chance(prefix + "Loose", .3), StockCondition.Worn, StockQuantities.For(prefix + "Loose"));
             MarketStock.Add(d, "ItmVORBScrapKioskInv", prefix + "RefurbishedOffer", prefix + "Loose", StockQuantities.Chance(prefix + "Loose", .2), StockCondition.Refurbished, StockQuantities.For(prefix + "Loose"));
@@ -113,7 +115,7 @@ internal static class Definitions
         foreach (var art in new[] { (Rack, "Rack"), (Cooker, "Cooker"), (IrrigationDefinitions.Supply, "WaterSupply"), (WorkupDefinitions.Bench, "Workup") })
             ApplianceDefinitions.ApplyStateArtwork(d, art.Item1, "phobos/agriculture/" + art.Item2);
         // Large rack housings remain bulky after dismantling; small loose supplies do not.
-        foreach (string id in new[] { Rack + "HousingWaste", Rack + "BrokenHousingWaste", BulkDefinitions.Tank + "HousingWaste", BulkDefinitions.Tank + "BrokenHousingWaste" })
+        foreach (string id in new[] { Rack + "HousingWaste", Rack + "BrokenHousingWaste" }.Concat(BulkDefinitions.Sizes.SelectMany(s => new[] { s.Prefix + "HousingWaste", s.Prefix + "BrokenHousingWaste" })))
             ItemHandling.Cumbersome(d, id);
         ItemHandling.Apply(d);
         MaintenanceInformation.Register(d, "PhobosAgricultureMaintenanceInformation", co =>

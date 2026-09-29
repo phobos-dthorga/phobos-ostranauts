@@ -23,6 +23,22 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Fixed unreachable INSTALL entries; Firstlight-4, Hearth-2 and W2 appear under APPS, and irrigation conduit under MISC, including damaged forms. Existing inputs, placement and saved IDs are preserved.
 
+## [0.20.0] - 2026-09-29 - Draft
+
+### Added
+
+- Phobos' Verdemorrow Groundwork R4 (4 x 4, 235 kg, 635 cr) and R5 (5 x 5, 400 kg, 830 cr) Agricultural Water Reservoirs, the medium and large sizes of the R3 (owner direction: every bulk family comes in three sizes). They work like the R3, hold more for less per kilogram of capacity, and are purchase-only.
+- A W2 now draws from any water vessel within one tile: a reservoir of any size, or a Shipbreaker S3, S4 or S5 process water silo. The original R3 layout still qualifies.
+- Two PixelLab sprites in the R3's colours.
+
+### Changed
+
+- Reserve steps and the station water quote follow the chosen reservoir's size; the R3's are unchanged. The station offer reads Agricultural water (Groundwork reservoirs).
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.44.0 or newer. Existing R3 reservoirs keep their identity, water, records and links.
+
 ## [0.19.0] - 2026-09-29 - Draft
 
 ### Changed

@@ -16,7 +16,9 @@
     "scratch:steel-remainder-init-64.png": "013f0f798f329e5da89d6027e3f29e2a35d3b5bacd67389606b33939b84cd2ae",
     "archived:aluminium-ingot-start.png": "31cf7e79a87b3f6deee82ba90872951d85e2ba55c529fc8b4f3d1b6967c72504",
     "references/s4-silo-start.png": "53f3a4c24a6608e2059c13fcfe5b8df3a22ec537e298a4974f3b47a29e7372e6",
-    "references/s5-silo-start.png": "691d236a1ead06f8346e56417148efae73d10f77bd5e20061dadcba3071ca086"
+    "references/s5-silo-start.png": "691d236a1ead06f8346e56417148efae73d10f77bd5e20061dadcba3071ca086",
+    "references/r4-reservoir-start.png": "0504d0a55e509e07b09a2036eaf6c07c70dd02dcd0233513c7e8e462b61dc6ef",
+    "references/r5-reservoir-start.png": "db29ed72ecd134cc1f9bec95578cc6c5ded68b1c8da35f468138e1b2ae8e1fd3"
   },
   "derived": {
     "steel-ingot": {
@@ -440,6 +442,50 @@
       "initImage": "references/s5-silo-start.png",
       "decision": "selected",
       "review": "Overhead, no side faces; nine domes on one deck, matching the S3 at 80 px. Shipbreaker 0.40.0 pass; allowance 1,780 to 1,778."
+    },
+    {
+      "key": "r4-reservoir",
+      "operation": "create_image_pixflux",
+      "jobId": "a4f99e51-5550-4c77-b283-e42ba22ce500",
+      "costGenerations": 1,
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. The whole square canvas is the top of a medium agricultural water reservoir for a spacecraft farm: a dark charcoal grey steel frame reaching every canvas edge; in it two large round pale cream tank lids stacked one above the other, each lit from the upper left with a soft highlight and darker lower-right shading, each with a small dark square fill cap in its centre; along the right edge a narrow sage green service panel with thin horizontal ribs and a small grey outlet block where it meets the tanks; a few scuffs and rivet dots. Clean utilitarian retro spaceship equipment: crisp dark outlines, small readable colour regions, restrained shading, sparse purposeful details. No perspective, no ground shadow, no pipes leaving the frame, no gauges, no text, numbers, symbols or logos.",
+        "width": 128,
+        "height": 128,
+        "seed": 9290531,
+        "init_image_strength": 130,
+        "shading": "basic shading",
+        "outline": "single color black outline",
+        "detail": "medium detail",
+        "no_background": false,
+        "isometric": false,
+        "view": "high top-down"
+      },
+      "initImage": "references/r4-reservoir-start.png",
+      "decision": "selected",
+      "review": "Overhead, no side faces; two cream lids beside the sage service panel, matching the R3 at 64 px. Agriculture 0.20.0 pass; allowance 1,778 to 1,776."
+    },
+    {
+      "key": "r5-reservoir",
+      "operation": "create_image_pixflux",
+      "jobId": "06adb136-4bdb-4b09-9b69-f3e2062c38d4",
+      "costGenerations": 1,
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. The whole square canvas is the top of a large agricultural water reservoir for a spacecraft farm: a dark charcoal grey steel frame reaching every canvas edge; in it four large round pale cream tank lids in a two by two grid, each lit from the upper left with a soft highlight and darker lower-right shading, each with a small dark square fill cap in its centre; along the right edge a narrow sage green service panel with thin horizontal ribs and a small grey outlet block where it meets the tanks; a few scuffs and rivet dots. Clean utilitarian retro spaceship equipment: crisp dark outlines, small readable colour regions, restrained shading, sparse purposeful details. No perspective, no ground shadow, no pipes leaving the frame, no gauges, no text, numbers, symbols or logos.",
+        "width": 160,
+        "height": 160,
+        "seed": 9290532,
+        "init_image_strength": 130,
+        "shading": "basic shading",
+        "outline": "single color black outline",
+        "detail": "medium detail",
+        "no_background": false,
+        "isometric": false,
+        "view": "high top-down"
+      },
+      "initImage": "references/r5-reservoir-start.png",
+      "decision": "selected",
+      "review": "Overhead, no side faces; four cream lids beside the sage service panel, matching the R3 at 80 px. Agriculture 0.20.0 pass; allowance 1,778 to 1,776."
     }
   ],
   "rejectedArchive": {

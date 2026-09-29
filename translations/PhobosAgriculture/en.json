@@ -201,7 +201,6 @@
   "panel_workup": "Job: {0}\nEnergy supplied: {1:0.00} kWh",
   "panel_supply": "Plain water {0:0.00} kg · Nutrient solution {1:0.00} kg",
   "bulk_tank": "Agricultural Water Reservoir",
-  "bulk_tank_desc": "R3: 120 kg of water for the next growing shift. A passive 3 x 3 tank; the adjacent W2 on its right supplies pumping power. Keep both service approaches clear. Damage traps water in a catch tank: repair, then recover it. Drain before moving or dismantling. Not for drinking water.",
   "bulk_nutrients": "Bulk Nutrient Charge",
   "bulk_nutrients_desc": "500 g of dry plant feed for W2. Select it in Inventory for gradual mixing. Mass and value fall as it is used. Contains no water and cannot be refilled by repair. To have crew replace it, enable the replacement standing order.",
   "bulk-load": "Load one 5 kg irrigation charge",
@@ -209,13 +208,13 @@
   "bulk-drain": "Drain up to 20 kg for treatment (some is lost)",
   "bulk-dose": "Replace the selected nutrient charge",
   "bulk_status": "Usable water: {0:F2} kg | Trapped water: {1:F2} kg\nTotal capacity: {2:F0} kg | Keep in reserve: {3:F2} kg\nConnected W2: {4}",
-  "bulk_pair": "Place an intact R3 and W2 edge to edge, facing the same direction, with both front service approaches clear. The W2 must be on the R3’s right side.",
+  "bulk_pair": "Place an intact water reservoir or silo within one tile of the W2 (touching or one tile apart, diagonals count), on the same ship.",
   "bulk_connection": "Reservoir / supply connection",
   "bulk_reserve": "Keep water in R3",
   "bulk_target": "W2 refill target",
   "bulk_kg": "{0:G} kg",
   "bulk-link:none": "Disconnect reservoir / supply",
-  "bulk_water_offer": "Agricultural water (R3)",
+  "bulk_water_offer": "Agricultural water (Groundwork reservoirs)",
   "bulk_unit_kg": "kg",
   "bulk_unit_charge": "charge",
   "bulk_quote_changed": "The destination or available capacity changed. Choose the quantity again for a fresh quote.",
@@ -234,5 +233,8 @@
   "accept": "Accept contents as they are",
   "accept_done": "Records accepted. The machine's mass now matches them and it can run again.",
   "accept_unavailable": "Cannot accept: the saved records are unreadable, or the machine is protected for a reason that needs repair rather than acceptance.",
-  "crop_present": "A crop is already planted. Harvest or clear it first."
+  "crop_present": "A crop is already planted. Harvest or clear it first.",
+  "bulk_tank_medium": "Agricultural Water Reservoir",
+  "bulk_tank_large": "Agricultural Water Reservoir",
+  "bulk_tank_details": "{0:F0} kg of water for the next growing shift in a passive {1} x {1} tank, {2:F0} kg empty. A W2 within one tile draws from it and supplies the pumping power. Damage traps water in a catch tank: repair, then recover it. Drain before moving or dismantling. Not for drinking water."
 }

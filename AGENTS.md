@@ -381,8 +381,9 @@
   canisters are O2/N2/CO2, sold through Bulk supplies at the game's own gas price.
   The Fennmark L2 fills native canisters and suit bottles to 99% of their rating
   (`NativeGasVessel`, `GasTransfers`), never patching the native air pump. Shipbreaker
-  0.40.0 adds the S4/S5 silos; Agriculture R4/R5 (with W2 intake from any adjacent
-  water vessel) and the A2 cabin air regulator follow in later stages.
+  0.40.0 adds the S4/S5 silos; Agriculture 0.20.0 the R4/R5 reservoirs, and a W2 now
+  draws from any water vessel within one tile (`BulkVessels.Adjacent`). The A2 cabin
+  air regulator follows in a later stage.
 
 ## War Has Been Declared direction (2026-09-29)
 

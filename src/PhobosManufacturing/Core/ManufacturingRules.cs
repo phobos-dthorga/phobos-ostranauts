@@ -15,13 +15,8 @@ public static class ManufacturingRules
     public const double VesselRecheckSeconds = 5;
     /// <summary>Two square footprints lie within one tile of each other: the distance between centres, on the
     /// longer axis, is at least half of both footprints (no overlap) and at most that plus one tile.</summary>
-    public static bool Adjacent(double ax, double ay, int aFootprint, double bx, double by, int bFootprint)
-    {
-        foreach (double v in new[] { ax, ay, bx, by }) if (double.IsNaN(v) || double.IsInfinity(v)) return false;
-        if (aFootprint < 1 || bFootprint < 1) return false;
-        double reach = (aFootprint + bFootprint) / 2.0, distance = Math.Max(Math.Abs(ax - bx), Math.Abs(ay - by));
-        return distance + 1e-6 >= reach && distance <= reach + 1 + 1e-6;
-    }
+    public static bool Adjacent(double ax, double ay, int aFootprint, double bx, double by, int bFootprint) =>
+        Phobos.Ostranauts.Framework.Liquids.BulkVessels.WithinOneTile(ax, ay, aFootprint, bx, by, bFootprint);
     public static bool Finite(double x) => !double.IsNaN(x) && !double.IsInfinity(x);
     /// <summary>Credits supplied energy to a cycle of <paramref name="cycleKWh"/>; never more than one cycle completes
     /// per step, and energy beyond a completion is refused rather than banked.</summary>

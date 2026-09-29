@@ -28,6 +28,7 @@ Dates on Draft entries record preparation, not Steam publication.
 - Safe filling of the game's own gas vessels: installed or loose O2, N2 and CO2 canisters and suit O2 bottles are filled to 99% of their rating, counting everything inside, and never past it.
 - Journalled gas moves between bulk stores and the game's canisters and bottles, so an interrupted move can lose gas but never create it.
 - Station bulk supply offers can fill every size of a family from one line, and equipment can offer a restricted rack through the game's own Inventory window.
+- One shared within-one-tile rule for machines and bulk vessels, used by Manufacturing and by Agriculture's W2 intake.
 
 ## [0.43.0] - 2026-09-29 - Draft
 

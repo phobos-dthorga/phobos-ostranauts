@@ -25,6 +25,21 @@ internal static class BulkNativeChecks
                 check(Size(16)==48&&Size(20)==48,"R3 colour and normal use native 48-pixel bounds");
             }
         }
+        // The R4 and R5: the R3's pattern at 4 x 4 and 5 x 5, each its own registered water vessel.
+        foreach(var size in BulkDefinitions.Sizes.Skip(1))
+        foreach(string form in new[]{"Installed","Loose","InstalledDmg","LooseDmg"})
+        {
+            var co=d.Objects[size.Prefix+form];var item=d.Items[co.strItemDef];
+            check(item.nCols==size.Footprint&&co.inventoryWidth==size.Footprint&&co.jsonPI==null&&Stat(co,"StatMass")==size.DryKg,"Each larger reservoir is a passive vessel of its own footprint at its dry mass: "+size.Prefix+form);
+            check(co.strNameFriendly.StartsWith("Phobos' Verdemorrow Groundwork R"+size.Footprint+" ",StringComparison.Ordinal),"Each larger reservoir carries its Groundwork model: "+size.Prefix+form);
+            check(Math.Abs(d.Installables[co.strName+"Dismantle"].aLootCOs.Sum(id=>Stat(d.Objects.TryGetValue(id,out var product)?product:DataHandler.dictCOs[id],"StatMass"))-size.DryKg)<1e-8,
+                "Each larger reservoir's dismantling preserves its housing mass: "+size.Prefix+form);
+            check(Phobos.Ostranauts.Framework.Liquids.BulkVessels.SpecFor(co.strName)?.CapacityKg==size.CapacityKg&&Phobos.Ostranauts.Framework.Liquids.BulkVessels.SpecFor(co.strName)?.Commodity=="water",
+                "Each larger reservoir is its own registered water vessel: "+size.Prefix+form);
+        }
+        check(BulkDefinitions.Sizes[0].Spec.Record=="AgricultureBulk"&&BulkDefinitions.Sizes[1].CapacityKg==235&&BulkDefinitions.Sizes[2].CapacityKg==400,
+            "The R3 keeps its saved record name; the R4 holds 235 kg and the R5 400 kg");
+        check(BulkDefinitions.ReserveChoices(120).SequenceEqual(new double[]{0,5,10,20,40,80,120}),"The R3's reserve steps are unchanged");
         var charge=d.Objects[BulkDefinitions.Nutrients];
         check(Stat(charge,"StatMass")==.5&&Stat(charge,"StatBasePrice")==750&&charge.nStackLimit==3,"Finite bulk charge has an individual physical identity and authored price");
         check(charge.inventoryWidth==1&&charge.inventoryHeight==1&&charge.aUpdateCommands.Length==0,"Bulk nutrient charge fits one slot and cannot regenerate through a native damage mode");

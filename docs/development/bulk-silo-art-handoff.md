@@ -135,3 +135,12 @@ teal bands): four domes for the S4 (64 px native, 128 px master) and nine for th
 S5 (80 px, 160 px). Both selected; two included generations (allowance 1,780 to
 1,778), $0 credit. No gauges are painted, per the owner ruling. Requests and
 start-drawing hashes are in `assets/artwork-completion/bulk-silo-requests.json`.
+
+## Agriculture 0.20.0: R4 and R5 (29 September 2026)
+
+One Pixflux pass each (strength 130) over an original procedural start drawing in
+the R3's colours (charcoal frame, cream tank lids, sage service panel): two lids
+for the R4 (64 px native, 128 px master) and four for the R5 (80 px, 160 px). Both
+selected; two included generations (allowance 1,778 to 1,776), $0 credit. The R3
+keeps its own four drawn states; the R4 and R5 use one sprite with the game's
+damage tint, like the silos.

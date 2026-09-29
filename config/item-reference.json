@@ -846,7 +846,11 @@
             "PhobosVerdemorrowGroundworkB2HousingWaste",
             "PhobosVerdemorrowGroundworkB2BrokenHousingWaste",
             "PhobosVerdemorrowGroundworkR3HousingWaste",
-            "PhobosVerdemorrowGroundworkR3BrokenHousingWaste"
+            "PhobosVerdemorrowGroundworkR3BrokenHousingWaste",
+            "PhobosVerdemorrowGroundworkR3MediumHousingWaste",
+            "PhobosVerdemorrowGroundworkR3MediumBrokenHousingWaste",
+            "PhobosVerdemorrowGroundworkR3LargeHousingWaste",
+            "PhobosVerdemorrowGroundworkR3LargeBrokenHousingWaste"
           ],
           "function": "Terminal housing remainders from equipment dismantling. Several different masses share this display name.",
           "use": "Use the origin and mass below to identify the packet; keep or trade it as waste.",
@@ -865,7 +869,11 @@
             "PhobosVerdemorrowGroundworkB2HousingWaste": "B2: intact dismantling",
             "PhobosVerdemorrowGroundworkB2BrokenHousingWaste": "B2: damaged dismantling",
             "PhobosVerdemorrowGroundworkR3HousingWaste": "R3: intact dismantling",
-            "PhobosVerdemorrowGroundworkR3BrokenHousingWaste": "R3: damaged dismantling"
+            "PhobosVerdemorrowGroundworkR3BrokenHousingWaste": "R3: damaged dismantling",
+            "PhobosVerdemorrowGroundworkR3MediumHousingWaste": "R4: intact dismantling",
+            "PhobosVerdemorrowGroundworkR3MediumBrokenHousingWaste": "R4: damaged dismantling",
+            "PhobosVerdemorrowGroundworkR3LargeHousingWaste": "R5: intact dismantling",
+            "PhobosVerdemorrowGroundworkR3LargeBrokenHousingWaste": "R5: damaged dismantling"
           }
         },
         {
@@ -971,16 +979,24 @@
         },
         {
           "key": "bulk-reservoir",
-          "title": "Groundwork R3 Agricultural Water Reservoir",
+          "title": "Groundwork R3, R4 and R5 Agricultural Water Reservoirs",
           "ids": [
             "PhobosVerdemorrowGroundworkR3Loose",
             "PhobosVerdemorrowGroundworkR3LooseDmg",
             "PhobosVerdemorrowGroundworkR3Installed",
-            "PhobosVerdemorrowGroundworkR3InstalledDmg"
+            "PhobosVerdemorrowGroundworkR3InstalledDmg",
+            "PhobosVerdemorrowGroundworkR3MediumLoose",
+            "PhobosVerdemorrowGroundworkR3MediumLooseDmg",
+            "PhobosVerdemorrowGroundworkR3MediumInstalled",
+            "PhobosVerdemorrowGroundworkR3MediumInstalledDmg",
+            "PhobosVerdemorrowGroundworkR3LargeLoose",
+            "PhobosVerdemorrowGroundworkR3LargeLooseDmg",
+            "PhobosVerdemorrowGroundworkR3LargeInstalled",
+            "PhobosVerdemorrowGroundworkR3LargeInstalledDmg"
           ],
-          "function": "Passive 120 kg agricultural water buffer for one explicitly paired adjacent W2. Storage and catch share one capacity; adds no pump power.",
-          "use": "Install through APPS. Place W2 against the R3 right edge at matching rotation, leaving both front service approaches clear. Pause W2, Apply the reservoir connection, choose reserve/refill target, then explicitly enable W2 receiving and Resume. Fill through station Bulk supplies or put 5 kg irrigation charges in its inventory and Load. Routine crew loading is opt-in.",
-          "find": "Empty loose hardware at Agriculture supply/fixer/Halvorson and supported regional merchants; finite lots of four. No fabrication recipe. This item may also appear in eligible engineering-equipment loot; see the exact offers below.",
+          "function": "Passive agricultural water buffers for one explicitly paired W2: 120 kg in the 3 x 3 R3, 235 kg in the 4 x 4 R4 and 400 kg in the 5 x 5 R5. Storage and catch share one capacity; they add no pump power.",
+          "use": "Install through APPS within one tile of a W2 (the original R3 layout against its right edge still works; a Shipbreaker silo can also feed a W2). Pause W2, Apply the reservoir connection, choose reserve/refill target, then explicitly enable W2 receiving and Resume. Fill through station Bulk supplies or put 5 kg irrigation charges in its inventory and Load. Routine crew loading is opt-in.",
+          "find": "Empty loose hardware at Agriculture supply/fixer/Halvorson and supported regional merchants; finite lots of four. No fabrication recipe. The R3 may also appear in eligible engineering-equipment loot; the R4 and R5 never do. See the exact offers below.",
           "notes": "Damage isolates the water in a finite catch. Repair does not recover or resume it: use Recover locally. Explicit lossy Drain creates recorded treatment feed, at most 20 kg per action. Filled, linked or uncertain storage cannot be uninstalled/dismantled. Whole-ship disposal remains native. Not a potable tank, feed-mixture tank or drainage receiver.",
           "guide": "agriculture-bulk-storage.md",
           "internal": false,

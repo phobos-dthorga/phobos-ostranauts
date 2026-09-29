@@ -12,6 +12,8 @@
 | Phobos' Verdemorrow Groundwork Irrigation Conduit | 2.00 | 2.50 | 0.40 | 0.10 | 1.10 | 2 | 0.01 |
 | Phobos' Verdemorrow Groundwork B2 Workup Bench | 250.00 | 312.50 | 50.00 | 12.50 | 143.40 | 30 | 10.81 |
 | Phobos' Verdemorrow Groundwork R3 Agricultural Water Reservoir | 450.00 | 562.50 | 90.00 | 22.50 | Purchase loose hardware; no fabrication | Not applicable | 14.41 |
+| Phobos' Verdemorrow Groundwork R4 Agricultural Water Reservoir | 635.00 | 793.75 | 127.00 | 31.75 | Purchase loose hardware; no fabrication | Not applicable | 28.81 |
+| Phobos' Verdemorrow Groundwork R5 Agricultural Water Reservoir | 830.00 | 1,037.50 | 166.00 | 41.50 | Purchase loose hardware; no fabrication | Not applicable | 43.21 |
 
 Phobos' Verdemorrow Firstlight-4 Cultivation Rack: VORB endpoint illustration: pristine ingredients at the highest sell multiplier cost 594.75; a full-condition constructed machine at the lowest buy multiplier returns 280.00. Difference -314.75 before tools, labour, hauling, availability and market category effects.
 
@@ -34,6 +36,8 @@ Phobos' Verdemorrow Groundwork B2 Workup Bench: VORB endpoint illustration: pris
 | Phobos' Verdemorrow Groundwork Irrigation Conduit | TIsScrapAluminum=1x1 | PhobosVerdemorrowWaterConduitLoose + Framework actual spent materials | None; native in-place wear work | PhobosVerdemorrowWaterConduitWaste |
 | Phobos' Verdemorrow Groundwork B2 Workup Bench | TIsPartsMechSmall=1x1, TIsPartsElecSmall=1x1, TIsScrapAluminum=1x1 | PhobosVerdemorrowGroundworkB2Loose + Framework actual spent materials | None; native in-place wear work | ItmScrapSteel, ItmScrapSteel, ItmScrapSteel, PhobosVerdemorrowGroundworkB2HousingWaste |
 | Phobos' Verdemorrow Groundwork R3 Agricultural Water Reservoir | TIsPartsMechSmall=1x1, TIsPartsElecSmall=1x1, TIsScrapAluminum=1x1 | PhobosVerdemorrowGroundworkR3Loose + Framework actual spent materials | None; native in-place wear work | ItmScrapSteel, ItmScrapSteel, ItmScrapSteel, ItmScrapSteel, PhobosVerdemorrowGroundworkR3HousingWaste |
+| Phobos' Verdemorrow Groundwork R4 Agricultural Water Reservoir | TIsPartsMechSmall=1x2, TIsPartsElecSmall=1x1, TIsScrapAluminum=1x2 | PhobosVerdemorrowGroundworkR3MediumLoose + Framework actual spent materials | None; native in-place wear work | ItmScrapSteel, ItmScrapSteel, ItmScrapSteel, ItmScrapSteel, ItmScrapSteel, ItmScrapSteel, ItmScrapSteel, ItmScrapSteel, PhobosVerdemorrowGroundworkR3MediumHousingWaste |
+| Phobos' Verdemorrow Groundwork R5 Agricultural Water Reservoir | TIsPartsMechSmall=1x3, TIsPartsElecSmall=1x1, TIsScrapAluminum=1x3 | PhobosVerdemorrowGroundworkR3LargeLoose + Framework actual spent materials | None; native in-place wear work | ItmScrapSteel, ItmScrapSteel, ItmScrapSteel, ItmScrapSteel, ItmScrapSteel, ItmScrapSteel, ItmScrapSteel, ItmScrapSteel, ItmScrapSteel, ItmScrapSteel, ItmScrapSteel, ItmScrapSteel, PhobosVerdemorrowGroundworkR3LargeHousingWaste |
 
 Repair bills and work differ by machine; actual consumed repair mass returns as spent material. Restore removes wear in place and does not award pristine condition. See the current player guide for bills and timings.
 
@@ -66,6 +70,14 @@ These are native data-trigger results for empty loose definitions. 'Buy' means t
 | Phobos' Verdemorrow Groundwork Recovered Crop Nutrient Mixture | 0.01 |  | Yes | Yes | No | No |
 | Phobos' Verdemorrow Groundwork R3 Agricultural Water Reservoir | 450.00 | IsCategoryIndustrialProducts | Yes | Yes | No | No |
 | Phobos' Verdemorrow Groundwork R3 Agricultural Water Reservoir (Damaged) | 90.00 | IsCategoryIndustrialProducts | Yes | Yes | No | No |
+| Phobos' Verdemorrow Agricultural Housing Waste | 0.01 | IsCategoryTrash | Yes | Yes | No | No |
+| Phobos' Verdemorrow Agricultural Housing Waste | 0.01 | IsCategoryTrash | Yes | Yes | No | No |
+| Phobos' Verdemorrow Groundwork R4 Agricultural Water Reservoir | 635.00 | IsCategoryIndustrialProducts | Yes | Yes | No | No |
+| Phobos' Verdemorrow Groundwork R4 Agricultural Water Reservoir (Damaged) | 127.00 | IsCategoryIndustrialProducts | Yes | Yes | No | No |
+| Phobos' Verdemorrow Agricultural Housing Waste | 0.01 | IsCategoryTrash | Yes | Yes | No | No |
+| Phobos' Verdemorrow Agricultural Housing Waste | 0.01 | IsCategoryTrash | Yes | Yes | No | No |
+| Phobos' Verdemorrow Groundwork R5 Agricultural Water Reservoir | 830.00 | IsCategoryIndustrialProducts | Yes | Yes | No | No |
+| Phobos' Verdemorrow Groundwork R5 Agricultural Water Reservoir (Damaged) | 166.00 | IsCategoryIndustrialProducts | Yes | Yes | No | No |
 | Phobos' Verdemorrow Agricultural Housing Waste | 0.01 | IsCategoryTrash | Yes | Yes | No | No |
 | Phobos' Verdemorrow Agricultural Housing Waste | 0.01 | IsCategoryTrash | Yes | Yes | No | No |
 | Phobos' Verdemorrow Groundwork Bulk Nutrient Charge | 750.00 | IsCategoryIndustrialProducts | Yes | Yes | No | No |

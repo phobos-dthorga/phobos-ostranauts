@@ -20,6 +20,7 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - The propellant line is now the Fennmark gas line; its identities and saved routes are unchanged.
 - Store panels list every machine linked to the store, vent in readable steps sized to the store, and the vent control reads Vent overboard.
+- The within-one-tile rule for linking machines and vessels now comes from Phobos Framework, shared with Agriculture; placements that worked before still work, and any size of Shipbreaker silo or Agriculture reservoir can supply water.
 
 ### Compatibility and limits
 

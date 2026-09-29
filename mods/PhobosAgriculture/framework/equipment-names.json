@@ -87,6 +87,14 @@
     "brand": "Verdemorrow",
     "model": "Groundwork R3"
   },
+  "bulk_tank_medium": {
+    "brand": "Verdemorrow",
+    "model": "Groundwork R4"
+  },
+  "bulk_tank_large": {
+    "brand": "Verdemorrow",
+    "model": "Groundwork R5"
+  },
   "bulk_nutrients": {
     "brand": "Verdemorrow",
     "model": "Groundwork"

@@ -28,7 +28,7 @@ internal static class RegionalEconomy
     internal static void Apply(NativeDefinitions d)
     {
         foreach (string merchant in new[] { "ItmOKLGSupplyKioskInv", "ItmOKLGFixer", "ItmTraderSanDiegoHalvorsonInv", "ItmVORBScrapKioskInv" })
-        foreach (string item in new[] { Definitions.Rack + "Loose", Definitions.Cooker + "Loose", IrrigationDefinitions.Supply + "Loose", WorkupDefinitions.Bench + "Loose", BulkDefinitions.Tank + "Loose", Definitions.PotatoSeed, Definitions.LettuceSeed, Definitions.Nutrient, BulkDefinitions.Nutrients, Definitions.Irrigation, Service.RecoveryCartridge, WorkupDefinitions.Makeup, IrrigationDefinitions.Pipe + "Loose", Definitions.Raw, Definitions.Leaves, Definitions.Meal })
+        foreach (string item in new[] { Definitions.Rack + "Loose", Definitions.Cooker + "Loose", IrrigationDefinitions.Supply + "Loose", WorkupDefinitions.Bench + "Loose", BulkDefinitions.Tank + "Loose", BulkDefinitions.Tank + "MediumLoose", BulkDefinitions.Tank + "LargeLoose", Definitions.PotatoSeed, Definitions.LettuceSeed, Definitions.Nutrient, BulkDefinitions.Nutrients, Definitions.Irrigation, Service.RecoveryCartridge, WorkupDefinitions.Makeup, IrrigationDefinitions.Pipe + "Loose", Definitions.Raw, Definitions.Leaves, Definitions.Meal })
             MarketStock.AddMissing(d, merchant, "PhobosExpanded_Agriculture_" + merchant + "_" + item,
                 item, StockQuantities.Chance(item, 0), StockCondition.Pristine, StockQuantities.For(item));
         foreach (string merchant in new[] { "ItmOKLGFoodCart01KioskInv", "ItmOKLGFoodCart02KioskInv", "ItmTraderSanDiegoFutureFoodsInv" })
@@ -37,7 +37,7 @@ internal static class RegionalEconomy
         foreach (var profile in Profiles)
         {
             var condition = profile.Region == "OFLT" ? StockCondition.Refurbished : StockCondition.Pristine;
-            foreach (string machine in Definitions.MachineFamilies)
+            foreach (string machine in Definitions.SaleFamilies)
                 RegionalMarkets.Add(d, profile.Region, machine + "Loose", StockQuantities.Chance(machine + "Loose", .25 * profile.Factor), condition, StockQuantities.For(machine+"Loose"));
             foreach (string item in new[] { Definitions.PotatoSeed, Definitions.LettuceSeed, Definitions.Nutrient,
                 BulkDefinitions.Nutrients, Definitions.Irrigation, Service.RecoveryCartridge, WorkupDefinitions.Makeup, IrrigationDefinitions.Pipe + "Loose", Definitions.Raw, Definitions.Leaves, Definitions.Meal })

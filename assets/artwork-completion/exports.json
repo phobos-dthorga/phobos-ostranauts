@@ -2140,5 +2140,57 @@
     "registrationReference": null,
     "patches": null,
     "fullFootprint": true
+  },
+  {
+    "key": "r4-reservoir",
+    "sourceSHA256": "85f7540b32632718b36890fdf29c01557afb9d725f7e0822bba850278ac9f2c7",
+    "nativeSize": [
+      64,
+      64
+    ],
+    "pivot": [
+      32,
+      32
+    ],
+    "sourceBounds": [
+      0,
+      0,
+      128,
+      128
+    ],
+    "exports": {
+      "mods/PhobosAgriculture/images/phobos/agriculture/ReservoirMedium.png": "72805341d13ebfab3e0c9e967e01b3b5c948c0dfb64daf1c92d8c0a2b60e6e0f",
+      "mods/PhobosAgriculture/images/phobos/agriculture/ReservoirMediumNormal.png": "072b54cf18c7b6527f75471c798c9fd23e7ba7163f0a2f02e651f8caa08f30b5"
+    },
+    "normal": "Neutral tangent normal with matching alpha; no authored relief",
+    "registrationReference": null,
+    "patches": null,
+    "fullFootprint": true
+  },
+  {
+    "key": "r5-reservoir",
+    "sourceSHA256": "d3c48eed3a1a8d1be6ad4050f5645de0ae05fbf7d78acf9d3086cc3dc111054a",
+    "nativeSize": [
+      80,
+      80
+    ],
+    "pivot": [
+      40,
+      40
+    ],
+    "sourceBounds": [
+      0,
+      0,
+      160,
+      160
+    ],
+    "exports": {
+      "mods/PhobosAgriculture/images/phobos/agriculture/ReservoirLarge.png": "c09132e7c6cc18df60d4bd7e7850b5123c8a49aa07da6686c86fbb14709f594b",
+      "mods/PhobosAgriculture/images/phobos/agriculture/ReservoirLargeNormal.png": "559c253bac93c89f0b42a47079720c0de65383dcfdf5869ed946ba69cc8c6773"
+    },
+    "normal": "Neutral tangent normal with matching alpha; no authored relief",
+    "registrationReference": null,
+    "patches": null,
+    "fullFootprint": true
   }
 ]

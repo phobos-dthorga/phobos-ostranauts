@@ -105,7 +105,7 @@ internal sealed class AgricultureCrewProvider : ICrewWorkProvider, ICrewSkipProv
         if(order.Recipe!="bulk-fill"){reason=Text.Get("crew_select_recipe");return null;}
         var s=BulkService.Read(co);
         if(s.CatchKg>0){reason=Text.Get("bulk_catch_wait");return null;}
-        if(BulkDefinitions.CapacityKg-s.TotalKg<Definitions.IrrigationKg){reason=Text.Get("crew_stock_met");return null;}
+        if(BulkDefinitions.CapacityOf(co)-s.TotalKg<Definitions.IrrigationKg){reason=Text.Get("crew_stock_met");return null;}
         if(Service.Input(co,Definitions.Irrigation,Definitions.IrrigationKg)!=null)
             return new("bulk-load",Text.Get("bulk-load"),CrewRole.Agriculture,co,10,"Agriculture");
         return CrewLogistics.Supply(co,order,co,c=>c.strCODef==Definitions.Irrigation,CrewRole.Agriculture)??Blocked(out reason);
