@@ -17,7 +17,7 @@ internal static class Definitions
     internal const string Controls = "PhobosManufacturingControls", ImagePath = "phobos/manufacturing/";
     internal const string RefineryArt = "PhobosVolatilesRefinery", ProcessorArt = "PhobosChemicalProcessor", StoreArt = "PhobosHydrogenStore",
         ReactorArt = "PhobosSabatierReactor", MethaneArt = "PhobosMethaneStore", ManifoldArt = "PhobosPropellantManifold", LineArt = "PropellantPipe",
-        FillerArt = "PhobosCanisterFiller";
+        FillerArt = "PhobosCanisterFiller", RegulatorArt = "PhobosCabinAirRegulator";
     internal static readonly string[] Forms = { "Installed", "Loose", "InstalledDmg", "LooseDmg" };
     internal static void Add(NativeDefinitions d, bool steelStock)
     {
@@ -37,6 +37,7 @@ internal static class Definitions
         AddPropellantLine(d);
         AddManifold(d);
         AddFiller(d);
+        AddRegulator(d);
         AddDeflagrations(d);
     }
 
@@ -134,6 +135,12 @@ internal static class Definitions
         d.Triggers[FillerRules.RackTrigger] = new CondTrigger { strName = FillerRules.RackTrigger, fChance = 1, fCount = 1, bAND = true,
             aReqs = new[] { "IsVesselO2", "IsHandheld" }, aForbids = new[] { "IsInstalled" }, aTriggers = Array.Empty<string>() };
         ApplianceDefinitions.SetRack(d, p, FillerRules.RackTrigger, FillerRules.RackCells, 1);
+        var order = NativeDefinitions.Clone(DataHandler.dictInteractions["Inventory"]);
+        order.strName = FillerRules.BottleOrder; order.strTitle = Text.Get("Filler.crew_order_title");
+        order.strDesc = Text.Get("Filler.crew_order_action"); order.strTooltip = Text.Get("Filler.crew_order_tooltip");
+        order.strRaiseUI = null; order.fTargetPointRange = 2;
+        d.Interactions[order.strName] = order;
+        d.Objects[FillerRules.Installed].aInteractions = d.Objects[FillerRules.Installed].aInteractions.Concat(new[] { FillerRules.BottleOrder }).Distinct().ToArray();
         foreach (string form in Forms)
         {
             var co = d.Objects[p + form]; var item = d.Items[p + form];
@@ -142,6 +149,25 @@ internal static class Definitions
             co.aStartingConds = co.aStartingConds.Where(s => !s.StartsWith("IsAirtight=", StringComparison.Ordinal)).ToArray();
             // Power on the local -X side, the gas line port on the neighbouring tile of the local +X side.
             co.mapPoints = new[] { "use,0,-24", "PowerA,-8,8", FillerRules.Inlet + ",24,8" };
+            co.strPortraitImg = item.strImg;
+            if (form.StartsWith("Installed", StringComparison.Ordinal)) { item.aSocketAdds[1] = PropellantLineRules.Prefix + "FixturePort"; item.ctSpriteSheet = PropellantLineRules.Prefix + "Sprite"; }
+        }
+    }
+    /// <summary>The A2 cabin air regulator: a powered 2 x 2 valve and sensor unit on the native air-pump pattern, with
+    /// the gas line port beside it. It holds no gas and no inventory: gas goes straight from the linked store into the room.</summary>
+    private static void AddRegulator(NativeDefinitions d)
+    {
+        string p = RegulatorRules.Prefix;
+        ApplianceDefinitions.Add(d, p, Text.Get("Regulator.name"), Text.Get("Regulator.description", RegulatorRules.MachineKg, RegulatorRules.WorkingKW,
+                RegulatorRules.OxygenKgPerHour, RegulatorRules.NitrogenKgPerHour, RegulatorRules.MinRoomKPa, RegulatorRules.MaxOxygenFraction * 100),
+            RegulatorRules.Footprint, RegulatorRules.MachineKg, RegulatorRules.Price, ImagePath + RegulatorArt, Controls, RegulatorRules.WorkingKW, InstallMenu.Hvac);
+        foreach (string form in Forms)
+        {
+            var co = d.Objects[p + form]; var item = d.Items[p + form];
+            bool damaged = form.EndsWith("Dmg", StringComparison.Ordinal);
+            co.strNameFriendly = co.strNameShort = Text.Get("Regulator.name") + (damaged ? Text.Get("Content.damaged") : "");
+            co.aStartingConds = co.aStartingConds.Where(s => !s.StartsWith("IsAirtight=", StringComparison.Ordinal)).ToArray();
+            co.mapPoints = new[] { "use,0,-24", "PowerA,-8,8", RegulatorRules.Inlet + ",24,8" };
             co.strPortraitImg = item.strImg;
             if (form.StartsWith("Installed", StringComparison.Ordinal)) { item.aSocketAdds[1] = PropellantLineRules.Prefix + "FixturePort"; item.ctSpriteSheet = PropellantLineRules.Prefix + "Sprite"; }
         }

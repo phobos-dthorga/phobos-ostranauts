@@ -1,0 +1,45 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using PhobosManufacturing.Core;
+
+/// <summary>The A2 cabin air regulator's gas arithmetic (Dalton's law at fixed temperature and volume) and its saved record.</summary>
+internal static class RegulatorChecks
+{
+    internal static void Run(Action<bool, string> check, Action<Action, string> throws)
+    {
+        static bool Near(double a, double b) => Math.Abs(a - b) < 1e-9;
+        // A room of 1,000 mol at 100 kPa holding 150 mol of oxygen: oxygen is at 15 kPa.
+        double add = RegulatorRules.OxygenMoles(1000, 100, 150, 21);
+        check(Near(add, 60), "Oxygen to add is target x N / P minus what is there: 21 x 1000 / 100 - 150 = 60 mol");
+        check(Near((150 + add) / (1000 + add) * 100 * (1000 + add) / 1000, 21), "After adding it, the oxygen partial pressure reaches the set point");
+        check(RegulatorRules.OxygenMoles(1000, 100, 250, 21) == 0, "A room already above its oxygen set point gets none");
+        // Thin air: 20 kPa of pure-ish nitrogen with no oxygen would need 1,050 mol for 21 kPa; the 30% cap limits it.
+        double capped = RegulatorRules.OxygenMoles(1000, 20, 0, 21);
+        check(Near(capped / (1000 + capped), RegulatorRules.MaxOxygenFraction), "Oxygen never passes the fire-safety share of the air");
+        check(RegulatorRules.OxygenMoles(1000, RegulatorRules.MinRoomKPa - 1, 0, 21) == 0 && RegulatorRules.NitrogenMoles(1000, RegulatorRules.MinRoomKPa - 1, 101) == 0,
+            "A room below the breach limit is never fed");
+        check(RegulatorRules.OxygenMoles(1000, 100, 150, 99) == RegulatorRules.OxygenMoles(1000, 100, 150, RegulatorRules.MaxOxygenKPa), "Set points above the maximum are clamped");
+        check(Near(RegulatorRules.NitrogenMoles(1000, 80, 101), 262.5), "Nitrogen to add is N x (target - P) / P: 1000 x 21 / 80 = 262.5 mol");
+        check(RegulatorRules.NitrogenMoles(1000, 100, 0) == 0 && RegulatorRules.NitrogenMoles(1000, 102, 101) == 0, "Pressure left alone, or already above target, adds no nitrogen");
+        check(RegulatorRules.OxygenMoles(double.NaN, 100, 0, 21) == 0 && RegulatorRules.NitrogenMoles(-1, 100, 101) == 0, "Invalid readings add nothing");
+        check(RegulatorRules.OxygenTargets.All(t => t <= RegulatorRules.MaxOxygenKPa) && RegulatorRules.PressureTargets.All(t => t <= RegulatorRules.MaxPressureKPa) &&
+            RegulatorRules.OxygenTargets.Contains(RegulatorRules.DefaultOxygenKPa), "Every offered set point is within the limits and the default is offered");
+        check(RegulatorRules.IsFamily(RegulatorRules.Installed) && RegulatorRules.IsFamily(RegulatorRules.Prefix + "LooseDmg") && !RegulatorRules.IsFamily(FillerRules.Installed),
+            "Every A2 form, and only those, belongs to the family");
+
+        // The record: round trip, and anything malformed is refused rather than guessed.
+        var state = new RegulatorState { On = true, OxygenKPa = 23, PressureKPa = 90, OxygenStore = "abc-123", NitrogenStore = "", AddedOxygenKg = 1.25, AddedNitrogenKg = 4 };
+        var saved = state.Save();
+        var back = RegulatorState.Read(saved);
+        check(back.On && back.OxygenKPa == 23 && back.PressureKPa == 90 && back.OxygenStore == "abc-123" && back.NitrogenStore == "" && back.AddedOxygenKg == 1.25 && back.AddedNitrogenKg == 4,
+            "The regulator record survives a save and load");
+        var fresh = new RegulatorState();
+        check(!fresh.On && fresh.OxygenKPa == RegulatorRules.DefaultOxygenKPa && fresh.PressureKPa == 0, "A new regulator starts switched off at the default oxygen set point, pressure left alone");
+        throws(() => RegulatorState.Read(new Dictionary<string, string>(saved) { ["o2"] = "40" }), "An oxygen set point above the maximum is refused");
+        throws(() => RegulatorState.Read(new Dictionary<string, string>(saved) { ["on"] = "yes" }), "A malformed switch is refused");
+        throws(() => RegulatorState.Read(new Dictionary<string, string>(saved) { ["o2kg"] = "-1" }), "A negative total is refused");
+        var extra = new Dictionary<string, string>(saved) { ["extra"] = "1" };
+        throws(() => RegulatorState.Read(extra), "A record with unknown fields is refused");
+    }
+}

@@ -76,10 +76,19 @@ internal static class ManufacturingNativeChecks
             check(filler.strNameFriendly.StartsWith("Phobos' Fennmark L2 ", StringComparison.Ordinal) && filler.mapPoints.Contains(FillerRules.Inlet + ",24,8") &&
                 (filler.jsonPI == FillerRules.Prefix + "Power") == (installed && !damaged), "L2 carries its Fennmark name, a gas-line port and power only when installed and intact: " + state);
             check(!DataHandler.dictCTs["TIsRCSValidInput"].TriggeredDataCO(new DataCO(filler), false), "The game's own RCS input rule refuses the station: " + state);
+            check(filler.aInteractions.Contains(FillerRules.BottleOrder) == (installed && !damaged), "Only the intact installed L2 offers Keep suit bottles charged: " + state);
+            var regulator = d.Objects[RegulatorRules.Prefix + state]; var regulatorItem = d.Items[regulator.strItemDef];
+            check(regulatorItem.nCols == 2 && regulator.inventoryWidth == 2 && !Has(regulator, "IsAirtight") && Stat(regulator, "StatMass") == RegulatorRules.MachineKg &&
+                regulator.strNameFriendly.StartsWith("Phobos' Fennmark A2 ", StringComparison.Ordinal) && regulator.mapPoints.Contains(RegulatorRules.Inlet + ",24,8") &&
+                (regulator.jsonPI == RegulatorRules.Prefix + "Power") == (installed && !damaged),
+                "A2 is a two by two Fennmark unit with a gas-line port, not airtight, powered only when installed and intact: " + state);
+            check(Stat(regulator, "StatBasePrice") == (damaged ? (int)RegulatorRules.Price / 4 : (int)RegulatorRules.Price) && Has(regulator, EquipmentEconomy.HighSalvageMark),
+                "A2 carries its late-game price and the high-salvage mark: " + state);
+            check(installed ? regulatorItem.aSocketAdds[1] == PropellantLineRules.Prefix + "FixturePort" : true, "A2 pipe joint sits on its port tile: " + state);
             if (installed)
-                foreach (var co in new[] { refinery, processor, store, reactor, methane, manifold, filler })
+                foreach (var co in new[] { refinery, processor, store, reactor, methane, manifold, filler, regulator })
                     check(co.aInteractions.Count(i => i == Definitions.Controls) == 1, "Installed machine offers one Control Panel: " + co.strName);
-            foreach (var prefix in new[] { RefineryRules.Prefix, ProcessorRules.Prefix, HydrogenRules.Prefix, SabatierRules.Prefix, MethaneRules.Prefix, ManifoldRules.Prefix, FillerRules.Prefix })
+            foreach (var prefix in new[] { RefineryRules.Prefix, ProcessorRules.Prefix, HydrogenRules.Prefix, SabatierRules.Prefix, MethaneRules.Prefix, ManifoldRules.Prefix, FillerRules.Prefix, RegulatorRules.Prefix })
             {
                 check(d.Installables.ContainsKey(prefix + state + "Dismantle") && d.Installables.ContainsKey(prefix + state + (installed ? "Uninstall" : "Install")), "Native removal and dismantle jobs exist: " + prefix + state);
                 check(damaged ? d.Installables.ContainsKey(prefix + state + "Repair") : d.Installables.ContainsKey(prefix + state + "Restore"), "Repair on damaged forms, Restore on intact ones: " + prefix + state);

@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "date": "2026-09-27",
-  "status": "81 selected masters; native export review complete; owner gameplay and visual approval pending",
+  "status": "82 selected masters; native export review complete; owner gameplay and visual approval pending",
   "projection": "Orthographic vertical overhead, no visible vertical faces",
   "registration": "Whole transparent source canvas, centred pivot, unchanged native footprint; nearest-neighbour exports",
   "allowanceBefore": 1952,
@@ -2173,6 +2173,31 @@
       "review": "Overhead and native-scale export inspected; R3 colour language (charcoal frame, cream lids, sage service panel) kept. Owner in-game review pending.",
       "fullFootprint": true,
       "jobId": "06adb136-4bdb-4b09-9b69-f3e2062c38d4"
+    },
+    {
+      "key": "a2-cabin-air-regulator",
+      "mod": "PhobosManufacturing",
+      "definition": "PhobosCabinAirRegulatorInstalled",
+      "nativeSize": [
+        32,
+        32
+      ],
+      "masterSize": [
+        128,
+        128
+      ],
+      "pivot": [
+        16,
+        16
+      ],
+      "runtime": "phobos/manufacturing/PhobosCabinAirRegulator",
+      "status": "selected",
+      "source": "source/a2-cabin-air-regulator.png",
+      "sourceSHA256": "e6c22f494ce2234c314848488f788660e5c914bc73f9913999cb803dc1176e87",
+      "requestRecord": "manufacturing-requests.json",
+      "review": "Overhead and native-scale export inspected; Fennmark family and the game's gas colour convention (green oxygen, blue nitrogen) kept. Owner in-game review pending.",
+      "fullFootprint": true,
+      "jobId": "b2b3b07c-a146-40bf-b18a-d16372d00450"
     }
   ],
   "records": [
@@ -2547,9 +2572,20 @@
       ],
       "costGenerations": 1,
       "review": "06adb136 selected"
+    },
+    {
+      "key": "a2-cabin-air-regulator",
+      "attempts": [
+        "manufacturing-requests.json"
+      ],
+      "jobs": [
+        "b2b3b07c-a146-40bf-b18a-d16372d00450"
+      ],
+      "costGenerations": 1,
+      "review": "b2b3b07c selected"
     }
   ],
-  "allowanceAfter": 1776,
-  "allowanceDelta": 176,
+  "allowanceAfter": 1775,
+  "allowanceDelta": 177,
   "creditBalanceAfterUSD": 0
 }

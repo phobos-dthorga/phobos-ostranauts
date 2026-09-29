@@ -20,6 +20,7 @@
   "CarbonDioxide.name_large": { "brand": "Fennmark", "model": "C4" },
   "Manifold.name": { "brand": "Fennmark", "model": "P1" },
   "Filler.name": { "brand": "Fennmark", "model": "L2" },
+  "Regulator.name": { "brand": "Fennmark", "model": "A2" },
   "Line.name": { "brand": "Fennmark", "model": "" },
   "Line.waste": { "brand": "Fennmark", "model": "" },
   "Material.PhobosNickelIronIngot": { "brand": "Fennmark", "model": "" },

@@ -13,7 +13,7 @@ namespace PhobosManufacturing;
 internal sealed class Provider : IEquipmentProvider, IEquipmentPanelFields
 {
     public string Id => Plugin.Id;
-    public IReadOnlyList<string> Definitions { get; } = Array.AsReadOnly(new[] { RefineryRules.Installed, ProcessorRules.Installed, SabatierRules.Installed, ManifoldRules.Installed, FillerRules.Installed }
+    public IReadOnlyList<string> Definitions { get; } = Array.AsReadOnly(new[] { RefineryRules.Installed, ProcessorRules.Installed, SabatierRules.Installed, ManifoldRules.Installed, FillerRules.Installed, RegulatorRules.Installed }
         .Concat(GasStores.All.Select(s => s.Installed)).SelectMany(id => new[] { id, id + "Dmg" }).ToArray());
     private static string N(double value) => value.ToString("R", CultureInfo.InvariantCulture);
     public IEnumerable<EquipmentField> Fields(CondOwner co)
@@ -77,6 +77,18 @@ internal sealed class Provider : IEquipmentProvider, IEquipmentPanelFields
                 yield return new(Text.Get("Provider.add_canister_field"), Text.Get("Provider.link_none"),
                     FillerService.CanisterCandidates(co).Where(c => !linked.Contains(c.strID)).Select(c => ("link:" + c.strID, ObjectPresentation.Name(c))));
         }
+        else if (RegulatorRules.IsFamily(co.strCODef))
+        {
+            var state = RegulatorService.StateOf(co);
+            yield return new(Text.Get("Provider.o2_target_field"), Text.Get("Regulator.kpa", state.OxygenKPa),
+                RegulatorRules.OxygenTargets.Select(v => ("o2:" + N(v), Text.Get("Regulator.kpa", v))));
+            yield return new(Text.Get("Provider.pressure_target_field"), state.PressureKPa > 0 ? Text.Get("Regulator.kpa", state.PressureKPa) : Text.Get("Regulator.pressure_off"),
+                RegulatorRules.PressureTargets.Select(v => ("pressure:" + N(v), v > 0 ? Text.Get("Regulator.kpa", v) : Text.Get("Regulator.pressure_off"))));
+            yield return new(Text.Get("Provider.oxygen_store_field"), ObjectPresentation.Name(state.OxygenStore),
+                RegulatorService.Candidates(co, ManufacturingRules.Oxygen).Select(v => ("oxygen:" + v.strID, ObjectPresentation.Name(v))).Concat(new[] { ("oxygen:none", Text.Get("Provider.link_none")) }));
+            yield return new(Text.Get("Provider.nitrogen_store_field"), ObjectPresentation.Name(state.NitrogenStore),
+                RegulatorService.Candidates(co, ManufacturingRules.Nitrogen).Select(v => ("nitrogen:" + v.strID, ObjectPresentation.Name(v))).Concat(new[] { ("nitrogen:none", Text.Get("Provider.link_none")) }));
+        }
         else if (GasStores.For(co.strCODef) is GasStore fuel && !BulkVessel.Protected(co))
         {
             yield return new(Text.Get("Provider.vent_field"), Text.Get("Provider.kg", BulkVessel.Snapshot(co).ServiceKg), StoreService.VentChoices(fuel).Select(n => ("vent:" + N(n), Text.Get("Provider.kg", n))));
@@ -86,11 +98,11 @@ internal sealed class Provider : IEquipmentProvider, IEquipmentPanelFields
         }
     }
     public bool IsConfiguration(string action) => new[] { "link:", "water:", "store:", "canister:", "vent:", "hydrogen:", "methane:", "feed:", "order:", "source-on:", "source-off:", "unlink:",
-            "mode:", "target:", "draw:", "transfer:" }
+            "mode:", "target:", "draw:", "transfer:", "o2:", "pressure:", "oxygen:", "nitrogen:" }
         .Any(p => action.StartsWith(p, StringComparison.Ordinal));
     public string ConfigurationStamp(CondOwner co) => Phobos.Ostranauts.Framework.Controls.ConfigurationStamp.For(co, new[] { "PhobosMaterialPort.", "PhobosState.crew-order",
         "PhobosState." + RefineryRules.Record, "PhobosState." + ProcessorRules.Record, "PhobosState." + SabatierRules.Record, "PhobosState." + ManifoldRules.Record,
-        "PhobosState." + FillerRules.Record }.Concat(GasStores.All.Select(s => "PhobosState." + s.Spec.Record)).ToArray());
+        "PhobosState." + FillerRules.Record, "PhobosState." + RegulatorRules.Record }.Concat(GasStores.All.Select(s => "PhobosState." + s.Spec.Record)).ToArray());
     public bool ApplyConfiguration(CondOwner co, ConsoleBinding? binding, string expected, string action, out string reason)
     {
         reason = ConsoleText.Get("stale");
@@ -109,6 +121,10 @@ internal sealed class Provider : IEquipmentProvider, IEquipmentPanelFields
         if (FillerRules.IsFamily(co.strCODef))
             return new EquipmentSnapshot(co.strID, co.strNameFriendly, "filler", new EquipmentActivity(FillerService.State(co), FillerService.Describe(co)),
                 FillerService.Protected(co) ? Actions("accept") : Actions("start", "pause"));
+        if (RegulatorRules.IsFamily(co.strCODef))
+            return new EquipmentSnapshot(co.strID, co.strNameFriendly, "regulator", new EquipmentActivity(RegulatorService.State(co), RegulatorService.Describe(co)),
+                RegulatorService.Protected(co) ? Actions("accept")
+                    : new[] { new EquipmentAction("on", Text.Get("Regulator.action_on")), new EquipmentAction("off", Text.Get("Regulator.action_off")) });
         if (ManifoldRules.IsFamily(co.strCODef))
             return new EquipmentSnapshot(co.strID, co.strNameFriendly, "manifold", new EquipmentActivity(ManifoldService.State(co), ManifoldService.Describe(co)), Actions("on", "off"));
         if (SabatierRules.IsFamily(co.strCODef))
@@ -124,5 +140,6 @@ internal sealed class Provider : IEquipmentProvider, IEquipmentPanelFields
         ProcessorRules.IsFamily(co.strCODef) ? ProcessorService.Command(co, binding, action, out message) :
         SabatierRules.IsFamily(co.strCODef) ? SabatierService.Command(co, binding, action, out message) :
         ManifoldRules.IsFamily(co.strCODef) ? ManifoldService.Command(co, binding, action, out message) :
-        FillerRules.IsFamily(co.strCODef) ? FillerService.Command(co, binding, action, out message) : StoreService.Command(co, binding, action, out message);
+        FillerRules.IsFamily(co.strCODef) ? FillerService.Command(co, binding, action, out message) :
+        RegulatorRules.IsFamily(co.strCODef) ? RegulatorService.Command(co, binding, action, out message) : StoreService.Command(co, binding, action, out message);
 }

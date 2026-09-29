@@ -137,3 +137,12 @@ uploaded. Fourteen included generations (allowance 1,794 to 1,780), $0 credit, n
 purchases; one M4 upload was refused as truncated before generation and not
 charged. Requests, seeds and start-drawing hashes are in
 [manufacturing-requests.json](../../assets/artwork-completion/manufacturing-requests.json).
+
+## 0.5.0: the A2 cabin air regulator (29 September 2026)
+
+One Pixflux pass (strength 130, seed 9290541) over an original procedural start
+drawing in the Fennmark family: graphite frame and burnt-orange clamps, a steel
+manifold bar with a green (oxygen) and a blue (nitrogen) valve wheel, a slotted
+sensor head and a diffuser grille, and the amber gas-line stub. Selected; 128 px
+master, 32 px native. One included generation (allowance 1,776 to 1,775), $0
+credit. No painted gauges, per the owner's ruling; readings stay live on the panel.

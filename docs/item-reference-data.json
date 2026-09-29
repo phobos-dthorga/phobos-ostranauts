@@ -9578,7 +9578,7 @@
     {
       "id": "PhobosManufacturing",
       "name": "Phobos Manufacturing",
-      "version": "0.4.0",
+      "version": "0.5.0",
       "gameTarget": "1.0.1.5",
       "items": [
         {
@@ -9613,12 +9613,569 @@
           "aliases": []
         },
         {
+          "id": "PhobosCabinAirRegulatorInstalled",
+          "name": "Phobos' Fennmark A2 Cabin Air Regulator",
+          "stackLimit": 1,
+          "actions": [
+            "Inventory",
+            "PhobosManufacturingControls",
+            "PhobosManufacturingMaintenanceInformation"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "TIsFitContainerSolid",
+            "width": 8,
+            "height": 8,
+            "flag": true,
+            "inventoryAction": true,
+            "ownedSlots": [],
+            "loot": null
+          },
+          "handlingFlags": [
+            "IsInstalled"
+          ],
+          "slots": [],
+          "massKg": 60.0,
+          "baseValue": 23000.0,
+          "installed": true,
+          "operatingModes": [],
+          "installTab": "HVAC",
+          "jobs": [
+            {
+              "id": "PhobosCabinAirRegulatorInstalledDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosCabinAirRegulatorInstalledDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 600.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 30,
+                  "baseValue": 107.99999713897705
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 12,
+                  "baseValue": 13.200000286102295
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 6,
+                  "baseValue": 30.0
+                },
+                {
+                  "id": "ItmPartsElecSmall01",
+                  "name": "Small Electronic Parts",
+                  "count": 5,
+                  "baseValue": 72.5
+                },
+                {
+                  "id": "ItmComponentMotor01",
+                  "name": "Component: Motor",
+                  "count": 1,
+                  "baseValue": 37.5
+                },
+                {
+                  "id": "ItmComponentMobo01",
+                  "name": "Component: Motherboard",
+                  "count": 1,
+                  "baseValue": 17.5
+                },
+                {
+                  "id": "ItmHeatSink01",
+                  "name": "Component: Heat Sink",
+                  "count": 1,
+                  "baseValue": 27.5
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 8,
+                  "baseValue": 0.4000000059604645
+                }
+              ]
+            },
+            {
+              "id": "PhobosCabinAirRegulatorInstalledRestore",
+              "kind": "restore",
+              "action": "ACTPhobosCabinAirRegulatorInstalledRestore",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsUndamageableNotContained",
+              "targetPassOnFreshDefinition": false,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 20.0,
+              "outputs": []
+            },
+            {
+              "id": "PhobosCabinAirRegulatorInstalledUninstall",
+              "kind": "uninstall",
+              "action": "ACTPhobosCabinAirRegulatorInstalledUninstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosCabinAirRegulatorInstalledTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 800.0,
+              "outputs": [
+                {
+                  "id": "PhobosCabinAirRegulatorLoose",
+                  "name": "Phobos' Fennmark A2 Cabin Air Regulator",
+                  "count": 1,
+                  "baseValue": 23000.0
+                }
+              ]
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosCabinAirRegulatorInstalledDmg",
+          "name": "Phobos' Fennmark A2 Cabin Air Regulator (Damaged)",
+          "stackLimit": 1,
+          "actions": [
+            "Inventory",
+            "PhobosManufacturingControls",
+            "PhobosManufacturingMaintenanceInformation"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "TIsFitContainerSolid",
+            "width": 8,
+            "height": 8,
+            "flag": true,
+            "inventoryAction": true,
+            "ownedSlots": [],
+            "loot": null
+          },
+          "handlingFlags": [
+            "IsDamaged",
+            "IsInstalled"
+          ],
+          "slots": [],
+          "massKg": 60.0,
+          "baseValue": 5750.0,
+          "installed": true,
+          "operatingModes": [],
+          "installTab": "HVAC",
+          "jobs": [
+            {
+              "id": "PhobosCabinAirRegulatorInstalledDmgDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosCabinAirRegulatorInstalledDmgDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 600.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 20,
+                  "baseValue": 71.99999809265137
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 6,
+                  "baseValue": 6.6000001430511475
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 2,
+                  "baseValue": 10.0
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 33,
+                  "baseValue": 1.650000024586916
+                }
+              ]
+            },
+            {
+              "id": "PhobosCabinAirRegulatorInstalledDmgRepair",
+              "kind": "repair",
+              "action": "ACTPhobosCabinAirRegulatorInstalledDmgRepair",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosCabinAirRegulatorInstalledDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "TIsScrapSteel=1x2",
+                "TIsScrapAluminum=1x1",
+                "TIsPartsMechSmall=1x3",
+                "TIsPartsElecSmall=1x3",
+                "TIsMotor=1x1",
+                "TIsMobo=1x1"
+              ],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 2400.0,
+              "outputs": [
+                {
+                  "id": "PhobosCabinAirRegulatorInstalled",
+                  "name": "Phobos' Fennmark A2 Cabin Air Regulator",
+                  "count": 1,
+                  "baseValue": 23000.0
+                }
+              ]
+            },
+            {
+              "id": "PhobosCabinAirRegulatorInstalledDmgUninstall",
+              "kind": "uninstall",
+              "action": "ACTPhobosCabinAirRegulatorInstalledDmgUninstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosCabinAirRegulatorInstalledDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 800.0,
+              "outputs": [
+                {
+                  "id": "PhobosCabinAirRegulatorLooseDmg",
+                  "name": "Phobos' Fennmark A2 Cabin Air Regulator (Damaged)",
+                  "count": 1,
+                  "baseValue": 5750.0
+                }
+              ]
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosCabinAirRegulatorLoose",
+          "name": "Phobos' Fennmark A2 Cabin Air Regulator",
+          "stackLimit": 1,
+          "actions": [
+            "Inventory",
+            "PhobosManufacturingMaintenanceInformation",
+            "DropItem",
+            "PickupItem"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "TIsFitContainerSolid",
+            "width": 8,
+            "height": 8,
+            "flag": true,
+            "inventoryAction": true,
+            "ownedSlots": [],
+            "loot": null
+          },
+          "handlingFlags": [
+            "IsCumbersome"
+          ],
+          "slots": [
+            "drag"
+          ],
+          "massKg": 60.0,
+          "baseValue": 23000.0,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [
+            {
+              "id": "PhobosCabinAirRegulatorLooseDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosCabinAirRegulatorLooseDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 600.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 30,
+                  "baseValue": 107.99999713897705
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 12,
+                  "baseValue": 13.200000286102295
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 6,
+                  "baseValue": 30.0
+                },
+                {
+                  "id": "ItmPartsElecSmall01",
+                  "name": "Small Electronic Parts",
+                  "count": 5,
+                  "baseValue": 72.5
+                },
+                {
+                  "id": "ItmComponentMotor01",
+                  "name": "Component: Motor",
+                  "count": 1,
+                  "baseValue": 37.5
+                },
+                {
+                  "id": "ItmComponentMobo01",
+                  "name": "Component: Motherboard",
+                  "count": 1,
+                  "baseValue": 17.5
+                },
+                {
+                  "id": "ItmHeatSink01",
+                  "name": "Component: Heat Sink",
+                  "count": 1,
+                  "baseValue": 27.5
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 8,
+                  "baseValue": 0.4000000059604645
+                }
+              ]
+            },
+            {
+              "id": "PhobosCabinAirRegulatorLooseInstall",
+              "kind": "install",
+              "action": "ACTPhobosCabinAirRegulatorLooseInstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosCabinAirRegulatorLooseTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "PhobosCabinAirRegulatorLooseTest=1x1"
+              ],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 1000.0,
+              "outputs": [
+                {
+                  "id": "PhobosCabinAirRegulatorInstalled",
+                  "name": "Phobos' Fennmark A2 Cabin Air Regulator",
+                  "count": 1,
+                  "baseValue": 23000.0
+                }
+              ]
+            },
+            {
+              "id": "PhobosCabinAirRegulatorLooseRestore",
+              "kind": "restore",
+              "action": "ACTPhobosCabinAirRegulatorLooseRestore",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsUndamageableNotContained",
+              "targetPassOnFreshDefinition": false,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 20.0,
+              "outputs": []
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosCabinAirRegulatorLooseDmg",
+          "name": "Phobos' Fennmark A2 Cabin Air Regulator (Damaged)",
+          "stackLimit": 1,
+          "actions": [
+            "Inventory",
+            "PhobosManufacturingMaintenanceInformation",
+            "DropItem",
+            "PickupItem"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "TIsFitContainerSolid",
+            "width": 8,
+            "height": 8,
+            "flag": true,
+            "inventoryAction": true,
+            "ownedSlots": [],
+            "loot": null
+          },
+          "handlingFlags": [
+            "IsCumbersome",
+            "IsDamaged"
+          ],
+          "slots": [
+            "drag"
+          ],
+          "massKg": 60.0,
+          "baseValue": 5750.0,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [
+            {
+              "id": "PhobosCabinAirRegulatorLooseDmgDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosCabinAirRegulatorLooseDmgDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 600.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 20,
+                  "baseValue": 71.99999809265137
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 6,
+                  "baseValue": 6.6000001430511475
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 2,
+                  "baseValue": 10.0
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 33,
+                  "baseValue": 1.650000024586916
+                }
+              ]
+            },
+            {
+              "id": "PhobosCabinAirRegulatorLooseDmgInstall",
+              "kind": "install",
+              "action": "ACTPhobosCabinAirRegulatorLooseDmgInstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosCabinAirRegulatorLooseDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "PhobosCabinAirRegulatorLooseDmgTest=1x1"
+              ],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 1000.0,
+              "outputs": [
+                {
+                  "id": "PhobosCabinAirRegulatorInstalledDmg",
+                  "name": "Phobos' Fennmark A2 Cabin Air Regulator (Damaged)",
+                  "count": 1,
+                  "baseValue": 5750.0
+                }
+              ]
+            },
+            {
+              "id": "PhobosCabinAirRegulatorLooseDmgRepair",
+              "kind": "repair",
+              "action": "ACTPhobosCabinAirRegulatorLooseDmgRepair",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosCabinAirRegulatorLooseDmgTest",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "TIsScrapSteel=1x2",
+                "TIsScrapAluminum=1x1",
+                "TIsPartsMechSmall=1x3",
+                "TIsPartsElecSmall=1x3",
+                "TIsMotor=1x1",
+                "TIsMobo=1x1"
+              ],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 2400.0,
+              "outputs": [
+                {
+                  "id": "PhobosCabinAirRegulatorLoose",
+                  "name": "Phobos' Fennmark A2 Cabin Air Regulator",
+                  "count": 1,
+                  "baseValue": 23000.0
+                }
+              ]
+            }
+          ],
+          "aliases": []
+        },
+        {
           "id": "PhobosCanisterFillerInstalled",
           "name": "Phobos' Fennmark L2 Canister Filling Station",
           "stackLimit": 1,
           "actions": [
             "Inventory",
             "PhobosManufacturingControls",
+            "PhobosCanisterFillerBottleOrder",
             "PhobosManufacturingMaintenanceInformation"
           ],
           "missingDirectActions": [],
@@ -21091,6 +21648,13 @@
         },
         {
           "table": "ItmFlotillaScrapKioskInv",
+          "item": "PhobosCabinAirRegulatorLoose",
+          "condition": "Refurbished",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmFlotillaScrapKioskInv",
           "item": "PhobosHydrogenStoreLoose",
           "condition": "Refurbished",
           "chance": 0.85,
@@ -21196,142 +21760,156 @@
         },
         {
           "table": "ItmLootSpawnEngineering",
+          "item": "PhobosCabinAirRegulatorLoose",
+          "condition": "Loot",
+          "chance": 0.0011363636363636365,
+          "count": 1
+        },
+        {
+          "table": "ItmLootSpawnEngineering",
+          "item": "PhobosCabinAirRegulatorLooseDmg",
+          "condition": "Loot",
+          "chance": 0.00340909090909091,
+          "count": 1
+        },
+        {
+          "table": "ItmLootSpawnEngineering",
           "item": "PhobosCanisterFillerLoose",
           "condition": "Loot",
-          "chance": 0.00125,
+          "chance": 0.0011363636363636365,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosCanisterFillerLooseDmg",
           "condition": "Loot",
-          "chance": 0.0037500000000000007,
+          "chance": 0.00340909090909091,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosCarbonDioxideStoreLoose",
           "condition": "Loot",
-          "chance": 0.00125,
+          "chance": 0.0011363636363636365,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosCarbonDioxideStoreLooseDmg",
           "condition": "Loot",
-          "chance": 0.0037500000000000007,
+          "chance": 0.00340909090909091,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosChemicalProcessorLoose",
           "condition": "Loot",
-          "chance": 0.00125,
+          "chance": 0.0011363636363636365,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosChemicalProcessorLooseDmg",
           "condition": "Loot",
-          "chance": 0.0037500000000000007,
+          "chance": 0.00340909090909091,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosHydrogenStoreLoose",
           "condition": "Loot",
-          "chance": 0.00125,
+          "chance": 0.0011363636363636365,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosHydrogenStoreLooseDmg",
           "condition": "Loot",
-          "chance": 0.0037500000000000007,
+          "chance": 0.00340909090909091,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosMethaneStoreLoose",
           "condition": "Loot",
-          "chance": 0.00125,
+          "chance": 0.0011363636363636365,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosMethaneStoreLooseDmg",
           "condition": "Loot",
-          "chance": 0.0037500000000000007,
+          "chance": 0.00340909090909091,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosNitrogenStoreLoose",
           "condition": "Loot",
-          "chance": 0.00125,
+          "chance": 0.0011363636363636365,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosNitrogenStoreLooseDmg",
           "condition": "Loot",
-          "chance": 0.0037500000000000007,
+          "chance": 0.00340909090909091,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosOxygenStoreLoose",
           "condition": "Loot",
-          "chance": 0.00125,
+          "chance": 0.0011363636363636365,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosOxygenStoreLooseDmg",
           "condition": "Loot",
-          "chance": 0.0037500000000000007,
+          "chance": 0.00340909090909091,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosPropellantManifoldLoose",
           "condition": "Loot",
-          "chance": 0.00125,
+          "chance": 0.0011363636363636365,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosPropellantManifoldLooseDmg",
           "condition": "Loot",
-          "chance": 0.0037500000000000007,
+          "chance": 0.00340909090909091,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosSabatierReactorLoose",
           "condition": "Loot",
-          "chance": 0.00125,
+          "chance": 0.0011363636363636365,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosSabatierReactorLooseDmg",
           "condition": "Loot",
-          "chance": 0.0037500000000000007,
+          "chance": 0.00340909090909091,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosVolatilesRefineryLoose",
           "condition": "Loot",
-          "chance": 0.00125,
+          "chance": 0.0011363636363636365,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosVolatilesRefineryLooseDmg",
           "condition": "Loot",
-          "chance": 0.0037500000000000007,
+          "chance": 0.00340909090909091,
           "count": 1
         },
         {
@@ -21365,6 +21943,13 @@
         {
           "table": "ItmOKLGFixer",
           "item": "PhobosCanisterFillerLoose",
+          "condition": "Worn",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmOKLGFixer",
+          "item": "PhobosCabinAirRegulatorLoose",
           "condition": "Worn",
           "chance": 0.85,
           "count": 8
@@ -21512,6 +22097,13 @@
         {
           "table": "ItmOKLGSupplyKioskInv",
           "item": "PhobosCanisterFillerLooseDmg",
+          "condition": "Broken",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmOKLGSupplyKioskInv",
+          "item": "PhobosCabinAirRegulatorLooseDmg",
           "condition": "Broken",
           "chance": 0.85,
           "count": 8
@@ -21659,6 +22251,13 @@
         {
           "table": "ItmOKLGSupplyKioskInv",
           "item": "PhobosCanisterFillerLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmOKLGSupplyKioskInv",
+          "item": "PhobosCabinAirRegulatorLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
@@ -21826,6 +22425,13 @@
         },
         {
           "table": "ItmSupplyKioskBCERInv",
+          "item": "PhobosCabinAirRegulatorLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskBCERInv",
           "item": "PhobosHydrogenStoreLoose",
           "condition": "Pristine",
           "chance": 0.85,
@@ -21966,6 +22572,13 @@
         },
         {
           "table": "ItmSupplyKioskBCRSInv",
+          "item": "PhobosCabinAirRegulatorLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskBCRSInv",
           "item": "PhobosHydrogenStoreLoose",
           "condition": "Pristine",
           "chance": 0.85,
@@ -22106,6 +22719,13 @@
         },
         {
           "table": "ItmSupplyKioskEJDRInv",
+          "item": "PhobosCabinAirRegulatorLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskEJDRInv",
           "item": "PhobosHydrogenStoreLoose",
           "condition": "Pristine",
           "chance": 0.85,
@@ -22246,6 +22866,13 @@
         },
         {
           "table": "ItmSupplyKioskHQCHInv",
+          "item": "PhobosCabinAirRegulatorLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskHQCHInv",
           "item": "PhobosHydrogenStoreLoose",
           "condition": "Pristine",
           "chance": 0.85,
@@ -22386,6 +23013,13 @@
         },
         {
           "table": "ItmSupplyKioskJATLInv",
+          "item": "PhobosCabinAirRegulatorLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskJATLInv",
           "item": "PhobosHydrogenStoreLoose",
           "condition": "Pristine",
           "chance": 0.85,
@@ -22520,6 +23154,13 @@
         {
           "table": "ItmSupplyKioskJFTSInv",
           "item": "PhobosCanisterFillerLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskJFTSInv",
+          "item": "PhobosCabinAirRegulatorLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
@@ -22660,6 +23301,13 @@
         {
           "table": "ItmSupplyKioskMHNGInv",
           "item": "PhobosCanisterFillerLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskMHNGInv",
+          "item": "PhobosCabinAirRegulatorLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
@@ -22800,6 +23448,13 @@
         {
           "table": "ItmSupplyKioskMSUZInv",
           "item": "PhobosCanisterFillerLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskMSUZInv",
+          "item": "PhobosCabinAirRegulatorLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
@@ -22940,6 +23595,13 @@
         {
           "table": "ItmSupplyKioskMTRSInv",
           "item": "PhobosCanisterFillerLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskMTRSInv",
+          "item": "PhobosCabinAirRegulatorLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
@@ -23080,6 +23742,13 @@
         {
           "table": "ItmSupplyKioskMVOLInv",
           "item": "PhobosCanisterFillerLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskMVOLInv",
+          "item": "PhobosCabinAirRegulatorLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
@@ -23220,6 +23889,13 @@
         {
           "table": "ItmSupplyKioskSVIRInv",
           "item": "PhobosCanisterFillerLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskSVIRInv",
+          "item": "PhobosCabinAirRegulatorLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
@@ -23360,6 +24036,13 @@
         {
           "table": "ItmSupplyKioskVCBRInv",
           "item": "PhobosCanisterFillerLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskVCBRInv",
+          "item": "PhobosCabinAirRegulatorLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
@@ -23500,6 +24183,13 @@
         {
           "table": "ItmSupplyKioskVENCInv",
           "item": "PhobosCanisterFillerLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskVENCInv",
+          "item": "PhobosCabinAirRegulatorLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
@@ -23640,6 +24330,13 @@
         {
           "table": "ItmSupplyKioskVNCAInv",
           "item": "PhobosCanisterFillerLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskVNCAInv",
+          "item": "PhobosCabinAirRegulatorLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
@@ -23780,6 +24477,13 @@
         {
           "table": "ItmTraderSanDiegoHalvorsonInv",
           "item": "PhobosCanisterFillerLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmTraderSanDiegoHalvorsonInv",
+          "item": "PhobosCabinAirRegulatorLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
@@ -23962,6 +24666,20 @@
         {
           "table": "ItmVORBScrapKioskInv",
           "item": "PhobosCanisterFillerLoose",
+          "condition": "Refurbished",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmVORBScrapKioskInv",
+          "item": "PhobosCabinAirRegulatorLooseDmg",
+          "condition": "Broken",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmVORBScrapKioskInv",
+          "item": "PhobosCabinAirRegulatorLoose",
           "condition": "Refurbished",
           "chance": 0.85,
           "count": 8
@@ -36397,8 +37115,8 @@
     "mods/PhobosFramework/mod_info.json": "23b883d55eb06df4e9b662ea7dbd992d5332b94377c7bb1df65b1166ded3a3e9",
     "mods/PhobosManufacturing/data/conditions/phobos_manufacturing.json": "0ac5bff75779f21f3bcd269f28e09d882833f3b94fee174190a00b4d98001c63",
     "mods/PhobosManufacturing/data/explosions/phobos_manufacturing.json": "33e0a37a22450d2ca64e33cc461efb87f19f4c69b90655af20280d67c6982ba3",
-    "mods/PhobosManufacturing/framework/equipment-names.json": "c222527ba81796a5f0496fe0ffdabc8352a06418c0d402a57e0f7a1c1137fdd0",
-    "mods/PhobosManufacturing/mod_info.json": "99f59a973e5565853179d99e70d85b5062393b82858f03adac5a468a164ff39f",
+    "mods/PhobosManufacturing/framework/equipment-names.json": "b6799f46f113a0341915d1b3db47fafc5f134d9cd22c52ac338797aa9e49ef4d",
+    "mods/PhobosManufacturing/mod_info.json": "01658554670ca2016b516448875cc33b0a842f554abb4fbfdc02d88111cdda9a",
     "mods/PhobosShipbreaker/crafting/recipes.json": "8b0f034a7c732fec44ac31585321347040ee2074cd330cd3e5ecb90bb4ab7df4",
     "mods/PhobosShipbreaker/data/conditions/phobos_shipbreaker.json": "4163d90a49167ef2178e2bfd00636e8288db73511c66c0f423e828642d4f1e44",
     "mods/PhobosShipbreaker/data/condtrigs/phobos_shipbreaker.json": "c7d4104df596d3fd362d9a80f4703178eafc5d3151bd53907814732ec84d3585",
@@ -36640,8 +37358,8 @@
     "src/PhobosFramework/Trading/VesselSupplyProvider.cs": "e307482c7b2a3fd6abbb1b12013d72913c0f673d8e904ad7037f0658b01d507b",
     "src/PhobosFramework/Units.cs": "b66b1134d9b9e2ff57055c41b5354f280ec21233a395224ec6ba213668b22cf3",
     "src/PhobosManufacturing/AssemblyInfo.cs": "a442448369b44ef8921362eea7215eab4e7fb557881cded3213f00b5d7600549",
-    "src/PhobosManufacturing/Content.cs": "16ddc02f8d13e40fd1dbb24fa8eebebe196743101704a2f945cfec74e2f5a96c",
-    "src/PhobosManufacturing/Core/FillerRules.cs": "475120d12cfbb6ea0307b11ef113a243ba22bb8cbed9f4eb73c291552f365235",
+    "src/PhobosManufacturing/Content.cs": "0bcaa0f83a52ccb079803484a3ef83dfc607659d4195764cf594a15165988912",
+    "src/PhobosManufacturing/Core/FillerRules.cs": "f47a1515b4ca9485b9386e34f517931838e1646292f2f934f1301a570b9976c3",
     "src/PhobosManufacturing/Core/GasStoreRules.cs": "19f26647266ec4a4ac539d7e96877a4f139b6195ad2b41412d33fb0d00d398f7",
     "src/PhobosManufacturing/Core/HydrogenRules.cs": "3f4c4b2094b187ef49786df73af37f63432a0af6cb6c622f9d89ca01d2709142",
     "src/PhobosManufacturing/Core/ManifoldRules.cs": "a06da4b78b9fb7473f198a17d16eb5a027349ce47ad29a7da7cd8271de247673",
@@ -36651,19 +37369,22 @@
     "src/PhobosManufacturing/Core/ProcessorState.cs": "ad039a60d06b8750124bfe454e30860a073f0b863fe44cc9efa097755136a692",
     "src/PhobosManufacturing/Core/RefineryRules.cs": "5c4f66076235de2c06c09277a6aebee36cfc2d96bd1db3e8fb61e738e67e2bc6",
     "src/PhobosManufacturing/Core/RefineryState.cs": "49e892de92b7008c44b54d9f47b78c72c524ea803aeb2be2b6d20f4e9f6dd8e4",
+    "src/PhobosManufacturing/Core/RegulatorRules.cs": "0de744ece7fbbb822dce07665c5c80d14a980a017c7b168c4ae67a4dd3a68390",
     "src/PhobosManufacturing/Core/SabatierRules.cs": "e34ab7499438dd8a0103524b07e1a9acc1cb6257c1f36fb21160e50cf825ed85",
     "src/PhobosManufacturing/Core/SabatierState.cs": "04ca6b0626dc94a204c2f120ed847db1bacf3ef37911dbf031a8c5efb716e5f8",
-    "src/PhobosManufacturing/Definitions.cs": "9f7295743301a193bf99fbe6d5e5cdfccbe967a9eba2380f8904fff9d6bfb346",
-    "src/PhobosManufacturing/EquipmentEconomy.cs": "e5ac875914b3f662e0f07700d0109e64c9c6674e8766c9eb0d3b7b60d669b5ec",
+    "src/PhobosManufacturing/Definitions.cs": "31af0a627058523097c1c29739a29d8c365832cab9f00c74a368ddbc228cf886",
+    "src/PhobosManufacturing/EquipmentEconomy.cs": "7384ee7fa7cb4d00672903f8c10811d1d61cf9027ac80f4a87f49d67a39da1e3",
+    "src/PhobosManufacturing/FillerCrew.cs": "c855766b124e53e68962c63dd365b8bb58c79320a8dc965ddf777c95d7797cfc",
     "src/PhobosManufacturing/FillerService.cs": "9a98e892fe54a33d8c16d8ddcb92c4265223651a56298dedbc1373bf06ce1f9c",
     "src/PhobosManufacturing/GasLine.cs": "33ec3e5fa366fa37467c6cb4b28a9c9521115989189836c98ae59be2771acbca",
     "src/PhobosManufacturing/ManifoldService.cs": "0658e2d4ac1257d189de91ea0926b7c462b1b4ce8144ae10b49befe5a027d897",
     "src/PhobosManufacturing/Panel.cs": "9beaab6e7e20a1111c2400a6ed02fe1c164ea78958627686556dfc03c3bb8c24",
-    "src/PhobosManufacturing/PhobosManufacturing.csproj": "818d472d9613a55d5a806c21cb34326fc6a670b5e0b8a7b3578d88c92c8c9d1c",
-    "src/PhobosManufacturing/Plugin.cs": "46840480aacf860fd403ff046b5a9f57a77a940c886be1ea5ed2899f0fd6bfeb",
+    "src/PhobosManufacturing/PhobosManufacturing.csproj": "e7bf574d824cb511c7c1dc18cc7bce3f9ebf165e5cb31b7aad08b94b6bc972f8",
+    "src/PhobosManufacturing/Plugin.cs": "dfbfc81f862483690edb7a7b639ae372f0828947087f2ad7786df56ef6ec1ea6",
     "src/PhobosManufacturing/ProcessorService.cs": "056fd09846886eb1ead64c3a8d5837f9e023f97d3916626fb129f351b098a510",
-    "src/PhobosManufacturing/Provider.cs": "56632dd2e9a9fcbf5017b772d6fedc9598f87d1511c04f0fee6eaeff334e50f7",
+    "src/PhobosManufacturing/Provider.cs": "079a1ec47b4c03a60b0f3574fc54a62154b0c905b4beaf4dac48d44ed50f8d93",
     "src/PhobosManufacturing/RefineryService.cs": "b20a41eeeda387d50cc2c0ad404c6bff42a08896f2eac6a96cd21d6e5b644fba",
+    "src/PhobosManufacturing/RegulatorService.cs": "d6f314b3c0d39e79ef58253ed3b094d5741558043b08333ee7eab6dfd2bdb056",
     "src/PhobosManufacturing/SabatierService.cs": "c2ab56d121bf86d183ed33de60c49ee2fd158b8e2964375fd465f7cebb2a2ce8",
     "src/PhobosManufacturing/ShipbreakerStock.cs": "2800c3119c93d9f74f86dea8db91d1c91ccf3085b652d1125f8934826e80a8f3",
     "src/PhobosManufacturing/StoreService.cs": "b83b3ad9e086a165b477aa61e340158affde2e5d5bfa696531534dd02af15e66",
@@ -36776,7 +37497,7 @@
     "translations/PhobosAgriculture/en.json": "baa257c35d18484305c98d2a256600510640cdad0b429874c4eb3058b6758c91",
     "translations/PhobosAutoNav/en.json": "505b519cde5fb1a5cc15a3f52cf825145b7f0c85eb36a1d6c5de3a0ffd56cb3a",
     "translations/PhobosFramework/en.json": "bab9d6bff8a46a9a120bab386be1d48a8bf2dc9250d170646d71b696aeb73d6b",
-    "translations/PhobosManufacturing/en.json": "3818cb8ec02d18733ce14e6ee6d8050be0db3dd3dcd55e8ae31cf2774fb0ae55",
+    "translations/PhobosManufacturing/en.json": "52781da1efe42869cd017cace09e628e9db75c0a93d3f47a12fa58188fdd28f1",
     "translations/PhobosShipbreaker/en.json": "2a711e5f12f993182764789c7375005f6edae1c2eb104623dadf2a27f5e3f64a",
     "translations/PhobosWarDeclared/en.json": "568072580efb7a412b6d5a38b782346bea46847b87ad4f940be7b8e4894b1019"
   }

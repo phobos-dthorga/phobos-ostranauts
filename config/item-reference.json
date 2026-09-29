@@ -1038,7 +1038,7 @@
       ]
     },
     "PhobosManufacturing": {
-      "intro": "Phobos Manufacturing refines what the crew mines and runs the first chemistry aboard: the Fennmark V4 Volatiles Refinery, the X2 Chemical Processor (water electrolysis), the K2 Sabatier Reactor, hydrogen, methane, oxygen, nitrogen and carbon dioxide stores in three sizes each, the P1 RCS Propellant Manifold and the L2 Canister Filling Station, with nickel-iron ingots and carbon stock as raw stock, two terminal remainders and one new minable chunk. Every charge conserves mass and is recorded with its chemistry and sources in [the refinery design record](development/manufacturing-refinery-and-chemistry.md); operating instructions are in [the player guide](manufacturing-player-guide.md). Machines are purchase-only; ores and chunks are mined, never bought; bulk oxygen, nitrogen and carbon dioxide are sold only through the station Bulk supplies view. The machines are late-game plant, priced among the game's own radars, heavy lift rotors and missile launchers; they carry the game's high-salvage mark, need component repairs and are rare world finds. See [the equipment economy](equipment-economy.md#manufacturing-011-late-game-plant).",
+      "intro": "Phobos Manufacturing refines what the crew mines and runs the first chemistry aboard: the Fennmark V4 Volatiles Refinery, the X2 Chemical Processor (water electrolysis), the K2 Sabatier Reactor, hydrogen, methane, oxygen, nitrogen and carbon dioxide stores in three sizes each, the P1 RCS Propellant Manifold, the L2 Canister Filling Station and the A2 Cabin Air Regulator, with nickel-iron ingots and carbon stock as raw stock, two terminal remainders and one new minable chunk. Every charge conserves mass and is recorded with its chemistry and sources in [the refinery design record](development/manufacturing-refinery-and-chemistry.md); operating instructions are in [the player guide](manufacturing-player-guide.md). Machines are purchase-only; ores and chunks are mined, never bought; bulk oxygen, nitrogen and carbon dioxide are sold only through the station Bulk supplies view. The machines are late-game plant, priced among the game's own radars, heavy lift rotors and missile launchers; they carry the game's high-salvage mark, need component repairs and are rare world finds. See [the equipment economy](equipment-economy.md#manufacturing-011-late-game-plant).",
       "groups": [
         {
           "key": "v4",
@@ -1226,9 +1226,26 @@
             "PhobosCanisterFillerInstalledDmg"
           ],
           "function": "A powered 2 x 2 booster that tops up standard O2, N2 and CO2 canisters and suit O2 bottles to a safe 99% of their rated pressure and stops, even at fast-forward. Decant mode empties them back into bulk stores.",
-          "use": "Install through INSTALL > HVAC and power it from conduit. Put suit O2 bottles in its rack (Inventory), link canisters installed beside it, and link oxygen, nitrogen or carbon dioxide stores within one tile or along a gas line, switching each on. A linked canister can be set to Draw from it instead. Choose Fill or Decant, then press Start. After a reload it waits for Start.",
+          "use": "Install through INSTALL > HVAC and power it from conduit. Put suit O2 bottles in its rack (Inventory), link canisters installed beside it, and link oxygen, nitrogen or carbon dioxide stores within one tile or along a gas line, switching each on. A linked canister can be set to Draw from it instead. Choose Fill or Decant, then press Start. After a reload it waits for Start. Right-click Keep suit bottles charged to have crew with the Haul duty bring loose bottles below 90% into the rack and start it; choose a destination store in the Crew panel for charged bottles.",
           "find": "Buy loose hardware from the sellers below; it is late-game equipment with late-game prices. No fabrication recipe. About one engineering-loot roll in twenty yields a Fennmark machine, usually broken.",
           "notes": "Draws 3 kW while working; the electricity pays for compressing the gas (about 0.06 kWh per kilogram of oxygen into a canister) and all of it ends as heat in the room. Hydrogen and methane cannot be bottled: the game has no canister for them.",
+          "guide": "manufacturing-player-guide.md",
+          "internal": false,
+          "labels": {}
+        },
+        {
+          "key": "a2",
+          "title": "A2 Cabin Air Regulator",
+          "ids": [
+            "PhobosCabinAirRegulatorLoose",
+            "PhobosCabinAirRegulatorLooseDmg",
+            "PhobosCabinAirRegulatorInstalled",
+            "PhobosCabinAirRegulatorInstalledDmg"
+          ],
+          "function": "A powered 2 x 2 valve and sensor unit that holds the room it stands in at an oxygen set point from a linked oxygen store, then at a pressure set point from a linked nitrogen store. It only adds gas.",
+          "use": "Install through INSTALL > HVAC in the room to look after and power it from conduit. Link an oxygen store and, for pressure, a nitrogen store within one tile or along a gas line, choose the set points and press Switch on. It keeps working after a reload.",
+          "find": "Buy loose hardware from the sellers below; it is late-game equipment with late-game prices. No fabrication recipe. About one engineering-loot roll in twenty yields a Fennmark machine, usually broken.",
+          "notes": "Up to 6 kg of oxygen and 12 kg of nitrogen an hour. It stops feeding a room below 10 kPa (open to space) and never lets oxygen pass 30% of the air. It never vents, scrubs carbon dioxide or cools: keep the scrubbers running.",
           "guide": "manufacturing-player-guide.md",
           "internal": false,
           "labels": {}

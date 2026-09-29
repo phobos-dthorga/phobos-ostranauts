@@ -6,6 +6,19 @@ Dates on Draft entries record preparation, not Steam publication.
 
 ## [Unreleased]
 
+## [0.5.0] - 2026-09-29 - Draft
+
+### Added
+
+- Phobos' Fennmark A2 Cabin Air Regulator (2 x 2, 0.1 kW, 23,000 cr, the INSTALL menu HVAC tab): keeps the room it stands in breathable from linked bulk stores. It adds oxygen up to a set point of 19, 21 or 23 kPa, then nitrogen up to 80, 90 or 101 kPa (or leaves pressure alone), up to 6 kg of oxygen and 12 kg of nitrogen an hour. Stores link within one tile or along a gas line, as for the L2.
+- A PixelLab sprite in the Fennmark family, with green oxygen and blue nitrogen valve wheels.
+- Keep suit bottles charged: a right-click crew order on the installed L2, like the Shipbreaker loading orders. Crew with the Haul duty bring loose suit O2 bottles below 90% from around the ship into the rack and start the station; with a destination store chosen in the Crew panel they carry charged bottles there. They never take a bottle from anyone's suit or hands, a locked container or another L2's rack.
+
+### Compatibility and limits
+
+- It only adds gas: no venting, scrubbing or cooling. It stops feeding a room below 10 kPa (open to space) and never lets oxygen pass 30% of the air. Unlike the batch machines it keeps working after a reload, like the game's air pumps.
+- Requires Phobos Framework 0.44.0 or newer, as 0.4.0. Owner gameplay checks remain pending.
+
 ## [0.4.0] - 2026-09-29 - Draft
 
 ### Added

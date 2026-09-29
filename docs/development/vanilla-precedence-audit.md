@@ -221,3 +221,9 @@ counting every species. It never changes the pump, the burst rule
 (`CheckPressureDifference`), station refuelling or the vessels' definitions, and a
 bottle in its rack stays an ordinary item the crew can take out at any time.
 Verdict: additive, no native path replaced.
+
+The A2 cabin air regulator (Manufacturing 0.5.0) adds oxygen and nitrogen to its
+room through Framework `RoomGas`, the same clamped path as the X2's cabin
+fallback. It does not replace the native air pump, scrubbers or room gas rules. It
+only adds gas, stops below 10 kPa and never raises oxygen past 30% of the air.
+Verdict: additive.

@@ -69,5 +69,9 @@ internal static class GasStoreChecks
         throws(() => FillerState.Read(new Dictionary<string, string> { ["mode"] = "fill", ["links"] = "A|q|1", ["filled"] = "0", ["decanted"] = "0" }), "An unknown link kind is refused");
         throws(() => FillerState.Read(new Dictionary<string, string> { ["mode"] = "spin", ["links"] = "", ["filled"] = "0", ["decanted"] = "0" }), "An unknown mode is refused");
         throws(() => FillerState.Read(new Dictionary<string, string> { ["mode"] = "fill", ["links"] = "", ["filled"] = "-1", ["decanted"] = "0" }), "A negative total is refused");
+        // Keep suit bottles charged: a bottle the station has filled counts as charged, so crew never fetch it again.
+        check(FillerRules.Charged(FillerRules.FillFraction) && FillerRules.Charged(FillerRules.ChargedFraction) && !FillerRules.Charged(0.5) && !FillerRules.Charged(0),
+            "A bottle filled by the station counts as charged; a half-empty one does not");
+        check(FillerRules.ChargedFraction < FillerRules.FillFraction, "The charged threshold sits below the station's own stop, so a filled bottle is never fetched back");
     }
 }

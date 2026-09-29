@@ -382,8 +382,13 @@
   The Fennmark L2 fills native canisters and suit bottles to 99% of their rating
   (`NativeGasVessel`, `GasTransfers`), never patching the native air pump. Shipbreaker
   0.40.0 adds the S4/S5 silos; Agriculture 0.20.0 the R4/R5 reservoirs, and a W2 now
-  draws from any water vessel within one tile (`BulkVessels.Adjacent`). The A2 cabin
-  air regulator follows in a later stage.
+  draws from any water vessel within one tile (`BulkVessels.Adjacent`). Manufacturing
+  0.5.0 adds the Fennmark A2 Cabin Air Regulator: from linked O2/N2 stores it holds its
+  room's oxygen set point, then pressure (Dalton's law on the room's own moles), adds
+  gas only through `RoomGas`, stops below 10 kPa, caps oxygen at 30% and keeps working
+  after reload like the native air pump. The L2's right-click crew order Keep suit bottles
+  charged (`FillerCrewProvider`, Framework `CrewLogistics`) hauls loose bottles below 90%
+  into the rack and starts it; never from suits, hands, locked containers or another L2.
 
 ## War Has Been Declared direction (2026-09-29)
 

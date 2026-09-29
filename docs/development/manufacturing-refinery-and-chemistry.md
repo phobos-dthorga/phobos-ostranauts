@@ -184,6 +184,35 @@ bottle about 30 seconds of compressor time. A minimum pressure ratio of 1.5
 keeps low-rated vessels from filling for free. All the electricity ends as heat
 in the room: the gas warms on compression and cools back to the room.
 
+## Cabin air regulation (the A2)
+
+At one temperature and volume a species' partial pressure is the total pressure
+times its mole fraction (Dalton's law, standard ideal-gas physics). The A2 reads
+the room's committed total moles N, pressure P and oxygen moles n, so it needs no
+room volume: adding x moles of oxygen gives p_O2' = P (n + x) / N, so x = target
+N / P - n. Adding y moles of nitrogen gives P' = P (N + y) / N, so y = N (target -
+P) / P. Oxygen added in the same step is subtracted from the nitrogen shortfall,
+since it is still pending in the room's gas. Oxygen is capped so that (n + x) /
+(N + x) stays at or below 0.30 (authored fire-safety cap).
+
+Set points are authored: oxygen 19, 21 or 23 kPa (the game counts 20 kPa and
+above as adequate, `DcGasPpO2`; Earth's sea-level oxygen is about 21.2 kPa) and
+pressure 80, 90 or 101 kPa, or left alone. Flow limits are authored at 6 kg of
+oxygen and 12 kg of nitrogen an hour. For scale, a crew member consumes about
+0.8 kg of oxygen a day: NASA Johnson Space Center, Anderson, Ewert, Keener and
+Wagner, [NASA Life Support Baseline Values and Assumptions Document, NASA/TP-2015-218570](https://ntrs.nasa.gov/api/citations/20150002905/downloads/20150002905.pdf), March 2015. We have not rechecked the exact table value
+against the document, so treat 0.8 kg as approximate. The A2 therefore
+refills a room far faster than a crew uses it. That is gameplay balance, not a
+claim about any real regulator. No energy is charged for the gas itself: it
+leaves a pressurised store through a valve. The 0.1 kW is the unit's sensors and
+valves, through the game's own power accounting.
+
+Gas leaves the store's kilogram record through `BulkVessel.Drain` (after the RCS
+manifold's buffered draws settle) and enters the room as the game's own species
+through Framework `RoomGas.Emit`, so the room's alarms, poisoning bands and fire
+rules apply unchanged. A room below 10 kPa (`RoomHeat.MinPressureKPa`) is treated
+as breached and is never fed.
+
 ## The hydrogen store
 
 24 kg capacity: the native canister volume at 41.4 MPa and 293 K holds about

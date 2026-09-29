@@ -49,6 +49,7 @@ a real company, seed cultivar, research programme or institutional endorsement.
 | Phobos' Fennmark N2, N3 and N4 Nitrogen Stores | Nitrogen stores in three sizes; distinct from the Asterel N-series nav modules by brand and type (Manufacturing 0.4.0) |
 | Phobos' Fennmark C2, C3 and C4 Carbon Dioxide Stores | Carbon dioxide stores in three sizes; distinct from the Rivetline C2 collector by brand and type (Manufacturing 0.4.0) |
 | Phobos' Fennmark L2 Canister Filling Station | Two-by-two safe filling booster for canisters and suit bottles (Manufacturing 0.4.0) |
+| Phobos' Fennmark A2 Cabin Air Regulator | Two-by-two valve and sensor unit keeping one room's oxygen and pressure (Manufacturing 0.5.0); A for air |
 
 **Fennmark** is Manufacturing's separate fictional manufacturer (owner choice,
 29 September 2026): refining and process chemistry. V, X and H identify the

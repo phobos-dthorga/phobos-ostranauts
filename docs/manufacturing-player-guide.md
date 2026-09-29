@@ -1,4 +1,4 @@
-# Refinery, electrolysis, Sabatier reactor, gas stores, canister filling and RCS propellant
+# Refinery, electrolysis, Sabatier reactor, gas stores, canister filling, cabin air and RCS propellant
 
 Use the [current versions and dependency requirements](installing-mods.md);
 Phobos Framework is required at the version listed there. Implemented and checked offline; owner
@@ -22,6 +22,7 @@ rotors and missile launchers, below a fusion reactor. Save up for it.
 | Phobos' Fennmark N2, N3 and N4 Nitrogen Stores | 2 x 2, 3 x 3 and 4 x 4 tiles; hold 300, 745 and 1,440 kg of nitrogen | 20,000, 32,530 and 45,950 cr | The same sellers; INSTALL > APPS. Purchase only. |
 | Phobos' Fennmark C2, C3 and C4 Carbon Dioxide Stores | 2 x 2, 3 x 3 and 4 x 4 tiles; hold 470, 1,160 and 2,260 kg of carbon dioxide | 20,000, 32,530 and 45,950 cr | The same sellers; INSTALL > APPS. Purchase only. |
 | Phobos' Fennmark L2 Canister Filling Station | 2 x 2 tiles; 120 kg; one power point; 3 kW working | 26,000 cr, broken 6,500 cr | The same sellers; INSTALL > HVAC. Purchase only. |
+| Phobos' Fennmark A2 Cabin Air Regulator | 2 x 2 tiles; 60 kg; one power point; 0.1 kW | 23,000 cr, broken 5,750 cr | The same sellers; INSTALL > HVAC. Purchase only. |
 | Phobos' Fennmark P1 RCS Propellant Manifold | 1 x 1 tile; 10 kg; passive | 24,000 cr, broken 6,000 cr | The same sellers; INSTALL > HVAC. Purchase only. |
 | Phobos' Fennmark Gas Line | 1 tile per segment; 1 kg | 3 cr | K-Leg supply kiosk and fixer, Halvorson and the Venus scrap kiosk, in lots of 128; INSTALL > HVAC. |
 
@@ -171,8 +172,8 @@ nitrogen and pale grey carbon dioxide, like the game's own canisters.
 | --- | --- | --- |
 | Hydrogen (H) | an X2 | a K2, the RCS through a P1 |
 | Methane (M) | a K2 | the RCS through a P1 |
-| Oxygen (O) | an X2 (set the store as its oxygen destination), Bulk supplies | an L2 (canisters and suit bottles), the RCS |
-| Nitrogen (N) | Bulk supplies | an L2 (RCS and air-pump canisters), the RCS |
+| Oxygen (O) | an X2 (set the store as its oxygen destination), Bulk supplies | an A2 (cabin air), an L2 (canisters and suit bottles), the RCS |
+| Nitrogen (N) | Bulk supplies | an A2 (cabin pressure), an L2 (RCS and air-pump canisters), the RCS |
 | Carbon dioxide (C) | Bulk supplies | a K2 (set the store as its CO2 source), an L2, the RCS |
 
 Each store's panel shows the kilograms held and every machine linked to it.
@@ -201,6 +202,15 @@ is how suit bottles burst.
 5. Choose **Mode**: **Fill**, or **Decant** to empty bottles and canisters back
    into their stores. Press **Start**.
 
+**Keep suit bottles charged** (right-click the installed L2; choose it again to
+stop) hands the bottles to your crew. Crew with the Haul duty bring suit O2
+bottles below 90% from around the ship (the deck, unlocked containers and other
+machines' trays) into the rack and press Start. They never take a bottle from
+anyone's suit or hands, from a locked container or from another L2's rack.
+Choose a destination store in the Crew panel and they carry charged bottles
+there; otherwise charged bottles wait in the rack. Link the stores and keep the
+station in Fill mode yourself: the order only loads, unloads and starts it.
+
 It works one vessel at a time, from a store first and a source canister
 second, and waits when everything is full (or empty, when decanting). It draws
 3 kW while working. Compressing the gas costs about 0.06 kWh per kilogram of
@@ -216,6 +226,32 @@ flowchart LR
     L2 --> Cans[Canisters beside it]
     Stores -->|gas line or one tile| P1[P1 manifold] --> RCS[RCS thrusters]
 ```
+
+## Cabin air regulator
+
+The A2 keeps one room breathable from your bulk stores, so oxygen from an X2 or
+a station reaches the crew without a canister or an air pump in between.
+
+1. Install the **A2** in the room it should look after, through INSTALL > HVAC,
+   and run conduit to it. It reads the room it stands in.
+2. Put an **oxygen store** within one tile or lay gas line to it, and choose it
+   under **Oxygen store**. For pressure, do the same with a **nitrogen store**.
+3. Choose the **Oxygen set point** (19, 21 or 23 kPa; the game counts 20 kPa
+   and above as good air) and the **Pressure set point** (80, 90 or 101 kPa, or
+   **leave alone**). Press **Switch on**.
+
+Every couple of seconds it adds oxygen until the room reaches its set point,
+then nitrogen until the room reaches its pressure: up to 6 kg of oxygen and
+12 kg of nitrogen an hour. It only adds gas. It never vents, never scrubs
+carbon dioxide and never cools, so keep the game's scrubbers running. It keeps
+working after a reload, like the game's own air pumps.
+
+- It stops feeding a room below **10 kPa**: that room is open to space, and
+  the crew log says so once. Seal it and the regulator carries on.
+- It never lets oxygen pass **30%** of the room's air, because rich air makes
+  any fire worse.
+- The panel shows the room's oxygen and pressure, both stores and how much it
+  has added so far.
 
 ## RCS propellant
 
@@ -283,6 +319,10 @@ releases it.
   air. With oxygen and a fire, a working V4 or a sparking device, the store's
   contents burn instead: 4 kg of the room's oxygen and 2.7 kg of CO2 left behind
   per kilogram of methane, with the game's own explosion.
+- **An A2 set high makes the air richer.** At 23 kPa of oxygen in a thin room
+  the oxygen share climbs, up to the regulator's 30% cap; fires spread more
+  readily. Its nitrogen does the opposite if the oxygen store runs dry: the
+  room keeps its pressure while its oxygen falls. Watch the panel.
 - **Oxygen, nitrogen and carbon dioxide stores leak into the room.** A damaged
   store leaks about 2, 3 or 4 kg an hour by size until repaired. Oxygen makes
   any fire worse, nitrogen thins the air without warning, and carbon dioxide
@@ -302,8 +342,8 @@ releases it.
 
 ## Limits
 
-- No crew loading orders yet; load the feed by hand or with a crew output
-  store on the tray.
+- No crew loading orders for the V4 yet; load its feed by hand or with a crew
+  output store on the tray. The L2 has its bottle order.
 - No construction recipes: buy the machines.
 - Stored gases are kilogram records in their stores; a game gas becomes room
   gas only when it leaks, is released or burns.
@@ -311,6 +351,8 @@ releases it.
   them. They stay in their stores for the K2 and the RCS.
 - A small gas store holds about as much as one of the game's canisters, which
   are very dense. Bulk gas pays off in the medium and large sizes.
+- The A2 adds gas at the room's own temperature and does not use electricity
+  to move it; its valves are fed by store pressure. Its flow limits are authored.
 - The L2's electricity cost is ideal compression at an authored efficiency;
   line hold-up and pressure drop are neglected.
 - The reactor converts all of its hydrogen each cycle; real reactors convert
@@ -365,6 +407,19 @@ Switch to Decant and empty a canister back into a store. Pour a small store
 into a large one. Link a C2 to a K2 as its CO2 source, and an O2 store to an X2
 as its oxygen destination. Damage an O2 store and watch the room's oxygen rise.
 Save and reload mid-fill and confirm the pause until Start.
+
+Crew bottle order (0.5.0): leave two half-empty suit bottles in an unlocked
+locker, link an O2 store to an L2 and choose Keep suit bottles charged. Confirm
+a crew member with the Haul duty carries them to the rack and starts it, that a
+bottle in a worn suit is left alone, and, with a destination locker chosen in
+the Crew panel, that charged bottles go there. Choose it again to stop.
+
+Cabin air regulator (0.5.0): install an A2 in a sealed room with an O2 store
+and an N2 store linked, set 21 kPa and 101 kPa and switch it on. Let the
+scrubbers and crew draw the oxygen down and watch the A2 top it up, and the
+stores fall. Open a breach and confirm it stops below 10 kPa with one log
+line, then resumes once sealed. Set 23 kPa in a thin room and confirm the
+oxygen share never passes 30%. Save and reload and confirm it keeps working.
 
 ## Sources
 

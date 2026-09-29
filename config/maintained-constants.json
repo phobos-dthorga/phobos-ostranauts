@@ -265,7 +265,7 @@
     "Manufacturing.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.4.0",
+      "value": "0.5.0",
       "description": "PhobosManufacturing published source/package version.",
       "targets": [
         {
@@ -1943,6 +1943,23 @@
         {
           "path": "src/PhobosManufacturing/Core/FillerRules.cs",
           "pattern": "MachineKg = 120, Price = (?P<value>[0-9.]+)",
+          "count": 1
+        }
+      ],
+      "review": [
+        "Run scripts/build-manufacturing.ps1 and regenerate item references. Late-game price band is checked natively."
+      ]
+    },
+    "Manufacturing.regulatorPrice": {
+      "type": "number",
+      "value": "23000",
+      "min": 1,
+      "max": 1000000,
+      "description": "Authored A2 cabin air regulator base price (broken form is one quarter).",
+      "targets": [
+        {
+          "path": "src/PhobosManufacturing/Core/RegulatorRules.cs",
+          "pattern": "MachineKg = 60, Price = (?P<value>[0-9.]+)",
           "count": 1
         }
       ],

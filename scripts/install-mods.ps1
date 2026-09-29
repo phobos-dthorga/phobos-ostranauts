@@ -359,6 +359,10 @@ foreach ($mod in $Mods) {
                     "images/phobos/manufacturing/$image.png"; "images/phobos/manufacturing/${image}Normal.png"
                 }
             }
+            # 0.5.0 adds the A2 cabin air regulator.
+            if ($version -ge [version]'0.5.0') {
+                'images/phobos/manufacturing/PhobosCabinAirRegulator.png'; 'images/phobos/manufacturing/PhobosCabinAirRegulatorNormal.png'
+            }
         }
         'AutoNav' {
             if ($version -ge [version]'0.2.0') { 'framework/recipes.json' }

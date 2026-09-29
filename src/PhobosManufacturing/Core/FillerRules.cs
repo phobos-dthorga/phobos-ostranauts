@@ -34,6 +34,11 @@ public static class FillerRules
     public const double RoomHeatFraction = 1;
     public const double RecheckSeconds = 5;
     public static readonly IReadOnlyList<string> Species = new[] { "O2", "N2", "CO2" };
+    /// <summary>The crew order "Keep suit bottles charged": its right-click toggle, its recipe, and the fill below which
+    /// crew bring a loose suit bottle to the rack (authored; a bottle above it counts as charged).</summary>
+    public const string BottleOrder = "PhobosCanisterFillerBottleOrder", BottleRecipe = "charge-bottles";
+    public const double ChargedFraction = 0.9;
+    public static bool Charged(double fillFraction) => fillFraction >= ChargedFraction;
     public static bool IsFamily(string? id) => EquipmentIdentity.IsFamily(id, Prefix);
     /// <summary>Electricity to compress one kilogram of a gas from the suction pressure to <paramref name="targetKPa"/>
     /// (never less than a minimum for the valves and cooler when the target is below the suction pressure).</summary>

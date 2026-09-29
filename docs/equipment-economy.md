@@ -635,3 +635,16 @@ Repair needs 2 and 3 small mechanical parts and aluminium scraps plus one
 electrical part, over 2400 and 3000 progress; dismantling returns 8 and 12 steel
 scraps (2 and 3 broken) with the rest of the housing as waste, over 800 and 1000.
 They are sold on the R3's routes and never appear in salvage loot.
+
+## Manufacturing 0.5.0: the A2 cabin air regulator
+
+| Equipment | Mass | Base price | Broken base | Install / uninstall | Repair | Dismantle | Restore |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| Fennmark A2 cabin air regulator | 60 kg | $23,000 | $5,750 | 1000 / 800 | 2400 | 600 | 45 min |
+
+Its repair bill is 2 steel, 1 aluminium, 3 mechanical and 3 electronic parts, a
+motor and a mainboard. It dismantles to 30 steel, 12 aluminium, 6 mechanical and
+5 electronic parts, a motor, a mainboard, a heat sink and 8 kg of retained trash
+(60 kg); broken, to 20 steel, 6 aluminium, 2 mechanical parts and 33 kg of trash.
+It is sold on the other Fennmark machines' routes, carries the high-salvage mark
+and shares their one-in-twenty engineering find.

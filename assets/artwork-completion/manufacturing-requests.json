@@ -17,7 +17,8 @@
     "references/carbon-stock-start.png": "31fa6bcbb7b7611c355c3e6a207896d52c8fab440be6e91f7fc1eea048d6616c",
     "references/carbon-stock-first-pass.png": "33dfbb4c547afb2327e2275a3b4108e719a33094c81a9e90226937c6200ffab5",
     "references/refinery-slag-start.png": "55215d7118150fb1beaa62b356f8fff98d98aa05704d3995115e90fce67c9512",
-    "references/anhydrous-residue-start.png": "01d02b61d7d867aeb0d98eb4120484d8e4e792e338d427d1320c0dfa2568c6ef"
+    "references/anhydrous-residue-start.png": "01d02b61d7d867aeb0d98eb4120484d8e4e792e338d427d1320c0dfa2568c6ef",
+    "references/a2-cabin-air-regulator-start.png": "e48ee82a8eec77328abeaf84b4da1c582fac97b64bcc01dee240314a8ad80ef5"
   },
   "derived": {
     "nickel-iron-ingot": {
@@ -717,6 +718,28 @@
       "initImage": "references/l2-canister-filler-start.png",
       "decision": "selected",
       "review": "Overhead, no side faces; bottle rack, compressor grille and control plate read at 32 px. One pass kept on the start layout."
+    },
+    {
+      "key": "a2-cabin-air-regulator",
+      "operation": "create_image_pixflux",
+      "jobId": "b2b3b07c-a146-40bf-b18a-d16372d00450",
+      "costGenerations": 1,
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. The whole square canvas is the top of a compact spacecraft cabin air regulator in a square frame: a dark graphite painted steel frame with burnt-orange corner clamps; across the middle a grey steel manifold bar carrying two round valve hand wheels seen from directly above, the left one dark green, the right one blue, each with four dark spokes and a steel hub; above them a grey sensor head with a slotted grille and a small burnt-orange tag; below them a wide grey diffuser grille with vertical slots; a short amber pipe stub on the right edge of the frame; a few scuffs and rivet dots. Utilitarian retro spaceship equipment: crisp dark outlines, small readable colour regions, restrained shading, sparse purposeful details, a little wear. No perspective, no ground shadow, no gauges, no text, numbers, symbols or logos.",
+        "width": 128,
+        "height": 128,
+        "seed": 9290541,
+        "init_image_strength": 130,
+        "shading": "basic shading",
+        "outline": "single color black outline",
+        "detail": "medium detail",
+        "no_background": false,
+        "isometric": false,
+        "view": "high top-down"
+      },
+      "initImage": "references/a2-cabin-air-regulator-start.png",
+      "decision": "selected",
+      "review": "Overhead, no side faces; the two valve wheels, sensor grille and diffuser read at 32 px. One pass kept on the start layout."
     }
   ],
   "passes": [
@@ -769,6 +792,17 @@
         "references/l2-canister-filler-start.png": "33600f7352da5f853c7cae5911fea0b9e09b42b3ba236ccef1b5010feec0ead2"
       },
       "note": "Gas store size ladder (H3/H4, M3/M4), the O, N and C store families in three sizes, and the L2 canister filling station. Gas colours echo the game's canister convention by name only (green oxygen, blue nitrogen, pale grey carbon dioxide); no game imagery was uploaded. One pass per sprite from an original procedural start drawing; a first M4 upload was refused as truncated before generation and not charged."
+    },
+    {
+      "version": "0.5.0",
+      "date": "2026-09-29",
+      "allowanceBefore": 1776,
+      "allowanceAfter": 1775,
+      "creditBalanceUSD": 0,
+      "initImageHashes": {
+        "references/a2-cabin-air-regulator-start.png": "e48ee82a8eec77328abeaf84b4da1c582fac97b64bcc01dee240314a8ad80ef5"
+      },
+      "note": "The A2 cabin air regulator. Valve colours echo the game's canister convention by name only (green oxygen, blue nitrogen); no game imagery was uploaded. One pass from an original procedural start drawing sent base64."
     }
   ]
 }

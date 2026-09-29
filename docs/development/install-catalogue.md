@@ -13,7 +13,7 @@ is still pending.
 | Phobos Agriculture | APPS | Firstlight-4 cultivation rack, Hearth-2 portion cooker, Groundwork W2 supply, B2 workup bench and R3, R4 and R5 reservoirs |
 | Phobos Agriculture | MISC | Irrigation conduit |
 | Phobos Manufacturing | APPS | Fennmark V4 volatiles refinery, X2 chemical processor, K2 Sabatier reactor, and the hydrogen, methane, oxygen, nitrogen and carbon dioxide stores in all three sizes |
-| Phobos Manufacturing | HVAC | Fennmark P1 RCS propellant manifold, L2 canister filling station and gas line |
+| Phobos Manufacturing | HVAC | Fennmark P1 RCS propellant manifold, L2 canister filling station, A2 cabin air regulator and gas line |
 
 The native coverage checks include every implemented intact/damaged placement family. The R3, R4 and R5 have no fabrication recipe: buy the loose hardware before installation.
 D4, R4 and F6 entries now consume two D4-S, two R4-S or three F6-S sections at the site. Native hauling stages them separately. Complete loose machinery still has its direct Install action; damaged placement keeps its existing loose input. Other entries consume existing loose equipment and retain their work, placement and access requirements. See [section assembly](../section-assembly-and-maintenance.md). Obtain or construct the equipment first;
@@ -27,7 +27,7 @@ Auto Nav's N1 and N2 boards are inserted in Polaris module slots through the
 existing [Auto Nav workflow](auto-navigate-adaptation.md). They have no standalone
 floor-installed form and are deliberately absent from this placement catalogue.
 Framework adds shared services. Manufacturing's machines and stores are
-purchase-only APPS entries (the P1 and L2 are HVAC); its proposed M4 machining centre must receive a
+purchase-only APPS entries (the P1, L2 and A2 are HVAC); its proposed M4 machining centre must receive a
 catalogue entry when it becomes operational. Supplies, produce, ore, ingots,
 castings and waste remain cargo. Assembly sections are also cargo, but their Install action starts construction of the complete machine rather than installing a section as furniture.
 

@@ -45234,6 +45234,713 @@
       ],
       "before": "{0:F0} kg of water for the next growing shift in a passive {1} x {1} tank, {2:F0} kg empty. A W2 within one tile draws from it and supplies the pumping power. Damage traps water in a catch tank: repair, then recover it. Drain before moving or dismantling. Not for drinking water.",
       "after": "{0:F0} kg of water for the next growing shift in a passive {1} x {1} tank, {2:F0} kg empty. A W2 within one tile draws from it and supplies the pumping power. Damage traps water in a catch tank: repair, then recover it. Drain before moving or dismantling. Not for drinking water."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Regulator.name",
+      "category": "item name",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Definitions.cs:155",
+        "src/PhobosManufacturing/Definitions.cs:162"
+      ],
+      "before": "Cabin Air Regulator",
+      "after": "Cabin Air Regulator"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Regulator.description",
+      "category": "item description",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Definitions.cs:155"
+      ],
+      "before": "A {0:F0} kg valve and sensor unit, {1:F1} kW, that keeps its room breathable from bulk stores. It adds oxygen from a linked oxygen store up to the set point (up to {2:F0} kg an hour), then, if asked, nitrogen from a linked nitrogen store up to the set pressure (up to {3:F0} kg an hour). It only adds gas: it never vents, scrubs carbon dioxide or cools. It stops feeding a room below {4:F0} kPa, because that room is open to space, and never lets oxygen pass {5:F0}% of the air, because rich air makes any fire worse. Link stores within one tile or along a gas line in the Control Panel, then switch it on.",
+      "after": "A {0:F0} kg valve and sensor unit, {1:F1} kW, that keeps its room breathable from bulk stores. It adds oxygen from a linked oxygen store up to the set point (up to {2:F0} kg an hour), then, if asked, nitrogen from a linked nitrogen store up to the set pressure (up to {3:F0} kg an hour). It only adds gas: it never vents, scrubs carbon dioxide or cools. It stops feeding a room below {4:F0} kPa, because that room is open to space, and never lets oxygen pass {5:F0}% of the air, because rich air makes any fire worse. Link stores within one tile or along a gas line in the Control Panel, then switch it on."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Regulator.action_on",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Provider.cs:127"
+      ],
+      "before": "Switch on",
+      "after": "Switch on"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Regulator.action_off",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Provider.cs:127"
+      ],
+      "before": "Switch off",
+      "after": "Switch off"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Regulator.off",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/RegulatorService.cs:29",
+        "src/PhobosManufacturing/RegulatorService.cs:79"
+      ],
+      "before": "Switched off.",
+      "after": "Switched off."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Regulator.protected",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/RegulatorService.cs:41",
+        "src/PhobosManufacturing/RegulatorService.cs:48",
+        "src/PhobosManufacturing/RegulatorService.cs:133",
+        "src/PhobosManufacturing/RegulatorService.cs:163",
+        "src/PhobosManufacturing/RegulatorService.cs:187"
+      ],
+      "before": "This regulator's record could not be verified. Accept it from the panel after checking it.",
+      "after": "This regulator's record could not be verified. Accept it from the panel after checking it."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Regulator.no_store",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/RegulatorService.cs:60"
+      ],
+      "before": "no store linked",
+      "after": "no store linked"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Regulator.store_missing",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/RegulatorService.cs:63"
+      ],
+      "before": "the linked store is gone or no longer connected",
+      "after": "the linked store is gone or no longer connected"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Regulator.store_not_ready",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/RegulatorService.cs:65"
+      ],
+      "before": "the linked store is damaged, busy or needs attention",
+      "after": "the linked store is damaged, busy or needs attention"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Regulator.store_empty",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/RegulatorService.cs:117"
+      ],
+      "before": "the linked store is empty",
+      "after": "the linked store is empty"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Regulator.repair_first",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/RegulatorService.cs:80"
+      ],
+      "before": "Damaged: repair it before it can regulate.",
+      "after": "Damaged: repair it before it can regulate."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Regulator.no_power",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/RegulatorService.cs:80"
+      ],
+      "before": "No power: connect it to the ship's power.",
+      "after": "No power: connect it to the ship's power."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Regulator.breach",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/RegulatorService.cs:87"
+      ],
+      "before": "Holding: the room is below {0:F0} kPa. Seal the breach first.",
+      "after": "Holding: the room is below {0:F0} kPa. Seal the breach first."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Regulator.breach_notice",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/RegulatorService.cs:88"
+      ],
+      "before": "{0} stopped feeding its room: the pressure is too low, so the room is probably open to space. Seal it and the regulator carries on.",
+      "after": "{0} stopped feeding its room: the pressure is too low, so the room is probably open to space. Seal it and the regulator carries on."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Regulator.holding",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/RegulatorService.cs:103"
+      ],
+      "before": "Holding: the room is at its set points.",
+      "after": "Holding: the room is at its set points."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Regulator.fault",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/RegulatorService.cs:106"
+      ],
+      "before": "Stopped by a fault. Check the log.",
+      "after": "Stopped by a fault. Check the log."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Regulator.needs",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/RegulatorService.cs:114",
+        "src/PhobosManufacturing/RegulatorService.cs:117"
+      ],
+      "before": "Short of {0}: {1}.",
+      "after": "Short of {0}: {1}."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Regulator.feeding",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/RegulatorService.cs:119"
+      ],
+      "before": "Adding {0}.",
+      "after": "Adding {0}."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Regulator.draw_reason",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/RegulatorService.cs:116"
+      ],
+      "before": "released into the cabin by an A2 regulator",
+      "after": "released into the cabin by an A2 regulator"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Regulator.no_room",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/RegulatorService.cs:135"
+      ],
+      "before": "Room: no air reading here.",
+      "after": "Room: no air reading here."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Regulator.room",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/RegulatorService.cs:136"
+      ],
+      "before": "Room: oxygen {0:F1} kPa, pressure {1:F1} kPa.",
+      "after": "Room: oxygen {0:F1} kPa, pressure {1:F1} kPa."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Regulator.kpa",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Provider.cs:83",
+        "src/PhobosManufacturing/Provider.cs:84",
+        "src/PhobosManufacturing/Provider.cs:85",
+        "src/PhobosManufacturing/Provider.cs:86",
+        "src/PhobosManufacturing/RegulatorService.cs:141"
+      ],
+      "before": "{0:F0} kPa",
+      "after": "{0:F0} kPa"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Regulator.pressure_off",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Provider.cs:85",
+        "src/PhobosManufacturing/Provider.cs:86",
+        "src/PhobosManufacturing/RegulatorService.cs:141"
+      ],
+      "before": "leave alone",
+      "after": "leave alone"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Regulator.targets",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/RegulatorService.cs:141"
+      ],
+      "before": "Set points: oxygen {0:F0} kPa, pressure {1}.",
+      "after": "Set points: oxygen {0:F0} kPa, pressure {1}."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Regulator.stores",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/RegulatorService.cs:142"
+      ],
+      "before": "Oxygen from: {0}. Nitrogen from: {1}.",
+      "after": "Oxygen from: {0}. Nitrogen from: {1}."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Regulator.store_line",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/RegulatorService.cs:137"
+      ],
+      "before": "{0} ({1:F1} kg)",
+      "after": "{0} ({1:F1} kg)"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Regulator.totals",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/RegulatorService.cs:143"
+      ],
+      "before": "Added {0:F2} kg of oxygen and {1:F2} kg of nitrogen so far.",
+      "after": "Added {0:F2} kg of oxygen and {1:F2} kg of nitrogen so far."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Regulator.accept_done",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/RegulatorService.cs:161"
+      ],
+      "before": "Accepted. The regulator's record is trusted again.",
+      "after": "Accepted. The regulator's record is trusted again."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Regulator.accept_unavailable",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/RegulatorService.cs:159",
+        "src/PhobosManufacturing/RegulatorService.cs:161"
+      ],
+      "before": "The record cannot be accepted as it is.",
+      "after": "The record cannot be accepted as it is."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Regulator.switched_on",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/RegulatorService.cs:168"
+      ],
+      "before": "Switched on: it tops the room up whenever it falls short.",
+      "after": "Switched on: it tops the room up whenever it falls short."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Regulator.switched_off",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/RegulatorService.cs:169"
+      ],
+      "before": "Switched off.",
+      "after": "Switched off."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Regulator.invalid_target",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/RegulatorService.cs:172",
+        "src/PhobosManufacturing/RegulatorService.cs:176"
+      ],
+      "before": "Choose one of the set points on the panel.",
+      "after": "Choose one of the set points on the panel."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Regulator.target_set",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/RegulatorService.cs:173",
+        "src/PhobosManufacturing/RegulatorService.cs:177"
+      ],
+      "before": "Set point changed.",
+      "after": "Set point changed."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Regulator.link_missing",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/RegulatorService.cs:181"
+      ],
+      "before": "That store is not within reach or holds another gas.",
+      "after": "That store is not within reach or holds another gas."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Regulator.linked",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/RegulatorService.cs:183"
+      ],
+      "before": "Store linked.",
+      "after": "Store linked."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Regulator.unlinked",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/RegulatorService.cs:183"
+      ],
+      "before": "Store unlinked.",
+      "after": "Store unlinked."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Provider.o2_target_field",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Provider.cs:83"
+      ],
+      "before": "Oxygen set point",
+      "after": "Oxygen set point"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Provider.pressure_target_field",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Provider.cs:85"
+      ],
+      "before": "Pressure set point",
+      "after": "Pressure set point"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Provider.oxygen_store_field",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Provider.cs:87"
+      ],
+      "before": "Oxygen store",
+      "after": "Oxygen store"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Provider.nitrogen_store_field",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Provider.cs:89"
+      ],
+      "before": "Nitrogen store",
+      "after": "Nitrogen store"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Filler.crew_order_title",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Definitions.cs:139"
+      ],
+      "before": "Keep suit bottles charged",
+      "after": "Keep suit bottles charged"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Filler.crew_order_action",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Definitions.cs:140"
+      ],
+      "before": "Keep suit bottles charged",
+      "after": "Keep suit bottles charged"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Filler.crew_order_tooltip",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/Definitions.cs:140"
+      ],
+      "before": "Crew with the Haul duty bring suit O2 bottles that are not charged from around the ship to this station's rack and start it. Choose again to stop. They never take bottles from anyone's suit or hands, or from a locked container.",
+      "after": "Crew with the Haul duty bring suit O2 bottles that are not charged from around the ship to this station's rack and start it. Choose again to stop. They never take bottles from anyone's suit or hands, or from a locked container."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Filler.crew_recipe",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/FillerCrew.cs:21"
+      ],
+      "before": "Keep suit bottles charged",
+      "after": "Keep suit bottles charged"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Filler.crew_on",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/FillerCrew.cs:85"
+      ],
+      "before": "Crew will keep suit bottles charged at {0}.",
+      "after": "Crew will keep suit bottles charged at {0}."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Filler.crew_off",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/FillerCrew.cs:80"
+      ],
+      "before": "Crew stopped keeping suit bottles charged at {0}.",
+      "after": "Crew stopped keeping suit bottles charged at {0}."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Filler.crew_not_owned",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/FillerCrew.cs:74"
+      ],
+      "before": "Only the owner's crew can be given this order.",
+      "after": "Only the owner's crew can be given this order."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Filler.crew_blocked",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/FillerCrew.cs:32",
+        "src/PhobosManufacturing/FillerCrew.cs:53",
+        "src/PhobosManufacturing/FillerCrew.cs:73"
+      ],
+      "before": "The station needs attention: install it, repair or unlock it, or accept its record.",
+      "after": "The station needs attention: install it, repair or unlock it, or accept its record."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Filler.crew_select_recipe",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/FillerCrew.cs:33"
+      ],
+      "before": "Choose Keep suit bottles charged in the Crew panel.",
+      "after": "Choose Keep suit bottles charged in the Crew panel."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Filler.crew_decant",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/FillerCrew.cs:34"
+      ],
+      "before": "The station is set to Decant. Switch it to Fill for the crew to charge bottles.",
+      "after": "The station is set to Decant. Switch it to Fill for the crew to charge bottles."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Filler.crew_start",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/FillerCrew.cs:44"
+      ],
+      "before": "Start the filling station",
+      "after": "Start the filling station"
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Filler.crew_no_bottles",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/FillerCrew.cs:45"
+      ],
+      "before": "No uncharged suit bottle is lying loose aboard.",
+      "after": "No uncharged suit bottle is lying loose aboard."
+    },
+    {
+      "mod": "PhobosManufacturing",
+      "key": "Filler.crew_charged",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosManufacturing/FillerCrew.cs:45"
+      ],
+      "before": "The rack's bottles are charged. Choose a destination store in the Crew panel for the crew to take them away.",
+      "after": "The rack's bottles are charged. Choose a destination store in the Crew panel for the crew to take them away."
     }
   ],
   "documents": [
@@ -45241,8 +45948,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "febe90dd53771b7549f03db28f887ac66303c510443f9eae4cd8fab7caa104bd",
-      "review": "2026-09-29 (R4/R5 reservoirs): reviewed with this change; wording, links and maintained values checked."
+      "sha256": "384ac6cce34f7e920c240d2b35453ddd0a8fe34ba7cd9ad4ef86a65f48f2365a",
+      "review": "Manufacturing 0.5.0 (A2 cabin air regulator), 29 September 2026: reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "SUPPORT.md",
@@ -45408,8 +46115,8 @@
       "path": "docs/crew-automation.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "310db66af7f3424a58dcf9ecf8650535780c9072933bbfc7168186d4fc156f56",
-      "review": "2026-09-29: flowchart added with a one-sentence lead-in; stale statements corrected where found (ingot recipes, silo consumers, collector products, dependency minima link, Manufacturing crew orders)."
+      "sha256": "dfdd58c56600473df2a3c08c46390d50c2ed49324f8b848a7f2ad4270bb1afdc",
+      "review": "Manufacturing 0.5.0 (A2 cabin air regulator, crew bottle order), 29 September 2026: reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "docs/development/README.md",
@@ -45668,8 +46375,8 @@
       "path": "docs/development/equipment-branding.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "7ebad4338b12b9e26b83be444947e92ede0a80ffadb7bf1f4d9d1183f75fef78",
-      "review": "2026-09-29 (R4/R5 reservoirs): reviewed with this change; wording, links and maintained values checked."
+      "sha256": "4f719fa809f306a6fb3bb8dfc48e2c867194112e9fafc0a8a88c29b759ea6a3b",
+      "review": "Manufacturing 0.5.0 (A2 cabin air regulator), 29 September 2026: reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "docs/development/equipment-value-audit.md",
@@ -45786,15 +46493,15 @@
       "path": "docs/development/install-catalogue.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "580a8887bc4629aff103017f5a8a07d756bcda1112f89a913372f64f930a7dbf",
-      "review": "2026-09-29 (R4/R5 reservoirs): reviewed with this change; wording, links and maintained values checked."
+      "sha256": "4929746b69e55d1ce338a02ec6b89e85d6cca21a4412e5d6edb537dd28c8eebc",
+      "review": "Manufacturing 0.5.0 (A2 cabin air regulator), 29 September 2026: reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "docs/development/item-handling-audit.md",
       "scope": "current handling guidance and complete generated definition ledger",
       "decision": "reviewed",
-      "sha256": "af0043942be209ee8689206f2e9018da2f2d02856e09445dedbd4c3e49aad944",
-      "review": "2026-09-29 (R4/R5 reservoirs): reviewed with this change; wording, links and maintained values checked."
+      "sha256": "e10d3216a92a5c93cd78550d22ca0dd7f8c35a1aa5221b0817e2131c7b6ca855",
+      "review": "Manufacturing 0.5.0 (A2 cabin air regulator, crew bottle order), 29 September 2026: reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "docs/development/item-reference-maintenance.md",
@@ -45831,8 +46538,8 @@
       "path": "docs/development/manufacturing-art-handoff.md",
       "scope": "development artwork record",
       "decision": "rewrite",
-      "sha256": "1d187fcc8355c59c10117f9b7a976e9f3f92a7f48ab4ba2db5bb9866f6850b4e",
-      "review": "2026-09-29 (gas store sizes and L2): 0.4.0 art pass record."
+      "sha256": "0d1637077ec2cfa45449c301553fde523eb5c7c3aaee6c2800ef37f6032030c1",
+      "review": "Manufacturing 0.5.0 (A2 cabin air regulator), 29 September 2026: reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "docs/development/manufacturing-handover.md",
@@ -45845,15 +46552,15 @@
       "path": "docs/development/manufacturing-implementation.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "9714c8895de73d568327dd562b4f2bcf238709da107343c3ff7ffa37a2214ed3",
-      "review": "2026-09-29 (gas store sizes and L2): 0.4.0 implementation section."
+      "sha256": "c2764f47730c4e7d90ae38f71df41190478918c498a1cce4a85daaaa2a18a6e7",
+      "review": "Manufacturing 0.5.0 (A2 cabin air regulator, crew bottle order), 29 September 2026: reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "docs/development/manufacturing-refinery-and-chemistry.md",
       "scope": "development design record; player text limited to names",
       "decision": "rewrite",
-      "sha256": "1dc24e116f92adac097a5c20b5d0a767544d7288eacd5b4ed72c9b141ddd2dee",
-      "review": "2026-09-29 (gas store sizes and L2): store sizing basis, bulk gas price and filling physics with a citation marked to verify."
+      "sha256": "f4294b090b53dfbb7267e41b8e48eae184a98272041133e8c96c26a05b71ca55",
+      "review": "Manufacturing 0.5.0 (A2 cabin air regulator), 29 September 2026: reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "docs/development/manufacturing-research.md",
@@ -46101,8 +46808,8 @@
       "path": "docs/development/vanilla-precedence-audit.md",
       "scope": "contributor audit record: findings, native evidence, verdicts and owner checks",
       "decision": "review as contributor documentation; player-facing effects are described in the owning guides",
-      "sha256": "6f32eed271c38abfdc0da1c71bf6a8ef4f55769ae67d597f41d326b2add9c51a",
-      "review": "2026-09-29 (gas store sizes and L2): canister filling recorded as additive."
+      "sha256": "5dab98fc7f83e0eb4cbdac4b8f61f353048f9fea8aa66cf0d1e6f8d543440e32",
+      "review": "Manufacturing 0.5.0 (A2 cabin air regulator), 29 September 2026: reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "docs/development/workshop-publication.md",
@@ -46122,8 +46829,8 @@
       "path": "docs/equipment-economy.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "596afee29ad4353382cff4a711abb9b7365472dc4655dc6270eedff633c8b49e",
-      "review": "2026-09-29 (R4/R5 reservoirs): reviewed with this change; wording, links and maintained values checked."
+      "sha256": "e93476390333527483e9c51c3a854b83c6c9afa3aac7117ecd76fd1e3e81c080",
+      "review": "Manufacturing 0.5.0 (A2 cabin air regulator), 29 September 2026: reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "docs/fluid-network-operations.md",
@@ -46213,15 +46920,15 @@
       "path": "docs/manufacturing-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "retain",
-      "sha256": "2da3f3e89d7988cf3453de7fbca3d671d603f154e1a7174d663210743187c0b1",
-      "review": "2026-09-29 (gas store sizes and L2): generated entries for the new stores and the L2 reviewed from config wording."
+      "sha256": "eed48833916d888e3c0b5b98469976265ceb1c0f4ff5c393030d4e9debc6a172",
+      "review": "Manufacturing 0.5.0 (A2 cabin air regulator, crew bottle order), 29 September 2026: reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "docs/manufacturing-player-guide.md",
       "scope": "current player operating guide",
       "decision": "rewrite",
-      "sha256": "a82299f94cee4e13b064038237812c4b19cc99351229e324909c4e041102a8da",
-      "review": "2026-09-29 (gas store sizes and L2): gas stores and canister filling sections lead with steps; table, dangers, limits and owner checks updated; stale version line replaced by a link."
+      "sha256": "01300bb1798a03f87f0dcef08473c1919807a2c9c40be737a178cfb70cddbb6c",
+      "review": "Manufacturing 0.5.0 (A2 cabin air regulator, crew bottle order), 29 September 2026: reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "docs/material-port-pairing.md",
@@ -46339,8 +47046,8 @@
       "path": "workshop/PhobosManufacturing/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "df1fc405d4f4cb818aa5a704f75bd579d88ba10014930e88a454a4f2fb2fae98",
-      "review": "2026-09-29 (R4/R5 reservoirs): water sources list every silo and reservoir size."
+      "sha256": "77d1c3580a14a468246b0b4e77022b208c6f2442acbf90af7aaf9a0bf9f70b8e",
+      "review": "Manufacturing 0.5.0 (A2 cabin air regulator, crew bottle order), 29 September 2026: reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "workshop/PhobosShipbreaker/page.bbcode",
@@ -46382,8 +47089,8 @@
     {
       "path": "config/item-reference.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "2bae103f5e39a2bd9aced24675c61698d3217aeb12aff9a2b3498f76b20dd6c8",
-      "review": "2026-09-29 (R4/R5 reservoirs): reviewed with this change; wording, links and maintained values checked."
+      "sha256": "880d3192c998202d8073af6bbd425cb228e9562685910b8d326c4cb7f922f491",
+      "review": "Manufacturing 0.5.0 (A2 cabin air regulator, crew bottle order), 29 September 2026: reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "mods/PhobosAgriculture/framework/equipment-names.json",
@@ -46437,8 +47144,8 @@
     {
       "path": "mods/PhobosManufacturing/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "99f59a973e5565853179d99e70d85b5062393b82858f03adac5a468a164ff39f",
-      "review": "2026-09-29 (gas store sizes and L2): version only."
+      "sha256": "01658554670ca2016b516448875cc33b0a842f554abb4fbfdc02d88111cdda9a",
+      "review": "Manufacturing 0.5.0 (A2 cabin air regulator), 29 September 2026: reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "mods/PhobosShipbreaker/framework/equipment-names.json",

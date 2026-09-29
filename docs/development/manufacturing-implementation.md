@@ -153,3 +153,31 @@ the X2's power-receipt pattern and moves gas through Framework `GasTransfers`,
 settling the RCS manifold's buffered draws first. Medium and large stores are not
 salvage loot; the engineering-loot share is split across machines and small
 stores only.
+
+## 0.5.0: the A2 cabin air regulator
+
+New save-stable identities: `PhobosCabinAirRegulator*` (four forms) and the record
+`ManufacturingRegulator` (on, both set points, both store links and the running
+totals). It reuses the map point `PhobosGasLineIn` and the gas line fixture port.
+
+`RegulatorService` runs from the plugin's two-second scan for every installed A2,
+not from the power step: it needs no work demand, only the native `IsPowered`
+condition that its 0.1 kW appliance power sets. It reads the room through Framework
+`RoomHeat.Read`, computes the shortfall in `RegulatorRules` (pure, checked in
+`RegulatorChecks`), drains the linked store and emits into the room through
+`RoomGas`. The elapsed time comes from the game clock, so fast-forward scales the
+flow and a pause adds nothing; a jump of more than an hour is skipped rather than
+paid as one burst. Unlike the batch machines it keeps working after a reload,
+like the game's own air pumps; its record is protected and accepted like the
+others. Links resolve through the same gas-line connection as the L2.
+
+The L2 gains the crew order Keep suit bottles charged: `FillerCrewProvider`
+implements Framework's `ICrewWorkProvider` and `ICrewOrderPresentation` with one
+recipe, `charge-bottles`, and a right-click toggle `PhobosCanisterFillerBottleOrder`
+on the intact installed form (the Shipbreaker `ToggleFeeding` pattern: ship-wide
+source, routine resume, off is a manual stop). Hauling is Framework
+`CrewLogistics.Supply`/`Output`, so its rules about hands, locked containers and
+system bins apply unchanged; our filter adds "uncharged" (below
+`FillerRules.ChargedFraction`, 0.9) and excludes bottles already in an L2's rack.
+The only machine action is Start, offered when the rack holds an uncharged bottle
+and the station is paused. Stopping the order never stops a running fill.

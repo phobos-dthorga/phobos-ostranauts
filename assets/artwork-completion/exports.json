@@ -2192,5 +2192,31 @@
     "registrationReference": null,
     "patches": null,
     "fullFootprint": true
+  },
+  {
+    "key": "a2-cabin-air-regulator",
+    "sourceSHA256": "e6c22f494ce2234c314848488f788660e5c914bc73f9913999cb803dc1176e87",
+    "nativeSize": [
+      32,
+      32
+    ],
+    "pivot": [
+      16,
+      16
+    ],
+    "sourceBounds": [
+      0,
+      0,
+      128,
+      128
+    ],
+    "exports": {
+      "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosCabinAirRegulator.png": "30fc7b2f8106045d440ee4f54aeb50ccc5501eea4462697e0acc6416b6bee28f",
+      "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosCabinAirRegulatorNormal.png": "7e4297a0c170e01336e183a0cfa61b23f5bf84a0d480bd40c09a68f2b5e9ae12"
+    },
+    "normal": "Neutral tangent normal with matching alpha; no authored relief",
+    "registrationReference": null,
+    "patches": null,
+    "fullFootprint": true
   }
 ]

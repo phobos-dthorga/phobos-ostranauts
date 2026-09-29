@@ -17,7 +17,7 @@ namespace PhobosManufacturing;
 public sealed class Plugin : BaseUnityPlugin
 {
     public const string Id = ManufacturingRules.Owner;
-    public const string Version = "0.4.0";
+    public const string Version = "0.5.0";
     public const string MinimumFrameworkVersion = "0.44.0";
     internal static Action<string> Log = _ => { };
     private Harmony? harmony;
@@ -29,13 +29,15 @@ public sealed class Plugin : BaseUnityPlugin
         ShipbreakerStock.Detect();
         FrameworkLifecycle.ContentLoading += Load;
         EquipmentProviders.Register(new Provider());
+        Phobos.Ostranauts.Framework.Crew.CrewWork.Register(new FillerCrewProvider());
         Phobos.Ostranauts.Framework.Propulsion.RcsPropellant.Register(ManifoldService.Instance);
         Phobos.Ostranauts.Framework.Trading.BulkSupplies.Register(StoreService.GasSupplies);
         Log(Text.Get("Plugin.loaded", Version, ShipbreakerStock.PluginPresent ? Text.Get("Plugin.with_shipbreaker") : Text.Get("Plugin.without_shipbreaker")));
     }
     private static void Load() { ResetServices(); Content.Register(Log); }
-    internal static void ResetServices() { RefineryService.Reset(); ProcessorService.Reset(); SabatierService.Reset(); StoreService.Reset(); ManifoldService.Reset(); FillerService.Reset(); }
-    /// <summary>A damaged fuel store has no native tick of its own: every couple of seconds its leak advances.</summary>
+    internal static void ResetServices() { RefineryService.Reset(); ProcessorService.Reset(); SabatierService.Reset(); StoreService.Reset(); ManifoldService.Reset(); FillerService.Reset(); RegulatorService.Reset(); }
+    /// <summary>A damaged fuel store has no native tick of its own: every couple of seconds its leak advances, and every
+    /// A2 regulator checks its room.</summary>
     private void Update()
     {
         if (UnityEngine.Time.unscaledTime < nextScan) return;
@@ -43,11 +45,15 @@ public sealed class Plugin : BaseUnityPlugin
         if (!Content.Ready || CrewSim.objInstance == null || !CrewSim.objInstance.FinishedLoading || DataHandler.mapCOs == null) return;
         foreach (var co in DataHandler.mapCOs.Values.Where(c => c != null && GasStores.IsFamily(c.strCODef) && c.HasCond("IsDamaged") && c.HasCond("IsInstalled")).ToArray())
             StoreService.Tick(co);
+        foreach (var co in DataHandler.mapCOs.Values.Where(c => c != null && c.strCODef == RegulatorRules.Installed).ToArray())
+        {
+            try { RegulatorService.Tick(co); } catch (Exception ex) { Log(ex.ToString()); }
+        }
     }
     private void OnDestroy()
     {
         FrameworkLifecycle.ContentLoading -= Load;
-        EquipmentProviders.Unregister(Id); Phobos.Ostranauts.Framework.Liquids.BulkVessels.Unregister(Id); Phobos.Ostranauts.Framework.Trading.BulkSupplies.Unregister(Id);
+        EquipmentProviders.Unregister(Id); Phobos.Ostranauts.Framework.Crew.CrewWork.Unregister(Id); Phobos.Ostranauts.Framework.Liquids.BulkVessels.Unregister(Id); Phobos.Ostranauts.Framework.Trading.BulkSupplies.Unregister(Id);
         Phobos.Ostranauts.Framework.Propulsion.RcsPropellant.Unregister(ManifoldService.Instance.Id);
         ResetServices(); harmony?.UnpatchSelf();
     }
@@ -184,6 +190,19 @@ internal static class ControlsPatch
     }
 }
 
+// "Keep suit bottles charged": a toggle like the game's own Toggle Power, on the intact installed L2.
+[HarmonyPatch(typeof(Interaction), nameof(Interaction.ApplyEffects))]
+internal static class BottleOrderPatch
+{
+    private static void Postfix(Interaction __instance, bool isCancelIa)
+    {
+        if (isCancelIa || __instance.strName != FillerRules.BottleOrder || __instance.objThem == null || __instance.objUs != CrewSim.GetSelectedCrew()) return;
+        bool done = FillerCrewProvider.Toggle(__instance.objThem, out string message);
+        var actor = __instance.objUs;
+        if (actor != null && !actor.bDestroyed && actor.HasCond("IsHuman")) actor.LogMessage(message, done ? "Neutral" : "Bad", "Game");
+    }
+}
+
 // Removal work is refused when it is offered, never by blocking native destruction; a refused finish still
 // closes the game's task (owner decision, 28 September 2026).
 [HarmonyPatch(typeof(Interaction), "TriggeredInternal")]
@@ -247,7 +266,7 @@ internal static class ConsolePatch
         var co = parts.Length >= 3 ? Content.Resolve(parts[2]) : null;
         string message = Text.Get("Console.help");
         string action = parts.Length == 4 && new[] { "link", "water", "store", "canister", "vent", "hydrogen", "methane", "feed", "order", "source-on", "source-off", "unlink",
-            "mode", "target", "draw", "transfer" }.Contains(parts[1]) ? parts[1] + ":" + parts[3] : parts[1];
+            "mode", "target", "draw", "transfer", "o2", "pressure", "oxygen", "nitrogen" }.Contains(parts[1]) ? parts[1] + ":" + parts[3] : parts[1];
         var provider = new Provider();
         __result = Content.Machine(co) && provider.Command(co!, null, action, out message); strInput += "\n" + message; return false;
     }
