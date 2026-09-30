@@ -236,3 +236,31 @@ true native result for a registered selector name; unnamed and unknown triggers,
 including the game's Blank trigger, keep their native outcome, and nothing is
 gated on a name pattern. Checked natively with null, empty and unrelated names.
 Verdict: the same amendment, one hook.
+
+## Carved mining shares and the game's ice asteroids (Framework 0.48.0, Manufacturing 0.8.0, Shipbreaker 0.44.0, 30 September 2026)
+
+Owner decisions: new mined material takes a share of an existing entry in the
+game's loot tables instead of adding a roll, and the game's own ice asteroids
+should appear in play.
+
+- **Carved shares.** Framework `AdditiveLoot.CarveChoice` amends a native table in
+  place: the donor unit's chance is reduced and the new choice sits right after
+  it in the same cumulative expression, so every other unit keeps its band and
+  the table never yields more. Tables are reassigned, never mutated (the game
+  caches parsed units by expression). A table another mod rewrote afterwards is
+  left alone and logged. Verdict: an amendment of native tables, no replacement.
+- **The game's ice asteroids.** The game ships `ClusterI01` (its `Ice01`
+  blueprint: ice walls, ice floors, a stony edge) and references it only from its
+  own `RandomAsteroidI` and `RandomAsteroidAutoGen` pickers, which no star-system
+  field uses. Shipbreaker carves it into `RandomAsteroidC` (from `ClusterC02`) and
+  `RandomAsteroidS` (from `ClusterS01`) at 0.05 each, behind the
+  `Mining/SpawnIceFields` setting (on by default). This uses the developer's own
+  content and tiles and adds no new world object. Only asteroids generated for a
+  new game change; saves keep the asteroids already rolled. Because the cluster is
+  native, a save that later drops the mod still resolves it. Verdict: additive
+  use of shipped but unreferenced native content, reversible by setting.
+- **Deposit ice.** Shipbreaker carves 0.05 water ice (`ItmIce01`) into
+  `ItmRandomMineralCClass` from silicates, behind `Mining/ExtraDepositIce`, so
+  existing saves see more ice on future pulls. Manufacturing's clay hydrates
+  take 0.10 of the same donor. Verdict: amendment within the game's own C-class
+  composition.

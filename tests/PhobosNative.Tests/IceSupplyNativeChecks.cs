@@ -1,0 +1,38 @@
+using System;
+using System.Linq;
+using Phobos.Ostranauts.Framework.Registration;
+using PhobosShipbreaker;
+using PhobosShipbreaker.Core;
+
+/// <summary>Shipbreaker's ice supply against the game's own tables: the game's ice cluster joins the C- and S-class
+/// field pickers right after its donors, the game itself already references that cluster (its unused ice picker),
+/// C-class deposits carry extra water ice beside Manufacturing's clay on the shared silicates donor, and switching
+/// both settings off restores the game's tables exactly.</summary>
+internal static class IceSupplyNativeChecks
+{
+    internal static void Run(Action<bool, string> check)
+    {
+        string Single(string table) => DataHandler.dictLoot[table].aCOs.Single();
+        check(DataHandler.dictAsteroidClusterBlueprints.TryGetValue(IceSupplyRules.IceCluster, out var ice) && ice.aAsteroids.Any(a => a.StartsWith("Ice01=", StringComparison.Ordinal)),
+            "The game's own ice cluster blueprint is loaded and builds the Ice01 asteroid");
+        check(DataHandler.dictLoot["RandomAsteroidI"].aCOs.Any(e => e.Contains(IceSupplyRules.IceCluster + "=")), "The game already references its ice cluster, in a picker no star-system field uses");
+        check(Single(IceSupplyRules.CFields).Contains("ClusterC02=0.15x1|ClusterI01=0.05x1"), "C-class fields carry the game's ice cluster, carved from ClusterC02");
+        check(Single(IceSupplyRules.SFields).Contains("ClusterS01=0.45x1|ClusterI01=0.05x1"), "S-class fields carry the game's ice cluster, carved from ClusterS01");
+        string deposits = Single(IceSupplyRules.DepositTable);
+        check(deposits.Contains("ItmMineral04=0.25x1|ItmIce01=0.05x1|PhobosClayHydrates=0.1x1") && deposits.Contains("ItmIce01=0.1x1"),
+            "C-class deposits: silicates 0.25, carved water ice 0.05 and clay 0.10, with the game's own 0.10 water ice unchanged");
+
+        var original = new[] { IceSupplyRules.CFields, IceSupplyRules.SFields, IceSupplyRules.DepositTable }
+            .ToDictionary(t => t, t => LootCarveRegistry.Original(t, DataHandler.dictLoot[t])!.ToArray());
+        try
+        {
+            Content.Prepare(iceFields: false, depositIce: false).Publish();
+            check(DataHandler.dictLoot[IceSupplyRules.CFields].aCOs.SequenceEqual(original[IceSupplyRules.CFields]) &&
+                  DataHandler.dictLoot[IceSupplyRules.SFields].aCOs.SequenceEqual(original[IceSupplyRules.SFields]), "Ice fields switched off: the game's field pickers are exactly restored");
+            check(!Single(IceSupplyRules.DepositTable).Contains("ItmIce01=0.05x1") && Single(IceSupplyRules.DepositTable).Contains("ItmMineral04=0.3x1|PhobosClayHydrates=0.1x1"),
+                "Extra deposit ice switched off: only Manufacturing's clay remains carved");
+        }
+        finally { Content.Prepare().Publish(); }
+        check(Single(IceSupplyRules.DepositTable) == deposits, "Switching the settings back on restores the same tables");
+    }
+}

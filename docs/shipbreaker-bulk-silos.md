@@ -44,7 +44,26 @@ keeps checking every few seconds; the queue stays armed.
 Right-click **Load feed by crew (on/off)** keeps the ice feed loaded from
 anywhere aboard, through time-skips and reloads, until you switch it off; the
 same order appears under [crew standing orders](crew-automation.md), where you
-can pin an input store and an output store for the gangue.
+can pin an input store and an output store for the gangue. A
+[material bin](shipbreaker-material-bins.md) makes a good store for both.
+
+## Where to find water ice
+
+Water ice comes from mining. Since Shipbreaker 0.44.0:
+
+- **Ice asteroids.** The game has its own ice asteroids (ice walls over ice
+  floors with a stony rim) but never places them. Shipbreaker lets them appear
+  in C- and S-class asteroid fields, about one asteroid in twenty. Break an ice
+  wall for water ice, sometimes methane ice, and ice gangue. Only asteroids
+  generated for a new game are affected; a save keeps the asteroids it already
+  has.
+- **Dark (C-class) deposits.** Mining a C-class ore deposit gives water ice about
+  one pull in seven, in place of some silicates. This works in existing saves
+  too.
+
+Both are settings (`Mining/SpawnIceFields` and `Mining/ExtraDepositIce` in the
+Shipbreaker configuration), on by default. Switching one off restores the game's
+own odds for new rolls.
 
 ## Fill and use the silo
 

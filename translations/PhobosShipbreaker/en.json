@@ -882,5 +882,9 @@
   "Bin.name_large": "Material Bin",
   "Bin.description": "A sealed {2} x {2} bin in a {0:F0} kg housing, with a {1} x {1} storage grid for mined material only: ore, loose regolith, gangue, water and methane ice, and mined chunks. Ore stacks six to a cell. Crew can fetch from it and put products into it like any unlocked container, and the lid keeps loose rock from drifting off.",
   "Bin.missing_native_trigger": "Material bins not registered: the game's {0} container rule is missing.",
-  "EquipmentEconomy.empty_the_bin_before_dismantling": " Empty the bin before dismantling. Repair replaces failed parts; Restore treats wear using tools."
+  "EquipmentEconomy.empty_the_bin_before_dismantling": " Empty the bin before dismantling. Repair replaces failed parts; Restore treats wear using tools.",
+  "Settings.spawn_ice_fields": "Let the game's own ice asteroids appear in C- and S-class asteroid fields, about one asteroid in twenty. Only asteroids generated for a new game are affected; asteroids already in a save stay as they were.",
+  "Settings.extra_deposit_ice": "Let C-class ore deposits give water ice a little more often, in place of some silicates. Affects future mining in existing saves too.",
+  "Ice.missing_cluster": "Ice asteroid fields not added: the game's {0} cluster blueprint is missing.",
+  "Ice.missing_table": "Ice supply not added to loot table {0}: the table is missing."
 }

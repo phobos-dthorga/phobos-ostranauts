@@ -38,7 +38,7 @@ published-release or installed-version claims. Current build baseline:
 | Mod | Version | What it does | Status / guide |
 | --- | --- | --- | --- |
 | **Phobos Framework** | 0.48.0 | Shared construction, inventory, controls and saved state | Required by content mods; [author guide](docs/development/framework-author-guide.md) |
-| **Phobos Shipbreaker** | 0.43.0 | Captured-wall reclamation and detached-wall processing, metal recovery, material routing, industrial console and electric furnace | Experimental; [player guide](docs/player-guide.md), [furnace](docs/furnace-player-guide.md) |
+| **Phobos Shipbreaker** | 0.44.0 | Captured-wall reclamation and detached-wall processing, metal recovery, material routing, industrial console and electric furnace | Experimental; [player guide](docs/player-guide.md), [furnace](docs/furnace-player-guide.md) |
 | **Phobos Auto Nav** | 0.29.0 | Shared Polaris hub: N1 navigation/docking, N2 pursuit and N3 limited volleys/optional aiming | Earlier guidance has owner-reported gameplay success; current features need evaluation; [guide](docs/development/auto-navigate-adaptation.md) |
 | **Phobos Agriculture** | 0.22.0 | Potato/lettuce cultivation, visible growth, nutrient-solution piping and galley cooking | First gameplay candidate; [guide](docs/agriculture-player-guide.md) |
 | **Phobos Manufacturing** | 0.8.0 | Fennmark V4 refinery, X2 electrolysis cell, K2 Sabatier reactor, gas stores in three sizes, L2 canister filling station, A2 cabin air regulator and P1 RCS manifold: mined ore into water, metal stock, oxygen, cabin air, bottled gas and thruster propellant | Requires Framework 0.48.0; water from an S3 or R3; [player guide](docs/manufacturing-player-guide.md) |

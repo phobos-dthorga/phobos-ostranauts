@@ -42,7 +42,8 @@ internal static class Content
                 log(Status + "\n" + DependencyStatus);
                 return;
             }
-            var prepared = Prepare(Plugin.Options.ControlsKey.ToString(), Plugin.Options.CycleSeconds, Plugin.Options.IdleKW, Plugin.Options.WorkingKW, Plugin.Options.CollectorKW, Plugin.Options.ReclaimerKW);
+            var prepared = Prepare(Plugin.Options.ControlsKey.ToString(), Plugin.Options.CycleSeconds, Plugin.Options.IdleKW, Plugin.Options.WorkingKW, Plugin.Options.CollectorKW, Plugin.Options.ReclaimerKW,
+                Plugin.Options.SpawnIceFields, Plugin.Options.ExtraDepositIce);
             prepared.Publish();
             foreach (var job in prepared.Installables.Values)
                 if (!string.IsNullOrEmpty(job.strStartInstall)) installedDefinitions.Add(job.strStartInstall);
@@ -59,7 +60,8 @@ internal static class Content
         }
     }
 
-    internal static NativeDefinitions Prepare(string controlsKey = "F9", double cycleSeconds = 60, double idleKW = 0.12, double workingKW = 30, double collectorKW = CollectorRules.WorkingKW, double reclaimerKW = ReclaimerRules.WorkingKW)
+    internal static NativeDefinitions Prepare(string controlsKey = "F9", double cycleSeconds = 60, double idleKW = 0.12, double workingKW = 30, double collectorKW = CollectorRules.WorkingKW, double reclaimerKW = ReclaimerRules.WorkingKW,
+        bool iceFields = true, bool depositIce = true)
     {
         var prepared = MachineDefinitions.Create();
 
@@ -145,6 +147,7 @@ internal static class Content
         foreach (string id in new[] { ProcessRules.AssemblySection, ReclaimerRules.Section, FurnaceRules.Section })
             ItemHandling.Cumbersome(prepared, id);
         ItemHandling.Apply(prepared);
+        IceSupply.Add(prepared, iceFields, depositIce);
         return prepared;
     }
 

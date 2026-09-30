@@ -28,7 +28,8 @@ internal static class LootCarveNativeChecks
     internal static void Run(Action<bool, string> check, Action<Action, string> throws)
     {
         const string item = "ItmRock05SalvageOutput", donor = "ItmMineralStone01", choice = "ItmMineral02";
-        const string ship = "RandomAsteroidC", cluster = "ClusterI01", field = "ClusterC02";
+        // RandomAsteroidM: a picker no published mod carves, so this test never disturbs Shipbreaker's ice fields.
+        const string ship = "RandomAsteroidM", cluster = "ClusterI01", field = "ClusterS01";
         var itemTable = DataHandler.dictLoot[item]; var shipTable = DataHandler.dictLoot[ship];
         string[] itemOriginal = itemTable.aCOs.ToArray(), shipOriginal = shipTable.aCOs.ToArray();
         var itemBands = Bands(itemTable); var shipBands = Bands(shipTable);
@@ -51,7 +52,7 @@ internal static class LootCarveNativeChecks
                 int donorAt = after.FindIndex(b => b.Name == carved);
                 check(donorAt >= 0 && after[donorAt + 1].Name == taken, table.strName + ": the carved choice sits right after its donor");
             }
-            check(shipTable.aCOs.Single().Contains("ClusterC02=0.15x1|ClusterI01=0.05x1"), "The asteroid-field picker carries a carved cluster in the game's own format");
+            check(shipTable.aCOs.Single().Contains("ClusterS01=0.3x1|ClusterI01=0.05x1"), "The asteroid-field picker carries a carved cluster in the game's own format");
             check(Parsed(shipTable).Single().Any(u => u.strName == cluster && Math.Abs(u.fChance - 0.05) < 1e-6), "The game parses the carved cluster as a positive choice");
 
             string[] once = itemTable.aCOs.ToArray();

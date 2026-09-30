@@ -234,6 +234,13 @@ the T2's thin supply.
   is the ice consumer); planned for Shipbreaker's ice-supply release. Methane
   ice's native price will be corrected in place in the same release as the
   clathrate recipe (D1), so processing it still loses value.
+- **Implemented (Shipbreaker 0.44.0):** `ClusterI01` carved into `RandomAsteroidC`
+  (from `ClusterC02`) and `RandomAsteroidS` (from `ClusterS01`) at 0.05 each, and
+  0.05 water ice into C-class deposits from silicates (silicates 0.40 to 0.25 with
+  the clay). Water ice per C-class deposit pull rises from about 0.095 to 0.14.
+  Moving 0.05 of each C-class find from silicates ($200) to water ice ($1,200)
+  raises that find's expected sale value by about $50. Recorded in the
+  [vanilla-precedence audit](vanilla-precedence-audit.md).
 
 ### B. New feedstocks (new Phobos identities)
 
@@ -319,6 +326,10 @@ blueprint with different vein loot.
 If the owner prefers not to spawn the game's `ClusterI01`, a Phobos ice cluster
 built from the native ice tiles achieves the same supply with our own weight and
 setting. Same prerequisites as A5 plus A4.
+
+**Not needed for supply (30 September 2026):** the owner chose A5, now
+implemented. A Phobos ice cluster remains open as creative work (for example an
+ice body with its own veins or chunks) alongside C1 and C2.
 
 ### D. New uses for native ores (no new ore identity)
 

@@ -25,6 +25,18 @@ Dates on Draft entries record preparation, not Steam publication.
 - Earlier capture-only research is superseded for supported ordinary walls by the 0.24.0 reclamation implementation below. Broader structural recipes, repeated furnace batches and whole-wreck completion remain outside this round.
 - Keep [NASA Goddard's Raven research](https://www.nasa.gov/general/nasas-hybrid-computer-enables-ravens-autonomous-rendezvous-capability/) and [ESA's LIRIS experiment by Airbus, Jena Optronik and Sodern](https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/ATV/ATV_views_Space_Station_as_never_before) as sensing context, separate from Blue Bottle Games native evidence and authored gameplay choices. No institutional endorsement or gameplay validation is implied.
 
+## [0.44.0] - 2026-09-30 - Draft
+
+### Added
+
+- Water ice for the T2 is easier to find. The game has its own ice asteroids (ice walls over ice floors with a stony rim) but never places them; Shipbreaker now lets them appear in C- and S-class asteroid fields, about one asteroid in twenty. Breaking an ice wall gives water ice, sometimes methane ice, and ice gangue.
+- C-class ore deposits give water ice about one pull in seven instead of one in ten, in place of some silicates. Nothing is added on top: each find takes its share from an existing one, so the game's other odds are unchanged.
+- Two settings, both on by default: Mining/SpawnIceFields and Mining/ExtraDepositIce. Switching one off restores the game's own odds for new rolls.
+
+### Compatibility and limits
+
+- Ice asteroids appear only in asteroids generated for a new game; a save keeps the asteroids it already has. Deposit ice applies to future mining in existing saves. The ice asteroids are the game's own, so a save that later drops the mod still loads them. Moving some C-class finds from silicates to water ice raises their average sale value. Requires Phobos Framework 0.48.0 or newer. Offline checks are not gameplay validation.
+
 ## [0.43.0] - 2026-09-30 - Draft
 
 ### Added

@@ -125,6 +125,7 @@ manufacturing.Publish();
 ManufacturingNativeChecks.Run(manufacturing, PhobosManufacturing.Content.Prepare(false), game, repo, Check, Throws);
 LootCarveNativeChecks.Run(Check, Throws);
 BinNativeChecks.Run(prepared, Check);
+IceSupplyNativeChecks.Run(Check);
 // Exercise the game's own data-only trigger evaluator against its actual wall
 // definition: the ordinary solid-container filter caused the grey inventory bug.
 var wallData = new DataCO(DataHandler.dictCOs[ProcessRules.Wall]);
