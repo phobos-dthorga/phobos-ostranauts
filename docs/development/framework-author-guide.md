@@ -644,6 +644,8 @@ Shipbreaker uses these helpers for a finite residue collector. Floor sockets,
 wall support, filters' chosen IDs, timing/balance and UI remain consumer concerns.
 Other mods need neither Shipbreaker nor its recipes. There is no global route
 registry, endpoint discovery, lock manager or automatic native-power patch here.
+(Framework 0.56.0 adds network families with participants and `LineReach`; see
+[line networks](#line-networks-shared-stores-and-the-provider-panel-0560) below.)
 
 ## Saved material ports (0.5.0)
 
@@ -1232,3 +1234,63 @@ content mod would otherwise scan, format, write or search on every power step.
   are checked fresh on every call; the pipe and floor layout is reread every two real
   seconds or on a mode switch, destruction or ship membership change. `NativeFluidRoute.Find`
   remains the uncached search.
+
+## Line networks, shared stores and the provider panel (0.56.0)
+
+The owner's link rule (30 September 2026): a machine reaches a store, or another
+machine, only through touching equipment (footprints touching or one tile apart,
+`BulkVessels.WithinOneTile`) or a line network, never across open floor. The station
+refuelling kiosk is the only exception. Touching suitable equipment joins as if
+piped, and joins chain across the ship.
+
+- **Network families.** `new FluidSegmentFamily(id, compatible, ports, adjacencyJoins)`:
+  `ports` returns an object's map points for the family (null or empty: not a
+  participant); `adjacencyJoins` lets participants within one tile join. One
+  instance per id (`FluidRouteCache.Register` refuses a second). One object scan per
+  ship builds every registered family; a mode switch invalidates only its own ship,
+  and only for segments, participants, floors and walls; a new snapshot's recheck
+  starts consumed. `FluidTopology` gains participants, `ParticipantsConnected` and
+  `Hops` (one search per source participant per snapshot, remembered). Families
+  without participants (irrigation, coolant, whose rules allow one pump or furnace
+  per circuit) behave exactly as before.
+- **`Liquids.LineReach`.** `Of(a, b, family)` returns `Adjacent`, `Line` or `None`
+  (touching first, then the same network; null family: touching only). `Hops`,
+  `Reachable` (for candidate lists) and `Members` (a participant's network). The
+  named-point overload keeps the gas line's first form (bounded route from a store
+  outlet to a machine point). A bridging participant that became locked keeps
+  bridging until the snapshot is reread (two seconds at most).
+- **`Inventory.SharedPorts` and `PortBank` roles.** A vessel-side port becomes a bank
+  of `SharedPorts.Slots` (eight); slot zero keeps the old port id, so every saved link
+  reads unchanged. `PortBank` takes a role: `Sender` (the W2's racks) or `Receiver`
+  (a store fed by several machines). `SharedPorts.TryLink(ours, vessel, primary,
+  machineSends, resolve, out problem)` reuses a machine's slot, takes a free one, or
+  reclaims one whose machine resolves on the same ship and no longer points back.
+  `SharedPorts.Peer` builds the vessel-side port a machine is saved against;
+  `SharedPorts.Peers(vessel)` lists every linked machine for a panel.
+- **`Registration.LineDefinitions`, `LineLayers`, `LineJoints`, `LineJobFilter`.**
+  `LineDefinitions.Add(d, LineSegmentSpec)` publishes a 1 x 1 line family on the
+  shared pattern: its presence (and optional intact) condition, sprite trigger, joint
+  fixture loot, floor-only placement that forbids only its own family, pocketable
+  loose stacks and a draw layer from `LineLayers` (one per family, so families share
+  tiles without flicker). `AddPort(d, equipmentPrefix, line, point, x, y, socket)`
+  adds a port point and draws the joint; a tile already drawing another family gets a
+  combined loot, and further families on one item are redrawn by `LineJoints`' guarded
+  `Ship.UpdateTiles` postfix (the game refreshes only the item's own sheet trigger).
+  `LineJobFilter` makes the PDA paint filter count every registered line as Conduits
+  and never as Equipment, by each family's own machine condition; the game's conduit
+  trigger itself is never changed (it also drives the power conduit's jobs).
+  Lane art: `scripts/export-line-art.py` and `assets/line-art/README.md`.
+- **`Controls.ProviderPanel`.** The shared equipment Control Panel (Operation,
+  Connections, Details) over any `IEquipmentProvider` with `IEquipmentPanelFields`:
+  register a `ProviderPanelSpec` (native GUI key, provider, access, resolution, the
+  mod's own page texts). It redraws its page after a command and when a configuration
+  sheet applies a change (`ConsoleShell.Changed`, 0.55.0); fields may name their
+  current choice (`EquipmentField.Current`). Providers name their console groups with
+  `EquipmentProviders.RegisterGroup`.
+- **`Persistence.DefinitionMigrations`.** `Register(oldId, newId, recordRenames,
+  rewrite)` converts saved objects of a retired definition to their new equivalent
+  as the game spawns them (the ship's item list and each object's saved conditions),
+  renaming the listed property-map records and optionally rewriting their values; one
+  step only, idempotent, never touching a save file. The game rebuilds map points and
+  socket adds from definitions on load, so a conversion only renames.
+

@@ -54,10 +54,15 @@ internal static class FurnaceCoolingNativeChecks
             }
         }
         check(!typeof(FurnaceService).Assembly.GetReferencedAssemblies().Any(a => a.Name == "PhobosAgriculture"), "Furnace piping has no Agriculture dependency");
+        // Framework 0.56.0: the coolant line draws in its own lane (assets/line-art), no longer a byte copy of the
+        // irrigation pipe; the recorded export hashes are the evidence, the exporter's --check the reproduction.
+        var lanes = Newtonsoft.Json.Linq.JObject.Parse(File.ReadAllText(Path.Combine(repo, "assets/line-art/line-art-exports.json")))["exports"]!;
         foreach (string suffix in new[] { "", "Normal", "Sheet", "SheetNormal" })
-            check(File.ReadAllBytes(Path.Combine(repo, "mods/PhobosShipbreaker/images/phobos/shipbreaker/FurnaceCoolantPipe" + suffix + ".png"))
-                .SequenceEqual(File.ReadAllBytes(Path.Combine(repo, "mods/PhobosAgriculture/images/phobos/agriculture/WaterPipe" + suffix + ".png"))),
-                "Original shared fitting and normals are reused without resampling or game assets");
+        {
+            string rel = "mods/PhobosShipbreaker/images/phobos/shipbreaker/FurnaceCoolantPipe" + suffix + ".png";
+            string actual = BitConverter.ToString(System.Security.Cryptography.SHA256.Create().ComputeHash(File.ReadAllBytes(Path.Combine(repo, rel)))).Replace("-", "").ToLowerInvariant();
+            check((string?)lanes[rel] == actual, "Coolant line art is the recorded lane export, not a game asset: " + suffix);
+        }
         var item = prepared.Items[FurnaceRules.ThermalPort + "Installed"];
         var furnace = prepared.Objects[FurnaceRules.Prefix + "Installed"];
         foreach (var socket in new[] { FurnaceCooling.Socket.Left, FurnaceCooling.Socket.Right, FurnaceCooling.Socket.Rear })

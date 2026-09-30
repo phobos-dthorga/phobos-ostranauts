@@ -247,52 +247,25 @@ internal static class Definitions
 
     /// <summary>The Fennmark propellant line, on the shared conduit pattern with its own identity and sprite trigger,
     /// so it never joins coolant or irrigation lines. Its art is a recorded recolour of the shared pipe sheet.</summary>
+    /// <summary>The gas line on Framework's shared segment pattern (Framework 0.56.0), in its own draw layer.</summary>
+    internal static LineSegmentSpec GasLineSpec() => new()
+    {
+        Prefix = PropellantLineRules.Prefix, Name = Text.Get("Line.name"), DamagedName = Text.Get("Line.name") + Text.Get("Content.damaged"),
+        Description = Text.Get("Line.description"), Art = ImagePath + LineArt, Present = PropellantLineRules.Segment, Intact = PropellantLineRules.WorkingSegment,
+        Kg = PropellantLineRules.Kg, Price = Economy.SupplyPrice(PropellantLineRules.Prefix), InstallTab = InstallMenu.Hvac, Controls = Controls,
+        LooseStack = EquipmentEconomy.LineStack, Layer = LineLayers.Gas
+    };
     private static void AddPropellantLine(NativeDefinitions d)
     {
-        string pipe = PropellantLineRules.Prefix;
-        foreach (string key in new[] { PropellantLineRules.Segment, PropellantLineRules.WorkingSegment })
-            d.Conditions[key] = new JsonCond { strName = key, strNameFriendly = Text.Get("Line.name"), strColor = "Neutral", nDisplaySelf = 2, nDisplayOther = 2 };
-        d.Triggers[pipe + "Sprite"] = new CondTrigger { strName = pipe + "Sprite", fChance = 1, fCount = 1, bAND = true, aReqs = new[] { PropellantLineRules.Segment }, aForbids = Array.Empty<string>(), aTriggers = Array.Empty<string>() };
-        foreach (bool intact in new[] { true, false })
-        {
-            string key = pipe + (intact ? "Adds" : "Off");
-            d.Loot[key] = new Loot { strName = key, strType = "condition", aCOs = intact ? new[] { PropellantLineRules.Segment + "=1x1", PropellantLineRules.WorkingSegment + "=1x1" } : new[] { PropellantLineRules.Segment + "=1x1" }, aLoots = Array.Empty<string>() };
-        }
-        d.Loot[pipe + "FixturePort"] = new Loot { strName = pipe + "FixturePort", strType = "condition", aCOs = new[] { PropellantLineRules.Segment + "=1x1" }, aLoots = new[] { "TILFixtureAdds=1x1" } };
-        ApplianceDefinitions.Add(d, pipe, Text.Get("Line.name"), Text.Get("Line.description"), 1, PropellantLineRules.Kg, Economy.SupplyPrice(PropellantLineRules.Prefix), ImagePath + LineArt, Controls, 0, InstallMenu.Hvac);
-        d.Power.Remove(pipe + "Power"); d.Interactions.Remove(pipe + "PowerChange");
-        foreach (string form in Forms)
-        {
-            bool installed = form.StartsWith("Installed", StringComparison.Ordinal), damaged = form.EndsWith("Dmg", StringComparison.Ordinal);
-            var co = d.Objects[pipe + form]; var item = d.Items[co.strItemDef];
-            co.strNameFriendly = co.strNameShort = Text.Get("Line.name") + (damaged ? Text.Get("Content.damaged") : "");
-            co.nStackLimit = installed ? 1 : EquipmentEconomy.LineStack;
-            co.jsonPI = null; co.aTickers = Array.Empty<string>(); co.aInteractions = Array.Empty<string>();
-            co.mapPoints = new[] { "use,0,-16" };
-            co.aStartingConds = co.aStartingConds.Where(x => !x.StartsWith("IsContainer=", StringComparison.Ordinal) && !x.StartsWith("IsCumbersome=", StringComparison.Ordinal)).Concat(new[] { "IsPocketable=1x1" }).ToArray();
-            co.nContainerWidth = co.nContainerHeight = 0; co.mapGUIPropMaps = Array.Empty<string>(); co.strContainerCT = null;
-            item.fZScale = 1.01f;
-            if (installed)
-            {
-                item.strImg = ImagePath + LineArt + "Sheet"; item.strImgNorm = item.strImg + "Normal";
-                item.bHasSpriteSheet = true; item.ctSpriteSheet = pipe + "Sprite";
-                item.aSocketAdds = new[] { pipe + (damaged ? "Off" : "Adds") };
-                item.aSocketForbids = Enumerable.Range(0, 9).Select(i => i == 4 ? pipe + "Off" : "Blank").ToArray();
-                item.aSocketReqs = Enumerable.Range(0, 9).Select(i => i == 4 ? "TILFloor" : "Blank").ToArray();
-            }
-        }
+        var line = GasLineSpec();
+        LineDefinitions.Add(d, line);
         // Every gas store gains a line port on the neighbouring tile of its local +X side, in the middle row, with pipe
         // art joining it at the footprint tile beside the port.
         foreach (var fuel in GasStores.All)
-            foreach (string form in Forms)
-            {
-                var co = d.Objects[fuel.Prefix + form];
-                var outlet = fuel.Outlet;
-                co.mapPoints = co.mapPoints.Concat(new[] { ManifoldRules.StoreOutlet + "," + outlet.X + "," + outlet.Y }).ToArray();
-                if (!form.StartsWith("Installed", StringComparison.Ordinal)) continue;
-                var item = d.Items[fuel.Prefix + form];
-                item.aSocketAdds[outlet.SocketIndex] = pipe + "FixturePort"; item.ctSpriteSheet = pipe + "Sprite";
-            }
+        {
+            var outlet = fuel.Outlet;
+            LineDefinitions.AddPort(d, fuel.Prefix, line, ManifoldRules.StoreOutlet, outlet.X, outlet.Y, outlet.SocketIndex);
+        }
     }
 
     private static void StripContainer(JsonCondOwner co)

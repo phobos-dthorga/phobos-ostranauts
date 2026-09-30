@@ -24,6 +24,16 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Fixed unreachable INSTALL entries; Firstlight-4, Hearth-2 and W2 appear under APPS, and irrigation conduit under MISC, including damaged forms. Existing inputs, placement and saved IDs are preserved.
 
+## [0.29.0] - 2026-09-30 - Draft
+
+### Changed
+
+- The irrigation conduit draws in its own lane and depth, a little thinner than before, so it can share a tile with other kinds of line. The PDA's Conduits filter takes it, and painting jobs on Equipment leaves it alone.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.56.0 or newer. Saves are unchanged. Offline checks are not gameplay validation.
+
 ## [0.28.0] - 2026-09-30 - Draft
 
 ### Fixed

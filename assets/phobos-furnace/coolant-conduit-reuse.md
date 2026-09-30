@@ -20,3 +20,8 @@ description. Internal bores are not depicted. Labels and circuit validity remain
 live. Distinguish irrigation and coolant equipment by name; visual identification
 and electrical overlap await owner evaluation. A later colour variant can change
 these exports without changing item IDs, thermal records or route rules.
+
+**Superseded by Framework 0.56.0 lane art (30 September 2026).** The coolant line now
+draws in its own lane with a green recolour of the same conduit palette, so it can
+share tiles with other line families and is told apart at a glance; the byte copy
+above is retired. See [the line art record](../line-art/README.md).

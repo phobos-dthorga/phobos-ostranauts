@@ -127,7 +127,8 @@ takes them through `BufferedDrains`. Connection checks (within one tile, or a
 `NativeFluidRoute` over intact propellant line, 64 tiles at most) are cached for five
 seconds. The manifold is not airtight and not a gas container, so the game's own
 refuelling never treats it as a canister (checked natively). The line art is a recorded
-recolour of the shared conduit sheet (`scripts/export-propellant-line-art.py`).
+recolour of the shared conduit sheet (`scripts/export-propellant-line-art.py`; since Framework 0.56.0 drawn in
+its own lane by `scripts/export-line-art.py`, see [the line art record](../../assets/line-art/README.md)).
 
 ## 0.4.0: gas store ladder, oxygen/nitrogen/CO2 stores and the L2 (Framework 0.44.0)
 

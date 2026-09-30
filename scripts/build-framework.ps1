@@ -6,6 +6,9 @@ $repoRoot = Split-Path -Parent $PSScriptRoot
 $gameRoot = (Resolve-Path -LiteralPath $OstranautsPath).Path
 & python (Join-Path $PSScriptRoot 'synthesize-completion-cue.py') --check
 if ($LASTEXITCODE -ne 0) { throw 'Shared completion audio export is stale.' }
+# The line families' lane art (Framework 0.56.0 layers), exported into each owning mod.
+& python (Join-Path $PSScriptRoot 'export-line-art.py') --check
+if ($LASTEXITCODE -ne 0) { throw 'Line artwork check failed.' }
 if (-not (Test-Path -LiteralPath (Join-Path $repoRoot 'external/phobos-scope/recording/Phobos.Scope.Recording/Phobos.Scope.Recording.csproj'))) {
     throw 'Initialize the pinned source dependency first: git submodule update --init --recursive'
 }

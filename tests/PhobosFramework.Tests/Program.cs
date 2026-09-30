@@ -27,6 +27,7 @@ PanelFeedbackChecks.Run(Check);
 LiquidDeliveryChecks.Run(Check);
 MixtureChecks.Run(Check);
 FluidNetworkChecks.Run(Check);
+NetworkChecks.Run(Check);
 BulkStorageChecks.Run(Check);
 BulkVesselChecks.Run(Check);
 CrewWorkChecks.Run(Check);

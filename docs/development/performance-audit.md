@@ -510,3 +510,24 @@ fields already computed. Console group headings look up a provider-registered
 label in one dictionary probe per heading while the list is built. The
 `phobosframework loot` report reads one loot table on demand. No new scans,
 cadences or per-step work. No performance capture accompanies this change.
+
+## 30 September: line networks and shared foundations (L1)
+
+L1 — Static review of Framework 0.56.0 with Manufacturing 0.22.0, Shipbreaker 0.52.0
+and Agriculture 0.29.0. The fluid topology now builds every registered line family
+for a ship in one object scan instead of one scan per family (three families today,
+up to six planned), so the scan count drops as families are added. A new snapshot's
+recheck starts consumed, removing the second rebuild every invalidation used to
+cause, and a mode switch invalidates only its own ship and only when the object is a
+segment, a participant, a floor or a wall before or after the switch: door cycles,
+crew face changes and unrelated equipment no longer flush every ship's snapshots.
+Network families add participants (one extra predicate per scanned object and a
+pairwise touching test over the few participants per family); union-find replaces
+the breadth-first component pass. Participant network steps are one search per
+source participant per snapshot, remembered. `LineReach` answers from the snapshot
+with fresh endpoint checks; candidate lists are built only when a panel or console
+builds its fields. The joint redraw postfix on `Ship.UpdateTiles` is one dictionary
+probe for every placement and does work only for equipment with ports on more than
+one line family; the PDA filter postfix runs when the player changes filters. Load-
+time definition conversion is one dictionary probe per saved item and saved object.
+No performance capture or measured FPS claim accompanies this change.

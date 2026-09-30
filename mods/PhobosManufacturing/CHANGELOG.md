@@ -6,6 +6,17 @@ Dates on Draft entries record preparation, not Steam publication.
 
 ## [Unreleased]
 
+## [0.22.0] - 2026-09-30 - Draft
+
+### Changed
+
+- The Fennmark gas line draws in its own lane and depth, so it can share a tile with other kinds of line. The PDA's Conduits filter now takes it, and painting jobs on Equipment leaves it alone.
+- The Control Panel runs on Framework's shared panel host, with the same pages and controls.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.56.0 or newer. Saves are unchanged, and links behave as before in this version. Offline checks are not gameplay validation.
+
 ## [0.21.0] - 2026-09-30 - Draft
 
 ### Fixed

@@ -28,15 +28,15 @@ internal static class IrrigationDefinitions
         foreach (var co in d.Objects.Values.Where(c => c.strName.StartsWith(Definitions.Rack, StringComparison.Ordinal)))
             co.mapPoints = co.mapPoints.Concat(new[] { Inlet + ",-40,8" }).ToArray();
 
-        foreach (string key in new[] { Segment, WorkingSegment })
-            d.Conditions[key] = new JsonCond { strName = key, strNameFriendly = Text.Get("water_pipe"), strColor = "Neutral", nDisplaySelf = 2, nDisplayOther = 2 };
-        d.Triggers[Pipe + "Sprite"] = new CondTrigger { strName = Pipe + "Sprite", fChance = 1, fCount = 1, bAND = true, aReqs = new[] { Segment }, aForbids = Array.Empty<string>(), aTriggers = Array.Empty<string>() };
-        foreach (bool intact in new[] { true, false })
+        var pipe = AgricultureEconomy.Supply(Pipe);
+        // Ordinary native install/repair workflow on Framework's shared segment pattern (Framework 0.56.0), with entirely
+        // independent tile sockets and its own draw layer.
+        LineDefinitions.Add(d, new LineSegmentSpec
         {
-            string key = Pipe + (intact ? "Adds" : "Off");
-            d.Loot[key] = new Loot { strName = key, strType = "condition", aCOs = intact ? new[] { Segment + "=1x1", WorkingSegment + "=1x1" } : new[] { Segment + "=1x1" }, aLoots = Array.Empty<string>() };
-        }
-        d.Loot[Pipe + "FixturePort"] = new Loot { strName = Pipe + "FixturePort", strType = "condition", aCOs = new[] { Segment + "=1x1" }, aLoots = new[] { "TILFixtureAdds=1x1" } };
+            Prefix = Pipe, Name = Text.Get("water_pipe"), Description = Text.Get("water_pipe_desc"), Art = "phobos/agriculture/WaterPipe",
+            Present = Segment, Intact = WorkingSegment, Kg = PipeKg, Price = pipe.price, InstallTab = InstallMenu.Miscellaneous,
+            Controls = Definitions.Controls, LooseStack = StackLimits.Pipes, Layer = LineLayers.Irrigation
+        });
         foreach (string form in new[] { "Installed", "InstalledDmg" })
         {
             foreach (string prefix in new[] { Supply, Definitions.Rack })
@@ -46,32 +46,14 @@ internal static class IrrigationDefinitions
                 fixture.ctSpriteSheet = Pipe + "Sprite"; // Native adjacent-sheet refresh, without making the appliance a sheet.
             }
         }
-        // Ordinary native install/repair workflow, with entirely independent tile sockets.
-        ApplianceDefinitions.Add(d, Pipe, Text.Get("water_pipe"), Text.Get("water_pipe_desc"), 1, PipeKg, AgricultureEconomy.Supply(Pipe).price, "phobos/agriculture/WaterPipe", Definitions.Controls, 0, InstallMenu.Miscellaneous);
-        d.Power.Remove(Pipe + "Power");
-        var pipe = AgricultureEconomy.Supply(Pipe);
         foreach (string form in new[] { "Installed", "Loose", "InstalledDmg", "LooseDmg" })
         {
-            bool installed = form.StartsWith("Installed"), damaged = form.EndsWith("Dmg");
-            var co = d.Objects[Pipe + form]; var item = d.Items[co.strItemDef];
-            co.nStackLimit = installed ? 1 : StackLimits.Pipes;
+            bool damaged = form.EndsWith("Dmg");
+            var co = d.Objects[Pipe + form];
             if (damaged)
             {
                 d.Installables[co.strName + "Repair"].aInputs = EconomyStock.RepairInputs(pipe.repairBill);
                 MaintenanceDefinitions.SetStat(co, "StatRepairProgressMax", pipe.repairWork);
-            }
-            co.jsonPI = null; co.aTickers = Array.Empty<string>(); co.aInteractions = Array.Empty<string>();
-            co.mapPoints = new[] { "use,0,-16" };
-            co.aStartingConds = co.aStartingConds.Where(x => !x.StartsWith("IsContainer=") && !x.StartsWith("IsCumbersome=")).Concat(new[] { "IsPocketable=1x1" }).ToArray();
-            co.nContainerWidth = co.nContainerHeight = 0; co.mapGUIPropMaps = Array.Empty<string>(); co.strContainerCT = null;
-            item.fZScale = 1.01f;
-            if (installed)
-            {
-                item.strImg = "phobos/agriculture/WaterPipeSheet"; item.strImgNorm = item.strImg + "Normal";
-                item.bHasSpriteSheet = true; item.ctSpriteSheet = Pipe + "Sprite";
-                item.aSocketAdds = new[] { Pipe + (damaged ? "Off" : "Adds") };
-                item.aSocketForbids = Enumerable.Range(0, 9).Select(i => i == 4 ? Pipe + "Off" : "Blank").ToArray();
-                item.aSocketReqs = Enumerable.Range(0, 9).Select(i => i == 4 ? "TILFloor" : "Blank").ToArray();
             }
             string waste = pipe.remainder ?? Pipe + "Waste";
             if (!d.Objects.ContainsKey(waste)) MaintenanceDefinitions.Remainder(d, waste, Text.Get("housing_waste"), PipeKg);

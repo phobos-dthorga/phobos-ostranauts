@@ -1,0 +1,23 @@
+[h1]Phobos Framework 0.56.0[/h1]
+[b]Draft - not published | 2026-09-30[/b]
+
+[h2]Added[/h2]
+
+[list]
+[*]Line networks: a line family can name the ports of the machines and stores it serves, and equipment that touches (or stands one tile apart) joins as if piped, with joins chaining across the ship. One shared reach test (touching, or on the same network) serves every mod, so no link ever runs across open floor.
+[*]Stores shared by several machines: each store link now has eight slots. The first slot is the link as it was saved, so every existing link carries over unchanged.
+[*]One shared pattern for line segments. Each kind of line draws in its own lane and depth, so different kinds can share a tile without hiding each other, and the PDA's Conduits filter takes our lines while Equipment painting leaves them alone.
+[*]A shared equipment Control Panel that any mod can use (Manufacturing moves onto it), and load-time conversion of retired equipment to its new equivalent for later rounds.
+[/list]
+
+[h2]Changed[/h2]
+
+[list]
+[*]Line layouts are read once per ship for every kind of line, and only a change on that ship to a line, a machine with a line port, a floor or a wall rereads them; opening a door no longer does.
+[/list]
+
+[h2]Compatibility and limits[/h2]
+
+[list]
+[*]Phobos Manufacturing 0.22.0, Shipbreaker 0.52.0 and Agriculture 0.29.0 need this version. Saves are unchanged: line ids, links and records are kept. Offline checks are not gameplay validation.
+[/list]

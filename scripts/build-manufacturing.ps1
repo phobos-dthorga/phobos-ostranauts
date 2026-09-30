@@ -14,8 +14,8 @@ if ($LASTEXITCODE -ne 0) { throw 'Manufacturing chemistry and record checks fail
 if ($LASTEXITCODE -ne 0) { throw 'Native definition checks failed.' }
 & python (Join-Path $PSScriptRoot 'export-completion-art.py') --check
 if ($LASTEXITCODE -ne 0) { throw 'Artwork export check failed.' }
-& python (Join-Path $PSScriptRoot 'export-propellant-line-art.py') --check
-if ($LASTEXITCODE -ne 0) { throw 'Propellant line artwork check failed.' }
+& python (Join-Path $PSScriptRoot 'export-line-art.py') --check
+if ($LASTEXITCODE -ne 0) { throw 'Line artwork check failed.' }
 . (Join-Path $PSScriptRoot 'build-package-support.ps1')
 $package = New-PhobosPackage -RepoRoot $repoRoot -Id PhobosManufacturing -Readme 'docs/manufacturing-player-guide.md' -ExtraDocs @(
     'docs/manufacturing-player-guide.md', 'docs/development/manufacturing-refinery-and-chemistry.md', 'docs/development/manufacturing-implementation.md',

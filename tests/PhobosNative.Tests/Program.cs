@@ -124,6 +124,8 @@ foreach (var equipment in manufacturing.Objects.Values)
 manufacturing.Publish();
 ManufacturingNativeChecks.Run(manufacturing, PhobosManufacturing.Content.Prepare(false), game, repo, Check, Throws);
 LootCarveNativeChecks.Run(Check, Throws);
+DefinitionMigrationChecks.Run(Check, Throws);
+LineNativeChecks.Run(new[] { prepared, agriculture, manufacturing }, Check);
 BinNativeChecks.Run(prepared, Check);
 IceSupplyNativeChecks.Run(Check);
 // Exercise the game's own data-only trigger evaluator against its actual wall

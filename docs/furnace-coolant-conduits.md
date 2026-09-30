@@ -49,8 +49,10 @@ different cardinal directions if their respective fitting tiles connect.
 Only intact installed F6-C conduits carry this route. Damaged, missing, unsupported
 or off-grid pipes block it. Walls, flex floors and EVA tiles are not pipe routes.
 Electrical cables retain their separate sockets and native power behaviour.
-Irrigation conduits do not carry coolant, even though both use the same original
-fitting artwork. Supply and return are two channels inside one jacket; corners,
+Irrigation conduits do not carry coolant. Since Shipbreaker 0.52.0 the coolant line
+draws in its own green lane and depth, so it can share a tile with other kinds of
+Phobos line and is told apart at a glance; the PDA's Conduits filter selects it, and
+painting jobs on Equipment leaves it alone. Supply and return are two channels inside one jacket; corners,
 T-junctions and crosses connect both channels. Crosses are not isolated crossings.
 
 One circuit may touch only one furnace and one F6-R, including unused fitting
@@ -103,11 +105,13 @@ scrap, returning actual replaced material through Framework. Full-bar Restore is
 gameplay budgets. Normal supply, fixer and Halvorson stock offer one conduit per
 eligible roll, subject to native placement and restocking.
 
-The colour and normal exports are unchanged originals from Agriculture's
-[asset record](../assets/phobos-agriculture/irrigation-generation-records.json).
-Shipbreaker packages its own copies; installing Agriculture is unnecessary.
-The [reuse record](../assets/phobos-furnace/coolant-conduit-reuse.md) identifies
-the source/export paths. No new image-generation service was used.
+Since Shipbreaker 0.52.0 the colour and normal sheets are drawn by the shared
+[line-art exporter](../assets/line-art/README.md) from Agriculture's original
+[irrigation masters](../assets/phobos-agriculture/irrigation-generation-records.json),
+recoloured green and moved into the coolant lane. Shipbreaker packages its own
+copies; installing Agriculture is unnecessary. The earlier byte-for-byte reuse is
+kept in the [reuse record](../assets/phobos-furnace/coolant-conduit-reuse.md).
+No new image-generation service was used.
 
 D4 dismantling and R4 recovery have no implemented process-water need. They retain
 their current power, cabin cooling, material routes and recipe budgets. Neither

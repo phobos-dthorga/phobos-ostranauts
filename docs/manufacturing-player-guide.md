@@ -459,7 +459,9 @@ Framework gives each gas its real cold-gas worth instead:
    (the amber stub) faces away from the regulator.
 2. Put a gas store of any size within one tile of it, or lay **gas line** from
    the store's line port to the manifold's. The line is its own family; it
-   never joins coolant or irrigation lines.
+   never joins coolant or irrigation lines, but it can share their tiles: each
+   kind of line draws in its own lane. The PDA's Conduits filter selects lines,
+   and painting jobs on Equipment leaves them alone.
 3. Open the manifold's **Control Panel** > **Connections**: add the store, set
    it **On**, choose **Draw order** (**Manifold first** burns the stores before
    the regulator's canisters; **Canisters first** keeps the stores as a

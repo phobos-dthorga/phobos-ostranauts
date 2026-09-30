@@ -1,5 +1,5 @@
 [h1]Phobos Framework[/h1]
-[b]Version:[/b] 0.55.0
+[b]Version:[/b] 0.56.0
 [b]Publication status:[/b] Not published - development candidate
 
 The shared toolbox behind the Phobos mods. On its own it adds no new machinery; install it with the Phobos content mods that need it, and it keeps their controls, crew work and supplies behaving the same way from one machine to the next.
@@ -7,24 +7,25 @@ The shared toolbox behind the Phobos mods. On its own it adds no new machinery; 
 [h2]What it does[/h2]
 [list]
 [*]Shared control panels: Apply/Discard settings, store selection, crew standing orders and training, with native-looking buttons and one volume control for the quiet completion alerts.
-[*]Crew standing orders: give crew a chosen job and approved supplies. Orders begin disabled; shifts, needs, access and the game's AutoTask and Haul duties still apply. Crew can take supplies from anywhere aboard, nearest first, as the game's own Reload job does.
+[*]Crew standing orders: give crew a chosen job and approved supplies. Orders begin disabled; shifts, needs, access and the game's AutoTask and Haul duties still apply. Crew take supplies from anywhere aboard, nearest first, like the game's Reload job.
 [*]Crew study Phobos specialities at powered terminals through the game's own study actions, and AutoTask crew choose them on their own.
 [*]Supported onboard work carries on through time-skip. Exterior work and flight pause and wait for Resume.
 [*]Construction, supply transfers and station purchases check materials, space and power. A full destination keeps cargo where it was; nothing is silently thrown away.
+[*]Shared pipe networks: a line serves the machines and stores at its ports, and touching equipment chains like pipe. Different lines share a tile, each in its own lane; the PDA's Conduits filter selects them.
 [*]Shared bulk storage for silos and reservoirs in small, medium and large sizes, linked to machines within one tile, safe filling of standard canisters and suit bottles to 99% of their rating, with the object's mass kept honest and station purchase through the refuelling kiosk's Bulk supplies view.
 [*]RCS thrusters push by each gas's real cold-gas worth. Nitrogen flies exactly as before; oxygen and CO2 canisters give slightly less per kilogram, and RCS fuel readings count in nitrogen-equivalent kilograms. Content mods can add their own propellant feeds.
 [*]When a Phobos autopilot switches ship sensors on, it remembers what it switched and turns off only those. Your own switch always wins, and you are told every time in the crew log and on the nav map.
 [*]Content mods can lay the game's own build sites for destroyed parts, vanilla or modded; the crew still build them with real parts.
 [*]Shared merchant stock, faction-kiosk scrip offers gated by reputation, salvage finds, mining-find shares, repair, Restore and dismantling rules for the content mods, without refilling or rewriting existing shops or saves.
-[*]Shared translation support that falls back to English when a line is missing.
-[*]Data packs: the tables a content mod keeps outside its code (prices, work, repair bills, salvage, offers, lots, recipes, materials, store ratings, machine sizes) ship as readable files and accept your own override files in BepInEx/config, merged by name and checked before use; machine sizes and connection points are read-only for now. Every recipe must conserve mass, and a shipped recipe revision never changes: a new one is added beside it. See the editing guide.
+[*]Shared translations that fall back to English when a line is missing.
+[*]Data packs: a content mod's tables (prices, work, salvage, offers, recipes, materials, store ratings, machine sizes) ship as readable files and accept your own override files in BepInEx/config, merged by name and checked before use; machine sizes and connection points are read-only for now. Every recipe must conserve mass, and a shipped recipe revision never changes: a new one is added beside it. See the editing guide.
 [/list]
 
 [h2]Getting started[/h2]
 [list]
 [*]Install Framework together with Phobos Shipbreaker, Auto Nav, Agriculture, Manufacturing or War Has Been Declared. Each content mod names the Framework version it needs.
 [*]Right-click Phobos equipment and choose Control Panel for its settings and crew orders.
-[*]In the F3 console, phobosframework status reports what loaded; phobosframework crew shows who is studying or could take each order step, and why.
+[*]In the F3 console, phobosframework status reports what loaded; phobosframework crew shows who is studying or could take each order step, and why; phobosframework loot shows a mining table as the game rolls it now.
 [/list]
 Mod authors: see the [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/development/framework-author-guide.md]Framework author guide[/url].
 
@@ -45,7 +46,7 @@ Mod authors: see the [url=https://github.com/phobos-dthorga/phobos-ostranauts/bl
 [/list]
 
 [h2]Saves and limits[/h2]
-Ordinary saves are supported. Keep Framework and the content mods installed while a save uses their content; removing them is not a clean uninstall. Updating does not refill existing shops or old loot containers. Saved contents or settings that cannot be checked safely stop the affected work for inspection rather than being guessed at. Since 0.45.0 (use 0.45.1 or later) pipe layouts are reread every two real seconds or when a part changes, and records are written only when they change; a pipe that just broke is noticed within two seconds. A player data file that breaks a rule is skipped with the reason in the log and on the F3 console; the shipped values stand. Automated checks pass, but in-game evaluation of recent features is ongoing.
+Ordinary saves are supported. Keep Framework and the content mods installed while a save uses their content; removing them is not a clean uninstall. Updating does not refill existing shops or old loot containers. Saved contents or settings that cannot be checked safely stop the affected work for inspection. A pipe that just broke is noticed within two seconds. A player data file that breaks a rule is skipped with the reason in the log and on the F3 console; the shipped values stand. Automated checks pass; in-game evaluation of recent features is ongoing.
 
 [h2]Credits and sources[/h2]
 Created by Phobos A. D'thorga (phobosgekko). Independent community work, not endorsed by Blue Bottle Games, Kitfox Games or any research institution cited in the guides. Research informs the design; compact equipment, yields and operating limits remain gameplay choices.

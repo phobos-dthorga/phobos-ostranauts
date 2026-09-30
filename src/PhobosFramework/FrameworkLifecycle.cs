@@ -38,6 +38,9 @@ public static class FrameworkLifecycle
         Trading.MarketStock.BeginLoad();
         Registration.MaintenanceSafety.Actions.Clear();
         Registration.EquipmentSaveUpgrade.BeginLoad();
+        Persistence.DefinitionMigrations.Reset();
+        Registration.LineJoints.Reset();
+        Registration.LineJobFilter.Reset();
         Registration.ItemHandling.BeginLoad();
         Registration.LootCarveRegistry.Reset();
         Data.DataPacks.Reset();

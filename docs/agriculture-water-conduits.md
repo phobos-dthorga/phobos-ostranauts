@@ -60,8 +60,11 @@ shared allocation are deliberately outside this first slice. Cardinal corners,
 T-junctions and crosses connect; crosses never represent isolated crossing pipes.
 Normal installation is supported, including the native INSTALL > MISC entry
 (see [catalogue](development/install-catalogue.md)); continuous drag laying is not verified. Pipes can occupy
-electrical-conduit tiles through independent sockets; visual layering and native
-placement still need owner evaluation. Walls, flex floors and EVA tiles do not
+electrical-conduit tiles through independent sockets, and since Agriculture 0.29.0 they can
+also share tiles with other kinds of Phobos line: each kind draws in its own lane and depth,
+so none hides another. The PDA's Conduits filter selects these pipes; painting jobs on
+Equipment leaves them alone. Visual layering and native placement still need owner
+evaluation. Walls, flex floors and EVA tiles do not
 form valid water paths; there is no hull penetration or atmosphere opening.
 Off-grid endpoints fail closed. The bounded implementation permits at most 4,096
 eligible pipe cells on a ship; it does not guess connectivity beyond that limit.

@@ -122,7 +122,9 @@ Requests, seeds and reviews are appended to
 Two included generations (allowance 1,861 to 1,859), $0 credit, no purchases. The
 first pass is retained as the input of the selected pass. The line recolour is
 reproduced and checked by `scripts/export-propellant-line-art.py --check`, which
-the Manufacturing build runs.
+the Manufacturing build ran. Superseded by Framework 0.56.0's lane art: the gas line
+is now drawn in its own lane by `scripts/export-line-art.py` (same amber ramp); see
+[the line art record](../../assets/line-art/README.md).
 
 ## Manufacturing 0.4.0 pass (29 September 2026)
 

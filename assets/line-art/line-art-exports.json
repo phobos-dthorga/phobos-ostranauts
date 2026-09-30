@@ -1,0 +1,100 @@
+{
+  "families": [
+    {
+      "name": "irrigation",
+      "lane": 3,
+      "ramp": null,
+      "targets": [
+        "mods/PhobosAgriculture/images/phobos/agriculture/WaterPipe"
+      ]
+    },
+    {
+      "name": "gas",
+      "lane": 1,
+      "ramp": {
+        "r": [
+          1.25,
+          22
+        ],
+        "g": [
+          0.86,
+          12
+        ],
+        "b": [
+          0.34,
+          8
+        ]
+      },
+      "targets": [
+        "mods/PhobosManufacturing/images/phobos/manufacturing/PropellantPipe"
+      ]
+    },
+    {
+      "name": "coolant",
+      "lane": 4,
+      "ramp": {
+        "r": [
+          0.45,
+          8
+        ],
+        "g": [
+          1.05,
+          22
+        ],
+        "b": [
+          0.62,
+          12
+        ]
+      },
+      "targets": [
+        "mods/PhobosShipbreaker/images/phobos/shipbreaker/FurnaceCoolantPipe"
+      ]
+    }
+  ],
+  "base": {
+    "light": [
+      127,
+      138,
+      154
+    ],
+    "mid": [
+      84,
+      93,
+      103
+    ],
+    "dark": [
+      27,
+      38,
+      48
+    ],
+    "collar": [
+      39,
+      53,
+      67
+    ],
+    "fitting": [
+      79,
+      89,
+      100
+    ],
+    "jewel": [
+      71,
+      235,
+      242
+    ]
+  },
+  "exports": {
+    "mods/PhobosAgriculture/images/phobos/agriculture/WaterPipe.png": "f633e6c56303c5b38b550419ffae203380f0267d54aa8f789f545b737f1dd2f7",
+    "mods/PhobosAgriculture/images/phobos/agriculture/WaterPipeNormal.png": "bd2711f2409e337c07f9b8d064c40a2ac3fbee4c048fe569e3f2961d9eb4a65a",
+    "mods/PhobosAgriculture/images/phobos/agriculture/WaterPipeSheet.png": "580c570a4721175df2e4ca7cec7365c1c2c57785509c4313967e8e202a5452c0",
+    "mods/PhobosAgriculture/images/phobos/agriculture/WaterPipeSheetNormal.png": "1c007ee5e8650a99cf847ef3b78f04eca62ed1c3c8ba6f0d097c00e6e8366317",
+    "mods/PhobosManufacturing/images/phobos/manufacturing/PropellantPipe.png": "c5e7c8062eeff2c453c1511fd9b57f0bedc09cca9bad39bb05d757119b9e208c",
+    "mods/PhobosManufacturing/images/phobos/manufacturing/PropellantPipeNormal.png": "bd2711f2409e337c07f9b8d064c40a2ac3fbee4c048fe569e3f2961d9eb4a65a",
+    "mods/PhobosManufacturing/images/phobos/manufacturing/PropellantPipeSheet.png": "78ca03583da9fafdc3c59252956c71927c0a5fc295fb53b567d770e2c9902a11",
+    "mods/PhobosManufacturing/images/phobos/manufacturing/PropellantPipeSheetNormal.png": "68d7cd184cedd650fddee18fdcc0dce79c646a7ed64c4939b5449bebed452c86",
+    "mods/PhobosShipbreaker/images/phobos/shipbreaker/FurnaceCoolantPipe.png": "ae4c12b5ed3572642e72dda11ec60e96ae30afcec99bc4562418aeedb8088aa9",
+    "mods/PhobosShipbreaker/images/phobos/shipbreaker/FurnaceCoolantPipeNormal.png": "bd2711f2409e337c07f9b8d064c40a2ac3fbee4c048fe569e3f2961d9eb4a65a",
+    "mods/PhobosShipbreaker/images/phobos/shipbreaker/FurnaceCoolantPipeSheet.png": "11102c6e43ede69347dd26cc6611bfc473cdbd448a7aab49d21727e090638811",
+    "mods/PhobosShipbreaker/images/phobos/shipbreaker/FurnaceCoolantPipeSheetNormal.png": "f0c7eb5864f52314a0203363553e6136a015a3fb52993d9709cf8d3349b7934c"
+  }
+}

@@ -8,32 +8,67 @@ using UnityEngine;
 namespace Phobos.Ostranauts.Framework.Liquids;
 
 /// <summary>One content-owned family of fluid segments (irrigation pipe, coolant conduit, gas line): its stable id
-/// and the definition test for an intact installed segment.</summary>
+/// and the definition test for an intact installed segment. A network family (Framework 0.56.0) also names the
+/// map points of each participant's ports for the family, and may let touching participants join as if piped.
+/// Exactly one instance per id: snapshots are keyed by id.</summary>
 public sealed class FluidSegmentFamily
 {
     public string Id { get; }
     public Func<CondOwner, bool> Compatible { get; }
-    public FluidSegmentFamily(string id, Func<CondOwner, bool> compatible)
+    /// <summary>The object's port map points for this family, or null or empty when it is not a participant.</summary>
+    public Func<CondOwner, IReadOnlyList<string>?>? Ports { get; }
+    /// <summary>Whether participants within one tile of each other join one network (the owner's touching rule).</summary>
+    public bool AdjacencyJoins { get; }
+    public bool IsNetwork => Ports != null;
+    public FluidSegmentFamily(string id, Func<CondOwner, bool> compatible) : this(id, compatible, null, false) { }
+    public FluidSegmentFamily(string id, Func<CondOwner, bool> compatible, Func<CondOwner, IReadOnlyList<string>?>? ports, bool adjacencyJoins)
     {
         if (string.IsNullOrWhiteSpace(id)) throw new ArgumentException("A segment family needs an id.");
-        Id = id; Compatible = compatible ?? throw new ArgumentNullException(nameof(compatible));
+        if (adjacencyJoins && ports == null) throw new ArgumentException("Only a network family with participant ports can join touching participants.");
+        Id = id; Compatible = compatible ?? throw new ArgumentNullException(nameof(compatible)); Ports = ports; AdjacencyJoins = adjacencyJoins;
     }
 }
 
-/// <summary>Routes through a segment family with the topology read once per ship per family and reused for a
-/// couple of real seconds (<see cref="RecheckSeconds"/>), or until a mode switch, a destruction or an object joining
-/// or leaving a ship invalidates it. Endpoints are still checked fresh on every call (installed, intact, unlocked,
+/// <summary>Routes through a segment family with the topology read once per ship and reused for a couple of real
+/// seconds (<see cref="RecheckSeconds"/>), or until a relevant mode switch, a destruction or an object joining or
+/// leaving a ship invalidates it. Endpoints are still checked fresh on every call (installed, intact, unlocked,
 /// owned, aligned, on the grid), so only the pipe and floor layout is remembered, never who may pump. This is the
 /// FF2 decision of the 29 September 2026 performance pass: it supersedes the earlier "no cross-frame cache" rule
-/// for fluid topology only. A route that just broke is noticed within the recheck interval; nothing is created.</summary>
+/// for fluid topology only. A route that just broke is noticed within the recheck interval; nothing is created.
+///
+/// Framework 0.56.0: one object scan builds every registered family for a ship; a new snapshot's recheck starts
+/// consumed (one build per change, not two); a mode switch invalidates only its own ship, and only when the object
+/// is a segment, a participant, a floor or a wall before or after the switch (doors, crew faces and most equipment
+/// no longer flush every ship). Network families record their participants for <see cref="LineReach"/>.</summary>
 public static class FluidRouteCache
 {
     public const double RecheckSeconds = 2;
-    private sealed class Snapshot { internal FluidTopology Topology = null!; internal readonly Cadence Cadence = new(RecheckSeconds); internal int VisitLimit; }
-    private static readonly Dictionary<Ship, Dictionary<string, Snapshot>> snapshots = new();
+    private sealed class FamilySnapshot
+    {
+        internal FluidTopology Topology = null!; internal int VisitLimit;
+        internal readonly Dictionary<CondOwner, int> Participants = new();
+        internal CondOwner[] ParticipantObjects = Array.Empty<CondOwner>();
+    }
+    private sealed class ShipSnapshot { internal readonly Dictionary<string, FamilySnapshot> Families = new(StringComparer.Ordinal); internal readonly Cadence Cadence = new(RecheckSeconds); internal bool Built; }
+    private static readonly Dictionary<Ship, ShipSnapshot> snapshots = new();
+    private static readonly Dictionary<string, FluidSegmentFamily> registered = new(StringComparer.Ordinal);
     private static readonly List<CondOwner> cellObjects = new();
-    private static readonly List<int> allowedCells = new();
     internal static int Rebuilds;
+
+    /// <summary>Makes a family known so the ship scan builds it with the others. Implicit on first use; a second
+    /// instance under the same id is refused (snapshots are keyed by id).</summary>
+    public static void Register(FluidSegmentFamily family)
+    {
+        if (family == null) throw new ArgumentNullException(nameof(family));
+        if (registered.TryGetValue(family.Id, out var known))
+        {
+            if (!ReferenceEquals(known, family)) throw new ArgumentException("A second segment family instance uses the id " + family.Id + ".");
+            return;
+        }
+        registered[family.Id] = family;
+        foreach (var ship in snapshots.Values) ship.Built = false;
+    }
+    public static IReadOnlyCollection<FluidSegmentFamily> Families => registered.Values;
 
     public static int[]? Find(CondOwner source, string outlet, CondOwner destination, string inlet, FluidSegmentFamily family, int visitLimit = GridRoute.DefaultVisitLimit)
     {
@@ -64,44 +99,120 @@ public static class FluidRouteCache
         return start >= 0 && cell >= 0 && Topology(ship, family, visitLimit).Connected(start, cell);
     }
     /// <summary>The current topology snapshot for a ship and family, rebuilt when its recheck is due.</summary>
-    public static FluidTopology Topology(Ship ship, FluidSegmentFamily family, int visitLimit = GridRoute.DefaultVisitLimit)
+    public static FluidTopology Topology(Ship ship, FluidSegmentFamily family, int visitLimit = GridRoute.DefaultVisitLimit) => Snapshot(ship, family, visitLimit).Topology;
+    /// <summary>A network family's participant index for an object in the current snapshot, or -1 (not a ready,
+    /// aligned participant with a port of the family).</summary>
+    public static int ParticipantOf(Ship ship, FluidSegmentFamily family, CondOwner co) =>
+        co != null && Snapshot(ship, family, GridRoute.DefaultVisitLimit).Participants.TryGetValue(co, out int k) ? k : -1;
+    /// <summary>The objects behind a network family's participant indices in the current snapshot.</summary>
+    public static IReadOnlyList<CondOwner> Participants(Ship ship, FluidSegmentFamily family) => Snapshot(ship, family, GridRoute.DefaultVisitLimit).ParticipantObjects;
+
+    private static FamilySnapshot Snapshot(Ship ship, FluidSegmentFamily family, int visitLimit)
     {
         if (ship == null) throw new ArgumentNullException(nameof(ship));
-        if (family == null) throw new ArgumentNullException(nameof(family));
-        if (!snapshots.TryGetValue(ship, out var families)) snapshots[ship] = families = new Dictionary<string, Snapshot>(StringComparer.Ordinal);
-        if (!families.TryGetValue(family.Id, out var snapshot)) families[family.Id] = snapshot = new Snapshot();
-        if (snapshot.Topology == null || snapshot.VisitLimit != visitLimit || snapshot.Cadence.Due())
+        Register(family);
+        if (!snapshots.TryGetValue(ship, out var s)) snapshots[ship] = s = new ShipSnapshot();
+        if (!s.Built || s.Cadence.Due())
         {
-            snapshot.Topology = Build(ship, family, visitLimit); snapshot.VisitLimit = visitLimit; Rebuilds++;
+            BuildAll(ship, s);
+            s.Built = true; s.Cadence.Invalidate(); s.Cadence.Due(); // the recheck starts consumed: one build per change
         }
-        return snapshot.Topology;
+        if (!s.Families.TryGetValue(family.Id, out var f) || f.VisitLimit != visitLimit)
+            s.Families[family.Id] = f = BuildOne(ship, family, visitLimit);
+        return f;
     }
-    private static FluidTopology Build(Ship ship, FluidSegmentFamily family, int visitLimit)
+    private sealed class Collector
+    {
+        internal readonly FluidSegmentFamily Family; internal int Segments; internal readonly List<int> Allowed = new();
+        internal readonly List<CondOwner> Participants = new(); internal readonly List<IReadOnlyList<int>> Ports = new();
+        internal Collector(FluidSegmentFamily family) { Family = family; }
+    }
+    private static void BuildAll(Ship ship, ShipSnapshot s)
+    {
+        s.Families.Clear();
+        if (registered.Count == 0) return;
+        var collectors = registered.Values.Select(f => new Collector(f)).ToArray();
+        Scan(ship, collectors);
+        foreach (var c in collectors) s.Families[c.Family.Id] = Finish(ship, c, GridRoute.DefaultVisitLimit);
+    }
+    private static FamilySnapshot BuildOne(Ship ship, FluidSegmentFamily family, int visitLimit)
+    {
+        var collector = new Collector(family);
+        Scan(ship, new[] { collector });
+        return Finish(ship, collector, visitLimit);
+    }
+    private static void Scan(Ship ship, Collector[] collectors)
     {
         using var measurement = Diagnostics.Performance.Measure(Diagnostics.Performance.FluidRouteFind);
-        allowedCells.Clear();
-        int segments = 0;
+        Rebuilds++;
         var objects = ship.GetCOs(null, false, false, true);
         Diagnostics.Performance.Increment(Diagnostics.Performance.FluidRouteObjects, objects.Count);
         foreach (var co in objects)
         {
-            // The cheap definition test first; the endpoint checks cost several conditions and an ownership lookup.
-            if (co == null || co.ship != ship || !family.Compatible(co) || !NativeFluidRoute.EndpointReady(co) || !NativeFluidRoute.Aligned(co)) continue;
-            int cell = NativeFluidRoute.CellAt(ship, co.GetPos());
-            if (cell < 0) continue;
-            segments++;
-            if (NativeFluidRoute.SoundFloor(ship, cell, cellObjects)) allowedCells.Add(cell);
+            if (co == null || co.ship != ship) continue;
+            int ready = 0; // 0 unknown, 1 ready and aligned, -1 not
+            bool Ready() { if (ready == 0) ready = NativeFluidRoute.EndpointReady(co) && NativeFluidRoute.Aligned(co) ? 1 : -1; return ready > 0; }
+            foreach (var c in collectors)
+            {
+                // The cheap definition tests first; the endpoint checks cost several conditions and an ownership lookup.
+                if (c.Family.Compatible(co))
+                {
+                    if (!Ready()) continue;
+                    int cell = NativeFluidRoute.CellAt(ship, co.GetPos());
+                    if (cell < 0) continue;
+                    c.Segments++;
+                    if (NativeFluidRoute.SoundFloor(ship, cell, cellObjects)) c.Allowed.Add(cell);
+                }
+                else if (c.Family.Ports?.Invoke(co) is { Count: > 0 } points && Ready())
+                {
+                    var cells = new List<int>(points.Count);
+                    foreach (string point in points) { int cell = NativeFluidRoute.CellAt(ship, co.GetPos(point)); if (cell >= 0) cells.Add(cell); }
+                    c.Participants.Add(co); c.Ports.Add(cells);
+                }
+            }
         }
-        return FluidTopology.Build(ship.nCols, ship.nRows, segments, allowedCells, visitLimit);
+    }
+    private static FamilySnapshot Finish(Ship ship, Collector c, int visitLimit)
+    {
+        var joins = new List<(int, int)>();
+        if (c.Family.AdjacencyJoins)
+            for (int a = 0; a < c.Participants.Count; a++)
+                for (int b = a + 1; b < c.Participants.Count; b++)
+                    if (BulkVessels.Adjacent(c.Participants[a], c.Participants[b])) joins.Add((a, b));
+        var snapshot = new FamilySnapshot
+        {
+            Topology = FluidTopology.Build(ship.nCols, ship.nRows, c.Segments, c.Allowed, visitLimit, c.Ports, joins),
+            VisitLimit = visitLimit, ParticipantObjects = c.Participants.ToArray()
+        };
+        for (int k = 0; k < c.Participants.Count; k++) snapshot.Participants[c.Participants[k]] = k;
+        return snapshot;
     }
     /// <summary>Forgets one ship's snapshots (an object joined or left it) or every snapshot.</summary>
     public static void Invalidate(Ship? ship) { if (ship != null) snapshots.Remove(ship); }
     public static void InvalidateAll() => snapshots.Clear();
+    /// <summary>Whether a mode switch of this object can change a route: a segment, a participant, a floor or a wall.</summary>
+    internal static bool Relevant(CondOwner? co)
+    {
+        if (co == null) return false;
+        foreach (var family in registered.Values)
+            if (family.Compatible(co) || family.Ports?.Invoke(co) is { Count: > 0 }) return true;
+        return co.HasCond("IsFloor") || co.HasCond("IsWall");
+    }
 
     // Mode switches (damage, repair, installation), destruction and objects joining or leaving a ship can all change
-    // the pipe layout; the layout is then read again on the next route request.
+    // the pipe layout; the layout is then read again on the next route request. Relevance is tested before and after
+    // the switch: an intact segment that becomes damaged is a segment before, a repaired one after.
     [HarmonyPatch(typeof(CondOwner), nameof(CondOwner.ModeSwitch))]
-    private static class ModeSwitchPatch { private static void Postfix() { if (snapshots.Count > 0) InvalidateAll(); } }
+    private static class ModeSwitchPatch
+    {
+        private static void Prefix(CondOwner __instance, out (Ship? Ship, bool Relevant) __state) =>
+            __state = (__instance?.ship, snapshots.Count > 0 && Relevant(__instance));
+        private static void Postfix(CondOwner __instance, (Ship? Ship, bool Relevant) __state)
+        {
+            if (snapshots.Count == 0) return;
+            if (__state.Relevant || Relevant(__instance)) { Invalidate(__state.Ship); Invalidate(__instance?.ship); }
+        }
+    }
     [HarmonyPatch(typeof(CondOwner), nameof(CondOwner.Destroy))]
     private static class DestroyPatch { private static void Prefix(CondOwner __instance) { if (snapshots.Count > 0) Invalidate(__instance?.ship); } }
     // Ship.AddCO has two overloads; each is named by its parameter types or Harmony cannot resolve the patch and

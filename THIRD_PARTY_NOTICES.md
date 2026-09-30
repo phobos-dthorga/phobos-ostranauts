@@ -96,3 +96,5 @@ Groundwork W2 uses an original ChatGPT/Imagegen overhead chassis; its conduits a
 the rack inlet reuse one original PixelLab fitting. No game images were uploaded
 or included. Exact requests, source hashes, provider terms, usage and rejected
 projection candidates are recorded in the [irrigation provenance](assets/phobos-agriculture/irrigation-generation-records.json).
+The irrigation, Fennmark gas and F6-C coolant pipe sheets are deterministic,
+recoloured lane exports of that same fitting; see the [line-art record](assets/line-art/README.md).
