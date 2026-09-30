@@ -243,6 +243,11 @@
       "commit": "1255c3b3dc515ed1747948424bc740aa9f158959",
       "date": "2026-09-29",
       "note": "War Has Been Declared guide storyboard: one rejected PixelLab output, never committed to main, archived directly. Request, seed and reason: assets/workshop/composed.json (rejected)."
+    },
+    {
+      "commit": "1c01c0c107be942713d66b5a813e0b2e171eff3a",
+      "date": "2026-09-30",
+      "note": "Material-bin PixelLab pass: rejected outputs and the rejected-only 96 px Y3 start drawing, never committed to main, archived directly. Requests, seeds and reasons: assets/artwork-completion/material-bin-requests.json."
     }
   ]
 }

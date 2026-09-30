@@ -68,7 +68,7 @@
     "Shipbreaker.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.42.0",
+      "value": "0.43.0",
       "description": "PhobosShipbreaker published source/package version.",
       "targets": [
         {
@@ -1262,6 +1262,23 @@
       ],
       "review": [
         "Run Shipbreaker core and native checks, regenerate item references and review docs/shipbreaker-bulk-silos.md. Existing silo records keep their saved contents; a lowered capacity never discards them."
+      ]
+    },
+    "Shipbreaker.binPrice": {
+      "type": "number",
+      "value": "2400",
+      "min": 1,
+      "max": 1000000,
+      "description": "Authored Y2 material bin base price (broken form is one quarter); the Y3 and Y4 scale from it on the shared size ladder.",
+      "targets": [
+        {
+          "path": "src/PhobosShipbreaker/Core/BinRules.cs",
+          "pattern": "\\bPrice\\s*=\\s*(?P<value>[0-9.]+)",
+          "count": 1
+        }
+      ],
+      "review": [
+        "Run Shipbreaker core and native checks (economy parity, salvage below a quarter of the price) and regenerate item references. Bins in saves keep their contents; only the listed price changes."
       ]
     },
     "Shipbreaker.siloWaterPricePerKg": {

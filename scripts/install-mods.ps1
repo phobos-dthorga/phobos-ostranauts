@@ -373,6 +373,12 @@ foreach ($mod in $Mods) {
             }
         }
         'Shipbreaker' {
+            # 0.43.0 adds the Y2, Y3 and Y4 material bins.
+            if ($version -ge [version]'0.43.0') {
+                foreach ($image in @('PhobosMaterialBin', 'PhobosMaterialBinMedium', 'PhobosMaterialBinLarge')) {
+                    "images/phobos/shipbreaker/$image.png"; "images/phobos/shipbreaker/${image}Normal.png"
+                }
+            }
             # 0.40.0 adds the S4 and S5 process-water silos.
             if ($version -ge [version]'0.40.0') {
                 foreach ($image in @('PhobosProcessSiloMedium', 'PhobosProcessSiloLarge')) {

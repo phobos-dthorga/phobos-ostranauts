@@ -1,0 +1,199 @@
+{
+  "date": "2026-09-30",
+  "provider": "PixelLab",
+  "operation": "create_image_pixflux",
+  "allowanceBefore": 1775,
+  "allowanceAfter": 1768,
+  "creditBalanceUSD": 0,
+  "inputProvenance": "Start images are original Phobos procedural overhead drawings (PIL rectangles; no game or third-party imagery). Init images were sent base64; the files sent are kept byte-for-byte.",
+  "initImageHashes": {
+    "references/y2-bin-start.png": "c4c306a7a2b19b163597e068e6c9ec8f98c05a39bceeae56b7f8f4ab9643d44b",
+    "references/y3-bin-start.png": "9af61ffc58a5f6dbe5448b4cbdc42b74610c4994aa219d505ca55809550bd1ab",
+    "references/y4-bin-start.png": "39ffa4aff9e392b99af6f7bc3df73fcc4c8fd425b762ace40f2bf12ead3c8b81",
+    "archived:references/y3-bin-start-96-rejected.png": "757d70fcdf7b46846b9e39e14e4eeea3c9e7d6d3ccc747eb70fc871787517cff"
+  },
+  "derived": {
+    "y3-material-bin": {
+      "from": "source/material-bin-y3-generated.png",
+      "to": "source/material-bin-y3.png",
+      "method": "The generated Y3 lost its blue rim and yellow corner clamps along the bottom edge. Its own top border band (rows 0 to 5 of 144, two native pixels) is mirrored vertically onto the bottom six rows; every other pixel is unchanged.",
+      "sha256": "eaddc88894f698bf374a7390ffa6f4864f2c4ef30b91fe17882143c1a0b3d96b"
+    }
+  },
+  "attempts": [
+    {
+      "key": "y2-material-bin",
+      "operation": "create_image_pixflux",
+      "jobId": "e2c0361e-5f3d-45b7-b266-5315d30128d0",
+      "assetId": "3b89db8c-7be8-5346-b379-0d21781288af",
+      "costGenerations": 1,
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. The whole square canvas is the top of a small sealed spacecraft material bin for mined ore: a square dark slate steel deck plate reaching every canvas edge with a thin blue painted rim and a yellow clamp in each corner; on it one large rectangular hinged lid hatch of worn ochre-painted steel, stiffened by a few raised vertical ribs lit from the upper left, a grey steel hinge bar with two knuckles along the top edge of the lid and a short grey latch handle with a small yellow catch at the bottom centre; subtle scuffs and chipped paint on the lid edges. Coarse deliberate pixel clusters, three-tone shading, utilitarian retro spaceship salvage-yard machinery. No perspective, no ground shadow, no pipes, no gauges, no text, numbers, symbols or logos.",
+        "width": 128,
+        "height": 128,
+        "seed": 9301201,
+        "init_image_strength": 130,
+        "no_background": false,
+        "isometric": false,
+        "view": "high top-down",
+        "outline": "selective outline",
+        "shading": "medium shading",
+        "detail": "medium detail"
+      },
+      "initImage": "references/y2-bin-start.png",
+      "decision": "selected",
+      "review": "Overhead, no side faces, Rivetline storage family cues (slate deck, blue rim, yellow clamps). The ribbed ochre lid reads as a hinged steel hatch at 32 px; the latch is lost at native scale, accepted.",
+      "sourceSHA256": "aa85e95b9bc5b7a6213dacbd1621f5a06af3c967fce74268da7bbe4a70d61cf1"
+    },
+    {
+      "key": "y2-material-bin",
+      "operation": "create_image_pixflux",
+      "jobId": "9b60862b-5742-42f6-9a4b-bff0991a2bfc",
+      "assetId": "b97409a2-19e5-5ecc-8968-32f8f4d7237f",
+      "costGenerations": 1,
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. Same overhead spacecraft material bin with the same layout, repainted as pressed sheet steel rather than wood: the ochre-painted steel lid is one flat metal panel with three wide raised stamped ribs, lit from the upper left with soft shading toward the lower right, a row of small rivet dots along the lid border, chipped paint showing grey steel at the corners; the grey hinge bar and knuckles along the top; a clear chunky grey latch handle with a bright yellow catch at the bottom centre of the lid. Slate deck, blue rim and yellow corner clamps unchanged. Crisp dark outlines, small readable colour regions, restrained shading. No perspective, no ground shadow, no wood grain, no planks, no text, numbers, symbols or logos.",
+        "width": 128,
+        "height": 128,
+        "seed": 9301202,
+        "init_image_strength": 120,
+        "no_background": false,
+        "isometric": false,
+        "view": "high top-down",
+        "outline": "single color black outline",
+        "shading": "medium shading",
+        "detail": "medium detail"
+      },
+      "initImage": "source/material-bin-y2.png",
+      "decision": "rejected",
+      "review": "Second pass from the selected first pass barely changed it (strength 120 kept too much); no improvement.",
+      "archive": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/1c01c0c107be942713d66b5a813e0b2e171eff3a/assets/artwork-completion/source/material-bin-y2-rejected-unchanged.png"
+    },
+    {
+      "key": "y2-material-bin",
+      "operation": "create_image_pixflux",
+      "jobId": "ecbb5f37-c798-4d18-ac1c-82c3202c5ae6",
+      "assetId": "076c3440-33c6-5a17-bd71-0c23a979817c",
+      "costGenerations": 1,
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. The whole square canvas is the top of a small sealed spacecraft material bin for mined ore: a square dark slate steel deck plate reaching every canvas edge with a thin blue painted rim and a yellow clamp in each corner; on it one large flat hinged lid of pressed ochre-painted sheet steel with exactly three raised stamped ribs running top to bottom, a row of small rivet dots around the lid border, chipped paint showing grey steel at the lid corners, lit from the upper left; a grey steel hinge bar with two knuckles along the top edge of the lid; a chunky grey latch handle with a bright yellow catch at the bottom centre of the lid. Coarse deliberate pixel clusters, three-tone shading, utilitarian retro spaceship salvage-yard machinery. No perspective, no ground shadow, no wood grain, no planks, no pipes, no gauges, no text, numbers, symbols or logos.",
+        "width": 128,
+        "height": 128,
+        "seed": 9301203,
+        "init_image_strength": 100,
+        "no_background": false,
+        "isometric": false,
+        "view": "high top-down",
+        "outline": "single color black outline",
+        "shading": "medium shading",
+        "detail": "medium detail",
+        "text_guidance_scale": 10
+      },
+      "initImage": "references/y2-bin-start.png",
+      "decision": "rejected",
+      "review": "Rivet and chipped-paint wording scattered speckle noise across the lid and deck; worse than the first pass.",
+      "archive": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/1c01c0c107be942713d66b5a813e0b2e171eff3a/assets/artwork-completion/source/material-bin-y2-rejected-noise.png"
+    },
+    {
+      "key": "y3-material-bin",
+      "operation": "create_image_pixflux",
+      "jobId": "a6473cc9-d2a1-4d59-b478-8a1a84127937",
+      "assetId": "1ebcf8ff-006f-5fc2-92d4-02b8866aff16",
+      "costGenerations": 1,
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. The whole square canvas is the top of a medium sealed spacecraft material bin for mined ore: a square dark slate steel deck plate reaching every canvas edge with a thin blue painted rim and a yellow clamp in each corner; on it two tall rectangular hinged lid hatches side by side, each of worn ochre-painted steel stiffened by a few raised vertical ribs lit from the upper left, each with a grey steel hinge bar with two knuckles along its top edge and a short grey latch handle with a small yellow catch at its bottom centre; subtle scuffs and chipped paint on the lid edges. Coarse deliberate pixel clusters, three-tone shading, utilitarian retro spaceship salvage-yard machinery. No perspective, no ground shadow, no pipes, no gauges, no text, numbers, symbols or logos.",
+        "width": 96,
+        "height": 96,
+        "seed": 9301301,
+        "init_image_strength": 130,
+        "no_background": false,
+        "isometric": false,
+        "view": "high top-down",
+        "outline": "selective outline",
+        "shading": "medium shading",
+        "detail": "medium detail"
+      },
+      "initImage": "references/y3-bin-start-96-rejected.png (archive)",
+      "decision": "rejected",
+      "review": "Red and green indicator blocks appeared along the bottom (painted live-state instruments are refused by owner ruling) and the bottom rim was lost.",
+      "archive": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/1c01c0c107be942713d66b5a813e0b2e171eff3a/assets/artwork-completion/source/material-bin-y3-rejected-indicators-1.png"
+    },
+    {
+      "key": "y3-material-bin",
+      "operation": "create_image_pixflux",
+      "jobId": "e881f5fa-23c1-4c5c-9872-942ed32e6d33",
+      "assetId": "0f13a9da-d7a2-5210-a0da-c290ebcc0cb7",
+      "costGenerations": 1,
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. The whole square canvas is the top of a medium sealed spacecraft material bin for mined ore: a square dark slate steel deck plate reaching every canvas edge on all four sides with a thin blue painted rim all the way round and a yellow clamp in each of the four corners; on it two tall rectangular hinged lid hatches side by side, each of worn ochre-painted steel stiffened by a few raised vertical ribs lit from the upper left, each with a grey steel hinge bar with two knuckles along its top edge and a short grey latch handle with a small yellow catch at its bottom centre. Coarse deliberate pixel clusters, three-tone shading, utilitarian retro spaceship salvage-yard machinery. No perspective, no ground shadow, no pipes, no gauges, no indicator lights, no red or green panels, no text, numbers, symbols or logos.",
+        "width": 96,
+        "height": 96,
+        "seed": 9301302,
+        "init_image_strength": 150,
+        "no_background": false,
+        "isometric": false,
+        "view": "high top-down",
+        "outline": "selective outline",
+        "shading": "medium shading",
+        "detail": "medium detail"
+      },
+      "initImage": "references/y3-bin-start-96-rejected.png (archive)",
+      "decision": "rejected",
+      "review": "Same indicator artefact at 96 px despite an explicit exclusion; the canvas size, not the seed, appears to trigger it. Moved the Y3 to a 3x master.",
+      "archive": "https://github.com/phobos-dthorga/phobos-ostranauts/blob/1c01c0c107be942713d66b5a813e0b2e171eff3a/assets/artwork-completion/source/material-bin-y3-rejected-indicators-2.png"
+    },
+    {
+      "key": "y3-material-bin",
+      "operation": "create_image_pixflux",
+      "jobId": "2d4207ac-adf7-4136-80f8-951ec3851fab",
+      "assetId": "d52246a2-3d08-59de-8696-4d94a674916f",
+      "costGenerations": 1,
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. The whole square canvas is the top of a medium sealed spacecraft material bin for mined ore: a square dark slate steel deck plate reaching every canvas edge with a thin blue painted rim and a yellow clamp in each corner; on it two tall rectangular hinged lid hatches side by side, each of worn ochre-painted steel stiffened by a few raised vertical ribs lit from the upper left, each with a grey steel hinge bar with two knuckles along its top edge and a short grey latch handle with a small yellow catch at its bottom centre; subtle scuffs and chipped paint on the lid edges. Coarse deliberate pixel clusters, three-tone shading, utilitarian retro spaceship salvage-yard machinery. No perspective, no ground shadow, no pipes, no gauges, no indicator lights, no text, numbers, symbols or logos.",
+        "width": 144,
+        "height": 144,
+        "seed": 9301303,
+        "init_image_strength": 130,
+        "no_background": false,
+        "isometric": false,
+        "view": "high top-down",
+        "outline": "selective outline",
+        "shading": "medium shading",
+        "detail": "medium detail"
+      },
+      "initImage": "references/y3-bin-start.png",
+      "decision": "selected-with-derivation",
+      "review": "Clean two-hatch lid, no lights, latches visible; bottom rim and bottom corner clamps missing, repaired by the recorded mirror derivation below.",
+      "rawOutput": "source/material-bin-y3-generated.png",
+      "rawSHA256": "302f3c24ecff27c65a0aa04f8ade9a438870ddbc9083c52b9c922379afd428d1"
+    },
+    {
+      "key": "y4-material-bin",
+      "operation": "create_image_pixflux",
+      "jobId": "56af1361-531b-4edb-8b4f-2c77ef3197fb",
+      "assetId": "f8d8c628-3c7f-504e-bc21-88a743e02d8b",
+      "costGenerations": 1,
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. The whole square canvas is the top of a large sealed spacecraft material bin for mined ore: a square dark slate steel deck plate reaching every canvas edge with a thin blue painted rim and a yellow clamp in each corner; on it four square hinged lid hatches in a two by two grid, each of worn ochre-painted steel stiffened by a few raised vertical ribs lit from the upper left, each with a grey steel hinge bar with two knuckles along its top edge and a short grey latch handle with a small yellow catch at its bottom centre; subtle scuffs and chipped paint on the lid edges. Coarse deliberate pixel clusters, three-tone shading, utilitarian retro spaceship salvage-yard machinery. No perspective, no ground shadow, no pipes, no gauges, no text, numbers, symbols or logos.",
+        "width": 128,
+        "height": 128,
+        "seed": 9301401,
+        "init_image_strength": 130,
+        "no_background": false,
+        "isometric": false,
+        "view": "high top-down",
+        "outline": "selective outline",
+        "shading": "medium shading",
+        "detail": "medium detail"
+      },
+      "initImage": "references/y4-bin-start.png",
+      "decision": "selected",
+      "review": "Four hatches on one deck, matching the silo ladder's multiplying domes; readable at 64 px.",
+      "sourceSHA256": "ab3f42d197f096c16e20f2912b840e63737d3ba9317242fb2e7f097e450c3558"
+    }
+  ],
+  "rejectedArchive": {
+    "branch": "codex/rejected-artwork",
+    "commit": "1c01c0c107be942713d66b5a813e0b2e171eff3a"
+  }
+}

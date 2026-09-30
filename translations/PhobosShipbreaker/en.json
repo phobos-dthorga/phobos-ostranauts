@@ -876,5 +876,11 @@
   "Recipe.PhobosRecoverSteelIngot.name": "Recover steel from ingot",
   "Recipe.PhobosRecoverSteelIngot.description": "Cut one 4 kg steel ingot into 4 kg of identified steel scrap. All cuttings are retained; this destroys the ingot and loses its value.",
   "Silo.name_medium": "Process Water Silo",
-  "Silo.name_large": "Process Water Silo"
+  "Silo.name_large": "Process Water Silo",
+  "Bin.name": "Material Bin",
+  "Bin.name_medium": "Material Bin",
+  "Bin.name_large": "Material Bin",
+  "Bin.description": "A sealed {2} x {2} bin in a {0:F0} kg housing, with a {1} x {1} storage grid for mined material only: ore, loose regolith, gangue, water and methane ice, and mined chunks. Ore stacks six to a cell. Crew can fetch from it and put products into it like any unlocked container, and the lid keeps loose rock from drifting off.",
+  "Bin.missing_native_trigger": "Material bins not registered: the game's {0} container rule is missing.",
+  "EquipmentEconomy.empty_the_bin_before_dismantling": " Empty the bin before dismantling. Repair replaces failed parts; Restore treats wear using tools."
 }

@@ -104,7 +104,8 @@ reclamation run does not stop merely because the tray filled.
 
 1. Place an ordinary storage container on the same ship, joined to the machine by
    structural floor. It must be unlocked and have a limited capacity. People,
-   machine trays and Phobos equipment cannot be chosen.
+   machine trays and Phobos equipment cannot be chosen. Material bins are not
+   listed either: they take only mined material, never these products.
 2. Open the machine's **Routing** page and choose **Storage output**, or use the
    F3 commands below.
 3. Choose **Start unloading to storage**. Unloading is a separate permission from

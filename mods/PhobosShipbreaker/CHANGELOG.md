@@ -25,6 +25,22 @@ Dates on Draft entries record preparation, not Steam publication.
 - Earlier capture-only research is superseded for supported ordinary walls by the 0.24.0 reclamation implementation below. Broader structural recipes, repeated furnace batches and whole-wreck completion remain outside this round.
 - Keep [NASA Goddard's Raven research](https://www.nasa.gov/general/nasas-hybrid-computer-enables-ravens-autonomous-rendezvous-capability/) and [ESA's LIRIS experiment by Airbus, Jena Optronik and Sodern](https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/ATV/ATV_views_Space_Station_as_never_before) as sensing context, separate from Blue Bottle Games native evidence and authored gameplay choices. No institutional endorsement or gameplay validation is implied.
 
+## [0.43.0] - 2026-09-30 - Draft
+
+### Added
+
+- Phobos' Rivetline Y2, Y3 and Y4 Material Bins (2 x 2, 3 x 3 and 4 x 4; 60, 115 and 170 kg; 2,400, 3,900 and 5,510 cr): sealed, unpowered stores for mined material only (ore, loose regolith, gangue, water and methane ice, ice gangue and mined chunks such as clay hydrates). Their 4 x 4, 6 x 6 and 8 x 8 grids hold real items, six ore blocks to a cell, so every block keeps its identity. Install from the INSTALL menu FURN tab, beside the game's Storage Bay.
+- Crew treat an installed bin as an ordinary unlocked container: loading orders can fetch from it, ship-wide or pinned, and a machine's output store can be a bin for gangue and other mined remainders.
+- Overhead PixelLab sprites in the silo family's colours, with ochre hinged lids: one hatch on the Y2, two on the Y3 and four on the Y4.
+
+### Changed
+
+- The D4 and R4 storage outputs no longer list material bins, because bins refuse their scrap products.
+
+### Compatibility and limits
+
+- Uninstalling a bin carries its contents with it, as the game's Storage Bay does; a full Y4 can weigh several tonnes. Dismantling waits until the bin is empty. The Y2 may turn up in engineering salvage; the Y3 and Y4 are purchase-only. Saved data is unchanged. Offline checks are not gameplay validation.
+
 ## [0.42.0] - 2026-09-30 - Draft
 
 ### Changed

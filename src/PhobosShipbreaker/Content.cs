@@ -121,6 +121,7 @@ internal static class Content
         CollectorDefinitions.Add(prepared, collectorKW);
         ReclaimerDefinitions.Add(prepared, reclaimerKW);
         SiloDefinitions.Add(prepared);
+        BinDefinitions.Add(prepared);
         // Terminal remainders of the light feed families: one identity each, technical minimum price, never re-processed.
         foreach (var reject in FeedFamilies.RejectKg)
             ReclaimerDefinitions.Packet(prepared, reject.Key, reject.Value, "Feed.reject_" + FeedFamilies.RejectFamily[reject.Key] + "_name",

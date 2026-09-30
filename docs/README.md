@@ -63,6 +63,7 @@ common failures and useful reports.
 - [Section assembly and maintenance](section-assembly-and-maintenance.md)
 - [Quiet completion cues across Phobos mods](shared-completion-cues.md)
 - [Process water silo and ice thaw unit](shipbreaker-bulk-silos.md)
+- [Material bins](shipbreaker-material-bins.md)
 - [Hull chute and exterior grabber](shipbreaker-hull-intake.md)
 - [Phobos Shipbreaker: equipment and item reference](shipbreaker-item-reference.md)
 - [Shipbreaker outputs: existing maintenance and construction uses](shipbreaker-material-uses.md)

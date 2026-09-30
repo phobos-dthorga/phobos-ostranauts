@@ -46049,6 +46049,87 @@
       ],
       "before": "Loot table {0} was changed by another mod after it was carved; share for {1} left unapplied rather than overwriting that change.",
       "after": "Loot table {0} was changed by another mod after it was carved; share for {1} left unapplied rather than overwriting that change."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Bin.name",
+      "category": "item name",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/Core/BinRules.cs:22",
+        "src/PhobosShipbreaker/BinDefinitions.cs:34"
+      ],
+      "before": "Material Bin",
+      "after": "Material Bin"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Bin.name_medium",
+      "category": "item name",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/Core/BinRules.cs:22",
+        "src/PhobosShipbreaker/BinDefinitions.cs:34"
+      ],
+      "before": "Material Bin",
+      "after": "Material Bin"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Bin.name_large",
+      "category": "item name",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/Core/BinRules.cs:22",
+        "src/PhobosShipbreaker/BinDefinitions.cs:34"
+      ],
+      "before": "Material Bin",
+      "after": "Material Bin"
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Bin.description",
+      "category": "item description",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/BinDefinitions.cs:35"
+      ],
+      "before": "A sealed {2} x {2} bin in a {0:F0} kg housing, with a {1} x {1} storage grid for mined material only: ore, loose regolith, gangue, water and methane ice, and mined chunks. Ore stacks six to a cell. Crew can fetch from it and put products into it like any unlocked container, and the lid keeps loose rock from drifting off.",
+      "after": "A sealed {2} x {2} bin in a {0:F0} kg housing, with a {1} x {1} storage grid for mined material only: ore, loose regolith, gangue, water and methane ice, and mined chunks. Ore stacks six to a cell. Crew can fetch from it and put products into it like any unlocked container, and the lid keeps loose rock from drifting off."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "Bin.missing_native_trigger",
+      "category": "developer diagnostics",
+      "decision": "retain",
+      "reason": "Retain precise diagnostic terminology for fault investigation; not ordinary descriptive prose.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/BinDefinitions.cs:18"
+      ],
+      "before": "Material bins not registered: the game's {0} container rule is missing.",
+      "after": "Material bins not registered: the game's {0} container rule is missing."
+    },
+    {
+      "mod": "PhobosShipbreaker",
+      "key": "EquipmentEconomy.empty_the_bin_before_dismantling",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosShipbreaker/EquipmentEconomy.cs:105"
+      ],
+      "before": " Empty the bin before dismantling. Repair replaces failed parts; Restore treats wear using tools.",
+      "after": " Empty the bin before dismantling. Repair replaces failed parts; Restore treats wear using tools."
     }
   ],
   "documents": [
@@ -46056,8 +46137,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "f9a2fc362bd1d267bf0becc29ecbd881a81a06bd9810fc2ce48cde5edfbcc500",
-      "review": "Framework 0.48.0 / Manufacturing 0.8.0 (carved loot shares, clay from C-class silicates) and the 30 September asteroid feedstock research record, 30 September 2026: reviewed with this change; wording, links and maintained values checked."
+      "sha256": "02a79f9ca22faef619b902119bf09459a4e044ae733d249c1c87ec35ed55e4a9",
+      "review": "Shipbreaker 0.43.0 (Rivetline Y2, Y3 and Y4 material bins), 30 September 2026: reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "SUPPORT.md",
@@ -46070,8 +46151,8 @@
       "path": "docs/README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "75c00d434f189a5e2cd39d8d4dc14574c42f07f81660426cdd7a54518ed7a5bb",
-      "review": "2026-09-29 (gas store sizes and L2): index link follows the Manufacturing guide title."
+      "sha256": "af8e3ce36f8f97ee711d6c4d78d2bc56f7c75256d08c57e850566c7195dd52b6",
+      "review": "Shipbreaker 0.43.0 (Rivetline Y2, Y3 and Y4 material bins), 30 September 2026: reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "docs/agriculture-bulk-storage.md",
@@ -46209,15 +46290,15 @@
       "path": "docs/automatic-material-routing.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "02476e2305a573b6e3c53e087e825a3478b25d0cc57e7fc836a1c66246760b32",
-      "review": "2026-09-29: flowchart added with a one-sentence lead-in; stale statements corrected where found (ingot recipes, silo consumers, collector products, dependency minima link, Manufacturing crew orders)."
+      "sha256": "bcb8247255898484be28393df0d896e4f870422a5dd9d11a0b8b60bd33de870c",
+      "review": "Shipbreaker 0.43.0 (Rivetline Y2, Y3 and Y4 material bins), 30 September 2026: reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "76850b7551d28964db4e0bd85ef8283b89d03b59f5101d365852dbab6dd4606f",
-      "review": "Framework 0.48.0 / Manufacturing 0.8.0 (carved loot shares, clay from C-class silicates) and the 30 September asteroid feedstock research record, 30 September 2026: reviewed with this change; wording, links and maintained values checked."
+      "sha256": "7b08fa99fb3b3ec7cdae551fd7a98c65892f4b08736f8dd76bb0278402da0713",
+      "review": "Shipbreaker 0.43.0 (Rivetline Y2, Y3 and Y4 material bins), 30 September 2026: reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "docs/crew-automation.md",
@@ -46476,22 +46557,22 @@
       "path": "docs/development/economy-coverage-audit.md",
       "scope": "development audit record; current player text limited to the changelog links",
       "decision": "rewrite",
-      "sha256": "4dd4632da9579ccdf2348f3fdf5435fdd005de9ef8c740af91391ca9b0bb4233",
-      "review": "2026-09-29: K2 and M2 join the late-game terms."
+      "sha256": "0f3efcd556031f6ef5c9636d8e3d12d5f323b73f8ed3820eb21e0127323947e9",
+      "review": "Shipbreaker 0.43.0 (Rivetline Y2, Y3 and Y4 material bins), 30 September 2026: reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "docs/development/equipment-branding.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "43233aab5edae2a86c9eec81e9af19de69510173f0c7327230975dfa7c2fb44d",
-      "review": "Framework 0.48.0 / Manufacturing 0.8.0 (carved loot shares, clay from C-class silicates) and the 30 September asteroid feedstock research record, 30 September 2026: reviewed with this change; wording, links and maintained values checked."
+      "sha256": "cdcd4877fe9c085162c56b5c7cd9c83a2711839a340c0f2930b2504e18d40658",
+      "review": "Shipbreaker 0.43.0 (Rivetline Y2, Y3 and Y4 material bins), 30 September 2026: reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "docs/development/equipment-value-audit.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "29a9bd0e0af9aaaac37a5134b33fb1950f752d89025dd6812fc355554e5165d1",
-      "review": "2026-09-29 (S4/S5 silos): reviewed with this change; wording, links and maintained values checked."
+      "sha256": "43243e25d7cf5aa66dc84419dbdeb1661c54024904affe5f8a6d124ff5965430",
+      "review": "Shipbreaker 0.43.0 (Rivetline Y2, Y3 and Y4 material bins), 30 September 2026: reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "docs/development/feed-families.md",
@@ -46601,15 +46682,15 @@
       "path": "docs/development/install-catalogue.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "4929746b69e55d1ce338a02ec6b89e85d6cca21a4412e5d6edb537dd28c8eebc",
-      "review": "Manufacturing 0.5.0 (A2 cabin air regulator), 29 September 2026: reviewed with this change; wording, links and maintained values checked."
+      "sha256": "484d51c8efc0aa306deead00c70c9294135ca90540b33ad5bd99cfa70c6dbeff",
+      "review": "Shipbreaker 0.43.0 (Rivetline Y2, Y3 and Y4 material bins), 30 September 2026: reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "docs/development/item-handling-audit.md",
       "scope": "current handling guidance and complete generated definition ledger",
       "decision": "reviewed",
-      "sha256": "e10d3216a92a5c93cd78550d22ca0dd7f8c35a1aa5221b0817e2131c7b6ca855",
-      "review": "Manufacturing 0.5.0 (A2 cabin air regulator, crew bottle order), 29 September 2026: reviewed with this change; wording, links and maintained values checked."
+      "sha256": "af4d48db00812a2bc1bd3900a332392ec2a9a08f2fd33e291c21ec494a891072",
+      "review": "Shipbreaker 0.43.0 (Rivetline Y2, Y3 and Y4 material bins), 30 September 2026: reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "docs/development/item-reference-maintenance.md",
@@ -46937,8 +47018,8 @@
       "path": "docs/equipment-economy.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "e93476390333527483e9c51c3a854b83c6c9afa3aac7117ecd76fd1e3e81c080",
-      "review": "Manufacturing 0.5.0 (A2 cabin air regulator), 29 September 2026: reviewed with this change; wording, links and maintained values checked."
+      "sha256": "76d86602856bdbade59aa471debdd68506fd21afa25adcd0dd091e50679fd89e",
+      "review": "Shipbreaker 0.43.0 (Rivetline Y2, Y3 and Y4 material bins), 30 September 2026: reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "docs/fluid-network-operations.md",
@@ -47007,8 +47088,8 @@
       "path": "docs/industrial-console-player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "2995a25ae3dfe1472affaa70851ea09e598a83f8fb37f731d3f8d28e2ac14871",
-      "review": "30 September 2026 performance pass, stage 8 (shared world sweep, capture probes): reviewed with this change; wording, links and maintained values checked."
+      "sha256": "ceaaf36f2c1daf9af2e39251fcd83c2caf9745a9e9ef956516da14ba90e95394",
+      "review": "Shipbreaker 0.43.0 (Rivetline Y2, Y3 and Y4 material bins), 30 September 2026: reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "docs/installing-mods.md",
@@ -47056,8 +47137,8 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "98815e66aa6d87b84a8f91b415f6447c7ccc68ed984c057b8c964778b2ae0b44",
-      "review": "Framework 0.48.0 / Manufacturing 0.8.0 (carved loot shares, clay from C-class silicates) and the 30 September asteroid feedstock research record, 30 September 2026: reviewed with this change; wording, links and maintained values checked."
+      "sha256": "bda1dbc0d98b3089d982e6f908ba3996d70af470a6895aee4a4143458f4e9aac",
+      "review": "Shipbreaker 0.43.0 (Rivetline Y2, Y3 and Y4 material bins), 30 September 2026: reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "docs/residue-collector.md",
@@ -47105,8 +47186,8 @@
       "path": "docs/shipbreaker-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "209ebfadbf01c139d3e47d21deefdd4a10b5a930cb7c55366bd90e3b978b9d11",
-      "review": "30 September 2026 performance pass, stage 8 (shared world sweep, capture probes): reviewed with this change; wording, links and maintained values checked."
+      "sha256": "c76521ae07926d6adcfd226abb4a306655291d09d44173f8084189bbd1e10cf5",
+      "review": "Shipbreaker 0.43.0 (Rivetline Y2, Y3 and Y4 material bins), 30 September 2026: reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "docs/shipbreaker-material-uses.md",
@@ -47161,8 +47242,8 @@
       "path": "workshop/PhobosShipbreaker/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "fe07e952b166438f42f29bcbcc5e14f063ea665b1fe6b8d3188e0173cd4674de",
-      "review": "30 September 2026 performance pass, stage 8 (shared world sweep, capture probes): reviewed with this change; wording, links and maintained values checked."
+      "sha256": "ffeef428183bf6098ce3b2c6a5f3f6609d8d5453f5c8f66a0c9119aa16fc78a8",
+      "review": "Shipbreaker 0.43.0 (Rivetline Y2, Y3 and Y4 material bins), 30 September 2026: reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "docs/war-declared-player-guide.md",
@@ -47198,14 +47279,21 @@
       "decision": "retain",
       "sha256": "f5f6c6106f387f5ecc4a4e7c8df528c0f387ef66909d78dc2bb2f1b48a6365ad",
       "review": "Framework 0.48.0 / Manufacturing 0.8.0 (carved loot shares, clay from C-class silicates) and the 30 September asteroid feedstock research record, 30 September 2026: reviewed with this change; wording, links and maintained values checked."
+    },
+    {
+      "path": "docs/shipbreaker-material-bins.md",
+      "scope": "current player operating guide",
+      "decision": "add",
+      "sha256": "6f34b5d283d5ad312e471bac3d639ee95075f37ae0fc5a6aef7af22f7fa36085",
+      "review": "Shipbreaker 0.43.0 (Rivetline Y2, Y3 and Y4 material bins), 30 September 2026: reviewed with this change; wording, links and maintained values checked."
     }
   ],
   "surfaces": [
     {
       "path": "config/item-reference.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "fea74d817bbf3b9b48429242587b565a58303b0f99896b2c1f6d1c08af1a2909",
-      "review": "Framework 0.48.0 / Manufacturing 0.8.0 (carved loot shares, clay from C-class silicates) and the 30 September asteroid feedstock research record, 30 September 2026: reviewed with this change; wording, links and maintained values checked."
+      "sha256": "72b59d9da3d9198c3eb724549d43882a34b1e62982af7baab8dae92537c272ae",
+      "review": "Shipbreaker 0.43.0 (Rivetline Y2, Y3 and Y4 material bins), 30 September 2026: reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "mods/PhobosAgriculture/framework/equipment-names.json",
@@ -47265,8 +47353,8 @@
     {
       "path": "mods/PhobosShipbreaker/framework/equipment-names.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "cad28bca06777e71bdbd2bc5adde5dd113741e5e3eb23283c13c9a15506286a4",
-      "review": "2026-09-29 (S4/S5 silos): reviewed with this change; wording, links and maintained values checked."
+      "sha256": "0c39d0a6efac904a2a4cc273ff1060ebbc20da33d5fd6d26c1ac32b95fe77184",
+      "review": "Shipbreaker 0.43.0 (Rivetline Y2, Y3 and Y4 material bins), 30 September 2026: reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "mods/PhobosShipbreaker/framework/recipes.json",
@@ -47277,8 +47365,8 @@
     {
       "path": "mods/PhobosShipbreaker/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "21aa121201d8b1d6d73d2bec848b057c85557ae27674909c3c01b5defbf23ffc",
-      "review": "30 September 2026 performance pass, stage 8 (shared world sweep, capture probes): reviewed with this change; wording, links and maintained values checked."
+      "sha256": "577cdf953f6838b07da597fe3f9d3726ce80d081efc06a88d13f777b9abbc4de",
+      "review": "Shipbreaker 0.43.0 (Rivetline Y2, Y3 and Y4 material bins), 30 September 2026: reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "mods/PhobosWarDeclared/mod_info.json",

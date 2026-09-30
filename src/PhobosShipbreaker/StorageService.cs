@@ -45,8 +45,10 @@ internal sealed class StorageService
     }
     /// <summary>The saved store ID, for locating or clearing a selection even when it no longer resolves.</summary>
     internal static string Selection(CondOwner co) => Read(co, out var selection) == SavedStateStatus.Ready ? selection!.StoreId : "none";
+    /// <summary>Material bins are crew stores but admit only mined material, never these products (the native
+    /// checks prove it), so they are not offered here rather than chosen and then stalling as full.</summary>
     internal static bool Eligible(CondOwner machine, CondOwner? store) => store != null && store != machine && machine.ship != null &&
-        store.ship == machine.ship && store.Item != null && CrewWork.IsStore(store);
+        store.ship == machine.ship && store.Item != null && CrewWork.IsStore(store) && !BinRules.IsFamily(store.strCODef);
     internal static IEnumerable<CondOwner> Candidates(CondOwner machine) =>
         machine.ship == null ? Array.Empty<CondOwner>() : CrewWork.Stores(machine.ship).Where(c => Eligible(machine, c));
     private static bool Owned(CondOwner co) => CrewSim.coPlayer != null && co.ship != null && CrewSim.system?.GetShipOwner(co.ship.strRegID) == CrewSim.coPlayer.strID;

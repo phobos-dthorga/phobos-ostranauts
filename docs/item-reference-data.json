@@ -24894,7 +24894,7 @@
     {
       "id": "PhobosShipbreaker",
       "name": "Phobos Shipbreaker",
-      "version": "0.42.0",
+      "version": "0.43.0",
       "gameTarget": "1.0.1.5",
       "items": [
         {
@@ -29366,6 +29366,1506 @@
           "aliases": []
         },
         {
+          "id": "PhobosMaterialBinInstalled",
+          "name": "Phobos' Rivetline Y2 Material Bin",
+          "stackLimit": 1,
+          "actions": [
+            "Inventory",
+            "PhobosShipbreakerMaintenanceInformation"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "PhobosMaterialBinTFit",
+            "width": 4,
+            "height": 4,
+            "flag": true,
+            "inventoryAction": true,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
+          "handlingFlags": [
+            "IsInstalled"
+          ],
+          "slots": [],
+          "massKg": 60.0,
+          "baseValue": 2400.0,
+          "installed": true,
+          "operatingModes": [],
+          "installTab": "FURN",
+          "jobs": [
+            {
+              "id": "PhobosMaterialBinInstalledDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosMaterialBinInstalledDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 400.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 40,
+                  "baseValue": 143.99999618530273
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 8,
+                  "baseValue": 8.800000190734863
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 8,
+                  "baseValue": 40.0
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 8,
+                  "baseValue": 0.4000000059604645
+                }
+              ]
+            },
+            {
+              "id": "PhobosMaterialBinInstalledRestore",
+              "kind": "restore",
+              "action": "ACTPhobosMaterialBinInstalledRestore",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsUndamageableNotContained",
+              "targetPassOnFreshDefinition": false,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 20.0,
+              "outputs": []
+            },
+            {
+              "id": "PhobosMaterialBinInstalledUninstall",
+              "kind": "uninstall",
+              "action": "ACTPhobosMaterialBinInstalledUninstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosMaterialBinTInstalled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 600.0,
+              "outputs": [
+                {
+                  "id": "PhobosMaterialBinLoose",
+                  "name": "Phobos' Rivetline Y2 Material Bin",
+                  "count": 1,
+                  "baseValue": 2400.0
+                }
+              ]
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosMaterialBinInstalledDmg",
+          "name": "Phobos' Rivetline Y2 Material Bin (Damaged)",
+          "stackLimit": 1,
+          "actions": [
+            "Inventory",
+            "PhobosShipbreakerMaintenanceInformation"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "PhobosMaterialBinTFit",
+            "width": 4,
+            "height": 4,
+            "flag": true,
+            "inventoryAction": true,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
+          "handlingFlags": [
+            "IsDamaged",
+            "IsInstalled"
+          ],
+          "slots": [],
+          "massKg": 60.0,
+          "baseValue": 600.0,
+          "installed": true,
+          "operatingModes": [],
+          "installTab": "FURN",
+          "jobs": [
+            {
+              "id": "PhobosMaterialBinInstalledDmgDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosMaterialBinInstalledDmgDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 400.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 12,
+                  "baseValue": 43.19999885559082
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 3,
+                  "baseValue": 3.3000000715255737
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 2,
+                  "baseValue": 10.0
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 44,
+                  "baseValue": 2.2000000327825546
+                }
+              ]
+            },
+            {
+              "id": "PhobosMaterialBinInstalledDmgUninstall",
+              "kind": "uninstall",
+              "action": "ACTPhobosMaterialBinInstalledDmgUninstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosMaterialBinTInstalledDmg",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 600.0,
+              "outputs": [
+                {
+                  "id": "PhobosMaterialBinLooseDmg",
+                  "name": "Phobos' Rivetline Y2 Material Bin (Damaged)",
+                  "count": 1,
+                  "baseValue": 600.0
+                }
+              ]
+            },
+            {
+              "id": "PhobosMaterialBinInstalledRepair",
+              "kind": "repair",
+              "action": "ACTPhobosMaterialBinInstalledRepair",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsRepairableNotContained",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [
+                "TIsScrapSteel=1x1",
+                "TIsScrapAluminum=1x1",
+                "TIsPartsMechSmall=1x2"
+              ],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 1500.0,
+              "outputs": [
+                {
+                  "id": "PhobosMaterialBinInstalled",
+                  "name": "Phobos' Rivetline Y2 Material Bin",
+                  "count": 1,
+                  "baseValue": 2400.0
+                }
+              ]
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosMaterialBinLargeInstalled",
+          "name": "Phobos' Rivetline Y4 Material Bin",
+          "stackLimit": 1,
+          "actions": [
+            "Inventory",
+            "PhobosShipbreakerMaintenanceInformation"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "PhobosMaterialBinTFit",
+            "width": 8,
+            "height": 8,
+            "flag": true,
+            "inventoryAction": true,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
+          "handlingFlags": [
+            "IsInstalled"
+          ],
+          "slots": [],
+          "massKg": 170.0,
+          "baseValue": 5510.0,
+          "installed": true,
+          "operatingModes": [],
+          "installTab": "FURN",
+          "jobs": [
+            {
+              "id": "PhobosMaterialBinLargeInstalledDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosMaterialBinLargeInstalledDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 700.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 119,
+                  "baseValue": 428.39998865127563
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 24,
+                  "baseValue": 26.40000057220459
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 8,
+                  "baseValue": 40.0
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 23,
+                  "baseValue": 1.1500000171363354
+                }
+              ]
+            },
+            {
+              "id": "PhobosMaterialBinLargeInstalledRestore",
+              "kind": "restore",
+              "action": "ACTPhobosMaterialBinLargeInstalledRestore",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsUndamageableNotContained",
+              "targetPassOnFreshDefinition": false,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 20.0,
+              "outputs": []
+            },
+            {
+              "id": "PhobosMaterialBinLargeInstalledUninstall",
+              "kind": "uninstall",
+              "action": "ACTPhobosMaterialBinLargeInstalledUninstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosMaterialBinLargeTInstalled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 1000.0,
+              "outputs": [
+                {
+                  "id": "PhobosMaterialBinLargeLoose",
+                  "name": "Phobos' Rivetline Y4 Material Bin",
+                  "count": 1,
+                  "baseValue": 5510.0
+                }
+              ]
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosMaterialBinLargeInstalledDmg",
+          "name": "Phobos' Rivetline Y4 Material Bin (Damaged)",
+          "stackLimit": 1,
+          "actions": [
+            "Inventory",
+            "PhobosShipbreakerMaintenanceInformation"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "PhobosMaterialBinTFit",
+            "width": 8,
+            "height": 8,
+            "flag": true,
+            "inventoryAction": true,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
+          "handlingFlags": [
+            "IsDamaged",
+            "IsInstalled"
+          ],
+          "slots": [],
+          "massKg": 170.0,
+          "baseValue": 1377.0,
+          "installed": true,
+          "operatingModes": [],
+          "installTab": "FURN",
+          "jobs": [
+            {
+              "id": "PhobosMaterialBinLargeInstalledDmgDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosMaterialBinLargeInstalledDmgDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 700.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 34,
+                  "baseValue": 122.39999675750732
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 9,
+                  "baseValue": 9.900000214576721
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 2,
+                  "baseValue": 10.0
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 126,
+                  "baseValue": 6.3000000938773155
+                }
+              ]
+            },
+            {
+              "id": "PhobosMaterialBinLargeInstalledDmgUninstall",
+              "kind": "uninstall",
+              "action": "ACTPhobosMaterialBinLargeInstalledDmgUninstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosMaterialBinLargeTInstalledDmg",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 1000.0,
+              "outputs": [
+                {
+                  "id": "PhobosMaterialBinLargeLooseDmg",
+                  "name": "Phobos' Rivetline Y4 Material Bin (Damaged)",
+                  "count": 1,
+                  "baseValue": 1377.0
+                }
+              ]
+            },
+            {
+              "id": "PhobosMaterialBinLargeInstalledRepair",
+              "kind": "repair",
+              "action": "ACTPhobosMaterialBinLargeInstalledRepair",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsRepairableNotContained",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [
+                "TIsScrapSteel=1x3",
+                "TIsScrapAluminum=1x3",
+                "TIsPartsMechSmall=1x6"
+              ],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 2500.0,
+              "outputs": [
+                {
+                  "id": "PhobosMaterialBinLargeInstalled",
+                  "name": "Phobos' Rivetline Y4 Material Bin",
+                  "count": 1,
+                  "baseValue": 5510.0
+                }
+              ]
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosMaterialBinLargeLoose",
+          "name": "Phobos' Rivetline Y4 Material Bin",
+          "stackLimit": 1,
+          "actions": [
+            "Inventory",
+            "PhobosShipbreakerMaintenanceInformation",
+            "DropItem",
+            "PickupItem"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "PhobosMaterialBinTFit",
+            "width": 8,
+            "height": 8,
+            "flag": true,
+            "inventoryAction": true,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
+          "handlingFlags": [
+            "IsCumbersome"
+          ],
+          "slots": [
+            "drag"
+          ],
+          "massKg": 170.0,
+          "baseValue": 5510.0,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [
+            {
+              "id": "PhobosMaterialBinLargeLooseDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosMaterialBinLargeLooseDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 700.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 119,
+                  "baseValue": 428.39998865127563
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 24,
+                  "baseValue": 26.40000057220459
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 8,
+                  "baseValue": 40.0
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 23,
+                  "baseValue": 1.1500000171363354
+                }
+              ]
+            },
+            {
+              "id": "PhobosMaterialBinLargeLooseInstall",
+              "kind": "install",
+              "action": "ACTPhobosMaterialBinLargeLooseInstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosMaterialBinLargeTLoose",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "PhobosMaterialBinLargeTLoose=1.0x1"
+              ],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 1400.0,
+              "outputs": [
+                {
+                  "id": "PhobosMaterialBinLargeInstalled",
+                  "name": "Phobos' Rivetline Y4 Material Bin",
+                  "count": 1,
+                  "baseValue": 5510.0
+                }
+              ]
+            },
+            {
+              "id": "PhobosMaterialBinLargeLooseRestore",
+              "kind": "restore",
+              "action": "ACTPhobosMaterialBinLargeLooseRestore",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsUndamageableNotContained",
+              "targetPassOnFreshDefinition": false,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 20.0,
+              "outputs": []
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosMaterialBinLargeLooseDmg",
+          "name": "Phobos' Rivetline Y4 Material Bin (Damaged)",
+          "stackLimit": 1,
+          "actions": [
+            "Inventory",
+            "PhobosShipbreakerMaintenanceInformation",
+            "DropItem",
+            "PickupItem"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "PhobosMaterialBinTFit",
+            "width": 8,
+            "height": 8,
+            "flag": true,
+            "inventoryAction": true,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
+          "handlingFlags": [
+            "IsCumbersome",
+            "IsDamaged"
+          ],
+          "slots": [
+            "drag"
+          ],
+          "massKg": 170.0,
+          "baseValue": 1377.0,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [
+            {
+              "id": "PhobosMaterialBinLargeLooseDmgDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosMaterialBinLargeLooseDmgDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 700.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 34,
+                  "baseValue": 122.39999675750732
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 9,
+                  "baseValue": 9.900000214576721
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 2,
+                  "baseValue": 10.0
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 126,
+                  "baseValue": 6.3000000938773155
+                }
+              ]
+            },
+            {
+              "id": "PhobosMaterialBinLargeLooseDmgInstall",
+              "kind": "install",
+              "action": "ACTPhobosMaterialBinLargeLooseDmgInstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosMaterialBinLargeTLooseDmg",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "PhobosMaterialBinLargeTLooseDmg=1.0x1"
+              ],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 1400.0,
+              "outputs": [
+                {
+                  "id": "PhobosMaterialBinLargeInstalledDmg",
+                  "name": "Phobos' Rivetline Y4 Material Bin (Damaged)",
+                  "count": 1,
+                  "baseValue": 1377.0
+                }
+              ]
+            },
+            {
+              "id": "PhobosMaterialBinLargeLooseRepair",
+              "kind": "repair",
+              "action": "ACTPhobosMaterialBinLargeLooseRepair",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsRepairableNotContained",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [
+                "TIsScrapSteel=1x3",
+                "TIsScrapAluminum=1x3",
+                "TIsPartsMechSmall=1x6"
+              ],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 2500.0,
+              "outputs": [
+                {
+                  "id": "PhobosMaterialBinLargeLoose",
+                  "name": "Phobos' Rivetline Y4 Material Bin",
+                  "count": 1,
+                  "baseValue": 5510.0
+                }
+              ]
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosMaterialBinLoose",
+          "name": "Phobos' Rivetline Y2 Material Bin",
+          "stackLimit": 1,
+          "actions": [
+            "Inventory",
+            "PhobosShipbreakerMaintenanceInformation",
+            "DropItem",
+            "PickupItem"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "PhobosMaterialBinTFit",
+            "width": 4,
+            "height": 4,
+            "flag": true,
+            "inventoryAction": true,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
+          "handlingFlags": [
+            "IsCumbersome"
+          ],
+          "slots": [
+            "drag"
+          ],
+          "massKg": 60.0,
+          "baseValue": 2400.0,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [
+            {
+              "id": "PhobosMaterialBinLooseDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosMaterialBinLooseDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 400.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 40,
+                  "baseValue": 143.99999618530273
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 8,
+                  "baseValue": 8.800000190734863
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 8,
+                  "baseValue": 40.0
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 8,
+                  "baseValue": 0.4000000059604645
+                }
+              ]
+            },
+            {
+              "id": "PhobosMaterialBinLooseInstall",
+              "kind": "install",
+              "action": "ACTPhobosMaterialBinLooseInstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosMaterialBinTLoose",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "PhobosMaterialBinTLoose=1.0x1"
+              ],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 800.0,
+              "outputs": [
+                {
+                  "id": "PhobosMaterialBinInstalled",
+                  "name": "Phobos' Rivetline Y2 Material Bin",
+                  "count": 1,
+                  "baseValue": 2400.0
+                }
+              ]
+            },
+            {
+              "id": "PhobosMaterialBinLooseRestore",
+              "kind": "restore",
+              "action": "ACTPhobosMaterialBinLooseRestore",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsUndamageableNotContained",
+              "targetPassOnFreshDefinition": false,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 20.0,
+              "outputs": []
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosMaterialBinLooseDmg",
+          "name": "Phobos' Rivetline Y2 Material Bin (Damaged)",
+          "stackLimit": 1,
+          "actions": [
+            "Inventory",
+            "PhobosShipbreakerMaintenanceInformation",
+            "DropItem",
+            "PickupItem"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "PhobosMaterialBinTFit",
+            "width": 4,
+            "height": 4,
+            "flag": true,
+            "inventoryAction": true,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
+          "handlingFlags": [
+            "IsCumbersome",
+            "IsDamaged"
+          ],
+          "slots": [
+            "drag"
+          ],
+          "massKg": 60.0,
+          "baseValue": 600.0,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [
+            {
+              "id": "PhobosMaterialBinLooseDmgDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosMaterialBinLooseDmgDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 400.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 12,
+                  "baseValue": 43.19999885559082
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 3,
+                  "baseValue": 3.3000000715255737
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 2,
+                  "baseValue": 10.0
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 44,
+                  "baseValue": 2.2000000327825546
+                }
+              ]
+            },
+            {
+              "id": "PhobosMaterialBinLooseDmgInstall",
+              "kind": "install",
+              "action": "ACTPhobosMaterialBinLooseDmgInstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosMaterialBinTLooseDmg",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "PhobosMaterialBinTLooseDmg=1.0x1"
+              ],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 800.0,
+              "outputs": [
+                {
+                  "id": "PhobosMaterialBinInstalledDmg",
+                  "name": "Phobos' Rivetline Y2 Material Bin (Damaged)",
+                  "count": 1,
+                  "baseValue": 600.0
+                }
+              ]
+            },
+            {
+              "id": "PhobosMaterialBinLooseRepair",
+              "kind": "repair",
+              "action": "ACTPhobosMaterialBinLooseRepair",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsRepairableNotContained",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [
+                "TIsScrapSteel=1x1",
+                "TIsScrapAluminum=1x1",
+                "TIsPartsMechSmall=1x2"
+              ],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 1500.0,
+              "outputs": [
+                {
+                  "id": "PhobosMaterialBinLoose",
+                  "name": "Phobos' Rivetline Y2 Material Bin",
+                  "count": 1,
+                  "baseValue": 2400.0
+                }
+              ]
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosMaterialBinMediumInstalled",
+          "name": "Phobos' Rivetline Y3 Material Bin",
+          "stackLimit": 1,
+          "actions": [
+            "Inventory",
+            "PhobosShipbreakerMaintenanceInformation"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "PhobosMaterialBinTFit",
+            "width": 6,
+            "height": 6,
+            "flag": true,
+            "inventoryAction": true,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
+          "handlingFlags": [
+            "IsInstalled"
+          ],
+          "slots": [],
+          "massKg": 115.0,
+          "baseValue": 3900.0,
+          "installed": true,
+          "operatingModes": [],
+          "installTab": "FURN",
+          "jobs": [
+            {
+              "id": "PhobosMaterialBinMediumInstalledDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosMaterialBinMediumInstalledDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 550.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 79,
+                  "baseValue": 284.3999924659729
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 16,
+                  "baseValue": 17.600000381469727
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 8,
+                  "baseValue": 40.0
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 16,
+                  "baseValue": 0.800000011920929
+                }
+              ]
+            },
+            {
+              "id": "PhobosMaterialBinMediumInstalledRestore",
+              "kind": "restore",
+              "action": "ACTPhobosMaterialBinMediumInstalledRestore",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsUndamageableNotContained",
+              "targetPassOnFreshDefinition": false,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 20.0,
+              "outputs": []
+            },
+            {
+              "id": "PhobosMaterialBinMediumInstalledUninstall",
+              "kind": "uninstall",
+              "action": "ACTPhobosMaterialBinMediumInstalledUninstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosMaterialBinMediumTInstalled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 800.0,
+              "outputs": [
+                {
+                  "id": "PhobosMaterialBinMediumLoose",
+                  "name": "Phobos' Rivetline Y3 Material Bin",
+                  "count": 1,
+                  "baseValue": 3900.0
+                }
+              ]
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosMaterialBinMediumInstalledDmg",
+          "name": "Phobos' Rivetline Y3 Material Bin (Damaged)",
+          "stackLimit": 1,
+          "actions": [
+            "Inventory",
+            "PhobosShipbreakerMaintenanceInformation"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "PhobosMaterialBinTFit",
+            "width": 6,
+            "height": 6,
+            "flag": true,
+            "inventoryAction": true,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
+          "handlingFlags": [
+            "IsDamaged",
+            "IsInstalled"
+          ],
+          "slots": [],
+          "massKg": 115.0,
+          "baseValue": 975.0,
+          "installed": true,
+          "operatingModes": [],
+          "installTab": "FURN",
+          "jobs": [
+            {
+              "id": "PhobosMaterialBinMediumInstalledDmgDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosMaterialBinMediumInstalledDmgDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 550.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 23,
+                  "baseValue": 82.79999780654907
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 6,
+                  "baseValue": 6.6000001430511475
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 2,
+                  "baseValue": 10.0
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 85,
+                  "baseValue": 4.250000063329935
+                }
+              ]
+            },
+            {
+              "id": "PhobosMaterialBinMediumInstalledDmgUninstall",
+              "kind": "uninstall",
+              "action": "ACTPhobosMaterialBinMediumInstalledDmgUninstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosMaterialBinMediumTInstalledDmg",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 800.0,
+              "outputs": [
+                {
+                  "id": "PhobosMaterialBinMediumLooseDmg",
+                  "name": "Phobos' Rivetline Y3 Material Bin (Damaged)",
+                  "count": 1,
+                  "baseValue": 975.0
+                }
+              ]
+            },
+            {
+              "id": "PhobosMaterialBinMediumInstalledRepair",
+              "kind": "repair",
+              "action": "ACTPhobosMaterialBinMediumInstalledRepair",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsRepairableNotContained",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [
+                "TIsScrapSteel=1x2",
+                "TIsScrapAluminum=1x2",
+                "TIsPartsMechSmall=1x4"
+              ],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 2000.0,
+              "outputs": [
+                {
+                  "id": "PhobosMaterialBinMediumInstalled",
+                  "name": "Phobos' Rivetline Y3 Material Bin",
+                  "count": 1,
+                  "baseValue": 3900.0
+                }
+              ]
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosMaterialBinMediumLoose",
+          "name": "Phobos' Rivetline Y3 Material Bin",
+          "stackLimit": 1,
+          "actions": [
+            "Inventory",
+            "PhobosShipbreakerMaintenanceInformation",
+            "DropItem",
+            "PickupItem"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "PhobosMaterialBinTFit",
+            "width": 6,
+            "height": 6,
+            "flag": true,
+            "inventoryAction": true,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
+          "handlingFlags": [
+            "IsCumbersome"
+          ],
+          "slots": [
+            "drag"
+          ],
+          "massKg": 115.0,
+          "baseValue": 3900.0,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [
+            {
+              "id": "PhobosMaterialBinMediumLooseDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosMaterialBinMediumLooseDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 550.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 79,
+                  "baseValue": 284.3999924659729
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 16,
+                  "baseValue": 17.600000381469727
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 8,
+                  "baseValue": 40.0
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 16,
+                  "baseValue": 0.800000011920929
+                }
+              ]
+            },
+            {
+              "id": "PhobosMaterialBinMediumLooseInstall",
+              "kind": "install",
+              "action": "ACTPhobosMaterialBinMediumLooseInstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosMaterialBinMediumTLoose",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "PhobosMaterialBinMediumTLoose=1.0x1"
+              ],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 1100.0,
+              "outputs": [
+                {
+                  "id": "PhobosMaterialBinMediumInstalled",
+                  "name": "Phobos' Rivetline Y3 Material Bin",
+                  "count": 1,
+                  "baseValue": 3900.0
+                }
+              ]
+            },
+            {
+              "id": "PhobosMaterialBinMediumLooseRestore",
+              "kind": "restore",
+              "action": "ACTPhobosMaterialBinMediumLooseRestore",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsUndamageableNotContained",
+              "targetPassOnFreshDefinition": false,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 20.0,
+              "outputs": []
+            }
+          ],
+          "aliases": []
+        },
+        {
+          "id": "PhobosMaterialBinMediumLooseDmg",
+          "name": "Phobos' Rivetline Y3 Material Bin (Damaged)",
+          "stackLimit": 1,
+          "actions": [
+            "Inventory",
+            "PhobosShipbreakerMaintenanceInformation",
+            "DropItem",
+            "PickupItem"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": "PhobosMaterialBinTFit",
+            "width": 6,
+            "height": 6,
+            "flag": true,
+            "inventoryAction": true,
+            "ownedSlots": [],
+            "loot": "Blank"
+          },
+          "handlingFlags": [
+            "IsCumbersome",
+            "IsDamaged"
+          ],
+          "slots": [
+            "drag"
+          ],
+          "massKg": 115.0,
+          "baseValue": 975.0,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [
+            {
+              "id": "PhobosMaterialBinMediumLooseDmgDismantle",
+              "kind": "dismantle",
+              "action": "ACTPhobosMaterialBinMediumLooseDmgDismantle",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TCanBeDismantled",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 550.0,
+              "outputs": [
+                {
+                  "id": "ItmScrapSteel",
+                  "name": "Scrap Steel",
+                  "count": 23,
+                  "baseValue": 82.79999780654907
+                },
+                {
+                  "id": "ItmScrapAluminum",
+                  "name": "Scrap Aluminum",
+                  "count": 6,
+                  "baseValue": 6.6000001430511475
+                },
+                {
+                  "id": "ItmPartsMechSmall01",
+                  "name": "Small Mechanical Parts",
+                  "count": 2,
+                  "baseValue": 10.0
+                },
+                {
+                  "id": "ItmScrapTrash",
+                  "name": "Trash",
+                  "count": 85,
+                  "baseValue": 4.250000063329935
+                }
+              ]
+            },
+            {
+              "id": "PhobosMaterialBinMediumLooseDmgInstall",
+              "kind": "install",
+              "action": "ACTPhobosMaterialBinMediumLooseDmgInstall",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "PhobosMaterialBinMediumTLooseDmg",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": true,
+              "inputs": [
+                "PhobosMaterialBinMediumTLooseDmg=1.0x1"
+              ],
+              "tools": [
+                "TIsToolMortorq"
+              ],
+              "workProgress": 1100.0,
+              "outputs": [
+                {
+                  "id": "PhobosMaterialBinMediumInstalledDmg",
+                  "name": "Phobos' Rivetline Y3 Material Bin (Damaged)",
+                  "count": 1,
+                  "baseValue": 975.0
+                }
+              ]
+            },
+            {
+              "id": "PhobosMaterialBinMediumLooseRepair",
+              "kind": "repair",
+              "action": "ACTPhobosMaterialBinMediumLooseRepair",
+              "generated": true,
+              "attached": true,
+              "targetTrigger": "TIsRepairableNotContained",
+              "targetPassOnFreshDefinition": true,
+              "targetPassWithWear": true,
+              "targetPassInContainer": false,
+              "inputs": [
+                "TIsScrapSteel=1x2",
+                "TIsScrapAluminum=1x2",
+                "TIsPartsMechSmall=1x4"
+              ],
+              "tools": [
+                "TIsToolMortorq",
+                "TIsToolSoldering"
+              ],
+              "workProgress": 2000.0,
+              "outputs": [
+                {
+                  "id": "PhobosMaterialBinMediumLoose",
+                  "name": "Phobos' Rivetline Y3 Material Bin",
+                  "count": 1,
+                  "baseValue": 3900.0
+                }
+              ]
+            }
+          ],
+          "aliases": []
+        },
+        {
           "id": "PhobosPanelRejectR2",
           "name": "Phobos' Rivetline Terminal Panel Rejects R2 (9 kg)",
           "stackLimit": 1,
@@ -33119,6 +34619,13 @@
         },
         {
           "table": "ItmFlotillaScrapKioskInv",
+          "item": "PhobosMaterialBinLoose",
+          "condition": "Refurbished",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmFlotillaScrapKioskInv",
           "item": "PhobosProcessSiloMediumLoose",
           "condition": "Refurbished",
           "chance": 0.85,
@@ -33127,6 +34634,20 @@
         {
           "table": "ItmFlotillaScrapKioskInv",
           "item": "PhobosProcessSiloLargeLoose",
+          "condition": "Refurbished",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmFlotillaScrapKioskInv",
+          "item": "PhobosMaterialBinMediumLoose",
+          "condition": "Refurbished",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmFlotillaScrapKioskInv",
+          "item": "PhobosMaterialBinLargeLoose",
           "condition": "Refurbished",
           "chance": 0.85,
           "count": 8
@@ -33184,154 +34705,168 @@
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosExteriorGrabberLoose",
           "condition": "Loot",
-          "chance": 0.018181818181818184,
+          "chance": 0.016666666666666666,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosExteriorGrabberLooseDmg",
           "condition": "Loot",
-          "chance": 0.018181818181818184,
+          "chance": 0.016666666666666666,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosFurnaceLoose",
           "condition": "Loot",
-          "chance": 0.018181818181818184,
+          "chance": 0.016666666666666666,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosFurnaceLooseDmg",
           "condition": "Loot",
-          "chance": 0.018181818181818184,
+          "chance": 0.016666666666666666,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosFurnaceRadiatorLoose",
           "condition": "Loot",
-          "chance": 0.018181818181818184,
+          "chance": 0.016666666666666666,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosFurnaceRadiatorLooseDmg",
           "condition": "Loot",
-          "chance": 0.018181818181818184,
+          "chance": 0.016666666666666666,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosFurnaceThermalPortLoose",
           "condition": "Loot",
-          "chance": 0.018181818181818184,
+          "chance": 0.016666666666666666,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosFurnaceThermalPortLooseDmg",
           "condition": "Loot",
-          "chance": 0.018181818181818184,
+          "chance": 0.016666666666666666,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosHullChuteLoose",
           "condition": "Loot",
-          "chance": 0.018181818181818184,
+          "chance": 0.016666666666666666,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosHullChuteLooseDmg",
           "condition": "Loot",
-          "chance": 0.018181818181818184,
+          "chance": 0.016666666666666666,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosIceThawLoose",
           "condition": "Loot",
-          "chance": 0.018181818181818184,
+          "chance": 0.016666666666666666,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosIceThawLooseDmg",
           "condition": "Loot",
-          "chance": 0.018181818181818184,
+          "chance": 0.016666666666666666,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosIndustrialConsoleLoose",
           "condition": "Loot",
-          "chance": 0.018181818181818184,
+          "chance": 0.016666666666666666,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosIndustrialConsoleLooseDmg",
           "condition": "Loot",
-          "chance": 0.018181818181818184,
+          "chance": 0.016666666666666666,
+          "count": 1
+        },
+        {
+          "table": "ItmLootSpawnEngineering",
+          "item": "PhobosMaterialBinLoose",
+          "condition": "Loot",
+          "chance": 0.016666666666666666,
+          "count": 1
+        },
+        {
+          "table": "ItmLootSpawnEngineering",
+          "item": "PhobosMaterialBinLooseDmg",
+          "condition": "Loot",
+          "chance": 0.016666666666666666,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosProcessSiloLoose",
           "condition": "Loot",
-          "chance": 0.018181818181818184,
+          "chance": 0.016666666666666666,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosProcessSiloLooseDmg",
           "condition": "Loot",
-          "chance": 0.018181818181818184,
+          "chance": 0.016666666666666666,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosResidueCollectorLoose",
           "condition": "Loot",
-          "chance": 0.018181818181818184,
+          "chance": 0.016666666666666666,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosResidueCollectorLooseDmg",
           "condition": "Loot",
-          "chance": 0.018181818181818184,
+          "chance": 0.016666666666666666,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosScrapReclaimerLoose",
           "condition": "Loot",
-          "chance": 0.018181818181818184,
+          "chance": 0.016666666666666666,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosScrapReclaimerLooseDmg",
           "condition": "Loot",
-          "chance": 0.018181818181818184,
+          "chance": 0.016666666666666666,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosShipbreakerLoose",
           "condition": "Loot",
-          "chance": 0.018181818181818184,
+          "chance": 0.016666666666666666,
           "count": 1
         },
         {
           "table": "ItmLootSpawnEngineering",
           "item": "PhobosShipbreakerLooseDmg",
           "condition": "Loot",
-          "chance": 0.018181818181818184,
+          "chance": 0.016666666666666666,
           "count": 1
         },
         {
@@ -33476,6 +35011,13 @@
         },
         {
           "table": "ItmOKLGFixer",
+          "item": "PhobosMaterialBinLoose",
+          "condition": "Worn",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmOKLGFixer",
           "item": "PhobosProcessSiloMediumLoose",
           "condition": "Worn",
           "chance": 0.85,
@@ -33484,6 +35026,20 @@
         {
           "table": "ItmOKLGFixer",
           "item": "PhobosProcessSiloLargeLoose",
+          "condition": "Worn",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmOKLGFixer",
+          "item": "PhobosMaterialBinMediumLoose",
+          "condition": "Worn",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmOKLGFixer",
+          "item": "PhobosMaterialBinLargeLoose",
           "condition": "Worn",
           "chance": 0.85,
           "count": 8
@@ -33630,6 +35186,13 @@
         },
         {
           "table": "ItmOKLGSupplyKioskInv",
+          "item": "PhobosMaterialBinLooseDmg",
+          "condition": "Broken",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmOKLGSupplyKioskInv",
           "item": "PhobosProcessSiloMediumLooseDmg",
           "condition": "Broken",
           "chance": 0.85,
@@ -33644,6 +35207,20 @@
         },
         {
           "table": "ItmOKLGSupplyKioskInv",
+          "item": "PhobosMaterialBinMediumLooseDmg",
+          "condition": "Broken",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmOKLGSupplyKioskInv",
+          "item": "PhobosMaterialBinLargeLooseDmg",
+          "condition": "Broken",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmOKLGSupplyKioskInv",
           "item": "PhobosShipbreakerSection",
           "condition": "Refurbished",
           "chance": 0.85,
@@ -33756,6 +35333,13 @@
         },
         {
           "table": "ItmOKLGSupplyKioskInv",
+          "item": "PhobosMaterialBinLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmOKLGSupplyKioskInv",
           "item": "PhobosProcessSiloMediumLoose",
           "condition": "Pristine",
           "chance": 0.85,
@@ -33769,6 +35353,20 @@
           "count": 8
         },
         {
+          "table": "ItmOKLGSupplyKioskInv",
+          "item": "PhobosMaterialBinMediumLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmOKLGSupplyKioskInv",
+          "item": "PhobosMaterialBinLargeLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
           "table": "ItmSupplyKioskBCERInv",
           "item": "PhobosFurnaceLoose",
           "condition": "Pristine",
@@ -33847,6 +35445,13 @@
         },
         {
           "table": "ItmSupplyKioskBCERInv",
+          "item": "PhobosMaterialBinLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskBCERInv",
           "item": "PhobosProcessSiloMediumLoose",
           "condition": "Pristine",
           "chance": 0.85,
@@ -33855,6 +35460,20 @@
         {
           "table": "ItmSupplyKioskBCERInv",
           "item": "PhobosProcessSiloLargeLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskBCERInv",
+          "item": "PhobosMaterialBinMediumLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskBCERInv",
+          "item": "PhobosMaterialBinLargeLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
@@ -33987,6 +35606,13 @@
         },
         {
           "table": "ItmSupplyKioskBCRSInv",
+          "item": "PhobosMaterialBinLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskBCRSInv",
           "item": "PhobosProcessSiloMediumLoose",
           "condition": "Pristine",
           "chance": 0.85,
@@ -33995,6 +35621,20 @@
         {
           "table": "ItmSupplyKioskBCRSInv",
           "item": "PhobosProcessSiloLargeLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskBCRSInv",
+          "item": "PhobosMaterialBinMediumLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskBCRSInv",
+          "item": "PhobosMaterialBinLargeLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
@@ -34127,6 +35767,13 @@
         },
         {
           "table": "ItmSupplyKioskEJDRInv",
+          "item": "PhobosMaterialBinLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskEJDRInv",
           "item": "PhobosProcessSiloMediumLoose",
           "condition": "Pristine",
           "chance": 0.85,
@@ -34135,6 +35782,20 @@
         {
           "table": "ItmSupplyKioskEJDRInv",
           "item": "PhobosProcessSiloLargeLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskEJDRInv",
+          "item": "PhobosMaterialBinMediumLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskEJDRInv",
+          "item": "PhobosMaterialBinLargeLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
@@ -34267,6 +35928,13 @@
         },
         {
           "table": "ItmSupplyKioskHQCHInv",
+          "item": "PhobosMaterialBinLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskHQCHInv",
           "item": "PhobosProcessSiloMediumLoose",
           "condition": "Pristine",
           "chance": 0.85,
@@ -34275,6 +35943,20 @@
         {
           "table": "ItmSupplyKioskHQCHInv",
           "item": "PhobosProcessSiloLargeLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskHQCHInv",
+          "item": "PhobosMaterialBinMediumLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskHQCHInv",
+          "item": "PhobosMaterialBinLargeLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
@@ -34407,6 +36089,13 @@
         },
         {
           "table": "ItmSupplyKioskJATLInv",
+          "item": "PhobosMaterialBinLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskJATLInv",
           "item": "PhobosProcessSiloMediumLoose",
           "condition": "Pristine",
           "chance": 0.85,
@@ -34415,6 +36104,20 @@
         {
           "table": "ItmSupplyKioskJATLInv",
           "item": "PhobosProcessSiloLargeLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskJATLInv",
+          "item": "PhobosMaterialBinMediumLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskJATLInv",
+          "item": "PhobosMaterialBinLargeLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
@@ -34547,6 +36250,13 @@
         },
         {
           "table": "ItmSupplyKioskJFTSInv",
+          "item": "PhobosMaterialBinLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskJFTSInv",
           "item": "PhobosProcessSiloMediumLoose",
           "condition": "Pristine",
           "chance": 0.85,
@@ -34555,6 +36265,20 @@
         {
           "table": "ItmSupplyKioskJFTSInv",
           "item": "PhobosProcessSiloLargeLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskJFTSInv",
+          "item": "PhobosMaterialBinMediumLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskJFTSInv",
+          "item": "PhobosMaterialBinLargeLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
@@ -34687,6 +36411,13 @@
         },
         {
           "table": "ItmSupplyKioskMHNGInv",
+          "item": "PhobosMaterialBinLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskMHNGInv",
           "item": "PhobosProcessSiloMediumLoose",
           "condition": "Pristine",
           "chance": 0.85,
@@ -34695,6 +36426,20 @@
         {
           "table": "ItmSupplyKioskMHNGInv",
           "item": "PhobosProcessSiloLargeLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskMHNGInv",
+          "item": "PhobosMaterialBinMediumLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskMHNGInv",
+          "item": "PhobosMaterialBinLargeLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
@@ -34827,6 +36572,13 @@
         },
         {
           "table": "ItmSupplyKioskMSUZInv",
+          "item": "PhobosMaterialBinLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskMSUZInv",
           "item": "PhobosProcessSiloMediumLoose",
           "condition": "Pristine",
           "chance": 0.85,
@@ -34835,6 +36587,20 @@
         {
           "table": "ItmSupplyKioskMSUZInv",
           "item": "PhobosProcessSiloLargeLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskMSUZInv",
+          "item": "PhobosMaterialBinMediumLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskMSUZInv",
+          "item": "PhobosMaterialBinLargeLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
@@ -34967,6 +36733,13 @@
         },
         {
           "table": "ItmSupplyKioskMTRSInv",
+          "item": "PhobosMaterialBinLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskMTRSInv",
           "item": "PhobosProcessSiloMediumLoose",
           "condition": "Pristine",
           "chance": 0.85,
@@ -34975,6 +36748,20 @@
         {
           "table": "ItmSupplyKioskMTRSInv",
           "item": "PhobosProcessSiloLargeLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskMTRSInv",
+          "item": "PhobosMaterialBinMediumLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskMTRSInv",
+          "item": "PhobosMaterialBinLargeLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
@@ -35107,6 +36894,13 @@
         },
         {
           "table": "ItmSupplyKioskMVOLInv",
+          "item": "PhobosMaterialBinLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskMVOLInv",
           "item": "PhobosProcessSiloMediumLoose",
           "condition": "Pristine",
           "chance": 0.85,
@@ -35115,6 +36909,20 @@
         {
           "table": "ItmSupplyKioskMVOLInv",
           "item": "PhobosProcessSiloLargeLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskMVOLInv",
+          "item": "PhobosMaterialBinMediumLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskMVOLInv",
+          "item": "PhobosMaterialBinLargeLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
@@ -35247,6 +37055,13 @@
         },
         {
           "table": "ItmSupplyKioskSVIRInv",
+          "item": "PhobosMaterialBinLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskSVIRInv",
           "item": "PhobosProcessSiloMediumLoose",
           "condition": "Pristine",
           "chance": 0.85,
@@ -35255,6 +37070,20 @@
         {
           "table": "ItmSupplyKioskSVIRInv",
           "item": "PhobosProcessSiloLargeLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskSVIRInv",
+          "item": "PhobosMaterialBinMediumLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskSVIRInv",
+          "item": "PhobosMaterialBinLargeLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
@@ -35387,6 +37216,13 @@
         },
         {
           "table": "ItmSupplyKioskVCBRInv",
+          "item": "PhobosMaterialBinLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskVCBRInv",
           "item": "PhobosProcessSiloMediumLoose",
           "condition": "Pristine",
           "chance": 0.85,
@@ -35395,6 +37231,20 @@
         {
           "table": "ItmSupplyKioskVCBRInv",
           "item": "PhobosProcessSiloLargeLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskVCBRInv",
+          "item": "PhobosMaterialBinMediumLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskVCBRInv",
+          "item": "PhobosMaterialBinLargeLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
@@ -35527,6 +37377,13 @@
         },
         {
           "table": "ItmSupplyKioskVENCInv",
+          "item": "PhobosMaterialBinLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskVENCInv",
           "item": "PhobosProcessSiloMediumLoose",
           "condition": "Pristine",
           "chance": 0.85,
@@ -35535,6 +37392,20 @@
         {
           "table": "ItmSupplyKioskVENCInv",
           "item": "PhobosProcessSiloLargeLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskVENCInv",
+          "item": "PhobosMaterialBinMediumLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskVENCInv",
+          "item": "PhobosMaterialBinLargeLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
@@ -35667,6 +37538,13 @@
         },
         {
           "table": "ItmSupplyKioskVNCAInv",
+          "item": "PhobosMaterialBinLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskVNCAInv",
           "item": "PhobosProcessSiloMediumLoose",
           "condition": "Pristine",
           "chance": 0.85,
@@ -35675,6 +37553,20 @@
         {
           "table": "ItmSupplyKioskVNCAInv",
           "item": "PhobosProcessSiloLargeLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskVNCAInv",
+          "item": "PhobosMaterialBinMediumLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskVNCAInv",
+          "item": "PhobosMaterialBinLargeLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
@@ -35821,6 +37713,13 @@
         },
         {
           "table": "ItmTraderSanDiegoHalvorsonInv",
+          "item": "PhobosMaterialBinLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmTraderSanDiegoHalvorsonInv",
           "item": "PhobosProcessSiloMediumLoose",
           "condition": "Pristine",
           "chance": 0.85,
@@ -35829,6 +37728,20 @@
         {
           "table": "ItmTraderSanDiegoHalvorsonInv",
           "item": "PhobosProcessSiloLargeLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmTraderSanDiegoHalvorsonInv",
+          "item": "PhobosMaterialBinMediumLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmTraderSanDiegoHalvorsonInv",
+          "item": "PhobosMaterialBinLargeLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
@@ -35947,6 +37860,13 @@
         },
         {
           "table": "ItmVORBScrapKioskInv",
+          "item": "PhobosMaterialBinLooseDmg",
+          "condition": "Broken",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmVORBScrapKioskInv",
           "item": "PhobosProcessSiloMediumLooseDmg",
           "condition": "Broken",
           "chance": 0.85,
@@ -35955,6 +37875,20 @@
         {
           "table": "ItmVORBScrapKioskInv",
           "item": "PhobosProcessSiloLargeLooseDmg",
+          "condition": "Broken",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmVORBScrapKioskInv",
+          "item": "PhobosMaterialBinMediumLooseDmg",
+          "condition": "Broken",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmVORBScrapKioskInv",
+          "item": "PhobosMaterialBinLargeLooseDmg",
           "condition": "Broken",
           "chance": 0.85,
           "count": 8
@@ -36052,6 +37986,13 @@
         },
         {
           "table": "ItmVORBScrapKioskInv",
+          "item": "PhobosMaterialBinLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmVORBScrapKioskInv",
           "item": "PhobosProcessSiloMediumLoose",
           "condition": "Pristine",
           "chance": 0.85,
@@ -36060,6 +38001,20 @@
         {
           "table": "ItmVORBScrapKioskInv",
           "item": "PhobosProcessSiloLargeLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmVORBScrapKioskInv",
+          "item": "PhobosMaterialBinMediumLoose",
+          "condition": "Pristine",
+          "chance": 0.85,
+          "count": 8
+        },
+        {
+          "table": "ItmVORBScrapKioskInv",
+          "item": "PhobosMaterialBinLargeLoose",
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
@@ -37106,9 +39061,9 @@
     "mods/PhobosShipbreaker/crafting/recipes.json": "8b0f034a7c732fec44ac31585321347040ee2074cd330cd3e5ecb90bb4ab7df4",
     "mods/PhobosShipbreaker/data/conditions/phobos_shipbreaker.json": "4163d90a49167ef2178e2bfd00636e8288db73511c66c0f423e828642d4f1e44",
     "mods/PhobosShipbreaker/data/condtrigs/phobos_shipbreaker.json": "c7d4104df596d3fd362d9a80f4703178eafc5d3151bd53907814732ec84d3585",
-    "mods/PhobosShipbreaker/framework/equipment-names.json": "cad28bca06777e71bdbd2bc5adde5dd113741e5e3eb23283c13c9a15506286a4",
+    "mods/PhobosShipbreaker/framework/equipment-names.json": "0c39d0a6efac904a2a4cc273ff1060ebbc20da33d5fd6d26c1ac32b95fe77184",
     "mods/PhobosShipbreaker/framework/recipes.json": "47fc493cbaf73203ea60be37f49645bccf82c7dd4d88e3e4cf98d0458f135c99",
-    "mods/PhobosShipbreaker/mod_info.json": "21aa121201d8b1d6d73d2bec848b057c85557ae27674909c3c01b5defbf23ffc",
+    "mods/PhobosShipbreaker/mod_info.json": "577cdf953f6838b07da597fe3f9d3726ce80d081efc06a88d13f777b9abbc4de",
     "mods/PhobosWarDeclared/data/conditions/phobos_war_declared.json": "da01a00806e4e3ac5ab1b0be205872ba036fbe0d9ce4771772aca04c22d65913",
     "mods/PhobosWarDeclared/mod_info.json": "2dc3de4d9837be56ebcc302b3345659a9a50e9ac00a317aa0f21149ee571ab61",
     "mods/PhobosWarDeclared/schematics/everything.json": "663766fb98b9c6f83b3ad0eb2b4b24f8c0c0530d9529857cf4ca85de28f1ccc3",
@@ -37395,6 +39350,7 @@
     "src/PhobosManufacturing/Text.cs": "11027c810635f113c7989c4ab070a02885a535793c5197988027b5efebe74fda",
     "src/PhobosShipbreaker/AssemblyDefinitions.cs": "eaab35ed8f833910404a23053fe69f6684525deb8d20dcba53a6df59cd5fcf49",
     "src/PhobosShipbreaker/AssemblyInfo.cs": "a442448369b44ef8921362eea7215eab4e7fb557881cded3213f00b5d7600549",
+    "src/PhobosShipbreaker/BinDefinitions.cs": "5fb82fd29940fac0e18fdd65db1dde5780c070735eaeadf88e746ff27cf85a68",
     "src/PhobosShipbreaker/CaptureGeometry.cs": "98a0f045fb1146aebef4f204e4a7566667d48c3e8ed755ce1b1cff280f937c37",
     "src/PhobosShipbreaker/CaptureService.cs": "84377f0db70451803afd504590a4b844c99c5428bd3b4a4d1836cf577767d254",
     "src/PhobosShipbreaker/CollectorCommands.cs": "f12e22a0d651637c95f0fe3510deedbe56c73963f74efef45860a52350183878",
@@ -37405,10 +39361,11 @@
     "src/PhobosShipbreaker/CollectorRoute.cs": "2fac357db0fd152d628aae43c762d217a5f5ea8e57348695ded717cf7f96ff3a",
     "src/PhobosShipbreaker/CollectorService.cs": "2a0be265a17171d491a988d93dc760c8dc5fa7087d940316046ca9f69f590daa",
     "src/PhobosShipbreaker/ConsoleCommands.cs": "a6a197cf3ce0646148c861549ae27dcd017aa45328d2cff596014cf3a72147c7",
-    "src/PhobosShipbreaker/Content.cs": "ed1f9d7d04e747d0f350c9b8906de3ba679c27eb675542f9dbea71a5dbf82de2",
+    "src/PhobosShipbreaker/Content.cs": "d7edaa6b7d501e2b6540063737e5e03f59e3562b584f5403bf417a73c83ea193",
     "src/PhobosShipbreaker/ControlAuthority.cs": "1bad10780bc839976cd5becf865b51a5c056de92e0390e9242ed428c0feb1039",
     "src/PhobosShipbreaker/CoolantService.cs": "e6ea2fab703c5530a8206f19439593364a85ec41153c6d87dc0b53746d1bb0ca",
     "src/PhobosShipbreaker/CoolingCargo.cs": "615e8c43ceb755efe97d862d6734016f35f963f10f3d3b9337fcaad5fba1b677",
+    "src/PhobosShipbreaker/Core/BinRules.cs": "c1d80e82d141cd90e0596975e462ffd6c7b00e8f68d4ecdf47155a639bf68a5e",
     "src/PhobosShipbreaker/Core/CaptureRules.cs": "0166d2bda0007870d3b6775fcd413d5253834c07c39e4ea59995a4c00fd1fea4",
     "src/PhobosShipbreaker/Core/CollectorCommand.cs": "1af59059c2bd2c032a750712e12833f83e28573034000756b3c345d93bd99dc5",
     "src/PhobosShipbreaker/Core/CollectorRules.cs": "21349875b1be7f45ffe42ed10ce30f9f34b72f7257a51c983011f5348a2c0e6a",
@@ -37437,7 +39394,7 @@
     "src/PhobosShipbreaker/Core/ThawRules.cs": "5b973d84b8787797520c7989c2df132a1eaf3c857bd7a64c483d9fc34d72d2d1",
     "src/PhobosShipbreaker/CrewProvider.cs": "8ef0dce0c3e0a5e25f49766b5b7d110c645f4e6746e8cb98aee340816600f47d",
     "src/PhobosShipbreaker/EconomySaveCompatibility.cs": "a90b282a12f38a0fac5451702717dbad24ed21824f5976914829809919aa50e3",
-    "src/PhobosShipbreaker/EquipmentEconomy.cs": "459b8a19e909558d18b313b696b1510d125c732f9e3c381de8a181e00b154363",
+    "src/PhobosShipbreaker/EquipmentEconomy.cs": "59eeae5e615070d3f9e25054d7fc70362ff3b8842cbaf576565c1ae372e376ab",
     "src/PhobosShipbreaker/EquipmentSnapshots.cs": "334bb5d510f43b577c4b8cd7a4f331e48fce6d223ceee100783277229420d3bd",
     "src/PhobosShipbreaker/FeedIdentity.cs": "16222689ac7b63fb2dd748eee996b46a859195baa39cbb264551ba8d36d6fc2d",
     "src/PhobosShipbreaker/FixturePanel.cs": "52358f984ab7155d5cf1c51699396735b2927f888bebb18b8af20bec9656ce96",
@@ -37462,9 +39419,9 @@
     "src/PhobosShipbreaker/NativeAdapter.cs": "8320c05ddf6667060af21a98218e4df82015aba7feaeb124623d5eb57428083b",
     "src/PhobosShipbreaker/PanelConfiguration.cs": "c2dab27f2f0fd7762e5ae6f2b873614e64b0616524dbed8697ec2c94e16b8ece",
     "src/PhobosShipbreaker/PerformanceMetrics.cs": "89c27031d3426be275cb76d8c7e2fbe75c01ad5186c4a50b23ca2e218a90764d",
-    "src/PhobosShipbreaker/PhobosShipbreaker.csproj": "84bd052fbfedd585b06c32019323411955a94ae28ea53da699ccca1c74c45750",
+    "src/PhobosShipbreaker/PhobosShipbreaker.csproj": "5bfd80c47648310f73ed1811c45d1fe5c535efef6207aff9556530779af9f069",
     "src/PhobosShipbreaker/PlaceholderLoadRepair.cs": "8fdf6627ae35cd6d6c281a92a728e588f516ba7e4138e7204cc5c69549db44c4",
-    "src/PhobosShipbreaker/Plugin.cs": "87fbbccfd31a9620aed3fe9689757aa182e7c797842103621eb759c4a521a9e8",
+    "src/PhobosShipbreaker/Plugin.cs": "f3c064d4e7e9e6631231ae2d77dc23208df1ae3916eeb61a5958e3ac13ba3028",
     "src/PhobosShipbreaker/PowerKinds.cs": "1fd8de318e12433eb363fa069c4e21b6457ebf6e859f20039531a98f7b278629",
     "src/PhobosShipbreaker/ProcessingCommands.cs": "5c0a603a4e2ae406bc94d5fcf0d30bb01b40512f57e474ab9ef5f2ab470a7320",
     "src/PhobosShipbreaker/ProcessingService.cs": "2f6375861772965b69974a054d59c66922face07c53d4c4e9082b0710ec47e60",
@@ -37480,7 +39437,7 @@
     "src/PhobosShipbreaker/SiloDefinitions.cs": "73d9892c06a60f635f9dc8587f50fd19f2bd1e2e055b2062908209b3eb6c7717",
     "src/PhobosShipbreaker/SiloService.cs": "d3c30143502e95b1cf60fb061d99b2198511d0e199f82cc4680e3595b1b1275b",
     "src/PhobosShipbreaker/StockQuantities.cs": "ae221fad93df673c174760e282ae106e6d5c460044268d7a6222a3a92902fe52",
-    "src/PhobosShipbreaker/StorageService.cs": "92780b676ecdcd4d1ffade7e7b74a78beb4c4e8eb3ccda60f91366569f96faf4",
+    "src/PhobosShipbreaker/StorageService.cs": "c045693a0142664905f568569b739713e2aba5117fa09a9e73d436f8c2461535",
     "src/PhobosShipbreaker/TargetWallTransfer.cs": "674edc235e6b466056adc486b8063ebf1e3660697a1cf8a2ff8aae5eaa57a5ae",
     "src/PhobosShipbreaker/Text.cs": "2a0b7890addcbb0f4f8f71c48373cf352d7af8379905b01b1bc48bd0f84f7846",
     "src/PhobosShipbreaker/ThawService.cs": "11834a23e2da5c555d2f84720f4eb5f67be8a1a1e397550fe0e15d474a99bf2a",
@@ -37499,12 +39456,12 @@
     "src/PhobosWarDeclared/WarService.cs": "f77441f37d1f28cba53713780f0ccb1f89eca2fbe6d14ee3c8af16b4ec571baa",
     "tests/PhobosNative.Tests/EquipmentValueAudit.cs": "04da4c56b10a281828951965d9ee26639babae37738781c379ea4df828d17f45",
     "tests/PhobosNative.Tests/ItemReferenceExport.cs": "da6d159eeb9656168e9082e38c4e83ba1ed57ae5ac60ce655345c06f9d6cc030",
-    "tests/PhobosNative.Tests/Program.cs": "7416b2db3842f2f51c739cc8c8de0155c9b1d67bae707965b9e0c85d25897665",
+    "tests/PhobosNative.Tests/Program.cs": "4bd4f335ea9e200ea7998fcfb050442c9b75155714c47f85c43f5c74767ec678",
     "translations/PhobosAgriculture/en.json": "baa257c35d18484305c98d2a256600510640cdad0b429874c4eb3058b6758c91",
     "translations/PhobosAutoNav/en.json": "e3904f4dad6e8aa05fbac7932eaaa298a652b82253678b47df55a234711ba377",
     "translations/PhobosFramework/en.json": "2c80ad28687a37c47a3dea59ed029033754ed29757a3622f37a6acbdc1e2805f",
     "translations/PhobosManufacturing/en.json": "52781da1efe42869cd017cace09e628e9db75c0a93d3f47a12fa58188fdd28f1",
-    "translations/PhobosShipbreaker/en.json": "2a711e5f12f993182764789c7375005f6edae1c2eb104623dadf2a27f5e3f64a",
+    "translations/PhobosShipbreaker/en.json": "291bcc99234640d36b66fe542161b5abd7230d0093d4fff5302c8032cc5bcdd5",
     "translations/PhobosWarDeclared/en.json": "36a8c3ec5ea2e701f1e65418ee2f6111da0f5254f38d6c80fb9af798f378de90"
   }
 }

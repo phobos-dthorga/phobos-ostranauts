@@ -187,6 +187,18 @@
     "brand": "Rivetline",
     "model": "S5"
   },
+  "Bin.name": {
+    "brand": "Rivetline",
+    "model": "Y2"
+  },
+  "Bin.name_medium": {
+    "brand": "Rivetline",
+    "model": "Y3"
+  },
+  "Bin.name_large": {
+    "brand": "Rivetline",
+    "model": "Y4"
+  },
   "Thaw.name": {
     "brand": "Rivetline",
     "model": "T2"

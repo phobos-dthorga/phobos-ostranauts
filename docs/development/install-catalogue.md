@@ -10,6 +10,7 @@ is still pending.
 | Phobos Shipbreaker | APPS | D4 dismantling fixture, exterior grabber, intake chute, floor/hull collector, R4 scrap reclaimer, F6 furnace, S3, S4 and S5 process water silos and T2 ice thaw unit |
 | Phobos Shipbreaker | HVAC | F6-R exterior radiator, F6-P underside cooling head and F6-C coolant conduit |
 | Phobos Shipbreaker | CTRL | C1 industrial control console |
+| Phobos Shipbreaker | FURN | Y2, Y3 and Y4 material bins (beside the game's own Storage Bay) |
 | Phobos Agriculture | APPS | Firstlight-4 cultivation rack, Hearth-2 portion cooker, Groundwork W2 supply, B2 workup bench and R3, R4 and R5 reservoirs |
 | Phobos Agriculture | MISC | Irrigation conduit |
 | Phobos Manufacturing | APPS | Fennmark V4 volatiles refinery, X2 chemical processor, K2 Sabatier reactor, and the hydrogen, methane, oxygen, nitrogen and carbon dioxide stores in all three sizes |

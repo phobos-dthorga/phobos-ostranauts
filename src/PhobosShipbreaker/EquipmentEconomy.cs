@@ -38,8 +38,24 @@ internal static class EquipmentEconomy
         new Spec(ReclaimerRules.Prefix, price: 14800, install: 1800, uninstall: 1200, repair: 4200, dismantle: 1200, new[]{4,2,6,4}, new[]{104,42,20,8,20}, new[]{92,34,10,2,48}, restoreMinutes: 75),
         new Spec(CollectorRules.Prefix, price: 2400, install: 600, uninstall: 500, repair: 1800, dismantle: 350, new[]{0,1,2,2}, new[]{10,3,4,2,4}, new[]{8,2,2,0,9}, restoreMinutes: 15),
         new Spec(SiloRules.Prefix, price: 4800, install: 1200, uninstall: 900, repair: 2400, dismantle: 800, new[]{2,2,4,0}, new[]{170,40,20,4,18}, new[]{40,10,4,0,188}, restoreMinutes: 30),
-        new Spec(ThawRules.Prefix, price: 3200, install: 800, uninstall: 600, repair: 2000, dismantle: 500, new[]{2,2,4,2}, new[]{70,24,20,8,12}, new[]{30,8,4,0,80}, restoreMinutes: 25)
-    }.Concat(SiloRules.Sizes.Skip(1).Select(SiloSpec)).ToArray();
+        new Spec(ThawRules.Prefix, price: 3200, install: 800, uninstall: 600, repair: 2000, dismantle: 500, new[]{2,2,4,2}, new[]{70,24,20,8,12}, new[]{30,8,4,0,80}, restoreMinutes: 25),
+        new Spec(BinRules.Prefix, price: (int)BinRules.Price, install: 800, uninstall: 600, repair: 1500, dismantle: 400, new[]{1,1,2,0}, new[]{40,8,8,0,8}, new[]{12,3,2,0,44}, restoreMinutes: 15)
+    }.Concat(SiloRules.Sizes.Skip(1).Select(SiloSpec)).Concat(BinRules.Sizes.Skip(1).Select(BinSpec)).ToArray();
+    /// <summary>The Y3 and Y4 on the Y2's pattern, as the silo ladder does: work and repair grow with the footprint,
+    /// and salvage keeps the Y2's lid fittings and fills the rest of the housing in the Y2's proportions.</summary>
+    internal static Spec BinSpec(BinSize size)
+    {
+        int step = size.Footprint - BinRules.Footprint;
+        int[] Split(double fittingsKg, int[] fittings, double steelShare, double aluminiumShare)
+        {
+            double rest = size.DryKg - fittingsKg;
+            int steel = (int)Math.Round(rest * steelShare), aluminium = (int)Math.Round(rest * aluminiumShare);
+            return new[] { steel, aluminium }.Concat(fittings).Concat(new[] { (int)Math.Round(rest - steel - aluminium) }).ToArray();
+        }
+        return new Spec(size.Prefix, price: (int)size.Price, install: 800 + 300 * step, uninstall: 600 + 200 * step, repair: 1500 + 500 * step, dismantle: 400 + 150 * step,
+            new[] { 1 + step, 1 + step, 2 + 2 * step, 0 }, Split(4, new[] { 8, 0 }, 40.0 / 56, 8.0 / 56), Split(1, new[] { 2, 0 }, 12.0 / 59, 3.0 / 59),
+            restoreMinutes: 15 + 5 * step, loot: false);
+    }
     /// <summary>The S4 and S5 on the S3's pattern: work and repair grow with the footprint, and salvage keeps the S3's
     /// fittings and fills the rest of the dry mass with steel, aluminium and retained trash in the S3's proportions.</summary>
     internal static Spec SiloSpec(SiloSize size)
@@ -86,7 +102,7 @@ internal static class EquipmentEconomy
             var mount = d.Installables[spec.Prefix + state + (state.StartsWith("Installed") ? "Uninstall" : "Install")];
             mount.aToolCTsUse = new[] { "TIsToolMortorq" };
             mount.strCTThemMultCondTools = "IsToolMortorq";
-            co.strDesc += Text.Get("EquipmentEconomy.empty_the_machine_and_feed_before_dismantling");
+            co.strDesc += Text.Get(BinRules.IsFamily(spec.Prefix) ? "EquipmentEconomy.empty_the_bin_before_dismantling" : "EquipmentEconomy.empty_the_machine_and_feed_before_dismantling");
             EquipmentSaveUpgrade.Register(d, id, id);
         }
         var section = d.Objects[ProcessRules.AssemblySection];

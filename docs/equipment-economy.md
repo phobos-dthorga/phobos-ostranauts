@@ -627,6 +627,21 @@ parts intact; 4 mechanical broken) and fills the rest of the dry mass with steel
 aluminium and retained trash in the S3's proportions. They are sold on the S3's
 routes and never appear in salvage loot.
 
+## Shipbreaker 0.43.0: Y2, Y3 and Y4 material bins
+
+The Y2 costs $2,400 (broken $600): about half the game's own Storage Bay per
+grid cell ($150 against $263), because a bin only takes mined material. The Y3
+and Y4 scale from it through Framework's shared size ladder: 115 and 170 kg
+empty, $3,900 and $5,510 (broken a quarter), $108 and $86 per cell. Work: install
+800, 1100 and 1400; uninstall 600, 800 and 1000; repair 1500, 2000 and 2500;
+dismantle 400, 550 and 700; Restore 15, 20 and 25 minutes. Repair takes 1/1/2,
+2/2/4 and 3/3/6 steel, aluminium and mechanical parts. Intact salvage returns
+40/8/8 (Y2), 79/16/8 and 119/24/8 steel, aluminium and mechanical parts with
+the rest of the housing as retained trash; broken salvage keeps two mechanical
+parts and returns mostly trash. Salvage stays below a quarter of the price. The
+Y2 is sold on the silos' routes and may turn up in engineering salvage; the Y3
+and Y4 never appear in salvage loot.
+
 ## Agriculture 0.20.0: R4 and R5 reservoirs
 
 The R4 and R5 scale from the R3 through Framework's shared size ladder: 235 and

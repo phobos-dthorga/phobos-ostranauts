@@ -61,3 +61,15 @@ The mod's guide storyboard (intact corridor, after the fight, build sites laid) 
 | Archived image | Reason |
 | --- | --- |
 | [assets/workshop/sources/PhobosWarDeclared-storyboard-rejected.png](https://github.com/phobos-dthorga/phobos-ostranauts/blob/1255c3b3dc515ed1747948424bc740aa9f158959/assets/workshop/sources/PhobosWarDeclared-storyboard-rejected.png) | Third panel drew the build sites as a cracked-glass overlay plus one dark tile, which would misrepresent the game's half-strength build sites; the cover scene shows them correctly. |
+
+## Added 30 September 2026 (material bins)
+
+The Rivetline Y2/Y3/Y4 material bin pass rejected four PixelLab outputs and one start drawing; none were committed to main. Requests, seeds, job IDs and reasons are in [material-bin-requests.json](artwork-completion/material-bin-requests.json).
+
+| Archived image | Reason |
+| --- | --- |
+| [assets/artwork-completion/source/material-bin-y2-rejected-unchanged.png](https://github.com/phobos-dthorga/phobos-ostranauts/blob/1c01c0c107be942713d66b5a813e0b2e171eff3a/assets/artwork-completion/source/material-bin-y2-rejected-unchanged.png) | Y2 pass 2 from the selected first pass: barely changed, no improvement. |
+| [assets/artwork-completion/source/material-bin-y2-rejected-noise.png](https://github.com/phobos-dthorga/phobos-ostranauts/blob/1c01c0c107be942713d66b5a813e0b2e171eff3a/assets/artwork-completion/source/material-bin-y2-rejected-noise.png) | Y2 pass 3: rivet and chipped-paint wording scattered speckle noise over the lid and deck. |
+| [assets/artwork-completion/source/material-bin-y3-rejected-indicators-1.png](https://github.com/phobos-dthorga/phobos-ostranauts/blob/1c01c0c107be942713d66b5a813e0b2e171eff3a/assets/artwork-completion/source/material-bin-y3-rejected-indicators-1.png) | Y3 at 96 px: red and green indicator blocks (painted live-state instruments are refused) and a lost bottom rim. |
+| [assets/artwork-completion/source/material-bin-y3-rejected-indicators-2.png](https://github.com/phobos-dthorga/phobos-ostranauts/blob/1c01c0c107be942713d66b5a813e0b2e171eff3a/assets/artwork-completion/source/material-bin-y3-rejected-indicators-2.png) | Y3 at 96 px, second seed: the same indicator artefact despite an explicit exclusion. |
+| [assets/artwork-completion/references/y3-bin-start-96-rejected.png](https://github.com/phobos-dthorga/phobos-ostranauts/blob/1c01c0c107be942713d66b5a813e0b2e171eff3a/assets/artwork-completion/references/y3-bin-start-96-rejected.png) | 96 px Y3 start drawing, input only of the two rejected Y3 passes; the selected pass used references/y3-bin-start.png at 144 px. |

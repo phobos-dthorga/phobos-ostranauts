@@ -121,6 +121,13 @@ input whole; the table is in [the refinery record](manufacturing-refinery-and-ch
 | Ingots | New at every general market | Single ingot, 10% | Table recovery to scrap (loses value) |
 | Terminal remainders | Never sold | Never generated | None; trash category |
 
+Later addition (Shipbreaker 0.43.0, 30 September 2026): the Y2, Y3 and Y4
+material bins join the Shipbreaker machine family at parity, through the same
+economy table: all three offer conditions on the silos' routes, the Y2 in
+engineering salvage (the Y3 and Y4 are purchase-only by size, like the S4 and
+S5), a native buyer under industrial products, and full repair, Restore and
+dismantle coverage. The same native economy checks cover them.
+
 Across the three content mods the regenerated references record 746 merchant
 offers (738 before), 56 retail identities (51: the five newly sold broken forms)
 and 54 identities in world-loot choices (52: the two ingots). Used and refurbished

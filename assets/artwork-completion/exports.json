@@ -2218,5 +2218,83 @@
     "registrationReference": null,
     "patches": null,
     "fullFootprint": true
+  },
+  {
+    "key": "y2-material-bin",
+    "sourceSHA256": "aa85e95b9bc5b7a6213dacbd1621f5a06af3c967fce74268da7bbe4a70d61cf1",
+    "nativeSize": [
+      32,
+      32
+    ],
+    "pivot": [
+      16,
+      16
+    ],
+    "sourceBounds": [
+      0,
+      0,
+      128,
+      128
+    ],
+    "exports": {
+      "mods/PhobosShipbreaker/images/phobos/shipbreaker/PhobosMaterialBin.png": "f02007220d1eb4583a97e5976688cf9870528f3d40c8ed8e129f451ed75546ba",
+      "mods/PhobosShipbreaker/images/phobos/shipbreaker/PhobosMaterialBinNormal.png": "7e4297a0c170e01336e183a0cfa61b23f5bf84a0d480bd40c09a68f2b5e9ae12"
+    },
+    "normal": "Neutral tangent normal with matching alpha; no authored relief",
+    "registrationReference": null,
+    "patches": null,
+    "fullFootprint": true
+  },
+  {
+    "key": "y3-material-bin",
+    "sourceSHA256": "eaddc88894f698bf374a7390ffa6f4864f2c4ef30b91fe17882143c1a0b3d96b",
+    "nativeSize": [
+      48,
+      48
+    ],
+    "pivot": [
+      24,
+      24
+    ],
+    "sourceBounds": [
+      0,
+      0,
+      144,
+      144
+    ],
+    "exports": {
+      "mods/PhobosShipbreaker/images/phobos/shipbreaker/PhobosMaterialBinMedium.png": "3e226e54f6382a420a426267503b314ab5afbb587e0968fa46a89192f692ba42",
+      "mods/PhobosShipbreaker/images/phobos/shipbreaker/PhobosMaterialBinMediumNormal.png": "df50bbd4e122efd8a6fbf5efc01e3cd8d6678c45b0486c05b0c14e0a71af953a"
+    },
+    "normal": "Neutral tangent normal with matching alpha; no authored relief",
+    "registrationReference": null,
+    "patches": null,
+    "fullFootprint": true
+  },
+  {
+    "key": "y4-material-bin",
+    "sourceSHA256": "ab3f42d197f096c16e20f2912b840e63737d3ba9317242fb2e7f097e450c3558",
+    "nativeSize": [
+      64,
+      64
+    ],
+    "pivot": [
+      32,
+      32
+    ],
+    "sourceBounds": [
+      0,
+      0,
+      128,
+      128
+    ],
+    "exports": {
+      "mods/PhobosShipbreaker/images/phobos/shipbreaker/PhobosMaterialBinLarge.png": "91897d0d66fc61d56dbec52a3c1eb9fdf15f71a9d3c60a66ad9db3bd69de730a",
+      "mods/PhobosShipbreaker/images/phobos/shipbreaker/PhobosMaterialBinLargeNormal.png": "072b54cf18c7b6527f75471c798c9fd23e7ba7163f0a2f02e651f8caa08f30b5"
+    },
+    "normal": "Neutral tangent normal with matching alpha; no authored relief",
+    "registrationReference": null,
+    "patches": null,
+    "fullFootprint": true
   }
 ]
