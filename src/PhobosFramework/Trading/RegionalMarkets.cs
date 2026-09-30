@@ -21,6 +21,8 @@ public static class RegionalMarkets
             ["VORB"] = "ItmVORBScrapKioskInv"
         };
 
+    /// <summary>Whether a region code names a verified vanilla retail endpoint.</summary>
+    public static bool Known(string? region) => region != null && SupplyTables.ContainsKey(region);
     public static string SupplyTable(string region) => SupplyTables.TryGetValue(region, out var table)
         ? table : throw new ArgumentException("Unknown vanilla retail region: " + region, nameof(region));
 

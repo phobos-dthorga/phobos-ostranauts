@@ -1,0 +1,160 @@
+{
+  "schemaVersion": 1,
+  "schema": "economy",
+  "notes": "Phobos Manufacturing economy: prices, work, repair bills, salvage and where things are sold. Machines are late-game plant priced beside the game's radars and heavy lift rotors (owner direction, 29 September 2026); see docs/equipment-economy.md. Salvage must weigh what the machine weighs. Medium and large gas stores derive from the small entry through the shared size ladder. Player files in BepInEx/config/PhobosManufacturing/economy override entries by name.",
+  "equipment": {
+    "PhobosVolatilesRefinery": {
+      "notes": "Fennmark V4 Volatiles Refinery, 4 x 4, 180 kg.",
+      "price": 64000,
+      "work": { "install": 2000, "uninstall": 1600, "repair": 6000, "dismantle": 1600 },
+      "repairBill": { "ItmScrapSteel": 4, "ItmScrapAluminum": 2, "ItmPartsMechSmall01": 6, "ItmPartsElecSmall01": 8, "ItmComponentMotor01": 2, "ItmComponentMobo01": 2, "ItmHeatSink01": 2, "ItmPartsScreen01": 1 },
+      "salvage": { "ItmScrapSteel": 100, "ItmScrapAluminum": 40, "ItmPartsMechSmall01": 20, "ItmPartsElecSmall01": 10, "ItmComponentMotor01": 2, "ItmComponentMobo01": 2, "ItmHeatSink01": 2, "ItmPartsScreen01": 1, "ItmScrapTrash": 10 },
+      "brokenSalvage": { "ItmScrapSteel": 90, "ItmScrapAluminum": 32, "ItmPartsMechSmall01": 10, "ItmPartsElecSmall01": 4, "ItmComponentMotor01": 1, "ItmHeatSink01": 1, "ItmScrapTrash": 47 },
+      "restoreMinutes": 150,
+      "internalBin": "PhobosVolatilesRefineryInputBin"
+    },
+    "PhobosChemicalProcessor": {
+      "notes": "Fennmark X2 Chemical Processor, 2 x 2, 130 kg.",
+      "price": 38000,
+      "work": { "install": 1200, "uninstall": 1000, "repair": 3600, "dismantle": 900 },
+      "repairBill": { "ItmScrapSteel": 2, "ItmScrapAluminum": 2, "ItmPartsMechSmall01": 3, "ItmPartsElecSmall01": 8, "ItmComponentMotor01": 1, "ItmComponentMobo01": 3, "ItmHeatSink01": 2 },
+      "salvage": { "ItmScrapSteel": 70, "ItmScrapAluminum": 26, "ItmPartsMechSmall01": 16, "ItmPartsElecSmall01": 12, "ItmComponentMotor01": 1, "ItmComponentMobo01": 3, "ItmHeatSink01": 2, "ItmScrapTrash": 13 },
+      "brokenSalvage": { "ItmScrapSteel": 34, "ItmScrapAluminum": 10, "ItmPartsMechSmall01": 4, "ItmComponentMobo01": 1, "ItmHeatSink01": 1, "ItmScrapTrash": 82 },
+      "restoreMinutes": 90
+    },
+    "PhobosSabatierReactor": {
+      "notes": "Fennmark K2 Sabatier Reactor, 2 x 2, 150 kg.",
+      "price": 44000,
+      "work": { "install": 1200, "uninstall": 1000, "repair": 3600, "dismantle": 900 },
+      "repairBill": { "ItmScrapSteel": 3, "ItmScrapAluminum": 2, "ItmPartsMechSmall01": 4, "ItmPartsElecSmall01": 6, "ItmComponentMotor01": 1, "ItmComponentMobo01": 2, "ItmHeatSink01": 2 },
+      "salvage": { "ItmScrapSteel": 80, "ItmScrapAluminum": 30, "ItmPartsMechSmall01": 16, "ItmPartsElecSmall01": 11, "ItmComponentMotor01": 1, "ItmComponentMobo01": 2, "ItmHeatSink01": 2, "ItmScrapTrash": 20 },
+      "brokenSalvage": { "ItmScrapSteel": 36, "ItmScrapAluminum": 12, "ItmPartsMechSmall01": 4, "ItmComponentMobo01": 1, "ItmHeatSink01": 1, "ItmScrapTrash": 98 },
+      "restoreMinutes": 90
+    },
+    "PhobosAmmoniaCracker": {
+      "notes": "Tolvane AX-2 Ammonia Cracker, 2 x 2, 150 kg; built like the K2 and billed the same.",
+      "price": 42000,
+      "work": { "install": 1200, "uninstall": 1000, "repair": 3600, "dismantle": 900 },
+      "repairBill": { "ItmScrapSteel": 3, "ItmScrapAluminum": 2, "ItmPartsMechSmall01": 4, "ItmPartsElecSmall01": 6, "ItmComponentMotor01": 1, "ItmComponentMobo01": 2, "ItmHeatSink01": 2 },
+      "salvage": { "ItmScrapSteel": 80, "ItmScrapAluminum": 30, "ItmPartsMechSmall01": 16, "ItmPartsElecSmall01": 11, "ItmComponentMotor01": 1, "ItmComponentMobo01": 2, "ItmHeatSink01": 2, "ItmScrapTrash": 20 },
+      "brokenSalvage": { "ItmScrapSteel": 36, "ItmScrapAluminum": 12, "ItmPartsMechSmall01": 4, "ItmComponentMobo01": 1, "ItmHeatSink01": 1, "ItmScrapTrash": 98 },
+      "restoreMinutes": 90
+    },
+    "PhobosPropellantManifold": {
+      "notes": "Fennmark P1 RCS Propellant Manifold, 1 x 1, 10 kg.",
+      "price": 24000,
+      "work": { "install": 600, "uninstall": 500, "repair": 1800, "dismantle": 300 },
+      "repairBill": { "ItmScrapSteel": 1, "ItmScrapAluminum": 1, "ItmPartsMechSmall01": 2, "ItmPartsElecSmall01": 2, "ItmComponentMobo01": 1 },
+      "salvage": { "ItmScrapSteel": 4, "ItmScrapAluminum": 2, "ItmPartsMechSmall01": 2, "ItmPartsElecSmall01": 2, "ItmScrapTrash": 2 },
+      "brokenSalvage": { "ItmScrapSteel": 3, "ItmScrapAluminum": 1, "ItmPartsMechSmall01": 2, "ItmScrapTrash": 5 },
+      "restoreMinutes": 30
+    },
+    "PhobosCanisterFiller": {
+      "notes": "Fennmark L2 Canister Filling Station, 2 x 2, 120 kg.",
+      "price": 26000,
+      "work": { "install": 1200, "uninstall": 1000, "repair": 3000, "dismantle": 900 },
+      "repairBill": { "ItmScrapSteel": 3, "ItmScrapAluminum": 2, "ItmPartsMechSmall01": 4, "ItmPartsElecSmall01": 4, "ItmComponentMotor01": 1, "ItmComponentMobo01": 1, "ItmHeatSink01": 1 },
+      "salvage": { "ItmScrapSteel": 70, "ItmScrapAluminum": 20, "ItmPartsMechSmall01": 11, "ItmPartsElecSmall01": 6, "ItmComponentMotor01": 1, "ItmComponentMobo01": 1, "ItmHeatSink01": 1, "ItmScrapTrash": 17 },
+      "brokenSalvage": { "ItmScrapSteel": 40, "ItmScrapAluminum": 10, "ItmPartsMechSmall01": 4, "ItmScrapTrash": 68 },
+      "restoreMinutes": 60
+    },
+    "PhobosCabinAirRegulator": {
+      "notes": "Fennmark A2 Cabin Air Regulator, 2 x 2, 60 kg.",
+      "price": 23000,
+      "work": { "install": 1000, "uninstall": 800, "repair": 2400, "dismantle": 600 },
+      "repairBill": { "ItmScrapSteel": 2, "ItmScrapAluminum": 1, "ItmPartsMechSmall01": 3, "ItmPartsElecSmall01": 3, "ItmComponentMotor01": 1, "ItmComponentMobo01": 1 },
+      "salvage": { "ItmScrapSteel": 30, "ItmScrapAluminum": 12, "ItmPartsMechSmall01": 6, "ItmPartsElecSmall01": 5, "ItmComponentMotor01": 1, "ItmComponentMobo01": 1, "ItmHeatSink01": 1, "ItmScrapTrash": 8 },
+      "brokenSalvage": { "ItmScrapSteel": 20, "ItmScrapAluminum": 6, "ItmPartsMechSmall01": 2, "ItmScrapTrash": 33 },
+      "restoreMinutes": 45
+    },
+    "PhobosHydrogenStore": {
+      "notes": "Fennmark H2 Hydrogen Store, the small size; H3 and H4 derive from it through the size ladder.",
+      "price": 22000,
+      "work": { "install": 1200, "uninstall": 1000, "repair": 3000, "dismantle": 900 },
+      "repairBill": { "ItmScrapSteel": 6, "ItmScrapAluminum": 2, "ItmPartsMechSmall01": 6, "ItmPartsElecSmall01": 2, "ItmComponentMobo01": 1 },
+      "salvage": { "ItmScrapSteel": 110, "ItmScrapAluminum": 30, "ItmPartsMechSmall01": 12, "ItmPartsElecSmall01": 3, "ItmComponentMobo01": 1, "ItmScrapTrash": 12 },
+      "brokenSalvage": { "ItmScrapSteel": 40, "ItmScrapAluminum": 10, "ItmPartsMechSmall01": 4, "ItmScrapTrash": 108 },
+      "restoreMinutes": 60
+    },
+    "PhobosMethaneStore": {
+      "notes": "Fennmark M2 Methane Store, the small size.",
+      "price": 21000,
+      "work": { "install": 1200, "uninstall": 1000, "repair": 3000, "dismantle": 900 },
+      "repairBill": { "ItmScrapSteel": 6, "ItmScrapAluminum": 2, "ItmPartsMechSmall01": 6, "ItmPartsElecSmall01": 2, "ItmComponentMobo01": 1 },
+      "salvage": { "ItmScrapSteel": 110, "ItmScrapAluminum": 30, "ItmPartsMechSmall01": 12, "ItmPartsElecSmall01": 3, "ItmComponentMobo01": 1, "ItmScrapTrash": 12 },
+      "brokenSalvage": { "ItmScrapSteel": 40, "ItmScrapAluminum": 10, "ItmPartsMechSmall01": 4, "ItmScrapTrash": 108 },
+      "restoreMinutes": 60
+    },
+    "PhobosOxygenStore": {
+      "notes": "Fennmark O2 Oxygen Store, the small size.",
+      "price": 21000,
+      "work": { "install": 1200, "uninstall": 1000, "repair": 3000, "dismantle": 900 },
+      "repairBill": { "ItmScrapSteel": 6, "ItmScrapAluminum": 2, "ItmPartsMechSmall01": 6, "ItmPartsElecSmall01": 2, "ItmComponentMobo01": 1 },
+      "salvage": { "ItmScrapSteel": 110, "ItmScrapAluminum": 30, "ItmPartsMechSmall01": 12, "ItmPartsElecSmall01": 3, "ItmComponentMobo01": 1, "ItmScrapTrash": 12 },
+      "brokenSalvage": { "ItmScrapSteel": 40, "ItmScrapAluminum": 10, "ItmPartsMechSmall01": 4, "ItmScrapTrash": 108 },
+      "restoreMinutes": 60
+    },
+    "PhobosNitrogenStore": {
+      "notes": "Fennmark N2 Nitrogen Store, the small size.",
+      "price": 20000,
+      "work": { "install": 1200, "uninstall": 1000, "repair": 3000, "dismantle": 900 },
+      "repairBill": { "ItmScrapSteel": 6, "ItmScrapAluminum": 2, "ItmPartsMechSmall01": 6, "ItmPartsElecSmall01": 2, "ItmComponentMobo01": 1 },
+      "salvage": { "ItmScrapSteel": 110, "ItmScrapAluminum": 30, "ItmPartsMechSmall01": 12, "ItmPartsElecSmall01": 3, "ItmComponentMobo01": 1, "ItmScrapTrash": 12 },
+      "brokenSalvage": { "ItmScrapSteel": 40, "ItmScrapAluminum": 10, "ItmPartsMechSmall01": 4, "ItmScrapTrash": 108 },
+      "restoreMinutes": 60
+    },
+    "PhobosCarbonDioxideStore": {
+      "notes": "Fennmark C2 Carbon Dioxide Store, the small size.",
+      "price": 20000,
+      "work": { "install": 1200, "uninstall": 1000, "repair": 3000, "dismantle": 900 },
+      "repairBill": { "ItmScrapSteel": 6, "ItmScrapAluminum": 2, "ItmPartsMechSmall01": 6, "ItmPartsElecSmall01": 2, "ItmComponentMobo01": 1 },
+      "salvage": { "ItmScrapSteel": 110, "ItmScrapAluminum": 30, "ItmPartsMechSmall01": 12, "ItmPartsElecSmall01": 3, "ItmComponentMobo01": 1, "ItmScrapTrash": 12 },
+      "brokenSalvage": { "ItmScrapSteel": 40, "ItmScrapAluminum": 10, "ItmPartsMechSmall01": 4, "ItmScrapTrash": 108 },
+      "restoreMinutes": 60
+    },
+    "PhobosAmmoniaStore": {
+      "notes": "Fennmark Q2 Ammonia Store, the small size.",
+      "price": 20000,
+      "work": { "install": 1200, "uninstall": 1000, "repair": 3000, "dismantle": 900 },
+      "repairBill": { "ItmScrapSteel": 6, "ItmScrapAluminum": 2, "ItmPartsMechSmall01": 6, "ItmPartsElecSmall01": 2, "ItmComponentMobo01": 1 },
+      "salvage": { "ItmScrapSteel": 110, "ItmScrapAluminum": 30, "ItmPartsMechSmall01": 12, "ItmPartsElecSmall01": 3, "ItmComponentMobo01": 1, "ItmScrapTrash": 12 },
+      "brokenSalvage": { "ItmScrapSteel": 40, "ItmScrapAluminum": 10, "ItmPartsMechSmall01": 4, "ItmScrapTrash": 108 },
+      "restoreMinutes": 60
+    }
+  },
+  "supplies": {
+    "PhobosPropellantLine": {
+      "notes": "Fennmark gas line: ordinary pipe supply, sold in lots of the supplies size at the supplies chance floor (chance 0 leaves the floor to decide).",
+      "price": 3,
+      "repairWork": 120,
+      "dismantleWork": 120,
+      "repairBill": { "ItmScrapAluminum": 1 },
+      "remainder": "PhobosPropellantLineWaste",
+      "merchants": [ "ItmOKLGSupplyKioskInv", "ItmOKLGFixer", "ItmTraderSanDiegoHalvorsonInv", "ItmVORBScrapKioskInv" ],
+      "chance": 0
+    }
+  },
+  "offerTemplates": [
+    { "notes": "K-Leg supply kiosk sells broken machines.", "merchant": "ItmOKLGSupplyKioskInv", "tag": "Scrap", "form": "LooseDmg", "condition": "Broken", "chance": 0.20 },
+    { "notes": "K-Leg fixer sells worn machines.", "merchant": "ItmOKLGFixer", "tag": "Fixer", "form": "Loose", "condition": "Worn", "chance": 0.10 },
+    { "notes": "San Diego's Halvorson sells new machines.", "merchant": "ItmTraderSanDiegoHalvorsonInv", "tag": "Industrial", "form": "Loose", "condition": "Pristine", "chance": 0.40 },
+    { "notes": "Venus scrap kiosk sells broken machines.", "merchant": "ItmVORBScrapKioskInv", "tag": "VenusScrap", "form": "LooseDmg", "condition": "Broken", "chance": 0.15 },
+    { "notes": "Venus scrap kiosk sells refurbished machines.", "merchant": "ItmVORBScrapKioskInv", "tag": "VenusRefurb", "form": "Loose", "condition": "Refurbished", "chance": 0.20 }
+  ],
+  "offers": {},
+  "regions": {
+    "BCER": 1, "BCRS": 1.25, "EJDR": 0.75, "HQCH": 0.75, "JATL": 0.75, "JFTS": 1, "MHNG": 0.5, "MSUZ": 1,
+    "MTRS": 1.5, "MVOL": 1.5, "OFLT": 0.5, "SVIR": 1.25, "VCBR": 1, "VENC": 0.75, "VNCA": 1.25
+  },
+  "regional": {
+    "notes": "Regional supply kiosks offer every machine at baseChance times the region factor; the flotilla sells refurbished. The expanded merchants fill any machine the templates left out.",
+    "baseChance": 0.20,
+    "refurbished": [ "OFLT" ],
+    "expandedMerchants": [ "ItmOKLGSupplyKioskInv", "ItmOKLGFixer", "ItmTraderSanDiegoHalvorsonInv", "ItmVORBScrapKioskInv" ]
+  },
+  "lots": { "equipment": 8, "supplies": 128 },
+  "chanceFloors": { "equipment": 0.85, "supplies": 0.95 },
+  "worldLoot": [
+    { "notes": "One engineering-salvage roll in twenty yields a machine, three in four broken, split evenly across the families that may be found.", "table": "ItmLootSpawnEngineering", "branch": "PhobosManufacturingMachinerySalvage", "chance": 0.05, "brokenShare": 0.75 }
+  ]
+}

@@ -20,7 +20,7 @@ public static class SabatierRules
     public const string MethaneOutPort = "PhobosManufacturing.SabatierMethaneOut", MethaneStoreInPort = ProcessorRules.StoreInPort;
     public const string CarbonDioxide = "CO2", MethaneSpecies = "CH4", CanisterTrigger = "TIsRTACO2Installed";
     public const int Footprint = 2;
-    public const double MachineKg = 150, Price = 44000;
+    public const double MachineKg = 150;
     /// <summary>Compressor, catalyst bed heaters and condenser fan: authored, all of it ends as room heat.</summary>
     public const double WorkingKW = 1.2, IdleKW = 0.02, CycleHours = 1, CycleKWh = WorkingKW * CycleHours;
     public const double HydrogenKgPerCycle = ProcessorRules.HydrogenKgPerCycle;

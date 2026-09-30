@@ -16,7 +16,7 @@ public static class ProcessorRules
     public const string WaterInPort = "PhobosManufacturing.ProcessorWaterIn", VesselOutPort = "PhobosManufacturing.VesselOut";
     public const string HydrogenOutPort = "PhobosManufacturing.ProcessorHydrogenOut", StoreInPort = "PhobosManufacturing.StoreIn";
     public const int Footprint = 2;
-    public const double MachineKg = 130, Price = 38000;
+    public const double MachineKg = 130;
     public const double WorkingKW = 6, IdleKW = 0.02, CycleHours = 1, CycleKWh = WorkingKW * CycleHours;
     public const double WaterKgPerCycle = 1.125, OxygenKgPerCycle = 1.000, HydrogenKgPerCycle = 0.125;
     /// <summary>Enthalpy of formation of liquid water, 285.83 kJ/mol (NIST): the electrical minimum per cycle.</summary>

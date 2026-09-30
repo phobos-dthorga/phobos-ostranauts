@@ -46,7 +46,7 @@ internal static class Definitions
     {
         string p = RefineryRules.Prefix;
         ApplianceDefinitions.Add(d, p, Text.Get("Refinery.name"), Text.Get("Refinery.description", RefineryRules.MachineKg, RefineryRules.WorkingKW, RefineryRules.Footprint),
-            RefineryRules.Footprint, RefineryRules.MachineKg, RefineryRules.Price, ImagePath + RefineryArt, Controls, RefineryRules.IdleKW, InstallMenu.Appliances);
+            RefineryRules.Footprint, RefineryRules.MachineKg, Economy.Price(RefineryRules.Prefix), ImagePath + RefineryArt, Controls, RefineryRules.IdleKW, InstallMenu.Appliances);
         // Feed at the game level: any ore (the native TIsOre rule) or our own stock; the container patch then
         // applies the exact identity, mass and count rule.
         d.Triggers[RefineryRules.StockTrigger] = new CondTrigger { strName = RefineryRules.StockTrigger, fChance = 1, fCount = 1, bAND = false,
@@ -70,7 +70,7 @@ internal static class Definitions
     {
         string p = ProcessorRules.Prefix;
         ApplianceDefinitions.Add(d, p, Text.Get("Processor.name"), Text.Get("Processor.description", ProcessorRules.MachineKg, ProcessorRules.WorkingKW, ProcessorRules.WaterKgPerCycle, ProcessorRules.OxygenKgPerCycle, ProcessorRules.HydrogenKgPerCycle),
-            ProcessorRules.Footprint, ProcessorRules.MachineKg, ProcessorRules.Price, ImagePath + ProcessorArt, Controls, ProcessorRules.IdleKW, InstallMenu.Appliances);
+            ProcessorRules.Footprint, ProcessorRules.MachineKg, Economy.Price(ProcessorRules.Prefix), ImagePath + ProcessorArt, Controls, ProcessorRules.IdleKW, InstallMenu.Appliances);
         ApplianceDefinitions.SetPowerOverride(d, p, ProcessorRules.IdleKW, ProcessorRules.WorkingKW, ManufacturingRules.Electrolysing, "PowerA");
         foreach (string form in Forms)
         {
@@ -90,7 +90,7 @@ internal static class Definitions
         string p = SabatierRules.Prefix;
         ApplianceDefinitions.Add(d, p, Text.Get("Sabatier.name"), Text.Get("Sabatier.description", SabatierRules.MachineKg, SabatierRules.WorkingKW, SabatierRules.HydrogenKgPerCycle,
                 SabatierRules.CarbonDioxideKgPerCycle, SabatierRules.WaterKgPerCycle, SabatierRules.MethaneKgPerCycle),
-            SabatierRules.Footprint, SabatierRules.MachineKg, SabatierRules.Price, ImagePath + ReactorArt, Controls, SabatierRules.IdleKW, InstallMenu.Appliances);
+            SabatierRules.Footprint, SabatierRules.MachineKg, Economy.Price(SabatierRules.Prefix), ImagePath + ReactorArt, Controls, SabatierRules.IdleKW, InstallMenu.Appliances);
         ApplianceDefinitions.SetPowerOverride(d, p, SabatierRules.IdleKW, SabatierRules.WorkingKW, ManufacturingRules.Reacting, "PowerA");
         foreach (string form in Forms)
         {
@@ -110,7 +110,7 @@ internal static class Definitions
         string p = CrackerRules.Prefix;
         ApplianceDefinitions.Add(d, p, Text.Get("Cracker.name"), Text.Get("Cracker.description", CrackerRules.MachineKg, CrackerRules.WorkingKW, CrackerRules.AmmoniaKgPerCycle,
                 CrackerRules.NitrogenKgPerCycle, CrackerRules.HydrogenKgPerCycle),
-            CrackerRules.Footprint, CrackerRules.MachineKg, CrackerRules.Price, ImagePath + CrackerArt, Controls, CrackerRules.IdleKW, InstallMenu.Appliances);
+            CrackerRules.Footprint, CrackerRules.MachineKg, Economy.Price(CrackerRules.Prefix), ImagePath + CrackerArt, Controls, CrackerRules.IdleKW, InstallMenu.Appliances);
         ApplianceDefinitions.SetPowerOverride(d, p, CrackerRules.IdleKW, CrackerRules.WorkingKW, ManufacturingRules.Reacting, "PowerA");
         foreach (string form in Forms)
         {
@@ -150,7 +150,7 @@ internal static class Definitions
     {
         string p = FillerRules.Prefix;
         ApplianceDefinitions.Add(d, p, Text.Get("Filler.name"), Text.Get("Filler.description", FillerRules.MachineKg, FillerRules.WorkingKW, FillerRules.RackCells, FillerRules.FillFraction * 100),
-            FillerRules.Footprint, FillerRules.MachineKg, FillerRules.Price, ImagePath + FillerArt, Controls, FillerRules.IdleKW, InstallMenu.Hvac);
+            FillerRules.Footprint, FillerRules.MachineKg, Economy.Price(FillerRules.Prefix), ImagePath + FillerArt, Controls, FillerRules.IdleKW, InstallMenu.Hvac);
         ApplianceDefinitions.SetPowerOverride(d, p, FillerRules.IdleKW, FillerRules.WorkingKW, ManufacturingRules.Filling, "PowerA");
         // The rack admits only the game's handheld O2 bottles.
         d.Triggers[FillerRules.RackTrigger] = new CondTrigger { strName = FillerRules.RackTrigger, fChance = 1, fCount = 1, bAND = true,
@@ -181,7 +181,7 @@ internal static class Definitions
         string p = RegulatorRules.Prefix;
         ApplianceDefinitions.Add(d, p, Text.Get("Regulator.name"), Text.Get("Regulator.description", RegulatorRules.MachineKg, RegulatorRules.WorkingKW,
                 RegulatorRules.OxygenKgPerHour, RegulatorRules.NitrogenKgPerHour, RegulatorRules.MinRoomKPa, RegulatorRules.MaxOxygenFraction * 100),
-            RegulatorRules.Footprint, RegulatorRules.MachineKg, RegulatorRules.Price, ImagePath + RegulatorArt, Controls, RegulatorRules.WorkingKW, InstallMenu.Hvac);
+            RegulatorRules.Footprint, RegulatorRules.MachineKg, Economy.Price(RegulatorRules.Prefix), ImagePath + RegulatorArt, Controls, RegulatorRules.WorkingKW, InstallMenu.Hvac);
         foreach (string form in Forms)
         {
             var co = d.Objects[p + form]; var item = d.Items[p + form];
@@ -200,7 +200,7 @@ internal static class Definitions
     {
         string p = ManifoldRules.Prefix;
         ApplianceDefinitions.Add(d, p, Text.Get("Manifold.name"), Text.Get("Manifold.description", ManifoldRules.MachineKg),
-            ManifoldRules.Footprint, ManifoldRules.MachineKg, ManifoldRules.Price, ImagePath + ManifoldArt, Controls, 0, InstallMenu.Hvac);
+            ManifoldRules.Footprint, ManifoldRules.MachineKg, Economy.Price(ManifoldRules.Prefix), ImagePath + ManifoldArt, Controls, 0, InstallMenu.Hvac);
         d.Power.Remove(p + "Power"); d.Interactions.Remove(p + "PowerChange");
         foreach (string form in Forms)
         {
@@ -232,7 +232,7 @@ internal static class Definitions
             d.Loot[key] = new Loot { strName = key, strType = "condition", aCOs = intact ? new[] { PropellantLineRules.Segment + "=1x1", PropellantLineRules.WorkingSegment + "=1x1" } : new[] { PropellantLineRules.Segment + "=1x1" }, aLoots = Array.Empty<string>() };
         }
         d.Loot[pipe + "FixturePort"] = new Loot { strName = pipe + "FixturePort", strType = "condition", aCOs = new[] { PropellantLineRules.Segment + "=1x1" }, aLoots = new[] { "TILFixtureAdds=1x1" } };
-        ApplianceDefinitions.Add(d, pipe, Text.Get("Line.name"), Text.Get("Line.description"), 1, PropellantLineRules.Kg, PropellantLineRules.Price, ImagePath + LineArt, Controls, 0, InstallMenu.Hvac);
+        ApplianceDefinitions.Add(d, pipe, Text.Get("Line.name"), Text.Get("Line.description"), 1, PropellantLineRules.Kg, Economy.SupplyPrice(PropellantLineRules.Prefix), ImagePath + LineArt, Controls, 0, InstallMenu.Hvac);
         d.Power.Remove(pipe + "Power"); d.Interactions.Remove(pipe + "PowerChange");
         foreach (string form in Forms)
         {

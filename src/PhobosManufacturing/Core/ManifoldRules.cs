@@ -17,7 +17,7 @@ public static class ManifoldRules
     public const string Prefix = "PhobosPropellantManifold", Installed = Prefix + "Installed";
     public const string Record = "ManufacturingManifold";
     public const int Footprint = 1, MaxSources = 4;
-    public const double MachineKg = 10, Price = 24000;
+    public const double MachineKg = 10;
     public const string Inlet = "PhobosPropellantIn", StoreOutlet = "PhobosPropellantOut";
     /// <summary>Connections are rechecked this often, never every frame.</summary>
     public const double RecheckSeconds = 5;
@@ -36,7 +36,7 @@ public static class PropellantLineRules
 {
     public const string Prefix = "PhobosPropellantLine", Installed = Prefix + "Installed";
     public const string Segment = "PhobosPropellantLinePresent", WorkingSegment = "PhobosPropellantLineIntact";
-    public const double Kg = 1, Price = 3;
+    public const double Kg = 1;
     public static bool IsSegment(string? id) => id == Installed;
 }
 

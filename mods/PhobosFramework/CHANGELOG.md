@@ -20,6 +20,17 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.49.0] - 2026-09-30 - Draft
+
+### Added
+
+- Data packs: one loader for the tables a Phobos mod keeps outside its code (prices, work, repair bills, salvage, merchant offers, lots, regional factors, world loot to begin with). Each mod ships its pack inside the plugin and as a readable copy under its framework folder; players override entries with small files in BepInEx/config/(mod)/(schema), merged by name, applied in name order. A file can tune a shipped entry or add one, never rename or remove one; a misspelt field or a broken rule rejects only that file, with the reason in the log and on the F3 console (phobosframework status).
+- The economy schema and its checks, shared by every mod: every family the code names has an entry, prices and work are above zero, bills name known materials, salvage weighs what the machine weighs, merchants, conditions and regions are real, chances are within 0 to 1 and lots within 1 to 256.
+
+### Compatibility and limits
+
+- No gameplay or save change by itself; the first pack is Manufacturing 0.11.0. Player files apply on the next game load. Offline checks are not gameplay validation.
+
 ## [0.48.0] - 2026-09-30 - Draft
 
 ### Added

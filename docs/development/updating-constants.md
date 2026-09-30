@@ -146,6 +146,12 @@ matching historical examples or a different field. Targets are confined to
 `src/`, `mods/`, `docs/`, `config/` and the root README; filesystem links are refused.
 For a C# float target add `"literal": "csharp-float"`: this preserves an existing
 `f` suffix or inserts one when changing an integer-looking float to a fraction.
+A value that lives in a Framework data pack (`mods/<Mod>/framework/<schema>.json`)
+is targeted by JSON pointer instead of a regex: `{"path": "mods/PhobosManufacturing/framework/economy.json",
+"pointer": "/equipment/PhobosVolatilesRefinery/price"}`. The updater edits that one
+value in place and keeps the file's formatting; pointer targets carry no `pattern`
+or `count`. Prefer moving a numeric constant into its pack over registering a new
+C# regex target ([data packs](framework-author-guide.md#data-packs-0490)).
 
 Do not add arbitrary IDs or dependent quantities to avoid doing a migration.
 Keep content rules in their owning mod. Add all real authoritative copies and

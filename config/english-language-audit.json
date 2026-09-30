@@ -47271,6 +47271,514 @@
       ],
       "before": "The record cannot be accepted as it is.",
       "after": "The record cannot be accepted as it is."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "FrameworkConsole.data_packs",
+      "category": "control/name/value",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Plugin.cs:43"
+      ],
+      "before": "Data packs (shipped tables plus player files in BepInEx/config/<Mod>/<schema>):",
+      "after": "Data packs (shipped tables plus player files in BepInEx/config/<Mod>/<schema>):"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "DataPacks.file_too_large",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Data/DataPacks.cs:67",
+        "src/PhobosFramework/Data/DataPacks.cs:106",
+        "src/PhobosFramework/Data/DataPacks.cs:115"
+      ],
+      "before": "The file is larger than 1 MiB.",
+      "after": "The file is larger than 1 MiB."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "DataPacks.rejected_file",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Data/DataPacks.cs:80"
+      ],
+      "before": "Data pack {0}: player file {1} was skipped: {2}",
+      "after": "Data pack {0}: player file {1} was skipped: {2}"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "DataPacks.status_line",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Data/DataPacks.cs:84"
+      ],
+      "before": "{0} player file(s) applied, {1} skipped; folder {2}",
+      "after": "{0} player file(s) applied, {1} skipped; folder {2}"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "DataPacks.no_override_folder",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Data/DataPacks.cs:84"
+      ],
+      "before": "no player folder (offline)",
+      "after": "no player folder (offline)"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "DataPacks.no_folder",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Data/DataPacks.cs:98"
+      ],
+      "before": "Data pack folder {0} could not be read: {1}",
+      "after": "Data pack folder {0} could not be read: {1}"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "DataPacks.missing_resource",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Data/DataPacks.cs:105"
+      ],
+      "before": "The shipped data pack {0} is missing from the plugin. Reinstall the mod.",
+      "after": "The shipped data pack {0} is missing from the plugin. Reinstall the mod."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "DataPacks.trailing_content",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Data/DataPacks.cs:120"
+      ],
+      "before": "Unexpected content after the closing brace.",
+      "after": "Unexpected content after the closing brace."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "DataPacks.header_missing",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Data/DataPacks.cs:122"
+      ],
+      "before": "A shipped data pack needs schemaVersion and schema at the top.",
+      "after": "A shipped data pack needs schemaVersion and schema at the top."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "DataPacks.unsupported_version",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Data/DataPacks.cs:123"
+      ],
+      "before": "schemaVersion {0} is not supported by this version; expected 1.",
+      "after": "schemaVersion {0} is not supported by this version; expected 1."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "DataPacks.wrong_schema",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Data/DataPacks.cs:124"
+      ],
+      "before": "This file says schema {0}, but the folder is for {1}.",
+      "after": "This file says schema {0}, but the folder is for {1}."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "DataPacks.empty_pack",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Data/DataPacks.cs:130"
+      ],
+      "before": "The file holds no pack.",
+      "after": "The file holds no pack."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "DataPacks.null_value",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Data/DataPacks.cs:140"
+      ],
+      "before": "{0} is null. A player file can tune or add entries, never remove one.",
+      "after": "{0} is null. A player file can tune or add entries, never remove one."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "DataPacks.none_loaded",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Data/DataPacks.cs:148"
+      ],
+      "before": "No data packs loaded yet.",
+      "after": "No data packs loaded yet."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "DataPacks.problem_line",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Data/DataPacks.cs:149"
+      ],
+      "before": "  {0}/{1}: {2}: {3}",
+      "after": "  {0}/{1}: {2}: {3}"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "EconomySchema.missing_equipment",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Data/EconomyPack.cs:142",
+        "src/PhobosFramework/Data/EconomyPack.cs:166"
+      ],
+      "before": "No economy entry for {0}. Every family the mod knows needs one.",
+      "after": "No economy entry for {0}. Every family the mod knows needs one."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "EconomySchema.unknown_equipment",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Data/EconomyPack.cs:145",
+        "src/PhobosFramework/Data/EconomyPack.cs:169"
+      ],
+      "before": "{0} is not a family this mod knows. Equipment cannot be added in a data file.",
+      "after": "{0} is not a family this mod knows. Equipment cannot be added in a data file."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "EconomySchema.unknown_kind",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Data/EconomyPack.cs:147",
+        "src/PhobosFramework/Data/EconomyPack.cs:171",
+        "src/PhobosFramework/Data/EconomyPack.cs:211",
+        "src/PhobosFramework/Data/EconomyPack.cs:216"
+      ],
+      "before": "{0}: kind {1} is not equipment or supplies.",
+      "after": "{0}: kind {1} is not equipment or supplies."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "EconomySchema.positive",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Data/EconomyPack.cs:229"
+      ],
+      "before": "{0}: {1} must be a positive number.",
+      "after": "{0}: {1} must be a positive number."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "EconomySchema.broken_price",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Data/EconomyPack.cs:149"
+      ],
+      "before": "{0}: brokenPrice must be above zero and below price.",
+      "after": "{0}: brokenPrice must be above zero and below price."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "EconomySchema.work",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Data/EconomyPack.cs:151",
+        "src/PhobosFramework/Data/EconomyPack.cs:173"
+      ],
+      "before": "{0}: {1} work must be above zero.",
+      "after": "{0}: {1} work must be above zero."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "EconomySchema.empty_bill",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Data/EconomyPack.cs:239"
+      ],
+      "before": "{0}: {1} needs at least one material.",
+      "after": "{0}: {1} needs at least one material."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "EconomySchema.bill_count",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Data/EconomyPack.cs:242"
+      ],
+      "before": "{0}: {1} count for {2} must be 0 to 10,000.",
+      "after": "{0}: {1} count for {2} must be 0 to 10,000."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "EconomySchema.unknown_material",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Data/EconomyPack.cs:243"
+      ],
+      "before": "{0}: {1} names {2}, which is not a known material.",
+      "after": "{0}: {1} names {2}, which is not a known material."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "EconomySchema.salvage_mass",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Data/EconomyPack.cs:161"
+      ],
+      "before": "{0}: {1} weighs {2:F3} kg but the machine weighs {3:F3} kg. Salvage must weigh what the machine weighs.",
+      "after": "{0}: {1} weighs {2:F3} kg but the machine weighs {3:F3} kg. Salvage must weigh what the machine weighs."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "EconomySchema.merchants",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Data/EconomyPack.cs:176",
+        "src/PhobosFramework/Data/EconomyPack.cs:234"
+      ],
+      "before": "{0}: at least one merchant is needed.",
+      "after": "{0}: at least one merchant is needed."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "EconomySchema.unknown_merchant",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Data/EconomyPack.cs:235"
+      ],
+      "before": "{0}: {1} is not a merchant inventory in this game.",
+      "after": "{0}: {1} is not a merchant inventory in this game."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "EconomySchema.offer_tag",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Data/EconomyPack.cs:182"
+      ],
+      "before": "Offer template tag {0} must be letters and digits.",
+      "after": "Offer template tag {0} must be letters and digits."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "EconomySchema.offer_form",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Data/EconomyPack.cs:183"
+      ],
+      "before": "{0}: form {1} must be Loose or LooseDmg.",
+      "after": "{0}: form {1} must be Loose or LooseDmg."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "EconomySchema.condition",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Data/EconomyPack.cs:231"
+      ],
+      "before": "{0}: condition {1} must be Pristine, Refurbished, Worn or Broken.",
+      "after": "{0}: condition {1} must be Pristine, Refurbished, Worn or Broken."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "EconomySchema.chance",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Data/EconomyPack.cs:217",
+        "src/PhobosFramework/Data/EconomyPack.cs:224",
+        "src/PhobosFramework/Data/EconomyPack.cs:230"
+      ],
+      "before": "{0}: {1} must be above 0 and at most 1.",
+      "after": "{0}: {1} must be above 0 and at most 1."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "EconomySchema.offer_id",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Data/EconomyPack.cs:190",
+        "src/PhobosFramework/Data/EconomyPack.cs:222"
+      ],
+      "before": "{0} must start with Phobos.",
+      "after": "{0} must start with Phobos."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "EconomySchema.offer_item",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Data/EconomyPack.cs:192"
+      ],
+      "before": "{0}: an item is needed.",
+      "after": "{0}: an item is needed."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "EconomySchema.quantity",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Data/EconomyPack.cs:195",
+        "src/PhobosFramework/Data/EconomyPack.cs:212"
+      ],
+      "before": "{0}: quantity must be 1 to 256.",
+      "after": "{0}: quantity must be 1 to 256."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "EconomySchema.unknown_region",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Data/EconomyPack.cs:200",
+        "src/PhobosFramework/Data/EconomyPack.cs:206"
+      ],
+      "before": "{0} is not a region code the game's supply kiosks use.",
+      "after": "{0} is not a region code the game's supply kiosks use."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "EconomySchema.region_factor",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Data/EconomyPack.cs:201"
+      ],
+      "before": "{0}: the regional factor must be 0 to 4.",
+      "after": "{0}: the regional factor must be 0 to 4."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "EconomySchema.loot_table",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Data/EconomyPack.cs:221"
+      ],
+      "before": "World loot for {0} needs a table.",
+      "after": "World loot for {0} needs a table."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "EconomySchema.supply_chance",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "New player text for this feature; states the situation, consequence and next action directly.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Data/EconomyPack.cs:175"
+      ],
+      "before": "{0}: chance must be 0 to 1 (0 leaves the floor to decide).",
+      "after": "{0}: chance must be 0 to 1 (0 leaves the floor to decide)."
     }
   ],
   "documents": [
@@ -47278,8 +47786,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "08336a92197c69c876c5265d515b5c1b6ad1abb2d68b30f7ab62e4a1637ebfd9",
-      "review": "Manufacturing 0.10.0 (30 September 2026): reviewed for the Tolvane AX-2 ammonia cracker; direct operating wording, the reaction and authored simplifications kept in the chemistry record."
+      "sha256": "e24e25edd2f97c3155c60bfd71c0cf2dfd0f5cd34dae9f646b65421e0acfdb60",
+      "review": "Framework 0.49.0 data packs and Manufacturing 0.11.0 economy pack (30 September 2026): reviewed with this change; player file messages say what was skipped and why."
     },
     {
       "path": "SUPPORT.md",
@@ -47292,8 +47800,8 @@
       "path": "docs/README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "af8e3ce36f8f97ee711d6c4d78d2bc56f7c75256d08c57e850566c7195dd52b6",
-      "review": "Shipbreaker 0.43.0 (Rivetline Y2, Y3 and Y4 material bins), 30 September 2026: reviewed with this change; wording, links and maintained values checked."
+      "sha256": "8e95497ab000df1d8cdcbca2e48df109c338a9522df9501da21c3474a65c3f82",
+      "review": "Framework 0.49.0 data packs and Manufacturing 0.11.0 economy pack (30 September 2026): reviewed with this change; player file messages say what was skipped and why."
     },
     {
       "path": "docs/agriculture-bulk-storage.md",
@@ -47438,8 +47946,8 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "f25b33985568039b11198a1ce19cf4099a9aa04db90120189bfbc339252b824a",
-      "review": "Shipbreaker 0.45.0 (methane ice in the T2, methane ice price correction), 30 September 2026: reviewed with this change; wording, links and maintained values checked."
+      "sha256": "6cd528be90cb72bfd2e853284795f0449b6538643662c72132d8fafa601bb551",
+      "review": "Framework 0.49.0 data packs and Manufacturing 0.11.0 economy pack (30 September 2026): reviewed with this change; player file messages say what was skipped and why."
     },
     {
       "path": "docs/crew-automation.md",
@@ -47739,8 +48247,8 @@
       "path": "docs/development/framework-author-guide.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "3d29e3199d05be0984c703a40c6aef8f200f61b58d233420423946eb74f65505",
-      "review": "Framework 0.48.0 / Manufacturing 0.8.0 (carved loot shares, clay from C-class silicates) and the 30 September asteroid feedstock research record, 30 September 2026: reviewed with this change; wording, links and maintained values checked."
+      "sha256": "3317e57683c4a878c6791e058ae3a643c1900ea07b1e603dafd7b1ba3be9b5d4",
+      "review": "Framework 0.49.0 data packs and Manufacturing 0.11.0 economy pack (30 September 2026): reviewed with this change; player file messages say what was skipped and why."
     },
     {
       "path": "docs/development/framework-bulk-storage.md",
@@ -47961,8 +48469,8 @@
       "path": "docs/development/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "7c6a8c5b8e2e71bccabfe24ece13539cb19ea43232f2e7caf44d65f2f8e701bf",
-      "review": "30 September 2026, Auto Nav 0.29.0 (riding out the game's ship-update failures): reviewed with this change; wording, links and maintained values checked."
+      "sha256": "7707811886eaf6f2f8dba9840a55b2f083d083c83920986e210312a60e2b1330",
+      "review": "Framework 0.49.0 data packs and Manufacturing 0.11.0 economy pack (30 September 2026): reviewed with this change; player file messages say what was skipped and why."
     },
     {
       "path": "docs/development/phobos-framework.md",
@@ -48125,8 +48633,8 @@
       "path": "docs/development/updating-constants.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "rewrite",
-      "sha256": "65214d84da45aaac95b7d39943fede12387a8b185feddf250afaca5a38049cf4",
-      "review": "2026-09-29 (War Has Been Declared 0.1.0): Adds WarDeclared.version to the managed version keys."
+      "sha256": "6474fad78fe4cac0cd54ea06e2cf69b38242454c5a14aea8037b377565f378fd",
+      "review": "Framework 0.49.0 data packs and Manufacturing 0.11.0 economy pack (30 September 2026): reviewed with this change; player file messages say what was skipped and why."
     },
     {
       "path": "docs/development/vanilla-economy-audit.md",
@@ -48173,8 +48681,8 @@
       "path": "docs/framework-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "9fc762c74d2cf2414858c1e7ac227402eaf851cef4e25bb822f304c4deca85d5",
-      "review": "Framework 0.48.0 / Manufacturing 0.8.0 (carved loot shares, clay from C-class silicates) and the 30 September asteroid feedstock research record, 30 September 2026: reviewed with this change; wording, links and maintained values checked."
+      "sha256": "9c04f61c845b4f1c1c18dd4ebb1c904e60132d5619dd89c6529559616ad4634a",
+      "review": "Framework 0.49.0 data packs and Manufacturing 0.11.0 economy pack (30 September 2026): reviewed with this change; player file messages say what was skipped and why."
     },
     {
       "path": "docs/furnace-coolant-conduits.md",
@@ -48236,8 +48744,8 @@
       "path": "docs/installing-mods.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "b773aa27e158b13cbe7cd79a4270ec40347f649e540862378a69e2f8d1de2bb1",
-      "review": "Shipbreaker 0.44.0 (ice supply: the game's ice asteroids and extra C-class deposit ice), 30 September 2026: reviewed with this change; wording, links and maintained values checked."
+      "sha256": "84fcfb39b786cfdfa51f9bbf0d1972c157e702acd85002ec7ad6797bd9425fec",
+      "review": "Framework 0.49.0 data packs and Manufacturing 0.11.0 economy pack (30 September 2026): reviewed with this change; player file messages say what was skipped and why."
     },
     {
       "path": "docs/item-references.md",
@@ -48250,8 +48758,8 @@
       "path": "docs/manufacturing-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "retain",
-      "sha256": "54342ba7ce4f69a93ef0edc8617aefd62dddc53157e2a1c0bed716214aa3d992",
-      "review": "Manufacturing 0.10.0 (30 September 2026): reviewed for the Tolvane AX-2 ammonia cracker; direct operating wording, the reaction and authored simplifications kept in the chemistry record."
+      "sha256": "6f9f5305c92509489511189a86ba633cb8c414694d40748c34aa379a1c55fb2c",
+      "review": "Framework 0.49.0 data packs and Manufacturing 0.11.0 economy pack (30 September 2026): reviewed with this change; player file messages say what was skipped and why."
     },
     {
       "path": "docs/manufacturing-player-guide.md",
@@ -48278,8 +48786,8 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "5c948dc25b8415c197a5780a31996aa2b97e158d028c40ce9444b5dcfaf6cb1d",
-      "review": "Shipbreaker 0.45.0 (methane ice in the T2, methane ice price correction), 30 September 2026: reviewed with this change; wording, links and maintained values checked."
+      "sha256": "857382d109f7923b4d83695eebdba864a4893fcefbd7dc0955a87290adad76d4",
+      "review": "Framework 0.49.0 data packs and Manufacturing 0.11.0 economy pack (30 September 2026): reviewed with this change; player file messages say what was skipped and why."
     },
     {
       "path": "docs/residue-collector.md",
@@ -48369,15 +48877,15 @@
       "path": "workshop/PhobosFramework/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "cddc2099184e0dc503d582bfae64a7a090e748f5e106b7490781c936aa060b2f",
-      "review": "Framework 0.48.0 / Manufacturing 0.8.0 (carved loot shares, clay from C-class silicates) and the 30 September asteroid feedstock research record, 30 September 2026: reviewed with this change; wording, links and maintained values checked."
+      "sha256": "e09f40c5071af30a791b95df522620da82e59a6caf8f332a31476db829dcfd71",
+      "review": "Framework 0.49.0 data packs and Manufacturing 0.11.0 economy pack (30 September 2026): reviewed with this change; player file messages say what was skipped and why."
     },
     {
       "path": "workshop/PhobosManufacturing/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "4d4f5cf7391bafaa7a7fabce1bfe50f4a62465290baec644aff9e78c92aa8f0e",
-      "review": "Manufacturing 0.10.0 (30 September 2026): reviewed for the Tolvane AX-2 ammonia cracker; direct operating wording, the reaction and authored simplifications kept in the chemistry record."
+      "sha256": "617a141135758e7cec34a059f8a4c0d1f5e9ebbbf1c9556cc4a3e98fbf01a557",
+      "review": "Framework 0.49.0 data packs and Manufacturing 0.11.0 economy pack (30 September 2026): reviewed with this change; player file messages say what was skipped and why."
     },
     {
       "path": "workshop/PhobosShipbreaker/page.bbcode",
@@ -48441,6 +48949,13 @@
       "decision": "new",
       "sha256": "432c4ac268d33dbf3560a2e796b44a80aa23512d89cd55bffd639e0453199833",
       "review": "30 September 2026: programme status record and schema separation audit written; developer records, technical terminology retained."
+    },
+    {
+      "path": "docs/editing-data-files.md",
+      "scope": "current player operating guide",
+      "decision": "new",
+      "sha256": "28db4351842fceb851ca3ccb6ae7b59ae719ca8dea1e4192c681f0b225ad31b8",
+      "review": "Framework 0.49.0 data packs and Manufacturing 0.11.0 economy pack (30 September 2026): reviewed with this change; player file messages say what was skipped and why."
     }
   ],
   "surfaces": [
@@ -48496,14 +49011,14 @@
     {
       "path": "mods/PhobosFramework/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "15f2b31a71ec287ac5c3bcbfee46dab7ea400cdff84011a9689dc8266c14894f",
-      "review": "Framework 0.48.0 / Manufacturing 0.8.0 (carved loot shares, clay from C-class silicates) and the 30 September asteroid feedstock research record, 30 September 2026: reviewed with this change; wording, links and maintained values checked."
+      "sha256": "0099fbcf01a2bb534a4c6cdaa2d766ccae8f3eb95ba5ddc593c6da950abf6c01",
+      "review": "Framework 0.49.0 data packs and Manufacturing 0.11.0 economy pack (30 September 2026): reviewed with this change; player file messages say what was skipped and why."
     },
     {
       "path": "mods/PhobosManufacturing/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "46e99849f5316695c48347a1a9934831320cb92b944f4afb69d79fb8b45459aa",
-      "review": "Manufacturing 0.10.0 (30 September 2026): reviewed for the Tolvane AX-2 ammonia cracker; direct operating wording, the reaction and authored simplifications kept in the chemistry record."
+      "sha256": "c01acd78da52568a0fda0d4d43460e71b064681a43cad4d4e838d51e3706028f",
+      "review": "Framework 0.49.0 data packs and Manufacturing 0.11.0 economy pack (30 September 2026): reviewed with this change; player file messages say what was skipped and why."
     },
     {
       "path": "mods/PhobosShipbreaker/framework/equipment-names.json",

@@ -22,7 +22,7 @@ public static class FillerRules
     public const string Prefix = "PhobosCanisterFiller", Installed = Prefix + "Installed";
     public const string Record = "ManufacturingFiller", Journal = "ManufacturingFillerWork";
     public const int Footprint = 2, RackCells = 4, MaxCanisters = 4, MaxStores = 4;
-    public const double MachineKg = 120, Price = 26000, IdleKW = 0.05, WorkingKW = 3;
+    public const double MachineKg = 120, IdleKW = 0.05, WorkingKW = 3;
     public const string RackTrigger = "TIsFitContainerPhobosCanisterFillerRack";
     public const string Inlet = "PhobosGasLineIn";
     /// <summary>Stops every fill at this fraction of the vessel's rating (the Framework safe fill).</summary>

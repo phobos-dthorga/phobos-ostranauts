@@ -76,6 +76,50 @@ Consumers require Framework 0.15.0 and must not bundle another recorder DLL.
 Instrumentation stays in the owning service; UI files only measure presentation
 work. See [capture commands, metrics and owner-run checks](../performance-captures.md).
 
+## Data packs (0.49.0)
+
+`Data.DataPacks` is the one loader for authored tables that live outside C#
+(owner decision, 30 September 2026, from the [schema separation audit](schema-separation-audit.md)).
+A pack is `mods/<Mod>/framework/<schema>.json`, embedded in the plugin as
+`<Mod>.<schema>.json` and kept in the mod folder as the readable copy. Players
+override it with partial files in `BepInEx/config/<Mod>/<schema>/*.json`.
+
+- Declare a typed pack: a class deriving from `DataPack` (which carries
+  `schemaVersion`, `schema` and `notes`) with public lowercase fields, dictionaries
+  keyed by the identifiers the code already uses. Unknown fields are refused
+  (`MissingMemberHandling.Error`), as the construction registry refuses them.
+- Load with `DataPacks.Load<T>(new DataPackSource(owner, modFolder, schema,
+  assembly, resource), validate)` during content preparation. `validate` runs on
+  the shipped pack (a failure throws: a packaging fault) and on every candidate
+  player overlay (a failure rejects that file and keeps the earlier ones).
+- Player files are merged by property name at every level: objects merge, arrays
+  replace, a `null` is refused, so a file can tune fields of a shipped entry or add
+  an entry and can never rename or remove one. Files apply in name order.
+  `DataPacks.LoadText` does the same from text and a folder, for tools and tests.
+- Problems are logged, kept in `DataPacks.Problems` and shown by
+  `phobosframework status`. The shipped copy is always valid on its own.
+- Write the schema's checks in Framework beside its DTO so every mod shares them.
+  The rule (owner ruling): mass conservation and native gas species are enforced
+  on every file, shipped or player; stoichiometric honesty and pricing rules are
+  authoring rules for shipped data and are not enforced on player files.
+- `scripts/validate-data-packs.py` mirrors the structural checks for CI without
+  game files; the C# validator is authoritative.
+- A migration of existing values into a pack is verified by the golden export:
+  `scripts/compare-item-export.py` shows `docs/item-reference-data.json` unchanged
+  before and after, apart from version strings and source hashes. Constants registered in the
+  maintained catalogue point at pack values with `pointer` targets
+  ([updating constants](updating-constants.md)).
+
+The first schema is `economy` (`Data.EconomyPack`, `EconomySchema.Validate`):
+per-family price, work, repair bill, salvage, Restore minutes and flags; supplies;
+offer templates and explicit offers; region factors and regional stock; lots and
+chance floors; world loot. Its checks: every family the code names has an entry
+and no other exists, positive prices and work, bills of known materials, salvage
+that weighs what the machine weighs, known conditions, merchants and regions,
+chances within (0, 1] and lots within 1..256. Manufacturing 0.11.0 is the first
+consumer; identities and dry masses stay in its rules and the pack is checked
+against them. Consumers require **0.49.0**.
+
 ## Carved loot shares (0.48.0)
 
 `Registration.AdditiveLoot.CarveChoice(definitions, tableId, donorId, choiceId, share)`

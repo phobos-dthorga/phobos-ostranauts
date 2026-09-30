@@ -1,5 +1,5 @@
 [h1]Phobos Manufacturing[/h1]
-[b]Version:[/b] 0.10.0
+[b]Version:[/b] 0.11.0
 [b]Publication status:[/b] Not published - unpublished draft
 
 Refining and chemistry aboard your ship: turn what the crew mines into water, metal stock and oxygen, and do something useful with the hydrogen. Outputs follow realistic chemistry within the game's units, and when it goes wrong, the game's own dangers apply.
@@ -7,7 +7,7 @@ Refining and chemistry aboard your ship: turn what the crew mines into water, me
 [h2]What it does[/h2]
 [list]
 [*][b]Phobos' Fennmark V4 Volatiles Refinery[/b] (4 x 4, 24 kW): bake hydrates or clay hydrates for water and salt crust for ammonia, roast carbon ore for carbon stock (it breathes CO2, CO and smoke into the room, so run a scrubber), and cast meteoric iron into nickel-iron ingots. With Shipbreaker it also melts four nickel-iron ingots and one carbon stock into four steel ingots.
-[*][b]Phobos' Fennmark X2 Chemical Processor[/b] (2 x 2, 6 kW): water electrolysis. Each hour, 1.125 kg of water becomes 1.000 kg of oxygen, into a linked O2 canister or the cabin air, and 0.125 kg of hydrogen into a linked H2 store.
+[*][b]Phobos' Fennmark X2 Chemical Processor[/b] (2 x 2, 6 kW): water electrolysis. Each hour 1.125 kg of water becomes 1 kg of oxygen (a linked O2 canister or the cabin air) and 0.125 kg of hydrogen (a linked H2 store).
 [*][b]Phobos' Fennmark H2 Hydrogen Store[/b] (2 x 2): holds 24 kg of hydrogen, with a vent overboard.
 [*][b]Phobos' Fennmark K2 Sabatier Reactor[/b] (2 x 2, 1.2 kW): CO2 from an installed CO2 canister and hydrogen from the H2 store become water for your silo or reservoir, and methane for the [b]Phobos' Fennmark M2 Methane Store[/b] (holds 160 kg). Paired with the X2, it wins back about half the water, as NASA's Sabatier system on the ISS does.
 [*][b]Phobos' Tolvane AX-2 Ammonia Cracker[/b] (2 x 2, 2 kW): splits stored ammonia into nitrogen for your cabin air and hydrogen, 1 kg an hour into 0.82 kg of N2 and 0.18 kg of H2, each to its own store.
@@ -16,19 +16,19 @@ Refining and chemistry aboard your ship: turn what the crew mines into water, me
 [*][b]Phobos' Fennmark L2 Canister Filling Station[/b] (2 x 2, 3 kW, INSTALL > HVAC): tops up suit O2 bottles in its rack and canisters beside it to a safe 99% and stops, from your stores or a canister; Decant mode empties them back. Right-click Keep suit bottles charged and your crew fetch loose bottles below 90% and start it.
 [*][b]Phobos' Fennmark A2 Cabin Air Regulator[/b] (2 x 2, INSTALL > HVAC): keeps its room at your oxygen and pressure set points from linked O2 and N2 stores. It only adds gas, stops if the room is open to space and never lets oxygen pass 30% of the air.
 [*]Clay hydrates and salt crust turn up in C-class finds, in place of some silicates. Ores are mined, never bought.
+[*]Prices, work, salvage and merchant odds live in framework/economy.json; override them with a file in BepInEx/config/PhobosManufacturing/economy.
 [/list]
 
 [h2]Getting started[/h2]
 [list]
 [*]This is late-game plant: the V4 costs 64,000 cr. Buy the machines at the K-Leg fixer (used), the K-Leg supply kiosk (broken), the Venus scrap kiosk (broken or refurbished), San Diego's Halvorson (new) and regional supply kiosks, or find one, usually broken, in engineering salvage. They install from INSTALL > APPS; there are no construction recipes.
-[*]Water charges and the X2 need a Shipbreaker S3, S4 or S5 silo or an Agriculture R3, R4 or R5 reservoir within one tile.
+[*]Water charges and the X2 need a Shipbreaker S3 to S5 silo or an Agriculture R3 to R5 reservoir within one tile.
 [*]Right-click a machine and choose Control Panel. Link its vessel, store or canister under Connections, load one charge into the V4's Refinery charge window, then choose Start.
-[*]In the F3 console, phobosmanufacturing lists your machines.
 [/list]
 
 [h2]Requirements[/h2]
 [list]
-[*]Ostranauts 1.0.1.5, BepInEx 5 and Phobos Framework 0.48.0 or newer.
+[*]Ostranauts 1.0.1.5, BepInEx 5 and Phobos Framework 0.49.0 or newer.
 [*]BepInEx 5 through EddieSM / EsMM27's [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3741030124]BepInEx Mod Loader[/url], including its one-time setup.
 [*]Optional: Phobos Shipbreaker 0.38.0 or newer (S3 silo and the steel charge) and Phobos Agriculture (R3 reservoir). Water work needs one of them.
 [/list]
@@ -37,23 +37,23 @@ Refining and chemistry aboard your ship: turn what the crew mines into water, me
 [list]
 [*]Subscribe to the BepInEx Mod Loader and follow its setup instructions.
 [*]Subscribe to Phobos Manufacturing and the Phobos items listed under Required items.
-[*]Start Ostranauts once so the loader copies the plugins, then restart it once so they load. Do the same after each update.
+[*]Start Ostranauts once so the loader copies the plugins, then restart it so they load. Repeat after each update.
 [*]Check that the mods are enabled in the MODS screen.
-[*]Used the repository's local installer before? Remove those local copies first so only one copy loads. See the [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/installing-mods.md]installation guide[/url].
+[*]Used the repository's local installer before? Remove those copies first so only one loads. See the [url=https://github.com/phobos-dthorga/phobos-ostranauts/blob/main/docs/installing-mods.md]installation guide[/url].
 [/list]
 
 [h2]Saves and limits[/h2]
 [list]
-[*]Ordinary saves are supported. Keep required mods installed while a save uses their content. Updating does not refill existing shops or old loot containers.
-[*]Working machines pause after a reload until you press Start, keeping their charge and progress.
+[*]Ordinary saves are supported. Keep required mods installed while a save uses their content. Updating does not refill existing shops.
+[*]Working machines pause after a reload until you press Start, keeping charge and progress.
 [*]Stored gases are kilogram records. Empty a store before removing it.
 [*]A damaged H2 store leaks hydrogen to space; with oxygen in the room and a spark, fire or working refinery, it burns through the game's own explosion. A damaged M2 leaks methane into the room, which burns to CO2 with a spark; a damaged ammonia store leaks poison; a damaged K2 or AX-2 dumps its gas. Oxygen sent into the cabin air raises the fire risk.
 [*]A metal melt left waiting for a cool room too long freezes into slag. No crew loading orders yet.
-[*]Automated checks pass; in-game checks are still pending.
+[*]Automated checks pass; in-game checks pending.
 [/list]
 
 [h2]Credits and sources[/h2]
-Created by Phobos A. D'thorga (phobosgekko). Independent community work, not endorsed by Blue Bottle Games, Kitfox Games or the research institutions cited in the guides. Research informs design; compact equipment and operating limits remain gameplay choices.
+Created by Phobos A. D'thorga (phobosgekko). Independent community work, not endorsed by Blue Bottle Games, Kitfox Games or the research institutions cited in the guides. Research informs design; equipment sizes and operating limits are gameplay choices.
 Every recipe conserves mass. Reactions, energies and hazards draw on NIST, NASA, the Dawn and OSIRIS-REx science teams and iron-meteorite mineralogy; yields rounded to item units are labelled as ours. The chemistry record cites each source beside its claim.
 Original artwork uses AI-assisted production, including PixelLab; provenance and licensing are recorded separately.
 

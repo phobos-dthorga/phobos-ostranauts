@@ -12,7 +12,7 @@ namespace Phobos.Ostranauts.Framework;
 public static class FrameworkInfo
 {
     public const string PluginId = "phobosgekko.ostranauts.framework";
-    public const string Version = "0.48.0";
+    public const string Version = "0.49.0";
 }
 
 [BepInPlugin(FrameworkInfo.PluginId, "Phobos Framework", FrameworkInfo.Version)]
@@ -38,6 +38,9 @@ public sealed class FrameworkPlugin : BaseUnityPlugin
     {
         Translations.Log = message => Logger.LogWarning(message);
         Translations.UserDirectory = System.IO.Path.Combine(Paths.ConfigPath, "PhobosTranslations");
+        Data.DataPacks.UserRoot = Paths.ConfigPath;
+        Data.DataPacks.Log = message => Logger.LogWarning(message);
+        FrameworkConsole.ExtraStatus = () => Text.Get("FrameworkConsole.data_packs") + "\n" + Data.DataPacks.Describe();
         language = Config.Bind("Localization", "Language", "auto",
             Text.Get("Plugin.language_tag_such_as_en_fr_or"));
         RefreshLanguage();

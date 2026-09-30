@@ -40,6 +40,7 @@ public static class FrameworkLifecycle
         Registration.EquipmentSaveUpgrade.BeginLoad();
         Registration.ItemHandling.BeginLoad();
         Registration.LootCarveRegistry.Reset();
+        Data.DataPacks.Reset();
         Registration.MaintenanceSafety.Repairs.Clear();
         Registration.MaintenanceSafety.LegacyFinishes.Clear();
         Notify(ContentLoading);

@@ -15,7 +15,7 @@ public static class RegulatorRules
     public const string Prefix = "PhobosCabinAirRegulator", Installed = Prefix + "Installed", Record = "ManufacturingRegulator";
     public const string Inlet = "PhobosGasLineIn";
     public const int Footprint = 2;
-    public const double MachineKg = 60, Price = 23000, WorkingKW = 0.1;
+    public const double MachineKg = 60, WorkingKW = 0.1;
     /// <summary>Oxygen set points in kPa. The game counts 20 kPa and above as adequate oxygen (its DcGasPpO2 rule);
     /// Earth sea level is about 21.2 kPa.</summary>
     public static readonly IReadOnlyList<double> OxygenTargets = new[] { 19d, 21d, 23d };

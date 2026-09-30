@@ -401,6 +401,16 @@ warnings (`Could not deserialize System.String[]`, `Blackboard Deserializer, fou
 from the game's `Ostranauts.Core.Blackboard`, which saves a text value as a list of characters and cannot read it
 back; no Phobos mod uses that store.
 
+### Data packs (Framework 0.49.0, Manufacturing 0.11.0)
+
+The data-pack loader (`Data/DataPacks.cs`, `Data/EconomyPack.cs`) reads each
+mod's shipped pack and the player's override files once per content load, inside
+`Content.Prepare`, and never afterwards: no polling, no file watching, no
+per-frame work. Manufacturing's economy tables moved into its pack with the same
+values (the golden item export is unchanged). Reviewed as R4 (load-time
+registration work); the touched Framework console, lifecycle and plugin files
+carry the same finding.
+
 ### Cadence policy
 
 Conserved accounting (power receipts, transfers, thermal and crop steps, elapsed

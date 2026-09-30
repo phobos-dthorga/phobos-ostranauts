@@ -35,6 +35,7 @@ internal static class Content
     internal static NativeDefinitions Prepare(bool steelStock)
     {
         var d = new NativeDefinitions();
+        Economy.Load(NativeMass, id => DataHandler.dictLoot != null && DataHandler.dictLoot.ContainsKey(id));
         Definitions.Add(d, steelStock);
         EquipmentEconomy.Apply(d);
         RegionalEconomy.Apply(d);
@@ -42,6 +43,18 @@ internal static class Content
         MaintenanceInformation.Register(d, "PhobosManufacturingMaintenanceInformation", co => MaintenanceReason(co, true) ?? MaintenanceReason(co, false) ?? "");
         ItemHandling.Apply(d);
         return d;
+    }
+    /// <summary>A native definition's starting mass, as the game writes it (StatMass=1xN), for the economy pack's salvage check.</summary>
+    internal static double? NativeMass(string id)
+    {
+        if (DataHandler.dictCOs == null || !DataHandler.dictCOs.TryGetValue(id, out var co)) return null;
+        foreach (string cond in co.aStartingConds ?? Array.Empty<string>())
+        {
+            if (!cond.StartsWith("StatMass=", StringComparison.Ordinal)) continue;
+            string amount = cond.Substring(cond.IndexOf('x') + 1);
+            return double.TryParse(amount, System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out double kg) ? kg : null;
+        }
+        return null;
     }
     internal static CondOwner? Resolve(string? id) => CrewWork.Resolve(id);
     internal static bool Machine(CondOwner? co) => co != null && MachineKinds.IsOurs(co.strCODef);

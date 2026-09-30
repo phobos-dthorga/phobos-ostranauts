@@ -21,7 +21,7 @@ public static class CrackerRules
     public const string StoreInPort = "PhobosManufacturing.CrackerIn";
     public const string AmmoniaSpecies = "NH3", NitrogenSpecies = "N2";
     public const int Footprint = 2;
-    public const double MachineKg = 150, Price = 42000;
+    public const double MachineKg = 150;
     /// <summary>Catalyst bed heaters, recuperator fan and controls: authored. The part the reaction absorbs leaves as
     /// chemical energy in the products; the rest ends as room heat.</summary>
     public const double WorkingKW = 2.0, IdleKW = 0.02, CycleHours = 1, CycleKWh = WorkingKW * CycleHours;

@@ -27,7 +27,7 @@ internal static class ManufacturingNativeChecks
             check(refineryItem.nCols == 4 && refineryItem.aSocketAdds.Length == 16 && refinery.inventoryWidth == 4 && refinery.inventoryHeight == 4, "V4 occupies four by four native tiles: " + state);
             check(refinery.nContainerWidth == 8 && refinery.nContainerHeight == 8 && refinery.aSlotsWeHave.Contains(RefineryRules.InputSlot) && Stat(refinery, "StatMass") == RefineryRules.MachineKg, "V4 has an eight by eight tray, its charge feed and weighs 180 kg: " + state);
             check(refinery.strNameFriendly.StartsWith("Phobos' Fennmark V4 ", StringComparison.Ordinal), "V4 carries the Fennmark V4 name: " + state);
-            check(Stat(refinery, "StatBasePrice") == (damaged ? RefineryRules.Price / 4 : RefineryRules.Price), "V4 authored prices: " + state);
+            check(Stat(refinery, "StatBasePrice") == (damaged ? Economy.Price(RefineryRules.Prefix) / 4 : Economy.Price(RefineryRules.Prefix)), "V4 authored prices: " + state);
             check((refinery.jsonPI == RefineryRules.Prefix + "Power") == (installed && !damaged), "V4 draws power only when installed and intact: " + state);
             var processor = d.Objects[ProcessorRules.Prefix + state]; var processorItem = d.Items[processor.strItemDef];
             check(processorItem.nCols == 2 && processorItem.aSocketAdds.Length == 4 && processor.inventoryWidth == 2 && processor.inventoryHeight == 2, "X2 occupies two by two native tiles: " + state);
@@ -47,7 +47,7 @@ internal static class ManufacturingNativeChecks
                 "AX-2 is a two by two cracker with no cargo: its gases are records: " + state);
             check(cracker.strNameFriendly.StartsWith("Phobos' Tolvane AX-2 ", StringComparison.Ordinal) && (cracker.jsonPI == CrackerRules.Prefix + "Power") == (installed && !damaged),
                 "AX-2 carries its Tolvane name and draws power only when installed and intact: " + state);
-            check(Stat(cracker, "StatBasePrice") == (damaged ? (int)CrackerRules.Price / 4 : (int)CrackerRules.Price) && Has(cracker, EquipmentEconomy.HighSalvageMark),
+            check(Stat(cracker, "StatBasePrice") == (damaged ? (int)Economy.Price(CrackerRules.Prefix) / 4 : (int)Economy.Price(CrackerRules.Prefix)) && Has(cracker, EquipmentEconomy.HighSalvageMark),
                 "AX-2 carries its late-game price and the high-salvage mark: " + state);
             var methane = d.Objects[MethaneRules.Prefix + state];
             check(d.Items[methane.strItemDef].nCols == 2 && methane.jsonPI == null && methane.aTickers.Length == 0 && !Has(methane, "IsContainer") && Stat(methane, "StatMass") == MethaneRules.DryKg,
@@ -61,7 +61,7 @@ internal static class ManufacturingNativeChecks
             check(!DataHandler.dictCTs["TIsRCSValidInput"].TriggeredDataCO(new DataCO(manifold), false),
                 "The game's own RCS input rule refuses the manifold, so vanilla refuels never pour nitrogen into it: " + state);
             var line = d.Objects[PropellantLineRules.Prefix + state];
-            check(Stat(line, "StatMass") == PropellantLineRules.Kg && (damaged ? Stat(line, "StatBasePrice") < PropellantLineRules.Price : Stat(line, "StatBasePrice") == PropellantLineRules.Price) &&
+            check(Stat(line, "StatMass") == PropellantLineRules.Kg && (damaged ? Stat(line, "StatBasePrice") < Economy.SupplyPrice(PropellantLineRules.Prefix) : Stat(line, "StatBasePrice") == Economy.SupplyPrice(PropellantLineRules.Prefix)) &&
                 d.Installables.ContainsKey(PropellantLineRules.Prefix + state + "Dismantle"), "The propellant line is ordinary pipe supply: " + state);
             foreach (var fuel in GasStores.All)
             {
@@ -89,7 +89,7 @@ internal static class ManufacturingNativeChecks
                 regulator.strNameFriendly.StartsWith("Phobos' Fennmark A2 ", StringComparison.Ordinal) && regulator.mapPoints.Contains(RegulatorRules.Inlet + ",24,8") &&
                 (regulator.jsonPI == RegulatorRules.Prefix + "Power") == (installed && !damaged),
                 "A2 is a two by two Fennmark unit with a gas-line port, not airtight, powered only when installed and intact: " + state);
-            check(Stat(regulator, "StatBasePrice") == (damaged ? (int)RegulatorRules.Price / 4 : (int)RegulatorRules.Price) && Has(regulator, EquipmentEconomy.HighSalvageMark),
+            check(Stat(regulator, "StatBasePrice") == (damaged ? (int)Economy.Price(RegulatorRules.Prefix) / 4 : (int)Economy.Price(RegulatorRules.Prefix)) && Has(regulator, EquipmentEconomy.HighSalvageMark),
                 "A2 carries its late-game price and the high-salvage mark: " + state);
             check(installed ? regulatorItem.aSocketAdds[1] == PropellantLineRules.Prefix + "FixturePort" : true, "A2 pipe joint sits on its port tile: " + state);
             if (installed)

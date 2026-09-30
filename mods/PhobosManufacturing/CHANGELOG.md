@@ -6,6 +6,16 @@ Dates on Draft entries record preparation, not Steam publication.
 
 ## [Unreleased]
 
+## [0.11.0] - 2026-09-30 - Draft
+
+### Changed
+
+- The economy now lives in a data file, framework/economy.json: every machine's and store's price, install, uninstall, repair and dismantle work, repair bill, salvage, Restore time, the merchant offers, lots, regional availability and the engineering-salvage odds. Nothing changes in play: every value is the same as 0.10.0. Players can override entries with files in BepInEx/config/PhobosManufacturing/economy; see Editing the Phobos data files in the guides.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.49.0 or newer. Saves are unchanged. Offline checks are not gameplay validation.
+
 ## [0.10.0] - 2026-09-30 - Draft
 
 ### Added

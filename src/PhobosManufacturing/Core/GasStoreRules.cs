@@ -53,7 +53,8 @@ public sealed class GasFamily
     public int SmallFootprint => 2;
     public double SmallCapacityKg { get; }
     public double SmallDryKg { get; }
-    public double SmallPrice { get; }
+    /// <summary>The small size's price, from the economy data pack; larger sizes scale through the ladder.</summary>
+    public double SmallPrice => Economy.Price(SmallPrefix);
     public double SmallLeakKgPerHour { get; }
     public string Record { get; }
     public string Journal { get; }
@@ -62,11 +63,11 @@ public sealed class GasFamily
     /// <summary>Whether leaks go into the room: only gases the game has a room species for (never hydrogen).</summary>
     public bool LeaksIntoRoom => NativeGasCanister.IsRoomSpecies(Species);
     public IReadOnlyList<GasStore> Sizes { get; }
-    public GasFamily(string smallPrefix, string commodity, string species, string textPrefix, string model, double smallCapacityKg, double smallDryKg, double smallPrice,
+    public GasFamily(string smallPrefix, string commodity, string species, string textPrefix, string model, double smallCapacityKg, double smallDryKg,
         double smallLeakKgPerHour, string record, string journal, string guard, Combustion? fuel)
     {
         SmallPrefix = smallPrefix; Commodity = commodity; Species = species; TextPrefix = textPrefix; Model = model; SmallCapacityKg = smallCapacityKg; SmallDryKg = smallDryKg;
-        SmallPrice = smallPrice; SmallLeakKgPerHour = smallLeakKgPerHour; Record = record; Journal = journal; Guard = guard; Fuel = fuel;
+        SmallLeakKgPerHour = smallLeakKgPerHour; Record = record; Journal = journal; Guard = guard; Fuel = fuel;
         Sizes = BulkVesselSizes.All.Select(s => new GasStore(this, s)).ToArray();
     }
     public GasStore Small => Sizes[0];
@@ -85,7 +86,8 @@ public sealed class GasStore
     public string TextPrefix => Family.TextPrefix;
     public double CapacityKg => Spec.CapacityKg;
     public double DryKg => Spec.DryKg;
-    public double Price { get; }
+    /// <summary>The economy pack's small-store price scaled by floor area to the power 0.6 (Framework ladder).</summary>
+    public double Price => BulkVesselSizes.Scale(Family.SmallPrice, BulkVesselSizes.PriceFactor(Family.SmallFootprint, Size));
     public double LeakKgPerHour => Spec.LeakKgPerHour;
     /// <summary>The native species a damaged store leaks into its room, or null when the leak goes to space.</summary>
     public string? LeakSpecies => Family.LeaksIntoRoom ? Family.Species : null;
@@ -102,7 +104,6 @@ public sealed class GasStore
         double leak = family.SmallLeakKgPerHour * Footprint / family.SmallFootprint;
         Spec = BulkVesselSizes.Spec(family.SmallPrefix, family.SmallFootprint, size, family.Commodity, family.SmallCapacityKg, family.SmallDryKg, ManufacturingRules.Owner,
             family.Record, family.Journal, family.Guard, VesselDamagePolicy.Leak, leak);
-        Price = BulkVesselSizes.Scale(family.SmallPrice, BulkVesselSizes.PriceFactor(family.SmallFootprint, size));
     }
     public bool IsFamily(string? id) => EquipmentIdentity.IsFamily(id, Prefix);
     /// <summary>The line port on the neighbouring tile of the store's local +X side, in the middle row (the upper of
@@ -139,26 +140,25 @@ public static class GasStores
     /// 10,700 mol (340 kg of oxygen, 300 kg of nitrogen, 470 kg of carbon dioxide), in the same 160 kg housing.</summary>
     public const double UsableMolesFraction = 0.8, InertDryKg = 160;
     public const double OxygenCapacityKg = 340, NitrogenCapacityKg = 300, CarbonDioxideCapacityKg = 470;
-    public const double OxygenPrice = 21000, NitrogenPrice = 20000, CarbonDioxidePrice = 20000;
     public static readonly GasFamily HydrogenFamily = new(HydrogenRules.Prefix, ManufacturingRules.Hydrogen, "H2", "Store", "H", HydrogenRules.CapacityKg, HydrogenRules.DryKg,
-        HydrogenRules.Price, HydrogenRules.LeakKgPerHour, HydrogenRules.Record, HydrogenRules.Journal, HydrogenRules.Guard,
+        HydrogenRules.LeakKgPerHour, HydrogenRules.Record, HydrogenRules.Journal, HydrogenRules.Guard,
         new Combustion(HydrogenRules.HHVKJPerKg, HydrogenRules.OxygenPerHydrogen, new Dictionary<string, double>(StringComparer.Ordinal)));
     public static readonly GasFamily MethaneFamily = new(MethaneRules.Prefix, ManufacturingRules.Methane, "CH4", "Methane", "M", MethaneRules.CapacityKg, MethaneRules.DryKg,
-        MethaneRules.Price, MethaneRules.LeakKgPerHour, MethaneRules.Record, MethaneRules.Journal, MethaneRules.Guard,
+        MethaneRules.LeakKgPerHour, MethaneRules.Record, MethaneRules.Journal, MethaneRules.Guard,
         new Combustion(MethaneRules.HHVKJPerKg, MethaneRules.OxygenPerMethane, new Dictionary<string, double>(StringComparer.Ordinal) { ["CO2"] = MethaneRules.CarbonDioxidePerMethane }));
-    public static readonly GasFamily OxygenFamily = new("PhobosOxygenStore", ManufacturingRules.Oxygen, "O2", "Oxygen", "O", OxygenCapacityKg, InertDryKg, OxygenPrice, 2,
+    public static readonly GasFamily OxygenFamily = new("PhobosOxygenStore", ManufacturingRules.Oxygen, "O2", "Oxygen", "O", OxygenCapacityKg, InertDryKg, 2,
         "ManufacturingOxygen", "ManufacturingOxygenWork", "ManufacturingOxygenTransfer", null);
-    public static readonly GasFamily NitrogenFamily = new("PhobosNitrogenStore", ManufacturingRules.Nitrogen, "N2", "Nitrogen", "N", NitrogenCapacityKg, InertDryKg, NitrogenPrice, 2,
+    public static readonly GasFamily NitrogenFamily = new("PhobosNitrogenStore", ManufacturingRules.Nitrogen, "N2", "Nitrogen", "N", NitrogenCapacityKg, InertDryKg, 2,
         "ManufacturingNitrogen", "ManufacturingNitrogenWork", "ManufacturingNitrogenTransfer", null);
     public static readonly GasFamily CarbonDioxideFamily = new("PhobosCarbonDioxideStore", ManufacturingRules.CarbonDioxide, "CO2", "CarbonDioxide", "C", CarbonDioxideCapacityKg, InertDryKg,
-        CarbonDioxidePrice, 2, "ManufacturingCarbonDioxide", "ManufacturingCarbonDioxideWork", "ManufacturingCarbonDioxideTransfer", null);
+        2, "ManufacturingCarbonDioxide", "ManufacturingCarbonDioxideWork", "ManufacturingCarbonDioxideTransfer", null);
     /// <summary>Ammonia is kept liquefied, as industry keeps it: it condenses at about 0.86 MPa at 20 C, far below
     /// the vessel's rating, and the saturated liquid is 609 kg/m3 at 20 C (Engineering ToolBox tables after NIST).
     /// The same 0.787 m3 vessel at an 80% fill holds 383 kg; authored 380 kg. The game treats the gas as ideal
     /// everywhere else; the capacity is the only place the liquid matters. Model letter Q (unused by every brand).
     /// Ammonia is a game gas species (it poisons the crew in bands), so a damaged store leaks into the room.</summary>
-    public const double AmmoniaCapacityKg = 380, AmmoniaPrice = 20000;
-    public static readonly GasFamily AmmoniaFamily = new("PhobosAmmoniaStore", ManufacturingRules.Ammonia, "NH3", "Ammonia", "Q", AmmoniaCapacityKg, InertDryKg, AmmoniaPrice, 2,
+    public const double AmmoniaCapacityKg = 380;
+    public static readonly GasFamily AmmoniaFamily = new("PhobosAmmoniaStore", ManufacturingRules.Ammonia, "NH3", "Ammonia", "Q", AmmoniaCapacityKg, InertDryKg, 2,
         "ManufacturingAmmonia", "ManufacturingAmmoniaWork", "ManufacturingAmmoniaTransfer", null);
     public static readonly IReadOnlyList<GasFamily> Families = new[] { HydrogenFamily, MethaneFamily, OxygenFamily, NitrogenFamily, CarbonDioxideFamily, AmmoniaFamily };
     public static readonly IReadOnlyList<GasStore> All = Families.SelectMany(f => f.Sizes).ToArray();
@@ -193,7 +193,7 @@ public static class MethaneRules
     public const int Footprint = 2;
     /// <summary>The native RTA canister volume (0.787 m3) at its rated 41.4 MPa holds roughly 200 kg of compressed
     /// methane; authored 160 kg of usable capacity in a 160 kg housing.</summary>
-    public const double CapacityKg = 160, DryKg = 160, Price = 21000, LeakKgPerHour = 2;
+    public const double CapacityKg = 160, DryKg = 160, LeakKgPerHour = 2;
     /// <summary>Methane's higher heating value, 890.6 kJ/mol (NIST Chemistry WebBook), per kilogram.</summary>
     public const double HHVKJPerMol = 890.6;
     public static double HHVKJPerKg => HHVKJPerMol / KgPerMol("CH4");

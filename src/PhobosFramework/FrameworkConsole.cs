@@ -8,6 +8,9 @@ namespace Phobos.Ostranauts.Framework;
 [HarmonyPatch(typeof(ConsoleResolver), nameof(ConsoleResolver.ResolveString))]
 internal static class FrameworkConsole
 {
+    /// <summary>Further status lines appended to <c>phobosframework status</c> (the data packs); set by the plugin so
+    /// the console can be compiled on its own.</summary>
+    internal static Func<string>? ExtraStatus { get; set; }
     private static bool Prefix(ref string strInput, ref bool __result)
     {
         var words = (strInput ?? "").Split(new[] { ' ', '\t', '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
@@ -29,6 +32,7 @@ internal static class FrameworkConsole
         string response = Text.Get("FrameworkConsole.phobos_framework", FrameworkInfo.Version);
         if (!__result || command == "help") response += Text.Get("FrameworkConsole.commands_phobosframework_status_recipes_help_read_only");
         else response += ConstructionRegistry.Describe(command == "recipes");
+        if (command == "status" && ExtraStatus != null) response += "\n" + ExtraStatus();
         strInput += "\n" + response;
         return false;
     }

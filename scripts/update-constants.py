@@ -75,6 +75,103 @@ def safe_path(root, name):
     return path
 
 
+def json_value_span(text, pointer):
+    """Span (start, end) of the scalar value a JSON pointer names, in the file's own text.
+
+    A tiny positional scanner (strings with escapes, numbers, literals, objects,
+    arrays); pointer segments follow RFC 6901 (~1 -> /, ~0 -> ~). Used so a
+    pointer target edits the value in place and keeps the file's formatting.
+    """
+    segments = [s.replace("~1", "/").replace("~0", "~") for s in pointer.split("/")[1:]] if pointer.startswith("/") else None
+    if segments is None or not segments:
+        raise UpdateError(f"Invalid JSON pointer: {pointer}")
+    n = len(text)
+
+    def skip(i):
+        while i < n and text[i] in " \t\r\n":
+            i += 1
+        return i
+
+    def string_end(i):
+        i += 1
+        while i < n:
+            if text[i] == "\\":
+                i += 2
+            elif text[i] == '"':
+                return i + 1
+            else:
+                i += 1
+        raise UpdateError("Unterminated string in JSON target")
+
+    def value_end(i):
+        i = skip(i)
+        c = text[i]
+        if c == '"':
+            return string_end(i)
+        if c == "{":
+            i = skip(i + 1)
+            while text[i] != "}":
+                i = string_end(i)
+                i = skip(i)
+                assert text[i] == ":"
+                i = value_end(i + 1)
+                i = skip(i)
+                if text[i] == ",":
+                    i = skip(i + 1)
+            return i + 1
+        if c == "[":
+            i = skip(i + 1)
+            while text[i] != "]":
+                i = value_end(i)
+                i = skip(i)
+                if text[i] == ",":
+                    i = skip(i + 1)
+            return i + 1
+        j = i
+        while j < n and text[j] not in ",}] \t\r\n":
+            j += 1
+        return j
+
+    def find(i, remaining):
+        i = skip(i)
+        if not remaining:
+            end = value_end(i)
+            if text[i] in "{[":
+                raise UpdateError(f"JSON pointer names an object or array, not a value: {pointer}")
+            return i, end
+        head, rest = remaining[0], remaining[1:]
+        if text[i] == "{":
+            i = skip(i + 1)
+            while text[i] != "}":
+                key_start = i
+                i = string_end(i)
+                key = json.loads(text[key_start:i])
+                i = skip(i)
+                assert text[i] == ":"
+                i = skip(i + 1)
+                if key == head:
+                    return find(i, rest)
+                i = skip(value_end(i))
+                if text[i] == ",":
+                    i = skip(i + 1)
+            raise UpdateError(f"JSON pointer segment not found: {head!r} in {pointer}")
+        if text[i] == "[":
+            index = int(head) if head.isdigit() else -1
+            i = skip(i + 1)
+            position = 0
+            while text[i] != "]":
+                if position == index:
+                    return find(i, rest)
+                i = skip(value_end(i))
+                if text[i] == ",":
+                    i = skip(i + 1)
+                position += 1
+            raise UpdateError(f"JSON pointer index not found: {head!r} in {pointer}")
+        raise UpdateError(f"JSON pointer walks into a scalar: {pointer}")
+
+    return find(0, segments)
+
+
 def assignments(items):
     result = {}
     for item in items:
@@ -123,15 +220,21 @@ def plan(root, updates, expected):
             if name not in original:
                 original[name] = path.read_bytes()
             text = original[name].decode("utf-8-sig")
-            pattern = re.compile(target["pattern"], re.MULTILINE)
-            matches = list(pattern.finditer(text))
-            if len(matches) != target.get("count", 1) or "value" not in pattern.groupindex:
-                raise UpdateError(f"Target shape changed: {key} in {name}; found {len(matches)} matches")
-            for match in matches:
-                current = match.group("value")
+            if "pointer" in target:
+                # A JSON-pointer target names one value in a data file; edited in place, formatting kept.
+                if not name.endswith(".json") or "pattern" in target:
+                    raise UpdateError(f"Pointer targets name a .json file and carry no pattern: {key} in {name}")
+                spans = [json_value_span(text, target["pointer"])]
+            else:
+                pattern = re.compile(target["pattern"], re.MULTILINE)
+                matches = list(pattern.finditer(text))
+                if len(matches) != target.get("count", 1) or "value" not in pattern.groupindex:
+                    raise UpdateError(f"Target shape changed: {key} in {name}; found {len(matches)} matches")
+                spans = [match.span("value") for match in matches]
+            for start, end in spans:
+                current = text[start:end]
                 if not equal(entry, current, entry["value"]):
                     raise UpdateError(f"Drift: {key} in {name}; catalogue={entry['value']}, target={current}")
-                start, end = match.span("value")
                 if start == end:
                     raise UpdateError(f"Empty value capture: {key} in {name}")
                 # Check overlaps even when no update is requested.

@@ -4,7 +4,7 @@
     "Framework.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.48.0",
+      "value": "0.49.0",
       "description": "PhobosFramework published source/package version.",
       "targets": [
         {
@@ -265,7 +265,7 @@
     "Manufacturing.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.10.0",
+      "value": "0.11.0",
       "description": "PhobosManufacturing published source/package version.",
       "targets": [
         {
@@ -1426,7 +1426,7 @@
     "Manufacturing.minimumFramework": {
       "type": "version",
       "parts": 3,
-      "value": "0.48.0",
+      "value": "0.49.0",
       "description": "Current Manufacturing required Framework version, shared with local installer admission.",
       "targets": [
         {
@@ -1467,13 +1467,12 @@
       "description": "Authored V4 volatiles refinery base price (broken form is one quarter).",
       "targets": [
         {
-          "path": "src/PhobosManufacturing/Core/RefineryRules.cs",
-          "pattern": "\\bPrice\\s*=\\s*(?P<value>[0-9.]+)",
-          "count": 1
+          "path": "mods/PhobosManufacturing/framework/economy.json",
+          "pointer": "/equipment/PhobosVolatilesRefinery/price"
         }
       ],
       "review": [
-        "Run scripts/build-manufacturing.ps1 (pure chemistry checks and native checks) and regenerate item references. Bound charges keep their captured recipe; existing store records keep their contents."
+        "Lives in the Manufacturing economy data pack (framework/economy.json); rebuild Manufacturing so the embedded copy follows, then regenerate item references."
       ]
     },
     "Manufacturing.processorPrice": {
@@ -1484,13 +1483,12 @@
       "description": "Authored X2 chemical processor base price (broken form is one quarter).",
       "targets": [
         {
-          "path": "src/PhobosManufacturing/Core/ProcessorRules.cs",
-          "pattern": "\\bPrice\\s*=\\s*(?P<value>[0-9.]+)",
-          "count": 1
+          "path": "mods/PhobosManufacturing/framework/economy.json",
+          "pointer": "/equipment/PhobosChemicalProcessor/price"
         }
       ],
       "review": [
-        "Run scripts/build-manufacturing.ps1 (pure chemistry checks and native checks) and regenerate item references. Bound charges keep their captured recipe; existing store records keep their contents."
+        "Lives in the Manufacturing economy data pack (framework/economy.json); rebuild Manufacturing so the embedded copy follows, then regenerate item references."
       ]
     },
     "Manufacturing.hydrogenStorePrice": {
@@ -1501,13 +1499,12 @@
       "description": "Authored H2 hydrogen store base price (broken form is one quarter).",
       "targets": [
         {
-          "path": "src/PhobosManufacturing/Core/HydrogenRules.cs",
-          "pattern": "\\bPrice\\s*=\\s*(?P<value>[0-9.]+)",
-          "count": 1
+          "path": "mods/PhobosManufacturing/framework/economy.json",
+          "pointer": "/equipment/PhobosHydrogenStore/price"
         }
       ],
       "review": [
-        "Run scripts/build-manufacturing.ps1 (pure chemistry checks and native checks) and regenerate item references. Bound charges keep their captured recipe; existing store records keep their contents."
+        "Lives in the Manufacturing economy data pack (framework/economy.json); rebuild Manufacturing so the embedded copy follows, then regenerate item references."
       ]
     },
     "Manufacturing.refineryKilowatts": {
@@ -1554,9 +1551,8 @@
       "description": "Manufacturing machines quantity per successful merchant offer, including regional suppliers.",
       "targets": [
         {
-          "path": "src/PhobosManufacturing/EquipmentEconomy.cs",
-          "pattern": "\\bMachines\\s*=\\s*(?P<value>[0-9]+)(?=\\s*[,;])",
-          "count": 1
+          "path": "mods/PhobosManufacturing/framework/economy.json",
+          "pointer": "/lots/equipment"
         },
         {
           "path": "docs/development/merchant-stock.md",
@@ -1565,6 +1561,7 @@
         }
       ],
       "review": [
+        "Lives in the Manufacturing economy data pack (framework/economy.json); rebuild Manufacturing so the embedded copy follows, then regenerate item references.",
         "Run native stock-quantity and regional checks, then affected builds.",
         "Run scripts/update-item-reference.ps1; inspect generated quantities. Existing merchant inventories wait for native restocking."
       ]
@@ -1577,12 +1574,12 @@
       "description": "Minimum authored Manufacturing merchant offer probability before the global availability setting.",
       "targets": [
         {
-          "path": "src/PhobosManufacturing/EquipmentEconomy.cs",
-          "pattern": "\\bEquipmentChance\\s*=\\s*(?P<value>[0-9.]+)",
-          "count": 1
+          "path": "mods/PhobosManufacturing/framework/economy.json",
+          "pointer": "/chanceFloors/equipment"
         }
       ],
       "review": [
+        "Lives in the Manufacturing economy data pack (framework/economy.json); rebuild Manufacturing so the embedded copy follows, then regenerate item references.",
         "Regenerate item references and run native merchant/loot checks. Existing inventories remain unchanged."
       ]
     },
@@ -1666,12 +1663,12 @@
       "description": "Chance per native engineering-loot roll of one Manufacturing machine (three in four broken), split evenly across the three families.",
       "targets": [
         {
-          "path": "src/PhobosManufacturing/EquipmentEconomy.cs",
-          "pattern": "\\bMachinerySalvageChance\\s*=\\s*(?P<value>[0-9.]+)",
-          "count": 1
+          "path": "mods/PhobosManufacturing/framework/economy.json",
+          "pointer": "/worldLoot/0/chance"
         }
       ],
       "review": [
+        "Lives in the Manufacturing economy data pack (framework/economy.json); rebuild Manufacturing so the embedded copy follows, then regenerate item references.",
         "Late-game plant stays a rare find (owner direction, 29 September 2026); the native check caps it at 0.05. Regenerate item references. Existing containers are unchanged."
       ]
     },
@@ -1683,13 +1680,12 @@
       "description": "Authored K2 Sabatier reactor base price (broken form is one quarter).",
       "targets": [
         {
-          "path": "src/PhobosManufacturing/Core/SabatierRules.cs",
-          "pattern": "\\bPrice\\s*=\\s*(?P<value>[0-9.]+)",
-          "count": 1
+          "path": "mods/PhobosManufacturing/framework/economy.json",
+          "pointer": "/equipment/PhobosSabatierReactor/price"
         }
       ],
       "review": [
-        "Run scripts/build-manufacturing.ps1 (pure chemistry checks and native checks) and regenerate item references. Late-game price band: above the towing brace loose half, below the IC fusion reactor (native check)."
+        "Lives in the Manufacturing economy data pack (framework/economy.json); rebuild Manufacturing so the embedded copy follows, then regenerate item references."
       ]
     },
     "Manufacturing.crackerPrice": {
@@ -1700,13 +1696,12 @@
       "description": "Authored AX-2 ammonia cracker base price (broken form is one quarter).",
       "targets": [
         {
-          "path": "src/PhobosManufacturing/Core/CrackerRules.cs",
-          "pattern": "\\bPrice\\s*=\\s*(?P<value>[0-9.]+)",
-          "count": 1
+          "path": "mods/PhobosManufacturing/framework/economy.json",
+          "pointer": "/equipment/PhobosAmmoniaCracker/price"
         }
       ],
       "review": [
-        "Run scripts/build-manufacturing.ps1 (pure chemistry checks and native checks) and regenerate item references. Late-game price band: above the towing brace loose half, below the IC fusion reactor (native check)."
+        "Lives in the Manufacturing economy data pack (framework/economy.json); rebuild Manufacturing so the embedded copy follows, then regenerate item references."
       ]
     },
     "Manufacturing.methaneStorePrice": {
@@ -1717,13 +1712,12 @@
       "description": "Authored M2 methane store base price (broken form is one quarter).",
       "targets": [
         {
-          "path": "src/PhobosManufacturing/Core/GasStoreRules.cs",
-          "pattern": "CapacityKg = 160, DryKg = 160, Price = (?P<value>[0-9.]+)",
-          "count": 1
+          "path": "mods/PhobosManufacturing/framework/economy.json",
+          "pointer": "/equipment/PhobosMethaneStore/price"
         }
       ],
       "review": [
-        "Run scripts/build-manufacturing.ps1 (pure chemistry checks and native checks) and regenerate item references. Late-game price band: above the towing brace loose half, below the IC fusion reactor (native check)."
+        "Lives in the Manufacturing economy data pack (framework/economy.json); rebuild Manufacturing so the embedded copy follows, then regenerate item references."
       ]
     },
     "Manufacturing.manifoldPrice": {
@@ -1734,13 +1728,12 @@
       "description": "Authored P1 RCS propellant manifold base price (broken form is one quarter).",
       "targets": [
         {
-          "path": "src/PhobosManufacturing/Core/ManifoldRules.cs",
-          "pattern": "MachineKg = 10, Price = (?P<value>[0-9.]+)",
-          "count": 1
+          "path": "mods/PhobosManufacturing/framework/economy.json",
+          "pointer": "/equipment/PhobosPropellantManifold/price"
         }
       ],
       "review": [
-        "Run scripts/build-manufacturing.ps1 and regenerate item references. Late-game price band is checked natively."
+        "Lives in the Manufacturing economy data pack (framework/economy.json); rebuild Manufacturing so the embedded copy follows, then regenerate item references."
       ]
     },
     "Manufacturing.stockPipes": {
@@ -1751,9 +1744,8 @@
       "description": "Propellant line quantity per successful merchant offer.",
       "targets": [
         {
-          "path": "src/PhobosManufacturing/EquipmentEconomy.cs",
-          "pattern": "\\bPipes\\s*=\\s*(?P<value>[0-9]+)(?=\\s*[,;])",
-          "count": 1
+          "path": "mods/PhobosManufacturing/framework/economy.json",
+          "pointer": "/lots/supplies"
         },
         {
           "path": "docs/development/merchant-stock.md",
@@ -1762,6 +1754,7 @@
         }
       ],
       "review": [
+        "Lives in the Manufacturing economy data pack (framework/economy.json); rebuild Manufacturing so the embedded copy follows, then regenerate item references.",
         "Run native stock-quantity checks and regenerate item references. Existing inventories wait for native restocking."
       ]
     },
@@ -1909,13 +1902,12 @@
       "description": "Authored small oxygen store base price (broken form is one quarter); larger sizes scale by floor area to the power 0.6.",
       "targets": [
         {
-          "path": "src/PhobosManufacturing/Core/GasStoreRules.cs",
-          "pattern": "OxygenPrice = (?P<value>[0-9.]+)",
-          "count": 1
+          "path": "mods/PhobosManufacturing/framework/economy.json",
+          "pointer": "/equipment/PhobosOxygenStore/price"
         }
       ],
       "review": [
-        "Run scripts/build-manufacturing.ps1 and regenerate item references; medium and large sizes scale from this value through the Framework size ladder."
+        "Lives in the Manufacturing economy data pack (framework/economy.json); rebuild Manufacturing so the embedded copy follows, then regenerate item references."
       ]
     },
     "Manufacturing.nitrogenStoreCapacityKg": {
@@ -1943,13 +1935,12 @@
       "description": "Authored small nitrogen store base price (broken form is one quarter); larger sizes scale by floor area to the power 0.6.",
       "targets": [
         {
-          "path": "src/PhobosManufacturing/Core/GasStoreRules.cs",
-          "pattern": "NitrogenPrice = (?P<value>[0-9.]+)",
-          "count": 1
+          "path": "mods/PhobosManufacturing/framework/economy.json",
+          "pointer": "/equipment/PhobosNitrogenStore/price"
         }
       ],
       "review": [
-        "Run scripts/build-manufacturing.ps1 and regenerate item references; medium and large sizes scale from this value through the Framework size ladder."
+        "Lives in the Manufacturing economy data pack (framework/economy.json); rebuild Manufacturing so the embedded copy follows, then regenerate item references."
       ]
     },
     "Manufacturing.carbonDioxideStoreCapacityKg": {
@@ -1977,13 +1968,12 @@
       "description": "Authored small carbon dioxide store base price (broken form is one quarter); larger sizes scale by floor area to the power 0.6.",
       "targets": [
         {
-          "path": "src/PhobosManufacturing/Core/GasStoreRules.cs",
-          "pattern": "CarbonDioxidePrice = (?P<value>[0-9.]+)",
-          "count": 1
+          "path": "mods/PhobosManufacturing/framework/economy.json",
+          "pointer": "/equipment/PhobosCarbonDioxideStore/price"
         }
       ],
       "review": [
-        "Run scripts/build-manufacturing.ps1 and regenerate item references; medium and large sizes scale from this value through the Framework size ladder."
+        "Lives in the Manufacturing economy data pack (framework/economy.json); rebuild Manufacturing so the embedded copy follows, then regenerate item references."
       ]
     },
     "Manufacturing.ammoniaStoreCapacityKg": {
@@ -2011,13 +2001,12 @@
       "description": "Authored small ammonia store base price (broken form is one quarter); larger sizes scale by floor area to the power 0.6.",
       "targets": [
         {
-          "path": "src/PhobosManufacturing/Core/GasStoreRules.cs",
-          "pattern": "AmmoniaPrice = (?P<value>[0-9.]+)",
-          "count": 1
+          "path": "mods/PhobosManufacturing/framework/economy.json",
+          "pointer": "/equipment/PhobosAmmoniaStore/price"
         }
       ],
       "review": [
-        "Run scripts/build-manufacturing.ps1 and regenerate item references; medium and large sizes scale from this value through the Framework size ladder."
+        "Lives in the Manufacturing economy data pack (framework/economy.json); rebuild Manufacturing so the embedded copy follows, then regenerate item references."
       ]
     },
     "Manufacturing.fillerPrice": {
@@ -2028,13 +2017,12 @@
       "description": "Authored L2 canister filling station base price (broken form is one quarter).",
       "targets": [
         {
-          "path": "src/PhobosManufacturing/Core/FillerRules.cs",
-          "pattern": "MachineKg = 120, Price = (?P<value>[0-9.]+)",
-          "count": 1
+          "path": "mods/PhobosManufacturing/framework/economy.json",
+          "pointer": "/equipment/PhobosCanisterFiller/price"
         }
       ],
       "review": [
-        "Run scripts/build-manufacturing.ps1 and regenerate item references. Late-game price band is checked natively."
+        "Lives in the Manufacturing economy data pack (framework/economy.json); rebuild Manufacturing so the embedded copy follows, then regenerate item references."
       ]
     },
     "Manufacturing.regulatorPrice": {
@@ -2045,13 +2033,12 @@
       "description": "Authored A2 cabin air regulator base price (broken form is one quarter).",
       "targets": [
         {
-          "path": "src/PhobosManufacturing/Core/RegulatorRules.cs",
-          "pattern": "MachineKg = 60, Price = (?P<value>[0-9.]+)",
-          "count": 1
+          "path": "mods/PhobosManufacturing/framework/economy.json",
+          "pointer": "/equipment/PhobosCabinAirRegulator/price"
         }
       ],
       "review": [
-        "Run scripts/build-manufacturing.ps1 and regenerate item references. Late-game price band is checked natively."
+        "Lives in the Manufacturing economy data pack (framework/economy.json); rebuild Manufacturing so the embedded copy follows, then regenerate item references."
       ]
     }
   }

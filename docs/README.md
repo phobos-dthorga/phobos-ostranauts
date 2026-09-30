@@ -12,6 +12,7 @@ common failures and useful reports.
 - [Shipbreaker](player-guide.md), [reclaimer](scrap-reclaimer.md), [automatic routing](automatic-material-routing.md) and the [process water silo and ice thaw unit](shipbreaker-bulk-silos.md).
 - [Industrial console](industrial-console-player-guide.md), [electric furnace](furnace-player-guide.md), and [section assembly and maintenance](section-assembly-and-maintenance.md).
 - [Agriculture](agriculture-player-guide.md) and [equipment acquisition/prices](equipment-economy.md).
+- [Editing the Phobos data files](editing-data-files.md): prices, work and merchant odds in files you can override.
 - [Fluid-network operations](fluid-network-operations.md): multi-rack distribution, retained lines, treatment and coolant servicing.
 - [Agriculture nutrient-solution piping](agriculture-nutrient-solutions.md): W2 formulation, finite feed and saved contents.
 

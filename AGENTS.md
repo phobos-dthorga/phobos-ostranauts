@@ -439,6 +439,18 @@
   (what was delivered and what each later stage still holds) before adding
   machines, recipes, economy rows or loot shares; the format they are written in
   is being decided.
+- Owner decisions (2026-09-30) on that audit, all its recommendations approved:
+  authored tables move into Framework **data packs** (`mods/<Mod>/framework/<schema>.json`,
+  embedded and shipped, loaded by one Framework loader with a validator per
+  schema) with player overrides in `BepInEx/config/<Mod>/<schema>/*.json` merged by
+  entry key (tune or add, never rename or remove a shipped id); published recipe
+  revisions are frozen by content hash so a change must add a revision; **mass
+  conservation and native gas species are enforced on every file, shipped or
+  player; stoichiometric honesty and pricing remain authoring rules for shipped
+  data only**; identifiers, record keys, ports and native mirrors stay in code;
+  guidance tunables and UI theme are not externalised; Manufacturing is the pilot
+  and the feedstock programme waits for the loader and the recipe schema. Verify
+  each migration by the golden export (`docs/item-reference-data.json` unchanged).
 - Explain what works, what was checked and what remains uncertain.
 - Do not control the owner's mouse or keyboard. Inspect files and use command-line
   tools; give the owner instructions for interactive steps unless they explicitly

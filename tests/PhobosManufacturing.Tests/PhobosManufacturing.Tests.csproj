@@ -6,6 +6,7 @@
   <ItemGroup>
     <ProjectReference Include="../../src/PhobosFramework/PhobosFramework.csproj" />
     <Compile Include="../../src/PhobosManufacturing/Core/*.cs" Link="%(Filename)%(Extension)" />
+    <EmbeddedResource Include="../../mods/PhobosManufacturing/framework/economy.json" LogicalName="PhobosManufacturing.economy.json" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json" HintPath="$(OstranautsPath)/Ostranauts_Data/Managed/Newtonsoft.Json.dll" />
