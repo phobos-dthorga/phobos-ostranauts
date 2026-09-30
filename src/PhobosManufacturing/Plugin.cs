@@ -18,7 +18,7 @@ namespace PhobosManufacturing;
 public sealed class Plugin : BaseUnityPlugin
 {
     public const string Id = ManufacturingRules.Owner;
-    public const string Version = "0.18.0";
+    public const string Version = "0.19.0";
     public const string MinimumFrameworkVersion = "0.54.0";
     internal static Action<string> Log = _ => { };
     private Harmony? harmony;
@@ -34,7 +34,7 @@ public sealed class Plugin : BaseUnityPlugin
         EquipmentProviders.Register(new Provider());
         Phobos.Ostranauts.Framework.Crew.CrewWork.Register(new FillerCrewProvider());
         Phobos.Ostranauts.Framework.Propulsion.RcsPropellant.Register(ManifoldService.Instance);
-        Phobos.Ostranauts.Framework.Trading.BulkSupplies.Register(StoreService.GasSupplies);
+        Phobos.Ostranauts.Framework.Trading.BulkSupplies.Register(StoreService.Supplies);
         Log(Text.Get("Plugin.loaded", Version, ShipbreakerStock.PluginPresent ? Text.Get("Plugin.with_shipbreaker") : Text.Get("Plugin.without_shipbreaker")));
     }
     private static void Load() { ResetServices(); Content.Register(Log); }
@@ -284,6 +284,7 @@ internal static class StoreDestroyPatch
     {
         if (__instance == null) return;
         if (GasStores.IsFamily(__instance.strCODef)) StoreService.Destroying(__instance);
+        else if (LiquidStores.IsFamily(__instance.strCODef) && !__instance.HasCond("IsModeSwitching", false)) LiquidStoreService.Mist(__instance, "destroyed_log");
         else if (SabatierRules.IsFamily(__instance.strCODef)) SabatierService.Destroying(__instance);
         else if (CrackerRules.IsFamily(__instance.strCODef)) CrackerService.Destroying(__instance);
     }
@@ -301,7 +302,7 @@ internal static class ConsolePatch
         var co = parts.Length >= 3 ? Content.Resolve(parts[2]) : null;
         string message = Text.Get("Console.help");
         string action = parts.Length == 4 && new[] { "link", "water", "store", "canister", "vent", "hydrogen", "methane", "feed", "order", "source-on", "source-off", "unlink",
-            "mode", "target", "draw", "transfer", "o2", "pressure", "oxygen", "nitrogen", "recipe", "ammonia", "gas-link" }.Contains(parts[1]) ? parts[1] + ":" + parts[3] : parts[1];
+            "mode", "target", "draw", "transfer", "o2", "pressure", "oxygen", "nitrogen", "recipe", "ammonia", "gas-link", "acid", "pour" }.Contains(parts[1]) ? parts[1] + ":" + parts[3] : parts[1];
         var provider = new Provider();
         __result = Content.Machine(co) && provider.Command(co!, null, action, out message); strInput += "\n" + message; return false;
     }

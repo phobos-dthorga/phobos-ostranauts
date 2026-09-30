@@ -487,5 +487,11 @@ definition id) and one more mining carve applied at preparation. Agriculture 0.2
 adds the nutrient hopper: a W2 resolves a selected hopper by id on its power step
 (one dictionary lookup and the hopper's record), and the ship-wide list of hoppers
 within one tile is built only when a player or crew member chooses a source, never
-per step. No new scans, cadences or per-frame work. No performance capture or
-measured FPS claim accompanies this change.
+per step. Manufacturing 0.19.0 adds the SA-3 as a third engine instance on the
+same paths and the AT acid tanks: a tank's panel lists its linked machines through
+the gas stores' once-per-step machine list, its pour targets are listed only when
+the panel or console builds the field, its damage and destruction hooks test the
+family with one dictionary lookup, and the mist is a single event on damage, not a
+per-step leak. Two more mining carves apply at preparation. No new scans, cadences
+or per-frame work. No performance capture or measured FPS claim accompanies this
+change.

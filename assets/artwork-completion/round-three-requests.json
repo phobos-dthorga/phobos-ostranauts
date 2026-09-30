@@ -4,9 +4,9 @@
   "operation": "create_image_pixflux",
   "mod": "PhobosManufacturing",
   "allowanceBefore": 1762,
-  "allowanceAfter": 1750,
+  "allowanceAfter": 1745,
   "creditBalanceUSD": 0,
-  "inputProvenance": "Start images are original Phobos procedural drawings in the new Lixivar colours (pale sage frame, dark slate tank, copper-brown crystalliser), drawn with Pillow and sent base64; the LC-3 second pass and the struvite attempt started from earlier outputs by their PixelLab download URLs. No game or third-party imagery. The Agriculture 0.27.0 nutrient hopper starts from an original Pillow drawing in the Verdemorrow reservoir palette (charcoal frame, sage walls, cream lid); its E3 pass started from the selected E2 master resized to 96 px by nearest neighbour.",
+  "inputProvenance": "Start images are original Phobos procedural drawings in the new Lixivar colours (pale sage frame, dark slate tank, copper-brown crystalliser), drawn with Pillow and sent base64; the LC-3 second pass and the struvite attempt started from earlier outputs by their PixelLab download URLs. No game or third-party imagery. The Agriculture 0.27.0 nutrient hopper starts from an original Pillow drawing in the Verdemorrow reservoir palette (charcoal frame, sage walls, cream lid); its E3 pass started from the selected E2 master resized to 96 px by nearest neighbour. The Manufacturing 0.19.0 acid round starts from original Pillow drawings in the Lixivar colours; the AT-3 pass started from the selected AT-2 master resized to 96 px by nearest neighbour.",
   "initImageHashes": {
     "references/lc3-leach-unit-start.png": "d089ed90a1af32f82ff4f3e39a4ac9581304f99c926575a2c85f0b89ccfd9bbd",
     "references/evaporite-crust-start.png": "2e4fc16bac0ce2cf878a39cb2c56c2265ef0b2f600e269ebf5946c4711fbba64",
@@ -14,7 +14,11 @@
     "references/phosphate-concentrate-start.png": "d46c2ea842b458d76b9b119d803c0e2585d2904ab81df390749e0fa19cb6fe11",
     "references/caustic-remainder-start.png": "3a8509b1a3e450c62bdb5abe3fef444845165216850ee7aae25e9b8cb877e5eb",
     "references/e2-nutrient-hopper-start.png": "f0c0f22be2884b9767b2745abd2ba2def8c5cea730bfe0c35791f6de64cd5f5c",
-    "references/e2-nutrient-hopper-first-pass.png": "90a81c02ae6a829c6b3585d66329f1e7167dc2bcac9335cc9f0b0e3c799c34a6"
+    "references/e2-nutrient-hopper-first-pass.png": "90a81c02ae6a829c6b3585d66329f1e7167dc2bcac9335cc9f0b0e3c799c34a6",
+    "references/sa3-acid-plant-start.png": "b48b63b18582b57e5fd2d04605cb52a7708bdd6d01d2856a310c26d960433d8b",
+    "references/at2-acid-tank-start.png": "1865ed224e1cc57867f0719ca2f5f2a69845833b3d2f265dc7b4beb90f73cfb9",
+    "references/sulfide-nodule-start.png": "8874470f38a797ef27c99458589e2fbacd6cfa9cf12b8d197f2d4204e666e76a",
+    "references/phosphoric-acid-flask-start.png": "86a65e3ac8f015790ad1f640091e479d2b633f5004ea9ef60465663b2d79ba8d"
   },
   "repairs": {
     "lc3-leach-unit": {
@@ -87,6 +91,26 @@
         "b": [
           0.8,
           30
+        ]
+      }
+    },
+    "roasted-calcine": {
+      "from": "source/anhydrous-residue.png",
+      "to": "source/roasted-calcine.png",
+      "method": "per-pixel luminance map onto a rust red-brown ramp (iron and nickel oxides); alpha and pixel placement unchanged",
+      "luminance": "0.299 R + 0.587 G + 0.114 B",
+      "channel = a * luminance + b (rounded, clamped)": {
+        "r": [
+          0.95,
+          40
+        ],
+        "g": [
+          0.55,
+          10
+        ],
+        "b": [
+          0.4,
+          8
         ]
       }
     }
@@ -355,6 +379,116 @@
       "initImage": "source/e2-nutrient-hopper.png resized to 96 px (nearest neighbour)",
       "decision": "selected",
       "review": "The E2 layout at 96 px, so the 48 px E3 export is an integer halving; matches the E2 and E4."
+    },
+    {
+      "key": "sa3-acid-plant",
+      "jobId": "0c2615ca-5930-4de4-ac88-4acb0af0991c",
+      "assetId": "295a1da5-0d37-5fb4-bc9f-5a8a03c1d857",
+      "costGenerations": 1,
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. The whole square canvas is the top of a compact spacecraft sulfuric acid plant installed in a square frame: a pale sage green painted steel frame with copper-brown corner brackets around a pale grey-green enamel deck lit from the upper left; upper left a round steel roaster drum with a dark reddish-brown refractory lining and a dark centre; upper right a dark slate rectangular converter box with four horizontal steel tray lines; lower right a round copper-brown absorption tower top with a pale packing ring and a dark centre; lower left a dark blower housing with a round steel fan hub; short steel ducts joining roaster, converter, tower and blower. Utilitarian retro spaceship equipment: crisp dark outlines, small readable colour regions, restrained shading, sparse purposeful details, a little wear. No lights, no gauges, no flames, no perspective, no ground shadow, no text, numbers, symbols or logos.",
+        "width": 96,
+        "height": 96,
+        "seed": 9330101,
+        "init_image_strength": 100,
+        "no_background": false,
+        "shading": "basic shading",
+        "outline": "single color black outline",
+        "detail": "medium detail",
+        "isometric": false,
+        "view": "high top-down"
+      },
+      "initImage": "references/sa3-acid-plant-start.png",
+      "decision": "selected",
+      "review": "Overhead, no side faces; roaster, converter, tower and blower read at 48 px beside the LC-3. The converter's tray lines merge at native size."
+    },
+    {
+      "key": "at2-acid-tank",
+      "jobId": "4d9461ad-a476-4059-b77a-cd8688f172ea",
+      "assetId": "d074d11c-66ef-593f-88e3-a6a86f72fb16",
+      "costGenerations": 1,
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. The whole square canvas is the top of a spacecraft chemical storage tank standing in a bund: a pale sage green painted steel frame with copper-brown corner brackets around a darker sage bund channel; inside it the large round dark slate top of an acid-resistant tank lit from the upper left, a central round steel manway hatch with a dark centre, three small copper-brown pipe nozzles around it, and a small copper-brown fitting on the right edge. Utilitarian retro spaceship equipment: crisp dark outlines, small readable colour regions, restrained shading, sparse purposeful details, a little wear. No lights, no gauges, no perspective, no ground shadow, no text, numbers, warning symbols, stripes or logos.",
+        "width": 128,
+        "height": 128,
+        "seed": 9330201,
+        "init_image_strength": 100,
+        "no_background": false,
+        "shading": "basic shading",
+        "outline": "single color black outline",
+        "detail": "medium detail",
+        "isometric": false,
+        "view": "high top-down"
+      },
+      "initImage": "references/at2-acid-tank-start.png",
+      "decision": "selected",
+      "review": "Overhead bunded tank; also the AT-4 master (64 px, an integer halving)."
+    },
+    {
+      "key": "at3-acid-tank",
+      "jobId": "b9c57547-88b4-4187-8b90-2be524b0ca59",
+      "assetId": "6bdd9948-9873-52b0-b6d9-496e7f04395d",
+      "costGenerations": 1,
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces. Same overhead chemical storage tank in its bund with the same layout, redrawn cleanly at this size: the pale sage green frame with copper-brown corner brackets, the darker sage bund channel, the large round dark slate tank top lit from the upper left, the central round steel manway hatch, three small copper-brown nozzles and the copper-brown fitting on the right edge. Crisp dark outlines, small readable colour regions, restrained shading. No lights, no gauges, no perspective, no ground shadow, no text, numbers, warning symbols, stripes or logos.",
+        "width": 96,
+        "height": 96,
+        "seed": 9330202,
+        "init_image_strength": 250,
+        "no_background": false,
+        "shading": "basic shading",
+        "outline": "single color black outline",
+        "detail": "medium detail",
+        "isometric": false,
+        "view": "high top-down"
+      },
+      "initImage": "source/at2-acid-tank.png resized to 96 px (nearest neighbour)",
+      "decision": "selected",
+      "review": "The AT-2 layout at 96 px for an integer 48 px export."
+    },
+    {
+      "key": "sulfide-nodule",
+      "jobId": "5105e146-796e-41a2-b445-a274a0d09233",
+      "assetId": "53df30e4-efe4-55aa-81e5-0f81a723b59c",
+      "costGenerations": 1,
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD VIEW from directly above. A single mined meteorite nodule lying on the floor, top surface only: an irregular lump of dull brassy bronze iron sulfide with a metallic sheen, streaked with thin dark grey phosphide veins, a few pits, lit from the upper left. Small inventory item sprite for a utilitarian retro spaceship game: crisp dark outline, readable colour regions, restrained shading. Transparent background. No perspective, no shadow, no text, symbols or logos.",
+        "width": 64,
+        "height": 64,
+        "seed": 9330301,
+        "init_image_strength": 100,
+        "no_background": true,
+        "shading": "medium shading",
+        "outline": "single color black outline",
+        "detail": "medium detail",
+        "isometric": false,
+        "view": "high top-down"
+      },
+      "initImage": "references/sulfide-nodule-start.png",
+      "decision": "selected",
+      "review": "Overhead brassy lump with dark veins; reads apart from every other chunk at 16 px."
+    },
+    {
+      "key": "phosphoric-acid-flask",
+      "jobId": "aedfbff2-81d1-494b-a18c-28ca808127ae",
+      "assetId": "f377e133-231d-50b4-aa27-84fa01827aed",
+      "costGenerations": 1,
+      "request": {
+        "description": "ORTHOGRAPHIC VERTICAL OVERHEAD VIEW from directly above. A small round amber-brown glass chemical flask seen from the top: the round brown glass body with a soft highlight, a short neck ring, and a pale sage green screw cap with a cream centre, lit from the upper left. Small inventory item sprite for a utilitarian retro spaceship game: crisp dark outline, readable colour regions, restrained shading. Transparent background. No perspective, no side walls, no shadow, no text, numbers, hazard symbols or logos.",
+        "width": 64,
+        "height": 64,
+        "seed": 9330401,
+        "init_image_strength": 100,
+        "no_background": true,
+        "shading": "medium shading",
+        "outline": "single color black outline",
+        "detail": "medium detail",
+        "isometric": false,
+        "view": "high top-down"
+      },
+      "initImage": "references/phosphoric-acid-flask-start.png",
+      "decision": "selected",
+      "review": "Overhead brown flask with a sage cap; distinct from the caustic tub."
     }
   ]
 }

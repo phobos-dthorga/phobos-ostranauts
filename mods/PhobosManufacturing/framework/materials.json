@@ -157,6 +157,37 @@
       "category": "IsCategoryTrash",
       "terminal": true,
       "art": "StockCalcinedResidue"
+    },
+    "PhobosSulfideNodule": {
+      "notes": "Mined, never sold: a troilite and schreibersite nodule of the kind found in iron meteorites (Buchwald 1975), carved from the meteoric-iron share of M-class and S-class finds; proportions authored. Sells like the game's hydrates.",
+      "kind": "mined",
+      "kg": 10,
+      "price": 150,
+      "stack": 6,
+      "side": 1,
+      "category": "IsCategoryOre",
+      "art": "StockSulfideNodule"
+    },
+    "PhobosPhosphoricAcidFlask": {
+      "notes": "SA-3 product: 0.515 kg of phosphoric acid in a sealed flask, the phosphorus of three struvite units, feed for the LC-3's acid-route struvite. Never sold by merchants.",
+      "kind": "stock",
+      "kg": 0.515,
+      "price": 30,
+      "stack": 10,
+      "side": 1,
+      "category": "IsCategoryIndustrialProducts",
+      "art": "StockPhosphoricAcidFlask"
+    },
+    "PhobosRoastedCalcine": {
+      "notes": "Terminal: the nodule's iron and nickel oxides and silicate after roasting.",
+      "kind": "stock",
+      "kg": 9.535,
+      "price": 0.01,
+      "stack": 1,
+      "side": 2,
+      "category": "IsCategoryTrash",
+      "terminal": true,
+      "art": "StockRoastedCalcine"
     }
   }
 }

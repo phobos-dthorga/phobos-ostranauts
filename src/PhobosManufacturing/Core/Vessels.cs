@@ -11,20 +11,26 @@ namespace PhobosManufacturing.Core;
 public static class Vessels
 {
     public const string Schema = VesselSchema.Name, ModFolder = "PhobosManufacturing", Resource = "PhobosManufacturing.vessels.json";
-    public const string GasStoreKind = "gas-store";
-    public static readonly IReadOnlyList<string> Kinds = new[] { GasStoreKind };
+    public const string GasStoreKind = "gas-store", LiquidStoreKind = "liquid-store";
+    public static readonly IReadOnlyList<string> Kinds = new[] { GasStoreKind, LiquidStoreKind };
     private static VesselPack? pack;
     public static VesselPack Pack => pack ??= Load();
     public static DataPackSource Source => new(ManufacturingRules.Owner, ModFolder, Schema, typeof(Vessels).Assembly, Resource);
     public static VesselPack Load()
     {
-        var families = GasStores.Families;
+        // Gas stores and (Manufacturing 0.19.0) liquid stores: every family the code builds, with the commodity it holds.
+        var families = GasStores.Families.Select(f => (f.SmallPrefix, f.Commodity, Kind: GasStoreKind))
+            .Concat(LiquidStores.Families.Select(f => (f.SmallPrefix, f.Commodity, Kind: LiquidStoreKind))).ToArray();
         pack = DataPacks.Load<VesselPack>(Source, p =>
         {
             VesselSchema.Validate(p, new VesselContext(families.Select(f => f.SmallPrefix).ToArray()) { Kinds = Kinds });
             foreach (var family in families)
-                if (p.families[family.SmallPrefix].commodity != family.Commodity)
-                    throw new ArgumentException(family.SmallPrefix + " holds " + family.Commodity + " in code; the file says " + p.families[family.SmallPrefix].commodity + ".");
+            {
+                var entry = p.families[family.SmallPrefix];
+                if (entry.commodity != family.Commodity)
+                    throw new ArgumentException(family.SmallPrefix + " holds " + family.Commodity + " in code; the file says " + entry.commodity + ".");
+                if (entry.kind != family.Kind) throw new ArgumentException(family.SmallPrefix + " is a " + family.Kind + " in code; the file says " + entry.kind + ".");
+            }
         });
         return pack;
     }

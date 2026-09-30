@@ -301,6 +301,60 @@ so no trade loop pays. The native checks enforce all three.
 mining or water-treatment company of that name was found in a web search on 30
 September 2026. The sulfuric acid plant and acid tanks join the same brand.
 
+## The acid plant, the sulfide nodule and acid tanks (0.19.0)
+
+The second struvite route needs acid, and the game has no sulfur, sulfide or
+sulfate item; it has H2SO4 only as a room gas species with poisoning bands and a
+GasPrices entry (3.1 cr/kg). Round three therefore adds a mined **sulfide nodule**,
+the **Lixivar SA-3 Sulfuric Acid Plant** and bunded **Lixivar AT-2 to AT-4 acid
+tanks** (owner decision, 30 September 2026, to bring in sulfur and acid).
+
+**The nodule (authored).** Iron meteorites carry troilite (FeS) and schreibersite
+((Fe,Ni)3P) inclusions (Buchwald 1975, below). The 10 kg nodule is authored as
+7.000 kg of troilite, 1.058 kg of phosphide written as Fe2NiP and 1.942 kg of
+silicate (the phosphide share is chosen so one flask holds exactly the phosphorus
+of three struvite units for the acid route below); it takes a tenth of the meteoric-iron share of M-class (0.04) and S-class
+(0.02) finds.
+
+| Step | Reaction | Per nodule |
+| --- | --- | --- |
+| Roast | 4 FeS + 7 O2 -> 2 Fe2O3 + 4 SO2 | 79.63 mol of troilite |
+| Convert | SO2 + 1/2 O2 -> SO3 (vanadium pentoxide bed in real plants) | |
+| Absorb | SO3 + H2O -> H2SO4 | 7.809 kg of acid, rounded 7.81 |
+| Phosphide | Fe2NiP + 13/4 O2 + 3/2 H2O -> Fe2O3 + NiO + H3PO4 | 5.254 mol; 0.515 kg of phosphoric acid |
+
+Inputs 10 kg of nodule, 6.28 kg of oxygen (drawn from a linked oxygen store) and
+1.58 kg of water (drawn from a linked vessel); outputs 7.81 kg of acid (deposited
+into a linked acid tank), a 0.515 kg phosphoric acid flask and 9.535 kg of roasted
+calcine (Fe2O3, NiO and the silicate, terminal). Both sides are 17.86 kg; the
+water and the calcine each take three grams of rounding. Real acid plants dry the air, absorb in 98% acid and
+dilute; the charge collapses that to the overall stoichiometry.
+
+**Heat.** Formation enthalpies (NIST and CODATA key values, from memory; verify
+before quoting) give about 840 kJ released per mole of troilite through to liquid
+acid, and about 1,750 kJ per mole of phosphide (its own formation enthalpy is
+estimated, -160 kJ/mol): 21.1 kWh a nodule, recorded as the recipe's `reactionKWh`
+and put into the room over the charge on top of 15% of the plant's 4 kW. The
+room's existing 10 kPa / 40 C bounds apply, so the plant needs a large or cooled
+room; vacuum is not free cooling.
+
+**Acid tanks.** 98 wt% acid is about 1,836 kg/m3 at 20 C (CRC Handbook, from
+memory); the gas stores' 0.787 m3 vessel at an 80% fill holds 1,156 kg, authored
+1,150 kg in a 240 kg bunded carbon-steel housing (98% acid passivates carbon
+steel). The tanks are a separate liquid-store family, never gas stores: the P1
+manifold, L2 filler, A2 regulator and RCS feed key off the gas stores, and a gas
+store's damage releases its contents into the room. A damaged acid tank isolates
+its acid in the bund (Framework's Isolate policy) after an authored 1e-4 of the
+service contents enters the room as H2SO4 mist; a destroyed tank mists the same
+share and the rest is logged as lost. The fraction is the order of the airborne
+release fractions for spilled liquids in the US Department of Energy handbook
+DOE-HDBK-3010-94 (value not re-read; an authored gameplay figure). Stations sell
+acid into a tank at the game's own GasPrices figure.
+
+**Value.** The roast's sellable products (a 30 cr flask and trash) stay within
+half again the 150 cr nodule before its oxygen and water; the acid itself is a
+commodity with no sell route. The native checks prove it at live prices.
+
 ## RCS propellant (Framework 0.42.0, Manufacturing 0.3.0)
 
 The game's RCS is species-blind: `Ship.Maneuver` asks `Ship.RemoveGasMass` for a
@@ -538,7 +592,12 @@ time of writing it is marked *from memory*; verify before quoting numbers.
   Thermodynamics — MgO and CO2 formation enthalpies. *From memory; verify.*
 - Buchwald, V. F. (1975), Handbook of Iron Meteorites, University of California
   Press — kamacite/taenite nickel contents, troilite, schreibersite and
-  cohenite inclusions.
+  cohenite inclusions; the premise of the sulfide nodule, not its authored mix.
+- US Department of Energy, DOE-HDBK-3010-94, Airborne Release Fractions/Rates and
+  Respirable Fractions for Nonreactor Nuclear Facilities (1994) — the order of
+  the acid tank's mist fraction. *Value not re-read; verify before quoting.*
+- CRC Handbook of Chemistry and Physics — density of concentrated sulfuric acid.
+  *From memory; verify the edition and value.*
 - ASM Handbook, Volume 1: Properties and Selection: Irons, Steels, and
   High-Performance Alloys — carbon ranges of steels.
 - Blue Bottle Games, Ostranauts 1.0.1.5 — item texts, molar masses, canister

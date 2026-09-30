@@ -28,7 +28,7 @@ internal static class MachineKinds
     {
         if (id == null) return false;
         if (ours.TryGetValue(id, out bool known)) return known;
-        bool yes = Classify(id) != MachineKind.None || GasStores.IsFamily(id) || ManifoldRules.IsFamily(id) || RegulatorRules.IsFamily(id);
+        bool yes = Classify(id) != MachineKind.None || GasStores.IsFamily(id) || LiquidStores.IsFamily(id) || ManifoldRules.IsFamily(id) || RegulatorRules.IsFamily(id);
         if (ours.Count < 65536) ours[id] = yes;
         return yes;
     }

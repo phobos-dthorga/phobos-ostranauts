@@ -15,13 +15,14 @@ namespace PhobosManufacturing.Core;
 public static class ChargeCatalog
 {
     public const string Schema = RecipeSchema.Name, Resource = "PhobosManufacturing.process-recipes.json", FrozenResource = "PhobosManufacturing.frozen-process-recipes.json";
-    public const string Refinery = "refinery", Leach = "leach";
+    public const string Refinery = "refinery", Leach = "leach", AcidPlant = "acid-plant";
     public const string SteelStockRequirement = "shipbreaker-steel-stock", MakeupRequirement = "agriculture-makeup";
     /// <summary>Each catalog machine key and the definition prefix of the machine it runs on.</summary>
     public static readonly IReadOnlyDictionary<string, string> MachinePrefixes = new Dictionary<string, string>(StringComparer.Ordinal)
     {
         [Refinery] = RefineryRules.Prefix,
-        [Leach] = LeachRules.Prefix
+        [Leach] = LeachRules.Prefix,
+        [AcidPlant] = AcidPlantRules.Prefix
     };
     /// <summary>Feature keys a recipe may require; the owner resolves each at load.</summary>
     public static readonly IReadOnlyList<string> Requirements = new[] { SteelStockRequirement, MakeupRequirement };

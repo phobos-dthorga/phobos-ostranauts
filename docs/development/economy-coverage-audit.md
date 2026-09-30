@@ -137,6 +137,13 @@ kiosks at Trusted standing. Its salts, intermediates and remainders and the mine
 evaporite crust are never sold. The same native economy, stock, faction-kiosk and
 buyer checks cover it.
 
+Later addition (Manufacturing 0.19.0, 30 September 2026): the Lixivar SA-3 joins
+the Manufacturing machines and the AT-2, AT-3 and AT-4 acid tanks join the store
+ladder at parity (routes, lots, the small tank in engineering salvage, component
+repair, Restore, mass-balanced dismantling, the high-salvage mark, Trusted and
+Friendly faction tiers). The mined sulfide nodule and the SA-3's flask and calcine
+are never sold.
+
 Later addition (Agriculture 0.27.0, 30 September 2026): the Groundwork E2, E3 and
 E4 nutrient hoppers join the Agriculture ladder families at the reservoirs' parity:
 the same routes and lot of four, only the small size in engineering salvage (the

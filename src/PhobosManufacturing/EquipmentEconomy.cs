@@ -70,6 +70,13 @@ internal static class EquipmentEconomy
             var small = pack.equipment[store.Family.SmallPrefix];
             list.Add(StoreSpec(store, small)); saleList.Add(store.Size == VesselSize.Small ? EquipmentSale.Of(store.Prefix, small) : EquipmentSale.Size(store.Prefix, small));
         }
+        // Liquid stores (Manufacturing 0.19.0) follow the same size pattern.
+        foreach (var store in LiquidStores.All)
+        {
+            var small = pack.equipment[store.Family.SmallPrefix];
+            list.Add(StoreSpec(store.Prefix, store.Footprint, store.Family.SmallFootprint, store.DryKg, store.Family.SmallDryKg, store.Size, store.Price, small));
+            saleList.Add(store.Size == VesselSize.Small ? EquipmentSale.Of(store.Prefix, small) : EquipmentSale.Size(store.Prefix, small));
+        }
         sales = saleList.ToArray();
         return list.ToArray();
     }
@@ -79,10 +86,12 @@ internal static class EquipmentEconomy
     /// <summary>Every gas store size on the same pattern: late-game price from the size ladder, work and repair growing
     /// with the footprint, and mass-balanced salvage whose steel, aluminium and retained trash fill the dry mass
     /// around the small store's fittings (the small entry's own bills exactly).</summary>
-    internal static Spec StoreSpec(GasStore store, EquipmentEconomyEntry small)
+    internal static Spec StoreSpec(GasStore store, EquipmentEconomyEntry small) =>
+        StoreSpec(store.Prefix, store.Footprint, store.Family.SmallFootprint, store.DryKg, store.Family.SmallDryKg, store.Size, store.Price, small);
+    /// <summary>Any ladder store size from its small entry: the gas stores and the liquid stores share this.</summary>
+    internal static Spec StoreSpec(string prefix, int footprint, int smallFootprint, double dry, double smallDry, VesselSize size, double storePrice, EquipmentEconomyEntry small)
     {
-        int step = store.Footprint - store.Family.SmallFootprint;
-        double dry = store.DryKg, smallDry = store.Family.SmallDryKg;
+        int step = footprint - smallFootprint;
         int[] Split(int[] smallBill)
         {
             // Fittings are everything but steel, aluminium and trash; the rest of the housing splits as the small store's does.
@@ -94,10 +103,10 @@ internal static class EquipmentEconomy
         }
         var repair = Bill(small.repairBill, Materials.Take(Triggers.Length).ToArray());
         repair = new[] { repair[0] + 2 * step, repair[1] + step, repair[2] + 2 * step, repair[3] + step, repair[4], repair[5] + step / 2, repair[6], repair[7] };
-        double price = store.Price, broken = small.brokenPrice is double b ? BulkVesselSizes.Scale(b, BulkVesselSizes.PriceFactor(store.Family.SmallFootprint, store.Size)) : price / 4;
-        return new Spec(store.Prefix, (int)price, (int)broken, small.work.install + 400 * step, small.work.uninstall + 300 * step, small.work.repair + 900 * step, small.work.dismantle + 300 * step,
+        double price = storePrice, broken = small.brokenPrice is double b ? BulkVesselSizes.Scale(b, BulkVesselSizes.PriceFactor(smallFootprint, size)) : price / 4;
+        return new Spec(prefix, (int)price, (int)broken, small.work.install + 400 * step, small.work.uninstall + 300 * step, small.work.repair + 900 * step, small.work.dismantle + 300 * step,
             repair, Split(Bill(small.salvage, Materials)), Split(Bill(small.brokenSalvage, Materials)), small.restoreMinutes + 15 * step, small.internalBin,
-            loot: small.loot && store.Size == VesselSize.Small, offers: small.offers, salvageValueHigh: small.salvageValueHigh);
+            loot: small.loot && size == VesselSize.Small, offers: small.offers, salvageValueHigh: small.salvageValueHigh);
     }
     internal static string[] Products(int[] bill) => bill.SelectMany((count, i) => Enumerable.Repeat(Materials[i], count)).ToArray();
     internal static void Apply(NativeDefinitions d)

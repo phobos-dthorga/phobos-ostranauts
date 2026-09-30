@@ -25,10 +25,11 @@ internal static class StoreService
     private sealed class Session { internal double LastTick; }
     private static ConditionalWeakTable<CondOwner, Session> sessions = new();
     internal static void Reset() => sessions = new();
-    /// <summary>Station Bulk supplies: oxygen, nitrogen and carbon dioxide into any size of their stores, at the game's
-    /// own price per kilogram for that gas (its GasPrices table, as the refuelling kiosk charges). Nothing sells back.</summary>
+    /// <summary>Station Bulk supplies: oxygen, nitrogen and carbon dioxide into any size of their stores, and (Manufacturing
+    /// 0.19.0) sulfuric acid into any size of acid tank, at the game's own price per kilogram (its GasPrices table, as
+    /// the refuelling kiosk charges; the game prices H2SO4 there). Nothing sells back.</summary>
     internal const double GasPurchaseStepKg = 10;
-    internal static readonly Phobos.Ostranauts.Framework.Trading.VesselSupplyProvider GasSupplies = new(Plugin.Id, () => Content.Ready ? GasOffers() :
+    internal static readonly Phobos.Ostranauts.Framework.Trading.VesselSupplyProvider Supplies = new(Plugin.Id, () => Content.Ready ? GasOffers() :
         Array.Empty<(Phobos.Ostranauts.Framework.Trading.BulkSupplyOffer, IReadOnlyList<string>)>());
     private static IEnumerable<(Phobos.Ostranauts.Framework.Trading.BulkSupplyOffer Offer, IReadOnlyList<string> Families)> GasOffers()
     {
@@ -38,6 +39,14 @@ internal static class StoreService
             if (!(price > 0)) continue;
             int steps = (int)Math.Ceiling(family.Sizes.Max(s => s.CapacityKg) / GasPurchaseStepKg);
             yield return (new Phobos.Ostranauts.Framework.Trading.BulkSupplyOffer("manufacturing." + family.Species.ToLowerInvariant(), Text.Get(family.TextPrefix + ".offer"),
+                Text.Get("Store.unit_kg"), price, GasPurchaseStepKg, steps), family.Sizes.Select(s => s.Prefix).ToArray());
+        }
+        foreach (var family in LiquidStores.Families)
+        {
+            double price = NativeGasVessel.PricePerKg(family.MistSpecies);
+            if (!(price > 0)) continue;
+            int steps = (int)Math.Ceiling(family.Sizes.Max(s => s.CapacityKg) / GasPurchaseStepKg);
+            yield return (new Phobos.Ostranauts.Framework.Trading.BulkSupplyOffer("manufacturing." + family.MistSpecies.ToLowerInvariant(), Text.Get(family.TextPrefix + ".offer"),
                 Text.Get("Store.unit_kg"), price, GasPurchaseStepKg, steps), family.Sizes.Select(s => s.Prefix).ToArray());
         }
     }
@@ -92,9 +101,9 @@ internal static class StoreService
         Plugin.Log(co.strID + ": " + message);
         return true;
     }
-    // The console asks every store aboard for its links in one refresh: the machines aboard are listed once per step.
+    // The console asks every store and tank aboard for its links in one refresh: the machines aboard are listed once per step.
     private static readonly StepMemo<Ship, CondOwner[]> machinesAboard = new();
-    private static IEnumerable<CondOwner> Linked(CondOwner store, Func<CondOwner, bool> match)
+    internal static IEnumerable<CondOwner> Linked(CondOwner store, Func<CondOwner, bool> match)
     {
         if (store.ship == null) return Enumerable.Empty<CondOwner>();
         var machines = machinesAboard.GetOrAdd(NativeSteps.Frame, store.ship, ship => ship.GetCOs(null, false, false, true)

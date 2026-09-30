@@ -2705,6 +2705,177 @@
       "review": "Overhead and native-scale export inspected; Verdemorrow reservoir palette (charcoal frame, sage walls, cream lid). Owner in-game review pending.",
       "fullFootprint": true,
       "jobId": "6709d934-371a-47d5-86f4-fb077eb648a8"
+    },
+    {
+      "key": "sa3-acid-plant",
+      "mod": "PhobosManufacturing",
+      "definition": "PhobosAcidPlantInstalled",
+      "nativeSize": [
+        48,
+        48
+      ],
+      "masterSize": [
+        96,
+        96
+      ],
+      "pivot": [
+        24,
+        24
+      ],
+      "runtime": "phobos/manufacturing/PhobosAcidPlant",
+      "status": "selected",
+      "source": "source/sa3-acid-plant.png",
+      "sourceSHA256": "309ab2e58e53f1ef4bfed2bf3a93f67eed8d973ea1f7cc12c0af19081bf969e5",
+      "requestRecord": "round-three-requests.json",
+      "review": "Overhead and native-scale export inspected; Lixivar colour language (pale sage, slate, copper-brown). Owner in-game review pending.",
+      "fullFootprint": true,
+      "jobId": "0c2615ca-5930-4de4-ac88-4acb0af0991c"
+    },
+    {
+      "key": "at2-acid-tank",
+      "mod": "PhobosManufacturing",
+      "definition": "PhobosAcidTankInstalled",
+      "nativeSize": [
+        32,
+        32
+      ],
+      "masterSize": [
+        128,
+        128
+      ],
+      "pivot": [
+        16,
+        16
+      ],
+      "runtime": "phobos/manufacturing/PhobosAcidTank",
+      "status": "selected",
+      "source": "source/at2-acid-tank.png",
+      "sourceSHA256": "33ab318505445d3709d5fab9f5a131aa3781a519381de3cc4ede0c690df4accd",
+      "requestRecord": "round-three-requests.json",
+      "review": "Overhead and native-scale export inspected; Lixivar colour language (pale sage, slate, copper-brown). Owner in-game review pending.",
+      "fullFootprint": true,
+      "jobId": "4d9461ad-a476-4059-b77a-cd8688f172ea"
+    },
+    {
+      "key": "at3-acid-tank",
+      "mod": "PhobosManufacturing",
+      "definition": "PhobosAcidTankMediumInstalled",
+      "nativeSize": [
+        48,
+        48
+      ],
+      "masterSize": [
+        96,
+        96
+      ],
+      "pivot": [
+        24,
+        24
+      ],
+      "runtime": "phobos/manufacturing/PhobosAcidTankMedium",
+      "status": "selected",
+      "source": "source/at3-acid-tank.png",
+      "sourceSHA256": "54d6f37326f4f0e4bf7c7a73fc546139b07e76239e3dfbc9e389f8f47fb705ed",
+      "requestRecord": "round-three-requests.json",
+      "review": "Overhead and native-scale export inspected; Lixivar colour language (pale sage, slate, copper-brown). Owner in-game review pending.",
+      "fullFootprint": true,
+      "jobId": "b9c57547-88b4-4187-8b90-2be524b0ca59"
+    },
+    {
+      "key": "at4-acid-tank",
+      "mod": "PhobosManufacturing",
+      "definition": "PhobosAcidTankLargeInstalled",
+      "nativeSize": [
+        64,
+        64
+      ],
+      "masterSize": [
+        128,
+        128
+      ],
+      "pivot": [
+        32,
+        32
+      ],
+      "runtime": "phobos/manufacturing/PhobosAcidTankLarge",
+      "status": "selected",
+      "source": "source/at2-acid-tank.png",
+      "sourceSHA256": "33ab318505445d3709d5fab9f5a131aa3781a519381de3cc4ede0c690df4accd",
+      "requestRecord": "round-three-requests.json",
+      "review": "Overhead and native-scale export inspected; Lixivar colour language (pale sage, slate, copper-brown). Owner in-game review pending.",
+      "fullFootprint": true,
+      "jobId": "4d9461ad-a476-4059-b77a-cd8688f172ea"
+    },
+    {
+      "key": "sulfide-nodule",
+      "mod": "PhobosManufacturing",
+      "definition": "PhobosSulfideNodule",
+      "nativeSize": [
+        16,
+        16
+      ],
+      "masterSize": [
+        64,
+        64
+      ],
+      "pivot": [
+        8,
+        8
+      ],
+      "runtime": "phobos/manufacturing/StockSulfideNodule",
+      "status": "selected",
+      "source": "source/sulfide-nodule.png",
+      "sourceSHA256": "7dc5ca3db43533353edd3adfac4002bad28734ab20ad8999e9f3500bacef06f3",
+      "requestRecord": "round-three-requests.json",
+      "review": "Overhead and native-scale export inspected; Lixivar colour language (pale sage, slate, copper-brown). Owner in-game review pending.",
+      "jobId": "5105e146-796e-41a2-b445-a274a0d09233"
+    },
+    {
+      "key": "phosphoric-acid-flask",
+      "mod": "PhobosManufacturing",
+      "definition": "PhobosPhosphoricAcidFlask",
+      "nativeSize": [
+        16,
+        16
+      ],
+      "masterSize": [
+        64,
+        64
+      ],
+      "pivot": [
+        8,
+        8
+      ],
+      "runtime": "phobos/manufacturing/StockPhosphoricAcidFlask",
+      "status": "selected",
+      "source": "source/phosphoric-acid-flask.png",
+      "sourceSHA256": "1cf517ee65263fc9cc1498466bfb22888c9b46f1aded5b324f130c15fa0fcd0c",
+      "requestRecord": "round-three-requests.json",
+      "review": "Overhead and native-scale export inspected; Lixivar colour language (pale sage, slate, copper-brown). Owner in-game review pending.",
+      "jobId": "aedfbff2-81d1-494b-a18c-28ca808127ae"
+    },
+    {
+      "key": "roasted-calcine",
+      "mod": "PhobosManufacturing",
+      "definition": "PhobosRoastedCalcine",
+      "nativeSize": [
+        16,
+        16
+      ],
+      "masterSize": [
+        64,
+        64
+      ],
+      "pivot": [
+        8,
+        8
+      ],
+      "runtime": "phobos/manufacturing/StockRoastedCalcine",
+      "status": "selected",
+      "source": "source/roasted-calcine.png",
+      "sourceSHA256": "5f323c4438f64a295b0ec93eb7d29c3876cf97cf03443f7b56b74ada84ce48d7",
+      "requestRecord": "round-three-requests.json",
+      "review": "Overhead and native-scale export inspected; Lixivar colour language (pale sage, slate, copper-brown). Owner in-game review pending."
     }
   ],
   "records": [
@@ -3282,9 +3453,73 @@
       ],
       "costGenerations": 1,
       "review": "2f58032d selected"
+    },
+    {
+      "key": "sa3-acid-plant",
+      "attempts": [
+        "round-three-requests.json"
+      ],
+      "jobs": [
+        "0c2615ca-5930-4de4-ac88-4acb0af0991c"
+      ],
+      "costGenerations": 1,
+      "review": "0c2615ca selected"
+    },
+    {
+      "key": "at2-acid-tank",
+      "attempts": [
+        "round-three-requests.json"
+      ],
+      "jobs": [
+        "4d9461ad-a476-4059-b77a-cd8688f172ea"
+      ],
+      "costGenerations": 1,
+      "review": "4d9461ad selected"
+    },
+    {
+      "key": "at3-acid-tank",
+      "attempts": [
+        "round-three-requests.json"
+      ],
+      "jobs": [
+        "b9c57547-88b4-4187-8b90-2be524b0ca59"
+      ],
+      "costGenerations": 1,
+      "review": "b9c57547 selected"
+    },
+    {
+      "key": "sulfide-nodule",
+      "attempts": [
+        "round-three-requests.json"
+      ],
+      "jobs": [
+        "5105e146-796e-41a2-b445-a274a0d09233"
+      ],
+      "costGenerations": 1,
+      "review": "5105e146 selected"
+    },
+    {
+      "key": "phosphoric-acid-flask",
+      "attempts": [
+        "round-three-requests.json"
+      ],
+      "jobs": [
+        "aedfbff2-81d1-494b-a18c-28ca808127ae"
+      ],
+      "costGenerations": 1,
+      "review": "aedfbff2 selected"
+    },
+    {
+      "key": "roasted-calcine",
+      "attempts": [
+        "round-three-requests.json"
+      ],
+      "jobs": [],
+      "costGenerations": 0,
+      "review": "recorded luminance derivation, no generation"
     }
   ],
-  "allowanceAfter": 1750,
-  "allowanceDelta": 202,
+  "allowanceAfter": 1745,
+  "allowanceDelta": 207,
   "creditBalanceAfterUSD": 0
 }

@@ -18,7 +18,7 @@ internal static class Definitions
     internal const string Controls = "PhobosManufacturingControls", ImagePath = "phobos/manufacturing/";
     internal const string RefineryArt = "PhobosVolatilesRefinery", ProcessorArt = "PhobosChemicalProcessor", StoreArt = "PhobosHydrogenStore",
         ReactorArt = "PhobosSabatierReactor", MethaneArt = "PhobosMethaneStore", ManifoldArt = "PhobosPropellantManifold", LineArt = "PropellantPipe",
-        FillerArt = "PhobosCanisterFiller", RegulatorArt = "PhobosCabinAirRegulator", CrackerArt = "PhobosAmmoniaCracker", LeachArt = "PhobosLeachUnit";
+        FillerArt = "PhobosCanisterFiller", RegulatorArt = "PhobosCabinAirRegulator", CrackerArt = "PhobosAmmoniaCracker", LeachArt = "PhobosLeachUnit", AcidPlantArt = "PhobosAcidPlant";
     internal static readonly string[] Forms = { "Installed", "Loose", "InstalledDmg", "LooseDmg" };
     internal static void Add(NativeDefinitions d)
     {
@@ -36,6 +36,9 @@ internal static class Definitions
         // Every size of every gas store; each size's art is named after its own definition prefix.
         foreach (var store in GasStores.All)
             AddStore(d, store, Text.Get(store.TextPrefix + ".details", store.DryKg, store.CapacityKg, store.LeakKgPerHour, store.Footprint), store.Prefix);
+        // Every size of every liquid store (Manufacturing 0.19.0); each size's art is named after its own definition prefix.
+        foreach (var store in LiquidStores.All)
+            AddLiquidStore(d, store);
         AddPropellantLine(d);
         AddManifold(d);
         AddFiller(d);
@@ -144,6 +147,26 @@ internal static class Definitions
             co.jsonPI = null; co.aTickers = Array.Empty<string>();
             co.aInteractions = co.aInteractions.Where(i => i != "Inventory").ToArray();
             co.mapPoints = new[] { "use,0," + (-8 * fuel.Footprint - 8) };
+            co.strPortraitImg = item.strImg;
+        }
+    }
+    /// <summary>A liquid store: a passive bunded vessel with no electricity, no container and no gas-line port.</summary>
+    private static void AddLiquidStore(NativeDefinitions d, LiquidStore store)
+    {
+        string p = store.Prefix, name = Text.Get(store.NameKey);
+        BulkVessels.Register(store.Spec);
+        ApplianceDefinitions.Add(d, p, name, Text.Get(store.Family.TextPrefix + ".details", store.DryKg, store.CapacityKg, 0, store.Footprint), store.Footprint, store.DryKg, store.Price,
+            ImagePath + store.Prefix, Controls, 0, InstallMenu.Appliances);
+        d.Power.Remove(p + "Power"); d.Interactions.Remove(p + "PowerChange");
+        foreach (string form in Forms)
+        {
+            var co = d.Objects[p + form]; var item = d.Items[p + form];
+            bool damaged = form.EndsWith("Dmg", StringComparison.Ordinal);
+            co.strNameFriendly = co.strNameShort = name + (damaged ? Text.Get("Content.damaged") : "");
+            StripContainer(co);
+            co.jsonPI = null; co.aTickers = Array.Empty<string>();
+            co.aInteractions = co.aInteractions.Where(i => i != "Inventory").ToArray();
+            co.mapPoints = new[] { "use,0," + (-8 * store.Footprint - 8) };
             co.strPortraitImg = item.strImg;
         }
     }
@@ -349,6 +372,10 @@ internal static class MiningLoot
     /// <summary>The evaporite crust's share (Manufacturing 0.18.0), also from silicates: a dried brine vein of the kind
     /// NASA's OSIRIS-REx team found in Bennu samples is a local vein, not bulk rock.</summary>
     internal const double EvaporiteChance = 0.05;
+    /// <summary>The sulfide nodule's share of the M-class and S-class rolls (Manufacturing 0.19.0), carved from meteoric
+    /// iron: troilite and schreibersite nodules sit inside iron meteorites, so a tenth of each iron share becomes one.</summary>
+    internal const double NoduleMChance = 0.04, NoduleSChance = 0.02;
+    internal const string MTable = "ItmRandomMineralMClass", STable = "ItmRandomMineralSClass", IronDonor = "ItmMineral01";
     internal const string Table = "ItmRandomMineralCClass", Donor = "ItmMineral04";
     internal static double Chance = DefaultChance;
     internal static void Add(NativeDefinitions d)
@@ -357,5 +384,8 @@ internal static class MiningLoot
         AdditiveLoot.CarveChoice(d, Table, Donor, Materials.ClayHydrates, Chance);
         AdditiveLoot.CarveChoice(d, Table, Donor, Materials.AmmoniumSaltCrust, CrustChance);
         AdditiveLoot.CarveChoice(d, Table, Donor, Materials.EvaporiteCrust, EvaporiteChance);
+        foreach (var (table, share) in new[] { (MTable, NoduleMChance), (STable, NoduleSChance) })
+            if (DataHandler.dictLoot.ContainsKey(table)) AdditiveLoot.CarveChoice(d, table, IronDonor, Materials.SulfideNodule, share);
+            else Plugin.Log(Text.Get("Content.missing_table", table));
     }
 }

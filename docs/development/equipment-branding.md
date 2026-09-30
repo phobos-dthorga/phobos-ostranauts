@@ -68,6 +68,8 @@ a real company, seed cultivar, research programme or institutional endorsement.
 | Phobos' Fennmark A2 Cabin Air Regulator | Two-by-two valve and sensor unit keeping one room's oxygen and pressure (Manufacturing 0.5.0); A for air |
 | Phobos' Tolvane AX-2 Ammonia Cracker | Two-by-two catalytic ammonia cracker, ammonia into nitrogen and hydrogen (Manufacturing 0.10.0); AX for ammonia split, 2 for the footprint |
 | Phobos' Lixivar LC-3 Leach and Crystallise Unit | Three-by-three leach tank and closed crystalliser for salts and fertiliser (Manufacturing 0.18.0); L for leach, C for crystallise, 3 for the footprint |
+| Phobos' Lixivar SA-3 Sulfuric Acid Plant | Three-by-three roaster, converter and absorber (Manufacturing 0.19.0); SA for sulfuric acid |
+| Phobos' Lixivar AT-2, AT-3 and AT-4 Sulfuric Acid Tanks | Bunded liquid tanks in three sizes (Manufacturing 0.19.0); AT for acid tank, the digit the footprint |
 | Phobos' Fennmark Q2, Q3 and Q4 Ammonia Stores | Liquefied ammonia stores in three sizes (Manufacturing 0.9.0); Q because A is the air regulator and no other brand uses Q |
 
 **Tolvane** is Manufacturing's second fictional manufacturer, for the nitrogen
@@ -86,7 +88,8 @@ Fennmark's graphite and burnt orange and Tolvane's teal. Models follow Tolvane's
 pattern: two letters for the job, a hyphen and the footprint width (LC-3). Its
 materials carry the brand without model numbers: Phobos' Lixivar Evaporite Crust,
 Potassium Sulfate, Phosphate Concentrate, Leached Residue, Struvite, Brine Salt
-Cake and Caustic Remainder. The calcined residue is made by the V4 and stays
+Cake and Caustic Remainder, and from 0.19.0 the Sulfide Nodule, Phosphoric Acid
+Flask and Roasted Calcine. The calcined residue is made by the V4 and stays
 Fennmark.
 
 **Fennmark** is Manufacturing's separate fictional manufacturer (owner choice,

@@ -11,7 +11,8 @@ internal static class ChargeMachines
 {
     internal static readonly ChargeMachine Refinery = new(RefinerySpec());
     internal static readonly ChargeMachine Leach = new(LeachSpec());
-    internal static readonly IReadOnlyList<ChargeMachine> All = new[] { Refinery, Leach };
+    internal static readonly ChargeMachine AcidPlant = new(AcidPlantSpec());
+    internal static readonly IReadOnlyList<ChargeMachine> All = new[] { Refinery, Leach, AcidPlant };
     private static readonly Dictionary<string, ChargeMachine?> byDefinition = new(StringComparer.Ordinal);
     internal static ChargeMachine? For(string? id)
     {
@@ -102,4 +103,43 @@ internal static class ChargeMachines
             _ => Text.Get("Leach.ammonia_full", have, need)
         },
         () => Text.Get("Leach.ammonia_linked"), () => Text.Get("Leach.ammonia_unlinked"), () => Text.Get("Leach.ammonia_link_missing"));
+
+    /// <summary>The Lixivar SA-3 (Manufacturing 0.19.0): one recipe, chosen automatically; oxygen and water drawn from
+    /// linked vessels, sulfuric acid deposited into a linked acid tank, the reactions' heat into the room. Nothing melts
+    /// or spoils; it is no ignition source (the roaster is enclosed).</summary>
+    private static ChargeMachineSpec AcidPlantSpec() => new()
+    {
+        Prefix = AcidPlantRules.Prefix, StockTrigger = AcidPlantRules.StockTrigger, StockFeed = AcidPlantRules.StockFeed, AdmitsOre = false,
+        Record = AcidPlantRules.Record, MachineKey = ChargeCatalog.AcidPlant, TextPrefix = "AcidPlant", SnapshotKind = "acid-plant", Art = Definitions.AcidPlantArt,
+        Selection = RecipeSelection.Automatic, IgnitionSource = false,
+        MaintenanceChargeKey = "Maintenance.acid_plant_charge",
+        Links = () => new[] { AcidPlantOxygen(), AcidPlantWater(), AcidPlantAcid() }
+    };
+    private static Func<LinkProblem, double, double, string> Reasons(string prefix, string what) => (problem, have, need) => problem switch
+    {
+        LinkProblem.None => Text.Get(prefix + ".no_" + what),
+        LinkProblem.NotReady => Text.Get(prefix + "." + what + "_not_ready"),
+        LinkProblem.Protected or LinkProblem.Busy => Text.Get(prefix + "." + what + "_protected"),
+        LinkProblem.Catch => Text.Get(prefix + "." + what + "_catch"),
+        LinkProblem.Short => Text.Get(prefix + "." + what + "_short", have, need),
+        _ => Text.Get(prefix + "." + what + "_full", have, need)
+    };
+    private static ChargeLinkSpec AcidPlantOxygen() => new(ManufacturingRules.Oxygen, "oxygen:", AcidPlantRules.OxygenPort, AcidPlantRules.VesselPort,
+        v => GasStores.Holds(v.strCODef, ManufacturingRules.Oxygen), () => Text.Get("Provider.oxygen_field"), alwaysShow: true, Reasons("AcidPlant", "oxygen"),
+        () => Text.Get("AcidPlant.oxygen_linked"), () => Text.Get("AcidPlant.oxygen_unlinked"), () => Text.Get("AcidPlant.oxygen_link_missing"));
+    private static ChargeLinkSpec AcidPlantWater() => new(ManufacturingRules.Water, "link:", AcidPlantRules.WaterPort, AcidPlantRules.VesselPort, _ => true,
+        () => Text.Get("Provider.vessel_field"), alwaysShow: true,
+        (problem, have, need) => problem switch
+        {
+            LinkProblem.None => Text.Get("AcidPlant.no_vessel"),
+            LinkProblem.NotReady => Text.Get("AcidPlant.vessel_not_ready"),
+            LinkProblem.Protected or LinkProblem.Busy => Text.Get("AcidPlant.vessel_protected"),
+            LinkProblem.Catch => Text.Get("AcidPlant.vessel_catch"),
+            LinkProblem.Short => Text.Get("AcidPlant.vessel_short", have, need),
+            _ => Text.Get("AcidPlant.vessel_full", have, need)
+        },
+        () => Text.Get("AcidPlant.linked"), () => Text.Get("AcidPlant.unlinked"), () => Text.Get("AcidPlant.link_missing"));
+    private static ChargeLinkSpec AcidPlantAcid() => new(LiquidStores.SulfuricAcid, "acid:", AcidPlantRules.AcidPort, AcidPlantRules.VesselPort,
+        v => LiquidStores.Holds(v.strCODef, LiquidStores.SulfuricAcid), () => Text.Get("Provider.acid_field"), alwaysShow: true, Reasons("AcidPlant", "acid"),
+        () => Text.Get("AcidPlant.acid_linked"), () => Text.Get("AcidPlant.acid_unlinked"), () => Text.Get("AcidPlant.acid_link_missing"));
 }

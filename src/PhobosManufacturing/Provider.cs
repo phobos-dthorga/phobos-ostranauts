@@ -14,7 +14,7 @@ internal sealed class Provider : IEquipmentProvider, IEquipmentPanelFields
 {
     public string Id => Plugin.Id;
     public IReadOnlyList<string> Definitions { get; } = Array.AsReadOnly(ChargeMachines.All.Select(m => m.Spec.Installed).Concat(new[] { ProcessorRules.Installed, SabatierRules.Installed, CrackerRules.Installed, ManifoldRules.Installed, FillerRules.Installed, RegulatorRules.Installed })
-        .Concat(GasStores.All.Select(s => s.Installed)).SelectMany(id => new[] { id, id + "Dmg" }).ToArray());
+        .Concat(GasStores.All.Select(s => s.Installed)).Concat(LiquidStores.All.Select(s => s.Installed)).SelectMany(id => new[] { id, id + "Dmg" }).ToArray());
     private static string N(double value) => value.ToString("R", CultureInfo.InvariantCulture);
     public IEnumerable<EquipmentField> Fields(CondOwner co)
     {
@@ -99,6 +99,12 @@ internal sealed class Provider : IEquipmentProvider, IEquipmentPanelFields
             yield return new(Text.Get("Provider.nitrogen_store_field"), ObjectPresentation.Name(state.NitrogenStore),
                 RegulatorService.Candidates(co, ManufacturingRules.Nitrogen).Select(v => ("nitrogen:" + v.strID, ObjectPresentation.Name(v))).Concat(new[] { ("nitrogen:none", Text.Get("Provider.link_none")) }));
         }
+        else if (LiquidStores.IsFamily(co.strCODef) && !BulkVessel.Protected(co))
+        {
+            var targets = LiquidStoreService.PourTargets(co).ToArray();
+            if (targets.Length > 0)
+                yield return new(Text.Get("Acid.pour_field"), Text.Get("Provider.link_none"), targets.Select(c => ("pour:" + c.strID, ObjectPresentation.Name(c))));
+        }
         else if (GasStores.For(co.strCODef) is GasStore fuel && !BulkVessel.Protected(co))
         {
             yield return new(Text.Get("Provider.vent_field"), Text.Get("Provider.kg", BulkVessel.Snapshot(co).ServiceKg), StoreService.VentChoices(fuel).Select(n => ("vent:" + N(n), Text.Get("Provider.kg", n))));
@@ -108,11 +114,11 @@ internal sealed class Provider : IEquipmentProvider, IEquipmentPanelFields
         }
     }
     public bool IsConfiguration(string action) => new[] { "link:", "water:", "store:", "canister:", "vent:", "hydrogen:", "methane:", "feed:", "order:", "source-on:", "source-off:", "unlink:",
-            "mode:", "target:", "draw:", "transfer:", "o2:", "pressure:", "oxygen:", "nitrogen:", "gas-link:", "ammonia:", "recipe:" }
+            "mode:", "target:", "draw:", "transfer:", "o2:", "pressure:", "oxygen:", "nitrogen:", "gas-link:", "ammonia:", "recipe:", "acid:", "pour:" }
         .Any(p => action.StartsWith(p, StringComparison.Ordinal));
     public string ConfigurationStamp(CondOwner co) => Phobos.Ostranauts.Framework.Controls.ConfigurationStamp.For(co, new[] { "PhobosMaterialPort.", "PhobosState.crew-order",
         "PhobosState." + ProcessorRules.Record, "PhobosState." + SabatierRules.Record, "PhobosState." + CrackerRules.Record, "PhobosState." + ManifoldRules.Record,
-        "PhobosState." + FillerRules.Record, "PhobosState." + RegulatorRules.Record }.Concat(ChargeMachines.All.Select(m => "PhobosState." + m.Spec.Record)).Concat(GasStores.All.Select(s => "PhobosState." + s.Spec.Record)).ToArray());
+        "PhobosState." + FillerRules.Record, "PhobosState." + RegulatorRules.Record }.Concat(ChargeMachines.All.Select(m => "PhobosState." + m.Spec.Record)).Concat(GasStores.All.Select(s => "PhobosState." + s.Spec.Record)).Concat(LiquidStores.All.Select(s => "PhobosState." + s.Spec.Record)).ToArray());
     public bool ApplyConfiguration(CondOwner co, ConsoleBinding? binding, string expected, string action, out string reason)
     {
         reason = ConsoleText.Get("stale");
@@ -143,6 +149,9 @@ internal sealed class Provider : IEquipmentProvider, IEquipmentPanelFields
         if (CrackerRules.IsFamily(co.strCODef))
             return new EquipmentSnapshot(co.strID, co.strNameFriendly, "cracker", new EquipmentActivity(CrackerService.State(co), CrackerService.Describe(co)),
                 CrackerService.Protected(co) ? Actions("accept", "pause") : Actions("start", "pause", "cancel"));
+        if (LiquidStores.IsFamily(co.strCODef))
+            return new EquipmentSnapshot(co.strID, co.strNameFriendly, "store", new EquipmentActivity(LiquidStoreService.State(co), LiquidStoreService.Describe(co)),
+                BulkVessel.Protected(co) ? Actions("accept") : BulkVessel.Snapshot(co).CatchKg > 1e-8 ? Actions("recover") : Array.Empty<EquipmentAction>());
         var actions = new List<EquipmentAction>();
         if (BulkVessel.Protected(co)) actions.Add(new EquipmentAction("accept", Text.Get("Provider.action_accept")));
         return new EquipmentSnapshot(co.strID, co.strNameFriendly, "store", new EquipmentActivity(StoreService.State(co), StoreService.Describe(co)), actions);
@@ -155,5 +164,6 @@ internal sealed class Provider : IEquipmentProvider, IEquipmentPanelFields
         CrackerRules.IsFamily(co.strCODef) ? CrackerService.Command(co, binding, action, out message) :
         ManifoldRules.IsFamily(co.strCODef) ? ManifoldService.Command(co, binding, action, out message) :
         FillerRules.IsFamily(co.strCODef) ? FillerService.Command(co, binding, action, out message) :
-        RegulatorRules.IsFamily(co.strCODef) ? RegulatorService.Command(co, binding, action, out message) : StoreService.Command(co, binding, action, out message);
+        RegulatorRules.IsFamily(co.strCODef) ? RegulatorService.Command(co, binding, action, out message) :
+        LiquidStores.IsFamily(co.strCODef) ? LiquidStoreService.Command(co, binding, action, out message) : StoreService.Command(co, binding, action, out message);
 }

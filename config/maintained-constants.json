@@ -265,7 +265,7 @@
     "Manufacturing.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.18.0",
+      "value": "0.19.0",
       "description": "PhobosManufacturing published source/package version.",
       "targets": [
         {
@@ -2132,6 +2132,89 @@
       "review": [
         "Lives in the Manufacturing materials data pack; rebuild Manufacturing so the embedded copy follows, then regenerate item references.",
         "Refining value guardrails (owner direction 30 September 2026, agent-applied): sellable products of a charge stay within 1.5 x its inputs; a charge fed only from bought stock gains at most a quarter at base prices. The makeup formulation is the owner's exception (30 September 2026): its packets carry Agriculture's own price. The native and pure checks prove these at live prices."
+      ]
+    },
+    "Manufacturing.acidPlantPrice": {
+      "type": "number",
+      "value": "56000",
+      "min": 1,
+      "max": 1000000,
+      "description": "Authored SA-3 sulfuric acid plant base price (broken form is one quarter).",
+      "targets": [
+        {
+          "path": "mods/PhobosManufacturing/framework/economy.json",
+          "pointer": "/equipment/PhobosAcidPlant/price"
+        }
+      ],
+      "review": [
+        "Lives in the Manufacturing economy data pack (framework/economy.json); rebuild Manufacturing so the embedded copy follows, then regenerate item references.",
+        "From 30,000 credits the SA-3 is Trusted at the faction kiosks (docs/development/faction-kiosk-stock.md)."
+      ]
+    },
+    "Manufacturing.acidPlantKilowatts": {
+      "type": "number",
+      "value": "4",
+      "min": 0.1,
+      "max": 1000,
+      "description": "Authored SA-3 working electrical demand, in kW (equipment data pack; read-only to player files). The reactions add about 21 kWh a charge into the room on top of this.",
+      "targets": [
+        {
+          "path": "mods/PhobosManufacturing/framework/equipment.json",
+          "pointer": "/equipment/PhobosAcidPlant/workingKW"
+        }
+      ],
+      "review": [
+        "Run scripts/build-manufacturing.ps1 and regenerate item references; review the room-heat note in docs/development/manufacturing-refinery-and-chemistry.md."
+      ]
+    },
+    "Manufacturing.acidTankPrice": {
+      "type": "number",
+      "value": "16000",
+      "min": 1,
+      "max": 1000000,
+      "description": "Authored AT-2 sulfuric acid tank base price; the AT-3 and AT-4 follow the Framework size ladder.",
+      "targets": [
+        {
+          "path": "mods/PhobosManufacturing/framework/economy.json",
+          "pointer": "/equipment/PhobosAcidTank/price"
+        }
+      ],
+      "review": [
+        "Lives in the Manufacturing economy data pack (framework/economy.json); rebuild Manufacturing so the embedded copy follows, then regenerate item references."
+      ]
+    },
+    "Manufacturing.sulfideNoduleMChance": {
+      "type": "number",
+      "value": "0.04",
+      "min": 0,
+      "max": 0.4,
+      "description": "Share of the game's M-class mineral roll (ItmRandomMineralMClass) carved from meteoric iron for the sulfide nodule. Never a shop.",
+      "targets": [
+        {
+          "path": "src/PhobosManufacturing/Definitions.cs",
+          "pattern": "\\bNoduleMChance\\s*=\\s*(?P<value>[0-9.]+)",
+          "count": 1
+        }
+      ],
+      "review": [
+        "Run the native checks and regenerate item references. Existing deposits already rolled are unchanged; the iron share (0.40) must cover the carve."
+      ]
+    },
+    "Manufacturing.sulfideNoduleSChance": {
+      "type": "number",
+      "value": "0.02",
+      "min": 0,
+      "max": 0.2,
+      "description": "Share of the game's S-class mineral roll (ItmRandomMineralSClass) carved from meteoric iron for the sulfide nodule. Never a shop.",
+      "targets": [
+        {
+          "path": "src/PhobosManufacturing/Definitions.cs",
+          "pattern": "\\bNoduleSChance\\s*=\\s*(?P<value>[0-9.]+)",
+          "count": 1
+        }
+      ],
+      "review": [
+        "Run the native checks and regenerate item references. Existing deposits already rolled are unchanged; the iron share (0.20) must cover the carve."
       ]
     }
   }

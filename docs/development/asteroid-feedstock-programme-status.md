@@ -76,7 +76,7 @@ copied. The plan runs in five phases:
 | A | Shared charge engine, equipment pack, recipe working volumes and reaction heat, commodity settlement | Framework 0.54.0, Manufacturing 0.17.0 (2e66342) |
 | B | Lixivar LC-3; evaporite crust (C-class carve, 0.05); evaporite leach, struvite from the crust's phosphate, makeup formulation with Agriculture; V4 calcine of the leached residue into a CO2 store | Manufacturing 0.18.0 |
 | C | Groundwork E2, E3 and E4 nutrient hoppers; kiosk crop nutrients at 1,500 cr/kg; W2 dosing from a hopper; bagging back into charges | Agriculture 0.27.0 |
-| D | Lixivar acid tanks, kiosk acid, sulfide nodule, SA-3 acid plant | pending |
+| D | Lixivar AT-2 to AT-4 acid tanks (bunded liquid stores, mist on damage); kiosk acid at the game's 3.1 cr/kg; sulfide nodule (M- and S-class iron carves); SA-3 acid plant (acid-plant@1, 21.1 kWh of reaction heat) | Manufacturing 0.19.0 |
 | E | Epsom salt from olivine, ammonium sulfate, acid-route struvite, complete formulation into the hopper | pending |
 
 - Research first: the evaporite mineral fractions from McCoy et al. 2025 (NASA

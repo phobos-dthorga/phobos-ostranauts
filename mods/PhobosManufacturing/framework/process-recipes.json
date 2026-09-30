@@ -90,6 +90,15 @@
       "products": [ { "id": "PhobosVerdemorrowGroundworkMakeup", "count": 39, "kg": 0.04 } ],
       "seconds": 150,
       "requires": [ "agriculture-makeup" ]
+    },
+    "sulfide-roast": {
+      "notes": "Roasting a sulfide-phosphide nodule (authored 7.000 kg troilite FeS, 1.058 kg schreibersite as Fe2NiP, 1.942 kg silicate, the phosphide set so one flask holds the phosphorus of three struvite units; iron-meteorite inclusions after Buchwald 1975) and making acid from its gases. FeS + 9/4 O2 + H2O -> 1/2 Fe2O3 + H2SO4 on 79.63 mol (roast 4 FeS + 7 O2 -> 2 Fe2O3 + 4 SO2, then SO2 + 1/2 O2 -> SO3 over the converter bed and SO3 + H2O -> H2SO4 in the absorber); Fe2NiP + 13/4 O2 + 3/2 H2O -> Fe2O3 + NiO + H3PO4 on 5.254 mol. Oxygen 6.280 kg and water 1.577 kg drawn; sulfuric acid 7.810 kg to a linked acid tank; phosphoric acid 0.515 kg in a flask; iron oxides, nickel oxide and the silicate 9.532 kg as the terminal roasted calcine. Rounded to item units, the water and the calcine each carry three grams. The reactions release about 840 kJ per mole of troilite and 1,750 kJ per mole of schreibersite (formation enthalpies from the NIST and CODATA key values, from memory, and an estimated -160 kJ/mol for schreibersite; verify before quoting), 21.1 kWh a charge, all into the room.",
+      "machine": "acid-plant",
+      "revision": 1,
+      "inputs": [ { "id": "PhobosSulfideNodule", "count": 1, "kg": 10 }, { "id": "oxygen", "count": 1, "kg": 6.28 }, { "id": "water", "count": 1, "kg": 1.58 } ],
+      "products": [ { "id": "sulfuric acid", "count": 1, "kg": 7.81 }, { "id": "PhobosPhosphoricAcidFlask", "count": 1, "kg": 0.515 }, { "id": "PhobosRoastedCalcine", "count": 1, "kg": 9.535 } ],
+      "seconds": 3600,
+      "reactionKWh": 21.1
     }
   }
 }

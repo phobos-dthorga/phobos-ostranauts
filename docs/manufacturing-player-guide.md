@@ -1,4 +1,4 @@
-# Refinery, electrolysis, Sabatier reactor, ammonia cracker, leach unit, gas stores, canister filling, cabin air and RCS propellant
+# Refinery, electrolysis, Sabatier reactor, ammonia cracker, leach unit, acid plant, gas and acid stores, canister filling, cabin air and RCS propellant
 
 Use the [current versions and dependency requirements](installing-mods.md);
 Phobos Framework is required at the version listed there. Implemented and checked offline; owner
@@ -20,6 +20,8 @@ rotors and missile launchers, below a fusion reactor. Save up for it.
 | Phobos' Fennmark K2 Sabatier Reactor | 2 x 2 tiles; 150 kg; one power point; 1.2 kW working | 44,000 cr, broken 11,000 cr | The same sellers; INSTALL > APPS. Purchase only. |
 | Phobos' Tolvane AX-2 Ammonia Cracker | 2 x 2 tiles; 150 kg; one power point; 2 kW working | 42,000 cr, broken 10,500 cr | The same sellers; INSTALL > APPS. Purchase only. |
 | Phobos' Lixivar LC-3 Leach and Crystallise Unit | 3 x 3 tiles; 220 kg; one power point; 12 kW working | 48,000 cr, broken 12,000 cr | The same sellers; INSTALL > APPS. Purchase only. |
+| Phobos' Lixivar SA-3 Sulfuric Acid Plant | 3 x 3 tiles; 260 kg; one power point; 4 kW working, about 21 kWh of reaction heat a nodule | 56,000 cr, broken 14,000 cr | The same sellers; INSTALL > APPS. Purchase only. |
+| Phobos' Lixivar AT-2, AT-3 and AT-4 Sulfuric Acid Tanks | 2 x 2, 3 x 3 and 4 x 4 tiles; hold 1,150, 2,850 and 5,520 kg of acid | 16,000 cr and up the size ladder | The same sellers; INSTALL > APPS. Purchase only. |
 | Phobos' Fennmark M2, M3 and M4 Methane Stores | 2 x 2, 3 x 3 and 4 x 4 tiles; hold 160, 395 and 770 kg of methane | 21,000, 34,160 and 48,250 cr | The same sellers; INSTALL > APPS. Purchase only. |
 | Phobos' Fennmark O2, O3 and O4 Oxygen Stores | 2 x 2, 3 x 3 and 4 x 4 tiles; hold 340, 840 and 1,630 kg of oxygen | 21,000, 34,160 and 48,250 cr | The same sellers; INSTALL > APPS. Purchase only. |
 | Phobos' Fennmark N2, N3 and N4 Nitrogen Stores | 2 x 2, 3 x 3 and 4 x 4 tiles; hold 300, 745 and 1,440 kg of nitrogen | 20,000, 32,530 and 45,950 cr | The same sellers; INSTALL > APPS. Purchase only. |
@@ -43,7 +45,11 @@ in twenty is a Fennmark machine, usually broken. Repairs need real components
 Ores are mined, never bought. Three chunks come from dark rock: C-class deposits
 and dark regolith walls give a clay hydrates chunk about one C-class find in ten,
 an ammonium salt crust about one in twenty and an evaporite crust about one in
-twenty, in place of some of the silicates they would otherwise give. Stations sell bulk oxygen, nitrogen and carbon
+twenty, in place of some of the silicates they would otherwise give. Iron-rich
+M-class and S-class finds give a sulfide nodule in place of some of their
+meteoric iron (about one M-class find in twenty-five, one S-class find in fifty).
+Stations also sell sulfuric acid into an acid tank through **Bulk supplies**, at
+the game's own 3.1 cr/kg. Stations sell bulk oxygen, nitrogen and carbon
 dioxide through the refuelling kiosk's **Bulk supplies** view, straight into an
 installed store of that gas, at the kiosk's own price per kilogram. Nothing
 sells back. No station sells ammonia: the salt crust is its only source.
@@ -274,6 +280,32 @@ are worth Agriculture's own 30 cr a packet. Sodium harms crops, so the sodium
 salts leave as the brine salt cake, and nothing recovers it or the other two
 remainders.
 
+## The acid plant and acid tanks
+
+The Lixivar SA-3 turns a sulfide nodule into acid. Each one-hour charge at 4 kW
+roasts one nodule (10 kg: troilite, a nickel-iron phosphide and rock) in 6.28 kg
+of oxygen with 1.58 kg of water, and makes 7.81 kg of sulfuric acid, a 0.515 kg
+phosphoric acid flask and 9.535 kg of roasted calcine (trash).
+
+1. Install the SA-3 within one tile of an oxygen store, a water vessel and an
+   acid tank (any sizes), and connect its power point.
+2. Open its **Control Panel** > **Connections** and set **Oxygen from**, **Water
+   vessel** and **Acid tank**. Apply.
+3. Put nodules in its **Acid plant charge** window (it holds two) and **Start**.
+   It works one at a time, puts the flask and calcine in its tray and the acid in
+   the tank, and waits with the reason if a store is short or the tank is full.
+
+**Heat.** Roasting, converting and absorbing release about 21 kWh a nodule on top
+of the 4 kW the plant draws, all into its room: over an hour that is like a 21 kW
+heater. The plant waits whenever the room would pass 40 C, so give it a large
+room with cooling or it will crawl. Vacuum is not free cooling.
+
+**Acid tanks** are bunded tanks, not gas stores: they have no gas line and never
+feed thrusters, filling stations or cabin air. Fill one from an SA-3 or at a
+station; the LC-3 draws from it. To move acid, open a tank's panel and **Pour
+acid into** another acid tank within one tile. A tank holding acid refuses to be
+moved or dismantled.
+
 ## Gas stores
 
 Every gas store comes in three sizes: small (2 x 2), medium (3 x 3) and large
@@ -443,6 +475,13 @@ releases it.
   store leaks about 2, 3 or 4 kg an hour by size until repaired. Oxygen makes
   any fire worse, nitrogen thins the air without warning, and carbon dioxide
   poisons. A destroyed store releases everything it held into the room.
+- **Acid mist poisons.** A damaged acid tank's bund holds the acid, but a
+  ten-thousandth of it (115 g from a full AT-2) gets into the room as the game's
+  own sulfuric acid mist, whose poisoning bands apply; a destroyed tank mists the
+  same share and the rest is lost. Get the crew out and ventilate, then repair the
+  tank and choose **Recover acid from the bund** to put it back in service.
+- **The acid plant heats its room hard.** See the acid plant section: about 21 kW
+  over an hour, beyond the plant's own draw.
 - **Ammonia poisons.** A damaged ammonia store leaks about 2, 3 or 4 kg an
   hour by size of the game's own ammonia into its room until repaired, and a
   destroyed one releases everything it held. The game's ammonia poisoning

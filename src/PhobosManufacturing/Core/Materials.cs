@@ -43,12 +43,16 @@ public static class Materials
     public const string EvaporiteCrust = "PhobosEvaporiteCrust", PotassiumSulfate = "PhobosPotassiumSulfate", PhosphateConcentrate = "PhobosPhosphateConcentrate",
         LeachedResidue = "PhobosLeachedResidue", Struvite = "PhobosStruvite", BrineSaltCake = "PhobosBrineSaltCake", CausticRemainder = "PhobosCausticRemainder",
         CalcinedResidue = "PhobosCalcinedResidue";
+    /// <summary>The acid round (Manufacturing 0.19.0): the mined sulfide-phosphide nodule, the SA-3's phosphoric acid
+    /// flask and its terminal roasted calcine.</summary>
+    public const string SulfideNodule = "PhobosSulfideNodule", PhosphoricAcidFlask = "PhobosPhosphoricAcidFlask", RoastedCalcine = "PhobosRoastedCalcine";
     /// <summary>The technical minimum price of a terminal remainder (authoring rule).</summary>
     public const double TerminalPrice = .01;
     public const string Schema = MaterialSchema.Name, Resource = "PhobosManufacturing.materials.json", Stock = "stock", MinedKind = "mined";
     /// <summary>Every material, in definition order.</summary>
     public static readonly IReadOnlyList<string> Ids = new[] { NickelIronIngot, CarbonStock, RefinerySlag, AnhydrousResidue, ClayHydrates, AmmoniumSaltCrust, SpentSaltCake,
-        EvaporiteCrust, PotassiumSulfate, PhosphateConcentrate, LeachedResidue, Struvite, BrineSaltCake, CausticRemainder, CalcinedResidue };
+        EvaporiteCrust, PotassiumSulfate, PhosphateConcentrate, LeachedResidue, Struvite, BrineSaltCake, CausticRemainder, CalcinedResidue,
+        SulfideNodule, PhosphoricAcidFlask, RoastedCalcine };
     public static readonly IReadOnlyList<string> Kinds = new[] { Stock, MinedKind };
     private static MaterialPack? pack; private static IReadOnlyList<Material>? all; private static MaterialPack? builtFrom;
     public static MaterialPack Pack => pack ??= Load();

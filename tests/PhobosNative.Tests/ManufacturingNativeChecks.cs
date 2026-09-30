@@ -213,8 +213,54 @@ internal static class ManufacturingNativeChecks
             "The M2 store is a registered leaking methane vessel");
         check(new[] { BulkVessels.SpecFor(HydrogenRules.Installed), methaneSpec, BulkVessels.SpecFor("PhobosProcessSiloInstalled") }.Select(s => s?.Commodity).Distinct().Count() == 3,
             "Water, hydrogen and methane vessels coexist in the registry");
-        check(GasStores.All.All(s => BulkVessels.SpecFor(s.Installed) == s.Spec) && BulkVessels.All.Count(s => s.Owner == Plugin.Id) == GasStores.All.Count,
-            "Every gas store size is registered once, by this mod");
+        check(GasStores.All.All(s => BulkVessels.SpecFor(s.Installed) == s.Spec) && LiquidStores.All.All(s => BulkVessels.SpecFor(s.Installed) == s.Spec) &&
+              BulkVessels.All.Count(s => s.Owner == Plugin.Id) == GasStores.All.Count + LiquidStores.All.Count,
+            "Every gas and liquid store size is registered once, by this mod");
+
+        // The Lixivar acid tanks (Manufacturing 0.19.0): bunded liquid stores, never gas stores.
+        foreach (var store in LiquidStores.All)
+        foreach (string state in Definitions.Forms)
+        {
+            var tank = d.Objects[store.Prefix + state]; var tankItem = d.Items[tank.strItemDef];
+            bool damaged = state.EndsWith("Dmg", StringComparison.Ordinal);
+            check(tankItem.nCols == store.Footprint && tank.inventoryWidth == store.Footprint && tank.jsonPI == null && tank.aTickers.Length == 0 && Stat(tank, "StatMass") == store.DryKg,
+                "Each acid tank is a passive vessel of its own footprint at its dry mass: " + store.Prefix + state);
+            check(tank.strNameFriendly.StartsWith("Phobos' Lixivar AT-" + store.Footprint + " Sulfuric Acid Tank", StringComparison.Ordinal), "Each acid tank carries its Lixivar model: " + store.Prefix + state);
+            check(Stat(tank, "StatBasePrice") == (damaged ? (int)store.Price / 4 : (int)store.Price) && Has(tank, EquipmentEconomy.HighSalvageMark), "Each acid tank carries its price and the high-salvage mark: " + store.Prefix + state);
+            check(!GasStores.IsFamily(tank.strName) && LiquidStores.IsFamily(tank.strName) && !tank.mapPoints.Any(p => p.StartsWith("PhobosGas", StringComparison.Ordinal)),
+                "An acid tank is no gas store and has no gas-line port: " + store.Prefix + state);
+        }
+        var acidSpec = BulkVessels.SpecFor(LiquidStores.AcidFamily.Small.Installed)!;
+        check(acidSpec.Commodity == LiquidStores.SulfuricAcid && acidSpec.DamagePolicy == VesselDamagePolicy.Isolate && acidSpec.CapacityKg == 1150 && acidSpec.DryKg == 240 &&
+              Math.Abs(LiquidStores.AcidCapacityKg - 1156) < 1 && LiquidStores.AcidFamily.Sizes.Select(s => s.CapacityKg).SequenceEqual(new double[] { 1150, 2850, 5520 }),
+            "The AT-2 holds 1,150 kg (98% acid at 1,836 kg/m3 in 0.787 m3 at 80%), isolates on damage, and the AT-3 and AT-4 follow the ladder");
+        // The kiosk prices acid through NativeGasVessel.PricePerKg, which reads this same GasPrices table in a running game.
+        check(NativeGasCanister.IsRoomSpecies("H2SO4") && GasPrice("H2SO4") == 3.1 && Math.Abs(LiquidStores.MistKg(1150) - 0.115) < 1e-9,
+            "Acid mist is the game's own H2SO4, which the game prices at 3.1 cr/kg; a full AT-2 mists 115 g when damaged");
+
+        // The Lixivar SA-3 acid plant.
+        foreach (string state in Definitions.Forms)
+        {
+            bool damaged = state.EndsWith("Dmg", StringComparison.Ordinal), installed = state.StartsWith("Installed", StringComparison.Ordinal);
+            var plant = d.Objects[AcidPlantRules.Prefix + state];
+            check(d.Items[plant.strItemDef].nCols == 3 && Stat(plant, "StatMass") == AcidPlantRules.MachineKg && plant.strNameFriendly.StartsWith("Phobos' Lixivar SA-3 Sulfuric Acid Plant", StringComparison.Ordinal),
+                "SA-3 is a 260 kg three by three Lixivar plant: " + state);
+            check((plant.jsonPI == AcidPlantRules.Prefix + "Power") == (installed && !damaged) && Stat(plant, "StatBasePrice") == (damaged ? (int)Economy.Price(AcidPlantRules.Prefix) / 4 : (int)Economy.Price(AcidPlantRules.Prefix)),
+                "SA-3 draws power only when installed and intact, at its late-game price: " + state);
+        }
+        var plantPower = d.Power[AcidPlantRules.Prefix + "Power"];
+        check(Math.Abs(plantPower.fOverrideAmount - 4 / Units.SecondsPerHour) < 1e-12 && plantPower.strOverrideCond == ManufacturingRules.Working, "SA-3 draws 4 kW working");
+        var plantTrigger = DataHandler.dictCTs[d.Objects[AcidPlantRules.Prefix + "InputBin"].strContainerCT];
+        check(plantTrigger.TriggeredDataCO(new DataCO(d.Objects[Materials.SulfideNodule]), false) && !plantTrigger.TriggeredDataCO(new DataCO(DataHandler.dictCOs[RefineryRules.Iron]), false) &&
+              !plantTrigger.TriggeredDataCO(new DataCO(d.Objects[Materials.EvaporiteCrust]), false), "The SA-3 feed takes the sulfide nodule and nothing else");
+        check(ChargeMachines.AcidPlant.Links.Select(l => l.Commodity).SequenceEqual(new[] { ManufacturingRules.Oxygen, ManufacturingRules.Water, LiquidStores.SulfuricAcid }),
+            "The SA-3 links an oxygen store, a water vessel and an acid tank");
+        foreach (var (table, share) in new[] { (MiningLoot.MTable, MiningLoot.NoduleMChance), (MiningLoot.STable, MiningLoot.NoduleSChance) })
+        {
+            var nodule = d.LootCarves[table][Materials.SulfideNodule];
+            check(nodule.Donor == MiningLoot.IronDonor && nodule.Share == share && DataHandler.dictLoot[table].aCOs.Single().Split('|').Count(u => u.StartsWith(Materials.SulfideNodule + "=", StringComparison.Ordinal)) == 1,
+                "The sulfide nodule is carved once from the meteoric-iron share: " + table);
+        }
         // The L2 rack admits the game's suit O2 bottles only; the power override follows the filling condition.
         var rack = DataHandler.dictCTs[FillerRules.RackTrigger];
         check(rack.TriggeredDataCO(new DataCO(DataHandler.dictCOs["ItmCanisterO2Small"]), false), "The rack admits the game's suit O2 bottle");
@@ -248,6 +294,7 @@ internal static class ManufacturingNativeChecks
         check(!DataHandler.dictCTs["TIsBarterFlotillaScrapKiosk"].TriggeredDataCO(new DataCO(d.Objects[Materials.NickelIronIngot]), false), "Scrap kiosks do not buy ingots: they are not IsScrap, so they are not feed either");
 
         // With and without Shipbreaker: the same definitions, a different available catalog.
+        check(AcidPlantRecipes.All.Count == 1 && AcidPlantRecipes.Match(new[] { Materials.SulfideNodule }) == AcidPlantRecipes.Roast, "The SA-3 has its one roast recipe");
         check(RefineryRecipes.Available(true).Count() == 7 && RefineryRecipes.Available(false).Count() == 6 && withoutShipbreaker.Objects.Count == d.Objects.Count, "Shipbreaker's presence changes only the available charges, never the definitions");
         check(AgricultureStock.Definitions(), "Agriculture's makeup packet is published at the 40 g the formulation expects");
         check(ShipbreakerStock.Definitions(), "Shipbreaker's steel ingot and remainder are published at the masses the steel charge expects");
@@ -268,7 +315,8 @@ internal static class ManufacturingNativeChecks
         // One valuation for inputs and products alike: a commodity by the kilogram (water at the station price, a stored
         // gas at the game's gas price), an item by the unit.
         double UnitValue(string id, int count, double kg) => id == ManufacturingRules.Water ? count * kg * Price(id) :
-            GasStores.FamilyOf(id) is GasFamily gas ? count * kg * GasPrice(gas.Species) : count * Price(id);
+            GasStores.FamilyOf(id) is GasFamily gas ? count * kg * GasPrice(gas.Species) :
+            LiquidStores.FamilyOf(id) is LiquidFamily liquid ? count * kg * GasPrice(liquid.MistSpecies) : count * Price(id);
         bool Sellable(string id) => !ChargeCommodities.Is(id);
         bool Bought(string id) => d.Objects.ContainsKey(id) && Economy.Pack.regional != null && Economy.Pack.regional.items.ContainsKey(id)
             || PhobosShipbreaker.Core.ShipbreakerEconomy.Pack.regional?.items.ContainsKey(id) == true;

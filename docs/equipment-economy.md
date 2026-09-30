@@ -242,8 +242,8 @@ you earn by selling them mining output.
 | --- | --- |
 | Neutral | Supplies, pipe and line, ingots, coolant and nutrient charges, seeds, crops and meals |
 | Warm (25) | Agriculture machines, reservoirs and nutrient hoppers; H4 chute, C2 collector, Y bins, T2, S silos, C1 console, F6-R and F6-P; N1 board |
-| Friendly (50) | D4 and R4 with their sections, G4 grabber; N2 and N3 boards; every Manufacturing gas store, the A2, P1 and L2 |
-| Trusted (75) | F6 furnace and its sections; X2, AX-2, K2, V4 and LC-3 |
+| Friendly (50) | D4 and R4 with their sections, G4 grabber; N2 and N3 boards; every Manufacturing gas store and acid tank, the A2, P1 and L2 |
+| Trusted (75) | F6 furnace and its sections; X2, AX-2, K2, V4, LC-3 and SA-3 |
 
 Nothing needs Honored. Buying at a kiosk also raises your standing with that
 faction a little, as it does for vanilla goods. Stock arrives in the usual lots
@@ -762,3 +762,20 @@ more way: each machine falls from 3% to 2.5% of a roll, the same total. Station 
 supplies, the same per kilogram as the 500 g bulk charge (750 cr) and the 40 g
 packet (60 cr), so no route is cheaper and nothing sells back.
 
+## Manufacturing 0.19.0: the SA-3 acid plant and AT acid tanks
+
+| Equipment | Mass | Base price | Broken base | Install / uninstall | Repair | Dismantle | Restore |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| Lixivar SA-3 sulfuric acid plant | 260 kg | $56,000 | $14,000 | 1800 / 1400 | 5400 | 1400 | 135 min |
+| Lixivar AT-2 sulfuric acid tank | 240 kg | $16,000 | $4,000 | 1200 / 1000 | 3000 | 900 | 75 min |
+
+The SA-3 is billed like the LC-3 with a second heat sink and more steel (intact
+salvage 140 steel, 40 aluminium, 20 mechanical and 12 electronic parts, two
+motors, two mainboards, two heat sinks, a screen and 49 kg of retained trash,
+260 kg). The AT-2 is billed like a gas store (intact salvage 180 steel, 30
+aluminium, 12 mechanical and 3 electronic parts, a mainboard and 22 kg of trash,
+240 kg); the AT-3 and AT-4 follow the store size ladder, purchase-only. Both carry
+the high-salvage mark and share the other machines' routes, the SA-3 at Trusted
+and the tanks at Friendly faction-kiosk standing. Stations sell sulfuric acid into
+a tank at the game's own 3.1 cr/kg; nothing sells back. The phosphoric acid flask
+is 30 cr and the roasted calcine is trash; neither is sold by merchants.

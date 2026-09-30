@@ -1100,7 +1100,7 @@
       ]
     },
     "PhobosManufacturing": {
-      "intro": "Phobos Manufacturing refines what the crew mines and runs the first chemistry aboard: the Fennmark V4 Volatiles Refinery, the X2 Chemical Processor (water electrolysis), the K2 Sabatier Reactor, the Tolvane AX-2 Ammonia Cracker, the Lixivar LC-3 Leach and Crystallise Unit, hydrogen, methane, oxygen, nitrogen, carbon dioxide and ammonia stores in three sizes each, the P1 RCS Propellant Manifold, the L2 Canister Filling Station and the A2 Cabin Air Regulator, with nickel-iron ingots and carbon stock as raw stock, the LC-3's fertiliser salts and intermediates, six terminal remainders and three minable chunks. Every charge conserves mass and is recorded with its chemistry and sources in [the refinery design record](development/manufacturing-refinery-and-chemistry.md); operating instructions are in [the player guide](manufacturing-player-guide.md). Machines are purchase-only; ores and chunks are mined, never bought; bulk oxygen, nitrogen and carbon dioxide are sold only through the station Bulk supplies view. The machines are late-game plant, priced among the game's own radars, heavy lift rotors and missile launchers; they carry the game's high-salvage mark, need component repairs and are rare world finds. See [the equipment economy](equipment-economy.md#manufacturing-011-late-game-plant).",
+      "intro": "Phobos Manufacturing refines what the crew mines and runs the first chemistry aboard: the Fennmark V4 Volatiles Refinery, the X2 Chemical Processor (water electrolysis), the K2 Sabatier Reactor, the Tolvane AX-2 Ammonia Cracker, the Lixivar LC-3 Leach and Crystallise Unit and SA-3 Sulfuric Acid Plant, hydrogen, methane, oxygen, nitrogen, carbon dioxide and ammonia stores and Lixivar sulfuric acid tanks in three sizes each, the P1 RCS Propellant Manifold, the L2 Canister Filling Station and the A2 Cabin Air Regulator, with nickel-iron ingots and carbon stock as raw stock, the LC-3's fertiliser salts and intermediates, the SA-3's phosphoric acid flask, seven terminal remainders and four minable chunks. Every charge conserves mass and is recorded with its chemistry and sources in [the refinery design record](development/manufacturing-refinery-and-chemistry.md); operating instructions are in [the player guide](manufacturing-player-guide.md). Machines are purchase-only; ores and chunks are mined, never bought; bulk oxygen, nitrogen and carbon dioxide are sold only through the station Bulk supplies view. The machines are late-game plant, priced among the game's own radars, heavy lift rotors and missile launchers; they carry the game's high-salvage mark, need component repairs and are rare world finds. See [the equipment economy](equipment-economy.md#manufacturing-011-late-game-plant).",
       "groups": [
         {
           "key": "v4",
@@ -1208,6 +1208,23 @@
           "use": "Install through APPS within one tile of a water vessel (S3 or R3) and, for struvite, an ammonia store; connect power; on its panel or C1 link them and choose the recipe; load that recipe's charge into its feed (the Inventory opens the tray and the feed), then Start. It works the next charge of the same recipe when one is in the feed. Change the recipe only while no charge is bound. See [the player guide](manufacturing-player-guide.md).",
           "find": "Buy loose hardware from the sellers below; it is late-game equipment with late-game prices. No fabrication recipe. About one engineering-loot roll in twenty yields a Manufacturing machine, usually broken; see the exact offers below. The K-Leg fixer buys it back intact and the Venus scrap kiosk intact or broken. Also sold for scrip at the CCRE and GalCon faction kiosks; they ask Trusted standing.",
           "notes": "Reload pauses it; Start resumes the bound charge. Nothing melts or spoils in it, and it breathes nothing into the room; 15 percent of its electricity warms the room. The crust's mineral proportions and the recipes' energies are authored; the reactions and sources are in the refinery design record. Empty the tray by hand.",
+          "guide": "manufacturing-player-guide.md",
+          "internal": false,
+          "labels": {}
+        },
+        {
+          "key": "sa3",
+          "title": "SA-3 Sulfuric Acid Plant",
+          "ids": [
+            "PhobosAcidPlantLoose",
+            "PhobosAcidPlantLooseDmg",
+            "PhobosAcidPlantInstalled",
+            "PhobosAcidPlantInstalledDmg"
+          ],
+          "function": "A 3 x 3 roaster, converter bed and absorption tower from Lixivar. Each one-hour charge at 4 kW roasts one sulfide nodule in 6.28 kg of oxygen with 1.58 kg of water into 7.81 kg of sulfuric acid for a linked acid tank, a 0.515 kg phosphoric acid flask and 9.535 kg of roasted calcine. The reactions release about 21 kWh a nodule into the room.",
+          "use": "Install through APPS within one tile of an oxygen store, a water vessel and an acid tank; connect power; link all three on its panel or C1; load nodules into its feed (it holds two), then Start. Give it a large, cooled room: it waits whenever the room would pass 40 C. See [the player guide](manufacturing-player-guide.md).",
+          "find": "Buy loose hardware from the sellers below; it is late-game equipment with late-game prices. No fabrication recipe. About one engineering-loot roll in twenty yields a Manufacturing machine, usually broken; see the exact offers below. The K-Leg fixer buys it back intact and the Venus scrap kiosk intact or broken. Also sold for scrip at the CCRE and GalCon faction kiosks; they ask Trusted standing.",
+          "notes": "Reload pauses it; Start resumes the bound charge. It breathes nothing into the room, but its heat is real: vacuum is not free cooling. The nodule's make-up and the plant's energy are authored; the reactions and sources are in the refinery design record.",
           "guide": "manufacturing-player-guide.md",
           "internal": false,
           "labels": {}
@@ -1338,6 +1355,31 @@
           "labels": {}
         },
         {
+          "key": "acid-tanks",
+          "title": "AT-2, AT-3 and AT-4 Sulfuric Acid Tanks",
+          "ids": [
+            "PhobosAcidTankLoose",
+            "PhobosAcidTankLooseDmg",
+            "PhobosAcidTankInstalled",
+            "PhobosAcidTankInstalledDmg",
+            "PhobosAcidTankMediumLoose",
+            "PhobosAcidTankMediumLooseDmg",
+            "PhobosAcidTankMediumInstalled",
+            "PhobosAcidTankMediumInstalledDmg",
+            "PhobosAcidTankLargeLoose",
+            "PhobosAcidTankLargeLooseDmg",
+            "PhobosAcidTankLargeInstalled",
+            "PhobosAcidTankLargeInstalledDmg"
+          ],
+          "function": "Bunded tanks for concentrated sulfuric acid, kept as a kilogram record: 1,150 kg in the 2 x 2 AT-2, 2,850 kg in the 3 x 3 AT-3 and 5,520 kg in the 4 x 4 AT-4. Liquid tanks, not gas stores: no gas line and no feed to thrusters, filling stations or cabin air.",
+          "use": "Install through APPS within one tile of an SA-3 (which fills it) or an LC-3 (which draws from it); link it from those machines. Buy acid into it at a station's Bulk supplies. Pour acid into another tank within one tile from its panel or C1. Empty it before moving or dismantling it.",
+          "find": "Buy loose hardware from the sellers below; it is late-game equipment with late-game prices, and the bigger sizes cost less per kilogram held. No fabrication recipe. The small size is a rare engineering-loot find, usually broken; the medium and large sizes are too big to turn up in salvage. The K-Leg fixer buys them back intact and the Venus scrap kiosk intact or broken. Also sold for scrip at the CCRE and GalCon faction kiosks; they ask Friendly standing.",
+          "notes": "Damaged, the bund holds the acid but a ten-thousandth of it reaches the room as the game's own sulfuric acid mist, which poisons in its bands; repair, then recover the acid. A destroyed tank mists the same share and the rest is lost. Bought acid costs the game's own 3.1 cr/kg; nothing sells back.",
+          "guide": "manufacturing-player-guide.md",
+          "internal": false,
+          "labels": {}
+        },
+        {
           "key": "l2",
           "title": "L2 Canister Filling Station",
           "ids": [
@@ -1439,6 +1481,20 @@
           "labels": {}
         },
         {
+          "key": "phosphoric-flask",
+          "title": "Phosphoric acid flask",
+          "ids": [
+            "PhobosPhosphoricAcidFlask"
+          ],
+          "function": "0.515 kg of phosphoric acid caught from a roasted nodule, in a sealed flask: the phosphorus of three struvite units.",
+          "use": "Made in the SA-3. The LC-3's acid-route struvite takes it. Carry, stack (ten per stack) and sell at any general buyer.",
+          "find": "Made in the SA-3 from sulfide nodules. Never sold in shops.",
+          "notes": "Priced at 30 cr under the refining guardrails.",
+          "guide": "manufacturing-player-guide.md",
+          "internal": false,
+          "labels": {}
+        },
+        {
           "key": "remainders",
           "title": "Terminal remainders",
           "ids": [
@@ -1447,11 +1503,12 @@
             "PhobosSpentSaltCake",
             "PhobosBrineSaltCake",
             "PhobosCausticRemainder",
-            "PhobosCalcinedResidue"
+            "PhobosCalcinedResidue",
+            "PhobosRoastedCalcine"
           ],
-          "function": "Refinery slag (1 kg: sulfide, phosphide and oxide skimmings, or a frozen melt), anhydrous residue (8 kg of baked clay minerals), spent salt cake (7.305 kg of table salt baked into clay), brine salt cake (2.25 kg of the evaporite crust's sodium salts), caustic remainder (70 g of sodium hydroxide from struvite) and calcined residue (6.54 kg of baked clay and magnesia). Trash at the technical minimum price; nothing recovers them.",
+          "function": "Refinery slag (1 kg: sulfide, phosphide and oxide skimmings, or a frozen melt), anhydrous residue (8 kg of baked clay minerals), spent salt cake (7.305 kg of table salt baked into clay), brine salt cake (2.25 kg of the evaporite crust's sodium salts), caustic remainder (70 g of sodium hydroxide from struvite) calcined residue (6.54 kg of baked clay and magnesia) and roasted calcine (9.535 kg of iron and nickel oxides and rock from the SA-3). Trash at the technical minimum price; nothing recovers them.",
           "use": "Carry them out of the tray and sell or discard them.",
-          "find": "Left in the V4 or LC-3 tray by their charges. Never sold.",
+          "find": "Left in the V4, LC-3 or SA-3 tray by their charges. Never sold.",
           "notes": "Terminal: never re-processed, never the game's own Trash item.",
           "guide": "manufacturing-player-guide.md",
           "internal": false,
@@ -1500,15 +1557,30 @@
           "labels": {}
         },
         {
+          "key": "sulfide-nodule",
+          "title": "Sulfide nodule",
+          "ids": [
+            "PhobosSulfideNodule"
+          ],
+          "function": "A 10 kg chunk of troilite (iron sulfide) with schreibersite, a nickel-iron phosphide, of the kind found in iron meteorites. The ship's source of sulfur and phosphorus.",
+          "use": "Roast it in an SA-3 for sulfuric acid and a phosphoric acid flask, or sell it to a government kiosk like other ore.",
+          "find": "Mined: M-class and S-class deposits turn it up in place of some of their meteoric iron, about one M-class find in twenty-five and one S-class find in fifty. Never sold.",
+          "notes": "The mix (7.000 kg troilite, 1.058 kg phosphide, 1.942 kg rock) is authored after Buchwald's handbook of iron meteorites; see the chemistry record.",
+          "guide": "manufacturing-player-guide.md",
+          "internal": false,
+          "labels": {}
+        },
+        {
           "key": "compartments",
           "title": "Built-in charge feeds",
           "ids": [
             "PhobosVolatilesRefineryInputBin",
-            "PhobosLeachUnitInputBin"
+            "PhobosLeachUnitInputBin",
+            "PhobosAcidPlantInputBin"
           ],
-          "function": "The V4's and the LC-3's charge feeds, named child inventories built into the machines. Not separate products.",
-          "use": "Open one from its machine's Inventory. The V4 takes single ore blocks, clay chunks, salt crusts, leached residues, nickel-iron ingots or carbon stock; the LC-3 takes only the chosen recipe's feed (an evaporite crust, a phosphate concentrate, or potassium sulfate and struvite). Each binds one exact charge at a time.",
-          "find": "Shown as feed inventory within the V4 or the LC-3.",
+          "function": "The V4's, the LC-3's and the SA-3's charge feeds, named child inventories built into the machines. Not separate products.",
+          "use": "Open one from its machine's Inventory. The V4 takes single ore blocks, clay chunks, salt crusts, leached residues, nickel-iron ingots or carbon stock; the LC-3 takes only the chosen recipe's feed (an evaporite crust, a phosphate concentrate, or potassium sulfate and struvite). The SA-3 takes sulfide nodules only. Each binds one exact charge at a time.",
+          "find": "Shown as feed inventory within the V4, the LC-3 or the SA-3.",
           "notes": "No purchase, INSTALL, repair, Restore or standalone salvage contract.",
           "guide": "manufacturing-player-guide.md",
           "internal": true,
@@ -1567,6 +1639,8 @@
     "ItmOKLGFoodCart02KioskInv": "K-Leg food cart 2",
     "ItmTraderSanDiegoFutureFoodsInv": "San Diego Future Foods",
     "ItmRandomMineralCClass": "C-class asteroid deposit",
+    "ItmRandomMineralMClass": "M-class asteroid deposit",
+    "ItmRandomMineralSClass": "S-class asteroid deposit",
     "ItmFactionKioskBCRSInv": "Zhonghuamen Terminal CCRE faction kiosk (scrip)",
     "ItmFactionKioskMTRSInv": "Port Yangshan CCRE faction kiosk (scrip)",
     "ItmFactionKioskBCERInv": "Port Mojave GalCon faction kiosk (scrip)"

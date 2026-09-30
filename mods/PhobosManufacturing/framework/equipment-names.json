@@ -43,5 +43,13 @@
   "Material.PhobosStruvite": { "brand": "Lixivar", "model": "" },
   "Material.PhobosBrineSaltCake": { "brand": "Lixivar", "model": "" },
   "Material.PhobosCausticRemainder": { "brand": "Lixivar", "model": "" },
-  "Material.PhobosCalcinedResidue": { "brand": "Fennmark", "model": "" }
+  "Material.PhobosCalcinedResidue": { "brand": "Fennmark", "model": "" },
+  "Acid.name": { "brand": "Lixivar", "model": "AT-2" },
+  "Acid.name_medium": { "brand": "Lixivar", "model": "AT-3" },
+  "Acid.name_large": { "brand": "Lixivar", "model": "AT-4" },
+  "AcidPlant.name": { "brand": "Lixivar", "model": "SA-3" },
+  "AcidPlant.feed_name": { "brand": "Lixivar", "model": "SA-3" },
+  "Material.PhobosSulfideNodule": { "brand": "Lixivar", "model": "" },
+  "Material.PhobosPhosphoricAcidFlask": { "brand": "Lixivar", "model": "" },
+  "Material.PhobosRoastedCalcine": { "brand": "Lixivar", "model": "" }
 }

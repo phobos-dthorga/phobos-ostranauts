@@ -28,6 +28,19 @@
       "art": "PhobosLeachUnit",
       "installTab": "APPS",
       "points": { "use": [ 0, -32 ], "PowerA": [ 0, 16 ] }
+    },
+    "PhobosAcidPlant": {
+      "notes": "Lixivar SA-3 Sulfuric Acid Plant: a fluidised-bed roaster, a converter bed and an absorption tower, one nodule at a time. Its 4 kW runs the blowers, preheat and pumps; the reactions themselves release about 21.1 kWh a charge into the room.",
+      "kind": "charge-machine",
+      "footprint": 3,
+      "massKg": 260,
+      "idleKW": 0.1,
+      "workingKW": 4,
+      "roomHeatFraction": 0.15,
+      "feedCells": 2,
+      "art": "PhobosAcidPlant",
+      "installTab": "APPS",
+      "points": { "use": [ 0, -32 ], "PowerA": [ 0, 16 ] }
     }
   }
 }

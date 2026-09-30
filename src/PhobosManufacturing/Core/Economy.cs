@@ -21,9 +21,9 @@ public static class Economy
     {
         (RefineryRules.Prefix, RefineryRules.MachineKg), (ProcessorRules.Prefix, ProcessorRules.MachineKg), (SabatierRules.Prefix, SabatierRules.MachineKg),
         (CrackerRules.Prefix, CrackerRules.MachineKg), (ManifoldRules.Prefix, ManifoldRules.MachineKg), (FillerRules.Prefix, FillerRules.MachineKg),
-        (RegulatorRules.Prefix, RegulatorRules.MachineKg), (LeachRules.Prefix, LeachRules.MachineKg)
+        (RegulatorRules.Prefix, RegulatorRules.MachineKg), (LeachRules.Prefix, LeachRules.MachineKg), (AcidPlantRules.Prefix, AcidPlantRules.MachineKg)
     };
-    public static IReadOnlyList<string> EquipmentKeys => Machines.Select(m => m.Prefix).Concat(GasStores.Families.Select(f => f.SmallPrefix)).ToArray();
+    public static IReadOnlyList<string> EquipmentKeys => Machines.Select(m => m.Prefix).Concat(GasStores.Families.Select(f => f.SmallPrefix)).Concat(LiquidStores.Families.Select(f => f.SmallPrefix)).ToArray();
     public static IReadOnlyList<string> SupplyKeys { get; } = new[] { PropellantLineRules.Prefix };
 
     /// <summary>Reads the shipped pack and any player files, validates them against the code's families and returns
@@ -39,7 +39,8 @@ public static class Economy
     {
         foreach (var m in Machines) if (m.Prefix == prefix) return m.MassKg;
         var family = GasStores.Families.FirstOrDefault(f => f.SmallPrefix == prefix);
-        return family?.SmallDryKg;
+        if (family != null) return family.SmallDryKg;
+        return LiquidStores.Families.FirstOrDefault(f => f.SmallPrefix == prefix)?.SmallDryKg;
     }
     public static EquipmentEconomyEntry Entry(string prefix) => Pack.equipment.TryGetValue(prefix, out var e) ? e : throw new InvalidOperationException("No economy entry for " + prefix);
     public static double Price(string prefix) => Entry(prefix).price;

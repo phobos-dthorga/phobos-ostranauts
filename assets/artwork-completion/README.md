@@ -98,3 +98,18 @@ are original Pillow drawings in `references/`. Nine included generations (1,762 
 the rejected LC-3 second pass and struvite pass stay in the provider gallery, so
 nothing was archived. Every request, seed, job ID, repair and derivation is in
 [round-three-requests.json](round-three-requests.json).
+
+Agriculture 0.27.0 adds the Groundwork nutrient hopper: `source/e2-nutrient-hopper.png`
+(full footprint, the E2 at 32 px and the E4 at 64 px, both integer reductions of one
+128 px master) and `source/e3-nutrient-hopper.png` (96 px, from the E2 layout), from an
+original start drawing in the reservoir family's palette. Three included generations
+(1,753 to 1,750), $0 credit; the first E2 pass is kept in `references/` as the input of
+the selected second pass.
+
+Manufacturing 0.19.0 adds `source/sa3-acid-plant.png` (full footprint, 48 px native
+from 96 px), `source/at2-acid-tank.png` (the AT-2 at 32 px and the AT-4 at 64 px,
+both integer reductions) and `source/at3-acid-tank.png` (96 px, from the AT-2 layout),
+the sulfide nodule and phosphoric acid flask (64 px masters), and the roasted
+calcine as a recorded rust ramp of the anhydrous residue. Five included generations
+(1,750 to 1,745), $0 credit, nothing rejected. Records are appended to
+[round-three-requests.json](round-three-requests.json).

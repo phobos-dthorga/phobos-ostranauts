@@ -8,6 +8,7 @@
     "PhobosOxygenStore": { "notes": "Fennmark O2: 80% of the ideal-gas moles as oxygen.", "kind": "gas-store", "commodity": "oxygen", "capacityKg": 340, "dryKg": 160, "leakKgPerHour": 2 },
     "PhobosNitrogenStore": { "notes": "Fennmark N2: 80% of the ideal-gas moles as nitrogen.", "kind": "gas-store", "commodity": "nitrogen", "capacityKg": 300, "dryKg": 160, "leakKgPerHour": 2 },
     "PhobosCarbonDioxideStore": { "notes": "Fennmark C2: 80% of the ideal-gas moles as carbon dioxide (real CO2 would be a denser fluid; the game treats every gas as ideal).", "kind": "gas-store", "commodity": "carbon dioxide", "capacityKg": 470, "dryKg": 160, "leakKgPerHour": 2 },
-    "PhobosAmmoniaStore": { "notes": "Fennmark Q2: liquefied ammonia at an 80% fill, 383 kg rounded to 380.", "kind": "gas-store", "commodity": "ammonia", "capacityKg": 380, "dryKg": 160, "leakKgPerHour": 2 }
+    "PhobosAmmoniaStore": { "notes": "Fennmark Q2: liquefied ammonia at an 80% fill, 383 kg rounded to 380.", "kind": "gas-store", "commodity": "ammonia", "capacityKg": 380, "dryKg": 160, "leakKgPerHour": 2 },
+    "PhobosAcidTank": { "notes": "Lixivar AT-2: 98% sulfuric acid at about 1,836 kg/m3 in the same 0.787 m3 vessel at an 80% fill, 1,156 kg rounded to 1,150, in a 240 kg bunded carbon-steel housing. A liquid store, not a gas store: damage isolates the acid in the bund and nothing leaks.", "kind": "liquid-store", "commodity": "sulfuric acid", "capacityKg": 1150, "dryKg": 240, "leakKgPerHour": 0 }
   }
 }

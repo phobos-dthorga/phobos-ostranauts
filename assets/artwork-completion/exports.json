@@ -2754,5 +2754,184 @@
     "registrationReference": null,
     "patches": null,
     "fullFootprint": true
+  },
+  {
+    "key": "sa3-acid-plant",
+    "sourceSHA256": "309ab2e58e53f1ef4bfed2bf3a93f67eed8d973ea1f7cc12c0af19081bf969e5",
+    "nativeSize": [
+      48,
+      48
+    ],
+    "pivot": [
+      24,
+      24
+    ],
+    "sourceBounds": [
+      0,
+      0,
+      96,
+      96
+    ],
+    "exports": {
+      "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosAcidPlant.png": "7d8cff4a8a6d6c9522fbfcfc139736f3ef70d22e73d723a93f5e6c0001621d4b",
+      "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosAcidPlantNormal.png": "df50bbd4e122efd8a6fbf5efc01e3cd8d6678c45b0486c05b0c14e0a71af953a"
+    },
+    "normal": "Neutral tangent normal with matching alpha; no authored relief",
+    "registrationReference": null,
+    "patches": null,
+    "fullFootprint": true
+  },
+  {
+    "key": "at2-acid-tank",
+    "sourceSHA256": "33ab318505445d3709d5fab9f5a131aa3781a519381de3cc4ede0c690df4accd",
+    "nativeSize": [
+      32,
+      32
+    ],
+    "pivot": [
+      16,
+      16
+    ],
+    "sourceBounds": [
+      0,
+      0,
+      128,
+      128
+    ],
+    "exports": {
+      "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosAcidTank.png": "d237579bdc94057a0f1be09021e4ff9688ba73633d676bfde0e3b75ca12b2210",
+      "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosAcidTankNormal.png": "7e4297a0c170e01336e183a0cfa61b23f5bf84a0d480bd40c09a68f2b5e9ae12"
+    },
+    "normal": "Neutral tangent normal with matching alpha; no authored relief",
+    "registrationReference": null,
+    "patches": null,
+    "fullFootprint": true
+  },
+  {
+    "key": "at3-acid-tank",
+    "sourceSHA256": "54d6f37326f4f0e4bf7c7a73fc546139b07e76239e3dfbc9e389f8f47fb705ed",
+    "nativeSize": [
+      48,
+      48
+    ],
+    "pivot": [
+      24,
+      24
+    ],
+    "sourceBounds": [
+      0,
+      0,
+      96,
+      96
+    ],
+    "exports": {
+      "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosAcidTankMedium.png": "cfaae4f86391130bba44810fd6e24c73ffba740bdeec942741a94264f50950e8",
+      "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosAcidTankMediumNormal.png": "df50bbd4e122efd8a6fbf5efc01e3cd8d6678c45b0486c05b0c14e0a71af953a"
+    },
+    "normal": "Neutral tangent normal with matching alpha; no authored relief",
+    "registrationReference": null,
+    "patches": null,
+    "fullFootprint": true
+  },
+  {
+    "key": "at4-acid-tank",
+    "sourceSHA256": "33ab318505445d3709d5fab9f5a131aa3781a519381de3cc4ede0c690df4accd",
+    "nativeSize": [
+      64,
+      64
+    ],
+    "pivot": [
+      32,
+      32
+    ],
+    "sourceBounds": [
+      0,
+      0,
+      128,
+      128
+    ],
+    "exports": {
+      "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosAcidTankLarge.png": "b17049434c2828ea6155f339b589e63656b0a68675f3aca9e75729e9ed2424e0",
+      "mods/PhobosManufacturing/images/phobos/manufacturing/PhobosAcidTankLargeNormal.png": "072b54cf18c7b6527f75471c798c9fd23e7ba7163f0a2f02e651f8caa08f30b5"
+    },
+    "normal": "Neutral tangent normal with matching alpha; no authored relief",
+    "registrationReference": null,
+    "patches": null,
+    "fullFootprint": true
+  },
+  {
+    "key": "sulfide-nodule",
+    "sourceSHA256": "7dc5ca3db43533353edd3adfac4002bad28734ab20ad8999e9f3500bacef06f3",
+    "nativeSize": [
+      16,
+      16
+    ],
+    "pivot": [
+      8,
+      8
+    ],
+    "sourceBounds": [
+      11,
+      13,
+      53,
+      51
+    ],
+    "exports": {
+      "mods/PhobosManufacturing/images/phobos/manufacturing/StockSulfideNodule.png": "9a5084c7a9381db4acf01b90444955d7133131ed0ad9fbd4578349ef557088a5",
+      "mods/PhobosManufacturing/images/phobos/manufacturing/StockSulfideNoduleNormal.png": "3b1bb6b6bda8f55129c0b1d1dd1d0aac7d5073f356cc7830c0bc632753897226"
+    },
+    "normal": "Neutral tangent normal with matching alpha; no authored relief",
+    "registrationReference": null,
+    "patches": null
+  },
+  {
+    "key": "phosphoric-acid-flask",
+    "sourceSHA256": "1cf517ee65263fc9cc1498466bfb22888c9b46f1aded5b324f130c15fa0fcd0c",
+    "nativeSize": [
+      16,
+      16
+    ],
+    "pivot": [
+      8,
+      8
+    ],
+    "sourceBounds": [
+      16,
+      16,
+      49,
+      49
+    ],
+    "exports": {
+      "mods/PhobosManufacturing/images/phobos/manufacturing/StockPhosphoricAcidFlask.png": "218aece4dbfa6efc40cf66fceb5a99ea25ade3cae57beaf87f402828f0da6ce5",
+      "mods/PhobosManufacturing/images/phobos/manufacturing/StockPhosphoricAcidFlaskNormal.png": "25279a27947d62bb3a12c109569a5834fa905f1dc1c58a3f2cd3b1f40ccaf38e"
+    },
+    "normal": "Neutral tangent normal with matching alpha; no authored relief",
+    "registrationReference": null,
+    "patches": null
+  },
+  {
+    "key": "roasted-calcine",
+    "sourceSHA256": "5f323c4438f64a295b0ec93eb7d29c3876cf97cf03443f7b56b74ada84ce48d7",
+    "nativeSize": [
+      16,
+      16
+    ],
+    "pivot": [
+      8,
+      8
+    ],
+    "sourceBounds": [
+      13,
+      15,
+      51,
+      49
+    ],
+    "exports": {
+      "mods/PhobosManufacturing/images/phobos/manufacturing/StockRoastedCalcine.png": "d749ced052423dc0e5641692796fc0ec43ba52332c3152639db48738d3ec3806",
+      "mods/PhobosManufacturing/images/phobos/manufacturing/StockRoastedCalcineNormal.png": "229b26a10a0176e0f4a92cd32b699967ac576be6cf23f86479b4899b905c0127"
+    },
+    "normal": "Neutral tangent normal with matching alpha; no authored relief",
+    "registrationReference": null,
+    "patches": null
   }
 ]
