@@ -1,0 +1,35 @@
+[h1]Phobos Framework 0.63.0[/h1]
+[b]Draft - not published | 2026-10-01[/b]
+
+[h2]Added[/h2]
+
+[list]
+[*]Lines now hold what flows through them. A process-water line keeps about half a kilogram of water on every tile, and a gas line a few grams of whatever gases its stores hold, mixed if several are on it. Each section weighs that much more. An open line tops itself up from the tanks on it every couple of seconds, as soon as a tank has water or gas above its reserve.
+[*]Drain line into canister: right-click an installed water or acid line and a crew member drains the whole run into a drain canister they carry or that lies within two tiles, nearest sections first. A long line takes several canisters.
+[*]Vent gas line: a gas line vents instead, its few grams going into the room air, except hydrogen, which goes overboard.
+[*]Draining or venting closes the run, so its tank no longer refills it and no machine reaches a store through it. Return line to service opens it again, and it refills.
+[*]The Rivetline D20 drain canister: a 20 litre lined can, 3 kg empty, 40 cr, sold with the lines at every general market in lots of 16 and at the faction kiosks at any standing. It holds one liquid at a time and never stacks. Haul a full one with the game's own Haul orders, or with a hauling mod such as Common Sense, into a tank that holds the same liquid, and it pours in, leaving the empty can there.
+[*]For content mods: declare which commodities a line holds with LineContents.Declare, offer the actions with LineContents.OfferActions, and give a store a canister rack with ApplianceDefinitions.SetRack and the drain canister's rack trigger.
+[/list]
+
+[h2]Changed[/h2]
+
+[list]
+[*]A section that holds anything can no longer be uninstalled or dismantled; the refusal says to drain it first. A damaged gas section lets its gas out into the room. A damaged water section keeps its water until drained. A destroyed section's contents are released and logged.
+[*]The process-water and gas line descriptions now say what they hold.
+[/list]
+
+[h2]Save compatibility[/h2]
+
+[list]
+[*]Automatic. Lines already laid start empty and fill from their tanks within seconds after loading. Those tanks drop by the line's hold-up: about half a kilogram of water per tile of water line, a few grams of gas per tile of gas line. Nothing else in the save changes.
+[/list]
+
+[h2]Compatibility and limits[/h2]
+
+[list]
+[*]Phobos Manufacturing 0.25.0 needs this version. Irrigation and furnace coolant lines are not yet on this model; they follow in later releases.
+[*]Ship's Water tanks do not fill lines; only Phobos tanks and stores do.
+[*]Hold-up is authored: a 25 mm bore, a metre a tile, and gas at 10 bar. It is not a flow or pressure simulation.
+[*]Draining, venting and pouring have not been seen in play yet. Offline checks are not gameplay validation.
+[/list]

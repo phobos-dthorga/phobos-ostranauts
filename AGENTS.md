@@ -1289,6 +1289,27 @@
   `VesselLink`; new ports through `LinePorts` and `LineDefinitions.AddPort`; process
   water is stored only in `WaterTanks`, and new mods add work to them by amendment.
 
+## Lines hold their contents (2026-10-01)
+
+- Owner decisions: every Phobos pipe holds what it carries until drained, with realistic
+  hold-up; a gas line may hold any mix of gases; drained liquid goes into a portable drain
+  canister that crew haul (the game's Haul, with LOGUSS's Common Sense as an optional,
+  no-code tie-in); irrigation parcels and the furnace coolant charge move to the same
+  model with their saved contents converted on load.
+- Framework 0.63.0 with Manufacturing 0.25.0 implement the water, gas and acid lines:
+  - `LineContents` keeps a per-segment record, and segment mass is dry mass plus contents.
+    Open runs are topped up every two seconds from the stores on them.
+  - Crew actions: Drain line into canister, Vent gas line, and Return line to service.
+    A drained run is closed and joins nothing.
+  - Removal of a holding segment is refused when offered. Damage vents gas and releases
+    a declared mist.
+  - The Rivetline D20 drain canister pours into a matching tank's inventory or canister
+    rack.
+  - Follow `docs/development/line-contents-design.md`. Declare new holding lines through
+    `LineContents.Declare`; never add a separate spill for them.
+- Agriculture irrigation and Shipbreaker coolant are the remaining releases. Owner
+  gameplay checks remain pending.
+
 ## Refining value (2026-09-30)
 
 - Owner direction: the rule that **every refining charge must lose value** belonged

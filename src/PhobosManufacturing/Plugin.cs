@@ -18,8 +18,8 @@ namespace PhobosManufacturing;
 public sealed class Plugin : BaseUnityPlugin
 {
     public const string Id = ManufacturingRules.Owner;
-    public const string Version = "0.24.0";
-    public const string MinimumFrameworkVersion = "0.60.0";
+    public const string Version = "0.25.0";
+    public const string MinimumFrameworkVersion = "0.63.0";
     internal static Action<string> Log = _ => { };
     private Harmony? harmony;
     private float nextScan;

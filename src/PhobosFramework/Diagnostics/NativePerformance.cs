@@ -36,6 +36,7 @@ internal static class NativePerformance
             Performance.SkipMachineStep = Performance.RegisterOperation("framework.skip.machine_step", "processing");
             Performance.WorldSweep = Performance.RegisterOperation("framework.world.sweep", "discovery");
             Performance.WorldSweepObjects = Performance.RegisterIncrement("framework.world.sweep_objects", "discovery", "items");
+            Performance.LineContentsMaintain = Performance.RegisterOperation("framework.line_contents.maintain", "processing");
             CaptureProbes.Initialize(log);
             frames = new FrameMeasurements();
             Performance.RegisterContext("game.allocations.available", () => frames.AllocationSupported ? "true" : "false");

@@ -83,6 +83,7 @@ foreach (var co in framework.Objects.Values)
 framework.Publish();
 FrameworkItemChecks.Run(framework, repo, Check);
 BeltNativeChecks.Run(framework, Check);
+LineContentsNativeChecks.Run(framework, Check);
 CompletionArtworkChecks.Run(framework, "PhobosFramework", repo, Check, Phobos.Ostranauts.Framework.Items.WaterTanks.BasePrefix);
 var agriculture = PhobosAgriculture.Definitions.Prepare();
 CompletionArtworkChecks.Run(agriculture, "PhobosAgriculture", repo, Check);

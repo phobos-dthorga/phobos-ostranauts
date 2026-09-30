@@ -11522,7 +11522,7 @@
     {
       "id": "PhobosFramework",
       "name": "Phobos Framework",
-      "version": "0.62.0",
+      "version": "0.63.0",
       "gameTarget": "1.0.1.5",
       "items": [
         {
@@ -11982,6 +11982,39 @@
           ],
           "massKg": 4.0,
           "baseValue": 0.009999999776482582,
+          "installed": false,
+          "operatingModes": [],
+          "installTab": null,
+          "jobs": [],
+          "aliases": []
+        },
+        {
+          "id": "PhobosLineDrainCanister",
+          "name": "Phobos' Rivetline D20 Drain Canister",
+          "stackLimit": 1,
+          "actions": [
+            "DropItem",
+            "PickupItem"
+          ],
+          "missingDirectActions": [],
+          "container": {
+            "trigger": null,
+            "width": 0,
+            "height": 0,
+            "flag": false,
+            "inventoryAction": false,
+            "ownedSlots": [],
+            "loot": null
+          },
+          "handlingFlags": [
+            "IsPocketable"
+          ],
+          "slots": [
+            "heldL",
+            "heldR"
+          ],
+          "massKg": 3.0,
+          "baseValue": 40.0,
           "installed": false,
           "operatingModes": [],
           "installTab": null,
@@ -14092,6 +14125,8 @@
           "name": "Phobos' Process Water Line",
           "stackLimit": 1,
           "actions": [
+            "PhobosLineDrain",
+            "PhobosLineReopen",
             "PhobosFrameworkMaintenanceInformation"
           ],
           "missingDirectActions": [],
@@ -14191,6 +14226,8 @@
           "name": "Phobos' Process Water Line (Damaged)",
           "stackLimit": 1,
           "actions": [
+            "PhobosLineDrain",
+            "PhobosLineReopen",
             "PhobosFrameworkMaintenanceInformation"
           ],
           "missingDirectActions": [],
@@ -14555,6 +14592,8 @@
           "name": "Phobos' Fennmark Gas Line",
           "stackLimit": 1,
           "actions": [
+            "PhobosLineVent",
+            "PhobosLineReopen",
             "PhobosFrameworkMaintenanceInformation"
           ],
           "missingDirectActions": [],
@@ -14654,6 +14693,8 @@
           "name": "Phobos' Fennmark Gas Line (Damaged)",
           "stackLimit": 1,
           "actions": [
+            "PhobosLineVent",
+            "PhobosLineReopen",
             "PhobosFrameworkMaintenanceInformation"
           ],
           "missingDirectActions": [],
@@ -15065,6 +15106,13 @@
           "count": 8
         },
         {
+          "table": "ItmFactionKioskBCERInv",
+          "item": "PhobosLineDrainCanister",
+          "condition": "Pristine, Neutral standing",
+          "chance": 1.0,
+          "count": 16
+        },
+        {
           "table": "ItmFactionKioskBCRSInv",
           "item": "PhobosPropellantLineLoose",
           "condition": "Pristine, Neutral standing",
@@ -15114,6 +15162,13 @@
           "count": 8
         },
         {
+          "table": "ItmFactionKioskBCRSInv",
+          "item": "PhobosLineDrainCanister",
+          "condition": "Pristine, Neutral standing",
+          "chance": 1.0,
+          "count": 16
+        },
+        {
           "table": "ItmFactionKioskMTRSInv",
           "item": "PhobosPropellantLineLoose",
           "condition": "Pristine, Neutral standing",
@@ -15163,6 +15218,13 @@
           "count": 8
         },
         {
+          "table": "ItmFactionKioskMTRSInv",
+          "item": "PhobosLineDrainCanister",
+          "condition": "Pristine, Neutral standing",
+          "chance": 1.0,
+          "count": 16
+        },
+        {
           "table": "ItmFlotillaScrapKioskInv",
           "item": "PhobosProcessSiloCompactLoose",
           "condition": "Refurbished",
@@ -15189,6 +15251,13 @@
           "condition": "Refurbished",
           "chance": 0.85,
           "count": 8
+        },
+        {
+          "table": "ItmFlotillaScrapKioskInv",
+          "item": "PhobosLineDrainCanister",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 16
         },
         {
           "table": "ItmLootSpawnEngineering",
@@ -15252,6 +15321,13 @@
           "condition": "Pristine",
           "chance": 0.95,
           "count": 128
+        },
+        {
+          "table": "ItmOKLGFixer",
+          "item": "PhobosLineDrainCanister",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 16
         },
         {
           "table": "ItmOKLGSupplyKioskInv",
@@ -15331,6 +15407,13 @@
           "count": 8
         },
         {
+          "table": "ItmOKLGSupplyKioskInv",
+          "item": "PhobosLineDrainCanister",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 16
+        },
+        {
           "table": "ItmSupplyKioskBCERInv",
           "item": "PhobosProcessSiloCompactLoose",
           "condition": "Pristine",
@@ -15357,6 +15440,13 @@
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskBCERInv",
+          "item": "PhobosLineDrainCanister",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 16
         },
         {
           "table": "ItmSupplyKioskBCRSInv",
@@ -15387,6 +15477,13 @@
           "count": 8
         },
         {
+          "table": "ItmSupplyKioskBCRSInv",
+          "item": "PhobosLineDrainCanister",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 16
+        },
+        {
           "table": "ItmSupplyKioskEJDRInv",
           "item": "PhobosProcessSiloCompactLoose",
           "condition": "Pristine",
@@ -15413,6 +15510,13 @@
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskEJDRInv",
+          "item": "PhobosLineDrainCanister",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 16
         },
         {
           "table": "ItmSupplyKioskHQCHInv",
@@ -15443,6 +15547,13 @@
           "count": 8
         },
         {
+          "table": "ItmSupplyKioskHQCHInv",
+          "item": "PhobosLineDrainCanister",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 16
+        },
+        {
           "table": "ItmSupplyKioskJATLInv",
           "item": "PhobosProcessSiloCompactLoose",
           "condition": "Pristine",
@@ -15469,6 +15580,13 @@
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskJATLInv",
+          "item": "PhobosLineDrainCanister",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 16
         },
         {
           "table": "ItmSupplyKioskJFTSInv",
@@ -15499,6 +15617,13 @@
           "count": 8
         },
         {
+          "table": "ItmSupplyKioskJFTSInv",
+          "item": "PhobosLineDrainCanister",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 16
+        },
+        {
           "table": "ItmSupplyKioskMHNGInv",
           "item": "PhobosProcessSiloCompactLoose",
           "condition": "Pristine",
@@ -15525,6 +15650,13 @@
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskMHNGInv",
+          "item": "PhobosLineDrainCanister",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 16
         },
         {
           "table": "ItmSupplyKioskMSUZInv",
@@ -15555,6 +15687,13 @@
           "count": 8
         },
         {
+          "table": "ItmSupplyKioskMSUZInv",
+          "item": "PhobosLineDrainCanister",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 16
+        },
+        {
           "table": "ItmSupplyKioskMTRSInv",
           "item": "PhobosProcessSiloCompactLoose",
           "condition": "Pristine",
@@ -15581,6 +15720,13 @@
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskMTRSInv",
+          "item": "PhobosLineDrainCanister",
+          "condition": "Pristine",
+          "chance": 0.9750000000000001,
+          "count": 16
         },
         {
           "table": "ItmSupplyKioskMVOLInv",
@@ -15611,6 +15757,13 @@
           "count": 8
         },
         {
+          "table": "ItmSupplyKioskMVOLInv",
+          "item": "PhobosLineDrainCanister",
+          "condition": "Pristine",
+          "chance": 0.9750000000000001,
+          "count": 16
+        },
+        {
           "table": "ItmSupplyKioskSVIRInv",
           "item": "PhobosProcessSiloCompactLoose",
           "condition": "Pristine",
@@ -15637,6 +15790,13 @@
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskSVIRInv",
+          "item": "PhobosLineDrainCanister",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 16
         },
         {
           "table": "ItmSupplyKioskVCBRInv",
@@ -15667,6 +15827,13 @@
           "count": 8
         },
         {
+          "table": "ItmSupplyKioskVCBRInv",
+          "item": "PhobosLineDrainCanister",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 16
+        },
+        {
           "table": "ItmSupplyKioskVENCInv",
           "item": "PhobosProcessSiloCompactLoose",
           "condition": "Pristine",
@@ -15695,6 +15862,13 @@
           "count": 8
         },
         {
+          "table": "ItmSupplyKioskVENCInv",
+          "item": "PhobosLineDrainCanister",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 16
+        },
+        {
           "table": "ItmSupplyKioskVNCAInv",
           "item": "PhobosProcessSiloCompactLoose",
           "condition": "Pristine",
@@ -15721,6 +15895,13 @@
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
+        },
+        {
+          "table": "ItmSupplyKioskVNCAInv",
+          "item": "PhobosLineDrainCanister",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 16
         },
         {
           "table": "ItmTraderSanDiegoHalvorsonInv",
@@ -15770,6 +15951,13 @@
           "condition": "Pristine",
           "chance": 0.95,
           "count": 128
+        },
+        {
+          "table": "ItmTraderSanDiegoHalvorsonInv",
+          "item": "PhobosLineDrainCanister",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 16
         },
         {
           "table": "ItmVORBScrapKioskInv",
@@ -15847,6 +16035,13 @@
           "condition": "Pristine",
           "chance": 0.85,
           "count": 8
+        },
+        {
+          "table": "ItmVORBScrapKioskInv",
+          "item": "PhobosLineDrainCanister",
+          "condition": "Pristine",
+          "chance": 0.95,
+          "count": 16
         }
       ],
       "recipes": [],
@@ -15855,7 +16050,7 @@
     {
       "id": "PhobosManufacturing",
       "name": "Phobos Manufacturing",
-      "version": "0.24.0",
+      "version": "0.25.0",
       "gameTarget": "1.0.1.5",
       "items": [
         {
@@ -15863,6 +16058,8 @@
           "name": "Phobos' Lixivar Acid Line",
           "stackLimit": 1,
           "actions": [
+            "PhobosLineDrain",
+            "PhobosLineReopen",
             "PhobosManufacturingMaintenanceInformation"
           ],
           "missingDirectActions": [],
@@ -15962,6 +16159,8 @@
           "name": "Phobos' Lixivar Acid Line (Damaged)",
           "stackLimit": 1,
           "actions": [
+            "PhobosLineDrain",
+            "PhobosLineReopen",
             "PhobosManufacturingMaintenanceInformation"
           ],
           "missingDirectActions": [],
@@ -16971,16 +17170,17 @@
           "name": "Phobos' Lixivar AT-2 Sulfuric Acid Tank",
           "stackLimit": 1,
           "actions": [
+            "Inventory",
             "PhobosManufacturingControls",
             "PhobosManufacturingMaintenanceInformation"
           ],
           "missingDirectActions": [],
           "container": {
-            "trigger": null,
-            "width": 0,
-            "height": 0,
-            "flag": false,
-            "inventoryAction": false,
+            "trigger": "TIsPhobosDrainCanister",
+            "width": 2,
+            "height": 2,
+            "flag": true,
+            "inventoryAction": true,
             "ownedSlots": [],
             "loot": "Blank"
           },
@@ -17099,16 +17299,17 @@
           "name": "Phobos' Lixivar AT-2 Sulfuric Acid Tank (Damaged)",
           "stackLimit": 1,
           "actions": [
+            "Inventory",
             "PhobosManufacturingControls",
             "PhobosManufacturingMaintenanceInformation"
           ],
           "missingDirectActions": [],
           "container": {
-            "trigger": null,
-            "width": 0,
-            "height": 0,
-            "flag": false,
-            "inventoryAction": false,
+            "trigger": "TIsPhobosDrainCanister",
+            "width": 2,
+            "height": 2,
+            "flag": true,
+            "inventoryAction": true,
             "ownedSlots": [],
             "loot": "Blank"
           },
@@ -17229,16 +17430,17 @@
           "name": "Phobos' Lixivar AT-4 Sulfuric Acid Tank",
           "stackLimit": 1,
           "actions": [
+            "Inventory",
             "PhobosManufacturingControls",
             "PhobosManufacturingMaintenanceInformation"
           ],
           "missingDirectActions": [],
           "container": {
-            "trigger": null,
-            "width": 0,
-            "height": 0,
-            "flag": false,
-            "inventoryAction": false,
+            "trigger": "TIsPhobosDrainCanister",
+            "width": 2,
+            "height": 2,
+            "flag": true,
+            "inventoryAction": true,
             "ownedSlots": [],
             "loot": "Blank"
           },
@@ -17357,16 +17559,17 @@
           "name": "Phobos' Lixivar AT-4 Sulfuric Acid Tank (Damaged)",
           "stackLimit": 1,
           "actions": [
+            "Inventory",
             "PhobosManufacturingControls",
             "PhobosManufacturingMaintenanceInformation"
           ],
           "missingDirectActions": [],
           "container": {
-            "trigger": null,
-            "width": 0,
-            "height": 0,
-            "flag": false,
-            "inventoryAction": false,
+            "trigger": "TIsPhobosDrainCanister",
+            "width": 2,
+            "height": 2,
+            "flag": true,
+            "inventoryAction": true,
             "ownedSlots": [],
             "loot": "Blank"
           },
@@ -17487,17 +17690,18 @@
           "name": "Phobos' Lixivar AT-4 Sulfuric Acid Tank",
           "stackLimit": 1,
           "actions": [
+            "Inventory",
             "PhobosManufacturingMaintenanceInformation",
             "DropItem",
             "PickupItem"
           ],
           "missingDirectActions": [],
           "container": {
-            "trigger": null,
-            "width": 0,
-            "height": 0,
-            "flag": false,
-            "inventoryAction": false,
+            "trigger": "TIsPhobosDrainCanister",
+            "width": 2,
+            "height": 2,
+            "flag": true,
+            "inventoryAction": true,
             "ownedSlots": [],
             "loot": "Blank"
           },
@@ -17620,17 +17824,18 @@
           "name": "Phobos' Lixivar AT-4 Sulfuric Acid Tank (Damaged)",
           "stackLimit": 1,
           "actions": [
+            "Inventory",
             "PhobosManufacturingMaintenanceInformation",
             "DropItem",
             "PickupItem"
           ],
           "missingDirectActions": [],
           "container": {
-            "trigger": null,
-            "width": 0,
-            "height": 0,
-            "flag": false,
-            "inventoryAction": false,
+            "trigger": "TIsPhobosDrainCanister",
+            "width": 2,
+            "height": 2,
+            "flag": true,
+            "inventoryAction": true,
             "ownedSlots": [],
             "loot": "Blank"
           },
@@ -17755,17 +17960,18 @@
           "name": "Phobos' Lixivar AT-2 Sulfuric Acid Tank",
           "stackLimit": 1,
           "actions": [
+            "Inventory",
             "PhobosManufacturingMaintenanceInformation",
             "DropItem",
             "PickupItem"
           ],
           "missingDirectActions": [],
           "container": {
-            "trigger": null,
-            "width": 0,
-            "height": 0,
-            "flag": false,
-            "inventoryAction": false,
+            "trigger": "TIsPhobosDrainCanister",
+            "width": 2,
+            "height": 2,
+            "flag": true,
+            "inventoryAction": true,
             "ownedSlots": [],
             "loot": "Blank"
           },
@@ -17888,17 +18094,18 @@
           "name": "Phobos' Lixivar AT-2 Sulfuric Acid Tank (Damaged)",
           "stackLimit": 1,
           "actions": [
+            "Inventory",
             "PhobosManufacturingMaintenanceInformation",
             "DropItem",
             "PickupItem"
           ],
           "missingDirectActions": [],
           "container": {
-            "trigger": null,
-            "width": 0,
-            "height": 0,
-            "flag": false,
-            "inventoryAction": false,
+            "trigger": "TIsPhobosDrainCanister",
+            "width": 2,
+            "height": 2,
+            "flag": true,
+            "inventoryAction": true,
             "ownedSlots": [],
             "loot": "Blank"
           },
@@ -18023,16 +18230,17 @@
           "name": "Phobos' Lixivar AT-3 Sulfuric Acid Tank",
           "stackLimit": 1,
           "actions": [
+            "Inventory",
             "PhobosManufacturingControls",
             "PhobosManufacturingMaintenanceInformation"
           ],
           "missingDirectActions": [],
           "container": {
-            "trigger": null,
-            "width": 0,
-            "height": 0,
-            "flag": false,
-            "inventoryAction": false,
+            "trigger": "TIsPhobosDrainCanister",
+            "width": 2,
+            "height": 2,
+            "flag": true,
+            "inventoryAction": true,
             "ownedSlots": [],
             "loot": "Blank"
           },
@@ -18151,16 +18359,17 @@
           "name": "Phobos' Lixivar AT-3 Sulfuric Acid Tank (Damaged)",
           "stackLimit": 1,
           "actions": [
+            "Inventory",
             "PhobosManufacturingControls",
             "PhobosManufacturingMaintenanceInformation"
           ],
           "missingDirectActions": [],
           "container": {
-            "trigger": null,
-            "width": 0,
-            "height": 0,
-            "flag": false,
-            "inventoryAction": false,
+            "trigger": "TIsPhobosDrainCanister",
+            "width": 2,
+            "height": 2,
+            "flag": true,
+            "inventoryAction": true,
             "ownedSlots": [],
             "loot": "Blank"
           },
@@ -18281,17 +18490,18 @@
           "name": "Phobos' Lixivar AT-3 Sulfuric Acid Tank",
           "stackLimit": 1,
           "actions": [
+            "Inventory",
             "PhobosManufacturingMaintenanceInformation",
             "DropItem",
             "PickupItem"
           ],
           "missingDirectActions": [],
           "container": {
-            "trigger": null,
-            "width": 0,
-            "height": 0,
-            "flag": false,
-            "inventoryAction": false,
+            "trigger": "TIsPhobosDrainCanister",
+            "width": 2,
+            "height": 2,
+            "flag": true,
+            "inventoryAction": true,
             "ownedSlots": [],
             "loot": "Blank"
           },
@@ -18414,17 +18624,18 @@
           "name": "Phobos' Lixivar AT-3 Sulfuric Acid Tank (Damaged)",
           "stackLimit": 1,
           "actions": [
+            "Inventory",
             "PhobosManufacturingMaintenanceInformation",
             "DropItem",
             "PickupItem"
           ],
           "missingDirectActions": [],
           "container": {
-            "trigger": null,
-            "width": 0,
-            "height": 0,
-            "flag": false,
-            "inventoryAction": false,
+            "trigger": "TIsPhobosDrainCanister",
+            "width": 2,
+            "height": 2,
+            "flag": true,
+            "inventoryAction": true,
             "ownedSlots": [],
             "loot": "Blank"
           },
@@ -51383,10 +51594,10 @@
     "mods/PhobosAutoNav/framework/recipes.json": "b03ff79d6c08b75c89b4bf30cd459e46de410366a505aa93ca5190b1ce1d90c4",
     "mods/PhobosAutoNav/mod_info.json": "e6bdffcc194759f8b77070e9c75d88d16fda6109a29d4816b3430d29a0066a68",
     "mods/PhobosFramework/data/conditions/phobos_framework.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
-    "mods/PhobosFramework/framework/economy.json": "83b622a111be7e9536a2c533e07a59cb21644a8836183ce596ee9664d886a581",
-    "mods/PhobosFramework/framework/equipment-names.json": "12a51cca9e4a28aacbfe7721ff85bf7be7a9ee9a69bd04390d53e5a6cdf08da0",
+    "mods/PhobosFramework/framework/economy.json": "a9b8f65fa0487b946abc0e57f175ad83443727295031a24e74c30ad13f73b96c",
+    "mods/PhobosFramework/framework/equipment-names.json": "ea594c0866f9484f3a01b08638621ae55dd40ff2de7225d942d9b96a9027e739",
     "mods/PhobosFramework/framework/vessels.json": "9ac0dbcfe4af995075d9952d619b0b3befbde33afbda2386d13cbc2c7779972c",
-    "mods/PhobosFramework/mod_info.json": "e1579c2d32edd6d7dcd2d2914da2196d25559e5dff841642be76d4047e750b2f",
+    "mods/PhobosFramework/mod_info.json": "5f0ee2b157c8c5dfa27de3fcad17bd18bb75ebf1906840e8f62865e337fa10a7",
     "mods/PhobosManufacturing/data/conditions/phobos_manufacturing.json": "0ac5bff75779f21f3bcd269f28e09d882833f3b94fee174190a00b4d98001c63",
     "mods/PhobosManufacturing/data/explosions/phobos_manufacturing.json": "33e0a37a22450d2ca64e33cc461efb87f19f4c69b90655af20280d67c6982ba3",
     "mods/PhobosManufacturing/framework/economy.json": "c2c7dd7b139ae727d222cbf3c3b01411062fc827f82ef52c5aac87795d5ff420",
@@ -51396,7 +51607,7 @@
     "mods/PhobosManufacturing/framework/materials.json": "f5c967a00e0c077003abf7f146c68756b6653f9f9ce364e40c5ea2cea27d9c13",
     "mods/PhobosManufacturing/framework/process-recipes.json": "8a88740a9e4cb33e2ef1c99aca60fe68b382e273ff38f1b16434d33b31dd45d8",
     "mods/PhobosManufacturing/framework/vessels.json": "38f780dd14722199d5fddf7c68baa000e2b57d507ea5773c0b6bbbd6bec6aec2",
-    "mods/PhobosManufacturing/mod_info.json": "be4cf074d790661373ae229b16caff9f3e5e8e8d335ec6cb4cb208e04c303644",
+    "mods/PhobosManufacturing/mod_info.json": "e709bcd33f3a54adb0b22783f7e7b64808f56cde21d6e2314c364fa5cbaa6615",
     "mods/PhobosShipbreaker/crafting/recipes.json": "8b0f034a7c732fec44ac31585321347040ee2074cd330cd3e5ecb90bb4ab7df4",
     "mods/PhobosShipbreaker/data/conditions/phobos_shipbreaker.json": "4163d90a49167ef2178e2bfd00636e8288db73511c66c0f423e828642d4f1e44",
     "mods/PhobosShipbreaker/data/condtrigs/phobos_shipbreaker.json": "c7d4104df596d3fd362d9a80f4703178eafc5d3151bd53907814732ec84d3585",
@@ -51586,8 +51797,8 @@
     "src/PhobosFramework/Data/VesselPack.cs": "a3c0d7ca76ed4e9560e4ee5d4083a51ef6f18384e0d899cbc05809c4d7563ac1",
     "src/PhobosFramework/Diagnostics/CaptureProbes.cs": "f903184c24403e7b7428688a11770061ae6e207fc8467a0f9ab017793fb83732",
     "src/PhobosFramework/Diagnostics/FrameMeasurements.cs": "f4317aaaddcbf79aee2f3ad4b280086af98fa47966e27330df67bb26b485b7d3",
-    "src/PhobosFramework/Diagnostics/NativePerformance.cs": "edf6bda5f521320e07c93b492637f6e2cc988b7df0f389221631e408b1560a11",
-    "src/PhobosFramework/Diagnostics/Performance.cs": "985c3ef4b228a9dab29aa1d5c497d55ae91612b519e75d3a1c5436f296d46155",
+    "src/PhobosFramework/Diagnostics/NativePerformance.cs": "aed4b409d8d1fc67bb2572b372e46ad272a69cab3c49dfc7b8e4a0fca640ceb5",
+    "src/PhobosFramework/Diagnostics/Performance.cs": "065204b34b0cf8faa34575edb51f6700cce17bcf0620e08e6de27851e4b6c852",
     "src/PhobosFramework/Diagnostics/PerformanceSession.cs": "6d38efe649a4461ccdd977f26fdd01932c399818dc6989e703a04705f243acf4",
     "src/PhobosFramework/Discovery/WorldFamilies.cs": "3b26a76904e2e01e5358a3c952dddc7f444d873c99b462ea5327329196012b59",
     "src/PhobosFramework/Discovery/WorldIndex.cs": "3945bff9497707e184171283dee56e742b5ffd319a34ed53c57bccbe87890fb0",
@@ -51609,9 +51820,10 @@
     "src/PhobosFramework/Inventory/StackUnits.cs": "286642d040f637286ed65998c23c35926e8cec898d483544dbde74f498885fbd",
     "src/PhobosFramework/Inventory/TransferClock.cs": "c4ad66a777b7d510fe93f5e805fb29ddee60a989a28613e53290b6e71155df50",
     "src/PhobosFramework/Inventory/UnitItemTransfer.cs": "e1f1aa1fef7934bc0e65e4ffc9e28da049f11ec4176b8bf48f2525b044551540",
-    "src/PhobosFramework/Items/FrameworkItems.cs": "eda8c615c0c3e39bc9bc8cdf884ddce28cec7ba52a16e8f486f8625f32ee7543",
+    "src/PhobosFramework/Items/DrainCanisterDefinitions.cs": "04cfd1ba537d646249ea91813c84e1231547281abdda2b696f082100e815e33b",
+    "src/PhobosFramework/Items/FrameworkItems.cs": "8e5e4b8a804fb81ee644bf6d5ecd90948ae83e032482dff2843afa7bbec61991",
     "src/PhobosFramework/Items/ItemEconomy.cs": "ba64dbc8df15e1b2298655d8c436db006485ea1fbc4cd55a8301b911cd54962b",
-    "src/PhobosFramework/Items/SharedLines.cs": "db8dc5542e4d7c92d4107b3620ccb251b564bbeede2fe9712c2c9071f898d424",
+    "src/PhobosFramework/Items/SharedLines.cs": "62e147883ae57cd9ebd486f71ee7ebf304a2d37eefce35c4b81bcd3c0adf4086",
     "src/PhobosFramework/Items/TankEconomy.cs": "d5f3e949cd570328fabaa8d9c886a731574a008d81793bd7781b61857fb12e0d",
     "src/PhobosFramework/Items/WaterTanks.cs": "eda254ff4dc7fb7dfcc43c3de50eaae7d8a44a1d8efe0cbef82e747c85f61e9f",
     "src/PhobosFramework/Items/WaterTankService.cs": "f593306709580a297bed7fd10a4839c3a6e1857b91f5497bfb8adcdea1bcfc2d",
@@ -51620,14 +51832,17 @@
     "src/PhobosFramework/Liquids/BulkVessel.cs": "aa9430481f465ea8b6feeb0b22df728656080492a7e2721cd162cdc13003109f",
     "src/PhobosFramework/Liquids/BulkVesselSizes.cs": "147c82bc1645f6dd40e1c8f0cba355d8a5b9d4ed9a63109c206f1b0dd06352f1",
     "src/PhobosFramework/Liquids/CommoditySettlement.cs": "832ab7ddc97089016550970d61af4a50e2ce7ec737947147263d395f09ef4417",
+    "src/PhobosFramework/Liquids/DrainCanisters.cs": "0590d987cc0e704da32c096f18c88eeb674468b174626d2f2755694da1c2d9c2",
     "src/PhobosFramework/Liquids/FiniteLiquidTransfer.cs": "8e94596828ed11bec3239d174f68bed491213b89cad87387cb9ff6421e6e9cd3",
     "src/PhobosFramework/Liquids/FluidLine.cs": "e7a558e7e497c07474f16e3208db193537506d3c13c48f9384bcf0ebb56dfde7",
-    "src/PhobosFramework/Liquids/FluidRouteCache.cs": "121d19272fffb55baddbc380e7617e77ca8870f7ada97f78727ed82a31cdee1d",
+    "src/PhobosFramework/Liquids/FluidRouteCache.cs": "3bec22731ca14aec849934770287e1b638ac65d0391ac2b7560865ef76bf6177",
     "src/PhobosFramework/Liquids/FluidTopology.cs": "b17668caaf5a759745b212028779e4034bf44b851259d6fcf7da899c98b44321",
     "src/PhobosFramework/Liquids/GasNetworkSafety.cs": "8f65a912bc8033c73d24d0324fbb7dd1b16a7cde374eb32e92640ee00b188044",
     "src/PhobosFramework/Liquids/GasTransfers.cs": "22cc09d49830aeb238cd904e60f5822baa80d1aba21e56ce5b0789e9669a9b2c",
     "src/PhobosFramework/Liquids/HydraulicRoute.cs": "26c87ba46776311f7af91c8e89db11622c7002603b03ba544cb4f4832793fcad",
+    "src/PhobosFramework/Liquids/LineContents.cs": "43d27d929c166fdf3ea696ff01ca5190aa0160c1c582a8da130283ef1fffb41d",
     "src/PhobosFramework/Liquids/LineFamilies.cs": "79d9b4d9b17d2eabce6b1d130dbd886aef612338bb83989b5945d38cc403fe99",
+    "src/PhobosFramework/Liquids/LineHoldUp.cs": "48a8f522c14fb8f6491f62d1ad9413b28698f4a625a63498f711756daa6f9830",
     "src/PhobosFramework/Liquids/LinePorts.cs": "064b0fff75aab4d5dc92245cceb8e0b43ffe4014b6065988dc2c45eaf6643e5f",
     "src/PhobosFramework/Liquids/LineReach.cs": "94c1a520536ba63139c5ddbd632a9689431bf51abaf22c91d3f086e618e9af27",
     "src/PhobosFramework/Liquids/LiquidDeliveryBudget.cs": "5ddee4a9290d4d6c7c7e5346bd0c8e786ee943e9563732e97b651dc7621b0c74",
@@ -51655,8 +51870,8 @@
     "src/PhobosFramework/Persistence/SavedGridHeader.cs": "b7ef65702f570dfb2d267b97c726e2ba02b420bfbbc2c5471ef4ac7479874bb2",
     "src/PhobosFramework/Persistence/SavedPlaceholderHealth.cs": "358c35db2a5f73335cc5930e808c25817da5fa6b1d9d91c217c5a119f26db91d",
     "src/PhobosFramework/Persistence/SavedRoomGrid.cs": "d7d70aba54e777d96d3079318f75320fb981a6dba8f3728570c84b8e54072fbe",
-    "src/PhobosFramework/PhobosFramework.csproj": "c63f0e625830f3060c14bf949cc1913cd2c078be3d3a8842d9bd901a5a566336",
-    "src/PhobosFramework/Plugin.cs": "097cb27cf0ed66ce0923b2d46aaf92fcf76941521cf04654fe2a2410519d64bd",
+    "src/PhobosFramework/PhobosFramework.csproj": "0518b2ca9c78bb8c19c4879dd0d3959b3432d6f3648873676a60801563267f98",
+    "src/PhobosFramework/Plugin.cs": "bec2cd13d797cc3ecf88754168f5c94c85a6f2cdde70878fa9664371bbf5b76b",
     "src/PhobosFramework/Processing/EnergyReceipt.cs": "cb31cd45ea69ee8d182b0578f50540393bd70e63e918a161f04f2b6a290199b2",
     "src/PhobosFramework/Processing/GasParcel.cs": "814357580cf3b2f7257a67042454823b454437f1fda38488521b66621e081fa3",
     "src/PhobosFramework/Processing/NativeEnergyReceipts.cs": "f575f8736dd5370c5640482d47884190693cd4ffdfe02f90139449bd95f2872e",
@@ -51698,14 +51913,13 @@
     "src/PhobosFramework/Trading/RegionalMarkets.cs": "b79921a791e70a757cbf0457a382f53da73ef4ce9651c821bb36765464ca927b",
     "src/PhobosFramework/Trading/VesselSupplyProvider.cs": "e307482c7b2a3fd6abbb1b12013d72913c0f673d8e904ad7037f0658b01d507b",
     "src/PhobosFramework/Units.cs": "b66b1134d9b9e2ff57055c41b5354f280ec21233a395224ec6ba213668b22cf3",
-    "src/PhobosManufacturing/AcidLine.cs": "29d536ff1ef7d3763f8b7027c126d2739f80dce5307826d30f6d7e97cbce3387",
-    "src/PhobosManufacturing/AcidLineService.cs": "fc2041a5cb1471b40b1a5350c154949196cf132b7d22d3f0fa660fc52b752f89",
+    "src/PhobosManufacturing/AcidLine.cs": "93f1b74fe3c9e53c41466cc738cb32f5e7e5e47ddd13f92da71d15154ef2686f",
     "src/PhobosManufacturing/AssemblyInfo.cs": "a442448369b44ef8921362eea7215eab4e7fb557881cded3213f00b5d7600549",
     "src/PhobosManufacturing/ChargeMachine.cs": "93b2beea63f06341bee2cc8fb15a6307fd98e6d3c08b1a7fab6c842624b0859d",
     "src/PhobosManufacturing/ChargeMachines.cs": "b077a2cc9f8862f97446572a6c4566900fb66e0c6615f7f4937fb7e0aa12cc86",
     "src/PhobosManufacturing/ChargeMachineSpec.cs": "efe2a860541282c5ec2d6399eea0308f5251a2c61b07517480f4744f66b8ac19",
-    "src/PhobosManufacturing/Content.cs": "fced206fed9f1d0a4447bcc8e3f17526c1f0c7ef830f098d6de869903c4ff833",
-    "src/PhobosManufacturing/Core/AcidLineRules.cs": "a9ba575d878f07b86f85087518faa44a5e0e48af37999c81c1d7bb7bc0c930ff",
+    "src/PhobosManufacturing/Content.cs": "8251be14d1823e7fd1bdd516f9136d3cd6f0daa2ba582c38aaa5808de04d1e4e",
+    "src/PhobosManufacturing/Core/AcidLineRules.cs": "db1dc2c2f12db3ca2477f8d15f6de72149356335359e3ec468b85fa960451ec2",
     "src/PhobosManufacturing/Core/AcidPlantRules.cs": "e6c747241c7e4e3b4438e4a8539aa5963954e22f9a408b674ab1bab39c5b34bd",
     "src/PhobosManufacturing/Core/ChargeCatalog.cs": "358b35c29325a199a598de14ca0cc519c0ee4a1640370ae3a2bc260f925d0993",
     "src/PhobosManufacturing/Core/ChargeRecipe.cs": "e492850411bd145b842e28838d2eb7fd3f2f02f568991b577dc3f3eba8760b9e",
@@ -51730,7 +51944,7 @@
     "src/PhobosManufacturing/Core/SabatierState.cs": "04ca6b0626dc94a204c2f120ed847db1bacf3ef37911dbf031a8c5efb716e5f8",
     "src/PhobosManufacturing/Core/Vessels.cs": "f5f012a134617f3888ef9c6fde56393dc60fcc7592b85ae181c7b60f4e164406",
     "src/PhobosManufacturing/CrackerService.cs": "37b34f21d58a41d5b9cdb81126cddacf1714ae573875287b5a290dfa5a1a5de1",
-    "src/PhobosManufacturing/Definitions.cs": "1cc1a1f4f84bf0a52e7c5061057c8bee5de78010c8eeef8d410de2d523e2b686",
+    "src/PhobosManufacturing/Definitions.cs": "c425e875efcf884528a350157181c4a0f24253a6913c4af45d078389052038ce",
     "src/PhobosManufacturing/EquipmentEconomy.cs": "65bf19ef630800db202dc55c6ebcfc88b1144ff118ff18894924272bed36abec",
     "src/PhobosManufacturing/FillerCrew.cs": "c855766b124e53e68962c63dd365b8bb58c79320a8dc965ddf777c95d7797cfc",
     "src/PhobosManufacturing/FillerService.cs": "08b32826b1fd9d1b55fa0ea57e7c486eb95c65fee43df3b347f70ce73fba35df",
@@ -51740,8 +51954,8 @@
     "src/PhobosManufacturing/ManifoldService.cs": "33bf0955c258790a225d20167518c6d095157353ac57df2d7e8960d03c2f0ecc",
     "src/PhobosManufacturing/Panel.cs": "882b106bbb14f0670020655bb89b57ab7a2274d811a0ba811f2892b35eabd94b",
     "src/PhobosManufacturing/PerformanceMetrics.cs": "d8dfe3abf0fa37a2e323acc3459b63fe4548a959af0082053c667ec7de77af00",
-    "src/PhobosManufacturing/PhobosManufacturing.csproj": "8c38d2e25c14d0a9f0d08c054a224d885a308efd1f33f723e99ebae47d8dea75",
-    "src/PhobosManufacturing/Plugin.cs": "a50299c6a89261e94b5b9f5927cf4c63e848af8785be75cdfff1202a10e860c8",
+    "src/PhobosManufacturing/PhobosManufacturing.csproj": "2c301075bfc928e4ad9bffbb2f652432a56327ff58f5db7118e7b2b4ac7ac7ff",
+    "src/PhobosManufacturing/Plugin.cs": "3dbfbdc375235fbac73698f68e0d3bb963bc2d89ad0cf1b1fa050c1f5acfba73",
     "src/PhobosManufacturing/ProcessorService.cs": "00bd8cadfeeb4a59c0d786d55fd22aaea153f7d2c20ff3688c0c2295b7b0e48b",
     "src/PhobosManufacturing/Provider.cs": "2678bbb5b661931f46c5a789b16985657d8706cc7e569b2563d93c9fca656342",
     "src/PhobosManufacturing/RegulatorService.cs": "7168358b9d01fb4b13d5c37fbbde47c3238c127bf53165b3e91e02341a877e50",
@@ -51861,11 +52075,11 @@
     "src/PhobosWarDeclared/WarService.cs": "f77441f37d1f28cba53713780f0ccb1f89eca2fbe6d14ee3c8af16b4ec571baa",
     "tests/PhobosNative.Tests/EquipmentValueAudit.cs": "843eace3d08ddbf4a9374ec54993facc02f057a6e6638402d0a9baab16df8d71",
     "tests/PhobosNative.Tests/ItemReferenceExport.cs": "7be1995998713001a106085263a77f39a5a67cea5e85dc52cee132b5bec6bfc4",
-    "tests/PhobosNative.Tests/Program.cs": "fc4b325db4f213dc5251af089b240ceb3f5efde216fbf419eb5aab0e4bcafe84",
+    "tests/PhobosNative.Tests/Program.cs": "114b0331de85d6e04df488acbeb522bdb80836616c0aa4017d14954e5b276ae1",
     "translations/PhobosAgriculture/en.json": "facb6ab7d17821afacff6935773a58f797e3b30139894eabfa6e9d9cbdeee3ca",
     "translations/PhobosAutoNav/en.json": "b0c49c7d7038de85a2ebce025b7f987ac54cb5c5e77ebf18e5097cbdfd2e4cff",
-    "translations/PhobosFramework/en.json": "640ba3bffca21bfe61c1417ad32e9bb769278ca1b97472ec9720efeb8441bd07",
-    "translations/PhobosManufacturing/en.json": "51b97b05af7725a62ded05a15166371028427a51da741bf8b34cc3c3c4603c23",
+    "translations/PhobosFramework/en.json": "6ccdddbfcc09258b5476ff156fc0d439cde323f08e52a6a7e61e958c69d2d340",
+    "translations/PhobosManufacturing/en.json": "fccfb16dec510f4b34b28dd7deba854f817f93b29b1d6004c304e18f406c83b4",
     "translations/PhobosShipbreaker/en.json": "ea4c5c5f250ba70f2af9c8d13f708c98b8fb52ebc61bdb1e3ee3646bd3b84060",
     "translations/PhobosWarDeclared/en.json": "36a8c3ec5ea2e701f1e65418ee2f6111da0f5254f38d6c80fb9af798f378de90"
   }

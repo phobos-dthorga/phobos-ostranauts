@@ -841,7 +841,8 @@ leaving every remaining family's chance as it was.
 Twice the plain gas or process-water line ($3) for its lining. It sells at the
 same four merchants in lots of 128, at the supplies floor, and for scrip at the
 faction kiosks at any standing. Dismantling returns no clean metal, because
-acid-wetted lining is not recovered as scrap.
+acid-wetted lining is not recovered as scrap. Since Manufacturing 0.25.0 a segment
+holding acid must be drained before it can be dismantled.
 
 ## Framework 0.61.0: the Rivetline conveyor belt
 
@@ -853,3 +854,16 @@ Priced above the steel in it (scrap steel is 3.6 cr/kg) and sold with the lines 
 the same four merchants in lots of 128 and for scrip at the faction kiosks at any
 standing. Belts use no power of their own: the machine that sends or receives an
 item pays for its transfer, as before.
+
+## Framework 0.63.0: the Rivetline D20 drain canister
+
+| Item | Mass | Price | Repair | Dismantle |
+|---|---:|---:|---|---|
+| Rivetline D20 drain canister | 3 kg empty | $40 | none | none |
+
+A 20 litre lined steel can, priced above its 3 kg of steel (scrap steel is 3.6
+cr/kg). It sells at every general market and the four expanded merchants in lots
+of 16, and for scrip at the faction kiosks at any standing. It never stacks, since
+each canister records the liquid it holds. What it holds is the line's own water
+or acid, carried back to a tank, so it creates no value. See
+[draining and venting](lines-and-draining.md).

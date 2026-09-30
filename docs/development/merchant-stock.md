@@ -24,13 +24,14 @@ shop inventories or a scientific/economic claim.
 | Manufacturing equipment | 8 |
 | Manufacturing acid line | 128 |
 | Framework gas and process-water lines and conveyor belt | 128 |
+| Framework drain canisters | 16 |
 | Framework water silos (S2 to S5) | 8 |
 
 Agriculture consumables include planting stock, nutrients, irrigation charges,
 treatment cartridges and nutrient makeup. Equipment lots cover both working and
 broken offers wherever those forms are sold. W2 and the B2 workup bench are
 included. Since Framework 0.57.0 Framework sells its own two lines (the gas line
-moved from Manufacturing with its lot unchanged), and since 0.58.0 the water silos
+moved from Manufacturing with its lot unchanged), since 0.58.0 the water silos
 (moved from Shipbreaker; Agriculture's R3 to R5 reservoirs retired into them and are
 no longer sold, so the reservoirs lot now serves the nutrient hoppers); Manufacturing's scaffold and the
 historical Approach Assist prototype have no separate retail stock to multiply.

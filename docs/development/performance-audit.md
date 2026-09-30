@@ -607,3 +607,22 @@ belt display adds one quad per active belt transfer, a path found once per route
 and one eased position per frame for each shown item; with no belt transfer running
 it costs one empty check per frame. No performance capture or measured FPS claim
 accompanies this change.
+
+## 1 October: lines that hold their contents (L8)
+
+L8 — Static review of Framework 0.63.0 with Manufacturing 0.25.0.
+
+- **Top-up pass.** Every two real seconds, for each loaded player-owned ship, a new
+  pass (`framework.line_contents.maintain`) reads the cached topology snapshot for each
+  holding family. The snapshot now also keeps the segment object per carrying cell.
+  - The pass reads segment records only in runs that have a store on them, and writes
+    only segments whose record changed, so a full line costs record reads and no writes.
+  - Canister pouring scans the ship's objects once per pass and looks inside the
+    containers of registered stores.
+- **Topology scan.** The scan adds one dictionary probe per segment for the closed flag.
+- **Hooks.** Mode switches, destruction, and offers and completions of interactions each
+  add a definition-prefix test. For the removal refusal, only an uninstall or dismantle
+  action name reaches it. Draining, venting and reopening walk the physical run once,
+  when the crew action is offered and when it finishes.
+
+No performance capture or measured FPS claim accompanies this change.

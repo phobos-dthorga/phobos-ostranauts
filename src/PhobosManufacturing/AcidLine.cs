@@ -33,6 +33,10 @@ internal static class AcidLine
         LineFamilies.Assign(LiquidStores.SulfuricAcid, Family);
         var spec = Spec();
         LineDefinitions.Add(d, spec);
+        // The line holds its acid until drained (Manufacturing 0.25.0): 0.9 kg a tile, with the tank-damage mist fraction
+        // reaching the room as H2SO4 when a segment is damaged or destroyed; crew drain it into Framework's drain canister.
+        LineContents.Declare(Family, AcidLineRules.Prefix, new[] { AcidLineRules.HeldAcid() });
+        LineContents.OfferActions(d, AcidLineRules.Prefix, gas: false);
         // Bills from the pack, as Framework's own lines: repair with its material, dismantling to retained waste
         // (acid-wetted lining is not recovered as clean metal), the full segment mass.
         var supply = Economy.Pack.supplies[AcidLineRules.Prefix];

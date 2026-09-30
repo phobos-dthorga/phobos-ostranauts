@@ -4,7 +4,7 @@
     "strAuthor": "phobosgekko",
     "strModURL": "https://github.com/phobos-dthorga/phobos-ostranauts",
     "strGameVersion": "1.0.1.5",
-    "strModVersion": "0.62.0",
+    "strModVersion": "0.63.0",
     "strNotes": "Shared construction, machinery controls, transfers, translations, crew orders and training for Phobos mods. Install with the content mods that require it. Orders begin disabled; supplies, space, power, crew needs and access still matter. Saved-state faults stop affected work for inspection. Requires BepInEx 5 and the PhobosFramework plugin; no Shipbreaker, Crafting Framework or Salvage Workshop dependency. Optional Phobos Scope performance recording starts off. Development candidate; in-game evaluation pending."
   }
 ]

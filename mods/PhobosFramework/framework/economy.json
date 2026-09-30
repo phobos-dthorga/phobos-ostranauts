@@ -140,7 +140,7 @@
     "VNCA": 1.25
   },
   "regional": {
-    "notes": "Supplies reach the regional kiosks through the expanded merchants at the supplies floor.",
+    "notes": "Supplies reach the regional kiosks through the expanded merchants at the supplies floor. Drain canisters reach every region at 0.65 and the expanded merchants at the supplies floor.",
     "baseChance": 0.2,
     "refurbished": [
       "OFLT"
@@ -150,11 +150,20 @@
       "ItmOKLGFixer",
       "ItmTraderSanDiegoHalvorsonInv",
       "ItmVORBScrapKioskInv"
-    ]
+    ],
+    "items": {
+      "PhobosLineDrainCanister": {
+        "notes": "Rivetline D20 drain canister (Framework 0.63.0): a 20 litre lined can for draining lines, sold with the lines at every general market in lots of 16. It never stacks, since each canister records what it holds.",
+        "chance": 0.65,
+        "lot": "canisters",
+        "expanded": true
+      }
+    }
   },
   "lots": {
     "equipment": 8,
-    "supplies": 128
+    "supplies": 128,
+    "canisters": 16
   },
   "chanceFloors": {
     "equipment": 0.85,
@@ -181,7 +190,8 @@
       "PhobosPropellantLine": "Neutral",
       "PhobosProcessWaterLine": "Neutral",
       "PhobosConveyorBelt": "Neutral",
-      "PhobosProcessSilo": "Warm"
+      "PhobosProcessSilo": "Warm",
+      "PhobosLineDrainCanister": "Neutral"
     }
   }
 }

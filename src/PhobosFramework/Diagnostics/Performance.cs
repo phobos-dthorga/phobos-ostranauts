@@ -35,6 +35,8 @@ public static class Performance
         StateWrite = null, StateWritesSkipped = null, WaterRefill = null, SkipMachineStep = null;
     // Stage 8: the shared world sweep that replaced each mod's full pass.
     internal static PerformanceMetric? WorldSweep = null, WorldSweepObjects = null;
+    // Framework 0.63.0: lines that hold their contents (the two-second top-up and canister pours).
+    internal static PerformanceMetric? LineContentsMaintain = null;
     public static bool IsRecording => Session?.IsRecording == true;
     public static PerformanceMetric? RegisterOperation(string name, string category)
     {

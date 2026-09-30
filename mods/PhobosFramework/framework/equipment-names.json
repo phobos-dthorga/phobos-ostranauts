@@ -42,5 +42,9 @@
   "WaterTanks.name_s5": {
     "brand": "Rivetline",
     "model": "S5"
+  },
+  "DrainCanister.name": {
+    "brand": "Rivetline",
+    "model": "D20"
   }
 }

@@ -32,7 +32,7 @@ existing [Auto Nav workflow](auto-navigate-adaptation.md). They have no standalo
 floor-installed form and are deliberately absent from this placement catalogue.
 Framework adds shared services and, since 0.57.0, the two shared lines listed above. Manufacturing's machines and stores are
 purchase-only APPS entries (the P1, L2 and A2 are HVAC); its proposed M4 machining centre must receive a
-catalogue entry when it becomes operational. Supplies, produce, ore, ingots,
+catalogue entry when it becomes operational. Supplies (including Framework's drain canisters), produce, ore, ingots,
 castings and waste remain cargo. Assembly sections are also cargo, but their Install action starts construction of the complete machine rather than installing a section as furniture.
 
 ## Implementation evidence and maintenance

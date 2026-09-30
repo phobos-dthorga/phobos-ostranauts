@@ -49,6 +49,7 @@ a real company, seed cultivar, research programme or institutional endorsement.
 | Phobos' Rivetline C2 Residue Collector | Two-wide collecting endpoint |
 | Phobos' Rivetline S2, S3, S4 and S5 Process Water Silos | Passive water silos in four sizes; the model digit is the footprint (S4 and S5 from Shipbreaker 0.40.0; Framework's since 0.58.0, which added the S2). Rivetline stays the maker although Framework now owns them: they are the same product line |
 | Phobos' Rivetline Conveyor Belt | 1 x 1 belt segments that join item routes (Framework 0.61.0); Rivetline because it carries Shipbreaker's material, and like the lines no model number |
+| Phobos' Rivetline D20 Drain Canister | Portable 20 litre can for draining lines (Framework 0.63.0); Rivetline beside the silos it pours into, D for drain and 20 for its litres |
 | Phobos' Rivetline Y2, Y3 and Y4 Material Bins | Solid mined-material stores in three sizes (Shipbreaker 0.43.0); Y (yard stock) is unused by every other brand, and the digit is the footprint as for the silos |
 | Phobos' Rivetline D4-S Dismantling Fixture Assembly Section | Processor construction section |
 | Phobos' Rivetline R4-S Scrap Reclaimer Assembly Section | Reclaimer construction section |

@@ -1,6 +1,6 @@
 # Phobos control panels
 
-Framework 0.62.0, Agriculture 0.32.0, Shipbreaker 0.57.0 and Auto Nav 0.31.2
+Framework 0.63.0, Agriculture 0.32.0, Shipbreaker 0.57.0 and Auto Nav 0.31.2
 prepare this interface update. Manufacturing remains a scaffold with no operational
 panel or jobs. These are unpublished development candidates.
 
@@ -47,6 +47,9 @@ Each choice says how (*touching*, *water line*, *gas line*) and marks a
 destination that is *full* or a source that is *empty*. A store's own panel
 lists every machine linked to it. See
 [linking machines and stores](manufacturing-player-guide.md#linking-machines-and-stores).
+Since Framework 0.63.0 the lines hold what they carry, and a drained or vented line
+reaches nothing until it is returned to service; see
+[draining and venting](lines-and-draining.md).
 
 **Locate** centres a temporary ship view on the selected object. Locate is disabled
 when no object is available; Clear is disabled when there is no saved selection.

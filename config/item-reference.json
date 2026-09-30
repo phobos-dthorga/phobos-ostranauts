@@ -1083,9 +1083,9 @@
             "PhobosPropellantLineWaste"
           ],
           "function": "Sealed Fennmark gas line joining gas stores and the machines that fill or draw from them: Manufacturing's stores, V4, X2, K2, AX-2, LC-3, SA-3, P1, L2 and A2, and Shipbreaker's T2 for methane. Every machine and store whose gas port the line reaches joins one network, and touching equipment joins without it. It has its own lane, so it shares tiles with other lines. Its retained waste is what dismantling leaves.",
-          "use": "Lay it through INSTALL > HVAC on intact floor from port to port. The gas port is the tile beside the middle of each machine's or store's right-hand side, turning with it. A damaged segment breaks the network there until repaired.",
+          "use": "Lay it through INSTALL > HVAC on intact floor from port to port. The gas port is the tile beside the middle of each machine's or store's right-hand side, turning with it. A damaged segment breaks the network there until repaired. To take it up, right-click it and choose Vent gas line; the run closes until Return line to service.",
           "find": "Sold new at the K-Leg supply kiosk and fixer, San Diego Halvorson and the Venus scrap kiosk in lots of 128. Ordinary supply. Also sold for scrip at the CCRE and GalCon faction kiosks, at any standing.",
-          "notes": "Moved from Manufacturing to Framework in 0.57.0 with its saved identity, name, price and bills unchanged, so it no longer needs Manufacturing installed. It holds no gas between transfers; hold-up and pressure drop are neglected. When an oxygen store and a fuel store share one line, the stores' panels and the crew log say so; nothing is blocked. The retained waste is terminal.",
+          "notes": "Moved from Manufacturing to Framework in 0.57.0 with its saved identity, name, price and bills unchanged, so it no longer needs Manufacturing installed. Since Framework 0.63.0 it holds a few grams of gas a tile, a mix when several gases share it, filled from its stores; a damaged segment lets its gas into the room (hydrogen overboard), and a segment holding gas cannot be taken up until vented. Pressure drop is neglected. When an oxygen store and a fuel store share one line, the stores' panels and the crew log say so; nothing is blocked. The retained waste is terminal.",
           "guide": "manufacturing-player-guide.md",
           "internal": false,
           "labels": {}
@@ -1101,9 +1101,9 @@
             "PhobosProcessWaterLineWaste"
           ],
           "function": "Sealed line for process water between water tanks (Framework's Rivetline silos, and Ship's Water 0.16.1 tanks when installed) and the machines that draw or make water: Manufacturing's V4, X2, K2, LC-3 and SA-3, Shipbreaker's T2 and Agriculture's W2 intake and racks. Every machine and tank whose water port the line reaches joins one network, and touching equipment joins without it. It has its own blue lane, so it shares tiles with other lines.",
-          "use": "Lay it through INSTALL > HVAC on intact floor from port to port. The water port is the tile beside the middle of each machine's or tank's left-hand side, turning with it. Then link the machine to the tank on its Control Panel; the list shows how each tank is reached.",
+          "use": "Lay it through INSTALL > HVAC on intact floor from port to port. The water port is the tile beside the middle of each machine's or tank's left-hand side, turning with it. Then link the machine to the tank on its Control Panel; the list shows how each tank is reached. To take it up, right-click it and choose Drain line into canister with a drain canister carried or within two tiles; the run closes until Return line to service.",
           "find": "Sold new at the K-Leg supply kiosk and fixer, San Diego Halvorson and the Venus scrap kiosk in lots of 128. Ordinary supply. Also sold for scrip at the CCRE and GalCon faction kiosks, at any standing.",
-          "notes": "New in Framework 0.57.0. Process grade only: it never joins drinking water. It holds no water between transfers. Irrigation conduit is a separate line for the W2's racks. The retained waste is terminal.",
+          "notes": "New in Framework 0.57.0. Process grade only: it never joins drinking water. Since Framework 0.63.0 it holds about 0.49 kg of water a tile, filled from its tanks, and a segment holding water cannot be taken up until drained. Irrigation conduit is a separate line for the W2's racks. The retained waste is terminal.",
           "guide": "manufacturing-player-guide.md",
           "internal": false,
           "labels": {}
@@ -1123,6 +1123,20 @@
           "find": "Sold new at the K-Leg supply kiosk and fixer, San Diego Halvorson and the Venus scrap kiosk in lots of 128. Ordinary supply. Also sold for scrip at the CCRE and GalCon faction kiosks, at any standing.",
           "notes": "New in Framework 0.61.0. Items never ride it: each still moves straight from one machine to the other in one checked transfer, powered and paid for by the machine that sends or receives it. A belt cut, damaged or taken up stops the route until you mend it and resume. Dismantling returns the whole segment as retained waste, which is terminal.",
           "guide": "automatic-material-routing.md",
+          "internal": false,
+          "labels": {}
+        },
+        {
+          "key": "drain-canister",
+          "title": "Rivetline D20 drain canister",
+          "ids": [
+            "PhobosLineDrainCanister"
+          ],
+          "function": "A portable 20 litre lined can for draining lines: about 20 kg of water or 36.7 kg of sulfuric acid, one liquid at a time. It carries a drained line’s contents back to a tank.",
+          "use": "Carry it, or leave it on the deck within two tiles of the line, then right-click an installed water or acid line and choose Drain line into canister. Haul the full canister into the inventory of a tank that holds the same liquid (a Rivetline water silo, or an acid tank’s canister rack) and it pours in, leaving the empty can there. The game’s own Haul orders or a hauling mod such as Common Sense move it like any cargo.",
+          "find": "Sold new at the K-Leg supply kiosk and fixer, San Diego Halvorson, the Venus scrap kiosk and the regional supply kiosks in lots of 16. Ordinary supply. Also sold for scrip at the CCRE and GalCon faction kiosks, at any standing.",
+          "notes": "New in Framework 0.63.0. It never stacks, since each canister records what it holds; its weight is the 3 kg can plus that liquid. Gas lines are vented instead, since they hold only grams. No repair or dismantling.",
+          "guide": "lines-and-draining.md",
           "internal": false,
           "labels": {}
         },
@@ -1430,7 +1444,7 @@
             "PhobosAcidTankLargeInstalledDmg"
           ],
           "function": "Bunded tanks for concentrated sulfuric acid, kept as a kilogram record: 1,150 kg in the 2 x 2 AT-2, 2,850 kg in the 3 x 3 AT-3 and 5,520 kg in the 4 x 4 AT-4. Liquid tanks, not gas stores: no gas line and no feed to thrusters, filling stations or cabin air.",
-          "use": "Install through APPS touching an SA-3 (which fills it) or an LC-3 (which draws from it), or join them with the acid line from its acid port; link it from those machines. Buy acid into it at a station's Bulk supplies. Pour acid into another tank it touches or shares an acid line with, from its panel or C1. Empty it before moving or dismantling it.",
+          "use": "Install through APPS touching an SA-3 (which fills it) or an LC-3 (which draws from it), or join them with the acid line from its acid port; link it from those machines. Buy acid into it at a station's Bulk supplies. Pour acid into another tank it touches or shares an acid line with, from its panel or C1. Empty it before moving or dismantling it. Since Manufacturing 0.25.0 each tank has a four-place rack for Framework drain canisters: a canister of acid put in it pours into the tank.",
           "find": "Buy loose hardware from the sellers below; it is late-game equipment with late-game prices, and the bigger sizes cost less per kilogram held. No fabrication recipe. The small size is a rare engineering-loot find, usually broken; the medium and large sizes are too big to turn up in salvage. The K-Leg fixer buys them back intact and the Venus scrap kiosk intact or broken. Also sold for scrip at the CCRE and GalCon faction kiosks; they ask Friendly standing.",
           "notes": "Damaged, the bund holds the acid but a ten-thousandth of it reaches the room as the game's own sulfuric acid mist, which poisons in its bands; repair, then recover the acid. A destroyed tank mists the same share and the rest is lost. A wet acid line that is damaged spills about a kilogram from the tank feeding it into this bund. Bought acid costs the game's own 3.1 cr/kg; nothing sells back.",
           "guide": "manufacturing-player-guide.md",
@@ -1448,9 +1462,9 @@
             "PhobosAcidLineWaste"
           ],
           "function": "Lined line for concentrated sulfuric acid between the AT acid tanks and the machines that fill or draw from them: the SA-3 and the LC-3. Every tank and machine whose acid port the line reaches joins one network, and touching equipment joins without it. It has its own violet lane, so it shares tiles with other lines.",
-          "use": "Lay it through INSTALL > HVAC on intact floor from port to port. The acid port is the tile beside each machine's or tank's right-hand side, one row below the gas port, turning with it. Then link the machine to the tank on its Control Panel; the list shows how each tank is reached. Unlink the tank before taking up a segment that carries acid.",
+          "use": "Lay it through INSTALL > HVAC on intact floor from port to port. The acid port is the tile beside each machine's or tank's right-hand side, one row below the gas port, turning with it. Then link the machine to the tank on its Control Panel; the list shows how each tank is reached. To take it up, right-click it and choose Drain line into canister with a Framework drain canister carried or within two tiles; the run closes until Return line to service.",
           "find": "Sold new at the K-Leg supply kiosk and fixer, San Diego Halvorson and the Venus scrap kiosk in lots of 128. Ordinary supply. Also sold for scrip at the CCRE and GalCon faction kiosks, at any standing.",
-          "notes": "New in Manufacturing 0.24.0. It holds no acid between transfers in the accounts, but while it joins a tank to a machine linked to that tank it is wet: damaged or destroyed, a wet segment spills about a kilogram from that tank, a ten-thousandth as mist into the room and the rest into the tank's bund (the kilogram is an authored figure). Dismantling returns only retained waste, which is terminal.",
+          "notes": "New in Manufacturing 0.24.0. Since Manufacturing 0.25.0 it holds about 0.9 kg of acid a tile, filled from its tanks (an authored metre of 25 mm bore), and a segment holding acid cannot be taken up until drained. Damaged or destroyed, a segment lets a ten-thousandth of what it holds into the room as mist; a damaged one keeps the rest until drained. Dismantling returns only retained waste, which is terminal.",
           "guide": "manufacturing-player-guide.md",
           "internal": false,
           "labels": {}

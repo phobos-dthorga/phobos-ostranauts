@@ -137,8 +137,8 @@ exception is the station refuelling kiosk's Bulk supplies view.
   Administration's oxygen-cylinder storage rule,
   [29 CFR 1910.253(b)(4)(iii)](https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.253),
   asks for 20 feet or a fire-rated barrier between them. In the game the line
-  holds no gas between transfers and nothing here models a leak; the caution is
-  our design choice.
+  holds only a few grams of gas a tile (since Framework 0.63.0) and nothing here
+  models a leak from mixing; the caution is our design choice.
 
 ## Set up
 
@@ -391,14 +391,15 @@ acid into** another acid tank it touches or shares an acid line with; the list
 says how each is reached. A tank holding acid refuses to be moved or dismantled.
 
 **The acid line** joins the SA-3, the LC-3 and the tanks port to port, so the
-tank room need not sit beside the plant. While a line joins a tank to a machine
-linked to that tank, it is *wet*. Damage or destroy a wet segment and it spills
-about a kilogram from that tank: a ten-thousandth mists into the room, the rest
-lands in the tank's bund, and the crew log names the tank. Repair or relay the
-line, then choose **Recover acid from the bund** on the tank's panel (the tank
-itself is intact). You cannot take up a wet segment: unlink the tank from its
-machines on their panels first. The kilogram is ours: a metre of 25 mm bore line
-holds about 0.9 kg of 98% acid.
+tank room need not sit beside the plant. Since 0.25.0 it holds its acid, about
+0.9 kg a tile (a metre of 25 mm bore of 98% acid, our authored figure), filled
+from the tanks on it. To take it up, right-click it and choose **Drain line into
+canister** with a Framework drain canister carried or within two tiles; each
+canister takes 36.7 kg. Draining closes the run until **Return line to service**.
+Every acid tank has a four-place canister rack: haul a full canister into it and
+the acid pours in, leaving the empty canister there. A damaged segment lets a
+ten-thousandth of its acid into the room as mist and keeps the rest until drained.
+See [draining and venting](lines-and-draining.md).
 
 ## Gas stores
 
@@ -576,9 +577,10 @@ releases it.
   own sulfuric acid mist, whose poisoning bands apply; a destroyed tank mists the
   same share and the rest is lost. Get the crew out and ventilate, then repair the
   tank and choose **Recover acid from the bund** to put it back in service.
-- **A wet acid line spills.** A damaged or destroyed segment that carries acid
-  from a tank to its machine lets about a kilogram out of that tank: 0.1 g mists
-  into the room and the rest goes to the tank's bund. See the acid plant section.
+- **A damaged acid line mists.** A damaged or destroyed segment lets a
+  ten-thousandth of the acid it holds, about 0.09 g, into the room as mist. A
+  damaged one keeps the rest until drained; a destroyed one loses it. See the acid
+  plant section.
 - **The acid plant heats its room hard.** See the acid plant section: about 21 kW
   over an hour, beyond the plant's own draw.
 - **Ammonia poisons.** A damaged ammonia store leaks about 2, 3 or 4 kg an
@@ -731,6 +733,13 @@ them and run an acid recipe. Confirm the line shares a tile with a gas line in i
 own lane, that uninstalling a segment is refused while linked, and that damaging
 one puts about a kilogram into the tank's bund, a trace of mist in the room and
 one crew-log caution; recover it from the tank's panel.
+
+Acid line contents (0.25.0): after linking, confirm the tank drops by about
+0.9 kg per tile of line. Drain the line with a canister and confirm the crew log
+amounts, that the LC-3 no longer reaches the tank until Return line to service, and
+that uninstalling is refused until the run is empty. Put the full canister in a
+tank's rack and confirm the acid pours in. Damage a filled segment and confirm the
+trace of mist and one caution.
 
 Acid recipes (0.20.0): link an acid tank to the LC-3, choose Epsom salt from
 olivine, load a mined olivine and confirm 32 Epsom salt and the leach cake after

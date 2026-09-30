@@ -173,6 +173,9 @@ internal static class Definitions
             co.mapPoints = new[] { "use,0," + (-8 * store.Footprint - 8) };
             co.strPortraitImg = item.strImg;
         }
+        // A canister rack in place of a general inventory (Manufacturing 0.25.0): a drain canister of acid hauled here
+        // pours into the tank, and the empty canister waits in the rack. Nothing else fits.
+        ApplianceDefinitions.SetRack(d, p, DrainCanisterDefinitions.RackTrigger, DrainCanisterDefinitions.RackWidth, DrainCanisterDefinitions.RackHeight);
     }
     /// <summary>The L2 filling station: a powered 2 x 2 appliance whose ordinary tray becomes a four-cell rack for suit
     /// O2 bottles (the game's own Inventory window). It is not airtight and not a gas container itself: the gas it

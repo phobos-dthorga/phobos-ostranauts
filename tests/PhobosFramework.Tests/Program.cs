@@ -28,6 +28,7 @@ LiquidDeliveryChecks.Run(Check);
 MixtureChecks.Run(Check);
 FluidNetworkChecks.Run(Check);
 NetworkChecks.Run(Check);
+LineContentsChecks.Run(Check);
 WaterTankChecks.Run(Check);
 BulkStorageChecks.Run(Check);
 BulkVesselChecks.Run(Check);

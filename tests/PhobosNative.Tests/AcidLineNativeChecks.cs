@@ -45,14 +45,23 @@ internal static class AcidLineNativeChecks
         check(Economy.SupplyKeys.SequenceEqual(new[] { AcidLineRules.Prefix }) && Economy.Pack.factionKiosks?.tiers[AcidLineRules.Prefix] == "Neutral",
             "The acid line is Manufacturing's one supply, at the faction kiosks at any standing");
 
-        // The spill: up to the hold-up, from the tank's service contents; mist plus bund is exactly what left service.
-        check(AcidLineRules.Spill(0) == (0, 0, 0) && AcidLineRules.Spill(double.NaN) == (0, 0, 0), "A dry or unreadable tank spills nothing");
-        foreach (double service in new[] { 0.25, 1, 700 })
-        {
-            var s = AcidLineRules.Spill(service);
-            check(s.Released == Math.Min(service, AcidLineRules.HoldUpKg) && Math.Abs(s.Mist + s.Bund - s.Released) < 1e-12 && Math.Abs(s.Mist - s.Released * LiquidStores.MistFraction) < 1e-15,
-                "A wetted segment spills its hold-up at most, the tank's mist fraction into the room and the rest into the bund: " + service);
-        }
-        check(Math.Abs(Math.PI * 0.0125 * 0.0125 * LiquidStores.AcidDensityKgPerM3 - 0.9012) < 1e-3, "The authored hold-up rounds one metre of 25 mm bore line of 98% acid (0.90 kg)");
+        // Manufacturing 0.25.0: the line holds its own acid, drained into Framework's canister, which pours into an AT tank's rack.
+        var held = LineContents.Families.FirstOrDefault(f => f.Family.Id == AcidLineRules.FamilyId);
+        var acid = held?.Of(LiquidStores.SulfuricAcid);
+        check(held != null && held.Prefix == AcidLineRules.Prefix && !held.Gas && acid != null, "The acid line is a holding line family for sulfuric acid");
+        check(acid != null && Math.Abs(acid.KgPerTile - Math.PI * 0.0125 * 0.0125 * LiquidStores.AcidDensityKgPerM3) < 1e-12 && Math.Abs(acid.KgPerTile - 0.9012) < 1e-3,
+            "A segment holds one metre of 25 mm bore of 98% acid (0.90 kg)");
+        check(acid != null && acid.MistSpecies == "H2SO4" && acid.MistFraction == LiquidStores.MistFraction && Math.Abs(acid.CanisterKg - 20e-3 * LiquidStores.AcidDensityKgPerM3) < 1e-9,
+            "Damage releases the tanks' mist fraction as the game's H2SO4, and a 20 litre canister holds 36.7 kg");
+        foreach (string form in new[] { "Installed", "InstalledDmg" })
+            check(d.Objects[AcidLineRules.Prefix + form].aInteractions.Contains(LineContents.DrainAction) && d.Objects[AcidLineRules.Prefix + form].aInteractions.Contains(LineContents.ReopenAction) &&
+                !d.Objects[AcidLineRules.Prefix + form].aInteractions.Contains(LineContents.VentAction), "An installed acid segment offers Drain and Return to service: " + form);
+        foreach (var store in LiquidStores.All)
+            foreach (string form in LineDefinitions.Forms)
+            {
+                var co = d.Objects[store.Prefix + form];
+                check(co.strContainerCT == Phobos.Ostranauts.Framework.Items.DrainCanisterDefinitions.RackTrigger && co.nContainerWidth == 2 && co.nContainerHeight == 2 && co.aInteractions.Contains("Inventory"),
+                    "An acid tank racks drain canisters and nothing else: " + store.Prefix + form);
+            }
     }
 }

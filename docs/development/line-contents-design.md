@@ -1,0 +1,136 @@
+# Lines that hold their contents: design record
+
+Framework 0.63.0 and Manufacturing 0.25.0 (1 October 2026). The player guide is
+[draining and venting](../lines-and-draining.md).
+
+## Owner decisions (1 October 2026)
+
+- Lines hold their contents until drained, across all Phobos piping; draining uses
+  hauling, with the Common Sense mods as an optional tie-in.
+- A gas line may hold any mix of gas species; players are not made to keep one line
+  per gas.
+- Drained contents go into a portable drain canister that crew haul.
+- Realistic hold-up per tile.
+- Irrigation parcels and the furnace coolant charge move to the same model, with their
+  saved contents converted on load. **Not yet delivered:** Agriculture and
+  Shipbreaker follow in their own releases.
+
+## Model
+
+- **Segment record.** Each installed segment of a holding family keeps an
+  `ObjectStateStore` record (`PhobosState.LineContents`, owner the Framework plugin id,
+  schema 1): `state` open or closed, and commodity/kilogram pairs `c0`, `kg0`, and so on.
+  A segment with no record is empty and open. The segment's native `StatMass` is its
+  definition's dry mass plus its contents (`LineContents.Write`).
+- **Hold-up.** `LineGeometry` authors a 25 mm bore, one metre of pipe per tile
+  (0.491 L) and a 1,000 kPa gas line at the game's reference 293 K:
+  - A liquid holds the bore volume at its density. For water, 998.2 kg/m³ at 20 °C
+    ([NIST Chemistry WebBook](https://webbook.nist.gov/chemistry/fluid/), Lemmon et al.)
+    gives 0.490 kg. For 98% sulfuric acid, 1,836 kg/m³ (Manufacturing's existing
+    figure, CRC Handbook, marked there for re-checking) gives 0.901 kg.
+  - A gas holds n = PV/RT moles, 0.2015 mol a tile. The code uses the game's own gas
+    constant and molar masses (`NativeGasCanister`), giving grams a tile: H2 0.41,
+    CH4 3.2, NH3 3.4, N2 5.6, O2 6.4, CO2 8.9.
+  - These are authored geometry and pressure. There is no flow resistance, pressure
+    drop or temperature.
+- **Mixtures.** A segment's fullness is the sum over commodities of mass over that
+  commodity's hold-up. A gas line fills each segment's free volume with an even share
+  from each gas on offer, then from any gas that still has some
+  (`LinePlanner.Fill`). A liquid family holds one liquid.
+- **Filling.** `LineContents.Poll` runs every two real seconds, on the route cache's
+  cadence, for each loaded player-owned ship:
+  - For every holding family, a component of the cached topology gets topped up when
+    it has a registered bulk vessel of a held commodity: installed, undamaged, not
+    reserved, not protected.
+  - It draws only the vessel's available kilograms (above its reserve), after settling
+    buffered draws. Stores are debited first, and a segment is only credited with what
+    a store gave.
+  - Machines' transfers are unchanged: they still move store to machine directly, and
+    the line's contents are the pipe being full.
+- **Closed runs.** Draining or venting marks every segment of the physical run closed:
+  its installed segments of the family joined through neighbouring tiles, intact or
+  damaged. The topology scan leaves closed segments out of the allowed cells, so a
+  closed run carries nothing, is not refilled, and no `LineReach` passes through it.
+  *Return line to service* opens the run. An empty open segment drops its record, so
+  a later uninstall leaves a clean loose part.
+
+## Crew actions
+
+Three Framework interactions, cloned from the game's Inventory action as Agriculture's
+work actions are. They are offered on the installed and installed-damaged forms of a
+holding family (`LineContents.OfferActions`):
+
+- **Drain line into canister** (liquids, two minutes). Needs a drain canister the worker
+  carries, or one loose on the deck within two tiles. It may be empty, or hold the same
+  liquid with room left. It drains the run nearest first (`LinePlanner.Drain`).
+- **Vent gas line** (gases, 30 seconds). Native species go into the room air through
+  `RoomGas`; hydrogen goes overboard, since the game has no room condition for it.
+- **Return line to service** (30 seconds).
+
+Refusals are given when the work is offered (`TriggeredInternal`) and checked again
+when it finishes. A finished action reports its amounts to the worker's log.
+
+## Drain canister
+
+- `PhobosLineDrainCanister` is a 1 x 1 pocketable item: 3 kg empty, 40 cr, never
+  stacking. It holds 20 L of one liquid as a saved record (`PhobosState.DrainCanister`),
+  so 19.96 kg of water or 36.72 kg of acid.
+- It is sold as a regional item on the expanded merchants in lots of 16 (registered
+  constant `Framework.stockCanisters`), and at the faction kiosks at Neutral.
+- The art is procedural, from `scripts/export-line-art.py`, an overhead view in the
+  conduit palette.
+- **Pour on arrival.** On the same two-second pass, every canister in the container of
+  an installed, undamaged registered bulk vessel of the same commodity is poured in.
+  Pouring stops at the vessel's room and is wrapped in the vessel's conversion journal.
+  The canister's mass change propagates to the vessel as cargo while its contents rise
+  by the same kilograms, so the vessel's mass is unchanged and the mass invariant holds.
+- **Racks.** A store with no general inventory takes canisters through
+  `ApplianceDefinitions.SetRack` with `DrainCanisterDefinitions.RackTrigger`, which
+  admits only the canister's marker condition. The AT acid tanks use a 2 x 2 rack.
+  Framework's water silos already have general inventories.
+- **Common Sense.** It is an optional tie-in with no code link. Its Salvage and Storage
+  module improves the game's own hauling and container storage, which moves canisters
+  like any other cargo. Phobos neither detects nor calls it.
+
+## Damage, destruction and removal
+
+- A mode switch keeps the record, because the game copies property maps to the new
+  object; the new form's mass is set to its dry mass plus contents.
+- **Damage.** A damaged form releases every gas (room or overboard) and a liquid's
+  declared mist, and keeps the rest. Acid declares the tanks' mist fraction, 1e-4, as
+  H2SO4.
+- **Destruction** (not the old half of a mode switch) releases the same way. What
+  cannot reach the room is lost; it is logged, with a caution on player ships.
+- **Removal.** Uninstalling or dismantling a segment that holds anything is refused
+  when the work is offered, and again when it finishes (`NativeEffects.Refuse` closes
+  the task). Native destruction is never blocked.
+- **Superseded behaviour.** Manufacturing 0.24.0's "wetted segment" spill drew from the
+  linked tank into its bund. It is replaced, and `AcidLineService` is retired.
+
+## Save migration
+
+| Structure | Handling |
+| --- | --- |
+| Water, gas and acid segments already laid | Automatic: no record means empty and open; they fill from their stores within seconds, taking their hold-up from them |
+| AT acid tanks | Automatic: the rack comes from the definition when the save loads; cargo starts empty, so the mass invariant is unchanged |
+| Manufacturing 0.24.0 bund contents | Unchanged; recovered from the tank's panel as before |
+| Irrigation parcels, coolant charge | Not yet converted; later releases |
+
+## Performance
+
+- The pass reuses the route cache's snapshot, which now also keeps the segment object
+  per allowed cell.
+- It reads each segment's record only in components that have a source, and writes
+  only segments whose record changed (`TryWriteIfChanged`).
+- Pouring scans the ship's objects once per pass.
+- The pass is measured as `framework.line_contents.maintain`.
+
+## Checks
+
+- Framework's offline `LineContentsChecks` cover the geometry, the hold-up figures,
+  record round trips and refusals, filling order, gas sharing and drain order with
+  conservation.
+- The native `LineContentsNativeChecks` and `AcidLineNativeChecks` cover the families,
+  the actions on installed forms, the canister definition, rack trigger, economy and
+  the acid tanks' rack.
+- The in-game behaviour needs owner checks, listed in the player guides.

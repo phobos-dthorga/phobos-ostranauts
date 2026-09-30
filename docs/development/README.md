@@ -116,6 +116,7 @@ The [consistency audit](documentation-consistency-audit.md) records the source c
 - [Terminal social network](terminal-social-network.md)
 - [Underfloor material transport — discussion proposal](underfloor-material-transport.md)
 - [Conveyor belts — design record (Framework 0.61.0, Shipbreaker 0.56.0)](conveyor-design.md)
+- [Lines that hold their contents — design record (Framework 0.63.0, Manufacturing 0.25.0)](line-contents-design.md)
 - [Updating versions and maintained constants](updating-constants.md)
 - [Vanilla economy audit](vanilla-economy-audit.md)
 - [Changelogs and Steam Workshop publication records](workshop-publication.md)

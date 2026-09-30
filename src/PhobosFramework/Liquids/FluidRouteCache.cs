@@ -50,6 +50,7 @@ public static class FluidRouteCache
         internal FluidTopology Topology = null!; internal int VisitLimit;
         internal readonly Dictionary<CondOwner, int> Participants = new();
         internal CondOwner[] ParticipantObjects = Array.Empty<CondOwner>();
+        internal IReadOnlyDictionary<int, CondOwner> Segments = new Dictionary<int, CondOwner>();
     }
     private sealed class ShipSnapshot { internal readonly Dictionary<string, FamilySnapshot> Families = new(StringComparer.Ordinal); internal readonly Cadence Cadence = new(RecheckSeconds); internal bool Built; }
     private static readonly Dictionary<Ship, ShipSnapshot> snapshots = new();
@@ -108,6 +109,9 @@ public static class FluidRouteCache
         co != null && Snapshot(ship, family, GridRoute.DefaultVisitLimit).Participants.TryGetValue(co, out int k) ? k : -1;
     /// <summary>The objects behind a network family's participant indices in the current snapshot.</summary>
     public static IReadOnlyList<CondOwner> Participants(Ship ship, FluidSegmentFamily family) => Snapshot(ship, family, GridRoute.DefaultVisitLimit).ParticipantObjects;
+    /// <summary>The segment behind each cell that carries fluid in the current snapshot (Framework 0.63.0): intact,
+    /// installed, open and over sound floor.</summary>
+    public static IReadOnlyDictionary<int, CondOwner> Segments(Ship ship, FluidSegmentFamily family) => Snapshot(ship, family, GridRoute.DefaultVisitLimit).Segments;
 
     private static FamilySnapshot Snapshot(Ship ship, FluidSegmentFamily family, int visitLimit)
     {
@@ -126,6 +130,7 @@ public static class FluidRouteCache
     private sealed class Collector
     {
         internal readonly FluidSegmentFamily Family; internal int Segments; internal readonly List<int> Allowed = new();
+        internal readonly Dictionary<int, CondOwner> SegmentObjects = new();
         internal readonly List<CondOwner> Participants = new(); internal readonly List<IReadOnlyList<int>> Ports = new();
         internal Collector(FluidSegmentFamily family) { Family = family; }
     }
@@ -163,7 +168,8 @@ public static class FluidRouteCache
                     int cell = NativeFluidRoute.CellAt(ship, co.GetPos());
                     if (cell < 0) continue;
                     c.Segments++;
-                    if (NativeFluidRoute.SoundFloor(ship, cell, cellObjects)) c.Allowed.Add(cell);
+                    // A closed (drained) segment carries nothing and joins nothing until its run returns to service.
+                    if (!LineContents.IsClosed(co) && NativeFluidRoute.SoundFloor(ship, cell, cellObjects)) { c.Allowed.Add(cell); c.SegmentObjects[cell] = co; }
                 }
                 else if (c.Family.Ports?.Invoke(co) is { Count: > 0 } points && Ready())
                 {
@@ -184,7 +190,7 @@ public static class FluidRouteCache
         var snapshot = new FamilySnapshot
         {
             Topology = FluidTopology.Build(ship.nCols, ship.nRows, c.Segments, c.Allowed, visitLimit, c.Ports, joins),
-            VisitLimit = visitLimit, ParticipantObjects = c.Participants.ToArray()
+            VisitLimit = visitLimit, ParticipantObjects = c.Participants.ToArray(), Segments = c.SegmentObjects
         };
         for (int k = 0; k < c.Participants.Count; k++) snapshot.Participants[c.Participants[k]] = k;
         return snapshot;

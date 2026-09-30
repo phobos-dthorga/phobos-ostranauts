@@ -14,6 +14,7 @@ common failures and useful reports.
 - [Agriculture](agriculture-player-guide.md) and [equipment acquisition/prices](equipment-economy.md).
 - [Editing the Phobos data files](editing-data-files.md): prices, work and merchant odds in files you can override.
 - [Fluid-network operations](fluid-network-operations.md): multi-rack distribution, retained lines, treatment and coolant servicing.
+- [Lines hold what they carry](lines-and-draining.md): draining water and acid lines into canisters, venting gas lines, and pouring canisters back.
 - [Agriculture nutrient-solution piping](agriculture-nutrient-solutions.md): W2 formulation, finite feed and saved contents.
 
 ## More player references
@@ -53,6 +54,7 @@ common failures and useful reports.
 - [Industrial controls](industrial-console-player-guide.md)
 - [Installing and updating our mods](installing-mods.md)
 - [Phobos equipment and item references](item-references.md)
+- [Lines hold what they carry: draining and venting](lines-and-draining.md)
 - [Phobos Manufacturing: equipment and item reference](manufacturing-item-reference.md)
 - [Phobos Manufacturing: refinery, electrolysis, Sabatier reactor, gas stores, canister filling and RCS propellant](manufacturing-player-guide.md)
 - [Phobos' War Has Been Declared: battle stations, build sites and rebuild schematics](war-declared-player-guide.md)

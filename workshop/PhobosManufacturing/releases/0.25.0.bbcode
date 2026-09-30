@@ -1,0 +1,28 @@
+[h1]Phobos Manufacturing 0.25.0[/h1]
+[b]Draft - not published | 2026-10-01[/b]
+
+[h2]Changed[/h2]
+
+[list]
+[*]The acid line now holds its acid, about 0.9 kg on every tile, filled from the acid tanks on it and kept there until drained. Right-click an installed acid line and choose Drain line into canister: a crew member drains the whole run into a Framework drain canister, 36.7 kg of acid to a canister. Draining closes the run, so no machine reaches a tank through it until you choose Return line to service.
+[*]Every AT acid tank has a four-place canister rack. Haul a canister of acid into it, with the game's own Haul orders or a hauling mod such as Common Sense, and the acid pours into the tank, leaving the empty canister in the rack. Nothing but drain canisters fits.
+[*]Taking up an acid line is refused while it holds acid, whatever it is linked to; drain it first.
+[/list]
+
+[h2]Hazards[/h2]
+
+[list]
+[*]A damaged or destroyed acid line section releases a ten-thousandth of the acid it holds into the room as the game's own H2SO4, and the crew are warned. A damaged section keeps the rest until drained. A destroyed one loses the rest with it, and the log records how much. The tank's bund no longer catches spills from the line, since the line now holds its own acid.
+[/list]
+
+[h2]Save compatibility[/h2]
+
+[list]
+[*]Automatic. Acid lines already laid start empty and fill from their tanks within seconds, which takes about 0.9 kg per tile from those tanks. Tanks gain their canister rack when the save loads.
+[/list]
+
+[h2]Compatibility and limits[/h2]
+
+[list]
+[*]Requires Phobos Framework 0.63.0 or newer. The hold-up is authored, a metre of 25 mm bore per tile at the tanks' 98% acid density, not a flow simulation. Offline checks are not gameplay validation.
+[/list]

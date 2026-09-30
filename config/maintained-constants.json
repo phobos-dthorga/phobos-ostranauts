@@ -4,7 +4,7 @@
     "Framework.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.62.0",
+      "value": "0.63.0",
       "description": "PhobosFramework published source/package version.",
       "targets": [
         {
@@ -265,7 +265,7 @@
     "Manufacturing.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.24.0",
+      "value": "0.25.0",
       "description": "PhobosManufacturing published source/package version.",
       "targets": [
         {
@@ -1437,7 +1437,7 @@
     "Manufacturing.minimumFramework": {
       "type": "version",
       "parts": 3,
-      "value": "0.60.0",
+      "value": "0.63.0",
       "description": "Current Manufacturing required Framework version, shared with local installer admission.",
       "targets": [
         {
@@ -1760,6 +1760,28 @@
         {
           "path": "docs/development/merchant-stock.md",
           "pattern": "^\\| Framework\\ gas\\ and\\ process-water\\ lines\\ and\\ conveyor\\ belt \\| (?P<value>[0-9]+) \\|\\r?$",
+          "count": 1
+        }
+      ],
+      "review": [
+        "Lives in Framework's economy data pack (framework/economy.json); rebuild Framework so the embedded copy follows, then regenerate item references.",
+        "Run native stock-quantity checks and regenerate item references. Existing inventories wait for native restocking."
+      ]
+    },
+    "Framework.stockCanisters": {
+      "type": "integer",
+      "value": "16",
+      "min": 1,
+      "max": 256,
+      "description": "Rivetline D20 drain canister quantity per successful merchant offer, including regional suppliers (Framework 0.63.0; canisters never stack).",
+      "targets": [
+        {
+          "path": "mods/PhobosFramework/framework/economy.json",
+          "pointer": "/lots/canisters"
+        },
+        {
+          "path": "docs/development/merchant-stock.md",
+          "pattern": "^\\| Framework\\ drain\\ canisters \\| (?P<value>[0-9]+) \\|\\r?$",
           "count": 1
         }
       ],

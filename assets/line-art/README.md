@@ -26,6 +26,13 @@ a 12-pixel band of dark belting with raised cross-cleats every third pixel betwe
 side rails, in the lowest layer, with the same joint mask; its loose icon is a straight run
 (`ConveyorBelt*`, colours recorded under `belt` in the export record).
 
+The Rivetline D20 drain canister (Framework 0.63.0) is drawn by the same script as a
+16 x 16 item seen from directly above, following the overhead-first rule: a lined steel
+can in the conduit palette with a recessed three-bar handle, pressed ribs and an amber
+filler cap, and a flat normal (`DrainCanister*`, colours under `canister`). It appears in
+the bottom-left corner of `lanes-preview.png`. Procedural, so no provider was called; a
+PixelLab pilot may replace it later through the artwork policy.
+
 The loose icon is the full cross in the middle lane. Sheets follow the game's joint
 mask order (N=8, W=4, E=2, S=1, bottom-left first) with flat normals.
 `line-art-exports.json` records the ramps, lanes and export hashes;

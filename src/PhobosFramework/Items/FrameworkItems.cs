@@ -16,6 +16,10 @@ public static class FrameworkItems
         var d = new NativeDefinitions();
         ItemVessels.Load();
         ItemEconomy.Load(NativeMass, id => DataHandler.dictLoot != null && DataHandler.dictLoot.ContainsKey(id));
+        // Lines hold their contents (Framework 0.63.0): the crew actions, the drain canister and the two pipes' hold-ups.
+        SharedLines.DeclareHoldUps();
+        Liquids.LineContents.AddActions(d);
+        DrainCanisterDefinitions.Add(d);
         SharedLines.Add(d);
         // The water tank ladder (Framework 0.58.0): definitions, ports, economy, merchant offers and world finds.
         WaterTanks.Add(d);

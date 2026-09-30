@@ -51746,7 +51746,7 @@
         "src/PhobosFramework/Items/SharedLines.cs:19"
       ],
       "before": "Sealed gas line between gas stores and the machines they feed or fill. Lay it tile by tile on intact floor from port to port; every machine and store whose gas port it reaches joins the same line, and touching equipment joins without it. Shares a tile with other kinds of line. Holds no gas between transfers.",
-      "after": "Sealed gas line between gas stores and the machines they feed or fill. Lay it tile by tile on intact floor from port to port; every machine and store whose gas port it reaches joins the same line, and touching equipment joins without it. Shares a tile with other kinds of line. Holds no gas between transfers."
+      "after": "Sealed gas line between gas stores and the machines they feed or fill. Lay it tile by tile on intact floor from port to port; every machine and store whose gas port it reaches joins the same line, and touching equipment joins without it. Shares a tile with other kinds of line. Once joined to a store it fills with a few grams of gas a tile and keeps it; vent the line before taking it up."
     },
     {
       "mod": "PhobosFramework",
@@ -51785,7 +51785,7 @@
         "src/PhobosFramework/Items/SharedLines.cs:19"
       ],
       "before": "Sealed line for process water between water tanks and the machines that draw or make it. Lay it tile by tile on intact floor from port to port; every machine and tank whose water port it reaches joins the same line, and touching equipment joins without it. Process grade only: it never joins drinking water. Holds no water between transfers.",
-      "after": "Sealed line for process water between water tanks and the machines that draw or make it. Lay it tile by tile on intact floor from port to port; every machine and tank whose water port it reaches joins the same line, and touching equipment joins without it. Process grade only: it never joins drinking water. Holds no water between transfers."
+      "after": "Sealed line for process water between water tanks and the machines that draw or make it. Lay it tile by tile on intact floor from port to port; every machine and tank whose water port it reaches joins the same line, and touching equipment joins without it. Process grade only: it never joins drinking water. Once joined to a tank it fills with about half a kilogram of water a tile and keeps it; drain it into a canister before taking it up."
     },
     {
       "mod": "PhobosFramework",
@@ -52562,7 +52562,7 @@
         "src/PhobosManufacturing/AcidLine.cs:24"
       ],
       "before": "Lined line for concentrated sulfuric acid between acid tanks and the machines that fill or draw from them. Lay it tile by tile on intact floor from port to port; every tank and machine whose acid port it reaches joins the same line, and touching equipment joins without it. Shares a tile with other kinds of line. While it joins a tank to a machine linked to that tank it is wet: damage it and about a kilogram of acid spills, a trace of it as mist into the room, the rest caught by the tank's bund.",
-      "after": "Lined line for concentrated sulfuric acid between acid tanks and the machines that fill or draw from them. Lay it tile by tile on intact floor from port to port; every tank and machine whose acid port it reaches joins the same line, and touching equipment joins without it. Shares a tile with other kinds of line. While it joins a tank to a machine linked to that tank it is wet: damage it and about a kilogram of acid spills, a trace of it as mist into the room, the rest caught by the tank's bund."
+      "after": "Lined line for concentrated sulfuric acid between acid tanks and the machines that fill or draw from them. Lay it tile by tile on intact floor from port to port; every tank and machine whose acid port it reaches joins the same line, and touching equipment joins without it. Shares a tile with other kinds of line. Once joined to a tank it fills with about 0.9 kg of acid a tile and keeps it. Damage lets a trace of it into the room as mist, so keep the crew clear; drain it into a canister before repair or taking it up."
     },
     {
       "mod": "PhobosManufacturing",
@@ -52589,71 +52589,6 @@
       ],
       "before": "acid line",
       "after": "acid line"
-    },
-    {
-      "mod": "PhobosManufacturing",
-      "key": "AcidLine.maintenance_wetted",
-      "category": "status/warning",
-      "decision": "add",
-      "reason": "Why a wet segment cannot be taken up, and what to do first.",
-      "trace": "literal reference",
-      "references": [
-        "src/PhobosManufacturing/AcidLineService.cs:36"
-      ],
-      "before": "This line carries acid from {0}. Unlink the tank from the machines it feeds before taking the line up.",
-      "after": "This line carries acid from {0}. Unlink the tank from the machines it feeds before taking the line up."
-    },
-    {
-      "mod": "PhobosManufacturing",
-      "key": "AcidLine.mist_reason",
-      "category": "developer diagnostics",
-      "decision": "add",
-      "reason": "Log reason for the mist drawn from the tank.",
-      "trace": "literal reference",
-      "references": [
-        "src/PhobosManufacturing/AcidLineService.cs:48"
-      ],
-      "before": "mist from a damaged acid line",
-      "after": "mist from a damaged acid line"
-    },
-    {
-      "mod": "PhobosManufacturing",
-      "key": "AcidLine.bund_reason",
-      "category": "developer diagnostics",
-      "decision": "add",
-      "reason": "Log reason for the spill moved into the bund.",
-      "trace": "literal reference",
-      "references": [
-        "src/PhobosManufacturing/AcidLineService.cs:51"
-      ],
-      "before": "acid spilled from a damaged acid line, caught by the bund",
-      "after": "acid spilled from a damaged acid line, caught by the bund"
-    },
-    {
-      "mod": "PhobosManufacturing",
-      "key": "AcidLine.damaged_log",
-      "category": "status/warning",
-      "decision": "add",
-      "reason": "Crew-log caution for a damaged wet line: what spilled, where it went and what to do.",
-      "trace": "literal reference",
-      "references": [
-        "src/PhobosManufacturing/AcidLineService.cs:67"
-      ],
-      "before": "An acid line fed by {0} was damaged. {1:F1} g of sulfuric acid misted into the room; the tank's bund caught the other {2:F2} kg. Keep the crew clear of the mist, repair the line, then recover the acid from the tank's panel.",
-      "after": "An acid line fed by {0} was damaged. {1:F1} g of sulfuric acid misted into the room; the tank's bund caught the other {2:F2} kg. Keep the crew clear of the mist, repair the line, then recover the acid from the tank's panel."
-    },
-    {
-      "mod": "PhobosManufacturing",
-      "key": "AcidLine.destroyed_log",
-      "category": "status/warning",
-      "decision": "add",
-      "reason": "Crew-log caution for a destroyed wet line: what spilled, where it went and what to do.",
-      "trace": "literal reference",
-      "references": [
-        "src/PhobosManufacturing/AcidLineService.cs:79"
-      ],
-      "before": "An acid line fed by {0} was destroyed. {1:F1} g of sulfuric acid misted into the room; the tank's bund caught the other {2:F2} kg. Keep the crew clear of the mist, lay new line, then recover the acid from the tank's panel.",
-      "after": "An acid line fed by {0} was destroyed. {1:F1} g of sulfuric acid misted into the room; the tank's bund caught the other {2:F2} kg. Keep the crew clear of the mist, lay new line, then recover the acid from the tank's panel."
     },
     {
       "mod": "PhobosFramework",
@@ -52839,6 +52774,284 @@
       ],
       "before": "Another navigation console aboard this ship is flying it. Choose Disengage here to stop that flight; the ship will coast.",
       "after": "Another navigation console aboard this ship is flying it. Choose Disengage here to stop that flight; the ship will coast."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "LineContents.action_drain",
+      "category": "control label",
+      "decision": "add",
+      "reason": "Right-click action to drain a water or acid line into a canister.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Liquids/LineContents.cs:410"
+      ],
+      "before": "Drain line into canister",
+      "after": "Drain line into canister"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "LineContents.action_vent",
+      "category": "control label",
+      "decision": "add",
+      "reason": "Right-click action to vent a gas line.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Liquids/LineContents.cs:410"
+      ],
+      "before": "Vent gas line",
+      "after": "Vent gas line"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "LineContents.action_reopen",
+      "category": "control label",
+      "decision": "add",
+      "reason": "Right-click action to open a drained line again.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Liquids/LineContents.cs:410"
+      ],
+      "before": "Return line to service",
+      "after": "Return line to service"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "LineContents.not_segment",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Why a line action is not offered on this object.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Liquids/LineContents.cs:263",
+        "src/PhobosFramework/Liquids/LineContents.cs:267"
+      ],
+      "before": "Only an installed line can be drained, vented or returned to service.",
+      "after": "Only an installed line can be drained, vented or returned to service."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "LineContents.unreadable",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "A line whose saved contents cannot be read is left alone; points to the log.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Liquids/LineContents.cs:265",
+        "src/PhobosFramework/Liquids/LineContents.cs:398"
+      ],
+      "before": "This line’s contents record cannot be read, so it is left as it is. Details are in the log.",
+      "after": "This line’s contents record cannot be read, so it is left as it is. Details are in the log."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "LineContents.already_open",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Return to service is not needed.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Liquids/LineContents.cs:266"
+      ],
+      "before": "This line is already in service.",
+      "after": "This line is already in service."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "LineContents.run_empty",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Nothing to drain or vent.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Liquids/LineContents.cs:269",
+        "src/PhobosFramework/Liquids/LineContents.cs:301"
+      ],
+      "before": "This line is empty.",
+      "after": "This line is empty."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "LineContents.no_canister",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Says which canister the drain needs and where it must be.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Liquids/LineContents.cs:271",
+        "src/PhobosFramework/Liquids/LineContents.cs:292"
+      ],
+      "before": "Needs a drain canister, empty or holding the same liquid, carried or lying within {0} tiles of the line.",
+      "after": "Needs a drain canister, empty or holding the same liquid, carried or lying within {0} tiles of the line."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "LineContents.reopened",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Result of Return to service, and that the line refills.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Liquids/LineContents.cs:283"
+      ],
+      "before": "Returned {0} line sections to service. They fill from their tanks again.",
+      "after": "Returned {0} line sections to service. They fill from their tanks again."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "LineContents.drained",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Result of a drain with amounts, and that the line stays closed.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Liquids/LineContents.cs:306"
+      ],
+      "before": "Drained {0:0.##} kg of {1} into the canister; {2:0.##} kg is still in the line. The line stays closed, and nothing reaches through it until it is returned to service.",
+      "after": "Drained {0:0.##} kg of {1} into the canister; {2:0.##} kg is still in the line. The line stays closed, and nothing reaches through it until it is returned to service."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "LineContents.drained_log",
+      "category": "log/diagnostic",
+      "decision": "add",
+      "reason": "Precise drain record for the log.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Liquids/LineContents.cs:305"
+      ],
+      "before": "Line {0}: drained {1:R} kg of {2} into canister {3}; {4:R} kg remain in its run.",
+      "after": "Line {0}: drained {1:R} kg of {2} into canister {3}; {4:R} kg remain in its run."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "LineContents.vented",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Result of a vent: grams to the room and overboard, line closed.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Liquids/LineContents.cs:320"
+      ],
+      "before": "Vented the line: {0:0.#} g into the room air, {1:0.#} g overboard. The line stays closed until it is returned to service.",
+      "after": "Vented the line: {0:0.#} g into the room air, {1:0.#} g overboard. The line stays closed until it is returned to service."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "LineContents.vented_log",
+      "category": "log/diagnostic",
+      "decision": "add",
+      "reason": "Precise vent record for the log.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Liquids/LineContents.cs:319"
+      ],
+      "before": "Line {0}: vented {1:R} kg into the room air and {2:R} kg overboard.",
+      "after": "Line {0}: vented {1:R} kg into the room air and {2:R} kg overboard."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "LineContents.damaged_notice",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Crew caution when a damaged line releases gas or mist.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Liquids/LineContents.cs:367"
+      ],
+      "before": "{0} was damaged: {1:0.##} g escaped into the room air and {2:0.##} g went overboard. Whatever is left stays in the line until it is drained.",
+      "after": "{0} was damaged: {1:0.##} g escaped into the room air and {2:0.##} g went overboard. Whatever is left stays in the line until it is drained."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "LineContents.destroyed_notice",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Crew caution when a destroyed line loses its contents.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Liquids/LineContents.cs:382"
+      ],
+      "before": "{0} was destroyed holding {1:0.##} kg; {2:0.##} g reached the room air and the rest was lost.",
+      "after": "{0} was destroyed holding {1:0.##} kg; {2:0.##} g reached the room air and the rest was lost."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "LineContents.destroyed_log",
+      "category": "log/diagnostic",
+      "decision": "add",
+      "reason": "Precise record of what a destroyed line released and lost.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Liquids/LineContents.cs:380"
+      ],
+      "before": "Line {0} destroyed holding {1:R} kg: {2:R} kg into the room air, {3:R} kg overboard, {4:R} kg lost with it.",
+      "after": "Line {0} destroyed holding {1:R} kg: {2:R} kg into the room air, {3:R} kg overboard, {4:R} kg lost with it."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "LineContents.drain_first",
+      "category": "status/warning",
+      "decision": "add",
+      "reason": "Why removal is refused, and the action to use first.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Liquids/LineContents.cs:399"
+      ],
+      "before": "Drain this line first: it still holds its contents. Right-click it and choose Drain line into canister, or Vent gas line.",
+      "after": "Drain this line first: it still holds its contents. Right-click it and choose Drain line into canister, or Vent gas line."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "LineContents.failed",
+      "category": "log/diagnostic",
+      "decision": "add",
+      "reason": "Log line when the line top-up fails on a ship; lines keep what they hold.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Liquids/LineContents.cs:121"
+      ],
+      "before": "Phobos Framework could not top up the lines on {0}; they keep what they hold: {1}",
+      "after": "Phobos Framework could not top up the lines on {0}; they keep what they hold: {1}"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "DrainCanister.name",
+      "category": "item name",
+      "decision": "add",
+      "reason": "The Rivetline D20 drain canister.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Items/DrainCanisterDefinitions.cs:26",
+        "src/PhobosFramework/Items/DrainCanisterDefinitions.cs:30"
+      ],
+      "before": "Drain Canister",
+      "after": "Drain Canister"
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "DrainCanister.description",
+      "category": "item description",
+      "decision": "add",
+      "reason": "What the canister is for, how to fill it and how it pours back.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Items/DrainCanisterDefinitions.cs:31"
+      ],
+      "before": "A {0:0} litre lined can for draining pipe, {1:0} kg empty. Crew fill it with Drain line into canister. Haul a full one into a tank that holds the same liquid and it pours in, leaving the empty can there for next time. One liquid at a time.",
+      "after": "A {0:0} litre lined can for draining pipe, {1:0} kg empty. Crew fill it with Drain line into canister. Haul a full one into a tank that holds the same liquid and it pours in, leaving the empty can there for next time. One liquid at a time."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "DrainCanister.poured_log",
+      "category": "log/diagnostic",
+      "decision": "add",
+      "reason": "Record of a canister pouring into a tank.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Liquids/DrainCanisters.cs:105"
+      ],
+      "before": "Drain canister {0} poured {1:R} kg of {2} into {3}.",
+      "after": "Drain canister {0} poured {1:R} kg of {2} into {3}."
     }
   ],
   "documents": [
@@ -52846,8 +53059,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "29e6e606ed7bdeacaaa90ae3b13836e3be6afa34a91629550efb8eed7efd3271",
-      "review": "Reviewed 1 October 2026 for Framework 0.62.0 and Shipbreaker 0.57.0, merged with Auto Nav 0.31.2."
+      "sha256": "c5fc45dbf821bb0cbfdc3f6b3fd3038cf416a3a002cf043c143405c16b99b314",
+      "review": "Reviewed 1 October 2026 for Framework 0.63.0 and Manufacturing 0.25.0: lines hold their contents, draining, venting and the drain canister."
     },
     {
       "path": "SUPPORT.md",
@@ -52860,8 +53073,8 @@
       "path": "docs/README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "605372c952ff955c93d74d994873e07ee7c629193913db54522aef083b93e33f",
-      "review": "Reviewed 1 October 2026 for Framework 0.58.0: the Rivetline S2 to S5 water silos in Framework, the retired R3 to R5 reservoirs converted on load, silos named instead of reservoirs, current operating steps first."
+      "sha256": "5e4c34516a6df2866917a41ca2266e02301bb6f1c018c2dc6033e8a4d7f0b402",
+      "review": "Reviewed 1 October 2026 for Framework 0.63.0 and Manufacturing 0.25.0: lines hold their contents, draining, venting and the drain canister."
     },
     {
       "path": "docs/agriculture-bulk-storage.md",
@@ -53006,8 +53219,8 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "4f05522b306c3f36e648ce5a7cb26dfa4a36152e66cc782a22088308f0574b7d",
-      "review": "Reviewed 1 October 2026 for Framework 0.62.0 and Shipbreaker 0.57.0, merged with Auto Nav 0.31.2."
+      "sha256": "dd46ffe5713a36d8297562c107d7d875417123c2ca051cb27e6300386e3507e2",
+      "review": "Reviewed 1 October 2026 for Framework 0.63.0 and Manufacturing 0.25.0: lines hold their contents, draining, venting and the drain canister."
     },
     {
       "path": "docs/crew-automation.md",
@@ -53020,8 +53233,8 @@
       "path": "docs/development/README.md",
       "scope": "review index/audit; no gameplay behavior",
       "decision": "review audience separation and evidence limits",
-      "sha256": "6be34c4fecf48ac31f17d941ccfb1e5ee0534acd6483daecd1367da41fbabab2",
-      "review": "Reviewed 1 October 2026 for Framework 0.61.0 and Shipbreaker 0.56.0: conveyor belts, routes that need a belt or touching equipment, resume after reload and the manual step for routes over bare floor."
+      "sha256": "d13d7bedff9ce22e04fc54308ba26c5da3d785b064e4be4cff39a72f9e5730cc",
+      "review": "Reviewed 1 October 2026 for Framework 0.63.0 and Manufacturing 0.25.0: lines hold their contents, draining, venting and the drain canister."
     },
     {
       "path": "docs/development/agriculture-bulk-storage-art.md",
@@ -53273,8 +53486,8 @@
       "path": "docs/development/equipment-branding.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "0cad6a8a12ef68da2c7b0626b9320d36a73aaecc9d4b7be6db162bdfac4be486",
-      "review": "Reviewed 1 October 2026 for Framework 0.61.0 and Shipbreaker 0.56.0: conveyor belts, routes that need a belt or touching equipment, resume after reload and the manual step for routes over bare floor."
+      "sha256": "f3395bfe98a70a2a416d37b5454f98986a293045dd051c1f678bae3ec3913938",
+      "review": "Reviewed 1 October 2026 for Framework 0.63.0 and Manufacturing 0.25.0: lines hold their contents, draining, venting and the drain canister."
     },
     {
       "path": "docs/development/equipment-value-audit.md",
@@ -53307,8 +53520,8 @@
       "path": "docs/development/framework-author-guide.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "fb5fe16c9b57c1988285cfcfbaae3d9f12cde576656ebfb201c420bf85de9845",
-      "review": "Reviewed 1 October 2026 for Framework 0.62.0 and Shipbreaker 0.57.0: stacked units on every route, belts joining any side of a store, and the moving-item display."
+      "sha256": "3ed20287b4374154326c6aae725256cd9767980d93f3da89ceb14b76e8e0db87",
+      "review": "Reviewed 1 October 2026 for Framework 0.63.0 and Manufacturing 0.25.0: lines hold their contents, draining, venting and the drain canister."
     },
     {
       "path": "docs/development/framework-bulk-storage.md",
@@ -53398,8 +53611,8 @@
       "path": "docs/development/item-handling-audit.md",
       "scope": "current handling guidance and complete generated definition ledger",
       "decision": "reviewed",
-      "sha256": "8d1b214168d54c36bbbab66885a5a5c76b91a7b6bde1cb5aba7938e9f535e946",
-      "review": "Reviewed 1 October 2026 for Framework 0.61.0 and Shipbreaker 0.56.0: conveyor belts, routes that need a belt or touching equipment, resume after reload and the manual step for routes over bare floor."
+      "sha256": "9f7531fd1e05a388071af4731e3cf9b4c79c0e6c1377580a681f2d06b4cd75cd",
+      "review": "Reviewed 1 October 2026 for Framework 0.63.0 and Manufacturing 0.25.0: lines hold their contents, draining, venting and the drain canister."
     },
     {
       "path": "docs/development/item-reference-maintenance.md",
@@ -53503,8 +53716,8 @@
       "path": "docs/development/merchant-stock.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "d2caf96bc32b5d5a63637aba538c6cb36e4b767a6a805e1cf1404192947ac270",
-      "review": "Reviewed 1 October 2026 for Framework 0.61.0 and Shipbreaker 0.56.0: conveyor belts, routes that need a belt or touching equipment, resume after reload and the manual step for routes over bare floor."
+      "sha256": "49b0eff7c224de6f7a8ab0bdcdc5939da1128dfb6605360fd7213c6efa8035f0",
+      "review": "Reviewed 1 October 2026 for Framework 0.63.0 and Manufacturing 0.25.0: lines hold their contents, draining, venting and the drain canister."
     },
     {
       "path": "docs/development/mod-extension-survey.md",
@@ -53727,8 +53940,8 @@
       "path": "docs/equipment-economy.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "6e3d08783da33ecce4efdde514343c8d4cbf910a3bcbf2930e26f6c6a7a228ca",
-      "review": "Reviewed 1 October 2026 for Framework 0.61.0 and Shipbreaker 0.56.0: conveyor belts, routes that need a belt or touching equipment, resume after reload and the manual step for routes over bare floor."
+      "sha256": "f5d3ff4a59b7cde986f8836108d40e6e917349420300e8ad90fae881a94039ef",
+      "review": "Reviewed 1 October 2026 for Framework 0.63.0 and Manufacturing 0.25.0: lines hold their contents, draining, venting and the drain canister."
     },
     {
       "path": "docs/fluid-network-operations.md",
@@ -53741,8 +53954,8 @@
       "path": "docs/framework-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "e8dbcab3f106fd2c1ffd9feb0395fc8d494c895dab1074abd1d4f06db3ac8546",
-      "review": "Reviewed 1 October 2026 for Framework 0.62.0 and Shipbreaker 0.57.0: stacked units on every route, belts joining any side of a store, and the moving-item display."
+      "sha256": "ef8ce02b317b799e2f5227638ecb46a0d3871f9d9840d06898151ad9b980913d",
+      "review": "Reviewed 1 October 2026 for Framework 0.63.0 and Manufacturing 0.25.0: lines hold their contents, draining, venting and the drain canister."
     },
     {
       "path": "docs/furnace-coolant-conduits.md",
@@ -53804,8 +54017,8 @@
       "path": "docs/installing-mods.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "48203c8d11a61498cd501f3f634cf0841b50d653254664b2dc2d3f8881066bf6",
-      "review": "Reviewed 1 October 2026 for Framework 0.62.0 and Shipbreaker 0.57.0: stacked units on every route, belts joining any side of a store, and the moving-item display."
+      "sha256": "b2d8d0d0d247001727ca28d74647b99f0358c918a130a2a66ea5196f5706cc9a",
+      "review": "Reviewed 1 October 2026 for Framework 0.63.0 and Manufacturing 0.25.0: lines hold their contents, draining, venting and the drain canister."
     },
     {
       "path": "docs/item-references.md",
@@ -53818,15 +54031,15 @@
       "path": "docs/manufacturing-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "retain",
-      "sha256": "07cf5f0c1dc8a43e68dc97a4de5bdb874edd47e6d5604bb16d426965110229d4",
-      "review": "Reviewed 1 October 2026 for Manufacturing 0.24.0: the Lixivar acid line, its wet-line spill and link wording that names touching or the line."
+      "sha256": "199b0a547f143caf7b597a9281bf04dc94b72cb379ed45a244e6697dc30e97c1",
+      "review": "Reviewed 1 October 2026 for Framework 0.63.0 and Manufacturing 0.25.0: lines hold their contents, draining, venting and the drain canister."
     },
     {
       "path": "docs/manufacturing-player-guide.md",
       "scope": "current player operating guide",
       "decision": "rewrite",
-      "sha256": "9943d53faeb56dac48cfc487c26a9e4683b84e8c18253c298e2e731faa08e51a",
-      "review": "Reviewed 1 October 2026 for Manufacturing 0.24.0: the Lixivar acid line, its wet-line spill and link wording that names touching or the line."
+      "sha256": "19d525b37067f1f44fec50c3af64542a6b91fa585bb7ed23366863d3179a718d",
+      "review": "Reviewed 1 October 2026 for Framework 0.63.0 and Manufacturing 0.25.0: lines hold their contents, draining, venting and the drain canister."
     },
     {
       "path": "docs/material-port-pairing.md",
@@ -53846,8 +54059,8 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "2a5aaa5008e53677da098a7495dd29b77da75f2c53be38c4cfe0eb8e4ba76105",
-      "review": "Reviewed 1 October 2026 for Framework 0.62.0 and Shipbreaker 0.57.0, merged with Auto Nav 0.31.2."
+      "sha256": "31514f8e2c9ccf50ca0bb1a5bf63a39fac71032df87009acc522172460b5b856",
+      "review": "Reviewed 1 October 2026 for Framework 0.63.0 and Manufacturing 0.25.0: lines hold their contents, draining, venting and the drain canister."
     },
     {
       "path": "docs/residue-collector.md",
@@ -53937,15 +54150,15 @@
       "path": "workshop/PhobosFramework/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "0bc9c7272d02ab0b9831c12144ce7ea67c4d0a40097ebb083ff163655790ead6",
-      "review": "Reviewed 1 October 2026 for Framework 0.62.0 and Shipbreaker 0.57.0: stacked units on every route, belts joining any side of a store, and the moving-item display."
+      "sha256": "4965d020015cfaf4bae72485c42b6bd077ee0121825e4aa3efe57991800df965",
+      "review": "Reviewed 1 October 2026 for Framework 0.63.0 and Manufacturing 0.25.0: lines hold their contents, draining, venting and the drain canister."
     },
     {
       "path": "workshop/PhobosManufacturing/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "345d625c4907381845b1c28e72284c6e44ddec9913b1adb9c50236711859e56f",
-      "review": "Reviewed 1 October 2026 for Manufacturing 0.24.0: the Lixivar acid line, its wet-line spill and link wording that names touching or the line."
+      "sha256": "2f383ae54d96e24e3d684cee0f97e82f5165254554f0f513394abfe62f351bf5",
+      "review": "Reviewed 1 October 2026 for Framework 0.63.0 and Manufacturing 0.25.0: lines hold their contents, draining, venting and the drain canister."
     },
     {
       "path": "workshop/PhobosShipbreaker/page.bbcode",
@@ -54028,8 +54241,8 @@
       "path": "docs/development/faction-kiosk-stock.md",
       "scope": "contributor design record with a player-relevant summary table",
       "decision": "add",
-      "sha256": "c4a2f5755ab99d02bdaa218f196b147bcd1cb67821f75cc8f1ef1c09e1e3e0b6",
-      "review": "Reviewed 1 October 2026 for Framework 0.61.0 and Shipbreaker 0.56.0: conveyor belts, routes that need a belt or touching equipment, resume after reload and the manual step for routes over bare floor."
+      "sha256": "66311c5bd83aacb49ebe4a3a98b5801b7869fd05ec9dc4c428c58daa223bf199",
+      "review": "Reviewed 1 October 2026 for Framework 0.63.0 and Manufacturing 0.25.0: lines hold their contents, draining, venting and the drain canister."
     },
     {
       "path": "docs/development/conveyor-design.md",
@@ -54037,14 +54250,28 @@
       "decision": "Development design record; not player-facing.",
       "sha256": "cd51245035c0d3f9379a147d596df04462b032526614b85e2a2062f74c14da8e",
       "review": "Reviewed 1 October 2026 for Framework 0.62.0 and Shipbreaker 0.57.0: stacked units on every route, belts joining any side of a store, and the moving-item display."
+    },
+    {
+      "path": "docs/development/line-contents-design.md",
+      "scope": "development",
+      "decision": "Development design record; not player-facing.",
+      "sha256": "2b34bd22c122d824eb777c135b081d0e75bccb9bee2e100f2a1ae2acd0868fc3",
+      "review": "Reviewed 1 October 2026 for Framework 0.63.0 and Manufacturing 0.25.0: lines hold their contents, draining, venting and the drain canister."
+    },
+    {
+      "path": "docs/lines-and-draining.md",
+      "scope": "current player text",
+      "decision": "New player guide written to the crew voice: situation, action and limits first.",
+      "sha256": "db52dd30c5f4a2f521cd1449ba94f39945524db67edc98d507d9e0dea9e0a585",
+      "review": "Reviewed 1 October 2026 for Framework 0.63.0 and Manufacturing 0.25.0: lines hold their contents, draining, venting and the drain canister."
     }
   ],
   "surfaces": [
     {
       "path": "config/item-reference.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "73191db38f9f2a99ff869067dfe2d2bf774e7513c41477977e9fccc7b1e912b8",
-      "review": "Reviewed 1 October 2026 for Framework 0.61.0 and Shipbreaker 0.56.0: conveyor belts, routes that need a belt or touching equipment, resume after reload and the manual step for routes over bare floor."
+      "sha256": "cdb9f86b6d0e7c0badd1ca76d3ada6a224f65f3127a8d81ab211a8c91beafc29",
+      "review": "Reviewed 1 October 2026 for Framework 0.63.0 and Manufacturing 0.25.0: lines hold their contents, draining, venting and the drain canister."
     },
     {
       "path": "mods/PhobosAgriculture/framework/equipment-names.json",
@@ -54087,20 +54314,20 @@
     {
       "path": "mods/PhobosFramework/framework/equipment-names.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "12a51cca9e4a28aacbfe7721ff85bf7be7a9ee9a69bd04390d53e5a6cdf08da0",
-      "review": "Reviewed 1 October 2026 for Framework 0.61.0 and Shipbreaker 0.56.0: conveyor belts, routes that need a belt or touching equipment, resume after reload and the manual step for routes over bare floor."
+      "sha256": "ea594c0866f9484f3a01b08638621ae55dd40ff2de7225d942d9b96a9027e739",
+      "review": "Reviewed 1 October 2026 for Framework 0.63.0 and Manufacturing 0.25.0: lines hold their contents, draining, venting and the drain canister."
     },
     {
       "path": "mods/PhobosFramework/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "e1579c2d32edd6d7dcd2d2914da2196d25559e5dff841642be76d4047e750b2f",
-      "review": "Reviewed 1 October 2026 for Framework 0.62.0 and Shipbreaker 0.57.0: stacked units on every route, belts joining any side of a store, and the moving-item display."
+      "sha256": "5f0ee2b157c8c5dfa27de3fcad17bd18bb75ebf1906840e8f62865e337fa10a7",
+      "review": "Reviewed 1 October 2026 for Framework 0.63.0 and Manufacturing 0.25.0: lines hold their contents, draining, venting and the drain canister."
     },
     {
       "path": "mods/PhobosManufacturing/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "be4cf074d790661373ae229b16caff9f3e5e8e8d335ec6cb4cb208e04c303644",
-      "review": "Reviewed 1 October 2026 for Manufacturing 0.24.0: the Lixivar acid line, its wet-line spill and link wording that names touching or the line."
+      "sha256": "e709bcd33f3a54adb0b22783f7e7b64808f56cde21d6e2314c364fa5cbaa6615",
+      "review": "Reviewed 1 October 2026 for Framework 0.63.0 and Manufacturing 0.25.0: lines hold their contents, draining, venting and the drain canister."
     },
     {
       "path": "mods/PhobosShipbreaker/framework/equipment-names.json",

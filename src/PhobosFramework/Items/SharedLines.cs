@@ -34,13 +34,35 @@ public static class SharedLines
             Present = present, Intact = intact, Kg = kg, Price = ItemEconomy.SupplyPrice(prefix), InstallTab = tab ?? InstallMenu.Hvac, LooseStack = LooseStack, Layer = layer, Family = family
         };
     }
-    /// <summary>Publishes both families, then their bills: repair with the pack's material, dismantling to each line's
-    /// own retained waste (its full mass), and the saved-object upgrade.</summary>
+    /// <summary>Water's density at 20 C, 998.2 kg per cubic metre (NIST Chemistry WebBook, fluid properties of water),
+    /// for the process-water line's hold-up and the drain canister.</summary>
+    public const double WaterDensityKgPerM3 = 998.2;
+    /// <summary>The gases the shared gas line holds (Framework 0.63.0), by the bulk commodity names content assigns to it,
+    /// each at its native species' molar mass; hydrogen has no room condition in the game and vents overboard.</summary>
+    public static IEnumerable<LineCommodity> Gases()
+    {
+        yield return LineCommodity.GasOf("hydrogen", null, Processing.NativeGasCanister.KgPerMol["H2"]);
+        yield return LineCommodity.GasOf("methane", "CH4");
+        yield return LineCommodity.GasOf("oxygen", "O2");
+        yield return LineCommodity.GasOf("nitrogen", "N2");
+        yield return LineCommodity.GasOf("carbon dioxide", "CO2");
+        yield return LineCommodity.GasOf("ammonia", "NH3");
+    }
+    /// <summary>Declares what the process-water and gas lines hold (Framework 0.63.0): lines hold their contents until drained.</summary>
+    internal static void DeclareHoldUps()
+    {
+        LineContents.Declare(LineFamilies.ProcessWater, LineFamilies.ProcessWaterPrefix, new[] { LineCommodity.Liquid(LineFamilies.Water, WaterDensityKgPerM3) });
+        LineContents.Declare(LineFamilies.Gas, LineFamilies.GasPrefix, Gases());
+    }
+    /// <summary>Publishes the families, then their bills: repair with the pack's material, dismantling to each line's
+    /// own retained waste (its full mass), and the saved-object upgrade. The two pipes also offer the crew's drain (or
+    /// vent) and return-to-service actions.</summary>
     internal static void Add(NativeDefinitions d)
     {
         foreach (var spec in All())
         {
             LineDefinitions.Add(d, spec);
+            if (spec.Family != null) LineContents.OfferActions(d, spec.Prefix, spec.Family == LineFamilies.GasId);
             var supply = ItemEconomy.Pack.supplies[spec.Prefix];
             string waste = supply.remainder ?? spec.Prefix + "Waste";
             MaintenanceDefinitions.Remainder(d, waste, Text.Get(spec.Prefix == LineFamilies.GasPrefix ? "SharedLines.gas_waste" : spec.Prefix == LineFamilies.ProcessWaterPrefix ? "SharedLines.water_waste" : "SharedLines.belt_waste"), spec.Kg);

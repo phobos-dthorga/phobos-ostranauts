@@ -1334,8 +1334,8 @@ piped, and joins chain across the ship.
   the U.S. Occupational Safety and Health Administration,
   [29 CFR 1910.253(b)(4)(iii)](https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.253)
   (oxygen cylinders in storage kept 20 feet from fuel-gas cylinders or behind a
-  five-foot, half-hour fire-rated barrier). Applying it to a line that holds no gas
-  between transfers is our design choice.
+  five-foot, half-hour fire-rated barrier). Applying it to a line that holds only a
+  few grams of gas a tile (since 0.63.0) is our design choice.
 
 
 ## Water tanks, machine families and definition retargeting (0.58.0)
@@ -1428,3 +1428,34 @@ piped, and joins chain across the ship.
 - **`Inventory.BeltCarriers`** shows a copy of a travelling item along a belt path:
   `Show(key, ship, item, path, progress)` and `Hide(key)`. Presentation only, no
   collider, never saved; the `Belts/ShowMovingItems` setting turns it off.
+
+## Lines that hold their contents (0.63.0)
+
+Owner decisions of 1 October 2026: lines hold what they carry until drained, a gas
+line may hold any mix, and drained contents go into a hauled canister. The design
+record is [line contents](line-contents-design.md).
+
+- **`LineContents.Declare(family, prefix, commodities)`** makes a network line family
+  hold contents. Pass its definition prefix (the shared four forms) and one or more
+  `LineCommodity`:
+  - `LineCommodity.Liquid(name, density, bore, mistSpecies, mistFraction)` for a
+    liquid;
+  - `LineCommodity.GasOf(name, roomSpecies)` for a gas, with a molar mass for a gas the
+    game has no room condition for, which vents overboard;
+  - `LineContents.AddCommodity` adds a gas another mod carries.
+  Declare when you prepare definitions, and call **`LineContents.OfferActions(d,
+  prefix, gas)`** after `LineDefinitions.Add` to offer the drain or vent and
+  return-to-service actions.
+- **Filling is Framework's.** Every two seconds each open run is topped up from the
+  registered bulk vessels on its network, only from their available kilograms. Your
+  transfers need no change.
+- **Closed runs.** A closed segment is left out of the network, so `LineReach` and
+  `VesselLink.Connected` stop reaching through a drained run. Read one with
+  `LineContents.IsClosed`, `Read` and `Held(Run(...))`.
+- **Removal and damage.** Framework refuses uninstalling or dismantling a segment that
+  holds anything, and releases gases and declared mists on damage and destruction. Do
+  not add your own spill for a holding family.
+- **Canisters.** `DrainCanisters` reads, fills and pours `PhobosLineDrainCanister`. A
+  store without a general inventory can offer a canister rack with
+  `ApplianceDefinitions.SetRack(d, prefix, DrainCanisterDefinitions.RackTrigger, 2, 2)`.
+  Canisters in a registered vessel's container pour in on the next pass.
