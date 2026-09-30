@@ -10,6 +10,17 @@ These are original project brands, not existing game manufacturers.
 machinery and material-handling equipment. Share these families where equipment
 has a related purpose; new brands should serve a distinct equipment identity.
 
+Owner direction (30 September 2026): invent a new brand and model family wherever
+an existing brand would become crowded and a separate line gives players a clearer
+identity. Fennmark already carries the V4, X2, K2, A2, L2, P1 and five store
+families, so the planned nitrogen, hydrometallurgy and high-temperature
+chemistry lines of the [asteroid feedstock programme](asteroid-feedstock-gaps.md)
+get their own brands (working proposals: *Azomere*, from azote, the old name for
+nitrogen; *Lixivar*, from lixiviation, the chemists' word for leaching; *Oxsmith*).
+Check each for collisions and record it here when its first machine is built.
+Siblings keep their family's brand: solid material bins stay Rivetline beside
+the S3 to S5 silos, and a new gas store stays Fennmark beside the other stores.
+
 **Verdemorrow Agronomics** is Agriculture's separate fictional manufacturer.
 Its short brand, **Verdemorrow**, combines the intended associations of *verdant*
 growth and *tomorrow*: carrying the possibility of a lasting home into space.

@@ -171,6 +171,12 @@ valuable native shares and total item count stay the same.
   publish-time amendment and removal behaviour as today's branch.
 - Open: whether to migrate the clay branch to the carved form (it only affects
   future rolls; saved inventories are untouched either way). Owner decision.
+- **Decided (owner, 30 September 2026): carved share, clay migrated.** Framework
+  0.48.0 adds `AdditiveLoot.CarveChoice` (see the
+  [Framework author guide](framework-author-guide.md#carved-loot-shares-0480)).
+  Manufacturing 0.8.0 carves clay from C-class silicates (0.40 to 0.30); the
+  donor is silicates rather than regolith because the C-class table has no
+  regolith or gangue share, and clays are hydrated silicates.
 
 #### A2. Remove the dark-vein double roll
 
@@ -179,11 +185,20 @@ If the clay branch should apply once per roll, link it only to
 nested class roll, or only to the salvage outputs and not the class table.
 Owner decision on the intended rate; no save effect.
 
+**Done (Manufacturing 0.8.0):** clay sits on the C-class table only. Deposit pulls
+keep about 0.095 clay; dark vein output falls from about 0.16 to 0.06 per
+successful roll and ordinary dark walls from 0.104 to 0.004, all through the
+nested C-class roll.
+
 #### A3. Ship-table additive loot
 
 Extend Framework so content can add one cluster choice to a `"ship"` table
 (`RandomAsteroidC/S/M`) with the same guards as the item form. Required by A4
 and by any new asteroid type.
+
+**Done (Framework 0.48.0):** `CarveChoice` accepts ship tables. An appended
+`aLoots` branch could never win there, because the field generator takes the
+first name of `GetLootNames()`; a carve inside the `aCOs` expression can.
 
 #### A4. Verify mod blueprint loading
 
@@ -191,6 +206,15 @@ Confirm, by decompiled `DataHandler` inspection or a small load test, whether mo
 `data/blueprints/asteroids` and `data/blueprints/clusters` folders are loaded,
 and how duplicate names resolve. If not, Framework needs a registration route
 before any new asteroid type (C1-C3) is possible. Research only; no feature.
+
+**Verified by decompiled inspection (30 September 2026):** `DataHandler.LoadMod`
+reads a mod's `blueprints/asteroids/`, `blueprints/clusters/` and
+`blueprints/environments/` folders like its `explosions/` folder; the last load
+wins by `strName`, silently. Asteroid fields are rolled when a new game creates
+its star system, so saves keep the asteroids already rolled. A saved asteroid
+naming a cluster from a removed mod fails when approached; that is recorded for
+later exploration (Framework fallback, existing-save spawner), not as a reason to
+hold back new asteroid types (owner direction, 30 September 2026).
 
 #### A5. Spawn the game's own ice clusters
 
@@ -204,6 +228,12 @@ the T2's thin supply.
   the [vanilla-precedence audit](vanilla-precedence-audit.md) if adopted.
 - Prerequisite: A3. Only newly generated fields change; existing asteroids and
   saves are not rewritten.
+- **Decided (owner, 30 September 2026):** spawn the game's `ClusterI01` behind a
+  setting that is on by default, and also carve extra water ice into C-class
+  deposits from silicates so existing saves benefit. Owned by Shipbreaker (the T2
+  is the ice consumer); planned for Shipbreaker's ice-supply release. Methane
+  ice's native price will be corrected in place in the same release as the
+  clathrate recipe (D1), so processing it still loses value.
 
 ### B. New feedstocks (new Phobos identities)
 

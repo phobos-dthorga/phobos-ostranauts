@@ -45981,6 +45981,74 @@
       ],
       "before": "The game's ship update failed {0} times in {1} seconds. Auto Nav suspended the flight and the ship coasts. Press Resume once it settles.",
       "after": "The game's ship update failed {0} times in {1} seconds. Auto Nav suspended the flight and the ship coasts. Press Resume once it settles."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "LootCarves.invalid",
+      "category": "developer diagnostics",
+      "decision": "retain",
+      "reason": "Retain precise diagnostic terminology for fault investigation; not ordinary descriptive prose.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Registration/AdditiveLoot.cs:46"
+      ],
+      "before": "Invalid carved loot share in {0}: donor {1} and choice {2} must be distinct valid IDs, with a share from 0 to 1.",
+      "after": "Invalid carved loot share in {0}: donor {1} and choice {2} must be distinct valid IDs, with a share from 0 to 1."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "LootCarves.missing_table",
+      "category": "developer diagnostics",
+      "decision": "retain",
+      "reason": "Retain precise diagnostic terminology for fault investigation; not ordinary descriptive prose.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Registration/AdditiveLoot.cs:49",
+        "src/PhobosFramework/Registration/LootCarves.cs:134"
+      ],
+      "before": "Loot table {0} is not a native item or ship table this set may amend; share for {1} not carved.",
+      "after": "Loot table {0} is not a native item or ship table this set may amend; share for {1} not carved."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "LootCarves.unknown_choice",
+      "category": "developer diagnostics",
+      "decision": "retain",
+      "reason": "Retain precise diagnostic terminology for fault investigation; not ordinary descriptive prose.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Registration/AdditiveLoot.cs:54"
+      ],
+      "before": "Carved choice {1} is not a known object, loot table, ship or asteroid cluster for table {0}.",
+      "after": "Carved choice {1} is not a known object, loot table, ship or asteroid cluster for table {0}."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "LootCarves.refused",
+      "category": "developer diagnostics",
+      "decision": "retain",
+      "reason": "Retain precise diagnostic terminology for fault investigation; not ordinary descriptive prose.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Registration/AdditiveLoot.cs:59",
+        "src/PhobosFramework/Registration/AdditiveLoot.cs:61",
+        "src/PhobosFramework/Registration/LootCarves.cs:147"
+      ],
+      "before": "Carved share for {1} in {0} not applied: donor {2} is {3}. The table keeps its other odds.",
+      "after": "Carved share for {1} in {0} not applied: donor {2} is {3}. The table keeps its other odds."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "LootCarves.foreign_edit",
+      "category": "developer diagnostics",
+      "decision": "retain",
+      "reason": "Retain precise diagnostic terminology for fault investigation; not ordinary descriptive prose.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosFramework/Registration/LootCarves.cs:142"
+      ],
+      "before": "Loot table {0} was changed by another mod after it was carved; share for {1} left unapplied rather than overwriting that change.",
+      "after": "Loot table {0} was changed by another mod after it was carved; share for {1} left unapplied rather than overwriting that change."
     }
   ],
   "documents": [
@@ -45988,8 +46056,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "fa305f9d8532fabb73bf98b6ed853e02bb2b0d6cfea5082b09a0ba412c19edf0",
-      "review": "30 September 2026, Auto Nav 0.29.0 (riding out the game's ship-update failures): reviewed with this change; wording, links and maintained values checked."
+      "sha256": "f9a2fc362bd1d267bf0becc29ecbd881a81a06bd9810fc2ce48cde5edfbcc500",
+      "review": "Framework 0.48.0 / Manufacturing 0.8.0 (carved loot shares, clay from C-class silicates) and the 30 September asteroid feedstock research record, 30 September 2026: reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "SUPPORT.md",
@@ -46148,8 +46216,8 @@
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "6bf29eb7560767f6822b050cf476f5f9a1bb2436252041c76c7aa5e63a8d113f",
-      "review": "30 September 2026, Auto Nav 0.29.0 (riding out the game's ship-update failures): reviewed with this change; wording, links and maintained values checked."
+      "sha256": "76850b7551d28964db4e0bd85ef8283b89d03b59f5101d365852dbab6dd4606f",
+      "review": "Framework 0.48.0 / Manufacturing 0.8.0 (carved loot shares, clay from C-class silicates) and the 30 September asteroid feedstock research record, 30 September 2026: reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "docs/crew-automation.md",
@@ -46162,8 +46230,8 @@
       "path": "docs/development/README.md",
       "scope": "review index/audit; no gameplay behavior",
       "decision": "review audience separation and evidence limits",
-      "sha256": "4bfd7082bc309f3f55c0be95181ac74aa4303c89ad063ea8ce081347f0fabe1d",
-      "review": "2026-09-29 (War Has Been Declared 0.1.0): Index link to the War Has Been Declared design record."
+      "sha256": "f41484ae84a639527bf03d4b54ba86896cd8714a5d6a8779ebce93e01a92fa79",
+      "review": "Framework 0.48.0 / Manufacturing 0.8.0 (carved loot shares, clay from C-class silicates) and the 30 September asteroid feedstock research record, 30 September 2026: reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "docs/development/agriculture-bulk-storage-art.md",
@@ -46293,8 +46361,8 @@
       "path": "docs/development/asteroid-life-support-research.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "retain",
-      "sha256": "c675d9871afa5b838644410b4906545e297763ba208ba75643d168d1c9472d07",
-      "review": "2026-09-29: implementation pointer under the water chain heading; research retained."
+      "sha256": "681b02b508430d6108e18565a1add00a7a035ab3a9405d202780e940cba09b64",
+      "review": "Framework 0.48.0 / Manufacturing 0.8.0 (carved loot shares, clay from C-class silicates) and the 30 September asteroid feedstock research record, 30 September 2026: reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "docs/development/auto-nav-hub-validation.md",
@@ -46415,8 +46483,8 @@
       "path": "docs/development/equipment-branding.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "retain",
-      "sha256": "4f719fa809f306a6fb3bb8dfc48e2c867194112e9fafc0a8a88c29b759ea6a3b",
-      "review": "Manufacturing 0.5.0 (A2 cabin air regulator), 29 September 2026: reviewed with this change; wording, links and maintained values checked."
+      "sha256": "43233aab5edae2a86c9eec81e9af19de69510173f0c7327230975dfa7c2fb44d",
+      "review": "Framework 0.48.0 / Manufacturing 0.8.0 (carved loot shares, clay from C-class silicates) and the 30 September asteroid feedstock research record, 30 September 2026: reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "docs/development/equipment-value-audit.md",
@@ -46449,8 +46517,8 @@
       "path": "docs/development/framework-author-guide.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "0eaaae3fa3783d5b2b35143236ea70990ff8bb5fbeee1074aa304daa5629068d",
-      "review": "30 September 2026 performance pass, stage 8 (shared world sweep, capture probes): reviewed with this change; wording, links and maintained values checked."
+      "sha256": "3d29e3199d05be0984c703a40c6aef8f200f61b58d233420423946eb74f65505",
+      "review": "Framework 0.48.0 / Manufacturing 0.8.0 (carved loot shares, clay from C-class silicates) and the 30 September asteroid feedstock research record, 30 September 2026: reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "docs/development/framework-bulk-storage.md",
@@ -46883,8 +46951,8 @@
       "path": "docs/framework-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "a7b86188043657874d550952c4768031fadf52bc68fac393cbf5bfe223b17616",
-      "review": "30 September 2026 performance pass, stage 9 (Framework 0.47.0): reviewed with this change; wording, links and maintained values checked."
+      "sha256": "9fc762c74d2cf2414858c1e7ac227402eaf851cef4e25bb822f304c4deca85d5",
+      "review": "Framework 0.48.0 / Manufacturing 0.8.0 (carved loot shares, clay from C-class silicates) and the 30 September asteroid feedstock research record, 30 September 2026: reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "docs/furnace-coolant-conduits.md",
@@ -46946,8 +47014,8 @@
       "path": "docs/installing-mods.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "7d7ed2d58a0431c949f4288f742ddd0b17b99be5e82a540bca224272eb1b3034",
-      "review": "30 September 2026 performance pass, stage 8 (shared world sweep, capture probes): reviewed with this change; wording, links and maintained values checked."
+      "sha256": "a7d8e0a349ad7c5eac5629f43e47985a2c0a39fec4acb5f615e903f7a08d07a2",
+      "review": "Framework 0.48.0 / Manufacturing 0.8.0 (carved loot shares, clay from C-class silicates) and the 30 September asteroid feedstock research record, 30 September 2026: reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "docs/item-references.md",
@@ -46960,15 +47028,15 @@
       "path": "docs/manufacturing-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "retain",
-      "sha256": "53c6dc81ce1ce57a29264f4b36bc762d2708c0783a1758792a2298a2b9e7fd82",
-      "review": "30 September 2026 performance pass, stage 8 (shared world sweep, capture probes): reviewed with this change; wording, links and maintained values checked."
+      "sha256": "170b734fc5884e6ff17f076b5a91a0d748a743149a4dadab8b1a2de15b617332",
+      "review": "Framework 0.48.0 / Manufacturing 0.8.0 (carved loot shares, clay from C-class silicates) and the 30 September asteroid feedstock research record, 30 September 2026: reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "docs/manufacturing-player-guide.md",
       "scope": "current player operating guide",
       "decision": "rewrite",
-      "sha256": "01300bb1798a03f87f0dcef08473c1919807a2c9c40be737a178cfb70cddbb6c",
-      "review": "Manufacturing 0.5.0 (A2 cabin air regulator, crew bottle order), 29 September 2026: reviewed with this change; wording, links and maintained values checked."
+      "sha256": "74d07d48b9d30cd67e4cfbd3a27f5af4341a774b6c794e95deaa1f94636b7450",
+      "review": "Framework 0.48.0 / Manufacturing 0.8.0 (carved loot shares, clay from C-class silicates) and the 30 September asteroid feedstock research record, 30 September 2026: reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "docs/material-port-pairing.md",
@@ -46988,8 +47056,8 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "0b6e90bcce92b0f670b952a842bc29df8d734f837eaa56f20cd196ad62b10b98",
-      "review": "30 September 2026, Auto Nav 0.29.0 (riding out the game's ship-update failures): reviewed with this change; wording, links and maintained values checked."
+      "sha256": "98815e66aa6d87b84a8f91b415f6447c7ccc68ed984c057b8c964778b2ae0b44",
+      "review": "Framework 0.48.0 / Manufacturing 0.8.0 (carved loot shares, clay from C-class silicates) and the 30 September asteroid feedstock research record, 30 September 2026: reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "docs/residue-collector.md",
@@ -47079,15 +47147,15 @@
       "path": "workshop/PhobosFramework/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "7906279f1c25002266a843e814e0b82f787160758d6ce540a5c0ef14fc55a5a9",
-      "review": "30 September 2026 performance pass, stage 9 (Framework 0.47.0): reviewed with this change; wording, links and maintained values checked."
+      "sha256": "cddc2099184e0dc503d582bfae64a7a090e748f5e106b7490781c936aa060b2f",
+      "review": "Framework 0.48.0 / Manufacturing 0.8.0 (carved loot shares, clay from C-class silicates) and the 30 September asteroid feedstock research record, 30 September 2026: reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "workshop/PhobosManufacturing/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "60301434c14686958855f6842bad3e26c127c2d1a17199497697ae3fc05a0d69",
-      "review": "30 September 2026 performance pass, stage 8 (shared world sweep, capture probes): reviewed with this change; wording, links and maintained values checked."
+      "sha256": "b7ff2149d469a23868dff38c853268b24f195c7d22ed71222a652f54ec8979c8",
+      "review": "Framework 0.48.0 / Manufacturing 0.8.0 (carved loot shares, clay from C-class silicates) and the 30 September asteroid feedstock research record, 30 September 2026: reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "workshop/PhobosShipbreaker/page.bbcode",
@@ -47123,14 +47191,21 @@
       "decision": "new",
       "sha256": "f325c79084ef5b470669b6b3e8c4504c59614bbadd81380f791a141290d6eb0d",
       "review": "30 September 2026, Framework 0.45.1 repair: reviewed with this change; wording, links and maintained values checked."
+    },
+    {
+      "path": "docs/development/asteroid-feedstock-gaps.md",
+      "scope": "research/developer/historical reference; preserved evidence and technical terminology",
+      "decision": "retain",
+      "sha256": "f5f6c6106f387f5ecc4a4e7c8df528c0f387ef66909d78dc2bb2f1b48a6365ad",
+      "review": "Framework 0.48.0 / Manufacturing 0.8.0 (carved loot shares, clay from C-class silicates) and the 30 September asteroid feedstock research record, 30 September 2026: reviewed with this change; wording, links and maintained values checked."
     }
   ],
   "surfaces": [
     {
       "path": "config/item-reference.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "880d3192c998202d8073af6bbd425cb228e9562685910b8d326c4cb7f922f491",
-      "review": "Manufacturing 0.5.0 (A2 cabin air regulator, crew bottle order), 29 September 2026: reviewed with this change; wording, links and maintained values checked."
+      "sha256": "fea74d817bbf3b9b48429242587b565a58303b0f99896b2c1f6d1c08af1a2909",
+      "review": "Framework 0.48.0 / Manufacturing 0.8.0 (carved loot shares, clay from C-class silicates) and the 30 September asteroid feedstock research record, 30 September 2026: reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "mods/PhobosAgriculture/framework/equipment-names.json",
@@ -47178,14 +47253,14 @@
     {
       "path": "mods/PhobosFramework/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "156e1a0013b929baa461e34a003e546de8aa0132d2ef209f05bc51e32c2b1cb0",
-      "review": "30 September 2026 performance pass, stage 9 (Framework 0.47.0): reviewed with this change; wording, links and maintained values checked."
+      "sha256": "15f2b31a71ec287ac5c3bcbfee46dab7ea400cdff84011a9689dc8266c14894f",
+      "review": "Framework 0.48.0 / Manufacturing 0.8.0 (carved loot shares, clay from C-class silicates) and the 30 September asteroid feedstock research record, 30 September 2026: reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "mods/PhobosManufacturing/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "fbd190ca24749c9e8916bd3744e2a050aa53c9c2f5c8f98e89d703b9119fc588",
-      "review": "30 September 2026 performance pass, stage 8 (shared world sweep, capture probes): reviewed with this change; wording, links and maintained values checked."
+      "sha256": "72033613029b4f3bcce7ac4f43c96b529a7626b8e23e2777fb7404b7ea2ae332",
+      "review": "Framework 0.48.0 / Manufacturing 0.8.0 (carved loot shares, clay from C-class silicates) and the 30 September asteroid feedstock research record, 30 September 2026: reviewed with this change; wording, links and maintained values checked."
     },
     {
       "path": "mods/PhobosShipbreaker/framework/equipment-names.json",

@@ -193,14 +193,20 @@ internal static class ManufacturingNativeChecks
             check(outValue < inValue, $"The {recipe.Id} charge loses value: {outValue:F2} out of {inValue:F2} in");
         }
 
-        // The clay chunk joins the game's own mining tables once each, and no shop.
-        foreach (string table in MiningLoot.Tables)
-        {
-            string branch = "PhobosManufacturingClay_" + table;
-            check(DataHandler.dictLoot.ContainsKey(table) && DataHandler.dictLoot[table].strType == "item", "The native mining table exists: " + table);
-            check(d.Loot.ContainsKey(branch) && d.Loot[branch].aCOs.Single().StartsWith(Materials.ClayHydrates + "=", StringComparison.Ordinal) && d.LootBranches[table].Count(b => b == branch) == 1,
-                "The clay chunk is one bounded choice in " + table);
-        }
+        // The clay chunk takes a carved share of the game's C-class roll, taken from silicates, and no shop.
+        var cClass = DataHandler.dictLoot[MiningLoot.Table];
+        var carve = d.LootCarves[MiningLoot.Table][Materials.ClayHydrates];
+        check(cClass.strType == "item" && carve.Donor == MiningLoot.Donor && carve.Share == MiningLoot.Chance, "The clay chunk is carved from the C-class silicates share");
+        var units = cClass.aCOs.Single().Split('|');
+        int silicates = Array.FindIndex(units, u => u.StartsWith(MiningLoot.Donor + "=", StringComparison.Ordinal));
+        int clayAt = Array.FindIndex(units, u => u == Materials.ClayHydrates + "=0.1x1");
+        check(units.Count(u => u.StartsWith(Materials.ClayHydrates + "=", StringComparison.Ordinal)) == 1 && silicates >= 0 && clayAt > silicates &&
+              units.Skip(silicates + 1).Take(clayAt - silicates - 1).All(u => d.LootCarves[MiningLoot.Table].ContainsKey(u.Split('=')[0]) || u.StartsWith("ItmIce01=", StringComparison.Ordinal)),
+            "The live C-class table holds the clay chunk once, among the carves that follow silicates");
+        foreach (string wall in new[] { "ItmRock05SalvageOutput", "ItmRock06SalvageOutput" })
+            check(!DataHandler.dictLoot[wall].aCOs.Any(c => c.Contains(Materials.ClayHydrates)) && !DataHandler.dictLoot[wall].aLoots.Any(l => l.StartsWith("PhobosManufacturingClay_", StringComparison.Ordinal)),
+                "Dark walls reach clay only through their nested C-class roll, never a second time: " + wall);
+        check(!d.Loot.Keys.Any(k => k.StartsWith("PhobosManufacturingClay_", StringComparison.Ordinal)) && !d.LootBranches.ContainsKey(MiningLoot.Table), "The retired additive clay branches are gone");
         check(!d.Loot.Values.Any(l => l.strName.StartsWith("PhobosStock_", StringComparison.Ordinal) && l.aCOs.Any(c => Materials.All.Any(m => c.StartsWith(m.Id + "=", StringComparison.Ordinal)))), "No material is sold in a shop: ores and stock are mined or made");
 
         // The native oxygen canister the electrolyser fills, by the game's own rating.

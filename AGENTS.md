@@ -182,6 +182,12 @@
   Brand/model selection belongs to content mods. Framework 0.12.0 owns the shared
   `Localization.EquipmentNames` pattern, with content-owned embedded naming maps
   and translated type/variant descriptors. Retain existing translation keys.
+- Owner direction (2026-09-30): invent a new original brand and model family
+  wherever an existing brand would become crowded and a separate line gives
+  players a clearer identity (Fennmark already carries many Manufacturing lines).
+  Siblings of an existing family keep that family's brand. Record each new brand,
+  its etymology and models in `docs/development/equipment-branding.md`. Brand
+  crowding is separate from machine count, which is a maintenance question.
 - Agriculture exception (owner clarification, 2026-09-25): the mod has never been
   used, so its content identifiers may be replaced without migration aliases.
   Agriculture 0.1.1 adopts the PhobosVerdemorrow namespace for its equipment,
@@ -419,6 +425,11 @@
 
 - Keep this a practical, small-team project. Prefer a working slice over a
   speculative framework or extensive process.
+- Owner direction (2026-09-30): aim for maximum creative freedom. Risks such as
+  a mod becoming unsafe to remove from a save (for example saved asteroids naming
+  a removed Phobos cluster) are engineering problems to explore later, such as
+  Framework fallbacks or existing-save spawners. Report them honestly, but never
+  use them to drop, defer or shrink a creative design.
 - Use observed progress to plan rounds; do not invent hour estimates.
 - Explain what works, what was checked and what remains uncertain.
 - Do not control the owner's mouse or keyboard. Inspect files and use command-line

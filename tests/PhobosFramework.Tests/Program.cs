@@ -35,6 +35,7 @@ RoomHeatChecks.Run(Check);
 GasCanisterChecks.Run(Check);
 PropellantChecks.Run(Check);
 VesselSizeChecks.Run(Check);
+LootCarveChecks.Run(Check);
 PrimitiveChecks.Run(Check);
 
 // Consume the built public assembly, without compiling private copies of its code.

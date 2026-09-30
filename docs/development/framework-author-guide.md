@@ -76,6 +76,37 @@ Consumers require Framework 0.15.0 and must not bundle another recorder DLL.
 Instrumentation stays in the owning service; UI files only measure presentation
 work. See [capture commands, metrics and owner-run checks](../performance-captures.md).
 
+## Carved loot shares (0.48.0)
+
+`Registration.AdditiveLoot.CarveChoice(definitions, tableId, donorId, choiceId, share)`
+gives a new choice part of one existing unit's probability in a native loot table,
+instead of adding a roll (owner loot policy, 30 September 2026). The choice is
+inserted immediately after the donor in the same cumulative expression and the
+donor is reduced by the same amount, so every other unit keeps its exact band and
+the table's total never changes. Use it for new mined chunks and for asteroid
+types: it accepts `item` tables and `ship` tables (the `RandomAsteroid*`
+field pickers), where an appended `aLoots` branch can never be chosen because the
+field generator takes the first result.
+
+- The donor must appear exactly once, in a positive expression. Preparation fails
+  when the table, donor or choice is unknown (a ship table's choice must be a ship
+  or asteroid cluster blueprint) or the share exceeds the donor alone.
+- Several sets may carve one donor. `LootCarveRegistry` keeps each table's
+  original expressions and renders every carve on it together, in ordinal choice
+  order, so publication order does not matter. A carve the donor can no longer
+  cover is refused and logged; the rest still apply.
+- A zero share restores the donor. Republishing is idempotent.
+- If another mod rewrites the table after our carve, the carve is logged and
+  skipped rather than overwriting that edit.
+- `NativeDefinitions.LootCarves` records each set's carves by table and choice;
+  the item-reference exporter lists them as acquisition sources.
+- Carves change future rolls only: saves and already generated asteroids keep
+  what was rolled. Donor budgets shared across mods (such as C-class silicates)
+  are named constants in their owning content, not player tuning knobs.
+
+Manufacturing 0.8.0 is the first consumer (clay hydrates from C-class silicates).
+Consumers of this API require **0.48.0**.
+
 ## Additive item loot (0.14.0)
 
 `Registration.AdditiveLoot.SetItemChoice(definitions, tableId, branchId, chances)`

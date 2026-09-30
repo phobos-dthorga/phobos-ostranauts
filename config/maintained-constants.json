@@ -4,7 +4,7 @@
     "Framework.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.47.0",
+      "value": "0.48.0",
       "description": "PhobosFramework published source/package version.",
       "targets": [
         {
@@ -265,7 +265,7 @@
     "Manufacturing.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.7.0",
+      "value": "0.8.0",
       "description": "PhobosManufacturing published source/package version.",
       "targets": [
         {
@@ -1409,7 +1409,7 @@
     "Manufacturing.minimumFramework": {
       "type": "version",
       "parts": 3,
-      "value": "0.46.0",
+      "value": "0.48.0",
       "description": "Current Manufacturing required Framework version, shared with local installer admission.",
       "targets": [
         {
@@ -1573,8 +1573,8 @@
       "type": "number",
       "value": "0.10",
       "min": 0,
-      "max": 1,
-      "description": "Chance that one clay hydrates chunk joins each native dark-regolith rock or C-class deposit mining roll (one bounded choice, never a shop).",
+      "max": 0.3,
+      "description": "Share of the game's C-class mineral roll (ItmRandomMineralCClass) carved from silicates for the clay hydrates chunk; C-class deposits roll it directly and dark-regolith walls through their nested C-class roll. Never a shop.",
       "targets": [
         {
           "path": "src/PhobosManufacturing/Definitions.cs",
@@ -1583,7 +1583,8 @@
         }
       ],
       "review": [
-        "Run the native checks (the chunk must appear exactly once in each amended table) and regenerate item references. Existing deposits already rolled are unchanged."
+        "Run the native checks (the chunk must appear once in the C-class table, right after silicates) and regenerate item references. Existing deposits already rolled are unchanged.",
+        "The silicates share (0.40 in the game's table) is a budget shared with other carves, such as Shipbreaker's extra deposit ice; the donor must cover every share or later carves are refused."
       ]
     },
     "Manufacturing.nickelIronIngotPrice": {

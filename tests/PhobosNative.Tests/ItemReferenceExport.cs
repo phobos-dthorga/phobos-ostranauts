@@ -128,6 +128,11 @@ internal static class ItemReferenceExport
                         chance = double.Parse(weights[0], CultureInfo.InvariantCulture), count = int.Parse(weights[1], CultureInfo.InvariantCulture) });
                 }
             }
+            // Carved shares of native tables: only this mod's own objects are its documented sources.
+            foreach (var carved in d.LootCarves.OrderBy(p => p.Key, StringComparer.Ordinal))
+            foreach (var share in carved.Value.OrderBy(p => p.Key, StringComparer.Ordinal))
+                if (d.Objects.ContainsKey(share.Key) && share.Value.Share > 0)
+                    sources.Add(new { table = carved.Key, item = share.Key, condition = "Loot", chance = share.Value.Share, count = 1 });
             string recipesPath = Path.Combine(repo, "mods", mod, "framework/recipes.json");
             var recipes = File.Exists(recipesPath) ? JObject.Parse(File.ReadAllText(recipesPath))["recipes"]! : new JArray();
             foreach (var recipe in recipes)

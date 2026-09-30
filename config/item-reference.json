@@ -1323,7 +1323,7 @@
           ],
           "function": "A 10 kg chunk of dark, water-rich clay minerals of the kind sampled from carbonaceous asteroids, about a fifth of it bound water.",
           "use": "Bake it in the V4 for 2 kg of water and an 8 kg residue, or sell it to a government kiosk like other ore.",
-          "find": "Mined: it turns up in the game's dark-regolith rock and C-class deposit tables as one bounded choice. Never sold.",
+          "find": "Mined: C-class deposits and dark regolith walls turn it up in place of some of the silicates they would otherwise give, about one C-class find in ten. Never sold.",
           "notes": "Authored from the CI-chondrite range (18 to 22 percent water by weight) with the game's own hydrate art until its own sprite exists.",
           "guide": "manufacturing-player-guide.md",
           "internal": false,
@@ -1395,8 +1395,6 @@
     "ItmOKLGFoodCart01KioskInv": "K-Leg food cart 1",
     "ItmOKLGFoodCart02KioskInv": "K-Leg food cart 2",
     "ItmTraderSanDiegoFutureFoodsInv": "San Diego Future Foods",
-    "ItmRock05SalvageOutput": "dark regolith rock (type 5) salvage",
-    "ItmRock06SalvageOutput": "dark regolith rock (type 6) salvage",
     "ItmRandomMineralCClass": "C-class asteroid deposit"
   },
   "triggers": {

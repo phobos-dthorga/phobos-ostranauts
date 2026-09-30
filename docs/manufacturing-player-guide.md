@@ -36,7 +36,9 @@ in twenty is a Fennmark machine, usually broken. Repairs need real components
 (motors, mainboards, heat sinks and, for the V4, a screen); see the
 [equipment economy](equipment-economy.md#manufacturing-011-late-game-plant).
 
-Ores are mined, never bought. Stations sell bulk oxygen, nitrogen and carbon
+Ores are mined, never bought. Clay hydrates chunks come from dark rock: C-class
+deposits and dark regolith walls give one about as often as one C-class find in
+ten, in place of some of the silicates they would otherwise give. Stations sell bulk oxygen, nitrogen and carbon
 dioxide through the refuelling kiosk's **Bulk supplies** view, straight into an
 installed store of that gas, at the kiosk's own price per kilogram. Nothing
 sells back.
@@ -48,7 +50,7 @@ what went in, sorted.
 
 | Charge | Gives | Time at 24 kW |
 | --- | --- | --- |
-| 1 hydrates block (10 kg, mined) | 1 kg of water into the linked vessel; 3 ice gangue (3 kg each) in the tray | 10 min |
+| 1 hydrates block (10 kg, mined) | 1 kg of water into the linked vessel; 3 gangue (3 kg each) in the tray | 10 min |
 | 1 clay hydrates chunk (10 kg, mined; new) | 2 kg of water; 1 anhydrous residue (8 kg) | 15 min |
 | 1 carbon/carbides block (10 kg, mined) | 5 carbon stock (1 kg each); 1 kg of water; 1 gangue; **1 kg of pyrolysis gas breathed into the room** (CO2, CO and smoke) | 30 min |
 | 1 meteoric iron block (20 kg, mined) | 4 nickel-iron ingots (4 kg each); 1 gangue; 1 refinery slag (1 kg) | 40 min |
@@ -365,8 +367,8 @@ releases it.
 
 ## Owner checks (game closed, `scripts/install-mods.ps1 -Mods Shipbreaker,Manufacturing`)
 
-Buy and install a V4, X2 and H2 store, link an S3 within one tile; mine dark
-regolith and confirm a clay chunk appears sometimes; run each charge and read
+Buy and install a V4, X2 and H2 store, link an S3 within one tile; mine a dark
+(C-class) deposit and confirm a clay chunk appears about one pull in ten; run each charge and read
 the products and vessel levels; carburise four nickel-iron ingots with one
 carbon; start the X2 with an installed O2 canister adjacent and watch its
 pressure and the hydrogen store rise; vent hydrogen; save and reload mid-cycle

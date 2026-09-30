@@ -22,6 +22,8 @@ public sealed class NativeDefinitions
     public readonly Dictionary<string, JsonInstallable> Installables = new Dictionary<string, JsonInstallable>(StringComparer.Ordinal);
     /// <summary>Loot branches this set links into native tables in place, by table id (see AdditiveLoot).</summary>
     public readonly Dictionary<string, HashSet<string>> LootBranches = new Dictionary<string, HashSet<string>>(StringComparer.Ordinal);
+    /// <summary>Shares this set carves from native units, by table id then choice id (see AdditiveLoot.CarveChoice).</summary>
+    public readonly Dictionary<string, Dictionary<string, LootCarve>> LootCarves = new Dictionary<string, Dictionary<string, LootCarve>>(StringComparer.Ordinal);
     private readonly List<Action> amendments = new List<Action>();
 
     /// <summary>Queue an additive, idempotent in-place change to a definition the game or another mod

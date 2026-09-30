@@ -6,6 +6,16 @@ Dates on Draft entries record preparation, not Steam publication.
 
 ## [Unreleased]
 
+## [0.8.0] - 2026-09-30 - Draft
+
+### Changed
+
+- Clay hydrates now come out of the game's C-class mineral finds in place of some silicates, instead of as an extra find on top (owner loot rule, 30 September 2026). Clays are water-bearing silicate minerals, so the chunk takes a tenth of the C-class roll from the silicates share (40% becomes 30%). C-class deposits give clay as often as before, about one pull in ten; dark regolith walls now reach it only through their own C-class find, so dark vein walls give it less often than in 0.7.0 and never twice from one wall.
+
+### Compatibility and limits
+
+- Requires Phobos Framework 0.48.0 or newer. Clay chunks already mined are unchanged. Only future finds use the new odds. Offline checks are not gameplay validation.
+
 ## [0.7.0] - 2026-09-30 - Draft
 
 ### Changed

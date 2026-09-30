@@ -47,6 +47,8 @@ Load(Path.Combine(native, "condtrigs"), DataHandler.dictCTs, x => x.strName);
 Load(Path.Combine(native, "interactions"), DataHandler.dictInteractions, x => x.strName);
 Load(Path.Combine(native, "loot"), DataHandler.dictLoot, x => x.strName);
 Load(Path.Combine(native, "cooverlays"), DataHandler.dictCOOverlays, x => x.strName);
+DataHandler.dictAsteroidClusterBlueprints = new();
+Load(Path.Combine(native, "blueprints/clusters"), DataHandler.dictAsteroidClusterBlueprints, x => x.strName);
 CrewNativeChecks.Run(Check);
 Load(Path.Combine(repo, "mods/PhobosShipbreaker/data/conditions"), DataHandler.dictConds, x => x.strName);
 Load(Path.Combine(repo, "mods/PhobosShipbreaker/data/condtrigs"), DataHandler.dictCTs, x => x.strName);
@@ -121,6 +123,7 @@ foreach (var equipment in manufacturing.Objects.Values)
     Check(equipment.strNameFriendly.StartsWith("Phobos' ", StringComparison.Ordinal) || equipment.strName.StartsWith("SysPhobos", StringComparison.Ordinal), "Branded Manufacturing machine or material: " + equipment.strName);
 manufacturing.Publish();
 ManufacturingNativeChecks.Run(manufacturing, PhobosManufacturing.Content.Prepare(false), game, repo, Check, Throws);
+LootCarveNativeChecks.Run(Check, Throws);
 // Exercise the game's own data-only trigger evaluator against its actual wall
 // definition: the ordinary solid-container filter caused the grey inventory bug.
 var wallData = new DataCO(DataHandler.dictCOs[ProcessRules.Wall]);

@@ -20,6 +20,16 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.48.0] - 2026-09-30 - Draft
+
+### Added
+
+- Carved loot shares for content mods. A new mined item or asteroid type can take part of an existing entry's chance in one of the game's loot tables, instead of adding an extra roll on top. The new entry sits right after the entry it takes from, so every other entry keeps exactly its old odds and the table never yields more in total. It works on the game's item tables and on the asteroid-field tables, where an added roll could never be picked. Several mods can take from the same entry; a share of zero restores the game's table.
+
+### Compatibility and limits
+
+- A table that another mod rewrote after a share was taken is left as that mod wrote it, and the skipped share is written to the log. Tables are changed only while the game loads its data; saved games and already generated asteroids are not rewritten. Offline checks are not gameplay validation.
+
 ## [0.47.0] - 2026-09-30 - Draft
 
 ### Changed

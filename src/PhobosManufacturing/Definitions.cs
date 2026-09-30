@@ -309,19 +309,19 @@ internal static class Definitions
     }
 }
 
-/// <summary>The clay hydrate chunk joins the game's own mining tables as one bounded choice: the dark-regolith
-/// rock salvage outputs and the C-class deposit table. Never a shop.</summary>
+/// <summary>The clay hydrate chunk takes a share of the game's C-class mining roll, carved from silicates
+/// (owner loot policy, 30 September 2026: a new chunk replaces part of the native yield, never adds a roll).
+/// Clays are hydrated phyllosilicates, so the chunk relabels part of what the game calls silicates. C-class
+/// deposits roll this table directly, and dark-regolith walls reach it through their own nested C-class roll,
+/// so one carve serves every route without counting twice. Never a shop.</summary>
 internal static class MiningLoot
 {
     internal const double DefaultChance = 0.10;
-    internal static readonly string[] Tables = { "ItmRock05SalvageOutput", "ItmRock06SalvageOutput", "ItmRandomMineralCClass" };
+    internal const string Table = "ItmRandomMineralCClass", Donor = "ItmMineral04";
     internal static double Chance = DefaultChance;
     internal static void Add(NativeDefinitions d)
     {
-        foreach (string table in Tables)
-        {
-            if (DataHandler.dictLoot == null || !DataHandler.dictLoot.ContainsKey(table)) { Plugin.Log(Text.Get("Content.missing_table", table)); continue; }
-            AdditiveLoot.SetItemChoice(d, table, "PhobosManufacturingClay_" + table, new Dictionary<string, double> { [Materials.ClayHydrates] = Chance });
-        }
+        if (DataHandler.dictLoot == null || !DataHandler.dictLoot.ContainsKey(Table)) { Plugin.Log(Text.Get("Content.missing_table", Table)); return; }
+        AdditiveLoot.CarveChoice(d, Table, Donor, Materials.ClayHydrates, Chance);
     }
 }
