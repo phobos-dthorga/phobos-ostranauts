@@ -13,6 +13,18 @@ public sealed class UnitItemTransfer : IPhysicalTransfer
     private static CondOwner? preflight;
     /// <summary>Read-only admission of one unit; content still validates the detached unit at settlement.</summary>
     public static bool IsUnitPreflight(CondOwner item) => preflight == item;
+    /// <summary>Asks any admission question about one unit of a stack, with <see cref="IsUnitPreflight"/> true for it
+    /// meanwhile (Framework 0.62.0), so content rules judge the unit at its own mass rather than the stack's.</summary>
+    public static bool AsUnit(CondOwner item, Func<bool> check)
+    {
+        var previous = preflight; preflight = item;
+        try { return check(); }
+        finally { preflight = previous; }
+    }
+    /// <summary>Whether an item sits in a native stack (as its head or a member).</summary>
+    public static bool Stacked(CondOwner item) => item.coStackHead != null || item.aStack.Count > 0;
+    /// <summary>The mass of one unit: its own mass in a stack, its whole mass otherwise.</summary>
+    public static double UnitKg(CondOwner item) => Stacked(item) ? item.GetCondAmount("StatMass") : item.GetTotalMass();
     /// <summary>Whether the destination admits the unit now, and where it would go.</summary>
     public static bool Fits(CondOwner destination, CondOwner item, out PairXY cell)
     {

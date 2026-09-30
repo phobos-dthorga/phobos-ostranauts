@@ -46,9 +46,21 @@ internal sealed partial class CollectorService
             item.GetCOsSafe(true).Count == 0 && item.Crew == null, item.coStackHead == null && item.aStack.Count == 0) ||
         item != null && !item.bDestroyed && FurnaceMaterialRules.Product(item.strCODef, item.GetTotalMass()) && !item.HasCond("IsInstalled") &&
         item.Crew == null && item.GetCOsSafe(true).Count == 0 && item.GetLotCOs(true).Count == 0 && item.coStackHead == null && item.aStack.Count == 0;
-    private static bool Payload(CondOwner port, CondOwner item) => FurnaceRules.Machine(port.strCODef) ? FurnaceService.ValidFeed(port, item) : ValidPayload(item);
-    internal static bool CanAccept(CondOwner collector, CondOwner item) => (ValidPayload(item) || CollectorCargo.Accepts(item)) && collector.objContainer != null &&
-        (collector.objContainer.Contains(item) || collector.objContainer.ContainedCOs.Count < CollectorRules.Capacity && collector.objContainer.ContainedCOs.Sum(c => c.GetTotalMass()) + item.GetTotalMass() <= CollectorRules.MaxPayloadKg + ProcessRules.MassTolerance);
+    /// <summary>One unit of a native stack judged at its own mass, as the crew orders judge it (Shipbreaker 0.57.0):
+    /// routed receivers take stacked products one unit at a time.</summary>
+    internal static bool ValidUnit(CondOwner unit)
+    {
+        if (!Phobos.Ostranauts.Framework.Crew.CrewLogistics.Loose(unit) || unit.Crew != null) return false;
+        double kg = unit.GetCondAmount("StatMass"); bool detached = !unit.HasCond("IsInstalled"), noLot = unit.GetLotCOs(true).Count == 0;
+        return CollectorRules.Accepts(unit.strCODef, kg, detached, noLot, true) || FurnaceMaterialRules.Product(unit.strCODef, kg) && detached && noLot;
+    }
+    private static bool Payload(CondOwner port, CondOwner item) => !UnitItemTransfer.Stacked(item) ?
+        (FurnaceRules.Machine(port.strCODef) ? FurnaceService.ValidFeed(port, item) : ValidPayload(item)) :
+        FurnaceRules.Machine(port.strCODef) ? FurnaceService.CrewFeed(port, item) : ValidUnit(item);
+    internal static bool CanAccept(CondOwner collector, CondOwner item) => (ValidPayload(item) || (UnitItemTransfer.Stacked(item) || Phobos.Ostranauts.Framework.Crew.CrewLogistics.IsUnitPreflight(item)) && ValidUnit(item) || CollectorCargo.Accepts(item)) && collector.objContainer != null &&
+        (collector.objContainer.Contains(item) || collector.objContainer.ContainedCOs.Count < CollectorRules.Capacity && collector.objContainer.ContainedCOs.Sum(c => c.GetTotalMass()) + UnitItemTransfer.UnitKg(item) <= CollectorRules.MaxPayloadKg + ProcessRules.MassTolerance);
+    /// <summary>The units in a sender's tray, stacks opened, in id order.</summary>
+    private static System.Collections.Generic.IReadOnlyList<CondOwner> SourceUnits(CondOwner source) => Phobos.Ostranauts.Framework.Crew.CrewLogistics.Contents(source).ToArray();
     internal static string? AccessProblem(CondOwner port)
     {
         var crew = Phobos.Ostranauts.Framework.Crew.CrewWork.Actor ?? CrewSim.GetSelectedCrew();
@@ -121,7 +133,7 @@ internal sealed partial class CollectorService
         Disarm(port, s); s.NeedsAttention = false; s.Status = Text.Get("CollectorService.collection_paused_material_retained"); return true;
     }
     private static void SetWorking(CondOwner port, bool working) { if (!FurnaceRules.Machine(port.strCODef) && !port.bDestroyed) port.SetCondAmount(WorkingCondition(port), working ? 1 : 0); }
-    private static void Disarm(CondOwner port, Session s) { s.Armed = false; SetWorking(port, false); SetResume(port, false); }
+    private static void Disarm(CondOwner port, Session s) { s.Armed = false; SetWorking(port, false); SetResume(port, false); BeltCarriers.Hide(port.strID); }
     /// <summary>The saved mark of a running route (Shipbreaker 0.56.0): set while armed, so a reload resumes it.</summary>
     private static void SetResume(CondOwner port, bool on) { if (!port.bDestroyed && port.HasCond(RoutingRules.BeltResume) != on) port.SetCondAmount(RoutingRules.BeltResume, on ? 1 : 0); }
     /// <summary>How the route runs, for the status: by belt, or touching.</summary>
@@ -165,20 +177,22 @@ internal sealed partial class CollectorService
         { s.NeedsAttention = true; s.Status = problem ?? Text.Get("Routing.belt_changed"); Disarm(port, s); return false; }
         if (FurnaceRules.Machine(port.strCODef) && FurnaceMaterialRules.ChargeFull(Destination(port)!.ContainedCOs.Count))
         { ClearTransfer(port, Text.Get("Routing.charge_full", FurnaceRules.ChargeUnits)); return false; }
-        var source = s.Source!.objContainer;
-        if (s.Item != null && (!source.Contains(s.Item) || !Payload(port, s.Item) || !FilterAllows(port, s.Item))) { s.Item = null; s.Clock = null; }
+        var units = SourceUnits(s.Source!);
+        if (s.Item != null && (!units.Contains(s.Item) || !Payload(port, s.Item) || !FilterAllows(port, s.Item))) { s.Item = null; s.Clock = null; }
         if (s.Item == null)
         {
-            Phobos.Ostranauts.Framework.Diagnostics.Performance.Increment(PerformanceMetrics.RouteCandidates, source.ContainedCOs.Count);
-            s.Item = source.ContainedCOs.OrderBy(i => i.strID, StringComparer.Ordinal).FirstOrDefault(i => Payload(port, i) && FilterAllows(port, i));
+            Phobos.Ostranauts.Framework.Diagnostics.Performance.Increment(PerformanceMetrics.RouteCandidates, units.Count);
+            s.Item = units.FirstOrDefault(i => Payload(port, i) && FilterAllows(port, i));
             s.Last = StarSystem.fEpoch;
             if (s.Item == null) { s.Status = Text.Get("Routing.waiting"); return false; }
             s.Clock = new TransferClock(s.Item.strID, CycleSeconds(port));
         }
         var destination = Destination(port);
-        if (destination == null || destination.Locked ||
-            !(FurnaceRules.Machine(port.strCODef) ? FurnaceService.CanFeed(destination.CO, s.Item) : ProcessingService.IsReclaimer(port) ? ProcessingService.CanFeed(destination.CO, s.Item) : CanAccept(port, s.Item)) ||
-            !destination.AllowedCO(s.Item) || !destination.CanAddSimple(s.Item, out _))
+        var item = s.Item;
+        bool Admits() => FurnaceRules.Machine(port.strCODef) ? FurnaceService.CanFeed(destination!.CO, item) : ProcessingService.IsReclaimer(port) ? ProcessingService.CanFeed(destination!.CO, item) : CanAccept(port, item);
+        // A stacked unit is asked about as one unit, as the crew orders ask; a single item as before.
+        if (destination == null || destination.Locked || !(UnitItemTransfer.Stacked(item) ? UnitItemTransfer.AsUnit(item, Admits) : Admits()) ||
+            !UnitItemTransfer.Fits(destination.CO, item, out _))
         { s.Status = Text.Get("Routing.full"); s.Last = StarSystem.fEpoch; return false; }
         SetWorking(port, true); return true;
     }
@@ -198,10 +212,12 @@ internal sealed partial class CollectorService
             if (!s.Clock.Advance(s.Item.strID, poweredSeconds.HasValue ? Math.Min(elapsed, poweredSeconds.Value) : elapsed, powered))
             { s.Item = null; s.Clock = null; s.Status = Text.Get("Routing.waiting"); return; }
             s.Status = powered ? Text.Get("CollectorService.collecting_residue_s", s.Clock.Progress.ToString("F0"), s.Clock.Duration.ToString("F0")) : Text.Get("Routing.no_power");
+            // The item seen riding the belt (display only; the item itself stays in the sender until delivery).
+            BeltCarriers.Show(port.strID, port.ship, s.Item, s.Route?.BeltPath, s.Clock.Duration > 0 ? s.Clock.Progress / s.Clock.Duration : 0);
             if (!powered || !s.Clock.Complete) return;
-            var move = new NativeItemTransfer(s.Source!.objContainer, Destination(port)!, s.Item);
+            var move = new UnitItemTransfer(s.Item, Destination(port)!.CO);
             if (!PhysicalTransfer.Commit(move)) { s.Status = Text.Get("CollectorService.transfer_blocked_residue_retained"); SetWorking(port, false); return; }
-            s.Item = null; s.Clock = null; SetWorking(port, false);
+            s.Item = null; s.Clock = null; SetWorking(port, false); BeltCarriers.Hide(port.strID);
             s.Status = Text.Get("Routing.delivered"); move.Redraw();
             if (ProcessingService.IsReclaimer(port)) Plugin.Service.FeedArrived(port);
             if (FurnaceRules.Machine(port.strCODef) && FurnaceMaterialRules.ChargeFull(Destination(port)!.ContainedCOs.Count)) ClearTransfer(port, Text.Get("Routing.charge_full", FurnaceRules.ChargeUnits));

@@ -47,8 +47,8 @@ flowchart TD
    Alternatively choose the separate **Aluminium output** on the R4. Its residue
    output remains independently paired. Receiving and processing are distinct.
 3. Press **Receive** on the cool, idle, unsealed F6. Only existing, individual
-   one-kilogram aluminium scrap pieces qualify. Separate native stacks locally;
-   this first route does not split them automatically. Receiving stops at twenty
+   one-kilogram scrap pieces of the selected recipe's metal qualify; since
+   Shipbreaker 0.57.0 a stack in the R4 tray is taken one piece at a time. Receiving stops at twenty
    pieces. With ContinueFeeding disabled, press Receive for each piece.
    This route carries aluminium only. For the steel-ingot recipe, load 1 kg
    steel scrap by hand or switch on **Load feed by crew** on the F6.

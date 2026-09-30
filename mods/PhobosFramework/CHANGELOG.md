@@ -22,6 +22,17 @@ Dates on Draft entries record preparation, not Steam publication.
 
 - Shared native INSTALL category constants and pre-publication validation prevent unreachable visible installation entries.
 
+## [0.62.0] - 2026-10-01 - Draft
+
+### Added
+
+- You can see an item ride the conveyor belt while it is sent: a small copy of its own art moves along the belt from the sending machine to the receiving one, on the belt and under the pipes. It is display only; the item itself stays in the sender until it arrives. Switch it off with the setting Belts, ShowMovingItems.
+- For content mods: a belt can join a store on any side of its footprint, and any mod can ask whether one unit of a stack would be accepted, judged at its own mass.
+
+### Compatibility and limits
+
+- Phobos Shipbreaker 0.57.0 needs this version. The moving item has not been seen in play yet; if it misbehaves, the setting turns it off without touching transfers. Offline checks are not gameplay validation.
+
 ## [0.61.0] - 2026-10-01 - Draft
 
 ### Added

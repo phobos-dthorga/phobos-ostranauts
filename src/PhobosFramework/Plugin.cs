@@ -12,7 +12,7 @@ namespace Phobos.Ostranauts.Framework;
 public static class FrameworkInfo
 {
     public const string PluginId = "phobosgekko.ostranauts.framework";
-    public const string Version = "0.61.0";
+    public const string Version = "0.62.0";
 }
 
 [BepInPlugin(FrameworkInfo.PluginId, "Phobos Framework", FrameworkInfo.Version)]
@@ -65,10 +65,12 @@ public sealed class FrameworkPlugin : BaseUnityPlugin
         Items.WaterTankService.CrewReserveKg = Config.Bind("WaterTanks", "CrewWaterReserveKg", Items.WaterTankSettings.InitialReserve(Config.ConfigFilePath, Paths.ConfigPath),
             new BepInEx.Configuration.ConfigDescription(Text.Get("WaterTanks.setting_reserve"), new BepInEx.Configuration.AcceptableValueRange<double>(0, 100000))).Value;
         Items.WaterTankProvider.Register(message => Logger.LogWarning(message));
+        // The item seen riding a conveyor belt (0.62.0): presentation only, on by default.
+        Inventory.BeltCarriers.Enabled = Config.Bind("Belts", "ShowMovingItems", true, Text.Get("BeltCarriers.setting")).Value;
         Trading.BulkSupplies.Register(Items.WaterTankService.Supplies);
         Logger.LogInfo(Text.Get("Plugin.phobos_framework_construction_registration_physical_transfers_filters", FrameworkInfo.Version));
     }
-    private void Update() { Diagnostics.NativePerformance.Poll(); Discovery.WorldFamilies.Poll(); Audio.CompletionCues.Player?.Poll(); Crew.CrewWork.Poll(); Liquids.BufferedDrains.Poll(); }
+    private void Update() { Diagnostics.NativePerformance.Poll(); Discovery.WorldFamilies.Poll(); Audio.CompletionCues.Player?.Poll(); Crew.CrewWork.Poll(); Liquids.BufferedDrains.Poll(); Inventory.BeltCarriers.Poll(UnityEngine.Time.deltaTime); }
     private void OnApplicationQuit() => Diagnostics.NativePerformance.Shutdown();
     private void OnDestroy() { FrameworkLifecycle.ContentLoaded -= Crew.CrewSpecialities.Definitions; FrameworkLifecycle.ContentLoaded -= Trading.FactionKiosks.Definitions; Audio.CompletionCues.Player?.Dispose(); Audio.CompletionCues.Player = null; Diagnostics.NativePerformance.Shutdown(); harmony?.UnpatchSelf(); }
 }

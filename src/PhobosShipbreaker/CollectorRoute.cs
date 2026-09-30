@@ -21,6 +21,9 @@ internal sealed class CollectorRoute
     private readonly int[] starts, goals;
     /// <summary>The two touched when the route was found (no belt needed); otherwise a belt joined them.</summary>
     internal bool Touching { get; }
+    private int[]? path; private bool pathRead;
+    /// <summary>The belt cells from sender to receiver, for the moving-item display only; null when the two touch.</summary>
+    internal int[]? BeltPath { get { if (!pathRead) { path = Touching ? null : BeltNetwork.PathCells(ship, starts, goals); pathRead = true; } return path; } }
     private CollectorRoute(CondOwner port, CondOwner source, int[] starts, int[] goals)
     {
         Touching = Phobos.Ostranauts.Framework.Liquids.BulkVessels.Adjacent(source, port);
@@ -107,9 +110,10 @@ internal sealed class CollectorRoute
             for (int x = 0; x < CollectorRules.Width; x++) cells.Add(ship.GetTileIndexAtWorldCoords1(Point(co, x - 0.5, -1)));
         else if (input && !RoutingRules.IsSender(co.strCODef))
         {
-            // A passive native store: its own floor tile or the tile where crew use it.
+            // A passive native store: any tile of its footprint (a belt on or beside any edge joins it, Shipbreaker
+            // 0.57.0), and the tile where crew use it.
+            cells.AddRange(BeltNetwork.FootprintCells(co));
             cells.Add(ship.GetTileIndexAtWorldCoords1(co.GetPos("use")));
-            cells.Add(ship.GetTileIndexAtWorldCoords1(co.GetPos()));
         }
         else
             for (int y = 0; y < ProcessRules.Footprint; y++)

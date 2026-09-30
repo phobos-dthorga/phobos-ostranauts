@@ -78,7 +78,9 @@ internal sealed class StorageService
     /// <summary>The units in the machine's tray, stacks opened, in id order.</summary>
     private static IEnumerable<CondOwner> TrayUnits(CondOwner machine) => CrewLogistics.Contents(machine);
     private static void SetUnloading(CondOwner machine, bool on) { if (!machine.bDestroyed) machine.SetCondAmount(StorageRules.Unloading, on ? 1 : 0); }
-    private static void Disarm(CondOwner machine, Session s) { s.Armed = false; SetUnloading(machine, false); SetResume(machine, false); }
+    private static void Disarm(CondOwner machine, Session s) { s.Armed = false; SetUnloading(machine, false); SetResume(machine, false); BeltCarriers.Hide(Carrier(machine)); }
+    /// <summary>The moving-item display's key for this machine's unloading.</summary>
+    private static string Carrier(CondOwner machine) => machine.strID + ".storage";
     private static void SetResume(CondOwner machine, bool on) { if (!machine.bDestroyed && machine.HasCond(StorageRules.Resume) != on) machine.SetCondAmount(StorageRules.Resume, on ? 1 : 0); }
     private static void Clear(CondOwner machine, Session s, string status)
     { Disarm(machine, s); s.Item = null; s.Clock = null; s.Store = null; s.Route = null; s.Status = status; }
@@ -203,10 +205,11 @@ internal sealed class StorageService
             if (!s.Clock.Advance(s.Item.strID, poweredSeconds.HasValue ? Math.Min(elapsed, poweredSeconds.Value) : elapsed, powered))
             { s.Item = null; s.Clock = null; s.Status = Text.Get("Storage.waiting"); return; }
             s.Status = powered ? Text.Get("Storage.moving", s.Clock.Progress.ToString("F0"), s.Clock.Duration.ToString("F0")) : Text.Get("Routing.no_power");
+            BeltCarriers.Show(Carrier(machine), machine.ship, s.Item, s.Route?.BeltPath, s.Clock.Duration > 0 ? s.Clock.Progress / s.Clock.Duration : 0);
             if (!powered || !s.Clock.Complete) return;
             var move = new UnitItemTransfer(s.Item, s.Store!);
             if (!PhysicalTransfer.Commit(move)) { s.Status = Text.Get("Storage.blocked"); SetUnloading(machine, false); return; }
-            s.Item = null; s.Clock = null; SetUnloading(machine, false);
+            s.Item = null; s.Clock = null; SetUnloading(machine, false); BeltCarriers.Hide(Carrier(machine));
             s.Status = Text.Get("Storage.delivered"); move.Redraw();
             if (!options.FeederContinue) Disarm(machine, s);
         }

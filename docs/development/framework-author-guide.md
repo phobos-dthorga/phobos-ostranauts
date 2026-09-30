@@ -1414,3 +1414,17 @@ piped, and joins chain across the ship.
   unchanged (`CrewLogistics.IsUnitPreflight` delegates to it).
 - **`Items.SharedLines.BeltSpec`.** The belt's segment spec, published with the other
   Framework lines. See the [conveyor design record](conveyor-design.md).
+
+## Unit admission, store footprints and the belt display (0.62.0)
+
+- **`UnitItemTransfer.AsUnit(item, check)`** runs any admission question with
+  `IsUnitPreflight` true for the item, so a content rule judges one unit of a stack at
+  its own mass; `Stacked` and `UnitKg` are the matching helpers. Shipbreaker's routed
+  receivers use it.
+- **`BeltNetwork.FootprintCells(co)`** lists every tile an object covers from the item's
+  live width and height (the game swaps them on rotation); pass them as a store's cells
+  so a belt on any side joins it. **`BeltNetwork.PathCells`** gives the belt cells
+  between two sets of cells, for display only.
+- **`Inventory.BeltCarriers`** shows a copy of a travelling item along a belt path:
+  `Show(key, ship, item, path, progress)` and `Hide(key)`. Presentation only, no
+  collider, never saved; the `Belts/ShowMovingItems` setting turns it off.

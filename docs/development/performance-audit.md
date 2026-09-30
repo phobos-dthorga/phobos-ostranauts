@@ -596,3 +596,14 @@ probes) after the touching test, so it is cheaper than before. Resume after a
 reload is one condition read per receiver per step until the first attempt. Storage
 output lists the tray's units with stacks opened, as the crew orders already do. No
 performance capture or measured FPS claim accompanies this change.
+
+## 1 October: stacks, store footprints and the belt display (L7)
+
+L7 — Static review of Framework 0.62.0 with Shipbreaker 0.57.0. Routed receivers list
+the sender's units with stacks opened (as storage output and crew orders already
+did), one short list per admitted step. A store's cells grow from two to its
+footprint, a handful more dictionary probes when a route is found or rechecked. The
+belt display adds one quad per active belt transfer, a path found once per route
+and one eased position per frame for each shown item; with no belt transfer running
+it costs one empty check per frame. No performance capture or measured FPS claim
+accompanies this change.

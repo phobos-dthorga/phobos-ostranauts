@@ -38,6 +38,14 @@ filters and cargo are kept: lay belt between the two, or move them within one
 tile, then start the route again. Laying belt cannot be done for you, because it
 would mean free material.
 
+**Stores.** A belt joins a storage container on any side of it (0.57.0), not only
+at the tile where crew use it.
+
+**Watching it move.** While a belt route sends an item, a small copy of it rides
+the belt from sender to receiver (Framework 0.62.0). It is only a display: the item
+stays in the sender until it arrives. Turn it off with the Framework setting
+`Belts/ShowMovingItems`.
+
 **Reload.** A route that was running when you saved resumes by itself after a
 reload, like the crew's standing orders; a route that was paused stays paused.
 Processing keeps its own rule and waits for Start / resume.
@@ -103,8 +111,8 @@ incompatible saved filters block transfer until the player selects a valid one.
 
 Every route checks the full IDs, reciprocal pair token, same loaded ship,
 installation, damage, locks, receiver switch/signal state, the belt or touching
-equipment between them, exact item identity/mass, absence of stacks or contents,
-and destination capacity. Collector sources also retain their hull-mount checks.
+equipment between them, exact item identity/mass (a stack is taken one unit at a
+time, each at its own mass, since 0.57.0), absence of contents, and destination capacity. Collector sources also retain their hull-mount checks.
 Routes do not cross ships, bare space, EVA floor or cargo webbing. Native
 electrical conduit is separate.
 

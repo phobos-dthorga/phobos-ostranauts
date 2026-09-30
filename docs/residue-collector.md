@@ -54,8 +54,8 @@ Its normal **Inventory** is the only collector inventory: a 2 x 2 grid accepting
 four separate packets, **52 kg payload maximum**. Version 0.8.0 accepts original
 13 kg unclassified residue, 13 kg identified R2 residue and 9 kg terminal R2
 rejects. These have distinct identities and expected masses. Both installed and
-loose forms keep the finite storage/filter. Stacks, modified-mass packets and
-items with contents are refused. Whole walls, ordinary trash and valuable parts
+loose forms keep the finite storage/filter. A stack is taken one packet at a time
+(Shipbreaker 0.57.0); modified-mass packets and items with contents are refused. Whole walls, ordinary trash and valuable parts
 cannot enter. Existing residue remains unclassified; see the
 [material contract](development/residue-material-contract.md).
 

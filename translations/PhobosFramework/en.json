@@ -159,6 +159,8 @@
   "SharedLines.belt_description": "Conveyor belt for loose items between machines, collectors and stores. Lay it tile by tile on intact floor from one piece of equipment to the other: a run that lies on or beside both joins them, and equipment within one tile of each other needs no belt at all. Shares a tile with pipe and line, in the lowest lane. It holds nothing; each item goes straight from one to the other while the machine that sends or takes it has power.",
   "SharedLines.belt_waste": "Retained conveyor belt waste",
   "BeltNetwork.label": "belt",
+  "BeltCarriers.setting": "Show each item moving along the conveyor belt while it is sent. Display only: the item stays in the sending machine until it arrives.",
+  "BeltCarriers.failed": "Phobos Framework stopped showing items on conveyor belts for this session after a display fault; transfers carry on: {0}",
   "FrameworkItems.failed": "Phobos Framework could not register its own items (shared lines and water tanks): {0}",
   "ItemVessels.commodity": "{0} must hold {1}.",
   "WaterTanks.name_s2": "Process Water Silo",

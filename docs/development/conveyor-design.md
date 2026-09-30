@@ -56,9 +56,22 @@ pause-on-reload rule for these transfer routes only.
 The crew hauling orders' unit transfer moved into Framework as
 `Inventory.UnitItemTransfer` (with its unit-admission preflight), unchanged for the
 crew. Storage output uses it, so products the tray stacked leave one unit at a
-time, each checked at its own mass; receivers keep exact single-unit admission. The
-collector service's receivers (reclaimer feed, F6 charge bin, collectors) still
-refuse stacks: F6 stack acceptance stays deferred, as recorded.
+time, each checked at its own mass; receivers keep exact single-unit admission.
+Since Shipbreaker 0.57.0 (owner request, 1 October 2026) the collector service does
+the same for every receiver: the reclaimer feed, the F6 charge bin and collectors take
+one unit of a stack, asked about through `UnitItemTransfer.AsUnit` so each receiver's
+own unit rule (the crew orders' rule) judges it.
+
+## Stores and the moving item (Framework 0.62.0, Shipbreaker 0.57.0)
+
+- A passive store's cells are its whole footprint (`BeltNetwork.FootprintCells`, from
+  the item's live width and height, which the game swaps on rotation) plus its use
+  point, so a belt on or beside any side joins it (owner request, 1 October 2026).
+- `Inventory.BeltCarriers` shows a half-tile copy of the item's own material riding
+  the belt path (`BeltNetwork.PathCells`) at the transfer clock's progress, drawn at
+  layer 1.035 between the belt and the first pipe lane, eased each frame. It has no
+  collider, is never saved, and any rendering fault switches it off for the session.
+  One quad per active belt transfer; routes between touching equipment show nothing.
 
 ## Save migration
 

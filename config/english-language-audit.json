@@ -4384,19 +4384,6 @@
     },
     {
       "mod": "PhobosAutoNav",
-      "key": "Instruments.other_console_aboard",
-      "category": "status/warning",
-      "decision": "retain",
-      "reason": "New 2026-10-01: says what happened (another station aboard is flying), what the player can do (Disengage here) and the result (the ship coasts); matches the implemented stop.",
-      "trace": "literal/name/recipe reference",
-      "references": [
-        "src/PhobosAutoNav/NavigationInstruments.cs"
-      ],
-      "before": "Another navigation console aboard this ship is flying it. Choose Disengage here to stop that flight; the ship will coast.",
-      "after": "Another navigation console aboard this ship is flying it. Choose Disengage here to stop that flight; the ship will coast."
-    },
-    {
-      "mod": "PhobosAutoNav",
       "key": "Instruments.blocked",
       "category": "control/name/value",
       "decision": "retain",
@@ -52812,6 +52799,46 @@
       ],
       "before": "Resumed after the reload; the belt route was running when the game was saved.",
       "after": "Resumed after the reload; the belt route was running when the game was saved."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "BeltCarriers.setting",
+      "category": "settings help",
+      "decision": "add",
+      "reason": "Explains the moving-item display and that it is display only.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Plugin.cs:69"
+      ],
+      "before": "Show each item moving along the conveyor belt while it is sent. Display only: the item stays in the sending machine until it arrives.",
+      "after": "Show each item moving along the conveyor belt while it is sent. Display only: the item stays in the sending machine until it arrives."
+    },
+    {
+      "mod": "PhobosFramework",
+      "key": "BeltCarriers.failed",
+      "category": "developer diagnostics",
+      "decision": "add",
+      "reason": "Log line when the display switches off; transfers continue.",
+      "trace": "literal reference",
+      "references": [
+        "src/PhobosFramework/Inventory/BeltCarriers.cs:51",
+        "src/PhobosFramework/Inventory/BeltCarriers.cs:80"
+      ],
+      "before": "Phobos Framework stopped showing items on conveyor belts for this session after a display fault; transfers carry on: {0}",
+      "after": "Phobos Framework stopped showing items on conveyor belts for this session after a display fault; transfers carry on: {0}"
+    },
+    {
+      "mod": "PhobosAutoNav",
+      "key": "Instruments.other_console_aboard",
+      "category": "status/warning",
+      "decision": "retain",
+      "reason": "New 2026-10-01: says what happened (another station aboard is flying), what the player can do (Disengage here) and the result (the ship coasts); matches the implemented stop.",
+      "trace": "literal/name/recipe reference",
+      "references": [
+        "src/PhobosAutoNav/NavigationInstruments.cs"
+      ],
+      "before": "Another navigation console aboard this ship is flying it. Choose Disengage here to stop that flight; the ship will coast.",
+      "after": "Another navigation console aboard this ship is flying it. Choose Disengage here to stop that flight; the ship will coast."
     }
   ],
   "documents": [
@@ -52819,8 +52846,8 @@
       "path": "README.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "aa296099cc2aed90e070a970dcc1a9d5ce388d674cc27efbc338fa8d2c349136",
-      "review": "Reviewed 1 October 2026 for Framework 0.61.0 and Shipbreaker 0.56.0: conveyor belts, routes that need a belt or touching equipment, resume after reload and the manual step for routes over bare floor."
+      "sha256": "29e6e606ed7bdeacaaa90ae3b13836e3be6afa34a91629550efb8eed7efd3271",
+      "review": "Reviewed 1 October 2026 for Framework 0.62.0 and Shipbreaker 0.57.0, merged with Auto Nav 0.31.2."
     },
     {
       "path": "SUPPORT.md",
@@ -52972,15 +52999,15 @@
       "path": "docs/automatic-material-routing.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "5c5824f96bb46729c3959c45a7e02f2e9b3d51c3fbd8608499fde984b32b87ac",
-      "review": "Reviewed 1 October 2026 for Framework 0.61.0 and Shipbreaker 0.56.0: conveyor belts, routes that need a belt or touching equipment, resume after reload and the manual step for routes over bare floor."
+      "sha256": "07a352326242638ea25946e9326347f555889904cf99221c9dcb9aa8cbaed0e6",
+      "review": "Reviewed 1 October 2026 for Framework 0.62.0 and Shipbreaker 0.57.0: stacked units on every route, belts joining any side of a store, and the moving-item display."
     },
     {
       "path": "docs/control-panel-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "2398cb83612ea3d59769987b68ebe0ec6c8433275439ad28e82332a6a3abe82d",
-      "review": "Reviewed 1 October 2026 for Framework 0.61.0 and Shipbreaker 0.56.0: conveyor belts, routes that need a belt or touching equipment, resume after reload and the manual step for routes over bare floor."
+      "sha256": "4f05522b306c3f36e648ce5a7cb26dfa4a36152e66cc782a22088308f0574b7d",
+      "review": "Reviewed 1 October 2026 for Framework 0.62.0 and Shipbreaker 0.57.0, merged with Auto Nav 0.31.2."
     },
     {
       "path": "docs/crew-automation.md",
@@ -53280,8 +53307,8 @@
       "path": "docs/development/framework-author-guide.md",
       "scope": "research/developer/historical reference; preserved evidence and technical terminology",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "e6d6e2f6bb6cbd7e917c74f7808c83ac7e0f54a5304e7f468bd79b7c3e7a5f14",
-      "review": "Reviewed 1 October 2026 for Framework 0.61.0 and Shipbreaker 0.56.0: conveyor belts, routes that need a belt or touching equipment, resume after reload and the manual step for routes over bare floor."
+      "sha256": "fb5fe16c9b57c1988285cfcfbaae3d9f12cde576656ebfb201c420bf85de9845",
+      "review": "Reviewed 1 October 2026 for Framework 0.62.0 and Shipbreaker 0.57.0: stacked units on every route, belts joining any side of a store, and the moving-item display."
     },
     {
       "path": "docs/development/framework-bulk-storage.md",
@@ -53502,8 +53529,8 @@
       "path": "docs/development/performance-audit.md",
       "scope": "developer audit evidence plus optional current-player checks; precise timings remain technical evidence",
       "decision": "add; explicit measurement limits and practical player actions",
-      "sha256": "a8e024c962da2c2ae534ce2c9e7284b36b651c45e12a098836fb1ae72f908067",
-      "review": "Reviewed 1 October 2026 for Framework 0.61.0 and Shipbreaker 0.56.0: conveyor belts, routes that need a belt or touching equipment, resume after reload and the manual step for routes over bare floor."
+      "sha256": "eb9b8d3ada9d0f138e6c8b0f01a1ab804e32c1268081631d997256028d853496",
+      "review": "Reviewed 1 October 2026 for Framework 0.62.0 and Shipbreaker 0.57.0: stacked units on every route, belts joining any side of a store, and the moving-item display."
     },
     {
       "path": "docs/development/phobos-framework.md",
@@ -53714,8 +53741,8 @@
       "path": "docs/framework-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "38676e3a4db9249509759b1796fbc5b8100a63ffe523c1ef07f7b8a82518fe7c",
-      "review": "Reviewed 1 October 2026 for Framework 0.61.0 and Shipbreaker 0.56.0: conveyor belts, routes that need a belt or touching equipment, resume after reload and the manual step for routes over bare floor."
+      "sha256": "e8dbcab3f106fd2c1ffd9feb0395fc8d494c895dab1074abd1d4f06db3ac8546",
+      "review": "Reviewed 1 October 2026 for Framework 0.62.0 and Shipbreaker 0.57.0: stacked units on every route, belts joining any side of a store, and the moving-item display."
     },
     {
       "path": "docs/furnace-coolant-conduits.md",
@@ -53728,8 +53755,8 @@
       "path": "docs/furnace-material-routing.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "10acaa91ae6c1e0fa9eb197f0304333a483e895effbcccec80b3bbb66b37ce49",
-      "review": "Reviewed 1 October 2026 for Framework 0.61.0 and Shipbreaker 0.56.0: conveyor belts, routes that need a belt or touching equipment, resume after reload and the manual step for routes over bare floor."
+      "sha256": "9e1bcee138b27957f726880ab86cd282cad98984624174b716520760edc00a84",
+      "review": "Reviewed 1 October 2026 for Framework 0.62.0 and Shipbreaker 0.57.0: stacked units on every route, belts joining any side of a store, and the moving-item display."
     },
     {
       "path": "docs/furnace-player-guide.md",
@@ -53770,15 +53797,15 @@
       "path": "docs/industrial-console-player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "1b841e149b79334c3edb329a72505ad7502b2cb691827ac0124ed92f255a719c",
-      "review": "Reviewed 1 October 2026 for Framework 0.61.0 and Shipbreaker 0.56.0: conveyor belts, routes that need a belt or touching equipment, resume after reload and the manual step for routes over bare floor."
+      "sha256": "cb32a027abe252a708f7bda19328addd7f7fe0965ebd04a694c103435a64f8ca",
+      "review": "Reviewed 1 October 2026 for Framework 0.62.0 and Shipbreaker 0.57.0: stacked units on every route, belts joining any side of a store, and the moving-item display."
     },
     {
       "path": "docs/installing-mods.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "51faeffa8aeab0d0821fccb7a15d7fe0ca6f02a876df92a661e0d5076fb1c61d",
-      "review": "Reviewed 1 October 2026 for Framework 0.61.0 and Shipbreaker 0.56.0: conveyor belts, routes that need a belt or touching equipment, resume after reload and the manual step for routes over bare floor."
+      "sha256": "48203c8d11a61498cd501f3f634cf0841b50d653254664b2dc2d3f8881066bf6",
+      "review": "Reviewed 1 October 2026 for Framework 0.62.0 and Shipbreaker 0.57.0: stacked units on every route, belts joining any side of a store, and the moving-item display."
     },
     {
       "path": "docs/item-references.md",
@@ -53819,15 +53846,15 @@
       "path": "docs/player-guide.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "c2bd144884b660035aaa412b4141398e3c68a340fcef497623e2ffc35106c7ea",
-      "review": "Reviewed 1 October 2026 for Framework 0.61.0 and Shipbreaker 0.56.0: conveyor belts, routes that need a belt or touching equipment, resume after reload and the manual step for routes over bare floor."
+      "sha256": "2a5aaa5008e53677da098a7495dd29b77da75f2c53be38c4cfe0eb8e4ba76105",
+      "review": "Reviewed 1 October 2026 for Framework 0.62.0 and Shipbreaker 0.57.0, merged with Auto Nav 0.31.2."
     },
     {
       "path": "docs/residue-collector.md",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "rewrite",
-      "sha256": "5ad103473490aefab4b6c4b3934e78043345dcc3211bf4b2d0a61d6203c9e88d",
-      "review": "Reviewed 1 October 2026 for Framework 0.61.0 and Shipbreaker 0.56.0: conveyor belts, routes that need a belt or touching equipment, resume after reload and the manual step for routes over bare floor."
+      "sha256": "e884e094ce56f2d1ea70409295c211d6ee305facdbe45ad911352d136315e382",
+      "review": "Reviewed 1 October 2026 for Framework 0.62.0 and Shipbreaker 0.57.0: stacked units on every route, belts joining any side of a store, and the moving-item display."
     },
     {
       "path": "docs/scrap-reclaimer.md",
@@ -53868,8 +53895,8 @@
       "path": "docs/shipbreaker-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "93e8c75c597a1f370555ac7ae217942702a558a44603f3a72b4eab9f6712c5aa",
-      "review": "Reviewed 1 October 2026 for Framework 0.61.0 and Shipbreaker 0.56.0: conveyor belts, routes that need a belt or touching equipment, resume after reload and the manual step for routes over bare floor."
+      "sha256": "c073a2df47b751768ec75d3186992a580091c73a9a41b7e5246652cc2266e615",
+      "review": "Reviewed 1 October 2026 for Framework 0.62.0 and Shipbreaker 0.57.0: stacked units on every route, belts joining any side of a store, and the moving-item display."
     },
     {
       "path": "docs/shipbreaker-material-uses.md",
@@ -53904,14 +53931,14 @@
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
       "sha256": "6b8546f63848188574b8ab67b174844e89c062e10bbcfcc9c56f607859f753cf",
-      "review": "Reviewed 2026-09-30 for the set 1 fixes (Framework 0.55.0, Manufacturing 0.21.0, Shipbreaker 0.51.0, Agriculture 0.28.0, Auto Nav 0.31.1): panel refresh, missing keys, the console loot report, chunk odds per pull and the minus-sign glyph; direct player text."
+      "review": "Reviewed 1 October 2026 for Framework 0.62.0 and Shipbreaker 0.57.0, merged with Auto Nav 0.31.2."
     },
     {
       "path": "workshop/PhobosFramework/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "881383ac2e15594290bdf1002b501df62457c0fa8e1cc08d3f77078e21cd069f",
-      "review": "Reviewed 1 October 2026 for Framework 0.61.0 and Shipbreaker 0.56.0: conveyor belts, routes that need a belt or touching equipment, resume after reload and the manual step for routes over bare floor."
+      "sha256": "0bc9c7272d02ab0b9831c12144ce7ea67c4d0a40097ebb083ff163655790ead6",
+      "review": "Reviewed 1 October 2026 for Framework 0.62.0 and Shipbreaker 0.57.0: stacked units on every route, belts joining any side of a store, and the moving-item display."
     },
     {
       "path": "workshop/PhobosManufacturing/page.bbcode",
@@ -53924,8 +53951,8 @@
       "path": "workshop/PhobosShipbreaker/page.bbcode",
       "scope": "current player text; technical/history sections retained where labelled",
       "decision": "update current version/help and retain technical evidence",
-      "sha256": "66b0ee2d68a7746640b2e7a61c49ada9664c0c1bb7528b52889d76d048b4f54c",
-      "review": "Reviewed 1 October 2026 for Framework 0.61.0 and Shipbreaker 0.56.0: conveyor belts, routes that need a belt or touching equipment, resume after reload and the manual step for routes over bare floor."
+      "sha256": "09d7c0962719d63cf0f5bb79b096012b50a76bbf542f576ab4b41319d800ca18",
+      "review": "Reviewed 1 October 2026 for Framework 0.62.0 and Shipbreaker 0.57.0: stacked units on every route, belts joining any side of a store, and the moving-item display."
     },
     {
       "path": "docs/war-declared-player-guide.md",
@@ -54008,8 +54035,8 @@
       "path": "docs/development/conveyor-design.md",
       "scope": "development",
       "decision": "Development design record; not player-facing.",
-      "sha256": "db56e08fb2e798001248c7a384b388782b85b5314daa5be42448dab6115899e4",
-      "review": "Reviewed 2026-10-01 for Framework 0.61.0 and Shipbreaker 0.56.0: the conveyor belt, belt routes, resume after reload, unit transfers and the manual step for routes over bare floor; direct wording."
+      "sha256": "cd51245035c0d3f9379a147d596df04462b032526614b85e2a2062f74c14da8e",
+      "review": "Reviewed 1 October 2026 for Framework 0.62.0 and Shipbreaker 0.57.0: stacked units on every route, belts joining any side of a store, and the moving-item display."
     }
   ],
   "surfaces": [
@@ -54055,7 +54082,7 @@
       "path": "mods/PhobosAutoNav/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
       "sha256": "e6bdffcc194759f8b77070e9c75d88d16fda6109a29d4816b3430d29a0066a68",
-      "review": "Reviewed 2026-09-30 for the set 1 fixes (Framework 0.55.0, Manufacturing 0.21.0, Shipbreaker 0.51.0, Agriculture 0.28.0, Auto Nav 0.31.1): panel refresh, missing keys, the console loot report, chunk odds per pull and the minus-sign glyph; direct player text."
+      "review": "Reviewed 1 October 2026 for Framework 0.62.0 and Shipbreaker 0.57.0, merged with Auto Nav 0.31.2."
     },
     {
       "path": "mods/PhobosFramework/framework/equipment-names.json",
@@ -54066,8 +54093,8 @@
     {
       "path": "mods/PhobosFramework/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "5971e2f2ee721251a83499d5e1b8c331cb634c625f363a88a95c067d60668faa",
-      "review": "Reviewed 1 October 2026 for Framework 0.61.0 and Shipbreaker 0.56.0: conveyor belts, routes that need a belt or touching equipment, resume after reload and the manual step for routes over bare floor."
+      "sha256": "e1579c2d32edd6d7dcd2d2914da2196d25559e5dff841642be76d4047e750b2f",
+      "review": "Reviewed 1 October 2026 for Framework 0.62.0 and Shipbreaker 0.57.0: stacked units on every route, belts joining any side of a store, and the moving-item display."
     },
     {
       "path": "mods/PhobosManufacturing/mod_info.json",
@@ -54090,8 +54117,8 @@
     {
       "path": "mods/PhobosShipbreaker/mod_info.json",
       "scope": "recipe fallback / native overlay / assembled name / maintained player reference input",
-      "sha256": "3bcfb40970bb9b0204c8922528c41da234dbd440688195bcfe68523e06dc2442",
-      "review": "Reviewed 1 October 2026 for Framework 0.61.0 and Shipbreaker 0.56.0: conveyor belts, routes that need a belt or touching equipment, resume after reload and the manual step for routes over bare floor."
+      "sha256": "b2544b13e22cfc15b9d55cb7506b06da96f247a10cef593b24d8b40c01fbb6aa",
+      "review": "Reviewed 1 October 2026 for Framework 0.62.0 and Shipbreaker 0.57.0: stacked units on every route, belts joining any side of a store, and the moving-item display."
     },
     {
       "path": "mods/PhobosWarDeclared/mod_info.json",

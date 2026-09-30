@@ -1178,7 +1178,7 @@
 ## Crew loading orders (2026-09-29)
 
 - Owner direction: "Load feed" is something the crew keep doing until cancelled, through the hourly time-skip. It is the right-click toggle `IndustrialRules.FeedOrder` on the intact installed D4, R4 and F6, which enables the family's standing order with the ship-wide source (`StandingOrder.ShipWide`: deck, unlocked containers and other machines' trays on the same ship, nearest first, as the game's own PDA Reload job searches), the order maximum stock and routine resume; off is a manual stop. A store already chosen in the panel is kept. Loading orders carry on after a reload like a painted job (owner decision); hazardous F6 orders still wait for Resume, and F6 hot steps still need the hazardous permission.
-- Keep our hauling (route, reservation and single-unit checks) rather than the native Give effect; the managed skip advances only our orders. Deck items are cargo in play and in a skip; never take from a hidden system bin, a locked container, the equipment itself or someone's hands. The game's convention stands: crew need AutoTask and the Haul duty. F6 stack acceptance stays deferred because the game's right-click places one unit.
+- Keep our hauling (route, reservation and single-unit checks) rather than the native Give effect; the managed skip advances only our orders. Deck items are cargo in play and in a skip; never take from a hidden system bin, a locked container, the equipment itself or someone's hands. The game's convention stands: crew need AutoTask and the Haul duty. F6 stack acceptance by hand stays deferred because the game's right-click places one unit; routed feeds take one unit of a stack since Shipbreaker 0.57.0.
 
 ## Materials and chemistry direction (2026-09-29)
 
