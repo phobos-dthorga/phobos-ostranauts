@@ -30,8 +30,9 @@ it as fuel. A full silo weighs what it holds: the ship's mass readouts include i
    console offers the same choice. Pause the T2 before changing the link.
 4. Right-click the T2 and choose **Inventory**. The gangue tray opens, and the
    **Ice Feed** opens as its own window. Put one block of water ice in at a
-   time (right-click a stack to place one); the feed holds two. Methane ice,
-   gangue and stacked blocks are refused with the reason.
+   time (right-click a stack to place one); the feed holds two. Gangue and
+   stacked blocks are refused with the reason. Methane ice is accepted too; see
+   below.
 5. Choose **Start / resume thawing**. The unit waits for ice, then thaws each
    block for 40 minutes at 6 kW: 22.7 kg of water goes into the linked vessel
    and 2 kg of ice gangue drops into the tray, which holds two. Empty the tray
@@ -46,6 +47,47 @@ anywhere aboard, through time-skips and reloads, until you switch it off; the
 same order appears under [crew standing orders](crew-automation.md), where you
 can pin an input store and an output store for the gangue. A
 [material bin](shipbreaker-material-bins.md) makes a good store for both.
+
+## Methane ice
+
+Since Shipbreaker 0.45.0 the T2 also breaks down the game's **methane ice**
+(24.84 kg a block). It needs somewhere to put the methane: a Phobos
+Manufacturing methane store (M2, M3 or M4) within one tile of the T2.
+
+1. Install the methane store within one tile of the T2.
+2. On the T2's **Control Panel**, choose **Send methane to** and pick the store.
+   The field appears once a methane store is in reach.
+3. Load methane ice like water ice and start. Each block takes 50 minutes at
+   6 kW: 19.89 kg of water goes to the linked silo or reservoir, 2.95 kg of
+   methane to the store, and 2 kg of ice gangue to the tray.
+
+Methane never goes into the air. Without a linked store, methane ice waits in
+the feed and water ice behind it still runs; crew only bring methane ice once a
+store is linked. Stored methane can feed your RCS thrusters through
+Manufacturing's P1 manifold.
+
+The game calls this block "methane ice" and describes it as wet; Phobos reads it
+as methane hydrate, methane locked in a cage of water ice. Chemistry, from the
+research below and our own choices:
+
+- **Composition.** Natural and laboratory methane hydrate holds about six water
+  molecules per methane molecule ([Circone et al. 2005, USGS](https://agupubs.onlinelibrary.wiley.com/doi/full/10.1029/2018JB016459),
+  as reviewed by Ruppel and Waite 2020); the fully caged ideal is 5.75
+  ([USGS Fact Sheet 2017-3080](https://pubs.usgs.gov/fs/2017/3080/fs20173080.pdf)).
+  We use six, with the same 2 kg of gangue as water ice, giving 2.95 kg of
+  methane and 19.89 kg of water from a block.
+- **Energy.** Breaking the hydrate into gas and liquid water takes 54.2 kJ per
+  mole of methane ([Handa 1986, National Research Council of Canada, *J. Chem.
+  Thermodynamics* 18](https://www.sciencedirect.com/science/article/abs/pii/0021961486901497)).
+  With our warming allowance a block needs about 4.1 kWh; the 50-minute cycle
+  delivers 4.25 kWh to it after the room's share.
+- **Price.** The game values methane ice at 20, less than the water inside it.
+  Shipbreaker corrects the price to 250 so breaking a block down still loses
+  money, as every Phobos process does. Blocks already in a save keep their old
+  price.
+
+None of these institutions endorses the mod; the gangue share, the warming
+allowance and the price are ours.
 
 ## Where to find water ice
 

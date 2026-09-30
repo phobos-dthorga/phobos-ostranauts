@@ -41,35 +41,60 @@ internal static class ThawService
     internal static bool ValidIce(CondOwner? input) => input != null && !input.bDestroyed && input.Crew == null &&
         ThawRules.ValidIce(input.strCODef, input.GetTotalMass(), !input.HasCond("IsInstalled"),
             input.GetCOsSafe(true).Count == 0 && input.GetLotCOs(true).Count == 0, input.coStackHead == null && input.aStack.Count == 0);
-    internal static bool CrewFeed(CondOwner input) => CrewLogistics.Loose(input) && input.strCODef == ThawRules.Ice && ProcessRules.MassMatches(input.GetCondAmount("StatMass"), ThawRules.IceKg);
+    /// <summary>What crew may bring: loose water ice always; methane ice only when a methane store is linked, so a
+    /// feed never fills with blocks the unit cannot finish.</summary>
+    internal static bool CrewFeed(CondOwner t2, CondOwner input) => CrewLogistics.Loose(input) && ThawRules.IsFeed(input.strCODef) &&
+        ProcessRules.MassMatches(input.GetCondAmount("StatMass"), ThawRules.FeedKg(input.strCODef)) &&
+        (input.strCODef != ThawRules.MethaneIce || CrewWork.Resolve(MethanePeer(t2)) != null);
     internal static bool CanFeed(CondOwner bin, CondOwner input) => !bin.HasCond("IsLocked") &&
-        (CrewLogistics.IsUnitPreflight(input) ? CrewFeed(input) : ValidIce(input)) &&
+        (CrewLogistics.IsUnitPreflight(input) ? bin.objCOParent != null && CrewFeed(bin.objCOParent, input) : ValidIce(input)) &&
         bin.objContainer != null && (bin.objContainer.ContainedCOs.Contains(input) || bin.objContainer.ContainedCOs.Count < ThawRules.FeedCapacity);
 
     internal static MaterialPort Outlet(CondOwner t2) => new(t2.strID, ThawRules.OutPort, t2.mapGUIPropMaps);
     internal static MaterialPort Inlet(CondOwner vessel) => new(vessel.strID, ThawRules.VesselPort, vessel.mapGUIPropMaps);
     internal static string Peer(CondOwner t2) => PortPairing.Read(Outlet(t2)).PeerObjectId;
+    internal static MaterialPort MethaneOutlet(CondOwner t2) => new(t2.strID, ThawRules.MethaneOutPort, t2.mapGUIPropMaps);
+    internal static MaterialPort MethaneInlet(CondOwner store) => new(store.strID, ThawRules.MethaneInPort, store.mapGUIPropMaps);
+    internal static string MethanePeer(CondOwner t2) => PortPairing.Read(MethaneOutlet(t2)).PeerObjectId;
     private static int Footprint(CondOwner co) => Math.Max(1, DataHandler.GetCondOwnerDef(co.strCODef)?.inventoryWidth ?? 1);
     internal static bool Adjacent(CondOwner t2, CondOwner vessel)
     { var a = t2.GetPos(); var b = vessel.GetPos(); return ThawRules.Adjacent(a.x, a.y, b.x, b.y, Footprint(vessel)); }
     /// <summary>Registered water vessels within one tile on the same ship.</summary>
     internal static IEnumerable<CondOwner> Candidates(CondOwner t2) => BulkVessels.Aboard(t2.ship, ThawRules.Commodity).Where(v => v != t2 && Adjacent(t2, v));
-    /// <summary>The linked vessel when it can take one block's water now; otherwise null with the reason.</summary>
-    internal static CondOwner? Vessel(CondOwner t2, out string reason)
+    /// <summary>Registered methane vessels (Phobos Manufacturing's stores, when installed) within one tile.</summary>
+    internal static IEnumerable<CondOwner> MethaneCandidates(CondOwner t2) => BulkVessels.Aboard(t2.ship, ThawRules.MethaneCommodity).Where(v => v != t2 && Adjacent(t2, v));
+    /// <summary>The linked water vessel when it can take one block's water now; otherwise null with the reason.</summary>
+    internal static CondOwner? Vessel(CondOwner t2, double kg, out string reason) =>
+        Destination(t2, CrewWork.Resolve(Peer(t2)), Outlet(t2), Inlet, ThawRules.Commodity, kg, "Thaw.no_vessel", "Thaw.vessel_not_ready", "Thaw.vessel_protected", "Thaw.vessel_full", out reason);
+    /// <summary>The linked methane store when it can take one block's methane now; otherwise null with the reason.</summary>
+    internal static CondOwner? MethaneStore(CondOwner t2, double kg, out string reason) =>
+        Destination(t2, CrewWork.Resolve(MethanePeer(t2)), MethaneOutlet(t2), MethaneInlet, ThawRules.MethaneCommodity, kg, "Thaw.no_methane_store", "Thaw.methane_not_ready", "Thaw.methane_protected", "Thaw.methane_full", out reason);
+    private static CondOwner? Destination(CondOwner t2, CondOwner? vessel, MaterialPort outlet, Func<CondOwner, MaterialPort> inlet, string commodity, double kg,
+        string missing, string notReady, string guarded, string full, out string reason)
     {
-        reason = Text.Get("Thaw.no_vessel");
-        var vessel = CrewWork.Resolve(Peer(t2));
-        if (vessel == null || !BulkVessels.IsVessel(vessel)) return null;
-        reason = Text.Get("Thaw.vessel_not_ready");
-        if (vessel.ship != t2.ship || !NativeFluidRoute.EndpointReady(vessel) || !PortPairing.Matches(Outlet(t2), Inlet(vessel)) || !Adjacent(t2, vessel)) return null;
-        reason = Text.Get("Thaw.vessel_protected");
+        reason = Text.Get(missing);
+        if (vessel == null || !BulkVessels.IsVessel(vessel) || BulkVessels.SpecFor(vessel.strCODef)?.Commodity != commodity) return null;
+        reason = Text.Get(notReady);
+        if (vessel.ship != t2.ship || !NativeFluidRoute.EndpointReady(vessel) || !PortPairing.Matches(outlet, inlet(vessel)) || !Adjacent(t2, vessel)) return null;
+        reason = Text.Get(guarded);
         if (BulkVessel.Protected(vessel) || CommodityReservations.Held(vessel.strID)) return null;
         var s = BulkVessel.Snapshot(vessel);
         reason = Text.Get("Thaw.vessel_catch");
         if (s.CatchKg > 1e-8) return null;
-        reason = Text.Get("Thaw.vessel_full", s.HeadroomKg, ThawRules.WaterKg);
-        if (s.HeadroomKg + 1e-8 < ThawRules.WaterKg) return null;
+        reason = Text.Get(full, s.HeadroomKg, kg);
+        if (s.HeadroomKg + 1e-8 < kg) return null;
         reason = ""; return vessel;
+    }
+    private static double Kg(ProcessRecipe recipe, string id) => recipe.Products.FirstOrDefault(p => p.Id == id)?.Kg ?? 0;
+    /// <summary>Every destination one block of this recipe needs, ready now; otherwise null with the first reason.</summary>
+    private static CondOwner? Ready(CondOwner t2, ProcessRecipe recipe, out CondOwner? methaneStore, out string reason)
+    {
+        methaneStore = null;
+        var water = Vessel(t2, Kg(recipe, ThawRules.Commodity), out reason);
+        if (water == null) return null;
+        double methane = Kg(recipe, ThawRules.MethaneCommodity);
+        if (methane > 0 && (methaneStore = MethaneStore(t2, methane, out reason)) == null) return null;
+        return water;
     }
     internal static string? MachineProblem(CondOwner co)
     {
@@ -83,11 +108,15 @@ internal static class ThawService
         return null;
     }
     private static void SetWorking(CondOwner co, bool value) => co.SetCondAmount(ProcessRules.Working, value ? 1 : 0);
-    private static CondOwner? NextInput(IEnumerable<CondOwner>? inputs) => inputs?
+    /// <summary>Started blocks first (their progress is saved on them), then the furthest along.</summary>
+    private static IEnumerable<CondOwner> Ordered(IEnumerable<CondOwner>? inputs) => (inputs ?? Array.Empty<CondOwner>())
         .OrderByDescending(c => c.GetCondAmount(ProcessRules.Revision) != 0 || c.GetCondAmount(ProcessRules.Progress) != 0 || c.GetCondAmount(ProcessRules.Duration) != 0)
-        .ThenByDescending(c => c.GetCondAmount(ProcessRules.Progress)).FirstOrDefault();
-    private static ProcessJob ReadJob(CondOwner input) => ProcessJob.CreateOrResume(ThawRules.Recipes, input.strID,
-        input.GetCondAmount(ProcessRules.Progress), input.GetCondAmount(ProcessRules.Revision), input.GetCondAmount(ProcessRules.Duration), ThawRules.CycleSeconds);
+        .ThenByDescending(c => c.GetCondAmount(ProcessRules.Progress));
+    private static CondOwner? NextInput(IEnumerable<CondOwner>? inputs) => Ordered(inputs).FirstOrDefault();
+    /// <summary>Each feed identity has its own immutable recipe catalog and cycle; a block's saved revision is
+    /// read against its own identity's catalog.</summary>
+    private static ProcessJob ReadJob(CondOwner input) => ProcessJob.CreateOrResume(ThawRules.RecipesFor(input.strCODef), input.strID,
+        input.GetCondAmount(ProcessRules.Progress), input.GetCondAmount(ProcessRules.Revision), input.GetCondAmount(ProcessRules.Duration), ThawRules.CycleSecondsFor(input.strCODef));
     private static bool MatchesJob(CondOwner input, ProcessJob job) => job.MatchesSaved(input.strID,
         input.GetCondAmount(ProcessRules.Progress), input.GetCondAmount(ProcessRules.Revision), input.GetCondAmount(ProcessRules.Duration));
 
@@ -121,12 +150,24 @@ internal static class ThawService
         SetWorking(co, false); s.Job = null; s.Input = null; s.VesselWait = false;
         var inputs = Feed(co)?.objContainer?.ContainedCOs;
         if (inputs == null || inputs.Count == 0) { s.Status = Text.Get("Thaw.feed_empty"); return false; }
-        var input = NextInput(inputs)!;
-        if (!ValidIce(input)) { s.Status = Text.Get("Thaw.invalid_feed", ThawRules.IceKg); return false; }
-        ProcessJob job;
-        try { job = ReadJob(input); }
-        catch (ArgumentException ex) { s.Status = ex.Message; return false; }
-        if (Vessel(co, out string why) == null) { s.VesselWait = true; s.NextVesselCheck = StarSystem.fEpoch + VesselRecheckSeconds; s.Status = Text.Get("Thaw.waiting_vessel", why); return false; }
+        // The first block whose destinations are ready runs: a methane block waiting for its store never holds up
+        // water ice behind it.
+        string? problem = null, wait = null;
+        CondOwner? input = null; ProcessJob? job = null;
+        foreach (var candidate in Ordered(inputs))
+        {
+            if (!ValidIce(candidate)) { problem ??= Text.Get("Thaw.invalid_feed", ThawRules.IceKg, ThawRules.MethaneIceKg); continue; }
+            ProcessJob read;
+            try { read = ReadJob(candidate); }
+            catch (ArgumentException ex) { problem ??= ex.Message; continue; }
+            if (Ready(co, read.Recipe, out _, out string why) == null) { wait ??= why; continue; }
+            input = candidate; job = read; break;
+        }
+        if (input == null || job == null)
+        {
+            if (wait != null) { s.VesselWait = true; s.NextVesselCheck = StarSystem.fEpoch + VesselRecheckSeconds; s.Status = Text.Get("Thaw.waiting_vessel", wait); return false; }
+            s.Status = problem ?? Text.Get("Thaw.feed_empty"); return false;
+        }
         s.Job = job; s.Input = input; s.Last = StarSystem.fEpoch;
         input.SetCondAmount(ProcessRules.Revision, job.Recipe.Revision);
         input.SetCondAmount(ProcessRules.Duration, job.Duration);
@@ -146,7 +187,7 @@ internal static class ThawService
         if (!cancel) return true;
         foreach (var input in Feed(co)?.objContainer?.ContainedCOs ?? Array.Empty<CondOwner>())
         {
-            if (input.strCODef != ThawRules.Ice) continue;
+            if (!ThawRules.IsFeed(input.strCODef)) continue;
             input.ZeroCondAmount(ProcessRules.Progress); input.ZeroCondAmount(ProcessRules.Revision); input.ZeroCondAmount(ProcessRules.Duration);
         }
         s.Input = null; s.Job = null;
@@ -245,27 +286,32 @@ internal static class ThawService
         }
         catch (Exception ex) { Fault(co, ex); }
     }
-    /// <summary>One block becomes water in the vessel and gangue in the tray. The gangue is placed first and
-    /// the block removed second, as the D4 places products before consuming its input; the vessel's conversion
-    /// journal is open across both, so an interruption leaves evidence rather than duplicated or vanished mass.</summary>
+    /// <summary>One block becomes its recipe's products: water in the linked vessel, methane (from methane ice) in
+    /// the linked methane store, gangue in the tray. The gangue is placed first and the block removed second, as
+    /// the D4 places products before consuming its input; each vessel's conversion journal is open across both,
+    /// so an interruption leaves evidence rather than duplicated or vanished mass.</summary>
     private static bool Finish(CondOwner co, Session s)
     {
         SetWorking(co, false);
-        var input = s.Input!; var job = s.Job!;
+        var input = s.Input!; var job = s.Job!; var recipe = job.Recipe;
         if (!job.Complete || !MatchesJob(input, job) || input.objCOParent != Feed(co) || !ValidIce(input) || MachineProblem(co) != null)
         { Stop(co, s, Text.Get("Thaw.input_changed")); return false; }
-        var vessel = Vessel(co, out string why);
+        var vessel = Ready(co, recipe, out var methaneStore, out string why);
         if (vessel == null) { s.VesselWait = true; s.NextVesselCheck = StarSystem.fEpoch + VesselRecheckSeconds; s.Status = Text.Get("Thaw.waiting_vessel", why); return false; }
+        double waterKg = Kg(recipe, ThawRules.Commodity), methaneKg = Kg(recipe, ThawRules.MethaneCommodity), gangueKg = Kg(recipe, ThawRules.Gangue);
         var gangue = DataHandler.GetCondOwner(ThawRules.Gangue);
         bool published = false;
         try
         {
-            if (gangue == null || !ProcessRules.MassMatches(gangue.GetTotalMass(), ThawRules.GangueKg) || gangue.coStackHead != null || gangue.aStack.Count != 0 || gangue.GetCOsSafe(true).Count != 0)
+            if (gangue == null || !ProcessRules.MassMatches(gangue.GetTotalMass(), gangueKg) || gangue.coStackHead != null || gangue.aStack.Count != 0 || gangue.GetCOsSafe(true).Count != 0)
                 throw new InvalidOperationException(Text.Get("Thaw.output_definition_changed"));
             if (co.objContainer == null || !co.objContainer.AllowedCO(gangue) || !co.objContainer.CanAddSimple(gangue, out var cell))
             { s.VesselWait = true; s.NextVesselCheck = StarSystem.fEpoch + VesselRecheckSeconds; s.Status = Text.Get("Thaw.tray_full"); return false; }
             var state = BulkVessel.Read(vessel);
+            var methaneState = methaneStore == null ? null : BulkVessel.Read(methaneStore);
             BulkVessel.BeginConversion(vessel, input.strID, state.TotalKg);
+            if (methaneStore != null) BulkVessel.BeginConversion(methaneStore, input.strID, methaneState!.TotalKg);
+            void EndConversions() { BulkVessel.EndConversion(vessel); if (methaneStore != null) BulkVessel.EndConversion(methaneStore); }
             co.objContainer.AddCOSimple(gangue, cell);
             if (gangue.objCOParent != co || !co.objContainer.ContainedCOs.Contains(gangue)) throw new InvalidOperationException(Text.Get("Thaw.output_placement_failed"));
             published = true;
@@ -275,16 +321,18 @@ internal static class ThawService
             if (!retired)
             {
                 gangue.RemoveFromCurrentHome(bForce: true); gangue.Destroy(); published = false;
-                BulkVessel.EndConversion(vessel);
+                EndConversions();
                 throw new InvalidOperationException(Text.Get("Thaw.input_not_removed"));
             }
             input.Destroy();
-            state.SetService(state.ServiceKg + ThawRules.WaterKg); BulkVessel.Save(vessel, state);
-            BulkVessel.EndConversion(vessel);
+            state.SetService(state.ServiceKg + waterKg); BulkVessel.Save(vessel, state);
+            if (methaneStore != null) { methaneState!.SetService(methaneState.ServiceKg + methaneKg); BulkVessel.Save(methaneStore, methaneState); }
+            EndConversions();
             co.objContainer.Redraw(); Feed(co)?.objContainer?.Redraw();
         }
         catch { if (gangue != null && !published && gangue.objCOParent == null && !gangue.bDestroyed) gangue.Destroy(); throw; }
-        Plugin.Log(Text.Get("Thaw.completed_log", job.InputId, ThawRules.WaterKg, vessel.strID, ThawRules.GangueKg));
+        Plugin.Log(methaneStore == null ? Text.Get("Thaw.completed_log", job.InputId, waterKg, vessel.strID, gangueKg)
+            : Text.Get("Thaw.completed_methane_log", job.InputId, waterKg, vessel.strID, methaneKg, methaneStore.strID, gangueKg));
         s.Job = null; s.Input = null; s.VesselWait = false;
         if (!s.CrewManaged && Plugin.Options.ContinueQueue)
         {
@@ -311,31 +359,38 @@ internal static class ThawService
         double progress = input?.GetCondAmount(ProcessRules.Progress) ?? 0, duration = input != null && input.GetCondAmount(ProcessRules.Duration) > 0 ? input.GetCondAmount(ProcessRules.Duration) : ThawRules.CycleSeconds;
         return Text.Get("Thaw.status", s.Status, inputs?.Count ?? 0, ThawRules.FeedCapacity, progress, duration,
             co.HasCond("IsPowered") ? Text.Get("ProcessingService.powered") : Text.Get("ProcessingService.no_power"), ObjectPresentation.Name(Peer(co))) +
+            (MethanePeer(co).Length > 0 ? Text.Get("Thaw.methane_to", ObjectPresentation.Name(MethanePeer(co))) : "") +
             "\n" + Text.Get("Thaw.demand", ThawRules.WorkingKW, ThawRules.WorkingKW * ThawRules.RoomHeatFraction) + IndustryObservations.ExplainStop(co);
     }
-    internal static bool Link(CondOwner co, string id, ConsoleBinding? binding, out string reason)
+    internal static bool Link(CondOwner co, string id, ConsoleBinding? binding, out string reason) => Link(co, id, false, binding, out reason);
+    /// <summary>Links water to a vessel, or (methane) methane ice's methane to a methane store; each within one tile.</summary>
+    internal static bool Link(CondOwner co, string id, bool methane, ConsoleBinding? binding, out string reason)
     {
         reason = ProcessingService.AccessProblem(co, binding) ?? "";
         if (reason.Length > 0) return false;
         if (co.HasCond(ProcessRules.Working) || sessions.TryGetValue(co, out var s) && s.Job?.Running == true) { reason = Text.Get("Thaw.link_busy"); return false; }
-        var current = CrewWork.Resolve(Peer(co));
+        var outlet = methane ? MethaneOutlet(co) : Outlet(co);
+        Func<CondOwner, MaterialPort> inlet = methane ? MethaneInlet : Inlet;
+        var current = CrewWork.Resolve(methane ? MethanePeer(co) : Peer(co));
         if (id == "none")
         {
-            PortPairing.Unlink(Outlet(co), current == null ? null : Inlet(current));
+            PortPairing.Unlink(outlet, current == null ? null : inlet(current));
             reason = Text.Get("Thaw.unlinked"); return true;
         }
-        var vessel = Candidates(co).FirstOrDefault(v => v.strID == id);
-        if (vessel == null) { reason = Text.Get("Thaw.link_missing"); return false; }
-        if (current != null && current != vessel) PortPairing.Unlink(Outlet(co), Inlet(current));
-        if (PortPairing.Matches(Outlet(co), Inlet(vessel))) { reason = Text.Get("Thaw.linked"); return true; }
-        if (!PortPairing.TryLink(Outlet(co), Inlet(vessel), out reason)) return false;
-        reason = Text.Get("Thaw.linked"); return true;
+        var vessel = (methane ? MethaneCandidates(co) : Candidates(co)).FirstOrDefault(v => v.strID == id);
+        if (vessel == null) { reason = Text.Get(methane ? "Thaw.methane_link_missing" : "Thaw.link_missing"); return false; }
+        if (current != null && current != vessel) PortPairing.Unlink(outlet, inlet(current));
+        string linked = Text.Get(methane ? "Thaw.methane_linked" : "Thaw.linked");
+        if (PortPairing.Matches(outlet, inlet(vessel))) { reason = linked; return true; }
+        if (!PortPairing.TryLink(outlet, inlet(vessel), out reason)) return false;
+        reason = linked; return true;
     }
     internal static bool Command(CondOwner co, ConsoleBinding? binding, string action, out string message)
     {
         message = Text.Get("Thaw.fault");
         if (!Content.Ready) { message = Content.Status; return false; }
-        if (action.StartsWith("link:", StringComparison.Ordinal)) return Link(co, action.Substring(5), binding, out message);
+        if (action.StartsWith("link:", StringComparison.Ordinal)) return Link(co, action.Substring(5), false, binding, out message);
+        if (action.StartsWith("methane-link:", StringComparison.Ordinal)) return Link(co, action.Substring(13), true, binding, out message);
         bool result;
         switch (action)
         {

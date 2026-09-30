@@ -22,7 +22,7 @@ internal sealed class IndustrialCrewProvider : ICrewWorkProvider,ICrewSkipProvid
     {reason=Text.Get("Crew.bound_target");return !ProcessingService.IsGrabber(co)||draft.Target=="none"||Targets(co).Any(s=>s.strRegID==draft.Target);}
     public bool RelevantStore(CondOwner co,StandingOrder draft,CondOwner store,bool output)=>CrewLogistics.Contents(store).Any(c=>output?
         (ThawRules.IsFamily(co.strCODef)?c.strCODef==ThawRules.Gangue:ProcessingService.CrewProduct(co,c)):
-        ThawRules.IsFamily(co.strCODef)?ThawService.CrewFeed(c):FurnaceRules.Machine(co.strCODef)?FurnaceService.CrewFeed(co,c):ProcessingService.CrewFeed(co,c));
+        ThawRules.IsFamily(co.strCODef)?ThawService.CrewFeed(co,c):FurnaceRules.Machine(co.strCODef)?FurnaceService.CrewFeed(co,c):ProcessingService.CrewFeed(co,c));
     public string Id=>Plugin.Id;
     public bool Supports(CondOwner c)=>ProcessingService.IsProcessor(c.strCODef) || c.strCODef==CollectorRules.Installed || c.strCODef==CollectorRules.Installed+"Dmg" ||
         FurnaceRules.Machine(c.strCODef) || ProcessingService.IsGrabber(c) || ThawRules.IsFamily(c.strCODef);
@@ -108,7 +108,7 @@ internal sealed class IndustrialCrewProvider : ICrewWorkProvider,ICrewSkipProvid
             int gangueCount=CrewLogistics.Contents(co).Concat(CrewLogistics.Contents(CrewWork.Resolve(order.Destination))).Count(c=>c.strCODef==ThawRules.Gangue);
             if(gangueCount>=order.Stock){reason=Text.Get("Crew.stock_met");return null;}
             if(CrewLogistics.Contents(iceBin).Any(c=>ThawService.ValidIce(c)))return Act("thaw");
-            return CrewLogistics.Supply(co,order,iceBin,ThawService.CrewFeed,CrewRole.Industry)??Blocked(out reason);
+            return CrewLogistics.Supply(co,order,iceBin,c=>ThawService.CrewFeed(co,c),CrewRole.Industry)??Blocked(out reason);
         }
         var output=CrewLogistics.Output(co,order,co,_=>true,CrewRole.Industry);
         if(output!=null)return output;

@@ -59,7 +59,8 @@ internal static class SiloDefinitions
             bool installed = state.StartsWith("Installed", StringComparison.Ordinal), damaged = state.EndsWith("Dmg", StringComparison.Ordinal);
             var co = d.Objects[p + state]; var item = d.Items[p + state];
             co.strNameFriendly = co.strNameShort = Text.Get("Thaw.name") + (damaged ? Text.Get("Content.damaged") : "");
-            co.strDesc = Text.Get("Thaw.description", ThawRules.MachineKg, ThawRules.IceKg, ThawRules.WaterKg, ThawRules.GangueKg, ThawRules.WorkingKW, ThawRules.CycleSeconds / 60);
+            co.strDesc = Text.Get("Thaw.description", ThawRules.MachineKg, ThawRules.IceKg, ThawRules.WaterKg, ThawRules.GangueKg, ThawRules.WorkingKW, ThawRules.CycleSeconds / 60,
+                ThawRules.MethaneIceKg, ThawRules.ClathrateWaterKg, ThawRules.MethaneKg, ThawRules.MethaneCycleSeconds / 60);
             Content.SetStat(co, "StatMass", ThawRules.MachineKg);
             // The gangue tray is the ordinary Inventory; the ice feed opens as its own titled window.
             co.nContainerWidth = ThawRules.TrayCells; co.nContainerHeight = 1;
@@ -77,7 +78,7 @@ internal static class SiloDefinitions
         }
         var feed = d.Objects[ThawRules.InputBin];
         feed.strNameFriendly = feed.strNameShort = Text.Get("Thaw.feed_name");
-        feed.strDesc = Text.Get("Thaw.feed_description", ThawRules.FeedCapacity, ThawRules.IceKg);
+        feed.strDesc = Text.Get("Thaw.feed_description", ThawRules.FeedCapacity, ThawRules.IceKg, ThawRules.MethaneIceKg);
         // Two one-cell blocks. FeedPatch also enforces the exact identity, mass and count.
         feed.nContainerWidth = ThawRules.FeedCapacity; feed.nContainerHeight = 1;
         d.Slots[ThawRules.InputSlot].bHide = true;

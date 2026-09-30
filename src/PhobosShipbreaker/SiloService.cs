@@ -107,11 +107,18 @@ internal sealed class VesselProvider : IEquipmentProvider, IEquipmentPanelFields
             yield return new(Text.Get("Silo.waste_field"), Text.Get("Silo.kg", s.AvailableKg), SiloRules.TransferChoices.Select(n => ("to-waste:" + N(n), Text.Get("Silo.kg", n))));
         }
         else if (ThawRules.IsFamily(co.strCODef))
+        {
             yield return new(Text.Get("Thaw.vessel_field"), ObjectPresentation.Name(ThawService.Peer(co)),
                 ThawService.Candidates(co).Select(v => ("link:" + v.strID, ObjectPresentation.Name(v))).Concat(new[] { ("link:none", Text.Get("Thaw.link_none")) }));
+            // Methane ice needs a methane store (Phobos Manufacturing); the field appears once one is in reach or linked.
+            var stores = ThawService.MethaneCandidates(co).ToArray();
+            if (stores.Length > 0 || ThawService.MethanePeer(co).Length > 0)
+                yield return new(Text.Get("Thaw.methane_field"), ObjectPresentation.Name(ThawService.MethanePeer(co)),
+                    stores.Select(v => ("methane-link:" + v.strID, ObjectPresentation.Name(v))).Concat(new[] { ("methane-link:none", Text.Get("Thaw.methane_link_none")) }));
+        }
     }
     public bool IsConfiguration(string action) => action.StartsWith("reserve:", StringComparison.Ordinal) || action.StartsWith("draw:", StringComparison.Ordinal) ||
-        action.StartsWith("to-waste:", StringComparison.Ordinal) || action.StartsWith("link:", StringComparison.Ordinal);
+        action.StartsWith("to-waste:", StringComparison.Ordinal) || action.StartsWith("link:", StringComparison.Ordinal) || action.StartsWith("methane-link:", StringComparison.Ordinal);
     public string ConfigurationStamp(CondOwner co) => Phobos.Ostranauts.Framework.Controls.ConfigurationStamp.For(co, new[] { "PhobosMaterialPort.", "PhobosState.crew-order" }.Concat(SiloRules.Sizes.Select(s => "PhobosState." + s.Record)).ToArray());
     public bool ApplyConfiguration(CondOwner co, ConsoleBinding? binding, string expected, string action, out string reason)
     {

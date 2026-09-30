@@ -18,6 +18,9 @@ internal static class IceSupply
         }
         else if (fields) Plugin.Log?.Invoke(Text.Get("Ice.missing_cluster", IceSupplyRules.IceCluster));
         Carve(d, IceSupplyRules.DepositTable, IceSupplyRules.DepositDonor, IceSupplyRules.WaterIce, deposits ? IceSupplyRules.DepositIceShare : 0);
+        // The game's methane ice is worth less than the water inside it; correct its price in place (never
+        // republished) so thawing it still loses value. Blocks already in a save keep the price they were made with.
+        d.Amend(() => { if (DataHandler.dictCOs != null && DataHandler.dictCOs.TryGetValue(ThawRules.MethaneIce, out var ice)) Content.SetStat(ice, "StatBasePrice", ThawRules.MethaneIcePrice); });
     }
 
     private static void Carve(NativeDefinitions d, string table, string donor, string choice, double share)

@@ -22,6 +22,12 @@ internal static class IceSupplyNativeChecks
         check(deposits.Contains("ItmMineral04=0.25x1|ItmIce01=0.05x1|PhobosClayHydrates=0.1x1") && deposits.Contains("ItmIce01=0.1x1"),
             "C-class deposits: silicates 0.25, carved water ice 0.05 and clay 0.10, with the game's own 0.10 water ice unchanged");
 
+        // Methane ice: the T2 delivers the commodity Manufacturing's methane stores hold, and its corrected price
+        // stays above the products at the game's own methane price.
+        check(PhobosManufacturing.Core.ManufacturingRules.Methane == ThawRules.MethaneCommodity &&
+              PhobosManufacturing.Core.GasStores.Families.Any(f => f.Commodity == ThawRules.MethaneCommodity), "The T2's methane goes to Manufacturing's methane store commodity");
+        check(DataHandler.dictLoot["GasPrices"].aCOs.Contains("CH4=1x2.2"), "The game prices methane at 2.2 per kg, as the price correction assumes");
+
         var original = new[] { IceSupplyRules.CFields, IceSupplyRules.SFields, IceSupplyRules.DepositTable }
             .ToDictionary(t => t, t => LootCarveRegistry.Original(t, DataHandler.dictLoot[t])!.ToArray());
         try

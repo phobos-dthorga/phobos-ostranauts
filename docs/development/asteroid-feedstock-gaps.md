@@ -351,6 +351,18 @@ P1) and process water.
   or a Manufacturing unit; the T2 already refuses `ItmIce02` by exact identity.
 - Prerequisite: A5 or C3, otherwise there is no supply.
 
+**Implemented (Shipbreaker 0.45.0):** the T2 takes `ItmIce02` in its own recipe
+catalog: 24.84 kg gives 19.89 kg water (linked water vessel), 2.95 kg methane
+(linked methane store on its own port pair) and 2.0 kg ice gangue, in 50 minutes
+at 6 kW. Authored hydration number n = 6.0, within the 6.0 to 6.2 measured for
+natural and laboratory sI hydrate (Circone et al. 2005, USGS, as reviewed by
+[Ruppel and Waite 2020, *JGR Solid Earth*](https://agupubs.onlinelibrary.wiley.com/doi/full/10.1029/2018JB016459)).
+Dissociation to gas and liquid water: 54.2 kJ/mol CH4
+([Handa 1986, *J. Chem. Thermodynamics* 18, NRC Canada](https://www.sciencedirect.com/science/article/abs/pii/0021961486901497)),
+about 4.1 kWh a block with the water-ice warming allowance. `ItmIce02` is
+repriced in place from 20 to 250 so the products (about 205 at the station water
+price and the game's methane price) are worth less than the block.
+
 #### D2. Carbothermal oxygen from silicates, olivine and loose regolith
 
 Give the two commonest unused ores (and loose regolith) a use: reduce molten

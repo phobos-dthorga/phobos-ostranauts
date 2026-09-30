@@ -23,7 +23,24 @@ internal static class SiloChecks
         check(!ReclaimerRules.CoolingBudget(0, 290, 0, 0, ThawRules.RoomHeatKW(true), 60, out _), "Vacuum is not free cooling for the thaw unit either");
 
         check(ThawRules.ValidIce("ItmIce01", 24.7, true, true, true), "Exact water ice is accepted");
-        check(!ThawRules.ValidIce("ItmIce02", 24.84, true, true, true), "Methane ice shares the IsIce trait and is refused");
+        check(ThawRules.ValidIce("ItmIce02", 24.84, true, true, true) && !ThawRules.ValidIce("ItmIce02", 24.7, true, true, true), "Methane ice is accepted at its own mass only");
+
+        // Methane ice as methane clathrate, CH4.6H2O (Circone et al. 2005): mass and energy.
+        var clathrate = ThawRules.MethaneRecipes.Current;
+        check(clathrate.InputKg == 24.84 && ProcessRules.Balanced(clathrate.InputKg, clathrate.Products.Select(p => p.Kg * p.Count)) &&
+            clathrate.Products.Single(p => p.Id == ThawRules.Gangue).Kg == ThawRules.GangueKg, "Methane ice: water, methane and the same native gangue conserve the whole block");
+        double hydrateKg = ThawRules.MethaneIceKg - ThawRules.GangueKg, mol = hydrateKg / (ThawRules.MethaneMolarKg + 6 * ThawRules.WaterMolarKg);
+        check(Math.Abs(mol * ThawRules.MethaneMolarKg - ThawRules.MethaneKg) < .005 && Math.Abs(mol * 6 * ThawRules.WaterMolarKg - ThawRules.ClathrateWaterKg) < .005,
+            "Methane and water follow n = 6 on 22.84 kg of hydrate, rounded to 0.01 kg");
+        double idealFraction = ThawRules.MethaneMolarKg / (ThawRules.MethaneMolarKg + 5.75 * ThawRules.WaterMolarKg);
+        check(Math.Abs(idealFraction - .1341) < .0005 && ThawRules.MethaneKg < hydrateKg * idealFraction, "Methane stays below the full-occupancy ceiling (13.4 wt%)");
+        check(Math.Abs(ThawRules.ClathrateThermalNeedKWh - 4.09) < .01 && ThawRules.ClathrateThermalNeedKWh < ThawRules.WorkingKW * ThawRules.MethaneCycleSeconds / 3600 * (1 - ThawRules.RoomHeatFraction),
+            "The 50 minute methane cycle delivers 4.25 kWh to the block after the room's share, above the 4.09 kWh dissociation and warming need");
+        check(!clathrate.Products.Any(p => ThawRules.IsFeed(p.Id)) && ThawRules.RecipesFor("ItmIce02") == ThawRules.MethaneRecipes && ThawRules.RecipesFor("ItmIce01") == ThawRules.Recipes &&
+            ThawRules.CycleSecondsFor("ItmIce02") == 3000 && ThawRules.CycleSecondsFor("ItmIce01") == ThawRules.CycleSeconds, "Each feed identity reads its own recipe catalog and cycle");
+        check(ThawRules.MethaneOutPort != ThawRules.OutPort && ThawRules.MethaneInPort != ThawRules.VesselPort, "Methane has its own port pair, apart from water's");
+        check(ThawRules.MethaneIcePrice > ThawRules.ClathrateWaterKg * SiloRules.WaterPricePerKg + ThawRules.MethaneKg * 2.2,
+            "The corrected methane ice price exceeds its products at the station water price and the game's methane price");
         check(!ThawRules.ValidIce("ItmIceTrash01", 2, true, true, true), "Ice gangue is not feed");
         check(!ThawRules.ValidIce("ItmIce01", 24, true, true, true) && !ThawRules.ValidIce("ItmIce01", 24.7, false, true, true) &&
             !ThawRules.ValidIce("ItmIce01", 24.7, true, false, true) && !ThawRules.ValidIce("ItmIce01", 24.7, true, true, false), "Wrong mass, installed, loaded or stacked blocks are refused");

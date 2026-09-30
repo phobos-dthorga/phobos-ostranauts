@@ -264,3 +264,13 @@ should appear in play.
   existing saves see more ice on future pulls. Manufacturing's clay hydrates
   take 0.10 of the same donor. Verdict: amendment within the game's own C-class
   composition.
+
+## Methane ice price (Shipbreaker 0.45.0, 30 September 2026)
+
+Owner decision: the game prices `ItmIce02` (methane ice, 24.84 kg) at 20, less
+than the water it holds, so thawing it would make money and break the rule that
+every Phobos process loses value. Shipbreaker sets its `StatBasePrice` to 250 in
+place on the live definition (never republished), in the same release as the T2
+recipe that consumes it. The mass, conditions, art and every other field stay the
+game's. Blocks already in a save keep the price they were created with. Verdict:
+a minimal in-place correction tied to its consumer.

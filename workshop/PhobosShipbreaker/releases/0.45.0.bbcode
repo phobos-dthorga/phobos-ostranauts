@@ -1,0 +1,21 @@
+[h1]Phobos Shipbreaker 0.45.0[/h1]
+[b]Draft - not published | 2026-09-30[/b]
+
+[h2]Added[/h2]
+
+[list]
+[*]The T2 Ice Thaw Unit breaks down methane ice. The game's methane ice is read as methane hydrate (about six water molecules per methane, after Circone et al. 2005 of the US Geological Survey), so each 24.84 kg block gives 19.89 kg of water to the linked silo or reservoir, 2.95 kg of methane to a linked Phobos Manufacturing methane store, and the usual 2 kg of ice gangue. A block takes 50 minutes at 6 kW; breaking the hydrate takes 54.2 kJ per mole of methane (Handa 1986, National Research Council of Canada).
+[*]Send methane to on the T2's panel and the C1, shown once a methane store is within one tile. Methane never goes into the air: without a linked store, methane ice waits in the feed while water ice behind it still runs, and crew only bring methane ice once a store is linked.
+[/list]
+
+[h2]Changed[/h2]
+
+[list]
+[*]The game's methane ice is now valued at 250 instead of 20, so breaking a block down still loses money, as every Phobos process does. The correction is made in place; blocks already in a save keep their old price.
+[/list]
+
+[h2]Compatibility and limits[/h2]
+
+[list]
+[*]Methane ice needs Phobos Manufacturing for its methane store; without it the T2 works as before. The hydrate reading, the gangue share and the warming allowance are our choices. Saved data is unchanged. Offline checks are not gameplay validation.
+[/list]

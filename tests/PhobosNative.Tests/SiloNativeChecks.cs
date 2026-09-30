@@ -54,10 +54,13 @@ internal static class SiloNativeChecks
         check(Stat(ice, "StatMass") == ThawRules.IceKg && Stat(gangue, "StatMass") == ThawRules.GangueKg, "The recipe uses the game's own ice and gangue masses (24.7 kg, 2.0 kg)");
         check(ice.nStackLimit > 1, "Water ice stacks natively, so the feed bin refuses merging");
         check(trigger.TriggeredDataCO(new DataCO(ice), false), "The ice feed admits water ice at the game level");
-        check(trigger.TriggeredDataCO(new DataCO(methane), false) == new DataCO(methane).HasCond("IsIce"), "Methane ice passes the game-level IsIce rule; the exact identity rule refuses it");
+        check(trigger.TriggeredDataCO(new DataCO(methane), false) && new DataCO(methane).HasCond("IsIce"), "Methane ice passes the game-level IsIce rule into the feed");
         foreach (string outside in new[] { ThawRules.Gangue, "ItmScrapSteel", ProcessRules.Wall, "ItmCanisterLH02Loose" })
             check(trigger.TriggeredDataCO(new DataCO(DataHandler.dictCOs[outside]), false) == new DataCO(DataHandler.dictCOs[outside]).HasCond("IsIce"), "Only ice enters the thaw feed at the game level: " + outside);
-        check(!ThawRules.ValidIce(methane.strName, Stat(methane, "StatMass"), true, true, true), "Methane ice is refused by identity");
+        check(ThawRules.ValidIce(methane.strName, Stat(methane, "StatMass"), true, true, true) && Stat(methane, "StatMass") == ThawRules.MethaneIceKg,
+            "Methane ice is accepted at the game's own 24.84 kg");
+        check(Stat(methane, "StatBasePrice") == ThawRules.MethaneIcePrice, "The game's methane ice price is corrected in place, the definition never republished");
+        check(Stat(gangue, "StatBasePrice") == 0, "Ice gangue stays worthless, so every thaw loses value");
         var gangueItem = DataHandler.dictItemDefs[gangue.strItemDef];
         check(gangueItem.nCols == 1 && gangueItem.aSocketAdds.Length == 1, "Native gangue is a one-cell item that fits the tray");
         var power = d.Power[ThawRules.Prefix + "Power"];

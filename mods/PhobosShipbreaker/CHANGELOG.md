@@ -25,6 +25,21 @@ Dates on Draft entries record preparation, not Steam publication.
 - Earlier capture-only research is superseded for supported ordinary walls by the 0.24.0 reclamation implementation below. Broader structural recipes, repeated furnace batches and whole-wreck completion remain outside this round.
 - Keep [NASA Goddard's Raven research](https://www.nasa.gov/general/nasas-hybrid-computer-enables-ravens-autonomous-rendezvous-capability/) and [ESA's LIRIS experiment by Airbus, Jena Optronik and Sodern](https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/ATV/ATV_views_Space_Station_as_never_before) as sensing context, separate from Blue Bottle Games native evidence and authored gameplay choices. No institutional endorsement or gameplay validation is implied.
 
+## [0.45.0] - 2026-09-30 - Draft
+
+### Added
+
+- The T2 Ice Thaw Unit breaks down methane ice. The game's methane ice is read as methane hydrate (about six water molecules per methane, after Circone et al. 2005 of the US Geological Survey), so each 24.84 kg block gives 19.89 kg of water to the linked silo or reservoir, 2.95 kg of methane to a linked Phobos Manufacturing methane store, and the usual 2 kg of ice gangue. A block takes 50 minutes at 6 kW; breaking the hydrate takes 54.2 kJ per mole of methane (Handa 1986, National Research Council of Canada).
+- Send methane to on the T2's panel and the C1, shown once a methane store is within one tile. Methane never goes into the air: without a linked store, methane ice waits in the feed while water ice behind it still runs, and crew only bring methane ice once a store is linked.
+
+### Changed
+
+- The game's methane ice is now valued at 250 instead of 20, so breaking a block down still loses money, as every Phobos process does. The correction is made in place; blocks already in a save keep their old price.
+
+### Compatibility and limits
+
+- Methane ice needs Phobos Manufacturing for its methane store; without it the T2 works as before. The hydrate reading, the gangue share and the warming allowance are our choices. Saved data is unchanged. Offline checks are not gameplay validation.
+
 ## [0.44.0] - 2026-09-30 - Draft
 
 ### Added

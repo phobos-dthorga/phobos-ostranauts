@@ -311,10 +311,10 @@
             "PhobosIceThawInstalled",
             "PhobosIceThawInstalledDmg"
           ],
-          "function": "Thaws one block of the game's water ice (24.7 kg) at a time into 22.7 kg of process water for a linked silo or R3 reservoir plus one 2 kg gangue packet in its tray.",
-          "use": "Install through APPS within one tile of the vessel, connect power, choose Deliver water to on its panel or C1, place single ice blocks in the Ice Feed (Inventory opens the tray and the feed) or switch on Load feed by crew, then Start / resume thawing. 6 kW for 40 minutes a block; part of it warms the room. See [the silo guide](shipbreaker-bulk-silos.md).",
+          "function": "Thaws one block of the game's water ice (24.7 kg) at a time into 22.7 kg of process water for a linked silo or R3 reservoir plus one 2 kg gangue packet in its tray. It also breaks down methane ice (24.84 kg): 19.89 kg of water to the silo and 2.95 kg of methane to a linked Phobos Manufacturing methane store, never into the air.",
+          "use": "Install through APPS within one tile of the vessel, connect power, choose Deliver water to on its panel or C1, place single ice blocks in the Ice Feed (Inventory opens the tray and the feed) or switch on Load feed by crew, then Start / resume thawing. 6 kW for 40 minutes a block of water ice, 50 minutes for methane ice; part of it warms the room. For methane ice also choose Send methane to on the panel (it appears once a methane store is within one tile). See [the silo guide](shipbreaker-bulk-silos.md).",
           "find": "Buy loose hardware from the sellers below. No fabrication recipe. This item may also appear in eligible engineering-equipment loot; see the exact offers below.",
-          "notes": "Methane ice, gangue and stacked blocks are refused. Nothing warms until the linked vessel has room for a whole block; a hot or airless room makes it wait. Reload pauses it; Start or a crew order resumes. Empty the two-cell gangue tray by hand or a crew output store.",
+          "notes": "Gangue and stacked blocks are refused; methane ice waits until a methane store is linked, and crew only bring it once one is. Nothing warms until the linked vessel has room for a whole block; a hot or airless room makes it wait. Reload pauses it; Start or a crew order resumes. Empty the two-cell gangue tray by hand or a crew output store.",
           "guide": "shipbreaker-bulk-silos.md",
           "internal": false,
           "labels": {}
