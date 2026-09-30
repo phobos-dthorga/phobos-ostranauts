@@ -52957,8 +52957,8 @@
       "path": "docs/auto-nav-item-reference.md",
       "scope": "generated player reference; reviewed maintained inputs and generator output",
       "decision": "rewrite",
-      "sha256": "0590775c05981911349ecc70787e6592a18ae4e3604252338a327212e5f9d6cf",
-      "review": "Reviewed 2026-09-30 for the set 1 fixes (Framework 0.55.0, Manufacturing 0.21.0, Shipbreaker 0.51.0, Agriculture 0.28.0, Auto Nav 0.31.1): panel refresh, missing keys, the console loot report, chunk odds per pull and the minus-sign glyph; current versions; direct player text."
+      "sha256": "977ec1c31c546e7c67ac915e50b366663b01087cd5f8e2d9e1d6bb1001987e7e",
+      "review": "Reviewed 1 October 2026 for Framework 0.62.0 and Shipbreaker 0.57.0, merged with Auto Nav 0.31.2."
     },
     {
       "path": "docs/auto-nav-persistence.md",
